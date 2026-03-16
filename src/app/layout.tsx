@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "Splose - Practice Management",
@@ -20,6 +21,7 @@ export default function RootLayout({
           <Sidebar />
           <main className="ml-64 flex-1">{children}</main>
         </div>
+        <SpeedInsights />
       </body>
     </html>
   );
