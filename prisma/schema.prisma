@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Practitioner {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  phone     String?
+  role      String   @default("Practitioner")
+  specialty String?
+  color     String   @default("#6366f1")
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  appointments Appointment[]
+  notes        ClinicalNote[]
+}
+
+model Client {
+  id          String   @id @default(cuid())
+  firstName   String
+  lastName    String
+  email       String?
+  phone       String?
+  dateOfBirth String?
+  address     String?
+  medicare    String?
+  ndisNumber  String?
+  notes       String?
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  appointments  Appointment[]
+  clinicalNotes ClinicalNote[]
+  invoices      Invoice[]
+}
+
+model Appointment {
+  id             String   @id @default(cuid())
+  date           String
+  startTime      String
+  endTime        String
+  status         String   @default("Scheduled")
+  type           String   @default("Standard")
+  location       String?
+  notes          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  clientId       String
+  client         Client       @relation(fields: [clientId], references: [id])
+  practitionerId String
+  practitioner   Practitioner @relation(fields: [practitionerId], references: [id])
+  invoice        Invoice?
+}
+
+model ClinicalNote {
+  id             String   @id @default(cuid())
+  date           String
+  content        String
+  template       String   @default("Progress Note")
+  signed         Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  clientId       String
+  client         Client       @relation(fields: [clientId], references: [id])
+  practitionerId String
+  practitioner   Practitioner @relation(fields: [practitionerId], references: [id])
+}
+
+model Invoice {
+  id            String   @id @default(cuid())
+  invoiceNumber String   @unique
+  date          String
+  dueDate       String
+  status        String   @default("Draft")
+  subtotal      Float    @default(0)
+  tax           Float    @default(0)
+  total         Float    @default(0)
+  billingType   String   @default("Private")
+  notes         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  clientId      String
+  client        Client      @relation(fields: [clientId], references: [id])
+  appointmentId String?     @unique
+  appointment   Appointment? @relation(fields: [appointmentId], references: [id])
+  items         InvoiceItem[]
+}
+
+model InvoiceItem {
+  id          String  @id @default(cuid())
+  description String
+  quantity    Int     @default(1)
+  unitPrice   Float
+  total       Float
+
+  invoiceId   String
+  invoice     Invoice @relation(fields: [invoiceId], references: [id])
+}
