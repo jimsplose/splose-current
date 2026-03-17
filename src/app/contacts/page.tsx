@@ -34,7 +34,7 @@ function getTypeBadge(type: string) {
 export default function ContactsPage() {
   return (
     <div className="p-6">
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold text-text">Contacts</h1>
         <button className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
           <Plus className="h-4 w-4" />
@@ -73,20 +73,20 @@ export default function ContactsPage() {
                   <ArrowUpDown className="h-3 w-3 text-text-secondary" />
                 </div>
               </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+              <th className="hidden px-4 py-3 text-left text-sm font-medium text-text md:table-cell">
                 <div className="flex items-center gap-1">
                   Company
                   <ArrowUpDown className="h-3 w-3 text-text-secondary" />
                 </div>
               </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+              <th className="hidden px-4 py-3 text-left text-sm font-medium text-text md:table-cell">
                 <div className="flex items-center gap-1">
                   Email
                   <ArrowUpDown className="h-3 w-3 text-text-secondary" />
                 </div>
               </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Work phone</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Mobile phone</th>
+              <th className="hidden px-4 py-3 text-left text-sm font-medium text-text lg:table-cell">Work phone</th>
+              <th className="hidden px-4 py-3 text-left text-sm font-medium text-text lg:table-cell">Mobile phone</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
@@ -102,16 +102,16 @@ export default function ContactsPage() {
                 <td className="px-4 py-3 text-sm font-medium text-primary group-hover:underline">
                   {contact.name}
                 </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">
+                <td className="hidden px-4 py-3 text-sm text-text-secondary md:table-cell">
                   {contact.company}
                 </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">
+                <td className="hidden px-4 py-3 text-sm text-text-secondary md:table-cell">
                   {contact.email}
                 </td>
-                <td className="px-4 py-3 text-sm text-primary">
+                <td className="hidden px-4 py-3 text-sm text-primary lg:table-cell">
                   {contact.workPhone}
                 </td>
-                <td className="px-4 py-3 text-sm text-primary">
+                <td className="hidden px-4 py-3 text-sm text-primary lg:table-cell">
                   {contact.mobilePhone}
                 </td>
               </tr>

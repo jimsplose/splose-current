@@ -43,6 +43,75 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           </button>
         </div>
 
+        {/* General details */}
+        <section className="mb-8">
+          <h2 className="mb-4 text-lg font-bold text-text">General details</h2>
+          <div className="space-y-3 text-sm">
+            <div className="flex items-center gap-4">
+              <div
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-white"
+              >
+                {client.firstName[0]}{client.lastName[0]}
+              </div>
+              <span>{client.firstName} {client.lastName}</span>
+            </div>
+            {client.dateOfBirth && (
+              <div className="flex gap-16">
+                <span className="w-28 text-text-secondary">Date of birth:</span>
+                <span>{client.dateOfBirth} ({calcAge(client.dateOfBirth)})</span>
+              </div>
+            )}
+            <div className="flex gap-16">
+              <span className="w-28 text-text-secondary">Sex:</span>
+              <span>Not specified</span>
+            </div>
+          </div>
+        </section>
+
+        <hr className="mb-8 border-border" />
+
+        {/* Client contact details */}
+        <section className="mb-8">
+          <h2 className="mb-4 text-lg font-bold text-text">Client contact details</h2>
+          <div className="space-y-3 text-sm">
+            <div className="flex gap-16">
+              <span className="w-28 text-text-secondary">Email:</span>
+              <span className="text-primary">{client.email || "—"}</span>
+            </div>
+            <div className="flex gap-16">
+              <span className="w-28 text-text-secondary">Phone numbers:</span>
+              <span className="text-primary">{client.phone || "—"}</span>
+            </div>
+            <div className="flex gap-16">
+              <span className="w-28 text-text-secondary">Preference:</span>
+              <span>None</span>
+            </div>
+            {client.address && (
+              <div className="flex gap-16">
+                <span className="w-28 text-text-secondary">Address:</span>
+                <span>{client.address}</span>
+              </div>
+            )}
+            <div className="flex gap-16">
+              <span className="w-28 text-text-secondary">Timezone:</span>
+              <span>GMT+10:30 - Australia/Adelaide</span>
+            </div>
+          </div>
+        </section>
+
+        <hr className="mb-8 border-border" />
+
+        {/* Privacy policy consent */}
+        <section className="mb-8">
+          <h2 className="mb-4 text-lg font-bold text-text">Privacy policy consent</h2>
+          <div className="flex gap-16 text-sm">
+            <span className="w-28 text-text-secondary"></span>
+            <span>No response</span>
+          </div>
+        </section>
+
+        <hr className="mb-8 border-border" />
+
         {/* Medications, allergies & intolerances */}
         <section className="mb-8">
           <h2 className="mb-4 text-lg font-bold text-text">
