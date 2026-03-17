@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
-import Link from "next/link";
 import { Plus, ArrowUpDown } from "lucide-react";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -18,10 +18,13 @@ export default async function NotesPage() {
           <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
             Scroll view
           </button>
-          <button className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+          <Link
+            href="/notes/new"
+            className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50"
+          >
             <Plus className="h-4 w-4" />
             New note
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -61,11 +64,11 @@ export default async function NotesPage() {
             {notes.map((note) => (
               <tr
                 key={note.id}
-                className="group cursor-pointer transition-colors hover:bg-gray-50"
+                className="group cursor-pointer transition-colors hover:bg-purple-50/50"
               >
                 <td className="px-4 py-3">
                   <Link href={`/notes/${note.id}`} className="flex items-center gap-2">
-                    <span className="text-sm text-text group-hover:text-primary">
+                    <span className="text-sm text-primary group-hover:underline">
                       {note.client.firstName} {note.client.lastName}
                     </span>
                     <span className="text-sm text-text-secondary">— {note.template}</span>
@@ -81,19 +84,34 @@ export default async function NotesPage() {
                   </Link>
                 </td>
                 <td className="px-4 py-3 text-sm text-text-secondary">
-                  {note.practitioner.name}
+                  <Link href={`/notes/${note.id}`} className="block">
+                    {note.practitioner.name}
+                  </Link>
                 </td>
                 <td className="px-4 py-3 text-sm text-text-secondary">
-                  {note.date}
+                  <Link href={`/notes/${note.id}`} className="block">
+                    {formatDate(note.date)}
+                  </Link>
                 </td>
                 <td className="px-4 py-3 text-sm text-text-secondary">
-                  {note.date}
+                  <Link href={`/notes/${note.id}`} className="block">
+                    {formatDate(note.date)}
+                  </Link>
                 </td>
                 <td className="px-4 py-3 text-sm text-text-secondary">
-                  {note.date}
+                  <Link href={`/notes/${note.id}`} className="block">
+                    {formatDate(note.date)}
+                  </Link>
                 </td>
               </tr>
             ))}
+            {notes.length === 0 && (
+              <tr>
+                <td colSpan={5} className="px-4 py-12 text-center text-sm text-text-secondary">
+                  No progress notes found. Create your first note to get started.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
         <div className="flex items-center justify-end border-t border-border px-4 py-3 text-sm text-text-secondary">
@@ -108,4 +126,17 @@ export default async function NotesPage() {
       </div>
     </div>
   );
+}
+
+function formatDate(dateStr: string) {
+  try {
+    const d = new Date(dateStr + "T00:00:00");
+    return d.toLocaleDateString("en-AU", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  } catch {
+    return dateStr;
+  }
 }
