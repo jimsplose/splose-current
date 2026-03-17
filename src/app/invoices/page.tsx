@@ -13,7 +13,7 @@ export default async function InvoicesPage() {
 
   return (
     <div className="p-6">
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold text-text">Invoices</h1>
         <div className="flex items-center gap-2">
           <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
@@ -29,7 +29,7 @@ export default async function InvoicesPage() {
       <div className="mb-4 flex items-center gap-2">
         <input
           type="text"
-          placeholder="Search for invoice number, client name and contact name"
+          placeholder="Search for invoice number, client..."
           className="h-10 flex-1 rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
         />
         <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
@@ -49,39 +49,39 @@ export default async function InvoicesPage() {
                   </div>
                 </th>
                 <th className="px-4 py-3 text-left text-sm font-medium text-text">To</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                <th className="hidden px-4 py-3 text-left text-sm font-medium text-text md:table-cell">
                   <div className="flex items-center gap-1">
                     Location
                     <Filter className="h-3 w-3 text-text-secondary" />
                   </div>
                 </th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                <th className="hidden px-4 py-3 text-left text-sm font-medium text-text md:table-cell">
                   <div className="flex items-center gap-1">
                     Practitioner
                     <Filter className="h-3 w-3 text-text-secondary" />
                   </div>
                 </th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                <th className="hidden px-4 py-3 text-left text-sm font-medium text-text lg:table-cell">
                   <div className="flex items-center gap-1">
                     Issue date
                     <ArrowUpDown className="h-3 w-3 text-text-secondary" />
                   </div>
                 </th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                <th className="hidden px-4 py-3 text-left text-sm font-medium text-text lg:table-cell">
                   <div className="flex items-center gap-1">
                     Due date
                     <ArrowUpDown className="h-3 w-3 text-text-secondary" />
                   </div>
                 </th>
-                <th className="px-4 py-3 text-right text-sm font-medium text-text">Amount</th>
-                <th className="px-4 py-3 text-right text-sm font-medium text-text">Outstanding</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                <th className="hidden px-4 py-3 text-right text-sm font-medium text-text sm:table-cell">Amount</th>
+                <th className="hidden px-4 py-3 text-right text-sm font-medium text-text sm:table-cell">Outstanding</th>
+                <th className="hidden px-4 py-3 text-left text-sm font-medium text-text sm:table-cell">
                   <div className="flex items-center gap-1">
                     Status
                     <Filter className="h-3 w-3 text-text-secondary" />
                   </div>
                 </th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                <th className="hidden px-4 py-3 text-left text-sm font-medium text-text lg:table-cell">
                   <div className="flex items-center gap-1">
                     Sent status
                   </div>
@@ -105,26 +105,26 @@ export default async function InvoicesPage() {
                     <td className="px-4 py-3 text-sm text-primary">
                       {inv.client.firstName} {inv.client.lastName} ({inv.billingType})
                     </td>
-                    <td className="px-4 py-3 text-sm text-text-secondary">East Clinics</td>
-                    <td className="px-4 py-3 text-sm text-text-secondary">
+                    <td className="hidden px-4 py-3 text-sm text-text-secondary md:table-cell">East Clinics</td>
+                    <td className="hidden px-4 py-3 text-sm text-text-secondary md:table-cell">
                       {practitioner ? practitioner.name : "—"}
                     </td>
-                    <td className="px-4 py-3 text-sm text-text-secondary">
+                    <td className="hidden px-4 py-3 text-sm text-text-secondary lg:table-cell">
                       {formatDate(inv.date)}
                     </td>
-                    <td className="px-4 py-3 text-sm text-text-secondary">
+                    <td className="hidden px-4 py-3 text-sm text-text-secondary lg:table-cell">
                       {formatDate(inv.dueDate)}
                     </td>
-                    <td className="px-4 py-3 text-right text-sm text-text">
+                    <td className="hidden px-4 py-3 text-right text-sm text-text sm:table-cell">
                       {inv.total.toFixed(2)}
                     </td>
-                    <td className="px-4 py-3 text-right text-sm text-text">
+                    <td className="hidden px-4 py-3 text-right text-sm text-text sm:table-cell">
                       {outstanding.toFixed(2)}
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="hidden px-4 py-3 sm:table-cell">
                       <StatusBadge status={inv.status} />
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="hidden px-4 py-3 lg:table-cell">
                       {inv.status === "Sent" && (
                         <StatusBadge status="Sent" />
                       )}

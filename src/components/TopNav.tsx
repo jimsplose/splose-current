@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bell, Settings, HelpCircle } from "lucide-react";
+import { useState } from "react";
+import { Bell, Settings, HelpCircle, Menu, X, MessageSquare } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "Dashboard" },
@@ -18,17 +19,26 @@ const navItems = [
 
 export default function TopNav() {
   const pathname = usePathname();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-white">
       <div className="flex h-12 items-center px-4">
+        {/* Mobile hamburger */}
+        <button
+          className="mr-2 rounded p-1.5 text-text-secondary hover:bg-gray-100 lg:hidden"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+
         {/* Logo */}
         <Link href="/" className="mr-6 flex items-center">
           <span className="text-lg font-bold text-accent">splose</span>
         </Link>
 
-        {/* Navigation tabs */}
-        <nav className="flex h-full items-center gap-1">
+        {/* Navigation tabs - hidden on mobile */}
+        <nav className="hidden h-full items-center gap-1 lg:flex">
           {navItems.map((item) => {
             const isActive =
               pathname === item.href ||
@@ -57,6 +67,12 @@ export default function TopNav() {
               3
             </span>
           </button>
+          <button className="relative rounded-full p-2 text-text-secondary hover:bg-gray-100">
+            <MessageSquare className="h-5 w-5" />
+            <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-[10px] font-bold text-white">
+              8
+            </span>
+          </button>
           <Link href="/settings" className="rounded-full p-2 text-text-secondary hover:bg-gray-100">
             <Settings className="h-5 w-5" />
           </Link>
@@ -68,6 +84,31 @@ export default function TopNav() {
           </div>
         </div>
       </div>
+
+      {/* Mobile navigation menu */}
+      {mobileMenuOpen && (
+        <nav className="border-t border-border bg-white px-4 py-2 lg:hidden">
+          {navItems.map((item) => {
+            const isActive =
+              pathname === item.href ||
+              (item.href !== "/" && pathname.startsWith(item.href));
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block rounded-md px-3 py-2 text-sm font-medium ${
+                  isActive
+                    ? "bg-primary/10 text-primary"
+                    : "text-text-secondary hover:bg-gray-50 hover:text-text"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
+      )}
     </header>
   );
 }

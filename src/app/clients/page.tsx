@@ -50,16 +50,16 @@ export default async function ClientsPage() {
                     <ArrowUpDown className="h-3 w-3 text-text-secondary" />
                   </div>
                 </th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                <th className="hidden px-4 py-3 text-left text-sm font-medium text-text sm:table-cell">
                   Date of birth
                 </th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                <th className="hidden px-4 py-3 text-left text-sm font-medium text-text md:table-cell">
                   Phone
                 </th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                <th className="hidden px-4 py-3 text-left text-sm font-medium text-text lg:table-cell">
                   Email
                 </th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                <th className="hidden px-4 py-3 text-left text-sm font-medium text-text md:table-cell">
                   <div className="flex items-center gap-1">
                     Tags
                     <ArrowUpDown className="h-3 w-3 text-text-secondary" />
@@ -81,16 +81,16 @@ export default async function ClientsPage() {
                       {client.firstName} {client.lastName}
                     </Link>
                   </td>
-                  <td className="px-4 py-3 text-sm text-text-secondary">
+                  <td className="hidden px-4 py-3 text-sm text-text-secondary sm:table-cell">
                     {client.dateOfBirth}
                   </td>
-                  <td className="px-4 py-3 text-sm text-primary">
+                  <td className="hidden px-4 py-3 text-sm text-primary md:table-cell">
                     {client.phone}
                   </td>
-                  <td className="px-4 py-3 text-sm text-text-secondary">
+                  <td className="hidden px-4 py-3 text-sm text-text-secondary lg:table-cell">
                     {client.email}
                   </td>
-                  <td className="px-4 py-3 text-sm">
+                  <td className="hidden px-4 py-3 text-sm md:table-cell">
                     {client.ndisNumber ? (
                       <span className="rounded bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-800">
                         NDIS

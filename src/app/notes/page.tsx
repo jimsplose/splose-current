@@ -12,7 +12,7 @@ export default async function NotesPage() {
 
   return (
     <div className="p-6">
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold text-text">Progress notes</h1>
         <div className="flex items-center gap-2">
           <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
@@ -50,9 +50,9 @@ export default async function NotesPage() {
                   <ArrowUpDown className="h-3 w-3 text-text-secondary" />
                 </div>
               </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Service date</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Last update</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+              <th className="hidden px-4 py-3 text-left text-sm font-medium text-text md:table-cell">Service date</th>
+              <th className="hidden px-4 py-3 text-left text-sm font-medium text-text lg:table-cell">Last update</th>
+              <th className="hidden px-4 py-3 text-left text-sm font-medium text-text md:table-cell">
                 <div className="flex items-center gap-1">
                   Created at
                   <ArrowUpDown className="h-3 w-3 text-text-secondary" />
@@ -88,17 +88,17 @@ export default async function NotesPage() {
                     {note.practitioner.name}
                   </Link>
                 </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">
+                <td className="hidden px-4 py-3 text-sm text-text-secondary md:table-cell">
                   <Link href={`/notes/${note.id}`} className="block">
                     {formatDate(note.date)}
                   </Link>
                 </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">
+                <td className="hidden px-4 py-3 text-sm text-text-secondary lg:table-cell">
                   <Link href={`/notes/${note.id}`} className="block">
                     {formatDate(note.date)}
                   </Link>
                 </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">
+                <td className="hidden px-4 py-3 text-sm text-text-secondary md:table-cell">
                   <Link href={`/notes/${note.id}`} className="block">
                     {formatDate(note.date)}
                   </Link>
