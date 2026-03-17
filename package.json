@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && prisma db push && next build",
+    "build": "prisma generate && tsx scripts/db-push.ts && next build",
     "db:seed": "tsx prisma/seed.ts",
     "db:push": "prisma db push",
     "postinstall": "prisma generate",
@@ -21,7 +21,8 @@
     "next": "16.1.7",
     "prisma": "^7.5.0",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "tsx": "^4.21.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
