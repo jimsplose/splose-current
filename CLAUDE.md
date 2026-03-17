@@ -2,69 +2,102 @@
 
 High-fidelity UI prototype of [Splose](https://splose.com), a practice management platform for allied health professionals.
 
+**Live URL**: https://splose-current.vercel.app
+
 ## Tech Stack
 
-- **Framework**: Next.js 15 (App Router) with React 19
-- **Language**: TypeScript
-- **Database**: Turso (libSQL) via Prisma 7 adapter
-- **Styling**: Tailwind CSS 4
+- **Framework**: Next.js 16 (App Router) with React 19
+- **Language**: TypeScript (strict mode)
+- **Database**: Turso (libSQL) via Prisma 7 `@prisma/adapter-libsql`
+- **Styling**: Tailwind CSS 4 with CSS theme variables
 - **Icons**: Lucide React
+- **Hosting**: Vercel (auto-deploys from `main` branch)
+- **Repo**: github.com/jimsplose/splose-current
 
-## Getting Started
+## Environment Variables
+
+Required in both `.env` (local) and Vercel dashboard:
+
+```
+TURSO_DATABASE_URL=libsql://splose-current-jimsplose.aws-us-west-2.turso.io
+TURSO_AUTH_TOKEN=<your-turso-token>
+```
+
+## Development
 
 ```bash
-npm install
-cp .env.example .env  # Add your Turso credentials
-npx prisma db push
-npm run db:seed
-npm run dev
+npm install              # Install deps (also runs prisma generate via postinstall)
+npm run dev              # Start dev server at localhost:3000
 ```
 
-### Environment Variables
+## Deployment
 
-```
-TURSO_DATABASE_URL=libsql://your-db.turso.io
-TURSO_AUTH_TOKEN=your-token
-```
+Vercel auto-deploys when `main` is updated. The build command:
+1. `prisma generate` — generates the Prisma client
+2. `tsx scripts/db-push.ts` — ensures Turso tables exist (custom script because `prisma db push` doesn't support `libsql://` URLs)
+3. `next build` — builds the Next.js app
+
+## Database
+
+### Seeding
+The database can be seeded via API: `GET /api/seed` (safe to call multiple times — skips if data exists).
+
+### Schema changes
+1. Edit `prisma/schema.prisma`
+2. Update `scripts/db-push.ts` if new migrations are needed
+3. Run `npx prisma generate` locally to regenerate the client
+4. Push to `main` — the build will apply schema changes to Turso
+
+### Models
+- **Practitioner** — Clinicians (physios, OTs, speech pathologists). Has `color` for calendar display.
+- **Client** — Patients with optional Medicare/NDIS/private funding fields.
+- **Appointment** — Scheduled sessions linking a client to a practitioner. Has date, time, status, type.
+- **ClinicalNote** — Progress notes with template type and signed/unsigned status.
+- **Invoice** — Billing with support for Medicare/NDIS/Private billing types.
+- **InvoiceItem** — Line items on an invoice.
 
 ## Project Structure
 
 ```
 src/
-  app/              # Next.js App Router pages
-    page.tsx        # Dashboard
-    calendar/       # Appointment calendar (day/week view)
-    clients/        # Client list + detail pages
-    notes/          # Clinical notes
-    invoices/       # Invoice management
-    practitioners/  # Practitioner profiles
-    settings/       # Settings page
-  components/       # Shared UI components
-    Sidebar.tsx     # Main navigation sidebar
-    Header.tsx      # Page header with search
-    StatusBadge.tsx # Color-coded status badges
+  app/                    # Next.js App Router pages
+    page.tsx              # Dashboard (stats, schedule, invoices)
+    layout.tsx            # Root layout with Sidebar
+    globals.css           # Tailwind theme variables
+    api/seed/route.ts     # Database seed endpoint
+    calendar/page.tsx     # Day view calendar with practitioner columns
+    clients/page.tsx      # Client list table
+    clients/[id]/page.tsx # Client detail (appointments, notes)
+    notes/page.tsx        # Clinical notes list
+    invoices/page.tsx     # Invoice table with status stats
+    practitioners/page.tsx# Practitioner cards
+    settings/page.tsx     # Settings categories
+  components/
+    Sidebar.tsx           # Navigation sidebar ("use client")
+    Header.tsx            # Page header with search ("use client")
+    StatusBadge.tsx       # Color-coded status badges (server component)
   lib/
-    prisma.ts       # Prisma client singleton
-  generated/
-    prisma/         # Generated Prisma client (gitignored)
+    prisma.ts             # Prisma client singleton with Turso adapter
+  generated/prisma/       # Auto-generated Prisma client (gitignored)
 prisma/
-  schema.prisma     # Database schema
-  seed.ts           # Seed data script
-  migrations/       # Database migrations
+  schema.prisma           # Database schema (6 models)
+  seed.ts                 # Standalone seed script
+  migrations/             # SQL migrations
+scripts/
+  db-push.ts              # Executes migration SQL against Turso during build
 ```
-
-## Database Models
-
-- **Practitioner** - Clinicians (physios, OTs, speech pathologists)
-- **Client** - Patients with Medicare/NDIS/private funding
-- **Appointment** - Scheduled sessions linking clients and practitioners
-- **ClinicalNote** - Progress notes, NDIS notes, etc.
-- **Invoice** / **InvoiceItem** - Billing with Medicare/NDIS/Private support
 
 ## Key Conventions
 
-- Server components by default; `"use client"` only where needed (Sidebar, Header)
-- `export const dynamic = "force-dynamic"` on data-fetching pages for fresh reads
-- Prisma client uses libSQL/Turso adapter (Prisma v7 requirement)
-- Tailwind uses CSS theme variables defined in `globals.css`
-- Australian locale (date formats, Medicare, NDIS references)
+- **Server components by default** — only use `"use client"` when React hooks or browser APIs are needed
+- **`export const dynamic = "force-dynamic"`** on pages that fetch data, for fresh reads
+- **Prisma v7 adapter pattern** — `PrismaLibSql` takes `{ url, authToken }` directly (not a libsql Client instance)
+- **Tailwind CSS variables** — colors defined in `globals.css` under `@theme inline` (e.g. `--color-primary`, `--color-sidebar`)
+- **Australian locale** — dates, Medicare numbers, NDIS references, AUD currency
+- **`tsconfig.json` excludes** — `prisma/seed.ts` and `scripts/` are excluded from Next.js type checking (they run standalone via `tsx`)
+
+## Git Workflow
+
+- Claude Code works on `claude/*` branches, then updates `main` via GitHub API
+- Vercel deploys from both `main` (production) and other branches (preview)
+- Production URL: splose-current.vercel.app
