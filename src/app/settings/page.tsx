@@ -2,7 +2,7 @@ export default function SettingsPage() {
   const sections = [
     {
       title: "Workspace",
-      items: ["Details", "Integrations", "SMS settings"],
+      items: ["Details", "Integrations", "Subscription", "SMS settings"],
     },
     {
       title: "Automation",
@@ -16,7 +16,7 @@ export default function SettingsPage() {
         "Rooms/Resources",
         "Services",
         "Busy times",
-        "Cancellation reasons",
+        "Cancel/Reschedule",
         "Online bookings",
         "Communication types",
         "Tags",
@@ -25,7 +25,7 @@ export default function SettingsPage() {
     },
     {
       title: "Team",
-      items: ["Users", "User groups"],
+      items: ["Users", "User groups", "Permissions & Roles", "Security"],
     },
     {
       title: "Templates",

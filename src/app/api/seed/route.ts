@@ -110,6 +110,60 @@ async function seed() {
           medicare: "4567 89012 3",
         },
       }),
+      prisma.client.create({
+        data: {
+          firstName: "Rachel",
+          lastName: "Kim",
+          email: "rachel.kim@email.com",
+          phone: "0406 666 777",
+          dateOfBirth: "1990-04-18",
+          address: "33 Queen Street, Melbourne VIC 3000",
+          medicare: "5678 90123 4",
+        },
+      }),
+      prisma.client.create({
+        data: {
+          firstName: "James",
+          lastName: "O'Brien",
+          email: "james.obrien@email.com",
+          phone: "0407 777 888",
+          dateOfBirth: "2016-08-25",
+          address: "5 Bridge Road, Hawthorn VIC 3122",
+          ndisNumber: "431456789",
+        },
+      }),
+      prisma.client.create({
+        data: {
+          firstName: "Aisha",
+          lastName: "Patel",
+          email: "aisha.patel@email.com",
+          phone: "0408 888 999",
+          dateOfBirth: "1973-12-01",
+          address: "200 Lygon Street, Carlton VIC 3053",
+          medicare: "6789 01234 5",
+        },
+      }),
+      prisma.client.create({
+        data: {
+          firstName: "Ben",
+          lastName: "Taylor",
+          email: "ben.taylor@email.com",
+          phone: "0409 999 000",
+          dateOfBirth: "2001-06-10",
+          address: "45 Chapel Street, Windsor VIC 3181",
+        },
+      }),
+      prisma.client.create({
+        data: {
+          firstName: "Grace",
+          lastName: "Wong",
+          email: "grace.wong@email.com",
+          phone: "0410 000 111",
+          dateOfBirth: "1988-01-30",
+          address: "12 Smith Street, Collingwood VIC 3066",
+          ndisNumber: "431567890",
+        },
+      }),
     ]);
 
     // Create appointments
@@ -117,15 +171,34 @@ async function seed() {
     const tomorrow = new Date(Date.now() + 86400000).toISOString().split("T")[0];
     const dayAfter = new Date(Date.now() + 2 * 86400000).toISOString().split("T")[0];
 
+    const day3 = new Date(Date.now() + 3 * 86400000).toISOString().split("T")[0];
+    const day4 = new Date(Date.now() + 4 * 86400000).toISOString().split("T")[0];
+    const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
+
     const appointments = [
+      // Today
       { date: today, startTime: "09:00", endTime: "09:45", clientId: clients[0].id, practitionerId: sarah.id, status: "Completed", type: "Initial Assessment" },
       { date: today, startTime: "10:00", endTime: "10:45", clientId: clients[1].id, practitionerId: sarah.id, status: "Scheduled", type: "Follow Up" },
-      { date: today, startTime: "11:00", endTime: "11:45", clientId: clients[2].id, practitionerId: james.id, status: "Scheduled", type: "Standard" },
+      { date: today, startTime: "11:00", endTime: "11:45", clientId: clients[2].id, practitionerId: james.id, status: "Scheduled", type: "1:1 Consultation" },
       { date: today, startTime: "13:00", endTime: "13:45", clientId: clients[3].id, practitionerId: emma.id, status: "Scheduled", type: "Standard" },
       { date: today, startTime: "14:00", endTime: "14:45", clientId: clients[4].id, practitionerId: sarah.id, status: "Scheduled", type: "Review" },
+      { date: today, startTime: "15:00", endTime: "15:45", clientId: clients[5].id, practitionerId: james.id, status: "Scheduled", type: "Initial Assessment" },
+      { date: today, startTime: "16:00", endTime: "16:45", clientId: clients[6].id, practitionerId: emma.id, status: "Scheduled", type: "Follow Up" },
+      // Yesterday
+      { date: yesterday, startTime: "09:00", endTime: "09:45", clientId: clients[7].id, practitionerId: sarah.id, status: "Completed", type: "Standard" },
+      { date: yesterday, startTime: "10:00", endTime: "10:45", clientId: clients[8].id, practitionerId: james.id, status: "Completed", type: "1:1 Consultation" },
+      { date: yesterday, startTime: "14:00", endTime: "14:45", clientId: clients[9].id, practitionerId: emma.id, status: "No Show", type: "Follow Up" },
+      // Tomorrow
       { date: tomorrow, startTime: "09:00", endTime: "09:45", clientId: clients[1].id, practitionerId: james.id, status: "Scheduled", type: "Standard" },
       { date: tomorrow, startTime: "10:30", endTime: "11:15", clientId: clients[0].id, practitionerId: emma.id, status: "Scheduled", type: "Follow Up" },
+      { date: tomorrow, startTime: "11:00", endTime: "11:45", clientId: clients[5].id, practitionerId: sarah.id, status: "Scheduled", type: "1:1 Consultation" },
+      { date: tomorrow, startTime: "14:00", endTime: "14:45", clientId: clients[7].id, practitionerId: james.id, status: "Scheduled", type: "Review" },
+      // Day after
       { date: dayAfter, startTime: "11:00", endTime: "11:45", clientId: clients[3].id, practitionerId: sarah.id, status: "Scheduled", type: "Standard" },
+      { date: dayAfter, startTime: "13:00", endTime: "13:45", clientId: clients[9].id, practitionerId: emma.id, status: "Scheduled", type: "Initial Assessment" },
+      // Day 3-4
+      { date: day3, startTime: "09:30", endTime: "10:15", clientId: clients[6].id, practitionerId: sarah.id, status: "Scheduled", type: "Follow Up" },
+      { date: day4, startTime: "10:00", endTime: "10:45", clientId: clients[8].id, practitionerId: james.id, status: "Scheduled", type: "Standard" },
     ];
 
     for (const appt of appointments) {
@@ -151,6 +224,39 @@ async function seed() {
         template: "NDIS Progress Note",
         signed: false,
         clientId: clients[1].id,
+        practitionerId: james.id,
+      },
+    });
+
+    await prisma.clinicalNote.create({
+      data: {
+        date: today,
+        content: "Speech therapy session focused on fluency techniques. Client demonstrated improved breath control and pausing strategies. Homework: daily reading practice with controlled rate.",
+        template: "Progress Note",
+        signed: true,
+        clientId: clients[3].id,
+        practitionerId: emma.id,
+      },
+    });
+
+    await prisma.clinicalNote.create({
+      data: {
+        date: yesterday,
+        content: "Initial assessment for right shoulder pain. ROM limited in abduction and flexion. Strength 4/5. Referred for imaging. Treatment plan: manual therapy and progressive exercises.",
+        template: "Initial Assessment",
+        signed: true,
+        clientId: clients[5].id,
+        practitionerId: sarah.id,
+      },
+    });
+
+    await prisma.clinicalNote.create({
+      data: {
+        date: yesterday,
+        content: "NDIS plan review preparation. Updated goals for community access and social skills. Recommend increase in OT support hours for next plan period.",
+        template: "NDIS Progress Note",
+        signed: false,
+        clientId: clients[6].id,
         practitionerId: james.id,
       },
     });
