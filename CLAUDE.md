@@ -130,6 +130,28 @@ When changes need to reach production:
 2. Claude Code updates `main` via GitHub API (fast-forward)
 3. Vercel auto-deploys from `main`
 
+## Remaining Fidelity Gaps
+
+Prioritized list of improvements needed to match reference screenshots. Work through these in batches: implement, build, commit, push, deploy. Don't ask questions — just keep going.
+
+1. **Waitlist Screener tab** — Make waitlist page a client component with switchable Screener/Waitlist views. Screener view needs: Triage Yes/No thumb buttons, Tags, Client, DOB, Address, Form, Date submitted columns. Reference: screenshots at 11:21:40-11:22:02 am.
+
+2. **Waitlist Map view** — Waitlist tab has a Map/List toggle. Show a placeholder map view with pins when Map is selected. Reference: screenshot at 11:22:02 am.
+
+3. **Reports sidebar consistency** — Main reports page and sub-pages (`/reports/appointments`, `/reports/progress-notes`, `/reports/performance`) each duplicate the sidebar definition. Extract a shared layout or component.
+
+4. **Settings Details page** — Currently shows a placeholder. Should show a form with clinic name, ABN, address, phone, email fields matching the real Splose settings. Reference: screenshot at 5:56:30 pm.
+
+5. **Dashboard improvements** — Compare `/` against reference screenshots (10:53:42-10:56:57 am) for messages panel, analytics cards, compose area refinements.
+
+6. **Client appointments sub-tab** — Add "Send upcoming appointments" button and "+ New appointment" button. Reference: screenshot at 11:15:20 am.
+
+7. **Mobile/responsive layouts** — Several reference screenshots (11:14:41, 11:14:52 am) show mobile views. Add basic responsive breakpoints to key pages.
+
+8. **Database re-seed** — Expand seed data to include 10+ clients, 18+ appointments, 8+ invoices with varied statuses (Paid, Overdue, Draft, Sent) for more realistic table views.
+
+9. **General screenshot review** — Continue reviewing all ~80 screenshots in `screenshots/reference/` and fixing any remaining visual gaps. Compare each page side-by-side with its reference.
+
 ## Git Workflow
 
 - Claude Code works on `claude/*` branches, then updates `main` via GitHub API
