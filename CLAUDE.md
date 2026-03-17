@@ -130,27 +130,65 @@ When changes need to reach production:
 2. Claude Code updates `main` via GitHub API (fast-forward)
 3. Vercel auto-deploys from `main`
 
+## Fidelity Improvement Workflow
+
+When asked to improve fidelity or work through gaps, use **parallel subagents** for speed:
+
+### Step 1: Launch parallel agents (worktree isolation)
+Group non-conflicting gaps and launch them simultaneously using the Agent tool with `isolation: "worktree"`. Each agent should:
+1. Read the relevant reference screenshot(s) from `screenshots/reference/`
+2. Read the current page source code
+3. Rewrite/edit the code to match the screenshot
+4. Ensure no TypeScript errors in the changed files
+
+**Parallelization rules — which gaps can run together:**
+- Gaps touching **different page directories** can always run in parallel
+- Gaps touching the **same file** must run sequentially
+- The **database re-seed** gap should run alone (it changes seed data that pages read)
+- The **general screenshot review** agent should run last as a sweep
+
+### Step 2: Collect and apply changes
+After agents complete:
+1. For each agent that made changes in a worktree, review the diff and cherry-pick/apply to the main branch
+2. If an agent's worktree has conflicts with another, resolve manually
+
+### Step 3: Build, commit, push, deploy
+1. Run `npx next build` to verify no errors
+2. Stage and commit all changes with a descriptive message
+3. Push to the `claude/*` branch
+4. Fast-forward `main` via `gh api repos/jimsplose/splose-current/git/refs/heads/main -X PATCH -f sha="$SHA"`
+
+### Step 4: Repeat
+Pick the next batch of gaps and repeat. Keep going until all gaps are resolved or the session runs low on context.
+
 ## Remaining Fidelity Gaps
 
-Prioritized list of improvements needed to match reference screenshots. Work through these in batches: implement, build, commit, push, deploy. Don't ask questions — just keep going.
+Gaps are grouped by which files they touch, so you can see what's safe to parallelize.
 
-1. **Waitlist Screener tab** — Make waitlist page a client component with switchable Screener/Waitlist views. Screener view needs: Triage Yes/No thumb buttons, Tags, Client, DOB, Address, Form, Date submitted columns. Reference: screenshots at 11:21:40-11:22:02 am.
+### Group A — Waitlist (`src/app/waitlist/`)
+1. **Waitlist Screener tab** — Make waitlist page a `"use client"` component with switchable Screener/Waitlist views. Screener view needs: Triage Yes/No thumb buttons, Tags, Client, DOB, Address, Form, Date submitted columns. The screener data is already defined in the page. Reference: screenshots at 11:21:40-11:22:02 am.
+2. **Waitlist Map view** — Add Map/List toggle to the Waitlist tab. Show a placeholder map with pins when Map is selected. Reference: screenshot at 11:22:02 am.
 
-2. **Waitlist Map view** — Waitlist tab has a Map/List toggle. Show a placeholder map view with pins when Map is selected. Reference: screenshot at 11:22:02 am.
+### Group B — Reports (`src/app/reports/`)
+3. **Reports sidebar consistency** — The main reports page and sub-pages each duplicate the sidebar. Extract a shared `reports/layout.tsx` or a `ReportsSidebar` component.
 
-3. **Reports sidebar consistency** — Main reports page and sub-pages (`/reports/appointments`, `/reports/progress-notes`, `/reports/performance`) each duplicate the sidebar definition. Extract a shared layout or component.
+### Group C — Settings (`src/app/settings/`)
+4. **Settings Details page** — Currently a placeholder. Add a form with: clinic name, ABN, address, phone, email, logo upload area. Reference: screenshot at 5:56:30 pm.
 
-4. **Settings Details page** — Currently shows a placeholder. Should show a form with clinic name, ABN, address, phone, email fields matching the real Splose settings. Reference: screenshot at 5:56:30 pm.
+### Group D — Dashboard (`src/app/page.tsx`)
+5. **Dashboard improvements** — Compare against reference screenshots (10:53:42-10:56:57 am). Improve messages panel, analytics cards, compose area.
 
-5. **Dashboard improvements** — Compare `/` against reference screenshots (10:53:42-10:56:57 am) for messages panel, analytics cards, compose area refinements.
+### Group E — Client detail (`src/app/clients/[id]/`)
+6. **Client appointments sub-tab** — Add "Send upcoming appointments" button and "+ New appointment" button matching reference at 11:15:20 am.
 
-6. **Client appointments sub-tab** — Add "Send upcoming appointments" button and "+ New appointment" button. Reference: screenshot at 11:15:20 am.
+### Group F — Responsive (touches multiple files)
+7. **Mobile/responsive layouts** — Reference screenshots at 11:14:41, 11:14:52 am show mobile views. Add responsive breakpoints to TopNav, tables, and key pages.
 
-7. **Mobile/responsive layouts** — Several reference screenshots (11:14:41, 11:14:52 am) show mobile views. Add basic responsive breakpoints to key pages.
+### Group G — Database (`prisma/seed.ts`, `src/app/api/seed/`)
+8. **Database re-seed** — Expand to 10+ clients, 18+ appointments, 8+ invoices with varied statuses.
 
-8. **Database re-seed** — Expand seed data to include 10+ clients, 18+ appointments, 8+ invoices with varied statuses (Paid, Overdue, Draft, Sent) for more realistic table views.
-
-9. **General screenshot review** — Continue reviewing all ~80 screenshots in `screenshots/reference/` and fixing any remaining visual gaps. Compare each page side-by-side with its reference.
+### Group H — Sweep (reads all files)
+9. **General screenshot review** — Review all ~80 screenshots and fix remaining visual gaps. Run this last.
 
 ## Git Workflow
 
