@@ -1,33 +1,58 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 
 const sidebarSections = [
   {
     title: "Workspace",
-    items: ["Details", "Integrations", "SMS settings"],
+    items: [
+      { name: "Details", href: "/settings" },
+      { name: "Integrations", href: "/settings" },
+      { name: "Subscription", href: "/settings" },
+      { name: "SMS settings", href: "/settings" },
+    ],
   },
   {
     title: "Automation",
-    items: ["Forms", "splose AI"],
+    items: [
+      { name: "Forms", href: "/settings" },
+      { name: "splose AI", href: "/settings/ai" },
+    ],
   },
   {
     title: "Business",
     items: [
-      "Locations", "Custom fields", "Rooms/Resources", "Services",
-      "Busy times", "Cancellation reasons", "Online bookings",
-      "Communication types", "Tags", "Referral types",
+      { name: "Locations", href: "/settings" },
+      { name: "Custom fields", href: "/settings" },
+      { name: "Rooms/Resources", href: "/settings" },
+      { name: "Services", href: "/settings" },
+      { name: "Busy times", href: "/settings" },
+      { name: "Cancel/Reschedule", href: "/settings" },
+      { name: "Online bookings", href: "/settings", badge: "New" },
+      { name: "Communication types", href: "/settings" },
+      { name: "Tags", href: "/settings" },
+      { name: "Referral types", href: "/settings" },
     ],
   },
   {
     title: "Team",
-    items: ["Users", "User groups", "Permissions & Roles", "Security"],
+    items: [
+      { name: "Users", href: "/settings" },
+      { name: "User groups", href: "/settings" },
+      { name: "Permissions & Roles", href: "/settings" },
+      { name: "Security", href: "/settings" },
+    ],
   },
   {
     title: "Templates",
-    items: ["Appointments", "Emails", "Progress notes", "Letters", "Body charts"],
-  },
-  {
-    title: "Finances",
-    items: ["Payments", "Invoices"],
+    items: [
+      { name: "Appointments", href: "/settings" },
+      { name: "Emails", href: "/settings" },
+      { name: "Progress notes", href: "/settings" },
+      { name: "Letters", href: "/settings" },
+      { name: "Body charts", href: "/settings" },
+    ],
   },
 ];
 
@@ -35,15 +60,20 @@ const aiPrompts = [
   { name: "Treatment Provided Prompt", userGroup: "Any user" },
   { name: "Objective Assessment Template", userGroup: "Any user" },
   { name: "Prognosis and Goals Template", userGroup: "Any user" },
-  { name: "SOAP Note Template", userGroup: "Any user" },
-  { name: "Initial Assessment Prompt", userGroup: "Physiotherapists" },
+  { name: "sss", userGroup: "Any user" },
+  { name: "Test 1", userGroup: "Physiotherapists" },
+  { name: "Test 2", userGroup: "Any user" },
   { name: "Voice to text SOAP progress note", userGroup: "Any user" },
   { name: "Report summary", userGroup: "Any user" },
   { name: "Letter to doctor", userGroup: "Any user" },
   { name: "Letter to patient", userGroup: "Any user" },
 ];
 
+type Tab = "preferences" | "saved-prompts" | "ai-block-library";
+
 export default function SettingsAIPage() {
+  const [activeTab, setActiveTab] = useState<Tab>("preferences");
+
   return (
     <div className="flex min-h-[calc(100vh-3rem)]">
       {/* Left sidebar */}
@@ -55,21 +85,22 @@ export default function SettingsAIPage() {
             </h3>
             <ul className="space-y-0.5">
               {section.items.map((item) => (
-                <li key={item}>
-                  <button
-                    className={`w-full rounded px-3 py-1.5 text-left text-sm transition-colors hover:bg-purple-50 hover:text-primary ${
-                      item === "splose AI"
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className={`w-full block rounded px-3 py-1.5 text-left text-sm transition-colors hover:bg-purple-50 hover:text-primary ${
+                      item.name === "splose AI"
                         ? "border-l-2 border-primary bg-purple-50 text-primary font-medium"
                         : "text-text-secondary"
                     }`}
                   >
-                    {item}
-                    {item === "Online bookings" && (
+                    {item.name}
+                    {item.badge && (
                       <span className="ml-2 rounded bg-primary px-1.5 py-0.5 text-[10px] font-bold text-white">
-                        New
+                        {item.badge}
                       </span>
                     )}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -93,55 +124,252 @@ export default function SettingsAIPage() {
 
         {/* Tabs */}
         <div className="mb-6 flex items-center gap-6 border-b border-border">
-          <button className="border-b-2 border-transparent px-1 pb-3 text-sm text-text-secondary hover:text-text">
+          <button
+            onClick={() => setActiveTab("preferences")}
+            className={`border-b-2 px-1 pb-3 text-sm ${
+              activeTab === "preferences"
+                ? "border-primary font-medium text-primary"
+                : "border-transparent text-text-secondary hover:text-text"
+            }`}
+          >
             Preferences
           </button>
-          <button className="border-b-2 border-primary px-1 pb-3 text-sm font-medium text-primary">
+          <button
+            onClick={() => setActiveTab("saved-prompts")}
+            className={`border-b-2 px-1 pb-3 text-sm ${
+              activeTab === "saved-prompts"
+                ? "border-primary font-medium text-primary"
+                : "border-transparent text-text-secondary hover:text-text"
+            }`}
+          >
             Saved prompts
           </button>
-          <button className="flex items-center gap-1.5 border-b-2 border-transparent px-1 pb-3 text-sm text-text-secondary hover:text-text">
+          <button
+            onClick={() => setActiveTab("ai-block-library")}
+            className={`flex items-center gap-1.5 border-b-2 px-1 pb-3 text-sm ${
+              activeTab === "ai-block-library"
+                ? "border-primary font-medium text-primary"
+                : "border-transparent text-text-secondary hover:text-text"
+            }`}
+          >
             AI block library
             <span className="rounded bg-yellow-100 px-1.5 py-0.5 text-[10px] font-bold text-yellow-700">BETA</span>
           </button>
         </div>
 
-        {/* AI Prompts section */}
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-text">AI prompts</h2>
-          <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-            + New prompt
-          </button>
-        </div>
+        {/* Tab content */}
+        {activeTab === "preferences" && <PreferencesTab />}
+        {activeTab === "saved-prompts" && <SavedPromptsTab />}
+        {activeTab === "ai-block-library" && <AIBlockLibraryTab />}
+      </div>
+    </div>
+  );
+}
 
-        <div className="rounded-lg border border-border bg-white overflow-hidden">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-border bg-gray-50">
-                <th className="px-4 py-3 text-left text-sm font-medium text-text">Prompt</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-text">User group</th>
-                <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
-              {aiPrompts.map((prompt) => (
-                <tr key={prompt.name} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 text-sm text-text">{prompt.name}</td>
-                  <td className="px-4 py-3 text-sm text-text-secondary">{prompt.userGroup}</td>
-                  <td className="px-4 py-3 text-right">
-                    <button className="text-text-secondary hover:text-text">...</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <div className="flex items-center justify-end border-t border-border px-4 py-3 text-sm text-text-secondary">
-            <span>&lt;</span>
-            <button className="mx-2 flex h-7 w-7 items-center justify-center rounded border border-primary bg-white text-xs font-medium text-primary">
-              1
-            </button>
-            <span>&gt;</span>
+function PreferencesTab() {
+  const [voiceToText, setVoiceToText] = useState(true);
+  const [saveRecording, setSaveRecording] = useState(true);
+  const [emailAssistant, setEmailAssistant] = useState(true);
+  const [calendarAI, setCalendarAI] = useState(true);
+  const [cancelledSlots, setCancelledSlots] = useState(true);
+
+  return (
+    <div>
+      <h2 className="text-lg font-semibold text-text mb-2">
+        splose AI settings: More control, your way
+      </h2>
+      <hr className="border-border mb-6" />
+
+      <h3 className="text-xl font-bold text-text mb-6">Preferences</h3>
+
+      {/* Progress notes */}
+      <div className="mb-8">
+        <h4 className="text-lg font-bold text-text mb-4">splose AI - progress notes</h4>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-text">Enable voice to text and ask splose AI</span>
+            <Toggle checked={voiceToText} onChange={setVoiceToText} />
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-text">Save recording to client file</span>
+            <Toggle checked={saveRecording} onChange={setSaveRecording} />
           </div>
         </div>
+      </div>
+
+      {/* Email */}
+      <div className="mb-8">
+        <h4 className="text-lg font-bold text-text mb-4">splose AI - email</h4>
+        <div className="flex items-center justify-between">
+          <span className="text-sm text-text">Enable splose AI email assistant</span>
+          <Toggle checked={emailAssistant} onChange={setEmailAssistant} />
+        </div>
+      </div>
+
+      {/* Calendar */}
+      <div className="mb-8">
+        <h4 className="text-lg font-bold text-text mb-4">splose AI - calendar</h4>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-text">Enable splose AI for calendar</span>
+            <Toggle checked={calendarAI} onChange={setCalendarAI} />
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-text">Include cancelled appointment slots in splose AI for calendar</span>
+            <Toggle checked={cancelledSlots} onChange={setCancelledSlots} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Toggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean) => void }) {
+  return (
+    <button
+      onClick={() => onChange(!checked)}
+      className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors ${
+        checked ? "bg-primary" : "bg-gray-200"
+      }`}
+    >
+      <span
+        className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition-transform ${
+          checked ? "translate-x-5" : "translate-x-0"
+        }`}
+      />
+    </button>
+  );
+}
+
+function SavedPromptsTab() {
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-lg font-semibold text-text">AI prompts</h2>
+        <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+          + New prompt
+        </button>
+      </div>
+
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border bg-gray-50">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Prompt</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">User group</th>
+              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {aiPrompts.map((prompt) => (
+              <tr key={prompt.name} className="hover:bg-gray-50">
+                <td className="px-4 py-3 text-sm text-text">{prompt.name}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{prompt.userGroup}</td>
+                <td className="px-4 py-3 text-right">
+                  <button className="text-text-secondary hover:text-text">...</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className="flex items-center justify-end border-t border-border px-4 py-3 text-sm text-text-secondary">
+          <span>&lt;</span>
+          <button className="mx-2 flex h-7 w-7 items-center justify-center rounded border border-primary bg-white text-xs font-medium text-primary">
+            1
+          </button>
+          <span>&gt;</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AIBlockLibraryTab() {
+  return (
+    <div>
+      {/* Beta banner */}
+      <div className="mb-4 flex items-center justify-between rounded-lg bg-yellow-50 border border-yellow-200 px-4 py-3">
+        <div className="flex items-center gap-2">
+          <span className="rounded bg-yellow-100 px-1.5 py-0.5 text-[10px] font-bold text-yellow-700">BETA</span>
+          <span className="text-sm text-text">We need your feedback on AI blocks</span>
+        </div>
+        <div className="flex items-center gap-2 text-sm">
+          <span className="text-text-secondary">Fill a</span>
+          <span className="text-primary underline cursor-pointer">short survey</span>
+          <span className="text-text-secondary">or</span>
+          <span className="text-primary underline cursor-pointer">book a time</span>
+          <span className="text-text-secondary">to chat</span>
+          <button className="ml-2 text-text-secondary hover:text-text">&times;</button>
+        </div>
+      </div>
+
+      <p className="text-sm text-text-secondary mb-4">
+        Spend less time writing prompts with your saved library of AI blocks, organised by{" "}
+        <span className="text-primary underline cursor-pointer">tags</span>. AI blocks are reusable, customisable and adjust to your
+        client&apos;s context. Insert them into a template or progress note.{" "}
+        <span className="text-primary underline cursor-pointer">Learn more</span>.
+      </p>
+
+      {/* Search and new button */}
+      <div className="flex items-center gap-2 mb-4">
+        <div className="flex-1 relative">
+          <input
+            type="text"
+            placeholder="Search"
+            className="w-full h-10 rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+          />
+        </div>
+        <button className="rounded-lg bg-primary px-2 py-2 text-white hover:bg-primary-dark">
+          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </button>
+        <button className="flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+          + New AI block
+        </button>
+      </div>
+
+      {/* Table */}
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border bg-gray-50">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                <div className="flex items-center gap-1">
+                  AI block
+                  <span className="text-text-secondary text-xs">&#8645;</span>
+                </div>
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                <div className="flex items-center gap-1">
+                  Tag
+                  <span className="text-text-secondary text-xs">&#8645;</span>
+                  <span className="text-text-secondary text-xs">&#9660;</span>
+                </div>
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                <div className="flex items-center gap-1">
+                  Created by
+                  <span className="text-text-secondary text-xs">&#9660;</span>
+                </div>
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                <div className="flex items-center gap-1">
+                  Last modified
+                  <span className="text-text-secondary text-xs">&#8645;</span>
+                </div>
+              </th>
+              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colSpan={5} className="px-4 py-8 text-center text-sm text-text-secondary">
+                No results
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   );

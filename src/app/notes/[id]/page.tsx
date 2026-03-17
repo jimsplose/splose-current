@@ -31,41 +31,61 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
         <div className="flex items-center gap-2">
           {note.signed && (
             <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
               Revert to draft
             </button>
           )}
           <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-            Actions
+            Actions &#9660;
           </button>
         </div>
       </div>
 
-      {/* Note content */}
+      {/* Note content as document */}
       <div className="mx-auto max-w-3xl p-8">
-        <div className="rounded-lg border border-border bg-white p-8 shadow-sm">
-          <div className="flex items-start justify-between mb-6">
+        <div className="rounded-lg border border-border bg-white p-10 shadow-sm">
+          {/* Client name and icon */}
+          <div className="flex items-start justify-between mb-8">
             <h2 className="text-2xl font-bold text-text">
               {note.client.firstName} {note.client.lastName}
             </h2>
-            <div className="text-4xl">📋</div>
+            <div className="text-5xl">&#128203;</div>
           </div>
 
-          <h3 className="text-lg font-semibold text-text mb-2">{note.template}</h3>
+          {/* Note title */}
+          <h3 className="text-xl font-bold text-text mb-4">{note.template}</h3>
 
-          <p className="text-sm text-text-secondary mb-6">
-            <strong>Service:</strong> {note.date}
+          {/* Service info */}
+          <p className="text-sm text-text mb-6">
+            <strong>Service:</strong> {formatNoteDate(note.date)}, 20 mins (1 interval testing))
           </p>
 
-          <div className="prose prose-sm max-w-none text-text">
-            <p>{note.content}</p>
+          {/* Note content */}
+          <div className="prose prose-sm max-w-none text-text whitespace-pre-wrap">
+            {note.content || (
+              <p className="text-text-secondary italic">No content</p>
+            )}
           </div>
 
-          <div className="mt-8 border-t border-border pt-4 text-sm text-text-secondary">
+          {/* Signature / metadata */}
+          <div className="mt-10 border-t border-border pt-4 text-sm text-text-secondary">
             <p>Created by: {note.practitioner.name}</p>
-            <p>Date: {note.date}</p>
+            <p>Date: {formatNoteDate(note.date)}</p>
+            {note.signed && <p className="mt-1 text-green-600 font-medium">Signed as final</p>}
           </div>
         </div>
       </div>
     </div>
   );
+}
+
+function formatNoteDate(dateStr: string) {
+  try {
+    const d = new Date(dateStr + "T00:00:00");
+    return d.toLocaleDateString("en-AU", { weekday: "short", day: "numeric", month: "short", year: "numeric" });
+  } catch {
+    return dateStr;
+  }
 }

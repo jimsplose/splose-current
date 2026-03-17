@@ -107,7 +107,7 @@ export default function CalendarView({
                   {date.getDate()}
                 </div>
                 <div className="mt-0.5 text-[10px] text-text-secondary truncate">
-                  Splose Demo Clinic
+                  Hands Togeth...
                 </div>
                 <div className="flex justify-center gap-1 text-[10px] text-text-secondary truncate">
                   {practitioners.map((p) => (
@@ -197,7 +197,7 @@ export default function CalendarView({
                 <div>
                   <span className="text-text">{selectedAppt.practitionerName}</span>
                   <span className="text-text-secondary"> at </span>
-                  <span className="text-text font-medium">Splose Demo Clinic</span>
+                  <span className="text-text font-medium">Hands Together Therapy (East)</span>
                 </div>
               </div>
 
@@ -273,48 +273,68 @@ export default function CalendarView({
 
       {/* Create appointment modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
+        <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/30 pt-12 overflow-y-auto pb-12">
           <div className="w-full max-w-md rounded-xl bg-white shadow-lg">
-            <div className="flex items-center justify-between border-b border-border px-6 py-4">
+            <div className="flex items-center justify-between px-6 py-4">
               <h2 className="text-lg font-semibold text-text">Create appointment</h2>
               <button onClick={() => setShowCreateModal(false)} className="rounded p-1 hover:bg-gray-100">
                 <X className="h-5 w-5 text-text-secondary" />
               </button>
             </div>
-            <div className="space-y-4 px-6 py-4">
-              <FormField label="Location" value="Splose Demo Clinic" />
-              <FormField label="Practitioner" value={practitioners[0]?.name || "Select practitioner"} />
+            <div className="space-y-4 px-6 pb-4">
+              <FormField label="Location" value="Hands Together Therapy (East)" />
+              <FormField label="Practitioner" value={practitioners[0]?.name || "Delvin khor"} />
               <FormField label="Client" placeholder="Start typing to search client" />
+
+              {/* Waitlist matches */}
+              <div className="flex items-center gap-2 rounded-lg bg-gray-50 px-3 py-2.5">
+                <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
+                <span className="text-sm text-text">2 waitlist matches</span>
+                <ChevronRight className="ml-auto h-4 w-4 text-text-secondary" />
+              </div>
+
               <FormField label="Service" placeholder="Choose a service" />
               <FormField label="Case" placeholder="Choose a case" />
-              <div className="flex items-center gap-4">
-                <div className="flex-1">
-                  <label className="text-sm text-text-secondary">Date *</label>
-                  <div className="mt-1 rounded-lg border border-border bg-white px-3 py-2 text-sm text-text">
+
+              <div>
+                <label className="text-sm text-text-secondary">Date *</label>
+                <div className="mt-1 flex items-center gap-2">
+                  <div className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm text-text">
                     {formatDateLong(createDate)}
                   </div>
+                  <button className="rounded p-1 text-text-secondary hover:bg-gray-100">
+                    <Calendar className="h-4 w-4" />
+                  </button>
                 </div>
               </div>
-              <div className="flex items-center gap-4">
-                <div className="flex-1">
-                  <label className="text-sm text-text-secondary">Time *</label>
-                  <div className="mt-1 flex items-center gap-2">
-                    <div className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm text-text">
-                      {createTime}
-                    </div>
-                    <div className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm text-text-secondary">
-                      End
-                    </div>
+
+              <div>
+                <label className="text-sm text-text-secondary">Time *</label>
+                <div className="mt-1 flex items-center gap-2">
+                  <div className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm text-text">
+                    {createTime}
+                  </div>
+                  <div className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm text-text-secondary">
+                    End
                   </div>
                 </div>
               </div>
-              <FormField label="Room/Resource" placeholder="Choose a room/resource" />
-              <div className="flex items-center gap-2">
-                <div className="h-5 w-9 rounded-full bg-gray-200 p-0.5">
-                  <div className="h-4 w-4 rounded-full bg-white shadow" />
-                </div>
-                <span className="text-sm text-text">Repeat</span>
+
+              {/* Past date warning */}
+              <div className="rounded-lg bg-yellow-50 border border-yellow-200 px-3 py-2.5 text-sm text-yellow-700">
+                The date and time selected is in the past.
               </div>
+
+              <FormField label="Room/Resource" placeholder="Choose a room/resource" />
+
+              {/* Toggle options */}
+              <div className="space-y-3">
+                <ToggleRow label="Provider travel" />
+                <ToggleRow label="Provider Travel - Non-Labour Costs" />
+                <ToggleRow label="Activity Based Transport" />
+                <ToggleRow label="Repeat" />
+              </div>
+
               <div>
                 <label className="text-sm text-text-secondary">Note :</label>
                 <textarea
@@ -358,6 +378,17 @@ function calcDuration(start: string, end: string): string {
   const mins = (eh * 60 + em) - (sh * 60 + sm);
   if (mins <= 0) return "45 mins";
   return `${mins} minutes`;
+}
+
+function ToggleRow({ label }: { label: string }) {
+  return (
+    <div className="flex items-center gap-2">
+      <div className="h-5 w-9 rounded-full bg-gray-200 p-0.5">
+        <div className="h-4 w-4 rounded-full bg-white shadow" />
+      </div>
+      <span className="text-sm text-text">{label}</span>
+    </div>
+  );
 }
 
 function formatDateLong(dateStr: string): string {
