@@ -240,13 +240,19 @@ export default async function ClientDetailPage({
           </div>
         </div>
 
-        {/* Client alerts */}
+        {/* Client tags */}
         <div className="mb-4 border-b border-border pb-3">
           <button className="flex w-full items-center justify-between text-sm font-semibold text-text">
-            Client alerts
+            Client tags
             <span className="text-text-secondary">&#9660;</span>
           </button>
-          <p className="mt-2 text-xs text-text-secondary">No alerts</p>
+          {client.ndisNumber ? (
+            <div className="mt-2">
+              <span className="rounded bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-700">NDIS</span>
+            </div>
+          ) : (
+            <p className="mt-2 text-xs text-text-secondary">No tags</p>
+          )}
         </div>
 
         {/* Stripe */}
