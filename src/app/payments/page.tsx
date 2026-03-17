@@ -1,19 +1,24 @@
+"use client";
+
+import { useState } from "react";
 import { Plus, ArrowUpDown, Filter } from "lucide-react";
 
 const mockPayments = [
-  { id: "1", reference: "MYDD-01051", from: "Lisa Martinez", fromLink: true, amount: 110.00, date: "6 Mar 2026", type: "" },
-  { id: "2", reference: "MYDD-01052", from: "Lisa Martinez", fromLink: true, amount: 110.00, date: "6 Mar 2026", type: "" },
-  { id: "3", reference: "MYDD-01053", from: "Lisa Martinez", fromLink: true, amount: 212.30, date: "6 Mar 2026", type: "" },
-  { id: "4", reference: "MYDD-01048", from: "Sophie Anderson", fromLink: true, amount: 35.00, date: "4 Mar 2026", type: "Credit" },
-  { id: "5", reference: "MYDD-01046", from: "James O'Brien", fromLink: true, amount: 110.00, date: "27 Feb 2026", type: "" },
-  { id: "6", reference: "MYDD-01045", from: "James O'Brien", fromLink: true, amount: 148.71, date: "25 Feb 2026", type: "" },
-  { id: "7", reference: "MYDD-01042", from: "Rachel Kim", fromLink: true, amount: 110.00, date: "24 Feb 2026", type: "Credit" },
-  { id: "8", reference: "MYDD-01044", from: "Rachel Kim", fromLink: true, amount: 2000.00, date: "24 Feb 2026", type: "Credit" },
-  { id: "9", reference: "MYDD-01043", from: "Rachel Kim", fromLink: true, amount: 1000.00, date: "24 Feb 2026", type: "Credit" },
-  { id: "10", reference: "MYDD-01041", from: "Michael Brooks", fromLink: true, amount: 100.00, date: "23 Feb 2026", type: "Credit" },
+  { id: "1", reference: "MYDD-01051", from: "Skyler Peterson", amount: 110.00, date: "6 Mar 2026", type: "", invoices: [{ number: "TRR-006295", amount: 110.00, date: "Fri 6 Mar 2026" }] },
+  { id: "2", reference: "MYDD-01052", from: "Skyler Peterson", amount: 110.00, date: "6 Mar 2026", type: "", invoices: [{ number: "TRR-006296", amount: 110.00, date: "Fri 6 Mar 2026" }] },
+  { id: "3", reference: "MYDD-01053", from: "Skyler Peterson", amount: 212.30, date: "6 Mar 2026", type: "", invoices: [{ number: "TRR-006297", amount: 212.30, date: "Fri 6 Mar 2026" }] },
+  { id: "4", reference: "MYDD-01048", from: "elsa frozen", amount: 35.00, date: "4 Mar 2026", type: "Credit", invoices: [] },
+  { id: "5", reference: "MYDD-01046", from: "A Jr", amount: 110.00, date: "27 Feb 2026", type: "", invoices: [{ number: "TRR-006280", amount: 110.00, date: "Thu 27 Feb 2026" }] },
+  { id: "6", reference: "MYDD-01045", from: "A Jr", amount: 148.71, date: "25 Feb 2026", type: "", invoices: [{ number: "TRR-006279", amount: 148.71, date: "Tue 25 Feb 2026" }] },
+  { id: "7", reference: "MYDD-01042", from: "rakesh soni", amount: 110.00, date: "24 Feb 2026", type: "Credit", invoices: [] },
+  { id: "8", reference: "MYDD-01044", from: "rakesh soni", amount: 2000.00, date: "24 Feb 2026", type: "Credit", invoices: [] },
+  { id: "9", reference: "MYDD-01043", from: "rakesh soni", amount: 1000.00, date: "24 Feb 2026", type: "Credit", invoices: [] },
+  { id: "10", reference: "MYDD-01041", from: "A test", amount: 100.00, date: "23 Feb 2026", type: "Credit", invoices: [] },
 ];
 
 export default function PaymentsPage() {
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
   return (
     <div className="p-6">
       <div className="mb-4 flex items-center justify-between">
@@ -58,24 +63,64 @@ export default function PaymentsPage() {
           </thead>
           <tbody className="divide-y divide-border">
             {mockPayments.map((payment) => (
-              <tr key={payment.id} className="cursor-pointer transition-colors hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm">
-                  <div className="flex items-center gap-2">
-                    <span className="text-text-secondary">+</span>
-                    <span className="text-text">{payment.reference}</span>
-                    {payment.type && (
-                      <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-medium text-gray-600">
-                        {payment.type}
-                      </span>
-                    )}
-                  </div>
-                </td>
-                <td className="px-4 py-3 text-sm text-primary">{payment.from}</td>
-                <td className="px-4 py-3 text-right text-sm text-text">
-                  {payment.amount.toLocaleString("en-AU", { minimumFractionDigits: 2 })}
-                </td>
-                <td className="px-4 py-3 text-right text-sm text-text-secondary">{payment.date}</td>
-              </tr>
+              <>
+                <tr
+                  key={payment.id}
+                  className="cursor-pointer transition-colors hover:bg-gray-50"
+                  onClick={() => {
+                    if (payment.invoices.length > 0) {
+                      setExpandedId(expandedId === payment.id ? null : payment.id);
+                    }
+                  }}
+                >
+                  <td className="px-4 py-3 text-sm">
+                    <div className="flex items-center gap-2">
+                      {payment.invoices.length > 0 ? (
+                        <span className="text-text-secondary font-medium">
+                          {expandedId === payment.id ? "−" : "+"}
+                        </span>
+                      ) : (
+                        <span className="w-3" />
+                      )}
+                      <span className="text-text">{payment.reference}</span>
+                      {payment.type && (
+                        <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-medium text-gray-600">
+                          {payment.type}
+                        </span>
+                      )}
+                    </div>
+                  </td>
+                  <td className="px-4 py-3 text-sm text-primary">{payment.from}</td>
+                  <td className="px-4 py-3 text-right text-sm text-text">
+                    {payment.amount.toLocaleString("en-AU", { minimumFractionDigits: 2 })}
+                  </td>
+                  <td className="px-4 py-3 text-right text-sm text-text-secondary">{payment.date}</td>
+                </tr>
+                {expandedId === payment.id && payment.invoices.length > 0 && (
+                  <tr key={`${payment.id}-expanded`}>
+                    <td colSpan={4} className="bg-gray-50 px-12 py-2">
+                      <table className="w-full">
+                        <thead>
+                          <tr className="border-b border-border">
+                            <th className="py-2 text-left text-sm font-medium text-text">Invoice #</th>
+                            <th className="py-2 text-right text-sm font-medium text-text">Amount</th>
+                            <th className="py-2 text-right text-sm font-medium text-text">Date</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {payment.invoices.map((inv) => (
+                            <tr key={inv.number}>
+                              <td className="py-2 text-sm text-primary">{inv.number}</td>
+                              <td className="py-2 text-right text-sm text-text">{inv.amount.toFixed(2)}</td>
+                              <td className="py-2 text-right text-sm text-text-secondary">{inv.date}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                )}
+              </>
             ))}
           </tbody>
         </table>

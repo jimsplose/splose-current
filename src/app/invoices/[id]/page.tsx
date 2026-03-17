@@ -38,13 +38,13 @@ export default async function InvoiceDetailPage({
             </span>
           )}
           <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-            Pay
+            Pay &#9660;
           </button>
           <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
             Email invoice
           </button>
           <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-            Actions
+            Actions &#9660;
           </button>
         </div>
       </div>
@@ -55,12 +55,12 @@ export default async function InvoiceDetailPage({
         <div className="h-2 rounded-t-lg bg-gradient-to-r from-primary via-green-500 to-yellow-400" />
 
         <div className="rounded-b-lg border border-border bg-white p-8 shadow-sm">
-          {/* Title */}
+          {/* Title and logo */}
           <div className="flex items-start justify-between mb-8">
             <h2 className="text-2xl font-bold text-text">
               {invoice.status === "Overdue" ? "Overdue Invoice" : invoice.status === "Paid" ? "Tax Invoice" : "Invoice"}
             </h2>
-            <div className="text-4xl text-accent font-bold italic">S</div>
+            <div className="text-4xl font-bold italic" style={{ color: "#2d6d40" }}>S</div>
           </div>
 
           {/* Three column header */}
@@ -71,23 +71,35 @@ export default async function InvoiceDetailPage({
               <p className="text-primary">{invoice.client.firstName} {invoice.client.lastName}</p>
               {invoice.client.address && <p className="text-text-secondary">{invoice.client.address}</p>}
               {invoice.client.ndisNumber && (
-                <p className="text-text-secondary">NDIS Number: {invoice.client.ndisNumber}</p>
+                <>
+                  <p className="text-text-secondary">NDIS Number: {invoice.client.ndisNumber}</p>
+                  <p className="text-text-secondary">Prac No.</p>
+                  <p className="text-text-secondary">Prac No.</p>
+                  <p className="text-text-secondary">Prac No.</p>
+                </>
               )}
               {invoice.client.medicare && (
                 <p className="text-text-secondary">Medicare: {invoice.client.medicare}</p>
+              )}
+              {/* Care of client above section for contacts */}
+              {invoice.billingType === "NDIS" && (
+                <div className="mt-3">
+                  <h4 className="font-bold text-text">Care of client above</h4>
+                  <p className="text-primary">C/o [Contact]</p>
+                </div>
               )}
             </div>
 
             {/* From */}
             <div>
               <h3 className="font-bold text-text mb-1">From</h3>
-              <p className="text-text">Splose Demo Clinic</p>
+              <p className="text-text">Hands Together Therapies</p>
               <p className="text-text-secondary">East Clinics</p>
-              <p className="text-text-secondary">123 Demo Street</p>
-              <p className="text-text-secondary">Melbourne VIC 3000</p>
+              <p className="text-text-secondary">4 Williamstown Rd</p>
+              <p className="text-text-secondary">Kingsville VIC 3012</p>
               <div className="mt-2">
                 <p className="font-bold text-text">ABN</p>
-                <p className="text-text-secondary">12345678910</p>
+                <p className="text-text-secondary">11234567811O</p>
               </div>
               {practitioner && (
                 <div className="mt-2">
@@ -125,6 +137,7 @@ export default async function InvoiceDetailPage({
                 <th className="py-2 text-right font-medium text-text">Unit price</th>
                 <th className="py-2 text-right font-medium text-text">Quantity</th>
                 <th className="py-2 text-right font-medium text-text">Unit</th>
+                <th className="py-2 text-right font-medium text-text">Discount</th>
                 <th className="py-2 text-right font-medium text-text">GST</th>
                 <th className="py-2 text-right font-medium text-text">Amount AUD</th>
               </tr>
@@ -132,12 +145,13 @@ export default async function InvoiceDetailPage({
             <tbody>
               {invoice.items.map((item, idx) => (
                 <tr key={item.id} className="border-b border-border">
-                  <td className="py-3 text-text-secondary">{idx + 1}</td>
+                  <td className="py-3 text-text-secondary">{(idx + 1).toString()}</td>
                   <td className="py-3 text-text">{item.description}</td>
                   <td className="py-3 text-right text-text">{item.unitPrice.toFixed(2)}</td>
-                  <td className="py-3 text-right text-text">{item.quantity}</td>
-                  <td className="py-3 text-right text-text-secondary">Each</td>
-                  <td className="py-3 text-right text-text-secondary">0%</td>
+                  <td className="py-3 text-right text-text">{item.quantity.toFixed(2)}</td>
+                  <td className="py-3 text-right text-text-secondary">Hour</td>
+                  <td className="py-3 text-right text-text-secondary">0.00</td>
+                  <td className="py-3 text-right text-text-secondary">15%</td>
                   <td className="py-3 text-right text-text font-medium">{item.total.toFixed(2)}</td>
                 </tr>
               ))}
@@ -171,10 +185,13 @@ export default async function InvoiceDetailPage({
             <h4 className="font-bold text-text mb-2">Additional Information</h4>
             <p>Please note that the service dates are displayed at the beginning of each line item.</p>
             <div className="mt-4">
-              <p>Please pay to:</p>
-              <p>Name: Splose Demo Clinic</p>
-              <p>Acc: 123456789</p>
-              <p>BSB: 000-000</p>
+              <p>aA Direct deposit details:</p>
+              <div className="mt-2">
+                <p>Please pay to:</p>
+                <p>Name: Hands together therapy</p>
+                <p>Acc: 901802703</p>
+                <p>BSB: 505-500</p>
+              </div>
             </div>
           </div>
         </div>

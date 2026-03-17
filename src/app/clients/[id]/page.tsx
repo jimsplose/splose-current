@@ -12,214 +12,189 @@ export default async function ClientDetailPage({
   const { id } = await params;
   const client = await prisma.client.findUnique({
     where: { id },
-    include: {
-      appointments: {
-        include: { practitioner: true },
-        orderBy: { date: "desc" },
-        take: 10,
-      },
-      clinicalNotes: {
-        include: { practitioner: true },
-        orderBy: { date: "desc" },
-        take: 5,
-      },
-      invoices: {
-        orderBy: { date: "desc" },
-        take: 5,
-      },
-    },
   });
 
   if (!client) notFound();
 
-  const sidebarSections = [
-    { label: "Details", count: null, active: true },
-    { label: "Appointments", count: client.appointments.length },
-    { label: "Communications", count: 0 },
-    { label: "Files", count: 0 },
-    { label: "Progress notes", count: client.clinicalNotes.length },
-    { label: "Cases", count: 0 },
-    { label: "Support activities", count: null },
-    { label: "Forms", count: 0 },
-    { label: "Invoices", count: client.invoices.length },
-    { label: "Payments", count: 0 },
-    { label: "Statements", count: null },
-    { label: "Letters", count: 0 },
-    { label: "Practitioner access", count: null },
-  ];
-
   return (
-    <div className="flex min-h-[calc(100vh-3rem)]">
-      {/* Left sidebar */}
-      <aside className="w-56 shrink-0 border-r border-border bg-white overflow-y-auto">
-        <div className="border-b border-border p-4">
-          <div className="flex items-center gap-2">
-            <h2 className="text-base font-bold text-text">Client</h2>
-            <span className="text-sm text-text-secondary">
-              {client.firstName[0].toLowerCase()}{client.lastName[0].toLowerCase()}
-            </span>
-          </div>
-        </div>
-        <nav className="border-t border-border">
-          {sidebarSections.map((section) => (
-            <button
-              key={section.label}
-              className={`flex w-full items-center justify-between px-4 py-2 text-left text-sm transition-colors ${
-                section.active
-                  ? "border-l-2 border-primary bg-purple-50 text-primary font-medium"
-                  : "text-text-secondary hover:bg-gray-50"
-              }`}
-            >
-              <span>{section.label}</span>
-              {section.count !== null && (
-                <span className="text-xs text-text-secondary">{section.count}</span>
-              )}
-            </button>
-          ))}
-        </nav>
-      </aside>
-
+    <div className="flex flex-1 overflow-hidden">
       {/* Main content */}
-      <div className="flex-1 overflow-y-auto">
-        {/* Top action bar */}
-        <div className="flex items-center justify-end gap-2 border-b border-border px-6 py-3">
-          <button className="rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
-            &#9743; New SMS
-          </button>
-          <button className="rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
-            &#9993; New email
-          </button>
-          <button className="rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
-            Actions &#9660;
+      <div className="flex-1 overflow-y-auto p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-2xl font-bold text-text">Details</h1>
+          <button className="flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
+            Edit <Pencil className="h-3.5 w-3.5" />
           </button>
         </div>
 
-        <div className="p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h1 className="text-2xl font-bold text-text">Details</h1>
-            <button className="flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
-              Edit <Pencil className="h-3.5 w-3.5" />
-            </button>
+        {/* General details */}
+        <section className="mb-8">
+          <h2 className="mb-4 text-lg font-bold text-text">General details</h2>
+          <div className="flex items-start gap-6">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-amber-400 text-sm font-bold text-white">
+              {client.firstName[0]}{client.lastName[0]}
+            </div>
+            <div className="space-y-2 text-sm">
+              <div className="flex gap-16">
+                <span className="w-28 text-text-secondary">Name:</span>
+                <span>{client.firstName} {client.lastName}</span>
+              </div>
+              <div className="flex gap-16">
+                <span className="w-28 text-text-secondary">Date of birth:</span>
+                <span>{client.dateOfBirth}{client.dateOfBirth ? ` (${calcAge(client.dateOfBirth)})` : ""}</span>
+              </div>
+              <div className="flex gap-16">
+                <span className="w-28 text-text-secondary">Sex:</span>
+                <span>Not specified</span>
+              </div>
+              <div className="flex gap-16">
+                <span className="w-28 text-text-secondary">Occupation:</span>
+                <span>N/A</span>
+              </div>
+            </div>
           </div>
+        </section>
 
-          {/* General details */}
-          <section className="mb-8">
-            <h2 className="mb-4 text-lg font-bold text-text">General details</h2>
-            <div className="flex items-start gap-6">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-amber-400 text-sm font-bold text-white">
-                {client.firstName[0]}{client.lastName[0]}
-              </div>
-              <div className="space-y-2 text-sm">
-                <div className="flex gap-16">
-                  <span className="w-28 text-text-secondary">Date of birth:</span>
-                  <span>{client.dateOfBirth}</span>
-                </div>
-              </div>
-            </div>
-          </section>
+        <hr className="mb-8 border-border" />
 
-          <hr className="mb-8 border-border" />
-
-          {/* Contact details */}
-          <section className="mb-8">
-            <h2 className="mb-4 text-lg font-bold text-text">Client contact details</h2>
-            <div className="space-y-3 text-sm">
-              {client.email && (
-                <div className="flex gap-16">
-                  <span className="w-28 text-text-secondary">Email:</span>
-                  <span className="text-primary">{client.email}</span>
-                </div>
-              )}
-              {client.phone && (
-                <div className="flex gap-16">
-                  <span className="w-28 text-text-secondary">Phone numbers:</span>
-                  <span>
-                    <span className="text-primary">{client.phone}</span>
-                    <span className="ml-1 text-text-secondary">(Mobile)</span>
-                  </span>
-                </div>
-              )}
-              {client.address && (
-                <div className="flex gap-16">
-                  <span className="w-28 text-text-secondary">Address:</span>
-                  <span>{client.address}</span>
-                </div>
-              )}
-            </div>
-          </section>
-
-          <hr className="mb-8 border-border" />
-
-          {/* Privacy policy consent */}
-          <section className="mb-8">
-            <h2 className="mb-4 text-lg font-bold text-text">Privacy policy consent</h2>
-            <p className="text-sm text-text-secondary">No response</p>
-          </section>
-
-          <hr className="mb-8 border-border" />
-
-          {/* Medications */}
-          <section className="mb-8">
-            <h2 className="mb-4 text-lg font-bold text-text">Medications, allergies &amp; intolerances</h2>
-            <div className="space-y-3 text-sm">
+        {/* Contact details */}
+        <section className="mb-8">
+          <h2 className="mb-4 text-lg font-bold text-text">Client contact details</h2>
+          <div className="space-y-3 text-sm">
+            {client.email && (
               <div className="flex gap-16">
-                <span className="w-28 text-text-secondary">Medications:</span>
-                <span>None</span>
+                <span className="w-28 text-text-secondary">Email:</span>
+                <span className="text-primary">{client.email}</span>
               </div>
+            )}
+            {client.phone && (
               <div className="flex gap-16">
-                <span className="w-28 text-text-secondary">Allergies:</span>
-                <span>None</span>
+                <span className="w-28 text-text-secondary">Phone numbers:</span>
+                <span>
+                  <span className="text-primary">{client.phone}</span>
+                  <span className="ml-1 text-text-secondary">(Mobile)</span>
+                </span>
               </div>
-              <div className="flex gap-16">
-                <span className="w-28 text-text-secondary">Intolerances:</span>
-                <span>None</span>
-              </div>
+            )}
+            <div className="flex gap-16">
+              <span className="w-28 text-text-secondary">Preference:</span>
+              <span>None</span>
             </div>
-          </section>
+            {client.address && (
+              <div className="flex gap-16">
+                <span className="w-28 text-text-secondary">Address:</span>
+                <span>{client.address}</span>
+              </div>
+            )}
+            <div className="flex gap-16">
+              <span className="w-28 text-text-secondary">Timezone:</span>
+              <span>GMT+10:30 - Australia/Adelaide</span>
+            </div>
+          </div>
+        </section>
 
-          <hr className="mb-8 border-border" />
+        <hr className="mb-8 border-border" />
 
-          {/* Medicare/NDIS details */}
-          {(client.medicare || client.ndisNumber) && (
-            <>
-              <section className="mb-8">
-                <h2 className="mb-4 text-lg font-bold text-text">
-                  {client.medicare ? "Medicare details" : "NDIS details"}
-                </h2>
-                <div className="flex gap-16 text-sm">
-                  <span className="w-28 text-text-secondary">
-                    {client.medicare ? "Card number:" : "NDIS number:"}
-                  </span>
-                  <span>{client.medicare || client.ndisNumber}</span>
-                </div>
-              </section>
-              <hr className="mb-8 border-border" />
-            </>
-          )}
+        {/* Privacy policy consent */}
+        <section className="mb-8">
+          <h2 className="mb-4 text-lg font-bold text-text">Privacy policy consent</h2>
+          <p className="text-sm text-text-secondary">No response</p>
+        </section>
 
-          {/* Associated contacts */}
-          <section className="mb-8">
-            <h2 className="mb-4 text-lg font-bold text-text">Associated contacts</h2>
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="pb-2 text-left font-medium text-text">Name</th>
-                  <th className="pb-2 text-left font-medium text-text">Type</th>
-                  <th className="pb-2 text-left font-medium text-text">Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colSpan={3} className="py-4 text-center text-text-secondary">
-                    No associated contacts
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
+        <hr className="mb-8 border-border" />
 
-          <button className="text-sm text-primary hover:underline">View change log</button>
-        </div>
+        {/* Medications */}
+        <section className="mb-8">
+          <h2 className="mb-4 text-lg font-bold text-text">Medications, allergies &amp; intolerances</h2>
+          <div className="space-y-3 text-sm">
+            <div className="flex gap-16">
+              <span className="w-28 text-text-secondary">Medications:</span>
+              <span>None</span>
+            </div>
+            <div className="flex gap-16">
+              <span className="w-28 text-text-secondary">Allergies:</span>
+              <span>None</span>
+            </div>
+            <div className="flex gap-16">
+              <span className="w-28 text-text-secondary">Intolerances:</span>
+              <span>None</span>
+            </div>
+          </div>
+        </section>
+
+        <hr className="mb-8 border-border" />
+
+        {/* Medicare/NDIS details */}
+        {client.medicare && (
+          <>
+            <section className="mb-8">
+              <h2 className="mb-4 text-lg font-bold text-text">Medicare details</h2>
+              <div className="flex gap-16 text-sm">
+                <span className="w-28 text-text-secondary">Card number:</span>
+                <span>{client.medicare}</span>
+              </div>
+            </section>
+            <hr className="mb-8 border-border" />
+          </>
+        )}
+
+        {client.ndisNumber && (
+          <>
+            <section className="mb-8">
+              <h2 className="mb-4 text-lg font-bold text-text">NDIS details</h2>
+              <div className="flex gap-16 text-sm">
+                <span className="w-28 text-text-secondary">NDIS number:</span>
+                <span>{client.ndisNumber}</span>
+              </div>
+            </section>
+            <hr className="mb-8 border-border" />
+          </>
+        )}
+
+        {/* Custom fields */}
+        <section className="mb-8">
+          <h2 className="mb-4 text-lg font-bold text-text">Custom fields</h2>
+          <p className="text-sm text-text-secondary">No custom fields</p>
+        </section>
+
+        <hr className="mb-8 border-border" />
+
+        {/* Invoicing */}
+        <section className="mb-8">
+          <h2 className="mb-4 text-lg font-bold text-text">Invoicing</h2>
+          <div className="flex gap-16 text-sm">
+            <span className="w-28 text-text-secondary">Invoice reminder preference:</span>
+            <span>On</span>
+          </div>
+        </section>
+
+        <hr className="mb-8 border-border" />
+
+        {/* Associated contacts */}
+        <section className="mb-8">
+          <h2 className="mb-4 text-lg font-bold text-text">Associated contacts</h2>
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-border">
+                <th className="pb-2 text-left font-medium text-text">Name</th>
+                <th className="pb-2 text-left font-medium text-text">Type</th>
+                <th className="pb-2 text-left font-medium text-text">Notes</th>
+                <th className="pb-2 text-center font-medium text-text">Appts</th>
+                <th className="pb-2 text-center font-medium text-text">Invoices</th>
+                <th className="pb-2 text-center font-medium text-text">Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colSpan={6} className="py-4 text-center text-text-secondary">
+                  No associated contacts
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <button className="text-sm text-primary hover:underline">View change log</button>
       </div>
 
       {/* Right panel */}
@@ -277,4 +252,17 @@ export default async function ClientDetailPage({
       </aside>
     </div>
   );
+}
+
+function calcAge(dobStr: string): string {
+  try {
+    const dob = new Date(dobStr + "T00:00:00");
+    const now = new Date();
+    let years = now.getFullYear() - dob.getFullYear();
+    const m = now.getMonth() - dob.getMonth();
+    if (m < 0 || (m === 0 && now.getDate() < dob.getDate())) years--;
+    return `${years} years old`;
+  } catch {
+    return "";
+  }
 }
