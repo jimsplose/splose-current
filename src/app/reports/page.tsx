@@ -24,7 +24,7 @@ export default function ReportsPage() {
   const revenueData = [0, 50, 100, 350, 250, 400, 150];
 
   return (
-    <div className="p-6">
+    <>
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-bold text-text">Performance overview</h1>
         <button className="rounded p-2 text-text-secondary hover:bg-gray-100">
@@ -207,6 +207,6 @@ export default function ReportsPage() {
           </tbody>
         </table>
       </div>
-    </div>
+    </>
   );
 }

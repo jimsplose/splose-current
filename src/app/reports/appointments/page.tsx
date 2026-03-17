@@ -1,6 +1,6 @@
 export default function ReportsAppointmentsPage() {
   return (
-    <div className="flex-1 p-6 overflow-y-auto">
+    <>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-text">Appointments</h1>
         <div className="flex items-center gap-2">
@@ -57,6 +57,6 @@ export default function ReportsAppointmentsPage() {
           Run report
         </button>
       </div>
-    </div>
+    </>
   );
 }
