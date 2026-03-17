@@ -1,28 +1,10 @@
-import {
-  Calendar,
-  Users,
-  DollarSign,
-  FileText,
-  Clock,
-  TrendingUp,
-} from "lucide-react";
-import StatusBadge from "@/components/StatusBadge";
 import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
 async function getDashboardData() {
-  const [
-    appointmentCount,
-    clientCount,
-    todayAppointments,
-    recentInvoices,
-    unsignedNotes,
-  ] = await Promise.all([
-    prisma.appointment.count({
-      where: { date: new Date().toISOString().split("T")[0] },
-    }),
-    prisma.client.count({ where: { active: true } }),
+  const [todayAppointments, recentInvoices, unsignedNotes] = await Promise.all([
     prisma.appointment.findMany({
       where: { date: new Date().toISOString().split("T")[0] },
       include: { client: true, practitioner: true },
@@ -33,161 +15,137 @@ async function getDashboardData() {
       orderBy: { createdAt: "desc" },
       take: 5,
     }),
-    prisma.clinicalNote.count({ where: { signed: false } }),
+    prisma.clinicalNote.findMany({
+      where: { signed: false },
+      include: { client: true, practitioner: true },
+      orderBy: { createdAt: "desc" },
+      take: 5,
+    }),
   ]);
 
-  const totalRevenue = await prisma.invoice.aggregate({
-    _sum: { total: true },
-    where: { status: "Paid" },
-  });
-
-  return {
-    appointmentCount,
-    clientCount,
-    todayAppointments,
-    recentInvoices,
-    unsignedNotes,
-    totalRevenue: totalRevenue._sum.total || 0,
-  };
+  return { todayAppointments, recentInvoices, unsignedNotes };
 }
 
 export default async function Dashboard() {
   const data = await getDashboardData();
 
-  const stats = [
-    {
-      label: "Today's Appointments",
-      value: data.appointmentCount,
-      icon: Calendar,
-      color: "bg-blue-500",
-    },
-    {
-      label: "Active Clients",
-      value: data.clientCount,
-      icon: Users,
-      color: "bg-indigo-500",
-    },
-    {
-      label: "Revenue (Paid)",
-      value: `$${data.totalRevenue.toFixed(2)}`,
-      icon: DollarSign,
-      color: "bg-green-500",
-    },
-    {
-      label: "Unsigned Notes",
-      value: data.unsignedNotes,
-      icon: FileText,
-      color: "bg-amber-500",
-    },
-  ];
-
   return (
-    <>
-      <div className="p-6">
-        {/* Stats Grid */}
-        <div className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat) => {
-            const Icon = stat.icon;
-            return (
-              <div
-                key={stat.label}
-                className="rounded-xl border border-border bg-surface p-6"
-              >
-                <div className="flex items-center gap-4">
-                  <div
-                    className={`flex h-12 w-12 items-center justify-center rounded-lg ${stat.color} text-white`}
-                  >
-                    <Icon className="h-6 w-6" />
+    <div className="flex min-h-[calc(100vh-3rem)]">
+      {/* Left column — Messages */}
+      <div className="flex flex-1 flex-col border-r border-border">
+        <div className="border-b border-border px-4 py-3">
+          <h2 className="text-sm font-semibold text-text">Messages</h2>
+        </div>
+        <div className="flex-1 overflow-y-auto p-4">
+          {/* Mock messages */}
+          <div className="space-y-6">
+            <div className="text-center text-xs text-text-secondary">
+              {new Date().toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" })}
+            </div>
+            {data.todayAppointments.slice(0, 3).map((appt) => (
+              <div key={appt.id} className="flex items-start gap-3">
+                <div
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-medium text-white"
+                  style={{ backgroundColor: appt.practitioner.color }}
+                >
+                  {appt.practitioner.name.split(" ").map((n) => n[0]).join("")}
+                </div>
+                <div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-sm font-medium text-text">
+                      {appt.practitioner.name}
+                    </span>
+                    <span className="text-xs text-text-secondary">{appt.startTime}</span>
                   </div>
-                  <div>
-                    <p className="text-sm text-text-secondary">{stat.label}</p>
-                    <p className="text-2xl font-bold">{stat.value}</p>
-                  </div>
+                  <p className="mt-1 text-sm text-text-secondary">
+                    Appointment with {appt.client.firstName} {appt.client.lastName} — {appt.type}
+                  </p>
                 </div>
               </div>
-            );
-          })}
-        </div>
-
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          {/* Today's Schedule */}
-          <div className="rounded-xl border border-border bg-surface">
-            <div className="flex items-center justify-between border-b border-border px-6 py-4">
-              <h2 className="text-lg font-semibold">Today&apos;s Schedule</h2>
-              <Clock className="h-5 w-5 text-text-secondary" />
-            </div>
-            <div className="divide-y divide-border">
-              {data.todayAppointments.length === 0 ? (
-                <p className="p-6 text-center text-text-secondary">
-                  No appointments today
-                </p>
-              ) : (
-                data.todayAppointments.map((appt) => (
-                  <div
-                    key={appt.id}
-                    className="flex items-center justify-between px-6 py-3"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div
-                        className="h-2 w-2 rounded-full"
-                        style={{
-                          backgroundColor: appt.practitioner.color,
-                        }}
-                      />
-                      <div>
-                        <p className="text-sm font-medium">
-                          {appt.client.firstName} {appt.client.lastName}
-                        </p>
-                        <p className="text-xs text-text-secondary">
-                          {appt.practitioner.name} &middot; {appt.type}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <span className="text-sm text-text-secondary">
-                        {appt.startTime} - {appt.endTime}
-                      </span>
-                      <StatusBadge status={appt.status} />
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
+            ))}
           </div>
-
-          {/* Recent Invoices */}
-          <div className="rounded-xl border border-border bg-surface">
-            <div className="flex items-center justify-between border-b border-border px-6 py-4">
-              <h2 className="text-lg font-semibold">Recent Invoices</h2>
-              <TrendingUp className="h-5 w-5 text-text-secondary" />
-            </div>
-            <div className="divide-y divide-border">
-              {data.recentInvoices.map((inv) => (
-                <div
-                  key={inv.id}
-                  className="flex items-center justify-between px-6 py-3"
-                >
-                  <div>
-                    <p className="text-sm font-medium">
-                      {inv.invoiceNumber}
-                    </p>
-                    <p className="text-xs text-text-secondary">
-                      {inv.client.firstName} {inv.client.lastName} &middot;{" "}
-                      {inv.billingType}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm font-medium">
-                      ${inv.total.toFixed(2)}
-                    </span>
-                    <StatusBadge status={inv.status} />
-                  </div>
-                </div>
-              ))}
-            </div>
+        </div>
+        {/* Compose area */}
+        <div className="border-t border-border p-3">
+          <div className="flex items-center gap-2 text-text-secondary">
+            <button className="p-1 hover:text-text"><span className="text-sm font-bold">B</span></button>
+            <button className="p-1 hover:text-text"><span className="text-sm italic">I</span></button>
+            <button className="p-1 hover:text-text"><span className="text-sm underline">U</span></button>
+            <span className="mx-1 text-border">|</span>
+            <button className="p-1 hover:text-text"><span className="text-sm">Aa</span></button>
+            <div className="flex-1" />
+            <button className="rounded-lg bg-primary px-4 py-1.5 text-sm font-medium text-white hover:bg-primary-dark">
+              Send
+            </button>
           </div>
         </div>
       </div>
-    </>
+
+      {/* Right column — Analytics */}
+      <div className="w-[420px] shrink-0 overflow-y-auto">
+        {/* Income chart area */}
+        <div className="border-b border-border p-4">
+          <h3 className="mb-4 text-sm font-semibold text-text">Income</h3>
+          <div className="flex h-48 items-end gap-2 rounded-lg bg-gray-50 p-4">
+            {["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"].map((month, i) => {
+              const heights = [8, 12, 20, 80, 6, 10, 15];
+              return (
+                <div key={month} className="flex flex-1 flex-col items-center gap-1">
+                  <div
+                    className="w-full rounded-t bg-lime-400"
+                    style={{ height: `${heights[i]}%` }}
+                  />
+                  <span className="text-[10px] text-text-secondary">{month}</span>
+                </div>
+              );
+            })}
+          </div>
+          <div className="mt-2 flex items-center justify-center gap-4 text-xs text-text-secondary">
+            <span className="flex items-center gap-1">
+              <span className="h-2 w-2 rounded-full bg-lime-400" /> Invoices
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="h-2 w-2 rounded-full bg-primary" /> Payments
+            </span>
+          </div>
+        </div>
+
+        {/* Incomplete progress notes */}
+        <div className="border-b border-border p-4">
+          <h3 className="mb-3 text-sm font-semibold text-text">Incomplete progress notes</h3>
+          <div className="space-y-2">
+            {data.unsignedNotes.length === 0 ? (
+              <p className="text-sm text-text-secondary">No incomplete notes</p>
+            ) : (
+              data.unsignedNotes.map((note) => (
+                <div key={note.id} className="flex items-center justify-between">
+                  <span className="text-sm text-primary">
+                    {note.client.firstName} {note.client.lastName} ({note.template})
+                  </span>
+                  <span className="text-xs text-text-secondary">{note.date}</span>
+                </div>
+              ))
+            )}
+            <button className="text-sm text-primary hover:underline">Load more</button>
+          </div>
+        </div>
+
+        {/* Recently submitted forms */}
+        <div className="p-4">
+          <h3 className="mb-3 text-sm font-semibold text-text">Recently submitted forms</h3>
+          <div className="space-y-2">
+            {data.recentInvoices.slice(0, 3).map((inv) => (
+              <div key={inv.id} className="flex items-center justify-between">
+                <span className="text-sm text-primary">
+                  {inv.client.firstName} {inv.client.lastName}
+                </span>
+                <span className="text-xs text-text-secondary">{inv.date}</span>
+              </div>
+            ))}
+            <button className="text-sm text-primary hover:underline">Load more</button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
