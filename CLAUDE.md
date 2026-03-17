@@ -6,7 +6,7 @@ High-fidelity UI prototype of [Splose](https://splose.com), a practice managemen
 
 - **Framework**: Next.js 15 (App Router) with React 19
 - **Language**: TypeScript
-- **Database**: SQLite via Prisma 7 (with better-sqlite3 adapter)
+- **Database**: Turso (libSQL) via Prisma 7 adapter
 - **Styling**: Tailwind CSS 4
 - **Icons**: Lucide React
 
@@ -14,10 +14,17 @@ High-fidelity UI prototype of [Splose](https://splose.com), a practice managemen
 
 ```bash
 npm install
-npx prisma generate
-npx prisma migrate dev
-npx tsx prisma/seed.ts
+cp .env.example .env  # Add your Turso credentials
+npx prisma db push
+npm run db:seed
 npm run dev
+```
+
+### Environment Variables
+
+```
+TURSO_DATABASE_URL=libsql://your-db.turso.io
+TURSO_AUTH_TOKEN=your-token
 ```
 
 ## Project Structure
@@ -58,6 +65,6 @@ prisma/
 
 - Server components by default; `"use client"` only where needed (Sidebar, Header)
 - `export const dynamic = "force-dynamic"` on data-fetching pages for fresh reads
-- Prisma client uses better-sqlite3 adapter (Prisma v7 requirement)
+- Prisma client uses libSQL/Turso adapter (Prisma v7 requirement)
 - Tailwind uses CSS theme variables defined in `globals.css`
 - Australian locale (date formats, Medicare, NDIS references)
