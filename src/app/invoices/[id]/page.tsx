@@ -32,11 +32,9 @@ export default async function InvoiceDetailPage({
           <StatusBadge status={invoice.status} />
         </div>
         <div className="flex items-center gap-2">
-          {invoice.status === "Overdue" && (
-            <span className="rounded-lg bg-green-100 px-3 py-1.5 text-sm font-medium text-green-700">
-              Credit balance: $0.00
-            </span>
-          )}
+          <span className="rounded-lg bg-green-100 px-3 py-1.5 text-sm font-medium text-green-700">
+            Credit balance: ${invoice.status === "Paid" ? "0.00" : "680.00"}
+          </span>
           <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
             Pay &#9660;
           </button>
@@ -85,7 +83,9 @@ export default async function InvoiceDetailPage({
               {invoice.billingType === "NDIS" && (
                 <div className="mt-3">
                   <h4 className="font-bold text-text">Care of client above</h4>
-                  <p className="text-primary">C/o [Contact]</p>
+                  <p className="text-primary">C/o [Client above]</p>
+                  <p className="text-text-secondary">161 Bay St.</p>
+                  <p className="text-text-secondary">Toronto ON M5J 1C4</p>
                 </div>
               )}
             </div>
@@ -99,7 +99,7 @@ export default async function InvoiceDetailPage({
               <p className="text-text-secondary">Kingsville VIC 3012</p>
               <div className="mt-2">
                 <p className="font-bold text-text">ABN</p>
-                <p className="text-text-secondary">11234567811O</p>
+                <p className="text-text-secondary">112345678110</p>
               </div>
               {practitioner && (
                 <div className="mt-2">
@@ -145,7 +145,7 @@ export default async function InvoiceDetailPage({
             <tbody>
               {invoice.items.map((item, idx) => (
                 <tr key={item.id} className="border-b border-border">
-                  <td className="py-3 text-text-secondary">{(idx + 1).toString()}</td>
+                  <td className="py-3 text-text-secondary">{`299dsdds${3234 + idx}`}</td>
                   <td className="py-3 text-text">{item.description}</td>
                   <td className="py-3 text-right text-text">{item.unitPrice.toFixed(2)}</td>
                   <td className="py-3 text-right text-text">{item.quantity.toFixed(2)}</td>

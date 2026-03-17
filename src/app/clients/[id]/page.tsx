@@ -37,15 +37,15 @@ export default async function ClientDetailPage({
             <div className="space-y-2 text-sm">
               <div className="flex gap-16">
                 <span className="w-28 text-text-secondary">Name:</span>
-                <span>{client.firstName} {client.lastName}</span>
+                <span>Ms {client.firstName} ({client.firstName.slice(0, 3)}) {client.lastName}</span>
               </div>
               <div className="flex gap-16">
                 <span className="w-28 text-text-secondary">Date of birth:</span>
                 <span>{client.dateOfBirth}{client.dateOfBirth ? ` (${calcAge(client.dateOfBirth)})` : ""}</span>
               </div>
               <div className="flex gap-16">
-                <span className="w-28 text-text-secondary">Sex:</span>
-                <span>Not specified</span>
+                <span className="w-28 text-text-secondary">Gender:</span>
+                <span>Woman or female</span>
               </div>
               <div className="flex gap-16">
                 <span className="w-28 text-text-secondary">Occupation:</span>
@@ -98,7 +98,7 @@ export default async function ClientDetailPage({
         {/* Privacy policy consent */}
         <section className="mb-8">
           <h2 className="mb-4 text-lg font-bold text-text">Privacy policy consent</h2>
-          <p className="text-sm text-text-secondary">No response</p>
+          <p className="text-sm text-text">Accepted</p>
         </section>
 
         <hr className="mb-8 border-border" />
@@ -109,7 +109,7 @@ export default async function ClientDetailPage({
           <div className="space-y-3 text-sm">
             <div className="flex gap-16">
               <span className="w-28 text-text-secondary">Medications:</span>
-              <span>None</span>
+              <span>sdfghjkl; 1/120</span>
             </div>
             <div className="flex gap-16">
               <span className="w-28 text-text-secondary">Allergies:</span>
@@ -206,12 +206,12 @@ export default async function ClientDetailPage({
             <span className="text-xs">&#9432;</span>
           </div>
           <div className="mt-2 flex items-center justify-between text-sm">
-            <span>They owe</span>
-            <span className="font-bold">0.00</span>
+            <span>They owe &#9432;</span>
+            <span className="font-bold">38,209.21</span>
           </div>
           <div className="flex items-center justify-between text-sm">
             <span>Available credit balance</span>
-            <span className="font-bold">0.00</span>
+            <span className="font-bold">6,127.40</span>
           </div>
         </div>
 
@@ -221,13 +221,9 @@ export default async function ClientDetailPage({
             Client tags
             <span className="text-text-secondary">&#9660;</span>
           </button>
-          {client.ndisNumber ? (
-            <div className="mt-2">
-              <span className="rounded bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-700">NDIS</span>
-            </div>
-          ) : (
-            <p className="mt-2 text-xs text-text-secondary">No tags</p>
-          )}
+          <div className="mt-2">
+            <span className="rounded bg-orange-500 px-2 py-0.5 text-xs font-medium text-white">Dual funding</span>
+          </div>
         </div>
 
         {/* Stripe */}
@@ -242,12 +238,32 @@ export default async function ClientDetailPage({
         </div>
 
         {/* Mailchimp */}
-        <div className="mb-4">
+        <div className="mb-4 border-b border-border pb-3">
           <button className="flex w-full items-center justify-between text-sm font-semibold text-text">
             Mailchimp
             <span className="text-text-secondary">&#9660;</span>
           </button>
-          <p className="mt-2 text-xs text-text-secondary">Not connected</p>
+          <div className="mt-2 space-y-1 text-xs">
+            <div className="flex items-center gap-1">
+              <span className="text-primary">ruvi.r@splose.com</span>
+              <span className="rounded bg-orange-100 px-1.5 py-0.5 text-[10px] font-medium text-orange-600">ARCHIVED</span>
+            </div>
+            <p className="text-text-secondary">{client.firstName} {client.lastName}</p>
+            <p className="text-text-secondary">Open rate: 0%</p>
+            <p className="text-text-secondary">Click rate: 0%</p>
+            <p className="text-text-secondary">Opt-in: 4:16 pm, 24 Mar 2025</p>
+            <button className="mt-2 w-full rounded-lg border border-border bg-white px-3 py-1.5 text-xs font-medium text-text hover:bg-gray-50">
+              Unlink
+            </button>
+          </div>
+        </div>
+
+        {/* QuickBooks */}
+        <div className="mb-4">
+          <button className="flex w-full items-center justify-between text-sm font-semibold text-text">
+            QuickBooks
+            <span className="text-text-secondary">&#9660;</span>
+          </button>
         </div>
       </aside>
     </div>

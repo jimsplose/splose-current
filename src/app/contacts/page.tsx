@@ -2,16 +2,16 @@ import { Plus, ArrowUpDown, Filter } from "lucide-react";
 import Link from "next/link";
 
 const mockContacts = [
-  { id: "1", type: "3rd party payer", name: "NDIS", company: "", email: "ndis.claims@email.com", workPhone: "", mobilePhone: "" },
-  { id: "2", type: "Doctor", name: "Dr. Sarah Mitchell", company: "Melbourne Medical Centre", email: "s.mitchell@mmc.com.au", workPhone: "+61 3 9876 5432", mobilePhone: "" },
-  { id: "3", type: "Plan manager", name: "Plan Partners", company: "Plan Partners Pty Ltd", email: "claims@planpartners.com.au", workPhone: "+61 3 9000 1234", mobilePhone: "" },
-  { id: "4", type: "Standard", name: "Company A", company: "", email: "", workPhone: "", mobilePhone: "" },
-  { id: "5", type: "Parent", name: "Margaret Anderson", company: "", email: "m.anderson@email.com", workPhone: "", mobilePhone: "+61 412 345 678" },
-  { id: "6", type: "3rd party payer", name: "WorkCover Victoria", company: "", email: "claims@workcover.vic.gov.au", workPhone: "+61 3 9641 1444", mobilePhone: "" },
-  { id: "7", type: "Doctor", name: "Dr. James Lee", company: "Carlton Family Practice", email: "j.lee@cfp.com.au", workPhone: "+61 3 9347 8888", mobilePhone: "" },
-  { id: "8", type: "Plan manager", name: "My Plan Manager", company: "My Plan Manager", email: "invoices@myplanmanager.com.au", workPhone: "+61 1800 861 272", mobilePhone: "" },
-  { id: "9", type: "Standard", name: "Harry Mann", company: "", email: "", workPhone: "", mobilePhone: "" },
-  { id: "10", type: "Doctor", name: "Dr. Wei Chen", company: "Richmond Health", email: "wei.chen@richmondhealth.com.au", workPhone: "+61 3 9421 5555", mobilePhone: "+61 423 939 047" },
+  { id: "1", type: "", name: "jh", company: "", email: "", workPhone: "", mobilePhone: "" },
+  { id: "2", type: "3rd party payer", name: "NDIS", company: "", email: "ruvishka.info@gmail.com", workPhone: "", mobilePhone: "" },
+  { id: "3", type: "Doctor", name: "Cheng Contact", company: "woodlake medical centre", email: "cheng@splose.com", workPhone: "", mobilePhone: "" },
+  { id: "4", type: "Plan manager", name: "scott", company: "", email: "sctt@splose.com", workPhone: "", mobilePhone: "" },
+  { id: "5", type: "Standard", name: "Company A", company: "", email: "", workPhone: "", mobilePhone: "" },
+  { id: "6", type: "Parent", name: "Test", company: "", email: "", workPhone: "", mobilePhone: "" },
+  { id: "7", type: "3rd party payer", name: "NDIS", company: "", email: "", workPhone: "", mobilePhone: "" },
+  { id: "8", type: "Doctor", name: "Wei", company: "This is wei's company", email: "wei.luo@splose.com", workPhone: "", mobilePhone: "+61 423939047" },
+  { id: "9", type: "Plan manager", name: "Your Plan Manager", company: "", email: "", workPhone: "", mobilePhone: "" },
+  { id: "10", type: "Standard", name: "Harry Mann", company: "", email: "", workPhone: "", mobilePhone: "" },
 ];
 
 export default function ContactsPage() {

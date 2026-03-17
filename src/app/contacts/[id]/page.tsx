@@ -37,7 +37,7 @@ export default function ContactDetailPage({ params }: { params: Promise<{ id: st
             <span className="rounded bg-gray-100 px-2 py-0.5 text-sm text-text-secondary">NDIS</span>
           </div>
           <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-            Actions
+            Actions &#9660;
           </button>
         </div>
 
@@ -70,11 +70,11 @@ export default function ContactDetailPage({ params }: { params: Promise<{ id: st
             <div className="rounded-lg border border-border bg-white">
               <div className="flex border-b border-border">
                 <div className="w-40 shrink-0 px-4 py-3 text-sm text-text-secondary">Email</div>
-                <div className="px-4 py-3 text-sm text-primary">ndis.claims@email.com</div>
+                <div className="px-4 py-3 text-sm text-primary">ruvishka.info@gmail.com</div>
               </div>
               <div className="flex">
                 <div className="w-40 shrink-0 px-4 py-3 text-sm text-text-secondary">Note</div>
-                <div className="px-4 py-3 text-sm text-text">additional notes / imported info</div>
+                <div className="px-4 py-3 text-sm text-text">additional notes / imported info under splose templates column W</div>
               </div>
             </div>
           </div>
@@ -95,11 +95,11 @@ export default function ContactDetailPage({ params }: { params: Promise<{ id: st
                 </thead>
                 <tbody>
                   <tr className="border-b border-border">
-                    <td className="px-4 py-2 text-sm text-primary">Lisa Martinez</td>
-                    <td className="px-4 py-2 text-sm text-text-secondary">22 Jul 1992</td>
-                    <td className="px-4 py-2 text-center text-sm text-text-secondary">3</td>
-                    <td className="px-4 py-2 text-center text-sm text-text-secondary">1</td>
-                    <td className="px-4 py-2 text-center text-sm text-text-secondary">1</td>
+                    <td className="px-4 py-2 text-sm text-primary">Skyler Peterson</td>
+                    <td className="px-4 py-2 text-sm text-text-secondary">5 Jun 2011</td>
+                    <td className="px-4 py-2 text-center text-sm text-text-secondary"></td>
+                    <td className="px-4 py-2 text-center text-sm text-text-secondary"></td>
+                    <td className="px-4 py-2 text-center text-sm text-text-secondary"></td>
                   </tr>
                 </tbody>
               </table>
