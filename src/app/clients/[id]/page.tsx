@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import { Pencil } from "lucide-react";
+import { Pencil, Send, Plus } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -16,15 +16,44 @@ export default async function ClientDetailPage({
 
   if (!client) notFound();
 
+  const tabs = ["Details", "Appointments", "Invoices", "Notes", "Forms", "Letters", "Files"];
+
   return (
-    <div className="flex flex-1 overflow-hidden">
+    <div className="flex flex-1 flex-col overflow-hidden">
+      {/* Tab bar */}
+      <div className="border-b border-border bg-white px-6">
+        <nav className="flex gap-6">
+          {tabs.map((tab) => (
+            <span
+              key={tab}
+              className={`inline-block border-b-2 px-1 py-3 text-sm font-medium ${
+                tab === "Details"
+                  ? "border-primary text-primary"
+                  : "border-transparent text-text-secondary hover:text-text hover:border-gray-300"
+              }`}
+            >
+              {tab}
+            </span>
+          ))}
+        </nav>
+      </div>
+
+      <div className="flex flex-1 overflow-hidden">
       {/* Main content */}
       <div className="flex-1 overflow-y-auto p-6">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold text-text">Details</h1>
-          <button className="flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
-            Edit <Pencil className="h-3.5 w-3.5" />
-          </button>
+          <div className="flex items-center gap-2">
+            <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
+              Edit <Pencil className="h-3.5 w-3.5" />
+            </button>
+            <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
+              <Send className="h-3.5 w-3.5" /> Send upcoming appointments
+            </button>
+            <button className="flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+              <Plus className="h-4 w-4" /> New appointment
+            </button>
+          </div>
         </div>
 
         {/* General details */}
@@ -266,6 +295,7 @@ export default async function ClientDetailPage({
           </button>
         </div>
       </aside>
+      </div>
     </div>
   );
 }
