@@ -16,13 +16,24 @@ High-fidelity UI prototype of [Splose](https://splose.com), a practice managemen
 
 ## Reference Screenshots
 
-Reference screenshots of the real Splose app are in `screenshots/reference/`. These are the design targets — each page in the prototype should match these as closely as possible.
+Reference screenshots of the real Splose app are in `screenshots/reference/`. These are the design targets — each page in the prototype should match these as closely as possible. **New screenshots are added regularly** — there are ~180+ and growing.
 
-When working on UI fidelity:
+### Screenshot naming convention
+Files are named `Screenshot YYYY-MM-DD at H.MM.SS am/pm.png`. They are NOT organized by page — you must read them to determine which page/feature they show.
+
+### Handling new screenshots
+At the start of each session (or when asked to review screenshots):
+1. **Scan for unprocessed screenshots** — Compare the full list in `screenshots/reference/` against `screenshots/processed.txt` (a log of already-reviewed filenames)
+2. **Review new screenshots in parallel** — Launch Explore agents to read batches of new screenshots and categorize them by page/feature
+3. **Implement changes** — Use the parallel subagent workflow (see below) to update pages to match
+4. **Log processed screenshots** — Append reviewed filenames to `screenshots/processed.txt` so future sessions skip them
+
+### When working on UI fidelity
 1. Read the relevant screenshot(s) from `screenshots/reference/`
-2. Compare against the current prototype page
-3. Adjust layout, spacing, colors, typography, and component structure to match
-4. Commit and push changes
+2. Compare against the current prototype page source code
+3. Adjust layout, spacing, colors, typography, component structure, and interactivity to match
+4. Pay attention to: modals, dropdowns, hover states, tab switching, expandable rows, form fields, and other interactive elements shown in screenshots
+5. Build, commit, and push changes
 
 ## Environment Variables
 
@@ -187,8 +198,11 @@ Gaps are grouped by which files they touch, so you can see what's safe to parall
 ### Group G — Database (`prisma/seed.ts`, `src/app/api/seed/`)
 8. **Database re-seed** — Expand to 10+ clients, 18+ appointments, 8+ invoices with varied statuses.
 
-### Group H — Sweep (reads all files)
-9. **General screenshot review** — Review all ~80 screenshots and fix remaining visual gaps. Run this last.
+### Group H — New screenshot intake (reads all files)
+9. **Process new screenshots** — Check `screenshots/reference/` against `screenshots/processed.txt` to find unreviewed screenshots. Launch Explore agents in parallel (batches of 10-15) to read and categorize them by page/feature. Then create new gaps or update existing pages to match. Append processed filenames to `screenshots/processed.txt`. This should run at the **start** of each session to pick up newly added screenshots.
+
+### Group I — Sweep (reads all files)
+10. **General fidelity sweep** — Review all pages against their closest reference screenshots and fix remaining visual gaps. Run this last after all other gaps are resolved.
 
 ## Git Workflow
 
