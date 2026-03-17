@@ -1,7 +1,37 @@
-import { Plus } from "lucide-react";
+"use client";
 
-const mockProducts = [
-  { name: "Balance ball", category: "Physiotherapy", vendor: "", stock: 141 },
+import { Plus, Search, MoreHorizontal, ChevronLeft, ChevronRight, Minus } from "lucide-react";
+import { useState, useMemo, Fragment } from "react";
+
+interface ProductVariant {
+  name: string;
+  sku: string;
+  price: number | null;
+  stock: number | null;
+  unit: string;
+}
+
+interface Product {
+  name: string;
+  category: string;
+  vendor: string;
+  stock: number | null;
+  archived?: boolean;
+  variants?: ProductVariant[];
+}
+
+const mockProducts: Product[] = [
+  {
+    name: "Balance ball",
+    category: "Physiotherapy",
+    vendor: "",
+    stock: 141,
+    variants: [
+      { name: "Medium", sku: "55", price: 110.0, stock: 120, unit: "Milligrams" },
+      { name: "Large", sku: "12", price: 150.0, stock: 21, unit: "Milligrams" },
+      { name: "X Large", sku: "", price: 170.0, stock: null, unit: "Items" },
+    ],
+  },
   { name: "Roller", category: "Roller", vendor: "", stock: 5 },
   { name: "Train", category: "transport", vendor: "Tesla", stock: 14 },
   { name: "test add op", category: "", vendor: "", stock: null },
@@ -11,15 +41,75 @@ const mockProducts = [
   { name: "Crystal", category: "", vendor: "", stock: null },
   { name: "Grippy socks", category: "Support Item", vendor: "", stock: 16 },
   { name: "Test", category: "", vendor: "", stock: null },
+  { name: "Resistance band", category: "Physiotherapy", vendor: "", stock: 30, archived: true },
+  { name: "Foam roller (old)", category: "Roller", vendor: "", stock: 0, archived: true },
 ];
 
+const ITEMS_PER_PAGE = 10;
+
 export default function ProductsPage() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showArchived, setShowArchived] = useState(false);
+  const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const filteredProducts = useMemo(() => {
+    let products = mockProducts;
+    if (!showArchived) {
+      products = products.filter((p) => !p.archived);
+    }
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      products = products.filter((p) => p.name.toLowerCase().includes(query));
+    }
+    return products;
+  }, [searchQuery, showArchived]);
+
+  const totalItems = filteredProducts.length;
+  const totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const paginatedProducts = filteredProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const displayStart = totalItems === 0 ? 0 : startIndex + 1;
+  const displayEnd = Math.min(startIndex + ITEMS_PER_PAGE, totalItems);
+
+  const toggleExpand = (index: number) => {
+    setExpandedRows((prev) => {
+      const next = new Set(prev);
+      if (next.has(index)) {
+        next.delete(index);
+      } else {
+        next.add(index);
+      }
+      return next;
+    });
+  };
+
+  const handleSearch = () => {
+    setCurrentPage(1);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
     <div className="p-6">
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Products</h1>
         <div className="flex items-center gap-2">
-          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+          <button
+            onClick={() => {
+              setShowArchived(!showArchived);
+              setCurrentPage(1);
+            }}
+            className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
+              showArchived
+                ? "border-primary bg-primary/5 text-primary"
+                : "border-border bg-white text-text hover:bg-gray-50"
+            }`}
+          >
             Display archived products
           </button>
           <button className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
@@ -33,9 +123,16 @@ export default function ProductsPage() {
         <input
           type="text"
           placeholder="Search for product by name"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyDown={handleKeyDown}
           className="h-10 flex-1 rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
         />
-        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+        <button
+          onClick={handleSearch}
+          className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50"
+        >
+          <Search className="h-4 w-4" />
           Search
         </button>
       </div>
@@ -44,46 +141,172 @@ export default function ProductsPage() {
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-purple-50">
+              <th className="w-8 px-2 py-3"></th>
               <th className="px-4 py-3 text-left text-sm font-medium text-text">Name</th>
               <th className="px-4 py-3 text-left text-sm font-medium text-text">Category</th>
               <th className="px-4 py-3 text-left text-sm font-medium text-text">Vendor</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text">Stock</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
+              <th className="px-4 py-3 text-center text-sm font-medium text-text">Stock</th>
+              <th className="w-16 px-4 py-3 text-center text-sm font-medium text-text">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
-            {mockProducts.map((product, idx) => (
-              <tr key={idx} className="cursor-pointer transition-colors hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm">
-                  <div className="flex items-center gap-2">
-                    <span className="text-text-secondary">+</span>
-                    <span className="text-text">{product.name}</span>
-                  </div>
-                </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{product.category}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{product.vendor}</td>
-                <td className="px-4 py-3 text-right text-sm text-text-secondary">
-                  {product.stock !== null ? product.stock : "-"}
-                </td>
-                <td className="px-4 py-3 text-right">
-                  <button className="text-text-secondary hover:text-text">...</button>
+            {paginatedProducts.map((product, idx) => {
+              const globalIndex = startIndex + idx;
+              const isExpanded = expandedRows.has(globalIndex);
+              const hasVariants = product.variants && product.variants.length > 0;
+
+              return (
+                <Fragment key={globalIndex}>
+                  <tr
+                    className={`cursor-pointer transition-colors hover:bg-gray-50 ${
+                      product.archived ? "opacity-60" : ""
+                    }`}
+                    onClick={() => hasVariants && toggleExpand(globalIndex)}
+                  >
+                    <td className="px-2 py-3 text-center">
+                      {hasVariants ? (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleExpand(globalIndex);
+                          }}
+                          className="inline-flex h-5 w-5 items-center justify-center rounded-full text-text-secondary hover:bg-gray-200"
+                        >
+                          {isExpanded ? (
+                            <Minus className="h-3.5 w-3.5" />
+                          ) : (
+                            <Plus className="h-3.5 w-3.5" />
+                          )}
+                        </button>
+                      ) : (
+                        <span className="inline-flex h-5 w-5 items-center justify-center text-text-secondary">
+                          <Plus className="h-3.5 w-3.5" />
+                        </span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3 text-sm text-text">{product.name}</td>
+                    <td className="px-4 py-3 text-sm text-text-secondary">{product.category}</td>
+                    <td className="px-4 py-3 text-sm text-text-secondary">{product.vendor}</td>
+                    <td className="px-4 py-3 text-center text-sm text-text-secondary">
+                      {product.stock !== null ? product.stock : "-"}
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      <button
+                        onClick={(e) => e.stopPropagation()}
+                        className="inline-flex items-center justify-center rounded p-1 text-text-secondary hover:bg-gray-100 hover:text-text"
+                      >
+                        <MoreHorizontal className="h-4 w-4" />
+                      </button>
+                    </td>
+                  </tr>
+
+                  {isExpanded && hasVariants && (
+                    <tr>
+                      <td colSpan={6} className="bg-gray-50/50 px-0 py-0">
+                        <div className="px-8 py-2">
+                          <table className="w-full">
+                            <thead>
+                              <tr className="border-b border-border">
+                                <th className="px-4 py-2 text-left text-sm font-medium text-text">
+                                  Name
+                                </th>
+                                <th className="px-4 py-2 text-left text-sm font-medium text-text">
+                                  SKU
+                                </th>
+                                <th className="px-4 py-2 text-left text-sm font-medium text-text">
+                                  Price
+                                </th>
+                                <th className="px-4 py-2 text-left text-sm font-medium text-text">
+                                  Stock
+                                </th>
+                                <th className="px-4 py-2 text-left text-sm font-medium text-text">
+                                  Unit
+                                </th>
+                                <th className="px-4 py-2 text-left text-sm font-medium text-primary">
+                                  Actions
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y divide-border">
+                              {product.variants!.map((variant, vIdx) => (
+                                <tr key={vIdx} className="hover:bg-gray-50">
+                                  <td className="px-4 py-2 text-sm text-text">{variant.name}</td>
+                                  <td className="px-4 py-2 text-sm text-text-secondary">
+                                    {variant.sku}
+                                  </td>
+                                  <td className="px-4 py-2 text-sm text-text-secondary">
+                                    {variant.price !== null ? variant.price.toFixed(2) : "-"}
+                                  </td>
+                                  <td className="px-4 py-2 text-sm text-text-secondary">
+                                    {variant.stock !== null ? variant.stock : "-"}
+                                  </td>
+                                  <td className="px-4 py-2 text-sm text-text-secondary">
+                                    {variant.unit}
+                                  </td>
+                                  <td className="px-4 py-2 text-sm">
+                                    <button className="text-primary hover:underline">
+                                      Manage Stock
+                                    </button>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </Fragment>
+              );
+            })}
+
+            {paginatedProducts.length === 0 && (
+              <tr>
+                <td colSpan={6} className="px-4 py-8 text-center text-sm text-text-secondary">
+                  No products found.
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
+
         <div className="flex items-center justify-end border-t border-border px-4 py-3 text-sm text-text-secondary">
-          <span>1-10 of 24 items</span>
+          <span>
+            {displayStart}-{displayEnd} of {totalItems} items
+          </span>
           <div className="ml-4 flex items-center gap-1">
-            <span>&lt;</span>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-primary bg-white text-xs font-medium text-primary">1</button>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-border bg-white text-xs font-medium text-text-secondary">2</button>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-border bg-white text-xs font-medium text-text-secondary">3</button>
-            <span>&gt;</span>
+            <button
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="flex items-center justify-center rounded p-1 text-text-secondary hover:bg-gray-100 disabled:opacity-30"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                className={`flex h-7 w-7 items-center justify-center rounded border text-xs font-medium ${
+                  page === currentPage
+                    ? "border-primary bg-white text-primary"
+                    : "border-border bg-white text-text-secondary hover:bg-gray-50"
+                }`}
+              >
+                {page}
+              </button>
+            ))}
+            <button
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="flex items-center justify-center rounded p-1 text-text-secondary hover:bg-gray-100 disabled:opacity-30"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
           </div>
-          <span className="ml-4">10 / page</span>
+          <span className="ml-4">{ITEMS_PER_PAGE} / page</span>
         </div>
       </div>
     </div>
   );
 }
+
