@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import StatusBadge from "@/components/StatusBadge";
 import { prisma } from "@/lib/prisma";
 import { Plus, Download, Filter } from "lucide-react";
@@ -23,7 +22,6 @@ export default async function InvoicesPage() {
 
   return (
     <>
-      <Header title="Invoices" />
       <div className="p-6">
         {/* Invoice stats */}
         <div className="mb-6 grid grid-cols-5 gap-4">

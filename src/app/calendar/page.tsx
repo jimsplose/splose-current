@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import StatusBadge from "@/components/StatusBadge";
 import { prisma } from "@/lib/prisma";
 import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
@@ -22,7 +21,6 @@ export default async function CalendarPage() {
 
   return (
     <>
-      <Header title="Calendar" />
       <div className="p-6">
         {/* Calendar toolbar */}
         <div className="mb-6 flex items-center justify-between">

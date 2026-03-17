@@ -6,7 +6,6 @@ import {
   Clock,
   TrendingUp,
 } from "lucide-react";
-import Header from "@/components/Header";
 import StatusBadge from "@/components/StatusBadge";
 import { prisma } from "@/lib/prisma";
 
@@ -84,7 +83,6 @@ export default async function Dashboard() {
 
   return (
     <>
-      <Header title="Dashboard" />
       <div className="p-6">
         {/* Stats Grid */}
         <div className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

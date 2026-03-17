@@ -108,6 +108,21 @@ scripts/
 - **Australian locale** — dates, Medicare numbers, NDIS references, AUD currency
 - **`tsconfig.json` excludes** — `prisma/seed.ts` and `scripts/` are excluded from Next.js type checking (they run standalone via `tsx`)
 
+## Working Style
+
+**The project owner (Jim) is non-technical and does not use the terminal.** All coding, git operations, builds, deployments, and debugging should be handled entirely by Claude Code. Never ask Jim to:
+- Run terminal commands locally
+- Edit code or config files manually
+- Debug build errors or git conflicts
+- Install packages or tools
+
+If something requires action on Jim's local Mac (e.g. pushing screenshots), provide exact copy-paste commands with clear context. Keep these to an absolute minimum — prefer doing everything from the cloud environment.
+
+When changes need to reach production:
+1. Claude Code commits and pushes to `claude/*` branch
+2. Claude Code updates `main` via GitHub API (fast-forward)
+3. Vercel auto-deploys from `main`
+
 ## Git Workflow
 
 - Claude Code works on `claude/*` branches, then updates `main` via GitHub API

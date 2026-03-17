@@ -1,64 +1,83 @@
-import Header from "@/components/Header";
-import { Building2, Bell, Shield, Palette, Globe, CreditCard } from "lucide-react";
-
 export default function SettingsPage() {
   const sections = [
     {
-      icon: Building2,
-      title: "Practice Details",
-      description: "Manage your practice name, address, and contact information",
+      title: "Workspace",
+      items: ["Details", "Integrations", "SMS settings"],
     },
     {
-      icon: Bell,
-      title: "Notifications",
-      description: "Configure email, SMS, and in-app notification preferences",
+      title: "Automation",
+      items: ["Forms", "splose AI"],
     },
     {
-      icon: Shield,
-      title: "Users & Permissions",
-      description: "Manage team members, roles, and access permissions",
+      title: "Business",
+      items: [
+        "Locations",
+        "Custom fields",
+        "Rooms/Resources",
+        "Services",
+        "Busy times",
+        "Cancellation reasons",
+        "Online bookings",
+        "Communication types",
+        "Tags",
+        "Referral types",
+      ],
     },
     {
-      icon: Palette,
-      title: "Appearance",
-      description: "Customize branding, colors, and display preferences",
+      title: "Team",
+      items: ["Users", "User groups"],
     },
     {
-      icon: Globe,
-      title: "Integrations",
-      description: "Connect with Medicare, NDIS, accounting, and other services",
+      title: "Templates",
+      items: ["Appointments", "Emails", "Progress notes", "Letters", "Body charts"],
     },
     {
-      icon: CreditCard,
-      title: "Billing & Subscription",
-      description: "Manage your Splose subscription and payment methods",
+      title: "Finances",
+      items: ["Payments", "Invoices"],
     },
   ];
 
   return (
-    <>
-      <Header title="Settings" />
-      <div className="p-6">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {sections.map((section) => {
-            const Icon = section.icon;
-            return (
-              <button
-                key={section.title}
-                className="rounded-xl border border-border bg-surface p-6 text-left transition-shadow hover:shadow-md"
-              >
-                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100">
-                  <Icon className="h-5 w-5 text-primary" />
-                </div>
-                <h3 className="font-semibold">{section.title}</h3>
-                <p className="mt-1 text-sm text-text-secondary">
-                  {section.description}
-                </p>
-              </button>
-            );
-          })}
-        </div>
+    <div className="flex min-h-[calc(100vh-3rem)]">
+      {/* Left sidebar */}
+      <aside className="w-64 shrink-0 border-r border-border bg-white p-4 overflow-y-auto">
+        {sections.map((section) => (
+          <div key={section.title} className="mb-4">
+            <h3 className="mb-1 text-xs font-bold uppercase tracking-wider text-text">
+              {section.title}
+            </h3>
+            <ul className="space-y-0.5">
+              {section.items.map((item, i) => (
+                <li key={item}>
+                  <button
+                    className={`w-full rounded px-3 py-1.5 text-left text-sm transition-colors hover:bg-purple-50 hover:text-primary ${
+                      section.title === "Workspace" && i === 0
+                        ? "border-l-2 border-primary bg-purple-50 text-primary font-medium"
+                        : "text-text-secondary"
+                    }`}
+                  >
+                    {item}
+                    {item === "Online bookings" && (
+                      <span className="ml-2 rounded bg-primary px-1.5 py-0.5 text-[10px] font-bold text-white">
+                        New
+                      </span>
+                    )}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </aside>
+
+      {/* Main content */}
+      <div className="flex flex-1 flex-col items-center justify-center p-8">
+        <div className="mb-6 text-6xl">&#9881;</div>
+        <h2 className="text-xl font-bold text-text">All your settings in one place</h2>
+        <p className="mt-2 text-sm text-text-secondary">
+          Select a page to customise settings
+        </p>
       </div>
-    </>
+    </div>
   );
 }

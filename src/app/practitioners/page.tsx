@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import { prisma } from "@/lib/prisma";
 import { Plus, Mail, Phone } from "lucide-react";
 
@@ -17,7 +16,6 @@ export default async function PractitionersPage() {
 
   return (
     <>
-      <Header title="Practitioners" />
       <div className="p-6">
         <div className="mb-6 flex justify-end">
           <button className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">

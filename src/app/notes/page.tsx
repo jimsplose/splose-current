@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import { prisma } from "@/lib/prisma";
 import { Plus, FileText, Filter } from "lucide-react";
 
@@ -12,7 +11,6 @@ export default async function NotesPage() {
 
   return (
     <>
-      <Header title="Clinical Notes" />
       <div className="p-6">
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
