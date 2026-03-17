@@ -3,7 +3,15 @@ import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
+export async function GET() {
+  return seed();
+}
+
 export async function POST() {
+  return seed();
+}
+
+async function seed() {
   try {
     // Check if already seeded
     const existing = await prisma.practitioner.count();
