@@ -68,15 +68,21 @@ export default async function Dashboard() {
         </div>
         {/* Compose area */}
         <div className="border-t border-border p-3">
-          <div className="flex items-center gap-2 text-text-secondary">
-            <button className="p-1 hover:text-text"><span className="text-sm font-bold">B</span></button>
-            <button className="p-1 hover:text-text"><span className="text-sm italic">I</span></button>
-            <button className="p-1 hover:text-text"><span className="text-sm underline">U</span></button>
-            <span className="mx-1 text-border">|</span>
-            <button className="p-1 hover:text-text"><span className="text-sm">Aa</span></button>
-            <button className="p-1 hover:text-text"><span className="text-sm">&#128206;</span></button>
-            <button className="p-1 hover:text-text"><span className="text-sm">&#128247;</span></button>
+          <div className="mb-2 min-h-[60px] rounded-lg border border-border bg-white px-3 py-2 text-sm text-text-secondary">
+            Type a message...
+          </div>
+          <div className="flex items-center gap-1 text-text-secondary">
+            <button className="rounded p-1.5 hover:bg-gray-100 text-sm font-bold">B</button>
+            <button className="rounded p-1.5 hover:bg-gray-100 text-sm italic">I</button>
+            <button className="rounded p-1.5 hover:bg-gray-100 text-sm underline">U</button>
+            <button className="rounded p-1.5 hover:bg-gray-100 text-sm">Aa</button>
+            <span className="mx-0.5 text-border">|</span>
+            <button className="rounded p-1.5 hover:bg-gray-100 text-sm">&#128206;</button>
+            <button className="rounded p-1.5 hover:bg-gray-100 text-sm">&#9783;</button>
+            <button className="rounded p-1.5 hover:bg-gray-100 text-sm">&#9776;</button>
+            <button className="rounded p-1.5 hover:bg-gray-100 text-sm">&#8801;</button>
             <div className="flex-1" />
+            <span className="text-xs text-text-secondary mr-2">GIF</span>
             <button className="rounded-lg bg-primary px-4 py-1.5 text-sm font-medium text-white hover:bg-primary-dark">
               Send
             </button>

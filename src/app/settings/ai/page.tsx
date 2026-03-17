@@ -3,7 +3,7 @@ import Link from "next/link";
 const sidebarSections = [
   {
     title: "Workspace",
-    items: ["Details", "Integrations", "Subscription", "SMS settings"],
+    items: ["Details", "Integrations", "SMS settings"],
   },
   {
     title: "Automation",
@@ -13,7 +13,7 @@ const sidebarSections = [
     title: "Business",
     items: [
       "Locations", "Custom fields", "Rooms/Resources", "Services",
-      "Busy times", "Cancel/Reschedule", "Online bookings",
+      "Busy times", "Cancellation reasons", "Online bookings",
       "Communication types", "Tags", "Referral types",
     ],
   },

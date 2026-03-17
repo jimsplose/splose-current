@@ -2,7 +2,7 @@ import { ChevronRight, EyeOff } from "lucide-react";
 
 export default function LoginPage() {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-purple-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-purple-200/80">
       <div className="w-full max-w-md">
         {/* Header banner */}
         <div className="rounded-t-2xl bg-primary px-8 py-8 text-center">
@@ -11,7 +11,7 @@ export default function LoginPage() {
 
         {/* Form card */}
         <div className="rounded-b-2xl bg-white px-8 py-8">
-          <p className="text-sm text-primary">You are logging into</p>
+          <p className="text-sm text-primary">You are logging in to</p>
           <p className="mt-1 text-lg font-bold text-text">acme.splose.com</p>
 
           <div className="mt-6">
