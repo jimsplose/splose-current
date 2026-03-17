@@ -317,6 +317,91 @@ async function seed() {
       },
     });
 
+    await prisma.invoice.create({
+      data: {
+        invoiceNumber: "INV-004",
+        date: sevenDaysAgo,
+        dueDate: yesterday,
+        status: "Overdue",
+        subtotal: 148.71,
+        tax: 0,
+        total: 148.71,
+        billingType: "Private",
+        clientId: clients[4].id,
+        items: {
+          create: [{ description: "Physiotherapy Review (45 min)", quantity: 1, unitPrice: 148.71, total: 148.71 }],
+        },
+      },
+    });
+
+    await prisma.invoice.create({
+      data: {
+        invoiceNumber: "INV-005",
+        date: yesterday,
+        dueDate: thirtyDaysLater,
+        status: "Sent",
+        subtotal: 193.99,
+        tax: 0,
+        total: 193.99,
+        billingType: "NDIS",
+        clientId: clients[3].id,
+        items: {
+          create: [{ description: "Speech Pathology Standard (45 min)", quantity: 1, unitPrice: 193.99, total: 193.99 }],
+        },
+      },
+    });
+
+    await prisma.invoice.create({
+      data: {
+        invoiceNumber: "INV-006",
+        date: yesterday,
+        dueDate: thirtyDaysLater,
+        status: "Draft",
+        subtotal: 75.90,
+        tax: 0,
+        total: 75.90,
+        billingType: "Private",
+        clientId: clients[7].id,
+        items: {
+          create: [{ description: "OT Follow Up (30 min)", quantity: 1, unitPrice: 75.90, total: 75.90 }],
+        },
+      },
+    });
+
+    await prisma.invoice.create({
+      data: {
+        invoiceNumber: "INV-007",
+        date: today,
+        dueDate: thirtyDaysLater,
+        status: "Draft",
+        subtotal: 75.00,
+        tax: 0,
+        total: 75.00,
+        billingType: "Medicare",
+        clientId: clients[5].id,
+        items: {
+          create: [{ description: "Physiotherapy Standard (30 min)", quantity: 1, unitPrice: 75.00, total: 75.00 }],
+        },
+      },
+    });
+
+    await prisma.invoice.create({
+      data: {
+        invoiceNumber: "INV-008",
+        date: today,
+        dueDate: thirtyDaysLater,
+        status: "Draft",
+        subtotal: 100.00,
+        tax: 0,
+        total: 100.00,
+        billingType: "Private",
+        clientId: clients[8].id,
+        items: {
+          create: [{ description: "Speech Pathology Initial (60 min)", quantity: 1, unitPrice: 100.00, total: 100.00 }],
+        },
+      },
+    });
+
     return NextResponse.json({ message: "Database seeded successfully!" });
   } catch (error) {
     console.error("Seed error:", error);
