@@ -1,5 +1,6 @@
 import StatusBadge from "@/components/StatusBadge";
 import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 import { Plus, ArrowUpDown, Filter } from "lucide-react";
 
 export const dynamic = "force-dynamic";
@@ -96,7 +97,11 @@ export default async function InvoicesPage() {
                     key={inv.id}
                     className="cursor-pointer transition-colors hover:bg-gray-50"
                   >
-                    <td className="px-4 py-3 text-sm text-text">{inv.invoiceNumber}</td>
+                    <td className="px-4 py-3 text-sm text-text">
+                      <Link href={`/invoices/${inv.id}`} className="text-primary hover:underline">
+                        {inv.invoiceNumber}
+                      </Link>
+                    </td>
                     <td className="px-4 py-3 text-sm text-primary">
                       {inv.client.firstName} {inv.client.lastName} ({inv.billingType})
                     </td>

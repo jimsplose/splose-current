@@ -14,6 +14,8 @@ interface ClientData {
   ndisNumber: string | null;
   notes: string | null;
   active: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 function calcAge(dobStr: string): string {

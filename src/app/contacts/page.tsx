@@ -1,4 +1,4 @@
-import { Plus, ArrowUpDown, Filter } from "lucide-react";
+import { Plus, ArrowUpDown, Filter, Search } from "lucide-react";
 import Link from "next/link";
 
 const mockContacts = [
@@ -14,6 +14,23 @@ const mockContacts = [
   { id: "10", type: "Standard", name: "Harry Mann", company: "", email: "", workPhone: "", mobilePhone: "" },
 ];
 
+function getTypeBadge(type: string) {
+  if (!type) return null;
+  const colors: Record<string, string> = {
+    "Doctor": "bg-blue-100 text-blue-700",
+    "3rd party payer": "bg-purple-100 text-purple-700",
+    "Plan manager": "bg-green-100 text-green-700",
+    "Parent": "bg-orange-100 text-orange-700",
+    "Standard": "bg-gray-100 text-gray-700",
+  };
+  const cls = colors[type] || "bg-gray-100 text-gray-700";
+  return (
+    <span className={`inline-block rounded px-2 py-0.5 text-xs font-medium ${cls}`}>
+      {type}
+    </span>
+  );
+}
+
 export default function ContactsPage() {
   return (
     <div className="p-6">
@@ -26,11 +43,14 @@ export default function ContactsPage() {
       </div>
 
       <div className="mb-4 flex items-center gap-2">
-        <input
-          type="text"
-          placeholder="Search for contact name, phone number, email and company name"
-          className="h-10 flex-1 rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-        />
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-secondary" />
+          <input
+            type="text"
+            placeholder="Search for contact name, phone number, email and company name"
+            className="h-10 w-full rounded-lg border border-border bg-white pl-10 pr-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+          />
+        </div>
         <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
           Search
         </button>
@@ -73,14 +93,27 @@ export default function ContactsPage() {
             {mockContacts.map((contact) => (
               <tr
                 key={contact.id}
-                className="cursor-pointer transition-colors hover:bg-gray-50"
+                className="group relative cursor-pointer transition-colors hover:bg-purple-50/50"
               >
-                <td className="px-4 py-3 text-sm text-text-secondary">{contact.type}</td>
-                <td className="px-4 py-3 text-sm text-text">{contact.name}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{contact.company}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{contact.email}</td>
-                <td className="px-4 py-3 text-sm text-primary">{contact.workPhone}</td>
-                <td className="px-4 py-3 text-sm text-primary">{contact.mobilePhone}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">
+                  <Link href={`/contacts/${contact.id}`} className="absolute inset-0" aria-label={`View ${contact.name}`} />
+                  {getTypeBadge(contact.type)}
+                </td>
+                <td className="px-4 py-3 text-sm font-medium text-primary group-hover:underline">
+                  {contact.name}
+                </td>
+                <td className="px-4 py-3 text-sm text-text-secondary">
+                  {contact.company}
+                </td>
+                <td className="px-4 py-3 text-sm text-text-secondary">
+                  {contact.email}
+                </td>
+                <td className="px-4 py-3 text-sm text-primary">
+                  {contact.workPhone}
+                </td>
+                <td className="px-4 py-3 text-sm text-primary">
+                  {contact.mobilePhone}
+                </td>
               </tr>
             ))}
           </tbody>

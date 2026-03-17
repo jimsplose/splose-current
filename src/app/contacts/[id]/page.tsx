@@ -1,115 +1,217 @@
 import Link from "next/link";
+import { ArrowLeft, Pencil, Mail, Phone, Building2, User, MapPin } from "lucide-react";
 
-export default function ContactDetailPage({ params }: { params: Promise<{ id: string }> }) {
+const mockContacts = [
+  { id: "1", type: "", name: "jh", company: "", email: "", workPhone: "", mobilePhone: "", address: "", notes: "", associatedClients: [] as { id: string; name: string }[] },
+  { id: "2", type: "3rd party payer", name: "NDIS", company: "", email: "ruvishka.info@gmail.com", workPhone: "", mobilePhone: "", address: "", notes: "National Disability Insurance Scheme", associatedClients: [{ id: "c1", name: "Alex Anders" }, { id: "c2", name: "Ruvishka Perera" }] },
+  { id: "3", type: "Doctor", name: "Cheng Contact", company: "woodlake medical centre", email: "cheng@splose.com", workPhone: "", mobilePhone: "", address: "123 Woodlake Rd, Adelaide SA 5000", notes: "", associatedClients: [{ id: "c3", name: "Sarah Johnson" }] },
+  { id: "4", type: "Plan manager", name: "scott", company: "", email: "sctt@splose.com", workPhone: "", mobilePhone: "", address: "", notes: "", associatedClients: [] as { id: string; name: string }[] },
+  { id: "5", type: "Standard", name: "Company A", company: "", email: "", workPhone: "", mobilePhone: "", address: "", notes: "", associatedClients: [] as { id: string; name: string }[] },
+  { id: "6", type: "Parent", name: "Test", company: "", email: "", workPhone: "", mobilePhone: "", address: "", notes: "", associatedClients: [{ id: "c4", name: "Emma Wilson" }] },
+  { id: "7", type: "3rd party payer", name: "NDIS", company: "", email: "", workPhone: "", mobilePhone: "", address: "", notes: "", associatedClients: [] as { id: string; name: string }[] },
+  { id: "8", type: "Doctor", name: "Wei", company: "This is wei's company", email: "wei.luo@splose.com", workPhone: "", mobilePhone: "+61 423939047", address: "45 Collins St, Melbourne VIC 3000", notes: "Preferred GP for referrals", associatedClients: [{ id: "c5", name: "James Chen" }, { id: "c6", name: "Lily Tran" }] },
+  { id: "9", type: "Plan manager", name: "Your Plan Manager", company: "", email: "", workPhone: "", mobilePhone: "", address: "", notes: "", associatedClients: [] as { id: string; name: string }[] },
+  { id: "10", type: "Standard", name: "Harry Mann", company: "", email: "", workPhone: "", mobilePhone: "", address: "", notes: "", associatedClients: [] as { id: string; name: string }[] },
+];
+
+function getTypeColor(type: string): string {
+  switch (type) {
+    case "Doctor": return "bg-blue-100 text-blue-700";
+    case "3rd party payer": return "bg-purple-100 text-purple-700";
+    case "Plan manager": return "bg-green-100 text-green-700";
+    case "Parent": return "bg-orange-100 text-orange-700";
+    case "Standard": return "bg-gray-100 text-gray-700";
+    default: return "bg-gray-100 text-gray-700";
+  }
+}
+
+function getInitials(name: string): string {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[1][0]).toUpperCase();
+  }
+  return name.slice(0, 2).toUpperCase();
+}
+
+export default async function ContactDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const contact = mockContacts.find((c) => c.id === id);
+
+  if (!contact) {
+    return (
+      <div className="p-6">
+        <Link href="/contacts" className="mb-4 inline-flex items-center gap-1.5 text-sm text-primary hover:underline">
+          <ArrowLeft className="h-4 w-4" />
+          Back to contacts
+        </Link>
+        <p className="mt-4 text-text-secondary">Contact not found.</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex min-h-[calc(100vh-3rem)]">
-      {/* Left sidebar */}
-      <aside className="w-48 shrink-0 border-r border-border bg-white p-4 overflow-y-auto">
-        <div className="space-y-0.5">
-          {[
-            { label: "Details", active: true },
-            { label: "Cases", active: false },
-            { label: "Letters", active: false },
-            { label: "Invoices", active: false, count: 96 },
-          ].map((item) => (
-            <button
-              key={item.label}
-              className={`w-full rounded px-3 py-1.5 text-left text-sm transition-colors ${
-                item.active
-                  ? "border-l-2 border-primary bg-purple-50 text-primary font-medium"
-                  : "text-text-secondary hover:bg-purple-50 hover:text-primary"
-              }`}
-            >
-              {item.label}
-              {item.count && (
-                <span className="ml-1 text-xs text-text-secondary">{item.count}</span>
-              )}
-            </button>
-          ))}
-        </div>
-      </aside>
-
+    <div className="flex flex-1 overflow-hidden">
       {/* Main content */}
-      <div className="flex-1 p-6">
-        <div className="mb-6 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold text-text">Contact</h1>
-            <span className="rounded bg-gray-100 px-2 py-0.5 text-sm text-text-secondary">NDIS</span>
-          </div>
-          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-            Actions &#9660;
+      <div className="flex-1 overflow-y-auto p-6">
+        <Link href="/contacts" className="mb-4 inline-flex items-center gap-1.5 text-sm text-primary hover:underline">
+          <ArrowLeft className="h-4 w-4" />
+          Back to contacts
+        </Link>
+
+        <div className="mt-4 flex items-center justify-between mb-6">
+          <h1 className="text-2xl font-bold text-text">Contact details</h1>
+          <button className="flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
+            Edit <Pencil className="h-3.5 w-3.5" />
           </button>
         </div>
 
-        <div className="max-w-3xl">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-text">Details</h2>
-            <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-              Edit
-            </button>
-          </div>
-
-          {/* General details */}
-          <div className="mb-8">
-            <h3 className="text-sm font-semibold text-text mb-3">General details</h3>
-            <div className="rounded-lg border border-border bg-white">
-              <div className="flex border-b border-border">
-                <div className="w-40 shrink-0 px-4 py-3 text-sm text-text-secondary">Name</div>
-                <div className="px-4 py-3 text-sm text-text">NDIS</div>
+        {/* General details */}
+        <section className="mb-8">
+          <h2 className="mb-4 text-lg font-bold text-text">General details</h2>
+          <div className="flex items-start gap-6">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
+              {getInitials(contact.name)}
+            </div>
+            <div className="space-y-2 text-sm">
+              <div className="flex gap-16">
+                <span className="w-28 shrink-0 text-text-secondary">Name:</span>
+                <span className="font-medium text-text">{contact.name}</span>
               </div>
-              <div className="flex">
-                <div className="w-40 shrink-0 px-4 py-3 text-sm text-text-secondary">Type</div>
-                <div className="px-4 py-3 text-sm text-text">3rd party payer</div>
+              <div className="flex gap-16">
+                <span className="w-28 shrink-0 text-text-secondary">Type:</span>
+                <span>
+                  {contact.type ? (
+                    <span className={`inline-block rounded px-2 py-0.5 text-xs font-medium ${getTypeColor(contact.type)}`}>
+                      {contact.type}
+                    </span>
+                  ) : (
+                    <span className="text-text-secondary">Not set</span>
+                  )}
+                </span>
+              </div>
+              <div className="flex gap-16">
+                <span className="w-28 shrink-0 text-text-secondary">Company:</span>
+                <span className="text-text">{contact.company || <span className="text-text-secondary">Not provided</span>}</span>
               </div>
             </div>
           </div>
+        </section>
 
-          {/* Contact details */}
-          <div className="mb-8">
-            <h3 className="text-sm font-semibold text-text mb-3">Contact details</h3>
-            <div className="rounded-lg border border-border bg-white">
-              <div className="flex border-b border-border">
-                <div className="w-40 shrink-0 px-4 py-3 text-sm text-text-secondary">Email</div>
-                <div className="px-4 py-3 text-sm text-primary">ruvishka.info@gmail.com</div>
-              </div>
-              <div className="flex">
-                <div className="w-40 shrink-0 px-4 py-3 text-sm text-text-secondary">Note</div>
-                <div className="px-4 py-3 text-sm text-text">additional notes / imported info under splose templates column W</div>
-              </div>
+        <hr className="mb-8 border-border" />
+
+        {/* Contact information */}
+        <section className="mb-8">
+          <h2 className="mb-4 text-lg font-bold text-text">Contact information</h2>
+          <div className="space-y-3 text-sm">
+            <div className="flex gap-16">
+              <span className="w-28 shrink-0 text-text-secondary">Email:</span>
+              {contact.email ? (
+                <span className="flex items-center gap-1.5">
+                  <Mail className="h-3.5 w-3.5 text-text-secondary" />
+                  <span className="text-primary">{contact.email}</span>
+                </span>
+              ) : (
+                <span className="text-text-secondary">Not provided</span>
+              )}
+            </div>
+            <div className="flex gap-16">
+              <span className="w-28 shrink-0 text-text-secondary">Work phone:</span>
+              {contact.workPhone ? (
+                <span className="flex items-center gap-1.5">
+                  <Phone className="h-3.5 w-3.5 text-text-secondary" />
+                  <span className="text-primary">{contact.workPhone}</span>
+                </span>
+              ) : (
+                <span className="text-text-secondary">Not provided</span>
+              )}
+            </div>
+            <div className="flex gap-16">
+              <span className="w-28 shrink-0 text-text-secondary">Mobile phone:</span>
+              {contact.mobilePhone ? (
+                <span className="flex items-center gap-1.5">
+                  <Phone className="h-3.5 w-3.5 text-text-secondary" />
+                  <span className="text-primary">{contact.mobilePhone}</span>
+                </span>
+              ) : (
+                <span className="text-text-secondary">Not provided</span>
+              )}
+            </div>
+            <div className="flex gap-16">
+              <span className="w-28 shrink-0 text-text-secondary">Address:</span>
+              {contact.address ? (
+                <span className="flex items-center gap-1.5">
+                  <MapPin className="h-3.5 w-3.5 text-text-secondary" />
+                  <span className="text-text">{contact.address}</span>
+                </span>
+              ) : (
+                <span className="text-text-secondary">Not provided</span>
+              )}
             </div>
           </div>
+        </section>
 
-          {/* Associated clients */}
-          <div className="mb-8">
-            <h3 className="text-sm font-semibold text-text mb-3">Associated clients</h3>
-            <div className="rounded-lg border border-border bg-white overflow-hidden">
-              <table className="w-full">
+        <hr className="mb-8 border-border" />
+
+        {/* Notes */}
+        <section className="mb-8">
+          <h2 className="mb-4 text-lg font-bold text-text">Notes</h2>
+          {contact.notes ? (
+            <p className="text-sm text-text">{contact.notes}</p>
+          ) : (
+            <p className="text-sm text-text-secondary">No notes</p>
+          )}
+        </section>
+
+        <hr className="mb-8 border-border" />
+
+        {/* Associated clients */}
+        <section className="mb-8">
+          <h2 className="mb-4 text-lg font-bold text-text">Associated clients</h2>
+          {contact.associatedClients.length > 0 ? (
+            <div className="overflow-hidden rounded-lg border border-border">
+              <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-border bg-gray-50">
-                    <th className="px-4 py-2 text-left text-sm font-medium text-text">Name</th>
-                    <th className="px-4 py-2 text-left text-sm font-medium text-text">DOB</th>
-                    <th className="px-4 py-2 text-center text-sm font-medium text-text">Appts</th>
-                    <th className="px-4 py-2 text-center text-sm font-medium text-text">Invoices</th>
-                    <th className="px-4 py-2 text-center text-sm font-medium text-text">Notes</th>
+                  <tr className="border-b border-border bg-purple-50">
+                    <th className="px-4 py-2.5 text-left font-medium text-text">Name</th>
+                    <th className="px-4 py-2.5 text-left font-medium text-text">Relationship</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr className="border-b border-border">
-                    <td className="px-4 py-2 text-sm text-primary">Skyler Peterson</td>
-                    <td className="px-4 py-2 text-sm text-text-secondary">5 Jun 2011</td>
-                    <td className="px-4 py-2 text-center text-sm text-text-secondary"></td>
-                    <td className="px-4 py-2 text-center text-sm text-text-secondary"></td>
-                    <td className="px-4 py-2 text-center text-sm text-text-secondary"></td>
-                  </tr>
+                <tbody className="divide-y divide-border">
+                  {contact.associatedClients.map((client) => (
+                    <tr key={client.id} className="transition-colors hover:bg-purple-50/50">
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-2">
+                          <User className="h-4 w-4 text-text-secondary" />
+                          <span className="text-primary hover:underline">{client.name}</span>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-text-secondary">
+                        {contact.type || "Standard"}
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
-          </div>
+          ) : (
+            <div className="rounded-lg border border-border bg-gray-50 p-6 text-center">
+              <Building2 className="mx-auto mb-2 h-8 w-8 text-text-secondary" />
+              <p className="text-sm text-text-secondary">No associated clients</p>
+            </div>
+          )}
+        </section>
 
-          <div className="text-center">
-            <button className="text-sm text-primary hover:underline">View change log</button>
-          </div>
-        </div>
+        <hr className="mb-8 border-border" />
+
+        {/* Custom fields */}
+        <section className="mb-8">
+          <h2 className="mb-4 text-lg font-bold text-text">Custom fields</h2>
+          <p className="text-sm text-text-secondary">No custom fields</p>
+        </section>
       </div>
     </div>
   );

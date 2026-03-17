@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 import { Plus, ArrowUpDown } from "lucide-react";
 
 export const dynamic = "force-dynamic";
@@ -60,11 +61,11 @@ export default async function NotesPage() {
             {notes.map((note) => (
               <tr
                 key={note.id}
-                className="cursor-pointer transition-colors hover:bg-gray-50"
+                className="group cursor-pointer transition-colors hover:bg-gray-50"
               >
                 <td className="px-4 py-3">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-text">
+                  <Link href={`/notes/${note.id}`} className="flex items-center gap-2">
+                    <span className="text-sm text-text group-hover:text-primary">
                       {note.client.firstName} {note.client.lastName}
                     </span>
                     <span className="text-sm text-text-secondary">— {note.template}</span>
@@ -77,7 +78,7 @@ export default async function NotesPage() {
                         Draft
                       </span>
                     )}
-                  </div>
+                  </Link>
                 </td>
                 <td className="px-4 py-3 text-sm text-text-secondary">
                   {note.practitioner.name}
