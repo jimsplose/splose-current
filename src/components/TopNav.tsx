@@ -8,10 +8,12 @@ const navItems = [
   { href: "/", label: "Dashboard" },
   { href: "/calendar", label: "Calendar" },
   { href: "/clients", label: "Clients" },
-  { href: "/notes", label: "Progress notes" },
+  { href: "/contacts", label: "Contacts" },
+  { href: "/waitlist", label: "Waitlist" },
   { href: "/invoices", label: "Invoices" },
-  { href: "/practitioners", label: "Practitioners" },
-  { href: "/settings", label: "Settings" },
+  { href: "/payments", label: "Payments" },
+  { href: "/reports", label: "Reports" },
+  { href: "/products", label: "Products" },
 ];
 
 export default function TopNav() {
@@ -55,9 +57,9 @@ export default function TopNav() {
               3
             </span>
           </button>
-          <button className="rounded-full p-2 text-text-secondary hover:bg-gray-100">
+          <Link href="/settings" className="rounded-full p-2 text-text-secondary hover:bg-gray-100">
             <Settings className="h-5 w-5" />
-          </button>
+          </Link>
           <button className="rounded-full p-2 text-text-secondary hover:bg-gray-100">
             <HelpCircle className="h-5 w-5" />
           </button>
