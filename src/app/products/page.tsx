@@ -96,7 +96,7 @@ export default function ProductsPage() {
 
   return (
     <div className="p-6">
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold text-text">Products</h1>
         <div className="flex items-center gap-2">
           <button
@@ -143,8 +143,8 @@ export default function ProductsPage() {
             <tr className="border-b border-border bg-purple-50">
               <th className="w-8 px-2 py-3"></th>
               <th className="px-4 py-3 text-left text-sm font-medium text-text">Name</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Category</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Vendor</th>
+              <th className="hidden px-4 py-3 text-left text-sm font-medium text-text sm:table-cell">Category</th>
+              <th className="hidden px-4 py-3 text-left text-sm font-medium text-text md:table-cell">Vendor</th>
               <th className="px-4 py-3 text-center text-sm font-medium text-text">Stock</th>
               <th className="w-16 px-4 py-3 text-center text-sm font-medium text-text">Actions</th>
             </tr>
@@ -185,8 +185,8 @@ export default function ProductsPage() {
                       )}
                     </td>
                     <td className="px-4 py-3 text-sm text-text">{product.name}</td>
-                    <td className="px-4 py-3 text-sm text-text-secondary">{product.category}</td>
-                    <td className="px-4 py-3 text-sm text-text-secondary">{product.vendor}</td>
+                    <td className="hidden px-4 py-3 text-sm text-text-secondary sm:table-cell">{product.category}</td>
+                    <td className="hidden px-4 py-3 text-sm text-text-secondary md:table-cell">{product.vendor}</td>
                     <td className="px-4 py-3 text-center text-sm text-text-secondary">
                       {product.stock !== null ? product.stock : "-"}
                     </td>
