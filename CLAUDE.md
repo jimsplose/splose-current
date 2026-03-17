@@ -14,6 +14,16 @@ High-fidelity UI prototype of [Splose](https://splose.com), a practice managemen
 - **Hosting**: Vercel (auto-deploys from `main` branch)
 - **Repo**: github.com/jimsplose/splose-current
 
+## Reference Screenshots
+
+Reference screenshots of the real Splose app are in `screenshots/reference/`. These are the design targets — each page in the prototype should match these as closely as possible.
+
+When working on UI fidelity:
+1. Read the relevant screenshot(s) from `screenshots/reference/`
+2. Compare against the current prototype page
+3. Adjust layout, spacing, colors, typography, and component structure to match
+4. Commit and push changes
+
 ## Environment Variables
 
 Required in both `.env` (local) and Vercel dashboard:
@@ -79,6 +89,8 @@ src/
   lib/
     prisma.ts             # Prisma client singleton with Turso adapter
   generated/prisma/       # Auto-generated Prisma client (gitignored)
+screenshots/
+  reference/              # Screenshots of real Splose app (design targets)
 prisma/
   schema.prisma           # Database schema (6 models)
   seed.ts                 # Standalone seed script
