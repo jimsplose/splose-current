@@ -71,26 +71,33 @@ The database can be seeded via API: `GET /api/seed` (safe to call multiple times
 ```
 src/
   app/                    # Next.js App Router pages
-    page.tsx              # Dashboard (stats, schedule, invoices)
-    layout.tsx            # Root layout with Sidebar
+    page.tsx              # Dashboard (messages + analytics)
+    layout.tsx            # Root layout with TopNav
     globals.css           # Tailwind theme variables
     api/seed/route.ts     # Database seed endpoint
-    calendar/page.tsx     # Day view calendar with practitioner columns
-    clients/page.tsx      # Client list table
-    clients/[id]/page.tsx # Client detail (appointments, notes)
-    notes/page.tsx        # Clinical notes list
-    invoices/page.tsx     # Invoice table with status stats
+    login/page.tsx        # Login page (purple gradient)
+    calendar/page.tsx     # Week view calendar
+    clients/page.tsx      # Client list table with search/pagination
+    clients/[id]/page.tsx # Client detail (sidebar + details + right panel)
+    contacts/page.tsx     # Contacts list (Type, Name, Company, Email, Phone)
+    waitlist/page.tsx     # Waitlist with Screener/Waitlist tabs
+    invoices/page.tsx     # Invoice table with search/pagination
+    payments/page.tsx     # Payments list
+    notes/page.tsx        # Progress notes table
     practitioners/page.tsx# Practitioner cards
-    settings/page.tsx     # Settings categories
+    reports/page.tsx      # Reports with sidebar (Performance overview)
+    products/page.tsx     # Products list
+    settings/page.tsx     # Settings with categorized sidebar
   components/
-    Sidebar.tsx           # Navigation sidebar ("use client")
-    Header.tsx            # Page header with search ("use client")
+    TopNav.tsx            # Horizontal top navigation bar ("use client")
+    Sidebar.tsx           # Legacy sidebar (unused, kept for reference)
+    Header.tsx            # Legacy header (unused, kept for reference)
     StatusBadge.tsx       # Color-coded status badges (server component)
   lib/
     prisma.ts             # Prisma client singleton with Turso adapter
   generated/prisma/       # Auto-generated Prisma client (gitignored)
 screenshots/
-  reference/              # Screenshots of real Splose app (design targets)
+  reference/              # ~80 screenshots of real Splose app (design targets)
 prisma/
   schema.prisma           # Database schema (6 models)
   seed.ts                 # Standalone seed script
@@ -104,7 +111,7 @@ scripts/
 - **Server components by default** — only use `"use client"` when React hooks or browser APIs are needed
 - **`export const dynamic = "force-dynamic"`** on pages that fetch data, for fresh reads
 - **Prisma v7 adapter pattern** — `PrismaLibSql` takes `{ url, authToken }` directly (not a libsql Client instance)
-- **Tailwind CSS variables** — colors defined in `globals.css` under `@theme inline` (e.g. `--color-primary`, `--color-sidebar`)
+- **Tailwind CSS variables** — colors defined in `globals.css` under `@theme inline` (e.g. `--color-primary: #7c3aed`, `--color-accent: #2d6d40`)
 - **Australian locale** — dates, Medicare numbers, NDIS references, AUD currency
 - **`tsconfig.json` excludes** — `prisma/seed.ts` and `scripts/` are excluded from Next.js type checking (they run standalone via `tsx`)
 
