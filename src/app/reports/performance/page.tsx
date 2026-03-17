@@ -7,7 +7,7 @@ const sections = [
   { title: "Practitioners", items: ["Billed items", "Performance"] },
 ];
 
-export default function ReportsAppointmentsPage() {
+export default function ReportsPerformancePage() {
   return (
     <div className="flex min-h-[calc(100vh-3rem)]">
       {/* Left sidebar */}
@@ -22,7 +22,7 @@ export default function ReportsAppointmentsPage() {
                 <li key={item}>
                   <button
                     className={`w-full rounded px-3 py-1.5 text-left text-sm transition-colors hover:bg-purple-50 hover:text-primary ${
-                      item === "Appointments"
+                      item === "Performance"
                         ? "border-l-2 border-primary bg-purple-50 text-primary font-medium"
                         : "text-text-secondary"
                     }`}
@@ -39,13 +39,13 @@ export default function ReportsAppointmentsPage() {
       {/* Main content */}
       <div className="flex-1 p-6 overflow-y-auto">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-text">Appointments</h1>
+          <h1 className="text-2xl font-bold text-text">Performance</h1>
           <div className="flex items-center gap-2">
             <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
               Export
             </button>
             <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-              Learn about this report
+              Definitions
             </button>
           </div>
         </div>
@@ -67,20 +67,8 @@ export default function ReportsAppointmentsPage() {
           </div>
         </div>
 
-        {/* Contains note filter */}
-        <div className="mb-4">
-          <label className="text-sm text-text-secondary flex items-center gap-1 mb-1">
-            <span>&#128196;</span> Contains note
-            <button className="ml-1 text-red-400 hover:text-red-600">&#10005;</button>
-          </label>
-          <select className="w-48 rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary">
-            <option>Yes</option>
-            <option>No</option>
-          </select>
-        </div>
-
         {/* Filter buttons */}
-        <div className="flex items-center gap-2 mb-8">
+        <div className="flex items-center gap-2 mb-6">
           <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
             Add filter
           </button>
@@ -93,6 +81,43 @@ export default function ReportsAppointmentsPage() {
           <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
             Run report
           </button>
+        </div>
+
+        {/* Configuration options */}
+        <div className="space-y-3 text-sm">
+          <div className="flex items-center gap-4">
+            <span className="w-80 text-text">Identify as new client if no previous service:</span>
+            <select className="rounded-lg border border-border bg-white px-3 py-1.5 text-sm text-text outline-none">
+              <option>Ever</option>
+              <option>Last 12 months</option>
+              <option>Last 6 months</option>
+            </select>
+          </div>
+          <div className="flex items-center gap-4">
+            <span className="w-80 text-text">Exclude busy time from utilisation calculation:</span>
+            <select className="rounded-lg border border-border bg-white px-3 py-1.5 text-sm text-text outline-none">
+              <option>No</option>
+              <option>Yes</option>
+            </select>
+          </div>
+          <div className="flex items-center gap-4">
+            <span className="w-80 text-text">
+              Include all appointments regardless of status <span className="text-text-secondary">&#9432;</span>:
+            </span>
+            <select className="rounded-lg border border-border bg-white px-3 py-1.5 text-sm text-text outline-none">
+              <option>No</option>
+              <option>Yes</option>
+            </select>
+          </div>
+          <div className="flex items-center gap-4">
+            <span className="w-80 text-text">
+              Exclude items marked as do not invoice <span className="text-text-secondary">&#9432;</span>:
+            </span>
+            <select className="rounded-lg border border-border bg-white px-3 py-1.5 text-sm text-text outline-none">
+              <option>No</option>
+              <option>Yes</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>
