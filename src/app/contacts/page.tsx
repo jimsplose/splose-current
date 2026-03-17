@@ -14,7 +14,7 @@ export default function ContactsPage() {
       <div className="mb-4 flex items-center gap-2">
         <input
           type="text"
-          placeholder="Search for name, phone number, and email"
+          placeholder="Search for contact name, phone number, email and company name"
           className="h-10 flex-1 rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
         />
         <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
@@ -28,18 +28,35 @@ export default function ContactsPage() {
             <tr className="border-b border-border bg-purple-50">
               <th className="px-4 py-3 text-left text-sm font-medium text-text">
                 <div className="flex items-center gap-1">
+                  Type
+                  <ArrowUpDown className="h-3 w-3 text-text-secondary" />
+                </div>
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                <div className="flex items-center gap-1">
                   Name
                   <ArrowUpDown className="h-3 w-3 text-text-secondary" />
                 </div>
               </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Type</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Phone</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Email</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                <div className="flex items-center gap-1">
+                  Company
+                  <ArrowUpDown className="h-3 w-3 text-text-secondary" />
+                </div>
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                <div className="flex items-center gap-1">
+                  Email
+                  <ArrowUpDown className="h-3 w-3 text-text-secondary" />
+                </div>
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Work phone</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Mobile phone</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td colSpan={4} className="px-4 py-8 text-center text-sm text-text-secondary">
+              <td colSpan={6} className="px-4 py-8 text-center text-sm text-text-secondary">
                 No contacts yet
               </td>
             </tr>
