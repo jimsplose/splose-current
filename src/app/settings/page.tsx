@@ -725,15 +725,9 @@ function IntegrationsContent() {
               <div className="flex-1">
                 <p className="text-sm leading-relaxed text-text-secondary">{integration.description}</p>
                 <div className="mt-4 flex items-center gap-3">
-                  <button
-                    className={`rounded-lg px-5 py-2 text-sm font-medium transition-colors ${
-                      integration.connected
-                        ? "border border-border bg-white text-text hover:bg-gray-50"
-                        : "bg-primary text-white hover:bg-primary-dark"
-                    }`}
-                  >
+                  <Button variant={integration.connected ? "secondary" : "primary"}>
                     {integration.buttonText}
-                  </button>
+                  </Button>
                   {integration.extraLink && (
                     <span className="cursor-pointer text-sm text-primary hover:underline">{integration.extraLink}</span>
                   )}
@@ -929,52 +923,38 @@ function FormsContent() {
       </div>
 
       {/* Forms table */}
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-gray-50">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Form name</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Description</th>
-              <th className="px-4 py-3 text-center text-sm font-medium text-text">Status</th>
-              <th className="px-4 py-3 text-center text-sm font-medium text-text">Responses</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Last modified</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+      <DataTable>
+          <TableHead>
+              <Th>Form name</Th>
+              <Th>Description</Th>
+              <Th align="center">Status</Th>
+              <Th align="center">Responses</Th>
+              <Th>Last modified</Th>
+              <Th align="right">Actions</Th>
+</TableHead>
+          <TableBody>
             {filtered.map((form) => (
               <tr key={form.name} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm font-medium text-text">{form.name}</td>
-                <td className="max-w-xs truncate px-4 py-3 text-sm text-text-secondary">{form.description}</td>
-                <td className="px-4 py-3 text-center">
-                  <span
-                    className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
-                      form.status === "Published"
-                        ? "bg-green-50 text-green-700"
-                        : form.status === "Draft"
-                          ? "bg-yellow-50 text-yellow-700"
-                          : "bg-gray-100 text-gray-600"
-                    }`}
-                  >
+                <Td className="font-medium">{form.name}</Td>
+                <Td className="max-w-xs truncate">{form.description}</Td>
+                <Td align="center">
+                  <Badge variant={form.status === "Published" ? "green" : form.status === "Draft" ? "yellow" : "gray"}>
                     {form.status}
-                  </span>
-                </td>
-                <td className="px-4 py-3 text-center text-sm text-text-secondary">{form.responses}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{form.lastModified}</td>
-                <td className="px-4 py-3 text-right">
-                  <div className="flex items-center justify-end gap-2">
+                  </Badge>
+                </Td>
+                <Td align="center">{form.responses}</Td>
+                <Td>{form.lastModified}</Td>
+                <Td align="right">                  <div className="flex items-center justify-end gap-2">
                     <button className="text-sm text-primary hover:underline">Edit</button>
                     <button className="text-sm text-text-secondary hover:text-text">...</button>
-                  </div>
-                </td>
+                  </div></Td>
               </tr>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </DataTable>
         {filtered.length === 0 && (
           <div className="px-4 py-8 text-center text-sm text-text-secondary">No forms found</div>
         )}
-      </div>
     </div>
   );
 }
@@ -1005,26 +985,22 @@ function LocationsContent() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Name</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Address</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Last update</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+      <DataTable>
+          <TableHead>
+              <Th>Name</Th>
+              <Th>Address</Th>
+              <Th>Last update</Th>
+</TableHead>
+          <TableBody>
             {locations.map((loc) => (
               <tr key={loc.name} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm text-text">{loc.name}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{loc.address}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{loc.lastUpdate}</td>
+                <Td>{loc.name}</Td>
+                <Td>{loc.address}</Td>
+                <Td>{loc.lastUpdate}</Td>
               </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </DataTable>
 
       {/* Pagination */}
       <div className="mt-4 flex items-center justify-end gap-1">
@@ -1090,36 +1066,28 @@ function TagsContent() {
       </div>
 
       {/* Tags table */}
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Name</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Colour</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text-secondary">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+      <DataTable>
+          <TableHead>
+              <Th>Name</Th>
+              <Th>Colour</Th>
+              <Th align="right">Actions</Th>
+</TableHead>
+          <TableBody>
             {clientTags.map((tag) => (
               <tr key={tag.name} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm text-text">{tag.name}</td>
-                <td className="px-4 py-3">
-                  <div className="h-5 w-8 rounded" style={{ backgroundColor: tag.color }} />
-                </td>
-                <td className="px-4 py-3 text-right">
-                  <button className="text-text-secondary hover:text-text">
+                <Td>{tag.name}</Td>
+                <Td>                  <div className="h-5 w-8 rounded" style={{ backgroundColor: tag.color }} /></Td>
+                <Td align="right">                  <button className="text-text-secondary hover:text-text">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="1" />
                       <circle cx="19" cy="12" r="1" />
                       <circle cx="5" cy="12" r="1" />
                     </svg>
-                  </button>
-                </td>
+                  </button></Td>
               </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </DataTable>
     </div>
   );
 }
@@ -1223,61 +1191,43 @@ function UsersContent() {
       </div>
 
       {/* Users table */}
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-gray-50">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">
-                Name <span className="text-xs">&#8597;</span>
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">
-                Email <span className="text-xs">&#8597;</span>
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Role name</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">
-                Role type <span className="text-xs">&#9661;</span>
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">
-                Group <span className="text-xs">&#9661;</span>
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">
-                Status <span className="text-xs">&#9661;</span>
-              </th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text-secondary">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+      <DataTable>
+          <TableHead>
+              <Th>                Name <span className="text-xs">&#8597;</span></Th>
+              <Th>                Email <span className="text-xs">&#8597;</span></Th>
+              <Th>Role name</Th>
+              <Th>                Role type <span className="text-xs">&#9661;</span></Th>
+              <Th>                Group <span className="text-xs">&#9661;</span></Th>
+              <Th>                Status <span className="text-xs">&#9661;</span></Th>
+              <Th align="right">Actions</Th>
+</TableHead>
+          <TableBody>
             {users.map((user) => (
               <tr key={user.email} className="hover:bg-gray-50">
-                <td className="px-4 py-3">
-                  <div>
+                <Td>                  <div>
                     <span className="text-sm text-text">{user.name}</span>
                     {user.badge && (
                       <span className="ml-2 inline-flex rounded bg-green-500 px-1.5 py-0.5 text-[10px] font-bold text-white">
                         {user.badge}
                       </span>
                     )}
-                  </div>
-                </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{user.email}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{user.roleName}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{user.roleType}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{user.group}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{user.status}</td>
-                <td className="px-4 py-3 text-right">
-                  <button className="text-text-secondary hover:text-text">
+                  </div></Td>
+                <Td>{user.email}</Td>
+                <Td>{user.roleName}</Td>
+                <Td>{user.roleType}</Td>
+                <Td>{user.group}</Td>
+                <Td>{user.status}</Td>
+                <Td align="right">                  <button className="text-text-secondary hover:text-text">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="1" />
                       <circle cx="19" cy="12" r="1" />
                       <circle cx="5" cy="12" r="1" />
                     </svg>
-                  </button>
-                </td>
+                  </button></Td>
               </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </DataTable>
     </div>
   );
 }
@@ -1304,26 +1254,20 @@ function ReferralTypesContent() {
         </Button>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Name</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Default type</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+      <DataTable>
+          <TableHead>
+              <Th>Name</Th>
+              <Th>Default type</Th>
+              <Th>Actions</Th>
+</TableHead>
+          <TableBody>
             {referralTypes.map((rt) => (
               <tr key={rt.name} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm text-text">{rt.name}</td>
-                <td className="px-4 py-3">
-                  <span className={`text-sm font-medium ${rt.defaultType ? "text-green-600" : "text-red-500"}`}>
+                <Td>{rt.name}</Td>
+                <Td>                  <span className={`text-sm font-medium ${rt.defaultType ? "text-green-600" : "text-red-500"}`}>
                     {rt.defaultType ? "Yes" : "No"}
-                  </span>
-                </td>
-                <td className="px-4 py-3">
-                  {rt.defaultType ? (
+                  </span></Td>
+                <Td>                  {rt.defaultType ? (
                     <span className="text-text-secondary">-</span>
                   ) : (
                     <button className="text-text-secondary hover:text-text">
@@ -1333,13 +1277,11 @@ function ReferralTypesContent() {
                         <circle cx="5" cy="12" r="1" />
                       </svg>
                     </button>
-                  )}
-                </td>
+                  )}</Td>
               </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </DataTable>
 
       <div className="mt-4 flex items-center justify-end gap-2">
         <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
@@ -1391,36 +1333,28 @@ function UserGroupsContent() {
         </Button>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-green-50">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                Name <span className="text-xs">&#8597;</span>
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Users</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+      <DataTable>
+          <TableHead>
+              <Th>                Name <span className="text-xs">&#8597;</span></Th>
+              <Th>Users</Th>
+              <Th align="right">Actions</Th>
+</TableHead>
+          <TableBody>
             {groups.map((g) => (
               <tr key={g.name} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm text-text">{g.name}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{g.users}</td>
-                <td className="px-4 py-3 text-right">
-                  <button className="text-text-secondary hover:text-text">
+                <Td>{g.name}</Td>
+                <Td>{g.users}</Td>
+                <Td align="right">                  <button className="text-text-secondary hover:text-text">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="1" />
                       <circle cx="19" cy="12" r="1" />
                       <circle cx="5" cy="12" r="1" />
                     </svg>
-                  </button>
-                </td>
+                  </button></Td>
               </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </DataTable>
 
       <div className="mt-4 flex items-center justify-end gap-2">
         <span className="text-sm text-text-secondary">1-3 of 3 items</span>
@@ -1501,35 +1435,29 @@ function PaymentSettingsContent() {
               className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
             />
           </div>
-          <button className="rounded-lg bg-green-500 px-4 py-2 text-sm font-medium text-white hover:bg-green-600">
+          <Button variant="primary" className="bg-green-500 border-green-500 hover:bg-green-600">
             Save
-          </button>
+          </Button>
         </div>
       </div>
 
       {/* Accepted forms of payment */}
       <div className="mb-6">
         <h2 className="mb-4 text-base font-semibold text-text">Accepted forms of payment</h2>
-        <div className="overflow-hidden rounded-lg border border-border bg-white">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-border">
-                <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Name</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Description</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Status</th>
-                <th className="px-4 py-3 text-right text-sm font-medium text-text-secondary">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
+        <DataTable>
+            <TableHead>
+                <Th>Name</Th>
+                <Th>Description</Th>
+                <Th>Status</Th>
+                <Th align="right">Actions</Th>
+</TableHead>
+            <TableBody>
               {paymentMethods.map((pm) => (
                 <tr key={pm.name} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 text-sm text-text">{pm.name}</td>
-                  <td className="px-4 py-3 text-sm text-text-secondary">{pm.description}</td>
-                  <td className="px-4 py-3">
-                    <span className="rounded bg-green-500 px-2 py-0.5 text-xs font-medium text-white">{pm.status}</span>
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <div className="flex items-center justify-end gap-2">
+                  <Td>{pm.name}</Td>
+                  <Td>{pm.description}</Td>
+                  <Td>                    <span className="rounded bg-green-500 px-2 py-0.5 text-xs font-medium text-white">{pm.status}</span></Td>
+                  <Td align="right">                    <div className="flex items-center justify-end gap-2">
                       <button className="text-text-secondary hover:text-primary">
                         <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path
@@ -1550,13 +1478,11 @@ function PaymentSettingsContent() {
                           />
                         </svg>
                       </button>
-                    </div>
-                  </td>
+                    </div></Td>
                 </tr>
               ))}
-            </tbody>
-          </table>
-        </div>
+            </TableBody>
+          </DataTable>
 
         <div className="mt-4 flex items-center justify-end gap-2">
           <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
@@ -1587,9 +1513,9 @@ function PaymentSettingsContent() {
           <select className="mb-3 w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
             <option>Credit Card</option>
           </select>
-          <button className="rounded-lg bg-green-500 px-4 py-2 text-sm font-medium text-white hover:bg-green-600">
+          <Button variant="primary" className="bg-green-500 border-green-500 hover:bg-green-600">
             Save changes
-          </button>
+          </Button>
         </div>
       </div>
     </div>
@@ -1617,26 +1543,20 @@ function CommunicationTypesContent() {
         </Button>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Name</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Default type</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+      <DataTable>
+          <TableHead>
+              <Th>Name</Th>
+              <Th>Default type</Th>
+              <Th>Actions</Th>
+</TableHead>
+          <TableBody>
             {types.map((t) => (
               <tr key={t.name} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm text-text">{t.name}</td>
-                <td className="px-4 py-3">
-                  <span className={`text-sm font-medium ${t.defaultType ? "text-green-600" : "text-red-500"}`}>
+                <Td>{t.name}</Td>
+                <Td>                  <span className={`text-sm font-medium ${t.defaultType ? "text-green-600" : "text-red-500"}`}>
                     {t.defaultType ? "Yes" : "No"}
-                  </span>
-                </td>
-                <td className="px-4 py-3">
-                  {t.defaultType ? (
+                  </span></Td>
+                <Td>                  {t.defaultType ? (
                     <span className="text-text-secondary">-</span>
                   ) : (
                     <button className="text-text-secondary hover:text-text">
@@ -1646,13 +1566,11 @@ function CommunicationTypesContent() {
                         <circle cx="5" cy="12" r="1" />
                       </svg>
                     </button>
-                  )}
-                </td>
+                  )}</Td>
               </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </DataTable>
 
       <div className="mt-4 flex items-center justify-end gap-2">
         <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
@@ -1761,41 +1679,33 @@ function BusyTimesContent() {
         control whether specific types of busy time are used in utilisation reports.
       </p>
 
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Name</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Utilisation</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Duration (mins)</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text-secondary">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+      <DataTable>
+          <TableHead>
+              <Th>Name</Th>
+              <Th>Utilisation</Th>
+              <Th>Duration (mins)</Th>
+              <Th align="right">Actions</Th>
+</TableHead>
+          <TableBody>
             {busyTypes.map((bt) => (
               <tr key={bt.name} className="hover:bg-gray-50">
-                <td className="px-4 py-3">
-                  <div className="flex items-center gap-2">
+                <Td>                  <div className="flex items-center gap-2">
                     <div className="h-3 w-3 rounded-full" style={{ backgroundColor: bt.color }} />
                     <span className="text-sm text-text">{bt.name}</span>
-                  </div>
-                </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{bt.utilisation}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{bt.duration}</td>
-                <td className="px-4 py-3 text-right">
-                  <button className="text-text-secondary hover:text-text">
+                  </div></Td>
+                <Td>{bt.utilisation}</Td>
+                <Td>{bt.duration}</Td>
+                <Td align="right">                  <button className="text-text-secondary hover:text-text">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="1" />
                       <circle cx="19" cy="12" r="1" />
                       <circle cx="5" cy="12" r="1" />
                     </svg>
-                  </button>
-                </td>
+                  </button></Td>
               </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </DataTable>
     </div>
   );
 }
@@ -1848,42 +1758,32 @@ function CustomFieldsContent() {
         </Button>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Name</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Type</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Visible</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Required</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text-secondary">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+      <DataTable>
+          <TableHead>
+              <Th>Name</Th>
+              <Th>Type</Th>
+              <Th>Visible</Th>
+              <Th>Required</Th>
+              <Th align="right">Actions</Th>
+</TableHead>
+          <TableBody>
             {fields.map((f) => (
               <tr key={f.name} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm text-text">{f.name}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{f.type}</td>
-                <td className="px-4 py-3">
-                  <span className="text-sm font-medium text-green-600">Yes</span>
-                </td>
-                <td className="px-4 py-3">
-                  <span className="text-sm font-medium text-red-500">No</span>
-                </td>
-                <td className="px-4 py-3 text-right">
-                  <button className="text-text-secondary hover:text-text">
+                <Td>{f.name}</Td>
+                <Td>{f.type}</Td>
+                <Td>                  <span className="text-sm font-medium text-green-600">Yes</span></Td>
+                <Td>                  <span className="text-sm font-medium text-red-500">No</span></Td>
+                <Td align="right">                  <button className="text-text-secondary hover:text-text">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="1" />
                       <circle cx="19" cy="12" r="1" />
                       <circle cx="5" cy="12" r="1" />
                     </svg>
-                  </button>
-                </td>
+                  </button></Td>
               </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </DataTable>
     </div>
   );
 }
@@ -1933,47 +1833,35 @@ function RoomsResourcesContent() {
         </Button>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-green-50">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                Name <span className="text-xs">&#8597;</span>
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Group</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Capacity/Available</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                Location <span className="text-xs">&#9661;</span>
-              </th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+      <DataTable>
+          <TableHead>
+              <Th>                Name <span className="text-xs">&#8597;</span></Th>
+              <Th>Group</Th>
+              <Th>Capacity/Available</Th>
+              <Th>                Location <span className="text-xs">&#9661;</span></Th>
+              <Th align="right">Actions</Th>
+</TableHead>
+          <TableBody>
             {rooms.map((r) => (
               <tr key={r.name} className="hover:bg-gray-50">
-                <td className="px-4 py-3">
-                  <div className="flex items-center gap-2">
+                <Td>                  <div className="flex items-center gap-2">
                     <div className="h-3 w-3 rounded-full" style={{ backgroundColor: r.color }} />
                     <span className="text-sm text-text">{r.name}</span>
-                  </div>
-                </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{r.group}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{r.capacity}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{r.location}</td>
-                <td className="px-4 py-3 text-right">
-                  <button className="text-text-secondary hover:text-text">
+                  </div></Td>
+                <Td>{r.group}</Td>
+                <Td>{r.capacity}</Td>
+                <Td>{r.location}</Td>
+                <Td align="right">                  <button className="text-text-secondary hover:text-text">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="1" />
                       <circle cx="19" cy="12" r="1" />
                       <circle cx="5" cy="12" r="1" />
                     </svg>
-                  </button>
-                </td>
+                  </button></Td>
               </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </DataTable>
     </div>
   );
 }
@@ -2071,49 +1959,37 @@ function ServicesContent() {
         </Button>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-green-50">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                Name <span className="text-xs">&#8597;</span>
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                Type <span className="text-xs">&#8597;</span>
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Item code</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Duration</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Price</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+      <DataTable>
+          <TableHead>
+              <Th>                Name <span className="text-xs">&#8597;</span></Th>
+              <Th>                Type <span className="text-xs">&#8597;</span></Th>
+              <Th>Item code</Th>
+              <Th>Duration</Th>
+              <Th>Price</Th>
+              <Th align="right">Actions</Th>
+</TableHead>
+          <TableBody>
             {services.map((s) => (
               <tr key={s.name} className="hover:bg-gray-50">
-                <td className="px-4 py-3">
-                  <div className="flex items-center gap-2">
+                <Td>                  <div className="flex items-center gap-2">
                     <div className="h-3 w-3 rounded-full" style={{ backgroundColor: s.color }} />
                     <span className="text-sm text-text">{s.name}</span>
-                  </div>
-                </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{s.type}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{s.itemCode}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{s.duration}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{s.price}</td>
-                <td className="px-4 py-3 text-right">
-                  <button className="text-text-secondary hover:text-text">
+                  </div></Td>
+                <Td>{s.type}</Td>
+                <Td>{s.itemCode}</Td>
+                <Td>{s.duration}</Td>
+                <Td>{s.price}</Td>
+                <Td align="right">                  <button className="text-text-secondary hover:text-text">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="1" />
                       <circle cx="19" cy="12" r="1" />
                       <circle cx="5" cy="12" r="1" />
                     </svg>
-                  </button>
-                </td>
+                  </button></Td>
               </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </DataTable>
     </div>
   );
 }
@@ -2395,9 +2271,9 @@ function InvoiceSettingsContent() {
             </div>
           ))}
         </div>
-        <button className="mt-4 w-full rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+        <Button className="mt-4 w-full">
           + New invoice reminder
-        </button>
+        </Button>
       </div>
 
       {/* Invoice templates */}
@@ -2446,9 +2322,9 @@ function InvoiceSettingsContent() {
           <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">2</button>
           <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&gt;</button>
         </div>
-        <button className="mt-4 w-full rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+        <Button className="mt-4 w-full">
           + Add invoice template
-        </button>
+        </Button>
       </div>
     </div>
   );
@@ -2483,36 +2359,30 @@ function OnlineBookingsContent() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Name</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Created at</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Last updated</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text-secondary">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+      <DataTable>
+          <TableHead>
+              <Th>Name</Th>
+              <Th>Created at</Th>
+              <Th>Last updated</Th>
+              <Th align="right">Actions</Th>
+</TableHead>
+          <TableBody>
             {bookings.map((b) => (
               <tr key={b.name} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm text-text">{b.name}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{b.created}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{b.updated}</td>
-                <td className="px-4 py-3 text-right">
-                  <button className="text-text-secondary hover:text-text">
+                <Td>{b.name}</Td>
+                <Td>{b.created}</Td>
+                <Td>{b.updated}</Td>
+                <Td align="right">                  <button className="text-text-secondary hover:text-text">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="1" />
                       <circle cx="19" cy="12" r="1" />
                       <circle cx="5" cy="12" r="1" />
                     </svg>
-                  </button>
-                </td>
+                  </button></Td>
               </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </DataTable>
     </div>
   );
 }
@@ -2556,48 +2426,38 @@ function AppointmentTemplatesContent() {
         </Button>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-green-50">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Name</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Type</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">SMS</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Email</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Last modified</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+      <DataTable>
+          <TableHead>
+              <Th>Name</Th>
+              <Th>Type</Th>
+              <Th>SMS</Th>
+              <Th>Email</Th>
+              <Th>Last modified</Th>
+              <Th align="right">Actions</Th>
+</TableHead>
+          <TableBody>
             {templates.map((t) => (
               <tr key={t.name} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm text-text">{t.name}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{t.type}</td>
-                <td className="px-4 py-3">
-                  <span className={`text-sm font-medium ${t.sms === "On" ? "text-green-600" : "text-red-500"}`}>
+                <Td>{t.name}</Td>
+                <Td>{t.type}</Td>
+                <Td>                  <span className={`text-sm font-medium ${t.sms === "On" ? "text-green-600" : "text-red-500"}`}>
                     {t.sms}
-                  </span>
-                </td>
-                <td className="px-4 py-3">
-                  <span className={`text-sm font-medium ${t.email === "On" ? "text-green-600" : "text-red-500"}`}>
+                  </span></Td>
+                <Td>                  <span className={`text-sm font-medium ${t.email === "On" ? "text-green-600" : "text-red-500"}`}>
                     {t.email}
-                  </span>
-                </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{t.modified}</td>
-                <td className="px-4 py-3 text-right">
-                  <button className="text-text-secondary hover:text-text">
+                  </span></Td>
+                <Td>{t.modified}</Td>
+                <Td align="right">                  <button className="text-text-secondary hover:text-text">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="1" />
                       <circle cx="19" cy="12" r="1" />
                       <circle cx="5" cy="12" r="1" />
                     </svg>
-                  </button>
-                </td>
+                  </button></Td>
               </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </DataTable>
     </div>
   );
 }
@@ -2636,36 +2496,30 @@ function EmailTemplatesContent() {
         </Button>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-green-50">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Name</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Type</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Last modified</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+      <DataTable>
+          <TableHead>
+              <Th>Name</Th>
+              <Th>Type</Th>
+              <Th>Last modified</Th>
+              <Th align="right">Actions</Th>
+</TableHead>
+          <TableBody>
             {templates.map((t) => (
               <tr key={t.name} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm text-text">{t.name}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{t.type}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{t.modified}</td>
-                <td className="px-4 py-3 text-right">
-                  <button className="text-text-secondary hover:text-text">
+                <Td>{t.name}</Td>
+                <Td>{t.type}</Td>
+                <Td>{t.modified}</Td>
+                <Td align="right">                  <button className="text-text-secondary hover:text-text">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="1" />
                       <circle cx="19" cy="12" r="1" />
                       <circle cx="5" cy="12" r="1" />
                     </svg>
-                  </button>
-                </td>
+                  </button></Td>
               </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </DataTable>
     </div>
   );
 }
@@ -2722,39 +2576,31 @@ function ProgressNoteTemplatesContent() {
         </Button>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-green-50">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Title</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Created at</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+      <DataTable>
+          <TableHead>
+              <Th>Title</Th>
+              <Th>Created at</Th>
+              <Th align="right">Actions</Th>
+</TableHead>
+          <TableBody>
             {templates.map((t) => (
               <tr key={t.title} className="hover:bg-gray-50">
-                <td className="px-4 py-3">
-                  <div className="flex items-center gap-2">
+                <Td>                  <div className="flex items-center gap-2">
                     <div className="h-3 w-3 rounded-full bg-purple-400" />
                     <span className="text-sm text-text">{t.title}</span>
-                  </div>
-                </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{t.created}</td>
-                <td className="px-4 py-3 text-right">
-                  <button className="text-text-secondary hover:text-text">
+                  </div></Td>
+                <Td>{t.created}</Td>
+                <Td align="right">                  <button className="text-text-secondary hover:text-text">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="1" />
                       <circle cx="19" cy="12" r="1" />
                       <circle cx="5" cy="12" r="1" />
                     </svg>
-                  </button>
-                </td>
+                  </button></Td>
               </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </DataTable>
     </div>
   );
 }
@@ -2805,36 +2651,30 @@ function LetterTemplatesContent() {
         </Button>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-green-50">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Title</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Created at</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Last updated</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+      <DataTable>
+          <TableHead>
+              <Th>Title</Th>
+              <Th>Created at</Th>
+              <Th>Last updated</Th>
+              <Th align="right">Actions</Th>
+</TableHead>
+          <TableBody>
             {templates.map((t) => (
               <tr key={t.title} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm text-text">{t.title}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{t.created}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{t.updated}</td>
-                <td className="px-4 py-3 text-right">
-                  <button className="text-text-secondary hover:text-text">
+                <Td>{t.title}</Td>
+                <Td>{t.created}</Td>
+                <Td>{t.updated}</Td>
+                <Td align="right">                  <button className="text-text-secondary hover:text-text">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="1" />
                       <circle cx="19" cy="12" r="1" />
                       <circle cx="5" cy="12" r="1" />
                     </svg>
-                  </button>
-                </td>
+                  </button></Td>
               </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </DataTable>
     </div>
   );
 }
@@ -2923,9 +2763,9 @@ function DataExportContent() {
           </div>
         </div>
         <div className="self-end">
-          <button className="rounded-lg bg-green-500 px-6 py-2 text-sm font-medium text-white hover:bg-green-600">
+          <Button variant="primary" className="bg-green-500 border-green-500 hover:bg-green-600">
             Export
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -2934,50 +2774,42 @@ function DataExportContent() {
         Include archived
       </label>
 
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Data export</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Date range</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Include Archived</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Created at</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Created by</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Status</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Records</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text-secondary">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+      <DataTable>
+          <TableHead>
+              <Th>Data export</Th>
+              <Th>Date range</Th>
+              <Th>Include Archived</Th>
+              <Th>Created at</Th>
+              <Th>Created by</Th>
+              <Th>Status</Th>
+              <Th>Records</Th>
+              <Th align="right">Actions</Th>
+</TableHead>
+          <TableBody>
             {exports.map((e, i) => (
               <tr key={i} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm text-text">{e.type}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{e.dateRange}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{e.archived}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{e.created}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{e.createdBy}</td>
-                <td className="px-4 py-3">
-                  <span
+                <Td>{e.type}</Td>
+                <Td>{e.dateRange}</Td>
+                <Td>{e.archived}</Td>
+                <Td>{e.created}</Td>
+                <Td>{e.createdBy}</Td>
+                <Td>                  <span
                     className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${e.status === "Done" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}
                   >
                     {e.status}
-                  </span>
-                </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{e.records}</td>
-                <td className="px-4 py-3 text-right">
-                  <button className="text-text-secondary hover:text-text">
+                  </span></Td>
+                <Td>{e.records}</Td>
+                <Td align="right">                  <button className="text-text-secondary hover:text-text">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="1" />
                       <circle cx="19" cy="12" r="1" />
                       <circle cx="5" cy="12" r="1" />
                     </svg>
-                  </button>
-                </td>
+                  </button></Td>
               </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </DataTable>
     </div>
   );
 }
@@ -3001,43 +2833,33 @@ function DataImportContent() {
         </Button>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Type</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Status</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Activity</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text-secondary">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+      <DataTable>
+          <TableHead>
+              <Th>Type</Th>
+              <Th>Status</Th>
+              <Th>Activity</Th>
+              <Th align="right">Actions</Th>
+</TableHead>
+          <TableBody>
             {imports.map((imp, i) => (
               <tr key={i} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm text-text">{imp.type}</td>
-                <td className="px-4 py-3">
-                  <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-700">
+                <Td>{imp.type}</Td>
+                <Td>                  <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-700">
                     {imp.status}
-                  </span>
-                </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">
-                  <div>Created: {imp.created}</div>
-                  <div>Updated: {imp.updated}</div>
-                </td>
-                <td className="px-4 py-3 text-right">
-                  <button className="text-text-secondary hover:text-text">
+                  </span></Td>
+                <Td>                  <div>Created: {imp.created}</div>
+                  <div>Updated: {imp.updated}</div></Td>
+                <Td align="right">                  <button className="text-text-secondary hover:text-text">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="1" />
                       <circle cx="19" cy="12" r="1" />
                       <circle cx="5" cy="12" r="1" />
                     </svg>
-                  </button>
-                </td>
+                  </button></Td>
               </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </DataTable>
     </div>
   );
 }
