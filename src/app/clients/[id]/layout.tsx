@@ -30,16 +30,16 @@ export default async function ClientLayout({
   const sidebarSections = [
     { label: "Details", href: `/clients/${id}`, count: null },
     { label: "Appointments", href: `/clients/${id}/appointments`, count: client._count.appointments },
-    { label: "Communications", href: `/clients/${id}`, count: 884 },
-    { label: "Files", href: `/clients/${id}`, count: 95 },
+    { label: "Communications", href: `/clients/${id}/communications`, count: 7 },
+    { label: "Files", href: `/clients/${id}/files`, count: 2 },
     { label: "Progress notes", href: `/clients/${id}/notes`, count: client._count.clinicalNotes },
     { label: "Cases", href: `/clients/${id}/cases`, count: 33 },
-    { label: "Support activities", href: `/clients/${id}`, count: 9 },
+    { label: "Support activities", href: `/clients/${id}/support-activities`, count: 9 },
     { label: "Forms", href: `/clients/${id}/forms`, count: 212 },
     { label: "Invoices", href: `/clients/${id}/invoices`, count: client._count.invoices },
-    { label: "Payments", href: `/clients/${id}`, count: 17 },
-    { label: "Statements", href: `/clients/${id}`, count: null },
-    { label: "Letters", href: `/clients/${id}`, count: 4 },
+    { label: "Payments", href: `/clients/${id}/payments`, count: 17 },
+    { label: "Statements", href: `/clients/${id}/statements`, count: null },
+    { label: "Letters", href: `/clients/${id}/letters`, count: 1 },
     { label: "Practitioner access", href: `/clients/${id}/practitioner-access`, count: null },
   ];
 
