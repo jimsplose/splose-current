@@ -4,6 +4,12 @@ export default function ClientCasesPage() {
     { number: "0389", issueDate: "1 Oct 2025", expiryDate: "1 Nov 2025", assignee: "Unassigned", type: "Budget", allocated: "0.00 of 1,000.00", invoiced: "0.00 of 1,000.00" },
     { number: "0405", issueDate: "30 Sep 2025", expiryDate: "1 Nov 2025", assignee: "Unassigned", type: "Hours", allocated: "3.00 of 3.00 hours", invoiced: "3.00 of 3.00 hours" },
     { number: "indefinite", issueDate: "30 Sep 2025", expiryDate: "N/A", assignee: "Joseph Ge", type: "Appointments", allocated: "3 of 3 appointments", invoiced: "3 of 3 appointments" },
+    { number: "0391", issueDate: "29 Sep 2025", expiryDate: "1 Nov 2025", assignee: "Joseph Ge", type: "Hours", allocated: "2.25 of 1.00 hour", invoiced: "2.25 of 1.00 hour" },
+    { number: "0388", issueDate: "28 Aug 2025", expiryDate: "1 Sep 2025", assignee: "Unassigned", type: "Appointments", allocated: "0 of 1000 appointments", invoiced: "0 of 1000 appointments" },
+    { number: "0361", issueDate: "15 Aug 2025", expiryDate: "22 Aug 2025", assignee: "Unassigned", type: "Budget", allocated: "0.00", invoiced: "0.00" },
+    { number: "0360", issueDate: "1 Aug 2025", expiryDate: "2 Aug 2026", assignee: "Cheng Ma", type: "Budget", allocated: "0.00 of 1,000.00", invoiced: "0.00 of 1,000.00" },
+    { number: "0337", issueDate: "1 Jul 2025", expiryDate: "2 Jul 2026", assignee: "Unassigned", type: "Budget", allocated: "0.00 of 1,000.00", invoiced: "0.00 of 1,000.00" },
+    { number: "0297 (BSB)", issueDate: "5 Jun 2025", expiryDate: "29 Jun 2025", assignee: "Unassigned", type: "Appointments", allocated: "0 of 10 appointments", invoiced: "0 of 10 appointments" },
   ];
 
   return (
@@ -43,10 +49,11 @@ export default function ClientCasesPage() {
           </tbody>
         </table>
         <div className="flex items-center justify-end border-t border-border px-4 py-3 text-sm text-text-secondary">
-          <span>1-{mockCases.length} of {mockCases.length} items</span>
+          <span>1-10 of 18 items</span>
           <div className="ml-4 flex items-center gap-1">
-            <span>&lt;</span>
+            <span className="text-text-secondary/40">&lt;</span>
             <button className="flex h-7 w-7 items-center justify-center rounded border border-primary bg-white text-xs font-medium text-primary">1</button>
+            <button className="flex h-7 w-7 items-center justify-center rounded border border-border bg-white text-xs font-medium text-text-secondary hover:bg-gray-50">2</button>
             <span>&gt;</span>
           </div>
           <span className="ml-4">10 / page</span>
