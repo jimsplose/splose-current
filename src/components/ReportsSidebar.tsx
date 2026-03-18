@@ -49,7 +49,7 @@ export default function ReportsSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-56 shrink-0 border-r border-border bg-white p-4 overflow-y-auto">
+    <aside className="hidden md:block w-56 shrink-0 border-r border-border bg-white p-4 overflow-y-auto">
       {sections.map((section) => (
         <div key={section.title} className="mb-4">
           <h3 className="mb-1 text-xs font-bold uppercase tracking-wider text-text">

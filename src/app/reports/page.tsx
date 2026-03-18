@@ -60,7 +60,7 @@ export default function ReportsPage() {
       </div>
 
       {/* Charts row */}
-      <div className="grid grid-cols-2 gap-6 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         {/* Utilisation card - LINE chart */}
         <div className="rounded-lg border border-border bg-white p-4">
           <div className="flex items-center justify-between mb-1">

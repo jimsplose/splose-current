@@ -29,16 +29,16 @@ export default async function Dashboard() {
   const data = await getDashboardData();
 
   const incomeData = [
-    { month: "Sep-2025", invoices: 8, payments: 1 },
-    { month: "Oct-2025", invoices: 15, payments: 3 },
-    { month: "Nov-2025", invoices: 40, payments: 8 },
-    { month: "Dec-2025", invoices: 95, payments: 2 },
-    { month: "Jan-2026", invoices: 10, payments: 1 },
-    { month: "Feb-2026", invoices: 5, payments: 1 },
-    { month: "Mar-2026", invoices: 18, payments: 5 },
+    { month: "Sep-2025", invoices: 8240, payments: 1200 },
+    { month: "Oct-2025", invoices: 22450, payments: 3800 },
+    { month: "Nov-2025", invoices: 48620, payments: 8400 },
+    { month: "Dec-2025", invoices: 395000, payments: 12500 },
+    { month: "Jan-2026", invoices: 15200, payments: 2100 },
+    { month: "Feb-2026", invoices: 76142, payments: 4864 },
+    { month: "Mar-2026", invoices: 58300, payments: 9200 },
   ];
 
-  const maxVal = Math.max(...incomeData.map((d) => Math.max(d.invoices, d.payments)));
+  const maxVal = 500000; // Fixed scale to match reference (500K)
 
   return (
     <div className="flex flex-col lg:flex-row min-h-[calc(100vh-3rem)]">
@@ -226,12 +226,9 @@ export default async function Dashboard() {
           <div className="relative h-52">
             {/* Y-axis labels */}
             <div className="absolute left-0 top-0 bottom-6 flex flex-col justify-between text-[10px] text-text-secondary pr-1">
-              <span>500K</span>
-              <span>400K</span>
-              <span>300K</span>
-              <span>200K</span>
-              <span>100K</span>
-              <span>0</span>
+              {[500, 400, 300, 200, 100, 0].map((v) => (
+                <span key={v}>{v === 0 ? "0" : `${v}K`}</span>
+              ))}
             </div>
             {/* Y-axis label "Values" rotated */}
             <div className="absolute -left-4 top-1/2 -translate-y-1/2 -rotate-90 text-[9px] text-text-secondary whitespace-nowrap">

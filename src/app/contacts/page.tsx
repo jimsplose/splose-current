@@ -14,21 +14,9 @@ const mockContacts = [
   { id: "10", type: "Standard", name: "Harry Mann", company: "", email: "", workPhone: "", mobilePhone: "" },
 ];
 
-function getTypeBadge(type: string) {
+function getTypeLabel(type: string) {
   if (!type) return null;
-  const colors: Record<string, string> = {
-    "Doctor": "bg-blue-100 text-blue-700",
-    "3rd party payer": "bg-purple-100 text-purple-700",
-    "Plan manager": "bg-green-100 text-green-700",
-    "Parent": "bg-orange-100 text-orange-700",
-    "Standard": "bg-gray-100 text-gray-700",
-  };
-  const cls = colors[type] || "bg-gray-100 text-gray-700";
-  return (
-    <span className={`inline-block rounded px-2 py-0.5 text-xs font-medium ${cls}`}>
-      {type}
-    </span>
-  );
+  return <span className="text-sm text-text-secondary">{type}</span>;
 }
 
 export default function ContactsPage() {
@@ -97,7 +85,7 @@ export default function ContactsPage() {
               >
                 <td className="px-4 py-3 text-sm text-text-secondary">
                   <Link href={`/contacts/${contact.id}`} className="absolute inset-0" aria-label={`View ${contact.name}`} />
-                  {getTypeBadge(contact.type)}
+                  {getTypeLabel(contact.type)}
                 </td>
                 <td className="px-4 py-3 text-sm font-medium text-primary group-hover:underline">
                   {contact.name}
