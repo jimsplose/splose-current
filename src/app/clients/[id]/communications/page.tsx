@@ -80,7 +80,7 @@ export default async function ClientCommunicationsPage({
     <div className="flex-1 overflow-y-auto p-6">
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-bold text-text">Communications</h1>
-        <button className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90">
+        <button className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
           <Plus className="h-4 w-4" />
           Log communication
         </button>
@@ -121,7 +121,12 @@ export default async function ClientCommunicationsPage({
           <tbody className="divide-y divide-border">
             {communicationsData.map((comm) => (
               <tr key={comm.id} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm text-text">{comm.dateTime}</td>
+                <td className="px-4 py-3 text-sm text-text">
+                  <div className="flex items-center gap-2">
+                    <button className="flex h-5 w-5 shrink-0 items-center justify-center rounded border border-border text-text-secondary hover:bg-gray-100 text-xs">+</button>
+                    {comm.dateTime}
+                  </div>
+                </td>
                 <td className="px-4 py-3 text-sm text-text-secondary">{comm.subject || "—"}</td>
                 <td className="px-4 py-3 text-sm text-text-secondary">{comm.type}</td>
                 <td className="px-4 py-3 text-sm">
