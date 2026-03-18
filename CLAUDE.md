@@ -39,9 +39,14 @@ Files are named `Screenshot YYYY-MM-DD at H.MM.SS am/pm.png`. They are NOT organ
 When the user selects "Process new screenshots" from the Session Start Menu (or asks directly):
 1. **Scan for unprocessed screenshots** — Compare the full list in `screenshots/reference/` against `screenshots/processed.txt` (a log of already-reviewed filenames)
 2. **Review new screenshots in parallel** — Launch Explore agents to read batches of new screenshots and categorize them by page/feature
-3. **Update state registry** — For each new state/variant/modal discovered, add an entry to `src/lib/state-registry.ts` (once the Dev Navigator exists)
-4. **Implement changes** — Use the parallel subagent workflow (see below) to update pages to match
-5. **Log processed screenshots** — Append reviewed filenames to `screenshots/processed.txt` so future sessions skip them
+3. **MANDATORY: Update both output files** — Every screenshot processing run MUST update these two files:
+   - **`screenshots/processed.txt`** — Append every reviewed filename (even if no code changes were made) so future sessions skip them
+   - **`screenshots/screenshot-catalog.md`** — A markdown file organizing all screenshots by page/feature/state. Each entry has: filename, page it belongs to, state/variant shown (e.g. "modal open", "tab selected", "dropdown expanded"), and whether the prototype already matches it. Create this file if it doesn't exist.
+4. **Update state registry (if it exists)** — If `src/lib/state-registry.ts` exists, add entries for every new state/variant/modal discovered. If it doesn't exist yet, the screenshot catalog from step 3 serves as the source of truth until the Dev Navigator is built.
+5. **Update fidelity gaps** — Add new gaps to the "Remaining Fidelity Gaps" section of this file for any screenshots showing states/pages not yet implemented
+6. **Implement changes** — Use the parallel subagent workflow (see below) to update pages to match
+
+**The screenshot catalog (`screenshots/screenshot-catalog.md`) is the bridge between screenshot processing and the Dev Navigator.** When the Dev Navigator is built (option 4), it reads this catalog to populate the state registry. This means options 2 and 4 work independently but feed into each other.
 
 ### When working on UI fidelity
 1. Read the relevant screenshot(s) from `screenshots/reference/`
@@ -290,6 +295,8 @@ export const stateRegistry: PageEntry[] = [
 ```
 
 **Key rule**: When a new page or state variant is created (from screenshot comparison), the developer MUST also add it to the state registry. This keeps the navigator in sync.
+
+**Data source**: The state registry should be populated from `screenshots/screenshot-catalog.md`, which is maintained by the screenshot processing workflow (option 2). If the catalog exists when the Dev Navigator is first built, use it to pre-populate all known variants. On subsequent screenshot processing runs, new catalog entries should be mirrored into the registry.
 
 ### 2. URL State Parameter
 
