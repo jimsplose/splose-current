@@ -41,7 +41,7 @@ export default async function Dashboard() {
   const maxVal = Math.max(...incomeData.map((d) => Math.max(d.invoices, d.payments)));
 
   return (
-    <div className="flex min-h-[calc(100vh-3rem)]">
+    <div className="flex flex-col lg:flex-row min-h-[calc(100vh-3rem)]">
       {/* Left column — Messages */}
       <div className="flex flex-1 flex-col border-r border-border">
         {/* Messages header */}
@@ -219,7 +219,7 @@ export default async function Dashboard() {
       </div>
 
       {/* Right column — Analytics */}
-      <div className="w-[380px] shrink-0 overflow-y-auto bg-white">
+      <div className="w-full lg:w-[380px] shrink-0 overflow-y-auto bg-white">
         {/* Income chart area */}
         <div className="border-b border-border px-4 pt-3 pb-4">
           <h3 className="mb-3 text-sm font-medium text-text">Income</h3>

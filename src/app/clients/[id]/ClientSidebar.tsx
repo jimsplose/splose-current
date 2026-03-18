@@ -26,7 +26,7 @@ export default function ClientSidebar({
   }
 
   return (
-    <aside className="w-[200px] shrink-0 border-r border-border bg-white overflow-y-auto py-2">
+    <aside className="hidden md:block w-[200px] shrink-0 border-r border-border bg-white overflow-y-auto py-2">
       <nav>
         {sections.map((section) => {
           const active = isActive(section);
