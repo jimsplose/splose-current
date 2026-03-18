@@ -2,9 +2,11 @@
 
 High-fidelity UI prototype of [Splose](https://splose.com), a practice management platform for allied health professionals.
 
-## Session Start Menu
+## Session Start Menu — MANDATORY
 
-**At the beginning of every new session**, present the user with a choice using AskUserQuestion before doing any other work:
+**STOP. Before doing ANY other work — before reading files, running commands, or responding to the user's first message — you MUST use AskUserQuestion to present this menu.** Even if the user says "let's go", "start", or gives a vague instruction, show the menu FIRST. The only exception is if the user's first message is a specific, detailed request (e.g. "fix the bug in the sidebar component").
+
+Use AskUserQuestion with these options:
 
 > **What would you like to work on this session?**
 >
@@ -14,7 +16,7 @@ High-fidelity UI prototype of [Splose](https://splose.com), a practice managemen
 > 4. **Build Dev Navigator** — Follow `docs/dev-navigator-spec.md` to implement floating toolbar + state registry
 > 5. **Something else** — Free-form request
 
-Wait for the user's answer before proceeding.
+**Do NOT skip this step. Do NOT start working without the user's menu selection.**
 
 ## Workflow Files (RAG)
 
