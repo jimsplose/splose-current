@@ -14,6 +14,13 @@ import {
   CheckCircle,
   ChevronUp,
   Plus,
+  Bold,
+  Italic,
+  Underline,
+  Strikethrough,
+  Link2,
+  Image,
+  Table,
 } from "lucide-react";
 
 type NoteData = {
@@ -288,14 +295,14 @@ export default function EditProgressNotePage() {
               <span className="px-2 text-xs">Arial</span>
               <span className="px-2 text-xs">T↓</span>
               <span className="h-4 w-px bg-border" />
-              <button className="rounded p-1 text-xs font-bold hover:bg-gray-100">B</button>
-              <button className="rounded p-1 text-xs italic hover:bg-gray-100">I</button>
-              <button className="rounded p-1 text-xs underline hover:bg-gray-100">U</button>
-              <button className="rounded p-1 text-xs hover:bg-gray-100">S̶</button>
+              <button className="rounded p-1.5 hover:bg-gray-100"><Bold className="h-4 w-4" /></button>
+              <button className="rounded p-1.5 hover:bg-gray-100"><Italic className="h-4 w-4" /></button>
+              <button className="rounded p-1.5 hover:bg-gray-100"><Underline className="h-4 w-4" /></button>
+              <button className="rounded p-1.5 hover:bg-gray-100"><Strikethrough className="h-4 w-4" /></button>
               <span className="h-4 w-px bg-border" />
-              <button className="rounded p-1 text-xs hover:bg-gray-100">🔗</button>
-              <button className="rounded p-1 text-xs hover:bg-gray-100">📷</button>
-              <button className="rounded p-1 text-xs hover:bg-gray-100">📊</button>
+              <button className="rounded p-1.5 hover:bg-gray-100"><Link2 className="h-4 w-4" /></button>
+              <button className="rounded p-1.5 hover:bg-gray-100"><Image className="h-4 w-4" /></button>
+              <button className="rounded p-1.5 hover:bg-gray-100"><Table className="h-4 w-4" /></button>
               <span className="flex-1" />
               <button
                 onClick={generateAll}
@@ -371,7 +378,7 @@ export default function EditProgressNotePage() {
                         <div className="flex items-center gap-2 py-4">
                           <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
                           <span className="text-sm text-text-secondary">
-                            Generating {section.title.toLowerCase()}...
+                            Thinking<span className="animate-pulse">...</span>
                           </span>
                         </div>
                       ) : section.generated ? (
@@ -396,10 +403,13 @@ export default function EditProgressNotePage() {
                   )}
                 </div>
 
-                {/* Accept button when generated */}
+                {/* Accept/Assign buttons when generated */}
                 {section.generated && (
-                  <div className="mt-2 flex justify-end">
-                    <button className="flex items-center gap-1.5 rounded-lg bg-green-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-600">
+                  <div className="mt-2 flex justify-end gap-2">
+                    <button className="rounded-lg border border-border bg-white px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
+                      Assign
+                    </button>
+                    <button className="flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-white hover:bg-primary-dark">
                       <CheckCircle className="h-3.5 w-3.5" />
                       Accept
                     </button>
