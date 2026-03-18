@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { Plus, Mail, Phone } from "lucide-react";
+import { Button, PageHeader } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -15,14 +16,10 @@ export default async function PractitionersPage() {
   });
 
   return (
-    <div className="p-6">
-      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-2xl font-bold text-text">Practitioners</h1>
-        <button className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
-          <Plus className="h-4 w-4" />
-          Add Practitioner
-        </button>
-      </div>
+    <div className="p-4 sm:p-6">
+      <PageHeader title="Practitioners">
+        <Button variant="primary"><Plus className="h-4 w-4" /> Add Practitioner</Button>
+      </PageHeader>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {practitioners.map((p) => (

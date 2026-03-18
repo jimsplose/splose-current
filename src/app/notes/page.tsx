@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { Plus, ArrowUpDown } from "lucide-react";
 import Link from "next/link";
+import { Button, PageHeader, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -12,21 +13,18 @@ export default async function NotesPage() {
 
   return (
     <div className="p-4 sm:p-6">
-      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-2xl font-bold text-text">Progress notes</h1>
-        <div className="flex items-center gap-2">
-          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-            Scroll view
-          </button>
-          <Link
-            href="/notes/new"
-            className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50"
-          >
-            <Plus className="h-4 w-4" />
-            New note
-          </Link>
-        </div>
-      </div>
+      <PageHeader title="Progress notes">
+        <Button>
+          Scroll view
+        </Button>
+        <Link
+          href="/notes/new"
+          className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50"
+        >
+          <Plus className="h-4 w-4" />
+          New note
+        </Link>
+      </PageHeader>
 
       <div className="mb-4 flex items-center gap-2">
         <input
@@ -34,39 +32,37 @@ export default async function NotesPage() {
           placeholder="Search for content and title"
           className="h-10 flex-1 rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
         />
-        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+        <Button>
           Search
-        </button>
+        </Button>
       </div>
 
       <div className="overflow-x-auto rounded-lg border border-border bg-white">
         <table className="w-full min-w-[600px]">
-          <thead>
-            <tr className="border-b border-border bg-purple-50">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Name</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                <div className="flex items-center gap-1">
-                  Created by
-                  <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-                </div>
-              </th>
-              <th className="hidden px-4 py-3 text-left text-sm font-medium text-text md:table-cell">Service date</th>
-              <th className="hidden px-4 py-3 text-left text-sm font-medium text-text lg:table-cell">Last update</th>
-              <th className="hidden px-4 py-3 text-left text-sm font-medium text-text md:table-cell">
-                <div className="flex items-center gap-1">
-                  Created at
-                  <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-                </div>
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+          <TableHead>
+            <Th>Name</Th>
+            <Th>
+              <div className="flex items-center gap-1">
+                Created by
+                <ArrowUpDown className="h-3 w-3 text-text-secondary" />
+              </div>
+            </Th>
+            <Th hidden="md">Service date</Th>
+            <Th hidden="lg">Last update</Th>
+            <Th hidden="md">
+              <div className="flex items-center gap-1">
+                Created at
+                <ArrowUpDown className="h-3 w-3 text-text-secondary" />
+              </div>
+            </Th>
+          </TableHead>
+          <TableBody>
             {notes.map((note) => (
               <tr
                 key={note.id}
                 className="group cursor-pointer transition-colors hover:bg-purple-50/50"
               >
-                <td className="px-4 py-3">
+                <Td>
                   <Link href={`/notes/${note.id}`} className="flex items-center gap-2">
                     <span className="text-sm text-primary group-hover:underline">
                       {note.client.firstName} {note.client.lastName}
@@ -82,27 +78,27 @@ export default async function NotesPage() {
                       </span>
                     )}
                   </Link>
-                </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">
+                </Td>
+                <Td className="text-text-secondary">
                   <Link href={`/notes/${note.id}`} className="block">
                     {note.practitioner.name}
                   </Link>
-                </td>
-                <td className="hidden px-4 py-3 text-sm text-text-secondary md:table-cell">
+                </Td>
+                <Td hidden="md" className="text-text-secondary">
                   <Link href={`/notes/${note.id}`} className="block">
                     {formatDate(note.date)}
                   </Link>
-                </td>
-                <td className="hidden px-4 py-3 text-sm text-text-secondary lg:table-cell">
+                </Td>
+                <Td hidden="lg" className="text-text-secondary">
                   <Link href={`/notes/${note.id}`} className="block">
                     {formatDate(note.date)}
                   </Link>
-                </td>
-                <td className="hidden px-4 py-3 text-sm text-text-secondary md:table-cell">
+                </Td>
+                <Td hidden="md" className="text-text-secondary">
                   <Link href={`/notes/${note.id}`} className="block">
                     {formatDate(note.date)}
                   </Link>
-                </td>
+                </Td>
               </tr>
             ))}
             {notes.length === 0 && (
@@ -112,17 +108,9 @@ export default async function NotesPage() {
                 </td>
               </tr>
             )}
-          </tbody>
+          </TableBody>
         </table>
-        <div className="flex items-center justify-end border-t border-border px-4 py-3 text-sm text-text-secondary">
-          <span>1-{notes.length} of {notes.length} items</span>
-          <div className="ml-4 flex items-center gap-1">
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-primary bg-white text-xs font-medium text-primary">
-              1
-            </button>
-          </div>
-          <span className="ml-4">10 / page</span>
-        </div>
+        <Pagination currentPage={1} totalPages={1} totalItems={notes.length} itemsPerPage={10} />
       </div>
     </div>
   );

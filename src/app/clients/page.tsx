@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
-import { Plus, MoreHorizontal, ArrowUpDown } from "lucide-react";
+import { Plus, ArrowUpDown } from "lucide-react";
 import Link from "next/link";
+import { Button, PageHeader, DataTable, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -18,13 +19,12 @@ export default async function ClientsPage() {
   return (
     <>
       <div className="p-4 sm:p-6">
-        <div className="mb-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-text">Clients</h1>
-          <button className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+        <PageHeader title="Clients">
+          <Button>
             <Plus className="h-4 w-4" />
             New client
-          </button>
-        </div>
+          </Button>
+        </PageHeader>
         <div className="mb-4">
           <div className="flex items-center gap-2">
             <div className="relative flex-1">
@@ -34,63 +34,61 @@ export default async function ClientsPage() {
                 className="h-10 w-full rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
               />
             </div>
-            <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+            <Button>
               Search
-            </button>
+            </Button>
           </div>
         </div>
 
         <div className="overflow-x-auto rounded-lg border border-border bg-white">
           <table className="w-full">
-            <thead>
-              <tr className="border-b border-border bg-purple-50">
-                <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                  <div className="flex items-center gap-1">
-                    Name
-                    <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-                  </div>
-                </th>
-                <th className="hidden px-4 py-3 text-left text-sm font-medium text-text sm:table-cell">
-                  Date of birth
-                </th>
-                <th className="hidden px-4 py-3 text-left text-sm font-medium text-text md:table-cell">
-                  Phone
-                </th>
-                <th className="hidden px-4 py-3 text-left text-sm font-medium text-text lg:table-cell">
-                  Email
-                </th>
-                <th className="hidden px-4 py-3 text-left text-sm font-medium text-text md:table-cell">
-                  <div className="flex items-center gap-1">
-                    Tags
-                    <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-                  </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
+            <TableHead>
+              <Th>
+                <div className="flex items-center gap-1">
+                  Name
+                  <ArrowUpDown className="h-3 w-3 text-text-secondary" />
+                </div>
+              </Th>
+              <Th hidden="sm">
+                Date of birth
+              </Th>
+              <Th hidden="md">
+                Phone
+              </Th>
+              <Th hidden="lg">
+                Email
+              </Th>
+              <Th hidden="md">
+                <div className="flex items-center gap-1">
+                  Tags
+                  <ArrowUpDown className="h-3 w-3 text-text-secondary" />
+                </div>
+              </Th>
+            </TableHead>
+            <TableBody>
               {clients.map((client) => (
                 <tr
                   key={client.id}
                   className="transition-colors hover:bg-gray-50 cursor-pointer"
                 >
-                  <td className="px-4 py-3">
+                  <Td>
                     <Link
                       href={`/clients/${client.id}`}
                       className="text-sm text-text hover:text-primary"
                     >
                       {client.firstName} {client.lastName}
                     </Link>
-                  </td>
-                  <td className="hidden px-4 py-3 text-sm text-text-secondary sm:table-cell">
+                  </Td>
+                  <Td hidden="sm" className="text-text-secondary">
                     {client.dateOfBirth}
-                  </td>
-                  <td className="hidden px-4 py-3 text-sm text-primary md:table-cell">
+                  </Td>
+                  <Td hidden="md" className="text-primary">
                     {client.phone}
-                  </td>
-                  <td className="hidden px-4 py-3 text-sm text-text-secondary lg:table-cell">
+                  </Td>
+                  <Td hidden="lg" className="text-text-secondary">
                     {client.email}
-                  </td>
-                  <td className="hidden px-4 py-3 text-sm md:table-cell">
+                  </Td>
+                  <Td hidden="md">
                     {client.ndisNumber ? (
                       <span className="rounded bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-800">
                         NDIS
@@ -100,20 +98,12 @@ export default async function ClientsPage() {
                         Medicare
                       </span>
                     ) : null}
-                  </td>
+                  </Td>
                 </tr>
               ))}
-            </tbody>
+            </TableBody>
           </table>
-          <div className="flex items-center justify-end border-t border-border px-4 py-3 text-sm text-text-secondary">
-            <span>1-{clients.length} of {clients.length} items</span>
-            <div className="ml-4 flex items-center gap-1">
-              <button className="flex h-7 w-7 items-center justify-center rounded border border-primary bg-white text-xs font-medium text-primary">
-                1
-              </button>
-            </div>
-            <span className="ml-4">10 / page</span>
-          </div>
+          <Pagination currentPage={1} totalPages={1} totalItems={clients.length} itemsPerPage={10} />
         </div>
       </div>
     </>

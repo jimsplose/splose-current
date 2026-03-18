@@ -1,5 +1,6 @@
 import { Plus, ArrowUpDown, Filter, Search } from "lucide-react";
 import Link from "next/link";
+import { Button, PageHeader, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
 
 const mockContacts = [
   { id: "1", type: "", name: "jh", company: "", email: "", workPhone: "", mobilePhone: "" },
@@ -22,13 +23,12 @@ function getTypeLabel(type: string) {
 export default function ContactsPage() {
   return (
     <div className="p-4 sm:p-6">
-      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-2xl font-bold text-text">Contacts</h1>
-        <button className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+      <PageHeader title="Contacts">
+        <Button>
           <Plus className="h-4 w-4" />
           New contact
-        </button>
-      </div>
+        </Button>
+      </PageHeader>
 
       <div className="mb-4 flex items-center gap-2">
         <div className="relative flex-1">
@@ -39,94 +39,72 @@ export default function ContactsPage() {
             className="h-10 w-full rounded-lg border border-border bg-white pl-10 pr-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
           />
         </div>
-        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+        <Button>
           Search
-        </button>
+        </Button>
       </div>
 
       <div className="overflow-x-auto rounded-lg border border-border bg-white">
         <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-purple-50">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                <div className="flex items-center gap-1">
-                  Type
-                  <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-                  <Filter className="h-3 w-3 text-text-secondary" />
-                </div>
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                <div className="flex items-center gap-1">
-                  Name
-                  <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-                </div>
-              </th>
-              <th className="hidden px-4 py-3 text-left text-sm font-medium text-text md:table-cell">
-                <div className="flex items-center gap-1">
-                  Company
-                  <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-                </div>
-              </th>
-              <th className="hidden px-4 py-3 text-left text-sm font-medium text-text md:table-cell">
-                <div className="flex items-center gap-1">
-                  Email
-                  <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-                </div>
-              </th>
-              <th className="hidden px-4 py-3 text-left text-sm font-medium text-text lg:table-cell">Work phone</th>
-              <th className="hidden px-4 py-3 text-left text-sm font-medium text-text lg:table-cell">Mobile phone</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+          <TableHead>
+            <Th>
+              <div className="flex items-center gap-1">
+                Type
+                <ArrowUpDown className="h-3 w-3 text-text-secondary" />
+                <Filter className="h-3 w-3 text-text-secondary" />
+              </div>
+            </Th>
+            <Th>
+              <div className="flex items-center gap-1">
+                Name
+                <ArrowUpDown className="h-3 w-3 text-text-secondary" />
+              </div>
+            </Th>
+            <Th hidden="md">
+              <div className="flex items-center gap-1">
+                Company
+                <ArrowUpDown className="h-3 w-3 text-text-secondary" />
+              </div>
+            </Th>
+            <Th hidden="md">
+              <div className="flex items-center gap-1">
+                Email
+                <ArrowUpDown className="h-3 w-3 text-text-secondary" />
+              </div>
+            </Th>
+            <Th hidden="lg">Work phone</Th>
+            <Th hidden="lg">Mobile phone</Th>
+          </TableHead>
+          <TableBody>
             {mockContacts.map((contact) => (
               <tr
                 key={contact.id}
                 className="group relative cursor-pointer transition-colors hover:bg-purple-50/50"
               >
-                <td className="px-4 py-3 text-sm text-text-secondary">
+                <Td className="text-text-secondary">
                   <Link href={`/contacts/${contact.id}`} className="absolute inset-0" aria-label={`View ${contact.name}`} />
                   {getTypeLabel(contact.type)}
-                </td>
-                <td className="px-4 py-3 text-sm font-medium text-primary group-hover:underline">
+                </Td>
+                <Td className="font-medium text-primary group-hover:underline">
                   {contact.name}
-                </td>
-                <td className="hidden px-4 py-3 text-sm text-text-secondary md:table-cell">
+                </Td>
+                <Td hidden="md" className="text-text-secondary">
                   {contact.company}
-                </td>
-                <td className="hidden px-4 py-3 text-sm text-text-secondary md:table-cell">
+                </Td>
+                <Td hidden="md" className="text-text-secondary">
                   {contact.email}
-                </td>
-                <td className="hidden px-4 py-3 text-sm text-primary lg:table-cell">
+                </Td>
+                <Td hidden="lg" className="text-primary">
                   {contact.workPhone}
-                </td>
-                <td className="hidden px-4 py-3 text-sm text-primary lg:table-cell">
+                </Td>
+                <Td hidden="lg" className="text-primary">
                   {contact.mobilePhone}
-                </td>
+                </Td>
               </tr>
             ))}
-          </tbody>
+          </TableBody>
         </table>
-        <div className="flex items-center justify-end border-t border-border px-4 py-3 text-sm text-text-secondary">
-          <span>1-10 of 126 items</span>
-          <div className="ml-4 flex items-center gap-1">
-            <span className="text-text-secondary">&lt;</span>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-primary bg-white text-xs font-medium text-primary">
-              1
-            </button>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-border bg-white text-xs font-medium text-text-secondary hover:bg-gray-50">
-              2
-            </button>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-border bg-white text-xs font-medium text-text-secondary hover:bg-gray-50">
-              3
-            </button>
-            <span className="text-text-secondary">...</span>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-border bg-white text-xs font-medium text-text-secondary hover:bg-gray-50">
-              13
-            </button>
-            <span className="text-text-secondary">&gt;</span>
-          </div>
-          <span className="ml-4">10 / page</span>
-        </div>
+        <Pagination currentPage={1} totalPages={13} totalItems={126} itemsPerPage={10} />
       </div>
     </div>
   );

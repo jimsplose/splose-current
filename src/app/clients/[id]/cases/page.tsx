@@ -1,3 +1,5 @@
+import { Button, PageHeader, TableHead, Th, TableBody, Td, Pagination, Badge, statusVariant } from "@/components/ds";
+
 export default function ClientCasesPage() {
   const mockCases = [
     { number: "0466", issueDate: "1 Mar 2026", expiryDate: "19 Mar 2026", assignee: "Hung Yee Wong", type: "Budget", allocated: "0.00 of 100.00", invoiced: "0.00 of 100.00", status: "Active" },
@@ -14,58 +16,40 @@ export default function ClientCasesPage() {
 
   return (
     <div className="flex-1 overflow-y-auto p-4 sm:p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-text">Cases</h1>
-        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-          + New case
-        </button>
-      </div>
+      <PageHeader title="Cases">
+        <Button>+ New case</Button>
+      </PageHeader>
 
       <div className="overflow-x-auto rounded-lg border border-border bg-white">
         <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-purple-50">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Case Number</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Issue date</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Expiry date</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Assignee</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Type</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Allocated</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Invoiced</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Status</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+          <TableHead>
+            <Th>Case Number</Th>
+            <Th>Issue date</Th>
+            <Th>Expiry date</Th>
+            <Th>Assignee</Th>
+            <Th>Type</Th>
+            <Th>Allocated</Th>
+            <Th>Invoiced</Th>
+            <Th>Status</Th>
+          </TableHead>
+          <TableBody>
             {mockCases.map((c) => (
               <tr key={c.number} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm text-text">{c.number}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{c.issueDate}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{c.expiryDate}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{c.assignee}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{c.type}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{c.allocated}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{c.invoiced}</td>
-                <td className="px-4 py-3 text-sm">
-                  {c.status === "Active" ? (
-                    <span className="inline-flex items-center rounded-full bg-green-500 px-2 py-0.5 text-xs font-medium text-white">Active</span>
-                  ) : (
-                    <span className="inline-flex items-center rounded-full bg-gray-400 px-2 py-0.5 text-xs font-medium text-white">Expired</span>
-                  )}
-                </td>
+                <Td className="text-text">{c.number}</Td>
+                <Td className="text-text-secondary">{c.issueDate}</Td>
+                <Td className="text-text-secondary">{c.expiryDate}</Td>
+                <Td className="text-text-secondary">{c.assignee}</Td>
+                <Td className="text-text-secondary">{c.type}</Td>
+                <Td className="text-text-secondary">{c.allocated}</Td>
+                <Td className="text-text-secondary">{c.invoiced}</Td>
+                <Td>
+                  <Badge variant={statusVariant(c.status)}>{c.status}</Badge>
+                </Td>
               </tr>
             ))}
-          </tbody>
+          </TableBody>
         </table>
-        <div className="flex items-center justify-end border-t border-border px-4 py-3 text-sm text-text-secondary">
-          <span>1-10 of 18 items</span>
-          <div className="ml-4 flex items-center gap-1">
-            <span className="text-text-secondary/40">&lt;</span>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-primary bg-white text-xs font-medium text-primary">1</button>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-border bg-white text-xs font-medium text-text-secondary hover:bg-gray-50">2</button>
-            <span>&gt;</span>
-          </div>
-          <span className="ml-4">10 / page</span>
-        </div>
+        <Pagination totalItems={18} totalPages={2} itemsPerPage={10} />
       </div>
     </div>
   );

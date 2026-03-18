@@ -1,5 +1,6 @@
 "use client";
 
+import { PageHeader, Button, TableHead, Th, TableBody, Td } from "@/components/ds";
 import { Plus, Search, MoreHorizontal, ChevronLeft, ChevronRight, Minus } from "lucide-react";
 import { useState, useMemo, Fragment } from "react";
 
@@ -96,28 +97,25 @@ export default function ProductsPage() {
 
   return (
     <div className="p-4 sm:p-6">
-      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-2xl font-bold text-text">Products</h1>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => {
-              setShowArchived(!showArchived);
-              setCurrentPage(1);
-            }}
-            className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
-              showArchived
-                ? "border-primary bg-primary/5 text-primary"
-                : "border-border bg-white text-text hover:bg-gray-50"
-            }`}
-          >
-            Display archived products
-          </button>
-          <button className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-            <Plus className="h-4 w-4" />
-            New product
-          </button>
-        </div>
-      </div>
+      <PageHeader title="Products">
+        <button
+          onClick={() => {
+            setShowArchived(!showArchived);
+            setCurrentPage(1);
+          }}
+          className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
+            showArchived
+              ? "border-primary bg-primary/5 text-primary"
+              : "border-border bg-white text-text hover:bg-gray-50"
+          }`}
+        >
+          Display archived products
+        </button>
+        <Button variant="secondary">
+          <Plus className="h-4 w-4" />
+          New product
+        </Button>
+      </PageHeader>
 
       <div className="mb-4 flex items-center gap-2">
         <input
@@ -139,17 +137,15 @@ export default function ProductsPage() {
 
       <div className="overflow-x-auto rounded-lg border border-border bg-white">
         <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-purple-50">
-              <th className="w-8 px-2 py-3"></th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Name</th>
-              <th className="hidden px-4 py-3 text-left text-sm font-medium text-text sm:table-cell">Category</th>
-              <th className="hidden px-4 py-3 text-left text-sm font-medium text-text md:table-cell">Vendor</th>
-              <th className="px-4 py-3 text-center text-sm font-medium text-text">Stock</th>
-              <th className="w-16 px-4 py-3 text-center text-sm font-medium text-text">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+          <TableHead>
+            <Th className="w-8 px-2">{/* expand */}</Th>
+            <Th>Name</Th>
+            <Th hidden="sm">Category</Th>
+            <Th hidden="md">Vendor</Th>
+            <Th align="center">Stock</Th>
+            <Th align="center" className="w-16">Actions</Th>
+          </TableHead>
+          <TableBody>
             {paginatedProducts.map((product, idx) => {
               const globalIndex = startIndex + idx;
               const isExpanded = expandedRows.has(globalIndex);
@@ -184,20 +180,20 @@ export default function ProductsPage() {
                         </span>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-sm text-text">{product.name}</td>
-                    <td className="hidden px-4 py-3 text-sm text-text-secondary sm:table-cell">{product.category}</td>
-                    <td className="hidden px-4 py-3 text-sm text-text-secondary md:table-cell">{product.vendor}</td>
-                    <td className="px-4 py-3 text-center text-sm text-text-secondary">
+                    <Td className="text-text">{product.name}</Td>
+                    <Td hidden="sm" className="text-text-secondary">{product.category}</Td>
+                    <Td hidden="md" className="text-text-secondary">{product.vendor}</Td>
+                    <Td align="center" className="text-text-secondary">
                       {product.stock !== null ? product.stock : "-"}
-                    </td>
-                    <td className="px-4 py-3 text-center">
+                    </Td>
+                    <Td align="center">
                       <button
                         onClick={(e) => e.stopPropagation()}
                         className="inline-flex items-center justify-center rounded p-1 text-text-secondary hover:bg-gray-100 hover:text-text"
                       >
                         <MoreHorizontal className="h-4 w-4" />
                       </button>
-                    </td>
+                    </Td>
                   </tr>
 
                   {isExpanded && hasVariants && (
@@ -267,7 +263,7 @@ export default function ProductsPage() {
                 </td>
               </tr>
             )}
-          </tbody>
+          </TableBody>
         </table>
 
         <div className="flex items-center justify-end border-t border-border px-4 py-3 text-sm text-text-secondary">

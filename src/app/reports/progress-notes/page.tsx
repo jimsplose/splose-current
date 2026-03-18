@@ -1,17 +1,12 @@
+import { PageHeader, Button } from "@/components/ds";
+
 export default function ReportsProgressNotesPage() {
   return (
     <>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-text">Progress notes</h1>
-        <div className="flex items-center gap-2">
-          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-            Export
-          </button>
-          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-            Learn about this report
-          </button>
-        </div>
-      </div>
+      <PageHeader title="Progress notes">
+        <Button>Export</Button>
+        <Button>Learn about this report</Button>
+      </PageHeader>
 
       {/* Date range */}
       <div className="mb-4">
@@ -31,19 +26,11 @@ export default function ReportsProgressNotesPage() {
       </div>
 
       {/* Filter buttons */}
-      <div className="flex items-center gap-2 mb-6">
-        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-          Add filter
-        </button>
-        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-          Save filters
-        </button>
-        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-          Load filters
-        </button>
-        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
-          Run report
-        </button>
+      <div className="flex flex-wrap items-center gap-2 mb-6">
+        <Button>Add filter</Button>
+        <Button>Save filters</Button>
+        <Button>Load filters</Button>
+        <Button variant="primary">Run report</Button>
       </div>
 
       {/* Results */}

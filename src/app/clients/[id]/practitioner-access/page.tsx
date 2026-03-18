@@ -1,4 +1,5 @@
 import { ArrowUpDown, Filter } from "lucide-react";
+import { TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
 
 export default function ClientPractitionerAccessPage() {
   const mockPractitioners = [
@@ -17,58 +18,48 @@ export default function ClientPractitionerAccessPage() {
 
       <div className="overflow-x-auto rounded-lg border border-border bg-white">
         <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-purple-50">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                <div className="flex items-center gap-1">
-                  Name
-                  <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-                </div>
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Role name</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Role type</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                <div className="flex items-center gap-1">
-                  Group
-                  <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-                  <Filter className="h-3 w-3 text-text-secondary" />
-                </div>
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Status</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+          <TableHead>
+            <Th>
+              <div className="flex items-center gap-1">
+                Name
+                <ArrowUpDown className="h-3 w-3 text-text-secondary" />
+              </div>
+            </Th>
+            <Th>Role name</Th>
+            <Th>Role type</Th>
+            <Th>
+              <div className="flex items-center gap-1">
+                Group
+                <ArrowUpDown className="h-3 w-3 text-text-secondary" />
+                <Filter className="h-3 w-3 text-text-secondary" />
+              </div>
+            </Th>
+            <Th>Status</Th>
+            <Th align="right">Actions</Th>
+          </TableHead>
+          <TableBody>
             {mockPractitioners.map((p) => (
               <tr key={p.name} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm">
+                <Td>
                   <div>
                     <span className="text-text">{p.name}</span>
                     <span className="ml-2 rounded bg-green-100 px-1.5 py-0.5 text-[10px] font-medium text-green-700">
                       Account owner
                     </span>
                   </div>
-                </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{p.role}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{p.roleType}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{p.group}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{p.status}</td>
-                <td className="px-4 py-3 text-right">
+                </Td>
+                <Td className="text-text-secondary">{p.role}</Td>
+                <Td className="text-text-secondary">{p.roleType}</Td>
+                <Td className="text-text-secondary">{p.group}</Td>
+                <Td className="text-text-secondary">{p.status}</Td>
+                <Td align="right">
                   <button className="text-text-secondary hover:text-text">...</button>
-                </td>
+                </Td>
               </tr>
             ))}
-          </tbody>
+          </TableBody>
         </table>
-        <div className="flex items-center justify-end border-t border-border px-4 py-3 text-sm text-text-secondary">
-          <span>1-{mockPractitioners.length} of {mockPractitioners.length} items</span>
-          <div className="ml-4 flex items-center gap-1">
-            <span>&lt;</span>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-primary bg-white text-xs font-medium text-primary">1</button>
-            <span>&gt;</span>
-          </div>
-          <span className="ml-4">10 / page</span>
-        </div>
+        <Pagination totalItems={mockPractitioners.length} itemsPerPage={10} />
       </div>
     </div>
   );
