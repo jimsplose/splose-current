@@ -133,9 +133,11 @@ Append-only log. Each session adds an entry summarizing what was done.
 - **Prettier Tailwind class sorting** — Ran prettier-plugin-tailwindcss across all 57 source files for consistent class ordering
 - **Full codebase DS migration complete** — All pages now use design system components. Total: 57 files touched, net reduction of ~500+ lines of duplicated Tailwind
 
+- **Storybook setup** — Storybook 10 with @storybook/nextjs, stories for all 8 DS components (Button, Badge, PageHeader, SearchBar, DataTable, FormInput, FormSelect, Pagination). `npm run storybook` on port 6006.
+- **Playwright screenshot docs** — Updated CLAUDE.md and fidelity-workflow.md with mandatory Playwright screenshot verification loops for all agents, screenshot-to-user requirement after push
+- **Online booking page** — `/online-booking` with two-step public booking flow: practitioner selection with date/time picker, confirmation form with personal details, appointment summary sidebar. Matches reference screenshots.
+- **Calendar practitioner columns** — Day view now shows one column per practitioner with name headers, location group, color dots. Week view has practitioner sub-columns within each day cell with subtle dividers. Appointments placed in correct practitioner column.
+
 ### Still Remaining
 - Process new screenshots
-- Calendar practitioner columns layout (major structural change)
 - Integration logos: replace styled text with actual SVG brand assets if available
-- Set up Storybook for DS documentation
-- Add Playwright screenshot iteration workflow to agent docs
