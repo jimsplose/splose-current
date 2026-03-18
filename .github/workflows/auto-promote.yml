@@ -9,6 +9,12 @@ jobs:
   promote:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Wait for Vercel deployment to succeed
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -21,7 +27,6 @@ jobs:
           for i in $(seq 1 30); do
             echo "Check $i/30..."
 
-            # Get deployment statuses for this SHA
             STATUSES=$(gh api "repos/${{ github.repository }}/deployments?sha=$SHA&per_page=10" \
               --jq '.[].id' 2>/dev/null || echo "")
 
@@ -31,7 +36,6 @@ jobs:
               continue
             fi
 
-            # Check each deployment for a success status
             for DEPLOY_ID in $STATUSES; do
               STATE=$(gh api "repos/${{ github.repository }}/deployments/$DEPLOY_ID/statuses" \
                 --jq '.[0].state' 2>/dev/null || echo "")
@@ -39,13 +43,6 @@ jobs:
 
               if [ "$STATE" = "success" ]; then
                 echo "Vercel deployment succeeded!"
-
-                echo "Promoting $BRANCH ($SHA) to main"
-                gh api "repos/${{ github.repository }}/git/refs/heads/main" \
-                  -X PATCH \
-                  -f sha="$SHA" \
-                  -F force=true
-                echo "main updated to $SHA"
                 exit 0
               fi
 
@@ -58,5 +55,31 @@ jobs:
             sleep 20
           done
 
-          echo "Timed out waiting for Vercel deployment to succeed (10 minutes)"
+          echo "Timed out waiting for Vercel deployment (10 minutes)"
           exit 1
+
+      - name: Merge branch into main
+        run: |
+          BRANCH="${{ github.ref_name }}"
+          echo "Merging $BRANCH into main..."
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git checkout main
+          git pull origin main
+
+          # Try fast-forward first, fall back to merge commit
+          if git merge --ff-only "origin/$BRANCH" 2>/dev/null; then
+            echo "Fast-forwarded main to $BRANCH"
+          elif git merge --no-edit "origin/$BRANCH"; then
+            echo "Merged $BRANCH into main (merge commit)"
+          else
+            echo "MERGE CONFLICT — cannot auto-promote $BRANCH"
+            echo "A manual merge is needed. Aborting."
+            git merge --abort
+            exit 1
+          fi
+
+          git push origin main
+          echo "main updated successfully"

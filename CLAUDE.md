@@ -116,9 +116,23 @@ Vercel auto-deploys when `main` is updated. Build runs: `prisma generate` → `t
 
 ## Git Workflow
 
+### Session start — sync with main FIRST
+**Before doing any work**, every session MUST run:
+```bash
+git fetch origin main
+git merge origin/main --no-edit
+```
+This pulls in work from other sessions. If there are merge conflicts, resolve them before doing anything else. This is critical — skipping this causes branches to diverge and breaks auto-promote.
+
+### How code reaches production
 1. Claude Code commits and pushes to `claude/*` branch
 2. Vercel builds a preview deployment for the branch
-3. On success, GitHub Action (`.github/workflows/auto-promote.yml`) auto-fast-forwards `main` to the deployed SHA
+3. On success, GitHub Action (`.github/workflows/auto-promote.yml`) **merges** the branch into `main`
 4. Vercel auto-deploys production from `main`
 
-No manual fast-forward needed — pushing to `claude/*` automatically promotes to production after a successful Vercel build.
+If the auto-merge fails due to conflicts, the action will abort and the branch stays unmerged. This is why step 1 (syncing main at session start) is so important — it prevents conflicts.
+
+### Before every push
+1. Run `npx next build` — never push broken code
+2. Run `git fetch origin main && git merge origin/main --no-edit` — incorporate any changes that landed on main while you were working
+3. If the merge brings in new changes, rebuild to verify
