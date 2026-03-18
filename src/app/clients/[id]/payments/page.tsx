@@ -18,7 +18,7 @@ export default async function ClientPaymentsPage({
     <div className="flex-1 overflow-y-auto p-6">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-text">Payments</h1>
-        <button className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90">
+        <button className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
           <Plus className="h-4 w-4" />
           New payment
         </button>
@@ -33,8 +33,7 @@ export default async function ClientPaymentsPage({
             className="w-full rounded-lg border border-border bg-white px-4 py-2 text-sm text-text placeholder:text-text-secondary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
           />
         </div>
-        <button className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90">
-          <Search className="h-4 w-4" />
+        <button className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
           Search
         </button>
       </div>

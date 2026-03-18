@@ -56,7 +56,7 @@ export default function ClientStatementsPage() {
           </button>
         </div>
 
-        <button className="inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90">
+        <button className="inline-flex items-center rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
           Update
         </button>
       </div>
