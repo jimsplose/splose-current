@@ -6,6 +6,11 @@ on:
     - cron: "0 0 * * *"
   # Also allow manual trigger from GitHub Actions tab
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run — show what would be deleted without deleting"
+        type: boolean
+        default: true
 
 jobs:
   cleanup:
@@ -34,11 +39,24 @@ jobs:
             # Get the latest commit date on this branch
             LAST_COMMIT_DATE=$(gh api "repos/${{ github.repository }}/commits?sha=$BRANCH&per_page=1" --jq '.[0].commit.committer.date')
 
-            if [[ "$LAST_COMMIT_DATE" < "$CUTOFF" ]]; then
-              echo "Deleting $BRANCH (last commit: $LAST_COMMIT_DATE)"
-              gh api "repos/${{ github.repository }}/git/refs/heads/$BRANCH" -X DELETE || echo "  Failed to delete $BRANCH"
+            if [[ "$LAST_COMMIT_DATE" > "$CUTOFF" ]]; then
+              echo "KEEP $BRANCH (last commit: $LAST_COMMIT_DATE — still active)"
+              continue
+            fi
+
+            # Safety check: only delete if branch HEAD is already in main
+            BRANCH_SHA=$(gh api "repos/${{ github.repository }}/git/refs/heads/$BRANCH" --jq '.object.sha')
+            MERGE_BASE=$(gh api "repos/${{ github.repository }}/compare/${MAIN_SHA}...${BRANCH_SHA}" --jq '.status')
+
+            if [[ "$MERGE_BASE" == "behind" || "$MERGE_BASE" == "identical" ]]; then
+              if [[ "${{ inputs.dry_run }}" == "true" ]]; then
+                echo "DRY RUN — would delete $BRANCH (stale, already in main)"
+              else
+                echo "DELETE $BRANCH (stale, already in main)"
+                gh api "repos/${{ github.repository }}/git/refs/heads/$BRANCH" -X DELETE || echo "  Failed to delete $BRANCH"
+              fi
             else
-              echo "Keeping $BRANCH (last commit: $LAST_COMMIT_DATE — still active)"
+              echo "KEEP $BRANCH (stale but has unmerged commits — $MERGE_BASE)"
             fi
           done
 
