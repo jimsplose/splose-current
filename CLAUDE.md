@@ -44,7 +44,7 @@ Every push to any branch gets a **Vercel preview deployment**. This is how Jim r
 **After every push**, Claude Code MUST:
 1. Tell Jim the branch preview URL so he can check changes immediately
 2. Note: Vercel previews take 1-2 minutes to build after push
-3. If deploying to production (fast-forwarding main), note the production URL too
+3. Production auto-updates after preview build succeeds (via GitHub Action) — no manual step needed
 
 To check deployment status: `gh api repos/jimsplose/splose-current/deployments --jq '.[0] | {env: .environment, url: .payload.web_url, status: .state}'`
 
@@ -115,5 +115,8 @@ Vercel auto-deploys when `main` is updated. Build runs: `prisma generate` → `t
 ## Git Workflow
 
 1. Claude Code commits and pushes to `claude/*` branch
-2. Claude Code fast-forwards `main`: `gh api repos/jimsplose/splose-current/git/refs/heads/main -X PATCH -f sha="$SHA"`
-3. Vercel auto-deploys from `main` (production) and all branches (preview)
+2. Vercel builds a preview deployment for the branch
+3. On success, GitHub Action (`.github/workflows/auto-promote.yml`) auto-fast-forwards `main` to the deployed SHA
+4. Vercel auto-deploys production from `main`
+
+No manual fast-forward needed — pushing to `claude/*` automatically promotes to production after a successful Vercel build.

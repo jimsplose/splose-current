@@ -1,0 +1,24 @@
+name: Auto-promote claude/* to production
+
+on:
+  deployment_status:
+
+jobs:
+  promote:
+    # Only run when a Vercel deployment succeeds on a claude/* branch
+    if: |
+      github.event.deployment_status.state == 'success' &&
+      startsWith(github.event.deployment.ref, 'claude/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fast-forward main to deployed commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          SHA="${{ github.event.deployment.sha }}"
+          BRANCH="${{ github.event.deployment.ref }}"
+          echo "Promoting $BRANCH ($SHA) to main"
+          gh api "repos/${{ github.repository }}/git/refs/heads/main" \
+            -X PATCH \
+            -f sha="$SHA"
+          echo "main fast-forwarded to $SHA"

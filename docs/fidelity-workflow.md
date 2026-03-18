@@ -28,9 +28,8 @@ After agents complete:
 
 1. Run `npx next build` to verify no errors — **never push a broken build**
 2. Stage and commit all changes with a descriptive message
-3. Push to the `claude/*` branch
-4. Fast-forward `main` via `gh api repos/jimsplose/splose-current/git/refs/heads/main -X PATCH -f sha="$SHA"`
-5. Note the Vercel preview URL in the session progress log (see `docs/progress.md`)
+3. Push to the `claude/*` branch — GitHub Action auto-promotes to production after Vercel build succeeds
+4. Note the Vercel preview URL in the session progress log (see `docs/progress.md`)
 
 ## Step 4: Before/After Review
 
