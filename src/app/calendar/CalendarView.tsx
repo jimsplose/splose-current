@@ -269,41 +269,58 @@ export default function CalendarView({
           <MonthView appointments={appointments} todayStr={todayStr} onApptClick={(appt) => setSelectedAppt(appt)} />
         )}
 
-        {/* Week header + Time grid */}
-        {viewMode !== "Month" && (
+        {/* Day view — one column per practitioner */}
+        {viewMode === "Day" && (
           <>
             <div className="overflow-x-auto">
-              <div className="grid min-w-[700px] grid-cols-[60px_repeat(7,1fr)] border-b border-border">
+              <div
+                className="grid min-w-[700px] border-b border-border"
+                style={{ gridTemplateColumns: `60px repeat(${practitioners.length}, 1fr)` }}
+              >
+                {/* Top-left corner: empty */}
                 <div className="border-r border-border" />
-                {weekDates.map((dateStr, i) => {
-                  const date = new Date(dateStr + "T00:00:00");
-                  const isToday = dateStr === todayStr;
-                  return (
-                    <div
-                      key={i}
-                      className={`border-r border-border px-2 py-2 text-center last:border-r-0 ${isToday ? "bg-purple-50" : ""}`}
-                    >
-                      <div className="text-xs text-text-secondary">{DAYS[i]}</div>
-                      <div className={`text-lg font-semibold ${isToday ? "text-primary" : "text-text"}`}>
-                        {date.getDate()}
-                      </div>
-                      <div className="mt-0.5 truncate text-[10px] text-text-secondary">Hands Togeth...</div>
-                      <div className="flex justify-center gap-1 truncate text-[10px] text-text-secondary">
-                        {practitioners.map((p) => (
-                          <span key={p.id} className="truncate">
-                            {p.name.split(" ")[0]} {p.name.split(" ")[1]?.[0]}.
-                          </span>
-                        ))}
-                      </div>
+                {/* Day + date header spanning all practitioner columns */}
+                <div
+                  className="border-b border-border py-2 text-center"
+                  style={{ gridColumn: `2 / span ${practitioners.length}` }}
+                >
+                  <div className="text-xs text-text-secondary">
+                    {DAYS[new Date(weekDates.find((d) => d === todayStr) || weekDates[0] + "T00:00:00").getDay()]}
+                  </div>
+                  <div className="text-lg font-semibold text-primary">
+                    {new Date((weekDates.find((d) => d === todayStr) || weekDates[0]) + "T00:00:00").getDate()}
+                  </div>
+                  <div className="text-[10px] text-text-secondary">East Clinics</div>
+                </div>
+              </div>
+              {/* Practitioner name headers */}
+              <div
+                className="grid min-w-[700px] border-b border-border"
+                style={{ gridTemplateColumns: `60px repeat(${practitioners.length}, 1fr)` }}
+              >
+                <div className="border-r border-border" />
+                {practitioners.map((p, idx) => (
+                  <div
+                    key={p.id}
+                    className={`border-r border-border px-1 py-1.5 text-center last:border-r-0`}
+                  >
+                    <div className="flex items-center justify-center gap-1">
+                      <div className="h-2 w-2 shrink-0 rounded-full" style={{ backgroundColor: p.color }} />
+                      <span className="truncate text-xs font-medium text-text">
+                        {p.name.split(" ")[0]} {p.name.split(" ")[1]?.[0]}.
+                      </span>
                     </div>
-                  );
-                })}
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Time grid */}
+            {/* Time grid — Day view */}
             <div className="flex-1 overflow-x-auto overflow-y-auto">
-              <div className="grid min-w-[700px] grid-cols-[60px_repeat(7,1fr)]">
+              <div
+                className="grid min-w-[700px]"
+                style={{ gridTemplateColumns: `60px repeat(${practitioners.length}, 1fr)` }}
+              >
                 {HOURS.map((hour) => (
                   <div key={hour} className="contents">
                     <div
@@ -314,17 +331,20 @@ export default function CalendarView({
                         {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
                       </span>
                     </div>
-                    {weekDates.map((dateStr, dayIdx) => {
-                      const isToday = dateStr === todayStr;
+                    {practitioners.map((prac) => {
+                      const currentDay = weekDates.find((d) => d === todayStr) || weekDates[0];
                       const hourAppts = appointments.filter(
-                        (a) => a.date === dateStr && parseInt(a.startTime.split(":")[0]) === hour,
+                        (a) =>
+                          a.date === currentDay &&
+                          a.practitionerName === prac.name &&
+                          parseInt(a.startTime.split(":")[0]) === hour,
                       );
                       return (
                         <div
-                          key={dayIdx}
-                          className={`relative cursor-pointer border-r border-b border-border last:border-r-0 hover:bg-gray-100/50 ${isToday ? "bg-purple-50/30" : ""}`}
+                          key={prac.id}
+                          className="relative cursor-pointer border-r border-b border-border bg-purple-50/30 last:border-r-0 hover:bg-gray-100/50"
                           style={{ height: `${HOUR_HEIGHT}px` }}
-                          onClick={() => handleCellClick(dateStr, hour)}
+                          onClick={() => handleCellClick(currentDay, hour)}
                         >
                           {hourAppts.map((appt) => {
                             const pos = getApptStyle(appt);
@@ -350,6 +370,115 @@ export default function CalendarView({
                               </div>
                             );
                           })}
+                        </div>
+                      );
+                    })}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Week view — day columns with practitioner sub-columns */}
+        {viewMode === "Week" && (
+          <>
+            <div className="overflow-x-auto">
+              <div className="grid min-w-[700px] grid-cols-[60px_repeat(7,1fr)] border-b border-border">
+                <div className="border-r border-border" />
+                {weekDates.map((dateStr, i) => {
+                  const date = new Date(dateStr + "T00:00:00");
+                  const isToday = dateStr === todayStr;
+                  return (
+                    <div
+                      key={i}
+                      className={`border-r border-border px-1 py-2 text-center last:border-r-0 ${isToday ? "bg-purple-50" : ""}`}
+                    >
+                      <div className="text-xs text-text-secondary">{DAYS[i]}</div>
+                      <div className={`text-lg font-semibold ${isToday ? "text-primary" : "text-text"}`}>
+                        {date.getDate()}
+                      </div>
+                      <div className="mt-0.5 truncate text-[10px] text-text-secondary">Hands Togeth...</div>
+                      {/* Practitioner sub-column headers */}
+                      <div className="mt-0.5 flex justify-center gap-px">
+                        {practitioners.map((p) => (
+                          <div key={p.id} className="flex min-w-0 flex-1 flex-col items-center">
+                            <div className="mb-0.5 h-1.5 w-1.5 rounded-full" style={{ backgroundColor: p.color }} />
+                            <span className="w-full truncate text-[9px] leading-tight text-text-secondary">
+                              {p.name.split(" ")[0][0]}{p.name.split(" ")[1]?.[0] || ""}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Time grid — Week view with practitioner sub-columns */}
+            <div className="flex-1 overflow-x-auto overflow-y-auto">
+              <div className="grid min-w-[700px] grid-cols-[60px_repeat(7,1fr)]">
+                {HOURS.map((hour) => (
+                  <div key={hour} className="contents">
+                    <div
+                      className="flex items-start justify-end border-r border-b border-border px-2 py-1"
+                      style={{ height: `${HOUR_HEIGHT}px` }}
+                    >
+                      <span className="-mt-1.5 text-[11px] text-text-secondary">
+                        {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
+                      </span>
+                    </div>
+                    {weekDates.map((dateStr, dayIdx) => {
+                      const isToday = dateStr === todayStr;
+                      return (
+                        <div
+                          key={dayIdx}
+                          className={`relative border-r border-b border-border last:border-r-0 ${isToday ? "bg-purple-50/30" : ""}`}
+                          style={{ height: `${HOUR_HEIGHT}px` }}
+                        >
+                          {/* Practitioner sub-columns inside each day cell */}
+                          <div className="absolute inset-0 flex">
+                            {practitioners.map((prac, pIdx) => {
+                              const hourAppts = appointments.filter(
+                                (a) =>
+                                  a.date === dateStr &&
+                                  a.practitionerName === prac.name &&
+                                  parseInt(a.startTime.split(":")[0]) === hour,
+                              );
+                              return (
+                                <div
+                                  key={prac.id}
+                                  className={`relative flex-1 cursor-pointer hover:bg-gray-100/50 ${pIdx < practitioners.length - 1 ? "border-r border-border/30" : ""}`}
+                                  onClick={() => handleCellClick(dateStr, hour)}
+                                >
+                                  {hourAppts.map((appt) => {
+                                    const pos = getApptStyle(appt);
+                                    return (
+                                      <div
+                                        key={appt.id}
+                                        className="absolute inset-x-0.5 z-10 cursor-pointer overflow-hidden rounded px-1 py-0.5 text-white shadow-sm"
+                                        style={{
+                                          backgroundColor: appt.practitionerColor,
+                                          opacity: appt.status === "Cancelled" ? 0.5 : 1,
+                                          ...pos,
+                                        }}
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          setSelectedAppt(appt);
+                                        }}
+                                      >
+                                        <p className="truncate text-[9px] font-medium leading-tight">{appt.clientName}</p>
+                                        <p className="text-[8px] opacity-80">
+                                          {appt.startTime.replace(/^0/, "")}
+                                        </p>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              );
+                            })}
+                          </div>
                         </div>
                       );
                     })}
