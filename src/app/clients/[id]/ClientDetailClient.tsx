@@ -1,6 +1,7 @@
 "use client";
 
-import { Pencil, ChevronDown } from "lucide-react";
+import { useState } from "react";
+import { Pencil, ChevronDown, Upload } from "lucide-react";
 
 interface ClientData {
   id: string;
@@ -32,13 +33,22 @@ function calcAge(dobStr: string): string {
 }
 
 export default function ClientDetailClient({ client }: { client: ClientData }) {
+  const [editMode, setEditMode] = useState(false);
+
+  if (editMode) {
+    return <EditDetailsForm client={client} onCancel={() => setEditMode(false)} />;
+  }
+
   return (
     <div className="flex flex-1 overflow-hidden">
       {/* Main content */}
       <div className="flex-1 overflow-y-auto p-6">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-xl font-bold text-text">Details</h1>
-          <button className="flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
+          <button
+            onClick={() => setEditMode(true)}
+            className="flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50"
+          >
             Edit <Pencil className="h-3.5 w-3.5" />
           </button>
         </div>
@@ -311,6 +321,201 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           </button>
         </div>
       </aside>
+    </div>
+  );
+}
+
+/* ─── Edit Details Form ────────────────────────────────────────── */
+
+function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: () => void }) {
+  const inputClass = "w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary";
+  const labelClass = "block text-sm font-medium text-text mb-1";
+
+  const dobParts = client.dateOfBirth ? client.dateOfBirth.split("-") : ["2025", "01", "01"];
+
+  return (
+    <div className="flex-1 overflow-y-auto p-6">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-xl font-bold text-text">Edit details</h1>
+        <div className="flex items-center gap-2">
+          <button onClick={onCancel} className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+            Cancel
+          </button>
+          <button onClick={onCancel} className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+            Save
+          </button>
+        </div>
+      </div>
+
+      <div className="max-w-2xl space-y-8">
+        {/* General details */}
+        <section>
+          <h2 className="mb-4 text-lg font-bold text-text">General details</h2>
+          <div className="space-y-4">
+            <div>
+              <label className={labelClass}>Title</label>
+              <select className={inputClass}>
+                <option>Title</option>
+                <option>Mr</option>
+                <option>Mrs</option>
+                <option>Ms</option>
+                <option>Dr</option>
+              </select>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3">
+              <div>
+                <label className={labelClass}>First name*</label>
+                <input type="text" defaultValue={client.firstName} className={inputClass} />
+              </div>
+              <div>
+                <label className={labelClass}>Middle name</label>
+                <input type="text" placeholder="Middle name" className={inputClass} />
+              </div>
+              <div>
+                <label className={labelClass}>Last name*</label>
+                <input type="text" defaultValue={client.lastName} className={inputClass} />
+              </div>
+            </div>
+
+            <div>
+              <label className={labelClass}>Preferred name</label>
+              <input type="text" className={inputClass} />
+            </div>
+
+            <div className="grid grid-cols-3 gap-3">
+              <div>
+                <label className={labelClass}>Day</label>
+                <select defaultValue={dobParts[2]} className={inputClass}>
+                  {Array.from({ length: 31 }, (_, i) => (
+                    <option key={i + 1} value={String(i + 1)}>{i + 1}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className={labelClass}>Month</label>
+                <select defaultValue={dobParts[1]} className={inputClass}>
+                  {["January","February","March","April","May","June","July","August","September","October","November","December"].map((m, i) => (
+                    <option key={m} value={String(i + 1).padStart(2, "0")}>{m}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className={labelClass}>Year</label>
+                <select defaultValue={dobParts[0]} className={inputClass}>
+                  {Array.from({ length: 100 }, (_, i) => {
+                    const y = 2026 - i;
+                    return <option key={y} value={String(y)}>{y}</option>;
+                  })}
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label className={labelClass}>Sex</label>
+              <select className={inputClass}>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+                <option>Not specified</option>
+              </select>
+            </div>
+
+            <div>
+              <label className={labelClass}>Gender identity</label>
+              <select className={inputClass}>
+                <option value=""></option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Non-binary</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div>
+              <label className={labelClass}>Pronouns</label>
+              <input type="text" placeholder="they / them" className={inputClass} />
+            </div>
+
+            <div>
+              <label className={labelClass}>Occupation</label>
+              <input type="text" className={inputClass} />
+            </div>
+          </div>
+        </section>
+
+        {/* Profile photo */}
+        <div className="flex items-start gap-8">
+          <div className="flex-1" />
+          <div className="text-center">
+            <div className="mb-2 h-28 w-28 rounded-lg border-2 border-dashed border-border flex items-center justify-center text-sm text-text-secondary">
+              Profile photo
+            </div>
+            <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
+              <Upload className="h-3.5 w-3.5" />
+              Upload
+            </button>
+          </div>
+        </div>
+
+        {/* Other details */}
+        <section>
+          <h2 className="mb-4 text-lg font-bold text-text">Other details</h2>
+          <textarea
+            defaultValue="For fields that are not available with the splose template, will show up here if they are all included in &quot;Other Details&quot; on the CSV file."
+            rows={4}
+            className={inputClass}
+          />
+        </section>
+
+        {/* Alerts */}
+        <section>
+          <h2 className="mb-4 text-lg font-bold text-text">Alerts</h2>
+          <p className="mb-2 text-sm text-text-secondary">Information you add here will be displayed in important places like scheduling appointments.</p>
+          <textarea defaultValue="Include KM" rows={3} className={inputClass} />
+        </section>
+
+        {/* Contact details */}
+        <section>
+          <h2 className="mb-4 text-lg font-bold text-text">Contact details</h2>
+          <div className="space-y-4">
+            <div>
+              <label className={labelClass}>Email</label>
+              <input type="email" defaultValue={client.email || ""} className={inputClass} />
+            </div>
+            <div>
+              <label className={labelClass}>Phone</label>
+              <input type="tel" defaultValue={client.phone || ""} className={inputClass} />
+            </div>
+            <div>
+              <label className={labelClass}>Address</label>
+              <input type="text" defaultValue={client.address || ""} className={inputClass} />
+            </div>
+          </div>
+        </section>
+
+        {/* Medicare */}
+        {client.medicare && (
+          <section>
+            <h2 className="mb-4 text-lg font-bold text-text">Medicare details</h2>
+            <div>
+              <label className={labelClass}>Card number</label>
+              <input type="text" defaultValue={client.medicare} className={inputClass} />
+            </div>
+          </section>
+        )}
+
+        {/* NDIS */}
+        {client.ndisNumber && (
+          <section>
+            <h2 className="mb-4 text-lg font-bold text-text">NDIS details</h2>
+            <div>
+              <label className={labelClass}>NDIS number</label>
+              <input type="text" defaultValue={client.ndisNumber} className={inputClass} />
+            </div>
+          </section>
+        )}
+      </div>
     </div>
   );
 }
