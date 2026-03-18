@@ -9,7 +9,6 @@ const sidebarSections = [
     items: [
       { name: "Details", href: "/settings" },
       { name: "Integrations", href: "/settings" },
-      { name: "Subscription", href: "/settings" },
       { name: "SMS settings", href: "/settings" },
     ],
   },
@@ -28,7 +27,7 @@ const sidebarSections = [
       { name: "Rooms/Resources", href: "/settings" },
       { name: "Services", href: "/settings" },
       { name: "Busy times", href: "/settings" },
-      { name: "Cancel/Reschedule", href: "/settings" },
+      { name: "Cancellation reasons", href: "/settings" },
       { name: "Online bookings", href: "/settings", badge: "New" },
       { name: "Communication types", href: "/settings" },
       { name: "Tags", href: "/settings" },
@@ -40,8 +39,6 @@ const sidebarSections = [
     items: [
       { name: "Users", href: "/settings" },
       { name: "User groups", href: "/settings" },
-      { name: "Permissions & Roles", href: "/settings" },
-      { name: "Security", href: "/settings" },
     ],
   },
   {
@@ -52,6 +49,13 @@ const sidebarSections = [
       { name: "Progress notes", href: "/settings" },
       { name: "Letters", href: "/settings" },
       { name: "Body charts", href: "/settings" },
+    ],
+  },
+  {
+    title: "Finances",
+    items: [
+      { name: "Payments", href: "/settings" },
+      { name: "Invoices", href: "/settings" },
     ],
   },
 ];

@@ -67,6 +67,19 @@ export default async function ClientAppointmentsPage({
                   : appt.status === "No Show" ? "bg-yellow-400"
                   : "bg-amber-400";
                 const isUpcoming = appt.status === "Scheduled" && new Date(appt.date + "T00:00:00") >= new Date(new Date().toDateString());
+
+                // Derive invoice status from appointment status
+                let invoiceStatus: "Paid" | "Draft" | "Do not invoice" | "---";
+                if (appt.status === "Cancelled") {
+                  invoiceStatus = "Do not invoice";
+                } else if (appt.status === "Completed") {
+                  // Deterministic assignment based on id hash
+                  const hash = appt.id.split("").reduce((acc: number, ch: string) => acc + ch.charCodeAt(0), 0);
+                  invoiceStatus = hash % 3 === 0 ? "Draft" : "Paid";
+                } else {
+                  invoiceStatus = "---";
+                }
+
                 return (
                   <tr key={appt.id} className="hover:bg-gray-50">
                     <td className="px-4 py-3 text-sm">
@@ -90,7 +103,18 @@ export default async function ClientAppointmentsPage({
                     <td className="px-4 py-3 text-sm text-text-secondary">{appt.type}</td>
                     <td className="px-4 py-3 text-sm text-text-secondary">{appt.practitioner.name}</td>
                     <td className="px-4 py-3 text-sm">
-                      <span className="text-text-secondary">----</span>
+                      {invoiceStatus === "Paid" && (
+                        <span className="inline-flex items-center rounded-full bg-red-500 px-2.5 py-0.5 text-xs font-medium text-white">Paid</span>
+                      )}
+                      {invoiceStatus === "Draft" && (
+                        <span className="inline-flex items-center rounded-full bg-blue-500 px-2.5 py-0.5 text-xs font-medium text-white">Draft</span>
+                      )}
+                      {invoiceStatus === "Do not invoice" && (
+                        <span className="inline-flex items-center rounded-full bg-yellow-500 px-2.5 py-0.5 text-xs font-medium text-white">Do not invoice</span>
+                      )}
+                      {invoiceStatus === "---" && (
+                        <span className="text-text-secondary">---</span>
+                      )}
                     </td>
                     <td className="px-4 py-3 text-right">
                       <button className="text-text-secondary hover:text-text">

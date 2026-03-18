@@ -88,6 +88,7 @@ export default async function Dashboard() {
             {data.todayAppointments.length === 0 && (
               <>
                 {/* Show some sample messages when no appointments */}
+                {/* Joseph Go — message with blurred/censored image */}
                 <div className="flex items-start gap-2.5">
                   <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-500 text-[10px] font-medium text-white">
                     JG
@@ -97,13 +98,37 @@ export default async function Dashboard() {
                       <span className="text-[13px] font-semibold text-text">Joseph Go</span>
                       <span className="text-[11px] text-text-secondary">9:48 pm</span>
                     </div>
-                    <p className="mt-0.5 text-[13px] text-text-secondary leading-snug">
-                      Hey team, just finished the intake forms for tomorrow&apos;s new clients.
-                    </p>
+                    <div className="mt-1.5 h-36 w-48 rounded-lg bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center">
+                      <span className="text-[11px] text-gray-500 blur-[2px] select-none">Image</span>
+                    </div>
                   </div>
                 </div>
 
-                {/* Date separator */}
+                {/* Date separator — 9 Feb 2026 */}
+                <div className="flex items-center justify-center py-1">
+                  <span className="text-xs text-text-secondary">9 Feb 2026</span>
+                </div>
+
+                {/* Joseph Go — blue cat sticker */}
+                <div className="flex items-start gap-2.5">
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-500 text-[10px] font-medium text-white">
+                    JG
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-baseline gap-1.5">
+                      <span className="text-[13px] font-semibold text-text">Joseph Go</span>
+                      <span className="text-[11px] text-text-secondary">9:50 pm</span>
+                    </div>
+                    <div className="mt-1.5 h-40 w-40 rounded-lg bg-gradient-to-br from-sky-200 to-sky-400 flex items-center justify-center">
+                      <div className="flex flex-col items-center gap-1">
+                        <div className="h-12 w-12 rounded-full bg-sky-500" />
+                        <span className="text-[10px] text-sky-700 font-medium">Cat Sticker</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Date separator — 16 Feb 2026 */}
                 <div className="flex items-center justify-center py-1">
                   <span className="text-xs text-text-secondary">16 Feb 2026</span>
                   <span className="ml-2 text-[10px] text-text-secondary cursor-pointer hover:text-primary">
@@ -111,6 +136,7 @@ export default async function Dashboard() {
                   </span>
                 </div>
 
+                {/* Hao Wang — green S logo image */}
                 <div className="flex items-start gap-2.5">
                   <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-600 text-[10px] font-medium text-white">
                     HW
@@ -120,12 +146,13 @@ export default async function Dashboard() {
                       <span className="text-[13px] font-semibold text-text">Hao Wang</span>
                       <span className="text-[11px] text-text-secondary">3:56 pm</span>
                     </div>
-                    <p className="mt-0.5 text-[13px] text-text-secondary leading-snug">
-                      Reminder: staff meeting tomorrow at 9 AM. Please check your schedules.
-                    </p>
+                    <div className="mt-1.5 h-40 w-48 rounded-lg bg-gradient-to-br from-green-100 to-green-300 flex items-center justify-center">
+                      <span className="text-5xl font-bold text-green-600">S</span>
+                    </div>
                   </div>
                 </div>
 
+                {/* Joseph Go — MADE IT HOME meme */}
                 <div className="flex items-start gap-2.5">
                   <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-500 text-[10px] font-medium text-white">
                     JG
@@ -135,9 +162,10 @@ export default async function Dashboard() {
                       <span className="text-[13px] font-semibold text-text">Joseph Go</span>
                       <span className="text-[11px] text-text-secondary">10:18 pm</span>
                     </div>
-                    <p className="mt-0.5 text-[13px] text-text-secondary leading-snug">
-                      Updated the client notes for this week. All progress notes are signed off.
-                    </p>
+                    <div className="mt-1.5 h-36 w-48 rounded-lg bg-gradient-to-br from-amber-100 to-amber-300 flex flex-col items-center justify-center gap-2">
+                      <span className="text-sm font-bold text-amber-800 tracking-wide">MADE IT HOME</span>
+                      <div className="h-14 w-20 rounded bg-amber-400/50" />
+                    </div>
                   </div>
                 </div>
               </>
