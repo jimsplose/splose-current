@@ -13,6 +13,7 @@ import {
   Lock,
   ClipboardList,
 } from "lucide-react";
+import { Button, Badge } from "@/components/ds";
 
 const TEMPLATES = [
   "Initial Assessment",
@@ -85,9 +86,9 @@ export default function NewProgressNotePage() {
           <h1 className="text-lg font-semibold text-text">
             New progress note
           </h1>
-          <span className="rounded bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
+          <Badge variant="yellow">
             Unsaved
-          </span>
+          </Badge>
         </div>
         <div className="flex items-center gap-2">
           {/* Add new note button */}
@@ -120,23 +121,23 @@ export default function NewProgressNotePage() {
             </button>
           </div>
           {/* Save buttons */}
-          <button
+          <Button
+            variant="secondary"
             onClick={() => handleSave(false)}
             disabled={saving}
-            className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50 disabled:opacity-50 transition-colors"
           >
             <Save className="h-4 w-4" />
             Save as draft
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="primary"
             onClick={() => handleSave(true)}
             disabled={saving}
-            className="flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark disabled:opacity-50 transition-colors"
           >
             <Lock className="h-3.5 w-3.5" />
             Sign &amp; lock
             <ChevronDown className="h-3.5 w-3.5" />
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -201,18 +202,18 @@ export default function NewProgressNotePage() {
 
             {/* Quick action buttons */}
             <div className="mb-5 flex items-center gap-2">
-              <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-sm text-text hover:bg-gray-50 transition-colors">
+              <Button variant="secondary" size="sm">
                 <LayoutGrid className="h-3.5 w-3.5" />
                 Select
-              </button>
-              <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-sm text-text hover:bg-gray-50 transition-colors">
+              </Button>
+              <Button variant="secondary" size="sm">
                 <Copy className="h-3.5 w-3.5" />
                 Copy recent note
-              </button>
-              <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-sm text-text hover:bg-gray-50 transition-colors">
+              </Button>
+              <Button variant="secondary" size="sm">
                 <Copy className="h-3.5 w-3.5" />
                 Copy recent practitioner note
-              </button>
+              </Button>
             </div>
 
             {/* Note content */}

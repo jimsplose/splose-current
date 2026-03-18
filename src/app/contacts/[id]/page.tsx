@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin, Building2 } from "lucide-react";
+import { Button, DataTable, TableHead, Th, TableBody, Td } from "@/components/ds";
 
 const mockContacts = [
   { id: "1", type: "", name: "jh", company: "", email: "", workPhone: "", mobilePhone: "", address: "", notes: "", associatedClients: [] as { id: string; name: string }[] },
@@ -88,20 +89,20 @@ export default async function ContactDetailPage({
             <h2 className="text-lg font-bold text-text">Contact</h2>
             <span className="text-sm text-text-secondary">{contact.name}</span>
           </div>
-          <button className="flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
+          <Button variant="secondary" size="sm">
             Actions
             <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
-          </button>
+          </Button>
         </div>
 
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-xl font-bold text-text">Details</h1>
-            <button className="flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
+            <Button variant="secondary" size="sm">
               Edit
-            </button>
+            </Button>
           </div>
 
         {/* General details */}
@@ -207,30 +208,26 @@ export default async function ContactDetailPage({
         <section className="mb-8">
           <h2 className="mb-4 text-lg font-bold text-text">Associated clients</h2>
           {contact.associatedClients.length > 0 ? (
-            <div className="overflow-hidden rounded-lg border border-border">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-border bg-purple-50">
-                    <th className="px-4 py-2.5 text-left font-medium text-text">Name</th>
-                    <th className="px-4 py-2.5 text-left font-medium text-text">DOB</th>
-                    <th className="px-4 py-2.5 text-center font-medium text-text">Appts</th>
-                    <th className="px-4 py-2.5 text-center font-medium text-text">Invoices</th>
-                    <th className="px-4 py-2.5 text-center font-medium text-text">Notes</th>
+            <DataTable>
+              <TableHead>
+                <Th>Name</Th>
+                <Th>DOB</Th>
+                <Th align="center">Appts</Th>
+                <Th align="center">Invoices</Th>
+                <Th align="center">Notes</Th>
+              </TableHead>
+              <TableBody>
+                {contact.associatedClients.map((client) => (
+                  <tr key={client.id} className="transition-colors hover:bg-purple-50/50">
+                    <Td className="text-primary hover:underline">{client.name}</Td>
+                    <Td className="text-text-secondary">5 Jun 2011</Td>
+                    <Td align="center" className="text-text-secondary"></Td>
+                    <Td align="center" className="text-text-secondary"></Td>
+                    <Td align="center" className="text-text-secondary"></Td>
                   </tr>
-                </thead>
-                <tbody className="divide-y divide-border">
-                  {contact.associatedClients.map((client) => (
-                    <tr key={client.id} className="transition-colors hover:bg-purple-50/50">
-                      <td className="px-4 py-3 text-primary hover:underline">{client.name}</td>
-                      <td className="px-4 py-3 text-text-secondary">5 Jun 2011</td>
-                      <td className="px-4 py-3 text-center text-text-secondary"></td>
-                      <td className="px-4 py-3 text-center text-text-secondary"></td>
-                      <td className="px-4 py-3 text-center text-text-secondary"></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                ))}
+              </TableBody>
+            </DataTable>
           ) : (
             <div className="rounded-lg border border-border bg-gray-50 p-6 text-center">
               <Building2 className="mx-auto mb-2 h-8 w-8 text-text-secondary" />
@@ -247,7 +244,7 @@ export default async function ContactDetailPage({
             <p className="text-sm text-text-secondary">No custom fields</p>
           </section>
 
-          <button className="text-sm text-primary hover:underline">View change log</button>
+          <Button variant="ghost" size="sm" className="text-primary hover:underline">View change log</Button>
         </div>
       </div>
     </div>

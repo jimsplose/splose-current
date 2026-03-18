@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Pencil, Lock, CheckCircle, RotateCcw, ChevronDown } from "lucide-react";
+import { Button, Badge } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -30,14 +31,14 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
           </Link>
           <h1 className="text-xl font-bold text-text">{note.template}</h1>
           {note.signed ? (
-            <span className="inline-flex items-center gap-1 rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
+            <Badge variant="green">
               <CheckCircle className="h-3 w-3" />
               Final
-            </span>
+            </Badge>
           ) : (
-            <span className="rounded bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
+            <Badge variant="gray">
               Draft
-            </span>
+            </Badge>
           )}
           <Link href={`/clients/${note.clientId}`} className="text-sm font-medium text-primary hover:underline">
             {clientName}
@@ -45,15 +46,15 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
         </div>
         <div className="flex items-center gap-2">
           {note.signed ? (
-            <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+            <Button variant="secondary">
               <RotateCcw className="h-4 w-4" />
               Revert to draft
-            </button>
+            </Button>
           ) : (
-            <button className="flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+            <Button variant="primary">
               <Lock className="h-3.5 w-3.5" />
               Sign &amp; lock
-            </button>
+            </Button>
           )}
           <Link
             href={`/notes/${id}/edit`}
@@ -61,9 +62,9 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
           >
             Edit <Pencil className="h-3.5 w-3.5" />
           </Link>
-          <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+          <Button variant="secondary">
             Actions <ChevronDown className="h-3.5 w-3.5" />
-          </button>
+          </Button>
         </div>
       </div>
 

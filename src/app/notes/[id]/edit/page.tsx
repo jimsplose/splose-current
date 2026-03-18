@@ -22,6 +22,7 @@ import {
   Image,
   Table,
 } from "lucide-react";
+import { Button, Badge } from "@/components/ds";
 
 type NoteData = {
   id: string;
@@ -233,14 +234,14 @@ export default function EditProgressNotePage() {
             {clientName}
           </span>
           {note?.signed ? (
-            <span className="inline-flex items-center gap-1 rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
+            <Badge variant="green">
               <CheckCircle className="h-3 w-3" />
               Saved
-            </span>
+            </Badge>
           ) : (
-            <span className="rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
+            <Badge variant="green">
               Saved
-            </span>
+            </Badge>
           )}
         </div>
         <div className="flex items-center gap-2">
@@ -267,9 +268,9 @@ export default function EditProgressNotePage() {
               <Columns2 className="h-4 w-4" />
             </button>
           </div>
-          <button className="rounded-lg bg-green-500 px-4 py-2 text-sm font-medium text-white hover:bg-green-600">
+          <Button variant="primary" className="bg-green-500 border-green-500 hover:bg-green-600">
             Save as final
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -390,13 +391,15 @@ export default function EditProgressNotePage() {
                           <p className="text-sm text-text-secondary leading-relaxed">
                             {section.prompt}
                           </p>
-                          <button
+                          <Button
+                            variant="primary"
+                            size="sm"
                             onClick={() => generateSection(section.id)}
-                            className="mt-3 flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-white hover:bg-primary-dark"
+                            className="mt-3"
                           >
                             <Sparkles className="h-3.5 w-3.5" />
                             Generate
-                          </button>
+                          </Button>
                         </div>
                       )}
                     </div>
@@ -406,13 +409,13 @@ export default function EditProgressNotePage() {
                 {/* Accept/Assign buttons when generated */}
                 {section.generated && (
                   <div className="mt-2 flex justify-end gap-2">
-                    <button className="rounded-lg border border-border bg-white px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
+                    <Button variant="secondary" size="sm">
                       Assign
-                    </button>
-                    <button className="flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-white hover:bg-primary-dark">
+                    </Button>
+                    <Button variant="primary" size="sm">
                       <CheckCircle className="h-3.5 w-3.5" />
                       Accept
-                    </button>
+                    </Button>
                   </div>
                 )}
               </div>

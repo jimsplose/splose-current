@@ -1,6 +1,7 @@
 import StatusBadge from "@/components/StatusBadge";
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
+import { Button, Badge } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -34,24 +35,24 @@ export default async function InvoiceDetailPage({
           <h1 className="text-lg font-semibold text-text">{invoice.invoiceNumber}</h1>
           <StatusBadge status={invoice.status} />
           {creditBalance > 0 && (
-            <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
+            <Badge variant="green">
               Credit balance: ${creditBalance.toFixed(2)}
-            </span>
+            </Badge>
           )}
         </div>
         <div className="flex items-center gap-2">
-          <button className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text shadow-sm hover:bg-gray-50">
+          <Button variant="secondary" className="shadow-sm">
             Pay
             <svg className="h-3.5 w-3.5 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
-          </button>
-          <button className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text shadow-sm hover:bg-gray-50">
+          </Button>
+          <Button variant="secondary" className="shadow-sm">
             <svg className="h-4 w-4 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
             Email Invoice
-          </button>
-          <button className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text shadow-sm hover:bg-gray-50">
+          </Button>
+          <Button variant="secondary" className="shadow-sm">
             Actions
             <svg className="h-3.5 w-3.5 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
-          </button>
+          </Button>
         </div>
       </div>
 
