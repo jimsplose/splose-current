@@ -41,9 +41,13 @@ export default function ReportsPage() {
         <span className="rounded-full border border-primary bg-purple-50 px-3 py-1 text-sm text-primary">
           {fmtShort(dateEnd)}
         </span>
-        <button className="rounded-full border border-primary bg-purple-50 px-3 py-1 text-sm text-primary font-medium">
-          Daily
-        </button>
+        <select className="rounded-full border border-primary bg-purple-50 px-3 py-1 text-sm text-primary font-medium outline-none cursor-pointer">
+          <option>Frequency: Daily</option>
+          <option>Frequency: Weekly</option>
+          <option>Frequency: Monthly</option>
+          <option>Frequency: Quarterly</option>
+          <option>Frequency: Yearly</option>
+        </select>
         <button className="rounded-full border border-border bg-white px-3 py-1 text-sm text-text hover:bg-gray-50">
           All locations
         </button>
