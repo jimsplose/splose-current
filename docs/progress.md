@@ -94,6 +94,15 @@ Append-only log. Each session adds an entry summarizing what was done.
 - SMS Settings page is near-perfect match
 - Only remaining visual gap in Settings is actual brand logo assets (using styled text wordmarks as substitute)
 
+- **Mobile responsiveness overhaul** — 22 files updated:
+  - Settings: mobile sidebar with dropdown toggle (hides sidebar, shows current page name)
+  - Calendar: scrollable toolbar, hidden filter pills on mobile, horizontal-scroll week grid, full-width appointment flyout, reduced modal padding
+  - Dashboard: constrained image widths, removed left border on mobile
+  - Client detail: horizontal scrolling pill tabs on mobile (replaces hidden sidebar)
+  - All table pages: `overflow-x-auto` for horizontal scroll, responsive padding (`p-4 sm:p-6`)
+  - Waitlist: stacking headers, responsive padding, scrollable tables
+  - Notes, Invoices, Clients, Contacts, Products, Payments: responsive padding
+
 ### Still Remaining
 - Process new screenshots
 - Calendar practitioner columns layout (major structural change)
