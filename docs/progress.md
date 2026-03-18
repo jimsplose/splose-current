@@ -78,3 +78,23 @@ Append-only log. Each session adds an entry summarizing what was done.
 - Process new screenshots
 - Calendar practitioner columns layout (major structural change)
 - Deeper fidelity work on individual settings sub-pages vs screenshots
+
+---
+
+## Session — 2026-03-18 (night)
+
+**Branch**: `claude/add-launch-menu-A2vsu`
+
+### Completed
+- **Screenshot comparison loops (round 2)** — Ran 4 parallel comparison agents against reference screenshots for: Calendar, Notes Edit, Patient sub-tabs (8 pages), and Settings (Details/Integrations/SMS). All confirmed strong structural fidelity — no major gaps found.
+- **Settings integration logos** — Replaced plain text labels with styled SVG/HTML brand wordmarks for Xero, QuickBooks, Stripe, Mailchimp, HICAPS, Tyro Health, Zoom, Physitrack.
+
+### Discovered
+- Calendar, Notes edit, Patient sub-tabs, and Settings pages all closely match reference screenshots
+- SMS Settings page is near-perfect match
+- Only remaining visual gap in Settings is actual brand logo assets (using styled text wordmarks as substitute)
+
+### Still Remaining
+- Process new screenshots
+- Calendar practitioner columns layout (major structural change)
+- Integration logos: replace styled text with actual SVG brand assets if available
