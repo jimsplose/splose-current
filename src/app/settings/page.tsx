@@ -67,7 +67,7 @@ type ActivePage =
   | "Forms"
   | string;
 
-const pagesWithContent = ["Details", "Integrations", "SMS settings", "Forms", "Locations", "Tags", "Users"];
+const pagesWithContent = ["Details", "Integrations", "SMS settings", "Forms", "Locations", "Tags", "Users", "Referral types", "User groups", "Payments", "Communication types", "Cancellation reasons", "Busy times"];
 
 export default function SettingsPage() {
   const [activePage, setActivePage] = useState<ActivePage>("Details");
@@ -129,6 +129,12 @@ export default function SettingsPage() {
         {activePage === "Locations" && <LocationsContent />}
         {activePage === "Tags" && <TagsContent />}
         {activePage === "Users" && <UsersContent />}
+        {activePage === "Referral types" && <ReferralTypesContent />}
+        {activePage === "User groups" && <UserGroupsContent />}
+        {activePage === "Payments" && <PaymentSettingsContent />}
+        {activePage === "Communication types" && <CommunicationTypesContent />}
+        {activePage === "Cancellation reasons" && <CancellationReasonsContent />}
+        {activePage === "Busy times" && <BusyTimesContent />}
         {!pagesWithContent.includes(activePage) && (
           <PlaceholderContent pageName={activePage} />
         )}
@@ -1049,6 +1055,453 @@ function UsersContent() {
                 <td className="px-4 py-3 text-sm text-text-secondary">{user.roleType}</td>
                 <td className="px-4 py-3 text-sm text-text-secondary">{user.group}</td>
                 <td className="px-4 py-3 text-sm text-text-secondary">{user.status}</td>
+                <td className="px-4 py-3 text-right">
+                  <button className="text-text-secondary hover:text-text">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Referral Types ──────────────────────────────────────────────── */
+
+function ReferralTypesContent() {
+  const referralTypes = [
+    { name: "Client", defaultType: true },
+    { name: "Contact", defaultType: true },
+    { name: "Other", defaultType: true },
+    { name: "Facebook", defaultType: false },
+    { name: "Google", defaultType: false },
+    { name: "Doctor", defaultType: false },
+    { name: "GP", defaultType: false },
+  ];
+
+  return (
+    <div className="p-6 max-w-4xl">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-text">Referral types</h1>
+        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+          + Add referral type
+        </button>
+      </div>
+
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Name</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Default type</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {referralTypes.map((rt) => (
+              <tr key={rt.name} className="hover:bg-gray-50">
+                <td className="px-4 py-3 text-sm text-text">{rt.name}</td>
+                <td className="px-4 py-3">
+                  <span className={`text-sm font-medium ${rt.defaultType ? "text-green-600" : "text-red-500"}`}>
+                    {rt.defaultType ? "Yes" : "No"}
+                  </span>
+                </td>
+                <td className="px-4 py-3">
+                  {rt.defaultType ? (
+                    <span className="text-text-secondary">-</span>
+                  ) : (
+                    <button className="text-text-secondary hover:text-text">
+                      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="flex items-center justify-end gap-2 mt-4">
+        <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
+        <button className="rounded border border-primary px-2.5 py-1 text-sm font-medium text-primary bg-purple-50">1</button>
+        <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&gt;</button>
+        <span className="text-sm text-text-secondary ml-2">10 / page</span>
+      </div>
+    </div>
+  );
+}
+
+/* ─── User Groups ─────────────────────────────────────────────────── */
+
+function UserGroupsContent() {
+  const groups = [
+    { name: "Intake team", users: 3 },
+    { name: "OT", users: 7 },
+    { name: "Physio", users: 7 },
+  ];
+
+  return (
+    <div className="p-6 max-w-4xl">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-text">User groups</h1>
+        <div className="flex items-center gap-3">
+          <button className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+            <svg className="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zM10 18a1 1 0 001-1v-1a1 1 0 10-2 0v1a1 1 0 001 1z" /></svg>
+            Learn
+          </button>
+          <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+            + New group
+          </button>
+        </div>
+      </div>
+
+      {/* Search */}
+      <div className="flex items-center gap-3 mb-6">
+        <input
+          type="text"
+          placeholder="Search for group name"
+          className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+        />
+        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+          Search
+        </button>
+      </div>
+
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border bg-green-50">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                Name <span className="text-xs">&#8597;</span>
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Users</th>
+              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {groups.map((g) => (
+              <tr key={g.name} className="hover:bg-gray-50">
+                <td className="px-4 py-3 text-sm text-text">{g.name}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{g.users}</td>
+                <td className="px-4 py-3 text-right">
+                  <button className="text-text-secondary hover:text-text">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="flex items-center justify-end gap-2 mt-4">
+        <span className="text-sm text-text-secondary">1-3 of 3 items</span>
+        <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
+        <button className="rounded border border-primary px-2.5 py-1 text-sm font-medium text-primary bg-purple-50">1</button>
+        <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&gt;</button>
+        <span className="text-sm text-text-secondary ml-2">10 / page</span>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Payment Settings ────────────────────────────────────────────── */
+
+function PaymentSettingsContent() {
+  const paymentMethods = [
+    { name: "Credit Card", description: "stripe payment", status: "Active" },
+    { name: "EFTPOS", description: "", status: "Active" },
+    { name: "Medicare", description: "", status: "Active" },
+    { name: "HICAPS", description: "", status: "Active" },
+    { name: "Cash", description: "Pay by cash", status: "Active" },
+    { name: "Bank Transfer (Xero)", description: "", status: "Active" },
+    { name: "DVA", description: "", status: "Active" },
+    { name: "Other", description: "", status: "Active" },
+    { name: "CC", description: "Credit Card", status: "Active" },
+    { name: "PE CC", description: "PE Credit Card", status: "Active" },
+  ];
+
+  return (
+    <div className="p-6 max-w-4xl">
+      <h1 className="text-2xl font-bold text-text mb-6">Payment settings</h1>
+
+      {/* Next payment number */}
+      <div className="mb-6">
+        <h2 className="text-base font-semibold text-text mb-3">Next payment number</h2>
+        <div className="space-y-3 max-w-md">
+          <div>
+            <label className="block text-sm text-text-secondary mb-1">
+              Prefix <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help">i</span>
+            </label>
+            <input type="text" defaultValue="MYDD" className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+          </div>
+          <div>
+            <label className="block text-sm text-text-secondary mb-1">
+              Padding <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help">i</span>
+            </label>
+            <input type="text" defaultValue="5" className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+          </div>
+        </div>
+      </div>
+
+      {/* PDF settings */}
+      <div className="mb-6">
+        <h2 className="text-base font-semibold text-text mb-3">PDF settings</h2>
+        <div className="max-w-md">
+          <label className="block text-sm text-text-secondary mb-1">Brand colour</label>
+          <div className="flex items-center gap-2 mb-3">
+            <div className="h-10 w-10 rounded border border-border" style={{ backgroundColor: "#8689FC" }} />
+            <input type="text" defaultValue="#8689FC" className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+          </div>
+          <button className="rounded-lg bg-green-500 px-4 py-2 text-sm font-medium text-white hover:bg-green-600">
+            Save
+          </button>
+        </div>
+      </div>
+
+      {/* Accepted forms of payment */}
+      <div className="mb-6">
+        <h2 className="text-base font-semibold text-text mb-4">Accepted forms of payment</h2>
+        <div className="rounded-lg border border-border bg-white overflow-hidden">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-border">
+                <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Name</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Description</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Status</th>
+                <th className="px-4 py-3 text-right text-sm font-medium text-text-secondary">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {paymentMethods.map((pm) => (
+                <tr key={pm.name} className="hover:bg-gray-50">
+                  <td className="px-4 py-3 text-sm text-text">{pm.name}</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary">{pm.description}</td>
+                  <td className="px-4 py-3">
+                    <span className="rounded bg-green-500 px-2 py-0.5 text-xs font-medium text-white">
+                      {pm.status}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <div className="flex items-center justify-end gap-2">
+                      <button className="text-text-secondary hover:text-primary">
+                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                      </button>
+                      <button className="text-text-secondary hover:text-red-500">
+                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="flex items-center justify-end gap-2 mt-4">
+          <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
+          <button className="rounded border border-primary px-2.5 py-1 text-sm font-medium text-primary bg-purple-50">1</button>
+          <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">2</button>
+          <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&gt;</button>
+        </div>
+      </div>
+
+      {/* Add payment method */}
+      <div className="mb-6">
+        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+          + Add payment method
+        </button>
+      </div>
+
+      <hr className="border-border mb-6" />
+
+      {/* NDIS bulk upload */}
+      <div>
+        <h2 className="text-base font-semibold text-text mb-3">NDIS bulk upload</h2>
+        <div className="max-w-md">
+          <label className="block text-sm text-text mb-1">
+            Payment method<span className="text-red-500">*</span>
+          </label>
+          <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary mb-3">
+            <option>Credit Card</option>
+          </select>
+          <button className="rounded-lg bg-green-500 px-4 py-2 text-sm font-medium text-white hover:bg-green-600">
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Communication Types ─────────────────────────────────────────── */
+
+function CommunicationTypesContent() {
+  const types = [
+    { name: "SMS", defaultType: true },
+    { name: "Email", defaultType: true },
+    { name: "Phone call", defaultType: false },
+    { name: "In-person", defaultType: false },
+    { name: "fax", defaultType: false },
+    { name: "Admin Notes", defaultType: false },
+  ];
+
+  return (
+    <div className="p-6 max-w-4xl">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-text">Communication types</h1>
+        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+          + Add communication type
+        </button>
+      </div>
+
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Name</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Default type</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {types.map((t) => (
+              <tr key={t.name} className="hover:bg-gray-50">
+                <td className="px-4 py-3 text-sm text-text">{t.name}</td>
+                <td className="px-4 py-3">
+                  <span className={`text-sm font-medium ${t.defaultType ? "text-green-600" : "text-red-500"}`}>
+                    {t.defaultType ? "Yes" : "No"}
+                  </span>
+                </td>
+                <td className="px-4 py-3">
+                  {t.defaultType ? (
+                    <span className="text-text-secondary">-</span>
+                  ) : (
+                    <button className="text-text-secondary hover:text-text">
+                      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="flex items-center justify-end gap-2 mt-4">
+        <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
+        <button className="rounded border border-primary px-2.5 py-1 text-sm font-medium text-primary bg-purple-50">1</button>
+        <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&gt;</button>
+        <span className="text-sm text-text-secondary ml-2">10 / page</span>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Cancellation Reasons ────────────────────────────────────────── */
+
+function CancellationReasonsContent() {
+  const reasons = [
+    { name: "Condition betteryyy", code: "" },
+    { name: "Condition worse", code: "TEST" },
+    { name: "Sick", code: "500" },
+    { name: "No show due to health reason", code: "NSDH" },
+    { name: "No show due to family issues", code: "NSDF" },
+    { name: "No show due to unavailability of transport", code: "NSDT" },
+    { name: "Cancelled 1", code: "" },
+    { name: "No Show - sick", code: "" },
+    { name: "Cancel", code: "CANCEL" },
+    { name: "No show less than 2 days", code: "" },
+  ];
+
+  return (
+    <div className="p-6 max-w-4xl">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-text">Cancellation reasons</h1>
+        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+          Show archived
+        </button>
+      </div>
+
+      <div className="space-y-0 divide-y divide-border">
+        {reasons.map((r) => (
+          <div key={r.name} className="flex items-center justify-between py-4">
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-text">{r.name}</span>
+              {r.code && (
+                <span className="rounded bg-gray-100 px-1.5 py-0.5 text-xs text-text-secondary">{r.code}</span>
+              )}
+            </div>
+            <div className="flex items-center gap-2">
+              <button className="text-text-secondary hover:text-primary">
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+              </button>
+              <button className="text-text-secondary hover:text-red-500">
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Busy Times ──────────────────────────────────────────────────── */
+
+function BusyTimesContent() {
+  const busyTypes = [
+    { name: "Leave me alone", color: "#ef4444", utilisation: "Excluded", duration: 15 },
+    { name: "OT referral", color: "#f97316", utilisation: "Excluded", duration: 30 },
+    { name: "Meeting", color: "#374151", utilisation: "Excluded", duration: 30 },
+    { name: "Lunch", color: "#6366f1", utilisation: "Excluded", duration: 30 },
+    { name: "Admin", color: "#ec4899", utilisation: "Included", duration: 30 },
+    { name: "CPD", color: "#3b82f6", utilisation: "Excluded", duration: 30 },
+    { name: "Travel", color: "#22c55e", utilisation: "Excluded", duration: 30 },
+  ];
+
+  return (
+    <div className="p-6 max-w-4xl">
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="text-2xl font-bold text-text">Busy time types</h1>
+        <div className="flex items-center gap-3">
+          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+            Show archived
+          </button>
+          <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+            + New type
+          </button>
+        </div>
+      </div>
+
+      <p className="text-sm text-text-secondary mb-6">
+        Use busy time to indicate non billable events in Practitioner calendars. You can change utilisation settings to control whether specific types of busy time are used in utilisation reports.
+      </p>
+
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Name</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Utilisation</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Duration (mins)</th>
+              <th className="px-4 py-3 text-right text-sm font-medium text-text-secondary">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {busyTypes.map((bt) => (
+              <tr key={bt.name} className="hover:bg-gray-50">
+                <td className="px-4 py-3">
+                  <div className="flex items-center gap-2">
+                    <div className="h-3 w-3 rounded-full" style={{ backgroundColor: bt.color }} />
+                    <span className="text-sm text-text">{bt.name}</span>
+                  </div>
+                </td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{bt.utilisation}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{bt.duration}</td>
                 <td className="px-4 py-3 text-right">
                   <button className="text-text-secondary hover:text-text">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
