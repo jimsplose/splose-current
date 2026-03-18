@@ -38,7 +38,7 @@ Every push to any branch gets a **Vercel preview deployment**. This is how Jim r
 
 - **Production** (main branch): https://splose-current.vercel.app
 - **Branch previews**: `https://splose-current-<git-branch-slug>.vercel.app`
-  - Example: branch `claude/fidelity-sprint-automation-0cFV5` → `https://splose-current-git-claude-fidelity-sprint-auto-jimsplose.vercel.app`
+  - Example: branch `claude/fidelity-sprint-automation-0cFV5` → `https://splose-current-git-claude-fidelity-sprint-auto-jimyencken-4159s.vercel.app`
 - **Per-commit previews**: Each push also gets a unique URL like `https://splose-current-<hash>.vercel.app`
 
 **After every push**, Claude Code MUST:

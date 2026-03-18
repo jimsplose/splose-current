@@ -1,24 +1,61 @@
 name: Auto-promote claude/* to production
 
 on:
-  deployment_status:
+  push:
+    branches:
+      - "claude/**"
 
 jobs:
   promote:
-    # Only run when a Vercel deployment succeeds on a claude/* branch
-    if: |
-      github.event.deployment_status.state == 'success' &&
-      startsWith(github.event.deployment.ref, 'claude/')
     runs-on: ubuntu-latest
     steps:
-      - name: Fast-forward main to deployed commit
+      - name: Wait for Vercel deployment to succeed
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          SHA="${{ github.event.deployment.sha }}"
-          BRANCH="${{ github.event.deployment.ref }}"
-          echo "Promoting $BRANCH ($SHA) to main"
-          gh api "repos/${{ github.repository }}/git/refs/heads/main" \
-            -X PATCH \
-            -f sha="$SHA"
-          echo "main fast-forwarded to $SHA"
+          SHA="${{ github.sha }}"
+          BRANCH="${{ github.ref_name }}"
+          echo "Waiting for Vercel deployment of $BRANCH ($SHA) to succeed..."
+
+          # Poll for up to 10 minutes (30 attempts × 20s)
+          for i in $(seq 1 30); do
+            echo "Check $i/30..."
+
+            # Get deployment statuses for this SHA
+            STATUSES=$(gh api "repos/${{ github.repository }}/deployments?sha=$SHA&per_page=10" \
+              --jq '.[].id' 2>/dev/null || echo "")
+
+            if [ -z "$STATUSES" ]; then
+              echo "  No deployments found yet, waiting..."
+              sleep 20
+              continue
+            fi
+
+            # Check each deployment for a success status
+            for DEPLOY_ID in $STATUSES; do
+              STATE=$(gh api "repos/${{ github.repository }}/deployments/$DEPLOY_ID/statuses" \
+                --jq '.[0].state' 2>/dev/null || echo "")
+              echo "  Deployment $DEPLOY_ID: $STATE"
+
+              if [ "$STATE" = "success" ]; then
+                echo "Vercel deployment succeeded!"
+
+                echo "Promoting $BRANCH ($SHA) to main"
+                gh api "repos/${{ github.repository }}/git/refs/heads/main" \
+                  -X PATCH \
+                  -f sha="$SHA"
+                echo "main fast-forwarded to $SHA"
+                exit 0
+              fi
+
+              if [ "$STATE" = "failure" ] || [ "$STATE" = "error" ]; then
+                echo "Deployment failed with state: $STATE — not promoting"
+                exit 1
+              fi
+            done
+
+            sleep 20
+          done
+
+          echo "Timed out waiting for Vercel deployment to succeed (10 minutes)"
+          exit 1
