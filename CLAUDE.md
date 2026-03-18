@@ -11,9 +11,9 @@ Use AskUserQuestion with these options:
 > **What would you like to work on this session?**
 >
 > 1. **Review status** — Read `docs/progress.md` and `docs/fidelity-gaps.md`, show recently completed tasks, build/deploy status, and what's next
-> 2. **Process new screenshots** — Follow `docs/screenshot-workflow.md` to scan, categorize, and catalog new screenshots
-> 3. **Run fidelity improvement loops** — Read `docs/fidelity-gaps.md` (pick by priority), then follow `docs/fidelity-workflow.md`
-> 4. **Build Dev Navigator** — Follow `docs/dev-navigator-spec.md` to implement floating toolbar + state registry
+> 2. **Upload screenshots** — User will upload new reference screenshots to be cataloged for future iterative screenshot comparison loops. Follow `docs/screenshot-workflow.md`
+> 3. **Run fidelity loops** — Run iterative screenshot comparison and improvement loops. Read `docs/fidelity-gaps.md` (pick by priority), then follow `docs/fidelity-workflow.md`
+> 4. **Build Dev Navigator** — Implement Dev Toolbar, state registry, and navigation menu. Follow `docs/dev-navigator-spec.md`
 > 5. **Something else** — Free-form request
 
 **Do NOT skip this step. Do NOT start working without the user's menu selection.**
