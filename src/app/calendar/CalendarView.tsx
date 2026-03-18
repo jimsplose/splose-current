@@ -24,8 +24,24 @@ type Practitioner = {
   color: string;
 };
 
+const HOUR_HEIGHT = 80; // pixels per hour row
 const HOURS = Array.from({ length: 11 }, (_, i) => i + 8);
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+function parseTimeToMinutes(time: string): number {
+  const [h, m] = time.split(":").map(Number);
+  return h * 60 + m;
+}
+
+function getApptStyle(appt: { startTime: string; endTime: string }) {
+  const startMins = parseTimeToMinutes(appt.startTime);
+  const endMins = parseTimeToMinutes(appt.endTime);
+  const durationMins = Math.max(endMins - startMins, 30);
+  const minuteWithinHour = startMins % 60;
+  const topPx = (minuteWithinHour / 60) * HOUR_HEIGHT;
+  const heightPx = (durationMins / 60) * HOUR_HEIGHT - 2;
+  return { top: `${topPx}px`, height: `${heightPx}px` };
+}
 
 const TIME_OPTIONS: string[] = [];
 for (let h = 7; h <= 18; h++) {
@@ -243,7 +259,7 @@ export default function CalendarView({
           <div className="grid grid-cols-[60px_repeat(7,1fr)]">
             {HOURS.map((hour) => (
               <div key={hour} className="contents">
-                <div className="flex items-start justify-end border-b border-r border-border px-2 py-1" style={{ minHeight: "60px" }}>
+                <div className="flex items-start justify-end border-b border-r border-border px-2 py-1" style={{ height: `${HOUR_HEIGHT}px` }}>
                   <span className="text-[11px] text-text-secondary -mt-1.5">
                     {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
                   </span>
@@ -256,17 +272,20 @@ export default function CalendarView({
                   return (
                     <div
                       key={dayIdx}
-                      className={`relative border-b border-r border-border last:border-r-0 cursor-pointer hover:bg-gray-50/50 ${isToday ? "bg-purple-50/30" : ""}`}
-                      style={{ minHeight: "60px" }}
+                      className={`relative border-b border-r border-border last:border-r-0 cursor-pointer hover:bg-gray-100/50 ${isToday ? "bg-purple-50/30" : ""}`}
+                      style={{ height: `${HOUR_HEIGHT}px` }}
                       onClick={() => handleCellClick(dateStr, hour)}
                     >
-                      {hourAppts.map((appt) => (
+                      {hourAppts.map((appt) => {
+                        const pos = getApptStyle(appt);
+                        return (
                         <div
                           key={appt.id}
-                          className="absolute inset-x-1 top-1 cursor-pointer rounded px-1.5 py-1 text-white shadow-sm z-10"
+                          className="absolute inset-x-1 cursor-pointer rounded px-2 py-1.5 text-white shadow-sm z-10 overflow-hidden"
                           style={{
                             backgroundColor: appt.practitionerColor,
                             opacity: appt.status === "Cancelled" ? 0.5 : 1,
+                            ...pos,
                           }}
                           onClick={(e) => {
                             e.stopPropagation();
@@ -274,9 +293,11 @@ export default function CalendarView({
                           }}
                         >
                           <p className="text-xs font-medium truncate">{appt.clientName}</p>
-                          <p className="text-[10px] opacity-80">{appt.startTime}</p>
+                          <p className="text-[10px] opacity-80">{appt.startTime} – {appt.endTime.replace(/^0/, "")}</p>
+                          <p className="text-[10px] opacity-70 truncate">{appt.type}</p>
                         </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   );
                 })}
