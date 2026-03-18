@@ -66,7 +66,10 @@ export default async function Dashboard() {
                   className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[10px] font-medium text-white"
                   style={{ backgroundColor: appt.practitioner.color }}
                 >
-                  {appt.practitioner.name.split(" ").map((n) => n[0]).join("")}
+                  {appt.practitioner.name
+                    .split(" ")
+                    .map((n) => n[0])
+                    .join("")}
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-baseline gap-1.5">
