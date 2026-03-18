@@ -1,0 +1,10 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "echo '⚠️ MANDATORY: Before responding to the user, you MUST use AskUserQuestion to present the session start menu from CLAUDE.md. Do NOT skip this step. Do NOT respond conversationally. Show the menu FIRST.'"
+      }
+    ]
+  }
+}
