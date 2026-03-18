@@ -56,6 +56,10 @@ export default function CalendarView({
 }) {
   const [selectedAppt, setSelectedAppt] = useState<Appointment | null>(null);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editRepeat, setEditRepeat] = useState(false);
+  const [editRoom, setEditRoom] = useState("");
+  const [editApplyTo, setEditApplyTo] = useState<"this" | "following" | "all">("this");
   const [createTime, setCreateTime] = useState("");
   const [createEndTime, setCreateEndTime] = useState("");
   const [createDate, setCreateDate] = useState("");
@@ -331,20 +335,39 @@ export default function CalendarView({
               </div>
 
               <div className="flex items-start gap-2">
+                <MapPin className="h-4 w-4 text-text-secondary mt-0.5" />
+                <span className="text-text-secondary">thyxueen@gmail.com</span>
+              </div>
+
+              <div className="flex items-start gap-2">
                 <Calendar className="h-4 w-4 text-text-secondary mt-0.5" />
-                <span className="text-text-secondary">{selectedAppt.status}</span>
+                <span className="text-text-secondary">No status</span>
+              </div>
+
+              <div className="flex items-start gap-2">
+                <FileText className="h-4 w-4 text-primary mt-0.5" />
+                <span className="text-primary cursor-pointer hover:underline">Create zoom meeting</span>
               </div>
 
               <div className="flex items-start gap-2">
                 <FileText className="h-4 w-4 text-primary mt-0.5" />
                 <span className="text-primary cursor-pointer hover:underline">Add invoice</span>
-                <span className="text-text-secondary mx-1">Mark as</span>
-                <span className="text-primary cursor-pointer hover:underline">Do not invoice?</span>
+                <span className="rounded bg-blue-100 px-1.5 py-0.5 text-[10px] font-medium text-blue-700 ml-1">Draft</span>
               </div>
 
               <div className="flex items-start gap-2">
                 <FileText className="h-4 w-4 text-primary mt-0.5" />
                 <span className="text-primary cursor-pointer hover:underline">Add progress note</span>
+              </div>
+
+              <div className="flex items-start gap-2">
+                <Clock className="h-4 w-4 text-text-secondary mt-0.5" />
+                <span className="text-text-secondary text-xs">Repeating every 2 weeks on Monday for 6 times</span>
+              </div>
+
+              <div className="flex items-start gap-2">
+                <User className="h-4 w-4 text-text-secondary mt-0.5" />
+                <span className="text-text-secondary">{selectedAppt.practitionerName} (Organiser)</span>
               </div>
 
               {/* Note field */}
@@ -365,7 +388,10 @@ export default function CalendarView({
               <button className="rounded-lg border border-border bg-white px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
                 Book another
               </button>
-              <button className="rounded-lg border border-border bg-white px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
+              <button
+                onClick={() => setShowEditModal(true)}
+                className="rounded-lg border border-border bg-white px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50"
+              >
                 Edit
               </button>
               <button className="rounded-lg border border-border bg-white px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
@@ -501,6 +527,179 @@ export default function CalendarView({
                 className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark"
               >
                 Create
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Edit appointment modal */}
+      {showEditModal && selectedAppt && (
+        <div
+          className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-12 overflow-y-auto pb-12"
+          onClick={(e) => { if (e.target === e.currentTarget) setShowEditModal(false); }}
+        >
+          <div className="w-full max-w-lg rounded-xl bg-white shadow-xl">
+            <div className="flex items-center justify-between border-b border-border px-6 py-4">
+              <h2 className="text-lg font-semibold text-text">Edit appointment</h2>
+              <button onClick={() => setShowEditModal(false)} className="rounded p-1 hover:bg-gray-100">
+                <X className="h-5 w-5 text-text-secondary" />
+              </button>
+            </div>
+            <div className="space-y-4 px-6 py-5">
+              {/* Service */}
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-1">Service *</label>
+                <input
+                  type="text"
+                  defaultValue={`${selectedAppt.clientName}`}
+                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                />
+              </div>
+
+              {/* Case */}
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-1">Case</label>
+                <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20">
+                  <option>Choose a case</option>
+                </select>
+              </div>
+
+              {/* Date */}
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-1">Date *</label>
+                <input
+                  type="date"
+                  defaultValue={selectedAppt.date}
+                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                />
+              </div>
+
+              {/* Time */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-sm font-medium text-text-secondary mb-1">Time *</label>
+                  <input
+                    type="text"
+                    defaultValue={selectedAppt.startTime}
+                    className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-text-secondary mb-1">&nbsp;</label>
+                  <input
+                    type="text"
+                    defaultValue={selectedAppt.endTime}
+                    className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                  />
+                </div>
+              </div>
+
+              {/* Room/Resource */}
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-1">Room/Resource</label>
+                <select
+                  value={editRoom}
+                  onChange={(e) => setEditRoom(e.target.value)}
+                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                >
+                  <option value="">Choose a room/resource</option>
+                  <optgroup label="Green room">
+                    <option value="green">Green (1 available of 1)</option>
+                  </optgroup>
+                  <optgroup label="">
+                    <option value="red">Red (1 available of 1)</option>
+                    <option value="blue">Blue (2 available of 2)</option>
+                  </optgroup>
+                  <optgroup label="Car">
+                    <option value="car">Car (1 available of 1)</option>
+                  </optgroup>
+                  <optgroup label="Rooms">
+                    <option value="room1">Room 1 (1 available of 1)</option>
+                  </optgroup>
+                </select>
+              </div>
+
+              {/* Repeat toggle */}
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setEditRepeat(!editRepeat)}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${editRepeat ? "bg-primary" : "bg-gray-200"}`}
+                >
+                  <span className={`inline-block h-4 w-4 rounded-full bg-white shadow transition-transform ${editRepeat ? "translate-x-6" : "translate-x-1"}`} />
+                </button>
+                <span className="text-sm text-text">Repeat</span>
+              </div>
+
+              {editRepeat && (
+                <div className="space-y-3 rounded-lg border border-border bg-gray-50 p-4">
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">Repeat</label>
+                    <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary">
+                      <option>Every 2 weeks</option>
+                      <option>Every week</option>
+                      <option>Every 3 weeks</option>
+                      <option>Every 4 weeks</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">Repeat on *</label>
+                    <div className="flex gap-1">
+                      {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d) => (
+                        <button key={d} className={`rounded-full px-2.5 py-1 text-xs font-medium ${d === "Mo" ? "bg-primary text-white" : "bg-white border border-border text-text hover:bg-gray-50"}`}>
+                          {d}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">Ends</label>
+                    <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary">
+                      <option>After 6 times</option>
+                      <option>After 4 times</option>
+                      <option>After 8 times</option>
+                      <option>After 12 times</option>
+                      <option>On date</option>
+                    </select>
+                  </div>
+                </div>
+              )}
+
+              {/* Apply to */}
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">Apply to:</label>
+                <div className="space-y-1.5">
+                  {[
+                    { value: "this" as const, label: "This occurrence" },
+                    { value: "following" as const, label: "This and all following occurrences" },
+                    { value: "all" as const, label: "All occurrences" },
+                  ].map((opt) => (
+                    <label key={opt.value} className="flex items-center gap-2 text-sm text-text cursor-pointer">
+                      <input
+                        type="radio"
+                        name="applyTo"
+                        checked={editApplyTo === opt.value}
+                        onChange={() => setEditApplyTo(opt.value)}
+                        className="accent-primary"
+                      />
+                      {opt.label}
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center justify-end gap-2 border-t border-border px-6 py-4">
+              <button
+                onClick={() => setShowEditModal(false)}
+                className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => setShowEditModal(false)}
+                className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark"
+              >
+                Save changes
               </button>
             </div>
           </div>
