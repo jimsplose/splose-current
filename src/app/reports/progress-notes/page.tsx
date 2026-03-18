@@ -52,7 +52,7 @@ export default function ReportsProgressNotesPage() {
       <h2 className="text-lg font-bold text-text mb-4">Summary</h2>
 
       {/* Summary tables and pie charts */}
-      <div className="grid grid-cols-2 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {/* Note template breakdown */}
         <div>
           <div className="rounded-lg border border-border bg-white overflow-hidden mb-4">
@@ -140,8 +140,8 @@ export default function ReportsProgressNotesPage() {
 
       {/* Progress notes list */}
       <h2 className="text-lg font-bold text-text mb-4">Progress notes list</h2>
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
-        <table className="w-full">
+      <div className="rounded-lg border border-border bg-white overflow-x-auto">
+        <table className="w-full min-w-[600px]">
           <thead>
             <tr className="border-b border-border bg-gray-50">
               <th className="px-4 py-2 text-left text-sm font-medium text-text">Title</th>
