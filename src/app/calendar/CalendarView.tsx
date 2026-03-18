@@ -40,6 +40,9 @@ function formatTime24to12(hour: number, minute: number): string {
   return `${h}:${mm} ${ampm}`;
 }
 
+type ViewMode = "Week" | "Month" | "Day";
+type CalendarMode = "Calendar" | "Rooms/resources";
+
 export default function CalendarView({
   appointments,
   practitioners,
@@ -60,6 +63,10 @@ export default function CalendarView({
   const [createPractitioner, setCreatePractitioner] = useState("");
   const [createType, setCreateType] = useState("Follow Up");
   const [createNotes, setCreateNotes] = useState("");
+  const [viewMode, setViewMode] = useState<ViewMode>("Week");
+  const [calendarMode, setCalendarMode] = useState<CalendarMode>("Calendar");
+  const [showViewDropdown, setShowViewDropdown] = useState(false);
+  const [showCalendarModeDropdown, setShowCalendarModeDropdown] = useState(false);
 
   const today = new Date();
   const monthYear = today.toLocaleDateString("en-AU", { month: "long", year: "numeric" });
@@ -113,26 +120,76 @@ export default function CalendarView({
             </div>
           </div>
           <div className="flex items-center gap-2">
+            {/* Location filter pills */}
+            <span className="rounded-full border border-green-300 bg-green-50 px-3 py-1 text-sm font-medium text-green-700">East Clinics</span>
+            <span className="rounded-full border border-purple-300 bg-purple-50 px-3 py-1 text-sm font-medium text-purple-700">Physio</span>
+
             <button
               onClick={() => openCreateModal()}
-              className="flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-white hover:bg-primary-dark"
+              className="flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-sm font-medium text-white hover:bg-primary-dark"
             >
               <Plus className="h-4 w-4" />
-              New appointment
             </button>
-            <span className="rounded-full border border-border bg-white px-3 py-1 text-sm text-text">
-              Practitioners({practitioners.length})
-            </span>
-            <span className="text-sm text-text-secondary">Calendar</span>
-            <select className="rounded-lg border border-border bg-white px-3 py-1.5 text-sm text-text">
-              <option>Week</option>
-              <option>Month</option>
-              <option>Day</option>
-            </select>
+
+            {/* Calendar/Rooms dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => { setShowCalendarModeDropdown(!showCalendarModeDropdown); setShowViewDropdown(false); }}
+                className="rounded-lg border border-border bg-white px-3 py-1.5 text-sm text-text hover:bg-gray-50"
+              >
+                {calendarMode} <span className="text-text-secondary">&#9662;</span>
+              </button>
+              {showCalendarModeDropdown && (
+                <div className="absolute right-0 top-full mt-1 z-20 w-44 rounded-lg border border-border bg-white shadow-lg py-1">
+                  {(["Calendar", "Rooms/resources"] as CalendarMode[]).map((mode) => (
+                    <button
+                      key={mode}
+                      onClick={() => { setCalendarMode(mode); setShowCalendarModeDropdown(false); }}
+                      className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-50 ${calendarMode === mode ? "font-semibold text-primary bg-purple-50" : "text-text"}`}
+                    >
+                      {mode}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* View mode dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => { setShowViewDropdown(!showViewDropdown); setShowCalendarModeDropdown(false); }}
+                className="rounded-lg border border-border bg-white px-3 py-1.5 text-sm text-text hover:bg-gray-50"
+              >
+                {viewMode} <span className="text-text-secondary">&#9662;</span>
+              </button>
+              {showViewDropdown && (
+                <div className="absolute right-0 top-full mt-1 z-20 w-32 rounded-lg border border-border bg-white shadow-lg py-1">
+                  {(["Month", "Week", "Day"] as ViewMode[]).map((mode) => (
+                    <button
+                      key={mode}
+                      onClick={() => { setViewMode(mode); setShowViewDropdown(false); }}
+                      className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-50 ${viewMode === mode ? "font-semibold text-primary bg-purple-50" : "text-text"}`}
+                    >
+                      {mode}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Week header */}
+        {/* Month View */}
+        {viewMode === "Month" && (
+          <MonthView
+            appointments={appointments}
+            todayStr={todayStr}
+            onApptClick={(appt) => setSelectedAppt(appt)}
+          />
+        )}
+
+        {/* Week header + Time grid */}
+        {viewMode !== "Month" && <>
         <div className="grid grid-cols-[60px_repeat(7,1fr)] border-b border-border">
           <div className="border-r border-border" />
           {weekDates.map((dateStr, i) => {
@@ -206,7 +263,21 @@ export default function CalendarView({
             ))}
           </div>
         </div>
+        </>}
       </div>
+
+      {/* Rooms/Resources placeholder */}
+      {calendarMode === "Rooms/resources" && viewMode !== "Month" && (
+        <div className="absolute inset-0 top-12 flex items-center justify-center bg-white/80 z-10">
+          <div className="text-center">
+            <div className="mx-auto mb-3 h-16 w-16 rounded-full bg-gray-100 flex items-center justify-center">
+              <LayoutGrid className="h-8 w-8 text-gray-400" />
+            </div>
+            <p className="text-sm text-text-secondary">Rooms/Resources view</p>
+            <p className="text-xs text-text-secondary mt-1">Select rooms to display in the calendar</p>
+          </div>
+        </div>
+      )}
 
       {/* Appointment detail flyout */}
       {selectedAppt && (
@@ -435,6 +506,117 @@ export default function CalendarView({
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+/* ─── Month View ──────────────────────────────────────────────────── */
+
+function MonthView({
+  appointments,
+  todayStr,
+  onApptClick,
+}: {
+  appointments: Appointment[];
+  todayStr: string;
+  onApptClick: (appt: Appointment) => void;
+}) {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
+
+  // Build calendar grid
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  const startDow = firstDay.getDay(); // 0=Sun
+  const daysInMonth = lastDay.getDate();
+
+  // Previous month fill
+  const prevMonthLast = new Date(year, month, 0).getDate();
+  const cells: { day: number; month: number; year: number; isCurrentMonth: boolean }[] = [];
+
+  for (let i = startDow - 1; i >= 0; i--) {
+    cells.push({ day: prevMonthLast - i, month: month - 1, year, isCurrentMonth: false });
+  }
+  for (let d = 1; d <= daysInMonth; d++) {
+    cells.push({ day: d, month, year, isCurrentMonth: true });
+  }
+  // Fill to 42 cells (6 rows)
+  const remaining = 42 - cells.length;
+  for (let d = 1; d <= remaining; d++) {
+    cells.push({ day: d, month: month + 1, year, isCurrentMonth: false });
+  }
+
+  const rows = [];
+  for (let i = 0; i < cells.length; i += 7) {
+    rows.push(cells.slice(i, i + 7));
+  }
+
+  function dateStr(cell: { day: number; month: number; year: number }) {
+    const m = cell.month < 0 ? 11 : cell.month > 11 ? 0 : cell.month;
+    const y = cell.month < 0 ? cell.year - 1 : cell.month > 11 ? cell.year + 1 : cell.year;
+    return `${y}-${String(m + 1).padStart(2, "0")}-${String(cell.day).padStart(2, "0")}`;
+  }
+
+  const DOW_LABELS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
+  return (
+    <div className="flex-1 overflow-y-auto">
+      {/* Day of week headers */}
+      <div className="grid grid-cols-7 border-b border-border">
+        {DOW_LABELS.map((d) => (
+          <div key={d} className="px-2 py-2 text-center text-xs font-medium text-text-secondary">
+            {d}
+          </div>
+        ))}
+      </div>
+
+      {/* Calendar grid */}
+      {rows.map((row, ri) => (
+        <div key={ri} className="grid grid-cols-7 border-b border-border" style={{ minHeight: "100px" }}>
+          {row.map((cell, ci) => {
+            const ds = dateStr(cell);
+            const isToday = ds === todayStr;
+            const dayAppts = appointments.filter((a) => a.date === ds);
+
+            return (
+              <div
+                key={ci}
+                className={`border-r border-border last:border-r-0 p-1 ${
+                  !cell.isCurrentMonth ? "bg-gray-50/50" : ""
+                }`}
+              >
+                <div className={`text-sm mb-1 ${
+                  isToday
+                    ? "inline-flex items-center justify-center h-6 w-6 rounded-full bg-primary text-white font-bold"
+                    : cell.isCurrentMonth
+                    ? "text-text font-medium"
+                    : "text-text-secondary/40"
+                }`}>
+                  {cell.day}
+                </div>
+                <div className="space-y-0.5">
+                  {dayAppts.slice(0, 3).map((appt) => (
+                    <div
+                      key={appt.id}
+                      className="rounded px-1 py-0.5 text-[10px] font-medium text-white truncate cursor-pointer"
+                      style={{ backgroundColor: appt.practitionerColor }}
+                      onClick={() => onApptClick(appt)}
+                    >
+                      {appt.startTime.replace(/^0/, "")} {appt.clientName}
+                    </div>
+                  ))}
+                  {dayAppts.length > 3 && (
+                    <div className="text-[10px] text-text-secondary px-1">
+                      +{dayAppts.length - 3} more
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ))}
     </div>
   );
 }
