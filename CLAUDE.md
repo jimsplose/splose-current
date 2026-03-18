@@ -2,62 +2,99 @@
 
 High-fidelity UI prototype of [Splose](https://splose.com), a practice management platform for allied health professionals.
 
-**Live URL**: https://splose-current.vercel.app
-
 ## Session Start Menu
 
-**At the beginning of every new session**, Claude Code MUST present the user with a choice using AskUserQuestion before doing any other work:
+**At the beginning of every new session**, present the user with a choice using AskUserQuestion before doing any other work:
 
 > **What would you like to work on this session?**
 >
-> 1. **Review status** — Show the current todo list, recently completed tasks, build/deploy status, and fidelity gap summary
-> 2. **Process new screenshots** — Scan `screenshots/reference/` for unprocessed screenshots, categorize them, and update the gap list
-> 3. **Run fidelity improvement loops** — Pick the next batch of fidelity gaps and run parallel screenshot comparison + code update cycles
-> 4. **Build Dev Navigator** — Implement the Dev Toolbar & State Registry (see "Dev Navigator" section below) for browsing all pages, states, and variants
+> 1. **Review status** — Read `docs/progress.md` and `docs/fidelity-gaps.md`, show recently completed tasks, build/deploy status, and what's next
+> 2. **Process new screenshots** — Follow `docs/screenshot-workflow.md` to scan, categorize, and catalog new screenshots
+> 3. **Run fidelity improvement loops** — Read `docs/fidelity-gaps.md` (pick by priority), then follow `docs/fidelity-workflow.md`
+> 4. **Build Dev Navigator** — Follow `docs/dev-navigator-spec.md` to implement floating toolbar + state registry
 > 5. **Something else** — Free-form request
 
-Wait for the user's answer before proceeding. This ensures each session starts with clear direction and avoids wasted context on the wrong task.
+Wait for the user's answer before proceeding.
+
+## Workflow Files (RAG)
+
+**ALWAYS read the relevant instruction file before starting a workflow.** Do not rely on memory of these files from previous sessions.
+
+| Workflow | Read first |
+|---|---|
+| Review status | `docs/progress.md`, `docs/fidelity-gaps.md` |
+| Process screenshots | `docs/screenshot-workflow.md` |
+| Fidelity improvements | `docs/fidelity-gaps.md`, `docs/fidelity-workflow.md` |
+| Dev Navigator | `docs/dev-navigator-spec.md` |
+| Understanding the codebase | `docs/project-structure.md` |
 
 ## Tech Stack
 
-- **Framework**: Next.js 16 (App Router) with React 19
-- **Language**: TypeScript (strict mode)
-- **Database**: Turso (libSQL) via Prisma 7 `@prisma/adapter-libsql`
-- **Styling**: Tailwind CSS 4 with CSS theme variables
-- **Icons**: Lucide React
-- **Hosting**: Vercel (auto-deploys from `main` branch)
-- **Repo**: github.com/jimsplose/splose-current
+Next.js 16 (App Router), React 19, TypeScript (strict), Turso/Prisma 7, Tailwind CSS 4, Lucide icons, Vercel hosting.
 
-## Reference Screenshots
+## Viewing Changes — Vercel Preview URLs
 
-Reference screenshots of the real Splose app are in `screenshots/reference/`. These are the design targets — each page in the prototype should match these as closely as possible. **New screenshots are added regularly** — there are ~380+ and growing (including ~200 recently added with detailed state variants, modals, dropdowns, and interactive menus).
+Every push to any branch gets a **Vercel preview deployment**. This is how Jim reviews changes.
 
-### Screenshot naming convention
-Files are named `Screenshot YYYY-MM-DD at H.MM.SS am/pm.png`. They are NOT organized by page — you must read them to determine which page/feature they show.
+- **Production** (main branch): https://splose-current.vercel.app
+- **Branch previews**: `https://splose-current-<git-branch-slug>.vercel.app`
+  - Example: branch `claude/fidelity-sprint-automation-0cFV5` → `https://splose-current-git-claude-fidelity-sprint-auto-jimsplose.vercel.app`
+- **Per-commit previews**: Each push also gets a unique URL like `https://splose-current-<hash>.vercel.app`
 
-### Handling new screenshots
-When the user selects "Process new screenshots" from the Session Start Menu (or asks directly):
-1. **Scan for unprocessed screenshots** — Compare the full list in `screenshots/reference/` against `screenshots/processed.txt` (a log of already-reviewed filenames)
-2. **Review new screenshots in parallel** — Launch Explore agents to read batches of new screenshots and categorize them by page/feature
-3. **MANDATORY: Update both output files** — Every screenshot processing run MUST update these two files:
-   - **`screenshots/processed.txt`** — Append every reviewed filename (even if no code changes were made) so future sessions skip them
-   - **`screenshots/screenshot-catalog.md`** — A markdown file organizing all screenshots by page/feature/state. Each entry has: filename, page it belongs to, state/variant shown (e.g. "modal open", "tab selected", "dropdown expanded"), and whether the prototype already matches it. Create this file if it doesn't exist.
-4. **Update state registry (if it exists)** — If `src/lib/state-registry.ts` exists, add entries for every new state/variant/modal discovered. If it doesn't exist yet, the screenshot catalog from step 3 serves as the source of truth until the Dev Navigator is built.
-5. **Update fidelity gaps** — Add new gaps to the "Remaining Fidelity Gaps" section of this file for any screenshots showing states/pages not yet implemented
-6. **Implement changes** — Use the parallel subagent workflow (see below) to update pages to match
+**After every push**, Claude Code MUST:
+1. Tell Jim the branch preview URL so he can check changes immediately
+2. Note: Vercel previews take 1-2 minutes to build after push
+3. If deploying to production (fast-forwarding main), note the production URL too
 
-**The screenshot catalog (`screenshots/screenshot-catalog.md`) is the bridge between screenshot processing and the Dev Navigator.** When the Dev Navigator is built (option 4), it reads this catalog to populate the state registry. This means options 2 and 4 work independently but feed into each other.
+To check deployment status: `gh api repos/jimsplose/splose-current/deployments --jq '.[0] | {env: .environment, url: .payload.web_url, status: .state}'`
 
-### When working on UI fidelity
-1. Read the relevant screenshot(s) from `screenshots/reference/`
-2. Compare against the current prototype page source code
-3. Adjust layout, spacing, colors, typography, component structure, and interactivity to match
-4. Pay attention to: modals, dropdowns, hover states, tab switching, expandable rows, form fields, and other interactive elements shown in screenshots
-5. Build, commit, and push changes
+## Key Conventions
+
+- **Server components by default** — only `"use client"` when hooks/browser APIs needed
+- **`export const dynamic = "force-dynamic"`** on pages that fetch data
+- **Tailwind CSS variables** in `globals.css` (e.g. `--color-primary: #7c3aed`)
+- **Australian locale** — dates, Medicare numbers, NDIS references, AUD currency
+
+## Working Style
+
+**Jim is non-technical.** Handle all coding, git, builds, and debugging. Never ask Jim to run commands, edit files, or debug. If something requires action on Jim's Mac, provide exact copy-paste commands.
+
+## Commit Discipline
+
+### Commit cadence
+- **Commit after every logical unit of work** — each page change, each batch of screenshot processing, each infrastructure change
+- **Never let more than ~30 minutes of work go uncommitted**
+- If a diff touches more than 3 files or ~300 lines, consider splitting into multiple commits
+
+### Build gate
+- **NEVER push without a passing build** — run `npx next build` before every push
+- If the build fails, fix it before pushing. Do not push broken code.
+
+### After applying worktree agent changes
+- Run `npx tsc --noEmit` after each agent's changes are applied to catch conflicts early
+- If an agent's changes break the build, **revert them** and continue with other agents
+
+### Rollback protocol
+- If a change breaks things after push, `git revert` the commit rather than force-pushing
+- If multiple commits need reverting, revert them in reverse order
+
+## Session End Checklist
+
+**Before a session ends** (context running low, user ending session, or task complete):
+1. **Commit** all work in progress — even partial work as a `WIP:` commit
+2. **Push** to the `claude/*` branch
+3. **Append** a summary to `docs/progress.md` (what was done, what's in progress, what was discovered)
+4. **Update** `docs/fidelity-gaps.md` — check off completed gaps, add any newly discovered ones
+5. **Tell Jim** the preview URL so he can review
+
+## Progress Tracking
+
+- Use **TodoWrite** at session start to create tasks from `docs/fidelity-gaps.md` or user requests
+- Mark tasks complete **immediately** as each one finishes (don't batch)
+- The persistent record lives in `docs/progress.md` (survives between sessions)
+- TodoWrite is ephemeral (resets each session) — it's for in-session tracking only
 
 ## Environment Variables
-
-Required in both `.env` (local) and Vercel dashboard:
 
 ```
 TURSO_DATABASE_URL=libsql://splose-current-jimsplose.aws-us-west-2.turso.io
@@ -73,318 +110,10 @@ npm run dev              # Start dev server at localhost:3000
 
 ## Deployment
 
-Vercel auto-deploys when `main` is updated. The build command:
-1. `prisma generate` — generates the Prisma client
-2. `tsx scripts/db-push.ts` — ensures Turso tables exist (custom script because `prisma db push` doesn't support `libsql://` URLs)
-3. `next build` — builds the Next.js app
-
-## Database
-
-### Seeding
-The database can be seeded via API: `GET /api/seed` (safe to call multiple times — skips if data exists).
-
-### Schema changes
-1. Edit `prisma/schema.prisma`
-2. Update `scripts/db-push.ts` if new migrations are needed
-3. Run `npx prisma generate` locally to regenerate the client
-4. Push to `main` — the build will apply schema changes to Turso
-
-### Models
-- **Practitioner** — Clinicians (physios, OTs, speech pathologists). Has `color` for calendar display.
-- **Client** — Patients with optional Medicare/NDIS/private funding fields.
-- **Appointment** — Scheduled sessions linking a client to a practitioner. Has date, time, status, type.
-- **ClinicalNote** — Progress notes with template type and signed/unsigned status.
-- **Invoice** — Billing with support for Medicare/NDIS/Private billing types.
-- **InvoiceItem** — Line items on an invoice.
-
-## Project Structure
-
-```
-src/
-  app/                    # Next.js App Router pages
-    page.tsx              # Dashboard (messages + analytics)
-    layout.tsx            # Root layout with TopNav
-    globals.css           # Tailwind theme variables
-    api/seed/route.ts     # Database seed endpoint
-    login/page.tsx        # Login page (purple gradient)
-    calendar/page.tsx     # Week view calendar
-    clients/page.tsx      # Client list table with search/pagination
-    clients/[id]/page.tsx # Client detail (sidebar + details + right panel)
-    contacts/page.tsx     # Contacts list (Type, Name, Company, Email, Phone)
-    waitlist/page.tsx     # Waitlist with Screener/Waitlist tabs
-    invoices/page.tsx     # Invoice table with search/pagination
-    payments/page.tsx     # Payments list
-    notes/page.tsx        # Progress notes table
-    practitioners/page.tsx# Practitioner cards
-    reports/page.tsx      # Reports with sidebar (Performance overview)
-    products/page.tsx     # Products list
-    settings/page.tsx     # Settings with categorized sidebar
-  components/
-    TopNav.tsx            # Horizontal top navigation bar ("use client")
-    Sidebar.tsx           # Legacy sidebar (unused, kept for reference)
-    Header.tsx            # Legacy header (unused, kept for reference)
-    StatusBadge.tsx       # Color-coded status badges (server component)
-  lib/
-    prisma.ts             # Prisma client singleton with Turso adapter
-  generated/prisma/       # Auto-generated Prisma client (gitignored)
-screenshots/
-  reference/              # ~80 screenshots of real Splose app (design targets)
-prisma/
-  schema.prisma           # Database schema (6 models)
-  seed.ts                 # Standalone seed script
-  migrations/             # SQL migrations
-scripts/
-  db-push.ts              # Executes migration SQL against Turso during build
-```
-
-## Key Conventions
-
-- **Server components by default** — only use `"use client"` when React hooks or browser APIs are needed
-- **`export const dynamic = "force-dynamic"`** on pages that fetch data, for fresh reads
-- **Prisma v7 adapter pattern** — `PrismaLibSql` takes `{ url, authToken }` directly (not a libsql Client instance)
-- **Tailwind CSS variables** — colors defined in `globals.css` under `@theme inline` (e.g. `--color-primary: #7c3aed`, `--color-accent: #2d6d40`)
-- **Australian locale** — dates, Medicare numbers, NDIS references, AUD currency
-- **`tsconfig.json` excludes** — `prisma/seed.ts` and `scripts/` are excluded from Next.js type checking (they run standalone via `tsx`)
-
-## Working Style
-
-**The project owner (Jim) is non-technical and does not use the terminal.** All coding, git operations, builds, deployments, and debugging should be handled entirely by Claude Code. Never ask Jim to:
-- Run terminal commands locally
-- Edit code or config files manually
-- Debug build errors or git conflicts
-- Install packages or tools
-
-If something requires action on Jim's local Mac (e.g. pushing screenshots), provide exact copy-paste commands with clear context. Keep these to an absolute minimum — prefer doing everything from the cloud environment.
-
-When changes need to reach production:
-1. Claude Code commits and pushes to `claude/*` branch
-2. Claude Code updates `main` via GitHub API (fast-forward)
-3. Vercel auto-deploys from `main`
-
-## Fidelity Improvement Workflow
-
-When asked to improve fidelity or work through gaps, use **parallel subagents** for speed:
-
-### Step 1: Launch parallel agents (worktree isolation)
-Group non-conflicting gaps and launch them simultaneously using the Agent tool with `isolation: "worktree"`. Each agent should:
-1. Read the relevant reference screenshot(s) from `screenshots/reference/`
-2. Read the current page source code
-3. Rewrite/edit the code to match the screenshot
-4. Ensure no TypeScript errors in the changed files
-
-**Parallelization rules — which gaps can run together:**
-- Gaps touching **different page directories** can always run in parallel
-- Gaps touching the **same file** must run sequentially
-- The **database re-seed** gap should run alone (it changes seed data that pages read)
-- The **general screenshot review** agent should run last as a sweep
-
-### Step 2: Collect and apply changes
-After agents complete:
-1. For each agent that made changes in a worktree, review the diff and cherry-pick/apply to the main branch
-2. If an agent's worktree has conflicts with another, resolve manually
-
-### Step 3: Build, commit, push, deploy
-1. Run `npx next build` to verify no errors
-2. Stage and commit all changes with a descriptive message
-3. Push to the `claude/*` branch
-4. Fast-forward `main` via `gh api repos/jimsplose/splose-current/git/refs/heads/main -X PATCH -f sha="$SHA"`
-
-### Step 4: Repeat
-Pick the next batch of gaps and repeat. Keep going until all gaps are resolved or the session runs low on context.
-
-## Remaining Fidelity Gaps
-
-Gaps are grouped by which files they touch, so you can see what's safe to parallelize.
-
-### Group A — Waitlist (`src/app/waitlist/`)
-1. **Waitlist Screener tab** — Make waitlist page a `"use client"` component with switchable Screener/Waitlist views. Screener view needs: Triage Yes/No thumb buttons, Tags, Client, DOB, Address, Form, Date submitted columns. The screener data is already defined in the page. Reference: screenshots at 11:21:40-11:22:02 am.
-2. **Waitlist Map view** — Add Map/List toggle to the Waitlist tab. Show a placeholder map with pins when Map is selected. Reference: screenshot at 11:22:02 am.
-
-### Group B — Reports (`src/app/reports/`)
-3. **Reports sidebar consistency** — The main reports page and sub-pages each duplicate the sidebar. Extract a shared `reports/layout.tsx` or a `ReportsSidebar` component.
-
-### Group C — Settings (`src/app/settings/`)
-4. **Settings Details page** — Currently a placeholder. Add a form with: clinic name, ABN, address, phone, email, logo upload area. Reference: screenshot at 5:56:30 pm.
-
-### Group D — Dashboard (`src/app/page.tsx`)
-5. **Dashboard improvements** — Compare against reference screenshots (10:53:42-10:56:57 am). Improve messages panel, analytics cards, compose area.
-
-### Group E — Client detail (`src/app/clients/[id]/`)
-6. **Client appointments sub-tab** — Add "Send upcoming appointments" button and "+ New appointment" button matching reference at 11:15:20 am.
-
-### Group F — Responsive (touches multiple files)
-7. **Mobile/responsive layouts** — Reference screenshots at 11:14:41, 11:14:52 am show mobile views. Add responsive breakpoints to TopNav, tables, and key pages.
-
-### Group G — Database (`prisma/seed.ts`, `src/app/api/seed/`)
-8. **Database re-seed** — Expand to 10+ clients, 18+ appointments, 8+ invoices with varied statuses.
-
-### Group H — New screenshot intake (reads all files)
-9. **Process new screenshots** — Check `screenshots/reference/` against `screenshots/processed.txt` to find unreviewed screenshots. Launch Explore agents in parallel (batches of 10-15) to read and categorize them by page/feature. Then create new gaps or update existing pages to match. Append processed filenames to `screenshots/processed.txt`. This should run at the **start** of each session to pick up newly added screenshots.
-
-### Group I — Dev Navigator (`src/components/`, `src/lib/`, `src/app/layout.tsx`)
-10. **Dev Navigator Phase 1** — Create state registry, floating toolbar component, and wire into root layout. See "Dev Navigator" section for full spec.
-11. **Dev Navigator Phase 2** — Wire `?state=` param reading into all interactive pages (calendar, waitlist, settings, payments, products, notes/new). Add all known variants to the registry.
-
-### Group J — Sweep (reads all files)
-12. **General fidelity sweep** — Review all pages against their closest reference screenshots and fix remaining visual gaps. Run this last after all other gaps are resolved.
-
-## Dev Navigator (Option D — Floating Toolbar + URL State)
-
-A development-only navigation system for browsing every page, state variant, modal, and interactive view in the prototype. This is NOT part of the real Splose UI — it's a tool for reviewing fidelity against screenshots.
-
-### Architecture
-
-```
-src/
-  components/
-    DevNavigator.tsx       # Floating toolbar component ("use client")
-  lib/
-    state-registry.ts      # Central registry of all pages and their state variants
-  app/
-    layout.tsx             # Conditionally renders <DevNavigator /> (always on in dev, hidden via ?devnav=0)
-```
-
-### 1. State Registry (`src/lib/state-registry.ts`)
-
-A single TypeScript file that catalogs every page and its navigable variants:
-
-```ts
-export interface StateVariant {
-  id: string;            // URL-safe identifier, e.g. "screener-triage"
-  label: string;         // Human-readable, e.g. "Screener → Triage"
-  description?: string;  // Optional tooltip
-  screenshot?: string;   // Reference screenshot filename for comparison
-}
-
-export interface PageEntry {
-  path: string;          // Route, e.g. "/waitlist"
-  label: string;         // Display name, e.g. "Waitlist"
-  variants: StateVariant[];
-  children?: PageEntry[]; // Sub-pages, e.g. /clients/[id]/notes
-}
-
-export const stateRegistry: PageEntry[] = [
-  {
-    path: "/",
-    label: "Dashboard",
-    variants: [
-      { id: "default", label: "Default" },
-    ],
-  },
-  {
-    path: "/calendar",
-    label: "Calendar",
-    variants: [
-      { id: "default", label: "Week view" },
-      { id: "appointment-selected", label: "Appointment selected" },
-      { id: "new-appointment", label: "New appointment modal" },
-    ],
-  },
-  {
-    path: "/waitlist",
-    label: "Waitlist",
-    variants: [
-      { id: "screener-triage", label: "Screener → Triage" },
-      { id: "screener-rejected", label: "Screener → Rejected" },
-      { id: "waitlist-list", label: "Waitlist → List" },
-      { id: "waitlist-map", label: "Waitlist → Map" },
-    ],
-  },
-  // ... every page and variant
-];
-```
-
-**Key rule**: When a new page or state variant is created (from screenshot comparison), the developer MUST also add it to the state registry. This keeps the navigator in sync.
-
-**Data source**: The state registry should be populated from `screenshots/screenshot-catalog.md`, which is maintained by the screenshot processing workflow (option 2). If the catalog exists when the Dev Navigator is first built, use it to pre-populate all known variants. On subsequent screenshot processing runs, new catalog entries should be mirrored into the registry.
-
-### 2. URL State Parameter
-
-Each page reads an optional `?state=<variant-id>` query parameter via `useSearchParams()`. When present, the page forces itself into the specified state:
-
-```ts
-// Example: in waitlist/page.tsx
-const searchParams = useSearchParams();
-const forcedState = searchParams.get("state");
-
-useEffect(() => {
-  if (forcedState === "screener-triage") {
-    setMainTab("screener");
-    setScreenerTab("triage");
-  } else if (forcedState === "waitlist-map") {
-    setMainTab("waitlist");
-    setViewMode("map");
-  }
-  // etc.
-}, [forcedState]);
-```
-
-This makes every state variant **bookmarkable** and **linkable**: `/waitlist?state=screener-triage` always shows the screener triage view.
-
-### 3. Dev Navigator Component (`src/components/DevNavigator.tsx`)
-
-A floating panel triggered by a small pill button fixed in the bottom-right corner:
-
-**Collapsed state**: A small `[Nav]` pill button, semi-transparent, bottom-right
-**Expanded state**: A 320px-wide panel with:
-- Search/filter input at top
-- Collapsible tree of all pages and variants from the state registry
-- Each variant is a link: clicking navigates to `/<page>?state=<variant-id>`
-- Current page/variant highlighted
-- "Hide" button to collapse back to pill
-- Can be fully hidden with `?devnav=0` query param (for clean screenshots)
-
-**Styling**: Dark semi-transparent overlay (`bg-gray-900/95 text-white`) so it's visually distinct from the Splose UI and doesn't interfere with screenshot comparisons.
-
-### 4. Page Integration Pattern
-
-Each interactive page follows this pattern to support forced state:
-
-```ts
-"use client";
-import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
-
-export default function SomePage() {
-  const searchParams = useSearchParams();
-  const forcedState = searchParams.get("state");
-
-  const [activeTab, setActiveTab] = useState("default");
-
-  // Force state from URL if present
-  useEffect(() => {
-    if (forcedState && STATE_MAP[forcedState]) {
-      STATE_MAP[forcedState](); // Apply the forced state
-    }
-  }, [forcedState]);
-
-  // ... rest of page
-}
-```
-
-### 5. Implementation Order
-
-**Phase 1 — Foundation** (do first, single agent)
-1. Create `src/lib/state-registry.ts` with all currently known pages and variants
-2. Create `src/components/DevNavigator.tsx` (floating pill + expandable panel)
-3. Add `<DevNavigator />` to `src/app/layout.tsx` with `?devnav=0` hide support
-
-**Phase 2 — Wire up existing pages** (parallel agents, one per page)
-4. Add `?state=` reading to each interactive page (calendar, waitlist, settings, payments, products, notes/new)
-5. Add state entries to the registry as each page is wired
-
-**Phase 3 — Ongoing maintenance** (convention, not a one-time task)
-6. Every time a new screenshot comparison loop creates a new state/variant/modal, add it to the registry
-7. The Dev Navigator automatically picks up new entries
-
-### 6. Future Enhancements
-
-- **Screenshot overlay mode**: Load the reference screenshot as a semi-transparent overlay on top of the live page for pixel comparison
-- **Automated state crawling**: A script that visits every registry URL and captures screenshots for automated diffing
-- **State completeness report**: Compare registry entries against `screenshots/processed.txt` to find states that have screenshots but no registry entry (and vice versa)
+Vercel auto-deploys when `main` is updated. Build runs: `prisma generate` → `tsx scripts/db-push.ts` → `next build`.
 
 ## Git Workflow
 
-- Claude Code works on `claude/*` branches, then updates `main` via GitHub API
-- Vercel deploys from both `main` (production) and other branches (preview)
-- Production URL: splose-current.vercel.app
+1. Claude Code commits and pushes to `claude/*` branch
+2. Claude Code fast-forwards `main`: `gh api repos/jimsplose/splose-current/git/refs/heads/main -X PATCH -f sha="$SHA"`
+3. Vercel auto-deploys from `main` (production) and all branches (preview)
