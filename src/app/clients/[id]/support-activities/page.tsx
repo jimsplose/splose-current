@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import { Plus, MoreHorizontal } from "lucide-react";
+import { Plus } from "lucide-react";
+import { Button, PageHeader, TableHead, Th } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -16,26 +17,23 @@ export default async function ClientSupportActivitiesPage({
 
   return (
     <div className="flex-1 overflow-y-auto p-4 sm:p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-text">Support activities</h1>
-        <button className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+      <PageHeader title="Support activities">
+        <Button>
           <Plus className="h-4 w-4" />
           New support activity
-        </button>
-      </div>
+        </Button>
+      </PageHeader>
 
       <div className="overflow-x-auto rounded-lg border border-border bg-white">
         <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-purple-50">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">When</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Where</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Type</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Practitioner</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Invoice status</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
-            </tr>
-          </thead>
+          <TableHead>
+            <Th>When</Th>
+            <Th>Where</Th>
+            <Th>Type</Th>
+            <Th>Practitioner</Th>
+            <Th>Invoice status</Th>
+            <Th align="right">Actions</Th>
+          </TableHead>
           <tbody>
             <tr>
               <td colSpan={6}>
@@ -46,7 +44,7 @@ export default async function ClientSupportActivitiesPage({
                     </svg>
                   </div>
                   <p className="text-sm text-text-secondary">No support activities</p>
-                  <button className="mt-2 text-sm text-primary hover:underline">Add new support activity</button>
+                  <Button variant="ghost" className="mt-2 text-primary">Add new support activity</Button>
                 </div>
               </td>
             </tr>

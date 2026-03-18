@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import { Plus, ArrowUpDown, Search, Filter } from "lucide-react";
+import { Plus, ArrowUpDown, Filter } from "lucide-react";
+import { Button, PageHeader, TableHead, Th } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -16,13 +17,12 @@ export default async function ClientPaymentsPage({
 
   return (
     <div className="flex-1 overflow-y-auto p-4 sm:p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-text">Payments</h1>
-        <button className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+      <PageHeader title="Payments">
+        <Button>
           <Plus className="h-4 w-4" />
           New payment
-        </button>
-      </div>
+        </Button>
+      </PageHeader>
 
       {/* Search bar */}
       <div className="mb-6 flex items-center gap-2">
@@ -33,29 +33,25 @@ export default async function ClientPaymentsPage({
             className="w-full rounded-lg border border-border bg-white px-4 py-2 text-sm text-text placeholder:text-text-secondary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
           />
         </div>
-        <button className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-          Search
-        </button>
+        <Button>Search</Button>
       </div>
 
       <div className="overflow-x-auto rounded-lg border border-border bg-white">
         <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-purple-50">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                <span className="inline-flex items-center gap-1">
-                  Payment # <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" /> <Filter className="h-3.5 w-3.5 text-text-secondary" />
-                </span>
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">From</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Amount</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                <span className="inline-flex items-center gap-1">
-                  Payment date <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
-                </span>
-              </th>
-            </tr>
-          </thead>
+          <TableHead>
+            <Th>
+              <span className="inline-flex items-center gap-1">
+                Payment # <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" /> <Filter className="h-3.5 w-3.5 text-text-secondary" />
+              </span>
+            </Th>
+            <Th>From</Th>
+            <Th>Amount</Th>
+            <Th>
+              <span className="inline-flex items-center gap-1">
+                Payment date <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
+              </span>
+            </Th>
+          </TableHead>
           <tbody>
             <tr>
               <td colSpan={4}>
@@ -66,7 +62,7 @@ export default async function ClientPaymentsPage({
                     </svg>
                   </div>
                   <p className="text-sm text-text-secondary">No payments</p>
-                  <button className="mt-2 text-sm text-primary hover:underline">Add new payment</button>
+                  <Button variant="ghost" className="mt-2 text-primary">Add new payment</Button>
                 </div>
               </td>
             </tr>

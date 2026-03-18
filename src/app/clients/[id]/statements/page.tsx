@@ -2,6 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { ChevronDown } from "lucide-react";
+import { Button, PageHeader } from "@/components/ds";
 
 export default function ClientStatementsPage() {
   const params = useParams();
@@ -9,26 +10,19 @@ export default function ClientStatementsPage() {
 
   return (
     <div className="flex-1 overflow-y-auto p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-text">Statements</h1>
-        <div className="flex items-center gap-2">
-          <button className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-            Email statement
-          </button>
-          <button className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-            Download PDF
-          </button>
-        </div>
-      </div>
+      <PageHeader title="Statements">
+        <Button>Email statement</Button>
+        <Button>Download PDF</Button>
+      </PageHeader>
 
       {/* Filter row */}
       <div className="mb-4 flex items-end gap-4">
         <div className="flex flex-col gap-1">
           <label className="text-sm font-medium text-text">Type*</label>
-          <button className="inline-flex items-center justify-between gap-2 rounded-lg border border-border bg-white px-3 py-2 text-sm text-text hover:bg-gray-50 min-w-[140px]">
+          <Button className="justify-between min-w-[140px]">
             Activity
             <ChevronDown className="h-4 w-4 text-text-secondary" />
-          </button>
+          </Button>
         </div>
 
         <div className="flex flex-col gap-1">
@@ -50,15 +44,13 @@ export default function ClientStatementsPage() {
 
         <div className="flex flex-col gap-1">
           <label className="text-sm font-medium text-text">Location*</label>
-          <button className="inline-flex items-center justify-between gap-2 rounded-lg border border-border bg-white px-3 py-2 text-sm text-text hover:bg-gray-50 min-w-[160px]">
+          <Button className="justify-between min-w-[160px]">
             All Locations
             <ChevronDown className="h-4 w-4 text-text-secondary" />
-          </button>
+          </Button>
         </div>
 
-        <button className="inline-flex items-center rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-          Update
-        </button>
+        <Button>Update</Button>
       </div>
 
       {/* Show client address checkbox */}

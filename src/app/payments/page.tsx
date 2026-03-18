@@ -1,7 +1,18 @@
 "use client";
 
 import { Fragment, useState } from "react";
-import { Plus, ArrowUpDown, Filter, ChevronLeft, ChevronRight } from "lucide-react";
+import { Plus, ArrowUpDown, Filter } from "lucide-react";
+import {
+  Button,
+  PageHeader,
+  SearchBar,
+  TableHead,
+  Th,
+  TableBody,
+  Td,
+  Pagination,
+  Badge,
+} from "@/components/ds";
 
 const mockPayments = [
   { id: "1", reference: "MYDD-01051", from: "Skyler Peterson", amount: 110.00, date: "6 Mar 2026", type: "", invoices: [{ number: "TRR-006295", amount: 110.00, date: "Fri 6 Mar 2026" }] },
@@ -22,49 +33,37 @@ export default function PaymentsPage() {
   return (
     <div className="p-4 sm:p-6">
       {/* Header */}
-      <div className="mb-5 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Payments</h1>
-        <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+      <PageHeader title="Payments">
+        <Button variant="secondary">
           <Plus className="h-4 w-4" />
           New payment
-        </button>
-      </div>
+        </Button>
+      </PageHeader>
 
       {/* Search */}
-      <div className="mb-4 flex items-center gap-2">
-        <input
-          type="text"
-          placeholder="Search for recipient name and payment number"
-          className="h-10 flex-1 rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-        />
-        <button className="h-10 rounded-lg border border-border bg-white px-5 text-sm font-medium text-text hover:bg-gray-50">
-          Search
-        </button>
-      </div>
+      <SearchBar placeholder="Search for recipient name and payment number" />
 
       {/* Table */}
       <div className="overflow-x-auto rounded-lg border border-border bg-white">
         <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-purple-50">
-              <th className="w-[280px] px-4 py-3 text-left text-sm font-medium text-text">
-                <div className="flex items-center gap-1.5">
-                  Payment #
-                  <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
-                  <Filter className="h-3.5 w-3.5 text-text-secondary" />
-                </div>
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">From</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text">Amount</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text">
-                <div className="flex items-center justify-end gap-1.5">
-                  Payment date
-                  <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
-                </div>
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+          <TableHead>
+            <Th className="w-[280px]">
+              <div className="flex items-center gap-1.5">
+                Payment #
+                <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
+                <Filter className="h-3.5 w-3.5 text-text-secondary" />
+              </div>
+            </Th>
+            <Th>From</Th>
+            <Th align="right">Amount</Th>
+            <Th align="right">
+              <div className="flex items-center justify-end gap-1.5">
+                Payment date
+                <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
+              </div>
+            </Th>
+          </TableHead>
+          <TableBody>
             {mockPayments.map((payment) => (
               <Fragment key={payment.id}>
                 <tr
@@ -75,7 +74,7 @@ export default function PaymentsPage() {
                     }
                   }}
                 >
-                  <td className="px-4 py-3 text-sm">
+                  <Td>
                     <div className="flex items-center gap-2">
                       {payment.invoices.length > 0 ? (
                         <button className="flex h-5 w-5 items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
@@ -93,17 +92,15 @@ export default function PaymentsPage() {
                       )}
                       <span className="text-text">{payment.reference}</span>
                       {payment.type && (
-                        <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[11px] font-medium text-gray-500">
-                          {payment.type}
-                        </span>
+                        <Badge variant="gray">{payment.type}</Badge>
                       )}
                     </div>
-                  </td>
-                  <td className="px-4 py-3 text-sm text-primary hover:underline">{payment.from}</td>
-                  <td className="px-4 py-3 text-right text-sm text-text">
+                  </Td>
+                  <Td className="text-primary hover:underline">{payment.from}</Td>
+                  <Td align="right" className="text-text">
                     {payment.amount.toLocaleString("en-AU", { minimumFractionDigits: 2 })}
-                  </td>
-                  <td className="px-4 py-3 text-right text-sm text-text-secondary">{payment.date}</td>
+                  </Td>
+                  <Td align="right" className="text-text-secondary">{payment.date}</Td>
                 </tr>
                 {expandedId === payment.id && payment.invoices.length > 0 && (
                   <tr>
@@ -133,31 +130,14 @@ export default function PaymentsPage() {
                 )}
               </Fragment>
             ))}
-          </tbody>
+          </TableBody>
         </table>
-
-        {/* Pagination */}
-        <div className="flex items-center justify-end border-t border-border px-4 py-3 text-sm text-text-secondary">
-          <span>1-10 of 608 Items</span>
-          <div className="ml-4 flex items-center gap-1">
-            <button className="flex h-7 w-7 items-center justify-center rounded text-text-secondary hover:bg-gray-100">
-              <ChevronLeft className="h-4 w-4" />
-            </button>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-primary bg-white text-xs font-medium text-primary">
-              1
-            </button>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-border bg-white text-xs font-medium text-text-secondary hover:bg-gray-50">2</button>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-border bg-white text-xs font-medium text-text-secondary hover:bg-gray-50">3</button>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-border bg-white text-xs font-medium text-text-secondary hover:bg-gray-50">4</button>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-border bg-white text-xs font-medium text-text-secondary hover:bg-gray-50">5</button>
-            <span className="px-1 text-text-secondary">···</span>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-border bg-white text-xs font-medium text-text-secondary hover:bg-gray-50">61</button>
-            <button className="flex h-7 w-7 items-center justify-center rounded text-text-secondary hover:bg-gray-100">
-              <ChevronRight className="h-4 w-4" />
-            </button>
-          </div>
-          <span className="ml-4">10 / page</span>
-        </div>
+        <Pagination
+          currentPage={1}
+          totalPages={61}
+          totalItems={608}
+          itemsPerPage={10}
+        />
       </div>
     </div>
   );

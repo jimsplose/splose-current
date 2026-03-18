@@ -4,6 +4,15 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, X, Plus, Search, ChevronDown } from "lucide-react";
+import {
+  Button,
+  FormInput,
+  FormSelect,
+  TableHead,
+  Th,
+  TableBody,
+  Td,
+} from "@/components/ds";
 
 const mockClients = [
   "Skyler Peterson",
@@ -115,18 +124,14 @@ export default function NewPaymentPage() {
           <h1 className="text-xl font-bold text-text">New payment</h1>
         </div>
         <div className="flex items-center gap-2">
-          <Link
-            href="/payments"
-            className="rounded-lg border border-primary bg-white px-4 py-2 text-sm font-medium text-primary hover:bg-purple-50 transition-colors"
-          >
-            Cancel
+          <Link href="/payments">
+            <Button variant="secondary" className="border-primary text-primary hover:bg-purple-50">
+              Cancel
+            </Button>
           </Link>
-          <button
-            onClick={handleSubmit}
-            className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark transition-colors"
-          >
+          <Button variant="primary" onClick={handleSubmit}>
             Add
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -189,38 +194,26 @@ export default function NewPaymentPage() {
           </div>
 
           {/* Payment date */}
-          <div>
-            <label className="mb-1 block text-sm font-medium text-text">
-              Payment date <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              value={paymentDate}
-              onChange={(e) => setPaymentDate(e.target.value)}
-              className="h-10 w-full rounded-lg border border-border bg-white px-3 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            />
-          </div>
+          <FormInput
+            label="Payment date *"
+            value={paymentDate}
+            onChange={(e) => setPaymentDate(e.target.value)}
+          />
 
           {/* Payment method */}
-          <div>
-            <label className="mb-1 block text-sm font-medium text-text">
-              Payment method <span className="text-red-500">*</span>
-            </label>
-            <select
-              value={method}
-              onChange={(e) => setMethod(e.target.value)}
-              className="h-10 w-full rounded-lg border border-border bg-white px-3 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none"
-            >
-              <option value="" disabled>Select method</option>
-              {paymentMethods.map((m) => (
-                <option key={m} value={m}>{m}</option>
-              ))}
-            </select>
-          </div>
+          <FormSelect
+            label="Payment method *"
+            value={method}
+            onChange={(e) => setMethod(e.target.value)}
+            options={[
+              { value: "", label: "Select method" },
+              ...paymentMethods.map((m) => ({ value: m, label: m })),
+            ]}
+          />
 
           {/* Amount */}
           <div>
-            <label className="mb-1 block text-sm font-medium text-text">
+            <label className="mb-1 block text-sm font-medium text-text-secondary">
               Amount <span className="text-red-500">*</span>
             </label>
             <div className="relative">
@@ -232,7 +225,7 @@ export default function NewPaymentPage() {
                 placeholder="0.00"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                className="h-10 w-full rounded-lg border border-border bg-white pl-7 pr-3 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                className="w-full rounded-lg border border-border bg-white pl-7 pr-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
               />
             </div>
           </div>
@@ -241,14 +234,14 @@ export default function NewPaymentPage() {
         {/* Apply to outstanding invoices */}
         <div className="mb-3 flex items-center justify-between">
           <p className="text-sm font-medium text-text">Apply to outstanding invoices</p>
-          <button
-            type="button"
+          <Button
+            variant="secondary"
+            size="sm"
             onClick={() => setShowLinkSearch(!showLinkSearch)}
-            className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50 transition-colors"
           >
             <Plus className="h-3.5 w-3.5" />
             Link invoice
-          </button>
+          </Button>
         </div>
 
         {showLinkSearch && (
@@ -291,19 +284,17 @@ export default function NewPaymentPage() {
 
         <div className="rounded-lg border border-border bg-white overflow-hidden mb-6">
           <table className="w-full">
-            <thead>
-              <tr className="border-b border-border bg-gray-50">
-                <th className="px-4 py-2.5 text-left text-sm font-medium text-text">Invoice #</th>
-                <th className="px-4 py-2.5 text-left text-sm font-medium text-text">Client</th>
-                <th className="px-4 py-2.5 text-left text-sm font-medium text-text">Practitioner</th>
-                <th className="px-4 py-2.5 text-left text-sm font-medium text-text">Issue date</th>
-                <th className="px-4 py-2.5 text-left text-sm font-medium text-text">Due date</th>
-                <th className="px-4 py-2.5 text-right text-sm font-medium text-text">Due</th>
-                <th className="px-4 py-2.5 text-right text-sm font-medium text-text">Amount</th>
-                <th className="px-4 py-2.5 text-right text-sm font-medium text-text">Remaining</th>
-                <th className="w-10 px-2 py-2.5"></th>
-              </tr>
-            </thead>
+            <TableHead>
+              <Th>Invoice #</Th>
+              <Th>Client</Th>
+              <Th>Practitioner</Th>
+              <Th>Issue date</Th>
+              <Th>Due date</Th>
+              <Th align="right">Due</Th>
+              <Th align="right">Amount</Th>
+              <Th align="right">Remaining</Th>
+              <Th className="w-10" />
+            </TableHead>
             <tbody>
               {linkedInvoices.length === 0 ? (
                 <tr>
@@ -319,13 +310,13 @@ export default function NewPaymentPage() {
                   const remaining = Math.max(0, inv.due - appliedAmount);
                   return (
                     <tr key={inv.number} className="border-b border-border hover:bg-gray-50 transition-colors">
-                      <td className="px-4 py-3 text-sm text-primary font-medium">{inv.number}</td>
-                      <td className="px-4 py-3 text-sm text-text">{inv.client}</td>
-                      <td className="px-4 py-3 text-sm text-text">{inv.practitioner}</td>
-                      <td className="px-4 py-3 text-sm text-text-secondary">{inv.issueDate}</td>
-                      <td className="px-4 py-3 text-sm text-text-secondary">{inv.dueDate}</td>
-                      <td className="px-4 py-3 text-right text-sm text-text">{inv.due.toFixed(2)}</td>
-                      <td className="px-4 py-3 text-right">
+                      <Td className="text-primary font-medium">{inv.number}</Td>
+                      <Td className="text-text">{inv.client}</Td>
+                      <Td className="text-text">{inv.practitioner}</Td>
+                      <Td className="text-text-secondary">{inv.issueDate}</Td>
+                      <Td className="text-text-secondary">{inv.dueDate}</Td>
+                      <Td align="right" className="text-text">{inv.due.toFixed(2)}</Td>
+                      <Td align="right">
                         <input
                           type="text"
                           value={invoiceAmounts[invoiceNumber] || ""}
@@ -334,8 +325,8 @@ export default function NewPaymentPage() {
                           }
                           className="w-24 rounded border border-border bg-white px-2 py-1 text-right text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                         />
-                      </td>
-                      <td className="px-4 py-3 text-right text-sm text-text">{remaining.toFixed(2)}</td>
+                      </Td>
+                      <Td align="right" className="text-text">{remaining.toFixed(2)}</Td>
                       <td className="px-2 py-3 text-center">
                         <button
                           type="button"
