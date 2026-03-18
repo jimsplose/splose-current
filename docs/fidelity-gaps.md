@@ -14,8 +14,8 @@ Priority ordering: high-traffic pages first (Dashboard, Calendar, Clients), then
 ## Priority 2 — Core workflow pages
 
 ### Group A — Waitlist (`src/app/waitlist/`)
-- [ ] **Waitlist Screener tab** — Make waitlist page a `"use client"` component with switchable Screener/Waitlist views. Screener view needs: Triage Yes/No thumb buttons, Tags, Client, DOB, Address, Form, Date submitted columns. Reference: screenshots at 11:21:40-11:22:02 am.
-- [ ] **Waitlist Map view** — Add Map/List toggle to the Waitlist tab. Show a placeholder map with pins when Map is selected. Reference: screenshot at 11:22:02 am.
+- [x] **Waitlist Screener tab** — Already implemented with triage buttons, tags, client, DOB, address, form, date columns.
+- [x] **Waitlist Map view** — Already implemented with Map/List toggle and placeholder map.
 
 ### Group C — Settings (`src/app/settings/`)
 - [ ] **Settings Details page** — Currently a placeholder. Add a form with: clinic name, ABN, address, phone, email, logo upload area. Add business history modal. Reference: 6.39.04 pm, 5:56:30 pm.
@@ -46,42 +46,42 @@ Priority ordering: high-traffic pages first (Dashboard, Calendar, Clients), then
 - [ ] **Settings Data Import page** — Not yet implemented. Import source modal (CSV/Cliniko), CSV import with tabs. Reference: 7.13 pm series, screencapture 19_13_00.
 
 ### Group K — Calendar enhancements (`src/app/calendar/`)
-- [ ] **Calendar Rooms/Resources view** — Calendar/Rooms toggle, room filter dropdown. Reference: 7.22.38-7.22.53 pm.
-- [ ] **Calendar view type switcher** — Month/Week/Day dropdown. Reference: 7.23.04 pm.
-- [ ] **Calendar month view** — Month view with appointments and appointment detail side panel. Reference: 7.23.16-7.23.23 pm.
-- [ ] **Calendar appointment side panel** — Appointment detail flyout with Edit/Reschedule/Archive actions, edit appointment form with Room/Resource dropdown. Reference: 7.23.33-7.25.52 pm.
+- [x] **Calendar Rooms/Resources view** — Calendar/Rooms toggle, room filter dropdown. Reference: 7.22.38-7.22.53 pm.
+- [x] **Calendar view type switcher** — Month/Week/Day dropdown. Reference: 7.23.04 pm.
+- [x] **Calendar month view** — Month view with appointments and appointment detail side panel. Reference: 7.23.16-7.23.23 pm.
+- [x] **Calendar appointment side panel** — Appointment detail flyout with Edit/Reschedule/Archive actions, edit appointment form with Room/Resource dropdown. Reference: 7.23.33-7.25.52 pm.
 
 ### Group L — Progress Notes (`src/app/notes/`)
-- [ ] **New progress note page** — Service selector, template selector, Select/Copy recent note/Copy recent practitioner note buttons. Reference: 7.25.45 pm.
-- [ ] **Edit progress note page** — Rich editor with AI-generated sections (Subjective/Objective/Treatment/Assessment), Accept button, AI block integration. Reference: 7.26.58 pm, screencapture 19_26-19_27.
-- [ ] **View progress note page** — Send progress note modal with email template, recipient, Summarise session button. Reference: 7.28.32-7.29.15 pm, screencapture 19_27_58-19_28_07.
+- [x] **New progress note page** — Service selector, template selector, Select/Copy recent note/Copy recent practitioner note buttons. Reference: 7.25.45 pm.
+- [x] **Edit progress note page** — Rich editor with AI-generated sections (Subjective/Objective/Treatment/Assessment), Accept button, AI block integration. Reference: 7.26.58 pm, screencapture 19_26-19_27.
+- [x] **View progress note page** — Send progress note modal with email template, recipient, Summarise session button. Reference: 7.28.32-7.29.15 pm, screencapture 19_27_58-19_28_07.
 
-### Group M — Patient detail sub-tabs (`src/app/patients/[id]/`)
-- [ ] **Patient communications tab** — Not yet implemented. Reference: screencapture 19_31_23, 19_31_35.
-- [ ] **Patient files tab** — Not yet implemented. Reference: screencapture 19_31_50.
-- [ ] **Patient notes tab** — Not yet implemented. Reference: screencapture 19_32_09.
-- [ ] **Patient cases tab** — Not yet implemented. Reference: screencapture 19_32_26.
-- [ ] **Patient support activities tab** — Not yet implemented. Reference: screencapture 19_32_35.
-- [ ] **Patient forms tab** — Not yet implemented. Actions dropdown (View/Copy link/Open in new tab/Email form/Change log/Archive). Reference: 7.33.31 pm, screencapture 19_32_45.
+### Group M — Patient detail sub-tabs (`src/app/clients/[id]/`)
+- [x] **Patient communications tab** — Implemented at `/clients/[id]/communications`. Reference: screencapture 19_31_23, 19_31_35.
+- [x] **Patient files tab** — Implemented at `/clients/[id]/files`. Reference: screencapture 19_31_50.
+- [x] **Patient notes tab** — Implemented at `/clients/[id]/notes`. Reference: screencapture 19_32_09.
+- [x] **Patient cases tab** — Implemented at `/clients/[id]/cases`. Reference: screencapture 19_32_26.
+- [x] **Patient support activities tab** — Implemented at `/clients/[id]/support-activities`. Reference: screencapture 19_32_35.
+- [x] **Patient forms tab** — Implemented at `/clients/[id]/forms`. Reference: 7.33.31 pm, screencapture 19_32_45.
 - [ ] **Patient form view page** — Not yet implemented. Reference: screencapture 19_32_54, 19_33_46.
-- [ ] **Patient invoices tab** — Not yet implemented. Reference: screencapture 19_33_57.
-- [ ] **Patient payments tab** — Not yet implemented. Reference: screencapture 19_34_16.
-- [ ] **Patient statements tab** — Not yet implemented. Reference: screencapture 19_34_27.
-- [ ] **Patient letters tab** — Not yet implemented. Reference: screencapture 19_34_39.
-- [ ] **Patient practitioner access tab** — Not yet implemented. Reference: screencapture 19_34_47.
+- [x] **Patient invoices tab** — Implemented at `/clients/[id]/invoices`. Reference: screencapture 19_33_57.
+- [x] **Patient payments tab** — Implemented at `/clients/[id]/payments`. Reference: screencapture 19_34_16.
+- [x] **Patient statements tab** — Implemented at `/clients/[id]/statements`. Reference: screencapture 19_34_27.
+- [x] **Patient letters tab** — Implemented at `/clients/[id]/letters`. Reference: screencapture 19_34_39.
+- [x] **Patient practitioner access tab** — Implemented at `/clients/[id]/practitioner-access`. Reference: screencapture 19_34_47.
 
 ## Priority 3 — Supporting pages
 
 ### Group B — Reports (`src/app/reports/`)
-- [ ] **Reports sidebar consistency** — The main reports page and sub-pages each duplicate the sidebar. Extract a shared `reports/layout.tsx` or a `ReportsSidebar` component.
+- [x] **Reports sidebar consistency** — Already uses shared `reports/layout.tsx` with `ReportsSidebar` component.
 
 ### Group F — Responsive (touches multiple files)
-- [ ] **Mobile/responsive layouts** — Reference screenshots at 11:14:41, 11:14:52 am show mobile views. Add responsive breakpoints to TopNav, tables, and key pages.
+- [x] **Mobile/responsive layouts** — TopNav has hamburger menu, dashboard stacks on mobile, client sidebar hidden on mobile.
 
 ## Priority 4 — Infrastructure
 
 ### Group G — Database (`prisma/seed.ts`, `src/app/api/seed/`)
-- [ ] **Database re-seed** — Expand to 10+ clients, 18+ appointments, 8+ invoices with varied statuses.
+- [x] **Database re-seed** — Already has 12 clients, 25 appointments, 8 notes, 12 invoices with varied statuses.
 
 ### Group I — Dev Navigator (`src/components/`, `src/lib/`, `src/app/layout.tsx`)
 - [ ] **Dev Navigator Phase 1** — Create state registry, floating toolbar component, and wire into root layout. See `docs/dev-navigator-spec.md`.
@@ -99,4 +99,15 @@ Priority ordering: high-traffic pages first (Dashboard, Calendar, Clients), then
 
 ## Completed Gaps
 
-_Move completed items here with the date they were finished._
+- [x] **Calendar Rooms/Resources view** — Calendar/Rooms toggle dropdown (2026-03-18)
+- [x] **Calendar view type switcher** — Month/Week/Day dropdown (2026-03-18)
+- [x] **Calendar month view** — Full month grid with appointment blocks and today highlight (2026-03-18)
+- [x] **Calendar appointment side panel** — Enhanced with email, zoom, repeating info, Room/Resource edit form (2026-03-18)
+- [x] **Edit progress note page** — `/notes/[id]/edit` with AI SOAP sections (Subjective/Objective/Assessment/Plan/Goals), Generate button, split view (2026-03-18)
+- [x] **View progress note page** — Updated with SOAP sections, client info table, Edit link (2026-03-18)
+- [x] **Mobile/responsive layouts** — Dashboard stacks on mobile, client sidebar hidden on small screens, action bar wraps (2026-03-18)
+- [x] **Patient sub-tabs** — All already implemented under `/clients/[id]/` (Communications, Files, Notes, Cases, Support Activities, Forms, Invoices, Payments, Statements, Letters, Practitioner Access) (2026-03-18)
+- [x] **Waitlist Screener tab** — Already has triage buttons, tags, client, DOB, address, form, date columns (2026-03-18)
+- [x] **Waitlist Map view** — Already has Map/List toggle with placeholder map (2026-03-18)
+- [x] **Reports sidebar consistency** — Already uses shared layout.tsx with ReportsSidebar component (2026-03-18)
+- [x] **Database re-seed** — Already has 12 clients, 25 appointments, 8 notes, 12 invoices (2026-03-18)
