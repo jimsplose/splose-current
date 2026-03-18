@@ -113,6 +113,7 @@ export default function SettingsPage() {
 
 function SettingsPageInner() {
   const [activePage, setActivePage] = useState<ActivePage>("Details");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Dev Navigator: ?state= param wiring
   const searchParams = useSearchParams();
@@ -131,13 +132,29 @@ function SettingsPageInner() {
     if (itemHref === "/settings") {
       e.preventDefault();
       setActivePage(itemName);
+      setSidebarOpen(false);
     }
   };
 
   return (
     <div className="flex min-h-[calc(100vh-3rem)]">
+      {/* Mobile settings nav toggle */}
+      <div className="md:hidden border-b border-border bg-white px-4 py-3 fixed top-12 left-0 right-0 z-30 flex items-center justify-between">
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="flex items-center gap-2 text-sm font-medium text-text"
+        >
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+          {activePage}
+          <svg className={`h-3 w-3 transition-transform ${sidebarOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+        </button>
+      </div>
+      {/* Mobile sidebar backdrop */}
+      {sidebarOpen && (
+        <div className="fixed inset-0 top-[calc(3rem+48px)] z-20 bg-black/20 md:hidden" onClick={() => setSidebarOpen(false)} />
+      )}
       {/* Left sidebar */}
-      <aside className="w-64 shrink-0 border-r border-border bg-white p-4 overflow-y-auto">
+      <aside className={`${sidebarOpen ? "fixed top-[calc(3rem+48px)] left-0 bottom-0 z-20" : "hidden"} md:block w-64 shrink-0 border-r border-border bg-white p-4 overflow-y-auto`}>
         {sidebarSections.map((section) => (
           <div key={section.title} className="mb-4">
             <h3 className="mb-1 text-xs font-bold uppercase tracking-wider text-text">
@@ -172,7 +189,7 @@ function SettingsPageInner() {
       </aside>
 
       {/* Main content */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto pt-12 md:pt-0">
         {activePage === "Details" && <DetailsContent />}
         {activePage === "Integrations" && <IntegrationsContent />}
         {activePage === "SMS settings" && <SMSSettingsContent />}

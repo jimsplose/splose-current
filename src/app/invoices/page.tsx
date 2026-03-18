@@ -12,7 +12,7 @@ export default async function InvoicesPage() {
   });
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold text-text">Invoices</h1>
         <div className="flex items-center gap-2">

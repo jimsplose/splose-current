@@ -20,7 +20,7 @@ export default function PaymentsPage() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       {/* Header */}
       <div className="mb-5 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Payments</h1>
@@ -43,7 +43,7 @@ export default function PaymentsPage() {
       </div>
 
       {/* Table */}
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
+      <div className="overflow-x-auto rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-purple-50">

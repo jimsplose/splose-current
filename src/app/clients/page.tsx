@@ -17,7 +17,7 @@ export default async function ClientsPage() {
 
   return (
     <>
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         <div className="mb-4 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-text">Clients</h1>
           <button className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
@@ -40,7 +40,7 @@ export default async function ClientsPage() {
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-lg border border-border bg-white">
+        <div className="overflow-x-auto rounded-lg border border-border bg-white">
           <table className="w-full">
             <thead>
               <tr className="border-b border-border bg-purple-50">

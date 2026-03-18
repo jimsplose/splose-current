@@ -8,14 +8,14 @@ export default function ClientPractitionerAccessPage() {
   ];
 
   return (
-    <div className="flex-1 overflow-y-auto p-6">
+    <div className="flex-1 overflow-y-auto p-4 sm:p-6">
       <h1 className="text-2xl font-bold text-text mb-4">Practitioner access</h1>
       <p className="text-sm text-text-secondary mb-6">
         You can link practitioners to clients via creating an appointment or support activity in the calendar tab.{" "}
         <span className="text-primary cursor-pointer hover:underline">Learn more</span>
       </p>
 
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
+      <div className="overflow-x-auto rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-purple-50">

@@ -43,7 +43,7 @@ export default async function Dashboard() {
   return (
     <div className="flex flex-col lg:flex-row min-h-[calc(100vh-3rem)]">
       {/* Left column — Messages */}
-      <div className="flex flex-1 flex-col border-r border-border">
+      <div className="flex flex-1 flex-col lg:border-r border-border">
         {/* Messages header */}
         <div className="px-4 py-2.5">
           <h2 className="text-sm font-medium text-text">Messages</h2>
@@ -98,7 +98,7 @@ export default async function Dashboard() {
                       <span className="text-[13px] font-semibold text-text">Joseph Go</span>
                       <span className="text-[11px] text-text-secondary">9:48 pm</span>
                     </div>
-                    <div className="mt-1.5 h-36 w-48 rounded-lg bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center overflow-hidden">
+                    <div className="mt-1.5 h-36 w-48 max-w-full rounded-lg bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center overflow-hidden">
                       <div className="h-full w-full bg-gradient-to-br from-pink-200 via-gray-300 to-blue-200 blur-[12px] scale-110" />
                     </div>
                   </div>
@@ -119,7 +119,7 @@ export default async function Dashboard() {
                       <span className="text-[13px] font-semibold text-text">Joseph Go</span>
                       <span className="text-[11px] text-text-secondary">9:50 pm</span>
                     </div>
-                    <div className="mt-1.5 h-40 w-40 rounded-lg bg-gradient-to-br from-sky-200 to-sky-400 flex flex-col items-center justify-center gap-1">
+                    <div className="mt-1.5 h-40 w-40 max-w-full rounded-lg bg-gradient-to-br from-sky-200 to-sky-400 flex flex-col items-center justify-center gap-1">
                       <div className="h-16 w-14 rounded-t-full bg-sky-500 relative">
                         <div className="absolute -top-2 -left-1 h-4 w-3 bg-sky-500 rounded-tl-full rotate-[-15deg]" />
                         <div className="absolute -top-2 -right-1 h-4 w-3 bg-sky-500 rounded-tr-full rotate-[15deg]" />
@@ -146,7 +146,7 @@ export default async function Dashboard() {
                       <span className="text-[13px] font-semibold text-text">Hao Wang</span>
                       <span className="text-[11px] text-text-secondary">3:56 pm</span>
                     </div>
-                    <div className="mt-1.5 h-40 w-48 rounded-lg bg-gradient-to-br from-green-100 to-green-300 flex items-center justify-center">
+                    <div className="mt-1.5 h-40 w-48 max-w-full rounded-lg bg-gradient-to-br from-green-100 to-green-300 flex items-center justify-center">
                       <span className="text-5xl font-bold text-green-600">S</span>
                     </div>
                   </div>
@@ -162,7 +162,7 @@ export default async function Dashboard() {
                       <span className="text-[13px] font-semibold text-text">Joseph Go</span>
                       <span className="text-[11px] text-text-secondary">10:18 pm</span>
                     </div>
-                    <div className="mt-1.5 h-36 w-48 rounded-lg bg-gradient-to-br from-amber-100 to-amber-300 flex flex-col items-center justify-center gap-1">
+                    <div className="mt-1.5 h-36 w-48 max-w-full rounded-lg bg-gradient-to-br from-amber-100 to-amber-300 flex flex-col items-center justify-center gap-1">
                       <span className="text-sm font-bold text-amber-800 tracking-wide">MADE IT HOME</span>
                       <div className="h-14 w-16 rounded-t-full bg-amber-400/60 relative">
                         <div className="absolute -top-1.5 -left-0.5 h-3 w-2.5 bg-amber-400/60 rounded-tl-full rotate-[-15deg]" />

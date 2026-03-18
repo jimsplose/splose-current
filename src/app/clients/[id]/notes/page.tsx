@@ -23,7 +23,7 @@ export default async function ClientNotesPage({
   if (!client) notFound();
 
   return (
-    <div className="flex-1 overflow-y-auto p-6">
+    <div className="flex-1 overflow-y-auto p-4 sm:p-6">
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-bold text-text">Progress notes</h1>
         <div className="flex items-center gap-2">
@@ -47,7 +47,7 @@ export default async function ClientNotesPage({
         </button>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
+      <div className="overflow-x-auto rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-purple-50">

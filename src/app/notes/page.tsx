@@ -11,7 +11,7 @@ export default async function NotesPage() {
   });
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold text-text">Progress notes</h1>
         <div className="flex items-center gap-2">
@@ -39,8 +39,8 @@ export default async function NotesPage() {
         </button>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
+      <div className="overflow-x-auto rounded-lg border border-border bg-white">
+        <table className="w-full min-w-[600px]">
           <thead>
             <tr className="border-b border-border bg-purple-50">
               <th className="px-4 py-3 text-left text-sm font-medium text-text">Name</th>

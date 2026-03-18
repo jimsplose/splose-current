@@ -135,8 +135,8 @@ export default function CalendarView({
     <div className="flex h-[calc(100vh-3rem)]">
       <div className="flex flex-1 flex-col">
         {/* Calendar toolbar */}
-        <div className="flex items-center justify-between border-b border-border px-4 py-2">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between border-b border-border px-2 sm:px-4 py-2 gap-2 overflow-x-auto">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <button className="rounded-lg border border-border bg-white px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
               Today
             </button>
@@ -156,10 +156,10 @@ export default function CalendarView({
               <button className="rounded p-1 hover:bg-gray-100"><Search className="h-4 w-4" /></button>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             {/* Location filter pills */}
-            <span className="rounded-full border border-green-300 bg-green-50 px-3 py-1 text-sm font-medium text-green-700">East Clinics</span>
-            <span className="rounded-full border border-purple-300 bg-purple-50 px-3 py-1 text-sm font-medium text-purple-700">Physio</span>
+            <span className="hidden sm:inline-flex rounded-full border border-green-300 bg-green-50 px-3 py-1 text-sm font-medium text-green-700">East Clinics</span>
+            <span className="hidden sm:inline-flex rounded-full border border-purple-300 bg-purple-50 px-3 py-1 text-sm font-medium text-purple-700">Physio</span>
 
             <button
               onClick={() => openCreateModal()}
@@ -227,7 +227,8 @@ export default function CalendarView({
 
         {/* Week header + Time grid */}
         {viewMode !== "Month" && <>
-        <div className="grid grid-cols-[60px_repeat(7,1fr)] border-b border-border">
+        <div className="overflow-x-auto">
+        <div className="grid grid-cols-[60px_repeat(7,1fr)] border-b border-border min-w-[700px]">
           <div className="border-r border-border" />
           {weekDates.map((dateStr, i) => {
             const date = new Date(dateStr + "T00:00:00");
@@ -253,10 +254,11 @@ export default function CalendarView({
             );
           })}
         </div>
+        </div>
 
         {/* Time grid */}
-        <div className="flex-1 overflow-y-auto">
-          <div className="grid grid-cols-[60px_repeat(7,1fr)]">
+        <div className="flex-1 overflow-y-auto overflow-x-auto">
+          <div className="grid grid-cols-[60px_repeat(7,1fr)] min-w-[700px]">
             {HOURS.map((hour) => (
               <div key={hour} className="contents">
                 <div className="flex items-start justify-end border-b border-r border-border px-2 py-1" style={{ height: `${HOUR_HEIGHT}px` }}>
@@ -323,7 +325,7 @@ export default function CalendarView({
 
       {/* Appointment detail flyout */}
       {selectedAppt && (
-        <div className="w-80 shrink-0 border-l border-border bg-white overflow-y-auto animate-in slide-in-from-right">
+        <div className="w-full sm:w-80 shrink-0 border-l border-border bg-white overflow-y-auto animate-in slide-in-from-right absolute sm:relative inset-0 sm:inset-auto z-20 bg-white">
           <div className="p-4">
             {/* Header */}
             <div className="flex items-start justify-between mb-4">
@@ -450,7 +452,7 @@ export default function CalendarView({
       {/* Create appointment modal */}
       {showCreateModal && (
         <div
-          className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-12 overflow-y-auto pb-12"
+          className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-4 sm:pt-12 overflow-y-auto pb-4 sm:pb-12 px-3 sm:px-0"
           onClick={(e) => { if (e.target === e.currentTarget) setShowCreateModal(false); }}
         >
           <div className="w-full max-w-lg rounded-xl bg-white shadow-xl">
@@ -574,7 +576,7 @@ export default function CalendarView({
       {/* Edit appointment modal */}
       {showEditModal && selectedAppt && (
         <div
-          className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-12 overflow-y-auto pb-12"
+          className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-4 sm:pt-12 overflow-y-auto pb-4 sm:pb-12 px-3 sm:px-0"
           onClick={(e) => { if (e.target === e.currentTarget) setShowEditModal(false); }}
         >
           <div className="w-full max-w-lg rounded-xl bg-white shadow-xl">

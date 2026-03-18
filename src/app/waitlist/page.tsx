@@ -137,8 +137,8 @@ function WaitlistPageInner() {
 
       {/* ===== SCREENER TAB ===== */}
       {mainTab === "screener" && (
-        <div className="p-6">
-          <div className="mb-4 flex items-center justify-between">
+        <div className="p-4 sm:p-6">
+          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <h1 className="text-2xl font-bold text-text">Screener</h1>
             <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-sm text-text hover:bg-gray-50">
               <HelpCircle className="h-4 w-4" />
@@ -185,8 +185,8 @@ function WaitlistPageInner() {
           </div>
 
           {/* Screener table */}
-          <div className="overflow-hidden rounded-lg border border-border bg-white">
-            <table className="w-full">
+          <div className="overflow-x-auto rounded-lg border border-border bg-white">
+            <table className="w-full min-w-[800px]">
               <thead>
                 <tr className="border-b border-border bg-purple-50">
                   <th className="px-4 py-3 text-left text-sm font-medium text-text">Triage</th>
@@ -284,10 +284,10 @@ function WaitlistPageInner() {
 
       {/* ===== WAITLIST TAB ===== */}
       {mainTab === "waitlist" && (
-        <div className="p-6">
-          <div className="mb-4 flex items-center justify-between">
+        <div className="p-4 sm:p-6">
+          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <h1 className="text-2xl font-bold text-text">Waitlist</h1>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-sm text-text hover:bg-gray-50">
                 <Filter className="h-4 w-4" />
                 Reset all filters
@@ -365,8 +365,8 @@ function WaitlistPageInner() {
               </div>
 
               {/* Waitlist table */}
-              <div className="overflow-hidden rounded-lg border border-border bg-white">
-                <table className="w-full">
+              <div className="overflow-x-auto rounded-lg border border-border bg-white">
+                <table className="w-full min-w-[700px]">
                   <thead>
                     <tr className="border-b border-border bg-purple-50">
                       <th className="px-4 py-3 text-left text-sm font-medium text-text">
