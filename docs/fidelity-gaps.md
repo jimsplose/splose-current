@@ -88,13 +88,18 @@ All 25 Settings sub-pages are implemented as inline components in `settings/page
 - [x] **Dev Navigator Phase 1** — State registry (30+ pages, 60+ variants), floating toolbar, grouped page tree, search, keyboard shortcut (2026-03-18).
 - [x] **Dev Navigator Phase 2** — Wired `?state=` param into Calendar (7 variants), Waitlist (3 variants), Settings (25 variants), Settings AI (2 variants). All interactive pages now navigable via URL. (2026-03-18)
 
-## Priority 5 — Final polish
+## Priority 5 — New pages and final polish
+
+### Group N — New pages
+- [x] **Online booking page** — Public appointment booking flow with practitioner selection, date/time picker, confirmation form, appointment summary sidebar. Two-step flow matching reference screenshots. (2026-03-18)
+- [ ] **Calendar practitioner columns** — Week view needs practitioner sub-columns within each day. Day view needs practitioner name column headers. Major structural grid change. In progress.
 
 ### Group H — New screenshot intake (reads all files)
 - [ ] **Process new screenshots** — Check `screenshots/reference/` against `screenshots/processed.txt` to find unreviewed screenshots. Launch Explore agents in parallel (batches of 10-15) to read and categorize them. See `docs/screenshot-workflow.md`.
 
 ### Group J — Sweep (reads all files)
 - [x] **General fidelity sweep** — Sweep completed: cases page expanded to 10 rows with pagination, forms page expanded to 10 rows, client detail edit mode added, reports frequency dropdown added. All major pages verified against references. (2026-03-18)
+- [x] **Design system migration** — All 57 source files migrated to DS components (Button, Badge, PageHeader, SearchBar, DataTable, FormInput, FormSelect, Pagination). Storybook configured. Prettier Tailwind class sorting applied. (2026-03-18)
 
 ---
 
