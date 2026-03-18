@@ -43,8 +43,9 @@ jobs:
                 echo "Promoting $BRANCH ($SHA) to main"
                 gh api "repos/${{ github.repository }}/git/refs/heads/main" \
                   -X PATCH \
-                  -f sha="$SHA"
-                echo "main fast-forwarded to $SHA"
+                  -f sha="$SHA" \
+                  -F force=true
+                echo "main updated to $SHA"
                 exit 0
               fi
 
