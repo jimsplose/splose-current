@@ -475,14 +475,23 @@ Each agent:
 
 ---
 
-## 6. Maintenance Rules
+## 6. Maintenance Rules — MANDATORY
 
-These rules ensure the navigator stays useful as the prototype grows:
+**Every session that creates or modifies pages MUST update the Dev Navigator.** These rules ensure the navigator stays useful as the prototype grows:
 
-1. **New page** → Add a `PageEntry` to the state registry with at least a `default` variant
-2. **New interactive state** (tab, modal, view toggle) → Add a `StateVariant` and wire `?state=` support
-3. **New screenshot processed** → Update the variant's `screenshot` and `match` fields
-4. **Fidelity improvement completed** → Update `match` from `"no"`/`"partial"` to `"yes"`
+1. **New page** → Add a `PageEntry` to `src/lib/state-registry.ts` with at least a `default` variant. Use the same `group` as related pages.
+2. **New interactive state** (tab, modal, view toggle) → Add a `StateVariant` and wire `?state=` support in the page component
+3. **New DS component** → Add a Storybook story in `src/components/ds/stories/`. Storybook is auto-built and deployed to `/storybook/` on Vercel.
+4. **New screenshot processed** → Update the variant's `screenshot` and `match` fields
+5. **Fidelity improvement completed** → Update `match` from `"no"`/`"partial"` to `"yes"`
+
+### Dev Navigator quick links
+The navigator footer includes quick links to:
+- **Eng Toolkit** (`/eng`) — Live component showcase + page directory
+- **Storybook** (`/storybook/index.html`) — DS component documentation (opens in new tab)
+
+### Storybook deployment
+Storybook is built as static files during `npm run build` and deployed to `public/storybook/` so it's available at the same Vercel preview URL under `/storybook/index.html`. The build step is: `storybook build -o storybook-static && mv storybook-static public/storybook`.
 
 ---
 

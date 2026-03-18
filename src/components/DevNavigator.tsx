@@ -143,10 +143,16 @@ export default function DevNavigator() {
         ))}
       </div>
 
-      {/* Footer */}
-      <div className="flex items-center justify-between border-t border-white/10 px-4 py-2">
-        <span className="text-[10px] text-white/40">
-          {pages} pages, {variants} variants
+      {/* Quick links */}
+      <div className="flex items-center gap-3 border-t border-white/10 px-4 py-2">
+        <Link href="/eng" className="text-[10px] text-primary-light hover:text-white">
+          Eng Toolkit
+        </Link>
+        <a href="/storybook/index.html" target="_blank" rel="noopener" className="text-[10px] text-primary-light hover:text-white">
+          Storybook ↗
+        </a>
+        <span className="ml-auto text-[10px] text-white/40">
+          {pages}p / {variants}v
         </span>
         <button onClick={() => setExpanded(false)} className="text-[10px] text-white/50 hover:text-white">
           Hide

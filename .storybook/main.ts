@@ -2,12 +2,12 @@ import type { StorybookConfig } from "@storybook/nextjs";
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.stories.@(ts|tsx)"],
-  addons: ["@storybook/addon-essentials"],
+  addons: [],
   framework: {
     name: "@storybook/nextjs",
     options: {},
   },
-  staticDirs: ["../public"],
+  // Don't copy public/ — it causes EINVAL when building to public/storybook
 };
 
 export default config;

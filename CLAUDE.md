@@ -90,8 +90,11 @@ To check deployment status: `gh api repos/jimsplose/splose-current/deployments -
 - **Prettier sorts classes** — `prettier-plugin-tailwindcss` is installed. Run `npx prettier --write` to sort classes.
 - **Use design tokens** from `globals.css` (`text-primary`, `bg-primary`, `border-border`, `text-text`, `text-text-secondary`) — avoid hardcoded colors like `text-gray-700` when a token exists.
 - **Responsive pattern**: Use `p-4 sm:p-6` for page padding, `hidden md:table-cell` for table columns, `flex-col sm:flex-row` for header layouts.
-- **When creating new pages**, use the DS components. Don't inline common patterns.
+- **When creating new pages**, use the DS components. Don't inline common patterns. Also:
+  - Add the page to `src/lib/state-registry.ts` (Dev Navigator)
+  - Add interactive variants with `?state=` wiring
 - **When editing existing pages**, opportunistically migrate to DS components if touching that section anyway.
+- **When adding DS components**, create a Storybook story in `src/components/ds/stories/`.
 
 ## Playwright Screenshot Verification — MANDATORY
 

@@ -258,6 +258,7 @@ export const stateRegistry: PageEntry[] = [
     group: "Booking",
     variants: [
       { id: "default", label: "Select appointment" },
+      { id: "confirm", label: "Confirm booking" },
     ],
   },
   {

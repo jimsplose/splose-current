@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && tsx scripts/db-push.ts && next build",
+    "build": "prisma generate && tsx scripts/db-push.ts && storybook build -o storybook-static --quiet && rm -rf public/storybook && mv storybook-static public/storybook && next build",
     "db:seed": "tsx prisma/seed.ts",
     "db:push": "prisma db push",
     "postinstall": "prisma generate",
@@ -27,13 +27,13 @@
     "tsx": "^4.21.0"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^8.6.14",
     "@storybook/nextjs": "^10.3.0",
     "@storybook/react": "^10.3.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "ajv": "^8.18.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.7",
     "prettier": "^3.8.1",
