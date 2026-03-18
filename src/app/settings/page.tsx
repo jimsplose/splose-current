@@ -56,6 +56,15 @@ const sidebarSections = [
     items: [
       { name: "Payments", href: "/settings" },
       { name: "Invoices", href: "/settings" },
+      { name: "Tax rates", href: "/settings" },
+    ],
+  },
+  {
+    title: "Data",
+    items: [
+      { name: "Export", href: "/settings" },
+      { name: "Import", href: "/settings" },
+      { name: "Client data", href: "/settings" },
     ],
   },
 ];
@@ -67,7 +76,7 @@ type ActivePage =
   | "Forms"
   | string;
 
-const pagesWithContent = ["Details", "Integrations", "SMS settings", "Forms", "Locations", "Tags", "Users", "Referral types", "User groups", "Payments", "Communication types", "Cancellation reasons", "Busy times"];
+const pagesWithContent = ["Details", "Integrations", "SMS settings", "Forms", "Locations", "Tags", "Users", "Referral types", "User groups", "Payments", "Communication types", "Cancellation reasons", "Busy times", "Custom fields", "Rooms/Resources", "Services", "Tax rates", "Invoices"];
 
 export default function SettingsPage() {
   const [activePage, setActivePage] = useState<ActivePage>("Details");
@@ -135,6 +144,11 @@ export default function SettingsPage() {
         {activePage === "Communication types" && <CommunicationTypesContent />}
         {activePage === "Cancellation reasons" && <CancellationReasonsContent />}
         {activePage === "Busy times" && <BusyTimesContent />}
+        {activePage === "Custom fields" && <CustomFieldsContent />}
+        {activePage === "Rooms/Resources" && <RoomsResourcesContent />}
+        {activePage === "Services" && <ServicesContent />}
+        {activePage === "Tax rates" && <TaxRatesContent />}
+        {activePage === "Invoices" && <InvoiceSettingsContent />}
         {!pagesWithContent.includes(activePage) && (
           <PlaceholderContent pageName={activePage} />
         )}
@@ -1511,6 +1525,465 @@ function BusyTimesContent() {
             ))}
           </tbody>
         </table>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Custom Fields ───────────────────────────────────────────────── */
+
+function CustomFieldsContent() {
+  const fields = [
+    { name: "Diagnosis", type: "Multiple choice", visible: true, required: false },
+    { name: "AAA", type: "Dropdown (Multiple select)", visible: true, required: false },
+    { name: "Goal 1", type: "Long text", visible: true, required: false },
+    { name: "Client's deidentification code", type: "Numerical", visible: true, required: false },
+    { name: "Personal Care", type: "Multiple choice", visible: true, required: false },
+    { name: "Level of Education", type: "Short text", visible: true, required: false },
+    { name: "Child Name", type: "Short text", visible: true, required: false },
+    { name: "Custom Field Multi Choice - Single Select", type: "Multiple choice", visible: true, required: false },
+  ];
+
+  return (
+    <div className="p-6">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-text">Custom fields</h1>
+        <div className="flex items-center gap-3">
+          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Reorder</button>
+          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Show archived</button>
+          <button className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+            <svg className="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zM10 18a1 1 0 001-1v-1a1 1 0 10-2 0v1a1 1 0 001 1z" /></svg>
+            Learn
+          </button>
+          <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">+ New custom field</button>
+        </div>
+      </div>
+
+      <div className="flex items-center gap-3 mb-6">
+        <input type="text" placeholder="Search for custom field name" className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Search</button>
+      </div>
+
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Name</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Type</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Visible</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Required</th>
+              <th className="px-4 py-3 text-right text-sm font-medium text-text-secondary">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {fields.map((f) => (
+              <tr key={f.name} className="hover:bg-gray-50">
+                <td className="px-4 py-3 text-sm text-text">{f.name}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{f.type}</td>
+                <td className="px-4 py-3">
+                  <span className="text-sm font-medium text-green-600">Yes</span>
+                </td>
+                <td className="px-4 py-3">
+                  <span className="text-sm font-medium text-red-500">No</span>
+                </td>
+                <td className="px-4 py-3 text-right">
+                  <button className="text-text-secondary hover:text-text">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Rooms/Resources ─────────────────────────────────────────────── */
+
+function RoomsResourcesContent() {
+  const rooms = [
+    { name: "Red Room", color: "#ef4444", group: "Red", capacity: 1, location: "Sharon's" },
+    { name: "Purple Room", color: "#8b5cf6", group: "Purple", capacity: 1, location: "Sharon's" },
+    { name: "Room 1", color: "#22c55e", group: "1", capacity: 1000, location: "East Clinics" },
+    { name: "Brainstorming room", color: "#9ca3af", group: "6", capacity: 6, location: "East Clinics" },
+    { name: "Group Therapy Room", color: "#f97316", group: "Group Therapy", capacity: 5, location: "East Clinics" },
+    { name: "Test room", color: "#6366f1", group: "Rooms", capacity: 0, location: "East Clinics" },
+    { name: "Car", color: "#ef4444", group: "Car", capacity: 1, location: "East Clinics" },
+    { name: "Purple", color: "#6366f1", group: "Green room", capacity: 5, location: "Northside" },
+  ];
+
+  return (
+    <div className="p-6">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-text">Rooms/Resources</h1>
+        <div className="flex items-center gap-3">
+          <button className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+            <svg className="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zM10 18a1 1 0 001-1v-1a1 1 0 10-2 0v1a1 1 0 001 1z" /></svg>
+            Learn
+          </button>
+          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Show archived</button>
+          <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">+ Room/resource</button>
+        </div>
+      </div>
+
+      <div className="flex items-center gap-3 mb-6">
+        <input type="text" placeholder="Search for rooms/resources" className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Search</button>
+      </div>
+
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border bg-green-50">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                Name <span className="text-xs">&#8597;</span>
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Group</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Capacity/Available</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                Location <span className="text-xs">&#9661;</span>
+              </th>
+              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {rooms.map((r) => (
+              <tr key={r.name} className="hover:bg-gray-50">
+                <td className="px-4 py-3">
+                  <div className="flex items-center gap-2">
+                    <div className="h-3 w-3 rounded-full" style={{ backgroundColor: r.color }} />
+                    <span className="text-sm text-text">{r.name}</span>
+                  </div>
+                </td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{r.group}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{r.capacity}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{r.location}</td>
+                <td className="px-4 py-3 text-right">
+                  <button className="text-text-secondary hover:text-text">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Services ────────────────────────────────────────────────────── */
+
+function ServicesContent() {
+  const services = [
+    { name: "1:1 Consultation", color: "#8b5cf6", type: "1:1 Consultation", itemCode: "299sdsdds3234", duration: "40 minutes", price: "193.00 / Hour" },
+    { name: "1x Initial 1:1 Assessment, 14 x Group Therapy Sessions, and 1x Review Session", color: "#9ca3af", type: "Group Package Deal", itemCode: "", duration: "60 minutes", price: "1000.00 / Each" },
+    { name: "2:2 Consultations", color: "#22c55e", type: "2:2 Consultations", itemCode: "2997952838_61 6271_abc", duration: "60 minutes", price: "193.99 / Hour" },
+    { name: "2. Payment optional - partial - Online booking", color: "#9ca3af", type: "1. Payment test - Online booking", itemCode: "sd", duration: "30 minutes", price: "200.00 / Hour" },
+    { name: "3 cases services", color: "#22c55e", type: "3 cases service", itemCode: "", duration: "45 minutes", price: "120.00 / Hour" },
+    { name: "3. Payment required - partial - Online booking", color: "#9ca3af", type: "1. Payment test - Online booking", itemCode: "", duration: "30 minutes", price: "200.00 / Hour" },
+    { name: "4. Payment required - full - Online booking", color: "#9ca3af", type: "1. Payment test - Online booking", itemCode: "", duration: "30 minutes", price: "200.00 / Hour" },
+  ];
+
+  return (
+    <div className="p-6">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-text">Services</h1>
+        <div className="flex items-center gap-3">
+          <button className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+            <svg className="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zM10 18a1 1 0 001-1v-1a1 1 0 10-2 0v1a1 1 0 001 1z" /></svg>
+            Learn
+          </button>
+          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Show archived</button>
+          <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">+ New service</button>
+        </div>
+      </div>
+
+      <div className="flex items-center gap-3 mb-6">
+        <input type="text" placeholder="Search for service name, type, and item code" className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Search</button>
+      </div>
+
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border bg-green-50">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                Name <span className="text-xs">&#8597;</span>
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                Type <span className="text-xs">&#8597;</span>
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Item code</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Duration</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Price</th>
+              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {services.map((s) => (
+              <tr key={s.name} className="hover:bg-gray-50">
+                <td className="px-4 py-3">
+                  <div className="flex items-center gap-2">
+                    <div className="h-3 w-3 rounded-full" style={{ backgroundColor: s.color }} />
+                    <span className="text-sm text-text">{s.name}</span>
+                  </div>
+                </td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{s.type}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{s.itemCode}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{s.duration}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{s.price}</td>
+                <td className="px-4 py-3 text-right">
+                  <button className="text-text-secondary hover:text-text">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Tax Rates ───────────────────────────────────────────────────── */
+
+function TaxRatesContent() {
+  const taxRates = [
+    { name: "GST on Income", rate: "10%" },
+    { name: "GST Free Income", rate: "0%" },
+    { name: "BAS Excluded", rate: "0%", info: true },
+    { name: "Custom rate", rate: "10%" },
+    { name: "GST NZ", rate: "15%" },
+    { name: "GST Test 01", rate: "23%" },
+    { name: "Test Tax 2", rate: "1.42%" },
+    { name: "GST Free Capital", rate: "0%" },
+    { name: "Toms Custom Tax Rate", rate: "100%" },
+    { name: "mias test", rate: "100%" },
+    { name: "test", rate: "21%" },
+  ];
+
+  return (
+    <div className="p-6 max-w-4xl">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-text">Tax rates</h1>
+        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">+ New tax rate</button>
+      </div>
+
+      <div className="divide-y divide-border">
+        <div className="flex items-center justify-between py-3">
+          <span className="text-sm font-medium text-text-secondary">Name</span>
+          <span className="text-sm font-medium text-text-secondary">Rate</span>
+        </div>
+        {taxRates.map((t) => (
+          <div key={t.name} className="flex items-center justify-between py-3">
+            <div className="flex items-center gap-1.5">
+              <span className="text-sm text-text">{t.name}</span>
+              {t.info && (
+                <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help">i</span>
+              )}
+            </div>
+            <span className="text-sm text-text-secondary">{t.rate}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Invoice Settings ────────────────────────────────────────────── */
+
+function InvoiceSettingsContent() {
+  const reminders = [
+    { icon: "clock", name: "Due in 1 day" },
+    { icon: "calendar", name: "1 day overdue" },
+    { icon: "calendar", name: "2 days overdue" },
+    { icon: "calendar", name: "3 days overdue" },
+    { icon: "calendar", name: "4 days overdue" },
+    { icon: "calendar", name: "10 days overdue" },
+    { icon: "calendar", name: "14 days overdue" },
+  ];
+
+  const templates = [
+    { name: "Standard", deletable: false },
+    { name: "Non standard", deletable: true },
+    { name: "OT - Initial Consult", deletable: true },
+    { name: "Invoice Template Demo", deletable: true },
+    { name: "What's Back Saving Garbage Can Remedy", deletable: true },
+    { name: "Brain Wave Therapy Pty Ltd", deletable: true },
+    { name: "Display everything", deletable: true },
+    { name: "Check", deletable: true },
+    { name: "{client_name}", deletable: true },
+    { name: "Test Invoice", deletable: true },
+  ];
+
+  return (
+    <div className="p-6 max-w-4xl">
+      <h1 className="text-2xl font-bold text-text mb-6">Invoice Settings</h1>
+
+      {/* Stripe notice */}
+      <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-4 mb-6 flex items-start gap-3">
+        <svg className="h-5 w-5 text-yellow-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" /></svg>
+        <div className="text-sm text-yellow-800">
+          You need an active Stripe connection for online payments. <span className="text-primary cursor-pointer hover:underline">Connect to Stripe</span>
+        </div>
+      </div>
+
+      <label className="flex items-center gap-2 text-sm text-text mb-6">
+        <input type="checkbox" className="rounded border-gray-300 text-primary focus:ring-primary h-4 w-4" />
+        Enable online payments for invoices
+      </label>
+
+      {/* Invoice number */}
+      <div className="mb-6">
+        <h2 className="text-base font-semibold text-text mb-3">Invoice number</h2>
+        <div className="space-y-3 max-w-md">
+          <div>
+            <label className="block text-sm text-text-secondary mb-1">
+              Prefix <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help">i</span>
+            </label>
+            <input type="text" defaultValue="INV" className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+          </div>
+          <div>
+            <label className="block text-sm text-text-secondary mb-1">
+              Padding <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help">i</span>
+            </label>
+            <input type="text" defaultValue="4" className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+          </div>
+          <div>
+            <label className="block text-sm text-text-secondary mb-1">Next invoice number</label>
+            <input type="text" defaultValue="6309" className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+          </div>
+        </div>
+      </div>
+
+      {/* Credit note number */}
+      <div className="mb-6">
+        <h2 className="text-base font-semibold text-text mb-3">Credit note number</h2>
+        <div className="space-y-3 max-w-md">
+          <div>
+            <label className="block text-sm text-text-secondary mb-1">
+              Prefix <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help">i</span>
+            </label>
+            <input type="text" defaultValue="CN" className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+          </div>
+          <div>
+            <label className="block text-sm text-text-secondary mb-1">
+              Padding <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help">i</span>
+            </label>
+            <input type="text" defaultValue="4" className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+          </div>
+          <div>
+            <label className="block text-sm text-text-secondary mb-1">Next credit note number</label>
+            <input type="text" defaultValue="101" className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+          </div>
+        </div>
+      </div>
+
+      {/* Tax */}
+      <div className="mb-6">
+        <h2 className="text-base font-semibold text-text mb-3">Tax</h2>
+        <div className="max-w-md">
+          <label className="block text-sm text-text-secondary mb-1">
+            Default tax <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help">i</span>
+          </label>
+          <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+            <option>Tax exclusive</option>
+            <option>Tax inclusive</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Invoice reminders preferences */}
+      <div className="mb-6">
+        <h2 className="text-base font-semibold text-text mb-3">Invoice reminders preferences</h2>
+        <div className="max-w-md space-y-3">
+          <div>
+            <label className="block text-sm text-text-secondary mb-1">
+              Default invoice reminder preferences <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help">i</span>
+            </label>
+            <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+              <option>On</option>
+              <option>Off</option>
+            </select>
+          </div>
+          <label className="flex items-center gap-2 text-sm text-text-secondary">
+            <input type="checkbox" className="rounded border-gray-300 text-primary focus:ring-primary h-4 w-4" />
+            Apply to all existing clients and override the current invoice reminder preferences.
+          </label>
+          <div>
+            <label className="block text-sm text-text-secondary mb-1">Don{"'"}t send reminders for amounts owing on an invoice under</label>
+            <input type="text" className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+          </div>
+        </div>
+      </div>
+
+      {/* Invoice reminders */}
+      <div className="mb-6">
+        <h2 className="text-base font-semibold text-text mb-4">Invoice reminders</h2>
+        <div className="divide-y divide-border">
+          <div className="flex items-center justify-between py-2">
+            <span className="text-sm font-medium text-text-secondary">Name</span>
+            <span className="text-sm font-medium text-text-secondary">Actions</span>
+          </div>
+          {reminders.map((r) => (
+            <div key={r.name} className="flex items-center justify-between py-3">
+              <div className="flex items-center gap-2">
+                <svg className="h-4 w-4 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <span className="text-sm text-text">{r.name}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <button className="text-text-secondary hover:text-primary">
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                </button>
+                <button className="text-text-secondary hover:text-red-500">
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+        <button className="mt-4 w-full rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+          + New invoice reminder
+        </button>
+      </div>
+
+      {/* Invoice templates */}
+      <div>
+        <h2 className="text-base font-semibold text-text mb-4">Invoice templates</h2>
+        <div className="divide-y divide-border">
+          <div className="flex items-center justify-between py-2">
+            <span className="text-sm font-medium text-text-secondary">Name</span>
+            <span className="text-sm font-medium text-text-secondary">Actions</span>
+          </div>
+          {templates.map((t) => (
+            <div key={t.name} className="flex items-center justify-between py-3">
+              <span className="text-sm text-text">{t.name}</span>
+              <div className="flex items-center gap-2">
+                <button className="text-text-secondary hover:text-primary">
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                </button>
+                {t.deletable && (
+                  <button className="text-text-secondary hover:text-red-500">
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="flex items-center justify-end gap-2 mt-4">
+          <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
+          <button className="rounded border border-primary px-2.5 py-1 text-sm font-medium text-primary bg-purple-50">1</button>
+          <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">2</button>
+          <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&gt;</button>
+        </div>
+        <button className="mt-4 w-full rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+          + Add invoice template
+        </button>
       </div>
     </div>
   );
