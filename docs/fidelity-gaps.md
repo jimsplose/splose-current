@@ -64,7 +64,7 @@ All 25 Settings sub-pages are implemented as inline components in `settings/page
 - [x] **Patient cases tab** — Implemented at `/clients/[id]/cases`. Reference: screencapture 19_32_26.
 - [x] **Patient support activities tab** — Implemented at `/clients/[id]/support-activities`. Reference: screencapture 19_32_35.
 - [x] **Patient forms tab** — Implemented at `/clients/[id]/forms`. Reference: 7.33.31 pm, screencapture 19_32_45.
-- [ ] **Patient form view page** — Not yet implemented. Reference: screencapture 19_32_54, 19_33_46.
+- [x] **Patient form view page** — Implemented at `/patient-form/[id]/view` with sections, file links, status badge (2026-03-18).
 - [x] **Patient invoices tab** — Implemented at `/clients/[id]/invoices`. Reference: screencapture 19_33_57.
 - [x] **Patient payments tab** — Implemented at `/clients/[id]/payments`. Reference: screencapture 19_34_16.
 - [x] **Patient statements tab** — Implemented at `/clients/[id]/statements`. Reference: screencapture 19_34_27.
@@ -85,7 +85,7 @@ All 25 Settings sub-pages are implemented as inline components in `settings/page
 - [x] **Database re-seed** — Already has 12 clients, 25 appointments, 8 notes, 12 invoices with varied statuses.
 
 ### Group I — Dev Navigator (`src/components/`, `src/lib/`, `src/app/layout.tsx`)
-- [ ] **Dev Navigator Phase 1** — Create state registry, floating toolbar component, and wire into root layout. See `docs/dev-navigator-spec.md`.
+- [x] **Dev Navigator Phase 1** — State registry (30+ pages, 60+ variants), floating toolbar, grouped page tree, search, keyboard shortcut (2026-03-18).
 - [ ] **Dev Navigator Phase 2** — Wire `?state=` param reading into all interactive pages. Add all known variants to the registry.
 
 ## Priority 5 — Final polish
