@@ -98,8 +98,8 @@ export default async function Dashboard() {
                       <span className="text-[13px] font-semibold text-text">Joseph Go</span>
                       <span className="text-[11px] text-text-secondary">9:48 pm</span>
                     </div>
-                    <div className="mt-1.5 h-36 w-48 rounded-lg bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center">
-                      <span className="text-[11px] text-gray-500 blur-[2px] select-none">Image</span>
+                    <div className="mt-1.5 h-36 w-48 rounded-lg bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center overflow-hidden">
+                      <div className="h-full w-full bg-gradient-to-br from-pink-200 via-gray-300 to-blue-200 blur-[12px] scale-110" />
                     </div>
                   </div>
                 </div>
@@ -119,21 +119,21 @@ export default async function Dashboard() {
                       <span className="text-[13px] font-semibold text-text">Joseph Go</span>
                       <span className="text-[11px] text-text-secondary">9:50 pm</span>
                     </div>
-                    <div className="mt-1.5 h-40 w-40 rounded-lg bg-gradient-to-br from-sky-200 to-sky-400 flex items-center justify-center">
-                      <div className="flex flex-col items-center gap-1">
-                        <div className="h-12 w-12 rounded-full bg-sky-500" />
-                        <span className="text-[10px] text-sky-700 font-medium">Cat Sticker</span>
+                    <div className="mt-1.5 h-40 w-40 rounded-lg bg-gradient-to-br from-sky-200 to-sky-400 flex flex-col items-center justify-center gap-1">
+                      <div className="h-16 w-14 rounded-t-full bg-sky-500 relative">
+                        <div className="absolute -top-2 -left-1 h-4 w-3 bg-sky-500 rounded-tl-full rotate-[-15deg]" />
+                        <div className="absolute -top-2 -right-1 h-4 w-3 bg-sky-500 rounded-tr-full rotate-[15deg]" />
+                        <div className="absolute top-4 left-2 h-2 w-2 rounded-full bg-white" />
+                        <div className="absolute top-4 right-2 h-2 w-2 rounded-full bg-white" />
                       </div>
+                      <span className="text-[10px] text-sky-800 font-bold tracking-wider">STFCRS5</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Date separator — 16 Feb 2026 */}
                 <div className="flex items-center justify-center py-1">
-                  <span className="text-xs text-text-secondary">16 Feb 2026</span>
-                  <span className="ml-2 text-[10px] text-text-secondary cursor-pointer hover:text-primary">
-                    Click to go forward, hold to see history
-                  </span>
+                  <span className="text-xs text-text-secondary cursor-pointer" title="Click to go forward, hold to see history">16 Feb 2026</span>
                 </div>
 
                 {/* Hao Wang — green S logo image */}
@@ -162,9 +162,12 @@ export default async function Dashboard() {
                       <span className="text-[13px] font-semibold text-text">Joseph Go</span>
                       <span className="text-[11px] text-text-secondary">10:18 pm</span>
                     </div>
-                    <div className="mt-1.5 h-36 w-48 rounded-lg bg-gradient-to-br from-amber-100 to-amber-300 flex flex-col items-center justify-center gap-2">
+                    <div className="mt-1.5 h-36 w-48 rounded-lg bg-gradient-to-br from-amber-100 to-amber-300 flex flex-col items-center justify-center gap-1">
                       <span className="text-sm font-bold text-amber-800 tracking-wide">MADE IT HOME</span>
-                      <div className="h-14 w-20 rounded bg-amber-400/50" />
+                      <div className="h-14 w-16 rounded-t-full bg-amber-400/60 relative">
+                        <div className="absolute -top-1.5 -left-0.5 h-3 w-2.5 bg-amber-400/60 rounded-tl-full rotate-[-15deg]" />
+                        <div className="absolute -top-1.5 -right-0.5 h-3 w-2.5 bg-amber-400/60 rounded-tr-full rotate-[15deg]" />
+                      </div>
                     </div>
                   </div>
                 </div>

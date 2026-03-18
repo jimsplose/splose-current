@@ -137,8 +137,17 @@ export default function SettingsPage() {
 /* ─── Details ─────────────────────────────────────────────────────── */
 
 function DetailsContent() {
+  const [emailSigTab, setEmailSigTab] = useState<"Business" | "User">("Business");
+  const [casesToggle, setCasesToggle] = useState(true);
+  const [applyToAll, setApplyToAll] = useState(false);
+
+  const inputClass =
+    "w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary";
+  const labelClass = "block text-sm font-medium text-text mb-1";
+
   return (
-    <div className="p-6 max-w-3xl">
+    <div className="p-6 max-w-4xl">
+      {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-text">Details</h1>
         <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
@@ -147,145 +156,269 @@ function DetailsContent() {
       </div>
 
       <div className="space-y-6">
-        {/* Logo */}
-        <div>
-          <label className="block text-sm font-medium text-text mb-2">
-            Clinic logo
-          </label>
-          <div className="flex items-center gap-4">
-            <div className="flex h-20 w-20 items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 text-gray-400">
-              <svg
-                className="h-8 w-8"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-            </div>
+        {/* Business name & Upload area */}
+        <div className="flex gap-8">
+          <div className="flex-1 space-y-4">
+            {/* Business name */}
             <div>
-              <button className="rounded-lg border border-border bg-white px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
-                Upload logo
+              <label className={labelClass}>
+                Business name<span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                defaultValue="Hands Together Therapies"
+                className={inputClass}
+              />
+            </div>
+
+            {/* Workspace URL */}
+            <div>
+              <label className={labelClass}>
+                Workspace URL{" "}
+                <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help ml-0.5">i</span>
+              </label>
+              <input
+                type="text"
+                defaultValue="acme.splose.com"
+                className={inputClass}
+              />
+            </div>
+
+            {/* Website */}
+            <div>
+              <label className={labelClass}>Website</label>
+              <input
+                type="text"
+                defaultValue="hands-together-therapy.com"
+                className={inputClass}
+              />
+            </div>
+
+            {/* Business email */}
+            <div>
+              <label className={labelClass}>
+                Business email<span className="text-red-500">*</span>
+              </label>
+              <input
+                type="email"
+                defaultValue="hello@hands-together-therapy.com"
+                className={inputClass}
+              />
+            </div>
+          </div>
+
+          {/* Upload area on the right */}
+          <div className="w-48 shrink-0">
+            <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-6 text-center">
+              {/* Splose wave/hand illustration placeholder */}
+              <div className="mb-3 text-4xl text-purple-300">
+                <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="32" cy="32" r="28" fill="#ede9fe" />
+                  <path d="M22 38c0-6 4-16 10-16s10 10 10 16" stroke="#7c3aed" strokeWidth="2" strokeLinecap="round" />
+                  <circle cx="28" cy="26" r="2" fill="#7c3aed" />
+                  <circle cx="36" cy="26" r="2" fill="#7c3aed" />
+                  <path d="M28 32c2 2 6 2 8 0" stroke="#7c3aed" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </div>
+              <button className="rounded-lg border border-border bg-white px-4 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
+                Upload
               </button>
-              <p className="mt-1 text-xs text-text-secondary">
-                PNG or JPG, max 2MB. Recommended size: 200x200px
-              </p>
             </div>
           </div>
         </div>
 
-        {/* Clinic name */}
-        <div>
-          <label className="block text-sm font-medium text-text mb-1">
-            Clinic name
-          </label>
-          <input
-            type="text"
-            defaultValue="Acme Allied Health"
-            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-          />
-        </div>
-
-        {/* ABN */}
-        <div>
-          <label className="block text-sm font-medium text-text mb-1">
-            ABN
-          </label>
-          <input
-            type="text"
-            defaultValue="12 345 678 901"
-            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-          />
-        </div>
-
-        {/* Address */}
-        <div>
-          <label className="block text-sm font-medium text-text mb-1">
-            Address
-          </label>
-          <input
-            type="text"
-            defaultValue="123 Collins Street, Melbourne VIC 3000"
-            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-          />
-        </div>
-
-        {/* Phone & Email row */}
+        {/* Row: Patient terminology & Currency code */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-text mb-1">
-              Phone
+            <label className={labelClass}>
+              Patient terminology{" "}
+              <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help ml-0.5">i</span>
+              <span className="text-red-500">*</span>
             </label>
-            <input
-              type="text"
-              defaultValue="(03) 9876 5432"
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            />
+            <select className={inputClass}>
+              <option>Client</option>
+              <option>Patient</option>
+              <option>Participant</option>
+            </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-text mb-1">
-              Email
+            <label className={labelClass}>
+              Currency code<span className="text-red-500">*</span>
             </label>
-            <input
-              type="email"
-              defaultValue="admin@acmealliedhealth.com.au"
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            />
+            <input type="text" defaultValue="AUD" className={inputClass} />
           </div>
         </div>
 
-        {/* Timezone */}
-        <div>
-          <label className="block text-sm font-medium text-text mb-1">
-            Timezone
-          </label>
-          <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
-            <option>Australia/Melbourne (AEDT, UTC+11)</option>
-            <option>Australia/Sydney (AEDT, UTC+11)</option>
-            <option>Australia/Brisbane (AEST, UTC+10)</option>
-            <option>Australia/Perth (AWST, UTC+8)</option>
-            <option>Australia/Adelaide (ACDT, UTC+10:30)</option>
-          </select>
-        </div>
-
-        {/* Country & Currency */}
+        {/* Row: Country & Currency symbol */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-text mb-1">
-              Country
+            <label className={labelClass}>
+              Country<span className="text-red-500">*</span>
             </label>
-            <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+            <select className={inputClass}>
               <option>Australia</option>
               <option>New Zealand</option>
               <option>United Kingdom</option>
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-text mb-1">
-              Currency
+            <label className={labelClass}>
+              Currency symbol<span className="text-red-500">*</span>
             </label>
-            <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
-              <option>AUD ($)</option>
-              <option>NZD ($)</option>
-              <option>GBP (&pound;)</option>
-            </select>
+            <input type="text" defaultValue="$" className={inputClass} />
           </div>
         </div>
 
-        {/* Financial year start */}
+        {/* Row: Default appointment communication preferences & Tax Label */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className={labelClass}>
+              Default appointment communication preferences{" "}
+              <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help ml-0.5">i</span>
+              <span className="text-red-500">*</span>
+            </label>
+            <select className={inputClass}>
+              <option>SMS &amp; Email</option>
+              <option>SMS only</option>
+              <option>Email only</option>
+              <option>None</option>
+            </select>
+            <label className="mt-2 flex items-center gap-2 text-sm text-text-secondary">
+              <input
+                type="checkbox"
+                checked={applyToAll}
+                onChange={(e) => setApplyToAll(e.target.checked)}
+                className="rounded border-gray-300 text-primary focus:ring-primary h-4 w-4"
+              />
+              Apply to all existing clients and override the current contact preferences
+            </label>
+          </div>
+          <div>
+            <label className={labelClass}>
+              Tax Label for invoices (E.g. ABN)<span className="text-red-500">*</span>
+            </label>
+            <input type="text" defaultValue="ABN" className={inputClass} />
+            <p className="mt-2 text-sm text-text-secondary">
+              Enter your business number in{" "}
+              <span className="text-primary cursor-pointer hover:underline">
+                Location settings
+              </span>
+            </p>
+          </div>
+        </div>
+
+        {/* Email signature */}
         <div>
-          <label className="block text-sm font-medium text-text mb-1">
-            Financial year start
-          </label>
-          <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
-            <option>July</option>
-            <option>January</option>
-          </select>
+          <h2 className="text-base font-semibold text-text mb-3">Email signature</h2>
+          <div className="flex gap-1 mb-3">
+            <button
+              onClick={() => setEmailSigTab("Business")}
+              className={`rounded-lg px-4 py-1.5 text-sm font-medium transition-colors ${
+                emailSigTab === "Business"
+                  ? "bg-primary text-white"
+                  : "bg-gray-100 text-text-secondary hover:bg-gray-200"
+              }`}
+            >
+              Business
+            </button>
+            <button
+              onClick={() => setEmailSigTab("User")}
+              className={`rounded-lg px-4 py-1.5 text-sm font-medium transition-colors ${
+                emailSigTab === "User"
+                  ? "bg-primary text-white"
+                  : "bg-gray-100 text-text-secondary hover:bg-gray-200"
+              }`}
+            >
+              User
+            </button>
+          </div>
+          {/* Rich text toolbar */}
+          <div className="rounded-t-lg border border-border bg-gray-50 px-2 py-1.5 flex items-center gap-1">
+            <button className="rounded px-2 py-1 text-sm font-bold text-text hover:bg-gray-200">B</button>
+            <button className="rounded px-2 py-1 text-sm italic text-text hover:bg-gray-200">I</button>
+            <div className="mx-1 h-4 w-px bg-gray-300" />
+            <button className="rounded px-2 py-1 text-xs font-medium text-primary hover:bg-gray-200">AI</button>
+            <div className="mx-1 h-4 w-px bg-gray-300" />
+            <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M3 14h18M3 6h18M3 18h18" /></svg>
+            </button>
+            <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+            </button>
+            <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">+</button>
+            <div className="mx-1 h-4 w-px bg-gray-300" />
+            <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h10M4 18h16" /></svg>
+            </button>
+            <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M7 12h10M4 18h16" /></svg>
+            </button>
+            <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
+            </button>
+          </div>
+          {/* Signature content */}
+          <div className="rounded-b-lg border border-t-0 border-border bg-white p-4 min-h-[160px] text-sm text-text">
+            <p>Warm Regards,</p>
+            <p className="text-primary mt-1">{"{user_fullName}"}</p>
+            <p className="text-primary">{"{user_professionTitle}"}</p>
+            <p className="text-primary">{"{user_qualifications}"}</p>
+            <p className="text-primary">{"{business_name}"}</p>
+            <p className="text-primary">{"{location_address}"}</p>
+            <p className="text-primary">{"{business_phone}"}</p>
+            <div className="mt-4">
+              <div className="flex items-center gap-2">
+                <div className="h-8 w-8 rounded-full bg-purple-100 flex items-center justify-center">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" fill="#7c3aed" /><text x="10" y="14" textAnchor="middle" fill="white" fontSize="10" fontWeight="bold">S</text></svg>
+                </div>
+                <span className="text-xs text-text-secondary">splose</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Calendar lock dates */}
+        <div>
+          <h2 className="text-base font-semibold text-text mb-3">Calendar lock dates</h2>
+          <p className="text-sm text-text-secondary mb-2">
+            Prevent users with the practitioner role from making changes on the calendar on and before
+          </p>
+          <input
+            type="text"
+            defaultValue="19 Dec 2025"
+            className={`${inputClass} max-w-xs`}
+          />
+        </div>
+
+        {/* Google Tag Manager */}
+        <div>
+          <h2 className="text-base font-semibold text-text mb-3">Google Tag Manager</h2>
+          <div>
+            <label className={labelClass}>Google Tag Manager ID</label>
+            <input
+              type="text"
+              defaultValue="GTM-TEST1231"
+              className={`${inputClass} max-w-xs`}
+            />
+          </div>
+        </div>
+
+        {/* Cases */}
+        <div>
+          <h2 className="text-base font-semibold text-text mb-3">Cases</h2>
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-text">
+              Block bookings exceeding case or funding periods (default setting)
+            </p>
+            <Toggle checked={casesToggle} onChange={setCasesToggle} />
+          </div>
+        </div>
+
+        {/* Business settings change log link */}
+        <div>
+          <span className="text-sm text-primary cursor-pointer hover:underline">
+            Business settings change log
+          </span>
         </div>
       </div>
     </div>
