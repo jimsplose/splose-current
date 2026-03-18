@@ -1,0 +1,45 @@
+name: Cleanup old claude/* branches
+
+on:
+  # Run daily at midnight UTC
+  schedule:
+    - cron: "0 0 * * *"
+  # Also allow manual trigger from GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete stale claude/* branches
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Fetching claude/* branches..."
+          BRANCHES=$(gh api "repos/${{ github.repository }}/branches" --paginate --jq '.[] | select(.name | startswith("claude/")) | .name')
+
+          if [ -z "$BRANCHES" ]; then
+            echo "No claude/* branches found"
+            exit 0
+          fi
+
+          # Get main branch SHA
+          MAIN_SHA=$(gh api "repos/${{ github.repository }}/git/refs/heads/main" --jq '.object.sha')
+          echo "main is at $MAIN_SHA"
+
+          CUTOFF=$(date -d '24 hours ago' -u +%Y-%m-%dT%H:%M:%SZ)
+          echo "Cutoff: $CUTOFF (branches with no commits after this are stale)"
+
+          for BRANCH in $BRANCHES; do
+            # Get the latest commit date on this branch
+            LAST_COMMIT_DATE=$(gh api "repos/${{ github.repository }}/commits?sha=$BRANCH&per_page=1" --jq '.[0].commit.committer.date')
+
+            if [[ "$LAST_COMMIT_DATE" < "$CUTOFF" ]]; then
+              echo "Deleting $BRANCH (last commit: $LAST_COMMIT_DATE)"
+              gh api "repos/${{ github.repository }}/git/refs/heads/$BRANCH" -X DELETE || echo "  Failed to delete $BRANCH"
+            else
+              echo "Keeping $BRANCH (last commit: $LAST_COMMIT_DATE — still active)"
+            fi
+          done
+
+          echo "Cleanup complete"
