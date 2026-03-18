@@ -120,6 +120,22 @@ Append-only log. Each session adds an entry summarizing what was done.
 - Process new screenshots
 - Calendar practitioner columns layout (major structural change)
 - Integration logos: replace styled text with actual SVG brand assets if available
-- Refactor remaining pages to DS (waitlist, settings mega-file, calendar, client detail edit form)
-- Run `npx prettier --write src/` for full Tailwind class sorting pass
-- Migrate settings/page.tsx (2000+ line file) to use DS components internally
+
+---
+
+## Session — 2026-03-18 (late night, continued)
+
+**Branch**: `claude/add-launch-menu-A2vsu`
+
+### Completed
+- **DS refactor batch 4** — Migrated waitlist, calendar, client detail/edit, and client sub-tabs to DS components (Button, Badge, PageHeader, SearchBar, DataTable, FormInput, FormSelect)
+- **Settings mega-file DS refactor** — Migrated all 25 settings sub-pages (~3000 lines) to use DS components: every button, table, badge, form input, and select replaced
+- **Prettier Tailwind class sorting** — Ran prettier-plugin-tailwindcss across all 57 source files for consistent class ordering
+- **Full codebase DS migration complete** — All pages now use design system components. Total: 57 files touched, net reduction of ~500+ lines of duplicated Tailwind
+
+### Still Remaining
+- Process new screenshots
+- Calendar practitioner columns layout (major structural change)
+- Integration logos: replace styled text with actual SVG brand assets if available
+- Set up Storybook for DS documentation
+- Add Playwright screenshot iteration workflow to agent docs
