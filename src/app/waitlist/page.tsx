@@ -13,6 +13,18 @@ import {
   MoreHorizontal,
   MapPin,
 } from "lucide-react";
+import {
+  Button,
+  PageHeader,
+  SearchBar,
+  DataTable,
+  TableHead,
+  Th,
+  TableBody,
+  Td,
+  Pagination,
+  Badge,
+} from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -212,12 +224,14 @@ const waitlistData = [
   },
 ];
 
-const tagColors: Record<string, string> = {
-  "To assign a unique ID": "bg-red-100 text-red-700",
-  "Admin to review": "bg-yellow-100 text-yellow-700",
-  Low: "bg-green-100 text-green-700",
-  Medium: "bg-orange-100 text-orange-700",
-  "NDIS referral": "bg-purple-100 text-purple-700",
+type TagBadgeVariant = "green" | "red" | "blue" | "yellow" | "orange" | "gray" | "purple";
+
+const tagBadgeVariant: Record<string, TagBadgeVariant> = {
+  "To assign a unique ID": "red",
+  "Admin to review": "yellow",
+  Low: "green",
+  Medium: "orange",
+  "NDIS referral": "purple",
 };
 
 // Map pin locations (placeholder positions as percentages)
@@ -331,27 +345,15 @@ function WaitlistPageInner() {
       {/* ===== SCREENER TAB ===== */}
       {mainTab === "screener" && (
         <div className="p-4 sm:p-6">
-          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <h1 className="text-2xl font-bold text-text">Screener</h1>
-            <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-sm text-text hover:bg-gray-50">
+          <PageHeader title="Screener">
+            <Button variant="secondary" size="sm">
               <HelpCircle className="h-4 w-4" />
               Learn
-            </button>
-          </div>
+            </Button>
+          </PageHeader>
 
           {/* Search */}
-          <div className="mb-4 flex items-center gap-2">
-            <input
-              type="text"
-              placeholder="Search for client name"
-              value={screenerSearch}
-              onChange={(e) => setScreenerSearch(e.target.value)}
-              className="h-10 flex-1 rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            />
-            <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-              Search
-            </button>
-          </div>
+          <SearchBar placeholder="Search for client name" onSearch={(query) => setScreenerSearch(query)} />
 
           {/* Triage / Rejected sub-tabs */}
           <div className="mb-4 flex items-center gap-4">
@@ -378,146 +380,135 @@ function WaitlistPageInner() {
           </div>
 
           {/* Screener table */}
-          <div className="overflow-x-auto rounded-lg border border-border bg-white">
-            <table className="w-full min-w-[800px]">
-              <thead>
-                <tr className="border-b border-border bg-purple-50">
-                  <th className="px-4 py-3 text-left text-sm font-medium text-text">Triage</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                    <div className="flex items-center gap-1">
-                      Tags
-                      <Filter className="h-3 w-3 text-text-secondary" />
-                    </div>
-                  </th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                    <div className="flex items-center gap-1">
-                      Client
-                      <svg className="h-3 w-3 text-text-secondary" viewBox="0 0 12 12" fill="currentColor">
-                        <path d="M6 0L9 5H3L6 0ZM6 12L3 7H9L6 12Z" />
-                      </svg>
-                    </div>
-                  </th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-text">Date of birth</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-text">Address</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-text">Form</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-text">Date submitted</th>
-                  <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                {screenerSubTab === "triage" ? (
-                  filteredScreener.length === 0 ? (
-                    <tr>
-                      <td colSpan={8} className="px-4 py-8 text-center text-sm text-text-secondary">
-                        No screener entries found.
-                      </td>
-                    </tr>
-                  ) : (
-                    filteredScreener.map((row, idx) => (
-                      <tr key={idx} className="hover:bg-gray-50">
-                        <td className="px-4 py-3">
-                          <div className="flex items-center gap-1">
-                            <button
-                              onClick={() => handleTriage(idx, "yes")}
-                              className={`flex items-center gap-0.5 rounded border px-2 py-1 text-xs ${
-                                triageState[idx] === "yes"
-                                  ? "border-green-300 bg-green-50 text-green-700"
-                                  : "border-border bg-white text-text-secondary hover:bg-gray-50"
-                              }`}
-                            >
-                              <ThumbsUp className="h-3 w-3" />
-                              <span>Yes</span>
-                            </button>
-                            <button
-                              onClick={() => handleTriage(idx, "no")}
-                              className={`flex items-center gap-0.5 rounded border px-2 py-1 text-xs ${
-                                triageState[idx] === "no"
-                                  ? "border-red-300 bg-red-50 text-red-700"
-                                  : "border-border bg-white text-text-secondary hover:bg-gray-50"
-                              }`}
-                            >
-                              <ThumbsDown className="h-3 w-3" />
-                              <span>No</span>
-                            </button>
-                          </div>
-                        </td>
-                        <td className="px-4 py-3 text-sm text-text-secondary">{row.tags}</td>
-                        <td className="px-4 py-3 text-sm text-primary">{row.client}</td>
-                        <td className="px-4 py-3 text-sm text-text-secondary">{row.dob}</td>
-                        <td className="px-4 py-3 text-sm text-text-secondary">{row.address}</td>
-                        <td className="px-4 py-3 text-sm text-primary">{row.form}</td>
-                        <td className="px-4 py-3 text-sm text-text-secondary">
-                          <div className="flex items-center gap-2">
-                            {row.dateSubmitted}
-                            {row.archived && (
-                              <span className="rounded bg-red-100 px-2 py-0.5 text-[11px] font-medium text-red-700">
-                                Archived
-                              </span>
-                            )}
-                          </div>
-                        </td>
-                        <td className="px-4 py-3 text-right">
-                          <button className="text-text-secondary hover:text-text">
-                            <MoreHorizontal className="h-4 w-4" />
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  )
-                ) : (
+          <DataTable minWidth="800px">
+            <TableHead>
+              <Th>Triage</Th>
+              <Th>
+                <div className="flex items-center gap-1">
+                  Tags
+                  <Filter className="h-3 w-3 text-text-secondary" />
+                </div>
+              </Th>
+              <Th>
+                <div className="flex items-center gap-1">
+                  Client
+                  <svg className="h-3 w-3 text-text-secondary" viewBox="0 0 12 12" fill="currentColor">
+                    <path d="M6 0L9 5H3L6 0ZM6 12L3 7H9L6 12Z" />
+                  </svg>
+                </div>
+              </Th>
+              <Th>Date of birth</Th>
+              <Th>Address</Th>
+              <Th>Form</Th>
+              <Th>Date submitted</Th>
+              <Th align="right">Actions</Th>
+            </TableHead>
+            <TableBody>
+              {screenerSubTab === "triage" ? (
+                filteredScreener.length === 0 ? (
                   <tr>
                     <td colSpan={8} className="px-4 py-8 text-center text-sm text-text-secondary">
-                      No rejected entries.
+                      No screener entries found.
                     </td>
                   </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+                ) : (
+                  filteredScreener.map((row, idx) => (
+                    <tr key={idx} className="hover:bg-gray-50">
+                      <Td>
+                        <div className="flex items-center gap-1">
+                          <button
+                            onClick={() => handleTriage(idx, "yes")}
+                            className={`flex items-center gap-0.5 rounded border px-2 py-1 text-xs ${
+                              triageState[idx] === "yes"
+                                ? "border-green-300 bg-green-50 text-green-700"
+                                : "border-border bg-white text-text-secondary hover:bg-gray-50"
+                            }`}
+                          >
+                            <ThumbsUp className="h-3 w-3" />
+                            <span>Yes</span>
+                          </button>
+                          <button
+                            onClick={() => handleTriage(idx, "no")}
+                            className={`flex items-center gap-0.5 rounded border px-2 py-1 text-xs ${
+                              triageState[idx] === "no"
+                                ? "border-red-300 bg-red-50 text-red-700"
+                                : "border-border bg-white text-text-secondary hover:bg-gray-50"
+                            }`}
+                          >
+                            <ThumbsDown className="h-3 w-3" />
+                            <span>No</span>
+                          </button>
+                        </div>
+                      </Td>
+                      <Td className="text-text-secondary">{row.tags}</Td>
+                      <Td className="text-primary">{row.client}</Td>
+                      <Td className="text-text-secondary">{row.dob}</Td>
+                      <Td className="text-text-secondary">{row.address}</Td>
+                      <Td className="text-primary">{row.form}</Td>
+                      <Td className="text-text-secondary">
+                        <div className="flex items-center gap-2">
+                          {row.dateSubmitted}
+                          {row.archived && <Badge variant="red">Archived</Badge>}
+                        </div>
+                      </Td>
+                      <Td align="right">
+                        <button className="text-text-secondary hover:text-text">
+                          <MoreHorizontal className="h-4 w-4" />
+                        </button>
+                      </Td>
+                    </tr>
+                  ))
+                )
+              ) : (
+                <tr>
+                  <td colSpan={8} className="px-4 py-8 text-center text-sm text-text-secondary">
+                    No rejected entries.
+                  </td>
+                </tr>
+              )}
+            </TableBody>
+          </DataTable>
         </div>
       )}
 
       {/* ===== WAITLIST TAB ===== */}
       {mainTab === "waitlist" && (
         <div className="p-4 sm:p-6">
-          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <h1 className="text-2xl font-bold text-text">Waitlist</h1>
-            <div className="flex flex-wrap items-center gap-2">
-              <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-sm text-text hover:bg-gray-50">
-                <Filter className="h-4 w-4" />
-                Reset all filters
-              </button>
-              <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-sm text-text hover:bg-gray-50">
-                <HelpCircle className="h-4 w-4" />
-                Learn
-              </button>
-              {/* Map / List toggle */}
-              <button
-                onClick={() => setViewMode(viewMode === "list" ? "map" : "list")}
-                className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm ${
-                  viewMode === "map"
-                    ? "border-primary bg-primary/5 text-primary"
-                    : "border-border bg-white text-text hover:bg-gray-50"
-                }`}
-              >
-                {viewMode === "list" ? (
-                  <>
-                    <MapIcon className="h-4 w-4" />
-                    Map
-                  </>
-                ) : (
-                  <>
-                    <List className="h-4 w-4" />
-                    List
-                  </>
-                )}
-              </button>
-              <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-                <Plus className="h-4 w-4" />
-                Add client
-              </button>
-            </div>
-          </div>
+          <PageHeader title="Waitlist">
+            <Button variant="secondary" size="sm">
+              <Filter className="h-4 w-4" />
+              Reset all filters
+            </Button>
+            <Button variant="secondary" size="sm">
+              <HelpCircle className="h-4 w-4" />
+              Learn
+            </Button>
+            {/* Map / List toggle */}
+            <button
+              onClick={() => setViewMode(viewMode === "list" ? "map" : "list")}
+              className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors ${
+                viewMode === "map"
+                  ? "border-primary bg-primary/5 text-primary"
+                  : "border-border bg-white text-text hover:bg-gray-50"
+              }`}
+            >
+              {viewMode === "list" ? (
+                <>
+                  <MapIcon className="h-4 w-4" />
+                  Map
+                </>
+              ) : (
+                <>
+                  <List className="h-4 w-4" />
+                  List
+                </>
+              )}
+            </button>
+            <Button variant="secondary" size="md">
+              <Plus className="h-4 w-4" />
+              Add client
+            </Button>
+          </PageHeader>
 
           {viewMode === "list" ? (
             <>
@@ -546,95 +537,65 @@ function WaitlistPageInner() {
               </div>
 
               {/* Search */}
-              <div className="mb-4 flex items-center gap-2">
-                <input
-                  type="text"
-                  placeholder="Search for client name"
-                  value={waitlistSearch}
-                  onChange={(e) => setWaitlistSearch(e.target.value)}
-                  className="h-10 flex-1 rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-                />
-                <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-                  Search
-                </button>
-              </div>
+              <SearchBar placeholder="Search for client name" onSearch={(query) => setWaitlistSearch(query)} />
 
               {/* Waitlist table */}
-              <div className="overflow-x-auto rounded-lg border border-border bg-white">
-                <table className="w-full min-w-[700px]">
-                  <thead>
-                    <tr className="border-b border-border bg-purple-50">
-                      <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                        <div className="flex items-center gap-1">
-                          Tags
-                          <Filter className="h-3 w-3 text-text-secondary" />
-                        </div>
-                      </th>
-                      <th className="px-4 py-3 text-left text-sm font-medium text-text">Client</th>
-                      <th className="px-4 py-3 text-left text-sm font-medium text-text">Date of birth</th>
-                      <th className="px-4 py-3 text-left text-sm font-medium text-text">Address</th>
-                      <th className="px-4 py-3 text-left text-sm font-medium text-text">Date added</th>
-                      <th className="px-4 py-3 text-left text-sm font-medium text-text">Service</th>
-                      <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
+              <DataTable minWidth="700px">
+                <TableHead>
+                  <Th>
+                    <div className="flex items-center gap-1">
+                      Tags
+                      <Filter className="h-3 w-3 text-text-secondary" />
+                    </div>
+                  </Th>
+                  <Th>Client</Th>
+                  <Th>Date of birth</Th>
+                  <Th>Address</Th>
+                  <Th>Date added</Th>
+                  <Th>Service</Th>
+                  <Th align="right">Actions</Th>
+                </TableHead>
+                <TableBody>
+                  {filteredWaitlist.length === 0 ? (
+                    <tr>
+                      <td colSpan={7} className="px-4 py-8 text-center text-sm text-text-secondary">
+                        No {waitlistSubTab} entries found.
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody className="divide-y divide-border">
-                    {filteredWaitlist.length === 0 ? (
-                      <tr>
-                        <td colSpan={7} className="px-4 py-8 text-center text-sm text-text-secondary">
-                          No {waitlistSubTab} entries found.
-                        </td>
+                  ) : (
+                    filteredWaitlist.map((row, idx) => (
+                      <tr key={idx} className="hover:bg-gray-50">
+                        <Td>
+                          <div className="flex flex-wrap gap-1">
+                            {row.tags.map((tag) =>
+                              tag === "---" ? (
+                                <span key={tag} className="text-sm text-text-secondary">
+                                  ---
+                                </span>
+                              ) : (
+                                <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} className="rounded">
+                                  {tag}
+                                </Badge>
+                              ),
+                            )}
+                          </div>
+                        </Td>
+                        <Td className="text-primary">{row.client}</Td>
+                        <Td className="text-text-secondary">{row.dob}</Td>
+                        <Td className="text-text-secondary">{row.address}</Td>
+                        <Td className="text-text-secondary">{row.dateAdded}</Td>
+                        <Td className="text-text-secondary">{row.service}</Td>
+                        <Td align="right">
+                          <button className="text-text-secondary hover:text-text">
+                            <MoreHorizontal className="h-4 w-4" />
+                          </button>
+                        </Td>
                       </tr>
-                    ) : (
-                      filteredWaitlist.map((row, idx) => (
-                        <tr key={idx} className="hover:bg-gray-50">
-                          <td className="px-4 py-3">
-                            <div className="flex flex-wrap gap-1">
-                              {row.tags.map((tag) =>
-                                tag === "---" ? (
-                                  <span key={tag} className="text-sm text-text-secondary">
-                                    ---
-                                  </span>
-                                ) : (
-                                  <span
-                                    key={tag}
-                                    className={`rounded px-2 py-0.5 text-[11px] font-medium ${tagColors[tag] || "bg-gray-100 text-gray-700"}`}
-                                  >
-                                    {tag}
-                                  </span>
-                                ),
-                              )}
-                            </div>
-                          </td>
-                          <td className="px-4 py-3 text-sm text-primary">{row.client}</td>
-                          <td className="px-4 py-3 text-sm text-text-secondary">{row.dob}</td>
-                          <td className="px-4 py-3 text-sm text-text-secondary">{row.address}</td>
-                          <td className="px-4 py-3 text-sm text-text-secondary">{row.dateAdded}</td>
-                          <td className="px-4 py-3 text-sm text-text-secondary">{row.service}</td>
-                          <td className="px-4 py-3 text-right">
-                            <button className="text-text-secondary hover:text-text">
-                              <MoreHorizontal className="h-4 w-4" />
-                            </button>
-                          </td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-                <div className="flex items-center justify-end border-t border-border px-4 py-3 text-sm text-text-secondary">
-                  <span>
-                    1-{filteredWaitlist.length} of {filteredWaitlist.length} items
-                  </span>
-                  <div className="ml-4 flex items-center gap-1">
-                    <span className="cursor-pointer text-text-secondary hover:text-text">&lt;</span>
-                    <button className="flex h-7 w-7 items-center justify-center rounded border border-primary bg-white text-xs font-medium text-primary">
-                      1
-                    </button>
-                    <span className="cursor-pointer text-text-secondary hover:text-text">&gt;</span>
-                  </div>
-                  <span className="ml-4">10 / page</span>
-                </div>
-              </div>
+                    ))
+                  )}
+                </TableBody>
+              </DataTable>
+              <Pagination currentPage={1} totalPages={1} totalItems={filteredWaitlist.length} itemsPerPage={10} />
             </>
           ) : (
             /* ===== MAP VIEW ===== */
@@ -667,7 +628,9 @@ function WaitlistPageInner() {
                 </svg>
 
                 {/* Place labels */}
-                <div className="absolute top-[15%] left-[8%] text-[11px] font-medium text-gray-500">Campbellfield</div>
+                <div className="absolute top-[15%] left-[8%] text-[11px] font-medium text-gray-500">
+                  Campbellfield
+                </div>
                 <div className="absolute top-[8%] left-[35%] text-[11px] font-medium text-gray-500">Thomastown</div>
                 <div className="absolute top-[12%] left-[65%] text-[11px] font-medium text-gray-500">Bundoora</div>
                 <div className="absolute top-[30%] left-[20%] text-[11px] font-medium text-gray-500">Fawkner</div>

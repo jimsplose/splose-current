@@ -327,7 +327,6 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: () => void }) {
   const inputClass =
     "w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary";
-  const labelClass = "block text-sm font-medium text-text mb-1";
 
   const dobParts = client.dateOfBirth ? client.dateOfBirth.split("-") : ["2025", "01", "01"];
 

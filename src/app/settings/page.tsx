@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Button, DataTable, TableHead, Th, TableBody, Td, Badge, FormInput } from "@/components/ds";
+import { Button, DataTable, TableHead, Th, TableBody, Td, Badge } from "@/components/ds";
 
 const sidebarSections = [
   {
@@ -1456,7 +1456,7 @@ function PaymentSettingsContent() {
                 <tr key={pm.name} className="hover:bg-gray-50">
                   <Td>{pm.name}</Td>
                   <Td>{pm.description}</Td>
-                  <Td>                    <span className="rounded bg-green-500 px-2 py-0.5 text-xs font-medium text-white">{pm.status}</span></Td>
+                  <Td><Badge variant="green">{pm.status}</Badge></Td>
                   <Td align="right">                    <div className="flex items-center justify-end gap-2">
                       <button className="text-text-secondary hover:text-primary">
                         <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2793,11 +2793,9 @@ function DataExportContent() {
                 <Td>{e.archived}</Td>
                 <Td>{e.created}</Td>
                 <Td>{e.createdBy}</Td>
-                <Td>                  <span
-                    className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${e.status === "Done" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}
-                  >
-                    {e.status}
-                  </span></Td>
+                <Td>
+                  <Badge variant={e.status === "Done" ? "green" : "red"}>{e.status}</Badge>
+                </Td>
                 <Td>{e.records}</Td>
                 <Td align="right">                  <button className="text-text-secondary hover:text-text">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2844,9 +2842,9 @@ function DataImportContent() {
             {imports.map((imp, i) => (
               <tr key={i} className="hover:bg-gray-50">
                 <Td>{imp.type}</Td>
-                <Td>                  <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-700">
-                    {imp.status}
-                  </span></Td>
+                <Td>
+                  <Badge variant="green">{imp.status}</Badge>
+                </Td>
                 <Td>                  <div>Created: {imp.created}</div>
                   <div>Updated: {imp.updated}</div></Td>
                 <Td align="right">                  <button className="text-text-secondary hover:text-text">
