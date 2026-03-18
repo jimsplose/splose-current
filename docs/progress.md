@@ -120,5 +120,6 @@ Append-only log. Each session adds an entry summarizing what was done.
 - Process new screenshots
 - Calendar practitioner columns layout (major structural change)
 - Integration logos: replace styled text with actual SVG brand assets if available
-- Refactor remaining pages to DS (payments, waitlist, settings sub-pages, calendar, client detail forms, communications)
+- Refactor remaining pages to DS (waitlist, settings mega-file, calendar, client detail edit form)
 - Run `npx prettier --write src/` for full Tailwind class sorting pass
+- Migrate settings/page.tsx (2000+ line file) to use DS components internally
