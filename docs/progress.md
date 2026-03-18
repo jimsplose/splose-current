@@ -60,6 +60,21 @@ Append-only log. Each session adds an entry summarizing what was done.
 - **General fidelity sweep** — Cases page expanded to 10 rows with pagination, forms page expanded to 10 rows, client detail edit mode with full form, reports frequency dropdown
 - **Dev Navigator Phase 2** — Wired `?state=` URL param into Calendar (7 variants: week/month/day/appointment-selected/new-appointment/edit-appointment/rooms-view), Waitlist (3 variants: screener-triage/screener-rejected/waitlist-map), Settings (25 variants for all sub-pages), Settings AI (2 variants: saved-prompts/ai-block-library). All interactive states now directly navigable via URL.
 
+- **Screenshot comparison loops (round 1)** — Compared reference screenshots against prototype for Calendar, Patient Detail, Communications, Appointments, Invoices, Notes, Cases, Payments, Letters, Files, Support Activities, Statements pages. Improvements made:
+  - Calendar: dynamic appointment block height based on duration (blocks now scale proportionally), hour rows 80px, blocks show time range and type
+  - Communications: outlined Log communication button, expand (+) icons per row
+  - Appointments: outlined New appointment button
+  - Invoices: added Status and Sent status columns, empty state illustration
+  - Notes: added expand icon, linked service date
+  - Cases: added Status column with Active/Expired badges
+  - All patient sub-tabs: fixed action buttons to outlined style matching reference
+
+### Discovered
+- Calendar reference shows **practitioner columns within each day** (fundamentally different grid from current 7-column-per-day) — needs dedicated session
+- Screenshot filenames use unicode narrow no-break space (`\u202f`) before am/pm — some files can't be read via standard Read tool
+- Settings, Notes edit, and Patient detail pages already match references well structurally
+
 ### Still Remaining
 - Process new screenshots
-- Screenshot comparison loops
+- Calendar practitioner columns layout (major structural change)
+- Deeper fidelity work on individual settings sub-pages vs screenshots
