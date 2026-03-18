@@ -14,9 +14,7 @@ export default async function NotesPage() {
   return (
     <div className="p-4 sm:p-6">
       <PageHeader title="Progress notes">
-        <Button>
-          Scroll view
-        </Button>
+        <Button>Scroll view</Button>
         <Link
           href="/notes/new"
           className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50"
@@ -32,9 +30,7 @@ export default async function NotesPage() {
           placeholder="Search for content and title"
           className="h-10 flex-1 rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
         />
-        <Button>
-          Search
-        </Button>
+        <Button>Search</Button>
       </div>
 
       <div className="overflow-x-auto rounded-lg border border-border bg-white">
@@ -58,10 +54,7 @@ export default async function NotesPage() {
           </TableHead>
           <TableBody>
             {notes.map((note) => (
-              <tr
-                key={note.id}
-                className="group cursor-pointer transition-colors hover:bg-purple-50/50"
-              >
+              <tr key={note.id} className="group cursor-pointer transition-colors hover:bg-purple-50/50">
                 <Td>
                   <Link href={`/notes/${note.id}`} className="flex items-center gap-2">
                     <span className="text-sm text-primary group-hover:underline">

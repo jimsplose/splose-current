@@ -31,9 +31,7 @@ interface ThProps {
 export function Th({ children, align = "left", className = "", hidden }: ThProps) {
   const hideClass = hidden ? `hidden ${hidden}:table-cell` : "";
   return (
-    <th className={`px-4 py-3 text-${align} text-sm font-medium text-text ${hideClass} ${className}`}>
-      {children}
-    </th>
+    <th className={`px-4 py-3 text-${align} text-sm font-medium text-text ${hideClass} ${className}`}>{children}</th>
   );
 }
 
@@ -50,9 +48,5 @@ interface TdProps {
 
 export function Td({ children, align = "left", className = "", hidden }: TdProps) {
   const hideClass = hidden ? `hidden ${hidden}:table-cell` : "";
-  return (
-    <td className={`px-4 py-3 text-${align} text-sm ${hideClass} ${className}`}>
-      {children}
-    </td>
-  );
+  return <td className={`px-4 py-3 text-${align} text-sm ${hideClass} ${className}`}>{children}</td>;
 }

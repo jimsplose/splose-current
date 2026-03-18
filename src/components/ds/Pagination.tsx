@@ -56,7 +56,7 @@ export default function Pagination({
             >
               {p}
             </button>
-          )
+          ),
         )}
         <button className="flex h-7 w-7 items-center justify-center rounded text-text-secondary hover:bg-gray-100">
           &gt;

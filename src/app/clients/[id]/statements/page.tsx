@@ -19,7 +19,7 @@ export default function ClientStatementsPage() {
       <div className="mb-4 flex items-end gap-4">
         <div className="flex flex-col gap-1">
           <label className="text-sm font-medium text-text">Type*</label>
-          <Button className="justify-between min-w-[140px]">
+          <Button className="min-w-[140px] justify-between">
             Activity
             <ChevronDown className="h-4 w-4 text-text-secondary" />
           </Button>
@@ -31,20 +31,20 @@ export default function ClientStatementsPage() {
             <input
               type="text"
               defaultValue="1 Mar 2026"
-              className="w-[130px] rounded-lg border border-border bg-white px-3 py-2 text-sm text-text focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+              className="w-[130px] rounded-lg border border-border bg-white px-3 py-2 text-sm text-text focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
             />
             <span className="text-sm text-text-secondary">&mdash;</span>
             <input
               type="text"
               defaultValue="31 Mar 2026"
-              className="w-[130px] rounded-lg border border-border bg-white px-3 py-2 text-sm text-text focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+              className="w-[130px] rounded-lg border border-border bg-white px-3 py-2 text-sm text-text focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
             />
           </div>
         </div>
 
         <div className="flex flex-col gap-1">
           <label className="text-sm font-medium text-text">Location*</label>
-          <Button className="justify-between min-w-[160px]">
+          <Button className="min-w-[160px] justify-between">
             All Locations
             <ChevronDown className="h-4 w-4 text-text-secondary" />
           </Button>

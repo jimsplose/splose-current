@@ -25,11 +25,7 @@ const mockFormData = {
   ],
 };
 
-export default async function PatientFormViewPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function PatientFormViewPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   void id;
 
@@ -42,12 +38,8 @@ export default async function PatientFormViewPage({
       <div className="flex items-center justify-between border-b border-border bg-white px-6 py-4">
         <div className="flex items-center gap-3">
           <h1 className="text-2xl font-bold text-text">{form.title}</h1>
-          <span className={`rounded-full ${statusColor} px-3 py-1 text-xs font-medium text-white`}>
-            {form.status}
-          </span>
-          <span className="text-sm text-primary hover:underline cursor-pointer">
-            {form.clientName}
-          </span>
+          <span className={`rounded-full ${statusColor} px-3 py-1 text-xs font-medium text-white`}>{form.status}</span>
+          <span className="cursor-pointer text-sm text-primary hover:underline">{form.clientName}</span>
         </div>
         <div className="flex items-center gap-2">
           <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
@@ -70,7 +62,7 @@ export default async function PatientFormViewPage({
             <div className="h-12 w-12 text-3xl">🦆</div>
           </div>
 
-          <p className="mb-6 text-sm italic text-text-secondary">Not completed</p>
+          <p className="mb-6 text-sm text-text-secondary italic">Not completed</p>
 
           {/* Form sections */}
           {form.sections.map((section, si) => (

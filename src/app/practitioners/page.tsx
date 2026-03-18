@@ -18,14 +18,16 @@ export default async function PractitionersPage() {
   return (
     <div className="p-4 sm:p-6">
       <PageHeader title="Practitioners">
-        <Button variant="primary"><Plus className="h-4 w-4" /> Add Practitioner</Button>
+        <Button variant="primary">
+          <Plus className="h-4 w-4" /> Add Practitioner
+        </Button>
       </PageHeader>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {practitioners.map((p) => (
           <div
             key={p.id}
-            className="cursor-pointer rounded-xl border border-border bg-surface p-6 transition-shadow duration-150 hover:shadow-md hover:border-primary/30"
+            className="cursor-pointer rounded-xl border border-border bg-surface p-6 transition-shadow duration-150 hover:border-primary/30 hover:shadow-md"
           >
             <div className="flex items-center gap-4">
               <div

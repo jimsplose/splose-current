@@ -2,29 +2,99 @@
 
 import { Fragment, useState } from "react";
 import { Plus, ArrowUpDown, Filter } from "lucide-react";
-import {
-  Button,
-  PageHeader,
-  SearchBar,
-  TableHead,
-  Th,
-  TableBody,
-  Td,
-  Pagination,
-  Badge,
-} from "@/components/ds";
+import { Button, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, Badge } from "@/components/ds";
 
 const mockPayments = [
-  { id: "1", reference: "MYDD-01051", from: "Skyler Peterson", amount: 110.00, date: "6 Mar 2026", type: "", invoices: [{ number: "TRR-006295", amount: 110.00, date: "Fri 6 Mar 2026" }] },
-  { id: "2", reference: "MYDD-01052", from: "Skyler Peterson", amount: 110.00, date: "6 Mar 2026", type: "", invoices: [{ number: "TRR-006296", amount: 110.00, date: "Fri 6 Mar 2026" }] },
-  { id: "3", reference: "MYDD-01053", from: "Skyler Peterson", amount: 212.30, date: "6 Mar 2026", type: "", invoices: [{ number: "TRR-006297", amount: 212.30, date: "Fri 6 Mar 2026" }] },
-  { id: "4", reference: "MYDD-01048", from: "elsa frozen", amount: 35.00, date: "4 Mar 2026", type: "Credit", invoices: [] },
-  { id: "5", reference: "MYDD-01046", from: "A Jr", amount: 110.00, date: "27 Feb 2026", type: "", invoices: [{ number: "TRR-006280", amount: 110.00, date: "Thu 27 Feb 2026" }] },
-  { id: "6", reference: "MYDD-01045", from: "A Jr", amount: 148.71, date: "25 Feb 2026", type: "", invoices: [{ number: "TRR-006279", amount: 148.71, date: "Tue 25 Feb 2026" }] },
-  { id: "7", reference: "MYDD-01042", from: "rakesh soni", amount: 110.00, date: "24 Feb 2026", type: "Credit", invoices: [] },
-  { id: "8", reference: "MYDD-01044", from: "rakesh soni", amount: 2000.00, date: "24 Feb 2026", type: "Credit", invoices: [] },
-  { id: "9", reference: "MYDD-01043", from: "rakesh soni", amount: 1000.00, date: "24 Feb 2026", type: "Credit", invoices: [] },
-  { id: "10", reference: "MYDD-01041", from: "A test", amount: 100.00, date: "23 Feb 2026", type: "Credit", invoices: [] },
+  {
+    id: "1",
+    reference: "MYDD-01051",
+    from: "Skyler Peterson",
+    amount: 110.0,
+    date: "6 Mar 2026",
+    type: "",
+    invoices: [{ number: "TRR-006295", amount: 110.0, date: "Fri 6 Mar 2026" }],
+  },
+  {
+    id: "2",
+    reference: "MYDD-01052",
+    from: "Skyler Peterson",
+    amount: 110.0,
+    date: "6 Mar 2026",
+    type: "",
+    invoices: [{ number: "TRR-006296", amount: 110.0, date: "Fri 6 Mar 2026" }],
+  },
+  {
+    id: "3",
+    reference: "MYDD-01053",
+    from: "Skyler Peterson",
+    amount: 212.3,
+    date: "6 Mar 2026",
+    type: "",
+    invoices: [{ number: "TRR-006297", amount: 212.3, date: "Fri 6 Mar 2026" }],
+  },
+  {
+    id: "4",
+    reference: "MYDD-01048",
+    from: "elsa frozen",
+    amount: 35.0,
+    date: "4 Mar 2026",
+    type: "Credit",
+    invoices: [],
+  },
+  {
+    id: "5",
+    reference: "MYDD-01046",
+    from: "A Jr",
+    amount: 110.0,
+    date: "27 Feb 2026",
+    type: "",
+    invoices: [{ number: "TRR-006280", amount: 110.0, date: "Thu 27 Feb 2026" }],
+  },
+  {
+    id: "6",
+    reference: "MYDD-01045",
+    from: "A Jr",
+    amount: 148.71,
+    date: "25 Feb 2026",
+    type: "",
+    invoices: [{ number: "TRR-006279", amount: 148.71, date: "Tue 25 Feb 2026" }],
+  },
+  {
+    id: "7",
+    reference: "MYDD-01042",
+    from: "rakesh soni",
+    amount: 110.0,
+    date: "24 Feb 2026",
+    type: "Credit",
+    invoices: [],
+  },
+  {
+    id: "8",
+    reference: "MYDD-01044",
+    from: "rakesh soni",
+    amount: 2000.0,
+    date: "24 Feb 2026",
+    type: "Credit",
+    invoices: [],
+  },
+  {
+    id: "9",
+    reference: "MYDD-01043",
+    from: "rakesh soni",
+    amount: 1000.0,
+    date: "24 Feb 2026",
+    type: "Credit",
+    invoices: [],
+  },
+  {
+    id: "10",
+    reference: "MYDD-01041",
+    from: "A test",
+    amount: 100.0,
+    date: "23 Feb 2026",
+    type: "Credit",
+    invoices: [],
+  },
 ];
 
 export default function PaymentsPage() {
@@ -79,7 +149,13 @@ export default function PaymentsPage() {
                       {payment.invoices.length > 0 ? (
                         <button className="flex h-5 w-5 items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
                           {expandedId === payment.id ? (
-                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg
+                              width="14"
+                              height="14"
+                              viewBox="0 0 14 14"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
                               <circle cx="7" cy="7" r="6.5" stroke="currentColor" />
                               <line x1="4" y1="7" x2="10" y2="7" stroke="currentColor" strokeWidth="1.5" />
                             </svg>
@@ -91,16 +167,16 @@ export default function PaymentsPage() {
                         <span className="w-5" />
                       )}
                       <span className="text-text">{payment.reference}</span>
-                      {payment.type && (
-                        <Badge variant="gray">{payment.type}</Badge>
-                      )}
+                      {payment.type && <Badge variant="gray">{payment.type}</Badge>}
                     </div>
                   </Td>
                   <Td className="text-primary hover:underline">{payment.from}</Td>
                   <Td align="right" className="text-text">
                     {payment.amount.toLocaleString("en-AU", { minimumFractionDigits: 2 })}
                   </Td>
-                  <Td align="right" className="text-text-secondary">{payment.date}</Td>
+                  <Td align="right" className="text-text-secondary">
+                    {payment.date}
+                  </Td>
                 </tr>
                 {expandedId === payment.id && payment.invoices.length > 0 && (
                   <tr>
@@ -132,12 +208,7 @@ export default function PaymentsPage() {
             ))}
           </TableBody>
         </table>
-        <Pagination
-          currentPage={1}
-          totalPages={61}
-          totalItems={608}
-          itemsPerPage={10}
-        />
+        <Pagination currentPage={1} totalPages={61} totalItems={608} itemsPerPage={10} />
       </div>
     </div>
   );

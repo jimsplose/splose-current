@@ -13,11 +13,5 @@ const statusStyles: Record<string, string> = {
 
 export default function StatusBadge({ status }: { status: string }) {
   const style = statusStyles[status] || "bg-gray-100 text-gray-700";
-  return (
-    <span
-      className={`inline-flex items-center rounded px-2 py-0.5 text-xs font-medium ${style}`}
-    >
-      {status}
-    </span>
-  );
+  return <span className={`inline-flex items-center rounded px-2 py-0.5 text-xs font-medium ${style}`}>{status}</span>;
 }

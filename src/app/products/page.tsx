@@ -143,7 +143,9 @@ export default function ProductsPage() {
             <Th hidden="sm">Category</Th>
             <Th hidden="md">Vendor</Th>
             <Th align="center">Stock</Th>
-            <Th align="center" className="w-16">Actions</Th>
+            <Th align="center" className="w-16">
+              Actions
+            </Th>
           </TableHead>
           <TableBody>
             {paginatedProducts.map((product, idx) => {
@@ -168,11 +170,7 @@ export default function ProductsPage() {
                           }}
                           className="inline-flex h-5 w-5 items-center justify-center rounded-full text-text-secondary hover:bg-gray-200"
                         >
-                          {isExpanded ? (
-                            <Minus className="h-3.5 w-3.5" />
-                          ) : (
-                            <Plus className="h-3.5 w-3.5" />
-                          )}
+                          {isExpanded ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
                         </button>
                       ) : (
                         <span className="inline-flex h-5 w-5 items-center justify-center text-text-secondary">
@@ -181,8 +179,12 @@ export default function ProductsPage() {
                       )}
                     </td>
                     <Td className="text-text">{product.name}</Td>
-                    <Td hidden="sm" className="text-text-secondary">{product.category}</Td>
-                    <Td hidden="md" className="text-text-secondary">{product.vendor}</Td>
+                    <Td hidden="sm" className="text-text-secondary">
+                      {product.category}
+                    </Td>
+                    <Td hidden="md" className="text-text-secondary">
+                      {product.vendor}
+                    </Td>
                     <Td align="center" className="text-text-secondary">
                       {product.stock !== null ? product.stock : "-"}
                     </Td>
@@ -203,46 +205,28 @@ export default function ProductsPage() {
                           <table className="w-full">
                             <thead>
                               <tr className="border-b border-border">
-                                <th className="px-4 py-2 text-left text-sm font-medium text-text">
-                                  Name
-                                </th>
-                                <th className="px-4 py-2 text-left text-sm font-medium text-text">
-                                  SKU
-                                </th>
-                                <th className="px-4 py-2 text-left text-sm font-medium text-text">
-                                  Price
-                                </th>
-                                <th className="px-4 py-2 text-left text-sm font-medium text-text">
-                                  Stock
-                                </th>
-                                <th className="px-4 py-2 text-left text-sm font-medium text-text">
-                                  Unit
-                                </th>
-                                <th className="px-4 py-2 text-left text-sm font-medium text-primary">
-                                  Actions
-                                </th>
+                                <th className="px-4 py-2 text-left text-sm font-medium text-text">Name</th>
+                                <th className="px-4 py-2 text-left text-sm font-medium text-text">SKU</th>
+                                <th className="px-4 py-2 text-left text-sm font-medium text-text">Price</th>
+                                <th className="px-4 py-2 text-left text-sm font-medium text-text">Stock</th>
+                                <th className="px-4 py-2 text-left text-sm font-medium text-text">Unit</th>
+                                <th className="px-4 py-2 text-left text-sm font-medium text-primary">Actions</th>
                               </tr>
                             </thead>
                             <tbody className="divide-y divide-border">
                               {product.variants!.map((variant, vIdx) => (
                                 <tr key={vIdx} className="hover:bg-gray-50">
                                   <td className="px-4 py-2 text-sm text-text">{variant.name}</td>
-                                  <td className="px-4 py-2 text-sm text-text-secondary">
-                                    {variant.sku}
-                                  </td>
+                                  <td className="px-4 py-2 text-sm text-text-secondary">{variant.sku}</td>
                                   <td className="px-4 py-2 text-sm text-text-secondary">
                                     {variant.price !== null ? variant.price.toFixed(2) : "-"}
                                   </td>
                                   <td className="px-4 py-2 text-sm text-text-secondary">
                                     {variant.stock !== null ? variant.stock : "-"}
                                   </td>
-                                  <td className="px-4 py-2 text-sm text-text-secondary">
-                                    {variant.unit}
-                                  </td>
+                                  <td className="px-4 py-2 text-sm text-text-secondary">{variant.unit}</td>
                                   <td className="px-4 py-2 text-sm">
-                                    <button className="text-primary hover:underline">
-                                      Manage Stock
-                                    </button>
+                                    <button className="text-primary hover:underline">Manage Stock</button>
                                   </td>
                                 </tr>
                               ))}
@@ -305,4 +289,3 @@ export default function ProductsPage() {
     </div>
   );
 }
-

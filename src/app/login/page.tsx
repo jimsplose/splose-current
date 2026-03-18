@@ -5,10 +5,10 @@ export default function LoginPage() {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-purple-200/80">
       <div className="w-full max-w-md">
         {/* Header banner */}
-        <div className="relative rounded-t-2xl bg-primary px-8 py-10 overflow-hidden">
-          <h1 className="text-4xl font-bold italic text-white">splose</h1>
+        <div className="relative overflow-hidden rounded-t-2xl bg-primary px-8 py-10">
+          <h1 className="text-4xl font-bold text-white italic">splose</h1>
           {/* Hand illustration */}
-          <div className="absolute right-8 top-1/2 -translate-y-1/2">
+          <div className="absolute top-1/2 right-8 -translate-y-1/2">
             <svg width="120" height="80" viewBox="0 0 120 80" fill="none">
               {/* Sleeve */}
               <path d="M120 25 L75 25 L70 55 L120 55Z" fill="#2d5016" />
@@ -46,9 +46,9 @@ export default function LoginPage() {
             <div className="relative">
               <input
                 type="password"
-                className="mt-1 w-full border-b border-gray-300 pb-2 pr-8 text-sm outline-none focus:border-primary"
+                className="mt-1 w-full border-b border-gray-300 pr-8 pb-2 text-sm outline-none focus:border-primary"
               />
-              <EyeOff className="absolute right-0 top-2 h-4 w-4 text-text-secondary" />
+              <EyeOff className="absolute top-2 right-0 h-4 w-4 text-text-secondary" />
             </div>
           </div>
 
@@ -70,8 +70,12 @@ export default function LoginPage() {
 
         {/* Footer links */}
         <div className="mt-4 flex justify-center gap-6 text-sm text-primary">
-          <a href="#" className="hover:underline">Terms of Service</a>
-          <a href="#" className="hover:underline">Privacy Policy</a>
+          <a href="#" className="hover:underline">
+            Terms of Service
+          </a>
+          <a href="#" className="hover:underline">
+            Privacy Policy
+          </a>
         </div>
       </div>
     </div>

@@ -18,7 +18,9 @@ const variantClasses: Record<BadgeVariant, string> = {
 
 export default function Badge({ children, variant = "gray", className = "" }: BadgeProps) {
   return (
-    <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${variantClasses[variant]} ${className}`}>
+    <span
+      className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${variantClasses[variant]} ${className}`}
+    >
       {children}
     </span>
   );
@@ -27,10 +29,20 @@ export default function Badge({ children, variant = "gray", className = "" }: Ba
 /** Convenience map for common status → variant */
 export function statusVariant(status: string): BadgeVariant {
   const map: Record<string, BadgeVariant> = {
-    Active: "green", Paid: "green", Delivered: "green", Final: "green", Completed: "green", Upcoming: "green",
-    Draft: "blue", Sent: "blue",
-    Outstanding: "yellow", Pending: "yellow",
-    Overdue: "red", Failed: "red", Cancelled: "red", Expired: "red",
+    Active: "green",
+    Paid: "green",
+    Delivered: "green",
+    Final: "green",
+    Completed: "green",
+    Upcoming: "green",
+    Draft: "blue",
+    Sent: "blue",
+    Outstanding: "yellow",
+    Pending: "yellow",
+    Overdue: "red",
+    Failed: "red",
+    Cancelled: "red",
+    Expired: "red",
     Archived: "orange",
   };
   return map[status] ?? "gray";

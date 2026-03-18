@@ -48,7 +48,7 @@ const DEFAULT_AI_SECTIONS: Omit<AISection, "id">[] = [
   {
     title: "Subjective",
     prompt:
-      "Get the session transcript (transcription) and patient details. Complete the Subjective section of this progress note. In your output, use person-centred NDIS language refer to the patient as \"the participant\"",
+      'Get the session transcript (transcription) and patient details. Complete the Subjective section of this progress note. In your output, use person-centred NDIS language refer to the patient as "the participant"',
     content: "",
     expanded: true,
     generating: false,
@@ -118,11 +118,9 @@ export default function EditProgressNotePage() {
   const [viewMode, setViewMode] = useState<"single" | "split">("single");
   const [saving, setSaving] = useState(false);
   const [sections, setSections] = useState<AISection[]>(() =>
-    DEFAULT_AI_SECTIONS.map((s, i) => ({ ...s, id: `section-${i}` }))
+    DEFAULT_AI_SECTIONS.map((s, i) => ({ ...s, id: `section-${i}` })),
   );
-  const [service, setService] = useState(
-    "Mon 16 Mar 2026, 10:30am – Sharon Test 1 (OT – Initial Consult)"
-  );
+  const [service, setService] = useState("Mon 16 Mar 2026, 10:30am – Sharon Test 1 (OT – Initial Consult)");
   const [syncing, setSyncing] = useState(false);
 
   useEffect(() => {
@@ -151,19 +149,11 @@ export default function EditProgressNotePage() {
   }, [id]);
 
   const toggleSection = useCallback((sectionId: string) => {
-    setSections((prev) =>
-      prev.map((s) =>
-        s.id === sectionId ? { ...s, expanded: !s.expanded } : s
-      )
-    );
+    setSections((prev) => prev.map((s) => (s.id === sectionId ? { ...s, expanded: !s.expanded } : s)));
   }, []);
 
   const generateSection = useCallback((sectionId: string) => {
-    setSections((prev) =>
-      prev.map((s) =>
-        s.id === sectionId ? { ...s, generating: true } : s
-      )
-    );
+    setSections((prev) => prev.map((s) => (s.id === sectionId ? { ...s, generating: true } : s)));
 
     // Simulate AI generation
     setTimeout(() => {
@@ -176,8 +166,8 @@ export default function EditProgressNotePage() {
                 generated: true,
                 content: GENERATED_CONTENT[s.title] || "Generated content for " + s.title,
               }
-            : s
-        )
+            : s,
+        ),
       );
     }, 1500);
   }, []);
@@ -187,20 +177,23 @@ export default function EditProgressNotePage() {
 
     // Stagger generation
     sections.forEach((section, i) => {
-      setTimeout(() => {
-        setSections((prev) =>
-          prev.map((s) =>
-            s.id === section.id
-              ? {
-                  ...s,
-                  generating: false,
-                  generated: true,
-                  content: GENERATED_CONTENT[s.title] || "Generated content for " + s.title,
-                }
-              : s
-          )
-        );
-      }, 800 + i * 600);
+      setTimeout(
+        () => {
+          setSections((prev) =>
+            prev.map((s) =>
+              s.id === section.id
+                ? {
+                    ...s,
+                    generating: false,
+                    generated: true,
+                    content: GENERATED_CONTENT[s.title] || "Generated content for " + s.title,
+                  }
+                : s,
+            ),
+          );
+        },
+        800 + i * 600,
+      );
     });
   }, [sections]);
 
@@ -212,36 +205,25 @@ export default function EditProgressNotePage() {
     );
   }
 
-  const clientName = note
-    ? `${note.client.firstName} ${note.client.lastName}`
-    : "Client";
+  const clientName = note ? `${note.client.firstName} ${note.client.lastName}` : "Client";
 
   return (
     <div className="min-h-[calc(100vh-3rem)] bg-gray-50/30">
       {/* Header bar */}
       <div className="flex items-center justify-between border-b border-border bg-white px-6 py-3">
         <div className="flex items-center gap-3">
-          <Link
-            href={`/notes/${id}`}
-            className="flex items-center gap-1 text-sm text-text-secondary hover:text-text"
-          >
+          <Link href={`/notes/${id}`} className="flex items-center gap-1 text-sm text-text-secondary hover:text-text">
             <ArrowLeft className="h-4 w-4" />
           </Link>
-          <h1 className="text-lg font-semibold text-text">
-            {note?.template || "Note"}
-          </h1>
-          <span className="text-sm text-primary hover:underline cursor-pointer">
-            {clientName}
-          </span>
+          <h1 className="text-lg font-semibold text-text">{note?.template || "Note"}</h1>
+          <span className="cursor-pointer text-sm text-primary hover:underline">{clientName}</span>
           {note?.signed ? (
             <Badge variant="green">
               <CheckCircle className="h-3 w-3" />
               Saved
             </Badge>
           ) : (
-            <Badge variant="green">
-              Saved
-            </Badge>
+            <Badge variant="green">Saved</Badge>
           )}
         </div>
         <div className="flex items-center gap-2">
@@ -250,9 +232,7 @@ export default function EditProgressNotePage() {
             <button
               onClick={() => setViewMode("single")}
               className={`p-2 transition-colors ${
-                viewMode === "single"
-                  ? "bg-primary text-white"
-                  : "bg-white text-text-secondary hover:bg-gray-50"
+                viewMode === "single" ? "bg-primary text-white" : "bg-white text-text-secondary hover:bg-gray-50"
               }`}
             >
               <LayoutGrid className="h-4 w-4" />
@@ -260,15 +240,13 @@ export default function EditProgressNotePage() {
             <button
               onClick={() => setViewMode("split")}
               className={`p-2 transition-colors ${
-                viewMode === "split"
-                  ? "bg-primary text-white"
-                  : "bg-white text-text-secondary hover:bg-gray-50"
+                viewMode === "split" ? "bg-primary text-white" : "bg-white text-text-secondary hover:bg-gray-50"
               }`}
             >
               <Columns2 className="h-4 w-4" />
             </button>
           </div>
-          <Button variant="primary" className="bg-green-500 border-green-500 hover:bg-green-600">
+          <Button variant="primary" className="border-green-500 bg-green-500 hover:bg-green-600">
             Save as final
           </Button>
         </div>
@@ -280,9 +258,7 @@ export default function EditProgressNotePage() {
           <div className="mx-auto max-w-3xl">
             {/* Service selector */}
             <div className="mb-4">
-              <label className="mb-1 block text-sm font-medium text-text">
-                Service
-              </label>
+              <label className="mb-1 block text-sm font-medium text-text">Service</label>
               <input
                 type="text"
                 value={service}
@@ -296,14 +272,28 @@ export default function EditProgressNotePage() {
               <span className="px-2 text-xs">Arial</span>
               <span className="px-2 text-xs">T↓</span>
               <span className="h-4 w-px bg-border" />
-              <button className="rounded p-1.5 hover:bg-gray-100"><Bold className="h-4 w-4" /></button>
-              <button className="rounded p-1.5 hover:bg-gray-100"><Italic className="h-4 w-4" /></button>
-              <button className="rounded p-1.5 hover:bg-gray-100"><Underline className="h-4 w-4" /></button>
-              <button className="rounded p-1.5 hover:bg-gray-100"><Strikethrough className="h-4 w-4" /></button>
+              <button className="rounded p-1.5 hover:bg-gray-100">
+                <Bold className="h-4 w-4" />
+              </button>
+              <button className="rounded p-1.5 hover:bg-gray-100">
+                <Italic className="h-4 w-4" />
+              </button>
+              <button className="rounded p-1.5 hover:bg-gray-100">
+                <Underline className="h-4 w-4" />
+              </button>
+              <button className="rounded p-1.5 hover:bg-gray-100">
+                <Strikethrough className="h-4 w-4" />
+              </button>
               <span className="h-4 w-px bg-border" />
-              <button className="rounded p-1.5 hover:bg-gray-100"><Link2 className="h-4 w-4" /></button>
-              <button className="rounded p-1.5 hover:bg-gray-100"><Image className="h-4 w-4" /></button>
-              <button className="rounded p-1.5 hover:bg-gray-100"><Table className="h-4 w-4" /></button>
+              <button className="rounded p-1.5 hover:bg-gray-100">
+                <Link2 className="h-4 w-4" />
+              </button>
+              <button className="rounded p-1.5 hover:bg-gray-100">
+                <Image className="h-4 w-4" />
+              </button>
+              <button className="rounded p-1.5 hover:bg-gray-100">
+                <Table className="h-4 w-4" />
+              </button>
               <span className="flex-1" />
               <button
                 onClick={generateAll}
@@ -341,7 +331,7 @@ export default function EditProgressNotePage() {
                     ["Therapist", note?.practitioner?.name || "Jim Yencken"],
                   ].map(([label, value]) => (
                     <tr key={label} className="border-b border-border last:border-b-0">
-                      <td className="px-4 py-2 font-medium text-text w-40">{label}</td>
+                      <td className="w-40 px-4 py-2 font-medium text-text">{label}</td>
                       <td className="px-4 py-2 text-text-secondary">{value}</td>
                     </tr>
                   ))}
@@ -383,14 +373,10 @@ export default function EditProgressNotePage() {
                           </span>
                         </div>
                       ) : section.generated ? (
-                        <div className="text-sm text-text leading-relaxed whitespace-pre-wrap">
-                          {section.content}
-                        </div>
+                        <div className="text-sm leading-relaxed whitespace-pre-wrap text-text">{section.content}</div>
                       ) : (
                         <div>
-                          <p className="text-sm text-text-secondary leading-relaxed">
-                            {section.prompt}
-                          </p>
+                          <p className="text-sm leading-relaxed text-text-secondary">{section.prompt}</p>
                           <Button
                             variant="primary"
                             size="sm"
@@ -425,19 +411,18 @@ export default function EditProgressNotePage() {
 
         {/* Split view reference panel */}
         {viewMode === "split" && (
-          <div className="w-80 shrink-0 border-l border-border bg-white p-6 overflow-y-auto" style={{ maxHeight: "calc(100vh - 6rem)" }}>
-            <h3 className="mb-3 text-sm font-semibold text-text">
-              Filter previous progress notes
-            </h3>
+          <div
+            className="w-80 shrink-0 overflow-y-auto border-l border-border bg-white p-6"
+            style={{ maxHeight: "calc(100vh - 6rem)" }}
+          >
+            <h3 className="mb-3 text-sm font-semibold text-text">Filter previous progress notes</h3>
             <input
               type="text"
               placeholder="Search notes"
               className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
             />
             <div className="mt-16 flex flex-col items-center justify-center text-center">
-              <p className="text-sm text-text-secondary">
-                No reference notes found
-              </p>
+              <p className="text-sm text-text-secondary">No reference notes found</p>
             </div>
           </div>
         )}

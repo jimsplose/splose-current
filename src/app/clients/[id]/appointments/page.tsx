@@ -2,15 +2,22 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import StatusBadge from "@/components/StatusBadge";
 import { ChevronDown, Plus, MoreHorizontal, ArrowUpDown } from "lucide-react";
-import { Button, PageHeader, DataTable, TableHead, Th, TableBody, Td, Pagination, Badge, statusVariant } from "@/components/ds";
+import {
+  Button,
+  PageHeader,
+  DataTable,
+  TableHead,
+  Th,
+  TableBody,
+  Td,
+  Pagination,
+  Badge,
+  statusVariant,
+} from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
-export default async function ClientAppointmentsPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function ClientAppointmentsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const client = await prisma.client.findUnique({
     where: { id },
@@ -41,7 +48,9 @@ export default async function ClientAppointmentsPage({
         <table className="w-full">
           <TableHead>
             <Th>
-              <span className="inline-flex items-center gap-1">When <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" /></span>
+              <span className="inline-flex items-center gap-1">
+                When <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
+              </span>
             </Th>
             <Th>Where</Th>
             <Th>Type</Th>
@@ -58,11 +67,17 @@ export default async function ClientAppointmentsPage({
               </tr>
             ) : (
               client.appointments.map((appt) => {
-                const statusColor = appt.status === "Completed" ? "bg-gray-400"
-                  : appt.status === "Cancelled" ? "bg-red-400"
-                  : appt.status === "No Show" ? "bg-yellow-400"
-                  : "bg-amber-400";
-                const isUpcoming = appt.status === "Scheduled" && new Date(appt.date + "T00:00:00") >= new Date(new Date().toDateString());
+                const statusColor =
+                  appt.status === "Completed"
+                    ? "bg-gray-400"
+                    : appt.status === "Cancelled"
+                      ? "bg-red-400"
+                      : appt.status === "No Show"
+                        ? "bg-yellow-400"
+                        : "bg-amber-400";
+                const isUpcoming =
+                  appt.status === "Scheduled" &&
+                  new Date(appt.date + "T00:00:00") >= new Date(new Date().toDateString());
 
                 // Derive invoice status from appointment status
                 let invoiceStatus: "Paid" | "Draft" | "Do not invoice" | "---";
@@ -80,19 +95,19 @@ export default async function ClientAppointmentsPage({
                   <tr key={appt.id} className="hover:bg-gray-50">
                     <Td>
                       <div className="flex items-center gap-2">
-                        <div className={`h-2.5 w-2.5 shrink-0 rounded-full ${isUpcoming ? 'bg-green-500' : statusColor}`} />
+                        <div
+                          className={`h-2.5 w-2.5 shrink-0 rounded-full ${isUpcoming ? "bg-green-500" : statusColor}`}
+                        />
                         <span className="text-text">
                           {formatDate(appt.date)}, {appt.startTime}
                         </span>
                         {isUpcoming && (
-                          <Badge variant="green" className="bg-green-500 text-white">Upcoming</Badge>
+                          <Badge variant="green" className="bg-green-500 text-white">
+                            Upcoming
+                          </Badge>
                         )}
-                        {appt.status === "Cancelled" && (
-                          <Badge variant={statusVariant("Cancelled")}>Cancelled</Badge>
-                        )}
-                        {appt.status === "No Show" && (
-                          <StatusBadge status={appt.status} />
-                        )}
+                        {appt.status === "Cancelled" && <Badge variant={statusVariant("Cancelled")}>Cancelled</Badge>}
+                        {appt.status === "No Show" && <StatusBadge status={appt.status} />}
                       </div>
                     </Td>
                     <Td className="text-text-secondary">East Clinics</Td>
@@ -100,17 +115,21 @@ export default async function ClientAppointmentsPage({
                     <Td className="text-text-secondary">{appt.practitioner.name}</Td>
                     <Td>
                       {invoiceStatus === "Paid" && (
-                        <Badge variant="red" className="bg-red-500 text-white">Paid</Badge>
+                        <Badge variant="red" className="bg-red-500 text-white">
+                          Paid
+                        </Badge>
                       )}
                       {invoiceStatus === "Draft" && (
-                        <Badge variant="blue" className="bg-blue-500 text-white">Draft</Badge>
+                        <Badge variant="blue" className="bg-blue-500 text-white">
+                          Draft
+                        </Badge>
                       )}
                       {invoiceStatus === "Do not invoice" && (
-                        <Badge variant="gray" className="bg-gray-700 text-white">Do not invoice</Badge>
+                        <Badge variant="gray" className="bg-gray-700 text-white">
+                          Do not invoice
+                        </Badge>
                       )}
-                      {invoiceStatus === "---" && (
-                        <span className="text-text-secondary">---</span>
-                      )}
+                      {invoiceStatus === "---" && <span className="text-text-secondary">---</span>}
                     </Td>
                     <Td align="right">
                       <button className="text-text-secondary hover:text-text">

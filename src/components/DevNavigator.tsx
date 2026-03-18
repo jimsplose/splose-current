@@ -3,12 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import {
-  stateRegistry,
-  flattenRegistry,
-  getVariantUrl,
-  countVariants,
-} from "@/lib/state-registry";
+import { stateRegistry, flattenRegistry, getVariantUrl, countVariants } from "@/lib/state-registry";
 import type { PageEntry, StateVariant } from "@/lib/state-registry";
 import { ChevronRight, ChevronDown, Search, X } from "lucide-react";
 
@@ -74,7 +69,7 @@ export default function DevNavigator() {
           (p) =>
             p.label.toLowerCase().includes(q) ||
             p.path.toLowerCase().includes(q) ||
-            p.variants.some((v) => v.label.toLowerCase().includes(q))
+            p.variants.some((v) => v.label.toLowerCase().includes(q)),
         );
       });
       if (matching.length > 0) filtered.set(group, matching);
@@ -86,7 +81,7 @@ export default function DevNavigator() {
     return (
       <button
         onClick={() => setExpanded(true)}
-        className="fixed bottom-4 right-4 z-50 rounded-full bg-gray-900/90 px-3 py-1.5 text-xs font-medium text-white shadow-lg hover:bg-gray-900 backdrop-blur-sm transition-all"
+        className="fixed right-4 bottom-4 z-50 rounded-full bg-gray-900/90 px-3 py-1.5 text-xs font-medium text-white shadow-lg backdrop-blur-sm transition-all hover:bg-gray-900"
         title="Dev Navigator (Ctrl+Shift+N)"
       >
         &#9670; Nav
@@ -95,25 +90,22 @@ export default function DevNavigator() {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 w-80 max-h-[70vh] rounded-lg bg-gray-900/95 text-white shadow-2xl backdrop-blur-sm flex flex-col overflow-hidden">
+    <div className="fixed right-4 bottom-4 z-50 flex max-h-[70vh] w-80 flex-col overflow-hidden rounded-lg bg-gray-900/95 text-white shadow-2xl backdrop-blur-sm">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
+      <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
         <div className="flex items-center gap-2">
           <span className="text-sm font-semibold">Dev Navigator</span>
           <span className="rounded-full bg-primary/80 px-2 py-0.5 text-[10px] font-medium">
             {pages} pages / {variants} variants
           </span>
         </div>
-        <button
-          onClick={() => setExpanded(false)}
-          className="rounded p-1 hover:bg-white/10"
-        >
+        <button onClick={() => setExpanded(false)} className="rounded p-1 hover:bg-white/10">
           <X className="h-4 w-4" />
         </button>
       </div>
 
       {/* Search */}
-      <div className="px-3 py-2 border-b border-white/10">
+      <div className="border-b border-white/10 px-3 py-2">
         <div className="flex items-center gap-2 rounded-md bg-white/10 px-2.5 py-1.5">
           <Search className="h-3.5 w-3.5 text-white/50" />
           <input
@@ -121,7 +113,7 @@ export default function DevNavigator() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search pages..."
-            className="flex-1 bg-transparent text-xs text-white placeholder:text-white/40 outline-none"
+            className="flex-1 bg-transparent text-xs text-white outline-none placeholder:text-white/40"
             autoFocus
           />
         </div>
@@ -133,28 +125,17 @@ export default function DevNavigator() {
           <div key={group} className="mb-1">
             <button
               onClick={() => toggleGroup(group)}
-              className="flex w-full items-center gap-1.5 rounded px-2 py-1 text-[11px] font-bold uppercase tracking-wider text-white/50 hover:text-white/80 hover:bg-white/5"
+              className="flex w-full items-center gap-1.5 rounded px-2 py-1 text-[11px] font-bold tracking-wider text-white/50 uppercase hover:bg-white/5 hover:text-white/80"
             >
-              {expandedGroups.has(group) ? (
-                <ChevronDown className="h-3 w-3" />
-              ) : (
-                <ChevronRight className="h-3 w-3" />
-              )}
+              {expandedGroups.has(group) ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
               {group}
-              <span className="text-[9px] font-normal text-white/30 ml-auto">
-                {entries.length}
-              </span>
+              <span className="ml-auto text-[9px] font-normal text-white/30">{entries.length}</span>
             </button>
 
             {expandedGroups.has(group) && (
               <div className="ml-2 space-y-0.5">
                 {entries.map((entry) => (
-                  <PageNode
-                    key={entry.path}
-                    entry={entry}
-                    pathname={pathname}
-                    depth={0}
-                  />
+                  <PageNode key={entry.path} entry={entry} pathname={pathname} depth={0} />
                 ))}
               </div>
             )}
@@ -167,10 +148,7 @@ export default function DevNavigator() {
         <span className="text-[10px] text-white/40">
           {pages} pages, {variants} variants
         </span>
-        <button
-          onClick={() => setExpanded(false)}
-          className="text-[10px] text-white/50 hover:text-white"
-        >
+        <button onClick={() => setExpanded(false)} className="text-[10px] text-white/50 hover:text-white">
           Hide
         </button>
       </div>
@@ -178,32 +156,17 @@ export default function DevNavigator() {
   );
 }
 
-function PageNode({
-  entry,
-  pathname,
-  depth,
-}: {
-  entry: PageEntry;
-  pathname: string;
-  depth: number;
-}) {
+function PageNode({ entry, pathname, depth }: { entry: PageEntry; pathname: string; depth: number }) {
   const [open, setOpen] = useState(false);
   const resolvedPath = entry.resolvedPath || entry.path;
-  const isCurrentPage =
-    pathname === resolvedPath ||
-    pathname.startsWith(resolvedPath + "/");
-  const hasChildren =
-    (entry.children && entry.children.length > 0) ||
-    entry.variants.length > 1;
+  const isCurrentPage = pathname === resolvedPath || pathname.startsWith(resolvedPath + "/");
+  const hasChildren = (entry.children && entry.children.length > 0) || entry.variants.length > 1;
 
   return (
     <div style={{ marginLeft: depth * 8 }}>
       <div className="flex items-center gap-1">
         {hasChildren ? (
-          <button
-            onClick={() => setOpen(!open)}
-            className="rounded p-0.5 hover:bg-white/10"
-          >
+          <button onClick={() => setOpen(!open)} className="rounded p-0.5 hover:bg-white/10">
             {open ? (
               <ChevronDown className="h-3 w-3 text-white/40" />
             ) : (
@@ -217,8 +180,8 @@ function PageNode({
           href={resolvedPath}
           className={`flex-1 rounded px-1.5 py-0.5 text-xs transition-colors ${
             isCurrentPage
-              ? "bg-primary/30 text-primary-light font-medium"
-              : "text-white/70 hover:text-white hover:bg-white/5"
+              ? "bg-primary/30 font-medium text-primary-light"
+              : "text-white/70 hover:bg-white/5 hover:text-white"
           }`}
         >
           {entry.label}
@@ -226,26 +189,14 @@ function PageNode({
       </div>
 
       {open && (
-        <div className="ml-4 mt-0.5 space-y-0.5">
+        <div className="mt-0.5 ml-4 space-y-0.5">
           {/* Variants */}
           {entry.variants.length > 1 &&
-            entry.variants.map((v) => (
-              <VariantLink
-                key={v.id}
-                page={entry}
-                variant={v}
-                pathname={pathname}
-              />
-            ))}
+            entry.variants.map((v) => <VariantLink key={v.id} page={entry} variant={v} pathname={pathname} />)}
 
           {/* Children */}
           {entry.children?.map((child) => (
-            <PageNode
-              key={child.path}
-              entry={child}
-              pathname={pathname}
-              depth={0}
-            />
+            <PageNode key={child.path} entry={child} pathname={pathname} depth={0} />
           ))}
         </div>
       )}
@@ -253,15 +204,7 @@ function PageNode({
   );
 }
 
-function VariantLink({
-  page,
-  variant,
-  pathname,
-}: {
-  page: PageEntry;
-  variant: StateVariant;
-  pathname: string;
-}) {
+function VariantLink({ page, variant, pathname }: { page: PageEntry; variant: StateVariant; pathname: string }) {
   const url = getVariantUrl(page, variant);
   const isActive = pathname === url || pathname + "?state=" + variant.id === url;
 
@@ -278,14 +221,10 @@ function VariantLink({
     <Link
       href={url}
       className={`flex items-center gap-1.5 rounded px-2 py-0.5 text-[11px] transition-colors ${
-        isActive
-          ? "bg-primary/20 text-primary-light"
-          : "text-white/50 hover:text-white/80 hover:bg-white/5"
+        isActive ? "bg-primary/20 text-primary-light" : "text-white/50 hover:bg-white/5 hover:text-white/80"
       }`}
     >
-      {matchDot && (
-        <span className={`h-1.5 w-1.5 rounded-full ${matchDot}`} />
-      )}
+      {matchDot && <span className={`h-1.5 w-1.5 rounded-full ${matchDot}`} />}
       {variant.label}
     </Link>
   );

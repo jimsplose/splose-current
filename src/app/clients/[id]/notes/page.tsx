@@ -5,11 +5,7 @@ import { Button, PageHeader, TableHead, Th, TableBody, Td, Pagination } from "@/
 
 export const dynamic = "force-dynamic";
 
-export default async function ClientNotesPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function ClientNotesPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const client = await prisma.client.findUnique({
     where: { id },
@@ -70,17 +66,23 @@ export default async function ClientNotesPage({
                 <tr key={note.id} className="cursor-pointer hover:bg-gray-50">
                   <Td>
                     <div className="flex items-center gap-2">
-                      <span className="text-text-secondary text-xs">»</span>
+                      <span className="text-xs text-text-secondary">»</span>
                       <span className="text-sm text-text">{note.template}</span>
                       {note.signed ? (
-                        <span className="rounded bg-green-100 px-1.5 py-0.5 text-[10px] font-medium text-green-700">Final</span>
+                        <span className="rounded bg-green-100 px-1.5 py-0.5 text-[10px] font-medium text-green-700">
+                          Final
+                        </span>
                       ) : (
-                        <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-medium text-gray-600">Draft</span>
+                        <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-medium text-gray-600">
+                          Draft
+                        </span>
                       )}
                     </div>
                   </Td>
                   <Td className="text-text-secondary">{note.practitioner.name}</Td>
-                  <Td className="text-primary cursor-pointer hover:underline">{note.date ? formatDate(note.date) : "—"}</Td>
+                  <Td className="cursor-pointer text-primary hover:underline">
+                    {note.date ? formatDate(note.date) : "—"}
+                  </Td>
                   <Td className="text-text-secondary">{formatDateTime(note.createdAt)}</Td>
                   <Td className="text-text-secondary">{formatDateTime(note.createdAt)}</Td>
                 </tr>

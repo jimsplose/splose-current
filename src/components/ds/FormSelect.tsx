@@ -29,7 +29,7 @@ const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
         </select>
       </div>
     );
-  }
+  },
 );
 
 FormSelect.displayName = "FormSelect";

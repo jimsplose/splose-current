@@ -69,11 +69,7 @@ const communicationsData = [
   },
 ];
 
-export default async function ClientCommunicationsPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function ClientCommunicationsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   void id;
 
@@ -121,7 +117,9 @@ export default async function ClientCommunicationsPage({
               <tr key={comm.id} className="hover:bg-gray-50">
                 <Td>
                   <div className="flex items-center gap-2">
-                    <button className="flex h-5 w-5 shrink-0 items-center justify-center rounded border border-border text-text-secondary hover:bg-gray-100 text-xs">+</button>
+                    <button className="flex h-5 w-5 shrink-0 items-center justify-center rounded border border-border text-xs text-text-secondary hover:bg-gray-100">
+                      +
+                    </button>
                     {comm.dateTime}
                   </div>
                 </Td>
@@ -130,17 +128,11 @@ export default async function ClientCommunicationsPage({
                 <Td>
                   <div className="flex flex-col gap-1">
                     <span className="text-text-secondary">{comm.direction}</span>
-                    <Badge variant={statusVariant(comm.status)}>
-                      {comm.status}
-                    </Badge>
+                    <Badge variant={statusVariant(comm.status)}>{comm.status}</Badge>
                   </div>
                 </Td>
                 <Td>
-                  {comm.link ? (
-                    <span className="text-primary hover:underline cursor-pointer">{comm.link}</span>
-                  ) : (
-                    "—"
-                  )}
+                  {comm.link ? <span className="cursor-pointer text-primary hover:underline">{comm.link}</span> : "—"}
                 </Td>
                 <Td align="right">
                   <button className="text-text-secondary hover:text-text">

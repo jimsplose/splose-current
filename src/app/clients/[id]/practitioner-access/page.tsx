@@ -4,16 +4,28 @@ import { TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
 export default function ClientPractitionerAccessPage() {
   const mockPractitioners = [
     { name: "Delvin Khor", role: "Practitioner admin", roleType: "Practitioner admin", group: "---", status: "Linked" },
-    { name: "Hrishikesh Koli", role: "Practitioner admin", roleType: "Practitioner admin", group: "---", status: "Linked" },
-    { name: "Hung Yee Wong", role: "Practitioner admin", roleType: "Practitioner admin", group: "---", status: "Linked" },
+    {
+      name: "Hrishikesh Koli",
+      role: "Practitioner admin",
+      roleType: "Practitioner admin",
+      group: "---",
+      status: "Linked",
+    },
+    {
+      name: "Hung Yee Wong",
+      role: "Practitioner admin",
+      roleType: "Practitioner admin",
+      group: "---",
+      status: "Linked",
+    },
   ];
 
   return (
     <div className="flex-1 overflow-y-auto p-4 sm:p-6">
-      <h1 className="text-2xl font-bold text-text mb-4">Practitioner access</h1>
-      <p className="text-sm text-text-secondary mb-6">
+      <h1 className="mb-4 text-2xl font-bold text-text">Practitioner access</h1>
+      <p className="mb-6 text-sm text-text-secondary">
         You can link practitioners to clients via creating an appointment or support activity in the calendar tab.{" "}
-        <span className="text-primary cursor-pointer hover:underline">Learn more</span>
+        <span className="cursor-pointer text-primary hover:underline">Learn more</span>
       </p>
 
       <div className="overflow-x-auto rounded-lg border border-border bg-white">

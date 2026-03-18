@@ -78,9 +78,7 @@ export default async function InvoicesPage() {
                   </div>
                 </th>
                 <th className="hidden px-4 py-3 text-left text-sm font-medium text-text lg:table-cell">
-                  <div className="flex items-center gap-1">
-                    Sent status
-                  </div>
+                  <div className="flex items-center gap-1">Sent status</div>
                 </th>
               </tr>
             </thead>
@@ -89,10 +87,7 @@ export default async function InvoicesPage() {
                 const outstanding = inv.status === "Paid" ? 0 : inv.total;
                 const practitioner = inv.appointment?.practitioner;
                 return (
-                  <tr
-                    key={inv.id}
-                    className="cursor-pointer transition-colors hover:bg-gray-50"
-                  >
+                  <tr key={inv.id} className="cursor-pointer transition-colors hover:bg-gray-50">
                     <td className="px-4 py-3 text-sm text-text">
                       <Link href={`/invoices/${inv.id}`} className="text-primary hover:underline">
                         {inv.invoiceNumber}
@@ -121,9 +116,7 @@ export default async function InvoicesPage() {
                       <StatusBadge status={inv.status} />
                     </td>
                     <td className="hidden px-4 py-3 lg:table-cell">
-                      {inv.status === "Sent" && (
-                        <StatusBadge status="Sent" />
-                      )}
+                      {inv.status === "Sent" && <StatusBadge status="Sent" />}
                     </td>
                   </tr>
                 );

@@ -18,7 +18,7 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
         <input
           ref={ref}
           id={inputId}
-          className={`w-full rounded-lg border bg-white px-3 py-2 text-sm outline-none transition-colors ${
+          className={`w-full rounded-lg border bg-white px-3 py-2 text-sm transition-colors outline-none ${
             error
               ? "border-red-400 focus:border-red-500 focus:ring-1 focus:ring-red-200"
               : "border-border focus:border-primary focus:ring-1 focus:ring-primary/20"
@@ -28,7 +28,7 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
         {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
       </div>
     );
-  }
+  },
 );
 
 FormInput.displayName = "FormInput";

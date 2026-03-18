@@ -34,9 +34,7 @@ export default async function ClientsPage() {
                 className="h-10 w-full rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
               />
             </div>
-            <Button>
-              Search
-            </Button>
+            <Button>Search</Button>
           </div>
         </div>
 
@@ -49,15 +47,9 @@ export default async function ClientsPage() {
                   <ArrowUpDown className="h-3 w-3 text-text-secondary" />
                 </div>
               </Th>
-              <Th hidden="sm">
-                Date of birth
-              </Th>
-              <Th hidden="md">
-                Phone
-              </Th>
-              <Th hidden="lg">
-                Email
-              </Th>
+              <Th hidden="sm">Date of birth</Th>
+              <Th hidden="md">Phone</Th>
+              <Th hidden="lg">Email</Th>
               <Th hidden="md">
                 <div className="flex items-center gap-1">
                   Tags
@@ -67,15 +59,9 @@ export default async function ClientsPage() {
             </TableHead>
             <TableBody>
               {clients.map((client) => (
-                <tr
-                  key={client.id}
-                  className="transition-colors hover:bg-gray-50 cursor-pointer"
-                >
+                <tr key={client.id} className="cursor-pointer transition-colors hover:bg-gray-50">
                   <Td>
-                    <Link
-                      href={`/clients/${client.id}`}
-                      className="text-sm text-text hover:text-primary"
-                    >
+                    <Link href={`/clients/${client.id}`} className="text-sm text-text hover:text-primary">
                       {client.firstName} {client.lastName}
                     </Link>
                   </Td>

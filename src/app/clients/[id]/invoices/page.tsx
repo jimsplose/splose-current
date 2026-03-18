@@ -5,11 +5,7 @@ import { Button, PageHeader, TableHead, Th, TableBody, Td, Pagination, Badge } f
 
 export const dynamic = "force-dynamic";
 
-export default async function ClientInvoicesPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function ClientInvoicesPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const client = await prisma.client.findUnique({
     where: { id },
@@ -69,9 +65,7 @@ export default async function ClientInvoicesPage({
                 </div>
               </Th>
               <Th>
-                <div className="flex items-center gap-1">
-                  Due date
-                </div>
+                <div className="flex items-center gap-1">Due date</div>
               </Th>
               <Th align="right">Amount</Th>
               <Th align="right">Outstanding</Th>
@@ -110,20 +104,28 @@ export default async function ClientInvoicesPage({
                         {client.firstName} {client.lastName} ({inv.billingType})
                       </Td>
                       <Td className="text-text-secondary">East Clinics</Td>
-                      <Td className="text-text-secondary">
-                        {practitioner ? practitioner.name : "—"}
-                      </Td>
+                      <Td className="text-text-secondary">{practitioner ? practitioner.name : "—"}</Td>
                       <Td className="text-text-secondary">{formatDate(inv.date)}</Td>
                       <Td className="text-text-secondary">{formatDate(inv.dueDate)}</Td>
-                      <Td align="right" className="text-text">{inv.total.toFixed(2)}</Td>
-                      <Td align="right" className="text-text">{outstanding.toFixed(2)}</Td>
+                      <Td align="right" className="text-text">
+                        {inv.total.toFixed(2)}
+                      </Td>
+                      <Td align="right" className="text-text">
+                        {outstanding.toFixed(2)}
+                      </Td>
                       <Td>
                         {inv.status === "Paid" ? (
-                          <Badge variant="green" className="bg-green-500 text-white">Paid</Badge>
+                          <Badge variant="green" className="bg-green-500 text-white">
+                            Paid
+                          </Badge>
                         ) : inv.status === "Draft" ? (
-                          <Badge variant="blue" className="bg-blue-500 text-white">Draft</Badge>
+                          <Badge variant="blue" className="bg-blue-500 text-white">
+                            Draft
+                          </Badge>
                         ) : (
-                          <Badge variant="yellow" className="bg-yellow-500 text-white">{inv.status}</Badge>
+                          <Badge variant="yellow" className="bg-yellow-500 text-white">
+                            {inv.status}
+                          </Badge>
                         )}
                       </Td>
                       <Td className="text-text-secondary">—</Td>

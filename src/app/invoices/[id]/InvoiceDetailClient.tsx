@@ -118,19 +118,23 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
 
         <div className="rounded-b-lg border border-border bg-white p-8 shadow-sm">
           {/* Title and logo */}
-          <div className="flex items-start justify-between mb-8">
+          <div className="mb-8 flex items-start justify-between">
             <h2 className="text-2xl font-bold text-text">
               {invoice.status === "Overdue" ? "Overdue Invoice" : invoice.status === "Paid" ? "Tax Invoice" : "Invoice"}
             </h2>
-            <div className="text-4xl font-bold italic" style={{ color: "#2d6d40" }}>S</div>
+            <div className="text-4xl font-bold italic" style={{ color: "#2d6d40" }}>
+              S
+            </div>
           </div>
 
           {/* Three column header */}
-          <div className="grid grid-cols-3 gap-8 mb-8 text-sm">
+          <div className="mb-8 grid grid-cols-3 gap-8 text-sm">
             {/* Client */}
             <div>
-              <h3 className="font-bold text-text mb-1">Client</h3>
-              <p className="text-primary">{invoice.client.firstName} {invoice.client.lastName}</p>
+              <h3 className="mb-1 font-bold text-text">Client</h3>
+              <p className="text-primary">
+                {invoice.client.firstName} {invoice.client.lastName}
+              </p>
               {invoice.client.address && <p className="text-text-secondary">{invoice.client.address}</p>}
               {invoice.client.ndisNumber && (
                 <>
@@ -140,9 +144,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
                   <p className="text-text-secondary">Prac No.</p>
                 </>
               )}
-              {invoice.client.medicare && (
-                <p className="text-text-secondary">Medicare: {invoice.client.medicare}</p>
-              )}
+              {invoice.client.medicare && <p className="text-text-secondary">Medicare: {invoice.client.medicare}</p>}
               {invoice.billingType === "NDIS" && (
                 <div className="mt-3">
                   <h4 className="font-bold text-text">Care of client above</h4>
@@ -155,7 +157,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
 
             {/* From */}
             <div>
-              <h3 className="font-bold text-text mb-1">From</h3>
+              <h3 className="mb-1 font-bold text-text">From</h3>
               <p className="text-text">Hands Together Therapies</p>
               <p className="text-text-secondary">East Clinics</p>
               <p className="text-text-secondary">4 Williamstown Rd</p>
@@ -192,7 +194,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           </div>
 
           {/* Line items table */}
-          <table className="w-full text-sm mb-6">
+          <table className="mb-6 w-full text-sm">
             <thead>
               <tr className="border-b border-border">
                 <th className="py-2 text-left font-medium text-text">Item code</th>
@@ -215,14 +217,14 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
                   <td className="py-3 text-right text-text-secondary">Hour</td>
                   <td className="py-3 text-right text-text-secondary">0.00</td>
                   <td className="py-3 text-right text-text-secondary">15%</td>
-                  <td className="py-3 text-right text-text font-medium">{item.total.toFixed(2)}</td>
+                  <td className="py-3 text-right font-medium text-text">{item.total.toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
 
           {/* Totals */}
-          <div className="flex justify-end mb-8">
+          <div className="mb-8 flex justify-end">
             <div className="w-64 space-y-1 text-sm">
               <div className="flex justify-between">
                 <span className="text-text-secondary">Subtotal excl. tax</span>
@@ -236,7 +238,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
                 <span className="font-bold text-text">Total AUD</span>
                 <span className="font-bold text-text">{invoice.total.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between bg-gray-50 px-2 py-1 rounded font-bold">
+              <div className="flex justify-between rounded bg-gray-50 px-2 py-1 font-bold">
                 <span className="text-text">Total Amount Due AUD</span>
                 <span className="text-text">{invoice.status === "Paid" ? "0.00" : invoice.total.toFixed(2)}</span>
               </div>
@@ -245,7 +247,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
 
           {/* Additional information */}
           <div className="border-t border-border pt-4 text-sm text-text-secondary">
-            <h4 className="font-bold text-text mb-2">Additional Information</h4>
+            <h4 className="mb-2 font-bold text-text">Additional Information</h4>
             <p>Please note that the service dates are displayed at the beginning of each line item.</p>
             <div className="mt-4">
               <p>aA Direct deposit details:</p>
@@ -264,65 +266,54 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
       {showPaymentModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           {/* Dark backdrop */}
-          <div
-            className="absolute inset-0 bg-black/50"
-            onClick={() => setShowPaymentModal(false)}
-          />
+          <div className="absolute inset-0 bg-black/50" onClick={() => setShowPaymentModal(false)} />
           {/* Modal */}
           <div className="relative z-10 w-full max-w-lg rounded-xl bg-white shadow-2xl">
             {/* Modal header */}
             <div className="flex items-center justify-between border-b border-border px-6 py-4">
-              <h2 className="text-lg font-semibold text-text">
-                Add payment to {invoice.invoiceNumber}
-              </h2>
+              <h2 className="text-lg font-semibold text-text">Add payment to {invoice.invoiceNumber}</h2>
               <button
                 onClick={() => setShowPaymentModal(false)}
-                className="text-text-secondary hover:text-text text-xl leading-none"
+                className="text-xl leading-none text-text-secondary hover:text-text"
               >
                 &times;
               </button>
             </div>
 
             {/* Modal body */}
-            <div className="px-6 py-5 space-y-4">
+            <div className="space-y-4 px-6 py-5">
               {/* Amount */}
               <div>
-                <label className="block text-sm font-medium text-text mb-1">
-                  Amount
-                </label>
+                <label className="mb-1 block text-sm font-medium text-text">Amount</label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-sm">$</span>
+                  <span className="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-text-secondary">$</span>
                   <input
                     type="text"
                     value={paymentAmount}
                     onChange={(e) => setPaymentAmount(e.target.value)}
-                    className="w-full rounded-lg border border-border pl-7 pr-3 py-2 text-sm text-text focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                    className="w-full rounded-lg border border-border py-2 pr-3 pl-7 text-sm text-text focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
                   />
                 </div>
               </div>
 
               {/* Payment date */}
               <div>
-                <label className="block text-sm font-medium text-text mb-1">
-                  Payment date
-                </label>
+                <label className="mb-1 block text-sm font-medium text-text">Payment date</label>
                 <input
                   type="date"
                   value={paymentDate}
                   onChange={(e) => setPaymentDate(e.target.value)}
-                  className="w-full rounded-lg border border-border px-3 py-2 text-sm text-text focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                  className="w-full rounded-lg border border-border px-3 py-2 text-sm text-text focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
                 />
               </div>
 
               {/* Payment method */}
               <div>
-                <label className="block text-sm font-medium text-text mb-1">
-                  Payment method
-                </label>
+                <label className="mb-1 block text-sm font-medium text-text">Payment method</label>
                 <select
                   value={paymentMethod}
                   onChange={(e) => setPaymentMethod(e.target.value)}
-                  className="w-full rounded-lg border border-border px-3 py-2 text-sm text-text focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-white"
+                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
                 >
                   <option value="Cash">Cash</option>
                   <option value="Card">Card</option>
@@ -334,29 +325,25 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
 
               {/* Reference number */}
               <div>
-                <label className="block text-sm font-medium text-text mb-1">
-                  Reference number
-                </label>
+                <label className="mb-1 block text-sm font-medium text-text">Reference number</label>
                 <input
                   type="text"
                   value={referenceNumber}
                   onChange={(e) => setReferenceNumber(e.target.value)}
                   placeholder="Optional"
-                  className="w-full rounded-lg border border-border px-3 py-2 text-sm text-text placeholder:text-text-secondary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                  className="w-full rounded-lg border border-border px-3 py-2 text-sm text-text placeholder:text-text-secondary focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
                 />
               </div>
 
               {/* Notes */}
               <div>
-                <label className="block text-sm font-medium text-text mb-1">
-                  Notes
-                </label>
+                <label className="mb-1 block text-sm font-medium text-text">Notes</label>
                 <textarea
                   value={paymentNotes}
                   onChange={(e) => setPaymentNotes(e.target.value)}
                   rows={3}
                   placeholder="Optional"
-                  className="w-full rounded-lg border border-border px-3 py-2 text-sm text-text placeholder:text-text-secondary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary resize-none"
+                  className="w-full resize-none rounded-lg border border-border px-3 py-2 text-sm text-text placeholder:text-text-secondary focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
                 />
               </div>
             </div>
@@ -382,7 +369,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
 
       {/* Toast notification */}
       {showToast && (
-        <div className="fixed bottom-6 right-6 z-50 rounded-lg bg-gray-900 px-4 py-3 text-sm text-white shadow-lg animate-in fade-in slide-in-from-bottom-2">
+        <div className="animate-in fade-in slide-in-from-bottom-2 fixed right-6 bottom-6 z-50 rounded-lg bg-gray-900 px-4 py-3 text-sm text-white shadow-lg">
           Invoice email sent
         </div>
       )}

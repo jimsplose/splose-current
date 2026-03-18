@@ -23,10 +23,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
       {/* Header bar */}
       <div className="flex items-center justify-between border-b border-border bg-white px-6 py-3">
         <div className="flex items-center gap-3">
-          <Link
-            href="/notes"
-            className="flex items-center gap-1 text-sm text-text-secondary hover:text-text"
-          >
+          <Link href="/notes" className="flex items-center gap-1 text-sm text-text-secondary hover:text-text">
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <h1 className="text-xl font-bold text-text">{note.template}</h1>
@@ -36,9 +33,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
               Final
             </Badge>
           ) : (
-            <Badge variant="gray">
-              Draft
-            </Badge>
+            <Badge variant="gray">Draft</Badge>
           )}
           <Link href={`/clients/${note.clientId}`} className="text-sm font-medium text-primary hover:underline">
             {clientName}
@@ -95,7 +90,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
                   ["Therapist", note.practitioner.name],
                 ].map(([label, value]) => (
                   <tr key={label} className="border-b border-border last:border-b-0">
-                    <td className="px-4 py-2 font-medium text-text w-40">{label}</td>
+                    <td className="w-40 px-4 py-2 font-medium text-text">{label}</td>
                     <td className="px-4 py-2 text-text-secondary">{value}</td>
                   </tr>
                 ))}
@@ -107,8 +102,11 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
           <div className="space-y-6">
             <div>
               <h3 className="mb-2 text-lg font-bold text-text">Subjective</h3>
-              <ul className="list-disc pl-6 space-y-1 text-sm text-text leading-relaxed">
-                <li>The participant did not provide a session transcript or verbal report regarding communication progress, challenges, or concerns since the last session.</li>
+              <ul className="list-disc space-y-1 pl-6 text-sm leading-relaxed text-text">
+                <li>
+                  The participant did not provide a session transcript or verbal report regarding communication
+                  progress, challenges, or concerns since the last session.
+                </li>
                 <li>No changes in the participant&apos;s communication abilities or confidence were reported.</li>
                 <li>The participant did not state any specific goals or priorities for today&apos;s session.</li>
                 <li>No preferences or choices about activities or approaches were expressed by the participant.</li>
@@ -117,37 +115,71 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
 
             <div>
               <h3 className="mb-2 text-lg font-bold text-text">Objective</h3>
-              <ul className="list-disc pl-6 space-y-1 text-sm text-text leading-relaxed">
-                <li>The participant demonstrated consistent engagement throughout the session, responding to prompts and completing assigned activities as directed.</li>
-                <li>Measurable results from today&apos;s activities were not recorded in the available documentation; no assessment data or specific performance metrics provided.</li>
-                <li>Interventions and strategies used during the session were not detailed in the available records.</li>
-                <li>No week-on-week changes or progression data could be established due to absence of comparative measurable information in previous notes.</li>
+              <ul className="list-disc space-y-1 pl-6 text-sm leading-relaxed text-text">
+                <li>
+                  The participant demonstrated consistent engagement throughout the session, responding to prompts and
+                  completing assigned activities as directed.
+                </li>
+                <li>
+                  Measurable results from today&apos;s activities were not recorded in the available documentation; no
+                  assessment data or specific performance metrics provided.
+                </li>
+                <li>
+                  Interventions and strategies used during the session were not detailed in the available records.
+                </li>
+                <li>
+                  No week-on-week changes or progression data could be established due to absence of comparative
+                  measurable information in previous notes.
+                </li>
               </ul>
             </div>
 
             <div>
               <h3 className="mb-2 text-lg font-bold text-text">Assessment</h3>
-              <ul className="list-disc pl-6 space-y-1 text-sm text-text leading-relaxed">
-                <li>The participant has demonstrated consistent engagement in therapy sessions over the past two months, with active participation observed at each session.</li>
-                <li>Week-on-week trends indicate the participant is maintaining current skill levels, with no significant improvement or decline noted in recent sessions.</li>
-                <li>Progress towards NDIS plan goals appears steady, with the participant continuing to work towards identified objectives without regression.</li>
-                <li>Factors supporting progress include regular attendance and sustained motivation; no new barriers to progress have been identified during this period.</li>
+              <ul className="list-disc space-y-1 pl-6 text-sm leading-relaxed text-text">
+                <li>
+                  The participant has demonstrated consistent engagement in therapy sessions over the past two months,
+                  with active participation observed at each session.
+                </li>
+                <li>
+                  Week-on-week trends indicate the participant is maintaining current skill levels, with no significant
+                  improvement or decline noted in recent sessions.
+                </li>
+                <li>
+                  Progress towards NDIS plan goals appears steady, with the participant continuing to work towards
+                  identified objectives without regression.
+                </li>
+                <li>
+                  Factors supporting progress include regular attendance and sustained motivation; no new barriers to
+                  progress have been identified during this period.
+                </li>
               </ul>
             </div>
 
             <div>
               <h3 className="mb-2 text-lg font-bold text-text">Plan</h3>
-              <p className="text-sm text-text leading-relaxed">
-                No transcript available for this session. Unable to complete the Plan section as requested due to lack of source information.
+              <p className="text-sm leading-relaxed text-text">
+                No transcript available for this session. Unable to complete the Plan section as requested due to lack
+                of source information.
               </p>
             </div>
 
             <div>
               <h3 className="mb-2 text-lg font-bold text-text">Goals</h3>
-              <ul className="list-disc pl-6 space-y-1 text-sm text-text leading-relaxed">
-                <li>No session transcript (transcription) is available for today&apos;s session; therefore, no measurable progress, evidence of choice and control, or next steps/homework can be documented for any NDIS plan goal at this time.</li>
-                <li>No NDIS plan goals can be addressed in this section without relevant information from the current session transcript.</li>
-                <li>If a transcript or relevant session data is provided, progress towards the participant&apos;s NDIS plan goals will be documented accordingly.</li>
+              <ul className="list-disc space-y-1 pl-6 text-sm leading-relaxed text-text">
+                <li>
+                  No session transcript (transcription) is available for today&apos;s session; therefore, no measurable
+                  progress, evidence of choice and control, or next steps/homework can be documented for any NDIS plan
+                  goal at this time.
+                </li>
+                <li>
+                  No NDIS plan goals can be addressed in this section without relevant information from the current
+                  session transcript.
+                </li>
+                <li>
+                  If a transcript or relevant session data is provided, progress towards the participant&apos;s NDIS
+                  plan goals will be documented accordingly.
+                </li>
               </ul>
             </div>
           </div>

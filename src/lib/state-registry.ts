@@ -48,18 +48,78 @@ export const stateRegistry: PageEntry[] = [
         label: "Client Detail",
         variants: [{ id: "default", label: "Details tab" }],
         children: [
-          { path: "/clients/[id]/appointments", resolvedPath: "/clients/1/appointments", label: "Appointments", variants: [{ id: "default", label: "Appointments list" }] },
-          { path: "/clients/[id]/communications", resolvedPath: "/clients/1/communications", label: "Communications", variants: [{ id: "default", label: "Communications list" }] },
-          { path: "/clients/[id]/files", resolvedPath: "/clients/1/files", label: "Files", variants: [{ id: "default", label: "Files list" }] },
-          { path: "/clients/[id]/notes", resolvedPath: "/clients/1/notes", label: "Progress Notes", variants: [{ id: "default", label: "Notes list" }] },
-          { path: "/clients/[id]/cases", resolvedPath: "/clients/1/cases", label: "Cases", variants: [{ id: "default", label: "Cases list" }] },
-          { path: "/clients/[id]/support-activities", resolvedPath: "/clients/1/support-activities", label: "Support Activities", variants: [{ id: "default", label: "Activities list" }] },
-          { path: "/clients/[id]/forms", resolvedPath: "/clients/1/forms", label: "Forms", variants: [{ id: "default", label: "Forms list" }] },
-          { path: "/clients/[id]/invoices", resolvedPath: "/clients/1/invoices", label: "Invoices", variants: [{ id: "default", label: "Invoices list" }] },
-          { path: "/clients/[id]/payments", resolvedPath: "/clients/1/payments", label: "Payments", variants: [{ id: "default", label: "Payments list" }] },
-          { path: "/clients/[id]/statements", resolvedPath: "/clients/1/statements", label: "Statements", variants: [{ id: "default", label: "Statements view" }] },
-          { path: "/clients/[id]/letters", resolvedPath: "/clients/1/letters", label: "Letters", variants: [{ id: "default", label: "Letters list" }] },
-          { path: "/clients/[id]/practitioner-access", resolvedPath: "/clients/1/practitioner-access", label: "Practitioner Access", variants: [{ id: "default", label: "Access list" }] },
+          {
+            path: "/clients/[id]/appointments",
+            resolvedPath: "/clients/1/appointments",
+            label: "Appointments",
+            variants: [{ id: "default", label: "Appointments list" }],
+          },
+          {
+            path: "/clients/[id]/communications",
+            resolvedPath: "/clients/1/communications",
+            label: "Communications",
+            variants: [{ id: "default", label: "Communications list" }],
+          },
+          {
+            path: "/clients/[id]/files",
+            resolvedPath: "/clients/1/files",
+            label: "Files",
+            variants: [{ id: "default", label: "Files list" }],
+          },
+          {
+            path: "/clients/[id]/notes",
+            resolvedPath: "/clients/1/notes",
+            label: "Progress Notes",
+            variants: [{ id: "default", label: "Notes list" }],
+          },
+          {
+            path: "/clients/[id]/cases",
+            resolvedPath: "/clients/1/cases",
+            label: "Cases",
+            variants: [{ id: "default", label: "Cases list" }],
+          },
+          {
+            path: "/clients/[id]/support-activities",
+            resolvedPath: "/clients/1/support-activities",
+            label: "Support Activities",
+            variants: [{ id: "default", label: "Activities list" }],
+          },
+          {
+            path: "/clients/[id]/forms",
+            resolvedPath: "/clients/1/forms",
+            label: "Forms",
+            variants: [{ id: "default", label: "Forms list" }],
+          },
+          {
+            path: "/clients/[id]/invoices",
+            resolvedPath: "/clients/1/invoices",
+            label: "Invoices",
+            variants: [{ id: "default", label: "Invoices list" }],
+          },
+          {
+            path: "/clients/[id]/payments",
+            resolvedPath: "/clients/1/payments",
+            label: "Payments",
+            variants: [{ id: "default", label: "Payments list" }],
+          },
+          {
+            path: "/clients/[id]/statements",
+            resolvedPath: "/clients/1/statements",
+            label: "Statements",
+            variants: [{ id: "default", label: "Statements view" }],
+          },
+          {
+            path: "/clients/[id]/letters",
+            resolvedPath: "/clients/1/letters",
+            label: "Letters",
+            variants: [{ id: "default", label: "Letters list" }],
+          },
+          {
+            path: "/clients/[id]/practitioner-access",
+            resolvedPath: "/clients/1/practitioner-access",
+            label: "Practitioner Access",
+            variants: [{ id: "default", label: "Access list" }],
+          },
         ],
       },
     ],
@@ -92,18 +152,14 @@ export const stateRegistry: PageEntry[] = [
     label: "Payments",
     group: "Payments",
     variants: [{ id: "default", label: "Payment list" }],
-    children: [
-      { path: "/payments/new", label: "New Payment", variants: [{ id: "default", label: "Payment form" }] },
-    ],
+    children: [{ path: "/payments/new", label: "New Payment", variants: [{ id: "default", label: "Payment form" }] }],
   },
   {
     path: "/notes",
     label: "Progress Notes",
     group: "Notes",
     variants: [{ id: "default", label: "Notes list" }],
-    children: [
-      { path: "/notes/new", label: "New Note", variants: [{ id: "default", label: "New note form" }] },
-    ],
+    children: [{ path: "/notes/new", label: "New Note", variants: [{ id: "default", label: "New note form" }] }],
   },
   {
     path: "/practitioners",
@@ -129,9 +185,21 @@ export const stateRegistry: PageEntry[] = [
     group: "Reports",
     variants: [{ id: "default", label: "Reports overview" }],
     children: [
-      { path: "/reports/appointments", label: "Appointments Report", variants: [{ id: "default", label: "Appointments report" }] },
-      { path: "/reports/performance", label: "Performance Report", variants: [{ id: "default", label: "Performance report" }] },
-      { path: "/reports/progress-notes", label: "Progress Notes Report", variants: [{ id: "default", label: "Notes report" }] },
+      {
+        path: "/reports/appointments",
+        label: "Appointments Report",
+        variants: [{ id: "default", label: "Appointments report" }],
+      },
+      {
+        path: "/reports/performance",
+        label: "Performance Report",
+        variants: [{ id: "default", label: "Performance report" }],
+      },
+      {
+        path: "/reports/progress-notes",
+        label: "Progress Notes Report",
+        variants: [{ id: "default", label: "Notes report" }],
+      },
     ],
   },
   {
@@ -166,11 +234,15 @@ export const stateRegistry: PageEntry[] = [
       { id: "data-import", label: "Data Import" },
     ],
     children: [
-      { path: "/settings/ai", label: "Splose AI", variants: [
-        { id: "default", label: "AI Preferences" },
-        { id: "saved-prompts", label: "Saved Prompts" },
-        { id: "ai-block-library", label: "AI Block Library" },
-      ]},
+      {
+        path: "/settings/ai",
+        label: "Splose AI",
+        variants: [
+          { id: "default", label: "AI Preferences" },
+          { id: "saved-prompts", label: "Saved Prompts" },
+          { id: "ai-block-library", label: "AI Block Library" },
+        ],
+      },
     ],
   },
   {
@@ -202,9 +274,7 @@ export function flattenRegistry(entries: PageEntry[] = stateRegistry): PageEntry
 
 /** Find a page entry by its path */
 export function findByPath(path: string): PageEntry | undefined {
-  return flattenRegistry().find(
-    (e) => e.path === path || e.resolvedPath === path
-  );
+  return flattenRegistry().find((e) => e.path === path || e.resolvedPath === path);
 }
 
 /** Get the resolved URL for a variant */

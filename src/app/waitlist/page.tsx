@@ -2,41 +2,221 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { Plus, Filter, List, Map as MapIcon, HelpCircle, ThumbsUp, ThumbsDown, MoreHorizontal, MapPin } from "lucide-react";
+import {
+  Plus,
+  Filter,
+  List,
+  Map as MapIcon,
+  HelpCircle,
+  ThumbsUp,
+  ThumbsDown,
+  MoreHorizontal,
+  MapPin,
+} from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
 const screenerData = [
-  { triage: { yes: false, no: false }, tags: "---", client: "DDDDDDD Hun", dob: "---", address: "---", form: "Test form saved in A jr", dateSubmitted: "6 Mar 2026 (5 days)", archived: false },
-  { triage: { yes: false, no: false }, tags: "---", client: "Hao Wang", dob: "---", address: "---", form: "Test EMB", dateSubmitted: "25 Feb 2026 (14 days)", archived: false },
-  { triage: { yes: false, no: false }, tags: "---", client: "Hao Wang", dob: "---", address: "---", form: "Test EMB", dateSubmitted: "25 Feb 2026 (14 days)", archived: false },
-  { triage: { yes: false, no: false }, tags: "---", client: "de qwe", dob: "---", address: "---", form: "Untitled form", dateSubmitted: "19 Jan 2026 (51 days)", archived: false },
-  { triage: { yes: false, no: false }, tags: "---", client: "hello qqq", dob: "---", address: "---", form: "Untitled form", dateSubmitted: "19 Jan 2026 (51 days)", archived: false },
-  { triage: { yes: false, no: false }, tags: "---", client: "Delete Test embeddable", dob: "---", address: "---", form: "Test Intake", dateSubmitted: "9 Dec 2025 (92 days)", archived: false },
-  { triage: { yes: false, no: false }, tags: "---", client: "j jjj", dob: "---", address: "---", form: "Untitled form", dateSubmitted: "3 Dec 2025 (98 days)", archived: false },
-  { triage: { yes: false, no: false }, tags: "---", client: "test embeddable scott", dob: "---", address: "---", form: "Untitled form", dateSubmitted: "3 Dec 2025 (98 days)", archived: false },
-  { triage: { yes: false, no: false }, tags: "---", client: "ee ee", dob: "---", address: "---", form: "Untitled form", dateSubmitted: "1 Dec 2025 (100 days)", archived: false },
-  { triage: { yes: false, no: false }, tags: "---", client: "Test Ruvi Emb", dob: "---", address: "---", form: "Untitled form", dateSubmitted: "18 Nov 2025 (113 days)", archived: true },
+  {
+    triage: { yes: false, no: false },
+    tags: "---",
+    client: "DDDDDDD Hun",
+    dob: "---",
+    address: "---",
+    form: "Test form saved in A jr",
+    dateSubmitted: "6 Mar 2026 (5 days)",
+    archived: false,
+  },
+  {
+    triage: { yes: false, no: false },
+    tags: "---",
+    client: "Hao Wang",
+    dob: "---",
+    address: "---",
+    form: "Test EMB",
+    dateSubmitted: "25 Feb 2026 (14 days)",
+    archived: false,
+  },
+  {
+    triage: { yes: false, no: false },
+    tags: "---",
+    client: "Hao Wang",
+    dob: "---",
+    address: "---",
+    form: "Test EMB",
+    dateSubmitted: "25 Feb 2026 (14 days)",
+    archived: false,
+  },
+  {
+    triage: { yes: false, no: false },
+    tags: "---",
+    client: "de qwe",
+    dob: "---",
+    address: "---",
+    form: "Untitled form",
+    dateSubmitted: "19 Jan 2026 (51 days)",
+    archived: false,
+  },
+  {
+    triage: { yes: false, no: false },
+    tags: "---",
+    client: "hello qqq",
+    dob: "---",
+    address: "---",
+    form: "Untitled form",
+    dateSubmitted: "19 Jan 2026 (51 days)",
+    archived: false,
+  },
+  {
+    triage: { yes: false, no: false },
+    tags: "---",
+    client: "Delete Test embeddable",
+    dob: "---",
+    address: "---",
+    form: "Test Intake",
+    dateSubmitted: "9 Dec 2025 (92 days)",
+    archived: false,
+  },
+  {
+    triage: { yes: false, no: false },
+    tags: "---",
+    client: "j jjj",
+    dob: "---",
+    address: "---",
+    form: "Untitled form",
+    dateSubmitted: "3 Dec 2025 (98 days)",
+    archived: false,
+  },
+  {
+    triage: { yes: false, no: false },
+    tags: "---",
+    client: "test embeddable scott",
+    dob: "---",
+    address: "---",
+    form: "Untitled form",
+    dateSubmitted: "3 Dec 2025 (98 days)",
+    archived: false,
+  },
+  {
+    triage: { yes: false, no: false },
+    tags: "---",
+    client: "ee ee",
+    dob: "---",
+    address: "---",
+    form: "Untitled form",
+    dateSubmitted: "1 Dec 2025 (100 days)",
+    archived: false,
+  },
+  {
+    triage: { yes: false, no: false },
+    tags: "---",
+    client: "Test Ruvi Emb",
+    dob: "---",
+    address: "---",
+    form: "Untitled form",
+    dateSubmitted: "18 Nov 2025 (113 days)",
+    archived: true,
+  },
 ];
 
 const waitlistData = [
-  { tags: ["To assign a unique ID"], client: "kai win", dob: "1 Mar 2022", address: "---", dateAdded: "5 Mar 2026 (6 days)", service: "First Appointment ()", status: "active" as const },
-  { tags: ["---"], client: "New client", dob: "---", address: "Adelaide 5000", dateAdded: "5 Mar 2026 (6 days)", service: "Copy of ...", status: "active" as const },
-  { tags: ["Admin to review"], client: "test test", dob: "---", address: "---", dateAdded: "19 Feb 2026 (20 days)", service: "1:1 Consultation", status: "active" as const },
-  { tags: ["---"], client: "Ella Thompson", dob: "18 Feb 2015", address: "Adelaide 5000", dateAdded: "3 Feb 2026 (36 days)", service: "First Appointment", status: "active" as const },
-  { tags: ["Admin to review"], client: "splose Ruvi", dob: "2 Feb 1998", address: "---", dateAdded: "19 Jan 2026 (51 days)", service: "1:1 Consultation", status: "active" as const },
-  { tags: ["Admin to review"], client: "test ruvi", dob: "2 Apr 2021", address: "---", dateAdded: "19 Jan 2026 (51 days)", service: "1:1 Consultation", status: "active" as const },
-  { tags: ["Low"], client: "Jenny Jenkins", dob: "2 Feb 2002", address: "---", dateAdded: "29 Dec 2025 (72 days)", service: "First Appointment", status: "active" as const },
-  { tags: ["Admin to review", "Medium", "NDIS referral"], client: "Harry James", dob: "5 Jul 1985", address: "Adelaide 5000", dateAdded: "22 Dec 2025 (79 days)", service: "Back Re-Alignment", status: "active" as const },
-  { tags: ["---"], client: "Closed Client A", dob: "12 Jan 1990", address: "Melbourne 3000", dateAdded: "10 Nov 2025 (120 days)", service: "1:1 Consultation", status: "closed" as const },
-  { tags: ["Low"], client: "Closed Client B", dob: "5 May 1988", address: "---", dateAdded: "1 Oct 2025 (160 days)", service: "First Appointment", status: "closed" as const },
+  {
+    tags: ["To assign a unique ID"],
+    client: "kai win",
+    dob: "1 Mar 2022",
+    address: "---",
+    dateAdded: "5 Mar 2026 (6 days)",
+    service: "First Appointment ()",
+    status: "active" as const,
+  },
+  {
+    tags: ["---"],
+    client: "New client",
+    dob: "---",
+    address: "Adelaide 5000",
+    dateAdded: "5 Mar 2026 (6 days)",
+    service: "Copy of ...",
+    status: "active" as const,
+  },
+  {
+    tags: ["Admin to review"],
+    client: "test test",
+    dob: "---",
+    address: "---",
+    dateAdded: "19 Feb 2026 (20 days)",
+    service: "1:1 Consultation",
+    status: "active" as const,
+  },
+  {
+    tags: ["---"],
+    client: "Ella Thompson",
+    dob: "18 Feb 2015",
+    address: "Adelaide 5000",
+    dateAdded: "3 Feb 2026 (36 days)",
+    service: "First Appointment",
+    status: "active" as const,
+  },
+  {
+    tags: ["Admin to review"],
+    client: "splose Ruvi",
+    dob: "2 Feb 1998",
+    address: "---",
+    dateAdded: "19 Jan 2026 (51 days)",
+    service: "1:1 Consultation",
+    status: "active" as const,
+  },
+  {
+    tags: ["Admin to review"],
+    client: "test ruvi",
+    dob: "2 Apr 2021",
+    address: "---",
+    dateAdded: "19 Jan 2026 (51 days)",
+    service: "1:1 Consultation",
+    status: "active" as const,
+  },
+  {
+    tags: ["Low"],
+    client: "Jenny Jenkins",
+    dob: "2 Feb 2002",
+    address: "---",
+    dateAdded: "29 Dec 2025 (72 days)",
+    service: "First Appointment",
+    status: "active" as const,
+  },
+  {
+    tags: ["Admin to review", "Medium", "NDIS referral"],
+    client: "Harry James",
+    dob: "5 Jul 1985",
+    address: "Adelaide 5000",
+    dateAdded: "22 Dec 2025 (79 days)",
+    service: "Back Re-Alignment",
+    status: "active" as const,
+  },
+  {
+    tags: ["---"],
+    client: "Closed Client A",
+    dob: "12 Jan 1990",
+    address: "Melbourne 3000",
+    dateAdded: "10 Nov 2025 (120 days)",
+    service: "1:1 Consultation",
+    status: "closed" as const,
+  },
+  {
+    tags: ["Low"],
+    client: "Closed Client B",
+    dob: "5 May 1988",
+    address: "---",
+    dateAdded: "1 Oct 2025 (160 days)",
+    service: "First Appointment",
+    status: "closed" as const,
+  },
 ];
 
 const tagColors: Record<string, string> = {
   "To assign a unique ID": "bg-red-100 text-red-700",
   "Admin to review": "bg-yellow-100 text-yellow-700",
-  "Low": "bg-green-100 text-green-700",
-  "Medium": "bg-orange-100 text-orange-700",
+  Low: "bg-green-100 text-green-700",
+  Medium: "bg-orange-100 text-orange-700",
   "NDIS referral": "bg-purple-100 text-purple-700",
 };
 
@@ -60,7 +240,11 @@ const mapPins = [
 ];
 
 export default function WaitlistPage() {
-  return <Suspense><WaitlistPageInner /></Suspense>;
+  return (
+    <Suspense>
+      <WaitlistPageInner />
+    </Suspense>
+  );
 }
 
 function WaitlistPageInner() {
@@ -68,13 +252,13 @@ function WaitlistPageInner() {
   const [screenerSubTab, setScreenerSubTab] = useState<"triage" | "rejected">("triage");
   const [waitlistSubTab, setWaitlistSubTab] = useState<"active" | "closed">("active");
   const [viewMode, setViewMode] = useState<"list" | "map">("list");
-  const [triageState, setTriageState] = useState<Record<number, "yes" | "no" | null>>(
-    () => {
-      const initial: Record<number, "yes" | "no" | null> = {};
-      screenerData.forEach((_, i) => { initial[i] = null; });
-      return initial;
-    }
-  );
+  const [triageState, setTriageState] = useState<Record<number, "yes" | "no" | null>>(() => {
+    const initial: Record<number, "yes" | "no" | null> = {};
+    screenerData.forEach((_, i) => {
+      initial[i] = null;
+    });
+    return initial;
+  });
   const [screenerSearch, setScreenerSearch] = useState("");
   const [waitlistSearch, setWaitlistSearch] = useState("");
 
@@ -84,9 +268,18 @@ function WaitlistPageInner() {
   useEffect(() => {
     if (!forcedState) return;
     const actions: Record<string, () => void> = {
-      "screener-triage": () => { setMainTab("screener"); setScreenerSubTab("triage"); },
-      "screener-rejected": () => { setMainTab("screener"); setScreenerSubTab("rejected"); },
-      "waitlist-map": () => { setMainTab("waitlist"); setViewMode("map"); },
+      "screener-triage": () => {
+        setMainTab("screener");
+        setScreenerSubTab("triage");
+      },
+      "screener-rejected": () => {
+        setMainTab("screener");
+        setScreenerSubTab("rejected");
+      },
+      "waitlist-map": () => {
+        setMainTab("waitlist");
+        setViewMode("map");
+      },
     };
     actions[forcedState]?.();
   }, [forcedState]);
@@ -199,7 +392,9 @@ function WaitlistPageInner() {
                   <th className="px-4 py-3 text-left text-sm font-medium text-text">
                     <div className="flex items-center gap-1">
                       Client
-                      <svg className="h-3 w-3 text-text-secondary" viewBox="0 0 12 12" fill="currentColor"><path d="M6 0L9 5H3L6 0ZM6 12L3 7H9L6 12Z" /></svg>
+                      <svg className="h-3 w-3 text-text-secondary" viewBox="0 0 12 12" fill="currentColor">
+                        <path d="M6 0L9 5H3L6 0ZM6 12L3 7H9L6 12Z" />
+                      </svg>
                     </div>
                   </th>
                   <th className="px-4 py-3 text-left text-sm font-medium text-text">Date of birth</th>
@@ -397,7 +592,9 @@ function WaitlistPageInner() {
                             <div className="flex flex-wrap gap-1">
                               {row.tags.map((tag) =>
                                 tag === "---" ? (
-                                  <span key={tag} className="text-sm text-text-secondary">---</span>
+                                  <span key={tag} className="text-sm text-text-secondary">
+                                    ---
+                                  </span>
                                 ) : (
                                   <span
                                     key={tag}
@@ -405,7 +602,7 @@ function WaitlistPageInner() {
                                   >
                                     {tag}
                                   </span>
-                                )
+                                ),
                               )}
                             </div>
                           </td>
@@ -425,10 +622,14 @@ function WaitlistPageInner() {
                   </tbody>
                 </table>
                 <div className="flex items-center justify-end border-t border-border px-4 py-3 text-sm text-text-secondary">
-                  <span>1-{filteredWaitlist.length} of {filteredWaitlist.length} items</span>
+                  <span>
+                    1-{filteredWaitlist.length} of {filteredWaitlist.length} items
+                  </span>
                   <div className="ml-4 flex items-center gap-1">
                     <span className="cursor-pointer text-text-secondary hover:text-text">&lt;</span>
-                    <button className="flex h-7 w-7 items-center justify-center rounded border border-primary bg-white text-xs font-medium text-primary">1</button>
+                    <button className="flex h-7 w-7 items-center justify-center rounded border border-primary bg-white text-xs font-medium text-primary">
+                      1
+                    </button>
                     <span className="cursor-pointer text-text-secondary hover:text-text">&gt;</span>
                   </div>
                   <span className="ml-4">10 / page</span>
@@ -437,7 +638,10 @@ function WaitlistPageInner() {
             </>
           ) : (
             /* ===== MAP VIEW ===== */
-            <div className="relative overflow-hidden rounded-lg border border-border" style={{ height: "calc(100vh - 180px)" }}>
+            <div
+              className="relative overflow-hidden rounded-lg border border-border"
+              style={{ height: "calc(100vh - 180px)" }}
+            >
               {/* Map background */}
               <div className="absolute inset-0 bg-[#e8e4d8]">
                 {/* Road grid pattern */}
@@ -463,20 +667,20 @@ function WaitlistPageInner() {
                 </svg>
 
                 {/* Place labels */}
-                <div className="absolute left-[8%] top-[15%] text-[11px] font-medium text-gray-500">Campbellfield</div>
-                <div className="absolute left-[35%] top-[8%] text-[11px] font-medium text-gray-500">Thomastown</div>
-                <div className="absolute left-[65%] top-[12%] text-[11px] font-medium text-gray-500">Bundoora</div>
-                <div className="absolute left-[20%] top-[30%] text-[11px] font-medium text-gray-500">Fawkner</div>
-                <div className="absolute left-[45%] top-[25%] text-[11px] font-medium text-gray-500">Reservoir</div>
-                <div className="absolute left-[12%] top-[45%] text-[11px] font-medium text-gray-500">Coburg North</div>
-                <div className="absolute left-[8%] top-[55%] text-[11px] font-medium text-gray-500">Pascoe Vale</div>
-                <div className="absolute left-[30%] top-[50%] text-[11px] font-medium text-gray-500">Preston</div>
-                <div className="absolute left-[55%] top-[35%] text-[11px] font-medium text-gray-500">Heidelberg</div>
-                <div className="absolute left-[70%] top-[45%] text-[11px] font-medium text-gray-500">Bulleen</div>
-                <div className="absolute left-[15%] top-[70%] text-[11px] font-medium text-gray-500">Brunswick</div>
-                <div className="absolute left-[35%] top-[65%] text-[11px] font-medium text-gray-500">Northcote</div>
-                <div className="absolute left-[50%] top-[75%] text-[11px] font-medium text-gray-500">Kew</div>
-                <div className="absolute left-[40%] top-[88%] text-[10px] font-semibold text-gray-600">Melbourne</div>
+                <div className="absolute top-[15%] left-[8%] text-[11px] font-medium text-gray-500">Campbellfield</div>
+                <div className="absolute top-[8%] left-[35%] text-[11px] font-medium text-gray-500">Thomastown</div>
+                <div className="absolute top-[12%] left-[65%] text-[11px] font-medium text-gray-500">Bundoora</div>
+                <div className="absolute top-[30%] left-[20%] text-[11px] font-medium text-gray-500">Fawkner</div>
+                <div className="absolute top-[25%] left-[45%] text-[11px] font-medium text-gray-500">Reservoir</div>
+                <div className="absolute top-[45%] left-[12%] text-[11px] font-medium text-gray-500">Coburg North</div>
+                <div className="absolute top-[55%] left-[8%] text-[11px] font-medium text-gray-500">Pascoe Vale</div>
+                <div className="absolute top-[50%] left-[30%] text-[11px] font-medium text-gray-500">Preston</div>
+                <div className="absolute top-[35%] left-[55%] text-[11px] font-medium text-gray-500">Heidelberg</div>
+                <div className="absolute top-[45%] left-[70%] text-[11px] font-medium text-gray-500">Bulleen</div>
+                <div className="absolute top-[70%] left-[15%] text-[11px] font-medium text-gray-500">Brunswick</div>
+                <div className="absolute top-[65%] left-[35%] text-[11px] font-medium text-gray-500">Northcote</div>
+                <div className="absolute top-[75%] left-[50%] text-[11px] font-medium text-gray-500">Kew</div>
+                <div className="absolute top-[88%] left-[40%] text-[10px] font-semibold text-gray-600">Melbourne</div>
 
                 {/* Map pins */}
                 {mapPins.map((pin, idx) => (
@@ -486,7 +690,7 @@ function WaitlistPageInner() {
                     style={{ left: `${pin.x}%`, top: `${pin.y}%`, transform: "translate(-50%, -100%)" }}
                   >
                     <MapPin className="h-6 w-6 text-gray-600 drop-shadow-sm" fill="#fff" strokeWidth={1.5} />
-                    <div className="absolute bottom-full left-1/2 mb-1 hidden -translate-x-1/2 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-[10px] text-white group-hover:block">
+                    <div className="absolute bottom-full left-1/2 mb-1 hidden -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-[10px] whitespace-nowrap text-white group-hover:block">
                       {pin.label}
                     </div>
                   </div>
@@ -502,8 +706,14 @@ function WaitlistPageInner() {
                 </div>
 
                 {/* Fullscreen button */}
-                <button className="absolute right-3 top-3 rounded border border-border bg-white p-1.5 shadow-sm hover:bg-gray-50">
-                  <svg className="h-4 w-4 text-gray-600" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <button className="absolute top-3 right-3 rounded border border-border bg-white p-1.5 shadow-sm hover:bg-gray-50">
+                  <svg
+                    className="h-4 w-4 text-gray-600"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                  >
                     <path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" />
                   </svg>
                 </button>

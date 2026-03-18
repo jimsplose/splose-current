@@ -16,7 +16,11 @@ const pages = [
   { name: "Dashboard", href: "/", desc: "Messages + Income chart + Notes + Forms" },
   { name: "Calendar", href: "/calendar", desc: "Week/Month/Day views, appointments" },
   { name: "Clients", href: "/clients", desc: "Client list with search and tags" },
-  { name: "Client Detail", href: "/clients/cm8jq0txx0003txh68tl46ehn", desc: "Details, appointments, notes, invoices, etc." },
+  {
+    name: "Client Detail",
+    href: "/clients/cm8jq0txx0003txh68tl46ehn",
+    desc: "Details, appointments, notes, invoices, etc.",
+  },
   { name: "Contacts", href: "/contacts", desc: "Contact list with type, company, email" },
   { name: "Contact Detail", href: "/contacts/1", desc: "Contact details, cases, letters, invoices" },
   { name: "Waitlist", href: "/waitlist", desc: "Screener + Waitlist with map view" },
@@ -39,17 +43,21 @@ export default function EngPage() {
   const [tab, setTab] = useState<"components" | "pages">("components");
 
   return (
-    <div className="p-4 sm:p-8 max-w-5xl mx-auto">
+    <div className="mx-auto max-w-5xl p-4 sm:p-8">
       <div className="mb-6">
         <h1 className="text-3xl font-bold text-text">Eng Toolkit</h1>
-        <p className="text-sm text-text-secondary mt-1">Design system components and page directory. Internal use only.</p>
+        <p className="mt-1 text-sm text-text-secondary">
+          Design system components and page directory. Internal use only.
+        </p>
       </div>
 
-      <div className="flex gap-4 border-b border-border mb-8">
+      <div className="mb-8 flex gap-4 border-b border-border">
         <button
           onClick={() => setTab("components")}
           className={`border-b-2 pb-2 text-sm font-medium ${
-            tab === "components" ? "border-primary text-primary" : "border-transparent text-text-secondary hover:text-text"
+            tab === "components"
+              ? "border-primary text-primary"
+              : "border-transparent text-text-secondary hover:text-text"
           }`}
         >
           Components
@@ -73,8 +81,8 @@ export default function EngPage() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="mb-10">
-      <h2 className="text-lg font-bold text-text mb-1">{title}</h2>
-      <div className="h-px bg-border mb-4" />
+      <h2 className="mb-1 text-lg font-bold text-text">{title}</h2>
+      <div className="mb-4 h-px bg-border" />
       {children}
     </div>
   );
@@ -93,19 +101,35 @@ function ComponentShowcase() {
             <Button variant="ghost">Ghost</Button>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <Button variant="primary" size="sm">Small</Button>
-            <Button variant="primary" size="md">Medium</Button>
-            <Button variant="primary" size="lg">Large</Button>
+            <Button variant="primary" size="sm">
+              Small
+            </Button>
+            <Button variant="primary" size="md">
+              Medium
+            </Button>
+            <Button variant="primary" size="lg">
+              Large
+            </Button>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <Button variant="secondary"><Plus className="h-4 w-4" /> New item</Button>
-            <Button variant="secondary"><Download className="h-4 w-4" /> Export</Button>
-            <Button variant="secondary"><Settings className="h-4 w-4" /> Settings</Button>
-            <Button variant="primary"><Pencil className="h-4 w-4" /> Edit</Button>
-            <Button variant="danger"><Trash2 className="h-4 w-4" /> Delete</Button>
+            <Button variant="secondary">
+              <Plus className="h-4 w-4" /> New item
+            </Button>
+            <Button variant="secondary">
+              <Download className="h-4 w-4" /> Export
+            </Button>
+            <Button variant="secondary">
+              <Settings className="h-4 w-4" /> Settings
+            </Button>
+            <Button variant="primary">
+              <Pencil className="h-4 w-4" /> Edit
+            </Button>
+            <Button variant="danger">
+              <Trash2 className="h-4 w-4" /> Delete
+            </Button>
           </div>
-          <pre className="rounded bg-gray-50 p-3 text-xs text-text-secondary overflow-x-auto">
-{`import { Button } from "@/components/ds";
+          <pre className="overflow-x-auto rounded bg-gray-50 p-3 text-xs text-text-secondary">
+            {`import { Button } from "@/components/ds";
 
 <Button variant="primary">Save</Button>
 <Button variant="secondary"><Plus /> New item</Button>
@@ -116,7 +140,7 @@ function ComponentShowcase() {
 
       {/* Badges */}
       <Section title="Badge">
-        <div className="flex flex-wrap items-center gap-2 mb-3">
+        <div className="mb-3 flex flex-wrap items-center gap-2">
           <Badge variant="green">Active</Badge>
           <Badge variant="green">Paid</Badge>
           <Badge variant="blue">Draft</Badge>
@@ -127,14 +151,18 @@ function ComponentShowcase() {
           <Badge variant="gray">Expired</Badge>
           <Badge variant="purple">NDIS</Badge>
         </div>
-        <p className="text-xs text-text-secondary mb-2">Use <code className="bg-gray-100 px-1 rounded">statusVariant(status)</code> for automatic color mapping:</p>
-        <div className="flex flex-wrap items-center gap-2 mb-3">
+        <p className="mb-2 text-xs text-text-secondary">
+          Use <code className="rounded bg-gray-100 px-1">statusVariant(status)</code> for automatic color mapping:
+        </p>
+        <div className="mb-3 flex flex-wrap items-center gap-2">
           {["Active", "Paid", "Draft", "Outstanding", "Overdue", "Cancelled", "Archived", "Expired"].map((s) => (
-            <Badge key={s} variant={statusVariant(s)}>{s}</Badge>
+            <Badge key={s} variant={statusVariant(s)}>
+              {s}
+            </Badge>
           ))}
         </div>
-        <pre className="rounded bg-gray-50 p-3 text-xs text-text-secondary overflow-x-auto">
-{`import { Badge, statusVariant } from "@/components/ds";
+        <pre className="overflow-x-auto rounded bg-gray-50 p-3 text-xs text-text-secondary">
+          {`import { Badge, statusVariant } from "@/components/ds";
 
 <Badge variant="green">Active</Badge>
 <Badge variant={statusVariant(invoice.status)}>{invoice.status}</Badge>`}
@@ -143,13 +171,15 @@ function ComponentShowcase() {
 
       {/* PageHeader */}
       <Section title="PageHeader">
-        <div className="rounded-lg border border-border p-4 mb-3">
+        <div className="mb-3 rounded-lg border border-border p-4">
           <PageHeader title="Clients">
-            <Button variant="secondary"><Plus className="h-4 w-4" /> New client</Button>
+            <Button variant="secondary">
+              <Plus className="h-4 w-4" /> New client
+            </Button>
           </PageHeader>
         </div>
-        <pre className="rounded bg-gray-50 p-3 text-xs text-text-secondary overflow-x-auto">
-{`import { PageHeader, Button } from "@/components/ds";
+        <pre className="overflow-x-auto rounded bg-gray-50 p-3 text-xs text-text-secondary">
+          {`import { PageHeader, Button } from "@/components/ds";
 
 <PageHeader title="Clients">
   <Button><Plus /> New client</Button>
@@ -159,11 +189,11 @@ function ComponentShowcase() {
 
       {/* SearchBar */}
       <Section title="SearchBar">
-        <div className="rounded-lg border border-border p-4 mb-3">
+        <div className="mb-3 rounded-lg border border-border p-4">
           <SearchBar placeholder="Search for name, phone number, and email" />
         </div>
-        <pre className="rounded bg-gray-50 p-3 text-xs text-text-secondary overflow-x-auto">
-{`import { SearchBar } from "@/components/ds";
+        <pre className="overflow-x-auto rounded bg-gray-50 p-3 text-xs text-text-secondary">
+          {`import { SearchBar } from "@/components/ds";
 
 <SearchBar placeholder="Search..." onSearch={(q) => console.log(q)} />`}
         </pre>
@@ -171,12 +201,20 @@ function ComponentShowcase() {
 
       {/* DataTable + Pagination */}
       <Section title="DataTable + Pagination">
-        <div className="rounded-lg border border-border overflow-hidden mb-3">
+        <div className="mb-3 overflow-hidden rounded-lg border border-border">
           <DataTable>
             <TableHead>
-              <Th><div className="flex items-center gap-1">Name <ArrowUpDown className="h-3 w-3 text-text-secondary" /></div></Th>
+              <Th>
+                <div className="flex items-center gap-1">
+                  Name <ArrowUpDown className="h-3 w-3 text-text-secondary" />
+                </div>
+              </Th>
               <Th>Email</Th>
-              <Th hidden="md"><div className="flex items-center gap-1">Tags <Filter className="h-3 w-3 text-text-secondary" /></div></Th>
+              <Th hidden="md">
+                <div className="flex items-center gap-1">
+                  Tags <Filter className="h-3 w-3 text-text-secondary" />
+                </div>
+              </Th>
               <Th align="right">Status</Th>
             </TableHead>
             <TableBody>
@@ -189,15 +227,17 @@ function ComponentShowcase() {
                   <Td className="font-medium text-primary">{row.name}</Td>
                   <Td className="text-text-secondary">{row.email}</Td>
                   <Td hidden="md">{row.tag && <Badge variant="yellow">{row.tag}</Badge>}</Td>
-                  <Td align="right"><Badge variant={statusVariant(row.status)}>{row.status}</Badge></Td>
+                  <Td align="right">
+                    <Badge variant={statusVariant(row.status)}>{row.status}</Badge>
+                  </Td>
                 </tr>
               ))}
             </TableBody>
           </DataTable>
           <Pagination currentPage={1} totalPages={5} totalItems={48} />
         </div>
-        <pre className="rounded bg-gray-50 p-3 text-xs text-text-secondary overflow-x-auto">
-{`import { DataTable, TableHead, Th, TableBody, Td, Pagination, Badge } from "@/components/ds";
+        <pre className="overflow-x-auto rounded bg-gray-50 p-3 text-xs text-text-secondary">
+          {`import { DataTable, TableHead, Th, TableBody, Td, Pagination, Badge } from "@/components/ds";
 
 <DataTable>
   <TableHead>
@@ -215,8 +255,8 @@ function ComponentShowcase() {
 
       {/* Form Inputs */}
       <Section title="FormInput + FormSelect">
-        <div className="rounded-lg border border-border p-4 mb-3">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="mb-3 rounded-lg border border-border p-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <FormInput label="Email" type="email" placeholder="name@example.com" />
             <FormInput label="Password" type="password" placeholder="Enter password" />
             <FormInput label="With error" error="This field is required" defaultValue="" />
@@ -230,8 +270,8 @@ function ComponentShowcase() {
             />
           </div>
         </div>
-        <pre className="rounded bg-gray-50 p-3 text-xs text-text-secondary overflow-x-auto">
-{`import { FormInput, FormSelect } from "@/components/ds";
+        <pre className="overflow-x-auto rounded bg-gray-50 p-3 text-xs text-text-secondary">
+          {`import { FormInput, FormSelect } from "@/components/ds";
 
 <FormInput label="Email" type="email" placeholder="name@example.com" />
 <FormInput label="Name" error="Required" />
@@ -244,16 +284,16 @@ function ComponentShowcase() {
 
 function PageDirectory() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
       {pages.map((page) => (
         <Link
           key={page.href}
           href={page.href}
-          className="block rounded-lg border border-border p-4 hover:border-primary hover:bg-purple-50/30 transition-colors"
+          className="block rounded-lg border border-border p-4 transition-colors hover:border-primary hover:bg-purple-50/30"
         >
           <h3 className="text-sm font-semibold text-text">{page.name}</h3>
-          <p className="text-xs text-text-secondary mt-1">{page.desc}</p>
-          <p className="text-[10px] text-primary mt-2 font-mono">{page.href}</p>
+          <p className="mt-1 text-xs text-text-secondary">{page.desc}</p>
+          <p className="mt-2 font-mono text-[10px] text-primary">{page.href}</p>
         </Link>
       ))}
     </div>
