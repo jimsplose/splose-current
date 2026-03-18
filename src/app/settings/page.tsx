@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 const sidebarSections = [
@@ -78,8 +79,49 @@ type ActivePage =
 
 const pagesWithContent = ["Details", "Integrations", "SMS settings", "Forms", "Locations", "Tags", "Users", "Referral types", "User groups", "Payments", "Communication types", "Cancellation reasons", "Busy times", "Custom fields", "Rooms/Resources", "Services", "Tax rates", "Invoices", "Online bookings", "Appointments", "Emails", "Progress notes", "Letters", "Export", "Import"];
 
+// Map state registry IDs to settings page names
+const STATE_TO_PAGE: Record<string, string> = {
+  "integrations": "Integrations",
+  "sms-settings": "SMS settings",
+  "forms": "Forms",
+  "locations": "Locations",
+  "custom-fields": "Custom fields",
+  "rooms-resources": "Rooms/Resources",
+  "services": "Services",
+  "busy-times": "Busy times",
+  "cancellation-reasons": "Cancellation reasons",
+  "online-bookings": "Online bookings",
+  "communication-types": "Communication types",
+  "tags": "Tags",
+  "referral-types": "Referral types",
+  "users": "Users",
+  "user-groups": "User groups",
+  "appointment-templates": "Appointments",
+  "email-templates": "Emails",
+  "progress-notes": "Progress notes",
+  "letter-templates": "Letters",
+  "payment-settings": "Payments",
+  "invoice-settings": "Invoices",
+  "tax-rates": "Tax rates",
+  "data-export": "Export",
+  "data-import": "Import",
+};
+
 export default function SettingsPage() {
+  return <Suspense><SettingsPageInner /></Suspense>;
+}
+
+function SettingsPageInner() {
   const [activePage, setActivePage] = useState<ActivePage>("Details");
+
+  // Dev Navigator: ?state= param wiring
+  const searchParams = useSearchParams();
+  const forcedState = searchParams.get("state");
+  useEffect(() => {
+    if (!forcedState) return;
+    const page = STATE_TO_PAGE[forcedState];
+    if (page) setActivePage(page);
+  }, [forcedState]);
 
   const handleSidebarClick = (
     e: React.MouseEvent<HTMLAnchorElement>,

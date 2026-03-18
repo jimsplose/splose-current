@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { ChevronLeft, ChevronRight, Filter, Settings2, LayoutGrid, Search, X, Clock, User, MapPin, FileText, Calendar, Plus } from "lucide-react";
 
 type Appointment = {
@@ -71,6 +72,22 @@ export default function CalendarView({
   const [calendarMode, setCalendarMode] = useState<CalendarMode>("Calendar");
   const [showViewDropdown, setShowViewDropdown] = useState(false);
   const [showCalendarModeDropdown, setShowCalendarModeDropdown] = useState(false);
+
+  // Dev Navigator: ?state= param wiring
+  const searchParams = useSearchParams();
+  const forcedState = searchParams.get("state");
+  useEffect(() => {
+    if (!forcedState) return;
+    const actions: Record<string, () => void> = {
+      "month-view": () => setViewMode("Month"),
+      "day-view": () => setViewMode("Day"),
+      "appointment-selected": () => { if (appointments.length > 0) setSelectedAppt(appointments[0]); },
+      "new-appointment": () => setShowCreateModal(true),
+      "edit-appointment": () => { if (appointments.length > 0) { setSelectedAppt(appointments[0]); setShowEditModal(true); } },
+      "rooms-view": () => setCalendarMode("Rooms/resources"),
+    };
+    actions[forcedState]?.();
+  }, [forcedState]);
 
   const today = new Date();
   const monthYear = today.toLocaleDateString("en-AU", { month: "long", year: "numeric" });

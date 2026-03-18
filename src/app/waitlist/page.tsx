@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { Plus, Filter, List, Map as MapIcon, HelpCircle, ThumbsUp, ThumbsDown, MoreHorizontal, MapPin } from "lucide-react";
 
 export const dynamic = "force-dynamic";
@@ -59,6 +60,10 @@ const mapPins = [
 ];
 
 export default function WaitlistPage() {
+  return <Suspense><WaitlistPageInner /></Suspense>;
+}
+
+function WaitlistPageInner() {
   const [mainTab, setMainTab] = useState<"screener" | "waitlist">("screener");
   const [screenerSubTab, setScreenerSubTab] = useState<"triage" | "rejected">("triage");
   const [waitlistSubTab, setWaitlistSubTab] = useState<"active" | "closed">("active");
@@ -72,6 +77,19 @@ export default function WaitlistPage() {
   );
   const [screenerSearch, setScreenerSearch] = useState("");
   const [waitlistSearch, setWaitlistSearch] = useState("");
+
+  // Dev Navigator: ?state= param wiring
+  const searchParams = useSearchParams();
+  const forcedState = searchParams.get("state");
+  useEffect(() => {
+    if (!forcedState) return;
+    const actions: Record<string, () => void> = {
+      "screener-triage": () => { setMainTab("screener"); setScreenerSubTab("triage"); },
+      "screener-rejected": () => { setMainTab("screener"); setScreenerSubTab("rejected"); },
+      "waitlist-map": () => { setMainTab("waitlist"); setViewMode("map"); },
+    };
+    actions[forcedState]?.();
+  }, [forcedState]);
 
   const handleTriage = (index: number, value: "yes" | "no") => {
     setTriageState((prev) => ({

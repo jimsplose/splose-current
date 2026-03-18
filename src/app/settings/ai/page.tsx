@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 const sidebarSections = [
@@ -72,7 +73,23 @@ const aiPrompts = [
 type Tab = "preferences" | "saved-prompts" | "ai-block-library";
 
 export default function SettingsAIPage() {
+  return <Suspense><SettingsAIPageInner /></Suspense>;
+}
+
+function SettingsAIPageInner() {
   const [activeTab, setActiveTab] = useState<Tab>("preferences");
+
+  // Dev Navigator: ?state= param wiring
+  const searchParams = useSearchParams();
+  const forcedState = searchParams.get("state");
+  useEffect(() => {
+    if (!forcedState) return;
+    const actions: Record<string, () => void> = {
+      "saved-prompts": () => setActiveTab("saved-prompts"),
+      "ai-block-library": () => setActiveTab("ai-block-library"),
+    };
+    actions[forcedState]?.();
+  }, [forcedState]);
 
   return (
     <div className="flex min-h-[calc(100vh-3rem)]">
