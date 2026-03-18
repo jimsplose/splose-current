@@ -76,7 +76,7 @@ type ActivePage =
   | "Forms"
   | string;
 
-const pagesWithContent = ["Details", "Integrations", "SMS settings", "Forms", "Locations", "Tags", "Users", "Referral types", "User groups", "Payments", "Communication types", "Cancellation reasons", "Busy times", "Custom fields", "Rooms/Resources", "Services", "Tax rates", "Invoices"];
+const pagesWithContent = ["Details", "Integrations", "SMS settings", "Forms", "Locations", "Tags", "Users", "Referral types", "User groups", "Payments", "Communication types", "Cancellation reasons", "Busy times", "Custom fields", "Rooms/Resources", "Services", "Tax rates", "Invoices", "Online bookings", "Appointments", "Emails", "Progress notes", "Letters", "Export", "Import"];
 
 export default function SettingsPage() {
   const [activePage, setActivePage] = useState<ActivePage>("Details");
@@ -149,6 +149,13 @@ export default function SettingsPage() {
         {activePage === "Services" && <ServicesContent />}
         {activePage === "Tax rates" && <TaxRatesContent />}
         {activePage === "Invoices" && <InvoiceSettingsContent />}
+        {activePage === "Online bookings" && <OnlineBookingsContent />}
+        {activePage === "Appointments" && <AppointmentTemplatesContent />}
+        {activePage === "Emails" && <EmailTemplatesContent />}
+        {activePage === "Progress notes" && <ProgressNoteTemplatesContent />}
+        {activePage === "Letters" && <LetterTemplatesContent />}
+        {activePage === "Export" && <DataExportContent />}
+        {activePage === "Import" && <DataImportContent />}
         {!pagesWithContent.includes(activePage) && (
           <PlaceholderContent pageName={activePage} />
         )}
@@ -1984,6 +1991,450 @@ function InvoiceSettingsContent() {
         <button className="mt-4 w-full rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
           + Add invoice template
         </button>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Online Bookings ─────────────────────────────────────────────── */
+
+function OnlineBookingsContent() {
+  const bookings = [
+    { name: "ACME Online Booking", created: "12:12 pm, 30 Oct 2025", updated: "10:01 am, 5 Mar 2026" },
+    { name: "Online booking test payment", created: "2:56 pm, 4 Nov 2025", updated: "8:48 am, 9 Dec 2025" },
+    { name: "Sharon's", created: "2:39 pm, 25 Nov 2025", updated: "4:10 pm, 9 Feb 2026" },
+    { name: "Wei Online booking test", created: "9:56 pm, 26 Nov 2025", updated: "4:26 pm, 3 Dec 2025" },
+    { name: "Phyllis Physiotherapy", created: "11:53 am, 27 Nov 2025", updated: "1:33 pm, 27 Nov 2025" },
+    { name: "OB-QA test", created: "11:55 am, 27 Nov 2025", updated: "3:33 pm, 27 Nov 2025" },
+    { name: "TEST Practice Manager", created: "10:28 am, 11 Dec 2025", updated: "11:16 am, 7 Jan 2026" },
+    { name: "Test hung", created: "3:32 pm, 22 Dec 2025", updated: "3:34 pm, 22 Dec 2025" },
+    { name: "Hung test 2", created: "3:51 pm, 22 Dec 2025", updated: "3:51 pm, 22 Dec 2025" },
+  ];
+
+  return (
+    <div className="p-6">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-text">Online booking settings</h1>
+        <div className="flex items-center gap-3">
+          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Show archived</button>
+          <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">+ New booking page</button>
+        </div>
+      </div>
+
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Name</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Created at</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Last updated</th>
+              <th className="px-4 py-3 text-right text-sm font-medium text-text-secondary">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {bookings.map((b) => (
+              <tr key={b.name} className="hover:bg-gray-50">
+                <td className="px-4 py-3 text-sm text-text">{b.name}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{b.created}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{b.updated}</td>
+                <td className="px-4 py-3 text-right">
+                  <button className="text-text-secondary hover:text-text">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Appointment Templates ───────────────────────────────────────── */
+
+function AppointmentTemplatesContent() {
+  const templates = [
+    { name: "Appointment confirmation (new client)", type: "Confirmation", sms: "On", email: "On", modified: "4:51 pm, 10 Feb 2026" },
+    { name: "Appointment rescheduled", type: "Reschedule", sms: "On", email: "On", modified: "3:46 pm, 20 Jun 2025" },
+    { name: "Appointment cancellation", type: "Cancellation", sms: "On", email: "On", modified: "2:39 pm, 2 Feb 2026" },
+    { name: "Appointment reminder", type: "Reminder", sms: "On", email: "On", modified: "10:51 am, 9 Mar 2026" },
+    { name: "Confirmation Zoom", type: "Confirmation", sms: "Off", email: "On", modified: "12:59 pm, 10 Jun 2025" },
+    { name: "Zoom Reminder 24hr", type: "Reminder", sms: "Off", email: "On", modified: "12:15 pm, 28 Apr 2025" },
+    { name: "Zoom Reminder 48hrs", type: "Reminder", sms: "Off", email: "Off", modified: "2:37 pm, 13 Dec 2023" },
+  ];
+
+  return (
+    <div className="p-6">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-text">Appointment templates</h1>
+        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">+ New template</button>
+      </div>
+
+      <div className="flex items-center gap-3 mb-6">
+        <input type="text" placeholder="Search for template and type" className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Search</button>
+      </div>
+
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border bg-green-50">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Name</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Type</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">SMS</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Email</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Last modified</th>
+              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {templates.map((t) => (
+              <tr key={t.name} className="hover:bg-gray-50">
+                <td className="px-4 py-3 text-sm text-text">{t.name}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{t.type}</td>
+                <td className="px-4 py-3">
+                  <span className={`text-sm font-medium ${t.sms === "On" ? "text-green-600" : "text-red-500"}`}>{t.sms}</span>
+                </td>
+                <td className="px-4 py-3">
+                  <span className={`text-sm font-medium ${t.email === "On" ? "text-green-600" : "text-red-500"}`}>{t.email}</span>
+                </td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{t.modified}</td>
+                <td className="px-4 py-3 text-right">
+                  <button className="text-text-secondary hover:text-text">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Email Templates ─────────────────────────────────────────────── */
+
+function EmailTemplatesContent() {
+  const templates = [
+    { name: "#1_Invoice email template", type: "Invoice", modified: "10:45 am, 2 Oct 2025" },
+    { name: "Receipt email template", type: "Payment", modified: "3:03 pm, 21 Feb 2024" },
+    { name: "#2_Progress note email template", type: "Progress note", modified: "5:09 pm, 28 May 2025" },
+    { name: "Form email template 1", type: "Form", modified: "4:46 pm, 17 Mar 2026" },
+    { name: "Letter email template", type: "Letter", modified: "10:30 am, 7 Oct 2025" },
+    { name: "General email template", type: "General", modified: "2:58 pm, 14 Jan 2026" },
+    { name: "Receipt", type: "Invoice", modified: "9:22 am, 12 Sep 2025" },
+    { name: "Reschedule", type: "Progress note", modified: "12:58 pm, 28 Jan 2022" },
+  ];
+
+  return (
+    <div className="p-6">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-text">Email templates</h1>
+        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">+ New template</button>
+      </div>
+
+      <div className="flex items-center gap-3 mb-6">
+        <input type="text" placeholder="Search for template and type" className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Search</button>
+      </div>
+
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border bg-green-50">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Name</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Type</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Last modified</th>
+              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {templates.map((t) => (
+              <tr key={t.name} className="hover:bg-gray-50">
+                <td className="px-4 py-3 text-sm text-text">{t.name}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{t.type}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{t.modified}</td>
+                <td className="px-4 py-3 text-right">
+                  <button className="text-text-secondary hover:text-text">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Progress Note Templates ─────────────────────────────────────── */
+
+function ProgressNoteTemplatesContent() {
+  const templates = [
+    { title: "Exercise Physiology Follow-up Report", created: "4:39 pm, 16 Oct 2023" },
+    { title: "ST | Note", created: "3:35 pm, 5 Jun 2024" },
+    { title: "Standard Consultation. 123", created: "11:32 am, 12 Jun 2024" },
+    { title: "Standard Consultation", created: "8:21 pm, 5 Mar 2014" },
+    { title: "Initial Consultation", created: "8:21 pm, 5 Mar 2014" },
+  ];
+
+  return (
+    <div className="p-6">
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="text-2xl font-bold text-text">Progress note templates</h1>
+        <div className="flex items-center gap-3">
+          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Show archived</button>
+          <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">+ New template</button>
+        </div>
+      </div>
+
+      <div className="rounded-lg border border-purple-200 bg-purple-50 px-4 py-3 mb-4 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="rounded bg-primary px-2 py-0.5 text-xs font-bold text-white">New</span>
+          <span className="text-sm text-text">Add AI blocks to templates to generate instant drafts, every session. Try a template <span className="text-primary cursor-pointer hover:underline">created by splose.</span></span>
+        </div>
+        <button className="text-text-secondary hover:text-text text-lg">&times;</button>
+      </div>
+
+      <p className="text-sm text-text-secondary mb-4">
+        Create templates for any appointment type to save time and keep documentation consistent. Add tables, auto-fill placeholders, interactive fields and AI blocks.
+      </p>
+
+      <div className="flex items-center gap-3 mb-6">
+        <input type="text" placeholder="Search for title" className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Search</button>
+      </div>
+
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border bg-green-50">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Title</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Created at</th>
+              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {templates.map((t) => (
+              <tr key={t.title} className="hover:bg-gray-50">
+                <td className="px-4 py-3">
+                  <div className="flex items-center gap-2">
+                    <div className="h-3 w-3 rounded-full bg-purple-400" />
+                    <span className="text-sm text-text">{t.title}</span>
+                  </div>
+                </td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{t.created}</td>
+                <td className="px-4 py-3 text-right">
+                  <button className="text-text-secondary hover:text-text">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Letter Templates ────────────────────────────────────────────── */
+
+function LetterTemplatesContent() {
+  const templates = [
+    { title: "Chronic Disease Management plan first appointment", created: "4:44 pm, 6 Oct 2020", updated: "12:17 pm, 6 Feb 2026" },
+    { title: "Chronic Disease Management plan last appointment", created: "4:44 pm, 6 Oct 2020", updated: "12:50 pm, 8 Nov 2021" },
+    { title: "DVA", created: "10:54 am, 15 Aug 2023", updated: "10:54 am, 15 Aug 2023" },
+    { title: "Test 123 contact", created: "4:36 pm, 4 Jun 2024", updated: "11:41 am, 3 Mar 2026" },
+    { title: "Case note", created: "2:05 pm, 14 Jun 2024", updated: "2:05 pm, 14 Jun 2024" },
+    { title: "Case hours", created: "10:32 am, 23 Aug 2024", updated: "10:32 am, 23 Aug 2024" },
+    { title: "Test", created: "2:39 pm, 27 May 2025", updated: "2:29 pm, 4 Jun 2025" },
+  ];
+
+  return (
+    <div className="p-6">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-text">Letter templates</h1>
+        <div className="flex items-center gap-3">
+          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Show archived</button>
+          <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">+ New template</button>
+        </div>
+      </div>
+
+      <div className="flex items-center gap-3 mb-6">
+        <input type="text" placeholder="Search for title" className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Search</button>
+      </div>
+
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border bg-green-50">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Title</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Created at</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Last updated</th>
+              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {templates.map((t) => (
+              <tr key={t.title} className="hover:bg-gray-50">
+                <td className="px-4 py-3 text-sm text-text">{t.title}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{t.created}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{t.updated}</td>
+                <td className="px-4 py-3 text-right">
+                  <button className="text-text-secondary hover:text-text">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Data Export ──────────────────────────────────────────────────── */
+
+function DataExportContent() {
+  const exports = [
+    { type: "Appointment", dateRange: "17 Jan 2026 - 18 Mar 2026", archived: "No", created: "2:18 pm, 17 Mar 2026", createdBy: "Ruvi R.", status: "Done", records: "354(89.2 KB)" },
+    { type: "Waitlist", dateRange: "1 Jan 2024 - 3 Apr 2025", archived: "Yes", created: "4:57 pm, 12 Mar 2026", createdBy: "Hrishikes h Koli", status: "Error", records: "0(0 B)" },
+    { type: "Waitlist", dateRange: "1 Jan 2024 - 17 Mar 2024", archived: "No", created: "4:56 pm, 12 Mar 2026", createdBy: "Hrishikes h Koli", status: "Error", records: "0(0 B)" },
+    { type: "Waitlist", dateRange: "5 Mar 2024 - 17 Mar 2024", archived: "No", created: "4:56 pm, 12 Mar 2026", createdBy: "Hrishikes h Koli", status: "Error", records: "0(0 B)" },
+    { type: "Case", dateRange: "5 Mar 2024 - 8 Apr 2024", archived: "No", created: "11:00 am, 12 Mar 2026", createdBy: "Hrishikes h Koli", status: "Done", records: "1(689 B)" },
+  ];
+
+  return (
+    <div className="p-6">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-text">Data export</h1>
+      </div>
+
+      <div className="flex items-center gap-3 mb-6">
+        <div>
+          <label className="block text-xs text-text-secondary mb-1">Export</label>
+          <select className="rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+            <option>Appointments</option>
+            <option>Waitlist</option>
+            <option>Cases</option>
+            <option>Clients</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-xs text-text-secondary mb-1">Date*</label>
+          <div className="flex items-center gap-2">
+            <input type="text" placeholder="Start date" className="rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary w-32" />
+            <span className="text-text-secondary">—</span>
+            <input type="text" placeholder="End date" className="rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary w-32" />
+          </div>
+        </div>
+        <div className="self-end">
+          <button className="rounded-lg bg-green-500 px-6 py-2 text-sm font-medium text-white hover:bg-green-600">Export</button>
+        </div>
+      </div>
+
+      <label className="flex items-center gap-2 text-sm text-text-secondary mb-6">
+        <input type="checkbox" className="rounded border-gray-300 text-primary focus:ring-primary h-4 w-4" />
+        Include archived
+      </label>
+
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Data export</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Date range</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Include Archived</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Created at</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Created by</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Status</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Records</th>
+              <th className="px-4 py-3 text-right text-sm font-medium text-text-secondary">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {exports.map((e, i) => (
+              <tr key={i} className="hover:bg-gray-50">
+                <td className="px-4 py-3 text-sm text-text">{e.type}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{e.dateRange}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{e.archived}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{e.created}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{e.createdBy}</td>
+                <td className="px-4 py-3">
+                  <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${e.status === "Done" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+                    {e.status}
+                  </span>
+                </td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{e.records}</td>
+                <td className="px-4 py-3 text-right">
+                  <button className="text-text-secondary hover:text-text">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Data Import ─────────────────────────────────────────────────── */
+
+function DataImportContent() {
+  const imports = [
+    { type: "CSV", status: "Success", created: "6 Mar 2026, 1:51 pm", updated: "6 Mar 2026, 1:51 pm" },
+    { type: "CSV", status: "Success", created: "5 Feb 2026, 11:16 pm", updated: "5 Feb 2026, 11:16 pm" },
+    { type: "CSV", status: "Success", created: "4 Feb 2026, 1:39 pm", updated: "4 Feb 2026, 1:45 pm" },
+    { type: "CSV", status: "Success", created: "2 Feb 2026, 3:13 pm", updated: "4 Feb 2026, 1:38 pm" },
+  ];
+
+  return (
+    <div className="p-6">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-text">Import data</h1>
+        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">+ Import</button>
+      </div>
+
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Type</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Status</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Activity</th>
+              <th className="px-4 py-3 text-right text-sm font-medium text-text-secondary">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {imports.map((imp, i) => (
+              <tr key={i} className="hover:bg-gray-50">
+                <td className="px-4 py-3 text-sm text-text">{imp.type}</td>
+                <td className="px-4 py-3">
+                  <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-700">
+                    {imp.status}
+                  </span>
+                </td>
+                <td className="px-4 py-3 text-sm text-text-secondary">
+                  <div>Created: {imp.created}</div>
+                  <div>Updated: {imp.updated}</div>
+                </td>
+                <td className="px-4 py-3 text-right">
+                  <button className="text-text-secondary hover:text-text">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
