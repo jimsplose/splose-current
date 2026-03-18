@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { Button, DataTable, TableHead, Th, TableBody, Td, Badge, FormInput } from "@/components/ds";
 
 const sidebarSections = [
   {
@@ -70,31 +71,52 @@ const sidebarSections = [
   },
 ];
 
-type ActivePage =
-  | "Details"
-  | "Integrations"
-  | "SMS settings"
-  | "Forms"
-  | string;
+type ActivePage = "Details" | "Integrations" | "SMS settings" | "Forms" | string;
 
-const pagesWithContent = ["Details", "Integrations", "SMS settings", "Forms", "Locations", "Tags", "Users", "Referral types", "User groups", "Payments", "Communication types", "Cancellation reasons", "Busy times", "Custom fields", "Rooms/Resources", "Services", "Tax rates", "Invoices", "Online bookings", "Appointments", "Emails", "Progress notes", "Letters", "Export", "Import"];
+const pagesWithContent = [
+  "Details",
+  "Integrations",
+  "SMS settings",
+  "Forms",
+  "Locations",
+  "Tags",
+  "Users",
+  "Referral types",
+  "User groups",
+  "Payments",
+  "Communication types",
+  "Cancellation reasons",
+  "Busy times",
+  "Custom fields",
+  "Rooms/Resources",
+  "Services",
+  "Tax rates",
+  "Invoices",
+  "Online bookings",
+  "Appointments",
+  "Emails",
+  "Progress notes",
+  "Letters",
+  "Export",
+  "Import",
+];
 
 // Map state registry IDs to settings page names
 const STATE_TO_PAGE: Record<string, string> = {
-  "integrations": "Integrations",
+  integrations: "Integrations",
   "sms-settings": "SMS settings",
-  "forms": "Forms",
-  "locations": "Locations",
+  forms: "Forms",
+  locations: "Locations",
   "custom-fields": "Custom fields",
   "rooms-resources": "Rooms/Resources",
-  "services": "Services",
+  services: "Services",
   "busy-times": "Busy times",
   "cancellation-reasons": "Cancellation reasons",
   "online-bookings": "Online bookings",
   "communication-types": "Communication types",
-  "tags": "Tags",
+  tags: "Tags",
   "referral-types": "Referral types",
-  "users": "Users",
+  users: "Users",
   "user-groups": "User groups",
   "appointment-templates": "Appointments",
   "email-templates": "Emails",
@@ -108,7 +130,11 @@ const STATE_TO_PAGE: Record<string, string> = {
 };
 
 export default function SettingsPage() {
-  return <Suspense><SettingsPageInner /></Suspense>;
+  return (
+    <Suspense>
+      <SettingsPageInner />
+    </Suspense>
+  );
 }
 
 function SettingsPageInner() {
@@ -124,11 +150,7 @@ function SettingsPageInner() {
     if (page) setActivePage(page);
   }, [forcedState]);
 
-  const handleSidebarClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    itemName: string,
-    itemHref: string
-  ) => {
+  const handleSidebarClick = (e: React.MouseEvent<HTMLAnchorElement>, itemName: string, itemHref: string) => {
     if (itemHref === "/settings") {
       e.preventDefault();
       setActivePage(itemName);
@@ -139,38 +161,49 @@ function SettingsPageInner() {
   return (
     <div className="flex min-h-[calc(100vh-3rem)]">
       {/* Mobile settings nav toggle */}
-      <div className="md:hidden border-b border-border bg-white px-4 py-3 fixed top-12 left-0 right-0 z-30 flex items-center justify-between">
+      <div className="fixed top-12 right-0 left-0 z-30 flex items-center justify-between border-b border-border bg-white px-4 py-3 md:hidden">
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
           className="flex items-center gap-2 text-sm font-medium text-text"
         >
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
           {activePage}
-          <svg className={`h-3 w-3 transition-transform ${sidebarOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+          <svg
+            className={`h-3 w-3 transition-transform ${sidebarOpen ? "rotate-180" : ""}`}
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
         </button>
       </div>
       {/* Mobile sidebar backdrop */}
       {sidebarOpen && (
-        <div className="fixed inset-0 top-[calc(3rem+48px)] z-20 bg-black/20 md:hidden" onClick={() => setSidebarOpen(false)} />
+        <div
+          className="fixed inset-0 top-[calc(3rem+48px)] z-20 bg-black/20 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
       )}
       {/* Left sidebar */}
-      <aside className={`${sidebarOpen ? "fixed top-[calc(3rem+48px)] left-0 bottom-0 z-20" : "hidden"} md:block w-64 shrink-0 border-r border-border bg-white p-4 overflow-y-auto`}>
+      <aside
+        className={`${sidebarOpen ? "fixed top-[calc(3rem+48px)] bottom-0 left-0 z-20" : "hidden"} w-64 shrink-0 overflow-y-auto border-r border-border bg-white p-4 md:block`}
+      >
         {sidebarSections.map((section) => (
           <div key={section.title} className="mb-4">
-            <h3 className="mb-1 text-xs font-bold uppercase tracking-wider text-text">
-              {section.title}
-            </h3>
+            <h3 className="mb-1 text-xs font-bold tracking-wider text-text uppercase">{section.title}</h3>
             <ul className="space-y-0.5">
               {section.items.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    onClick={(e) =>
-                      handleSidebarClick(e, item.name, item.href)
-                    }
-                    className={`w-full block rounded px-3 py-1.5 text-left text-sm transition-colors hover:bg-purple-50 hover:text-primary ${
+                    onClick={(e) => handleSidebarClick(e, item.name, item.href)}
+                    className={`block w-full rounded px-3 py-1.5 text-left text-sm transition-colors hover:bg-purple-50 hover:text-primary ${
                       item.name === activePage
-                        ? "border-l-2 border-primary bg-purple-50 text-primary font-medium"
+                        ? "border-l-2 border-primary bg-purple-50 font-medium text-primary"
                         : "text-text-secondary"
                     }`}
                   >
@@ -215,9 +248,7 @@ function SettingsPageInner() {
         {activePage === "Letters" && <LetterTemplatesContent />}
         {activePage === "Export" && <DataExportContent />}
         {activePage === "Import" && <DataImportContent />}
-        {!pagesWithContent.includes(activePage) && (
-          <PlaceholderContent pageName={activePage} />
-        )}
+        {!pagesWithContent.includes(activePage) && <PlaceholderContent pageName={activePage} />}
       </div>
     </div>
   );
@@ -235,13 +266,13 @@ function DetailsContent() {
   const labelClass = "block text-sm font-medium text-text mb-1";
 
   return (
-    <div className="p-6 max-w-4xl">
+    <div className="max-w-4xl p-6">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Details</h1>
-        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+        <Button variant="primary">
           Save
-        </button>
+        </Button>
       </div>
 
       <div className="space-y-6">
@@ -253,34 +284,24 @@ function DetailsContent() {
               <label className={labelClass}>
                 Business name<span className="text-red-500">*</span>
               </label>
-              <input
-                type="text"
-                defaultValue="Hands Together Therapies"
-                className={inputClass}
-              />
+              <input type="text" defaultValue="Hands Together Therapies" className={inputClass} />
             </div>
 
             {/* Workspace URL */}
             <div>
               <label className={labelClass}>
                 Workspace URL{" "}
-                <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help ml-0.5">i</span>
+                <span className="ml-0.5 inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
+                  i
+                </span>
               </label>
-              <input
-                type="text"
-                defaultValue="acme.splose.com"
-                className={inputClass}
-              />
+              <input type="text" defaultValue="acme.splose.com" className={inputClass} />
             </div>
 
             {/* Website */}
             <div>
               <label className={labelClass}>Website</label>
-              <input
-                type="text"
-                defaultValue="hands-together-therapy.com"
-                className={inputClass}
-              />
+              <input type="text" defaultValue="hands-together-therapy.com" className={inputClass} />
             </div>
 
             {/* Business email */}
@@ -288,11 +309,7 @@ function DetailsContent() {
               <label className={labelClass}>
                 Business email<span className="text-red-500">*</span>
               </label>
-              <input
-                type="email"
-                defaultValue="hello@hands-together-therapy.com"
-                className={inputClass}
-              />
+              <input type="email" defaultValue="hello@hands-together-therapy.com" className={inputClass} />
             </div>
           </div>
 
@@ -321,7 +338,9 @@ function DetailsContent() {
           <div>
             <label className={labelClass}>
               Patient terminology{" "}
-              <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help ml-0.5">i</span>
+              <span className="ml-0.5 inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
+                i
+              </span>
               <span className="text-red-500">*</span>
             </label>
             <select className={inputClass}>
@@ -363,7 +382,9 @@ function DetailsContent() {
           <div>
             <label className={labelClass}>
               Default appointment communication preferences{" "}
-              <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help ml-0.5">i</span>
+              <span className="ml-0.5 inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
+                i
+              </span>
               <span className="text-red-500">*</span>
             </label>
             <select className={inputClass}>
@@ -377,7 +398,7 @@ function DetailsContent() {
                 type="checkbox"
                 checked={applyToAll}
                 onChange={(e) => setApplyToAll(e.target.checked)}
-                className="rounded border-gray-300 text-primary focus:ring-primary h-4 w-4"
+                className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
               />
               Apply to all existing clients and override the current contact preferences
             </label>
@@ -389,17 +410,15 @@ function DetailsContent() {
             <input type="text" defaultValue="ABN" className={inputClass} />
             <p className="mt-2 text-sm text-text-secondary">
               Enter your business number in{" "}
-              <span className="text-primary cursor-pointer hover:underline">
-                Location settings
-              </span>
+              <span className="cursor-pointer text-primary hover:underline">Location settings</span>
             </p>
           </div>
         </div>
 
         {/* Email signature */}
         <div>
-          <h2 className="text-base font-semibold text-text mb-3">Email signature</h2>
-          <div className="flex gap-1 mb-3">
+          <h2 className="mb-3 text-base font-semibold text-text">Email signature</h2>
+          <div className="mb-3 flex gap-1">
             <button
               onClick={() => setEmailSigTab("Business")}
               className={`rounded-lg px-4 py-1.5 text-sm font-medium transition-colors ${
@@ -413,43 +432,61 @@ function DetailsContent() {
             <button
               onClick={() => setEmailSigTab("User")}
               className={`rounded-lg px-4 py-1.5 text-sm font-medium transition-colors ${
-                emailSigTab === "User"
-                  ? "bg-primary text-white"
-                  : "bg-gray-100 text-text-secondary hover:bg-gray-200"
+                emailSigTab === "User" ? "bg-primary text-white" : "bg-gray-100 text-text-secondary hover:bg-gray-200"
               }`}
             >
               User
             </button>
           </div>
           {/* Rich text toolbar */}
-          <div className="rounded-t-lg border border-border bg-gray-50 px-2 py-1.5 flex items-center gap-1">
+          <div className="flex items-center gap-1 rounded-t-lg border border-border bg-gray-50 px-2 py-1.5">
             <button className="rounded px-2 py-1 text-sm font-bold text-text hover:bg-gray-200">B</button>
-            <button className="rounded px-2 py-1 text-sm italic text-text hover:bg-gray-200">I</button>
+            <button className="rounded px-2 py-1 text-sm text-text italic hover:bg-gray-200">I</button>
             <div className="mx-1 h-4 w-px bg-gray-300" />
             <button className="rounded px-2 py-1 text-xs font-medium text-primary hover:bg-gray-200">AI</button>
             <div className="mx-1 h-4 w-px bg-gray-300" />
             <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M3 14h18M3 6h18M3 18h18" /></svg>
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M3 10h18M3 14h18M3 6h18M3 18h18"
+                />
+              </svg>
             </button>
             <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                />
+              </svg>
             </button>
             <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">+</button>
             <div className="mx-1 h-4 w-px bg-gray-300" />
             <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h10M4 18h16" /></svg>
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h10M4 18h16" />
+              </svg>
             </button>
             <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M7 12h10M4 18h16" /></svg>
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M7 12h10M4 18h16" />
+              </svg>
             </button>
             <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+              </svg>
             </button>
           </div>
           {/* Signature content */}
-          <div className="rounded-b-lg border border-t-0 border-border bg-white p-4 min-h-[160px] text-sm text-text">
+          <div className="min-h-[160px] rounded-b-lg border border-t-0 border-border bg-white p-4 text-sm text-text">
             <p>Warm Regards,</p>
-            <p className="text-primary mt-1">{"{user_fullName}"}</p>
+            <p className="mt-1 text-primary">{"{user_fullName}"}</p>
             <p className="text-primary">{"{user_professionTitle}"}</p>
             <p className="text-primary">{"{user_qualifications}"}</p>
             <p className="text-primary">{"{business_name}"}</p>
@@ -457,8 +494,13 @@ function DetailsContent() {
             <p className="text-primary">{"{business_phone}"}</p>
             <div className="mt-4">
               <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-full bg-purple-100 flex items-center justify-center">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" fill="#7c3aed" /><text x="10" y="14" textAnchor="middle" fill="white" fontSize="10" fontWeight="bold">S</text></svg>
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-100">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <circle cx="10" cy="10" r="8" fill="#7c3aed" />
+                    <text x="10" y="14" textAnchor="middle" fill="white" fontSize="10" fontWeight="bold">
+                      S
+                    </text>
+                  </svg>
                 </div>
                 <span className="text-xs text-text-secondary">splose</span>
               </div>
@@ -468,46 +510,34 @@ function DetailsContent() {
 
         {/* Calendar lock dates */}
         <div>
-          <h2 className="text-base font-semibold text-text mb-3">Calendar lock dates</h2>
-          <p className="text-sm text-text-secondary mb-2">
+          <h2 className="mb-3 text-base font-semibold text-text">Calendar lock dates</h2>
+          <p className="mb-2 text-sm text-text-secondary">
             Prevent users with the practitioner role from making changes on the calendar on and before
           </p>
-          <input
-            type="text"
-            defaultValue="19 Dec 2025"
-            className={`${inputClass} max-w-xs`}
-          />
+          <input type="text" defaultValue="19 Dec 2025" className={`${inputClass} max-w-xs`} />
         </div>
 
         {/* Google Tag Manager */}
         <div>
-          <h2 className="text-base font-semibold text-text mb-3">Google Tag Manager</h2>
+          <h2 className="mb-3 text-base font-semibold text-text">Google Tag Manager</h2>
           <div>
             <label className={labelClass}>Google Tag Manager ID</label>
-            <input
-              type="text"
-              defaultValue="GTM-TEST1231"
-              className={`${inputClass} max-w-xs`}
-            />
+            <input type="text" defaultValue="GTM-TEST1231" className={`${inputClass} max-w-xs`} />
           </div>
         </div>
 
         {/* Cases */}
         <div>
-          <h2 className="text-base font-semibold text-text mb-3">Cases</h2>
+          <h2 className="mb-3 text-base font-semibold text-text">Cases</h2>
           <div className="flex items-center justify-between">
-            <p className="text-sm text-text">
-              Block bookings exceeding case or funding periods (default setting)
-            </p>
+            <p className="text-sm text-text">Block bookings exceeding case or funding periods (default setting)</p>
             <Toggle checked={casesToggle} onChange={setCasesToggle} />
           </div>
         </div>
 
         {/* Business settings change log link */}
         <div>
-          <span className="text-sm text-primary cursor-pointer hover:underline">
-            Business settings change log
-          </span>
+          <span className="cursor-pointer text-sm text-primary hover:underline">Business settings change log</span>
         </div>
       </div>
     </div>
@@ -600,61 +630,82 @@ function IntegrationLogo({ name, color, textColor }: { name: string; color: stri
     case "Xero":
       return (
         <svg width="80" height="32" viewBox="0 0 80 32" fill="none">
-          <text x="4" y="24" fontFamily="sans-serif" fontSize="24" fontWeight="700" letterSpacing="-1" fill={fill}>xero</text>
+          <text x="4" y="24" fontFamily="sans-serif" fontSize="24" fontWeight="700" letterSpacing="-1" fill={fill}>
+            xero
+          </text>
         </svg>
       );
     case "QuickBooks":
       return (
         <div className="flex flex-col items-center gap-0">
-          <span className="text-[10px] font-semibold tracking-wide" style={{ color: fill }}>INTUIT</span>
-          <span className="text-base font-bold -mt-0.5" style={{ color: fill }}>QuickBooks</span>
+          <span className="text-[10px] font-semibold tracking-wide" style={{ color: fill }}>
+            INTUIT
+          </span>
+          <span className="-mt-0.5 text-base font-bold" style={{ color: fill }}>
+            QuickBooks
+          </span>
         </div>
       );
     case "Stripe":
       return (
         <svg width="70" height="30" viewBox="0 0 70 30" fill="none">
-          <text x="4" y="22" fontFamily="sans-serif" fontSize="22" fontWeight="700" letterSpacing="-0.5" fill={fill}>stripe</text>
+          <text x="4" y="22" fontFamily="sans-serif" fontSize="22" fontWeight="700" letterSpacing="-0.5" fill={fill}>
+            stripe
+          </text>
         </svg>
       );
     case "Mailchimp":
       return (
-        <span className="text-xl font-bold tracking-tight" style={{ color: fill }}>Mailchimp</span>
+        <span className="text-xl font-bold tracking-tight" style={{ color: fill }}>
+          Mailchimp
+        </span>
       );
     case "HICAPS":
       return (
-        <span className="text-xl font-extrabold tracking-wider" style={{ color: fill }}>HICAPS</span>
+        <span className="text-xl font-extrabold tracking-wider" style={{ color: fill }}>
+          HICAPS
+        </span>
       );
     case "Tyro Health":
       return (
         <div className="flex flex-col items-start">
-          <span className="text-lg font-bold leading-tight" style={{ color: fill }}>tyro</span>
-          <span className="text-xs font-medium -mt-0.5" style={{ color: fill }}>Health</span>
+          <span className="text-lg leading-tight font-bold" style={{ color: fill }}>
+            tyro
+          </span>
+          <span className="-mt-0.5 text-xs font-medium" style={{ color: fill }}>
+            Health
+          </span>
         </div>
       );
     case "Zoom":
       return (
-        <span className="text-2xl font-bold tracking-tight" style={{ color: fill }}>Zoom</span>
+        <span className="text-2xl font-bold tracking-tight" style={{ color: fill }}>
+          Zoom
+        </span>
       );
     case "Physitrack":
       return (
-        <span className="text-lg font-bold tracking-tight" style={{ color: fill }}>Physitrack</span>
+        <span className="text-lg font-bold tracking-tight" style={{ color: fill }}>
+          Physitrack
+        </span>
       );
     default:
-      return <span className="text-xl font-bold" style={{ color: fill }}>{name}</span>;
+      return (
+        <span className="text-xl font-bold" style={{ color: fill }}>
+          {name}
+        </span>
+      );
   }
 }
 
 function IntegrationsContent() {
   return (
-    <div className="p-6 max-w-4xl">
-      <h1 className="text-2xl font-bold text-text mb-6">Integrations</h1>
+    <div className="max-w-4xl p-6">
+      <h1 className="mb-6 text-2xl font-bold text-text">Integrations</h1>
 
       <div className="space-y-4">
         {integrationsList.map((integration) => (
-          <div
-            key={integration.name}
-            className="rounded-lg border border-border bg-white p-6"
-          >
+          <div key={integration.name} className="rounded-lg border border-border bg-white p-6">
             <div className="flex items-start gap-6">
               {/* Logo area */}
               <div
@@ -663,14 +714,16 @@ function IntegrationsContent() {
                   backgroundColor: integration.logoBg || `${integration.logoColor}10`,
                 }}
               >
-                <IntegrationLogo name={integration.name} color={integration.logoColor} textColor={integration.logoTextColor} />
+                <IntegrationLogo
+                  name={integration.name}
+                  color={integration.logoColor}
+                  textColor={integration.logoTextColor}
+                />
               </div>
 
               {/* Content */}
               <div className="flex-1">
-                <p className="text-sm text-text-secondary leading-relaxed">
-                  {integration.description}
-                </p>
+                <p className="text-sm leading-relaxed text-text-secondary">{integration.description}</p>
                 <div className="mt-4 flex items-center gap-3">
                   <button
                     className={`rounded-lg px-5 py-2 text-sm font-medium transition-colors ${
@@ -682,9 +735,7 @@ function IntegrationsContent() {
                     {integration.buttonText}
                   </button>
                   {integration.extraLink && (
-                    <span className="text-sm text-primary cursor-pointer hover:underline">
-                      {integration.extraLink}
-                    </span>
+                    <span className="cursor-pointer text-sm text-primary hover:underline">{integration.extraLink}</span>
                   )}
                 </div>
               </div>
@@ -708,33 +759,33 @@ function SMSSettingsContent() {
   ];
 
   return (
-    <div className="p-6 max-w-4xl">
-      <div className="flex items-center justify-between mb-6">
+    <div className="max-w-4xl p-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">SMS settings</h1>
-        <button className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-          <svg className="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zM10 18a1 1 0 001-1v-1a1 1 0 10-2 0v1a1 1 0 001 1z" /></svg>
+        <Button>
+          <svg className="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zM10 18a1 1 0 001-1v-1a1 1 0 10-2 0v1a1 1 0 001 1z" />
+          </svg>
           Learn
-        </button>
+        </Button>
       </div>
 
       {/* SMS credit balance */}
-      <div className="rounded-lg border border-border bg-white p-5 mb-6">
-        <p className="text-sm text-text-secondary mb-1">SMS credit balance</p>
+      <div className="mb-6 rounded-lg border border-border bg-white p-5">
+        <p className="mb-1 text-sm text-text-secondary">SMS credit balance</p>
         <p className="text-4xl font-bold text-text">884</p>
       </div>
 
       {/* Recharge credits */}
       <div className="mb-6">
-        <h2 className="text-base font-semibold text-text mb-3">Recharge credits</h2>
-        <div className="grid grid-cols-4 gap-3 mb-4">
+        <h2 className="mb-3 text-base font-semibold text-text">Recharge credits</h2>
+        <div className="mb-4 grid grid-cols-4 gap-3">
           {creditOptions.map((option, i) => (
             <button
               key={option.credits}
               onClick={() => setSelectedPlan(i)}
               className={`rounded-lg border-2 p-4 text-center transition-colors ${
-                selectedPlan === i
-                  ? "border-primary bg-purple-50"
-                  : "border-border bg-white hover:border-gray-300"
+                selectedPlan === i ? "border-primary bg-purple-50" : "border-border bg-white hover:border-gray-300"
               }`}
             >
               <p className="text-lg font-bold text-text">{option.credits} credits</p>
@@ -742,21 +793,27 @@ function SMSSettingsContent() {
             </button>
           ))}
         </div>
-        <button className="rounded-lg bg-primary px-6 py-2.5 text-sm font-medium text-white hover:bg-primary-dark">
+        <Button variant="primary" size="lg">
           Recharge
-        </button>
+        </Button>
       </div>
 
       {/* SMS pricing */}
       <div>
-        <h2 className="text-base font-semibold text-text mb-3">SMS pricing</h2>
-        <div className="space-y-3 text-sm text-text-secondary leading-relaxed">
+        <h2 className="mb-3 text-base font-semibold text-text">SMS pricing</h2>
+        <div className="space-y-3 text-sm leading-relaxed text-text-secondary">
           <p>
-            A standard SMS message contains 160 characters per segment (if a message has more than 160 characters, the message is split into segments, each consisting of 153 characters). SMS messages which include special characters such as emojis require a different type of SMS. These messages are able to contain up to 70 characters (Messages with special characters longer than 70 characters are split into 67 character segments).
+            A standard SMS message contains 160 characters per segment (if a message has more than 160 characters, the
+            message is split into segments, each consisting of 153 characters). SMS messages which include special
+            characters such as emojis require a different type of SMS. These messages are able to contain up to 70
+            characters (Messages with special characters longer than 70 characters are split into 67 character
+            segments).
           </p>
           <p>
-            Credits are purchased in advance and cost A$0.10 + GST per credit. Outbound SMS messages cost one credit per segment, and inbound messages cost 0.5 credits per segment. SMS credits purchased get billed to the credit card attached to your splose account. Receipts will appear in your{" "}
-            <span className="text-primary cursor-pointer hover:underline">billing history</span>.
+            Credits are purchased in advance and cost A$0.10 + GST per credit. Outbound SMS messages cost one credit per
+            segment, and inbound messages cost 0.5 credits per segment. SMS credits purchased get billed to the credit
+            card attached to your splose account. Receipts will appear in your{" "}
+            <span className="cursor-pointer text-primary hover:underline">billing history</span>.
           </p>
         </div>
       </div>
@@ -827,52 +884,43 @@ const formTemplates = [
 
 function FormsContent() {
   const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState<
-    "all" | "Published" | "Draft" | "Archived"
-  >("all");
+  const [statusFilter, setStatusFilter] = useState<"all" | "Published" | "Draft" | "Archived">("all");
 
   const filtered = formTemplates.filter((f) => {
     if (statusFilter !== "all" && f.status !== statusFilter) return false;
-    if (search && !f.name.toLowerCase().includes(search.toLowerCase()))
-      return false;
+    if (search && !f.name.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
   });
 
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-text">Forms</h1>
-          <p className="mt-1 text-sm text-text-secondary">
-            Create and manage forms that clients can fill out online
-          </p>
+          <p className="mt-1 text-sm text-text-secondary">Create and manage forms that clients can fill out online</p>
         </div>
-        <button className="flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+        <Button variant="primary">
           + New form
-        </button>
+        </Button>
       </div>
 
       {/* Filters */}
-      <div className="flex items-center gap-4 mb-4">
+      <div className="mb-4 flex items-center gap-4">
         <input
           type="text"
           placeholder="Search forms..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary w-64"
+          className="w-64 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
         />
-        <div className="flex rounded-lg border border-border bg-white overflow-hidden">
+        <div className="flex overflow-hidden rounded-lg border border-border bg-white">
           {(["all", "Published", "Draft", "Archived"] as const).map((s) => (
             <button
               key={s}
               onClick={() => setStatusFilter(s)}
               className={`px-3 py-2 text-sm font-medium transition-colors ${
                 s !== "all" ? "border-l border-border" : ""
-              } ${
-                statusFilter === s
-                  ? "bg-primary text-white"
-                  : "text-text-secondary hover:bg-gray-50"
-              }`}
+              } ${statusFilter === s ? "bg-primary text-white" : "text-text-secondary hover:bg-gray-50"}`}
             >
               {s === "all" ? "All" : s}
             </button>
@@ -881,66 +929,42 @@ function FormsContent() {
       </div>
 
       {/* Forms table */}
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-gray-50">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                Form name
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                Description
-              </th>
-              <th className="px-4 py-3 text-center text-sm font-medium text-text">
-                Status
-              </th>
-              <th className="px-4 py-3 text-center text-sm font-medium text-text">
-                Responses
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                Last modified
-              </th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text">
-                Actions
-              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Form name</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Description</th>
+              <th className="px-4 py-3 text-center text-sm font-medium text-text">Status</th>
+              <th className="px-4 py-3 text-center text-sm font-medium text-text">Responses</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">Last modified</th>
+              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
             {filtered.map((form) => (
               <tr key={form.name} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm font-medium text-text">
-                  {form.name}
-                </td>
-                <td className="px-4 py-3 text-sm text-text-secondary max-w-xs truncate">
-                  {form.description}
-                </td>
+                <td className="px-4 py-3 text-sm font-medium text-text">{form.name}</td>
+                <td className="max-w-xs truncate px-4 py-3 text-sm text-text-secondary">{form.description}</td>
                 <td className="px-4 py-3 text-center">
                   <span
                     className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
                       form.status === "Published"
                         ? "bg-green-50 text-green-700"
                         : form.status === "Draft"
-                        ? "bg-yellow-50 text-yellow-700"
-                        : "bg-gray-100 text-gray-600"
+                          ? "bg-yellow-50 text-yellow-700"
+                          : "bg-gray-100 text-gray-600"
                     }`}
                   >
                     {form.status}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-center text-sm text-text-secondary">
-                  {form.responses}
-                </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">
-                  {form.lastModified}
-                </td>
+                <td className="px-4 py-3 text-center text-sm text-text-secondary">{form.responses}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{form.lastModified}</td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex items-center justify-end gap-2">
-                    <button className="text-sm text-primary hover:underline">
-                      Edit
-                    </button>
-                    <button className="text-sm text-text-secondary hover:text-text">
-                      ...
-                    </button>
+                    <button className="text-sm text-primary hover:underline">Edit</button>
+                    <button className="text-sm text-text-secondary hover:text-text">...</button>
                   </div>
                 </td>
               </tr>
@@ -948,9 +972,7 @@ function FormsContent() {
           </tbody>
         </table>
         {filtered.length === 0 && (
-          <div className="px-4 py-8 text-center text-sm text-text-secondary">
-            No forms found
-          </div>
+          <div className="px-4 py-8 text-center text-sm text-text-secondary">No forms found</div>
         )}
       </div>
     </div>
@@ -970,20 +992,20 @@ function LocationsContent() {
   ];
 
   return (
-    <div className="p-6 max-w-4xl">
-      <div className="flex items-center justify-between mb-6">
+    <div className="max-w-4xl p-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Locations</h1>
         <div className="flex items-center gap-3">
-          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+          <Button>
             Show archived
-          </button>
-          <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+          </Button>
+          <Button variant="primary">
             + New location
-          </button>
+          </Button>
         </div>
       </div>
 
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border">
@@ -1005,9 +1027,11 @@ function LocationsContent() {
       </div>
 
       {/* Pagination */}
-      <div className="flex items-center justify-end gap-1 mt-4">
+      <div className="mt-4 flex items-center justify-end gap-1">
         <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
-        <button className="rounded border border-primary px-2.5 py-1 text-sm font-medium text-primary bg-purple-50">1</button>
+        <button className="rounded border border-primary bg-purple-50 px-2.5 py-1 text-sm font-medium text-primary">
+          1
+        </button>
         <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&gt;</button>
       </div>
     </div>
@@ -1037,12 +1061,12 @@ function TagsContent() {
   ];
 
   return (
-    <div className="p-6 max-w-4xl">
-      <div className="flex items-center justify-between mb-6">
+    <div className="max-w-4xl p-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Tags</h1>
-        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+        <Button variant="primary">
           + New tag
-        </button>
+        </Button>
       </div>
 
       {/* Tabs */}
@@ -1051,7 +1075,7 @@ function TagsContent() {
           <button
             key={tab.name}
             onClick={() => setActiveTab(tab.name)}
-            className={`border-b-2 px-1 pb-3 text-sm flex items-center gap-1.5 ${
+            className={`flex items-center gap-1.5 border-b-2 px-1 pb-3 text-sm ${
               activeTab === tab.name
                 ? "border-primary font-medium text-primary"
                 : "border-transparent text-text-secondary hover:text-text"
@@ -1059,16 +1083,14 @@ function TagsContent() {
           >
             {tab.name}
             {tab.badge && (
-              <span className="rounded bg-green-500 px-1.5 py-0.5 text-[10px] font-bold text-white">
-                {tab.badge}
-              </span>
+              <span className="rounded bg-green-500 px-1.5 py-0.5 text-[10px] font-bold text-white">{tab.badge}</span>
             )}
           </button>
         ))}
       </div>
 
       {/* Tags table */}
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border">
@@ -1082,14 +1104,15 @@ function TagsContent() {
               <tr key={tag.name} className="hover:bg-gray-50">
                 <td className="px-4 py-3 text-sm text-text">{tag.name}</td>
                 <td className="px-4 py-3">
-                  <div
-                    className="h-5 w-8 rounded"
-                    style={{ backgroundColor: tag.color }}
-                  />
+                  <div className="h-5 w-8 rounded" style={{ backgroundColor: tag.color }} />
                 </td>
                 <td className="px-4 py-3 text-right">
                   <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="1" />
+                      <circle cx="19" cy="12" r="1" />
+                      <circle cx="5" cy="12" r="1" />
+                    </svg>
                   </button>
                 </td>
               </tr>
@@ -1105,39 +1128,102 @@ function TagsContent() {
 
 function UsersContent() {
   const users = [
-    { name: "Nicholas Smithson", badge: "Account owner", email: "nick@splose.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "OT", status: "Active" },
-    { name: "Splose Support", badge: null, email: "support@splose.com", roleName: "Practice manager", roleType: "Practice manager", group: "---", status: "Active" },
-    { name: "nick sand", badge: null, email: "nick1@splose.com", roleName: "Practitioner", roleType: "Practitioner", group: "---", status: "Active" },
-    { name: "Harry Nguyen", badge: "Account owner", email: "harry@splose.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "OT", status: "Active" },
-    { name: "Cheng Ma", badge: "Account owner", email: "cheng@splose.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "Intake team, +1 more", status: "Active" },
-    { name: "Rakesh Soni", badge: "Account owner", email: "rakesh@splose.com", roleName: "Practice manager", roleType: "Practice manager", group: "Physio", status: "Active" },
-    { name: "Cheng Test", badge: null, email: "machengjam@gmail.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "---", status: "Active" },
+    {
+      name: "Nicholas Smithson",
+      badge: "Account owner",
+      email: "nick@splose.com",
+      roleName: "Practitioner admin",
+      roleType: "Practitioner admin",
+      group: "OT",
+      status: "Active",
+    },
+    {
+      name: "Splose Support",
+      badge: null,
+      email: "support@splose.com",
+      roleName: "Practice manager",
+      roleType: "Practice manager",
+      group: "---",
+      status: "Active",
+    },
+    {
+      name: "nick sand",
+      badge: null,
+      email: "nick1@splose.com",
+      roleName: "Practitioner",
+      roleType: "Practitioner",
+      group: "---",
+      status: "Active",
+    },
+    {
+      name: "Harry Nguyen",
+      badge: "Account owner",
+      email: "harry@splose.com",
+      roleName: "Practitioner admin",
+      roleType: "Practitioner admin",
+      group: "OT",
+      status: "Active",
+    },
+    {
+      name: "Cheng Ma",
+      badge: "Account owner",
+      email: "cheng@splose.com",
+      roleName: "Practitioner admin",
+      roleType: "Practitioner admin",
+      group: "Intake team, +1 more",
+      status: "Active",
+    },
+    {
+      name: "Rakesh Soni",
+      badge: "Account owner",
+      email: "rakesh@splose.com",
+      roleName: "Practice manager",
+      roleType: "Practice manager",
+      group: "Physio",
+      status: "Active",
+    },
+    {
+      name: "Cheng Test",
+      badge: null,
+      email: "machengjam@gmail.com",
+      roleName: "Practitioner admin",
+      roleType: "Practitioner admin",
+      group: "---",
+      status: "Active",
+    },
   ];
 
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Users</h1>
-        <button className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" /></svg>
+        <Button>
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+            />
+          </svg>
           Invite users
-        </button>
+        </Button>
       </div>
 
       {/* Search */}
-      <div className="flex items-center gap-3 mb-6">
+      <div className="mb-6 flex items-center gap-3">
         <input
           type="text"
           placeholder="Search for user name and email"
           className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
         />
-        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+        <Button>
           Search
-        </button>
+        </Button>
       </div>
 
       {/* Users table */}
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-gray-50">
@@ -1180,7 +1266,11 @@ function UsersContent() {
                 <td className="px-4 py-3 text-sm text-text-secondary">{user.status}</td>
                 <td className="px-4 py-3 text-right">
                   <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="1" />
+                      <circle cx="19" cy="12" r="1" />
+                      <circle cx="5" cy="12" r="1" />
+                    </svg>
                   </button>
                 </td>
               </tr>
@@ -1206,15 +1296,15 @@ function ReferralTypesContent() {
   ];
 
   return (
-    <div className="p-6 max-w-4xl">
-      <div className="flex items-center justify-between mb-6">
+    <div className="max-w-4xl p-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Referral types</h1>
-        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+        <Button variant="primary">
           + Add referral type
-        </button>
+        </Button>
       </div>
 
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border">
@@ -1237,7 +1327,11 @@ function ReferralTypesContent() {
                     <span className="text-text-secondary">-</span>
                   ) : (
                     <button className="text-text-secondary hover:text-text">
-                      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="1" />
+                        <circle cx="19" cy="12" r="1" />
+                        <circle cx="5" cy="12" r="1" />
+                      </svg>
                     </button>
                   )}
                 </td>
@@ -1247,11 +1341,13 @@ function ReferralTypesContent() {
         </table>
       </div>
 
-      <div className="flex items-center justify-end gap-2 mt-4">
+      <div className="mt-4 flex items-center justify-end gap-2">
         <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
-        <button className="rounded border border-primary px-2.5 py-1 text-sm font-medium text-primary bg-purple-50">1</button>
+        <button className="rounded border border-primary bg-purple-50 px-2.5 py-1 text-sm font-medium text-primary">
+          1
+        </button>
         <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&gt;</button>
-        <span className="text-sm text-text-secondary ml-2">10 / page</span>
+        <span className="ml-2 text-sm text-text-secondary">10 / page</span>
       </div>
     </div>
   );
@@ -1267,33 +1363,35 @@ function UserGroupsContent() {
   ];
 
   return (
-    <div className="p-6 max-w-4xl">
-      <div className="flex items-center justify-between mb-6">
+    <div className="max-w-4xl p-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">User groups</h1>
         <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-            <svg className="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zM10 18a1 1 0 001-1v-1a1 1 0 10-2 0v1a1 1 0 001 1z" /></svg>
+          <Button>
+            <svg className="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zM10 18a1 1 0 001-1v-1a1 1 0 10-2 0v1a1 1 0 001 1z" />
+            </svg>
             Learn
-          </button>
-          <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+          </Button>
+          <Button variant="primary">
             + New group
-          </button>
+          </Button>
         </div>
       </div>
 
       {/* Search */}
-      <div className="flex items-center gap-3 mb-6">
+      <div className="mb-6 flex items-center gap-3">
         <input
           type="text"
           placeholder="Search for group name"
           className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
         />
-        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+        <Button>
           Search
-        </button>
+        </Button>
       </div>
 
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-green-50">
@@ -1311,7 +1409,11 @@ function UserGroupsContent() {
                 <td className="px-4 py-3 text-sm text-text-secondary">{g.users}</td>
                 <td className="px-4 py-3 text-right">
                   <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="1" />
+                      <circle cx="19" cy="12" r="1" />
+                      <circle cx="5" cy="12" r="1" />
+                    </svg>
                   </button>
                 </td>
               </tr>
@@ -1320,12 +1422,14 @@ function UserGroupsContent() {
         </table>
       </div>
 
-      <div className="flex items-center justify-end gap-2 mt-4">
+      <div className="mt-4 flex items-center justify-end gap-2">
         <span className="text-sm text-text-secondary">1-3 of 3 items</span>
         <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
-        <button className="rounded border border-primary px-2.5 py-1 text-sm font-medium text-primary bg-purple-50">1</button>
+        <button className="rounded border border-primary bg-purple-50 px-2.5 py-1 text-sm font-medium text-primary">
+          1
+        </button>
         <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&gt;</button>
-        <span className="text-sm text-text-secondary ml-2">10 / page</span>
+        <span className="ml-2 text-sm text-text-secondary">10 / page</span>
       </div>
     </div>
   );
@@ -1348,36 +1452,54 @@ function PaymentSettingsContent() {
   ];
 
   return (
-    <div className="p-6 max-w-4xl">
-      <h1 className="text-2xl font-bold text-text mb-6">Payment settings</h1>
+    <div className="max-w-4xl p-6">
+      <h1 className="mb-6 text-2xl font-bold text-text">Payment settings</h1>
 
       {/* Next payment number */}
       <div className="mb-6">
-        <h2 className="text-base font-semibold text-text mb-3">Next payment number</h2>
-        <div className="space-y-3 max-w-md">
+        <h2 className="mb-3 text-base font-semibold text-text">Next payment number</h2>
+        <div className="max-w-md space-y-3">
           <div>
-            <label className="block text-sm text-text-secondary mb-1">
-              Prefix <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help">i</span>
+            <label className="mb-1 block text-sm text-text-secondary">
+              Prefix{" "}
+              <span className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
+                i
+              </span>
             </label>
-            <input type="text" defaultValue="MYDD" className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+            <input
+              type="text"
+              defaultValue="MYDD"
+              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+            />
           </div>
           <div>
-            <label className="block text-sm text-text-secondary mb-1">
-              Padding <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help">i</span>
+            <label className="mb-1 block text-sm text-text-secondary">
+              Padding{" "}
+              <span className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
+                i
+              </span>
             </label>
-            <input type="text" defaultValue="5" className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+            <input
+              type="text"
+              defaultValue="5"
+              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+            />
           </div>
         </div>
       </div>
 
       {/* PDF settings */}
       <div className="mb-6">
-        <h2 className="text-base font-semibold text-text mb-3">PDF settings</h2>
+        <h2 className="mb-3 text-base font-semibold text-text">PDF settings</h2>
         <div className="max-w-md">
-          <label className="block text-sm text-text-secondary mb-1">Brand colour</label>
-          <div className="flex items-center gap-2 mb-3">
+          <label className="mb-1 block text-sm text-text-secondary">Brand colour</label>
+          <div className="mb-3 flex items-center gap-2">
             <div className="h-10 w-10 rounded border border-border" style={{ backgroundColor: "#8689FC" }} />
-            <input type="text" defaultValue="#8689FC" className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+            <input
+              type="text"
+              defaultValue="#8689FC"
+              className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+            />
           </div>
           <button className="rounded-lg bg-green-500 px-4 py-2 text-sm font-medium text-white hover:bg-green-600">
             Save
@@ -1387,8 +1509,8 @@ function PaymentSettingsContent() {
 
       {/* Accepted forms of payment */}
       <div className="mb-6">
-        <h2 className="text-base font-semibold text-text mb-4">Accepted forms of payment</h2>
-        <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <h2 className="mb-4 text-base font-semibold text-text">Accepted forms of payment</h2>
+        <div className="overflow-hidden rounded-lg border border-border bg-white">
           <table className="w-full">
             <thead>
               <tr className="border-b border-border">
@@ -1404,17 +1526,29 @@ function PaymentSettingsContent() {
                   <td className="px-4 py-3 text-sm text-text">{pm.name}</td>
                   <td className="px-4 py-3 text-sm text-text-secondary">{pm.description}</td>
                   <td className="px-4 py-3">
-                    <span className="rounded bg-green-500 px-2 py-0.5 text-xs font-medium text-white">
-                      {pm.status}
-                    </span>
+                    <span className="rounded bg-green-500 px-2 py-0.5 text-xs font-medium text-white">{pm.status}</span>
                   </td>
                   <td className="px-4 py-3 text-right">
                     <div className="flex items-center justify-end gap-2">
                       <button className="text-text-secondary hover:text-primary">
-                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                          />
+                        </svg>
                       </button>
                       <button className="text-text-secondary hover:text-red-500">
-                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          />
+                        </svg>
                       </button>
                     </div>
                   </td>
@@ -1424,9 +1558,11 @@ function PaymentSettingsContent() {
           </table>
         </div>
 
-        <div className="flex items-center justify-end gap-2 mt-4">
+        <div className="mt-4 flex items-center justify-end gap-2">
           <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
-          <button className="rounded border border-primary px-2.5 py-1 text-sm font-medium text-primary bg-purple-50">1</button>
+          <button className="rounded border border-primary bg-purple-50 px-2.5 py-1 text-sm font-medium text-primary">
+            1
+          </button>
           <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">2</button>
           <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&gt;</button>
         </div>
@@ -1434,21 +1570,21 @@ function PaymentSettingsContent() {
 
       {/* Add payment method */}
       <div className="mb-6">
-        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+        <Button>
           + Add payment method
-        </button>
+        </Button>
       </div>
 
-      <hr className="border-border mb-6" />
+      <hr className="mb-6 border-border" />
 
       {/* NDIS bulk upload */}
       <div>
-        <h2 className="text-base font-semibold text-text mb-3">NDIS bulk upload</h2>
+        <h2 className="mb-3 text-base font-semibold text-text">NDIS bulk upload</h2>
         <div className="max-w-md">
-          <label className="block text-sm text-text mb-1">
+          <label className="mb-1 block text-sm text-text">
             Payment method<span className="text-red-500">*</span>
           </label>
-          <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary mb-3">
+          <select className="mb-3 w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
             <option>Credit Card</option>
           </select>
           <button className="rounded-lg bg-green-500 px-4 py-2 text-sm font-medium text-white hover:bg-green-600">
@@ -1473,15 +1609,15 @@ function CommunicationTypesContent() {
   ];
 
   return (
-    <div className="p-6 max-w-4xl">
-      <div className="flex items-center justify-between mb-6">
+    <div className="max-w-4xl p-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Communication types</h1>
-        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+        <Button variant="primary">
           + Add communication type
-        </button>
+        </Button>
       </div>
 
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border">
@@ -1504,7 +1640,11 @@ function CommunicationTypesContent() {
                     <span className="text-text-secondary">-</span>
                   ) : (
                     <button className="text-text-secondary hover:text-text">
-                      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="1" />
+                        <circle cx="19" cy="12" r="1" />
+                        <circle cx="5" cy="12" r="1" />
+                      </svg>
                     </button>
                   )}
                 </td>
@@ -1514,11 +1654,13 @@ function CommunicationTypesContent() {
         </table>
       </div>
 
-      <div className="flex items-center justify-end gap-2 mt-4">
+      <div className="mt-4 flex items-center justify-end gap-2">
         <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
-        <button className="rounded border border-primary px-2.5 py-1 text-sm font-medium text-primary bg-purple-50">1</button>
+        <button className="rounded border border-primary bg-purple-50 px-2.5 py-1 text-sm font-medium text-primary">
+          1
+        </button>
         <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&gt;</button>
-        <span className="text-sm text-text-secondary ml-2">10 / page</span>
+        <span className="ml-2 text-sm text-text-secondary">10 / page</span>
       </div>
     </div>
   );
@@ -1541,12 +1683,12 @@ function CancellationReasonsContent() {
   ];
 
   return (
-    <div className="p-6 max-w-4xl">
-      <div className="flex items-center justify-between mb-6">
+    <div className="max-w-4xl p-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Cancellation reasons</h1>
-        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+        <Button>
           Show archived
-        </button>
+        </Button>
       </div>
 
       <div className="space-y-0 divide-y divide-border">
@@ -1560,10 +1702,24 @@ function CancellationReasonsContent() {
             </div>
             <div className="flex items-center gap-2">
               <button className="text-text-secondary hover:text-primary">
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                  />
+                </svg>
               </button>
               <button className="text-text-secondary hover:text-red-500">
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                  />
+                </svg>
               </button>
             </div>
           </div>
@@ -1587,24 +1743,25 @@ function BusyTimesContent() {
   ];
 
   return (
-    <div className="p-6 max-w-4xl">
-      <div className="flex items-center justify-between mb-4">
+    <div className="max-w-4xl p-6">
+      <div className="mb-4 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Busy time types</h1>
         <div className="flex items-center gap-3">
-          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+          <Button>
             Show archived
-          </button>
-          <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+          </Button>
+          <Button variant="primary">
             + New type
-          </button>
+          </Button>
         </div>
       </div>
 
-      <p className="text-sm text-text-secondary mb-6">
-        Use busy time to indicate non billable events in Practitioner calendars. You can change utilisation settings to control whether specific types of busy time are used in utilisation reports.
+      <p className="mb-6 text-sm text-text-secondary">
+        Use busy time to indicate non billable events in Practitioner calendars. You can change utilisation settings to
+        control whether specific types of busy time are used in utilisation reports.
       </p>
 
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border">
@@ -1627,7 +1784,11 @@ function BusyTimesContent() {
                 <td className="px-4 py-3 text-sm text-text-secondary">{bt.duration}</td>
                 <td className="px-4 py-3 text-right">
                   <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="1" />
+                      <circle cx="19" cy="12" r="1" />
+                      <circle cx="5" cy="12" r="1" />
+                    </svg>
                   </button>
                 </td>
               </tr>
@@ -1655,25 +1816,39 @@ function CustomFieldsContent() {
 
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Custom fields</h1>
         <div className="flex items-center gap-3">
-          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Reorder</button>
-          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Show archived</button>
-          <button className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-            <svg className="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zM10 18a1 1 0 001-1v-1a1 1 0 10-2 0v1a1 1 0 001 1z" /></svg>
+          <Button>
+            Reorder
+          </Button>
+          <Button>
+            Show archived
+          </Button>
+          <Button>
+            <svg className="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zM10 18a1 1 0 001-1v-1a1 1 0 10-2 0v1a1 1 0 001 1z" />
+            </svg>
             Learn
-          </button>
-          <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">+ New custom field</button>
+          </Button>
+          <Button variant="primary">
+            + New custom field
+          </Button>
         </div>
       </div>
 
-      <div className="flex items-center gap-3 mb-6">
-        <input type="text" placeholder="Search for custom field name" className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
-        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Search</button>
+      <div className="mb-6 flex items-center gap-3">
+        <input
+          type="text"
+          placeholder="Search for custom field name"
+          className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+        />
+        <Button>
+          Search
+        </Button>
       </div>
 
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border">
@@ -1697,7 +1872,11 @@ function CustomFieldsContent() {
                 </td>
                 <td className="px-4 py-3 text-right">
                   <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="1" />
+                      <circle cx="19" cy="12" r="1" />
+                      <circle cx="5" cy="12" r="1" />
+                    </svg>
                   </button>
                 </td>
               </tr>
@@ -1725,24 +1904,36 @@ function RoomsResourcesContent() {
 
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Rooms/Resources</h1>
         <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-            <svg className="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zM10 18a1 1 0 001-1v-1a1 1 0 10-2 0v1a1 1 0 001 1z" /></svg>
+          <Button>
+            <svg className="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zM10 18a1 1 0 001-1v-1a1 1 0 10-2 0v1a1 1 0 001 1z" />
+            </svg>
             Learn
-          </button>
-          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Show archived</button>
-          <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">+ Room/resource</button>
+          </Button>
+          <Button>
+            Show archived
+          </Button>
+          <Button variant="primary">
+            + Room/resource
+          </Button>
         </div>
       </div>
 
-      <div className="flex items-center gap-3 mb-6">
-        <input type="text" placeholder="Search for rooms/resources" className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
-        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Search</button>
+      <div className="mb-6 flex items-center gap-3">
+        <input
+          type="text"
+          placeholder="Search for rooms/resources"
+          className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+        />
+        <Button>
+          Search
+        </Button>
       </div>
 
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-green-50">
@@ -1771,7 +1962,11 @@ function RoomsResourcesContent() {
                 <td className="px-4 py-3 text-sm text-text-secondary">{r.location}</td>
                 <td className="px-4 py-3 text-right">
                   <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="1" />
+                      <circle cx="19" cy="12" r="1" />
+                      <circle cx="5" cy="12" r="1" />
+                    </svg>
                   </button>
                 </td>
               </tr>
@@ -1787,35 +1982,96 @@ function RoomsResourcesContent() {
 
 function ServicesContent() {
   const services = [
-    { name: "1:1 Consultation", color: "#8b5cf6", type: "1:1 Consultation", itemCode: "299sdsdds3234", duration: "40 minutes", price: "193.00 / Hour" },
-    { name: "1x Initial 1:1 Assessment, 14 x Group Therapy Sessions, and 1x Review Session", color: "#9ca3af", type: "Group Package Deal", itemCode: "", duration: "60 minutes", price: "1000.00 / Each" },
-    { name: "2:2 Consultations", color: "#22c55e", type: "2:2 Consultations", itemCode: "2997952838_61 6271_abc", duration: "60 minutes", price: "193.99 / Hour" },
-    { name: "2. Payment optional - partial - Online booking", color: "#9ca3af", type: "1. Payment test - Online booking", itemCode: "sd", duration: "30 minutes", price: "200.00 / Hour" },
-    { name: "3 cases services", color: "#22c55e", type: "3 cases service", itemCode: "", duration: "45 minutes", price: "120.00 / Hour" },
-    { name: "3. Payment required - partial - Online booking", color: "#9ca3af", type: "1. Payment test - Online booking", itemCode: "", duration: "30 minutes", price: "200.00 / Hour" },
-    { name: "4. Payment required - full - Online booking", color: "#9ca3af", type: "1. Payment test - Online booking", itemCode: "", duration: "30 minutes", price: "200.00 / Hour" },
+    {
+      name: "1:1 Consultation",
+      color: "#8b5cf6",
+      type: "1:1 Consultation",
+      itemCode: "299sdsdds3234",
+      duration: "40 minutes",
+      price: "193.00 / Hour",
+    },
+    {
+      name: "1x Initial 1:1 Assessment, 14 x Group Therapy Sessions, and 1x Review Session",
+      color: "#9ca3af",
+      type: "Group Package Deal",
+      itemCode: "",
+      duration: "60 minutes",
+      price: "1000.00 / Each",
+    },
+    {
+      name: "2:2 Consultations",
+      color: "#22c55e",
+      type: "2:2 Consultations",
+      itemCode: "2997952838_61 6271_abc",
+      duration: "60 minutes",
+      price: "193.99 / Hour",
+    },
+    {
+      name: "2. Payment optional - partial - Online booking",
+      color: "#9ca3af",
+      type: "1. Payment test - Online booking",
+      itemCode: "sd",
+      duration: "30 minutes",
+      price: "200.00 / Hour",
+    },
+    {
+      name: "3 cases services",
+      color: "#22c55e",
+      type: "3 cases service",
+      itemCode: "",
+      duration: "45 minutes",
+      price: "120.00 / Hour",
+    },
+    {
+      name: "3. Payment required - partial - Online booking",
+      color: "#9ca3af",
+      type: "1. Payment test - Online booking",
+      itemCode: "",
+      duration: "30 minutes",
+      price: "200.00 / Hour",
+    },
+    {
+      name: "4. Payment required - full - Online booking",
+      color: "#9ca3af",
+      type: "1. Payment test - Online booking",
+      itemCode: "",
+      duration: "30 minutes",
+      price: "200.00 / Hour",
+    },
   ];
 
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Services</h1>
         <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-            <svg className="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zM10 18a1 1 0 001-1v-1a1 1 0 10-2 0v1a1 1 0 001 1z" /></svg>
+          <Button>
+            <svg className="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zM10 18a1 1 0 001-1v-1a1 1 0 10-2 0v1a1 1 0 001 1z" />
+            </svg>
             Learn
-          </button>
-          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Show archived</button>
-          <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">+ New service</button>
+          </Button>
+          <Button>
+            Show archived
+          </Button>
+          <Button variant="primary">
+            + New service
+          </Button>
         </div>
       </div>
 
-      <div className="flex items-center gap-3 mb-6">
-        <input type="text" placeholder="Search for service name, type, and item code" className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
-        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Search</button>
+      <div className="mb-6 flex items-center gap-3">
+        <input
+          type="text"
+          placeholder="Search for service name, type, and item code"
+          className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+        />
+        <Button>
+          Search
+        </Button>
       </div>
 
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-green-50">
@@ -1846,7 +2102,11 @@ function ServicesContent() {
                 <td className="px-4 py-3 text-sm text-text-secondary">{s.price}</td>
                 <td className="px-4 py-3 text-right">
                   <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="1" />
+                      <circle cx="19" cy="12" r="1" />
+                      <circle cx="5" cy="12" r="1" />
+                    </svg>
                   </button>
                 </td>
               </tr>
@@ -1876,10 +2136,12 @@ function TaxRatesContent() {
   ];
 
   return (
-    <div className="p-6 max-w-4xl">
-      <div className="flex items-center justify-between mb-6">
+    <div className="max-w-4xl p-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Tax rates</h1>
-        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">+ New tax rate</button>
+        <Button variant="primary">
+          + New tax rate
+        </Button>
       </div>
 
       <div className="divide-y divide-border">
@@ -1892,7 +2154,9 @@ function TaxRatesContent() {
             <div className="flex items-center gap-1.5">
               <span className="text-sm text-text">{t.name}</span>
               {t.info && (
-                <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help">i</span>
+                <span className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
+                  i
+                </span>
               )}
             </div>
             <span className="text-sm text-text-secondary">{t.rate}</span>
@@ -1930,74 +2194,121 @@ function InvoiceSettingsContent() {
   ];
 
   return (
-    <div className="p-6 max-w-4xl">
-      <h1 className="text-2xl font-bold text-text mb-6">Invoice Settings</h1>
+    <div className="max-w-4xl p-6">
+      <h1 className="mb-6 text-2xl font-bold text-text">Invoice Settings</h1>
 
       {/* Stripe notice */}
-      <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-4 mb-6 flex items-start gap-3">
-        <svg className="h-5 w-5 text-yellow-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" /></svg>
+      <div className="mb-6 flex items-start gap-3 rounded-lg border border-yellow-200 bg-yellow-50 p-4">
+        <svg className="mt-0.5 h-5 w-5 shrink-0 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"
+          />
+        </svg>
         <div className="text-sm text-yellow-800">
-          You need an active Stripe connection for online payments. <span className="text-primary cursor-pointer hover:underline">Connect to Stripe</span>
+          You need an active Stripe connection for online payments.{" "}
+          <span className="cursor-pointer text-primary hover:underline">Connect to Stripe</span>
         </div>
       </div>
 
-      <label className="flex items-center gap-2 text-sm text-text mb-6">
-        <input type="checkbox" className="rounded border-gray-300 text-primary focus:ring-primary h-4 w-4" />
+      <label className="mb-6 flex items-center gap-2 text-sm text-text">
+        <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" />
         Enable online payments for invoices
       </label>
 
       {/* Invoice number */}
       <div className="mb-6">
-        <h2 className="text-base font-semibold text-text mb-3">Invoice number</h2>
-        <div className="space-y-3 max-w-md">
+        <h2 className="mb-3 text-base font-semibold text-text">Invoice number</h2>
+        <div className="max-w-md space-y-3">
           <div>
-            <label className="block text-sm text-text-secondary mb-1">
-              Prefix <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help">i</span>
+            <label className="mb-1 block text-sm text-text-secondary">
+              Prefix{" "}
+              <span className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
+                i
+              </span>
             </label>
-            <input type="text" defaultValue="INV" className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+            <input
+              type="text"
+              defaultValue="INV"
+              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+            />
           </div>
           <div>
-            <label className="block text-sm text-text-secondary mb-1">
-              Padding <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help">i</span>
+            <label className="mb-1 block text-sm text-text-secondary">
+              Padding{" "}
+              <span className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
+                i
+              </span>
             </label>
-            <input type="text" defaultValue="4" className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+            <input
+              type="text"
+              defaultValue="4"
+              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+            />
           </div>
           <div>
-            <label className="block text-sm text-text-secondary mb-1">Next invoice number</label>
-            <input type="text" defaultValue="6309" className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+            <label className="mb-1 block text-sm text-text-secondary">Next invoice number</label>
+            <input
+              type="text"
+              defaultValue="6309"
+              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+            />
           </div>
         </div>
       </div>
 
       {/* Credit note number */}
       <div className="mb-6">
-        <h2 className="text-base font-semibold text-text mb-3">Credit note number</h2>
-        <div className="space-y-3 max-w-md">
+        <h2 className="mb-3 text-base font-semibold text-text">Credit note number</h2>
+        <div className="max-w-md space-y-3">
           <div>
-            <label className="block text-sm text-text-secondary mb-1">
-              Prefix <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help">i</span>
+            <label className="mb-1 block text-sm text-text-secondary">
+              Prefix{" "}
+              <span className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
+                i
+              </span>
             </label>
-            <input type="text" defaultValue="CN" className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+            <input
+              type="text"
+              defaultValue="CN"
+              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+            />
           </div>
           <div>
-            <label className="block text-sm text-text-secondary mb-1">
-              Padding <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help">i</span>
+            <label className="mb-1 block text-sm text-text-secondary">
+              Padding{" "}
+              <span className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
+                i
+              </span>
             </label>
-            <input type="text" defaultValue="4" className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+            <input
+              type="text"
+              defaultValue="4"
+              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+            />
           </div>
           <div>
-            <label className="block text-sm text-text-secondary mb-1">Next credit note number</label>
-            <input type="text" defaultValue="101" className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+            <label className="mb-1 block text-sm text-text-secondary">Next credit note number</label>
+            <input
+              type="text"
+              defaultValue="101"
+              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+            />
           </div>
         </div>
       </div>
 
       {/* Tax */}
       <div className="mb-6">
-        <h2 className="text-base font-semibold text-text mb-3">Tax</h2>
+        <h2 className="mb-3 text-base font-semibold text-text">Tax</h2>
         <div className="max-w-md">
-          <label className="block text-sm text-text-secondary mb-1">
-            Default tax <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help">i</span>
+          <label className="mb-1 block text-sm text-text-secondary">
+            Default tax{" "}
+            <span className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
+              i
+            </span>
           </label>
           <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
             <option>Tax exclusive</option>
@@ -2008,11 +2319,14 @@ function InvoiceSettingsContent() {
 
       {/* Invoice reminders preferences */}
       <div className="mb-6">
-        <h2 className="text-base font-semibold text-text mb-3">Invoice reminders preferences</h2>
+        <h2 className="mb-3 text-base font-semibold text-text">Invoice reminders preferences</h2>
         <div className="max-w-md space-y-3">
           <div>
-            <label className="block text-sm text-text-secondary mb-1">
-              Default invoice reminder preferences <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help">i</span>
+            <label className="mb-1 block text-sm text-text-secondary">
+              Default invoice reminder preferences{" "}
+              <span className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
+                i
+              </span>
             </label>
             <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
               <option>On</option>
@@ -2020,19 +2334,24 @@ function InvoiceSettingsContent() {
             </select>
           </div>
           <label className="flex items-center gap-2 text-sm text-text-secondary">
-            <input type="checkbox" className="rounded border-gray-300 text-primary focus:ring-primary h-4 w-4" />
+            <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" />
             Apply to all existing clients and override the current invoice reminder preferences.
           </label>
           <div>
-            <label className="block text-sm text-text-secondary mb-1">Don{"'"}t send reminders for amounts owing on an invoice under</label>
-            <input type="text" className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
+            <label className="mb-1 block text-sm text-text-secondary">
+              Don{"'"}t send reminders for amounts owing on an invoice under
+            </label>
+            <input
+              type="text"
+              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+            />
           </div>
         </div>
       </div>
 
       {/* Invoice reminders */}
       <div className="mb-6">
-        <h2 className="text-base font-semibold text-text mb-4">Invoice reminders</h2>
+        <h2 className="mb-4 text-base font-semibold text-text">Invoice reminders</h2>
         <div className="divide-y divide-border">
           <div className="flex items-center justify-between py-2">
             <span className="text-sm font-medium text-text-secondary">Name</span>
@@ -2041,15 +2360,36 @@ function InvoiceSettingsContent() {
           {reminders.map((r) => (
             <div key={r.name} className="flex items-center justify-between py-3">
               <div className="flex items-center gap-2">
-                <svg className="h-4 w-4 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <svg className="h-4 w-4 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
                 <span className="text-sm text-text">{r.name}</span>
               </div>
               <div className="flex items-center gap-2">
                 <button className="text-text-secondary hover:text-primary">
-                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                    />
+                  </svg>
                 </button>
                 <button className="text-text-secondary hover:text-red-500">
-                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                    />
+                  </svg>
                 </button>
               </div>
             </div>
@@ -2062,7 +2402,7 @@ function InvoiceSettingsContent() {
 
       {/* Invoice templates */}
       <div>
-        <h2 className="text-base font-semibold text-text mb-4">Invoice templates</h2>
+        <h2 className="mb-4 text-base font-semibold text-text">Invoice templates</h2>
         <div className="divide-y divide-border">
           <div className="flex items-center justify-between py-2">
             <span className="text-sm font-medium text-text-secondary">Name</span>
@@ -2073,20 +2413,36 @@ function InvoiceSettingsContent() {
               <span className="text-sm text-text">{t.name}</span>
               <div className="flex items-center gap-2">
                 <button className="text-text-secondary hover:text-primary">
-                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                    />
+                  </svg>
                 </button>
                 {t.deletable && (
                   <button className="text-text-secondary hover:text-red-500">
-                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                      />
+                    </svg>
                   </button>
                 )}
               </div>
             </div>
           ))}
         </div>
-        <div className="flex items-center justify-end gap-2 mt-4">
+        <div className="mt-4 flex items-center justify-end gap-2">
           <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
-          <button className="rounded border border-primary px-2.5 py-1 text-sm font-medium text-primary bg-purple-50">1</button>
+          <button className="rounded border border-primary bg-purple-50 px-2.5 py-1 text-sm font-medium text-primary">
+            1
+          </button>
           <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">2</button>
           <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&gt;</button>
         </div>
@@ -2115,15 +2471,19 @@ function OnlineBookingsContent() {
 
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Online booking settings</h1>
         <div className="flex items-center gap-3">
-          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Show archived</button>
-          <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">+ New booking page</button>
+          <Button>
+            Show archived
+          </Button>
+          <Button variant="primary">
+            + New booking page
+          </Button>
         </div>
       </div>
 
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border">
@@ -2141,7 +2501,11 @@ function OnlineBookingsContent() {
                 <td className="px-4 py-3 text-sm text-text-secondary">{b.updated}</td>
                 <td className="px-4 py-3 text-right">
                   <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="1" />
+                      <circle cx="19" cy="12" r="1" />
+                      <circle cx="5" cy="12" r="1" />
+                    </svg>
                   </button>
                 </td>
               </tr>
@@ -2157,7 +2521,13 @@ function OnlineBookingsContent() {
 
 function AppointmentTemplatesContent() {
   const templates = [
-    { name: "Appointment confirmation (new client)", type: "Confirmation", sms: "On", email: "On", modified: "4:51 pm, 10 Feb 2026" },
+    {
+      name: "Appointment confirmation (new client)",
+      type: "Confirmation",
+      sms: "On",
+      email: "On",
+      modified: "4:51 pm, 10 Feb 2026",
+    },
     { name: "Appointment rescheduled", type: "Reschedule", sms: "On", email: "On", modified: "3:46 pm, 20 Jun 2025" },
     { name: "Appointment cancellation", type: "Cancellation", sms: "On", email: "On", modified: "2:39 pm, 2 Feb 2026" },
     { name: "Appointment reminder", type: "Reminder", sms: "On", email: "On", modified: "10:51 am, 9 Mar 2026" },
@@ -2168,17 +2538,25 @@ function AppointmentTemplatesContent() {
 
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Appointment templates</h1>
-        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">+ New template</button>
+        <Button variant="primary">
+          + New template
+        </Button>
       </div>
 
-      <div className="flex items-center gap-3 mb-6">
-        <input type="text" placeholder="Search for template and type" className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
-        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Search</button>
+      <div className="mb-6 flex items-center gap-3">
+        <input
+          type="text"
+          placeholder="Search for template and type"
+          className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+        />
+        <Button>
+          Search
+        </Button>
       </div>
 
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-green-50">
@@ -2196,15 +2574,23 @@ function AppointmentTemplatesContent() {
                 <td className="px-4 py-3 text-sm text-text">{t.name}</td>
                 <td className="px-4 py-3 text-sm text-text-secondary">{t.type}</td>
                 <td className="px-4 py-3">
-                  <span className={`text-sm font-medium ${t.sms === "On" ? "text-green-600" : "text-red-500"}`}>{t.sms}</span>
+                  <span className={`text-sm font-medium ${t.sms === "On" ? "text-green-600" : "text-red-500"}`}>
+                    {t.sms}
+                  </span>
                 </td>
                 <td className="px-4 py-3">
-                  <span className={`text-sm font-medium ${t.email === "On" ? "text-green-600" : "text-red-500"}`}>{t.email}</span>
+                  <span className={`text-sm font-medium ${t.email === "On" ? "text-green-600" : "text-red-500"}`}>
+                    {t.email}
+                  </span>
                 </td>
                 <td className="px-4 py-3 text-sm text-text-secondary">{t.modified}</td>
                 <td className="px-4 py-3 text-right">
                   <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="1" />
+                      <circle cx="19" cy="12" r="1" />
+                      <circle cx="5" cy="12" r="1" />
+                    </svg>
                   </button>
                 </td>
               </tr>
@@ -2232,17 +2618,25 @@ function EmailTemplatesContent() {
 
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Email templates</h1>
-        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">+ New template</button>
+        <Button variant="primary">
+          + New template
+        </Button>
       </div>
 
-      <div className="flex items-center gap-3 mb-6">
-        <input type="text" placeholder="Search for template and type" className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
-        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Search</button>
+      <div className="mb-6 flex items-center gap-3">
+        <input
+          type="text"
+          placeholder="Search for template and type"
+          className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+        />
+        <Button>
+          Search
+        </Button>
       </div>
 
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-green-50">
@@ -2260,7 +2654,11 @@ function EmailTemplatesContent() {
                 <td className="px-4 py-3 text-sm text-text-secondary">{t.modified}</td>
                 <td className="px-4 py-3 text-right">
                   <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="1" />
+                      <circle cx="19" cy="12" r="1" />
+                      <circle cx="5" cy="12" r="1" />
+                    </svg>
                   </button>
                 </td>
               </tr>
@@ -2285,32 +2683,46 @@ function ProgressNoteTemplatesContent() {
 
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Progress note templates</h1>
         <div className="flex items-center gap-3">
-          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Show archived</button>
-          <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">+ New template</button>
+          <Button>
+            Show archived
+          </Button>
+          <Button variant="primary">
+            + New template
+          </Button>
         </div>
       </div>
 
-      <div className="rounded-lg border border-purple-200 bg-purple-50 px-4 py-3 mb-4 flex items-center justify-between">
+      <div className="mb-4 flex items-center justify-between rounded-lg border border-purple-200 bg-purple-50 px-4 py-3">
         <div className="flex items-center gap-2">
           <span className="rounded bg-primary px-2 py-0.5 text-xs font-bold text-white">New</span>
-          <span className="text-sm text-text">Add AI blocks to templates to generate instant drafts, every session. Try a template <span className="text-primary cursor-pointer hover:underline">created by splose.</span></span>
+          <span className="text-sm text-text">
+            Add AI blocks to templates to generate instant drafts, every session. Try a template{" "}
+            <span className="cursor-pointer text-primary hover:underline">created by splose.</span>
+          </span>
         </div>
-        <button className="text-text-secondary hover:text-text text-lg">&times;</button>
+        <button className="text-lg text-text-secondary hover:text-text">&times;</button>
       </div>
 
-      <p className="text-sm text-text-secondary mb-4">
-        Create templates for any appointment type to save time and keep documentation consistent. Add tables, auto-fill placeholders, interactive fields and AI blocks.
+      <p className="mb-4 text-sm text-text-secondary">
+        Create templates for any appointment type to save time and keep documentation consistent. Add tables, auto-fill
+        placeholders, interactive fields and AI blocks.
       </p>
 
-      <div className="flex items-center gap-3 mb-6">
-        <input type="text" placeholder="Search for title" className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
-        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Search</button>
+      <div className="mb-6 flex items-center gap-3">
+        <input
+          type="text"
+          placeholder="Search for title"
+          className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+        />
+        <Button>
+          Search
+        </Button>
       </div>
 
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-green-50">
@@ -2331,7 +2743,11 @@ function ProgressNoteTemplatesContent() {
                 <td className="px-4 py-3 text-sm text-text-secondary">{t.created}</td>
                 <td className="px-4 py-3 text-right">
                   <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="1" />
+                      <circle cx="19" cy="12" r="1" />
+                      <circle cx="5" cy="12" r="1" />
+                    </svg>
                   </button>
                 </td>
               </tr>
@@ -2347,8 +2763,16 @@ function ProgressNoteTemplatesContent() {
 
 function LetterTemplatesContent() {
   const templates = [
-    { title: "Chronic Disease Management plan first appointment", created: "4:44 pm, 6 Oct 2020", updated: "12:17 pm, 6 Feb 2026" },
-    { title: "Chronic Disease Management plan last appointment", created: "4:44 pm, 6 Oct 2020", updated: "12:50 pm, 8 Nov 2021" },
+    {
+      title: "Chronic Disease Management plan first appointment",
+      created: "4:44 pm, 6 Oct 2020",
+      updated: "12:17 pm, 6 Feb 2026",
+    },
+    {
+      title: "Chronic Disease Management plan last appointment",
+      created: "4:44 pm, 6 Oct 2020",
+      updated: "12:50 pm, 8 Nov 2021",
+    },
     { title: "DVA", created: "10:54 am, 15 Aug 2023", updated: "10:54 am, 15 Aug 2023" },
     { title: "Test 123 contact", created: "4:36 pm, 4 Jun 2024", updated: "11:41 am, 3 Mar 2026" },
     { title: "Case note", created: "2:05 pm, 14 Jun 2024", updated: "2:05 pm, 14 Jun 2024" },
@@ -2358,20 +2782,30 @@ function LetterTemplatesContent() {
 
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Letter templates</h1>
         <div className="flex items-center gap-3">
-          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Show archived</button>
-          <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">+ New template</button>
+          <Button>
+            Show archived
+          </Button>
+          <Button variant="primary">
+            + New template
+          </Button>
         </div>
       </div>
 
-      <div className="flex items-center gap-3 mb-6">
-        <input type="text" placeholder="Search for title" className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
-        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">Search</button>
+      <div className="mb-6 flex items-center gap-3">
+        <input
+          type="text"
+          placeholder="Search for title"
+          className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+        />
+        <Button>
+          Search
+        </Button>
       </div>
 
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-green-50">
@@ -2389,7 +2823,11 @@ function LetterTemplatesContent() {
                 <td className="px-4 py-3 text-sm text-text-secondary">{t.updated}</td>
                 <td className="px-4 py-3 text-right">
                   <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="1" />
+                      <circle cx="19" cy="12" r="1" />
+                      <circle cx="5" cy="12" r="1" />
+                    </svg>
                   </button>
                 </td>
               </tr>
@@ -2405,22 +2843,62 @@ function LetterTemplatesContent() {
 
 function DataExportContent() {
   const exports = [
-    { type: "Appointment", dateRange: "17 Jan 2026 - 18 Mar 2026", archived: "No", created: "2:18 pm, 17 Mar 2026", createdBy: "Ruvi R.", status: "Done", records: "354(89.2 KB)" },
-    { type: "Waitlist", dateRange: "1 Jan 2024 - 3 Apr 2025", archived: "Yes", created: "4:57 pm, 12 Mar 2026", createdBy: "Hrishikes h Koli", status: "Error", records: "0(0 B)" },
-    { type: "Waitlist", dateRange: "1 Jan 2024 - 17 Mar 2024", archived: "No", created: "4:56 pm, 12 Mar 2026", createdBy: "Hrishikes h Koli", status: "Error", records: "0(0 B)" },
-    { type: "Waitlist", dateRange: "5 Mar 2024 - 17 Mar 2024", archived: "No", created: "4:56 pm, 12 Mar 2026", createdBy: "Hrishikes h Koli", status: "Error", records: "0(0 B)" },
-    { type: "Case", dateRange: "5 Mar 2024 - 8 Apr 2024", archived: "No", created: "11:00 am, 12 Mar 2026", createdBy: "Hrishikes h Koli", status: "Done", records: "1(689 B)" },
+    {
+      type: "Appointment",
+      dateRange: "17 Jan 2026 - 18 Mar 2026",
+      archived: "No",
+      created: "2:18 pm, 17 Mar 2026",
+      createdBy: "Ruvi R.",
+      status: "Done",
+      records: "354(89.2 KB)",
+    },
+    {
+      type: "Waitlist",
+      dateRange: "1 Jan 2024 - 3 Apr 2025",
+      archived: "Yes",
+      created: "4:57 pm, 12 Mar 2026",
+      createdBy: "Hrishikes h Koli",
+      status: "Error",
+      records: "0(0 B)",
+    },
+    {
+      type: "Waitlist",
+      dateRange: "1 Jan 2024 - 17 Mar 2024",
+      archived: "No",
+      created: "4:56 pm, 12 Mar 2026",
+      createdBy: "Hrishikes h Koli",
+      status: "Error",
+      records: "0(0 B)",
+    },
+    {
+      type: "Waitlist",
+      dateRange: "5 Mar 2024 - 17 Mar 2024",
+      archived: "No",
+      created: "4:56 pm, 12 Mar 2026",
+      createdBy: "Hrishikes h Koli",
+      status: "Error",
+      records: "0(0 B)",
+    },
+    {
+      type: "Case",
+      dateRange: "5 Mar 2024 - 8 Apr 2024",
+      archived: "No",
+      created: "11:00 am, 12 Mar 2026",
+      createdBy: "Hrishikes h Koli",
+      status: "Done",
+      records: "1(689 B)",
+    },
   ];
 
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Data export</h1>
       </div>
 
-      <div className="flex items-center gap-3 mb-6">
+      <div className="mb-6 flex items-center gap-3">
         <div>
-          <label className="block text-xs text-text-secondary mb-1">Export</label>
+          <label className="mb-1 block text-xs text-text-secondary">Export</label>
           <select className="rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
             <option>Appointments</option>
             <option>Waitlist</option>
@@ -2429,24 +2907,34 @@ function DataExportContent() {
           </select>
         </div>
         <div>
-          <label className="block text-xs text-text-secondary mb-1">Date*</label>
+          <label className="mb-1 block text-xs text-text-secondary">Date*</label>
           <div className="flex items-center gap-2">
-            <input type="text" placeholder="Start date" className="rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary w-32" />
+            <input
+              type="text"
+              placeholder="Start date"
+              className="w-32 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
+            />
             <span className="text-text-secondary">—</span>
-            <input type="text" placeholder="End date" className="rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary w-32" />
+            <input
+              type="text"
+              placeholder="End date"
+              className="w-32 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
+            />
           </div>
         </div>
         <div className="self-end">
-          <button className="rounded-lg bg-green-500 px-6 py-2 text-sm font-medium text-white hover:bg-green-600">Export</button>
+          <button className="rounded-lg bg-green-500 px-6 py-2 text-sm font-medium text-white hover:bg-green-600">
+            Export
+          </button>
         </div>
       </div>
 
-      <label className="flex items-center gap-2 text-sm text-text-secondary mb-6">
-        <input type="checkbox" className="rounded border-gray-300 text-primary focus:ring-primary h-4 w-4" />
+      <label className="mb-6 flex items-center gap-2 text-sm text-text-secondary">
+        <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" />
         Include archived
       </label>
 
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border">
@@ -2469,14 +2957,20 @@ function DataExportContent() {
                 <td className="px-4 py-3 text-sm text-text-secondary">{e.created}</td>
                 <td className="px-4 py-3 text-sm text-text-secondary">{e.createdBy}</td>
                 <td className="px-4 py-3">
-                  <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${e.status === "Done" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+                  <span
+                    className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${e.status === "Done" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}
+                  >
                     {e.status}
                   </span>
                 </td>
                 <td className="px-4 py-3 text-sm text-text-secondary">{e.records}</td>
                 <td className="px-4 py-3 text-right">
                   <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="1" />
+                      <circle cx="19" cy="12" r="1" />
+                      <circle cx="5" cy="12" r="1" />
+                    </svg>
                   </button>
                 </td>
               </tr>
@@ -2500,12 +2994,14 @@ function DataImportContent() {
 
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Import data</h1>
-        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">+ Import</button>
+        <Button variant="primary">
+          + Import
+        </Button>
       </div>
 
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border">
@@ -2530,7 +3026,11 @@ function DataImportContent() {
                 </td>
                 <td className="px-4 py-3 text-right">
                   <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="1" />
+                      <circle cx="19" cy="12" r="1" />
+                      <circle cx="5" cy="12" r="1" />
+                    </svg>
                   </button>
                 </td>
               </tr>
@@ -2546,25 +3046,17 @@ function DataImportContent() {
 
 function PlaceholderContent({ pageName }: { pageName: string }) {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center p-8 min-h-[60vh]">
+    <div className="flex min-h-[60vh] flex-1 flex-col items-center justify-center p-8">
       <div className="mb-6 text-6xl">&#9881;</div>
       <h2 className="text-xl font-bold text-text">{pageName}</h2>
-      <p className="mt-2 text-sm text-text-secondary">
-        This settings page is coming soon
-      </p>
+      <p className="mt-2 text-sm text-text-secondary">This settings page is coming soon</p>
     </div>
   );
 }
 
 /* ─── Shared components ───────────────────────────────────────────── */
 
-function Toggle({
-  checked,
-  onChange,
-}: {
-  checked: boolean;
-  onChange: (v: boolean) => void;
-}) {
+function Toggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean) => void }) {
   return (
     <button
       onClick={() => onChange(!checked)}
