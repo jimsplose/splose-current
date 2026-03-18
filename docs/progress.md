@@ -103,7 +103,22 @@ Append-only log. Each session adds an entry summarizing what was done.
   - Waitlist: stacking headers, responsive padding, scrollable tables
   - Notes, Invoices, Clients, Contacts, Products, Payments: responsive padding
 
+- **Design system component library** — Created 8 reusable components in `src/components/ds/`:
+  - Button (primary/secondary/danger/ghost, sm/md/lg)
+  - PageHeader, SearchBar, DataTable, TableHead/Th, TableBody/Td
+  - Pagination, Badge with statusVariant(), FormInput, FormSelect
+- **Eng toolkit page** (`/eng`) — Secret internal page with component showcase and page directory
+- **Tailwind cleanup tooling** — Installed prettier-plugin-tailwindcss for automatic class sorting
+- **Design system documentation** — Updated CLAUDE.md with DS component table, Tailwind practices, Eng toolkit reference
+- **Page refactoring (15 pages)** — Migrated to DS components:
+  - clients, contacts, notes, invoices, products, practitioners (list pages)
+  - reports/appointments, reports/progress-notes, reports/page (report pages)
+  - 6 client sub-tab pages (appointments, cases, invoices, letters, notes, practitioner-access)
+  - Net reduction: 167 lines (less duplication, more reuse)
+
 ### Still Remaining
 - Process new screenshots
 - Calendar practitioner columns layout (major structural change)
 - Integration logos: replace styled text with actual SVG brand assets if available
+- Refactor remaining pages to DS (payments, waitlist, settings sub-pages, calendar, client detail forms, communications)
+- Run `npx prettier --write src/` for full Tailwind class sorting pass
