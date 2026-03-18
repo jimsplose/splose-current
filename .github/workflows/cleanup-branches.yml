@@ -32,7 +32,7 @@ jobs:
           MAIN_SHA=$(gh api "repos/${{ github.repository }}/git/refs/heads/main" --jq '.object.sha')
           echo "main is at $MAIN_SHA"
 
-          CUTOFF=$(date -d '24 hours ago' -u +%Y-%m-%dT%H:%M:%SZ)
+          CUTOFF=$(date -d '72 hours ago' -u +%Y-%m-%dT%H:%M:%SZ)
           echo "Cutoff: $CUTOFF (branches with no commits after this are stale)"
 
           for BRANCH in $BRANCHES; do
