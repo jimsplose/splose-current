@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import "./globals.css";
 import TopNav from "@/components/TopNav";
+import DevNavigator from "@/components/DevNavigator";
 
 export const metadata: Metadata = {
   title: "Splose - Practice Management",
@@ -18,6 +20,9 @@ export default function RootLayout({
       <body className="antialiased">
         <TopNav />
         <main>{children}</main>
+        <Suspense fallback={null}>
+          <DevNavigator />
+        </Suspense>
       </body>
     </html>
   );
