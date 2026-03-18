@@ -80,6 +80,7 @@ export default async function ClientNotesPage({
                 <tr key={note.id} className="cursor-pointer hover:bg-gray-50">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
+                      <span className="text-text-secondary text-xs">»</span>
                       <span className="text-sm text-text">{note.template}</span>
                       {note.signed ? (
                         <span className="rounded bg-green-100 px-1.5 py-0.5 text-[10px] font-medium text-green-700">Final</span>
@@ -89,7 +90,7 @@ export default async function ClientNotesPage({
                     </div>
                   </td>
                   <td className="px-4 py-3 text-sm text-text-secondary">{note.practitioner.name}</td>
-                  <td className="px-4 py-3 text-sm text-text-secondary">{note.date ? formatDate(note.date) : "—"}</td>
+                  <td className="px-4 py-3 text-sm text-primary cursor-pointer hover:underline">{note.date ? formatDate(note.date) : "—"}</td>
                   <td className="px-4 py-3 text-sm text-text-secondary">{formatDateTime(note.createdAt)}</td>
                   <td className="px-4 py-3 text-sm text-text-secondary">{formatDateTime(note.createdAt)}</td>
                 </tr>

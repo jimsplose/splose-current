@@ -80,13 +80,29 @@ export default async function ClientInvoicesPage({
                 </th>
                 <th className="px-4 py-3 text-right text-sm font-medium text-text">Amount</th>
                 <th className="px-4 py-3 text-right text-sm font-medium text-text">Outstanding</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                  <div className="flex items-center gap-1">
+                    Status
+                    <Filter className="h-3 w-3 text-text-secondary" />
+                  </div>
+                </th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                  <div className="flex items-center gap-1">
+                    Sent status
+                    <Filter className="h-3 w-3 text-text-secondary" />
+                  </div>
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
               {client.invoices.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="px-4 py-8 text-center text-sm text-text-secondary">
-                    No invoices
+                  <td colSpan={10} className="px-4 py-16 text-center">
+                    <div className="flex flex-col items-center">
+                      <div className="mb-3 text-4xl">📋💵</div>
+                      <p className="text-sm font-medium text-text">No invoices</p>
+                      <button className="mt-1 text-sm text-primary hover:underline">Add new invoice</button>
+                    </div>
                   </td>
                 </tr>
               ) : (
@@ -107,6 +123,16 @@ export default async function ClientInvoicesPage({
                       <td className="px-4 py-3 text-sm text-text-secondary">{formatDate(inv.dueDate)}</td>
                       <td className="px-4 py-3 text-right text-sm text-text">{inv.total.toFixed(2)}</td>
                       <td className="px-4 py-3 text-right text-sm text-text">{outstanding.toFixed(2)}</td>
+                      <td className="px-4 py-3 text-sm">
+                        {inv.status === "Paid" ? (
+                          <span className="inline-flex items-center rounded-full bg-green-500 px-2 py-0.5 text-xs font-medium text-white">Paid</span>
+                        ) : inv.status === "Draft" ? (
+                          <span className="inline-flex items-center rounded-full bg-blue-500 px-2 py-0.5 text-xs font-medium text-white">Draft</span>
+                        ) : (
+                          <span className="inline-flex items-center rounded-full bg-yellow-500 px-2 py-0.5 text-xs font-medium text-white">{inv.status}</span>
+                        )}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-text-secondary">—</td>
                     </tr>
                   );
                 })

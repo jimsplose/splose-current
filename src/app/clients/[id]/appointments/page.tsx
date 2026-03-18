@@ -32,7 +32,7 @@ export default async function ClientAppointmentsPage({
             Send upcoming appointments
             <ChevronDown className="h-4 w-4 text-text-secondary" />
           </button>
-          <button className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90">
+          <button className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
             <Plus className="h-4 w-4" />
             New appointment
           </button>
