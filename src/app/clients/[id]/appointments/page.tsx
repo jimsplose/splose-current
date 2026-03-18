@@ -110,7 +110,7 @@ export default async function ClientAppointmentsPage({
                         <span className="inline-flex items-center rounded-full bg-blue-500 px-2.5 py-0.5 text-xs font-medium text-white">Draft</span>
                       )}
                       {invoiceStatus === "Do not invoice" && (
-                        <span className="inline-flex items-center rounded-full bg-yellow-500 px-2.5 py-0.5 text-xs font-medium text-white">Do not invoice</span>
+                        <span className="inline-flex items-center rounded-full bg-gray-700 px-2.5 py-0.5 text-xs font-medium text-white">Do not invoice</span>
                       )}
                       {invoiceStatus === "---" && (
                         <span className="text-text-secondary">---</span>
