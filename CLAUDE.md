@@ -45,8 +45,9 @@ Every push to any branch gets a **Vercel preview deployment**. This is how Jim r
 
 **After every push**, Claude Code MUST:
 1. Tell Jim the branch preview URL so he can check changes immediately
-2. Note: Vercel previews take 1-2 minutes to build after push
-3. Production auto-updates after preview build succeeds (via GitHub Action) — no manual step needed
+2. Take 1-2 Playwright screenshots of the most significant page changes and show them inline in chat
+3. Note: Vercel previews take 1-2 minutes to build after push
+4. Production auto-updates after preview build succeeds (via GitHub Action) — no manual step needed
 
 To check deployment status: `gh api repos/jimsplose/splose-current/deployments --jq '.[0] | {env: .environment, url: .payload.web_url, status: .state}'`
 
@@ -69,6 +70,15 @@ To check deployment status: `gh api repos/jimsplose/splose-current/deployments -
 | `FormInput` | Labeled text inputs with error states | Inline `rounded-lg border bg-white px-3 py-2 text-sm focus:border-primary...` |
 | `FormSelect` | Labeled select dropdowns | Inline `<select>` with focus styles |
 
+### Storybook
+
+**`npm run storybook`** — Runs Storybook on port 6006 with all DS components documented:
+- Button, Badge, PageHeader, SearchBar, DataTable, FormInput, FormSelect, Pagination
+- Each component has multiple stories showing variants and states
+- Stories live in `src/components/ds/stories/`
+
+**When adding new DS components**, always add a Storybook story file.
+
 ### Eng Toolkit Page
 
 **`/eng`** — Secret internal page for engineers. Shows:
@@ -82,6 +92,37 @@ To check deployment status: `gh api repos/jimsplose/splose-current/deployments -
 - **Responsive pattern**: Use `p-4 sm:p-6` for page padding, `hidden md:table-cell` for table columns, `flex-col sm:flex-row` for header layouts.
 - **When creating new pages**, use the DS components. Don't inline common patterns.
 - **When editing existing pages**, opportunistically migrate to DS components if touching that section anyway.
+
+## Playwright Screenshot Verification — MANDATORY
+
+**Every agent that changes page UI MUST verify its work with Playwright screenshots.** This is the single most important quality check.
+
+### For subagents (fidelity work, refactoring, new pages)
+
+Each agent must run this loop after making changes:
+
+1. `npx playwright screenshot --wait-for-timeout=2000 http://localhost:3000/<path> /tmp/screenshot-<page>.png`
+2. Read the screenshot (the Read tool supports images)
+3. Compare to the reference screenshot from `screenshots/reference/`
+4. If the result doesn't match → make more code changes → retake screenshot
+5. Repeat up to 3 iterations
+
+Include this instruction in every fidelity agent prompt.
+
+### For the main agent (after push)
+
+After every push, take 1-2 screenshots of the biggest visual changes:
+
+```bash
+npx playwright screenshot --wait-for-timeout=3000 http://localhost:3000/<changed-page> /tmp/progress-<page>.png
+```
+
+Then use the Read tool to display them inline in chat so Jim can see progress immediately.
+
+### When to skip
+
+- Infrastructure-only changes (config, tooling, docs)
+- Changes with no visual impact (type fixes, refactoring with identical output)
 
 ## Key Conventions
 
