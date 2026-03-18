@@ -67,7 +67,7 @@ type ActivePage =
   | "Forms"
   | string;
 
-const pagesWithContent = ["Details", "Integrations", "SMS settings", "Forms"];
+const pagesWithContent = ["Details", "Integrations", "SMS settings", "Forms", "Locations", "Tags", "Users"];
 
 export default function SettingsPage() {
   const [activePage, setActivePage] = useState<ActivePage>("Details");
@@ -126,6 +126,9 @@ export default function SettingsPage() {
         {activePage === "Integrations" && <IntegrationsContent />}
         {activePage === "SMS settings" && <SMSSettingsContent />}
         {activePage === "Forms" && <FormsContent />}
+        {activePage === "Locations" && <LocationsContent />}
+        {activePage === "Tags" && <TagsContent />}
+        {activePage === "Users" && <UsersContent />}
         {!pagesWithContent.includes(activePage) && (
           <PlaceholderContent pageName={activePage} />
         )}
@@ -427,201 +430,136 @@ function DetailsContent() {
 
 /* ─── Integrations ────────────────────────────────────────────────── */
 
-const integrations = [
-  {
-    name: "Stripe",
-    description: "Accept online payments and manage billing",
-    icon: "💳",
-    category: "Payments",
-    connected: true,
-  },
+const integrationsList = [
   {
     name: "Xero",
-    description: "Sync invoices and financial data automatically",
-    icon: "📊",
-    category: "Accounting",
+    logoText: "xero",
+    logoColor: "#13B5EA",
     connected: true,
+    description:
+      "Xero is a world leading online accounting software built for small business. splose syncs all invoices, payments, clients, contacts, chart of accounts and line items with Xero automatically. We recommend that all Xero users have two factor authentication enabled.",
+    buttonText: "Settings",
   },
   {
-    name: "MYOB",
-    description: "Export invoices and payments to MYOB",
-    icon: "📒",
-    category: "Accounting",
+    name: "QuickBooks",
+    logoText: "INTUIT QuickBooks",
+    logoColor: "#2CA01C",
     connected: false,
+    description:
+      "QuickBooks is a leading online accounting solution designed for small businesses. splose syncs all invoices, payments, clients, contacts, chart of accounts, and line items with QuickBooks automatically. We encourage all users to enable two-factor authentication to enhance the security of their accounts.",
+    buttonText: "Connect to QuickBooks",
+  },
+  {
+    name: "Stripe",
+    logoText: "stripe",
+    logoColor: "#635BFF",
+    connected: true,
+    description:
+      "Stripe is a payment processing platform that helps you get paid online. Accept credit card payments via online bookings, and add a Pay now button to your invoices. Standard Stripe fees apply + splose 0.6% platform fee applies to successful payments.",
+    buttonText: "Settings",
+    extraLink: "Your profile in Stripe",
   },
   {
     name: "Mailchimp",
-    description: "Sync client data for email marketing campaigns",
-    icon: "📧",
-    category: "Marketing",
+    logoText: "Mailchimp",
+    logoColor: "#FFE01B",
+    logoBg: "#FFE01B",
+    logoTextColor: "#241C15",
     connected: false,
+    description:
+      "Mailchimp is a marketing automation platform and email marketing service used to design and send email campaigns and newsletters to your mailing lists and track results. splose sends clients to your selected audience in Mailchimp.",
+    buttonText: "Connect",
+  },
+  {
+    name: "HICAPS",
+    logoText: "HICAPS",
+    logoColor: "#004225",
+    connected: false,
+    description:
+      "HICAPS is an online claiming platform that allows you to easily claim invoices to the TAC, WorkSafe Victoria, NDIS, Medicare, DVA and more. With HICAPS and splose, you can run a gap determination for NDIS plan managed invoices and submit them for fast payment.",
+    buttonText: "Connect",
+  },
+  {
+    name: "Tyro Health",
+    logoText: "tyro Health",
+    logoColor: "#6B2D99",
+    connected: false,
+    description:
+      "Tyro is dedicated to helping healthcare providers process digital payments and claims online. This includes Medicare, Bulk Bill and Patient Claims, DVA, health fund claims and contactless debit and credit cards (incl NFC, via scanning a card directly within an invoice window).",
+    buttonText: "Connect",
   },
   {
     name: "Zoom",
-    description: "Create telehealth appointments with Zoom meetings",
-    icon: "📹",
-    category: "Telehealth",
+    logoText: "Zoom",
+    logoColor: "#2D8CFF",
     connected: true,
+    description:
+      "Zoom is the leader in modern enterprise video communications with an easy, reliable cloud platform for video and audio conferencing and chat. Automatically create and attach Zoom Meetings for appointments scheduled or synced to a room at a Zoom URL.",
+    buttonText: "Settings",
   },
   {
-    name: "Google Calendar",
-    description: "Two-way sync with Google Calendar",
-    icon: "📅",
-    category: "Calendar",
+    name: "Physitrack",
+    logoText: "Physitrack",
+    logoColor: "#00B4D8",
     connected: false,
-  },
-  {
-    name: "Outlook Calendar",
-    description: "Sync appointments with Outlook Calendar",
-    icon: "📆",
-    category: "Calendar",
-    connected: false,
-  },
-  {
-    name: "Tyro",
-    description: "Process EFTPOS payments in-clinic via Tyro",
-    icon: "💰",
-    category: "Payments",
-    connected: false,
-  },
-  {
-    name: "Medicare",
-    description: "Submit Medicare claims and check eligibility",
-    icon: "🏥",
-    category: "Claims",
-    connected: true,
-  },
-  {
-    name: "Halaxy",
-    description: "Import client and appointment data from Halaxy",
-    icon: "🔄",
-    category: "Migration",
-    connected: false,
-  },
-  {
-    name: "Cliniko",
-    description: "Import client and appointment data from Cliniko",
-    icon: "🔄",
-    category: "Migration",
-    connected: false,
-  },
-  {
-    name: "Twilio",
-    description: "Send SMS reminders and notifications via Twilio",
-    icon: "💬",
-    category: "Communication",
-    connected: true,
+    description:
+      "Physitrack is an online platform that encompasses clinical home exercise and education prescription, outcome tracking, and Telehealth. By integrating splose directly sending exercise programs created in Physitrack to the Files section of the client's splose profile.",
+    buttonText: "Connect",
   },
 ];
 
 function IntegrationsContent() {
-  const [filter, setFilter] = useState<"all" | "connected" | "available">(
-    "all"
-  );
-  const [search, setSearch] = useState("");
-
-  const filtered = integrations.filter((i) => {
-    if (filter === "connected" && !i.connected) return false;
-    if (filter === "available" && i.connected) return false;
-    if (search && !i.name.toLowerCase().includes(search.toLowerCase()))
-      return false;
-    return true;
-  });
-
   return (
-    <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-text">Integrations</h1>
-          <p className="mt-1 text-sm text-text-secondary">
-            Connect your favourite tools to streamline your workflow
-          </p>
-        </div>
-      </div>
+    <div className="p-6 max-w-4xl">
+      <h1 className="text-2xl font-bold text-text mb-6">Integrations</h1>
 
-      {/* Filters */}
-      <div className="flex items-center gap-4 mb-6">
-        <div className="flex rounded-lg border border-border bg-white overflow-hidden">
-          <button
-            onClick={() => setFilter("all")}
-            className={`px-4 py-2 text-sm font-medium transition-colors ${
-              filter === "all"
-                ? "bg-primary text-white"
-                : "text-text-secondary hover:bg-gray-50"
-            }`}
-          >
-            All ({integrations.length})
-          </button>
-          <button
-            onClick={() => setFilter("connected")}
-            className={`border-l border-border px-4 py-2 text-sm font-medium transition-colors ${
-              filter === "connected"
-                ? "bg-primary text-white"
-                : "text-text-secondary hover:bg-gray-50"
-            }`}
-          >
-            Connected ({integrations.filter((i) => i.connected).length})
-          </button>
-          <button
-            onClick={() => setFilter("available")}
-            className={`border-l border-border px-4 py-2 text-sm font-medium transition-colors ${
-              filter === "available"
-                ? "bg-primary text-white"
-                : "text-text-secondary hover:bg-gray-50"
-            }`}
-          >
-            Available ({integrations.filter((i) => !i.connected).length})
-          </button>
-        </div>
-        <input
-          type="text"
-          placeholder="Search integrations..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary w-64"
-        />
-      </div>
-
-      {/* Integration cards grid */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {filtered.map((integration) => (
+      <div className="space-y-4">
+        {integrationsList.map((integration) => (
           <div
             key={integration.name}
-            className="rounded-lg border border-border bg-white p-5 hover:shadow-sm transition-shadow"
+            className="rounded-lg border border-border bg-white p-6"
           >
-            <div className="flex items-start justify-between mb-3">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-xl">
-                  {integration.icon}
-                </div>
-                <div>
-                  <h3 className="text-sm font-semibold text-text">
-                    {integration.name}
-                  </h3>
-                  <span className="text-xs text-text-secondary">
-                    {integration.category}
-                  </span>
+            <div className="flex items-start gap-6">
+              {/* Logo area */}
+              <div
+                className="flex h-16 w-40 shrink-0 items-center justify-center rounded-lg"
+                style={{
+                  backgroundColor: integration.logoBg || `${integration.logoColor}10`,
+                }}
+              >
+                <span
+                  className="text-xl font-bold"
+                  style={{
+                    color: integration.logoTextColor || integration.logoColor,
+                  }}
+                >
+                  {integration.logoText}
+                </span>
+              </div>
+
+              {/* Content */}
+              <div className="flex-1">
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  {integration.description}
+                </p>
+                <div className="mt-4 flex items-center gap-3">
+                  <button
+                    className={`rounded-lg px-5 py-2 text-sm font-medium transition-colors ${
+                      integration.connected
+                        ? "border border-border bg-white text-text hover:bg-gray-50"
+                        : "bg-primary text-white hover:bg-primary-dark"
+                    }`}
+                  >
+                    {integration.buttonText}
+                  </button>
+                  {integration.extraLink && (
+                    <span className="text-sm text-primary cursor-pointer hover:underline">
+                      {integration.extraLink}
+                    </span>
+                  )}
                 </div>
               </div>
-              {integration.connected && (
-                <span className="flex items-center gap-1 rounded-full bg-green-50 px-2 py-0.5 text-xs font-medium text-green-700">
-                  <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-                  Connected
-                </span>
-              )}
             </div>
-            <p className="text-sm text-text-secondary mb-4">
-              {integration.description}
-            </p>
-            <button
-              className={`w-full rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                integration.connected
-                  ? "border border-red-200 bg-white text-red-600 hover:bg-red-50"
-                  : "border border-primary bg-white text-primary hover:bg-purple-50"
-              }`}
-            >
-              {integration.connected ? "Disconnect" : "Connect"}
-            </button>
           </div>
         ))}
       </div>
@@ -631,348 +569,67 @@ function IntegrationsContent() {
 
 /* ─── SMS Settings ────────────────────────────────────────────────── */
 
-const smsTemplates = [
-  {
-    name: "Appointment reminder (24hr)",
-    content:
-      "Hi {client_first_name}, this is a reminder of your appointment with {practitioner_name} at {clinic_name} on {appointment_date} at {appointment_time}. Reply C to confirm or call us on {clinic_phone} to reschedule.",
-    active: true,
-  },
-  {
-    name: "Appointment reminder (2hr)",
-    content:
-      "Hi {client_first_name}, your appointment with {practitioner_name} is in 2 hours at {appointment_time}. See you soon!",
-    active: true,
-  },
-  {
-    name: "Appointment confirmation",
-    content:
-      "Hi {client_first_name}, your appointment has been booked with {practitioner_name} on {appointment_date} at {appointment_time}. Reply C to confirm.",
-    active: true,
-  },
-  {
-    name: "Cancellation notice",
-    content:
-      "Hi {client_first_name}, your appointment on {appointment_date} at {appointment_time} has been cancelled. Please call {clinic_phone} to rebook.",
-    active: false,
-  },
-  {
-    name: "Follow-up reminder",
-    content:
-      "Hi {client_first_name}, it has been a while since your last visit. Would you like to book a follow-up? Call us on {clinic_phone} or book online.",
-    active: false,
-  },
-  {
-    name: "Invoice reminder",
-    content:
-      "Hi {client_first_name}, you have an outstanding balance of {invoice_amount} for your recent appointment. Please pay via {payment_link}.",
-    active: true,
-  },
-];
-
 function SMSSettingsContent() {
-  const [activeTab, setActiveTab] = useState<
-    "provider" | "templates" | "history"
-  >("provider");
-
-  return (
-    <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-text">SMS settings</h1>
-          <p className="mt-1 text-sm text-text-secondary">
-            Configure SMS notifications and reminders for your clients
-          </p>
-        </div>
-        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
-          Save
-        </button>
-      </div>
-
-      {/* Tabs */}
-      <div className="mb-6 flex items-center gap-6 border-b border-border">
-        <button
-          onClick={() => setActiveTab("provider")}
-          className={`border-b-2 px-1 pb-3 text-sm ${
-            activeTab === "provider"
-              ? "border-primary font-medium text-primary"
-              : "border-transparent text-text-secondary hover:text-text"
-          }`}
-        >
-          Provider & balance
-        </button>
-        <button
-          onClick={() => setActiveTab("templates")}
-          className={`border-b-2 px-1 pb-3 text-sm ${
-            activeTab === "templates"
-              ? "border-primary font-medium text-primary"
-              : "border-transparent text-text-secondary hover:text-text"
-          }`}
-        >
-          Templates
-        </button>
-        <button
-          onClick={() => setActiveTab("history")}
-          className={`border-b-2 px-1 pb-3 text-sm ${
-            activeTab === "history"
-              ? "border-primary font-medium text-primary"
-              : "border-transparent text-text-secondary hover:text-text"
-          }`}
-        >
-          Send history
-        </button>
-      </div>
-
-      {activeTab === "provider" && <SMSProviderTab />}
-      {activeTab === "templates" && <SMSTemplatesTab />}
-      {activeTab === "history" && <SMSHistoryTab />}
-    </div>
-  );
-}
-
-function SMSProviderTab() {
-  return (
-    <div className="max-w-2xl space-y-6">
-      {/* Balance card */}
-      <div className="rounded-lg border border-border bg-white p-5">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-sm font-semibold text-text">SMS balance</h3>
-          <button className="rounded-lg border border-primary bg-white px-3 py-1.5 text-sm font-medium text-primary hover:bg-purple-50">
-            Top up
-          </button>
-        </div>
-        <div className="grid grid-cols-3 gap-4">
-          <div className="rounded-lg bg-green-50 p-4 text-center">
-            <p className="text-2xl font-bold text-green-700">1,247</p>
-            <p className="text-xs text-green-600 mt-1">Credits remaining</p>
-          </div>
-          <div className="rounded-lg bg-blue-50 p-4 text-center">
-            <p className="text-2xl font-bold text-blue-700">3,856</p>
-            <p className="text-xs text-blue-600 mt-1">Sent this month</p>
-          </div>
-          <div className="rounded-lg bg-purple-50 p-4 text-center">
-            <p className="text-2xl font-bold text-purple-700">98.2%</p>
-            <p className="text-xs text-purple-600 mt-1">Delivery rate</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Provider config */}
-      <div className="rounded-lg border border-border bg-white p-5">
-        <h3 className="text-sm font-semibold text-text mb-4">
-          Provider configuration
-        </h3>
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-text mb-1">
-              SMS provider
-            </label>
-            <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
-              <option>Twilio</option>
-              <option>MessageMedia</option>
-              <option>Burst SMS</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-text mb-1">
-              Sender name / number
-            </label>
-            <input
-              type="text"
-              defaultValue="AcmeHealth"
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            />
-            <p className="mt-1 text-xs text-text-secondary">
-              Max 11 characters. Letters and numbers only.
-            </p>
-          </div>
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-text">
-                Auto-send appointment reminders
-              </p>
-              <p className="text-xs text-text-secondary">
-                Automatically send reminders 24 hours before appointments
-              </p>
-            </div>
-            <Toggle checked={true} onChange={() => {}} />
-          </div>
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-text">
-                Send confirmation on booking
-              </p>
-              <p className="text-xs text-text-secondary">
-                Send SMS when a new appointment is created
-              </p>
-            </div>
-            <Toggle checked={true} onChange={() => {}} />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function SMSTemplatesTab() {
-  return (
-    <div>
-      <div className="flex items-center justify-between mb-4">
-        <p className="text-sm text-text-secondary">
-          Manage your SMS templates. Use merge tags like{" "}
-          <code className="rounded bg-gray-100 px-1 py-0.5 text-xs text-primary">
-            {"{client_first_name}"}
-          </code>{" "}
-          to personalise messages.
-        </p>
-        <button className="flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
-          + New template
-        </button>
-      </div>
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-gray-50">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                Template name
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                Preview
-              </th>
-              <th className="px-4 py-3 text-center text-sm font-medium text-text">
-                Status
-              </th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
-            {smsTemplates.map((template) => (
-              <tr key={template.name} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm font-medium text-text whitespace-nowrap">
-                  {template.name}
-                </td>
-                <td className="px-4 py-3 text-sm text-text-secondary max-w-md truncate">
-                  {template.content}
-                </td>
-                <td className="px-4 py-3 text-center">
-                  <span
-                    className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
-                      template.active
-                        ? "bg-green-50 text-green-700"
-                        : "bg-gray-100 text-gray-600"
-                    }`}
-                  >
-                    {template.active ? "Active" : "Inactive"}
-                  </span>
-                </td>
-                <td className="px-4 py-3 text-right">
-                  <button className="text-text-secondary hover:text-text text-sm">
-                    Edit
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-}
-
-function SMSHistoryTab() {
-  const history = [
-    {
-      to: "Sarah Johnson",
-      phone: "0412 345 678",
-      template: "Appointment reminder (24hr)",
-      sent: "17 Mar 2026, 9:00 am",
-      status: "Delivered",
-    },
-    {
-      to: "Michael Chen",
-      phone: "0423 456 789",
-      template: "Appointment confirmation",
-      sent: "17 Mar 2026, 8:45 am",
-      status: "Delivered",
-    },
-    {
-      to: "Emily Williams",
-      phone: "0434 567 890",
-      template: "Appointment reminder (24hr)",
-      sent: "16 Mar 2026, 9:00 am",
-      status: "Delivered",
-    },
-    {
-      to: "James Brown",
-      phone: "0445 678 901",
-      template: "Invoice reminder",
-      sent: "16 Mar 2026, 10:30 am",
-      status: "Failed",
-    },
-    {
-      to: "Olivia Davis",
-      phone: "0456 789 012",
-      template: "Appointment reminder (2hr)",
-      sent: "15 Mar 2026, 2:00 pm",
-      status: "Delivered",
-    },
+  const [selectedPlan, setSelectedPlan] = useState(0);
+  const creditOptions = [
+    { credits: 200, price: "A$22.00" },
+    { credits: 500, price: "A$55.00" },
+    { credits: 1000, price: "A$110.00" },
+    { credits: 2500, price: "A$275.00" },
   ];
 
   return (
-    <div>
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-gray-50">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                Recipient
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                Phone
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                Template
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                Sent
-              </th>
-              <th className="px-4 py-3 text-center text-sm font-medium text-text">
-                Status
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
-            {history.map((item, i) => (
-              <tr key={i} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm font-medium text-text">
-                  {item.to}
-                </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">
-                  {item.phone}
-                </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">
-                  {item.template}
-                </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">
-                  {item.sent}
-                </td>
-                <td className="px-4 py-3 text-center">
-                  <span
-                    className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
-                      item.status === "Delivered"
-                        ? "bg-green-50 text-green-700"
-                        : "bg-red-50 text-red-700"
-                    }`}
-                  >
-                    {item.status}
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className="p-6 max-w-4xl">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-text">SMS settings</h1>
+        <button className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+          <svg className="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zM10 18a1 1 0 001-1v-1a1 1 0 10-2 0v1a1 1 0 001 1z" /></svg>
+          Learn
+        </button>
+      </div>
+
+      {/* SMS credit balance */}
+      <div className="rounded-lg border border-border bg-white p-5 mb-6">
+        <p className="text-sm text-text-secondary mb-1">SMS credit balance</p>
+        <p className="text-4xl font-bold text-text">884</p>
+      </div>
+
+      {/* Recharge credits */}
+      <div className="mb-6">
+        <h2 className="text-base font-semibold text-text mb-3">Recharge credits</h2>
+        <div className="grid grid-cols-4 gap-3 mb-4">
+          {creditOptions.map((option, i) => (
+            <button
+              key={option.credits}
+              onClick={() => setSelectedPlan(i)}
+              className={`rounded-lg border-2 p-4 text-center transition-colors ${
+                selectedPlan === i
+                  ? "border-primary bg-purple-50"
+                  : "border-border bg-white hover:border-gray-300"
+              }`}
+            >
+              <p className="text-lg font-bold text-text">{option.credits} credits</p>
+              <p className="text-sm text-text-secondary">{option.price}</p>
+            </button>
+          ))}
+        </div>
+        <button className="rounded-lg bg-primary px-6 py-2.5 text-sm font-medium text-white hover:bg-primary-dark">
+          Recharge
+        </button>
+      </div>
+
+      {/* SMS pricing */}
+      <div>
+        <h2 className="text-base font-semibold text-text mb-3">SMS pricing</h2>
+        <div className="space-y-3 text-sm text-text-secondary leading-relaxed">
+          <p>
+            A standard SMS message contains 160 characters per segment (if a message has more than 160 characters, the message is split into segments, each consisting of 153 characters). SMS messages which include special characters such as emojis require a different type of SMS. These messages are able to contain up to 70 characters (Messages with special characters longer than 70 characters are split into 67 character segments).
+          </p>
+          <p>
+            Credits are purchased in advance and cost A$0.10 + GST per credit. Outbound SMS messages cost one credit per segment, and inbound messages cost 0.5 credits per segment. SMS credits purchased get billed to the credit card attached to your splose account. Receipts will appear in your{" "}
+            <span className="text-primary cursor-pointer hover:underline">billing history</span>.
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -1166,6 +823,241 @@ function FormsContent() {
             No forms found
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Locations ───────────────────────────────────────────────────── */
+
+function LocationsContent() {
+  const locations = [
+    { name: "East Clinics", address: "", lastUpdate: "12:24 pm, 6 Mar 2026" },
+    { name: "Splose OT", address: "", lastUpdate: "2:08 pm, 26 Feb 2026" },
+    { name: "Ploc", address: "", lastUpdate: "2:08 pm, 26 Feb 2026" },
+    { name: "Tasks", address: "", lastUpdate: "11:59 am, 5 Mar 2026" },
+    { name: "Sharon's", address: "", lastUpdate: "2:08 pm, 26 Feb 2026" },
+    { name: "One service only", address: "297 Pirie St, Adelaide, SA, 5000", lastUpdate: "2:08 pm, 26 Feb 2026" },
+  ];
+
+  return (
+    <div className="p-6 max-w-4xl">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-text">Locations</h1>
+        <div className="flex items-center gap-3">
+          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+            Show archived
+          </button>
+          <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+            + New location
+          </button>
+        </div>
+      </div>
+
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Name</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Address</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Last update</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {locations.map((loc) => (
+              <tr key={loc.name} className="hover:bg-gray-50">
+                <td className="px-4 py-3 text-sm text-text">{loc.name}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{loc.address}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{loc.lastUpdate}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Pagination */}
+      <div className="flex items-center justify-end gap-1 mt-4">
+        <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
+        <button className="rounded border border-primary px-2.5 py-1 text-sm font-medium text-primary bg-purple-50">1</button>
+        <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&gt;</button>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Tags ────────────────────────────────────────────────────────── */
+
+function TagsContent() {
+  const [activeTab, setActiveTab] = useState("Client tags");
+  const tabs = [
+    { name: "Client tags" },
+    { name: "Service tags" },
+    { name: "Waitlist tags" },
+    { name: "AI tags", badge: "New" },
+  ];
+
+  const clientTags = [
+    { name: "2025-11-22", color: "#f59e0b" },
+    { name: "Client consents to photography for promotional purposes", color: "#22c55e" },
+    { name: "Client DOES NOT consent to photography for promotional purposes", color: "#ef4444" },
+    { name: "Company A", color: "#f59e0b" },
+    { name: "Dual funding", color: "#f59e0b" },
+    { name: "Exception", color: "#f97316" },
+    { name: "FORMS PENDING", color: "#ef4444" },
+    { name: "High risk", color: "#ef4444" },
+  ];
+
+  return (
+    <div className="p-6 max-w-4xl">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-text">Tags</h1>
+        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+          + New tag
+        </button>
+      </div>
+
+      {/* Tabs */}
+      <div className="mb-6 flex items-center gap-6 border-b border-border">
+        {tabs.map((tab) => (
+          <button
+            key={tab.name}
+            onClick={() => setActiveTab(tab.name)}
+            className={`border-b-2 px-1 pb-3 text-sm flex items-center gap-1.5 ${
+              activeTab === tab.name
+                ? "border-primary font-medium text-primary"
+                : "border-transparent text-text-secondary hover:text-text"
+            }`}
+          >
+            {tab.name}
+            {tab.badge && (
+              <span className="rounded bg-green-500 px-1.5 py-0.5 text-[10px] font-bold text-white">
+                {tab.badge}
+              </span>
+            )}
+          </button>
+        ))}
+      </div>
+
+      {/* Tags table */}
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Name</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Colour</th>
+              <th className="px-4 py-3 text-right text-sm font-medium text-text-secondary">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {clientTags.map((tag) => (
+              <tr key={tag.name} className="hover:bg-gray-50">
+                <td className="px-4 py-3 text-sm text-text">{tag.name}</td>
+                <td className="px-4 py-3">
+                  <div
+                    className="h-5 w-8 rounded"
+                    style={{ backgroundColor: tag.color }}
+                  />
+                </td>
+                <td className="px-4 py-3 text-right">
+                  <button className="text-text-secondary hover:text-text">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Users ───────────────────────────────────────────────────────── */
+
+function UsersContent() {
+  const users = [
+    { name: "Nicholas Smithson", badge: "Account owner", email: "nick@splose.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "OT", status: "Active" },
+    { name: "Splose Support", badge: null, email: "support@splose.com", roleName: "Practice manager", roleType: "Practice manager", group: "---", status: "Active" },
+    { name: "nick sand", badge: null, email: "nick1@splose.com", roleName: "Practitioner", roleType: "Practitioner", group: "---", status: "Active" },
+    { name: "Harry Nguyen", badge: "Account owner", email: "harry@splose.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "OT", status: "Active" },
+    { name: "Cheng Ma", badge: "Account owner", email: "cheng@splose.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "Intake team, +1 more", status: "Active" },
+    { name: "Rakesh Soni", badge: "Account owner", email: "rakesh@splose.com", roleName: "Practice manager", roleType: "Practice manager", group: "Physio", status: "Active" },
+    { name: "Cheng Test", badge: null, email: "machengjam@gmail.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "---", status: "Active" },
+  ];
+
+  return (
+    <div className="p-6">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-text">Users</h1>
+        <button className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" /></svg>
+          Invite users
+        </button>
+      </div>
+
+      {/* Search */}
+      <div className="flex items-center gap-3 mb-6">
+        <input
+          type="text"
+          placeholder="Search for user name and email"
+          className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+        />
+        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+          Search
+        </button>
+      </div>
+
+      {/* Users table */}
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border bg-gray-50">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">
+                Name <span className="text-xs">&#8597;</span>
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">
+                Email <span className="text-xs">&#8597;</span>
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">Role name</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">
+                Role type <span className="text-xs">&#9661;</span>
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">
+                Group <span className="text-xs">&#9661;</span>
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text-secondary">
+                Status <span className="text-xs">&#9661;</span>
+              </th>
+              <th className="px-4 py-3 text-right text-sm font-medium text-text-secondary">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {users.map((user) => (
+              <tr key={user.email} className="hover:bg-gray-50">
+                <td className="px-4 py-3">
+                  <div>
+                    <span className="text-sm text-text">{user.name}</span>
+                    {user.badge && (
+                      <span className="ml-2 inline-flex rounded bg-green-500 px-1.5 py-0.5 text-[10px] font-bold text-white">
+                        {user.badge}
+                      </span>
+                    )}
+                  </div>
+                </td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{user.email}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{user.roleName}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{user.roleType}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{user.group}</td>
+                <td className="px-4 py-3 text-sm text-text-secondary">{user.status}</td>
+                <td className="px-4 py-3 text-right">
+                  <button className="text-text-secondary hover:text-text">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
