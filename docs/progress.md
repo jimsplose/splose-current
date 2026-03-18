@@ -49,3 +49,17 @@ Append-only log. Each session adds an entry summarizing what was done.
 - Process new screenshots
 - General fidelity sweep
 - Screenshot comparison loops
+
+---
+
+## Session — 2026-03-18 (evening)
+
+**Branch**: `claude/add-launch-menu-A2vsu`
+
+### Completed
+- **General fidelity sweep** — Cases page expanded to 10 rows with pagination, forms page expanded to 10 rows, client detail edit mode with full form, reports frequency dropdown
+- **Dev Navigator Phase 2** — Wired `?state=` URL param into Calendar (7 variants: week/month/day/appointment-selected/new-appointment/edit-appointment/rooms-view), Waitlist (3 variants: screener-triage/screener-rejected/waitlist-map), Settings (25 variants for all sub-pages), Settings AI (2 variants: saved-prompts/ai-block-library). All interactive states now directly navigable via URL.
+
+### Still Remaining
+- Process new screenshots
+- Screenshot comparison loops

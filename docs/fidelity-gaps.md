@@ -86,7 +86,7 @@ All 25 Settings sub-pages are implemented as inline components in `settings/page
 
 ### Group I — Dev Navigator (`src/components/`, `src/lib/`, `src/app/layout.tsx`)
 - [x] **Dev Navigator Phase 1** — State registry (30+ pages, 60+ variants), floating toolbar, grouped page tree, search, keyboard shortcut (2026-03-18).
-- [ ] **Dev Navigator Phase 2** — Wire `?state=` param reading into all interactive pages. Add all known variants to the registry.
+- [x] **Dev Navigator Phase 2** — Wired `?state=` param into Calendar (7 variants), Waitlist (3 variants), Settings (25 variants), Settings AI (2 variants). All interactive pages now navigable via URL. (2026-03-18)
 
 ## Priority 5 — Final polish
 
