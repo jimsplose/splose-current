@@ -577,6 +577,56 @@ const integrationsList = [
   },
 ];
 
+function IntegrationLogo({ name, color, textColor }: { name: string; color: string; textColor?: string }) {
+  const fill = textColor || color;
+  switch (name) {
+    case "Xero":
+      return (
+        <svg width="80" height="32" viewBox="0 0 80 32" fill="none">
+          <text x="4" y="24" fontFamily="sans-serif" fontSize="24" fontWeight="700" letterSpacing="-1" fill={fill}>xero</text>
+        </svg>
+      );
+    case "QuickBooks":
+      return (
+        <div className="flex flex-col items-center gap-0">
+          <span className="text-[10px] font-semibold tracking-wide" style={{ color: fill }}>INTUIT</span>
+          <span className="text-base font-bold -mt-0.5" style={{ color: fill }}>QuickBooks</span>
+        </div>
+      );
+    case "Stripe":
+      return (
+        <svg width="70" height="30" viewBox="0 0 70 30" fill="none">
+          <text x="4" y="22" fontFamily="sans-serif" fontSize="22" fontWeight="700" letterSpacing="-0.5" fill={fill}>stripe</text>
+        </svg>
+      );
+    case "Mailchimp":
+      return (
+        <span className="text-xl font-bold tracking-tight" style={{ color: fill }}>Mailchimp</span>
+      );
+    case "HICAPS":
+      return (
+        <span className="text-xl font-extrabold tracking-wider" style={{ color: fill }}>HICAPS</span>
+      );
+    case "Tyro Health":
+      return (
+        <div className="flex flex-col items-start">
+          <span className="text-lg font-bold leading-tight" style={{ color: fill }}>tyro</span>
+          <span className="text-xs font-medium -mt-0.5" style={{ color: fill }}>Health</span>
+        </div>
+      );
+    case "Zoom":
+      return (
+        <span className="text-2xl font-bold tracking-tight" style={{ color: fill }}>Zoom</span>
+      );
+    case "Physitrack":
+      return (
+        <span className="text-lg font-bold tracking-tight" style={{ color: fill }}>Physitrack</span>
+      );
+    default:
+      return <span className="text-xl font-bold" style={{ color: fill }}>{name}</span>;
+  }
+}
+
 function IntegrationsContent() {
   return (
     <div className="p-6 max-w-4xl">
@@ -596,14 +646,7 @@ function IntegrationsContent() {
                   backgroundColor: integration.logoBg || `${integration.logoColor}10`,
                 }}
               >
-                <span
-                  className="text-xl font-bold"
-                  style={{
-                    color: integration.logoTextColor || integration.logoColor,
-                  }}
-                >
-                  {integration.logoText}
-                </span>
+                <IntegrationLogo name={integration.name} color={integration.logoColor} textColor={integration.logoTextColor} />
               </div>
 
               {/* Content */}
