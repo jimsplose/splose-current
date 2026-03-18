@@ -253,6 +253,14 @@ export const stateRegistry: PageEntry[] = [
     variants: [{ id: "default", label: "Form view" }],
   },
   {
+    path: "/online-booking",
+    label: "Online Booking",
+    group: "Booking",
+    variants: [
+      { id: "default", label: "Select appointment" },
+    ],
+  },
+  {
     path: "/login",
     label: "Login",
     group: "Auth",
