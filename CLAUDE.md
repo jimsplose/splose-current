@@ -50,6 +50,39 @@ Every push to any branch gets a **Vercel preview deployment**. This is how Jim r
 
 To check deployment status: `gh api repos/jimsplose/splose-current/deployments --jq '.[0] | {env: .environment, url: .payload.web_url, status: .state}'`
 
+## Design System
+
+### Component Library (`src/components/ds/`)
+
+**ALWAYS use design system components instead of inline Tailwind for common patterns.** Import from `@/components/ds`.
+
+| Component | Use for | Replaces |
+|---|---|---|
+| `Button` | All buttons (primary/secondary/danger/ghost, sm/md/lg) | Inline `rounded-lg border bg-white px-4 py-2...` |
+| `PageHeader` | Page title + action buttons | Inline `flex items-center justify-between mb-4` + `text-2xl font-bold` |
+| `SearchBar` | Search input + button combos | Inline `h-10 flex-1 rounded-lg border...` + search button |
+| `DataTable` | Table wrapper with overflow scroll | Inline `overflow-x-auto rounded-lg border bg-white` |
+| `TableHead/Th` | Table headers with purple bg | Inline `bg-purple-50` headers |
+| `TableBody/Td` | Table body rows with dividers | Inline `divide-y divide-border` + cell padding |
+| `Pagination` | Table pagination footer | Inline pagination with page buttons |
+| `Badge` | Status pills and tags | Inline `rounded-full px-2 py-0.5 text-xs font-medium bg-green-100...` |
+| `FormInput` | Labeled text inputs with error states | Inline `rounded-lg border bg-white px-3 py-2 text-sm focus:border-primary...` |
+| `FormSelect` | Labeled select dropdowns | Inline `<select>` with focus styles |
+
+### Eng Toolkit Page
+
+**`/eng`** — Secret internal page for engineers. Shows:
+- Live component showcase with code examples
+- Directory of all app pages with links
+
+### Tailwind CSS Practices
+
+- **Prettier sorts classes** — `prettier-plugin-tailwindcss` is installed. Run `npx prettier --write` to sort classes.
+- **Use design tokens** from `globals.css` (`text-primary`, `bg-primary`, `border-border`, `text-text`, `text-text-secondary`) — avoid hardcoded colors like `text-gray-700` when a token exists.
+- **Responsive pattern**: Use `p-4 sm:p-6` for page padding, `hidden md:table-cell` for table columns, `flex-col sm:flex-row` for header layouts.
+- **When creating new pages**, use the DS components. Don't inline common patterns.
+- **When editing existing pages**, opportunistically migrate to DS components if touching that section anyway.
+
 ## Key Conventions
 
 - **Server components by default** — only `"use client"` when hooks/browser APIs needed
