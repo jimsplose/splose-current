@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { Button, FormInput } from "@/components/ds";
 
 const sidebarSections = [
   {
@@ -132,12 +133,8 @@ function SettingsAIPageInner() {
         <div className="mb-6 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-text">splose AI</h1>
           <div className="flex items-center gap-2">
-            <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-              Learn
-            </button>
-            <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
-              Save
-            </button>
+            <Button variant="secondary">Learn</Button>
+            <Button variant="primary">Save</Button>
           </div>
         </div>
 
@@ -263,9 +260,7 @@ function SavedPromptsTab() {
     <div>
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-lg font-semibold text-text">AI prompts</h2>
-        <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-          + New prompt
-        </button>
+        <Button variant="secondary">+ New prompt</Button>
       </div>
 
       <div className="overflow-hidden rounded-lg border border-border bg-white">
@@ -330,13 +325,9 @@ function AIBlockLibraryTab() {
       {/* Search and new button */}
       <div className="mb-4 flex items-center gap-2">
         <div className="relative flex-1">
-          <input
-            type="text"
-            placeholder="Search"
-            className="h-10 w-full rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-          />
+          <FormInput placeholder="Search" className="h-10 px-4" />
         </div>
-        <button className="rounded-lg bg-primary px-2 py-2 text-white hover:bg-primary-dark">
+        <Button variant="primary" size="sm" className="px-2 py-2">
           <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
@@ -345,10 +336,8 @@ function AIBlockLibraryTab() {
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
             />
           </svg>
-        </button>
-        <button className="flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
-          + New AI block
-        </button>
+        </Button>
+        <Button variant="primary">+ New AI block</Button>
       </div>
 
       {/* Table */}

@@ -96,6 +96,54 @@ To check deployment status: `gh api repos/jimsplose/splose-current/deployments -
 - **When editing existing pages**, opportunistically migrate to DS components if touching that section anyway.
 - **When adding DS components**, create a Storybook story in `src/components/ds/stories/`.
 
+## Design System Enforcement — MANDATORY for All Agents
+
+**Every agent prompt that creates or modifies page UI MUST include this DS enforcement block.** Copy-paste the block below into agent prompts verbatim.
+
+### DS Enforcement Block (for agent prompts)
+
+```
+## Design System — MANDATORY
+
+You MUST use DS components from `@/components/ds` instead of inline Tailwind for these patterns.
+Failure to do so creates tech debt that must be cleaned up later.
+
+| Instead of | Use |
+|---|---|
+| `<button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white...">` | `<Button variant="primary">` |
+| `<button className="rounded-lg border border-border bg-white px-4 py-2...">` | `<Button variant="secondary">` |
+| `<button className="border border-red-... text-red-600...">` | `<Button variant="danger">` |
+| `<div><label className="...">Name</label><input className="w-full rounded-lg border..."/></div>` | `<FormInput label="Name" />` |
+| `<div><label>...</label><select className="..."><option>...</select></div>` | `<FormSelect label="..." options={[...]} />` |
+| `<span className="rounded-full px-2 py-0.5 text-xs font-medium bg-green-100...">` | `<Badge variant="green">` |
+| `<div className="flex items-center justify-between mb-4"><h1 className="text-2xl font-bold">` | `<PageHeader title="...">` |
+
+Import: `import { Button, FormInput, FormSelect, Badge, PageHeader } from "@/components/ds";`
+
+### Banned patterns — do NOT write these:
+- `const inputClass = "w-full rounded-lg border..."` — use `<FormInput>` instead
+- `const labelClass = "block text-sm font-medium..."` — `<FormInput label="">` includes the label
+- Inline badge styles (`rounded-full px-2 py-0.5 text-xs font-medium`) — use `<Badge>`
+- Inline button styles (`rounded-lg bg-primary px-4 py-2 text-sm font-medium`) — use `<Button>`
+
+### When DS components don't fit:
+- Tiny icon-only toolbar buttons (rich text editors) — inline is fine
+- Tab switcher buttons with active/inactive states — inline is fine (no DS Tab component yet)
+- Toggle switches — use the local `Toggle` component pattern
+- Custom layouts (sidebars, cards, modals) — inline is fine, no DS component for these yet
+```
+
+### Enforcement checklist for the main agent
+
+Before merging any agent's work, scan for these red flags:
+1. `const inputClass` or `const labelClass` — should be `<FormInput>` / `<FormSelect>`
+2. `rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white` — should be `<Button variant="primary">`
+3. `rounded-lg border border-border bg-white px-4 py-2` — should be `<Button variant="secondary">`
+4. `rounded-full px-2 py-0.5 text-xs font-medium` — should be `<Badge>`
+5. No import from `@/components/ds` on a page with buttons/inputs/badges — likely missed migration
+
+If any of these are found, fix them before committing the agent's work.
+
 ## Playwright Screenshot Verification — MANDATORY
 
 **Every agent that changes page UI MUST verify its work with Playwright screenshots.** This is the single most important quality check.

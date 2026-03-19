@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import StatusBadge from "@/components/StatusBadge";
+import { Button, FormInput, FormSelect } from "@/components/ds";
 
 interface InvoiceData {
   invoiceNumber: string;
@@ -93,21 +94,15 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           <span className="rounded-lg bg-green-100 px-3 py-1.5 text-sm font-medium text-green-700">
             Credit balance: ${invoice.status === "Paid" ? "0.00" : "680.00"}
           </span>
-          <button
-            onClick={openPaymentModal}
-            className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50"
-          >
+          <Button variant="secondary" onClick={openPaymentModal}>
             Add payment
-          </button>
-          <button
-            onClick={handleEmailInvoice}
-            className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50"
-          >
+          </Button>
+          <Button variant="secondary" onClick={handleEmailInvoice}>
             Email invoice
-          </button>
-          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+          </Button>
+          <Button variant="secondary">
             Actions &#9660;
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -297,43 +292,35 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
               </div>
 
               {/* Payment date */}
-              <div>
-                <label className="mb-1 block text-sm font-medium text-text">Payment date</label>
-                <input
-                  type="date"
-                  value={paymentDate}
-                  onChange={(e) => setPaymentDate(e.target.value)}
-                  className="w-full rounded-lg border border-border px-3 py-2 text-sm text-text focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
-                />
-              </div>
+              <FormInput
+                label="Payment date"
+                type="date"
+                value={paymentDate}
+                onChange={(e) => setPaymentDate(e.target.value)}
+              />
 
               {/* Payment method */}
-              <div>
-                <label className="mb-1 block text-sm font-medium text-text">Payment method</label>
-                <select
-                  value={paymentMethod}
-                  onChange={(e) => setPaymentMethod(e.target.value)}
-                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
-                >
-                  <option value="Cash">Cash</option>
-                  <option value="Card">Card</option>
-                  <option value="Bank Transfer">Bank Transfer</option>
-                  <option value="Medicare">Medicare</option>
-                  <option value="NDIS">NDIS</option>
-                </select>
-              </div>
+              <FormSelect
+                label="Payment method"
+                value={paymentMethod}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+                options={[
+                  { value: "Cash", label: "Cash" },
+                  { value: "Card", label: "Card" },
+                  { value: "Bank Transfer", label: "Bank Transfer" },
+                  { value: "Medicare", label: "Medicare" },
+                  { value: "NDIS", label: "NDIS" },
+                ]}
+              />
 
               {/* Reference number */}
-              <div>
-                <label className="mb-1 block text-sm font-medium text-text">Reference number</label>
-                <input
-                  type="text"
-                  value={referenceNumber}
-                  onChange={(e) => setReferenceNumber(e.target.value)}
-                  placeholder="Optional"
-                  className="w-full rounded-lg border border-border px-3 py-2 text-sm text-text placeholder:text-text-secondary focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
-                />
-              </div>
+              <FormInput
+                label="Reference number"
+                type="text"
+                value={referenceNumber}
+                onChange={(e) => setReferenceNumber(e.target.value)}
+                placeholder="Optional"
+              />
 
               {/* Notes */}
               <div>
@@ -350,18 +337,12 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
 
             {/* Modal footer */}
             <div className="flex items-center justify-end gap-2 border-t border-border px-6 py-4">
-              <button
-                onClick={() => setShowPaymentModal(false)}
-                className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50"
-              >
+              <Button variant="secondary" onClick={() => setShowPaymentModal(false)}>
                 Cancel
-              </button>
-              <button
-                onClick={handleApplyPayment}
-                className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90"
-              >
+              </Button>
+              <Button variant="primary" onClick={handleApplyPayment}>
                 Apply payment
-              </button>
+              </Button>
             </div>
           </div>
         </div>
