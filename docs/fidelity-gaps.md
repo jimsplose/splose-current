@@ -158,10 +158,10 @@ All 22 DS components have been **created** in `src/components/ds/` with full imp
 
 ### Group S — Medium-priority DS components (created, not yet migrated)
 
-- [ ] **Card** (`Card.tsx`) — Component created with stories. Not yet migrated: settings/page.tsx, reports/page.tsx.
+- [ ] **Card** (`Card.tsx`) — Component created with stories. Partial: reports/page.tsx and reports/progress-notes migrated (2026-03-19). Remaining: settings/page.tsx.
 - [ ] **Select** (`Select.tsx`) — Component created with stories. Not yet migrated: payments/new/page.tsx.
 - [ ] **Navbar** (`Navbar.tsx`) — Component created with stories. Not yet migrated: notes/new, notes/[id], notes/[id]/edit, invoices/[id], payments/new.
-- [ ] **DateRangeFilter** (`DateRangeFilter.tsx`) — Component created with stories. Not yet migrated: reports/appointments, reports/performance, reports/progress-notes.
+- [x] **DateRangeFilter** (`DateRangeFilter.tsx`) — Component created with stories. All 3 reports pages migrated (2026-03-19).
 - [ ] **Filter** (`Filter.tsx`) — Component created with stories. Not yet migrated: notes/new, notes/[id]/edit, settings/page.tsx.
 - [ ] **Collapse** (`Collapse.tsx`) — Component created with stories. Not yet migrated: clients/[id]/ClientDetailClient.tsx (4 sidebar sections).
 
