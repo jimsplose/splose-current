@@ -1,8 +1,8 @@
 /**
- * Screenshot Capture Tool
+ * Screenshot Capture Tool (Puppeteer)
  *
- * Takes a Playwright screenshot at a specified viewport width.
- * Hard-requires Playwright browsers to be installed — no fallback.
+ * Takes a screenshot at a specified viewport width using Puppeteer's bundled Chromium.
+ * Puppeteer auto-installs Chromium via `npm install` — no separate browser download step.
  *
  * Usage:
  *   npx tsx scripts/screenshot-capture.ts <url> <output.png> [--width=1440] [--height=900] [--full-page] [--wait=3000]
@@ -12,7 +12,7 @@
  *   npx tsx scripts/screenshot-capture.ts http://localhost:3000/settings /tmp/settings.png --width=1024 --full-page
  */
 
-import { chromium } from "playwright";
+import puppeteer from "puppeteer";
 
 interface CaptureOptions {
   url: string;
@@ -51,26 +51,40 @@ function parseArgs(args: string[]): CaptureOptions {
     process.exit(2);
   }
 
-  return { url: positional[0], output: positional[1], width, height, fullPage, waitMs };
+  return {
+    url: positional[0],
+    output: positional[1],
+    width,
+    height,
+    fullPage,
+    waitMs,
+  };
 }
 
 async function capture(options: CaptureOptions): Promise<void> {
-  const browser = await chromium.launch({ headless: true });
-  const context = await browser.newContext({
-    viewport: { width: options.width, height: options.height },
-    deviceScaleFactor: 1, // Consistent 1x scale for diffing
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    defaultViewport: {
+      width: options.width,
+      height: options.height,
+      deviceScaleFactor: 1, // Consistent 1x scale for diffing
+    },
   });
-  const page = await context.newPage();
+
+  const page = await browser.newPage();
 
   console.log(`Navigating to ${options.url}...`);
-  await page.goto(options.url, { waitUntil: "networkidle" });
+  await page.goto(options.url, { waitUntil: "networkidle0" });
 
   if (options.waitMs > 0) {
     console.log(`Waiting ${options.waitMs}ms for animations/rendering...`);
-    await page.waitForTimeout(options.waitMs);
+    await new Promise((resolve) => setTimeout(resolve, options.waitMs));
   }
 
-  console.log(`Capturing screenshot (${options.width}x${options.height})...`);
+  console.log(
+    `Capturing screenshot (${options.width}x${options.height})...`
+  );
   await page.screenshot({
     path: options.output,
     fullPage: options.fullPage,
@@ -84,7 +98,7 @@ const options = parseArgs(process.argv.slice(2));
 capture(options).catch((err) => {
   console.error("Screenshot capture failed:", err.message);
   console.error(
-    "\nPlaywright browsers must be installed. Run:\n  npx playwright install chromium\n"
+    "\nPuppeteer bundles Chromium automatically. If missing, run:\n  npm install puppeteer\n"
   );
   process.exit(2);
 });

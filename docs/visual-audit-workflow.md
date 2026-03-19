@@ -24,7 +24,7 @@ Read `screenshots/screenshot-catalog.md` and identify entries with Match = "no" 
 
 ## Step 2: Capture current state of each page
 
-**Playwright browsers are required.** Ensure they are installed before starting an audit (`npx playwright install chromium`).
+**Puppeteer** (bundled Chromium) is used for screenshots. It's installed automatically via `npm install` — no separate browser download step.
 
 ```bash
 npx tsx scripts/screenshot-capture.ts http://localhost:3000/<page-path> /tmp/audit-<page>.png

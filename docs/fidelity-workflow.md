@@ -4,12 +4,8 @@ Use **parallel subagents** for speed when working through fidelity gaps.
 
 ## Prerequisites — MANDATORY
 
-### Playwright browsers
-Playwright browsers **must** be installed before starting fidelity work. There is no fallback.
-```bash
-npx playwright install chromium
-```
-If this fails (e.g. sandbox restrictions), resolve it before proceeding. Without Playwright, you cannot run pixel diffs or capture screenshots, and fidelity work cannot be verified.
+### Puppeteer (screenshot capture)
+Puppeteer is a dev dependency and bundles Chromium automatically via `npm install`. No separate browser download step needed. If screenshots fail, run `npm install puppeteer` to re-download.
 
 ### Design specs
 Before working on a page, check if a design spec exists at `screenshots/specs/<page-name>.md`. If not, extract one first (see `docs/design-spec-workflow.md`). Agents use exact values from specs, not approximations.
