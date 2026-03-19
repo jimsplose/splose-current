@@ -1,114 +1,113 @@
 "use client";
 
 import { useState } from "react";
-import { Button, FormInput, FormSelect, Badge, statusVariant, Toggle } from "@/components/ds";
+import { Button, PageHeader } from "@/components/ds";
+import { BookOpen } from "lucide-react";
 
-const smsTemplates = [
-  { name: "Appointment reminder (24hr)", content: "Hi {client_first_name}, this is a reminder of your appointment with {practitioner_name} at {clinic_name} on {appointment_date} at {appointment_time}. Reply C to confirm or call us on {clinic_phone} to reschedule.", active: true },
-  { name: "Appointment reminder (2hr)", content: "Hi {client_first_name}, your appointment with {practitioner_name} is in 2 hours at {appointment_time}. See you soon!", active: true },
-  { name: "Appointment confirmation", content: "Hi {client_first_name}, your appointment has been booked with {practitioner_name} on {appointment_date} at {appointment_time}. Reply C to confirm.", active: true },
-  { name: "Cancellation notice", content: "Hi {client_first_name}, your appointment on {appointment_date} at {appointment_time} has been cancelled. Please call {clinic_phone} to rebook.", active: false },
-  { name: "Follow-up reminder", content: "Hi {client_first_name}, it has been a while since your last visit. Would you like to book a follow-up? Call us on {clinic_phone} or book online.", active: false },
-  { name: "Invoice reminder", content: "Hi {client_first_name}, you have an outstanding balance of {invoice_amount} for your recent appointment. Please pay via {payment_link}.", active: true },
-];
-
-const history = [
-  { to: "Sarah Johnson", phone: "0412 345 678", template: "Appointment reminder (24hr)", sent: "17 Mar 2026, 9:00 am", status: "Delivered" },
-  { to: "Michael Chen", phone: "0423 456 789", template: "Appointment confirmation", sent: "17 Mar 2026, 8:45 am", status: "Delivered" },
-  { to: "Emily Williams", phone: "0434 567 890", template: "Appointment reminder (24hr)", sent: "16 Mar 2026, 9:00 am", status: "Delivered" },
-  { to: "James Brown", phone: "0445 678 901", template: "Invoice reminder", sent: "16 Mar 2026, 10:30 am", status: "Failed" },
-  { to: "Olivia Davis", phone: "0456 789 012", template: "Appointment reminder (2hr)", sent: "15 Mar 2026, 2:00 pm", status: "Delivered" },
+const creditOptions = [
+  { credits: 200, price: "A$22.00" },
+  { credits: 500, price: "A$55.00" },
+  { credits: 1000, price: "A$110.00" },
+  { credits: 2500, price: "A$275.00" },
 ];
 
 export default function SMSSettingsPage() {
-  const [activeTab, setActiveTab] = useState<"provider" | "templates" | "history">("provider");
+  const [selectedCredits, setSelectedCredits] = useState(200);
+  const [showRechargeConfirm, setShowRechargeConfirm] = useState(false);
 
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-text">SMS settings</h1>
-          <p className="mt-1 text-sm text-text-secondary">Configure SMS notifications and reminders for your clients</p>
-        </div>
-        <Button variant="primary">Save</Button>
+      <PageHeader title="SMS settings">
+        <Button variant="secondary">
+          <BookOpen className="h-4 w-4" />
+          Learn
+        </Button>
+      </PageHeader>
+
+      {/* SMS credit balance card */}
+      <div className="mb-8 inline-block rounded-lg border border-border bg-white px-5 py-4">
+        <p className="text-sm text-text-secondary">SMS credit balance</p>
+        <p className="text-3xl font-bold text-text">884</p>
       </div>
-      <div className="mb-6 flex items-center gap-6 border-b border-border">
-        {([["provider", "Provider & balance"], ["templates", "Templates"], ["history", "Send history"]] as const).map(([key, label]) => (
-          <button key={key} onClick={() => setActiveTab(key)} className={`border-b-2 px-1 pb-3 text-sm ${activeTab === key ? "border-primary font-medium text-primary" : "border-transparent text-text-secondary hover:text-text"}`}>{label}</button>
-        ))}
+
+      {/* Recharge credits section */}
+      <div className="mb-8">
+        <h2 className="mb-4 text-lg font-semibold text-text">Recharge credits</h2>
+        <div className="mb-4 flex gap-3">
+          {creditOptions.map((option) => (
+            <button
+              key={option.credits}
+              onClick={() => setSelectedCredits(option.credits)}
+              className={`rounded-lg border px-5 py-3 text-center transition-colors ${
+                selectedCredits === option.credits
+                  ? "border-primary bg-purple-50 text-primary"
+                  : "border-border bg-white text-text hover:border-gray-300"
+              }`}
+            >
+              <p className="text-sm font-medium">{option.credits} credits</p>
+              <p className="text-sm text-text-secondary">{option.price}</p>
+            </button>
+          ))}
+        </div>
+        <Button
+          variant="primary"
+          onClick={() => setShowRechargeConfirm(true)}
+        >
+          Recharge
+        </Button>
       </div>
-      {activeTab === "provider" && (
-        <div className="max-w-2xl space-y-6">
-          <div className="rounded-lg border border-border bg-white p-5">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-semibold text-text">SMS balance</h3>
-              <Button variant="secondary" size="sm" className="border-primary text-primary hover:bg-purple-50">Top up</Button>
-            </div>
-            <div className="grid grid-cols-3 gap-4">
-              <div className="rounded-lg bg-green-50 p-4 text-center"><p className="text-2xl font-bold text-green-700">1,247</p><p className="text-xs text-green-600 mt-1">Credits remaining</p></div>
-              <div className="rounded-lg bg-blue-50 p-4 text-center"><p className="text-2xl font-bold text-blue-700">3,856</p><p className="text-xs text-blue-600 mt-1">Sent this month</p></div>
-              <div className="rounded-lg bg-purple-50 p-4 text-center"><p className="text-2xl font-bold text-purple-700">98.2%</p><p className="text-xs text-purple-600 mt-1">Delivery rate</p></div>
-            </div>
-          </div>
-          <div className="rounded-lg border border-border bg-white p-5">
-            <h3 className="text-sm font-semibold text-text mb-4">Provider configuration</h3>
-            <div className="space-y-4">
-              <FormSelect label="SMS provider" options={[{ value: "Twilio", label: "Twilio" }, { value: "MessageMedia", label: "MessageMedia" }, { value: "Burst SMS", label: "Burst SMS" }]} />
-              <div>
-                <FormInput label="Sender name / number" type="text" defaultValue="AcmeHealth" />
-                <p className="mt-1 text-xs text-text-secondary">Max 11 characters. Letters and numbers only.</p>
-              </div>
-              <div className="flex items-center justify-between">
-                <div><p className="text-sm font-medium text-text">Auto-send appointment reminders</p><p className="text-xs text-text-secondary">Automatically send reminders 24 hours before appointments</p></div>
-                <Toggle checked={true} onChange={() => {}} />
-              </div>
-              <div className="flex items-center justify-between">
-                <div><p className="text-sm font-medium text-text">Send confirmation on booking</p><p className="text-xs text-text-secondary">Send SMS when a new appointment is created</p></div>
-                <Toggle checked={true} onChange={() => {}} />
-              </div>
-            </div>
-          </div>
+
+      {/* SMS pricing section */}
+      <div className="max-w-2xl">
+        <h2 className="mb-4 text-lg font-semibold text-text">SMS pricing</h2>
+        <div className="space-y-3 text-sm text-text-secondary leading-relaxed">
+          <p>
+            A standard SMS message contains 160 characters per segment (if a message has more
+            than 160 characters, the message is split into segments, each consisting of 153
+            characters). SMS messages which include special characters such as emojis require a
+            different type of SMS. These messages are able to contain up to 70 characters (Messages
+            with special characters longer than 70 characters are split into 67 character segments).
+          </p>
+          <p>
+            Credits are purchased in advance and cost A$0.10 + GST per credit. Outbound SMS
+            messages cost one credit per segment, and inbound messages cost 0.5 credits per
+            segment. SMS credits purchased get billed to the credit card attached to your splose
+            account. Receipts will appear in your{" "}
+            <a href="#" className="text-primary hover:underline">
+              billing history
+            </a>
+            .
+          </p>
         </div>
-      )}
-      {activeTab === "templates" && (
-        <div>
-          <div className="flex items-center justify-between mb-4">
-            <p className="text-sm text-text-secondary">Manage your SMS templates. Use merge tags like <code className="rounded bg-gray-100 px-1 py-0.5 text-xs text-primary">{"{client_first_name}"}</code> to personalise messages.</p>
-            <Button variant="primary">+ New template</Button>
+      </div>
+
+      {/* Recharge confirmation modal */}
+      {showRechargeConfirm && (
+        <div
+          className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-12"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setShowRechargeConfirm(false);
+          }}
+        >
+          <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
+            <h2 className="mb-6 text-lg font-semibold text-text">
+              Recharge {selectedCredits} credits?
+            </h2>
+            <div className="flex items-center gap-3">
+              <Button
+                variant="secondary"
+                onClick={() => setShowRechargeConfirm(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="primary"
+                onClick={() => setShowRechargeConfirm(false)}
+              >
+                Recharge
+              </Button>
+            </div>
           </div>
-          <div className="rounded-lg border border-border bg-white overflow-hidden">
-            <table className="w-full">
-              <thead><tr className="border-b border-border bg-gray-50"><th className="px-4 py-3 text-left text-sm font-medium text-text">Template name</th><th className="px-4 py-3 text-left text-sm font-medium text-text">Preview</th><th className="px-4 py-3 text-center text-sm font-medium text-text">Status</th><th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th></tr></thead>
-              <tbody className="divide-y divide-border">
-                {smsTemplates.map((t) => (
-                  <tr key={t.name} className="hover:bg-gray-50">
-                    <td className="px-4 py-3 text-sm font-medium text-text whitespace-nowrap">{t.name}</td>
-                    <td className="px-4 py-3 text-sm text-text-secondary max-w-md truncate">{t.content}</td>
-                    <td className="px-4 py-3 text-center"><Badge variant={t.active ? "green" : "gray"}>{t.active ? "Active" : "Inactive"}</Badge></td>
-                    <td className="px-4 py-3 text-right"><button className="text-text-secondary hover:text-text text-sm">Edit</button></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
-      {activeTab === "history" && (
-        <div className="rounded-lg border border-border bg-white overflow-hidden">
-          <table className="w-full">
-            <thead><tr className="border-b border-border bg-gray-50"><th className="px-4 py-3 text-left text-sm font-medium text-text">Recipient</th><th className="px-4 py-3 text-left text-sm font-medium text-text">Phone</th><th className="px-4 py-3 text-left text-sm font-medium text-text">Template</th><th className="px-4 py-3 text-left text-sm font-medium text-text">Sent</th><th className="px-4 py-3 text-center text-sm font-medium text-text">Status</th></tr></thead>
-            <tbody className="divide-y divide-border">
-              {history.map((item, i) => (
-                <tr key={i} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 text-sm font-medium text-text">{item.to}</td>
-                  <td className="px-4 py-3 text-sm text-text-secondary">{item.phone}</td>
-                  <td className="px-4 py-3 text-sm text-text-secondary">{item.template}</td>
-                  <td className="px-4 py-3 text-sm text-text-secondary">{item.sent}</td>
-                  <td className="px-4 py-3 text-center"><Badge variant={statusVariant(item.status)}>{item.status}</Badge></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
       )}
     </div>

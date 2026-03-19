@@ -123,6 +123,20 @@ When launching subagents for UI work, read and follow:
 - **`docs/agent-block.md`** — Copy the Agent Block into every UI-touching subagent prompt verbatim
 - **`docs/quality-gate.md`** — Run after every subagent completes, before committing
 
+### No worktrees — IMPORTANT
+**Do NOT use `isolation: "worktree"` for subagents.** Use direct agents that edit files in the main repo. Worktrees cause data loss when:
+- Multiple Claude sessions run concurrently on the same repo
+- The shell CWD gets stuck in a deleted worktree directory
+- Agents complete without committing (worktree cleanup deletes their work)
+
+Direct agents are safe because fidelity work targets different page files — conflicts are rare.
+
+### Concurrent sessions
+Jim often runs 2 Claude sessions on the same repo. Both sessions MUST:
+1. **Never use worktrees** (see above)
+2. **Coordinate via git** — commit frequently so the other session can see changes
+3. **Avoid editing the same files** — Jim will tell each session which pages to work on
+
 ## Key Conventions
 
 - **Server components by default** — only `"use client"` when hooks/browser APIs needed
@@ -138,7 +152,8 @@ When launching subagents for UI work, read and follow:
 
 - **Commit after every logical unit of work** — never let ~30 minutes go uncommitted
 - **NEVER push without a passing build** — run `npx next build` before every push
-- Run `npx tsc --noEmit` after applying worktree agent changes to catch conflicts early
+- Run `npx tsc --noEmit` after agent changes to catch conflicts early
+- **Verify CWD** after agent completion: `cd /Users/jimyenckensplose/claude/splose-current && pwd`
 - If agent changes break the build, **revert them** and continue with other agents
 - If a change breaks things after push, `git revert` rather than force-pushing
 
