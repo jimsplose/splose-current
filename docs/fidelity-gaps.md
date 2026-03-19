@@ -150,19 +150,19 @@ All 22 DS components have been **created** in `src/components/ds/` with full imp
 
 - [x] **Tab** (`Tab.tsx`) — Component created with stories. Migrated: settings/ai/page.tsx. Remaining: waitlist/page.tsx tabs kept inline (different visual style). (2026-03-19)
 - [x] **Toggle** (`Toggle.tsx`) — Component created with stories. Migrated: settings/page.tsx (removed local Toggle), settings/ai/page.tsx, settings/sms-settings/page.tsx, calendar/CalendarView.tsx. (2026-03-19)
-- [ ] **Modal** (`Modal.tsx`) — Component created with stories. Migration in progress: calendar/CalendarView.tsx, login/page.tsx, notes/[id]/SendNoteModal.tsx, invoices/[id]/InvoiceDetailClient.tsx.
+- [x] **Modal** (`Modal.tsx`) — Component created with stories. Migrated: notes/[id]/SendNoteModal.tsx, invoices/[id]/InvoiceDetailClient.tsx, calendar/CalendarView.tsx. login/page.tsx skipped (full-page layout, not a modal). (2026-03-19)
 - [x] **Avatar** (`Avatar.tsx`) — Component created with stories. Migrated: page.tsx (Dashboard, 5 instances), clients/[id]/ClientDetailClient.tsx, contacts/[id]/page.tsx, calendar/CalendarView.tsx. (2026-03-19)
-- [ ] **Dropdown** (`Dropdown.tsx`) — Component created with stories. Migration in progress: calendar/CalendarView.tsx, payments/new/page.tsx.
-- [ ] **EmptyState** (`EmptyState.tsx`) — Component created with stories. Migration in progress: waitlist, products, notes, payments/new, settings/forms.
+- [x] **Dropdown** (`Dropdown.tsx`) — Component created with stories. Migrated: calendar/CalendarView.tsx. payments/new had no dropdown pattern. (2026-03-19)
+- [x] **EmptyState** (`EmptyState.tsx`) — Component created with stories. All target pages already used EmptyState or migrated: contacts/[id] migrated, products/notes/settings-forms/waitlist/payments-new already had EmptyState. (2026-03-19)
 - [ ] **List** (`List.tsx`) — Component created with stories. Not yet migrated: clients/[id]/ClientDetailClient.tsx (15+ instances in details sections).
 
 ### Group S — Medium-priority DS components (created, not yet migrated)
 
 - [ ] **Card** (`Card.tsx`) — Component created with stories. Partial: reports/page.tsx and reports/progress-notes migrated (2026-03-19). Remaining: settings/page.tsx.
-- [ ] **Select** (`Select.tsx`) — Component created with stories. Not yet migrated: payments/new/page.tsx.
-- [ ] **Navbar** (`Navbar.tsx`) — Component created with stories. Not yet migrated: notes/new, notes/[id], notes/[id]/edit, invoices/[id], payments/new.
+- [x] **Select** (`Select.tsx`) — Component created with stories. Migrated: payments/new/page.tsx (searchable client dropdown). (2026-03-19)
+- [x] **Navbar** (`Navbar.tsx`) — Component created with stories. Migrated: notes/new, notes/[id], notes/[id]/edit, payments/new. invoices/[id] has no back nav pattern. (2026-03-19)
 - [x] **DateRangeFilter** (`DateRangeFilter.tsx`) — Component created with stories. All 3 reports pages migrated (2026-03-19).
-- [ ] **Filter** (`Filter.tsx`) — Component created with stories. Not yet migrated: notes/new, notes/[id]/edit, settings/page.tsx.
+- [x] **Filter** (`Filter.tsx`) — Component created with stories. Migrated: notes/new (view toggle), notes/[id]/edit (view toggle). settings/page.tsx email sig tabs are pill buttons (different pattern). (2026-03-19)
 - [ ] **Collapse** (`Collapse.tsx`) — Component created with stories. Not yet migrated: clients/[id]/ClientDetailClient.tsx (4 sidebar sections).
 
 ### Group T — Lower-priority DS components (created, not yet migrated)
