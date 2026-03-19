@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import StatusBadge from "@/components/StatusBadge";
-import { Button, FormInput, FormSelect } from "@/components/ds";
+import { Button, FormInput, FormSelect, Modal } from "@/components/ds";
 
 interface InvoiceData {
   invoiceNumber: string;
@@ -258,95 +258,80 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
       </div>
 
       {/* Payment Modal */}
-      {showPaymentModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          {/* Dark backdrop */}
-          <div className="absolute inset-0 bg-black/50" onClick={() => setShowPaymentModal(false)} />
-          {/* Modal */}
-          <div className="relative z-10 w-full max-w-lg rounded-xl bg-white shadow-2xl">
-            {/* Modal header */}
-            <div className="flex items-center justify-between border-b border-border px-6 py-4">
-              <h2 className="text-lg font-semibold text-text">Add payment to {invoice.invoiceNumber}</h2>
-              <button
-                onClick={() => setShowPaymentModal(false)}
-                className="text-xl leading-none text-text-secondary hover:text-text"
-              >
-                &times;
-              </button>
-            </div>
-
-            {/* Modal body */}
-            <div className="space-y-4 px-6 py-5">
-              {/* Amount */}
-              <div>
-                <label className="mb-1 block text-sm font-medium text-text">Amount</label>
-                <div className="relative">
-                  <span className="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-text-secondary">$</span>
-                  <input
-                    type="text"
-                    value={paymentAmount}
-                    onChange={(e) => setPaymentAmount(e.target.value)}
-                    className="w-full rounded-lg border border-border py-2 pr-3 pl-7 text-sm text-text focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
-                  />
-                </div>
-              </div>
-
-              {/* Payment date */}
-              <FormInput
-                label="Payment date"
-                type="date"
-                value={paymentDate}
-                onChange={(e) => setPaymentDate(e.target.value)}
-              />
-
-              {/* Payment method */}
-              <FormSelect
-                label="Payment method"
-                value={paymentMethod}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-                options={[
-                  { value: "Cash", label: "Cash" },
-                  { value: "Card", label: "Card" },
-                  { value: "Bank Transfer", label: "Bank Transfer" },
-                  { value: "Medicare", label: "Medicare" },
-                  { value: "NDIS", label: "NDIS" },
-                ]}
-              />
-
-              {/* Reference number */}
-              <FormInput
-                label="Reference number"
+      <Modal
+        open={showPaymentModal}
+        onClose={() => setShowPaymentModal(false)}
+        title={`Add payment to ${invoice.invoiceNumber}`}
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setShowPaymentModal(false)}>
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={handleApplyPayment}>
+              Apply payment
+            </Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          {/* Amount */}
+          <div>
+            <label className="mb-1 block text-sm font-medium text-text">Amount</label>
+            <div className="relative">
+              <span className="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-text-secondary">$</span>
+              <input
                 type="text"
-                value={referenceNumber}
-                onChange={(e) => setReferenceNumber(e.target.value)}
-                placeholder="Optional"
+                value={paymentAmount}
+                onChange={(e) => setPaymentAmount(e.target.value)}
+                className="w-full rounded-lg border border-border py-2 pr-3 pl-7 text-sm text-text focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
               />
-
-              {/* Notes */}
-              <div>
-                <label className="mb-1 block text-sm font-medium text-text">Notes</label>
-                <textarea
-                  value={paymentNotes}
-                  onChange={(e) => setPaymentNotes(e.target.value)}
-                  rows={3}
-                  placeholder="Optional"
-                  className="w-full resize-none rounded-lg border border-border px-3 py-2 text-sm text-text placeholder:text-text-secondary focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
-                />
-              </div>
-            </div>
-
-            {/* Modal footer */}
-            <div className="flex items-center justify-end gap-2 border-t border-border px-6 py-4">
-              <Button variant="secondary" onClick={() => setShowPaymentModal(false)}>
-                Cancel
-              </Button>
-              <Button variant="primary" onClick={handleApplyPayment}>
-                Apply payment
-              </Button>
             </div>
           </div>
+
+          {/* Payment date */}
+          <FormInput
+            label="Payment date"
+            type="date"
+            value={paymentDate}
+            onChange={(e) => setPaymentDate(e.target.value)}
+          />
+
+          {/* Payment method */}
+          <FormSelect
+            label="Payment method"
+            value={paymentMethod}
+            onChange={(e) => setPaymentMethod(e.target.value)}
+            options={[
+              { value: "Cash", label: "Cash" },
+              { value: "Card", label: "Card" },
+              { value: "Bank Transfer", label: "Bank Transfer" },
+              { value: "Medicare", label: "Medicare" },
+              { value: "NDIS", label: "NDIS" },
+            ]}
+          />
+
+          {/* Reference number */}
+          <FormInput
+            label="Reference number"
+            type="text"
+            value={referenceNumber}
+            onChange={(e) => setReferenceNumber(e.target.value)}
+            placeholder="Optional"
+          />
+
+          {/* Notes */}
+          <div>
+            <label className="mb-1 block text-sm font-medium text-text">Notes</label>
+            <textarea
+              value={paymentNotes}
+              onChange={(e) => setPaymentNotes(e.target.value)}
+              rows={3}
+              placeholder="Optional"
+              className="w-full resize-none rounded-lg border border-border px-3 py-2 text-sm text-text placeholder:text-text-secondary focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
+            />
+          </div>
         </div>
-      )}
+      </Modal>
 
       {/* Toast notification */}
       {showToast && (

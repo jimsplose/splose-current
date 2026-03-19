@@ -24,6 +24,7 @@ import {
   Td,
   Pagination,
   Badge,
+  Tab,
 } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
@@ -319,28 +320,15 @@ function WaitlistPageInner() {
   return (
     <div>
       {/* Main tabs: Screener / Waitlist */}
-      <div className="flex items-center gap-4 border-b border-border px-6 pt-2">
-        <button
-          onClick={() => setMainTab("screener")}
-          className={`border-b-2 px-1 pb-2 text-sm ${
-            mainTab === "screener"
-              ? "border-primary font-medium text-primary"
-              : "border-transparent text-text-secondary hover:text-text"
-          }`}
-        >
-          Screener
-        </button>
-        <button
-          onClick={() => setMainTab("waitlist")}
-          className={`border-b-2 px-1 pb-2 text-sm ${
-            mainTab === "waitlist"
-              ? "border-primary font-medium text-primary"
-              : "border-transparent text-text-secondary hover:text-text"
-          }`}
-        >
-          Waitlist
-        </button>
-      </div>
+      <Tab
+        items={[
+          { label: "Screener", value: "screener" },
+          { label: "Waitlist", value: "waitlist" },
+        ]}
+        value={mainTab}
+        onChange={(val) => setMainTab(val as "screener" | "waitlist")}
+        className="px-6 pt-2"
+      />
 
       {/* ===== SCREENER TAB ===== */}
       {mainTab === "screener" && (
@@ -356,28 +344,15 @@ function WaitlistPageInner() {
           <SearchBar placeholder="Search for client name" onSearch={(query) => setScreenerSearch(query)} />
 
           {/* Triage / Rejected sub-tabs */}
-          <div className="mb-4 flex items-center gap-4">
-            <button
-              onClick={() => setScreenerSubTab("triage")}
-              className={`border-b-2 pb-1 text-sm ${
-                screenerSubTab === "triage"
-                  ? "border-primary font-medium text-primary"
-                  : "border-transparent text-text-secondary hover:text-text"
-              }`}
-            >
-              Triage
-            </button>
-            <button
-              onClick={() => setScreenerSubTab("rejected")}
-              className={`border-b-2 pb-1 text-sm ${
-                screenerSubTab === "rejected"
-                  ? "border-primary font-medium text-primary"
-                  : "border-transparent text-text-secondary hover:text-text"
-              }`}
-            >
-              Rejected
-            </button>
-          </div>
+          <Tab
+            items={[
+              { label: "Triage", value: "triage" },
+              { label: "Rejected", value: "rejected" },
+            ]}
+            value={screenerSubTab}
+            onChange={(val) => setScreenerSubTab(val as "triage" | "rejected")}
+            className="mb-4"
+          />
 
           {/* Screener table */}
           <DataTable minWidth="800px">
@@ -517,28 +492,15 @@ function WaitlistPageInner() {
           {viewMode === "list" ? (
             <>
               {/* Active / Closed tabs */}
-              <div className="mb-4 flex items-center gap-4">
-                <button
-                  onClick={() => setWaitlistSubTab("active")}
-                  className={`border-b-2 pb-1 text-sm ${
-                    waitlistSubTab === "active"
-                      ? "border-primary font-medium text-primary"
-                      : "border-transparent text-text-secondary hover:text-text"
-                  }`}
-                >
-                  Active
-                </button>
-                <button
-                  onClick={() => setWaitlistSubTab("closed")}
-                  className={`border-b-2 pb-1 text-sm ${
-                    waitlistSubTab === "closed"
-                      ? "border-primary font-medium text-primary"
-                      : "border-transparent text-text-secondary hover:text-text"
-                  }`}
-                >
-                  Closed
-                </button>
-              </div>
+              <Tab
+                items={[
+                  { label: "Active", value: "active" },
+                  { label: "Closed", value: "closed" },
+                ]}
+                value={waitlistSubTab}
+                onChange={(val) => setWaitlistSubTab(val as "active" | "closed")}
+                className="mb-4"
+              />
 
               {/* Search */}
               <SearchBar placeholder="Search for client name" onSearch={(query) => setWaitlistSearch(query)} />

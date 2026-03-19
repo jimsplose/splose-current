@@ -1,15 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button, FormInput, FormSelect, Badge, statusVariant } from "@/components/ds";
-
-function Toggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean) => void }) {
-  return (
-    <button onClick={() => onChange(!checked)} className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors ${checked ? "bg-primary" : "bg-gray-200"}`}>
-      <span className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition-transform ${checked ? "translate-x-5" : "translate-x-0"}`} />
-    </button>
-  );
-}
+import { Button, FormInput, FormSelect, Badge, statusVariant, Toggle } from "@/components/ds";
 
 const smsTemplates = [
   { name: "Appointment reminder (24hr)", content: "Hi {client_first_name}, this is a reminder of your appointment with {practitioner_name} at {clinic_name} on {appointment_date} at {appointment_time}. Reply C to confirm or call us on {clinic_phone} to reschedule.", active: true },
