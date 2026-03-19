@@ -8,6 +8,16 @@ Use **parallel subagents** for speed when working through fidelity gaps.
 
 If a fidelity gap requires a component not in the DS, **add it to the DS first** (`src/components/ds/`), then use it in the page. Write a Storybook story in `src/components/ds/stories/` and verify it renders with `npm run storybook` before pushing.
 
+### Component creation is a priority
+
+When working through fidelity gaps, **actively look for opportunities to create new DS components**. If you see the same inline pattern repeated across 2+ pages (e.g. tabs, modals, cards, toggles, sidebars), extract it into a reusable DS component rather than copying inline Tailwind. This is higher priority than finishing more pages — one good component saves work across many pages.
+
+**After creating a new DS component**, you MUST:
+1. Add a Storybook story in `src/components/ds/stories/`
+2. Export it from `src/components/ds/index.ts`
+3. Update the component table in `CLAUDE.md` (Design System section)
+4. Update the Agent Block table in `docs/agent-block.md`
+
 ## Completion criteria
 
 See the **Gap completion rule** in `docs/agent-block.md` (single source of truth). In short: a gap is only `[x]` when ALL related catalog entries show Match = "yes". If entries still show "no" or "partial", the gap stays `[ ]` — note partial progress in the gap description (e.g. "layout matches, colors wrong").

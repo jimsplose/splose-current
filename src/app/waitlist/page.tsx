@@ -416,28 +416,32 @@ function WaitlistPageInner() {
                     <tr key={idx} className="hover:bg-gray-50">
                       <Td>
                         <div className="flex items-center gap-1">
-                          <button
+                          <Button
+                            variant="secondary"
+                            size="sm"
                             onClick={() => handleTriage(idx, "yes")}
-                            className={`flex items-center gap-0.5 rounded border px-2 py-1 text-xs ${
+                            className={`!gap-0.5 !rounded !px-2 !py-1 !text-xs ${
                               triageState[idx] === "yes"
-                                ? "border-green-300 bg-green-50 text-green-700"
-                                : "border-border bg-white text-text-secondary hover:bg-gray-50"
+                                ? "!border-green-300 !bg-green-50 !text-green-700"
+                                : "!text-text-secondary"
                             }`}
                           >
                             <ThumbsUp className="h-3 w-3" />
                             <span>Yes</span>
-                          </button>
-                          <button
+                          </Button>
+                          <Button
+                            variant={triageState[idx] === "no" ? "danger" : "secondary"}
+                            size="sm"
                             onClick={() => handleTriage(idx, "no")}
-                            className={`flex items-center gap-0.5 rounded border px-2 py-1 text-xs ${
+                            className={`!gap-0.5 !rounded !px-2 !py-1 !text-xs ${
                               triageState[idx] === "no"
-                                ? "border-red-300 bg-red-50 text-red-700"
-                                : "border-border bg-white text-text-secondary hover:bg-gray-50"
+                                ? "!bg-red-50"
+                                : "!text-text-secondary"
                             }`}
                           >
                             <ThumbsDown className="h-3 w-3" />
                             <span>No</span>
-                          </button>
+                          </Button>
                         </div>
                       </Td>
                       <Td className="text-text-secondary">{row.tags}</Td>
@@ -452,9 +456,9 @@ function WaitlistPageInner() {
                         </div>
                       </Td>
                       <Td align="right">
-                        <button className="text-text-secondary hover:text-text">
+                        <Button variant="ghost" size="sm" className="!px-1.5 !py-1">
                           <MoreHorizontal className="h-4 w-4" />
-                        </button>
+                        </Button>
                       </Td>
                     </tr>
                   ))
@@ -586,9 +590,9 @@ function WaitlistPageInner() {
                         <Td className="text-text-secondary">{row.dateAdded}</Td>
                         <Td className="text-text-secondary">{row.service}</Td>
                         <Td align="right">
-                          <button className="text-text-secondary hover:text-text">
+                          <Button variant="ghost" size="sm" className="!px-1.5 !py-1">
                             <MoreHorizontal className="h-4 w-4" />
-                          </button>
+                          </Button>
                         </Td>
                       </tr>
                     ))

@@ -89,6 +89,7 @@ Every push to any branch gets a **Vercel preview deployment**. This is how Jim r
 - **Tailwind**: Use design tokens (`text-primary`, `bg-primary`, `border-border`). Prettier sorts classes automatically.
 - **New pages**: Use DS components, add to `src/lib/state-registry.ts`, wire `?state=` variants.
 - **Editing pages**: Opportunistically migrate to DS components when touching that section.
+- **Creating components is a priority**: When the same inline pattern appears on 2+ pages (tabs, modals, cards, toggles, etc.), extract it into a new DS component. After creating a new component, update this table above, `docs/agent-block.md`, and add a Storybook story.
 
 ## Subagent & Quality Gate
 

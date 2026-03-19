@@ -1,4 +1,5 @@
 import { ChevronRight, EyeOff } from "lucide-react";
+import { Button, FormInput } from "@/components/ds";
 
 export default function LoginPage() {
   return (
@@ -34,21 +35,13 @@ export default function LoginPage() {
           <p className="mt-1 text-lg font-bold text-text">acme.splose.com</p>
 
           <div className="mt-6">
-            <label className="block text-sm text-text">Email</label>
-            <input
-              type="email"
-              className="mt-1 w-full border-b border-gray-300 pb-2 text-sm outline-none focus:border-primary"
-            />
+            <FormInput label="Email" type="email" />
           </div>
 
           <div className="mt-6">
-            <label className="block text-sm text-text">Password</label>
             <div className="relative">
-              <input
-                type="password"
-                className="mt-1 w-full border-b border-gray-300 pr-8 pb-2 text-sm outline-none focus:border-primary"
-              />
-              <EyeOff className="absolute top-2 right-0 h-4 w-4 text-text-secondary" />
+              <FormInput label="Password" type="password" className="pr-8" />
+              <EyeOff className="absolute top-9 right-3 h-4 w-4 text-text-secondary" />
             </div>
           </div>
 
@@ -62,10 +55,14 @@ export default function LoginPage() {
             </a>
           </div>
 
-          <button className="mt-6 flex w-full items-center justify-between rounded-lg bg-primary px-6 py-3 text-sm font-medium text-white hover:bg-primary-dark">
+          <Button
+            variant="primary"
+            size="lg"
+            className="mt-6 flex w-full justify-between py-3"
+          >
             Log in
             <ChevronRight className="h-5 w-5" />
-          </button>
+          </Button>
         </div>
 
         {/* Footer links */}

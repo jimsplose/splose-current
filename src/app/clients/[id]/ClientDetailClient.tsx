@@ -334,9 +334,6 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 /* ─── Edit Details Form ────────────────────────────────────────── */
 
 function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: () => void }) {
-  const inputClass =
-    "w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary";
-
   const dobParts = client.dateOfBirth ? client.dateOfBirth.split("-") : ["2025", "01", "01"];
 
   return (
@@ -454,7 +451,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
           <textarea
             defaultValue='For fields that are not available with the splose template, will show up here if they are all included in "Other Details" on the CSV file.'
             rows={4}
-            className={inputClass}
+            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
           />
         </section>
 
@@ -464,7 +461,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
           <p className="mb-2 text-sm text-text-secondary">
             Information you add here will be displayed in important places like scheduling appointments.
           </p>
-          <textarea defaultValue="Include KM" rows={3} className={inputClass} />
+          <textarea defaultValue="Include KM" rows={3} className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/20" />
         </section>
 
         {/* Contact details */}

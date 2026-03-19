@@ -1,9 +1,12 @@
+"use client";
+
 interface PaginationProps {
   currentPage?: number;
   totalPages?: number;
   totalItems?: number;
   itemsPerPage?: number;
   showPageSize?: boolean;
+  onPageChange?: (page: number) => void;
 }
 
 export default function Pagination({
@@ -12,6 +15,7 @@ export default function Pagination({
   totalItems,
   itemsPerPage = 10,
   showPageSize = true,
+  onPageChange,
 }: PaginationProps) {
   const startItem = (currentPage - 1) * itemsPerPage + 1;
   const endItem = Math.min(currentPage * itemsPerPage, totalItems ?? itemsPerPage);
@@ -37,7 +41,11 @@ export default function Pagination({
           : `${startItem}-${endItem} of ${endItem} items`}
       </span>
       <div className="ml-4 flex items-center gap-1">
-        <button className="flex h-7 w-7 items-center justify-center rounded text-text-secondary hover:bg-gray-100">
+        <button
+          onClick={() => currentPage > 1 && onPageChange?.(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="flex h-7 w-7 items-center justify-center rounded text-text-secondary hover:bg-gray-100 disabled:opacity-30"
+        >
           &lt;
         </button>
         {pages.map((p, i) =>
@@ -48,6 +56,7 @@ export default function Pagination({
           ) : (
             <button
               key={p}
+              onClick={() => onPageChange?.(p)}
               className={`flex h-7 w-7 items-center justify-center rounded border text-xs font-medium ${
                 p === currentPage
                   ? "border-primary bg-white text-primary"
@@ -58,7 +67,11 @@ export default function Pagination({
             </button>
           ),
         )}
-        <button className="flex h-7 w-7 items-center justify-center rounded text-text-secondary hover:bg-gray-100">
+        <button
+          onClick={() => currentPage < totalPages && onPageChange?.(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="flex h-7 w-7 items-center justify-center rounded text-text-secondary hover:bg-gray-100 disabled:opacity-30"
+        >
           &gt;
         </button>
       </div>

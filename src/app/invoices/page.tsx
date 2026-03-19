@@ -1,4 +1,4 @@
-import { PageHeader, Button, Pagination } from "@/components/ds";
+import { PageHeader, Button, Pagination, SearchBar } from "@/components/ds";
 import StatusBadge from "@/components/StatusBadge";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
@@ -22,16 +22,7 @@ export default async function InvoicesPage() {
         </Button>
       </PageHeader>
 
-      <div className="mb-4 flex items-center gap-2">
-        <input
-          type="text"
-          placeholder="Search for invoice number, client..."
-          className="h-10 flex-1 rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-        />
-        <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-          Search
-        </button>
-      </div>
+      <SearchBar placeholder="Search for invoice number, client..." />
 
       <div className="overflow-hidden rounded-lg border border-border bg-white">
         <div className="overflow-x-auto">
