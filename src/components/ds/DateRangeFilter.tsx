@@ -1,3 +1,5 @@
+"use client";
+
 interface DateRangeFilterProps {
   startDate: string;
   endDate: string;

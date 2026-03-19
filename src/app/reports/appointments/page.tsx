@@ -1,4 +1,4 @@
-import { Button, PageHeader } from "@/components/ds";
+import { Button, DateRangeFilter, FormSelect, PageHeader } from "@/components/ds";
 
 export default function ReportsAppointmentsPage() {
   return (
@@ -13,12 +13,7 @@ export default function ReportsAppointmentsPage() {
         <label className="mb-1 flex items-center gap-1 text-sm text-text-secondary">
           <span>&#128197;</span> Date range *
         </label>
-        <div className="flex items-center gap-2">
-          <div className="rounded-lg border border-border bg-white px-3 py-2 text-sm text-text">11 Mar 2026</div>
-          <span className="text-text-secondary">&rarr;</span>
-          <div className="rounded-lg border border-border bg-white px-3 py-2 text-sm text-text">11 Mar 2026</div>
-          <button className="rounded p-1 text-text-secondary hover:bg-gray-100">&#128197;</button>
-        </div>
+        <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
       </div>
 
       {/* Contains note filter */}
@@ -27,10 +22,13 @@ export default function ReportsAppointmentsPage() {
           <span>&#128196;</span> Contains note
           <button className="ml-1 text-red-400 hover:text-red-600">&#10005;</button>
         </label>
-        <select className="w-48 rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary">
-          <option>Yes</option>
-          <option>No</option>
-        </select>
+        <FormSelect
+          options={[
+            { value: "yes", label: "Yes" },
+            { value: "no", label: "No" },
+          ]}
+          className="!w-48"
+        />
       </div>
 
       {/* Filter buttons */}

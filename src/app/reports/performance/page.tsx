@@ -1,4 +1,4 @@
-import { PageHeader, Button } from "@/components/ds";
+import { PageHeader, Button, DateRangeFilter, FormSelect } from "@/components/ds";
 
 export default function ReportsPerformancePage() {
   return (
@@ -13,12 +13,7 @@ export default function ReportsPerformancePage() {
         <label className="mb-1 flex items-center gap-1 text-sm text-text-secondary">
           <span>&#128197;</span> Date range *
         </label>
-        <div className="flex items-center gap-2">
-          <div className="rounded-lg border border-border bg-white px-3 py-2 text-sm text-text">11 Mar 2026</div>
-          <span className="text-text-secondary">&rarr;</span>
-          <div className="rounded-lg border border-border bg-white px-3 py-2 text-sm text-text">11 Mar 2026</div>
-          <button className="rounded p-1 text-text-secondary hover:bg-gray-100">&#128197;</button>
-        </div>
+        <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
       </div>
 
       {/* Filter buttons */}
@@ -33,36 +28,48 @@ export default function ReportsPerformancePage() {
       <div className="space-y-3 text-sm">
         <div className="flex items-center gap-4">
           <span className="w-80 text-text">Identify as new client if no previous service:</span>
-          <select className="rounded-lg border border-border bg-white px-3 py-1.5 text-sm text-text outline-none">
-            <option>Ever</option>
-            <option>Last 12 months</option>
-            <option>Last 6 months</option>
-          </select>
+          <FormSelect
+            options={[
+              { value: "ever", label: "Ever" },
+              { value: "12months", label: "Last 12 months" },
+              { value: "6months", label: "Last 6 months" },
+            ]}
+            className="!w-auto"
+          />
         </div>
         <div className="flex items-center gap-4">
           <span className="w-80 text-text">Exclude busy time from utilisation calculation:</span>
-          <select className="rounded-lg border border-border bg-white px-3 py-1.5 text-sm text-text outline-none">
-            <option>No</option>
-            <option>Yes</option>
-          </select>
+          <FormSelect
+            options={[
+              { value: "no", label: "No" },
+              { value: "yes", label: "Yes" },
+            ]}
+            className="!w-auto"
+          />
         </div>
         <div className="flex items-center gap-4">
           <span className="w-80 text-text">
             Include all appointments regardless of status <span className="text-text-secondary">&#9432;</span>:
           </span>
-          <select className="rounded-lg border border-border bg-white px-3 py-1.5 text-sm text-text outline-none">
-            <option>No</option>
-            <option>Yes</option>
-          </select>
+          <FormSelect
+            options={[
+              { value: "no", label: "No" },
+              { value: "yes", label: "Yes" },
+            ]}
+            className="!w-auto"
+          />
         </div>
         <div className="flex items-center gap-4">
           <span className="w-80 text-text">
             Exclude items marked as do not invoice <span className="text-text-secondary">&#9432;</span>:
           </span>
-          <select className="rounded-lg border border-border bg-white px-3 py-1.5 text-sm text-text outline-none">
-            <option>No</option>
-            <option>Yes</option>
-          </select>
+          <FormSelect
+            options={[
+              { value: "no", label: "No" },
+              { value: "yes", label: "Yes" },
+            ]}
+            className="!w-auto"
+          />
         </div>
       </div>
     </>
