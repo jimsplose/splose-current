@@ -9,7 +9,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 6.39.04 pm.png | Business history modal open | no |
-| screencapture-acme-splose-settings-details-2026-03-17-18_33_39.png | Details page default view | partial |
+| screencapture-acme-splose-settings-details-2026-03-17-18_33_39.png | Details page default view | partial — form fields match well, missing brand illustration (uses placeholder), sidebar missing some sections |
 
 ## Settings — Integrations (`/settings/integrations`)
 
@@ -55,7 +55,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-settings-ai-2026-03-17-18_36_17.png | AI Preferences tab | no |
+| screencapture-acme-splose-settings-ai-2026-03-17-18_36_17.png | AI Preferences tab | partial — structure/toggles match, missing Progress Note illustration, badge color differs, extra calendar section |
 | screencapture-acme-splose-settings-ai-2026-03-17-18_36_41.png | AI settings alternate view | no |
 | screencapture-acme-splose-settings-ai-2026-03-17-18_37_14.png | AI settings alternate view 2 | no |
 | Screenshot 2026-03-17 at 6.44.00 pm.png | Saved prompts tab, actions dropdown (Edit/Change log/Delete) | no |
@@ -340,9 +340,9 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.23.33 pm.png | Week view — appointment detail side panel (1:1 appointment, with Edit/Reschedule/Archive actions) | no |
-| Screenshot 2026-03-17 at 7.25.23 pm.png | Week view — edit appointment form, Room/Resource dropdown open | no |
-| Screenshot 2026-03-17 at 7.25.52 pm.png | Week view — appointment side panel (alternate view) | no |
+| Screenshot 2026-03-17 at 7.23.33 pm.png | Week view — appointment detail side panel (1:1 appointment, with Edit/Reschedule/Archive actions) | partial — flyout layout matches, header shows type+duration instead of client+service, Archive uses danger variant instead of gray |
+| Screenshot 2026-03-17 at 7.25.23 pm.png | Week view — edit appointment form, Room/Resource dropdown open | partial — form fields match, Room dropdown uses native select instead of custom styled dropdown |
+| Screenshot 2026-03-17 at 7.25.52 pm.png | Week view — appointment side panel (alternate view) | partial |
 
 ## Notes — New Progress Note (`/notes/new`)
 
@@ -354,8 +354,8 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.26.58 pm.png | Edit note — AI-generated Subjective section with Accept button | no |
-| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_02.png | Progress note edit (variant 1) | no |
+| Screenshot 2026-03-17 at 7.26.58 pm.png | Edit note — AI-generated Subjective section with Accept button | partial — AI block structure matches, missing thumbs-up/down and Actions dropdown |
+| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_02.png | Progress note edit (variant 1) | partial — structure matches, service field is text not dropdown, toolbar less complete |
 | screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_18.png | Progress note edit (variant 2) | no |
 | screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_27.png | Progress note edit (variant 3) | no |
 | screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_36.png | Progress note edit (variant 4) | no |
@@ -366,11 +366,11 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.28.32 pm.png | View note — Send progress note modal | no |
-| Screenshot 2026-03-17 at 7.29.06 pm.png | View note — Send progress note modal (scrolled) | no |
-| Screenshot 2026-03-17 at 7.29.15 pm.png | View note — Send progress note modal with AI-summarised session text | no |
-| screencapture-acme-splose-notes-32681068-view-2026-03-17-19_27_58.png | Progress note view (variant 1) | no |
-| screencapture-acme-splose-notes-32681068-view-2026-03-17-19_28_07.png | Progress note view (variant 2) | no |
+| Screenshot 2026-03-17 at 7.28.32 pm.png | View note — Send progress note modal | no — send modal not implemented |
+| Screenshot 2026-03-17 at 7.29.06 pm.png | View note — Send progress note modal (scrolled) | no — send modal not implemented |
+| Screenshot 2026-03-17 at 7.29.15 pm.png | View note — Send progress note modal with AI-summarised session text | no — send modal not implemented |
+| screencapture-acme-splose-notes-32681068-view-2026-03-17-19_27_58.png | Progress note view (variant 1) | partial — view page matches, missing "ST | Note" subtitle, logo is emoji vs styled graphic |
+| screencapture-acme-splose-notes-32681068-view-2026-03-17-19_28_07.png | Progress note view (variant 2) | partial |
 
 ## Patients — List (`/patients`)
 
@@ -399,26 +399,26 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-communications-2026-03-17-19_31_23.png | Patient communications tab | no |
-| screencapture-acme-splose-patients-5918810-communications-2026-03-17-19_31_35.png | Patient communications (variant 2) | no |
+| screencapture-acme-splose-patients-5918810-communications-2026-03-17-19_31_23.png | Patient communications tab | yes |
+| screencapture-acme-splose-patients-5918810-communications-2026-03-17-19_31_35.png | Patient communications (variant 2) | yes |
 
 ## Patients — Detail / Files (`/patients/:id/files`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-files-2026-03-17-19_31_50.png | Patient files tab | no |
+| screencapture-acme-splose-patients-5918810-files-2026-03-17-19_31_50.png | Patient files tab | yes |
 
 ## Patients — Detail / Notes (`/patients/:id/notes`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-notes-2026-03-17-19_32_09.png | Patient notes tab | no |
+| screencapture-acme-splose-patients-5918810-notes-2026-03-17-19_32_09.png | Patient notes tab | partial — columns match, service date missing time, no yellow highlight on last update |
 
 ## Patients — Detail / Cases (`/patients/:id/cases`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-cases-2026-03-17-19_32_26.png | Patient cases tab | no |
+| screencapture-acme-splose-patients-5918810-cases-2026-03-17-19_32_26.png | Patient cases tab | no — reference shows empty state with illustration, implementation shows populated table |
 
 ## Patients — Detail / Support Activities (`/patients/:id/support-activities`)
 
@@ -444,7 +444,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-invoices-2026-03-17-19_33_57.png | Patient invoices tab | no |
+| screencapture-acme-splose-patients-5918810-invoices-2026-03-17-19_33_57.png | Patient invoices tab | partial — empty state logic exists but uses emoji instead of illustration |
 
 ## Patients — Detail / Payments (`/patients/:id/payments`)
 
@@ -462,7 +462,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-letters-2026-03-17-19_34_39.png | Patient letters tab | no |
+| screencapture-acme-splose-patients-5918810-letters-2026-03-17-19_34_39.png | Patient letters tab | yes |
 
 ## Patients — Detail / Practitioner Access (`/patients/:id/practitioner-access`)
 
