@@ -42,9 +42,9 @@ New components use [DaisyUI](https://daisyui.com/components/) names where a matc
 
 If a design spec exists at `screenshots/specs/<page-name>.md`, read it and implement using those **exact values** — colors, font sizes, spacing, border-radius. Do not approximate. Cross-reference your Tailwind classes against the spec.
 
-## Screenshot Verification Loop — MANDATORY (Playwright required)
+## Screenshot Verification Loop — MANDATORY (Puppeteer)
 
-After making your code changes, you MUST run this loop. Playwright browsers are a hard requirement — ensure they are installed before starting fidelity work (`npx playwright install chromium`).
+After making your code changes, you MUST run this loop. Puppeteer bundles Chromium automatically via `npm install` — no separate browser download needed.
 
 ### Capture and diff:
 1. Capture: `npx tsx scripts/screenshot-capture.ts http://localhost:3000/<page-path> /tmp/current-<page>.png`

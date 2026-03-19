@@ -42,7 +42,7 @@ If it fails, fix or revert the agent's changes before continuing.
 
 ## Step 3: Pixel Diff Verification (main agent)
 
-If the agent changed page UI, run the automated pixel diff. **Playwright browsers are required** — do not fall back to code review.
+If the agent changed page UI, run the automated pixel diff. **Puppeteer** (bundled Chromium) is used for screenshots — no separate browser install needed.
 
 1. Capture current state:
    ```bash
@@ -72,8 +72,7 @@ If the agent changed page UI, run the automated pixel diff. **Playwright browser
 After every push that includes visual changes, the main agent MUST:
 
 1. Take 1-2 screenshots of the most significant page changes:
-   - **If Playwright available**: `npx playwright screenshot --wait-for-timeout=3000 http://localhost:3000/<changed-page> /tmp/progress-<page>.png`
-   - **If unavailable**: Read the reference screenshot(s) for the changed pages and describe what was changed and how it now matches
+   - Capture with Puppeteer: `npx tsx scripts/screenshot-capture.ts http://localhost:3000/<changed-page> /tmp/progress-<page>.png`
 2. Read and display screenshots inline in chat (or describe changes with reference screenshots) so Jim can see progress immediately
 3. Tell Jim the branch preview URL and link to the Vercel dashboard
 
