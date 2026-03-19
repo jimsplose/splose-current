@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, LayoutGrid, Columns2, Copy, ChevronDown, Save, Lock, ClipboardList } from "lucide-react";
 import { Button, Badge } from "@/components/ds";
 
@@ -17,6 +17,14 @@ const TEMPLATES = [
 ];
 
 export default function NewProgressNotePage() {
+  return (
+    <Suspense>
+      <NewProgressNotePageInner />
+    </Suspense>
+  );
+}
+
+function NewProgressNotePageInner() {
   const router = useRouter();
   const [clientId, setClientId] = useState("");
   const [practitionerId, setPractitionerId] = useState("");
@@ -25,6 +33,15 @@ export default function NewProgressNotePage() {
   const [content, setContent] = useState("");
   const [saving, setSaving] = useState(false);
   const [viewMode, setViewMode] = useState<"single" | "split">("single");
+
+  const searchParams = useSearchParams();
+  const forcedState = searchParams.get("state");
+
+  useEffect(() => {
+    if (forcedState === "split-view") {
+      setViewMode("split");
+    }
+  }, [forcedState]);
 
   const handleSave = async (signed: boolean) => {
     if (!clientId || !practitionerId || !template) {

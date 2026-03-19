@@ -23,11 +23,14 @@ If a fidelity gap requires a component not in the DS, **add it to the DS first**
 
 ## Step 1: Launch parallel agents (worktree isolation)
 
-Group non-conflicting gaps and launch them simultaneously using the Agent tool with `isolation: "worktree"`. Each agent should:
+Group non-conflicting gaps and launch them simultaneously using the Agent tool with `isolation: "worktree"`. **Every agent prompt MUST include the full Agent Block from CLAUDE.md** (between `---START AGENT BLOCK---` and `---END AGENT BLOCK---` markers). Do NOT launch without it — this embeds DS enforcement and screenshot verification directly into the agent.
+
+Each agent should:
 1. Read the relevant reference screenshot(s) from `screenshots/reference/`
 2. Read the current page source code
 3. Rewrite/edit the code to match the screenshot **using DS components**
 4. Ensure no TypeScript errors in the changed files
+5. Run the **Screenshot Verification Loop** from the Agent Block (up to 3 iterations)
 
 ### Parallelization rules
 - Gaps touching **different page directories** can always run in parallel
@@ -35,70 +38,25 @@ Group non-conflicting gaps and launch them simultaneously using the Agent tool w
 - The **database re-seed** gap should run alone (it changes seed data that pages read)
 - The **general screenshot review** agent should run last as a sweep
 
-## Step 2: Collect and apply changes
+## Step 2: Collect and apply changes (with Post-Agent Quality Gate)
 
-After agents complete:
-1. For each agent that made changes in a worktree, review the diff and cherry-pick/apply to the main branch
-2. **After each agent's changes are applied**, run `npx tsc --noEmit` to catch type conflicts before applying the next agent
+After each agent completes, run the **Post-Agent Quality Gate from CLAUDE.md** before committing. This is mandatory — do not batch or skip.
+
+For each agent:
+1. Review the diff and cherry-pick/apply to the main branch
+2. **Run the Quality Gate** (DS violation scan → TypeScript check → screenshot verification → commit or revert)
 3. If an agent's worktree has conflicts with another, resolve manually
 4. If applying an agent's changes breaks the build, **revert that agent's changes** and continue with the next — don't spend the session debugging a single agent's output
 
-## Step 3: Playwright Screenshot Iteration Loop — MANDATORY
+## Step 3: Screenshot Verification
 
-**Every agent MUST verify its own work** by taking Playwright screenshots and comparing them to reference screenshots. This is not optional — agents that skip this step produce lower quality work.
+**This is handled automatically** if you included the Agent Block from CLAUDE.md in each agent's prompt (Step 1) and ran the Post-Agent Quality Gate (Step 2).
 
-### How it works
+- **Subagents**: Run the Screenshot Verification Loop embedded in the Agent Block (up to 3 iterations)
+- **Main agent**: Run the screenshot check in the Post-Agent Quality Gate after applying each agent's changes
+- **After push**: Follow the Post-Push Screenshots section in CLAUDE.md (take 1-2 screenshots, show inline)
 
-Each agent, after making code changes, runs an iterative loop:
-
-```
-1. Start dev server: npm run dev (if not already running)
-2. Take a Playwright screenshot of the changed page
-3. Compare the screenshot to the reference screenshot from screenshots/reference/
-4. If the page doesn't match well enough → make more code changes → go to step 2
-5. Repeat up to 3 iterations maximum
-```
-
-### Taking screenshots with Playwright
-
-Use this pattern in each agent:
-
-```bash
-# Take a screenshot of a specific page
-npx playwright screenshot --wait-for-timeout=2000 http://localhost:3000/clients /tmp/screenshot-clients.png
-
-# For pages with interactive states, navigate to the state first
-npx playwright screenshot --wait-for-timeout=2000 "http://localhost:3000/calendar?state=month-view" /tmp/screenshot-calendar-month.png
-```
-
-### Agent prompt template
-
-When launching fidelity agents, include this in the prompt:
-
-```
-After making your code changes:
-1. Run `npx playwright screenshot --wait-for-timeout=2000 http://localhost:3000/<page-path> /tmp/screenshot-<page>.png`
-2. Read the screenshot using the Read tool (it supports images)
-3. Read the reference screenshot from `screenshots/reference/<relevant-file>`
-4. Compare visually — does the layout, spacing, colors, and content match?
-5. If not, make additional changes and repeat (up to 3 iterations)
-6. On final iteration, save the screenshot to `/tmp/screenshot-<page>-final.png`
-```
-
-### Screenshots to return to user
-
-After each push, the **main agent** (not subagents) MUST:
-1. Take 1-2 Playwright screenshots of the most significant page changes
-2. Show them inline in the chat so Jim can see progress without visiting the preview URL
-3. Focus on pages with the biggest visual improvements
-
-```bash
-# Example: take screenshots of 2 major changes after push
-npx playwright screenshot --wait-for-timeout=3000 http://localhost:3000/settings /tmp/progress-settings.png
-npx playwright screenshot --wait-for-timeout=3000 http://localhost:3000/calendar /tmp/progress-calendar.png
-```
-
-Then use the Read tool to display them to the user.
+See CLAUDE.md for the full instructions. Do not duplicate them here.
 
 ## Step 4: Build, commit, push
 

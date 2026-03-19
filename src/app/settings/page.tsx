@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button, FormInput, FormSelect, Badge, statusVariant } from "@/components/ds";
 
@@ -61,6 +62,30 @@ const sidebarSections = [
   },
 ];
 
+const STATE_MAP: Record<string, string> = {
+  integrations: "Integrations",
+  "sms-settings": "SMS settings",
+  forms: "Forms",
+  locations: "Locations",
+  "custom-fields": "Custom fields",
+  "rooms-resources": "Rooms/Resources",
+  services: "Services",
+  "busy-times": "Busy times",
+  "cancellation-reasons": "Cancellation reasons",
+  "online-bookings": "Online bookings",
+  "communication-types": "Communication types",
+  tags: "Tags",
+  "referral-types": "Referral types",
+  users: "Users",
+  "user-groups": "User groups",
+  "appointment-templates": "Appointments",
+  "email-templates": "Emails",
+  "progress-notes": "Progress notes",
+  "letter-templates": "Letters",
+  "payment-settings": "Payments",
+  "invoice-settings": "Invoices",
+};
+
 type ActivePage =
   | "Details"
   | "Integrations"
@@ -71,7 +96,23 @@ type ActivePage =
 const pagesWithContent = ["Details", "Integrations", "SMS settings", "Forms"];
 
 export default function SettingsPage() {
+  return (
+    <Suspense>
+      <SettingsPageInner />
+    </Suspense>
+  );
+}
+
+function SettingsPageInner() {
   const [activePage, setActivePage] = useState<ActivePage>("Details");
+  const searchParams = useSearchParams();
+  const forcedState = searchParams.get("state");
+
+  useEffect(() => {
+    if (forcedState && STATE_MAP[forcedState]) {
+      setActivePage(STATE_MAP[forcedState]);
+    }
+  }, [forcedState]);
 
   const handleSidebarClick = (
     e: React.MouseEvent<HTMLAnchorElement>,

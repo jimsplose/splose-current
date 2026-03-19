@@ -46,7 +46,10 @@ export const stateRegistry: PageEntry[] = [
         path: "/clients/[id]",
         resolvedPath: "/clients/1",
         label: "Client Detail",
-        variants: [{ id: "default", label: "Details tab" }],
+        variants: [
+          { id: "default", label: "Details tab" },
+          { id: "edit-mode", label: "Edit mode" },
+        ],
         children: [
           {
             path: "/clients/[id]/appointments",
@@ -159,7 +162,7 @@ export const stateRegistry: PageEntry[] = [
     label: "Progress Notes",
     group: "Notes",
     variants: [{ id: "default", label: "Notes list" }],
-    children: [{ path: "/notes/new", label: "New Note", variants: [{ id: "default", label: "New note form" }] }],
+    children: [{ path: "/notes/new", label: "New Note", variants: [{ id: "default", label: "New note form" }, { id: "split-view", label: "Split view" }] }],
   },
   {
     path: "/practitioners",
