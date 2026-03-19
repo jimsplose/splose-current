@@ -157,3 +157,24 @@ Append-only log. Each session adds an entry summarizing what was done.
 ### Still Remaining
 - Process new screenshots
 - Integration logos: replace styled text with actual SVG brand assets if available
+
+---
+
+## Session — 2026-03-19 (afternoon)
+
+**Branch**: `claude/show-menu-6Crdt`
+
+### Completed
+- **Reports DS migration** — All 4 reports pages migrated to DS components:
+  - `reports/page.tsx`: inline avatars → Avatar, chart/table containers → Card (with new `padding="none"`)
+  - `reports/appointments`: inline date boxes → DateRangeFilter, bare `<select>` → FormSelect
+  - `reports/performance`: inline date boxes → DateRangeFilter, 4 bare `<select>` → FormSelect
+  - `reports/progress-notes`: inline date boxes → DateRangeFilter, status dots → Status, tables → Card, inline badges → Badge
+- **Card DS enhancement** — Added `padding="none"` option for table containers without internal padding
+- **DateRangeFilter fix** — Added `"use client"` directive for RSC compatibility
+- **DateRangeFilter gap closed** — All 3 inline date range instances migrated
+- **Card gap partially closed** — Reports portion done; settings portion pending other session
+
+### Still Remaining
+- Most open gaps (Calendar, detail pages, remaining DS components) being handled by parallel session
+- Process new screenshots

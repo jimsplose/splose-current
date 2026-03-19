@@ -155,10 +155,10 @@ Common inline patterns found across 2+ pages that should be extracted into reusa
 
 ### Group S — Medium-priority DS components (appear on 2+ pages)
 
-- [ ] **Card** (`Card.tsx`) — White rounded bordered container (`rounded-lg border border-border bg-white p-5`). DaisyUI: `card`. Found: settings/page.tsx (SMS balance, provider config), reports/page.tsx (chart cards). **4+ instances across 2 pages.**
+- [ ] **Card** (`Card.tsx`) — White rounded bordered container (`rounded-lg border border-border bg-white p-5`). DaisyUI: `card`. Found: settings/page.tsx (SMS balance, provider config), reports/page.tsx (chart cards). **4+ instances across 2 pages.** Partial: reports/page.tsx and reports/progress-notes migrated (2026-03-19). Settings pending.
 - [ ] **Select** (`Select.tsx`) — Searchable dropdown with search input, filtered results list, click-to-select. DaisyUI: `select` (enhanced with search). Found: payments/new/page.tsx (client search, invoice search — 2 instances). Pattern also needed for client/practitioner selectors across app.
 - [ ] **Navbar** (`Navbar.tsx`) — Back arrow + title + badge + action buttons bar (`border-b bg-white px-6 py-3`). DaisyUI: `navbar`. Found: notes/new, notes/[id], notes/[id]/edit, invoices/[id], payments/new. **5+ instances across 5 pages.** Extends PageHeader with back navigation.
-- [ ] **DateRangeFilter** (`DateRangeFilter.tsx`) — Two date boxes + arrow separator (`rounded-lg border px-3 py-2 text-sm`). No DaisyUI equivalent (custom). Found: reports/appointments, reports/performance, reports/progress-notes. **3 instances across 3 pages.**
+- [x] **DateRangeFilter** (`DateRangeFilter.tsx`) — Two date boxes + arrow separator (`rounded-lg border px-3 py-2 text-sm`). No DaisyUI equivalent (custom). Found: reports/appointments, reports/performance, reports/progress-notes. **3 instances across 3 pages.** All 3 migrated (2026-03-19).
 - [ ] **Filter** (`Filter.tsx`) — Horizontal button group with active highlight / segmented control (`overflow-hidden rounded-lg border` + toggle buttons). DaisyUI: `filter`. Found: notes/new (view toggle), notes/[id]/edit (view toggle), settings/page.tsx (status filters). **3+ instances across 3 pages.**
 - [ ] **Collapse** (`Collapse.tsx`) — Expandable section with chevron toggle (`border-b pb-3` + ChevronDown). DaisyUI: `collapse`. Found: clients/[id]/ClientDetailClient.tsx (4 right sidebar sections: Client alerts, Stripe, Mailchimp, QuickBooks).
 
