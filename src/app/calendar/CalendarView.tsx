@@ -5,12 +5,12 @@ import { useSearchParams } from "next/navigation";
 import {
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
   Filter,
   Settings2,
   LayoutGrid,
   Search,
   X,
-  XCircle,
   Clock,
   User,
   Users,
@@ -21,12 +21,12 @@ import {
   Video,
   Monitor,
   UserPlus,
-  Activity,
-  CalendarClock,
   Ban,
   Mail,
   Repeat,
   History,
+  AlertTriangle,
+  Info,
 } from "lucide-react";
 import { Button, Badge, FormInput, FormSelect, Modal, Toggle, Avatar } from "@/components/ds";
 
@@ -717,90 +717,176 @@ export default function CalendarView({
               </button>
             </div>
             <div className="space-y-4 px-6 py-5">
-              {/* Client */}
-              <div>
-                <label className="mb-1 block text-sm font-medium text-text-secondary">Client *</label>
-                <input
-                  type="text"
-                  value={createClient}
-                  onChange={(e) => setCreateClient(e.target.value)}
-                  placeholder="Start typing to search client..."
-                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-                />
-              </div>
+              {/* Past date warning */}
+              {createDate && isDateInPast(createDate) && (
+                <div className="flex items-start gap-2 rounded-lg border border-yellow-200 bg-yellow-50 px-3 py-2.5">
+                  <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-yellow-600" />
+                  <p className="text-sm text-yellow-800">
+                    This appointment is in the past. Are you sure you want to create it?
+                  </p>
+                </div>
+              )}
+
+              {/* Location */}
+              <FormSelect
+                label="Location"
+                value={createLocation}
+                onChange={(e) => setCreateLocation(e.target.value)}
+                options={[
+                  { value: "Hands Together Therapy (East)", label: "Hands Together Therapy (East)" },
+                  { value: "Hands Together Therapy (West)", label: "Hands Together Therapy (West)" },
+                ]}
+              />
 
               {/* Practitioner */}
-              <div>
-                <label className="mb-1 block text-sm font-medium text-text-secondary">Practitioner *</label>
-                <select
-                  value={createPractitioner}
-                  onChange={(e) => setCreatePractitioner(e.target.value)}
-                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-                >
-                  {practitioners.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {p.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <FormSelect
+                label="Practitioner *"
+                value={createPractitioner}
+                onChange={(e) => setCreatePractitioner(e.target.value)}
+                options={practitioners.map((p) => ({
+                  value: p.id,
+                  label: p.name,
+                }))}
+              />
+
+              {/* Client */}
+              <FormInput
+                label="Client *"
+                type="text"
+                value={createClient}
+                onChange={(e) => setCreateClient(e.target.value)}
+                placeholder="Start typing to search client..."
+              />
+
+              {/* Service */}
+              <FormSelect
+                label="Service *"
+                value={createService}
+                onChange={(e) => setCreateService(e.target.value)}
+                options={[
+                  { value: "", label: "Select a service" },
+                  { value: "initial-assessment", label: "Initial Assessment" },
+                  { value: "follow-up", label: "Follow Up" },
+                  { value: "review", label: "Review" },
+                  { value: "group-session", label: "Group Session" },
+                  { value: "targeted-services", label: "Targeted Services (Goodstart)" },
+                  { value: "capacity-building", label: "Capacity Building" },
+                ]}
+              />
+
+              {/* Case */}
+              <FormSelect
+                label="Case"
+                value={createCase}
+                onChange={(e) => setCreateCase(e.target.value)}
+                options={[
+                  { value: "", label: "Choose a case" },
+                ]}
+              />
 
               {/* Date */}
-              <div>
-                <label className="mb-1 block text-sm font-medium text-text-secondary">Date *</label>
-                <input
-                  type="date"
-                  value={createDate}
-                  onChange={(e) => setCreateDate(e.target.value)}
-                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-                />
-              </div>
+              <FormInput
+                label="Date *"
+                type="date"
+                value={createDate}
+                onChange={(e) => setCreateDate(e.target.value)}
+              />
 
               {/* Start / End time */}
               <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="mb-1 block text-sm font-medium text-text-secondary">Start time *</label>
-                  <select
-                    value={createTime}
-                    onChange={(e) => setCreateTime(e.target.value)}
-                    className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-                  >
-                    {TIME_OPTIONS.map((t) => (
-                      <option key={t} value={t}>
-                        {t}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="mb-1 block text-sm font-medium text-text-secondary">End time *</label>
-                  <select
-                    value={createEndTime}
-                    onChange={(e) => setCreateEndTime(e.target.value)}
-                    className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-                  >
-                    {TIME_OPTIONS.map((t) => (
-                      <option key={t} value={t}>
-                        {t}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                <FormSelect
+                  label="Start time *"
+                  value={createTime}
+                  onChange={(e) => setCreateTime(e.target.value)}
+                  options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))}
+                />
+                <FormSelect
+                  label="End time *"
+                  value={createEndTime}
+                  onChange={(e) => setCreateEndTime(e.target.value)}
+                  options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))}
+                />
               </div>
 
-              {/* Appointment type */}
-              <div>
-                <label className="mb-1 block text-sm font-medium text-text-secondary">Appointment type *</label>
-                <select
-                  value={createType}
-                  onChange={(e) => setCreateType(e.target.value)}
-                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-                >
-                  <option value="Initial Assessment">Initial Assessment</option>
-                  <option value="Follow Up">Follow Up</option>
-                  <option value="Review">Review</option>
-                  <option value="Group Session">Group Session</option>
-                </select>
+              {/* Room/Resource */}
+              <FormSelect
+                label="Room/Resource"
+                value={createRoom}
+                onChange={(e) => setCreateRoom(e.target.value)}
+                options={[
+                  { value: "", label: "Choose a room/resource" },
+                  { value: "green", label: "Green (1 available of 1)" },
+                  { value: "red", label: "Red (1 available of 1)" },
+                  { value: "blue", label: "Blue (2 available of 2)" },
+                  { value: "room1", label: "Room 1 (1 available of 1)" },
+                ]}
+              />
+
+              {/* Toggles */}
+              <Toggle
+                checked={createProviderTravel}
+                onChange={setCreateProviderTravel}
+                label="Provider travel"
+              />
+              <Toggle
+                checked={createProviderTravelNonLabour}
+                onChange={setCreateProviderTravelNonLabour}
+                label="Provider Travel - Non-Labour Costs"
+              />
+              <Toggle
+                checked={createActivityTransport}
+                onChange={setCreateActivityTransport}
+                label="Activity Based Transport"
+              />
+              <Toggle
+                checked={createRepeat}
+                onChange={setCreateRepeat}
+                label="Repeat"
+              />
+
+              {createRepeat && (
+                <div className="space-y-3 rounded-lg border border-border bg-gray-50 p-4">
+                  <FormSelect
+                    label="Repeat"
+                    options={[
+                      { value: "weekly", label: "Every week" },
+                      { value: "2weeks", label: "Every 2 weeks" },
+                      { value: "3weeks", label: "Every 3 weeks" },
+                      { value: "4weeks", label: "Every 4 weeks" },
+                    ]}
+                  />
+                  <div>
+                    <label className="mb-1 block text-sm font-medium text-text-secondary">Repeat on *</label>
+                    <div className="flex gap-1">
+                      {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d) => (
+                        <button
+                          key={d}
+                          className={`rounded-full px-2.5 py-1 text-xs font-medium ${d === "Mo" ? "bg-primary text-white" : "border border-border bg-white text-text hover:bg-gray-50"}`}
+                        >
+                          {d}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <FormSelect
+                    label="Ends"
+                    options={[
+                      { value: "6", label: "After 6 times" },
+                      { value: "4", label: "After 4 times" },
+                      { value: "8", label: "After 8 times" },
+                      { value: "12", label: "After 12 times" },
+                      { value: "date", label: "On date" },
+                    ]}
+                  />
+                </div>
+              )}
+
+              {/* Waitlist matches */}
+              <div className="rounded-lg border border-border bg-gray-50 p-3">
+                <button className="flex w-full items-center justify-between text-sm font-medium text-text">
+                  Waitlist matches (2)
+                  <ChevronDown className="h-4 w-4 text-text-secondary" />
+                </button>
               </div>
 
               {/* Notes */}
@@ -843,78 +929,91 @@ export default function CalendarView({
               </button>
             </div>
             <div className="space-y-4 px-6 py-5">
-              {/* Service */}
-              <div>
-                <label className="mb-1 block text-sm font-medium text-text-secondary">Service *</label>
-                <input
-                  type="text"
-                  defaultValue={`${selectedAppt.clientName}`}
-                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-                />
+              {/* Info banner */}
+              <div className="flex items-start gap-2 rounded-lg border border-blue-200 bg-blue-50 px-3 py-2.5">
+                <Info className="mt-0.5 h-4 w-4 shrink-0 text-blue-600" />
+                <p className="text-sm text-blue-800">
+                  Client won&apos;t be notified of changes. To do this, use Reschedule.
+                </p>
               </div>
+
+              {/* Location */}
+              <FormSelect
+                label="Location"
+                defaultValue="Hands Together Therapy (East)"
+                options={[
+                  { value: "Hands Together Therapy (East)", label: "Hands Together Therapy (East)" },
+                  { value: "Hands Together Therapy (West)", label: "Hands Together Therapy (West)" },
+                ]}
+              />
+
+              {/* Practitioner */}
+              <FormSelect
+                label="Practitioner *"
+                defaultValue={selectedAppt.practitionerName}
+                options={practitioners.map((p) => ({
+                  value: p.name,
+                  label: p.name,
+                }))}
+              />
+
+              {/* Client */}
+              <FormInput
+                label="Client *"
+                type="text"
+                defaultValue={selectedAppt.clientName}
+              />
+
+              {/* Service */}
+              <FormInput
+                label="Service *"
+                type="text"
+                defaultValue={selectedAppt.type}
+              />
 
               {/* Case */}
-              <div>
-                <label className="mb-1 block text-sm font-medium text-text-secondary">Case</label>
-                <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20">
-                  <option>Choose a case</option>
-                </select>
-              </div>
+              <FormSelect
+                label="Case"
+                options={[
+                  { value: "", label: "Choose a case" },
+                ]}
+              />
 
               {/* Date */}
-              <div>
-                <label className="mb-1 block text-sm font-medium text-text-secondary">Date *</label>
-                <input
-                  type="date"
-                  defaultValue={selectedAppt.date}
-                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-                />
-              </div>
+              <FormInput
+                label="Date *"
+                type="date"
+                defaultValue={selectedAppt.date}
+              />
 
               {/* Time */}
               <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="mb-1 block text-sm font-medium text-text-secondary">Time *</label>
-                  <input
-                    type="text"
-                    defaultValue={selectedAppt.startTime}
-                    className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-                  />
-                </div>
-                <div>
-                  <label className="mb-1 block text-sm font-medium text-text-secondary">&nbsp;</label>
-                  <input
-                    type="text"
-                    defaultValue={selectedAppt.endTime}
-                    className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-                  />
-                </div>
+                <FormSelect
+                  label="Time *"
+                  defaultValue={selectedAppt.startTime}
+                  options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))}
+                />
+                <FormSelect
+                  label="&nbsp;"
+                  defaultValue={selectedAppt.endTime}
+                  options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))}
+                />
               </div>
 
               {/* Room/Resource */}
-              <div>
-                <label className="mb-1 block text-sm font-medium text-text-secondary">Room/Resource</label>
-                <select
-                  value={editRoom}
-                  onChange={(e) => setEditRoom(e.target.value)}
-                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-                >
-                  <option value="">Choose a room/resource</option>
-                  <optgroup label="Green room">
-                    <option value="green">Green (1 available of 1)</option>
-                  </optgroup>
-                  <optgroup label="">
-                    <option value="red">Red (1 available of 1)</option>
-                    <option value="blue">Blue (2 available of 2)</option>
-                  </optgroup>
-                  <optgroup label="Car">
-                    <option value="car">Car (1 available of 1)</option>
-                  </optgroup>
-                  <optgroup label="Rooms">
-                    <option value="room1">Room 1 (1 available of 1)</option>
-                  </optgroup>
-                </select>
-              </div>
+              <FormSelect
+                label="Room/Resource"
+                value={editRoom}
+                onChange={(e) => setEditRoom(e.target.value)}
+                options={[
+                  { value: "", label: "Choose a room/resource" },
+                  { value: "green", label: "Green (1 available of 1)" },
+                  { value: "red", label: "Red (1 available of 1)" },
+                  { value: "blue", label: "Blue (2 available of 2)" },
+                  { value: "car", label: "Car (1 available of 1)" },
+                  { value: "room1", label: "Room 1 (1 available of 1)" },
+                ]}
+              />
 
               {/* Repeat toggle */}
               <Toggle
@@ -925,15 +1024,15 @@ export default function CalendarView({
 
               {editRepeat && (
                 <div className="space-y-3 rounded-lg border border-border bg-gray-50 p-4">
-                  <div>
-                    <label className="mb-1 block text-sm font-medium text-text-secondary">Repeat</label>
-                    <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary">
-                      <option>Every 2 weeks</option>
-                      <option>Every week</option>
-                      <option>Every 3 weeks</option>
-                      <option>Every 4 weeks</option>
-                    </select>
-                  </div>
+                  <FormSelect
+                    label="Repeat"
+                    options={[
+                      { value: "2weeks", label: "Every 2 weeks" },
+                      { value: "weekly", label: "Every week" },
+                      { value: "3weeks", label: "Every 3 weeks" },
+                      { value: "4weeks", label: "Every 4 weeks" },
+                    ]}
+                  />
                   <div>
                     <label className="mb-1 block text-sm font-medium text-text-secondary">Repeat on *</label>
                     <div className="flex gap-1">
@@ -947,16 +1046,16 @@ export default function CalendarView({
                       ))}
                     </div>
                   </div>
-                  <div>
-                    <label className="mb-1 block text-sm font-medium text-text-secondary">Ends</label>
-                    <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary">
-                      <option>After 6 times</option>
-                      <option>After 4 times</option>
-                      <option>After 8 times</option>
-                      <option>After 12 times</option>
-                      <option>On date</option>
-                    </select>
-                  </div>
+                  <FormSelect
+                    label="Ends"
+                    options={[
+                      { value: "6", label: "After 6 times" },
+                      { value: "4", label: "After 4 times" },
+                      { value: "8", label: "After 8 times" },
+                      { value: "12", label: "After 12 times" },
+                      { value: "date", label: "On date" },
+                    ]}
+                  />
                 </div>
               )}
 
@@ -1373,34 +1472,12 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
   );
 }
 
-function FormField({ label, value, placeholder }: { label: string; value?: string; placeholder?: string }) {
-  return (
-    <div>
-      <label className="text-sm text-text-secondary">{label} *</label>
-      <div className="mt-1 rounded-lg border border-border bg-white px-3 py-2 text-sm text-text">
-        {value || <span className="text-text-secondary">{placeholder}</span>}
-      </div>
-    </div>
-  );
-}
-
 function calcDuration(start: string, end: string): string {
   const [sh, sm] = start.split(":").map(Number);
   const [eh, em] = end.split(":").map(Number);
   const mins = eh * 60 + em - (sh * 60 + sm);
   if (mins <= 0) return "45 mins";
   return `${mins} minutes`;
-}
-
-function ToggleRow({ label }: { label: string }) {
-  return (
-    <div className="flex items-center gap-2">
-      <div className="h-5 w-9 rounded-full bg-gray-200 p-0.5">
-        <div className="h-4 w-4 rounded-full bg-white shadow" />
-      </div>
-      <span className="text-sm text-text">{label}</span>
-    </div>
-  );
 }
 
 function formatDateLong(dateStr: string): string {
