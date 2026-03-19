@@ -1,3 +1,5 @@
+import { Button, FormSelect } from "@/components/ds";
+
 export default function ReportsPage() {
   const practitioners = [
     { initials: "RR", name: "Ruvi R.", color: "#ef4444", utilisation: 10.09, revenue: 393.0 },
@@ -23,11 +25,19 @@ export default function ReportsPage() {
   const utilisationData = [0.0, 0.0, 0.5, 0.3, 0.2, 4.8, 2.0];
   const revenueData = [0, 50, 100, 350, 250, 400, 150];
 
+  const frequencyOptions = [
+    { value: "daily", label: "Frequency: Daily" },
+    { value: "weekly", label: "Frequency: Weekly" },
+    { value: "monthly", label: "Frequency: Monthly" },
+    { value: "quarterly", label: "Frequency: Quarterly" },
+    { value: "yearly", label: "Frequency: Yearly" },
+  ];
+
   return (
     <>
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Performance overview</h1>
-        <button className="rounded p-2 text-text-secondary hover:bg-gray-100" aria-label="Settings">
+        <Button variant="ghost" className="rounded p-2" aria-label="Settings">
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path
               strokeLinecap="round"
@@ -36,7 +46,7 @@ export default function ReportsPage() {
             />
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
-        </button>
+        </Button>
       </div>
 
       {/* Filter bar */}
@@ -48,22 +58,19 @@ export default function ReportsPage() {
         <span className="rounded-full border border-primary bg-purple-50 px-3 py-1 text-sm text-primary">
           {fmtShort(dateEnd)}
         </span>
-        <select className="cursor-pointer rounded-full border border-primary bg-purple-50 px-3 py-1 text-sm font-medium text-primary outline-none">
-          <option>Frequency: Daily</option>
-          <option>Frequency: Weekly</option>
-          <option>Frequency: Monthly</option>
-          <option>Frequency: Quarterly</option>
-          <option>Frequency: Yearly</option>
-        </select>
-        <button className="rounded-full border border-border bg-white px-3 py-1 text-sm text-text hover:bg-gray-50">
+        <FormSelect
+          options={frequencyOptions}
+          className="!w-auto cursor-pointer !rounded-full !border-primary !bg-purple-50 !font-medium !text-primary"
+        />
+        <Button variant="secondary" size="sm" className="rounded-full">
           All locations
-        </button>
-        <button className="rounded-full border border-border bg-white px-3 py-1 text-sm text-text hover:bg-gray-50">
+        </Button>
+        <Button variant="secondary" size="sm" className="rounded-full">
           All practitioners
-        </button>
-        <button className="rounded-full border border-border bg-white px-3 py-1 text-sm text-text hover:bg-gray-50">
+        </Button>
+        <Button variant="secondary" size="sm" className="rounded-full">
           Compare
-        </button>
+        </Button>
       </div>
 
       {/* Charts row */}
@@ -72,7 +79,7 @@ export default function ReportsPage() {
         <div className="rounded-lg border border-border bg-white p-4">
           <div className="mb-1 flex items-center justify-between">
             <h3 className="text-sm font-semibold text-text">Utilisation</h3>
-            <button className="text-text-secondary">...</button>
+            <Button variant="ghost" size="sm">...</Button>
           </div>
           <p className="mb-2 text-xs text-text-secondary">Percentage of available time utilised</p>
           <p className="mb-1 text-3xl font-bold text-text">0.85%</p>
@@ -127,7 +134,7 @@ export default function ReportsPage() {
         <div className="rounded-lg border border-border bg-white p-4">
           <div className="mb-1 flex items-center justify-between">
             <h3 className="text-sm font-semibold text-text">Revenue</h3>
-            <button className="text-text-secondary">...</button>
+            <Button variant="ghost" size="sm">...</Button>
           </div>
           <p className="mb-2 text-xs text-text-secondary">
             Total invoiced revenue from appointments and support activities (tax exclusive)
@@ -176,7 +183,7 @@ export default function ReportsPage() {
             <h3 className="text-sm font-semibold text-text">Practitioners</h3>
             <p className="text-xs text-text-secondary">Breakdown of performance by individual practitioner</p>
           </div>
-          <button className="text-text-secondary">...</button>
+          <Button variant="ghost" size="sm">...</Button>
         </div>
         <table className="w-full">
           <thead>
