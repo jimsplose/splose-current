@@ -48,11 +48,14 @@ After saving, catalog every new screenshot:
    |---|---|---|
    | Screenshot 2026-03-19 at 2.30.00 pm.png | Default view | no |
    ```
-3. **Set the Match column** by comparing against the current prototype:
-   - Read the prototype page source code (or take a Playwright screenshot if available)
-   - "yes" — prototype matches the reference
-   - "partial" — some elements match (add note: `partial — missing dropdown`)
-   - "no" — doesn't match or page doesn't exist yet
+3. **Set the Match column** by running pixel diff against the current prototype:
+   ```bash
+   npx tsx scripts/screenshot-capture.ts http://localhost:3000/<page> /tmp/catalog-<page>.png
+   npx tsx scripts/pixel-diff.ts "screenshots/reference/<new-screenshot.png>" /tmp/catalog-<page>.png --threshold=5
+   ```
+   - "yes" — mismatch <= 5%
+   - "partial" — mismatch 5-20% (add note: `partial — 12%, missing dropdown`)
+   - "no" — mismatch > 20% or page doesn't exist yet
 4. **Append filenames to `screenshots/processed.txt`** so future sessions skip them
 
 ### Catalog format rules
@@ -72,20 +75,24 @@ After saving, catalog every new screenshot:
    - Which screenshots are references
 3. Place the gap in the correct priority group (see fidelity-gaps.md header for ordering)
 
-## Step 4: Update state registry
+## Step 4: Extract design specs
+
+For each new page that has catalog entries with Match = "no" or "partial", extract a design spec. Follow `docs/design-spec-workflow.md` and save to `screenshots/specs/<page-name>.md`. This gives fidelity agents exact values to implement against.
+
+## Step 5: Update state registry
 
 If `src/lib/state-registry.ts` exists, add entries for new states/variants/modals discovered in the screenshots.
 
-## Step 5: Commit and push
+## Step 6: Commit and push
 
 **MUST commit and push** before moving on. This preserves the work even if the session ends.
 
 ```bash
-git add screenshots/reference/ screenshots/processed.txt screenshots/screenshot-catalog.md docs/fidelity-gaps.md
-git commit -m "Add N new reference screenshots, catalog and create gaps"
+git add screenshots/reference/ screenshots/processed.txt screenshots/screenshot-catalog.md screenshots/specs/ docs/fidelity-gaps.md
+git commit -m "Add N new reference screenshots, catalog, specs, and create gaps"
 ```
 
-## Step 6: Return to menu
+## Step 7: Return to menu
 
 After committing, show the session start menu again (see CLAUDE.md). Include a summary of what was just done:
 

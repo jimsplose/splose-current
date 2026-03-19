@@ -40,15 +40,25 @@ npx tsc --noEmit
 
 If it fails, fix or revert the agent's changes before continuing.
 
-## Step 3: Screenshot Verification (main agent)
+## Step 3: Pixel Diff Verification (main agent)
 
-If the agent changed page UI:
-1. **If Playwright browsers available**: Take a screenshot with `npx playwright screenshot --wait-for-timeout=2000 http://localhost:3000/<page> /tmp/verify-<page>.png`, then read it
-2. **If Playwright unavailable (fallback)**: Read the page source code directly
-3. Read the reference screenshot(s) from `screenshots/reference/` for that page
-4. Compare using acceptance criteria from `docs/agent-block.md` (layout, components, content, colors, typography, spacing, interactive elements)
-5. If the result doesn't match, fix the code before committing
-6. Update `screenshots/screenshot-catalog.md` Match column for the relevant entries
+If the agent changed page UI, run the automated pixel diff. **Playwright browsers are required** — do not fall back to code review.
+
+1. Capture current state:
+   ```bash
+   npx tsx scripts/screenshot-capture.ts http://localhost:3000/<page> /tmp/verify-<page>.png
+   ```
+2. Run pixel diff against each reference screenshot for that page:
+   ```bash
+   npx tsx scripts/pixel-diff.ts screenshots/reference/<reference.png> /tmp/verify-<page>.png --threshold=5 --output=/tmp/diff-<page>.png
+   ```
+3. Read the diff image (`/tmp/diff-<page>.png`) — red pixels show mismatches
+4. If mismatch > 5%: fix the highlighted differences and re-run
+5. If mismatch <= 5%: pass
+6. Update `screenshots/screenshot-catalog.md` Match column:
+   - **yes** = mismatch <= 5%
+   - **partial** = mismatch 5-20% (note what's still off)
+   - **no** = mismatch > 20%
 
 ## Step 4: Commit or Revert
 
