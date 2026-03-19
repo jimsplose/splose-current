@@ -4,36 +4,19 @@ Use **parallel subagents** for speed when working through fidelity gaps.
 
 ## Design System First — MANDATORY
 
-**All fidelity work MUST use design system components.** Never write inline Tailwind for patterns covered by the DS.
+**All fidelity work MUST use design system components.** See the Component Library table in CLAUDE.md for the full list. Import from `@/components/ds`. Run `npm run storybook` to see all components live.
 
-| Instead of... | Use... |
-|---|---|
-| Inline `<button className="rounded-lg border...">` | `<Button variant="secondary">` |
-| Inline `<div className="rounded-full px-2 py-0.5 bg-green-100...">` | `<Badge variant="green">` |
-| Inline `<input className="rounded-lg border...">` | `<FormInput label="..." />` |
-| Inline `<select>` | `<FormSelect options={...} />` |
-| Inline table wrapper | `<DataTable>`, `<TableHead>`, `<TableBody>` |
-| Inline pagination | `<Pagination totalPages={...} />` |
-| Inline page header | `<PageHeader title="...">` |
-| Inline search input | `<SearchBar placeholder="..." />` |
+If a fidelity gap requires a component not in the DS, **add it to the DS first** (`src/components/ds/`), then use it in the page. Write a Storybook story in `src/components/ds/stories/` and verify it renders with `npm run storybook` before pushing.
 
-Import from `@/components/ds`. Run `npm run storybook` to see all components live.
+## Completion criteria
 
-If a fidelity gap requires a component not in the DS, **add it to the DS first** (`src/components/ds/`), then use it in the page. Write a Storybook story for any new DS component.
-
-## Completion criteria — IMPORTANT
-
-A fidelity gap is **NOT done** just because the page exists or code was written. A gap is done when:
-
-1. The page visually matches ALL related reference screenshots in `screenshots/screenshot-catalog.md`
-2. The Match column for ALL related entries has been updated to "yes"
-3. The visual match was verified by comparing the reference screenshot against either a fresh Playwright screenshot or the page source code (if Playwright browsers unavailable)
-
-If a gap's catalog entries still show "no" or "partial", the gap stays unchecked `[ ]` — even if code changes were made. Partial progress should be noted in the gap description (e.g. "layout matches, colors wrong").
+See the **Gap completion rule** in CLAUDE.md (single source of truth). In short: a gap is only `[x]` when ALL related catalog entries show Match = "yes". If entries still show "no" or "partial", the gap stays `[ ]` — note partial progress in the gap description (e.g. "layout matches, colors wrong").
 
 ## Step 1: Launch parallel agents (worktree isolation)
 
-Group non-conflicting gaps and launch them simultaneously using the Agent tool with `isolation: "worktree"`. **Every agent prompt MUST include the full Agent Block from CLAUDE.md** (between `---START AGENT BLOCK---` and `---END AGENT BLOCK---` markers). Do NOT launch without it — this embeds DS enforcement and screenshot verification directly into the agent.
+Group non-conflicting gaps and launch them simultaneously using the Agent tool with `isolation: "worktree"`. Worktree isolation creates a separate git working directory for each agent so they don't overwrite each other's files — this is what enables safe parallel work on different pages.
+
+**Every agent prompt MUST include the full Agent Block from CLAUDE.md** (between `---START AGENT BLOCK---` and `---END AGENT BLOCK---` markers). Do NOT launch without it — this embeds DS enforcement and screenshot verification directly into the agent.
 
 Each agent should:
 1. Read the relevant reference screenshot(s) from `screenshots/reference/`
@@ -45,7 +28,7 @@ Each agent should:
 ### Parallelization rules
 - Gaps touching **different page directories** can always run in parallel
 - Gaps touching the **same file** must run sequentially
-- The **database re-seed** gap should run alone (it changes seed data that pages read)
+- **Database changes** should run alone — they modify `prisma/seed.ts` which affects all pages. After changing seed data, run `npx tsx prisma/seed.ts` (or the seed API route) and verify affected pages still render correctly
 - The **general screenshot review** agent should run last as a sweep
 
 ## Step 2: Collect and apply changes (with Post-Agent Quality Gate)
@@ -109,8 +92,8 @@ After each round of changes is pushed, present Jim with a visual progress report
      - **4+ cycles** = major missing features (entire sub-pages, complex interactive flows)
 
 ### When to skip
-- Skip this step if the round only produced infrastructure changes (database, config, tooling)
-- Skip if all changes were minor polish with no visual difference
+- Skip if the round only produced infrastructure changes (database, config, tooling)
+- Skip if changes have no visual impact (see CLAUDE.md "When to skip screenshots" for the definition)
 
 ### Format
 Present as a structured summary like:

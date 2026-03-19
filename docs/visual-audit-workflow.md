@@ -10,12 +10,10 @@ Verify that implemented pages actually match their reference screenshots. This i
 
 ## The source of truth
 
-**`screenshots/screenshot-catalog.md`** is the source of truth for fidelity status, not `docs/fidelity-gaps.md`. The catalog has a Match column per screenshot entry:
+See the **Gap completion rule** in CLAUDE.md. The catalog (`screenshots/screenshot-catalog.md`) Match column determines gap status:
 - **yes** — prototype matches the reference screenshot
-- **partial** — some elements match, with notes on what's missing
+- **partial** — some elements match, with notes on what's missing (format: `partial — <what's wrong>`)
 - **no** — does not match or has not been verified
-
-A fidelity gap in `docs/fidelity-gaps.md` can only be marked `[x]` when ALL of its related catalog entries show Match = "yes".
 
 ## Step 1: Pick pages to audit
 

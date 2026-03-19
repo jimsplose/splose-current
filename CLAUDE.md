@@ -14,26 +14,30 @@ Use AskUserQuestion with these options:
 > 2. **Upload screenshots** — User will upload new reference screenshots to be saved into `screenshots/reference/`. Follow `docs/screenshot-workflow.md`
 > 3. **Process screenshots** — Catalog unprocessed screenshots, compare against prototype, and create fidelity gaps for every mismatch. Follow `docs/screenshot-workflow.md`
 > 4. **Run fidelity loops** — Pick open gaps from `docs/fidelity-gaps.md` (by priority), implement fixes, and visually verify against references. Follow `docs/fidelity-workflow.md`
-> 5. **Visual audit** — Take fresh screenshots of implemented pages, compare against references, update Match status in catalog, and reopen/create gaps for anything that doesn't match. Follow `docs/visual-audit-workflow.md`
-> 6. **Something else** — Free-form request
+> 5. **Visual audit** — Verify implemented pages match references, update Match status in catalog, reopen/create gaps for mismatches. Follow `docs/visual-audit-workflow.md`
+> 6. **Build Dev Navigator** — Implement Dev Toolbar, state registry, and navigation menu. Follow `docs/dev-navigator-spec.md`
+> 7. **Something else** — Free-form request
 
 **Do NOT skip this step. Do NOT start working without the user's menu selection.**
 
 ### Lifecycle overview
 
-The full fidelity workflow is a pipeline. Each menu option maps to a stage:
+The fidelity workflow is a pipeline. Each menu option maps to a stage:
 
 ```
 Upload → Process → Fidelity loops → Visual audit → (repeat)
   (2)      (3)         (4)              (5)
 ```
 
-- **Upload** adds raw screenshots to `screenshots/reference/`
-- **Process** catalogs them in `screenshots/screenshot-catalog.md` and creates gaps in `docs/fidelity-gaps.md` for every "no" match
-- **Fidelity loops** implements code changes to close those gaps
-- **Visual audit** verifies the work actually matches, updates the catalog Match column, and reopens/creates gaps for anything still wrong
+- **Upload (2)** adds raw screenshots to `screenshots/reference/`
+- **Process (3)** catalogs them in `screenshots/screenshot-catalog.md` and creates gaps in `docs/fidelity-gaps.md` for every "no" match
+- **Fidelity loops (4)** implements code changes to close those gaps
+- **Visual audit (5)** verifies the work actually matches, updates the catalog Match column, and reopens/creates gaps for anything still wrong
+- **Dev Navigator (6)** is independent infrastructure — build anytime
 
-A gap is only truly done when its catalog entries all show Match = "yes".
+### Gap completion rule (single source of truth)
+
+**A fidelity gap is only `[x]` done when ALL related entries in `screenshots/screenshot-catalog.md` show Match = "yes".** This rule is defined here and referenced from other workflow docs. If a gap's catalog entries show "no" or "partial", it stays `[ ]`.
 
 ## Workflow Files (RAG)
 
@@ -63,7 +67,7 @@ Every push to any branch gets a **Vercel preview deployment**. This is how Jim r
 **After every push**, Claude Code MUST:
 1. Link Jim to the Vercel dashboard: https://vercel.com/jimyencken-4159s-projects/splose-current
 2. Tell him the most recent preview will be available there once it finishes building (1-2 minutes)
-3. Take 1-2 Playwright screenshots of the most significant page changes and show them inline in chat
+3. Show visual progress: take Playwright screenshots if available, otherwise show reference screenshots and describe what changed
 4. Production auto-updates after preview build succeeds (via GitHub Action) — no manual step needed
 
 ## Design System
@@ -252,7 +256,8 @@ After every push that includes visual changes, the main agent MUST:
 ### When to skip screenshots
 
 - Infrastructure-only changes (config, tooling, docs)
-- Changes with no visual impact (type fixes, refactoring with identical output)
+- Changes with no visual impact — meaning no end-user visible differences to page layout, colors, typography, or interactive behavior. Examples: refactoring code, updating comments, renaming variables, TypeScript type fixes.
+
 ## Key Conventions
 
 - **Server components by default** — only `"use client"` when hooks/browser APIs needed

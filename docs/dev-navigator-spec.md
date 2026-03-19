@@ -1,6 +1,13 @@
-# Dev Navigator — Option D Implementation Plan
+# Dev Navigator Spec
 
 A development-only floating toolbar, state registry, and navigation menu for browsing every page, state variant, modal, and interactive view in the prototype. This is NOT part of the real Splose UI — it's a tool for reviewing fidelity against reference screenshots.
+
+## Implementation Status
+
+- **Phase 1: COMPLETE (2026-03-18)** — State registry (`src/lib/state-registry.ts`) with 30+ pages and 60+ variants, floating toolbar pill, dark panel with search and grouped page tree, keyboard shortcut (Ctrl+Shift+N), `?devnav=0` to hide.
+- **Phase 2: COMPLETE (2026-03-18)** — Wired `?state=` URL param into Calendar (7 variants), Waitlist (3 variants), Settings (25 variants), Settings AI (2 variants). All interactive pages navigable via URL.
+
+The spec below is retained as a reference for how the system works and for future enhancements.
 
 ---
 

@@ -1,14 +1,28 @@
-# Screenshot Processing Workflow
+# Screenshot Workflow
 
-## Overview
-Reference screenshots of the real Splose app are in `screenshots/reference/`. These are the design targets. New screenshots are added regularly (~380+ and growing).
+This file covers two menu options: **Upload screenshots (2)** and **Process screenshots (3)**.
 
-## Naming Convention
-Files are named `Screenshot YYYY-MM-DD at H.MM.SS am/pm.png`. They are NOT organized by page — you must read them to determine which page/feature they show.
+## Upload vs Process — two separate steps
+
+- **Upload (menu option 2)**: Jim provides new screenshot files. Save them to `screenshots/reference/`. That's it — do NOT catalog or create gaps yet.
+- **Process (menu option 3)**: Read uncataloged screenshots, determine what page/feature they show, add them to the catalog, and create fidelity gaps for mismatches.
+
+These are intentionally separate because Jim may upload screenshots in one session and process them in another.
+
+## Reference screenshots
+
+Located in `screenshots/reference/`. These are the design targets — screenshots of the real Splose app.
+
+## Naming conventions
+- `Screenshot YYYY-MM-DD at H.MM.SS am/pm.png` — taken from macOS screenshot tool
+- `screencapture-acme-splose-<path>-YYYY-MM-DD-HH_MM_SS.png` — taken from browser capture (path hints at the page)
+- **Unicode issue**: Some filenames contain unicode narrow no-break space (`\u202f`) before am/pm. If the Read tool can't open a file, try URL-encoding the filename or using a glob pattern to match it.
+
+Files are NOT organized by page — you must read them to determine which page/feature they show.
 
 ## Processing Steps
 
-When the user selects "Process new screenshots" (or asks directly):
+When the user selects "Process screenshots" (menu option 3):
 
 ### 1. Scan for unprocessed screenshots
 Compare the full list in `screenshots/reference/` against `screenshots/processed.txt` (a log of already-reviewed filenames).
