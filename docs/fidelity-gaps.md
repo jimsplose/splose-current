@@ -141,29 +141,31 @@ These pages contain inline patterns that should use DS components. Each must be 
 
 Common inline patterns found across 2+ pages that should be extracted into reusable DS components in `src/components/ds/`.
 
+**Naming convention:** DS components use [DaisyUI](https://daisyui.com/components/) component names where a matching concept exists. This keeps our vocabulary aligned with a well-known Tailwind component library. Where no DaisyUI equivalent exists, we use a descriptive name.
+
 ### Group R — High-priority DS components (appear on 3+ pages)
 
-- [ ] **Tabs component** — Underline-style tab bars with active state (`border-b-2 border-primary`). Found: settings/page.tsx (3 instances), settings/ai/page.tsx (1), waitlist/page.tsx (4). **~8+ instances across 3 pages.**
-- [ ] **Toggle/Switch component** — Boolean toggle (`h-6 w-11 rounded-full`, checked=bg-primary, unchecked=bg-gray-200). Found: settings/page.tsx (3+), settings/ai/page.tsx (5+), calendar/CalendarView.tsx (2). **~10+ instances across 3 pages.** Already defined inline as local `Toggle` function in settings — move to DS.
-- [ ] **Modal/Dialog component** — Centered overlay with backdrop (`fixed inset-0 bg-black/40` + centered white card). Found: calendar/CalendarView.tsx (2 modals), settings/page.tsx (multiple modals), notes/[id]/page.tsx (send modal). **~5+ instances across 3+ pages.**
-- [ ] **Avatar component** — Colored circle with initials (`rounded-full bg-{color} text-white` + computed initials). Found: page.tsx (Dashboard messages), calendar/CalendarView.tsx (practitioner dots), reports/page.tsx (practitioner table), clients/[id]/ClientDetailClient.tsx, practitioners/page.tsx, contacts/[id]/page.tsx, online-booking/page.tsx. **~7+ instances across 6+ pages.**
-- [ ] **Dropdown/ActionMenu component** — Absolute positioned menu (`absolute z-20 rounded-lg border shadow-lg bg-white py-1`). Found: calendar/CalendarView.tsx (2 dropdowns), settings/page.tsx (action menus), waitlist/page.tsx. **~5+ instances across 3+ pages.**
-- [ ] **EmptyState component** — Centered icon + message + optional CTA (`flex flex-col items-center py-16` + icon circle + text). Found: clients/[id]/invoices, payments, support-activities (3), contacts/[id]/page.tsx, products/page.tsx, settings, reports, waitlist. **~8+ instances across 5+ pages.**
-- [ ] **DetailPair / LabelValue component** — Fixed-width label + value row (`flex gap-16`, label=w-28 text-secondary, value=text or primary). Found: clients/[id]/ClientDetailClient.tsx (15+ instances in details sections). **15+ instances, single page but high density.**
+- [ ] **Tab** (`Tab.tsx`) — Underline-style tab bars with active state (`border-b-2 border-primary`). DaisyUI: `tab`. Found: settings/page.tsx (3 instances), settings/ai/page.tsx (1), waitlist/page.tsx (4). **~8+ instances across 3 pages.**
+- [ ] **Toggle** (`Toggle.tsx`) — Boolean toggle switch (`h-6 w-11 rounded-full`, checked=bg-primary, unchecked=bg-gray-200). DaisyUI: `toggle`. Found: settings/page.tsx (3+), settings/ai/page.tsx (5+), calendar/CalendarView.tsx (2). **~10+ instances across 3 pages.** Already defined inline as local `Toggle` function in settings — move to DS.
+- [ ] **Modal** (`Modal.tsx`) — Centered overlay with backdrop (`fixed inset-0 bg-black/40` + centered white card). DaisyUI: `modal`. Found: calendar/CalendarView.tsx (2 modals), settings/page.tsx (multiple modals), notes/[id]/page.tsx (send modal). **~5+ instances across 3+ pages.**
+- [ ] **Avatar** (`Avatar.tsx`) — Colored circle with initials (`rounded-full bg-{color} text-white` + computed initials). DaisyUI: `avatar`. Found: page.tsx (Dashboard), calendar/CalendarView.tsx, reports/page.tsx, clients/[id]/ClientDetailClient.tsx, practitioners/page.tsx, contacts/[id]/page.tsx, online-booking/page.tsx. **~7+ instances across 6+ pages.**
+- [ ] **Dropdown** (`Dropdown.tsx`) — Absolute positioned action menu (`absolute z-20 rounded-lg border shadow-lg bg-white py-1`). DaisyUI: `dropdown` + `menu`. Found: calendar/CalendarView.tsx (2 dropdowns), settings/page.tsx (action menus), waitlist/page.tsx. **~5+ instances across 3+ pages.**
+- [ ] **EmptyState** (`EmptyState.tsx`) — Centered icon + message + optional CTA (`flex flex-col items-center py-16` + icon circle + text). No DaisyUI equivalent (custom). Found: clients/[id]/invoices, payments, support-activities (3), contacts/[id]/page.tsx, products/page.tsx, settings, reports, waitlist. **~8+ instances across 5+ pages.**
+- [ ] **List** (`List.tsx`) — Fixed-width label + value row for detail views (`flex gap-16`, label=w-28 text-secondary). DaisyUI: `list`. Found: clients/[id]/ClientDetailClient.tsx (15+ instances in details sections). **15+ instances, single page but high density.**
 
 ### Group S — Medium-priority DS components (appear on 2+ pages)
 
-- [ ] **Card component** — White rounded bordered container (`rounded-lg border border-border bg-white p-5`). Found: settings/page.tsx (SMS balance, provider config), reports/page.tsx (chart cards). **4+ instances across 2 pages.**
-- [ ] **SearchableSelect/Combobox** — Dropdown with search input, filtered results list, click-to-select. Found: payments/new/page.tsx (client search, invoice search — 2 instances). Pattern also needed for client/practitioner selectors across app.
-- [ ] **DocumentHeader component** — Back arrow + title + badge + action buttons bar (`border-b bg-white px-6 py-3`). Found: notes/new, notes/[id], notes/[id]/edit, invoices/[id], payments/new. **5+ instances across 5 pages.** Extends PageHeader with back navigation.
-- [ ] **DateRangeFilter component** — Two date boxes + arrow separator (`rounded-lg border px-3 py-2 text-sm`). Found: reports/appointments, reports/performance, reports/progress-notes. **3 instances across 3 pages.**
-- [ ] **SegmentedControl / IconToggleGroup** — Horizontal button group with active highlight (`overflow-hidden rounded-lg border` + toggle buttons). Found: notes/new (view toggle), notes/[id]/edit (view toggle), settings/page.tsx (status filters). **3+ instances across 3 pages.**
-- [ ] **CollapsibleSection / Accordion** — Expandable section with chevron toggle (`border-b pb-3` + ChevronDown). Found: clients/[id]/ClientDetailClient.tsx (4 right sidebar sections: Client alerts, Stripe, Mailchimp, QuickBooks).
+- [ ] **Card** (`Card.tsx`) — White rounded bordered container (`rounded-lg border border-border bg-white p-5`). DaisyUI: `card`. Found: settings/page.tsx (SMS balance, provider config), reports/page.tsx (chart cards). **4+ instances across 2 pages.**
+- [ ] **Select** (`Select.tsx`) — Searchable dropdown with search input, filtered results list, click-to-select. DaisyUI: `select` (enhanced with search). Found: payments/new/page.tsx (client search, invoice search — 2 instances). Pattern also needed for client/practitioner selectors across app.
+- [ ] **Navbar** (`Navbar.tsx`) — Back arrow + title + badge + action buttons bar (`border-b bg-white px-6 py-3`). DaisyUI: `navbar`. Found: notes/new, notes/[id], notes/[id]/edit, invoices/[id], payments/new. **5+ instances across 5 pages.** Extends PageHeader with back navigation.
+- [ ] **DateRangeFilter** (`DateRangeFilter.tsx`) — Two date boxes + arrow separator (`rounded-lg border px-3 py-2 text-sm`). No DaisyUI equivalent (custom). Found: reports/appointments, reports/performance, reports/progress-notes. **3 instances across 3 pages.**
+- [ ] **Filter** (`Filter.tsx`) — Horizontal button group with active highlight / segmented control (`overflow-hidden rounded-lg border` + toggle buttons). DaisyUI: `filter`. Found: notes/new (view toggle), notes/[id]/edit (view toggle), settings/page.tsx (status filters). **3+ instances across 3 pages.**
+- [ ] **Collapse** (`Collapse.tsx`) — Expandable section with chevron toggle (`border-b pb-3` + ChevronDown). DaisyUI: `collapse`. Found: clients/[id]/ClientDetailClient.tsx (4 right sidebar sections: Client alerts, Stripe, Mailchimp, QuickBooks).
 
 ### Group T — Lower-priority DS components (2 pages or niche use)
 
-- [ ] **StatusDot component** — Small colored circle indicating status (`h-2.5 w-2.5 rounded-full`). Found: clients/[id]/appointments (status indicators), calendar/CalendarView.tsx (practitioner dots). Pattern is simple but would standardize sizes/colors.
-- [ ] **AsyncSelect component** — Select that fetches data from API endpoint on mount. Found: notes/new/page.tsx (ClientSelect, PractitionerSelect — 2 inline components). Would reduce boilerplate for data-driven selects.
+- [ ] **Status** (`Status.tsx`) — Small colored circle indicating status (`h-2.5 w-2.5 rounded-full`). DaisyUI: `status`. Found: clients/[id]/appointments (status indicators), calendar/CalendarView.tsx (practitioner dots). Pattern is simple but would standardize sizes/colors.
+- [ ] **AsyncSelect** (`AsyncSelect.tsx`) — Select that fetches data from API endpoint on mount. Extension of Select. Found: notes/new/page.tsx (ClientSelect, PractitionerSelect — 2 inline components). Would reduce boilerplate for data-driven selects.
 
 ### Group U — SearchBar adoption (existing DS component not used)
 

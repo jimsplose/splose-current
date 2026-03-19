@@ -73,23 +73,48 @@ Every push to any branch gets a **Vercel preview deployment**. This is how Jim r
 
 **ALWAYS use design system components instead of inline Tailwind for common patterns.** Import from `@/components/ds`.
 
-| Component | Use for |
-|---|---|
-| `Button` | All buttons (primary/secondary/danger/ghost, sm/md/lg) |
-| `PageHeader` | Page title + action buttons |
-| `SearchBar` | Search input + button combos |
-| `DataTable` / `TableHead` / `Th` / `TableBody` / `Td` | Tables with headers and rows |
-| `Pagination` | Table pagination footer |
-| `Badge` | Status pills and tags |
-| `FormInput` | Labeled text inputs with error states |
-| `FormSelect` | Labeled select dropdowns |
+### Naming convention
+
+**Use [DaisyUI](https://daisyui.com/components/) component names** when a matching concept exists. This keeps our vocabulary aligned with a well-known Tailwind component library and makes it easy to look up expected behavior/API. Where no DaisyUI equivalent exists, use a descriptive name. See `docs/fidelity-gaps.md` Priority 8 for the full mapping.
+
+### Existing components
+
+| Component | DaisyUI name | Use for |
+|---|---|---|
+| `Button` | `button` | All buttons (primary/secondary/danger/ghost, sm/md/lg) |
+| `PageHeader` | — (custom) | Page title + action buttons |
+| `SearchBar` | — (custom) | Search input + button combos |
+| `DataTable` / `TableHead` / `Th` / `TableBody` / `Td` | `table` | Tables with headers and rows |
+| `Pagination` | — (custom) | Table pagination footer |
+| `Badge` | `badge` | Status pills and tags |
+| `FormInput` | `input` | Labeled text inputs with error states |
+| `FormSelect` | `select` | Labeled select dropdowns |
+
+### Planned components (see `docs/fidelity-gaps.md` Priority 8)
+
+| Component | DaisyUI name | Use for |
+|---|---|---|
+| `Tab` | `tab` | Underline-style tab bars with active state |
+| `Toggle` | `toggle` | Boolean on/off switches |
+| `Modal` | `modal` | Dialog overlays with backdrop |
+| `Avatar` | `avatar` | Colored circles with initials |
+| `Dropdown` | `dropdown` + `menu` | Action menus, context menus |
+| `EmptyState` | — (custom) | "No data" placeholders with icon + CTA |
+| `List` | `list` | Label-value detail rows |
+| `Card` | `card` | Bordered content containers |
+| `Select` | `select` (enhanced) | Searchable dropdown with filtering |
+| `Navbar` | `navbar` | Document headers with back nav + actions |
+| `DateRangeFilter` | — (custom) | Date range picker for reports |
+| `Filter` | `filter` | Segmented control / icon toggle groups |
+| `Collapse` | `collapse` | Expandable sections with chevron |
+| `Status` | `status` | Small colored status indicator dots |
 
 - **Storybook**: `npm run storybook` on port 6006. Stories in `src/components/ds/stories/`. When adding new DS components, always add a story.
 - **Eng toolkit**: `/eng` — component showcase + page directory.
 - **Tailwind**: Use design tokens (`text-primary`, `bg-primary`, `border-border`). Prettier sorts classes automatically.
 - **New pages**: Use DS components, add to `src/lib/state-registry.ts`, wire `?state=` variants.
 - **Editing pages**: Opportunistically migrate to DS components when touching that section.
-- **Creating components is a priority**: When the same inline pattern appears on 2+ pages (tabs, modals, cards, toggles, etc.), extract it into a new DS component. After creating a new component, update this table above, `docs/agent-block.md`, and add a Storybook story.
+- **Creating components is a priority**: When the same inline pattern appears on 2+ pages (tabs, modals, cards, toggles, etc.), extract it into a new DS component. **Name it after the DaisyUI equivalent** if one exists. After creating a new component, update the tables above, `docs/agent-block.md`, and add a Storybook story.
 
 ## Subagent & Quality Gate
 

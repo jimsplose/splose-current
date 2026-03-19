@@ -30,11 +30,13 @@ Import: `import { Button, FormInput, FormSelect, Badge, PageHeader } from "@/com
 - Inline badge styles (`rounded-full px-2 py-0.5 text-xs font-medium`) — use `<Badge>`
 - Inline button styles (`rounded-lg bg-primary px-4 py-2 text-sm font-medium`) — use `<Button>`
 
+### DS naming convention:
+New components use [DaisyUI](https://daisyui.com/components/) names where a match exists (e.g. `Tab`, `Toggle`, `Modal`, `Avatar`, `Dropdown`, `Card`, `Collapse`, `Filter`, `Status`). This keeps naming predictable. See CLAUDE.md for the full table.
+
 ### When DS components don't fit:
 - Tiny icon-only toolbar buttons (rich text editors) — inline is fine
-- Tab switcher buttons with active/inactive states — inline is fine (no DS Tab component yet)
-- Toggle switches — use the local `Toggle` component pattern
-- Custom layouts (sidebars, cards, modals) — inline is fine, no DS component for these yet
+- One-off custom layouts — inline is fine
+- If a planned DS component (Tab, Toggle, Modal, Avatar, Dropdown, Card, Collapse, Filter, Status, List, Navbar, EmptyState, Select, DateRangeFilter) hasn't been created yet, use the inline pattern but add a `// TODO: extract to DS <ComponentName>` comment so it's easy to find later
 
 ## Screenshot Verification Loop — MANDATORY
 
