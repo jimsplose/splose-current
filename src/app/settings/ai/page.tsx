@@ -58,6 +58,14 @@ const sidebarSections = [
   },
 ];
 
+const aiBlocks = [
+  { name: "Subjective Assessment", tag: "SOAP", createdBy: "Jim Yencken", lastModified: "12 Mar 2026" },
+  { name: "Objective Assessment", tag: "SOAP", createdBy: "Jim Yencken", lastModified: "12 Mar 2026" },
+  { name: "Treatment Plan", tag: "Treatment", createdBy: "Sarah Chen", lastModified: "10 Mar 2026" },
+  { name: "Goals & Prognosis", tag: "Assessment", createdBy: "Jim Yencken", lastModified: "8 Mar 2026" },
+  { name: "Session Summary", tag: "Summary", createdBy: "Sarah Chen", lastModified: "5 Mar 2026" },
+];
+
 const aiPrompts = [
   { name: "Treatment Provided Prompt", userGroup: "Any user" },
   { name: "Objective Assessment Template", userGroup: "Any user" },
@@ -304,6 +312,17 @@ function SavedPromptsTab() {
 }
 
 function AIBlockLibraryTab() {
+  const [editBlock, setEditBlock] = useState<string | null>(null);
+  const [editBlockName, setEditBlockName] = useState("");
+  const [editBlockTag, setEditBlockTag] = useState("");
+
+  const handleEditBlock = (name: string) => {
+    const block = aiBlocks.find((b) => b.name === name);
+    setEditBlockName(name);
+    setEditBlockTag(block?.tag || "");
+    setEditBlock(name);
+  };
+
   return (
     <div>
       {/* Beta banner */}
@@ -357,13 +376,53 @@ function AIBlockLibraryTab() {
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>
-          <tr>
-            <td colSpan={5}>
-              <EmptyState message="No results" className="py-8" />
-            </td>
-          </tr>
+          {aiBlocks.map((block) => (
+            <tr key={block.name} className="hover:bg-gray-50">
+              <Td>{block.name}</Td>
+              <Td><span className="rounded-full bg-purple-100 px-2 py-0.5 text-xs font-medium text-primary">{block.tag}</span></Td>
+              <Td className="text-text-secondary">{block.createdBy}</Td>
+              <Td className="text-text-secondary">{block.lastModified}</Td>
+              <Td align="right">
+                <Dropdown
+                  trigger={<button className="text-text-secondary hover:text-text">...</button>}
+                  items={[
+                    { label: "Edit", value: "edit" },
+                    { label: "Duplicate", value: "duplicate" },
+                    { label: "Delete", value: "delete", danger: true },
+                  ]}
+                  onSelect={(val) => { if (val === "edit") handleEditBlock(block.name); }}
+                  align="right"
+                />
+              </Td>
+            </tr>
+          ))}
         </TableBody>
       </DataTable>
+
+      <Modal
+        open={editBlock !== null}
+        onClose={() => setEditBlock(null)}
+        title="Edit AI block"
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setEditBlock(null)}>Cancel</Button>
+            <Button variant="primary" onClick={() => setEditBlock(null)}>Save</Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <FormInput label="Block name" value={editBlockName} onChange={(e) => setEditBlockName(e.target.value)} />
+          <FormInput label="Tag" value={editBlockTag} onChange={(e) => setEditBlockTag(e.target.value)} />
+          <div>
+            <label className="mb-1 block text-sm font-medium text-text-secondary">Prompt</label>
+            <textarea
+              rows={6}
+              defaultValue="Generate a detailed {block_name} section based on the session context, including relevant clinical observations and findings."
+              className="w-full rounded-lg border border-border px-3 py-2 text-sm text-text focus:border-primary focus:ring-1 focus:ring-primary/20 focus:outline-none"
+            />
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

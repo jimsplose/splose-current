@@ -27,7 +27,7 @@ All 25 Settings sub-pages are implemented as inline components in `settings/page
 - [x] **Settings Integrations page** — Integration cards (Xero, MYOB, Stripe, Tyro, Halaxy, Zoom, Google Calendar).
 - [x] **Settings SMS Settings page** — SMS provider config, sender name, reply-to, opt-out settings.
 - [x] **Settings Form Templates** — List with actions dropdowns.
-- [ ] **Settings Splose AI** — Core page matches (3 full-page + 3 March 11 screenshots = yes). Reopened: modal/dropdown screenshots still partial (Edit prompt modal, AI block actions dropdown, Edit AI block modal).
+- [x] **Settings Splose AI** — Core page matches. Edit prompt modal, AI block actions dropdown, and Edit AI block modal all implemented. AI block library populated with 5 sample blocks. (2026-03-19)
 - [x] **Settings Locations page** — Locations list with edit form.
 - [x] **Settings Custom Fields page** — List with reorder, actions dropdown, update field modal.
 - [x] **Settings Rooms/Resources page** — List with color dots, actions, update room modal.
