@@ -93,7 +93,7 @@ type ActivePage =
   | "Forms"
   | string;
 
-const pagesWithContent = ["Details", "Integrations", "SMS settings", "Forms", "Locations", "Users", "Tags"];
+const pagesWithContent = ["Details", "Integrations", "SMS settings", "Forms", "Locations", "Users", "Tags", "Custom fields", "Rooms/Resources", "Services", "Busy times", "Cancellation reasons", "Communication types", "Referral types"];
 
 export default function SettingsPage() {
   return (
@@ -171,6 +171,13 @@ function SettingsPageInner() {
         {activePage === "Locations" && <LocationsContent />}
         {activePage === "Users" && <UsersContent />}
         {activePage === "Tags" && <TagsContent />}
+        {activePage === "Custom fields" && <CustomFieldsContent />}
+        {activePage === "Rooms/Resources" && <RoomsResourcesContent />}
+        {activePage === "Services" && <ServicesContent />}
+        {activePage === "Busy times" && <BusyTimesContent />}
+        {activePage === "Cancellation reasons" && <CancellationReasonsContent />}
+        {activePage === "Communication types" && <CommunicationTypesContent />}
+        {activePage === "Referral types" && <ReferralTypesContent />}
         {!pagesWithContent.includes(activePage) && (
           <PlaceholderContent pageName={activePage} />
         )}
@@ -1347,6 +1354,376 @@ function TagsContent() {
           ))}
         </TableBody>
       </DataTable>
+    </div>
+  );
+}
+
+/* ─── Custom Fields ───────────────────────────────────────────────── */
+
+const customFields = [
+  { name: "Diagnosis", type: "Multiple choice", visible: true, required: false },
+  { name: "AAA", type: "Dropdown (Multiple select)", visible: true, required: false },
+  { name: "Goal 1", type: "Long text", visible: true, required: false },
+  { name: "Client's deidentification code", type: "Numerical", visible: true, required: false },
+  { name: "Personal Care", type: "Multiple choice", visible: true, required: false },
+  { name: "Level of Education", type: "Short text", visible: true, required: false },
+  { name: "Child Name", type: "Short text", visible: true, required: false },
+  { name: "Custom Field Multi Choice - Single Select", type: "Multiple choice", visible: true, required: false },
+];
+
+function CustomFieldsContent() {
+  const [search, setSearch] = useState("");
+  const filtered = customFields.filter(f => !search || f.name.toLowerCase().includes(search.toLowerCase()));
+  return (
+    <div className="p-8">
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-text">Custom fields</h1>
+        <div className="flex items-center gap-2">
+          <Button variant="secondary">Reorder</Button>
+          <Button variant="secondary">Show archived</Button>
+          <Button variant="secondary">Learn</Button>
+          <Button variant="primary">+ New custom field</Button>
+        </div>
+      </div>
+      <div className="mb-4 flex items-center gap-2">
+        <FormInput placeholder="Search for custom field name" value={search} onChange={(e) => setSearch(e.target.value)} className="flex-1" />
+        <Button variant="secondary">Search</Button>
+      </div>
+      <DataTable>
+        <TableHead>
+          <Th>Name</Th>
+          <Th>Type</Th>
+          <Th>Visible</Th>
+          <Th>Required</Th>
+          <Th>Actions</Th>
+        </TableHead>
+        <TableBody>
+          {filtered.map((f, i) => (
+            <tr key={i} className="border-b border-border">
+              <Td>{f.name}</Td>
+              <Td>{f.type}</Td>
+              <Td><span className="text-green-600">Yes</span></Td>
+              <Td><span className="text-red-500">No</span></Td>
+              <Td><button className="text-text-secondary hover:text-text">•••</button></Td>
+            </tr>
+          ))}
+        </TableBody>
+      </DataTable>
+      <Pagination currentPage={1} totalPages={1} totalItems={filtered.length} itemsPerPage={10} />
+    </div>
+  );
+}
+
+/* ─── Rooms/Resources ─────────────────────────────────────────────── */
+
+const rooms = [
+  { name: "Red Room", color: "#ef4444", group: "Red", capacity: 1, available: "", location: "Sharon's" },
+  { name: "Purple Room", color: "#a855f7", group: "Purple", capacity: 1, available: "", location: "Sharon's" },
+  { name: "Room 1", color: "#22c55e", group: "1", capacity: 1000, available: "", location: "East Clinics" },
+  { name: "Brainstorming room", color: "#9ca3af", group: "6", capacity: 6, available: "", location: "East Clinics" },
+  { name: "Group Therapy Room", color: "#f59e0b", group: "Group Therapy", capacity: 5, available: "", location: "East Clinics" },
+  { name: "Test room", color: "#6366f1", group: "Rooms", capacity: 0, available: "", location: "East Clinics" },
+  { name: "Car", color: "#14b8a6", group: "Car", capacity: 1, available: "", location: "East Clinics" },
+  { name: "Purple", color: "#7c3aed", group: "Green room", capacity: 5, available: "", location: "Northside" },
+];
+
+function RoomsResourcesContent() {
+  const [search, setSearch] = useState("");
+  const filtered = rooms.filter(r => !search || r.name.toLowerCase().includes(search.toLowerCase()));
+  return (
+    <div className="p-8">
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-text">Rooms/Resources</h1>
+        <div className="flex items-center gap-2">
+          <Button variant="secondary">Learn</Button>
+          <Button variant="secondary">Show archived</Button>
+          <Button variant="primary">+ Room/resource</Button>
+        </div>
+      </div>
+      <div className="mb-4 flex items-center gap-2">
+        <FormInput placeholder="Search for rooms/resources" value={search} onChange={(e) => setSearch(e.target.value)} className="flex-1" />
+        <Button variant="secondary">Search</Button>
+      </div>
+      <DataTable>
+        <TableHead>
+          <Th>Name</Th>
+          <Th>Group</Th>
+          <Th>Capacity/Available</Th>
+          <Th>Location</Th>
+          <Th>Actions</Th>
+        </TableHead>
+        <TableBody>
+          {filtered.map((r, i) => (
+            <tr key={i} className="border-b border-border">
+              <Td>
+                <div className="flex items-center gap-2">
+                  <span className="inline-block h-3 w-3 rounded-full" style={{ backgroundColor: r.color }} />
+                  {r.name}
+                </div>
+              </Td>
+              <Td>{r.group}</Td>
+              <Td>{r.capacity}</Td>
+              <Td>{r.location}</Td>
+              <Td><button className="text-text-secondary hover:text-text">•••</button></Td>
+            </tr>
+          ))}
+        </TableBody>
+      </DataTable>
+      <Pagination currentPage={1} totalPages={1} totalItems={filtered.length} itemsPerPage={10} />
+    </div>
+  );
+}
+
+/* ─── Services ────────────────────────────────────────────────────── */
+
+const services = [
+  { name: "1:1 Consultation", color: "#a855f7", type: "1:1 Consultation", itemCode: "299sdsdds3234", duration: "40 minutes", price: "193.00 / Hour" },
+  { name: "1x Initial 1:1 Assessment, 14 x Group Therapy Sessions, and 1x Review Session", color: "#9ca3af", type: "Group Package Deal", itemCode: "", duration: "60 minutes", price: "1000.00 / Each" },
+  { name: "2:2 Consultations", color: "#22c55e", type: "2:2 Consultations", itemCode: "2997952838_6127l_abc", duration: "60 minutes", price: "193.99 / Hour" },
+  { name: "2. Payment optional - partial - Online booking", color: "#6366f1", type: "1. Payment test - Online booking", itemCode: "sd", duration: "30 minutes", price: "200.00 / Hour" },
+  { name: "3 cases services", color: "#f59e0b", type: "3 cases service", itemCode: "", duration: "45 minutes", price: "120.00 / Hour" },
+  { name: "3. Payment required - partial - Online booking", color: "#ef4444", type: "1. Payment test - Online booking", itemCode: "", duration: "30 minutes", price: "200.00 / Hour" },
+  { name: "4. Payment required - full - Online booking", color: "#14b8a6", type: "1. Payment test - Online booking", itemCode: "", duration: "30 minutes", price: "200.00 / Hour" },
+];
+
+function ServicesContent() {
+  const [search, setSearch] = useState("");
+  const filtered = services.filter(s => !search || s.name.toLowerCase().includes(search.toLowerCase()));
+  return (
+    <div className="p-8">
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-text">Services</h1>
+        <div className="flex items-center gap-2">
+          <Button variant="secondary">Learn</Button>
+          <Button variant="secondary">Show archived</Button>
+          <Button variant="primary">+ New service</Button>
+        </div>
+      </div>
+      <div className="mb-4 flex items-center gap-2">
+        <FormInput placeholder="Search for service name, type, and item code" value={search} onChange={(e) => setSearch(e.target.value)} className="flex-1" />
+        <Button variant="secondary">Search</Button>
+      </div>
+      <DataTable>
+        <TableHead>
+          <Th>Name</Th>
+          <Th>Type</Th>
+          <Th>Item code</Th>
+          <Th>Duration</Th>
+          <Th>Price</Th>
+          <Th>Actions</Th>
+        </TableHead>
+        <TableBody>
+          {filtered.map((s, i) => (
+            <tr key={i} className="border-b border-border">
+              <Td>
+                <div className="flex items-center gap-2">
+                  <span className="inline-block h-3 w-3 rounded-full" style={{ backgroundColor: s.color }} />
+                  <span className="max-w-[200px] truncate">{s.name}</span>
+                </div>
+              </Td>
+              <Td><span className="max-w-[150px] truncate block">{s.type}</span></Td>
+              <Td><span className="text-xs text-text-secondary">{s.itemCode}</span></Td>
+              <Td>{s.duration}</Td>
+              <Td>{s.price}</Td>
+              <Td><button className="text-text-secondary hover:text-text">•••</button></Td>
+            </tr>
+          ))}
+        </TableBody>
+      </DataTable>
+      <Pagination currentPage={1} totalPages={1} totalItems={filtered.length} itemsPerPage={10} />
+    </div>
+  );
+}
+
+/* ─── Busy Times ──────────────────────────────────────────────────── */
+
+const busyTimes = [
+  { name: "Leave me alone", color: "#ef4444", utilisation: "Excluded", duration: 15 },
+  { name: "OT referral", color: "#f59e0b", utilisation: "Excluded", duration: 30 },
+  { name: "Meeting", color: "#1f2937", utilisation: "Excluded", duration: 30 },
+  { name: "Lunch", color: "#6366f1", utilisation: "Excluded", duration: 30 },
+  { name: "Admin", color: "#a855f7", utilisation: "Included", duration: 30 },
+  { name: "CPD", color: "#3b82f6", utilisation: "Excluded", duration: 30 },
+  { name: "Travel", color: "#22c55e", utilisation: "Excluded", duration: 30 },
+];
+
+function BusyTimesContent() {
+  return (
+    <div className="p-8">
+      <div className="mb-2 flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-text">Busy time types</h1>
+        <div className="flex items-center gap-2">
+          <Button variant="secondary">Show archived</Button>
+          <Button variant="primary">+ New type</Button>
+        </div>
+      </div>
+      <p className="mb-6 text-sm text-text-secondary">
+        Use busy time to indicate non billable events in Practitioner calendars. You can change utilisation settings to control whether specific types of busy time are used in utilisation reports.
+      </p>
+      <DataTable>
+        <TableHead>
+          <Th>Name</Th>
+          <Th>Utilisation</Th>
+          <Th>Duration (mins)</Th>
+          <Th>Actions</Th>
+        </TableHead>
+        <TableBody>
+          {busyTimes.map((b, i) => (
+            <tr key={i} className="border-b border-border">
+              <Td>
+                <div className="flex items-center gap-2">
+                  <span className="inline-block h-3 w-3 rounded-full" style={{ backgroundColor: b.color }} />
+                  {b.name}
+                </div>
+              </Td>
+              <Td>{b.utilisation}</Td>
+              <Td>{b.duration}</Td>
+              <Td><button className="text-text-secondary hover:text-text">•••</button></Td>
+            </tr>
+          ))}
+        </TableBody>
+      </DataTable>
+    </div>
+  );
+}
+
+/* ─── Cancellation Reasons ────────────────────────────────────────── */
+
+const cancellationReasons = [
+  { name: "Condition betteryyy", code: "" },
+  { name: "Condition worse", code: "TEST" },
+  { name: "Sick", code: "500" },
+  { name: "No show due to health reason", code: "NSDH" },
+  { name: "No show due to family issues", code: "NSDF" },
+  { name: "No show due to unavailability of transport", code: "NSDT" },
+  { name: "Cancelled 1", code: "" },
+  { name: "No Show - sick", code: "" },
+  { name: "Cancel", code: "CANCEL" },
+  { name: "No show less than 2 days", code: "" },
+];
+
+function CancellationReasonsContent() {
+  return (
+    <div className="p-8">
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-text">Cancellation reasons</h1>
+        <Button variant="secondary">Show archived</Button>
+      </div>
+      <div className="divide-y divide-border rounded-lg border border-border bg-white">
+        {cancellationReasons.map((r, i) => (
+          <div key={i} className="flex items-center justify-between px-4 py-3">
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-text">{r.name}</span>
+              {r.code && <Badge variant="gray">{r.code}</Badge>}
+            </div>
+            <div className="flex items-center gap-2">
+              <button className="rounded p-1 text-text-secondary hover:bg-gray-100 hover:text-primary">
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+              </button>
+              <button className="rounded p-1 text-text-secondary hover:bg-red-50 hover:text-red-500">
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Communication Types ─────────────────────────────────────────── */
+
+const communicationTypes = [
+  { name: "SMS", defaultType: true },
+  { name: "Email", defaultType: true },
+  { name: "Phone call", defaultType: false },
+  { name: "In-person", defaultType: false },
+  { name: "fax", defaultType: false },
+  { name: "Admin Notes", defaultType: false },
+];
+
+function CommunicationTypesContent() {
+  return (
+    <div className="p-8">
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-text">Communication types</h1>
+        <Button variant="primary">+ Add communication type</Button>
+      </div>
+      <DataTable>
+        <TableHead>
+          <Th>Name</Th>
+          <Th>Default type</Th>
+          <Th>Actions</Th>
+        </TableHead>
+        <TableBody>
+          {communicationTypes.map((c, i) => (
+            <tr key={i} className="border-b border-border">
+              <Td>{c.name}</Td>
+              <Td>
+                <span className={c.defaultType ? "text-green-600" : "text-red-500"}>
+                  {c.defaultType ? "Yes" : "No"}
+                </span>
+              </Td>
+              <Td>
+                {!c.defaultType ? (
+                  <button className="text-text-secondary hover:text-text">•••</button>
+                ) : (
+                  <span className="text-text-secondary">-</span>
+                )}
+              </Td>
+            </tr>
+          ))}
+        </TableBody>
+      </DataTable>
+      <Pagination currentPage={1} totalPages={1} totalItems={communicationTypes.length} itemsPerPage={10} />
+    </div>
+  );
+}
+
+/* ─── Referral Types ──────────────────────────────────────────────── */
+
+const referralTypes = [
+  { name: "Self-referral", defaultType: true },
+  { name: "GP referral", defaultType: false },
+  { name: "Specialist referral", defaultType: false },
+  { name: "Hospital referral", defaultType: false },
+  { name: "NDIS referral", defaultType: false },
+  { name: "School referral", defaultType: false },
+  { name: "Online search", defaultType: false },
+  { name: "Word of mouth", defaultType: false },
+];
+
+function ReferralTypesContent() {
+  return (
+    <div className="p-8">
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-text">Referral types</h1>
+        <div className="flex items-center gap-2">
+          <Button variant="secondary">Show archived</Button>
+          <Button variant="primary">+ New referral type</Button>
+        </div>
+      </div>
+      <DataTable>
+        <TableHead>
+          <Th>Name</Th>
+          <Th>Default type</Th>
+          <Th>Actions</Th>
+        </TableHead>
+        <TableBody>
+          {referralTypes.map((r, i) => (
+            <tr key={i} className="border-b border-border">
+              <Td>{r.name}</Td>
+              <Td>
+                <span className={r.defaultType ? "text-green-600" : "text-red-500"}>
+                  {r.defaultType ? "Yes" : "No"}
+                </span>
+              </Td>
+              <Td><button className="text-text-secondary hover:text-text">•••</button></Td>
+            </tr>
+          ))}
+        </TableBody>
+      </DataTable>
+      <Pagination currentPage={1} totalPages={1} totalItems={referralTypes.length} itemsPerPage={10} />
     </div>
   );
 }
