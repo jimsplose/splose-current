@@ -1,15 +1,15 @@
-import { Button, FormSelect } from "@/components/ds";
+import { Avatar, Button, Card, FormSelect } from "@/components/ds";
 
 export default function ReportsPage() {
   const practitioners = [
-    { initials: "RR", name: "Ruvi R.", color: "#ef4444", utilisation: 10.09, revenue: 393.0 },
-    { initials: "HW", name: "Hung Yee Wong", color: "#8b5cf6", utilisation: 6.88, revenue: 289.5 },
-    { initials: "DB", name: "Dominica Barrett", color: "#06b6d4", utilisation: 5.0, revenue: 0.0 },
-    { initials: "HK", name: "Hrishikesh Koli", color: "#ec4899", utilisation: 4.87, revenue: 0.0 },
-    { initials: "JG", name: "Joseph Ge", color: "#22c55e", utilisation: 4.69, revenue: 0.0 },
-    { initials: "ST", name: "Sharon Tan", color: "#f59e0b", utilisation: 2.58, revenue: 193.0 },
-    { initials: "HW", name: "Hao Wang", color: "#3b82f6", utilisation: 2.5, revenue: 0.0 },
-    { initials: "NH", name: "Nghia Hoang", color: "#6366f1", utilisation: 2.29, revenue: 0.0 },
+    { name: "Ruvi R.", color: "#ef4444", utilisation: 10.09, revenue: 393.0 },
+    { name: "Hung Yee Wong", color: "#8b5cf6", utilisation: 6.88, revenue: 289.5 },
+    { name: "Dominica Barrett", color: "#06b6d4", utilisation: 5.0, revenue: 0.0 },
+    { name: "Hrishikesh Koli", color: "#ec4899", utilisation: 4.87, revenue: 0.0 },
+    { name: "Joseph Ge", color: "#22c55e", utilisation: 4.69, revenue: 0.0 },
+    { name: "Sharon Tan", color: "#f59e0b", utilisation: 2.58, revenue: 193.0 },
+    { name: "Hao Wang", color: "#3b82f6", utilisation: 2.5, revenue: 0.0 },
+    { name: "Nghia Hoang", color: "#6366f1", utilisation: 2.29, revenue: 0.0 },
   ];
 
   const dateStart = new Date(Date.now() - 7 * 86400000);
@@ -76,7 +76,7 @@ export default function ReportsPage() {
       {/* Charts row */}
       <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
         {/* Utilisation card - LINE chart */}
-        <div className="rounded-lg border border-border bg-white p-4">
+        <Card>
           <div className="mb-1 flex items-center justify-between">
             <h3 className="text-sm font-semibold text-text">Utilisation</h3>
             <Button variant="ghost" size="sm">...</Button>
@@ -128,10 +128,10 @@ export default function ReportsPage() {
             <span className="h-2 w-2 rounded-full bg-primary" />
             {fmtDay(dateStart)} - {fmtDay(dateEnd)}
           </div>
-        </div>
+        </Card>
 
         {/* Revenue card - BAR chart */}
-        <div className="rounded-lg border border-border bg-white p-4">
+        <Card>
           <div className="mb-1 flex items-center justify-between">
             <h3 className="text-sm font-semibold text-text">Revenue</h3>
             <Button variant="ghost" size="sm">...</Button>
@@ -173,11 +173,11 @@ export default function ReportsPage() {
             <span className="h-2 w-2 rounded-full bg-primary" />
             {fmtDay(dateStart)} - {fmtDay(dateEnd)}
           </div>
-        </div>
+        </Card>
       </div>
 
       {/* Practitioners table */}
-      <div className="rounded-lg border border-border bg-white">
+      <Card padding="none">
         <div className="flex items-center justify-between border-b border-border px-4 py-3">
           <div>
             <h3 className="text-sm font-semibold text-text">Practitioners</h3>
@@ -203,12 +203,7 @@ export default function ReportsPage() {
               <tr key={p.name} className="hover:bg-gray-50">
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
-                    <div
-                      className="flex h-8 w-8 items-center justify-center rounded-full text-xs font-medium text-white"
-                      style={{ backgroundColor: p.color }}
-                    >
-                      {p.initials}
-                    </div>
+                    <Avatar name={p.name} color={p.color} size="sm" />
                     <span className="text-sm text-text">{p.name}</span>
                   </div>
                 </td>
@@ -228,7 +223,7 @@ export default function ReportsPage() {
             ))}
           </tbody>
         </table>
-      </div>
+      </Card>
     </>
   );
 }

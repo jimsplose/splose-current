@@ -1,4 +1,4 @@
-import { PageHeader, Button } from "@/components/ds";
+import { Badge, Button, Card, DateRangeFilter, PageHeader, Status } from "@/components/ds";
 
 export default function ReportsProgressNotesPage() {
   return (
@@ -13,12 +13,7 @@ export default function ReportsProgressNotesPage() {
         <label className="mb-1 flex items-center gap-1 text-sm text-text-secondary">
           <span>&#128197;</span> Date range *
         </label>
-        <div className="flex items-center gap-2">
-          <div className="rounded-lg border border-border bg-white px-3 py-2 text-sm text-text">11 Mar 2026</div>
-          <span className="text-text-secondary">&rarr;</span>
-          <div className="rounded-lg border border-border bg-white px-3 py-2 text-sm text-text">11 Mar 2026</div>
-          <button className="rounded p-1 text-text-secondary hover:bg-gray-100">&#128197;</button>
-        </div>
+        <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
       </div>
 
       {/* Filter buttons */}
@@ -38,7 +33,7 @@ export default function ReportsProgressNotesPage() {
       <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
         {/* Note template breakdown */}
         <div>
-          <div className="mb-4 overflow-hidden rounded-lg border border-border bg-white">
+          <Card padding="none" className="mb-4">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border bg-gray-50">
@@ -49,15 +44,13 @@ export default function ReportsProgressNotesPage() {
               <tbody>
                 <tr className="border-b border-border">
                   <td className="px-4 py-2 text-sm text-text">
-                    <span className="mr-2 inline-block h-2.5 w-2.5 rounded-full bg-green-500" />
-                    AAA TEST
+                    <Status color="green" label="AAA TEST" />
                   </td>
                   <td className="px-4 py-2 text-right text-sm text-text">1 (50.0%)</td>
                 </tr>
                 <tr>
                   <td className="px-4 py-2 text-sm text-text">
-                    <span className="mr-2 inline-block h-2.5 w-2.5 rounded-full bg-primary" />
-                    Bill Gates Demo
+                    <Status color="purple" label="Bill Gates Demo" />
                   </td>
                   <td className="px-4 py-2 text-right text-sm text-text">1 (50.0%)</td>
                 </tr>
@@ -65,12 +58,12 @@ export default function ReportsProgressNotesPage() {
             </table>
             <div className="flex items-center justify-end border-t border-border px-4 py-2 text-sm text-text-secondary">
               <span>&lt;</span>
-              <button className="mx-2 flex h-6 w-6 items-center justify-center rounded border border-primary bg-white text-xs font-medium text-primary">
+              <Button variant="ghost" size="sm" className="mx-1 !h-6 !w-6 !rounded !border !border-primary !p-0 !text-xs !font-medium !text-primary">
                 1
-              </button>
+              </Button>
               <span>&gt;</span>
             </div>
-          </div>
+          </Card>
           {/* Pie chart */}
           <div className="flex justify-center">
             <svg width="200" height="200" viewBox="0 0 200 200">
@@ -82,7 +75,7 @@ export default function ReportsProgressNotesPage() {
 
         {/* Practitioner breakdown */}
         <div>
-          <div className="mb-4 overflow-hidden rounded-lg border border-border bg-white">
+          <Card padding="none" className="mb-4">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border bg-gray-50">
@@ -93,15 +86,13 @@ export default function ReportsProgressNotesPage() {
               <tbody>
                 <tr className="border-b border-border">
                   <td className="px-4 py-2 text-sm text-text">
-                    <span className="mr-2 inline-block h-2.5 w-2.5 rounded-full bg-green-500" />
-                    Ruvi R.
+                    <Status color="green" label="Ruvi R." />
                   </td>
                   <td className="px-4 py-2 text-right text-sm text-text">1 (50.0%)</td>
                 </tr>
                 <tr>
                   <td className="px-4 py-2 text-sm text-text">
-                    <span className="mr-2 inline-block h-2.5 w-2.5 rounded-full bg-primary" />
-                    Zoe Gomez
+                    <Status color="purple" label="Zoe Gomez" />
                   </td>
                   <td className="px-4 py-2 text-right text-sm text-text">1 (50.0%)</td>
                 </tr>
@@ -109,12 +100,12 @@ export default function ReportsProgressNotesPage() {
             </table>
             <div className="flex items-center justify-end border-t border-border px-4 py-2 text-sm text-text-secondary">
               <span>&lt;</span>
-              <button className="mx-2 flex h-6 w-6 items-center justify-center rounded border border-primary bg-white text-xs font-medium text-primary">
+              <Button variant="ghost" size="sm" className="mx-1 !h-6 !w-6 !rounded !border !border-primary !p-0 !text-xs !font-medium !text-primary">
                 1
-              </button>
+              </Button>
               <span>&gt;</span>
             </div>
-          </div>
+          </Card>
           {/* Pie chart */}
           <div className="flex justify-center">
             <svg width="200" height="200" viewBox="0 0 200 200">
@@ -127,7 +118,7 @@ export default function ReportsProgressNotesPage() {
 
       {/* Progress notes list */}
       <h2 className="mb-4 text-lg font-bold text-text">Progress notes list</h2>
-      <div className="overflow-x-auto rounded-lg border border-border bg-white">
+      <Card padding="none" className="overflow-x-auto">
         <table className="w-full min-w-[600px]">
           <thead>
             <tr className="border-b border-border bg-gray-50">
@@ -142,9 +133,7 @@ export default function ReportsProgressNotesPage() {
             <tr>
               <td className="px-4 py-3 text-sm">
                 <span className="text-primary">Bill Gates Demo</span>
-                <span className="ml-2 rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-medium text-gray-600">
-                  Draft
-                </span>
+                <Badge variant="gray" className="ml-2">Draft</Badge>
               </td>
               <td className="px-4 py-3 text-sm text-primary">Skyler Peterson</td>
               <td className="px-4 py-3 text-sm text-text-secondary"></td>
@@ -154,9 +143,7 @@ export default function ReportsProgressNotesPage() {
             <tr>
               <td className="px-4 py-3 text-sm">
                 <span className="text-primary">AAA TEST</span>
-                <span className="ml-2 rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-medium text-gray-600">
-                  Draft
-                </span>
+                <Badge variant="gray" className="ml-2">Draft</Badge>
               </td>
               <td className="px-4 py-3 text-sm text-primary">A Del</td>
               <td className="px-4 py-3 text-sm text-text-secondary"></td>
@@ -165,7 +152,7 @@ export default function ReportsProgressNotesPage() {
             </tr>
           </tbody>
         </table>
-      </div>
+      </Card>
     </>
   );
 }
