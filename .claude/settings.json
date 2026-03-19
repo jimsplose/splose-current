@@ -3,7 +3,11 @@
     "SessionStart": [
       {
         "type": "command",
-        "command": "echo '⚠️ MANDATORY: Before responding to the user, you MUST use AskUserQuestion to present the session start menu from CLAUDE.md. Do NOT skip this step. Do NOT respond conversationally. Show the menu FIRST.'"
+        "command": "echo '\u26a0\ufe0f MANDATORY: Before responding to the user, you MUST use AskUserQuestion to present the session start menu from CLAUDE.md. Do NOT skip this step. Do NOT respond conversationally. Show the menu FIRST.'"
+      },
+      {
+        "type": "command",
+        "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh"
       }
     ]
   }
