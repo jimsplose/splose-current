@@ -312,13 +312,14 @@ function DetailsContent() {
             </button>
             <button
               onClick={() => setEmailSigTab("User")}
-              className={`rounded-lg px-4 py-1.5 text-sm font-medium transition-colors ${
+              className={`rounded-lg px-4 py-1.5 text-sm font-medium transition-colors flex items-center gap-1 ${
                 emailSigTab === "User"
                   ? "bg-primary text-white"
                   : "bg-gray-100 text-text-secondary hover:bg-gray-200"
               }`}
             >
               User
+              <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
             </button>
           </div>
           {/* Rich text toolbar */}
@@ -328,8 +329,9 @@ function DetailsContent() {
             <div className="mx-1 h-4 w-px bg-gray-300" />
             <button className="rounded px-2 py-1 text-xs font-medium text-primary hover:bg-gray-200">AI</button>
             <div className="mx-1 h-4 w-px bg-gray-300" />
+            {/* Table/grid icon */}
             <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M3 14h18M3 6h18M3 18h18" /></svg>
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h18v18H3V3zm0 6h18M3 15h18M9 3v18M15 3v18" /></svg>
             </button>
             <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
@@ -347,21 +349,18 @@ function DetailsContent() {
             </button>
           </div>
           {/* Signature content */}
-          <div className="rounded-b-lg border border-t-0 border-border bg-white p-4 min-h-[160px] text-sm text-text">
-            <p>Warm Regards,</p>
+          <div className="rounded-b-lg border border-t-0 border-border bg-white p-4 min-h-[200px] text-sm text-text relative">
+            <p className="line-through">Warm Regards,</p>
             <p className="text-primary mt-1">{"{user_fullName}"}</p>
             <p className="text-primary">{"{user_professionTitle}"}</p>
-            <p className="text-primary">{"{user_qualifications}"}</p>
-            <p className="text-primary">{"{business_name}"}</p>
-            <p className="text-primary">{"{location_address}"}</p>
-            <p className="text-primary">{"{business_phone}"}</p>
-            <div className="mt-4">
-              <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-full bg-purple-100 flex items-center justify-center">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" fill="#7c3aed" /><text x="10" y="14" textAnchor="middle" fill="white" fontSize="10" fontWeight="bold">S</text></svg>
-                </div>
-                <span className="text-xs text-text-secondary">splose</span>
-              </div>
+            <p className="text-primary">{"{user_email}"}</p>
+            <p className="mt-2 text-primary">{"{business_name}"}</p>
+            <p className="text-primary">{"{business_email}"}</p>
+            <p className="text-primary">{"{business_website}"}</p>
+            <p className="text-primary">{"{user_signature}"}</p>
+            <p className="text-primary">{"{user_workPhoneNumber}{user_professionTitle}"}</p>
+            <div className="absolute right-6 bottom-6">
+              <span className="text-5xl font-bold text-purple-200 select-none tracking-wide">splose</span>
             </div>
           </div>
         </div>
