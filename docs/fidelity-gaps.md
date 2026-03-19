@@ -13,7 +13,7 @@ See the **Gap completion rule** in CLAUDE.md (single source of truth). In short:
 - [x] **Dashboard improvements** — Messages panel, income chart, incomplete progress notes, recently submitted forms, compose area all implemented.
 
 ### Group E — Client detail (`src/app/clients/[id]/`)
-- [x] **Client appointments sub-tab** — Already has "Send upcoming appointments" and "+ New appointment" buttons.
+- [ ] **Client appointments sub-tab** — Table structure and badges match, but appointment side panel from client page not implemented (11.12.37 = no). Reopened: visual audit found side panel missing. Badge styling on 11.15.20 slightly off (partial).
 
 ## Priority 2 — Core workflow pages
 
@@ -27,7 +27,7 @@ All 25 Settings sub-pages are implemented as inline components in `settings/page
 - [x] **Settings Integrations page** — Integration cards (Xero, MYOB, Stripe, Tyro, Halaxy, Zoom, Google Calendar).
 - [x] **Settings SMS Settings page** — SMS provider config, sender name, reply-to, opt-out settings.
 - [x] **Settings Form Templates** — List with actions dropdowns.
-- [x] **Settings Splose AI** — Implemented at `/settings/ai` with Preferences, Saved Prompts, AI Block Library tabs.
+- [ ] **Settings Splose AI** — Core page matches (3 full-page + 3 March 11 screenshots = yes). Reopened: modal/dropdown screenshots still partial (Edit prompt modal, AI block actions dropdown, Edit AI block modal).
 - [x] **Settings Locations page** — Locations list with edit form.
 - [x] **Settings Custom Fields page** — List with reorder, actions dropdown, update field modal.
 - [x] **Settings Rooms/Resources page** — List with color dots, actions, update room modal.
@@ -130,12 +130,15 @@ These pages contain inline patterns that should use DS components. Each must be 
 ### Group P — Calendar interaction gaps (`src/app/calendar/CalendarView.tsx`)
 - [ ] **Calendar click-to-create popover** — Reference shows a popover when clicking time slots for quick appointment creation. Currently only modal-based creation exists. Reference: 5.53.13-5.53.18 pm.
 - [ ] **Calendar create appointment modal refinement** — Missing Service field (has Appointment Type instead), toggles, and past date validation. Reference: 5.53.25-5.54.19 pm.
+- [ ] **Calendar appointment side panel styling** — Detail flyout panel and edit form are coded but button styling (DS Button variants), modal container styling (backdrop/shadow), and dropdown arrow directions don't match references. Reference: 7.23.33, 7.25.23, 7.25.52 pm (all = no). (2026-03-19 audit)
+- [ ] **Calendar toolbar polish** — Week/day view toolbar needs button styling refinement, dropdown chevron directions, filter pill styling, and hover states on cells. All week view screenshots remain partial. (2026-03-19 audit)
 
 ### Group Q — Missing detail/view pages
 - [ ] **Contact detail page** — `/contacts/[id]` not implemented. Reference shows Details tab with Associated clients, and Invoices tab. Reference: 11.14.14-11.14.21 am.
 - [ ] **Invoice view page** — `/invoices/[id]` not implemented. Reference shows PDF-style invoice with Pay/Email/Actions buttons. Reference: 11.16.02-11.16.25 am.
 - [ ] **Client edit details page** — Edit form exists but interaction is limited, profile photo upload missing prominence. Reference: 11.11.08 am.
 - [ ] **Client appointment side panel** — Side panel for appointment details from client page not implemented. Reference: 11.12.37 am.
+- [ ] **Clients list filter dropdowns** — Tags filter dropdown (11.10.08) and Active/Archived status dropdown (11.10.24) not implemented in UI. Only SearchBar present. (2026-03-19 audit)
 
 ## Priority 8 — DS components & page migration (2026-03-19)
 
