@@ -64,12 +64,14 @@ function OnlineBookingPageInner() {
     <div className="min-h-screen bg-white">
       <div className="mx-auto max-w-5xl px-4 py-8">
         {/* Back link */}
-        <button
+        <Button
+          variant="ghost"
+          size="sm"
           onClick={() => (step === "confirm" ? setStep("select") : null)}
-          className="mb-6 flex items-center gap-1 text-sm text-text-secondary hover:text-text"
+          className="mb-6"
         >
           <ChevronLeft className="h-4 w-4" /> Back
-        </button>
+        </Button>
 
         <div className="flex gap-8">
           {/* Main content */}
@@ -231,20 +233,21 @@ function OnlineBookingPageInner() {
                     <div>
                       <label className="mb-1 block text-sm font-medium text-text-secondary">Phone number *</label>
                       <div className="flex gap-2">
-                        <select
+                        <FormSelect
+                          options={[
+                            { value: "+61", label: "+61" },
+                            { value: "+64", label: "+64" },
+                            { value: "+1", label: "+1" },
+                          ]}
                           value={phoneCode}
                           onChange={(e) => setPhoneCode(e.target.value)}
-                          className="w-20 rounded-lg border border-border bg-white px-2 py-2 text-sm outline-none focus:border-primary"
-                        >
-                          <option value="+61">+61</option>
-                          <option value="+64">+64</option>
-                          <option value="+1">+1</option>
-                        </select>
-                        <input
+                          className="w-20"
+                        />
+                        <FormInput
                           type="tel"
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                          className="flex-1"
                         />
                       </div>
                     </div>
@@ -391,12 +394,13 @@ function OnlineBookingPageInner() {
               {/* Action button */}
               <div className="mt-6">
                 {step === "select" ? (
-                  <button
+                  <Button
+                    variant="secondary"
                     disabled
-                    className="w-full rounded-lg bg-gray-200 px-4 py-2.5 text-sm font-medium text-gray-400"
+                    className="w-full justify-center bg-gray-200 text-gray-400 hover:bg-gray-200"
                   >
                     Continue
-                  </button>
+                  </Button>
                 ) : (
                   <Button variant="primary" className="w-full justify-center">
                     Confirm
