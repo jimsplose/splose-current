@@ -1,10 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 import {
-  ArrowLeft,
   LayoutGrid,
   Columns2,
   ChevronDown,
@@ -30,7 +28,7 @@ import {
   Palette,
   Type,
 } from "lucide-react";
-import { Button, Badge, FormSelect, EmptyState } from "@/components/ds";
+import { Button, Badge, FormSelect, EmptyState, Navbar, Filter } from "@/components/ds";
 
 type NoteData = {
   id: string;
@@ -294,47 +292,36 @@ export default function EditProgressNotePage() {
   return (
     <div className="min-h-[calc(100vh-3rem)] bg-gray-50/30">
       {/* Header bar */}
-      <div className="flex items-center justify-between border-b border-border bg-white px-6 py-3">
-        <div className="flex items-center gap-3">
-          <Link href={`/notes/${id}`} className="flex items-center gap-1 text-sm text-text-secondary hover:text-text">
-            <ArrowLeft className="h-4 w-4" />
-          </Link>
-          <h1 className="text-lg font-semibold text-text">{note?.template || "Note"}</h1>
-          <span className="cursor-pointer text-sm text-primary hover:underline">{clientName}</span>
-          {note?.signed ? (
-            <Badge variant="green">
-              <CheckCircle className="h-3 w-3" />
-              Saved
-            </Badge>
-          ) : (
-            <Badge variant="green">Saved</Badge>
-          )}
-        </div>
-        <div className="flex items-center gap-2">
-          {/* View toggle */}
-          <div className="flex overflow-hidden rounded-lg border border-border">
-            <button
-              onClick={() => setViewMode("single")}
-              className={`p-2 transition-colors ${
-                viewMode === "single" ? "bg-primary text-white" : "bg-white text-text-secondary hover:bg-gray-50"
-              }`}
-            >
-              <LayoutGrid className="h-4 w-4" />
-            </button>
-            <button
-              onClick={() => setViewMode("split")}
-              className={`p-2 transition-colors ${
-                viewMode === "split" ? "bg-primary text-white" : "bg-white text-text-secondary hover:bg-gray-50"
-              }`}
-            >
-              <Columns2 className="h-4 w-4" />
-            </button>
-          </div>
-          <Button variant="primary" className="border-green-500 bg-green-500 hover:bg-green-600">
-            Save as final
-          </Button>
-        </div>
-      </div>
+      <Navbar
+        backHref={`/notes/${id}`}
+        title={note?.template || "Note"}
+        badge={
+          <>
+            <span className="cursor-pointer text-sm text-primary hover:underline">{clientName}</span>
+            {note?.signed ? (
+              <Badge variant="green">
+                <CheckCircle className="h-3 w-3" />
+                Saved
+              </Badge>
+            ) : (
+              <Badge variant="green">Saved</Badge>
+            )}
+          </>
+        }
+      >
+        {/* View toggle */}
+        <Filter
+          items={[
+            { label: <LayoutGrid className="h-4 w-4" />, value: "single" },
+            { label: <Columns2 className="h-4 w-4" />, value: "split" },
+          ]}
+          value={viewMode}
+          onChange={(v) => setViewMode(v as "single" | "split")}
+        />
+        <Button variant="primary" className="border-green-500 bg-green-500 hover:bg-green-600">
+          Save as final
+        </Button>
+      </Navbar>
 
       <div className="flex">
         {/* Editor panel */}

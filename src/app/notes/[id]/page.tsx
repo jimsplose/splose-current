@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, CheckCircle } from "lucide-react";
-import { Badge } from "@/components/ds";
+import { CheckCircle } from "lucide-react";
+import { Badge, Navbar } from "@/components/ds";
 import NoteViewToolbar from "./NoteViewToolbar";
 
 export const dynamic = "force-dynamic";
@@ -22,24 +22,25 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
   return (
     <div className="min-h-[calc(100vh-3rem)]">
       {/* Header bar */}
-      <div className="flex items-center justify-between border-b border-border bg-white px-6 py-3">
-        <div className="flex items-center gap-3">
-          <Link href="/notes" className="flex items-center gap-1 text-sm text-text-secondary hover:text-text">
-            <ArrowLeft className="h-4 w-4" />
-          </Link>
-          <h1 className="text-xl font-bold text-text">{note.template}</h1>
-          {note.signed ? (
-            <Badge variant="green">
-              <CheckCircle className="h-3 w-3" />
-              Final
-            </Badge>
-          ) : (
-            <Badge variant="gray">Draft</Badge>
-          )}
-          <Link href={`/clients/${note.clientId}`} className="text-sm font-medium text-primary hover:underline">
-            {clientName}
-          </Link>
-        </div>
+      <Navbar
+        backHref="/notes"
+        title={note.template}
+        badge={
+          <>
+            {note.signed ? (
+              <Badge variant="green">
+                <CheckCircle className="h-3 w-3" />
+                Final
+              </Badge>
+            ) : (
+              <Badge variant="gray">Draft</Badge>
+            )}
+            <Link href={`/clients/${note.clientId}`} className="text-sm font-medium text-primary hover:underline">
+              {clientName}
+            </Link>
+          </>
+        }
+      >
         <NoteViewToolbar
           noteId={id}
           signed={note.signed}
@@ -47,7 +48,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
           noteDate={note.date}
           practitionerName={note.practitioner.name}
         />
-      </div>
+      </Navbar>
 
       {/* Note content as document */}
       <div className="mx-auto max-w-3xl p-8">

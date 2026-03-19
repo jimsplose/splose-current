@@ -3,8 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, X, Plus, Search, ChevronDown } from "lucide-react";
-import { Button, FormInput, FormSelect, TableHead, Th, TableBody, Td, EmptyState } from "@/components/ds";
+import { X, Plus, Search } from "lucide-react";
+import { Button, FormInput, FormSelect, Navbar, Select, TableHead, Th, TableBody, Td, EmptyState } from "@/components/ds";
 
 const mockClients = [
   "Skyler Peterson",
@@ -69,14 +69,12 @@ export default function NewPaymentPage() {
   const [paymentDate, setPaymentDate] = useState("17 Mar 2026");
   const [method, setMethod] = useState("");
   const [note, setNote] = useState("");
-  const [clientDropdownOpen, setClientDropdownOpen] = useState(false);
-  const [clientSearch, setClientSearch] = useState("");
   const [invoiceAmounts, setInvoiceAmounts] = useState<Record<string, string>>({});
   const [linkedInvoices, setLinkedInvoices] = useState<string[]>([]);
   const [showLinkSearch, setShowLinkSearch] = useState(false);
   const [invoiceSearch, setInvoiceSearch] = useState("");
 
-  const filteredClients = mockClients.filter((c) => c.toLowerCase().includes(clientSearch.toLowerCase()));
+  const clientOptions = mockClients.map((c) => ({ label: c, value: c }));
 
   // Filter invoices by selected client (if any) and exclude already linked
   const availableInvoices = mockOutstandingInvoices.filter((inv) => {
@@ -130,81 +128,29 @@ export default function NewPaymentPage() {
 
   return (
     <div className="min-h-[calc(100vh-3rem)]">
-      {/* Header bar */}
-      <div className="flex items-center justify-between border-b border-border px-6 py-3">
-        <div className="flex items-center gap-3">
-          <Link href="/payments" className="flex items-center text-text-secondary transition-colors hover:text-text">
-            <ArrowLeft className="h-5 w-5" />
-          </Link>
-          <h1 className="text-xl font-bold text-text">New payment</h1>
-        </div>
-        <div className="flex items-center gap-2">
-          <Link href="/payments">
-            <Button variant="secondary" className="border-primary text-primary hover:bg-purple-50">
-              Cancel
-            </Button>
-          </Link>
-          <Button variant="primary" onClick={handleSubmit}>
-            Add
+      <Navbar backHref="/payments" title="New payment">
+        <Link href="/payments">
+          <Button variant="secondary" className="border-primary text-primary hover:bg-purple-50">
+            Cancel
           </Button>
-        </div>
-      </div>
+        </Link>
+        <Button variant="primary" onClick={handleSubmit}>
+          Add
+        </Button>
+      </Navbar>
 
       <div className="mx-auto max-w-5xl p-8">
         {/* Payment details row */}
         <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {/* Client / From */}
-          <div className="lg:col-span-1">
-            <label className="mb-1 block text-sm font-medium text-text">
-              Client / From <span className="text-red-500">*</span>
-            </label>
-            <div className="relative">
-              <button
-                type="button"
-                onClick={() => setClientDropdownOpen(!clientDropdownOpen)}
-                className="flex h-10 w-full items-center justify-between rounded-lg border border-border bg-white px-3 text-left text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-              >
-                <span className={client ? "text-text" : "text-text-secondary"}>{client || "Select client"}</span>
-                <ChevronDown className="h-4 w-4 text-text-secondary" />
-              </button>
-              {clientDropdownOpen && (
-                <div className="absolute z-20 mt-1 w-full rounded-lg border border-border bg-white shadow-lg">
-                  <div className="p-2">
-                    <div className="relative">
-                      <Search className="absolute top-1/2 left-2.5 h-3.5 w-3.5 -translate-y-1/2 text-text-secondary" />
-                      <input
-                        type="text"
-                        placeholder="Search clients..."
-                        value={clientSearch}
-                        onChange={(e) => setClientSearch(e.target.value)}
-                        className="h-8 w-full rounded border border-border bg-white pr-3 pl-8 text-sm outline-none focus:border-primary"
-                        autoFocus
-                      />
-                    </div>
-                  </div>
-                  <div className="max-h-48 overflow-y-auto">
-                    {filteredClients.map((c) => (
-                      <button
-                        key={c}
-                        type="button"
-                        onClick={() => {
-                          setClient(c);
-                          setClientDropdownOpen(false);
-                          setClientSearch("");
-                        }}
-                        className={`flex w-full items-center px-3 py-2 text-sm transition-colors hover:bg-purple-50 ${client === c ? "bg-purple-50 font-medium text-primary" : "text-text"}`}
-                      >
-                        {c}
-                      </button>
-                    ))}
-                    {filteredClients.length === 0 && (
-                      <div className="px-3 py-2 text-sm text-text-secondary">No clients found</div>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
+          <Select
+            label="Client / From *"
+            options={clientOptions}
+            value={client}
+            onChange={setClient}
+            placeholder="Select client"
+            searchable
+          />
 
           {/* Payment date */}
           <FormInput label="Payment date *" value={paymentDate} onChange={(e) => setPaymentDate(e.target.value)} />

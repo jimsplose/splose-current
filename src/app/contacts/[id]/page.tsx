@@ -1,5 +1,5 @@
 import { Mail, Phone, MapPin, Building2 } from "lucide-react";
-import { Avatar, Button, DataTable, TableHead, Th, TableBody, Td } from "@/components/ds";
+import { Avatar, Button, DataTable, TableHead, Th, TableBody, Td, EmptyState } from "@/components/ds";
 
 const mockContacts = [
   {
@@ -339,10 +339,10 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                 </TableBody>
               </DataTable>
             ) : (
-              <div className="rounded-lg border border-border bg-gray-50 p-6 text-center">
-                <Building2 className="mx-auto mb-2 h-8 w-8 text-text-secondary" />
-                <p className="text-sm text-text-secondary">No associated clients</p>
-              </div>
+              <EmptyState
+                icon={<Building2 className="h-10 w-10 text-gray-400" />}
+                message="No associated clients"
+              />
             )}
           </section>
 

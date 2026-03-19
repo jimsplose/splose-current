@@ -1,10 +1,9 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowLeft, LayoutGrid, Columns2, Copy, ChevronDown, Save, Lock, ClipboardList } from "lucide-react";
-import { Button, Badge, EmptyState } from "@/components/ds";
+import { LayoutGrid, Columns2, Copy, ChevronDown, Save, Lock, ClipboardList } from "lucide-react";
+import { Button, Badge, EmptyState, Navbar, Filter } from "@/components/ds";
 
 const TEMPLATES = [
   "Initial Assessment",
@@ -77,57 +76,31 @@ function NewProgressNotePageInner() {
   return (
     <div className="min-h-[calc(100vh-3rem)] bg-gray-50/30">
       {/* Header bar */}
-      <div className="flex items-center justify-between border-b border-border bg-white px-6 py-3">
-        <div className="flex items-center gap-3">
-          <Link
-            href="/notes"
-            className="flex items-center gap-1 text-sm text-text-secondary transition-colors hover:text-text"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back
-          </Link>
-          <div className="h-5 w-px bg-border" />
-          <h1 className="text-lg font-semibold text-text">New progress note</h1>
-          <Badge variant="yellow">Unsaved</Badge>
-        </div>
-        <div className="flex items-center gap-2">
-          {/* Add new note button */}
-          <button className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500 text-white transition-colors hover:bg-green-600">
-            <span className="text-lg leading-none font-bold">+</span>
-          </button>
-          {/* View toggle */}
-          <div className="flex overflow-hidden rounded-lg border border-border">
-            <button
-              onClick={() => setViewMode("single")}
-              className={`p-2 transition-colors ${
-                viewMode === "single" ? "bg-primary text-white" : "bg-white text-text-secondary hover:bg-gray-50"
-              }`}
-              title="Single view"
-            >
-              <LayoutGrid className="h-4 w-4" />
-            </button>
-            <button
-              onClick={() => setViewMode("split")}
-              className={`p-2 transition-colors ${
-                viewMode === "split" ? "bg-primary text-white" : "bg-white text-text-secondary hover:bg-gray-50"
-              }`}
-              title="Split view"
-            >
-              <Columns2 className="h-4 w-4" />
-            </button>
-          </div>
-          {/* Save buttons */}
-          <Button variant="secondary" onClick={() => handleSave(false)} disabled={saving}>
-            <Save className="h-4 w-4" />
-            Save as draft
-          </Button>
-          <Button variant="primary" onClick={() => handleSave(true)} disabled={saving}>
-            <Lock className="h-3.5 w-3.5" />
-            Sign &amp; lock
-            <ChevronDown className="h-3.5 w-3.5" />
-          </Button>
-        </div>
-      </div>
+      <Navbar backHref="/notes" title="New progress note" badge={<Badge variant="yellow">Unsaved</Badge>}>
+        {/* Add new note button */}
+        <button className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500 text-white transition-colors hover:bg-green-600">
+          <span className="text-lg leading-none font-bold">+</span>
+        </button>
+        {/* View toggle */}
+        <Filter
+          items={[
+            { label: <LayoutGrid className="h-4 w-4" />, value: "single" },
+            { label: <Columns2 className="h-4 w-4" />, value: "split" },
+          ]}
+          value={viewMode}
+          onChange={(v) => setViewMode(v as "single" | "split")}
+        />
+        {/* Save buttons */}
+        <Button variant="secondary" onClick={() => handleSave(false)} disabled={saving}>
+          <Save className="h-4 w-4" />
+          Save as draft
+        </Button>
+        <Button variant="primary" onClick={() => handleSave(true)} disabled={saving}>
+          <Lock className="h-3.5 w-3.5" />
+          Sign &amp; lock
+          <ChevronDown className="h-3.5 w-3.5" />
+        </Button>
+      </Navbar>
 
       <div className="flex">
         {/* Left editor panel */}
