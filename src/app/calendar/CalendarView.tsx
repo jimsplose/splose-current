@@ -17,7 +17,7 @@ import {
   Calendar,
   Plus,
 } from "lucide-react";
-import { Button, Badge, FormInput, FormSelect } from "@/components/ds";
+import { Button, Badge } from "@/components/ds";
 
 type Appointment = {
   id: string;
@@ -405,7 +405,7 @@ export default function CalendarView({
                           <div key={p.id} className="flex min-w-0 flex-1 flex-col items-center">
                             <div className="mb-0.5 h-1.5 w-1.5 rounded-full" style={{ backgroundColor: p.color }} />
                             <span className="w-full truncate text-[9px] leading-tight text-text-secondary">
-                              {p.name.split(" ")[0][0]}{p.name.split(" ")[1]?.[0] || ""}
+                              {p.name.split(" ")[0].length > 5 ? p.name.split(" ")[0].slice(0, 5) + "..." : p.name.split(" ")[0]}
                             </span>
                           </div>
                         ))}
@@ -512,8 +512,7 @@ export default function CalendarView({
               <div className="flex items-center gap-2">
                 <div className="h-3 w-3 rounded-full" style={{ backgroundColor: selectedAppt.practitionerColor }} />
                 <span className="text-sm font-medium text-text">
-                  {selectedAppt.type} (
-                  {selectedAppt.endTime ? calcDuration(selectedAppt.startTime, selectedAppt.endTime) : "45 mins"})
+                  {selectedAppt.clientName} ({selectedAppt.type})
                 </span>
               </div>
               <button onClick={() => setSelectedAppt(null)} className="rounded p-1 hover:bg-gray-100">
@@ -567,7 +566,7 @@ export default function CalendarView({
 
               <div className="flex items-start gap-2">
                 <FileText className="mt-0.5 h-4 w-4 text-primary" />
-                <span className="cursor-pointer text-primary hover:underline">Add invoice</span>
+                <span className="cursor-pointer text-primary hover:underline">TRR-005673</span>
                 <Badge variant="blue" className="ml-1">Draft</Badge>
               </div>
 
@@ -608,7 +607,7 @@ export default function CalendarView({
               <Button variant="secondary" size="sm">
                 Reschedule
               </Button>
-              <Button variant="danger" size="sm">
+              <Button variant="secondary" size="sm" className="text-gray-400 border-gray-200 hover:bg-gray-50">
                 Archive
               </Button>
             </div>
@@ -637,58 +636,90 @@ export default function CalendarView({
             </div>
             <div className="space-y-4 px-6 py-5">
               {/* Client */}
-              <FormInput
-                label="Client *"
-                type="text"
-                value={createClient}
-                onChange={(e) => setCreateClient(e.target.value)}
-                placeholder="Start typing to search client..."
-              />
-
-              {/* Practitioner */}
-              <FormSelect
-                label="Practitioner *"
-                value={createPractitioner}
-                onChange={(e) => setCreatePractitioner(e.target.value)}
-                options={practitioners.map((p) => ({ value: p.id, label: p.name }))}
-              />
-
-              {/* Date */}
-              <FormInput
-                label="Date *"
-                type="date"
-                value={createDate}
-                onChange={(e) => setCreateDate(e.target.value)}
-              />
-
-              {/* Start / End time */}
-              <div className="grid grid-cols-2 gap-3">
-                <FormSelect
-                  label="Start time *"
-                  value={createTime}
-                  onChange={(e) => setCreateTime(e.target.value)}
-                  options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))}
-                />
-                <FormSelect
-                  label="End time *"
-                  value={createEndTime}
-                  onChange={(e) => setCreateEndTime(e.target.value)}
-                  options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))}
+              <div>
+                <label className="mb-1 block text-sm font-medium text-text-secondary">Client *</label>
+                <input
+                  type="text"
+                  value={createClient}
+                  onChange={(e) => setCreateClient(e.target.value)}
+                  placeholder="Start typing to search client..."
+                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
                 />
               </div>
 
+              {/* Practitioner */}
+              <div>
+                <label className="mb-1 block text-sm font-medium text-text-secondary">Practitioner *</label>
+                <select
+                  value={createPractitioner}
+                  onChange={(e) => setCreatePractitioner(e.target.value)}
+                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                >
+                  {practitioners.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Date */}
+              <div>
+                <label className="mb-1 block text-sm font-medium text-text-secondary">Date *</label>
+                <input
+                  type="date"
+                  value={createDate}
+                  onChange={(e) => setCreateDate(e.target.value)}
+                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                />
+              </div>
+
+              {/* Start / End time */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="mb-1 block text-sm font-medium text-text-secondary">Start time *</label>
+                  <select
+                    value={createTime}
+                    onChange={(e) => setCreateTime(e.target.value)}
+                    className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                  >
+                    {TIME_OPTIONS.map((t) => (
+                      <option key={t} value={t}>
+                        {t}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="mb-1 block text-sm font-medium text-text-secondary">End time *</label>
+                  <select
+                    value={createEndTime}
+                    onChange={(e) => setCreateEndTime(e.target.value)}
+                    className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                  >
+                    {TIME_OPTIONS.map((t) => (
+                      <option key={t} value={t}>
+                        {t}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
               {/* Appointment type */}
-              <FormSelect
-                label="Appointment type *"
-                value={createType}
-                onChange={(e) => setCreateType(e.target.value)}
-                options={[
-                  { value: "Initial Assessment", label: "Initial Assessment" },
-                  { value: "Follow Up", label: "Follow Up" },
-                  { value: "Review", label: "Review" },
-                  { value: "Group Session", label: "Group Session" },
-                ]}
-              />
+              <div>
+                <label className="mb-1 block text-sm font-medium text-text-secondary">Appointment type *</label>
+                <select
+                  value={createType}
+                  onChange={(e) => setCreateType(e.target.value)}
+                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                >
+                  <option value="Initial Assessment">Initial Assessment</option>
+                  <option value="Follow Up">Follow Up</option>
+                  <option value="Review">Review</option>
+                  <option value="Group Session">Group Session</option>
+                </select>
+              </div>
 
               {/* Notes */}
               <div>
@@ -731,37 +762,51 @@ export default function CalendarView({
             </div>
             <div className="space-y-4 px-6 py-5">
               {/* Service */}
-              <FormInput
-                label="Service *"
-                type="text"
-                defaultValue={selectedAppt.clientName}
-              />
+              <div>
+                <label className="mb-1 block text-sm font-medium text-text-secondary">Service *</label>
+                <input
+                  type="text"
+                  defaultValue={`${selectedAppt.clientName}`}
+                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                />
+              </div>
 
               {/* Case */}
-              <FormSelect
-                label="Case"
-                options={[{ value: "", label: "Choose a case" }]}
-              />
+              <div>
+                <label className="mb-1 block text-sm font-medium text-text-secondary">Case</label>
+                <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20">
+                  <option>Choose a case</option>
+                </select>
+              </div>
 
               {/* Date */}
-              <FormInput
-                label="Date *"
-                type="date"
-                defaultValue={selectedAppt.date}
-              />
+              <div>
+                <label className="mb-1 block text-sm font-medium text-text-secondary">Date *</label>
+                <input
+                  type="date"
+                  defaultValue={selectedAppt.date}
+                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                />
+              </div>
 
               {/* Time */}
               <div className="grid grid-cols-2 gap-3">
-                <FormInput
-                  label="Time *"
-                  type="text"
-                  defaultValue={selectedAppt.startTime}
-                />
-                <FormInput
-                  label="&nbsp;"
-                  type="text"
-                  defaultValue={selectedAppt.endTime}
-                />
+                <div>
+                  <label className="mb-1 block text-sm font-medium text-text-secondary">Time *</label>
+                  <input
+                    type="text"
+                    defaultValue={selectedAppt.startTime}
+                    className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                  />
+                </div>
+                <div>
+                  <label className="mb-1 block text-sm font-medium text-text-secondary">&nbsp;</label>
+                  <input
+                    type="text"
+                    defaultValue={selectedAppt.endTime}
+                    className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                  />
+                </div>
               </div>
 
               {/* Room/Resource */}
@@ -804,15 +849,15 @@ export default function CalendarView({
 
               {editRepeat && (
                 <div className="space-y-3 rounded-lg border border-border bg-gray-50 p-4">
-                  <FormSelect
-                    label="Repeat"
-                    options={[
-                      { value: "Every 2 weeks", label: "Every 2 weeks" },
-                      { value: "Every week", label: "Every week" },
-                      { value: "Every 3 weeks", label: "Every 3 weeks" },
-                      { value: "Every 4 weeks", label: "Every 4 weeks" },
-                    ]}
-                  />
+                  <div>
+                    <label className="mb-1 block text-sm font-medium text-text-secondary">Repeat</label>
+                    <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary">
+                      <option>Every 2 weeks</option>
+                      <option>Every week</option>
+                      <option>Every 3 weeks</option>
+                      <option>Every 4 weeks</option>
+                    </select>
+                  </div>
                   <div>
                     <label className="mb-1 block text-sm font-medium text-text-secondary">Repeat on *</label>
                     <div className="flex gap-1">
@@ -826,16 +871,16 @@ export default function CalendarView({
                       ))}
                     </div>
                   </div>
-                  <FormSelect
-                    label="Ends"
-                    options={[
-                      { value: "After 6 times", label: "After 6 times" },
-                      { value: "After 4 times", label: "After 4 times" },
-                      { value: "After 8 times", label: "After 8 times" },
-                      { value: "After 12 times", label: "After 12 times" },
-                      { value: "On date", label: "On date" },
-                    ]}
-                  />
+                  <div>
+                    <label className="mb-1 block text-sm font-medium text-text-secondary">Ends</label>
+                    <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary">
+                      <option>After 6 times</option>
+                      <option>After 4 times</option>
+                      <option>After 8 times</option>
+                      <option>After 12 times</option>
+                      <option>On date</option>
+                    </select>
+                  </div>
                 </div>
               )}
 

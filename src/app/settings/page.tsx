@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Button, FormInput, FormSelect, Badge, statusVariant } from "@/components/ds";
+import { Button, FormInput, FormSelect, Badge, statusVariant, DataTable, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
 
 const sidebarSections = [
   {
@@ -93,7 +93,7 @@ type ActivePage =
   | "Forms"
   | string;
 
-const pagesWithContent = ["Details", "Integrations", "SMS settings", "Forms"];
+const pagesWithContent = ["Details", "Integrations", "SMS settings", "Forms", "Locations", "Users", "Tags"];
 
 export default function SettingsPage() {
   return (
@@ -168,6 +168,9 @@ function SettingsPageInner() {
         {activePage === "Integrations" && <IntegrationsContent />}
         {activePage === "SMS settings" && <SMSSettingsContent />}
         {activePage === "Forms" && <FormsContent />}
+        {activePage === "Locations" && <LocationsContent />}
+        {activePage === "Users" && <UsersContent />}
+        {activePage === "Tags" && <TagsContent />}
         {!pagesWithContent.includes(activePage) && (
           <PlaceholderContent pageName={activePage} />
         )}
@@ -451,197 +454,112 @@ function DetailsContent() {
 
 const integrations = [
   {
-    name: "Stripe",
-    description: "Accept online payments and manage billing",
-    icon: "💳",
-    category: "Payments",
-    connected: true,
-  },
-  {
     name: "Xero",
-    description: "Sync invoices and financial data automatically",
-    icon: "📊",
-    category: "Accounting",
+    description:
+      "Xero is world leading online accounting software built for small business. splose syncs all invoices, payments, credits, refunds, line of accounts and tax rates with Xero automatically. We're recommend that all Xero users have two-factor authentication enabled.",
     connected: true,
+    buttonLabel: "Settings",
+    color: "#13B5EA",
   },
   {
-    name: "MYOB",
-    description: "Export invoices and payments to MYOB",
-    icon: "📒",
-    category: "Accounting",
+    name: "QuickBooks",
+    description:
+      "QuickBooks is a leading online accounting solution designed for small businesses. splose syncs all invoices, payments, credits, contacts, chart of accounts, and tax rates with QuickBooks automatically. We encourage all users to enable two-factor authentication to enhance the security of their accounts.",
     connected: false,
+    buttonLabel: "Connect to QuickBooks",
+    color: "#2CA01C",
+  },
+  {
+    name: "Stripe",
+    description:
+      "Stripe is a payment processing platform that helps you get paid online. Accept credit card payments via online bookings, and add a Pay now button to your invoices. Standard Stripe fees — splose EFTPOS platform fee applies to successful payments.",
+    connected: true,
+    buttonLabel: "Settings",
+    color: "#635BFF",
   },
   {
     name: "Mailchimp",
-    description: "Sync client data for email marketing campaigns",
-    icon: "📧",
-    category: "Marketing",
+    description:
+      "Mailchimp is a marketing automation platform and email marketing service used to design and send email campaigns and newsletters to your mailing lists and track results. splose sends clients to your selected audience in Mailchimp.",
     connected: false,
+    buttonLabel: "Connect",
+    color: "#FFE01B",
+  },
+  {
+    name: "HICAPS",
+    description:
+      "HICAPS is an online claiming platform that allows you to easily claim invoices to the TAC, Worksite Victoria, NDIS, Medicare, MBS and more. With HICAPS and splose, you can run a price determination for NDIS plan managed invoices and submit them for fast payment.",
+    connected: false,
+    buttonLabel: "Connect",
+    color: "#00B140",
+  },
+  {
+    name: "Tyro Health",
+    description:
+      "Tyro is a related healthcare providers to process digital payments and claims online. This includes Medicare, Bulk Bill and Patient Claims, DVA, health fund claims and contactless debit and credit cards (incl. NDIS, plus or running a card directly within an invoice or payment).",
+    connected: false,
+    buttonLabel: "Connect",
+    color: "#0D1137",
   },
   {
     name: "Zoom",
-    description: "Create telehealth appointments with Zoom meetings",
-    icon: "📹",
-    category: "Telehealth",
+    description:
+      "Zoom is the leader in modern enterprise video communications with an easy, reliable cloud platform for video and audio conferencing, online chat. Automatically create and attach Zoom Meetings for appointments created in splose and send it to clients in email and SMS.",
     connected: true,
+    buttonLabel: "Settings",
+    color: "#2D8CFF",
   },
   {
-    name: "Google Calendar",
-    description: "Two-way sync with Google Calendar",
-    icon: "📅",
-    category: "Calendar",
+    name: "Physitrack",
+    description:
+      "Physitrack is an online platform that encompasses clinical home exercise and education prescription, outcomes collection, and Telehealth. It can automatically create home exercise programs created in Physitrack in the Files section of the client's splose profile.",
     connected: false,
-  },
-  {
-    name: "Outlook Calendar",
-    description: "Sync appointments with Outlook Calendar",
-    icon: "📆",
-    category: "Calendar",
-    connected: false,
-  },
-  {
-    name: "Tyro",
-    description: "Process EFTPOS payments in-clinic via Tyro",
-    icon: "💰",
-    category: "Payments",
-    connected: false,
-  },
-  {
-    name: "Medicare",
-    description: "Submit Medicare claims and check eligibility",
-    icon: "🏥",
-    category: "Claims",
-    connected: true,
-  },
-  {
-    name: "Halaxy",
-    description: "Import client and appointment data from Halaxy",
-    icon: "🔄",
-    category: "Migration",
-    connected: false,
-  },
-  {
-    name: "Cliniko",
-    description: "Import client and appointment data from Cliniko",
-    icon: "🔄",
-    category: "Migration",
-    connected: false,
-  },
-  {
-    name: "Twilio",
-    description: "Send SMS reminders and notifications via Twilio",
-    icon: "💬",
-    category: "Communication",
-    connected: true,
+    buttonLabel: "Connect",
+    color: "#00C2CB",
   },
 ];
 
 function IntegrationsContent() {
-  const [filter, setFilter] = useState<"all" | "connected" | "available">(
-    "all"
-  );
-  const [search, setSearch] = useState("");
-
-  const filtered = integrations.filter((i) => {
-    if (filter === "connected" && !i.connected) return false;
-    if (filter === "available" && i.connected) return false;
-    if (search && !i.name.toLowerCase().includes(search.toLowerCase()))
-      return false;
-    return true;
-  });
-
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-text">Integrations</h1>
-          <p className="mt-1 text-sm text-text-secondary">
-            Connect your favourite tools to streamline your workflow
-          </p>
-        </div>
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-text">Integrations</h1>
       </div>
 
-      {/* Filters */}
-      <div className="flex items-center gap-4 mb-6">
-        <div className="flex rounded-lg border border-border bg-white overflow-hidden">
-          <button
-            onClick={() => setFilter("all")}
-            className={`px-4 py-2 text-sm font-medium transition-colors ${
-              filter === "all"
-                ? "bg-primary text-white"
-                : "text-text-secondary hover:bg-gray-50"
-            }`}
-          >
-            All ({integrations.length})
-          </button>
-          <button
-            onClick={() => setFilter("connected")}
-            className={`border-l border-border px-4 py-2 text-sm font-medium transition-colors ${
-              filter === "connected"
-                ? "bg-primary text-white"
-                : "text-text-secondary hover:bg-gray-50"
-            }`}
-          >
-            Connected ({integrations.filter((i) => i.connected).length})
-          </button>
-          <button
-            onClick={() => setFilter("available")}
-            className={`border-l border-border px-4 py-2 text-sm font-medium transition-colors ${
-              filter === "available"
-                ? "bg-primary text-white"
-                : "text-text-secondary hover:bg-gray-50"
-            }`}
-          >
-            Available ({integrations.filter((i) => !i.connected).length})
-          </button>
-        </div>
-        <div className="w-64">
-          <FormInput
-            type="text"
-            placeholder="Search integrations..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-      </div>
-
-      {/* Integration cards grid */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {filtered.map((integration) => (
+      {/* Integration vertical list */}
+      <div className="space-y-6">
+        {integrations.map((integration) => (
           <div
             key={integration.name}
-            className="rounded-lg border border-border bg-white p-5 hover:shadow-sm transition-shadow"
+            className="border-b border-border pb-6 last:border-b-0"
           >
-            <div className="flex items-start justify-between mb-3">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-xl">
-                  {integration.icon}
-                </div>
-                <div>
-                  <h3 className="text-sm font-semibold text-text">
-                    {integration.name}
-                  </h3>
-                  <span className="text-xs text-text-secondary">
-                    {integration.category}
-                  </span>
-                </div>
+            <div className="flex items-start gap-6">
+              {/* Logo placeholder */}
+              <div className="flex h-16 w-40 shrink-0 items-center justify-center">
+                <span
+                  className="text-2xl font-bold"
+                  style={{ color: integration.color }}
+                >
+                  {integration.name}
+                </span>
               </div>
-              {integration.connected && (
-                <Badge variant="green">
-                  <span className="mr-1 h-1.5 w-1.5 rounded-full bg-green-500" />
-                  Connected
-                </Badge>
-              )}
+
+              {/* Description */}
+              <div className="flex-1">
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  {integration.description}
+                </p>
+              </div>
             </div>
-            <p className="text-sm text-text-secondary mb-4">
-              {integration.description}
-            </p>
-            <Button
-              variant={integration.connected ? "danger" : "secondary"}
-              className={`w-full ${!integration.connected ? "border-primary text-primary hover:bg-purple-50" : ""}`}
-            >
-              {integration.connected ? "Disconnect" : "Connect"}
-            </Button>
+
+            {/* Button row */}
+            <div className="mt-3 flex justify-start pl-0">
+              <Button
+                variant={integration.connected ? "secondary" : "primary"}
+              >
+                {integration.buttonLabel}
+              </Button>
+            </div>
           </div>
         ))}
       </div>
@@ -1157,6 +1075,278 @@ function FormsContent() {
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+/* ─── Locations ───────────────────────────────────────────────────── */
+
+const locations = [
+  {
+    name: "East Clinics",
+    address: "",
+    lastUpdate: "12:24 pm, 6 Mar 2026",
+  },
+  {
+    name: "Splose OT",
+    address: "",
+    lastUpdate: "2:08 pm, 26 Feb 2026",
+  },
+  {
+    name: "Ploc",
+    address: "",
+    lastUpdate: "2:08 pm, 26 Feb 2026",
+  },
+  {
+    name: "Tasks",
+    address: "",
+    lastUpdate: "11:59 am, 5 Mar 2026",
+  },
+  {
+    name: "Sharon\u2019s",
+    address: "",
+    lastUpdate: "2:08 pm, 26 Feb 2026",
+  },
+  {
+    name: "One service only",
+    address: "297 Pirie St, Adelaide, SA, 5000",
+    lastUpdate: "2:08 pm, 26 Feb 2026",
+  },
+];
+
+function LocationsContent() {
+  return (
+    <div className="p-6">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-text">Locations</h1>
+        <div className="flex items-center gap-3">
+          <Button variant="secondary">Show archived</Button>
+          <Button variant="primary">+ New location</Button>
+        </div>
+      </div>
+
+      <DataTable>
+        <TableHead>
+          <Th>Name</Th>
+          <Th>Address</Th>
+          <Th>Last update</Th>
+        </TableHead>
+        <TableBody>
+          {locations.map((loc) => (
+            <tr key={loc.name} className="hover:bg-gray-50 cursor-pointer">
+              <Td className="font-medium text-text">{loc.name}</Td>
+              <Td className="text-text-secondary">{loc.address}</Td>
+              <Td className="text-text-secondary">{loc.lastUpdate}</Td>
+            </tr>
+          ))}
+        </TableBody>
+      </DataTable>
+      <Pagination currentPage={1} totalPages={1} totalItems={6} itemsPerPage={10} showPageSize={false} />
+    </div>
+  );
+}
+
+/* ─── Users ───────────────────────────────────────────────────────── */
+
+const users = [
+  {
+    name: "Nicholas Smithson",
+    email: "nick@splose.com",
+    roleName: "Practitioner admin",
+    roleType: "Practitioner admin",
+    group: "OT",
+    status: "Active",
+    isOwner: true,
+  },
+  {
+    name: "Splose Support",
+    email: "support@splose.com",
+    roleName: "Practice manager",
+    roleType: "Practice manager",
+    group: "",
+    status: "Active",
+    isOwner: false,
+  },
+  {
+    name: "nick sand",
+    email: "nick1@splose.com",
+    roleName: "Practitioner",
+    roleType: "Practitioner",
+    group: "",
+    status: "Active",
+    isOwner: false,
+  },
+  {
+    name: "Harry Nguyen",
+    email: "harry@splose.com",
+    roleName: "Practitioner admin",
+    roleType: "Practitioner admin",
+    group: "OT",
+    status: "Active",
+    isOwner: true,
+  },
+  {
+    name: "Cheng Ma",
+    email: "cheng@splose.com",
+    roleName: "Practitioner admin",
+    roleType: "Practitioner admin",
+    group: "Intake team, +1 more",
+    status: "Active",
+    isOwner: true,
+  },
+  {
+    name: "Rakesh Soni",
+    email: "rakesh@splose.com",
+    roleName: "Practice manager",
+    roleType: "Practice manager",
+    group: "Physio",
+    status: "Active",
+    isOwner: true,
+  },
+  {
+    name: "Cheng Test",
+    email: "machengjam@gmail.com",
+    roleName: "Practitioner admin",
+    roleType: "Practitioner admin",
+    group: "",
+    status: "Active",
+    isOwner: false,
+  },
+];
+
+function UsersContent() {
+  return (
+    <div className="p-6">
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="text-2xl font-bold text-text">Users</h1>
+        <Button variant="primary">Invite users</Button>
+      </div>
+
+      <div className="mb-4 flex items-center gap-2">
+        <div className="flex-1">
+          <FormInput
+            type="text"
+            placeholder="Search for user name and email"
+          />
+        </div>
+        <Button variant="secondary">Search</Button>
+      </div>
+
+      <DataTable>
+        <TableHead>
+          <Th>Name</Th>
+          <Th>Email</Th>
+          <Th>Role name</Th>
+          <Th>Role type</Th>
+          <Th>Group</Th>
+          <Th>Status</Th>
+          <Th align="right">Actions</Th>
+        </TableHead>
+        <TableBody>
+          {users.map((user) => (
+            <tr key={user.email} className="hover:bg-gray-50">
+              <Td className="font-medium text-text">
+                <div>
+                  {user.name}
+                  {user.isOwner && (
+                    <span className="ml-2 inline-block rounded bg-green-500 px-1.5 py-0.5 text-[10px] font-bold text-white">
+                      Account owner
+                    </span>
+                  )}
+                </div>
+              </Td>
+              <Td className="text-text-secondary">{user.email}</Td>
+              <Td className="text-text-secondary">{user.roleName}</Td>
+              <Td className="text-text-secondary">{user.roleType}</Td>
+              <Td className="text-text-secondary">{user.group || "---"}</Td>
+              <Td>
+                <Badge variant="green">{user.status}</Badge>
+              </Td>
+              <Td align="right">
+                <button className="text-text-secondary hover:text-text text-lg font-bold">
+                  &middot;&middot;&middot;
+                </button>
+              </Td>
+            </tr>
+          ))}
+        </TableBody>
+      </DataTable>
+    </div>
+  );
+}
+
+/* ─── Tags ────────────────────────────────────────────────────────── */
+
+const tagTabs = ["Client tags", "Service tags", "Waitlist tags", "AI tags"] as const;
+
+const clientTags = [
+  { name: "2025-11-22", color: "#EAB308" },
+  { name: "Client consents to photography for promotional purposes", color: "#22C55E" },
+  { name: "Client DOES NOT consent to photography for promotional purposes", color: "#EF4444" },
+  { name: "Company A", color: "#EAB308" },
+  { name: "Dual funding", color: "#F59E0B" },
+  { name: "Exception", color: "#F59E0B" },
+  { name: "FORMS PENDING", color: "#EF4444" },
+  { name: "High risk", color: "#EF4444" },
+];
+
+function TagsContent() {
+  const [activeTab, setActiveTab] = useState<typeof tagTabs[number]>("Client tags");
+
+  return (
+    <div className="p-6">
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="text-2xl font-bold text-text">Tags</h1>
+        <Button variant="primary">+ New tag</Button>
+      </div>
+
+      {/* Tabs */}
+      <div className="mb-6 flex items-center gap-4 border-b border-border">
+        {tagTabs.map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`border-b-2 px-1 pb-3 text-sm transition-colors ${
+              activeTab === tab
+                ? "border-primary font-medium text-primary"
+                : "border-transparent text-text-secondary hover:text-text"
+            }`}
+          >
+            {tab}
+            {tab === "AI tags" && (
+              <span className="ml-1.5 rounded bg-primary px-1.5 py-0.5 text-[10px] font-bold text-white">
+                New
+              </span>
+            )}
+          </button>
+        ))}
+      </div>
+
+      <DataTable>
+        <TableHead>
+          <Th>Name</Th>
+          <Th>Colour</Th>
+          <Th align="right">Actions</Th>
+        </TableHead>
+        <TableBody>
+          {clientTags.map((tag) => (
+            <tr key={tag.name} className="hover:bg-gray-50">
+              <Td className="text-text">{tag.name}</Td>
+              <Td>
+                <div
+                  className="h-4 w-20 rounded"
+                  style={{ backgroundColor: tag.color }}
+                />
+              </Td>
+              <Td align="right">
+                <button className="text-text-secondary hover:text-text text-lg font-bold">
+                  &middot;&middot;&middot;
+                </button>
+              </Td>
+            </tr>
+          ))}
+        </TableBody>
+      </DataTable>
     </div>
   );
 }

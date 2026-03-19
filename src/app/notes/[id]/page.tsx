@@ -1,8 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Pencil, Lock, CheckCircle, RotateCcw, ChevronDown } from "lucide-react";
-import { Button, Badge } from "@/components/ds";
+import { ArrowLeft, CheckCircle } from "lucide-react";
+import { Badge } from "@/components/ds";
+import NoteViewToolbar from "./NoteViewToolbar";
 
 export const dynamic = "force-dynamic";
 
@@ -39,28 +40,13 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
             {clientName}
           </Link>
         </div>
-        <div className="flex items-center gap-2">
-          {note.signed ? (
-            <Button variant="secondary">
-              <RotateCcw className="h-4 w-4" />
-              Revert to draft
-            </Button>
-          ) : (
-            <Button variant="primary">
-              <Lock className="h-3.5 w-3.5" />
-              Sign &amp; lock
-            </Button>
-          )}
-          <Link
-            href={`/notes/${id}/edit`}
-            className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50"
-          >
-            Edit <Pencil className="h-3.5 w-3.5" />
-          </Link>
-          <Button variant="secondary">
-            Actions <ChevronDown className="h-3.5 w-3.5" />
-          </Button>
-        </div>
+        <NoteViewToolbar
+          noteId={id}
+          signed={note.signed}
+          clientName={clientName}
+          noteDate={note.date}
+          practitionerName={note.practitioner.name}
+        />
       </div>
 
       {/* Note content as document */}
