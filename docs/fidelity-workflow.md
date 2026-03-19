@@ -4,19 +4,19 @@ Use **parallel subagents** for speed when working through fidelity gaps.
 
 ## Design System First — MANDATORY
 
-**All fidelity work MUST use design system components.** See the Component Library table in CLAUDE.md for the full list. Import from `@/components/ds`. Run `npm run storybook` to see all components live.
+**All fidelity work MUST use design system components.** See the Component Library table in `docs/agent-block.md` for the full list. Import from `@/components/ds`. Run `npm run storybook` to see all components live.
 
 If a fidelity gap requires a component not in the DS, **add it to the DS first** (`src/components/ds/`), then use it in the page. Write a Storybook story in `src/components/ds/stories/` and verify it renders with `npm run storybook` before pushing.
 
 ## Completion criteria
 
-See the **Gap completion rule** in CLAUDE.md (single source of truth). In short: a gap is only `[x]` when ALL related catalog entries show Match = "yes". If entries still show "no" or "partial", the gap stays `[ ]` — note partial progress in the gap description (e.g. "layout matches, colors wrong").
+See the **Gap completion rule** in `docs/agent-block.md` (single source of truth). In short: a gap is only `[x]` when ALL related catalog entries show Match = "yes". If entries still show "no" or "partial", the gap stays `[ ]` — note partial progress in the gap description (e.g. "layout matches, colors wrong").
 
 ## Step 1: Launch parallel agents (worktree isolation)
 
 Group non-conflicting gaps and launch them simultaneously using the Agent tool with `isolation: "worktree"`. Worktree isolation creates a separate git working directory for each agent so they don't overwrite each other's files — this is what enables safe parallel work on different pages.
 
-**Every agent prompt MUST include the full Agent Block from CLAUDE.md** (between `---START AGENT BLOCK---` and `---END AGENT BLOCK---` markers). Do NOT launch without it — this embeds DS enforcement and screenshot verification directly into the agent.
+**Every agent prompt MUST include the full Agent Block from `docs/agent-block.md`** (between `---START AGENT BLOCK---` and `---END AGENT BLOCK---` markers). Do NOT launch without it — this embeds DS enforcement and screenshot verification directly into the agent.
 
 Each agent should:
 1. Read the relevant reference screenshot(s) from `screenshots/reference/`
@@ -33,7 +33,7 @@ Each agent should:
 
 ## Step 2: Collect and apply changes (with Post-Agent Quality Gate)
 
-After each agent completes, run the **Post-Agent Quality Gate from CLAUDE.md** before committing. This is mandatory — do not batch or skip.
+After each agent completes, run the **Post-Agent Quality Gate from `docs/quality-gate.md`** before committing. This is mandatory — do not batch or skip.
 
 For each agent:
 1. Review the diff and cherry-pick/apply to the main branch
@@ -43,13 +43,11 @@ For each agent:
 
 ## Step 3: Screenshot Verification
 
-**This is handled automatically** if you included the Agent Block from CLAUDE.md in each agent's prompt (Step 1) and ran the Post-Agent Quality Gate (Step 2).
+**This is handled automatically** if you included the Agent Block from `docs/agent-block.md` in each agent's prompt (Step 1) and ran the Post-Agent Quality Gate (Step 2).
 
 - **Subagents**: Run the Screenshot Verification Loop embedded in the Agent Block (up to 3 iterations)
 - **Main agent**: Run the screenshot check in the Post-Agent Quality Gate after applying each agent's changes
-- **After push**: Follow the Post-Push Screenshots section in CLAUDE.md (take 1-2 screenshots, show inline)
-
-See CLAUDE.md for the full instructions. Do not duplicate them here.
+- **After push**: Follow the Post-Push Visual Verification section in `docs/quality-gate.md`
 
 ## Step 4: Update catalog Match status
 
@@ -93,7 +91,7 @@ After each round of changes is pushed, present Jim with a visual progress report
 
 ### When to skip
 - Skip if the round only produced infrastructure changes (database, config, tooling)
-- Skip if changes have no visual impact (see CLAUDE.md "When to skip screenshots" for the definition)
+- Skip if changes have no visual impact (see `docs/quality-gate.md` "When to skip" for the definition)
 
 ### Format
 Present as a structured summary like:
