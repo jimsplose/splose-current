@@ -1,6 +1,6 @@
-import { Plus, ArrowUpDown, Filter, Search } from "lucide-react";
+import { Plus, ArrowUpDown, Filter } from "lucide-react";
 import Link from "next/link";
-import { Button, PageHeader, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+import { Button, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
 
 const mockContacts = [
   { id: "1", type: "", name: "jh", company: "", email: "", workPhone: "", mobilePhone: "" },
@@ -62,17 +62,7 @@ export default function ContactsPage() {
         </Button>
       </PageHeader>
 
-      <div className="mb-4 flex items-center gap-2">
-        <div className="relative flex-1">
-          <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-text-secondary" />
-          <input
-            type="text"
-            placeholder="Search for contact name, phone number, email and company name"
-            className="h-10 w-full rounded-lg border border-border bg-white pr-4 pl-10 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-          />
-        </div>
-        <Button>Search</Button>
-      </div>
+      <SearchBar placeholder="Search for contact name, phone number, email and company name" />
 
       <div className="overflow-x-auto rounded-lg border border-border bg-white">
         <table className="w-full">
