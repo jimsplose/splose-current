@@ -1,4 +1,4 @@
-import { Button } from "@/components/ds";
+import { Avatar, Button } from "@/components/ds";
 import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
@@ -63,15 +63,7 @@ export default async function Dashboard() {
             {/* Messages from today's appointments */}
             {data.todayAppointments.slice(0, 5).map((appt) => (
               <div key={appt.id} className="flex items-start gap-2.5">
-                <div
-                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[10px] font-medium text-white"
-                  style={{ backgroundColor: appt.practitioner.color }}
-                >
-                  {appt.practitioner.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
-                </div>
+                <Avatar name={appt.practitioner.name} color={appt.practitioner.color} size="sm" />
                 <div className="min-w-0">
                   <div className="flex items-baseline gap-1.5">
                     <span className="text-[13px] font-semibold text-text">
@@ -91,9 +83,7 @@ export default async function Dashboard() {
                 {/* Show some sample messages when no appointments */}
                 {/* Joseph Go — message with blurred/censored image */}
                 <div className="flex items-start gap-2.5">
-                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-500 text-[10px] font-medium text-white">
-                    JG
-                  </div>
+                  <Avatar name="Joseph Go" color="#f59e0b" size="sm" />
                   <div className="min-w-0">
                     <div className="flex items-baseline gap-1.5">
                       <span className="text-[13px] font-semibold text-text">Joseph Go</span>
@@ -112,9 +102,7 @@ export default async function Dashboard() {
 
                 {/* Joseph Go — blue cat sticker */}
                 <div className="flex items-start gap-2.5">
-                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-500 text-[10px] font-medium text-white">
-                    JG
-                  </div>
+                  <Avatar name="Joseph Go" color="#f59e0b" size="sm" />
                   <div className="min-w-0">
                     <div className="flex items-baseline gap-1.5">
                       <span className="text-[13px] font-semibold text-text">Joseph Go</span>
@@ -139,9 +127,7 @@ export default async function Dashboard() {
 
                 {/* Hao Wang — green S logo image */}
                 <div className="flex items-start gap-2.5">
-                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-600 text-[10px] font-medium text-white">
-                    HW
-                  </div>
+                  <Avatar name="Hao Wang" color="#16a34a" size="sm" />
                   <div className="min-w-0">
                     <div className="flex items-baseline gap-1.5">
                       <span className="text-[13px] font-semibold text-text">Hao Wang</span>
@@ -155,9 +141,7 @@ export default async function Dashboard() {
 
                 {/* Joseph Go — MADE IT HOME meme */}
                 <div className="flex items-start gap-2.5">
-                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-500 text-[10px] font-medium text-white">
-                    JG
-                  </div>
+                  <Avatar name="Joseph Go" color="#f59e0b" size="sm" />
                   <div className="min-w-0">
                     <div className="flex items-baseline gap-1.5">
                       <span className="text-[13px] font-semibold text-text">Joseph Go</span>

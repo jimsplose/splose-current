@@ -38,34 +38,36 @@ New components use [DaisyUI](https://daisyui.com/components/) names where a matc
 - One-off custom layouts — inline is fine
 - If a planned DS component (Tab, Toggle, Modal, Avatar, Dropdown, Card, Collapse, Filter, Status, List, Navbar, EmptyState, Select, DateRangeFilter) hasn't been created yet, use the inline pattern but add a `// TODO: extract to DS <ComponentName>` comment so it's easy to find later
 
-## Screenshot Verification Loop — MANDATORY
+## Design Spec — USE EXACT VALUES
 
-After making your code changes, you MUST run this loop. Do NOT skip it.
+If a design spec exists at `screenshots/specs/<page-name>.md`, read it and implement using those **exact values** — colors, font sizes, spacing, border-radius. Do not approximate. Cross-reference your Tailwind classes against the spec.
 
-### If Playwright browsers are available:
-1. Run `npx playwright screenshot --wait-for-timeout=2000 http://localhost:3000/<page-path> /tmp/screenshot-<page>.png`
-2. Read the screenshot using the Read tool (it supports images)
-3. Read the reference screenshot from `screenshots/reference/<relevant-file>`
-4. Compare using the acceptance criteria below
-5. If not matching, make changes and repeat (up to 3 iterations)
-6. On final iteration, save the screenshot to `/tmp/screenshot-<page>-final.png`
+## Screenshot Verification Loop — MANDATORY (Playwright required)
 
-### If Playwright browsers are NOT available (fallback):
-1. Read the reference screenshot from `screenshots/reference/<relevant-file>` using the Read tool
-2. Read your page source code
-3. Compare the source code structure against what the reference screenshot shows
-4. Check: correct DS components used, correct data/labels, correct layout structure, correct colors/variants
-5. If not matching, make changes and repeat (up to 3 iterations)
+After making your code changes, you MUST run this loop. Playwright browsers are a hard requirement — ensure they are installed before starting fidelity work (`npx playwright install chromium`).
 
-**Note:** Playwright is installed as a dev dependency but browsers must be downloaded separately (`npx playwright install chromium`). Some environments block the CDN download. The fallback approach (reading reference screenshots + comparing against source) is acceptable when browsers aren't available.
+### Capture and diff:
+1. Capture: `npx tsx scripts/screenshot-capture.ts http://localhost:3000/<page-path> /tmp/current-<page>.png`
+2. Run pixel diff: `npx tsx scripts/fidelity-loop.ts screenshots/reference/<relevant-file> /tmp/current-<page>.png --iteration=1 --history=/tmp/convergence-<page>.json --threshold=5`
+3. Read the diff image at `/tmp/diff-iteration-1.png` to see exactly which pixels differ
+4. Also read both the reference and current screenshots visually for context
+
+### Convergence loop:
+5. If the fidelity-loop script outputs `CONTINUE` — fix the highlighted differences, re-capture, and run again with `--iteration=2`, etc.
+6. If it outputs `CONVERGED` (mismatch <= 5%) — you're done, move on
+7. If it outputs `PLATEAU` — mismatch stopped improving. The remaining diff likely needs a structural change (missing component, wrong layout). Describe what's still wrong in your output so the main agent can decide next steps.
+8. If it outputs `MAX_ITERATIONS` (10) — stop and report remaining mismatch %
+
+**Do NOT use a fixed iteration cap.** Let the convergence tracker decide when to stop.
 
 ### Acceptance criteria (what "matches" means):
+- **Pixel diff**: Mismatch <= 5% (measured by `scripts/pixel-diff.ts`)
 - **Layout**: Same grid/flex structure, same sidebar/header/content arrangement
 - **Components**: Correct DS components used (Button not bare `<button>`, Badge not inline pill, etc.)
 - **Content**: Same column headers, labels, placeholder text, button labels as reference
-- **Colors**: Correct badge variants (green/red/yellow/blue), correct button variants (primary/secondary/danger)
-- **Typography**: Headings are headings, secondary text is muted, correct font weights
-- **Spacing**: Reasonable match — no glaring differences in padding/margins (exact pixel match not required)
+- **Colors**: Exact hex/Tailwind values from design spec (not "close enough")
+- **Typography**: Exact font sizes and weights from design spec
+- **Spacing**: Exact padding/margin values from design spec (not "reasonable match")
 - **Interactive elements**: Modals, dropdowns, tabs shown in reference exist in code and are wired up
 - **Data shape**: Tables have same columns, forms have same fields as reference
 

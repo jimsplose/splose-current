@@ -1,6 +1,6 @@
 "use client";
 
-import { PageHeader, Button, SearchBar, Pagination, TableHead, Th, TableBody, Td } from "@/components/ds";
+import { PageHeader, Button, SearchBar, Pagination, TableHead, Th, TableBody, Td, EmptyState } from "@/components/ds";
 import { Plus, MoreHorizontal, Minus } from "lucide-react";
 import { useState, useMemo, Fragment } from "react";
 
@@ -219,8 +219,8 @@ export default function ProductsPage() {
 
             {paginatedProducts.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-sm text-text-secondary">
-                  No products found.
+                <td colSpan={6}>
+                  <EmptyState message="No products found." className="py-8" />
                 </td>
               </tr>
             )}

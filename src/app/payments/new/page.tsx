@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, X, Plus, Search, ChevronDown } from "lucide-react";
-import { Button, FormInput, FormSelect, TableHead, Th, TableBody, Td } from "@/components/ds";
+import { Button, FormInput, FormSelect, TableHead, Th, TableBody, Td, EmptyState } from "@/components/ds";
 
 const mockClients = [
   "Skyler Peterson",
@@ -300,8 +300,8 @@ export default function NewPaymentPage() {
             <tbody>
               {linkedInvoices.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="px-4 py-6 text-center text-sm text-text-secondary">
-                    No invoices linked. Click &quot;Link invoice&quot; to apply this payment to outstanding invoices.
+                  <td colSpan={9}>
+                    <EmptyState message='No invoices linked. Click "Link invoice" to apply this payment to outstanding invoices.' className="py-6" />
                   </td>
                 </tr>
               ) : (

@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import StatusBadge from "@/components/StatusBadge";
-import { Button, FormInput, FormSelect, Modal } from "@/components/ds";
+import { Button, FormInput, FormSelect } from "@/components/ds";
+import Modal from "@/components/ds/Modal";
 
 interface InvoiceData {
   invoiceNumber: string;

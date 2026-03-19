@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button, FormInput, FormSelect, Toggle } from "@/components/ds";
+import { Button, FormInput, FormSelect, Toggle, Tab, Modal, Dropdown } from "@/components/ds";
 
 export default function SettingsDetailsPage() {
   const [emailSigTab, setEmailSigTab] = useState<"Business" | "User">("Business");

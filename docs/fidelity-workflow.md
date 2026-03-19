@@ -2,8 +2,19 @@
 
 Use **parallel subagents** for speed when working through fidelity gaps.
 
-## Design System First — MANDATORY
+## Prerequisites — MANDATORY
 
+### Playwright browsers
+Playwright browsers **must** be installed before starting fidelity work. There is no fallback.
+```bash
+npx playwright install chromium
+```
+If this fails (e.g. sandbox restrictions), resolve it before proceeding. Without Playwright, you cannot run pixel diffs or capture screenshots, and fidelity work cannot be verified.
+
+### Design specs
+Before working on a page, check if a design spec exists at `screenshots/specs/<page-name>.md`. If not, extract one first (see `docs/design-spec-workflow.md`). Agents use exact values from specs, not approximations.
+
+### Design System
 **All fidelity work MUST use design system components.** See the Component Library table in `docs/agent-block.md` for the full list. Import from `@/components/ds`. Run `npm run storybook` to see all components live.
 
 If a fidelity gap requires a component not in the DS, **add it to the DS first** (`src/components/ds/`), then use it in the page. Write a Storybook story in `src/components/ds/stories/` and verify it renders with `npm run storybook` before pushing.
@@ -29,11 +40,12 @@ Group non-conflicting gaps and launch them simultaneously using the Agent tool w
 **Every agent prompt MUST include the full Agent Block from `docs/agent-block.md`** (between `---START AGENT BLOCK---` and `---END AGENT BLOCK---` markers). Do NOT launch without it — this embeds DS enforcement and screenshot verification directly into the agent.
 
 Each agent should:
-1. Read the relevant reference screenshot(s) from `screenshots/reference/`
-2. Read the current page source code
-3. Rewrite/edit the code to match the screenshot **using DS components**
-4. Ensure no TypeScript errors in the changed files
-5. Run the **Screenshot Verification Loop** from the Agent Block (up to 3 iterations)
+1. Read the design spec from `screenshots/specs/<page-name>.md` (if available) for exact values
+2. Read the relevant reference screenshot(s) from `screenshots/reference/`
+3. Read the current page source code
+4. Rewrite/edit the code to match the screenshot **using DS components** and **exact spec values**
+5. Ensure no TypeScript errors in the changed files
+6. Run the **Screenshot Verification Loop** from the Agent Block (convergence-based, up to 10 iterations)
 
 ### Parallelization rules
 - Gaps touching **different page directories** can always run in parallel
@@ -51,24 +63,35 @@ For each agent:
 3. If an agent's worktree has conflicts with another, resolve manually
 4. If applying an agent's changes breaks the build, **revert that agent's changes** and continue with the next — don't spend the session debugging a single agent's output
 
-## Step 3: Screenshot Verification
+## Step 3: Screenshot Verification (Pixel Diff)
 
 **This is handled automatically** if you included the Agent Block from `docs/agent-block.md` in each agent's prompt (Step 1) and ran the Post-Agent Quality Gate (Step 2).
 
-- **Subagents**: Run the Screenshot Verification Loop embedded in the Agent Block (up to 3 iterations)
-- **Main agent**: Run the screenshot check in the Post-Agent Quality Gate after applying each agent's changes
+- **Subagents**: Run the convergence-based Screenshot Verification Loop from the Agent Block using `scripts/fidelity-loop.ts` (iterates until CONVERGED, PLATEAU, or MAX_ITERATIONS)
+- **Main agent**: Run `scripts/pixel-diff.ts` in the Post-Agent Quality Gate after applying each agent's changes
 - **After push**: Follow the Post-Push Visual Verification section in `docs/quality-gate.md`
+
+### Interpreting results
+- **CONVERGED** (mismatch <= 5%) — page matches reference, mark catalog as "yes"
+- **PLATEAU** — mismatch stopped improving. Remaining diff is structural. Note what's still wrong, keep gap open
+- **MAX_ITERATIONS** — 10 iterations without convergence. Needs a different approach or manual intervention
 
 ## Step 4: Update catalog Match status
 
 After code changes are committed, update `screenshots/screenshot-catalog.md`:
 
-1. For each page that was changed, capture its current state (Playwright screenshot if available, or read the source code)
-2. Compare against ALL reference screenshots for that page using the acceptance criteria from the Agent Block
-3. Update the Match column:
-   - "yes" — matches the reference
-   - "partial" — some elements match (add note on what's still wrong)
-   - Leave as "no" if still not matching
+1. For each page that was changed, capture its current state:
+   ```bash
+   npx tsx scripts/screenshot-capture.ts http://localhost:3000/<page> /tmp/catalog-<page>.png
+   ```
+2. Run pixel diff against ALL reference screenshots for that page:
+   ```bash
+   npx tsx scripts/pixel-diff.ts screenshots/reference/<ref.png> /tmp/catalog-<page>.png --threshold=5 --output=/tmp/diff-catalog-<page>.png
+   ```
+3. Update the Match column based on mismatch %:
+   - "yes" — mismatch <= 5%
+   - "partial — <mismatch%>, <what's wrong>" — mismatch 5-20%
+   - "no" — mismatch > 20%
 4. Only mark the corresponding gap as `[x]` in `docs/fidelity-gaps.md` if ALL entries for that page show "yes"
 
 **This step is mandatory.** The catalog is the source of truth for fidelity status.

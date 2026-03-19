@@ -13,7 +13,7 @@ See the **Gap completion rule** in CLAUDE.md (single source of truth). In short:
 - [x] **Dashboard improvements** — Messages panel, income chart, incomplete progress notes, recently submitted forms, compose area all implemented.
 
 ### Group E — Client detail (`src/app/clients/[id]/`)
-- [x] **Client appointments sub-tab** — Already has "Send upcoming appointments" and "+ New appointment" buttons.
+- [ ] **Client appointments sub-tab** — Table structure and badges match, but appointment side panel from client page not implemented (11.12.37 = no). Reopened: visual audit found side panel missing. Badge styling on 11.15.20 slightly off (partial).
 
 ## Priority 2 — Core workflow pages
 
@@ -27,7 +27,7 @@ All 25 Settings sub-pages are implemented as inline components in `settings/page
 - [x] **Settings Integrations page** — Integration cards (Xero, MYOB, Stripe, Tyro, Halaxy, Zoom, Google Calendar).
 - [x] **Settings SMS Settings page** — SMS provider config, sender name, reply-to, opt-out settings.
 - [x] **Settings Form Templates** — List with actions dropdowns.
-- [x] **Settings Splose AI** — Implemented at `/settings/ai` with Preferences, Saved Prompts, AI Block Library tabs.
+- [ ] **Settings Splose AI** — Core page matches (3 full-page + 3 March 11 screenshots = yes). Reopened: modal/dropdown screenshots still partial (Edit prompt modal, AI block actions dropdown, Edit AI block modal).
 - [x] **Settings Locations page** — Locations list with edit form.
 - [x] **Settings Custom Fields page** — List with reorder, actions dropdown, update field modal.
 - [x] **Settings Rooms/Resources page** — List with color dots, actions, update room modal.
@@ -130,46 +130,49 @@ These pages contain inline patterns that should use DS components. Each must be 
 ### Group P — Calendar interaction gaps (`src/app/calendar/CalendarView.tsx`)
 - [ ] **Calendar click-to-create popover** — Reference shows a popover when clicking time slots for quick appointment creation. Currently only modal-based creation exists. Reference: 5.53.13-5.53.18 pm.
 - [ ] **Calendar create appointment modal refinement** — Missing Service field (has Appointment Type instead), toggles, and past date validation. Reference: 5.53.25-5.54.19 pm.
+- [ ] **Calendar appointment side panel styling** — Detail flyout panel and edit form are coded but button styling (DS Button variants), modal container styling (backdrop/shadow), and dropdown arrow directions don't match references. Reference: 7.23.33, 7.25.23, 7.25.52 pm (all = no). (2026-03-19 audit)
+- [ ] **Calendar toolbar polish** — Week/day view toolbar needs button styling refinement, dropdown chevron directions, filter pill styling, and hover states on cells. All week view screenshots remain partial. (2026-03-19 audit)
 
 ### Group Q — Missing detail/view pages
-- [ ] **Contact detail page** — `/contacts/[id]` not implemented. Reference shows Details tab with Associated clients, and Invoices tab. Reference: 11.14.14-11.14.21 am.
-- [ ] **Invoice view page** — `/invoices/[id]` not implemented. Reference shows PDF-style invoice with Pay/Email/Actions buttons. Reference: 11.16.02-11.16.25 am.
+- [x] **Contact detail page** — `/contacts/[id]` implemented with Details tab (General details, Contact details, Associated clients table), sidebar nav, Actions button. (2026-03-19)
+- [x] **Invoice view page** — `/invoices/[id]` implemented with PDF-style invoice layout, Pay/Email/Actions buttons, line items table, totals, additional info. (2026-03-19)
 - [ ] **Client edit details page** — Edit form exists but interaction is limited, profile photo upload missing prominence. Reference: 11.11.08 am.
-- [ ] **Client appointment side panel** — Side panel for appointment details from client page not implemented. Reference: 11.12.37 am.
+- [ ] **Client appointment side panel** — Side panel for appointment details from client page. In progress. Reference: 11.12.37 am.
+- [ ] **Clients list filter dropdowns** — Tags filter dropdown (11.10.08) and Active/Archived status dropdown (11.10.24) not implemented in UI. Only SearchBar present. (2026-03-19 audit)
 
-## Priority 8 — New DS components needed (2026-03-19 audit)
+## Priority 8 — DS components & page migration (2026-03-19)
 
-Common inline patterns found across 2+ pages that should be extracted into reusable DS components in `src/components/ds/`.
+All 22 DS components have been **created** in `src/components/ds/` with full implementations, Storybook stories, and barrel exports. The remaining work is **migrating pages** to use them instead of inline patterns.
 
-**Naming convention:** DS components use [DaisyUI](https://daisyui.com/components/) component names where a matching concept exists. This keeps our vocabulary aligned with a well-known Tailwind component library. Where no DaisyUI equivalent exists, we use a descriptive name.
+**Naming convention:** DS components use [DaisyUI](https://daisyui.com/components/) component names where a matching concept exists.
 
-### Group R — High-priority DS components (appear on 3+ pages)
+### Group R — High-priority DS components (created, migration in progress)
 
-- [ ] **Tab** (`Tab.tsx`) — Underline-style tab bars with active state (`border-b-2 border-primary`). DaisyUI: `tab`. Found: settings/page.tsx (3 instances), settings/ai/page.tsx (1), waitlist/page.tsx (4). **~8+ instances across 3 pages.**
-- [ ] **Toggle** (`Toggle.tsx`) — Boolean toggle switch (`h-6 w-11 rounded-full`, checked=bg-primary, unchecked=bg-gray-200). DaisyUI: `toggle`. Found: settings/page.tsx (3+), settings/ai/page.tsx (5+), calendar/CalendarView.tsx (2). **~10+ instances across 3 pages.** Already defined inline as local `Toggle` function in settings — move to DS.
-- [ ] **Modal** (`Modal.tsx`) — Centered overlay with backdrop (`fixed inset-0 bg-black/40` + centered white card). DaisyUI: `modal`. Found: calendar/CalendarView.tsx (2 modals), settings/page.tsx (multiple modals), notes/[id]/page.tsx (send modal). **~5+ instances across 3+ pages.**
-- [ ] **Avatar** (`Avatar.tsx`) — Colored circle with initials (`rounded-full bg-{color} text-white` + computed initials). DaisyUI: `avatar`. Found: page.tsx (Dashboard), calendar/CalendarView.tsx, reports/page.tsx, clients/[id]/ClientDetailClient.tsx, practitioners/page.tsx, contacts/[id]/page.tsx, online-booking/page.tsx. **~7+ instances across 6+ pages.**
-- [ ] **Dropdown** (`Dropdown.tsx`) — Absolute positioned action menu (`absolute z-20 rounded-lg border shadow-lg bg-white py-1`). DaisyUI: `dropdown` + `menu`. Found: calendar/CalendarView.tsx (2 dropdowns), settings/page.tsx (action menus), waitlist/page.tsx. **~5+ instances across 3+ pages.**
-- [ ] **EmptyState** (`EmptyState.tsx`) — Centered icon + message + optional CTA (`flex flex-col items-center py-16` + icon circle + text). No DaisyUI equivalent (custom). Found: clients/[id]/invoices, payments, support-activities (3), contacts/[id]/page.tsx, products/page.tsx, settings, reports, waitlist. **~8+ instances across 5+ pages.**
-- [ ] **List** (`List.tsx`) — Fixed-width label + value row for detail views (`flex gap-16`, label=w-28 text-secondary). DaisyUI: `list`. Found: clients/[id]/ClientDetailClient.tsx (15+ instances in details sections). **15+ instances, single page but high density.**
+- [x] **Tab** (`Tab.tsx`) — Component created with stories. Migrated: settings/ai/page.tsx. Remaining: waitlist/page.tsx tabs kept inline (different visual style). (2026-03-19)
+- [x] **Toggle** (`Toggle.tsx`) — Component created with stories. Migrated: settings/page.tsx (removed local Toggle), settings/ai/page.tsx, settings/sms-settings/page.tsx, calendar/CalendarView.tsx. (2026-03-19)
+- [ ] **Modal** (`Modal.tsx`) — Component created with stories. Migration in progress: calendar/CalendarView.tsx, login/page.tsx, notes/[id]/SendNoteModal.tsx, invoices/[id]/InvoiceDetailClient.tsx.
+- [x] **Avatar** (`Avatar.tsx`) — Component created with stories. Migrated: page.tsx (Dashboard, 5 instances), clients/[id]/ClientDetailClient.tsx, contacts/[id]/page.tsx, calendar/CalendarView.tsx. (2026-03-19)
+- [ ] **Dropdown** (`Dropdown.tsx`) — Component created with stories. Migration in progress: calendar/CalendarView.tsx, payments/new/page.tsx.
+- [ ] **EmptyState** (`EmptyState.tsx`) — Component created with stories. Migration in progress: waitlist, products, notes, payments/new, settings/forms.
+- [ ] **List** (`List.tsx`) — Component created with stories. Not yet migrated: clients/[id]/ClientDetailClient.tsx (15+ instances in details sections).
 
-### Group S — Medium-priority DS components (appear on 2+ pages)
+### Group S — Medium-priority DS components (created, not yet migrated)
 
-- [ ] **Card** (`Card.tsx`) — White rounded bordered container (`rounded-lg border border-border bg-white p-5`). DaisyUI: `card`. Found: settings/page.tsx (SMS balance, provider config), reports/page.tsx (chart cards). **4+ instances across 2 pages.** Partial: reports/page.tsx and reports/progress-notes migrated (2026-03-19). Settings pending.
-- [ ] **Select** (`Select.tsx`) — Searchable dropdown with search input, filtered results list, click-to-select. DaisyUI: `select` (enhanced with search). Found: payments/new/page.tsx (client search, invoice search — 2 instances). Pattern also needed for client/practitioner selectors across app.
-- [ ] **Navbar** (`Navbar.tsx`) — Back arrow + title + badge + action buttons bar (`border-b bg-white px-6 py-3`). DaisyUI: `navbar`. Found: notes/new, notes/[id], notes/[id]/edit, invoices/[id], payments/new. **5+ instances across 5 pages.** Extends PageHeader with back navigation.
-- [x] **DateRangeFilter** (`DateRangeFilter.tsx`) — Two date boxes + arrow separator (`rounded-lg border px-3 py-2 text-sm`). No DaisyUI equivalent (custom). Found: reports/appointments, reports/performance, reports/progress-notes. **3 instances across 3 pages.** All 3 migrated (2026-03-19).
-- [ ] **Filter** (`Filter.tsx`) — Horizontal button group with active highlight / segmented control (`overflow-hidden rounded-lg border` + toggle buttons). DaisyUI: `filter`. Found: notes/new (view toggle), notes/[id]/edit (view toggle), settings/page.tsx (status filters). **3+ instances across 3 pages.**
-- [ ] **Collapse** (`Collapse.tsx`) — Expandable section with chevron toggle (`border-b pb-3` + ChevronDown). DaisyUI: `collapse`. Found: clients/[id]/ClientDetailClient.tsx (4 right sidebar sections: Client alerts, Stripe, Mailchimp, QuickBooks).
+- [ ] **Card** (`Card.tsx`) — Component created with stories. Partial: reports/page.tsx and reports/progress-notes migrated (2026-03-19). Remaining: settings/page.tsx.
+- [ ] **Select** (`Select.tsx`) — Component created with stories. Not yet migrated: payments/new/page.tsx.
+- [ ] **Navbar** (`Navbar.tsx`) — Component created with stories. Not yet migrated: notes/new, notes/[id], notes/[id]/edit, invoices/[id], payments/new.
+- [x] **DateRangeFilter** (`DateRangeFilter.tsx`) — Component created with stories. All 3 reports pages migrated (2026-03-19).
+- [ ] **Filter** (`Filter.tsx`) — Component created with stories. Not yet migrated: notes/new, notes/[id]/edit, settings/page.tsx.
+- [ ] **Collapse** (`Collapse.tsx`) — Component created with stories. Not yet migrated: clients/[id]/ClientDetailClient.tsx (4 sidebar sections).
 
-### Group T — Lower-priority DS components (2 pages or niche use)
+### Group T — Lower-priority DS components (created, not yet migrated)
 
-- [ ] **Status** (`Status.tsx`) — Small colored circle indicating status (`h-2.5 w-2.5 rounded-full`). DaisyUI: `status`. Found: clients/[id]/appointments (status indicators), calendar/CalendarView.tsx (practitioner dots). Pattern is simple but would standardize sizes/colors.
-- [ ] **AsyncSelect** (`AsyncSelect.tsx`) — Select that fetches data from API endpoint on mount. Extension of Select. Found: notes/new/page.tsx (ClientSelect, PractitionerSelect — 2 inline components). Would reduce boilerplate for data-driven selects.
+- [ ] **Status** (`Status.tsx`) — Component created with stories. Not yet migrated: clients/[id]/appointments, calendar/CalendarView.tsx.
+- [ ] **AsyncSelect** (`AsyncSelect.tsx`) — Component created with stories. Not yet migrated: notes/new/page.tsx.
 
 ### Group U — SearchBar adoption (existing DS component not used)
 
-- [ ] **Client sub-tabs SearchBar migration** — 6 client sub-tab pages have inline search+button instead of using the existing `SearchBar` DS component. Files: clients/[id]/communications, files, notes, forms, invoices, payments.
+- [ ] **Client sub-tabs SearchBar migration** — Migration in progress. 6 client sub-tab pages: clients/[id]/communications, files, notes, forms, invoices, payments.
 
 ---
 

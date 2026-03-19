@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button, FormInput, Badge } from "@/components/ds";
+import { Button, FormInput, Badge, EmptyState } from "@/components/ds";
 
 const formTemplates = [
   { name: "New Client Intake Form", description: "Collects personal details, medical history, and consent", status: "Published" as const, responses: 142, lastModified: "12 Mar 2026" },
@@ -56,7 +56,7 @@ export default function FormsPage() {
             ))}
           </tbody>
         </table>
-        {filtered.length === 0 && <div className="px-4 py-8 text-center text-sm text-text-secondary">No forms found</div>}
+        {filtered.length === 0 && <EmptyState message="No forms found" className="py-8" />}
       </div>
     </div>
   );

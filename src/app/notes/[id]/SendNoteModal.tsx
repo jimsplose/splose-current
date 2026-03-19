@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { X, Send, Bold, Italic, Underline, Type, Grid3X3, Link2, Minus, Image, AlignLeft, AlignCenter, AlignRight, ListOrdered, Paperclip, Sparkles } from "lucide-react";
-import { Button, FormSelect, Modal } from "@/components/ds";
+import { Send, Bold, Italic, Underline, Type, Grid3X3, Link2, Minus, Image, AlignLeft, AlignCenter, AlignRight, ListOrdered, Paperclip, Sparkles } from "lucide-react";
+import { Button, FormSelect } from "@/components/ds";
+import Modal from "@/components/ds/Modal";
 
 interface SendNoteModalProps {
   isOpen: boolean;
@@ -94,7 +95,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
         </div>
       }
     >
-      <div className="space-y-4">
+      <div className="max-h-[calc(100vh-20rem)] space-y-4 overflow-y-auto">
         {/* Email template dropdown */}
         <FormSelect
           options={[
@@ -116,7 +117,9 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
                 onClick={() => handleRemoveEmail(email)}
                 className="text-text-secondary hover:text-text"
               >
-                <X className="h-3 w-3" />
+                <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
               </button>
             </span>
           ))}

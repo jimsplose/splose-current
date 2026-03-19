@@ -46,9 +46,10 @@ Upload screenshots → Fidelity loops → Visual audit → (repeat)
 | Workflow | Read first |
 |---|---|
 | Review status | `docs/progress.md`, `docs/fidelity-gaps.md` |
-| Upload screenshots | `docs/screenshot-workflow.md` |
-| Fidelity improvements | `docs/fidelity-gaps.md`, `docs/fidelity-workflow.md`, `docs/agent-block.md`, `docs/quality-gate.md` |
+| Upload screenshots | `docs/screenshot-workflow.md`, `docs/design-spec-workflow.md` |
+| Fidelity improvements | `docs/fidelity-gaps.md`, `docs/fidelity-workflow.md`, `docs/agent-block.md`, `docs/quality-gate.md`, `docs/design-spec-workflow.md` |
 | Visual audit | `docs/visual-audit-workflow.md` |
+| Design spec extraction | `docs/design-spec-workflow.md` |
 | Dev Navigator | `docs/dev-navigator-spec.md` |
 | Understanding the codebase | `docs/project-structure.md` |
 
@@ -163,7 +164,14 @@ When launching subagents for UI work, read and follow:
 npm install              # Install deps (also runs prisma generate via postinstall)
 npm run dev              # Start dev server at localhost:3000
 npm run storybook        # Storybook on localhost:6006
-npx playwright install chromium  # Download browser for screenshots (may fail in sandboxed environments)
+npx playwright install chromium  # REQUIRED for pixel-diff verification — not optional
+```
+
+### Pixel diff tools (used by fidelity workflows)
+```bash
+npx tsx scripts/screenshot-capture.ts <url> <output.png>     # Capture page screenshot
+npx tsx scripts/pixel-diff.ts <reference> <current>           # Compare two images, get mismatch %
+npx tsx scripts/fidelity-loop.ts <reference> <current>        # Convergence-tracked iteration loop
 ```
 
 ## Environment Variables

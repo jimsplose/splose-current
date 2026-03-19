@@ -30,7 +30,7 @@ import {
   Palette,
   Type,
 } from "lucide-react";
-import { Button, Badge, FormSelect } from "@/components/ds";
+import { Button, Badge, FormSelect, EmptyState } from "@/components/ds";
 
 type NoteData = {
   id: string;
@@ -640,9 +640,10 @@ export default function EditProgressNotePage() {
               placeholder="Search notes"
               className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
             />
-            <div className="mt-16 flex flex-col items-center justify-center text-center">
-              <p className="text-sm text-text-secondary">No reference notes found</p>
-            </div>
+            <EmptyState
+              message="No reference notes found"
+              className="mt-16"
+            />
           </div>
         )}
       </div>
