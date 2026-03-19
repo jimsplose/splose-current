@@ -59,9 +59,9 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-settings-ai-2026-03-17-18_36_17.png | AI Preferences tab | partial |
-| screencapture-acme-splose-settings-ai-2026-03-17-18_36_41.png | AI settings alternate view | partial |
-| screencapture-acme-splose-settings-ai-2026-03-17-18_37_14.png | AI settings alternate view 2 | partial |
+| screencapture-acme-splose-settings-ai-2026-03-17-18_36_17.png | AI Preferences tab | yes |
+| screencapture-acme-splose-settings-ai-2026-03-17-18_36_41.png | AI settings alternate view | yes |
+| screencapture-acme-splose-settings-ai-2026-03-17-18_37_14.png | AI settings alternate view 2 | yes |
 | Screenshot 2026-03-17 at 6.44.00 pm.png | Saved prompts tab, actions dropdown (Edit/Change log/Delete) | partial |
 | Screenshot 2026-03-17 at 6.44.10 pm.png | Edit prompt modal | partial |
 | Screenshot 2026-03-17 at 6.44.22 pm.png | AI block library tab, list of saved blocks | partial |
@@ -373,8 +373,8 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-17 at 7.28.32 pm.png | View note — Send progress note modal | partial |
 | Screenshot 2026-03-17 at 7.29.06 pm.png | View note — Send progress note modal (scrolled) | partial |
 | Screenshot 2026-03-17 at 7.29.15 pm.png | View note — Send progress note modal with AI-summarised session text | partial |
-| screencapture-acme-splose-notes-32681068-view-2026-03-17-19_27_58.png | Progress note view (variant 1) | partial |
-| screencapture-acme-splose-notes-32681068-view-2026-03-17-19_28_07.png | Progress note view (variant 2) | partial |
+| screencapture-acme-splose-notes-32681068-view-2026-03-17-19_27_58.png | Progress note view (variant 1) | yes |
+| screencapture-acme-splose-notes-32681068-view-2026-03-17-19_28_07.png | Progress note view (variant 2) | yes |
 
 ## Patients — List (`/patients`)
 
@@ -507,10 +507,10 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.09.27 am.png | Clients list — desktop, default view | partial |
-| Screenshot 2026-03-11 at 11.09.33 am.png | Clients list — desktop, near-identical | partial |
-| Screenshot 2026-03-11 at 11.09.39 am.png | Clients list — mobile (iPhone) | partial |
-| Screenshot 2026-03-11 at 11.09.47 am.png | Clients list — mobile, scrolled right to Phone/Email columns | partial |
+| Screenshot 2026-03-11 at 11.09.27 am.png | Clients list — desktop, default view | yes |
+| Screenshot 2026-03-11 at 11.09.33 am.png | Clients list — desktop, near-identical | yes |
+| Screenshot 2026-03-11 at 11.09.39 am.png | Clients list — mobile (iPhone) | yes |
+| Screenshot 2026-03-11 at 11.09.47 am.png | Clients list — mobile, scrolled right to Phone/Email columns | yes |
 | Screenshot 2026-03-11 at 11.10.08 am.png | Clients list — desktop, Tags filter dropdown open | partial |
 | Screenshot 2026-03-11 at 11.10.24 am.png | Clients list — desktop, Active/Archived status dropdown open | partial |
 
@@ -518,9 +518,9 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.10.50 am.png | Client detail — desktop, Details tab (General details, Account balance, Client alerts, Stripe, Mailchimp) | partial |
-| Screenshot 2026-03-11 at 11.11.01 am.png | Client detail — desktop, Details tab (scrolled: Medications, Medicare, Custom fields, Invoicing, Associated contacts) | partial |
-| Screenshot 2026-03-11 at 11.15.13 am.png | Client detail (Skyler Peterson) — desktop, Details tab, different client with more data | partial |
+| Screenshot 2026-03-11 at 11.10.50 am.png | Client detail — desktop, Details tab (General details, Account balance, Client alerts, Stripe, Mailchimp) | yes |
+| Screenshot 2026-03-11 at 11.11.01 am.png | Client detail — desktop, Details tab (scrolled: Medications, Medicare, Custom fields, Invoicing, Associated contacts) | yes |
+| Screenshot 2026-03-11 at 11.15.13 am.png | Client detail (Skyler Peterson) — desktop, Details tab, different client with more data | yes |
 
 ## Client Detail — Edit Details (`/clients/:id/edit`)
 
@@ -532,7 +532,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.11.17 am.png | Client appointments tab — desktop | partial |
+| Screenshot 2026-03-11 at 11.11.17 am.png | Client appointments tab — desktop | yes |
 | Screenshot 2026-03-11 at 11.12.37 am.png | Client appointments tab — desktop, appointment side panel open | no |
 | Screenshot 2026-03-11 at 11.15.20 am.png | Client appointments (Skyler Peterson) — desktop, with Upcoming/Cancelled badges | partial |
 
@@ -540,31 +540,31 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.11.34 am.png | Client progress notes tab — desktop, list with Draft/Final badges | partial |
+| Screenshot 2026-03-11 at 11.11.34 am.png | Client progress notes tab — desktop, list with Draft/Final badges | yes |
 
 ## Client Detail — Cases (`/clients/:id/cases`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.12.27 am.png | Client cases tab — desktop, list with case numbers, types (Budget/Hours/Appointments) | partial |
+| Screenshot 2026-03-11 at 11.12.27 am.png | Client cases tab — desktop, list with case numbers, types (Budget/Hours/Appointments) | yes |
 
 ## Client Detail — Forms (`/clients/:id/forms`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.12.53 am.png | Client forms tab — desktop, list with Incomplete badges | partial |
+| Screenshot 2026-03-11 at 11.12.53 am.png | Client forms tab — desktop, list with Incomplete badges | yes |
 
 ## Client Detail — Invoices (`/clients/:id/invoices`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.12.59 am.png | Client invoices tab — desktop | partial |
+| Screenshot 2026-03-11 at 11.12.59 am.png | Client invoices tab — desktop | yes |
 
 ## Client Detail — Practitioner Access (`/clients/:id/practitioner-access`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.13.09 am.png | Client practitioner access tab — desktop, with Account owner badges | partial |
+| Screenshot 2026-03-11 at 11.13.09 am.png | Client practitioner access tab — desktop, with Account owner badges | yes |
 
 ## Contacts List (`/contacts`)
 
@@ -683,9 +683,9 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-11 at 5.52.59 pm.png | Calendar day view — desktop, Edit appointment modal | no |
 | Screenshot 2026-03-11 at 5.53.13 pm.png | Calendar day view — desktop, click-to-create popover | no |
 | Screenshot 2026-03-11 at 5.53.18 pm.png | Calendar day view — zoomed close-up of create popover | no |
-| Screenshot 2026-03-11 at 5.53.25 pm.png | Calendar day view — desktop, Create appointment modal (empty) | no |
-| Screenshot 2026-03-11 at 5.53.59 pm.png | Calendar day view — desktop, Create appointment modal (client selected, Service dropdown) | no |
-| Screenshot 2026-03-11 at 5.54.19 pm.png | Calendar day view — desktop, Create appointment modal (service selected, toggles, past date warning) | no |
+| Screenshot 2026-03-11 at 5.53.25 pm.png | Calendar day view — desktop, Create appointment modal (empty) | partial — modal exists but missing Service field, toggles, past date warning |
+| Screenshot 2026-03-11 at 5.53.59 pm.png | Calendar day view — desktop, Create appointment modal (client selected, Service dropdown) | partial — modal exists but uses Appointment Type instead of Service |
+| Screenshot 2026-03-11 at 5.54.19 pm.png | Calendar day view — desktop, Create appointment modal (service selected, toggles, past date warning) | partial — toggles and past date validation missing |
 
 ## Notes — New Progress Note (`/notes/new`) — March 11
 
@@ -704,12 +704,12 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 5.56.02 pm.png | View progress note — desktop, Final badge, Revert to draft + Actions buttons | partial |
+| Screenshot 2026-03-11 at 5.56.02 pm.png | View progress note — desktop, Final badge, Revert to draft + Actions buttons | yes |
 
 ## Settings — Splose AI (`/settings/ai`) — March 11
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 5.56.20 pm.png | Settings AI — Preferences tab with toggles | partial |
-| Screenshot 2026-03-11 at 5.56.25 pm.png | Settings AI — Saved prompts tab, prompts list | partial |
-| Screenshot 2026-03-11 at 5.56.30 pm.png | Settings AI — AI block library tab (BETA), empty state | partial |
+| Screenshot 2026-03-11 at 5.56.20 pm.png | Settings AI — Preferences tab with toggles | yes |
+| Screenshot 2026-03-11 at 5.56.25 pm.png | Settings AI — Saved prompts tab, prompts list | yes |
+| Screenshot 2026-03-11 at 5.56.30 pm.png | Settings AI — AI block library tab (BETA), empty state | yes |
