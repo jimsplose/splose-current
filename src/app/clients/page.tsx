@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { Plus, ArrowUpDown } from "lucide-react";
 import Link from "next/link";
-import { Button, PageHeader, DataTable, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+import { Badge, Button, PageHeader, SearchBar, DataTable, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -25,18 +25,7 @@ export default async function ClientsPage() {
             New client
           </Button>
         </PageHeader>
-        <div className="mb-4">
-          <div className="flex items-center gap-2">
-            <div className="relative flex-1">
-              <input
-                type="text"
-                placeholder="Search for name, phone number, and email"
-                className="h-10 w-full rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-              />
-            </div>
-            <Button>Search</Button>
-          </div>
-        </div>
+        <SearchBar placeholder="Search for name, phone number, and email" />
 
         <div className="overflow-x-auto rounded-lg border border-border bg-white">
           <table className="w-full">
@@ -76,13 +65,9 @@ export default async function ClientsPage() {
                   </Td>
                   <Td hidden="md">
                     {client.ndisNumber ? (
-                      <span className="rounded bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-800">
-                        NDIS
-                      </span>
+                      <Badge variant="yellow">NDIS</Badge>
                     ) : client.medicare ? (
-                      <span className="rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
-                        Medicare
-                      </span>
+                      <Badge variant="green">Medicare</Badge>
                     ) : null}
                   </Td>
                 </tr>
