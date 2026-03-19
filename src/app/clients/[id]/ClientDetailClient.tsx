@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { Pencil, ChevronDown, Upload } from "lucide-react";
-import { Button, Badge, FormInput, FormSelect } from "@/components/ds";
+import { Avatar, Button, Badge, FormInput, FormSelect } from "@/components/ds";
 
 interface ClientData {
   id: string;

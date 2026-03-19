@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { Plus, ArrowUpDown, Filter } from "lucide-react";
-import { Button, PageHeader, TableHead, Th } from "@/components/ds";
+import { Button, PageHeader, SearchBar, EmptyState, TableHead, Th } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 

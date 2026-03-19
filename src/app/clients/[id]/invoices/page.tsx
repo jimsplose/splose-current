@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { ArrowUpDown, Filter } from "lucide-react";
-import { Button, PageHeader, TableHead, Th, TableBody, Td, Pagination, Badge } from "@/components/ds";
+import { Button, PageHeader, SearchBar, EmptyState, TableHead, Th, TableBody, Td, Pagination, Badge } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -25,14 +25,7 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
         <Button>+ New invoice</Button>
       </PageHeader>
 
-      <div className="mb-4 flex items-center gap-2">
-        <input
-          type="text"
-          placeholder="Search for invoice number, client name and contact name"
-          className="h-10 flex-1 rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-        />
-        <Button>Search</Button>
-      </div>
+      <SearchBar placeholder="Search for invoice number, client name and contact name" />
 
       <div className="overflow-x-auto rounded-lg border border-border bg-white">
         <div className="overflow-x-auto">

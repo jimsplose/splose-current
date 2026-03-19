@@ -1,4 +1,4 @@
-import { Button, PageHeader, TableHead, Th, TableBody, Td, Pagination, Badge } from "@/components/ds";
+import { Button, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, Badge } from "@/components/ds";
 
 export default function ClientFormsPage() {
   const mockForms = [
@@ -80,14 +80,7 @@ export default function ClientFormsPage() {
         <Button>+ New form</Button>
       </PageHeader>
 
-      <div className="mb-4 flex items-center gap-2">
-        <input
-          type="text"
-          placeholder="Search for title"
-          className="h-10 flex-1 rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-        />
-        <Button>Search</Button>
-      </div>
+      <SearchBar placeholder="Search for title" />
 
       <div className="overflow-x-auto rounded-lg border border-border bg-white">
         <table className="w-full">

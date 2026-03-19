@@ -1,5 +1,5 @@
-import { Search, MoreHorizontal, ArrowUpDown, FolderPlus, ChevronDown, FileText } from "lucide-react";
-import { Button, PageHeader, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+import { MoreHorizontal, ArrowUpDown, FolderPlus, ChevronDown, FileText } from "lucide-react";
+import { Button, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -38,17 +38,7 @@ export default async function ClientFilesPage({ params }: { params: Promise<{ id
         </Button>
       </PageHeader>
 
-      <div className="mb-4 flex items-center gap-2">
-        <input
-          type="text"
-          placeholder="Search for file name"
-          className="h-10 flex-1 rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-        />
-        <Button>
-          <Search className="h-4 w-4" />
-          Search
-        </Button>
-      </div>
+      <SearchBar placeholder="Search for file name" />
 
       <div className="overflow-x-auto rounded-lg border border-border bg-white">
         <table className="w-full">

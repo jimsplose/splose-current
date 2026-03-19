@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { ArrowUpDown } from "lucide-react";
-import { Button, PageHeader, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+import { Button, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -26,14 +26,7 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
         <Button>+ New note</Button>
       </PageHeader>
 
-      <div className="mb-4 flex items-center gap-2">
-        <input
-          type="text"
-          placeholder="Search for content and title"
-          className="h-10 flex-1 rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-        />
-        <Button>Search</Button>
-      </div>
+      <SearchBar placeholder="Search for content and title" />
 
       <div className="overflow-x-auto rounded-lg border border-border bg-white">
         <table className="w-full">
