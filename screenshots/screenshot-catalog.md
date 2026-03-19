@@ -2,6 +2,10 @@
 
 Organized by page/feature. Each entry includes filename, route, state/variant, and whether the prototype matches.
 
+**Match key:** `yes` = prototype page exists and closely matches, `partial` = page exists but needs fidelity work, `no` = no prototype page for this feature yet.
+
+**Sources:** March 11 screenshots from production (`acme.splose.com`) and dev environment. March 17 screenshots from production.
+
 ---
 
 ## Settings — Details (`/settings/details`)
@@ -55,14 +59,14 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-settings-ai-2026-03-17-18_36_17.png | AI Preferences tab | no |
-| screencapture-acme-splose-settings-ai-2026-03-17-18_36_41.png | AI settings alternate view | no |
-| screencapture-acme-splose-settings-ai-2026-03-17-18_37_14.png | AI settings alternate view 2 | no |
-| Screenshot 2026-03-17 at 6.44.00 pm.png | Saved prompts tab, actions dropdown (Edit/Change log/Delete) | no |
-| Screenshot 2026-03-17 at 6.44.10 pm.png | Edit prompt modal | no |
-| Screenshot 2026-03-17 at 6.44.22 pm.png | AI block library tab, list of saved blocks | no |
-| Screenshot 2026-03-17 at 6.44.28 pm.png | AI block library tab, actions dropdown (Edit/Change log/Delete) | no |
-| Screenshot 2026-03-17 at 6.44.38 pm.png | Edit AI block modal | no |
+| screencapture-acme-splose-settings-ai-2026-03-17-18_36_17.png | AI Preferences tab | partial |
+| screencapture-acme-splose-settings-ai-2026-03-17-18_36_41.png | AI settings alternate view | partial |
+| screencapture-acme-splose-settings-ai-2026-03-17-18_37_14.png | AI settings alternate view 2 | partial |
+| Screenshot 2026-03-17 at 6.44.00 pm.png | Saved prompts tab, actions dropdown (Edit/Change log/Delete) | partial |
+| Screenshot 2026-03-17 at 6.44.10 pm.png | Edit prompt modal | partial |
+| Screenshot 2026-03-17 at 6.44.22 pm.png | AI block library tab, list of saved blocks | partial |
+| Screenshot 2026-03-17 at 6.44.28 pm.png | AI block library tab, actions dropdown (Edit/Change log/Delete) | partial |
+| Screenshot 2026-03-17 at 6.44.38 pm.png | Edit AI block modal | partial |
 
 ## Settings — Locations (`/settings/locations`)
 
@@ -144,10 +148,10 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.51.37 pm.png | Select a location step — default | no |
-| Screenshot 2026-03-17 at 6.51.45 pm.png | Select a location step — location selected | no |
-| screencapture-acme-splose-online-booking-7b2c0db8-cb7b-40de-991e-631ecdb30cf0-2026-03-17-18_51_53.png | Online booking public page (variant 1) | no |
-| screencapture-acme-splose-online-booking-7b2c0db8-cb7b-40de-991e-631ecdb30cf0-2026-03-17-18_52_17.png | Online booking public page (variant 2) | no |
+| Screenshot 2026-03-17 at 6.51.37 pm.png | Select a location step — default | partial |
+| Screenshot 2026-03-17 at 6.51.45 pm.png | Select a location step — location selected | partial |
+| screencapture-acme-splose-online-booking-7b2c0db8-cb7b-40de-991e-631ecdb30cf0-2026-03-17-18_51_53.png | Online booking public page (variant 1) | partial |
+| screencapture-acme-splose-online-booking-7b2c0db8-cb7b-40de-991e-631ecdb30cf0-2026-03-17-18_52_17.png | Online booking public page (variant 2) | partial |
 
 ## Settings — Communication Types (`/settings/communications/types`)
 
@@ -348,29 +352,29 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.25.45 pm.png | New progress note — Service, Template selector, Select/Copy buttons | no |
+| Screenshot 2026-03-17 at 7.25.45 pm.png | New progress note — Service, Template selector, Select/Copy buttons | partial |
 
 ## Notes — Edit Progress Note (`/notes/:id/edit`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.26.58 pm.png | Edit note — AI-generated Subjective section with Accept button | no |
-| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_02.png | Progress note edit (variant 1) | no |
-| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_18.png | Progress note edit (variant 2) | no |
-| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_27.png | Progress note edit (variant 3) | no |
-| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_36.png | Progress note edit (variant 4) | no |
-| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_27_15.png | Progress note edit (variant 5) | no |
-| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_27_32.png | Progress note edit (variant 6) | no |
+| Screenshot 2026-03-17 at 7.26.58 pm.png | Edit note — AI-generated Subjective section with Accept button | partial |
+| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_02.png | Progress note edit (variant 1) | partial |
+| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_18.png | Progress note edit (variant 2) | partial |
+| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_27.png | Progress note edit (variant 3) | partial |
+| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_36.png | Progress note edit (variant 4) | partial |
+| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_27_15.png | Progress note edit (variant 5) | partial |
+| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_27_32.png | Progress note edit (variant 6) | partial |
 
 ## Notes — View Progress Note (`/notes/:id/view`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.28.32 pm.png | View note — Send progress note modal | no |
-| Screenshot 2026-03-17 at 7.29.06 pm.png | View note — Send progress note modal (scrolled) | no |
-| Screenshot 2026-03-17 at 7.29.15 pm.png | View note — Send progress note modal with AI-summarised session text | no |
-| screencapture-acme-splose-notes-32681068-view-2026-03-17-19_27_58.png | Progress note view (variant 1) | no |
-| screencapture-acme-splose-notes-32681068-view-2026-03-17-19_28_07.png | Progress note view (variant 2) | no |
+| Screenshot 2026-03-17 at 7.28.32 pm.png | View note — Send progress note modal | partial |
+| Screenshot 2026-03-17 at 7.29.06 pm.png | View note — Send progress note modal (scrolled) | partial |
+| Screenshot 2026-03-17 at 7.29.15 pm.png | View note — Send progress note modal with AI-summarised session text | partial |
+| screencapture-acme-splose-notes-32681068-view-2026-03-17-19_27_58.png | Progress note view (variant 1) | partial |
+| screencapture-acme-splose-notes-32681068-view-2026-03-17-19_28_07.png | Progress note view (variant 2) | partial |
 
 ## Patients — List (`/patients`)
 
@@ -399,74 +403,313 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-communications-2026-03-17-19_31_23.png | Patient communications tab | no |
-| screencapture-acme-splose-patients-5918810-communications-2026-03-17-19_31_35.png | Patient communications (variant 2) | no |
+| screencapture-acme-splose-patients-5918810-communications-2026-03-17-19_31_23.png | Patient communications tab | partial |
+| screencapture-acme-splose-patients-5918810-communications-2026-03-17-19_31_35.png | Patient communications (variant 2) | partial |
 
 ## Patients — Detail / Files (`/patients/:id/files`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-files-2026-03-17-19_31_50.png | Patient files tab | no |
+| screencapture-acme-splose-patients-5918810-files-2026-03-17-19_31_50.png | Patient files tab | partial |
 
 ## Patients — Detail / Notes (`/patients/:id/notes`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-notes-2026-03-17-19_32_09.png | Patient notes tab | no |
+| screencapture-acme-splose-patients-5918810-notes-2026-03-17-19_32_09.png | Patient notes tab | partial |
 
 ## Patients — Detail / Cases (`/patients/:id/cases`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-cases-2026-03-17-19_32_26.png | Patient cases tab | no |
+| screencapture-acme-splose-patients-5918810-cases-2026-03-17-19_32_26.png | Patient cases tab | partial |
 
 ## Patients — Detail / Support Activities (`/patients/:id/support-activities`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-support-activities-2026-03-17-19_32_35.png | Patient support activities tab | no |
+| screencapture-acme-splose-patients-5918810-support-activities-2026-03-17-19_32_35.png | Patient support activities tab | partial |
 
 ## Patients — Detail / Forms (`/patients/:id/forms`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.33.31 pm.png | Patient forms tab, actions dropdown (View/Copy link/Open in new tab/Email form/Change log/Archive) | no |
-| screencapture-acme-splose-patients-5918810-forms-2026-03-17-19_32_45.png | Patient forms tab | no |
+| Screenshot 2026-03-17 at 7.33.31 pm.png | Patient forms tab, actions dropdown (View/Copy link/Open in new tab/Email form/Change log/Archive) | partial |
+| screencapture-acme-splose-patients-5918810-forms-2026-03-17-19_32_45.png | Patient forms tab | partial |
 
 ## Patient Form View (`/patient-form/:id/view`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patient-form-3545217-view-2026-03-17-19_32_54.png | Patient form view (variant 1) | no |
-| screencapture-acme-splose-patient-form-3545217-view-2026-03-17-19_33_46.png | Patient form view (variant 2) | no |
+| screencapture-acme-splose-patient-form-3545217-view-2026-03-17-19_32_54.png | Patient form view (variant 1) | partial |
+| screencapture-acme-splose-patient-form-3545217-view-2026-03-17-19_33_46.png | Patient form view (variant 2) | partial |
 
 ## Patients — Detail / Invoices (`/patients/:id/invoices`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-invoices-2026-03-17-19_33_57.png | Patient invoices tab | no |
+| screencapture-acme-splose-patients-5918810-invoices-2026-03-17-19_33_57.png | Patient invoices tab | partial |
 
-## Patients — Detail / Payments (`/patients/:id/payments`)
+## Patients — Detail / Payments (`/clients/:id/payments`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-payments-2026-03-17-19_34_16.png | Patient payments tab | no |
+| screencapture-acme-splose-patients-5918810-payments-2026-03-17-19_34_16.png | Patient payments tab | partial |
 
 ## Patients — Detail / Statements (`/patients/:id/statements`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-statements-2026-03-17-19_34_27.png | Patient statements tab | no |
+| screencapture-acme-splose-patients-5918810-statements-2026-03-17-19_34_27.png | Patient statements tab | partial |
 
 ## Patients — Detail / Letters (`/patients/:id/letters`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-letters-2026-03-17-19_34_39.png | Patient letters tab | no |
+| screencapture-acme-splose-patients-5918810-letters-2026-03-17-19_34_39.png | Patient letters tab | partial |
 
 ## Patients — Detail / Practitioner Access (`/patients/:id/practitioner-access`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-practitioner-access-2026-03-17-19_34_47.png | Patient practitioner access tab | no |
-| screencapture-acme-splose-patients-5918810-practitioner-access-2026-03-17-19_34_47 (1).png | Patient practitioner access (duplicate) | no |
+| screencapture-acme-splose-patients-5918810-practitioner-access-2026-03-17-19_34_47.png | Patient practitioner access tab | partial |
+| screencapture-acme-splose-patients-5918810-practitioner-access-2026-03-17-19_34_47 (1).png | Patient practitioner access (duplicate) | partial |
+
+---
+
+# March 11 Screenshots (Production + Dev Environment)
+
+## Login Page (`/login`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 10.53.42 am.png | Login page — desktop, default | partial |
+| Screenshot 2026-03-11 at 10.53.50 am.png | Login page — mobile (iPhone) | partial |
+
+## Settings — Landing Page (`/settings`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 10.56.57 am.png | Settings landing — desktop, full sidebar visible | partial |
+| Screenshot 2026-03-11 at 11.00.35 am.png | Settings landing — mobile, category tabs visible | partial |
+| Screenshot 2026-03-11 at 11.00.46 am.png | Settings landing — mobile, overflow menu (Team/Templates/Finances/Data) | partial |
+
+## Dashboard (`/`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.02.16 am.png | Dashboard — desktop, Messages feed + Income chart + Incomplete progress notes + Recently submitted forms | partial |
+| Screenshot 2026-03-11 at 11.02.24 am.png | Dashboard — mobile in desktop browser frame, Messages with GIF | partial |
+| Screenshot 2026-03-11 at 11.08.47 am.png | Dashboard — mobile, Income chart + Incomplete progress notes (scrolled) | partial |
+| Screenshot 2026-03-11 at 11.09.05 am.png | Dashboard — desktop, Messages feed (scrolled) with tooltip on income chart | partial |
+
+## Clients List (`/clients`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.09.27 am.png | Clients list — desktop, default view | partial |
+| Screenshot 2026-03-11 at 11.09.33 am.png | Clients list — desktop, near-identical | partial |
+| Screenshot 2026-03-11 at 11.09.39 am.png | Clients list — mobile (iPhone) | partial |
+| Screenshot 2026-03-11 at 11.09.47 am.png | Clients list — mobile, scrolled right to Phone/Email columns | partial |
+| Screenshot 2026-03-11 at 11.10.08 am.png | Clients list — desktop, Tags filter dropdown open | partial |
+| Screenshot 2026-03-11 at 11.10.24 am.png | Clients list — desktop, Active/Archived status dropdown open | partial |
+
+## Client Detail — Details (`/clients/:id`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.10.50 am.png | Client detail — desktop, Details tab (General details, Account balance, Client alerts, Stripe, Mailchimp) | partial |
+| Screenshot 2026-03-11 at 11.11.01 am.png | Client detail — desktop, Details tab (scrolled: Medications, Medicare, Custom fields, Invoicing, Associated contacts) | partial |
+| Screenshot 2026-03-11 at 11.15.13 am.png | Client detail (Skyler Peterson) — desktop, Details tab, different client with more data | partial |
+
+## Client Detail — Edit Details (`/clients/:id/edit`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.11.08 am.png | Client edit details — desktop, Edit form (General details, Profile photo, DOB, Sex, Gender, Pronouns) | no |
+
+## Client Detail — Appointments (`/clients/:id/appointments`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.11.17 am.png | Client appointments tab — desktop | partial |
+| Screenshot 2026-03-11 at 11.12.37 am.png | Client appointments tab — desktop, appointment side panel open | no |
+| Screenshot 2026-03-11 at 11.15.20 am.png | Client appointments (Skyler Peterson) — desktop, with Upcoming/Cancelled badges | partial |
+
+## Client Detail — Progress Notes (`/clients/:id/notes`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.11.34 am.png | Client progress notes tab — desktop, list with Draft/Final badges | partial |
+
+## Client Detail — Cases (`/clients/:id/cases`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.12.27 am.png | Client cases tab — desktop, list with case numbers, types (Budget/Hours/Appointments) | partial |
+
+## Client Detail — Forms (`/clients/:id/forms`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.12.53 am.png | Client forms tab — desktop, list with Incomplete badges | partial |
+
+## Client Detail — Invoices (`/clients/:id/invoices`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.12.59 am.png | Client invoices tab — desktop | partial |
+
+## Client Detail — Practitioner Access (`/clients/:id/practitioner-access`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.13.09 am.png | Client practitioner access tab — desktop, with Account owner badges | partial |
+
+## Contacts List (`/contacts`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.13.20 am.png | Contacts list — desktop, with row highlighted | partial |
+| Screenshot 2026-03-11 at 11.14.04 am.png | Contacts list — desktop, no highlight | partial |
+
+## Contact Detail (`/contacts/:id`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.14.14 am.png | Contact detail (NDIS) — desktop, Details tab with Associated clients | partial |
+| Screenshot 2026-03-11 at 11.14.21 am.png | Contact invoices tab — desktop | partial |
+
+## Invoices List (`/invoices`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.14.32 am.png | Invoices list — desktop, with Overdue/Paid/Draft badges | partial |
+| Screenshot 2026-03-11 at 11.14.41 am.png | Invoices list — mobile (iPhone) | partial |
+| Screenshot 2026-03-11 at 11.14.52 am.png | Invoices list — mobile, expanded row showing Payment sub-row | partial |
+
+## Invoice View (`/invoices/:id`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.16.02 am.png | Invoice view — desktop, Overdue invoice PDF-style with Pay/Email/Actions buttons | partial |
+| Screenshot 2026-03-11 at 11.16.10 am.png | Invoice view — desktop, Pay dropdown open | partial |
+| Screenshot 2026-03-11 at 11.16.17 am.png | Invoice view — desktop, Actions dropdown open | partial |
+
+## Add Payment (`/payments/new`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.16.25 am.png | Add payment to invoice — desktop, form with location/date/method/amount | partial |
+
+## Payments List (`/payments`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.17.41 am.png | Payments list — desktop, default view with Credit badges | partial |
+| Screenshot 2026-03-11 at 11.17.47 am.png | Payments list — desktop, expanded row showing Invoice sub-row | partial |
+
+## Reports — Performance Overview (`/reports`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.17.57 am.png | Performance overview — desktop, Utilisation + Revenue charts + Practitioners table | partial |
+| Screenshot 2026-03-11 at 11.18.04 am.png | Performance overview — desktop, date picker calendar open | partial |
+| Screenshot 2026-03-11 at 11.18.09 am.png | Performance overview — desktop, Frequency dropdown (Daily/Weekly/Monthly/Quarterly/Yearly) | partial |
+| Screenshot 2026-03-11 at 11.18.15 am.png | Performance overview — desktop, All locations dropdown | partial |
+| Screenshot 2026-03-11 at 11.18.21 am.png | Performance overview — desktop, All practitioners dropdown | partial |
+| Screenshot 2026-03-11 at 11.18.28 am.png | Performance overview — desktop, Compare mode with % change arrows | partial |
+| Screenshot 2026-03-11 at 11.18.34 am.png | Performance overview — desktop, Compare mode, Utilisation settings popover | partial |
+
+## Reports — Appointments (`/reports/appointments`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.18.50 am.png | Reports Appointments — desktop, Add filter dropdown open | partial |
+
+## Reports — Progress Notes (`/reports/progress-notes`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.19.07 am.png | Reports Progress notes — desktop, empty (before running) | partial |
+| Screenshot 2026-03-11 at 11.19.15 am.png | Reports Progress notes — desktop, results with pie charts | partial |
+| Screenshot 2026-03-11 at 11.19.22 am.png | Reports Progress notes — desktop, scrolled to list table | partial |
+
+## Reports — Performance (`/reports/performance`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.19.46 am.png | Reports Performance — desktop, filter form (before running) | partial |
+| Screenshot 2026-03-11 at 11.19.54 am.png | Reports Performance — desktop, Definitions modal open | partial |
+| Screenshot 2026-03-11 at 11.21.02 am.png | Reports Performance — desktop, results table + Export CSV dropdown | partial |
+| Screenshot 2026-03-11 at 11.21.26 am.png | Reports Performance — desktop, Export performance modal | partial |
+
+## Waitlist — Screener (`/waitlist`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.21.40 am.png | Waitlist Screener tab — desktop, Triage list | partial |
+
+## Waitlist — Waitlist Tab (`/waitlist`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.21.50 am.png | Waitlist tab — desktop, Active list with tags, Map button | partial |
+| Screenshot 2026-03-11 at 11.22.02 am.png | Waitlist tab — desktop, Map view (Google Maps with pins) | partial |
+| Screenshot 2026-03-11 at 11.22.17 am.png | Waitlist tab — desktop, scrolled right, Actions dropdown | partial |
+| Screenshot 2026-03-11 at 11.22.31 am.png | Waitlist tab — desktop, Update client modal | partial |
+
+## Products (`/products`)
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 11.22.40 am.png | Products list — desktop, default view | partial |
+| Screenshot 2026-03-11 at 11.22.46 am.png | Products list — desktop, expanded product row showing variants | partial |
+| Screenshot 2026-03-11 at 11.22.51 am.png | Products list — desktop, Manage Stock modal | partial |
+
+## Calendar — Week View (`/calendar`) — March 11
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 5.52.22 pm.png | Calendar week view — desktop, Feb 2026, with appointments | partial |
+| Screenshot 2026-03-11 at 5.52.31 pm.png | Calendar week view — desktop, Week/Month/Day dropdown open | partial |
+
+## Calendar — Day View (`/calendar`) — March 11
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 5.52.47 pm.png | Calendar day view — desktop, practitioner columns | partial |
+| Screenshot 2026-03-11 at 5.52.53 pm.png | Calendar day view — desktop, appointment side panel open | no |
+| Screenshot 2026-03-11 at 5.52.59 pm.png | Calendar day view — desktop, Edit appointment modal | no |
+| Screenshot 2026-03-11 at 5.53.13 pm.png | Calendar day view — desktop, click-to-create popover | no |
+| Screenshot 2026-03-11 at 5.53.18 pm.png | Calendar day view — zoomed close-up of create popover | no |
+| Screenshot 2026-03-11 at 5.53.25 pm.png | Calendar day view — desktop, Create appointment modal (empty) | no |
+| Screenshot 2026-03-11 at 5.53.59 pm.png | Calendar day view — desktop, Create appointment modal (client selected, Service dropdown) | no |
+| Screenshot 2026-03-11 at 5.54.19 pm.png | Calendar day view — desktop, Create appointment modal (service selected, toggles, past date warning) | no |
+
+## Notes — New Progress Note (`/notes/new`) — March 11
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 5.54.43 pm.png | New progress note — desktop, empty with Service pre-filled, Template selector | partial |
+
+## Notes — Edit Progress Note (`/notes/:id/edit`) — March 11
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 5.55.16 pm.png | Edit progress note — desktop, AI blocks, Splose AI chat panel open | partial |
+| Screenshot 2026-03-11 at 5.55.39 pm.png | Edit progress note — desktop, AI chat response visible, AI blocks promo tooltip | partial |
+
+## Notes — View Progress Note (`/notes/:id/view`) — March 11
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 5.56.02 pm.png | View progress note — desktop, Final badge, Revert to draft + Actions buttons | partial |
+
+## Settings — Splose AI (`/settings/ai`) — March 11
+
+| Filename | State | Match |
+|---|---|---|
+| Screenshot 2026-03-11 at 5.56.20 pm.png | Settings AI — Preferences tab with toggles | partial |
+| Screenshot 2026-03-11 at 5.56.25 pm.png | Settings AI — Saved prompts tab, prompts list | partial |
+| Screenshot 2026-03-11 at 5.56.30 pm.png | Settings AI — AI block library tab (BETA), empty state | partial |
