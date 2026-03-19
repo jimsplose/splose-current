@@ -27,7 +27,7 @@ A fidelity gap is **NOT done** just because the page exists or code was written.
 
 1. The page visually matches ALL related reference screenshots in `screenshots/screenshot-catalog.md`
 2. The Match column for ALL related entries has been updated to "yes"
-3. The visual match was verified by reading both the reference screenshot and a fresh Playwright screenshot
+3. The visual match was verified by comparing the reference screenshot against either a fresh Playwright screenshot or the page source code (if Playwright browsers unavailable)
 
 If a gap's catalog entries still show "no" or "partial", the gap stays unchecked `[ ]` — even if code changes were made. Partial progress should be noted in the gap description (e.g. "layout matches, colors wrong").
 
@@ -72,8 +72,8 @@ See CLAUDE.md for the full instructions. Do not duplicate them here.
 
 After code changes are committed, update `screenshots/screenshot-catalog.md`:
 
-1. For each page that was changed, take a fresh Playwright screenshot
-2. Compare against ALL reference screenshots for that page
+1. For each page that was changed, capture its current state (Playwright screenshot if available, or read the source code)
+2. Compare against ALL reference screenshots for that page using the acceptance criteria from the Agent Block
 3. Update the Match column:
    - "yes" — matches the reference
    - "partial" — some elements match (add note on what's still wrong)

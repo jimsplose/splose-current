@@ -36,7 +36,7 @@ If `src/lib/state-registry.ts` exists, add entries for every new state/variant/m
 **Every catalog entry with Match = "no" MUST have a corresponding open gap in `docs/fidelity-gaps.md`.** This is not optional.
 
 For each new screenshot cataloged:
-1. Compare the reference screenshot against the current prototype page (take a Playwright screenshot or read the source)
+1. Compare the reference screenshot against the current prototype page (take a Playwright screenshot if browsers available, or read the page source code)
 2. Set the Match column honestly: "yes" (matches), "partial" (some elements match), or "no" (doesn't match)
 3. For every "no" or "partial" entry, ensure there is an **unchecked `[ ]` gap** in `docs/fidelity-gaps.md`
 4. Group related screenshots into a single gap (e.g. all Settings > Tags screenshots = one gap)

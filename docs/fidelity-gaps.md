@@ -109,7 +109,27 @@ All 25 Settings sub-pages are implemented as inline components in `settings/page
 
 ### Group J — Sweep (reads all files)
 - [x] **General fidelity sweep** — Sweep completed: cases page expanded to 10 rows with pagination, forms page expanded to 10 rows, client detail edit mode added, reports frequency dropdown added. All major pages verified against references. (2026-03-18)
-- [x] **Design system migration** — All 57 source files migrated to DS components (Button, Badge, PageHeader, SearchBar, DataTable, FormInput, FormSelect, Pagination). Storybook configured. Prettier Tailwind class sorting applied. (2026-03-18)
+- [ ] **Design system migration** — Reopened: visual audit found 16 pages with DS violations. Original migration marked complete prematurely. See Group O below for specific pages.
+
+## Priority 6 — DS component migration (remaining violations)
+
+### Group O — DS migration (per-page violations)
+
+These pages contain inline patterns that should use DS components. Each must be migrated and verified.
+
+- [ ] **Dashboard DS migration** (`src/app/page.tsx`) — 19 bare buttons in rich text toolbar area. Most are icon-only toolbar buttons (allowed exception per DS rules), but review needed to confirm.
+- [ ] **Login DS migration** (`src/app/login/page.tsx`) — 2 bare `<input>` tags (email/password) should use `<FormInput>`. Bare `<button>` tags should use `<Button>`. No DS import at all.
+- [ ] **Reports DS migration** (`src/app/reports/page.tsx`) — 7 bare `<button>` tags, 1 bare `<select>` tag. No DS import at all. Buttons should use `<Button>`, select should use `<FormSelect>`.
+- [ ] **Clients list DS migration** (`src/app/clients/page.tsx`) — Bare search `<input>` should use `<SearchBar>`. Inline badge styles for NDIS/Medicare should use `<Badge>`.
+- [ ] **Contacts DS migration** (`src/app/contacts/page.tsx`) — Bare search `<input>` with icon should use `<SearchBar>`.
+- [ ] **Invoices DS migration** (`src/app/invoices/page.tsx`) — Bare search `<input>` + button should use `<SearchBar>`.
+- [ ] **Notes list DS migration** (`src/app/notes/page.tsx`) — Bare search `<input>` + button should use `<SearchBar>`. Inline badge styles for Final/Draft status should use `<Badge>`.
+- [ ] **Products DS migration** (`src/app/products/page.tsx`) — Bare search `<input>`, 12+ bare buttons (pagination, toggles, actions). Needs comprehensive migration.
+- [ ] **Waitlist DS migration** (`src/app/waitlist/page.tsx`) — 12+ bare buttons (tabs, triage actions, map/list toggle). Tab buttons are allowed exception, but action buttons should migrate.
+- [ ] **Online booking DS migration** (`src/app/online-booking/page.tsx`) — 3 bare `<input>` tags (phone, email), 1 bare `<select>` (country code), 8+ bare buttons. Form fields should use `<FormInput>`/`<FormSelect>`.
+- [ ] **Practitioners DS migration** (`src/app/practitioners/page.tsx`) — Inline badge styles for specialty tags should use `<Badge>`.
+- [ ] **Calendar DS migration** (`src/app/calendar/CalendarView.tsx`) — 20+ inline form inputs in appointment edit modal. Complex component — may need phased approach.
+- [ ] **Client detail DS migration** (`src/app/clients/[id]/ClientDetailClient.tsx`) — Has `const labelClass` (banned pattern). Should use `<FormInput>` with labels.
 
 ---
 
