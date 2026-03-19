@@ -110,8 +110,16 @@ Present as a structured summary like:
 **Preview URL:** https://splose-current-git-claude-xxx.vercel.app
 ```
 
-## Step 7: Repeat
+## Step 7: Return to menu
 
-Pick the next batch of gaps (by priority — see `docs/fidelity-gaps.md`) and repeat. Keep going until all gaps are resolved or the session runs low on context.
+After completing a round of fidelity work (Steps 1-6), **show the session start menu again** (see CLAUDE.md). Include a summary of what was improved and what gaps remain.
+
+Jim may want to:
+- Run another fidelity round (pick more gaps)
+- Upload more screenshots
+- Run a visual audit to verify the work
+- Do something else entirely
+
+Let him choose. Do NOT automatically start another round without asking.
 
 If running low on context, **stop and commit** what you have rather than risking lost work.

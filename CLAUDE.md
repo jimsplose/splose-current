@@ -19,6 +19,10 @@ Use AskUserQuestion with these options:
 
 **Do NOT skip this step. Do NOT start working without the user's menu selection.**
 
+### Return to menu after completing a workflow
+
+After finishing any workflow (screenshot upload, fidelity loop round, visual audit, etc.), **show the session start menu again** so Jim can pick what's next. Include a brief summary of what was just completed before showing the menu. Do NOT assume what Jim wants to do next — let him choose.
+
 ### Lifecycle overview
 
 ```

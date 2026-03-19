@@ -111,3 +111,9 @@ As part of the audit, also verify DS component coverage:
 1. Run `npm run storybook` (or check `src/components/ds/stories/`) to confirm all DS components have stories
 2. For any new DS components added during fidelity work, verify a story exists
 3. If a story is missing, flag it as a gap (not a blocker — can be added later)
+
+## Step 7: Return to menu
+
+After completing the audit, **show the session start menu again** (see CLAUDE.md). Include the audit summary (pages audited, matches, gaps reopened/created).
+
+Jim may want to run fidelity loops to fix the gaps found, upload more screenshots, or do something else. Let him choose.
