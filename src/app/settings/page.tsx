@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Button, FormInput, FormSelect, Badge, statusVariant } from "@/components/ds";
 
 const sidebarSections = [
   {
@@ -141,18 +142,12 @@ function DetailsContent() {
   const [casesToggle, setCasesToggle] = useState(true);
   const [applyToAll, setApplyToAll] = useState(false);
 
-  const inputClass =
-    "w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary";
-  const labelClass = "block text-sm font-medium text-text mb-1";
-
   return (
     <div className="p-6 max-w-4xl">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-text">Details</h1>
-        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
-          Save
-        </button>
+        <Button variant="primary">Save</Button>
       </div>
 
       <div className="space-y-6">
@@ -161,48 +156,38 @@ function DetailsContent() {
           <div className="flex-1 space-y-4">
             {/* Business name */}
             <div>
-              <label className={labelClass}>
+              <label className="block text-sm font-medium text-text mb-1">
                 Business name<span className="text-red-500">*</span>
               </label>
-              <input
+              <FormInput
                 type="text"
                 defaultValue="Hands Together Therapies"
-                className={inputClass}
               />
             </div>
 
             {/* Workspace URL */}
             <div>
-              <label className={labelClass}>
+              <label className="block text-sm font-medium text-text mb-1">
                 Workspace URL{" "}
                 <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help ml-0.5">i</span>
               </label>
-              <input
+              <FormInput
                 type="text"
                 defaultValue="acme.splose.com"
-                className={inputClass}
               />
             </div>
 
             {/* Website */}
-            <div>
-              <label className={labelClass}>Website</label>
-              <input
-                type="text"
-                defaultValue="hands-together-therapy.com"
-                className={inputClass}
-              />
-            </div>
+            <FormInput label="Website" type="text" defaultValue="hands-together-therapy.com" />
 
             {/* Business email */}
             <div>
-              <label className={labelClass}>
+              <label className="block text-sm font-medium text-text mb-1">
                 Business email<span className="text-red-500">*</span>
               </label>
-              <input
+              <FormInput
                 type="email"
                 defaultValue="hello@hands-together-therapy.com"
-                className={inputClass}
               />
             </div>
           </div>
@@ -220,9 +205,7 @@ function DetailsContent() {
                   <path d="M28 32c2 2 6 2 8 0" stroke="#7c3aed" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
               </div>
-              <button className="rounded-lg border border-border bg-white px-4 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
-                Upload
-              </button>
+              <Button variant="secondary" size="sm">Upload</Button>
             </div>
           </div>
         </div>
@@ -230,59 +213,65 @@ function DetailsContent() {
         {/* Row: Patient terminology & Currency code */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className={labelClass}>
+            <label className="block text-sm font-medium text-text mb-1">
               Patient terminology{" "}
               <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help ml-0.5">i</span>
               <span className="text-red-500">*</span>
             </label>
-            <select className={inputClass}>
-              <option>Client</option>
-              <option>Patient</option>
-              <option>Participant</option>
-            </select>
+            <FormSelect
+              options={[
+                { value: "Client", label: "Client" },
+                { value: "Patient", label: "Patient" },
+                { value: "Participant", label: "Participant" },
+              ]}
+            />
           </div>
           <div>
-            <label className={labelClass}>
+            <label className="block text-sm font-medium text-text mb-1">
               Currency code<span className="text-red-500">*</span>
             </label>
-            <input type="text" defaultValue="AUD" className={inputClass} />
+            <FormInput type="text" defaultValue="AUD" />
           </div>
         </div>
 
         {/* Row: Country & Currency symbol */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className={labelClass}>
+            <label className="block text-sm font-medium text-text mb-1">
               Country<span className="text-red-500">*</span>
             </label>
-            <select className={inputClass}>
-              <option>Australia</option>
-              <option>New Zealand</option>
-              <option>United Kingdom</option>
-            </select>
+            <FormSelect
+              options={[
+                { value: "Australia", label: "Australia" },
+                { value: "New Zealand", label: "New Zealand" },
+                { value: "United Kingdom", label: "United Kingdom" },
+              ]}
+            />
           </div>
           <div>
-            <label className={labelClass}>
+            <label className="block text-sm font-medium text-text mb-1">
               Currency symbol<span className="text-red-500">*</span>
             </label>
-            <input type="text" defaultValue="$" className={inputClass} />
+            <FormInput type="text" defaultValue="$" />
           </div>
         </div>
 
         {/* Row: Default appointment communication preferences & Tax Label */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className={labelClass}>
+            <label className="block text-sm font-medium text-text mb-1">
               Default appointment communication preferences{" "}
               <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help ml-0.5">i</span>
               <span className="text-red-500">*</span>
             </label>
-            <select className={inputClass}>
-              <option>SMS &amp; Email</option>
-              <option>SMS only</option>
-              <option>Email only</option>
-              <option>None</option>
-            </select>
+            <FormSelect
+              options={[
+                { value: "SMS & Email", label: "SMS & Email" },
+                { value: "SMS only", label: "SMS only" },
+                { value: "Email only", label: "Email only" },
+                { value: "None", label: "None" },
+              ]}
+            />
             <label className="mt-2 flex items-center gap-2 text-sm text-text-secondary">
               <input
                 type="checkbox"
@@ -294,10 +283,10 @@ function DetailsContent() {
             </label>
           </div>
           <div>
-            <label className={labelClass}>
+            <label className="block text-sm font-medium text-text mb-1">
               Tax Label for invoices (E.g. ABN)<span className="text-red-500">*</span>
             </label>
-            <input type="text" defaultValue="ABN" className={inputClass} />
+            <FormInput type="text" defaultValue="ABN" />
             <p className="mt-2 text-sm text-text-secondary">
               Enter your business number in{" "}
               <span className="text-primary cursor-pointer hover:underline">
@@ -383,24 +372,17 @@ function DetailsContent() {
           <p className="text-sm text-text-secondary mb-2">
             Prevent users with the practitioner role from making changes on the calendar on and before
           </p>
-          <input
+          <FormInput
             type="text"
             defaultValue="19 Dec 2025"
-            className={`${inputClass} max-w-xs`}
+            className="max-w-xs"
           />
         </div>
 
         {/* Google Tag Manager */}
         <div>
           <h2 className="text-base font-semibold text-text mb-3">Google Tag Manager</h2>
-          <div>
-            <label className={labelClass}>Google Tag Manager ID</label>
-            <input
-              type="text"
-              defaultValue="GTM-TEST1231"
-              className={`${inputClass} max-w-xs`}
-            />
-          </div>
+          <FormInput label="Google Tag Manager ID" type="text" defaultValue="GTM-TEST1231" className="max-w-xs" />
         </div>
 
         {/* Cases */}
@@ -573,13 +555,14 @@ function IntegrationsContent() {
             Available ({integrations.filter((i) => !i.connected).length})
           </button>
         </div>
-        <input
-          type="text"
-          placeholder="Search integrations..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary w-64"
-        />
+        <div className="w-64">
+          <FormInput
+            type="text"
+            placeholder="Search integrations..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
       </div>
 
       {/* Integration cards grid */}
@@ -604,24 +587,21 @@ function IntegrationsContent() {
                 </div>
               </div>
               {integration.connected && (
-                <span className="flex items-center gap-1 rounded-full bg-green-50 px-2 py-0.5 text-xs font-medium text-green-700">
-                  <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                <Badge variant="green">
+                  <span className="mr-1 h-1.5 w-1.5 rounded-full bg-green-500" />
                   Connected
-                </span>
+                </Badge>
               )}
             </div>
             <p className="text-sm text-text-secondary mb-4">
               {integration.description}
             </p>
-            <button
-              className={`w-full rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                integration.connected
-                  ? "border border-red-200 bg-white text-red-600 hover:bg-red-50"
-                  : "border border-primary bg-white text-primary hover:bg-purple-50"
-              }`}
+            <Button
+              variant={integration.connected ? "danger" : "secondary"}
+              className={`w-full ${!integration.connected ? "border-primary text-primary hover:bg-purple-50" : ""}`}
             >
               {integration.connected ? "Disconnect" : "Connect"}
-            </button>
+            </Button>
           </div>
         ))}
       </div>
@@ -684,9 +664,7 @@ function SMSSettingsContent() {
             Configure SMS notifications and reminders for your clients
           </p>
         </div>
-        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
-          Save
-        </button>
+        <Button variant="primary">Save</Button>
       </div>
 
       {/* Tabs */}
@@ -737,9 +715,9 @@ function SMSProviderTab() {
       <div className="rounded-lg border border-border bg-white p-5">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-sm font-semibold text-text">SMS balance</h3>
-          <button className="rounded-lg border border-primary bg-white px-3 py-1.5 text-sm font-medium text-primary hover:bg-purple-50">
+          <Button variant="secondary" size="sm" className="border-primary text-primary hover:bg-purple-50">
             Top up
-          </button>
+          </Button>
         </div>
         <div className="grid grid-cols-3 gap-4">
           <div className="rounded-lg bg-green-50 p-4 text-center">
@@ -763,24 +741,19 @@ function SMSProviderTab() {
           Provider configuration
         </h3>
         <div className="space-y-4">
+          <FormSelect
+            label="SMS provider"
+            options={[
+              { value: "Twilio", label: "Twilio" },
+              { value: "MessageMedia", label: "MessageMedia" },
+              { value: "Burst SMS", label: "Burst SMS" },
+            ]}
+          />
           <div>
-            <label className="block text-sm font-medium text-text mb-1">
-              SMS provider
-            </label>
-            <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
-              <option>Twilio</option>
-              <option>MessageMedia</option>
-              <option>Burst SMS</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-text mb-1">
-              Sender name / number
-            </label>
-            <input
+            <FormInput
+              label="Sender name / number"
               type="text"
               defaultValue="AcmeHealth"
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
             />
             <p className="mt-1 text-xs text-text-secondary">
               Max 11 characters. Letters and numbers only.
@@ -825,9 +798,7 @@ function SMSTemplatesTab() {
           </code>{" "}
           to personalise messages.
         </p>
-        <button className="flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
-          + New template
-        </button>
+        <Button variant="primary">+ New template</Button>
       </div>
       <div className="rounded-lg border border-border bg-white overflow-hidden">
         <table className="w-full">
@@ -857,15 +828,9 @@ function SMSTemplatesTab() {
                   {template.content}
                 </td>
                 <td className="px-4 py-3 text-center">
-                  <span
-                    className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
-                      template.active
-                        ? "bg-green-50 text-green-700"
-                        : "bg-gray-100 text-gray-600"
-                    }`}
-                  >
+                  <Badge variant={template.active ? "green" : "gray"}>
                     {template.active ? "Active" : "Inactive"}
-                  </span>
+                  </Badge>
                 </td>
                 <td className="px-4 py-3 text-right">
                   <button className="text-text-secondary hover:text-text text-sm">
@@ -959,15 +924,9 @@ function SMSHistoryTab() {
                   {item.sent}
                 </td>
                 <td className="px-4 py-3 text-center">
-                  <span
-                    className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
-                      item.status === "Delivered"
-                        ? "bg-green-50 text-green-700"
-                        : "bg-red-50 text-red-700"
-                    }`}
-                  >
+                  <Badge variant={statusVariant(item.status)}>
                     {item.status}
-                  </span>
+                  </Badge>
                 </td>
               </tr>
             ))}
@@ -1061,20 +1020,19 @@ function FormsContent() {
             Create and manage forms that clients can fill out online
           </p>
         </div>
-        <button className="flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
-          + New form
-        </button>
+        <Button variant="primary">+ New form</Button>
       </div>
 
       {/* Filters */}
       <div className="flex items-center gap-4 mb-4">
-        <input
-          type="text"
-          placeholder="Search forms..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary w-64"
-        />
+        <div className="w-64">
+          <FormInput
+            type="text"
+            placeholder="Search forms..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
         <div className="flex rounded-lg border border-border bg-white overflow-hidden">
           {(["all", "Published", "Draft", "Archived"] as const).map((s) => (
             <button
@@ -1129,17 +1087,9 @@ function FormsContent() {
                   {form.description}
                 </td>
                 <td className="px-4 py-3 text-center">
-                  <span
-                    className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
-                      form.status === "Published"
-                        ? "bg-green-50 text-green-700"
-                        : form.status === "Draft"
-                        ? "bg-yellow-50 text-yellow-700"
-                        : "bg-gray-100 text-gray-600"
-                    }`}
-                  >
+                  <Badge variant={form.status === "Published" ? "green" : form.status === "Draft" ? "yellow" : "gray"}>
                     {form.status}
-                  </span>
+                  </Badge>
                 </td>
                 <td className="px-4 py-3 text-center text-sm text-text-secondary">
                   {form.responses}
