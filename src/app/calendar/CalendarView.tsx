@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   ChevronLeft,
@@ -10,14 +10,21 @@ import {
   LayoutGrid,
   Search,
   X,
+  XCircle,
   Clock,
   User,
+  Users,
   MapPin,
   FileText,
   Calendar,
   Plus,
+  Video,
+  Monitor,
+  UserPlus,
+  Activity,
+  CalendarClock,
 } from "lucide-react";
-import { Button, Badge } from "@/components/ds";
+import { Button, Badge, FormInput, FormSelect } from "@/components/ds";
 
 type Appointment = {
   id: string;
@@ -37,6 +44,18 @@ type Practitioner = {
   id: string;
   name: string;
   color: string;
+};
+
+type PopoverState = {
+  visible: boolean;
+  x: number;
+  y: number;
+  time: string;
+  hour: number;
+  minute: number;
+  dateStr: string;
+  practitionerName: string;
+  practitionerId: string;
 };
 
 const HOUR_HEIGHT = 80; // pixels per hour row
@@ -72,6 +91,25 @@ function formatTime24to12(hour: number, minute: number): string {
   return `${h}:${mm} ${ampm}`;
 }
 
+function formatTimeShort(hour: number, minute: number): string {
+  const h12 = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
+  const ampm = hour >= 12 ? "pm" : "am";
+  const mm = minute === 0 ? "" : `:${minute.toString().padStart(2, "0")}`;
+  return `${h12}${mm} ${ampm}`;
+}
+
+function isGroupAppointment(appt: Appointment): boolean {
+  const t = appt.type.toLowerCase();
+  return t.includes("group");
+}
+
+function isDateInPast(dateStr: string): boolean {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const d = new Date(dateStr + "T00:00:00");
+  return d < today;
+}
+
 type ViewMode = "Week" | "Month" | "Day";
 type CalendarMode = "Calendar" | "Rooms/resources";
 
@@ -97,12 +135,45 @@ export default function CalendarView({
   const [createDate, setCreateDate] = useState("");
   const [createClient, setCreateClient] = useState("");
   const [createPractitioner, setCreatePractitioner] = useState("");
-  const [createType, setCreateType] = useState("Follow Up");
+  const [createService, setCreateService] = useState("");
+  const [createType, setCreateType] = useState("Initial Assessment");
+  const [createCase, setCreateCase] = useState("");
+  const [createLocation, setCreateLocation] = useState("Hands Together Therapy (East)");
+  const [createRoom, setCreateRoom] = useState("");
+  const [createRepeat, setCreateRepeat] = useState(false);
+  const [createProviderTravel, setCreateProviderTravel] = useState(false);
+  const [createProviderTravelNonLabour, setCreateProviderTravelNonLabour] = useState(false);
+  const [createActivityTransport, setCreateActivityTransport] = useState(false);
   const [createNotes, setCreateNotes] = useState("");
   const [viewMode, setViewMode] = useState<ViewMode>("Week");
   const [calendarMode, setCalendarMode] = useState<CalendarMode>("Calendar");
   const [showViewDropdown, setShowViewDropdown] = useState(false);
   const [showCalendarModeDropdown, setShowCalendarModeDropdown] = useState(false);
+  const [popover, setPopover] = useState<PopoverState>({
+    visible: false,
+    x: 0,
+    y: 0,
+    time: "",
+    hour: 0,
+    minute: 0,
+    dateStr: "",
+    practitionerName: "",
+    practitionerId: "",
+  });
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  // Close popover on outside click
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (popoverRef.current && !popoverRef.current.contains(e.target as Node)) {
+        setPopover((prev) => ({ ...prev, visible: false }));
+      }
+    }
+    if (popover.visible) {
+      document.addEventListener("mousedown", handleClick);
+      return () => document.removeEventListener("mousedown", handleClick);
+    }
+  }, [popover.visible]);
 
   // Dev Navigator: ?state= param wiring
   const searchParams = useSearchParams();
@@ -130,11 +201,15 @@ export default function CalendarView({
   const today = new Date();
   const monthYear = today.toLocaleDateString("en-AU", { month: "long", year: "numeric" });
 
-  function openCreateModal(dateStr?: string, hour?: number) {
+  function openCreateModal(dateStr?: string, hour?: number, minute?: number, practitionerId?: string) {
+    const m = minute ?? 0;
     if (dateStr && hour !== undefined) {
       setCreateDate(dateStr);
-      setCreateTime(formatTime24to12(hour, 0));
-      setCreateEndTime(formatTime24to12(hour + 1, 0));
+      setCreateTime(formatTime24to12(hour, m));
+      // Default 30 min appointment
+      const endMinute = m + 30;
+      const endHour = hour + Math.floor(endMinute / 60);
+      setCreateEndTime(formatTime24to12(endHour, endMinute % 60));
     } else {
       const now = new Date();
       const currentHour = now.getHours();
@@ -143,10 +218,47 @@ export default function CalendarView({
       setCreateEndTime(formatTime24to12(currentHour + 1, 0));
     }
     setCreateClient("");
-    setCreatePractitioner(practitioners[0]?.id || "");
-    setCreateType("Follow Up");
+    setCreatePractitioner(practitionerId || practitioners[0]?.id || "");
+    setCreateService("");
+    setCreateCase("");
+    setCreateLocation("Hands Together Therapy (East)");
+    setCreateRoom("");
+    setCreateRepeat(false);
+    setCreateProviderTravel(false);
+    setCreateProviderTravelNonLabour(false);
+    setCreateActivityTransport(false);
     setCreateNotes("");
+    setPopover((prev) => ({ ...prev, visible: false }));
     setShowCreateModal(true);
+  }
+
+  function handleDayCellClick(
+    e: React.MouseEvent<HTMLDivElement>,
+    dateStr: string,
+    hour: number,
+    prac: Practitioner,
+  ) {
+    // Calculate minute from click position within the cell
+    const rect = e.currentTarget.getBoundingClientRect();
+    const yOffset = e.clientY - rect.top;
+    const minuteFraction = yOffset / HOUR_HEIGHT;
+    const minute = Math.floor(minuteFraction * 60 / 30) * 30; // snap to 30-min
+    const clampedMinute = Math.min(minute, 30);
+
+    const timeLabel = formatTimeShort(hour, clampedMinute);
+
+    // Position popover near click
+    setPopover({
+      visible: true,
+      x: e.clientX,
+      y: e.clientY,
+      time: timeLabel,
+      hour,
+      minute: clampedMinute,
+      dateStr,
+      practitionerName: prac.name,
+      practitionerId: prac.id,
+    });
   }
 
   function handleCellClick(dateStr: string, hour: number) {
@@ -344,7 +456,7 @@ export default function CalendarView({
                           key={prac.id}
                           className="relative cursor-pointer border-r border-b border-border bg-purple-50/30 last:border-r-0 hover:bg-gray-100/50"
                           style={{ height: `${HOUR_HEIGHT}px` }}
-                          onClick={() => handleCellClick(currentDay, hour)}
+                          onClick={(e) => handleDayCellClick(e, currentDay, hour, prac)}
                         >
                           {hourAppts.map((appt) => {
                             const pos = getApptStyle(appt);
@@ -520,94 +632,171 @@ export default function CalendarView({
               </button>
             </div>
 
-            {/* Details */}
-            <div className="space-y-3 text-sm">
-              <div className="flex items-start gap-2">
-                <User className="mt-0.5 h-4 w-4 text-text-secondary" />
-                <div>
+            {/* Details — Group appointment panel */}
+            {isGroupAppointment(selectedAppt) ? (
+              <div className="space-y-3 text-sm">
+                <div className="flex items-start gap-2">
+                  <User className="mt-0.5 h-4 w-4 text-text-secondary" />
+                  <div>
+                    <span className="text-text">{selectedAppt.practitionerName}</span>
+                    <span className="text-text-secondary"> at </span>
+                    <span className="font-medium text-text">East Clinics</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2">
+                  <User className="mt-0.5 h-4 w-4 text-text-secondary" />
                   <span className="text-text">{selectedAppt.practitionerName}</span>
-                  <span className="text-text-secondary"> at </span>
-                  <span className="font-medium text-text">Hands Together Therapy (East)</span>
+                </div>
+
+                <div className="flex items-start gap-2">
+                  <Clock className="mt-0.5 h-4 w-4 text-text-secondary" />
+                  <span className="text-text">
+                    {selectedAppt.startTime}, {formatDateLong(selectedAppt.date)} for{" "}
+                    {calcDuration(selectedAppt.startTime, selectedAppt.endTime)}
+                  </span>
+                </div>
+
+                <div className="flex items-start gap-2">
+                  <Video className="mt-0.5 h-4 w-4 text-primary" />
+                  <span className="cursor-pointer text-primary hover:underline">Create zoom meeting</span>
+                </div>
+
+                <div className="flex items-start gap-2">
+                  <Monitor className="mt-0.5 h-4 w-4 text-primary" />
+                  <span className="cursor-pointer text-primary hover:underline">Create Microsoft Teams meeting</span>
+                </div>
+
+                {/* Attendees section */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Users className="h-4 w-4 text-text-secondary" />
+                    <span className="text-text-secondary">1 of 6 clients attending</span>
+                  </div>
+                  <button className="flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs font-medium text-text hover:bg-gray-50">
+                    <UserPlus className="h-3 w-3" /> Client
+                  </button>
+                </div>
+
+                {/* Attendee list */}
+                <div className="ml-6 space-y-1">
+                  <div className="flex items-center gap-2 text-text">
+                    <div className="flex h-5 w-5 items-center justify-center rounded-full bg-gray-200 text-[9px] font-medium text-text-secondary">
+                      EF
+                    </div>
+                    <span>elsa frozen</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2">
+                  <User className="mt-0.5 h-4 w-4 text-text-secondary" />
+                  <span className="text-text-secondary">Meghna Damodaran (Organiser)</span>
+                </div>
+
+                {/* Note field */}
+                <div className="mt-4">
+                  <label className="flex items-center gap-1 text-xs text-text-secondary">
+                    <FileText className="h-3 w-3" /> Note
+                  </label>
+                  <textarea
+                    className="mt-1 w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
+                    rows={3}
+                    placeholder="Add a note..."
+                  />
                 </div>
               </div>
+            ) : (
+              /* Details — 1:1 appointment panel */
+              <div className="space-y-3 text-sm">
+                <div className="flex items-start gap-2">
+                  <User className="mt-0.5 h-4 w-4 text-text-secondary" />
+                  <div>
+                    <span className="text-text">{selectedAppt.practitionerName}</span>
+                    <span className="text-text-secondary"> at </span>
+                    <span className="font-medium text-text">East Clinics</span>
+                  </div>
+                </div>
 
-              <div className="flex items-start gap-2">
-                <User className="mt-0.5 h-4 w-4 text-text-secondary" />
-                <span className="text-text">{selectedAppt.practitionerName}</span>
-              </div>
+                <div className="flex items-start gap-2">
+                  <User className="mt-0.5 h-4 w-4 text-text-secondary" />
+                  <span className="text-text">{selectedAppt.practitionerName}</span>
+                </div>
 
-              <div className="flex items-start gap-2">
-                <Clock className="mt-0.5 h-4 w-4 text-text-secondary" />
-                <span className="text-text">
-                  {selectedAppt.startTime}, {formatDateLong(selectedAppt.date)} for{" "}
-                  {calcDuration(selectedAppt.startTime, selectedAppt.endTime)}
-                </span>
-              </div>
+                <div className="flex items-start gap-2">
+                  <Clock className="mt-0.5 h-4 w-4 text-text-secondary" />
+                  <span className="text-text">
+                    {selectedAppt.startTime}, {formatDateLong(selectedAppt.date)} for{" "}
+                    {calcDuration(selectedAppt.startTime, selectedAppt.endTime)}
+                  </span>
+                </div>
 
-              <div className="flex items-start gap-2">
-                <User className="mt-0.5 h-4 w-4 text-primary" />
-                <span className="cursor-pointer text-primary hover:underline">{selectedAppt.clientName}</span>
-              </div>
+                <div className="flex items-start gap-2">
+                  <User className="mt-0.5 h-4 w-4 text-primary" />
+                  <span className="cursor-pointer text-primary hover:underline">{selectedAppt.clientName}</span>
+                </div>
 
-              <div className="flex items-start gap-2">
-                <MapPin className="mt-0.5 h-4 w-4 text-text-secondary" />
-                <span className="text-text-secondary">thyxueen@gmail.com</span>
-              </div>
+                <div className="flex items-start gap-2">
+                  <MapPin className="mt-0.5 h-4 w-4 text-text-secondary" />
+                  <span className="text-text-secondary">thyxueen@gmail.com</span>
+                </div>
 
-              <div className="flex items-start gap-2">
-                <Calendar className="mt-0.5 h-4 w-4 text-text-secondary" />
-                <span className="text-text-secondary">No status</span>
-              </div>
+                <div className="flex items-start gap-2">
+                  <Calendar className="mt-0.5 h-4 w-4 text-text-secondary" />
+                  <span className="text-text-secondary">No status</span>
+                </div>
 
-              <div className="flex items-start gap-2">
-                <FileText className="mt-0.5 h-4 w-4 text-primary" />
-                <span className="cursor-pointer text-primary hover:underline">Create zoom meeting</span>
-              </div>
+                <div className="flex items-start gap-2">
+                  <Video className="mt-0.5 h-4 w-4 text-primary" />
+                  <span className="cursor-pointer text-primary hover:underline">Create zoom meeting</span>
+                </div>
 
-              <div className="flex items-start gap-2">
-                <FileText className="mt-0.5 h-4 w-4 text-primary" />
-                <span className="cursor-pointer text-primary hover:underline">TRR-005673</span>
-                <Badge variant="blue" className="ml-1">Draft</Badge>
-              </div>
+                <div className="flex items-start gap-2">
+                  <FileText className="mt-0.5 h-4 w-4 text-primary" />
+                  <span className="cursor-pointer text-primary hover:underline">TRR-005673</span>
+                  <Badge variant="blue" className="ml-1">Draft</Badge>
+                </div>
 
-              <div className="flex items-start gap-2">
-                <FileText className="mt-0.5 h-4 w-4 text-primary" />
-                <span className="cursor-pointer text-primary hover:underline">Add progress note</span>
-              </div>
+                <div className="flex items-start gap-2">
+                  <FileText className="mt-0.5 h-4 w-4 text-primary" />
+                  <span className="cursor-pointer text-primary hover:underline">Add progress note</span>
+                </div>
 
-              <div className="flex items-start gap-2">
-                <Clock className="mt-0.5 h-4 w-4 text-text-secondary" />
-                <span className="text-xs text-text-secondary">Repeating every 2 weeks on Monday for 6 times</span>
-              </div>
+                <div className="flex items-start gap-2">
+                  <Clock className="mt-0.5 h-4 w-4 text-text-secondary" />
+                  <span className="text-xs text-text-secondary">Repeating every 2 weeks on Monday for 6 times</span>
+                </div>
 
-              <div className="flex items-start gap-2">
-                <User className="mt-0.5 h-4 w-4 text-text-secondary" />
-                <span className="text-text-secondary">{selectedAppt.practitionerName} (Organiser)</span>
-              </div>
+                <div className="flex items-start gap-2">
+                  <User className="mt-0.5 h-4 w-4 text-text-secondary" />
+                  <span className="text-text-secondary">{selectedAppt.practitionerName} (Organiser)</span>
+                </div>
 
-              {/* Note field */}
-              <div className="mt-4">
-                <label className="flex items-center gap-1 text-xs text-text-secondary">Note</label>
-                <textarea
-                  className="mt-1 w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
-                  rows={3}
-                  placeholder="Add a note..."
-                />
+                {/* Note field */}
+                <div className="mt-4">
+                  <label className="flex items-center gap-1 text-xs text-text-secondary">Note</label>
+                  <textarea
+                    className="mt-1 w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
+                    rows={3}
+                    placeholder="Add a note..."
+                  />
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Action buttons */}
             <div className="mt-6 flex items-center gap-2">
-              <Button variant="secondary" size="sm">
-                Book another
-              </Button>
+              {!isGroupAppointment(selectedAppt) && (
+                <Button variant="secondary" size="sm">
+                  Book another
+                </Button>
+              )}
               <Button variant="secondary" size="sm" onClick={() => setShowEditModal(true)}>
                 Edit
               </Button>
               <Button variant="secondary" size="sm">
                 Reschedule
               </Button>
-              <Button variant="secondary" size="sm" className="text-gray-400 border-gray-200 hover:bg-gray-50">
+              <Button variant="danger" size="sm">
                 Archive
               </Button>
             </div>
@@ -1008,16 +1197,32 @@ function MonthView({
                   {cell.day}
                 </div>
                 <div className="space-y-0.5">
-                  {dayAppts.slice(0, 3).map((appt) => (
-                    <div
-                      key={appt.id}
-                      className="cursor-pointer truncate rounded px-1 py-0.5 text-[10px] font-medium text-white"
-                      style={{ backgroundColor: appt.practitionerColor }}
-                      onClick={() => onApptClick(appt)}
-                    >
-                      {appt.startTime.replace(/^0/, "")} {appt.clientName}
-                    </div>
-                  ))}
+                  {dayAppts.slice(0, 3).map((appt) => {
+                    const isCancelled = appt.status === "Cancelled";
+                    const isGroup = appt.type === "Group Session";
+                    return (
+                      <div
+                        key={appt.id}
+                        className={`flex cursor-pointer items-center gap-0.5 rounded px-1 py-0.5 text-[10px] font-medium text-white ${isCancelled ? "opacity-60" : ""}`}
+                        style={{ backgroundColor: appt.practitionerColor }}
+                        onClick={() => onApptClick(appt)}
+                      >
+                        <span className="truncate">
+                          {appt.startTime.replace(/^0/, "")} {appt.clientName}
+                        </span>
+                        {isCancelled && (
+                          <span className="ml-auto flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-sm bg-red-500">
+                            <X className="h-2.5 w-2.5 text-white" />
+                          </span>
+                        )}
+                        {isGroup && !isCancelled && (
+                          <span className="ml-auto shrink-0 rounded bg-white/30 px-1 text-[9px] font-semibold">
+                            0/10
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })}
                   {dayAppts.length > 3 && (
                     <div className="px-1 text-[10px] text-text-secondary">+{dayAppts.length - 3} more</div>
                   )}
