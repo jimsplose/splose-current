@@ -1,3 +1,4 @@
+import { Button } from "@/components/ds";
 import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
@@ -211,9 +212,9 @@ export default async function Dashboard() {
             </button>
             <div className="flex-1" />
             <span className="mr-1 cursor-pointer rounded px-1.5 py-0.5 text-xs font-medium text-text-secondary hover:bg-gray-100">GIF</span>
-            <button className="rounded-lg bg-primary px-4 py-1.5 text-[13px] font-medium text-white hover:bg-primary-dark">
+            <Button variant="primary" size="sm" className="text-[13px]">
               Send
-            </button>
+            </Button>
           </div>
         </div>
       </div>
