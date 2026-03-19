@@ -5,6 +5,11 @@ on:
     branches:
       - "claude/**"
 
+# Cancel in-progress runs for the same branch — only the latest push matters
+concurrency:
+  group: auto-promote-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   promote:
     runs-on: ubuntu-latest
@@ -23,6 +28,10 @@ jobs:
           BRANCH="${{ github.ref_name }}"
           echo "Waiting for Vercel deployment of $BRANCH ($SHA) to succeed..."
 
+          # Give Vercel time to register the deployment before polling
+          echo "Waiting 30s for Vercel to pick up the push..."
+          sleep 30
+
           # Poll for up to 10 minutes (30 attempts × 20s)
           for i in $(seq 1 30); do
             echo "Check $i/30..."
@@ -36,6 +45,7 @@ jobs:
               continue
             fi
 
+            ALL_PENDING=true
             for DEPLOY_ID in $STATUSES; do
               STATE=$(gh api "repos/${{ github.repository }}/deployments/$DEPLOY_ID/statuses" \
                 --jq '.[0].state' 2>/dev/null || echo "")
@@ -47,8 +57,8 @@ jobs:
               fi
 
               if [ "$STATE" = "failure" ] || [ "$STATE" = "error" ]; then
-                echo "Deployment failed with state: $STATE — not promoting"
-                exit 1
+                ALL_PENDING=false
+                echo "  Deployment $DEPLOY_ID failed — will keep checking other deployments"
               fi
             done
 
