@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { Plus, ArrowUpDown } from "lucide-react";
 import Link from "next/link";
-import { Button, PageHeader, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+import { Badge, Button, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -24,14 +24,7 @@ export default async function NotesPage() {
         </Link>
       </PageHeader>
 
-      <div className="mb-4 flex items-center gap-2">
-        <input
-          type="text"
-          placeholder="Search for content and title"
-          className="h-10 flex-1 rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-        />
-        <Button>Search</Button>
-      </div>
+      <SearchBar placeholder="Search for content and title" />
 
       <div className="overflow-x-auto rounded-lg border border-border bg-white">
         <table className="w-full min-w-[600px]">
@@ -62,13 +55,9 @@ export default async function NotesPage() {
                     </span>
                     <span className="text-sm text-text-secondary">— {note.template}</span>
                     {note.signed ? (
-                      <span className="rounded bg-green-100 px-1.5 py-0.5 text-[10px] font-medium text-green-700">
-                        Final
-                      </span>
+                      <Badge variant="green">Final</Badge>
                     ) : (
-                      <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-medium text-gray-600">
-                        Draft
-                      </span>
+                      <Badge variant="gray">Draft</Badge>
                     )}
                   </Link>
                 </Td>
