@@ -1,7 +1,7 @@
 "use client";
 
-import { PageHeader, Button, TableHead, Th, TableBody, Td } from "@/components/ds";
-import { Plus, Search, MoreHorizontal, ChevronLeft, ChevronRight, Minus } from "lucide-react";
+import { PageHeader, Button, SearchBar, Pagination, TableHead, Th, TableBody, Td } from "@/components/ds";
+import { Plus, MoreHorizontal, Minus } from "lucide-react";
 import { useState, useMemo, Fragment } from "react";
 
 interface ProductVariant {
@@ -70,9 +70,6 @@ export default function ProductsPage() {
   const totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedProducts = filteredProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  const displayStart = totalItems === 0 ? 0 : startIndex + 1;
-  const displayEnd = Math.min(startIndex + ITEMS_PER_PAGE, totalItems);
-
   const toggleExpand = (index: number) => {
     setExpandedRows((prev) => {
       const next = new Set(prev);
@@ -85,55 +82,35 @@ export default function ProductsPage() {
     });
   };
 
-  const handleSearch = () => {
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
     setCurrentPage(1);
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      handleSearch();
-    }
   };
 
   return (
     <div className="p-4 sm:p-6">
       <PageHeader title="Products">
-        <button
+        <Button
+          variant="secondary"
           onClick={() => {
             setShowArchived(!showArchived);
             setCurrentPage(1);
           }}
-          className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
-            showArchived
-              ? "border-primary bg-primary/5 text-primary"
-              : "border-border bg-white text-text hover:bg-gray-50"
-          }`}
+          className={showArchived ? "border-primary bg-primary/5 text-primary" : ""}
         >
           Display archived products
-        </button>
+        </Button>
         <Button variant="secondary">
           <Plus className="h-4 w-4" />
           New product
         </Button>
       </PageHeader>
 
-      <div className="mb-4 flex items-center gap-2">
-        <input
-          type="text"
-          placeholder="Search for product by name"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyDown={handleKeyDown}
-          className="h-10 flex-1 rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-        />
-        <button
-          onClick={handleSearch}
-          className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50"
-        >
-          <Search className="h-4 w-4" />
-          Search
-        </button>
-      </div>
+      <SearchBar
+        placeholder="Search for product by name"
+        onSearch={handleSearch}
+        defaultValue={searchQuery}
+      />
 
       <div className="overflow-x-auto rounded-lg border border-border bg-white">
         <table className="w-full">
@@ -250,41 +227,13 @@ export default function ProductsPage() {
           </TableBody>
         </table>
 
-        <div className="flex items-center justify-end border-t border-border px-4 py-3 text-sm text-text-secondary">
-          <span>
-            {displayStart}-{displayEnd} of {totalItems} items
-          </span>
-          <div className="ml-4 flex items-center gap-1">
-            <button
-              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-              disabled={currentPage === 1}
-              className="flex items-center justify-center rounded p-1 text-text-secondary hover:bg-gray-100 disabled:opacity-30"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </button>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                onClick={() => setCurrentPage(page)}
-                className={`flex h-7 w-7 items-center justify-center rounded border text-xs font-medium ${
-                  page === currentPage
-                    ? "border-primary bg-white text-primary"
-                    : "border-border bg-white text-text-secondary hover:bg-gray-50"
-                }`}
-              >
-                {page}
-              </button>
-            ))}
-            <button
-              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-              disabled={currentPage === totalPages}
-              className="flex items-center justify-center rounded p-1 text-text-secondary hover:bg-gray-100 disabled:opacity-30"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </button>
-          </div>
-          <span className="ml-4">{ITEMS_PER_PAGE} / page</span>
-        </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={totalItems}
+          itemsPerPage={ITEMS_PER_PAGE}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );
