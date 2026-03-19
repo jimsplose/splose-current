@@ -11,12 +11,29 @@ Use AskUserQuestion with these options:
 > **What would you like to work on this session?**
 >
 > 1. **Review status** — Read `docs/progress.md` and `docs/fidelity-gaps.md`, show recently completed tasks, build/deploy status, and what's next
-> 2. **Upload screenshots** — User will upload new reference screenshots to be cataloged for future iterative screenshot comparison loops. Follow `docs/screenshot-workflow.md`
-> 3. **Run fidelity loops** — Run iterative screenshot comparison and improvement loops. Read `docs/fidelity-gaps.md` (pick by priority), then follow `docs/fidelity-workflow.md`
-> 4. **Build Dev Navigator** — Implement Dev Toolbar, state registry, and navigation menu. Follow `docs/dev-navigator-spec.md`
-> 5. **Something else** — Free-form request
+> 2. **Upload screenshots** — User will upload new reference screenshots to be saved into `screenshots/reference/`. Follow `docs/screenshot-workflow.md`
+> 3. **Process screenshots** — Catalog unprocessed screenshots, compare against prototype, and create fidelity gaps for every mismatch. Follow `docs/screenshot-workflow.md`
+> 4. **Run fidelity loops** — Pick open gaps from `docs/fidelity-gaps.md` (by priority), implement fixes, and visually verify against references. Follow `docs/fidelity-workflow.md`
+> 5. **Visual audit** — Take fresh screenshots of implemented pages, compare against references, update Match status in catalog, and reopen/create gaps for anything that doesn't match. Follow `docs/visual-audit-workflow.md`
+> 6. **Something else** — Free-form request
 
 **Do NOT skip this step. Do NOT start working without the user's menu selection.**
+
+### Lifecycle overview
+
+The full fidelity workflow is a pipeline. Each menu option maps to a stage:
+
+```
+Upload → Process → Fidelity loops → Visual audit → (repeat)
+  (2)      (3)         (4)              (5)
+```
+
+- **Upload** adds raw screenshots to `screenshots/reference/`
+- **Process** catalogs them in `screenshots/screenshot-catalog.md` and creates gaps in `docs/fidelity-gaps.md` for every "no" match
+- **Fidelity loops** implements code changes to close those gaps
+- **Visual audit** verifies the work actually matches, updates the catalog Match column, and reopens/creates gaps for anything still wrong
+
+A gap is only truly done when its catalog entries all show Match = "yes".
 
 ## Workflow Files (RAG)
 
@@ -25,8 +42,10 @@ Use AskUserQuestion with these options:
 | Workflow | Read first |
 |---|---|
 | Review status | `docs/progress.md`, `docs/fidelity-gaps.md` |
+| Upload screenshots | `docs/screenshot-workflow.md` |
 | Process screenshots | `docs/screenshot-workflow.md` |
 | Fidelity improvements | `docs/fidelity-gaps.md`, `docs/fidelity-workflow.md` |
+| Visual audit | `docs/visual-audit-workflow.md`, `screenshots/screenshot-catalog.md` |
 | Dev Navigator | `docs/dev-navigator-spec.md` |
 | Understanding the codebase | `docs/project-structure.md` |
 
@@ -236,8 +255,9 @@ After every push that includes visual changes, the main agent MUST:
 1. **Commit** all work in progress — even partial work as a `WIP:` commit
 2. **Push** to the `claude/*` branch
 3. **Append** a summary to `docs/progress.md` (what was done, what's in progress, what was discovered)
-4. **Update** `docs/fidelity-gaps.md` — check off completed gaps, add any newly discovered ones
-5. **Tell Jim** the preview URL so he can review
+4. **Update** `docs/fidelity-gaps.md` — only check off gaps whose catalog entries ALL show Match = "yes". Add any newly discovered gaps.
+5. **Update** `screenshots/screenshot-catalog.md` — update Match column for any pages that were changed this session
+6. **Tell Jim** the preview URL so he can review
 
 ## Progress Tracking
 

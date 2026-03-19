@@ -21,6 +21,16 @@ Import from `@/components/ds`. Run `npm run storybook` to see all components liv
 
 If a fidelity gap requires a component not in the DS, **add it to the DS first** (`src/components/ds/`), then use it in the page. Write a Storybook story for any new DS component.
 
+## Completion criteria — IMPORTANT
+
+A fidelity gap is **NOT done** just because the page exists or code was written. A gap is done when:
+
+1. The page visually matches ALL related reference screenshots in `screenshots/screenshot-catalog.md`
+2. The Match column for ALL related entries has been updated to "yes"
+3. The visual match was verified by reading both the reference screenshot and a fresh Playwright screenshot
+
+If a gap's catalog entries still show "no" or "partial", the gap stays unchecked `[ ]` — even if code changes were made. Partial progress should be noted in the gap description (e.g. "layout matches, colors wrong").
+
 ## Step 1: Launch parallel agents (worktree isolation)
 
 Group non-conflicting gaps and launch them simultaneously using the Agent tool with `isolation: "worktree"`. **Every agent prompt MUST include the full Agent Block from CLAUDE.md** (between `---START AGENT BLOCK---` and `---END AGENT BLOCK---` markers). Do NOT launch without it — this embeds DS enforcement and screenshot verification directly into the agent.
@@ -58,14 +68,28 @@ For each agent:
 
 See CLAUDE.md for the full instructions. Do not duplicate them here.
 
-## Step 4: Build, commit, push
+## Step 4: Update catalog Match status
+
+After code changes are committed, update `screenshots/screenshot-catalog.md`:
+
+1. For each page that was changed, take a fresh Playwright screenshot
+2. Compare against ALL reference screenshots for that page
+3. Update the Match column:
+   - "yes" — matches the reference
+   - "partial" — some elements match (add note on what's still wrong)
+   - Leave as "no" if still not matching
+4. Only mark the corresponding gap as `[x]` in `docs/fidelity-gaps.md` if ALL entries for that page show "yes"
+
+**This step is mandatory.** The catalog is the source of truth for fidelity status.
+
+## Step 5: Build, commit, push
 
 1. Run `npx next build` to verify no errors — **never push a broken build**
-2. Stage and commit all changes with a descriptive message
+2. Stage and commit all changes (including catalog updates) with a descriptive message
 3. Push to the `claude/*` branch — GitHub Action auto-promotes to production after Vercel build succeeds
 4. Note the Vercel preview URL in the session progress log (see `docs/progress.md`)
 
-## Step 5: Before/After Review
+## Step 6: Before/After Review
 
 After each round of changes is pushed, present Jim with a visual progress report:
 
@@ -105,7 +129,7 @@ Present as a structured summary like:
 **Preview URL:** https://splose-current-git-claude-xxx.vercel.app
 ```
 
-## Step 6: Repeat
+## Step 7: Repeat
 
 Pick the next batch of gaps (by priority — see `docs/fidelity-gaps.md`) and repeat. Keep going until all gaps are resolved or the session runs low on context.
 

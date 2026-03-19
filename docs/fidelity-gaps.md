@@ -3,6 +3,16 @@
 Gaps are grouped by which files they touch, so you can see what's safe to parallelize.
 Priority ordering: high-traffic pages first (Dashboard, Calendar, Clients), then secondary pages.
 
+## Completion criteria
+
+**A gap is only `[x]` done when ALL related entries in `screenshots/screenshot-catalog.md` show Match = "yes".**
+
+- Page exists but doesn't match reference → `[ ]` (not done)
+- Page partially matches → `[ ]` with "partial" note
+- Page visually verified to match ALL reference screenshots → `[x]`
+
+The catalog Match column is the source of truth, not this file. If there's a conflict, the catalog wins.
+
 ## Priority 1 — High-traffic pages
 
 ### Group D — Dashboard (`src/app/page.tsx`)

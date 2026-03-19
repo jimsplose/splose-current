@@ -31,8 +31,18 @@ Create these files if they don't exist.
 ### 4. Update state registry (if it exists)
 If `src/lib/state-registry.ts` exists, add entries for every new state/variant/modal discovered. If it doesn't exist yet, the screenshot catalog serves as the source of truth until the Dev Navigator is built.
 
-### 5. Update fidelity gaps
-Add new gaps to `docs/fidelity-gaps.md` for any screenshots showing states/pages not yet implemented.
+### 5. Update fidelity gaps — CRITICAL
+
+**Every catalog entry with Match = "no" MUST have a corresponding open gap in `docs/fidelity-gaps.md`.** This is not optional.
+
+For each new screenshot cataloged:
+1. Compare the reference screenshot against the current prototype page (take a Playwright screenshot or read the source)
+2. Set the Match column honestly: "yes" (matches), "partial" (some elements match), or "no" (doesn't match)
+3. For every "no" or "partial" entry, ensure there is an **unchecked `[ ]` gap** in `docs/fidelity-gaps.md`
+4. Group related screenshots into a single gap (e.g. all Settings > Tags screenshots = one gap)
+5. Include specific notes on what's missing or wrong
+
+**Do NOT mark a gap as `[x]` just because the page exists.** A gap is only done when ALL its catalog entries show Match = "yes" after visual verification.
 
 ### 6. Commit the catalog and processed.txt
 **MUST commit and push** the updated catalog and processed.txt before moving on to implementation. This preserves the work even if the session ends.
