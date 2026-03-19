@@ -11,27 +11,25 @@ Use AskUserQuestion with these options:
 > **What would you like to work on this session?**
 >
 > 1. **Review status** — Read `docs/progress.md` and `docs/fidelity-gaps.md`, show recently completed tasks, build/deploy status, and what's next
-> 2. **Upload screenshots** — User will upload new reference screenshots to be saved into `screenshots/reference/`. Follow `docs/screenshot-workflow.md`
-> 3. **Process screenshots** — Catalog unprocessed screenshots, compare against prototype, and create fidelity gaps for every mismatch. Follow `docs/screenshot-workflow.md`
-> 4. **Run fidelity loops** — Pick open gaps from `docs/fidelity-gaps.md` (by priority), implement fixes, and visually verify against references. Follow `docs/fidelity-workflow.md`
-> 5. **Visual audit** — Verify implemented pages match references, update Match status in catalog, reopen/create gaps for mismatches. Follow `docs/visual-audit-workflow.md`
-> 6. **Build Dev Navigator** — Implement Dev Toolbar, state registry, and navigation menu. Follow `docs/dev-navigator-spec.md`
-> 7. **Something else** — Free-form request
+> 2. **Upload screenshots** — Upload reference screenshots (user will paste/attach images). Claude saves, catalogs, and creates fidelity gaps. Follow `docs/screenshot-workflow.md`
+> 3. **Run fidelity loops** — Pick open gaps from `docs/fidelity-gaps.md` (by priority), implement fixes, and visually verify against references. Follow `docs/fidelity-workflow.md`
+> 4. **Visual audit** — Verify implemented pages match references, update Match status in catalog, reopen/create gaps for mismatches. Follow `docs/visual-audit-workflow.md`
+> 5. **Build Dev Navigator** — Implement Dev Toolbar, state registry, and navigation menu. Follow `docs/dev-navigator-spec.md`
+> 6. **Something else** — Free-form request
 
 **Do NOT skip this step. Do NOT start working without the user's menu selection.**
 
 ### Lifecycle overview
 
 ```
-Upload → Process → Fidelity loops → Visual audit → (repeat)
-  (2)      (3)         (4)              (5)
+Upload screenshots → Fidelity loops → Visual audit → (repeat)
+       (2)                (3)              (4)
 ```
 
-- **Upload (2)** adds raw screenshots to `screenshots/reference/`
-- **Process (3)** catalogs them in `screenshots/screenshot-catalog.md` and creates gaps in `docs/fidelity-gaps.md` for every "no" match
-- **Fidelity loops (4)** implements code changes to close those gaps
-- **Visual audit (5)** verifies the work actually matches, updates the catalog Match column, and reopens/creates gaps for anything still wrong
-- **Dev Navigator (6)** is independent infrastructure — build anytime
+- **Upload (2)** — Jim pastes/attaches images. Claude saves to `screenshots/reference/`, catalogs them, and creates fidelity gaps for mismatches. All in one step.
+- **Fidelity loops (3)** — implements code changes to close those gaps
+- **Visual audit (4)** — verifies the work actually matches, updates the catalog Match column, and reopens/creates gaps for anything still wrong
+- **Dev Navigator (5)** — independent infrastructure, build anytime
 
 ### Gap completion rule (single source of truth)
 
@@ -44,7 +42,7 @@ Upload → Process → Fidelity loops → Visual audit → (repeat)
 | Workflow | Read first |
 |---|---|
 | Review status | `docs/progress.md`, `docs/fidelity-gaps.md` |
-| Upload / Process screenshots | `docs/screenshot-workflow.md` |
+| Upload screenshots | `docs/screenshot-workflow.md` |
 | Fidelity improvements | `docs/fidelity-gaps.md`, `docs/fidelity-workflow.md`, `docs/agent-block.md`, `docs/quality-gate.md` |
 | Visual audit | `docs/visual-audit-workflow.md` |
 | Dev Navigator | `docs/dev-navigator-spec.md` |
