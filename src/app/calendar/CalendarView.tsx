@@ -23,8 +23,12 @@ import {
   UserPlus,
   Activity,
   CalendarClock,
+  Ban,
+  Mail,
+  Repeat,
+  History,
 } from "lucide-react";
-import { Button, Badge, FormInput, FormSelect, Toggle, Modal, Avatar, Dropdown } from "@/components/ds";
+import { Button, Badge, FormInput, FormSelect, Modal, Toggle, Avatar } from "@/components/ds";
 
 type Appointment = {
   id: string;
@@ -261,8 +265,29 @@ export default function CalendarView({
     });
   }
 
-  function handleCellClick(dateStr: string, hour: number) {
-    openCreateModal(dateStr, hour);
+  function handleCellClick(
+    e: React.MouseEvent<HTMLDivElement>,
+    dateStr: string,
+    hour: number,
+  ) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const yOffset = e.clientY - rect.top;
+    const minuteFraction = yOffset / HOUR_HEIGHT;
+    const minute = Math.floor(minuteFraction * 60 / 30) * 30;
+    const clampedMinute = Math.min(minute, 30);
+    const timeLabel = formatTimeShort(hour, clampedMinute);
+
+    setPopover({
+      visible: true,
+      x: e.clientX,
+      y: e.clientY,
+      time: timeLabel,
+      hour,
+      minute: clampedMinute,
+      dateStr,
+      practitionerName: "",
+      practitionerId: "",
+    });
   }
 
   return (
@@ -562,7 +587,7 @@ export default function CalendarView({
                                 <div
                                   key={prac.id}
                                   className={`relative flex-1 cursor-pointer hover:bg-gray-100/50 ${pIdx < practitioners.length - 1 ? "border-r border-border/30" : ""}`}
-                                  onClick={() => handleCellClick(dateStr, hour)}
+                                  onClick={(e) => handleCellClick(e, dateStr, hour)}
                                 >
                                   {hourAppts.map((appt) => {
                                     const pos = getApptStyle(appt);
@@ -615,472 +640,360 @@ export default function CalendarView({
         </div>
       )}
 
-      {/* Appointment detail flyout */}
+      {/* Click-to-create popover */}
+      {popover.visible && (
+        <div
+          ref={popoverRef}
+          className="fixed z-30 w-52 rounded-lg border border-border bg-white shadow-lg"
+          style={{
+            left: `${popover.x - 104}px`,
+            top: `${popover.y - 180}px`,
+          }}
+        >
+          <div className="px-3 pt-3 pb-1">
+            <p className="text-sm font-semibold text-text">{popover.time}</p>
+          </div>
+          <div className="py-1">
+            <button
+              className="flex w-full items-center gap-2.5 px-3 py-2 text-sm text-text hover:bg-gray-50"
+              onClick={() => {
+                setPopover((prev) => ({ ...prev, visible: false }));
+                // Support activity - just close for now
+              }}
+            >
+              <Clock className="h-4 w-4 text-text-secondary" />
+              Support activity
+            </button>
+            <button
+              className="flex w-full items-center gap-2.5 px-3 py-2 text-sm text-text hover:bg-gray-50"
+              onClick={() => {
+                setPopover((prev) => ({ ...prev, visible: false }));
+                // Busy time - just close for now
+              }}
+            >
+              <Ban className="h-4 w-4 text-text-secondary" />
+              Busy time
+            </button>
+            <button
+              className="flex w-full items-center gap-2.5 px-3 py-2 text-sm text-text hover:bg-gray-50"
+              onClick={() => {
+                openCreateModal(popover.dateStr, popover.hour, popover.minute, popover.practitionerId);
+              }}
+            >
+              <Calendar className="h-4 w-4 text-text-secondary" />
+              Appointment
+            </button>
+          </div>
+          {/* Downward arrow */}
+          <div className="flex justify-center pb-0">
+            <div className="h-0 w-0 border-x-8 border-t-8 border-x-transparent border-t-white drop-shadow-sm" />
+          </div>
+        </div>
+      )}
+
+      {/* Appointment detail side panel */}
       {selectedAppt && (
-        <div className="animate-in slide-in-from-right absolute inset-0 z-20 w-full shrink-0 overflow-y-auto border-l border-border bg-white sm:relative sm:inset-auto sm:w-80">
-          <div className="p-4">
-            {/* Header */}
-            <div className="mb-4 flex items-start justify-between">
-              <div className="flex items-center gap-2">
-                <div className="h-3 w-3 rounded-full" style={{ backgroundColor: selectedAppt.practitionerColor }} />
-                <span className="text-sm font-medium text-text">
-                  {selectedAppt.clientName} ({selectedAppt.type})
-                </span>
-              </div>
-              <button onClick={() => setSelectedAppt(null)} className="rounded p-1 hover:bg-gray-100">
-                <X className="h-4 w-4 text-text-secondary" />
+        <AppointmentSidePanel
+          appt={selectedAppt}
+          onClose={() => setSelectedAppt(null)}
+          onEdit={() => setShowEditModal(true)}
+          isMonthView={viewMode === "Month"}
+        />
+      )}
+
+      {/* Create appointment modal */}
+      {showCreateModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/40 px-3 pt-4 pb-4 sm:px-0 sm:pt-12 sm:pb-12"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setShowCreateModal(false);
+          }}
+        >
+          <div className="w-full max-w-lg rounded-xl bg-white shadow-xl">
+            <div className="flex items-center justify-between border-b border-border px-6 py-4">
+              <h2 className="text-lg font-semibold text-text">New appointment</h2>
+              <button onClick={() => setShowCreateModal(false)} className="rounded p-1 hover:bg-gray-100">
+                <X className="h-5 w-5 text-text-secondary" />
               </button>
             </div>
+            <div className="space-y-4 px-6 py-5">
+              {/* Client */}
+              <div>
+                <label className="mb-1 block text-sm font-medium text-text-secondary">Client *</label>
+                <input
+                  type="text"
+                  value={createClient}
+                  onChange={(e) => setCreateClient(e.target.value)}
+                  placeholder="Start typing to search client..."
+                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                />
+              </div>
 
-            {/* Details — Group appointment panel */}
-            {isGroupAppointment(selectedAppt) ? (
-              <div className="space-y-3 text-sm">
-                <div className="flex items-start gap-2">
-                  <User className="mt-0.5 h-4 w-4 text-text-secondary" />
-                  <div>
-                    <span className="text-text">{selectedAppt.practitionerName}</span>
-                    <span className="text-text-secondary"> at </span>
-                    <span className="font-medium text-text">East Clinics</span>
-                  </div>
+              {/* Practitioner */}
+              <div>
+                <label className="mb-1 block text-sm font-medium text-text-secondary">Practitioner *</label>
+                <select
+                  value={createPractitioner}
+                  onChange={(e) => setCreatePractitioner(e.target.value)}
+                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                >
+                  {practitioners.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Date */}
+              <div>
+                <label className="mb-1 block text-sm font-medium text-text-secondary">Date *</label>
+                <input
+                  type="date"
+                  value={createDate}
+                  onChange={(e) => setCreateDate(e.target.value)}
+                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                />
+              </div>
+
+              {/* Start / End time */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="mb-1 block text-sm font-medium text-text-secondary">Start time *</label>
+                  <select
+                    value={createTime}
+                    onChange={(e) => setCreateTime(e.target.value)}
+                    className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                  >
+                    {TIME_OPTIONS.map((t) => (
+                      <option key={t} value={t}>
+                        {t}
+                      </option>
+                    ))}
+                  </select>
                 </div>
-
-                <div className="flex items-start gap-2">
-                  <User className="mt-0.5 h-4 w-4 text-text-secondary" />
-                  <span className="text-text">{selectedAppt.practitionerName}</span>
-                </div>
-
-                <div className="flex items-start gap-2">
-                  <Clock className="mt-0.5 h-4 w-4 text-text-secondary" />
-                  <span className="text-text">
-                    {selectedAppt.startTime}, {formatDateLong(selectedAppt.date)} for{" "}
-                    {calcDuration(selectedAppt.startTime, selectedAppt.endTime)}
-                  </span>
-                </div>
-
-                <div className="flex items-start gap-2">
-                  <Video className="mt-0.5 h-4 w-4 text-primary" />
-                  <span className="cursor-pointer text-primary hover:underline">Create zoom meeting</span>
-                </div>
-
-                <div className="flex items-start gap-2">
-                  <Monitor className="mt-0.5 h-4 w-4 text-primary" />
-                  <span className="cursor-pointer text-primary hover:underline">Create Microsoft Teams meeting</span>
-                </div>
-
-                {/* Attendees section */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-text-secondary" />
-                    <span className="text-text-secondary">1 of 6 clients attending</span>
-                  </div>
-                  <button className="flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs font-medium text-text hover:bg-gray-50">
-                    <UserPlus className="h-3 w-3" /> Client
-                  </button>
-                </div>
-
-                {/* Attendee list */}
-                <div className="ml-6 space-y-1">
-                  <div className="flex items-center gap-2 text-text">
-                    <div className="flex h-5 w-5 items-center justify-center rounded-full bg-gray-200 text-[9px] font-medium text-text-secondary">
-                      EF
-                    </div>
-                    <span>elsa frozen</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-2">
-                  <User className="mt-0.5 h-4 w-4 text-text-secondary" />
-                  <span className="text-text-secondary">Meghna Damodaran (Organiser)</span>
-                </div>
-
-                {/* Note field */}
-                <div className="mt-4">
-                  <label className="flex items-center gap-1 text-xs text-text-secondary">
-                    <FileText className="h-3 w-3" /> Note
-                  </label>
-                  <textarea
-                    className="mt-1 w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
-                    rows={3}
-                    placeholder="Add a note..."
-                  />
+                <div>
+                  <label className="mb-1 block text-sm font-medium text-text-secondary">End time *</label>
+                  <select
+                    value={createEndTime}
+                    onChange={(e) => setCreateEndTime(e.target.value)}
+                    className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                  >
+                    {TIME_OPTIONS.map((t) => (
+                      <option key={t} value={t}>
+                        {t}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
-            ) : (
-              /* Details — 1:1 appointment panel */
-              <div className="space-y-3 text-sm">
-                <div className="flex items-start gap-2">
-                  <User className="mt-0.5 h-4 w-4 text-text-secondary" />
-                  <div>
-                    <span className="text-text">{selectedAppt.practitionerName}</span>
-                    <span className="text-text-secondary"> at </span>
-                    <span className="font-medium text-text">East Clinics</span>
-                  </div>
-                </div>
 
-                <div className="flex items-start gap-2">
-                  <User className="mt-0.5 h-4 w-4 text-text-secondary" />
-                  <span className="text-text">{selectedAppt.practitionerName}</span>
-                </div>
-
-                <div className="flex items-start gap-2">
-                  <Clock className="mt-0.5 h-4 w-4 text-text-secondary" />
-                  <span className="text-text">
-                    {selectedAppt.startTime}, {formatDateLong(selectedAppt.date)} for{" "}
-                    {calcDuration(selectedAppt.startTime, selectedAppt.endTime)}
-                  </span>
-                </div>
-
-                <div className="flex items-start gap-2">
-                  <User className="mt-0.5 h-4 w-4 text-primary" />
-                  <span className="cursor-pointer text-primary hover:underline">{selectedAppt.clientName}</span>
-                </div>
-
-                <div className="flex items-start gap-2">
-                  <MapPin className="mt-0.5 h-4 w-4 text-text-secondary" />
-                  <span className="text-text-secondary">thyxueen@gmail.com</span>
-                </div>
-
-                <div className="flex items-start gap-2">
-                  <Calendar className="mt-0.5 h-4 w-4 text-text-secondary" />
-                  <span className="text-text-secondary">No status</span>
-                </div>
-
-                <div className="flex items-start gap-2">
-                  <Video className="mt-0.5 h-4 w-4 text-primary" />
-                  <span className="cursor-pointer text-primary hover:underline">Create zoom meeting</span>
-                </div>
-
-                <div className="flex items-start gap-2">
-                  <FileText className="mt-0.5 h-4 w-4 text-primary" />
-                  <span className="cursor-pointer text-primary hover:underline">TRR-005673</span>
-                  <Badge variant="blue" className="ml-1">Draft</Badge>
-                </div>
-
-                <div className="flex items-start gap-2">
-                  <FileText className="mt-0.5 h-4 w-4 text-primary" />
-                  <span className="cursor-pointer text-primary hover:underline">Add progress note</span>
-                </div>
-
-                <div className="flex items-start gap-2">
-                  <Clock className="mt-0.5 h-4 w-4 text-text-secondary" />
-                  <span className="text-xs text-text-secondary">Repeating every 2 weeks on Monday for 6 times</span>
-                </div>
-
-                <div className="flex items-start gap-2">
-                  <User className="mt-0.5 h-4 w-4 text-text-secondary" />
-                  <span className="text-text-secondary">{selectedAppt.practitionerName} (Organiser)</span>
-                </div>
-
-                {/* Note field */}
-                <div className="mt-4">
-                  <label className="flex items-center gap-1 text-xs text-text-secondary">Note</label>
-                  <textarea
-                    className="mt-1 w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
-                    rows={3}
-                    placeholder="Add a note..."
-                  />
-                </div>
+              {/* Appointment type */}
+              <div>
+                <label className="mb-1 block text-sm font-medium text-text-secondary">Appointment type *</label>
+                <select
+                  value={createType}
+                  onChange={(e) => setCreateType(e.target.value)}
+                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                >
+                  <option value="Initial Assessment">Initial Assessment</option>
+                  <option value="Follow Up">Follow Up</option>
+                  <option value="Review">Review</option>
+                  <option value="Group Session">Group Session</option>
+                </select>
               </div>
-            )}
 
-            {/* Action buttons */}
-            <div className="mt-6 flex items-center gap-2">
-              {!isGroupAppointment(selectedAppt) && (
-                <Button variant="secondary" size="sm">
-                  Book another
-                </Button>
-              )}
-              <Button variant="secondary" size="sm" onClick={() => setShowEditModal(true)}>
-                Edit
-              </Button>
-              <Button variant="secondary" size="sm">
-                Reschedule
-              </Button>
-              <Button variant="danger" size="sm">
-                Archive
-              </Button>
+              {/* Notes */}
+              <div>
+                <label className="mb-1 block text-sm font-medium text-text-secondary">Notes</label>
+                <textarea
+                  value={createNotes}
+                  onChange={(e) => setCreateNotes(e.target.value)}
+                  placeholder="Add notes..."
+                  rows={3}
+                  className="w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                />
+              </div>
             </div>
-
-            <div className="mt-3 text-center">
-              <button className="text-sm text-primary hover:underline">View change log</button>
+            <div className="flex items-center justify-end gap-2 border-t border-border px-6 py-4">
+              <Button variant="secondary" onClick={() => setShowCreateModal(false)}>
+                Cancel
+              </Button>
+              <Button variant="primary" onClick={() => setShowCreateModal(false)}>
+                Create
+              </Button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Create appointment modal */}
-      <Modal
-        open={showCreateModal}
-        onClose={() => setShowCreateModal(false)}
-        title="New appointment"
-        footer={
-          <>
-            <Button variant="secondary" onClick={() => setShowCreateModal(false)}>
-              Cancel
-            </Button>
-            <Button variant="primary" onClick={() => setShowCreateModal(false)}>
-              Create
-            </Button>
-          </>
-        }
-      >
-        <div className="space-y-4">
-          {/* Client */}
-          <div>
-            <label className="mb-1 block text-sm font-medium text-text-secondary">Client *</label>
-            <input
-              type="text"
-              value={createClient}
-              onChange={(e) => setCreateClient(e.target.value)}
-              placeholder="Start typing to search client..."
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-            />
-          </div>
-
-          {/* Practitioner */}
-          <div>
-            <label className="mb-1 block text-sm font-medium text-text-secondary">Practitioner *</label>
-            <select
-              value={createPractitioner}
-              onChange={(e) => setCreatePractitioner(e.target.value)}
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-            >
-              {practitioners.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Date */}
-          <div>
-            <label className="mb-1 block text-sm font-medium text-text-secondary">Date *</label>
-            <input
-              type="date"
-              value={createDate}
-              onChange={(e) => setCreateDate(e.target.value)}
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-            />
-          </div>
-
-          {/* Start / End time */}
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="mb-1 block text-sm font-medium text-text-secondary">Start time *</label>
-              <select
-                value={createTime}
-                onChange={(e) => setCreateTime(e.target.value)}
-                className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-              >
-                {TIME_OPTIONS.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="mb-1 block text-sm font-medium text-text-secondary">End time *</label>
-              <select
-                value={createEndTime}
-                onChange={(e) => setCreateEndTime(e.target.value)}
-                className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-              >
-                {TIME_OPTIONS.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {/* Appointment type */}
-          <div>
-            <label className="mb-1 block text-sm font-medium text-text-secondary">Appointment type *</label>
-            <select
-              value={createType}
-              onChange={(e) => setCreateType(e.target.value)}
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-            >
-              <option value="Initial Assessment">Initial Assessment</option>
-              <option value="Follow Up">Follow Up</option>
-              <option value="Review">Review</option>
-              <option value="Group Session">Group Session</option>
-            </select>
-          </div>
-
-          {/* Notes */}
-          <div>
-            <label className="mb-1 block text-sm font-medium text-text-secondary">Notes</label>
-            <textarea
-              value={createNotes}
-              onChange={(e) => setCreateNotes(e.target.value)}
-              placeholder="Add notes..."
-              rows={3}
-              className="w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-            />
-          </div>
-        </div>
-      </Modal>
-
       {/* Edit appointment modal */}
-      <Modal
-        open={showEditModal && !!selectedAppt}
-        onClose={() => setShowEditModal(false)}
-        title="Edit appointment"
-        footer={
-          <>
-            <Button variant="secondary" onClick={() => setShowEditModal(false)}>
-              Cancel
-            </Button>
-            <Button variant="primary" onClick={() => setShowEditModal(false)}>
-              Save changes
-            </Button>
-          </>
-        }
-      >
-        {selectedAppt && (
-          <div className="space-y-4">
-            {/* Service */}
-            <div>
-              <label className="mb-1 block text-sm font-medium text-text-secondary">Service *</label>
-              <input
-                type="text"
-                defaultValue={`${selectedAppt.clientName}`}
-                className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-              />
+      {showEditModal && selectedAppt && (
+        <div
+          className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/40 px-3 pt-4 pb-4 sm:px-0 sm:pt-12 sm:pb-12"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setShowEditModal(false);
+          }}
+        >
+          <div className="w-full max-w-lg rounded-xl bg-white shadow-xl">
+            <div className="flex items-center justify-between border-b border-border px-6 py-4">
+              <h2 className="text-lg font-semibold text-text">Edit appointment</h2>
+              <button onClick={() => setShowEditModal(false)} className="rounded p-1 hover:bg-gray-100">
+                <X className="h-5 w-5 text-text-secondary" />
+              </button>
             </div>
-
-            {/* Case */}
-            <div>
-              <label className="mb-1 block text-sm font-medium text-text-secondary">Case</label>
-              <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20">
-                <option>Choose a case</option>
-              </select>
-            </div>
-
-            {/* Date */}
-            <div>
-              <label className="mb-1 block text-sm font-medium text-text-secondary">Date *</label>
-              <input
-                type="date"
-                defaultValue={selectedAppt.date}
-                className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-              />
-            </div>
-
-            {/* Time */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-4 px-6 py-5">
+              {/* Service */}
               <div>
-                <label className="mb-1 block text-sm font-medium text-text-secondary">Time *</label>
+                <label className="mb-1 block text-sm font-medium text-text-secondary">Service *</label>
                 <input
                   type="text"
-                  defaultValue={selectedAppt.startTime}
+                  defaultValue={`${selectedAppt.clientName}`}
                   className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
                 />
               </div>
+
+              {/* Case */}
               <div>
-                <label className="mb-1 block text-sm font-medium text-text-secondary">&nbsp;</label>
+                <label className="mb-1 block text-sm font-medium text-text-secondary">Case</label>
+                <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20">
+                  <option>Choose a case</option>
+                </select>
+              </div>
+
+              {/* Date */}
+              <div>
+                <label className="mb-1 block text-sm font-medium text-text-secondary">Date *</label>
                 <input
-                  type="text"
-                  defaultValue={selectedAppt.endTime}
+                  type="date"
+                  defaultValue={selectedAppt.date}
                   className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
                 />
               </div>
-            </div>
 
-            {/* Room/Resource */}
-            <div>
-              <label className="mb-1 block text-sm font-medium text-text-secondary">Room/Resource</label>
-              <select
-                value={editRoom}
-                onChange={(e) => setEditRoom(e.target.value)}
-                className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-              >
-                <option value="">Choose a room/resource</option>
-                <optgroup label="Green room">
-                  <option value="green">Green (1 available of 1)</option>
-                </optgroup>
-                <optgroup label="">
-                  <option value="red">Red (1 available of 1)</option>
-                  <option value="blue">Blue (2 available of 2)</option>
-                </optgroup>
-                <optgroup label="Car">
-                  <option value="car">Car (1 available of 1)</option>
-                </optgroup>
-                <optgroup label="Rooms">
-                  <option value="room1">Room 1 (1 available of 1)</option>
-                </optgroup>
-              </select>
-            </div>
-
-            {/* Repeat toggle */}
-            <Toggle checked={editRepeat} onChange={setEditRepeat} label="Repeat" />
-
-            {editRepeat && (
-              <div className="space-y-3 rounded-lg border border-border bg-gray-50 p-4">
+              {/* Time */}
+              <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-text-secondary">Repeat</label>
-                  <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary">
-                    <option>Every 2 weeks</option>
-                    <option>Every week</option>
-                    <option>Every 3 weeks</option>
-                    <option>Every 4 weeks</option>
-                  </select>
+                  <label className="mb-1 block text-sm font-medium text-text-secondary">Time *</label>
+                  <input
+                    type="text"
+                    defaultValue={selectedAppt.startTime}
+                    className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                  />
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-text-secondary">Repeat on *</label>
-                  <div className="flex gap-1">
-                    {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d) => (
-                      <button
-                        key={d}
-                        className={`rounded-full px-2.5 py-1 text-xs font-medium ${d === "Mo" ? "bg-primary text-white" : "border border-border bg-white text-text hover:bg-gray-50"}`}
-                      >
-                        {d}
-                      </button>
-                    ))}
+                  <label className="mb-1 block text-sm font-medium text-text-secondary">&nbsp;</label>
+                  <input
+                    type="text"
+                    defaultValue={selectedAppt.endTime}
+                    className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                  />
+                </div>
+              </div>
+
+              {/* Room/Resource */}
+              <div>
+                <label className="mb-1 block text-sm font-medium text-text-secondary">Room/Resource</label>
+                <select
+                  value={editRoom}
+                  onChange={(e) => setEditRoom(e.target.value)}
+                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                >
+                  <option value="">Choose a room/resource</option>
+                  <optgroup label="Green room">
+                    <option value="green">Green (1 available of 1)</option>
+                  </optgroup>
+                  <optgroup label="">
+                    <option value="red">Red (1 available of 1)</option>
+                    <option value="blue">Blue (2 available of 2)</option>
+                  </optgroup>
+                  <optgroup label="Car">
+                    <option value="car">Car (1 available of 1)</option>
+                  </optgroup>
+                  <optgroup label="Rooms">
+                    <option value="room1">Room 1 (1 available of 1)</option>
+                  </optgroup>
+                </select>
+              </div>
+
+              {/* Repeat toggle */}
+              <Toggle
+                checked={editRepeat}
+                onChange={setEditRepeat}
+                label="Repeat"
+              />
+
+              {editRepeat && (
+                <div className="space-y-3 rounded-lg border border-border bg-gray-50 p-4">
+                  <div>
+                    <label className="mb-1 block text-sm font-medium text-text-secondary">Repeat</label>
+                    <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary">
+                      <option>Every 2 weeks</option>
+                      <option>Every week</option>
+                      <option>Every 3 weeks</option>
+                      <option>Every 4 weeks</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="mb-1 block text-sm font-medium text-text-secondary">Repeat on *</label>
+                    <div className="flex gap-1">
+                      {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d) => (
+                        <button
+                          key={d}
+                          className={`rounded-full px-2.5 py-1 text-xs font-medium ${d === "Mo" ? "bg-primary text-white" : "border border-border bg-white text-text hover:bg-gray-50"}`}
+                        >
+                          {d}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="mb-1 block text-sm font-medium text-text-secondary">Ends</label>
+                    <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary">
+                      <option>After 6 times</option>
+                      <option>After 4 times</option>
+                      <option>After 8 times</option>
+                      <option>After 12 times</option>
+                      <option>On date</option>
+                    </select>
                   </div>
                 </div>
-                <div>
-                  <label className="mb-1 block text-sm font-medium text-text-secondary">Ends</label>
-                  <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary">
-                    <option>After 6 times</option>
-                    <option>After 4 times</option>
-                    <option>After 8 times</option>
-                    <option>After 12 times</option>
-                    <option>On date</option>
-                  </select>
+              )}
+
+              {/* Apply to */}
+              <div>
+                <label className="mb-2 block text-sm font-medium text-text-secondary">Apply to:</label>
+                <div className="space-y-1.5">
+                  {[
+                    { value: "this" as const, label: "This occurrence" },
+                    { value: "following" as const, label: "This and all following occurrences" },
+                    { value: "all" as const, label: "All occurrences" },
+                  ].map((opt) => (
+                    <label key={opt.value} className="flex cursor-pointer items-center gap-2 text-sm text-text">
+                      <input
+                        type="radio"
+                        name="applyTo"
+                        checked={editApplyTo === opt.value}
+                        onChange={() => setEditApplyTo(opt.value)}
+                        className="accent-primary"
+                      />
+                      {opt.label}
+                    </label>
+                  ))}
                 </div>
               </div>
-            )}
-
-            {/* Apply to */}
-            <div>
-              <label className="mb-2 block text-sm font-medium text-text-secondary">Apply to:</label>
-              <div className="space-y-1.5">
-                {[
-                  { value: "this" as const, label: "This occurrence" },
-                  { value: "following" as const, label: "This and all following occurrences" },
-                  { value: "all" as const, label: "All occurrences" },
-                ].map((opt) => (
-                  <label key={opt.value} className="flex cursor-pointer items-center gap-2 text-sm text-text">
-                    <input
-                      type="radio"
-                      name="applyTo"
-                      checked={editApplyTo === opt.value}
-                      onChange={() => setEditApplyTo(opt.value)}
-                      className="accent-primary"
-                    />
-                    {opt.label}
-                  </label>
-                ))}
-              </div>
+            </div>
+            <div className="flex items-center justify-end gap-2 border-t border-border px-6 py-4">
+              <Button variant="secondary" onClick={() => setShowEditModal(false)}>
+                Cancel
+              </Button>
+              <Button variant="primary" onClick={() => setShowEditModal(false)}>
+                Save changes
+              </Button>
             </div>
           </div>
-        )}
-      </Modal>
+        </div>
+      )}
     </div>
   );
 }
@@ -1206,6 +1119,256 @@ function MonthView({
           })}
         </div>
       ))}
+    </div>
+  );
+}
+
+/* ─── Appointment Side Panel ──────────────────────────────────────── */
+
+function AppointmentSidePanel({
+  appt,
+  onClose,
+  onEdit,
+  isMonthView,
+}: {
+  appt: Appointment;
+  onClose: () => void;
+  onEdit: () => void;
+  isMonthView: boolean;
+}) {
+  const isGroup = isGroupAppointment(appt);
+
+  // For month view, render as a slide-in overlay on the right
+  const panelClasses = isMonthView
+    ? "fixed right-0 top-0 z-30 h-full w-80 animate-in slide-in-from-right border-l border-border bg-white shadow-xl overflow-y-auto"
+    : "animate-in slide-in-from-right absolute inset-0 z-20 w-full shrink-0 overflow-y-auto border-l border-border bg-white sm:relative sm:inset-auto sm:w-80";
+
+  return (
+    <>
+      {/* Backdrop for month view */}
+      {isMonthView && (
+        <div className="fixed inset-0 z-20 bg-black/20" onClick={onClose} />
+      )}
+      <div className={panelClasses}>
+        <div className="p-4">
+          {/* Header */}
+          <div className="mb-4 flex items-start justify-between">
+            <div className="flex items-center gap-2">
+              <div className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: appt.practitionerColor }} />
+              <span className="text-sm font-semibold text-text">
+                {appt.clientName} ({appt.type})
+              </span>
+            </div>
+            <button onClick={onClose} className="rounded p-1 hover:bg-gray-100">
+              <X className="h-4 w-4 text-text-secondary" />
+            </button>
+          </div>
+
+          {/* Details */}
+          {isGroup ? (
+            <GroupAppointmentDetails appt={appt} />
+          ) : (
+            <SingleAppointmentDetails appt={appt} />
+          )}
+
+          {/* Action buttons */}
+          <div className="mt-6 flex flex-wrap items-center gap-2">
+            {!isGroup && (
+              <Button variant="secondary" size="sm">
+                Book another
+              </Button>
+            )}
+            <Button variant="secondary" size="sm" onClick={onEdit}>
+              Edit
+            </Button>
+            <Button variant="secondary" size="sm">
+              Reschedule
+            </Button>
+            <Button variant="danger" size="sm">
+              Archive
+            </Button>
+          </div>
+
+          <div className="mt-3 text-center">
+            <button className="flex items-center justify-center gap-1 text-sm text-primary hover:underline mx-auto">
+              <History className="h-3.5 w-3.5" />
+              View change log
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
+  return (
+    <div className="space-y-3 text-sm">
+      {/* Location */}
+      <div className="flex items-start gap-2">
+        <MapPin className="mt-0.5 h-4 w-4 text-text-secondary" />
+        <div>
+          <span className="text-text">{appt.practitionerName}</span>
+          <span className="text-text-secondary"> at </span>
+          <span className="font-medium text-text">East Clinics</span>
+        </div>
+      </div>
+
+      {/* Practitioner */}
+      <div className="flex items-center gap-2">
+        <Avatar name={appt.practitionerName} color={appt.practitionerColor} size="sm" />
+        <span className="text-text">{appt.practitionerName}</span>
+      </div>
+
+      {/* Time */}
+      <div className="flex items-start gap-2">
+        <Clock className="mt-0.5 h-4 w-4 text-text-secondary" />
+        <span className="text-text">
+          {appt.startTime}, {formatDateLong(appt.date)} for{" "}
+          {calcDuration(appt.startTime, appt.endTime)}
+        </span>
+      </div>
+
+      {/* Client name link */}
+      <div className="flex items-start gap-2">
+        <User className="mt-0.5 h-4 w-4 text-primary" />
+        <span className="cursor-pointer font-medium text-primary hover:underline">{appt.clientName}</span>
+      </div>
+
+      {/* Email */}
+      <div className="flex items-start gap-2">
+        <Mail className="mt-0.5 h-4 w-4 text-text-secondary" />
+        <span className="text-text-secondary">thyxueen@gmail.com</span>
+      </div>
+
+      {/* Status */}
+      <div className="flex items-start gap-2">
+        <div className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-gray-300" />
+        <span className="text-text-secondary">No status</span>
+      </div>
+
+      {/* Zoom link */}
+      <div className="flex items-start gap-2">
+        <Video className="mt-0.5 h-4 w-4 text-primary" />
+        <span className="cursor-pointer text-primary hover:underline">Create zoom meeting</span>
+      </div>
+
+      {/* Invoice */}
+      <div className="flex items-center gap-2">
+        <FileText className="mt-0.5 h-4 w-4 text-primary" />
+        <span className="cursor-pointer text-primary hover:underline">TRR-005673</span>
+        <Badge variant="blue">Draft</Badge>
+      </div>
+
+      {/* Progress note */}
+      <div className="flex items-start gap-2">
+        <FileText className="mt-0.5 h-4 w-4 text-primary" />
+        <span className="cursor-pointer text-primary hover:underline">Add progress note</span>
+      </div>
+
+      {/* Repeating info */}
+      <div className="flex items-start gap-2">
+        <Repeat className="mt-0.5 h-4 w-4 text-text-secondary" />
+        <span className="text-xs text-text-secondary">Repeating every 2 weeks on Monday for 6 times</span>
+      </div>
+
+      {/* Organiser */}
+      <div className="flex items-center gap-2">
+        <Avatar name={appt.practitionerName} color={appt.practitionerColor} size="sm" />
+        <span className="text-text-secondary">{appt.practitionerName} (Organiser)</span>
+      </div>
+
+      {/* Note field */}
+      <div className="mt-4">
+        <label className="flex items-center gap-1 text-xs font-medium text-text-secondary">
+          <FileText className="h-3 w-3" /> Note
+        </label>
+        <textarea
+          className="mt-1 w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
+          rows={3}
+          placeholder="Add a note..."
+        />
+      </div>
+    </div>
+  );
+}
+
+function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
+  return (
+    <div className="space-y-3 text-sm">
+      {/* Location */}
+      <div className="flex items-start gap-2">
+        <MapPin className="mt-0.5 h-4 w-4 text-text-secondary" />
+        <div>
+          <span className="text-text">{appt.practitionerName}</span>
+          <span className="text-text-secondary"> at </span>
+          <span className="font-medium text-text">East Clinics</span>
+        </div>
+      </div>
+
+      {/* Practitioner */}
+      <div className="flex items-center gap-2">
+        <Avatar name={appt.practitionerName} color={appt.practitionerColor} size="sm" />
+        <span className="text-text">{appt.practitionerName}</span>
+      </div>
+
+      {/* Time */}
+      <div className="flex items-start gap-2">
+        <Clock className="mt-0.5 h-4 w-4 text-text-secondary" />
+        <span className="text-text">
+          {appt.startTime}, {formatDateLong(appt.date)} for{" "}
+          {calcDuration(appt.startTime, appt.endTime)}
+        </span>
+      </div>
+
+      {/* Zoom */}
+      <div className="flex items-start gap-2">
+        <Video className="mt-0.5 h-4 w-4 text-primary" />
+        <span className="cursor-pointer text-primary hover:underline">Create zoom meeting</span>
+      </div>
+
+      {/* Teams */}
+      <div className="flex items-start gap-2">
+        <Monitor className="mt-0.5 h-4 w-4 text-primary" />
+        <span className="cursor-pointer text-primary hover:underline">Create Microsoft Teams meeting</span>
+      </div>
+
+      {/* Attendees section */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Users className="h-4 w-4 text-text-secondary" />
+          <span className="text-text-secondary">1 of 6 clients attending</span>
+        </div>
+        <Button variant="secondary" size="sm">
+          <UserPlus className="h-3 w-3" /> Client
+        </Button>
+      </div>
+
+      {/* Attendee list */}
+      <div className="ml-6 space-y-1">
+        <div className="flex items-center gap-2 text-text">
+          <Avatar name="elsa frozen" size="sm" />
+          <span>elsa frozen</span>
+        </div>
+      </div>
+
+      {/* Organiser */}
+      <div className="flex items-center gap-2">
+        <Avatar name="Meghna Damodaran" color={appt.practitionerColor} size="sm" />
+        <span className="text-text-secondary">Meghna Damodaran (Organiser)</span>
+      </div>
+
+      {/* Note field */}
+      <div className="mt-4">
+        <label className="flex items-center gap-1 text-xs font-medium text-text-secondary">
+          <FileText className="h-3 w-3" /> Note
+        </label>
+        <textarea
+          className="mt-1 w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
+          rows={3}
+          placeholder="Add a note..."
+        />
+      </div>
     </div>
   );
 }

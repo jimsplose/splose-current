@@ -134,10 +134,10 @@ These pages contain inline patterns that should use DS components. Each must be 
 - [ ] **Calendar toolbar polish** — Week/day view toolbar needs button styling refinement, dropdown chevron directions, filter pill styling, and hover states on cells. All week view screenshots remain partial. (2026-03-19 audit)
 
 ### Group Q — Missing detail/view pages
-- [ ] **Contact detail page** — `/contacts/[id]` not implemented. Reference shows Details tab with Associated clients, and Invoices tab. Reference: 11.14.14-11.14.21 am.
-- [ ] **Invoice view page** — `/invoices/[id]` not implemented. Reference shows PDF-style invoice with Pay/Email/Actions buttons. Reference: 11.16.02-11.16.25 am.
+- [x] **Contact detail page** — `/contacts/[id]` implemented with Details tab (General details, Contact details, Associated clients table), sidebar nav, Actions button. (2026-03-19)
+- [x] **Invoice view page** — `/invoices/[id]` implemented with PDF-style invoice layout, Pay/Email/Actions buttons, line items table, totals, additional info. (2026-03-19)
 - [ ] **Client edit details page** — Edit form exists but interaction is limited, profile photo upload missing prominence. Reference: 11.11.08 am.
-- [ ] **Client appointment side panel** — Side panel for appointment details from client page not implemented. Reference: 11.12.37 am.
+- [ ] **Client appointment side panel** — Side panel for appointment details from client page. In progress. Reference: 11.12.37 am.
 - [ ] **Clients list filter dropdowns** — Tags filter dropdown (11.10.08) and Active/Archived status dropdown (11.10.24) not implemented in UI. Only SearchBar present. (2026-03-19 audit)
 
 ## Priority 8 — DS components & page migration (2026-03-19)
