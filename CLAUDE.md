@@ -164,7 +164,7 @@ When launching subagents for UI work, read and follow:
 npm install              # Install deps (also runs prisma generate via postinstall)
 npm run dev              # Start dev server at localhost:3000
 npm run storybook        # Storybook on localhost:6006
-npx playwright install chromium  # REQUIRED for pixel-diff verification — not optional
+# Puppeteer bundles Chromium automatically via npm install — no separate step needed
 ```
 
 ### Pixel diff tools (used by fidelity workflows)
