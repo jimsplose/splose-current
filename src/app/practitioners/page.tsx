@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { Plus, Mail, Phone } from "lucide-react";
-import { Button, PageHeader } from "@/components/ds";
+import { Badge, Button, PageHeader } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -43,9 +43,9 @@ export default async function PractitionersPage() {
                 <h3 className="truncate font-semibold text-text">{p.name}</h3>
                 <p className="truncate text-sm text-text-secondary">{p.role}</p>
                 {p.specialty && (
-                  <span className="mt-1 inline-block rounded-full bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-700">
+                  <Badge variant="purple" className="mt-1">
                     {p.specialty}
-                  </span>
+                  </Badge>
                 )}
               </div>
             </div>
