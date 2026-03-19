@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import TopNav from "@/components/TopNav";
 import DevNavigator from "@/components/DevNavigator";
@@ -22,6 +23,7 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <DevNavigator />
         </Suspense>
+        <Analytics />
       </body>
     </html>
   );
