@@ -38,17 +38,14 @@ Next.js 16 (App Router), React 19, TypeScript (strict), Turso/Prisma 7, Tailwind
 
 Every push to any branch gets a **Vercel preview deployment**. This is how Jim reviews changes.
 
-- **Production** (main branch): https://splose-current.vercel.app
-- **Branch previews**: `https://splose-current-<git-branch-slug>.vercel.app`
-  - Example: branch `claude/fidelity-sprint-automation-0cFV5` → `https://splose-current-git-claude-fidelity-sprint-auto-jimyencken-4159s.vercel.app`
-- **Per-commit previews**: Each push also gets a unique URL like `https://splose-current-<hash>.vercel.app`
+- **Production** (main branch): `https://splose-current-git-main-jimyencken-4159s-projects.vercel.app`
+- **Per-commit previews**: `https://splose-current-<hash>-jimyencken-4159s-projects.vercel.app`
+  - The `<hash>` is a Vercel-generated ID, not the git SHA — you can't predict it from the commit hash alone
 
 **After every push**, Claude Code MUST:
-1. Tell Jim the branch preview URL so he can check changes immediately
+1. Tell Jim that the preview is building and will be available via the Vercel dashboard shortly
 2. Note: Vercel previews take 1-2 minutes to build after push
 3. Production auto-updates after preview build succeeds (via GitHub Action) — no manual step needed
-
-To check deployment status: `gh api repos/jimsplose/splose-current/deployments --jq '.[0] | {env: .environment, url: .payload.web_url, status: .state}'`
 
 ## Key Conventions
 
