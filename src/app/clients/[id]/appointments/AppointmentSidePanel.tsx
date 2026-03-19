@@ -22,7 +22,6 @@ import StatusBadge from "@/components/StatusBadge";
 import {
   Button,
   PageHeader,
-  DataTable,
   TableHead,
   Th,
   TableBody,
@@ -30,6 +29,7 @@ import {
   Pagination,
   Badge,
   Avatar,
+  Status,
   statusVariant,
 } from "@/components/ds";
 
@@ -134,14 +134,14 @@ export default function AppointmentSidePanel({
                 </tr>
               ) : (
                 appointments.map((appt) => {
-                  const statusColor =
+                  const statusDotColor: "green" | "red" | "yellow" | "gray" | "orange" =
                     appt.status === "Completed"
-                      ? "bg-gray-400"
+                      ? "gray"
                       : appt.status === "Cancelled"
-                        ? "bg-red-400"
+                        ? "red"
                         : appt.status === "No Show"
-                          ? "bg-yellow-400"
-                          : "bg-amber-400";
+                          ? "yellow"
+                          : "orange";
                   const isUpcoming =
                     appt.status === "Scheduled" &&
                     new Date(appt.date + "T00:00:00") >= new Date(new Date().toDateString());
@@ -156,9 +156,7 @@ export default function AppointmentSidePanel({
                     >
                       <Td>
                         <div className="flex items-center gap-2">
-                          <div
-                            className={`h-2.5 w-2.5 shrink-0 rounded-full ${isUpcoming ? "bg-green-500" : statusColor}`}
-                          />
+                          <Status color={isUpcoming ? "green" : statusDotColor} />
                           <span className="text-text">
                             {formatDate(appt.date)}, {appt.startTime}
                           </span>
@@ -301,7 +299,7 @@ export default function AppointmentSidePanel({
             {/* Status */}
             <div className="flex items-center gap-3">
               <div className="flex h-4 w-4 shrink-0 items-center justify-center">
-                <div className="h-2.5 w-2.5 rounded-full bg-gray-300" />
+                <Status color="gray" />
               </div>
               <span className="text-text-secondary">No status</span>
             </div>
