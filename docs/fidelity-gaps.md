@@ -138,7 +138,7 @@ These pages contain inline patterns that should use DS components. Each must be 
 - [x] **Invoice view page** — `/invoices/[id]` implemented with PDF-style invoice layout, Pay/Email/Actions buttons, line items table, totals, additional info. (2026-03-19)
 - [ ] **Client edit details page** — Edit form exists but interaction is limited, profile photo upload missing prominence. Reference: 11.11.08 am.
 - [ ] **Client appointment side panel** — Side panel for appointment details from client page. In progress. Reference: 11.12.37 am.
-- [ ] **Clients list filter dropdowns** — Tags filter dropdown (11.10.08) and Active/Archived status dropdown (11.10.24) not implemented in UI. Only SearchBar present. (2026-03-19 audit)
+- [x] **Clients list filter dropdowns** — Tags filter dropdown and Active/Archived status dropdown added using DS Dropdown component. Extracted ClientsPageClient.tsx. (2026-03-19)
 
 ## Priority 8 — DS components & page migration (2026-03-19)
 
@@ -158,7 +158,7 @@ All 22 DS components have been **created** in `src/components/ds/` with full imp
 
 ### Group S — Medium-priority DS components (created, not yet migrated)
 
-- [ ] **Card** (`Card.tsx`) — Component created with stories. Partial: reports/page.tsx and reports/progress-notes migrated (2026-03-19). Remaining: settings/page.tsx.
+- [x] **Card** (`Card.tsx`) — Component created with stories. Migrated: reports/page.tsx and reports/progress-notes (2026-03-19). settings/page.tsx has no card pattern. (2026-03-19)
 - [x] **Select** (`Select.tsx`) — Component created with stories. Migrated: payments/new/page.tsx (searchable client dropdown). (2026-03-19)
 - [x] **Navbar** (`Navbar.tsx`) — Component created with stories. Migrated: notes/new, notes/[id], notes/[id]/edit, payments/new. invoices/[id] has no back nav pattern. (2026-03-19)
 - [x] **DateRangeFilter** (`DateRangeFilter.tsx`) — Component created with stories. All 3 reports pages migrated (2026-03-19).
@@ -168,7 +168,7 @@ All 22 DS components have been **created** in `src/components/ds/` with full imp
 ### Group T — Lower-priority DS components (created, not yet migrated)
 
 - [ ] **Status** (`Status.tsx`) — Component created with stories. Not yet migrated: clients/[id]/appointments, calendar/CalendarView.tsx.
-- [ ] **AsyncSelect** (`AsyncSelect.tsx`) — Component created with stories. Not yet migrated: notes/new/page.tsx.
+- [x] **AsyncSelect** (`AsyncSelect.tsx`) — Component created with stories. notes/new/page.tsx has no matching pattern — uses static FormSelect. (2026-03-19)
 
 ### Group U — SearchBar adoption (existing DS component not used)
 

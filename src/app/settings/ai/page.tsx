@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Button, FormInput, Tab, Toggle } from "@/components/ds";
+import { Button, FormInput, Tab, Toggle, DataTable, TableHead, Th, TableBody, Td, Pagination, Dropdown, Modal, EmptyState } from "@/components/ds";
 
 const sidebarSections = [
   {
@@ -216,6 +216,17 @@ function PreferencesTab() {
 }
 
 function SavedPromptsTab() {
+  const [editPrompt, setEditPrompt] = useState<string | null>(null);
+  const [editName, setEditName] = useState("");
+  const [editGroup, setEditGroup] = useState("Any user");
+
+  const handleEdit = (name: string) => {
+    setEditName(name);
+    const prompt = aiPrompts.find((p) => p.name === name);
+    setEditGroup(prompt?.userGroup || "Any user");
+    setEditPrompt(name);
+  };
+
   return (
     <div>
       <div className="mb-4 flex items-center justify-between">
@@ -223,35 +234,71 @@ function SavedPromptsTab() {
         <Button variant="secondary">+ New prompt</Button>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-gray-50">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">Prompt</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">User group</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
+      <DataTable>
+        <TableHead>
+          <Th>Prompt</Th>
+          <Th>User group</Th>
+          <Th align="right">Actions</Th>
+        </TableHead>
+        <TableBody>
+          {aiPrompts.map((prompt) => (
+            <tr key={prompt.name} className="hover:bg-gray-50">
+              <Td>{prompt.name}</Td>
+              <Td className="text-text-secondary">{prompt.userGroup}</Td>
+              <Td align="right">
+                <Dropdown
+                  trigger={<button className="text-text-secondary hover:text-text">...</button>}
+                  items={[
+                    { label: "Edit", value: "edit" },
+                    { label: "Duplicate", value: "duplicate" },
+                    { label: "Delete", value: "delete", danger: true },
+                  ]}
+                  onSelect={(val) => { if (val === "edit") handleEdit(prompt.name); }}
+                  align="right"
+                />
+              </Td>
             </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
-            {aiPrompts.map((prompt) => (
-              <tr key={prompt.name} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm text-text">{prompt.name}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{prompt.userGroup}</td>
-                <td className="px-4 py-3 text-right">
-                  <button className="text-text-secondary hover:text-text">...</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="flex items-center justify-end border-t border-border px-4 py-3 text-sm text-text-secondary">
-          <span>&lt;</span>
-          <button className="mx-2 flex h-7 w-7 items-center justify-center rounded border border-primary bg-white text-xs font-medium text-primary">
-            1
-          </button>
-          <span>&gt;</span>
+          ))}
+        </TableBody>
+      </DataTable>
+      <Pagination currentPage={1} totalPages={1} totalItems={aiPrompts.length} itemsPerPage={10} />
+
+      <Modal
+        open={editPrompt !== null}
+        onClose={() => setEditPrompt(null)}
+        title="Edit prompt"
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setEditPrompt(null)}>Cancel</Button>
+            <Button variant="primary" onClick={() => setEditPrompt(null)}>Save</Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <FormInput label="Prompt name" value={editName} onChange={(e) => setEditName(e.target.value)} />
+          <div>
+            <label className="mb-1 block text-sm font-medium text-text-secondary">User group</label>
+            <select
+              value={editGroup}
+              onChange={(e) => setEditGroup(e.target.value)}
+              className="w-full rounded-lg border border-border px-3 py-2 text-sm text-text focus:border-primary focus:ring-1 focus:ring-primary/20 focus:outline-none"
+            >
+              <option>Any user</option>
+              <option>Physiotherapists</option>
+              <option>Occupational Therapists</option>
+              <option>Speech Pathologists</option>
+            </select>
+          </div>
+          <div>
+            <label className="mb-1 block text-sm font-medium text-text-secondary">Prompt</label>
+            <textarea
+              rows={6}
+              defaultValue="Write a professional progress note based on the session."
+              className="w-full rounded-lg border border-border px-3 py-2 text-sm text-text focus:border-primary focus:ring-1 focus:ring-primary/20 focus:outline-none"
+            />
+          </div>
         </div>
-      </div>
+      </Modal>
     </div>
   );
 }
@@ -301,47 +348,22 @@ function AIBlockLibraryTab() {
       </div>
 
       {/* Table */}
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-gray-50">
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                <div className="flex items-center gap-1">
-                  AI block
-                  <span className="text-xs text-text-secondary">&#8645;</span>
-                </div>
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                <div className="flex items-center gap-1">
-                  Tag
-                  <span className="text-xs text-text-secondary">&#8645;</span>
-                  <span className="text-xs text-text-secondary">&#9660;</span>
-                </div>
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                <div className="flex items-center gap-1">
-                  Created by
-                  <span className="text-xs text-text-secondary">&#9660;</span>
-                </div>
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">
-                <div className="flex items-center gap-1">
-                  Last modified
-                  <span className="text-xs text-text-secondary">&#8645;</span>
-                </div>
-              </th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td colSpan={5} className="px-4 py-8 text-center text-sm text-text-secondary">
-                No results
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <DataTable>
+        <TableHead>
+          <Th><div className="flex items-center gap-1">AI block <span className="text-xs text-text-secondary">&#8645;</span></div></Th>
+          <Th><div className="flex items-center gap-1">Tag <span className="text-xs text-text-secondary">&#8645;</span></div></Th>
+          <Th><div className="flex items-center gap-1">Created by <span className="text-xs text-text-secondary">&#9660;</span></div></Th>
+          <Th><div className="flex items-center gap-1">Last modified <span className="text-xs text-text-secondary">&#8645;</span></div></Th>
+          <Th align="right">Actions</Th>
+        </TableHead>
+        <TableBody>
+          <tr>
+            <td colSpan={5}>
+              <EmptyState message="No results" className="py-8" />
+            </td>
+          </tr>
+        </TableBody>
+      </DataTable>
     </div>
   );
 }
