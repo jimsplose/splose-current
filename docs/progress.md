@@ -141,3 +141,19 @@ Append-only log. Each session adds an entry summarizing what was done.
 ### Still Remaining
 - Process new screenshots
 - Integration logos: replace styled text with actual SVG brand assets if available
+
+---
+
+## Session — 2026-03-19
+
+**Branch**: `claude/add-launch-menu-A2vsu`
+
+### Completed
+- **Merged worktree agent changes** — Applied pending changes from 3 parallel agents:
+  - Settings Details page: expanded with workspace URL, patient terminology, currency, communication preferences, email signature editor (Business/User tabs), calendar lock dates, Google Tag Manager, cases toggle
+  - Dashboard: improved message image placeholders with gradient blurs, cat silhouette, cleaner date separators
+- **Cleaned up 4 stale worktrees**
+
+### Still Remaining
+- Process new screenshots
+- Integration logos: replace styled text with actual SVG brand assets if available
