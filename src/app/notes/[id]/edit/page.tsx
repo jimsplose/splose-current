@@ -7,8 +7,6 @@ import {
   ArrowLeft,
   LayoutGrid,
   Columns2,
-  Save,
-  Lock,
   ChevronDown,
   Sparkles,
   CheckCircle,
@@ -21,8 +19,18 @@ import {
   Link2,
   Image,
   Table,
+  ThumbsUp,
+  ThumbsDown,
+  RotateCcw,
+  Pencil,
+  Copy,
+  AlignLeft,
+  List,
+  ListOrdered,
+  Palette,
+  Type,
 } from "lucide-react";
-import { Button, Badge } from "@/components/ds";
+import { Button, Badge, FormSelect } from "@/components/ds";
 
 type NoteData = {
   id: string;
@@ -42,6 +50,8 @@ type AISection = {
   expanded: boolean;
   generating: boolean;
   generated: boolean;
+  actionsOpen: boolean;
+  feedback: "up" | "down" | null;
 };
 
 const DEFAULT_AI_SECTIONS: Omit<AISection, "id">[] = [
@@ -53,6 +63,8 @@ const DEFAULT_AI_SECTIONS: Omit<AISection, "id">[] = [
     expanded: true,
     generating: false,
     generated: false,
+    actionsOpen: false,
+    feedback: null,
   },
   {
     title: "Objective",
@@ -62,6 +74,8 @@ const DEFAULT_AI_SECTIONS: Omit<AISection, "id">[] = [
     expanded: true,
     generating: false,
     generated: false,
+    actionsOpen: false,
+    feedback: null,
   },
   {
     title: "Assessment",
@@ -71,6 +85,8 @@ const DEFAULT_AI_SECTIONS: Omit<AISection, "id">[] = [
     expanded: true,
     generating: false,
     generated: false,
+    actionsOpen: false,
+    feedback: null,
   },
   {
     title: "Plan",
@@ -80,6 +96,8 @@ const DEFAULT_AI_SECTIONS: Omit<AISection, "id">[] = [
     expanded: true,
     generating: false,
     generated: false,
+    actionsOpen: false,
+    feedback: null,
   },
   {
     title: "Goals",
@@ -89,6 +107,8 @@ const DEFAULT_AI_SECTIONS: Omit<AISection, "id">[] = [
     expanded: true,
     generating: false,
     generated: false,
+    actionsOpen: false,
+    feedback: null,
   },
 ];
 
@@ -111,17 +131,31 @@ const GENERATED_CONTENT: Record<string, string> = {
 • If a transcript or relevant session data is provided, progress towards Shan's NDIS plan goals will be documented accordingly.`,
 };
 
+const SERVICE_OPTIONS = [
+  {
+    value: "Mon 16 Mar 2026, 10:30am – Sharon Test 1 (OT – Initial Consult)",
+    label: "Mon 16 Mar 2026, 10:30am – Sharon Test 1 (OT – Initial Consult)",
+  },
+  {
+    value: "Wed 11 Mar 2026, 2:00pm – Sharon Test 1 (OT – Review)",
+    label: "Wed 11 Mar 2026, 2:00pm – Sharon Test 1 (OT – Review)",
+  },
+  {
+    value: "Mon 3 Mar 2026, 10:30am – Sharon Test 1 (OT – Follow Up)",
+    label: "Mon 3 Mar 2026, 10:30am – Sharon Test 1 (OT – Follow Up)",
+  },
+];
+
 export default function EditProgressNotePage() {
   const { id } = useParams<{ id: string }>();
   const [note, setNote] = useState<NoteData | null>(null);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<"single" | "split">("single");
-  const [saving, setSaving] = useState(false);
   const [sections, setSections] = useState<AISection[]>(() =>
     DEFAULT_AI_SECTIONS.map((s, i) => ({ ...s, id: `section-${i}` })),
   );
   const [service, setService] = useState("Mon 16 Mar 2026, 10:30am – Sharon Test 1 (OT – Initial Consult)");
-  const [syncing, setSyncing] = useState(false);
+  const [accepted, setAccepted] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     fetch(`/api/notes/${id}`)
@@ -197,6 +231,56 @@ export default function EditProgressNotePage() {
     });
   }, [sections]);
 
+  const toggleActions = useCallback((sectionId: string) => {
+    setSections((prev) =>
+      prev.map((s) => (s.id === sectionId ? { ...s, actionsOpen: !s.actionsOpen } : { ...s, actionsOpen: false })),
+    );
+  }, []);
+
+  const setFeedback = useCallback((sectionId: string, feedback: "up" | "down") => {
+    setSections((prev) =>
+      prev.map((s) => (s.id === sectionId ? { ...s, feedback: s.feedback === feedback ? null : feedback } : s)),
+    );
+  }, []);
+
+  const regenerateSection = useCallback(
+    (sectionId: string) => {
+      setSections((prev) =>
+        prev.map((s) => (s.id === sectionId ? { ...s, generating: true, actionsOpen: false } : s)),
+      );
+      setTimeout(() => {
+        setSections((prev) =>
+          prev.map((s) =>
+            s.id === sectionId
+              ? {
+                  ...s,
+                  generating: false,
+                  generated: true,
+                  content: GENERATED_CONTENT[s.title] || "Generated content for " + s.title,
+                }
+              : s,
+          ),
+        );
+      }, 1500);
+    },
+    [],
+  );
+
+  const acceptSection = useCallback((sectionId: string) => {
+    setAccepted((prev) => ({ ...prev, [sectionId]: true }));
+  }, []);
+
+  const dismissSection = useCallback((sectionId: string) => {
+    setSections((prev) =>
+      prev.map((s) =>
+        s.id === sectionId
+          ? { ...s, expanded: false, generated: false, generating: false, content: "", feedback: null, actionsOpen: false }
+          : s,
+      ),
+    );
+    setAccepted((prev) => ({ ...prev, [sectionId]: false }));
+  }, []);
+
   if (loading) {
     return (
       <div className="flex h-[calc(100vh-3rem)] items-center justify-center">
@@ -258,19 +342,24 @@ export default function EditProgressNotePage() {
           <div className="mx-auto max-w-3xl">
             {/* Service selector */}
             <div className="mb-4">
-              <label className="mb-1 block text-sm font-medium text-text">Service</label>
-              <input
-                type="text"
+              <FormSelect
+                label="Service"
+                options={SERVICE_OPTIONS}
                 value={service}
                 onChange={(e) => setService(e.target.value)}
-                className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary"
               />
             </div>
 
             {/* Rich text toolbar */}
-            <div className="mb-4 flex items-center gap-1 rounded-lg border border-border bg-white px-2 py-1.5 text-text-secondary">
-              <span className="px-2 text-xs">Arial</span>
-              <span className="px-2 text-xs">T↓</span>
+            <div className="mb-4 flex flex-wrap items-center gap-1 rounded-lg border border-border bg-white px-2 py-1.5 text-text-secondary">
+              <button className="flex items-center gap-0.5 rounded px-2 py-1 text-xs hover:bg-gray-100">
+                Arial
+                <ChevronDown className="h-3 w-3" />
+              </button>
+              <button className="flex items-center gap-0.5 rounded px-2 py-1 hover:bg-gray-100">
+                <Type className="h-4 w-4" />
+                <ChevronDown className="h-3 w-3" />
+              </button>
               <span className="h-4 w-px bg-border" />
               <button className="rounded p-1.5 hover:bg-gray-100">
                 <Bold className="h-4 w-4" />
@@ -293,6 +382,18 @@ export default function EditProgressNotePage() {
               </button>
               <button className="rounded p-1.5 hover:bg-gray-100">
                 <Table className="h-4 w-4" />
+              </button>
+              <button className="rounded p-1.5 hover:bg-gray-100">
+                <List className="h-4 w-4" />
+              </button>
+              <button className="rounded p-1.5 hover:bg-gray-100">
+                <ListOrdered className="h-4 w-4" />
+              </button>
+              <button className="rounded p-1.5 hover:bg-gray-100">
+                <AlignLeft className="h-4 w-4" />
+              </button>
+              <button className="rounded p-1.5 hover:bg-gray-100">
+                <Palette className="h-4 w-4" />
               </button>
               <span className="flex-1" />
               <button
@@ -344,64 +445,182 @@ export default function EditProgressNotePage() {
               <div key={section.id} className="mb-6">
                 <h3 className="mb-2 text-lg font-bold text-text">{section.title}</h3>
 
-                {/* AI Block */}
-                <div className="rounded-lg border border-purple-200 bg-purple-50/50">
-                  {/* AI block header */}
-                  <div
-                    className="flex cursor-pointer items-center justify-between px-4 py-3"
-                    onClick={() => toggleSection(section.id)}
-                  >
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="h-4 w-4 text-primary" />
-                      <span className="text-sm font-medium text-primary">AI block</span>
-                    </div>
-                    {section.expanded ? (
-                      <ChevronUp className="h-4 w-4 text-text-secondary" />
-                    ) : (
-                      <ChevronDown className="h-4 w-4 text-text-secondary" />
-                    )}
+                {/* Show accepted content directly under heading */}
+                {accepted[section.id] && section.generated && (
+                  <div className="mb-2 text-sm leading-relaxed whitespace-pre-wrap text-text">
+                    {section.content}
                   </div>
+                )}
 
-                  {/* AI block content */}
-                  {section.expanded && (
-                    <div className="border-t border-purple-200 px-4 py-3">
-                      {section.generating ? (
-                        <div className="flex items-center gap-2 py-4">
-                          <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-                          <span className="text-sm text-text-secondary">
-                            Thinking<span className="animate-pulse">...</span>
-                          </span>
-                        </div>
-                      ) : section.generated ? (
-                        <div className="text-sm leading-relaxed whitespace-pre-wrap text-text">{section.content}</div>
-                      ) : (
-                        <div>
-                          <p className="text-sm leading-relaxed text-text-secondary">{section.prompt}</p>
-                          <Button
-                            variant="primary"
-                            size="sm"
-                            onClick={() => generateSection(section.id)}
-                            className="mt-3"
-                          >
-                            <Sparkles className="h-3.5 w-3.5" />
-                            Generate
-                          </Button>
-                        </div>
-                      )}
+                {/* AI Block — hidden once accepted */}
+                {!accepted[section.id] && (
+                  <div className="rounded-lg border border-purple-200 bg-purple-50/50">
+                    {/* AI block header */}
+                    <div
+                      className="flex cursor-pointer items-center justify-between px-4 py-3"
+                      onClick={() => toggleSection(section.id)}
+                    >
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="h-4 w-4 text-primary" />
+                        <span className="text-sm font-medium text-primary">AI block</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            dismissSection(section.id);
+                          }}
+                          className="rounded p-0.5 text-text-secondary hover:bg-purple-100 hover:text-text"
+                          title="Dismiss"
+                        >
+                          <span className="text-sm font-medium">&times;</span>
+                        </button>
+                        {section.expanded ? (
+                          <ChevronUp className="h-4 w-4 text-text-secondary" />
+                        ) : (
+                          <ChevronDown className="h-4 w-4 text-text-secondary" />
+                        )}
+                      </div>
                     </div>
-                  )}
-                </div>
 
-                {/* Accept/Assign buttons when generated */}
-                {section.generated && (
-                  <div className="mt-2 flex justify-end gap-2">
-                    <Button variant="secondary" size="sm">
-                      Assign
-                    </Button>
-                    <Button variant="primary" size="sm">
-                      <CheckCircle className="h-3.5 w-3.5" />
-                      Accept
-                    </Button>
+                    {/* AI block content */}
+                    {section.expanded && (
+                      <div className="border-t border-purple-200 px-4 py-3">
+                        {section.generating ? (
+                          <div className="flex items-center gap-2 py-4">
+                            <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                            <span className="text-sm text-text-secondary">
+                              Thinking<span className="animate-pulse">...</span>
+                            </span>
+                          </div>
+                        ) : section.generated ? (
+                          <div>
+                            <div className="text-sm leading-relaxed whitespace-pre-wrap text-text">
+                              {section.content}
+                            </div>
+                            {/* Feedback and actions row */}
+                            <div className="mt-3 flex items-center justify-between">
+                              <div className="relative flex items-center gap-1">
+                                {/* Actions dropdown */}
+                                <button
+                                  onClick={() => toggleActions(section.id)}
+                                  className="flex items-center gap-1 rounded px-2 py-1 text-xs font-medium text-text-secondary hover:bg-purple-100"
+                                >
+                                  Actions
+                                  <ChevronDown className="h-3 w-3" />
+                                </button>
+                                {section.actionsOpen && (
+                                  <div className="absolute top-full left-0 z-10 mt-1 w-40 rounded-lg border border-border bg-white py-1 shadow-lg">
+                                    <button
+                                      onClick={() => regenerateSection(section.id)}
+                                      className="flex w-full items-center gap-2 px-3 py-2 text-sm text-text hover:bg-gray-50"
+                                    >
+                                      <RotateCcw className="h-3.5 w-3.5" />
+                                      Regenerate
+                                    </button>
+                                    <button
+                                      onClick={() => toggleActions(section.id)}
+                                      className="flex w-full items-center gap-2 px-3 py-2 text-sm text-text hover:bg-gray-50"
+                                    >
+                                      <Pencil className="h-3.5 w-3.5" />
+                                      Edit prompt
+                                    </button>
+                                    <button
+                                      onClick={() => {
+                                        navigator.clipboard.writeText(section.content);
+                                        toggleActions(section.id);
+                                      }}
+                                      className="flex w-full items-center gap-2 px-3 py-2 text-sm text-text hover:bg-gray-50"
+                                    >
+                                      <Copy className="h-3.5 w-3.5" />
+                                      Copy
+                                    </button>
+                                  </div>
+                                )}
+                              </div>
+                              <div className="flex items-center gap-2">
+                                {/* Thumbs up/down feedback */}
+                                <button
+                                  onClick={() => setFeedback(section.id, "up")}
+                                  className={`rounded p-1 ${
+                                    section.feedback === "up"
+                                      ? "bg-green-100 text-green-600"
+                                      : "text-text-secondary hover:bg-gray-100"
+                                  }`}
+                                  title="Good response"
+                                >
+                                  <ThumbsUp className="h-3.5 w-3.5" />
+                                </button>
+                                <button
+                                  onClick={() => setFeedback(section.id, "down")}
+                                  className={`rounded p-1 ${
+                                    section.feedback === "down"
+                                      ? "bg-red-100 text-red-600"
+                                      : "text-text-secondary hover:bg-gray-100"
+                                  }`}
+                                  title="Poor response"
+                                >
+                                  <ThumbsDown className="h-3.5 w-3.5" />
+                                </button>
+                                {/* Accept button */}
+                                <Button
+                                  variant="primary"
+                                  size="sm"
+                                  onClick={() => acceptSection(section.id)}
+                                >
+                                  <CheckCircle className="h-3.5 w-3.5" />
+                                  Accept
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            <p className="text-sm leading-relaxed text-text-secondary">{section.prompt}</p>
+                            {/* Actions dropdown and Generate button row */}
+                            <div className="mt-3 flex items-center justify-between">
+                              <div className="relative">
+                                <button
+                                  onClick={() => toggleActions(section.id)}
+                                  className="flex items-center gap-1 rounded px-2 py-1 text-xs font-medium text-text-secondary hover:bg-purple-100"
+                                >
+                                  Actions
+                                  <ChevronDown className="h-3 w-3" />
+                                </button>
+                                {section.actionsOpen && (
+                                  <div className="absolute top-full left-0 z-10 mt-1 w-40 rounded-lg border border-border bg-white py-1 shadow-lg">
+                                    <button
+                                      onClick={() => toggleActions(section.id)}
+                                      className="flex w-full items-center gap-2 px-3 py-2 text-sm text-text hover:bg-gray-50"
+                                    >
+                                      <Pencil className="h-3.5 w-3.5" />
+                                      Edit prompt
+                                    </button>
+                                    <button
+                                      onClick={() => {
+                                        navigator.clipboard.writeText(section.prompt);
+                                        toggleActions(section.id);
+                                      }}
+                                      className="flex w-full items-center gap-2 px-3 py-2 text-sm text-text hover:bg-gray-50"
+                                    >
+                                      <Copy className="h-3.5 w-3.5" />
+                                      Copy prompt
+                                    </button>
+                                  </div>
+                                )}
+                              </div>
+                              <Button
+                                variant="primary"
+                                size="sm"
+                                onClick={() => generateSection(section.id)}
+                              >
+                                Generate
+                              </Button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
