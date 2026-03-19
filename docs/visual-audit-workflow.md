@@ -24,33 +24,40 @@ Read `screenshots/screenshot-catalog.md` and identify entries with Match = "no" 
 
 ## Step 2: Capture current state of each page
 
-### If Playwright browsers are available:
-```bash
-npx playwright screenshot --wait-for-timeout=3000 http://localhost:3000/<page-path> /tmp/audit-<page>.png
-```
-Then read the screenshot with the Read tool.
+**Playwright browsers are required.** Ensure they are installed before starting an audit (`npx playwright install chromium`).
 
-### If Playwright browsers are NOT available (fallback):
-Read the page source code directly. The comparison becomes: "does the source code produce the same UI as the reference screenshot?"
+```bash
+npx tsx scripts/screenshot-capture.ts http://localhost:3000/<page-path> /tmp/audit-<page>.png
+```
 
 ### For pages with multiple states:
-Check that modals, tabs, dropdowns, and interactive variants shown in reference screenshots exist in the code and are wired to `?state=` params or click handlers.
+Capture each state separately using `?state=` params:
+```bash
+npx tsx scripts/screenshot-capture.ts "http://localhost:3000/<page-path>?state=<variant>" /tmp/audit-<page>-<variant>.png
+```
 
-## Step 3: Compare against references
+## Step 3: Run pixel diff against references
 
-For each page:
-1. Read the reference screenshot(s) from `screenshots/reference/`
-2. Read the current page (screenshot if available, source code if not)
-3. Compare using these **acceptance criteria**:
+For each page, run the automated pixel diff:
+
+```bash
+npx tsx scripts/pixel-diff.ts screenshots/reference/<reference.png> /tmp/audit-<page>.png --threshold=5 --output=/tmp/diff-audit-<page>.png
+```
+
+Then read both the diff image and the screenshots for context. Use the **mismatch percentage** as the primary metric:
+
+| Mismatch % | Match status | Meaning |
+|---|---|---|
+| 0-5% | **yes** | Pixel-perfect or near-perfect |
+| 5-20% | **partial** | Noticeable differences — note what's off |
+| >20% | **no** | Significant mismatch |
+
+Also check these qualitative criteria (the pixel diff may miss some):
 
 | Criterion | What to check | Example fail |
 |---|---|---|
-| **Layout** | Same grid/flex structure, sidebar/header/content arrangement | Reference has 2-column layout, prototype has single column |
 | **DS components** | Correct DS components used, no banned inline patterns | Bare `<button>` where `<Button variant="secondary">` should be |
 | **Content** | Same column headers, labels, button text, placeholder text | Reference says "Search clients...", prototype says "Search..." |
-| **Colors** | Correct badge variants, button variants, status colors | Green badge in reference, blue in prototype |
-| **Typography** | Headings/body/secondary text correct weight and size | Page title is `text-lg` but should be `text-2xl font-bold` |
-| **Spacing** | No glaring differences in padding/margins | Reference has tight table rows, prototype has huge gaps |
 | **Interactive states** | Modals, dropdowns, tabs from reference exist in code | Reference shows actions dropdown, prototype has no dropdown |
 | **Data shape** | Tables have same columns, forms have same fields | Reference has 6 columns, prototype only has 3 |
 
@@ -96,12 +103,11 @@ Present a summary to Jim:
 ## Parallelization
 
 You can run audit comparisons in parallel using subagents — each agent audits a different page group. Agents should:
-1. Read the relevant reference screenshots from `screenshots/reference/`
-2. Read the current page source code
-3. If Playwright available, take screenshots; otherwise compare source against reference visually
-4. Compare using the acceptance criteria table above
-5. Return a structured report per screenshot entry: `filename | match status (yes/partial/no) | notes`
-6. Do NOT modify code — audit is read-only
+1. Capture screenshots using `npx tsx scripts/screenshot-capture.ts`
+2. Run `npx tsx scripts/pixel-diff.ts` against each reference screenshot
+3. Read the diff images to understand what's different
+4. Return a structured report per screenshot entry: `filename | mismatch % | match status (yes/partial/no) | notes`
+5. Do NOT modify code — audit is read-only
 
 The main agent then collects results and updates the catalog and gaps.
 
