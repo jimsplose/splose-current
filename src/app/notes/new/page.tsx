@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, LayoutGrid, Columns2, Copy, ChevronDown, Save, Lock, ClipboardList } from "lucide-react";
-import { Button, Badge } from "@/components/ds";
+import { Button, Badge, EmptyState } from "@/components/ds";
 
 const TEMPLATES = [
   "Initial Assessment",
@@ -218,11 +218,12 @@ function NewProgressNotePageInner() {
               placeholder="Search notes"
               className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
             />
-            <div className="mt-16 flex flex-col items-center justify-center text-center">
-              <ClipboardList className="mb-4 h-20 w-20 text-primary-light opacity-40" />
-              <p className="text-sm text-text-secondary">No reference notes found</p>
-              <p className="mt-1 text-xs text-text-secondary">Select a client to see their previous notes</p>
-            </div>
+            <EmptyState
+              icon={<ClipboardList className="h-10 w-10 text-primary-light opacity-40" />}
+              title="No reference notes found"
+              message="Select a client to see their previous notes"
+              className="mt-16"
+            />
           </div>
         )}
       </div>

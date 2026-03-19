@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Button, FormInput } from "@/components/ds";
+import { Button, FormInput, Tab, Toggle } from "@/components/ds";
 
 const sidebarSections = [
   {
@@ -71,7 +71,7 @@ const aiPrompts = [
   { name: "Letter to patient", userGroup: "Any user" },
 ];
 
-type Tab = "preferences" | "saved-prompts" | "ai-block-library";
+type TabValue = "preferences" | "saved-prompts" | "ai-block-library";
 
 export default function SettingsAIPage() {
   return (
@@ -82,7 +82,7 @@ export default function SettingsAIPage() {
 }
 
 function SettingsAIPageInner() {
-  const [activeTab, setActiveTab] = useState<Tab>("preferences");
+  const [activeTab, setActiveTab] = useState<TabValue>("preferences");
 
   // Dev Navigator: ?state= param wiring
   const searchParams = useSearchParams();
@@ -139,39 +139,16 @@ function SettingsAIPageInner() {
         </div>
 
         {/* Tabs */}
-        <div className="mb-6 flex items-center gap-6 border-b border-border">
-          <button
-            onClick={() => setActiveTab("preferences")}
-            className={`border-b-2 px-1 pb-3 text-sm ${
-              activeTab === "preferences"
-                ? "border-primary font-medium text-primary"
-                : "border-transparent text-text-secondary hover:text-text"
-            }`}
-          >
-            Preferences
-          </button>
-          <button
-            onClick={() => setActiveTab("saved-prompts")}
-            className={`border-b-2 px-1 pb-3 text-sm ${
-              activeTab === "saved-prompts"
-                ? "border-primary font-medium text-primary"
-                : "border-transparent text-text-secondary hover:text-text"
-            }`}
-          >
-            Saved prompts
-          </button>
-          <button
-            onClick={() => setActiveTab("ai-block-library")}
-            className={`flex items-center gap-1.5 border-b-2 px-1 pb-3 text-sm ${
-              activeTab === "ai-block-library"
-                ? "border-primary font-medium text-primary"
-                : "border-transparent text-text-secondary hover:text-text"
-            }`}
-          >
-            AI block library
-            <span className="rounded bg-yellow-100 px-1.5 py-0.5 text-[10px] font-bold text-yellow-700">BETA</span>
-          </button>
-        </div>
+        <Tab
+          items={[
+            { label: "Preferences", value: "preferences" },
+            { label: "Saved prompts", value: "saved-prompts" },
+            { label: "AI block library", value: "ai-block-library", badge: "BETA" },
+          ]}
+          value={activeTab}
+          onChange={(v) => setActiveTab(v as TabValue)}
+          className="mb-6"
+        />
 
         {/* Tab content */}
         {activeTab === "preferences" && <PreferencesTab />}
@@ -235,23 +212,6 @@ function PreferencesTab() {
         </div>
       </div>
     </div>
-  );
-}
-
-function Toggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean) => void }) {
-  return (
-    <button
-      onClick={() => onChange(!checked)}
-      className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors ${
-        checked ? "bg-primary" : "bg-gray-200"
-      }`}
-    >
-      <span
-        className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition-transform ${
-          checked ? "translate-x-5" : "translate-x-0"
-        }`}
-      />
-    </button>
   );
 }
 

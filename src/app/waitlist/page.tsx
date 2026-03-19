@@ -24,6 +24,7 @@ import {
   Td,
   Pagination,
   Badge,
+  EmptyState,
 } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
@@ -407,8 +408,8 @@ function WaitlistPageInner() {
               {screenerSubTab === "triage" ? (
                 filteredScreener.length === 0 ? (
                   <tr>
-                    <td colSpan={8} className="px-4 py-8 text-center text-sm text-text-secondary">
-                      No screener entries found.
+                    <td colSpan={8}>
+                      <EmptyState message="No screener entries found." className="py-8" />
                     </td>
                   </tr>
                 ) : (
@@ -465,8 +466,8 @@ function WaitlistPageInner() {
                 )
               ) : (
                 <tr>
-                  <td colSpan={8} className="px-4 py-8 text-center text-sm text-text-secondary">
-                    No rejected entries.
+                  <td colSpan={8}>
+                    <EmptyState message="No rejected entries." className="py-8" />
                   </td>
                 </tr>
               )}
@@ -562,8 +563,8 @@ function WaitlistPageInner() {
                 <TableBody>
                   {filteredWaitlist.length === 0 ? (
                     <tr>
-                      <td colSpan={7} className="px-4 py-8 text-center text-sm text-text-secondary">
-                        No {waitlistSubTab} entries found.
+                      <td colSpan={7}>
+                        <EmptyState message={`No ${waitlistSubTab} entries found.`} className="py-8" />
                       </td>
                     </tr>
                   ) : (

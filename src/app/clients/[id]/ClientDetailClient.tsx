@@ -65,10 +65,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           <h2 className="mb-4 text-lg font-bold text-text">General details</h2>
           <div className="space-y-3 text-sm">
             <div className="flex items-center gap-4">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
-                {client.firstName[0]}
-                {client.lastName[0]}
-              </div>
+              <Avatar name={`${client.firstName} ${client.lastName}`} />
               <span>
                 {client.firstName} {client.lastName}
               </span>

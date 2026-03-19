@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { Plus, ArrowUpDown } from "lucide-react";
 import Link from "next/link";
-import { Badge, Button, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+import { Badge, Button, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, EmptyState } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -85,8 +85,8 @@ export default async function NotesPage() {
             ))}
             {notes.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-4 py-12 text-center text-sm text-text-secondary">
-                  No progress notes found. Create your first note to get started.
+                <td colSpan={5}>
+                  <EmptyState message="No progress notes found. Create your first note to get started." className="py-12" />
                 </td>
               </tr>
             )}

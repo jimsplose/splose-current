@@ -1,5 +1,5 @@
 import { Mail, Phone, MapPin, Building2 } from "lucide-react";
-import { Button, DataTable, TableHead, Th, TableBody, Td } from "@/components/ds";
+import { Avatar, Button, DataTable, TableHead, Th, TableBody, Td } from "@/components/ds";
 
 const mockContacts = [
   {
@@ -147,14 +147,6 @@ function getTypeColor(type: string): string {
   }
 }
 
-function getInitials(name: string): string {
-  const parts = name.trim().split(/\s+/);
-  if (parts.length >= 2) {
-    return (parts[0][0] + parts[1][0]).toUpperCase();
-  }
-  return name.slice(0, 2).toUpperCase();
-}
-
 export default async function ContactDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const contact = mockContacts.find((c) => c.id === id);
@@ -225,9 +217,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
           <section className="mb-8">
             <h2 className="mb-4 text-lg font-bold text-text">General details</h2>
             <div className="flex items-start gap-6">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
-                {getInitials(contact.name)}
-              </div>
+              <Avatar name={contact.name} size="lg" />
               <div className="space-y-2 text-sm">
                 <div className="flex gap-16">
                   <span className="w-28 shrink-0 text-text-secondary">Name:</span>
