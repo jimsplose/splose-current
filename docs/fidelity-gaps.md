@@ -53,8 +53,8 @@ All 25 Settings sub-pages are implemented as inline components in `settings/page
 ### Group K — Calendar enhancements (`src/app/calendar/`)
 - [x] **Calendar Rooms/Resources view** — Calendar/Rooms toggle, room filter dropdown. Reference: 7.22.38-7.22.53 pm.
 - [x] **Calendar view type switcher** — Month/Week/Day dropdown. Reference: 7.23.04 pm.
-- [x] **Calendar month view** — Month view with appointments and appointment detail side panel. Reference: 7.23.16-7.23.23 pm.
-- [x] **Calendar appointment side panel** — Appointment detail flyout with Edit/Reschedule/Archive actions, edit appointment form with Room/Resource dropdown. Reference: 7.23.33-7.25.52 pm.
+- [ ] **Calendar month view** — Month view with appointments and appointment detail side panel. Reference: 7.23.16-7.23.23 pm. Reopened: visual audit found month view side panel not implemented (7.23.23 pm = no).
+- [ ] **Calendar appointment side panel** — Appointment detail flyout with Edit/Reschedule/Archive actions, edit appointment form with Room/Resource dropdown. Reference: 7.23.33-7.25.52 pm. Reopened: visual audit found side panel has placeholder content only, missing structured client info, Edit/Reschedule/Archive actions, and Room/Resource form (all 3 screenshots = no).
 
 ### Group L — Progress Notes (`src/app/notes/`)
 - [x] **New progress note page** — Service selector, template selector, Select/Copy recent note/Copy recent practitioner note buttons. Reference: 7.25.45 pm.
@@ -124,6 +124,18 @@ These pages contain inline patterns that should use DS components. Each must be 
 - [x] **Practitioners DS migration** (`src/app/practitioners/page.tsx`) — Badge for specialty tags. (2026-03-19)
 - [x] **Calendar DS migration** (`src/app/calendar/CalendarView.tsx`) — 14 form fields → FormInput/FormSelect. (2026-03-19)
 - [x] **Client detail DS migration** (`src/app/clients/[id]/ClientDetailClient.tsx`) — Removed banned inputClass pattern. (2026-03-19)
+
+## Priority 7 — Visual audit findings (2026-03-19)
+
+### Group P — Calendar interaction gaps (`src/app/calendar/CalendarView.tsx`)
+- [ ] **Calendar click-to-create popover** — Reference shows a popover when clicking time slots for quick appointment creation. Currently only modal-based creation exists. Reference: 5.53.13-5.53.18 pm.
+- [ ] **Calendar create appointment modal refinement** — Missing Service field (has Appointment Type instead), toggles, and past date validation. Reference: 5.53.25-5.54.19 pm.
+
+### Group Q — Missing detail/view pages
+- [ ] **Contact detail page** — `/contacts/[id]` not implemented. Reference shows Details tab with Associated clients, and Invoices tab. Reference: 11.14.14-11.14.21 am.
+- [ ] **Invoice view page** — `/invoices/[id]` not implemented. Reference shows PDF-style invoice with Pay/Email/Actions buttons. Reference: 11.16.02-11.16.25 am.
+- [ ] **Client edit details page** — Edit form exists but interaction is limited, profile photo upload missing prominence. Reference: 11.11.08 am.
+- [ ] **Client appointment side panel** — Side panel for appointment details from client page not implemented. Reference: 11.12.37 am.
 
 ---
 
