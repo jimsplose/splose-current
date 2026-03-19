@@ -96,13 +96,15 @@ To check deployment status: `gh api repos/jimsplose/splose-current/deployments -
 - **When editing existing pages**, opportunistically migrate to DS components if touching that section anyway.
 - **When adding DS components**, create a Storybook story in `src/components/ds/stories/`.
 
-## Design System Enforcement — MANDATORY for All Agents
+## Subagent Prompt Template — MANDATORY
 
-**Every agent prompt that creates or modifies page UI MUST include this DS enforcement block.** Copy-paste the block below into agent prompts verbatim.
+**Every subagent that creates or modifies page UI MUST receive this block at the top of its prompt.** Do NOT launch a UI-touching subagent without it. This is a single, self-contained block that covers DS enforcement AND screenshot verification — no need to assemble from multiple sections.
 
-### DS Enforcement Block (for agent prompts)
+**Copy everything between the `---START AGENT BLOCK---` and `---END AGENT BLOCK---` markers into every subagent prompt verbatim.**
 
 ```
+---START AGENT BLOCK---
+
 ## Design System — MANDATORY
 
 You MUST use DS components from `@/components/ds` instead of inline Tailwind for these patterns.
@@ -131,46 +133,74 @@ Import: `import { Button, FormInput, FormSelect, Badge, PageHeader } from "@/com
 - Tab switcher buttons with active/inactive states — inline is fine (no DS Tab component yet)
 - Toggle switches — use the local `Toggle` component pattern
 - Custom layouts (sidebars, cards, modals) — inline is fine, no DS component for these yet
+
+## Screenshot Verification Loop — MANDATORY
+
+After making your code changes, you MUST run this loop. Do NOT skip it.
+
+1. Run `npx playwright screenshot --wait-for-timeout=2000 http://localhost:3000/<page-path> /tmp/screenshot-<page>.png`
+2. Read the screenshot using the Read tool (it supports images)
+3. Read the reference screenshot from `screenshots/reference/<relevant-file>`
+4. Compare visually — does the layout, spacing, colors, and content match?
+5. If not, make additional changes and repeat (up to 3 iterations)
+6. On final iteration, save the screenshot to `/tmp/screenshot-<page>-final.png`
+
+---END AGENT BLOCK---
 ```
 
-### Enforcement checklist for the main agent
+## Post-Agent Quality Gate — MANDATORY
 
-Before merging any agent's work, scan for these red flags:
+**After EVERY subagent completes and BEFORE committing its work, the main agent MUST run these checks.** This is not optional. Do not batch — run the gate after each individual agent.
+
+### Step 1: DS Violation Scan
+
+Run this grep on the agent's changed files. If any matches are found, fix them before committing.
+
+```bash
+# Run on each changed .tsx file from the agent
+npx grep -E "const (inputClass|labelClass)|rounded-full px-2 py-0\.5 text-xs font-medium|rounded-lg bg-primary px-4 py-2 text-sm font-medium" <changed-file.tsx>
+```
+
+Red flags to scan for:
 1. `const inputClass` or `const labelClass` — should be `<FormInput>` / `<FormSelect>`
 2. `rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white` — should be `<Button variant="primary">`
 3. `rounded-lg border border-border bg-white px-4 py-2` — should be `<Button variant="secondary">`
 4. `rounded-full px-2 py-0.5 text-xs font-medium` — should be `<Badge>`
-5. No import from `@/components/ds` on a page with buttons/inputs/badges — likely missed migration
+5. A `.tsx` page with `<button` or `<input` tags but no import from `@/components/ds` — likely missed migration
 
-If any of these are found, fix them before committing the agent's work.
-
-## Playwright Screenshot Verification — MANDATORY
-
-**Every agent that changes page UI MUST verify its work with Playwright screenshots.** This is the single most important quality check.
-
-### For subagents (fidelity work, refactoring, new pages)
-
-Each agent must run this loop after making changes:
-
-1. `npx playwright screenshot --wait-for-timeout=2000 http://localhost:3000/<path> /tmp/screenshot-<page>.png`
-2. Read the screenshot (the Read tool supports images)
-3. Compare to the reference screenshot from `screenshots/reference/`
-4. If the result doesn't match → make more code changes → retake screenshot
-5. Repeat up to 3 iterations
-
-Include this instruction in every fidelity agent prompt.
-
-### For the main agent (after push)
-
-After every push, take 1-2 screenshots of the biggest visual changes:
+### Step 2: TypeScript Check
 
 ```bash
-npx playwright screenshot --wait-for-timeout=3000 http://localhost:3000/<changed-page> /tmp/progress-<page>.png
+npx tsc --noEmit
 ```
 
-Then use the Read tool to display them inline in chat so Jim can see progress immediately.
+If it fails, fix or revert the agent's changes before continuing.
 
-### When to skip
+### Step 3: Screenshot Verification (main agent)
+
+If the agent changed page UI:
+1. Take a Playwright screenshot of the changed page
+2. Read it with the Read tool
+3. Compare to the reference screenshot from `screenshots/reference/`
+4. If the result looks wrong, fix the code before committing
+
+### Step 4: Commit or Revert
+
+- If all checks pass → commit the agent's changes
+- If any check fails and can't be fixed quickly → revert the agent's changes and move on
+
+## Post-Push Screenshots — MANDATORY
+
+After every push that includes visual changes, the main agent MUST:
+
+1. Take 1-2 Playwright screenshots of the most significant page changes:
+   ```bash
+   npx playwright screenshot --wait-for-timeout=3000 http://localhost:3000/<changed-page> /tmp/progress-<page>.png
+   ```
+2. Read and display them inline in chat so Jim can see progress immediately
+3. Tell Jim the branch preview URL
+
+### When to skip screenshots
 
 - Infrastructure-only changes (config, tooling, docs)
 - Changes with no visual impact (type fixes, refactoring with identical output)
