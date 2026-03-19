@@ -1,9 +1,7 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 import Link from "next/link";
-import { Button, DataTable, TableHead, Th, TableBody, Td, Badge } from "@/components/ds";
 
 const sidebarSections = [
   {
@@ -58,152 +56,53 @@ const sidebarSections = [
     items: [
       { name: "Payments", href: "/settings" },
       { name: "Invoices", href: "/settings" },
-      { name: "Tax rates", href: "/settings" },
-    ],
-  },
-  {
-    title: "Data",
-    items: [
-      { name: "Export", href: "/settings" },
-      { name: "Import", href: "/settings" },
-      { name: "Client data", href: "/settings" },
     ],
   },
 ];
 
-type ActivePage = "Details" | "Integrations" | "SMS settings" | "Forms" | string;
+type ActivePage =
+  | "Details"
+  | "Integrations"
+  | "SMS settings"
+  | "Forms"
+  | string;
 
-const pagesWithContent = [
-  "Details",
-  "Integrations",
-  "SMS settings",
-  "Forms",
-  "Locations",
-  "Tags",
-  "Users",
-  "Referral types",
-  "User groups",
-  "Payments",
-  "Communication types",
-  "Cancellation reasons",
-  "Busy times",
-  "Custom fields",
-  "Rooms/Resources",
-  "Services",
-  "Tax rates",
-  "Invoices",
-  "Online bookings",
-  "Appointments",
-  "Emails",
-  "Progress notes",
-  "Letters",
-  "Export",
-  "Import",
-];
-
-// Map state registry IDs to settings page names
-const STATE_TO_PAGE: Record<string, string> = {
-  integrations: "Integrations",
-  "sms-settings": "SMS settings",
-  forms: "Forms",
-  locations: "Locations",
-  "custom-fields": "Custom fields",
-  "rooms-resources": "Rooms/Resources",
-  services: "Services",
-  "busy-times": "Busy times",
-  "cancellation-reasons": "Cancellation reasons",
-  "online-bookings": "Online bookings",
-  "communication-types": "Communication types",
-  tags: "Tags",
-  "referral-types": "Referral types",
-  users: "Users",
-  "user-groups": "User groups",
-  "appointment-templates": "Appointments",
-  "email-templates": "Emails",
-  "progress-notes": "Progress notes",
-  "letter-templates": "Letters",
-  "payment-settings": "Payments",
-  "invoice-settings": "Invoices",
-  "tax-rates": "Tax rates",
-  "data-export": "Export",
-  "data-import": "Import",
-};
+const pagesWithContent = ["Details", "Integrations", "SMS settings", "Forms"];
 
 export default function SettingsPage() {
-  return (
-    <Suspense>
-      <SettingsPageInner />
-    </Suspense>
-  );
-}
-
-function SettingsPageInner() {
   const [activePage, setActivePage] = useState<ActivePage>("Details");
-  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Dev Navigator: ?state= param wiring
-  const searchParams = useSearchParams();
-  const forcedState = searchParams.get("state");
-  useEffect(() => {
-    if (!forcedState) return;
-    const page = STATE_TO_PAGE[forcedState];
-    if (page) setActivePage(page);
-  }, [forcedState]);
-
-  const handleSidebarClick = (e: React.MouseEvent<HTMLAnchorElement>, itemName: string, itemHref: string) => {
+  const handleSidebarClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    itemName: string,
+    itemHref: string
+  ) => {
     if (itemHref === "/settings") {
       e.preventDefault();
       setActivePage(itemName);
-      setSidebarOpen(false);
     }
   };
 
   return (
     <div className="flex min-h-[calc(100vh-3rem)]">
-      {/* Mobile settings nav toggle */}
-      <div className="fixed top-12 right-0 left-0 z-30 flex items-center justify-between border-b border-border bg-white px-4 py-3 md:hidden">
-        <button
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="flex items-center gap-2 text-sm font-medium text-text"
-        >
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-          {activePage}
-          <svg
-            className={`h-3 w-3 transition-transform ${sidebarOpen ? "rotate-180" : ""}`}
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
-      </div>
-      {/* Mobile sidebar backdrop */}
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 top-[calc(3rem+48px)] z-20 bg-black/20 md:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
       {/* Left sidebar */}
-      <aside
-        className={`${sidebarOpen ? "fixed top-[calc(3rem+48px)] bottom-0 left-0 z-20" : "hidden"} w-64 shrink-0 overflow-y-auto border-r border-border bg-white p-4 md:block`}
-      >
+      <aside className="w-64 shrink-0 border-r border-border bg-white p-4 overflow-y-auto">
         {sidebarSections.map((section) => (
           <div key={section.title} className="mb-4">
-            <h3 className="mb-1 text-xs font-bold tracking-wider text-text uppercase">{section.title}</h3>
+            <h3 className="mb-1 text-xs font-bold uppercase tracking-wider text-text">
+              {section.title}
+            </h3>
             <ul className="space-y-0.5">
               {section.items.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    onClick={(e) => handleSidebarClick(e, item.name, item.href)}
-                    className={`block w-full rounded px-3 py-1.5 text-left text-sm transition-colors hover:bg-purple-50 hover:text-primary ${
+                    onClick={(e) =>
+                      handleSidebarClick(e, item.name, item.href)
+                    }
+                    className={`w-full block rounded px-3 py-1.5 text-left text-sm transition-colors hover:bg-purple-50 hover:text-primary ${
                       item.name === activePage
-                        ? "border-l-2 border-primary bg-purple-50 font-medium text-primary"
+                        ? "border-l-2 border-primary bg-purple-50 text-primary font-medium"
                         : "text-text-secondary"
                     }`}
                   >
@@ -222,33 +121,14 @@ function SettingsPageInner() {
       </aside>
 
       {/* Main content */}
-      <div className="flex-1 overflow-y-auto pt-12 md:pt-0">
+      <div className="flex-1 overflow-y-auto">
         {activePage === "Details" && <DetailsContent />}
         {activePage === "Integrations" && <IntegrationsContent />}
         {activePage === "SMS settings" && <SMSSettingsContent />}
         {activePage === "Forms" && <FormsContent />}
-        {activePage === "Locations" && <LocationsContent />}
-        {activePage === "Tags" && <TagsContent />}
-        {activePage === "Users" && <UsersContent />}
-        {activePage === "Referral types" && <ReferralTypesContent />}
-        {activePage === "User groups" && <UserGroupsContent />}
-        {activePage === "Payments" && <PaymentSettingsContent />}
-        {activePage === "Communication types" && <CommunicationTypesContent />}
-        {activePage === "Cancellation reasons" && <CancellationReasonsContent />}
-        {activePage === "Busy times" && <BusyTimesContent />}
-        {activePage === "Custom fields" && <CustomFieldsContent />}
-        {activePage === "Rooms/Resources" && <RoomsResourcesContent />}
-        {activePage === "Services" && <ServicesContent />}
-        {activePage === "Tax rates" && <TaxRatesContent />}
-        {activePage === "Invoices" && <InvoiceSettingsContent />}
-        {activePage === "Online bookings" && <OnlineBookingsContent />}
-        {activePage === "Appointments" && <AppointmentTemplatesContent />}
-        {activePage === "Emails" && <EmailTemplatesContent />}
-        {activePage === "Progress notes" && <ProgressNoteTemplatesContent />}
-        {activePage === "Letters" && <LetterTemplatesContent />}
-        {activePage === "Export" && <DataExportContent />}
-        {activePage === "Import" && <DataImportContent />}
-        {!pagesWithContent.includes(activePage) && <PlaceholderContent pageName={activePage} />}
+        {!pagesWithContent.includes(activePage) && (
+          <PlaceholderContent pageName={activePage} />
+        )}
       </div>
     </div>
   );
@@ -266,13 +146,13 @@ function DetailsContent() {
   const labelClass = "block text-sm font-medium text-text mb-1";
 
   return (
-    <div className="max-w-4xl p-6">
+    <div className="p-6 max-w-4xl">
       {/* Header */}
-      <div className="mb-6 flex items-center justify-between">
+      <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-text">Details</h1>
-        <Button variant="primary">
+        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
           Save
-        </Button>
+        </button>
       </div>
 
       <div className="space-y-6">
@@ -284,24 +164,34 @@ function DetailsContent() {
               <label className={labelClass}>
                 Business name<span className="text-red-500">*</span>
               </label>
-              <input type="text" defaultValue="Hands Together Therapies" className={inputClass} />
+              <input
+                type="text"
+                defaultValue="Hands Together Therapies"
+                className={inputClass}
+              />
             </div>
 
             {/* Workspace URL */}
             <div>
               <label className={labelClass}>
                 Workspace URL{" "}
-                <span className="ml-0.5 inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
-                  i
-                </span>
+                <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help ml-0.5">i</span>
               </label>
-              <input type="text" defaultValue="acme.splose.com" className={inputClass} />
+              <input
+                type="text"
+                defaultValue="acme.splose.com"
+                className={inputClass}
+              />
             </div>
 
             {/* Website */}
             <div>
               <label className={labelClass}>Website</label>
-              <input type="text" defaultValue="hands-together-therapy.com" className={inputClass} />
+              <input
+                type="text"
+                defaultValue="hands-together-therapy.com"
+                className={inputClass}
+              />
             </div>
 
             {/* Business email */}
@@ -309,7 +199,11 @@ function DetailsContent() {
               <label className={labelClass}>
                 Business email<span className="text-red-500">*</span>
               </label>
-              <input type="email" defaultValue="hello@hands-together-therapy.com" className={inputClass} />
+              <input
+                type="email"
+                defaultValue="hello@hands-together-therapy.com"
+                className={inputClass}
+              />
             </div>
           </div>
 
@@ -338,9 +232,7 @@ function DetailsContent() {
           <div>
             <label className={labelClass}>
               Patient terminology{" "}
-              <span className="ml-0.5 inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
-                i
-              </span>
+              <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help ml-0.5">i</span>
               <span className="text-red-500">*</span>
             </label>
             <select className={inputClass}>
@@ -382,9 +274,7 @@ function DetailsContent() {
           <div>
             <label className={labelClass}>
               Default appointment communication preferences{" "}
-              <span className="ml-0.5 inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
-                i
-              </span>
+              <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help ml-0.5">i</span>
               <span className="text-red-500">*</span>
             </label>
             <select className={inputClass}>
@@ -398,7 +288,7 @@ function DetailsContent() {
                 type="checkbox"
                 checked={applyToAll}
                 onChange={(e) => setApplyToAll(e.target.checked)}
-                className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                className="rounded border-gray-300 text-primary focus:ring-primary h-4 w-4"
               />
               Apply to all existing clients and override the current contact preferences
             </label>
@@ -410,15 +300,17 @@ function DetailsContent() {
             <input type="text" defaultValue="ABN" className={inputClass} />
             <p className="mt-2 text-sm text-text-secondary">
               Enter your business number in{" "}
-              <span className="cursor-pointer text-primary hover:underline">Location settings</span>
+              <span className="text-primary cursor-pointer hover:underline">
+                Location settings
+              </span>
             </p>
           </div>
         </div>
 
         {/* Email signature */}
         <div>
-          <h2 className="mb-3 text-base font-semibold text-text">Email signature</h2>
-          <div className="mb-3 flex gap-1">
+          <h2 className="text-base font-semibold text-text mb-3">Email signature</h2>
+          <div className="flex gap-1 mb-3">
             <button
               onClick={() => setEmailSigTab("Business")}
               className={`rounded-lg px-4 py-1.5 text-sm font-medium transition-colors ${
@@ -432,61 +324,43 @@ function DetailsContent() {
             <button
               onClick={() => setEmailSigTab("User")}
               className={`rounded-lg px-4 py-1.5 text-sm font-medium transition-colors ${
-                emailSigTab === "User" ? "bg-primary text-white" : "bg-gray-100 text-text-secondary hover:bg-gray-200"
+                emailSigTab === "User"
+                  ? "bg-primary text-white"
+                  : "bg-gray-100 text-text-secondary hover:bg-gray-200"
               }`}
             >
               User
             </button>
           </div>
           {/* Rich text toolbar */}
-          <div className="flex items-center gap-1 rounded-t-lg border border-border bg-gray-50 px-2 py-1.5">
+          <div className="rounded-t-lg border border-border bg-gray-50 px-2 py-1.5 flex items-center gap-1">
             <button className="rounded px-2 py-1 text-sm font-bold text-text hover:bg-gray-200">B</button>
-            <button className="rounded px-2 py-1 text-sm text-text italic hover:bg-gray-200">I</button>
+            <button className="rounded px-2 py-1 text-sm italic text-text hover:bg-gray-200">I</button>
             <div className="mx-1 h-4 w-px bg-gray-300" />
             <button className="rounded px-2 py-1 text-xs font-medium text-primary hover:bg-gray-200">AI</button>
             <div className="mx-1 h-4 w-px bg-gray-300" />
             <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M3 10h18M3 14h18M3 6h18M3 18h18"
-                />
-              </svg>
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M3 14h18M3 6h18M3 18h18" /></svg>
             </button>
             <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-                />
-              </svg>
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
             </button>
             <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">+</button>
             <div className="mx-1 h-4 w-px bg-gray-300" />
             <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h10M4 18h16" />
-              </svg>
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h10M4 18h16" /></svg>
             </button>
             <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M7 12h10M4 18h16" />
-              </svg>
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M7 12h10M4 18h16" /></svg>
             </button>
             <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 5l7 7-7 7M5 5l7 7-7 7" />
-              </svg>
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
             </button>
           </div>
           {/* Signature content */}
-          <div className="min-h-[160px] rounded-b-lg border border-t-0 border-border bg-white p-4 text-sm text-text">
+          <div className="rounded-b-lg border border-t-0 border-border bg-white p-4 min-h-[160px] text-sm text-text">
             <p>Warm Regards,</p>
-            <p className="mt-1 text-primary">{"{user_fullName}"}</p>
+            <p className="text-primary mt-1">{"{user_fullName}"}</p>
             <p className="text-primary">{"{user_professionTitle}"}</p>
             <p className="text-primary">{"{user_qualifications}"}</p>
             <p className="text-primary">{"{business_name}"}</p>
@@ -494,13 +368,8 @@ function DetailsContent() {
             <p className="text-primary">{"{business_phone}"}</p>
             <div className="mt-4">
               <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-100">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <circle cx="10" cy="10" r="8" fill="#7c3aed" />
-                    <text x="10" y="14" textAnchor="middle" fill="white" fontSize="10" fontWeight="bold">
-                      S
-                    </text>
-                  </svg>
+                <div className="h-8 w-8 rounded-full bg-purple-100 flex items-center justify-center">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" fill="#7c3aed" /><text x="10" y="14" textAnchor="middle" fill="white" fontSize="10" fontWeight="bold">S</text></svg>
                 </div>
                 <span className="text-xs text-text-secondary">splose</span>
               </div>
@@ -510,34 +379,46 @@ function DetailsContent() {
 
         {/* Calendar lock dates */}
         <div>
-          <h2 className="mb-3 text-base font-semibold text-text">Calendar lock dates</h2>
-          <p className="mb-2 text-sm text-text-secondary">
+          <h2 className="text-base font-semibold text-text mb-3">Calendar lock dates</h2>
+          <p className="text-sm text-text-secondary mb-2">
             Prevent users with the practitioner role from making changes on the calendar on and before
           </p>
-          <input type="text" defaultValue="19 Dec 2025" className={`${inputClass} max-w-xs`} />
+          <input
+            type="text"
+            defaultValue="19 Dec 2025"
+            className={`${inputClass} max-w-xs`}
+          />
         </div>
 
         {/* Google Tag Manager */}
         <div>
-          <h2 className="mb-3 text-base font-semibold text-text">Google Tag Manager</h2>
+          <h2 className="text-base font-semibold text-text mb-3">Google Tag Manager</h2>
           <div>
             <label className={labelClass}>Google Tag Manager ID</label>
-            <input type="text" defaultValue="GTM-TEST1231" className={`${inputClass} max-w-xs`} />
+            <input
+              type="text"
+              defaultValue="GTM-TEST1231"
+              className={`${inputClass} max-w-xs`}
+            />
           </div>
         </div>
 
         {/* Cases */}
         <div>
-          <h2 className="mb-3 text-base font-semibold text-text">Cases</h2>
+          <h2 className="text-base font-semibold text-text mb-3">Cases</h2>
           <div className="flex items-center justify-between">
-            <p className="text-sm text-text">Block bookings exceeding case or funding periods (default setting)</p>
+            <p className="text-sm text-text">
+              Block bookings exceeding case or funding periods (default setting)
+            </p>
             <Toggle checked={casesToggle} onChange={setCasesToggle} />
           </div>
         </div>
 
         {/* Business settings change log link */}
         <div>
-          <span className="cursor-pointer text-sm text-primary hover:underline">Business settings change log</span>
+          <span className="text-sm text-primary cursor-pointer hover:underline">
+            Business settings change log
+          </span>
         </div>
       </div>
     </div>
@@ -546,194 +427,201 @@ function DetailsContent() {
 
 /* ─── Integrations ────────────────────────────────────────────────── */
 
-const integrationsList = [
-  {
-    name: "Xero",
-    logoText: "xero",
-    logoColor: "#13B5EA",
-    connected: true,
-    description:
-      "Xero is a world leading online accounting software built for small business. splose syncs all invoices, payments, clients, contacts, chart of accounts and line items with Xero automatically. We recommend that all Xero users have two factor authentication enabled.",
-    buttonText: "Settings",
-  },
-  {
-    name: "QuickBooks",
-    logoText: "INTUIT QuickBooks",
-    logoColor: "#2CA01C",
-    connected: false,
-    description:
-      "QuickBooks is a leading online accounting solution designed for small businesses. splose syncs all invoices, payments, clients, contacts, chart of accounts, and line items with QuickBooks automatically. We encourage all users to enable two-factor authentication to enhance the security of their accounts.",
-    buttonText: "Connect to QuickBooks",
-  },
+const integrations = [
   {
     name: "Stripe",
-    logoText: "stripe",
-    logoColor: "#635BFF",
+    description: "Accept online payments and manage billing",
+    icon: "💳",
+    category: "Payments",
     connected: true,
-    description:
-      "Stripe is a payment processing platform that helps you get paid online. Accept credit card payments via online bookings, and add a Pay now button to your invoices. Standard Stripe fees apply + splose 0.6% platform fee applies to successful payments.",
-    buttonText: "Settings",
-    extraLink: "Your profile in Stripe",
+  },
+  {
+    name: "Xero",
+    description: "Sync invoices and financial data automatically",
+    icon: "📊",
+    category: "Accounting",
+    connected: true,
+  },
+  {
+    name: "MYOB",
+    description: "Export invoices and payments to MYOB",
+    icon: "📒",
+    category: "Accounting",
+    connected: false,
   },
   {
     name: "Mailchimp",
-    logoText: "Mailchimp",
-    logoColor: "#FFE01B",
-    logoBg: "#FFE01B",
-    logoTextColor: "#241C15",
+    description: "Sync client data for email marketing campaigns",
+    icon: "📧",
+    category: "Marketing",
     connected: false,
-    description:
-      "Mailchimp is a marketing automation platform and email marketing service used to design and send email campaigns and newsletters to your mailing lists and track results. splose sends clients to your selected audience in Mailchimp.",
-    buttonText: "Connect",
-  },
-  {
-    name: "HICAPS",
-    logoText: "HICAPS",
-    logoColor: "#004225",
-    connected: false,
-    description:
-      "HICAPS is an online claiming platform that allows you to easily claim invoices to the TAC, WorkSafe Victoria, NDIS, Medicare, DVA and more. With HICAPS and splose, you can run a gap determination for NDIS plan managed invoices and submit them for fast payment.",
-    buttonText: "Connect",
-  },
-  {
-    name: "Tyro Health",
-    logoText: "tyro Health",
-    logoColor: "#6B2D99",
-    connected: false,
-    description:
-      "Tyro is dedicated to helping healthcare providers process digital payments and claims online. This includes Medicare, Bulk Bill and Patient Claims, DVA, health fund claims and contactless debit and credit cards (incl NFC, via scanning a card directly within an invoice window).",
-    buttonText: "Connect",
   },
   {
     name: "Zoom",
-    logoText: "Zoom",
-    logoColor: "#2D8CFF",
+    description: "Create telehealth appointments with Zoom meetings",
+    icon: "📹",
+    category: "Telehealth",
     connected: true,
-    description:
-      "Zoom is the leader in modern enterprise video communications with an easy, reliable cloud platform for video and audio conferencing and chat. Automatically create and attach Zoom Meetings for appointments scheduled or synced to a room at a Zoom URL.",
-    buttonText: "Settings",
   },
   {
-    name: "Physitrack",
-    logoText: "Physitrack",
-    logoColor: "#00B4D8",
+    name: "Google Calendar",
+    description: "Two-way sync with Google Calendar",
+    icon: "📅",
+    category: "Calendar",
     connected: false,
-    description:
-      "Physitrack is an online platform that encompasses clinical home exercise and education prescription, outcome tracking, and Telehealth. By integrating splose directly sending exercise programs created in Physitrack to the Files section of the client's splose profile.",
-    buttonText: "Connect",
+  },
+  {
+    name: "Outlook Calendar",
+    description: "Sync appointments with Outlook Calendar",
+    icon: "📆",
+    category: "Calendar",
+    connected: false,
+  },
+  {
+    name: "Tyro",
+    description: "Process EFTPOS payments in-clinic via Tyro",
+    icon: "💰",
+    category: "Payments",
+    connected: false,
+  },
+  {
+    name: "Medicare",
+    description: "Submit Medicare claims and check eligibility",
+    icon: "🏥",
+    category: "Claims",
+    connected: true,
+  },
+  {
+    name: "Halaxy",
+    description: "Import client and appointment data from Halaxy",
+    icon: "🔄",
+    category: "Migration",
+    connected: false,
+  },
+  {
+    name: "Cliniko",
+    description: "Import client and appointment data from Cliniko",
+    icon: "🔄",
+    category: "Migration",
+    connected: false,
+  },
+  {
+    name: "Twilio",
+    description: "Send SMS reminders and notifications via Twilio",
+    icon: "💬",
+    category: "Communication",
+    connected: true,
   },
 ];
 
-function IntegrationLogo({ name, color, textColor }: { name: string; color: string; textColor?: string }) {
-  const fill = textColor || color;
-  switch (name) {
-    case "Xero":
-      return (
-        <svg width="80" height="32" viewBox="0 0 80 32" fill="none">
-          <text x="4" y="24" fontFamily="sans-serif" fontSize="24" fontWeight="700" letterSpacing="-1" fill={fill}>
-            xero
-          </text>
-        </svg>
-      );
-    case "QuickBooks":
-      return (
-        <div className="flex flex-col items-center gap-0">
-          <span className="text-[10px] font-semibold tracking-wide" style={{ color: fill }}>
-            INTUIT
-          </span>
-          <span className="-mt-0.5 text-base font-bold" style={{ color: fill }}>
-            QuickBooks
-          </span>
-        </div>
-      );
-    case "Stripe":
-      return (
-        <svg width="70" height="30" viewBox="0 0 70 30" fill="none">
-          <text x="4" y="22" fontFamily="sans-serif" fontSize="22" fontWeight="700" letterSpacing="-0.5" fill={fill}>
-            stripe
-          </text>
-        </svg>
-      );
-    case "Mailchimp":
-      return (
-        <span className="text-xl font-bold tracking-tight" style={{ color: fill }}>
-          Mailchimp
-        </span>
-      );
-    case "HICAPS":
-      return (
-        <span className="text-xl font-extrabold tracking-wider" style={{ color: fill }}>
-          HICAPS
-        </span>
-      );
-    case "Tyro Health":
-      return (
-        <div className="flex flex-col items-start">
-          <span className="text-lg leading-tight font-bold" style={{ color: fill }}>
-            tyro
-          </span>
-          <span className="-mt-0.5 text-xs font-medium" style={{ color: fill }}>
-            Health
-          </span>
-        </div>
-      );
-    case "Zoom":
-      return (
-        <span className="text-2xl font-bold tracking-tight" style={{ color: fill }}>
-          Zoom
-        </span>
-      );
-    case "Physitrack":
-      return (
-        <span className="text-lg font-bold tracking-tight" style={{ color: fill }}>
-          Physitrack
-        </span>
-      );
-    default:
-      return (
-        <span className="text-xl font-bold" style={{ color: fill }}>
-          {name}
-        </span>
-      );
-  }
-}
-
 function IntegrationsContent() {
+  const [filter, setFilter] = useState<"all" | "connected" | "available">(
+    "all"
+  );
+  const [search, setSearch] = useState("");
+
+  const filtered = integrations.filter((i) => {
+    if (filter === "connected" && !i.connected) return false;
+    if (filter === "available" && i.connected) return false;
+    if (search && !i.name.toLowerCase().includes(search.toLowerCase()))
+      return false;
+    return true;
+  });
+
   return (
-    <div className="max-w-4xl p-6">
-      <h1 className="mb-6 text-2xl font-bold text-text">Integrations</h1>
+    <div className="p-6">
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-2xl font-bold text-text">Integrations</h1>
+          <p className="mt-1 text-sm text-text-secondary">
+            Connect your favourite tools to streamline your workflow
+          </p>
+        </div>
+      </div>
 
-      <div className="space-y-4">
-        {integrationsList.map((integration) => (
-          <div key={integration.name} className="rounded-lg border border-border bg-white p-6">
-            <div className="flex items-start gap-6">
-              {/* Logo area */}
-              <div
-                className="flex h-16 w-40 shrink-0 items-center justify-center rounded-lg"
-                style={{
-                  backgroundColor: integration.logoBg || `${integration.logoColor}10`,
-                }}
-              >
-                <IntegrationLogo
-                  name={integration.name}
-                  color={integration.logoColor}
-                  textColor={integration.logoTextColor}
-                />
-              </div>
+      {/* Filters */}
+      <div className="flex items-center gap-4 mb-6">
+        <div className="flex rounded-lg border border-border bg-white overflow-hidden">
+          <button
+            onClick={() => setFilter("all")}
+            className={`px-4 py-2 text-sm font-medium transition-colors ${
+              filter === "all"
+                ? "bg-primary text-white"
+                : "text-text-secondary hover:bg-gray-50"
+            }`}
+          >
+            All ({integrations.length})
+          </button>
+          <button
+            onClick={() => setFilter("connected")}
+            className={`border-l border-border px-4 py-2 text-sm font-medium transition-colors ${
+              filter === "connected"
+                ? "bg-primary text-white"
+                : "text-text-secondary hover:bg-gray-50"
+            }`}
+          >
+            Connected ({integrations.filter((i) => i.connected).length})
+          </button>
+          <button
+            onClick={() => setFilter("available")}
+            className={`border-l border-border px-4 py-2 text-sm font-medium transition-colors ${
+              filter === "available"
+                ? "bg-primary text-white"
+                : "text-text-secondary hover:bg-gray-50"
+            }`}
+          >
+            Available ({integrations.filter((i) => !i.connected).length})
+          </button>
+        </div>
+        <input
+          type="text"
+          placeholder="Search integrations..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary w-64"
+        />
+      </div>
 
-              {/* Content */}
-              <div className="flex-1">
-                <p className="text-sm leading-relaxed text-text-secondary">{integration.description}</p>
-                <div className="mt-4 flex items-center gap-3">
-                  <Button variant={integration.connected ? "secondary" : "primary"}>
-                    {integration.buttonText}
-                  </Button>
-                  {integration.extraLink && (
-                    <span className="cursor-pointer text-sm text-primary hover:underline">{integration.extraLink}</span>
-                  )}
+      {/* Integration cards grid */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {filtered.map((integration) => (
+          <div
+            key={integration.name}
+            className="rounded-lg border border-border bg-white p-5 hover:shadow-sm transition-shadow"
+          >
+            <div className="flex items-start justify-between mb-3">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-xl">
+                  {integration.icon}
+                </div>
+                <div>
+                  <h3 className="text-sm font-semibold text-text">
+                    {integration.name}
+                  </h3>
+                  <span className="text-xs text-text-secondary">
+                    {integration.category}
+                  </span>
                 </div>
               </div>
+              {integration.connected && (
+                <span className="flex items-center gap-1 rounded-full bg-green-50 px-2 py-0.5 text-xs font-medium text-green-700">
+                  <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                  Connected
+                </span>
+              )}
             </div>
+            <p className="text-sm text-text-secondary mb-4">
+              {integration.description}
+            </p>
+            <button
+              className={`w-full rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                integration.connected
+                  ? "border border-red-200 bg-white text-red-600 hover:bg-red-50"
+                  : "border border-primary bg-white text-primary hover:bg-purple-50"
+              }`}
+            >
+              {integration.connected ? "Disconnect" : "Connect"}
+            </button>
           </div>
         ))}
       </div>
@@ -743,73 +631,348 @@ function IntegrationsContent() {
 
 /* ─── SMS Settings ────────────────────────────────────────────────── */
 
+const smsTemplates = [
+  {
+    name: "Appointment reminder (24hr)",
+    content:
+      "Hi {client_first_name}, this is a reminder of your appointment with {practitioner_name} at {clinic_name} on {appointment_date} at {appointment_time}. Reply C to confirm or call us on {clinic_phone} to reschedule.",
+    active: true,
+  },
+  {
+    name: "Appointment reminder (2hr)",
+    content:
+      "Hi {client_first_name}, your appointment with {practitioner_name} is in 2 hours at {appointment_time}. See you soon!",
+    active: true,
+  },
+  {
+    name: "Appointment confirmation",
+    content:
+      "Hi {client_first_name}, your appointment has been booked with {practitioner_name} on {appointment_date} at {appointment_time}. Reply C to confirm.",
+    active: true,
+  },
+  {
+    name: "Cancellation notice",
+    content:
+      "Hi {client_first_name}, your appointment on {appointment_date} at {appointment_time} has been cancelled. Please call {clinic_phone} to rebook.",
+    active: false,
+  },
+  {
+    name: "Follow-up reminder",
+    content:
+      "Hi {client_first_name}, it has been a while since your last visit. Would you like to book a follow-up? Call us on {clinic_phone} or book online.",
+    active: false,
+  },
+  {
+    name: "Invoice reminder",
+    content:
+      "Hi {client_first_name}, you have an outstanding balance of {invoice_amount} for your recent appointment. Please pay via {payment_link}.",
+    active: true,
+  },
+];
+
 function SMSSettingsContent() {
-  const [selectedPlan, setSelectedPlan] = useState(0);
-  const creditOptions = [
-    { credits: 200, price: "A$22.00" },
-    { credits: 500, price: "A$55.00" },
-    { credits: 1000, price: "A$110.00" },
-    { credits: 2500, price: "A$275.00" },
+  const [activeTab, setActiveTab] = useState<
+    "provider" | "templates" | "history"
+  >("provider");
+
+  return (
+    <div className="p-6">
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-2xl font-bold text-text">SMS settings</h1>
+          <p className="mt-1 text-sm text-text-secondary">
+            Configure SMS notifications and reminders for your clients
+          </p>
+        </div>
+        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+          Save
+        </button>
+      </div>
+
+      {/* Tabs */}
+      <div className="mb-6 flex items-center gap-6 border-b border-border">
+        <button
+          onClick={() => setActiveTab("provider")}
+          className={`border-b-2 px-1 pb-3 text-sm ${
+            activeTab === "provider"
+              ? "border-primary font-medium text-primary"
+              : "border-transparent text-text-secondary hover:text-text"
+          }`}
+        >
+          Provider & balance
+        </button>
+        <button
+          onClick={() => setActiveTab("templates")}
+          className={`border-b-2 px-1 pb-3 text-sm ${
+            activeTab === "templates"
+              ? "border-primary font-medium text-primary"
+              : "border-transparent text-text-secondary hover:text-text"
+          }`}
+        >
+          Templates
+        </button>
+        <button
+          onClick={() => setActiveTab("history")}
+          className={`border-b-2 px-1 pb-3 text-sm ${
+            activeTab === "history"
+              ? "border-primary font-medium text-primary"
+              : "border-transparent text-text-secondary hover:text-text"
+          }`}
+        >
+          Send history
+        </button>
+      </div>
+
+      {activeTab === "provider" && <SMSProviderTab />}
+      {activeTab === "templates" && <SMSTemplatesTab />}
+      {activeTab === "history" && <SMSHistoryTab />}
+    </div>
+  );
+}
+
+function SMSProviderTab() {
+  return (
+    <div className="max-w-2xl space-y-6">
+      {/* Balance card */}
+      <div className="rounded-lg border border-border bg-white p-5">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-sm font-semibold text-text">SMS balance</h3>
+          <button className="rounded-lg border border-primary bg-white px-3 py-1.5 text-sm font-medium text-primary hover:bg-purple-50">
+            Top up
+          </button>
+        </div>
+        <div className="grid grid-cols-3 gap-4">
+          <div className="rounded-lg bg-green-50 p-4 text-center">
+            <p className="text-2xl font-bold text-green-700">1,247</p>
+            <p className="text-xs text-green-600 mt-1">Credits remaining</p>
+          </div>
+          <div className="rounded-lg bg-blue-50 p-4 text-center">
+            <p className="text-2xl font-bold text-blue-700">3,856</p>
+            <p className="text-xs text-blue-600 mt-1">Sent this month</p>
+          </div>
+          <div className="rounded-lg bg-purple-50 p-4 text-center">
+            <p className="text-2xl font-bold text-purple-700">98.2%</p>
+            <p className="text-xs text-purple-600 mt-1">Delivery rate</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Provider config */}
+      <div className="rounded-lg border border-border bg-white p-5">
+        <h3 className="text-sm font-semibold text-text mb-4">
+          Provider configuration
+        </h3>
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-text mb-1">
+              SMS provider
+            </label>
+            <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+              <option>Twilio</option>
+              <option>MessageMedia</option>
+              <option>Burst SMS</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-text mb-1">
+              Sender name / number
+            </label>
+            <input
+              type="text"
+              defaultValue="AcmeHealth"
+              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+            />
+            <p className="mt-1 text-xs text-text-secondary">
+              Max 11 characters. Letters and numbers only.
+            </p>
+          </div>
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-text">
+                Auto-send appointment reminders
+              </p>
+              <p className="text-xs text-text-secondary">
+                Automatically send reminders 24 hours before appointments
+              </p>
+            </div>
+            <Toggle checked={true} onChange={() => {}} />
+          </div>
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-text">
+                Send confirmation on booking
+              </p>
+              <p className="text-xs text-text-secondary">
+                Send SMS when a new appointment is created
+              </p>
+            </div>
+            <Toggle checked={true} onChange={() => {}} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SMSTemplatesTab() {
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-4">
+        <p className="text-sm text-text-secondary">
+          Manage your SMS templates. Use merge tags like{" "}
+          <code className="rounded bg-gray-100 px-1 py-0.5 text-xs text-primary">
+            {"{client_first_name}"}
+          </code>{" "}
+          to personalise messages.
+        </p>
+        <button className="flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+          + New template
+        </button>
+      </div>
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border bg-gray-50">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                Template name
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                Preview
+              </th>
+              <th className="px-4 py-3 text-center text-sm font-medium text-text">
+                Status
+              </th>
+              <th className="px-4 py-3 text-right text-sm font-medium text-text">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {smsTemplates.map((template) => (
+              <tr key={template.name} className="hover:bg-gray-50">
+                <td className="px-4 py-3 text-sm font-medium text-text whitespace-nowrap">
+                  {template.name}
+                </td>
+                <td className="px-4 py-3 text-sm text-text-secondary max-w-md truncate">
+                  {template.content}
+                </td>
+                <td className="px-4 py-3 text-center">
+                  <span
+                    className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
+                      template.active
+                        ? "bg-green-50 text-green-700"
+                        : "bg-gray-100 text-gray-600"
+                    }`}
+                  >
+                    {template.active ? "Active" : "Inactive"}
+                  </span>
+                </td>
+                <td className="px-4 py-3 text-right">
+                  <button className="text-text-secondary hover:text-text text-sm">
+                    Edit
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+function SMSHistoryTab() {
+  const history = [
+    {
+      to: "Sarah Johnson",
+      phone: "0412 345 678",
+      template: "Appointment reminder (24hr)",
+      sent: "17 Mar 2026, 9:00 am",
+      status: "Delivered",
+    },
+    {
+      to: "Michael Chen",
+      phone: "0423 456 789",
+      template: "Appointment confirmation",
+      sent: "17 Mar 2026, 8:45 am",
+      status: "Delivered",
+    },
+    {
+      to: "Emily Williams",
+      phone: "0434 567 890",
+      template: "Appointment reminder (24hr)",
+      sent: "16 Mar 2026, 9:00 am",
+      status: "Delivered",
+    },
+    {
+      to: "James Brown",
+      phone: "0445 678 901",
+      template: "Invoice reminder",
+      sent: "16 Mar 2026, 10:30 am",
+      status: "Failed",
+    },
+    {
+      to: "Olivia Davis",
+      phone: "0456 789 012",
+      template: "Appointment reminder (2hr)",
+      sent: "15 Mar 2026, 2:00 pm",
+      status: "Delivered",
+    },
   ];
 
   return (
-    <div className="max-w-4xl p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">SMS settings</h1>
-        <Button>
-          <svg className="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zM10 18a1 1 0 001-1v-1a1 1 0 10-2 0v1a1 1 0 001 1z" />
-          </svg>
-          Learn
-        </Button>
-      </div>
-
-      {/* SMS credit balance */}
-      <div className="mb-6 rounded-lg border border-border bg-white p-5">
-        <p className="mb-1 text-sm text-text-secondary">SMS credit balance</p>
-        <p className="text-4xl font-bold text-text">884</p>
-      </div>
-
-      {/* Recharge credits */}
-      <div className="mb-6">
-        <h2 className="mb-3 text-base font-semibold text-text">Recharge credits</h2>
-        <div className="mb-4 grid grid-cols-4 gap-3">
-          {creditOptions.map((option, i) => (
-            <button
-              key={option.credits}
-              onClick={() => setSelectedPlan(i)}
-              className={`rounded-lg border-2 p-4 text-center transition-colors ${
-                selectedPlan === i ? "border-primary bg-purple-50" : "border-border bg-white hover:border-gray-300"
-              }`}
-            >
-              <p className="text-lg font-bold text-text">{option.credits} credits</p>
-              <p className="text-sm text-text-secondary">{option.price}</p>
-            </button>
-          ))}
-        </div>
-        <Button variant="primary" size="lg">
-          Recharge
-        </Button>
-      </div>
-
-      {/* SMS pricing */}
-      <div>
-        <h2 className="mb-3 text-base font-semibold text-text">SMS pricing</h2>
-        <div className="space-y-3 text-sm leading-relaxed text-text-secondary">
-          <p>
-            A standard SMS message contains 160 characters per segment (if a message has more than 160 characters, the
-            message is split into segments, each consisting of 153 characters). SMS messages which include special
-            characters such as emojis require a different type of SMS. These messages are able to contain up to 70
-            characters (Messages with special characters longer than 70 characters are split into 67 character
-            segments).
-          </p>
-          <p>
-            Credits are purchased in advance and cost A$0.10 + GST per credit. Outbound SMS messages cost one credit per
-            segment, and inbound messages cost 0.5 credits per segment. SMS credits purchased get billed to the credit
-            card attached to your splose account. Receipts will appear in your{" "}
-            <span className="cursor-pointer text-primary hover:underline">billing history</span>.
-          </p>
-        </div>
+    <div>
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border bg-gray-50">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                Recipient
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                Phone
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                Template
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                Sent
+              </th>
+              <th className="px-4 py-3 text-center text-sm font-medium text-text">
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {history.map((item, i) => (
+              <tr key={i} className="hover:bg-gray-50">
+                <td className="px-4 py-3 text-sm font-medium text-text">
+                  {item.to}
+                </td>
+                <td className="px-4 py-3 text-sm text-text-secondary">
+                  {item.phone}
+                </td>
+                <td className="px-4 py-3 text-sm text-text-secondary">
+                  {item.template}
+                </td>
+                <td className="px-4 py-3 text-sm text-text-secondary">
+                  {item.sent}
+                </td>
+                <td className="px-4 py-3 text-center">
+                  <span
+                    className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
+                      item.status === "Delivered"
+                        ? "bg-green-50 text-green-700"
+                        : "bg-red-50 text-red-700"
+                    }`}
+                  >
+                    {item.status}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
@@ -878,43 +1041,52 @@ const formTemplates = [
 
 function FormsContent() {
   const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState<"all" | "Published" | "Draft" | "Archived">("all");
+  const [statusFilter, setStatusFilter] = useState<
+    "all" | "Published" | "Draft" | "Archived"
+  >("all");
 
   const filtered = formTemplates.filter((f) => {
     if (statusFilter !== "all" && f.status !== statusFilter) return false;
-    if (search && !f.name.toLowerCase().includes(search.toLowerCase())) return false;
+    if (search && !f.name.toLowerCase().includes(search.toLowerCase()))
+      return false;
     return true;
   });
 
   return (
     <div className="p-6">
-      <div className="mb-6 flex items-center justify-between">
+      <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-text">Forms</h1>
-          <p className="mt-1 text-sm text-text-secondary">Create and manage forms that clients can fill out online</p>
+          <p className="mt-1 text-sm text-text-secondary">
+            Create and manage forms that clients can fill out online
+          </p>
         </div>
-        <Button variant="primary">
+        <button className="flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
           + New form
-        </Button>
+        </button>
       </div>
 
       {/* Filters */}
-      <div className="mb-4 flex items-center gap-4">
+      <div className="flex items-center gap-4 mb-4">
         <input
           type="text"
           placeholder="Search forms..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-64 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+          className="rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary w-64"
         />
-        <div className="flex overflow-hidden rounded-lg border border-border bg-white">
+        <div className="flex rounded-lg border border-border bg-white overflow-hidden">
           {(["all", "Published", "Draft", "Archived"] as const).map((s) => (
             <button
               key={s}
               onClick={() => setStatusFilter(s)}
               className={`px-3 py-2 text-sm font-medium transition-colors ${
                 s !== "all" ? "border-l border-border" : ""
-              } ${statusFilter === s ? "bg-primary text-white" : "text-text-secondary hover:bg-gray-50"}`}
+              } ${
+                statusFilter === s
+                  ? "bg-primary text-white"
+                  : "text-text-secondary hover:bg-gray-50"
+              }`}
             >
               {s === "all" ? "All" : s}
             </button>
@@ -923,1941 +1095,78 @@ function FormsContent() {
       </div>
 
       {/* Forms table */}
-      <DataTable>
-          <TableHead>
-              <Th>Form name</Th>
-              <Th>Description</Th>
-              <Th align="center">Status</Th>
-              <Th align="center">Responses</Th>
-              <Th>Last modified</Th>
-              <Th align="right">Actions</Th>
-</TableHead>
-          <TableBody>
+      <div className="rounded-lg border border-border bg-white overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border bg-gray-50">
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                Form name
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                Description
+              </th>
+              <th className="px-4 py-3 text-center text-sm font-medium text-text">
+                Status
+              </th>
+              <th className="px-4 py-3 text-center text-sm font-medium text-text">
+                Responses
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                Last modified
+              </th>
+              <th className="px-4 py-3 text-right text-sm font-medium text-text">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
             {filtered.map((form) => (
               <tr key={form.name} className="hover:bg-gray-50">
-                <Td className="font-medium">{form.name}</Td>
-                <Td className="max-w-xs truncate">{form.description}</Td>
-                <Td align="center">
-                  <Badge variant={form.status === "Published" ? "green" : form.status === "Draft" ? "yellow" : "gray"}>
+                <td className="px-4 py-3 text-sm font-medium text-text">
+                  {form.name}
+                </td>
+                <td className="px-4 py-3 text-sm text-text-secondary max-w-xs truncate">
+                  {form.description}
+                </td>
+                <td className="px-4 py-3 text-center">
+                  <span
+                    className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
+                      form.status === "Published"
+                        ? "bg-green-50 text-green-700"
+                        : form.status === "Draft"
+                        ? "bg-yellow-50 text-yellow-700"
+                        : "bg-gray-100 text-gray-600"
+                    }`}
+                  >
                     {form.status}
-                  </Badge>
-                </Td>
-                <Td align="center">{form.responses}</Td>
-                <Td>{form.lastModified}</Td>
-                <Td align="right">                  <div className="flex items-center justify-end gap-2">
-                    <button className="text-sm text-primary hover:underline">Edit</button>
-                    <button className="text-sm text-text-secondary hover:text-text">...</button>
-                  </div></Td>
+                  </span>
+                </td>
+                <td className="px-4 py-3 text-center text-sm text-text-secondary">
+                  {form.responses}
+                </td>
+                <td className="px-4 py-3 text-sm text-text-secondary">
+                  {form.lastModified}
+                </td>
+                <td className="px-4 py-3 text-right">
+                  <div className="flex items-center justify-end gap-2">
+                    <button className="text-sm text-primary hover:underline">
+                      Edit
+                    </button>
+                    <button className="text-sm text-text-secondary hover:text-text">
+                      ...
+                    </button>
+                  </div>
+                </td>
               </tr>
             ))}
-          </TableBody>
-        </DataTable>
+          </tbody>
+        </table>
         {filtered.length === 0 && (
-          <div className="px-4 py-8 text-center text-sm text-text-secondary">No forms found</div>
+          <div className="px-4 py-8 text-center text-sm text-text-secondary">
+            No forms found
+          </div>
         )}
-    </div>
-  );
-}
-
-/* ─── Locations ───────────────────────────────────────────────────── */
-
-function LocationsContent() {
-  const locations = [
-    { name: "East Clinics", address: "", lastUpdate: "12:24 pm, 6 Mar 2026" },
-    { name: "Splose OT", address: "", lastUpdate: "2:08 pm, 26 Feb 2026" },
-    { name: "Ploc", address: "", lastUpdate: "2:08 pm, 26 Feb 2026" },
-    { name: "Tasks", address: "", lastUpdate: "11:59 am, 5 Mar 2026" },
-    { name: "Sharon's", address: "", lastUpdate: "2:08 pm, 26 Feb 2026" },
-    { name: "One service only", address: "297 Pirie St, Adelaide, SA, 5000", lastUpdate: "2:08 pm, 26 Feb 2026" },
-  ];
-
-  return (
-    <div className="max-w-4xl p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Locations</h1>
-        <div className="flex items-center gap-3">
-          <Button>
-            Show archived
-          </Button>
-          <Button variant="primary">
-            + New location
-          </Button>
-        </div>
       </div>
-
-      <DataTable>
-          <TableHead>
-              <Th>Name</Th>
-              <Th>Address</Th>
-              <Th>Last update</Th>
-</TableHead>
-          <TableBody>
-            {locations.map((loc) => (
-              <tr key={loc.name} className="hover:bg-gray-50">
-                <Td>{loc.name}</Td>
-                <Td>{loc.address}</Td>
-                <Td>{loc.lastUpdate}</Td>
-              </tr>
-            ))}
-          </TableBody>
-        </DataTable>
-
-      {/* Pagination */}
-      <div className="mt-4 flex items-center justify-end gap-1">
-        <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
-        <button className="rounded border border-primary bg-purple-50 px-2.5 py-1 text-sm font-medium text-primary">
-          1
-        </button>
-        <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&gt;</button>
-      </div>
-    </div>
-  );
-}
-
-/* ─── Tags ────────────────────────────────────────────────────────── */
-
-function TagsContent() {
-  const [activeTab, setActiveTab] = useState("Client tags");
-  const tabs = [
-    { name: "Client tags" },
-    { name: "Service tags" },
-    { name: "Waitlist tags" },
-    { name: "AI tags", badge: "New" },
-  ];
-
-  const clientTags = [
-    { name: "2025-11-22", color: "#f59e0b" },
-    { name: "Client consents to photography for promotional purposes", color: "#22c55e" },
-    { name: "Client DOES NOT consent to photography for promotional purposes", color: "#ef4444" },
-    { name: "Company A", color: "#f59e0b" },
-    { name: "Dual funding", color: "#f59e0b" },
-    { name: "Exception", color: "#f97316" },
-    { name: "FORMS PENDING", color: "#ef4444" },
-    { name: "High risk", color: "#ef4444" },
-  ];
-
-  return (
-    <div className="max-w-4xl p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Tags</h1>
-        <Button variant="primary">
-          + New tag
-        </Button>
-      </div>
-
-      {/* Tabs */}
-      <div className="mb-6 flex items-center gap-6 border-b border-border">
-        {tabs.map((tab) => (
-          <button
-            key={tab.name}
-            onClick={() => setActiveTab(tab.name)}
-            className={`flex items-center gap-1.5 border-b-2 px-1 pb-3 text-sm ${
-              activeTab === tab.name
-                ? "border-primary font-medium text-primary"
-                : "border-transparent text-text-secondary hover:text-text"
-            }`}
-          >
-            {tab.name}
-            {tab.badge && (
-              <span className="rounded bg-green-500 px-1.5 py-0.5 text-[10px] font-bold text-white">{tab.badge}</span>
-            )}
-          </button>
-        ))}
-      </div>
-
-      {/* Tags table */}
-      <DataTable>
-          <TableHead>
-              <Th>Name</Th>
-              <Th>Colour</Th>
-              <Th align="right">Actions</Th>
-</TableHead>
-          <TableBody>
-            {clientTags.map((tag) => (
-              <tr key={tag.name} className="hover:bg-gray-50">
-                <Td>{tag.name}</Td>
-                <Td>                  <div className="h-5 w-8 rounded" style={{ backgroundColor: tag.color }} /></Td>
-                <Td align="right">                  <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="19" cy="12" r="1" />
-                      <circle cx="5" cy="12" r="1" />
-                    </svg>
-                  </button></Td>
-              </tr>
-            ))}
-          </TableBody>
-        </DataTable>
-    </div>
-  );
-}
-
-/* ─── Users ───────────────────────────────────────────────────────── */
-
-function UsersContent() {
-  const users = [
-    {
-      name: "Nicholas Smithson",
-      badge: "Account owner",
-      email: "nick@splose.com",
-      roleName: "Practitioner admin",
-      roleType: "Practitioner admin",
-      group: "OT",
-      status: "Active",
-    },
-    {
-      name: "Splose Support",
-      badge: null,
-      email: "support@splose.com",
-      roleName: "Practice manager",
-      roleType: "Practice manager",
-      group: "---",
-      status: "Active",
-    },
-    {
-      name: "nick sand",
-      badge: null,
-      email: "nick1@splose.com",
-      roleName: "Practitioner",
-      roleType: "Practitioner",
-      group: "---",
-      status: "Active",
-    },
-    {
-      name: "Harry Nguyen",
-      badge: "Account owner",
-      email: "harry@splose.com",
-      roleName: "Practitioner admin",
-      roleType: "Practitioner admin",
-      group: "OT",
-      status: "Active",
-    },
-    {
-      name: "Cheng Ma",
-      badge: "Account owner",
-      email: "cheng@splose.com",
-      roleName: "Practitioner admin",
-      roleType: "Practitioner admin",
-      group: "Intake team, +1 more",
-      status: "Active",
-    },
-    {
-      name: "Rakesh Soni",
-      badge: "Account owner",
-      email: "rakesh@splose.com",
-      roleName: "Practice manager",
-      roleType: "Practice manager",
-      group: "Physio",
-      status: "Active",
-    },
-    {
-      name: "Cheng Test",
-      badge: null,
-      email: "machengjam@gmail.com",
-      roleName: "Practitioner admin",
-      roleType: "Practitioner admin",
-      group: "---",
-      status: "Active",
-    },
-  ];
-
-  return (
-    <div className="p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Users</h1>
-        <Button>
-          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
-            />
-          </svg>
-          Invite users
-        </Button>
-      </div>
-
-      {/* Search */}
-      <div className="mb-6 flex items-center gap-3">
-        <input
-          type="text"
-          placeholder="Search for user name and email"
-          className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-        />
-        <Button>
-          Search
-        </Button>
-      </div>
-
-      {/* Users table */}
-      <DataTable>
-          <TableHead>
-              <Th>                Name <span className="text-xs">&#8597;</span></Th>
-              <Th>                Email <span className="text-xs">&#8597;</span></Th>
-              <Th>Role name</Th>
-              <Th>                Role type <span className="text-xs">&#9661;</span></Th>
-              <Th>                Group <span className="text-xs">&#9661;</span></Th>
-              <Th>                Status <span className="text-xs">&#9661;</span></Th>
-              <Th align="right">Actions</Th>
-</TableHead>
-          <TableBody>
-            {users.map((user) => (
-              <tr key={user.email} className="hover:bg-gray-50">
-                <Td>                  <div>
-                    <span className="text-sm text-text">{user.name}</span>
-                    {user.badge && (
-                      <span className="ml-2 inline-flex rounded bg-green-500 px-1.5 py-0.5 text-[10px] font-bold text-white">
-                        {user.badge}
-                      </span>
-                    )}
-                  </div></Td>
-                <Td>{user.email}</Td>
-                <Td>{user.roleName}</Td>
-                <Td>{user.roleType}</Td>
-                <Td>{user.group}</Td>
-                <Td>{user.status}</Td>
-                <Td align="right">                  <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="19" cy="12" r="1" />
-                      <circle cx="5" cy="12" r="1" />
-                    </svg>
-                  </button></Td>
-              </tr>
-            ))}
-          </TableBody>
-        </DataTable>
-    </div>
-  );
-}
-
-/* ─── Referral Types ──────────────────────────────────────────────── */
-
-function ReferralTypesContent() {
-  const referralTypes = [
-    { name: "Client", defaultType: true },
-    { name: "Contact", defaultType: true },
-    { name: "Other", defaultType: true },
-    { name: "Facebook", defaultType: false },
-    { name: "Google", defaultType: false },
-    { name: "Doctor", defaultType: false },
-    { name: "GP", defaultType: false },
-  ];
-
-  return (
-    <div className="max-w-4xl p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Referral types</h1>
-        <Button variant="primary">
-          + Add referral type
-        </Button>
-      </div>
-
-      <DataTable>
-          <TableHead>
-              <Th>Name</Th>
-              <Th>Default type</Th>
-              <Th>Actions</Th>
-</TableHead>
-          <TableBody>
-            {referralTypes.map((rt) => (
-              <tr key={rt.name} className="hover:bg-gray-50">
-                <Td>{rt.name}</Td>
-                <Td>                  <span className={`text-sm font-medium ${rt.defaultType ? "text-green-600" : "text-red-500"}`}>
-                    {rt.defaultType ? "Yes" : "No"}
-                  </span></Td>
-                <Td>                  {rt.defaultType ? (
-                    <span className="text-text-secondary">-</span>
-                  ) : (
-                    <button className="text-text-secondary hover:text-text">
-                      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="1" />
-                        <circle cx="19" cy="12" r="1" />
-                        <circle cx="5" cy="12" r="1" />
-                      </svg>
-                    </button>
-                  )}</Td>
-              </tr>
-            ))}
-          </TableBody>
-        </DataTable>
-
-      <div className="mt-4 flex items-center justify-end gap-2">
-        <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
-        <button className="rounded border border-primary bg-purple-50 px-2.5 py-1 text-sm font-medium text-primary">
-          1
-        </button>
-        <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&gt;</button>
-        <span className="ml-2 text-sm text-text-secondary">10 / page</span>
-      </div>
-    </div>
-  );
-}
-
-/* ─── User Groups ─────────────────────────────────────────────────── */
-
-function UserGroupsContent() {
-  const groups = [
-    { name: "Intake team", users: 3 },
-    { name: "OT", users: 7 },
-    { name: "Physio", users: 7 },
-  ];
-
-  return (
-    <div className="max-w-4xl p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">User groups</h1>
-        <div className="flex items-center gap-3">
-          <Button>
-            <svg className="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zM10 18a1 1 0 001-1v-1a1 1 0 10-2 0v1a1 1 0 001 1z" />
-            </svg>
-            Learn
-          </Button>
-          <Button variant="primary">
-            + New group
-          </Button>
-        </div>
-      </div>
-
-      {/* Search */}
-      <div className="mb-6 flex items-center gap-3">
-        <input
-          type="text"
-          placeholder="Search for group name"
-          className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-        />
-        <Button>
-          Search
-        </Button>
-      </div>
-
-      <DataTable>
-          <TableHead>
-              <Th>                Name <span className="text-xs">&#8597;</span></Th>
-              <Th>Users</Th>
-              <Th align="right">Actions</Th>
-</TableHead>
-          <TableBody>
-            {groups.map((g) => (
-              <tr key={g.name} className="hover:bg-gray-50">
-                <Td>{g.name}</Td>
-                <Td>{g.users}</Td>
-                <Td align="right">                  <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="19" cy="12" r="1" />
-                      <circle cx="5" cy="12" r="1" />
-                    </svg>
-                  </button></Td>
-              </tr>
-            ))}
-          </TableBody>
-        </DataTable>
-
-      <div className="mt-4 flex items-center justify-end gap-2">
-        <span className="text-sm text-text-secondary">1-3 of 3 items</span>
-        <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
-        <button className="rounded border border-primary bg-purple-50 px-2.5 py-1 text-sm font-medium text-primary">
-          1
-        </button>
-        <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&gt;</button>
-        <span className="ml-2 text-sm text-text-secondary">10 / page</span>
-      </div>
-    </div>
-  );
-}
-
-/* ─── Payment Settings ────────────────────────────────────────────── */
-
-function PaymentSettingsContent() {
-  const paymentMethods = [
-    { name: "Credit Card", description: "stripe payment", status: "Active" },
-    { name: "EFTPOS", description: "", status: "Active" },
-    { name: "Medicare", description: "", status: "Active" },
-    { name: "HICAPS", description: "", status: "Active" },
-    { name: "Cash", description: "Pay by cash", status: "Active" },
-    { name: "Bank Transfer (Xero)", description: "", status: "Active" },
-    { name: "DVA", description: "", status: "Active" },
-    { name: "Other", description: "", status: "Active" },
-    { name: "CC", description: "Credit Card", status: "Active" },
-    { name: "PE CC", description: "PE Credit Card", status: "Active" },
-  ];
-
-  return (
-    <div className="max-w-4xl p-6">
-      <h1 className="mb-6 text-2xl font-bold text-text">Payment settings</h1>
-
-      {/* Next payment number */}
-      <div className="mb-6">
-        <h2 className="mb-3 text-base font-semibold text-text">Next payment number</h2>
-        <div className="max-w-md space-y-3">
-          <div>
-            <label className="mb-1 block text-sm text-text-secondary">
-              Prefix{" "}
-              <span className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
-                i
-              </span>
-            </label>
-            <input
-              type="text"
-              defaultValue="MYDD"
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            />
-          </div>
-          <div>
-            <label className="mb-1 block text-sm text-text-secondary">
-              Padding{" "}
-              <span className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
-                i
-              </span>
-            </label>
-            <input
-              type="text"
-              defaultValue="5"
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* PDF settings */}
-      <div className="mb-6">
-        <h2 className="mb-3 text-base font-semibold text-text">PDF settings</h2>
-        <div className="max-w-md">
-          <label className="mb-1 block text-sm text-text-secondary">Brand colour</label>
-          <div className="mb-3 flex items-center gap-2">
-            <div className="h-10 w-10 rounded border border-border" style={{ backgroundColor: "#8689FC" }} />
-            <input
-              type="text"
-              defaultValue="#8689FC"
-              className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            />
-          </div>
-          <Button variant="primary" className="bg-green-500 border-green-500 hover:bg-green-600">
-            Save
-          </Button>
-        </div>
-      </div>
-
-      {/* Accepted forms of payment */}
-      <div className="mb-6">
-        <h2 className="mb-4 text-base font-semibold text-text">Accepted forms of payment</h2>
-        <DataTable>
-            <TableHead>
-                <Th>Name</Th>
-                <Th>Description</Th>
-                <Th>Status</Th>
-                <Th align="right">Actions</Th>
-</TableHead>
-            <TableBody>
-              {paymentMethods.map((pm) => (
-                <tr key={pm.name} className="hover:bg-gray-50">
-                  <Td>{pm.name}</Td>
-                  <Td>{pm.description}</Td>
-                  <Td><Badge variant="green">{pm.status}</Badge></Td>
-                  <Td align="right">                    <div className="flex items-center justify-end gap-2">
-                      <button className="text-text-secondary hover:text-primary">
-                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                          />
-                        </svg>
-                      </button>
-                      <button className="text-text-secondary hover:text-red-500">
-                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                          />
-                        </svg>
-                      </button>
-                    </div></Td>
-                </tr>
-              ))}
-            </TableBody>
-          </DataTable>
-
-        <div className="mt-4 flex items-center justify-end gap-2">
-          <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
-          <button className="rounded border border-primary bg-purple-50 px-2.5 py-1 text-sm font-medium text-primary">
-            1
-          </button>
-          <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">2</button>
-          <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&gt;</button>
-        </div>
-      </div>
-
-      {/* Add payment method */}
-      <div className="mb-6">
-        <Button>
-          + Add payment method
-        </Button>
-      </div>
-
-      <hr className="mb-6 border-border" />
-
-      {/* NDIS bulk upload */}
-      <div>
-        <h2 className="mb-3 text-base font-semibold text-text">NDIS bulk upload</h2>
-        <div className="max-w-md">
-          <label className="mb-1 block text-sm text-text">
-            Payment method<span className="text-red-500">*</span>
-          </label>
-          <select className="mb-3 w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
-            <option>Credit Card</option>
-          </select>
-          <Button variant="primary" className="bg-green-500 border-green-500 hover:bg-green-600">
-            Save changes
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ─── Communication Types ─────────────────────────────────────────── */
-
-function CommunicationTypesContent() {
-  const types = [
-    { name: "SMS", defaultType: true },
-    { name: "Email", defaultType: true },
-    { name: "Phone call", defaultType: false },
-    { name: "In-person", defaultType: false },
-    { name: "fax", defaultType: false },
-    { name: "Admin Notes", defaultType: false },
-  ];
-
-  return (
-    <div className="max-w-4xl p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Communication types</h1>
-        <Button variant="primary">
-          + Add communication type
-        </Button>
-      </div>
-
-      <DataTable>
-          <TableHead>
-              <Th>Name</Th>
-              <Th>Default type</Th>
-              <Th>Actions</Th>
-</TableHead>
-          <TableBody>
-            {types.map((t) => (
-              <tr key={t.name} className="hover:bg-gray-50">
-                <Td>{t.name}</Td>
-                <Td>                  <span className={`text-sm font-medium ${t.defaultType ? "text-green-600" : "text-red-500"}`}>
-                    {t.defaultType ? "Yes" : "No"}
-                  </span></Td>
-                <Td>                  {t.defaultType ? (
-                    <span className="text-text-secondary">-</span>
-                  ) : (
-                    <button className="text-text-secondary hover:text-text">
-                      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="1" />
-                        <circle cx="19" cy="12" r="1" />
-                        <circle cx="5" cy="12" r="1" />
-                      </svg>
-                    </button>
-                  )}</Td>
-              </tr>
-            ))}
-          </TableBody>
-        </DataTable>
-
-      <div className="mt-4 flex items-center justify-end gap-2">
-        <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
-        <button className="rounded border border-primary bg-purple-50 px-2.5 py-1 text-sm font-medium text-primary">
-          1
-        </button>
-        <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&gt;</button>
-        <span className="ml-2 text-sm text-text-secondary">10 / page</span>
-      </div>
-    </div>
-  );
-}
-
-/* ─── Cancellation Reasons ────────────────────────────────────────── */
-
-function CancellationReasonsContent() {
-  const reasons = [
-    { name: "Condition betteryyy", code: "" },
-    { name: "Condition worse", code: "TEST" },
-    { name: "Sick", code: "500" },
-    { name: "No show due to health reason", code: "NSDH" },
-    { name: "No show due to family issues", code: "NSDF" },
-    { name: "No show due to unavailability of transport", code: "NSDT" },
-    { name: "Cancelled 1", code: "" },
-    { name: "No Show - sick", code: "" },
-    { name: "Cancel", code: "CANCEL" },
-    { name: "No show less than 2 days", code: "" },
-  ];
-
-  return (
-    <div className="max-w-4xl p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Cancellation reasons</h1>
-        <Button>
-          Show archived
-        </Button>
-      </div>
-
-      <div className="space-y-0 divide-y divide-border">
-        {reasons.map((r) => (
-          <div key={r.name} className="flex items-center justify-between py-4">
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-text">{r.name}</span>
-              {r.code && (
-                <span className="rounded bg-gray-100 px-1.5 py-0.5 text-xs text-text-secondary">{r.code}</span>
-              )}
-            </div>
-            <div className="flex items-center gap-2">
-              <button className="text-text-secondary hover:text-primary">
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                  />
-                </svg>
-              </button>
-              <button className="text-text-secondary hover:text-red-500">
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* ─── Busy Times ──────────────────────────────────────────────────── */
-
-function BusyTimesContent() {
-  const busyTypes = [
-    { name: "Leave me alone", color: "#ef4444", utilisation: "Excluded", duration: 15 },
-    { name: "OT referral", color: "#f97316", utilisation: "Excluded", duration: 30 },
-    { name: "Meeting", color: "#374151", utilisation: "Excluded", duration: 30 },
-    { name: "Lunch", color: "#6366f1", utilisation: "Excluded", duration: 30 },
-    { name: "Admin", color: "#ec4899", utilisation: "Included", duration: 30 },
-    { name: "CPD", color: "#3b82f6", utilisation: "Excluded", duration: 30 },
-    { name: "Travel", color: "#22c55e", utilisation: "Excluded", duration: 30 },
-  ];
-
-  return (
-    <div className="max-w-4xl p-6">
-      <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Busy time types</h1>
-        <div className="flex items-center gap-3">
-          <Button>
-            Show archived
-          </Button>
-          <Button variant="primary">
-            + New type
-          </Button>
-        </div>
-      </div>
-
-      <p className="mb-6 text-sm text-text-secondary">
-        Use busy time to indicate non billable events in Practitioner calendars. You can change utilisation settings to
-        control whether specific types of busy time are used in utilisation reports.
-      </p>
-
-      <DataTable>
-          <TableHead>
-              <Th>Name</Th>
-              <Th>Utilisation</Th>
-              <Th>Duration (mins)</Th>
-              <Th align="right">Actions</Th>
-</TableHead>
-          <TableBody>
-            {busyTypes.map((bt) => (
-              <tr key={bt.name} className="hover:bg-gray-50">
-                <Td>                  <div className="flex items-center gap-2">
-                    <div className="h-3 w-3 rounded-full" style={{ backgroundColor: bt.color }} />
-                    <span className="text-sm text-text">{bt.name}</span>
-                  </div></Td>
-                <Td>{bt.utilisation}</Td>
-                <Td>{bt.duration}</Td>
-                <Td align="right">                  <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="19" cy="12" r="1" />
-                      <circle cx="5" cy="12" r="1" />
-                    </svg>
-                  </button></Td>
-              </tr>
-            ))}
-          </TableBody>
-        </DataTable>
-    </div>
-  );
-}
-
-/* ─── Custom Fields ───────────────────────────────────────────────── */
-
-function CustomFieldsContent() {
-  const fields = [
-    { name: "Diagnosis", type: "Multiple choice", visible: true, required: false },
-    { name: "AAA", type: "Dropdown (Multiple select)", visible: true, required: false },
-    { name: "Goal 1", type: "Long text", visible: true, required: false },
-    { name: "Client's deidentification code", type: "Numerical", visible: true, required: false },
-    { name: "Personal Care", type: "Multiple choice", visible: true, required: false },
-    { name: "Level of Education", type: "Short text", visible: true, required: false },
-    { name: "Child Name", type: "Short text", visible: true, required: false },
-    { name: "Custom Field Multi Choice - Single Select", type: "Multiple choice", visible: true, required: false },
-  ];
-
-  return (
-    <div className="p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Custom fields</h1>
-        <div className="flex items-center gap-3">
-          <Button>
-            Reorder
-          </Button>
-          <Button>
-            Show archived
-          </Button>
-          <Button>
-            <svg className="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zM10 18a1 1 0 001-1v-1a1 1 0 10-2 0v1a1 1 0 001 1z" />
-            </svg>
-            Learn
-          </Button>
-          <Button variant="primary">
-            + New custom field
-          </Button>
-        </div>
-      </div>
-
-      <div className="mb-6 flex items-center gap-3">
-        <input
-          type="text"
-          placeholder="Search for custom field name"
-          className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-        />
-        <Button>
-          Search
-        </Button>
-      </div>
-
-      <DataTable>
-          <TableHead>
-              <Th>Name</Th>
-              <Th>Type</Th>
-              <Th>Visible</Th>
-              <Th>Required</Th>
-              <Th align="right">Actions</Th>
-</TableHead>
-          <TableBody>
-            {fields.map((f) => (
-              <tr key={f.name} className="hover:bg-gray-50">
-                <Td>{f.name}</Td>
-                <Td>{f.type}</Td>
-                <Td>                  <span className="text-sm font-medium text-green-600">Yes</span></Td>
-                <Td>                  <span className="text-sm font-medium text-red-500">No</span></Td>
-                <Td align="right">                  <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="19" cy="12" r="1" />
-                      <circle cx="5" cy="12" r="1" />
-                    </svg>
-                  </button></Td>
-              </tr>
-            ))}
-          </TableBody>
-        </DataTable>
-    </div>
-  );
-}
-
-/* ─── Rooms/Resources ─────────────────────────────────────────────── */
-
-function RoomsResourcesContent() {
-  const rooms = [
-    { name: "Red Room", color: "#ef4444", group: "Red", capacity: 1, location: "Sharon's" },
-    { name: "Purple Room", color: "#8b5cf6", group: "Purple", capacity: 1, location: "Sharon's" },
-    { name: "Room 1", color: "#22c55e", group: "1", capacity: 1000, location: "East Clinics" },
-    { name: "Brainstorming room", color: "#9ca3af", group: "6", capacity: 6, location: "East Clinics" },
-    { name: "Group Therapy Room", color: "#f97316", group: "Group Therapy", capacity: 5, location: "East Clinics" },
-    { name: "Test room", color: "#6366f1", group: "Rooms", capacity: 0, location: "East Clinics" },
-    { name: "Car", color: "#ef4444", group: "Car", capacity: 1, location: "East Clinics" },
-    { name: "Purple", color: "#6366f1", group: "Green room", capacity: 5, location: "Northside" },
-  ];
-
-  return (
-    <div className="p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Rooms/Resources</h1>
-        <div className="flex items-center gap-3">
-          <Button>
-            <svg className="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zM10 18a1 1 0 001-1v-1a1 1 0 10-2 0v1a1 1 0 001 1z" />
-            </svg>
-            Learn
-          </Button>
-          <Button>
-            Show archived
-          </Button>
-          <Button variant="primary">
-            + Room/resource
-          </Button>
-        </div>
-      </div>
-
-      <div className="mb-6 flex items-center gap-3">
-        <input
-          type="text"
-          placeholder="Search for rooms/resources"
-          className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-        />
-        <Button>
-          Search
-        </Button>
-      </div>
-
-      <DataTable>
-          <TableHead>
-              <Th>                Name <span className="text-xs">&#8597;</span></Th>
-              <Th>Group</Th>
-              <Th>Capacity/Available</Th>
-              <Th>                Location <span className="text-xs">&#9661;</span></Th>
-              <Th align="right">Actions</Th>
-</TableHead>
-          <TableBody>
-            {rooms.map((r) => (
-              <tr key={r.name} className="hover:bg-gray-50">
-                <Td>                  <div className="flex items-center gap-2">
-                    <div className="h-3 w-3 rounded-full" style={{ backgroundColor: r.color }} />
-                    <span className="text-sm text-text">{r.name}</span>
-                  </div></Td>
-                <Td>{r.group}</Td>
-                <Td>{r.capacity}</Td>
-                <Td>{r.location}</Td>
-                <Td align="right">                  <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="19" cy="12" r="1" />
-                      <circle cx="5" cy="12" r="1" />
-                    </svg>
-                  </button></Td>
-              </tr>
-            ))}
-          </TableBody>
-        </DataTable>
-    </div>
-  );
-}
-
-/* ─── Services ────────────────────────────────────────────────────── */
-
-function ServicesContent() {
-  const services = [
-    {
-      name: "1:1 Consultation",
-      color: "#8b5cf6",
-      type: "1:1 Consultation",
-      itemCode: "299sdsdds3234",
-      duration: "40 minutes",
-      price: "193.00 / Hour",
-    },
-    {
-      name: "1x Initial 1:1 Assessment, 14 x Group Therapy Sessions, and 1x Review Session",
-      color: "#9ca3af",
-      type: "Group Package Deal",
-      itemCode: "",
-      duration: "60 minutes",
-      price: "1000.00 / Each",
-    },
-    {
-      name: "2:2 Consultations",
-      color: "#22c55e",
-      type: "2:2 Consultations",
-      itemCode: "2997952838_61 6271_abc",
-      duration: "60 minutes",
-      price: "193.99 / Hour",
-    },
-    {
-      name: "2. Payment optional - partial - Online booking",
-      color: "#9ca3af",
-      type: "1. Payment test - Online booking",
-      itemCode: "sd",
-      duration: "30 minutes",
-      price: "200.00 / Hour",
-    },
-    {
-      name: "3 cases services",
-      color: "#22c55e",
-      type: "3 cases service",
-      itemCode: "",
-      duration: "45 minutes",
-      price: "120.00 / Hour",
-    },
-    {
-      name: "3. Payment required - partial - Online booking",
-      color: "#9ca3af",
-      type: "1. Payment test - Online booking",
-      itemCode: "",
-      duration: "30 minutes",
-      price: "200.00 / Hour",
-    },
-    {
-      name: "4. Payment required - full - Online booking",
-      color: "#9ca3af",
-      type: "1. Payment test - Online booking",
-      itemCode: "",
-      duration: "30 minutes",
-      price: "200.00 / Hour",
-    },
-  ];
-
-  return (
-    <div className="p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Services</h1>
-        <div className="flex items-center gap-3">
-          <Button>
-            <svg className="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zM10 18a1 1 0 001-1v-1a1 1 0 10-2 0v1a1 1 0 001 1z" />
-            </svg>
-            Learn
-          </Button>
-          <Button>
-            Show archived
-          </Button>
-          <Button variant="primary">
-            + New service
-          </Button>
-        </div>
-      </div>
-
-      <div className="mb-6 flex items-center gap-3">
-        <input
-          type="text"
-          placeholder="Search for service name, type, and item code"
-          className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-        />
-        <Button>
-          Search
-        </Button>
-      </div>
-
-      <DataTable>
-          <TableHead>
-              <Th>                Name <span className="text-xs">&#8597;</span></Th>
-              <Th>                Type <span className="text-xs">&#8597;</span></Th>
-              <Th>Item code</Th>
-              <Th>Duration</Th>
-              <Th>Price</Th>
-              <Th align="right">Actions</Th>
-</TableHead>
-          <TableBody>
-            {services.map((s) => (
-              <tr key={s.name} className="hover:bg-gray-50">
-                <Td>                  <div className="flex items-center gap-2">
-                    <div className="h-3 w-3 rounded-full" style={{ backgroundColor: s.color }} />
-                    <span className="text-sm text-text">{s.name}</span>
-                  </div></Td>
-                <Td>{s.type}</Td>
-                <Td>{s.itemCode}</Td>
-                <Td>{s.duration}</Td>
-                <Td>{s.price}</Td>
-                <Td align="right">                  <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="19" cy="12" r="1" />
-                      <circle cx="5" cy="12" r="1" />
-                    </svg>
-                  </button></Td>
-              </tr>
-            ))}
-          </TableBody>
-        </DataTable>
-    </div>
-  );
-}
-
-/* ─── Tax Rates ───────────────────────────────────────────────────── */
-
-function TaxRatesContent() {
-  const taxRates = [
-    { name: "GST on Income", rate: "10%" },
-    { name: "GST Free Income", rate: "0%" },
-    { name: "BAS Excluded", rate: "0%", info: true },
-    { name: "Custom rate", rate: "10%" },
-    { name: "GST NZ", rate: "15%" },
-    { name: "GST Test 01", rate: "23%" },
-    { name: "Test Tax 2", rate: "1.42%" },
-    { name: "GST Free Capital", rate: "0%" },
-    { name: "Toms Custom Tax Rate", rate: "100%" },
-    { name: "mias test", rate: "100%" },
-    { name: "test", rate: "21%" },
-  ];
-
-  return (
-    <div className="max-w-4xl p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Tax rates</h1>
-        <Button variant="primary">
-          + New tax rate
-        </Button>
-      </div>
-
-      <div className="divide-y divide-border">
-        <div className="flex items-center justify-between py-3">
-          <span className="text-sm font-medium text-text-secondary">Name</span>
-          <span className="text-sm font-medium text-text-secondary">Rate</span>
-        </div>
-        {taxRates.map((t) => (
-          <div key={t.name} className="flex items-center justify-between py-3">
-            <div className="flex items-center gap-1.5">
-              <span className="text-sm text-text">{t.name}</span>
-              {t.info && (
-                <span className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
-                  i
-                </span>
-              )}
-            </div>
-            <span className="text-sm text-text-secondary">{t.rate}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* ─── Invoice Settings ────────────────────────────────────────────── */
-
-function InvoiceSettingsContent() {
-  const reminders = [
-    { icon: "clock", name: "Due in 1 day" },
-    { icon: "calendar", name: "1 day overdue" },
-    { icon: "calendar", name: "2 days overdue" },
-    { icon: "calendar", name: "3 days overdue" },
-    { icon: "calendar", name: "4 days overdue" },
-    { icon: "calendar", name: "10 days overdue" },
-    { icon: "calendar", name: "14 days overdue" },
-  ];
-
-  const templates = [
-    { name: "Standard", deletable: false },
-    { name: "Non standard", deletable: true },
-    { name: "OT - Initial Consult", deletable: true },
-    { name: "Invoice Template Demo", deletable: true },
-    { name: "What's Back Saving Garbage Can Remedy", deletable: true },
-    { name: "Brain Wave Therapy Pty Ltd", deletable: true },
-    { name: "Display everything", deletable: true },
-    { name: "Check", deletable: true },
-    { name: "{client_name}", deletable: true },
-    { name: "Test Invoice", deletable: true },
-  ];
-
-  return (
-    <div className="max-w-4xl p-6">
-      <h1 className="mb-6 text-2xl font-bold text-text">Invoice Settings</h1>
-
-      {/* Stripe notice */}
-      <div className="mb-6 flex items-start gap-3 rounded-lg border border-yellow-200 bg-yellow-50 p-4">
-        <svg className="mt-0.5 h-5 w-5 shrink-0 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"
-          />
-        </svg>
-        <div className="text-sm text-yellow-800">
-          You need an active Stripe connection for online payments.{" "}
-          <span className="cursor-pointer text-primary hover:underline">Connect to Stripe</span>
-        </div>
-      </div>
-
-      <label className="mb-6 flex items-center gap-2 text-sm text-text">
-        <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" />
-        Enable online payments for invoices
-      </label>
-
-      {/* Invoice number */}
-      <div className="mb-6">
-        <h2 className="mb-3 text-base font-semibold text-text">Invoice number</h2>
-        <div className="max-w-md space-y-3">
-          <div>
-            <label className="mb-1 block text-sm text-text-secondary">
-              Prefix{" "}
-              <span className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
-                i
-              </span>
-            </label>
-            <input
-              type="text"
-              defaultValue="INV"
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            />
-          </div>
-          <div>
-            <label className="mb-1 block text-sm text-text-secondary">
-              Padding{" "}
-              <span className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
-                i
-              </span>
-            </label>
-            <input
-              type="text"
-              defaultValue="4"
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            />
-          </div>
-          <div>
-            <label className="mb-1 block text-sm text-text-secondary">Next invoice number</label>
-            <input
-              type="text"
-              defaultValue="6309"
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Credit note number */}
-      <div className="mb-6">
-        <h2 className="mb-3 text-base font-semibold text-text">Credit note number</h2>
-        <div className="max-w-md space-y-3">
-          <div>
-            <label className="mb-1 block text-sm text-text-secondary">
-              Prefix{" "}
-              <span className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
-                i
-              </span>
-            </label>
-            <input
-              type="text"
-              defaultValue="CN"
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            />
-          </div>
-          <div>
-            <label className="mb-1 block text-sm text-text-secondary">
-              Padding{" "}
-              <span className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
-                i
-              </span>
-            </label>
-            <input
-              type="text"
-              defaultValue="4"
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            />
-          </div>
-          <div>
-            <label className="mb-1 block text-sm text-text-secondary">Next credit note number</label>
-            <input
-              type="text"
-              defaultValue="101"
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Tax */}
-      <div className="mb-6">
-        <h2 className="mb-3 text-base font-semibold text-text">Tax</h2>
-        <div className="max-w-md">
-          <label className="mb-1 block text-sm text-text-secondary">
-            Default tax{" "}
-            <span className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
-              i
-            </span>
-          </label>
-          <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
-            <option>Tax exclusive</option>
-            <option>Tax inclusive</option>
-          </select>
-        </div>
-      </div>
-
-      {/* Invoice reminders preferences */}
-      <div className="mb-6">
-        <h2 className="mb-3 text-base font-semibold text-text">Invoice reminders preferences</h2>
-        <div className="max-w-md space-y-3">
-          <div>
-            <label className="mb-1 block text-sm text-text-secondary">
-              Default invoice reminder preferences{" "}
-              <span className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-gray-300 text-[10px] text-gray-400">
-                i
-              </span>
-            </label>
-            <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
-              <option>On</option>
-              <option>Off</option>
-            </select>
-          </div>
-          <label className="flex items-center gap-2 text-sm text-text-secondary">
-            <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" />
-            Apply to all existing clients and override the current invoice reminder preferences.
-          </label>
-          <div>
-            <label className="mb-1 block text-sm text-text-secondary">
-              Don{"'"}t send reminders for amounts owing on an invoice under
-            </label>
-            <input
-              type="text"
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Invoice reminders */}
-      <div className="mb-6">
-        <h2 className="mb-4 text-base font-semibold text-text">Invoice reminders</h2>
-        <div className="divide-y divide-border">
-          <div className="flex items-center justify-between py-2">
-            <span className="text-sm font-medium text-text-secondary">Name</span>
-            <span className="text-sm font-medium text-text-secondary">Actions</span>
-          </div>
-          {reminders.map((r) => (
-            <div key={r.name} className="flex items-center justify-between py-3">
-              <div className="flex items-center gap-2">
-                <svg className="h-4 w-4 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                <span className="text-sm text-text">{r.name}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <button className="text-text-secondary hover:text-primary">
-                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                    />
-                  </svg>
-                </button>
-                <button className="text-text-secondary hover:text-red-500">
-                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-        <Button className="mt-4 w-full">
-          + New invoice reminder
-        </Button>
-      </div>
-
-      {/* Invoice templates */}
-      <div>
-        <h2 className="mb-4 text-base font-semibold text-text">Invoice templates</h2>
-        <div className="divide-y divide-border">
-          <div className="flex items-center justify-between py-2">
-            <span className="text-sm font-medium text-text-secondary">Name</span>
-            <span className="text-sm font-medium text-text-secondary">Actions</span>
-          </div>
-          {templates.map((t) => (
-            <div key={t.name} className="flex items-center justify-between py-3">
-              <span className="text-sm text-text">{t.name}</span>
-              <div className="flex items-center gap-2">
-                <button className="text-text-secondary hover:text-primary">
-                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                    />
-                  </svg>
-                </button>
-                {t.deletable && (
-                  <button className="text-text-secondary hover:text-red-500">
-                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                      />
-                    </svg>
-                  </button>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="mt-4 flex items-center justify-end gap-2">
-          <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&lt;</button>
-          <button className="rounded border border-primary bg-purple-50 px-2.5 py-1 text-sm font-medium text-primary">
-            1
-          </button>
-          <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">2</button>
-          <button className="rounded px-2 py-1 text-sm text-text-secondary hover:bg-gray-100">&gt;</button>
-        </div>
-        <Button className="mt-4 w-full">
-          + Add invoice template
-        </Button>
-      </div>
-    </div>
-  );
-}
-
-/* ─── Online Bookings ─────────────────────────────────────────────── */
-
-function OnlineBookingsContent() {
-  const bookings = [
-    { name: "ACME Online Booking", created: "12:12 pm, 30 Oct 2025", updated: "10:01 am, 5 Mar 2026" },
-    { name: "Online booking test payment", created: "2:56 pm, 4 Nov 2025", updated: "8:48 am, 9 Dec 2025" },
-    { name: "Sharon's", created: "2:39 pm, 25 Nov 2025", updated: "4:10 pm, 9 Feb 2026" },
-    { name: "Wei Online booking test", created: "9:56 pm, 26 Nov 2025", updated: "4:26 pm, 3 Dec 2025" },
-    { name: "Phyllis Physiotherapy", created: "11:53 am, 27 Nov 2025", updated: "1:33 pm, 27 Nov 2025" },
-    { name: "OB-QA test", created: "11:55 am, 27 Nov 2025", updated: "3:33 pm, 27 Nov 2025" },
-    { name: "TEST Practice Manager", created: "10:28 am, 11 Dec 2025", updated: "11:16 am, 7 Jan 2026" },
-    { name: "Test hung", created: "3:32 pm, 22 Dec 2025", updated: "3:34 pm, 22 Dec 2025" },
-    { name: "Hung test 2", created: "3:51 pm, 22 Dec 2025", updated: "3:51 pm, 22 Dec 2025" },
-  ];
-
-  return (
-    <div className="p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Online booking settings</h1>
-        <div className="flex items-center gap-3">
-          <Button>
-            Show archived
-          </Button>
-          <Button variant="primary">
-            + New booking page
-          </Button>
-        </div>
-      </div>
-
-      <DataTable>
-          <TableHead>
-              <Th>Name</Th>
-              <Th>Created at</Th>
-              <Th>Last updated</Th>
-              <Th align="right">Actions</Th>
-</TableHead>
-          <TableBody>
-            {bookings.map((b) => (
-              <tr key={b.name} className="hover:bg-gray-50">
-                <Td>{b.name}</Td>
-                <Td>{b.created}</Td>
-                <Td>{b.updated}</Td>
-                <Td align="right">                  <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="19" cy="12" r="1" />
-                      <circle cx="5" cy="12" r="1" />
-                    </svg>
-                  </button></Td>
-              </tr>
-            ))}
-          </TableBody>
-        </DataTable>
-    </div>
-  );
-}
-
-/* ─── Appointment Templates ───────────────────────────────────────── */
-
-function AppointmentTemplatesContent() {
-  const templates = [
-    {
-      name: "Appointment confirmation (new client)",
-      type: "Confirmation",
-      sms: "On",
-      email: "On",
-      modified: "4:51 pm, 10 Feb 2026",
-    },
-    { name: "Appointment rescheduled", type: "Reschedule", sms: "On", email: "On", modified: "3:46 pm, 20 Jun 2025" },
-    { name: "Appointment cancellation", type: "Cancellation", sms: "On", email: "On", modified: "2:39 pm, 2 Feb 2026" },
-    { name: "Appointment reminder", type: "Reminder", sms: "On", email: "On", modified: "10:51 am, 9 Mar 2026" },
-    { name: "Confirmation Zoom", type: "Confirmation", sms: "Off", email: "On", modified: "12:59 pm, 10 Jun 2025" },
-    { name: "Zoom Reminder 24hr", type: "Reminder", sms: "Off", email: "On", modified: "12:15 pm, 28 Apr 2025" },
-    { name: "Zoom Reminder 48hrs", type: "Reminder", sms: "Off", email: "Off", modified: "2:37 pm, 13 Dec 2023" },
-  ];
-
-  return (
-    <div className="p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Appointment templates</h1>
-        <Button variant="primary">
-          + New template
-        </Button>
-      </div>
-
-      <div className="mb-6 flex items-center gap-3">
-        <input
-          type="text"
-          placeholder="Search for template and type"
-          className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-        />
-        <Button>
-          Search
-        </Button>
-      </div>
-
-      <DataTable>
-          <TableHead>
-              <Th>Name</Th>
-              <Th>Type</Th>
-              <Th>SMS</Th>
-              <Th>Email</Th>
-              <Th>Last modified</Th>
-              <Th align="right">Actions</Th>
-</TableHead>
-          <TableBody>
-            {templates.map((t) => (
-              <tr key={t.name} className="hover:bg-gray-50">
-                <Td>{t.name}</Td>
-                <Td>{t.type}</Td>
-                <Td>                  <span className={`text-sm font-medium ${t.sms === "On" ? "text-green-600" : "text-red-500"}`}>
-                    {t.sms}
-                  </span></Td>
-                <Td>                  <span className={`text-sm font-medium ${t.email === "On" ? "text-green-600" : "text-red-500"}`}>
-                    {t.email}
-                  </span></Td>
-                <Td>{t.modified}</Td>
-                <Td align="right">                  <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="19" cy="12" r="1" />
-                      <circle cx="5" cy="12" r="1" />
-                    </svg>
-                  </button></Td>
-              </tr>
-            ))}
-          </TableBody>
-        </DataTable>
-    </div>
-  );
-}
-
-/* ─── Email Templates ─────────────────────────────────────────────── */
-
-function EmailTemplatesContent() {
-  const templates = [
-    { name: "#1_Invoice email template", type: "Invoice", modified: "10:45 am, 2 Oct 2025" },
-    { name: "Receipt email template", type: "Payment", modified: "3:03 pm, 21 Feb 2024" },
-    { name: "#2_Progress note email template", type: "Progress note", modified: "5:09 pm, 28 May 2025" },
-    { name: "Form email template 1", type: "Form", modified: "4:46 pm, 17 Mar 2026" },
-    { name: "Letter email template", type: "Letter", modified: "10:30 am, 7 Oct 2025" },
-    { name: "General email template", type: "General", modified: "2:58 pm, 14 Jan 2026" },
-    { name: "Receipt", type: "Invoice", modified: "9:22 am, 12 Sep 2025" },
-    { name: "Reschedule", type: "Progress note", modified: "12:58 pm, 28 Jan 2022" },
-  ];
-
-  return (
-    <div className="p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Email templates</h1>
-        <Button variant="primary">
-          + New template
-        </Button>
-      </div>
-
-      <div className="mb-6 flex items-center gap-3">
-        <input
-          type="text"
-          placeholder="Search for template and type"
-          className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-        />
-        <Button>
-          Search
-        </Button>
-      </div>
-
-      <DataTable>
-          <TableHead>
-              <Th>Name</Th>
-              <Th>Type</Th>
-              <Th>Last modified</Th>
-              <Th align="right">Actions</Th>
-</TableHead>
-          <TableBody>
-            {templates.map((t) => (
-              <tr key={t.name} className="hover:bg-gray-50">
-                <Td>{t.name}</Td>
-                <Td>{t.type}</Td>
-                <Td>{t.modified}</Td>
-                <Td align="right">                  <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="19" cy="12" r="1" />
-                      <circle cx="5" cy="12" r="1" />
-                    </svg>
-                  </button></Td>
-              </tr>
-            ))}
-          </TableBody>
-        </DataTable>
-    </div>
-  );
-}
-
-/* ─── Progress Note Templates ─────────────────────────────────────── */
-
-function ProgressNoteTemplatesContent() {
-  const templates = [
-    { title: "Exercise Physiology Follow-up Report", created: "4:39 pm, 16 Oct 2023" },
-    { title: "ST | Note", created: "3:35 pm, 5 Jun 2024" },
-    { title: "Standard Consultation. 123", created: "11:32 am, 12 Jun 2024" },
-    { title: "Standard Consultation", created: "8:21 pm, 5 Mar 2014" },
-    { title: "Initial Consultation", created: "8:21 pm, 5 Mar 2014" },
-  ];
-
-  return (
-    <div className="p-6">
-      <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Progress note templates</h1>
-        <div className="flex items-center gap-3">
-          <Button>
-            Show archived
-          </Button>
-          <Button variant="primary">
-            + New template
-          </Button>
-        </div>
-      </div>
-
-      <div className="mb-4 flex items-center justify-between rounded-lg border border-purple-200 bg-purple-50 px-4 py-3">
-        <div className="flex items-center gap-2">
-          <span className="rounded bg-primary px-2 py-0.5 text-xs font-bold text-white">New</span>
-          <span className="text-sm text-text">
-            Add AI blocks to templates to generate instant drafts, every session. Try a template{" "}
-            <span className="cursor-pointer text-primary hover:underline">created by splose.</span>
-          </span>
-        </div>
-        <button className="text-lg text-text-secondary hover:text-text">&times;</button>
-      </div>
-
-      <p className="mb-4 text-sm text-text-secondary">
-        Create templates for any appointment type to save time and keep documentation consistent. Add tables, auto-fill
-        placeholders, interactive fields and AI blocks.
-      </p>
-
-      <div className="mb-6 flex items-center gap-3">
-        <input
-          type="text"
-          placeholder="Search for title"
-          className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-        />
-        <Button>
-          Search
-        </Button>
-      </div>
-
-      <DataTable>
-          <TableHead>
-              <Th>Title</Th>
-              <Th>Created at</Th>
-              <Th align="right">Actions</Th>
-</TableHead>
-          <TableBody>
-            {templates.map((t) => (
-              <tr key={t.title} className="hover:bg-gray-50">
-                <Td>                  <div className="flex items-center gap-2">
-                    <div className="h-3 w-3 rounded-full bg-purple-400" />
-                    <span className="text-sm text-text">{t.title}</span>
-                  </div></Td>
-                <Td>{t.created}</Td>
-                <Td align="right">                  <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="19" cy="12" r="1" />
-                      <circle cx="5" cy="12" r="1" />
-                    </svg>
-                  </button></Td>
-              </tr>
-            ))}
-          </TableBody>
-        </DataTable>
-    </div>
-  );
-}
-
-/* ─── Letter Templates ────────────────────────────────────────────── */
-
-function LetterTemplatesContent() {
-  const templates = [
-    {
-      title: "Chronic Disease Management plan first appointment",
-      created: "4:44 pm, 6 Oct 2020",
-      updated: "12:17 pm, 6 Feb 2026",
-    },
-    {
-      title: "Chronic Disease Management plan last appointment",
-      created: "4:44 pm, 6 Oct 2020",
-      updated: "12:50 pm, 8 Nov 2021",
-    },
-    { title: "DVA", created: "10:54 am, 15 Aug 2023", updated: "10:54 am, 15 Aug 2023" },
-    { title: "Test 123 contact", created: "4:36 pm, 4 Jun 2024", updated: "11:41 am, 3 Mar 2026" },
-    { title: "Case note", created: "2:05 pm, 14 Jun 2024", updated: "2:05 pm, 14 Jun 2024" },
-    { title: "Case hours", created: "10:32 am, 23 Aug 2024", updated: "10:32 am, 23 Aug 2024" },
-    { title: "Test", created: "2:39 pm, 27 May 2025", updated: "2:29 pm, 4 Jun 2025" },
-  ];
-
-  return (
-    <div className="p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Letter templates</h1>
-        <div className="flex items-center gap-3">
-          <Button>
-            Show archived
-          </Button>
-          <Button variant="primary">
-            + New template
-          </Button>
-        </div>
-      </div>
-
-      <div className="mb-6 flex items-center gap-3">
-        <input
-          type="text"
-          placeholder="Search for title"
-          className="flex-1 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-        />
-        <Button>
-          Search
-        </Button>
-      </div>
-
-      <DataTable>
-          <TableHead>
-              <Th>Title</Th>
-              <Th>Created at</Th>
-              <Th>Last updated</Th>
-              <Th align="right">Actions</Th>
-</TableHead>
-          <TableBody>
-            {templates.map((t) => (
-              <tr key={t.title} className="hover:bg-gray-50">
-                <Td>{t.title}</Td>
-                <Td>{t.created}</Td>
-                <Td>{t.updated}</Td>
-                <Td align="right">                  <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="19" cy="12" r="1" />
-                      <circle cx="5" cy="12" r="1" />
-                    </svg>
-                  </button></Td>
-              </tr>
-            ))}
-          </TableBody>
-        </DataTable>
-    </div>
-  );
-}
-
-/* ─── Data Export ──────────────────────────────────────────────────── */
-
-function DataExportContent() {
-  const exports = [
-    {
-      type: "Appointment",
-      dateRange: "17 Jan 2026 - 18 Mar 2026",
-      archived: "No",
-      created: "2:18 pm, 17 Mar 2026",
-      createdBy: "Ruvi R.",
-      status: "Done",
-      records: "354(89.2 KB)",
-    },
-    {
-      type: "Waitlist",
-      dateRange: "1 Jan 2024 - 3 Apr 2025",
-      archived: "Yes",
-      created: "4:57 pm, 12 Mar 2026",
-      createdBy: "Hrishikes h Koli",
-      status: "Error",
-      records: "0(0 B)",
-    },
-    {
-      type: "Waitlist",
-      dateRange: "1 Jan 2024 - 17 Mar 2024",
-      archived: "No",
-      created: "4:56 pm, 12 Mar 2026",
-      createdBy: "Hrishikes h Koli",
-      status: "Error",
-      records: "0(0 B)",
-    },
-    {
-      type: "Waitlist",
-      dateRange: "5 Mar 2024 - 17 Mar 2024",
-      archived: "No",
-      created: "4:56 pm, 12 Mar 2026",
-      createdBy: "Hrishikes h Koli",
-      status: "Error",
-      records: "0(0 B)",
-    },
-    {
-      type: "Case",
-      dateRange: "5 Mar 2024 - 8 Apr 2024",
-      archived: "No",
-      created: "11:00 am, 12 Mar 2026",
-      createdBy: "Hrishikes h Koli",
-      status: "Done",
-      records: "1(689 B)",
-    },
-  ];
-
-  return (
-    <div className="p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Data export</h1>
-      </div>
-
-      <div className="mb-6 flex items-center gap-3">
-        <div>
-          <label className="mb-1 block text-xs text-text-secondary">Export</label>
-          <select className="rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
-            <option>Appointments</option>
-            <option>Waitlist</option>
-            <option>Cases</option>
-            <option>Clients</option>
-          </select>
-        </div>
-        <div>
-          <label className="mb-1 block text-xs text-text-secondary">Date*</label>
-          <div className="flex items-center gap-2">
-            <input
-              type="text"
-              placeholder="Start date"
-              className="w-32 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
-            />
-            <span className="text-text-secondary">—</span>
-            <input
-              type="text"
-              placeholder="End date"
-              className="w-32 rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
-            />
-          </div>
-        </div>
-        <div className="self-end">
-          <Button variant="primary" className="bg-green-500 border-green-500 hover:bg-green-600">
-            Export
-          </Button>
-        </div>
-      </div>
-
-      <label className="mb-6 flex items-center gap-2 text-sm text-text-secondary">
-        <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" />
-        Include archived
-      </label>
-
-      <DataTable>
-          <TableHead>
-              <Th>Data export</Th>
-              <Th>Date range</Th>
-              <Th>Include Archived</Th>
-              <Th>Created at</Th>
-              <Th>Created by</Th>
-              <Th>Status</Th>
-              <Th>Records</Th>
-              <Th align="right">Actions</Th>
-</TableHead>
-          <TableBody>
-            {exports.map((e, i) => (
-              <tr key={i} className="hover:bg-gray-50">
-                <Td>{e.type}</Td>
-                <Td>{e.dateRange}</Td>
-                <Td>{e.archived}</Td>
-                <Td>{e.created}</Td>
-                <Td>{e.createdBy}</Td>
-                <Td>
-                  <Badge variant={e.status === "Done" ? "green" : "red"}>{e.status}</Badge>
-                </Td>
-                <Td>{e.records}</Td>
-                <Td align="right">                  <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="19" cy="12" r="1" />
-                      <circle cx="5" cy="12" r="1" />
-                    </svg>
-                  </button></Td>
-              </tr>
-            ))}
-          </TableBody>
-        </DataTable>
-    </div>
-  );
-}
-
-/* ─── Data Import ─────────────────────────────────────────────────── */
-
-function DataImportContent() {
-  const imports = [
-    { type: "CSV", status: "Success", created: "6 Mar 2026, 1:51 pm", updated: "6 Mar 2026, 1:51 pm" },
-    { type: "CSV", status: "Success", created: "5 Feb 2026, 11:16 pm", updated: "5 Feb 2026, 11:16 pm" },
-    { type: "CSV", status: "Success", created: "4 Feb 2026, 1:39 pm", updated: "4 Feb 2026, 1:45 pm" },
-    { type: "CSV", status: "Success", created: "2 Feb 2026, 3:13 pm", updated: "4 Feb 2026, 1:38 pm" },
-  ];
-
-  return (
-    <div className="p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Import data</h1>
-        <Button variant="primary">
-          + Import
-        </Button>
-      </div>
-
-      <DataTable>
-          <TableHead>
-              <Th>Type</Th>
-              <Th>Status</Th>
-              <Th>Activity</Th>
-              <Th align="right">Actions</Th>
-</TableHead>
-          <TableBody>
-            {imports.map((imp, i) => (
-              <tr key={i} className="hover:bg-gray-50">
-                <Td>{imp.type}</Td>
-                <Td>
-                  <Badge variant="green">{imp.status}</Badge>
-                </Td>
-                <Td>                  <div>Created: {imp.created}</div>
-                  <div>Updated: {imp.updated}</div></Td>
-                <Td align="right">                  <button className="text-text-secondary hover:text-text">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="19" cy="12" r="1" />
-                      <circle cx="5" cy="12" r="1" />
-                    </svg>
-                  </button></Td>
-              </tr>
-            ))}
-          </TableBody>
-        </DataTable>
     </div>
   );
 }
@@ -2866,17 +1175,25 @@ function DataImportContent() {
 
 function PlaceholderContent({ pageName }: { pageName: string }) {
   return (
-    <div className="flex min-h-[60vh] flex-1 flex-col items-center justify-center p-8">
+    <div className="flex flex-1 flex-col items-center justify-center p-8 min-h-[60vh]">
       <div className="mb-6 text-6xl">&#9881;</div>
       <h2 className="text-xl font-bold text-text">{pageName}</h2>
-      <p className="mt-2 text-sm text-text-secondary">This settings page is coming soon</p>
+      <p className="mt-2 text-sm text-text-secondary">
+        This settings page is coming soon
+      </p>
     </div>
   );
 }
 
 /* ─── Shared components ───────────────────────────────────────────── */
 
-function Toggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean) => void }) {
+function Toggle({
+  checked,
+  onChange,
+}: {
+  checked: boolean;
+  onChange: (v: boolean) => void;
+}) {
   return (
     <button
       onClick={() => onChange(!checked)}
