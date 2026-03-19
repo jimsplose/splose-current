@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { ChevronLeft, ChevronRight, MapPin, FileText, Clock, Calendar, User } from "lucide-react";
 import { Button, FormInput, FormSelect } from "@/components/ds";
 
@@ -23,7 +24,25 @@ const availableSlots = ["9:20am", "10:50am", "12:20pm", "1:50pm"];
 type Step = "select" | "confirm";
 
 export default function OnlineBookingPage() {
+  return (
+    <Suspense>
+      <OnlineBookingPageInner />
+    </Suspense>
+  );
+}
+
+function OnlineBookingPageInner() {
   const [step, setStep] = useState<Step>("select");
+
+  const searchParams = useSearchParams();
+  const forcedState = searchParams.get("state");
+
+  useEffect(() => {
+    if (forcedState === "confirm") {
+      setStep("confirm");
+    }
+  }, [forcedState]);
+
   const [selectedPractitioner, setSelectedPractitioner] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<number | null>(19);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);

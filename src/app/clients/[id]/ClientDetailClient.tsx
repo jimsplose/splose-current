@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { Pencil, ChevronDown, Upload } from "lucide-react";
 import { Button, Badge, FormInput, FormSelect } from "@/components/ds";
 
@@ -35,6 +36,14 @@ function calcAge(dobStr: string): string {
 
 export default function ClientDetailClient({ client }: { client: ClientData }) {
   const [editMode, setEditMode] = useState(false);
+  const searchParams = useSearchParams();
+  const forcedState = searchParams.get("state");
+
+  useEffect(() => {
+    if (forcedState === "edit-mode") {
+      setEditMode(true);
+    }
+  }, [forcedState]);
 
   if (editMode) {
     return <EditDetailsForm client={client} onCancel={() => setEditMode(false)} />;
