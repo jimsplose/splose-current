@@ -92,7 +92,7 @@ All 25 Settings sub-pages are implemented as inline components in `settings/page
 
 ### Group N — New pages
 - [x] **Online booking page** — Public appointment booking flow with practitioner selection, date/time picker, confirmation form, appointment summary sidebar. Two-step flow matching reference screenshots. (2026-03-18)
-- [ ] **Calendar practitioner columns** — Week view needs practitioner sub-columns within each day. Day view needs practitioner name column headers. Major structural grid change. In progress.
+- [x] **Calendar practitioner columns** — Day view shows practitioner columns with name headers. Week view has practitioner sub-columns within each day. Completed (2026-03-18).
 
 ### Group H — New screenshot intake (reads all files)
 - [ ] **Process new screenshots** — Check `screenshots/reference/` against `screenshots/processed.txt` to find unreviewed screenshots. Launch Explore agents in parallel (batches of 10-15) to read and categorize them. See `docs/screenshot-workflow.md`.
