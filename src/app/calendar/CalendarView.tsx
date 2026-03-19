@@ -10,12 +10,17 @@ import {
   LayoutGrid,
   Search,
   X,
+  XCircle,
   Clock,
   User,
+  Users,
   MapPin,
   FileText,
   Calendar,
   Plus,
+  Video,
+  Monitor,
+  UserPlus,
 } from "lucide-react";
 import { Button, Badge } from "@/components/ds";
 
@@ -70,6 +75,11 @@ function formatTime24to12(hour: number, minute: number): string {
   const ampm = hour >= 12 ? "PM" : "AM";
   const mm = minute.toString().padStart(2, "0");
   return `${h}:${mm} ${ampm}`;
+}
+
+function isGroupAppointment(appt: Appointment): boolean {
+  const t = appt.type.toLowerCase();
+  return t.includes("group");
 }
 
 type ViewMode = "Week" | "Month" | "Day";
@@ -520,94 +530,171 @@ export default function CalendarView({
               </button>
             </div>
 
-            {/* Details */}
-            <div className="space-y-3 text-sm">
-              <div className="flex items-start gap-2">
-                <User className="mt-0.5 h-4 w-4 text-text-secondary" />
-                <div>
+            {/* Details — Group appointment panel */}
+            {isGroupAppointment(selectedAppt) ? (
+              <div className="space-y-3 text-sm">
+                <div className="flex items-start gap-2">
+                  <User className="mt-0.5 h-4 w-4 text-text-secondary" />
+                  <div>
+                    <span className="text-text">{selectedAppt.practitionerName}</span>
+                    <span className="text-text-secondary"> at </span>
+                    <span className="font-medium text-text">East Clinics</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2">
+                  <User className="mt-0.5 h-4 w-4 text-text-secondary" />
                   <span className="text-text">{selectedAppt.practitionerName}</span>
-                  <span className="text-text-secondary"> at </span>
-                  <span className="font-medium text-text">Hands Together Therapy (East)</span>
+                </div>
+
+                <div className="flex items-start gap-2">
+                  <Clock className="mt-0.5 h-4 w-4 text-text-secondary" />
+                  <span className="text-text">
+                    {selectedAppt.startTime}, {formatDateLong(selectedAppt.date)} for{" "}
+                    {calcDuration(selectedAppt.startTime, selectedAppt.endTime)}
+                  </span>
+                </div>
+
+                <div className="flex items-start gap-2">
+                  <Video className="mt-0.5 h-4 w-4 text-primary" />
+                  <span className="cursor-pointer text-primary hover:underline">Create zoom meeting</span>
+                </div>
+
+                <div className="flex items-start gap-2">
+                  <Monitor className="mt-0.5 h-4 w-4 text-primary" />
+                  <span className="cursor-pointer text-primary hover:underline">Create Microsoft Teams meeting</span>
+                </div>
+
+                {/* Attendees section */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Users className="h-4 w-4 text-text-secondary" />
+                    <span className="text-text-secondary">1 of 6 clients attending</span>
+                  </div>
+                  <button className="flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs font-medium text-text hover:bg-gray-50">
+                    <UserPlus className="h-3 w-3" /> Client
+                  </button>
+                </div>
+
+                {/* Attendee list */}
+                <div className="ml-6 space-y-1">
+                  <div className="flex items-center gap-2 text-text">
+                    <div className="flex h-5 w-5 items-center justify-center rounded-full bg-gray-200 text-[9px] font-medium text-text-secondary">
+                      EF
+                    </div>
+                    <span>elsa frozen</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2">
+                  <User className="mt-0.5 h-4 w-4 text-text-secondary" />
+                  <span className="text-text-secondary">Meghna Damodaran (Organiser)</span>
+                </div>
+
+                {/* Note field */}
+                <div className="mt-4">
+                  <label className="flex items-center gap-1 text-xs text-text-secondary">
+                    <FileText className="h-3 w-3" /> Note
+                  </label>
+                  <textarea
+                    className="mt-1 w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
+                    rows={3}
+                    placeholder="Add a note..."
+                  />
                 </div>
               </div>
+            ) : (
+              /* Details — 1:1 appointment panel */
+              <div className="space-y-3 text-sm">
+                <div className="flex items-start gap-2">
+                  <User className="mt-0.5 h-4 w-4 text-text-secondary" />
+                  <div>
+                    <span className="text-text">{selectedAppt.practitionerName}</span>
+                    <span className="text-text-secondary"> at </span>
+                    <span className="font-medium text-text">East Clinics</span>
+                  </div>
+                </div>
 
-              <div className="flex items-start gap-2">
-                <User className="mt-0.5 h-4 w-4 text-text-secondary" />
-                <span className="text-text">{selectedAppt.practitionerName}</span>
-              </div>
+                <div className="flex items-start gap-2">
+                  <User className="mt-0.5 h-4 w-4 text-text-secondary" />
+                  <span className="text-text">{selectedAppt.practitionerName}</span>
+                </div>
 
-              <div className="flex items-start gap-2">
-                <Clock className="mt-0.5 h-4 w-4 text-text-secondary" />
-                <span className="text-text">
-                  {selectedAppt.startTime}, {formatDateLong(selectedAppt.date)} for{" "}
-                  {calcDuration(selectedAppt.startTime, selectedAppt.endTime)}
-                </span>
-              </div>
+                <div className="flex items-start gap-2">
+                  <Clock className="mt-0.5 h-4 w-4 text-text-secondary" />
+                  <span className="text-text">
+                    {selectedAppt.startTime}, {formatDateLong(selectedAppt.date)} for{" "}
+                    {calcDuration(selectedAppt.startTime, selectedAppt.endTime)}
+                  </span>
+                </div>
 
-              <div className="flex items-start gap-2">
-                <User className="mt-0.5 h-4 w-4 text-primary" />
-                <span className="cursor-pointer text-primary hover:underline">{selectedAppt.clientName}</span>
-              </div>
+                <div className="flex items-start gap-2">
+                  <User className="mt-0.5 h-4 w-4 text-primary" />
+                  <span className="cursor-pointer text-primary hover:underline">{selectedAppt.clientName}</span>
+                </div>
 
-              <div className="flex items-start gap-2">
-                <MapPin className="mt-0.5 h-4 w-4 text-text-secondary" />
-                <span className="text-text-secondary">thyxueen@gmail.com</span>
-              </div>
+                <div className="flex items-start gap-2">
+                  <MapPin className="mt-0.5 h-4 w-4 text-text-secondary" />
+                  <span className="text-text-secondary">thyxueen@gmail.com</span>
+                </div>
 
-              <div className="flex items-start gap-2">
-                <Calendar className="mt-0.5 h-4 w-4 text-text-secondary" />
-                <span className="text-text-secondary">No status</span>
-              </div>
+                <div className="flex items-start gap-2">
+                  <Calendar className="mt-0.5 h-4 w-4 text-text-secondary" />
+                  <span className="text-text-secondary">No status</span>
+                </div>
 
-              <div className="flex items-start gap-2">
-                <FileText className="mt-0.5 h-4 w-4 text-primary" />
-                <span className="cursor-pointer text-primary hover:underline">Create zoom meeting</span>
-              </div>
+                <div className="flex items-start gap-2">
+                  <Video className="mt-0.5 h-4 w-4 text-primary" />
+                  <span className="cursor-pointer text-primary hover:underline">Create zoom meeting</span>
+                </div>
 
-              <div className="flex items-start gap-2">
-                <FileText className="mt-0.5 h-4 w-4 text-primary" />
-                <span className="cursor-pointer text-primary hover:underline">TRR-005673</span>
-                <Badge variant="blue" className="ml-1">Draft</Badge>
-              </div>
+                <div className="flex items-start gap-2">
+                  <FileText className="mt-0.5 h-4 w-4 text-primary" />
+                  <span className="cursor-pointer text-primary hover:underline">TRR-005673</span>
+                  <Badge variant="blue" className="ml-1">Draft</Badge>
+                </div>
 
-              <div className="flex items-start gap-2">
-                <FileText className="mt-0.5 h-4 w-4 text-primary" />
-                <span className="cursor-pointer text-primary hover:underline">Add progress note</span>
-              </div>
+                <div className="flex items-start gap-2">
+                  <FileText className="mt-0.5 h-4 w-4 text-primary" />
+                  <span className="cursor-pointer text-primary hover:underline">Add progress note</span>
+                </div>
 
-              <div className="flex items-start gap-2">
-                <Clock className="mt-0.5 h-4 w-4 text-text-secondary" />
-                <span className="text-xs text-text-secondary">Repeating every 2 weeks on Monday for 6 times</span>
-              </div>
+                <div className="flex items-start gap-2">
+                  <Clock className="mt-0.5 h-4 w-4 text-text-secondary" />
+                  <span className="text-xs text-text-secondary">Repeating every 2 weeks on Monday for 6 times</span>
+                </div>
 
-              <div className="flex items-start gap-2">
-                <User className="mt-0.5 h-4 w-4 text-text-secondary" />
-                <span className="text-text-secondary">{selectedAppt.practitionerName} (Organiser)</span>
-              </div>
+                <div className="flex items-start gap-2">
+                  <User className="mt-0.5 h-4 w-4 text-text-secondary" />
+                  <span className="text-text-secondary">{selectedAppt.practitionerName} (Organiser)</span>
+                </div>
 
-              {/* Note field */}
-              <div className="mt-4">
-                <label className="flex items-center gap-1 text-xs text-text-secondary">Note</label>
-                <textarea
-                  className="mt-1 w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
-                  rows={3}
-                  placeholder="Add a note..."
-                />
+                {/* Note field */}
+                <div className="mt-4">
+                  <label className="flex items-center gap-1 text-xs text-text-secondary">Note</label>
+                  <textarea
+                    className="mt-1 w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
+                    rows={3}
+                    placeholder="Add a note..."
+                  />
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Action buttons */}
             <div className="mt-6 flex items-center gap-2">
-              <Button variant="secondary" size="sm">
-                Book another
-              </Button>
+              {!isGroupAppointment(selectedAppt) && (
+                <Button variant="secondary" size="sm">
+                  Book another
+                </Button>
+              )}
               <Button variant="secondary" size="sm" onClick={() => setShowEditModal(true)}>
                 Edit
               </Button>
               <Button variant="secondary" size="sm">
                 Reschedule
               </Button>
-              <Button variant="secondary" size="sm" className="text-gray-400 border-gray-200 hover:bg-gray-50">
+              <Button variant="danger" size="sm">
                 Archive
               </Button>
             </div>
@@ -1008,16 +1095,32 @@ function MonthView({
                   {cell.day}
                 </div>
                 <div className="space-y-0.5">
-                  {dayAppts.slice(0, 3).map((appt) => (
-                    <div
-                      key={appt.id}
-                      className="cursor-pointer truncate rounded px-1 py-0.5 text-[10px] font-medium text-white"
-                      style={{ backgroundColor: appt.practitionerColor }}
-                      onClick={() => onApptClick(appt)}
-                    >
-                      {appt.startTime.replace(/^0/, "")} {appt.clientName}
-                    </div>
-                  ))}
+                  {dayAppts.slice(0, 3).map((appt) => {
+                    const isCancelled = appt.status === "Cancelled";
+                    const isGroup = appt.type === "Group Session";
+                    return (
+                      <div
+                        key={appt.id}
+                        className={`flex cursor-pointer items-center gap-0.5 rounded px-1 py-0.5 text-[10px] font-medium text-white ${isCancelled ? "opacity-60" : ""}`}
+                        style={{ backgroundColor: appt.practitionerColor }}
+                        onClick={() => onApptClick(appt)}
+                      >
+                        <span className="truncate">
+                          {appt.startTime.replace(/^0/, "")} {appt.clientName}
+                        </span>
+                        {isCancelled && (
+                          <span className="ml-auto flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-sm bg-red-500">
+                            <X className="h-2.5 w-2.5 text-white" />
+                          </span>
+                        )}
+                        {isGroup && !isCancelled && (
+                          <span className="ml-auto shrink-0 rounded bg-white/30 px-1 text-[9px] font-semibold">
+                            0/10
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })}
                   {dayAppts.length > 3 && (
                     <div className="px-1 text-[10px] text-text-secondary">+{dayAppts.length - 3} more</div>
                   )}
