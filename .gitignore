@@ -38,6 +38,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# storybook build output (built during Vercel deploy)
+/public/storybook
+/storybook-static
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
@@ -48,6 +52,9 @@ next-env.d.ts
 *.db
 *.db-journal
 
-# claude code
-.claude/
+# claude code — ignore everything except settings and hooks
+.claude/*
 !.claude/settings.json
+!.claude/hooks/
+.claude/hooks/*
+!.claude/hooks/*.sh

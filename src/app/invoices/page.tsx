@@ -1,3 +1,4 @@
+import { PageHeader, Button, Pagination } from "@/components/ds";
 import StatusBadge from "@/components/StatusBadge";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
@@ -12,19 +13,14 @@ export default async function InvoicesPage() {
   });
 
   return (
-    <div className="p-6">
-      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-2xl font-bold text-text">Invoices</h1>
-        <div className="flex items-center gap-2">
-          <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-            Batch invoice
-          </button>
-          <button className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-            <Plus className="h-4 w-4" />
-            New invoice
-          </button>
-        </div>
-      </div>
+    <div className="p-4 sm:p-6">
+      <PageHeader title="Invoices">
+        <Button variant="secondary">Batch invoice</Button>
+        <Button variant="secondary">
+          <Plus className="h-4 w-4" />
+          New invoice
+        </Button>
+      </PageHeader>
 
       <div className="mb-4 flex items-center gap-2">
         <input
@@ -82,9 +78,7 @@ export default async function InvoicesPage() {
                   </div>
                 </th>
                 <th className="hidden px-4 py-3 text-left text-sm font-medium text-text lg:table-cell">
-                  <div className="flex items-center gap-1">
-                    Sent status
-                  </div>
+                  <div className="flex items-center gap-1">Sent status</div>
                 </th>
               </tr>
             </thead>
@@ -93,10 +87,7 @@ export default async function InvoicesPage() {
                 const outstanding = inv.status === "Paid" ? 0 : inv.total;
                 const practitioner = inv.appointment?.practitioner;
                 return (
-                  <tr
-                    key={inv.id}
-                    className="cursor-pointer transition-colors hover:bg-gray-50"
-                  >
+                  <tr key={inv.id} className="cursor-pointer transition-colors hover:bg-gray-50">
                     <td className="px-4 py-3 text-sm text-text">
                       <Link href={`/invoices/${inv.id}`} className="text-primary hover:underline">
                         {inv.invoiceNumber}
@@ -125,9 +116,7 @@ export default async function InvoicesPage() {
                       <StatusBadge status={inv.status} />
                     </td>
                     <td className="hidden px-4 py-3 lg:table-cell">
-                      {inv.status === "Sent" && (
-                        <StatusBadge status="Sent" />
-                      )}
+                      {inv.status === "Sent" && <StatusBadge status="Sent" />}
                     </td>
                   </tr>
                 );
@@ -135,17 +124,7 @@ export default async function InvoicesPage() {
             </tbody>
           </table>
         </div>
-        <div className="flex items-center justify-end border-t border-border px-4 py-3 text-sm text-text-secondary">
-          <span>1-{invoices.length} of {invoices.length} items</span>
-          <div className="ml-4 flex items-center gap-1">
-            <span className="text-text-secondary">&lt;</span>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-primary bg-white text-xs font-medium text-primary">
-              1
-            </button>
-            <span className="text-text-secondary">&gt;</span>
-          </div>
-          <span className="ml-4">10 / page</span>
-        </div>
+        <Pagination currentPage={1} totalPages={1} totalItems={invoices.length} itemsPerPage={10} />
       </div>
     </div>
   );

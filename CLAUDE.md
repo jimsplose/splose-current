@@ -44,8 +44,132 @@ Every push to any branch gets a **Vercel preview deployment**. This is how Jim r
 **After every push**, Claude Code MUST:
 1. Link Jim to the Vercel dashboard: https://vercel.com/jimyencken-4159s-projects/splose-current
 2. Tell him the most recent preview will be available there once it finishes building (1-2 minutes)
-3. Production auto-updates after preview build succeeds (via GitHub Action) — no manual step needed
+3. Take 1-2 Playwright screenshots of the most significant page changes and show them inline in chat
+4. Production auto-updates after preview build succeeds (via GitHub Action) — no manual step needed
 
+## Design System
+
+### Component Library (`src/components/ds/`)
+
+**ALWAYS use design system components instead of inline Tailwind for common patterns.** Import from `@/components/ds`.
+
+| Component | Use for | Replaces |
+|---|---|---|
+| `Button` | All buttons (primary/secondary/danger/ghost, sm/md/lg) | Inline `rounded-lg border bg-white px-4 py-2...` |
+| `PageHeader` | Page title + action buttons | Inline `flex items-center justify-between mb-4` + `text-2xl font-bold` |
+| `SearchBar` | Search input + button combos | Inline `h-10 flex-1 rounded-lg border...` + search button |
+| `DataTable` | Table wrapper with overflow scroll | Inline `overflow-x-auto rounded-lg border bg-white` |
+| `TableHead/Th` | Table headers with purple bg | Inline `bg-purple-50` headers |
+| `TableBody/Td` | Table body rows with dividers | Inline `divide-y divide-border` + cell padding |
+| `Pagination` | Table pagination footer | Inline pagination with page buttons |
+| `Badge` | Status pills and tags | Inline `rounded-full px-2 py-0.5 text-xs font-medium bg-green-100...` |
+| `FormInput` | Labeled text inputs with error states | Inline `rounded-lg border bg-white px-3 py-2 text-sm focus:border-primary...` |
+| `FormSelect` | Labeled select dropdowns | Inline `<select>` with focus styles |
+
+### Storybook
+
+**`npm run storybook`** — Runs Storybook on port 6006 with all DS components documented:
+- Button, Badge, PageHeader, SearchBar, DataTable, FormInput, FormSelect, Pagination
+- Each component has multiple stories showing variants and states
+- Stories live in `src/components/ds/stories/`
+
+**When adding new DS components**, always add a Storybook story file.
+
+### Eng Toolkit Page
+
+**`/eng`** — Secret internal page for engineers. Shows:
+- Live component showcase with code examples
+- Directory of all app pages with links
+
+### Tailwind CSS Practices
+
+- **Prettier sorts classes** — `prettier-plugin-tailwindcss` is installed. Run `npx prettier --write` to sort classes.
+- **Use design tokens** from `globals.css` (`text-primary`, `bg-primary`, `border-border`, `text-text`, `text-text-secondary`) — avoid hardcoded colors like `text-gray-700` when a token exists.
+- **Responsive pattern**: Use `p-4 sm:p-6` for page padding, `hidden md:table-cell` for table columns, `flex-col sm:flex-row` for header layouts.
+- **When creating new pages**, use the DS components. Don't inline common patterns. Also:
+  - Add the page to `src/lib/state-registry.ts` (Dev Navigator)
+  - Add interactive variants with `?state=` wiring
+- **When editing existing pages**, opportunistically migrate to DS components if touching that section anyway.
+- **When adding DS components**, create a Storybook story in `src/components/ds/stories/`.
+
+## Design System Enforcement — MANDATORY for All Agents
+
+**Every agent prompt that creates or modifies page UI MUST include this DS enforcement block.** Copy-paste the block below into agent prompts verbatim.
+
+### DS Enforcement Block (for agent prompts)
+
+```
+## Design System — MANDATORY
+
+You MUST use DS components from `@/components/ds` instead of inline Tailwind for these patterns.
+Failure to do so creates tech debt that must be cleaned up later.
+
+| Instead of | Use |
+|---|---|
+| `<button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white...">` | `<Button variant="primary">` |
+| `<button className="rounded-lg border border-border bg-white px-4 py-2...">` | `<Button variant="secondary">` |
+| `<button className="border border-red-... text-red-600...">` | `<Button variant="danger">` |
+| `<div><label className="...">Name</label><input className="w-full rounded-lg border..."/></div>` | `<FormInput label="Name" />` |
+| `<div><label>...</label><select className="..."><option>...</select></div>` | `<FormSelect label="..." options={[...]} />` |
+| `<span className="rounded-full px-2 py-0.5 text-xs font-medium bg-green-100...">` | `<Badge variant="green">` |
+| `<div className="flex items-center justify-between mb-4"><h1 className="text-2xl font-bold">` | `<PageHeader title="...">` |
+
+Import: `import { Button, FormInput, FormSelect, Badge, PageHeader } from "@/components/ds";`
+
+### Banned patterns — do NOT write these:
+- `const inputClass = "w-full rounded-lg border..."` — use `<FormInput>` instead
+- `const labelClass = "block text-sm font-medium..."` — `<FormInput label="">` includes the label
+- Inline badge styles (`rounded-full px-2 py-0.5 text-xs font-medium`) — use `<Badge>`
+- Inline button styles (`rounded-lg bg-primary px-4 py-2 text-sm font-medium`) — use `<Button>`
+
+### When DS components don't fit:
+- Tiny icon-only toolbar buttons (rich text editors) — inline is fine
+- Tab switcher buttons with active/inactive states — inline is fine (no DS Tab component yet)
+- Toggle switches — use the local `Toggle` component pattern
+- Custom layouts (sidebars, cards, modals) — inline is fine, no DS component for these yet
+```
+
+### Enforcement checklist for the main agent
+
+Before merging any agent's work, scan for these red flags:
+1. `const inputClass` or `const labelClass` — should be `<FormInput>` / `<FormSelect>`
+2. `rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white` — should be `<Button variant="primary">`
+3. `rounded-lg border border-border bg-white px-4 py-2` — should be `<Button variant="secondary">`
+4. `rounded-full px-2 py-0.5 text-xs font-medium` — should be `<Badge>`
+5. No import from `@/components/ds` on a page with buttons/inputs/badges — likely missed migration
+
+If any of these are found, fix them before committing the agent's work.
+
+## Playwright Screenshot Verification — MANDATORY
+
+**Every agent that changes page UI MUST verify its work with Playwright screenshots.** This is the single most important quality check.
+
+### For subagents (fidelity work, refactoring, new pages)
+
+Each agent must run this loop after making changes:
+
+1. `npx playwright screenshot --wait-for-timeout=2000 http://localhost:3000/<path> /tmp/screenshot-<page>.png`
+2. Read the screenshot (the Read tool supports images)
+3. Compare to the reference screenshot from `screenshots/reference/`
+4. If the result doesn't match → make more code changes → retake screenshot
+5. Repeat up to 3 iterations
+
+Include this instruction in every fidelity agent prompt.
+
+### For the main agent (after push)
+
+After every push, take 1-2 screenshots of the biggest visual changes:
+
+```bash
+npx playwright screenshot --wait-for-timeout=3000 http://localhost:3000/<changed-page> /tmp/progress-<page>.png
+```
+
+Then use the Read tool to display them inline in chat so Jim can see progress immediately.
+
+### When to skip
+
+- Infrastructure-only changes (config, tooling, docs)
+- Changes with no visual impact (type fixes, refactoring with identical output)
 ## Key Conventions
 
 - **Server components by default** — only `"use client"` when hooks/browser APIs needed

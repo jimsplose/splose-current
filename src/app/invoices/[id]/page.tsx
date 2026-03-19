@@ -1,14 +1,11 @@
 import StatusBadge from "@/components/StatusBadge";
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
+import { Button, Badge } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
-export default async function InvoiceDetailPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function InvoiceDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const invoice = await prisma.invoice.findUnique({
     where: { id },
@@ -33,25 +30,49 @@ export default async function InvoiceDetailPage({
         <div className="flex items-center gap-3">
           <h1 className="text-lg font-semibold text-text">{invoice.invoiceNumber}</h1>
           <StatusBadge status={invoice.status} />
-          {creditBalance > 0 && (
-            <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
-              Credit balance: ${creditBalance.toFixed(2)}
-            </span>
-          )}
+          {creditBalance > 0 && <Badge variant="green">Credit balance: ${creditBalance.toFixed(2)}</Badge>}
         </div>
         <div className="flex items-center gap-2">
-          <button className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text shadow-sm hover:bg-gray-50">
+          <Button variant="secondary" className="shadow-sm">
             Pay
-            <svg className="h-3.5 w-3.5 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
-          </button>
-          <button className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text shadow-sm hover:bg-gray-50">
-            <svg className="h-4 w-4 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+            <svg
+              className="h-3.5 w-3.5 text-text-secondary"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </Button>
+          <Button variant="secondary" className="shadow-sm">
+            <svg
+              className="h-4 w-4 text-text-secondary"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              />
+            </svg>
             Email Invoice
-          </button>
-          <button className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text shadow-sm hover:bg-gray-50">
+          </Button>
+          <Button variant="secondary" className="shadow-sm">
             Actions
-            <svg className="h-3.5 w-3.5 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
-          </button>
+            <svg
+              className="h-3.5 w-3.5 text-text-secondary"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </Button>
         </div>
       </div>
 
@@ -83,13 +104,11 @@ export default async function InvoiceDetailPage({
             <div className="mb-10 grid grid-cols-3 gap-x-8 text-sm leading-relaxed">
               {/* Column 1: Client info */}
               <div>
-                <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Client</h3>
+                <h3 className="mb-2 text-xs font-semibold tracking-wider text-gray-400 uppercase">Client</h3>
                 <p className="font-medium text-primary">
                   {invoice.client.firstName} {invoice.client.lastName}
                 </p>
-                {invoice.client.address && (
-                  <p className="mt-0.5 text-gray-600">{invoice.client.address}</p>
-                )}
+                {invoice.client.address && <p className="mt-0.5 text-gray-600">{invoice.client.address}</p>}
                 {invoice.client.ndisNumber && (
                   <p className="mt-1 text-gray-600">
                     <span className="text-gray-500">NDIS Number:</span> {invoice.client.ndisNumber}
@@ -109,10 +128,10 @@ export default async function InvoiceDetailPage({
                 {/* Care of client */}
                 {invoice.billingType === "NDIS" && (
                   <div className="mt-5">
-                    <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Care of client above</h3>
-                    <p className="font-medium text-primary">
-                      National Disability Insurance Agency
-                    </p>
+                    <h3 className="mb-2 text-xs font-semibold tracking-wider text-gray-400 uppercase">
+                      Care of client above
+                    </h3>
+                    <p className="font-medium text-primary">National Disability Insurance Agency</p>
                     <p className="mt-0.5 text-gray-600">GPO Box 700</p>
                     <p className="text-gray-600">Canberra ACT 2601</p>
                   </div>
@@ -121,7 +140,7 @@ export default async function InvoiceDetailPage({
 
               {/* Column 2: From info */}
               <div>
-                <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">From</h3>
+                <h3 className="mb-2 text-xs font-semibold tracking-wider text-gray-400 uppercase">From</h3>
                 <p className="font-medium text-gray-900">Hands Together Therapies</p>
                 <p className="mt-0.5 text-gray-600">East Clinics</p>
                 <p className="text-gray-600">4 Williamstown Rd</p>
@@ -129,13 +148,13 @@ export default async function InvoiceDetailPage({
 
                 {practitioner && (
                   <div className="mt-4">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Provider</p>
+                    <p className="text-xs font-semibold tracking-wider text-gray-400 uppercase">Provider</p>
                     <p className="mt-1 text-gray-600">{practitioner.name}</p>
                   </div>
                 )}
 
                 <div className="mt-4">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">ABN</p>
+                  <p className="text-xs font-semibold tracking-wider text-gray-400 uppercase">ABN</p>
                   <p className="mt-1 text-gray-600">11 234 567 811</p>
                 </div>
               </div>
@@ -144,15 +163,15 @@ export default async function InvoiceDetailPage({
               <div>
                 <div className="space-y-4">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Invoice #</p>
+                    <p className="text-xs font-semibold tracking-wider text-gray-400 uppercase">Invoice #</p>
                     <p className="mt-1 text-gray-900">{invoice.invoiceNumber}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Issue date</p>
+                    <p className="text-xs font-semibold tracking-wider text-gray-400 uppercase">Issue date</p>
                     <p className="mt-1 text-gray-900">{formatDate(invoice.date)}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Due date</p>
+                    <p className="text-xs font-semibold tracking-wider text-gray-400 uppercase">Due date</p>
                     <p className="mt-1 text-gray-900">{formatDate(invoice.dueDate)}</p>
                   </div>
                 </div>
@@ -164,33 +183,60 @@ export default async function InvoiceDetailPage({
               <table className="w-full text-sm">
                 <thead>
                   <tr className="bg-gray-50">
-                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Item code</th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Description</th>
-                    <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-500">Unit price</th>
-                    <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-500">Quantity</th>
-                    <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-500">Unit</th>
-                    <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-500">Discount</th>
-                    <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-500">GST</th>
-                    <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-500">Amount AUD</th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                      Item code
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                      Description
+                    </th>
+                    <th className="px-4 py-3 text-right text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                      Unit price
+                    </th>
+                    <th className="px-4 py-3 text-right text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                      Quantity
+                    </th>
+                    <th className="px-4 py-3 text-right text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                      Unit
+                    </th>
+                    <th className="px-4 py-3 text-right text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                      Discount
+                    </th>
+                    <th className="px-4 py-3 text-right text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                      GST
+                    </th>
+                    <th className="px-4 py-3 text-right text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                      Amount AUD
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {invoice.items.map((item: { id: string; description: string; unitPrice: number; quantity: number; total: number }, idx: number) => {
-                    const itemCode = generateItemCode(item.description, idx);
-                    const gstRate = invoice.billingType === "NDIS" ? 0 : 10;
-                    return (
-                      <tr key={item.id} className="hover:bg-gray-50">
-                        <td className="px-4 py-3 font-mono text-xs text-gray-500">{itemCode}</td>
-                        <td className="px-4 py-3 text-gray-900">{item.description}</td>
-                        <td className="px-4 py-3 text-right tabular-nums text-gray-900">${item.unitPrice.toFixed(2)}</td>
-                        <td className="px-4 py-3 text-right tabular-nums text-gray-900">{item.quantity.toFixed(2)}</td>
-                        <td className="px-4 py-3 text-right text-gray-500">Hour</td>
-                        <td className="px-4 py-3 text-right text-gray-500">$0.00</td>
-                        <td className="px-4 py-3 text-right text-gray-500">{gstRate}%</td>
-                        <td className="px-4 py-3 text-right tabular-nums font-medium text-gray-900">${item.total.toFixed(2)}</td>
-                      </tr>
-                    );
-                  })}
+                  {invoice.items.map(
+                    (
+                      item: { id: string; description: string; unitPrice: number; quantity: number; total: number },
+                      idx: number,
+                    ) => {
+                      const itemCode = generateItemCode(item.description, idx);
+                      const gstRate = invoice.billingType === "NDIS" ? 0 : 10;
+                      return (
+                        <tr key={item.id} className="hover:bg-gray-50">
+                          <td className="px-4 py-3 font-mono text-xs text-gray-500">{itemCode}</td>
+                          <td className="px-4 py-3 text-gray-900">{item.description}</td>
+                          <td className="px-4 py-3 text-right text-gray-900 tabular-nums">
+                            ${item.unitPrice.toFixed(2)}
+                          </td>
+                          <td className="px-4 py-3 text-right text-gray-900 tabular-nums">
+                            {item.quantity.toFixed(2)}
+                          </td>
+                          <td className="px-4 py-3 text-right text-gray-500">Hour</td>
+                          <td className="px-4 py-3 text-right text-gray-500">$0.00</td>
+                          <td className="px-4 py-3 text-right text-gray-500">{gstRate}%</td>
+                          <td className="px-4 py-3 text-right font-medium text-gray-900 tabular-nums">
+                            ${item.total.toFixed(2)}
+                          </td>
+                        </tr>
+                      );
+                    },
+                  )}
                   {invoice.items.length === 0 && (
                     <tr>
                       <td colSpan={8} className="px-4 py-6 text-center text-gray-400">
@@ -207,19 +253,19 @@ export default async function InvoiceDetailPage({
               <div className="w-72 space-y-2 text-sm">
                 <div className="flex items-center justify-between py-1">
                   <span className="text-gray-500">Subtotal excl. tax</span>
-                  <span className="tabular-nums text-gray-900">${invoice.subtotal.toFixed(2)}</span>
+                  <span className="text-gray-900 tabular-nums">${invoice.subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex items-center justify-between py-1">
                   <span className="text-gray-500">Tax</span>
-                  <span className="tabular-nums text-gray-900">${invoice.tax.toFixed(2)}</span>
+                  <span className="text-gray-900 tabular-nums">${invoice.tax.toFixed(2)}</span>
                 </div>
                 <div className="flex items-center justify-between border-t border-gray-200 pt-2">
                   <span className="font-semibold text-gray-900">Total AUD</span>
-                  <span className="tabular-nums font-semibold text-gray-900">${invoice.total.toFixed(2)}</span>
+                  <span className="font-semibold text-gray-900 tabular-nums">${invoice.total.toFixed(2)}</span>
                 </div>
                 <div className="mt-1 flex items-center justify-between rounded-lg bg-gray-100 px-3 py-2.5">
                   <span className="font-bold text-gray-900">Total Amount Due AUD</span>
-                  <span className="tabular-nums font-bold text-gray-900">${amountDue.toFixed(2)}</span>
+                  <span className="font-bold text-gray-900 tabular-nums">${amountDue.toFixed(2)}</span>
                 </div>
               </div>
             </div>

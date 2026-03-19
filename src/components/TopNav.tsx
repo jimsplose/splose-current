@@ -40,17 +40,13 @@ export default function TopNav() {
         {/* Navigation tabs - hidden on mobile */}
         <nav className="hidden h-full items-center gap-1 lg:flex">
           {navItems.map((item) => {
-            const isActive =
-              pathname === item.href ||
-              (item.href !== "/" && pathname.startsWith(item.href));
+            const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 className={`flex h-full items-center border-b-2 px-3 text-sm font-medium transition-colors ${
-                  isActive
-                    ? "border-primary text-primary"
-                    : "border-transparent text-text-secondary hover:text-text"
+                  isActive ? "border-primary text-primary" : "border-transparent text-text-secondary hover:text-text"
                 }`}
               >
                 {item.label}
@@ -63,13 +59,13 @@ export default function TopNav() {
         <div className="ml-auto flex items-center gap-2">
           <button className="relative rounded-full p-2 text-text-secondary hover:bg-gray-100">
             <Bell className="h-5 w-5" />
-            <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-[10px] font-bold text-white">
+            <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-[10px] font-bold text-white">
               3
             </span>
           </button>
           <button className="relative rounded-full p-2 text-text-secondary hover:bg-gray-100">
             <MessageSquare className="h-5 w-5" />
-            <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-[10px] font-bold text-white">
+            <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-[10px] font-bold text-white">
               8
             </span>
           </button>
@@ -89,18 +85,14 @@ export default function TopNav() {
       {mobileMenuOpen && (
         <nav className="border-t border-border bg-white px-4 py-2 lg:hidden">
           {navItems.map((item) => {
-            const isActive =
-              pathname === item.href ||
-              (item.href !== "/" && pathname.startsWith(item.href));
+            const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block rounded-md px-3 py-2 text-sm font-medium ${
-                  isActive
-                    ? "bg-primary/10 text-primary"
-                    : "text-text-secondary hover:bg-gray-50 hover:text-text"
+                  isActive ? "bg-primary/10 text-primary" : "text-text-secondary hover:bg-gray-50 hover:text-text"
                 }`}
               >
                 {item.label}

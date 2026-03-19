@@ -1,13 +1,13 @@
 export default function ReportsPage() {
   const practitioners = [
-    { initials: "RR", name: "Ruvi R.", color: "#ef4444", utilisation: 10.09, revenue: 393.00 },
-    { initials: "HW", name: "Hung Yee Wong", color: "#8b5cf6", utilisation: 6.88, revenue: 289.50 },
-    { initials: "DB", name: "Dominica Barrett", color: "#06b6d4", utilisation: 5.00, revenue: 0.00 },
-    { initials: "HK", name: "Hrishikesh Koli", color: "#ec4899", utilisation: 4.87, revenue: 0.00 },
-    { initials: "JG", name: "Joseph Ge", color: "#22c55e", utilisation: 4.69, revenue: 0.00 },
-    { initials: "ST", name: "Sharon Tan", color: "#f59e0b", utilisation: 2.58, revenue: 193.00 },
-    { initials: "HW", name: "Hao Wang", color: "#3b82f6", utilisation: 2.50, revenue: 0.00 },
-    { initials: "NH", name: "Nghia Hoang", color: "#6366f1", utilisation: 2.29, revenue: 0.00 },
+    { initials: "RR", name: "Ruvi R.", color: "#ef4444", utilisation: 10.09, revenue: 393.0 },
+    { initials: "HW", name: "Hung Yee Wong", color: "#8b5cf6", utilisation: 6.88, revenue: 289.5 },
+    { initials: "DB", name: "Dominica Barrett", color: "#06b6d4", utilisation: 5.0, revenue: 0.0 },
+    { initials: "HK", name: "Hrishikesh Koli", color: "#ec4899", utilisation: 4.87, revenue: 0.0 },
+    { initials: "JG", name: "Joseph Ge", color: "#22c55e", utilisation: 4.69, revenue: 0.0 },
+    { initials: "ST", name: "Sharon Tan", color: "#f59e0b", utilisation: 2.58, revenue: 193.0 },
+    { initials: "HW", name: "Hao Wang", color: "#3b82f6", utilisation: 2.5, revenue: 0.0 },
+    { initials: "NH", name: "Nghia Hoang", color: "#6366f1", utilisation: 2.29, revenue: 0.0 },
   ];
 
   const dateStart = new Date(Date.now() - 7 * 86400000);
@@ -25,15 +25,22 @@ export default function ReportsPage() {
 
   return (
     <>
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text">Performance overview</h1>
-        <button className="rounded p-2 text-text-secondary hover:bg-gray-100">
-          <span className="text-lg">&#9881;</span>
+        <button className="rounded p-2 text-text-secondary hover:bg-gray-100" aria-label="Settings">
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+            />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
         </button>
       </div>
 
       {/* Filter bar */}
-      <div className="flex items-center gap-2 mb-6 flex-wrap">
+      <div className="mb-6 flex flex-wrap items-center gap-2">
         <span className="rounded-full border border-primary bg-purple-50 px-3 py-1 text-sm text-primary">
           {fmtShort(dateStart)}
         </span>
@@ -41,9 +48,13 @@ export default function ReportsPage() {
         <span className="rounded-full border border-primary bg-purple-50 px-3 py-1 text-sm text-primary">
           {fmtShort(dateEnd)}
         </span>
-        <button className="rounded-full border border-primary bg-purple-50 px-3 py-1 text-sm text-primary font-medium">
-          Daily
-        </button>
+        <select className="cursor-pointer rounded-full border border-primary bg-purple-50 px-3 py-1 text-sm font-medium text-primary outline-none">
+          <option>Frequency: Daily</option>
+          <option>Frequency: Weekly</option>
+          <option>Frequency: Monthly</option>
+          <option>Frequency: Quarterly</option>
+          <option>Frequency: Yearly</option>
+        </select>
         <button className="rounded-full border border-border bg-white px-3 py-1 text-sm text-text hover:bg-gray-50">
           All locations
         </button>
@@ -56,21 +67,21 @@ export default function ReportsPage() {
       </div>
 
       {/* Charts row */}
-      <div className="grid grid-cols-2 gap-6 mb-6">
+      <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
         {/* Utilisation card - LINE chart */}
         <div className="rounded-lg border border-border bg-white p-4">
-          <div className="flex items-center justify-between mb-1">
+          <div className="mb-1 flex items-center justify-between">
             <h3 className="text-sm font-semibold text-text">Utilisation</h3>
             <button className="text-text-secondary">...</button>
           </div>
-          <p className="text-xs text-text-secondary mb-2">Percentage of available time utilised</p>
-          <p className="text-3xl font-bold text-text mb-1">0.85%</p>
-          <p className="text-xs text-text-secondary mb-4">
+          <p className="mb-2 text-xs text-text-secondary">Percentage of available time utilised</p>
+          <p className="mb-1 text-3xl font-bold text-text">0.85%</p>
+          <p className="mb-4 text-xs text-text-secondary">
             {fmtDay(dateStart)} - {fmtDay(dateEnd)}
           </p>
           {/* SVG Line chart */}
           <div className="relative h-32">
-            <svg viewBox="0 0 280 100" className="w-full h-full" preserveAspectRatio="none">
+            <svg viewBox="0 0 280 100" className="h-full w-full" preserveAspectRatio="none">
               {/* Grid lines */}
               {[0, 25, 50, 75, 100].map((y) => (
                 <line key={y} x1="0" y1={y} x2="280" y2={y} stroke="#f0f0f0" strokeWidth="0.5" />
@@ -93,7 +104,7 @@ export default function ReportsPage() {
               ))}
             </svg>
             {/* Y-axis labels */}
-            <div className="absolute left-0 top-0 bottom-0 flex flex-col justify-between text-[9px] text-text-secondary -ml-1">
+            <div className="absolute top-0 bottom-0 left-0 -ml-1 flex flex-col justify-between text-[9px] text-text-secondary">
               <span>6%</span>
               <span>4%</span>
               <span>2%</span>
@@ -101,8 +112,10 @@ export default function ReportsPage() {
             </div>
           </div>
           {/* X-axis labels */}
-          <div className="flex justify-between mt-1 text-[9px] text-text-secondary px-2">
-            {chartDays.map((d) => <span key={d}>{d}</span>)}
+          <div className="mt-1 flex justify-between px-2 text-[9px] text-text-secondary">
+            {chartDays.map((d) => (
+              <span key={d}>{d}</span>
+            ))}
           </div>
           <div className="mt-2 flex items-center justify-center gap-1 text-[10px] text-text-secondary">
             <span className="h-2 w-2 rounded-full bg-primary" />
@@ -112,19 +125,21 @@ export default function ReportsPage() {
 
         {/* Revenue card - BAR chart */}
         <div className="rounded-lg border border-border bg-white p-4">
-          <div className="flex items-center justify-between mb-1">
+          <div className="mb-1 flex items-center justify-between">
             <h3 className="text-sm font-semibold text-text">Revenue</h3>
             <button className="text-text-secondary">...</button>
           </div>
-          <p className="text-xs text-text-secondary mb-2">Total invoiced revenue from appointments and support activities (tax exclusive)</p>
-          <p className="text-3xl font-bold text-text mb-1">$1.09K</p>
-          <p className="text-xs text-text-secondary mb-4">
+          <p className="mb-2 text-xs text-text-secondary">
+            Total invoiced revenue from appointments and support activities (tax exclusive)
+          </p>
+          <p className="mb-1 text-3xl font-bold text-text">$1.09K</p>
+          <p className="mb-4 text-xs text-text-secondary">
             {fmtDay(dateStart)} - {fmtDay(dateEnd)}
           </p>
           {/* Bar chart */}
           <div className="relative h-32">
             {/* Y-axis labels */}
-            <div className="absolute left-0 top-0 bottom-0 flex flex-col justify-between text-[9px] text-text-secondary">
+            <div className="absolute top-0 bottom-0 left-0 flex flex-col justify-between text-[9px] text-text-secondary">
               <span>$600</span>
               <span>$400</span>
               <span>$200</span>
@@ -134,7 +149,7 @@ export default function ReportsPage() {
               {revenueData.map((val, i) => (
                 <div key={i} className="flex flex-1 flex-col items-center gap-0.5">
                   <div
-                    className="w-full bg-primary rounded-t"
+                    className="w-full rounded-t bg-primary"
                     style={{ height: `${(val / 600) * 100}%`, minHeight: val > 0 ? "2px" : "0px" }}
                   />
                 </div>
@@ -142,8 +157,10 @@ export default function ReportsPage() {
             </div>
           </div>
           {/* X-axis labels */}
-          <div className="flex justify-between mt-1 text-[9px] text-text-secondary ml-8">
-            {chartDays.map((d) => <span key={d}>{d}</span>)}
+          <div className="mt-1 ml-8 flex justify-between text-[9px] text-text-secondary">
+            {chartDays.map((d) => (
+              <span key={d}>{d}</span>
+            ))}
           </div>
           <div className="mt-2 flex items-center justify-center gap-1 text-[10px] text-text-secondary">
             <span className="h-2 w-2 rounded-full bg-primary" />
@@ -199,9 +216,7 @@ export default function ReportsPage() {
                     <span className="text-sm text-text-secondary">{p.utilisation.toFixed(2)}%</span>
                   </div>
                 </td>
-                <td className="px-4 py-3 text-right text-sm text-text">
-                  ${p.revenue.toFixed(2)}
-                </td>
+                <td className="px-4 py-3 text-right text-sm text-text">${p.revenue.toFixed(2)}</td>
               </tr>
             ))}
           </tbody>

@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Pencil, Lock, CheckCircle, RotateCcw, ChevronDown } from "lucide-react";
+import { Button, Badge } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -22,22 +23,17 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
       {/* Header bar */}
       <div className="flex items-center justify-between border-b border-border bg-white px-6 py-3">
         <div className="flex items-center gap-3">
-          <Link
-            href="/notes"
-            className="flex items-center gap-1 text-sm text-text-secondary hover:text-text"
-          >
+          <Link href="/notes" className="flex items-center gap-1 text-sm text-text-secondary hover:text-text">
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <h1 className="text-xl font-bold text-text">{note.template}</h1>
           {note.signed ? (
-            <span className="inline-flex items-center gap-1 rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
+            <Badge variant="green">
               <CheckCircle className="h-3 w-3" />
               Final
-            </span>
+            </Badge>
           ) : (
-            <span className="rounded bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
-              Draft
-            </span>
+            <Badge variant="gray">Draft</Badge>
           )}
           <Link href={`/clients/${note.clientId}`} className="text-sm font-medium text-primary hover:underline">
             {clientName}
@@ -45,69 +41,147 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
         </div>
         <div className="flex items-center gap-2">
           {note.signed ? (
-            <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+            <Button variant="secondary">
               <RotateCcw className="h-4 w-4" />
               Revert to draft
-            </button>
+            </Button>
           ) : (
-            <button className="flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
+            <Button variant="primary">
               <Lock className="h-3.5 w-3.5" />
               Sign &amp; lock
-            </button>
+            </Button>
           )}
-          <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
+          <Link
+            href={`/notes/${id}/edit`}
+            className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50"
+          >
             Edit <Pencil className="h-3.5 w-3.5" />
-          </button>
-          <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+          </Link>
+          <Button variant="secondary">
             Actions <ChevronDown className="h-3.5 w-3.5" />
-          </button>
+          </Button>
         </div>
       </div>
 
       {/* Note content as document */}
       <div className="mx-auto max-w-3xl p-8">
         <div className="rounded-lg border border-border bg-white p-10 shadow-sm">
-          {/* Client name */}
-          <div className="mb-8">
+          {/* Client name with logo */}
+          <div className="mb-4 flex items-start justify-between">
             <h2 className="text-2xl font-bold text-text">{clientName}</h2>
+            <div className="h-12 w-12 text-3xl">🦆</div>
           </div>
-
-          {/* Note title */}
-          <h3 className="mb-4 text-xl font-bold text-text">{note.template}</h3>
 
           {/* Service info */}
-          <div className="mb-6 rounded-lg bg-purple-50 p-4 text-sm">
-            <div className="grid grid-cols-2 gap-y-2 gap-x-8">
-              <div>
-                <span className="text-text-secondary">Service date:</span>{" "}
-                <span className="font-medium text-text">{formatNoteDate(note.date)}</span>
-              </div>
-              <div>
-                <span className="text-text-secondary">Created by:</span>{" "}
-                <span className="font-medium text-text">{note.practitioner.name}</span>
-              </div>
-              <div>
-                <span className="text-text-secondary">Template:</span>{" "}
-                <span className="font-medium text-text">{note.template}</span>
-              </div>
-              <div>
-                <span className="text-text-secondary">Status:</span>{" "}
-                {note.signed ? (
-                  <span className="font-medium text-green-700">Signed</span>
-                ) : (
-                  <span className="font-medium text-gray-600">Draft</span>
-                )}
-              </div>
-            </div>
+          <div className="mb-2 text-sm text-text-secondary">
+            Service: {note.date ? `10:30 am, ${formatNoteDate(note.date)} – Sharon Test 1 (OT – Initial Consult)` : "—"}
           </div>
 
-          {/* Note content */}
-          <div className="prose prose-sm max-w-none text-text">
-            {note.content ? (
-              <div className="whitespace-pre-wrap">{note.content}</div>
-            ) : (
-              <p className="italic text-text-secondary">No content recorded.</p>
-            )}
+          {/* Client info table */}
+          <div className="mb-8 rounded-lg border border-border">
+            <table className="w-full text-sm">
+              <tbody>
+                {[
+                  ["Client Name", clientName],
+                  ["Date of Session", formatNoteDate(note.date)],
+                  ["Time", "10:30 am"],
+                  ["Organisation", "Hands Together Therapies"],
+                  ["Location", "4 Williamstown Rd"],
+                  ["Therapist", note.practitioner.name],
+                ].map(([label, value]) => (
+                  <tr key={label} className="border-b border-border last:border-b-0">
+                    <td className="w-40 px-4 py-2 font-medium text-text">{label}</td>
+                    <td className="px-4 py-2 text-text-secondary">{value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* SOAP Sections */}
+          <div className="space-y-6">
+            <div>
+              <h3 className="mb-2 text-lg font-bold text-text">Subjective</h3>
+              <ul className="list-disc space-y-1 pl-6 text-sm leading-relaxed text-text">
+                <li>
+                  The participant did not provide a session transcript or verbal report regarding communication
+                  progress, challenges, or concerns since the last session.
+                </li>
+                <li>No changes in the participant&apos;s communication abilities or confidence were reported.</li>
+                <li>The participant did not state any specific goals or priorities for today&apos;s session.</li>
+                <li>No preferences or choices about activities or approaches were expressed by the participant.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="mb-2 text-lg font-bold text-text">Objective</h3>
+              <ul className="list-disc space-y-1 pl-6 text-sm leading-relaxed text-text">
+                <li>
+                  The participant demonstrated consistent engagement throughout the session, responding to prompts and
+                  completing assigned activities as directed.
+                </li>
+                <li>
+                  Measurable results from today&apos;s activities were not recorded in the available documentation; no
+                  assessment data or specific performance metrics provided.
+                </li>
+                <li>
+                  Interventions and strategies used during the session were not detailed in the available records.
+                </li>
+                <li>
+                  No week-on-week changes or progression data could be established due to absence of comparative
+                  measurable information in previous notes.
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="mb-2 text-lg font-bold text-text">Assessment</h3>
+              <ul className="list-disc space-y-1 pl-6 text-sm leading-relaxed text-text">
+                <li>
+                  The participant has demonstrated consistent engagement in therapy sessions over the past two months,
+                  with active participation observed at each session.
+                </li>
+                <li>
+                  Week-on-week trends indicate the participant is maintaining current skill levels, with no significant
+                  improvement or decline noted in recent sessions.
+                </li>
+                <li>
+                  Progress towards NDIS plan goals appears steady, with the participant continuing to work towards
+                  identified objectives without regression.
+                </li>
+                <li>
+                  Factors supporting progress include regular attendance and sustained motivation; no new barriers to
+                  progress have been identified during this period.
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="mb-2 text-lg font-bold text-text">Plan</h3>
+              <p className="text-sm leading-relaxed text-text">
+                No transcript available for this session. Unable to complete the Plan section as requested due to lack
+                of source information.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="mb-2 text-lg font-bold text-text">Goals</h3>
+              <ul className="list-disc space-y-1 pl-6 text-sm leading-relaxed text-text">
+                <li>
+                  No session transcript (transcription) is available for today&apos;s session; therefore, no measurable
+                  progress, evidence of choice and control, or next steps/homework can be documented for any NDIS plan
+                  goal at this time.
+                </li>
+                <li>
+                  No NDIS plan goals can be addressed in this section without relevant information from the current
+                  session transcript.
+                </li>
+                <li>
+                  If a transcript or relevant session data is provided, progress towards the participant&apos;s NDIS
+                  plan goals will be documented accordingly.
+                </li>
+              </ul>
+            </div>
           </div>
 
           {/* Signature / metadata */}
@@ -134,7 +208,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
 function formatNoteDate(dateStr: string) {
   try {
     const d = new Date(dateStr + "T00:00:00");
-    return d.toLocaleDateString("en-AU", { weekday: "short", day: "numeric", month: "short", year: "numeric" });
+    return d.toLocaleDateString("en-AU", { weekday: "long", day: "numeric", month: "short", year: "numeric" });
   } catch {
     return dateStr;
   }

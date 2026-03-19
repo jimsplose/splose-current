@@ -33,19 +33,21 @@ export default async function CalendarPage() {
   ]);
 
   // Serialize for client component
-  const serializedAppointments = appointments.map((a: Record<string, unknown> & { client: Record<string, unknown>; practitioner: Record<string, unknown> }) => ({
-    id: a.id as string,
-    date: a.date as string,
-    startTime: a.startTime as string,
-    endTime: a.endTime as string,
-    status: a.status as string,
-    type: a.type as string,
-    location: a.location as string | null,
-    notes: a.notes as string | null,
-    clientName: `${a.client.firstName} ${a.client.lastName}`,
-    practitionerName: a.practitioner.name as string,
-    practitionerColor: a.practitioner.color as string,
-  }));
+  const serializedAppointments = appointments.map(
+    (a: Record<string, unknown> & { client: Record<string, unknown>; practitioner: Record<string, unknown> }) => ({
+      id: a.id as string,
+      date: a.date as string,
+      startTime: a.startTime as string,
+      endTime: a.endTime as string,
+      status: a.status as string,
+      type: a.type as string,
+      location: a.location as string | null,
+      notes: a.notes as string | null,
+      clientName: `${a.client.firstName} ${a.client.lastName}`,
+      practitionerName: a.practitioner.name as string,
+      practitionerColor: a.practitioner.color as string,
+    }),
+  );
 
   const serializedPractitioners = practitioners.map((p: Record<string, unknown>) => ({
     id: p.id as string,

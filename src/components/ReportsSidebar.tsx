@@ -49,12 +49,10 @@ export default function ReportsSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-56 shrink-0 border-r border-border bg-white p-4 overflow-y-auto">
+    <aside className="hidden w-56 shrink-0 overflow-y-auto border-r border-border bg-white p-4 md:block">
       {sections.map((section) => (
         <div key={section.title} className="mb-4">
-          <h3 className="mb-1 text-xs font-bold uppercase tracking-wider text-text">
-            {section.title}
-          </h3>
+          <h3 className="mb-1 text-xs font-bold tracking-wider text-text uppercase">{section.title}</h3>
           <ul className="space-y-0.5">
             {section.items.map((item) => {
               const isActive = item.href === pathname;
@@ -65,7 +63,7 @@ export default function ReportsSidebar() {
                       href={item.href}
                       className={`block w-full rounded px-3 py-1.5 text-left text-sm transition-colors hover:bg-purple-50 hover:text-primary ${
                         isActive
-                          ? "border-l-2 border-primary bg-purple-50 text-primary font-medium"
+                          ? "border-l-2 border-primary bg-purple-50 font-medium text-primary"
                           : "text-text-secondary"
                       }`}
                     >
@@ -76,7 +74,7 @@ export default function ReportsSidebar() {
               }
               return (
                 <li key={item.label}>
-                  <span className="block w-full rounded px-3 py-1.5 text-left text-sm text-text-secondary cursor-default">
+                  <span className="block w-full cursor-default rounded px-3 py-1.5 text-left text-sm text-text-secondary">
                     {item.label}
                   </span>
                 </li>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Button, FormInput, FormSelect, Badge, statusVariant } from "@/components/ds";
 
 const sidebarSections = [
   {
@@ -9,7 +10,6 @@ const sidebarSections = [
     items: [
       { name: "Details", href: "/settings" },
       { name: "Integrations", href: "/settings" },
-      { name: "Subscription", href: "/settings" },
       { name: "SMS settings", href: "/settings" },
     ],
   },
@@ -28,7 +28,7 @@ const sidebarSections = [
       { name: "Rooms/Resources", href: "/settings" },
       { name: "Services", href: "/settings" },
       { name: "Busy times", href: "/settings" },
-      { name: "Cancel/Reschedule", href: "/settings" },
+      { name: "Cancellation reasons", href: "/settings" },
       { name: "Online bookings", href: "/settings", badge: "New" },
       { name: "Communication types", href: "/settings" },
       { name: "Tags", href: "/settings" },
@@ -40,8 +40,6 @@ const sidebarSections = [
     items: [
       { name: "Users", href: "/settings" },
       { name: "User groups", href: "/settings" },
-      { name: "Permissions & Roles", href: "/settings" },
-      { name: "Security", href: "/settings" },
     ],
   },
   {
@@ -52,6 +50,13 @@ const sidebarSections = [
       { name: "Progress notes", href: "/settings" },
       { name: "Letters", href: "/settings" },
       { name: "Body charts", href: "/settings" },
+    ],
+  },
+  {
+    title: "Finances",
+    items: [
+      { name: "Payments", href: "/settings" },
+      { name: "Invoices", href: "/settings" },
     ],
   },
 ];
@@ -133,155 +138,268 @@ export default function SettingsPage() {
 /* ─── Details ─────────────────────────────────────────────────────── */
 
 function DetailsContent() {
+  const [emailSigTab, setEmailSigTab] = useState<"Business" | "User">("Business");
+  const [casesToggle, setCasesToggle] = useState(true);
+  const [applyToAll, setApplyToAll] = useState(false);
+
   return (
-    <div className="p-6 max-w-3xl">
+    <div className="p-6 max-w-4xl">
+      {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-text">Details</h1>
-        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
-          Save
-        </button>
+        <Button variant="primary">Save</Button>
       </div>
 
       <div className="space-y-6">
-        {/* Logo */}
-        <div>
-          <label className="block text-sm font-medium text-text mb-2">
-            Clinic logo
-          </label>
-          <div className="flex items-center gap-4">
-            <div className="flex h-20 w-20 items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 text-gray-400">
-              <svg
-                className="h-8 w-8"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-            </div>
+        {/* Business name & Upload area */}
+        <div className="flex gap-8">
+          <div className="flex-1 space-y-4">
+            {/* Business name */}
             <div>
-              <button className="rounded-lg border border-border bg-white px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
-                Upload logo
-              </button>
-              <p className="mt-1 text-xs text-text-secondary">
-                PNG or JPG, max 2MB. Recommended size: 200x200px
-              </p>
+              <label className="block text-sm font-medium text-text mb-1">
+                Business name<span className="text-red-500">*</span>
+              </label>
+              <FormInput
+                type="text"
+                defaultValue="Hands Together Therapies"
+              />
+            </div>
+
+            {/* Workspace URL */}
+            <div>
+              <label className="block text-sm font-medium text-text mb-1">
+                Workspace URL{" "}
+                <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help ml-0.5">i</span>
+              </label>
+              <FormInput
+                type="text"
+                defaultValue="acme.splose.com"
+              />
+            </div>
+
+            {/* Website */}
+            <FormInput label="Website" type="text" defaultValue="hands-together-therapy.com" />
+
+            {/* Business email */}
+            <div>
+              <label className="block text-sm font-medium text-text mb-1">
+                Business email<span className="text-red-500">*</span>
+              </label>
+              <FormInput
+                type="email"
+                defaultValue="hello@hands-together-therapy.com"
+              />
+            </div>
+          </div>
+
+          {/* Upload area on the right */}
+          <div className="w-48 shrink-0">
+            <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-6 text-center">
+              {/* Splose wave/hand illustration placeholder */}
+              <div className="mb-3 text-4xl text-purple-300">
+                <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="32" cy="32" r="28" fill="#ede9fe" />
+                  <path d="M22 38c0-6 4-16 10-16s10 10 10 16" stroke="#7c3aed" strokeWidth="2" strokeLinecap="round" />
+                  <circle cx="28" cy="26" r="2" fill="#7c3aed" />
+                  <circle cx="36" cy="26" r="2" fill="#7c3aed" />
+                  <path d="M28 32c2 2 6 2 8 0" stroke="#7c3aed" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </div>
+              <Button variant="secondary" size="sm">Upload</Button>
             </div>
           </div>
         </div>
 
-        {/* Clinic name */}
-        <div>
-          <label className="block text-sm font-medium text-text mb-1">
-            Clinic name
-          </label>
-          <input
-            type="text"
-            defaultValue="Acme Allied Health"
-            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-          />
-        </div>
-
-        {/* ABN */}
-        <div>
-          <label className="block text-sm font-medium text-text mb-1">
-            ABN
-          </label>
-          <input
-            type="text"
-            defaultValue="12 345 678 901"
-            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-          />
-        </div>
-
-        {/* Address */}
-        <div>
-          <label className="block text-sm font-medium text-text mb-1">
-            Address
-          </label>
-          <input
-            type="text"
-            defaultValue="123 Collins Street, Melbourne VIC 3000"
-            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-          />
-        </div>
-
-        {/* Phone & Email row */}
+        {/* Row: Patient terminology & Currency code */}
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-text mb-1">
-              Phone
+              Patient terminology{" "}
+              <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help ml-0.5">i</span>
+              <span className="text-red-500">*</span>
             </label>
-            <input
-              type="text"
-              defaultValue="(03) 9876 5432"
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+            <FormSelect
+              options={[
+                { value: "Client", label: "Client" },
+                { value: "Patient", label: "Patient" },
+                { value: "Participant", label: "Participant" },
+              ]}
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-text mb-1">
-              Email
+              Currency code<span className="text-red-500">*</span>
             </label>
-            <input
-              type="email"
-              defaultValue="admin@acmealliedhealth.com.au"
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            />
+            <FormInput type="text" defaultValue="AUD" />
           </div>
         </div>
 
-        {/* Timezone */}
-        <div>
-          <label className="block text-sm font-medium text-text mb-1">
-            Timezone
-          </label>
-          <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
-            <option>Australia/Melbourne (AEDT, UTC+11)</option>
-            <option>Australia/Sydney (AEDT, UTC+11)</option>
-            <option>Australia/Brisbane (AEST, UTC+10)</option>
-            <option>Australia/Perth (AWST, UTC+8)</option>
-            <option>Australia/Adelaide (ACDT, UTC+10:30)</option>
-          </select>
-        </div>
-
-        {/* Country & Currency */}
+        {/* Row: Country & Currency symbol */}
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-text mb-1">
-              Country
+              Country<span className="text-red-500">*</span>
             </label>
-            <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
-              <option>Australia</option>
-              <option>New Zealand</option>
-              <option>United Kingdom</option>
-            </select>
+            <FormSelect
+              options={[
+                { value: "Australia", label: "Australia" },
+                { value: "New Zealand", label: "New Zealand" },
+                { value: "United Kingdom", label: "United Kingdom" },
+              ]}
+            />
           </div>
           <div>
             <label className="block text-sm font-medium text-text mb-1">
-              Currency
+              Currency symbol<span className="text-red-500">*</span>
             </label>
-            <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
-              <option>AUD ($)</option>
-              <option>NZD ($)</option>
-              <option>GBP (&pound;)</option>
-            </select>
+            <FormInput type="text" defaultValue="$" />
           </div>
         </div>
 
-        {/* Financial year start */}
+        {/* Row: Default appointment communication preferences & Tax Label */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-text mb-1">
+              Default appointment communication preferences{" "}
+              <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help ml-0.5">i</span>
+              <span className="text-red-500">*</span>
+            </label>
+            <FormSelect
+              options={[
+                { value: "SMS & Email", label: "SMS & Email" },
+                { value: "SMS only", label: "SMS only" },
+                { value: "Email only", label: "Email only" },
+                { value: "None", label: "None" },
+              ]}
+            />
+            <label className="mt-2 flex items-center gap-2 text-sm text-text-secondary">
+              <input
+                type="checkbox"
+                checked={applyToAll}
+                onChange={(e) => setApplyToAll(e.target.checked)}
+                className="rounded border-gray-300 text-primary focus:ring-primary h-4 w-4"
+              />
+              Apply to all existing clients and override the current contact preferences
+            </label>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-text mb-1">
+              Tax Label for invoices (E.g. ABN)<span className="text-red-500">*</span>
+            </label>
+            <FormInput type="text" defaultValue="ABN" />
+            <p className="mt-2 text-sm text-text-secondary">
+              Enter your business number in{" "}
+              <span className="text-primary cursor-pointer hover:underline">
+                Location settings
+              </span>
+            </p>
+          </div>
+        </div>
+
+        {/* Email signature */}
         <div>
-          <label className="block text-sm font-medium text-text mb-1">
-            Financial year start
-          </label>
-          <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
-            <option>July</option>
-            <option>January</option>
-          </select>
+          <h2 className="text-base font-semibold text-text mb-3">Email signature</h2>
+          <div className="flex gap-1 mb-3">
+            <button
+              onClick={() => setEmailSigTab("Business")}
+              className={`rounded-lg px-4 py-1.5 text-sm font-medium transition-colors ${
+                emailSigTab === "Business"
+                  ? "bg-primary text-white"
+                  : "bg-gray-100 text-text-secondary hover:bg-gray-200"
+              }`}
+            >
+              Business
+            </button>
+            <button
+              onClick={() => setEmailSigTab("User")}
+              className={`rounded-lg px-4 py-1.5 text-sm font-medium transition-colors flex items-center gap-1 ${
+                emailSigTab === "User"
+                  ? "bg-primary text-white"
+                  : "bg-gray-100 text-text-secondary hover:bg-gray-200"
+              }`}
+            >
+              User
+              <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+            </button>
+          </div>
+          {/* Rich text toolbar */}
+          <div className="rounded-t-lg border border-border bg-gray-50 px-2 py-1.5 flex items-center gap-1">
+            <button className="rounded px-2 py-1 text-sm font-bold text-text hover:bg-gray-200">B</button>
+            <button className="rounded px-2 py-1 text-sm italic text-text hover:bg-gray-200">I</button>
+            <div className="mx-1 h-4 w-px bg-gray-300" />
+            <button className="rounded px-2 py-1 text-xs font-medium text-primary hover:bg-gray-200">AI</button>
+            <div className="mx-1 h-4 w-px bg-gray-300" />
+            {/* Table/grid icon */}
+            <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h18v18H3V3zm0 6h18M3 15h18M9 3v18M15 3v18" /></svg>
+            </button>
+            <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+            </button>
+            <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">+</button>
+            <div className="mx-1 h-4 w-px bg-gray-300" />
+            <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h10M4 18h16" /></svg>
+            </button>
+            <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M7 12h10M4 18h16" /></svg>
+            </button>
+            <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
+            </button>
+          </div>
+          {/* Signature content */}
+          <div className="rounded-b-lg border border-t-0 border-border bg-white p-4 min-h-[200px] text-sm text-text relative">
+            <p className="line-through">Warm Regards,</p>
+            <p className="text-primary mt-1">{"{user_fullName}"}</p>
+            <p className="text-primary">{"{user_professionTitle}"}</p>
+            <p className="text-primary">{"{user_email}"}</p>
+            <p className="mt-2 text-primary">{"{business_name}"}</p>
+            <p className="text-primary">{"{business_email}"}</p>
+            <p className="text-primary">{"{business_website}"}</p>
+            <p className="text-primary">{"{user_signature}"}</p>
+            <p className="text-primary">{"{user_workPhoneNumber}{user_professionTitle}"}</p>
+            <div className="absolute right-6 bottom-6">
+              <span className="text-5xl font-bold text-purple-200 select-none tracking-wide">splose</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Calendar lock dates */}
+        <div>
+          <h2 className="text-base font-semibold text-text mb-3">Calendar lock dates</h2>
+          <p className="text-sm text-text-secondary mb-2">
+            Prevent users with the practitioner role from making changes on the calendar on and before
+          </p>
+          <FormInput
+            type="text"
+            defaultValue="19 Dec 2025"
+            className="max-w-xs"
+          />
+        </div>
+
+        {/* Google Tag Manager */}
+        <div>
+          <h2 className="text-base font-semibold text-text mb-3">Google Tag Manager</h2>
+          <FormInput label="Google Tag Manager ID" type="text" defaultValue="GTM-TEST1231" className="max-w-xs" />
+        </div>
+
+        {/* Cases */}
+        <div>
+          <h2 className="text-base font-semibold text-text mb-3">Cases</h2>
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-text">
+              Block bookings exceeding case or funding periods (default setting)
+            </p>
+            <Toggle checked={casesToggle} onChange={setCasesToggle} />
+          </div>
+        </div>
+
+        {/* Business settings change log link */}
+        <div>
+          <span className="text-sm text-primary cursor-pointer hover:underline">
+            Business settings change log
+          </span>
         </div>
       </div>
     </div>
@@ -436,13 +554,14 @@ function IntegrationsContent() {
             Available ({integrations.filter((i) => !i.connected).length})
           </button>
         </div>
-        <input
-          type="text"
-          placeholder="Search integrations..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary w-64"
-        />
+        <div className="w-64">
+          <FormInput
+            type="text"
+            placeholder="Search integrations..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
       </div>
 
       {/* Integration cards grid */}
@@ -467,24 +586,21 @@ function IntegrationsContent() {
                 </div>
               </div>
               {integration.connected && (
-                <span className="flex items-center gap-1 rounded-full bg-green-50 px-2 py-0.5 text-xs font-medium text-green-700">
-                  <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                <Badge variant="green">
+                  <span className="mr-1 h-1.5 w-1.5 rounded-full bg-green-500" />
                   Connected
-                </span>
+                </Badge>
               )}
             </div>
             <p className="text-sm text-text-secondary mb-4">
               {integration.description}
             </p>
-            <button
-              className={`w-full rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                integration.connected
-                  ? "border border-red-200 bg-white text-red-600 hover:bg-red-50"
-                  : "border border-primary bg-white text-primary hover:bg-purple-50"
-              }`}
+            <Button
+              variant={integration.connected ? "danger" : "secondary"}
+              className={`w-full ${!integration.connected ? "border-primary text-primary hover:bg-purple-50" : ""}`}
             >
               {integration.connected ? "Disconnect" : "Connect"}
-            </button>
+            </Button>
           </div>
         ))}
       </div>
@@ -547,9 +663,7 @@ function SMSSettingsContent() {
             Configure SMS notifications and reminders for your clients
           </p>
         </div>
-        <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
-          Save
-        </button>
+        <Button variant="primary">Save</Button>
       </div>
 
       {/* Tabs */}
@@ -600,9 +714,9 @@ function SMSProviderTab() {
       <div className="rounded-lg border border-border bg-white p-5">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-sm font-semibold text-text">SMS balance</h3>
-          <button className="rounded-lg border border-primary bg-white px-3 py-1.5 text-sm font-medium text-primary hover:bg-purple-50">
+          <Button variant="secondary" size="sm" className="border-primary text-primary hover:bg-purple-50">
             Top up
-          </button>
+          </Button>
         </div>
         <div className="grid grid-cols-3 gap-4">
           <div className="rounded-lg bg-green-50 p-4 text-center">
@@ -626,24 +740,19 @@ function SMSProviderTab() {
           Provider configuration
         </h3>
         <div className="space-y-4">
+          <FormSelect
+            label="SMS provider"
+            options={[
+              { value: "Twilio", label: "Twilio" },
+              { value: "MessageMedia", label: "MessageMedia" },
+              { value: "Burst SMS", label: "Burst SMS" },
+            ]}
+          />
           <div>
-            <label className="block text-sm font-medium text-text mb-1">
-              SMS provider
-            </label>
-            <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
-              <option>Twilio</option>
-              <option>MessageMedia</option>
-              <option>Burst SMS</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-text mb-1">
-              Sender name / number
-            </label>
-            <input
+            <FormInput
+              label="Sender name / number"
               type="text"
               defaultValue="AcmeHealth"
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
             />
             <p className="mt-1 text-xs text-text-secondary">
               Max 11 characters. Letters and numbers only.
@@ -688,9 +797,7 @@ function SMSTemplatesTab() {
           </code>{" "}
           to personalise messages.
         </p>
-        <button className="flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
-          + New template
-        </button>
+        <Button variant="primary">+ New template</Button>
       </div>
       <div className="rounded-lg border border-border bg-white overflow-hidden">
         <table className="w-full">
@@ -720,15 +827,9 @@ function SMSTemplatesTab() {
                   {template.content}
                 </td>
                 <td className="px-4 py-3 text-center">
-                  <span
-                    className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
-                      template.active
-                        ? "bg-green-50 text-green-700"
-                        : "bg-gray-100 text-gray-600"
-                    }`}
-                  >
+                  <Badge variant={template.active ? "green" : "gray"}>
                     {template.active ? "Active" : "Inactive"}
-                  </span>
+                  </Badge>
                 </td>
                 <td className="px-4 py-3 text-right">
                   <button className="text-text-secondary hover:text-text text-sm">
@@ -822,15 +923,9 @@ function SMSHistoryTab() {
                   {item.sent}
                 </td>
                 <td className="px-4 py-3 text-center">
-                  <span
-                    className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
-                      item.status === "Delivered"
-                        ? "bg-green-50 text-green-700"
-                        : "bg-red-50 text-red-700"
-                    }`}
-                  >
+                  <Badge variant={statusVariant(item.status)}>
                     {item.status}
-                  </span>
+                  </Badge>
                 </td>
               </tr>
             ))}
@@ -924,20 +1019,19 @@ function FormsContent() {
             Create and manage forms that clients can fill out online
           </p>
         </div>
-        <button className="flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
-          + New form
-        </button>
+        <Button variant="primary">+ New form</Button>
       </div>
 
       {/* Filters */}
       <div className="flex items-center gap-4 mb-4">
-        <input
-          type="text"
-          placeholder="Search forms..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary w-64"
-        />
+        <div className="w-64">
+          <FormInput
+            type="text"
+            placeholder="Search forms..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
         <div className="flex rounded-lg border border-border bg-white overflow-hidden">
           {(["all", "Published", "Draft", "Archived"] as const).map((s) => (
             <button
@@ -992,17 +1086,9 @@ function FormsContent() {
                   {form.description}
                 </td>
                 <td className="px-4 py-3 text-center">
-                  <span
-                    className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
-                      form.status === "Published"
-                        ? "bg-green-50 text-green-700"
-                        : form.status === "Draft"
-                        ? "bg-yellow-50 text-yellow-700"
-                        : "bg-gray-100 text-gray-600"
-                    }`}
-                  >
+                  <Badge variant={form.status === "Published" ? "green" : form.status === "Draft" ? "yellow" : "gray"}>
                     {form.status}
-                  </span>
+                  </Badge>
                 </td>
                 <td className="px-4 py-3 text-center text-sm text-text-secondary">
                   {form.responses}

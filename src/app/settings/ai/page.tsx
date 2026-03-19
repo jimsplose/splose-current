@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { Button, FormInput } from "@/components/ds";
 
 const sidebarSections = [
   {
@@ -72,25 +74,43 @@ const aiPrompts = [
 type Tab = "preferences" | "saved-prompts" | "ai-block-library";
 
 export default function SettingsAIPage() {
+  return (
+    <Suspense>
+      <SettingsAIPageInner />
+    </Suspense>
+  );
+}
+
+function SettingsAIPageInner() {
   const [activeTab, setActiveTab] = useState<Tab>("preferences");
+
+  // Dev Navigator: ?state= param wiring
+  const searchParams = useSearchParams();
+  const forcedState = searchParams.get("state");
+  useEffect(() => {
+    if (!forcedState) return;
+    const actions: Record<string, () => void> = {
+      "saved-prompts": () => setActiveTab("saved-prompts"),
+      "ai-block-library": () => setActiveTab("ai-block-library"),
+    };
+    actions[forcedState]?.();
+  }, [forcedState]);
 
   return (
     <div className="flex min-h-[calc(100vh-3rem)]">
       {/* Left sidebar */}
-      <aside className="w-64 shrink-0 border-r border-border bg-white p-4 overflow-y-auto">
+      <aside className="w-64 shrink-0 overflow-y-auto border-r border-border bg-white p-4">
         {sidebarSections.map((section) => (
           <div key={section.title} className="mb-4">
-            <h3 className="mb-1 text-xs font-bold uppercase tracking-wider text-text">
-              {section.title}
-            </h3>
+            <h3 className="mb-1 text-xs font-bold tracking-wider text-text uppercase">{section.title}</h3>
             <ul className="space-y-0.5">
               {section.items.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className={`w-full block rounded px-3 py-1.5 text-left text-sm transition-colors hover:bg-purple-50 hover:text-primary ${
+                    className={`block w-full rounded px-3 py-1.5 text-left text-sm transition-colors hover:bg-purple-50 hover:text-primary ${
                       item.name === "splose AI"
-                        ? "border-l-2 border-primary bg-purple-50 text-primary font-medium"
+                        ? "border-l-2 border-primary bg-purple-50 font-medium text-primary"
                         : "text-text-secondary"
                     }`}
                   >
@@ -110,15 +130,11 @@ export default function SettingsAIPage() {
 
       {/* Main content */}
       <div className="flex-1 p-6">
-        <div className="flex items-center justify-between mb-6">
+        <div className="mb-6 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-text">splose AI</h1>
           <div className="flex items-center gap-2">
-            <button className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-              Learn
-            </button>
-            <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
-              Save
-            </button>
+            <Button variant="secondary">Learn</Button>
+            <Button variant="primary">Save</Button>
           </div>
         </div>
 
@@ -175,16 +191,14 @@ function PreferencesTab() {
 
   return (
     <div>
-      <h2 className="text-lg font-semibold text-text mb-2">
-        splose AI settings: More control, your way
-      </h2>
-      <hr className="border-border mb-6" />
+      <h2 className="mb-2 text-lg font-semibold text-text">splose AI settings: More control, your way</h2>
+      <hr className="mb-6 border-border" />
 
-      <h3 className="text-xl font-bold text-text mb-6">Preferences</h3>
+      <h3 className="mb-6 text-xl font-bold text-text">Preferences</h3>
 
       {/* Progress notes */}
       <div className="mb-8">
-        <h4 className="text-lg font-bold text-text mb-4">splose AI - progress notes</h4>
+        <h4 className="mb-4 text-lg font-bold text-text">splose AI - progress notes</h4>
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <span className="text-sm text-text">Enable voice to text and ask splose AI</span>
@@ -199,7 +213,7 @@ function PreferencesTab() {
 
       {/* Email */}
       <div className="mb-8">
-        <h4 className="text-lg font-bold text-text mb-4">splose AI - email</h4>
+        <h4 className="mb-4 text-lg font-bold text-text">splose AI - email</h4>
         <div className="flex items-center justify-between">
           <span className="text-sm text-text">Enable splose AI email assistant</span>
           <Toggle checked={emailAssistant} onChange={setEmailAssistant} />
@@ -208,7 +222,7 @@ function PreferencesTab() {
 
       {/* Calendar */}
       <div className="mb-8">
-        <h4 className="text-lg font-bold text-text mb-4">splose AI - calendar</h4>
+        <h4 className="mb-4 text-lg font-bold text-text">splose AI - calendar</h4>
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <span className="text-sm text-text">Enable splose AI for calendar</span>
@@ -244,14 +258,12 @@ function Toggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean
 function SavedPromptsTab() {
   return (
     <div>
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <h2 className="text-lg font-semibold text-text">AI prompts</h2>
-        <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
-          + New prompt
-        </button>
+        <Button variant="secondary">+ New prompt</Button>
       </div>
 
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-gray-50">
@@ -288,75 +300,74 @@ function AIBlockLibraryTab() {
   return (
     <div>
       {/* Beta banner */}
-      <div className="mb-4 flex items-center justify-between rounded-lg bg-yellow-50 border border-yellow-200 px-4 py-3">
+      <div className="mb-4 flex items-center justify-between rounded-lg border border-yellow-200 bg-yellow-50 px-4 py-3">
         <div className="flex items-center gap-2">
           <span className="rounded bg-yellow-100 px-1.5 py-0.5 text-[10px] font-bold text-yellow-700">BETA</span>
           <span className="text-sm text-text">We need your feedback on AI blocks</span>
         </div>
         <div className="flex items-center gap-2 text-sm">
           <span className="text-text-secondary">Fill a</span>
-          <span className="text-primary underline cursor-pointer">short survey</span>
+          <span className="cursor-pointer text-primary underline">short survey</span>
           <span className="text-text-secondary">or</span>
-          <span className="text-primary underline cursor-pointer">book a time</span>
+          <span className="cursor-pointer text-primary underline">book a time</span>
           <span className="text-text-secondary">to chat</span>
           <button className="ml-2 text-text-secondary hover:text-text">&times;</button>
         </div>
       </div>
 
-      <p className="text-sm text-text-secondary mb-4">
+      <p className="mb-4 text-sm text-text-secondary">
         Spend less time writing prompts with your saved library of AI blocks, organised by{" "}
-        <span className="text-primary underline cursor-pointer">tags</span>. AI blocks are reusable, customisable and adjust to your
-        client&apos;s context. Insert them into a template or progress note.{" "}
-        <span className="text-primary underline cursor-pointer">Learn more</span>.
+        <span className="cursor-pointer text-primary underline">tags</span>. AI blocks are reusable, customisable and
+        adjust to your client&apos;s context. Insert them into a template or progress note.{" "}
+        <span className="cursor-pointer text-primary underline">Learn more</span>.
       </p>
 
       {/* Search and new button */}
-      <div className="flex items-center gap-2 mb-4">
-        <div className="flex-1 relative">
-          <input
-            type="text"
-            placeholder="Search"
-            className="w-full h-10 rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-          />
+      <div className="mb-4 flex items-center gap-2">
+        <div className="relative flex-1">
+          <FormInput placeholder="Search" className="h-10 px-4" />
         </div>
-        <button className="rounded-lg bg-primary px-2 py-2 text-white hover:bg-primary-dark">
+        <Button variant="primary" size="sm" className="px-2 py-2">
           <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
           </svg>
-        </button>
-        <button className="flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
-          + New AI block
-        </button>
+        </Button>
+        <Button variant="primary">+ New AI block</Button>
       </div>
 
       {/* Table */}
-      <div className="rounded-lg border border-border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-border bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-gray-50">
               <th className="px-4 py-3 text-left text-sm font-medium text-text">
                 <div className="flex items-center gap-1">
                   AI block
-                  <span className="text-text-secondary text-xs">&#8645;</span>
+                  <span className="text-xs text-text-secondary">&#8645;</span>
                 </div>
               </th>
               <th className="px-4 py-3 text-left text-sm font-medium text-text">
                 <div className="flex items-center gap-1">
                   Tag
-                  <span className="text-text-secondary text-xs">&#8645;</span>
-                  <span className="text-text-secondary text-xs">&#9660;</span>
+                  <span className="text-xs text-text-secondary">&#8645;</span>
+                  <span className="text-xs text-text-secondary">&#9660;</span>
                 </div>
               </th>
               <th className="px-4 py-3 text-left text-sm font-medium text-text">
                 <div className="flex items-center gap-1">
                   Created by
-                  <span className="text-text-secondary text-xs">&#9660;</span>
+                  <span className="text-xs text-text-secondary">&#9660;</span>
                 </div>
               </th>
               <th className="px-4 py-3 text-left text-sm font-medium text-text">
                 <div className="flex items-center gap-1">
                   Last modified
-                  <span className="text-text-secondary text-xs">&#8645;</span>
+                  <span className="text-xs text-text-secondary">&#8645;</span>
                 </div>
               </th>
               <th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th>

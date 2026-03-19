@@ -1,70 +1,139 @@
 "use client";
 
 import { Fragment, useState } from "react";
-import { Plus, ArrowUpDown, Filter, ChevronLeft, ChevronRight } from "lucide-react";
+import { Plus, ArrowUpDown, Filter } from "lucide-react";
+import { Button, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, Badge } from "@/components/ds";
 
 const mockPayments = [
-  { id: "1", reference: "MYDD-01051", from: "Skyler Peterson", amount: 110.00, date: "6 Mar 2026", type: "", invoices: [{ number: "TRR-006295", amount: 110.00, date: "Fri 6 Mar 2026" }] },
-  { id: "2", reference: "MYDD-01052", from: "Skyler Peterson", amount: 110.00, date: "6 Mar 2026", type: "", invoices: [{ number: "TRR-006296", amount: 110.00, date: "Fri 6 Mar 2026" }] },
-  { id: "3", reference: "MYDD-01053", from: "Skyler Peterson", amount: 212.30, date: "6 Mar 2026", type: "", invoices: [{ number: "TRR-006297", amount: 212.30, date: "Fri 6 Mar 2026" }] },
-  { id: "4", reference: "MYDD-01048", from: "elsa frozen", amount: 35.00, date: "4 Mar 2026", type: "Credit", invoices: [] },
-  { id: "5", reference: "MYDD-01046", from: "A Jr", amount: 110.00, date: "27 Feb 2026", type: "", invoices: [{ number: "TRR-006280", amount: 110.00, date: "Thu 27 Feb 2026" }] },
-  { id: "6", reference: "MYDD-01045", from: "A Jr", amount: 148.71, date: "25 Feb 2026", type: "", invoices: [{ number: "TRR-006279", amount: 148.71, date: "Tue 25 Feb 2026" }] },
-  { id: "7", reference: "MYDD-01042", from: "rakesh soni", amount: 110.00, date: "24 Feb 2026", type: "Credit", invoices: [] },
-  { id: "8", reference: "MYDD-01044", from: "rakesh soni", amount: 2000.00, date: "24 Feb 2026", type: "Credit", invoices: [] },
-  { id: "9", reference: "MYDD-01043", from: "rakesh soni", amount: 1000.00, date: "24 Feb 2026", type: "Credit", invoices: [] },
-  { id: "10", reference: "MYDD-01041", from: "A test", amount: 100.00, date: "23 Feb 2026", type: "Credit", invoices: [] },
+  {
+    id: "1",
+    reference: "MYDD-01051",
+    from: "Skyler Peterson",
+    amount: 110.0,
+    date: "6 Mar 2026",
+    type: "",
+    invoices: [{ number: "TRR-006295", amount: 110.0, date: "Fri 6 Mar 2026" }],
+  },
+  {
+    id: "2",
+    reference: "MYDD-01052",
+    from: "Skyler Peterson",
+    amount: 110.0,
+    date: "6 Mar 2026",
+    type: "",
+    invoices: [{ number: "TRR-006296", amount: 110.0, date: "Fri 6 Mar 2026" }],
+  },
+  {
+    id: "3",
+    reference: "MYDD-01053",
+    from: "Skyler Peterson",
+    amount: 212.3,
+    date: "6 Mar 2026",
+    type: "",
+    invoices: [{ number: "TRR-006297", amount: 212.3, date: "Fri 6 Mar 2026" }],
+  },
+  {
+    id: "4",
+    reference: "MYDD-01048",
+    from: "elsa frozen",
+    amount: 35.0,
+    date: "4 Mar 2026",
+    type: "Credit",
+    invoices: [],
+  },
+  {
+    id: "5",
+    reference: "MYDD-01046",
+    from: "A Jr",
+    amount: 110.0,
+    date: "27 Feb 2026",
+    type: "",
+    invoices: [{ number: "TRR-006280", amount: 110.0, date: "Thu 27 Feb 2026" }],
+  },
+  {
+    id: "6",
+    reference: "MYDD-01045",
+    from: "A Jr",
+    amount: 148.71,
+    date: "25 Feb 2026",
+    type: "",
+    invoices: [{ number: "TRR-006279", amount: 148.71, date: "Tue 25 Feb 2026" }],
+  },
+  {
+    id: "7",
+    reference: "MYDD-01042",
+    from: "rakesh soni",
+    amount: 110.0,
+    date: "24 Feb 2026",
+    type: "Credit",
+    invoices: [],
+  },
+  {
+    id: "8",
+    reference: "MYDD-01044",
+    from: "rakesh soni",
+    amount: 2000.0,
+    date: "24 Feb 2026",
+    type: "Credit",
+    invoices: [],
+  },
+  {
+    id: "9",
+    reference: "MYDD-01043",
+    from: "rakesh soni",
+    amount: 1000.0,
+    date: "24 Feb 2026",
+    type: "Credit",
+    invoices: [],
+  },
+  {
+    id: "10",
+    reference: "MYDD-01041",
+    from: "A test",
+    amount: 100.0,
+    date: "23 Feb 2026",
+    type: "Credit",
+    invoices: [],
+  },
 ];
 
 export default function PaymentsPage() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       {/* Header */}
-      <div className="mb-5 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Payments</h1>
-        <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+      <PageHeader title="Payments">
+        <Button variant="secondary">
           <Plus className="h-4 w-4" />
           New payment
-        </button>
-      </div>
+        </Button>
+      </PageHeader>
 
       {/* Search */}
-      <div className="mb-4 flex items-center gap-2">
-        <input
-          type="text"
-          placeholder="Search for recipient name and payment number"
-          className="h-10 flex-1 rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-        />
-        <button className="h-10 rounded-lg border border-border bg-white px-5 text-sm font-medium text-text hover:bg-gray-50">
-          Search
-        </button>
-      </div>
+      <SearchBar placeholder="Search for recipient name and payment number" />
 
       {/* Table */}
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
+      <div className="overflow-x-auto rounded-lg border border-border bg-white">
         <table className="w-full">
-          <thead>
-            <tr className="border-b border-border bg-purple-50">
-              <th className="w-[280px] px-4 py-3 text-left text-sm font-medium text-text">
-                <div className="flex items-center gap-1.5">
-                  Payment #
-                  <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
-                  <Filter className="h-3.5 w-3.5 text-text-secondary" />
-                </div>
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-text">From</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text">Amount</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-text">
-                <div className="flex items-center justify-end gap-1.5">
-                  Payment date
-                  <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
-                </div>
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+          <TableHead>
+            <Th className="w-[280px]">
+              <div className="flex items-center gap-1.5">
+                Payment #
+                <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
+                <Filter className="h-3.5 w-3.5 text-text-secondary" />
+              </div>
+            </Th>
+            <Th>From</Th>
+            <Th align="right">Amount</Th>
+            <Th align="right">
+              <div className="flex items-center justify-end gap-1.5">
+                Payment date
+                <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
+              </div>
+            </Th>
+          </TableHead>
+          <TableBody>
             {mockPayments.map((payment) => (
               <Fragment key={payment.id}>
                 <tr
@@ -75,12 +144,18 @@ export default function PaymentsPage() {
                     }
                   }}
                 >
-                  <td className="px-4 py-3 text-sm">
+                  <Td>
                     <div className="flex items-center gap-2">
                       {payment.invoices.length > 0 ? (
                         <button className="flex h-5 w-5 items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
                           {expandedId === payment.id ? (
-                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg
+                              width="14"
+                              height="14"
+                              viewBox="0 0 14 14"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
                               <circle cx="7" cy="7" r="6.5" stroke="currentColor" />
                               <line x1="4" y1="7" x2="10" y2="7" stroke="currentColor" strokeWidth="1.5" />
                             </svg>
@@ -92,18 +167,16 @@ export default function PaymentsPage() {
                         <span className="w-5" />
                       )}
                       <span className="text-text">{payment.reference}</span>
-                      {payment.type && (
-                        <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[11px] font-medium text-gray-500">
-                          {payment.type}
-                        </span>
-                      )}
+                      {payment.type && <Badge variant="gray">{payment.type}</Badge>}
                     </div>
-                  </td>
-                  <td className="px-4 py-3 text-sm text-primary hover:underline">{payment.from}</td>
-                  <td className="px-4 py-3 text-right text-sm text-text">
+                  </Td>
+                  <Td className="text-primary hover:underline">{payment.from}</Td>
+                  <Td align="right" className="text-text">
                     {payment.amount.toLocaleString("en-AU", { minimumFractionDigits: 2 })}
-                  </td>
-                  <td className="px-4 py-3 text-right text-sm text-text-secondary">{payment.date}</td>
+                  </Td>
+                  <Td align="right" className="text-text-secondary">
+                    {payment.date}
+                  </Td>
                 </tr>
                 {expandedId === payment.id && payment.invoices.length > 0 && (
                   <tr>
@@ -133,31 +206,9 @@ export default function PaymentsPage() {
                 )}
               </Fragment>
             ))}
-          </tbody>
+          </TableBody>
         </table>
-
-        {/* Pagination */}
-        <div className="flex items-center justify-end border-t border-border px-4 py-3 text-sm text-text-secondary">
-          <span>1-10 of 608 Items</span>
-          <div className="ml-4 flex items-center gap-1">
-            <button className="flex h-7 w-7 items-center justify-center rounded text-text-secondary hover:bg-gray-100">
-              <ChevronLeft className="h-4 w-4" />
-            </button>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-primary bg-white text-xs font-medium text-primary">
-              1
-            </button>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-border bg-white text-xs font-medium text-text-secondary hover:bg-gray-50">2</button>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-border bg-white text-xs font-medium text-text-secondary hover:bg-gray-50">3</button>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-border bg-white text-xs font-medium text-text-secondary hover:bg-gray-50">4</button>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-border bg-white text-xs font-medium text-text-secondary hover:bg-gray-50">5</button>
-            <span className="px-1 text-text-secondary">···</span>
-            <button className="flex h-7 w-7 items-center justify-center rounded border border-border bg-white text-xs font-medium text-text-secondary hover:bg-gray-50">61</button>
-            <button className="flex h-7 w-7 items-center justify-center rounded text-text-secondary hover:bg-gray-100">
-              <ChevronRight className="h-4 w-4" />
-            </button>
-          </div>
-          <span className="ml-4">10 / page</span>
-        </div>
+        <Pagination currentPage={1} totalPages={61} totalItems={608} itemsPerPage={10} />
       </div>
     </div>
   );
