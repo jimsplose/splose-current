@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   ChevronLeft,
@@ -21,8 +21,10 @@ import {
   Video,
   Monitor,
   UserPlus,
+  Activity,
+  CalendarClock,
 } from "lucide-react";
-import { Button, Badge } from "@/components/ds";
+import { Button, Badge, FormInput, FormSelect } from "@/components/ds";
 
 type Appointment = {
   id: string;
@@ -42,6 +44,18 @@ type Practitioner = {
   id: string;
   name: string;
   color: string;
+};
+
+type PopoverState = {
+  visible: boolean;
+  x: number;
+  y: number;
+  time: string;
+  hour: number;
+  minute: number;
+  dateStr: string;
+  practitionerName: string;
+  practitionerId: string;
 };
 
 const HOUR_HEIGHT = 80; // pixels per hour row
@@ -77,9 +91,23 @@ function formatTime24to12(hour: number, minute: number): string {
   return `${h}:${mm} ${ampm}`;
 }
 
+function formatTimeShort(hour: number, minute: number): string {
+  const h12 = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
+  const ampm = hour >= 12 ? "pm" : "am";
+  const mm = minute === 0 ? "" : `:${minute.toString().padStart(2, "0")}`;
+  return `${h12}${mm} ${ampm}`;
+}
+
 function isGroupAppointment(appt: Appointment): boolean {
   const t = appt.type.toLowerCase();
   return t.includes("group");
+}
+
+function isDateInPast(dateStr: string): boolean {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const d = new Date(dateStr + "T00:00:00");
+  return d < today;
 }
 
 type ViewMode = "Week" | "Month" | "Day";
@@ -107,12 +135,45 @@ export default function CalendarView({
   const [createDate, setCreateDate] = useState("");
   const [createClient, setCreateClient] = useState("");
   const [createPractitioner, setCreatePractitioner] = useState("");
-  const [createType, setCreateType] = useState("Follow Up");
+  const [createService, setCreateService] = useState("");
+  const [createType, setCreateType] = useState("Initial Assessment");
+  const [createCase, setCreateCase] = useState("");
+  const [createLocation, setCreateLocation] = useState("Hands Together Therapy (East)");
+  const [createRoom, setCreateRoom] = useState("");
+  const [createRepeat, setCreateRepeat] = useState(false);
+  const [createProviderTravel, setCreateProviderTravel] = useState(false);
+  const [createProviderTravelNonLabour, setCreateProviderTravelNonLabour] = useState(false);
+  const [createActivityTransport, setCreateActivityTransport] = useState(false);
   const [createNotes, setCreateNotes] = useState("");
   const [viewMode, setViewMode] = useState<ViewMode>("Week");
   const [calendarMode, setCalendarMode] = useState<CalendarMode>("Calendar");
   const [showViewDropdown, setShowViewDropdown] = useState(false);
   const [showCalendarModeDropdown, setShowCalendarModeDropdown] = useState(false);
+  const [popover, setPopover] = useState<PopoverState>({
+    visible: false,
+    x: 0,
+    y: 0,
+    time: "",
+    hour: 0,
+    minute: 0,
+    dateStr: "",
+    practitionerName: "",
+    practitionerId: "",
+  });
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  // Close popover on outside click
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (popoverRef.current && !popoverRef.current.contains(e.target as Node)) {
+        setPopover((prev) => ({ ...prev, visible: false }));
+      }
+    }
+    if (popover.visible) {
+      document.addEventListener("mousedown", handleClick);
+      return () => document.removeEventListener("mousedown", handleClick);
+    }
+  }, [popover.visible]);
 
   // Dev Navigator: ?state= param wiring
   const searchParams = useSearchParams();
@@ -140,11 +201,15 @@ export default function CalendarView({
   const today = new Date();
   const monthYear = today.toLocaleDateString("en-AU", { month: "long", year: "numeric" });
 
-  function openCreateModal(dateStr?: string, hour?: number) {
+  function openCreateModal(dateStr?: string, hour?: number, minute?: number, practitionerId?: string) {
+    const m = minute ?? 0;
     if (dateStr && hour !== undefined) {
       setCreateDate(dateStr);
-      setCreateTime(formatTime24to12(hour, 0));
-      setCreateEndTime(formatTime24to12(hour + 1, 0));
+      setCreateTime(formatTime24to12(hour, m));
+      // Default 30 min appointment
+      const endMinute = m + 30;
+      const endHour = hour + Math.floor(endMinute / 60);
+      setCreateEndTime(formatTime24to12(endHour, endMinute % 60));
     } else {
       const now = new Date();
       const currentHour = now.getHours();
@@ -153,10 +218,47 @@ export default function CalendarView({
       setCreateEndTime(formatTime24to12(currentHour + 1, 0));
     }
     setCreateClient("");
-    setCreatePractitioner(practitioners[0]?.id || "");
-    setCreateType("Follow Up");
+    setCreatePractitioner(practitionerId || practitioners[0]?.id || "");
+    setCreateService("");
+    setCreateCase("");
+    setCreateLocation("Hands Together Therapy (East)");
+    setCreateRoom("");
+    setCreateRepeat(false);
+    setCreateProviderTravel(false);
+    setCreateProviderTravelNonLabour(false);
+    setCreateActivityTransport(false);
     setCreateNotes("");
+    setPopover((prev) => ({ ...prev, visible: false }));
     setShowCreateModal(true);
+  }
+
+  function handleDayCellClick(
+    e: React.MouseEvent<HTMLDivElement>,
+    dateStr: string,
+    hour: number,
+    prac: Practitioner,
+  ) {
+    // Calculate minute from click position within the cell
+    const rect = e.currentTarget.getBoundingClientRect();
+    const yOffset = e.clientY - rect.top;
+    const minuteFraction = yOffset / HOUR_HEIGHT;
+    const minute = Math.floor(minuteFraction * 60 / 30) * 30; // snap to 30-min
+    const clampedMinute = Math.min(minute, 30);
+
+    const timeLabel = formatTimeShort(hour, clampedMinute);
+
+    // Position popover near click
+    setPopover({
+      visible: true,
+      x: e.clientX,
+      y: e.clientY,
+      time: timeLabel,
+      hour,
+      minute: clampedMinute,
+      dateStr,
+      practitionerName: prac.name,
+      practitionerId: prac.id,
+    });
   }
 
   function handleCellClick(dateStr: string, hour: number) {
@@ -354,7 +456,7 @@ export default function CalendarView({
                           key={prac.id}
                           className="relative cursor-pointer border-r border-b border-border bg-purple-50/30 last:border-r-0 hover:bg-gray-100/50"
                           style={{ height: `${HOUR_HEIGHT}px` }}
-                          onClick={() => handleCellClick(currentDay, hour)}
+                          onClick={(e) => handleDayCellClick(e, currentDay, hour, prac)}
                         >
                           {hourAppts.map((appt) => {
                             const pos = getApptStyle(appt);
