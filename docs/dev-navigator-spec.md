@@ -7,6 +7,42 @@ A development-only floating toolbar, state registry, and navigation menu for bro
 - **Phase 1: COMPLETE (2026-03-18)** — State registry (`src/lib/state-registry.ts`) with 30+ pages and 60+ variants, floating toolbar pill, dark panel with search and grouped page tree, keyboard shortcut (Ctrl+Shift+N), `?devnav=0` to hide.
 - **Phase 2: COMPLETE (2026-03-18)** — Wired `?state=` URL param into Calendar (7 variants), Waitlist (3 variants), Settings (25 variants), Settings AI (2 variants). All interactive pages navigable via URL.
 
+## Registry Audit Workflow (Menu Option 5)
+
+When selected from the session start menu, run this workflow to ensure the registry is complete:
+
+### Step 1: Cross-check routes against registry
+
+1. Glob all `src/app/**/page.tsx` files to get the full list of routes
+2. Compare against entries in `src/lib/state-registry.ts`
+3. Flag any routes missing from the registry
+
+### Step 2: Cross-check states against page code
+
+For each page with interactive states (tabs, modals, view toggles):
+1. Read the page source code
+2. Check that all interactive states are registered as `StateVariant` entries
+3. Verify `?state=<id>` is wired in the page component for each variant
+4. Flag any states that exist in code but aren't in the registry
+
+### Step 3: Cross-check against screenshot catalog
+
+1. Read `screenshots/screenshot-catalog.md`
+2. For each catalog entry with a distinct state (e.g. "modal open", "tab selected"), verify a corresponding variant exists in the registry
+3. Add missing variants
+
+### Step 4: Fix gaps
+
+1. Add missing `PageEntry` and `StateVariant` entries to the registry
+2. Wire `?state=` support for any new interactive states
+3. Verify TypeScript compiles (`npx tsc --noEmit`)
+
+### Step 5: Report
+
+Present a summary: pages checked, variants found, gaps fixed.
+
+---
+
 The spec below is retained as a reference for how the system works and for future enhancements.
 
 ---

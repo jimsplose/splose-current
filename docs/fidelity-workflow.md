@@ -8,7 +8,7 @@ Use **parallel subagents** for speed when working through fidelity gaps.
 Puppeteer is a dev dependency and bundles Chromium automatically via `npm install`. No separate browser download step needed. If screenshots fail, run `npm install puppeteer` to re-download.
 
 ### Design specs
-Before working on a page, check if a design spec exists at `screenshots/specs/<page-name>.md`. If not, extract one first (see `docs/design-spec-workflow.md`). Agents use exact values from specs, not approximations.
+Before working on a page, check if a design spec exists at `screenshots/specs/<page-name>.md`. **If not, extract one first** by following `docs/design-spec-workflow.md`. This is not optional — agents produce better results when they have exact values to target. Skip only if the page has no reference screenshots.
 
 ### Design System
 **All fidelity work MUST use design system components.** See the Component Library table in `docs/agent-block.md` for the full list. Import from `@/components/ds`. Run `npm run storybook` to see all components live.
@@ -92,14 +92,25 @@ After code changes are committed, update `screenshots/screenshot-catalog.md`:
 
 **This step is mandatory.** The catalog is the source of truth for fidelity status.
 
-## Step 5: Build, commit, push
+## Step 5: Update Dev Navigator registry
+
+After code changes, verify the state registry (`src/lib/state-registry.ts`) is up to date:
+
+1. **New pages** — If any new page routes were created, add a `PageEntry` with at least a `default` variant
+2. **New states** — If any new interactive states were added (tabs, modals, view toggles), add `StateVariant` entries and ensure `?state=` is wired in the page component
+3. **Removed pages** — If any pages were removed, delete the corresponding registry entries
+4. **Verify completeness** — Cross-check `src/app/**/page.tsx` routes against the registry to catch any gaps
+
+This keeps the Dev Navigator accurate so Jim can navigate to every page and state.
+
+## Step 6: Build, commit, push
 
 1. Run `npx next build` to verify no errors — **never push a broken build**
-2. Stage and commit all changes (including catalog updates) with a descriptive message
+2. Stage and commit all changes (including catalog and registry updates) with a descriptive message
 3. Push to the `claude/*` branch — GitHub Action auto-promotes to production after Vercel build succeeds
 4. Note the Vercel preview URL in the session progress log (see `docs/progress.md`)
 
-## Step 6: Before/After Review
+## Step 7: Before/After Review
 
 After each round of changes is pushed, present Jim with a visual progress report:
 
@@ -139,9 +150,9 @@ Present as a structured summary like:
 **Preview URL:** https://splose-current-git-claude-xxx.vercel.app
 ```
 
-## Step 7: Return to menu
+## Step 8: Return to menu
 
-After completing a round of fidelity work (Steps 1-6), **show the session start menu again** (see CLAUDE.md). Include a summary of what was improved and what gaps remain.
+After completing a round of fidelity work (Steps 1-7), **show the session start menu again** (see CLAUDE.md). Include a summary of what was improved and what gaps remain.
 
 Jim may want to:
 - Run another fidelity round (pick more gaps)

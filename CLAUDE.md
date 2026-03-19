@@ -14,7 +14,7 @@ Use AskUserQuestion with these options:
 > 2. **Upload screenshots** — Upload reference screenshots (user will paste/attach images). Claude saves, catalogs, and creates fidelity gaps. Follow `docs/screenshot-workflow.md`
 > 3. **Run fidelity loops** — Pick open gaps from `docs/fidelity-gaps.md` (by priority), implement fixes, and visually verify against references. Follow `docs/fidelity-workflow.md`
 > 4. **Visual audit** — Verify implemented pages match references, update Match status in catalog, reopen/create gaps for mismatches. Follow `docs/visual-audit-workflow.md`
-> 5. **Build Dev Navigator** — Implement Dev Toolbar, state registry, and navigation menu. Follow `docs/dev-navigator-spec.md`
+> 5. **Update Dev Navigator registry** — Verify all pages and `?state=` variants are in `src/lib/state-registry.ts`. Cross-check against routes and screenshots. Follow `docs/dev-navigator-spec.md`
 > 6. **Something else** — Free-form request
 
 **Do NOT skip this step. Do NOT start working without the user's menu selection.**
@@ -33,7 +33,7 @@ Upload screenshots → Fidelity loops → Visual audit → (repeat)
 - **Upload (2)** — Jim pastes/attaches images. Claude saves to `screenshots/reference/`, catalogs them, and creates fidelity gaps for mismatches. All in one step.
 - **Fidelity loops (3)** — implements code changes to close those gaps
 - **Visual audit (4)** — verifies the work actually matches, updates the catalog Match column, and reopens/creates gaps for anything still wrong
-- **Dev Navigator (5)** — independent infrastructure, build anytime
+- **Dev Navigator (5)** — verify all pages/states are registered, fix gaps in navigation
 
 ### Gap completion rule (single source of truth)
 
@@ -48,7 +48,7 @@ Upload screenshots → Fidelity loops → Visual audit → (repeat)
 | Review status | `docs/progress.md`, `docs/fidelity-gaps.md` |
 | Upload screenshots | `docs/screenshot-workflow.md`, `docs/design-spec-workflow.md` |
 | Fidelity improvements | `docs/fidelity-gaps.md`, `docs/fidelity-workflow.md`, `docs/agent-block.md`, `docs/quality-gate.md`, `docs/design-spec-workflow.md` |
-| Visual audit | `docs/visual-audit-workflow.md` |
+| Visual audit | `docs/visual-audit-workflow.md`, `docs/design-spec-workflow.md` |
 | Design spec extraction | `docs/design-spec-workflow.md` |
 | Dev Navigator | `docs/dev-navigator-spec.md` |
 | Understanding the codebase | `docs/project-structure.md` |
