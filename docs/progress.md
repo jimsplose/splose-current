@@ -181,7 +181,27 @@ Append-only log. Each session adds an entry summarizing what was done.
 
 ---
 
-## Session — 2026-03-20
+## Session — 2026-03-20 (session A)
+
+**Branch**: `claude/show-menu-6Crdt`
+
+### Completed
+- **DS component migrations (10 components across 10+ files)**:
+  - Toggle → settings/page.tsx, settings/sms-settings (removed local Toggle functions, uses DS Toggle)
+  - Tab → waitlist/page.tsx (3 tab bars), settings/tags (1 tab bar)
+  - Modal → SendNoteModal.tsx, InvoiceDetailClient.tsx
+  - Navbar → notes/new, notes/[id], notes/[id]/edit, payments/new (replaced inline ArrowLeft headers)
+  - Filter → notes/new, notes/[id]/edit (view toggle segmented controls)
+  - Select → payments/new (searchable client dropdown, replaced 40 lines)
+  - EmptyState → contacts/[id] (associated clients table)
+  - Dropdown → settings/ai (prompt + AI block actions)
+- **Clients list filter dropdowns** — Added Tags filter and Active/Archived status dropdowns. Extracted ClientsPageClient.tsx for interactive state while keeping server-side data fetching.
+- **Settings Splose AI** — Added Edit prompt modal, AI block actions dropdown (Edit/Duplicate/Delete), populated AI block library with 5 sample blocks, and Edit AI block modal. Saved prompts + AI blocks tables migrated to DS DataTable.
+- **Fidelity gaps doc updated** — Marked 10 DS migration gaps as complete: Modal, Dropdown, EmptyState, Select, Navbar, Filter, Card, AsyncSelect, Clients list filter dropdowns, Settings AI
+
+---
+
+## Session — 2026-03-20 (session B)
 
 **Branch**: `claude/visual-audit-analysis-1WnWb`
 
