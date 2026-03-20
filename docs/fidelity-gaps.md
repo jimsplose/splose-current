@@ -178,14 +178,14 @@ All 22 DS components have been **created** in `src/components/ds/` with full imp
 
 ### Group V — Routing bugs (`src/app/`)
 - [x] **Settings duplicate sidebar bug** — Removed embedded sidebar from rooms-resources and services pages. Layout.tsx already provides the sidebar. (2026-03-20)
-- [ ] **Settings ?state= routing** — State registry uses `?state=` params for settings pages but the actual routing uses sub-routes (`/settings/integrations`, etc.). The `?state=` param is ignored. State registry needs updating OR settings page.tsx needs to wire `?state=` support.
+- [x] **Settings ?state= routing** — State registry already uses sub-routes correctly. Added missing new routes (tax-rates, data-export, data-import) to registry. (2026-03-20)
 - [x] **Settings placeholder pages** — All 10 stub pages restored with full implementations + 3 new routes (Tax Rates, Data Export, Data Import). (2026-03-20)
 
 ### Group W — Missing/broken pages
-- [ ] **Invoice detail 404** — `/invoices/[id]` route returns 404. The invoice view page exists at `/invoices/[id]/page.tsx` but may not be wired correctly for all IDs.
-- [ ] **Note view 404** — `/notes/[id]` route returns 404 for ID 1. May need valid note IDs from seed data.
-- [ ] **Note edit timeout** — `/notes/[id]/edit` times out on navigation. Likely an infinite loop or hanging server-side data fetch.
-- [ ] **Waitlist map not rendering** — `/waitlist?state=map` shows Screener tab instead of Map view. The `?state=map` parameter is not switching to the map view component.
+- [x] **Invoice detail 404** — Was using ID `1` but seed data uses CUIDs. Updated state registry to use actual seed ID. Page loads correctly. (2026-03-20)
+- [x] **Note view 404** — Same issue — updated state registry to use actual seed CUID. Page loads correctly. (2026-03-20)
+- [x] **Note edit timeout** — Same ID issue as above. With correct seed ID, page loads. (2026-03-20)
+- [x] **Waitlist map not rendering** — Was using wrong state param `?state=map`. Correct param is `?state=waitlist-map`. Map view renders correctly. (2026-03-20)
 
 ---
 

@@ -163,7 +163,7 @@ export const stateRegistry: PageEntry[] = [
     children: [
       {
         path: "/invoices/[id]",
-        resolvedPath: "/invoices/1",
+        resolvedPath: "/invoices/cmmyhkhzk0028wpwgeu2hcnsj",
         label: "Invoice Detail",
         variants: [{ id: "default", label: "Invoice view" }],
       },
@@ -184,13 +184,13 @@ export const stateRegistry: PageEntry[] = [
     children: [
       {
         path: "/notes/[id]",
-        resolvedPath: "/notes/1",
+        resolvedPath: "/notes/cmmyhkay2001hwpwg2vp2u2yw",
         label: "View Note",
         variants: [{ id: "default", label: "Note view" }],
       },
       {
         path: "/notes/[id]/edit",
-        resolvedPath: "/notes/1/edit",
+        resolvedPath: "/notes/cmmyhkay2001hwpwg2vp2u2yw/edit",
         label: "Edit Note",
         variants: [
           { id: "default", label: "Edit note" },
@@ -276,6 +276,9 @@ export const stateRegistry: PageEntry[] = [
       { path: "/settings/body-charts", label: "Body Charts", variants: [{ id: "default", label: "Body Charts" }] },
       { path: "/settings/payment-settings", label: "Payment Settings", variants: [{ id: "default", label: "Payment Settings" }] },
       { path: "/settings/invoice-settings", label: "Invoice Settings", variants: [{ id: "default", label: "Invoice Settings" }] },
+      { path: "/settings/tax-rates", label: "Tax Rates", variants: [{ id: "default", label: "Tax Rates" }] },
+      { path: "/settings/data-export", label: "Data Export", variants: [{ id: "default", label: "Data Export" }] },
+      { path: "/settings/data-import", label: "Data Import", variants: [{ id: "default", label: "Data Import" }] },
       {
         path: "/settings/ai",
         label: "Splose AI",
