@@ -11,21 +11,21 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
     return (
       <div>
         {label && (
-          <label htmlFor={inputId} className="mb-1 block text-sm font-medium text-text-secondary">
+          <label htmlFor={inputId} className="mb-1 block text-label-lg text-text-secondary">
             {label}
           </label>
         )}
         <input
           ref={ref}
           id={inputId}
-          className={`w-full rounded-lg border bg-white px-3 py-2 text-sm transition-colors outline-none ${
+          className={`w-full rounded-lg border bg-white px-3 py-2 text-body-md transition-colors outline-none ${
             error
               ? "border-red-400 focus:border-red-500 focus:ring-1 focus:ring-red-200"
               : "border-border focus:border-primary focus:ring-1 focus:ring-primary/20"
           } ${className}`}
           {...props}
         />
-        {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
+        {error && <p className="mt-1 text-caption-md text-red-500">{error}</p>}
       </div>
     );
   },

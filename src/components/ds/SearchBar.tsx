@@ -19,11 +19,11 @@ export default function SearchBar({ placeholder = "Search...", onSearch, default
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && onSearch?.(query)}
-        className="h-10 flex-1 rounded-lg border border-border bg-white px-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+        className="h-10 flex-1 rounded-lg border border-border bg-white px-4 text-body-md outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
       />
       <button
         onClick={() => onSearch?.(query)}
-        className="h-10 rounded-lg border border-border bg-white px-4 text-sm font-medium text-text hover:bg-gray-50"
+        className="h-10 rounded-lg border border-border bg-white px-4 text-label-lg text-text hover:bg-gray-50"
       >
         Search
       </button>

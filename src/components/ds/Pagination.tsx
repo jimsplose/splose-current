@@ -34,7 +34,7 @@ export default function Pagination({
   }
 
   return (
-    <div className="flex items-center justify-end border-t border-border px-4 py-3 text-sm text-text-secondary">
+    <div className="flex items-center justify-end border-t border-border px-4 py-3 text-body-md text-text-secondary">
       <span>
         {totalItems != null
           ? `${startItem}-${endItem} of ${totalItems} items`
@@ -57,7 +57,7 @@ export default function Pagination({
             <button
               key={p}
               onClick={() => onPageChange?.(p)}
-              className={`flex h-7 w-7 items-center justify-center rounded border text-xs font-medium ${
+              className={`flex h-7 w-7 items-center justify-center rounded border text-label-md ${
                 p === currentPage
                   ? "border-primary bg-white text-primary"
                   : "border-border bg-white text-text-secondary hover:bg-gray-50"

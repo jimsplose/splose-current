@@ -21,14 +21,14 @@ export default function DateRangeFilter({
         type="date"
         value={startDate}
         onChange={(e) => onStartChange?.(e.target.value)}
-        className="rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+        className="rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
       />
       <span className="text-text-secondary">&rarr;</span>
       <input
         type="date"
         value={endDate}
         onChange={(e) => onEndChange?.(e.target.value)}
-        className="rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+        className="rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
       />
     </div>
   );

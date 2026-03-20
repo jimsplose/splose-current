@@ -15,7 +15,7 @@ const paddingClasses = {
 export default function Card({ children, title, className = "", padding = "md" }: CardProps) {
   return (
     <div className={`rounded-lg border border-border bg-white ${paddingClasses[padding]} ${className}`}>
-      {title && <h3 className="mb-3 text-sm font-semibold text-text">{title}</h3>}
+      {title && <h3 className="mb-3 text-heading-sm text-text">{title}</h3>}
       {children}
     </div>
   );

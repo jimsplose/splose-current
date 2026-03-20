@@ -40,7 +40,7 @@ export default function Modal({ open, onClose, title, children, footer, maxWidth
       <div className={`w-full ${widthClasses[maxWidth]} rounded-xl bg-white shadow-xl`}>
         {title && (
           <div className="flex items-center justify-between border-b border-border px-6 py-4">
-            <h2 className="text-lg font-semibold text-text">{title}</h2>
+            <h2 className="text-heading-lg text-text">{title}</h2>
             <button onClick={onClose} className="rounded p-1 text-text-secondary hover:bg-gray-100">
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />

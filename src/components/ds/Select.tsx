@@ -48,11 +48,11 @@ export default function Select({
 
   return (
     <div ref={ref} className={`relative ${className}`}>
-      {label && <label className="mb-1 block text-sm font-medium text-text-secondary">{label}</label>}
+      {label && <label className="mb-1 block text-label-lg text-text-secondary">{label}</label>}
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="flex h-10 w-full items-center justify-between rounded-lg border border-border bg-white px-3 text-left text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+        className="flex h-10 w-full items-center justify-between rounded-lg border border-border bg-white px-3 text-left text-body-md outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
       >
         <span className={selected ? "text-text" : "text-text-secondary"}>{selected?.label || placeholder}</span>
         <ChevronDown className="h-4 w-4 text-text-secondary" />
@@ -68,7 +68,7 @@ export default function Select({
                   placeholder="Search..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="h-8 w-full rounded border border-border bg-white pl-8 pr-3 text-sm outline-none focus:border-primary"
+                  className="h-8 w-full rounded border border-border bg-white pl-8 pr-3 text-body-md outline-none focus:border-primary"
                   autoFocus
                 />
               </div>
@@ -76,7 +76,7 @@ export default function Select({
           )}
           <div className="max-h-48 overflow-y-auto">
             {filtered.length === 0 ? (
-              <div className="px-3 py-2 text-sm text-text-secondary">No results</div>
+              <div className="px-3 py-2 text-body-md text-text-secondary">No results</div>
             ) : (
               filtered.map((option) => (
                 <button
@@ -87,7 +87,7 @@ export default function Select({
                     setOpen(false);
                     setSearch("");
                   }}
-                  className={`flex w-full items-center px-3 py-2 text-sm transition-colors hover:bg-purple-50 ${
+                  className={`flex w-full items-center px-3 py-2 text-body-md transition-colors hover:bg-purple-50 ${
                     value === option.value ? "bg-purple-50 font-medium text-primary" : "text-text"
                   }`}
                 >

@@ -17,7 +17,7 @@ export default function Collapse({ title, children, defaultOpen = false, classNa
     <div className={`border-b border-border pb-3 ${className}`}>
       <button
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center justify-between py-2 text-sm font-semibold text-text"
+        className="flex w-full items-center justify-between py-2 text-heading-sm text-text"
       >
         {title}
         <ChevronDown

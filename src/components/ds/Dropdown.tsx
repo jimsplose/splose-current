@@ -51,7 +51,7 @@ export default function Dropdown({ trigger, items, onSelect, align = "left", cla
                   onSelect(item.value);
                   setOpen(false);
                 }}
-                className={`w-full px-4 py-2 text-left text-sm transition-colors hover:bg-gray-50 ${
+                className={`w-full px-4 py-2 text-left text-body-md transition-colors hover:bg-gray-50 ${
                   item.danger ? "text-red-600" : "text-text"
                 }`}
               >

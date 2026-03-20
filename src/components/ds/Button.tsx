@@ -17,9 +17,9 @@ const variantClasses: Record<ButtonVariant, string> = {
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: "px-3 py-1.5 text-sm",
-  md: "px-4 py-2 text-sm",
-  lg: "px-6 py-2.5 text-sm",
+  sm: "px-3 py-1.5 text-label-lg",
+  md: "px-4 py-2 text-label-lg",
+  lg: "px-6 py-2.5 text-label-lg",
 };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -27,7 +27,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         ref={ref}
-        className={`inline-flex items-center gap-1.5 rounded-lg font-medium transition-colors ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
+        className={`inline-flex items-center gap-1.5 rounded-lg transition-colors ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
         {...props}
       >
         {children}

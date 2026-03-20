@@ -15,7 +15,7 @@ export default function Navbar({ backHref, title, badge, children }: NavbarProps
         <Link href={backHref} className="flex items-center text-text-secondary hover:text-text">
           <ArrowLeft className="h-4 w-4" />
         </Link>
-        <h1 className="text-lg font-semibold text-text">{title}</h1>
+        <h1 className="text-heading-lg text-text">{title}</h1>
         {badge}
       </div>
       {children && <div className="flex items-center gap-2">{children}</div>}

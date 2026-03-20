@@ -20,7 +20,7 @@ export default function Status({ color = "gray", label, className = "" }: Status
   return (
     <span className={`inline-flex items-center gap-2 ${className}`}>
       <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${colorClasses[color]}`} />
-      {label && <span className="text-sm text-text">{label}</span>}
+      {label && <span className="text-body-md text-text">{label}</span>}
     </span>
   );
 }

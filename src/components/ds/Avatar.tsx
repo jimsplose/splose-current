@@ -8,9 +8,9 @@ interface AvatarProps {
 }
 
 const sizeClasses: Record<AvatarSize, string> = {
-  sm: "h-7 w-7 text-[10px]",
-  md: "h-10 w-10 text-sm",
-  lg: "h-12 w-12 text-base",
+  sm: "h-7 w-7 text-caption-sm",
+  md: "h-10 w-10 text-body-md",
+  lg: "h-12 w-12 text-body-lg",
 };
 
 function getInitials(name: string): string {

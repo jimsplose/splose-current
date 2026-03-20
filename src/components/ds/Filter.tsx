@@ -19,7 +19,7 @@ export default function Filter({ items, value, onChange, className = "" }: Filte
         <button
           key={item.value}
           onClick={() => onChange(item.value)}
-          className={`px-3 py-2 text-sm font-medium transition-colors ${
+          className={`px-3 py-2 text-label-lg transition-colors ${
             i > 0 ? "border-l border-border" : ""
           } ${
             value === item.value

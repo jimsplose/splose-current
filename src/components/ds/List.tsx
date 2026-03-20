@@ -14,8 +14,8 @@ export default function List({ items, labelWidth = "w-28", className = "" }: Lis
     <div className={`space-y-2 ${className}`}>
       {items.map((item) => (
         <div key={item.label} className="flex gap-16">
-          <span className={`${labelWidth} shrink-0 text-sm text-text-secondary`}>{item.label}</span>
-          <span className="text-sm text-text">{item.value}</span>
+          <span className={`${labelWidth} shrink-0 text-body-md text-text-secondary`}>{item.label}</span>
+          <span className="text-body-md text-text">{item.value}</span>
         </div>
       ))}
     </div>

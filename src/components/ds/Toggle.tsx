@@ -27,7 +27,7 @@ export default function Toggle({ checked, onChange, label, disabled = false, cla
           }`}
         />
       </button>
-      {label && <span className="text-sm text-text">{label}</span>}
+      {label && <span className="text-body-md text-text">{label}</span>}
     </label>
   );
 }

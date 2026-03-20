@@ -11,14 +11,14 @@ const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
     return (
       <div>
         {label && (
-          <label htmlFor={selectId} className="mb-1 block text-sm font-medium text-text-secondary">
+          <label htmlFor={selectId} className="mb-1 block text-label-lg text-text-secondary">
             {label}
           </label>
         )}
         <select
           ref={ref}
           id={selectId}
-          className={`w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 ${className}`}
+          className={`w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 ${className}`}
           {...props}
         >
           {options.map((opt) => (
