@@ -74,6 +74,7 @@ Upload screenshots → Fidelity loops → Visual audit → (repeat)
 | Design spec extraction | `docs/design-spec-workflow.md` |
 | Dev Navigator | `docs/dev-navigator-spec.md` |
 | Understanding the codebase | `docs/project-structure.md` |
+| Typography migration | `docs/typography-spec.md`, `docs/typography-migration.md`, `docs/agent-block.md` |
 
 ## Tech Stack
 
@@ -112,6 +113,7 @@ Every push to any branch gets a **Vercel preview deployment**. This is how Jim r
 | `Badge` | `badge` | Status pills and tags |
 | `FormInput` | `input` | Labeled text inputs with error states |
 | `FormSelect` | `select` | Labeled select dropdowns |
+| `Text` | — (custom) | Semantic typography (display/heading/body/label/caption/metric). Use `variant` prop or utility classes (`text-display-lg`, `text-heading-md`, etc.). See `docs/typography-spec.md` |
 
 ### Planned components (see `docs/fidelity-gaps.md` Priority 8)
 
