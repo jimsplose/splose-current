@@ -483,14 +483,14 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 10.53.42 am.png | Login page — desktop, default | partial |
+| Screenshot 2026-03-11 at 10.53.42 am.png | Login page — desktop, default | partial — 15.15% after bg-purple-300 fix, remaining diff is SVG illustration vs real image + scaling |
 | Screenshot 2026-03-11 at 10.53.50 am.png | Login page — mobile (iPhone) | partial |
 
 ## Settings — Landing Page (`/settings`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 10.56.57 am.png | Settings landing — desktop, full sidebar visible | yes |
+| Screenshot 2026-03-11 at 10.56.57 am.png | Settings landing — desktop, full sidebar visible | partial — 6.19% after typography migration, sidebar label positioning shifted slightly |
 | Screenshot 2026-03-11 at 11.00.35 am.png | Settings landing — mobile, category tabs visible | partial |
 | Screenshot 2026-03-11 at 11.00.46 am.png | Settings landing — mobile, overflow menu (Team/Templates/Finances/Data) | partial |
 
