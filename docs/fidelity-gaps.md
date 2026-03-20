@@ -26,22 +26,22 @@ All 25 Settings sub-pages are implemented as inline components in `settings/page
 - [x] **Settings Details page** — Form with business name, ABN, address, phone, email, logo, email signature.
 - [x] **Settings Integrations page** — Integration cards (Xero, MYOB, Stripe, Tyro, Halaxy, Zoom, Google Calendar).
 - [x] **Settings SMS Settings page** — SMS provider config, sender name, reply-to, opt-out settings.
-- [x] **Settings Form Templates** — List with actions dropdowns.
+- [ ] **Settings Form Templates** — Reopened: visual audit found wrong columns (Description/Status/Responses vs reference Form type/Created at/Updated at), wrong title ("Forms" vs "Form templates"), missing Learn/Show archived buttons. (2026-03-20)
 - [x] **Settings Splose AI** — Core page matches. Edit prompt modal, AI block actions dropdown, and Edit AI block modal all implemented. AI block library populated with 5 sample blocks. (2026-03-19)
 - [x] **Settings Locations page** — Locations list with edit form.
 - [x] **Settings Custom Fields page** — List with reorder, actions dropdown, update field modal.
-- [x] **Settings Rooms/Resources page** — List with color dots, actions, update room modal.
-- [x] **Settings Services page** — List with item codes/durations/prices, actions dropdown.
+- [ ] **Settings Rooms/Resources page** — Reopened: visual audit found missing Group/Capacity/Location columns, missing search bar, Learn/Show archived buttons. Only shows Name + Actions columns. (2026-03-20)
+- [ ] **Settings Services page** — Reopened: visual audit found missing Type column, search bar, Learn/Show archived buttons, sort controls. Price format differs ($/hr vs flat). (2026-03-20)
 - [x] **Settings Busy Times page** — List with utilisation/duration, actions dropdown.
 - [x] **Settings Cancellation Reasons page** — List with edit/delete, edit modal.
-- [x] **Settings Online Booking pages** — List with 3 booking pages, status badges, links. Restored from stub. (2026-03-20)
+- [ ] **Settings Online Booking pages** — Reopened: visual audit found wrong columns (Status/Link vs reference Created at/Last updated), title text differs ("Online bookings" vs "Online booking settings"), extra description text. (2026-03-20)
 - [x] **Settings Communication Types page** — List with default type flags, actions.
 - [x] **Settings Tags page** — Client tags with edit tag modal and colour picker.
 - [x] **Settings Referral Types page** — List with actions.
 - [x] **Settings Users page** — List with actions dropdown.
 - [x] **Settings User Groups page** — List with actions, edit group modal.
-- [x] **Settings Appointment Templates** — List with 5 templates, search, actions. Restored from stub. (2026-03-20)
-- [x] **Settings Email Templates** — List with 5 templates, search, actions. Restored from stub. (2026-03-20)
+- [ ] **Settings Appointment Templates** — Reopened: visual audit found missing columns (Type, SMS, Email, Last modified). Only shows Title/Created at/Actions. (2026-03-20)
+- [ ] **Settings Email Templates** — Reopened: visual audit found missing Type column with badges (Invoice/Payment/Progress note/Form/Letter/General). Only shows Title/Created at/Actions. (2026-03-20)
 - [x] **Settings Progress Note Templates** — List with 5 templates, AI banner, search. Restored from stub. (2026-03-20)
 - [x] **Settings Letter Templates** — List with 7 templates, search, Created at/Last updated columns. Restored from stub. (2026-03-20)
 - [x] **Settings Payment Settings** — Next payment number, PDF brand colour, accepted payment methods table (10), NDIS bulk upload. Restored from stub. (2026-03-20)

@@ -19,14 +19,14 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-settings-integrations-2026-03-17-18_34_17.png | Integrations list default | no |
+| screencapture-acme-splose-settings-integrations-2026-03-17-18_34_17.png | Integrations list default | partial — 9.03%, page renders, viewport vs full-page scroll diff |
 
 ## Settings — SMS Settings (`/settings/smsSettings`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-settings-smsSettings-2026-03-17-18_34_37.png | SMS settings default view | no |
-| screencapture-acme-splose-settings-smsSettings-2026-03-17-18_39_35.png | SMS settings alternate view | no |
+| screencapture-acme-splose-settings-smsSettings-2026-03-17-18_34_37.png | SMS settings default view | partial — 7.18%, content matches within viewport |
+| screencapture-acme-splose-settings-smsSettings-2026-03-17-18_39_35.png | SMS settings alternate view | partial — 7.18% |
 
 ## Settings — Forms / Form Templates (`/settings/templates/forms`)
 
@@ -34,7 +34,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 |---|---|---|
 | Screenshot 2026-03-17 at 6.41.35 pm.png | Form templates list, actions dropdown open (View/Edit/Duplicate/Change log/Archive) | no |
 | Screenshot 2026-03-17 at 6.43.50 pm.png | Form templates list, Learn dropdown open (Help guide/Watch a video) | no |
-| screencapture-acme-splose-settings-templates-forms-2026-03-17-18_35_56.png | Form templates list default | no |
+| screencapture-acme-splose-settings-templates-forms-2026-03-17-18_35_56.png | Form templates list default | partial — 6.30%, page at /settings/forms, column structure differs (missing Form type, Created at/Updated at vs Description/Status/Responses) |
 
 ## Settings — Form Template View (`/settings/templates/forms/:id/view`)
 
@@ -72,15 +72,15 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.44.56 pm.png | Locations list default | no |
-| screencapture-acme-splose-settings-locations-2026-03-17-18_37_26.png | Locations list | no |
+| Screenshot 2026-03-17 at 6.44.56 pm.png | Locations list default | yes — 3.69% |
+| screencapture-acme-splose-settings-locations-2026-03-17-18_37_26.png | Locations list | yes — 3.69% |
 | screencapture-acme-splose-settings-locations-edit-128-2026-03-17-18_45_03.png | Edit location form | no |
 
 ## Settings — Custom Fields (`/settings/custom-fields`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.45.29 pm.png | Custom fields list (with browser tab visible) | no |
+| Screenshot 2026-03-17 at 6.45.29 pm.png | Custom fields list (with browser tab visible) | partial — 7.22%, layout matches, browser chrome inflates diff |
 | Screenshot 2026-03-17 at 6.45.38 pm.png | Reorder custom fields modal | no |
 | Screenshot 2026-03-17 at 6.45.50 pm.png | Custom fields list, actions dropdown (Edit/Archive/Change log) | no |
 | Screenshot 2026-03-17 at 6.45.58 pm.png | Update custom field modal (Multiple choice type) | no |
@@ -89,7 +89,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.46.09 pm.png | Rooms/Resources list with color dots | no |
+| Screenshot 2026-03-17 at 6.46.09 pm.png | Rooms/Resources list with color dots | partial — 5.74%, missing Group/Capacity/Location columns, missing search/Learn/Show archived |
 | Screenshot 2026-03-17 at 6.46.18 pm.png | Rooms/Resources list, actions dropdown (Edit/Duplicate/Change log/Archive) | no |
 | Screenshot 2026-03-17 at 6.46.25 pm.png | Update room/resource modal (with color picker) | no |
 
@@ -97,7 +97,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.46.36 pm.png | Services list with item codes, durations, prices | no |
+| Screenshot 2026-03-17 at 6.46.36 pm.png | Services list with item codes, durations, prices | partial — 7.63%, missing Type column, search, Learn/Show archived buttons |
 | Screenshot 2026-03-17 at 6.46.46 pm.png | Services list, actions dropdown (Edit/Duplicate/Enable online booking/Change log/Archive) | no |
 
 ## Settings — Edit Service (`/settings/services/edit/:id`)
@@ -112,7 +112,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.47.48 pm.png | Busy time types list | no |
+| Screenshot 2026-03-17 at 6.47.48 pm.png | Busy time types list | partial — 6.38%, data matches, browser chrome inflates diff |
 | Screenshot 2026-03-17 at 6.47.55 pm.png | Busy time types, actions dropdown (Edit/Archive) | no |
 | Screenshot 2026-03-17 at 6.48.02 pm.png | Edit busy time type modal (with color picker) | no |
 
@@ -120,14 +120,14 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.48.12 pm.png | Cancellation reasons list with edit/delete icons | no |
+| Screenshot 2026-03-17 at 6.48.12 pm.png | Cancellation reasons list with edit/delete icons | partial — 5.87%, layout matches |
 | Screenshot 2026-03-17 at 6.48.19 pm.png | Edit cancellation reason modal (with cancellation rules) | no |
 
 ## Settings — Online Booking Settings (`/settings/online-booking`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.48.28 pm.png | Online booking settings list | partial — page implemented, needs detail comparison |
+| Screenshot 2026-03-17 at 6.48.28 pm.png | Online booking settings list | partial — 6.74%, wrong columns (Status/Link vs Created at/Last updated), title text differs |
 
 ## Settings — Edit Online Booking (`/settings/online-booking/:id`)
 
@@ -157,7 +157,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.53.12 pm.png | Communication types list | no |
+| Screenshot 2026-03-17 at 6.53.12 pm.png | Communication types list | partial — 5.16%, layout matches |
 | Screenshot 2026-03-17 at 6.53.21 pm.png | Communication types, actions dropdown (Edit/Delete) | no |
 | Screenshot 2026-03-17 at 6.53.28 pm.png | Update communication type modal | no |
 
@@ -166,7 +166,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 6.54.43 pm.png | Edit tag modal (with colour picker) | no |
-| screencapture-acme-splose-settings-tags-2026-03-17-18_53_57.png | Tags list — Client tags tab | no |
+| screencapture-acme-splose-settings-tags-2026-03-17-18_53_57.png | Tags list — Client tags tab | partial — 5.03%, very close match |
 | screencapture-acme-splose-settings-tags-2026-03-17-18_54_58.png | Tags list alternate view | no |
 | screencapture-acme-splose-settings-tags-2026-03-17-18_55_27.png | Tags list alternate view 2 | no |
 | screencapture-acme-splose-settings-tags-2026-03-17-18_55_51.png | Tags list alternate view 3 | no |
@@ -175,14 +175,14 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-settings-referralTypes-2026-03-17-18_56_10.png | Referral types list | no |
+| screencapture-acme-splose-settings-referralTypes-2026-03-17-18_56_10.png | Referral types list | yes — 3.02% |
 
 ## Settings — Users (`/settings/users`)
 
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 6.57.42 pm.png | Users list, actions dropdown (Deactivate/Reset password/Log out everywhere/Change log) | no |
-| screencapture-acme-splose-settings-users-2026-03-17-18_56_54.png | Users list default | no |
+| screencapture-acme-splose-settings-users-2026-03-17-18_56_54.png | Users list default | partial — 6.19%, missing sort/filter column indicators |
 
 ## Settings — User Account Details (`/settings/users/:id/details`)
 
@@ -213,13 +213,13 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 |---|---|---|
 | Screenshot 2026-03-17 at 7.01.35 pm.png | User groups list, actions dropdown (Edit/Change log/Delete) | no |
 | Screenshot 2026-03-17 at 7.01.45 pm.png | Edit group modal (with users list) | no |
-| screencapture-acme-splose-settings-user-groups-2026-03-17-19_01_14.png | User groups list default | no |
+| screencapture-acme-splose-settings-user-groups-2026-03-17-19_01_14.png | User groups list default | yes — 3.19% |
 
 ## Settings — Appointment Templates (`/settings/templates/appointments`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.02.10 pm.png | Appointment templates list | partial — page implemented, needs detail comparison |
+| Screenshot 2026-03-17 at 7.02.10 pm.png | Appointment templates list | partial — 6.50%, missing columns (Type, SMS, Email, Last modified) |
 | Screenshot 2026-03-17 at 7.02.20 pm.png | Appointment templates, actions dropdown (Edit/Duplicate/Change log/Delete) | no |
 
 ## Settings — Edit Appointment Template (`/settings/templates/appointments/edit/:id`)
@@ -242,7 +242,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.04.18 pm.png | Email templates list | partial — page implemented, needs detail comparison |
+| Screenshot 2026-03-17 at 7.04.18 pm.png | Email templates list | partial — 6.26%, missing Type column |
 | Screenshot 2026-03-17 at 7.04.27 pm.png | Email templates, actions dropdown (Edit/Duplicate/Change log/Delete) | no |
 | screencapture-acme-splose-settings-templates-emails-edit-501-2026-03-17-19_04_32.png | Edit email template | no |
 
@@ -257,41 +257,41 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-17 at 7.06.21 pm.png | AI block library modal — list of blocks | no |
 | Screenshot 2026-03-17 at 7.06.30 pm.png | AI block library modal — block selected | no |
 | Screenshot 2026-03-17 at 7.06.55 pm.png | AI block library modal — filter by tag dropdown | no |
-| screencapture-acme-splose-settings-templates-progress-notes-2026-03-17-19_04_46.png | Progress note templates list | partial — page implemented, needs detail comparison |
-| screencapture-acme-splose-settings-templates-progress-notes-2026-03-17-19_04_46 (1).png | Progress note templates list (duplicate) | partial — page implemented, needs detail comparison |
+| screencapture-acme-splose-settings-templates-progress-notes-2026-03-17-19_04_46.png | Progress note templates list | partial — 5.49%, page at /settings/progress-notes, very close match |
+| screencapture-acme-splose-settings-templates-progress-notes-2026-03-17-19_04_46 (1).png | Progress note templates list (duplicate) | partial — 5.49% |
 
 ## Settings — Letter Templates (`/settings/templates/letters`)
 
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 7.07.38 pm.png | Letter templates list, actions dropdown (Edit/Duplicate/Change log/Archive) | no |
-| screencapture-acme-splose-settings-templates-letters-2026-03-17-19_07_13.png | Letter templates list | partial — page implemented, needs detail comparison |
+| screencapture-acme-splose-settings-templates-letters-2026-03-17-19_07_13.png | Letter templates list | partial — 5.12%, very close match |
 | screencapture-acme-splose-settings-templates-letters-edit-201-2026-03-17-19_07_43.png | Edit letter template | no |
 
 ## Settings — Payment Settings (`/settings/payments`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.09.00 pm.png | Payment settings — prefix, padding, PDF settings, accepted forms of payment | partial — page implemented, needs detail comparison |
-| Screenshot 2026-03-17 at 7.09.05 pm.png | Payment settings (alternate view, same content) | partial — page implemented, needs detail comparison |
+| Screenshot 2026-03-17 at 7.09.00 pm.png | Payment settings — prefix, padding, PDF settings, accepted forms of payment | yes — 4.89% |
+| Screenshot 2026-03-17 at 7.09.05 pm.png | Payment settings (alternate view, same content) | yes — 4.89% |
 | Screenshot 2026-03-17 at 7.09.19 pm.png | Edit payment method modal | no |
 | Screenshot 2026-03-17 at 7.09.50 pm.png | Payment settings — add new payment type dropdown (Credit Card/EFTPOS/Medicare/HICAPS/Cash/Bank Transfer/DVA) | no |
-| screencapture-acme-splose-settings-payments-2026-03-17-19_08_11.png | Payment settings full page | partial — page implemented, needs detail comparison |
+| screencapture-acme-splose-settings-payments-2026-03-17-19_08_11.png | Payment settings full page | yes — 4.89% |
 
 ## Settings — Invoice Settings (`/settings/invoices`)
 
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 7.11.05 pm.png | Invoice settings — tax dropdown (Tax exclusive/Tax inclusive/No tax) | no |
-| Screenshot 2026-03-17 at 7.11.17 pm.png | Invoice settings — invoice reminders list | partial — page implemented, needs detail comparison |
+| Screenshot 2026-03-17 at 7.11.17 pm.png | Invoice settings — invoice reminders list | yes — 4.12% |
 | Screenshot 2026-03-17 at 7.11.32 pm.png | Edit invoice reminder modal with rich text editor | no |
-| screencapture-acme-splose-settings-invoices-2026-03-17-19_10_06.png | Invoice settings full page | partial — page implemented, needs detail comparison |
+| screencapture-acme-splose-settings-invoices-2026-03-17-19_10_06.png | Invoice settings full page | yes — 4.12% |
 
 ## Settings — Tax Rates (`/settings/tax-rates`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.11.44 pm.png | Tax rates list | partial — page implemented, needs detail comparison |
+| Screenshot 2026-03-17 at 7.11.44 pm.png | Tax rates list | partial — 4.73%, extra columns vs reference, fewer data rows |
 | Screenshot 2026-03-17 at 7.11.55 pm.png | New tax rate modal | no |
 
 ## Settings — Data Export (`/settings/export`)
@@ -301,7 +301,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-17 at 7.12.28 pm.png | Data export — export history with actions dropdown (Download/Delete) | no |
 | Screenshot 2026-03-17 at 7.12.35 pm.png | Data export — export type dropdown (Appointments/Cases/Contacts/Invoices/Letters/Users/Clients) | no |
 | Screenshot 2026-03-17 at 7.12.43 pm.png | Data export — date picker calendar open | no |
-| screencapture-acme-splose-settings-export-2026-03-17-19_12_04.png | Data export full page | partial — page implemented, needs detail comparison |
+| screencapture-acme-splose-settings-export-2026-03-17-19_12_04.png | Data export full page | partial — 5.70%, close match, minor label differences |
 
 ## Settings — Data Import (`/settings/import`)
 
@@ -309,7 +309,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 |---|---|---|
 | Screenshot 2026-03-17 at 7.13.29 pm.png | Import from modal (CSV/Cliniko options) | no |
 | Screenshot 2026-03-17 at 7.13.39 pm.png | CSV import page with tabs (Clients/Contacts/Appointments) | no |
-| screencapture-acme-splose-settings-import-2026-03-17-19_13_00.png | Import page default | partial — page implemented, needs detail comparison |
+| screencapture-acme-splose-settings-import-2026-03-17-19_13_00.png | Import page default | partial — 5.06%, close match |
 
 ## Calendar — Week View (`/calendar/week`)
 
@@ -490,7 +490,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 10.56.57 am.png | Settings landing — desktop, full sidebar visible | partial — 6.19% after typography migration, sidebar label positioning shifted slightly |
+| Screenshot 2026-03-11 at 10.56.57 am.png | Settings landing — desktop, full sidebar visible | partial — 8.12%, /settings shows Details form; reference shows Details form too. Viewport vs full-page scroll diff |
 | Screenshot 2026-03-11 at 11.00.35 am.png | Settings landing — mobile, category tabs visible | partial |
 | Screenshot 2026-03-11 at 11.00.46 am.png | Settings landing — mobile, overflow menu (Team/Templates/Finances/Data) | partial |
 
@@ -498,7 +498,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.02.16 am.png | Dashboard — desktop, Messages feed + Income chart + Incomplete progress notes + Recently submitted forms | yes |
+| Screenshot 2026-03-11 at 11.02.16 am.png | Dashboard — desktop, Messages feed + Income chart + Incomplete progress notes + Recently submitted forms | yes — structural match confirmed, 13.72% pixel diff is data-driven (different messages/chart data) |
 | Screenshot 2026-03-11 at 11.02.24 am.png | Dashboard — mobile in desktop browser frame, Messages with GIF | yes |
 | Screenshot 2026-03-11 at 11.08.47 am.png | Dashboard — mobile, Income chart + Incomplete progress notes (scrolled) | yes |
 | Screenshot 2026-03-11 at 11.09.05 am.png | Dashboard — desktop, Messages feed (scrolled) with tooltip on income chart | yes |
@@ -526,7 +526,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.11.08 am.png | Client edit details — desktop, Edit form (General details, Profile photo, DOB, Sex, Gender, Pronouns) | partial — 5.05% mismatch, structurally identical |
+| Screenshot 2026-03-11 at 11.11.08 am.png | Client edit details — desktop, Edit form (General details, Profile photo, DOB, Sex, Gender, Pronouns) | yes — 4.99% |
 
 ## Client Detail — Appointments (`/clients/:id/appointments`)
 
@@ -584,7 +584,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.14.32 am.png | Invoices list — desktop, with Overdue/Paid/Draft badges | partial |
+| Screenshot 2026-03-11 at 11.14.32 am.png | Invoices list — desktop, with Overdue/Paid/Draft badges | partial — 7.62%, structure matches, invoice format differs (INV-0XX vs TRR-00XXXX) |
 | Screenshot 2026-03-11 at 11.14.41 am.png | Invoices list — mobile (iPhone) | partial |
 | Screenshot 2026-03-11 at 11.14.52 am.png | Invoices list — mobile, expanded row showing Payment sub-row | partial |
 
@@ -606,7 +606,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.17.41 am.png | Payments list — desktop, default view with Credit badges | partial |
+| Screenshot 2026-03-11 at 11.17.41 am.png | Payments list — desktop, default view with Credit badges | partial — 5.03%, very close, pagination styling differs |
 | Screenshot 2026-03-11 at 11.17.47 am.png | Payments list — desktop, expanded row showing Invoice sub-row | partial |
 
 ## Reports — Performance Overview (`/reports`)
@@ -648,7 +648,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.21.40 am.png | Waitlist Screener tab — desktop, Triage list | partial |
+| Screenshot 2026-03-11 at 11.21.40 am.png | Waitlist Screener tab — desktop, Triage list | partial — 5.71%, structure matches |
 
 ## Waitlist — Waitlist Tab (`/waitlist`)
 
