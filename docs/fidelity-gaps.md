@@ -26,22 +26,22 @@ All 25 Settings sub-pages are implemented as inline components in `settings/page
 - [x] **Settings Details page** — Form with business name, ABN, address, phone, email, logo, email signature.
 - [x] **Settings Integrations page** — Integration cards (Xero, MYOB, Stripe, Tyro, Halaxy, Zoom, Google Calendar).
 - [x] **Settings SMS Settings page** — SMS provider config, sender name, reply-to, opt-out settings.
-- [ ] **Settings Form Templates** — Reopened: visual audit found wrong columns (Description/Status/Responses vs reference Form type/Created at/Updated at), wrong title ("Forms" vs "Form templates"), missing Learn/Show archived buttons. (2026-03-20)
+- [x] **Settings Form Templates** — Fixed: columns updated to Title/Form type/Created at/Updated at, title changed to "Form templates", Learn/Show archived added. 5.55% pixel diff (full-page vs viewport). (2026-03-20)
 - [x] **Settings Splose AI** — Core page matches. Edit prompt modal, AI block actions dropdown, and Edit AI block modal all implemented. AI block library populated with 5 sample blocks. (2026-03-19)
 - [x] **Settings Locations page** — Locations list with edit form.
 - [x] **Settings Custom Fields page** — List with reorder, actions dropdown, update field modal.
-- [ ] **Settings Rooms/Resources page** — Reopened: visual audit found missing Group/Capacity/Location columns, missing search bar, Learn/Show archived buttons. Only shows Name + Actions columns. (2026-03-20)
-- [ ] **Settings Services page** — Reopened: visual audit found missing Type column, search bar, Learn/Show archived buttons, sort controls. Price format differs ($/hr vs flat). (2026-03-20)
+- [x] **Settings Rooms/Resources page** — Fixed: Group/Capacity/Location columns added, search bar, Learn/Show archived buttons added. 6.43% pixel diff (browser chrome). (2026-03-20)
+- [x] **Settings Services page** — Fixed: Type column, search bar, Learn/Show archived, sort controls added. Price format updated to rate. 8.73% pixel diff (browser chrome). (2026-03-20)
 - [x] **Settings Busy Times page** — List with utilisation/duration, actions dropdown.
 - [x] **Settings Cancellation Reasons page** — List with edit/delete, edit modal.
-- [ ] **Settings Online Booking pages** — Reopened: visual audit found wrong columns (Status/Link vs reference Created at/Last updated), title text differs ("Online bookings" vs "Online booking settings"), extra description text. (2026-03-20)
+- [x] **Settings Online Booking pages** — Fixed: columns changed to Name/Created at/Last updated, title updated to "Online booking settings". 7.54% pixel diff (browser chrome). (2026-03-20)
 - [x] **Settings Communication Types page** — List with default type flags, actions.
 - [x] **Settings Tags page** — Client tags with edit tag modal and colour picker.
 - [x] **Settings Referral Types page** — List with actions.
 - [x] **Settings Users page** — List with actions dropdown.
 - [x] **Settings User Groups page** — List with actions, edit group modal.
-- [ ] **Settings Appointment Templates** — Reopened: visual audit found missing columns (Type, SMS, Email, Last modified). Only shows Title/Created at/Actions. (2026-03-20)
-- [ ] **Settings Email Templates** — Reopened: visual audit found missing Type column with badges (Invoice/Payment/Progress note/Form/Letter/General). Only shows Title/Created at/Actions. (2026-03-20)
+- [x] **Settings Appointment Templates** — Fixed: Type/SMS/Email/Last modified columns added. 6.97% pixel diff (browser chrome). (2026-03-20)
+- [x] **Settings Email Templates** — Fixed: Type column with colored badges added (Invoice/Payment/Progress note/Form/Letter/General). 6.64% pixel diff (browser chrome). (2026-03-20)
 - [x] **Settings Progress Note Templates** — List with 5 templates, AI banner, search. Restored from stub. (2026-03-20)
 - [x] **Settings Letter Templates** — List with 7 templates, search, Created at/Last updated columns. Restored from stub. (2026-03-20)
 - [x] **Settings Payment Settings** — Next payment number, PDF brand colour, accepted payment methods table (10), NDIS bulk upload. Restored from stub. (2026-03-20)

@@ -34,7 +34,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 |---|---|---|
 | Screenshot 2026-03-17 at 6.41.35 pm.png | Form templates list, actions dropdown open (View/Edit/Duplicate/Change log/Archive) | no |
 | Screenshot 2026-03-17 at 6.43.50 pm.png | Form templates list, Learn dropdown open (Help guide/Watch a video) | no |
-| screencapture-acme-splose-settings-templates-forms-2026-03-17-18_35_56.png | Form templates list default | partial — 6.30%, page at /settings/forms, column structure differs (missing Form type, Created at/Updated at vs Description/Status/Responses) |
+| screencapture-acme-splose-settings-templates-forms-2026-03-17-18_35_56.png | Form templates list default | partial — 5.55%, structure matches (Title/Form type/Created at/Updated at columns), diff is full-page vs viewport |
 
 ## Settings — Form Template View (`/settings/templates/forms/:id/view`)
 
@@ -89,7 +89,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.46.09 pm.png | Rooms/Resources list with color dots | partial — 5.74%, missing Group/Capacity/Location columns, missing search/Learn/Show archived |
+| Screenshot 2026-03-17 at 6.46.09 pm.png | Rooms/Resources list with color dots | partial — 6.43%, structure matches (Group/Capacity/Location columns added), diff is browser chrome |
 | Screenshot 2026-03-17 at 6.46.18 pm.png | Rooms/Resources list, actions dropdown (Edit/Duplicate/Change log/Archive) | no |
 | Screenshot 2026-03-17 at 6.46.25 pm.png | Update room/resource modal (with color picker) | no |
 
@@ -97,7 +97,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.46.36 pm.png | Services list with item codes, durations, prices | partial — 7.63%, missing Type column, search, Learn/Show archived buttons |
+| Screenshot 2026-03-17 at 6.46.36 pm.png | Services list with item codes, durations, prices | partial — 8.73%, structure matches (Type column, search, Learn added), diff is browser chrome |
 | Screenshot 2026-03-17 at 6.46.46 pm.png | Services list, actions dropdown (Edit/Duplicate/Enable online booking/Change log/Archive) | no |
 
 ## Settings — Edit Service (`/settings/services/edit/:id`)
@@ -127,7 +127,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.48.28 pm.png | Online booking settings list | partial — 6.74%, wrong columns (Status/Link vs Created at/Last updated), title text differs |
+| Screenshot 2026-03-17 at 6.48.28 pm.png | Online booking settings list | partial — 7.54%, structure matches (columns fixed to Name/Created at/Last updated), diff is browser chrome |
 
 ## Settings — Edit Online Booking (`/settings/online-booking/:id`)
 
@@ -219,7 +219,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.02.10 pm.png | Appointment templates list | partial — 6.50%, missing columns (Type, SMS, Email, Last modified) |
+| Screenshot 2026-03-17 at 7.02.10 pm.png | Appointment templates list | partial — 6.97%, structure matches (Type/SMS/Email/Last modified columns added), diff is browser chrome |
 | Screenshot 2026-03-17 at 7.02.20 pm.png | Appointment templates, actions dropdown (Edit/Duplicate/Change log/Delete) | no |
 
 ## Settings — Edit Appointment Template (`/settings/templates/appointments/edit/:id`)
@@ -242,7 +242,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.04.18 pm.png | Email templates list | partial — 6.26%, missing Type column |
+| Screenshot 2026-03-17 at 7.04.18 pm.png | Email templates list | partial — 6.64%, structure matches (Type column with colored badges added), diff is browser chrome |
 | Screenshot 2026-03-17 at 7.04.27 pm.png | Email templates, actions dropdown (Edit/Duplicate/Change log/Delete) | no |
 | screencapture-acme-splose-settings-templates-emails-edit-501-2026-03-17-19_04_32.png | Edit email template | no |
 
