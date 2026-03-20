@@ -229,3 +229,21 @@ Append-only log. Each session adds an entry summarizing what was done.
 - Calendar appointment side panel styling (Group P)
 - Calendar toolbar polish (Group P)
 - Process new screenshots (Group H)
+
+---
+
+## Session — 2026-03-20 (session C)
+
+**Branch**: `claude/visual-audit-analysis-1WnWb`
+
+### Completed
+- **Persistent browser for screenshot captures** — New `scripts/start-browser.ts` keeps headless Chrome alive. `screenshot-capture.ts` auto-connects via WS endpoint, eliminating ~3-5s cold start per capture. Falls back to launching new browser when no server running.
+- **Screenshot capture optimization** — Default wait reduced from 3000ms to 500ms (pages hydrate in <1s on localhost). Combined with persistent browser, captures now take ~2.1s vs ~5-6s before.
+- **Agent block token savings** — Updated to skip diff image reads after iteration 1 of fidelity loops (~40% token reduction per multi-iteration page).
+- **Two-part session duration menu** — Workflows 3 (fidelity) and 4 (audit) now prompt for duration: Quick (2-3 gaps), Standard (5-6 gaps), Extended (~2hr autonomous), Until done. Extended/Until-done modes skip return-to-menu and auto-select gaps by priority.
+- **Auto-commit discipline** — CLAUDE.md updated: routine work (src/, screenshots, catalog, progress) commits/pushes without prompting. Only ask for CI/CD, deployment config, deps, CLAUDE.md, workflow docs, schema, or large destructive changes (>5 deletions, >20 files, >80% rewrite).
+- **Secure credentials setup** — Turso token stored in `settings.local.json` env field (outside repo). Session-start hook auto-creates `.env.local` from env vars. Removed hardcoded token from tracked hook script.
+
+### Notes
+- Token was previously hardcoded in `.claude/hooks/session-start.sh` (in git history) — should rotate Turso token
+- Port 3001 has other session's dev server; used port 3003 for testing
