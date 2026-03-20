@@ -177,9 +177,9 @@ All 22 DS components have been **created** in `src/components/ds/` with full imp
 ## Priority 9 — Visual audit findings (2026-03-20, session D)
 
 ### Group V — Routing bugs (`src/app/`)
-- [ ] **Settings duplicate sidebar bug** — `/settings/rooms-resources` and `/settings/services` render a second sidebar alongside the main sidebar containing extra items (Subscription, Permissions & Roles, Security). Layout bug in settings page component.
+- [x] **Settings duplicate sidebar bug** — Removed embedded sidebar from rooms-resources and services pages. Layout.tsx already provides the sidebar. (2026-03-20)
 - [ ] **Settings ?state= routing** — State registry uses `?state=` params for settings pages but the actual routing uses sub-routes (`/settings/integrations`, etc.). The `?state=` param is ignored. State registry needs updating OR settings page.tsx needs to wire `?state=` support.
-- [ ] **Settings placeholder pages** — 6 settings sub-pages show "coming soon" placeholder: Appointment Templates, Email Templates, Progress Notes, Letter Templates, Payment Settings, Invoice Settings. These were marked [x] in fidelity-gaps but are actually stubs.
+- [x] **Settings placeholder pages** — All 10 stub pages restored with full implementations + 3 new routes (Tax Rates, Data Export, Data Import). (2026-03-20)
 
 ### Group W — Missing/broken pages
 - [ ] **Invoice detail 404** — `/invoices/[id]` route returns 404. The invoice view page exists at `/invoices/[id]/page.tsx` but may not be wired correctly for all IDs.

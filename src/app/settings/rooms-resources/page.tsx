@@ -1,60 +1,6 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import Link from "next/link";
-
-const sidebarSections = [
-  {
-    title: "Workspace",
-    items: [
-      { name: "Details", href: "/settings" },
-      { name: "Integrations", href: "/settings" },
-      { name: "Subscription", href: "/settings" },
-      { name: "SMS settings", href: "/settings" },
-    ],
-  },
-  {
-    title: "Automation",
-    items: [
-      { name: "Forms", href: "/settings" },
-      { name: "splose AI", href: "/settings/ai" },
-    ],
-  },
-  {
-    title: "Business",
-    items: [
-      { name: "Locations", href: "/settings" },
-      { name: "Custom fields", href: "/settings" },
-      { name: "Rooms/Resources", href: "/settings/rooms-resources" },
-      { name: "Services", href: "/settings" },
-      { name: "Busy times", href: "/settings" },
-      { name: "Cancel/Reschedule", href: "/settings" },
-      { name: "Online bookings", href: "/settings", badge: "New" },
-      { name: "Communication types", href: "/settings" },
-      { name: "Tags", href: "/settings" },
-      { name: "Referral types", href: "/settings" },
-    ],
-  },
-  {
-    title: "Team",
-    items: [
-      { name: "Users", href: "/settings" },
-      { name: "User groups", href: "/settings" },
-      { name: "Permissions & Roles", href: "/settings" },
-      { name: "Security", href: "/settings" },
-    ],
-  },
-  {
-    title: "Templates",
-    items: [
-      { name: "Appointments", href: "/settings" },
-      { name: "Emails", href: "/settings" },
-      { name: "Progress notes", href: "/settings" },
-      { name: "Letters", href: "/settings" },
-      { name: "Body charts", href: "/settings" },
-    ],
-  },
-];
 
 // Color palette for room color picker
 const COLOR_SWATCHES = [
@@ -330,40 +276,7 @@ export default function SettingsRoomsResourcesPage() {
   };
 
   return (
-    <div className="flex min-h-[calc(100vh-3rem)]">
-      {/* Left sidebar */}
-      <aside className="w-64 shrink-0 border-r border-border bg-white p-4 overflow-y-auto">
-        {sidebarSections.map((section) => (
-          <div key={section.title} className="mb-4">
-            <h3 className="mb-1 text-xs font-bold uppercase tracking-wider text-text">
-              {section.title}
-            </h3>
-            <ul className="space-y-0.5">
-              {section.items.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className={`w-full block rounded px-3 py-1.5 text-left text-sm transition-colors hover:bg-purple-50 hover:text-primary ${
-                      item.name === "Rooms/Resources"
-                        ? "border-l-2 border-primary bg-purple-50 text-primary font-medium"
-                        : "text-text-secondary"
-                    }`}
-                  >
-                    {item.name}
-                    {item.badge && (
-                      <span className="ml-2 rounded bg-primary px-1.5 py-0.5 text-[10px] font-bold text-white">
-                        {item.badge}
-                      </span>
-                    )}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </aside>
-
-      {/* Main content */}
+    <>
       <div className="flex-1 p-6">
         {/* Page header */}
         <div className="mb-4 flex items-center justify-between">
@@ -439,6 +352,6 @@ export default function SettingsRoomsResourcesPage() {
         room={modalDefaults}
         onSave={handleSave}
       />
-    </div>
+    </>
   );
 }
