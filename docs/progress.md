@@ -264,3 +264,28 @@ Append-only log. Each session adds an entry summarizing what was done.
 - Calendar month view — structurally complete, "partial" in catalog due to data differences (seed data vs production screenshots)
 - Calendar appointment side panel — structurally complete, same data-driven mismatch
 - Process new screenshots (Group H) — admin/screening task
+
+---
+
+## Session — 2026-03-20 (session D continued — visual audit + fidelity loops)
+
+**Branch**: `claude/visual-audit-analysis-1WnWb`
+
+### Visual Audit (60 pages audited)
+- **14 pages match** (yes): Clients list, 8 client sub-tabs, Contacts list/detail, Products, Reports appointments, New payment
+- **31 pages partial**: Most settings, dashboard, client detail, calendar views
+- **7 pages broken/missing**: Invoice detail 404, Note view 404, Note edit timeout, Waitlist map (wrong state param), 3 settings no route
+
+### Fidelity Fixes
+- **Restored 10 settings stub pages**: Appointment Templates, Email Templates, Progress Notes, Letter Templates, Online Bookings, Payment Settings, Invoice Settings, Tax Rates (new route), Data Export (new route), Data Import (new route). All with full implementations using DS components.
+- **Fixed settings duplicate sidebar bug**: Removed embedded sidebar from rooms-resources and services pages (layout.tsx already provides it)
+- **Fixed state registry routing**: Updated invoice/note IDs from `1` to actual seed CUIDs. Added 3 new settings routes.
+- **Resolved waitlist map**: Was using wrong state param (`map` vs `waitlist-map`)
+
+### Gaps reopened
+- 10 settings pages (6 stubs + 3 no route + Online Bookings) — all now restored
+- Settings duplicate sidebar — fixed
+
+### All gaps now closed except
+- Calendar month view / appointment side panel — data-driven mismatch only
+- Process new screenshots — admin task
