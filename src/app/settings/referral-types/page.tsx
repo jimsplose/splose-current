@@ -21,7 +21,7 @@ export default function ReferralTypesPage() {
   return (
     <div className="p-8">
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Referral types</h1>
+        <h1 className="text-display-lg text-text">Referral types</h1>
         <Button variant="secondary">+ Add referral type</Button>
       </div>
 

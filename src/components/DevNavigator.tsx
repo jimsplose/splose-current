@@ -129,7 +129,7 @@ export default function DevNavigator() {
             >
               {expandedGroups.has(group) ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
               {group}
-              <span className="ml-auto text-[9px] font-normal text-white/30">{entries.length}</span>
+              <span className="ml-auto text-caption-sm text-white/30">{entries.length}</span>
             </button>
 
             {expandedGroups.has(group) && (

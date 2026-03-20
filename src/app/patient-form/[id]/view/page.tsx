@@ -58,7 +58,7 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
         <div className="rounded-lg border border-border bg-white p-10 shadow-sm">
           {/* Client name with logo */}
           <div className="mb-4 flex items-start justify-between">
-            <h2 className="text-xl font-bold text-text">{form.clientName}</h2>
+            <h2 className="text-display-md text-text">{form.clientName}</h2>
             <div className="h-12 w-12 text-3xl">🦆</div>
           </div>
 

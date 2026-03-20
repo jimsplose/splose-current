@@ -104,7 +104,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
             <div className="mb-10 grid grid-cols-3 gap-x-8 text-sm leading-relaxed">
               {/* Column 1: Client info */}
               <div>
-                <h3 className="mb-2 text-xs font-semibold tracking-wider text-gray-400 uppercase">Client</h3>
+                <h3 className="mb-2 text-label-sm font-semibold text-gray-400 uppercase">Client</h3>
                 <p className="font-medium text-primary">
                   {invoice.client.firstName} {invoice.client.lastName}
                 </p>
@@ -128,7 +128,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
                 {/* Care of client */}
                 {invoice.billingType === "NDIS" && (
                   <div className="mt-5">
-                    <h3 className="mb-2 text-xs font-semibold tracking-wider text-gray-400 uppercase">
+                    <h3 className="mb-2 text-label-sm font-semibold text-gray-400 uppercase">
                       Care of client above
                     </h3>
                     <p className="font-medium text-primary">National Disability Insurance Agency</p>
@@ -140,7 +140,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
 
               {/* Column 2: From info */}
               <div>
-                <h3 className="mb-2 text-xs font-semibold tracking-wider text-gray-400 uppercase">From</h3>
+                <h3 className="mb-2 text-label-sm font-semibold text-gray-400 uppercase">From</h3>
                 <p className="font-medium text-gray-900">Hands Together Therapies</p>
                 <p className="mt-0.5 text-gray-600">East Clinics</p>
                 <p className="text-gray-600">4 Williamstown Rd</p>
@@ -148,13 +148,13 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
 
                 {practitioner && (
                   <div className="mt-4">
-                    <p className="text-xs font-semibold tracking-wider text-gray-400 uppercase">Provider</p>
+                    <p className="text-label-sm font-semibold text-gray-400 uppercase">Provider</p>
                     <p className="mt-1 text-gray-600">{practitioner.name}</p>
                   </div>
                 )}
 
                 <div className="mt-4">
-                  <p className="text-xs font-semibold tracking-wider text-gray-400 uppercase">ABN</p>
+                  <p className="text-label-sm font-semibold text-gray-400 uppercase">ABN</p>
                   <p className="mt-1 text-gray-600">11 234 567 811</p>
                 </div>
               </div>
@@ -163,15 +163,15 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
               <div>
                 <div className="space-y-4">
                   <div>
-                    <p className="text-xs font-semibold tracking-wider text-gray-400 uppercase">Invoice #</p>
+                    <p className="text-label-sm font-semibold text-gray-400 uppercase">Invoice #</p>
                     <p className="mt-1 text-gray-900">{invoice.invoiceNumber}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-semibold tracking-wider text-gray-400 uppercase">Issue date</p>
+                    <p className="text-label-sm font-semibold text-gray-400 uppercase">Issue date</p>
                     <p className="mt-1 text-gray-900">{formatDate(invoice.date)}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-semibold tracking-wider text-gray-400 uppercase">Due date</p>
+                    <p className="text-label-sm font-semibold text-gray-400 uppercase">Due date</p>
                     <p className="mt-1 text-gray-900">{formatDate(invoice.dueDate)}</p>
                   </div>
                 </div>
@@ -183,28 +183,28 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
               <table className="w-full text-sm">
                 <thead>
                   <tr className="bg-gray-50">
-                    <th className="px-4 py-3 text-left text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                    <th className="px-4 py-3 text-left text-label-sm font-semibold text-gray-500 uppercase">
                       Item code
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                    <th className="px-4 py-3 text-left text-label-sm font-semibold text-gray-500 uppercase">
                       Description
                     </th>
-                    <th className="px-4 py-3 text-right text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                    <th className="px-4 py-3 text-right text-label-sm font-semibold text-gray-500 uppercase">
                       Unit price
                     </th>
-                    <th className="px-4 py-3 text-right text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                    <th className="px-4 py-3 text-right text-label-sm font-semibold text-gray-500 uppercase">
                       Quantity
                     </th>
-                    <th className="px-4 py-3 text-right text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                    <th className="px-4 py-3 text-right text-label-sm font-semibold text-gray-500 uppercase">
                       Unit
                     </th>
-                    <th className="px-4 py-3 text-right text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                    <th className="px-4 py-3 text-right text-label-sm font-semibold text-gray-500 uppercase">
                       Discount
                     </th>
-                    <th className="px-4 py-3 text-right text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                    <th className="px-4 py-3 text-right text-label-sm font-semibold text-gray-500 uppercase">
                       GST
                     </th>
-                    <th className="px-4 py-3 text-right text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                    <th className="px-4 py-3 text-right text-label-sm font-semibold text-gray-500 uppercase">
                       Amount AUD
                     </th>
                   </tr>

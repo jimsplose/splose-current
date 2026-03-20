@@ -28,7 +28,7 @@ function XeroLogo() {
 function QuickBooksLogo() {
   return (
     <div className="flex flex-col items-center gap-1">
-      <span className="text-[10px] font-medium tracking-wider text-gray-500">INTUIT</span>
+      <span className="text-label-sm text-gray-500">INTUIT</span>
       <span className="text-3xl font-bold text-[#2CA01C]">quickbooks</span>
     </div>
   );

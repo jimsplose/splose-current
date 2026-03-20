@@ -82,7 +82,7 @@ export default function ReportsPage() {
             <Button variant="ghost" size="sm">...</Button>
           </div>
           <p className="mb-2 text-caption-md text-text-secondary">Percentage of available time utilised</p>
-          <p className="mb-1 text-3xl font-bold text-text">0.85%</p>
+          <p className="mb-1 text-metric-lg text-text">0.85%</p>
           <p className="mb-4 text-caption-md text-text-secondary">
             {fmtDay(dateStart)} - {fmtDay(dateEnd)}
           </p>
@@ -139,7 +139,7 @@ export default function ReportsPage() {
           <p className="mb-2 text-caption-md text-text-secondary">
             Total invoiced revenue from appointments and support activities (tax exclusive)
           </p>
-          <p className="mb-1 text-3xl font-bold text-text">$1.09K</p>
+          <p className="mb-1 text-metric-lg text-text">$1.09K</p>
           <p className="mb-4 text-caption-md text-text-secondary">
             {fmtDay(dateStart)} - {fmtDay(dateEnd)}
           </p>

@@ -52,7 +52,7 @@ export default function ReportsSidebar() {
     <aside className="hidden w-56 shrink-0 overflow-y-auto border-r border-border bg-white p-4 md:block">
       {sections.map((section) => (
         <div key={section.title} className="mb-4">
-          <h3 className="mb-1 text-xs font-bold tracking-wider text-text uppercase">{section.title}</h3>
+          <h3 className="mb-1 text-label-sm font-bold text-text uppercase">{section.title}</h3>
           <ul className="space-y-0.5">
             {section.items.map((item) => {
               const isActive = item.href === pathname;

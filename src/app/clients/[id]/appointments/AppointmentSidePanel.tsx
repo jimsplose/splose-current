@@ -215,7 +215,7 @@ export default function AppointmentSidePanel({
           {/* Header */}
           <div className="flex items-start justify-between border-b border-border p-4">
             <div className="min-w-0 flex-1">
-              <h3 className="text-base font-bold text-text">
+              <h3 className="text-body-lg-strong text-text">
                 {selectedAppointment.type}
               </h3>
               <p className="mt-0.5 text-xs text-text-secondary">

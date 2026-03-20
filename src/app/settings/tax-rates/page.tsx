@@ -39,7 +39,7 @@ export default function TaxRatesPage() {
   return (
     <div className="p-6">
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Tax rates</h1>
+        <h1 className="text-display-lg text-text">Tax rates</h1>
         <Button variant="primary">+ New tax rate</Button>
       </div>
 

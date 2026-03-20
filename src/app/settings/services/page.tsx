@@ -65,7 +65,7 @@ export default function SettingsServicesPage() {
     <div className="flex-1 overflow-y-auto p-6">
         {/* Header */}
         <div className="mb-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-text">Services</h1>
+          <h1 className="text-display-lg text-text">Services</h1>
           <Button variant="primary">+ Add service</Button>
         </div>
 

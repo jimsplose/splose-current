@@ -207,7 +207,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
         <div className="p-6">
           <div className="mb-6 flex items-center justify-between">
-            <h1 className="text-xl font-bold text-text">Details</h1>
+            <h1 className="text-display-md text-text">Details</h1>
             <Button variant="secondary" size="sm">
               Edit
             </Button>

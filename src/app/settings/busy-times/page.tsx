@@ -14,7 +14,7 @@ export default function BusyTimesPage() {
   return (
     <div className="p-8">
       <div className="mb-2 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Busy time types</h1>
+        <h1 className="text-display-lg text-text">Busy time types</h1>
         <div className="flex items-center gap-2">
           <Button variant="secondary">Show archived</Button>
           <Button variant="primary">+ New type</Button>
