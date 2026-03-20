@@ -307,3 +307,34 @@ Append-only log. Each session adds an entry summarizing what was done.
 - **Fixed**: Login background bg-purple-200 → bg-purple-300 (87.95% → 15.15%)
 - **Fixed**: Sidebar section headers (text-label-md → text-body-sm font-bold tracking-wider)
 - **Typography did not regress** any previously-passing pages — mismatch % increases are from data differences and retina scaling artifacts
+
+---
+
+## Session — 2026-03-20 (session F — comprehensive visual audit + fidelity fixes)
+
+**Branch**: `claude/visual-audit-analysis-1WnWb`
+
+### Visual Audit (40+ pages, all sections)
+
+Audited every page section systematically with pixel diffs against all reference screenshots.
+
+**Results summary:**
+- **12 pages pass (yes, ≤5%)**: Client edit (4.99%), Client invoices (4.52%), Client practitioner access (4.53%), Contacts list (4.24%), Products (3.19%), Settings Locations (3.69%), Settings Referral Types (3.02%), Settings User Groups (3.19%), Settings Payment Settings (4.89%), Settings Invoice Settings (4.12%), Add Payment (3.90%), Contact Detail (4.39%)
+- **28+ pages partial (5-20%)**: Most are inflated by browser chrome in reference screenshots or data differences, NOT structural issues
+- **0 pages fail (>20%)**: No structural failures
+
+### Fidelity Fixes (6 settings pages)
+Reopened and fixed 6 settings pages with actual structural issues:
+1. **Settings Rooms/Resources** — Added Group/Capacity/Location columns, search, Learn/Show archived (6.43%)
+2. **Settings Services** — Added Type column, search, Learn/Show archived, sort controls, rate pricing (8.73%)
+3. **Settings Forms** — Renamed to "Form templates", replaced all columns to match reference (5.55%)
+4. **Settings Online Bookings** — Changed columns to Name/Created at/Last updated, fixed title (7.54%)
+5. **Settings Appointment Templates** — Added Type/SMS/Email/Last modified columns (6.97%)
+6. **Settings Email Templates** — Added Type column with colored badges (6.64%)
+
+### Key Finding
+Many "partial" matches (5-20% mismatch) are due to reference screenshots including browser chrome (URL bar, bookmarks) that our automated captures don't have. The actual page content structurally matches. This is an inherent limitation of comparing production browser screenshots against headless Chromium captures.
+
+### Remaining open gaps
+- Calendar month view / appointment side panel — structurally complete, data-driven mismatch only
+- Process new screenshots — admin/intake task
