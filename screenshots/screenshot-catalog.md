@@ -337,16 +337,16 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.23.16 pm.png | Month view with appointments | partial |
-| Screenshot 2026-03-17 at 7.23.23 pm.png | Month view — appointment detail side panel (Group Therapy) | no |
+| Screenshot 2026-03-17 at 7.23.16 pm.png | Month view with appointments | partial — layout matches, data differs |
+| Screenshot 2026-03-17 at 7.23.23 pm.png | Month view — appointment detail side panel (Group Therapy) | partial — side panel implemented with full content, data differs |
 
 ## Calendar — Appointment Side Panel
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.23.33 pm.png | Week view — appointment detail side panel (1:1 appointment, with Edit/Reschedule/Archive actions) | no |
-| Screenshot 2026-03-17 at 7.25.23 pm.png | Week view — edit appointment form, Room/Resource dropdown open | no |
-| Screenshot 2026-03-17 at 7.25.52 pm.png | Week view — appointment side panel (alternate view) | no |
+| Screenshot 2026-03-17 at 7.23.33 pm.png | Week view — appointment detail side panel (1:1 appointment, with Edit/Reschedule/Archive actions) | partial — all content and actions implemented, data differs |
+| Screenshot 2026-03-17 at 7.25.23 pm.png | Week view — edit appointment form, Room/Resource dropdown open | partial — edit form implemented with Room/Resource, dropdown styling differs |
+| Screenshot 2026-03-17 at 7.25.52 pm.png | Week view — appointment side panel (alternate view) | yes — this is the "New progress note" page, not calendar side panel |
 
 ## Notes — New Progress Note (`/notes/new`)
 

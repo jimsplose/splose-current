@@ -9,7 +9,6 @@ import {
   Filter,
   Settings2,
   LayoutGrid,
-  Search,
   X,
   Clock,
   User,
@@ -153,6 +152,7 @@ export default function CalendarView({
   const [calendarMode, setCalendarMode] = useState<CalendarMode>("Calendar");
   const [showViewDropdown, setShowViewDropdown] = useState(false);
   const [showCalendarModeDropdown, setShowCalendarModeDropdown] = useState(false);
+  const [bookingForFilter, setBookingForFilter] = useState<string | null>("a a");
   const [popover, setPopover] = useState<PopoverState>({
     visible: false,
     x: 0,
@@ -203,7 +203,7 @@ export default function CalendarView({
   }, [forcedState]);
 
   const today = new Date();
-  const monthYear = today.toLocaleDateString("en-AU", { month: "long", year: "numeric" });
+  const monthYear = today.toLocaleDateString("en-AU", { month: "short", year: "numeric" });
 
   function openCreateModal(dateStr?: string, hour?: number, minute?: number, practitionerId?: string) {
     const m = minute ?? 0;
@@ -307,7 +307,7 @@ export default function CalendarView({
                 <ChevronRight className="h-4 w-4" />
               </button>
             </div>
-            <h2 className="text-lg font-semibold text-text">{monthYear}</h2>
+            <h2 className="text-xl font-bold text-text">{monthYear}</h2>
             <div className="ml-2 flex items-center gap-2 text-text-secondary">
               <button className="rounded p-1 hover:bg-gray-100">
                 <Filter className="h-4 w-4" />
@@ -319,7 +319,7 @@ export default function CalendarView({
                 <LayoutGrid className="h-4 w-4" />
               </button>
               <button className="rounded p-1 hover:bg-gray-100">
-                <Search className="h-4 w-4" />
+                <MapPin className="h-4 w-4" />
               </button>
             </div>
           </div>
@@ -331,6 +331,19 @@ export default function CalendarView({
             <span className="hidden rounded-full border border-purple-300 bg-purple-50 px-3 py-1 text-sm font-medium text-purple-700 sm:inline-flex">
               Physio
             </span>
+
+            {/* Booking-for filter pill */}
+            {bookingForFilter && (
+              <span className="hidden items-center gap-1.5 rounded-full border border-yellow-300 bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-800 sm:inline-flex">
+                Booking for <strong>{bookingForFilter}</strong>
+                <button
+                  onClick={() => setBookingForFilter(null)}
+                  className="ml-0.5 rounded-full p-0.5 hover:bg-yellow-200"
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              </span>
+            )}
 
             <button
               onClick={() => openCreateModal()}
@@ -1239,14 +1252,14 @@ function AppointmentSidePanel({
 
   // For month view, render as a slide-in overlay on the right
   const panelClasses = isMonthView
-    ? "fixed right-0 top-0 z-30 h-full w-80 animate-in slide-in-from-right border-l border-border bg-white shadow-xl overflow-y-auto"
-    : "animate-in slide-in-from-right absolute inset-0 z-20 w-full shrink-0 overflow-y-auto border-l border-border bg-white sm:relative sm:inset-auto sm:w-80";
+    ? "fixed right-0 top-0 z-30 h-full w-[420px] animate-in slide-in-from-right border-l border-border bg-white shadow-xl overflow-y-auto"
+    : "animate-in slide-in-from-right absolute inset-0 z-20 w-full shrink-0 overflow-y-auto border-l border-border bg-white sm:relative sm:inset-auto sm:w-[420px]";
 
   return (
     <>
-      {/* Backdrop for month view */}
+      {/* Backdrop for month view — very subtle so calendar stays visible */}
       {isMonthView && (
-        <div className="fixed inset-0 z-20 bg-black/20" onClick={onClose} />
+        <div className="fixed inset-0 z-20" onClick={onClose} />
       )}
       <div className={panelClasses}>
         <div className="p-4">

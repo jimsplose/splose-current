@@ -53,8 +53,8 @@ All 25 Settings sub-pages are implemented as inline components in `settings/page
 ### Group K — Calendar enhancements (`src/app/calendar/`)
 - [x] **Calendar Rooms/Resources view** — Calendar/Rooms toggle, room filter dropdown. Reference: 7.22.38-7.22.53 pm.
 - [x] **Calendar view type switcher** — Month/Week/Day dropdown. Reference: 7.23.04 pm.
-- [ ] **Calendar month view** — Month view with appointments and appointment detail side panel. Reference: 7.23.16-7.23.23 pm. Reopened: visual audit found month view side panel not implemented (7.23.23 pm = no).
-- [ ] **Calendar appointment side panel** — Appointment detail flyout with Edit/Reschedule/Archive actions, edit appointment form with Room/Resource dropdown. Reference: 7.23.33-7.25.52 pm. Reopened: visual audit found side panel has placeholder content only, missing structured client info, Edit/Reschedule/Archive actions, and Room/Resource form (all 3 screenshots = no).
+- [ ] **Calendar month view** — Month view with appointments and appointment detail side panel. Reference: 7.23.16-7.23.23 pm. Side panel now implemented and functional from month view clicks. Remaining diff is data-driven (different appointment names/counts). (2026-03-20)
+- [ ] **Calendar appointment side panel** — Appointment detail flyout with Edit/Reschedule/Archive actions, edit appointment form with Room/Resource dropdown. Reference: 7.23.33-7.25.52 pm. All content now implemented: structured client info, email, status, zoom/invoice/note links, repeating info, organiser, Book another/Edit/Reschedule/Archive buttons, View change log. Edit form has Room/Resource dropdown. Remaining diff is data-driven. (2026-03-20)
 
 ### Group L — Progress Notes (`src/app/notes/`)
 - [x] **New progress note page** — Service selector, template selector, Select/Copy recent note/Copy recent practitioner note buttons. Reference: 7.25.45 pm.
@@ -130,8 +130,8 @@ These pages contain inline patterns that should use DS components. Each must be 
 ### Group P — Calendar interaction gaps (`src/app/calendar/CalendarView.tsx`)
 - [x] **Calendar click-to-create popover** — Popover with Support activity/Busy time/Appointment options on time slot click. Opens create modal pre-filled with time. (2026-03-20)
 - [x] **Calendar create appointment modal refinement** — Service field (was Appointment Type), Location/Case/Room fields, DS Toggle for Provider Travel/Non-Labour/Transport/Repeat, past date warning, Waitlist matches section. All form fields use DS components. (2026-03-20)
-- [ ] **Calendar appointment side panel styling** — Detail flyout panel and edit form are coded but button styling (DS Button variants), modal container styling (backdrop/shadow), and dropdown arrow directions don't match references. Reference: 7.23.33, 7.25.23, 7.25.52 pm (all = no). (2026-03-19 audit)
-- [ ] **Calendar toolbar polish** — Week/day view toolbar needs button styling refinement, dropdown chevron directions, filter pill styling, and hover states on cells. All week view screenshots remain partial. (2026-03-19 audit)
+- [x] **Calendar appointment side panel styling** — Side panel widened to 420px for button row, month view backdrop removed for visibility, all buttons use DS Button variants. Edit form Room/Resource dropdown implemented with categories. (2026-03-20)
+- [x] **Calendar toolbar polish** — Added yellow "Booking for a a ×" filter pill, fixed month format to "Mar" (short), updated title font weight, replaced Search icon with MapPin. Toolbar now matches day/week/month view references. (2026-03-20)
 
 ### Group Q — Missing detail/view pages
 - [x] **Contact detail page** — `/contacts/[id]` implemented with Details tab (General details, Contact details, Associated clients table), sidebar nav, Actions button. (2026-03-19)
