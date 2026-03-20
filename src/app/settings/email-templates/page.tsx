@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import {
   Button,
   PageHeader,
@@ -8,53 +11,113 @@ import {
   TableBody,
   Td,
   Pagination,
+  Badge,
 } from "@/components/ds";
 import { MoreHorizontal } from "lucide-react";
 
-const templates = [
+type TemplateType =
+  | "Invoice"
+  | "Payment"
+  | "Progress note"
+  | "Form"
+  | "Letter"
+  | "General";
+
+const typeBadgeVariant: Record<
+  TemplateType,
+  "blue" | "green" | "purple" | "yellow" | "gray"
+> = {
+  Invoice: "blue",
+  Payment: "green",
+  "Progress note": "purple",
+  Form: "yellow",
+  Letter: "gray",
+  General: "gray",
+};
+
+const templates: {
+  name: string;
+  type: TemplateType;
+  lastModified: string;
+}[] = [
   {
-    title: "#1 Invoice email template",
-    createdAt: "3:22 pm, 5 Mar 2024",
+    name: "#1_Invoice email template",
+    type: "Invoice",
+    lastModified: "10:45 am, 2 Oct 2025",
   },
   {
-    title: "Appointment confirmation email",
-    createdAt: "3:22 pm, 5 Mar 2024",
+    name: "Receipt email template",
+    type: "Payment",
+    lastModified: "3:03 pm, 21 Feb 2024",
   },
   {
-    title: "New client welcome email",
-    createdAt: "10:15 am, 18 Apr 2024",
+    name: "#2_Progress note email template",
+    type: "Progress note",
+    lastModified: "5:09 pm, 28 May 2025",
   },
   {
-    title: "Appointment cancellation email",
-    createdAt: "2:30 pm, 22 May 2024",
+    name: "Form email template 1",
+    type: "Form",
+    lastModified: "4:46 pm, 17 Mar 2026",
   },
   {
-    title: "Payment receipt email",
-    createdAt: "9:00 am, 1 Jul 2024",
+    name: "Letter email template",
+    type: "Letter",
+    lastModified: "10:30 am, 7 Oct 2025",
+  },
+  {
+    name: "General email template",
+    type: "General",
+    lastModified: "2:58 pm, 14 Jan 2026",
+  },
+  {
+    name: "Receipt",
+    type: "Invoice",
+    lastModified: "9:22 am, 12 Sep 2025",
+  },
+  {
+    name: "Reschedule",
+    type: "Progress note",
+    lastModified: "12:58 pm, 28 Jan 2022",
   },
 ];
 
 export default function EmailTemplatesPage() {
+  const [search, setSearch] = useState("");
+
+  const filtered = templates.filter((t) => {
+    const q = search.toLowerCase();
+    return (
+      t.name.toLowerCase().includes(q) || t.type.toLowerCase().includes(q)
+    );
+  });
+
   return (
     <div className="p-6">
       <PageHeader title="Email templates">
-        <Button variant="secondary">Show archived</Button>
         <Button variant="primary">+ New template</Button>
       </PageHeader>
 
-      <SearchBar placeholder="Search for title" />
+      <SearchBar
+        placeholder="Search for template and type"
+        onSearch={setSearch}
+      />
 
       <DataTable>
         <TableHead>
-          <Th>Title</Th>
-          <Th>Created at</Th>
+          <Th>Name</Th>
+          <Th>Type</Th>
+          <Th>Last modified</Th>
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>
-          {templates.map((t) => (
-            <tr key={t.title} className="hover:bg-gray-50">
-              <Td className="text-text">{t.title}</Td>
-              <Td>{t.createdAt}</Td>
+          {filtered.map((t) => (
+            <tr key={t.name} className="hover:bg-gray-50">
+              <Td className="text-text">{t.name}</Td>
+              <Td>
+                <Badge variant={typeBadgeVariant[t.type]}>{t.type}</Badge>
+              </Td>
+              <Td>{t.lastModified}</Td>
               <Td align="right">
                 <button className="rounded p-1 text-text-secondary hover:bg-gray-100 hover:text-text">
                   <MoreHorizontal className="h-5 w-5" />
@@ -68,7 +131,7 @@ export default function EmailTemplatesPage() {
       <Pagination
         currentPage={1}
         totalPages={1}
-        totalItems={templates.length}
+        totalItems={filtered.length}
         itemsPerPage={10}
         showPageSize={false}
       />

@@ -1,75 +1,83 @@
 import {
   Button,
   PageHeader,
-  Badge,
   DataTable,
   TableHead,
   Th,
   TableBody,
   Td,
-  Pagination,
 } from "@/components/ds";
-import { MoreHorizontal, ExternalLink } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 
 const bookings = [
   {
     name: "ACME Online Booking",
-    status: "Active" as const,
-    link: "book.splose.com/acme-clinic",
+    createdAt: "12:12 pm, 30 Oct 2025",
+    lastUpdated: "10:01 am, 5 Mar 2026",
   },
   {
-    name: "Main Clinic",
-    status: "Active" as const,
-    link: "book.splose.com/main-clinic",
+    name: "Online booking test payment",
+    createdAt: "2:56 pm, 4 Nov 2025",
+    lastUpdated: "8:48 am, 9 Dec 2025",
   },
   {
-    name: "North Branch",
-    status: "Inactive" as const,
-    link: "book.splose.com/north-branch",
+    name: "Sharon's",
+    createdAt: "2:39 pm, 25 Nov 2025",
+    lastUpdated: "4:10 pm, 9 Feb 2026",
+  },
+  {
+    name: "Wei Online booking test",
+    createdAt: "9:56 pm, 26 Nov 2025",
+    lastUpdated: "4:26 pm, 3 Dec 2025",
+  },
+  {
+    name: "Phyllis Physiotherapy",
+    createdAt: "11:53 am, 27 Nov 2025",
+    lastUpdated: "1:33 pm, 27 Nov 2025",
+  },
+  {
+    name: "OB-QA test",
+    createdAt: "11:55 am, 27 Nov 2025",
+    lastUpdated: "3:33 pm, 27 Nov 2025",
+  },
+  {
+    name: "TEST Practice Manager",
+    createdAt: "10:28 am, 11 Dec 2025",
+    lastUpdated: "11:16 am, 7 Jan 2026",
+  },
+  {
+    name: "Test hung",
+    createdAt: "3:32 pm, 22 Dec 2025",
+    lastUpdated: "3:34 pm, 22 Dec 2025",
+  },
+  {
+    name: "Hung test 2",
+    createdAt: "3:51 pm, 22 Dec 2025",
+    lastUpdated: "3:51 pm, 22 Dec 2025",
   },
 ];
 
 export default function OnlineBookingsPage() {
   return (
     <div className="p-6">
-      <PageHeader title="Online bookings">
+      <PageHeader title="Online booking settings">
+        <Button variant="secondary">Show archived</Button>
         <Button variant="primary">+ New booking page</Button>
       </PageHeader>
-
-      <p className="mb-4 text-sm text-text-secondary">
-        Create and manage online booking pages for your practice. Clients can
-        book appointments directly through these links.
-      </p>
 
       <DataTable>
         <TableHead>
           <Th>Name</Th>
-          <Th>Status</Th>
-          <Th>Link</Th>
+          <Th>Created at</Th>
+          <Th>Last updated</Th>
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>
           {bookings.map((b) => (
             <tr key={b.name} className="hover:bg-gray-50">
               <Td className="font-medium text-text">{b.name}</Td>
-              <Td>
-                <Badge
-                  variant={b.status === "Active" ? "green" : "gray"}
-                >
-                  {b.status}
-                </Badge>
-              </Td>
-              <Td>
-                <a
-                  href={`https://${b.link}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-                >
-                  {b.link}
-                  <ExternalLink className="h-3.5 w-3.5" />
-                </a>
-              </Td>
+              <Td>{b.createdAt}</Td>
+              <Td>{b.lastUpdated}</Td>
               <Td align="right">
                 <button className="rounded p-1 text-text-secondary hover:bg-gray-100 hover:text-text">
                   <MoreHorizontal className="h-5 w-5" />
@@ -79,14 +87,6 @@ export default function OnlineBookingsPage() {
           ))}
         </TableBody>
       </DataTable>
-
-      <Pagination
-        currentPage={1}
-        totalPages={1}
-        totalItems={bookings.length}
-        itemsPerPage={10}
-        showPageSize={false}
-      />
     </div>
   );
 }
