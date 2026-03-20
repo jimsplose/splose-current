@@ -21,3 +21,5 @@ export { default as Select } from "./Select";
 export { default as DateRangeFilter } from "./DateRangeFilter";
 export { default as Status } from "./Status";
 export { default as AsyncSelect } from "./AsyncSelect";
+export { default as Text } from "./Text";
+export type { TextVariant } from "./Text";

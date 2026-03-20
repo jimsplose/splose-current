@@ -24,11 +24,34 @@ Failure to do so creates tech debt that must be cleaned up later.
 
 Import: `import { Button, FormInput, FormSelect, Badge, PageHeader } from "@/components/ds";`
 
+### Typography — MANDATORY
+
+Use typography utility classes or `<Text>` component instead of inline font-size + font-weight combos. See `docs/typography-spec.md` for the full spec and `docs/typography-migration.md` for the mapping table.
+
+| Instead of | Use class | Or component |
+|---|---|---|
+| `text-2xl font-bold` (page title) | `text-display-lg` | `<Text variant="display/lg">` |
+| `text-lg font-semibold` | `text-heading-lg` | `<Text variant="heading/lg">` |
+| `text-base font-semibold` | `text-heading-md` | `<Text variant="heading/md">` |
+| `text-sm font-semibold` | `text-heading-sm` | `<Text variant="heading/sm">` |
+| `text-base` (16px body) | `text-body-lg` | `<Text variant="body/lg">` |
+| `text-sm` (14px body) | `text-body-md` | `<Text variant="body/md">` |
+| `text-xs` (12px content) | `text-body-sm` | `<Text variant="body/sm">` |
+| `text-sm font-medium` (label) | `text-label-lg` | `<Text variant="label/lg">` |
+| `text-xs font-medium` (tag) | `text-label-md` | `<Text variant="label/md">` |
+| `text-xs` (12px helper/meta) | `text-caption-md` | `<Text variant="caption/md">` |
+
+Import: `import { Text } from "@/components/ds";`
+
+Typography classes set font-family, size, weight, line-height, and letter-spacing. Keep color (`text-text-secondary`), alignment, and truncation as separate classes.
+
 ### Banned patterns — do NOT write these:
 - `const inputClass = "w-full rounded-lg border..."` — use `<FormInput>` instead
 - `const labelClass = "block text-sm font-medium..."` — `<FormInput label="">` includes the label
 - Inline badge styles (`rounded-full px-2 py-0.5 text-xs font-medium`) — use `<Badge>`
 - Inline button styles (`rounded-lg bg-primary px-4 py-2 text-sm font-medium`) — use `<Button>`
+- Raw `text-[Npx]` font sizes (`text-[11px]`, `text-[13px]`) — use the nearest typography class
+- Raw `text-{size} font-{weight}` combos — use a typography class instead
 
 ### DS naming convention:
 New components use [DaisyUI](https://daisyui.com/components/) names where a match exists (e.g. `Tab`, `Toggle`, `Modal`, `Avatar`, `Dropdown`, `Card`, `Collapse`, `Filter`, `Status`). This keeps naming predictable. See CLAUDE.md for the full table.
@@ -66,7 +89,7 @@ After making your code changes, you MUST run this loop. Puppeteer bundles Chromi
 - **Components**: Correct DS components used (Button not bare `<button>`, Badge not inline pill, etc.)
 - **Content**: Same column headers, labels, placeholder text, button labels as reference
 - **Colors**: Exact hex/Tailwind values from design spec (not "close enough")
-- **Typography**: Exact font sizes and weights from design spec
+- **Typography**: Use typography classes (`text-display-lg`, `text-heading-md`, etc.) — not raw `text-sm font-semibold` combos. See `docs/typography-spec.md`
 - **Spacing**: Exact padding/margin values from design spec (not "reasonable match")
 - **Interactive elements**: Modals, dropdowns, tabs shown in reference exist in code and are wired up
 - **Data shape**: Tables have same columns, forms have same fields as reference
