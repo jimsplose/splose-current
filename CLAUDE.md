@@ -19,6 +19,28 @@ Use AskUserQuestion with these options:
 
 **Do NOT skip this step. Do NOT start working without the user's menu selection.**
 
+### Part 2: Duration (for fidelity loops and visual audits)
+
+When the user selects option **3** or **4**, immediately show a second AskUserQuestion:
+
+> **How long should this session run?**
+>
+> 1. **Quick (2-3 gaps)** — ~20-30 min, interactive. Check in after each gap.
+> 2. **Standard (5-6 gaps)** — ~1 hour. Check in after each round of parallel agents.
+> 3. **Extended (all open gaps)** — ~2 hours, fully autonomous. Commit & push after each round, skip return-to-menu between rounds. Stop when gaps exhausted or context low.
+> 4. **Until done** — Run until all open gaps are closed or context limit reached. Same as Extended but no time target.
+
+**Autonomous mode behavior (options 3 and 4):**
+- Start the persistent browser: `npx tsx scripts/start-browser.ts` (run in background)
+- Auto-select gaps by priority from `docs/fidelity-gaps.md` — highest priority first
+- Skip "return to menu" between rounds — go straight to next batch
+- Commit after every completed gap (not every batch) to preserve work
+- Push every 2-3 gaps (or after each round of parallel agents)
+- Run `git fetch origin main && git merge origin/main --no-edit` before each push
+- Re-read `docs/fidelity-gaps.md` after each round to stay current (in case other session updated it)
+- **Stop conditions:** all gaps closed, context compression triggered 2+ times, build failure that can't be auto-fixed, or Jim sends a message
+- When stopping: commit all WIP, push, update progress.md, show summary of what was completed
+
 ### Return to menu after completing a workflow
 
 After finishing any workflow (screenshot upload, fidelity loop round, visual audit, etc.), **show the session start menu again** so Jim can pick what's next. Include a brief summary of what was just completed before showing the menu. Do NOT assume what Jim wants to do next — let him choose.
@@ -150,11 +172,38 @@ Jim often runs 2 Claude sessions on the same repo. Both sessions MUST:
 
 ## Commit Discipline
 
-- **Commit after every logical unit of work** — never let ~30 minutes go uncommitted
-- **NEVER push without a passing build** — run `npx next build` before every push
+### Auto-commit (do NOT prompt Jim)
+
+**Commit and push automatically** for all routine work. Do not ask "want me to commit?" — just do it. Routine work includes:
+- Page UI changes, fidelity fixes, DS component work
+- Screenshot catalog, fidelity-gaps.md progress updates, progress.md
+- Design specs, state registry updates
+- Any file under `src/`, `screenshots/`, `prisma/seed.ts`
+
+### Ask before committing (MUST prompt Jim)
+
+**Always ask before committing changes to:**
+- CI/CD config (`.github/workflows/`, Vercel config)
+- Deployment config (`vercel.json`, `next.config.ts`)
+- Dependencies (`package.json`, `package-lock.json`)
+- `CLAUDE.md` or workflow docs (`docs/*.md` except `progress.md` and `fidelity-gaps.md`)
+- Database schema (`prisma/schema.prisma`)
+
+### Sanity protection
+
+**Always ask if a single commit would:**
+- Delete more than 5 files
+- Modify more than 20 files
+- Overwrite or rewrite an entire page file (>80% of lines changed in a file >100 lines)
+
+These thresholds exist to prevent accidental codebase destruction. If hit, show Jim what's about to change and get a yes before proceeding.
+
+### Auto-push and auto-revert
+
+- **Push automatically** after build passes — do not prompt. Run `npx next build` before every push.
+- **Revert automatically** if agent changes break the build — do not prompt. Revert and continue with next agent.
 - Run `npx tsc --noEmit` after agent changes to catch conflicts early
 - **Verify CWD** after agent completion: `cd /Users/jimyenckensplose/claude/splose-current && pwd`
-- If agent changes break the build, **revert them** and continue with other agents
 - If a change breaks things after push, `git revert` rather than force-pushing
 
 ## Session End Checklist
@@ -184,7 +233,8 @@ npm run storybook        # Storybook on localhost:6006
 
 ### Pixel diff tools (used by fidelity workflows)
 ```bash
-npx tsx scripts/screenshot-capture.ts <url> <output.png>     # Capture page screenshot
+npx tsx scripts/start-browser.ts &                            # Start persistent browser (saves ~3-5s per capture)
+npx tsx scripts/screenshot-capture.ts <url> <output.png>     # Capture page screenshot (auto-connects to persistent browser)
 npx tsx scripts/pixel-diff.ts <reference> <current>           # Compare two images, get mismatch %
 npx tsx scripts/fidelity-loop.ts <reference> <current>        # Convergence-tracked iteration loop
 ```

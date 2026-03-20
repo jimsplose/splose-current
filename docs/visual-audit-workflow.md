@@ -24,7 +24,10 @@ Read `screenshots/screenshot-catalog.md` and identify entries with Match = "no" 
 
 ## Step 2: Capture current state of each page
 
-**Puppeteer** (bundled Chromium) is used for screenshots. It's installed automatically via `npm install` — no separate browser download step.
+**Puppeteer** (bundled Chromium) is used for screenshots. It's installed automatically via `npm install` — no separate browser download step. For multi-page audits, start a persistent browser first to skip Chromium cold start:
+```bash
+npx tsx scripts/start-browser.ts
+```
 
 ```bash
 npx tsx scripts/screenshot-capture.ts http://localhost:3000/<page-path> /tmp/audit-<page>.png
@@ -127,8 +130,13 @@ As part of the audit, also verify DS component coverage:
 2. For any new DS components added during fidelity work, verify a story exists
 3. If a story is missing, flag it as a gap (not a blocker — can be added later)
 
-## Step 8: Return to menu
+## Step 8: Return to menu (or continue in autonomous mode)
 
-After completing the audit, **show the session start menu again** (see CLAUDE.md). Include the audit summary (pages audited, matches, gaps reopened/created).
+**Quick/Standard duration modes:** After completing the audit, **show the session start menu again** (see CLAUDE.md). Include the audit summary (pages audited, matches, gaps reopened/created). Let Jim choose what's next.
 
-Jim may want to run fidelity loops to fix the gaps found, upload more screenshots, or do something else. Let him choose.
+**Extended/Until-done duration modes:** After the audit, automatically transition to fidelity loops for any gaps found or reopened:
+1. Commit audit results (catalog + gap updates)
+2. Re-read `docs/fidelity-gaps.md` for the latest state
+3. Launch fidelity loop agents for the highest-priority open gaps
+4. Continue the autonomous loop (see fidelity-workflow.md Step 8 for stop conditions)
+5. When stopping: commit all work, push, show full session summary

@@ -1,20 +1,21 @@
 #!/bin/bash
 set -euo pipefail
 
-# Only run in remote (web) environments
-if [ "${CLAUDE_CODE_REMOTE:-}" != "true" ]; then
-  exit 0
-fi
-
-# Create .env with Turso credentials if it doesn't exist
-ENV_FILE="$CLAUDE_PROJECT_DIR/.env"
+# Create .env.local with Turso credentials if it doesn't exist.
+# Reads from environment variables (set via settings.local.json env field)
+# so the token is never hardcoded in a tracked file.
+ENV_FILE="$CLAUDE_PROJECT_DIR/.env.local"
 
 if [ ! -f "$ENV_FILE" ]; then
-  cat > "$ENV_FILE" << 'ENVEOF'
-TURSO_DATABASE_URL=libsql://splose-current-jimsplose.aws-us-west-2.turso.io
-TURSO_AUTH_TOKEN=eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJnaWQiOiIxMGJkYWJkYS1iM2M1LTQxNDYtOWYyNC00MWU1OGY0M2NkODMiLCJpYXQiOjE3NzM4OTQzNDUsInJpZCI6ImUzNWM0YTkwLTNkMTUtNDZlNS1hN2ExLTNiMzc4M2RmM2QzNSJ9.wKrb835j-yQXIgsEMbBZ9eZVNRaJZyJRg1SQinZPU0yoNY8evyWk_p64H3L3UZBGVxjsGm0ELzWvKLIuZHg-DQ
-ENVEOF
-  echo "Created .env with Turso credentials"
+  if [ -n "${TURSO_DATABASE_URL:-}" ] && [ -n "${TURSO_AUTH_TOKEN:-}" ]; then
+    cat > "$ENV_FILE" << EOF
+TURSO_DATABASE_URL=$TURSO_DATABASE_URL
+TURSO_AUTH_TOKEN=$TURSO_AUTH_TOKEN
+EOF
+    echo "Created .env.local from environment variables"
+  else
+    echo "Warning: TURSO_DATABASE_URL or TURSO_AUTH_TOKEN not set in environment. Add them to settings.local.json env field."
+  fi
 fi
 
 # Install dependencies if node_modules is missing

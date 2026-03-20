@@ -42,7 +42,7 @@ If it fails, fix or revert the agent's changes before continuing.
 
 ## Step 3: Pixel Diff Verification (main agent)
 
-If the agent changed page UI, run the automated pixel diff. **Puppeteer** (bundled Chromium) is used for screenshots — no separate browser install needed.
+If the agent changed page UI, run the automated pixel diff. **Puppeteer** (bundled Chromium) is used for screenshots — no separate browser install needed. If a persistent browser is running (`start-browser.ts`), captures auto-connect and skip cold start.
 
 1. Capture current state:
    ```bash

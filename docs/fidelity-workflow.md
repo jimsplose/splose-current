@@ -7,6 +7,13 @@ Use **parallel subagents** for speed when working through fidelity gaps.
 ### Puppeteer (screenshot capture)
 Puppeteer is a dev dependency and bundles Chromium automatically via `npm install`. No separate browser download step needed. If screenshots fail, run `npm install puppeteer` to re-download.
 
+### Persistent browser (recommended for multi-gap sessions)
+Start a persistent browser to eliminate the ~3-5s Chromium cold start per screenshot capture:
+```bash
+npx tsx scripts/start-browser.ts
+```
+Run this in the background at session start. All `screenshot-capture.ts` calls auto-connect via `/tmp/chrome-ws-endpoint.txt`. **For Extended/Until-done duration modes, this is mandatory.**
+
 ### Design specs
 Before working on a page, check if a design spec exists at `screenshots/specs/<page-name>.md`. **If not, extract one first** by following `docs/design-spec-workflow.md`. This is not optional — agents produce better results when they have exact values to target. Skip only if the page has no reference screenshots.
 
@@ -166,16 +173,19 @@ Present as a structured summary like:
 **Preview URL:** https://splose-current-git-claude-xxx.vercel.app
 ```
 
-## Step 8: Return to menu
+## Step 8: Return to menu (or continue in autonomous mode)
 
-After completing a round of fidelity work (Steps 1-7), **show the session start menu again** (see CLAUDE.md). Include a summary of what was improved and what gaps remain.
+**Quick/Standard duration modes:** After completing a round of fidelity work (Steps 1-7), **show the session start menu again** (see CLAUDE.md). Include a summary of what was improved and what gaps remain. Let Jim choose what's next.
 
-Jim may want to:
-- Run another fidelity round (pick more gaps)
-- Upload more screenshots
-- Run a visual audit to verify the work
-- Do something else entirely
-
-Let him choose. Do NOT automatically start another round without asking.
+**Extended/Until-done duration modes:** Skip the menu. Instead:
+1. Re-read `docs/fidelity-gaps.md` to get the latest state (other sessions may have updated it)
+2. Auto-select the next batch of highest-priority open gaps
+3. Go back to Step 1 and launch the next round of agents
+4. **Stop conditions** (check after each round):
+   - All open gaps are closed → stop, show summary
+   - Context compression has triggered 2+ times → stop, commit WIP, show summary
+   - Build failure that can't be auto-fixed → stop, revert breaking change, show summary
+   - Jim sends a message → stop current round, respond to Jim
+5. When stopping: commit all work, push, update `docs/progress.md`, show full session summary
 
 If running low on context, **stop and commit** what you have rather than risking lost work.
