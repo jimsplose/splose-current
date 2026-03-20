@@ -11,7 +11,7 @@ export default function SettingsDetailsPage() {
   return (
     <div className="p-6 max-w-4xl">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-text">Details</h1>
+        <h1 className="text-display-lg text-text">Details</h1>
         <Button variant="primary">Save</Button>
       </div>
 
@@ -19,21 +19,21 @@ export default function SettingsDetailsPage() {
         <div className="flex gap-8">
           <div className="flex-1 space-y-4">
             <div>
-              <label className="block text-sm font-medium text-text mb-1">
+              <label className="block text-label-lg text-text mb-1">
                 Business name<span className="text-red-500">*</span>
               </label>
               <FormInput type="text" defaultValue="Hands Together Therapies" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-text mb-1">
+              <label className="block text-label-lg text-text mb-1">
                 Workspace URL{" "}
-                <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help ml-0.5">i</span>
+                <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-caption-sm text-gray-400 cursor-help ml-0.5">i</span>
               </label>
               <FormInput type="text" defaultValue="acme.splose.com" />
             </div>
             <FormInput label="Website" type="text" defaultValue="hands-together-therapy.com" />
             <div>
-              <label className="block text-sm font-medium text-text mb-1">
+              <label className="block text-label-lg text-text mb-1">
                 Business email<span className="text-red-500">*</span>
               </label>
               <FormInput type="email" defaultValue="hello@hands-together-therapy.com" />
@@ -57,15 +57,15 @@ export default function SettingsDetailsPage() {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-text mb-1">
+            <label className="block text-label-lg text-text mb-1">
               Patient terminology{" "}
-              <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help ml-0.5">i</span>
+              <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-caption-sm text-gray-400 cursor-help ml-0.5">i</span>
               <span className="text-red-500">*</span>
             </label>
             <FormSelect options={[{ value: "Client", label: "Client" }, { value: "Patient", label: "Patient" }, { value: "Participant", label: "Participant" }]} />
           </div>
           <div>
-            <label className="block text-sm font-medium text-text mb-1">
+            <label className="block text-label-lg text-text mb-1">
               Currency code<span className="text-red-500">*</span>
             </label>
             <FormInput type="text" defaultValue="AUD" />
@@ -74,13 +74,13 @@ export default function SettingsDetailsPage() {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-text mb-1">
+            <label className="block text-label-lg text-text mb-1">
               Country<span className="text-red-500">*</span>
             </label>
             <FormSelect options={[{ value: "Australia", label: "Australia" }, { value: "New Zealand", label: "New Zealand" }, { value: "United Kingdom", label: "United Kingdom" }]} />
           </div>
           <div>
-            <label className="block text-sm font-medium text-text mb-1">
+            <label className="block text-label-lg text-text mb-1">
               Currency symbol<span className="text-red-500">*</span>
             </label>
             <FormInput type="text" defaultValue="$" />
@@ -89,23 +89,23 @@ export default function SettingsDetailsPage() {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-text mb-1">
+            <label className="block text-label-lg text-text mb-1">
               Default appointment communication preferences{" "}
-              <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-[10px] text-gray-400 cursor-help ml-0.5">i</span>
+              <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-caption-sm text-gray-400 cursor-help ml-0.5">i</span>
               <span className="text-red-500">*</span>
             </label>
             <FormSelect options={[{ value: "SMS & Email", label: "SMS & Email" }, { value: "SMS only", label: "SMS only" }, { value: "Email only", label: "Email only" }, { value: "None", label: "None" }]} />
-            <label className="mt-2 flex items-center gap-2 text-sm text-text-secondary">
+            <label className="mt-2 flex items-center gap-2 text-body-md text-text-secondary">
               <input type="checkbox" checked={applyToAll} onChange={(e) => setApplyToAll(e.target.checked)} className="rounded border-gray-300 text-primary focus:ring-primary h-4 w-4" />
               Apply to all existing clients and override the current contact preferences
             </label>
           </div>
           <div>
-            <label className="block text-sm font-medium text-text mb-1">
+            <label className="block text-label-lg text-text mb-1">
               Tax Label for invoices (E.g. ABN)<span className="text-red-500">*</span>
             </label>
             <FormInput type="text" defaultValue="ABN" />
-            <p className="mt-2 text-sm text-text-secondary">
+            <p className="mt-2 text-body-md text-text-secondary">
               Enter your business number in{" "}
               <span className="text-primary cursor-pointer hover:underline">Location settings</span>
             </p>
@@ -113,39 +113,39 @@ export default function SettingsDetailsPage() {
         </div>
 
         <div>
-          <h2 className="text-base font-semibold text-text mb-3">Email signature</h2>
+          <h2 className="text-heading-md text-text mb-3">Email signature</h2>
           <div className="flex gap-1 mb-3">
-            <button onClick={() => setEmailSigTab("Business")} className={`rounded-lg px-4 py-1.5 text-sm font-medium transition-colors ${emailSigTab === "Business" ? "bg-primary text-white" : "bg-gray-100 text-text-secondary hover:bg-gray-200"}`}>Business</button>
-            <button onClick={() => setEmailSigTab("User")} className={`rounded-lg px-4 py-1.5 text-sm font-medium transition-colors flex items-center gap-1 ${emailSigTab === "User" ? "bg-primary text-white" : "bg-gray-100 text-text-secondary hover:bg-gray-200"}`}>
+            <button onClick={() => setEmailSigTab("Business")} className={`rounded-lg px-4 py-1.5 text-label-lg transition-colors ${emailSigTab === "Business" ? "bg-primary text-white" : "bg-gray-100 text-text-secondary hover:bg-gray-200"}`}>Business</button>
+            <button onClick={() => setEmailSigTab("User")} className={`rounded-lg px-4 py-1.5 text-label-lg transition-colors flex items-center gap-1 ${emailSigTab === "User" ? "bg-primary text-white" : "bg-gray-100 text-text-secondary hover:bg-gray-200"}`}>
               User
               <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
             </button>
           </div>
           <div className="rounded-t-lg border border-border bg-gray-50 px-2 py-1.5 flex items-center gap-1">
-            <button className="rounded px-2 py-1 text-sm font-bold text-text hover:bg-gray-200">B</button>
-            <button className="rounded px-2 py-1 text-sm italic text-text hover:bg-gray-200">I</button>
+            <button className="rounded px-2 py-1 text-body-md-strong text-text hover:bg-gray-200">B</button>
+            <button className="rounded px-2 py-1 text-body-md italic text-text hover:bg-gray-200">I</button>
             <div className="mx-1 h-4 w-px bg-gray-300" />
-            <button className="rounded px-2 py-1 text-xs font-medium text-primary hover:bg-gray-200">AI</button>
+            <button className="rounded px-2 py-1 text-label-md text-primary hover:bg-gray-200">AI</button>
             <div className="mx-1 h-4 w-px bg-gray-300" />
-            <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
+            <button className="rounded px-2 py-1 text-body-md text-text hover:bg-gray-200">
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h18v18H3V3zm0 6h18M3 15h18M9 3v18M15 3v18" /></svg>
             </button>
-            <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
+            <button className="rounded px-2 py-1 text-body-md text-text hover:bg-gray-200">
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
             </button>
-            <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">+</button>
+            <button className="rounded px-2 py-1 text-body-md text-text hover:bg-gray-200">+</button>
             <div className="mx-1 h-4 w-px bg-gray-300" />
-            <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
+            <button className="rounded px-2 py-1 text-body-md text-text hover:bg-gray-200">
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h10M4 18h16" /></svg>
             </button>
-            <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
+            <button className="rounded px-2 py-1 text-body-md text-text hover:bg-gray-200">
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M7 12h10M4 18h16" /></svg>
             </button>
-            <button className="rounded px-2 py-1 text-sm text-text hover:bg-gray-200">
+            <button className="rounded px-2 py-1 text-body-md text-text hover:bg-gray-200">
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
             </button>
           </div>
-          <div className="rounded-b-lg border border-t-0 border-border bg-white p-4 min-h-[200px] text-sm text-text relative">
+          <div className="rounded-b-lg border border-t-0 border-border bg-white p-4 min-h-[200px] text-body-md text-text relative">
             <p className="line-through">Warm Regards,</p>
             <p className="text-primary mt-1">{"{user_fullName}"}</p>
             <p className="text-primary">{"{user_professionTitle}"}</p>
@@ -162,28 +162,28 @@ export default function SettingsDetailsPage() {
         </div>
 
         <div>
-          <h2 className="text-base font-semibold text-text mb-3">Calendar lock dates</h2>
-          <p className="text-sm text-text-secondary mb-2">
+          <h2 className="text-heading-md text-text mb-3">Calendar lock dates</h2>
+          <p className="text-body-md text-text-secondary mb-2">
             Prevent users with the practitioner role from making changes on the calendar on and before
           </p>
           <FormInput type="text" defaultValue="19 Dec 2025" className="max-w-xs" />
         </div>
 
         <div>
-          <h2 className="text-base font-semibold text-text mb-3">Google Tag Manager</h2>
+          <h2 className="text-heading-md text-text mb-3">Google Tag Manager</h2>
           <FormInput label="Google Tag Manager ID" type="text" defaultValue="GTM-TEST1231" className="max-w-xs" />
         </div>
 
         <div>
-          <h2 className="text-base font-semibold text-text mb-3">Cases</h2>
+          <h2 className="text-heading-md text-text mb-3">Cases</h2>
           <div className="flex items-center justify-between">
-            <p className="text-sm text-text">Block bookings exceeding case or funding periods (default setting)</p>
+            <p className="text-body-md text-text">Block bookings exceeding case or funding periods (default setting)</p>
             <Toggle checked={casesToggle} onChange={setCasesToggle} />
           </div>
         </div>
 
         <div>
-          <span className="text-sm text-primary cursor-pointer hover:underline">Business settings change log</span>
+          <span className="text-body-md text-primary cursor-pointer hover:underline">Business settings change log</span>
         </div>
       </div>
     </div>

@@ -47,7 +47,7 @@ export default async function Dashboard() {
       <div className="flex flex-1 flex-col border-r border-border">
         {/* Messages header */}
         <div className="px-4 py-2.5">
-          <h2 className="text-sm font-medium text-text">Messages</h2>
+          <h2 className="text-label-lg text-text">Messages</h2>
         </div>
 
         {/* Messages content */}
@@ -55,7 +55,7 @@ export default async function Dashboard() {
           <div className="space-y-4">
             {/* Date separator */}
             <div className="flex items-center justify-center py-2">
-              <span className="text-xs text-text-secondary">
+              <span className="text-caption-md text-text-secondary">
                 {new Date().toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" })}
               </span>
             </div>
@@ -66,12 +66,12 @@ export default async function Dashboard() {
                 <Avatar name={appt.practitioner.name} color={appt.practitioner.color} size="sm" />
                 <div className="min-w-0">
                   <div className="flex items-baseline gap-1.5">
-                    <span className="text-[13px] font-semibold text-text">
+                    <span className="text-heading-sm text-text">
                       {appt.practitioner.name}
                     </span>
-                    <span className="text-[11px] text-text-secondary">{appt.startTime}</span>
+                    <span className="text-caption-sm text-text-secondary">{appt.startTime}</span>
                   </div>
-                  <p className="mt-0.5 text-[13px] text-text-secondary leading-snug">
+                  <p className="mt-0.5 text-body-md text-text-secondary">
                     Appointment with {appt.client.firstName} {appt.client.lastName} — {appt.type}
                   </p>
                 </div>
@@ -86,8 +86,8 @@ export default async function Dashboard() {
                   <Avatar name="Joseph Go" color="#f59e0b" size="sm" />
                   <div className="min-w-0">
                     <div className="flex items-baseline gap-1.5">
-                      <span className="text-[13px] font-semibold text-text">Joseph Go</span>
-                      <span className="text-[11px] text-text-secondary">9:48 pm</span>
+                      <span className="text-heading-sm text-text">Joseph Go</span>
+                      <span className="text-caption-sm text-text-secondary">9:48 pm</span>
                     </div>
                     <div className="mt-1.5 h-36 w-48 rounded-lg bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center overflow-hidden">
                       <div className="h-full w-full bg-gradient-to-br from-pink-200 via-gray-300 to-blue-200 blur-[12px] scale-110" />
@@ -97,7 +97,7 @@ export default async function Dashboard() {
 
                 {/* Date separator — 9 Feb 2026 */}
                 <div className="flex items-center justify-center py-1">
-                  <span className="text-xs text-text-secondary">9 Feb 2026</span>
+                  <span className="text-caption-md text-text-secondary">9 Feb 2026</span>
                 </div>
 
                 {/* Joseph Go — blue cat sticker */}
@@ -105,8 +105,8 @@ export default async function Dashboard() {
                   <Avatar name="Joseph Go" color="#f59e0b" size="sm" />
                   <div className="min-w-0">
                     <div className="flex items-baseline gap-1.5">
-                      <span className="text-[13px] font-semibold text-text">Joseph Go</span>
-                      <span className="text-[11px] text-text-secondary">9:50 pm</span>
+                      <span className="text-heading-sm text-text">Joseph Go</span>
+                      <span className="text-caption-sm text-text-secondary">9:50 pm</span>
                     </div>
                     <div className="mt-1.5 h-40 w-40 rounded-lg bg-gradient-to-br from-sky-200 to-sky-400 flex flex-col items-center justify-center gap-1">
                       <div className="h-16 w-14 rounded-t-full bg-sky-500 relative">
@@ -115,14 +115,14 @@ export default async function Dashboard() {
                         <div className="absolute top-4 left-2 h-2 w-2 rounded-full bg-white" />
                         <div className="absolute top-4 right-2 h-2 w-2 rounded-full bg-white" />
                       </div>
-                      <span className="text-[10px] text-sky-800 font-bold tracking-wider">STFCRS5</span>
+                      <span className="text-caption-sm text-sky-800 font-bold">STFCRS5</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Date separator — 16 Feb 2026 */}
                 <div className="flex items-center justify-center py-1">
-                  <span className="text-xs text-text-secondary cursor-pointer" title="Click to go forward, hold to see history">16 Feb 2026</span>
+                  <span className="text-caption-md text-text-secondary cursor-pointer" title="Click to go forward, hold to see history">16 Feb 2026</span>
                 </div>
 
                 {/* Hao Wang — green S logo image */}
@@ -130,8 +130,8 @@ export default async function Dashboard() {
                   <Avatar name="Hao Wang" color="#16a34a" size="sm" />
                   <div className="min-w-0">
                     <div className="flex items-baseline gap-1.5">
-                      <span className="text-[13px] font-semibold text-text">Hao Wang</span>
-                      <span className="text-[11px] text-text-secondary">3:56 pm</span>
+                      <span className="text-heading-sm text-text">Hao Wang</span>
+                      <span className="text-caption-sm text-text-secondary">3:56 pm</span>
                     </div>
                     <div className="mt-1.5 h-40 w-48 rounded-lg bg-gradient-to-br from-green-100 to-green-300 flex items-center justify-center">
                       <span className="text-5xl font-bold text-green-600">S</span>
@@ -144,11 +144,11 @@ export default async function Dashboard() {
                   <Avatar name="Joseph Go" color="#f59e0b" size="sm" />
                   <div className="min-w-0">
                     <div className="flex items-baseline gap-1.5">
-                      <span className="text-[13px] font-semibold text-text">Joseph Go</span>
-                      <span className="text-[11px] text-text-secondary">10:18 pm</span>
+                      <span className="text-heading-sm text-text">Joseph Go</span>
+                      <span className="text-caption-sm text-text-secondary">10:18 pm</span>
                     </div>
                     <div className="mt-1.5 h-36 w-48 rounded-lg bg-gradient-to-br from-amber-100 to-amber-300 flex flex-col items-center justify-center gap-1">
-                      <span className="text-sm font-bold text-amber-800 tracking-wide">MADE IT HOME</span>
+                      <span className="text-body-md-strong text-amber-800">MADE IT HOME</span>
                       <div className="h-14 w-16 rounded-t-full bg-amber-400/60 relative">
                         <div className="absolute -top-1.5 -left-0.5 h-3 w-2.5 bg-amber-400/60 rounded-tl-full rotate-[-15deg]" />
                         <div className="absolute -top-1.5 -right-0.5 h-3 w-2.5 bg-amber-400/60 rounded-tr-full rotate-[15deg]" />
@@ -163,40 +163,40 @@ export default async function Dashboard() {
 
         {/* Compose area */}
         <div className="border-t border-border p-3">
-          <div className="mb-2 min-h-[80px] rounded-lg border border-border bg-white px-3 py-2 text-[13px] text-text-secondary leading-relaxed">
+          <div className="mb-2 min-h-[80px] rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text-secondary">
             Type a message...
           </div>
           <div className="flex items-center gap-0.5 text-text-secondary">
-            <button className="rounded p-1 hover:bg-gray-100 text-[13px] font-bold" title="Bold">B</button>
-            <button className="rounded p-1 hover:bg-gray-100 text-[13px] italic" title="Italic">I</button>
-            <button className="rounded p-1 hover:bg-gray-100 text-[13px] underline" title="Underline">U</button>
-            <button className="rounded p-1 hover:bg-gray-100 text-[13px]" title="Text size">A<sub className="text-[9px]">1</sub></button>
+            <button className="rounded p-1 hover:bg-gray-100 text-body-md-strong" title="Bold">B</button>
+            <button className="rounded p-1 hover:bg-gray-100 text-body-md italic" title="Italic">I</button>
+            <button className="rounded p-1 hover:bg-gray-100 text-body-md underline" title="Underline">U</button>
+            <button className="rounded p-1 hover:bg-gray-100 text-body-md" title="Text size">A<sub className="text-caption-sm">1</sub></button>
             <span className="mx-0.5 h-4 w-px bg-border" />
-            <button className="rounded p-1 hover:bg-gray-100 text-[13px]" title="Table">
+            <button className="rounded p-1 hover:bg-gray-100 text-body-md" title="Table">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="12" height="12" rx="1"/><line x1="2" y1="6" x2="14" y2="6"/><line x1="2" y1="10" x2="14" y2="10"/><line x1="6" y1="2" x2="6" y2="14"/><line x1="10" y1="2" x2="10" y2="14"/></svg>
             </button>
-            <button className="rounded p-1 hover:bg-gray-100 text-[13px]" title="Link">
+            <button className="rounded p-1 hover:bg-gray-100 text-body-md" title="Link">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6.5 9.5a3 3 0 004.2.1l2-2a3 3 0 00-4.2-4.3l-1.1 1.1"/><path d="M9.5 6.5a3 3 0 00-4.2-.1l-2 2a3 3 0 004.2 4.3l1.1-1.1"/></svg>
             </button>
-            <button className="rounded p-1 hover:bg-gray-100 text-[13px]" title="Image">
+            <button className="rounded p-1 hover:bg-gray-100 text-body-md" title="Image">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="12" height="12" rx="1"/><circle cx="5.5" cy="5.5" r="1"/><path d="M14 10l-3-3-7 7"/></svg>
             </button>
-            <button className="rounded p-1 hover:bg-gray-100 text-[13px]" title="Emoji">
+            <button className="rounded p-1 hover:bg-gray-100 text-body-md" title="Emoji">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="8" cy="8" r="6"/><path d="M5.5 6.5h.01M10.5 6.5h.01"/><path d="M5.5 9.5a3.5 3.5 0 005 0"/></svg>
             </button>
-            <button className="rounded p-1 hover:bg-gray-100 text-[13px]" title="Align">
+            <button className="rounded p-1 hover:bg-gray-100 text-body-md" title="Align">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="2" y1="3" x2="14" y2="3"/><line x1="2" y1="6" x2="10" y2="6"/><line x1="2" y1="9" x2="14" y2="9"/><line x1="2" y1="12" x2="10" y2="12"/></svg>
             </button>
-            <button className="rounded p-1 hover:bg-gray-100 text-[13px]" title="List">
+            <button className="rounded p-1 hover:bg-gray-100 text-body-md" title="List">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="5" y1="3" x2="14" y2="3"/><line x1="5" y1="8" x2="14" y2="8"/><line x1="5" y1="13" x2="14" y2="13"/><circle cx="2.5" cy="3" r="0.75" fill="currentColor"/><circle cx="2.5" cy="8" r="0.75" fill="currentColor"/><circle cx="2.5" cy="13" r="0.75" fill="currentColor"/></svg>
             </button>
             <span className="mx-0.5 h-4 w-px bg-border" />
-            <button className="rounded p-1 hover:bg-gray-100 text-[13px]" title="More">
+            <button className="rounded p-1 hover:bg-gray-100 text-body-md" title="More">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/></svg>
             </button>
             <div className="flex-1" />
-            <span className="mr-1 cursor-pointer rounded px-1.5 py-0.5 text-xs font-medium text-text-secondary hover:bg-gray-100">GIF</span>
-            <Button variant="primary" size="sm" className="text-[13px]">
+            <span className="mr-1 cursor-pointer rounded px-1.5 py-0.5 text-label-md text-text-secondary hover:bg-gray-100">GIF</span>
+            <Button variant="primary" size="sm" className="text-body-md">
               Send
             </Button>
           </div>
@@ -207,10 +207,10 @@ export default async function Dashboard() {
       <div className="w-[380px] shrink-0 overflow-y-auto bg-white">
         {/* Income chart area */}
         <div className="border-b border-border px-4 pt-3 pb-4">
-          <h3 className="mb-3 text-sm font-medium text-text">Income</h3>
+          <h3 className="mb-3 text-label-lg text-text">Income</h3>
           <div className="relative h-52">
             {/* Y-axis labels */}
-            <div className="absolute left-0 top-0 bottom-6 flex flex-col justify-between text-[10px] text-text-secondary pr-1">
+            <div className="absolute left-0 top-0 bottom-6 flex flex-col justify-between text-caption-sm text-text-secondary pr-1">
               <span>500K</span>
               <span>400K</span>
               <span>300K</span>
@@ -219,7 +219,7 @@ export default async function Dashboard() {
               <span>0</span>
             </div>
             {/* Y-axis label "Values" rotated */}
-            <div className="absolute -left-4 top-1/2 -translate-y-1/2 -rotate-90 text-[9px] text-text-secondary whitespace-nowrap">
+            <div className="absolute -left-4 top-1/2 -translate-y-1/2 -rotate-90 text-caption-sm text-text-secondary whitespace-nowrap">
               Values
             </div>
             {/* Grid lines */}
@@ -257,12 +257,12 @@ export default async function Dashboard() {
             <div className="ml-8 flex">
               {incomeData.map((item) => (
                 <div key={item.month} className="flex-1 text-center">
-                  <span className="text-[9px] text-text-secondary whitespace-nowrap">{item.month}</span>
+                  <span className="text-caption-sm text-text-secondary whitespace-nowrap">{item.month}</span>
                 </div>
               ))}
             </div>
           </div>
-          <div className="mt-2 flex items-center justify-center gap-4 text-xs text-text-secondary">
+          <div className="mt-2 flex items-center justify-center gap-4 text-caption-md text-text-secondary">
             <span className="flex items-center gap-1.5">
               <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ backgroundColor: "#bef264" }} /> Invoices
             </span>
@@ -274,7 +274,7 @@ export default async function Dashboard() {
 
         {/* Incomplete progress notes */}
         <div className="border-b border-border px-4 pt-3 pb-3">
-          <h3 className="mb-2.5 text-sm font-medium text-text">Incomplete progress notes</h3>
+          <h3 className="mb-2.5 text-label-lg text-text">Incomplete progress notes</h3>
           <div className="space-y-1.5">
             {data.unsignedNotes.length === 0 ? (
               <>
@@ -286,10 +286,10 @@ export default async function Dashboard() {
                   { name: "A Jr (Temp progress note test 6March26)", time: "10:16 am, Fri 6 Mar 2026" },
                 ].map((note) => (
                   <div key={note.name} className="flex items-start justify-between gap-2 py-0.5">
-                    <span className="text-[13px] text-primary hover:underline cursor-pointer leading-snug">
+                    <span className="text-body-md text-primary hover:underline cursor-pointer">
                       {note.name}
                     </span>
-                    <span className="text-[11px] text-text-secondary whitespace-nowrap shrink-0 pt-0.5">
+                    <span className="text-caption-sm text-text-secondary whitespace-nowrap shrink-0 pt-0.5">
                       {note.time}
                     </span>
                   </div>
@@ -298,22 +298,22 @@ export default async function Dashboard() {
             ) : (
               data.unsignedNotes.map((note) => (
                 <div key={note.id} className="flex items-start justify-between gap-2 py-0.5">
-                  <span className="text-[13px] text-primary hover:underline cursor-pointer leading-snug">
+                  <span className="text-body-md text-primary hover:underline cursor-pointer">
                     {note.client.firstName} {note.client.lastName} ({note.practitioner.name})
                   </span>
-                  <span className="text-[11px] text-text-secondary whitespace-nowrap shrink-0 pt-0.5">
+                  <span className="text-caption-sm text-text-secondary whitespace-nowrap shrink-0 pt-0.5">
                     {formatDateTime(note.date)}
                   </span>
                 </div>
               ))
             )}
-            <button className="mt-1 text-[13px] text-primary hover:underline">Load more</button>
+            <button className="mt-1 text-body-md text-primary hover:underline">Load more</button>
           </div>
         </div>
 
         {/* Recently submitted forms */}
         <div className="px-4 pt-3 pb-3">
-          <h3 className="mb-2.5 text-sm font-medium text-text">Recently submitted forms</h3>
+          <h3 className="mb-2.5 text-label-lg text-text">Recently submitted forms</h3>
           <div className="space-y-1.5">
             {[
               { name: "Hao Wang (TEST IMAGE FORM)", time: "8:15 pm, Tue 10 Mar 2026" },
@@ -323,15 +323,15 @@ export default async function Dashboard() {
               { name: "A Jr (Test form File upload pdf)", time: "4:02 pm, Thu 5 Mar 2026" },
             ].map((form) => (
               <div key={form.name} className="flex items-start justify-between gap-2 py-0.5">
-                <span className="text-[13px] text-primary hover:underline cursor-pointer leading-snug">
+                <span className="text-body-md text-primary hover:underline cursor-pointer">
                   {form.name}
                 </span>
-                <span className="text-[11px] text-text-secondary whitespace-nowrap shrink-0 pt-0.5">
+                <span className="text-caption-sm text-text-secondary whitespace-nowrap shrink-0 pt-0.5">
                   {form.time}
                 </span>
               </div>
             ))}
-            <button className="mt-1 text-[13px] text-primary hover:underline">Load more</button>
+            <button className="mt-1 text-body-md text-primary hover:underline">Load more</button>
           </div>
         </div>
       </div>

@@ -307,7 +307,7 @@ export default function CalendarView({
                 <ChevronRight className="h-4 w-4" />
               </button>
             </div>
-            <h2 className="text-xl font-bold text-text">{monthYear}</h2>
+            <h2 className="text-display-md text-text">{monthYear}</h2>
             <div className="ml-2 flex items-center gap-2 text-text-secondary">
               <button className="rounded p-1 hover:bg-gray-100">
                 <Filter className="h-4 w-4" />
@@ -325,16 +325,16 @@ export default function CalendarView({
           </div>
           <div className="flex shrink-0 items-center gap-2">
             {/* Location filter pills */}
-            <span className="hidden rounded-full border border-green-300 bg-green-50 px-3 py-1 text-sm font-medium text-green-700 sm:inline-flex">
+            <span className="hidden rounded-full border border-green-300 bg-green-50 px-3 py-1 text-label-lg text-green-700 sm:inline-flex">
               East Clinics
             </span>
-            <span className="hidden rounded-full border border-purple-300 bg-purple-50 px-3 py-1 text-sm font-medium text-purple-700 sm:inline-flex">
+            <span className="hidden rounded-full border border-purple-300 bg-purple-50 px-3 py-1 text-label-lg text-purple-700 sm:inline-flex">
               Physio
             </span>
 
             {/* Booking-for filter pill */}
             {bookingForFilter && (
-              <span className="hidden items-center gap-1.5 rounded-full border border-yellow-300 bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-800 sm:inline-flex">
+              <span className="hidden items-center gap-1.5 rounded-full border border-yellow-300 bg-yellow-100 px-3 py-1 text-label-lg text-yellow-800 sm:inline-flex">
                 Booking for <strong>{bookingForFilter}</strong>
                 <button
                   onClick={() => setBookingForFilter(null)}
@@ -347,7 +347,7 @@ export default function CalendarView({
 
             <button
               onClick={() => openCreateModal()}
-              className="flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-sm font-medium text-white hover:bg-primary-dark"
+              className="flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-label-lg text-white hover:bg-primary-dark"
             >
               <Plus className="h-4 w-4" />
             </button>
@@ -373,7 +373,7 @@ export default function CalendarView({
                         setCalendarMode(mode);
                         setShowCalendarModeDropdown(false);
                       }}
-                      className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-50 ${calendarMode === mode ? "bg-purple-50 font-semibold text-primary" : "text-text"}`}
+                      className={`w-full px-4 py-2 text-left text-body-md hover:bg-gray-50 ${calendarMode === mode ? "bg-purple-50 font-semibold text-primary" : "text-text"}`}
                     >
                       {mode}
                     </button>
@@ -403,7 +403,7 @@ export default function CalendarView({
                         setViewMode(mode);
                         setShowViewDropdown(false);
                       }}
-                      className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-50 ${viewMode === mode ? "bg-purple-50 font-semibold text-primary" : "text-text"}`}
+                      className={`w-full px-4 py-2 text-left text-body-md hover:bg-gray-50 ${viewMode === mode ? "bg-purple-50 font-semibold text-primary" : "text-text"}`}
                     >
                       {mode}
                     </button>
@@ -434,13 +434,13 @@ export default function CalendarView({
                   className="border-b border-border py-2 text-center"
                   style={{ gridColumn: `2 / span ${practitioners.length}` }}
                 >
-                  <div className="text-xs text-text-secondary">
+                  <div className="text-caption-md text-text-secondary">
                     {DAYS[new Date(weekDates.find((d) => d === todayStr) || weekDates[0] + "T00:00:00").getDay()]}
                   </div>
-                  <div className="text-lg font-semibold text-primary">
+                  <div className="text-heading-lg text-primary">
                     {new Date((weekDates.find((d) => d === todayStr) || weekDates[0]) + "T00:00:00").getDate()}
                   </div>
-                  <div className="text-[10px] text-text-secondary">East Clinics</div>
+                  <div className="text-caption-sm text-text-secondary">East Clinics</div>
                 </div>
               </div>
               {/* Practitioner name headers */}
@@ -456,7 +456,7 @@ export default function CalendarView({
                   >
                     <div className="flex items-center justify-center gap-1">
                       <div className="h-2 w-2 shrink-0 rounded-full" style={{ backgroundColor: p.color }} />
-                      <span className="truncate text-xs font-medium text-text">
+                      <span className="truncate text-label-md text-text">
                         {p.name.split(" ")[0]} {p.name.split(" ")[1]?.[0]}.
                       </span>
                     </div>
@@ -477,7 +477,7 @@ export default function CalendarView({
                       className="flex items-start justify-end border-r border-b border-border px-2 py-1"
                       style={{ height: `${HOUR_HEIGHT}px` }}
                     >
-                      <span className="-mt-1.5 text-[11px] text-text-secondary">
+                      <span className="-mt-1.5 text-caption-sm text-text-secondary">
                         {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
                       </span>
                     </div>
@@ -512,11 +512,11 @@ export default function CalendarView({
                                   setSelectedAppt(appt);
                                 }}
                               >
-                                <p className="truncate text-xs font-medium">{appt.clientName}</p>
-                                <p className="text-[10px] opacity-80">
+                                <p className="truncate text-label-md">{appt.clientName}</p>
+                                <p className="text-caption-sm opacity-80">
                                   {appt.startTime} – {appt.endTime.replace(/^0/, "")}
                                 </p>
-                                <p className="truncate text-[10px] opacity-70">{appt.type}</p>
+                                <p className="truncate text-caption-sm opacity-70">{appt.type}</p>
                               </div>
                             );
                           })}
@@ -544,17 +544,17 @@ export default function CalendarView({
                       key={i}
                       className={`border-r border-border px-1 py-2 text-center last:border-r-0 ${isToday ? "bg-purple-50" : ""}`}
                     >
-                      <div className="text-xs text-text-secondary">{DAYS[i]}</div>
-                      <div className={`text-lg font-semibold ${isToday ? "text-primary" : "text-text"}`}>
+                      <div className="text-caption-md text-text-secondary">{DAYS[i]}</div>
+                      <div className={`text-heading-lg ${isToday ? "text-primary" : "text-text"}`}>
                         {date.getDate()}
                       </div>
-                      <div className="mt-0.5 truncate text-[10px] text-text-secondary">Hands Togeth...</div>
+                      <div className="mt-0.5 truncate text-caption-sm text-text-secondary">Hands Togeth...</div>
                       {/* Practitioner sub-column headers */}
                       <div className="mt-0.5 flex justify-center gap-px">
                         {practitioners.map((p) => (
                           <div key={p.id} className="flex min-w-0 flex-1 flex-col items-center">
                             <div className="mb-0.5 h-1.5 w-1.5 rounded-full" style={{ backgroundColor: p.color }} />
-                            <span className="w-full truncate text-[9px] leading-tight text-text-secondary">
+                            <span className="w-full truncate text-caption-sm text-text-secondary">
                               {p.name.split(" ")[0].length > 5 ? p.name.split(" ")[0].slice(0, 5) + "..." : p.name.split(" ")[0]}
                             </span>
                           </div>
@@ -575,7 +575,7 @@ export default function CalendarView({
                       className="flex items-start justify-end border-r border-b border-border px-2 py-1"
                       style={{ height: `${HOUR_HEIGHT}px` }}
                     >
-                      <span className="-mt-1.5 text-[11px] text-text-secondary">
+                      <span className="-mt-1.5 text-caption-sm text-text-secondary">
                         {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
                       </span>
                     </div>
@@ -618,8 +618,8 @@ export default function CalendarView({
                                           setSelectedAppt(appt);
                                         }}
                                       >
-                                        <p className="truncate text-[9px] font-medium leading-tight">{appt.clientName}</p>
-                                        <p className="text-[8px] opacity-80">
+                                        <p className="truncate text-caption-sm font-medium">{appt.clientName}</p>
+                                        <p className="text-caption-sm opacity-80">
                                           {appt.startTime.replace(/^0/, "")}
                                         </p>
                                       </div>
@@ -647,8 +647,8 @@ export default function CalendarView({
             <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
               <LayoutGrid className="h-8 w-8 text-gray-400" />
             </div>
-            <p className="text-sm text-text-secondary">Rooms/Resources view</p>
-            <p className="mt-1 text-xs text-text-secondary">Select rooms to display in the calendar</p>
+            <p className="text-body-md text-text-secondary">Rooms/Resources view</p>
+            <p className="mt-1 text-caption-md text-text-secondary">Select rooms to display in the calendar</p>
           </div>
         </div>
       )}
@@ -664,11 +664,11 @@ export default function CalendarView({
           }}
         >
           <div className="px-3 pt-3 pb-1">
-            <p className="text-sm font-semibold text-text">{popover.time}</p>
+            <p className="text-heading-sm text-text">{popover.time}</p>
           </div>
           <div className="py-1">
             <button
-              className="flex w-full items-center gap-2.5 px-3 py-2 text-sm text-text hover:bg-gray-50"
+              className="flex w-full items-center gap-2.5 px-3 py-2 text-body-md text-text hover:bg-gray-50"
               onClick={() => {
                 setPopover((prev) => ({ ...prev, visible: false }));
                 // Support activity - just close for now
@@ -678,7 +678,7 @@ export default function CalendarView({
               Support activity
             </button>
             <button
-              className="flex w-full items-center gap-2.5 px-3 py-2 text-sm text-text hover:bg-gray-50"
+              className="flex w-full items-center gap-2.5 px-3 py-2 text-body-md text-text hover:bg-gray-50"
               onClick={() => {
                 setPopover((prev) => ({ ...prev, visible: false }));
                 // Busy time - just close for now
@@ -688,7 +688,7 @@ export default function CalendarView({
               Busy time
             </button>
             <button
-              className="flex w-full items-center gap-2.5 px-3 py-2 text-sm text-text hover:bg-gray-50"
+              className="flex w-full items-center gap-2.5 px-3 py-2 text-body-md text-text hover:bg-gray-50"
               onClick={() => {
                 openCreateModal(popover.dateStr, popover.hour, popover.minute, popover.practitionerId);
               }}
@@ -724,7 +724,7 @@ export default function CalendarView({
         >
           <div className="w-full max-w-lg rounded-xl bg-white shadow-xl">
             <div className="flex items-center justify-between border-b border-border px-6 py-4">
-              <h2 className="text-lg font-semibold text-text">New appointment</h2>
+              <h2 className="text-heading-lg text-text">New appointment</h2>
               <button onClick={() => setShowCreateModal(false)} className="rounded p-1 hover:bg-gray-100">
                 <X className="h-5 w-5 text-text-secondary" />
               </button>
@@ -734,7 +734,7 @@ export default function CalendarView({
               {createDate && isDateInPast(createDate) && (
                 <div className="flex items-start gap-2 rounded-lg border border-yellow-200 bg-yellow-50 px-3 py-2.5">
                   <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-yellow-600" />
-                  <p className="text-sm text-yellow-800">
+                  <p className="text-body-md text-yellow-800">
                     This appointment is in the past. Are you sure you want to create it?
                   </p>
                 </div>
@@ -869,12 +869,12 @@ export default function CalendarView({
                     ]}
                   />
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-text-secondary">Repeat on *</label>
+                    <label className="mb-1 block text-label-lg text-text-secondary">Repeat on *</label>
                     <div className="flex gap-1">
                       {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d) => (
                         <button
                           key={d}
-                          className={`rounded-full px-2.5 py-1 text-xs font-medium ${d === "Mo" ? "bg-primary text-white" : "border border-border bg-white text-text hover:bg-gray-50"}`}
+                          className={`rounded-full px-2.5 py-1 text-label-md ${d === "Mo" ? "bg-primary text-white" : "border border-border bg-white text-text hover:bg-gray-50"}`}
                         >
                           {d}
                         </button>
@@ -896,7 +896,7 @@ export default function CalendarView({
 
               {/* Waitlist matches */}
               <div className="rounded-lg border border-border bg-gray-50 p-3">
-                <button className="flex w-full items-center justify-between text-sm font-medium text-text">
+                <button className="flex w-full items-center justify-between text-label-lg text-text">
                   Waitlist matches (2)
                   <ChevronDown className="h-4 w-4 text-text-secondary" />
                 </button>
@@ -904,13 +904,13 @@ export default function CalendarView({
 
               {/* Notes */}
               <div>
-                <label className="mb-1 block text-sm font-medium text-text-secondary">Notes</label>
+                <label className="mb-1 block text-label-lg text-text-secondary">Notes</label>
                 <textarea
                   value={createNotes}
                   onChange={(e) => setCreateNotes(e.target.value)}
                   placeholder="Add notes..."
                   rows={3}
-                  className="w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                  className="w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
                 />
               </div>
             </div>
@@ -936,7 +936,7 @@ export default function CalendarView({
         >
           <div className="w-full max-w-lg rounded-xl bg-white shadow-xl">
             <div className="flex items-center justify-between border-b border-border px-6 py-4">
-              <h2 className="text-lg font-semibold text-text">Edit appointment</h2>
+              <h2 className="text-heading-lg text-text">Edit appointment</h2>
               <button onClick={() => setShowEditModal(false)} className="rounded p-1 hover:bg-gray-100">
                 <X className="h-5 w-5 text-text-secondary" />
               </button>
@@ -945,7 +945,7 @@ export default function CalendarView({
               {/* Info banner */}
               <div className="flex items-start gap-2 rounded-lg border border-blue-200 bg-blue-50 px-3 py-2.5">
                 <Info className="mt-0.5 h-4 w-4 shrink-0 text-blue-600" />
-                <p className="text-sm text-blue-800">
+                <p className="text-body-md text-blue-800">
                   Client won&apos;t be notified of changes. To do this, use Reschedule.
                 </p>
               </div>
@@ -1047,12 +1047,12 @@ export default function CalendarView({
                     ]}
                   />
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-text-secondary">Repeat on *</label>
+                    <label className="mb-1 block text-label-lg text-text-secondary">Repeat on *</label>
                     <div className="flex gap-1">
                       {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d) => (
                         <button
                           key={d}
-                          className={`rounded-full px-2.5 py-1 text-xs font-medium ${d === "Mo" ? "bg-primary text-white" : "border border-border bg-white text-text hover:bg-gray-50"}`}
+                          className={`rounded-full px-2.5 py-1 text-label-md ${d === "Mo" ? "bg-primary text-white" : "border border-border bg-white text-text hover:bg-gray-50"}`}
                         >
                           {d}
                         </button>
@@ -1074,14 +1074,14 @@ export default function CalendarView({
 
               {/* Apply to */}
               <div>
-                <label className="mb-2 block text-sm font-medium text-text-secondary">Apply to:</label>
+                <label className="mb-2 block text-label-lg text-text-secondary">Apply to:</label>
                 <div className="space-y-1.5">
                   {[
                     { value: "this" as const, label: "This occurrence" },
                     { value: "following" as const, label: "This and all following occurrences" },
                     { value: "all" as const, label: "All occurrences" },
                   ].map((opt) => (
-                    <label key={opt.value} className="flex cursor-pointer items-center gap-2 text-sm text-text">
+                    <label key={opt.value} className="flex cursor-pointer items-center gap-2 text-body-md text-text">
                       <input
                         type="radio"
                         name="applyTo"
@@ -1165,7 +1165,7 @@ function MonthView({
       {/* Day of week headers */}
       <div className="grid grid-cols-7 border-b border-border">
         {DOW_LABELS.map((d) => (
-          <div key={d} className="px-2 py-2 text-center text-xs font-medium text-text-secondary">
+          <div key={d} className="px-2 py-2 text-center text-label-md text-text-secondary">
             {d}
           </div>
         ))}
@@ -1185,12 +1185,12 @@ function MonthView({
                 className={`border-r border-border p-1 last:border-r-0 ${!cell.isCurrentMonth ? "bg-gray-50/50" : ""}`}
               >
                 <div
-                  className={`mb-1 text-sm ${
+                  className={`mb-1 ${
                     isToday
-                      ? "inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary font-bold text-white"
+                      ? "text-label-lg inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary text-white"
                       : cell.isCurrentMonth
-                        ? "font-medium text-text"
-                        : "text-text-secondary/40"
+                        ? "text-label-lg text-text"
+                        : "text-body-md text-text-secondary/40"
                   }`}
                 >
                   {cell.day}
@@ -1202,7 +1202,7 @@ function MonthView({
                     return (
                       <div
                         key={appt.id}
-                        className={`flex cursor-pointer items-center gap-0.5 rounded px-1 py-0.5 text-[10px] font-medium text-white ${isCancelled ? "opacity-60" : ""}`}
+                        className={`flex cursor-pointer items-center gap-0.5 rounded px-1 py-0.5 text-caption-sm font-medium text-white ${isCancelled ? "opacity-60" : ""}`}
                         style={{ backgroundColor: appt.practitionerColor }}
                         onClick={() => onApptClick(appt)}
                       >
@@ -1215,7 +1215,7 @@ function MonthView({
                           </span>
                         )}
                         {isGroup && !isCancelled && (
-                          <span className="ml-auto shrink-0 rounded bg-white/30 px-1 text-[9px] font-semibold">
+                          <span className="ml-auto shrink-0 rounded bg-white/30 px-1 text-caption-sm font-semibold">
                             0/10
                           </span>
                         )}
@@ -1223,7 +1223,7 @@ function MonthView({
                     );
                   })}
                   {dayAppts.length > 3 && (
-                    <div className="px-1 text-[10px] text-text-secondary">+{dayAppts.length - 3} more</div>
+                    <div className="px-1 text-caption-sm text-text-secondary">+{dayAppts.length - 3} more</div>
                   )}
                 </div>
               </div>
@@ -1267,7 +1267,7 @@ function AppointmentSidePanel({
           <div className="mb-4 flex items-start justify-between">
             <div className="flex items-center gap-2">
               <div className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: appt.practitionerColor }} />
-              <span className="text-sm font-semibold text-text">
+              <span className="text-heading-sm text-text">
                 {appt.clientName} ({appt.type})
               </span>
             </div>
@@ -1302,7 +1302,7 @@ function AppointmentSidePanel({
           </div>
 
           <div className="mt-3 text-center">
-            <button className="flex items-center justify-center gap-1 text-sm text-primary hover:underline mx-auto">
+            <button className="flex items-center justify-center gap-1 text-body-md text-primary hover:underline mx-auto">
               <History className="h-3.5 w-3.5" />
               View change log
             </button>
@@ -1315,7 +1315,7 @@ function AppointmentSidePanel({
 
 function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
   return (
-    <div className="space-y-3 text-sm">
+    <div className="space-y-3 text-body-md">
       {/* Location */}
       <div className="flex items-start gap-2">
         <MapPin className="mt-0.5 h-4 w-4 text-text-secondary" />
@@ -1381,7 +1381,7 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
       {/* Repeating info */}
       <div className="flex items-start gap-2">
         <Repeat className="mt-0.5 h-4 w-4 text-text-secondary" />
-        <span className="text-xs text-text-secondary">Repeating every 2 weeks on Monday for 6 times</span>
+        <span className="text-caption-md text-text-secondary">Repeating every 2 weeks on Monday for 6 times</span>
       </div>
 
       {/* Organiser */}
@@ -1392,11 +1392,11 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
 
       {/* Note field */}
       <div className="mt-4">
-        <label className="flex items-center gap-1 text-xs font-medium text-text-secondary">
+        <label className="flex items-center gap-1 text-label-md text-text-secondary">
           <FileText className="h-3 w-3" /> Note
         </label>
         <textarea
-          className="mt-1 w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
+          className="mt-1 w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-body-md outline-none focus:border-primary"
           rows={3}
           placeholder="Add a note..."
         />
@@ -1407,7 +1407,7 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
 
 function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
   return (
-    <div className="space-y-3 text-sm">
+    <div className="space-y-3 text-body-md">
       {/* Location */}
       <div className="flex items-start gap-2">
         <MapPin className="mt-0.5 h-4 w-4 text-text-secondary" />
@@ -1472,11 +1472,11 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
 
       {/* Note field */}
       <div className="mt-4">
-        <label className="flex items-center gap-1 text-xs font-medium text-text-secondary">
+        <label className="flex items-center gap-1 text-label-md text-text-secondary">
           <FileText className="h-3 w-3" /> Note
         </label>
         <textarea
-          className="mt-1 w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
+          className="mt-1 w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-body-md outline-none focus:border-primary"
           rows={3}
           placeholder="Add a note..."
         />

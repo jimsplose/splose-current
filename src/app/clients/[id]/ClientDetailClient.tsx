@@ -62,7 +62,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
       {/* Main content */}
       <div className="flex-1 overflow-y-auto p-6">
         <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-xl font-bold text-text">Details</h1>
+          <h1 className="text-display-md text-text">Details</h1>
           <Button variant="secondary" size="sm" onClick={() => setEditMode(true)}>
             Edit <Pencil className="h-3.5 w-3.5" />
           </Button>
@@ -70,8 +70,8 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* General details */}
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-bold text-text">General details</h2>
-          <div className="mb-3 flex items-center gap-4 text-sm">
+          <h2 className="mb-4 text-heading-lg text-text">General details</h2>
+          <div className="mb-3 flex items-center gap-4 text-body-md">
             <Avatar name={`${client.firstName} ${client.lastName}`} />
             <span>
               {client.firstName} {client.lastName}
@@ -96,7 +96,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* Client contact details */}
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-bold text-text">
+          <h2 className="mb-4 text-heading-lg text-text">
             Client contact details
           </h2>
           <List
@@ -133,7 +133,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* Privacy policy consent */}
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-bold text-text">
+          <h2 className="mb-4 text-heading-lg text-text">
             Privacy policy consent
           </h2>
           <List items={[{ label: "", value: "No response" }]} />
@@ -143,7 +143,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* Medications, allergies & intolerances */}
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-bold text-text">
+          <h2 className="mb-4 text-heading-lg text-text">
             Medications, allergies &amp; intolerances
           </h2>
           <List
@@ -161,7 +161,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         {client.medicare && (
           <>
             <section className="mb-8">
-              <h2 className="mb-4 text-lg font-bold text-text">
+              <h2 className="mb-4 text-heading-lg text-text">
                 Medicare details
               </h2>
               <List
@@ -177,7 +177,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         {client.ndisNumber && (
           <>
             <section className="mb-8">
-              <h2 className="mb-4 text-lg font-bold text-text">
+              <h2 className="mb-4 text-heading-lg text-text">
                 NDIS details
               </h2>
               <List
@@ -192,7 +192,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* Custom fields */}
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-bold text-text">Custom fields</h2>
+          <h2 className="mb-4 text-heading-lg text-text">Custom fields</h2>
           <List
             items={[
               { label: "Date since surgery:", value: "25/09/2025" },
@@ -205,7 +205,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* Invoicing */}
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-bold text-text">Invoicing</h2>
+          <h2 className="mb-4 text-heading-lg text-text">Invoicing</h2>
           <List
             items={[
               {
@@ -220,21 +220,21 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* Associated contacts */}
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-bold text-text">
+          <h2 className="mb-4 text-heading-lg text-text">
             Associated contacts{" "}
-            <span className="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full border border-text-secondary text-[10px] text-text-secondary">
+            <span className="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full border border-text-secondary text-caption-sm text-text-secondary">
               ?
             </span>
           </h2>
-          <table className="w-full text-sm">
+          <table className="w-full text-body-md">
             <thead>
               <tr className="border-b border-border">
-                <th className="pb-2 text-left font-medium text-text">Name</th>
-                <th className="pb-2 text-left font-medium text-text">Type</th>
-                <th className="pb-2 text-left font-medium text-text">Notes</th>
-                <th className="pb-2 text-center font-medium text-text">Appts</th>
-                <th className="pb-2 text-center font-medium text-text">Invoices</th>
-                <th className="pb-2 text-center font-medium text-text">Notes</th>
+                <th className="pb-2 text-left text-label-lg text-text">Name</th>
+                <th className="pb-2 text-left text-label-lg text-text">Type</th>
+                <th className="pb-2 text-left text-label-lg text-text">Notes</th>
+                <th className="pb-2 text-center text-label-lg text-text">Appts</th>
+                <th className="pb-2 text-center text-label-lg text-text">Invoices</th>
+                <th className="pb-2 text-center text-label-lg text-text">Notes</th>
               </tr>
             </thead>
             <tbody>
@@ -266,34 +266,34 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         {/* Account balance */}
         <div className="mb-4 rounded-lg bg-primary p-4 text-white">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-medium">Account balance</h3>
-            <span className="flex h-5 w-5 items-center justify-center rounded-full border border-white/50 text-[10px]">
+            <h3 className="text-label-lg">Account balance</h3>
+            <span className="flex h-5 w-5 items-center justify-center rounded-full border border-white/50 text-caption-sm">
               i
             </span>
           </div>
-          <div className="mt-2 flex items-center justify-between text-sm">
+          <div className="mt-2 flex items-center justify-between text-body-md">
             <span className="flex items-center gap-1">
               They owe
-              <span className="flex h-4 w-4 items-center justify-center rounded-full border border-white/40 text-[9px]">
+              <span className="flex h-4 w-4 items-center justify-center rounded-full border border-white/40 text-caption-sm">
                 i
               </span>
             </span>
-            <span className="font-bold">3,310.56</span>
+            <span className="text-body-md-strong">3,310.56</span>
           </div>
-          <div className="flex items-center justify-between text-sm">
+          <div className="flex items-center justify-between text-body-md">
             <span>Available credit balance</span>
-            <span className="font-bold">0.00</span>
+            <span className="text-body-md-strong">0.00</span>
           </div>
         </div>
 
         {/* Client alerts */}
         <Collapse title="Client alerts" defaultOpen>
-          <span className="text-sm text-text">Include KM</span>
+          <span className="text-body-md text-text">Include KM</span>
         </Collapse>
 
         {/* Stripe */}
         <Collapse title="Stripe" defaultOpen>
-          <p className="text-xs text-text-secondary">
+          <p className="text-body-sm text-text-secondary">
             Connect with Stripe and save a credit card for clients and use for
             future use.
           </p>
@@ -301,10 +301,10 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* Mailchimp */}
         <Collapse title="Mailchimp" defaultOpen>
-          <div className="space-y-1 text-xs">
+          <div className="space-y-1 text-body-sm">
             <div className="flex items-center gap-1">
               <span className="text-primary">rakesh.splose@gmail.com</span>
-              <Badge variant="orange" className="text-[10px]">
+              <Badge variant="orange" className="text-caption-sm">
                 ARCHIVED
               </Badge>
             </div>
@@ -317,7 +317,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
             <Button
               variant="secondary"
               size="sm"
-              className="mt-2 w-full text-xs"
+              className="mt-2 w-full text-body-sm"
             >
               Unlink
             </Button>
@@ -326,7 +326,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* QuickBooks */}
         <Collapse title="QuickBooks">
-          <p className="text-xs text-text-secondary">
+          <p className="text-body-sm text-text-secondary">
             No QuickBooks connection.
           </p>
         </Collapse>
@@ -343,7 +343,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
   return (
     <div className="flex-1 overflow-y-auto p-6">
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-xl font-bold text-text">Edit details</h1>
+        <h1 className="text-display-md text-text">Edit details</h1>
         <div className="flex items-center gap-2">
           <Button variant="secondary" onClick={onCancel}>
             Cancel
@@ -357,7 +357,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
       <div className="max-w-2xl">
         {/* General details with profile photo side-by-side */}
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-bold text-text">General details</h2>
+          <h2 className="mb-4 text-heading-lg text-text">General details</h2>
           <div className="flex gap-8">
             {/* Form fields */}
             <div className="flex-1 space-y-4">
@@ -465,7 +465,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
             {/* Profile photo - positioned to the right */}
             <div className="shrink-0 pt-6 text-center">
               <div className="mb-3 flex h-32 w-32 items-center justify-center rounded-lg border-2 border-dashed border-border bg-gray-50">
-                <span className="text-sm text-text-secondary">
+                <span className="text-body-md text-text-secondary">
                   Profile photo
                 </span>
               </div>
@@ -479,26 +479,26 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
 
         {/* Other details */}
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-bold text-text">Other details</h2>
+          <h2 className="mb-4 text-heading-lg text-text">Other details</h2>
           <textarea
             defaultValue='For fields that are not available with the splose template, will show up here if they are all included in "Other Details" on the CSV file.'
             rows={4}
-            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
           />
         </section>
 
         {/* Alerts */}
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-bold text-text">Alerts</h2>
-          <p className="mb-2 text-sm text-text-secondary">
+          <h2 className="mb-4 text-heading-lg text-text">Alerts</h2>
+          <p className="mb-2 text-body-md text-text-secondary">
             Information you add here will be displayed in important places like scheduling appointments.
           </p>
-          <textarea defaultValue="Include KM" rows={3} className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/20" />
+          <textarea defaultValue="Include KM" rows={3} className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md outline-none focus:border-primary focus:ring-1 focus:ring-primary/20" />
         </section>
 
         {/* Contact details */}
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-bold text-text">Contact details</h2>
+          <h2 className="mb-4 text-heading-lg text-text">Contact details</h2>
           <div className="space-y-4">
             <FormInput label="Email" type="email" defaultValue={client.email || ""} />
             <FormInput label="Phone" type="tel" defaultValue={client.phone || ""} />
@@ -509,7 +509,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         {/* Medicare */}
         {client.medicare && (
           <section>
-            <h2 className="mb-4 text-lg font-bold text-text">Medicare details</h2>
+            <h2 className="mb-4 text-heading-lg text-text">Medicare details</h2>
             <FormInput label="Card number" type="text" defaultValue={client.medicare} />
           </section>
         )}
@@ -517,7 +517,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         {/* NDIS */}
         {client.ndisNumber && (
           <section>
-            <h2 className="mb-4 text-lg font-bold text-text">NDIS details</h2>
+            <h2 className="mb-4 text-heading-lg text-text">NDIS details</h2>
             <FormInput label="NDIS number" type="text" defaultValue={client.ndisNumber} />
           </section>
         )}
