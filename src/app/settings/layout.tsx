@@ -85,7 +85,7 @@ export default function SettingsLayout({
       <aside className="w-64 shrink-0 border-r border-border bg-white p-4 overflow-y-auto">
         {sidebarSections.map((section) => (
           <div key={section.title} className="mb-4">
-            <h3 className="mb-1 text-label-md uppercase tracking-wider text-text">
+            <h3 className="mb-1 text-body-sm font-bold uppercase tracking-wider text-text">
               {section.title}
             </h3>
             <ul className="space-y-0.5">
