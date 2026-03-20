@@ -165,7 +165,7 @@ export default function NewPaymentPage() {
 
           {/* Amount */}
           <div>
-            <label className="mb-1 block text-sm font-medium text-text-secondary">
+            <label className="mb-1 block text-label-lg text-text-secondary">
               Amount <span className="text-red-500">*</span>
             </label>
             <div className="relative">
@@ -185,7 +185,7 @@ export default function NewPaymentPage() {
 
         {/* Apply to outstanding invoices */}
         <div className="mb-3 flex items-center justify-between">
-          <p className="text-sm font-medium text-text">Apply to outstanding invoices</p>
+          <p className="text-label-lg text-text">Apply to outstanding invoices</p>
           <Button variant="secondary" size="sm" onClick={() => setShowLinkSearch(!showLinkSearch)}>
             <Plus className="h-3.5 w-3.5" />
             Link invoice
@@ -297,7 +297,7 @@ export default function NewPaymentPage() {
         {/* Note and totals */}
         <div className="flex items-start justify-between">
           <div>
-            <label className="mb-1 block text-sm font-bold text-text">Note</label>
+            <label className="mb-1 block text-body-md-strong text-text">Note</label>
             <textarea
               value={note}
               onChange={(e) => setNote(e.target.value)}

@@ -182,12 +182,12 @@ export default function ProductsPage() {
                           <table className="w-full">
                             <thead>
                               <tr className="border-b border-border">
-                                <th className="px-4 py-2 text-left text-sm font-medium text-text">Name</th>
-                                <th className="px-4 py-2 text-left text-sm font-medium text-text">SKU</th>
-                                <th className="px-4 py-2 text-left text-sm font-medium text-text">Price</th>
-                                <th className="px-4 py-2 text-left text-sm font-medium text-text">Stock</th>
-                                <th className="px-4 py-2 text-left text-sm font-medium text-text">Unit</th>
-                                <th className="px-4 py-2 text-left text-sm font-medium text-primary">Actions</th>
+                                <th className="px-4 py-2 text-left text-label-lg text-text">Name</th>
+                                <th className="px-4 py-2 text-left text-label-lg text-text">SKU</th>
+                                <th className="px-4 py-2 text-left text-label-lg text-text">Price</th>
+                                <th className="px-4 py-2 text-left text-label-lg text-text">Stock</th>
+                                <th className="px-4 py-2 text-left text-label-lg text-text">Unit</th>
+                                <th className="px-4 py-2 text-left text-label-lg text-primary">Actions</th>
                               </tr>
                             </thead>
                             <tbody className="divide-y divide-border">

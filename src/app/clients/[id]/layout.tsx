@@ -50,13 +50,13 @@ export default async function ClientLayout({
         {/* Top action bar */}
         <div className="flex shrink-0 flex-wrap items-center justify-between gap-2 border-b border-border px-4 py-3 md:px-6">
           <div className="flex items-center gap-2">
-            <h2 className="text-lg font-bold text-text">Client</h2>
-            <span className="truncate text-base text-text-secondary">
+            <h2 className="text-heading-lg text-text">Client</h2>
+            <span className="truncate text-body-lg text-text-secondary">
               {client.firstName} ({client.firstName.slice(0, 3)}) {client.lastName}
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <button className="flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
+            <button className="flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-label-lg text-text hover:bg-gray-50">
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path
                   strokeLinecap="round"
@@ -66,7 +66,7 @@ export default async function ClientLayout({
               </svg>
               <span className="hidden sm:inline">New SMS</span>
             </button>
-            <button className="flex items-center gap-1.5 rounded-lg border border-primary bg-primary/5 px-3 py-1.5 text-sm font-medium text-primary hover:bg-primary/10">
+            <button className="flex items-center gap-1.5 rounded-lg border border-primary bg-primary/5 px-3 py-1.5 text-label-lg text-primary hover:bg-primary/10">
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path
                   strokeLinecap="round"
@@ -76,7 +76,7 @@ export default async function ClientLayout({
               </svg>
               <span className="hidden sm:inline">New email</span>
             </button>
-            <button className="flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
+            <button className="flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-label-lg text-text hover:bg-gray-50">
               Actions
               <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />

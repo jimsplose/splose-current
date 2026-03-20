@@ -160,7 +160,7 @@ export default function PaymentsPage() {
                               <line x1="4" y1="7" x2="10" y2="7" stroke="currentColor" strokeWidth="1.5" />
                             </svg>
                           ) : (
-                            <span className="text-sm font-medium">+</span>
+                            <span className="text-label-lg">+</span>
                           )}
                         </button>
                       ) : (
@@ -185,9 +185,9 @@ export default function PaymentsPage() {
                         <table className="w-full">
                           <thead>
                             <tr className="border-b border-border">
-                              <th className="py-2 text-left text-sm font-medium text-text">Invoice #</th>
-                              <th className="py-2 text-left text-sm font-medium text-text">Amount</th>
-                              <th className="py-2 text-left text-sm font-medium text-text">Date</th>
+                              <th className="py-2 text-left text-label-lg text-text">Invoice #</th>
+                              <th className="py-2 text-left text-label-lg text-text">Amount</th>
+                              <th className="py-2 text-left text-label-lg text-text">Date</th>
                             </tr>
                           </thead>
                           <tbody>

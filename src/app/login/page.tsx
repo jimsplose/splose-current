@@ -32,7 +32,7 @@ export default function LoginPage() {
         {/* Form card */}
         <div className="rounded-b-2xl bg-white px-8 py-8">
           <p className="text-sm text-primary">You are logging into</p>
-          <p className="mt-1 text-lg font-bold text-text">acme.splose.com</p>
+          <p className="mt-1 text-heading-lg text-text">acme.splose.com</p>
 
           <div className="mt-6">
             <FormInput label="Email" type="email" />

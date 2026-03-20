@@ -170,7 +170,7 @@ export default function IntegrationsPage() {
   return (
     <div className="p-6">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-text">Integrations</h1>
+        <h1 className="text-display-lg text-text">Integrations</h1>
       </div>
       <div className="divide-y divide-border">
         {integrations.map((integration) => (
@@ -182,12 +182,12 @@ export default function IntegrationsPage() {
               </div>
 
               {/* Name */}
-              <h2 className="mb-2 text-base font-bold text-text">
+              <h2 className="mb-2 text-heading-md text-text">
                 {integration.name}
               </h2>
 
               {/* Description */}
-              <p className="mb-4 max-w-2xl text-sm leading-relaxed text-text-secondary">
+              <p className="mb-4 max-w-2xl text-body-md leading-relaxed text-text-secondary">
                 {integration.description}
               </p>
 
@@ -195,7 +195,7 @@ export default function IntegrationsPage() {
               {integration.profileLink && (
                 <a
                   href={integration.profileLink.href}
-                  className="mb-4 text-sm text-primary hover:underline"
+                  className="mb-4 text-body-md text-primary hover:underline"
                 >
                   {integration.profileLink.label}
                 </a>

@@ -22,7 +22,7 @@ export default function ClientPractitionerAccessPage() {
 
   return (
     <div className="flex-1 overflow-y-auto p-4 sm:p-6">
-      <h1 className="mb-4 text-2xl font-bold text-text">Practitioner access</h1>
+      <h1 className="mb-4 text-display-lg text-text">Practitioner access</h1>
       <p className="mb-6 text-sm text-text-secondary">
         You can link practitioners to clients via creating an appointment or support activity in the calendar tab.{" "}
         <span className="cursor-pointer text-primary hover:underline">Learn more</span>
@@ -55,7 +55,7 @@ export default function ClientPractitionerAccessPage() {
                 <Td>
                   <div>
                     <span className="text-text">{p.name}</span>
-                    <span className="ml-2 rounded bg-green-100 px-1.5 py-0.5 text-[10px] font-medium text-green-700">
+                    <span className="ml-2 rounded bg-green-100 px-1.5 py-0.5 text-caption-sm font-medium text-green-700">
                       Account owner
                     </span>
                   </div>

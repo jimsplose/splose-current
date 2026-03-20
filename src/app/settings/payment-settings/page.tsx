@@ -46,11 +46,11 @@ export default function PaymentSettingsPage() {
 
   return (
     <div className="p-6">
-      <h1 className="mb-6 text-2xl font-bold text-text">Payment settings</h1>
+      <h1 className="mb-6 text-display-lg text-text">Payment settings</h1>
 
       {/* Next payment number */}
       <section className="mb-8">
-        <h2 className="mb-4 text-lg font-bold text-text">Next payment number</h2>
+        <h2 className="mb-4 text-heading-lg text-text">Next payment number</h2>
         <div className="max-w-md space-y-4">
           <FormInput label="Prefix" defaultValue="MYDD" />
           <FormInput label="Padding" defaultValue="5" />
@@ -59,9 +59,9 @@ export default function PaymentSettingsPage() {
 
       {/* PDF settings */}
       <section className="mb-8">
-        <h2 className="mb-4 text-lg font-bold text-text">PDF settings</h2>
+        <h2 className="mb-4 text-heading-lg text-text">PDF settings</h2>
         <div className="max-w-md">
-          <label className="mb-1 block text-sm font-medium text-text-secondary">
+          <label className="mb-1 block text-label-lg text-text-secondary">
             Brand colour
           </label>
           <div className="mb-4 flex items-center gap-3">
@@ -85,7 +85,7 @@ export default function PaymentSettingsPage() {
 
       {/* Accepted forms of payment */}
       <section className="mb-8">
-        <h2 className="mb-4 text-lg font-bold text-text">Accepted forms of payment</h2>
+        <h2 className="mb-4 text-heading-lg text-text">Accepted forms of payment</h2>
 
         <DataTable>
           <TableHead>
@@ -136,7 +136,7 @@ export default function PaymentSettingsPage() {
 
       {/* NDIS bulk upload */}
       <section className="mb-8">
-        <h2 className="mb-4 text-lg font-bold text-text">NDIS bulk upload</h2>
+        <h2 className="mb-4 text-heading-lg text-text">NDIS bulk upload</h2>
         <div className="max-w-md space-y-4">
           <FormSelect
             label="Payment method *"

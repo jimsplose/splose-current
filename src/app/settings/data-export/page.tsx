@@ -105,7 +105,7 @@ export default function DataExportPage() {
 
   return (
     <div className="p-6">
-      <h1 className="mb-6 text-2xl font-bold text-text">Data export</h1>
+      <h1 className="mb-6 text-display-lg text-text">Data export</h1>
 
       {/* Export form */}
       <div className="mb-6 flex flex-wrap items-end gap-4">
@@ -125,7 +125,7 @@ export default function DataExportPage() {
           />
         </div>
         <div>
-          <label className="mb-1 block text-sm font-medium text-text-secondary">Date *</label>
+          <label className="mb-1 block text-label-lg text-text-secondary">Date *</label>
           <div className="flex items-center gap-2">
             <input
               type="date"
@@ -143,7 +143,7 @@ export default function DataExportPage() {
         <Button variant="primary">Export</Button>
       </div>
 
-      <label className="mb-6 flex items-center gap-2 text-sm text-text">
+      <label className="mb-6 flex items-center gap-2 text-body-md text-text">
         <input type="checkbox" className="rounded border-border" />
         Include archived
       </label>
@@ -151,7 +151,7 @@ export default function DataExportPage() {
       <hr className="my-6 border-border" />
 
       {/* Export history */}
-      <h2 className="mb-4 text-lg font-bold text-text">Export history</h2>
+      <h2 className="mb-4 text-heading-lg text-text">Export history</h2>
 
       <DataTable>
         <TableHead>

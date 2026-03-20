@@ -291,16 +291,16 @@ function ActionsDropdown({
         <div className="absolute right-0 top-full z-10 mt-1 w-40 rounded-lg border border-border bg-white py-1 shadow-lg">
           <button
             onClick={onEdit}
-            className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-text hover:bg-gray-50"
+            className="flex w-full items-center gap-2 px-4 py-2 text-left text-body-md text-text hover:bg-gray-50"
           >
             <Pencil className="h-4 w-4" />
             Edit
           </button>
-          <button className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-red-600 hover:bg-gray-50">
+          <button className="flex w-full items-center gap-2 px-4 py-2 text-left text-body-md text-red-600 hover:bg-gray-50">
             <Archive className="h-4 w-4" />
             Archive
           </button>
-          <button className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-text hover:bg-gray-50">
+          <button className="flex w-full items-center gap-2 px-4 py-2 text-left text-body-md text-text hover:bg-gray-50">
             <FileText className="h-4 w-4" />
             Change log
           </button>
@@ -373,7 +373,7 @@ function ReorderModal({
               }`}
             >
               <GripVertical className="h-4 w-4 shrink-0 text-text-secondary" />
-              <span className="text-sm text-text">{field.name}</span>
+              <span className="text-body-md text-text">{field.name}</span>
             </div>
           ))}
         </div>
@@ -461,7 +461,7 @@ function EditFieldModal({
 
         {showOptions && (
           <div>
-            <p className="mb-2 text-sm font-medium text-text-secondary">Options</p>
+            <p className="mb-2 text-label-lg text-text-secondary">Options</p>
             <div className="space-y-2">
               {options.map((opt, index) => (
                 <div key={index} className="flex items-center gap-2">
@@ -483,7 +483,7 @@ function EditFieldModal({
             </div>
             <button
               onClick={handleAddOption}
-              className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg border border-dashed border-border py-2 text-sm text-text-secondary hover:border-primary hover:text-primary"
+              className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg border border-dashed border-border py-2 text-body-md text-text-secondary hover:border-primary hover:text-primary"
             >
               <Plus className="h-4 w-4" />
               Add option
@@ -492,7 +492,7 @@ function EditFieldModal({
         )}
 
         <div className="flex items-center justify-between">
-          <span className="text-sm text-text">Display in client details</span>
+          <span className="text-body-md text-text">Display in client details</span>
           <Toggle
             checked={displayInClientDetails}
             onChange={setDisplayInClientDetails}
@@ -501,7 +501,7 @@ function EditFieldModal({
         </div>
 
         <div className="flex items-center justify-between">
-          <span className="text-sm text-text">Required</span>
+          <span className="text-body-md text-text">Required</span>
           <Toggle checked={required} onChange={setRequired} />
         </div>
       </div>

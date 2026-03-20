@@ -31,7 +31,7 @@ export default async function PractitionersPage() {
           >
             <div className="flex items-center gap-4">
               <div
-                className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-lg font-bold text-white"
+                className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-heading-lg text-white"
                 style={{ backgroundColor: p.color }}
               >
                 {p.name
@@ -65,11 +65,11 @@ export default async function PractitionersPage() {
 
             <div className="mt-4 flex gap-4 border-t border-border pt-4">
               <div className="text-center">
-                <p className="text-lg font-bold text-text">{p._count.appointments}</p>
+                <p className="text-heading-lg text-text">{p._count.appointments}</p>
                 <p className="text-xs text-text-secondary">Appointments</p>
               </div>
               <div className="text-center">
-                <p className="text-lg font-bold text-text">{p._count.notes}</p>
+                <p className="text-heading-lg text-text">{p._count.notes}</p>
                 <p className="text-xs text-text-secondary">Notes</p>
               </div>
             </div>

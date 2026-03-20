@@ -37,16 +37,16 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
       {/* Header bar */}
       <div className="flex items-center justify-between border-b border-border bg-white px-6 py-4">
         <div className="flex items-center gap-3">
-          <h1 className="text-2xl font-bold text-text">{form.title}</h1>
-          <span className={`rounded-full ${statusColor} px-3 py-1 text-xs font-medium text-white`}>{form.status}</span>
+          <h1 className="text-display-lg text-text">{form.title}</h1>
+          <span className={`rounded-full ${statusColor} px-3 py-1 text-label-md text-white`}>{form.status}</span>
           <span className="cursor-pointer text-sm text-primary hover:underline">{form.clientName}</span>
         </div>
         <div className="flex items-center gap-2">
-          <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+          <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-label-lg text-text hover:bg-gray-50">
             <Mail className="h-4 w-4" />
             Email form
           </button>
-          <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50">
+          <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-label-lg text-text hover:bg-gray-50">
             Actions
             <ChevronDown className="h-3.5 w-3.5" />
           </button>
@@ -67,11 +67,11 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
           {/* Form sections */}
           {form.sections.map((section, si) => (
             <div key={si} className="mb-6">
-              <h3 className="mb-4 text-lg font-bold text-text">{section.title}</h3>
+              <h3 className="mb-4 text-heading-lg text-text">{section.title}</h3>
               <div className="space-y-5">
                 {section.fields.map((field, fi) => (
                   <div key={fi}>
-                    <p className="text-sm font-medium text-text">{field.label}</p>
+                    <p className="text-label-lg text-text">{field.label}</p>
                     {field.value ? (
                       field.type === "file" ? (
                         <a href="#" className="text-sm text-primary hover:underline">

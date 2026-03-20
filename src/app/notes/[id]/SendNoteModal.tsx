@@ -135,7 +135,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
 
         {/* Reply to */}
         <div>
-          <label className="mb-1 block text-sm font-medium text-text-secondary">
+          <label className="mb-1 block text-label-lg text-text-secondary">
             Reply to <span className="text-red-500">*</span>
           </label>
           <FormSelect
@@ -158,7 +158,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
           <button
             onClick={handleSummariseSession}
             disabled={isGenerating}
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-white hover:bg-primary-dark disabled:opacity-50"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-label-lg text-white hover:bg-primary-dark disabled:opacity-50"
           >
             <Sparkles className="h-4 w-4" />
             {isGenerating ? "Generating..." : "Summarise session"}

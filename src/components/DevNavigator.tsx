@@ -81,7 +81,7 @@ export default function DevNavigator() {
     return (
       <button
         onClick={() => setExpanded(true)}
-        className="fixed right-4 bottom-4 z-50 rounded-full bg-gray-900/90 px-3 py-1.5 text-xs font-medium text-white shadow-lg backdrop-blur-sm transition-all hover:bg-gray-900"
+        className="fixed right-4 bottom-4 z-50 rounded-full bg-gray-900/90 px-3 py-1.5 text-label-md text-white shadow-lg backdrop-blur-sm transition-all hover:bg-gray-900"
         title="Dev Navigator (Ctrl+Shift+N)"
       >
         &#9670; Nav
@@ -94,8 +94,8 @@ export default function DevNavigator() {
       {/* Header */}
       <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-semibold">Dev Navigator</span>
-          <span className="rounded-full bg-primary/80 px-2 py-0.5 text-[10px] font-medium">
+          <span className="text-heading-sm">Dev Navigator</span>
+          <span className="rounded-full bg-primary/80 px-2 py-0.5 text-caption-sm">
             {pages} pages / {variants} variants
           </span>
         </div>
@@ -113,7 +113,7 @@ export default function DevNavigator() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search pages..."
-            className="flex-1 bg-transparent text-xs text-white outline-none placeholder:text-white/40"
+            className="flex-1 bg-transparent text-body-sm text-white outline-none placeholder:text-white/40"
             autoFocus
           />
         </div>
@@ -125,7 +125,7 @@ export default function DevNavigator() {
           <div key={group} className="mb-1">
             <button
               onClick={() => toggleGroup(group)}
-              className="flex w-full items-center gap-1.5 rounded px-2 py-1 text-[11px] font-bold tracking-wider text-white/50 uppercase hover:bg-white/5 hover:text-white/80"
+              className="flex w-full items-center gap-1.5 rounded px-2 py-1 text-caption-sm font-bold tracking-wider text-white/50 uppercase hover:bg-white/5 hover:text-white/80"
             >
               {expandedGroups.has(group) ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
               {group}
@@ -145,16 +145,16 @@ export default function DevNavigator() {
 
       {/* Quick links */}
       <div className="flex items-center gap-3 border-t border-white/10 px-4 py-2">
-        <Link href="/eng" className="text-[10px] text-primary-light hover:text-white">
+        <Link href="/eng" className="text-caption-sm text-primary-light hover:text-white">
           Eng Toolkit
         </Link>
-        <a href="/storybook/index.html" target="_blank" rel="noopener" className="text-[10px] text-primary-light hover:text-white">
+        <a href="/storybook/index.html" target="_blank" rel="noopener" className="text-caption-sm text-primary-light hover:text-white">
           Storybook ↗
         </a>
-        <span className="ml-auto text-[10px] text-white/40">
+        <span className="ml-auto text-caption-sm text-white/40">
           {pages}p / {variants}v
         </span>
-        <button onClick={() => setExpanded(false)} className="text-[10px] text-white/50 hover:text-white">
+        <button onClick={() => setExpanded(false)} className="text-caption-sm text-white/50 hover:text-white">
           Hide
         </button>
       </div>
@@ -226,7 +226,7 @@ function VariantLink({ page, variant, pathname }: { page: PageEntry; variant: St
   return (
     <Link
       href={url}
-      className={`flex items-center gap-1.5 rounded px-2 py-0.5 text-[11px] transition-colors ${
+      className={`flex items-center gap-1.5 rounded px-2 py-0.5 text-caption-sm transition-colors ${
         isActive ? "bg-primary/20 text-primary-light" : "text-white/50 hover:bg-white/5 hover:text-white/80"
       }`}
     >

@@ -28,7 +28,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
       {/* Top header bar */}
       <div className="flex items-center justify-between border-b border-border bg-white px-6 py-3">
         <div className="flex items-center gap-3">
-          <h1 className="text-lg font-semibold text-text">{invoice.invoiceNumber}</h1>
+          <h1 className="text-heading-lg text-text">{invoice.invoiceNumber}</h1>
           <StatusBadge status={invoice.status} />
           {creditBalance > 0 && <Badge variant="green">Credit balance: ${creditBalance.toFixed(2)}</Badge>}
         </div>
@@ -86,7 +86,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
             {/* Invoice title row + logo */}
             <div className="mb-10 flex items-start justify-between">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900">
+                <h2 className="text-display-lg text-gray-900">
                   {isOverdue ? "Overdue Invoice" : invoice.status === "Paid" ? "Tax Invoice" : "Tax Invoice"}
                 </h2>
               </div>

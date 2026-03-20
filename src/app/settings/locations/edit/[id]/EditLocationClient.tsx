@@ -272,7 +272,7 @@ export default function EditLocationClient({ id }: { id: string }) {
               />
             </svg>
           </Link>
-          <h1 className="text-2xl font-bold text-text">{location.name}</h1>
+          <h1 className="text-display-lg text-text">{location.name}</h1>
         </div>
         <div className="flex items-center gap-3">
           <Button variant="danger">Delete</Button>
@@ -291,10 +291,10 @@ export default function EditLocationClient({ id }: { id: string }) {
 
         {/* Location address section */}
         <div className="border-t border-border pt-5">
-          <h2 className="mb-1 text-lg font-semibold text-text">
+          <h2 className="mb-1 text-heading-lg text-text">
             Location address
           </h2>
-          <p className="mb-4 text-sm text-text-secondary">
+          <p className="mb-4 text-body-md text-text-secondary">
             Enter your location address below to enable timezone detection for
             online bookings so that clients booking from a different timezone see
             the correct times on your booking page.
@@ -321,7 +321,7 @@ export default function EditLocationClient({ id }: { id: string }) {
               {services.map((service) => (
                 <label
                   key={service}
-                  className="flex cursor-pointer items-center gap-3 rounded px-1 py-1 text-sm text-text hover:bg-gray-50"
+                  className="flex cursor-pointer items-center gap-3 rounded px-1 py-1 text-body-md text-text hover:bg-gray-50"
                 >
                   <input
                     type="checkbox"
@@ -338,7 +338,7 @@ export default function EditLocationClient({ id }: { id: string }) {
 
         {/* Online bookings */}
         <div className="border-t border-border pt-5">
-          <h2 className="mb-4 text-lg font-semibold text-text">
+          <h2 className="mb-4 text-heading-lg text-text">
             Online bookings
           </h2>
           <Toggle
@@ -350,7 +350,7 @@ export default function EditLocationClient({ id }: { id: string }) {
 
         {/* Notices */}
         <div className="border-t border-border pt-5 pb-8">
-          <h2 className="mb-4 text-lg font-semibold text-text">Notices</h2>
+          <h2 className="mb-4 text-heading-lg text-text">Notices</h2>
           <div className="space-y-3">
             <Toggle
               checked={phoneNotice}

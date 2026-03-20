@@ -297,7 +297,7 @@ export default function EditProgressNotePage() {
         title={note?.template || "Note"}
         badge={
           <>
-            <span className="cursor-pointer text-sm text-primary hover:underline">{clientName}</span>
+            <span className="cursor-pointer text-body-md text-primary hover:underline">{clientName}</span>
             {note?.signed ? (
               <Badge variant="green">
                 <CheckCircle className="h-3 w-3" />
@@ -385,7 +385,7 @@ export default function EditProgressNotePage() {
               <span className="flex-1" />
               <button
                 onClick={generateAll}
-                className="flex items-center gap-1.5 rounded-lg border border-primary bg-white px-3 py-1 text-sm font-medium text-primary hover:bg-purple-50"
+                className="flex items-center gap-1.5 rounded-lg border border-primary bg-white px-3 py-1 text-label-lg text-primary hover:bg-purple-50"
               >
                 <Sparkles className="h-3.5 w-3.5" />
                 Generate
@@ -408,7 +408,7 @@ export default function EditProgressNotePage() {
 
             {/* Client info table */}
             <div className="mb-6 rounded-lg border border-border bg-white">
-              <table className="w-full text-sm">
+              <table className="w-full text-body-md">
                 <tbody>
                   {[
                     ["Client Name", clientName],
@@ -419,7 +419,7 @@ export default function EditProgressNotePage() {
                     ["Therapist", note?.practitioner?.name || "Jim Yencken"],
                   ].map(([label, value]) => (
                     <tr key={label} className="border-b border-border last:border-b-0">
-                      <td className="w-40 px-4 py-2 font-medium text-text">{label}</td>
+                      <td className="w-40 px-4 py-2 text-label-lg text-text">{label}</td>
                       <td className="px-4 py-2 text-text-secondary">{value}</td>
                     </tr>
                   ))}
@@ -430,7 +430,7 @@ export default function EditProgressNotePage() {
             {/* AI Sections */}
             {sections.map((section) => (
               <div key={section.id} className="mb-6">
-                <h3 className="mb-2 text-lg font-bold text-text">{section.title}</h3>
+                <h3 className="mb-2 text-heading-lg text-text">{section.title}</h3>
 
                 {/* Show accepted content directly under heading */}
                 {accepted[section.id] && section.generated && (
@@ -449,7 +449,7 @@ export default function EditProgressNotePage() {
                     >
                       <div className="flex items-center gap-2">
                         <Sparkles className="h-4 w-4 text-primary" />
-                        <span className="text-sm font-medium text-primary">AI block</span>
+                        <span className="text-label-lg text-primary">AI block</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <button
@@ -460,7 +460,7 @@ export default function EditProgressNotePage() {
                           className="rounded p-0.5 text-text-secondary hover:bg-purple-100 hover:text-text"
                           title="Dismiss"
                         >
-                          <span className="text-sm font-medium">&times;</span>
+                          <span className="text-label-lg">&times;</span>
                         </button>
                         {section.expanded ? (
                           <ChevronUp className="h-4 w-4 text-text-secondary" />
@@ -491,7 +491,7 @@ export default function EditProgressNotePage() {
                                 {/* Actions dropdown */}
                                 <button
                                   onClick={() => toggleActions(section.id)}
-                                  className="flex items-center gap-1 rounded px-2 py-1 text-xs font-medium text-text-secondary hover:bg-purple-100"
+                                  className="flex items-center gap-1 rounded px-2 py-1 text-label-md text-text-secondary hover:bg-purple-100"
                                 >
                                   Actions
                                   <ChevronDown className="h-3 w-3" />
@@ -569,7 +569,7 @@ export default function EditProgressNotePage() {
                               <div className="relative">
                                 <button
                                   onClick={() => toggleActions(section.id)}
-                                  className="flex items-center gap-1 rounded px-2 py-1 text-xs font-medium text-text-secondary hover:bg-purple-100"
+                                  className="flex items-center gap-1 rounded px-2 py-1 text-label-md text-text-secondary hover:bg-purple-100"
                                 >
                                   Actions
                                   <ChevronDown className="h-3 w-3" />
@@ -621,7 +621,7 @@ export default function EditProgressNotePage() {
             className="w-80 shrink-0 overflow-y-auto border-l border-border bg-white p-6"
             style={{ maxHeight: "calc(100vh - 6rem)" }}
           >
-            <h3 className="mb-3 text-sm font-semibold text-text">Filter previous progress notes</h3>
+            <h3 className="mb-3 text-heading-sm text-text">Filter previous progress notes</h3>
             <input
               type="text"
               placeholder="Search notes"

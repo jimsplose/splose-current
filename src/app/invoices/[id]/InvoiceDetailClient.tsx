@@ -92,7 +92,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           <StatusBadge status={invoice.status} />
         </div>
         <div className="flex items-center gap-2">
-          <span className="rounded-lg bg-green-100 px-3 py-1.5 text-sm font-medium text-green-700">
+          <span className="rounded-lg bg-green-100 px-3 py-1.5 text-label-lg text-green-700">
             Credit balance: ${invoice.status === "Paid" ? "0.00" : "680.00"}
           </span>
           <Button variant="secondary" onClick={openPaymentModal}>
@@ -115,7 +115,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
         <div className="rounded-b-lg border border-border bg-white p-8 shadow-sm">
           {/* Title and logo */}
           <div className="mb-8 flex items-start justify-between">
-            <h2 className="text-2xl font-bold text-text">
+            <h2 className="text-display-lg text-text">
               {invoice.status === "Overdue" ? "Overdue Invoice" : invoice.status === "Paid" ? "Tax Invoice" : "Invoice"}
             </h2>
             <div className="text-4xl font-bold italic" style={{ color: "#2d6d40" }}>
@@ -277,7 +277,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
         <div className="space-y-4">
           {/* Amount */}
           <div>
-            <label className="mb-1 block text-sm font-medium text-text">Amount</label>
+            <label className="mb-1 block text-label-lg text-text">Amount</label>
             <div className="relative">
               <span className="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-text-secondary">$</span>
               <input
@@ -322,7 +322,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
 
           {/* Notes */}
           <div>
-            <label className="mb-1 block text-sm font-medium text-text">Notes</label>
+            <label className="mb-1 block text-label-lg text-text">Notes</label>
             <textarea
               value={paymentNotes}
               onChange={(e) => setPaymentNotes(e.target.value)}

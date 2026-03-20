@@ -26,13 +26,13 @@ export default function SMSSettingsPage() {
 
       {/* SMS credit balance card */}
       <div className="mb-8 inline-block rounded-lg border border-border bg-white px-5 py-4">
-        <p className="text-sm text-text-secondary">SMS credit balance</p>
+        <p className="text-body-md text-text-secondary">SMS credit balance</p>
         <p className="text-3xl font-bold text-text">884</p>
       </div>
 
       {/* Recharge credits section */}
       <div className="mb-8">
-        <h2 className="mb-4 text-lg font-semibold text-text">Recharge credits</h2>
+        <h2 className="mb-4 text-heading-lg text-text">Recharge credits</h2>
         <div className="mb-4 flex gap-3">
           {creditOptions.map((option) => (
             <button
@@ -44,8 +44,8 @@ export default function SMSSettingsPage() {
                   : "border-border bg-white text-text hover:border-gray-300"
               }`}
             >
-              <p className="text-sm font-medium">{option.credits} credits</p>
-              <p className="text-sm text-text-secondary">{option.price}</p>
+              <p className="text-label-lg">{option.credits} credits</p>
+              <p className="text-body-md text-text-secondary">{option.price}</p>
             </button>
           ))}
         </div>
@@ -59,8 +59,8 @@ export default function SMSSettingsPage() {
 
       {/* SMS pricing section */}
       <div className="max-w-2xl">
-        <h2 className="mb-4 text-lg font-semibold text-text">SMS pricing</h2>
-        <div className="space-y-3 text-sm text-text-secondary leading-relaxed">
+        <h2 className="mb-4 text-heading-lg text-text">SMS pricing</h2>
+        <div className="space-y-3 text-body-md text-text-secondary leading-relaxed">
           <p>
             A standard SMS message contains 160 characters per segment (if a message has more
             than 160 characters, the message is split into segments, each consisting of 153
@@ -90,7 +90,7 @@ export default function SMSSettingsPage() {
           }}
         >
           <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
-            <h2 className="mb-6 text-lg font-semibold text-text">
+            <h2 className="mb-6 text-heading-lg text-text">
               Recharge {selectedCredits} credits?
             </h2>
             <div className="flex items-center gap-3">

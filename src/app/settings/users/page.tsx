@@ -14,7 +14,7 @@ export default function UsersPage() {
   return (
     <div className="p-6">
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-bold text-text">Users</h1>
+        <h1 className="text-display-lg text-text">Users</h1>
         <Button variant="primary">Invite users</Button>
       </div>
       <div className="mb-4 flex items-center gap-2">
@@ -27,14 +27,14 @@ export default function UsersPage() {
           {users.map((user) => (
             <tr key={user.email} className="hover:bg-gray-50">
               <Td className="font-medium text-text">
-                <div>{user.name}{user.isOwner && <span className="ml-2 inline-block rounded bg-green-500 px-1.5 py-0.5 text-[10px] font-bold text-white">Account owner</span>}</div>
+                <div>{user.name}{user.isOwner && <span className="ml-2 inline-block rounded bg-green-500 px-1.5 py-0.5 text-caption-sm text-white">Account owner</span>}</div>
               </Td>
               <Td className="text-text-secondary">{user.email}</Td>
               <Td className="text-text-secondary">{user.roleName}</Td>
               <Td className="text-text-secondary">{user.roleType}</Td>
               <Td className="text-text-secondary">{user.group || "---"}</Td>
               <Td><Badge variant="green">{user.status}</Badge></Td>
-              <Td align="right"><button className="text-text-secondary hover:text-text text-lg font-bold">&middot;&middot;&middot;</button></Td>
+              <Td align="right"><button className="text-text-secondary hover:text-text text-heading-lg">&middot;&middot;&middot;</button></Td>
             </tr>
           ))}
         </TableBody>

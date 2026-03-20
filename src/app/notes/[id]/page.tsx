@@ -35,7 +35,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
             ) : (
               <Badge variant="gray">Draft</Badge>
             )}
-            <Link href={`/clients/${note.clientId}`} className="text-sm font-medium text-primary hover:underline">
+            <Link href={`/clients/${note.clientId}`} className="text-label-lg text-primary hover:underline">
               {clientName}
             </Link>
           </>
@@ -55,7 +55,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
         <div className="rounded-lg border border-border bg-white p-10 shadow-sm">
           {/* Client name with logo */}
           <div className="mb-4 flex items-start justify-between">
-            <h2 className="text-2xl font-bold text-text">{clientName}</h2>
+            <h2 className="text-display-lg text-text">{clientName}</h2>
             <div className="h-12 w-12 text-3xl">🦆</div>
           </div>
 
@@ -66,7 +66,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
 
           {/* Client info table */}
           <div className="mb-8 rounded-lg border border-border">
-            <table className="w-full text-sm">
+            <table className="w-full text-body-md">
               <tbody>
                 {[
                   ["Client Name", clientName],
@@ -77,7 +77,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
                   ["Therapist", note.practitioner.name],
                 ].map(([label, value]) => (
                   <tr key={label} className="border-b border-border last:border-b-0">
-                    <td className="w-40 px-4 py-2 font-medium text-text">{label}</td>
+                    <td className="w-40 px-4 py-2 text-label-lg text-text">{label}</td>
                     <td className="px-4 py-2 text-text-secondary">{value}</td>
                   </tr>
                 ))}
@@ -88,7 +88,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
           {/* SOAP Sections */}
           <div className="space-y-6">
             <div>
-              <h3 className="mb-2 text-lg font-bold text-text">Subjective</h3>
+              <h3 className="mb-2 text-heading-lg text-text">Subjective</h3>
               <ul className="list-disc space-y-1 pl-6 text-sm leading-relaxed text-text">
                 <li>
                   The participant did not provide a session transcript or verbal report regarding communication
@@ -101,7 +101,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
             </div>
 
             <div>
-              <h3 className="mb-2 text-lg font-bold text-text">Objective</h3>
+              <h3 className="mb-2 text-heading-lg text-text">Objective</h3>
               <ul className="list-disc space-y-1 pl-6 text-sm leading-relaxed text-text">
                 <li>
                   The participant demonstrated consistent engagement throughout the session, responding to prompts and
@@ -122,7 +122,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
             </div>
 
             <div>
-              <h3 className="mb-2 text-lg font-bold text-text">Assessment</h3>
+              <h3 className="mb-2 text-heading-lg text-text">Assessment</h3>
               <ul className="list-disc space-y-1 pl-6 text-sm leading-relaxed text-text">
                 <li>
                   The participant has demonstrated consistent engagement in therapy sessions over the past two months,
@@ -144,7 +144,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
             </div>
 
             <div>
-              <h3 className="mb-2 text-lg font-bold text-text">Plan</h3>
+              <h3 className="mb-2 text-heading-lg text-text">Plan</h3>
               <p className="text-sm leading-relaxed text-text">
                 No transcript available for this session. Unable to complete the Plan section as requested due to lack
                 of source information.
@@ -152,7 +152,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
             </div>
 
             <div>
-              <h3 className="mb-2 text-lg font-bold text-text">Goals</h3>
+              <h3 className="mb-2 text-heading-lg text-text">Goals</h3>
               <ul className="list-disc space-y-1 pl-6 text-sm leading-relaxed text-text">
                 <li>
                   No session transcript (transcription) is available for today&apos;s session; therefore, no measurable
@@ -174,14 +174,14 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
           {/* Signature / metadata */}
           <div className="mt-10 border-t border-border pt-4">
             {note.signed ? (
-              <div className="flex items-center gap-2 text-sm text-green-700">
+              <div className="flex items-center gap-2 text-body-md text-green-700">
                 <CheckCircle className="h-4 w-4" />
-                <span className="font-medium">
+                <span className="text-label-lg">
                   Signed and locked by {note.practitioner.name} on {formatNoteDate(note.date)}
                 </span>
               </div>
             ) : (
-              <p className="text-sm text-text-secondary">
+              <p className="text-body-md text-text-secondary">
                 This note has not been signed yet. Click &quot;Sign &amp; lock&quot; above to finalise.
               </p>
             )}

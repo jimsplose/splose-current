@@ -45,7 +45,7 @@ export default function NoteViewToolbar({
         )}
         <Link
           href={`/notes/${noteId}/edit`}
-          className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50"
+          className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-label-lg text-text hover:bg-gray-50"
         >
           Edit <Pencil className="h-3.5 w-3.5" />
         </Link>

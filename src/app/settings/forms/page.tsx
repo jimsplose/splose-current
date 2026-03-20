@@ -27,8 +27,8 @@ export default function FormsPage() {
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-text">Forms</h1>
-          <p className="mt-1 text-sm text-text-secondary">Create and manage forms that clients can fill out online</p>
+          <h1 className="text-display-lg text-text">Forms</h1>
+          <p className="mt-1 text-body-md text-text-secondary">Create and manage forms that clients can fill out online</p>
         </div>
         <Button variant="primary">+ New form</Button>
       </div>
@@ -36,22 +36,22 @@ export default function FormsPage() {
         <div className="w-64"><FormInput type="text" placeholder="Search forms..." value={search} onChange={(e) => setSearch(e.target.value)} /></div>
         <div className="flex rounded-lg border border-border bg-white overflow-hidden">
           {(["all", "Published", "Draft", "Archived"] as const).map((s) => (
-            <button key={s} onClick={() => setStatusFilter(s)} className={`px-3 py-2 text-sm font-medium transition-colors ${s !== "all" ? "border-l border-border" : ""} ${statusFilter === s ? "bg-primary text-white" : "text-text-secondary hover:bg-gray-50"}`}>{s === "all" ? "All" : s}</button>
+            <button key={s} onClick={() => setStatusFilter(s)} className={`px-3 py-2 text-label-lg transition-colors ${s !== "all" ? "border-l border-border" : ""} ${statusFilter === s ? "bg-primary text-white" : "text-text-secondary hover:bg-gray-50"}`}>{s === "all" ? "All" : s}</button>
           ))}
         </div>
       </div>
       <div className="rounded-lg border border-border bg-white overflow-hidden">
         <table className="w-full">
-          <thead><tr className="border-b border-border bg-gray-50"><th className="px-4 py-3 text-left text-sm font-medium text-text">Form name</th><th className="px-4 py-3 text-left text-sm font-medium text-text">Description</th><th className="px-4 py-3 text-center text-sm font-medium text-text">Status</th><th className="px-4 py-3 text-center text-sm font-medium text-text">Responses</th><th className="px-4 py-3 text-left text-sm font-medium text-text">Last modified</th><th className="px-4 py-3 text-right text-sm font-medium text-text">Actions</th></tr></thead>
+          <thead><tr className="border-b border-border bg-gray-50"><th className="px-4 py-3 text-left text-label-lg text-text">Form name</th><th className="px-4 py-3 text-left text-label-lg text-text">Description</th><th className="px-4 py-3 text-center text-label-lg text-text">Status</th><th className="px-4 py-3 text-center text-label-lg text-text">Responses</th><th className="px-4 py-3 text-left text-label-lg text-text">Last modified</th><th className="px-4 py-3 text-right text-label-lg text-text">Actions</th></tr></thead>
           <tbody className="divide-y divide-border">
             {filtered.map((form) => (
               <tr key={form.name} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm font-medium text-text">{form.name}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary max-w-xs truncate">{form.description}</td>
+                <td className="px-4 py-3 text-label-lg text-text">{form.name}</td>
+                <td className="px-4 py-3 text-body-md text-text-secondary max-w-xs truncate">{form.description}</td>
                 <td className="px-4 py-3 text-center"><Badge variant={form.status === "Published" ? "green" : form.status === "Draft" ? "yellow" : "gray"}>{form.status}</Badge></td>
-                <td className="px-4 py-3 text-center text-sm text-text-secondary">{form.responses}</td>
-                <td className="px-4 py-3 text-sm text-text-secondary">{form.lastModified}</td>
-                <td className="px-4 py-3 text-right"><div className="flex items-center justify-end gap-2"><button className="text-sm text-primary hover:underline">Edit</button><button className="text-sm text-text-secondary hover:text-text">...</button></div></td>
+                <td className="px-4 py-3 text-center text-body-md text-text-secondary">{form.responses}</td>
+                <td className="px-4 py-3 text-body-md text-text-secondary">{form.lastModified}</td>
+                <td className="px-4 py-3 text-right"><div className="flex items-center justify-end gap-2"><button className="text-body-md text-primary hover:underline">Edit</button><button className="text-body-md text-text-secondary hover:text-text">...</button></div></td>
               </tr>
             ))}
           </tbody>

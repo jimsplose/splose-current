@@ -45,7 +45,7 @@ export default function EngPage() {
   return (
     <div className="mx-auto max-w-5xl p-4 sm:p-8">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-text">Eng Toolkit</h1>
+        <h1 className="text-display-lg text-text">Eng Toolkit</h1>
         <p className="mt-1 text-sm text-text-secondary">
           Design system components and page directory. Internal use only.
         </p>
@@ -54,7 +54,7 @@ export default function EngPage() {
       <div className="mb-8 flex gap-4 border-b border-border">
         <button
           onClick={() => setTab("components")}
-          className={`border-b-2 pb-2 text-sm font-medium ${
+          className={`border-b-2 pb-2 text-label-lg ${
             tab === "components"
               ? "border-primary text-primary"
               : "border-transparent text-text-secondary hover:text-text"
@@ -64,7 +64,7 @@ export default function EngPage() {
         </button>
         <button
           onClick={() => setTab("pages")}
-          className={`border-b-2 pb-2 text-sm font-medium ${
+          className={`border-b-2 pb-2 text-label-lg ${
             tab === "pages" ? "border-primary text-primary" : "border-transparent text-text-secondary hover:text-text"
           }`}
         >
@@ -81,7 +81,7 @@ export default function EngPage() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="mb-10">
-      <h2 className="mb-1 text-lg font-bold text-text">{title}</h2>
+      <h2 className="mb-1 text-heading-lg text-text">{title}</h2>
       <div className="mb-4 h-px bg-border" />
       {children}
     </div>
@@ -291,9 +291,9 @@ function PageDirectory() {
           href={page.href}
           className="block rounded-lg border border-border p-4 transition-colors hover:border-primary hover:bg-purple-50/30"
         >
-          <h3 className="text-sm font-semibold text-text">{page.name}</h3>
+          <h3 className="text-heading-sm text-text">{page.name}</h3>
           <p className="mt-1 text-xs text-text-secondary">{page.desc}</p>
-          <p className="mt-2 font-mono text-[10px] text-primary">{page.href}</p>
+          <p className="mt-2 font-mono text-caption-sm text-primary">{page.href}</p>
         </Link>
       ))}
     </div>

@@ -18,7 +18,7 @@ export default function ClientStatementsPage() {
       {/* Filter row */}
       <div className="mb-4 flex items-end gap-4">
         <div className="flex flex-col gap-1">
-          <label className="text-sm font-medium text-text">Type*</label>
+          <label className="text-label-lg text-text">Type*</label>
           <Button className="min-w-[140px] justify-between">
             Activity
             <ChevronDown className="h-4 w-4 text-text-secondary" />
@@ -26,7 +26,7 @@ export default function ClientStatementsPage() {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-sm font-medium text-text">Date range*</label>
+          <label className="text-label-lg text-text">Date range*</label>
           <div className="flex items-center gap-2">
             <input
               type="text"
@@ -43,7 +43,7 @@ export default function ClientStatementsPage() {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-sm font-medium text-text">Location*</label>
+          <label className="text-label-lg text-text">Location*</label>
           <Button className="min-w-[160px] justify-between">
             All Locations
             <ChevronDown className="h-4 w-4 text-text-secondary" />

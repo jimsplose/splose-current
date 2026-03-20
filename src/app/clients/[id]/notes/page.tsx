@@ -62,11 +62,11 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
                       <span className="text-xs text-text-secondary">»</span>
                       <span className="text-sm text-text">{note.template}</span>
                       {note.signed ? (
-                        <span className="rounded bg-green-100 px-1.5 py-0.5 text-[10px] font-medium text-green-700">
+                        <span className="rounded bg-green-100 px-1.5 py-0.5 text-caption-sm font-medium text-green-700">
                           Final
                         </span>
                       ) : (
-                        <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-medium text-gray-600">
+                        <span className="rounded bg-gray-100 px-1.5 py-0.5 text-caption-sm font-medium text-gray-600">
                           Draft
                         </span>
                       )}

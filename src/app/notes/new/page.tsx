@@ -79,7 +79,7 @@ function NewProgressNotePageInner() {
       <Navbar backHref="/notes" title="New progress note" badge={<Badge variant="yellow">Unsaved</Badge>}>
         {/* Add new note button */}
         <button className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500 text-white transition-colors hover:bg-green-600">
-          <span className="text-lg leading-none font-bold">+</span>
+          <span className="text-heading-lg leading-none">+</span>
         </button>
         {/* View toggle */}
         <Filter
@@ -108,7 +108,7 @@ function NewProgressNotePageInner() {
           <div className="mx-auto max-w-2xl">
             {/* Client select */}
             <div className="mb-5">
-              <label className="mb-1 block text-sm font-medium text-text">
+              <label className="mb-1 block text-label-lg text-text">
                 Client <span className="text-danger">*</span>
               </label>
               <ClientSelect value={clientId} onChange={setClientId} />
@@ -116,7 +116,7 @@ function NewProgressNotePageInner() {
 
             {/* Practitioner select */}
             <div className="mb-5">
-              <label className="mb-1 block text-sm font-medium text-text">
+              <label className="mb-1 block text-label-lg text-text">
                 Practitioner <span className="text-danger">*</span>
               </label>
               <PractitionerSelect value={practitionerId} onChange={setPractitionerId} />
@@ -124,7 +124,7 @@ function NewProgressNotePageInner() {
 
             {/* Service date */}
             <div className="mb-5">
-              <label className="mb-1 block text-sm font-medium text-text">Service date</label>
+              <label className="mb-1 block text-label-lg text-text">Service date</label>
               <input
                 type="date"
                 value={serviceDate}
@@ -135,7 +135,7 @@ function NewProgressNotePageInner() {
 
             {/* Template field */}
             <div className="mb-5">
-              <label className="mb-1 block text-sm font-medium text-text">
+              <label className="mb-1 block text-label-lg text-text">
                 Template <span className="text-danger">*</span>
               </label>
               <select
@@ -170,7 +170,7 @@ function NewProgressNotePageInner() {
 
             {/* Note content */}
             <div className="mb-4">
-              <label className="mb-1 block text-sm font-medium text-text">Note content</label>
+              <label className="mb-1 block text-label-lg text-text">Note content</label>
               <textarea
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
@@ -185,7 +185,7 @@ function NewProgressNotePageInner() {
         {/* Right reference panel */}
         {viewMode === "split" && (
           <div className="w-80 shrink-0 bg-white p-6">
-            <h3 className="mb-3 text-sm font-semibold text-text">Filter previous progress notes</h3>
+            <h3 className="mb-3 text-heading-sm text-text">Filter previous progress notes</h3>
             <input
               type="text"
               placeholder="Search notes"

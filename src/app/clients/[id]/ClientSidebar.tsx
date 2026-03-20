@@ -32,12 +32,12 @@ export default function ClientSidebar({ sections }: { sections: Section[] }) {
               <Link
                 key={section.label}
                 href={section.href}
-                className={`rounded-full px-3 py-1 text-xs font-medium whitespace-nowrap transition-colors ${
+                className={`rounded-full px-3 py-1 text-label-md whitespace-nowrap transition-colors ${
                   active ? "bg-primary/10 text-primary" : "text-text-secondary hover:bg-gray-50"
                 }`}
               >
                 {section.label}
-                {section.count !== null && <span className="ml-1 text-[10px]">{section.count}</span>}
+                {section.count !== null && <span className="ml-1 text-caption-sm">{section.count}</span>}
               </Link>
             );
           })}

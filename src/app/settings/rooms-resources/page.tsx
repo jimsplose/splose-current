@@ -68,7 +68,7 @@ function ActionsDropdown({ onSelect }: { onSelect: (action: string) => void }) {
                 onSelect(item.value);
                 setOpen(false);
               }}
-              className={`w-full px-4 py-2 text-left text-sm transition-colors hover:bg-gray-50 ${
+              className={`w-full px-4 py-2 text-left text-body-md transition-colors hover:bg-gray-50 ${
                 item.danger ? "text-red-600" : "text-text"
               }`}
             >
@@ -123,7 +123,7 @@ function RoomModal({
       <div className="w-full max-w-md rounded-xl bg-white shadow-xl">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-border px-6 py-4">
-          <h2 className="text-lg font-semibold text-text">{title}</h2>
+          <h2 className="text-heading-lg text-text">{title}</h2>
           <button
             onClick={onClose}
             className="rounded p-1 text-text-secondary hover:bg-gray-100"
@@ -150,7 +150,7 @@ function RoomModal({
           <div>
             <label
               htmlFor="room-name"
-              className="mb-1 block text-sm font-medium text-text-secondary"
+              className="mb-1 block text-label-lg text-text-secondary"
             >
               Name
             </label>
@@ -165,7 +165,7 @@ function RoomModal({
 
           {/* Color picker */}
           <div>
-            <label className="mb-2 block text-sm font-medium text-text-secondary">
+            <label className="mb-2 block text-label-lg text-text-secondary">
               Colour
             </label>
             <div className="grid grid-cols-10 gap-2">
@@ -190,13 +190,13 @@ function RoomModal({
         <div className="flex items-center justify-end gap-2 border-t border-border px-6 py-4">
           <button
             onClick={onClose}
-            className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-text hover:bg-gray-50"
+            className="rounded-lg border border-border bg-white px-4 py-2 text-label-lg text-text hover:bg-gray-50"
           >
             Cancel
           </button>
           <button
             onClick={() => onSave(name, color)}
-            className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark"
+            className="rounded-lg bg-primary px-4 py-2 text-label-lg text-white hover:bg-primary-dark"
           >
             Save
           </button>
@@ -280,10 +280,10 @@ export default function SettingsRoomsResourcesPage() {
       <div className="flex-1 p-6">
         {/* Page header */}
         <div className="mb-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-text">Rooms/Resources</h1>
+          <h1 className="text-display-lg text-text">Rooms/Resources</h1>
           <button
             onClick={handleAddRoom}
-            className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark"
+            className="rounded-lg bg-primary px-4 py-2 text-label-lg text-white hover:bg-primary-dark"
           >
             + Add room/resource
           </button>
@@ -294,10 +294,10 @@ export default function SettingsRoomsResourcesPage() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-border bg-purple-50">
-                <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                <th className="px-4 py-3 text-left text-label-lg text-text">
                   Name
                 </th>
-                <th className="px-4 py-3 text-right text-sm font-medium text-text">
+                <th className="px-4 py-3 text-right text-label-lg text-text">
                   Actions
                 </th>
               </tr>
@@ -305,7 +305,7 @@ export default function SettingsRoomsResourcesPage() {
             <tbody className="divide-y divide-border">
               {rooms.map((room) => (
                 <tr key={room.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 text-sm text-text">
+                  <td className="px-4 py-3 text-body-md text-text">
                     <div className="flex items-center gap-2.5">
                       <span
                         className="inline-block h-3 w-3 shrink-0 rounded-full"
@@ -325,7 +325,7 @@ export default function SettingsRoomsResourcesPage() {
                 <tr>
                   <td
                     colSpan={2}
-                    className="px-4 py-8 text-center text-sm text-text-secondary"
+                    className="px-4 py-8 text-center text-body-md text-text-secondary"
                   >
                     No rooms or resources added yet.
                   </td>
@@ -334,9 +334,9 @@ export default function SettingsRoomsResourcesPage() {
             </tbody>
           </table>
           {/* Pagination */}
-          <div className="flex items-center justify-end border-t border-border px-4 py-3 text-sm text-text-secondary">
+          <div className="flex items-center justify-end border-t border-border px-4 py-3 text-body-md text-text-secondary">
             <span>&lt;</span>
-            <button className="mx-2 flex h-7 w-7 items-center justify-center rounded border border-primary bg-white text-xs font-medium text-primary">
+            <button className="mx-2 flex h-7 w-7 items-center justify-center rounded border border-primary bg-white text-label-md text-primary">
               1
             </button>
             <span>&gt;</span>

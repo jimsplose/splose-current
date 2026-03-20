@@ -85,7 +85,7 @@ export default function SettingsLayout({
       <aside className="w-64 shrink-0 border-r border-border bg-white p-4 overflow-y-auto">
         {sidebarSections.map((section) => (
           <div key={section.title} className="mb-4">
-            <h3 className="mb-1 text-xs font-bold uppercase tracking-wider text-text">
+            <h3 className="mb-1 text-label-md uppercase tracking-wider text-text">
               {section.title}
             </h3>
             <ul className="space-y-0.5">
@@ -93,7 +93,7 @@ export default function SettingsLayout({
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className={`w-full block rounded px-3 py-1.5 text-left text-sm transition-colors hover:bg-purple-50 hover:text-primary ${
+                    className={`w-full block rounded px-3 py-1.5 text-left text-body-md transition-colors hover:bg-purple-50 hover:text-primary ${
                       isActive(item.href)
                         ? "border-l-2 border-primary bg-purple-50 text-primary font-medium"
                         : "text-text-secondary"
@@ -101,7 +101,7 @@ export default function SettingsLayout({
                   >
                     {item.name}
                     {"badge" in item && item.badge && (
-                      <span className="ml-2 rounded bg-primary px-1.5 py-0.5 text-[10px] font-bold text-white">
+                      <span className="ml-2 rounded bg-primary px-1.5 py-0.5 text-caption-sm text-white">
                         {item.badge}
                       </span>
                     )}

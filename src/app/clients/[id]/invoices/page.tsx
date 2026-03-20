@@ -81,7 +81,7 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
                   <td colSpan={10} className="px-4 py-16 text-center">
                     <div className="flex flex-col items-center">
                       <div className="mb-3 text-4xl">📋💵</div>
-                      <p className="text-sm font-medium text-text">No invoices</p>
+                      <p className="text-label-lg text-text">No invoices</p>
                       <button className="mt-1 text-sm text-primary hover:underline">Add new invoice</button>
                     </div>
                   </td>

@@ -164,8 +164,8 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
       {/* Sidebar */}
       <aside className="w-[180px] shrink-0 border-r border-border bg-white p-4">
         <div className="mb-4">
-          <h2 className="text-sm font-bold text-text">Contact</h2>
-          <p className="text-xs text-text-secondary">{contact.name}</p>
+          <h2 className="text-body-md-strong text-text">Contact</h2>
+          <p className="text-caption-md text-text-secondary">{contact.name}</p>
         </div>
         <nav className="space-y-0.5">
           {[
@@ -194,8 +194,8 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
         {/* Top action bar */}
         <div className="flex items-center justify-between border-b border-border px-6 py-3">
           <div className="flex items-center gap-2">
-            <h2 className="text-lg font-bold text-text">Contact</h2>
-            <span className="text-sm text-text-secondary">{contact.name}</span>
+            <h2 className="text-heading-lg text-text">Contact</h2>
+            <span className="text-body-md text-text-secondary">{contact.name}</span>
           </div>
           <Button variant="secondary" size="sm">
             Actions
@@ -215,7 +215,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
           {/* General details */}
           <section className="mb-8">
-            <h2 className="mb-4 text-lg font-bold text-text">General details</h2>
+            <h2 className="mb-4 text-heading-lg text-text">General details</h2>
             <div className="flex items-start gap-6">
               <Avatar name={contact.name} size="lg" />
               <div className="space-y-2 text-sm">
@@ -228,7 +228,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                   <span>
                     {contact.type ? (
                       <span
-                        className={`inline-block rounded px-2 py-0.5 text-xs font-medium ${getTypeColor(contact.type)}`}
+                        className={`inline-block rounded px-2 py-0.5 text-label-md ${getTypeColor(contact.type)}`}
                       >
                         {contact.type}
                       </span>
@@ -251,7 +251,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
           {/* Contact information */}
           <section className="mb-8">
-            <h2 className="mb-4 text-lg font-bold text-text">Contact information</h2>
+            <h2 className="mb-4 text-heading-lg text-text">Contact information</h2>
             <div className="space-y-3 text-sm">
               <div className="flex gap-16">
                 <span className="w-28 shrink-0 text-text-secondary">Email:</span>
@@ -304,7 +304,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
           {/* Notes */}
           <section className="mb-8">
-            <h2 className="mb-4 text-lg font-bold text-text">Notes</h2>
+            <h2 className="mb-4 text-heading-lg text-text">Notes</h2>
             {contact.notes ? (
               <p className="text-sm text-text">{contact.notes}</p>
             ) : (
@@ -316,7 +316,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
           {/* Associated clients */}
           <section className="mb-8">
-            <h2 className="mb-4 text-lg font-bold text-text">Associated clients</h2>
+            <h2 className="mb-4 text-heading-lg text-text">Associated clients</h2>
             {contact.associatedClients.length > 0 ? (
               <DataTable>
                 <TableHead>
@@ -350,7 +350,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
           {/* Custom fields */}
           <section className="mb-8">
-            <h2 className="mb-4 text-lg font-bold text-text">Custom fields</h2>
+            <h2 className="mb-4 text-heading-lg text-text">Custom fields</h2>
             <p className="text-sm text-text-secondary">No custom fields</p>
           </section>
 

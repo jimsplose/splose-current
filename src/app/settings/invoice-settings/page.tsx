@@ -62,13 +62,13 @@ export default function InvoiceSettingsPage() {
 
   return (
     <div className="p-6">
-      <h1 className="mb-6 text-2xl font-bold text-text">Invoice Settings</h1>
+      <h1 className="mb-6 text-display-lg text-text">Invoice Settings</h1>
 
       {/* Stripe info banner */}
       <div className="mb-6 flex items-start gap-3 rounded-lg border border-blue-200 bg-blue-50 p-4">
         <Info className="mt-0.5 h-5 w-5 shrink-0 text-blue-500" />
         <div>
-          <p className="text-sm text-text">
+          <p className="text-body-md text-text">
             You need an active Stripe connection for online payments.{" "}
             <a href="#" className="font-medium text-primary hover:underline">
               Connect to Stripe
@@ -87,7 +87,7 @@ export default function InvoiceSettingsPage() {
 
       {/* Invoice number */}
       <section className="mb-8">
-        <h2 className="mb-4 text-lg font-bold text-text">Invoice number</h2>
+        <h2 className="mb-4 text-heading-lg text-text">Invoice number</h2>
         <div className="max-w-md space-y-4">
           <FormInput label="Prefix" defaultValue="INV" />
           <FormInput label="Padding" defaultValue="6" />
@@ -97,7 +97,7 @@ export default function InvoiceSettingsPage() {
 
       {/* Credit note number */}
       <section className="mb-8">
-        <h2 className="mb-4 text-lg font-bold text-text">Credit note number</h2>
+        <h2 className="mb-4 text-heading-lg text-text">Credit note number</h2>
         <div className="max-w-md space-y-4">
           <FormInput label="Prefix" defaultValue="CR" />
           <FormInput label="Padding" defaultValue="6" />
@@ -109,7 +109,7 @@ export default function InvoiceSettingsPage() {
 
       {/* Tax */}
       <section className="mb-8">
-        <h2 className="mb-4 text-lg font-bold text-text">Tax</h2>
+        <h2 className="mb-4 text-heading-lg text-text">Tax</h2>
         <div className="max-w-md space-y-4">
           <FormSelect
             label="Default tax"
@@ -136,7 +136,7 @@ export default function InvoiceSettingsPage() {
 
       {/* Invoice reminders preferences */}
       <section className="mb-8">
-        <h2 className="mb-4 text-lg font-bold text-text">Invoice reminders preferences</h2>
+        <h2 className="mb-4 text-heading-lg text-text">Invoice reminders preferences</h2>
         <div className="max-w-md space-y-4">
           <FormSelect
             label="Default invoice reminder preferences"
@@ -146,7 +146,7 @@ export default function InvoiceSettingsPage() {
             ]}
             defaultValue="on"
           />
-          <label className="flex items-start gap-2 text-sm text-text">
+          <label className="flex items-start gap-2 text-body-md text-text">
             <input type="checkbox" className="mt-0.5 rounded border-border" defaultChecked />
             <span>
               Apply to all existing clients and override the current invoice reminder preferences.
@@ -164,7 +164,7 @@ export default function InvoiceSettingsPage() {
 
       {/* Invoice reminders table */}
       <section className="mb-8">
-        <h2 className="mb-4 text-lg font-bold text-text">Invoice reminders</h2>
+        <h2 className="mb-4 text-heading-lg text-text">Invoice reminders</h2>
 
         <DataTable>
           <TableHead>
@@ -214,7 +214,7 @@ export default function InvoiceSettingsPage() {
 
       {/* Invoice templates table */}
       <section className="mb-8">
-        <h2 className="mb-4 text-lg font-bold text-text">Invoice templates</h2>
+        <h2 className="mb-4 text-heading-lg text-text">Invoice templates</h2>
 
         <DataTable>
           <TableHead>

@@ -87,21 +87,21 @@ export default function DataImportPage() {
           </span>
         </div>
         <div>
-          <h2 className="mb-1 text-lg font-bold text-text">Concierge data import</h2>
-          <p className="mb-3 text-sm text-text-secondary">
+          <h2 className="mb-1 text-heading-lg text-text">Concierge data import</h2>
+          <p className="mb-3 text-body-md text-text-secondary">
             Data importing is complicated. Chat with us to schedule a data import.
           </p>
           <div className="flex items-center gap-4">
             <a
               href="#"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-text hover:text-primary"
+              className="inline-flex items-center gap-1.5 text-label-lg text-text hover:text-primary"
             >
               <MessageCircle className="h-4 w-4" />
               Chat with us
             </a>
             <a
               href="#"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-text hover:text-primary"
+              className="inline-flex items-center gap-1.5 text-label-lg text-text hover:text-primary"
             >
               <BookOpen className="h-4 w-4" />
               Help guide
@@ -112,7 +112,7 @@ export default function DataImportPage() {
 
       {/* Import data header */}
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Import data</h1>
+        <h1 className="text-display-lg text-text">Import data</h1>
         <Button variant="primary">
           <Upload className="h-4 w-4" />
           Import
@@ -141,7 +141,7 @@ export default function DataImportPage() {
                 <span className="text-text-secondary">{row.message || "—"}</span>
               </Td>
               <Td>
-                <div className="text-sm">
+                <div className="text-body-md">
                   <div className="text-text-secondary">Created: {row.createdAt}</div>
                   <div className="text-text-secondary">Updated: {row.updatedAt}</div>
                 </div>
