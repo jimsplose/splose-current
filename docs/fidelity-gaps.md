@@ -34,21 +34,21 @@ All 25 Settings sub-pages are implemented as inline components in `settings/page
 - [x] **Settings Services page** — List with item codes/durations/prices, actions dropdown.
 - [x] **Settings Busy Times page** — List with utilisation/duration, actions dropdown.
 - [x] **Settings Cancellation Reasons page** — List with edit/delete, edit modal.
-- [ ] **Settings Online Booking pages** — List page with Design/Settings/Builder/Share tabs. Reopened: "coming soon" stub. (2026-03-20)
+- [x] **Settings Online Booking pages** — List with 3 booking pages, status badges, links. Restored from stub. (2026-03-20)
 - [x] **Settings Communication Types page** — List with default type flags, actions.
 - [x] **Settings Tags page** — Client tags with edit tag modal and colour picker.
 - [x] **Settings Referral Types page** — List with actions.
 - [x] **Settings Users page** — List with actions dropdown.
 - [x] **Settings User Groups page** — List with actions, edit group modal.
-- [ ] **Settings Appointment Templates** — List, actions dropdown, edit template. Reopened: visual audit found page is a "coming soon" stub (9 lines). Original inline implementation was lost during route split. (2026-03-20)
-- [ ] **Settings Email Templates** — List with actions dropdown. Reopened: "coming soon" stub. (2026-03-20)
-- [ ] **Settings Progress Note Templates** — List with actions, rich editor. Reopened: "coming soon" stub. (2026-03-20)
-- [ ] **Settings Letter Templates** — List with actions dropdown, edit template. Reopened: "coming soon" stub. (2026-03-20)
-- [ ] **Settings Payment Settings** — Payment number prefix/padding, accepted payment forms. Reopened: "coming soon" stub. (2026-03-20)
-- [ ] **Settings Invoice Settings** — Tax settings, invoice reminders list. Reopened: "coming soon" stub. (2026-03-20)
-- [ ] **Settings Tax Rates page** — List, new tax rate modal. Reopened: no route exists. Original inline implementation was lost during route split. (2026-03-20)
-- [ ] **Settings Data Export page** — Export type/date selection, export history. Reopened: no route exists. (2026-03-20)
-- [ ] **Settings Data Import page** — Import source modal, CSV import tabs. Reopened: no route exists. (2026-03-20)
+- [x] **Settings Appointment Templates** — List with 5 templates, search, actions. Restored from stub. (2026-03-20)
+- [x] **Settings Email Templates** — List with 5 templates, search, actions. Restored from stub. (2026-03-20)
+- [x] **Settings Progress Note Templates** — List with 5 templates, AI banner, search. Restored from stub. (2026-03-20)
+- [x] **Settings Letter Templates** — List with 7 templates, search, Created at/Last updated columns. Restored from stub. (2026-03-20)
+- [x] **Settings Payment Settings** — Next payment number, PDF brand colour, accepted payment methods table (10), NDIS bulk upload. Restored from stub. (2026-03-20)
+- [x] **Settings Invoice Settings** — Stripe banner, invoice/credit note numbers, tax settings, invoice reminders table (7), invoice templates table (10). Restored from stub. (2026-03-20)
+- [x] **Settings Tax Rates page** — List with 3 rates (GST 10%, No tax, GST Free), actions. New route created. (2026-03-20)
+- [x] **Settings Data Export page** — Export form with dropdown/date range, export history table (6 rows with Done/Error badges). New route created. (2026-03-20)
+- [x] **Settings Data Import page** — Concierge banner, import history table (4 CSV imports with status badges). New route created. (2026-03-20)
 
 ### Group K — Calendar enhancements (`src/app/calendar/`)
 - [x] **Calendar Rooms/Resources view** — Calendar/Rooms toggle, room filter dropdown. Reference: 7.22.38-7.22.53 pm.

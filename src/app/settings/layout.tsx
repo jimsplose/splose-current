@@ -56,6 +56,14 @@ const sidebarSections = [
     items: [
       { name: "Payments", href: "/settings/payment-settings" },
       { name: "Invoices", href: "/settings/invoice-settings" },
+      { name: "Tax rates", href: "/settings/tax-rates" },
+    ],
+  },
+  {
+    title: "Data",
+    items: [
+      { name: "Export", href: "/settings/data-export" },
+      { name: "Import", href: "/settings/data-import" },
     ],
   },
 ];
