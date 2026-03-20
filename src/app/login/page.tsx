@@ -3,7 +3,7 @@ import { Button, FormInput } from "@/components/ds";
 
 export default function LoginPage() {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-purple-200/80">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-purple-200">
       <div className="w-full max-w-md">
         {/* Header banner */}
         <div className="relative overflow-hidden rounded-t-2xl bg-primary px-8 py-10">

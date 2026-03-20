@@ -78,13 +78,13 @@ function formatPanelDate(dateStr: string, startTime: string) {
   }
 }
 
-function getInvoiceStatus(appt: Appointment): "Paid" | "Draft" | "Do not invoice" | "---" {
+function getInvoiceStatus(appt: Appointment): "Paid" | "Draft" | "Do not invoice" {
   if (appt.status === "Cancelled") return "Do not invoice";
   if (appt.status === "Completed") {
     const hash = appt.id.split("").reduce((acc: number, ch: string) => acc + ch.charCodeAt(0), 0);
     return hash % 3 === 0 ? "Draft" : "Paid";
   }
-  return "---";
+  return "Draft";
 }
 
 export default function AppointmentSidePanel({
@@ -190,7 +190,6 @@ export default function AppointmentSidePanel({
                             Do not invoice
                           </Badge>
                         )}
-                        {invoiceStatus === "---" && <span className="text-text-secondary">---</span>}
                       </Td>
                       <Td align="right">
                         <button
