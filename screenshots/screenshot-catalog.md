@@ -127,7 +127,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.48.28 pm.png | Online booking settings list | no |
+| Screenshot 2026-03-17 at 6.48.28 pm.png | Online booking settings list | partial — page implemented, needs detail comparison |
 
 ## Settings — Edit Online Booking (`/settings/online-booking/:id`)
 
@@ -219,7 +219,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.02.10 pm.png | Appointment templates list | no |
+| Screenshot 2026-03-17 at 7.02.10 pm.png | Appointment templates list | partial — page implemented, needs detail comparison |
 | Screenshot 2026-03-17 at 7.02.20 pm.png | Appointment templates, actions dropdown (Edit/Duplicate/Change log/Delete) | no |
 
 ## Settings — Edit Appointment Template (`/settings/templates/appointments/edit/:id`)
@@ -242,7 +242,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.04.18 pm.png | Email templates list | no |
+| Screenshot 2026-03-17 at 7.04.18 pm.png | Email templates list | partial — page implemented, needs detail comparison |
 | Screenshot 2026-03-17 at 7.04.27 pm.png | Email templates, actions dropdown (Edit/Duplicate/Change log/Delete) | no |
 | screencapture-acme-splose-settings-templates-emails-edit-501-2026-03-17-19_04_32.png | Edit email template | no |
 
@@ -257,41 +257,41 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-17 at 7.06.21 pm.png | AI block library modal — list of blocks | no |
 | Screenshot 2026-03-17 at 7.06.30 pm.png | AI block library modal — block selected | no |
 | Screenshot 2026-03-17 at 7.06.55 pm.png | AI block library modal — filter by tag dropdown | no |
-| screencapture-acme-splose-settings-templates-progress-notes-2026-03-17-19_04_46.png | Progress note templates list | no |
-| screencapture-acme-splose-settings-templates-progress-notes-2026-03-17-19_04_46 (1).png | Progress note templates list (duplicate) | no |
+| screencapture-acme-splose-settings-templates-progress-notes-2026-03-17-19_04_46.png | Progress note templates list | partial — page implemented, needs detail comparison |
+| screencapture-acme-splose-settings-templates-progress-notes-2026-03-17-19_04_46 (1).png | Progress note templates list (duplicate) | partial — page implemented, needs detail comparison |
 
 ## Settings — Letter Templates (`/settings/templates/letters`)
 
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 7.07.38 pm.png | Letter templates list, actions dropdown (Edit/Duplicate/Change log/Archive) | no |
-| screencapture-acme-splose-settings-templates-letters-2026-03-17-19_07_13.png | Letter templates list | no |
+| screencapture-acme-splose-settings-templates-letters-2026-03-17-19_07_13.png | Letter templates list | partial — page implemented, needs detail comparison |
 | screencapture-acme-splose-settings-templates-letters-edit-201-2026-03-17-19_07_43.png | Edit letter template | no |
 
 ## Settings — Payment Settings (`/settings/payments`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.09.00 pm.png | Payment settings — prefix, padding, PDF settings, accepted forms of payment | no |
-| Screenshot 2026-03-17 at 7.09.05 pm.png | Payment settings (alternate view, same content) | no |
+| Screenshot 2026-03-17 at 7.09.00 pm.png | Payment settings — prefix, padding, PDF settings, accepted forms of payment | partial — page implemented, needs detail comparison |
+| Screenshot 2026-03-17 at 7.09.05 pm.png | Payment settings (alternate view, same content) | partial — page implemented, needs detail comparison |
 | Screenshot 2026-03-17 at 7.09.19 pm.png | Edit payment method modal | no |
 | Screenshot 2026-03-17 at 7.09.50 pm.png | Payment settings — add new payment type dropdown (Credit Card/EFTPOS/Medicare/HICAPS/Cash/Bank Transfer/DVA) | no |
-| screencapture-acme-splose-settings-payments-2026-03-17-19_08_11.png | Payment settings full page | no |
+| screencapture-acme-splose-settings-payments-2026-03-17-19_08_11.png | Payment settings full page | partial — page implemented, needs detail comparison |
 
 ## Settings — Invoice Settings (`/settings/invoices`)
 
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 7.11.05 pm.png | Invoice settings — tax dropdown (Tax exclusive/Tax inclusive/No tax) | no |
-| Screenshot 2026-03-17 at 7.11.17 pm.png | Invoice settings — invoice reminders list | no |
+| Screenshot 2026-03-17 at 7.11.17 pm.png | Invoice settings — invoice reminders list | partial — page implemented, needs detail comparison |
 | Screenshot 2026-03-17 at 7.11.32 pm.png | Edit invoice reminder modal with rich text editor | no |
-| screencapture-acme-splose-settings-invoices-2026-03-17-19_10_06.png | Invoice settings full page | no |
+| screencapture-acme-splose-settings-invoices-2026-03-17-19_10_06.png | Invoice settings full page | partial — page implemented, needs detail comparison |
 
 ## Settings — Tax Rates (`/settings/tax-rates`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.11.44 pm.png | Tax rates list | no |
+| Screenshot 2026-03-17 at 7.11.44 pm.png | Tax rates list | partial — page implemented, needs detail comparison |
 | Screenshot 2026-03-17 at 7.11.55 pm.png | New tax rate modal | no |
 
 ## Settings — Data Export (`/settings/export`)
@@ -301,7 +301,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-17 at 7.12.28 pm.png | Data export — export history with actions dropdown (Download/Delete) | no |
 | Screenshot 2026-03-17 at 7.12.35 pm.png | Data export — export type dropdown (Appointments/Cases/Contacts/Invoices/Letters/Users/Clients) | no |
 | Screenshot 2026-03-17 at 7.12.43 pm.png | Data export — date picker calendar open | no |
-| screencapture-acme-splose-settings-export-2026-03-17-19_12_04.png | Data export full page | no |
+| screencapture-acme-splose-settings-export-2026-03-17-19_12_04.png | Data export full page | partial — page implemented, needs detail comparison |
 
 ## Settings — Data Import (`/settings/import`)
 
@@ -309,7 +309,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 |---|---|---|
 | Screenshot 2026-03-17 at 7.13.29 pm.png | Import from modal (CSV/Cliniko options) | no |
 | Screenshot 2026-03-17 at 7.13.39 pm.png | CSV import page with tabs (Clients/Contacts/Appointments) | no |
-| screencapture-acme-splose-settings-import-2026-03-17-19_13_00.png | Import page default | no |
+| screencapture-acme-splose-settings-import-2026-03-17-19_13_00.png | Import page default | partial — page implemented, needs detail comparison |
 
 ## Calendar — Week View (`/calendar/week`)
 
