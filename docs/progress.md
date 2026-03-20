@@ -289,3 +289,21 @@ Append-only log. Each session adds an entry summarizing what was done.
 ### All gaps now closed except
 - Calendar month view / appointment side panel — data-driven mismatch only
 - Process new screenshots — admin task
+
+## Session — 2026-03-20 (session E — typography design system)
+
+**Branch**: `claude/visual-audit-analysis-1WnWb`
+
+### Typography Design System (Phase 1-3 complete)
+- **Phase 1 — Foundation**: Inter font via next/font, Sprig Sans via @font-face (woff2 files), 20 semantic typography styles as CSS utility classes, `<Text variant="...">` DS component, Storybook story with all styles
+- **Phase 2 — DS component migration**: All 23 DS components updated to use typography tokens (PageHeader → text-display-lg, Button → text-label-lg, Badge → text-label-md, etc.)
+- **Phase 3 — Page-by-page migration**: 340+ inline patterns replaced across 65+ files. Zero remaining `text-[Npx]` arbitrary sizes, zero remaining `text-{size} font-{weight}` combos (except 2 decorative logo initials)
+- **Docs created**: `docs/typography-spec.md` (Jim's naming convention), `docs/typography-migration.md` (mapping table + phased plan), updated `docs/agent-block.md` with typography enforcement
+- **Storybook deployment**: Confirmed always auto-deployed at `{preview-url}/storybook/` (built into every Vercel deploy)
+
+### Visual Audit (post-typography)
+- **Pass (yes)**: Contacts (4.24%), Products (3.19%), Payments new (3.90%)
+- **Partial (data/scaling)**: Dashboard (13.72%), Clients (5.26%), Client detail (7.48%), Reports (7.67%), Settings (6.17%), Calendar day/week (7-9%)
+- **Fixed**: Login background bg-purple-200 → bg-purple-300 (87.95% → 15.15%)
+- **Fixed**: Sidebar section headers (text-label-md → text-body-sm font-bold tracking-wider)
+- **Typography did not regress** any previously-passing pages — mismatch % increases are from data differences and retina scaling artifacts
