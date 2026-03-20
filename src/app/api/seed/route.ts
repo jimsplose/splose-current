@@ -269,39 +269,93 @@ async function seed() {
 
     const today = dateOffset(0);
 
-    // ─── APPOINTMENTS (24) ───────────────────────────────────────────
+    // ─── APPOINTMENTS — recurring weekly to fill calendar month view ──
 
-    const appointmentData = [
-      // ── Past 2 weeks ──
-      { date: dateOffset(-13), startTime: "09:00", endTime: "10:00", clientId: clients[0].id, practitionerId: sarah.id, status: "Completed", type: "Initial Assessment" },
-      { date: dateOffset(-13), startTime: "10:30", endTime: "11:00", clientId: clients[2].id, practitionerId: sarah.id, status: "Completed", type: "Follow Up" },
-      { date: dateOffset(-11), startTime: "11:00", endTime: "12:00", clientId: clients[1].id, practitionerId: james.id, status: "Completed", type: "Initial Assessment" },
-      { date: dateOffset(-10), startTime: "14:00", endTime: "14:30", clientId: clients[3].id, practitionerId: emma.id, status: "Completed", type: "Follow Up" },
-      { date: dateOffset(-9), startTime: "09:00", endTime: "10:00", clientId: clients[5].id, practitionerId: michael.id, status: "Completed", type: "Initial Assessment" },
-      { date: dateOffset(-7), startTime: "08:30", endTime: "09:30", clientId: clients[7].id, practitionerId: rachel.id, status: "Completed", type: "Initial Assessment" },
-      { date: dateOffset(-7), startTime: "10:00", endTime: "10:30", clientId: clients[4].id, practitionerId: sarah.id, status: "No Show", type: "Follow Up" },
-      { date: dateOffset(-5), startTime: "13:00", endTime: "14:00", clientId: clients[6].id, practitionerId: james.id, status: "Completed", type: "Review" },
-      { date: dateOffset(-4), startTime: "15:00", endTime: "16:00", clientId: clients[8].id, practitionerId: lisa.id, status: "Completed", type: "Initial Assessment" },
-      { date: dateOffset(-3), startTime: "09:00", endTime: "09:30", clientId: clients[0].id, practitionerId: sarah.id, status: "Completed", type: "Follow Up" },
-      { date: dateOffset(-2), startTime: "11:00", endTime: "12:00", clientId: clients[9].id, practitionerId: emma.id, status: "Cancelled", type: "Initial Assessment" },
-      { date: dateOffset(-1), startTime: "10:00", endTime: "10:45", clientId: clients[2].id, practitionerId: sarah.id, status: "Completed", type: "Follow Up" },
+    // Helper: get next occurrence of a day-of-week from a date
+    const nextDow = (startDate: Date, dow: number): Date => {
+      const d = new Date(startDate);
+      const diff = (dow - d.getDay() + 7) % 7;
+      d.setDate(d.getDate() + (diff === 0 ? 0 : diff));
+      return d;
+    };
 
-      // ── Today ──
-      { date: today, startTime: "09:00", endTime: "09:45", clientId: clients[0].id, practitionerId: sarah.id, status: "Completed", type: "Follow Up" },
-      { date: today, startTime: "10:00", endTime: "11:00", clientId: clients[1].id, practitionerId: james.id, status: "Scheduled", type: "Follow Up" },
-      { date: today, startTime: "11:00", endTime: "11:30", clientId: clients[3].id, practitionerId: emma.id, status: "Scheduled", type: "Follow Up" },
-      { date: today, startTime: "14:00", endTime: "15:00", clientId: clients[5].id, practitionerId: michael.id, status: "Scheduled", type: "Follow Up" },
-      { date: today, startTime: "15:00", endTime: "16:00", clientId: clients[7].id, practitionerId: rachel.id, status: "Scheduled", type: "Follow Up" },
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const firstOfMonth = new Date(year, month, 1);
+    const lastOfMonth = new Date(year, month + 1, 0);
 
-      // ── Next 2 weeks ──
-      { date: dateOffset(1), startTime: "09:00", endTime: "09:30", clientId: clients[4].id, practitionerId: sarah.id, status: "Scheduled", type: "Review" },
-      { date: dateOffset(1), startTime: "11:00", endTime: "12:00", clientId: clients[6].id, practitionerId: james.id, status: "Scheduled", type: "Follow Up" },
-      { date: dateOffset(3), startTime: "08:00", endTime: "09:00", clientId: clients[8].id, practitionerId: lisa.id, status: "Scheduled", type: "Follow Up" },
-      { date: dateOffset(3), startTime: "10:00", endTime: "11:00", clientId: clients[9].id, practitionerId: emma.id, status: "Scheduled", type: "Initial Assessment" },
-      { date: dateOffset(5), startTime: "13:00", endTime: "14:00", clientId: clients[2].id, practitionerId: sarah.id, status: "Scheduled", type: "Review" },
-      { date: dateOffset(7), startTime: "09:00", endTime: "10:00", clientId: clients[1].id, practitionerId: james.id, status: "Scheduled", type: "Group Session" },
-      { date: dateOffset(10), startTime: "14:00", endTime: "15:00", clientId: clients[5].id, practitionerId: michael.id, status: "Scheduled", type: "Review" },
-    ];
+    const appointmentData: Array<{
+      date: string; startTime: string; endTime: string;
+      clientId: string; practitionerId: string; status: string; type: string;
+    }> = [];
+
+    // Every Monday: two appointments (emma, pink)
+    let mon = nextDow(firstOfMonth, 1);
+    while (mon <= lastOfMonth) {
+      const ds = mon.toISOString().split("T")[0];
+      const past = mon < now;
+      appointmentData.push(
+        { date: ds, startTime: "10:30", endTime: "11:15", clientId: clients[0].id, practitionerId: emma.id, status: past ? "Completed" : "Scheduled", type: "OT - Initial Consult" },
+        { date: ds, startTime: "14:30", endTime: "15:15", clientId: clients[6].id, practitionerId: emma.id, status: past ? "Cancelled" : "Scheduled", type: "Follow Up" },
+      );
+      mon = new Date(mon.getTime() + 7 * 86400000);
+    }
+
+    // Every Tuesday: Group session (rachel, yellow)
+    let tue = nextDow(firstOfMonth, 2);
+    while (tue <= lastOfMonth) {
+      const ds = tue.toISOString().split("T")[0];
+      const past = tue < now;
+      appointmentData.push(
+        { date: ds, startTime: "12:45", endTime: "13:40", clientId: clients[3].id, practitionerId: rachel.id, status: past ? "Completed" : "Scheduled", type: "Group Session" },
+      );
+      tue = new Date(tue.getTime() + 7 * 86400000);
+    }
+
+    // Every Wednesday: Group at 1:30pm (rachel)
+    let wed = nextDow(firstOfMonth, 3);
+    while (wed <= lastOfMonth) {
+      const ds = wed.toISOString().split("T")[0];
+      const past = wed < now;
+      appointmentData.push(
+        { date: ds, startTime: "13:30", endTime: "14:25", clientId: clients[1].id, practitionerId: rachel.id, status: past ? "Completed" : "Scheduled", type: "Group Session" },
+      );
+      wed = new Date(wed.getTime() + 7 * 86400000);
+    }
+
+    // Every other Thursday: two appointments (sarah/rachel)
+    let thu = nextDow(firstOfMonth, 4);
+    let thuIdx = 0;
+    while (thu <= lastOfMonth) {
+      if (thuIdx % 2 === 1) {
+        const ds = thu.toISOString().split("T")[0];
+        const past = thu < now;
+        appointmentData.push(
+          { date: ds, startTime: "09:30", endTime: "10:15", clientId: clients[2].id, practitionerId: sarah.id, status: past ? "Completed" : "Scheduled", type: "Standard Consultation" },
+          { date: ds, startTime: "12:30", endTime: "13:15", clientId: clients[4].id, practitionerId: rachel.id, status: past ? "Completed" : "Scheduled", type: "Initial Assessment" },
+        );
+      }
+      thu = new Date(thu.getTime() + 7 * 86400000);
+      thuIdx++;
+    }
+
+    // One Friday next month (blue)
+    const nextFri = nextDow(new Date(year, month + 1, 1), 5);
+    appointmentData.push(
+      { date: nextFri.toISOString().split("T")[0], startTime: "09:30", endTime: "10:15", clientId: clients[8].id, practitionerId: lisa.id, status: "Scheduled", type: "Review" },
+    );
+
+    // Extra today appointments for week/day views
+    appointmentData.push(
+      { date: today, startTime: "09:00", endTime: "09:45", clientId: clients[5].id, practitionerId: sarah.id, status: "Completed", type: "Initial Assessment" },
+      { date: today, startTime: "11:00", endTime: "11:45", clientId: clients[7].id, practitionerId: james.id, status: "Scheduled", type: "Standard" },
+      { date: today, startTime: "14:00", endTime: "14:45", clientId: clients[9].id, practitionerId: rachel.id, status: "Cancelled", type: "Follow Up" },
+      { date: dateOffset(1), startTime: "09:00", endTime: "09:45", clientId: clients[10].id, practitionerId: james.id, status: "Scheduled", type: "Follow Up" },
+      { date: dateOffset(1), startTime: "13:00", endTime: "13:45", clientId: clients[11].id, practitionerId: michael.id, status: "Scheduled", type: "Standard" },
+      { date: dateOffset(-1), startTime: "10:00", endTime: "10:45", clientId: clients[2].id, practitionerId: james.id, status: "Completed", type: "Standard" },
+      { date: dateOffset(-1), startTime: "15:00", endTime: "15:45", clientId: clients[8].id, practitionerId: michael.id, status: "Completed", type: "Initial Assessment" },
+    );
 
     for (const appt of appointmentData) {
       await prisma.appointment.create({ data: appt });
@@ -405,6 +459,30 @@ async function seed() {
         signed: true,
         clientId: clients[10].id,
         practitionerId: sarah.id,
+      },
+      {
+        date: dateOffset(-1),
+        content: "Home visit assessment. Reviewed home environment for falls risk. Recommended grab rails in bathroom and non-slip mats. Client agreeable to modifications. Follow-up in 2 weeks to review installation.",
+        template: "Progress Note",
+        signed: false,
+        clientId: clients[4].id,
+        practitionerId: sarah.id,
+      },
+      {
+        date: dateOffset(-3),
+        content: "Group therapy session. Worked on social communication skills with peer group. Client demonstrated improved turn-taking and topic maintenance. Continue weekly group sessions.",
+        template: "Progress Note",
+        signed: false,
+        clientId: clients[7].id,
+        practitionerId: emma.id,
+      },
+      {
+        date: today,
+        content: "Telehealth consultation for NDIS plan review. Discussed goals for independent living skills. Updated therapy plan for next quarter. Report to be submitted.",
+        template: "NDIS Progress Note",
+        signed: false,
+        clientId: clients[11].id,
+        practitionerId: james.id,
       },
     ];
 

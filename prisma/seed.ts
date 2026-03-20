@@ -105,44 +105,102 @@ async function main() {
     }),
   ]);
 
-  // Create appointments (25 total across today and +-5 days)
+  // Create appointments — spread across the whole month for realistic calendar views
   const today = new Date();
   const formatDate = (d: Date) => d.toISOString().split("T")[0];
   const addDays = (days: number) => new Date(today.getTime() + days * 86400000);
 
-  const appointments = [
-    { date: formatDate(today), startTime: "09:00", endTime: "09:45", clientId: clients[0].id, practitionerId: sarah.id, status: "Completed", type: "Initial Assessment" },
-    { date: formatDate(today), startTime: "10:00", endTime: "10:45", clientId: clients[1].id, practitionerId: sarah.id, status: "Scheduled", type: "Follow Up" },
-    { date: formatDate(today), startTime: "11:00", endTime: "11:45", clientId: clients[2].id, practitionerId: james.id, status: "Scheduled", type: "Standard" },
-    { date: formatDate(today), startTime: "13:00", endTime: "13:45", clientId: clients[3].id, practitionerId: emma.id, status: "Scheduled", type: "Standard" },
-    { date: formatDate(today), startTime: "14:00", endTime: "14:45", clientId: clients[4].id, practitionerId: sarah.id, status: "Scheduled", type: "Review" },
-    { date: formatDate(today), startTime: "09:30", endTime: "10:30", clientId: clients[5].id, practitionerId: rachel.id, status: "Scheduled", type: "Initial Assessment" },
-    { date: formatDate(today), startTime: "11:00", endTime: "11:45", clientId: clients[8].id, practitionerId: marcus.id, status: "Scheduled", type: "Standard" },
+  // Helper: find next occurrence of a day-of-week from a starting date
+  function nextDow(startDate: Date, dow: number): Date {
+    const d = new Date(startDate);
+    const diff = (dow - d.getDay() + 7) % 7;
+    d.setDate(d.getDate() + (diff === 0 ? 0 : diff));
+    return d;
+  }
+
+  // Build recurring appointments for the current month
+  const year = today.getFullYear();
+  const month = today.getMonth();
+  const firstOfMonth = new Date(year, month, 1);
+  const lastOfMonth = new Date(year, month + 1, 0);
+
+  const appointments: Array<{
+    date: string; startTime: string; endTime: string;
+    clientId: string; practitionerId: string; status: string; type: string;
+  }> = [];
+
+  // Every Monday: client at 10:30am (emma, pink), client at 2:30pm (emma, pink)
+  let mon = nextDow(firstOfMonth, 1); // Monday = 1
+  while (mon <= lastOfMonth) {
+    const dateStr = formatDate(mon);
+    const isPast = mon < today;
+    appointments.push(
+      { date: dateStr, startTime: "10:30", endTime: "11:15", clientId: clients[0].id, practitionerId: emma.id, status: isPast ? "Completed" : "Scheduled", type: "OT - Initial Consult" },
+      { date: dateStr, startTime: "14:30", endTime: "15:15", clientId: clients[6].id, practitionerId: emma.id, status: isPast ? "Cancelled" : "Scheduled", type: "Follow Up" },
+    );
+    mon = new Date(mon.getTime() + 7 * 86400000);
+  }
+
+  // Every Tuesday: Group session at 12:45pm (rachel, yellow)
+  let tue = nextDow(firstOfMonth, 2);
+  while (tue <= lastOfMonth) {
+    const dateStr = formatDate(tue);
+    const isPast = tue < today;
+    appointments.push(
+      { date: dateStr, startTime: "12:45", endTime: "13:40", clientId: clients[3].id, practitionerId: rachel.id, status: isPast ? "Completed" : "Scheduled", type: "Group Session" },
+    );
+    tue = new Date(tue.getTime() + 7 * 86400000);
+  }
+
+  // Every Wednesday: Group at 1:30pm (rachel, yellow)
+  let wed = nextDow(firstOfMonth, 3);
+  while (wed <= lastOfMonth) {
+    const dateStr = formatDate(wed);
+    const isPast = wed < today;
+    appointments.push(
+      { date: dateStr, startTime: "13:30", endTime: "14:25", clientId: clients[1].id, practitionerId: rachel.id, status: isPast ? "Completed" : "Scheduled", type: "Group Session" },
+    );
+    wed = new Date(wed.getTime() + 7 * 86400000);
+  }
+
+  // Every other Thursday: two appointments (sarah, indigo)
+  let thu = nextDow(firstOfMonth, 4);
+  let thuCount = 0;
+  while (thu <= lastOfMonth) {
+    if (thuCount % 2 === 1) { // every other week
+      const dateStr = formatDate(thu);
+      const isPast = thu < today;
+      appointments.push(
+        { date: dateStr, startTime: "09:30", endTime: "10:15", clientId: clients[2].id, practitionerId: sarah.id, status: isPast ? "Completed" : "Scheduled", type: "Standard Consultation" },
+        { date: dateStr, startTime: "12:30", endTime: "13:15", clientId: clients[4].id, practitionerId: rachel.id, status: isPast ? "Completed" : "Scheduled", type: "Initial Assessment" },
+      );
+    }
+    thu = new Date(thu.getTime() + 7 * 86400000);
+    thuCount++;
+  }
+
+  // One Friday in next month: Jan Doe at 9:30am (marcus, cyan)
+  const nextMonthFri = nextDow(new Date(year, month + 1, 1), 5);
+  appointments.push(
+    { date: formatDate(nextMonthFri), startTime: "09:30", endTime: "10:15", clientId: clients[8].id, practitionerId: marcus.id, status: "Scheduled", type: "Review" },
+  );
+
+  // Add some today-specific appointments for week/day view variety
+  appointments.push(
+    { date: formatDate(today), startTime: "09:00", endTime: "09:45", clientId: clients[5].id, practitionerId: sarah.id, status: "Completed", type: "Initial Assessment" },
+    { date: formatDate(today), startTime: "11:00", endTime: "11:45", clientId: clients[7].id, practitionerId: james.id, status: "Scheduled", type: "Standard" },
     { date: formatDate(today), startTime: "14:00", endTime: "14:45", clientId: clients[9].id, practitionerId: rachel.id, status: "Cancelled", type: "Follow Up" },
-    { date: formatDate(addDays(-1)), startTime: "09:00", endTime: "09:45", clientId: clients[6].id, practitionerId: sarah.id, status: "Completed", type: "Standard" },
-    { date: formatDate(addDays(-1)), startTime: "10:00", endTime: "10:45", clientId: clients[7].id, practitionerId: james.id, status: "Completed", type: "Standard" },
-    { date: formatDate(addDays(-1)), startTime: "14:00", endTime: "14:45", clientId: clients[11].id, practitionerId: emma.id, status: "No Show", type: "Follow Up" },
-    { date: formatDate(addDays(-1)), startTime: "15:00", endTime: "15:45", clientId: clients[10].id, practitionerId: marcus.id, status: "Completed", type: "Initial Assessment" },
-    { date: formatDate(addDays(1)), startTime: "09:00", endTime: "09:45", clientId: clients[1].id, practitionerId: james.id, status: "Scheduled", type: "Standard" },
-    { date: formatDate(addDays(1)), startTime: "10:30", endTime: "11:15", clientId: clients[0].id, practitionerId: emma.id, status: "Scheduled", type: "Follow Up" },
-    { date: formatDate(addDays(1)), startTime: "11:00", endTime: "12:00", clientId: clients[5].id, practitionerId: rachel.id, status: "Scheduled", type: "Telehealth" },
-    { date: formatDate(addDays(1)), startTime: "13:00", endTime: "13:45", clientId: clients[8].id, practitionerId: marcus.id, status: "Scheduled", type: "Follow Up" },
-    { date: formatDate(addDays(2)), startTime: "11:00", endTime: "11:45", clientId: clients[3].id, practitionerId: sarah.id, status: "Scheduled", type: "Standard" },
-    { date: formatDate(addDays(2)), startTime: "13:00", endTime: "14:00", clientId: clients[6].id, practitionerId: rachel.id, status: "Scheduled", type: "Group Session" },
-    { date: formatDate(addDays(2)), startTime: "14:30", endTime: "15:15", clientId: clients[11].id, practitionerId: marcus.id, status: "Scheduled", type: "Review" },
-    { date: formatDate(addDays(3)), startTime: "09:30", endTime: "10:15", clientId: clients[7].id, practitionerId: james.id, status: "Scheduled", type: "Follow Up" },
-    { date: formatDate(addDays(3)), startTime: "10:00", endTime: "10:45", clientId: clients[9].id, practitionerId: rachel.id, status: "Scheduled", type: "Standard" },
-    { date: formatDate(addDays(4)), startTime: "10:00", endTime: "10:45", clientId: clients[10].id, practitionerId: marcus.id, status: "Scheduled", type: "Follow Up" },
-    { date: formatDate(addDays(4)), startTime: "14:00", endTime: "15:00", clientId: clients[4].id, practitionerId: sarah.id, status: "Scheduled", type: "Telehealth" },
-    { date: formatDate(addDays(5)), startTime: "09:00", endTime: "09:45", clientId: clients[2].id, practitionerId: james.id, status: "Scheduled", type: "Review" },
-    { date: formatDate(addDays(5)), startTime: "11:00", endTime: "11:45", clientId: clients[11].id, practitionerId: rachel.id, status: "Scheduled", type: "Telehealth" },
-  ];
+    { date: formatDate(addDays(1)), startTime: "09:00", endTime: "09:45", clientId: clients[10].id, practitionerId: james.id, status: "Scheduled", type: "Follow Up" },
+    { date: formatDate(addDays(1)), startTime: "13:00", endTime: "13:45", clientId: clients[11].id, practitionerId: marcus.id, status: "Scheduled", type: "Standard" },
+    { date: formatDate(addDays(-1)), startTime: "10:00", endTime: "10:45", clientId: clients[2].id, practitionerId: james.id, status: "Completed", type: "Standard" },
+    { date: formatDate(addDays(-1)), startTime: "15:00", endTime: "15:45", clientId: clients[8].id, practitionerId: marcus.id, status: "Completed", type: "Initial Assessment" },
+  );
 
   for (const appt of appointments) {
     await prisma.appointment.create({ data: appt });
   }
 
-  // Create clinical notes (8 total)
+  // Create clinical notes (12 total — 5 unsigned for "Incomplete progress notes" on dashboard)
   const clinicalNotes = [
     { date: formatDate(today), content: "Patient presents with lower back pain following lifting injury at work. Pain rated 6/10. Limited flexion. Prescribed exercise program and manual therapy. Review in 1 week.", template: "Progress Note", signed: true, clientId: clients[0].id, practitionerId: sarah.id },
     { date: formatDate(today), content: "NDIS participant. Continued work on fine motor skills and daily living activities. Good progress with dressing tasks. Next session: kitchen safety assessment.", template: "NDIS Progress Note", signed: false, clientId: clients[1].id, practitionerId: james.id },
@@ -152,6 +210,10 @@ async function main() {
     { date: formatDate(today), content: "CBT session addressing generalised anxiety. Explored cognitive distortions and introduced thought challenging worksheet. Client engaged well and completed in-session exercises. Homework: daily thought record.", template: "Progress Note", signed: true, clientId: clients[5].id, practitionerId: rachel.id },
     { date: formatDate(addDays(-1)), content: "Exercise physiology initial consult. Assessed baseline fitness and functional capacity. Chronic lower back pain with sedentary lifestyle. Developed 6-week progressive exercise program focusing on core stability and aerobic conditioning.", template: "Initial Assessment", signed: true, clientId: clients[10].id, practitionerId: marcus.id },
     { date: formatDate(today), content: "Follow-up session for anxiety management. Client reports reduced frequency of panic attacks since starting breathing exercises. Introduced graded exposure hierarchy for social situations. Good compliance with homework.", template: "Progress Note", signed: false, clientId: clients[9].id, practitionerId: rachel.id },
+    { date: formatDate(addDays(-2)), content: "Home visit assessment. Reviewed home environment for falls risk. Recommended grab rails in bathroom and non-slip mats. Client agreeable to modifications.", template: "Progress Note", signed: false, clientId: clients[4].id, practitionerId: sarah.id },
+    { date: formatDate(addDays(-3)), content: "Group therapy session. Worked on social communication skills with peer group. Client demonstrated improved turn-taking and topic maintenance.", template: "Progress Note", signed: false, clientId: clients[7].id, practitionerId: emma.id },
+    { date: formatDate(today), content: "Telehealth consultation for NDIS plan review. Discussed goals for independent living skills. Updated therapy plan for next quarter.", template: "NDIS Progress Note", signed: false, clientId: clients[11].id, practitionerId: james.id },
+    { date: formatDate(addDays(-1)), content: "Standard consultation — Reviewed exercise compliance. Client reports 80% adherence to home program. Progressed resistance exercises. Next review in 2 weeks.", template: "Progress Note", signed: true, clientId: clients[2].id, practitionerId: marcus.id },
   ];
 
   for (const note of clinicalNotes) {
