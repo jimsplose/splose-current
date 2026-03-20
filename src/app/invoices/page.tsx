@@ -29,46 +29,46 @@ export default async function InvoicesPage() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-border bg-purple-50">
-                <th className="px-4 py-3 text-left text-sm font-medium text-text">
+                <th className="px-4 py-3 text-left text-label-lg text-text">
                   <div className="flex items-center gap-1">
                     Invoice #
                     <ArrowUpDown className="h-3 w-3 text-text-secondary" />
                   </div>
                 </th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-text">To</th>
-                <th className="hidden px-4 py-3 text-left text-sm font-medium text-text md:table-cell">
+                <th className="px-4 py-3 text-left text-label-lg text-text">To</th>
+                <th className="hidden px-4 py-3 text-left text-label-lg text-text md:table-cell">
                   <div className="flex items-center gap-1">
                     Location
                     <Filter className="h-3 w-3 text-text-secondary" />
                   </div>
                 </th>
-                <th className="hidden px-4 py-3 text-left text-sm font-medium text-text md:table-cell">
+                <th className="hidden px-4 py-3 text-left text-label-lg text-text md:table-cell">
                   <div className="flex items-center gap-1">
                     Practitioner
                     <Filter className="h-3 w-3 text-text-secondary" />
                   </div>
                 </th>
-                <th className="hidden px-4 py-3 text-left text-sm font-medium text-text lg:table-cell">
+                <th className="hidden px-4 py-3 text-left text-label-lg text-text lg:table-cell">
                   <div className="flex items-center gap-1">
                     Issue date
                     <ArrowUpDown className="h-3 w-3 text-text-secondary" />
                   </div>
                 </th>
-                <th className="hidden px-4 py-3 text-left text-sm font-medium text-text lg:table-cell">
+                <th className="hidden px-4 py-3 text-left text-label-lg text-text lg:table-cell">
                   <div className="flex items-center gap-1">
                     Due date
                     <ArrowUpDown className="h-3 w-3 text-text-secondary" />
                   </div>
                 </th>
-                <th className="hidden px-4 py-3 text-right text-sm font-medium text-text sm:table-cell">Amount</th>
-                <th className="hidden px-4 py-3 text-right text-sm font-medium text-text sm:table-cell">Outstanding</th>
-                <th className="hidden px-4 py-3 text-left text-sm font-medium text-text sm:table-cell">
+                <th className="hidden px-4 py-3 text-right text-label-lg text-text sm:table-cell">Amount</th>
+                <th className="hidden px-4 py-3 text-right text-label-lg text-text sm:table-cell">Outstanding</th>
+                <th className="hidden px-4 py-3 text-left text-label-lg text-text sm:table-cell">
                   <div className="flex items-center gap-1">
                     Status
                     <Filter className="h-3 w-3 text-text-secondary" />
                   </div>
                 </th>
-                <th className="hidden px-4 py-3 text-left text-sm font-medium text-text lg:table-cell">
+                <th className="hidden px-4 py-3 text-left text-label-lg text-text lg:table-cell">
                   <div className="flex items-center gap-1">Sent status</div>
                 </th>
               </tr>
@@ -79,28 +79,28 @@ export default async function InvoicesPage() {
                 const practitioner = inv.appointment?.practitioner;
                 return (
                   <tr key={inv.id} className="cursor-pointer transition-colors hover:bg-gray-50">
-                    <td className="px-4 py-3 text-sm text-text">
+                    <td className="px-4 py-3 text-body-md text-text">
                       <Link href={`/invoices/${inv.id}`} className="text-primary hover:underline">
                         {inv.invoiceNumber}
                       </Link>
                     </td>
-                    <td className="px-4 py-3 text-sm text-primary">
+                    <td className="px-4 py-3 text-body-md text-primary">
                       {inv.client.firstName} {inv.client.lastName} ({inv.billingType})
                     </td>
-                    <td className="hidden px-4 py-3 text-sm text-text-secondary md:table-cell">East Clinics</td>
-                    <td className="hidden px-4 py-3 text-sm text-text-secondary md:table-cell">
+                    <td className="hidden px-4 py-3 text-body-md text-text-secondary md:table-cell">East Clinics</td>
+                    <td className="hidden px-4 py-3 text-body-md text-text-secondary md:table-cell">
                       {practitioner ? practitioner.name : "—"}
                     </td>
-                    <td className="hidden px-4 py-3 text-sm text-text-secondary lg:table-cell">
+                    <td className="hidden px-4 py-3 text-body-md text-text-secondary lg:table-cell">
                       {formatDate(inv.date)}
                     </td>
-                    <td className="hidden px-4 py-3 text-sm text-text-secondary lg:table-cell">
+                    <td className="hidden px-4 py-3 text-body-md text-text-secondary lg:table-cell">
                       {formatDate(inv.dueDate)}
                     </td>
-                    <td className="hidden px-4 py-3 text-right text-sm text-text sm:table-cell">
+                    <td className="hidden px-4 py-3 text-right text-body-md text-text sm:table-cell">
                       {inv.total.toFixed(2)}
                     </td>
-                    <td className="hidden px-4 py-3 text-right text-sm text-text sm:table-cell">
+                    <td className="hidden px-4 py-3 text-right text-body-md text-text sm:table-cell">
                       {outstanding.toFixed(2)}
                     </td>
                     <td className="hidden px-4 py-3 sm:table-cell">

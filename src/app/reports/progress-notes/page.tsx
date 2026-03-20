@@ -10,7 +10,7 @@ export default function ReportsProgressNotesPage() {
 
       {/* Date range */}
       <div className="mb-4">
-        <label className="mb-1 flex items-center gap-1 text-sm text-text-secondary">
+        <label className="mb-1 flex items-center gap-1 text-body-md text-text-secondary">
           <span>&#128197;</span> Date range *
         </label>
         <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
@@ -25,9 +25,9 @@ export default function ReportsProgressNotesPage() {
       </div>
 
       {/* Results */}
-      <p className="mb-4 text-sm text-text-secondary">2 progress notes found.</p>
+      <p className="mb-4 text-body-md text-text-secondary">2 progress notes found.</p>
 
-      <h2 className="mb-4 text-lg font-bold text-text">Summary</h2>
+      <h2 className="mb-4 text-heading-lg text-text">Summary</h2>
 
       {/* Summary tables and pie charts */}
       <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -37,26 +37,26 @@ export default function ReportsProgressNotesPage() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border bg-gray-50">
-                  <th className="px-4 py-2 text-left text-sm font-medium text-text">Note template</th>
-                  <th className="px-4 py-2 text-right text-sm font-medium text-text">Number</th>
+                  <th className="px-4 py-2 text-left text-label-lg text-text">Note template</th>
+                  <th className="px-4 py-2 text-right text-label-lg text-text">Number</th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-b border-border">
-                  <td className="px-4 py-2 text-sm text-text">
+                  <td className="px-4 py-2 text-body-md text-text">
                     <Status color="green" label="AAA TEST" />
                   </td>
-                  <td className="px-4 py-2 text-right text-sm text-text">1 (50.0%)</td>
+                  <td className="px-4 py-2 text-right text-body-md text-text">1 (50.0%)</td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-2 text-sm text-text">
+                  <td className="px-4 py-2 text-body-md text-text">
                     <Status color="purple" label="Bill Gates Demo" />
                   </td>
-                  <td className="px-4 py-2 text-right text-sm text-text">1 (50.0%)</td>
+                  <td className="px-4 py-2 text-right text-body-md text-text">1 (50.0%)</td>
                 </tr>
               </tbody>
             </table>
-            <div className="flex items-center justify-end border-t border-border px-4 py-2 text-sm text-text-secondary">
+            <div className="flex items-center justify-end border-t border-border px-4 py-2 text-body-md text-text-secondary">
               <span>&lt;</span>
               <Button variant="ghost" size="sm" className="mx-1 !h-6 !w-6 !rounded !border !border-primary !p-0 !text-xs !font-medium !text-primary">
                 1
@@ -79,26 +79,26 @@ export default function ReportsProgressNotesPage() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border bg-gray-50">
-                  <th className="px-4 py-2 text-left text-sm font-medium text-text">Practitioner</th>
-                  <th className="px-4 py-2 text-right text-sm font-medium text-text">Number</th>
+                  <th className="px-4 py-2 text-left text-label-lg text-text">Practitioner</th>
+                  <th className="px-4 py-2 text-right text-label-lg text-text">Number</th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-b border-border">
-                  <td className="px-4 py-2 text-sm text-text">
+                  <td className="px-4 py-2 text-body-md text-text">
                     <Status color="green" label="Ruvi R." />
                   </td>
-                  <td className="px-4 py-2 text-right text-sm text-text">1 (50.0%)</td>
+                  <td className="px-4 py-2 text-right text-body-md text-text">1 (50.0%)</td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-2 text-sm text-text">
+                  <td className="px-4 py-2 text-body-md text-text">
                     <Status color="purple" label="Zoe Gomez" />
                   </td>
-                  <td className="px-4 py-2 text-right text-sm text-text">1 (50.0%)</td>
+                  <td className="px-4 py-2 text-right text-body-md text-text">1 (50.0%)</td>
                 </tr>
               </tbody>
             </table>
-            <div className="flex items-center justify-end border-t border-border px-4 py-2 text-sm text-text-secondary">
+            <div className="flex items-center justify-end border-t border-border px-4 py-2 text-body-md text-text-secondary">
               <span>&lt;</span>
               <Button variant="ghost" size="sm" className="mx-1 !h-6 !w-6 !rounded !border !border-primary !p-0 !text-xs !font-medium !text-primary">
                 1
@@ -117,38 +117,38 @@ export default function ReportsProgressNotesPage() {
       </div>
 
       {/* Progress notes list */}
-      <h2 className="mb-4 text-lg font-bold text-text">Progress notes list</h2>
+      <h2 className="mb-4 text-heading-lg text-text">Progress notes list</h2>
       <Card padding="none" className="overflow-x-auto">
         <table className="w-full min-w-[600px]">
           <thead>
             <tr className="border-b border-border bg-gray-50">
-              <th className="px-4 py-2 text-left text-sm font-medium text-text">Title</th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-text">Client</th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-text">Related service</th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-text">Practitioner</th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-text">Location</th>
+              <th className="px-4 py-2 text-left text-label-lg text-text">Title</th>
+              <th className="px-4 py-2 text-left text-label-lg text-text">Client</th>
+              <th className="px-4 py-2 text-left text-label-lg text-text">Related service</th>
+              <th className="px-4 py-2 text-left text-label-lg text-text">Practitioner</th>
+              <th className="px-4 py-2 text-left text-label-lg text-text">Location</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
             <tr>
-              <td className="px-4 py-3 text-sm">
+              <td className="px-4 py-3 text-body-md">
                 <span className="text-primary">Bill Gates Demo</span>
                 <Badge variant="gray" className="ml-2">Draft</Badge>
               </td>
-              <td className="px-4 py-3 text-sm text-primary">Skyler Peterson</td>
-              <td className="px-4 py-3 text-sm text-text-secondary"></td>
-              <td className="px-4 py-3 text-sm text-text">Ruvi R.</td>
-              <td className="px-4 py-3 text-sm text-text-secondary"></td>
+              <td className="px-4 py-3 text-body-md text-primary">Skyler Peterson</td>
+              <td className="px-4 py-3 text-body-md text-text-secondary"></td>
+              <td className="px-4 py-3 text-body-md text-text">Ruvi R.</td>
+              <td className="px-4 py-3 text-body-md text-text-secondary"></td>
             </tr>
             <tr>
-              <td className="px-4 py-3 text-sm">
+              <td className="px-4 py-3 text-body-md">
                 <span className="text-primary">AAA TEST</span>
                 <Badge variant="gray" className="ml-2">Draft</Badge>
               </td>
-              <td className="px-4 py-3 text-sm text-primary">A Del</td>
-              <td className="px-4 py-3 text-sm text-text-secondary"></td>
-              <td className="px-4 py-3 text-sm text-text">Zoe Gomez</td>
-              <td className="px-4 py-3 text-sm text-text-secondary"></td>
+              <td className="px-4 py-3 text-body-md text-primary">A Del</td>
+              <td className="px-4 py-3 text-body-md text-text-secondary"></td>
+              <td className="px-4 py-3 text-body-md text-text">Zoe Gomez</td>
+              <td className="px-4 py-3 text-body-md text-text-secondary"></td>
             </tr>
           </tbody>
         </table>

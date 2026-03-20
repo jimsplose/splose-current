@@ -36,7 +36,7 @@ export default function ReportsPage() {
   return (
     <>
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Performance overview</h1>
+        <h1 className="text-display-lg text-text">Performance overview</h1>
         <Button variant="ghost" className="rounded p-2" aria-label="Settings">
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path
@@ -51,11 +51,11 @@ export default function ReportsPage() {
 
       {/* Filter bar */}
       <div className="mb-6 flex flex-wrap items-center gap-2">
-        <span className="rounded-full border border-primary bg-purple-50 px-3 py-1 text-sm text-primary">
+        <span className="rounded-full border border-primary bg-purple-50 px-3 py-1 text-body-md text-primary">
           {fmtShort(dateStart)}
         </span>
         <span className="text-text-secondary">&rarr;</span>
-        <span className="rounded-full border border-primary bg-purple-50 px-3 py-1 text-sm text-primary">
+        <span className="rounded-full border border-primary bg-purple-50 px-3 py-1 text-body-md text-primary">
           {fmtShort(dateEnd)}
         </span>
         <FormSelect
@@ -78,12 +78,12 @@ export default function ReportsPage() {
         {/* Utilisation card - LINE chart */}
         <Card>
           <div className="mb-1 flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-text">Utilisation</h3>
+            <h3 className="text-heading-sm text-text">Utilisation</h3>
             <Button variant="ghost" size="sm">...</Button>
           </div>
-          <p className="mb-2 text-xs text-text-secondary">Percentage of available time utilised</p>
+          <p className="mb-2 text-caption-md text-text-secondary">Percentage of available time utilised</p>
           <p className="mb-1 text-3xl font-bold text-text">0.85%</p>
-          <p className="mb-4 text-xs text-text-secondary">
+          <p className="mb-4 text-caption-md text-text-secondary">
             {fmtDay(dateStart)} - {fmtDay(dateEnd)}
           </p>
           {/* SVG Line chart */}
@@ -111,7 +111,7 @@ export default function ReportsPage() {
               ))}
             </svg>
             {/* Y-axis labels */}
-            <div className="absolute top-0 bottom-0 left-0 -ml-1 flex flex-col justify-between text-[9px] text-text-secondary">
+            <div className="absolute top-0 bottom-0 left-0 -ml-1 flex flex-col justify-between text-caption-sm text-text-secondary">
               <span>6%</span>
               <span>4%</span>
               <span>2%</span>
@@ -119,12 +119,12 @@ export default function ReportsPage() {
             </div>
           </div>
           {/* X-axis labels */}
-          <div className="mt-1 flex justify-between px-2 text-[9px] text-text-secondary">
+          <div className="mt-1 flex justify-between px-2 text-caption-sm text-text-secondary">
             {chartDays.map((d) => (
               <span key={d}>{d}</span>
             ))}
           </div>
-          <div className="mt-2 flex items-center justify-center gap-1 text-[10px] text-text-secondary">
+          <div className="mt-2 flex items-center justify-center gap-1 text-caption-sm text-text-secondary">
             <span className="h-2 w-2 rounded-full bg-primary" />
             {fmtDay(dateStart)} - {fmtDay(dateEnd)}
           </div>
@@ -133,20 +133,20 @@ export default function ReportsPage() {
         {/* Revenue card - BAR chart */}
         <Card>
           <div className="mb-1 flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-text">Revenue</h3>
+            <h3 className="text-heading-sm text-text">Revenue</h3>
             <Button variant="ghost" size="sm">...</Button>
           </div>
-          <p className="mb-2 text-xs text-text-secondary">
+          <p className="mb-2 text-caption-md text-text-secondary">
             Total invoiced revenue from appointments and support activities (tax exclusive)
           </p>
           <p className="mb-1 text-3xl font-bold text-text">$1.09K</p>
-          <p className="mb-4 text-xs text-text-secondary">
+          <p className="mb-4 text-caption-md text-text-secondary">
             {fmtDay(dateStart)} - {fmtDay(dateEnd)}
           </p>
           {/* Bar chart */}
           <div className="relative h-32">
             {/* Y-axis labels */}
-            <div className="absolute top-0 bottom-0 left-0 flex flex-col justify-between text-[9px] text-text-secondary">
+            <div className="absolute top-0 bottom-0 left-0 flex flex-col justify-between text-caption-sm text-text-secondary">
               <span>$600</span>
               <span>$400</span>
               <span>$200</span>
@@ -164,12 +164,12 @@ export default function ReportsPage() {
             </div>
           </div>
           {/* X-axis labels */}
-          <div className="mt-1 ml-8 flex justify-between text-[9px] text-text-secondary">
+          <div className="mt-1 ml-8 flex justify-between text-caption-sm text-text-secondary">
             {chartDays.map((d) => (
               <span key={d}>{d}</span>
             ))}
           </div>
-          <div className="mt-2 flex items-center justify-center gap-1 text-[10px] text-text-secondary">
+          <div className="mt-2 flex items-center justify-center gap-1 text-caption-sm text-text-secondary">
             <span className="h-2 w-2 rounded-full bg-primary" />
             {fmtDay(dateStart)} - {fmtDay(dateEnd)}
           </div>
@@ -180,22 +180,22 @@ export default function ReportsPage() {
       <Card padding="none">
         <div className="flex items-center justify-between border-b border-border px-4 py-3">
           <div>
-            <h3 className="text-sm font-semibold text-text">Practitioners</h3>
-            <p className="text-xs text-text-secondary">Breakdown of performance by individual practitioner</p>
+            <h3 className="text-heading-sm text-text">Practitioners</h3>
+            <p className="text-caption-md text-text-secondary">Breakdown of performance by individual practitioner</p>
           </div>
           <Button variant="ghost" size="sm">...</Button>
         </div>
         <table className="w-full">
           <thead>
             <tr className="border-b border-border">
-              <th className="px-4 py-2 text-left text-sm font-medium text-text">Name</th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-text">
+              <th className="px-4 py-2 text-left text-label-lg text-text">Name</th>
+              <th className="px-4 py-2 text-left text-label-lg text-text">
                 <div className="flex items-center gap-1">
                   Utilisation rate
                   <span className="text-text-secondary">&#9660;</span>
                 </div>
               </th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-text">Revenue</th>
+              <th className="px-4 py-2 text-right text-label-lg text-text">Revenue</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
@@ -204,7 +204,7 @@ export default function ReportsPage() {
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
                     <Avatar name={p.name} color={p.color} size="sm" />
-                    <span className="text-sm text-text">{p.name}</span>
+                    <span className="text-body-md text-text">{p.name}</span>
                   </div>
                 </td>
                 <td className="px-4 py-3">
@@ -215,10 +215,10 @@ export default function ReportsPage() {
                         style={{ width: `${Math.min(p.utilisation * 10, 100)}%` }}
                       />
                     </div>
-                    <span className="text-sm text-text-secondary">{p.utilisation.toFixed(2)}%</span>
+                    <span className="text-body-md text-text-secondary">{p.utilisation.toFixed(2)}%</span>
                   </div>
                 </td>
-                <td className="px-4 py-3 text-right text-sm text-text">${p.revenue.toFixed(2)}</td>
+                <td className="px-4 py-3 text-right text-body-md text-text">${p.revenue.toFixed(2)}</td>
               </tr>
             ))}
           </tbody>

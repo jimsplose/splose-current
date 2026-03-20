@@ -396,7 +396,7 @@ function WaitlistPageInner() {
                             variant="secondary"
                             size="sm"
                             onClick={() => handleTriage(idx, "yes")}
-                            className={`!gap-0.5 !rounded !px-2 !py-1 !text-xs ${
+                            className={`!gap-0.5 !rounded !px-2 !py-1 text-body-sm ${
                               triageState[idx] === "yes"
                                 ? "!border-green-300 !bg-green-50 !text-green-700"
                                 : "!text-text-secondary"
@@ -409,7 +409,7 @@ function WaitlistPageInner() {
                             variant={triageState[idx] === "no" ? "danger" : "secondary"}
                             size="sm"
                             onClick={() => handleTriage(idx, "no")}
-                            className={`!gap-0.5 !rounded !px-2 !py-1 !text-xs ${
+                            className={`!gap-0.5 !rounded !px-2 !py-1 text-body-sm ${
                               triageState[idx] === "no"
                                 ? "!bg-red-50"
                                 : "!text-text-secondary"
@@ -466,7 +466,7 @@ function WaitlistPageInner() {
             {/* Map / List toggle */}
             <button
               onClick={() => setViewMode(viewMode === "list" ? "map" : "list")}
-              className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors ${
+              className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-label-lg transition-colors ${
                 viewMode === "map"
                   ? "border-primary bg-primary/5 text-primary"
                   : "border-border bg-white text-text hover:bg-gray-50"
@@ -536,7 +536,7 @@ function WaitlistPageInner() {
                           <div className="flex flex-wrap gap-1">
                             {row.tags.map((tag) =>
                               tag === "---" ? (
-                                <span key={tag} className="text-sm text-text-secondary">
+                                <span key={tag} className="text-body-md text-text-secondary">
                                   ---
                                 </span>
                               ) : (
@@ -595,22 +595,22 @@ function WaitlistPageInner() {
                 </svg>
 
                 {/* Place labels */}
-                <div className="absolute top-[15%] left-[8%] text-[11px] font-medium text-gray-500">
+                <div className="absolute top-[15%] left-[8%] text-label-sm text-gray-500">
                   Campbellfield
                 </div>
-                <div className="absolute top-[8%] left-[35%] text-[11px] font-medium text-gray-500">Thomastown</div>
-                <div className="absolute top-[12%] left-[65%] text-[11px] font-medium text-gray-500">Bundoora</div>
-                <div className="absolute top-[30%] left-[20%] text-[11px] font-medium text-gray-500">Fawkner</div>
-                <div className="absolute top-[25%] left-[45%] text-[11px] font-medium text-gray-500">Reservoir</div>
-                <div className="absolute top-[45%] left-[12%] text-[11px] font-medium text-gray-500">Coburg North</div>
-                <div className="absolute top-[55%] left-[8%] text-[11px] font-medium text-gray-500">Pascoe Vale</div>
-                <div className="absolute top-[50%] left-[30%] text-[11px] font-medium text-gray-500">Preston</div>
-                <div className="absolute top-[35%] left-[55%] text-[11px] font-medium text-gray-500">Heidelberg</div>
-                <div className="absolute top-[45%] left-[70%] text-[11px] font-medium text-gray-500">Bulleen</div>
-                <div className="absolute top-[70%] left-[15%] text-[11px] font-medium text-gray-500">Brunswick</div>
-                <div className="absolute top-[65%] left-[35%] text-[11px] font-medium text-gray-500">Northcote</div>
-                <div className="absolute top-[75%] left-[50%] text-[11px] font-medium text-gray-500">Kew</div>
-                <div className="absolute top-[88%] left-[40%] text-[10px] font-semibold text-gray-600">Melbourne</div>
+                <div className="absolute top-[8%] left-[35%] text-label-sm text-gray-500">Thomastown</div>
+                <div className="absolute top-[12%] left-[65%] text-label-sm text-gray-500">Bundoora</div>
+                <div className="absolute top-[30%] left-[20%] text-label-sm text-gray-500">Fawkner</div>
+                <div className="absolute top-[25%] left-[45%] text-label-sm text-gray-500">Reservoir</div>
+                <div className="absolute top-[45%] left-[12%] text-label-sm text-gray-500">Coburg North</div>
+                <div className="absolute top-[55%] left-[8%] text-label-sm text-gray-500">Pascoe Vale</div>
+                <div className="absolute top-[50%] left-[30%] text-label-sm text-gray-500">Preston</div>
+                <div className="absolute top-[35%] left-[55%] text-label-sm text-gray-500">Heidelberg</div>
+                <div className="absolute top-[45%] left-[70%] text-label-sm text-gray-500">Bulleen</div>
+                <div className="absolute top-[70%] left-[15%] text-label-sm text-gray-500">Brunswick</div>
+                <div className="absolute top-[65%] left-[35%] text-label-sm text-gray-500">Northcote</div>
+                <div className="absolute top-[75%] left-[50%] text-label-sm text-gray-500">Kew</div>
+                <div className="absolute top-[88%] left-[40%] text-caption-sm text-gray-600">Melbourne</div>
 
                 {/* Map pins */}
                 {mapPins.map((pin, idx) => (
@@ -620,7 +620,7 @@ function WaitlistPageInner() {
                     style={{ left: `${pin.x}%`, top: `${pin.y}%`, transform: "translate(-50%, -100%)" }}
                   >
                     <MapPin className="h-6 w-6 text-gray-600 drop-shadow-sm" fill="#fff" strokeWidth={1.5} />
-                    <div className="absolute bottom-full left-1/2 mb-1 hidden -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-[10px] whitespace-nowrap text-white group-hover:block">
+                    <div className="absolute bottom-full left-1/2 mb-1 hidden -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-caption-sm whitespace-nowrap text-white group-hover:block">
                       {pin.label}
                     </div>
                   </div>

@@ -78,25 +78,25 @@ function OnlineBookingPageInner() {
           <div className="flex-1">
             {step === "select" && (
               <>
-                <h1 className="mb-6 text-3xl font-bold text-text">Select an appointment</h1>
+                <h1 className="mb-6 text-display-lg text-text">Select an appointment</h1>
 
                 {/* Filters */}
                 <div className="mb-4 flex gap-3">
-                  <div className="flex-1 rounded-lg border border-border px-3 py-2 text-sm text-text-secondary">
+                  <div className="flex-1 rounded-lg border border-border px-3 py-2 text-body-md text-text-secondary">
                     <User className="mr-2 inline h-4 w-4" />
                     All practitioners
                   </div>
-                  <div className="flex-1 rounded-lg border border-border px-3 py-2 text-sm text-text-secondary">
+                  <div className="flex-1 rounded-lg border border-border px-3 py-2 text-body-md text-text-secondary">
                     <Calendar className="mr-2 inline h-4 w-4" />
                     Any date
                   </div>
-                  <div className="flex-1 rounded-lg border border-border px-3 py-2 text-sm text-text-secondary">
+                  <div className="flex-1 rounded-lg border border-border px-3 py-2 text-body-md text-text-secondary">
                     <Clock className="mr-2 inline h-4 w-4" />
                     Any time
                   </div>
                 </div>
 
-                <p className="mb-8 text-xs text-text-secondary">
+                <p className="mb-8 text-caption-md text-text-secondary">
                   All times are shown in (GMT+10:30) – Adelaide
                 </p>
 
@@ -112,30 +112,30 @@ function OnlineBookingPageInner() {
                         <div className="w-40 shrink-0">
                           <div className="mb-2 flex items-center gap-3">
                             {prac.hasPhoto ? (
-                              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 text-sm font-medium text-text-secondary">
+                              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 text-label-lg text-text-secondary">
                                 {prac.name[0]}
                               </div>
                             ) : (
                               <div
-                                className="flex h-10 w-10 items-center justify-center rounded-full text-xs font-bold text-white"
+                                className="flex h-10 w-10 items-center justify-center rounded-full text-label-md text-white"
                                 style={{ backgroundColor: prac.color }}
                               >
                                 {prac.initials}
                               </div>
                             )}
                             <div>
-                              <div className="text-sm font-semibold text-text">{prac.name}</div>
-                              <div className="text-xs text-text-secondary">{prac.role}</div>
+                              <div className="text-heading-sm text-text">{prac.name}</div>
+                              <div className="text-caption-md text-text-secondary">{prac.role}</div>
                             </div>
                           </div>
                           {prac.tagline && (
-                            <div className="text-xs text-text-secondary">{prac.tagline}</div>
+                            <div className="text-caption-md text-text-secondary">{prac.tagline}</div>
                           )}
                         </div>
 
                         {/* Date/time picker */}
                         <div className="flex-1">
-                          <div className="mb-2 text-sm font-semibold text-text">March 2026</div>
+                          <div className="mb-2 text-heading-sm text-text">March 2026</div>
                           <div className="mb-4 flex items-center gap-1">
                             <button className="flex h-8 w-8 items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
                               <ChevronLeft className="h-4 w-4" />
@@ -147,20 +147,20 @@ function OnlineBookingPageInner() {
                                   setSelectedDate(d.date);
                                   setSelectedPractitioner(prac.id);
                                 }}
-                                className={`flex h-10 w-10 flex-col items-center justify-center rounded-full text-xs ${
+                                className={`flex h-10 w-10 flex-col items-center justify-center rounded-full text-caption-md ${
                                   selectedDate === d.date && selectedPractitioner === prac.id
                                     ? "bg-primary text-white"
                                     : "text-text hover:bg-gray-100"
                                 }`}
                               >
-                                <span className="text-[10px]">{d.date}</span>
+                                <span className="text-caption-sm">{d.date}</span>
                               </button>
                             ))}
                             <button className="flex h-8 w-8 items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
                               <ChevronRight className="h-4 w-4" />
                             </button>
                           </div>
-                          <div className="mb-1 flex text-[10px] text-text-secondary">
+                          <div className="mb-1 flex text-caption-sm text-text-secondary">
                             {weekDays.map((d) => (
                               <span key={d.date} className="w-10 text-center">
                                 {d.day}
@@ -178,7 +178,7 @@ function OnlineBookingPageInner() {
                                     setSelectedPractitioner(prac.id);
                                     setStep("confirm");
                                   }}
-                                  className="block w-28 rounded-lg border border-border px-3 py-2 text-sm text-text hover:border-primary hover:bg-purple-50"
+                                  className="block w-28 rounded-lg border border-border px-3 py-2 text-body-md text-text hover:border-primary hover:bg-purple-50"
                                 >
                                   {slot}
                                 </button>
@@ -194,7 +194,7 @@ function OnlineBookingPageInner() {
                             </div>
                           ) : (
                             <div className="space-y-3">
-                              <p className="text-sm text-text-secondary">
+                              <p className="text-body-md text-text-secondary">
                                 No available times for your search. Please try a different date or join the waitlist to be
                                 notified if a spot opens.
                               </p>
@@ -213,7 +213,7 @@ function OnlineBookingPageInner() {
 
             {step === "confirm" && (
               <>
-                <h1 className="mb-6 text-3xl font-bold text-text">Confirm your appointment</h1>
+                <h1 className="mb-6 text-display-lg text-text">Confirm your appointment</h1>
 
                 <div className="max-w-lg space-y-5">
                   <div className="grid grid-cols-2 gap-4">
@@ -231,7 +231,7 @@ function OnlineBookingPageInner() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="mb-1 block text-sm font-medium text-text-secondary">Phone number *</label>
+                      <label className="mb-1 block text-label-lg text-text-secondary">Phone number *</label>
                       <div className="flex gap-2">
                         <FormSelect
                           options={[
@@ -260,7 +260,7 @@ function OnlineBookingPageInner() {
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-text-secondary">Date of birth *</label>
+                    <label className="mb-1 block text-label-lg text-text-secondary">Date of birth *</label>
                     <div className="grid grid-cols-3 gap-2">
                       <FormSelect
                         options={Array.from({ length: 31 }, (_, i) => ({
@@ -290,7 +290,7 @@ function OnlineBookingPageInner() {
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-text-secondary">
+                    <label className="mb-1 block text-label-lg text-text-secondary">
                       Comments (optional)
                     </label>
                     <textarea
@@ -298,9 +298,9 @@ function OnlineBookingPageInner() {
                       onChange={(e) => setComments(e.target.value)}
                       maxLength={500}
                       rows={4}
-                      className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                      className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
                     />
-                    <div className="mt-1 text-right text-xs text-text-secondary">
+                    <div className="mt-1 text-right text-caption-md text-text-secondary">
                       {comments.length} / 500
                     </div>
                   </div>
@@ -312,7 +312,7 @@ function OnlineBookingPageInner() {
                       onChange={(e) => setRememberDetails(e.target.checked)}
                       className="h-4 w-4 rounded border-border text-primary"
                     />
-                    <span className="text-sm text-text">Remember my details for next time</span>
+                    <span className="text-body-md text-text">Remember my details for next time</span>
                   </label>
                 </div>
               </>
@@ -322,15 +322,15 @@ function OnlineBookingPageInner() {
           {/* Sidebar — Appointment summary */}
           <div className="w-72 shrink-0">
             <div className="rounded-xl border border-border bg-white p-5 shadow-sm">
-              <h2 className="mb-4 text-base font-semibold text-text">Appointment summary</h2>
+              <h2 className="mb-4 text-heading-md text-text">Appointment summary</h2>
 
               <div className="space-y-4">
                 {/* Location */}
                 <div className="flex items-start gap-3">
                   <div className="mt-0.5 h-2.5 w-2.5 rounded-full bg-primary" />
                   <div className="flex-1">
-                    <div className="text-sm font-semibold text-text">Location</div>
-                    <div className="flex items-center gap-1.5 text-xs text-text-secondary">
+                    <div className="text-heading-sm text-text">Location</div>
+                    <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
                       <MapPin className="h-3 w-3" /> Tasks
                     </div>
                   </div>
@@ -345,11 +345,11 @@ function OnlineBookingPageInner() {
                 <div className="flex items-start gap-3">
                   <div className="mt-0.5 h-2.5 w-2.5 rounded-full bg-gray-300" />
                   <div className="flex-1">
-                    <div className="text-sm font-semibold text-text">Service</div>
-                    <div className="flex items-center gap-1.5 text-xs text-text-secondary">
+                    <div className="text-heading-sm text-text">Service</div>
+                    <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
                       <FileText className="h-3 w-3" /> 1:1 Consultation (40 mins d...
                     </div>
-                    <div className="flex items-center gap-1.5 text-xs text-text-secondary">
+                    <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
                       <span className="h-3 w-3 text-center">$</span> A$148.71
                     </div>
                   </div>
@@ -359,16 +359,16 @@ function OnlineBookingPageInner() {
                 <div className="flex items-start gap-3">
                   <div className={`mt-0.5 h-2.5 w-2.5 rounded-full ${step === "confirm" ? "bg-primary" : "bg-gray-300"}`} />
                   <div className="flex-1">
-                    <div className="text-sm font-semibold text-text">Appointment</div>
+                    <div className="text-heading-sm text-text">Appointment</div>
                     {step === "confirm" && selectedPrac && (
                       <>
-                        <div className="flex items-center gap-1.5 text-xs text-text-secondary">
+                        <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
                           <User className="h-3 w-3" /> {selectedPrac.name}
                         </div>
-                        <div className="flex items-center gap-1.5 text-xs text-text-secondary">
+                        <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
                           <Clock className="h-3 w-3" /> {selectedTime}
                         </div>
-                        <div className="flex items-center gap-1.5 text-xs text-text-secondary">
+                        <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
                           <Calendar className="h-3 w-3" /> Thursday 19 March 2026
                         </div>
                       </>
@@ -380,11 +380,11 @@ function OnlineBookingPageInner() {
                 <div className="flex items-start gap-3">
                   <div className={`mt-0.5 h-2.5 w-2.5 rounded-full ${step === "confirm" ? "bg-primary" : "bg-gray-300"}`} />
                   <div className="flex-1">
-                    <div className="text-sm text-text-secondary">Booking details</div>
+                    <div className="text-body-md text-text-secondary">Booking details</div>
                     {step === "confirm" && (
                       <div className="mt-2 flex items-center justify-between">
-                        <span className="text-sm font-medium text-text">Total:</span>
-                        <span className="text-sm font-semibold text-text">A$148.71</span>
+                        <span className="text-label-lg text-text">Total:</span>
+                        <span className="text-heading-sm text-text">A$148.71</span>
                       </div>
                     )}
                   </div>
@@ -409,7 +409,7 @@ function OnlineBookingPageInner() {
               </div>
 
               {step === "select" && (
-                <p className="mt-3 text-center text-xs text-text-secondary">
+                <p className="mt-3 text-center text-caption-md text-text-secondary">
                   Can&apos;t find a suitable time?{" "}
                   <a href="#" className="text-primary hover:underline">
                     Join the waitlist.
@@ -421,8 +421,8 @@ function OnlineBookingPageInner() {
         </div>
 
         {/* Footer */}
-        <div className="mt-16 pb-8 text-center text-sm text-text-secondary">
-          Powered by <span className="font-bold text-primary">splose</span>
+        <div className="mt-16 pb-8 text-center text-body-md text-text-secondary">
+          Powered by <span className="text-body-md-strong text-primary">splose</span>
         </div>
       </div>
     </div>

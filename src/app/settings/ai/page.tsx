@@ -110,13 +110,13 @@ function SettingsAIPageInner() {
       <aside className="w-64 shrink-0 overflow-y-auto border-r border-border bg-white p-4">
         {sidebarSections.map((section) => (
           <div key={section.title} className="mb-4">
-            <h3 className="mb-1 text-xs font-bold tracking-wider text-text uppercase">{section.title}</h3>
+            <h3 className="mb-1 text-label-sm text-text uppercase">{section.title}</h3>
             <ul className="space-y-0.5">
               {section.items.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className={`block w-full rounded px-3 py-1.5 text-left text-sm transition-colors hover:bg-purple-50 hover:text-primary ${
+                    className={`block w-full rounded px-3 py-1.5 text-left text-body-md transition-colors hover:bg-purple-50 hover:text-primary ${
                       item.name === "splose AI"
                         ? "border-l-2 border-primary bg-purple-50 font-medium text-primary"
                         : "text-text-secondary"
@@ -124,7 +124,7 @@ function SettingsAIPageInner() {
                   >
                     {item.name}
                     {item.badge && (
-                      <span className="ml-2 rounded bg-primary px-1.5 py-0.5 text-[10px] font-bold text-white">
+                      <span className="ml-2 rounded bg-primary px-1.5 py-0.5 text-caption-sm text-white">
                         {item.badge}
                       </span>
                     )}
@@ -139,7 +139,7 @@ function SettingsAIPageInner() {
       {/* Main content */}
       <div className="flex-1 p-6">
         <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-text">splose AI</h1>
+          <h1 className="text-display-lg text-text">splose AI</h1>
           <div className="flex items-center gap-2">
             <Button variant="secondary">Learn</Button>
             <Button variant="primary">Save</Button>
@@ -176,21 +176,21 @@ function PreferencesTab() {
 
   return (
     <div>
-      <h2 className="mb-2 text-lg font-semibold text-text">splose AI settings: More control, your way</h2>
+      <h2 className="mb-2 text-heading-lg text-text">splose AI settings: More control, your way</h2>
       <hr className="mb-6 border-border" />
 
-      <h3 className="mb-6 text-xl font-bold text-text">Preferences</h3>
+      <h3 className="mb-6 text-display-md text-text">Preferences</h3>
 
       {/* Progress notes */}
       <div className="mb-8">
-        <h4 className="mb-4 text-lg font-bold text-text">splose AI - progress notes</h4>
+        <h4 className="mb-4 text-heading-lg text-text">splose AI - progress notes</h4>
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-text">Enable voice to text and ask splose AI</span>
+            <span className="text-body-md text-text">Enable voice to text and ask splose AI</span>
             <Toggle checked={voiceToText} onChange={setVoiceToText} />
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm text-text">Save recording to client file</span>
+            <span className="text-body-md text-text">Save recording to client file</span>
             <Toggle checked={saveRecording} onChange={setSaveRecording} />
           </div>
         </div>
@@ -198,23 +198,23 @@ function PreferencesTab() {
 
       {/* Email */}
       <div className="mb-8">
-        <h4 className="mb-4 text-lg font-bold text-text">splose AI - email</h4>
+        <h4 className="mb-4 text-heading-lg text-text">splose AI - email</h4>
         <div className="flex items-center justify-between">
-          <span className="text-sm text-text">Enable splose AI email assistant</span>
+          <span className="text-body-md text-text">Enable splose AI email assistant</span>
           <Toggle checked={emailAssistant} onChange={setEmailAssistant} />
         </div>
       </div>
 
       {/* Calendar */}
       <div className="mb-8">
-        <h4 className="mb-4 text-lg font-bold text-text">splose AI - calendar</h4>
+        <h4 className="mb-4 text-heading-lg text-text">splose AI - calendar</h4>
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-text">Enable splose AI for calendar</span>
+            <span className="text-body-md text-text">Enable splose AI for calendar</span>
             <Toggle checked={calendarAI} onChange={setCalendarAI} />
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm text-text">Include cancelled appointment slots in splose AI for calendar</span>
+            <span className="text-body-md text-text">Include cancelled appointment slots in splose AI for calendar</span>
             <Toggle checked={cancelledSlots} onChange={setCancelledSlots} />
           </div>
         </div>
@@ -238,7 +238,7 @@ function SavedPromptsTab() {
   return (
     <div>
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-text">AI prompts</h2>
+        <h2 className="text-heading-lg text-text">AI prompts</h2>
         <Button variant="secondary">+ New prompt</Button>
       </div>
 
@@ -285,11 +285,11 @@ function SavedPromptsTab() {
         <div className="space-y-4">
           <FormInput label="Prompt name" value={editName} onChange={(e) => setEditName(e.target.value)} />
           <div>
-            <label className="mb-1 block text-sm font-medium text-text-secondary">User group</label>
+            <label className="mb-1 block text-label-lg text-text-secondary">User group</label>
             <select
               value={editGroup}
               onChange={(e) => setEditGroup(e.target.value)}
-              className="w-full rounded-lg border border-border px-3 py-2 text-sm text-text focus:border-primary focus:ring-1 focus:ring-primary/20 focus:outline-none"
+              className="w-full rounded-lg border border-border px-3 py-2 text-body-md text-text focus:border-primary focus:ring-1 focus:ring-primary/20 focus:outline-none"
             >
               <option>Any user</option>
               <option>Physiotherapists</option>
@@ -298,11 +298,11 @@ function SavedPromptsTab() {
             </select>
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-text-secondary">Prompt</label>
+            <label className="mb-1 block text-label-lg text-text-secondary">Prompt</label>
             <textarea
               rows={6}
               defaultValue="Write a professional progress note based on the session."
-              className="w-full rounded-lg border border-border px-3 py-2 text-sm text-text focus:border-primary focus:ring-1 focus:ring-primary/20 focus:outline-none"
+              className="w-full rounded-lg border border-border px-3 py-2 text-body-md text-text focus:border-primary focus:ring-1 focus:ring-primary/20 focus:outline-none"
             />
           </div>
         </div>
@@ -328,10 +328,10 @@ function AIBlockLibraryTab() {
       {/* Beta banner */}
       <div className="mb-4 flex items-center justify-between rounded-lg border border-yellow-200 bg-yellow-50 px-4 py-3">
         <div className="flex items-center gap-2">
-          <span className="rounded bg-yellow-100 px-1.5 py-0.5 text-[10px] font-bold text-yellow-700">BETA</span>
-          <span className="text-sm text-text">We need your feedback on AI blocks</span>
+          <span className="rounded bg-yellow-100 px-1.5 py-0.5 text-caption-sm text-yellow-700">BETA</span>
+          <span className="text-body-md text-text">We need your feedback on AI blocks</span>
         </div>
-        <div className="flex items-center gap-2 text-sm">
+        <div className="flex items-center gap-2 text-body-md">
           <span className="text-text-secondary">Fill a</span>
           <span className="cursor-pointer text-primary underline">short survey</span>
           <span className="text-text-secondary">or</span>
@@ -341,7 +341,7 @@ function AIBlockLibraryTab() {
         </div>
       </div>
 
-      <p className="mb-4 text-sm text-text-secondary">
+      <p className="mb-4 text-body-md text-text-secondary">
         Spend less time writing prompts with your saved library of AI blocks, organised by{" "}
         <span className="cursor-pointer text-primary underline">tags</span>. AI blocks are reusable, customisable and
         adjust to your client&apos;s context. Insert them into a template or progress note.{" "}
@@ -369,17 +369,17 @@ function AIBlockLibraryTab() {
       {/* Table */}
       <DataTable>
         <TableHead>
-          <Th><div className="flex items-center gap-1">AI block <span className="text-xs text-text-secondary">&#8645;</span></div></Th>
-          <Th><div className="flex items-center gap-1">Tag <span className="text-xs text-text-secondary">&#8645;</span></div></Th>
-          <Th><div className="flex items-center gap-1">Created by <span className="text-xs text-text-secondary">&#9660;</span></div></Th>
-          <Th><div className="flex items-center gap-1">Last modified <span className="text-xs text-text-secondary">&#8645;</span></div></Th>
+          <Th><div className="flex items-center gap-1">AI block <span className="text-caption-md text-text-secondary">&#8645;</span></div></Th>
+          <Th><div className="flex items-center gap-1">Tag <span className="text-caption-md text-text-secondary">&#8645;</span></div></Th>
+          <Th><div className="flex items-center gap-1">Created by <span className="text-caption-md text-text-secondary">&#9660;</span></div></Th>
+          <Th><div className="flex items-center gap-1">Last modified <span className="text-caption-md text-text-secondary">&#8645;</span></div></Th>
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>
           {aiBlocks.map((block) => (
             <tr key={block.name} className="hover:bg-gray-50">
               <Td>{block.name}</Td>
-              <Td><span className="rounded-full bg-purple-100 px-2 py-0.5 text-xs font-medium text-primary">{block.tag}</span></Td>
+              <Td><span className="rounded-full bg-purple-100 px-2 py-0.5 text-label-md text-primary">{block.tag}</span></Td>
               <Td className="text-text-secondary">{block.createdBy}</Td>
               <Td className="text-text-secondary">{block.lastModified}</Td>
               <Td align="right">
@@ -414,11 +414,11 @@ function AIBlockLibraryTab() {
           <FormInput label="Block name" value={editBlockName} onChange={(e) => setEditBlockName(e.target.value)} />
           <FormInput label="Tag" value={editBlockTag} onChange={(e) => setEditBlockTag(e.target.value)} />
           <div>
-            <label className="mb-1 block text-sm font-medium text-text-secondary">Prompt</label>
+            <label className="mb-1 block text-label-lg text-text-secondary">Prompt</label>
             <textarea
               rows={6}
               defaultValue="Generate a detailed {block_name} section based on the session context, including relevant clinical observations and findings."
-              className="w-full rounded-lg border border-border px-3 py-2 text-sm text-text focus:border-primary focus:ring-1 focus:ring-primary/20 focus:outline-none"
+              className="w-full rounded-lg border border-border px-3 py-2 text-body-md text-text focus:border-primary focus:ring-1 focus:ring-primary/20 focus:outline-none"
             />
           </div>
         </div>
