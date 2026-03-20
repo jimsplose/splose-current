@@ -247,3 +247,20 @@ Append-only log. Each session adds an entry summarizing what was done.
 ### Notes
 - Token was previously hardcoded in `.claude/hooks/session-start.sh` (in git history) — should rotate Turso token
 - Port 3001 has other session's dev server; used port 3003 for testing
+
+---
+
+## Session — 2026-03-20 (session D — fidelity loops)
+
+**Branch**: `claude/visual-audit-analysis-1WnWb`
+
+### Completed
+- **Calendar toolbar polish** (Group P) — Added yellow "Booking for a a ×" filter pill, fixed month format to "Mar" (short), updated title font weight to bold, replaced Search icon with MapPin. All toolbar elements now match day/week/month references.
+- **Calendar side panel styling** (Group P) — Widened side panel to 420px so all 4 action buttons (Book another, Edit, Reschedule, Archive) fit on one row. Removed dark backdrop from month view overlay to keep calendar visible.
+- **Calendar month view verification** (Group K) — Confirmed month view side panel works when clicking appointments. Side panel renders as fixed overlay with full content.
+- **Calendar appointment side panel verification** (Group K) — Confirmed all content implemented: structured client info, email, status, zoom/invoice/note links, repeating info, organiser, action buttons, View change log.
+
+### Remaining open gaps
+- Calendar month view — structurally complete, "partial" in catalog due to data differences (seed data vs production screenshots)
+- Calendar appointment side panel — structurally complete, same data-driven mismatch
+- Process new screenshots (Group H) — admin/screening task
