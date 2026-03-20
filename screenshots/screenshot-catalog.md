@@ -410,7 +410,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-files-2026-03-17-19_31_50.png | Patient files tab | partial |
+| screencapture-acme-splose-patients-5918810-files-2026-03-17-19_31_50.png | Patient files tab | yes — 3.93% mismatch |
 
 ## Patients — Detail / Notes (`/patients/:id/notes`)
 
@@ -428,7 +428,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-support-activities-2026-03-17-19_32_35.png | Patient support activities tab | partial |
+| screencapture-acme-splose-patients-5918810-support-activities-2026-03-17-19_32_35.png | Patient support activities tab | yes — 3.60% mismatch |
 
 ## Patients — Detail / Forms (`/patients/:id/forms`)
 
@@ -454,19 +454,19 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-payments-2026-03-17-19_34_16.png | Patient payments tab | partial |
+| screencapture-acme-splose-patients-5918810-payments-2026-03-17-19_34_16.png | Patient payments tab | yes — 4.01% mismatch |
 
 ## Patients — Detail / Statements (`/patients/:id/statements`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-statements-2026-03-17-19_34_27.png | Patient statements tab | partial |
+| screencapture-acme-splose-patients-5918810-statements-2026-03-17-19_34_27.png | Patient statements tab | yes — 3.91% mismatch |
 
 ## Patients — Detail / Letters (`/patients/:id/letters`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-letters-2026-03-17-19_34_39.png | Patient letters tab | partial |
+| screencapture-acme-splose-patients-5918810-letters-2026-03-17-19_34_39.png | Patient letters tab | yes — 3.40% mismatch |
 
 ## Patients — Detail / Practitioner Access (`/patients/:id/practitioner-access`)
 
@@ -526,14 +526,14 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.11.08 am.png | Client edit details — desktop, Edit form (General details, Profile photo, DOB, Sex, Gender, Pronouns) | no |
+| Screenshot 2026-03-11 at 11.11.08 am.png | Client edit details — desktop, Edit form (General details, Profile photo, DOB, Sex, Gender, Pronouns) | partial — 5.05% mismatch, structurally identical |
 
 ## Client Detail — Appointments (`/clients/:id/appointments`)
 
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-11 at 11.11.17 am.png | Client appointments tab — desktop | yes |
-| Screenshot 2026-03-11 at 11.12.37 am.png | Client appointments tab — desktop, appointment side panel open | no |
+| Screenshot 2026-03-11 at 11.12.37 am.png | Client appointments tab — desktop, appointment side panel open | partial — side panel implemented with full content |
 | Screenshot 2026-03-11 at 11.15.20 am.png | Client appointments (Skyler Peterson) — desktop, with Upcoming/Cancelled badges | partial |
 
 ## Client Detail — Progress Notes (`/clients/:id/notes`)
@@ -570,15 +570,15 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.13.20 am.png | Contacts list — desktop, with row highlighted | partial |
-| Screenshot 2026-03-11 at 11.14.04 am.png | Contacts list — desktop, no highlight | partial |
+| Screenshot 2026-03-11 at 11.13.20 am.png | Contacts list — desktop, with row highlighted | yes — 4.23% mismatch, structure matches |
+| Screenshot 2026-03-11 at 11.14.04 am.png | Contacts list — desktop, no highlight | yes — structure matches |
 
 ## Contact Detail (`/contacts/:id`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.14.14 am.png | Contact detail (NDIS) — desktop, Details tab with Associated clients | partial |
-| Screenshot 2026-03-11 at 11.14.21 am.png | Contact invoices tab — desktop | partial |
+| Screenshot 2026-03-11 at 11.14.14 am.png | Contact detail (NDIS) — desktop, Details tab with Associated clients | yes — 4.48% mismatch, layout matches |
+| Screenshot 2026-03-11 at 11.14.21 am.png | Contact invoices tab — desktop | partial — not pixel-diffed |
 
 ## Invoices List (`/invoices`)
 
@@ -600,7 +600,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.16.25 am.png | Add payment to invoice — desktop, form with location/date/method/amount | partial |
+| Screenshot 2026-03-11 at 11.16.25 am.png | Add payment to invoice — desktop, form with location/date/method/amount | yes — 3.92% mismatch |
 
 ## Payments List (`/payments`)
 
@@ -663,7 +663,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.22.40 am.png | Products list — desktop, default view | partial |
+| Screenshot 2026-03-11 at 11.22.40 am.png | Products list — desktop, default view | yes — 3.14% mismatch |
 | Screenshot 2026-03-11 at 11.22.46 am.png | Products list — desktop, expanded product row showing variants | partial |
 | Screenshot 2026-03-11 at 11.22.51 am.png | Products list — desktop, Manage Stock modal | partial |
 
@@ -679,13 +679,13 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-11 at 5.52.47 pm.png | Calendar day view — desktop, practitioner columns | partial |
-| Screenshot 2026-03-11 at 5.52.53 pm.png | Calendar day view — desktop, appointment side panel open | no |
-| Screenshot 2026-03-11 at 5.52.59 pm.png | Calendar day view — desktop, Edit appointment modal | no |
-| Screenshot 2026-03-11 at 5.53.13 pm.png | Calendar day view — desktop, click-to-create popover | no |
-| Screenshot 2026-03-11 at 5.53.18 pm.png | Calendar day view — zoomed close-up of create popover | no |
-| Screenshot 2026-03-11 at 5.53.25 pm.png | Calendar day view — desktop, Create appointment modal (empty) | partial — modal exists but missing Service field, toggles, past date warning |
-| Screenshot 2026-03-11 at 5.53.59 pm.png | Calendar day view — desktop, Create appointment modal (client selected, Service dropdown) | partial — modal exists but uses Appointment Type instead of Service |
-| Screenshot 2026-03-11 at 5.54.19 pm.png | Calendar day view — desktop, Create appointment modal (service selected, toggles, past date warning) | partial — toggles and past date validation missing |
+| Screenshot 2026-03-11 at 5.52.53 pm.png | Calendar day view — desktop, appointment side panel open | partial — side panel implemented with full structured content and action buttons |
+| Screenshot 2026-03-11 at 5.52.59 pm.png | Calendar day view — desktop, Edit appointment modal | partial — edit modal implemented with all fields including Room/Resource |
+| Screenshot 2026-03-11 at 5.53.13 pm.png | Calendar day view — desktop, click-to-create popover | partial — popover implemented with Support activity/Busy time/Appointment options |
+| Screenshot 2026-03-11 at 5.53.18 pm.png | Calendar day view — zoomed close-up of create popover | partial — popover matches reference layout |
+| Screenshot 2026-03-11 at 5.53.25 pm.png | Calendar day view — desktop, Create appointment modal (empty) | partial — modal has Service, Location, Case, Room/Resource, toggles, past date warning |
+| Screenshot 2026-03-11 at 5.53.59 pm.png | Calendar day view — desktop, Create appointment modal (client selected, Service dropdown) | partial — Service field now used instead of Appointment Type |
+| Screenshot 2026-03-11 at 5.54.19 pm.png | Calendar day view — desktop, Create appointment modal (service selected, toggles, past date warning) | partial — Provider Travel/Non-Labour/Transport/Repeat toggles and past date warning implemented |
 
 ## Notes — New Progress Note (`/notes/new`) — March 11
 

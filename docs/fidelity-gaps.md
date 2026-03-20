@@ -34,21 +34,21 @@ All 25 Settings sub-pages are implemented as inline components in `settings/page
 - [x] **Settings Services page** — List with item codes/durations/prices, actions dropdown.
 - [x] **Settings Busy Times page** — List with utilisation/duration, actions dropdown.
 - [x] **Settings Cancellation Reasons page** — List with edit/delete, edit modal.
-- [x] **Settings Online Booking pages** — List page with Design/Settings/Builder/Share tabs.
+- [ ] **Settings Online Booking pages** — List page with Design/Settings/Builder/Share tabs. Reopened: "coming soon" stub. (2026-03-20)
 - [x] **Settings Communication Types page** — List with default type flags, actions.
 - [x] **Settings Tags page** — Client tags with edit tag modal and colour picker.
 - [x] **Settings Referral Types page** — List with actions.
 - [x] **Settings Users page** — List with actions dropdown.
 - [x] **Settings User Groups page** — List with actions, edit group modal.
-- [x] **Settings Appointment Templates** — List, actions dropdown, edit template.
-- [x] **Settings Email Templates** — List with actions dropdown.
-- [x] **Settings Progress Note Templates** — List with actions, rich editor.
-- [x] **Settings Letter Templates** — List with actions dropdown, edit template.
-- [x] **Settings Payment Settings** — Payment number prefix/padding, accepted payment forms.
-- [x] **Settings Invoice Settings** — Tax settings, invoice reminders list.
-- [x] **Settings Tax Rates page** — List, new tax rate modal.
-- [x] **Settings Data Export page** — Export type/date selection, export history.
-- [x] **Settings Data Import page** — Import source modal, CSV import tabs.
+- [ ] **Settings Appointment Templates** — List, actions dropdown, edit template. Reopened: visual audit found page is a "coming soon" stub (9 lines). Original inline implementation was lost during route split. (2026-03-20)
+- [ ] **Settings Email Templates** — List with actions dropdown. Reopened: "coming soon" stub. (2026-03-20)
+- [ ] **Settings Progress Note Templates** — List with actions, rich editor. Reopened: "coming soon" stub. (2026-03-20)
+- [ ] **Settings Letter Templates** — List with actions dropdown, edit template. Reopened: "coming soon" stub. (2026-03-20)
+- [ ] **Settings Payment Settings** — Payment number prefix/padding, accepted payment forms. Reopened: "coming soon" stub. (2026-03-20)
+- [ ] **Settings Invoice Settings** — Tax settings, invoice reminders list. Reopened: "coming soon" stub. (2026-03-20)
+- [ ] **Settings Tax Rates page** — List, new tax rate modal. Reopened: no route exists. Original inline implementation was lost during route split. (2026-03-20)
+- [ ] **Settings Data Export page** — Export type/date selection, export history. Reopened: no route exists. (2026-03-20)
+- [ ] **Settings Data Import page** — Import source modal, CSV import tabs. Reopened: no route exists. (2026-03-20)
 
 ### Group K — Calendar enhancements (`src/app/calendar/`)
 - [x] **Calendar Rooms/Resources view** — Calendar/Rooms toggle, room filter dropdown. Reference: 7.22.38-7.22.53 pm.
@@ -173,6 +173,19 @@ All 22 DS components have been **created** in `src/components/ds/` with full imp
 ### Group U — SearchBar adoption (existing DS component not used)
 
 - [x] **Client sub-tabs SearchBar migration** — All 6 client sub-tab pages already use SearchBar from DS. No changes needed. (2026-03-20)
+
+## Priority 9 — Visual audit findings (2026-03-20, session D)
+
+### Group V — Routing bugs (`src/app/`)
+- [ ] **Settings duplicate sidebar bug** — `/settings/rooms-resources` and `/settings/services` render a second sidebar alongside the main sidebar containing extra items (Subscription, Permissions & Roles, Security). Layout bug in settings page component.
+- [ ] **Settings ?state= routing** — State registry uses `?state=` params for settings pages but the actual routing uses sub-routes (`/settings/integrations`, etc.). The `?state=` param is ignored. State registry needs updating OR settings page.tsx needs to wire `?state=` support.
+- [ ] **Settings placeholder pages** — 6 settings sub-pages show "coming soon" placeholder: Appointment Templates, Email Templates, Progress Notes, Letter Templates, Payment Settings, Invoice Settings. These were marked [x] in fidelity-gaps but are actually stubs.
+
+### Group W — Missing/broken pages
+- [ ] **Invoice detail 404** — `/invoices/[id]` route returns 404. The invoice view page exists at `/invoices/[id]/page.tsx` but may not be wired correctly for all IDs.
+- [ ] **Note view 404** — `/notes/[id]` route returns 404 for ID 1. May need valid note IDs from seed data.
+- [ ] **Note edit timeout** — `/notes/[id]/edit` times out on navigation. Likely an infinite loop or hanging server-side data fetch.
+- [ ] **Waitlist map not rendering** — `/waitlist?state=map` shows Screener tab instead of Map view. The `?state=map` parameter is not switching to the map view component.
 
 ---
 
