@@ -8,7 +8,7 @@ Use **parallel subagents** for speed when working through fidelity gaps.
 Puppeteer is a dev dependency and bundles Chromium automatically via `npm install`. No separate browser download step needed. If screenshots fail, run `npm install puppeteer` to re-download.
 
 ### Design specs
-Before working on a page, check if a design spec exists at `screenshots/specs/<page-name>.md`. If not, extract one first (see `docs/design-spec-workflow.md`). Agents use exact values from specs, not approximations.
+Before working on a page, check if a design spec exists at `screenshots/specs/<page-name>.md`. **If not, extract one first** by following `docs/design-spec-workflow.md`. This is not optional — agents produce better results when they have exact values to target. Skip only if the page has no reference screenshots.
 
 ### Design System
 **All fidelity work MUST use design system components.** See the Component Library table in `docs/agent-block.md` for the full list. Import from `@/components/ds`. Run `npm run storybook` to see all components live.
@@ -29,11 +29,13 @@ When working through fidelity gaps, **actively look for opportunities to create 
 
 See the **Gap completion rule** in `docs/agent-block.md` (single source of truth). In short: a gap is only `[x]` when ALL related catalog entries show Match = "yes". If entries still show "no" or "partial", the gap stays `[ ]` — note partial progress in the gap description (e.g. "layout matches, colors wrong").
 
-## Step 1: Launch parallel agents (worktree isolation)
+## Step 1: Launch parallel agents (direct, no worktrees)
 
-Group non-conflicting gaps and launch them simultaneously using the Agent tool with `isolation: "worktree"`. Worktree isolation creates a separate git working directory for each agent so they don't overwrite each other's files — this is what enables safe parallel work on different pages.
+Group non-conflicting gaps and launch them simultaneously using the Agent tool. **Do NOT use `isolation: "worktree"`** — worktrees cause data loss when multiple sessions run concurrently or when the shell CWD gets stuck in a deleted worktree directory. Direct agents are safer and nearly as fast for this project.
 
 **Every agent prompt MUST include the full Agent Block from `docs/agent-block.md`** (between `---START AGENT BLOCK---` and `---END AGENT BLOCK---` markers). Do NOT launch without it — this embeds DS enforcement and screenshot verification directly into the agent.
+
+**Every agent prompt MUST include:** `You are working in /Users/jimyenckensplose/claude/splose-current. Edit files directly. Do NOT use worktrees.`
 
 Each agent should:
 1. Read the design spec from `screenshots/specs/<page-name>.md` (if available) for exact values
@@ -44,19 +46,33 @@ Each agent should:
 6. Run the **Screenshot Verification Loop** from the Agent Block (convergence-based, up to 10 iterations)
 
 ### Parallelization rules
-- Gaps touching **different page directories** can always run in parallel
+- Gaps touching **different page directories** can always run in parallel (direct agents are safe since each edits different files)
 - Gaps touching the **same file** must run sequentially
 - **Database changes** should run alone — they modify `prisma/seed.ts` which affects all pages. After changing seed data, run `npx tsx prisma/seed.ts` (or the seed API route) and verify affected pages still render correctly
 - The **general screenshot review** agent should run last as a sweep
 
-## Step 2: Collect and apply changes (with Post-Agent Quality Gate)
+### Why no worktrees
+Worktrees (`isolation: "worktree"`) were removed from this workflow because:
+1. **Concurrent session conflicts** — two Claude sessions creating worktrees in the same repo corrupt `.git` metadata
+2. **CWD corruption** — if the shell ends up in a deleted worktree dir, all file operations silently go to the wrong path
+3. **Uncommitted work loss** — worktree cleanup deletes uncommitted changes with no recovery
+4. **Minimal benefit** — most fidelity agents touch a single page file, so file conflicts are rare even without isolation
+
+## Step 2: Verify and commit changes (with Post-Agent Quality Gate)
 
 After each agent completes, run the **Post-Agent Quality Gate from `docs/quality-gate.md`** before committing. This is mandatory — do not batch or skip.
 
+### CWD safety check — MANDATORY
+Before doing anything after an agent completes, verify you're in the right directory:
+```bash
+cd /Users/jimyenckensplose/claude/splose-current && pwd
+```
+If this returns a `.claude/worktrees/` path, you're in a stale worktree. `cd` to the real repo first.
+
 For each agent:
-1. Review the diff and cherry-pick/apply to the main branch
-2. **Run the Quality Gate** (DS violation scan → TypeScript check → screenshot verification → commit or revert)
-3. If an agent's worktree has conflicts with another, resolve manually
+1. Verify CWD is the real repo (not a worktree)
+2. Run `git diff` to see what changed
+3. **Run the Quality Gate** (DS violation scan → TypeScript check → screenshot verification → commit or revert)
 4. If applying an agent's changes breaks the build, **revert that agent's changes** and continue with the next — don't spend the session debugging a single agent's output
 
 ## Step 3: Screenshot Verification (Pixel Diff)
@@ -92,14 +108,25 @@ After code changes are committed, update `screenshots/screenshot-catalog.md`:
 
 **This step is mandatory.** The catalog is the source of truth for fidelity status.
 
-## Step 5: Build, commit, push
+## Step 5: Update Dev Navigator registry
+
+After code changes, verify the state registry (`src/lib/state-registry.ts`) is up to date:
+
+1. **New pages** — If any new page routes were created, add a `PageEntry` with at least a `default` variant
+2. **New states** — If any new interactive states were added (tabs, modals, view toggles), add `StateVariant` entries and ensure `?state=` is wired in the page component
+3. **Removed pages** — If any pages were removed, delete the corresponding registry entries
+4. **Verify completeness** — Cross-check `src/app/**/page.tsx` routes against the registry to catch any gaps
+
+This keeps the Dev Navigator accurate so Jim can navigate to every page and state.
+
+## Step 6: Build, commit, push
 
 1. Run `npx next build` to verify no errors — **never push a broken build**
-2. Stage and commit all changes (including catalog updates) with a descriptive message
+2. Stage and commit all changes (including catalog and registry updates) with a descriptive message
 3. Push to the `claude/*` branch — GitHub Action auto-promotes to production after Vercel build succeeds
 4. Note the Vercel preview URL in the session progress log (see `docs/progress.md`)
 
-## Step 6: Before/After Review
+## Step 7: Before/After Review
 
 After each round of changes is pushed, present Jim with a visual progress report:
 
@@ -139,9 +166,9 @@ Present as a structured summary like:
 **Preview URL:** https://splose-current-git-claude-xxx.vercel.app
 ```
 
-## Step 7: Return to menu
+## Step 8: Return to menu
 
-After completing a round of fidelity work (Steps 1-6), **show the session start menu again** (see CLAUDE.md). Include a summary of what was improved and what gaps remain.
+After completing a round of fidelity work (Steps 1-7), **show the session start menu again** (see CLAUDE.md). Include a summary of what was improved and what gaps remain.
 
 Jim may want to:
 - Run another fidelity round (pick more gaps)

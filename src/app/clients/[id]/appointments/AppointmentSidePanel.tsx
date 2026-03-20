@@ -22,7 +22,6 @@ import StatusBadge from "@/components/StatusBadge";
 import {
   Button,
   PageHeader,
-  DataTable,
   TableHead,
   Th,
   TableBody,
@@ -135,7 +134,7 @@ export default function AppointmentSidePanel({
                 </tr>
               ) : (
                 appointments.map((appt) => {
-                  const statusColor: "gray" | "red" | "yellow" | "orange" | "green" =
+                  const statusDotColor: "green" | "red" | "yellow" | "gray" | "orange" =
                     appt.status === "Completed"
                       ? "gray"
                       : appt.status === "Cancelled"
@@ -157,7 +156,7 @@ export default function AppointmentSidePanel({
                     >
                       <Td>
                         <div className="flex items-center gap-2">
-                          <Status color={isUpcoming ? "green" : statusColor} />
+                          <Status color={isUpcoming ? "green" : statusDotColor} />
                           <span className="text-text">
                             {formatDate(appt.date)}, {appt.startTime}
                           </span>

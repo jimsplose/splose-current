@@ -14,7 +14,7 @@ Use AskUserQuestion with these options:
 > 2. **Upload screenshots** — Upload reference screenshots (user will paste/attach images). Claude saves, catalogs, and creates fidelity gaps. Follow `docs/screenshot-workflow.md`
 > 3. **Run fidelity loops** — Pick open gaps from `docs/fidelity-gaps.md` (by priority), implement fixes, and visually verify against references. Follow `docs/fidelity-workflow.md`
 > 4. **Visual audit** — Verify implemented pages match references, update Match status in catalog, reopen/create gaps for mismatches. Follow `docs/visual-audit-workflow.md`
-> 5. **Build Dev Navigator** — Implement Dev Toolbar, state registry, and navigation menu. Follow `docs/dev-navigator-spec.md`
+> 5. **Update Dev Navigator registry** — Verify all pages and `?state=` variants are in `src/lib/state-registry.ts`. Cross-check against routes and screenshots. Follow `docs/dev-navigator-spec.md`
 > 6. **Something else** — Free-form request
 
 **Do NOT skip this step. Do NOT start working without the user's menu selection.**
@@ -33,7 +33,7 @@ Upload screenshots → Fidelity loops → Visual audit → (repeat)
 - **Upload (2)** — Jim pastes/attaches images. Claude saves to `screenshots/reference/`, catalogs them, and creates fidelity gaps for mismatches. All in one step.
 - **Fidelity loops (3)** — implements code changes to close those gaps
 - **Visual audit (4)** — verifies the work actually matches, updates the catalog Match column, and reopens/creates gaps for anything still wrong
-- **Dev Navigator (5)** — independent infrastructure, build anytime
+- **Dev Navigator (5)** — verify all pages/states are registered, fix gaps in navigation
 
 ### Gap completion rule (single source of truth)
 
@@ -48,7 +48,7 @@ Upload screenshots → Fidelity loops → Visual audit → (repeat)
 | Review status | `docs/progress.md`, `docs/fidelity-gaps.md` |
 | Upload screenshots | `docs/screenshot-workflow.md`, `docs/design-spec-workflow.md` |
 | Fidelity improvements | `docs/fidelity-gaps.md`, `docs/fidelity-workflow.md`, `docs/agent-block.md`, `docs/quality-gate.md`, `docs/design-spec-workflow.md` |
-| Visual audit | `docs/visual-audit-workflow.md` |
+| Visual audit | `docs/visual-audit-workflow.md`, `docs/design-spec-workflow.md` |
 | Design spec extraction | `docs/design-spec-workflow.md` |
 | Dev Navigator | `docs/dev-navigator-spec.md` |
 | Understanding the codebase | `docs/project-structure.md` |
@@ -123,6 +123,20 @@ When launching subagents for UI work, read and follow:
 - **`docs/agent-block.md`** — Copy the Agent Block into every UI-touching subagent prompt verbatim
 - **`docs/quality-gate.md`** — Run after every subagent completes, before committing
 
+### No worktrees — IMPORTANT
+**Do NOT use `isolation: "worktree"` for subagents.** Use direct agents that edit files in the main repo. Worktrees cause data loss when:
+- Multiple Claude sessions run concurrently on the same repo
+- The shell CWD gets stuck in a deleted worktree directory
+- Agents complete without committing (worktree cleanup deletes their work)
+
+Direct agents are safe because fidelity work targets different page files — conflicts are rare.
+
+### Concurrent sessions
+Jim often runs 2 Claude sessions on the same repo. Both sessions MUST:
+1. **Never use worktrees** (see above)
+2. **Coordinate via git** — commit frequently so the other session can see changes
+3. **Avoid editing the same files** — Jim will tell each session which pages to work on
+
 ## Key Conventions
 
 - **Server components by default** — only `"use client"` when hooks/browser APIs needed
@@ -138,7 +152,8 @@ When launching subagents for UI work, read and follow:
 
 - **Commit after every logical unit of work** — never let ~30 minutes go uncommitted
 - **NEVER push without a passing build** — run `npx next build` before every push
-- Run `npx tsc --noEmit` after applying worktree agent changes to catch conflicts early
+- Run `npx tsc --noEmit` after agent changes to catch conflicts early
+- **Verify CWD** after agent completion: `cd /Users/jimyenckensplose/claude/splose-current && pwd`
 - If agent changes break the build, **revert them** and continue with other agents
 - If a change breaks things after push, `git revert` rather than force-pushing
 

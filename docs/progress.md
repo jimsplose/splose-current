@@ -181,7 +181,7 @@ Append-only log. Each session adds an entry summarizing what was done.
 
 ---
 
-## Session — 2026-03-20
+## Session — 2026-03-20 (session A)
 
 **Branch**: `claude/show-menu-6Crdt`
 
@@ -199,6 +199,33 @@ Append-only log. Each session adds an entry summarizing what was done.
 - **Settings Splose AI** — Added Edit prompt modal, AI block actions dropdown (Edit/Duplicate/Delete), populated AI block library with 5 sample blocks, and Edit AI block modal. Saved prompts + AI blocks tables migrated to DS DataTable.
 - **Fidelity gaps doc updated** — Marked 10 DS migration gaps as complete: Modal, Dropdown, EmptyState, Select, Navbar, Filter, Card, AsyncSelect, Clients list filter dropdowns, Settings AI
 
-### Open gaps (all in off-limits files this session)
-- Calendar (CalendarView.tsx): click-to-create popover, appointment modal refinement, side panel styling, toolbar polish
-- Client detail (clients/[id]/): edit page, appointment side panel, List/Collapse/Status migration, SearchBar migration
+---
+
+## Session — 2026-03-20 (session B)
+
+**Branch**: `claude/visual-audit-analysis-1WnWb`
+
+### Completed
+- **Client detail DS migrations** — Migrated ClientDetailClient.tsx to use List (8 sections), Collapse (4 sidebar sections). Removed inline flex/gap patterns and ChevronDown button patterns.
+- **Client edit form improvement** — Profile photo moved side-by-side with General details form (larger 32x32 with dashed border and Upload button).
+- **Status DS migration** — AppointmentSidePanel.tsx: inline status dots replaced with Status DS component.
+- **Calendar create modal refinement** — Renamed "Appointment type" to "Service", added Location/Case/Room fields, added DS Toggle for Provider Travel/Non-Labour/Transport/Repeat, added past date warning banner, added Waitlist matches section. All form fields migrated to DS FormInput/FormSelect.
+- **Calendar edit modal improvement** — Added info banner about reschedule notifications, migrated all inline inputs/selects to DS FormInput/FormSelect, migrated repeat section selects.
+- **Client sub-tabs SearchBar** — Verified all 6 sub-tab pages already use SearchBar from DS.
+- **Removed unused helpers** — ToggleRow and FormField functions in CalendarView.tsx.
+
+### Gaps closed this session
+- Client appointments sub-tab (Group E)
+- Calendar click-to-create popover (Group P)
+- Calendar create appointment modal refinement (Group P)
+- Client edit details page (Group Q)
+- Client appointment side panel (Group Q)
+- List DS migration (Group R)
+- Collapse DS migration (Group S)
+- Status DS migration (Group T)
+- Client sub-tabs SearchBar migration (Group U)
+
+### Still Remaining
+- Calendar appointment side panel styling (Group P)
+- Calendar toolbar polish (Group P)
+- Process new screenshots (Group H)

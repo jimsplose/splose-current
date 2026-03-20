@@ -132,6 +132,17 @@ export const stateRegistry: PageEntry[] = [
     label: "Contacts",
     group: "Contacts",
     variants: [{ id: "default", label: "Contacts list" }],
+    children: [
+      {
+        path: "/contacts/[id]",
+        resolvedPath: "/contacts/1",
+        label: "Contact Detail",
+        variants: [
+          { id: "default", label: "Details tab" },
+          { id: "invoices", label: "Invoices tab" },
+        ],
+      },
+    ],
   },
   {
     path: "/waitlist",
@@ -149,6 +160,14 @@ export const stateRegistry: PageEntry[] = [
     label: "Invoices",
     group: "Invoices",
     variants: [{ id: "default", label: "Invoice list" }],
+    children: [
+      {
+        path: "/invoices/[id]",
+        resolvedPath: "/invoices/1",
+        label: "Invoice Detail",
+        variants: [{ id: "default", label: "Invoice view" }],
+      },
+    ],
   },
   {
     path: "/payments",
@@ -162,7 +181,31 @@ export const stateRegistry: PageEntry[] = [
     label: "Progress Notes",
     group: "Notes",
     variants: [{ id: "default", label: "Notes list" }],
-    children: [{ path: "/notes/new", label: "New Note", variants: [{ id: "default", label: "New note form" }, { id: "split-view", label: "Split view" }] }],
+    children: [
+      {
+        path: "/notes/[id]",
+        resolvedPath: "/notes/1",
+        label: "View Note",
+        variants: [{ id: "default", label: "Note view" }],
+      },
+      {
+        path: "/notes/[id]/edit",
+        resolvedPath: "/notes/1/edit",
+        label: "Edit Note",
+        variants: [
+          { id: "default", label: "Edit note" },
+          { id: "split-view", label: "Split view" },
+        ],
+      },
+      {
+        path: "/notes/new",
+        label: "New Note",
+        variants: [
+          { id: "default", label: "New note form" },
+          { id: "split-view", label: "Split view" },
+        ],
+      },
+    ],
   },
   {
     path: "/practitioners",

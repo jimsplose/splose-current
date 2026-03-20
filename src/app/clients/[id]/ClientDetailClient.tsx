@@ -3,7 +3,15 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { Pencil, Upload } from "lucide-react";
-import { Avatar, Button, Badge, FormInput, FormSelect, List, Collapse } from "@/components/ds";
+import {
+  Avatar,
+  Button,
+  Badge,
+  FormInput,
+  FormSelect,
+  List,
+  Collapse,
+} from "@/components/ds";
 
 interface ClientData {
   id: string;
@@ -72,7 +80,12 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           <List
             items={[
               ...(client.dateOfBirth
-                ? [{ label: "Date of birth:", value: `${client.dateOfBirth} (${calcAge(client.dateOfBirth)})` }]
+                ? [
+                    {
+                      label: "Date of birth:",
+                      value: `${client.dateOfBirth} (${calcAge(client.dateOfBirth)})`,
+                    },
+                  ]
                 : []),
               { label: "Sex:", value: "Not specified" },
             ]}
@@ -83,14 +96,35 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* Client contact details */}
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-bold text-text">Client contact details</h2>
+          <h2 className="mb-4 text-lg font-bold text-text">
+            Client contact details
+          </h2>
           <List
             items={[
-              { label: "Email:", value: <span className="text-primary">{client.email || "—"}</span> },
-              { label: "Phone numbers:", value: <span className="text-primary">{client.phone || "—"}</span> },
+              {
+                label: "Email:",
+                value: (
+                  <span className="text-primary">
+                    {client.email || "\u2014"}
+                  </span>
+                ),
+              },
+              {
+                label: "Phone numbers:",
+                value: (
+                  <span className="text-primary">
+                    {client.phone || "\u2014"}
+                  </span>
+                ),
+              },
               { label: "Preference:", value: "None" },
-              ...(client.address ? [{ label: "Address:", value: client.address }] : []),
-              { label: "Timezone:", value: "GMT+10:30 - Australia/Adelaide" },
+              ...(client.address
+                ? [{ label: "Address:", value: client.address }]
+                : []),
+              {
+                label: "Timezone:",
+                value: "GMT+10:30 - Australia/Adelaide",
+              },
             ]}
           />
         </section>
@@ -99,7 +133,9 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* Privacy policy consent */}
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-bold text-text">Privacy policy consent</h2>
+          <h2 className="mb-4 text-lg font-bold text-text">
+            Privacy policy consent
+          </h2>
           <List items={[{ label: "", value: "No response" }]} />
         </section>
 
@@ -107,7 +143,9 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* Medications, allergies & intolerances */}
         <section className="mb-8">
-          <h2 className="mb-4 text-lg font-bold text-text">Medications, allergies &amp; intolerances</h2>
+          <h2 className="mb-4 text-lg font-bold text-text">
+            Medications, allergies &amp; intolerances
+          </h2>
           <List
             items={[
               { label: "Medications:", value: "None" },
@@ -123,8 +161,14 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         {client.medicare && (
           <>
             <section className="mb-8">
-              <h2 className="mb-4 text-lg font-bold text-text">Medicare details</h2>
-              <List items={[{ label: "Card number:", value: client.medicare }]} />
+              <h2 className="mb-4 text-lg font-bold text-text">
+                Medicare details
+              </h2>
+              <List
+                items={[
+                  { label: "Card number:", value: client.medicare },
+                ]}
+              />
             </section>
             <hr className="mb-8 border-border" />
           </>
@@ -133,8 +177,14 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         {client.ndisNumber && (
           <>
             <section className="mb-8">
-              <h2 className="mb-4 text-lg font-bold text-text">NDIS details</h2>
-              <List items={[{ label: "NDIS number:", value: client.ndisNumber }]} />
+              <h2 className="mb-4 text-lg font-bold text-text">
+                NDIS details
+              </h2>
+              <List
+                items={[
+                  { label: "NDIS number:", value: client.ndisNumber },
+                ]}
+              />
             </section>
             <hr className="mb-8 border-border" />
           </>
@@ -156,7 +206,14 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         {/* Invoicing */}
         <section className="mb-8">
           <h2 className="mb-4 text-lg font-bold text-text">Invoicing</h2>
-          <List items={[{ label: "Invoice reminder preference:", value: "On" }]} />
+          <List
+            items={[
+              {
+                label: "Invoice reminder preference:",
+                value: "On",
+              },
+            ]}
+          />
         </section>
 
         <hr className="mb-8 border-border" />
@@ -230,37 +287,48 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         </div>
 
         {/* Client alerts */}
-        <Collapse title="Client alerts" defaultOpen className="mb-4">
+        <Collapse title="Client alerts" defaultOpen>
           <span className="text-sm text-text">Include KM</span>
         </Collapse>
 
         {/* Stripe */}
-        <Collapse title="Stripe" defaultOpen className="mb-4">
+        <Collapse title="Stripe" defaultOpen>
           <p className="text-xs text-text-secondary">
-            Connect with Stripe and save a credit card for clients and use for future use.
+            Connect with Stripe and save a credit card for clients and use for
+            future use.
           </p>
         </Collapse>
 
         {/* Mailchimp */}
-        <Collapse title="Mailchimp" defaultOpen className="mb-4">
+        <Collapse title="Mailchimp" defaultOpen>
           <div className="space-y-1 text-xs">
             <div className="flex items-center gap-1">
               <span className="text-primary">rakesh.splose@gmail.com</span>
-              <Badge variant="orange" className="text-[10px]">ARCHIVED</Badge>
+              <Badge variant="orange" className="text-[10px]">
+                ARCHIVED
+              </Badge>
             </div>
             <p className="text-text-secondary">a a</p>
             <p className="text-text-secondary">Open rate: 0%</p>
             <p className="text-text-secondary">Click rate: 0%</p>
-            <p className="text-text-secondary">Opt-in: 11:41 am, 16 Nov 2022</p>
-            <Button variant="secondary" size="sm" className="mt-2 w-full text-xs">
+            <p className="text-text-secondary">
+              Opt-in: 11:41 am, 16 Nov 2022
+            </p>
+            <Button
+              variant="secondary"
+              size="sm"
+              className="mt-2 w-full text-xs"
+            >
               Unlink
             </Button>
           </div>
         </Collapse>
 
         {/* QuickBooks */}
-        <Collapse title="QuickBooks" className="mb-4">
-          <span />
+        <Collapse title="QuickBooks">
+          <p className="text-xs text-text-secondary">
+            No QuickBooks connection.
+          </p>
         </Collapse>
       </aside>
     </div>
@@ -286,13 +354,13 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         </div>
       </div>
 
-      <div className="space-y-8">
-        {/* General details + Profile photo side by side */}
-        <section>
+      <div className="max-w-2xl">
+        {/* General details with profile photo side-by-side */}
+        <section className="mb-8">
           <h2 className="mb-4 text-lg font-bold text-text">General details</h2>
           <div className="flex gap-8">
             {/* Form fields */}
-            <div className="max-w-md flex-1 space-y-4">
+            <div className="flex-1 space-y-4">
               <FormSelect
                 label="Title"
                 options={[
@@ -305,9 +373,21 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
               />
 
               <div className="grid grid-cols-3 gap-3">
-                <FormInput label="First name*" type="text" defaultValue={client.firstName} />
-                <FormInput label="Middle name" type="text" placeholder="Middle name" />
-                <FormInput label="Last name*" type="text" defaultValue={client.lastName} />
+                <FormInput
+                  label="First name*"
+                  type="text"
+                  defaultValue={client.firstName}
+                />
+                <FormInput
+                  label="Middle name"
+                  type="text"
+                  placeholder="Middle name"
+                />
+                <FormInput
+                  label="Last name*"
+                  type="text"
+                  defaultValue={client.lastName}
+                />
               </div>
 
               <FormInput label="Preferred name" type="text" />
@@ -325,8 +405,18 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
                   label="Month"
                   defaultValue={dobParts[1]}
                   options={[
-                    "January", "February", "March", "April", "May", "June",
-                    "July", "August", "September", "October", "November", "December",
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December",
                   ].map((m, i) => ({
                     value: String(i + 1).padStart(2, "0"),
                     label: m,
@@ -363,15 +453,21 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
                 ]}
               />
 
-              <FormInput label="Pronouns" type="text" placeholder="they / them" />
+              <FormInput
+                label="Pronouns"
+                type="text"
+                placeholder="they / them"
+              />
 
               <FormInput label="Occupation" type="text" />
             </div>
 
-            {/* Profile photo */}
+            {/* Profile photo - positioned to the right */}
             <div className="shrink-0 pt-6 text-center">
-              <div className="mb-2 flex h-32 w-32 items-center justify-center rounded-lg border-2 border-dashed border-border text-sm text-text-secondary">
-                Profile photo
+              <div className="mb-3 flex h-32 w-32 items-center justify-center rounded-lg border-2 border-dashed border-border bg-gray-50">
+                <span className="text-sm text-text-secondary">
+                  Profile photo
+                </span>
               </div>
               <Button variant="secondary" size="sm">
                 <Upload className="h-3.5 w-3.5" />
@@ -382,7 +478,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         </section>
 
         {/* Other details */}
-        <section className="max-w-md">
+        <section className="mb-8">
           <h2 className="mb-4 text-lg font-bold text-text">Other details</h2>
           <textarea
             defaultValue='For fields that are not available with the splose template, will show up here if they are all included in "Other Details" on the CSV file.'
@@ -392,7 +488,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         </section>
 
         {/* Alerts */}
-        <section className="max-w-md">
+        <section className="mb-8">
           <h2 className="mb-4 text-lg font-bold text-text">Alerts</h2>
           <p className="mb-2 text-sm text-text-secondary">
             Information you add here will be displayed in important places like scheduling appointments.
@@ -401,7 +497,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         </section>
 
         {/* Contact details */}
-        <section className="max-w-md">
+        <section className="mb-8">
           <h2 className="mb-4 text-lg font-bold text-text">Contact details</h2>
           <div className="space-y-4">
             <FormInput label="Email" type="email" defaultValue={client.email || ""} />
@@ -412,7 +508,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
 
         {/* Medicare */}
         {client.medicare && (
-          <section className="max-w-md">
+          <section>
             <h2 className="mb-4 text-lg font-bold text-text">Medicare details</h2>
             <FormInput label="Card number" type="text" defaultValue={client.medicare} />
           </section>
@@ -420,7 +516,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
 
         {/* NDIS */}
         {client.ndisNumber && (
-          <section className="max-w-md">
+          <section>
             <h2 className="mb-4 text-lg font-bold text-text">NDIS details</h2>
             <FormInput label="NDIS number" type="text" defaultValue={client.ndisNumber} />
           </section>

@@ -13,7 +13,7 @@ See the **Gap completion rule** in CLAUDE.md (single source of truth). In short:
 - [x] **Dashboard improvements** — Messages panel, income chart, incomplete progress notes, recently submitted forms, compose area all implemented.
 
 ### Group E — Client detail (`src/app/clients/[id]/`)
-- [ ] **Client appointments sub-tab** — Table structure and badges match, but appointment side panel from client page not implemented (11.12.37 = no). Reopened: visual audit found side panel missing. Badge styling on 11.15.20 slightly off (partial).
+- [x] **Client appointments sub-tab** — AppointmentSidePanel.tsx implemented with structured details, Status DS component, action buttons. Profile photo layout improved in edit form. (2026-03-20)
 
 ## Priority 2 — Core workflow pages
 
@@ -128,16 +128,16 @@ These pages contain inline patterns that should use DS components. Each must be 
 ## Priority 7 — Visual audit findings (2026-03-19)
 
 ### Group P — Calendar interaction gaps (`src/app/calendar/CalendarView.tsx`)
-- [ ] **Calendar click-to-create popover** — Reference shows a popover when clicking time slots for quick appointment creation. Currently only modal-based creation exists. Reference: 5.53.13-5.53.18 pm.
-- [ ] **Calendar create appointment modal refinement** — Missing Service field (has Appointment Type instead), toggles, and past date validation. Reference: 5.53.25-5.54.19 pm.
+- [x] **Calendar click-to-create popover** — Popover with Support activity/Busy time/Appointment options on time slot click. Opens create modal pre-filled with time. (2026-03-20)
+- [x] **Calendar create appointment modal refinement** — Service field (was Appointment Type), Location/Case/Room fields, DS Toggle for Provider Travel/Non-Labour/Transport/Repeat, past date warning, Waitlist matches section. All form fields use DS components. (2026-03-20)
 - [ ] **Calendar appointment side panel styling** — Detail flyout panel and edit form are coded but button styling (DS Button variants), modal container styling (backdrop/shadow), and dropdown arrow directions don't match references. Reference: 7.23.33, 7.25.23, 7.25.52 pm (all = no). (2026-03-19 audit)
 - [ ] **Calendar toolbar polish** — Week/day view toolbar needs button styling refinement, dropdown chevron directions, filter pill styling, and hover states on cells. All week view screenshots remain partial. (2026-03-19 audit)
 
 ### Group Q — Missing detail/view pages
 - [x] **Contact detail page** — `/contacts/[id]` implemented with Details tab (General details, Contact details, Associated clients table), sidebar nav, Actions button. (2026-03-19)
 - [x] **Invoice view page** — `/invoices/[id]` implemented with PDF-style invoice layout, Pay/Email/Actions buttons, line items table, totals, additional info. (2026-03-19)
-- [ ] **Client edit details page** — Edit form exists but interaction is limited, profile photo upload missing prominence. Reference: 11.11.08 am.
-- [ ] **Client appointment side panel** — Side panel for appointment details from client page. In progress. Reference: 11.12.37 am.
+- [x] **Client edit details page** — Profile photo moved side-by-side with General details form (larger 32x32 box with Upload button). (2026-03-20)
+- [x] **Client appointment side panel** — AppointmentSidePanel.tsx implemented with structured details, action buttons, Status DS component. (2026-03-20)
 - [x] **Clients list filter dropdowns** — Tags filter dropdown and Active/Archived status dropdown added using DS Dropdown component. Extracted ClientsPageClient.tsx. (2026-03-19)
 
 ## Priority 8 — DS components & page migration (2026-03-19)
@@ -154,7 +154,7 @@ All 22 DS components have been **created** in `src/components/ds/` with full imp
 - [x] **Avatar** (`Avatar.tsx`) — Component created with stories. Migrated: page.tsx (Dashboard, 5 instances), clients/[id]/ClientDetailClient.tsx, contacts/[id]/page.tsx, calendar/CalendarView.tsx. (2026-03-19)
 - [x] **Dropdown** (`Dropdown.tsx`) — Component created with stories. Migrated: calendar/CalendarView.tsx. payments/new had no dropdown pattern. (2026-03-19)
 - [x] **EmptyState** (`EmptyState.tsx`) — Component created with stories. All target pages already used EmptyState or migrated: contacts/[id] migrated, products/notes/settings-forms/waitlist/payments-new already had EmptyState. (2026-03-19)
-- [ ] **List** (`List.tsx`) — Component created with stories. Not yet migrated: clients/[id]/ClientDetailClient.tsx (15+ instances in details sections).
+- [x] **List** (`List.tsx`) — Component created with stories. Migrated: clients/[id]/ClientDetailClient.tsx (8 sections: General details, Contact details, Privacy consent, Medications, Medicare, NDIS, Custom fields, Invoicing). (2026-03-20)
 
 ### Group S — Medium-priority DS components (created, not yet migrated)
 
@@ -163,16 +163,16 @@ All 22 DS components have been **created** in `src/components/ds/` with full imp
 - [x] **Navbar** (`Navbar.tsx`) — Component created with stories. Migrated: notes/new, notes/[id], notes/[id]/edit, payments/new. invoices/[id] has no back nav pattern. (2026-03-19)
 - [x] **DateRangeFilter** (`DateRangeFilter.tsx`) — Component created with stories. All 3 reports pages migrated (2026-03-19).
 - [x] **Filter** (`Filter.tsx`) — Component created with stories. Migrated: notes/new (view toggle), notes/[id]/edit (view toggle). settings/page.tsx email sig tabs are pill buttons (different pattern). (2026-03-19)
-- [ ] **Collapse** (`Collapse.tsx`) — Component created with stories. Not yet migrated: clients/[id]/ClientDetailClient.tsx (4 sidebar sections).
+- [x] **Collapse** (`Collapse.tsx`) — Component created with stories. Migrated: clients/[id]/ClientDetailClient.tsx (4 sidebar sections: Client alerts, Stripe, Mailchimp, QuickBooks). (2026-03-20)
 
 ### Group T — Lower-priority DS components (created, not yet migrated)
 
-- [ ] **Status** (`Status.tsx`) — Component created with stories. Not yet migrated: clients/[id]/appointments, calendar/CalendarView.tsx.
+- [x] **Status** (`Status.tsx`) — Component created with stories. Migrated: clients/[id]/appointments/AppointmentSidePanel.tsx (status dots in table rows and side panel). Calendar already uses inline status styling. (2026-03-20)
 - [x] **AsyncSelect** (`AsyncSelect.tsx`) — Component created with stories. notes/new/page.tsx has no matching pattern — uses static FormSelect. (2026-03-19)
 
 ### Group U — SearchBar adoption (existing DS component not used)
 
-- [ ] **Client sub-tabs SearchBar migration** — Migration in progress. 6 client sub-tab pages: clients/[id]/communications, files, notes, forms, invoices, payments.
+- [x] **Client sub-tabs SearchBar migration** — All 6 client sub-tab pages already use SearchBar from DS. No changes needed. (2026-03-20)
 
 ---
 

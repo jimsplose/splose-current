@@ -68,7 +68,16 @@ For each screenshot entry compared:
 - If it partially matches → update Match to "partial" and add a note describing what's missing
 - If it doesn't match → keep Match as "no"
 
-## Step 5: Update fidelity gaps
+## Step 5: Extract design specs for problem pages
+
+For pages with Match = "partial" or "no", check if a design spec exists at `screenshots/specs/<page-name>.md`. **If not, extract one now** by following `docs/design-spec-workflow.md`. This ensures the next fidelity loop has exact values to work with instead of eyeballing.
+
+Priority:
+1. Pages that were "partial" before the audit and are still "partial" — these are stuck and need exact specs
+2. Pages with high mismatch % (>20%) — specs help agents make bigger jumps
+3. Skip pages that already have up-to-date specs
+
+## Step 6: Update fidelity gaps
 
 Based on the audit results:
 
@@ -80,7 +89,7 @@ Based on the audit results:
 - If there's no existing gap → create a new one in the appropriate priority group
 - Include specific details: what's wrong, which screenshot(s) show the issue
 
-## Step 6: Report results
+## Step 7: Report results
 
 Present a summary to Jim:
 
@@ -118,7 +127,7 @@ As part of the audit, also verify DS component coverage:
 2. For any new DS components added during fidelity work, verify a story exists
 3. If a story is missing, flag it as a gap (not a blocker — can be added later)
 
-## Step 7: Return to menu
+## Step 8: Return to menu
 
 After completing the audit, **show the session start menu again** (see CLAUDE.md). Include the audit summary (pages audited, matches, gaps reopened/created).
 

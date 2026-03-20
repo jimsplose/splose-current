@@ -1,50 +1,214 @@
 "use client";
 
 import { useState } from "react";
-import { Button, FormInput, DataTable, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+import Link from "next/link";
+import {
+  Button,
+  DataTable,
+  TableHead,
+  Th,
+  TableBody,
+  Td,
+  Pagination,
+  Dropdown,
+} from "@/components/ds";
 
-const services = [
-  { name: "1:1 Consultation", color: "#a855f7", type: "1:1 Consultation", itemCode: "299sdsdds3234", duration: "40 minutes", price: "193.00 / Hour" },
-  { name: "1x Initial 1:1 Assessment, 14 x Group Therapy Sessions, and 1x Review Session", color: "#9ca3af", type: "Group Package Deal", itemCode: "", duration: "60 minutes", price: "1000.00 / Each" },
-  { name: "2:2 Consultations", color: "#22c55e", type: "2:2 Consultations", itemCode: "2997952838_6127l_abc", duration: "60 minutes", price: "193.99 / Hour" },
-  { name: "2. Payment optional - partial - Online booking", color: "#6366f1", type: "1. Payment test - Online booking", itemCode: "sd", duration: "30 minutes", price: "200.00 / Hour" },
-  { name: "3 cases services", color: "#f59e0b", type: "3 cases service", itemCode: "", duration: "45 minutes", price: "120.00 / Hour" },
-  { name: "3. Payment required - partial - Online booking", color: "#ef4444", type: "1. Payment test - Online booking", itemCode: "", duration: "30 minutes", price: "200.00 / Hour" },
-  { name: "4. Payment required - full - Online booking", color: "#14b8a6", type: "1. Payment test - Online booking", itemCode: "", duration: "30 minutes", price: "200.00 / Hour" },
+const sidebarSections = [
+  {
+    title: "Workspace",
+    items: [
+      { name: "Details", href: "/settings" },
+      { name: "Integrations", href: "/settings" },
+      { name: "Subscription", href: "/settings" },
+      { name: "SMS settings", href: "/settings" },
+    ],
+  },
+  {
+    title: "Automation",
+    items: [
+      { name: "Forms", href: "/settings" },
+      { name: "splose AI", href: "/settings/ai" },
+    ],
+  },
+  {
+    title: "Business",
+    items: [
+      { name: "Locations", href: "/settings" },
+      { name: "Custom fields", href: "/settings" },
+      { name: "Rooms/Resources", href: "/settings" },
+      { name: "Services", href: "/settings/services" },
+      { name: "Busy times", href: "/settings" },
+      { name: "Cancel/Reschedule", href: "/settings" },
+      { name: "Online bookings", href: "/settings", badge: "New" },
+      { name: "Communication types", href: "/settings" },
+      { name: "Tags", href: "/settings" },
+      { name: "Referral types", href: "/settings" },
+    ],
+  },
+  {
+    title: "Team",
+    items: [
+      { name: "Users", href: "/settings" },
+      { name: "User groups", href: "/settings" },
+      { name: "Permissions & Roles", href: "/settings" },
+      { name: "Security", href: "/settings" },
+    ],
+  },
+  {
+    title: "Templates",
+    items: [
+      { name: "Appointments", href: "/settings" },
+      { name: "Emails", href: "/settings" },
+      { name: "Progress notes", href: "/settings" },
+      { name: "Letters", href: "/settings" },
+      { name: "Body charts", href: "/settings" },
+    ],
+  },
 ];
 
-export default function ServicesPage() {
-  const [search, setSearch] = useState("");
-  const filtered = services.filter(s => !search || s.name.toLowerCase().includes(search.toLowerCase()));
+interface Service {
+  id: number;
+  name: string;
+  itemCode: string;
+  duration: string;
+  price: string;
+}
+
+const services: Service[] = [
+  { id: 1, name: "Assessment", itemCode: "93", duration: "60 min", price: "$224.60" },
+  { id: 2, name: "Initial Consultation", itemCode: "93", duration: "60 min", price: "$224.60" },
+  { id: 3, name: "Standard Consultation", itemCode: "93", duration: "30 min", price: "$112.30" },
+  { id: 4, name: "Extended Consultation", itemCode: "93", duration: "45 min", price: "$168.45" },
+  { id: 5, name: "Review Appointment", itemCode: "93", duration: "20 min", price: "$84.00" },
+  { id: 6, name: "Telehealth Consultation", itemCode: "93", duration: "30 min", price: "$112.30" },
+  { id: 7, name: "Group Session", itemCode: "93", duration: "60 min", price: "$65.00" },
+  { id: 8, name: "Home Visit", itemCode: "93", duration: "60 min", price: "$280.00" },
+  { id: 9, name: "NDIS Initial Assessment", itemCode: "93", duration: "90 min", price: "$336.90" },
+  { id: 10, name: "NDIS Standard Session", itemCode: "93", duration: "60 min", price: "$224.60" },
+  { id: 11, name: "Report Writing", itemCode: "93", duration: "60 min", price: "$224.60" },
+  { id: 12, name: "Case Conference", itemCode: "93", duration: "30 min", price: "$112.30" },
+  { id: 13, name: "Supervision Session", itemCode: "93", duration: "60 min", price: "$150.00" },
+  { id: 14, name: "Court Report", itemCode: "93", duration: "120 min", price: "$450.00" },
+  { id: 15, name: "School Visit", itemCode: "93", duration: "60 min", price: "$280.00" },
+  { id: 16, name: "Cancellation Fee", itemCode: "93", duration: "0 min", price: "$112.30" },
+  { id: 17, name: "DNA Fee", itemCode: "93", duration: "0 min", price: "$112.30" },
+  { id: 18, name: "EPC Initial Consultation", itemCode: "10960", duration: "60 min", price: "$93.00" },
+  { id: 19, name: "EPC Standard Consultation", itemCode: "10960", duration: "30 min", price: "$60.85" },
+  { id: 20, name: "WorkCover Assessment", itemCode: "93", duration: "60 min", price: "$224.60" },
+];
+
+const ITEMS_PER_PAGE = 10;
+
+const dropdownItems = [
+  { label: "Edit", value: "edit" },
+  { label: "Duplicate", value: "duplicate" },
+  { label: "Enable online booking", value: "online-booking" },
+  { label: "Change log", value: "change-log" },
+  { label: "", value: "divider-1", divider: true },
+  { label: "Archive", value: "archive", danger: true },
+];
+
+export default function SettingsServicesPage() {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(services.length / ITEMS_PER_PAGE);
+  const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
+  const pageServices = services.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+
   return (
-    <div className="p-8">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text">Services</h1>
-        <div className="flex items-center gap-2">
-          <Button variant="secondary">Learn</Button>
-          <Button variant="secondary">Show archived</Button>
-          <Button variant="primary">+ New service</Button>
+    <div className="flex min-h-[calc(100vh-3rem)]">
+      {/* Left sidebar */}
+      <aside className="w-64 shrink-0 overflow-y-auto border-r border-border bg-white p-4">
+        {sidebarSections.map((section) => (
+          <div key={section.title} className="mb-4">
+            <h3 className="mb-1 text-xs font-bold tracking-wider text-text uppercase">
+              {section.title}
+            </h3>
+            <ul className="space-y-0.5">
+              {section.items.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className={`block w-full rounded px-3 py-1.5 text-left text-sm transition-colors hover:bg-purple-50 hover:text-primary ${
+                      item.name === "Services"
+                        ? "border-l-2 border-primary bg-purple-50 font-medium text-primary"
+                        : "text-text-secondary"
+                    }`}
+                  >
+                    {item.name}
+                    {"badge" in item && item.badge && (
+                      <span className="ml-2 rounded bg-primary px-1.5 py-0.5 text-[10px] font-bold text-white">
+                        {item.badge}
+                      </span>
+                    )}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </aside>
+
+      {/* Main content */}
+      <div className="flex-1 overflow-y-auto p-6">
+        {/* Header */}
+        <div className="mb-4 flex items-center justify-between">
+          <h1 className="text-2xl font-bold text-text">Services</h1>
+          <Button variant="primary">+ Add service</Button>
         </div>
+
+        {/* Table */}
+        <DataTable>
+          <TableHead>
+            <Th>Name</Th>
+            <Th>Item code</Th>
+            <Th>Duration</Th>
+            <Th align="right">Price</Th>
+            <Th align="right">Actions</Th>
+          </TableHead>
+          <TableBody>
+            {pageServices.map((service) => (
+              <tr key={service.id} className="hover:bg-gray-50">
+                <Td>
+                  <span className="font-medium text-text">{service.name}</span>
+                </Td>
+                <Td>{service.itemCode}</Td>
+                <Td>{service.duration}</Td>
+                <Td align="right">{service.price}</Td>
+                <Td align="right">
+                  <Dropdown
+                    align="right"
+                    trigger={
+                      <button className="inline-flex h-8 w-8 items-center justify-center rounded hover:bg-gray-100">
+                        <svg
+                          className="h-4 w-4 text-text-secondary"
+                          fill="currentColor"
+                          viewBox="0 0 16 16"
+                        >
+                          <circle cx="8" cy="3" r="1.5" />
+                          <circle cx="8" cy="8" r="1.5" />
+                          <circle cx="8" cy="13" r="1.5" />
+                        </svg>
+                      </button>
+                    }
+                    items={dropdownItems}
+                    onSelect={() => {}}
+                  />
+                </Td>
+              </tr>
+            ))}
+          </TableBody>
+        </DataTable>
+
+        {/* Pagination */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={services.length}
+          itemsPerPage={ITEMS_PER_PAGE}
+          onPageChange={setCurrentPage}
+        />
       </div>
-      <div className="mb-4 flex items-center gap-2">
-        <FormInput placeholder="Search for service name, type, and item code" value={search} onChange={(e) => setSearch(e.target.value)} className="flex-1" />
-        <Button variant="secondary">Search</Button>
-      </div>
-      <DataTable>
-        <TableHead><Th>Name</Th><Th>Type</Th><Th>Item code</Th><Th>Duration</Th><Th>Price</Th><Th>Actions</Th></TableHead>
-        <TableBody>
-          {filtered.map((s, i) => (
-            <tr key={i} className="border-b border-border">
-              <Td><div className="flex items-center gap-2"><span className="inline-block h-3 w-3 rounded-full" style={{ backgroundColor: s.color }} /><span className="max-w-[200px] truncate">{s.name}</span></div></Td>
-              <Td><span className="max-w-[150px] truncate block">{s.type}</span></Td>
-              <Td><span className="text-xs text-text-secondary">{s.itemCode}</span></Td>
-              <Td>{s.duration}</Td><Td>{s.price}</Td>
-              <Td><button className="text-text-secondary hover:text-text">•••</button></Td>
-            </tr>
-          ))}
-        </TableBody>
-      </DataTable>
-      <Pagination currentPage={1} totalPages={1} totalItems={filtered.length} itemsPerPage={10} />
     </div>
   );
 }
