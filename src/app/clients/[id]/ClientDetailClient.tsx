@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { Pencil, ChevronDown, Upload } from "lucide-react";
-import { Avatar, Button, Badge, FormInput, FormSelect } from "@/components/ds";
+import { Pencil, Upload } from "lucide-react";
+import { Avatar, Button, Badge, FormInput, FormSelect, List, Collapse } from "@/components/ds";
 
 interface ClientData {
   id: string;
@@ -63,26 +63,20 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         {/* General details */}
         <section className="mb-8">
           <h2 className="mb-4 text-lg font-bold text-text">General details</h2>
-          <div className="space-y-3 text-sm">
-            <div className="flex items-center gap-4">
-              <Avatar name={`${client.firstName} ${client.lastName}`} />
-              <span>
-                {client.firstName} {client.lastName}
-              </span>
-            </div>
-            {client.dateOfBirth && (
-              <div className="flex gap-16">
-                <span className="w-28 text-text-secondary">Date of birth:</span>
-                <span>
-                  {client.dateOfBirth} ({calcAge(client.dateOfBirth)})
-                </span>
-              </div>
-            )}
-            <div className="flex gap-16">
-              <span className="w-28 text-text-secondary">Sex:</span>
-              <span>Not specified</span>
-            </div>
+          <div className="mb-3 flex items-center gap-4 text-sm">
+            <Avatar name={`${client.firstName} ${client.lastName}`} />
+            <span>
+              {client.firstName} {client.lastName}
+            </span>
           </div>
+          <List
+            items={[
+              ...(client.dateOfBirth
+                ? [{ label: "Date of birth:", value: `${client.dateOfBirth} (${calcAge(client.dateOfBirth)})` }]
+                : []),
+              { label: "Sex:", value: "Not specified" },
+            ]}
+          />
         </section>
 
         <hr className="mb-8 border-border" />
@@ -90,30 +84,15 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         {/* Client contact details */}
         <section className="mb-8">
           <h2 className="mb-4 text-lg font-bold text-text">Client contact details</h2>
-          <div className="space-y-3 text-sm">
-            <div className="flex gap-16">
-              <span className="w-28 text-text-secondary">Email:</span>
-              <span className="text-primary">{client.email || "—"}</span>
-            </div>
-            <div className="flex gap-16">
-              <span className="w-28 text-text-secondary">Phone numbers:</span>
-              <span className="text-primary">{client.phone || "—"}</span>
-            </div>
-            <div className="flex gap-16">
-              <span className="w-28 text-text-secondary">Preference:</span>
-              <span>None</span>
-            </div>
-            {client.address && (
-              <div className="flex gap-16">
-                <span className="w-28 text-text-secondary">Address:</span>
-                <span>{client.address}</span>
-              </div>
-            )}
-            <div className="flex gap-16">
-              <span className="w-28 text-text-secondary">Timezone:</span>
-              <span>GMT+10:30 - Australia/Adelaide</span>
-            </div>
-          </div>
+          <List
+            items={[
+              { label: "Email:", value: <span className="text-primary">{client.email || "—"}</span> },
+              { label: "Phone numbers:", value: <span className="text-primary">{client.phone || "—"}</span> },
+              { label: "Preference:", value: "None" },
+              ...(client.address ? [{ label: "Address:", value: client.address }] : []),
+              { label: "Timezone:", value: "GMT+10:30 - Australia/Adelaide" },
+            ]}
+          />
         </section>
 
         <hr className="mb-8 border-border" />
@@ -121,10 +100,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         {/* Privacy policy consent */}
         <section className="mb-8">
           <h2 className="mb-4 text-lg font-bold text-text">Privacy policy consent</h2>
-          <div className="flex gap-16 text-sm">
-            <span className="w-28 text-text-secondary"></span>
-            <span>No response</span>
-          </div>
+          <List items={[{ label: "", value: "No response" }]} />
         </section>
 
         <hr className="mb-8 border-border" />
@@ -132,20 +108,13 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         {/* Medications, allergies & intolerances */}
         <section className="mb-8">
           <h2 className="mb-4 text-lg font-bold text-text">Medications, allergies &amp; intolerances</h2>
-          <div className="space-y-3 text-sm">
-            <div className="flex gap-16">
-              <span className="w-28 text-text-secondary">Medications:</span>
-              <span>None</span>
-            </div>
-            <div className="flex gap-16">
-              <span className="w-28 text-text-secondary">Allergies:</span>
-              <span>None</span>
-            </div>
-            <div className="flex gap-16">
-              <span className="w-28 text-text-secondary">Intolerances:</span>
-              <span>None</span>
-            </div>
-          </div>
+          <List
+            items={[
+              { label: "Medications:", value: "None" },
+              { label: "Allergies:", value: "None" },
+              { label: "Intolerances:", value: "None" },
+            ]}
+          />
         </section>
 
         <hr className="mb-8 border-border" />
@@ -155,10 +124,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           <>
             <section className="mb-8">
               <h2 className="mb-4 text-lg font-bold text-text">Medicare details</h2>
-              <div className="flex gap-16 text-sm">
-                <span className="w-28 text-text-secondary">Card number:</span>
-                <span>{client.medicare}</span>
-              </div>
+              <List items={[{ label: "Card number:", value: client.medicare }]} />
             </section>
             <hr className="mb-8 border-border" />
           </>
@@ -168,10 +134,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           <>
             <section className="mb-8">
               <h2 className="mb-4 text-lg font-bold text-text">NDIS details</h2>
-              <div className="flex gap-16 text-sm">
-                <span className="w-28 text-text-secondary">NDIS number:</span>
-                <span>{client.ndisNumber}</span>
-              </div>
+              <List items={[{ label: "NDIS number:", value: client.ndisNumber }]} />
             </section>
             <hr className="mb-8 border-border" />
           </>
@@ -180,16 +143,12 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         {/* Custom fields */}
         <section className="mb-8">
           <h2 className="mb-4 text-lg font-bold text-text">Custom fields</h2>
-          <div className="space-y-3 text-sm">
-            <div className="flex gap-16">
-              <span className="w-28 text-text-secondary">Date since surgery:</span>
-              <span>25/09/2025</span>
-            </div>
-            <div className="flex gap-16">
-              <span className="w-28 text-text-secondary">Note:</span>
-              <span>Note short text check</span>
-            </div>
-          </div>
+          <List
+            items={[
+              { label: "Date since surgery:", value: "25/09/2025" },
+              { label: "Note:", value: "Note short text check" },
+            ]}
+          />
         </section>
 
         <hr className="mb-8 border-border" />
@@ -197,10 +156,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         {/* Invoicing */}
         <section className="mb-8">
           <h2 className="mb-4 text-lg font-bold text-text">Invoicing</h2>
-          <div className="flex gap-16 text-sm">
-            <span className="w-28 text-text-secondary">Invoice reminder preference:</span>
-            <span>On</span>
-          </div>
+          <List items={[{ label: "Invoice reminder preference:", value: "On" }]} />
         </section>
 
         <hr className="mb-8 border-border" />
@@ -274,34 +230,20 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         </div>
 
         {/* Client alerts */}
-        <div className="mb-4 border-b border-border pb-3">
-          <button className="flex w-full items-center justify-between text-sm font-semibold text-text">
-            Client alerts
-            <ChevronDown className="h-4 w-4 text-text-secondary" />
-          </button>
-          <div className="mt-2">
-            <span className="text-sm text-text">Include KM</span>
-          </div>
-        </div>
+        <Collapse title="Client alerts" defaultOpen className="mb-4">
+          <span className="text-sm text-text">Include KM</span>
+        </Collapse>
 
         {/* Stripe */}
-        <div className="mb-4 border-b border-border pb-3">
-          <button className="flex w-full items-center justify-between text-sm font-semibold text-text">
-            Stripe
-            <ChevronDown className="h-4 w-4 text-text-secondary" />
-          </button>
-          <p className="mt-2 text-xs text-text-secondary">
+        <Collapse title="Stripe" defaultOpen className="mb-4">
+          <p className="text-xs text-text-secondary">
             Connect with Stripe and save a credit card for clients and use for future use.
           </p>
-        </div>
+        </Collapse>
 
         {/* Mailchimp */}
-        <div className="mb-4 border-b border-border pb-3">
-          <button className="flex w-full items-center justify-between text-sm font-semibold text-text">
-            Mailchimp
-            <ChevronDown className="h-4 w-4 text-text-secondary" />
-          </button>
-          <div className="mt-2 space-y-1 text-xs">
+        <Collapse title="Mailchimp" defaultOpen className="mb-4">
+          <div className="space-y-1 text-xs">
             <div className="flex items-center gap-1">
               <span className="text-primary">rakesh.splose@gmail.com</span>
               <Badge variant="orange" className="text-[10px]">ARCHIVED</Badge>
@@ -314,15 +256,12 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
               Unlink
             </Button>
           </div>
-        </div>
+        </Collapse>
 
         {/* QuickBooks */}
-        <div className="mb-4">
-          <button className="flex w-full items-center justify-between text-sm font-semibold text-text">
-            QuickBooks
-            <ChevronDown className="h-4 w-4 text-text-secondary" />
-          </button>
-        </div>
+        <Collapse title="QuickBooks" className="mb-4">
+          <span />
+        </Collapse>
       </aside>
     </div>
   );
@@ -347,103 +286,103 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         </div>
       </div>
 
-      <div className="max-w-2xl space-y-8">
-        {/* General details */}
+      <div className="space-y-8">
+        {/* General details + Profile photo side by side */}
         <section>
           <h2 className="mb-4 text-lg font-bold text-text">General details</h2>
-          <div className="space-y-4">
-            <FormSelect
-              label="Title"
-              options={[
-                { value: "", label: "Title" },
-                { value: "Mr", label: "Mr" },
-                { value: "Mrs", label: "Mrs" },
-                { value: "Ms", label: "Ms" },
-                { value: "Dr", label: "Dr" },
-              ]}
-            />
-
-            <div className="grid grid-cols-3 gap-3">
-              <FormInput label="First name*" type="text" defaultValue={client.firstName} />
-              <FormInput label="Middle name" type="text" placeholder="Middle name" />
-              <FormInput label="Last name*" type="text" defaultValue={client.lastName} />
-            </div>
-
-            <FormInput label="Preferred name" type="text" />
-
-            <div className="grid grid-cols-3 gap-3">
+          <div className="flex gap-8">
+            {/* Form fields */}
+            <div className="max-w-md flex-1 space-y-4">
               <FormSelect
-                label="Day"
-                defaultValue={dobParts[2]}
-                options={Array.from({ length: 31 }, (_, i) => ({
-                  value: String(i + 1),
-                  label: String(i + 1),
-                }))}
-              />
-              <FormSelect
-                label="Month"
-                defaultValue={dobParts[1]}
+                label="Title"
                 options={[
-                  "January", "February", "March", "April", "May", "June",
-                  "July", "August", "September", "October", "November", "December",
-                ].map((m, i) => ({
-                  value: String(i + 1).padStart(2, "0"),
-                  label: m,
-                }))}
+                  { value: "", label: "Title" },
+                  { value: "Mr", label: "Mr" },
+                  { value: "Mrs", label: "Mrs" },
+                  { value: "Ms", label: "Ms" },
+                  { value: "Dr", label: "Dr" },
+                ]}
               />
+
+              <div className="grid grid-cols-3 gap-3">
+                <FormInput label="First name*" type="text" defaultValue={client.firstName} />
+                <FormInput label="Middle name" type="text" placeholder="Middle name" />
+                <FormInput label="Last name*" type="text" defaultValue={client.lastName} />
+              </div>
+
+              <FormInput label="Preferred name" type="text" />
+
+              <div className="grid grid-cols-3 gap-3">
+                <FormSelect
+                  label="Day"
+                  defaultValue={dobParts[2]}
+                  options={Array.from({ length: 31 }, (_, i) => ({
+                    value: String(i + 1),
+                    label: String(i + 1),
+                  }))}
+                />
+                <FormSelect
+                  label="Month"
+                  defaultValue={dobParts[1]}
+                  options={[
+                    "January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December",
+                  ].map((m, i) => ({
+                    value: String(i + 1).padStart(2, "0"),
+                    label: m,
+                  }))}
+                />
+                <FormSelect
+                  label="Year"
+                  defaultValue={dobParts[0]}
+                  options={Array.from({ length: 100 }, (_, i) => {
+                    const y = 2026 - i;
+                    return { value: String(y), label: String(y) };
+                  })}
+                />
+              </div>
+
               <FormSelect
-                label="Year"
-                defaultValue={dobParts[0]}
-                options={Array.from({ length: 100 }, (_, i) => {
-                  const y = 2026 - i;
-                  return { value: String(y), label: String(y) };
-                })}
+                label="Sex"
+                options={[
+                  { value: "Male", label: "Male" },
+                  { value: "Female", label: "Female" },
+                  { value: "Other", label: "Other" },
+                  { value: "Not specified", label: "Not specified" },
+                ]}
               />
+
+              <FormSelect
+                label="Gender identity"
+                options={[
+                  { value: "", label: "" },
+                  { value: "Male", label: "Male" },
+                  { value: "Female", label: "Female" },
+                  { value: "Non-binary", label: "Non-binary" },
+                  { value: "Other", label: "Other" },
+                ]}
+              />
+
+              <FormInput label="Pronouns" type="text" placeholder="they / them" />
+
+              <FormInput label="Occupation" type="text" />
             </div>
 
-            <FormSelect
-              label="Sex"
-              options={[
-                { value: "Male", label: "Male" },
-                { value: "Female", label: "Female" },
-                { value: "Other", label: "Other" },
-                { value: "Not specified", label: "Not specified" },
-              ]}
-            />
-
-            <FormSelect
-              label="Gender identity"
-              options={[
-                { value: "", label: "" },
-                { value: "Male", label: "Male" },
-                { value: "Female", label: "Female" },
-                { value: "Non-binary", label: "Non-binary" },
-                { value: "Other", label: "Other" },
-              ]}
-            />
-
-            <FormInput label="Pronouns" type="text" placeholder="they / them" />
-
-            <FormInput label="Occupation" type="text" />
+            {/* Profile photo */}
+            <div className="shrink-0 pt-6 text-center">
+              <div className="mb-2 flex h-32 w-32 items-center justify-center rounded-lg border-2 border-dashed border-border text-sm text-text-secondary">
+                Profile photo
+              </div>
+              <Button variant="secondary" size="sm">
+                <Upload className="h-3.5 w-3.5" />
+                Upload
+              </Button>
+            </div>
           </div>
         </section>
 
-        {/* Profile photo */}
-        <div className="flex items-start gap-8">
-          <div className="flex-1" />
-          <div className="text-center">
-            <div className="mb-2 flex h-28 w-28 items-center justify-center rounded-lg border-2 border-dashed border-border text-sm text-text-secondary">
-              Profile photo
-            </div>
-            <Button variant="secondary" size="sm">
-              <Upload className="h-3.5 w-3.5" />
-              Upload
-            </Button>
-          </div>
-        </div>
-
         {/* Other details */}
-        <section>
+        <section className="max-w-md">
           <h2 className="mb-4 text-lg font-bold text-text">Other details</h2>
           <textarea
             defaultValue='For fields that are not available with the splose template, will show up here if they are all included in "Other Details" on the CSV file.'
@@ -453,7 +392,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         </section>
 
         {/* Alerts */}
-        <section>
+        <section className="max-w-md">
           <h2 className="mb-4 text-lg font-bold text-text">Alerts</h2>
           <p className="mb-2 text-sm text-text-secondary">
             Information you add here will be displayed in important places like scheduling appointments.
@@ -462,7 +401,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         </section>
 
         {/* Contact details */}
-        <section>
+        <section className="max-w-md">
           <h2 className="mb-4 text-lg font-bold text-text">Contact details</h2>
           <div className="space-y-4">
             <FormInput label="Email" type="email" defaultValue={client.email || ""} />
@@ -473,7 +412,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
 
         {/* Medicare */}
         {client.medicare && (
-          <section>
+          <section className="max-w-md">
             <h2 className="mb-4 text-lg font-bold text-text">Medicare details</h2>
             <FormInput label="Card number" type="text" defaultValue={client.medicare} />
           </section>
@@ -481,7 +420,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
 
         {/* NDIS */}
         {client.ndisNumber && (
-          <section>
+          <section className="max-w-md">
             <h2 className="mb-4 text-lg font-bold text-text">NDIS details</h2>
             <FormInput label="NDIS number" type="text" defaultValue={client.ndisNumber} />
           </section>
