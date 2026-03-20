@@ -9,38 +9,223 @@ import {
   TableBody,
   Td,
   Pagination,
+  SearchBar,
   Dropdown,
 } from "@/components/ds";
+import { ArrowUpDown, BookOpen } from "lucide-react";
 
 interface Service {
   id: number;
   name: string;
+  type: string;
   itemCode: string;
   duration: string;
   price: string;
+  rate: string;
+  color: string;
 }
 
 const services: Service[] = [
-  { id: 1, name: "Assessment", itemCode: "93", duration: "60 min", price: "$224.60" },
-  { id: 2, name: "Initial Consultation", itemCode: "93", duration: "60 min", price: "$224.60" },
-  { id: 3, name: "Standard Consultation", itemCode: "93", duration: "30 min", price: "$112.30" },
-  { id: 4, name: "Extended Consultation", itemCode: "93", duration: "45 min", price: "$168.45" },
-  { id: 5, name: "Review Appointment", itemCode: "93", duration: "20 min", price: "$84.00" },
-  { id: 6, name: "Telehealth Consultation", itemCode: "93", duration: "30 min", price: "$112.30" },
-  { id: 7, name: "Group Session", itemCode: "93", duration: "60 min", price: "$65.00" },
-  { id: 8, name: "Home Visit", itemCode: "93", duration: "60 min", price: "$280.00" },
-  { id: 9, name: "NDIS Initial Assessment", itemCode: "93", duration: "90 min", price: "$336.90" },
-  { id: 10, name: "NDIS Standard Session", itemCode: "93", duration: "60 min", price: "$224.60" },
-  { id: 11, name: "Report Writing", itemCode: "93", duration: "60 min", price: "$224.60" },
-  { id: 12, name: "Case Conference", itemCode: "93", duration: "30 min", price: "$112.30" },
-  { id: 13, name: "Supervision Session", itemCode: "93", duration: "60 min", price: "$150.00" },
-  { id: 14, name: "Court Report", itemCode: "93", duration: "120 min", price: "$450.00" },
-  { id: 15, name: "School Visit", itemCode: "93", duration: "60 min", price: "$280.00" },
-  { id: 16, name: "Cancellation Fee", itemCode: "93", duration: "0 min", price: "$112.30" },
-  { id: 17, name: "DNA Fee", itemCode: "93", duration: "0 min", price: "$112.30" },
-  { id: 18, name: "EPC Initial Consultation", itemCode: "10960", duration: "60 min", price: "$93.00" },
-  { id: 19, name: "EPC Standard Consultation", itemCode: "10960", duration: "30 min", price: "$60.85" },
-  { id: 20, name: "WorkCover Assessment", itemCode: "93", duration: "60 min", price: "$224.60" },
+  {
+    id: 1,
+    name: "1:1 Consultation",
+    type: "1:1 Consultation",
+    itemCode: "299sdsdds3234",
+    duration: "40 minutes",
+    price: "193.00",
+    rate: "Hour",
+    color: "bg-green-500",
+  },
+  {
+    id: 2,
+    name: "1x Initial 1:1 Assessment, 14 x Group Therapy Sessions, and 1x Review Session",
+    type: "Group Package Deal",
+    itemCode: "",
+    duration: "60 minutes",
+    price: "1000.00",
+    rate: "Each",
+    color: "bg-purple-500",
+  },
+  {
+    id: 3,
+    name: "2:2 Consultations",
+    type: "2:2 Consultations",
+    itemCode: "2997952838_61 627l_abc",
+    duration: "60 minutes",
+    price: "193.99",
+    rate: "Hour",
+    color: "bg-yellow-500",
+  },
+  {
+    id: 4,
+    name: "2. Payment optional - partial - Online booking",
+    type: "1. Payment test - Online booking",
+    itemCode: "sd",
+    duration: "30 minutes",
+    price: "200.00",
+    rate: "Hour",
+    color: "bg-gray-400",
+  },
+  {
+    id: 5,
+    name: "3 cases services",
+    type: "3 cases service",
+    itemCode: "",
+    duration: "45 minutes",
+    price: "120.00",
+    rate: "Hour",
+    color: "bg-green-500",
+  },
+  {
+    id: 6,
+    name: "3. Payment required - partial - Online booking",
+    type: "1. Payment test - Online booking",
+    itemCode: "",
+    duration: "30 minutes",
+    price: "200.00",
+    rate: "Hour",
+    color: "bg-gray-400",
+  },
+  {
+    id: 7,
+    name: "4. Payment required - full - Online booking",
+    type: "1. Payment test - Online booking",
+    itemCode: "",
+    duration: "30 minutes",
+    price: "200.00",
+    rate: "Hour",
+    color: "bg-gray-400",
+  },
+  {
+    id: 8,
+    name: "Assessment",
+    type: "1:1 Consultation",
+    itemCode: "93",
+    duration: "60 minutes",
+    price: "224.60",
+    rate: "Hour",
+    color: "bg-green-500",
+  },
+  {
+    id: 9,
+    name: "Initial Consultation",
+    type: "1:1 Consultation",
+    itemCode: "93",
+    duration: "60 minutes",
+    price: "224.60",
+    rate: "Hour",
+    color: "bg-green-500",
+  },
+  {
+    id: 10,
+    name: "Standard Consultation",
+    type: "1:1 Consultation",
+    itemCode: "93",
+    duration: "30 minutes",
+    price: "112.30",
+    rate: "Hour",
+    color: "bg-green-500",
+  },
+  {
+    id: 11,
+    name: "Extended Consultation",
+    type: "1:1 Consultation",
+    itemCode: "93",
+    duration: "45 minutes",
+    price: "168.45",
+    rate: "Hour",
+    color: "bg-green-500",
+  },
+  {
+    id: 12,
+    name: "Review Appointment",
+    type: "1:1 Consultation",
+    itemCode: "93",
+    duration: "20 minutes",
+    price: "84.00",
+    rate: "Hour",
+    color: "bg-blue-500",
+  },
+  {
+    id: 13,
+    name: "Telehealth Consultation",
+    type: "1:1 Consultation",
+    itemCode: "93",
+    duration: "30 minutes",
+    price: "112.30",
+    rate: "Hour",
+    color: "bg-green-500",
+  },
+  {
+    id: 14,
+    name: "Group Session",
+    type: "Group",
+    itemCode: "93",
+    duration: "60 minutes",
+    price: "65.00",
+    rate: "Hour",
+    color: "bg-orange-500",
+  },
+  {
+    id: 15,
+    name: "Home Visit",
+    type: "1:1 Consultation",
+    itemCode: "93",
+    duration: "60 minutes",
+    price: "280.00",
+    rate: "Hour",
+    color: "bg-green-500",
+  },
+  {
+    id: 16,
+    name: "NDIS Initial Assessment",
+    type: "1:1 Consultation",
+    itemCode: "93",
+    duration: "90 minutes",
+    price: "336.90",
+    rate: "Hour",
+    color: "bg-green-500",
+  },
+  {
+    id: 17,
+    name: "NDIS Standard Session",
+    type: "1:1 Consultation",
+    itemCode: "93",
+    duration: "60 minutes",
+    price: "224.60",
+    rate: "Hour",
+    color: "bg-green-500",
+  },
+  {
+    id: 18,
+    name: "Report Writing",
+    type: "1:1 Consultation",
+    itemCode: "93",
+    duration: "60 minutes",
+    price: "224.60",
+    rate: "Hour",
+    color: "bg-green-500",
+  },
+  {
+    id: 19,
+    name: "Case Conference",
+    type: "1:1 Consultation",
+    itemCode: "93",
+    duration: "30 minutes",
+    price: "112.30",
+    rate: "Hour",
+    color: "bg-green-500",
+  },
+  {
+    id: 20,
+    name: "Supervision Session",
+    type: "1:1 Consultation",
+    itemCode: "93",
+    duration: "60 minutes",
+    price: "150.00",
+    rate: "Hour",
+    color: "bg-green-500",
+  },
 ];
 
 const ITEMS_PER_PAGE = 10;
@@ -56,70 +241,113 @@ const dropdownItems = [
 
 export default function SettingsServicesPage() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const totalPages = Math.ceil(services.length / ITEMS_PER_PAGE);
+  const filteredServices = searchQuery
+    ? services.filter(
+        (s) =>
+          s.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          s.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          s.itemCode.toLowerCase().includes(searchQuery.toLowerCase()),
+      )
+    : services;
+
+  const totalPages = Math.ceil(filteredServices.length / ITEMS_PER_PAGE);
   const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
-  const pageServices = services.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+  const pageServices = filteredServices.slice(startIdx, startIdx + ITEMS_PER_PAGE);
 
   return (
     <div className="flex-1 overflow-y-auto p-6">
-        {/* Header */}
-        <div className="mb-4 flex items-center justify-between">
-          <h1 className="text-display-lg text-text">Services</h1>
-          <Button variant="primary">+ Add service</Button>
+      {/* Header */}
+      <div className="mb-4 flex items-center justify-between">
+        <h1 className="text-display-lg text-text">Services</h1>
+        <div className="flex items-center gap-2">
+          <Button variant="secondary">
+            <BookOpen className="mr-1.5 h-4 w-4" />
+            Learn
+          </Button>
+          <Button variant="secondary">Show archived</Button>
+          <Button variant="primary">+ New service</Button>
         </div>
+      </div>
 
-        {/* Table */}
-        <DataTable>
-          <TableHead>
-            <Th>Name</Th>
-            <Th>Item code</Th>
-            <Th>Duration</Th>
-            <Th align="right">Price</Th>
-            <Th align="right">Actions</Th>
-          </TableHead>
-          <TableBody>
-            {pageServices.map((service) => (
-              <tr key={service.id} className="hover:bg-gray-50">
-                <Td>
+      {/* Search */}
+      <SearchBar
+        placeholder="Search for service name, type, and item code"
+        onSearch={(q) => {
+          setSearchQuery(q);
+          setCurrentPage(1);
+        }}
+      />
+
+      {/* Table */}
+      <DataTable>
+        <TableHead>
+          <Th>
+            <span className="inline-flex items-center gap-1">
+              Name
+              <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
+            </span>
+          </Th>
+          <Th>
+            <span className="inline-flex items-center gap-1">
+              Type
+              <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
+            </span>
+          </Th>
+          <Th>Item code</Th>
+          <Th>Duration</Th>
+          <Th align="right">Price</Th>
+          <Th align="right">Actions</Th>
+        </TableHead>
+        <TableBody>
+          {pageServices.map((service) => (
+            <tr key={service.id} className="hover:bg-gray-50">
+              <Td>
+                <span className="flex items-center gap-2">
+                  <span className={`inline-block h-2.5 w-2.5 shrink-0 rounded-full ${service.color}`} />
                   <span className="font-medium text-text">{service.name}</span>
-                </Td>
-                <Td>{service.itemCode}</Td>
-                <Td>{service.duration}</Td>
-                <Td align="right">{service.price}</Td>
-                <Td align="right">
-                  <Dropdown
-                    align="right"
-                    trigger={
-                      <button className="inline-flex h-8 w-8 items-center justify-center rounded hover:bg-gray-100">
-                        <svg
-                          className="h-4 w-4 text-text-secondary"
-                          fill="currentColor"
-                          viewBox="0 0 16 16"
-                        >
-                          <circle cx="8" cy="3" r="1.5" />
-                          <circle cx="8" cy="8" r="1.5" />
-                          <circle cx="8" cy="13" r="1.5" />
-                        </svg>
-                      </button>
-                    }
-                    items={dropdownItems}
-                    onSelect={() => {}}
-                  />
-                </Td>
-              </tr>
-            ))}
-          </TableBody>
-        </DataTable>
+                </span>
+              </Td>
+              <Td>{service.type}</Td>
+              <Td>{service.itemCode}</Td>
+              <Td>{service.duration}</Td>
+              <Td align="right">
+                {service.price} / {service.rate}
+              </Td>
+              <Td align="right">
+                <Dropdown
+                  align="right"
+                  trigger={
+                    <button className="inline-flex h-8 w-8 items-center justify-center rounded hover:bg-gray-100">
+                      <svg
+                        className="h-4 w-4 text-text-secondary"
+                        fill="currentColor"
+                        viewBox="0 0 16 16"
+                      >
+                        <circle cx="8" cy="3" r="1.5" />
+                        <circle cx="8" cy="8" r="1.5" />
+                        <circle cx="8" cy="13" r="1.5" />
+                      </svg>
+                    </button>
+                  }
+                  items={dropdownItems}
+                  onSelect={() => {}}
+                />
+              </Td>
+            </tr>
+          ))}
+        </TableBody>
+      </DataTable>
 
-        {/* Pagination */}
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          totalItems={services.length}
-          itemsPerPage={ITEMS_PER_PAGE}
-          onPageChange={setCurrentPage}
-        />
+      {/* Pagination */}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        totalItems={filteredServices.length}
+        itemsPerPage={ITEMS_PER_PAGE}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 }

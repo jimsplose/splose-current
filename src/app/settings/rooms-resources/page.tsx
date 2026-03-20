@@ -1,6 +1,18 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { ArrowUpDown, Filter as FilterIcon } from "lucide-react";
+import {
+  Button,
+  PageHeader,
+  SearchBar,
+  DataTable,
+  TableHead,
+  Th,
+  TableBody,
+  Td,
+  Pagination,
+} from "@/components/ds";
 
 // Color palette for room color picker
 const COLOR_SWATCHES = [
@@ -14,15 +26,20 @@ interface Room {
   id: number;
   name: string;
   color: string;
+  group: string;
+  capacity: number;
+  location: string;
 }
 
 const initialRooms: Room[] = [
-  { id: 1, name: "Room 1", color: "#3b82f6" },
-  { id: 2, name: "Room 2", color: "#22c55e" },
-  { id: 3, name: "Room 3", color: "#f59e0b" },
-  { id: 4, name: "Room 4", color: "#ef4444" },
-  { id: 5, name: "Gym", color: "#8b5cf6" },
-  { id: 6, name: "Pool", color: "#06b6d4" },
+  { id: 1, name: "Red Room", color: "#ef4444", group: "Red", capacity: 1, location: "Sharon's" },
+  { id: 2, name: "Purple Room", color: "#8b5cf6", group: "Purple", capacity: 1, location: "Sharon's" },
+  { id: 3, name: "Room 1", color: "#22c55e", group: "1", capacity: 1000, location: "East Clinics" },
+  { id: 4, name: "Brainstorming room", color: "#6b7280", group: "6", capacity: 6, location: "East Clinics" },
+  { id: 5, name: "Group Therapy Room", color: "#f59e0b", group: "Group Therapy", capacity: 5, location: "East Clinics" },
+  { id: 6, name: "Test room", color: "#06b6d4", group: "Rooms", capacity: 0, location: "East Clinics" },
+  { id: 7, name: "Car", color: "#ef4444", group: "Car", capacity: 1, location: "East Clinics" },
+  { id: 8, name: "Purple", color: "#3b82f6", group: "Green room", capacity: 5, location: "Northside" },
 ];
 
 function ActionsDropdown({ onSelect }: { onSelect: (action: string) => void }) {
@@ -145,7 +162,7 @@ function RoomModal({
         </div>
 
         {/* Body */}
-        <div className="px-6 py-4 space-y-4">
+        <div className="space-y-4 px-6 py-4">
           {/* Name field */}
           <div>
             <label
@@ -188,18 +205,12 @@ function RoomModal({
 
         {/* Footer */}
         <div className="flex items-center justify-end gap-2 border-t border-border px-6 py-4">
-          <button
-            onClick={onClose}
-            className="rounded-lg border border-border bg-white px-4 py-2 text-label-lg text-text hover:bg-gray-50"
-          >
+          <Button variant="secondary" onClick={onClose}>
             Cancel
-          </button>
-          <button
-            onClick={() => onSave(name, color)}
-            className="rounded-lg bg-primary px-4 py-2 text-label-lg text-white hover:bg-primary-dark"
-          >
+          </Button>
+          <Button variant="primary" onClick={() => onSave(name, color)}>
             Save
-          </button>
+          </Button>
         </div>
       </div>
     </div>
@@ -232,6 +243,9 @@ export default function SettingsRoomsResourcesPage() {
       id: Math.max(...rooms.map((r) => r.id)) + 1,
       name: `${room.name} (copy)`,
       color: room.color,
+      group: room.group,
+      capacity: room.capacity,
+      location: room.location,
     };
     setRooms([...rooms, newRoom]);
   };
@@ -252,6 +266,9 @@ export default function SettingsRoomsResourcesPage() {
         id: rooms.length > 0 ? Math.max(...rooms.map((r) => r.id)) + 1 : 1,
         name,
         color,
+        group: "",
+        capacity: 0,
+        location: "",
       };
       setRooms([...rooms, newRoom]);
     }
@@ -279,69 +296,78 @@ export default function SettingsRoomsResourcesPage() {
     <>
       <div className="flex-1 p-6">
         {/* Page header */}
-        <div className="mb-4 flex items-center justify-between">
-          <h1 className="text-display-lg text-text">Rooms/Resources</h1>
-          <button
-            onClick={handleAddRoom}
-            className="rounded-lg bg-primary px-4 py-2 text-label-lg text-white hover:bg-primary-dark"
-          >
-            + Add room/resource
-          </button>
-        </div>
+        <PageHeader title="Rooms/Resources">
+          <Button variant="secondary">Learn</Button>
+          <Button variant="secondary">Show archived</Button>
+          <Button variant="primary" onClick={handleAddRoom}>
+            + Room/resource
+          </Button>
+        </PageHeader>
+
+        {/* Search bar */}
+        <SearchBar placeholder="Search for rooms/resources" />
 
         {/* Table */}
-        <div className="overflow-hidden rounded-lg border border-border bg-white">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-border bg-purple-50">
-                <th className="px-4 py-3 text-left text-label-lg text-text">
-                  Name
-                </th>
-                <th className="px-4 py-3 text-right text-label-lg text-text">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
-              {rooms.map((room) => (
-                <tr key={room.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 text-body-md text-text">
-                    <div className="flex items-center gap-2.5">
-                      <span
-                        className="inline-block h-3 w-3 shrink-0 rounded-full"
-                        style={{ backgroundColor: room.color }}
-                      />
-                      {room.name}
-                    </div>
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <ActionsDropdown
-                      onSelect={(action) => handleAction(action, room)}
+        <DataTable>
+          <TableHead>
+            <Th>
+              <span className="inline-flex items-center gap-1">
+                Name
+                <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
+              </span>
+            </Th>
+            <Th>Group</Th>
+            <Th>Capacity/Available</Th>
+            <Th>
+              <span className="inline-flex items-center gap-1">
+                Location
+                <FilterIcon className="h-3.5 w-3.5 text-primary" />
+              </span>
+            </Th>
+            <Th align="right">Actions</Th>
+          </TableHead>
+          <TableBody>
+            {rooms.map((room) => (
+              <tr key={room.id} className="hover:bg-gray-50">
+                <Td>
+                  <div className="flex items-center gap-2.5">
+                    <span
+                      className="inline-block h-3 w-3 shrink-0 rounded-full"
+                      style={{ backgroundColor: room.color }}
                     />
-                  </td>
-                </tr>
-              ))}
-              {rooms.length === 0 && (
-                <tr>
-                  <td
-                    colSpan={2}
-                    className="px-4 py-8 text-center text-body-md text-text-secondary"
-                  >
-                    No rooms or resources added yet.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-          {/* Pagination */}
-          <div className="flex items-center justify-end border-t border-border px-4 py-3 text-body-md text-text-secondary">
-            <span>&lt;</span>
-            <button className="mx-2 flex h-7 w-7 items-center justify-center rounded border border-primary bg-white text-label-md text-primary">
-              1
-            </button>
-            <span>&gt;</span>
-          </div>
-        </div>
+                    {room.name}
+                  </div>
+                </Td>
+                <Td>{room.group}</Td>
+                <Td>{room.capacity}</Td>
+                <Td>{room.location}</Td>
+                <Td align="right">
+                  <ActionsDropdown
+                    onSelect={(action) => handleAction(action, room)}
+                  />
+                </Td>
+              </tr>
+            ))}
+            {rooms.length === 0 && (
+              <tr>
+                <td
+                  colSpan={5}
+                  className="px-4 py-8 text-center text-body-md text-text-secondary"
+                >
+                  No rooms or resources added yet.
+                </td>
+              </tr>
+            )}
+          </TableBody>
+        </DataTable>
+
+        {/* Pagination */}
+        <Pagination
+          currentPage={1}
+          totalPages={1}
+          totalItems={rooms.length}
+          itemsPerPage={10}
+        />
       </div>
 
       {/* Room Modal */}
