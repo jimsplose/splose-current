@@ -14,6 +14,7 @@ import {
   Pagination,
   Dropdown,
   DropdownTriggerButton,
+  Modal,
 } from "@/components/ds";
 
 interface PaymentMethod {
@@ -44,11 +45,44 @@ const dropdownItems = [
 ];
 
 export default function PaymentSettingsPage() {
+  const [methods, setMethods] = useState(paymentMethods);
   const [currentPage, setCurrentPage] = useState(1);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [formName, setFormName] = useState("");
+  const [formDescription, setFormDescription] = useState("");
 
-  const totalPages = Math.ceil(paymentMethods.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(methods.length / ITEMS_PER_PAGE);
   const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
-  const pageItems = paymentMethods.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+  const pageItems = methods.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+
+  function openCreate() {
+    setEditingId(null);
+    setFormName("");
+    setFormDescription("");
+    setModalOpen(true);
+  }
+
+  function openEdit(method: PaymentMethod) {
+    setEditingId(method.id);
+    setFormName(method.name);
+    setFormDescription(method.description);
+    setModalOpen(true);
+  }
+
+  function handleSave() {
+    if (editingId !== null) {
+      setMethods((prev) => prev.map((m) => (m.id === editingId ? { ...m, name: formName, description: formDescription } : m)));
+    } else {
+      const newId = Math.max(...methods.map((m) => m.id)) + 1;
+      setMethods((prev) => [...prev, { id: newId, name: formName, description: formDescription, status: "Active" }]);
+    }
+    setModalOpen(false);
+  }
+
+  function handleAction(value: string, method: PaymentMethod) {
+    if (value === "edit") openEdit(method);
+  }
 
   return (
     <div className="p-6">
@@ -115,7 +149,7 @@ export default function PaymentSettingsPage() {
                     align="right"
                     trigger={<DropdownTriggerButton />}
                     items={dropdownItems}
-                    onSelect={() => {}}
+                    onSelect={(value) => handleAction(value, method)}
                   />
                 </Td>
               </tr>
@@ -132,7 +166,7 @@ export default function PaymentSettingsPage() {
         />
 
         <div className="mt-4">
-          <Button variant="secondary">+ Add payment method</Button>
+          <Button variant="secondary" onClick={openCreate}>+ Add payment method</Button>
         </div>
       </section>
 
@@ -144,7 +178,7 @@ export default function PaymentSettingsPage() {
         <div className="max-w-md space-y-4">
           <FormSelect
             label="Payment method *"
-            options={paymentMethods.map((m) => ({
+            options={methods.map((m) => ({
               value: String(m.id),
               label: m.name,
             }))}
@@ -155,6 +189,23 @@ export default function PaymentSettingsPage() {
           </Button>
         </div>
       </section>
+
+      <Modal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title={editingId !== null ? "Edit payment method" : "New payment method"}
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="primary" onClick={handleSave}>Save</Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <FormInput label="Name" value={formName} onChange={(e) => setFormName(e.target.value)} />
+          <FormInput label="Description" value={formDescription} onChange={(e) => setFormDescription(e.target.value)} />
+        </div>
+      </Modal>
     </div>
   );
 }

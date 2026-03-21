@@ -13,6 +13,8 @@ import {
   Pagination,
   Dropdown,
   DropdownTriggerButton,
+  Modal,
+  FormInput,
 } from "@/components/ds";
 
 const tagTabs = ["Client tags", "Service tags", "Waitlist tags", "AI tags"] as const;
@@ -23,7 +25,7 @@ interface Tag {
   color: string;
 }
 
-const tagData: Record<TagTab, { tags: Tag[]; description?: string }> = {
+const initialTagData: Record<TagTab, { tags: Tag[]; description?: string }> = {
   "Client tags": {
     tags: [
       { name: "2025-11-22", color: "#EAB308" },
@@ -80,12 +82,51 @@ const dropdownItems = [
 
 export default function TagsPage() {
   const [activeTab, setActiveTab] = useState<TagTab>("Client tags");
+  const [tagData, setTagData] = useState(initialTagData);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [formName, setFormName] = useState("");
+  const [formColor, setFormColor] = useState("#EAB308");
+
   const currentData = tagData[activeTab];
+
+  function openCreate() {
+    setEditingIndex(null);
+    setFormName("");
+    setFormColor("#EAB308");
+    setModalOpen(true);
+  }
+
+  function openEdit(index: number) {
+    setEditingIndex(index);
+    setFormName(currentData.tags[index].name);
+    setFormColor(currentData.tags[index].color);
+    setModalOpen(true);
+  }
+
+  function handleSave() {
+    setTagData((prev) => {
+      const updated = { ...prev };
+      const tabData = { ...updated[activeTab], tags: [...updated[activeTab].tags] };
+      if (editingIndex !== null) {
+        tabData.tags[editingIndex] = { name: formName, color: formColor };
+      } else {
+        tabData.tags.push({ name: formName, color: formColor });
+      }
+      updated[activeTab] = tabData;
+      return updated;
+    });
+    setModalOpen(false);
+  }
+
+  function handleAction(value: string, index: number) {
+    if (value === "edit") openEdit(index);
+  }
 
   return (
     <div className="p-6">
       <PageHeader title="Tags">
-        <Button variant="primary">+ New tag</Button>
+        <Button variant="primary" onClick={openCreate}>+ New tag</Button>
       </PageHeader>
 
       <Tab
@@ -110,7 +151,7 @@ export default function TagsPage() {
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>
-          {currentData.tags.map((tag) => (
+          {currentData.tags.map((tag, i) => (
             <tr key={tag.name} className="hover:bg-gray-50">
               <Td className="text-text">{tag.name}</Td>
               <Td>
@@ -124,7 +165,7 @@ export default function TagsPage() {
                   align="right"
                   trigger={<DropdownTriggerButton />}
                   items={dropdownItems}
-                  onSelect={() => {}}
+                  onSelect={(value) => handleAction(value, i)}
                 />
               </Td>
             </tr>
@@ -139,6 +180,34 @@ export default function TagsPage() {
         itemsPerPage={10}
         showPageSize={false}
       />
+
+      <Modal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title={editingIndex !== null ? "Edit tag" : "New tag"}
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="primary" onClick={handleSave}>Save</Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <FormInput label="Name" value={formName} onChange={(e) => setFormName(e.target.value)} />
+          <div>
+            <label className="mb-1 block text-label-lg text-text-secondary">Colour</label>
+            <div className="flex items-center gap-3">
+              <input
+                type="color"
+                value={formColor}
+                onChange={(e) => setFormColor(e.target.value)}
+                className="h-10 w-10 cursor-pointer rounded border border-border"
+              />
+              <span className="text-sm text-text-secondary">{formColor}</span>
+            </div>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

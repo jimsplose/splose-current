@@ -1,8 +1,14 @@
 "use client";
 
-import { Button, Badge, Dropdown, DropdownTriggerButton } from "@/components/ds";
+import { useState } from "react";
+import { Button, Badge, Dropdown, DropdownTriggerButton, Modal, FormInput } from "@/components/ds";
 
-const cancellationReasons = [
+interface CancellationReason {
+  name: string;
+  code: string;
+}
+
+const initialReasons: CancellationReason[] = [
   { name: "Condition betteryyy", code: "" },
   { name: "Condition worse", code: "TEST" },
   { name: "Sick", code: "500" },
@@ -21,14 +27,50 @@ const dropdownItems = [
 ];
 
 export default function CancellationReasonsPage() {
+  const [reasons, setReasons] = useState(initialReasons);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [formName, setFormName] = useState("");
+  const [formCode, setFormCode] = useState("");
+
+  function openCreate() {
+    setEditingIndex(null);
+    setFormName("");
+    setFormCode("");
+    setModalOpen(true);
+  }
+
+  function openEdit(index: number) {
+    setEditingIndex(index);
+    setFormName(reasons[index].name);
+    setFormCode(reasons[index].code);
+    setModalOpen(true);
+  }
+
+  function handleSave() {
+    if (editingIndex !== null) {
+      setReasons((prev) => prev.map((r, i) => (i === editingIndex ? { name: formName, code: formCode } : r)));
+    } else {
+      setReasons((prev) => [...prev, { name: formName, code: formCode }]);
+    }
+    setModalOpen(false);
+  }
+
+  function handleAction(value: string, index: number) {
+    if (value === "edit") openEdit(index);
+  }
+
   return (
     <div className="p-8">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-display-lg text-text">Cancellation reasons</h1>
-        <Button variant="secondary">Show archived</Button>
+        <div className="flex items-center gap-2">
+          <Button variant="secondary">Show archived</Button>
+          <Button variant="primary" onClick={openCreate}>+ New reason</Button>
+        </div>
       </div>
       <div className="divide-y divide-border rounded-lg border border-border bg-white">
-        {cancellationReasons.map((r, i) => (
+        {reasons.map((r, i) => (
           <div key={i} className="flex items-center justify-between px-4 py-3">
             <div className="flex items-center gap-2">
               <span className="text-sm text-text">{r.name}</span>
@@ -38,11 +80,28 @@ export default function CancellationReasonsPage() {
               align="right"
               trigger={<DropdownTriggerButton />}
               items={dropdownItems}
-              onSelect={() => {}}
+              onSelect={(value) => handleAction(value, i)}
             />
           </div>
         ))}
       </div>
+
+      <Modal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title={editingIndex !== null ? "Edit cancellation reason" : "New cancellation reason"}
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="primary" onClick={handleSave}>Save</Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <FormInput label="Name" value={formName} onChange={(e) => setFormName(e.target.value)} />
+          <FormInput label="Code" value={formCode} onChange={(e) => setFormCode(e.target.value)} placeholder="Optional" />
+        </div>
+      </Modal>
     </div>
   );
 }

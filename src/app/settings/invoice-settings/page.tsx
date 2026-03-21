@@ -15,6 +15,7 @@ import {
   Toggle,
   Dropdown,
   DropdownTriggerButton,
+  Modal,
 } from "@/components/ds";
 
 const invoiceReminders = [
@@ -56,22 +57,50 @@ const templateDropdownItems = [
 
 export default function InvoiceSettingsPage() {
   const [enableOnlinePayments, setEnableOnlinePayments] = useState(false);
+  const [reminders, setReminders] = useState(invoiceReminders);
+  const [templates, setTemplates] = useState(invoiceTemplates);
   const [reminderPage, setReminderPage] = useState(1);
   const [templatePage, setTemplatePage] = useState(1);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalType, setModalType] = useState<"reminder" | "template">("reminder");
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [formName, setFormName] = useState("");
 
-  const reminderTotalPages = Math.ceil(invoiceReminders.length / REMINDERS_PER_PAGE);
+  const reminderTotalPages = Math.ceil(reminders.length / REMINDERS_PER_PAGE);
   const reminderStartIdx = (reminderPage - 1) * REMINDERS_PER_PAGE;
-  const pageReminders = invoiceReminders.slice(
-    reminderStartIdx,
-    reminderStartIdx + REMINDERS_PER_PAGE
-  );
+  const pageReminders = reminders.slice(reminderStartIdx, reminderStartIdx + REMINDERS_PER_PAGE);
 
-  const templateTotalPages = Math.ceil(invoiceTemplates.length / TEMPLATES_PER_PAGE);
+  const templateTotalPages = Math.ceil(templates.length / TEMPLATES_PER_PAGE);
   const templateStartIdx = (templatePage - 1) * TEMPLATES_PER_PAGE;
-  const pageTemplates = invoiceTemplates.slice(
-    templateStartIdx,
-    templateStartIdx + TEMPLATES_PER_PAGE
-  );
+  const pageTemplates = templates.slice(templateStartIdx, templateStartIdx + TEMPLATES_PER_PAGE);
+
+  function openModal(type: "reminder" | "template", id?: number) {
+    setModalType(type);
+    setEditingId(id ?? null);
+    const list = type === "reminder" ? reminders : templates;
+    const item = id !== undefined ? list.find((i) => i.id === id) : null;
+    setFormName(item?.name ?? "");
+    setModalOpen(true);
+  }
+
+  function handleSave() {
+    if (modalType === "reminder") {
+      if (editingId !== null) {
+        setReminders((prev) => prev.map((r) => (r.id === editingId ? { ...r, name: formName } : r)));
+      } else {
+        const newId = Math.max(0, ...reminders.map((r) => r.id)) + 1;
+        setReminders((prev) => [...prev, { id: newId, name: formName }]);
+      }
+    } else {
+      if (editingId !== null) {
+        setTemplates((prev) => prev.map((t) => (t.id === editingId ? { ...t, name: formName } : t)));
+      } else {
+        const newId = Math.max(0, ...templates.map((t) => t.id)) + 1;
+        setTemplates((prev) => [...prev, { id: newId, name: formName }]);
+      }
+    }
+    setModalOpen(false);
+  }
 
   return (
     <div className="p-6">
@@ -199,7 +228,7 @@ export default function InvoiceSettingsPage() {
                       align="right"
                       trigger={<DropdownTriggerButton />}
                       items={reminderDropdownItems}
-                      onSelect={() => {}}
+                      onSelect={(value) => { if (value === "edit") openModal("reminder", reminder.id); }}
                     />
                   </div>
                 </Td>
@@ -211,13 +240,13 @@ export default function InvoiceSettingsPage() {
         <Pagination
           currentPage={reminderPage}
           totalPages={reminderTotalPages}
-          totalItems={invoiceReminders.length}
+          totalItems={reminders.length}
           itemsPerPage={REMINDERS_PER_PAGE}
           onPageChange={setReminderPage}
         />
 
         <div className="mt-4">
-          <Button variant="secondary" className="w-full justify-center">
+          <Button variant="secondary" className="w-full justify-center" onClick={() => openModal("reminder")}>
             + New invoice reminder
           </Button>
         </div>
@@ -246,7 +275,7 @@ export default function InvoiceSettingsPage() {
                       align="right"
                       trigger={<DropdownTriggerButton />}
                       items={templateDropdownItems}
-                      onSelect={() => {}}
+                      onSelect={(value) => { if (value === "edit") openModal("template", template.id); }}
                     />
                   </div>
                 </Td>
@@ -258,17 +287,37 @@ export default function InvoiceSettingsPage() {
         <Pagination
           currentPage={templatePage}
           totalPages={templateTotalPages}
-          totalItems={invoiceTemplates.length}
+          totalItems={templates.length}
           itemsPerPage={TEMPLATES_PER_PAGE}
           onPageChange={setTemplatePage}
         />
 
         <div className="mt-4">
-          <Button variant="secondary" className="w-full justify-center">
+          <Button variant="secondary" className="w-full justify-center" onClick={() => openModal("template")}>
             + Add invoice template
           </Button>
         </div>
       </section>
+
+      <Modal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title={
+          editingId !== null
+            ? `Edit ${modalType === "reminder" ? "invoice reminder" : "invoice template"}`
+            : `New ${modalType === "reminder" ? "invoice reminder" : "invoice template"}`
+        }
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="primary" onClick={handleSave}>Save</Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <FormInput label="Name" value={formName} onChange={(e) => setFormName(e.target.value)} />
+        </div>
+      </Modal>
     </div>
   );
 }

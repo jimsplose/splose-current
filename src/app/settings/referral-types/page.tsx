@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Button,
   TableHead,
@@ -9,9 +10,17 @@ import {
   Pagination,
   Dropdown,
   DropdownTriggerButton,
+  Modal,
+  FormInput,
+  Toggle,
 } from "@/components/ds";
 
-const referralTypes = [
+interface ReferralType {
+  name: string;
+  defaultType: boolean;
+}
+
+const initialTypes: ReferralType[] = [
   { name: "Client", defaultType: true },
   { name: "Contact", defaultType: true },
   { name: "Other", defaultType: true },
@@ -27,11 +36,44 @@ const dropdownItems = [
 ];
 
 export default function ReferralTypesPage() {
+  const [types, setTypes] = useState(initialTypes);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [formName, setFormName] = useState("");
+  const [formDefault, setFormDefault] = useState(false);
+
+  function openCreate() {
+    setEditingIndex(null);
+    setFormName("");
+    setFormDefault(false);
+    setModalOpen(true);
+  }
+
+  function openEdit(index: number) {
+    setEditingIndex(index);
+    setFormName(types[index].name);
+    setFormDefault(types[index].defaultType);
+    setModalOpen(true);
+  }
+
+  function handleSave() {
+    if (editingIndex !== null) {
+      setTypes((prev) => prev.map((t, i) => (i === editingIndex ? { name: formName, defaultType: formDefault } : t)));
+    } else {
+      setTypes((prev) => [...prev, { name: formName, defaultType: formDefault }]);
+    }
+    setModalOpen(false);
+  }
+
+  function handleAction(value: string, index: number) {
+    if (value === "edit") openEdit(index);
+  }
+
   return (
     <div className="p-8">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-display-lg text-text">Referral types</h1>
-        <Button variant="secondary">+ Add referral type</Button>
+        <Button variant="secondary" onClick={openCreate}>+ Add referral type</Button>
       </div>
 
       <div className="overflow-x-auto rounded-lg border border-border bg-white">
@@ -42,15 +84,11 @@ export default function ReferralTypesPage() {
             <Th>Actions</Th>
           </TableHead>
           <TableBody>
-            {referralTypes.map((r) => (
-              <tr key={r.name} className="border-b border-border">
+            {types.map((r, i) => (
+              <tr key={i} className="border-b border-border">
                 <Td>{r.name}</Td>
                 <Td>
-                  <span
-                    className={
-                      r.defaultType ? "text-green-600" : "text-red-500"
-                    }
-                  >
+                  <span className={r.defaultType ? "text-green-600" : "text-red-500"}>
                     {r.defaultType ? "Yes" : "No"}
                   </span>
                 </Td>
@@ -62,7 +100,7 @@ export default function ReferralTypesPage() {
                       align="right"
                       trigger={<DropdownTriggerButton />}
                       items={dropdownItems}
-                      onSelect={() => {}}
+                      onSelect={(value) => handleAction(value, i)}
                     />
                   )}
                 </Td>
@@ -73,10 +111,27 @@ export default function ReferralTypesPage() {
         <Pagination
           currentPage={1}
           totalPages={1}
-          totalItems={referralTypes.length}
+          totalItems={types.length}
           itemsPerPage={10}
         />
       </div>
+
+      <Modal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title={editingIndex !== null ? "Edit referral type" : "New referral type"}
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="primary" onClick={handleSave}>Save</Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <FormInput label="Name" value={formName} onChange={(e) => setFormName(e.target.value)} />
+          <Toggle label="Default type" checked={formDefault} onChange={setFormDefault} />
+        </div>
+      </Modal>
     </div>
   );
 }
