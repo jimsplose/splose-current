@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import {
   Button,
   PageHeader,
@@ -15,12 +15,10 @@ import {
   FormInput,
   FormSelect,
   Toggle,
+  Dropdown,
+  DropdownTriggerButton,
 } from "@/components/ds";
 import {
-  MoreHorizontal,
-  Pencil,
-  Archive,
-  FileText,
   GripVertical,
   Plus,
   Trash2,
@@ -140,16 +138,21 @@ export default function CustomFieldsPage() {
   const [showReorderModal, setShowReorderModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingField, setEditingField] = useState<CustomField | null>(null);
-  const [openDropdownId, setOpenDropdownId] = useState<number | null>(null);
 
   const filteredFields = fields.filter((f) =>
     f.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
+  const customFieldDropdownItems = [
+    { label: "Edit", value: "edit" },
+    { label: "Change log", value: "change-log" },
+    { label: "", value: "divider-1", divider: true },
+    { label: "Archive", value: "archive", danger: true },
+  ];
+
   function handleEdit(field: CustomField) {
     setEditingField({ ...field, options: field.options ? [...field.options] : [] });
     setShowEditModal(true);
-    setOpenDropdownId(null);
   }
 
   function handleSaveEdit(updated: CustomField) {
@@ -202,14 +205,11 @@ export default function CustomFieldsPage() {
                 <span className="text-red-500 font-medium">{field.required ? "Yes" : "No"}</span>
               </Td>
               <Td align="right">
-                <ActionsDropdown
-                  field={field}
-                  isOpen={openDropdownId === field.id}
-                  onToggle={() =>
-                    setOpenDropdownId(openDropdownId === field.id ? null : field.id)
-                  }
-                  onClose={() => setOpenDropdownId(null)}
-                  onEdit={() => handleEdit(field)}
+                <Dropdown
+                  align="right"
+                  trigger={<DropdownTriggerButton />}
+                  items={customFieldDropdownItems}
+                  onSelect={(value) => { if (value === "edit") handleEdit(field); }}
                 />
               </Td>
             </tr>
@@ -243,68 +243,6 @@ export default function CustomFieldsPage() {
           }}
           onSave={handleSaveEdit}
         />
-      )}
-    </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Actions dropdown                                                   */
-/* ------------------------------------------------------------------ */
-function ActionsDropdown({
-  field,
-  isOpen,
-  onToggle,
-  onClose,
-  onEdit,
-}: {
-  field: CustomField;
-  isOpen: boolean;
-  onToggle: () => void;
-  onClose: () => void;
-  onEdit: () => void;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        onClose();
-      }
-    }
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isOpen, onClose]);
-
-  return (
-    <div ref={ref} className="relative inline-block">
-      <button
-        onClick={onToggle}
-        className="rounded p-1 text-text-secondary hover:bg-gray-100 hover:text-text"
-      >
-        <MoreHorizontal className="h-5 w-5" />
-      </button>
-
-      {isOpen && (
-        <div className="absolute right-0 top-full z-10 mt-1 w-40 rounded-lg border border-border bg-white py-1 shadow-lg">
-          <button
-            onClick={onEdit}
-            className="flex w-full items-center gap-2 px-4 py-2 text-left text-body-md text-text hover:bg-gray-50"
-          >
-            <Pencil className="h-4 w-4" />
-            Edit
-          </button>
-          <button className="flex w-full items-center gap-2 px-4 py-2 text-left text-body-md text-red-600 hover:bg-gray-50">
-            <Archive className="h-4 w-4" />
-            Archive
-          </button>
-          <button className="flex w-full items-center gap-2 px-4 py-2 text-left text-body-md text-text hover:bg-gray-50">
-            <FileText className="h-4 w-4" />
-            Change log
-          </button>
-        </div>
       )}
     </div>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button, PageHeader } from "@/components/ds";
+import { Button, PageHeader, Modal } from "@/components/ds";
 import { BookOpen } from "lucide-react";
 
 const creditOptions = [
@@ -81,35 +81,22 @@ export default function SMSSettingsPage() {
         </div>
       </div>
 
-      {/* Recharge confirmation modal */}
-      {showRechargeConfirm && (
-        <div
-          className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-12"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setShowRechargeConfirm(false);
-          }}
-        >
-          <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
-            <h2 className="mb-6 text-heading-lg text-text">
-              Recharge {selectedCredits} credits?
-            </h2>
-            <div className="flex items-center gap-3">
-              <Button
-                variant="secondary"
-                onClick={() => setShowRechargeConfirm(false)}
-              >
-                Cancel
-              </Button>
-              <Button
-                variant="primary"
-                onClick={() => setShowRechargeConfirm(false)}
-              >
-                Recharge
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
+      <Modal
+        open={showRechargeConfirm}
+        onClose={() => setShowRechargeConfirm(false)}
+        title={`Recharge ${selectedCredits} credits?`}
+        maxWidth="md"
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setShowRechargeConfirm(false)}>Cancel</Button>
+            <Button variant="primary" onClick={() => setShowRechargeConfirm(false)}>Recharge</Button>
+          </>
+        }
+      >
+        <p className="text-body-md text-text-secondary">
+          {creditOptions.find((o) => o.credits === selectedCredits)?.price} will be charged to your account.
+        </p>
+      </Modal>
     </div>
   );
 }
