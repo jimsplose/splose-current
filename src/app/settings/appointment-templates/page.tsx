@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Button,
   PageHeader,
@@ -12,9 +13,21 @@ import {
   Pagination,
   Dropdown,
   DropdownTriggerButton,
+  Modal,
+  FormInput,
+  FormSelect,
+  Toggle,
 } from "@/components/ds";
 
-const templates = [
+interface Template {
+  name: string;
+  type: string;
+  sms: boolean;
+  email: boolean;
+  lastModified: string;
+}
+
+const initialTemplates: Template[] = [
   {
     name: "Appointment confirmation (new client)",
     type: "Confirmation",
@@ -83,10 +96,52 @@ const dropdownItems = [
 ];
 
 export default function AppointmentTemplatesPage() {
+  const [templateList, setTemplateList] = useState(initialTemplates);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [formName, setFormName] = useState("");
+  const [formType, setFormType] = useState("Confirmation");
+  const [formSms, setFormSms] = useState(false);
+  const [formEmail, setFormEmail] = useState(false);
+
+  function openCreate() {
+    setEditingIndex(null);
+    setFormName("");
+    setFormType("Confirmation");
+    setFormSms(false);
+    setFormEmail(false);
+    setModalOpen(true);
+  }
+
+  function openEdit(index: number) {
+    const t = templateList[index];
+    setEditingIndex(index);
+    setFormName(t.name);
+    setFormType(t.type);
+    setFormSms(t.sms);
+    setFormEmail(t.email);
+    setModalOpen(true);
+  }
+
+  function handleSave() {
+    const now = new Date().toLocaleString("en-AU", { hour: "numeric", minute: "2-digit", hour12: true, day: "numeric", month: "short", year: "numeric" });
+    const entry: Template = { name: formName, type: formType, sms: formSms, email: formEmail, lastModified: now };
+    if (editingIndex !== null) {
+      setTemplateList((prev) => prev.map((t, i) => (i === editingIndex ? entry : t)));
+    } else {
+      setTemplateList((prev) => [...prev, entry]);
+    }
+    setModalOpen(false);
+  }
+
+  function handleAction(value: string, index: number) {
+    if (value === "edit") openEdit(index);
+  }
+
   return (
     <div className="p-6">
       <PageHeader title="Appointment templates">
-        <Button variant="primary">+ New template</Button>
+        <Button variant="primary" onClick={openCreate}>+ New template</Button>
       </PageHeader>
 
       <SearchBar placeholder="Search for template and type" />
@@ -101,8 +156,8 @@ export default function AppointmentTemplatesPage() {
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>
-          {templates.map((t) => (
-            <tr key={t.name} className="hover:bg-gray-50">
+          {templateList.map((t, i) => (
+            <tr key={t.name + i} className="hover:bg-gray-50">
               <Td className="text-text">{t.name}</Td>
               <Td>{t.type}</Td>
               <Td>
@@ -117,7 +172,7 @@ export default function AppointmentTemplatesPage() {
                   align="right"
                   trigger={<DropdownTriggerButton />}
                   items={dropdownItems}
-                  onSelect={() => {}}
+                  onSelect={(value) => handleAction(value, i)}
                 />
               </Td>
             </tr>
@@ -128,10 +183,38 @@ export default function AppointmentTemplatesPage() {
       <Pagination
         currentPage={1}
         totalPages={1}
-        totalItems={templates.length}
+        totalItems={templateList.length}
         itemsPerPage={10}
         showPageSize={false}
       />
+      <Modal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title={editingIndex !== null ? "Edit appointment template" : "New appointment template"}
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="primary" onClick={handleSave}>Save</Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <FormInput label="Name" value={formName} onChange={(e) => setFormName(e.target.value)} />
+          <FormSelect
+            label="Type"
+            value={formType}
+            onChange={(e) => setFormType(e.target.value)}
+            options={[
+              { value: "Confirmation", label: "Confirmation" },
+              { value: "Reschedule", label: "Reschedule" },
+              { value: "Cancellation", label: "Cancellation" },
+              { value: "Reminder", label: "Reminder" },
+            ]}
+          />
+          <Toggle label="SMS" checked={formSms} onChange={setFormSms} />
+          <Toggle label="Email" checked={formEmail} onChange={setFormEmail} />
+        </div>
+      </Modal>
     </div>
   );
 }

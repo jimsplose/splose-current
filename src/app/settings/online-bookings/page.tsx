@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Button,
   PageHeader,
@@ -10,6 +11,8 @@ import {
   Td,
   Dropdown,
   DropdownTriggerButton,
+  Modal,
+  FormInput,
 } from "@/components/ds";
 
 const bookings = [
@@ -69,11 +72,42 @@ const dropdownItems = [
 ];
 
 export default function OnlineBookingsPage() {
+  const [bookingList, setBookingList] = useState(bookings);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [formName, setFormName] = useState("");
+
+  function openCreate() {
+    setEditingIndex(null);
+    setFormName("");
+    setModalOpen(true);
+  }
+
+  function openEdit(index: number) {
+    setEditingIndex(index);
+    setFormName(bookingList[index].name);
+    setModalOpen(true);
+  }
+
+  function handleSave() {
+    const now = new Date().toLocaleString("en-AU", { hour: "numeric", minute: "2-digit", hour12: true, day: "numeric", month: "short", year: "numeric" });
+    if (editingIndex !== null) {
+      setBookingList((prev) => prev.map((b, i) => (i === editingIndex ? { ...b, name: formName, lastUpdated: now } : b)));
+    } else {
+      setBookingList((prev) => [...prev, { name: formName, createdAt: now, lastUpdated: now }]);
+    }
+    setModalOpen(false);
+  }
+
+  function handleAction(value: string, index: number) {
+    if (value === "edit") openEdit(index);
+  }
+
   return (
     <div className="p-6">
       <PageHeader title="Online booking settings">
         <Button variant="secondary">Show archived</Button>
-        <Button variant="primary">+ New booking page</Button>
+        <Button variant="primary" onClick={openCreate}>+ New booking page</Button>
       </PageHeader>
 
       <DataTable>
@@ -84,8 +118,8 @@ export default function OnlineBookingsPage() {
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>
-          {bookings.map((b) => (
-            <tr key={b.name} className="hover:bg-gray-50">
+          {bookingList.map((b, i) => (
+            <tr key={b.name + i} className="hover:bg-gray-50">
               <Td className="font-medium text-text">{b.name}</Td>
               <Td>{b.createdAt}</Td>
               <Td>{b.lastUpdated}</Td>
@@ -94,13 +128,29 @@ export default function OnlineBookingsPage() {
                   align="right"
                   trigger={<DropdownTriggerButton />}
                   items={dropdownItems}
-                  onSelect={() => {}}
+                  onSelect={(value) => handleAction(value, i)}
                 />
               </Td>
             </tr>
           ))}
         </TableBody>
       </DataTable>
+
+      <Modal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title={editingIndex !== null ? "Edit online booking" : "New online booking"}
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="primary" onClick={handleSave}>Save</Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <FormInput label="Name" value={formName} onChange={(e) => setFormName(e.target.value)} />
+        </div>
+      </Modal>
     </div>
   );
 }

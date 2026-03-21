@@ -14,6 +14,9 @@ import {
   EmptyState,
   Dropdown,
   DropdownTriggerButton,
+  Modal,
+  FormInput,
+  FormSelect,
 } from "@/components/ds";
 import { ChevronDown } from "lucide-react";
 
@@ -37,8 +40,42 @@ const dropdownItems = [
 ];
 
 export default function FormsPage() {
+  const [forms, setForms] = useState(formTemplates);
   const [search, setSearch] = useState("");
-  const filtered = formTemplates.filter((f) => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [formTitle, setFormTitle] = useState("");
+  const [formFormType, setFormFormType] = useState("Standard form");
+
+  function openCreate() {
+    setEditingIndex(null);
+    setFormTitle("");
+    setFormFormType("Standard form");
+    setModalOpen(true);
+  }
+
+  function openEdit(index: number) {
+    setEditingIndex(index);
+    setFormTitle(forms[index].title);
+    setFormFormType(forms[index].formType);
+    setModalOpen(true);
+  }
+
+  function handleSave() {
+    const now = new Date().toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" });
+    if (editingIndex !== null) {
+      setForms((prev) => prev.map((f, i) => (i === editingIndex ? { ...f, title: formTitle, formType: formFormType, updatedAt: now } : f)));
+    } else {
+      setForms((prev) => [...prev, { title: formTitle, formType: formFormType, published: false, createdAt: now, updatedAt: now }]);
+    }
+    setModalOpen(false);
+  }
+
+  function handleAction(value: string, index: number) {
+    if (value === "edit") openEdit(index);
+  }
+
+  const filtered = forms.filter((f) => {
     if (search && !f.title.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
   });
@@ -50,7 +87,7 @@ export default function FormsPage() {
           <span className="flex items-center gap-1">Learn <ChevronDown className="h-4 w-4" /></span>
         </Button>
         <Button variant="secondary">Show archived</Button>
-        <Button variant="primary">+ New template</Button>
+        <Button variant="primary" onClick={openCreate}>+ New template</Button>
       </PageHeader>
 
       <SearchBar
@@ -67,8 +104,8 @@ export default function FormsPage() {
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>
-          {filtered.map((form) => (
-            <tr key={form.title} className="hover:bg-gray-50">
+          {filtered.map((form, i) => (
+            <tr key={form.title + i} className="hover:bg-gray-50">
               <Td className="text-text">{form.title}</Td>
               <Td>
                 <span className="flex items-center gap-2">
@@ -83,7 +120,7 @@ export default function FormsPage() {
                   align="right"
                   trigger={<DropdownTriggerButton />}
                   items={dropdownItems}
-                  onSelect={() => {}}
+                  onSelect={(value) => handleAction(value, forms.indexOf(form))}
                 />
               </Td>
             </tr>
@@ -91,6 +128,31 @@ export default function FormsPage() {
         </TableBody>
       </DataTable>
       {filtered.length === 0 && <EmptyState message="No form templates found" className="py-8" />}
+
+      <Modal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title={editingIndex !== null ? "Edit form template" : "New form template"}
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="primary" onClick={handleSave}>Save</Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <FormInput label="Title" value={formTitle} onChange={(e) => setFormTitle(e.target.value)} />
+          <FormSelect
+            label="Form type"
+            value={formFormType}
+            onChange={(e) => setFormFormType(e.target.value)}
+            options={[
+              { value: "Standard form", label: "Standard form" },
+              { value: "Embeddable form", label: "Embeddable form" },
+            ]}
+          />
+        </div>
+      </Modal>
     </div>
   );
 }

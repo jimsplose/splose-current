@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Button,
   PageHeader,
@@ -12,6 +13,8 @@ import {
   Pagination,
   Dropdown,
   DropdownTriggerButton,
+  Modal,
+  FormInput,
 } from "@/components/ds";
 
 const templates = [
@@ -61,11 +64,42 @@ const dropdownItems = [
 ];
 
 export default function LetterTemplatesPage() {
+  const [templateList, setTemplateList] = useState(templates);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [formTitle, setFormTitle] = useState("");
+
+  function openCreate() {
+    setEditingIndex(null);
+    setFormTitle("");
+    setModalOpen(true);
+  }
+
+  function openEdit(index: number) {
+    setEditingIndex(index);
+    setFormTitle(templateList[index].title);
+    setModalOpen(true);
+  }
+
+  function handleSave() {
+    const now = new Date().toLocaleString("en-AU", { hour: "numeric", minute: "2-digit", hour12: true, day: "numeric", month: "short", year: "numeric" });
+    if (editingIndex !== null) {
+      setTemplateList((prev) => prev.map((t, i) => (i === editingIndex ? { ...t, title: formTitle, lastUpdated: now } : t)));
+    } else {
+      setTemplateList((prev) => [...prev, { title: formTitle, createdAt: now, lastUpdated: now }]);
+    }
+    setModalOpen(false);
+  }
+
+  function handleAction(value: string, index: number) {
+    if (value === "edit") openEdit(index);
+  }
+
   return (
     <div className="p-6">
       <PageHeader title="Letter templates">
         <Button variant="secondary">Show archived</Button>
-        <Button variant="primary">+ New template</Button>
+        <Button variant="primary" onClick={openCreate}>+ New template</Button>
       </PageHeader>
 
       <SearchBar placeholder="Search for title" />
@@ -78,8 +112,8 @@ export default function LetterTemplatesPage() {
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>
-          {templates.map((t) => (
-            <tr key={t.title} className="hover:bg-gray-50">
+          {templateList.map((t, i) => (
+            <tr key={t.title + i} className="hover:bg-gray-50">
               <Td className="text-text">{t.title}</Td>
               <Td>{t.createdAt}</Td>
               <Td>{t.lastUpdated}</Td>
@@ -88,7 +122,7 @@ export default function LetterTemplatesPage() {
                   align="right"
                   trigger={<DropdownTriggerButton />}
                   items={dropdownItems}
-                  onSelect={() => {}}
+                  onSelect={(value) => handleAction(value, i)}
                 />
               </Td>
             </tr>
@@ -99,10 +133,25 @@ export default function LetterTemplatesPage() {
       <Pagination
         currentPage={1}
         totalPages={1}
-        totalItems={templates.length}
+        totalItems={templateList.length}
         itemsPerPage={10}
         showPageSize={false}
       />
+      <Modal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title={editingIndex !== null ? "Edit letter template" : "New letter template"}
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="primary" onClick={handleSave}>Save</Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <FormInput label="Title" value={formTitle} onChange={(e) => setFormTitle(e.target.value)} />
+        </div>
+      </Modal>
     </div>
   );
 }

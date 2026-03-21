@@ -14,6 +14,9 @@ import {
   Badge,
   Dropdown,
   DropdownTriggerButton,
+  Modal,
+  FormInput,
+  Toggle,
 } from "@/components/ds";
 import { Sparkles, X } from "lucide-react";
 
@@ -54,13 +57,46 @@ const dropdownItems = [
 ];
 
 export default function ProgressNotesPage() {
+  const [templateList, setTemplateList] = useState(templates);
   const [showBanner, setShowBanner] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [formTitle, setFormTitle] = useState("");
+  const [formHasAi, setFormHasAi] = useState(false);
+
+  function openCreate() {
+    setEditingIndex(null);
+    setFormTitle("");
+    setFormHasAi(false);
+    setModalOpen(true);
+  }
+
+  function openEdit(index: number) {
+    setEditingIndex(index);
+    setFormTitle(templateList[index].title);
+    setFormHasAi(templateList[index].hasAi);
+    setModalOpen(true);
+  }
+
+  function handleSave() {
+    const now = new Date().toLocaleString("en-AU", { hour: "numeric", minute: "2-digit", hour12: true, day: "numeric", month: "short", year: "numeric" });
+    if (editingIndex !== null) {
+      setTemplateList((prev) => prev.map((t, i) => (i === editingIndex ? { title: formTitle, createdAt: t.createdAt, hasAi: formHasAi } : t)));
+    } else {
+      setTemplateList((prev) => [...prev, { title: formTitle, createdAt: now, hasAi: formHasAi }]);
+    }
+    setModalOpen(false);
+  }
+
+  function handleAction(value: string, index: number) {
+    if (value === "edit") openEdit(index);
+  }
 
   return (
     <div className="p-6">
       <PageHeader title="Progress note templates">
         <Button variant="secondary">Show archived</Button>
-        <Button variant="primary">+ New template</Button>
+        <Button variant="primary" onClick={openCreate}>+ New template</Button>
       </PageHeader>
 
       {showBanner && (
@@ -98,8 +134,8 @@ export default function ProgressNotesPage() {
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>
-          {templates.map((t) => (
-            <tr key={t.title} className="hover:bg-gray-50">
+          {templateList.map((t, i) => (
+            <tr key={t.title + i} className="hover:bg-gray-50">
               <Td>
                 <div className="flex items-center gap-2">
                   {t.hasAi && (
@@ -114,7 +150,7 @@ export default function ProgressNotesPage() {
                   align="right"
                   trigger={<DropdownTriggerButton />}
                   items={dropdownItems}
-                  onSelect={() => {}}
+                  onSelect={(value) => handleAction(value, i)}
                 />
               </Td>
             </tr>
@@ -125,10 +161,26 @@ export default function ProgressNotesPage() {
       <Pagination
         currentPage={1}
         totalPages={1}
-        totalItems={templates.length}
+        totalItems={templateList.length}
         itemsPerPage={10}
         showPageSize={false}
       />
+      <Modal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title={editingIndex !== null ? "Edit progress note template" : "New progress note template"}
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="primary" onClick={handleSave}>Save</Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <FormInput label="Title" value={formTitle} onChange={(e) => setFormTitle(e.target.value)} />
+          <Toggle label="AI-powered" checked={formHasAi} onChange={setFormHasAi} />
+        </div>
+      </Modal>
     </div>
   );
 }
