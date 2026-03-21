@@ -193,20 +193,20 @@ Patterns identified from the interactive states implementation audit. Full detai
 
 ### Group X — DS hooks & utilities (`src/lib/`, `src/components/ds/`)
 
-- [ ] **`useFormModal` hook** — Extract the repeated modal state pattern (modalOpen, editingIndex, form fields, openCreate/openEdit/handleSave) into a reusable hook. Used by 30+ settings pages. ~300 LOC savings. Create in `src/hooks/useFormModal.ts`, add usage example to `docs/agent-block.md`.
-- [ ] **Dropdown presets** — Extract the 3 repeated dropdown item arrays (STANDARD_SETTINGS, SIMPLE_CRUD, USER_ADMIN) into `src/lib/dropdown-presets.ts`. Replace inline arrays in 20+ pages. ~200 LOC savings.
-- [ ] **`formatTimestamp()` utility** — Extract `new Date().toLocaleString("en-AU", ...)` into `src/lib/format.ts`. Used in 5+ pages for edit/create timestamps.
+- [x] **`useFormModal` hook** — Created in `src/hooks/useFormModal.ts`. Migrated 15 settings pages. ~300 LOC saved. (2026-03-21)
+- [x] **Dropdown presets** — Created in `src/lib/dropdown-presets.ts` (STANDARD_SETTINGS, SIMPLE_CRUD, USER_ADMIN). Migrated 17 settings pages. ~200 LOC saved. (2026-03-21)
+- [x] **`formatTimestamp()` utility** — Created in `src/lib/format.ts`. Migrated 5 settings pages. (2026-03-21)
 
 ### Group Y — New DS components (`src/components/ds/`)
 
-- [ ] **`FormColorPicker` component** — Standardise the 2 inconsistent color picker implementations (native input in tags/busy-times vs swatch grid in rooms-resources). Props: `label`, `value`, `onChange`, `variant: "native" | "swatches"`, `swatches?`. Add Storybook story.
-- [ ] **`OnOffBadge` component** — Extract the repeated green/red boolean indicator pattern (On/Off, Yes/No, Active/Inactive). Used in appointment-templates (SMS/Email columns), communication-types, referral-types. Props: `value: boolean`, `onLabel?`, `offLabel?`. Add Storybook story.
-- [ ] **`ColorDot` component** — Extract `<span className="inline-block h-3 w-3 rounded-full" style={{ backgroundColor: color }} />` from rooms-resources, busy-times, services. Props: `color`, `size?: "sm" | "md" | "lg"`. Add Storybook story.
-- [ ] **`BADGE_TYPE_VARIANTS` utility** — Centralise type-to-badge-variant mapping from email-templates into a shared utility. Export `getBadgeVariant(type: string): BadgeVariant`.
+- [x] **`FormColorPicker` component** — Created with native and swatches variants. Migrated tags, busy-times, rooms-resources. Storybook story added. (2026-03-21)
+- [x] **`OnOffBadge` component** — Created with configurable labels. Migrated appointment-templates, communication-types, referral-types. Storybook story added. (2026-03-21)
+- [x] **`ColorDot` component** — Created with sm/md/lg sizes. Migrated rooms-resources, busy-times. Storybook story added. (2026-03-21)
+- [x] **`BADGE_TYPE_VARIANTS` utility** — Created in `src/lib/badge-variants.ts`. Migrated email-templates. (2026-03-21)
 
 ### Group Z — Page templates (`src/components/ds/`)
 
-- [ ] **`SettingsListPage` template** — Extract the identical layout used by ALL 30+ settings pages (PageHeader → SearchBar → DataTable → Dropdown → Pagination → Modal). Each page would go from ~150 lines to ~30 lines. ~3000 LOC savings. Depends on `useFormModal` and dropdown presets. Add Storybook story showing the template with example data.
+- [x] **`SettingsListPage` template** — Created in `src/components/ds/SettingsListPage.tsx` with generic type params, column definitions, search/pagination, dropdown actions, and useFormModal integration. Storybook story added. Pages can be migrated individually. (2026-03-21)
 
 ---
 
