@@ -103,11 +103,12 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
         </TableHead>
         <TableBody>
           {clients.map((client) => (
-            <tr key={client.id} className="cursor-pointer transition-colors hover:bg-gray-50">
+            <tr key={client.id} className="group relative cursor-pointer transition-colors hover:bg-purple-50/50">
               <Td>
-                <Link href={`/clients/${client.id}`} className="text-sm text-text hover:text-primary">
+                <Link href={`/clients/${client.id}`} className="absolute inset-0" aria-label={`View ${client.firstName} ${client.lastName}`} />
+                <span className="font-medium text-primary group-hover:underline">
                   {client.firstName} {client.lastName}
-                </Link>
+                </span>
               </Td>
               <Td hidden="sm" className="text-text-secondary">
                 {client.dateOfBirth}

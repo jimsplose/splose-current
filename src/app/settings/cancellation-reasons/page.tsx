@@ -1,7 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Badge, Dropdown, DropdownTriggerButton, Modal, FormInput } from "@/components/ds";
+import {
+  Button,
+  Badge,
+  DataTable,
+  TableHead,
+  Th,
+  TableBody,
+  Td,
+  Pagination,
+  Dropdown,
+  DropdownTriggerButton,
+  Modal,
+  FormInput,
+} from "@/components/ds";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
 
@@ -51,22 +64,37 @@ export default function CancellationReasonsPage() {
           <Button variant="primary" onClick={openCreate}>+ New reason</Button>
         </div>
       </div>
-      <div className="divide-y divide-border rounded-lg border border-border bg-white">
-        {reasons.map((r, i) => (
-          <div key={i} className="flex items-center justify-between px-4 py-3">
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-text">{r.name}</span>
-              {r.code && <Badge variant="gray">{r.code}</Badge>}
-            </div>
-            <Dropdown
-              align="right"
-              trigger={<DropdownTriggerButton />}
-              items={SIMPLE_CRUD}
-              onSelect={(value) => handleAction(value, i)}
-            />
-          </div>
-        ))}
-      </div>
+      <DataTable>
+        <TableHead>
+          <Th>Name</Th>
+          <Th>Code</Th>
+          <Th align="right">Actions</Th>
+        </TableHead>
+        <TableBody>
+          {reasons.map((r, i) => (
+            <tr key={i} className="hover:bg-gray-50">
+              <Td className="text-text">{r.name}</Td>
+              <Td>{r.code ? <Badge variant="gray">{r.code}</Badge> : ""}</Td>
+              <Td align="right">
+                <Dropdown
+                  align="right"
+                  trigger={<DropdownTriggerButton />}
+                  items={SIMPLE_CRUD}
+                  onSelect={(value) => handleAction(value, i)}
+                />
+              </Td>
+            </tr>
+          ))}
+        </TableBody>
+      </DataTable>
+
+      <Pagination
+        currentPage={1}
+        totalPages={1}
+        totalItems={reasons.length}
+        itemsPerPage={10}
+        showPageSize={false}
+      />
 
       <Modal
         open={modalOpen}
