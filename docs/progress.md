@@ -338,3 +338,37 @@ Many "partial" matches (5-20% mismatch) are due to reference screenshots includi
 ### Remaining open gaps
 - Calendar month view / appointment side panel — structurally complete, data-driven mismatch only
 - Process new screenshots — admin/intake task
+
+---
+
+## Session — 2026-03-21 (fidelity loops — DS opportunities)
+
+**Branch**: `claude/visual-audit-analysis-1WnWb`
+
+### Completed — Priority 10 DS opportunities (all 10 gaps closed)
+
+**New utilities created:**
+- `src/hooks/useFormModal.ts` — Reusable hook extracting the repeated modal state pattern (modalOpen, editingIndex, form fields, openCreate/openEdit/handleSave). Replaced 15+ per-page state blocks.
+- `src/lib/dropdown-presets.ts` — Three standard dropdown item arrays (STANDARD_SETTINGS, SIMPLE_CRUD, USER_ADMIN). Replaced 17+ per-page inline arrays.
+- `src/lib/format.ts` — `formatTimestamp()` utility for Australian locale date formatting. Replaced 5 inline `toLocaleString` calls.
+- `src/lib/badge-variants.ts` — Centralized type-to-badge-variant mapping with `getBadgeVariant()`.
+
+**New DS components created (with Storybook stories):**
+- `ColorDot` — Colored circle indicator, sm/md/lg sizes
+- `OnOffBadge` — Boolean On/Off, Yes/No display with configurable labels
+- `FormColorPicker` — Unified color picker with "native" and "swatches" variants
+- `SettingsListPage` — Generic template for simple CRUD settings pages (PageHeader + SearchBar + DataTable + Dropdown + Pagination + Modal)
+
+**Pages migrated (19 total):**
+- 17 settings pages migrated to useFormModal + dropdown presets: tags, busy-times, cancellation-reasons, tax-rates, appointment-templates, email-templates, user-groups, users, rooms-resources, progress-notes, letter-templates, online-bookings, forms, communication-types, referral-types, payment-settings, invoice-settings
+- 2 settings pages migrated to SettingsListPage template: communication-types, referral-types
+
+**Net code change:** 736 insertions, 779 deletions (net -43 lines while adding 4 new utility files, 3 new DS components, 4 Storybook stories)
+
+**Docs updated:**
+- `docs/agent-block.md` — Added new DS components and utilities to the agent block guidance
+- `docs/fidelity-gaps.md` — All 10 Priority 10 gaps marked complete
+
+### Remaining open gaps
+- Calendar month view / appointment side panel — structurally complete, data-driven mismatch only (11% / 9%)
+- Process new screenshots — all 255 screenshots already processed
