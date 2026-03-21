@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Button, FormInput, Badge, DataTable, TableHead, Th, TableBody, Td, Dropdown, DropdownTriggerButton } from "@/components/ds";
 
 const users = [
@@ -33,10 +34,10 @@ export default function UsersPage() {
       <DataTable>
         <TableHead><Th>Name</Th><Th>Email</Th><Th>Role name</Th><Th>Role type</Th><Th>Group</Th><Th>Status</Th><Th align="right">Actions</Th></TableHead>
         <TableBody>
-          {users.map((user) => (
+          {users.map((user, index) => (
             <tr key={user.email} className="hover:bg-gray-50">
               <Td className="font-medium text-text">
-                <div>{user.name}{user.isOwner && <span className="ml-2 inline-block rounded bg-green-500 px-1.5 py-0.5 text-caption-sm text-white">Account owner</span>}</div>
+                <div><Link href={`/settings/users/${index + 1}`} className="text-primary hover:underline">{user.name}</Link>{user.isOwner && <span className="ml-2 inline-block rounded bg-green-500 px-1.5 py-0.5 text-caption-sm text-white">Account owner</span>}</div>
               </Td>
               <Td className="text-text-secondary">{user.email}</Td>
               <Td className="text-text-secondary">{user.roleName}</Td>

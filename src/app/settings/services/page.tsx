@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Button,
   DataTable,
@@ -241,6 +242,7 @@ const dropdownItems = [
 ];
 
 export default function SettingsServicesPage() {
+  const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -321,7 +323,11 @@ export default function SettingsServicesPage() {
                   align="right"
                   trigger={<DropdownTriggerButton />}
                   items={dropdownItems}
-                  onSelect={() => {}}
+                  onSelect={(value) => {
+                    if (value === "edit") {
+                      router.push(`/settings/services/edit/${service.id}`);
+                    }
+                  }}
                 />
               </Td>
             </tr>
