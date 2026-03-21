@@ -24,6 +24,8 @@ export { default as Status } from "./Status";
 export { default as AsyncSelect } from "./AsyncSelect";
 export { default as Text } from "./Text";
 export type { TextVariant } from "./Text";
+export { default as SettingsListPage } from "./SettingsListPage";
+export type { ColumnDef, SettingsListPageProps } from "./SettingsListPage";
 export { default as ColorDot } from "./ColorDot";
 export { default as OnOffBadge } from "./OnOffBadge";
 export { default as FormColorPicker } from "./FormColorPicker";
