@@ -15,7 +15,10 @@ import {
   DropdownTriggerButton,
   Modal,
   FormInput,
+  FormColorPicker,
 } from "@/components/ds";
+import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
+import { useFormModal } from "@/hooks/useFormModal";
 
 const tagTabs = ["Client tags", "Service tags", "Waitlist tags", "AI tags"] as const;
 type TagTab = (typeof tagTabs)[number];
@@ -72,55 +75,32 @@ const initialTagData: Record<TagTab, { tags: Tag[]; description?: string }> = {
   },
 };
 
-const dropdownItems = [
-  { label: "Edit", value: "edit" },
-  { label: "Duplicate", value: "duplicate" },
-  { label: "Change log", value: "change-log" },
-  { label: "", value: "divider-1", divider: true },
-  { label: "Archive", value: "archive", danger: true },
-];
-
 export default function TagsPage() {
   const [activeTab, setActiveTab] = useState<TagTab>("Client tags");
   const [tagData, setTagData] = useState(initialTagData);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [formName, setFormName] = useState("");
-  const [formColor, setFormColor] = useState("#EAB308");
 
   const currentData = tagData[activeTab];
 
-  function openCreate() {
-    setEditingIndex(null);
-    setFormName("");
-    setFormColor("#EAB308");
-    setModalOpen(true);
-  }
-
-  function openEdit(index: number) {
-    setEditingIndex(index);
-    setFormName(currentData.tags[index].name);
-    setFormColor(currentData.tags[index].color);
-    setModalOpen(true);
-  }
-
-  function handleSave() {
-    setTagData((prev) => {
-      const updated = { ...prev };
-      const tabData = { ...updated[activeTab], tags: [...updated[activeTab].tags] };
-      if (editingIndex !== null) {
-        tabData.tags[editingIndex] = { name: formName, color: formColor };
-      } else {
-        tabData.tags.push({ name: formName, color: formColor });
-      }
-      updated[activeTab] = tabData;
-      return updated;
+  const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } =
+    useFormModal<{ name: string; color: string }>({
+      defaults: { name: "", color: "#EAB308" },
+      onSave: (values, index) => {
+        setTagData((prev) => {
+          const updated = { ...prev };
+          const tabData = { ...updated[activeTab], tags: [...updated[activeTab].tags] };
+          if (index !== null) {
+            tabData.tags[index] = { name: values.name, color: values.color };
+          } else {
+            tabData.tags.push({ name: values.name, color: values.color });
+          }
+          updated[activeTab] = tabData;
+          return updated;
+        });
+      },
     });
-    setModalOpen(false);
-  }
 
   function handleAction(value: string, index: number) {
-    if (value === "edit") openEdit(index);
+    if (value === "edit") openEdit(index, currentData.tags[index]);
   }
 
   return (
@@ -164,7 +144,7 @@ export default function TagsPage() {
                 <Dropdown
                   align="right"
                   trigger={<DropdownTriggerButton />}
-                  items={dropdownItems}
+                  items={STANDARD_SETTINGS}
                   onSelect={(value) => handleAction(value, i)}
                 />
               </Td>
@@ -183,29 +163,18 @@ export default function TagsPage() {
 
       <Modal
         open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title={editingIndex !== null ? "Edit tag" : "New tag"}
+        onClose={closeModal}
+        title={isEditing ? "Edit tag" : "New tag"}
         footer={
           <>
-            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
             <Button variant="primary" onClick={handleSave}>Save</Button>
           </>
         }
       >
         <div className="space-y-4">
-          <FormInput label="Name" value={formName} onChange={(e) => setFormName(e.target.value)} />
-          <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Colour</label>
-            <div className="flex items-center gap-3">
-              <input
-                type="color"
-                value={formColor}
-                onChange={(e) => setFormColor(e.target.value)}
-                className="h-10 w-10 cursor-pointer rounded border border-border"
-              />
-              <span className="text-sm text-text-secondary">{formColor}</span>
-            </div>
-          </div>
+          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
+          <FormColorPicker value={form.color} onChange={(c) => setField("color", c)} />
         </div>
       </Modal>
     </div>

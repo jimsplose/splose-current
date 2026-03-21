@@ -14,6 +14,9 @@ import {
   Modal,
   FormInput,
 } from "@/components/ds";
+import { useFormModal } from "@/hooks/useFormModal";
+import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
+import { formatTimestamp } from "@/lib/format";
 
 const bookings = [
   {
@@ -63,44 +66,26 @@ const bookings = [
   },
 ];
 
-const dropdownItems = [
-  { label: "Edit", value: "edit" },
-  { label: "Duplicate", value: "duplicate" },
-  { label: "Change log", value: "change-log" },
-  { label: "", value: "divider-1", divider: true },
-  { label: "Archive", value: "archive", danger: true },
-];
-
 export default function OnlineBookingsPage() {
   const [bookingList, setBookingList] = useState(bookings);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [formName, setFormName] = useState("");
 
-  function openCreate() {
-    setEditingIndex(null);
-    setFormName("");
-    setModalOpen(true);
-  }
-
-  function openEdit(index: number) {
-    setEditingIndex(index);
-    setFormName(bookingList[index].name);
-    setModalOpen(true);
-  }
-
-  function handleSave() {
-    const now = new Date().toLocaleString("en-AU", { hour: "numeric", minute: "2-digit", hour12: true, day: "numeric", month: "short", year: "numeric" });
-    if (editingIndex !== null) {
-      setBookingList((prev) => prev.map((b, i) => (i === editingIndex ? { ...b, name: formName, lastUpdated: now } : b)));
-    } else {
-      setBookingList((prev) => [...prev, { name: formName, createdAt: now, lastUpdated: now }]);
-    }
-    setModalOpen(false);
-  }
+  const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } =
+    useFormModal<{ name: string }>({
+      defaults: { name: "" },
+      onSave: (values, index) => {
+        const now = formatTimestamp();
+        if (index !== null) {
+          setBookingList((prev) =>
+            prev.map((b, i) => (i === index ? { ...b, name: values.name, lastUpdated: now } : b)),
+          );
+        } else {
+          setBookingList((prev) => [...prev, { name: values.name, createdAt: now, lastUpdated: now }]);
+        }
+      },
+    });
 
   function handleAction(value: string, index: number) {
-    if (value === "edit") openEdit(index);
+    if (value === "edit") openEdit(index, { name: bookingList[index].name });
   }
 
   return (
@@ -127,7 +112,7 @@ export default function OnlineBookingsPage() {
                 <Dropdown
                   align="right"
                   trigger={<DropdownTriggerButton />}
-                  items={dropdownItems}
+                  items={STANDARD_SETTINGS}
                   onSelect={(value) => handleAction(value, i)}
                 />
               </Td>
@@ -138,17 +123,17 @@ export default function OnlineBookingsPage() {
 
       <Modal
         open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title={editingIndex !== null ? "Edit online booking" : "New online booking"}
+        onClose={closeModal}
+        title={isEditing ? "Edit online booking" : "New online booking"}
         footer={
           <>
-            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
             <Button variant="primary" onClick={handleSave}>Save</Button>
           </>
         }
       >
         <div className="space-y-4">
-          <FormInput label="Name" value={formName} onChange={(e) => setFormName(e.target.value)} />
+          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
         </div>
       </Modal>
     </div>

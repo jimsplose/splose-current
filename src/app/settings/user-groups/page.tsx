@@ -16,6 +16,8 @@ import {
   Modal,
   FormInput,
 } from "@/components/ds";
+import { useFormModal } from "@/hooks/useFormModal";
+import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { BookOpen, ArrowUpDown } from "lucide-react";
 
 interface UserGroup {
@@ -29,47 +31,31 @@ const initialGroups: UserGroup[] = [
   { name: "Physio", users: 7 },
 ];
 
-const dropdownItems = [
-  { label: "Edit", value: "edit" },
-  { label: "Duplicate", value: "duplicate" },
-  { label: "Change log", value: "change-log" },
-  { label: "", value: "divider-1", divider: true },
-  { label: "Archive", value: "archive", danger: true },
-];
-
 export default function UserGroupsPage() {
   const [groups, setGroups] = useState(initialGroups);
   const [search, setSearch] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [formName, setFormName] = useState("");
+
+  const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } = useFormModal<{
+    name: string;
+  }>({
+    defaults: { name: "" },
+    onSave: (values, editingIndex) => {
+      if (editingIndex !== null) {
+        setGroups((prev) => prev.map((g, i) => (i === editingIndex ? { ...g, name: values.name } : g)));
+      } else {
+        setGroups((prev) => [...prev, { name: values.name, users: 0 }]);
+      }
+    },
+  });
+
   const filtered = groups.filter(
     (g) => !search || g.name.toLowerCase().includes(search.toLowerCase()),
   );
 
-  function openCreate() {
-    setEditingIndex(null);
-    setFormName("");
-    setModalOpen(true);
-  }
-
-  function openEdit(index: number) {
-    setEditingIndex(index);
-    setFormName(groups[index].name);
-    setModalOpen(true);
-  }
-
-  function handleSave() {
-    if (editingIndex !== null) {
-      setGroups((prev) => prev.map((g, i) => (i === editingIndex ? { ...g, name: formName } : g)));
-    } else {
-      setGroups((prev) => [...prev, { name: formName, users: 0 }]);
-    }
-    setModalOpen(false);
-  }
-
   function handleAction(value: string, index: number) {
-    if (value === "edit") openEdit(index);
+    if (value === "edit") {
+      openEdit(index, { name: groups[index].name });
+    }
   }
 
   return (
@@ -107,7 +93,7 @@ export default function UserGroupsPage() {
                 <Dropdown
                   align="right"
                   trigger={<DropdownTriggerButton />}
-                  items={dropdownItems}
+                  items={STANDARD_SETTINGS}
                   onSelect={(value) => handleAction(value, groups.indexOf(group))}
                 />
               </Td>
@@ -124,17 +110,17 @@ export default function UserGroupsPage() {
       />
       <Modal
         open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title={editingIndex !== null ? "Edit user group" : "New user group"}
+        onClose={closeModal}
+        title={isEditing ? "Edit user group" : "New user group"}
         footer={
           <>
-            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
             <Button variant="primary" onClick={handleSave}>Save</Button>
           </>
         }
       >
         <div className="space-y-4">
-          <FormInput label="Name" value={formName} onChange={(e) => setFormName(e.target.value)} />
+          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
         </div>
       </Modal>
     </div>

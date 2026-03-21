@@ -16,6 +16,8 @@ import {
   DropdownTriggerButton,
   Modal,
 } from "@/components/ds";
+import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
+import { useFormModal } from "@/hooks/useFormModal";
 
 interface PaymentMethod {
   id: number;
@@ -39,49 +41,31 @@ const paymentMethods: PaymentMethod[] = [
 
 const ITEMS_PER_PAGE = 10;
 
-const dropdownItems = [
-  { label: "Edit", value: "edit" },
-  { label: "Delete", value: "delete", danger: true },
-];
-
 export default function PaymentSettingsPage() {
   const [methods, setMethods] = useState(paymentMethods);
   const [currentPage, setCurrentPage] = useState(1);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const [formName, setFormName] = useState("");
-  const [formDescription, setFormDescription] = useState("");
 
   const totalPages = Math.ceil(methods.length / ITEMS_PER_PAGE);
   const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
   const pageItems = methods.slice(startIdx, startIdx + ITEMS_PER_PAGE);
 
-  function openCreate() {
-    setEditingId(null);
-    setFormName("");
-    setFormDescription("");
-    setModalOpen(true);
-  }
+  const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } = useFormModal<{ name: string; description: string }>({
+    defaults: { name: "", description: "" },
+    onSave: (values, index) => {
+      if (index !== null) {
+        setMethods((prev) => prev.map((m, i) => (i === index ? { ...m, name: values.name, description: values.description } : m)));
+      } else {
+        const newId = Math.max(...methods.map((m) => m.id)) + 1;
+        setMethods((prev) => [...prev, { id: newId, name: values.name, description: values.description, status: "Active" }]);
+      }
+    },
+  });
 
-  function openEdit(method: PaymentMethod) {
-    setEditingId(method.id);
-    setFormName(method.name);
-    setFormDescription(method.description);
-    setModalOpen(true);
-  }
-
-  function handleSave() {
-    if (editingId !== null) {
-      setMethods((prev) => prev.map((m) => (m.id === editingId ? { ...m, name: formName, description: formDescription } : m)));
-    } else {
-      const newId = Math.max(...methods.map((m) => m.id)) + 1;
-      setMethods((prev) => [...prev, { id: newId, name: formName, description: formDescription, status: "Active" }]);
+  function handleAction(value: string, index: number) {
+    if (value === "edit") {
+      const method = methods[index];
+      openEdit(index, { name: method.name, description: method.description });
     }
-    setModalOpen(false);
-  }
-
-  function handleAction(value: string, method: PaymentMethod) {
-    if (value === "edit") openEdit(method);
   }
 
   return (
@@ -135,7 +119,7 @@ export default function PaymentSettingsPage() {
             <Th>Actions</Th>
           </TableHead>
           <TableBody>
-            {pageItems.map((method) => (
+            {pageItems.map((method, i) => (
               <tr key={method.id} className="hover:bg-gray-50">
                 <Td>
                   <span className="font-medium text-text">{method.name}</span>
@@ -148,8 +132,8 @@ export default function PaymentSettingsPage() {
                   <Dropdown
                     align="right"
                     trigger={<DropdownTriggerButton />}
-                    items={dropdownItems}
-                    onSelect={(value) => handleAction(value, method)}
+                    items={SIMPLE_CRUD}
+                    onSelect={(value) => handleAction(value, startIdx + i)}
                   />
                 </Td>
               </tr>
@@ -192,18 +176,18 @@ export default function PaymentSettingsPage() {
 
       <Modal
         open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title={editingId !== null ? "Edit payment method" : "New payment method"}
+        onClose={closeModal}
+        title={isEditing ? "Edit payment method" : "New payment method"}
         footer={
           <>
-            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
             <Button variant="primary" onClick={handleSave}>Save</Button>
           </>
         }
       >
         <div className="space-y-4">
-          <FormInput label="Name" value={formName} onChange={(e) => setFormName(e.target.value)} />
-          <FormInput label="Description" value={formDescription} onChange={(e) => setFormDescription(e.target.value)} />
+          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
+          <FormInput label="Description" value={form.description} onChange={(e) => setField("description", e.target.value)} />
         </div>
       </Modal>
     </div>

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Button, FormInput, Badge, DataTable, TableHead, Th, TableBody, Td, Dropdown, DropdownTriggerButton } from "@/components/ds";
+import { USER_ADMIN } from "@/lib/dropdown-presets";
 
 const users = [
   { name: "Nicholas Smithson", email: "nick@splose.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "OT", status: "Active", isOwner: true },
@@ -11,13 +12,6 @@ const users = [
   { name: "Cheng Ma", email: "cheng@splose.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "Intake team, +1 more", status: "Active", isOwner: true },
   { name: "Rakesh Soni", email: "rakesh@splose.com", roleName: "Practice manager", roleType: "Practice manager", group: "Physio", status: "Active", isOwner: true },
   { name: "Cheng Test", email: "machengjam@gmail.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "", status: "Active", isOwner: false },
-];
-
-const dropdownItems = [
-  { label: "Deactivate", value: "deactivate" },
-  { label: "Reset password", value: "reset-password" },
-  { label: "Log out everywhere", value: "log-out-everywhere" },
-  { label: "Change log", value: "change-log" },
 ];
 
 export default function UsersPage() {
@@ -48,7 +42,7 @@ export default function UsersPage() {
                 <Dropdown
                   align="right"
                   trigger={<DropdownTriggerButton />}
-                  items={dropdownItems}
+                  items={USER_ADMIN}
                   onSelect={() => {}}
                 />
               </Td>

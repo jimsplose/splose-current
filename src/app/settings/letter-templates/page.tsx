@@ -16,6 +16,9 @@ import {
   Modal,
   FormInput,
 } from "@/components/ds";
+import { useFormModal } from "@/hooks/useFormModal";
+import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
+import { formatTimestamp } from "@/lib/format";
 
 const templates = [
   {
@@ -55,44 +58,26 @@ const templates = [
   },
 ];
 
-const dropdownItems = [
-  { label: "Edit", value: "edit" },
-  { label: "Duplicate", value: "duplicate" },
-  { label: "Change log", value: "change-log" },
-  { label: "", value: "divider-1", divider: true },
-  { label: "Archive", value: "archive", danger: true },
-];
-
 export default function LetterTemplatesPage() {
   const [templateList, setTemplateList] = useState(templates);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [formTitle, setFormTitle] = useState("");
 
-  function openCreate() {
-    setEditingIndex(null);
-    setFormTitle("");
-    setModalOpen(true);
-  }
-
-  function openEdit(index: number) {
-    setEditingIndex(index);
-    setFormTitle(templateList[index].title);
-    setModalOpen(true);
-  }
-
-  function handleSave() {
-    const now = new Date().toLocaleString("en-AU", { hour: "numeric", minute: "2-digit", hour12: true, day: "numeric", month: "short", year: "numeric" });
-    if (editingIndex !== null) {
-      setTemplateList((prev) => prev.map((t, i) => (i === editingIndex ? { ...t, title: formTitle, lastUpdated: now } : t)));
-    } else {
-      setTemplateList((prev) => [...prev, { title: formTitle, createdAt: now, lastUpdated: now }]);
-    }
-    setModalOpen(false);
-  }
+  const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } =
+    useFormModal<{ title: string }>({
+      defaults: { title: "" },
+      onSave: (values, index) => {
+        const now = formatTimestamp();
+        if (index !== null) {
+          setTemplateList((prev) =>
+            prev.map((t, i) => (i === index ? { ...t, title: values.title, lastUpdated: now } : t)),
+          );
+        } else {
+          setTemplateList((prev) => [...prev, { title: values.title, createdAt: now, lastUpdated: now }]);
+        }
+      },
+    });
 
   function handleAction(value: string, index: number) {
-    if (value === "edit") openEdit(index);
+    if (value === "edit") openEdit(index, { title: templateList[index].title });
   }
 
   return (
@@ -121,7 +106,7 @@ export default function LetterTemplatesPage() {
                 <Dropdown
                   align="right"
                   trigger={<DropdownTriggerButton />}
-                  items={dropdownItems}
+                  items={STANDARD_SETTINGS}
                   onSelect={(value) => handleAction(value, i)}
                 />
               </Td>
@@ -139,17 +124,17 @@ export default function LetterTemplatesPage() {
       />
       <Modal
         open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title={editingIndex !== null ? "Edit letter template" : "New letter template"}
+        onClose={closeModal}
+        title={isEditing ? "Edit letter template" : "New letter template"}
         footer={
           <>
-            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
             <Button variant="primary" onClick={handleSave}>Save</Button>
           </>
         }
       >
         <div className="space-y-4">
-          <FormInput label="Title" value={formTitle} onChange={(e) => setFormTitle(e.target.value)} />
+          <FormInput label="Title" value={form.title} onChange={(e) => setField("title", e.target.value)} />
         </div>
       </Modal>
     </div>

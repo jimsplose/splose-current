@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Button, DataTable, TableHead, Th, TableBody, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, Toggle } from "@/components/ds";
+import { Button, DataTable, TableHead, Th, TableBody, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, Toggle, OnOffBadge } from "@/components/ds";
+import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
+import { useFormModal } from "@/hooks/useFormModal";
 
 interface CommType {
   name: string;
@@ -17,43 +19,22 @@ const initialTypes: CommType[] = [
   { name: "Admin Notes", defaultType: false },
 ];
 
-const dropdownItems = [
-  { label: "Edit", value: "edit" },
-  { label: "Delete", value: "delete", danger: true },
-];
-
 export default function CommunicationTypesPage() {
   const [types, setTypes] = useState(initialTypes);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [formName, setFormName] = useState("");
-  const [formDefault, setFormDefault] = useState(false);
 
-  function openCreate() {
-    setEditingIndex(null);
-    setFormName("");
-    setFormDefault(false);
-    setModalOpen(true);
-  }
-
-  function openEdit(index: number) {
-    setEditingIndex(index);
-    setFormName(types[index].name);
-    setFormDefault(types[index].defaultType);
-    setModalOpen(true);
-  }
-
-  function handleSave() {
-    if (editingIndex !== null) {
-      setTypes((prev) => prev.map((t, i) => (i === editingIndex ? { name: formName, defaultType: formDefault } : t)));
-    } else {
-      setTypes((prev) => [...prev, { name: formName, defaultType: formDefault }]);
-    }
-    setModalOpen(false);
-  }
+  const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } = useFormModal<{ name: string; defaultType: boolean }>({
+    defaults: { name: "", defaultType: false },
+    onSave: (values, index) => {
+      if (index !== null) {
+        setTypes((prev) => prev.map((t, i) => (i === index ? { name: values.name, defaultType: values.defaultType } : t)));
+      } else {
+        setTypes((prev) => [...prev, { name: values.name, defaultType: values.defaultType }]);
+      }
+    },
+  });
 
   function handleAction(value: string, index: number) {
-    if (value === "edit") openEdit(index);
+    if (value === "edit") openEdit(index, types[index]);
   }
 
   return (
@@ -68,12 +49,12 @@ export default function CommunicationTypesPage() {
           {types.map((c, i) => (
             <tr key={i} className="border-b border-border">
               <Td>{c.name}</Td>
-              <Td><span className={c.defaultType ? "text-green-600" : "text-red-500"}>{c.defaultType ? "Yes" : "No"}</span></Td>
+              <Td><OnOffBadge value={c.defaultType} onLabel="Yes" offLabel="No" /></Td>
               <Td>{!c.defaultType ? (
                 <Dropdown
                   align="right"
                   trigger={<DropdownTriggerButton />}
-                  items={dropdownItems}
+                  items={SIMPLE_CRUD}
                   onSelect={(value) => handleAction(value, i)}
                 />
               ) : <span className="text-text-secondary">-</span>}</Td>
@@ -85,18 +66,18 @@ export default function CommunicationTypesPage() {
 
       <Modal
         open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title={editingIndex !== null ? "Edit communication type" : "New communication type"}
+        onClose={closeModal}
+        title={isEditing ? "Edit communication type" : "New communication type"}
         footer={
           <>
-            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
             <Button variant="primary" onClick={handleSave}>Save</Button>
           </>
         }
       >
         <div className="space-y-4">
-          <FormInput label="Name" value={formName} onChange={(e) => setFormName(e.target.value)} />
-          <Toggle label="Default type" checked={formDefault} onChange={setFormDefault} />
+          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
+          <Toggle label="Default type" checked={form.defaultType} onChange={(v) => setField("defaultType", v)} />
         </div>
       </Modal>
     </div>

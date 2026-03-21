@@ -18,6 +18,9 @@ import {
   FormInput,
   FormSelect,
 } from "@/components/ds";
+import { useFormModal } from "@/hooks/useFormModal";
+import { formatTimestamp } from "@/lib/format";
+import { getBadgeVariant } from "@/lib/badge-variants";
 
 type TemplateType =
   | "Invoice"
@@ -26,18 +29,6 @@ type TemplateType =
   | "Form"
   | "Letter"
   | "General";
-
-const typeBadgeVariant: Record<
-  TemplateType,
-  "blue" | "green" | "purple" | "yellow" | "gray"
-> = {
-  Invoice: "blue",
-  Payment: "green",
-  "Progress note": "purple",
-  Form: "yellow",
-  Letter: "gray",
-  General: "gray",
-};
 
 const templateTypes: TemplateType[] = ["Invoice", "Payment", "Progress note", "Form", "Letter", "General"];
 
@@ -99,37 +90,27 @@ const dropdownItems = [
 export default function EmailTemplatesPage() {
   const [templates, setTemplates] = useState(initialTemplates);
   const [search, setSearch] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [formName, setFormName] = useState("");
-  const [formType, setFormType] = useState<TemplateType>("Invoice");
 
-  function openCreate() {
-    setEditingIndex(null);
-    setFormName("");
-    setFormType("Invoice");
-    setModalOpen(true);
-  }
-
-  function openEdit(index: number) {
-    setEditingIndex(index);
-    setFormName(templates[index].name);
-    setFormType(templates[index].type);
-    setModalOpen(true);
-  }
-
-  function handleSave() {
-    const now = new Date().toLocaleString("en-AU", { hour: "numeric", minute: "2-digit", hour12: true, day: "numeric", month: "short", year: "numeric" });
-    if (editingIndex !== null) {
-      setTemplates((prev) => prev.map((t, i) => (i === editingIndex ? { name: formName, type: formType, lastModified: now } : t)));
-    } else {
-      setTemplates((prev) => [...prev, { name: formName, type: formType, lastModified: now }]);
-    }
-    setModalOpen(false);
-  }
+  const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } = useFormModal<{
+    name: string;
+    type: TemplateType;
+  }>({
+    defaults: { name: "", type: "Invoice" },
+    onSave: (values, editingIndex) => {
+      const now = formatTimestamp();
+      if (editingIndex !== null) {
+        setTemplates((prev) => prev.map((t, i) => (i === editingIndex ? { name: values.name, type: values.type, lastModified: now } : t)));
+      } else {
+        setTemplates((prev) => [...prev, { name: values.name, type: values.type, lastModified: now }]);
+      }
+    },
+  });
 
   function handleAction(value: string, index: number) {
-    if (value === "edit") openEdit(index);
+    if (value === "edit") {
+      const t = templates[index];
+      openEdit(index, { name: t.name, type: t.type });
+    }
   }
 
   const filtered = templates.filter((t) => {
@@ -162,7 +143,7 @@ export default function EmailTemplatesPage() {
             <tr key={t.name + i} className="hover:bg-gray-50">
               <Td className="text-text">{t.name}</Td>
               <Td>
-                <Badge variant={typeBadgeVariant[t.type]}>{t.type}</Badge>
+                <Badge variant={getBadgeVariant(t.type) as React.ComponentProps<typeof Badge>["variant"]}>{t.type}</Badge>
               </Td>
               <Td>{t.lastModified}</Td>
               <Td align="right">
@@ -187,21 +168,21 @@ export default function EmailTemplatesPage() {
       />
       <Modal
         open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title={editingIndex !== null ? "Edit email template" : "New email template"}
+        onClose={closeModal}
+        title={isEditing ? "Edit email template" : "New email template"}
         footer={
           <>
-            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
             <Button variant="primary" onClick={handleSave}>Save</Button>
           </>
         }
       >
         <div className="space-y-4">
-          <FormInput label="Name" value={formName} onChange={(e) => setFormName(e.target.value)} />
+          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
           <FormSelect
             label="Type"
-            value={formType}
-            onChange={(e) => setFormType(e.target.value as TemplateType)}
+            value={form.type}
+            onChange={(e) => setField("type", e.target.value as TemplateType)}
             options={templateTypes.map((t) => ({ value: t, label: t }))}
           />
         </div>

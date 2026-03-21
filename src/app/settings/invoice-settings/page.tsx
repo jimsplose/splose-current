@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { CalendarDays, Info } from "lucide-react";
 import {
   Button,
@@ -17,6 +17,8 @@ import {
   DropdownTriggerButton,
   Modal,
 } from "@/components/ds";
+import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
+import { useFormModal } from "@/hooks/useFormModal";
 
 const invoiceReminders = [
   { id: 1, name: "Due in 1 day" },
@@ -44,11 +46,6 @@ const invoiceTemplates = [
 const REMINDERS_PER_PAGE = 10;
 const TEMPLATES_PER_PAGE = 10;
 
-const reminderDropdownItems = [
-  { label: "Edit", value: "edit" },
-  { label: "Delete", value: "delete", danger: true },
-];
-
 const templateDropdownItems = [
   { label: "Edit", value: "edit" },
   { label: "Duplicate", value: "duplicate" },
@@ -61,10 +58,7 @@ export default function InvoiceSettingsPage() {
   const [templates, setTemplates] = useState(invoiceTemplates);
   const [reminderPage, setReminderPage] = useState(1);
   const [templatePage, setTemplatePage] = useState(1);
-  const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState<"reminder" | "template">("reminder");
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const [formName, setFormName] = useState("");
 
   const reminderTotalPages = Math.ceil(reminders.length / REMINDERS_PER_PAGE);
   const reminderStartIdx = (reminderPage - 1) * REMINDERS_PER_PAGE;
@@ -74,32 +68,37 @@ export default function InvoiceSettingsPage() {
   const templateStartIdx = (templatePage - 1) * TEMPLATES_PER_PAGE;
   const pageTemplates = templates.slice(templateStartIdx, templateStartIdx + TEMPLATES_PER_PAGE);
 
-  function openModal(type: "reminder" | "template", id?: number) {
-    setModalType(type);
-    setEditingId(id ?? null);
-    const list = type === "reminder" ? reminders : templates;
-    const item = id !== undefined ? list.find((i) => i.id === id) : null;
-    setFormName(item?.name ?? "");
-    setModalOpen(true);
-  }
-
-  function handleSave() {
+  const onSave = useCallback((values: { name: string }, index: number | null) => {
     if (modalType === "reminder") {
-      if (editingId !== null) {
-        setReminders((prev) => prev.map((r) => (r.id === editingId ? { ...r, name: formName } : r)));
+      if (index !== null) {
+        setReminders((prev) => prev.map((r, i) => (i === index ? { ...r, name: values.name } : r)));
       } else {
         const newId = Math.max(0, ...reminders.map((r) => r.id)) + 1;
-        setReminders((prev) => [...prev, { id: newId, name: formName }]);
+        setReminders((prev) => [...prev, { id: newId, name: values.name }]);
       }
     } else {
-      if (editingId !== null) {
-        setTemplates((prev) => prev.map((t) => (t.id === editingId ? { ...t, name: formName } : t)));
+      if (index !== null) {
+        setTemplates((prev) => prev.map((t, i) => (i === index ? { ...t, name: values.name } : t)));
       } else {
         const newId = Math.max(0, ...templates.map((t) => t.id)) + 1;
-        setTemplates((prev) => [...prev, { id: newId, name: formName }]);
+        setTemplates((prev) => [...prev, { id: newId, name: values.name }]);
       }
     }
-    setModalOpen(false);
+  }, [modalType, reminders, templates]);
+
+  const { modalOpen, isEditing, form, setField, openCreate: rawOpenCreate, openEdit, closeModal, handleSave } = useFormModal<{ name: string }>({
+    defaults: { name: "" },
+    onSave,
+  });
+
+  function openModal(type: "reminder" | "template", index?: number) {
+    setModalType(type);
+    if (index !== undefined) {
+      const list = type === "reminder" ? reminders : templates;
+      openEdit(index, { name: list[index].name });
+    } else {
+      rawOpenCreate();
+    }
   }
 
   return (
@@ -214,7 +213,7 @@ export default function InvoiceSettingsPage() {
             <Th>Actions</Th>
           </TableHead>
           <TableBody>
-            {pageReminders.map((reminder) => (
+            {pageReminders.map((reminder, i) => (
               <tr key={reminder.id} className="hover:bg-gray-50">
                 <Td>
                   <div className="flex items-center gap-2">
@@ -227,8 +226,8 @@ export default function InvoiceSettingsPage() {
                     <Dropdown
                       align="right"
                       trigger={<DropdownTriggerButton />}
-                      items={reminderDropdownItems}
-                      onSelect={(value) => { if (value === "edit") openModal("reminder", reminder.id); }}
+                      items={SIMPLE_CRUD}
+                      onSelect={(value) => { if (value === "edit") openModal("reminder", reminderStartIdx + i); }}
                     />
                   </div>
                 </Td>
@@ -264,7 +263,7 @@ export default function InvoiceSettingsPage() {
             <Th>Actions</Th>
           </TableHead>
           <TableBody>
-            {pageTemplates.map((template) => (
+            {pageTemplates.map((template, i) => (
               <tr key={template.id} className="hover:bg-gray-50">
                 <Td>
                   <span className="text-text">{template.name}</span>
@@ -275,7 +274,7 @@ export default function InvoiceSettingsPage() {
                       align="right"
                       trigger={<DropdownTriggerButton />}
                       items={templateDropdownItems}
-                      onSelect={(value) => { if (value === "edit") openModal("template", template.id); }}
+                      onSelect={(value) => { if (value === "edit") openModal("template", templateStartIdx + i); }}
                     />
                   </div>
                 </Td>
@@ -301,21 +300,21 @@ export default function InvoiceSettingsPage() {
 
       <Modal
         open={modalOpen}
-        onClose={() => setModalOpen(false)}
+        onClose={closeModal}
         title={
-          editingId !== null
+          isEditing
             ? `Edit ${modalType === "reminder" ? "invoice reminder" : "invoice template"}`
             : `New ${modalType === "reminder" ? "invoice reminder" : "invoice template"}`
         }
         footer={
           <>
-            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
             <Button variant="primary" onClick={handleSave}>Save</Button>
           </>
         }
       >
         <div className="space-y-4">
-          <FormInput label="Name" value={formName} onChange={(e) => setFormName(e.target.value)} />
+          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
         </div>
       </Modal>
     </div>

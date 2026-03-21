@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { Button, Badge, Dropdown, DropdownTriggerButton, Modal, FormInput } from "@/components/ds";
+import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
+import { useFormModal } from "@/hooks/useFormModal";
 
 interface CancellationReason {
   name: string;
@@ -21,43 +23,23 @@ const initialReasons: CancellationReason[] = [
   { name: "No show less than 2 days", code: "" },
 ];
 
-const dropdownItems = [
-  { label: "Edit", value: "edit" },
-  { label: "Delete", value: "delete", danger: true },
-];
-
 export default function CancellationReasonsPage() {
   const [reasons, setReasons] = useState(initialReasons);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [formName, setFormName] = useState("");
-  const [formCode, setFormCode] = useState("");
 
-  function openCreate() {
-    setEditingIndex(null);
-    setFormName("");
-    setFormCode("");
-    setModalOpen(true);
-  }
-
-  function openEdit(index: number) {
-    setEditingIndex(index);
-    setFormName(reasons[index].name);
-    setFormCode(reasons[index].code);
-    setModalOpen(true);
-  }
-
-  function handleSave() {
-    if (editingIndex !== null) {
-      setReasons((prev) => prev.map((r, i) => (i === editingIndex ? { name: formName, code: formCode } : r)));
-    } else {
-      setReasons((prev) => [...prev, { name: formName, code: formCode }]);
-    }
-    setModalOpen(false);
-  }
+  const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } =
+    useFormModal<{ name: string; code: string }>({
+      defaults: { name: "", code: "" },
+      onSave: (values, index) => {
+        if (index !== null) {
+          setReasons((prev) => prev.map((r, i) => (i === index ? { name: values.name, code: values.code } : r)));
+        } else {
+          setReasons((prev) => [...prev, { name: values.name, code: values.code }]);
+        }
+      },
+    });
 
   function handleAction(value: string, index: number) {
-    if (value === "edit") openEdit(index);
+    if (value === "edit") openEdit(index, reasons[index]);
   }
 
   return (
@@ -79,7 +61,7 @@ export default function CancellationReasonsPage() {
             <Dropdown
               align="right"
               trigger={<DropdownTriggerButton />}
-              items={dropdownItems}
+              items={SIMPLE_CRUD}
               onSelect={(value) => handleAction(value, i)}
             />
           </div>
@@ -88,18 +70,18 @@ export default function CancellationReasonsPage() {
 
       <Modal
         open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title={editingIndex !== null ? "Edit cancellation reason" : "New cancellation reason"}
+        onClose={closeModal}
+        title={isEditing ? "Edit cancellation reason" : "New cancellation reason"}
         footer={
           <>
-            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
             <Button variant="primary" onClick={handleSave}>Save</Button>
           </>
         }
       >
         <div className="space-y-4">
-          <FormInput label="Name" value={formName} onChange={(e) => setFormName(e.target.value)} />
-          <FormInput label="Code" value={formCode} onChange={(e) => setFormCode(e.target.value)} placeholder="Optional" />
+          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
+          <FormInput label="Code" value={form.code} onChange={(e) => setField("code", e.target.value)} placeholder="Optional" />
         </div>
       </Modal>
     </div>

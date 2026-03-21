@@ -17,7 +17,11 @@ import {
   FormInput,
   FormSelect,
   Toggle,
+  OnOffBadge,
 } from "@/components/ds";
+import { useFormModal } from "@/hooks/useFormModal";
+import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
+import { formatTimestamp } from "@/lib/format";
 
 interface Template {
   name: string;
@@ -79,63 +83,32 @@ const initialTemplates: Template[] = [
   },
 ];
 
-function OnOffText({ value }: { value: boolean }) {
-  return (
-    <span className={value ? "text-green-600" : "text-red-500"}>
-      {value ? "On" : "Off"}
-    </span>
-  );
-}
-
-const dropdownItems = [
-  { label: "Edit", value: "edit" },
-  { label: "Duplicate", value: "duplicate" },
-  { label: "Change log", value: "change-log" },
-  { label: "", value: "divider-1", divider: true },
-  { label: "Archive", value: "archive", danger: true },
-];
-
 export default function AppointmentTemplatesPage() {
   const [templateList, setTemplateList] = useState(initialTemplates);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [formName, setFormName] = useState("");
-  const [formType, setFormType] = useState("Confirmation");
-  const [formSms, setFormSms] = useState(false);
-  const [formEmail, setFormEmail] = useState(false);
 
-  function openCreate() {
-    setEditingIndex(null);
-    setFormName("");
-    setFormType("Confirmation");
-    setFormSms(false);
-    setFormEmail(false);
-    setModalOpen(true);
-  }
-
-  function openEdit(index: number) {
-    const t = templateList[index];
-    setEditingIndex(index);
-    setFormName(t.name);
-    setFormType(t.type);
-    setFormSms(t.sms);
-    setFormEmail(t.email);
-    setModalOpen(true);
-  }
-
-  function handleSave() {
-    const now = new Date().toLocaleString("en-AU", { hour: "numeric", minute: "2-digit", hour12: true, day: "numeric", month: "short", year: "numeric" });
-    const entry: Template = { name: formName, type: formType, sms: formSms, email: formEmail, lastModified: now };
-    if (editingIndex !== null) {
-      setTemplateList((prev) => prev.map((t, i) => (i === editingIndex ? entry : t)));
-    } else {
-      setTemplateList((prev) => [...prev, entry]);
-    }
-    setModalOpen(false);
-  }
+  const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } = useFormModal<{
+    name: string;
+    type: string;
+    sms: boolean;
+    email: boolean;
+  }>({
+    defaults: { name: "", type: "Confirmation", sms: false, email: false },
+    onSave: (values, editingIndex) => {
+      const now = formatTimestamp();
+      const entry: Template = { name: values.name, type: values.type, sms: values.sms, email: values.email, lastModified: now };
+      if (editingIndex !== null) {
+        setTemplateList((prev) => prev.map((t, i) => (i === editingIndex ? entry : t)));
+      } else {
+        setTemplateList((prev) => [...prev, entry]);
+      }
+    },
+  });
 
   function handleAction(value: string, index: number) {
-    if (value === "edit") openEdit(index);
+    if (value === "edit") {
+      const t = templateList[index];
+      openEdit(index, { name: t.name, type: t.type, sms: t.sms, email: t.email });
+    }
   }
 
   return (
@@ -161,17 +134,17 @@ export default function AppointmentTemplatesPage() {
               <Td className="text-text">{t.name}</Td>
               <Td>{t.type}</Td>
               <Td>
-                <OnOffText value={t.sms} />
+                <OnOffBadge value={t.sms} />
               </Td>
               <Td>
-                <OnOffText value={t.email} />
+                <OnOffBadge value={t.email} />
               </Td>
               <Td>{t.lastModified}</Td>
               <Td align="right">
                 <Dropdown
                   align="right"
                   trigger={<DropdownTriggerButton />}
-                  items={dropdownItems}
+                  items={STANDARD_SETTINGS}
                   onSelect={(value) => handleAction(value, i)}
                 />
               </Td>
@@ -189,21 +162,21 @@ export default function AppointmentTemplatesPage() {
       />
       <Modal
         open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title={editingIndex !== null ? "Edit appointment template" : "New appointment template"}
+        onClose={closeModal}
+        title={isEditing ? "Edit appointment template" : "New appointment template"}
         footer={
           <>
-            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
             <Button variant="primary" onClick={handleSave}>Save</Button>
           </>
         }
       >
         <div className="space-y-4">
-          <FormInput label="Name" value={formName} onChange={(e) => setFormName(e.target.value)} />
+          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
           <FormSelect
             label="Type"
-            value={formType}
-            onChange={(e) => setFormType(e.target.value)}
+            value={form.type}
+            onChange={(e) => setField("type", e.target.value)}
             options={[
               { value: "Confirmation", label: "Confirmation" },
               { value: "Reschedule", label: "Reschedule" },
@@ -211,8 +184,8 @@ export default function AppointmentTemplatesPage() {
               { value: "Reminder", label: "Reminder" },
             ]}
           />
-          <Toggle label="SMS" checked={formSms} onChange={setFormSms} />
-          <Toggle label="Email" checked={formEmail} onChange={setFormEmail} />
+          <Toggle label="SMS" checked={form.sms} onChange={(v) => setField("sms", v)} />
+          <Toggle label="Email" checked={form.email} onChange={(v) => setField("email", v)} />
         </div>
       </Modal>
     </div>

@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Button, DataTable, TableHead, Th, TableBody, Td, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect } from "@/components/ds";
+import { Button, DataTable, TableHead, Th, TableBody, Td, ColorDot, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, FormColorPicker } from "@/components/ds";
+import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
+import { useFormModal } from "@/hooks/useFormModal";
 
 interface BusyTime {
   name: string;
@@ -20,54 +22,29 @@ const initialBusyTimes: BusyTime[] = [
   { name: "Travel", color: "#22c55e", utilisation: "Excluded", duration: 30 },
 ];
 
-const dropdownItems = [
-  { label: "Edit", value: "edit" },
-  { label: "Duplicate", value: "duplicate" },
-  { label: "Change log", value: "change-log" },
-  { label: "", value: "divider-1", divider: true },
-  { label: "Archive", value: "archive", danger: true },
-];
-
 export default function BusyTimesPage() {
   const [busyTimes, setBusyTimes] = useState(initialBusyTimes);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [formName, setFormName] = useState("");
-  const [formColor, setFormColor] = useState("#ef4444");
-  const [formUtilisation, setFormUtilisation] = useState("Excluded");
-  const [formDuration, setFormDuration] = useState("30");
 
-  function openCreate() {
-    setEditingIndex(null);
-    setFormName("");
-    setFormColor("#ef4444");
-    setFormUtilisation("Excluded");
-    setFormDuration("30");
-    setModalOpen(true);
-  }
-
-  function openEdit(index: number) {
-    const bt = busyTimes[index];
-    setEditingIndex(index);
-    setFormName(bt.name);
-    setFormColor(bt.color);
-    setFormUtilisation(bt.utilisation);
-    setFormDuration(String(bt.duration));
-    setModalOpen(true);
-  }
-
-  function handleSave() {
-    const entry: BusyTime = { name: formName, color: formColor, utilisation: formUtilisation, duration: parseInt(formDuration) || 30 };
-    if (editingIndex !== null) {
-      setBusyTimes((prev) => prev.map((b, i) => (i === editingIndex ? entry : b)));
-    } else {
-      setBusyTimes((prev) => [...prev, entry]);
-    }
-    setModalOpen(false);
-  }
+  const { modalOpen, isEditing, editingIndex, form, setField, openCreate, openEdit, closeModal, handleSave } =
+    useFormModal<{ name: string; color: string; utilisation: string; duration: string }>({
+      defaults: { name: "", color: "#ef4444", utilisation: "Excluded", duration: "30" },
+      onSave: (values, index) => {
+        const entry: BusyTime = { name: values.name, color: values.color, utilisation: values.utilisation, duration: parseInt(values.duration) || 30 };
+        if (index !== null) {
+          setBusyTimes((prev) => prev.map((b, i) => (i === index ? entry : b)));
+        } else {
+          setBusyTimes((prev) => [...prev, entry]);
+        }
+      },
+    });
 
   function handleAction(value: string, index: number) {
-    if (value === "edit") openEdit(index);
+    if (value === "edit") openEdit(index, {
+      name: busyTimes[index].name,
+      color: busyTimes[index].color,
+      utilisation: busyTimes[index].utilisation,
+      duration: String(busyTimes[index].duration),
+    });
   }
 
   return (
@@ -87,13 +64,13 @@ export default function BusyTimesPage() {
         <TableBody>
           {busyTimes.map((b, i) => (
             <tr key={i} className="border-b border-border">
-              <Td><div className="flex items-center gap-2"><span className="inline-block h-3 w-3 rounded-full" style={{ backgroundColor: b.color }} />{b.name}</div></Td>
+              <Td><div className="flex items-center gap-2"><ColorDot color={b.color} />{b.name}</div></Td>
               <Td>{b.utilisation}</Td><Td>{b.duration}</Td>
               <Td>
                 <Dropdown
                   align="right"
                   trigger={<DropdownTriggerButton />}
-                  items={dropdownItems}
+                  items={STANDARD_SETTINGS}
                   onSelect={(value) => handleAction(value, i)}
                 />
               </Td>
@@ -104,34 +81,28 @@ export default function BusyTimesPage() {
 
       <Modal
         open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title={editingIndex !== null ? "Edit busy time type" : "New busy time type"}
+        onClose={closeModal}
+        title={isEditing ? "Edit busy time type" : "New busy time type"}
         footer={
           <>
-            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
             <Button variant="primary" onClick={handleSave}>Save</Button>
           </>
         }
       >
         <div className="space-y-4">
-          <FormInput label="Name" value={formName} onChange={(e) => setFormName(e.target.value)} />
-          <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Colour</label>
-            <div className="flex items-center gap-3">
-              <input type="color" value={formColor} onChange={(e) => setFormColor(e.target.value)} className="h-10 w-10 cursor-pointer rounded border border-border" />
-              <span className="text-sm text-text-secondary">{formColor}</span>
-            </div>
-          </div>
+          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
+          <FormColorPicker value={form.color} onChange={(c) => setField("color", c)} />
           <FormSelect
             label="Utilisation"
-            value={formUtilisation}
-            onChange={(e) => setFormUtilisation(e.target.value)}
+            value={form.utilisation}
+            onChange={(e) => setField("utilisation", e.target.value)}
             options={[
               { value: "Excluded", label: "Excluded" },
               { value: "Included", label: "Included" },
             ]}
           />
-          <FormInput label="Duration (mins)" type="number" value={formDuration} onChange={(e) => setFormDuration(e.target.value)} />
+          <FormInput label="Duration (mins)" type="number" value={form.duration} onChange={(e) => setField("duration", e.target.value)} />
         </div>
       </Modal>
     </div>

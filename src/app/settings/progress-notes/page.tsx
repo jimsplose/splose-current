@@ -19,6 +19,9 @@ import {
   Toggle,
 } from "@/components/ds";
 import { Sparkles, X } from "lucide-react";
+import { useFormModal } from "@/hooks/useFormModal";
+import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
+import { formatTimestamp } from "@/lib/format";
 
 const templates = [
   {
@@ -48,48 +51,29 @@ const templates = [
   },
 ];
 
-const dropdownItems = [
-  { label: "Edit", value: "edit" },
-  { label: "Duplicate", value: "duplicate" },
-  { label: "Change log", value: "change-log" },
-  { label: "", value: "divider-1", divider: true },
-  { label: "Archive", value: "archive", danger: true },
-];
-
 export default function ProgressNotesPage() {
   const [templateList, setTemplateList] = useState(templates);
   const [showBanner, setShowBanner] = useState(true);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [formTitle, setFormTitle] = useState("");
-  const [formHasAi, setFormHasAi] = useState(false);
 
-  function openCreate() {
-    setEditingIndex(null);
-    setFormTitle("");
-    setFormHasAi(false);
-    setModalOpen(true);
-  }
-
-  function openEdit(index: number) {
-    setEditingIndex(index);
-    setFormTitle(templateList[index].title);
-    setFormHasAi(templateList[index].hasAi);
-    setModalOpen(true);
-  }
-
-  function handleSave() {
-    const now = new Date().toLocaleString("en-AU", { hour: "numeric", minute: "2-digit", hour12: true, day: "numeric", month: "short", year: "numeric" });
-    if (editingIndex !== null) {
-      setTemplateList((prev) => prev.map((t, i) => (i === editingIndex ? { title: formTitle, createdAt: t.createdAt, hasAi: formHasAi } : t)));
-    } else {
-      setTemplateList((prev) => [...prev, { title: formTitle, createdAt: now, hasAi: formHasAi }]);
-    }
-    setModalOpen(false);
-  }
+  const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } =
+    useFormModal<{ title: string; hasAi: boolean }>({
+      defaults: { title: "", hasAi: false },
+      onSave: (values, index) => {
+        if (index !== null) {
+          setTemplateList((prev) =>
+            prev.map((t, i) =>
+              i === index ? { title: values.title, createdAt: t.createdAt, hasAi: values.hasAi } : t,
+            ),
+          );
+        } else {
+          const now = formatTimestamp();
+          setTemplateList((prev) => [...prev, { title: values.title, createdAt: now, hasAi: values.hasAi }]);
+        }
+      },
+    });
 
   function handleAction(value: string, index: number) {
-    if (value === "edit") openEdit(index);
+    if (value === "edit") openEdit(index, { title: templateList[index].title, hasAi: templateList[index].hasAi });
   }
 
   return (
@@ -149,7 +133,7 @@ export default function ProgressNotesPage() {
                 <Dropdown
                   align="right"
                   trigger={<DropdownTriggerButton />}
-                  items={dropdownItems}
+                  items={STANDARD_SETTINGS}
                   onSelect={(value) => handleAction(value, i)}
                 />
               </Td>
@@ -167,18 +151,18 @@ export default function ProgressNotesPage() {
       />
       <Modal
         open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title={editingIndex !== null ? "Edit progress note template" : "New progress note template"}
+        onClose={closeModal}
+        title={isEditing ? "Edit progress note template" : "New progress note template"}
         footer={
           <>
-            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
             <Button variant="primary" onClick={handleSave}>Save</Button>
           </>
         }
       >
         <div className="space-y-4">
-          <FormInput label="Title" value={formTitle} onChange={(e) => setFormTitle(e.target.value)} />
-          <Toggle label="AI-powered" checked={formHasAi} onChange={setFormHasAi} />
+          <FormInput label="Title" value={form.title} onChange={(e) => setField("title", e.target.value)} />
+          <Toggle label="AI-powered" checked={form.hasAi} onChange={(v) => setField("hasAi", v)} />
         </div>
       </Modal>
     </div>

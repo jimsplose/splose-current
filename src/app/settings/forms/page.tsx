@@ -19,6 +19,8 @@ import {
   FormSelect,
 } from "@/components/ds";
 import { ChevronDown } from "lucide-react";
+import { useFormModal } from "@/hooks/useFormModal";
+import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 
 const formTemplates = [
   { title: "(Copy of) Test form saved in A jr", formType: "Embeddable form", published: false, createdAt: "6 Mar 2026", updatedAt: "6 Mar 2026" },
@@ -31,48 +33,32 @@ const formTemplates = [
   { title: "Intake Form", formType: "Embeddable form", published: true, createdAt: "22 Dec 2025", updatedAt: "23 Jan 2026" },
 ];
 
-const dropdownItems = [
-  { label: "Edit", value: "edit" },
-  { label: "Duplicate", value: "duplicate" },
-  { label: "Change log", value: "change-log" },
-  { label: "", value: "divider-1", divider: true },
-  { label: "Archive", value: "archive", danger: true },
-];
-
 export default function FormsPage() {
   const [forms, setForms] = useState(formTemplates);
   const [search, setSearch] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [formTitle, setFormTitle] = useState("");
-  const [formFormType, setFormFormType] = useState("Standard form");
 
-  function openCreate() {
-    setEditingIndex(null);
-    setFormTitle("");
-    setFormFormType("Standard form");
-    setModalOpen(true);
-  }
-
-  function openEdit(index: number) {
-    setEditingIndex(index);
-    setFormTitle(forms[index].title);
-    setFormFormType(forms[index].formType);
-    setModalOpen(true);
-  }
-
-  function handleSave() {
-    const now = new Date().toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" });
-    if (editingIndex !== null) {
-      setForms((prev) => prev.map((f, i) => (i === editingIndex ? { ...f, title: formTitle, formType: formFormType, updatedAt: now } : f)));
-    } else {
-      setForms((prev) => [...prev, { title: formTitle, formType: formFormType, published: false, createdAt: now, updatedAt: now }]);
-    }
-    setModalOpen(false);
-  }
+  const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } =
+    useFormModal<{ title: string; formType: string }>({
+      defaults: { title: "", formType: "Standard form" },
+      onSave: (values, index) => {
+        const now = new Date().toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" });
+        if (index !== null) {
+          setForms((prev) =>
+            prev.map((f, i) =>
+              i === index ? { ...f, title: values.title, formType: values.formType, updatedAt: now } : f,
+            ),
+          );
+        } else {
+          setForms((prev) => [
+            ...prev,
+            { title: values.title, formType: values.formType, published: false, createdAt: now, updatedAt: now },
+          ]);
+        }
+      },
+    });
 
   function handleAction(value: string, index: number) {
-    if (value === "edit") openEdit(index);
+    if (value === "edit") openEdit(index, { title: forms[index].title, formType: forms[index].formType });
   }
 
   const filtered = forms.filter((f) => {
@@ -104,23 +90,23 @@ export default function FormsPage() {
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>
-          {filtered.map((form, i) => (
-            <tr key={form.title + i} className="hover:bg-gray-50">
-              <Td className="text-text">{form.title}</Td>
+          {filtered.map((f, i) => (
+            <tr key={f.title + i} className="hover:bg-gray-50">
+              <Td className="text-text">{f.title}</Td>
               <Td>
                 <span className="flex items-center gap-2">
-                  {form.formType}
-                  {form.published && <Badge variant="green">Published</Badge>}
+                  {f.formType}
+                  {f.published && <Badge variant="green">Published</Badge>}
                 </span>
               </Td>
-              <Td>{form.createdAt}</Td>
-              <Td>{form.updatedAt}</Td>
+              <Td>{f.createdAt}</Td>
+              <Td>{f.updatedAt}</Td>
               <Td align="right">
                 <Dropdown
                   align="right"
                   trigger={<DropdownTriggerButton />}
-                  items={dropdownItems}
-                  onSelect={(value) => handleAction(value, forms.indexOf(form))}
+                  items={STANDARD_SETTINGS}
+                  onSelect={(value) => handleAction(value, forms.indexOf(f))}
                 />
               </Td>
             </tr>
@@ -131,21 +117,21 @@ export default function FormsPage() {
 
       <Modal
         open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title={editingIndex !== null ? "Edit form template" : "New form template"}
+        onClose={closeModal}
+        title={isEditing ? "Edit form template" : "New form template"}
         footer={
           <>
-            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
             <Button variant="primary" onClick={handleSave}>Save</Button>
           </>
         }
       >
         <div className="space-y-4">
-          <FormInput label="Title" value={formTitle} onChange={(e) => setFormTitle(e.target.value)} />
+          <FormInput label="Title" value={form.title} onChange={(e) => setField("title", e.target.value)} />
           <FormSelect
             label="Form type"
-            value={formFormType}
-            onChange={(e) => setFormFormType(e.target.value)}
+            value={form.formType}
+            onChange={(e) => setField("formType", e.target.value)}
             options={[
               { value: "Standard form", label: "Standard form" },
               { value: "Embeddable form", label: "Embeddable form" },

@@ -15,6 +15,8 @@ import {
   Modal,
   FormInput,
 } from "@/components/ds";
+import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
+import { useFormModal } from "@/hooks/useFormModal";
 
 interface TaxRate {
   id: number;
@@ -32,52 +34,29 @@ const initialRates: TaxRate[] = [
 
 const ITEMS_PER_PAGE = 10;
 
-const dropdownItems = [
-  { label: "Edit", value: "edit" },
-  { label: "Delete", value: "delete", danger: true },
-];
-
 export default function TaxRatesPage() {
   const [rates, setRates] = useState(initialRates);
   const [currentPage, setCurrentPage] = useState(1);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const [formName, setFormName] = useState("");
-  const [formRate, setFormRate] = useState("");
-  const [formDescription, setFormDescription] = useState("");
 
   const totalPages = Math.ceil(rates.length / ITEMS_PER_PAGE);
   const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
   const pageItems = rates.slice(startIdx, startIdx + ITEMS_PER_PAGE);
 
-  function openCreate() {
-    setEditingId(null);
-    setFormName("");
-    setFormRate("");
-    setFormDescription("");
-    setModalOpen(true);
-  }
+  const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } =
+    useFormModal<{ name: string; rate: string; description: string }>({
+      defaults: { name: "", rate: "", description: "" },
+      onSave: (values, index) => {
+        if (index !== null) {
+          setRates((prev) => prev.map((r, i) => (i === index ? { ...r, name: values.name, rate: values.rate, description: values.description } : r)));
+        } else {
+          const newId = Math.max(...rates.map((r) => r.id)) + 1;
+          setRates((prev) => [...prev, { id: newId, name: values.name, rate: values.rate, description: values.description, status: "Active" }]);
+        }
+      },
+    });
 
-  function openEdit(rate: TaxRate) {
-    setEditingId(rate.id);
-    setFormName(rate.name);
-    setFormRate(rate.rate);
-    setFormDescription(rate.description);
-    setModalOpen(true);
-  }
-
-  function handleSave() {
-    if (editingId !== null) {
-      setRates((prev) => prev.map((r) => (r.id === editingId ? { ...r, name: formName, rate: formRate, description: formDescription } : r)));
-    } else {
-      const newId = Math.max(...rates.map((r) => r.id)) + 1;
-      setRates((prev) => [...prev, { id: newId, name: formName, rate: formRate, description: formDescription, status: "Active" }]);
-    }
-    setModalOpen(false);
-  }
-
-  function handleAction(value: string, rate: TaxRate) {
-    if (value === "edit") openEdit(rate);
+  function handleAction(value: string, rate: TaxRate, index: number) {
+    if (value === "edit") openEdit(index, { name: rate.name, rate: rate.rate, description: rate.description });
   }
 
   return (
@@ -96,7 +75,7 @@ export default function TaxRatesPage() {
           <Th>Actions</Th>
         </TableHead>
         <TableBody>
-          {pageItems.map((rate) => (
+          {pageItems.map((rate, i) => (
             <tr key={rate.id} className="hover:bg-gray-50">
               <Td>
                 <span className="font-medium text-text">{rate.name}</span>
@@ -110,8 +89,8 @@ export default function TaxRatesPage() {
                 <Dropdown
                   align="right"
                   trigger={<DropdownTriggerButton />}
-                  items={dropdownItems}
-                  onSelect={(value) => handleAction(value, rate)}
+                  items={SIMPLE_CRUD}
+                  onSelect={(value) => handleAction(value, rate, startIdx + i)}
                 />
               </Td>
             </tr>
@@ -129,19 +108,19 @@ export default function TaxRatesPage() {
 
       <Modal
         open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title={editingId !== null ? "Edit tax rate" : "New tax rate"}
+        onClose={closeModal}
+        title={isEditing ? "Edit tax rate" : "New tax rate"}
         footer={
           <>
-            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancel</Button>
+            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
             <Button variant="primary" onClick={handleSave}>Save</Button>
           </>
         }
       >
         <div className="space-y-4">
-          <FormInput label="Name" value={formName} onChange={(e) => setFormName(e.target.value)} />
-          <FormInput label="Rate" value={formRate} onChange={(e) => setFormRate(e.target.value)} placeholder="e.g. 10%" />
-          <FormInput label="Description" value={formDescription} onChange={(e) => setFormDescription(e.target.value)} />
+          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
+          <FormInput label="Rate" value={form.rate} onChange={(e) => setField("rate", e.target.value)} placeholder="e.g. 10%" />
+          <FormInput label="Description" value={form.description} onChange={(e) => setField("description", e.target.value)} />
         </div>
       </Modal>
     </div>
