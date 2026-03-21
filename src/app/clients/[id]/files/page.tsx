@@ -1,5 +1,5 @@
-import { MoreHorizontal, ArrowUpDown, FolderPlus, ChevronDown, FileText } from "lucide-react";
-import { Button, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+import { ArrowUpDown, FolderPlus, ChevronDown, FileText } from "lucide-react";
+import { Button, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, Dropdown, DropdownTriggerButton } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -18,6 +18,13 @@ const filesData = [
     uploadDate: "12:28 pm, 11 Mar 2026",
     fileSize: "36.5 KB",
   },
+];
+
+const dropdownItems = [
+  { label: "Download", value: "download" },
+  { label: "Rename", value: "rename" },
+  { label: "", value: "divider-1", divider: true },
+  { label: "Delete", value: "delete", danger: true },
 ];
 
 export default async function ClientFilesPage({ params }: { params: Promise<{ id: string }> }) {
@@ -74,9 +81,12 @@ export default async function ClientFilesPage({ params }: { params: Promise<{ id
                 <Td className="text-text-secondary">{file.uploadDate}</Td>
                 <Td className="text-text-secondary">{file.fileSize}</Td>
                 <Td align="right">
-                  <button className="text-text-secondary hover:text-text">
-                    <MoreHorizontal className="h-5 w-5" />
-                  </button>
+                  <Dropdown
+                    align="right"
+                    trigger={<DropdownTriggerButton />}
+                    items={dropdownItems}
+                    onSelect={() => {}}
+                  />
                 </Td>
               </tr>
             ))}

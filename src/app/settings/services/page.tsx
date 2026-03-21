@@ -11,6 +11,7 @@ import {
   Pagination,
   SearchBar,
   Dropdown,
+  DropdownTriggerButton,
 } from "@/components/ds";
 import { ArrowUpDown, BookOpen } from "lucide-react";
 
@@ -318,19 +319,7 @@ export default function SettingsServicesPage() {
               <Td align="right">
                 <Dropdown
                   align="right"
-                  trigger={
-                    <button className="inline-flex h-8 w-8 items-center justify-center rounded hover:bg-gray-100">
-                      <svg
-                        className="h-4 w-4 text-text-secondary"
-                        fill="currentColor"
-                        viewBox="0 0 16 16"
-                      >
-                        <circle cx="8" cy="3" r="1.5" />
-                        <circle cx="8" cy="8" r="1.5" />
-                        <circle cx="8" cy="13" r="1.5" />
-                      </svg>
-                    </button>
-                  }
+                  trigger={<DropdownTriggerButton />}
                   items={dropdownItems}
                   onSelect={() => {}}
                 />

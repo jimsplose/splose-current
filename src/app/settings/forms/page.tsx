@@ -12,8 +12,10 @@ import {
   Td,
   Badge,
   EmptyState,
+  Dropdown,
+  DropdownTriggerButton,
 } from "@/components/ds";
-import { ChevronDown, MoreHorizontal } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 const formTemplates = [
   { title: "(Copy of) Test form saved in A jr", formType: "Embeddable form", published: false, createdAt: "6 Mar 2026", updatedAt: "6 Mar 2026" },
@@ -24,6 +26,14 @@ const formTemplates = [
   { title: "Test EMB", formType: "Embeddable form", published: true, createdAt: "29 Jan 2026", updatedAt: "16 Feb 2026" },
   { title: "TESTTESTTEST", formType: "Standard form", published: false, createdAt: "2 Jan 2026", updatedAt: "16 Jan 2026" },
   { title: "Intake Form", formType: "Embeddable form", published: true, createdAt: "22 Dec 2025", updatedAt: "23 Jan 2026" },
+];
+
+const dropdownItems = [
+  { label: "Edit", value: "edit" },
+  { label: "Duplicate", value: "duplicate" },
+  { label: "Change log", value: "change-log" },
+  { label: "", value: "divider-1", divider: true },
+  { label: "Archive", value: "archive", danger: true },
 ];
 
 export default function FormsPage() {
@@ -69,9 +79,12 @@ export default function FormsPage() {
               <Td>{form.createdAt}</Td>
               <Td>{form.updatedAt}</Td>
               <Td align="right">
-                <button className="rounded p-1 text-text-secondary hover:bg-gray-100 hover:text-text">
-                  <MoreHorizontal className="h-5 w-5" />
-                </button>
+                <Dropdown
+                  align="right"
+                  trigger={<DropdownTriggerButton />}
+                  items={dropdownItems}
+                  onSelect={() => {}}
+                />
               </Td>
             </tr>
           ))}

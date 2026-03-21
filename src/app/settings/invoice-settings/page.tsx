@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Pencil, Trash2, CalendarDays, Info } from "lucide-react";
+import { CalendarDays, Info } from "lucide-react";
 import {
   Button,
   DataTable,
@@ -13,6 +13,8 @@ import {
   FormSelect,
   Pagination,
   Toggle,
+  Dropdown,
+  DropdownTriggerButton,
 } from "@/components/ds";
 
 const invoiceReminders = [
@@ -40,6 +42,17 @@ const invoiceTemplates = [
 
 const REMINDERS_PER_PAGE = 10;
 const TEMPLATES_PER_PAGE = 10;
+
+const reminderDropdownItems = [
+  { label: "Edit", value: "edit" },
+  { label: "Delete", value: "delete", danger: true },
+];
+
+const templateDropdownItems = [
+  { label: "Edit", value: "edit" },
+  { label: "Duplicate", value: "duplicate" },
+  { label: "Delete", value: "delete", danger: true },
+];
 
 export default function InvoiceSettingsPage() {
   const [enableOnlinePayments, setEnableOnlinePayments] = useState(false);
@@ -181,13 +194,13 @@ export default function InvoiceSettingsPage() {
                   </div>
                 </Td>
                 <Td>
-                  <div className="flex items-center justify-end gap-2">
-                    <button className="rounded p-1.5 text-text-secondary hover:bg-gray-100 hover:text-primary">
-                      <Pencil className="h-4 w-4" />
-                    </button>
-                    <button className="rounded p-1.5 text-text-secondary hover:bg-gray-100 hover:text-red-500">
-                      <Trash2 className="h-4 w-4" />
-                    </button>
+                  <div className="flex items-center justify-end">
+                    <Dropdown
+                      align="right"
+                      trigger={<DropdownTriggerButton />}
+                      items={reminderDropdownItems}
+                      onSelect={() => {}}
+                    />
                   </div>
                 </Td>
               </tr>
@@ -228,13 +241,13 @@ export default function InvoiceSettingsPage() {
                   <span className="text-text">{template.name}</span>
                 </Td>
                 <Td>
-                  <div className="flex items-center justify-end gap-2">
-                    <button className="rounded p-1.5 text-text-secondary hover:bg-gray-100 hover:text-primary">
-                      <Pencil className="h-4 w-4" />
-                    </button>
-                    <button className="rounded p-1.5 text-text-secondary hover:bg-gray-100 hover:text-red-500">
-                      <Trash2 className="h-4 w-4" />
-                    </button>
+                  <div className="flex items-center justify-end">
+                    <Dropdown
+                      align="right"
+                      trigger={<DropdownTriggerButton />}
+                      items={templateDropdownItems}
+                      onSelect={() => {}}
+                    />
                   </div>
                 </Td>
               </tr>

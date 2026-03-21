@@ -1,4 +1,6 @@
-import { Button, FormInput, Badge, DataTable, TableHead, Th, TableBody, Td } from "@/components/ds";
+"use client";
+
+import { Button, FormInput, Badge, DataTable, TableHead, Th, TableBody, Td, Dropdown, DropdownTriggerButton } from "@/components/ds";
 
 const users = [
   { name: "Nicholas Smithson", email: "nick@splose.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "OT", status: "Active", isOwner: true },
@@ -8,6 +10,13 @@ const users = [
   { name: "Cheng Ma", email: "cheng@splose.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "Intake team, +1 more", status: "Active", isOwner: true },
   { name: "Rakesh Soni", email: "rakesh@splose.com", roleName: "Practice manager", roleType: "Practice manager", group: "Physio", status: "Active", isOwner: true },
   { name: "Cheng Test", email: "machengjam@gmail.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "", status: "Active", isOwner: false },
+];
+
+const dropdownItems = [
+  { label: "Deactivate", value: "deactivate" },
+  { label: "Reset password", value: "reset-password" },
+  { label: "Log out everywhere", value: "log-out-everywhere" },
+  { label: "Change log", value: "change-log" },
 ];
 
 export default function UsersPage() {
@@ -34,7 +43,14 @@ export default function UsersPage() {
               <Td className="text-text-secondary">{user.roleType}</Td>
               <Td className="text-text-secondary">{user.group || "---"}</Td>
               <Td><Badge variant="green">{user.status}</Badge></Td>
-              <Td align="right"><button className="text-text-secondary hover:text-text text-heading-lg">&middot;&middot;&middot;</button></Td>
+              <Td align="right">
+                <Dropdown
+                  align="right"
+                  trigger={<DropdownTriggerButton />}
+                  items={dropdownItems}
+                  onSelect={() => {}}
+                />
+              </Td>
             </tr>
           ))}
         </TableBody>

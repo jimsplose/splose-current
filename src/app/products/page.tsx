@@ -1,7 +1,7 @@
 "use client";
 
-import { PageHeader, Button, SearchBar, Pagination, TableHead, Th, TableBody, Td, EmptyState } from "@/components/ds";
-import { Plus, MoreHorizontal, Minus } from "lucide-react";
+import { PageHeader, Button, SearchBar, Pagination, TableHead, Th, TableBody, Td, EmptyState, Dropdown, DropdownTriggerButton } from "@/components/ds";
+import { Plus, Minus } from "lucide-react";
 import { useState, useMemo, Fragment } from "react";
 
 interface ProductVariant {
@@ -47,6 +47,13 @@ const mockProducts: Product[] = [
 ];
 
 const ITEMS_PER_PAGE = 10;
+
+const dropdownItems = [
+  { label: "Edit", value: "edit" },
+  { label: "Duplicate", value: "duplicate" },
+  { label: "", value: "divider-1", divider: true },
+  { label: "Archive", value: "archive", danger: true },
+];
 
 export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -166,12 +173,14 @@ export default function ProductsPage() {
                       {product.stock !== null ? product.stock : "-"}
                     </Td>
                     <Td align="center">
-                      <button
-                        onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center justify-center rounded p-1 text-text-secondary hover:bg-gray-100 hover:text-text"
-                      >
-                        <MoreHorizontal className="h-4 w-4" />
-                      </button>
+                      <div onClick={(e) => e.stopPropagation()}>
+                        <Dropdown
+                          align="right"
+                          trigger={<DropdownTriggerButton />}
+                          items={dropdownItems}
+                          onSelect={() => {}}
+                        />
+                      </div>
                     </Td>
                   </tr>
 

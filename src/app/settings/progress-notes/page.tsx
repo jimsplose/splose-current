@@ -12,8 +12,10 @@ import {
   Td,
   Pagination,
   Badge,
+  Dropdown,
+  DropdownTriggerButton,
 } from "@/components/ds";
-import { MoreHorizontal, Sparkles, X } from "lucide-react";
+import { Sparkles, X } from "lucide-react";
 
 const templates = [
   {
@@ -41,6 +43,14 @@ const templates = [
     createdAt: "8:21 pm, 5 Mar 2014",
     hasAi: false,
   },
+];
+
+const dropdownItems = [
+  { label: "Edit", value: "edit" },
+  { label: "Duplicate", value: "duplicate" },
+  { label: "Change log", value: "change-log" },
+  { label: "", value: "divider-1", divider: true },
+  { label: "Archive", value: "archive", danger: true },
 ];
 
 export default function ProgressNotesPage() {
@@ -100,9 +110,12 @@ export default function ProgressNotesPage() {
               </Td>
               <Td>{t.createdAt}</Td>
               <Td align="right">
-                <button className="rounded p-1 text-text-secondary hover:bg-gray-100 hover:text-text">
-                  <MoreHorizontal className="h-5 w-5" />
-                </button>
+                <Dropdown
+                  align="right"
+                  trigger={<DropdownTriggerButton />}
+                  items={dropdownItems}
+                  onSelect={() => {}}
+                />
               </Td>
             </tr>
           ))}

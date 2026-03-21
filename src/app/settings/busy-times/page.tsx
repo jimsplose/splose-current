@@ -1,4 +1,6 @@
-import { Button, DataTable, TableHead, Th, TableBody, Td } from "@/components/ds";
+"use client";
+
+import { Button, DataTable, TableHead, Th, TableBody, Td, Dropdown, DropdownTriggerButton } from "@/components/ds";
 
 const busyTimes = [
   { name: "Leave me alone", color: "#ef4444", utilisation: "Excluded", duration: 15 },
@@ -8,6 +10,14 @@ const busyTimes = [
   { name: "Admin", color: "#a855f7", utilisation: "Included", duration: 30 },
   { name: "CPD", color: "#3b82f6", utilisation: "Excluded", duration: 30 },
   { name: "Travel", color: "#22c55e", utilisation: "Excluded", duration: 30 },
+];
+
+const dropdownItems = [
+  { label: "Edit", value: "edit" },
+  { label: "Duplicate", value: "duplicate" },
+  { label: "Change log", value: "change-log" },
+  { label: "", value: "divider-1", divider: true },
+  { label: "Archive", value: "archive", danger: true },
 ];
 
 export default function BusyTimesPage() {
@@ -30,7 +40,14 @@ export default function BusyTimesPage() {
             <tr key={i} className="border-b border-border">
               <Td><div className="flex items-center gap-2"><span className="inline-block h-3 w-3 rounded-full" style={{ backgroundColor: b.color }} />{b.name}</div></Td>
               <Td>{b.utilisation}</Td><Td>{b.duration}</Td>
-              <Td><button className="text-text-secondary hover:text-text">•••</button></Td>
+              <Td>
+                <Dropdown
+                  align="right"
+                  trigger={<DropdownTriggerButton />}
+                  items={dropdownItems}
+                  onSelect={() => {}}
+                />
+              </Td>
             </tr>
           ))}
         </TableBody>

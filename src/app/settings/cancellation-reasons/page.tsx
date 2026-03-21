@@ -1,4 +1,6 @@
-import { Button, Badge } from "@/components/ds";
+"use client";
+
+import { Button, Badge, Dropdown, DropdownTriggerButton } from "@/components/ds";
 
 const cancellationReasons = [
   { name: "Condition betteryyy", code: "" },
@@ -11,6 +13,11 @@ const cancellationReasons = [
   { name: "No Show - sick", code: "" },
   { name: "Cancel", code: "CANCEL" },
   { name: "No show less than 2 days", code: "" },
+];
+
+const dropdownItems = [
+  { label: "Edit", value: "edit" },
+  { label: "Delete", value: "delete", danger: true },
 ];
 
 export default function CancellationReasonsPage() {
@@ -27,14 +34,12 @@ export default function CancellationReasonsPage() {
               <span className="text-sm text-text">{r.name}</span>
               {r.code && <Badge variant="gray">{r.code}</Badge>}
             </div>
-            <div className="flex items-center gap-2">
-              <button className="rounded p-1 text-text-secondary hover:bg-gray-100 hover:text-primary">
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
-              </button>
-              <button className="rounded p-1 text-text-secondary hover:bg-red-50 hover:text-red-500">
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
-              </button>
-            </div>
+            <Dropdown
+              align="right"
+              trigger={<DropdownTriggerButton />}
+              items={dropdownItems}
+              onSelect={() => {}}
+            />
           </div>
         ))}
       </div>

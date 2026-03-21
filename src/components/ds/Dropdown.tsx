@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { MoreHorizontal } from "lucide-react";
 
-interface DropdownItem {
+export interface DropdownItem {
   label: string;
   value: string;
   danger?: boolean;
@@ -15,6 +16,14 @@ interface DropdownProps {
   onSelect: (value: string) => void;
   align?: "left" | "right";
   className?: string;
+}
+
+export function DropdownTriggerButton() {
+  return (
+    <button className="rounded p-1 text-text-secondary hover:bg-gray-100">
+      <MoreHorizontal className="h-5 w-5" />
+    </button>
+  );
 }
 
 export default function Dropdown({ trigger, items, onSelect, align = "left", className = "" }: DropdownProps) {

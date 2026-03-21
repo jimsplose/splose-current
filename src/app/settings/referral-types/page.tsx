@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Button,
   TableHead,
@@ -5,6 +7,8 @@ import {
   TableBody,
   Td,
   Pagination,
+  Dropdown,
+  DropdownTriggerButton,
 } from "@/components/ds";
 
 const referralTypes = [
@@ -15,6 +19,11 @@ const referralTypes = [
   { name: "Google", defaultType: false },
   { name: "Doctor", defaultType: false },
   { name: "GP", defaultType: false },
+];
+
+const dropdownItems = [
+  { label: "Edit", value: "edit" },
+  { label: "Delete", value: "delete", danger: true },
 ];
 
 export default function ReferralTypesPage() {
@@ -49,9 +58,12 @@ export default function ReferralTypesPage() {
                   {r.defaultType ? (
                     <span className="text-text-secondary">-</span>
                   ) : (
-                    <button className="text-text-secondary hover:text-text text-lg leading-none">
-                      &bull;&bull;&bull;
-                    </button>
+                    <Dropdown
+                      align="right"
+                      trigger={<DropdownTriggerButton />}
+                      items={dropdownItems}
+                      onSelect={() => {}}
+                    />
                   )}
                 </Td>
               </tr>

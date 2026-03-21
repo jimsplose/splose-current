@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { MoreHorizontal } from "lucide-react";
 import {
   Button,
   DataTable,
@@ -13,6 +12,7 @@ import {
   FormSelect,
   Pagination,
   Dropdown,
+  DropdownTriggerButton,
 } from "@/components/ds";
 
 interface ExportRow {
@@ -181,11 +181,7 @@ export default function DataExportPage() {
               <Td>
                 <Dropdown
                   align="right"
-                  trigger={
-                    <button className="inline-flex h-8 w-8 items-center justify-center rounded hover:bg-gray-100">
-                      <MoreHorizontal className="h-4 w-4 text-text-secondary" />
-                    </button>
-                  }
+                  trigger={<DropdownTriggerButton />}
                   items={dropdownItems}
                   onSelect={() => {}}
                 />

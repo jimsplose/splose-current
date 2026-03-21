@@ -1,4 +1,6 @@
-import { Button, DataTable, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+"use client";
+
+import { Button, DataTable, TableHead, Th, TableBody, Td, Pagination, Dropdown, DropdownTriggerButton } from "@/components/ds";
 
 const communicationTypes = [
   { name: "SMS", defaultType: true },
@@ -7,6 +9,11 @@ const communicationTypes = [
   { name: "In-person", defaultType: false },
   { name: "fax", defaultType: false },
   { name: "Admin Notes", defaultType: false },
+];
+
+const dropdownItems = [
+  { label: "Edit", value: "edit" },
+  { label: "Delete", value: "delete", danger: true },
 ];
 
 export default function CommunicationTypesPage() {
@@ -23,7 +30,14 @@ export default function CommunicationTypesPage() {
             <tr key={i} className="border-b border-border">
               <Td>{c.name}</Td>
               <Td><span className={c.defaultType ? "text-green-600" : "text-red-500"}>{c.defaultType ? "Yes" : "No"}</span></Td>
-              <Td>{!c.defaultType ? <button className="text-text-secondary hover:text-text">•••</button> : <span className="text-text-secondary">-</span>}</Td>
+              <Td>{!c.defaultType ? (
+                <Dropdown
+                  align="right"
+                  trigger={<DropdownTriggerButton />}
+                  items={dropdownItems}
+                  onSelect={() => {}}
+                />
+              ) : <span className="text-text-secondary">-</span>}</Td>
             </tr>
           ))}
         </TableBody>

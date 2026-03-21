@@ -12,8 +12,9 @@ import {
   Td,
   Pagination,
   Badge,
+  Dropdown,
+  DropdownTriggerButton,
 } from "@/components/ds";
-import { MoreHorizontal } from "lucide-react";
 
 type TemplateType =
   | "Invoice"
@@ -82,6 +83,14 @@ const templates: {
   },
 ];
 
+const dropdownItems = [
+  { label: "Edit", value: "edit" },
+  { label: "Duplicate", value: "duplicate" },
+  { label: "Change log", value: "change-log" },
+  { label: "", value: "divider-1", divider: true },
+  { label: "Delete", value: "delete", danger: true },
+];
+
 export default function EmailTemplatesPage() {
   const [search, setSearch] = useState("");
 
@@ -119,9 +128,12 @@ export default function EmailTemplatesPage() {
               </Td>
               <Td>{t.lastModified}</Td>
               <Td align="right">
-                <button className="rounded p-1 text-text-secondary hover:bg-gray-100 hover:text-text">
-                  <MoreHorizontal className="h-5 w-5" />
-                </button>
+                <Dropdown
+                  align="right"
+                  trigger={<DropdownTriggerButton />}
+                  items={dropdownItems}
+                  onSelect={() => {}}
+                />
               </Td>
             </tr>
           ))}

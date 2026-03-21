@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Button,
   PageHeader,
@@ -8,8 +10,9 @@ import {
   TableBody,
   Td,
   Pagination,
+  Dropdown,
+  DropdownTriggerButton,
 } from "@/components/ds";
-import { MoreHorizontal } from "lucide-react";
 
 const templates = [
   {
@@ -71,6 +74,14 @@ function OnOffText({ value }: { value: boolean }) {
   );
 }
 
+const dropdownItems = [
+  { label: "Edit", value: "edit" },
+  { label: "Duplicate", value: "duplicate" },
+  { label: "Change log", value: "change-log" },
+  { label: "", value: "divider-1", divider: true },
+  { label: "Archive", value: "archive", danger: true },
+];
+
 export default function AppointmentTemplatesPage() {
   return (
     <div className="p-6">
@@ -102,9 +113,12 @@ export default function AppointmentTemplatesPage() {
               </Td>
               <Td>{t.lastModified}</Td>
               <Td align="right">
-                <button className="rounded p-1 text-text-secondary hover:bg-gray-100 hover:text-text">
-                  <MoreHorizontal className="h-5 w-5" />
-                </button>
+                <Dropdown
+                  align="right"
+                  trigger={<DropdownTriggerButton />}
+                  items={dropdownItems}
+                  onSelect={() => {}}
+                />
               </Td>
             </tr>
           ))}

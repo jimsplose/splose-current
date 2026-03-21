@@ -11,8 +11,9 @@ import {
   Td,
   Tab,
   Pagination,
+  Dropdown,
+  DropdownTriggerButton,
 } from "@/components/ds";
-import { MoreHorizontal } from "lucide-react";
 
 const tagTabs = ["Client tags", "Service tags", "Waitlist tags", "AI tags"] as const;
 type TagTab = (typeof tagTabs)[number];
@@ -69,6 +70,14 @@ const tagData: Record<TagTab, { tags: Tag[]; description?: string }> = {
   },
 };
 
+const dropdownItems = [
+  { label: "Edit", value: "edit" },
+  { label: "Duplicate", value: "duplicate" },
+  { label: "Change log", value: "change-log" },
+  { label: "", value: "divider-1", divider: true },
+  { label: "Archive", value: "archive", danger: true },
+];
+
 export default function TagsPage() {
   const [activeTab, setActiveTab] = useState<TagTab>("Client tags");
   const currentData = tagData[activeTab];
@@ -111,9 +120,12 @@ export default function TagsPage() {
                 />
               </Td>
               <Td align="right">
-                <button className="rounded p-1 text-text-secondary hover:bg-gray-100 hover:text-text">
-                  <MoreHorizontal className="h-5 w-5" />
-                </button>
+                <Dropdown
+                  align="right"
+                  trigger={<DropdownTriggerButton />}
+                  items={dropdownItems}
+                  onSelect={() => {}}
+                />
               </Td>
             </tr>
           ))}

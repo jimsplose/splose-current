@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Pencil, Trash2 } from "lucide-react";
 import {
   Button,
   DataTable,
@@ -11,6 +10,8 @@ import {
   Td,
   Badge,
   Pagination,
+  Dropdown,
+  DropdownTriggerButton,
 } from "@/components/ds";
 
 interface TaxRate {
@@ -28,6 +29,11 @@ const taxRates: TaxRate[] = [
 ];
 
 const ITEMS_PER_PAGE = 10;
+
+const dropdownItems = [
+  { label: "Edit", value: "edit" },
+  { label: "Delete", value: "delete", danger: true },
+];
 
 export default function TaxRatesPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -63,14 +69,12 @@ export default function TaxRatesPage() {
                 <Badge variant="green">{rate.status}</Badge>
               </Td>
               <Td>
-                <div className="flex items-center gap-2">
-                  <button className="rounded p-1.5 text-text-secondary hover:bg-gray-100 hover:text-primary">
-                    <Pencil className="h-4 w-4" />
-                  </button>
-                  <button className="rounded p-1.5 text-text-secondary hover:bg-gray-100 hover:text-red-500">
-                    <Trash2 className="h-4 w-4" />
-                  </button>
-                </div>
+                <Dropdown
+                  align="right"
+                  trigger={<DropdownTriggerButton />}
+                  items={dropdownItems}
+                  onSelect={() => {}}
+                />
               </Td>
             </tr>
           ))}

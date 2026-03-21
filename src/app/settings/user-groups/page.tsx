@@ -11,13 +11,23 @@ import {
   TableBody,
   Td,
   Pagination,
+  Dropdown,
+  DropdownTriggerButton,
 } from "@/components/ds";
-import { BookOpen, ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { BookOpen, ArrowUpDown } from "lucide-react";
 
 const userGroups = [
   { name: "Intake team", users: 3 },
   { name: "OT", users: 7 },
   { name: "Physio", users: 7 },
+];
+
+const dropdownItems = [
+  { label: "Edit", value: "edit" },
+  { label: "Duplicate", value: "duplicate" },
+  { label: "Change log", value: "change-log" },
+  { label: "", value: "divider-1", divider: true },
+  { label: "Archive", value: "archive", danger: true },
 ];
 
 export default function UserGroupsPage() {
@@ -58,9 +68,12 @@ export default function UserGroupsPage() {
               <Td className="text-text">{group.name}</Td>
               <Td>{group.users}</Td>
               <Td align="right">
-                <button className="rounded p-1 text-text-secondary hover:bg-gray-100 hover:text-text">
-                  <MoreHorizontal className="h-5 w-5" />
-                </button>
+                <Dropdown
+                  align="right"
+                  trigger={<DropdownTriggerButton />}
+                  items={dropdownItems}
+                  onSelect={() => {}}
+                />
               </Td>
             </tr>
           ))}

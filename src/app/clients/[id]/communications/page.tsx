@@ -1,5 +1,5 @@
-import { Plus, MoreHorizontal, ArrowUpDown, Filter } from "lucide-react";
-import { Button, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, Badge, statusVariant } from "@/components/ds";
+import { Plus, ArrowUpDown, Filter } from "lucide-react";
+import { Button, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, Badge, statusVariant, Dropdown, DropdownTriggerButton } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -69,6 +69,12 @@ const communicationsData = [
   },
 ];
 
+const dropdownItems = [
+  { label: "View", value: "view" },
+  { label: "Resend", value: "resend" },
+  { label: "Delete", value: "delete", danger: true },
+];
+
 export default async function ClientCommunicationsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   void id;
@@ -125,9 +131,12 @@ export default async function ClientCommunicationsPage({ params }: { params: Pro
                   {comm.link ? <span className="cursor-pointer text-primary hover:underline">{comm.link}</span> : "—"}
                 </Td>
                 <Td align="right">
-                  <button className="text-text-secondary hover:text-text">
-                    <MoreHorizontal className="h-5 w-5" />
-                  </button>
+                  <Dropdown
+                    align="right"
+                    trigger={<DropdownTriggerButton />}
+                    items={dropdownItems}
+                    onSelect={() => {}}
+                  />
                 </Td>
               </tr>
             ))}
