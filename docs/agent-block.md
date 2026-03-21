@@ -22,7 +22,15 @@ Failure to do so creates tech debt that must be cleaned up later.
 | `<span className="rounded-full px-2 py-0.5 text-xs font-medium bg-green-100...">` | `<Badge variant="green">` |
 | `<div className="flex items-center justify-between mb-4"><h1 className="text-2xl font-bold">` | `<PageHeader title="...">` |
 
-Import: `import { Button, FormInput, FormSelect, Badge, PageHeader } from "@/components/ds";`
+| `<span className="inline-block h-3 w-3 rounded-full" style={{ backgroundColor: color }} />` | `<ColorDot color={color} />` |
+| `<span className={value ? "text-green-600" : "text-red-500"}>{value ? "On" : "Off"}</span>` | `<OnOffBadge value={value} />` |
+| `<input type="color" value={color} onChange={...} className="h-10 w-10...">` + label | `<FormColorPicker value={color} onChange={...} />` |
+| Repeated `const dropdownItems = [{ label: "Edit"... }]` | `import { STANDARD_SETTINGS } from "@/lib/dropdown-presets"` |
+| Repeated `modalOpen`/`editingIndex`/`openCreate`/`openEdit`/`handleSave` state | `import { useFormModal } from "@/hooks/useFormModal"` |
+| `new Date().toLocaleString("en-AU", { hour: "numeric", ... })` | `import { formatTimestamp } from "@/lib/format"` |
+| Simple CRUD settings page with DataTable + Modal | `<SettingsListPage>` template |
+
+Import: `import { Button, FormInput, FormSelect, Badge, PageHeader, ColorDot, OnOffBadge, FormColorPicker, SettingsListPage } from "@/components/ds";`
 
 ### Typography — MANDATORY
 
@@ -50,6 +58,11 @@ Typography classes set font-family, size, weight, line-height, and letter-spacin
 - `const labelClass = "block text-sm font-medium..."` — `<FormInput label="">` includes the label
 - Inline badge styles (`rounded-full px-2 py-0.5 text-xs font-medium`) — use `<Badge>`
 - Inline button styles (`rounded-lg bg-primary px-4 py-2 text-sm font-medium`) — use `<Button>`
+- Inline color dot (`<span className="inline-block h-3 w-3 rounded-full"...>`) — use `<ColorDot>`
+- Inline on/off text (`text-green-600`/`text-red-500` conditional) — use `<OnOffBadge>`
+- Inline `<input type="color">` — use `<FormColorPicker>`
+- Repeated dropdown item arrays — use presets from `@/lib/dropdown-presets`
+- Repeated modal state (modalOpen/editingIndex/formFields) — use `useFormModal` from `@/hooks/useFormModal`
 - Raw `text-[Npx]` font sizes (`text-[11px]`, `text-[13px]`) — use the nearest typography class
 - Raw `text-{size} font-{weight}` combos — use a typography class instead
 
@@ -59,7 +72,7 @@ New components use [DaisyUI](https://daisyui.com/components/) names where a matc
 ### When DS components don't fit:
 - Tiny icon-only toolbar buttons (rich text editors) — inline is fine
 - One-off custom layouts — inline is fine
-- If a planned DS component (Tab, Toggle, Modal, Avatar, Dropdown, Card, Collapse, Filter, Status, List, Navbar, EmptyState, Select, DateRangeFilter) hasn't been created yet, use the inline pattern but add a `// TODO: extract to DS <ComponentName>` comment so it's easy to find later
+- All planned DS components are now created: Tab, Toggle, Modal, Avatar, Dropdown, Card, Collapse, Filter, Status, List, Navbar, EmptyState, Select, DateRangeFilter, ColorDot, OnOffBadge, FormColorPicker, SettingsListPage. Use the DS component rather than inline patterns.
 
 ## Design Spec — USE EXACT VALUES
 
