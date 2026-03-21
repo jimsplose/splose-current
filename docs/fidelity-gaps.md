@@ -187,6 +187,27 @@ All 22 DS components have been **created** in `src/components/ds/` with full imp
 - [x] **Note edit timeout** — Same ID issue as above. With correct seed ID, page loads. (2026-03-20)
 - [x] **Waitlist map not rendering** — Was using wrong state param `?state=map`. Correct param is `?state=waitlist-map`. Map view renders correctly. (2026-03-20)
 
+## Priority 10 — Design system opportunities (2026-03-21)
+
+Patterns identified from the interactive states implementation audit. Full details in `docs/ds-opportunities.md`.
+
+### Group X — DS hooks & utilities (`src/lib/`, `src/components/ds/`)
+
+- [ ] **`useFormModal` hook** — Extract the repeated modal state pattern (modalOpen, editingIndex, form fields, openCreate/openEdit/handleSave) into a reusable hook. Used by 30+ settings pages. ~300 LOC savings. Create in `src/hooks/useFormModal.ts`, add usage example to `docs/agent-block.md`.
+- [ ] **Dropdown presets** — Extract the 3 repeated dropdown item arrays (STANDARD_SETTINGS, SIMPLE_CRUD, USER_ADMIN) into `src/lib/dropdown-presets.ts`. Replace inline arrays in 20+ pages. ~200 LOC savings.
+- [ ] **`formatTimestamp()` utility** — Extract `new Date().toLocaleString("en-AU", ...)` into `src/lib/format.ts`. Used in 5+ pages for edit/create timestamps.
+
+### Group Y — New DS components (`src/components/ds/`)
+
+- [ ] **`FormColorPicker` component** — Standardise the 2 inconsistent color picker implementations (native input in tags/busy-times vs swatch grid in rooms-resources). Props: `label`, `value`, `onChange`, `variant: "native" | "swatches"`, `swatches?`. Add Storybook story.
+- [ ] **`OnOffBadge` component** — Extract the repeated green/red boolean indicator pattern (On/Off, Yes/No, Active/Inactive). Used in appointment-templates (SMS/Email columns), communication-types, referral-types. Props: `value: boolean`, `onLabel?`, `offLabel?`. Add Storybook story.
+- [ ] **`ColorDot` component** — Extract `<span className="inline-block h-3 w-3 rounded-full" style={{ backgroundColor: color }} />` from rooms-resources, busy-times, services. Props: `color`, `size?: "sm" | "md" | "lg"`. Add Storybook story.
+- [ ] **`BADGE_TYPE_VARIANTS` utility** — Centralise type-to-badge-variant mapping from email-templates into a shared utility. Export `getBadgeVariant(type: string): BadgeVariant`.
+
+### Group Z — Page templates (`src/components/ds/`)
+
+- [ ] **`SettingsListPage` template** — Extract the identical layout used by ALL 30+ settings pages (PageHeader → SearchBar → DataTable → Dropdown → Pagination → Modal). Each page would go from ~150 lines to ~30 lines. ~3000 LOC savings. Depends on `useFormModal` and dropdown presets. Add Storybook story showing the template with example data.
+
 ---
 
 ## Completed Gaps
