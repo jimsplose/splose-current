@@ -43,8 +43,8 @@ export default async function Dashboard() {
 
   return (
     <div className="flex min-h-[calc(100vh-3rem)]">
-      {/* Left column — Messages (col1: narrower) */}
-      <div className="flex w-[380px] shrink-0 flex-col border-r border-border">
+      {/* Left column — Messages (col1: wider) */}
+      <div className="flex flex-1 flex-col border-r border-border">
         <div className="border-b border-border bg-surface-header px-4 py-2.5">
           <h2 className="text-label-lg text-text">Messages</h2>
         </div>
@@ -191,8 +191,8 @@ export default async function Dashboard() {
         </div>
       </div>
 
-      {/* Right column — Analytics (col2: wider) */}
-      <div className="flex-1 overflow-y-auto bg-white">
+      {/* Right column — Analytics (col2: narrower) */}
+      <div className="w-[380px] shrink-0 overflow-y-auto bg-white">
         {/* Income card */}
         <div className="border-b border-border">
           <div className="border-b border-border bg-surface-header px-4 py-2.5">
