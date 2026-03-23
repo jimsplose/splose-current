@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { Plus, ArrowUpDown, ChevronDown, Tag } from "lucide-react";
+import { Plus } from "lucide-react";
 import {
   Badge,
   Button,
@@ -15,7 +14,6 @@ import {
   Tr,
   Td,
   Pagination,
-  Dropdown,
 } from "@/components/ds";
 
 interface ClientRow {
@@ -29,20 +27,7 @@ interface ClientRow {
   medicare: string | null;
 }
 
-const tagOptions = [
-  "NDIS",
-  "Medicare",
-  "FORMS PENDING",
-  "High risk",
-  "Dual funding",
-  "Exception",
-  "Company A",
-];
-
 export default function ClientsPageClient({ clients }: { clients: ClientRow[] }) {
-  const [statusFilter, setStatusFilter] = useState<"active" | "archived">("active");
-  const [tagFilter, setTagFilter] = useState<string | null>(null);
-
   return (
     <div className="p-4 sm:p-6">
       <PageHeader title="Clients">
@@ -53,54 +38,13 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
       </PageHeader>
       <SearchBar placeholder="Search for name, phone number, and email" />
 
-      {/* Filter bar */}
-      <div className="mb-4 flex items-center gap-2">
-        <Dropdown
-          trigger={
-            <Button variant="secondary" size="sm">
-              {statusFilter === "active" ? "Active" : "Archived"}
-              <ChevronDown className="h-3.5 w-3.5 text-text-secondary" />
-            </Button>
-          }
-          items={[
-            { label: "Active", value: "active" },
-            { label: "Archived", value: "archived" },
-          ]}
-          onSelect={(val) => setStatusFilter(val as "active" | "archived")}
-        />
-        <Dropdown
-          trigger={
-            <Button variant="secondary" size="sm">
-              <Tag className="h-3.5 w-3.5 text-text-secondary" />
-              {tagFilter || "Tags"}
-              <ChevronDown className="h-3.5 w-3.5 text-text-secondary" />
-            </Button>
-          }
-          items={[
-            { label: "All tags", value: "__all__" },
-            ...tagOptions.map((t) => ({ label: t, value: t })),
-          ]}
-          onSelect={(val) => setTagFilter(val === "__all__" ? null : val)}
-        />
-      </div>
-
       <DataTable>
         <TableHead>
-          <Th>
-            <div className="flex items-center gap-1">
-              Name
-              <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-            </div>
-          </Th>
+          <Th sortable filterable>Name</Th>
           <Th hidden="sm">Date of birth</Th>
           <Th hidden="md">Phone</Th>
           <Th hidden="lg">Email</Th>
-          <Th hidden="md">
-            <div className="flex items-center gap-1">
-              Tags
-              <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-            </div>
-          </Th>
+          <Th hidden="md" filterable>Tags</Th>
         </TableHead>
         <TableBody>
           {clients.map((client) => (

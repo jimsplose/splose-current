@@ -7,6 +7,7 @@ export { default as Badge, statusVariant } from "./Badge";
 export { default as FormInput } from "./FormInput";
 export { default as FormSelect } from "./FormSelect";
 export { default as Tab } from "./Tab";
+export type { TabItem } from "./Tab";
 export { default as Toggle } from "./Toggle";
 export { default as Modal } from "./Modal";
 export { default as Avatar } from "./Avatar";

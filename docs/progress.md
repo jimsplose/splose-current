@@ -533,12 +533,21 @@ Analysed 6 reference screenshots (Clients, Invoices, Payments, Products, Appoint
 - Confirmed cancellation-reasons page already exists
 - State registry: added 12 report sub-pages, 3 batch invoice pages, 3 settings edit/detail pages (18 new entries)
 
-**Phase 4 — Page-Level Fidelity Sweep (6 pages compared):**
-- Dashboard: structure matches (2 columns, messages + analytics). Minor: column sizing uses `flex-1 + w-[380px]`
-- Patient detail: matches well. Gap: no tab bar for section navigation (sections are stacked)
-- Calendar day view: structure matches. Gap: custom time grid vs Ant Design implicit spacing
-- Invoices list: matches well. Gap: pagination hardcoded, search non-functional (existing known gaps)
-- Settings hub: sidebar groups match exactly (7 groups). Content structure matches
-- Reports: sidebar + content layout matches. Filter bar uses DS components correctly
+**Phase 4 — Page-Level Fidelity Sweep (7 pages compared, all fixed):**
+- Dashboard: inverted column proportions (messages narrower `w-[380px]`, analytics wider `flex-1`), added `bg-surface-header` card headers
+- Patient detail: replaced sidebar nav with horizontal Tab bar (13 tabs, link-based). Enhanced `Tab` DS component with `href` prop for Next.js routing
+- Calendar day view: fixed toolbar icons (Command/Lightbulb), filters from Chips to Buttons, added day-view date label
+- Invoices list: migrated raw HTML table to DS DataTable/Th components with built-in sortable/filterable props
+- Clients list: removed standalone filter bar, migrated to Th sortable/filterable props
+- Settings hub: no structural mismatches found
+- Reports hub: no structural mismatches found
 
-**No critical structural issues found.** All pages use DS components correctly. Navigation chrome is in layouts (correct for Next.js).
+**Files changed (8 files):**
+- `src/app/page.tsx` — Dashboard column layout + card headers
+- `src/app/clients/[id]/layout.tsx` — Sidebar → Tab bar
+- `src/app/clients/[id]/ClientTabs.tsx` — New client component wrapper for Tab with usePathname
+- `src/app/clients/ClientsPageClient.tsx` — Filter bar removal + Th props
+- `src/app/invoices/page.tsx` — HTML table → DS DataTable/Th
+- `src/app/calendar/CalendarView.tsx` — Toolbar icons + filter styling
+- `src/components/ds/Tab.tsx` — href prop, Link support, overflow-x-auto
+- `src/components/ds/index.ts` — TabItem type export

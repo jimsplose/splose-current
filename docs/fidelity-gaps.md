@@ -208,6 +208,18 @@ Patterns identified from the interactive states implementation audit. Full detai
 
 - [x] **`SettingsListPage` template** — Created in `src/components/ds/SettingsListPage.tsx` with generic type params, column definitions, search/pagination, dropdown actions, and useFormModal integration. Storybook story added. Pages can be migrated individually. (2026-03-21)
 
+## Priority 11 — Style reference audit Phase 4 (2026-03-23)
+
+### Group AA — Page-level fidelity sweep (structural fixes applied)
+
+- [x] **Dashboard column proportions** — Inverted columns: messages now `w-[380px]` (narrower, left), analytics now `flex-1` (wider, right). Added `bg-surface-header` header bars to each dashboard card section. Matches reference `_col1`/`_col2` structure. (2026-03-23)
+- [x] **Patient detail tab bar** — Replaced sidebar navigation with horizontal `Tab` bar using link-based navigation. 13 tabs in reference order: Details, Appointments, Communications, Files, Notes, Cases, Support Activities, Forms, Invoices, Payments, Statements, Letters, Practitioner Access. Enhanced `Tab` DS component with `href` prop for Next.js Link-based tabs. (2026-03-23)
+- [x] **Invoices list table migration** — Migrated from raw HTML `<table>`/`<th>` to DS `DataTable`/`Th` components. Replaced manual sort/filter icons with `Th` built-in `sortable`/`filterable` props. Fixed search placeholder to match reference. (2026-03-23)
+- [x] **Calendar toolbar icons** — Replaced LayoutGrid/MapPin with Command/Lightbulb to match reference `anticon-mac-command`/`anticon-bulb`. Changed location/service filters from Chips to Buttons. Removed orphan `+` button. Added full date display in day view. (2026-03-23)
+- [x] **Clients list filter cleanup** — Removed standalone Active/Archived + Tags filter bar (not in reference). Migrated to `Th` `sortable`/`filterable` props for column-level filtering. (2026-03-23)
+- [x] **Settings hub** — No structural mismatches found. Sidebar groups, items, and content match reference. (2026-03-23)
+- [x] **Reports hub** — No structural mismatches found. Sidebar groups, filter bar, charts, and table match reference. (2026-03-23)
+
 ---
 
 ## Completed Gaps

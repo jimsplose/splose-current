@@ -43,24 +43,20 @@ export default async function Dashboard() {
 
   return (
     <div className="flex min-h-[calc(100vh-3rem)]">
-      {/* Left column — Messages */}
-      <div className="flex flex-1 flex-col border-r border-border">
-        {/* Messages header */}
-        <div className="px-4 py-2.5">
+      {/* Left column — Messages (col1: narrower) */}
+      <div className="flex w-[380px] shrink-0 flex-col border-r border-border">
+        <div className="border-b border-border bg-surface-header px-4 py-2.5">
           <h2 className="text-label-lg text-text">Messages</h2>
         </div>
 
-        {/* Messages content */}
         <div className="flex-1 overflow-y-auto px-4 pb-2">
           <div className="space-y-4">
-            {/* Date separator */}
             <div className="flex items-center justify-center py-2">
               <span className="text-caption-md text-text-secondary">
                 {new Date().toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" })}
               </span>
             </div>
 
-            {/* Messages from today's appointments */}
             {data.todayAppointments.slice(0, 5).map((appt) => (
               <div key={appt.id} className="flex items-start gap-2.5">
                 <Avatar name={appt.practitioner.name} color={appt.practitioner.color} size="sm" />
@@ -80,8 +76,6 @@ export default async function Dashboard() {
 
             {data.todayAppointments.length === 0 && (
               <>
-                {/* Show some sample messages when no appointments */}
-                {/* Joseph Go — message with blurred/censored image */}
                 <div className="flex items-start gap-2.5">
                   <Avatar name="Joseph Go" color="#f59e0b" size="sm" />
                   <div className="min-w-0">
@@ -89,18 +83,16 @@ export default async function Dashboard() {
                       <span className="text-heading-sm text-text">Joseph Go</span>
                       <span className="text-caption-sm text-text-secondary">9:48 pm</span>
                     </div>
-                    <div className="mt-1.5 h-36 w-48 rounded-lg bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center overflow-hidden">
-                      <div className="h-full w-full bg-gradient-to-br from-pink-200 via-gray-300 to-blue-200 blur-[12px] scale-110" />
+                    <div className="mt-1.5 flex h-36 w-48 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-gray-300 to-gray-400">
+                      <div className="h-full w-full scale-110 bg-gradient-to-br from-pink-200 via-gray-300 to-blue-200 blur-[12px]" />
                     </div>
                   </div>
                 </div>
 
-                {/* Date separator — 9 Feb 2026 */}
                 <div className="flex items-center justify-center py-1">
                   <span className="text-caption-md text-text-secondary">9 Feb 2026</span>
                 </div>
 
-                {/* Joseph Go — blue cat sticker */}
                 <div className="flex items-start gap-2.5">
                   <Avatar name="Joseph Go" color="#f59e0b" size="sm" />
                   <div className="min-w-0">
@@ -108,24 +100,22 @@ export default async function Dashboard() {
                       <span className="text-heading-sm text-text">Joseph Go</span>
                       <span className="text-caption-sm text-text-secondary">9:50 pm</span>
                     </div>
-                    <div className="mt-1.5 h-40 w-40 rounded-lg bg-gradient-to-br from-sky-200 to-sky-400 flex flex-col items-center justify-center gap-1">
-                      <div className="h-16 w-14 rounded-t-full bg-sky-500 relative">
-                        <div className="absolute -top-2 -left-1 h-4 w-3 bg-sky-500 rounded-tl-full rotate-[-15deg]" />
-                        <div className="absolute -top-2 -right-1 h-4 w-3 bg-sky-500 rounded-tr-full rotate-[15deg]" />
-                        <div className="absolute top-4 left-2 h-2 w-2 rounded-full bg-white" />
-                        <div className="absolute top-4 right-2 h-2 w-2 rounded-full bg-white" />
+                    <div className="mt-1.5 flex h-40 w-40 flex-col items-center justify-center gap-1 rounded-lg bg-gradient-to-br from-sky-200 to-sky-400">
+                      <div className="relative h-16 w-14 rounded-t-full bg-sky-500">
+                        <div className="absolute -left-1 -top-2 h-4 w-3 rotate-[-15deg] rounded-tl-full bg-sky-500" />
+                        <div className="absolute -right-1 -top-2 h-4 w-3 rotate-[15deg] rounded-tr-full bg-sky-500" />
+                        <div className="absolute left-2 top-4 h-2 w-2 rounded-full bg-white" />
+                        <div className="absolute right-2 top-4 h-2 w-2 rounded-full bg-white" />
                       </div>
-                      <span className="text-caption-sm text-sky-800 font-bold">STFCRS5</span>
+                      <span className="text-caption-sm font-bold text-sky-800">STFCRS5</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Date separator — 16 Feb 2026 */}
                 <div className="flex items-center justify-center py-1">
-                  <span className="text-caption-md text-text-secondary cursor-pointer" title="Click to go forward, hold to see history">16 Feb 2026</span>
+                  <span className="cursor-pointer text-caption-md text-text-secondary" title="Click to go forward, hold to see history">16 Feb 2026</span>
                 </div>
 
-                {/* Hao Wang — green S logo image */}
                 <div className="flex items-start gap-2.5">
                   <Avatar name="Hao Wang" color="#16a34a" size="sm" />
                   <div className="min-w-0">
@@ -133,13 +123,12 @@ export default async function Dashboard() {
                       <span className="text-heading-sm text-text">Hao Wang</span>
                       <span className="text-caption-sm text-text-secondary">3:56 pm</span>
                     </div>
-                    <div className="mt-1.5 h-40 w-48 rounded-lg bg-gradient-to-br from-green-100 to-green-300 flex items-center justify-center">
+                    <div className="mt-1.5 flex h-40 w-48 items-center justify-center rounded-lg bg-gradient-to-br from-green-100 to-green-300">
                       <span className="text-5xl font-bold text-green-600">S</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Joseph Go — MADE IT HOME meme */}
                 <div className="flex items-start gap-2.5">
                   <Avatar name="Joseph Go" color="#f59e0b" size="sm" />
                   <div className="min-w-0">
@@ -147,11 +136,11 @@ export default async function Dashboard() {
                       <span className="text-heading-sm text-text">Joseph Go</span>
                       <span className="text-caption-sm text-text-secondary">10:18 pm</span>
                     </div>
-                    <div className="mt-1.5 h-36 w-48 rounded-lg bg-gradient-to-br from-amber-100 to-amber-300 flex flex-col items-center justify-center gap-1">
+                    <div className="mt-1.5 flex h-36 w-48 flex-col items-center justify-center gap-1 rounded-lg bg-gradient-to-br from-amber-100 to-amber-300">
                       <span className="text-body-md-strong text-amber-800">MADE IT HOME</span>
-                      <div className="h-14 w-16 rounded-t-full bg-amber-400/60 relative">
-                        <div className="absolute -top-1.5 -left-0.5 h-3 w-2.5 bg-amber-400/60 rounded-tl-full rotate-[-15deg]" />
-                        <div className="absolute -top-1.5 -right-0.5 h-3 w-2.5 bg-amber-400/60 rounded-tr-full rotate-[15deg]" />
+                      <div className="relative h-14 w-16 rounded-t-full bg-amber-400/60">
+                        <div className="absolute -left-0.5 -top-1.5 h-3 w-2.5 rotate-[-15deg] rounded-tl-full bg-amber-400/60" />
+                        <div className="absolute -right-0.5 -top-1.5 h-3 w-2.5 rotate-[15deg] rounded-tr-full bg-amber-400/60" />
                       </div>
                     </div>
                   </div>
@@ -161,7 +150,6 @@ export default async function Dashboard() {
           </div>
         </div>
 
-        {/* Compose area */}
         <div className="border-t border-border p-3">
           <Card padding="none" className="mb-2 min-h-[80px] px-3 py-2 text-body-md text-text-secondary">
             Type a message...
@@ -203,135 +191,142 @@ export default async function Dashboard() {
         </div>
       </div>
 
-      {/* Right column — Analytics */}
-      <div className="w-[380px] shrink-0 overflow-y-auto bg-white">
-        {/* Income chart area */}
-        <div className="border-b border-border px-4 pt-3 pb-4">
-          <h3 className="mb-3 text-label-lg text-text">Income</h3>
-          <div className="relative h-52">
-            {/* Y-axis labels */}
-            <div className="absolute left-0 top-0 bottom-6 flex flex-col justify-between text-caption-sm text-text-secondary pr-1">
-              <span>500K</span>
-              <span>400K</span>
-              <span>300K</span>
-              <span>200K</span>
-              <span>100K</span>
-              <span>0</span>
-            </div>
-            {/* Y-axis label "Values" rotated */}
-            <div className="absolute -left-4 top-1/2 -translate-y-1/2 -rotate-90 text-caption-sm text-text-secondary whitespace-nowrap">
-              Values
-            </div>
-            {/* Grid lines */}
-            <div className="absolute left-7 right-0 top-0 bottom-6 flex flex-col justify-between">
-              {[0, 1, 2, 3, 4, 5].map((i) => (
-                <div key={i} className="border-b border-gray-100 h-0" />
-              ))}
-            </div>
-            {/* Chart bars */}
-            <div className="ml-8 flex h-[calc(100%-24px)] items-end gap-1">
-              {incomeData.map((item) => (
-                <div key={item.month} className="flex flex-1 flex-col items-center">
-                  <div className="flex w-full items-end justify-center gap-px" style={{ height: "100%" }}>
-                    <div
-                      className="w-3 rounded-t-sm"
-                      style={{
-                        height: `${(item.invoices / maxVal) * 100}%`,
-                        backgroundColor: "#bef264",
-                        minHeight: item.invoices > 0 ? "2px" : "0",
-                      }}
-                    />
-                    <div
-                      className="w-3 rounded-t-sm"
-                      style={{
-                        height: `${(item.payments / maxVal) * 100}%`,
-                        backgroundColor: "#c084fc",
-                        minHeight: item.payments > 0 ? "2px" : "0",
-                      }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-            {/* X-axis labels */}
-            <div className="ml-8 flex">
-              {incomeData.map((item) => (
-                <div key={item.month} className="flex-1 text-center">
-                  <span className="text-caption-sm text-text-secondary whitespace-nowrap">{item.month}</span>
-                </div>
-              ))}
-            </div>
+      {/* Right column — Analytics (col2: wider) */}
+      <div className="flex-1 overflow-y-auto bg-white">
+        {/* Income card */}
+        <div className="border-b border-border">
+          <div className="border-b border-border bg-surface-header px-4 py-2.5">
+            <h3 className="text-label-lg text-text">Income</h3>
           </div>
-          <div className="mt-2 flex items-center justify-center gap-4 text-caption-md text-text-secondary">
-            <span className="flex items-center gap-1.5">
-              <ColorDot color="#bef264" size="xs" className="h-2.5 w-2.5" /> Invoices
-            </span>
-            <span className="flex items-center gap-1.5">
-              <ColorDot color="#c084fc" size="xs" className="h-2.5 w-2.5" /> Payments
-            </span>
-          </div>
-        </div>
-
-        {/* Incomplete progress notes */}
-        <div className="border-b border-border px-4 pt-3 pb-3">
-          <h3 className="mb-2.5 text-label-lg text-text">Incomplete progress notes</h3>
-          <div className="space-y-1.5">
-            {data.unsignedNotes.length === 0 ? (
-              <>
-                {[
-                  { name: "Skyler Peterson (Bill Gates Demo)", time: "10:04 am, Wed 11 Mar 2026" },
-                  { name: "A Del (AAA TEST)", time: "3:43 am, Wed 11 Mar 2026" },
-                  { name: "Ethan McKenzie (BIRP Treatment Note - AI Blocks Demo)", time: "1:34 pm, Tue 10 Mar 2026" },
-                  { name: "Shaz Test (AAA TEST)", time: "1:22 pm, Tue 10 Mar 2026" },
-                  { name: "A Jr (Temp progress note test 6March26)", time: "10:16 am, Fri 6 Mar 2026" },
-                ].map((note) => (
-                  <div key={note.name} className="flex items-start justify-between gap-2 py-0.5">
-                    <span className="text-body-md text-primary hover:underline cursor-pointer">
-                      {note.name}
-                    </span>
-                    <span className="text-caption-sm text-text-secondary whitespace-nowrap shrink-0 pt-0.5">
-                      {note.time}
-                    </span>
+          <div className="px-4 pt-3 pb-4">
+            <div className="relative h-52">
+              <div className="absolute bottom-6 left-0 top-0 flex flex-col justify-between pr-1 text-caption-sm text-text-secondary">
+                <span>500K</span>
+                <span>400K</span>
+                <span>300K</span>
+                <span>200K</span>
+                <span>100K</span>
+                <span>0</span>
+              </div>
+              <div className="absolute -left-4 top-1/2 -translate-y-1/2 -rotate-90 whitespace-nowrap text-caption-sm text-text-secondary">
+                Values
+              </div>
+              <div className="absolute bottom-6 left-7 right-0 top-0 flex flex-col justify-between">
+                {[0, 1, 2, 3, 4, 5].map((i) => (
+                  <div key={i} className="h-0 border-b border-gray-100" />
+                ))}
+              </div>
+              <div className="ml-8 flex h-[calc(100%-24px)] items-end gap-1">
+                {incomeData.map((item) => (
+                  <div key={item.month} className="flex flex-1 flex-col items-center">
+                    <div className="flex w-full items-end justify-center gap-px" style={{ height: "100%" }}>
+                      <div
+                        className="w-3 rounded-t-sm"
+                        style={{
+                          height: `${(item.invoices / maxVal) * 100}%`,
+                          backgroundColor: "#bef264",
+                          minHeight: item.invoices > 0 ? "2px" : "0",
+                        }}
+                      />
+                      <div
+                        className="w-3 rounded-t-sm"
+                        style={{
+                          height: `${(item.payments / maxVal) * 100}%`,
+                          backgroundColor: "#c084fc",
+                          minHeight: item.payments > 0 ? "2px" : "0",
+                        }}
+                      />
+                    </div>
                   </div>
                 ))}
-              </>
-            ) : (
-              data.unsignedNotes.map((note) => (
-                <div key={note.id} className="flex items-start justify-between gap-2 py-0.5">
-                  <span className="text-body-md text-primary hover:underline cursor-pointer">
-                    {note.client.firstName} {note.client.lastName} ({note.practitioner.name})
-                  </span>
-                  <span className="text-caption-sm text-text-secondary whitespace-nowrap shrink-0 pt-0.5">
-                    {formatDateTime(note.date)}
-                  </span>
-                </div>
-              ))
-            )}
-            <Button variant="link" className="mt-1">Load more</Button>
+              </div>
+              <div className="ml-8 flex">
+                {incomeData.map((item) => (
+                  <div key={item.month} className="flex-1 text-center">
+                    <span className="whitespace-nowrap text-caption-sm text-text-secondary">{item.month}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="mt-2 flex items-center justify-center gap-4 text-caption-md text-text-secondary">
+              <span className="flex items-center gap-1.5">
+                <ColorDot color="#bef264" size="xs" className="h-2.5 w-2.5" /> Invoices
+              </span>
+              <span className="flex items-center gap-1.5">
+                <ColorDot color="#c084fc" size="xs" className="h-2.5 w-2.5" /> Payments
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Recently submitted forms */}
-        <div className="px-4 pt-3 pb-3">
-          <h3 className="mb-2.5 text-label-lg text-text">Recently submitted forms</h3>
-          <div className="space-y-1.5">
-            {[
-              { name: "Hao Wang (TEST IMAGE FORM)", time: "8:15 pm, Tue 10 Mar 2026" },
-              { name: "Skyler Peterson (TEST IMAGE FORM)", time: "12:45 pm, Mon 9 Mar 2026" },
-              { name: "DDDDDDD Hun (Test form saved in A Jr)", time: "10:21 am, Fri 6 Mar 2026" },
-              { name: "a a (A)", time: "4:55 pm, Thu 5 Mar 2026" },
-              { name: "A Jr (Test form File upload pdf)", time: "4:02 pm, Thu 5 Mar 2026" },
-            ].map((form) => (
-              <div key={form.name} className="flex items-start justify-between gap-2 py-0.5">
-                <span className="text-body-md text-primary hover:underline cursor-pointer">
-                  {form.name}
-                </span>
-                <span className="text-caption-sm text-text-secondary whitespace-nowrap shrink-0 pt-0.5">
-                  {form.time}
-                </span>
-              </div>
-            ))}
-            <Button variant="link" className="mt-1">Load more</Button>
+        {/* Incomplete progress notes card */}
+        <div className="border-b border-border">
+          <div className="border-b border-border bg-surface-header px-4 py-2.5">
+            <h3 className="text-label-lg text-text">Incomplete progress notes</h3>
+          </div>
+          <div className="px-4 pt-3 pb-3">
+            <div className="space-y-1.5">
+              {data.unsignedNotes.length === 0 ? (
+                <>
+                  {[
+                    { name: "Skyler Peterson (Bill Gates Demo)", time: "10:04 am, Wed 11 Mar 2026" },
+                    { name: "A Del (AAA TEST)", time: "3:43 am, Wed 11 Mar 2026" },
+                    { name: "Ethan McKenzie (BIRP Treatment Note - AI Blocks Demo)", time: "1:34 pm, Tue 10 Mar 2026" },
+                    { name: "Shaz Test (AAA TEST)", time: "1:22 pm, Tue 10 Mar 2026" },
+                    { name: "A Jr (Temp progress note test 6March26)", time: "10:16 am, Fri 6 Mar 2026" },
+                  ].map((note) => (
+                    <div key={note.name} className="flex items-start justify-between gap-2 py-0.5">
+                      <span className="cursor-pointer text-body-md text-primary hover:underline">
+                        {note.name}
+                      </span>
+                      <span className="shrink-0 whitespace-nowrap pt-0.5 text-caption-sm text-text-secondary">
+                        {note.time}
+                      </span>
+                    </div>
+                  ))}
+                </>
+              ) : (
+                data.unsignedNotes.map((note) => (
+                  <div key={note.id} className="flex items-start justify-between gap-2 py-0.5">
+                    <span className="cursor-pointer text-body-md text-primary hover:underline">
+                      {note.client.firstName} {note.client.lastName} ({note.practitioner.name})
+                    </span>
+                    <span className="shrink-0 whitespace-nowrap pt-0.5 text-caption-sm text-text-secondary">
+                      {formatDateTime(note.date)}
+                    </span>
+                  </div>
+                ))
+              )}
+              <Button variant="link" className="mt-1">Load more</Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Recently submitted forms card */}
+        <div>
+          <div className="border-b border-border bg-surface-header px-4 py-2.5">
+            <h3 className="text-label-lg text-text">Recently submitted forms</h3>
+          </div>
+          <div className="px-4 pt-3 pb-3">
+            <div className="space-y-1.5">
+              {[
+                { name: "Hao Wang (TEST IMAGE FORM)", time: "8:15 pm, Tue 10 Mar 2026" },
+                { name: "Skyler Peterson (TEST IMAGE FORM)", time: "12:45 pm, Mon 9 Mar 2026" },
+                { name: "DDDDDDD Hun (Test form saved in A Jr)", time: "10:21 am, Fri 6 Mar 2026" },
+                { name: "a a (A)", time: "4:55 pm, Thu 5 Mar 2026" },
+                { name: "A Jr (Test form File upload pdf)", time: "4:02 pm, Thu 5 Mar 2026" },
+              ].map((form) => (
+                <div key={form.name} className="flex items-start justify-between gap-2 py-0.5">
+                  <span className="cursor-pointer text-body-md text-primary hover:underline">
+                    {form.name}
+                  </span>
+                  <span className="shrink-0 whitespace-nowrap pt-0.5 text-caption-sm text-text-secondary">
+                    {form.time}
+                  </span>
+                </div>
+              ))}
+              <Button variant="link" className="mt-1">Load more</Button>
+            </div>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { PageHeader, Button, Card, Pagination, SearchBar, Badge, statusVariant, DataTable, TableHead, Th, TableBody, Tr, Td, LinkCell } from "@/components/ds";
 import { prisma } from "@/lib/prisma";
-import { Plus, ArrowUpDown, Filter } from "lucide-react";
+import { Plus } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -20,58 +20,24 @@ export default async function InvoicesPage() {
         </Button>
       </PageHeader>
 
-      <SearchBar placeholder="Search for invoice number, client..." />
+      <SearchBar placeholder="Search for invoice number, client name and contact name" />
 
       <Card padding="none" className="overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-border bg-table-header">
-                <th className="px-4 py-3 text-left text-label-lg text-text">
-                  <div className="flex items-center gap-1">
-                    Invoice #
-                    <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-                  </div>
-                </th>
-                <th className="px-4 py-3 text-left text-label-lg text-text">To</th>
-                <th className="hidden px-4 py-3 text-left text-label-lg text-text md:table-cell">
-                  <div className="flex items-center gap-1">
-                    Location
-                    <Filter className="h-3 w-3 text-text-secondary" />
-                  </div>
-                </th>
-                <th className="hidden px-4 py-3 text-left text-label-lg text-text md:table-cell">
-                  <div className="flex items-center gap-1">
-                    Practitioner
-                    <Filter className="h-3 w-3 text-text-secondary" />
-                  </div>
-                </th>
-                <th className="hidden px-4 py-3 text-left text-label-lg text-text lg:table-cell">
-                  <div className="flex items-center gap-1">
-                    Issue date
-                    <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-                  </div>
-                </th>
-                <th className="hidden px-4 py-3 text-left text-label-lg text-text lg:table-cell">
-                  <div className="flex items-center gap-1">
-                    Due date
-                    <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-                  </div>
-                </th>
-                <th className="hidden px-4 py-3 text-right text-label-lg text-text sm:table-cell">Amount</th>
-                <th className="hidden px-4 py-3 text-right text-label-lg text-text sm:table-cell">Outstanding</th>
-                <th className="hidden px-4 py-3 text-left text-label-lg text-text sm:table-cell">
-                  <div className="flex items-center gap-1">
-                    Status
-                    <Filter className="h-3 w-3 text-text-secondary" />
-                  </div>
-                </th>
-                <th className="hidden px-4 py-3 text-left text-label-lg text-text lg:table-cell">
-                  <div className="flex items-center gap-1">Sent status</div>
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
+          <DataTable>
+            <TableHead>
+              <Th sortable>Invoice #</Th>
+              <Th>To</Th>
+              <Th hidden="md" filterable>Location</Th>
+              <Th hidden="md" filterable>Practitioner</Th>
+              <Th hidden="lg" sortable>Issue date</Th>
+              <Th hidden="lg" sortable>Due date</Th>
+              <Th hidden="sm" align="right">Amount</Th>
+              <Th hidden="sm" align="right">Outstanding</Th>
+              <Th hidden="sm" filterable>Status</Th>
+              <Th hidden="lg">Sent status</Th>
+            </TableHead>
+            <TableBody>
               {invoices.map((inv) => {
                 const outstanding = inv.status === "Paid" ? 0 : inv.total;
                 const practitioner = inv.appointment?.practitioner;
@@ -110,8 +76,8 @@ export default async function InvoicesPage() {
                   </Tr>
                 );
               })}
-            </tbody>
-          </table>
+            </TableBody>
+          </DataTable>
         </div>
         <Pagination currentPage={1} totalPages={1} totalItems={invoices.length} itemsPerPage={10} />
       </Card>

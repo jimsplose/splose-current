@@ -9,6 +9,8 @@ import {
   Filter,
   Settings2,
   LayoutGrid,
+  Command,
+  Lightbulb,
   X,
   Clock,
   User,
@@ -16,7 +18,6 @@ import {
   MapPin,
   FileText,
   Calendar,
-  Plus,
   Video,
   Monitor,
   UserPlus,
@@ -204,6 +205,11 @@ export default function CalendarView({
 
   const today = new Date();
   const monthYear = today.toLocaleDateString("en-AU", { month: "short", year: "numeric" });
+  // Day-view shows full date; week/month show month+year
+  const toolbarDateLabel =
+    viewMode === "Day"
+      ? today.toLocaleDateString("en-AU", { weekday: "long", day: "numeric", month: "long", year: "numeric" })
+      : monthYear;
 
   function openCreateModal(dateStr?: string, hour?: number, minute?: number, practitionerId?: string) {
     const m = minute ?? 0;
@@ -307,7 +313,7 @@ export default function CalendarView({
                 <ChevronRight className="h-4 w-4" />
               </Button>
             </div>
-            <h2 className="text-display-md text-text">{monthYear}</h2>
+            <h2 className="text-display-md text-text">{toolbarDateLabel}</h2>
             <div className="ml-2 flex items-center gap-2 text-text-secondary">
               <Button variant="icon" size="sm">
                 <Filter className="h-4 w-4" />
@@ -316,17 +322,18 @@ export default function CalendarView({
                 <Settings2 className="h-4 w-4" />
               </Button>
               <Button variant="icon" size="sm">
-                <LayoutGrid className="h-4 w-4" />
+                <Command className="h-4 w-4" />
               </Button>
               <Button variant="icon" size="sm">
-                <MapPin className="h-4 w-4" />
+                <Lightbulb className="h-4 w-4" />
               </Button>
             </div>
           </div>
           <div className="flex shrink-0 items-center gap-2">
-            {/* Location filter pills */}
-            <Chip variant="green" className="hidden sm:inline-flex">East Clinics</Chip>
-            <Chip variant="purple" className="hidden sm:inline-flex">Physio</Chip>
+            {/* Location filter */}
+            <Button variant="secondary" size="sm" className="hidden sm:inline-flex">
+              Locations (All)
+            </Button>
 
             {/* Booking-for filter pill */}
             {bookingForFilter && (
@@ -335,8 +342,9 @@ export default function CalendarView({
               </Chip>
             )}
 
-            <Button variant="primary" size="sm" round onClick={() => openCreateModal()}>
-              <Plus className="h-4 w-4" />
+            {/* Service filter */}
+            <Button variant="secondary" size="sm" className="hidden sm:inline-flex">
+              Physio
             </Button>
 
             {/* Calendar/Rooms dropdown */}
