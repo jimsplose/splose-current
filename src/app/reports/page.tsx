@@ -1,14 +1,145 @@
 "use client";
 
-import { useState } from "react";
-import { Avatar, Button, Card, Chip, ColorDot, Dropdown, FormSelect } from "@/components/ds";
+import { useState, useRef, useEffect, useMemo } from "react";
+import { Calendar, ChevronDown } from "lucide-react";
+import { Avatar, Button, Card, ColorDot, Dropdown, FormSelect } from "@/components/ds";
+import { DataTable, TableHead, Th, TableBody, Tr, Td } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
+
+/* ── Date helpers ─────────────────────────────────────────────── */
+
+function fmtShort(d: Date) {
+  return d.toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "2-digit" });
+}
+function fmtDay(d: Date) {
+  return d.toLocaleDateString("en-AU", { day: "2-digit", month: "short" });
+}
+function toInputDate(d: Date) {
+  return d.toISOString().split("T")[0];
+}
+function daysAgo(n: number) {
+  return new Date(Date.now() - n * 86400000);
+}
+function startOfMonth(d: Date) {
+  return new Date(d.getFullYear(), d.getMonth(), 1);
+}
+function startOfLastMonth() {
+  const d = new Date();
+  return new Date(d.getFullYear(), d.getMonth() - 1, 1);
+}
+function endOfLastMonth() {
+  const d = new Date();
+  return new Date(d.getFullYear(), d.getMonth(), 0);
+}
+
+/* ── DateRangePicker with presets ─────────────────────────────── */
+
+function DateRangePicker({
+  startDate,
+  endDate,
+  onChange,
+}: {
+  startDate: Date;
+  endDate: Date;
+  onChange: (start: Date, end: Date) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    if (open) document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [open]);
+
+  const presets = [
+    { label: "Last 7 days", start: daysAgo(7), end: new Date() },
+    { label: "Last 14 days", start: daysAgo(14), end: new Date() },
+    { label: "Last 30 days", start: daysAgo(30), end: new Date() },
+    { label: "Last month", start: startOfLastMonth(), end: endOfLastMonth() },
+    { label: "This month", start: startOfMonth(new Date()), end: new Date() },
+    { label: "Last 3 months", start: daysAgo(90), end: new Date() },
+    { label: "Last 6 months", start: daysAgo(180), end: new Date() },
+    { label: "Year to date", start: new Date(new Date().getFullYear(), 0, 1), end: new Date() },
+  ];
+
+  function applyPreset(p: (typeof presets)[number]) {
+    onChange(p.start, p.end);
+    setOpen(false);
+  }
+
+  return (
+    <div className="relative" ref={ref}>
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-2 rounded-full border border-primary bg-primary/10 px-3 py-1.5 text-body-md font-medium text-primary transition-colors hover:bg-primary/20"
+      >
+        <Calendar className="h-4 w-4" />
+        {fmtShort(startDate)} &rarr; {fmtShort(endDate)}
+        <ChevronDown className="h-3.5 w-3.5" />
+      </button>
+
+      {open && (
+        <div className="absolute left-0 top-full z-30 mt-1 w-80 rounded-lg border border-border bg-white shadow-lg">
+          {/* Presets */}
+          <div className="border-b border-border p-2">
+            <p className="mb-1.5 px-2 text-label-md text-text-secondary">Quick select</p>
+            <div className="grid grid-cols-2 gap-1">
+              {presets.map((p) => (
+                <button
+                  key={p.label}
+                  type="button"
+                  onClick={() => applyPreset(p)}
+                  className="rounded-md px-3 py-1.5 text-left text-body-sm text-text transition-colors hover:bg-primary/5 hover:text-primary"
+                >
+                  {p.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Custom date inputs */}
+          <div className="p-3">
+            <p className="mb-2 text-label-md text-text-secondary">Custom range</p>
+            <div className="flex items-center gap-2">
+              <input
+                type="date"
+                value={toInputDate(startDate)}
+                onChange={(e) => onChange(new Date(e.target.value), endDate)}
+                className="flex-1 rounded-lg border border-border px-3 py-1.5 text-body-sm text-text focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
+              />
+              <span className="text-text-secondary">&rarr;</span>
+              <input
+                type="date"
+                value={toInputDate(endDate)}
+                onChange={(e) => onChange(startDate, new Date(e.target.value))}
+                className="flex-1 rounded-lg border border-border px-3 py-1.5 text-body-sm text-text focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
+              />
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ── Page ─────────────────────────────────────────────────────── */
+
+type SortKey = "name" | "utilisation" | "revenue";
+type SortDir = "asc" | "desc";
 
 export default function ReportsPage() {
   const [selectedLocation, setSelectedLocation] = useState("all");
   const [selectedPractitioner, setSelectedPractitioner] = useState("all");
   const [compareMode, setCompareMode] = useState(false);
   const [frequency, setFrequency] = useState("daily");
+  const [dateStart, setDateStart] = useState(() => daysAgo(7));
+  const [dateEnd, setDateEnd] = useState(() => new Date());
+  const [sortKey, setSortKey] = useState<SortKey>("utilisation");
+  const [sortDir, setSortDir] = useState<SortDir>("desc");
 
   const locationItems: DropdownItem[] = [
     { label: "All locations", value: "all" },
@@ -27,8 +158,7 @@ export default function ReportsPage() {
   ];
 
   const locationLabel = locationItems.find((i) => i.value === selectedLocation)?.label ?? "All locations";
-  const practitionerLabel =
-    practitionerItems.find((i) => i.value === selectedPractitioner)?.label ?? "All practitioners";
+  const practitionerLabel = practitionerItems.find((i) => i.value === selectedPractitioner)?.label ?? "All practitioners";
 
   const practitioners = [
     { name: "Ruvi R.", color: "#ef4444", utilisation: 10.09, revenue: 393.0 },
@@ -41,13 +171,28 @@ export default function ReportsPage() {
     { name: "Nghia Hoang", color: "#6366f1", utilisation: 2.29, revenue: 0.0 },
   ];
 
-  const dateStart = new Date(Date.now() - 7 * 86400000);
-  const dateEnd = new Date();
-  const fmtShort = (d: Date) => d.toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "2-digit" });
-  const fmtDay = (d: Date) => d.toLocaleDateString("en-AU", { day: "2-digit", month: "short" });
+  const sortedPractitioners = useMemo(() => {
+    return [...practitioners].sort((a, b) => {
+      const aVal = a[sortKey];
+      const bVal = b[sortKey];
+      if (typeof aVal === "string" && typeof bVal === "string") {
+        return sortDir === "asc" ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+      }
+      return sortDir === "asc" ? (aVal as number) - (bVal as number) : (bVal as number) - (aVal as number);
+    });
+  }, [sortKey, sortDir]);
+
+  function handleSort(key: SortKey) {
+    if (sortKey === key) {
+      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    } else {
+      setSortKey(key);
+      setSortDir("desc");
+    }
+  }
 
   const chartDays = Array.from({ length: 7 }, (_, i) => {
-    const d = new Date(dateStart.getTime() + i * 86400000);
+    const d = new Date(dateStart.getTime() + i * ((dateEnd.getTime() - dateStart.getTime()) / 6));
     return fmtDay(d);
   });
 
@@ -66,27 +211,15 @@ export default function ReportsPage() {
     <>
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-display-lg text-text">Performance overview</h1>
-        <Button variant="ghost" className="rounded p-2" aria-label="Settings">
-          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-            />
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-        </Button>
       </div>
 
       {/* Filter bar */}
       <div className="mb-6 flex flex-wrap items-center gap-2">
-        <Chip variant="purple" className="border-primary text-body-md text-primary">
-          {fmtShort(dateStart)}
-        </Chip>
-        <span className="text-text-secondary">&rarr;</span>
-        <Chip variant="purple" className="border-primary text-body-md text-primary">
-          {fmtShort(dateEnd)}
-        </Chip>
+        <DateRangePicker
+          startDate={dateStart}
+          endDate={dateEnd}
+          onChange={(s, e) => { setDateStart(s); setDateEnd(e); }}
+        />
         <FormSelect
           options={frequencyOptions}
           value={frequency}
@@ -94,20 +227,12 @@ export default function ReportsPage() {
           className="!w-auto cursor-pointer !rounded-full !border-primary !bg-primary/10 !font-medium !text-primary"
         />
         <Dropdown
-          trigger={
-            <Button variant="secondary" size="sm" className="rounded-full">
-              {locationLabel}
-            </Button>
-          }
+          trigger={<Button variant="secondary" size="sm" className="rounded-full">{locationLabel}</Button>}
           items={locationItems}
           onSelect={setSelectedLocation}
         />
         <Dropdown
-          trigger={
-            <Button variant="secondary" size="sm" className="rounded-full">
-              {practitionerLabel}
-            </Button>
-          }
+          trigger={<Button variant="secondary" size="sm" className="rounded-full">{practitionerLabel}</Button>}
           items={practitionerItems}
           onSelect={setSelectedPractitioner}
         />
@@ -123,54 +248,39 @@ export default function ReportsPage() {
 
       {/* Charts row */}
       <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
-        {/* Utilisation card - LINE chart */}
+        {/* Utilisation card */}
         <Card>
           <div className="mb-1 flex items-center justify-between">
             <h3 className="text-heading-sm text-text">Utilisation</h3>
-            <Button variant="ghost" size="sm">...</Button>
           </div>
           <p className="mb-2 text-caption-md text-text-secondary">Percentage of available time utilised</p>
           <p className="mb-1 text-metric-lg text-text">0.85%</p>
-          <p className="mb-4 text-caption-md text-text-secondary">
-            {fmtDay(dateStart)} - {fmtDay(dateEnd)}
-          </p>
-          {/* SVG Line chart */}
+          <p className="mb-4 text-caption-md text-text-secondary">{fmtDay(dateStart)} - {fmtDay(dateEnd)}</p>
           <div className="relative h-32">
             <svg viewBox="0 0 280 100" className="h-full w-full" preserveAspectRatio="none">
-              {/* Grid lines */}
               {[0, 25, 50, 75, 100].map((y) => (
                 <line key={y} x1="0" y1={y} x2="280" y2={y} stroke="#f0f0f0" strokeWidth="0.5" />
               ))}
-              {/* Line chart path */}
               <polyline
                 fill="none"
                 stroke="#7c3aed"
                 strokeWidth="2"
                 points={utilisationData.map((v, i) => `${i * 46.67},${100 - (v / 5) * 100}`).join(" ")}
               />
-              {/* Area fill */}
               <polygon
                 fill="rgba(124, 58, 237, 0.1)"
                 points={`0,100 ${utilisationData.map((v, i) => `${i * 46.67},${100 - (v / 5) * 100}`).join(" ")} 280,100`}
               />
-              {/* Data points */}
               {utilisationData.map((v, i) => (
                 <circle key={i} cx={i * 46.67} cy={100 - (v / 5) * 100} r="3" fill="#7c3aed" />
               ))}
             </svg>
-            {/* Y-axis labels */}
             <div className="absolute top-0 bottom-0 left-0 -ml-1 flex flex-col justify-between text-caption-sm text-text-secondary">
-              <span>6%</span>
-              <span>4%</span>
-              <span>2%</span>
-              <span>0%</span>
+              <span>6%</span><span>4%</span><span>2%</span><span>0%</span>
             </div>
           </div>
-          {/* X-axis labels */}
           <div className="mt-1 flex justify-between px-2 text-caption-sm text-text-secondary">
-            {chartDays.map((d) => (
-              <span key={d}>{d}</span>
-            ))}
+            {chartDays.map((d) => (<span key={d}>{d}</span>))}
           </div>
           <div className="mt-2 flex items-center justify-center gap-1 text-caption-sm text-text-secondary">
             <ColorDot color="var(--color-primary)" size="xs" />
@@ -178,27 +288,17 @@ export default function ReportsPage() {
           </div>
         </Card>
 
-        {/* Revenue card - BAR chart */}
+        {/* Revenue card */}
         <Card>
           <div className="mb-1 flex items-center justify-between">
             <h3 className="text-heading-sm text-text">Revenue</h3>
-            <Button variant="ghost" size="sm">...</Button>
           </div>
-          <p className="mb-2 text-caption-md text-text-secondary">
-            Total invoiced revenue from appointments and support activities (tax exclusive)
-          </p>
+          <p className="mb-2 text-caption-md text-text-secondary">Total invoiced revenue from appointments and support activities (tax exclusive)</p>
           <p className="mb-1 text-metric-lg text-text">$1.09K</p>
-          <p className="mb-4 text-caption-md text-text-secondary">
-            {fmtDay(dateStart)} - {fmtDay(dateEnd)}
-          </p>
-          {/* Bar chart */}
+          <p className="mb-4 text-caption-md text-text-secondary">{fmtDay(dateStart)} - {fmtDay(dateEnd)}</p>
           <div className="relative h-32">
-            {/* Y-axis labels */}
             <div className="absolute top-0 bottom-0 left-0 flex flex-col justify-between text-caption-sm text-text-secondary">
-              <span>$600</span>
-              <span>$400</span>
-              <span>$200</span>
-              <span>$0</span>
+              <span>$600</span><span>$400</span><span>$200</span><span>$0</span>
             </div>
             <div className="ml-8 flex h-full items-end gap-2">
               {revenueData.map((val, i) => (
@@ -211,11 +311,8 @@ export default function ReportsPage() {
               ))}
             </div>
           </div>
-          {/* X-axis labels */}
           <div className="mt-1 ml-8 flex justify-between text-caption-sm text-text-secondary">
-            {chartDays.map((d) => (
-              <span key={d}>{d}</span>
-            ))}
+            {chartDays.map((d) => (<span key={d}>{d}</span>))}
           </div>
           <div className="mt-2 flex items-center justify-center gap-1 text-caption-sm text-text-secondary">
             <ColorDot color="var(--color-primary)" size="xs" />
@@ -231,31 +328,42 @@ export default function ReportsPage() {
             <h3 className="text-heading-sm text-text">Practitioners</h3>
             <p className="text-caption-md text-text-secondary">Breakdown of performance by individual practitioner</p>
           </div>
-          <Button variant="ghost" size="sm">...</Button>
         </div>
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border">
-              <th className="px-4 py-2 text-left text-label-lg text-text">Name</th>
-              <th className="px-4 py-2 text-left text-label-lg text-text">
-                <div className="flex items-center gap-1">
-                  Utilisation rate
-                  <span className="text-text-secondary">&#9660;</span>
-                </div>
-              </th>
-              <th className="px-4 py-2 text-right text-label-lg text-text">Revenue</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
-            {practitioners.map((p) => (
-              <tr key={p.name} className="hover:bg-gray-50">
-                <td className="px-4 py-3">
+        <DataTable>
+          <TableHead>
+            <Th
+              sortable
+              sortDirection={sortKey === "name" ? sortDir : null}
+              onSort={() => handleSort("name")}
+            >
+              Name
+            </Th>
+            <Th
+              sortable
+              sortDirection={sortKey === "utilisation" ? sortDir : null}
+              onSort={() => handleSort("utilisation")}
+            >
+              Utilisation rate
+            </Th>
+            <Th
+              sortable
+              sortDirection={sortKey === "revenue" ? sortDir : null}
+              onSort={() => handleSort("revenue")}
+              align="right"
+            >
+              Revenue
+            </Th>
+          </TableHead>
+          <TableBody>
+            {sortedPractitioners.map((p) => (
+              <Tr key={p.name} hover>
+                <Td>
                   <div className="flex items-center gap-3">
                     <Avatar name={p.name} color={p.color} size="sm" />
                     <span className="text-body-md text-text">{p.name}</span>
                   </div>
-                </td>
-                <td className="px-4 py-3">
+                </Td>
+                <Td>
                   <div className="flex items-center gap-2">
                     <div className="h-1.5 w-16 rounded-full bg-gray-100">
                       <div
@@ -265,12 +373,12 @@ export default function ReportsPage() {
                     </div>
                     <span className="text-body-md text-text-secondary">{p.utilisation.toFixed(2)}%</span>
                   </div>
-                </td>
-                <td className="px-4 py-3 text-right text-body-md text-text">${p.revenue.toFixed(2)}</td>
-              </tr>
+                </Td>
+                <Td align="right">${p.revenue.toFixed(2)}</Td>
+              </Tr>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </DataTable>
       </Card>
     </>
   );
