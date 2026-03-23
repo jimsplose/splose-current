@@ -140,6 +140,8 @@ export default function CustomFieldsPage() {
   const [showReorderModal, setShowReorderModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingField, setEditingField] = useState<CustomField | null>(null);
+  const [showNewModal, setShowNewModal] = useState(false);
+  const [newField, setNewField] = useState({ name: "", type: "Short text", required: false });
 
   const filteredFields = fields.filter((f) =>
     f.name.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -179,7 +181,7 @@ export default function CustomFieldsPage() {
           <BookOpen className="h-4 w-4" />
           Learn
         </Button>
-        <Button variant="primary">+ New custom field</Button>
+        <Button variant="primary" onClick={() => { setNewField({ name: "", type: "Short text", required: false }); setShowNewModal(true); }}>+ New custom field</Button>
       </PageHeader>
 
       <SearchBar
@@ -249,6 +251,50 @@ export default function CustomFieldsPage() {
           onSave={handleSaveEdit}
         />
       )}
+
+      {/* New custom field modal */}
+      <Modal
+        open={showNewModal}
+        onClose={() => setShowNewModal(false)}
+        title="New custom field"
+        footer={
+          <div className="flex justify-end gap-2">
+            <Button variant="secondary" onClick={() => setShowNewModal(false)}>Cancel</Button>
+            <Button variant="primary" onClick={() => {
+              if (newField.name.trim()) {
+                setFields((prev) => [...prev, {
+                  id: Date.now(),
+                  name: newField.name,
+                  type: newField.type,
+                  required: newField.required,
+                  visible: true,
+                  options: newField.type.includes("Multiple") || newField.type.includes("Dropdown") ? ["Option 1", "Option 2"] : undefined,
+                }]);
+                setShowNewModal(false);
+              }
+            }}>Save</Button>
+          </div>
+        }
+      >
+        <div className="space-y-4">
+          <FormInput label="Field name" value={newField.name} onChange={(e) => setNewField((p) => ({ ...p, name: e.target.value }))} placeholder="e.g. Referral source" />
+          <FormSelect
+            label="Field type"
+            value={newField.type}
+            onChange={(e) => setNewField((p) => ({ ...p, type: e.target.value }))}
+            options={fieldTypes.map((t) => ({ value: t, label: t }))}
+          />
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={newField.required}
+              onChange={(e) => setNewField((p) => ({ ...p, required: e.target.checked }))}
+              className="h-4 w-4 rounded border-border text-primary"
+            />
+            <span className="text-body-md text-text">Required field</span>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

@@ -300,7 +300,7 @@ export default function CalendarView({
     <div className="flex h-[calc(100vh-3rem)]">
       <div className="flex flex-1 flex-col">
         {/* Calendar toolbar */}
-        <div className="flex items-center justify-between gap-2 overflow-x-auto border-b border-border px-2 py-2 sm:px-4">
+        <div className="relative z-20 flex items-center justify-between gap-2 overflow-visible border-b border-border px-2 py-2 sm:px-4">
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             <Button variant="secondary" size="sm">
               Today
@@ -499,8 +499,8 @@ export default function CalendarView({
         {/* Week view — day columns with practitioner sub-columns */}
         {viewMode === "Week" && (
           <>
-            <div className="overflow-x-auto">
-              <div className="grid min-w-[700px] grid-cols-[60px_repeat(7,1fr)] border-b border-border">
+            <div>
+              <div className="grid grid-cols-[60px_repeat(7,1fr)] border-b border-border">
                 <div className="border-r border-border" />
                 {weekDates.map((dateStr, i) => {
                   const date = new Date(dateStr + "T00:00:00");
@@ -508,23 +508,11 @@ export default function CalendarView({
                   return (
                     <div
                       key={i}
-                      className={`border-r border-border px-1 py-2 text-center last:border-r-0 ${isToday ? "bg-primary/5" : ""}`}
+                      className={`border-r border-border px-2 py-2 text-center last:border-r-0 ${isToday ? "bg-primary/5" : ""}`}
                     >
                       <div className="text-caption-md text-text-secondary">{DAYS[i]}</div>
                       <div className={`text-heading-lg ${isToday ? "text-primary" : "text-text"}`}>
                         {date.getDate()}
-                      </div>
-                      <div className="mt-0.5 truncate text-caption-sm text-text-secondary">Hands Togeth...</div>
-                      {/* Practitioner sub-column headers */}
-                      <div className="mt-0.5 flex justify-center gap-px">
-                        {practitioners.map((p) => (
-                          <div key={p.id} className="flex min-w-0 flex-1 flex-col items-center">
-                            <ColorDot color={p.color} size="xs" className="mb-0.5 h-1.5 w-1.5" />
-                            <span className="w-full truncate text-caption-sm text-text-secondary">
-                              {p.name.split(" ")[0].length > 5 ? p.name.split(" ")[0].slice(0, 5) + "..." : p.name.split(" ")[0]}
-                            </span>
-                          </div>
-                        ))}
                       </div>
                     </div>
                   );
@@ -532,9 +520,9 @@ export default function CalendarView({
               </div>
             </div>
 
-            {/* Time grid — Week view with practitioner sub-columns */}
-            <div className="flex-1 overflow-x-auto overflow-y-auto">
-              <div className="grid min-w-[700px] grid-cols-[60px_repeat(7,1fr)]">
+            {/* Time grid — Week view (appointments stacked by color, no practitioner sub-columns) */}
+            <div className="flex-1 overflow-y-auto">
+              <div className="grid grid-cols-[60px_repeat(7,1fr)]">
                 {HOURS.map((hour) => (
                   <div key={hour} className="contents">
                     <div
@@ -547,54 +535,44 @@ export default function CalendarView({
                     </div>
                     {weekDates.map((dateStr, dayIdx) => {
                       const isToday = dateStr === todayStr;
+                      const hourAppts = appointments.filter(
+                        (a) => a.date === dateStr && parseInt(a.startTime.split(":")[0]) === hour,
+                      );
                       return (
                         <div
                           key={dayIdx}
                           className={`relative border-r border-b border-border last:border-r-0 ${isToday ? "bg-primary/5" : ""}`}
                           style={{ height: `${HOUR_HEIGHT}px` }}
+                          onClick={(e) => handleCellClick(e, dateStr, hour)}
                         >
-                          {/* Practitioner sub-columns inside each day cell */}
-                          <div className="absolute inset-0 flex">
-                            {practitioners.map((prac, pIdx) => {
-                              const hourAppts = appointments.filter(
-                                (a) =>
-                                  a.date === dateStr &&
-                                  a.practitionerName === prac.name &&
-                                  parseInt(a.startTime.split(":")[0]) === hour,
-                              );
-                              return (
-                                <div
-                                  key={prac.id}
-                                  className={`relative flex-1 cursor-pointer hover:bg-gray-100/50 ${pIdx < practitioners.length - 1 ? "border-r border-border/30" : ""}`}
-                                  onClick={(e) => handleCellClick(e, dateStr, hour)}
-                                >
-                                  {hourAppts.map((appt) => {
-                                    const pos = getApptStyle(appt);
-                                    return (
-                                      <div
-                                        key={appt.id}
-                                        className="absolute inset-x-0.5 z-10 cursor-pointer overflow-hidden rounded px-1 py-0.5 text-white shadow-sm"
-                                        style={{
-                                          backgroundColor: appt.practitionerColor,
-                                          opacity: appt.status === "Cancelled" ? 0.5 : 1,
-                                          ...pos,
-                                        }}
-                                        onClick={(e) => {
-                                          e.stopPropagation();
-                                          setSelectedAppt(appt);
-                                        }}
-                                      >
-                                        <p className="truncate text-caption-sm font-medium">{appt.clientName}</p>
-                                        <p className="text-caption-sm opacity-80">
-                                          {appt.startTime.replace(/^0/, "")}
-                                        </p>
-                                      </div>
-                                    );
-                                  })}
-                                </div>
-                              );
-                            })}
-                          </div>
+                          {hourAppts.map((appt, apptIdx) => {
+                            const pos = getApptStyle(appt);
+                            const count = hourAppts.length;
+                            const width = count > 1 ? `${100 / Math.min(count, 4)}%` : "100%";
+                            const left = count > 1 ? `${(apptIdx % Math.min(count, 4)) * (100 / Math.min(count, 4))}%` : "0";
+                            return (
+                              <div
+                                key={appt.id}
+                                className="absolute z-10 cursor-pointer overflow-hidden rounded px-1 py-0.5 text-white shadow-sm"
+                                style={{
+                                  backgroundColor: appt.practitionerColor,
+                                  opacity: appt.status === "Cancelled" ? 0.5 : 1,
+                                  width,
+                                  left,
+                                  ...pos,
+                                }}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setSelectedAppt(appt);
+                                }}
+                              >
+                                <p className="truncate text-caption-sm font-medium">{appt.clientName}</p>
+                                <p className="text-caption-sm opacity-80">
+                                  {appt.startTime.replace(/^0/, "")}
+                                </p>
+                              </div>
+                            );
+                          })}
                         </div>
                       );
                     })}
