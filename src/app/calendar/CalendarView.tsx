@@ -330,9 +330,14 @@ export default function CalendarView({
             </div>
           </div>
           <div className="flex shrink-0 items-center gap-2">
-            {/* Location filter */}
+            {/* Location filter pill */}
             <Button variant="secondary" size="sm" className="hidden sm:inline-flex">
-              Locations (All)
+              Hands Togeth...
+            </Button>
+
+            {/* Practitioner filter pill */}
+            <Button variant="secondary" size="sm" className="hidden sm:inline-flex">
+              Practitioners(All)
             </Button>
 
             {/* Booking-for filter pill */}
@@ -341,11 +346,6 @@ export default function CalendarView({
                 Booking for <strong>{bookingForFilter}</strong>
               </Chip>
             )}
-
-            {/* Service filter */}
-            <Button variant="secondary" size="sm" className="hidden sm:inline-flex">
-              Physio
-            </Button>
 
             {/* Calendar/Rooms dropdown */}
             <Dropdown
@@ -496,23 +496,38 @@ export default function CalendarView({
           </>
         )}
 
-        {/* Week view — day columns with practitioner sub-columns */}
-        {viewMode === "Week" && (
+        {/* Week view — practitioner sub-columns per day, horizontally scrollable */}
+        {viewMode === "Week" && (() => {
+          const COL_W = 55; // px per practitioner column
+          const dayWidth = practitioners.length * COL_W;
+          const totalWidth = 48 + dayWidth * 7; // time-gutter + 7 days
+          const gridCols = `48px repeat(7, ${dayWidth}px)`;
+          return (
           <>
-            <div>
-              <div className="grid grid-cols-[60px_repeat(7,1fr)] border-b border-border">
+            {/* Sticky day + practitioner headers */}
+            <div className="overflow-x-auto overflow-y-hidden" style={{ scrollbarWidth: "none" }}>
+              <div style={{ width: totalWidth, display: "grid", gridTemplateColumns: gridCols }} className="border-b border-border">
                 <div className="border-r border-border" />
                 {weekDates.map((dateStr, i) => {
                   const date = new Date(dateStr + "T00:00:00");
                   const isToday = dateStr === todayStr;
                   return (
-                    <div
-                      key={i}
-                      className={`border-r border-border px-2 py-2 text-center last:border-r-0 ${isToday ? "bg-primary/5" : ""}`}
-                    >
-                      <div className="text-caption-md text-text-secondary">{DAYS[i]}</div>
-                      <div className={`text-heading-lg ${isToday ? "text-primary" : "text-text"}`}>
-                        {date.getDate()}
+                    <div key={i} className={`border-r border-border last:border-r-0 ${isToday ? "bg-primary/5" : ""}`}>
+                      <div className="px-2 pt-1 text-center">
+                        <div className="text-caption-md text-text-secondary">{DAYS[i]}</div>
+                        <div className={`text-heading-lg ${isToday ? "text-primary" : "text-text"}`}>{date.getDate()}</div>
+                        <div className="truncate text-caption-sm text-text-secondary">Hands Together Ther...</div>
+                      </div>
+                      {/* Practitioner column headers */}
+                      <div className="flex border-t border-border/50 px-px">
+                        {practitioners.map((p) => (
+                          <div key={p.id} className="flex flex-col items-center py-1" style={{ width: COL_W }}>
+                            <ColorDot color={p.color} size="xs" className="mb-0.5" />
+                            <span className="w-full truncate px-0.5 text-center text-caption-sm text-text-secondary">
+                              {p.name.length > 6 ? p.name.slice(0, 5) + "..." : p.name}
+                            </span>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   );
@@ -520,59 +535,51 @@ export default function CalendarView({
               </div>
             </div>
 
-            {/* Time grid — Week view (appointments stacked by color, no practitioner sub-columns) */}
-            <div className="flex-1 overflow-y-auto">
-              <div className="grid grid-cols-[60px_repeat(7,1fr)]">
+            {/* Scrollable time grid */}
+            <div className="flex-1 overflow-auto">
+              <div style={{ width: totalWidth, display: "grid", gridTemplateColumns: gridCols }}>
                 {HOURS.map((hour) => (
                   <div key={hour} className="contents">
-                    <div
-                      className="flex items-start justify-end border-r border-b border-border px-2 py-1"
-                      style={{ height: `${HOUR_HEIGHT}px` }}
-                    >
+                    <div className="flex items-start justify-end border-r border-b border-border px-1 py-1" style={{ height: HOUR_HEIGHT }}>
                       <span className="-mt-1.5 text-caption-sm text-text-secondary">
                         {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
                       </span>
                     </div>
                     {weekDates.map((dateStr, dayIdx) => {
                       const isToday = dateStr === todayStr;
-                      const hourAppts = appointments.filter(
-                        (a) => a.date === dateStr && parseInt(a.startTime.split(":")[0]) === hour,
-                      );
                       return (
-                        <div
-                          key={dayIdx}
-                          className={`relative border-r border-b border-border last:border-r-0 ${isToday ? "bg-primary/5" : ""}`}
-                          style={{ height: `${HOUR_HEIGHT}px` }}
-                          onClick={(e) => handleCellClick(e, dateStr, hour)}
-                        >
-                          {hourAppts.map((appt, apptIdx) => {
-                            const pos = getApptStyle(appt);
-                            const count = hourAppts.length;
-                            const width = count > 1 ? `${100 / Math.min(count, 4)}%` : "100%";
-                            const left = count > 1 ? `${(apptIdx % Math.min(count, 4)) * (100 / Math.min(count, 4))}%` : "0";
-                            return (
-                              <div
-                                key={appt.id}
-                                className="absolute z-10 cursor-pointer overflow-hidden rounded px-1 py-0.5 text-white shadow-sm"
-                                style={{
-                                  backgroundColor: appt.practitionerColor,
-                                  opacity: appt.status === "Cancelled" ? 0.5 : 1,
-                                  width,
-                                  left,
-                                  ...pos,
-                                }}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setSelectedAppt(appt);
-                                }}
-                              >
-                                <p className="truncate text-caption-sm font-medium">{appt.clientName}</p>
-                                <p className="text-caption-sm opacity-80">
-                                  {appt.startTime.replace(/^0/, "")}
-                                </p>
-                              </div>
-                            );
-                          })}
+                        <div key={dayIdx} className={`relative border-r border-b border-border last:border-r-0 ${isToday ? "bg-primary/5" : ""}`} style={{ height: HOUR_HEIGHT }}>
+                          {/* Practitioner sub-columns */}
+                          <div className="absolute inset-0 flex">
+                            {practitioners.map((prac, pIdx) => {
+                              const hourAppts = appointments.filter(
+                                (a) => a.date === dateStr && a.practitionerName === prac.name && parseInt(a.startTime.split(":")[0]) === hour,
+                              );
+                              return (
+                                <div
+                                  key={prac.id}
+                                  className={`relative cursor-pointer hover:bg-gray-50/50 ${pIdx < practitioners.length - 1 ? "border-r border-border/20" : ""}`}
+                                  style={{ width: COL_W }}
+                                  onClick={(e) => handleCellClick(e, dateStr, hour)}
+                                >
+                                  {hourAppts.map((appt) => {
+                                    const pos = getApptStyle(appt);
+                                    return (
+                                      <div
+                                        key={appt.id}
+                                        className="absolute inset-x-0.5 z-10 cursor-pointer overflow-hidden rounded px-1 py-0.5 text-white shadow-sm"
+                                        style={{ backgroundColor: appt.practitionerColor, opacity: appt.status === "Cancelled" ? 0.5 : 1, ...pos }}
+                                        onClick={(e) => { e.stopPropagation(); setSelectedAppt(appt); }}
+                                      >
+                                        <p className="truncate text-caption-sm font-medium">{appt.clientName}</p>
+                                        <p className="text-caption-sm opacity-80">{appt.startTime.replace(/^0/, "")}</p>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              );
+                            })}
+                          </div>
                         </div>
                       );
                     })}
@@ -581,7 +588,8 @@ export default function CalendarView({
               </div>
             </div>
           </>
-        )}
+        );
+        })()}
       </div>
 
       {/* Rooms/Resources placeholder */}
