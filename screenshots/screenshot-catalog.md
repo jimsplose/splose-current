@@ -12,7 +12,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.39.04 pm.png | Business history modal open | no |
+| Screenshot 2026-03-17 at 6.39.04 pm.png | Business history modal open | yes — implemented 2026-03-24, Modal with history entries |
 | screencapture-acme-splose-settings-details-2026-03-17-18_33_39.png | Details page default view | yes — visual audit 2026-03-23 confirmed structural match; pixel diff from viewport vs full-page scroll |
 
 ## Settings — Integrations (`/settings/integrations`)
@@ -32,8 +32,8 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.41.35 pm.png | Form templates list, actions dropdown open (View/Edit/Duplicate/Change log/Archive) | no |
-| Screenshot 2026-03-17 at 6.43.50 pm.png | Form templates list, Learn dropdown open (Help guide/Watch a video) | no |
+| Screenshot 2026-03-17 at 6.41.35 pm.png | Form templates list, actions dropdown open (View/Edit/Duplicate/Change log/Archive) | yes — STANDARD_SETTINGS dropdown exists |
+| Screenshot 2026-03-17 at 6.43.50 pm.png | Form templates list, Learn dropdown open (Help guide/Watch a video) | yes — Learn dropdown wired 2026-03-24 |
 | screencapture-acme-splose-settings-templates-forms-2026-03-17-18_35_56.png | Form templates list default | yes — 3.12% |
 
 ## Settings — Form Template View (`/settings/templates/forms/:id/view`)
@@ -81,47 +81,47 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 6.45.29 pm.png | Custom fields list (with browser tab visible) | yes — visual audit 2026-03-23 confirmed; diff from browser chrome |
-| Screenshot 2026-03-17 at 6.45.38 pm.png | Reorder custom fields modal | no |
-| Screenshot 2026-03-17 at 6.45.50 pm.png | Custom fields list, actions dropdown (Edit/Archive/Change log) | no |
-| Screenshot 2026-03-17 at 6.45.58 pm.png | Update custom field modal (Multiple choice type) | no |
+| Screenshot 2026-03-17 at 6.45.38 pm.png | Reorder custom fields modal | yes — dnd-kit ReorderModal DS component 2026-03-24 |
+| Screenshot 2026-03-17 at 6.45.50 pm.png | Custom fields list, actions dropdown (Edit/Archive/Change log) | yes — dropdown exists |
+| Screenshot 2026-03-17 at 6.45.58 pm.png | Update custom field modal (Multiple choice type) | yes — EditFieldModal with type selector exists |
 
 ## Settings — Rooms/Resources (`/settings/rooms-resources`)
 
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 6.46.09 pm.png | Rooms/Resources list with color dots | yes — visual audit 2026-03-23 confirmed; diff from browser chrome |
-| Screenshot 2026-03-17 at 6.46.18 pm.png | Rooms/Resources list, actions dropdown (Edit/Duplicate/Change log/Archive) | no |
-| Screenshot 2026-03-17 at 6.46.25 pm.png | Update room/resource modal (with color picker) | no |
+| Screenshot 2026-03-17 at 6.46.18 pm.png | Rooms/Resources list, actions dropdown (Edit/Duplicate/Change log/Archive) | yes — STANDARD_SETTINGS dropdown exists |
+| Screenshot 2026-03-17 at 6.46.25 pm.png | Update room/resource modal (with color picker) | yes — modal with FormColorPicker exists |
 
 ## Settings — Services (`/settings/services`)
 
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 6.46.36 pm.png | Services list with item codes, durations, prices | yes — visual audit 2026-03-23 confirmed; diff from browser chrome |
-| Screenshot 2026-03-17 at 6.46.46 pm.png | Services list, actions dropdown (Edit/Duplicate/Enable online booking/Change log/Archive) | no |
+| Screenshot 2026-03-17 at 6.46.46 pm.png | Services list, actions dropdown (Edit/Duplicate/Enable online booking/Change log/Archive) | yes — custom dropdown with edit→navigate exists |
 
 ## Settings — Edit Service (`/settings/services/edit/:id`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.47.29 pm.png | Edit service — Online Payment section | no |
-| Screenshot 2026-03-17 at 6.47.38 pm.png | Edit service — Appointment notifications, reminder dropdown open | no |
-| screencapture-acme-splose-settings-services-edit-254552-2026-03-17-18_46_52.png | Edit service full page | no |
+| Screenshot 2026-03-17 at 6.47.29 pm.png | Edit service — Online Payment section | yes — Online Payment collapse section added 2026-03-24 |
+| Screenshot 2026-03-17 at 6.47.38 pm.png | Edit service — Appointment notifications, reminder dropdown open | yes — Notifications section with reminder selects added 2026-03-24 |
+| screencapture-acme-splose-settings-services-edit-254552-2026-03-17-18_46_52.png | Edit service full page | yes — enriched with Online Payment + Notifications 2026-03-24 |
 
 ## Settings — Busy Times (`/settings/busy-times`)
 
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 6.47.48 pm.png | Busy time types list | yes — visual audit 2026-03-23 confirmed; diff from browser chrome |
-| Screenshot 2026-03-17 at 6.47.55 pm.png | Busy time types, actions dropdown (Edit/Archive) | no |
-| Screenshot 2026-03-17 at 6.48.02 pm.png | Edit busy time type modal (with color picker) | no |
+| Screenshot 2026-03-17 at 6.47.55 pm.png | Busy time types, actions dropdown (Edit/Archive) | yes — STANDARD_SETTINGS dropdown exists |
+| Screenshot 2026-03-17 at 6.48.02 pm.png | Edit busy time type modal (with color picker) | yes — modal with FormColorPicker exists |
 
 ## Settings — Cancellation Reasons (`/settings/cancellationReasons`)
 
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 6.48.12 pm.png | Cancellation reasons list with edit/delete icons | yes — visual audit 2026-03-23 confirmed |
-| Screenshot 2026-03-17 at 6.48.19 pm.png | Edit cancellation reason modal (with cancellation rules) | no |
+| Screenshot 2026-03-17 at 6.48.19 pm.png | Edit cancellation reason modal (with cancellation rules) | yes — rules toggles + window selects added 2026-03-24 |
 
 ## Settings — Online Booking Settings (`/settings/online-booking`)
 
@@ -133,16 +133,16 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.48.59 pm.png | Design tab — logo/image, button styling | no |
-| Screenshot 2026-03-17 at 6.49.10 pm.png | Design tab — button styling, colour suggestions, important notice banner | no |
-| Screenshot 2026-03-17 at 6.49.34 pm.png | Design tab — booking terms & policies, confirmation message | no |
-| Screenshot 2026-03-17 at 6.50.40 pm.png | Builder tab — Manage locations displayed modal | no |
-| Screenshot 2026-03-17 at 6.51.28 pm.png | Share tab — shareable link | no |
-| screencapture-acme-splose-settings-online-booking-27-2026-03-17-18_48_35.png | Online booking edit (variant 1) | no |
-| screencapture-acme-splose-settings-online-booking-27-2026-03-17-18_48_35 (1).png | Online booking edit (variant 1 duplicate) | no |
-| screencapture-acme-splose-settings-online-booking-27-2026-03-17-18_49_44.png | Online booking edit (variant 2) | no |
-| screencapture-acme-splose-settings-online-booking-27-2026-03-17-18_50_13.png | Online booking edit (variant 3) | no |
-| screencapture-acme-splose-settings-online-booking-27-2026-03-17-18_50_57.png | Online booking edit (variant 4) | no |
+| Screenshot 2026-03-17 at 6.48.59 pm.png | Design tab — logo/image, button styling | yes — Design tab with logo upload, button colour picker 2026-03-24 |
+| Screenshot 2026-03-17 at 6.49.10 pm.png | Design tab — button styling, colour suggestions, important notice banner | yes — button preview + colour picker implemented |
+| Screenshot 2026-03-17 at 6.49.34 pm.png | Design tab — booking terms & policies, confirmation message | yes — terms toggle + textarea, confirmation message |
+| Screenshot 2026-03-17 at 6.50.40 pm.png | Builder tab — Manage locations displayed modal | yes — location management modal with checkboxes |
+| Screenshot 2026-03-17 at 6.51.28 pm.png | Share tab — shareable link | yes — Share tab with copy link + embed code |
+| screencapture-acme-splose-settings-online-booking-27-2026-03-17-18_48_35.png | Online booking edit (variant 1) | yes — 3-tab editor page (Design/Builder/Share) 2026-03-24 |
+| screencapture-acme-splose-settings-online-booking-27-2026-03-17-18_48_35 (1).png | Online booking edit (variant 1 duplicate) | yes — same as above |
+| screencapture-acme-splose-settings-online-booking-27-2026-03-17-18_49_44.png | Online booking edit (variant 2) | yes |
+| screencapture-acme-splose-settings-online-booking-27-2026-03-17-18_50_13.png | Online booking edit (variant 3) | yes |
+| screencapture-acme-splose-settings-online-booking-27-2026-03-17-18_50_57.png | Online booking edit (variant 4) | yes |
 
 ## Online Booking Public Page (`/online-booking/:id`)
 
@@ -158,14 +158,14 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 6.53.12 pm.png | Communication types list | yes — visual audit 2026-03-23 confirmed |
-| Screenshot 2026-03-17 at 6.53.21 pm.png | Communication types, actions dropdown (Edit/Delete) | no |
-| Screenshot 2026-03-17 at 6.53.28 pm.png | Update communication type modal | no |
+| Screenshot 2026-03-17 at 6.53.21 pm.png | Communication types, actions dropdown (Edit/Delete) | yes — SIMPLE_CRUD dropdown via SettingsListPage |
+| Screenshot 2026-03-17 at 6.53.28 pm.png | Update communication type modal | yes — modal with Toggle via SettingsListPage |
 
 ## Settings — Tags (`/settings/tags`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.54.43 pm.png | Edit tag modal (with colour picker) | no |
+| Screenshot 2026-03-17 at 6.54.43 pm.png | Edit tag modal (with colour picker) | yes — modal with FormColorPicker exists |
 | screencapture-acme-splose-settings-tags-2026-03-17-18_53_57.png | Tags list — Client tags tab | yes — visual audit 2026-03-23 confirmed |
 | screencapture-acme-splose-settings-tags-2026-03-17-18_54_58.png | Tags list alternate view | no |
 | screencapture-acme-splose-settings-tags-2026-03-17-18_55_27.png | Tags list alternate view 2 | no |
@@ -181,7 +181,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.57.42 pm.png | Users list, actions dropdown (Deactivate/Reset password/Log out everywhere/Change log) | no |
+| Screenshot 2026-03-17 at 6.57.42 pm.png | Users list, actions dropdown (Deactivate/Reset password/Log out everywhere/Change log) | yes — USER_ADMIN dropdown exists |
 | screencapture-acme-splose-settings-users-2026-03-17-18_56_54.png | Users list default | yes — visual audit 2026-03-23 confirmed; Th sortable/filterable added |
 
 ## Settings — User Account Details (`/settings/users/:id/details`)
@@ -211,8 +211,8 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.01.35 pm.png | User groups list, actions dropdown (Edit/Change log/Delete) | no |
-| Screenshot 2026-03-17 at 7.01.45 pm.png | Edit group modal (with users list) | no |
+| Screenshot 2026-03-17 at 7.01.35 pm.png | User groups list, actions dropdown (Edit/Change log/Delete) | yes — STANDARD_SETTINGS dropdown exists |
+| Screenshot 2026-03-17 at 7.01.45 pm.png | Edit group modal (with users list) | yes — user checklist added 2026-03-24 |
 | screencapture-acme-splose-settings-user-groups-2026-03-17-19_01_14.png | User groups list default | yes — 3.19% |
 
 ## Settings — Appointment Templates (`/settings/templates/appointments`)
@@ -220,43 +220,43 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 7.02.10 pm.png | Appointment templates list | yes — visual audit 2026-03-23 confirmed; diff from browser chrome |
-| Screenshot 2026-03-17 at 7.02.20 pm.png | Appointment templates, actions dropdown (Edit/Duplicate/Change log/Delete) | no |
+| Screenshot 2026-03-17 at 7.02.20 pm.png | Appointment templates, actions dropdown (Edit/Duplicate/Change log/Delete) | yes — STANDARD_SETTINGS, edit navigates to editor |
 
 ## Settings — Edit Appointment Template (`/settings/templates/appointments/edit/:id`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.03.09 pm.png | Edit template — SMS section with Patient variable dropdown | no |
-| Screenshot 2026-03-17 at 7.03.20 pm.png | Edit template — Email section with rich text editor | no |
-| Screenshot 2026-03-17 at 7.03.28 pm.png | Email preview modal | no |
-| screencapture-acme-splose-settings-templates-appointments-edit-947-2026-03-17-19_02_29.png | Edit appointment template full page | no |
+| Screenshot 2026-03-17 at 7.03.09 pm.png | Edit template — SMS section with Patient variable dropdown | yes — SMS section with variable tokens in editor 2026-03-24 |
+| Screenshot 2026-03-17 at 7.03.20 pm.png | Edit template — Email section with rich text editor | yes — RichTextEditor with toolbar + variables 2026-03-24 |
+| Screenshot 2026-03-17 at 7.03.28 pm.png | Email preview modal | yes — EmailPreview DS component 2026-03-24 |
+| screencapture-acme-splose-settings-templates-appointments-edit-947-2026-03-17-19_02_29.png | Edit appointment template full page | yes — editor page with SMS/Email/RichTextEditor 2026-03-24 |
 
 ## Settings — New Appointment Template (`/settings/templates/appointments/new`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.03.52 pm.png | New template — Confirmation type, SMS/Email sections | no |
-| Screenshot 2026-03-17 at 7.04.05 pm.png | New template — Reminder type with "When to send" field | no |
+| Screenshot 2026-03-17 at 7.03.52 pm.png | New template — Confirmation type, SMS/Email sections | yes — full editor page with SMS/Email 2026-03-24 |
+| Screenshot 2026-03-17 at 7.04.05 pm.png | New template — Reminder type with "When to send" field | yes — "When to send" select for reminder type |
 
 ## Settings — Email Templates (`/settings/templates/emails`)
 
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 7.04.18 pm.png | Email templates list | yes — visual audit 2026-03-23 confirmed; diff from browser chrome |
-| Screenshot 2026-03-17 at 7.04.27 pm.png | Email templates, actions dropdown (Edit/Duplicate/Change log/Delete) | no |
-| screencapture-acme-splose-settings-templates-emails-edit-501-2026-03-17-19_04_32.png | Edit email template | no |
+| Screenshot 2026-03-17 at 7.04.27 pm.png | Email templates, actions dropdown (Edit/Duplicate/Change log/Delete) | yes — dropdown with edit→navigate to editor |
+| screencapture-acme-splose-settings-templates-emails-edit-501-2026-03-17-19_04_32.png | Edit email template | yes — editor page with RichTextEditor + preview 2026-03-24 |
 
 ## Settings — Progress Note Templates (`/settings/templates/progress-notes`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.05.12 pm.png | Progress note templates list, actions dropdown (Edit/Duplicate/Change log/Archive) | no |
-| Screenshot 2026-03-17 at 7.05.23 pm.png | Edit progress note template — rich editor with AI block, "Add an AI block" tooltip | no |
-| Screenshot 2026-03-17 at 7.05.34 pm.png | Edit progress note template — AI blocks with Actions dropdown | no |
-| Screenshot 2026-03-17 at 7.05.42 pm.png | AI block Actions menu (Load from library/Duplicate/Save to library) | no |
-| Screenshot 2026-03-17 at 7.06.21 pm.png | AI block library modal — list of blocks | no |
-| Screenshot 2026-03-17 at 7.06.30 pm.png | AI block library modal — block selected | no |
-| Screenshot 2026-03-17 at 7.06.55 pm.png | AI block library modal — filter by tag dropdown | no |
+| Screenshot 2026-03-17 at 7.05.12 pm.png | Progress note templates list, actions dropdown (Edit/Duplicate/Change log/Archive) | yes — STANDARD_SETTINGS, edit navigates to editor |
+| Screenshot 2026-03-17 at 7.05.23 pm.png | Edit progress note template — rich editor with AI block, "Add an AI block" tooltip | yes — AI blocks as Cards + "Add an AI block" button 2026-03-24 |
+| Screenshot 2026-03-17 at 7.05.34 pm.png | Edit progress note template — AI blocks with Actions dropdown | partial — blocks have remove button, no per-block actions dropdown |
+| Screenshot 2026-03-17 at 7.05.42 pm.png | AI block Actions menu (Load from library/Duplicate/Save to library) | partial — library modal exists, per-block actions menu not yet |
+| Screenshot 2026-03-17 at 7.06.21 pm.png | AI block library modal — list of blocks | yes — library modal with 6 blocks 2026-03-24 |
+| Screenshot 2026-03-17 at 7.06.30 pm.png | AI block library modal — block selected | yes — clicking block adds it |
+| Screenshot 2026-03-17 at 7.06.55 pm.png | AI block library modal — filter by tag dropdown | partial — library exists but no tag filter |
 | screencapture-acme-splose-settings-templates-progress-notes-2026-03-17-19_04_46.png | Progress note templates list | yes — 3.10% |
 | screencapture-acme-splose-settings-templates-progress-notes-2026-03-17-19_04_46 (1).png | Progress note templates list (duplicate) | yes — 3.10% |
 
@@ -264,9 +264,9 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.07.38 pm.png | Letter templates list, actions dropdown (Edit/Duplicate/Change log/Archive) | no |
+| Screenshot 2026-03-17 at 7.07.38 pm.png | Letter templates list, actions dropdown (Edit/Duplicate/Change log/Archive) | yes — STANDARD_SETTINGS, edit navigates to editor |
 | screencapture-acme-splose-settings-templates-letters-2026-03-17-19_07_13.png | Letter templates list | yes — visual audit 2026-03-23 confirmed |
-| screencapture-acme-splose-settings-templates-letters-edit-201-2026-03-17-19_07_43.png | Edit letter template | no |
+| screencapture-acme-splose-settings-templates-letters-edit-201-2026-03-17-19_07_43.png | Edit letter template | yes — editor page with RichTextEditor + variables 2026-03-24 |
 
 ## Settings — Payment Settings (`/settings/payments`)
 
@@ -274,17 +274,17 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 |---|---|---|
 | Screenshot 2026-03-17 at 7.09.00 pm.png | Payment settings — prefix, padding, PDF settings, accepted forms of payment | yes — 4.89% |
 | Screenshot 2026-03-17 at 7.09.05 pm.png | Payment settings (alternate view, same content) | yes — 4.89% |
-| Screenshot 2026-03-17 at 7.09.19 pm.png | Edit payment method modal | no |
-| Screenshot 2026-03-17 at 7.09.50 pm.png | Payment settings — add new payment type dropdown (Credit Card/EFTPOS/Medicare/HICAPS/Cash/Bank Transfer/DVA) | no |
+| Screenshot 2026-03-17 at 7.09.19 pm.png | Edit payment method modal | yes — modal via useFormModal exists |
+| Screenshot 2026-03-17 at 7.09.50 pm.png | Payment settings — add new payment type dropdown (Credit Card/EFTPOS/Medicare/HICAPS/Cash/Bank Transfer/DVA) | yes — payment type Dropdown added 2026-03-24 |
 | screencapture-acme-splose-settings-payments-2026-03-17-19_08_11.png | Payment settings full page | yes — 4.89% |
 
 ## Settings — Invoice Settings (`/settings/invoices`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.11.05 pm.png | Invoice settings — tax dropdown (Tax exclusive/Tax inclusive/No tax) | no |
+| Screenshot 2026-03-17 at 7.11.05 pm.png | Invoice settings — tax dropdown (Tax exclusive/Tax inclusive/No tax) | yes — FormSelect for tax mode exists |
 | Screenshot 2026-03-17 at 7.11.17 pm.png | Invoice settings — invoice reminders list | yes — 4.12% |
-| Screenshot 2026-03-17 at 7.11.32 pm.png | Edit invoice reminder modal with rich text editor | no |
+| Screenshot 2026-03-17 at 7.11.32 pm.png | Edit invoice reminder modal with rich text editor | yes — RichTextEditor with variables in modal 2026-03-24 |
 | screencapture-acme-splose-settings-invoices-2026-03-17-19_10_06.png | Invoice settings full page | yes — 4.12% |
 
 ## Settings — Tax Rates (`/settings/tax-rates`)
@@ -292,22 +292,22 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 7.11.44 pm.png | Tax rates list | yes — 4.68% |
-| Screenshot 2026-03-17 at 7.11.55 pm.png | New tax rate modal | no |
+| Screenshot 2026-03-17 at 7.11.55 pm.png | New tax rate modal | yes — modal via useFormModal exists |
 
 ## Settings — Data Export (`/settings/export`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.12.28 pm.png | Data export — export history with actions dropdown (Download/Delete) | no |
-| Screenshot 2026-03-17 at 7.12.35 pm.png | Data export — export type dropdown (Appointments/Cases/Contacts/Invoices/Letters/Users/Clients) | no |
-| Screenshot 2026-03-17 at 7.12.43 pm.png | Data export — date picker calendar open | no |
+| Screenshot 2026-03-17 at 7.12.28 pm.png | Data export — export history with actions dropdown (Download/Delete) | yes — dropdown exists |
+| Screenshot 2026-03-17 at 7.12.35 pm.png | Data export — export type dropdown (Appointments/Cases/Contacts/Invoices/Letters/Users/Clients) | yes — FormSelect exists |
+| Screenshot 2026-03-17 at 7.12.43 pm.png | Data export — date picker calendar open | partial — date input exists, native calendar picker |
 | screencapture-acme-splose-settings-export-2026-03-17-19_12_04.png | Data export full page | yes — visual audit 2026-03-23 confirmed |
 
 ## Settings — Data Import (`/settings/import`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.13.29 pm.png | Import from modal (CSV/Cliniko options) | no |
+| Screenshot 2026-03-17 at 7.13.29 pm.png | Import from modal (CSV/Cliniko options) | yes — Import from modal with CSV/Cliniko cards 2026-03-24 |
 | Screenshot 2026-03-17 at 7.13.39 pm.png | CSV import page with tabs (Clients/Contacts/Appointments) | no |
 | screencapture-acme-splose-settings-import-2026-03-17-19_13_00.png | Import page default | yes — visual audit 2026-03-23 confirmed |
 
