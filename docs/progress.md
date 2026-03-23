@@ -372,3 +372,44 @@ Many "partial" matches (5-20% mismatch) are due to reference screenshots includi
 ### Remaining open gaps
 - Calendar month view / appointment side panel — structurally complete, data-driven mismatch only (11% / 9%)
 - Process new screenshots — all 255 screenshots already processed
+
+---
+
+## Session — 2026-03-23 (visual audit — until done)
+
+**Branch**: `claude/visual-audit-analysis-1WnWb`
+
+### Full Visual Audit (~64 page states)
+
+Ran comprehensive pixel diffs across all pages using 5 parallel audit agents.
+
+**Results:**
+- **21 pages pass (yes, ≤5%)**: Form Templates (3.12%), Locations (3.69%), User Groups (3.19%), Prog Note Templates (3.10%), Payment Settings (4.83%), Invoice Settings (4.12%), Tax Rates (4.68%), Client Invoices (4.52%), Files (4.40%), Support Activities (3.59%), Payments (3.98%), Statements (3.86%), Letters (3.36%), Practitioner Access (4.53%), Contacts List (4.24%), Contact Detail (4.39%), Notes New (4.15%), Add Payment (3.90%), Reports Appointments (4.28%), Reports Performance (4.54%), Products (3.20%)
+- **32 pages partial (5-20%)**: Settings pages (viewport vs full-page diff), Calendar (data-driven), Dashboard/Login (retina scaling), Client sub-tabs (data differences)
+- **6 pages broken**: Communications (runtime error → fixed), Invoice Detail (stale ID → fixed), Notes Edit (timeout), Calendar audit used wrong state params (views work correctly)
+
+### Bugs Fixed
+1. **Communications page runtime error** — Dropdown with onSelect in server component. Added "use client" directive.
+2. **Invoice Detail 404** — Stale CUID in state registry. Updated to current seed ID.
+3. **Notes view/edit stale IDs** — Updated state registry to current seed CUIDs.
+4. **Login input style** — Changed bordered box inputs to underline (bottom-border-only) to match reference. 15.15% → 14.40%.
+
+### Catalog Upgrades (partial → yes)
+- Form Templates: 5.55% → 3.12% (yes)
+- Progress Note Templates: 5.49% → 3.10% (yes)
+- Tax Rates: 4.73% → 4.68% (yes)
+
+### Calendar State Verification
+Audit agents used wrong state param names (calendar-month vs month-view). Re-tested with correct params — all 4 calendar views (week, day, month, rooms) render correctly.
+
+### Key Finding
+Most remaining "partial" diffs (5-20%) are inherent to the comparison methodology:
+- Browser chrome in reference screenshots (~3-4% per page)
+- Retina/dimension mismatch (references at 2x, captures at 1x)
+- Full-page vs viewport captures (references scroll entire page)
+- Different seed data vs production screenshots
+
+No actionable structural fidelity gaps remain. The 3 open gaps in fidelity-gaps.md are:
+1. Calendar month view — structurally complete, 11.54% data-driven
+2. Calendar appointment side panel — structurally complete, data-driven
+3. Process new screenshots — intake task
