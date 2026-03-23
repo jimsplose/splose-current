@@ -1,6 +1,38 @@
-import { Button, DateRangeFilter, PageHeader } from "@/components/ds";
+"use client";
+
+import { useState } from "react";
+import {
+  Button,
+  Badge,
+  DateRangeFilter,
+  PageHeader,
+  DataTable,
+  TableHead,
+  Th,
+  TableBody,
+  Tr,
+  Td,
+} from "@/components/ds";
+
+const mockActivityRows = [
+  { date: "11/03/2026", client: "Sarah Mitchell", activityType: "Transport", practitioner: "Dr Emily Watson", duration: "30 min", location: "Mobile", status: "Completed" },
+  { date: "11/03/2026", client: "James O'Brien", activityType: "Non-labour", practitioner: "Rachel Kim", duration: "15 min", location: "In clinic", status: "Completed" },
+  { date: "10/03/2026", client: "Liam Nguyen", activityType: "Provider travel", practitioner: "Tom Bradley", duration: "45 min", location: "Mobile", status: "In progress" },
+  { date: "10/03/2026", client: "Olivia Parker", activityType: "Transport", practitioner: "Dr Emily Watson", duration: "20 min", location: "Mobile", status: "Completed" },
+  { date: "09/03/2026", client: "Noah Williams", activityType: "Non-labour", practitioner: "Rachel Kim", duration: "10 min", location: "In clinic", status: "Pending" },
+  { date: "09/03/2026", client: "Emma Chen", activityType: "Provider travel", practitioner: "Tom Bradley", duration: "60 min", location: "Mobile", status: "Completed" },
+];
+
+function activityStatusVariant(status: string) {
+  if (status === "Completed") return "green" as const;
+  if (status === "In progress") return "blue" as const;
+  if (status === "Pending") return "yellow" as const;
+  return "gray" as const;
+}
 
 export default function ReportsSupportActivitiesPage() {
+  const [showResults, setShowResults] = useState(false);
+
   return (
     <>
       <PageHeader title="Support activities">
@@ -19,8 +51,37 @@ export default function ReportsSupportActivitiesPage() {
         <Button>Add filter</Button>
         <Button>Save filters</Button>
         <Button>Load filters</Button>
-        <Button variant="primary">Run report</Button>
+        <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
       </div>
+
+      {showResults && (
+        <div className="overflow-x-auto rounded-lg border border-border">
+          <DataTable>
+            <TableHead>
+              <Th>Date</Th>
+              <Th>Client</Th>
+              <Th>Activity type</Th>
+              <Th>Practitioner</Th>
+              <Th>Duration</Th>
+              <Th>Location</Th>
+              <Th>Status</Th>
+            </TableHead>
+            <TableBody>
+              {mockActivityRows.map((row, i) => (
+                <Tr key={i}>
+                  <Td>{row.date}</Td>
+                  <Td className="text-primary">{row.client}</Td>
+                  <Td>{row.activityType}</Td>
+                  <Td>{row.practitioner}</Td>
+                  <Td>{row.duration}</Td>
+                  <Td>{row.location}</Td>
+                  <Td><Badge variant={activityStatusVariant(row.status)}>{row.status}</Badge></Td>
+                </Tr>
+              ))}
+            </TableBody>
+          </DataTable>
+        </div>
+      )}
     </>
   );
 }

@@ -1,17 +1,44 @@
-import { PageHeader, Button, DateRangeFilter, FormSelect } from "@/components/ds";
+"use client";
+
+import { useState } from "react";
+import {
+  Button,
+  Modal,
+  DateRangeFilter,
+  FormSelect,
+  PageHeader,
+  DataTable,
+  TableHead,
+  Th,
+  TableBody,
+  Tr,
+  Td,
+} from "@/components/ds";
+
+const mockPerformanceRows = [
+  { practitioner: "Dr Emily Watson", available: 40, booked: 34, utilisation: 85, revenue: 7480, avgPerAppt: 220 },
+  { practitioner: "Rachel Kim", available: 38, booked: 30, utilisation: 79, revenue: 5940, avgPerAppt: 198 },
+  { practitioner: "Tom Bradley", available: 40, booked: 28, utilisation: 70, revenue: 5040, avgPerAppt: 180 },
+  { practitioner: "Dr Anika Patel", available: 36, booked: 31, utilisation: 86, revenue: 6820, avgPerAppt: 220 },
+  { practitioner: "Chris Lawson", available: 32, booked: 22, utilisation: 69, revenue: 3740, avgPerAppt: 170 },
+  { practitioner: "Megan Torres", available: 38, booked: 33, utilisation: 87, revenue: 6270, avgPerAppt: 190 },
+];
 
 export default function ReportsPerformancePage() {
+  const [showResults, setShowResults] = useState(false);
+  const [showDefinitions, setShowDefinitions] = useState(false);
+
   return (
     <>
       <PageHeader title="Performance">
         <Button>Export</Button>
-        <Button>Definitions</Button>
+        <Button onClick={() => setShowDefinitions(true)}>Definitions</Button>
       </PageHeader>
 
       {/* Date range */}
       <div className="mb-4">
         <label className="mb-1 flex items-center gap-1 text-sm text-text-secondary">
-          <span>&#128197;</span> Date range *
+          Date range *
         </label>
         <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
       </div>
@@ -21,7 +48,7 @@ export default function ReportsPerformancePage() {
         <Button>Add filter</Button>
         <Button>Save filters</Button>
         <Button>Load filters</Button>
-        <Button variant="primary">Run report</Button>
+        <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
       </div>
 
       {/* Configuration options */}
@@ -49,7 +76,7 @@ export default function ReportsPerformancePage() {
         </div>
         <div className="flex items-center gap-4">
           <span className="w-80 text-text">
-            Include all appointments regardless of status <span className="text-text-secondary">&#9432;</span>:
+            Include all appointments regardless of status:
           </span>
           <FormSelect
             options={[
@@ -61,7 +88,7 @@ export default function ReportsPerformancePage() {
         </div>
         <div className="flex items-center gap-4">
           <span className="w-80 text-text">
-            Exclude items marked as do not invoice <span className="text-text-secondary">&#9432;</span>:
+            Exclude items marked as do not invoice:
           </span>
           <FormSelect
             options={[
@@ -72,6 +99,71 @@ export default function ReportsPerformancePage() {
           />
         </div>
       </div>
+
+      {showResults && (
+        <div className="mt-6 overflow-x-auto rounded-lg border border-border">
+          <DataTable>
+            <TableHead>
+              <Th>Practitioner</Th>
+              <Th align="right">Available hours</Th>
+              <Th align="right">Booked hours</Th>
+              <Th align="right">Utilisation %</Th>
+              <Th align="right">Revenue</Th>
+              <Th align="right">Avg per appointment</Th>
+            </TableHead>
+            <TableBody>
+              {mockPerformanceRows.map((row, i) => (
+                <Tr key={i}>
+                  <Td className="text-primary">{row.practitioner}</Td>
+                  <Td align="right">{row.available}h</Td>
+                  <Td align="right">{row.booked}h</Td>
+                  <Td align="right">
+                    <span className={row.utilisation >= 80 ? "font-semibold text-green-600" : row.utilisation >= 70 ? "text-yellow-600" : "text-red-600"}>
+                      {row.utilisation}%
+                    </span>
+                  </Td>
+                  <Td align="right">${row.revenue.toLocaleString("en-AU", { minimumFractionDigits: 2 })}</Td>
+                  <Td align="right">${row.avgPerAppt.toLocaleString("en-AU", { minimumFractionDigits: 2 })}</Td>
+                </Tr>
+              ))}
+            </TableBody>
+          </DataTable>
+        </div>
+      )}
+
+      <Modal
+        open={showDefinitions}
+        onClose={() => setShowDefinitions(false)}
+        title="Performance metric definitions"
+        footer={<Button variant="primary" onClick={() => setShowDefinitions(false)}>Close</Button>}
+      >
+        <dl className="space-y-4">
+          <div>
+            <dt className="text-label-lg text-text">Available hours</dt>
+            <dd className="mt-0.5 text-body-md text-text-secondary">
+              The total number of hours a practitioner has marked as available in their schedule during the selected date range, excluding blocked time and leave.
+            </dd>
+          </div>
+          <div>
+            <dt className="text-label-lg text-text">Booked hours</dt>
+            <dd className="mt-0.5 text-body-md text-text-secondary">
+              The total number of hours occupied by confirmed client appointments during the selected date range. Does not include cancelled or no-show appointments unless configured otherwise.
+            </dd>
+          </div>
+          <div>
+            <dt className="text-label-lg text-text">Utilisation %</dt>
+            <dd className="mt-0.5 text-body-md text-text-secondary">
+              The percentage of available hours that were booked with client appointments. Calculated as (Booked hours / Available hours) x 100. A higher percentage indicates more efficient use of available time.
+            </dd>
+          </div>
+          <div>
+            <dt className="text-label-lg text-text">Revenue</dt>
+            <dd className="mt-0.5 text-body-md text-text-secondary">
+              The total dollar value of services delivered by the practitioner during the selected date range, based on the service rates at the time of the appointment.
+            </dd>
+          </div>
+        </dl>
+      </Modal>
     </>
   );
 }

@@ -1,6 +1,38 @@
-import { Button, DateRangeFilter, FormSelect, PageHeader } from "@/components/ds";
+"use client";
+
+import { useState } from "react";
+import {
+  Button,
+  Badge,
+  DateRangeFilter,
+  FormSelect,
+  PageHeader,
+  DataTable,
+  TableHead,
+  Th,
+  TableBody,
+  Tr,
+  Td,
+} from "@/components/ds";
+
+const mockFormRows = [
+  { form: "Intake Form", client: "Sarah Mitchell", status: "Completed", submitted: "11/03/2026", practitioner: "Dr Emily Watson" },
+  { form: "Consent Form", client: "James O'Brien", status: "Completed", submitted: "11/03/2026", practitioner: "Dr Emily Watson" },
+  { form: "Assessment Form", client: "Liam Nguyen", status: "Incomplete", submitted: "10/03/2026", practitioner: "Rachel Kim" },
+  { form: "Intake Form", client: "Olivia Parker", status: "Not sent", submitted: "—", practitioner: "Rachel Kim" },
+  { form: "Consent Form", client: "Noah Williams", status: "Completed", submitted: "09/03/2026", practitioner: "Tom Bradley" },
+  { form: "Assessment Form", client: "Emma Chen", status: "Incomplete", submitted: "08/03/2026", practitioner: "Tom Bradley" },
+];
+
+function formStatusVariant(status: string) {
+  if (status === "Completed") return "green" as const;
+  if (status === "Incomplete") return "yellow" as const;
+  return "gray" as const;
+}
 
 export default function ReportsFormPage() {
+  const [showResults, setShowResults] = useState(false);
+
   return (
     <>
       <PageHeader title="Forms">
@@ -34,8 +66,33 @@ export default function ReportsFormPage() {
         <Button>Add filter</Button>
         <Button>Save filters</Button>
         <Button>Load filters</Button>
-        <Button variant="primary">Run report</Button>
+        <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
       </div>
+
+      {showResults && (
+        <div className="overflow-x-auto rounded-lg border border-border">
+          <DataTable>
+            <TableHead>
+              <Th>Form name</Th>
+              <Th>Client</Th>
+              <Th>Status</Th>
+              <Th>Submitted date</Th>
+              <Th>Practitioner</Th>
+            </TableHead>
+            <TableBody>
+              {mockFormRows.map((row, i) => (
+                <Tr key={i}>
+                  <Td>{row.form}</Td>
+                  <Td className="text-primary">{row.client}</Td>
+                  <Td><Badge variant={formStatusVariant(row.status)}>{row.status}</Badge></Td>
+                  <Td>{row.submitted}</Td>
+                  <Td>{row.practitioner}</Td>
+                </Tr>
+              ))}
+            </TableBody>
+          </DataTable>
+        </div>
+      )}
     </>
   );
 }
