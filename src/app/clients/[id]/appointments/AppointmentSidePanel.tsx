@@ -28,6 +28,7 @@ import {
   Pagination,
   Badge,
   Avatar,
+  FormTextarea,
   Status,
   statusVariant,
 } from "@/components/ds";
@@ -392,10 +393,10 @@ export default function AppointmentSidePanel({
                 <StickyNote className="h-4 w-4 text-text-secondary" />
                 <span className="font-medium text-text">Note</span>
               </div>
-              <textarea
-                className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+              <FormTextarea
                 rows={3}
                 placeholder="Add a note..."
+                className="text-sm"
               />
             </div>
           </div>

@@ -9,6 +9,7 @@ import {
   Badge,
   FormInput,
   FormSelect,
+  FormTextarea,
   List,
   Collapse,
 } from "@/components/ds";
@@ -480,10 +481,9 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         {/* Other details */}
         <section className="mb-8">
           <h2 className="mb-4 text-heading-lg text-text">Other details</h2>
-          <textarea
+          <FormTextarea
             defaultValue='For fields that are not available with the splose template, will show up here if they are all included in "Other Details" on the CSV file.'
             rows={4}
-            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
           />
         </section>
 
@@ -493,7 +493,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
           <p className="mb-2 text-body-md text-text-secondary">
             Information you add here will be displayed in important places like scheduling appointments.
           </p>
-          <textarea defaultValue="Include KM" rows={3} className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md outline-none focus:border-primary focus:ring-1 focus:ring-primary/20" />
+          <FormTextarea defaultValue="Include KM" rows={3} />
         </section>
 
         {/* Contact details */}

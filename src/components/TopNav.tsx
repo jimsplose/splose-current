@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Bell, Settings, HelpCircle, Menu, X, MessageSquare } from "lucide-react";
+import { Avatar } from "@/components/ds";
 
 const navItems = [
   { href: "/", label: "Dashboard" },
@@ -75,9 +76,7 @@ export default function TopNav() {
           <button className="rounded-full p-2 text-text-secondary hover:bg-gray-100">
             <HelpCircle className="h-5 w-5" />
           </button>
-          <div className="ml-1 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-label-md text-white">
-            SC
-          </div>
+          <Avatar name="Sarah Chen" size="sm" className="ml-1 h-8 w-8" />
         </div>
       </div>
 

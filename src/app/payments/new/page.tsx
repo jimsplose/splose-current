@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { X, Plus, Search } from "lucide-react";
-import { Button, FormInput, FormSelect, Navbar, Select, TableHead, Th, TableBody, Td, EmptyState } from "@/components/ds";
+import { Button, FormInput, FormSelect, FormTextarea, Navbar, Select, TableHead, Th, TableBody, Td, EmptyState } from "@/components/ds";
 
 const mockClients = [
   "Skyler Peterson",
@@ -296,16 +296,14 @@ export default function NewPaymentPage() {
 
         {/* Note and totals */}
         <div className="flex items-start justify-between">
-          <div>
-            <label className="mb-1 block text-body-md-strong text-text">Note</label>
-            <textarea
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              placeholder="Optional payment note..."
-              className="w-64 resize-none rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-              rows={3}
-            />
-          </div>
+          <FormTextarea
+            label="Note"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            placeholder="Optional payment note..."
+            className="w-64 resize-none text-sm"
+            rows={3}
+          />
           <div className="space-y-1.5 text-right text-sm">
             <div className="flex items-center justify-end gap-8">
               <span className="text-text-secondary">Applied to invoices</span>

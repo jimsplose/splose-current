@@ -27,7 +27,7 @@ import {
   AlertTriangle,
   Info,
 } from "lucide-react";
-import { Button, Badge, FormInput, FormSelect, Modal, Toggle, Avatar, ColorDot } from "@/components/ds";
+import { Button, Badge, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert } from "@/components/ds";
 
 type Appointment = {
   id: string;
@@ -715,29 +715,28 @@ export default function CalendarView({
       )}
 
       {/* Create appointment modal */}
-      {showCreateModal && (
-        <div
-          className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/40 px-3 pt-4 pb-4 sm:px-0 sm:pt-12 sm:pb-12"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setShowCreateModal(false);
-          }}
-        >
-          <div className="w-full max-w-lg rounded-xl bg-white shadow-xl">
-            <div className="flex items-center justify-between border-b border-border px-6 py-4">
-              <h2 className="text-heading-lg text-text">New appointment</h2>
-              <button onClick={() => setShowCreateModal(false)} className="rounded p-1 hover:bg-gray-100">
-                <X className="h-5 w-5 text-text-secondary" />
-              </button>
-            </div>
-            <div className="space-y-4 px-6 py-5">
+      <Modal
+        open={showCreateModal}
+        onClose={() => setShowCreateModal(false)}
+        title="New appointment"
+        maxWidth="lg"
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setShowCreateModal(false)}>
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={() => setShowCreateModal(false)}>
+              Create
+            </Button>
+          </>
+        }
+      >
+            <div className="space-y-4">
               {/* Past date warning */}
               {createDate && isDateInPast(createDate) && (
-                <div className="flex items-start gap-2 rounded-lg border border-yellow-200 bg-yellow-50 px-3 py-2.5">
-                  <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-yellow-600" />
-                  <p className="text-body-md text-yellow-800">
-                    This appointment is in the past. Are you sure you want to create it?
-                  </p>
-                </div>
+                <Alert variant="warning" icon={<AlertTriangle className="h-4 w-4 text-yellow-600" />}>
+                  This appointment is in the past. Are you sure you want to create it?
+                </Alert>
               )}
 
               {/* Location */}
@@ -903,52 +902,40 @@ export default function CalendarView({
               </div>
 
               {/* Notes */}
-              <div>
-                <label className="mb-1 block text-label-lg text-text-secondary">Notes</label>
-                <textarea
-                  value={createNotes}
-                  onChange={(e) => setCreateNotes(e.target.value)}
-                  placeholder="Add notes..."
-                  rows={3}
-                  className="w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-                />
-              </div>
+              <FormTextarea
+                label="Notes"
+                value={createNotes}
+                onChange={(e) => setCreateNotes(e.target.value)}
+                placeholder="Add notes..."
+                rows={3}
+                className="resize-none"
+              />
             </div>
-            <div className="flex items-center justify-end gap-2 border-t border-border px-6 py-4">
-              <Button variant="secondary" onClick={() => setShowCreateModal(false)}>
-                Cancel
-              </Button>
-              <Button variant="primary" onClick={() => setShowCreateModal(false)}>
-                Create
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
+      </Modal>
 
       {/* Edit appointment modal */}
       {showEditModal && selectedAppt && (
-        <div
-          className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/40 px-3 pt-4 pb-4 sm:px-0 sm:pt-12 sm:pb-12"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setShowEditModal(false);
-          }}
-        >
-          <div className="w-full max-w-lg rounded-xl bg-white shadow-xl">
-            <div className="flex items-center justify-between border-b border-border px-6 py-4">
-              <h2 className="text-heading-lg text-text">Edit appointment</h2>
-              <button onClick={() => setShowEditModal(false)} className="rounded p-1 hover:bg-gray-100">
-                <X className="h-5 w-5 text-text-secondary" />
-              </button>
-            </div>
-            <div className="space-y-4 px-6 py-5">
+      <Modal
+        open={showEditModal}
+        onClose={() => setShowEditModal(false)}
+        title="Edit appointment"
+        maxWidth="lg"
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setShowEditModal(false)}>
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={() => setShowEditModal(false)}>
+              Save changes
+            </Button>
+          </>
+        }
+      >
+            <div className="space-y-4">
               {/* Info banner */}
-              <div className="flex items-start gap-2 rounded-lg border border-blue-200 bg-blue-50 px-3 py-2.5">
-                <Info className="mt-0.5 h-4 w-4 shrink-0 text-blue-600" />
-                <p className="text-body-md text-blue-800">
-                  Client won&apos;t be notified of changes. To do this, use Reschedule.
-                </p>
-              </div>
+              <Alert variant="info" icon={<Info className="h-4 w-4 text-blue-600" />}>
+                Client won&apos;t be notified of changes. To do this, use Reschedule.
+              </Alert>
 
               {/* Location */}
               <FormSelect
@@ -1095,16 +1082,7 @@ export default function CalendarView({
                 </div>
               </div>
             </div>
-            <div className="flex items-center justify-end gap-2 border-t border-border px-6 py-4">
-              <Button variant="secondary" onClick={() => setShowEditModal(false)}>
-                Cancel
-              </Button>
-              <Button variant="primary" onClick={() => setShowEditModal(false)}>
-                Save changes
-              </Button>
-            </div>
-          </div>
-        </div>
+      </Modal>
       )}
     </div>
   );
@@ -1395,8 +1373,8 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
         <label className="flex items-center gap-1 text-label-md text-text-secondary">
           <FileText className="h-3 w-3" /> Note
         </label>
-        <textarea
-          className="mt-1 w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-body-md outline-none focus:border-primary"
+        <FormTextarea
+          className="mt-1 resize-none"
           rows={3}
           placeholder="Add a note..."
         />
@@ -1475,8 +1453,8 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
         <label className="flex items-center gap-1 text-label-md text-text-secondary">
           <FileText className="h-3 w-3" /> Note
         </label>
-        <textarea
-          className="mt-1 w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-body-md outline-none focus:border-primary"
+        <FormTextarea
+          className="mt-1 resize-none"
           rows={3}
           placeholder="Add a note..."
         />

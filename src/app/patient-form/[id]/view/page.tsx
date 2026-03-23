@@ -1,4 +1,5 @@
 import { ChevronDown, Mail } from "lucide-react";
+import { Badge, statusVariant } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -30,7 +31,6 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
   void id;
 
   const form = mockFormData;
-  const statusColor = form.status === "In progress" ? "bg-green-600" : "bg-gray-500";
 
   return (
     <div className="min-h-[calc(100vh-3rem)]">
@@ -38,7 +38,7 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
       <div className="flex items-center justify-between border-b border-border bg-white px-6 py-4">
         <div className="flex items-center gap-3">
           <h1 className="text-display-lg text-text">{form.title}</h1>
-          <span className={`rounded-full ${statusColor} px-3 py-1 text-label-md text-white`}>{form.status}</span>
+          <Badge variant={statusVariant(form.status)}>{form.status}</Badge>
           <span className="cursor-pointer text-sm text-primary hover:underline">{form.clientName}</span>
         </div>
         <div className="flex items-center gap-2">

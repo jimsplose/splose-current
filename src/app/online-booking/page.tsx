@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { ChevronLeft, ChevronRight, MapPin, FileText, Clock, Calendar, User } from "lucide-react";
-import { Avatar, Button, FormInput, FormSelect } from "@/components/ds";
+import { Avatar, Button, FormInput, FormSelect, FormTextarea } from "@/components/ds";
 
 const practitioners = [
   { id: "1", name: "Hrishikesh Koli", initials: "HK", role: "Prac ti sion", color: "#7c3aed", tagline: "HEY HEY HEY" },
@@ -285,15 +285,12 @@ function OnlineBookingPageInner() {
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-label-lg text-text-secondary">
-                      Comments (optional)
-                    </label>
-                    <textarea
+                    <FormTextarea
+                      label="Comments (optional)"
                       value={comments}
                       onChange={(e) => setComments(e.target.value)}
                       maxLength={500}
                       rows={4}
-                      className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
                     />
                     <div className="mt-1 text-right text-caption-md text-text-secondary">
                       {comments.length} / 500

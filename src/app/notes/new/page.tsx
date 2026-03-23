@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { LayoutGrid, Columns2, Copy, ChevronDown, Save, Lock, ClipboardList } from "lucide-react";
-import { Button, Badge, EmptyState, Navbar, Filter } from "@/components/ds";
+import { Button, Badge, EmptyState, Navbar, Filter, FormTextarea } from "@/components/ds";
 
 const TEMPLATES = [
   "Initial Assessment",
@@ -170,13 +170,13 @@ function NewProgressNotePageInner() {
 
             {/* Note content */}
             <div className="mb-4">
-              <label className="mb-1 block text-label-lg text-text">Note content</label>
-              <textarea
+              <FormTextarea
+                label="Note content"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 rows={18}
                 placeholder="Start writing your progress note here..."
-                className="w-full resize-y rounded-lg border border-border bg-white px-4 py-3 text-sm leading-relaxed text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                className="resize-y px-4 py-3 text-sm leading-relaxed"
               />
             </div>
           </div>

@@ -36,6 +36,7 @@ export function statusVariant(status: string): BadgeVariant {
     Completed: "green",
     Upcoming: "green",
     Scheduled: "green",
+    "In progress": "green",
     Draft: "blue",
     Sent: "blue",
     Outstanding: "yellow",

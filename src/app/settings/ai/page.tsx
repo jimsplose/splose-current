@@ -2,7 +2,8 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { Button, FormInput, Tab, Toggle, DataTable, TableHead, Th, TableBody, Td, Pagination, Dropdown, Modal, EmptyState } from "@/components/ds";
+import { AlertTriangle } from "lucide-react";
+import { Button, FormInput, FormTextarea, Tab, Toggle, DataTable, TableHead, Th, TableBody, Td, Pagination, Dropdown, Modal, EmptyState, Badge, Alert } from "@/components/ds";
 
 const aiBlocks = [
   { name: "Subjective Assessment", tag: "SOAP", createdBy: "Jim Yencken", lastModified: "12 Mar 2026" },
@@ -210,14 +211,11 @@ function SavedPromptsTab() {
               <option>Speech Pathologists</option>
             </select>
           </div>
-          <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Prompt</label>
-            <textarea
-              rows={6}
-              defaultValue="Write a professional progress note based on the session."
-              className="w-full rounded-lg border border-border px-3 py-2 text-body-md text-text focus:border-primary focus:ring-1 focus:ring-primary/20 focus:outline-none"
-            />
-          </div>
+          <FormTextarea
+            label="Prompt"
+            rows={6}
+            defaultValue="Write a professional progress note based on the session."
+          />
         </div>
       </Modal>
     </div>
@@ -239,20 +237,22 @@ function AIBlockLibraryTab() {
   return (
     <div>
       {/* Beta banner */}
-      <div className="mb-4 flex items-center justify-between rounded-lg border border-yellow-200 bg-yellow-50 px-4 py-3">
-        <div className="flex items-center gap-2">
-          <span className="rounded bg-yellow-100 px-1.5 py-0.5 text-caption-sm text-yellow-700">BETA</span>
-          <span className="text-body-md text-text">We need your feedback on AI blocks</span>
+      <Alert variant="warning" icon={<AlertTriangle className="h-4 w-4" />} className="mb-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="rounded bg-yellow-100 px-1.5 py-0.5 text-caption-sm text-yellow-700">BETA</span>
+            <span className="text-body-md text-text">We need your feedback on AI blocks</span>
+          </div>
+          <div className="flex items-center gap-2 text-body-md">
+            <span className="text-text-secondary">Fill a</span>
+            <span className="cursor-pointer text-primary underline">short survey</span>
+            <span className="text-text-secondary">or</span>
+            <span className="cursor-pointer text-primary underline">book a time</span>
+            <span className="text-text-secondary">to chat</span>
+            <button className="ml-2 text-text-secondary hover:text-text">&times;</button>
+          </div>
         </div>
-        <div className="flex items-center gap-2 text-body-md">
-          <span className="text-text-secondary">Fill a</span>
-          <span className="cursor-pointer text-primary underline">short survey</span>
-          <span className="text-text-secondary">or</span>
-          <span className="cursor-pointer text-primary underline">book a time</span>
-          <span className="text-text-secondary">to chat</span>
-          <button className="ml-2 text-text-secondary hover:text-text">&times;</button>
-        </div>
-      </div>
+      </Alert>
 
       <p className="mb-4 text-body-md text-text-secondary">
         Spend less time writing prompts with your saved library of AI blocks, organised by{" "}
@@ -292,7 +292,7 @@ function AIBlockLibraryTab() {
           {aiBlocks.map((block) => (
             <tr key={block.name} className="hover:bg-gray-50">
               <Td>{block.name}</Td>
-              <Td><span className="rounded-full bg-purple-100 px-2 py-0.5 text-label-md text-primary">{block.tag}</span></Td>
+              <Td><Badge variant="purple">{block.tag}</Badge></Td>
               <Td className="text-text-secondary">{block.createdBy}</Td>
               <Td className="text-text-secondary">{block.lastModified}</Td>
               <Td align="right">
@@ -326,14 +326,11 @@ function AIBlockLibraryTab() {
         <div className="space-y-4">
           <FormInput label="Block name" value={editBlockName} onChange={(e) => setEditBlockName(e.target.value)} />
           <FormInput label="Tag" value={editBlockTag} onChange={(e) => setEditBlockTag(e.target.value)} />
-          <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Prompt</label>
-            <textarea
-              rows={6}
-              defaultValue="Generate a detailed {block_name} section based on the session context, including relevant clinical observations and findings."
-              className="w-full rounded-lg border border-border px-3 py-2 text-body-md text-text focus:border-primary focus:ring-1 focus:ring-primary/20 focus:outline-none"
-            />
-          </div>
+          <FormTextarea
+            label="Prompt"
+            rows={6}
+            defaultValue="Generate a detailed {block_name} section based on the session context, including relevant clinical observations and findings."
+          />
         </div>
       </Modal>
     </div>

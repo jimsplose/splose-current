@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import { CalendarDays, Info } from "lucide-react";
 import {
+  Alert,
   Button,
   DataTable,
   TableHead,
@@ -106,17 +107,14 @@ export default function InvoiceSettingsPage() {
       <h1 className="mb-6 text-display-lg text-text">Invoice Settings</h1>
 
       {/* Stripe info banner */}
-      <div className="mb-6 flex items-start gap-3 rounded-lg border border-blue-200 bg-blue-50 p-4">
-        <Info className="mt-0.5 h-5 w-5 shrink-0 text-blue-500" />
-        <div>
-          <p className="text-body-md text-text">
-            You need an active Stripe connection for online payments.{" "}
-            <a href="#" className="font-medium text-primary hover:underline">
-              Connect to Stripe
-            </a>
-          </p>
-        </div>
-      </div>
+      <Alert variant="info" icon={<Info className="h-4 w-4" />} className="mb-6">
+        <p className="text-body-md text-text">
+          You need an active Stripe connection for online payments.{" "}
+          <a href="#" className="font-medium text-primary hover:underline">
+            Connect to Stripe
+          </a>
+        </p>
+      </Alert>
 
       <div className="mb-8">
         <Toggle
