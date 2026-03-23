@@ -1,0 +1,75 @@
+# Typography Tokens
+
+## Font Families
+
+- `Inter, "Sprig Sans", -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"` (used 14607 times)
+- `Inter, sans-serif` (used 210 times)
+- `"Sprig Sans", Inter` (used 199 times)
+- `system-ui, sans-serif` (used 108 times)
+- `Arial, Helvetica, sans-serif` (used 91 times)
+- `-apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif` (used 66 times)
+- `Inter` (used 6 times)
+- `Arial` (used 3 times)
+- `"Sprig Sans", Inter, -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"` (used 2 times)
+- `"Apple Color Emoji", "Segoe UI Emoji", NotoColorEmoji, "Segoe UI Symbol", "Android Emoji", EmojiSymbols` (used 1 times)
+
+## Font Sizes
+
+- `14px` (used 13283 times)
+- `15px` (used 610 times)
+- `18px` (used 549 times)
+- `12px` (used 312 times)
+- `16px` (used 165 times)
+- `13px` (used 136 times)
+- `0px` (used 79 times)
+- `30px` (used 57 times)
+- `26px` (used 39 times)
+- `28px` (used 26 times)
+- `20px` (used 15 times)
+- `21px` (used 12 times)
+- `11.2px` (used 4 times)
+- `16.38px` (used 2 times)
+- `36px` (used 2 times)
+- `24px` (used 1 times)
+- `22px` (used 1 times)
+
+## Font Weights
+
+- `400` (used 13973 times)
+- `600` (used 852 times)
+- `500` (used 257 times)
+- `700` (used 211 times)
+
+## Line Heights
+
+- `22px` (used 5812 times)
+- `56px` (used 4629 times)
+- `19.6px` (used 1432 times)
+- `0px` (used 776 times)
+- `21px` (used 544 times)
+- `28.2857px` (used 471 times)
+- `38px` (used 405 times)
+- `14px` (used 212 times)
+- `20px` (used 186 times)
+- `normal` (used 103 times)
+- `18.2px` (used 95 times)
+- `46px` (used 81 times)
+- `32px` (used 75 times)
+- `25.2px` (used 74 times)
+- `16.8px` (used 51 times)
+- `24px` (used 49 times)
+- `20.4286px` (used 41 times)
+- `25.1429px` (used 41 times)
+- `18.8571px` (used 39 times)
+- `16px` (used 37 times)
+- `23.9968px` (used 29 times)
+- `44px` (used 20 times)
+- `30px` (used 14 times)
+- `29.4px` (used 12 times)
+- `28px` (used 10 times)
+- `31.4286px` (used 9 times)
+- `17px` (used 8 times)
+- `15px` (used 6 times)
+- `22.4px` (used 6 times)
+- `2.8px` (used 6 times)
+
