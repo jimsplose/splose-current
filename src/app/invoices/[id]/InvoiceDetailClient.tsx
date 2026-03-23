@@ -1,8 +1,24 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button, FormInput, FormSelect, FormTextarea, Badge, statusVariant } from "@/components/ds";
+import { useRouter } from "next/navigation";
+import { Button, Dropdown, FormInput, FormSelect, FormTextarea, Badge, statusVariant } from "@/components/ds";
+import type { DropdownItem } from "@/components/ds";
 import Modal from "@/components/ds/Modal";
+import { ChevronDown, Mail } from "lucide-react";
+
+const payItems: DropdownItem[] = [
+  { label: "Record payment", value: "record-payment" },
+  { label: "Send payment link", value: "send-payment-link" },
+];
+
+const actionsItems: DropdownItem[] = [
+  { label: "Duplicate invoice", value: "duplicate" },
+  { label: "Credit note", value: "credit-note" },
+  { label: "Change log", value: "change-log" },
+  { label: "", value: "divider-1", divider: true },
+  { label: "Void", value: "void", danger: true },
+];
 
 interface InvoiceData {
   invoiceNumber: string;
@@ -48,6 +64,7 @@ function getTodayString() {
 }
 
 export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData }) {
+  const router = useRouter();
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [paymentAmount, setPaymentAmount] = useState("");
@@ -94,15 +111,39 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           <Badge variant="green" className="rounded-lg px-3 py-1.5 text-label-lg">
             Credit balance: ${invoice.status === "Paid" ? "0.00" : "680.00"}
           </Badge>
-          <Button variant="secondary" onClick={openPaymentModal}>
-            Add payment
-          </Button>
+          <Dropdown
+            trigger={
+              <Button variant="secondary">
+                Pay
+                <ChevronDown className="h-3.5 w-3.5 text-text-secondary" />
+              </Button>
+            }
+            items={payItems}
+            onSelect={(value) => {
+              if (value === "record-payment") {
+                openPaymentModal();
+              }
+              // "send-payment-link" is a no-op
+            }}
+            align="right"
+          />
           <Button variant="secondary" onClick={handleEmailInvoice}>
+            <Mail className="h-4 w-4 text-text-secondary" />
             Email invoice
           </Button>
-          <Button variant="secondary">
-            Actions &#9660;
-          </Button>
+          <Dropdown
+            trigger={
+              <Button variant="secondary">
+                Actions
+                <ChevronDown className="h-3.5 w-3.5 text-text-secondary" />
+              </Button>
+            }
+            items={actionsItems}
+            onSelect={(_value) => {
+              // All actions are no-ops in the prototype
+            }}
+            align="right"
+          />
         </div>
       </div>
 

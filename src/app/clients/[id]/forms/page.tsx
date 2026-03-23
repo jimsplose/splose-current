@@ -1,4 +1,17 @@
-import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Badge } from "@/components/ds";
+"use client";
+
+import { Button, Card, DataTable, Dropdown, DropdownTriggerButton, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Badge } from "@/components/ds";
+import type { DropdownItem } from "@/components/ds";
+
+const formRowActions: DropdownItem[] = [
+  { label: "View", value: "view" },
+  { label: "Copy link", value: "copy-link" },
+  { label: "Open in new tab", value: "open-tab" },
+  { label: "Email form", value: "email" },
+  { label: "", value: "divider-1", divider: true },
+  { label: "Change log", value: "changelog" },
+  { label: "Archive", value: "archive", danger: true },
+];
 
 export default function ClientFormsPage() {
   const mockForms = [
@@ -104,7 +117,12 @@ export default function ClientFormsPage() {
                 <Td className="text-text-secondary">{form.completed}</Td>
                 <Td className="text-primary">{form.relatedAppt}</Td>
                 <Td align="right">
-                  <Button variant="ghost" size="sm" className="text-text-secondary">...</Button>
+                  <Dropdown
+                    trigger={<DropdownTriggerButton />}
+                    items={formRowActions}
+                    onSelect={() => {}}
+                    align="right"
+                  />
                 </Td>
               </Tr>
             ))}

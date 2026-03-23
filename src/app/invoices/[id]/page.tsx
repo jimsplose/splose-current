@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import { Button, Badge, statusVariant } from "@/components/ds";
+import { Badge, statusVariant } from "@/components/ds";
+import InvoiceActions from "./InvoiceActions";
 
 export const dynamic = "force-dynamic";
 
@@ -31,48 +32,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
           <Badge variant={statusVariant(invoice.status)}>{invoice.status}</Badge>
           {creditBalance > 0 && <Badge variant="green">Credit balance: ${creditBalance.toFixed(2)}</Badge>}
         </div>
-        <div className="flex items-center gap-2">
-          <Button variant="secondary" className="shadow-sm">
-            Pay
-            <svg
-              className="h-3.5 w-3.5 text-text-secondary"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
-          </Button>
-          <Button variant="secondary" className="shadow-sm">
-            <svg
-              className="h-4 w-4 text-text-secondary"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-              />
-            </svg>
-            Email Invoice
-          </Button>
-          <Button variant="secondary" className="shadow-sm">
-            Actions
-            <svg
-              className="h-3.5 w-3.5 text-text-secondary"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
-          </Button>
-        </div>
+        <InvoiceActions />
       </div>
 
       {/* Invoice document */}

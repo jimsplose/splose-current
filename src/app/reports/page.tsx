@@ -1,6 +1,35 @@
-import { Avatar, Button, Card, Chip, ColorDot, FormSelect } from "@/components/ds";
+"use client";
+
+import { useState } from "react";
+import { Avatar, Button, Card, Chip, ColorDot, Dropdown, FormSelect } from "@/components/ds";
+import type { DropdownItem } from "@/components/ds";
 
 export default function ReportsPage() {
+  const [selectedLocation, setSelectedLocation] = useState("all");
+  const [selectedPractitioner, setSelectedPractitioner] = useState("all");
+  const [compareMode, setCompareMode] = useState(false);
+  const [frequency, setFrequency] = useState("daily");
+
+  const locationItems: DropdownItem[] = [
+    { label: "All locations", value: "all" },
+    { label: "East Clinics", value: "east" },
+    { label: "West Clinics", value: "west" },
+    { label: "North Clinics", value: "north" },
+    { label: "Telehealth", value: "telehealth" },
+  ];
+
+  const practitionerItems: DropdownItem[] = [
+    { label: "All practitioners", value: "all" },
+    { label: "Sophie Anderson", value: "sophie-anderson" },
+    { label: "James Wilson", value: "james-wilson" },
+    { label: "Priya Sharma", value: "priya-sharma" },
+    { label: "Daniel O'Brien", value: "daniel-obrien" },
+  ];
+
+  const locationLabel = locationItems.find((i) => i.value === selectedLocation)?.label ?? "All locations";
+  const practitionerLabel =
+    practitionerItems.find((i) => i.value === selectedPractitioner)?.label ?? "All practitioners";
+
   const practitioners = [
     { name: "Ruvi R.", color: "#ef4444", utilisation: 10.09, revenue: 393.0 },
     { name: "Hung Yee Wong", color: "#8b5cf6", utilisation: 6.88, revenue: 289.5 },
@@ -60,15 +89,34 @@ export default function ReportsPage() {
         </Chip>
         <FormSelect
           options={frequencyOptions}
+          value={frequency}
+          onChange={(e) => setFrequency(e.target.value)}
           className="!w-auto cursor-pointer !rounded-full !border-primary !bg-primary/10 !font-medium !text-primary"
         />
-        <Button variant="secondary" size="sm" className="rounded-full">
-          All locations
-        </Button>
-        <Button variant="secondary" size="sm" className="rounded-full">
-          All practitioners
-        </Button>
-        <Button variant="secondary" size="sm" className="rounded-full">
+        <Dropdown
+          trigger={
+            <Button variant="secondary" size="sm" className="rounded-full">
+              {locationLabel}
+            </Button>
+          }
+          items={locationItems}
+          onSelect={setSelectedLocation}
+        />
+        <Dropdown
+          trigger={
+            <Button variant="secondary" size="sm" className="rounded-full">
+              {practitionerLabel}
+            </Button>
+          }
+          items={practitionerItems}
+          onSelect={setSelectedPractitioner}
+        />
+        <Button
+          variant={compareMode ? "primary" : "secondary"}
+          size="sm"
+          className="rounded-full"
+          onClick={() => setCompareMode(!compareMode)}
+        >
           Compare
         </Button>
       </div>
