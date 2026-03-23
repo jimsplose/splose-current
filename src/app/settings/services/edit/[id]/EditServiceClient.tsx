@@ -6,6 +6,7 @@ import {
   FormInput,
   FormSelect,
   FormColorPicker,
+  FormTextarea,
   Toggle,
   Collapse,
   Navbar,
@@ -84,10 +85,24 @@ const rateOptions = [
   { value: "Session", label: "Session" },
 ];
 
+const reminderOptions = [
+  { value: "none", label: "No reminder" },
+  { value: "1-hour", label: "1 hour before" },
+  { value: "24-hours", label: "24 hours before" },
+  { value: "48-hours", label: "48 hours before" },
+  { value: "1-week", label: "1 week before" },
+];
+
 export default function EditServiceClient({ id }: { id: string }) {
   const service = serviceData[id] || serviceData["1"];
 
   const [onlineBookingEnabled, setOnlineBookingEnabled] = useState(false);
+  const [onlinePayment, setOnlinePayment] = useState(false);
+  const [paymentRequired, setPaymentRequired] = useState("optional");
+  const [smsReminder, setSmsReminder] = useState("24-hours");
+  const [emailReminder, setEmailReminder] = useState("24-hours");
+  const [confirmationSms, setConfirmationSms] = useState(true);
+  const [confirmationEmail, setConfirmationEmail] = useState(true);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -143,6 +158,35 @@ export default function EditServiceClient({ id }: { id: string }) {
                 onChange={setOnlineBookingEnabled}
                 label="Enable online booking"
               />
+            </div>
+          </Collapse>
+
+          {/* Online payment */}
+          <Collapse title="Online payment">
+            <div className="space-y-4">
+              <Toggle checked={onlinePayment} onChange={setOnlinePayment} label="Enable online payment" />
+              {onlinePayment && (
+                <FormSelect
+                  label="Payment requirement"
+                  value={paymentRequired}
+                  onChange={(e) => setPaymentRequired(e.target.value)}
+                  options={[
+                    { value: "optional", label: "Optional — client can choose to pay" },
+                    { value: "required", label: "Required — must pay to confirm" },
+                    { value: "deposit", label: "Deposit — partial payment required" },
+                  ]}
+                />
+              )}
+            </div>
+          </Collapse>
+
+          {/* Appointment notifications */}
+          <Collapse title="Appointment notifications">
+            <div className="space-y-4">
+              <Toggle checked={confirmationSms} onChange={setConfirmationSms} label="Send SMS confirmation" />
+              <Toggle checked={confirmationEmail} onChange={setConfirmationEmail} label="Send email confirmation" />
+              <FormSelect label="SMS reminder" value={smsReminder} onChange={(e) => setSmsReminder(e.target.value)} options={reminderOptions} />
+              <FormSelect label="Email reminder" value={emailReminder} onChange={(e) => setEmailReminder(e.target.value)} options={reminderOptions} />
             </div>
           </Collapse>
         </div>
