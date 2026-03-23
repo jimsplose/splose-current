@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { Plus, Mail, Phone } from "lucide-react";
-import { Avatar, Badge, Button, Card, PageHeader } from "@/components/ds";
+import { Avatar, Badge, Button, Card, IconText, PageHeader, Stat } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -44,27 +44,15 @@ export default async function PractitionersPage() {
             </div>
 
             <div className="mt-4 space-y-2">
-              <div className="flex items-center gap-2 text-sm text-text-secondary">
-                <Mail className="h-4 w-4 shrink-0" />
-                <span className="truncate">{p.email}</span>
-              </div>
+              <IconText icon={<Mail className="h-4 w-4" />}>{p.email}</IconText>
               {p.phone && (
-                <div className="flex items-center gap-2 text-sm text-text-secondary">
-                  <Phone className="h-4 w-4 shrink-0" />
-                  <span>{p.phone}</span>
-                </div>
+                <IconText icon={<Phone className="h-4 w-4" />}>{p.phone}</IconText>
               )}
             </div>
 
             <div className="mt-4 flex gap-4 border-t border-border pt-4">
-              <div className="text-center">
-                <p className="text-heading-lg text-text">{p._count.appointments}</p>
-                <p className="text-xs text-text-secondary">Appointments</p>
-              </div>
-              <div className="text-center">
-                <p className="text-heading-lg text-text">{p._count.notes}</p>
-                <p className="text-xs text-text-secondary">Notes</p>
-              </div>
+              <Stat value={p._count.appointments} label="Appointments" />
+              <Stat value={p._count.notes} label="Notes" />
             </div>
           </Card>
         ))}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button, FormInput, FormSelect, Toggle, Tab, Modal, Dropdown, HintIcon } from "@/components/ds";
+import { Button, FileUpload, FormInput, FormSelect, Toggle, Tab, Modal, Dropdown, HintIcon } from "@/components/ds";
 
 export default function SettingsDetailsPage() {
   const [emailSigTab, setEmailSigTab] = useState<"Business" | "User">("Business");
@@ -40,8 +40,8 @@ export default function SettingsDetailsPage() {
             </div>
           </div>
           <div className="w-48 shrink-0">
-            <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-6 text-center">
-              <div className="mb-3 text-4xl text-purple-300">
+            <FileUpload
+              icon={
                 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="32" cy="32" r="28" fill="#ede9fe" />
                   <path d="M22 38c0-6 4-16 10-16s10 10 10 16" stroke="#7c3aed" strokeWidth="2" strokeLinecap="round" />
@@ -49,9 +49,9 @@ export default function SettingsDetailsPage() {
                   <circle cx="36" cy="26" r="2" fill="#7c3aed" />
                   <path d="M28 32c2 2 6 2 8 0" stroke="#7c3aed" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
-              </div>
-              <Button variant="secondary" size="sm">Upload</Button>
-            </div>
+              }
+              label="Upload"
+            />
           </div>
         </div>
 

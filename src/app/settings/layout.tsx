@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { SideNav } from "@/components/ds";
+import type { SideNavSection } from "@/components/ds";
 
-const sidebarSections = [
+const sidebarSections: SideNavSection[] = [
   {
     title: "Workspace",
     items: [
@@ -73,45 +73,9 @@ export default function SettingsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-
-  const isActive = (href: string) => {
-    if (href === "/settings") return pathname === "/settings";
-    return pathname === href || pathname.startsWith(href + "/");
-  };
-
   return (
     <div className="flex min-h-[calc(100vh-3rem)]">
-      <aside className="w-64 shrink-0 border-r border-border bg-white p-4 overflow-y-auto">
-        {sidebarSections.map((section) => (
-          <div key={section.title} className="mb-4">
-            <h3 className="mb-1 text-body-sm font-bold uppercase tracking-wider text-text">
-              {section.title}
-            </h3>
-            <ul className="space-y-0.5">
-              {section.items.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className={`w-full block rounded px-3 py-1.5 text-left text-body-md transition-colors hover:bg-purple-50 hover:text-primary ${
-                      isActive(item.href)
-                        ? "border-l-2 border-primary bg-purple-50 text-primary font-medium"
-                        : "text-text-secondary"
-                    }`}
-                  >
-                    {item.name}
-                    {"badge" in item && item.badge && (
-                      <span className="ml-2 rounded bg-primary px-1.5 py-0.5 text-caption-sm text-white">
-                        {item.badge}
-                      </span>
-                    )}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </aside>
+      <SideNav sections={sidebarSections} />
       <div className="flex-1 overflow-y-auto">{children}</div>
     </div>
   );

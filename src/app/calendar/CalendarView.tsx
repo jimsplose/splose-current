@@ -27,7 +27,7 @@ import {
   AlertTriangle,
   Info,
 } from "lucide-react";
-import { Button, Badge, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert } from "@/components/ds";
+import { Button, Badge, Chip, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert } from "@/components/ds";
 
 type Appointment = {
   id: string;
@@ -325,24 +325,14 @@ export default function CalendarView({
           </div>
           <div className="flex shrink-0 items-center gap-2">
             {/* Location filter pills */}
-            <span className="hidden rounded-full border border-green-300 bg-green-50 px-3 py-1 text-label-lg text-green-700 sm:inline-flex">
-              East Clinics
-            </span>
-            <span className="hidden rounded-full border border-purple-300 bg-purple-50 px-3 py-1 text-label-lg text-purple-700 sm:inline-flex">
-              Physio
-            </span>
+            <Chip variant="green" className="hidden sm:inline-flex">East Clinics</Chip>
+            <Chip variant="purple" className="hidden sm:inline-flex">Physio</Chip>
 
             {/* Booking-for filter pill */}
             {bookingForFilter && (
-              <span className="hidden items-center gap-1.5 rounded-full border border-yellow-300 bg-yellow-100 px-3 py-1 text-label-lg text-yellow-800 sm:inline-flex">
+              <Chip variant="yellow" className="hidden sm:inline-flex" onRemove={() => setBookingForFilter(null)}>
                 Booking for <strong>{bookingForFilter}</strong>
-                <button
-                  onClick={() => setBookingForFilter(null)}
-                  className="ml-0.5 rounded-full p-0.5 hover:bg-yellow-200"
-                >
-                  <X className="h-3 w-3" />
-                </button>
-              </span>
+              </Chip>
             )}
 
             <button
