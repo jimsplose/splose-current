@@ -40,20 +40,20 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.42.16 pm.png | Form view with Share and Automate side panel open | no |
-| screencapture-acme-splose-settings-templates-forms-81783-2026-03-17-18_40_03.png | Form template edit/view | no |
-| screencapture-acme-splose-settings-templates-forms-81783-view-2026-03-17-18_41_41.png | Form template preview view | no |
-| screencapture-acme-splose-settings-templates-forms-81783-view-2026-03-17-18_41_54.png | Form template preview view (scrolled) | no |
+| Screenshot 2026-03-17 at 6.42.16 pm.png | Form view with Share and Automate side panel open | yes — Share & Automate side panel with link/automations 2026-03-24 |
+| screencapture-acme-splose-settings-templates-forms-81783-2026-03-17-18_40_03.png | Form template edit/view | yes — form builder with fields, drag handles, add field modal 2026-03-24 |
+| screencapture-acme-splose-settings-templates-forms-81783-view-2026-03-17-18_41_41.png | Form template preview view | yes — Preview tab renders form fields 2026-03-24 |
+| screencapture-acme-splose-settings-templates-forms-81783-view-2026-03-17-18_41_54.png | Form template preview view (scrolled) | yes — scrollable preview |
 
 ## Settings — Form Template Settings (`/settings/templates/forms/:id/setting`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.42.35 pm.png | Design section — theme color, header image | no |
-| Screenshot 2026-03-17 at 6.42.41 pm.png | Form completion section (scrolled) | no |
-| Screenshot 2026-03-17 at 6.42.55 pm.png | Email notifications section (scrolled) | no |
-| Screenshot 2026-03-17 at 6.43.07 pm.png | Edit email notification modal | no |
-| Screenshot 2026-03-17 at 6.43.20 pm.png | Edit email notification modal — conditional logic enabled | no |
+| Screenshot 2026-03-17 at 6.42.35 pm.png | Design section — theme color, header image | yes — Settings tab with theme colour picker + header toggle |
+| Screenshot 2026-03-17 at 6.42.41 pm.png | Form completion section (scrolled) | yes — completion message textarea in Settings tab |
+| Screenshot 2026-03-17 at 6.42.55 pm.png | Email notifications section (scrolled) | yes — email notification toggle in Settings tab |
+| Screenshot 2026-03-17 at 6.43.07 pm.png | Edit email notification modal | partial — toggle exists, no dedicated modal for notification editing |
+| Screenshot 2026-03-17 at 6.43.20 pm.png | Edit email notification modal — conditional logic enabled | partial — no conditional logic UI yet |
 
 ## Settings — Splose AI (`/settings/ai`)
 
@@ -74,7 +74,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 |---|---|---|
 | Screenshot 2026-03-17 at 6.44.56 pm.png | Locations list default | yes — 3.69% |
 | screencapture-acme-splose-settings-locations-2026-03-17-18_37_26.png | Locations list | yes — 3.69% |
-| screencapture-acme-splose-settings-locations-edit-128-2026-03-17-18_45_03.png | Edit location form | no |
+| screencapture-acme-splose-settings-locations-edit-128-2026-03-17-18_45_03.png | Edit location form | yes — EditLocationClient exists with full form |
 
 ## Settings — Custom Fields (`/settings/custom-fields`)
 
@@ -167,9 +167,9 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 |---|---|---|
 | Screenshot 2026-03-17 at 6.54.43 pm.png | Edit tag modal (with colour picker) | yes — modal with FormColorPicker exists |
 | screencapture-acme-splose-settings-tags-2026-03-17-18_53_57.png | Tags list — Client tags tab | yes — visual audit 2026-03-23 confirmed |
-| screencapture-acme-splose-settings-tags-2026-03-17-18_54_58.png | Tags list alternate view | no |
-| screencapture-acme-splose-settings-tags-2026-03-17-18_55_27.png | Tags list alternate view 2 | no |
-| screencapture-acme-splose-settings-tags-2026-03-17-18_55_51.png | Tags list alternate view 3 | no |
+| screencapture-acme-splose-settings-tags-2026-03-17-18_54_58.png | Tags list alternate view | yes — other tag tabs (Service/Waitlist/AI) exist and switch |
+| screencapture-acme-splose-settings-tags-2026-03-17-18_55_27.png | Tags list alternate view 2 | yes — tag tab switching works |
+| screencapture-acme-splose-settings-tags-2026-03-17-18_55_51.png | Tags list alternate view 3 | yes — tag tab switching works |
 
 ## Settings — Referral Types (`/settings/referralTypes`)
 
@@ -188,24 +188,24 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-settings-users-27458-details-2026-03-17-18_58_00.png | User details tab | no |
-| screencapture-acme-splose-settings-users-27458-details-2026-03-17-19_29_56.png | User details (duplicate 1) | no |
-| screencapture-acme-splose-settings-users-27458-details-2026-03-17-19_29_56 (1).png | User details (duplicate 2) | no |
+| screencapture-acme-splose-settings-users-27458-details-2026-03-17-18_58_00.png | User details tab | yes — Details/Availability/Body charts tabs 2026-03-24 |
+| screencapture-acme-splose-settings-users-27458-details-2026-03-17-19_29_56.png | User details (duplicate 1) | yes |
+| screencapture-acme-splose-settings-users-27458-details-2026-03-17-19_29_56 (1).png | User details (duplicate 2) | yes |
 
 ## Settings — User Availability (`/settings/users/:id/availability`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.00.35 pm.png | Edit availability modal — apply to date dropdown expanded | no |
-| Screenshot 2026-03-17 at 7.00.47 pm.png | Edit availability modal — dropdown options (Apply to date/multiple days/weekly/fortnightly) | no |
-| screencapture-acme-splose-settings-users-27458-availability-2026-03-17-18_58_29.png | Availability calendar view | no |
-| screencapture-acme-splose-settings-users-27458-availability-2026-03-17-19_00_12.png | Availability alternate view | no |
+| Screenshot 2026-03-17 at 7.00.35 pm.png | Edit availability modal — apply to date dropdown expanded | yes — edit availability modal with Apply to select 2026-03-24 |
+| Screenshot 2026-03-17 at 7.00.47 pm.png | Edit availability modal — dropdown options (Apply to date/multiple days/weekly/fortnightly) | yes — all 4 options in select |
+| screencapture-acme-splose-settings-users-27458-availability-2026-03-17-18_58_29.png | Availability calendar view | yes — week grid with coloured availability blocks |
+| screencapture-acme-splose-settings-users-27458-availability-2026-03-17-19_00_12.png | Availability alternate view | yes |
 
 ## Settings — User Body Chart Templates (`/settings/users/:id/body-chart-templates`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-settings-users-27458-body-chart-templates-2026-03-17-19_00_54.png | Body chart templates list | no |
+| screencapture-acme-splose-settings-users-27458-body-chart-templates-2026-03-17-19_00_54.png | Body chart templates list | yes — body chart templates tab with 5 templates 2026-03-24 |
 
 ## Settings — User Groups (`/settings/user-groups`)
 
@@ -308,7 +308,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 7.13.29 pm.png | Import from modal (CSV/Cliniko options) | yes — Import from modal with CSV/Cliniko cards 2026-03-24 |
-| Screenshot 2026-03-17 at 7.13.39 pm.png | CSV import page with tabs (Clients/Contacts/Appointments) | no |
+| Screenshot 2026-03-17 at 7.13.39 pm.png | CSV import page with tabs (Clients/Contacts/Appointments) | yes — CSV import page with tabs, upload zone, field mapping 2026-03-24 |
 | screencapture-acme-splose-settings-import-2026-03-17-19_13_00.png | Import page default | yes — visual audit 2026-03-23 confirmed |
 
 ## Calendar — Week View (`/calendar/week`)
