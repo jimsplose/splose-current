@@ -7,6 +7,7 @@ import {
   TableHead,
   Th,
   TableBody,
+  Tr,
   Td,
   Badge,
   FormInput,
@@ -119,7 +120,7 @@ export default function PaymentSettingsPage() {
           </TableHead>
           <TableBody>
             {pageItems.map((method, i) => (
-              <tr key={method.id} className="hover:bg-gray-50">
+              <Tr key={method.id}>
                 <Td>
                   <span className="font-medium text-text">{method.name}</span>
                 </Td>
@@ -135,7 +136,7 @@ export default function PaymentSettingsPage() {
                     onSelect={(value) => handleAction(value, startIdx + i)}
                   />
                 </Td>
-              </tr>
+              </Tr>
             ))}
           </TableBody>
         </DataTable>

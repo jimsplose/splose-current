@@ -8,6 +8,7 @@ import {
   TableHead,
   Th,
   TableBody,
+  Tr,
   Td,
   Pagination,
   Dropdown,
@@ -72,7 +73,7 @@ export default function CancellationReasonsPage() {
         </TableHead>
         <TableBody>
           {reasons.map((r, i) => (
-            <tr key={i} className="hover:bg-gray-50">
+            <Tr key={i}>
               <Td className="text-text">{r.name}</Td>
               <Td>{r.code ? <Badge variant="gray">{r.code}</Badge> : ""}</Td>
               <Td align="right">
@@ -83,7 +84,7 @@ export default function CancellationReasonsPage() {
                   onSelect={(value) => handleAction(value, i)}
                 />
               </Td>
-            </tr>
+            </Tr>
           ))}
         </TableBody>
       </DataTable>

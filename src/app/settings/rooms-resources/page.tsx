@@ -10,6 +10,7 @@ import {
   TableHead,
   Th,
   TableBody,
+  Tr,
   Td,
   Pagination,
   Dropdown,
@@ -120,7 +121,7 @@ export default function SettingsRoomsResourcesPage() {
           </TableHead>
           <TableBody>
             {rooms.map((room, index) => (
-              <tr key={room.id} className="hover:bg-gray-50">
+              <Tr key={room.id}>
                 <Td>
                   <div className="flex items-center gap-2.5">
                     <ColorDot color={room.color} />
@@ -138,7 +139,7 @@ export default function SettingsRoomsResourcesPage() {
                     onSelect={(action) => handleAction(action, room, index)}
                   />
                 </Td>
-              </tr>
+              </Tr>
             ))}
             {rooms.length === 0 && (
               <tr>

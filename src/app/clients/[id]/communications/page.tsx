@@ -1,7 +1,7 @@
 "use client";
 
 import { Plus, ArrowUpDown, Filter } from "lucide-react";
-import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, Badge, statusVariant, Dropdown, DropdownTriggerButton } from "@/components/ds";
+import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge, statusVariant, Dropdown, DropdownTriggerButton } from "@/components/ds";
 
 const communicationsData = [
   {
@@ -108,7 +108,7 @@ export default function ClientCommunicationsPage() {
           </TableHead>
           <TableBody>
             {communicationsData.map((comm) => (
-              <tr key={comm.id} className="hover:bg-gray-50">
+              <Tr key={comm.id}>
                 <Td>
                   <div className="flex items-center gap-2">
                     <Button variant="icon" size="sm" className="h-5 w-5 rounded border border-border text-xs">
@@ -126,7 +126,7 @@ export default function ClientCommunicationsPage() {
                   </div>
                 </Td>
                 <Td>
-                  {comm.link ? <span className="cursor-pointer text-primary hover:underline">{comm.link}</span> : "—"}
+                  {comm.link ? <LinkCell>{comm.link}</LinkCell> : "—"}
                 </Td>
                 <Td align="right">
                   <Dropdown
@@ -136,7 +136,7 @@ export default function ClientCommunicationsPage() {
                     onSelect={() => {}}
                   />
                 </Td>
-              </tr>
+              </Tr>
             ))}
           </TableBody>
         </DataTable>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button, PageHeader, DataTable, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+import { Button, PageHeader, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination } from "@/components/ds";
 
 const locations = [
   { id: 128, name: "East Clinics", address: "", lastUpdate: "12:24 pm, 6 Mar 2026" },
@@ -25,7 +25,7 @@ export default function LocationsPage() {
         </TableHead>
         <TableBody>
           {locations.map((loc) => (
-            <tr key={loc.id} className="cursor-pointer hover:bg-gray-50">
+            <Tr key={loc.id} clickable>
               <Td>
                 <Link
                   href={`/settings/locations/edit/${loc.id}`}
@@ -36,7 +36,7 @@ export default function LocationsPage() {
               </Td>
               <Td className="text-text-secondary">{loc.address}</Td>
               <Td className="text-text-secondary">{loc.lastUpdate}</Td>
-            </tr>
+            </Tr>
           ))}
         </TableBody>
       </DataTable>

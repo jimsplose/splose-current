@@ -21,6 +21,7 @@ import {
   TableHead,
   Th,
   TableBody,
+  Tr,
   Td,
   Pagination,
   Badge,
@@ -389,7 +390,7 @@ function WaitlistPageInner() {
                   </tr>
                 ) : (
                   filteredScreener.map((row, idx) => (
-                    <tr key={idx} className="hover:bg-gray-50">
+                    <Tr key={idx}>
                       <Td>
                         <div className="flex items-center gap-1">
                           <Button
@@ -436,7 +437,7 @@ function WaitlistPageInner() {
                           <MoreHorizontal className="h-4 w-4" />
                         </Button>
                       </Td>
-                    </tr>
+                    </Tr>
                   ))
                 )
               ) : (
@@ -533,7 +534,7 @@ function WaitlistPageInner() {
                     </tr>
                   ) : (
                     filteredWaitlist.map((row, idx) => (
-                      <tr key={idx} className="hover:bg-gray-50">
+                      <Tr key={idx}>
                         <Td>
                           <div className="flex flex-wrap gap-1">
                             {row.tags.map((tag) =>
@@ -559,7 +560,7 @@ function WaitlistPageInner() {
                             <MoreHorizontal className="h-4 w-4" />
                           </Button>
                         </Td>
-                      </tr>
+                      </Tr>
                     ))
                   )}
                 </TableBody>

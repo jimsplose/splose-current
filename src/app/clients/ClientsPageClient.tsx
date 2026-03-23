@@ -12,6 +12,7 @@ import {
   TableHead,
   Th,
   TableBody,
+  Tr,
   Td,
   Pagination,
   Dropdown,
@@ -103,7 +104,7 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
         </TableHead>
         <TableBody>
           {clients.map((client) => (
-            <tr key={client.id} className="group relative cursor-pointer transition-colors hover:bg-purple-50/50">
+            <Tr key={client.id} clickable className="group relative">
               <Td>
                 <Link href={`/clients/${client.id}`} className="absolute inset-0" aria-label={`View ${client.firstName} ${client.lastName}`} />
                 <span className="font-medium text-primary group-hover:underline">
@@ -126,7 +127,7 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
                   <Badge variant="green">Medicare</Badge>
                 ) : null}
               </Td>
-            </tr>
+            </Tr>
           ))}
         </TableBody>
       </DataTable>

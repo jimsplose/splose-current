@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { AlertTriangle } from "lucide-react";
-import { Button, FormInput, FormTextarea, FormSelect, Tab, Toggle, DataTable, TableHead, Th, TableBody, Td, Pagination, Dropdown, Modal, EmptyState, Badge, Alert } from "@/components/ds";
+import { Button, FormInput, FormTextarea, FormSelect, Tab, Toggle, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, Modal, EmptyState, Badge, Alert } from "@/components/ds";
 
 const aiBlocks = [
   { name: "Subjective Assessment", tag: "SOAP", createdBy: "Jim Yencken", lastModified: "12 Mar 2026" },
@@ -164,7 +164,7 @@ function SavedPromptsTab() {
         </TableHead>
         <TableBody>
           {aiPrompts.map((prompt) => (
-            <tr key={prompt.name} className="hover:bg-gray-50">
+            <Tr key={prompt.name}>
               <Td>{prompt.name}</Td>
               <Td className="text-text-secondary">{prompt.userGroup}</Td>
               <Td align="right">
@@ -179,7 +179,7 @@ function SavedPromptsTab() {
                   align="right"
                 />
               </Td>
-            </tr>
+            </Tr>
           ))}
         </TableBody>
       </DataTable>
@@ -288,7 +288,7 @@ function AIBlockLibraryTab() {
         </TableHead>
         <TableBody>
           {aiBlocks.map((block) => (
-            <tr key={block.name} className="hover:bg-gray-50">
+            <Tr key={block.name}>
               <Td>{block.name}</Td>
               <Td><Badge variant="purple">{block.tag}</Badge></Td>
               <Td className="text-text-secondary">{block.createdBy}</Td>
@@ -305,7 +305,7 @@ function AIBlockLibraryTab() {
                   align="right"
                 />
               </Td>
-            </tr>
+            </Tr>
           ))}
         </TableBody>
       </DataTable>

@@ -8,6 +8,7 @@ import {
   TableHead,
   Th,
   TableBody,
+  Tr,
   Td,
   Badge,
   Pagination,
@@ -131,7 +132,7 @@ export default function DataImportPage() {
         </TableHead>
         <TableBody>
           {pageItems.map((row) => (
-            <tr key={row.id} className="hover:bg-gray-50">
+            <Tr key={row.id}>
               <Td>
                 <span className="font-medium text-text">{row.type}</span>
               </Td>
@@ -155,7 +156,7 @@ export default function DataImportPage() {
                   onSelect={() => {}}
                 />
               </Td>
-            </tr>
+            </Tr>
           ))}
         </TableBody>
       </DataTable>

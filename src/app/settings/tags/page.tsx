@@ -8,6 +8,7 @@ import {
   TableHead,
   Th,
   TableBody,
+  Tr,
   Td,
   Tab,
   Pagination,
@@ -132,7 +133,7 @@ export default function TagsPage() {
         </TableHead>
         <TableBody>
           {currentData.tags.map((tag, i) => (
-            <tr key={tag.name} className="hover:bg-gray-50">
+            <Tr key={tag.name}>
               <Td className="text-text">{tag.name}</Td>
               <Td>
                 <div
@@ -148,7 +149,7 @@ export default function TagsPage() {
                   onSelect={(value) => handleAction(value, i)}
                 />
               </Td>
-            </tr>
+            </Tr>
           ))}
         </TableBody>
       </DataTable>

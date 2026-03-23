@@ -6,7 +6,7 @@ import Link from "next/link";
 import Button from "@/components/ds/Button";
 import PageHeader from "@/components/ds/PageHeader";
 import SearchBar from "@/components/ds/SearchBar";
-import DataTable, { TableHead, Th, TableBody, Td } from "@/components/ds/DataTable";
+import DataTable, { TableHead, Th, TableBody, Tr, Td } from "@/components/ds/DataTable";
 import Pagination from "@/components/ds/Pagination";
 import Badge, { statusVariant } from "@/components/ds/Badge";
 import FormInput from "@/components/ds/FormInput";
@@ -213,14 +213,14 @@ function ComponentShowcase() {
                 { name: "Alex Anders", email: "alex@example.com", tag: "NDIS", status: "Draft" },
                 { name: "Elsa Frozen", email: "elsa@example.com", tag: "", status: "Archived" },
               ].map((row) => (
-                <tr key={row.name} className="hover:bg-gray-50">
+                <Tr key={row.name}>
                   <Td className="font-medium text-primary">{row.name}</Td>
                   <Td className="text-text-secondary">{row.email}</Td>
                   <Td hidden="md">{row.tag && <Badge variant="yellow">{row.tag}</Badge>}</Td>
                   <Td align="right">
                     <Badge variant={statusVariant(row.status)}>{row.status}</Badge>
                   </Td>
-                </tr>
+                </Tr>
               ))}
             </TableBody>
           </DataTable>

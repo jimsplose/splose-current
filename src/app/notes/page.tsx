@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { Plus, ArrowUpDown } from "lucide-react";
 import Link from "next/link";
-import { Badge, Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, EmptyState } from "@/components/ds";
+import { Badge, Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, EmptyState } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -46,7 +46,7 @@ export default async function NotesPage() {
           </TableHead>
           <TableBody>
             {notes.map((note) => (
-              <tr key={note.id} className="group cursor-pointer transition-colors hover:bg-purple-50/50">
+              <Tr key={note.id} clickable className="group">
                 <Td>
                   <Link href={`/notes/${note.id}`} className="flex items-center gap-2">
                     <span className="text-sm text-primary group-hover:underline">
@@ -80,7 +80,7 @@ export default async function NotesPage() {
                     {formatDate(note.date)}
                   </Link>
                 </Td>
-              </tr>
+              </Tr>
             ))}
             {notes.length === 0 && (
               <tr>

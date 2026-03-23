@@ -1,5 +1,5 @@
 import { ArrowUpDown, Filter } from "lucide-react";
-import { Badge, Button, Card, DataTable, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+import { Badge, Button, Card, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination } from "@/components/ds";
 
 export default function ClientPractitionerAccessPage() {
   const mockPractitioners = [
@@ -51,7 +51,7 @@ export default function ClientPractitionerAccessPage() {
           </TableHead>
           <TableBody>
             {mockPractitioners.map((p) => (
-              <tr key={p.name} className="hover:bg-gray-50">
+              <Tr key={p.name}>
                 <Td>
                   <div>
                     <span className="text-text">{p.name}</span>
@@ -65,7 +65,7 @@ export default function ClientPractitionerAccessPage() {
                 <Td align="right">
                   <Button variant="ghost" size="sm" className="text-text-secondary">...</Button>
                 </Td>
-              </tr>
+              </Tr>
             ))}
           </TableBody>
         </DataTable>

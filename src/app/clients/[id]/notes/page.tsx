@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { ArrowUpDown } from "lucide-react";
-import { Badge, Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+import { Badge, Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -56,7 +56,7 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
               </tr>
             ) : (
               client.clinicalNotes.map((note) => (
-                <tr key={note.id} className="cursor-pointer hover:bg-gray-50">
+                <Tr key={note.id} clickable>
                   <Td>
                     <div className="flex items-center gap-2">
                       <span className="text-xs text-text-secondary">»</span>
@@ -69,12 +69,12 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
                     </div>
                   </Td>
                   <Td className="text-text-secondary">{note.practitioner.name}</Td>
-                  <Td className="cursor-pointer text-primary hover:underline">
-                    {note.date ? formatDate(note.date) : "—"}
+                  <Td>
+                    <LinkCell>{note.date ? formatDate(note.date) : "—"}</LinkCell>
                   </Td>
                   <Td className="text-text-secondary">{formatDateTime(note.createdAt)}</Td>
                   <Td className="text-text-secondary">{formatDateTime(note.createdAt)}</Td>
-                </tr>
+                </Tr>
               ))
             )}
           </TableBody>

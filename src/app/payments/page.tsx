@@ -2,7 +2,7 @@
 
 import { Fragment, useState } from "react";
 import { Plus, ArrowUpDown, Filter } from "lucide-react";
-import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, Badge } from "@/components/ds";
+import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge } from "@/components/ds";
 
 const mockPayments = [
   {
@@ -136,8 +136,8 @@ export default function PaymentsPage() {
           <TableBody>
             {mockPayments.map((payment) => (
               <Fragment key={payment.id}>
-                <tr
-                  className="cursor-pointer transition-colors hover:bg-gray-50"
+                <Tr
+                  clickable
                   onClick={() => {
                     if (payment.invoices.length > 0) {
                       setExpandedId(expandedId === payment.id ? null : payment.id);
@@ -170,14 +170,14 @@ export default function PaymentsPage() {
                       {payment.type && <Badge variant="gray">{payment.type}</Badge>}
                     </div>
                   </Td>
-                  <Td className="text-primary hover:underline">{payment.from}</Td>
+                  <Td><LinkCell>{payment.from}</LinkCell></Td>
                   <Td align="right" className="text-text">
                     {payment.amount.toLocaleString("en-AU", { minimumFractionDigits: 2 })}
                   </Td>
                   <Td align="right" className="text-text-secondary">
                     {payment.date}
                   </Td>
-                </tr>
+                </Tr>
                 {expandedId === payment.id && payment.invoices.length > 0 && (
                   <tr>
                     <td colSpan={4} className="bg-gray-50/70 px-4 py-0">
@@ -193,7 +193,7 @@ export default function PaymentsPage() {
                           <tbody>
                             {payment.invoices.map((inv) => (
                               <tr key={inv.number}>
-                                <td className="py-2 text-sm text-primary hover:underline">{inv.number}</td>
+                                <td className="py-2 text-sm"><LinkCell>{inv.number}</LinkCell></td>
                                 <td className="py-2 text-sm text-text">{inv.amount.toFixed(2)}</td>
                                 <td className="py-2 text-sm text-text-secondary">{inv.date}</td>
                               </tr>

@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { Button, FormInput, Badge, DataTable, TableHead, Th, TableBody, Td, Dropdown, DropdownTriggerButton } from "@/components/ds";
+import { Button, FormInput, Badge, DataTable, TableHead, Th, TableBody, Tr, Td, LinkCell, Dropdown, DropdownTriggerButton } from "@/components/ds";
 import { USER_ADMIN } from "@/lib/dropdown-presets";
 
 const users = [
@@ -29,9 +28,9 @@ export default function UsersPage() {
         <TableHead><Th>Name</Th><Th>Email</Th><Th>Role name</Th><Th>Role type</Th><Th>Group</Th><Th>Status</Th><Th align="right">Actions</Th></TableHead>
         <TableBody>
           {users.map((user, index) => (
-            <tr key={user.email} className="hover:bg-gray-50">
+            <Tr key={user.email}>
               <Td className="font-medium text-text">
-                <div><Link href={`/settings/users/${index + 1}`} className="text-primary hover:underline">{user.name}</Link>{user.isOwner && <Badge variant="green" className="ml-2">Account owner</Badge>}</div>
+                <div><LinkCell href={`/settings/users/${index + 1}`}>{user.name}</LinkCell>{user.isOwner && <Badge variant="green" className="ml-2">Account owner</Badge>}</div>
               </Td>
               <Td className="text-text-secondary">{user.email}</Td>
               <Td className="text-text-secondary">{user.roleName}</Td>
@@ -46,7 +45,7 @@ export default function UsersPage() {
                   onSelect={() => {}}
                 />
               </Td>
-            </tr>
+            </Tr>
           ))}
         </TableBody>
       </DataTable>

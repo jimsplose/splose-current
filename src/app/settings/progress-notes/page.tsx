@@ -9,6 +9,7 @@ import {
   TableHead,
   Th,
   TableBody,
+  Tr,
   Td,
   Pagination,
   Badge,
@@ -121,7 +122,7 @@ export default function ProgressNotesPage() {
         </TableHead>
         <TableBody>
           {templateList.map((t, i) => (
-            <tr key={t.title + i} className="hover:bg-gray-50">
+            <Tr key={t.title + i}>
               <Td>
                 <div className="flex items-center gap-2">
                   {t.hasAi && (
@@ -139,7 +140,7 @@ export default function ProgressNotesPage() {
                   onSelect={(value) => handleAction(value, i)}
                 />
               </Td>
-            </tr>
+            </Tr>
           ))}
         </TableBody>
       </DataTable>

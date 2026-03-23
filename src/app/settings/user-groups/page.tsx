@@ -9,6 +9,7 @@ import {
   TableHead,
   Th,
   TableBody,
+  Tr,
   Td,
   Pagination,
   Dropdown,
@@ -86,7 +87,7 @@ export default function UserGroupsPage() {
         </TableHead>
         <TableBody>
           {filtered.map((group) => (
-            <tr key={group.name} className="hover:bg-gray-50">
+            <Tr key={group.name}>
               <Td className="text-text">{group.name}</Td>
               <Td>{group.users}</Td>
               <Td align="right">
@@ -97,7 +98,7 @@ export default function UserGroupsPage() {
                   onSelect={(value) => handleAction(value, groups.indexOf(group))}
                 />
               </Td>
-            </tr>
+            </Tr>
           ))}
         </TableBody>
       </DataTable>

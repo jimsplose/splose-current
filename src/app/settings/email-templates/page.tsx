@@ -9,6 +9,7 @@ import {
   TableHead,
   Th,
   TableBody,
+  Tr,
   Td,
   Pagination,
   Badge,
@@ -140,7 +141,7 @@ export default function EmailTemplatesPage() {
         </TableHead>
         <TableBody>
           {filtered.map((t, i) => (
-            <tr key={t.name + i} className="hover:bg-gray-50">
+            <Tr key={t.name + i}>
               <Td className="text-text">{t.name}</Td>
               <Td>
                 <Badge variant={getBadgeVariant(t.type) as React.ComponentProps<typeof Badge>["variant"]}>{t.type}</Badge>
@@ -154,7 +155,7 @@ export default function EmailTemplatesPage() {
                   onSelect={(value) => handleAction(value, templates.indexOf(t))}
                 />
               </Td>
-            </tr>
+            </Tr>
           ))}
         </TableBody>
       </DataTable>

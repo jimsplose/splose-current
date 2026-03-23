@@ -8,6 +8,7 @@ import {
   TableHead,
   Th,
   TableBody,
+  Tr,
   Td,
   Pagination,
   SearchBar,
@@ -305,7 +306,7 @@ export default function SettingsServicesPage() {
         </TableHead>
         <TableBody>
           {pageServices.map((service) => (
-            <tr key={service.id} className="hover:bg-gray-50">
+            <Tr key={service.id}>
               <Td>
                 <span className="flex items-center gap-2">
                   <span className={`inline-block h-2.5 w-2.5 shrink-0 rounded-full ${service.color}`} />
@@ -330,7 +331,7 @@ export default function SettingsServicesPage() {
                   }}
                 />
               </Td>
-            </tr>
+            </Tr>
           ))}
         </TableBody>
       </DataTable>

@@ -8,6 +8,7 @@ import {
   TableHead,
   Th,
   TableBody,
+  Tr,
   Td,
   Dropdown,
   DropdownTriggerButton,
@@ -104,7 +105,7 @@ export default function OnlineBookingsPage() {
         </TableHead>
         <TableBody>
           {bookingList.map((b, i) => (
-            <tr key={b.name + i} className="hover:bg-gray-50">
+            <Tr key={b.name + i}>
               <Td className="font-medium text-text">{b.name}</Td>
               <Td>{b.createdAt}</Td>
               <Td>{b.lastUpdated}</Td>
@@ -116,7 +117,7 @@ export default function OnlineBookingsPage() {
                   onSelect={(value) => handleAction(value, i)}
                 />
               </Td>
-            </tr>
+            </Tr>
           ))}
         </TableBody>
       </DataTable>

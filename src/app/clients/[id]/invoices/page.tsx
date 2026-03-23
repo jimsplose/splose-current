@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { ArrowUpDown, Filter } from "lucide-react";
-import { Button, Card, DataTable, PageHeader, SearchBar, EmptyState, TableHead, Th, TableBody, Td, Pagination, Badge } from "@/components/ds";
+import { Button, Card, DataTable, PageHeader, SearchBar, EmptyState, TableHead, Th, TableBody, Tr, Td, Pagination, Badge } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -91,7 +91,7 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
                   const outstanding = inv.status === "Paid" ? 0 : inv.total;
                   const practitioner = inv.appointment?.practitioner;
                   return (
-                    <tr key={inv.id} className="hover:bg-gray-50">
+                    <Tr key={inv.id}>
                       <Td className="text-text">{inv.invoiceNumber}</Td>
                       <Td className="text-primary">
                         {client.firstName} {client.lastName} ({inv.billingType})
@@ -122,7 +122,7 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
                         )}
                       </Td>
                       <Td className="text-text-secondary">—</Td>
-                    </tr>
+                    </Tr>
                   );
                 })
               )}

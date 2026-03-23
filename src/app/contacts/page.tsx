@@ -1,6 +1,6 @@
 import { Plus, ArrowUpDown, Filter } from "lucide-react";
 import Link from "next/link";
-import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination } from "@/components/ds";
 
 const mockContacts = [
   { id: "1", type: "", name: "jh", company: "", email: "", workPhone: "", mobilePhone: "" },
@@ -97,7 +97,7 @@ export default function ContactsPage() {
           </TableHead>
           <TableBody>
             {mockContacts.map((contact) => (
-              <tr key={contact.id} className="group relative cursor-pointer transition-colors hover:bg-purple-50/50">
+              <Tr key={contact.id} clickable className="group relative">
                 <Td className="text-text-secondary">
                   <Link
                     href={`/contacts/${contact.id}`}
@@ -119,7 +119,7 @@ export default function ContactsPage() {
                 <Td hidden="lg" className="text-primary">
                   {contact.mobilePhone}
                 </Td>
-              </tr>
+              </Tr>
             ))}
           </TableBody>
         </DataTable>

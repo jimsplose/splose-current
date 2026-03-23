@@ -1,4 +1,4 @@
-import { Button, Card, DataTable, PageHeader, TableHead, Th, TableBody, Td, Pagination, Badge, statusVariant } from "@/components/ds";
+import { Button, Card, DataTable, PageHeader, TableHead, Th, TableBody, Tr, Td, Pagination, Badge, statusVariant } from "@/components/ds";
 
 export default function ClientCasesPage() {
   const mockCases = [
@@ -124,7 +124,7 @@ export default function ClientCasesPage() {
           </TableHead>
           <TableBody>
             {mockCases.map((c) => (
-              <tr key={c.number} className="hover:bg-gray-50">
+              <Tr key={c.number}>
                 <Td className="text-text">{c.number}</Td>
                 <Td className="text-text-secondary">{c.issueDate}</Td>
                 <Td className="text-text-secondary">{c.expiryDate}</Td>
@@ -135,7 +135,7 @@ export default function ClientCasesPage() {
                 <Td>
                   <Badge variant={statusVariant(c.status)}>{c.status}</Badge>
                 </Td>
-              </tr>
+              </Tr>
             ))}
           </TableBody>
         </DataTable>

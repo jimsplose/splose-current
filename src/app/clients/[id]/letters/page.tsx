@@ -1,5 +1,5 @@
-import { Plus, MoreHorizontal } from "lucide-react";
-import { Button, Card, DataTable, PageHeader, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+import { Plus } from "lucide-react";
+import { Button, Card, DataTable, PageHeader, TableHead, Th, TableBody, Tr, Td, ActionsCell, Pagination } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -39,18 +39,19 @@ export default async function ClientLettersPage({ params }: { params: Promise<{ 
           </TableHead>
           <TableBody>
             {lettersData.map((letter) => (
-              <tr key={letter.id} className="hover:bg-gray-50">
+              <Tr key={letter.id}>
                 <Td className="text-text">{letter.title}</Td>
                 <Td className="text-text-secondary">{letter.location}</Td>
                 <Td className="text-text-secondary">{letter.writtenBy}</Td>
                 <Td className="text-text-secondary">{letter.createdAt}</Td>
                 <Td className="text-text-secondary">{letter.lastUpdated}</Td>
-                <Td align="right">
-                  <Button variant="ghost" size="sm" className="text-text-secondary">
-                    <MoreHorizontal className="h-5 w-5" />
-                  </Button>
-                </Td>
-              </tr>
+                <ActionsCell
+                  items={[
+                    { label: "Edit", value: "edit" },
+                    { label: "Delete", value: "delete", danger: true },
+                  ]}
+                />
+              </Tr>
             ))}
           </TableBody>
         </DataTable>

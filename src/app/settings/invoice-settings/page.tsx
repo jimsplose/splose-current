@@ -9,6 +9,7 @@ import {
   TableHead,
   Th,
   TableBody,
+  Tr,
   Td,
   FormInput,
   FormSelect,
@@ -211,7 +212,7 @@ export default function InvoiceSettingsPage() {
           </TableHead>
           <TableBody>
             {pageReminders.map((reminder, i) => (
-              <tr key={reminder.id} className="hover:bg-gray-50">
+              <Tr key={reminder.id}>
                 <Td>
                   <div className="flex items-center gap-2">
                     <CalendarDays className="h-4 w-4 text-text-secondary" />
@@ -228,7 +229,7 @@ export default function InvoiceSettingsPage() {
                     />
                   </div>
                 </Td>
-              </tr>
+              </Tr>
             ))}
           </TableBody>
         </DataTable>
@@ -261,7 +262,7 @@ export default function InvoiceSettingsPage() {
           </TableHead>
           <TableBody>
             {pageTemplates.map((template, i) => (
-              <tr key={template.id} className="hover:bg-gray-50">
+              <Tr key={template.id}>
                 <Td>
                   <span className="text-text">{template.name}</span>
                 </Td>
@@ -275,7 +276,7 @@ export default function InvoiceSettingsPage() {
                     />
                   </div>
                 </Td>
-              </tr>
+              </Tr>
             ))}
           </TableBody>
         </DataTable>

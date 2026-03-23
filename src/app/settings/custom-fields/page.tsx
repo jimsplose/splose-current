@@ -9,6 +9,7 @@ import {
   TableHead,
   Th,
   TableBody,
+  Tr,
   Td,
   Pagination,
   Modal,
@@ -196,7 +197,7 @@ export default function CustomFieldsPage() {
         </TableHead>
         <TableBody>
           {filteredFields.map((field) => (
-            <tr key={field.id} className="hover:bg-gray-50">
+            <Tr key={field.id}>
               <Td className="text-text">{field.name}</Td>
               <Td>{field.type}</Td>
               <Td>
@@ -213,7 +214,7 @@ export default function CustomFieldsPage() {
                   onSelect={(value) => { if (value === "edit") handleEdit(field); }}
                 />
               </Td>
-            </tr>
+            </Tr>
           ))}
         </TableBody>
       </DataTable>

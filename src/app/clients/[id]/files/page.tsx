@@ -1,5 +1,5 @@
 import { ArrowUpDown, FolderPlus, ChevronDown, FileText } from "lucide-react";
-import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, Dropdown, DropdownTriggerButton } from "@/components/ds";
+import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -70,7 +70,7 @@ export default async function ClientFilesPage({ params }: { params: Promise<{ id
           </TableHead>
           <TableBody>
             {filesData.map((file) => (
-              <tr key={file.id} className="hover:bg-gray-50">
+              <Tr key={file.id}>
                 <Td>
                   <div className="flex items-center gap-2">
                     <FileText className="h-4 w-4 text-text-secondary" />
@@ -88,7 +88,7 @@ export default async function ClientFilesPage({ params }: { params: Promise<{ id
                     onSelect={() => {}}
                   />
                 </Td>
-              </tr>
+              </Tr>
             ))}
           </TableBody>
         </DataTable>

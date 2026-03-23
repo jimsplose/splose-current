@@ -1,4 +1,4 @@
-import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, Badge } from "@/components/ds";
+import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Badge } from "@/components/ds";
 
 export default function ClientFormsPage() {
   const mockForms = [
@@ -93,7 +93,7 @@ export default function ClientFormsPage() {
           </TableHead>
           <TableBody>
             {mockForms.map((form, idx) => (
-              <tr key={idx} className="hover:bg-gray-50">
+              <Tr key={idx}>
                 <Td>
                   <span className="text-text">{form.title}</span>
                   <Badge variant="gray" className="ml-2">
@@ -106,7 +106,7 @@ export default function ClientFormsPage() {
                 <Td align="right">
                   <Button variant="ghost" size="sm" className="text-text-secondary">...</Button>
                 </Td>
-              </tr>
+              </Tr>
             ))}
           </TableBody>
         </DataTable>

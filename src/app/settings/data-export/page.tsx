@@ -7,6 +7,7 @@ import {
   TableHead,
   Th,
   TableBody,
+  Tr,
   Td,
   Badge,
   FormSelect,
@@ -165,7 +166,7 @@ export default function DataExportPage() {
         </TableHead>
         <TableBody>
           {pageItems.map((row) => (
-            <tr key={row.id} className="hover:bg-gray-50">
+            <Tr key={row.id}>
               <Td>
                 <span className="font-medium text-text">{row.dataExport}</span>
               </Td>
@@ -185,7 +186,7 @@ export default function DataExportPage() {
                   onSelect={() => {}}
                 />
               </Td>
-            </tr>
+            </Tr>
           ))}
         </TableBody>
       </DataTable>

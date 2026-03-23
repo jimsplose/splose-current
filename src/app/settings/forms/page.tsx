@@ -9,6 +9,7 @@ import {
   TableHead,
   Th,
   TableBody,
+  Tr,
   Td,
   Badge,
   EmptyState,
@@ -91,7 +92,7 @@ export default function FormsPage() {
         </TableHead>
         <TableBody>
           {filtered.map((f, i) => (
-            <tr key={f.title + i} className="hover:bg-gray-50">
+            <Tr key={f.title + i}>
               <Td className="text-text">{f.title}</Td>
               <Td>
                 <span className="flex items-center gap-2">
@@ -109,7 +110,7 @@ export default function FormsPage() {
                   onSelect={(value) => handleAction(value, forms.indexOf(f))}
                 />
               </Td>
-            </tr>
+            </Tr>
           ))}
         </TableBody>
       </DataTable>

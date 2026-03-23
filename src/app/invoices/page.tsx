@@ -1,6 +1,5 @@
-import { PageHeader, Button, Card, Pagination, SearchBar, Badge, statusVariant } from "@/components/ds";
+import { PageHeader, Button, Card, Pagination, SearchBar, Badge, statusVariant, DataTable, TableHead, Th, TableBody, Tr, Td, LinkCell } from "@/components/ds";
 import { prisma } from "@/lib/prisma";
-import Link from "next/link";
 import { Plus, ArrowUpDown, Filter } from "lucide-react";
 
 export const dynamic = "force-dynamic";
@@ -77,38 +76,38 @@ export default async function InvoicesPage() {
                 const outstanding = inv.status === "Paid" ? 0 : inv.total;
                 const practitioner = inv.appointment?.practitioner;
                 return (
-                  <tr key={inv.id} className="cursor-pointer transition-colors hover:bg-gray-50">
-                    <td className="px-4 py-3 text-body-md text-text">
-                      <Link href={`/invoices/${inv.id}`} className="text-primary hover:underline">
+                  <Tr key={inv.id} clickable>
+                    <Td>
+                      <LinkCell href={`/invoices/${inv.id}`}>
                         {inv.invoiceNumber}
-                      </Link>
-                    </td>
-                    <td className="px-4 py-3 text-body-md text-primary">
+                      </LinkCell>
+                    </Td>
+                    <Td className="text-primary">
                       {inv.client.firstName} {inv.client.lastName} ({inv.billingType})
-                    </td>
-                    <td className="hidden px-4 py-3 text-body-md text-text-secondary md:table-cell">East Clinics</td>
-                    <td className="hidden px-4 py-3 text-body-md text-text-secondary md:table-cell">
+                    </Td>
+                    <Td hidden="md" className="text-text-secondary">East Clinics</Td>
+                    <Td hidden="md" className="text-text-secondary">
                       {practitioner ? practitioner.name : "—"}
-                    </td>
-                    <td className="hidden px-4 py-3 text-body-md text-text-secondary lg:table-cell">
+                    </Td>
+                    <Td hidden="lg" className="text-text-secondary">
                       {formatDate(inv.date)}
-                    </td>
-                    <td className="hidden px-4 py-3 text-body-md text-text-secondary lg:table-cell">
+                    </Td>
+                    <Td hidden="lg" className="text-text-secondary">
                       {formatDate(inv.dueDate)}
-                    </td>
-                    <td className="hidden px-4 py-3 text-right text-body-md text-text sm:table-cell">
+                    </Td>
+                    <Td hidden="sm" align="right">
                       {inv.total.toFixed(2)}
-                    </td>
-                    <td className="hidden px-4 py-3 text-right text-body-md text-text sm:table-cell">
+                    </Td>
+                    <Td hidden="sm" align="right">
                       {outstanding.toFixed(2)}
-                    </td>
-                    <td className="hidden px-4 py-3 sm:table-cell">
+                    </Td>
+                    <Td hidden="sm">
                       <Badge variant={statusVariant(inv.status)}>{inv.status}</Badge>
-                    </td>
-                    <td className="hidden px-4 py-3 lg:table-cell">
+                    </Td>
+                    <Td hidden="lg">
                       {inv.status === "Sent" && <Badge variant={statusVariant("Sent")}>Sent</Badge>}
-                    </td>
-                  </tr>
+                    </Td>
+                  </Tr>
                 );
               })}
             </tbody>

@@ -7,6 +7,7 @@ import {
   TableHead,
   Th,
   TableBody,
+  Tr,
   Td,
   Badge,
   Pagination,
@@ -76,7 +77,7 @@ export default function TaxRatesPage() {
         </TableHead>
         <TableBody>
           {pageItems.map((rate, i) => (
-            <tr key={rate.id} className="hover:bg-gray-50">
+            <Tr key={rate.id}>
               <Td>
                 <span className="font-medium text-text">{rate.name}</span>
               </Td>
@@ -93,7 +94,7 @@ export default function TaxRatesPage() {
                   onSelect={(value) => handleAction(value, rate, startIdx + i)}
                 />
               </Td>
-            </tr>
+            </Tr>
           ))}
         </TableBody>
       </DataTable>

@@ -1,5 +1,5 @@
 import { Mail, Phone, MapPin, Building2 } from "lucide-react";
-import { Avatar, Button, DataTable, TableHead, Th, TableBody, Td, EmptyState } from "@/components/ds";
+import { Avatar, Button, DataTable, TableHead, Th, TableBody, Tr, Td, LinkCell, EmptyState } from "@/components/ds";
 
 const mockContacts = [
   {
@@ -329,13 +329,13 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                 </TableHead>
                 <TableBody>
                   {contact.associatedClients.map((client) => (
-                    <tr key={client.id} className="transition-colors hover:bg-purple-50/50">
-                      <Td className="text-primary hover:underline">{client.name}</Td>
+                    <Tr key={client.id}>
+                      <Td><LinkCell>{client.name}</LinkCell></Td>
                       <Td className="text-text-secondary">5 Jun 2011</Td>
                       <Td align="center" className="text-text-secondary"></Td>
                       <Td align="center" className="text-text-secondary"></Td>
                       <Td align="center" className="text-text-secondary"></Td>
-                    </tr>
+                    </Tr>
                   ))}
                 </TableBody>
               </DataTable>

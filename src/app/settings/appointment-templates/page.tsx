@@ -9,6 +9,7 @@ import {
   TableHead,
   Th,
   TableBody,
+  Tr,
   Td,
   Pagination,
   Dropdown,
@@ -130,7 +131,7 @@ export default function AppointmentTemplatesPage() {
         </TableHead>
         <TableBody>
           {templateList.map((t, i) => (
-            <tr key={t.name + i} className="hover:bg-gray-50">
+            <Tr key={t.name + i}>
               <Td className="text-text">{t.name}</Td>
               <Td>{t.type}</Td>
               <Td>
@@ -148,7 +149,7 @@ export default function AppointmentTemplatesPage() {
                   onSelect={(value) => handleAction(value, i)}
                 />
               </Td>
-            </tr>
+            </Tr>
           ))}
         </TableBody>
       </DataTable>
