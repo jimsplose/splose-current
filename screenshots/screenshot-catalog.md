@@ -337,7 +337,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.23.16 pm.png | Month view with appointments | partial — layout matches, data differs |
+| Screenshot 2026-03-17 at 7.23.16 pm.png | Month view with appointments | partial — 11.54%, month grid renders correctly, diff is data-driven (different appointments/dates) |
 | Screenshot 2026-03-17 at 7.23.23 pm.png | Month view — appointment detail side panel (Group Therapy) | partial — side panel implemented with full content, data differs |
 
 ## Calendar — Appointment Side Panel

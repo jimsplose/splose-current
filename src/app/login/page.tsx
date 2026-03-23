@@ -1,5 +1,5 @@
 import { ChevronRight, EyeOff } from "lucide-react";
-import { Button, FormInput } from "@/components/ds";
+import { Button } from "@/components/ds";
 
 export default function LoginPage() {
   return (
@@ -35,13 +35,21 @@ export default function LoginPage() {
           <p className="mt-1 text-heading-lg text-text">acme.splose.com</p>
 
           <div className="mt-6">
-            <FormInput label="Email" type="email" />
+            <label className="block text-sm text-text-secondary">Email</label>
+            <input
+              type="email"
+              className="mt-1 w-full border-b border-gray-300 bg-transparent py-2 text-sm outline-none focus:border-primary"
+            />
           </div>
 
           <div className="mt-6">
+            <label className="block text-sm text-text-secondary">Password</label>
             <div className="relative">
-              <FormInput label="Password" type="password" className="pr-8" />
-              <EyeOff className="absolute top-9 right-3 h-4 w-4 text-text-secondary" />
+              <input
+                type="password"
+                className="mt-1 w-full border-b border-gray-300 bg-transparent py-2 pr-8 text-sm outline-none focus:border-primary"
+              />
+              <EyeOff className="absolute top-3 right-0 h-4 w-4 text-text-secondary" />
             </div>
           </div>
 
