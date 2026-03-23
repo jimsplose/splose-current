@@ -2,32 +2,22 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Text from "../Text";
 import type { TextVariant } from "../Text";
 
+const ALL_VARIANTS: TextVariant[] = [
+  "display/lg", "display/md", "display/sm",
+  "heading/lg", "heading/md", "heading/sm",
+  "body/lg", "body/md", "body/sm", "body/md-strong", "body/lg-strong",
+  "label/lg", "label/md", "label/sm",
+  "caption/md", "caption/sm",
+  "metric/lg", "metric/md",
+];
+
 const meta: Meta<typeof Text> = {
   title: "Typography/Text",
   component: Text,
   argTypes: {
     variant: {
       control: "select",
-      options: [
-        "display/lg",
-        "display/md",
-        "display/sm",
-        "heading/lg",
-        "heading/md",
-        "heading/sm",
-        "body/lg",
-        "body/md",
-        "body/sm",
-        "body/md-strong",
-        "body/lg-strong",
-        "label/lg",
-        "label/md",
-        "label/sm",
-        "caption/md",
-        "caption/sm",
-        "metric/lg",
-        "metric/md",
-      ],
+      options: ALL_VARIANTS,
     },
     as: {
       control: "text",
@@ -43,6 +33,8 @@ const meta: Meta<typeof Text> = {
 export default meta;
 type Story = StoryObj<typeof Text>;
 
+/* ── Playground ─────────────────────────────────────────────────────────── */
+
 export const Playground: Story = {
   args: {
     variant: "body/md",
@@ -50,7 +42,7 @@ export const Playground: Story = {
   },
 };
 
-/* ── Category showcases ─────────────────────────────────────────────────── */
+/* ── Feature Stories ────────────────────────────────────────────────────── */
 
 const StyleRow = ({
   variant,
@@ -141,15 +133,9 @@ export const WithColorOverride: Story = {
   render: () => (
     <div className="space-y-2">
       <Text variant="body/md">Default color (text)</Text>
-      <Text variant="body/md" color="text-text-secondary">
-        Secondary color
-      </Text>
-      <Text variant="body/md" color="text-primary">
-        Primary color
-      </Text>
-      <Text variant="body/md" color="text-danger">
-        Danger color
-      </Text>
+      <Text variant="body/md" color="text-text-secondary">Secondary color</Text>
+      <Text variant="body/md" color="text-primary">Primary color</Text>
+      <Text variant="body/md" color="text-danger">Danger color</Text>
     </div>
   ),
 };
@@ -158,12 +144,8 @@ export const WithElementOverride: Story = {
   render: () => (
     <div className="space-y-2">
       <Text variant="display/lg">Default renders as h1</Text>
-      <Text variant="display/lg" as="span">
-        Same style but renders as span
-      </Text>
-      <Text variant="body/md" as="label">
-        Body text as a label element
-      </Text>
+      <Text variant="display/lg" as="span">Same style but renders as span</Text>
+      <Text variant="body/md" as="label">Body text as a label element</Text>
     </div>
   ),
 };
@@ -220,4 +202,72 @@ export const QuickReference: Story = {
       </table>
     );
   },
+};
+
+/* ── Recipe: Page Typography Stack ──────────────────────────────────────── */
+
+export const PageTypographyStack: Story = {
+  name: "Recipe: Page Typography Stack",
+  render: () => (
+    <div className="max-w-2xl space-y-6 rounded-lg border border-border bg-white p-8">
+      <p className="text-body-sm text-text-secondary">
+        How display, heading, body, label, caption, and metric are used
+        together on a typical Splose page.
+      </p>
+
+      <hr className="border-border" />
+
+      {/* Page title */}
+      <Text variant="display/lg">Client Overview</Text>
+
+      {/* Section heading */}
+      <Text variant="heading/lg">Upcoming Appointments</Text>
+
+      {/* Body text */}
+      <Text variant="body/md" color="text-text-secondary">
+        Sarah Johnson has 3 upcoming appointments scheduled this week. The
+        next appointment is a follow-up consultation on Monday at 10:00 AM.
+      </Text>
+
+      {/* Metric row */}
+      <div className="grid grid-cols-3 gap-6 rounded-lg border border-border p-4">
+        <div>
+          <Text variant="label/md" color="text-text-secondary">Total Invoiced</Text>
+          <Text variant="metric/lg">$12,450.00</Text>
+        </div>
+        <div>
+          <Text variant="label/md" color="text-text-secondary">Outstanding</Text>
+          <Text variant="metric/md" color="text-danger">$1,280.00</Text>
+        </div>
+        <div>
+          <Text variant="label/md" color="text-text-secondary">Sessions</Text>
+          <Text variant="metric/md">24</Text>
+        </div>
+      </div>
+
+      {/* Sub-section */}
+      <Text variant="heading/md">Contact Details</Text>
+
+      {/* Label/value pairs */}
+      <div className="space-y-2">
+        <div className="flex gap-4">
+          <Text variant="label/lg" color="text-text-secondary" className="w-32">Email</Text>
+          <Text variant="body/md">sarah.johnson@example.com</Text>
+        </div>
+        <div className="flex gap-4">
+          <Text variant="label/lg" color="text-text-secondary" className="w-32">Phone</Text>
+          <Text variant="body/md">0412 345 678</Text>
+        </div>
+        <div className="flex gap-4">
+          <Text variant="label/lg" color="text-text-secondary" className="w-32">Medicare</Text>
+          <Text variant="body/md">2123 45670 1</Text>
+        </div>
+      </div>
+
+      {/* Caption / timestamp */}
+      <Text variant="caption/md" color="text-text-secondary">
+        Last updated 23 Mar 2026 at 2:15 PM
+      </Text>
+    </div>
+  ),
 };
