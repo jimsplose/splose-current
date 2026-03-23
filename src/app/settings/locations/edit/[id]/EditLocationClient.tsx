@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Button, FormInput, FormSelect, Toggle, Collapse } from "@/components/ds";
+import { Button, Checkbox, FormInput, FormSelect, Toggle, Collapse } from "@/components/ds";
 
 const services = [
   "ACC - Acupuncture Initial Consultation",
@@ -319,18 +319,13 @@ export default function EditLocationClient({ id }: { id: string }) {
           <Collapse title="Services available at this location" defaultOpen>
             <div className="space-y-2">
               {services.map((service) => (
-                <label
-                  key={service}
-                  className="flex cursor-pointer items-center gap-3 rounded px-1 py-1 text-body-md text-text hover:bg-gray-50"
-                >
-                  <input
-                    type="checkbox"
+                <div key={service} className="rounded px-1 py-1 hover:bg-gray-50">
+                  <Checkbox
+                    label={service}
                     checked={enabledServices.has(service)}
                     onChange={() => toggleService(service)}
-                    className="h-4 w-4 rounded border-gray-300 text-primary accent-primary"
                   />
-                  {service}
-                </label>
+                </div>
               ))}
             </div>
           </Collapse>

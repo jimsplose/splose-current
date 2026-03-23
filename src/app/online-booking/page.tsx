@@ -136,20 +136,22 @@ function OnlineBookingPageInner() {
                               <ChevronLeft className="h-4 w-4" />
                             </Button>
                             {weekDays.map((d) => (
-                              <button
+                              <Button
                                 key={d.date}
+                                variant="ghost"
+                                round
                                 onClick={() => {
                                   setSelectedDate(d.date);
                                   setSelectedPractitioner(prac.id);
                                 }}
-                                className={`flex h-10 w-10 flex-col items-center justify-center rounded-full text-caption-md ${
+                                className={`flex h-10 w-10 flex-col items-center justify-center text-caption-md ${
                                   selectedDate === d.date && selectedPractitioner === prac.id
-                                    ? "bg-primary text-white"
-                                    : "text-text hover:bg-gray-100"
+                                    ? "bg-primary text-white hover:bg-primary"
+                                    : ""
                                 }`}
                               >
                                 <span className="text-caption-sm">{d.date}</span>
-                              </button>
+                              </Button>
                             ))}
                             <Button variant="icon" round>
                               <ChevronRight className="h-4 w-4" />

@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { Plus } from "lucide-react";
-import { Button, Card, PageHeader, TableHead, Th } from "@/components/ds";
+import { Button, Card, DataTable, PageHeader, TableHead, Th } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -21,7 +21,7 @@ export default async function ClientSupportActivitiesPage({ params }: { params: 
       </PageHeader>
 
       <Card padding="none" className="overflow-x-auto">
-        <table className="w-full">
+        <DataTable>
           <TableHead>
             <Th>When</Th>
             <Th>Where</Th>
@@ -52,7 +52,7 @@ export default async function ClientSupportActivitiesPage({ params }: { params: 
               </td>
             </tr>
           </tbody>
-        </table>
+        </DataTable>
       </Card>
     </div>
   );

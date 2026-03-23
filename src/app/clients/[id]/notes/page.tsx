@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { ArrowUpDown } from "lucide-react";
-import { Button, Card, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+import { Badge, Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -29,7 +29,7 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
       <SearchBar placeholder="Search for content and title" />
 
       <Card padding="none" className="overflow-x-auto">
-        <table className="w-full">
+        <DataTable>
           <TableHead>
             <Th>Name</Th>
             <Th>
@@ -62,13 +62,9 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
                       <span className="text-xs text-text-secondary">»</span>
                       <span className="text-sm text-text">{note.template}</span>
                       {note.signed ? (
-                        <span className="rounded bg-green-100 px-1.5 py-0.5 text-caption-sm font-medium text-green-700">
-                          Final
-                        </span>
+                        <Badge variant="green">Final</Badge>
                       ) : (
-                        <span className="rounded bg-gray-100 px-1.5 py-0.5 text-caption-sm font-medium text-gray-600">
-                          Draft
-                        </span>
+                        <Badge variant="gray">Draft</Badge>
                       )}
                     </div>
                   </Td>
@@ -82,7 +78,7 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
               ))
             )}
           </TableBody>
-        </table>
+        </DataTable>
         <Pagination totalItems={client.clinicalNotes.length} itemsPerPage={10} />
       </Card>
     </div>

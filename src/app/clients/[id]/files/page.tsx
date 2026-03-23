@@ -1,5 +1,5 @@
 import { ArrowUpDown, FolderPlus, ChevronDown, FileText } from "lucide-react";
-import { Button, Card, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, Dropdown, DropdownTriggerButton } from "@/components/ds";
+import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, Dropdown, DropdownTriggerButton } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -48,7 +48,7 @@ export default async function ClientFilesPage({ params }: { params: Promise<{ id
       <SearchBar placeholder="Search for file name" />
 
       <Card padding="none" className="overflow-x-auto">
-        <table className="w-full">
+        <DataTable>
           <TableHead>
             <Th>
               <span className="inline-flex items-center gap-1">
@@ -91,7 +91,7 @@ export default async function ClientFilesPage({ params }: { params: Promise<{ id
               </tr>
             ))}
           </TableBody>
-        </table>
+        </DataTable>
         <Pagination totalItems={filesData.length} itemsPerPage={10} />
       </Card>
     </div>

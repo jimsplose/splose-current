@@ -11,6 +11,7 @@ import {
   FormInput,
   FormSelect,
   FormTextarea,
+  HintIcon,
   List,
   Collapse,
 } from "@/components/ds";
@@ -224,9 +225,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         <section className="mb-8">
           <h2 className="mb-4 text-heading-lg text-text">
             Associated contacts{" "}
-            <span className="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full border border-text-secondary text-caption-sm text-text-secondary">
-              ?
-            </span>
+            <HintIcon className="ml-1" />
           </h2>
           <table className="w-full text-body-md">
             <thead>
@@ -269,16 +268,12 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         <div className="mb-4 rounded-lg bg-primary p-4 text-white">
           <div className="flex items-center justify-between">
             <h3 className="text-label-lg">Account balance</h3>
-            <span className="flex h-5 w-5 items-center justify-center rounded-full border border-white/50 text-caption-sm">
-              i
-            </span>
+            <HintIcon className="h-5 w-5 border-white/50 text-white/80" />
           </div>
           <div className="mt-2 flex items-center justify-between text-body-md">
             <span className="flex items-center gap-1">
               They owe
-              <span className="flex h-4 w-4 items-center justify-center rounded-full border border-white/40 text-caption-sm">
-                i
-              </span>
+              <HintIcon className="border-white/40 text-white/80" />
             </span>
             <span className="text-body-md-strong">3,310.56</span>
           </div>

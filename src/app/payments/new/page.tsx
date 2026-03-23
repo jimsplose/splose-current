@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { X, Plus, Search } from "lucide-react";
-import { Button, Card, FormInput, FormSelect, FormTextarea, Navbar, Select, TableHead, Th, TableBody, Td, EmptyState } from "@/components/ds";
+import { Button, Card, DataTable, FormInput, FormSelect, FormTextarea, Navbar, Select, TableHead, Th, TableBody, Td, EmptyState } from "@/components/ds";
 
 const mockClients = [
   "Skyler Peterson",
@@ -208,11 +208,12 @@ export default function NewPaymentPage() {
             {searchableInvoices.length > 0 && (
               <div className="mt-2 max-h-40 divide-y divide-border overflow-y-auto rounded-lg border border-border">
                 {searchableInvoices.map((inv) => (
-                  <button
+                  <Button
                     key={inv.number}
+                    variant="ghost"
                     type="button"
                     onClick={() => linkInvoice(inv.number)}
-                    className="flex w-full items-center justify-between px-3 py-2 text-sm transition-colors hover:bg-purple-50"
+                    className="flex w-full items-center justify-between px-3 py-2 text-sm hover:bg-purple-50"
                   >
                     <div className="flex items-center gap-4">
                       <span className="font-medium text-primary">{inv.number}</span>
@@ -220,7 +221,7 @@ export default function NewPaymentPage() {
                       <span className="text-text-secondary">{inv.practitioner}</span>
                     </div>
                     <span className="font-medium text-text">${inv.due.toFixed(2)}</span>
-                  </button>
+                  </Button>
                 ))}
               </div>
             )}
@@ -231,7 +232,7 @@ export default function NewPaymentPage() {
         )}
 
         <Card padding="none" className="mb-6 overflow-hidden">
-          <table className="w-full">
+          <DataTable>
             <TableHead>
               <Th>Invoice #</Th>
               <Th>Client</Th>
@@ -278,20 +279,22 @@ export default function NewPaymentPage() {
                         {remaining.toFixed(2)}
                       </Td>
                       <td className="px-2 py-3 text-center">
-                        <button
+                        <Button
+                          variant="icon"
+                          size="sm"
                           type="button"
                           onClick={() => unlinkInvoice(invoiceNumber)}
-                          className="flex h-6 w-6 items-center justify-center rounded text-text-secondary transition-colors hover:bg-red-50 hover:text-danger"
+                          className="h-6 w-6 hover:bg-red-50 hover:text-danger"
                         >
                           <X className="h-3.5 w-3.5" />
-                        </button>
+                        </Button>
                       </td>
                     </tr>
                   );
                 })
               )}
             </tbody>
-          </table>
+          </DataTable>
         </Card>
 
         {/* Note and totals */}

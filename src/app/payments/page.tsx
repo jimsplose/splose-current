@@ -2,7 +2,7 @@
 
 import { Fragment, useState } from "react";
 import { Plus, ArrowUpDown, Filter } from "lucide-react";
-import { Button, Card, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, Badge } from "@/components/ds";
+import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, Badge } from "@/components/ds";
 
 const mockPayments = [
   {
@@ -115,7 +115,7 @@ export default function PaymentsPage() {
 
       {/* Table */}
       <Card padding="none" className="overflow-x-auto">
-        <table className="w-full">
+        <DataTable>
           <TableHead>
             <Th className="w-[280px]">
               <div className="flex items-center gap-1.5">
@@ -207,7 +207,7 @@ export default function PaymentsPage() {
               </Fragment>
             ))}
           </TableBody>
-        </table>
+        </DataTable>
         <Pagination currentPage={1} totalPages={61} totalItems={608} itemsPerPage={10} />
       </Card>
     </div>

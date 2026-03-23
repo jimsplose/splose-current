@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { ArrowUpDown, Filter } from "lucide-react";
-import { Button, Card, PageHeader, SearchBar, EmptyState, TableHead, Th, TableBody, Td, Pagination, Badge } from "@/components/ds";
+import { Button, Card, DataTable, PageHeader, SearchBar, EmptyState, TableHead, Th, TableBody, Td, Pagination, Badge } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -29,7 +29,7 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
 
       <Card padding="none" className="overflow-x-auto">
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <DataTable>
             <TableHead>
               <Th>
                 <div className="flex items-center gap-1">
@@ -127,7 +127,7 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
                 })
               )}
             </TableBody>
-          </table>
+          </DataTable>
         </div>
         <Pagination totalItems={client.invoices.length} itemsPerPage={10} />
       </Card>

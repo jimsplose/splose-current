@@ -1,4 +1,4 @@
-import { Avatar, Button, Card } from "@/components/ds";
+import { Avatar, Button, Card, ColorDot } from "@/components/ds";
 import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
@@ -264,10 +264,10 @@ export default async function Dashboard() {
           </div>
           <div className="mt-2 flex items-center justify-center gap-4 text-caption-md text-text-secondary">
             <span className="flex items-center gap-1.5">
-              <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ backgroundColor: "#bef264" }} /> Invoices
+              <ColorDot color="#bef264" size="xs" className="h-2.5 w-2.5" /> Invoices
             </span>
             <span className="flex items-center gap-1.5">
-              <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ backgroundColor: "#c084fc" }} /> Payments
+              <ColorDot color="#c084fc" size="xs" className="h-2.5 w-2.5" /> Payments
             </span>
           </div>
         </div>

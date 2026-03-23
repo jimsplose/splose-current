@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, Chip, FormSelect } from "@/components/ds";
+import { Avatar, Button, Card, Chip, ColorDot, FormSelect } from "@/components/ds";
 
 export default function ReportsPage() {
   const practitioners = [
@@ -125,7 +125,7 @@ export default function ReportsPage() {
             ))}
           </div>
           <div className="mt-2 flex items-center justify-center gap-1 text-caption-sm text-text-secondary">
-            <span className="h-2 w-2 rounded-full bg-primary" />
+            <ColorDot color="var(--color-primary)" size="xs" />
             {fmtDay(dateStart)} - {fmtDay(dateEnd)}
           </div>
         </Card>
@@ -170,7 +170,7 @@ export default function ReportsPage() {
             ))}
           </div>
           <div className="mt-2 flex items-center justify-center gap-1 text-caption-sm text-text-secondary">
-            <span className="h-2 w-2 rounded-full bg-primary" />
+            <ColorDot color="var(--color-primary)" size="xs" />
             {fmtDay(dateStart)} - {fmtDay(dateEnd)}
           </div>
         </Card>

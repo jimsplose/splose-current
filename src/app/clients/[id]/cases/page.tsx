@@ -1,4 +1,4 @@
-import { Button, Card, PageHeader, TableHead, Th, TableBody, Td, Pagination, Badge, statusVariant } from "@/components/ds";
+import { Button, Card, DataTable, PageHeader, TableHead, Th, TableBody, Td, Pagination, Badge, statusVariant } from "@/components/ds";
 
 export default function ClientCasesPage() {
   const mockCases = [
@@ -111,7 +111,7 @@ export default function ClientCasesPage() {
       </PageHeader>
 
       <Card padding="none" className="overflow-x-auto">
-        <table className="w-full">
+        <DataTable>
           <TableHead>
             <Th>Case Number</Th>
             <Th>Issue date</Th>
@@ -138,7 +138,7 @@ export default function ClientCasesPage() {
               </tr>
             ))}
           </TableBody>
-        </table>
+        </DataTable>
         <Pagination totalItems={18} totalPages={2} itemsPerPage={10} />
       </Card>
     </div>

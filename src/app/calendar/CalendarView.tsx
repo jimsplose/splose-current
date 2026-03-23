@@ -511,7 +511,7 @@ export default function CalendarView({
                       <div className="mt-0.5 flex justify-center gap-px">
                         {practitioners.map((p) => (
                           <div key={p.id} className="flex min-w-0 flex-1 flex-col items-center">
-                            <div className="mb-0.5 h-1.5 w-1.5 rounded-full" style={{ backgroundColor: p.color }} />
+                            <ColorDot color={p.color} size="xs" className="mb-0.5 h-1.5 w-1.5" />
                             <span className="w-full truncate text-caption-sm text-text-secondary">
                               {p.name.split(" ")[0].length > 5 ? p.name.split(" ")[0].slice(0, 5) + "..." : p.name.split(" ")[0]}
                             </span>

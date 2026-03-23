@@ -1,5 +1,5 @@
 import { ArrowUpDown, Filter } from "lucide-react";
-import { Button, Card, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+import { Badge, Button, Card, DataTable, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
 
 export default function ClientPractitionerAccessPage() {
   const mockPractitioners = [
@@ -29,7 +29,7 @@ export default function ClientPractitionerAccessPage() {
       </p>
 
       <Card padding="none" className="overflow-x-auto">
-        <table className="w-full">
+        <DataTable>
           <TableHead>
             <Th>
               <div className="flex items-center gap-1">
@@ -55,9 +55,7 @@ export default function ClientPractitionerAccessPage() {
                 <Td>
                   <div>
                     <span className="text-text">{p.name}</span>
-                    <span className="ml-2 rounded bg-green-100 px-1.5 py-0.5 text-caption-sm font-medium text-green-700">
-                      Account owner
-                    </span>
+                    <Badge variant="green" className="ml-2">Account owner</Badge>
                   </div>
                 </Td>
                 <Td className="text-text-secondary">{p.role}</Td>
@@ -70,7 +68,7 @@ export default function ClientPractitionerAccessPage() {
               </tr>
             ))}
           </TableBody>
-        </table>
+        </DataTable>
         <Pagination totalItems={mockPractitioners.length} itemsPerPage={10} />
       </Card>
     </div>

@@ -238,7 +238,7 @@ function AIBlockLibraryTab() {
       <Alert variant="warning" icon={<AlertTriangle className="h-4 w-4" />} className="mb-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="rounded bg-yellow-100 px-1.5 py-0.5 text-caption-sm text-yellow-700">BETA</span>
+            <Badge variant="yellow">BETA</Badge>
             <span className="text-body-md text-text">We need your feedback on AI blocks</span>
           </div>
           <div className="flex items-center gap-2 text-body-md">

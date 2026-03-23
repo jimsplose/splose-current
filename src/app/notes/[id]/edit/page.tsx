@@ -20,12 +20,12 @@ import {
   ThumbsUp,
   ThumbsDown,
   AlignLeft,
-  List,
+  List as ListIcon,
   ListOrdered,
   Palette,
   Type,
 } from "lucide-react";
-import { Button, Badge, Card, Checkbox, FormSelect, FormInput, EmptyState, Navbar, Filter, Spinner, Dropdown } from "@/components/ds";
+import { Button, Badge, Card, Checkbox, FormSelect, FormInput, EmptyState, List, Navbar, Filter, Spinner, Dropdown } from "@/components/ds";
 
 type NoteData = {
   id: string;
@@ -356,7 +356,7 @@ export default function EditProgressNotePage() {
                 <Table className="h-4 w-4" />
               </Button>
               <Button variant="icon">
-                <List className="h-4 w-4" />
+                <ListIcon className="h-4 w-4" />
               </Button>
               <Button variant="icon">
                 <ListOrdered className="h-4 w-4" />
@@ -393,24 +393,18 @@ export default function EditProgressNotePage() {
             </div>
 
             {/* Client info table */}
-            <Card padding="none" className="mb-6">
-              <table className="w-full text-body-md">
-                <tbody>
-                  {[
-                    ["Client Name", clientName],
-                    ["Date of Session", formatDate(note?.date || "2026-03-16")],
-                    ["Time", "10:30 am"],
-                    ["Organisation", "Hands Together Therapies"],
-                    ["Location", "4 Williamstown Rd"],
-                    ["Therapist", note?.practitioner?.name || "Jim Yencken"],
-                  ].map(([label, value]) => (
-                    <tr key={label} className="border-b border-border last:border-b-0">
-                      <td className="w-40 px-4 py-2 text-label-lg text-text">{label}</td>
-                      <td className="px-4 py-2 text-text-secondary">{value}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <Card padding="sm" className="mb-6">
+              <List
+                labelWidth="w-40"
+                items={[
+                  { label: "Client Name", value: clientName },
+                  { label: "Date of Session", value: formatDate(note?.date || "2026-03-16") },
+                  { label: "Time", value: "10:30 am" },
+                  { label: "Organisation", value: "Hands Together Therapies" },
+                  { label: "Location", value: "4 Williamstown Rd" },
+                  { label: "Therapist", value: note?.practitioner?.name || "Jim Yencken" },
+                ]}
+              />
             </Card>
 
             {/* AI Sections */}

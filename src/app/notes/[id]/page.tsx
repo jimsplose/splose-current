@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { CheckCircle } from "lucide-react";
-import { Badge, Card, Navbar } from "@/components/ds";
+import { Badge, Card, List, Navbar } from "@/components/ds";
 import NoteViewToolbar from "./NoteViewToolbar";
 
 export const dynamic = "force-dynamic";
@@ -65,24 +65,18 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
           </div>
 
           {/* Client info table */}
-          <div className="mb-8 rounded-lg border border-border">
-            <table className="w-full text-body-md">
-              <tbody>
-                {[
-                  ["Client Name", clientName],
-                  ["Date of Session", formatNoteDate(note.date)],
-                  ["Time", "10:30 am"],
-                  ["Organisation", "Hands Together Therapies"],
-                  ["Location", "4 Williamstown Rd"],
-                  ["Therapist", note.practitioner.name],
-                ].map(([label, value]) => (
-                  <tr key={label} className="border-b border-border last:border-b-0">
-                    <td className="w-40 px-4 py-2 text-label-lg text-text">{label}</td>
-                    <td className="px-4 py-2 text-text-secondary">{value}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="mb-8 rounded-lg border border-border px-4 py-2">
+            <List
+              labelWidth="w-40"
+              items={[
+                { label: "Client Name", value: clientName },
+                { label: "Date of Session", value: formatNoteDate(note.date) },
+                { label: "Time", value: "10:30 am" },
+                { label: "Organisation", value: "Hands Together Therapies" },
+                { label: "Location", value: "4 Williamstown Rd" },
+                { label: "Therapist", value: note.practitioner.name },
+              ]}
+            />
           </div>
 
           {/* SOAP Sections */}

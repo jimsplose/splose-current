@@ -1,6 +1,6 @@
 "use client";
 
-import { PageHeader, Button, Card, SearchBar, Pagination, TableHead, Th, TableBody, Td, EmptyState, Dropdown, DropdownTriggerButton } from "@/components/ds";
+import { PageHeader, Button, Card, DataTable, SearchBar, Pagination, TableHead, Th, TableBody, Td, EmptyState, Dropdown, DropdownTriggerButton } from "@/components/ds";
 import { Plus, Minus } from "lucide-react";
 import { useState, useMemo, Fragment } from "react";
 
@@ -120,7 +120,7 @@ export default function ProductsPage() {
       />
 
       <Card padding="none" className="overflow-x-auto">
-        <table className="w-full">
+        <DataTable>
           <TableHead>
             <Th className="w-8 px-2">{/* expand */}</Th>
             <Th>Name</Th>
@@ -236,7 +236,7 @@ export default function ProductsPage() {
               </tr>
             )}
           </TableBody>
-        </table>
+        </DataTable>
 
         <Pagination
           currentPage={currentPage}

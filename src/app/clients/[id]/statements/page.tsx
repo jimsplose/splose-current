@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { ChevronDown } from "lucide-react";
-import { Button, PageHeader, FormInput, Card } from "@/components/ds";
+import { Button, Checkbox, PageHeader, FormInput, Card } from "@/components/ds";
 
 export default function ClientStatementsPage() {
   const params = useParams();
@@ -54,16 +54,8 @@ export default function ClientStatementsPage() {
       </div>
 
       {/* Show client address checkbox */}
-      <div className="mb-6 flex items-center gap-2">
-        <input
-          type="checkbox"
-          defaultChecked
-          id="show-client-address"
-          className="h-4 w-4 rounded border-border text-teal-600 accent-teal-600 focus:ring-teal-500"
-        />
-        <label htmlFor="show-client-address" className="text-sm text-text">
-          Show client address
-        </label>
+      <div className="mb-6">
+        <Checkbox label="Show client address" defaultChecked />
       </div>
 
       {/* Empty content area */}

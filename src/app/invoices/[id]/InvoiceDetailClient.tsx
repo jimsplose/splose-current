@@ -91,9 +91,9 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           <Badge variant={statusVariant(invoice.status)}>{invoice.status}</Badge>
         </div>
         <div className="flex items-center gap-2">
-          <span className="rounded-lg bg-green-100 px-3 py-1.5 text-label-lg text-green-700">
+          <Badge variant="green" className="rounded-lg px-3 py-1.5 text-label-lg">
             Credit balance: ${invoice.status === "Paid" ? "0.00" : "680.00"}
-          </span>
+          </Badge>
           <Button variant="secondary" onClick={openPaymentModal}>
             Add payment
           </Button>
