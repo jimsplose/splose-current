@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Button,
   PageHeader,
@@ -86,6 +87,7 @@ const initialTemplates: Template[] = [
 ];
 
 export default function AppointmentTemplatesPage() {
+  const router = useRouter();
   const [templateList, setTemplateList] = useState(initialTemplates);
   const [emailPreviewOpen, setEmailPreviewOpen] = useState(false);
 
@@ -109,8 +111,8 @@ export default function AppointmentTemplatesPage() {
 
   function handleAction(value: string, index: number) {
     if (value === "edit") {
-      const t = templateList[index];
-      openEdit(index, { name: t.name, type: t.type, sms: t.sms, email: t.email });
+      router.push(`/settings/appointment-templates/new`);
+      return;
     }
   }
 

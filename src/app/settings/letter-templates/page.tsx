@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Button,
   PageHeader,
@@ -60,6 +61,7 @@ const templates = [
 ];
 
 export default function LetterTemplatesPage() {
+  const router = useRouter();
   const [templateList, setTemplateList] = useState(templates);
 
   const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } =
@@ -78,7 +80,10 @@ export default function LetterTemplatesPage() {
     });
 
   function handleAction(value: string, index: number) {
-    if (value === "edit") openEdit(index, { title: templateList[index].title });
+    if (value === "edit") {
+      router.push(`/settings/letter-templates/edit/${index + 1}`);
+      return;
+    }
   }
 
   return (

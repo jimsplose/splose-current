@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Button,
   PageHeader,
@@ -89,6 +90,7 @@ const dropdownItems = [
 ];
 
 export default function EmailTemplatesPage() {
+  const router = useRouter();
   const [templates, setTemplates] = useState(initialTemplates);
   const [search, setSearch] = useState("");
 
@@ -109,8 +111,8 @@ export default function EmailTemplatesPage() {
 
   function handleAction(value: string, index: number) {
     if (value === "edit") {
-      const t = templates[index];
-      openEdit(index, { name: t.name, type: t.type });
+      router.push(`/settings/email-templates/edit/${index + 1}`);
+      return;
     }
   }
 

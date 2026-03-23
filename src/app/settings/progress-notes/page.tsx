@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Button,
   PageHeader,
@@ -53,6 +54,7 @@ const templates = [
 ];
 
 export default function ProgressNotesPage() {
+  const router = useRouter();
   const [templateList, setTemplateList] = useState(templates);
   const [showBanner, setShowBanner] = useState(true);
 
@@ -74,7 +76,10 @@ export default function ProgressNotesPage() {
     });
 
   function handleAction(value: string, index: number) {
-    if (value === "edit") openEdit(index, { title: templateList[index].title, hasAi: templateList[index].hasAi });
+    if (value === "edit") {
+      router.push(`/settings/progress-notes/edit/${index + 1}`);
+      return;
+    }
   }
 
   return (
