@@ -1,7 +1,7 @@
 "use client";
 
 import { Plus, ArrowUpDown, Filter } from "lucide-react";
-import { Button, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, Badge, statusVariant, Dropdown, DropdownTriggerButton } from "@/components/ds";
+import { Button, Card, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, Badge, statusVariant, Dropdown, DropdownTriggerButton } from "@/components/ds";
 
 const communicationsData = [
   {
@@ -88,7 +88,7 @@ export default function ClientCommunicationsPage() {
 
       <SearchBar placeholder="Search for message, to and from" />
 
-      <div className="overflow-x-auto rounded-lg border border-border bg-white">
+      <Card padding="none" className="overflow-x-auto">
         <table className="w-full">
           <TableHead>
             <Th>
@@ -141,7 +141,7 @@ export default function ClientCommunicationsPage() {
           </TableBody>
         </table>
         <Pagination totalItems={7} itemsPerPage={10} />
-      </div>
+      </Card>
     </div>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { ChevronDown } from "lucide-react";
-import { Button, PageHeader, FormInput } from "@/components/ds";
+import { Button, PageHeader, FormInput, Card } from "@/components/ds";
 
 export default function ClientStatementsPage() {
   const params = useParams();
@@ -67,9 +67,9 @@ export default function ClientStatementsPage() {
       </div>
 
       {/* Empty content area */}
-      <div className="rounded-lg border border-border bg-white p-8">
+      <Card padding="none" className="p-8">
         <div className="min-h-[200px]" />
-      </div>
+      </Card>
     </div>
   );
 }

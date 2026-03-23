@@ -1,4 +1,4 @@
-import { PageHeader, Button, Pagination, SearchBar, Badge, statusVariant } from "@/components/ds";
+import { PageHeader, Button, Card, Pagination, SearchBar, Badge, statusVariant } from "@/components/ds";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { Plus, ArrowUpDown, Filter } from "lucide-react";
@@ -23,7 +23,7 @@ export default async function InvoicesPage() {
 
       <SearchBar placeholder="Search for invoice number, client..." />
 
-      <div className="overflow-hidden rounded-lg border border-border bg-white">
+      <Card padding="none" className="overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -115,7 +115,7 @@ export default async function InvoicesPage() {
           </table>
         </div>
         <Pagination currentPage={1} totalPages={1} totalItems={invoices.length} itemsPerPage={10} />
-      </div>
+      </Card>
     </div>
   );
 }

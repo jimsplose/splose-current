@@ -1,4 +1,4 @@
-import { Button, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, Badge } from "@/components/ds";
+import { Button, Card, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, Badge } from "@/components/ds";
 
 export default function ClientFormsPage() {
   const mockForms = [
@@ -82,7 +82,7 @@ export default function ClientFormsPage() {
 
       <SearchBar placeholder="Search for title" />
 
-      <div className="overflow-x-auto rounded-lg border border-border bg-white">
+      <Card padding="none" className="overflow-x-auto">
         <table className="w-full">
           <TableHead>
             <Th>Title</Th>
@@ -111,7 +111,7 @@ export default function ClientFormsPage() {
           </TableBody>
         </table>
         <Pagination totalItems={mockForms.length} itemsPerPage={10} />
-      </div>
+      </Card>
     </div>
   );
 }

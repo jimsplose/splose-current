@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button, FormInput, FormSelect, Badge, statusVariant } from "@/components/ds";
+import { Button, FormInput, FormSelect, FormTextarea, Badge, statusVariant } from "@/components/ds";
 import Modal from "@/components/ds/Modal";
 
 interface InvoiceData {
@@ -320,16 +320,14 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           />
 
           {/* Notes */}
-          <div>
-            <label className="mb-1 block text-label-lg text-text">Notes</label>
-            <textarea
-              value={paymentNotes}
-              onChange={(e) => setPaymentNotes(e.target.value)}
-              rows={3}
-              placeholder="Optional"
-              className="w-full resize-none rounded-lg border border-border px-3 py-2 text-sm text-text placeholder:text-text-secondary focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
-            />
-          </div>
+          <FormTextarea
+            label="Notes"
+            value={paymentNotes}
+            onChange={(e) => setPaymentNotes(e.target.value)}
+            rows={3}
+            placeholder="Optional"
+            className="resize-none"
+          />
         </div>
       </Modal>
 

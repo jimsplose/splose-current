@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { AlertTriangle } from "lucide-react";
-import { Button, FormInput, FormTextarea, Tab, Toggle, DataTable, TableHead, Th, TableBody, Td, Pagination, Dropdown, Modal, EmptyState, Badge, Alert } from "@/components/ds";
+import { Button, FormInput, FormTextarea, FormSelect, Tab, Toggle, DataTable, TableHead, Th, TableBody, Td, Pagination, Dropdown, Modal, EmptyState, Badge, Alert } from "@/components/ds";
 
 const aiBlocks = [
   { name: "Subjective Assessment", tag: "SOAP", createdBy: "Jim Yencken", lastModified: "12 Mar 2026" },
@@ -198,19 +198,17 @@ function SavedPromptsTab() {
       >
         <div className="space-y-4">
           <FormInput label="Prompt name" value={editName} onChange={(e) => setEditName(e.target.value)} />
-          <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">User group</label>
-            <select
-              value={editGroup}
-              onChange={(e) => setEditGroup(e.target.value)}
-              className="w-full rounded-lg border border-border px-3 py-2 text-body-md text-text focus:border-primary focus:ring-1 focus:ring-primary/20 focus:outline-none"
-            >
-              <option>Any user</option>
-              <option>Physiotherapists</option>
-              <option>Occupational Therapists</option>
-              <option>Speech Pathologists</option>
-            </select>
-          </div>
+          <FormSelect
+            label="User group"
+            value={editGroup}
+            onChange={(e) => setEditGroup(e.target.value)}
+            options={[
+              { value: "Any user", label: "Any user" },
+              { value: "Physiotherapists", label: "Physiotherapists" },
+              { value: "Occupational Therapists", label: "Occupational Therapists" },
+              { value: "Speech Pathologists", label: "Speech Pathologists" },
+            ]}
+          />
           <FormTextarea
             label="Prompt"
             rows={6}

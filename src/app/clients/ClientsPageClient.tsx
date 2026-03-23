@@ -56,10 +56,10 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
       <div className="mb-4 flex items-center gap-2">
         <Dropdown
           trigger={
-            <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-2 text-sm text-text hover:bg-gray-50">
+            <Button variant="secondary" size="sm">
               {statusFilter === "active" ? "Active" : "Archived"}
               <ChevronDown className="h-3.5 w-3.5 text-text-secondary" />
-            </button>
+            </Button>
           }
           items={[
             { label: "Active", value: "active" },
@@ -69,11 +69,11 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
         />
         <Dropdown
           trigger={
-            <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-2 text-sm text-text hover:bg-gray-50">
+            <Button variant="secondary" size="sm">
               <Tag className="h-3.5 w-3.5 text-text-secondary" />
               {tagFilter || "Tags"}
               <ChevronDown className="h-3.5 w-3.5 text-text-secondary" />
-            </button>
+            </Button>
           }
           items={[
             { label: "All tags", value: "__all__" },

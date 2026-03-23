@@ -1,5 +1,5 @@
 import { ArrowUpDown, Filter } from "lucide-react";
-import { TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+import { Card, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
 
 export default function ClientPractitionerAccessPage() {
   const mockPractitioners = [
@@ -28,7 +28,7 @@ export default function ClientPractitionerAccessPage() {
         <span className="cursor-pointer text-primary hover:underline">Learn more</span>
       </p>
 
-      <div className="overflow-x-auto rounded-lg border border-border bg-white">
+      <Card padding="none" className="overflow-x-auto">
         <table className="w-full">
           <TableHead>
             <Th>
@@ -72,7 +72,7 @@ export default function ClientPractitionerAccessPage() {
           </TableBody>
         </table>
         <Pagination totalItems={mockPractitioners.length} itemsPerPage={10} />
-      </div>
+      </Card>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { ArrowUpDown } from "lucide-react";
-import { Button, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+import { Button, Card, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -28,7 +28,7 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
 
       <SearchBar placeholder="Search for content and title" />
 
-      <div className="overflow-x-auto rounded-lg border border-border bg-white">
+      <Card padding="none" className="overflow-x-auto">
         <table className="w-full">
           <TableHead>
             <Th>Name</Th>
@@ -84,7 +84,7 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
           </TableBody>
         </table>
         <Pagination totalItems={client.clinicalNotes.length} itemsPerPage={10} />
-      </div>
+      </Card>
     </div>
   );
 }

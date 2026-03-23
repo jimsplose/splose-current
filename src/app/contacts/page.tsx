@@ -1,6 +1,6 @@
 import { Plus, ArrowUpDown, Filter } from "lucide-react";
 import Link from "next/link";
-import { Button, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+import { Button, Card, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
 
 const mockContacts = [
   { id: "1", type: "", name: "jh", company: "", email: "", workPhone: "", mobilePhone: "" },
@@ -64,7 +64,7 @@ export default function ContactsPage() {
 
       <SearchBar placeholder="Search for contact name, phone number, email and company name" />
 
-      <div className="overflow-x-auto rounded-lg border border-border bg-white">
+      <Card padding="none" className="overflow-x-auto">
         <table className="w-full">
           <TableHead>
             <Th>
@@ -124,7 +124,7 @@ export default function ContactsPage() {
           </TableBody>
         </table>
         <Pagination currentPage={1} totalPages={13} totalItems={126} itemsPerPage={10} />
-      </div>
+      </Card>
     </div>
   );
 }

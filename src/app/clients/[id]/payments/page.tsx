@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { Plus, ArrowUpDown, Filter } from "lucide-react";
-import { Button, PageHeader, SearchBar, TableHead, Th } from "@/components/ds";
+import { Button, Card, PageHeader, SearchBar, TableHead, Th } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +22,7 @@ export default async function ClientPaymentsPage({ params }: { params: Promise<{
 
       <SearchBar placeholder="Search for recipient name and payment number" />
 
-      <div className="overflow-x-auto rounded-lg border border-border bg-white">
+      <Card padding="none" className="overflow-x-auto">
         <table className="w-full">
           <TableHead>
             <Th>
@@ -62,7 +62,7 @@ export default async function ClientPaymentsPage({ params }: { params: Promise<{
             </tr>
           </tbody>
         </table>
-      </div>
+      </Card>
     </div>
   );
 }

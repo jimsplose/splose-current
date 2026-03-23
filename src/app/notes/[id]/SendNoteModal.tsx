@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Send, Bold, Italic, Underline, Type, Grid3X3, Link2, Minus, Image, AlignLeft, AlignCenter, AlignRight, ListOrdered, Paperclip, Sparkles } from "lucide-react";
-import { Button, FormSelect } from "@/components/ds";
+import { Button, FormSelect, FormInput } from "@/components/ds";
 import Modal from "@/components/ds/Modal";
 
 interface SendNoteModalProps {
@@ -149,12 +149,13 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
 
         {/* Subject + Summarise button row */}
         <div className="flex items-center gap-2">
-          <input
-            type="text"
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
-            className="flex-1 rounded-lg border border-border px-3 py-2 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-          />
+          <div className="flex-1">
+            <FormInput
+              type="text"
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+            />
+          </div>
           <button
             onClick={handleSummariseSession}
             disabled={isGenerating}

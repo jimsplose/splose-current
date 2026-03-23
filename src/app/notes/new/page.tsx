@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { LayoutGrid, Columns2, Copy, ChevronDown, Save, Lock, ClipboardList } from "lucide-react";
-import { Button, Badge, EmptyState, Navbar, Filter, FormTextarea, FormInput } from "@/components/ds";
+import { Button, Badge, EmptyState, Navbar, Filter, FormTextarea, FormInput, FormSelect } from "@/components/ds";
 
 const TEMPLATES = [
   "Initial Assessment",
@@ -134,21 +134,15 @@ function NewProgressNotePageInner() {
 
             {/* Template field */}
             <div className="mb-5">
-              <label className="mb-1 block text-label-lg text-text">
-                Template <span className="text-danger">*</span>
-              </label>
-              <select
+              <FormSelect
+                label="Template *"
                 value={template}
                 onChange={(e) => setTemplate(e.target.value)}
-                className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-              >
-                <option value="">Select template</option>
-                {TEMPLATES.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
-                ))}
-              </select>
+                options={[
+                  { value: "", label: "Select template" },
+                  ...TEMPLATES.map((t) => ({ value: t, label: t })),
+                ]}
+              />
             </div>
 
             {/* Quick action buttons */}

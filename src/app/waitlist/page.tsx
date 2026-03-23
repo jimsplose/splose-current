@@ -636,7 +636,7 @@ function WaitlistPageInner() {
                 </div>
 
                 {/* Fullscreen button */}
-                <button className="absolute top-3 right-3 rounded border border-border bg-white p-1.5 shadow-sm hover:bg-gray-50">
+                <Button variant="secondary" size="sm" className="absolute top-3 right-3 !rounded !p-1.5 shadow-sm">
                   <svg
                     className="h-4 w-4 text-gray-600"
                     viewBox="0 0 16 16"
@@ -646,7 +646,7 @@ function WaitlistPageInner() {
                   >
                     <path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" />
                   </svg>
-                </button>
+                </Button>
               </div>
             </div>
           )}

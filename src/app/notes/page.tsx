@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { Plus, ArrowUpDown } from "lucide-react";
 import Link from "next/link";
-import { Badge, Button, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, EmptyState } from "@/components/ds";
+import { Badge, Button, Card, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, EmptyState } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -26,7 +26,7 @@ export default async function NotesPage() {
 
       <SearchBar placeholder="Search for content and title" />
 
-      <div className="overflow-x-auto rounded-lg border border-border bg-white">
+      <Card padding="none" className="overflow-x-auto">
         <table className="w-full min-w-[600px]">
           <TableHead>
             <Th>Name</Th>
@@ -93,7 +93,7 @@ export default async function NotesPage() {
           </TableBody>
         </table>
         <Pagination currentPage={1} totalPages={1} totalItems={notes.length} itemsPerPage={10} />
-      </div>
+      </Card>
     </div>
   );
 }

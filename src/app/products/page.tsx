@@ -1,6 +1,6 @@
 "use client";
 
-import { PageHeader, Button, SearchBar, Pagination, TableHead, Th, TableBody, Td, EmptyState, Dropdown, DropdownTriggerButton } from "@/components/ds";
+import { PageHeader, Button, Card, SearchBar, Pagination, TableHead, Th, TableBody, Td, EmptyState, Dropdown, DropdownTriggerButton } from "@/components/ds";
 import { Plus, Minus } from "lucide-react";
 import { useState, useMemo, Fragment } from "react";
 
@@ -119,7 +119,7 @@ export default function ProductsPage() {
         defaultValue={searchQuery}
       />
 
-      <div className="overflow-x-auto rounded-lg border border-border bg-white">
+      <Card padding="none" className="overflow-x-auto">
         <table className="w-full">
           <TableHead>
             <Th className="w-8 px-2">{/* expand */}</Th>
@@ -243,7 +243,7 @@ export default function ProductsPage() {
           itemsPerPage={ITEMS_PER_PAGE}
           onPageChange={setCurrentPage}
         />
-      </div>
+      </Card>
     </div>
   );
 }

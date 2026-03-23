@@ -1,5 +1,5 @@
 import { Plus, MoreHorizontal } from "lucide-react";
-import { Button, PageHeader, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+import { Button, Card, PageHeader, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -27,7 +27,7 @@ export default async function ClientLettersPage({ params }: { params: Promise<{ 
         </Button>
       </PageHeader>
 
-      <div className="overflow-x-auto rounded-lg border border-border bg-white">
+      <Card padding="none" className="overflow-x-auto">
         <table className="w-full">
           <TableHead>
             <Th>Title</Th>
@@ -55,7 +55,7 @@ export default async function ClientLettersPage({ params }: { params: Promise<{ 
           </TableBody>
         </table>
         <Pagination totalItems={1} itemsPerPage={10} />
-      </div>
+      </Card>
     </div>
   );
 }

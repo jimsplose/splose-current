@@ -404,12 +404,14 @@ function EditFieldModal({
               {options.map((opt, index) => (
                 <div key={index} className="flex items-center gap-2">
                   <GripVertical className="h-4 w-4 shrink-0 cursor-grab text-text-secondary" />
-                  <input
-                    type="text"
-                    value={opt}
-                    onChange={(e) => handleOptionChange(index, e.target.value)}
-                    className="h-10 flex-1 rounded-lg border border-border bg-white px-3 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-                  />
+                  <div className="flex-1">
+                    <FormInput
+                      type="text"
+                      value={opt}
+                      onChange={(e) => handleOptionChange(index, e.target.value)}
+                      className="h-10"
+                    />
+                  </div>
                   <button
                     onClick={() => handleRemoveOption(index)}
                     className="rounded p-1 text-red-400 hover:text-red-600"

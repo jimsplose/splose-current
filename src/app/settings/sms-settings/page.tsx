@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button, PageHeader, Modal } from "@/components/ds";
+import { Button, PageHeader, Modal, Card } from "@/components/ds";
 import { BookOpen } from "lucide-react";
 
 const creditOptions = [
@@ -25,10 +25,10 @@ export default function SMSSettingsPage() {
       </PageHeader>
 
       {/* SMS credit balance card */}
-      <div className="mb-8 inline-block rounded-lg border border-border bg-white px-5 py-4">
+      <Card padding="none" className="mb-8 inline-block px-5 py-4">
         <p className="text-body-md text-text-secondary">SMS credit balance</p>
         <p className="text-3xl font-bold text-text">884</p>
-      </div>
+      </Card>
 
       {/* Recharge credits section */}
       <div className="mb-8">
