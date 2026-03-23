@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { LayoutGrid, Columns2, Copy, ChevronDown, Save, Lock, ClipboardList } from "lucide-react";
-import { Button, Badge, EmptyState, Navbar, Filter, FormTextarea } from "@/components/ds";
+import { Button, Badge, EmptyState, Navbar, Filter, FormTextarea, FormInput } from "@/components/ds";
 
 const TEMPLATES = [
   "Initial Assessment",
@@ -124,12 +124,11 @@ function NewProgressNotePageInner() {
 
             {/* Service date */}
             <div className="mb-5">
-              <label className="mb-1 block text-label-lg text-text">Service date</label>
-              <input
+              <FormInput
+                label="Service date"
                 type="date"
                 value={serviceDate}
                 onChange={(e) => setServiceDate(e.target.value)}
-                className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary"
               />
             </div>
 
@@ -186,10 +185,9 @@ function NewProgressNotePageInner() {
         {viewMode === "split" && (
           <div className="w-80 shrink-0 bg-white p-6">
             <h3 className="mb-3 text-heading-sm text-text">Filter previous progress notes</h3>
-            <input
+            <FormInput
               type="text"
               placeholder="Search notes"
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
             />
             <EmptyState
               icon={<ClipboardList className="h-10 w-10 text-primary-light opacity-40" />}

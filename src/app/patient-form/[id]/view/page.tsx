@@ -1,5 +1,5 @@
 import { ChevronDown, Mail } from "lucide-react";
-import { Badge, statusVariant } from "@/components/ds";
+import { Badge, Button, Card, statusVariant } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -42,20 +42,20 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
           <span className="cursor-pointer text-sm text-primary hover:underline">{form.clientName}</span>
         </div>
         <div className="flex items-center gap-2">
-          <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-label-lg text-text hover:bg-gray-50">
+          <Button variant="secondary">
             <Mail className="h-4 w-4" />
             Email form
-          </button>
-          <button className="flex items-center gap-1.5 rounded-lg border border-border bg-white px-4 py-2 text-label-lg text-text hover:bg-gray-50">
+          </Button>
+          <Button variant="secondary">
             Actions
             <ChevronDown className="h-3.5 w-3.5" />
-          </button>
+          </Button>
         </div>
       </div>
 
       {/* Form content */}
       <div className="mx-auto max-w-3xl p-8">
-        <div className="rounded-lg border border-border bg-white p-10 shadow-sm">
+        <Card padding="none" className="p-10 shadow-sm">
           {/* Client name with logo */}
           <div className="mb-4 flex items-start justify-between">
             <h2 className="text-display-md text-text">{form.clientName}</h2>
@@ -88,7 +88,7 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
               </div>
             </div>
           ))}
-        </div>
+        </Card>
       </div>
     </div>
   );

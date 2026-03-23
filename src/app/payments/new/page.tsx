@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { X, Plus, Search } from "lucide-react";
-import { Button, FormInput, FormSelect, FormTextarea, Navbar, Select, TableHead, Th, TableBody, Td, EmptyState } from "@/components/ds";
+import { Button, Card, FormInput, FormSelect, FormTextarea, Navbar, Select, TableHead, Th, TableBody, Td, EmptyState } from "@/components/ds";
 
 const mockClients = [
   "Skyler Peterson",
@@ -169,15 +169,15 @@ export default function NewPaymentPage() {
               Amount <span className="text-red-500">*</span>
             </label>
             <div className="relative">
-              <span className="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-text-secondary">$</span>
-              <input
+              <span className="absolute top-1/2 left-3 z-10 -translate-y-1/2 text-sm text-text-secondary">$</span>
+              <FormInput
                 type="number"
                 step="0.01"
                 min="0"
                 placeholder="0.00"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                className="w-full rounded-lg border border-border bg-white py-2 pr-3 pl-7 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                className="pl-7"
               />
             </div>
           </div>
@@ -193,15 +193,15 @@ export default function NewPaymentPage() {
         </div>
 
         {showLinkSearch && (
-          <div className="mb-3 rounded-lg border border-border bg-white p-3">
+          <Card padding="sm" className="mb-3">
             <div className="relative">
-              <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-text-secondary" />
-              <input
+              <Search className="absolute top-1/2 left-3 z-10 h-4 w-4 -translate-y-1/2 text-text-secondary" />
+              <FormInput
                 type="text"
                 placeholder="Search invoices by number or client..."
                 value={invoiceSearch}
                 onChange={(e) => setInvoiceSearch(e.target.value)}
-                className="h-9 w-full rounded-lg border border-border bg-white pr-4 pl-10 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                className="h-9 pl-10"
                 autoFocus
               />
             </div>
@@ -227,10 +227,10 @@ export default function NewPaymentPage() {
             {searchableInvoices.length === 0 && (
               <p className="mt-2 text-sm text-text-secondary">No outstanding invoices found.</p>
             )}
-          </div>
+          </Card>
         )}
 
-        <div className="mb-6 overflow-hidden rounded-lg border border-border bg-white">
+        <Card padding="none" className="mb-6 overflow-hidden">
           <table className="w-full">
             <TableHead>
               <Th>Invoice #</Th>
@@ -292,7 +292,7 @@ export default function NewPaymentPage() {
               )}
             </tbody>
           </table>
-        </div>
+        </Card>
 
         {/* Note and totals */}
         <div className="flex items-start justify-between">

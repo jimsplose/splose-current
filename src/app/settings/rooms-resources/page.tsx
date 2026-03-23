@@ -17,6 +17,7 @@ import {
   Modal,
   ColorDot,
   FormColorPicker,
+  FormInput,
 } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
@@ -165,16 +166,13 @@ export default function SettingsRoomsResourcesPage() {
         }
       >
         <div className="space-y-4">
-          <div>
-            <label htmlFor="room-name" className="mb-1 block text-label-lg text-text-secondary">Name</label>
-            <input
-              id="room-name"
-              type="text"
-              value={form.name}
-              onChange={(e) => setField("name", e.target.value)}
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary/20"
-            />
-          </div>
+          <FormInput
+            label="Name"
+            id="room-name"
+            type="text"
+            value={form.name}
+            onChange={(e) => setField("name", e.target.value)}
+          />
           <FormColorPicker value={form.color} onChange={(c) => setField("color", c)} variant="swatches" />
         </div>
       </Modal>

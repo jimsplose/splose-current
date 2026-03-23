@@ -28,7 +28,7 @@ import {
   Palette,
   Type,
 } from "lucide-react";
-import { Button, Badge, FormSelect, EmptyState, Navbar, Filter, Spinner } from "@/components/ds";
+import { Button, Badge, Card, FormSelect, FormInput, EmptyState, Navbar, Filter, Spinner } from "@/components/ds";
 
 type NoteData = {
   id: string;
@@ -407,7 +407,7 @@ export default function EditProgressNotePage() {
             </div>
 
             {/* Client info table */}
-            <div className="mb-6 rounded-lg border border-border bg-white">
+            <Card padding="none" className="mb-6">
               <table className="w-full text-body-md">
                 <tbody>
                   {[
@@ -425,7 +425,7 @@ export default function EditProgressNotePage() {
                   ))}
                 </tbody>
               </table>
-            </div>
+            </Card>
 
             {/* AI Sections */}
             {sections.map((section) => (
@@ -622,10 +622,9 @@ export default function EditProgressNotePage() {
             style={{ maxHeight: "calc(100vh - 6rem)" }}
           >
             <h3 className="mb-3 text-heading-sm text-text">Filter previous progress notes</h3>
-            <input
+            <FormInput
               type="text"
               placeholder="Search notes"
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary"
             />
             <EmptyState
               message="No reference notes found"

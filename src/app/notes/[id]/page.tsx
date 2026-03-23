@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { CheckCircle } from "lucide-react";
-import { Badge, Navbar } from "@/components/ds";
+import { Badge, Card, Navbar } from "@/components/ds";
 import NoteViewToolbar from "./NoteViewToolbar";
 
 export const dynamic = "force-dynamic";
@@ -52,7 +52,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
 
       {/* Note content as document */}
       <div className="mx-auto max-w-3xl p-8">
-        <div className="rounded-lg border border-border bg-white p-10 shadow-sm">
+        <Card padding="none" className="p-10 shadow-sm">
           {/* Client name with logo */}
           <div className="mb-4 flex items-start justify-between">
             <h2 className="text-display-lg text-text">{clientName}</h2>
@@ -186,7 +186,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
               </p>
             )}
           </div>
-        </div>
+        </Card>
       </div>
     </div>
   );

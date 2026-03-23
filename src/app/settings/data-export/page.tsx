@@ -10,6 +10,7 @@ import {
   Td,
   Badge,
   FormSelect,
+  FormInput,
   Pagination,
   Dropdown,
   DropdownTriggerButton,
@@ -127,15 +128,13 @@ export default function DataExportPage() {
         <div>
           <label className="mb-1 block text-label-lg text-text-secondary">Date *</label>
           <div className="flex items-center gap-2">
-            <input
+            <FormInput
               type="date"
-              className="rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
               placeholder="Start date"
             />
             <span className="text-text-secondary">–</span>
-            <input
+            <FormInput
               type="date"
-              className="rounded-lg border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
               placeholder="End date"
             />
           </div>

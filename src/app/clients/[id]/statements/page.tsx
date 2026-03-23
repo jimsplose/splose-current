@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { ChevronDown } from "lucide-react";
-import { Button, PageHeader } from "@/components/ds";
+import { Button, PageHeader, FormInput } from "@/components/ds";
 
 export default function ClientStatementsPage() {
   const params = useParams();
@@ -28,16 +28,16 @@ export default function ClientStatementsPage() {
         <div className="flex flex-col gap-1">
           <label className="text-label-lg text-text">Date range*</label>
           <div className="flex items-center gap-2">
-            <input
+            <FormInput
               type="text"
               defaultValue="1 Mar 2026"
-              className="w-[130px] rounded-lg border border-border bg-white px-3 py-2 text-sm text-text focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
+              className="w-[130px]"
             />
             <span className="text-sm text-text-secondary">&mdash;</span>
-            <input
+            <FormInput
               type="text"
               defaultValue="31 Mar 2026"
-              className="w-[130px] rounded-lg border border-border bg-white px-3 py-2 text-sm text-text focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
+              className="w-[130px]"
             />
           </div>
         </div>

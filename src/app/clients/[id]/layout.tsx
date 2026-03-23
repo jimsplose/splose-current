@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
+import { Button } from "@/components/ds";
 import ClientSidebar from "./ClientSidebar";
 
 export const dynamic = "force-dynamic";
@@ -56,7 +57,7 @@ export default async function ClientLayout({
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <button className="flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-label-lg text-text hover:bg-gray-50">
+            <Button variant="secondary" size="sm">
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path
                   strokeLinecap="round"
@@ -65,7 +66,7 @@ export default async function ClientLayout({
                 />
               </svg>
               <span className="hidden sm:inline">New SMS</span>
-            </button>
+            </Button>
             <button className="flex items-center gap-1.5 rounded-lg border border-primary bg-primary/5 px-3 py-1.5 text-label-lg text-primary hover:bg-primary/10">
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path
@@ -76,12 +77,12 @@ export default async function ClientLayout({
               </svg>
               <span className="hidden sm:inline">New email</span>
             </button>
-            <button className="flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-label-lg text-text hover:bg-gray-50">
+            <Button variant="secondary" size="sm">
               Actions
               <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
-            </button>
+            </Button>
           </div>
         </div>
         <div className="flex-1 overflow-hidden">{children}</div>
