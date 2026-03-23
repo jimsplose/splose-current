@@ -215,18 +215,14 @@ function ClientSelect({ value, onChange }: { value: string; onChange: (v: string
   }, []);
 
   return (
-    <select
+    <FormSelect
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-    >
-      <option value="">{loading ? "Loading clients..." : "Select client"}</option>
-      {clients.map((c) => (
-        <option key={c.id} value={c.id}>
-          {c.firstName} {c.lastName}
-        </option>
-      ))}
-    </select>
+      options={[
+        { value: "", label: loading ? "Loading clients..." : "Select client" },
+        ...clients.map((c) => ({ value: c.id, label: `${c.firstName} ${c.lastName}` })),
+      ]}
+    />
   );
 }
 
@@ -245,17 +241,13 @@ function PractitionerSelect({ value, onChange }: { value: string; onChange: (v: 
   }, []);
 
   return (
-    <select
+    <FormSelect
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-    >
-      <option value="">{loading ? "Loading practitioners..." : "Select practitioner"}</option>
-      {practitioners.map((p) => (
-        <option key={p.id} value={p.id}>
-          {p.name}
-        </option>
-      ))}
-    </select>
+      options={[
+        { value: "", label: loading ? "Loading practitioners..." : "Select practitioner" },
+        ...practitioners.map((p) => ({ value: p.id, label: p.name })),
+      ]}
+    />
   );
 }

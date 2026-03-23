@@ -1,4 +1,4 @@
-import { Avatar, Button } from "@/components/ds";
+import { Avatar, Button, Card } from "@/components/ds";
 import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
@@ -163,9 +163,9 @@ export default async function Dashboard() {
 
         {/* Compose area */}
         <div className="border-t border-border p-3">
-          <div className="mb-2 min-h-[80px] rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text-secondary">
+          <Card padding="none" className="mb-2 min-h-[80px] px-3 py-2 text-body-md text-text-secondary">
             Type a message...
-          </div>
+          </Card>
           <div className="flex items-center gap-0.5 text-text-secondary">
             <Button variant="icon" size="sm" className="text-body-md-strong" title="Bold">B</Button>
             <Button variant="icon" size="sm" className="text-body-md italic" title="Italic">I</Button>

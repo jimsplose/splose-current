@@ -15,13 +15,12 @@ export default async function NotesPage() {
     <div className="p-4 sm:p-6">
       <PageHeader title="Progress notes">
         <Button>Scroll view</Button>
-        <Link
-          href="/notes/new"
-          className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-label-lg text-text hover:bg-gray-50"
-        >
-          <Plus className="h-4 w-4" />
-          New note
-        </Link>
+        <Button>
+          <Link href="/notes/new" className="flex items-center gap-2">
+            <Plus className="h-4 w-4" />
+            New note
+          </Link>
+        </Button>
       </PageHeader>
 
       <SearchBar placeholder="Search for content and title" />
