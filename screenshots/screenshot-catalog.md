@@ -319,7 +319,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-17 at 7.22.47 pm.png | Week view — Rooms/resources mode | partial |
 | Screenshot 2026-03-17 at 7.22.53 pm.png | Week view — Room/resources filter dropdown | partial |
 | Screenshot 2026-03-17 at 7.23.04 pm.png | Week view — View type dropdown (Month/Week/Day) | partial |
-| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_19_33.png | Calendar week view full page | partial |
+| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_19_33.png | Calendar week view full page | yes — visual audit 2026-03-23 confirmed; toolbar, time grid, practitioner columns match |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_12.png | Calendar week view (variant 2) | partial |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_26.png | Calendar week view (variant 3) | partial |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_37.png | Calendar week view (variant 4) | partial |
@@ -331,7 +331,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 7.23.10 pm.png | Day view — practitioner columns, empty | partial |
-| screencapture-acme-splose-calendar-day-17-3-2026-2026-03-17-19_31_10.png | Calendar day view full page | partial |
+| screencapture-acme-splose-calendar-day-17-3-2026-2026-03-17-19_31_10.png | Calendar day view full page | yes — visual audit 2026-03-23 confirmed; toolbar icons fixed, day layout matches |
 
 ## Calendar — Month View (`/calendar/month`)
 
@@ -490,7 +490,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 10.56.57 am.png | Settings landing — desktop, full sidebar visible | partial — 8.12%, /settings shows Details form; reference shows Details form too. Viewport vs full-page scroll diff |
+| Screenshot 2026-03-11 at 10.56.57 am.png | Settings landing — desktop, full sidebar visible | yes — visual audit 2026-03-23 confirmed; sidebar groups and content match |
 | Screenshot 2026-03-11 at 11.00.35 am.png | Settings landing — mobile, category tabs visible | partial |
 | Screenshot 2026-03-11 at 11.00.46 am.png | Settings landing — mobile, overflow menu (Team/Templates/Finances/Data) | partial |
 
@@ -613,7 +613,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.17.57 am.png | Performance overview — desktop, Utilisation + Revenue charts + Practitioners table | yes |
+| Screenshot 2026-03-11 at 11.17.57 am.png | Performance overview — desktop, Utilisation + Revenue charts + Practitioners table | yes — visual audit 2026-03-23 confirmed |
 | Screenshot 2026-03-11 at 11.18.04 am.png | Performance overview — desktop, date picker calendar open | partial |
 | Screenshot 2026-03-11 at 11.18.09 am.png | Performance overview — desktop, Frequency dropdown (Daily/Weekly/Monthly/Quarterly/Yearly) | partial |
 | Screenshot 2026-03-11 at 11.18.15 am.png | Performance overview — desktop, All locations dropdown | partial |
