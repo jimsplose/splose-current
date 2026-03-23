@@ -568,3 +568,43 @@ Analysed 6 reference screenshots (Clients, Invoices, Payments, Products, Appoint
 - Dashboard, Clients list, Contacts, Products, Notes, Login all confirmed
 
 **Pages remaining "partial" or "no":** Modal/dropdown interactive states (screenshot captures of open dropdowns, edit modals) — these are interactive state screenshots that would require implementing specific modal/dropdown content, not structural page issues
+
+---
+
+## Session — 2026-03-24
+
+**Branch**: `main`
+
+### Interactive Mockups — 4 Rounds Completed
+
+**Round 1 — Modal Enrichments (8 settings pages):**
+- Cancellation reasons: added cancellation rules toggles + window selects
+- User groups: added user checklist with 6 mock users
+- Payment settings: payment type dropdown (7 payment types)
+- Invoice settings: enriched reminder modal with RichTextEditor + variables
+- Business history modal on settings details page
+- Forms: Learn button → dropdown (Help guide/Watch a video)
+- Data import: Import from modal (CSV/Cliniko cards)
+- Appointment templates: email preview button
+
+**3 New DS Components:**
+- **RichTextEditor** — contentEditable with working Bold/Italic/Underline/Strikethrough/Headings/Lists/Link toolbar, variable insertion dropdown, active format state tracking
+- **ReorderModal** — dnd-kit powered drag-and-drop with grip handles and visual feedback. Replaces HTML5 drag in custom-fields
+- **EmailPreview** — simulated email rendering in modal (From/To/Subject/Body/Footer)
+- **MapView** — Leaflet.js interactive map centered on Adelaide with colored circle markers and popups
+
+**Round 2 — Template Editor Sub-Pages (4 new pages):**
+- Appointment template editor (`/settings/appointment-templates/new`) — SMS/Email sections with RichTextEditor, variables, email preview
+- Email template editor (`/settings/email-templates/edit/[id]`) — subject/body with RichTextEditor, preview
+- Progress note template editor (`/settings/progress-notes/edit/[id]`) — AI blocks as Cards with Sparkles icons, AI block library modal, free text
+- Letter template editor (`/settings/letter-templates/edit/[id]`) — recipient fields, body with clinical variables
+- All 4 list pages wired: Edit → router.push() to editor
+
+**Round 3 — Deep Sub-Pages (3 new pages + 1 enrichment):**
+- Online booking editor (`/settings/online-bookings/[id]`) — 3-tab page (Design/Builder/Share), logo upload, button colour picker, terms, location management modal, shareable link + embed code
+- New location page (`/settings/locations/new`) — General/Address/Online booking sections
+- Edit service enrichment — added Online Payment + Appointment Notifications collapse sections
+
+**State Registry:** Added 7 new page entries
+
+**Dependencies Added:** leaflet, react-leaflet, @dnd-kit/core, @dnd-kit/sortable, @dnd-kit/utilities
