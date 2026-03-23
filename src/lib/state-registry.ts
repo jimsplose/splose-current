@@ -163,7 +163,7 @@ export const stateRegistry: PageEntry[] = [
     children: [
       {
         path: "/invoices/[id]",
-        resolvedPath: "/invoices/cmmyhkhzk0028wpwgeu2hcnsj",
+        resolvedPath: "/invoices/cmn2fh20l00evwpwguzx7sw1y",
         label: "Invoice Detail",
         variants: [{ id: "default", label: "Invoice view" }],
       },
@@ -184,13 +184,13 @@ export const stateRegistry: PageEntry[] = [
     children: [
       {
         path: "/notes/[id]",
-        resolvedPath: "/notes/cmmyhkay2001hwpwg2vp2u2yw",
+        resolvedPath: "/notes/cmn2fgub500e4wpwg2vaszage",
         label: "View Note",
         variants: [{ id: "default", label: "Note view" }],
       },
       {
         path: "/notes/[id]/edit",
-        resolvedPath: "/notes/cmmyhkay2001hwpwg2vp2u2yw/edit",
+        resolvedPath: "/notes/cmn2fgub500e4wpwg2vaszage/edit",
         label: "Edit Note",
         variants: [
           { id: "default", label: "Edit note" },

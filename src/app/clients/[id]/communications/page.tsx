@@ -1,7 +1,7 @@
+"use client";
+
 import { Plus, ArrowUpDown, Filter } from "lucide-react";
 import { Button, PageHeader, SearchBar, TableHead, Th, TableBody, Td, Pagination, Badge, statusVariant, Dropdown, DropdownTriggerButton } from "@/components/ds";
-
-export const dynamic = "force-dynamic";
 
 const communicationsData = [
   {
@@ -75,9 +75,7 @@ const dropdownItems = [
   { label: "Delete", value: "delete", danger: true },
 ];
 
-export default async function ClientCommunicationsPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  void id;
+export default function ClientCommunicationsPage() {
 
   return (
     <div className="flex-1 overflow-y-auto p-4 sm:p-6">

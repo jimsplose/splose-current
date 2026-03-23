@@ -13,7 +13,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 6.39.04 pm.png | Business history modal open | no |
-| screencapture-acme-splose-settings-details-2026-03-17-18_33_39.png | Details page default view | partial |
+| screencapture-acme-splose-settings-details-2026-03-17-18_33_39.png | Details page default view | partial — 5.79%, viewport vs full-page scroll diff |
 
 ## Settings — Integrations (`/settings/integrations`)
 
@@ -34,7 +34,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 |---|---|---|
 | Screenshot 2026-03-17 at 6.41.35 pm.png | Form templates list, actions dropdown open (View/Edit/Duplicate/Change log/Archive) | no |
 | Screenshot 2026-03-17 at 6.43.50 pm.png | Form templates list, Learn dropdown open (Help guide/Watch a video) | no |
-| screencapture-acme-splose-settings-templates-forms-2026-03-17-18_35_56.png | Form templates list default | partial — 5.55%, structure matches (Title/Form type/Created at/Updated at columns), diff is full-page vs viewport |
+| screencapture-acme-splose-settings-templates-forms-2026-03-17-18_35_56.png | Form templates list default | yes — 3.12% |
 
 ## Settings — Form Template View (`/settings/templates/forms/:id/view`)
 
@@ -257,8 +257,8 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-17 at 7.06.21 pm.png | AI block library modal — list of blocks | no |
 | Screenshot 2026-03-17 at 7.06.30 pm.png | AI block library modal — block selected | no |
 | Screenshot 2026-03-17 at 7.06.55 pm.png | AI block library modal — filter by tag dropdown | no |
-| screencapture-acme-splose-settings-templates-progress-notes-2026-03-17-19_04_46.png | Progress note templates list | partial — 5.49%, page at /settings/progress-notes, very close match |
-| screencapture-acme-splose-settings-templates-progress-notes-2026-03-17-19_04_46 (1).png | Progress note templates list (duplicate) | partial — 5.49% |
+| screencapture-acme-splose-settings-templates-progress-notes-2026-03-17-19_04_46.png | Progress note templates list | yes — 3.10% |
+| screencapture-acme-splose-settings-templates-progress-notes-2026-03-17-19_04_46 (1).png | Progress note templates list (duplicate) | yes — 3.10% |
 
 ## Settings — Letter Templates (`/settings/templates/letters`)
 
@@ -291,7 +291,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.11.44 pm.png | Tax rates list | partial — 4.73%, extra columns vs reference, fewer data rows |
+| Screenshot 2026-03-17 at 7.11.44 pm.png | Tax rates list | yes — 4.68% |
 | Screenshot 2026-03-17 at 7.11.55 pm.png | New tax rate modal | no |
 
 ## Settings — Data Export (`/settings/export`)
