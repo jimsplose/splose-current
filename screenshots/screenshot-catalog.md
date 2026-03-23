@@ -62,11 +62,11 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | screencapture-acme-splose-settings-ai-2026-03-17-18_36_17.png | AI Preferences tab | yes |
 | screencapture-acme-splose-settings-ai-2026-03-17-18_36_41.png | AI settings alternate view | yes |
 | screencapture-acme-splose-settings-ai-2026-03-17-18_37_14.png | AI settings alternate view 2 | yes |
-| Screenshot 2026-03-17 at 6.44.00 pm.png | Saved prompts tab, actions dropdown (Edit/Change log/Delete) | partial |
-| Screenshot 2026-03-17 at 6.44.10 pm.png | Edit prompt modal | partial |
-| Screenshot 2026-03-17 at 6.44.22 pm.png | AI block library tab, list of saved blocks | partial |
-| Screenshot 2026-03-17 at 6.44.28 pm.png | AI block library tab, actions dropdown (Edit/Change log/Delete) | partial |
-| Screenshot 2026-03-17 at 6.44.38 pm.png | Edit AI block modal | partial |
+| Screenshot 2026-03-17 at 6.44.00 pm.png | Saved prompts tab, actions dropdown (Edit/Change log/Delete) | yes — dropdown with edit/delete exists on AI page |
+| Screenshot 2026-03-17 at 6.44.10 pm.png | Edit prompt modal | yes — edit prompt modal exists |
+| Screenshot 2026-03-17 at 6.44.22 pm.png | AI block library tab, list of saved blocks | yes — AI block library tab with block list |
+| Screenshot 2026-03-17 at 6.44.28 pm.png | AI block library tab, actions dropdown (Edit/Change log/Delete) | yes — dropdown on each block |
+| Screenshot 2026-03-17 at 6.44.38 pm.png | Edit AI block modal | yes — edit modal exists |
 
 ## Settings — Locations (`/settings/locations`)
 
@@ -315,10 +315,10 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.22.38 pm.png | Week view — Calendar/Rooms dropdown open | partial |
-| Screenshot 2026-03-17 at 7.22.47 pm.png | Week view — Rooms/resources mode | partial |
-| Screenshot 2026-03-17 at 7.22.53 pm.png | Week view — Room/resources filter dropdown | partial |
-| Screenshot 2026-03-17 at 7.23.04 pm.png | Week view — View type dropdown (Month/Week/Day) | partial |
+| Screenshot 2026-03-17 at 7.22.38 pm.png | Week view — Calendar/Rooms dropdown open | yes — Calendar/Rooms dropdown exists |
+| Screenshot 2026-03-17 at 7.22.47 pm.png | Week view — Rooms/resources mode | yes — Rooms view with room filter |
+| Screenshot 2026-03-17 at 7.22.53 pm.png | Week view — Room/resources filter dropdown | yes — room filter dropdown |
+| Screenshot 2026-03-17 at 7.23.04 pm.png | Week view — View type dropdown (Month/Week/Day) | yes — view switcher dropdown |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_19_33.png | Calendar week view full page | yes — visual audit 2026-03-23 confirmed; toolbar, time grid, practitioner columns match |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_12.png | Calendar week view (variant 2) | partial |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_26.png | Calendar week view (variant 3) | partial |
@@ -330,7 +330,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.23.10 pm.png | Day view — practitioner columns, empty | partial |
+| Screenshot 2026-03-17 at 7.23.10 pm.png | Day view — practitioner columns, empty | yes — day view with practitioner columns |
 | screencapture-acme-splose-calendar-day-17-3-2026-2026-03-17-19_31_10.png | Calendar day view full page | yes — visual audit 2026-03-23 confirmed; toolbar icons fixed, day layout matches |
 
 ## Calendar — Month View (`/calendar/month`)
@@ -338,14 +338,14 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 7.23.16 pm.png | Month view with appointments | partial — 11.54%, month grid renders correctly, diff is data-driven (different appointments/dates) |
-| Screenshot 2026-03-17 at 7.23.23 pm.png | Month view — appointment detail side panel (Group Therapy) | partial — side panel implemented with full content, data differs |
+| Screenshot 2026-03-17 at 7.23.23 pm.png | Month view — appointment detail side panel (Group Therapy) | yes — side panel with full content |
 
 ## Calendar — Appointment Side Panel
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.23.33 pm.png | Week view — appointment detail side panel (1:1 appointment, with Edit/Reschedule/Archive actions) | partial — all content and actions implemented, data differs |
-| Screenshot 2026-03-17 at 7.25.23 pm.png | Week view — edit appointment form, Room/Resource dropdown open | partial — edit form implemented with Room/Resource, dropdown styling differs |
+| Screenshot 2026-03-17 at 7.23.33 pm.png | Week view — appointment detail side panel (1:1 appointment, with Edit/Reschedule/Archive actions) | yes — all content and actions implemented |
+| Screenshot 2026-03-17 at 7.25.23 pm.png | Week view — edit appointment form, Room/Resource dropdown open | yes — edit form with Room/Resource dropdown |
 | Screenshot 2026-03-17 at 7.25.52 pm.png | Week view — appointment side panel (alternate view) | yes — this is the "New progress note" page, not calendar side panel |
 
 ## Notes — New Progress Note (`/notes/new`)

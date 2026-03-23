@@ -337,7 +337,14 @@ export const stateRegistry: PageEntry[] = [
     children: [
       { path: "/settings/integrations", label: "Integrations", variants: [{ id: "default", label: "Integrations" }] },
       { path: "/settings/sms-settings", label: "SMS Settings", variants: [{ id: "default", label: "SMS Settings" }] },
-      { path: "/settings/forms", label: "Forms", variants: [{ id: "default", label: "Forms" }] },
+      {
+        path: "/settings/forms",
+        label: "Forms",
+        variants: [{ id: "default", label: "Forms" }],
+        children: [
+          { path: "/settings/forms/[id]", resolvedPath: "/settings/forms/1", label: "Form Template Editor", variants: [{ id: "default", label: "Form builder" }] },
+        ],
+      },
       {
         path: "/settings/locations",
         label: "Locations",
@@ -398,7 +405,11 @@ export const stateRegistry: PageEntry[] = [
             path: "/settings/users/[id]",
             resolvedPath: "/settings/users/1",
             label: "User Detail",
-            variants: [{ id: "default", label: "User detail" }],
+            variants: [
+              { id: "default", label: "User detail" },
+              { id: "availability", label: "Availability" },
+              { id: "body-charts", label: "Body chart templates" },
+            ],
           },
         ],
       },
@@ -440,7 +451,14 @@ export const stateRegistry: PageEntry[] = [
       { path: "/settings/invoice-settings", label: "Invoice Settings", variants: [{ id: "default", label: "Invoice Settings" }] },
       { path: "/settings/tax-rates", label: "Tax Rates", variants: [{ id: "default", label: "Tax Rates" }] },
       { path: "/settings/data-export", label: "Data Export", variants: [{ id: "default", label: "Data Export" }] },
-      { path: "/settings/data-import", label: "Data Import", variants: [{ id: "default", label: "Data Import" }] },
+      {
+        path: "/settings/data-import",
+        label: "Data Import",
+        variants: [{ id: "default", label: "Data Import" }],
+        children: [
+          { path: "/settings/data-import/csv", label: "CSV Import", variants: [{ id: "default", label: "CSV import" }] },
+        ],
+      },
       {
         path: "/settings/ai",
         label: "Splose AI",
