@@ -25,7 +25,7 @@ import {
   Palette,
   Type,
 } from "lucide-react";
-import { Button, Badge, Card, FormSelect, FormInput, EmptyState, Navbar, Filter, Spinner, Dropdown } from "@/components/ds";
+import { Button, Badge, Card, Checkbox, FormSelect, FormInput, EmptyState, Navbar, Filter, Spinner, Dropdown } from "@/components/ds";
 
 type NoteData = {
   id: string;
@@ -368,13 +368,14 @@ export default function EditProgressNotePage() {
                 <Palette className="h-4 w-4" />
               </Button>
               <span className="flex-1" />
-              <button
+              <Button
+                variant="secondary"
                 onClick={generateAll}
-                className="flex items-center gap-1.5 rounded-lg border border-primary bg-white px-3 py-1 text-label-lg text-primary hover:bg-purple-50"
+                className="border-primary text-primary hover:bg-purple-50"
               >
                 <Sparkles className="h-3.5 w-3.5" />
                 Generate
-              </button>
+              </Button>
               <Button variant="primary" round size="sm">
                 <Plus className="h-4 w-4" />
               </Button>
@@ -383,7 +384,7 @@ export default function EditProgressNotePage() {
             {/* Syncing notice */}
             <div className="mb-4 flex items-center gap-2 rounded-lg bg-purple-50 px-3 py-2 text-xs text-text-secondary">
               <div className="flex items-center gap-1">
-                <input type="checkbox" checked readOnly className="h-3 w-3 rounded accent-primary" />
+                <Checkbox checked readOnly className="h-3 w-3" />
                 <span>Syncing client history</span>
               </div>
               <span className="text-text-secondary">
@@ -437,16 +438,18 @@ export default function EditProgressNotePage() {
                         <span className="text-label-lg text-primary">AI block</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <button
+                        <Button
+                          variant="icon"
+                          size="sm"
                           onClick={(e) => {
                             e.stopPropagation();
                             dismissSection(section.id);
                           }}
-                          className="rounded p-0.5 text-text-secondary hover:bg-purple-100 hover:text-text"
+                          className="hover:bg-purple-100"
                           title="Dismiss"
                         >
                           <span className="text-label-lg">&times;</span>
-                        </button>
+                        </Button>
                         {section.expanded ? (
                           <ChevronUp className="h-4 w-4 text-text-secondary" />
                         ) : (
@@ -491,28 +494,32 @@ export default function EditProgressNotePage() {
                               />
                               <div className="flex items-center gap-2">
                                 {/* Thumbs up/down feedback */}
-                                <button
+                                <Button
+                                  variant="icon"
+                                  size="sm"
                                   onClick={() => setFeedback(section.id, "up")}
-                                  className={`rounded p-1 ${
+                                  className={
                                     section.feedback === "up"
                                       ? "bg-green-100 text-green-600"
-                                      : "text-text-secondary hover:bg-gray-100"
-                                  }`}
+                                      : ""
+                                  }
                                   title="Good response"
                                 >
                                   <ThumbsUp className="h-3.5 w-3.5" />
-                                </button>
-                                <button
+                                </Button>
+                                <Button
+                                  variant="icon"
+                                  size="sm"
                                   onClick={() => setFeedback(section.id, "down")}
-                                  className={`rounded p-1 ${
+                                  className={
                                     section.feedback === "down"
                                       ? "bg-red-100 text-red-600"
-                                      : "text-text-secondary hover:bg-gray-100"
-                                  }`}
+                                      : ""
+                                  }
                                   title="Poor response"
                                 >
                                   <ThumbsDown className="h-3.5 w-3.5" />
-                                </button>
+                                </Button>
                                 {/* Accept button */}
                                 <Button
                                   variant="primary"

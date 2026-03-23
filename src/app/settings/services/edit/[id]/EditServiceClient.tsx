@@ -5,6 +5,7 @@ import {
   Button,
   FormInput,
   FormSelect,
+  FormColorPicker,
   Toggle,
   Collapse,
   Navbar,
@@ -106,16 +107,11 @@ export default function EditServiceClient({ id }: { id: string }) {
                 defaultValue={service.type}
               />
               <FormInput label="Item code" defaultValue={service.itemCode} />
-              <div>
-                <label className="mb-1 block text-label-md text-text">
-                  Color
-                </label>
-                <input
-                  type="color"
-                  defaultValue={service.color}
-                  className="h-10 w-14 cursor-pointer rounded-md border border-border bg-white p-1"
-                />
-              </div>
+              <FormColorPicker
+                label="Color"
+                value={service.color}
+                onChange={() => {}}
+              />
             </div>
           </Collapse>
 

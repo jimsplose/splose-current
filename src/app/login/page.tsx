@@ -1,5 +1,5 @@
 import { ChevronRight, EyeOff } from "lucide-react";
-import { Button } from "@/components/ds";
+import { Button, Checkbox } from "@/components/ds";
 
 export default function LoginPage() {
   return (
@@ -54,10 +54,7 @@ export default function LoginPage() {
           </div>
 
           <div className="mt-4 flex items-center justify-between">
-            <label className="flex items-center gap-2 text-sm text-text-secondary">
-              <input type="checkbox" className="rounded border-gray-300" />
-              Remember me
-            </label>
+            <Checkbox label="Remember me" />
             <a href="#" className="text-sm text-primary hover:underline">
               Forgot password?
             </a>

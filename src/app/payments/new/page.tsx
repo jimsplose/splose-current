@@ -267,11 +267,11 @@ export default function NewPaymentPage() {
                         {inv.due.toFixed(2)}
                       </Td>
                       <Td align="right">
-                        <input
+                        <FormInput
                           type="text"
                           value={invoiceAmounts[invoiceNumber] || ""}
                           onChange={(e) => setInvoiceAmounts((prev) => ({ ...prev, [invoiceNumber]: e.target.value }))}
-                          className="w-24 rounded border border-border bg-white px-2 py-1 text-right text-sm text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                          className="w-24 rounded border px-2 py-1 text-right text-sm"
                         />
                       </Td>
                       <Td align="right" className="text-text">

@@ -12,6 +12,7 @@ import {
   FormSelect,
   FormInput,
   Pagination,
+  Checkbox,
   Dropdown,
   DropdownTriggerButton,
 } from "@/components/ds";
@@ -142,10 +143,9 @@ export default function DataExportPage() {
         <Button variant="primary">Export</Button>
       </div>
 
-      <label className="mb-6 flex items-center gap-2 text-body-md text-text">
-        <input type="checkbox" className="rounded border-border" />
-        Include archived
-      </label>
+      <div className="mb-6">
+        <Checkbox label="Include archived" />
+      </div>
 
       <hr className="my-6 border-border" />
 

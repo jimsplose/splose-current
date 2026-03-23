@@ -174,9 +174,10 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             { label: "Letters", count: 0 },
             { label: "Invoices", count: contact.associatedClients.length > 0 ? 96 : 0 },
           ].map((item) => (
-            <button
+            <Button
               key={item.label}
-              className={`flex w-full items-center justify-between rounded-md px-3 py-1.5 text-sm ${
+              variant="ghost"
+              className={`w-full justify-between text-sm ${
                 "active" in item && item.active
                   ? "border-l-2 border-primary bg-primary/5 font-medium text-primary"
                   : "text-text-secondary hover:bg-gray-50"
@@ -184,7 +185,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             >
               {item.label}
               {"count" in item && item.count ? <span className="text-xs text-text-secondary">{item.count}</span> : null}
-            </button>
+            </Button>
           ))}
         </nav>
       </aside>

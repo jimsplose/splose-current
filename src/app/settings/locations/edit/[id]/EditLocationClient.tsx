@@ -256,7 +256,7 @@ export default function EditLocationClient({ id }: { id: string }) {
         <div className="flex items-center gap-3">
           <Link
             href="/settings/locations"
-            className="flex h-8 w-8 items-center justify-center rounded-lg border border-border text-text-secondary hover:bg-gray-50"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border text-text-secondary transition-colors hover:bg-gray-50"
           >
             <svg
               className="h-4 w-4"

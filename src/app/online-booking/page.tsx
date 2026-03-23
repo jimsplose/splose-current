@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { ChevronLeft, ChevronRight, MapPin, FileText, Clock, Calendar, User } from "lucide-react";
-import { Avatar, Button, FormInput, FormSelect, FormTextarea } from "@/components/ds";
+import { Avatar, Button, Checkbox, FormInput, FormSelect, FormTextarea } from "@/components/ds";
 
 const practitioners = [
   { id: "1", name: "Hrishikesh Koli", initials: "HK", role: "Prac ti sion", color: "#7c3aed", tagline: "HEY HEY HEY" },
@@ -166,17 +166,18 @@ function OnlineBookingPageInner() {
                           {hasSlots ? (
                             <div className="space-y-2">
                               {(showAllTimes ? availableSlots : availableSlots.slice(0, 4)).map((slot) => (
-                                <button
+                                <Button
                                   key={slot}
+                                  variant="secondary"
+                                  className="w-28 hover:border-primary hover:bg-purple-50"
                                   onClick={() => {
                                     setSelectedTime(slot);
                                     setSelectedPractitioner(prac.id);
                                     setStep("confirm");
                                   }}
-                                  className="block w-28 rounded-lg border border-border px-3 py-2 text-body-md text-text hover:border-primary hover:bg-purple-50"
                                 >
                                   {slot}
-                                </button>
+                                </Button>
                               ))}
                               <Button
                                 variant="primary"
@@ -297,15 +298,11 @@ function OnlineBookingPageInner() {
                     </div>
                   </div>
 
-                  <label className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      checked={rememberDetails}
-                      onChange={(e) => setRememberDetails(e.target.checked)}
-                      className="h-4 w-4 rounded border-border text-primary"
-                    />
-                    <span className="text-body-md text-text">Remember my details for next time</span>
-                  </label>
+                  <Checkbox
+                    label="Remember my details for next time"
+                    checked={rememberDetails}
+                    onChange={(e) => setRememberDetails(e.target.checked)}
+                  />
                 </div>
               </>
             )}

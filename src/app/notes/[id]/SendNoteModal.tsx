@@ -155,25 +155,23 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
               onChange={(e) => setSubject(e.target.value)}
             />
           </div>
-          <button
+          <Button
+            variant="primary"
             onClick={handleSummariseSession}
             disabled={isGenerating}
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-label-lg text-white hover:bg-primary-dark disabled:opacity-50"
+            className="shrink-0"
           >
             <Sparkles className="h-4 w-4" />
             {isGenerating ? "Generating..." : "Summarise session"}
-          </button>
+          </Button>
         </div>
 
         {/* Toolbar */}
         <div className="flex items-center gap-0.5 border-b border-border pb-2">
           {[Bold, Italic, Underline, Type, Grid3X3, Link2, Minus, Image, AlignLeft, AlignCenter, AlignRight, ListOrdered].map((Icon, i) => (
-            <button
-              key={i}
-              className="rounded p-1.5 text-text-secondary hover:bg-gray-100 hover:text-text"
-            >
+            <Button key={i} variant="icon">
               <Icon className="h-4 w-4" />
-            </button>
+            </Button>
           ))}
         </div>
 

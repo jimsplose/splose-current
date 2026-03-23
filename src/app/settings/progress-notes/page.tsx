@@ -94,12 +94,14 @@ export default function ProgressNotesPage() {
             </a>
             .
           </p>
-          <button
+          <Button
+            variant="icon"
+            size="sm"
+            className="shrink-0 hover:bg-purple-100 hover:text-text"
             onClick={() => setShowBanner(false)}
-            className="shrink-0 rounded p-0.5 text-text-secondary hover:bg-purple-100 hover:text-text"
           >
             <X className="h-4 w-4" />
-          </button>
+          </Button>
         </div>
       )}
 

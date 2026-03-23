@@ -27,7 +27,7 @@ import {
   AlertTriangle,
   Info,
 } from "lucide-react";
-import { Button, Badge, Chip, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert, Dropdown, Card } from "@/components/ds";
+import { Button, Badge, Chip, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert, Dropdown, Card, RadioGroup } from "@/components/ds";
 
 type Appointment = {
   id: string;
@@ -335,12 +335,9 @@ export default function CalendarView({
               </Chip>
             )}
 
-            <button
-              onClick={() => openCreateModal()}
-              className="flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-label-lg text-white hover:bg-primary-dark"
-            >
+            <Button variant="primary" size="sm" round onClick={() => openCreateModal()}>
               <Plus className="h-4 w-4" />
-            </button>
+            </Button>
 
             {/* Calendar/Rooms dropdown */}
             <Dropdown
@@ -629,8 +626,9 @@ export default function CalendarView({
               <p className="text-heading-sm text-text">{popover.time}</p>
             </div>
             <div className="py-1">
-              <button
-                className="flex w-full items-center gap-2.5 px-3 py-2 text-body-md text-text hover:bg-gray-50"
+              <Button
+                variant="ghost"
+                className="w-full justify-start gap-2.5 px-3 py-2"
                 onClick={() => {
                   setPopover((prev) => ({ ...prev, visible: false }));
                   // Support activity - just close for now
@@ -638,9 +636,10 @@ export default function CalendarView({
               >
                 <Clock className="h-4 w-4 text-text-secondary" />
                 Support activity
-              </button>
-              <button
-                className="flex w-full items-center gap-2.5 px-3 py-2 text-body-md text-text hover:bg-gray-50"
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full justify-start gap-2.5 px-3 py-2"
                 onClick={() => {
                   setPopover((prev) => ({ ...prev, visible: false }));
                   // Busy time - just close for now
@@ -648,16 +647,17 @@ export default function CalendarView({
               >
                 <Ban className="h-4 w-4 text-text-secondary" />
                 Busy time
-              </button>
-              <button
-                className="flex w-full items-center gap-2.5 px-3 py-2 text-body-md text-text hover:bg-gray-50"
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full justify-start gap-2.5 px-3 py-2"
                 onClick={() => {
                   openCreateModal(popover.dateStr, popover.hour, popover.minute, popover.practitionerId);
                 }}
               >
                 <Calendar className="h-4 w-4 text-text-secondary" />
                 Appointment
-              </button>
+              </Button>
             </div>
             {/* Downward arrow */}
             <div className="flex justify-center pb-0">
@@ -834,12 +834,15 @@ export default function CalendarView({
                     <label className="mb-1 block text-label-lg text-text-secondary">Repeat on *</label>
                     <div className="flex gap-1">
                       {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d) => (
-                        <button
+                        <Button
                           key={d}
-                          className={`rounded-full px-2.5 py-1 text-label-md ${d === "Mo" ? "bg-primary text-white" : "border border-border bg-white text-text hover:bg-gray-50"}`}
+                          variant={d === "Mo" ? "primary" : "secondary"}
+                          size="sm"
+                          round
+                          className="px-2.5 py-1 text-label-md"
                         >
                           {d}
-                        </button>
+                        </Button>
                       ))}
                     </div>
                   </div>
@@ -1000,12 +1003,15 @@ export default function CalendarView({
                     <label className="mb-1 block text-label-lg text-text-secondary">Repeat on *</label>
                     <div className="flex gap-1">
                       {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d) => (
-                        <button
+                        <Button
                           key={d}
-                          className={`rounded-full px-2.5 py-1 text-label-md ${d === "Mo" ? "bg-primary text-white" : "border border-border bg-white text-text hover:bg-gray-50"}`}
+                          variant={d === "Mo" ? "primary" : "secondary"}
+                          size="sm"
+                          round
+                          className="px-2.5 py-1 text-label-md"
                         >
                           {d}
-                        </button>
+                        </Button>
                       ))}
                     </div>
                   </div>
@@ -1023,27 +1029,17 @@ export default function CalendarView({
               )}
 
               {/* Apply to */}
-              <div>
-                <label className="mb-2 block text-label-lg text-text-secondary">Apply to:</label>
-                <div className="space-y-1.5">
-                  {[
-                    { value: "this" as const, label: "This occurrence" },
-                    { value: "following" as const, label: "This and all following occurrences" },
-                    { value: "all" as const, label: "All occurrences" },
-                  ].map((opt) => (
-                    <label key={opt.value} className="flex cursor-pointer items-center gap-2 text-body-md text-text">
-                      <input
-                        type="radio"
-                        name="applyTo"
-                        checked={editApplyTo === opt.value}
-                        onChange={() => setEditApplyTo(opt.value)}
-                        className="accent-primary"
-                      />
-                      {opt.label}
-                    </label>
-                  ))}
-                </div>
-              </div>
+              <RadioGroup
+                name="applyTo"
+                label="Apply to:"
+                options={[
+                  { value: "this", label: "This occurrence" },
+                  { value: "following", label: "This and all following occurrences" },
+                  { value: "all", label: "All occurrences" },
+                ]}
+                value={editApplyTo}
+                onChange={(v) => setEditApplyTo(v as "this" | "following" | "all")}
+              />
             </div>
       </Modal>
       )}
@@ -1212,9 +1208,9 @@ function AppointmentSidePanel({
                 {appt.clientName} ({appt.type})
               </span>
             </div>
-            <button onClick={onClose} className="rounded p-1 hover:bg-gray-100">
+            <Button variant="icon" size="sm" onClick={onClose}>
               <X className="h-4 w-4 text-text-secondary" />
-            </button>
+            </Button>
           </div>
 
           {/* Details */}

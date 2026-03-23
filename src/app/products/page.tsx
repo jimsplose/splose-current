@@ -147,15 +147,17 @@ export default function ProductsPage() {
                   >
                     <td className="px-2 py-3 text-center">
                       {hasVariants ? (
-                        <button
+                        <Button
+                          variant="icon"
+                          size="sm"
+                          round
                           onClick={(e) => {
                             e.stopPropagation();
                             toggleExpand(globalIndex);
                           }}
-                          className="inline-flex h-5 w-5 items-center justify-center rounded-full text-text-secondary hover:bg-gray-200"
                         >
                           {isExpanded ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
-                        </button>
+                        </Button>
                       ) : (
                         <span className="inline-flex h-5 w-5 items-center justify-center text-text-secondary">
                           <Plus className="h-3.5 w-3.5" />

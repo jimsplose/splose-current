@@ -278,12 +278,12 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           <div>
             <label className="mb-1 block text-label-lg text-text">Amount</label>
             <div className="relative">
-              <span className="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-text-secondary">$</span>
-              <input
+              <span className="absolute top-1/2 left-3 z-10 -translate-y-1/2 text-sm text-text-secondary">$</span>
+              <FormInput
                 type="text"
                 value={paymentAmount}
                 onChange={(e) => setPaymentAmount(e.target.value)}
-                className="w-full rounded-lg border border-border py-2 pr-3 pl-7 text-sm text-text focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
+                className="pl-7"
               />
             </div>
           </div>

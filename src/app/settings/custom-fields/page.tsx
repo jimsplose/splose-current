@@ -417,22 +417,25 @@ function EditFieldModal({
                       className="h-10"
                     />
                   </div>
-                  <button
+                  <Button
+                    variant="icon"
+                    size="sm"
+                    className="text-red-400 hover:text-red-600"
                     onClick={() => handleRemoveOption(index)}
-                    className="rounded p-1 text-red-400 hover:text-red-600"
                   >
                     <Trash2 className="h-4 w-4" />
-                  </button>
+                  </Button>
                 </div>
               ))}
             </div>
-            <button
+            <Button
+              variant="secondary"
+              className="mt-2 w-full border-dashed hover:border-primary hover:text-primary"
               onClick={handleAddOption}
-              className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg border border-dashed border-border py-2 text-body-md text-text-secondary hover:border-primary hover:text-primary"
             >
               <Plus className="h-4 w-4" />
               Add option
-            </button>
+            </Button>
           </div>
         )}
 

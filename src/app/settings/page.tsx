@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button, FileUpload, FormInput, FormSelect, Toggle, Tab, Modal, Dropdown, HintIcon } from "@/components/ds";
+import { Button, Checkbox, FileUpload, FormInput, FormSelect, Toggle, Tab, Modal, Dropdown, HintIcon } from "@/components/ds";
 
 export default function SettingsDetailsPage() {
   const [emailSigTab, setEmailSigTab] = useState<"Business" | "User">("Business");
@@ -95,10 +95,13 @@ export default function SettingsDetailsPage() {
               <span className="text-red-500">*</span>
             </label>
             <FormSelect options={[{ value: "SMS & Email", label: "SMS & Email" }, { value: "SMS only", label: "SMS only" }, { value: "Email only", label: "Email only" }, { value: "None", label: "None" }]} />
-            <label className="mt-2 flex items-center gap-2 text-body-md text-text-secondary">
-              <input type="checkbox" checked={applyToAll} onChange={(e) => setApplyToAll(e.target.checked)} className="rounded border-gray-300 text-primary focus:ring-primary h-4 w-4" />
-              Apply to all existing clients and override the current contact preferences
-            </label>
+            <div className="mt-2">
+              <Checkbox
+                label="Apply to all existing clients and override the current contact preferences"
+                checked={applyToAll}
+                onChange={(e) => setApplyToAll(e.target.checked)}
+              />
+            </div>
           </div>
           <div>
             <label className="block text-label-lg text-text mb-1">

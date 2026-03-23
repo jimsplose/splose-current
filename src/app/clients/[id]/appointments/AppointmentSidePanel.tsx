@@ -193,12 +193,13 @@ export default function AppointmentSidePanel({
                         )}
                       </Td>
                       <Td align="right">
-                        <button
-                          className="text-text-secondary hover:text-text"
+                        <Button
+                          variant="ghost"
+                          size="sm"
                           onClick={(e) => e.stopPropagation()}
                         >
                           <MoreHorizontal className="h-5 w-5" />
-                        </button>
+                        </Button>
                       </Td>
                     </tr>
                   );
@@ -223,12 +224,14 @@ export default function AppointmentSidePanel({
                 ({selectedAppointment.type})
               </p>
             </div>
-            <button
+            <Button
+              variant="icon"
+              size="sm"
               onClick={() => setSelectedAppointment(null)}
-              className="ml-2 shrink-0 rounded p-1 text-text-secondary hover:bg-gray-100 hover:text-text"
+              className="ml-2 shrink-0"
             >
               <X className="h-5 w-5" />
-            </button>
+            </Button>
           </div>
 
           {/* Details */}

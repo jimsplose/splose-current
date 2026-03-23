@@ -464,13 +464,15 @@ function WaitlistPageInner() {
               Learn
             </Button>
             {/* Map / List toggle */}
-            <button
+            <Button
+              variant="secondary"
+              size="sm"
               onClick={() => setViewMode(viewMode === "list" ? "map" : "list")}
-              className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-label-lg transition-colors ${
+              className={
                 viewMode === "map"
                   ? "border-primary bg-primary/5 text-primary"
-                  : "border-border bg-white text-text hover:bg-gray-50"
-              }`}
+                  : ""
+              }
             >
               {viewMode === "list" ? (
                 <>
@@ -483,7 +485,7 @@ function WaitlistPageInner() {
                   List
                 </>
               )}
-            </button>
+            </Button>
             <Button variant="secondary" size="md">
               <Plus className="h-4 w-4" />
               Add client

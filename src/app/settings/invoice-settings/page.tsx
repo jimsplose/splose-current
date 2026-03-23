@@ -14,6 +14,7 @@ import {
   FormSelect,
   Pagination,
   Toggle,
+  Checkbox,
   Dropdown,
   DropdownTriggerButton,
   Modal,
@@ -185,12 +186,10 @@ export default function InvoiceSettingsPage() {
             ]}
             defaultValue="on"
           />
-          <label className="flex items-start gap-2 text-body-md text-text">
-            <input type="checkbox" className="mt-0.5 rounded border-border" defaultChecked />
-            <span>
-              Apply to all existing clients and override the current invoice reminder preferences.
-            </span>
-          </label>
+          <Checkbox
+            label="Apply to all existing clients and override the current invoice reminder preferences."
+            defaultChecked
+          />
           <FormInput
             label="Don't send reminders for amounts owing on an invoice under"
             defaultValue=""

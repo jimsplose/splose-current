@@ -35,18 +35,21 @@ export default function SMSSettingsPage() {
         <h2 className="mb-4 text-heading-lg text-text">Recharge credits</h2>
         <div className="mb-4 flex gap-3">
           {creditOptions.map((option) => (
-            <button
+            <Button
               key={option.credits}
+              variant="secondary"
               onClick={() => setSelectedCredits(option.credits)}
-              className={`rounded-lg border px-5 py-3 text-center transition-colors ${
+              className={`px-5 py-3 text-center ${
                 selectedCredits === option.credits
                   ? "border-primary bg-purple-50 text-primary"
-                  : "border-border bg-white text-text hover:border-gray-300"
+                  : "hover:border-gray-300"
               }`}
             >
-              <p className="text-label-lg">{option.credits} credits</p>
-              <p className="text-body-md text-text-secondary">{option.price}</p>
-            </button>
+              <div>
+                <p className="text-label-lg">{option.credits} credits</p>
+                <p className="text-body-md text-text-secondary">{option.price}</p>
+              </div>
+            </Button>
           ))}
         </div>
         <Button
