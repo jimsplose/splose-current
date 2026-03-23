@@ -300,27 +300,27 @@ export default function CalendarView({
               Today
             </Button>
             <div className="flex items-center gap-1">
-              <button className="rounded p-1 hover:bg-gray-100">
+              <Button variant="icon" size="sm">
                 <ChevronLeft className="h-4 w-4" />
-              </button>
-              <button className="rounded p-1 hover:bg-gray-100">
+              </Button>
+              <Button variant="icon" size="sm">
                 <ChevronRight className="h-4 w-4" />
-              </button>
+              </Button>
             </div>
             <h2 className="text-display-md text-text">{monthYear}</h2>
             <div className="ml-2 flex items-center gap-2 text-text-secondary">
-              <button className="rounded p-1 hover:bg-gray-100">
+              <Button variant="icon" size="sm">
                 <Filter className="h-4 w-4" />
-              </button>
-              <button className="rounded p-1 hover:bg-gray-100">
+              </Button>
+              <Button variant="icon" size="sm">
                 <Settings2 className="h-4 w-4" />
-              </button>
-              <button className="rounded p-1 hover:bg-gray-100">
+              </Button>
+              <Button variant="icon" size="sm">
                 <LayoutGrid className="h-4 w-4" />
-              </button>
-              <button className="rounded p-1 hover:bg-gray-100">
+              </Button>
+              <Button variant="icon" size="sm">
                 <MapPin className="h-4 w-4" />
-              </button>
+              </Button>
             </div>
           </div>
           <div className="flex shrink-0 items-center gap-2">
@@ -1280,10 +1280,10 @@ function AppointmentSidePanel({
           </div>
 
           <div className="mt-3 text-center">
-            <button className="flex items-center justify-center gap-1 text-body-md text-primary hover:underline mx-auto">
+            <Button variant="link" className="mx-auto">
               <History className="h-3.5 w-3.5" />
               View change log
-            </button>
+            </Button>
           </div>
         </div>
       </div>

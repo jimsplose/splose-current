@@ -123,28 +123,28 @@ export default function SettingsDetailsPage() {
             onChange={(v) => setEmailSigTab(v as "Business" | "User")}
           />
           <div className="rounded-t-lg border border-border bg-gray-50 px-2 py-1.5 flex items-center gap-1">
-            <button className="rounded px-2 py-1 text-body-md-strong text-text hover:bg-gray-200">B</button>
-            <button className="rounded px-2 py-1 text-body-md italic text-text hover:bg-gray-200">I</button>
+            <Button variant="toolbar" className="font-bold">B</Button>
+            <Button variant="toolbar" className="italic">I</Button>
             <div className="mx-1 h-4 w-px bg-gray-300" />
-            <button className="rounded px-2 py-1 text-label-md text-primary hover:bg-gray-200">AI</button>
+            <Button variant="toolbar" className="text-primary">AI</Button>
             <div className="mx-1 h-4 w-px bg-gray-300" />
-            <button className="rounded px-2 py-1 text-body-md text-text hover:bg-gray-200">
+            <Button variant="toolbar">
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h18v18H3V3zm0 6h18M3 15h18M9 3v18M15 3v18" /></svg>
-            </button>
-            <button className="rounded px-2 py-1 text-body-md text-text hover:bg-gray-200">
+            </Button>
+            <Button variant="toolbar">
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
-            </button>
-            <button className="rounded px-2 py-1 text-body-md text-text hover:bg-gray-200">+</button>
+            </Button>
+            <Button variant="toolbar">+</Button>
             <div className="mx-1 h-4 w-px bg-gray-300" />
-            <button className="rounded px-2 py-1 text-body-md text-text hover:bg-gray-200">
+            <Button variant="toolbar">
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h10M4 18h16" /></svg>
-            </button>
-            <button className="rounded px-2 py-1 text-body-md text-text hover:bg-gray-200">
+            </Button>
+            <Button variant="toolbar">
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M7 12h10M4 18h16" /></svg>
-            </button>
-            <button className="rounded px-2 py-1 text-body-md text-text hover:bg-gray-200">
+            </Button>
+            <Button variant="toolbar">
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
-            </button>
+            </Button>
           </div>
           <div className="rounded-b-lg border border-t-0 border-border bg-white p-4 min-h-[200px] text-body-md text-text relative">
             <p className="line-through">Warm Regards,</p>

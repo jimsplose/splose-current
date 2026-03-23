@@ -46,9 +46,9 @@ export default async function ClientLettersPage({ params }: { params: Promise<{ 
                 <Td className="text-text-secondary">{letter.createdAt}</Td>
                 <Td className="text-text-secondary">{letter.lastUpdated}</Td>
                 <Td align="right">
-                  <button className="text-text-secondary hover:text-text">
+                  <Button variant="ghost" size="sm" className="text-text-secondary">
                     <MoreHorizontal className="h-5 w-5" />
-                  </button>
+                  </Button>
                 </Td>
               </tr>
             ))}

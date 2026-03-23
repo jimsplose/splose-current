@@ -82,7 +82,7 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
                     <div className="flex flex-col items-center">
                       <div className="mb-3 text-4xl">📋💵</div>
                       <p className="text-label-lg text-text">No invoices</p>
-                      <button className="mt-1 text-sm text-primary hover:underline">Add new invoice</button>
+                      <Button variant="link" size="sm" className="mt-1">Add new invoice</Button>
                     </div>
                   </td>
                 </tr>

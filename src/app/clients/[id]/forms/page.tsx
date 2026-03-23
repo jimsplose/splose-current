@@ -104,7 +104,7 @@ export default function ClientFormsPage() {
                 <Td className="text-text-secondary">{form.completed}</Td>
                 <Td className="text-primary">{form.relatedAppt}</Td>
                 <Td align="right">
-                  <button className="text-text-secondary hover:text-text">...</button>
+                  <Button variant="ghost" size="sm" className="text-text-secondary">...</Button>
                 </Td>
               </tr>
             ))}

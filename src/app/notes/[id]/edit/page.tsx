@@ -339,49 +339,49 @@ export default function EditProgressNotePage() {
 
             {/* Rich text toolbar */}
             <div className="mb-4 flex flex-wrap items-center gap-1 rounded-lg border border-border bg-white px-2 py-1.5 text-text-secondary">
-              <button className="flex items-center gap-0.5 rounded px-2 py-1 text-xs hover:bg-gray-100">
+              <Button variant="toolbar" size="sm" className="flex items-center gap-0.5 text-xs">
                 Arial
                 <ChevronDown className="h-3 w-3" />
-              </button>
-              <button className="flex items-center gap-0.5 rounded px-2 py-1 hover:bg-gray-100">
+              </Button>
+              <Button variant="toolbar" size="sm" className="flex items-center gap-0.5">
                 <Type className="h-4 w-4" />
                 <ChevronDown className="h-3 w-3" />
-              </button>
+              </Button>
               <span className="h-4 w-px bg-border" />
-              <button className="rounded p-1.5 hover:bg-gray-100">
+              <Button variant="icon">
                 <Bold className="h-4 w-4" />
-              </button>
-              <button className="rounded p-1.5 hover:bg-gray-100">
+              </Button>
+              <Button variant="icon">
                 <Italic className="h-4 w-4" />
-              </button>
-              <button className="rounded p-1.5 hover:bg-gray-100">
+              </Button>
+              <Button variant="icon">
                 <Underline className="h-4 w-4" />
-              </button>
-              <button className="rounded p-1.5 hover:bg-gray-100">
+              </Button>
+              <Button variant="icon">
                 <Strikethrough className="h-4 w-4" />
-              </button>
+              </Button>
               <span className="h-4 w-px bg-border" />
-              <button className="rounded p-1.5 hover:bg-gray-100">
+              <Button variant="icon">
                 <Link2 className="h-4 w-4" />
-              </button>
-              <button className="rounded p-1.5 hover:bg-gray-100">
+              </Button>
+              <Button variant="icon">
                 <Image className="h-4 w-4" />
-              </button>
-              <button className="rounded p-1.5 hover:bg-gray-100">
+              </Button>
+              <Button variant="icon">
                 <Table className="h-4 w-4" />
-              </button>
-              <button className="rounded p-1.5 hover:bg-gray-100">
+              </Button>
+              <Button variant="icon">
                 <List className="h-4 w-4" />
-              </button>
-              <button className="rounded p-1.5 hover:bg-gray-100">
+              </Button>
+              <Button variant="icon">
                 <ListOrdered className="h-4 w-4" />
-              </button>
-              <button className="rounded p-1.5 hover:bg-gray-100">
+              </Button>
+              <Button variant="icon">
                 <AlignLeft className="h-4 w-4" />
-              </button>
-              <button className="rounded p-1.5 hover:bg-gray-100">
+              </Button>
+              <Button variant="icon">
                 <Palette className="h-4 w-4" />
-              </button>
+              </Button>
               <span className="flex-1" />
               <button
                 onClick={generateAll}
@@ -390,9 +390,9 @@ export default function EditProgressNotePage() {
                 <Sparkles className="h-3.5 w-3.5" />
                 Generate
               </button>
-              <button className="flex items-center justify-center rounded-full bg-primary p-1 text-white hover:bg-primary-dark">
+              <Button variant="primary" round size="sm">
                 <Plus className="h-4 w-4" />
-              </button>
+              </Button>
             </div>
 
             {/* Syncing notice */}

@@ -212,7 +212,7 @@ export default function ProductsPage() {
                                   </td>
                                   <td className="px-4 py-2 text-sm text-text-secondary">{variant.unit}</td>
                                   <td className="px-4 py-2 text-sm">
-                                    <button className="text-primary hover:underline">Manage Stock</button>
+                                    <Button variant="link">Manage Stock</Button>
                                   </td>
                                 </tr>
                               ))}

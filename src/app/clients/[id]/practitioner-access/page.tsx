@@ -1,5 +1,5 @@
 import { ArrowUpDown, Filter } from "lucide-react";
-import { Card, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
+import { Button, Card, TableHead, Th, TableBody, Td, Pagination } from "@/components/ds";
 
 export default function ClientPractitionerAccessPage() {
   const mockPractitioners = [
@@ -65,7 +65,7 @@ export default function ClientPractitionerAccessPage() {
                 <Td className="text-text-secondary">{p.group}</Td>
                 <Td className="text-text-secondary">{p.status}</Td>
                 <Td align="right">
-                  <button className="text-text-secondary hover:text-text">...</button>
+                  <Button variant="ghost" size="sm" className="text-text-secondary">...</Button>
                 </Td>
               </tr>
             ))}

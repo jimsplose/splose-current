@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Send, Bold, Italic, Underline, Type, Grid3X3, Link2, Minus, Image, AlignLeft, AlignCenter, AlignRight, ListOrdered, Paperclip, Sparkles } from "lucide-react";
+import { Send, Bold, Italic, Underline, Type, Grid3X3, Link2, Minus, Image, AlignLeft, AlignCenter, AlignRight, ListOrdered, Paperclip, Sparkles, X } from "lucide-react";
 import { Button, FormSelect, FormInput } from "@/components/ds";
 import Modal from "@/components/ds/Modal";
 
@@ -113,14 +113,13 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
               className="inline-flex items-center gap-1 rounded bg-gray-100 px-2 py-0.5 text-sm text-text"
             >
               {email}
-              <button
+              <Button
+                variant="icon"
+                size="sm"
                 onClick={() => handleRemoveEmail(email)}
-                className="text-text-secondary hover:text-text"
               >
-                <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+                <X className="h-3 w-3" />
+              </Button>
             </span>
           ))}
           <input

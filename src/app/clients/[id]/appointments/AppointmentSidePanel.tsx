@@ -326,7 +326,7 @@ export default function AppointmentSidePanel({
             {/* Create Zoom meeting */}
             <div className="flex items-center gap-3">
               <Video className="h-4 w-4 shrink-0 text-text-secondary" />
-              <button className="text-primary hover:underline">Create Zoom meeting</button>
+              <Button variant="link">Create Zoom meeting</Button>
             </div>
 
             <hr className="border-border" />
@@ -334,12 +334,12 @@ export default function AppointmentSidePanel({
             {/* Invoice actions */}
             <div className="flex items-center gap-3">
               <FileText className="h-4 w-4 shrink-0 text-text-secondary" />
-              <button className="text-primary hover:underline">Add invoice</button>
+              <Button variant="link">Add invoice</Button>
             </div>
             <div className="flex items-center gap-3 pl-7">
-              <button className="text-primary hover:underline">Mark as</button>
+              <Button variant="link">Mark as</Button>
               <span className="text-text-secondary">and</span>
-              <button className="text-primary hover:underline">Do not invoice?</button>
+              <Button variant="link">Do not invoice?</Button>
             </div>
 
             <hr className="border-border" />
@@ -372,12 +372,12 @@ export default function AppointmentSidePanel({
                   fill="#EA4335"
                 />
               </svg>
-              <button className="text-primary hover:underline">View in Google</button>
+              <Button variant="link">View in Google</Button>
             </div>
 
             <div className="flex items-center gap-3">
               <Video className="h-4 w-4 shrink-0 text-text-secondary" />
-              <button className="text-primary hover:underline">Join with Google Meet</button>
+              <Button variant="link">Join with Google Meet</Button>
             </div>
 
             <div className="flex items-center gap-3">
@@ -418,7 +418,7 @@ export default function AppointmentSidePanel({
               </Button>
             </div>
             <div className="mt-3">
-              <button className="text-xs text-primary hover:underline">View change log</button>
+              <Button variant="link" size="sm">View change log</Button>
             </div>
           </div>
         </aside>

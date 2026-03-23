@@ -78,9 +78,9 @@ function NewProgressNotePageInner() {
       {/* Header bar */}
       <Navbar backHref="/notes" title="New progress note" badge={<Badge variant="yellow">Unsaved</Badge>}>
         {/* Add new note button */}
-        <button className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500 text-white transition-colors hover:bg-green-600">
+        <Button variant="primary" round size="sm" className="bg-green-500 border-green-500 hover:bg-green-600">
           <span className="text-heading-lg leading-none">+</span>
-        </button>
+        </Button>
         {/* View toggle */}
         <Filter
           items={[

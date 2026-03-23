@@ -167,33 +167,33 @@ export default async function Dashboard() {
             Type a message...
           </div>
           <div className="flex items-center gap-0.5 text-text-secondary">
-            <button className="rounded p-1 hover:bg-gray-100 text-body-md-strong" title="Bold">B</button>
-            <button className="rounded p-1 hover:bg-gray-100 text-body-md italic" title="Italic">I</button>
-            <button className="rounded p-1 hover:bg-gray-100 text-body-md underline" title="Underline">U</button>
-            <button className="rounded p-1 hover:bg-gray-100 text-body-md" title="Text size">A<sub className="text-caption-sm">1</sub></button>
+            <Button variant="icon" size="sm" className="text-body-md-strong" title="Bold">B</Button>
+            <Button variant="icon" size="sm" className="text-body-md italic" title="Italic">I</Button>
+            <Button variant="icon" size="sm" className="text-body-md underline" title="Underline">U</Button>
+            <Button variant="icon" size="sm" className="text-body-md" title="Text size">A<sub className="text-caption-sm">1</sub></Button>
             <span className="mx-0.5 h-4 w-px bg-border" />
-            <button className="rounded p-1 hover:bg-gray-100 text-body-md" title="Table">
+            <Button variant="icon" size="sm" title="Table">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="12" height="12" rx="1"/><line x1="2" y1="6" x2="14" y2="6"/><line x1="2" y1="10" x2="14" y2="10"/><line x1="6" y1="2" x2="6" y2="14"/><line x1="10" y1="2" x2="10" y2="14"/></svg>
-            </button>
-            <button className="rounded p-1 hover:bg-gray-100 text-body-md" title="Link">
+            </Button>
+            <Button variant="icon" size="sm" title="Link">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6.5 9.5a3 3 0 004.2.1l2-2a3 3 0 00-4.2-4.3l-1.1 1.1"/><path d="M9.5 6.5a3 3 0 00-4.2-.1l-2 2a3 3 0 004.2 4.3l1.1-1.1"/></svg>
-            </button>
-            <button className="rounded p-1 hover:bg-gray-100 text-body-md" title="Image">
+            </Button>
+            <Button variant="icon" size="sm" title="Image">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="12" height="12" rx="1"/><circle cx="5.5" cy="5.5" r="1"/><path d="M14 10l-3-3-7 7"/></svg>
-            </button>
-            <button className="rounded p-1 hover:bg-gray-100 text-body-md" title="Emoji">
+            </Button>
+            <Button variant="icon" size="sm" title="Emoji">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="8" cy="8" r="6"/><path d="M5.5 6.5h.01M10.5 6.5h.01"/><path d="M5.5 9.5a3.5 3.5 0 005 0"/></svg>
-            </button>
-            <button className="rounded p-1 hover:bg-gray-100 text-body-md" title="Align">
+            </Button>
+            <Button variant="icon" size="sm" title="Align">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="2" y1="3" x2="14" y2="3"/><line x1="2" y1="6" x2="10" y2="6"/><line x1="2" y1="9" x2="14" y2="9"/><line x1="2" y1="12" x2="10" y2="12"/></svg>
-            </button>
-            <button className="rounded p-1 hover:bg-gray-100 text-body-md" title="List">
+            </Button>
+            <Button variant="icon" size="sm" title="List">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="5" y1="3" x2="14" y2="3"/><line x1="5" y1="8" x2="14" y2="8"/><line x1="5" y1="13" x2="14" y2="13"/><circle cx="2.5" cy="3" r="0.75" fill="currentColor"/><circle cx="2.5" cy="8" r="0.75" fill="currentColor"/><circle cx="2.5" cy="13" r="0.75" fill="currentColor"/></svg>
-            </button>
+            </Button>
             <span className="mx-0.5 h-4 w-px bg-border" />
-            <button className="rounded p-1 hover:bg-gray-100 text-body-md" title="More">
+            <Button variant="icon" size="sm" title="More">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/></svg>
-            </button>
+            </Button>
             <div className="flex-1" />
             <span className="mr-1 cursor-pointer rounded px-1.5 py-0.5 text-label-md text-text-secondary hover:bg-gray-100">GIF</span>
             <Button variant="primary" size="sm" className="text-body-md">
@@ -307,7 +307,7 @@ export default async function Dashboard() {
                 </div>
               ))
             )}
-            <button className="mt-1 text-body-md text-primary hover:underline">Load more</button>
+            <Button variant="link" className="mt-1">Load more</Button>
           </div>
         </div>
 
@@ -331,7 +331,7 @@ export default async function Dashboard() {
                 </span>
               </div>
             ))}
-            <button className="mt-1 text-body-md text-primary hover:underline">Load more</button>
+            <Button variant="link" className="mt-1">Load more</Button>
           </div>
         </div>
       </div>
