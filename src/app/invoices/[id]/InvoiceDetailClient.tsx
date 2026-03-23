@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import StatusBadge from "@/components/StatusBadge";
-import { Button, FormInput, FormSelect } from "@/components/ds";
+import { Button, FormInput, FormSelect, Badge, statusVariant } from "@/components/ds";
 import Modal from "@/components/ds/Modal";
 
 interface InvoiceData {
@@ -89,7 +88,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
       <div className="flex items-center justify-between border-b border-border px-6 py-3">
         <div className="flex items-center gap-3">
           <h1 className="text-display-md text-text">{invoice.invoiceNumber}</h1>
-          <StatusBadge status={invoice.status} />
+          <Badge variant={statusVariant(invoice.status)}>{invoice.status}</Badge>
         </div>
         <div className="flex items-center gap-2">
           <span className="rounded-lg bg-green-100 px-3 py-1.5 text-label-lg text-green-700">

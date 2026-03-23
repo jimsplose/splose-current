@@ -27,7 +27,7 @@ import {
   AlertTriangle,
   Info,
 } from "lucide-react";
-import { Button, Badge, FormInput, FormSelect, Modal, Toggle, Avatar } from "@/components/ds";
+import { Button, Badge, FormInput, FormSelect, Modal, Toggle, Avatar, ColorDot } from "@/components/ds";
 
 type Appointment = {
   id: string;
@@ -455,7 +455,7 @@ export default function CalendarView({
                     className={`border-r border-border px-1 py-1.5 text-center last:border-r-0`}
                   >
                     <div className="flex items-center justify-center gap-1">
-                      <div className="h-2 w-2 shrink-0 rounded-full" style={{ backgroundColor: p.color }} />
+                      <ColorDot color={p.color} size="xs" />
                       <span className="truncate text-label-md text-text">
                         {p.name.split(" ")[0]} {p.name.split(" ")[1]?.[0]}.
                       </span>
@@ -1266,7 +1266,7 @@ function AppointmentSidePanel({
           {/* Header */}
           <div className="mb-4 flex items-start justify-between">
             <div className="flex items-center gap-2">
-              <div className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: appt.practitionerColor }} />
+              <ColorDot color={appt.practitionerColor} size="sm" />
               <span className="text-heading-sm text-text">
                 {appt.clientName} ({appt.type})
               </span>

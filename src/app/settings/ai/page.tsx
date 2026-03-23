@@ -2,61 +2,7 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import Link from "next/link";
 import { Button, FormInput, Tab, Toggle, DataTable, TableHead, Th, TableBody, Td, Pagination, Dropdown, Modal, EmptyState } from "@/components/ds";
-
-const sidebarSections = [
-  {
-    title: "Workspace",
-    items: [
-      { name: "Details", href: "/settings" },
-      { name: "Integrations", href: "/settings" },
-      { name: "Subscription", href: "/settings" },
-      { name: "SMS settings", href: "/settings" },
-    ],
-  },
-  {
-    title: "Automation",
-    items: [
-      { name: "Forms", href: "/settings" },
-      { name: "splose AI", href: "/settings/ai" },
-    ],
-  },
-  {
-    title: "Business",
-    items: [
-      { name: "Locations", href: "/settings" },
-      { name: "Custom fields", href: "/settings" },
-      { name: "Rooms/Resources", href: "/settings" },
-      { name: "Services", href: "/settings" },
-      { name: "Busy times", href: "/settings" },
-      { name: "Cancel/Reschedule", href: "/settings" },
-      { name: "Online bookings", href: "/settings", badge: "New" },
-      { name: "Communication types", href: "/settings" },
-      { name: "Tags", href: "/settings" },
-      { name: "Referral types", href: "/settings" },
-    ],
-  },
-  {
-    title: "Team",
-    items: [
-      { name: "Users", href: "/settings" },
-      { name: "User groups", href: "/settings" },
-      { name: "Permissions & Roles", href: "/settings" },
-      { name: "Security", href: "/settings" },
-    ],
-  },
-  {
-    title: "Templates",
-    items: [
-      { name: "Appointments", href: "/settings" },
-      { name: "Emails", href: "/settings" },
-      { name: "Progress notes", href: "/settings" },
-      { name: "Letters", href: "/settings" },
-      { name: "Body charts", href: "/settings" },
-    ],
-  },
-];
 
 const aiBlocks = [
   { name: "Subjective Assessment", tag: "SOAP", createdBy: "Jim Yencken", lastModified: "12 Mar 2026" },
@@ -105,39 +51,7 @@ function SettingsAIPageInner() {
   }, [forcedState]);
 
   return (
-    <div className="flex min-h-[calc(100vh-3rem)]">
-      {/* Left sidebar */}
-      <aside className="w-64 shrink-0 overflow-y-auto border-r border-border bg-white p-4">
-        {sidebarSections.map((section) => (
-          <div key={section.title} className="mb-4">
-            <h3 className="mb-1 text-label-sm text-text uppercase">{section.title}</h3>
-            <ul className="space-y-0.5">
-              {section.items.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className={`block w-full rounded px-3 py-1.5 text-left text-body-md transition-colors hover:bg-purple-50 hover:text-primary ${
-                      item.name === "splose AI"
-                        ? "border-l-2 border-primary bg-purple-50 font-medium text-primary"
-                        : "text-text-secondary"
-                    }`}
-                  >
-                    {item.name}
-                    {item.badge && (
-                      <span className="ml-2 rounded bg-primary px-1.5 py-0.5 text-caption-sm text-white">
-                        {item.badge}
-                      </span>
-                    )}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </aside>
-
-      {/* Main content */}
-      <div className="flex-1 p-6">
+    <div className="flex-1 p-6">
         <div className="mb-6 flex items-center justify-between">
           <h1 className="text-display-lg text-text">splose AI</h1>
           <div className="flex items-center gap-2">
@@ -163,7 +77,6 @@ function SettingsAIPageInner() {
         {activeTab === "saved-prompts" && <SavedPromptsTab />}
         {activeTab === "ai-block-library" && <AIBlockLibraryTab />}
       </div>
-    </div>
   );
 }
 

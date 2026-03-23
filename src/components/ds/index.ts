@@ -29,3 +29,5 @@ export type { ColumnDef, SettingsListPageProps } from "./SettingsListPage";
 export { default as ColorDot } from "./ColorDot";
 export { default as OnOffBadge } from "./OnOffBadge";
 export { default as FormColorPicker } from "./FormColorPicker";
+export { default as Spinner } from "./Spinner";
+export { default as HintIcon } from "./HintIcon";

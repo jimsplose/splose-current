@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { Plus, Mail, Phone } from "lucide-react";
-import { Badge, Button, PageHeader } from "@/components/ds";
+import { Avatar, Badge, Button, Card, PageHeader } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -25,20 +25,13 @@ export default async function PractitionersPage() {
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {practitioners.map((p) => (
-          <div
+          <Card
             key={p.id}
-            className="cursor-pointer rounded-xl border border-border bg-surface p-6 transition-shadow duration-150 hover:border-primary/30 hover:shadow-md"
+            padding="none"
+            className="cursor-pointer p-6 transition-shadow duration-150 hover:border-primary/30 hover:shadow-md"
           >
             <div className="flex items-center gap-4">
-              <div
-                className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-heading-lg text-white"
-                style={{ backgroundColor: p.color }}
-              >
-                {p.name
-                  .split(" ")
-                  .map((n: string) => n[0])
-                  .join("")}
-              </div>
+              <Avatar name={p.name} color={p.color} size="xl" />
               <div className="min-w-0">
                 <h3 className="truncate font-semibold text-text">{p.name}</h3>
                 <p className="truncate text-sm text-text-secondary">{p.role}</p>
@@ -73,7 +66,7 @@ export default async function PractitionersPage() {
                 <p className="text-xs text-text-secondary">Notes</p>
               </div>
             </div>
-          </div>
+          </Card>
         ))}
       </div>
     </div>

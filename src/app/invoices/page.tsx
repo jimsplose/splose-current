@@ -1,5 +1,4 @@
-import { PageHeader, Button, Pagination, SearchBar } from "@/components/ds";
-import StatusBadge from "@/components/StatusBadge";
+import { PageHeader, Button, Pagination, SearchBar, Badge, statusVariant } from "@/components/ds";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { Plus, ArrowUpDown, Filter } from "lucide-react";
@@ -104,10 +103,10 @@ export default async function InvoicesPage() {
                       {outstanding.toFixed(2)}
                     </td>
                     <td className="hidden px-4 py-3 sm:table-cell">
-                      <StatusBadge status={inv.status} />
+                      <Badge variant={statusVariant(inv.status)}>{inv.status}</Badge>
                     </td>
                     <td className="hidden px-4 py-3 lg:table-cell">
-                      {inv.status === "Sent" && <StatusBadge status="Sent" />}
+                      {inv.status === "Sent" && <Badge variant={statusVariant("Sent")}>Sent</Badge>}
                     </td>
                   </tr>
                 );

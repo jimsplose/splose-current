@@ -35,15 +35,18 @@ export function statusVariant(status: string): BadgeVariant {
     Final: "green",
     Completed: "green",
     Upcoming: "green",
+    Scheduled: "green",
     Draft: "blue",
     Sent: "blue",
     Outstanding: "yellow",
     Pending: "yellow",
+    "No Show": "yellow",
     Overdue: "red",
     Failed: "red",
     Cancelled: "red",
     Expired: "red",
     Archived: "orange",
+    "Do not invoice": "gray",
   };
   return map[status] ?? "gray";
 }

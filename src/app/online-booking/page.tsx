@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { ChevronLeft, ChevronRight, MapPin, FileText, Clock, Calendar, User } from "lucide-react";
-import { Button, FormInput, FormSelect } from "@/components/ds";
+import { Avatar, Button, FormInput, FormSelect } from "@/components/ds";
 
 const practitioners = [
   { id: "1", name: "Hrishikesh Koli", initials: "HK", role: "Prac ti sion", color: "#7c3aed", tagline: "HEY HEY HEY" },
@@ -116,12 +116,7 @@ function OnlineBookingPageInner() {
                                 {prac.name[0]}
                               </div>
                             ) : (
-                              <div
-                                className="flex h-10 w-10 items-center justify-center rounded-full text-label-md text-white"
-                                style={{ backgroundColor: prac.color }}
-                              >
-                                {prac.initials}
-                              </div>
+                              <Avatar name={prac.name} color={prac.color} size="md" />
                             )}
                             <div>
                               <div className="text-heading-sm text-text">{prac.name}</div>

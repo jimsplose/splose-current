@@ -18,7 +18,6 @@ import {
   MapPin,
   StickyNote,
 } from "lucide-react";
-import StatusBadge from "@/components/StatusBadge";
 import {
   Button,
   PageHeader,
@@ -168,7 +167,7 @@ export default function AppointmentSidePanel({
                           {appt.status === "Cancelled" && (
                             <Badge variant={statusVariant("Cancelled")}>Cancelled</Badge>
                           )}
-                          {appt.status === "No Show" && <StatusBadge status={appt.status} />}
+                          {appt.status === "No Show" && <Badge variant={statusVariant(appt.status)}>{appt.status}</Badge>}
                         </div>
                       </Td>
                       <Td className="text-text-secondary">East Clinics</Td>

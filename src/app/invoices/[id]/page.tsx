@@ -1,7 +1,6 @@
-import StatusBadge from "@/components/StatusBadge";
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import { Button, Badge } from "@/components/ds";
+import { Button, Badge, statusVariant } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -29,7 +28,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
       <div className="flex items-center justify-between border-b border-border bg-white px-6 py-3">
         <div className="flex items-center gap-3">
           <h1 className="text-heading-lg text-text">{invoice.invoiceNumber}</h1>
-          <StatusBadge status={invoice.status} />
+          <Badge variant={statusVariant(invoice.status)}>{invoice.status}</Badge>
           {creditBalance > 0 && <Badge variant="green">Credit balance: ${creditBalance.toFixed(2)}</Badge>}
         </div>
         <div className="flex items-center gap-2">

@@ -11,6 +11,8 @@ import Pagination from "@/components/ds/Pagination";
 import Badge, { statusVariant } from "@/components/ds/Badge";
 import FormInput from "@/components/ds/FormInput";
 import FormSelect from "@/components/ds/FormSelect";
+import Tab from "@/components/ds/Tab";
+import Card from "@/components/ds/Card";
 
 const pages = [
   { name: "Dashboard", href: "/", desc: "Messages + Income chart + Notes + Forms" },
@@ -51,26 +53,14 @@ export default function EngPage() {
         </p>
       </div>
 
-      <div className="mb-8 flex gap-4 border-b border-border">
-        <button
-          onClick={() => setTab("components")}
-          className={`border-b-2 pb-2 text-label-lg ${
-            tab === "components"
-              ? "border-primary text-primary"
-              : "border-transparent text-text-secondary hover:text-text"
-          }`}
-        >
-          Components
-        </button>
-        <button
-          onClick={() => setTab("pages")}
-          className={`border-b-2 pb-2 text-label-lg ${
-            tab === "pages" ? "border-primary text-primary" : "border-transparent text-text-secondary hover:text-text"
-          }`}
-        >
-          Pages ({pages.length})
-        </button>
-      </div>
+      <Tab
+        items={[
+          { label: "Components", value: "components" },
+          { label: `Pages (${pages.length})`, value: "pages" },
+        ]}
+        value={tab}
+        onChange={(v) => setTab(v as "components" | "pages")}
+      />
 
       {tab === "components" && <ComponentShowcase />}
       {tab === "pages" && <PageDirectory />}
@@ -171,13 +161,13 @@ function ComponentShowcase() {
 
       {/* PageHeader */}
       <Section title="PageHeader">
-        <div className="mb-3 rounded-lg border border-border p-4">
+        <Card padding="md" className="mb-3">
           <PageHeader title="Clients">
             <Button variant="secondary">
               <Plus className="h-4 w-4" /> New client
             </Button>
           </PageHeader>
-        </div>
+        </Card>
         <pre className="overflow-x-auto rounded bg-gray-50 p-3 text-xs text-text-secondary">
           {`import { PageHeader, Button } from "@/components/ds";
 
@@ -189,9 +179,9 @@ function ComponentShowcase() {
 
       {/* SearchBar */}
       <Section title="SearchBar">
-        <div className="mb-3 rounded-lg border border-border p-4">
+        <Card padding="md" className="mb-3">
           <SearchBar placeholder="Search for name, phone number, and email" />
-        </div>
+        </Card>
         <pre className="overflow-x-auto rounded bg-gray-50 p-3 text-xs text-text-secondary">
           {`import { SearchBar } from "@/components/ds";
 
@@ -255,7 +245,7 @@ function ComponentShowcase() {
 
       {/* Form Inputs */}
       <Section title="FormInput + FormSelect">
-        <div className="mb-3 rounded-lg border border-border p-4">
+        <Card padding="md" className="mb-3">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <FormInput label="Email" type="email" placeholder="name@example.com" />
             <FormInput label="Password" type="password" placeholder="Enter password" />
@@ -269,7 +259,7 @@ function ComponentShowcase() {
               ]}
             />
           </div>
-        </div>
+        </Card>
         <pre className="overflow-x-auto rounded bg-gray-50 p-3 text-xs text-text-secondary">
           {`import { FormInput, FormSelect } from "@/components/ds";
 

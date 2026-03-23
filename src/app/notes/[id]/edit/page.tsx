@@ -28,7 +28,7 @@ import {
   Palette,
   Type,
 } from "lucide-react";
-import { Button, Badge, FormSelect, EmptyState, Navbar, Filter } from "@/components/ds";
+import { Button, Badge, FormSelect, EmptyState, Navbar, Filter, Spinner } from "@/components/ds";
 
 type NoteData = {
   id: string;
@@ -282,7 +282,7 @@ export default function EditProgressNotePage() {
   if (loading) {
     return (
       <div className="flex h-[calc(100vh-3rem)] items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+        <Spinner size="lg" />
       </div>
     );
   }
@@ -475,7 +475,7 @@ export default function EditProgressNotePage() {
                       <div className="border-t border-purple-200 px-4 py-3">
                         {section.generating ? (
                           <div className="flex items-center gap-2 py-4">
-                            <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                            <Spinner size="sm" />
                             <span className="text-sm text-text-secondary">
                               Thinking<span className="animate-pulse">...</span>
                             </span>

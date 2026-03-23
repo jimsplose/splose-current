@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button, FormInput, FormSelect, Toggle, Tab, Modal, Dropdown } from "@/components/ds";
+import { Button, FormInput, FormSelect, Toggle, Tab, Modal, Dropdown, HintIcon } from "@/components/ds";
 
 export default function SettingsDetailsPage() {
   const [emailSigTab, setEmailSigTab] = useState<"Business" | "User">("Business");
@@ -27,7 +27,7 @@ export default function SettingsDetailsPage() {
             <div>
               <label className="block text-label-lg text-text mb-1">
                 Workspace URL{" "}
-                <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-caption-sm text-gray-400 cursor-help ml-0.5">i</span>
+                <HintIcon />
               </label>
               <FormInput type="text" defaultValue="acme.splose.com" />
             </div>
@@ -59,7 +59,7 @@ export default function SettingsDetailsPage() {
           <div>
             <label className="block text-label-lg text-text mb-1">
               Patient terminology{" "}
-              <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-caption-sm text-gray-400 cursor-help ml-0.5">i</span>
+              <HintIcon />
               <span className="text-red-500">*</span>
             </label>
             <FormSelect options={[{ value: "Client", label: "Client" }, { value: "Patient", label: "Patient" }, { value: "Participant", label: "Participant" }]} />
@@ -91,7 +91,7 @@ export default function SettingsDetailsPage() {
           <div>
             <label className="block text-label-lg text-text mb-1">
               Default appointment communication preferences{" "}
-              <span className="inline-flex items-center justify-center h-4 w-4 rounded-full border border-gray-300 text-caption-sm text-gray-400 cursor-help ml-0.5">i</span>
+              <HintIcon />
               <span className="text-red-500">*</span>
             </label>
             <FormSelect options={[{ value: "SMS & Email", label: "SMS & Email" }, { value: "SMS only", label: "SMS only" }, { value: "Email only", label: "Email only" }, { value: "None", label: "None" }]} />
@@ -114,13 +114,14 @@ export default function SettingsDetailsPage() {
 
         <div>
           <h2 className="text-heading-md text-text mb-3">Email signature</h2>
-          <div className="flex gap-1 mb-3">
-            <button onClick={() => setEmailSigTab("Business")} className={`rounded-lg px-4 py-1.5 text-label-lg transition-colors ${emailSigTab === "Business" ? "bg-primary text-white" : "bg-gray-100 text-text-secondary hover:bg-gray-200"}`}>Business</button>
-            <button onClick={() => setEmailSigTab("User")} className={`rounded-lg px-4 py-1.5 text-label-lg transition-colors flex items-center gap-1 ${emailSigTab === "User" ? "bg-primary text-white" : "bg-gray-100 text-text-secondary hover:bg-gray-200"}`}>
-              User
-              <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
-            </button>
-          </div>
+          <Tab
+            items={[
+              { label: "Business", value: "Business" },
+              { label: "User", value: "User" },
+            ]}
+            value={emailSigTab}
+            onChange={(v) => setEmailSigTab(v as "Business" | "User")}
+          />
           <div className="rounded-t-lg border border-border bg-gray-50 px-2 py-1.5 flex items-center gap-1">
             <button className="rounded px-2 py-1 text-body-md-strong text-text hover:bg-gray-200">B</button>
             <button className="rounded px-2 py-1 text-body-md italic text-text hover:bg-gray-200">I</button>

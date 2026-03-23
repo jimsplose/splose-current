@@ -1,4 +1,4 @@
-type AvatarSize = "sm" | "md" | "lg";
+type AvatarSize = "sm" | "md" | "lg" | "xl";
 
 interface AvatarProps {
   name: string;
@@ -11,6 +11,7 @@ const sizeClasses: Record<AvatarSize, string> = {
   sm: "h-7 w-7 text-caption-sm",
   md: "h-10 w-10 text-body-md",
   lg: "h-12 w-12 text-body-lg",
+  xl: "h-14 w-14 text-heading-lg",
 };
 
 function getInitials(name: string): string {
