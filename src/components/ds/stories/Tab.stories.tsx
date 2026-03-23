@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
+const fn = () => () => {};
 import Tab from "../Tab";
 
 const meta: Meta<typeof Tab> = {
