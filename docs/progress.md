@@ -413,3 +413,106 @@ No actionable structural fidelity gaps remain. The 3 open gaps in fidelity-gaps.
 1. Calendar month view — structurally complete, 11.54% data-driven
 2. Calendar appointment side panel — structurally complete, data-driven
 3. Process new screenshots — intake task
+
+---
+
+## Session — 2026-03-23 (design system refactoring + Storybook restructure)
+
+**Branch**: `claude/visual-audit-analysis-1WnWb`
+
+### Design System Refactoring — 10 new components, 130+ migrations
+
+Systematic refactoring session to eliminate all inline Tailwind patterns and replace with DS components. Executed in 8 rounds of parallel agents.
+
+**New DS components created (10):**
+
+| Component | Purpose | Stories |
+|---|---|---|
+| `Spinner` | Loading indicator (sm/md/lg) | Yes |
+| `HintIcon` | Info "i" tooltip trigger | Yes |
+| `FormTextarea` | Textarea matching FormInput styling | Yes |
+| `Alert` | Info/warning/success/error banners | Yes |
+| `TopNav` | App navigation bar (brand + items + children) | No (app-level) |
+| `SideNav` | Grouped sidebar navigation with active state | No (app-level) |
+| `Chip` | Interactive filter pill with optional remove (6 colors) | Yes |
+| `FileUpload` | Dashed-border upload drop zone | Yes |
+| `Stat` | Metric value + label display | Yes |
+| `IconText` | Icon + text row for contact info | Yes |
+| `Checkbox` | Styled checkbox with optional label | Yes |
+| `RadioGroup` | Labeled radio button group | Yes |
+
+**Existing components enhanced:**
+- `Button`: +3 variants (link, icon, toolbar) + `round` prop
+- `Avatar`: +xl size (h-14 w-14)
+- `ColorDot`: +xs size (h-2 w-2)
+- `Badge`: +5 status mappings (Scheduled, No Show, Do not invoice, In progress)
+- `DataTable`: +5 sub-components (Tr, LinkCell, ActionsCell, ExpandableRow, sortable/filterable Th)
+- `Pagination`: +page size dropdown (pageSizeOptions, onPageSizeChange)
+
+**Files migrated: 60+ across all rounds**
+- StatusBadge deleted (replaced by Badge + statusVariant)
+- All inline `<button>`, `<input>`, `<select>`, `<textarea>`, `<table>` replaced with DS
+- All inline card, badge, avatar, spinner, alert patterns replaced
+- All modals, dropdowns, checkboxes, radio groups migrated
+- 36 pages migrated to Tr/LinkCell/ActionsCell
+
+**DS component count: 40** (was 28 at session start)
+
+### Storybook Restructure
+
+Following best practices from storybook.js.org/blog/structuring-your-storybook/
+
+**New structure (functional categories replacing flat "Design System/"):**
+- Overview: Introduction (MDX)
+- Design Tokens: Colors, Typography, Spacing & Layout (MDX doc pages)
+- Forms (10): Button, FormInput, FormSelect, FormTextarea, Checkbox, RadioGroup, Toggle, FormColorPicker, SearchBar, FileUpload
+- Data Display (11): DataTable, Badge, Status, Stat, Avatar, ColorDot, OnOffBadge, List, IconText, HintIcon, Pagination
+- Navigation (2): Tab, Navbar
+- Feedback (4): Alert, Spinner, Modal, EmptyState
+- Layout (6): Card, Collapse, PageHeader, Chip, Filter, DateRangeFilter
+- Overlays (2): Dropdown, Select
+- Templates (1): SettingsListPage
+- Typography (1): Text
+
+**Enriched stories (Playground → Features → Recipes pattern):**
+
+| Component | Total Stories | Recipes (from real codebase) |
+|---|---|---|
+| Button | 21 | PageHeaderActions, ToolbarButtons, FilterChipRow, FormActions, IconButtonGroup, LinkActions, FABButton, NavbarWithButtons, ContextMenuButtons, ComposeToolbar, FormActionsDanger |
+| DataTable | 12 | ClientsList, Appointments |
+| FormInput | 12 | SettingsFormField, PaymentAmountInput, DateInput, SearchInput, AppointmentForm |
+| Modal | 8 | CreateAppointmentModal, EditPromptModal, PaymentModal |
+| Badge | 11 | InvoiceStatusRow, AppointmentBadges |
+| Alert | 9 | PastDateWarning, StripeConnectionBanner, BetaFeatureBanner, EditModalInfoBanner |
+| Card | 9 | PractitionerCard, TableWrapper, FormSection, StatCard |
+
+### DataTable Enhancement — Table features from reference screenshots
+
+Analysed 6 reference screenshots (Clients, Invoices, Payments, Products, Appointments, Waitlist) and catalogued all table UI features. Enhanced DataTable with:
+
+- **Sortable `<Th>`**: `sortable`, `sortDirection`, `onSort` props. Renders ArrowUpDown/ArrowUp/ArrowDown icons. Used in 5/6 reference tables.
+- **Filterable `<Th>`**: `filterable`, `onFilter` props. Renders Filter funnel icon. Used in 4/6 reference tables.
+- **`<Tr>`**: Row component with `hover` (default), `clickable`, `selected` props. Replaces 36 pages of inline `<tr className="hover:bg-gray-50">`.
+- **`<ExpandableRow>`**: Expand/collapse toggle with chevron, sub-content rendering. For Payments, Products, Invoices expand patterns.
+- **`<ActionsCell>`**: `<Td>` + `<Dropdown>` + `<MoreHorizontal>` trigger, right-aligned. For Products, Appointments, Screener.
+- **`<LinkCell>`**: Primary-colored clickable text/link. For client names, phone numbers, invoice numbers.
+- **Pagination page size dropdown**: `pageSizeOptions` + `onPageSizeChange` props.
+
+### Remaining Storybook Work (for next session)
+
+**Stories still needing enrichment** (have basic stories, need Playground + Recipes):
+1. Dropdown — playground + recipes (actions menu, view switcher, settings)
+2. Avatar — playground + recipes (practitioner grid, TopNav, calendar)
+3. Tab — playground + recipes (settings AI, waitlist, eng toolkit)
+4. FormSelect — playground + recipes (settings forms, calendar modals)
+5. FormTextarea — playground + recipes (notes, calendar, settings)
+6. Chip — playground + recipes (calendar filters, reports date range)
+7. Toggle — playground + recipes (settings toggles, calendar repeat)
+8. Collapse — playground + recipes (client sidebar sections)
+9. Remaining 25 components with basic stories only
+
+**Other potential Storybook enhancements:**
+- MDX doc page per enriched component (usage guidelines, do/don't examples)
+- Interaction tests (play functions for stateful components)
+- Accessibility annotations
+- Dark mode preview (if added later)
