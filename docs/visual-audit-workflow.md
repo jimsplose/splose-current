@@ -39,30 +39,58 @@ Capture each state separately using `?state=` params:
 npx tsx scripts/screenshot-capture.ts "http://localhost:3000/<page-path>?state=<variant>" /tmp/audit-<page>-<variant>.png
 ```
 
-## Step 3: Run pixel diff against references
+## Step 3: Three-source comparison
 
-For each page, run the automated pixel diff:
+Each page is compared against **three sources of truth**:
 
+### 3a. Visual comparison — Puppeteer screenshots vs saved references
+
+Capture the current prototype page and visually compare against the saved reference screenshot:
+
+```bash
+npx tsx scripts/screenshot-capture.ts http://localhost:3000/<page-path> /tmp/audit-<page>.png
+```
+
+**Read both images** (the captured prototype and the saved reference from `screenshots/reference/`) to visually compare layout, structure, and content. This is the primary visual check.
+
+Optionally run the automated pixel diff for a numeric metric:
 ```bash
 npx tsx scripts/pixel-diff.ts screenshots/reference/<reference.png> /tmp/audit-<page>.png --threshold=5 --output=/tmp/diff-audit-<page>.png
 ```
 
-Then read both the diff image and the screenshots for context. Use the **mismatch percentage** as the primary metric:
+Note: pixel diff percentages are inflated by DPI differences (references are 2x Retina, captures are 1x) and data content differences. **Visual comparison is authoritative** — use pixel diff as a secondary signal.
 
-| Mismatch % | Match status | Meaning |
+### 3b. Style reference comparison — extracted CSS values
+
+Read the style reference for the page from `splose-style-reference/`:
+- **Page structure**: `splose-style-reference/page-structures/<page>.md` — DOM hierarchy, class names, nesting
+- **Component styles**: `splose-style-reference/components/` — exact CSS values (colors, fonts, borders, spacing)
+- **Design tokens**: `splose-style-reference/design-tokens/` — colours, typography, borders, shadows
+
+Compare the prototype's Tailwind classes against the extracted CSS values:
+- Font sizes match? (e.g. `text-base` = 14px, reference says 14px ✓)
+- Colors match? (e.g. `text-text` = #414549, reference `rgb(65, 69, 73)` ✓)
+- Border radius match? (e.g. `rounded-lg` = 8px, reference `border-radius: 8px` ✓)
+- Spacing match? (e.g. `p-4` = 16px, reference `padding: 16px` ✓)
+
+### 3c. Structural comparison — DOM hierarchy
+
+Compare the prototype's component tree against the page-structure reference:
+- Same nesting depth? (header → sidebar → content)
+- Same element roles? (list, table, tabs, cards)
+- Same interactive states? (dropdowns, modals, side panels)
+
+### Match criteria
+
+| Check | Pass | Fail |
 |---|---|---|
-| 0-5% | **yes** | Pixel-perfect or near-perfect |
-| 5-20% | **partial** | Noticeable differences — note what's off |
-| >20% | **no** | Significant mismatch |
-
-Also check these qualitative criteria (the pixel diff may miss some):
-
-| Criterion | What to check | Example fail |
-|---|---|---|
-| **DS components** | Correct DS components used, no banned inline patterns | Bare `<button>` where `<Button variant="secondary">` should be |
-| **Content** | Same column headers, labels, button text, placeholder text | Reference says "Search clients...", prototype says "Search..." |
-| **Interactive states** | Modals, dropdowns, tabs from reference exist in code | Reference shows actions dropdown, prototype has no dropdown |
-| **Data shape** | Tables have same columns, forms have same fields | Reference has 6 columns, prototype only has 3 |
+| **Layout** | Same column/section structure as reference | Missing sections, wrong nesting |
+| **DS components** | Correct DS components used | Bare `<button>` instead of `<Button>` |
+| **Content** | Same column headers, labels, placeholders | Wrong text, missing columns |
+| **Interactive states** | Modals, dropdowns, tabs exist | Reference shows dropdown, prototype has none |
+| **Typography** | Font sizes/weights match style reference | Wrong size or weight |
+| **Colors** | Token colors match style reference | Wrong color values |
+| **Spacing** | Padding/margins match style reference | Visibly different spacing |
 
 ## Step 4: Update the catalog
 
