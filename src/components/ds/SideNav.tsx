@@ -30,12 +30,14 @@ export default function SideNav({ sections, isActive: customIsActive, className 
   });
 
   return (
-    <aside className={`w-64 shrink-0 overflow-y-auto border-r border-border bg-white p-4 ${className}`}>
+    <aside className={`shrink-0 overflow-y-auto border-r border-border bg-white ${className}`}>
       {sections.map((section) => (
         <div key={section.title} className="mb-4">
-          <h3 className="mb-1 text-body-sm font-bold uppercase tracking-wider text-text">
-            {section.title}
-          </h3>
+          {section.title && (
+            <h3 className="mb-1 text-body-sm font-bold uppercase tracking-wider text-text">
+              {section.title}
+            </h3>
+          )}
           <ul className="space-y-0.5">
             {section.items.map((item) => (
               <li key={item.name}>

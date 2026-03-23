@@ -147,7 +147,7 @@ export default function PaymentsPage() {
                   <Td>
                     <div className="flex items-center gap-2">
                       {payment.invoices.length > 0 ? (
-                        <button className="flex h-5 w-5 items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
+                        <Button variant="icon" size="sm" className="h-5 w-5" round>
                           {expandedId === payment.id ? (
                             <svg
                               width="14"
@@ -162,7 +162,7 @@ export default function PaymentsPage() {
                           ) : (
                             <span className="text-label-lg">+</span>
                           )}
-                        </button>
+                        </Button>
                       ) : (
                         <span className="w-5" />
                       )}

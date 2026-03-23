@@ -20,7 +20,7 @@ export default function ReportsAppointmentsPage() {
       <div className="mb-4">
         <label className="mb-1 flex items-center gap-1 text-sm text-text-secondary">
           <span>&#128196;</span> Contains note
-          <button className="ml-1 text-red-400 hover:text-red-600">&#10005;</button>
+          <Button variant="ghost" size="sm" className="ml-1 text-red-400 hover:text-red-600">&#10005;</Button>
         </label>
         <FormSelect
           options={[

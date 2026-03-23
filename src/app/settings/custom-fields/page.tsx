@@ -17,6 +17,7 @@ import {
   Toggle,
   Dropdown,
   DropdownTriggerButton,
+  Card,
 } from "@/components/ds";
 import {
   GripVertical,
@@ -306,12 +307,16 @@ function ReorderModal({
               onDragStart={() => handleDragStart(index)}
               onDragOver={(e) => handleDragOver(e, index)}
               onDragEnd={handleDragEnd}
-              className={`flex cursor-grab items-center gap-3 rounded-lg border border-border bg-white px-4 py-3 transition-colors active:cursor-grabbing ${
-                dragIndex === index ? "border-primary bg-purple-50" : ""
-              }`}
             >
-              <GripVertical className="h-4 w-4 shrink-0 text-text-secondary" />
-              <span className="text-body-md text-text">{field.name}</span>
+              <Card
+                padding="none"
+                className={`flex cursor-grab items-center gap-3 px-4 py-3 transition-colors active:cursor-grabbing ${
+                  dragIndex === index ? "border-primary bg-purple-50" : ""
+                }`}
+              >
+                <GripVertical className="h-4 w-4 shrink-0 text-text-secondary" />
+                <span className="text-body-md text-text">{field.name}</span>
+              </Card>
             </div>
           ))}
         </div>

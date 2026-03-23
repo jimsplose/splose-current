@@ -132,9 +132,9 @@ function OnlineBookingPageInner() {
                         <div className="flex-1">
                           <div className="mb-2 text-heading-sm text-text">March 2026</div>
                           <div className="mb-4 flex items-center gap-1">
-                            <button className="flex h-8 w-8 items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
+                            <Button variant="icon" round>
                               <ChevronLeft className="h-4 w-4" />
-                            </button>
+                            </Button>
                             {weekDays.map((d) => (
                               <button
                                 key={d.date}
@@ -151,9 +151,9 @@ function OnlineBookingPageInner() {
                                 <span className="text-caption-sm">{d.date}</span>
                               </button>
                             ))}
-                            <button className="flex h-8 w-8 items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
+                            <Button variant="icon" round>
                               <ChevronRight className="h-4 w-4" />
-                            </button>
+                            </Button>
                           </div>
                           <div className="mb-1 flex text-caption-sm text-text-secondary">
                             {weekDays.map((d) => (
@@ -326,11 +326,11 @@ function OnlineBookingPageInner() {
                       <MapPin className="h-3 w-3" /> Tasks
                     </div>
                   </div>
-                  <button className="text-text-secondary hover:text-text">
+                  <Button variant="ghost" size="sm" className="text-text-secondary">
                     <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.862 4.487z" />
                     </svg>
-                  </button>
+                  </Button>
                 </div>
 
                 {/* Service */}

@@ -75,7 +75,7 @@ export default function SettingsLayout({
 }) {
   return (
     <div className="flex min-h-[calc(100vh-3rem)]">
-      <SideNav sections={sidebarSections} />
+      <SideNav sections={sidebarSections} className="w-64 p-4" />
       <div className="flex-1 overflow-y-auto">{children}</div>
     </div>
   );

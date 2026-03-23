@@ -323,7 +323,7 @@ export default function EditProgressNotePage() {
             </div>
 
             {/* Rich text toolbar */}
-            <div className="mb-4 flex flex-wrap items-center gap-1 rounded-lg border border-border bg-white px-2 py-1.5 text-text-secondary">
+            <Card padding="none" className="mb-4 flex flex-wrap items-center gap-1 px-2 py-1.5 text-text-secondary">
               <Button variant="toolbar" size="sm" className="flex items-center gap-0.5 text-xs">
                 Arial
                 <ChevronDown className="h-3 w-3" />
@@ -378,7 +378,7 @@ export default function EditProgressNotePage() {
               <Button variant="primary" round size="sm">
                 <Plus className="h-4 w-4" />
               </Button>
-            </div>
+            </Card>
 
             {/* Syncing notice */}
             <div className="mb-4 flex items-center gap-2 rounded-lg bg-purple-50 px-3 py-2 text-xs text-text-secondary">
@@ -474,10 +474,10 @@ export default function EditProgressNotePage() {
                             <div className="mt-3 flex items-center justify-between">
                               <Dropdown
                                 trigger={
-                                  <button className="flex items-center gap-1 rounded px-2 py-1 text-label-md text-text-secondary hover:bg-purple-100">
+                                  <Button variant="ghost" size="sm" className="hover:bg-purple-100">
                                     Actions
                                     <ChevronDown className="h-3 w-3" />
-                                  </button>
+                                  </Button>
                                 }
                                 items={[
                                   { label: "Regenerate", value: "regenerate" },
@@ -532,10 +532,10 @@ export default function EditProgressNotePage() {
                             <div className="mt-3 flex items-center justify-between">
                               <Dropdown
                                 trigger={
-                                  <button className="flex items-center gap-1 rounded px-2 py-1 text-label-md text-text-secondary hover:bg-purple-100">
+                                  <Button variant="ghost" size="sm" className="hover:bg-purple-100">
                                     Actions
                                     <ChevronDown className="h-3 w-3" />
-                                  </button>
+                                  </Button>
                                 }
                                 items={[
                                   { label: "Edit prompt", value: "edit-prompt" },

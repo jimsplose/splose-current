@@ -111,9 +111,9 @@ export default function ClientCommunicationsPage() {
               <tr key={comm.id} className="hover:bg-gray-50">
                 <Td>
                   <div className="flex items-center gap-2">
-                    <button className="flex h-5 w-5 shrink-0 items-center justify-center rounded border border-border text-xs text-text-secondary hover:bg-gray-100">
+                    <Button variant="icon" size="sm" className="h-5 w-5 rounded border border-border text-xs">
                       +
-                    </button>
+                    </Button>
                     {comm.dateTime}
                   </div>
                 </Td>

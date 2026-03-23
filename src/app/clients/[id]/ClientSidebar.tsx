@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { SideNav } from "@/components/ds";
+import type { SideNavSection } from "@/components/ds";
 
 type Section = {
   label: string;
@@ -20,6 +22,25 @@ export default function ClientSidebar({ sections }: { sections: Section[] }) {
     // For sub-pages, match if pathname starts with href
     return pathname.startsWith(section.href) && section.href !== sections[0].href;
   }
+
+  // Convert sections to SideNavSection format
+  const sideNavSections: SideNavSection[] = [
+    {
+      title: "",
+      items: sections.map((s) => ({
+        name: s.label,
+        href: s.href,
+        badge: s.count !== null ? String(s.count) : undefined,
+      })),
+    },
+  ];
+
+  // Custom isActive that matches the original logic
+  const sideNavIsActive = (href: string) => {
+    const section = sections.find((s) => s.href === href);
+    if (!section) return false;
+    return isActive(section);
+  };
 
   return (
     <>
@@ -44,29 +65,11 @@ export default function ClientSidebar({ sections }: { sections: Section[] }) {
         </nav>
       </div>
       {/* Desktop: vertical sidebar */}
-      <aside className="hidden w-[200px] shrink-0 overflow-y-auto border-r border-border bg-white py-2 md:block">
-        <nav>
-          {sections.map((section) => {
-            const active = isActive(section);
-            return (
-              <Link
-                key={section.label}
-                href={section.href}
-                className={`flex w-full items-center justify-between px-4 py-1.5 text-left text-sm transition-colors ${
-                  active ? "bg-primary/10 font-semibold text-primary" : "text-text hover:bg-gray-50"
-                }`}
-              >
-                <span>{section.label}</span>
-                {section.count !== null && (
-                  <span className={`text-xs ${active ? "text-primary/70" : "text-text-secondary"}`}>
-                    {section.count}
-                  </span>
-                )}
-              </Link>
-            );
-          })}
-        </nav>
-      </aside>
+      <SideNav
+        sections={sideNavSections}
+        isActive={sideNavIsActive}
+        className="hidden w-[200px] py-2 md:block"
+      />
     </>
   );
 }

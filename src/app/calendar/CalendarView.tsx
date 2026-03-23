@@ -27,7 +27,7 @@ import {
   AlertTriangle,
   Info,
 } from "lucide-react";
-import { Button, Badge, Chip, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert, Dropdown } from "@/components/ds";
+import { Button, Badge, Chip, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert, Dropdown, Card } from "@/components/ds";
 
 type Appointment = {
   id: string;
@@ -618,50 +618,52 @@ export default function CalendarView({
       {popover.visible && (
         <div
           ref={popoverRef}
-          className="fixed z-30 w-52 rounded-lg border border-border bg-white shadow-lg"
+          className="fixed z-30 w-52"
           style={{
             left: `${popover.x - 104}px`,
             top: `${popover.y - 180}px`,
           }}
         >
-          <div className="px-3 pt-3 pb-1">
-            <p className="text-heading-sm text-text">{popover.time}</p>
-          </div>
-          <div className="py-1">
-            <button
-              className="flex w-full items-center gap-2.5 px-3 py-2 text-body-md text-text hover:bg-gray-50"
-              onClick={() => {
-                setPopover((prev) => ({ ...prev, visible: false }));
-                // Support activity - just close for now
-              }}
-            >
-              <Clock className="h-4 w-4 text-text-secondary" />
-              Support activity
-            </button>
-            <button
-              className="flex w-full items-center gap-2.5 px-3 py-2 text-body-md text-text hover:bg-gray-50"
-              onClick={() => {
-                setPopover((prev) => ({ ...prev, visible: false }));
-                // Busy time - just close for now
-              }}
-            >
-              <Ban className="h-4 w-4 text-text-secondary" />
-              Busy time
-            </button>
-            <button
-              className="flex w-full items-center gap-2.5 px-3 py-2 text-body-md text-text hover:bg-gray-50"
-              onClick={() => {
-                openCreateModal(popover.dateStr, popover.hour, popover.minute, popover.practitionerId);
-              }}
-            >
-              <Calendar className="h-4 w-4 text-text-secondary" />
-              Appointment
-            </button>
-          </div>
-          {/* Downward arrow */}
-          <div className="flex justify-center pb-0">
-            <div className="h-0 w-0 border-x-8 border-t-8 border-x-transparent border-t-white drop-shadow-sm" />
-          </div>
+          <Card padding="none" className="shadow-lg">
+            <div className="px-3 pt-3 pb-1">
+              <p className="text-heading-sm text-text">{popover.time}</p>
+            </div>
+            <div className="py-1">
+              <button
+                className="flex w-full items-center gap-2.5 px-3 py-2 text-body-md text-text hover:bg-gray-50"
+                onClick={() => {
+                  setPopover((prev) => ({ ...prev, visible: false }));
+                  // Support activity - just close for now
+                }}
+              >
+                <Clock className="h-4 w-4 text-text-secondary" />
+                Support activity
+              </button>
+              <button
+                className="flex w-full items-center gap-2.5 px-3 py-2 text-body-md text-text hover:bg-gray-50"
+                onClick={() => {
+                  setPopover((prev) => ({ ...prev, visible: false }));
+                  // Busy time - just close for now
+                }}
+              >
+                <Ban className="h-4 w-4 text-text-secondary" />
+                Busy time
+              </button>
+              <button
+                className="flex w-full items-center gap-2.5 px-3 py-2 text-body-md text-text hover:bg-gray-50"
+                onClick={() => {
+                  openCreateModal(popover.dateStr, popover.hour, popover.minute, popover.practitionerId);
+                }}
+              >
+                <Calendar className="h-4 w-4 text-text-secondary" />
+                Appointment
+              </button>
+            </div>
+            {/* Downward arrow */}
+            <div className="flex justify-center pb-0">
+              <div className="h-0 w-0 border-x-8 border-t-8 border-x-transparent border-t-white drop-shadow-sm" />
+            </div>
+          </Card>
         </div>
       )}
 
@@ -856,10 +858,10 @@ export default function CalendarView({
 
               {/* Waitlist matches */}
               <div className="rounded-lg border border-border bg-gray-50 p-3">
-                <button className="flex w-full items-center justify-between text-label-lg text-text">
+                <Button variant="ghost" size="sm" className="w-full justify-between text-label-lg text-text">
                   Waitlist matches (2)
                   <ChevronDown className="h-4 w-4 text-text-secondary" />
-                </button>
+                </Button>
               </div>
 
               {/* Notes */}

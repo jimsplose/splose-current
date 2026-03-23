@@ -47,6 +47,6 @@ const sections: SideNavSection[] = [
 
 export default function ReportsSidebar() {
   return (
-    <SideNav sections={sections} className="hidden w-56 md:block" />
+    <SideNav sections={sections} className="hidden w-56 p-4 md:block" />
   );
 }

@@ -169,7 +169,7 @@ function SavedPromptsTab() {
               <Td className="text-text-secondary">{prompt.userGroup}</Td>
               <Td align="right">
                 <Dropdown
-                  trigger={<button className="text-text-secondary hover:text-text">...</button>}
+                  trigger={<Button variant="ghost" size="sm" className="text-text-secondary">...</Button>}
                   items={[
                     { label: "Edit", value: "edit" },
                     { label: "Duplicate", value: "duplicate" },
@@ -247,7 +247,7 @@ function AIBlockLibraryTab() {
             <span className="text-text-secondary">or</span>
             <span className="cursor-pointer text-primary underline">book a time</span>
             <span className="text-text-secondary">to chat</span>
-            <button className="ml-2 text-text-secondary hover:text-text">&times;</button>
+            <Button variant="ghost" size="sm" className="ml-2 text-text-secondary">&times;</Button>
           </div>
         </div>
       </Alert>
@@ -295,7 +295,7 @@ function AIBlockLibraryTab() {
               <Td className="text-text-secondary">{block.lastModified}</Td>
               <Td align="right">
                 <Dropdown
-                  trigger={<button className="text-text-secondary hover:text-text">...</button>}
+                  trigger={<Button variant="ghost" size="sm" className="text-text-secondary">...</Button>}
                   items={[
                     { label: "Edit", value: "edit" },
                     { label: "Duplicate", value: "duplicate" },

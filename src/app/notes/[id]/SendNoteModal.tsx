@@ -84,10 +84,10 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
       maxWidth="xl"
       footer={
         <div className="flex w-full items-center justify-between">
-          <button className="inline-flex items-center gap-1.5 text-sm text-text-secondary hover:text-text">
+          <Button variant="ghost" size="sm">
             <Paperclip className="h-4 w-4" />
             Attach files
-          </button>
+          </Button>
           <Button variant="primary" onClick={onClose}>
             <Send className="h-3.5 w-3.5" />
             Send
