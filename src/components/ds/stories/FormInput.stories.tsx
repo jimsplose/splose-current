@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import FormInput from "../FormInput";
 
 const meta: Meta<typeof FormInput> = {
-  title: "Design System/FormInput",
+  title: "Forms/FormInput",
   component: FormInput,
 };
 

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import List from "../List";
 
 const meta: Meta<typeof List> = {
-  title: "Design System/List",
+  title: "Data Display/List",
   component: List,
 };
 

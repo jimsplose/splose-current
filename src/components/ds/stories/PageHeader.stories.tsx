@@ -3,7 +3,7 @@ import PageHeader from "../PageHeader";
 import Button from "../Button";
 
 const meta: Meta<typeof PageHeader> = {
-  title: "Design System/PageHeader",
+  title: "Layout/PageHeader",
   component: PageHeader,
 };
 

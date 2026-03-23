@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import FormSelect from "../FormSelect";
 
 const meta: Meta<typeof FormSelect> = {
-  title: "Design System/FormSelect",
+  title: "Forms/FormSelect",
   component: FormSelect,
 };
 

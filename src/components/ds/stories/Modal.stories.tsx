@@ -3,7 +3,7 @@ import Modal from "../Modal";
 import Button from "../Button";
 
 const meta: Meta<typeof Modal> = {
-  title: "Design System/Modal",
+  title: "Feedback/Modal",
   component: Modal,
 };
 

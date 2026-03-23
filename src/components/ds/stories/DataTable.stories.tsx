@@ -3,7 +3,7 @@ import DataTable, { TableHead, Th, TableBody, Td } from "../DataTable";
 import Badge, { statusVariant } from "../Badge";
 
 const meta: Meta<typeof DataTable> = {
-  title: "Design System/DataTable",
+  title: "Data Display/DataTable",
   component: DataTable,
 };
 

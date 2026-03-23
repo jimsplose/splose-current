@@ -3,7 +3,7 @@ import Text from "../Text";
 import type { TextVariant } from "../Text";
 
 const meta: Meta<typeof Text> = {
-  title: "Design System/Text",
+  title: "Typography/Text",
   component: Text,
   argTypes: {
     variant: {

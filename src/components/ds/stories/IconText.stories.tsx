@@ -3,7 +3,7 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import IconText from "../IconText";
 
 const meta: Meta<typeof IconText> = {
-  title: "Design System/IconText",
+  title: "Data Display/IconText",
   component: IconText,
 };
 export default meta;

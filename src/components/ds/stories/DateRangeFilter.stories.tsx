@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import DateRangeFilter from "../DateRangeFilter";
 
 const meta: Meta<typeof DateRangeFilter> = {
-  title: "Design System/DateRangeFilter",
+  title: "Layout/DateRangeFilter",
   component: DateRangeFilter,
 };
 

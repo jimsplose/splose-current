@@ -3,7 +3,7 @@ import { AlertTriangle, Info, CheckCircle, XCircle } from "lucide-react";
 import Alert from "../Alert";
 
 const meta: Meta<typeof Alert> = {
-  title: "Design System/Alert",
+  title: "Feedback/Alert",
   component: Alert,
 };
 export default meta;

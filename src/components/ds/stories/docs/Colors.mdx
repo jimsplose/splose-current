@@ -1,0 +1,91 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Design Tokens/Colors" />
+
+# Colors
+
+Splose uses CSS custom properties defined in `globals.css` and mapped to Tailwind classes.
+
+## Brand Colors
+
+<div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px", marginBottom: "32px" }}>
+  <div>
+    <div style={{ width: "100%", height: "80px", borderRadius: "8px", backgroundColor: "#7c3aed" }} />
+    <p style={{ marginTop: "8px", fontWeight: 600 }}>Primary</p>
+    <code>#7c3aed</code> · <code>bg-primary</code>
+  </div>
+  <div>
+    <div style={{ width: "100%", height: "80px", borderRadius: "8px", backgroundColor: "#6d28d9" }} />
+    <p style={{ marginTop: "8px", fontWeight: 600 }}>Primary Dark</p>
+    <code>#6d28d9</code> · <code>bg-primary-dark</code>
+  </div>
+  <div>
+    <div style={{ width: "100%", height: "80px", borderRadius: "8px", backgroundColor: "#a78bfa" }} />
+    <p style={{ marginTop: "8px", fontWeight: 600 }}>Primary Light</p>
+    <code>#a78bfa</code> · <code>bg-primary-light</code>
+  </div>
+</div>
+
+## Semantic Colors
+
+<div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px", marginBottom: "32px" }}>
+  <div>
+    <div style={{ width: "100%", height: "60px", borderRadius: "8px", backgroundColor: "#22c55e" }} />
+    <p style={{ marginTop: "8px", fontWeight: 600 }}>Success</p>
+    <code>#22c55e</code> · <code>bg-success</code>
+  </div>
+  <div>
+    <div style={{ width: "100%", height: "60px", borderRadius: "8px", backgroundColor: "#f59e0b" }} />
+    <p style={{ marginTop: "8px", fontWeight: 600 }}>Warning</p>
+    <code>#f59e0b</code> · <code>bg-warning</code>
+  </div>
+  <div>
+    <div style={{ width: "100%", height: "60px", borderRadius: "8px", backgroundColor: "#ef4444" }} />
+    <p style={{ marginTop: "8px", fontWeight: 600 }}>Danger</p>
+    <code>#ef4444</code> · <code>bg-danger</code>
+  </div>
+  <div>
+    <div style={{ width: "100%", height: "60px", borderRadius: "8px", backgroundColor: "#2d6d40" }} />
+    <p style={{ marginTop: "8px", fontWeight: 600 }}>Accent</p>
+    <code>#2d6d40</code> · <code>text-accent</code>
+  </div>
+</div>
+
+## Neutral Colors
+
+<div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px", marginBottom: "32px" }}>
+  <div>
+    <div style={{ width: "100%", height: "60px", borderRadius: "8px", backgroundColor: "#1f2937", border: "1px solid #e5e7eb" }} />
+    <p style={{ marginTop: "8px", fontWeight: 600 }}>Text</p>
+    <code>#1f2937</code> · <code>text-text</code>
+  </div>
+  <div>
+    <div style={{ width: "100%", height: "60px", borderRadius: "8px", backgroundColor: "#6b7280", border: "1px solid #e5e7eb" }} />
+    <p style={{ marginTop: "8px", fontWeight: 600 }}>Text Secondary</p>
+    <code>#6b7280</code> · <code>text-text-secondary</code>
+  </div>
+  <div>
+    <div style={{ width: "100%", height: "60px", borderRadius: "8px", backgroundColor: "#e5e7eb", border: "1px solid #e5e7eb" }} />
+    <p style={{ marginTop: "8px", fontWeight: 600 }}>Border</p>
+    <code>#e5e7eb</code> · <code>border-border</code>
+  </div>
+  <div>
+    <div style={{ width: "100%", height: "60px", borderRadius: "8px", backgroundColor: "#ffffff", border: "1px solid #e5e7eb" }} />
+    <p style={{ marginTop: "8px", fontWeight: 600 }}>Surface / Background</p>
+    <code>#ffffff</code> · <code>bg-surface</code>
+  </div>
+</div>
+
+## Badge Colors
+
+Badges use light background + dark text combinations:
+
+<div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+  <span style={{ padding: "2px 8px", borderRadius: "9999px", fontSize: "12px", fontWeight: 500, backgroundColor: "#dcfce7", color: "#15803d" }}>Green</span>
+  <span style={{ padding: "2px 8px", borderRadius: "9999px", fontSize: "12px", fontWeight: 500, backgroundColor: "#fee2e2", color: "#b91c1c" }}>Red</span>
+  <span style={{ padding: "2px 8px", borderRadius: "9999px", fontSize: "12px", fontWeight: 500, backgroundColor: "#dbeafe", color: "#1d4ed8" }}>Blue</span>
+  <span style={{ padding: "2px 8px", borderRadius: "9999px", fontSize: "12px", fontWeight: 500, backgroundColor: "#fef9c3", color: "#a16207" }}>Yellow</span>
+  <span style={{ padding: "2px 8px", borderRadius: "9999px", fontSize: "12px", fontWeight: 500, backgroundColor: "#ffedd5", color: "#c2410c" }}>Orange</span>
+  <span style={{ padding: "2px 8px", borderRadius: "9999px", fontSize: "12px", fontWeight: 500, backgroundColor: "#f3f4f6", color: "#4b5563" }}>Gray</span>
+  <span style={{ padding: "2px 8px", borderRadius: "9999px", fontSize: "12px", fontWeight: 500, backgroundColor: "#f3e8ff", color: "#7c3aed" }}>Purple</span>
+</div>

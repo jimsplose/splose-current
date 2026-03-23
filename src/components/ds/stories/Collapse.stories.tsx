@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Collapse from "../Collapse";
 
 const meta: Meta<typeof Collapse> = {
-  title: "Design System/Collapse",
+  title: "Layout/Collapse",
   component: Collapse,
 };
 

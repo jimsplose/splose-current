@@ -1,0 +1,43 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Overview/Introduction" />
+
+# Splose Design System
+
+The Splose Design System is a collection of **40 reusable React components** that power the Splose practice management prototype. Every visible UI element — buttons, forms, tables, navigation, modals, and more — uses these components.
+
+## Purpose
+
+This Storybook serves as a living reference for designers, developers, and stakeholders. Use it to:
+
+- **Browse components** — See every component variant and state
+- **Try the playground** — Adjust props in real-time with controls
+- **Copy patterns** — Find real-world recipes from the Splose codebase
+- **Check tokens** — Review colors, typography, and spacing values
+
+## Component Categories
+
+| Category | Components | Description |
+|---|---|---|
+| **Forms** | Button, FormInput, FormSelect, FormTextarea, Checkbox, RadioGroup, Toggle, FormColorPicker, SearchBar, FileUpload | User input and interaction |
+| **Data Display** | DataTable, Badge, Status, Stat, Avatar, ColorDot, OnOffBadge, List, IconText, HintIcon, Pagination | Presenting information |
+| **Navigation** | TopNav, SideNav, Tab, Navbar | Moving between pages and sections |
+| **Feedback** | Alert, Spinner, Modal, EmptyState | Communicating status to users |
+| **Layout** | Card, Collapse, PageHeader, Chip, Filter, DateRangeFilter | Structuring content |
+| **Overlays** | Dropdown, Select, AsyncSelect | Floating menus and pickers |
+| **Templates** | SettingsListPage, Text | Page-level and typography patterns |
+
+## Tech Stack
+
+- **React 19** + **TypeScript** (strict mode)
+- **Tailwind CSS 4** with design tokens
+- **Next.js 16** App Router
+- **Lucide** icons
+
+## Import Pattern
+
+All components are exported from a single barrel:
+
+```tsx
+import { Button, FormInput, Badge, Card } from "@/components/ds";
+```

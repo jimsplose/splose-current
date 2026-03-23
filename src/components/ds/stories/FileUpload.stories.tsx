@@ -3,7 +3,7 @@ import { Upload, Image } from "lucide-react";
 import FileUpload from "../FileUpload";
 
 const meta: Meta<typeof FileUpload> = {
-  title: "Design System/FileUpload",
+  title: "Forms/FileUpload",
   component: FileUpload,
 };
 export default meta;

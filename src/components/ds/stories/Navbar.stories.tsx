@@ -4,7 +4,7 @@ import Badge from "../Badge";
 import Button from "../Button";
 
 const meta: Meta<typeof Navbar> = {
-  title: "Design System/Navbar",
+  title: "Navigation/Navbar",
   component: Navbar,
 };
 

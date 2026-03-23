@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Chip from "../Chip";
 
 const meta: Meta<typeof Chip> = {
-  title: "Design System/Chip",
+  title: "Layout/Chip",
   component: Chip,
 };
 export default meta;

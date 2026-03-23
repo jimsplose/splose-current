@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Stat from "../Stat";
 
 const meta: Meta<typeof Stat> = {
-  title: "Design System/Stat",
+  title: "Data Display/Stat",
   component: Stat,
 };
 export default meta;

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import HintIcon from "../HintIcon";
 
 const meta: Meta<typeof HintIcon> = {
-  title: "Design System/HintIcon",
+  title: "Data Display/HintIcon",
   component: HintIcon,
 };
 export default meta;

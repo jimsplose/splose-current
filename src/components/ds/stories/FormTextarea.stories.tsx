@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import FormTextarea from "../FormTextarea";
 
 const meta: Meta<typeof FormTextarea> = {
-  title: "Design System/FormTextarea",
+  title: "Forms/FormTextarea",
   component: FormTextarea,
 };
 export default meta;

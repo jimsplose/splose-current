@@ -7,7 +7,7 @@ import { FormInput } from "@/components/ds";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 
 const meta: Meta<typeof SettingsListPage> = {
-  title: "Design System/SettingsListPage",
+  title: "Templates/SettingsListPage",
   component: SettingsListPage,
 };
 export default meta;

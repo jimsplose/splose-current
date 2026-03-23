@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Filter from "../Filter";
 
 const meta: Meta<typeof Filter> = {
-  title: "Design System/Filter",
+  title: "Layout/Filter",
   component: Filter,
 };
 

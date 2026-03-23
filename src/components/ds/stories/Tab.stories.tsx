@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Tab from "../Tab";
 
 const meta: Meta<typeof Tab> = {
-  title: "Design System/Tab",
+  title: "Navigation/Tab",
   component: Tab,
 };
 

@@ -3,7 +3,7 @@ import EmptyState from "../EmptyState";
 import Button from "../Button";
 
 const meta: Meta<typeof EmptyState> = {
-  title: "Design System/EmptyState",
+  title: "Feedback/EmptyState",
   component: EmptyState,
 };
 

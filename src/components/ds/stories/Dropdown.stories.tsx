@@ -3,7 +3,7 @@ import Dropdown from "../Dropdown";
 import Button from "../Button";
 
 const meta: Meta<typeof Dropdown> = {
-  title: "Design System/Dropdown",
+  title: "Overlays/Dropdown",
   component: Dropdown,
 };
 
