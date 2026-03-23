@@ -3,10 +3,18 @@
 import { useState } from "react";
 import { Button, Checkbox, FileUpload, FormInput, FormSelect, Toggle, Tab, Modal, Dropdown, HintIcon } from "@/components/ds";
 
+const businessHistory = [
+  { date: "15 Jan 2026", description: "Business name changed from 'Acme Therapy' to 'Hands Together Therapies'" },
+  { date: "3 Dec 2025", description: "ABN updated" },
+  { date: "18 Nov 2025", description: "Workspace URL changed" },
+  { date: "1 Sep 2025", description: "Account created" },
+];
+
 export default function SettingsDetailsPage() {
   const [emailSigTab, setEmailSigTab] = useState<"Business" | "User">("Business");
   const [casesToggle, setCasesToggle] = useState(true);
   const [applyToAll, setApplyToAll] = useState(false);
+  const [historyOpen, setHistoryOpen] = useState(false);
 
   return (
     <div className="p-6 max-w-4xl">
@@ -19,9 +27,18 @@ export default function SettingsDetailsPage() {
         <div className="flex gap-8">
           <div className="flex-1 space-y-4">
             <div>
-              <label className="block text-label-lg text-text mb-1">
-                Business name<span className="text-red-500">*</span>
-              </label>
+              <div className="flex items-center justify-between mb-1">
+                <label className="block text-label-lg text-text">
+                  Business name<span className="text-red-500">*</span>
+                </label>
+                <button
+                  type="button"
+                  onClick={() => setHistoryOpen(true)}
+                  className="text-body-sm text-primary hover:underline"
+                >
+                  Business history
+                </button>
+              </div>
               <FormInput type="text" defaultValue="Hands Together Therapies" />
             </div>
             <div>
@@ -190,6 +207,17 @@ export default function SettingsDetailsPage() {
           <span className="text-body-md text-primary cursor-pointer hover:underline">Business settings change log</span>
         </div>
       </div>
+
+      <Modal open={historyOpen} onClose={() => setHistoryOpen(false)} title="Business history">
+        <ul className="divide-y divide-border">
+          {businessHistory.map((entry, i) => (
+            <li key={i} className="py-3 first:pt-0 last:pb-0">
+              <p className="text-body-md text-text">{entry.description}</p>
+              <p className="text-body-sm text-text-secondary mt-0.5">{entry.date}</p>
+            </li>
+          ))}
+        </ul>
+      </Modal>
     </div>
   );
 }

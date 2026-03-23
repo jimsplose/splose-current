@@ -19,6 +19,7 @@ import {
   FormSelect,
   Toggle,
   OnOffBadge,
+  EmailPreview,
 } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
@@ -86,6 +87,7 @@ const initialTemplates: Template[] = [
 
 export default function AppointmentTemplatesPage() {
   const [templateList, setTemplateList] = useState(initialTemplates);
+  const [emailPreviewOpen, setEmailPreviewOpen] = useState(false);
 
   const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } = useFormModal<{
     name: string;
@@ -167,6 +169,8 @@ export default function AppointmentTemplatesPage() {
         title={isEditing ? "Edit appointment template" : "New appointment template"}
         footer={
           <>
+            <Button variant="secondary" onClick={() => setEmailPreviewOpen(true)}>Email preview</Button>
+            <div className="flex-1" />
             <Button variant="secondary" onClick={closeModal}>Cancel</Button>
             <Button variant="primary" onClick={handleSave}>Save</Button>
           </>
@@ -189,6 +193,14 @@ export default function AppointmentTemplatesPage() {
           <Toggle label="Email" checked={form.email} onChange={(v) => setField("email", v)} />
         </div>
       </Modal>
+
+      <EmailPreview
+        open={emailPreviewOpen}
+        onClose={() => setEmailPreviewOpen(false)}
+        subject="Appointment Confirmation"
+        recipientName="Skyler Peterson"
+        body={"Hi Skyler,\n\nThis is to confirm your appointment on Monday, 24 March 2026 at 10:00 AM with Dr. James Wilson at East Clinics.\n\nPlease arrive 10 minutes early.\n\nRegards,\nHands Together Therapies"}
+      />
     </div>
   );
 }

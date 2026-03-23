@@ -19,7 +19,16 @@ import {
 } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
-import { BookOpen, ArrowUpDown } from "lucide-react";
+import { BookOpen, ArrowUpDown, Check } from "lucide-react";
+
+const MOCK_USERS = [
+  "Sophie Anderson",
+  "James Wilson",
+  "Priya Sharma",
+  "Daniel O'Brien",
+  "Sarah Chen",
+  "Harry Nguyen",
+];
 
 interface UserGroup {
   name: string;
@@ -38,16 +47,28 @@ export default function UserGroupsPage() {
 
   const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } = useFormModal<{
     name: string;
+    selectedUsers: string[];
   }>({
-    defaults: { name: "" },
+    defaults: { name: "", selectedUsers: [] },
     onSave: (values, editingIndex) => {
       if (editingIndex !== null) {
-        setGroups((prev) => prev.map((g, i) => (i === editingIndex ? { ...g, name: values.name } : g)));
+        setGroups((prev) =>
+          prev.map((g, i) => (i === editingIndex ? { ...g, name: values.name, users: values.selectedUsers.length } : g)),
+        );
       } else {
-        setGroups((prev) => [...prev, { name: values.name, users: 0 }]);
+        setGroups((prev) => [...prev, { name: values.name, users: values.selectedUsers.length }]);
       }
     },
   });
+
+  function toggleUser(userName: string) {
+    const current = form.selectedUsers;
+    if (current.includes(userName)) {
+      setField("selectedUsers", current.filter((u) => u !== userName));
+    } else {
+      setField("selectedUsers", [...current, userName]);
+    }
+  }
 
   const filtered = groups.filter(
     (g) => !search || g.name.toLowerCase().includes(search.toLowerCase()),
@@ -55,7 +76,7 @@ export default function UserGroupsPage() {
 
   function handleAction(value: string, index: number) {
     if (value === "edit") {
-      openEdit(index, { name: groups[index].name });
+      openEdit(index, { name: groups[index].name, selectedUsers: [] });
     }
   }
 
@@ -122,6 +143,36 @@ export default function UserGroupsPage() {
       >
         <div className="space-y-4">
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
+        </div>
+
+        <div className="mt-6 border-t border-border pt-6">
+          <h3 className="text-heading-md text-text mb-3">Users</h3>
+          <div className="space-y-1">
+            {MOCK_USERS.map((user) => {
+              const isSelected = form.selectedUsers.includes(user);
+              return (
+                <label
+                  key={user}
+                  className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 hover:bg-surface-secondary"
+                >
+                  <span
+                    className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border ${
+                      isSelected ? "border-primary bg-primary" : "border-border bg-white"
+                    }`}
+                  >
+                    {isSelected && <Check className="h-3.5 w-3.5 text-white" />}
+                  </span>
+                  <input
+                    type="checkbox"
+                    className="sr-only"
+                    checked={isSelected}
+                    onChange={() => toggleUser(user)}
+                  />
+                  <span className="text-body-md text-text">{user}</span>
+                </label>
+              );
+            })}
+          </div>
         </div>
       </Modal>
     </div>

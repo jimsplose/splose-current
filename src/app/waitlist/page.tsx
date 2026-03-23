@@ -11,7 +11,6 @@ import {
   ThumbsUp,
   ThumbsDown,
   MoreHorizontal,
-  MapPin,
 } from "lucide-react";
 import {
   Button,
@@ -237,23 +236,14 @@ const tagBadgeVariant: Record<string, TagBadgeVariant> = {
   "NDIS referral": "purple",
 };
 
-// Map pin locations (placeholder positions as percentages)
+// Map pin overlay positions (percentage-based, overlaid on the OSM iframe)
 const mapPins = [
-  { x: 15, y: 20, label: "Client A" },
-  { x: 25, y: 45, label: "Client B" },
-  { x: 40, y: 30, label: "Client C" },
-  { x: 55, y: 55, label: "Client D" },
-  { x: 70, y: 25, label: "Client E" },
-  { x: 80, y: 60, label: "Client F" },
-  { x: 35, y: 70, label: "Client G" },
-  { x: 60, y: 40, label: "Client H" },
-  { x: 10, y: 65, label: "Client I" },
-  { x: 90, y: 35, label: "Client J" },
-  { x: 48, y: 80, label: "Client K" },
-  { x: 20, y: 85, label: "Client L" },
-  { x: 75, y: 75, label: "Client M" },
-  { x: 5, y: 40, label: "Client N" },
-  { x: 65, y: 15, label: "Client O" },
+  { x: 30, y: 35, label: "Ella Thompson", color: "#7c3aed" },
+  { x: 55, y: 45, label: "Harry James", color: "#2563eb" },
+  { x: 42, y: 60, label: "Jenny Jenkins", color: "#dc2626" },
+  { x: 68, y: 30, label: "kai win", color: "#059669" },
+  { x: 22, y: 55, label: "splose Ruvi", color: "#d97706" },
+  { x: 75, y: 65, label: "New client", color: "#7c3aed" },
 ];
 
 export default function WaitlistPage() {
@@ -573,84 +563,38 @@ function WaitlistPageInner() {
               className="relative overflow-hidden rounded-lg border border-border"
               style={{ height: "calc(100vh - 180px)" }}
             >
-              {/* Map background */}
-              <div className="absolute inset-0 bg-[#e8e4d8]">
-                {/* Road grid pattern */}
-                <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <pattern id="road-grid" width="120" height="120" patternUnits="userSpaceOnUse">
-                      <path d="M 120 0 L 0 0 0 120" fill="none" stroke="#d4d0c4" strokeWidth="1" />
-                    </pattern>
-                    <pattern id="road-major" width="360" height="360" patternUnits="userSpaceOnUse">
-                      <path d="M 360 0 L 0 0 0 360" fill="none" stroke="#c8c4b8" strokeWidth="2" />
-                    </pattern>
-                  </defs>
-                  <rect width="100%" height="100%" fill="url(#road-grid)" />
-                  <rect width="100%" height="100%" fill="url(#road-major)" />
-                  {/* Some diagonal roads */}
-                  <line x1="0" y1="0" x2="100%" y2="100%" stroke="#d4d0c4" strokeWidth="1.5" />
-                  <line x1="30%" y1="0" x2="80%" y2="100%" stroke="#c8c4b8" strokeWidth="2" />
-                  <line x1="0" y1="40%" x2="100%" y2="60%" stroke="#d4d0c4" strokeWidth="1.5" />
-                  {/* Green areas (parks) */}
-                  <rect x="65%" y="20%" width="15%" height="12%" rx="8" fill="#c8dcc0" opacity="0.6" />
-                  <rect x="10%" y="55%" width="12%" height="10%" rx="6" fill="#c8dcc0" opacity="0.5" />
-                  <rect x="80%" y="70%" width="10%" height="15%" rx="6" fill="#c8dcc0" opacity="0.4" />
-                </svg>
+              {/* Interactive OpenStreetMap */}
+              <iframe
+                src="https://www.openstreetmap.org/export/embed.html?bbox=138.55%2C-34.97%2C138.65%2C-34.89&layer=mapnik"
+                style={{ width: "100%", height: "100%", border: 0 }}
+                allowFullScreen
+                title="Waitlist client locations — Adelaide, South Australia"
+              />
 
-                {/* Place labels */}
-                <div className="absolute top-[15%] left-[8%] text-label-sm text-gray-500">
-                  Campbellfield
-                </div>
-                <div className="absolute top-[8%] left-[35%] text-label-sm text-gray-500">Thomastown</div>
-                <div className="absolute top-[12%] left-[65%] text-label-sm text-gray-500">Bundoora</div>
-                <div className="absolute top-[30%] left-[20%] text-label-sm text-gray-500">Fawkner</div>
-                <div className="absolute top-[25%] left-[45%] text-label-sm text-gray-500">Reservoir</div>
-                <div className="absolute top-[45%] left-[12%] text-label-sm text-gray-500">Coburg North</div>
-                <div className="absolute top-[55%] left-[8%] text-label-sm text-gray-500">Pascoe Vale</div>
-                <div className="absolute top-[50%] left-[30%] text-label-sm text-gray-500">Preston</div>
-                <div className="absolute top-[35%] left-[55%] text-label-sm text-gray-500">Heidelberg</div>
-                <div className="absolute top-[45%] left-[70%] text-label-sm text-gray-500">Bulleen</div>
-                <div className="absolute top-[70%] left-[15%] text-label-sm text-gray-500">Brunswick</div>
-                <div className="absolute top-[65%] left-[35%] text-label-sm text-gray-500">Northcote</div>
-                <div className="absolute top-[75%] left-[50%] text-label-sm text-gray-500">Kew</div>
-                <div className="absolute top-[88%] left-[40%] text-caption-sm text-gray-600">Melbourne</div>
-
-                {/* Map pins */}
-                {mapPins.map((pin, idx) => (
+              {/* Client marker overlays */}
+              {mapPins.map((pin, idx) => (
+                <div
+                  key={idx}
+                  className="group absolute"
+                  style={{
+                    left: `${pin.x}%`,
+                    top: `${pin.y}%`,
+                    transform: "translate(-50%, -50%)",
+                    pointerEvents: "auto",
+                  }}
+                >
+                  {/* Colored dot */}
                   <div
-                    key={idx}
-                    className="group absolute"
-                    style={{ left: `${pin.x}%`, top: `${pin.y}%`, transform: "translate(-50%, -100%)" }}
-                  >
-                    <MapPin className="h-6 w-6 text-gray-600 drop-shadow-sm" fill="#fff" strokeWidth={1.5} />
-                    <div className="absolute bottom-full left-1/2 mb-1 hidden -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-caption-sm whitespace-nowrap text-white group-hover:block">
-                      {pin.label}
-                    </div>
-                  </div>
-                ))}
-
-                {/* Clustered pins (bottom-left area, matching screenshot) */}
-                <div className="absolute" style={{ left: "8%", top: "60%", transform: "translate(-50%, -100%)" }}>
-                  <div className="flex items-center gap-0.5">
-                    <MapPin className="h-5 w-5 text-gray-600 drop-shadow-sm" fill="#fff" strokeWidth={1.5} />
-                    <MapPin className="h-5 w-5 text-gray-600 drop-shadow-sm" fill="#fff" strokeWidth={1.5} />
-                    <MapPin className="h-5 w-5 text-gray-600 drop-shadow-sm" fill="#fff" strokeWidth={1.5} />
+                    className="h-4 w-4 rounded-full border-2 border-white shadow-md transition-transform group-hover:scale-125"
+                    style={{ backgroundColor: pin.color }}
+                  />
+                  {/* Tooltip on hover */}
+                  <div className="absolute bottom-full left-1/2 mb-2 hidden -translate-x-1/2 rounded bg-gray-800 px-2.5 py-1 text-caption-sm whitespace-nowrap text-white shadow-lg group-hover:block">
+                    {pin.label}
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-800" />
                   </div>
                 </div>
-
-                {/* Fullscreen button */}
-                <Button variant="secondary" size="sm" className="absolute top-3 right-3 !rounded !p-1.5 shadow-sm">
-                  <svg
-                    className="h-4 w-4 text-gray-600"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" />
-                  </svg>
-                </Button>
-              </div>
+              ))}
             </div>
           )}
         </div>

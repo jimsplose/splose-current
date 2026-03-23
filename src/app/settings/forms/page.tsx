@@ -70,9 +70,18 @@ export default function FormsPage() {
   return (
     <div className="p-6">
       <PageHeader title="Form templates">
-        <Button variant="secondary">
-          <span className="flex items-center gap-1">Learn <ChevronDown className="h-4 w-4" /></span>
-        </Button>
+        <Dropdown
+          trigger={
+            <Button variant="secondary">
+              <span className="flex items-center gap-1">Learn <ChevronDown className="h-4 w-4" /></span>
+            </Button>
+          }
+          items={[
+            { label: "Help guide", value: "help" },
+            { label: "Watch a video", value: "video" },
+          ]}
+          onSelect={(value) => console.log("Learn:", value)}
+        />
         <Button variant="secondary">Show archived</Button>
         <Button variant="primary" onClick={openCreate}>+ New template</Button>
       </PageHeader>

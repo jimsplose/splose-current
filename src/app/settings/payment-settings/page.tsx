@@ -42,6 +42,16 @@ const paymentMethods: PaymentMethod[] = [
 
 const ITEMS_PER_PAGE = 10;
 
+const PAYMENT_TYPE_OPTIONS: { label: string; value: string }[] = [
+  { label: "Credit Card", value: "Credit Card" },
+  { label: "EFTPOS", value: "EFTPOS" },
+  { label: "Medicare", value: "Medicare" },
+  { label: "HICAPS", value: "HICAPS" },
+  { label: "Cash", value: "Cash" },
+  { label: "Bank Transfer", value: "Bank Transfer" },
+  { label: "DVA", value: "DVA" },
+];
+
 export default function PaymentSettingsPage() {
   const [methods, setMethods] = useState(paymentMethods);
   const [currentPage, setCurrentPage] = useState(1);
@@ -61,6 +71,11 @@ export default function PaymentSettingsPage() {
       }
     },
   });
+
+  function handleAddPaymentType(value: string) {
+    const newId = Math.max(...methods.map((m) => m.id)) + 1;
+    setMethods((prev) => [...prev, { id: newId, name: value, description: "", status: "Active" }]);
+  }
 
   function handleAction(value: string, index: number) {
     if (value === "edit") {
@@ -150,7 +165,11 @@ export default function PaymentSettingsPage() {
         />
 
         <div className="mt-4">
-          <Button variant="secondary" onClick={openCreate}>+ Add payment method</Button>
+          <Dropdown
+            trigger={<Button variant="secondary">+ Add payment method</Button>}
+            items={PAYMENT_TYPE_OPTIONS}
+            onSelect={handleAddPaymentType}
+          />
         </div>
       </section>
 

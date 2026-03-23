@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Upload, MessageCircle, BookOpen } from "lucide-react";
+import { Upload, MessageCircle, BookOpen, FileSpreadsheet, Database } from "lucide-react";
 import {
   Button,
   DataTable,
@@ -14,6 +14,7 @@ import {
   Pagination,
   Dropdown,
   DropdownTriggerButton,
+  Modal,
 } from "@/components/ds";
 
 interface ImportRow {
@@ -74,6 +75,7 @@ const dropdownItems = [
 
 export default function DataImportPage() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [importOpen, setImportOpen] = useState(false);
 
   const totalPages = Math.ceil(importHistory.length / ITEMS_PER_PAGE);
   const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -115,7 +117,7 @@ export default function DataImportPage() {
       {/* Import data header */}
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-display-lg text-text">Import data</h1>
-        <Button variant="primary">
+        <Button variant="primary" onClick={() => setImportOpen(true)}>
           <Upload className="h-4 w-4" />
           Import
         </Button>
@@ -168,6 +170,37 @@ export default function DataImportPage() {
         itemsPerPage={ITEMS_PER_PAGE}
         onPageChange={setCurrentPage}
       />
+
+      <Modal open={importOpen} onClose={() => setImportOpen(false)} title="Import from">
+        <div className="grid grid-cols-2 gap-4">
+          <button
+            type="button"
+            onClick={() => setImportOpen(false)}
+            className="flex flex-col items-center gap-3 rounded-lg border border-border p-6 text-center transition-colors hover:border-primary hover:bg-purple-50"
+          >
+            <FileSpreadsheet className="h-10 w-10 text-primary" />
+            <div>
+              <p className="text-label-lg text-text">CSV</p>
+              <p className="mt-1 text-body-sm text-text-secondary">
+                Import clients, contacts, or appointments from a CSV file
+              </p>
+            </div>
+          </button>
+          <button
+            type="button"
+            onClick={() => setImportOpen(false)}
+            className="flex flex-col items-center gap-3 rounded-lg border border-border p-6 text-center transition-colors hover:border-primary hover:bg-purple-50"
+          >
+            <Database className="h-10 w-10 text-primary" />
+            <div>
+              <p className="text-label-lg text-text">Cliniko</p>
+              <p className="mt-1 text-body-sm text-text-secondary">
+                Migrate your data from Cliniko
+              </p>
+            </div>
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 }

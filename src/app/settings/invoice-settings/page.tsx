@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { CalendarDays, Info } from "lucide-react";
+import { CalendarDays, Info, Bold, Italic, Underline, Link } from "lucide-react";
 import {
   Alert,
   Button,
@@ -13,6 +13,7 @@ import {
   Td,
   FormInput,
   FormSelect,
+  FormTextarea,
   Pagination,
   Toggle,
   Checkbox,
@@ -71,7 +72,7 @@ export default function InvoiceSettingsPage() {
   const templateStartIdx = (templatePage - 1) * TEMPLATES_PER_PAGE;
   const pageTemplates = templates.slice(templateStartIdx, templateStartIdx + TEMPLATES_PER_PAGE);
 
-  const onSave = useCallback((values: { name: string }, index: number | null) => {
+  const onSave = useCallback((values: { name: string; subject: string; body: string; sendTiming: string }, index: number | null) => {
     if (modalType === "reminder") {
       if (index !== null) {
         setReminders((prev) => prev.map((r, i) => (i === index ? { ...r, name: values.name } : r)));
@@ -89,8 +90,8 @@ export default function InvoiceSettingsPage() {
     }
   }, [modalType, reminders, templates]);
 
-  const { modalOpen, isEditing, form, setField, openCreate: rawOpenCreate, openEdit, closeModal, handleSave } = useFormModal<{ name: string }>({
-    defaults: { name: "" },
+  const { modalOpen, isEditing, form, setField, openCreate: rawOpenCreate, openEdit, closeModal, handleSave } = useFormModal<{ name: string; subject: string; body: string; sendTiming: string }>({
+    defaults: { name: "", subject: "", body: "", sendTiming: "on-due-date" },
     onSave,
   });
 
@@ -98,7 +99,7 @@ export default function InvoiceSettingsPage() {
     setModalType(type);
     if (index !== undefined) {
       const list = type === "reminder" ? reminders : templates;
-      openEdit(index, { name: list[index].name });
+      openEdit(index, { name: list[index].name, subject: "Invoice reminder: {invoice_number}", body: "Hi {client_name},\n\nThis is a reminder that invoice {invoice_number} for {amount_owing} is due on {due_date}.\n\nPlease make payment at your earliest convenience.\n\nRegards,\n{practice_name}", sendTiming: "on-due-date" });
     } else {
       rawOpenCreate();
     }
@@ -313,6 +314,40 @@ export default function InvoiceSettingsPage() {
       >
         <div className="space-y-4">
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
+
+          {modalType === "reminder" && (
+            <>
+              <FormSelect
+                label="Send"
+                value={form.sendTiming}
+                onChange={(e) => setField("sendTiming", e.target.value)}
+                options={[
+                  { value: "on-due-date", label: "On due date" },
+                  { value: "1-day-before", label: "1 day before" },
+                  { value: "3-days-after", label: "3 days after" },
+                  { value: "7-days-after", label: "7 days after" },
+                  { value: "14-days-after", label: "14 days after" },
+                ]}
+              />
+              <FormInput label="Subject" value={form.subject} onChange={(e) => setField("subject", e.target.value)} />
+              <div>
+                <label className="mb-1 block text-label-lg text-text-secondary">Body</label>
+                <div className="flex items-center gap-1 rounded-t-lg border border-b-0 border-border bg-gray-50 px-2 py-1.5">
+                  <Button variant="icon" size="sm" type="button"><Bold className="h-4 w-4" /></Button>
+                  <Button variant="icon" size="sm" type="button"><Italic className="h-4 w-4" /></Button>
+                  <Button variant="icon" size="sm" type="button"><Underline className="h-4 w-4" /></Button>
+                  <div className="mx-1 h-4 w-px bg-border" />
+                  <Button variant="icon" size="sm" type="button"><Link className="h-4 w-4" /></Button>
+                </div>
+                <FormTextarea
+                  value={form.body}
+                  onChange={(e) => setField("body", e.target.value)}
+                  rows={8}
+                  className="rounded-t-none"
+                />
+              </div>
+            </>
+          )}
         </div>
       </Modal>
     </div>

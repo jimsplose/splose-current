@@ -44,3 +44,4 @@ export { default as Stat } from "./Stat";
 export { default as IconText } from "./IconText";
 export { default as Checkbox } from "./Checkbox";
 export { default as RadioGroup } from "./RadioGroup";
+export { default as EmailPreview } from "./EmailPreview";
