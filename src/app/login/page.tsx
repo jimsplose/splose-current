@@ -7,26 +7,11 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         {/* Header banner */}
         <div className="relative overflow-hidden rounded-t-2xl bg-primary px-8 py-10">
-          <h1 className="text-4xl font-bold text-white italic">splose</h1>
-          {/* Hand illustration */}
-          <div className="absolute top-1/2 right-8 -translate-y-1/2">
-            <svg width="120" height="80" viewBox="0 0 120 80" fill="none">
-              {/* Sleeve */}
-              <path d="M120 25 L75 25 L70 55 L120 55Z" fill="#2d5016" />
-              <path d="M120 25 L100 20 L95 30 L120 28Z" fill="#1a3a0a" />
-              {/* Hand */}
-              <ellipse cx="68" cy="40" rx="20" ry="16" fill="#d4a03c" />
-              {/* Fingers */}
-              <ellipse cx="52" cy="28" rx="6" ry="10" fill="#d4a03c" transform="rotate(-15 52 28)" />
-              <ellipse cx="45" cy="34" rx="5" ry="9" fill="#d4a03c" transform="rotate(-25 45 34)" />
-              <ellipse cx="42" cy="42" rx="5" ry="8" fill="#d4a03c" transform="rotate(-35 42 42)" />
-              <ellipse cx="44" cy="52" rx="5" ry="7" fill="#d4a03c" transform="rotate(-10 44 52)" />
-              {/* Fingernails */}
-              <ellipse cx="48" cy="20" rx="3" ry="3" fill="#2d5016" />
-              <ellipse cx="40" cy="27" rx="3" ry="3" fill="#2d5016" />
-              <ellipse cx="37" cy="36" rx="3" ry="3" fill="#2d5016" />
-            </svg>
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/brand/splose logo.svg" alt="splose" className="h-8 brightness-0 invert" />
+          {/* Settings illustration */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/brand/settings.png" alt="" className="absolute top-1/2 right-6 h-20 -translate-y-1/2 object-contain" />
         </div>
 
         {/* Form card */}
