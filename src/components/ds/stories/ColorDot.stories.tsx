@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import ColorDot from "../ColorDot";
 
 const meta: Meta<typeof ColorDot> = {
-  title: "DS/ColorDot",
+  title: "Design System/ColorDot",
   component: ColorDot,
 };
 export default meta;

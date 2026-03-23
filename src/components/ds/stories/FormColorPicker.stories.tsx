@@ -5,7 +5,7 @@ import { useState } from "react";
 import FormColorPicker from "../FormColorPicker";
 
 const meta: Meta<typeof FormColorPicker> = {
-  title: "DS/FormColorPicker",
+  title: "Design System/FormColorPicker",
   component: FormColorPicker,
 };
 export default meta;

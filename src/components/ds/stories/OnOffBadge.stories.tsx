@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import OnOffBadge from "../OnOffBadge";
 
 const meta: Meta<typeof OnOffBadge> = {
-  title: "DS/OnOffBadge",
+  title: "Design System/OnOffBadge",
   component: OnOffBadge,
 };
 export default meta;
