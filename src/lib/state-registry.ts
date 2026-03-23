@@ -349,6 +349,11 @@ export const stateRegistry: PageEntry[] = [
             label: "Edit Location",
             variants: [{ id: "default", label: "Edit location" }],
           },
+          {
+            path: "/settings/locations/new",
+            label: "New Location",
+            variants: [{ id: "default", label: "New location" }],
+          },
         ],
       },
       { path: "/settings/custom-fields", label: "Custom Fields", variants: [{ id: "default", label: "Custom Fields" }] },
@@ -368,7 +373,19 @@ export const stateRegistry: PageEntry[] = [
       },
       { path: "/settings/busy-times", label: "Busy Times", variants: [{ id: "default", label: "Busy Times" }] },
       { path: "/settings/cancellation-reasons", label: "Cancellation Reasons", variants: [{ id: "default", label: "Cancellation Reasons" }] },
-      { path: "/settings/online-bookings", label: "Online Bookings", variants: [{ id: "default", label: "Online Bookings" }] },
+      {
+        path: "/settings/online-bookings",
+        label: "Online Bookings",
+        variants: [{ id: "default", label: "Online Bookings" }],
+        children: [
+          {
+            path: "/settings/online-bookings/[id]",
+            resolvedPath: "/settings/online-bookings/1",
+            label: "Edit Online Booking",
+            variants: [{ id: "default", label: "Edit online booking" }],
+          },
+        ],
+      },
       { path: "/settings/communication-types", label: "Communication Types", variants: [{ id: "default", label: "Communication Types" }] },
       { path: "/settings/tags", label: "Tags", variants: [{ id: "default", label: "Tags" }] },
       { path: "/settings/referral-types", label: "Referral Types", variants: [{ id: "default", label: "Referral Types" }] },
@@ -386,10 +403,38 @@ export const stateRegistry: PageEntry[] = [
         ],
       },
       { path: "/settings/user-groups", label: "User Groups", variants: [{ id: "default", label: "User Groups" }] },
-      { path: "/settings/appointment-templates", label: "Appointment Templates", variants: [{ id: "default", label: "Appointment Templates" }] },
-      { path: "/settings/email-templates", label: "Email Templates", variants: [{ id: "default", label: "Email Templates" }] },
-      { path: "/settings/progress-notes", label: "Progress Notes", variants: [{ id: "default", label: "Progress Notes" }] },
-      { path: "/settings/letter-templates", label: "Letter Templates", variants: [{ id: "default", label: "Letter Templates" }] },
+      {
+        path: "/settings/appointment-templates",
+        label: "Appointment Templates",
+        variants: [{ id: "default", label: "Appointment Templates" }],
+        children: [
+          { path: "/settings/appointment-templates/new", label: "New Appointment Template", variants: [{ id: "default", label: "New appointment template" }] },
+        ],
+      },
+      {
+        path: "/settings/email-templates",
+        label: "Email Templates",
+        variants: [{ id: "default", label: "Email Templates" }],
+        children: [
+          { path: "/settings/email-templates/edit/[id]", resolvedPath: "/settings/email-templates/edit/1", label: "Edit Email Template", variants: [{ id: "default", label: "Edit email template" }] },
+        ],
+      },
+      {
+        path: "/settings/progress-notes",
+        label: "Progress Notes",
+        variants: [{ id: "default", label: "Progress Notes" }],
+        children: [
+          { path: "/settings/progress-notes/edit/[id]", resolvedPath: "/settings/progress-notes/edit/1", label: "Edit Progress Note Template", variants: [{ id: "default", label: "Edit progress note template" }] },
+        ],
+      },
+      {
+        path: "/settings/letter-templates",
+        label: "Letter Templates",
+        variants: [{ id: "default", label: "Letter Templates" }],
+        children: [
+          { path: "/settings/letter-templates/edit/[id]", resolvedPath: "/settings/letter-templates/edit/1", label: "Edit Letter Template", variants: [{ id: "default", label: "Edit letter template" }] },
+        ],
+      },
       { path: "/settings/body-charts", label: "Body Charts", variants: [{ id: "default", label: "Body Charts" }] },
       { path: "/settings/payment-settings", label: "Payment Settings", variants: [{ id: "default", label: "Payment Settings" }] },
       { path: "/settings/invoice-settings", label: "Invoice Settings", variants: [{ id: "default", label: "Invoice Settings" }] },
