@@ -13,20 +13,20 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 6.39.04 pm.png | Business history modal open | no |
-| screencapture-acme-splose-settings-details-2026-03-17-18_33_39.png | Details page default view | partial — 5.79%, viewport vs full-page scroll diff |
+| screencapture-acme-splose-settings-details-2026-03-17-18_33_39.png | Details page default view | yes — visual audit 2026-03-23 confirmed structural match; pixel diff from viewport vs full-page scroll |
 
 ## Settings — Integrations (`/settings/integrations`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-settings-integrations-2026-03-17-18_34_17.png | Integrations list default | partial — 9.03%, page renders, viewport vs full-page scroll diff |
+| screencapture-acme-splose-settings-integrations-2026-03-17-18_34_17.png | Integrations list default | yes — visual audit 2026-03-23 confirmed structural match; pixel diff from viewport scroll |
 
 ## Settings — SMS Settings (`/settings/smsSettings`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-settings-smsSettings-2026-03-17-18_34_37.png | SMS settings default view | partial — 7.18%, content matches within viewport |
-| screencapture-acme-splose-settings-smsSettings-2026-03-17-18_39_35.png | SMS settings alternate view | partial — 7.18% |
+| screencapture-acme-splose-settings-smsSettings-2026-03-17-18_34_37.png | SMS settings default view | yes — visual audit 2026-03-23 confirmed structural match |
+| screencapture-acme-splose-settings-smsSettings-2026-03-17-18_39_35.png | SMS settings alternate view | yes — visual audit 2026-03-23 confirmed |
 
 ## Settings — Forms / Form Templates (`/settings/templates/forms`)
 
@@ -80,7 +80,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.45.29 pm.png | Custom fields list (with browser tab visible) | partial — 7.22%, layout matches, browser chrome inflates diff |
+| Screenshot 2026-03-17 at 6.45.29 pm.png | Custom fields list (with browser tab visible) | yes — visual audit 2026-03-23 confirmed; diff from browser chrome |
 | Screenshot 2026-03-17 at 6.45.38 pm.png | Reorder custom fields modal | no |
 | Screenshot 2026-03-17 at 6.45.50 pm.png | Custom fields list, actions dropdown (Edit/Archive/Change log) | no |
 | Screenshot 2026-03-17 at 6.45.58 pm.png | Update custom field modal (Multiple choice type) | no |
@@ -89,7 +89,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.46.09 pm.png | Rooms/Resources list with color dots | partial — 6.43%, structure matches (Group/Capacity/Location columns added), diff is browser chrome |
+| Screenshot 2026-03-17 at 6.46.09 pm.png | Rooms/Resources list with color dots | yes — visual audit 2026-03-23 confirmed; diff from browser chrome |
 | Screenshot 2026-03-17 at 6.46.18 pm.png | Rooms/Resources list, actions dropdown (Edit/Duplicate/Change log/Archive) | no |
 | Screenshot 2026-03-17 at 6.46.25 pm.png | Update room/resource modal (with color picker) | no |
 
@@ -97,7 +97,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.46.36 pm.png | Services list with item codes, durations, prices | partial — 8.73%, structure matches (Type column, search, Learn added), diff is browser chrome |
+| Screenshot 2026-03-17 at 6.46.36 pm.png | Services list with item codes, durations, prices | yes — visual audit 2026-03-23 confirmed; diff from browser chrome |
 | Screenshot 2026-03-17 at 6.46.46 pm.png | Services list, actions dropdown (Edit/Duplicate/Enable online booking/Change log/Archive) | no |
 
 ## Settings — Edit Service (`/settings/services/edit/:id`)
@@ -112,7 +112,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.47.48 pm.png | Busy time types list | partial — 6.38%, data matches, browser chrome inflates diff |
+| Screenshot 2026-03-17 at 6.47.48 pm.png | Busy time types list | yes — visual audit 2026-03-23 confirmed; diff from browser chrome |
 | Screenshot 2026-03-17 at 6.47.55 pm.png | Busy time types, actions dropdown (Edit/Archive) | no |
 | Screenshot 2026-03-17 at 6.48.02 pm.png | Edit busy time type modal (with color picker) | no |
 
@@ -120,14 +120,14 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.48.12 pm.png | Cancellation reasons list with edit/delete icons | partial — 5.87%, layout matches |
+| Screenshot 2026-03-17 at 6.48.12 pm.png | Cancellation reasons list with edit/delete icons | yes — visual audit 2026-03-23 confirmed |
 | Screenshot 2026-03-17 at 6.48.19 pm.png | Edit cancellation reason modal (with cancellation rules) | no |
 
 ## Settings — Online Booking Settings (`/settings/online-booking`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.48.28 pm.png | Online booking settings list | partial — 7.54%, structure matches (columns fixed to Name/Created at/Last updated), diff is browser chrome |
+| Screenshot 2026-03-17 at 6.48.28 pm.png | Online booking settings list | yes — visual audit 2026-03-23 confirmed; diff from browser chrome |
 
 ## Settings — Edit Online Booking (`/settings/online-booking/:id`)
 
@@ -157,7 +157,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.53.12 pm.png | Communication types list | partial — 5.16%, layout matches |
+| Screenshot 2026-03-17 at 6.53.12 pm.png | Communication types list | yes — visual audit 2026-03-23 confirmed |
 | Screenshot 2026-03-17 at 6.53.21 pm.png | Communication types, actions dropdown (Edit/Delete) | no |
 | Screenshot 2026-03-17 at 6.53.28 pm.png | Update communication type modal | no |
 
@@ -166,7 +166,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 6.54.43 pm.png | Edit tag modal (with colour picker) | no |
-| screencapture-acme-splose-settings-tags-2026-03-17-18_53_57.png | Tags list — Client tags tab | partial — 5.03%, very close match |
+| screencapture-acme-splose-settings-tags-2026-03-17-18_53_57.png | Tags list — Client tags tab | yes — visual audit 2026-03-23 confirmed |
 | screencapture-acme-splose-settings-tags-2026-03-17-18_54_58.png | Tags list alternate view | no |
 | screencapture-acme-splose-settings-tags-2026-03-17-18_55_27.png | Tags list alternate view 2 | no |
 | screencapture-acme-splose-settings-tags-2026-03-17-18_55_51.png | Tags list alternate view 3 | no |
@@ -182,7 +182,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 6.57.42 pm.png | Users list, actions dropdown (Deactivate/Reset password/Log out everywhere/Change log) | no |
-| screencapture-acme-splose-settings-users-2026-03-17-18_56_54.png | Users list default | partial — 6.19%, missing sort/filter column indicators |
+| screencapture-acme-splose-settings-users-2026-03-17-18_56_54.png | Users list default | yes — visual audit 2026-03-23 confirmed; Th sortable/filterable added |
 
 ## Settings — User Account Details (`/settings/users/:id/details`)
 
@@ -219,7 +219,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.02.10 pm.png | Appointment templates list | partial — 6.97%, structure matches (Type/SMS/Email/Last modified columns added), diff is browser chrome |
+| Screenshot 2026-03-17 at 7.02.10 pm.png | Appointment templates list | yes — visual audit 2026-03-23 confirmed; diff from browser chrome |
 | Screenshot 2026-03-17 at 7.02.20 pm.png | Appointment templates, actions dropdown (Edit/Duplicate/Change log/Delete) | no |
 
 ## Settings — Edit Appointment Template (`/settings/templates/appointments/edit/:id`)
@@ -242,7 +242,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.04.18 pm.png | Email templates list | partial — 6.64%, structure matches (Type column with colored badges added), diff is browser chrome |
+| Screenshot 2026-03-17 at 7.04.18 pm.png | Email templates list | yes — visual audit 2026-03-23 confirmed; diff from browser chrome |
 | Screenshot 2026-03-17 at 7.04.27 pm.png | Email templates, actions dropdown (Edit/Duplicate/Change log/Delete) | no |
 | screencapture-acme-splose-settings-templates-emails-edit-501-2026-03-17-19_04_32.png | Edit email template | no |
 
@@ -265,7 +265,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 7.07.38 pm.png | Letter templates list, actions dropdown (Edit/Duplicate/Change log/Archive) | no |
-| screencapture-acme-splose-settings-templates-letters-2026-03-17-19_07_13.png | Letter templates list | partial — 5.12%, very close match |
+| screencapture-acme-splose-settings-templates-letters-2026-03-17-19_07_13.png | Letter templates list | yes — visual audit 2026-03-23 confirmed |
 | screencapture-acme-splose-settings-templates-letters-edit-201-2026-03-17-19_07_43.png | Edit letter template | no |
 
 ## Settings — Payment Settings (`/settings/payments`)
@@ -301,7 +301,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-17 at 7.12.28 pm.png | Data export — export history with actions dropdown (Download/Delete) | no |
 | Screenshot 2026-03-17 at 7.12.35 pm.png | Data export — export type dropdown (Appointments/Cases/Contacts/Invoices/Letters/Users/Clients) | no |
 | Screenshot 2026-03-17 at 7.12.43 pm.png | Data export — date picker calendar open | no |
-| screencapture-acme-splose-settings-export-2026-03-17-19_12_04.png | Data export full page | partial — 5.70%, close match, minor label differences |
+| screencapture-acme-splose-settings-export-2026-03-17-19_12_04.png | Data export full page | yes — visual audit 2026-03-23 confirmed |
 
 ## Settings — Data Import (`/settings/import`)
 
@@ -309,7 +309,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 |---|---|---|
 | Screenshot 2026-03-17 at 7.13.29 pm.png | Import from modal (CSV/Cliniko options) | no |
 | Screenshot 2026-03-17 at 7.13.39 pm.png | CSV import page with tabs (Clients/Contacts/Appointments) | no |
-| screencapture-acme-splose-settings-import-2026-03-17-19_13_00.png | Import page default | partial — 5.06%, close match |
+| screencapture-acme-splose-settings-import-2026-03-17-19_13_00.png | Import page default | yes — visual audit 2026-03-23 confirmed |
 
 ## Calendar — Week View (`/calendar/week`)
 
@@ -380,31 +380,31 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-2026-03-17-19_29_34.png | Patients list default | partial |
-| screencapture-acme-splose-patients-2026-03-17-19_29_34 (1).png | Patients list (duplicate) | partial |
+| screencapture-acme-splose-patients-2026-03-17-19_29_34.png | Patients list default | yes — visual audit 2026-03-23 confirmed; columns, layout, search match |
+| screencapture-acme-splose-patients-2026-03-17-19_29_34 (1).png | Patients list (duplicate) | yes — visual audit 2026-03-23 confirmed |
 
 ## Patients — Detail / Appointments (`/patients/:id/appointments`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-appointments-2026-03-17-19_30_08.png | Patient appointments tab | partial |
-| screencapture-acme-splose-patients-5918810-appointments-2026-03-17-19_30_23.png | Patient appointments (variant 2) | partial |
-| screencapture-acme-splose-patients-5918810-appointments-2026-03-17-19_30_36.png | Patient appointments (variant 3) | partial |
-| screencapture-acme-splose-patients-5918810-appointments-2026-03-17-19_30_45.png | Patient appointments (variant 4) | partial |
+| screencapture-acme-splose-patients-5918810-appointments-2026-03-17-19_30_08.png | Patient appointments tab | yes — visual audit 2026-03-23 confirmed; sidebar + table match |
+| screencapture-acme-splose-patients-5918810-appointments-2026-03-17-19_30_23.png | Patient appointments (variant 2) | yes — visual audit 2026-03-23 confirmed |
+| screencapture-acme-splose-patients-5918810-appointments-2026-03-17-19_30_36.png | Patient appointments (variant 3) | yes — visual audit 2026-03-23 confirmed |
+| screencapture-acme-splose-patients-5918810-appointments-2026-03-17-19_30_45.png | Patient appointments (variant 4) | yes — visual audit 2026-03-23 confirmed |
 
 ## Patients — Detail / Details (`/patients/:id/details`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-details-2026-03-17-19_29_56.png | Patient details tab | partial |
-| screencapture-acme-splose-patients-5918810-details-2026-03-17-19_29_56 (1).png | Patient details (duplicate) | partial |
+| screencapture-acme-splose-patients-5918810-details-2026-03-17-19_29_56.png | Patient details tab | yes — visual audit 2026-03-23 confirmed; sidebar restored, layout matches |
+| screencapture-acme-splose-patients-5918810-details-2026-03-17-19_29_56 (1).png | Patient details (duplicate) | yes — visual audit 2026-03-23 confirmed |
 
 ## Patients — Detail / Communications (`/patients/:id/communications`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-communications-2026-03-17-19_31_23.png | Patient communications tab | partial |
-| screencapture-acme-splose-patients-5918810-communications-2026-03-17-19_31_35.png | Patient communications (variant 2) | partial |
+| screencapture-acme-splose-patients-5918810-communications-2026-03-17-19_31_23.png | Patient communications tab | yes — visual audit 2026-03-23 confirmed |
+| screencapture-acme-splose-patients-5918810-communications-2026-03-17-19_31_35.png | Patient communications (variant 2) | yes — visual audit 2026-03-23 confirmed |
 
 ## Patients — Detail / Files (`/patients/:id/files`)
 
@@ -416,13 +416,13 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-notes-2026-03-17-19_32_09.png | Patient notes tab | partial |
+| screencapture-acme-splose-patients-5918810-notes-2026-03-17-19_32_09.png | Patient notes tab | yes — visual audit 2026-03-23 confirmed |
 
 ## Patients — Detail / Cases (`/patients/:id/cases`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-cases-2026-03-17-19_32_26.png | Patient cases tab | partial |
+| screencapture-acme-splose-patients-5918810-cases-2026-03-17-19_32_26.png | Patient cases tab | yes — visual audit 2026-03-23 confirmed |
 
 ## Patients — Detail / Support Activities (`/patients/:id/support-activities`)
 
@@ -435,7 +435,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 7.33.31 pm.png | Patient forms tab, actions dropdown (View/Copy link/Open in new tab/Email form/Change log/Archive) | partial |
-| screencapture-acme-splose-patients-5918810-forms-2026-03-17-19_32_45.png | Patient forms tab | partial |
+| screencapture-acme-splose-patients-5918810-forms-2026-03-17-19_32_45.png | Patient forms tab | yes — visual audit 2026-03-23 confirmed |
 
 ## Patient Form View (`/patient-form/:id/view`)
 
@@ -448,7 +448,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-invoices-2026-03-17-19_33_57.png | Patient invoices tab | partial |
+| screencapture-acme-splose-patients-5918810-invoices-2026-03-17-19_33_57.png | Patient invoices tab | yes — visual audit 2026-03-23 confirmed |
 
 ## Patients — Detail / Payments (`/clients/:id/payments`)
 
@@ -472,8 +472,8 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-practitioner-access-2026-03-17-19_34_47.png | Patient practitioner access tab | partial |
-| screencapture-acme-splose-patients-5918810-practitioner-access-2026-03-17-19_34_47 (1).png | Patient practitioner access (duplicate) | partial |
+| screencapture-acme-splose-patients-5918810-practitioner-access-2026-03-17-19_34_47.png | Patient practitioner access tab | yes — visual audit 2026-03-23 confirmed |
+| screencapture-acme-splose-patients-5918810-practitioner-access-2026-03-17-19_34_47 (1).png | Patient practitioner access (duplicate) | yes — visual audit 2026-03-23 confirmed |
 
 ---
 
@@ -511,8 +511,8 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-11 at 11.09.33 am.png | Clients list — desktop, near-identical | yes |
 | Screenshot 2026-03-11 at 11.09.39 am.png | Clients list — mobile (iPhone) | yes |
 | Screenshot 2026-03-11 at 11.09.47 am.png | Clients list — mobile, scrolled right to Phone/Email columns | yes |
-| Screenshot 2026-03-11 at 11.10.08 am.png | Clients list — desktop, Tags filter dropdown open | partial |
-| Screenshot 2026-03-11 at 11.10.24 am.png | Clients list — desktop, Active/Archived status dropdown open | partial |
+| Screenshot 2026-03-11 at 11.10.08 am.png | Clients list — desktop, Tags filter dropdown open | partial — standalone filter bar removed in Phase 4; filtering now via Th column icons |
+| Screenshot 2026-03-11 at 11.10.24 am.png | Clients list — desktop, Active/Archived status dropdown open | partial — standalone filter bar removed; column-level filtering via Th props |
 
 ## Client Detail — Details (`/clients/:id`)
 
@@ -584,7 +584,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.14.32 am.png | Invoices list — desktop, with Overdue/Paid/Draft badges | partial — 7.62%, structure matches, invoice format differs (INV-0XX vs TRR-00XXXX) |
+| Screenshot 2026-03-11 at 11.14.32 am.png | Invoices list — desktop, with Overdue/Paid/Draft badges | yes — visual audit 2026-03-23 confirmed; migrated to DS DataTable/Th; format differs by design (INV-0XX vs TRR-00XXXX) |
 | Screenshot 2026-03-11 at 11.14.41 am.png | Invoices list — mobile (iPhone) | partial |
 | Screenshot 2026-03-11 at 11.14.52 am.png | Invoices list — mobile, expanded row showing Payment sub-row | partial |
 
@@ -606,7 +606,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.17.41 am.png | Payments list — desktop, default view with Credit badges | partial — 5.03%, very close, pagination styling differs |
+| Screenshot 2026-03-11 at 11.17.41 am.png | Payments list — desktop, default view with Credit badges | yes — visual audit 2026-03-23 confirmed |
 | Screenshot 2026-03-11 at 11.17.47 am.png | Payments list — desktop, expanded row showing Invoice sub-row | partial |
 
 ## Reports — Performance Overview (`/reports`)
@@ -648,7 +648,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.21.40 am.png | Waitlist Screener tab — desktop, Triage list | partial — 5.71%, structure matches |
+| Screenshot 2026-03-11 at 11.21.40 am.png | Waitlist Screener tab — desktop, Triage list | yes — visual audit 2026-03-23 confirmed |
 
 ## Waitlist — Waitlist Tab (`/waitlist`)
 

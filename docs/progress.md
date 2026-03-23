@@ -551,3 +551,20 @@ Analysed 6 reference screenshots (Clients, Invoices, Payments, Products, Appoint
 - `src/app/calendar/CalendarView.tsx` — Toolbar icons + filter styling
 - `src/components/ds/Tab.tsx` — href prop, Link support, overflow-x-auto
 - `src/components/ds/index.ts` — TabItem type export
+
+### Visual Audit (complete)
+
+**Pages audited:** 40+ pages across all major sections
+**Structural fixes applied:** 2 critical reversions
+1. Dashboard: reverted column proportions back to messages=flex-1 (wider), analytics=w-[380px] (narrower) — Phase 4 agent had incorrectly inverted them
+2. Client detail: reverted horizontal Tab bar back to sidebar navigation — reference screenshots clearly show left sidebar with section links and counts
+
+**Catalog updates:** Upgraded 30+ entries from "partial" to "yes" based on visual confirmation:
+- All 15+ settings sub-pages confirmed structurally matching
+- All 12 patient sub-tabs confirmed matching
+- Invoices list confirmed (migrated to DS DataTable/Th)
+- Payments list confirmed
+- Waitlist/Screener confirmed
+- Dashboard, Clients list, Contacts, Products, Notes, Login all confirmed
+
+**Pages remaining "partial" or "no":** Modal/dropdown interactive states (screenshot captures of open dropdowns, edit modals) — these are interactive state screenshots that would require implementing specific modal/dropdown content, not structural page issues
