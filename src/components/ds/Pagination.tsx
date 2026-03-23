@@ -7,6 +7,10 @@ interface PaginationProps {
   itemsPerPage?: number;
   showPageSize?: boolean;
   onPageChange?: (page: number) => void;
+  /** Available page sizes for the dropdown */
+  pageSizeOptions?: number[];
+  /** Called when page size changes */
+  onPageSizeChange?: (size: number) => void;
 }
 
 export default function Pagination({
@@ -16,6 +20,8 @@ export default function Pagination({
   itemsPerPage = 10,
   showPageSize = true,
   onPageChange,
+  pageSizeOptions,
+  onPageSizeChange,
 }: PaginationProps) {
   const startItem = (currentPage - 1) * itemsPerPage + 1;
   const endItem = Math.min(currentPage * itemsPerPage, totalItems ?? itemsPerPage);
@@ -75,7 +81,21 @@ export default function Pagination({
           &gt;
         </button>
       </div>
-      {showPageSize && <span className="ml-4">{itemsPerPage} / page</span>}
+      {showPageSize && (
+        pageSizeOptions && onPageSizeChange ? (
+          <select
+            value={itemsPerPage}
+            onChange={(e) => onPageSizeChange(Number(e.target.value))}
+            className="ml-4 rounded border border-border bg-white px-2 py-0.5 text-body-md text-text-secondary"
+          >
+            {pageSizeOptions.map((size) => (
+              <option key={size} value={size}>{size} / page</option>
+            ))}
+          </select>
+        ) : (
+          <span className="ml-4">{itemsPerPage} / page</span>
+        )
+      )}
     </div>
   );
 }
