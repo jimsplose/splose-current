@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import {
   Button,
+  Card,
   PageHeader,
   TableHead,
   Th,
@@ -111,7 +112,7 @@ export default function AppointmentSidePanel({
           </Button>
         </PageHeader>
 
-        <div className="overflow-x-auto rounded-lg border border-border bg-white">
+        <Card padding="none" className="overflow-x-auto">
           <table className="w-full">
             <TableHead>
               <Th>
@@ -206,7 +207,7 @@ export default function AppointmentSidePanel({
             </TableBody>
           </table>
           <Pagination totalItems={appointments.length} itemsPerPage={10} />
-        </div>
+        </Card>
       </div>
 
       {/* Side panel */}

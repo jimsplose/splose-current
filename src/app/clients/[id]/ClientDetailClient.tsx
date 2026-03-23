@@ -2,11 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { Pencil, Upload } from "lucide-react";
+import { Pencil } from "lucide-react";
 import {
   Avatar,
   Button,
   Badge,
+  FileUpload,
   FormInput,
   FormSelect,
   FormTextarea,
@@ -465,15 +466,11 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
 
             {/* Profile photo - positioned to the right */}
             <div className="shrink-0 pt-6 text-center">
-              <div className="mb-3 flex h-32 w-32 items-center justify-center rounded-lg border-2 border-dashed border-border bg-gray-50">
-                <span className="text-body-md text-text-secondary">
-                  Profile photo
-                </span>
-              </div>
-              <Button variant="secondary" size="sm">
-                <Upload className="h-3.5 w-3.5" />
-                Upload
-              </Button>
+              <FileUpload
+                icon={<span className="text-body-md text-text-secondary">Profile photo</span>}
+                label="Upload"
+                className="h-32 w-32 p-0"
+              />
             </div>
           </div>
         </section>

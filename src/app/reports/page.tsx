@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, FormSelect } from "@/components/ds";
+import { Avatar, Button, Card, Chip, FormSelect } from "@/components/ds";
 
 export default function ReportsPage() {
   const practitioners = [
@@ -51,13 +51,13 @@ export default function ReportsPage() {
 
       {/* Filter bar */}
       <div className="mb-6 flex flex-wrap items-center gap-2">
-        <span className="rounded-full border border-primary bg-purple-50 px-3 py-1 text-body-md text-primary">
+        <Chip variant="purple" className="border-primary text-body-md text-primary">
           {fmtShort(dateStart)}
-        </span>
+        </Chip>
         <span className="text-text-secondary">&rarr;</span>
-        <span className="rounded-full border border-primary bg-purple-50 px-3 py-1 text-body-md text-primary">
+        <Chip variant="purple" className="border-primary text-body-md text-primary">
           {fmtShort(dateEnd)}
-        </span>
+        </Chip>
         <FormSelect
           options={frequencyOptions}
           className="!w-auto cursor-pointer !rounded-full !border-primary !bg-purple-50 !font-medium !text-primary"

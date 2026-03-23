@@ -27,7 +27,7 @@ import {
   AlertTriangle,
   Info,
 } from "lucide-react";
-import { Button, Badge, Chip, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert } from "@/components/ds";
+import { Button, Badge, Chip, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert, Dropdown } from "@/components/ds";
 
 type Appointment = {
   id: string;
@@ -150,8 +150,8 @@ export default function CalendarView({
   const [createNotes, setCreateNotes] = useState("");
   const [viewMode, setViewMode] = useState<ViewMode>("Week");
   const [calendarMode, setCalendarMode] = useState<CalendarMode>("Calendar");
-  const [showViewDropdown, setShowViewDropdown] = useState(false);
-  const [showCalendarModeDropdown, setShowCalendarModeDropdown] = useState(false);
+
+
   const [bookingForFilter, setBookingForFilter] = useState<string | null>("a a");
   const [popover, setPopover] = useState<PopoverState>({
     visible: false,
@@ -343,64 +343,35 @@ export default function CalendarView({
             </button>
 
             {/* Calendar/Rooms dropdown */}
-            <div className="relative">
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={() => {
-                  setShowCalendarModeDropdown(!showCalendarModeDropdown);
-                  setShowViewDropdown(false);
-                }}
-              >
-                {calendarMode} <span className="text-text-secondary">&#9662;</span>
-              </Button>
-              {showCalendarModeDropdown && (
-                <div className="absolute top-full right-0 z-20 mt-1 w-44 rounded-lg border border-border bg-white py-1 shadow-lg">
-                  {(["Calendar", "Rooms/resources"] as CalendarMode[]).map((mode) => (
-                    <button
-                      key={mode}
-                      onClick={() => {
-                        setCalendarMode(mode);
-                        setShowCalendarModeDropdown(false);
-                      }}
-                      className={`w-full px-4 py-2 text-left text-body-md hover:bg-gray-50 ${calendarMode === mode ? "bg-purple-50 font-semibold text-primary" : "text-text"}`}
-                    >
-                      {mode}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+            <Dropdown
+              trigger={
+                <Button variant="secondary" size="sm">
+                  {calendarMode} <span className="text-text-secondary">&#9662;</span>
+                </Button>
+              }
+              items={[
+                { label: "Calendar", value: "Calendar" },
+                { label: "Rooms/resources", value: "Rooms/resources" },
+              ]}
+              onSelect={(v) => setCalendarMode(v as CalendarMode)}
+              align="right"
+            />
 
             {/* View mode dropdown */}
-            <div className="relative">
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={() => {
-                  setShowViewDropdown(!showViewDropdown);
-                  setShowCalendarModeDropdown(false);
-                }}
-              >
-                {viewMode} <span className="text-text-secondary">&#9662;</span>
-              </Button>
-              {showViewDropdown && (
-                <div className="absolute top-full right-0 z-20 mt-1 w-32 rounded-lg border border-border bg-white py-1 shadow-lg">
-                  {(["Month", "Week", "Day"] as ViewMode[]).map((mode) => (
-                    <button
-                      key={mode}
-                      onClick={() => {
-                        setViewMode(mode);
-                        setShowViewDropdown(false);
-                      }}
-                      className={`w-full px-4 py-2 text-left text-body-md hover:bg-gray-50 ${viewMode === mode ? "bg-purple-50 font-semibold text-primary" : "text-text"}`}
-                    >
-                      {mode}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+            <Dropdown
+              trigger={
+                <Button variant="secondary" size="sm">
+                  {viewMode} <span className="text-text-secondary">&#9662;</span>
+                </Button>
+              }
+              items={[
+                { label: "Month", value: "Month" },
+                { label: "Week", value: "Week" },
+                { label: "Day", value: "Day" },
+              ]}
+              onSelect={(v) => setViewMode(v as ViewMode)}
+              align="right"
+            />
           </div>
         </div>
 

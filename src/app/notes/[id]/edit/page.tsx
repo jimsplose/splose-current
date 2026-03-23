@@ -19,16 +19,13 @@ import {
   Table,
   ThumbsUp,
   ThumbsDown,
-  RotateCcw,
-  Pencil,
-  Copy,
   AlignLeft,
   List,
   ListOrdered,
   Palette,
   Type,
 } from "lucide-react";
-import { Button, Badge, Card, FormSelect, FormInput, EmptyState, Navbar, Filter, Spinner } from "@/components/ds";
+import { Button, Badge, Card, FormSelect, FormInput, EmptyState, Navbar, Filter, Spinner, Dropdown } from "@/components/ds";
 
 type NoteData = {
   id: string;
@@ -48,7 +45,6 @@ type AISection = {
   expanded: boolean;
   generating: boolean;
   generated: boolean;
-  actionsOpen: boolean;
   feedback: "up" | "down" | null;
 };
 
@@ -61,7 +57,6 @@ const DEFAULT_AI_SECTIONS: Omit<AISection, "id">[] = [
     expanded: true,
     generating: false,
     generated: false,
-    actionsOpen: false,
     feedback: null,
   },
   {
@@ -72,7 +67,6 @@ const DEFAULT_AI_SECTIONS: Omit<AISection, "id">[] = [
     expanded: true,
     generating: false,
     generated: false,
-    actionsOpen: false,
     feedback: null,
   },
   {
@@ -83,7 +77,6 @@ const DEFAULT_AI_SECTIONS: Omit<AISection, "id">[] = [
     expanded: true,
     generating: false,
     generated: false,
-    actionsOpen: false,
     feedback: null,
   },
   {
@@ -94,7 +87,6 @@ const DEFAULT_AI_SECTIONS: Omit<AISection, "id">[] = [
     expanded: true,
     generating: false,
     generated: false,
-    actionsOpen: false,
     feedback: null,
   },
   {
@@ -105,7 +97,6 @@ const DEFAULT_AI_SECTIONS: Omit<AISection, "id">[] = [
     expanded: true,
     generating: false,
     generated: false,
-    actionsOpen: false,
     feedback: null,
   },
 ];
@@ -229,12 +220,6 @@ export default function EditProgressNotePage() {
     });
   }, [sections]);
 
-  const toggleActions = useCallback((sectionId: string) => {
-    setSections((prev) =>
-      prev.map((s) => (s.id === sectionId ? { ...s, actionsOpen: !s.actionsOpen } : { ...s, actionsOpen: false })),
-    );
-  }, []);
-
   const setFeedback = useCallback((sectionId: string, feedback: "up" | "down") => {
     setSections((prev) =>
       prev.map((s) => (s.id === sectionId ? { ...s, feedback: s.feedback === feedback ? null : feedback } : s)),
@@ -244,7 +229,7 @@ export default function EditProgressNotePage() {
   const regenerateSection = useCallback(
     (sectionId: string) => {
       setSections((prev) =>
-        prev.map((s) => (s.id === sectionId ? { ...s, generating: true, actionsOpen: false } : s)),
+        prev.map((s) => (s.id === sectionId ? { ...s, generating: true } : s)),
       );
       setTimeout(() => {
         setSections((prev) =>
@@ -272,7 +257,7 @@ export default function EditProgressNotePage() {
     setSections((prev) =>
       prev.map((s) =>
         s.id === sectionId
-          ? { ...s, expanded: false, generated: false, generating: false, content: "", feedback: null, actionsOpen: false }
+          ? { ...s, expanded: false, generated: false, generating: false, content: "", feedback: null }
           : s,
       ),
     );
@@ -487,44 +472,23 @@ export default function EditProgressNotePage() {
                             </div>
                             {/* Feedback and actions row */}
                             <div className="mt-3 flex items-center justify-between">
-                              <div className="relative flex items-center gap-1">
-                                {/* Actions dropdown */}
-                                <button
-                                  onClick={() => toggleActions(section.id)}
-                                  className="flex items-center gap-1 rounded px-2 py-1 text-label-md text-text-secondary hover:bg-purple-100"
-                                >
-                                  Actions
-                                  <ChevronDown className="h-3 w-3" />
-                                </button>
-                                {section.actionsOpen && (
-                                  <div className="absolute top-full left-0 z-10 mt-1 w-40 rounded-lg border border-border bg-white py-1 shadow-lg">
-                                    <button
-                                      onClick={() => regenerateSection(section.id)}
-                                      className="flex w-full items-center gap-2 px-3 py-2 text-sm text-text hover:bg-gray-50"
-                                    >
-                                      <RotateCcw className="h-3.5 w-3.5" />
-                                      Regenerate
-                                    </button>
-                                    <button
-                                      onClick={() => toggleActions(section.id)}
-                                      className="flex w-full items-center gap-2 px-3 py-2 text-sm text-text hover:bg-gray-50"
-                                    >
-                                      <Pencil className="h-3.5 w-3.5" />
-                                      Edit prompt
-                                    </button>
-                                    <button
-                                      onClick={() => {
-                                        navigator.clipboard.writeText(section.content);
-                                        toggleActions(section.id);
-                                      }}
-                                      className="flex w-full items-center gap-2 px-3 py-2 text-sm text-text hover:bg-gray-50"
-                                    >
-                                      <Copy className="h-3.5 w-3.5" />
-                                      Copy
-                                    </button>
-                                  </div>
-                                )}
-                              </div>
+                              <Dropdown
+                                trigger={
+                                  <button className="flex items-center gap-1 rounded px-2 py-1 text-label-md text-text-secondary hover:bg-purple-100">
+                                    Actions
+                                    <ChevronDown className="h-3 w-3" />
+                                  </button>
+                                }
+                                items={[
+                                  { label: "Regenerate", value: "regenerate" },
+                                  { label: "Edit prompt", value: "edit-prompt" },
+                                  { label: "Copy", value: "copy" },
+                                ]}
+                                onSelect={(v) => {
+                                  if (v === "regenerate") regenerateSection(section.id);
+                                  else if (v === "copy") navigator.clipboard.writeText(section.content);
+                                }}
+                              />
                               <div className="flex items-center gap-2">
                                 {/* Thumbs up/down feedback */}
                                 <button
@@ -566,36 +530,21 @@ export default function EditProgressNotePage() {
                             <p className="text-sm leading-relaxed text-text-secondary">{section.prompt}</p>
                             {/* Actions dropdown and Generate button row */}
                             <div className="mt-3 flex items-center justify-between">
-                              <div className="relative">
-                                <button
-                                  onClick={() => toggleActions(section.id)}
-                                  className="flex items-center gap-1 rounded px-2 py-1 text-label-md text-text-secondary hover:bg-purple-100"
-                                >
-                                  Actions
-                                  <ChevronDown className="h-3 w-3" />
-                                </button>
-                                {section.actionsOpen && (
-                                  <div className="absolute top-full left-0 z-10 mt-1 w-40 rounded-lg border border-border bg-white py-1 shadow-lg">
-                                    <button
-                                      onClick={() => toggleActions(section.id)}
-                                      className="flex w-full items-center gap-2 px-3 py-2 text-sm text-text hover:bg-gray-50"
-                                    >
-                                      <Pencil className="h-3.5 w-3.5" />
-                                      Edit prompt
-                                    </button>
-                                    <button
-                                      onClick={() => {
-                                        navigator.clipboard.writeText(section.prompt);
-                                        toggleActions(section.id);
-                                      }}
-                                      className="flex w-full items-center gap-2 px-3 py-2 text-sm text-text hover:bg-gray-50"
-                                    >
-                                      <Copy className="h-3.5 w-3.5" />
-                                      Copy prompt
-                                    </button>
-                                  </div>
-                                )}
-                              </div>
+                              <Dropdown
+                                trigger={
+                                  <button className="flex items-center gap-1 rounded px-2 py-1 text-label-md text-text-secondary hover:bg-purple-100">
+                                    Actions
+                                    <ChevronDown className="h-3 w-3" />
+                                  </button>
+                                }
+                                items={[
+                                  { label: "Edit prompt", value: "edit-prompt" },
+                                  { label: "Copy prompt", value: "copy-prompt" },
+                                ]}
+                                onSelect={(v) => {
+                                  if (v === "copy-prompt") navigator.clipboard.writeText(section.prompt);
+                                }}
+                              />
                               <Button
                                 variant="primary"
                                 size="sm"

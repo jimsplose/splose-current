@@ -67,7 +67,7 @@ export default async function ClientLayout({
               </svg>
               <span className="hidden sm:inline">New SMS</span>
             </Button>
-            <button className="flex items-center gap-1.5 rounded-lg border border-primary bg-primary/5 px-3 py-1.5 text-label-lg text-primary hover:bg-primary/10">
+            <Button variant="secondary" size="sm" className="border-primary bg-primary/5 text-primary hover:bg-primary/10">
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path
                   strokeLinecap="round"
@@ -76,7 +76,7 @@ export default async function ClientLayout({
                 />
               </svg>
               <span className="hidden sm:inline">New email</span>
-            </button>
+            </Button>
             <Button variant="secondary" size="sm">
               Actions
               <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
