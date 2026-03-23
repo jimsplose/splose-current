@@ -171,7 +171,7 @@ function OnlineBookingPageInner() {
                                 <Button
                                   key={slot}
                                   variant="secondary"
-                                  className="w-28 hover:border-primary hover:bg-purple-50"
+                                  className="w-28 hover:border-primary hover:bg-primary/10"
                                   onClick={() => {
                                     setSelectedTime(slot);
                                     setSelectedPractitioner(prac.id);

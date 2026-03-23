@@ -32,13 +32,13 @@ const sizeClasses: Record<ButtonVariant, Record<ButtonSize, string>> = {
 };
 
 const baseClasses: Record<ButtonVariant, string> = {
-  primary: "inline-flex items-center gap-1.5 rounded-lg transition-colors",
-  secondary: "inline-flex items-center gap-1.5 rounded-lg transition-colors",
-  danger: "inline-flex items-center gap-1.5 rounded-lg transition-colors",
-  ghost: "inline-flex items-center gap-1.5 rounded-lg transition-colors",
-  link: "inline-flex items-center gap-1 transition-colors",
-  icon: "inline-flex items-center justify-center transition-colors",
-  toolbar: "inline-flex items-center justify-center transition-colors",
+  primary: "inline-flex items-center gap-1.5 rounded-lg transition-all duration-200",
+  secondary: "inline-flex items-center gap-1.5 rounded-lg transition-all duration-200",
+  danger: "inline-flex items-center gap-1.5 rounded-lg transition-all duration-200",
+  ghost: "inline-flex items-center gap-1.5 rounded-lg transition-all duration-200",
+  link: "inline-flex items-center gap-1 transition-all duration-200",
+  icon: "inline-flex items-center justify-center transition-all duration-200",
+  toolbar: "inline-flex items-center justify-center transition-all duration-200",
 };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(

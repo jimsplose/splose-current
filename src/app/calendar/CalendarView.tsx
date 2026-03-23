@@ -450,7 +450,7 @@ export default function CalendarView({
                       return (
                         <div
                           key={prac.id}
-                          className="relative cursor-pointer border-r border-b border-border bg-purple-50/30 last:border-r-0 hover:bg-gray-100/50"
+                          className="relative cursor-pointer border-r border-b border-border bg-primary/5 last:border-r-0 hover:bg-gray-100/50"
                           style={{ height: `${HOUR_HEIGHT}px` }}
                           onClick={(e) => handleDayCellClick(e, currentDay, hour, prac)}
                         >
@@ -500,7 +500,7 @@ export default function CalendarView({
                   return (
                     <div
                       key={i}
-                      className={`border-r border-border px-1 py-2 text-center last:border-r-0 ${isToday ? "bg-purple-50" : ""}`}
+                      className={`border-r border-border px-1 py-2 text-center last:border-r-0 ${isToday ? "bg-primary/5" : ""}`}
                     >
                       <div className="text-caption-md text-text-secondary">{DAYS[i]}</div>
                       <div className={`text-heading-lg ${isToday ? "text-primary" : "text-text"}`}>
@@ -542,7 +542,7 @@ export default function CalendarView({
                       return (
                         <div
                           key={dayIdx}
-                          className={`relative border-r border-b border-border last:border-r-0 ${isToday ? "bg-purple-50/30" : ""}`}
+                          className={`relative border-r border-b border-border last:border-r-0 ${isToday ? "bg-primary/5" : ""}`}
                           style={{ height: `${HOUR_HEIGHT}px` }}
                         >
                           {/* Practitioner sub-columns inside each day cell */}

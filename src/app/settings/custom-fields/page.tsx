@@ -312,7 +312,7 @@ function ReorderModal({
               <Card
                 padding="none"
                 className={`flex cursor-grab items-center gap-3 px-4 py-3 transition-colors active:cursor-grabbing ${
-                  dragIndex === index ? "border-primary bg-purple-50" : ""
+                  dragIndex === index ? "border-primary bg-primary/10" : ""
                 }`}
               >
                 <GripVertical className="h-4 w-4 shrink-0 text-text-secondary" />

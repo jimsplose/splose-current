@@ -41,7 +41,7 @@ export default function SMSSettingsPage() {
               onClick={() => setSelectedCredits(option.credits)}
               className={`px-5 py-3 text-center ${
                 selectedCredits === option.credits
-                  ? "border-primary bg-purple-50 text-primary"
+                  ? "border-primary bg-primary/10 text-primary"
                   : "hover:border-gray-300"
               }`}
             >

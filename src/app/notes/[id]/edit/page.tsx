@@ -371,7 +371,7 @@ export default function EditProgressNotePage() {
               <Button
                 variant="secondary"
                 onClick={generateAll}
-                className="border-primary text-primary hover:bg-purple-50"
+                className="border-primary text-primary hover:bg-primary/10"
               >
                 <Sparkles className="h-3.5 w-3.5" />
                 Generate
@@ -382,7 +382,7 @@ export default function EditProgressNotePage() {
             </Card>
 
             {/* Syncing notice */}
-            <div className="mb-4 flex items-center gap-2 rounded-lg bg-purple-50 px-3 py-2 text-xs text-text-secondary">
+            <div className="mb-4 flex items-center gap-2 rounded-lg bg-primary/10 px-3 py-2 text-xs text-text-secondary">
               <div className="flex items-center gap-1">
                 <Checkbox checked readOnly className="h-3 w-3" />
                 <span>Syncing client history</span>
@@ -421,7 +421,7 @@ export default function EditProgressNotePage() {
 
                 {/* AI Block — hidden once accepted */}
                 {!accepted[section.id] && (
-                  <div className="rounded-lg border border-purple-200 bg-purple-50/50">
+                  <div className="rounded-lg border border-primary/20 bg-primary/5">
                     {/* AI block header */}
                     <div
                       className="flex cursor-pointer items-center justify-between px-4 py-3"

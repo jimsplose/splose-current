@@ -37,7 +37,7 @@ export default function Modal({ open, onClose, title, children, footer, maxWidth
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className={`w-full ${widthClasses[maxWidth]} rounded-xl bg-white shadow-xl`}>
+      <div className={`w-full ${widthClasses[maxWidth]} rounded-xl bg-white`} style={{ boxShadow: "rgba(0, 0, 0, 0.08) -6px 0px 16px 0px, rgba(0, 0, 0, 0.12) -3px 0px 6px -4px, rgba(0, 0, 0, 0.05) -9px 0px 28px 8px" }}>
         {title && (
           <div className="flex items-center justify-between border-b border-border px-6 py-4">
             <h2 className="text-heading-lg text-text">{title}</h2>

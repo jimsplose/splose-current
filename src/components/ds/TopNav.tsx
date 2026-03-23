@@ -30,7 +30,7 @@ export default function TopNav({ brand = "splose", items, children, className = 
 
   return (
     <header className={`sticky top-0 z-40 border-b border-border bg-white ${className}`}>
-      <div className="flex h-12 items-center px-4">
+      <div className="flex h-14 items-center px-4">
         {/* Mobile hamburger */}
         <Button
           variant="icon"

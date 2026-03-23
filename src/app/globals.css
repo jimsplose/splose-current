@@ -39,13 +39,15 @@
   --color-danger: #ef4444;
   --color-background: #ffffff;
   --color-surface: #ffffff;
-  --color-border: #e5e7eb;
-  --color-text: #1f2937;
+  --color-border: #e8e8e8;
+  --color-text: #414549;
   --color-text-secondary: #6b7280;
+  --color-surface-header: #f3f5f7;
+  --color-table-header: #eaedf1;
 
   /* Font families */
-  --font-sans: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
-  --font-display: "Sprig Sans", var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-sans: var(--font-inter), "Inter", "Sprig Sans", -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-display: "Sprig Sans", var(--font-inter), "Inter", -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono: ui-monospace, monospace;
 }
 

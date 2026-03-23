@@ -279,7 +279,7 @@ function PageDirectory() {
         <Link
           key={page.href}
           href={page.href}
-          className="block rounded-lg border border-border p-4 transition-colors hover:border-primary hover:bg-purple-50/30"
+          className="block rounded-lg border border-border p-4 transition-colors hover:border-primary hover:bg-surface-header"
         >
           <h3 className="text-heading-sm text-text">{page.name}</h3>
           <p className="mt-1 text-xs text-text-secondary">{page.desc}</p>

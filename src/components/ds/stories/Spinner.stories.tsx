@@ -99,7 +99,7 @@ export const InlineLoader: Story = {
   render: () => (
     <div className="w-96 space-y-4">
       {/* AI generation in progress */}
-      <div className="rounded-lg border border-purple-200 bg-purple-50/50 p-4">
+      <div className="rounded-lg border border-purple-200 bg-primary/5 p-4">
         <div className="mb-3 flex items-center justify-between">
           <span className="text-label-lg text-purple-700">Subjective</span>
           <span className="text-caption-sm text-purple-400">AI Assisted</span>

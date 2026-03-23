@@ -85,7 +85,7 @@ export default function ProgressNotesPage() {
       </PageHeader>
 
       {showBanner && (
-        <div className="mb-4 flex items-start gap-3 rounded-lg border border-purple-200 bg-purple-50 px-4 py-3">
+        <div className="mb-4 flex items-start gap-3 rounded-lg border border-primary/20 bg-primary/10 px-4 py-3">
           <Badge variant="purple">New</Badge>
           <p className="flex-1 text-sm text-text">
             Add AI blocks to templates to generate instant drafts, every

@@ -130,7 +130,7 @@ export default function NewPaymentPage() {
     <div className="min-h-[calc(100vh-3rem)]">
       <Navbar backHref="/payments" title="New payment">
         <Link href="/payments">
-          <Button variant="secondary" className="border-primary text-primary hover:bg-purple-50">
+          <Button variant="secondary" className="border-primary text-primary hover:bg-primary/10">
             Cancel
           </Button>
         </Link>
@@ -213,7 +213,7 @@ export default function NewPaymentPage() {
                     variant="ghost"
                     type="button"
                     onClick={() => linkInvoice(inv.number)}
-                    className="flex w-full items-center justify-between px-3 py-2 text-sm hover:bg-purple-50"
+                    className="flex w-full items-center justify-between px-3 py-2 text-sm hover:bg-primary/10"
                   >
                     <div className="flex items-center gap-4">
                       <span className="font-medium text-primary">{inv.number}</span>

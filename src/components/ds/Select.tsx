@@ -87,8 +87,8 @@ export default function Select({
                     setOpen(false);
                     setSearch("");
                   }}
-                  className={`flex w-full items-center px-3 py-2 text-body-md transition-colors hover:bg-purple-50 ${
-                    value === option.value ? "bg-purple-50 font-medium text-primary" : "text-text"
+                  className={`flex w-full items-center px-3 py-2 text-body-md transition-colors hover:bg-primary/10 ${
+                    value === option.value ? "bg-primary/10 font-medium text-primary" : "text-text"
                   }`}
                 >
                   {option.label}

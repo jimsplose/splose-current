@@ -43,9 +43,9 @@ export default function SideNav({ sections, isActive: customIsActive, className 
               <li key={item.name}>
                 <Link
                   href={item.href}
-                  className={`block w-full rounded px-3 py-1.5 text-left text-body-md transition-colors hover:bg-purple-50 hover:text-primary ${
+                  className={`block w-full rounded px-3 py-1.5 text-left text-body-md transition-colors hover:bg-primary/10 hover:text-primary ${
                     isActive(item.href)
-                      ? "border-l-2 border-primary bg-purple-50 font-medium text-primary"
+                      ? "border-l-2 border-primary bg-primary/10 font-medium text-primary"
                       : "text-text-secondary"
                   }`}
                 >

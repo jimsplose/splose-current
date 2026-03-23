@@ -112,7 +112,7 @@ export const AppointmentStatusColumn: Story = {
     <div className="w-[700px]">
       <table className="w-full">
         <thead>
-          <tr className="border-b border-border bg-purple-50">
+          <tr className="border-b border-border bg-table-header">
             <th className="px-4 py-3 text-left text-label-lg text-text">When</th>
             <th className="px-4 py-3 text-left text-label-lg text-text">Where</th>
             <th className="px-4 py-3 text-left text-label-lg text-text">Type</th>

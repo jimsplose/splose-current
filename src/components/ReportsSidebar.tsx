@@ -9,37 +9,37 @@ const sections: SideNavSection[] = [
     title: "Calendar",
     items: [
       { name: "Appointments", href: "/reports/appointments" },
-      { name: "Support activities", href: "#" },
+      { name: "Support activities", href: "/reports/support-activities" },
     ],
   },
   {
     title: "Clients",
     items: [
-      { name: "Cases", href: "#" },
-      { name: "Waitlist", href: "#" },
-      { name: "Clients", href: "#" },
+      { name: "Cases", href: "/reports/cases" },
+      { name: "Waitlist", href: "/reports/waitlist" },
+      { name: "Clients", href: "/reports/patients" },
     ],
   },
   {
     title: "Compliance",
     items: [
       { name: "Progress notes", href: "/reports/progress-notes" },
-      { name: "Forms", href: "#" },
+      { name: "Forms", href: "/reports/form" },
     ],
   },
   {
     title: "Financial",
     items: [
-      { name: "Uninvoiced", href: "#" },
-      { name: "Payments", href: "#" },
-      { name: "Aged debtors", href: "#" },
-      { name: "NDIS bulk upload", href: "#" },
+      { name: "Uninvoiced", href: "/reports/uninvoiced" },
+      { name: "Payments", href: "/reports/payments" },
+      { name: "Aged debtors", href: "/reports/aged-debtors" },
+      { name: "NDIS bulk upload", href: "/reports/ndis-bulk-upload" },
     ],
   },
   {
     title: "Practitioners",
     items: [
-      { name: "Billed items", href: "#" },
+      { name: "Billed items", href: "/reports/billed-items" },
       { name: "Performance", href: "/reports/performance" },
     ],
   },

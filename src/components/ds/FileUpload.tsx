@@ -10,7 +10,7 @@ interface FileUploadProps {
 export default function FileUpload({ icon, label = "Upload", className = "", onClick }: FileUploadProps) {
   return (
     <div
-      className={`flex flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed border-gray-300 bg-gray-50/50 p-6 transition-colors hover:border-primary/50 hover:bg-purple-50/30 ${className}`}
+      className={`flex flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed border-gray-300 bg-gray-50/50 p-6 transition-colors hover:border-primary/50 hover:bg-surface-header ${className}`}
       onClick={onClick}
       role={onClick ? "button" : undefined}
     >

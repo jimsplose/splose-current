@@ -60,7 +60,7 @@ export default function ReportsPage() {
         </Chip>
         <FormSelect
           options={frequencyOptions}
-          className="!w-auto cursor-pointer !rounded-full !border-primary !bg-purple-50 !font-medium !text-primary"
+          className="!w-auto cursor-pointer !rounded-full !border-primary !bg-primary/10 !font-medium !text-primary"
         />
         <Button variant="secondary" size="sm" className="rounded-full">
           All locations

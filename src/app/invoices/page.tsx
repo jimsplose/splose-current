@@ -26,7 +26,7 @@ export default async function InvoicesPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-border bg-purple-50">
+              <tr className="border-b border-border bg-table-header">
                 <th className="px-4 py-3 text-left text-label-lg text-text">
                   <div className="flex items-center gap-1">
                     Invoice #
