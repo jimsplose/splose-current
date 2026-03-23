@@ -18,7 +18,7 @@ import {
   Toggle,
   Dropdown,
   DropdownTriggerButton,
-  Card,
+  ReorderModal,
 } from "@/components/ds";
 import {
   GripVertical,
@@ -226,14 +226,17 @@ export default function CustomFieldsPage() {
         itemsPerPage={10}
       />
 
-      {/* Reorder modal */}
-      {showReorderModal && (
-        <ReorderModal
-          fields={fields}
-          onClose={() => setShowReorderModal(false)}
-          onSave={handleReorder}
-        />
-      )}
+      {/* Reorder modal (DS component with dnd-kit) */}
+      <ReorderModal
+        open={showReorderModal}
+        onClose={() => setShowReorderModal(false)}
+        title="Reorder custom fields"
+        items={fields.map((f) => ({ id: String(f.id), label: f.name }))}
+        onReorder={(reordered) => {
+          const reorderedFields = reordered.map((r) => fields.find((f) => String(f.id) === r.id)!);
+          handleReorder(reorderedFields);
+        }}
+      />
 
       {/* Edit modal */}
       {showEditModal && editingField && (
@@ -250,81 +253,6 @@ export default function CustomFieldsPage() {
   );
 }
 
-/* ------------------------------------------------------------------ */
-/*  Reorder modal                                                      */
-/* ------------------------------------------------------------------ */
-function ReorderModal({
-  fields,
-  onClose,
-  onSave,
-}: {
-  fields: CustomField[];
-  onClose: () => void;
-  onSave: (reordered: CustomField[]) => void;
-}) {
-  const [items, setItems] = useState<CustomField[]>([...fields]);
-  const [dragIndex, setDragIndex] = useState<number | null>(null);
-
-  function handleDragStart(index: number) {
-    setDragIndex(index);
-  }
-
-  function handleDragOver(e: React.DragEvent, index: number) {
-    e.preventDefault();
-    if (dragIndex === null || dragIndex === index) return;
-    const updated = [...items];
-    const [moved] = updated.splice(dragIndex, 1);
-    updated.splice(index, 0, moved);
-    setItems(updated);
-    setDragIndex(index);
-  }
-
-  function handleDragEnd() {
-    setDragIndex(null);
-  }
-
-  return (
-    <Modal
-      open={true}
-      onClose={onClose}
-      title="Reorder custom fields"
-      footer={
-        <>
-          <Button variant="secondary" onClick={onClose}>
-            Cancel
-          </Button>
-          <Button variant="primary" onClick={() => onSave(items)}>
-            Save
-          </Button>
-        </>
-      }
-    >
-      <div className="max-h-[60vh] -mx-6 overflow-y-auto px-6">
-        <div className="space-y-2">
-          {items.map((field, index) => (
-            <div
-              key={field.id}
-              draggable
-              onDragStart={() => handleDragStart(index)}
-              onDragOver={(e) => handleDragOver(e, index)}
-              onDragEnd={handleDragEnd}
-            >
-              <Card
-                padding="none"
-                className={`flex cursor-grab items-center gap-3 px-4 py-3 transition-colors active:cursor-grabbing ${
-                  dragIndex === index ? "border-primary bg-primary/10" : ""
-                }`}
-              >
-                <GripVertical className="h-4 w-4 shrink-0 text-text-secondary" />
-                <span className="text-body-md text-text">{field.name}</span>
-              </Card>
-            </div>
-          ))}
-        </div>
-      </div>
-    </Modal>
-  );
-}
 
 /* ------------------------------------------------------------------ */
 /*  Edit / Update custom field modal                                   */

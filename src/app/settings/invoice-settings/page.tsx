@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { CalendarDays, Info, Bold, Italic, Underline, Link } from "lucide-react";
+import { CalendarDays, Info } from "lucide-react";
 import {
   Alert,
   Button,
@@ -20,6 +20,7 @@ import {
   Dropdown,
   DropdownTriggerButton,
   Modal,
+  RichTextEditor,
 } from "@/components/ds";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -332,18 +333,11 @@ export default function InvoiceSettingsPage() {
               <FormInput label="Subject" value={form.subject} onChange={(e) => setField("subject", e.target.value)} />
               <div>
                 <label className="mb-1 block text-label-lg text-text-secondary">Body</label>
-                <div className="flex items-center gap-1 rounded-t-lg border border-b-0 border-border bg-gray-50 px-2 py-1.5">
-                  <Button variant="icon" size="sm" type="button"><Bold className="h-4 w-4" /></Button>
-                  <Button variant="icon" size="sm" type="button"><Italic className="h-4 w-4" /></Button>
-                  <Button variant="icon" size="sm" type="button"><Underline className="h-4 w-4" /></Button>
-                  <div className="mx-1 h-4 w-px bg-border" />
-                  <Button variant="icon" size="sm" type="button"><Link className="h-4 w-4" /></Button>
-                </div>
-                <FormTextarea
+                <RichTextEditor
                   value={form.body}
-                  onChange={(e) => setField("body", e.target.value)}
+                  onChange={(html) => setField("body", html)}
                   rows={8}
-                  className="rounded-t-none"
+                  variables={["client_name", "invoice_number", "amount_owing", "due_date", "practice_name"]}
                 />
               </div>
             </>

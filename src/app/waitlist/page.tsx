@@ -1,7 +1,10 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
+import nextDynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
+
+const MapView = nextDynamic(() => import("@/components/MapView"), { ssr: false });
 import {
   Plus,
   Filter,
@@ -236,15 +239,6 @@ const tagBadgeVariant: Record<string, TagBadgeVariant> = {
   "NDIS referral": "purple",
 };
 
-// Map pin overlay positions (percentage-based, overlaid on the OSM iframe)
-const mapPins = [
-  { x: 30, y: 35, label: "Ella Thompson", color: "#7c3aed" },
-  { x: 55, y: 45, label: "Harry James", color: "#2563eb" },
-  { x: 42, y: 60, label: "Jenny Jenkins", color: "#dc2626" },
-  { x: 68, y: 30, label: "kai win", color: "#059669" },
-  { x: 22, y: 55, label: "splose Ruvi", color: "#d97706" },
-  { x: 75, y: 65, label: "New client", color: "#7c3aed" },
-];
 
 export default function WaitlistPage() {
   return (
@@ -558,43 +552,12 @@ function WaitlistPageInner() {
               <Pagination currentPage={1} totalPages={1} totalItems={filteredWaitlist.length} itemsPerPage={10} />
             </>
           ) : (
-            /* ===== MAP VIEW ===== */
+            /* ===== MAP VIEW (Leaflet) ===== */
             <div
-              className="relative overflow-hidden rounded-lg border border-border"
+              className="overflow-hidden rounded-lg border border-border"
               style={{ height: "calc(100vh - 180px)" }}
             >
-              {/* Interactive OpenStreetMap */}
-              <iframe
-                src="https://www.openstreetmap.org/export/embed.html?bbox=138.55%2C-34.97%2C138.65%2C-34.89&layer=mapnik"
-                style={{ width: "100%", height: "100%", border: 0 }}
-                allowFullScreen
-                title="Waitlist client locations — Adelaide, South Australia"
-              />
-
-              {/* Client marker overlays */}
-              {mapPins.map((pin, idx) => (
-                <div
-                  key={idx}
-                  className="group absolute"
-                  style={{
-                    left: `${pin.x}%`,
-                    top: `${pin.y}%`,
-                    transform: "translate(-50%, -50%)",
-                    pointerEvents: "auto",
-                  }}
-                >
-                  {/* Colored dot */}
-                  <div
-                    className="h-4 w-4 rounded-full border-2 border-white shadow-md transition-transform group-hover:scale-125"
-                    style={{ backgroundColor: pin.color }}
-                  />
-                  {/* Tooltip on hover */}
-                  <div className="absolute bottom-full left-1/2 mb-2 hidden -translate-x-1/2 rounded bg-gray-800 px-2.5 py-1 text-caption-sm whitespace-nowrap text-white shadow-lg group-hover:block">
-                    {pin.label}
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-800" />
-                  </div>
-                </div>
-              ))}
+              <MapView />
             </div>
           )}
         </div>

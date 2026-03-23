@@ -45,3 +45,6 @@ export { default as IconText } from "./IconText";
 export { default as Checkbox } from "./Checkbox";
 export { default as RadioGroup } from "./RadioGroup";
 export { default as EmailPreview } from "./EmailPreview";
+export { default as RichTextEditor } from "./RichTextEditor";
+export { default as ReorderModal } from "./ReorderModal";
+export type { ReorderItem } from "./ReorderModal";
