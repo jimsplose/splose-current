@@ -516,3 +516,29 @@ Analysed 6 reference screenshots (Clients, Invoices, Payments, Products, Appoint
 - Interaction tests (play functions for stateful components)
 - Accessibility annotations
 - Dark mode preview (if added later)
+
+---
+
+## Session — 2026-03-23 (continued)
+
+**Branch**: `claude/push-to-main-TNjeA`
+
+### Completed — Style Reference Audit Phase 3 Remaining + Phase 4
+
+**Phase 1-3 remaining items:**
+- DataTable `Th` rounded corners: added `first:rounded-tl-lg last:rounded-tr-lg` to match reference `border-radius: 8px 0px 0px` / `0px 8px 0px 0px`
+- DataTable `Th` padding: changed from `px-4 py-3` to `p-4` (16px uniform padding)
+- Verified `--color-text-secondary` (#6b7280) is reasonable vs reference `rgba(0,0,0,0.45)` ≈ #737373
+- Body font-size: confirmed 14px base is correct (real app body=15px but main=14px, 13283 elements at 14px)
+- Confirmed cancellation-reasons page already exists
+- State registry: added 12 report sub-pages, 3 batch invoice pages, 3 settings edit/detail pages (18 new entries)
+
+**Phase 4 — Page-Level Fidelity Sweep (6 pages compared):**
+- Dashboard: structure matches (2 columns, messages + analytics). Minor: column sizing uses `flex-1 + w-[380px]`
+- Patient detail: matches well. Gap: no tab bar for section navigation (sections are stacked)
+- Calendar day view: structure matches. Gap: custom time grid vs Ant Design implicit spacing
+- Invoices list: matches well. Gap: pagination hardcoded, search non-functional (existing known gaps)
+- Settings hub: sidebar groups match exactly (7 groups). Content structure matches
+- Reports: sidebar + content layout matches. Filter bar uses DS components correctly
+
+**No critical structural issues found.** All pages use DS components correctly. Navigation chrome is in layouts (correct for Next.js).

@@ -70,7 +70,7 @@ export function Th({
 
   return (
     <th
-      className={`px-4 py-3 text-${align} text-label-lg text-text ${hideClass} ${interactive ? "select-none" : ""} ${className}`}
+      className={`p-4 text-${align} text-label-lg text-text first:rounded-tl-lg last:rounded-tr-lg ${hideClass} ${interactive ? "select-none" : ""} ${className}`}
     >
       <div className={`inline-flex items-center gap-1 ${interactive ? "cursor-pointer" : ""}`} onClick={sortable ? onSort : undefined}>
         {children}

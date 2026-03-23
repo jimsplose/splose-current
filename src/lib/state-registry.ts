@@ -167,6 +167,24 @@ export const stateRegistry: PageEntry[] = [
         label: "Invoice Detail",
         variants: [{ id: "default", label: "Invoice view" }],
       },
+      {
+        path: "/invoices/batch-invoice",
+        label: "Batch Invoice",
+        variants: [{ id: "default", label: "Batch invoice list" }],
+        children: [
+          {
+            path: "/invoices/batch-invoice/[id]",
+            resolvedPath: "/invoices/batch-invoice/1",
+            label: "Batch Invoice Detail",
+            variants: [{ id: "default", label: "Batch invoice detail" }],
+          },
+          {
+            path: "/invoices/batch-invoice/preview",
+            label: "Batch Invoice Preview",
+            variants: [{ id: "default", label: "Batch invoice preview" }],
+          },
+        ],
+      },
     ],
   },
   {
@@ -246,6 +264,69 @@ export const stateRegistry: PageEntry[] = [
         label: "Progress Notes Report",
         variants: [{ id: "default", label: "Notes report" }],
       },
+      {
+        path: "/reports/aged-debtors",
+        label: "Aged Debtors Report",
+        variants: [{ id: "default", label: "Aged debtors report" }],
+      },
+      {
+        path: "/reports/billed-items",
+        label: "Billed Items Report",
+        variants: [{ id: "default", label: "Billed items report" }],
+      },
+      {
+        path: "/reports/cases",
+        label: "Cases Report",
+        variants: [{ id: "default", label: "Cases report" }],
+      },
+      {
+        path: "/reports/form",
+        label: "Form Report",
+        variants: [{ id: "default", label: "Form report" }],
+      },
+      {
+        path: "/reports/patients",
+        label: "Patients Report",
+        variants: [{ id: "default", label: "Patients report" }],
+      },
+      {
+        path: "/reports/payments",
+        label: "Payments Report",
+        variants: [{ id: "default", label: "Payments report" }],
+      },
+      {
+        path: "/reports/support-activities",
+        label: "Support Activities Report",
+        variants: [{ id: "default", label: "Support activities report" }],
+      },
+      {
+        path: "/reports/uninvoiced",
+        label: "Uninvoiced Report",
+        variants: [{ id: "default", label: "Uninvoiced report" }],
+      },
+      {
+        path: "/reports/waitlist",
+        label: "Waitlist Report",
+        variants: [{ id: "default", label: "Waitlist report" }],
+      },
+      {
+        path: "/reports/ndis-bulk-upload",
+        label: "NDIS Bulk Upload",
+        variants: [{ id: "default", label: "Bulk upload list" }],
+        children: [
+          {
+            path: "/reports/ndis-bulk-upload/new",
+            label: "New NDIS Bulk Upload",
+            variants: [{ id: "default", label: "New bulk upload" }],
+          },
+          {
+            path: "/reports/ndis-bulk-upload/[id]",
+            resolvedPath: "/reports/ndis-bulk-upload/1",
+            label: "NDIS Bulk Upload Detail",
+            variants: [{ id: "default", label: "Bulk upload detail" }],
+          },
+        ],
+      },
     ],
   },
   {
@@ -257,17 +338,53 @@ export const stateRegistry: PageEntry[] = [
       { path: "/settings/integrations", label: "Integrations", variants: [{ id: "default", label: "Integrations" }] },
       { path: "/settings/sms-settings", label: "SMS Settings", variants: [{ id: "default", label: "SMS Settings" }] },
       { path: "/settings/forms", label: "Forms", variants: [{ id: "default", label: "Forms" }] },
-      { path: "/settings/locations", label: "Locations", variants: [{ id: "default", label: "Locations" }] },
+      {
+        path: "/settings/locations",
+        label: "Locations",
+        variants: [{ id: "default", label: "Locations" }],
+        children: [
+          {
+            path: "/settings/locations/edit/[id]",
+            resolvedPath: "/settings/locations/edit/1",
+            label: "Edit Location",
+            variants: [{ id: "default", label: "Edit location" }],
+          },
+        ],
+      },
       { path: "/settings/custom-fields", label: "Custom Fields", variants: [{ id: "default", label: "Custom Fields" }] },
       { path: "/settings/rooms-resources", label: "Rooms/Resources", variants: [{ id: "default", label: "Rooms/Resources" }] },
-      { path: "/settings/services", label: "Services", variants: [{ id: "default", label: "Services" }] },
+      {
+        path: "/settings/services",
+        label: "Services",
+        variants: [{ id: "default", label: "Services" }],
+        children: [
+          {
+            path: "/settings/services/edit/[id]",
+            resolvedPath: "/settings/services/edit/1",
+            label: "Edit Service",
+            variants: [{ id: "default", label: "Edit service" }],
+          },
+        ],
+      },
       { path: "/settings/busy-times", label: "Busy Times", variants: [{ id: "default", label: "Busy Times" }] },
       { path: "/settings/cancellation-reasons", label: "Cancellation Reasons", variants: [{ id: "default", label: "Cancellation Reasons" }] },
       { path: "/settings/online-bookings", label: "Online Bookings", variants: [{ id: "default", label: "Online Bookings" }] },
       { path: "/settings/communication-types", label: "Communication Types", variants: [{ id: "default", label: "Communication Types" }] },
       { path: "/settings/tags", label: "Tags", variants: [{ id: "default", label: "Tags" }] },
       { path: "/settings/referral-types", label: "Referral Types", variants: [{ id: "default", label: "Referral Types" }] },
-      { path: "/settings/users", label: "Users", variants: [{ id: "default", label: "Users" }] },
+      {
+        path: "/settings/users",
+        label: "Users",
+        variants: [{ id: "default", label: "Users" }],
+        children: [
+          {
+            path: "/settings/users/[id]",
+            resolvedPath: "/settings/users/1",
+            label: "User Detail",
+            variants: [{ id: "default", label: "User detail" }],
+          },
+        ],
+      },
       { path: "/settings/user-groups", label: "User Groups", variants: [{ id: "default", label: "User Groups" }] },
       { path: "/settings/appointment-templates", label: "Appointment Templates", variants: [{ id: "default", label: "Appointment Templates" }] },
       { path: "/settings/email-templates", label: "Email Templates", variants: [{ id: "default", label: "Email Templates" }] },
