@@ -52,9 +52,12 @@ next-env.d.ts
 *.db
 *.db-journal
 
-# claude code — ignore everything except settings and hooks
+# claude code — ignore everything except settings, hooks, and commands
 .claude/*
 !.claude/settings.json
 !.claude/hooks/
 .claude/hooks/*
 !.claude/hooks/*.sh
+!.claude/commands/
+.claude/commands/*
+!.claude/commands/*.md
