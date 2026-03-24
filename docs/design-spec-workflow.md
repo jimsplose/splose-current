@@ -40,7 +40,7 @@ Extracted from: `<filename.png>` | Date: YYYY-MM-DD
 (One table per section: Element | Value | Tailwind)
 ```
 
-Keep tables consistent: Element | Value | Tailwind columns (Typography adds a Weight column).
+Keep tables consistent: Element | Value | Tailwind columns (Typography adds a Weight column). See `docs/reference/design-spec-template.md` for a full example.
 
 ## Step 4: Reference during fidelity work
 

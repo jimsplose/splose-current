@@ -62,8 +62,9 @@ Run `npx next build` (never push broken code) → commit all changes → push to
 
 ## Step 7: Before/after review
 
-Show Jim a brief visual progress report: pages improved this round and 2-3 biggest remaining gaps with cycle estimates (1 = minor tweaks, 2-3 = structural, 4+ = major). Skip if changes are infrastructure-only or have no visual impact.
+Show Jim a brief visual progress report. See `docs/reference/autonomous-mode.md` for format and details.
 
 ## Step 8: Return to menu or continue
 
-**Quick/Standard mode:** Show the session start menu (see CLAUDE.md) with a summary. **Extended/Until-done mode:** Re-read `docs/fidelity-gaps.md`, auto-select next highest-priority gaps, loop to Step 1. Stop when: all gaps closed, context compressed 2+ times, unfixable build failure, or Jim sends a message. Always commit WIP and push before stopping.
+**Quick/Standard mode:** Show the session start menu (CLAUDE.md) with a summary.
+**Extended/Until-done mode:** See `docs/reference/autonomous-mode.md` for full autonomous behavior rules and stop conditions.

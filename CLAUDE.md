@@ -34,7 +34,7 @@ A gap is `[x]` only when ALL related `screenshots/screenshot-catalog.md` entries
 
 ## Design System (`src/components/ds/`)
 
-**ALWAYS use DS components** from `@/components/ds` — never inline Tailwind for common patterns. 40+ components with Storybook stories (`npm run storybook`, port 6006). Use [DaisyUI naming](https://daisyui.com/components/). When a pattern appears on 2+ pages, extract to DS and add a Storybook story.
+**ALWAYS use DS components** from `@/components/ds` — never inline Tailwind for common patterns. 40+ components (see `docs/reference/ds-component-catalog.md` for full list). Storybook: `npm run storybook` (port 6006). Use [DaisyUI naming](https://daisyui.com/components/). When a pattern appears on 2+ pages, extract to DS and add a Storybook story.
 
 ## Subagents
 
