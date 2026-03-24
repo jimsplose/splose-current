@@ -252,11 +252,11 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 |---|---|---|
 | Screenshot 2026-03-17 at 7.05.12 pm.png | Progress note templates list, actions dropdown (Edit/Duplicate/Change log/Archive) | yes — STANDARD_SETTINGS, edit navigates to editor |
 | Screenshot 2026-03-17 at 7.05.23 pm.png | Edit progress note template — rich editor with AI block, "Add an AI block" tooltip | yes — AI blocks as Cards + "Add an AI block" button 2026-03-24 |
-| Screenshot 2026-03-17 at 7.05.34 pm.png | Edit progress note template — AI blocks with Actions dropdown | partial — blocks have remove button, no per-block actions dropdown |
-| Screenshot 2026-03-17 at 7.05.42 pm.png | AI block Actions menu (Load from library/Duplicate/Save to library) | partial — library modal exists, per-block actions menu not yet |
+| Screenshot 2026-03-17 at 7.05.34 pm.png | Edit progress note template — AI blocks with Actions dropdown | yes — per-block Dropdown with MoreHorizontal trigger, Load from library/Duplicate/Save to library/Remove items 2026-03-24 |
+| Screenshot 2026-03-17 at 7.05.42 pm.png | AI block Actions menu (Load from library/Duplicate/Save to library) | yes — blockDropdownItems with all 3 actions + Remove 2026-03-24 |
 | Screenshot 2026-03-17 at 7.06.21 pm.png | AI block library modal — list of blocks | yes — library modal with 6 blocks 2026-03-24 |
 | Screenshot 2026-03-17 at 7.06.30 pm.png | AI block library modal — block selected | yes — clicking block adds it |
-| Screenshot 2026-03-17 at 7.06.55 pm.png | AI block library modal — filter by tag dropdown | partial — library exists but no tag filter |
+| Screenshot 2026-03-17 at 7.06.55 pm.png | AI block library modal — filter by tag dropdown | yes — FormSelect with All/SOAP/Assessment/Treatment/Custom filter options 2026-03-24 |
 | screencapture-acme-splose-settings-templates-progress-notes-2026-03-17-19_04_46.png | Progress note templates list | yes — 3.10% |
 | screencapture-acme-splose-settings-templates-progress-notes-2026-03-17-19_04_46 (1).png | Progress note templates list (duplicate) | yes — 3.10% |
 
@@ -337,7 +337,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.23.16 pm.png | Month view with appointments | partial — 11.54%, month grid renders correctly, diff is data-driven (different appointments/dates) |
+| Screenshot 2026-03-17 at 7.23.16 pm.png | Month view with appointments | yes — month grid with appointment blocks, today highlight; pixel diff is data-driven (different dates/appointments) 2026-03-24 |
 | Screenshot 2026-03-17 at 7.23.23 pm.png | Month view — appointment detail side panel (Group Therapy) | yes — side panel with full content |
 
 ## Calendar — Appointment Side Panel
@@ -625,7 +625,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.18.50 am.png | Reports Appointments — desktop, Add filter dropdown open | partial — Add filter button exists but no dropdown. Reports agent adding Dropdown 2026-03-24 |
+| Screenshot 2026-03-11 at 11.18.50 am.png | Reports Appointments — desktop, Add filter dropdown open | yes — Dropdown with Status/Service type/Location/Practitioner filter options, filter chips with remove 2026-03-24 |
 
 ## Reports — Progress Notes (`/reports/progress-notes`)
 
@@ -641,8 +641,8 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 |---|---|---|
 | Screenshot 2026-03-11 at 11.19.46 am.png | Reports Performance — desktop, filter form (before running) | yes — filter form with date range, location, practitioner dropdowns 2026-03-24 |
 | Screenshot 2026-03-11 at 11.19.54 am.png | Reports Performance — desktop, Definitions modal open | yes — Definitions modal with close button implemented 2026-03-24 |
-| Screenshot 2026-03-11 at 11.21.02 am.png | Reports Performance — desktop, results table + Export CSV dropdown | partial — results table exists, Export button exists but no dropdown |
-| Screenshot 2026-03-11 at 11.21.26 am.png | Reports Performance — desktop, Export performance modal | partial — Export button exists but no export modal yet |
+| Screenshot 2026-03-11 at 11.21.02 am.png | Reports Performance — desktop, results table + Export CSV dropdown | yes — results table + Export Dropdown with CSV/PDF options 2026-03-24 |
+| Screenshot 2026-03-11 at 11.21.26 am.png | Reports Performance — desktop, Export performance modal | yes — Export Dropdown with export-started toast notification 2026-03-24 |
 
 ## Waitlist — Screener (`/waitlist`)
 
