@@ -228,7 +228,34 @@ export default function CalendarView({
   const [calendarMode, setCalendarMode] = useState<CalendarMode>("Calendar");
 
 
+  const [locationFilter, setLocationFilter] = useState<string>("all");
+  const [practitionerFilter, setPractitionerFilter] = useState<string>("all");
   const [bookingForFilter, setBookingForFilter] = useState<string | null>("a a");
+
+  // Derive unique locations from assigned practitioners
+  const locatedPractitioners = assignLocations(practitioners);
+  const uniqueLocations = [...new Set(locatedPractitioners.map(p => p.location))];
+
+  // Filter practitioners based on current filters
+  const filteredPractitioners = practitioners.filter((p, i) => {
+    const loc = locatedPractitioners[i]?.location;
+    if (locationFilter !== "all" && loc !== locationFilter) return false;
+    if (practitionerFilter !== "all" && p.id !== practitionerFilter) return false;
+    return true;
+  });
+
+  // Filter appointments based on visible practitioners
+  const filteredAppointments = appointments.filter(appt =>
+    filteredPractitioners.some(p => p.name === appt.practitionerName)
+  );
+
+  // Truncate location name for button display
+  const locationLabel = locationFilter === "all"
+    ? `Locations(All)`
+    : locationFilter.length > 12 ? locationFilter.slice(0, 12) + "..." : locationFilter;
+  const practitionerLabel = practitionerFilter === "all"
+    ? `Practitioners(All)`
+    : (practitioners.find(p => p.id === practitionerFilter)?.name.split(" ")[0] || "—");
   const [popover, setPopover] = useState<PopoverState>({
     visible: false,
     x: 0,
@@ -405,15 +432,33 @@ export default function CalendarView({
             </div>
           </div>
           <div className="flex shrink-0 items-center gap-2">
-            {/* Location filter pill */}
-            <Button variant="secondary" size="sm" className="hidden sm:inline-flex">
-              Hands Togeth...
-            </Button>
+            {/* Location filter dropdown */}
+            <Dropdown
+              trigger={
+                <Button variant="secondary" size="sm" className="hidden sm:inline-flex">
+                  {locationLabel} <ChevronDown className="ml-1 h-3 w-3" />
+                </Button>
+              }
+              items={[
+                { label: "All locations", value: "all" },
+                ...uniqueLocations.map(loc => ({ label: loc, value: loc })),
+              ]}
+              onSelect={(val) => setLocationFilter(val)}
+            />
 
-            {/* Practitioner filter pill */}
-            <Button variant="secondary" size="sm" className="hidden sm:inline-flex">
-              Practitioners(All)
-            </Button>
+            {/* Practitioner filter dropdown */}
+            <Dropdown
+              trigger={
+                <Button variant="secondary" size="sm" className="hidden sm:inline-flex">
+                  {practitionerLabel} <ChevronDown className="ml-1 h-3 w-3" />
+                </Button>
+              }
+              items={[
+                { label: "All practitioners", value: "all" },
+                ...practitioners.map(p => ({ label: p.name, value: p.id })),
+              ]}
+              onSelect={(val) => setPractitionerFilter(val)}
+            />
 
             {/* Booking-for filter pill */}
             {bookingForFilter && (
@@ -471,7 +516,7 @@ export default function CalendarView({
             <div className="overflow-x-auto">
               <div
                 className="grid min-w-[700px] border-b border-border"
-                style={{ gridTemplateColumns: `60px repeat(${practitioners.length}, 1fr)` }}
+                style={{ gridTemplateColumns: `60px repeat(${filteredPractitioners.length}, 1fr)` }}
               >
                 {/* Top-left corner: timezone */}
                 <div className="border-r border-border flex items-center justify-center">
@@ -480,7 +525,7 @@ export default function CalendarView({
                 {/* Day + date header spanning all practitioner columns */}
                 <div
                   className="border-b border-border py-2 text-center"
-                  style={{ gridColumn: `2 / span ${practitioners.length}` }}
+                  style={{ gridColumn: `2 / span ${filteredPractitioners.length}` }}
                 >
                   <div className="text-caption-md text-text-secondary">
                     {DAYS[new Date(todayStr + "T00:00:00").getDay()]}
@@ -488,16 +533,16 @@ export default function CalendarView({
                   <div className="text-heading-lg text-primary">
                     {new Date(todayStr + "T00:00:00").getDate()}
                   </div>
-                  <div className="text-caption-sm text-text-secondary">East Clinics</div>
+                  <div className="text-caption-sm text-text-secondary">{locationFilter === "all" ? "All Locations" : locationFilter}</div>
                 </div>
               </div>
               {/* Practitioner name headers */}
               <div
                 className="grid min-w-[700px] border-b border-border"
-                style={{ gridTemplateColumns: `60px repeat(${practitioners.length}, 1fr)` }}
+                style={{ gridTemplateColumns: `60px repeat(${filteredPractitioners.length}, 1fr)` }}
               >
                 <div className="border-r border-border" />
-                {practitioners.map((p, idx) => (
+                {filteredPractitioners.map((p, idx) => (
                   <div
                     key={p.id}
                     className={`border-r border-border px-1 py-1.5 text-center last:border-r-0`}
@@ -517,7 +562,7 @@ export default function CalendarView({
             <div className="flex-1 overflow-x-auto overflow-y-auto">
               <div
                 className="grid min-w-[700px]"
-                style={{ gridTemplateColumns: `60px repeat(${practitioners.length}, 1fr)` }}
+                style={{ gridTemplateColumns: `60px repeat(${filteredPractitioners.length}, 1fr)` }}
               >
                 {HOURS.map((hour) => (
                   <div key={hour} className="contents">
@@ -529,9 +574,9 @@ export default function CalendarView({
                         {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
                       </span>
                     </div>
-                    {practitioners.map((prac) => {
+                    {filteredPractitioners.map((prac) => {
                       const currentDay = weekDates.find((d) => d === todayStr) || weekDates[0];
-                      const hourAppts = appointments.filter(
+                      const hourAppts = filteredAppointments.filter(
                         (a) =>
                           a.date === currentDay &&
                           a.practitionerName === prac.name &&
@@ -581,7 +626,7 @@ export default function CalendarView({
         {/* Week view — practitioner sub-columns per day, horizontally scrollable */}
         {viewMode === "Week" && (() => {
           const COL_W = 55; // px per practitioner column
-          const dayWidth = practitioners.length * COL_W;
+          const dayWidth = filteredPractitioners.length * COL_W;
           const totalWidth = 48 + dayWidth * 7; // time-gutter + 7 days
           const gridCols = `48px repeat(7, ${dayWidth}px)`;
           return (
@@ -601,7 +646,7 @@ export default function CalendarView({
                         </div>
                       {/* Location group headers */}
                       <div className="flex border-t border-border/50">
-                        {groupByLocation(assignLocations(practitioners)).map((group, gi) => (
+                        {groupByLocation(assignLocations(filteredPractitioners)).map((group, gi) => (
                           <div key={group.name} className={`text-center ${gi > 0 ? "border-l border-border" : ""}`} style={{ width: group.practitioners.length * COL_W }}>
                             <div className="truncate px-1 py-0.5 text-[14px] font-normal text-[rgb(112,117,122)]">{group.name}</div>
                           </div>
@@ -609,7 +654,7 @@ export default function CalendarView({
                       </div>
                       {/* Practitioner column headers */}
                       <div className="flex border-t border-border/30 px-px">
-                        {groupByLocation(assignLocations(practitioners)).map((group, gi) => (
+                        {groupByLocation(assignLocations(filteredPractitioners)).map((group, gi) => (
                           <div key={group.name} className={`flex ${gi > 0 ? "border-l border-border" : ""}`}>
                             {group.practitioners.map((p) => (
                               <div key={p.id} className="flex flex-col items-center py-1" style={{ width: COL_W }}>
@@ -643,14 +688,14 @@ export default function CalendarView({
                         <div key={dayIdx} className={`relative border-r border-b border-border last:border-r-0 ${isToday ? "bg-primary/5" : ""}`} style={{ height: HOUR_HEIGHT }}>
                           {/* Practitioner sub-columns */}
                           <div className="absolute inset-0 flex">
-                            {practitioners.map((prac, pIdx) => {
-                              const hourAppts = appointments.filter(
+                            {filteredPractitioners.map((prac, pIdx) => {
+                              const hourAppts = filteredAppointments.filter(
                                 (a) => a.date === dateStr && a.practitionerName === prac.name && parseInt(a.startTime.split(":")[0]) === hour,
                               );
                               return (
                                 <div
                                   key={prac.id}
-                                  className={`relative cursor-pointer hover:bg-gray-50/50 ${pIdx < practitioners.length - 1 ? "border-r border-border/20" : ""}`}
+                                  className={`relative cursor-pointer hover:bg-gray-50/50 ${pIdx < filteredPractitioners.length - 1 ? "border-r border-border/20" : ""}`}
                                   style={{ width: COL_W }}
                                   onClick={(e) => handleCellClick(e, dateStr, hour)}
                                 >
