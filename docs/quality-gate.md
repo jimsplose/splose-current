@@ -1,6 +1,6 @@
 # Post-Agent Quality Gate
 
-**After EVERY subagent completes and BEFORE committing its work, the main agent MUST run these checks.** This is not optional. Do not batch — run the gate after each individual agent.
+**After EVERY UI change — whether made by a subagent or the main agent directly — and BEFORE committing, MUST run these checks.** This is not optional. Do not batch — run the gate after each individual agent or each round of direct edits.
 
 ## Step 1: DS Violation Scan
 

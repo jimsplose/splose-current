@@ -39,7 +39,7 @@ A gap is `[x]` only when ALL related `screenshots/screenshot-catalog.md` entries
 ## Subagents
 
 - Read `docs/agent-block.md` — copy the Agent Block into every UI-touching subagent prompt
-- Read `docs/quality-gate.md` — run after every subagent completes
+- Read `docs/quality-gate.md` — run after every UI change (subagent OR direct edits)
 - **No worktrees** — use direct agents only. Worktrees cause data loss with concurrent sessions
 - Jim runs 2 concurrent sessions. Coordinate via git, avoid editing same files
 
