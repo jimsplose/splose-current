@@ -32,7 +32,7 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
     <div className="px-[22.5px] py-[10px]">
       <PageHeader title="Clients">
         <Link href="/clients/new">
-          <Button>
+          <Button variant="secondary">
             <Plus className="h-4 w-4" />
             New client
           </Button>
@@ -53,17 +53,17 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
             <Tr key={client.id} clickable className="group relative">
               <Td>
                 <Link href={`/clients/${client.id}`} className="absolute inset-0" aria-label={`View ${client.firstName} ${client.lastName}`} />
-                <span className="font-medium text-primary group-hover:underline">
+                <span className="group-hover:underline">
                   {client.firstName} {client.lastName}
                 </span>
               </Td>
-              <Td hidden="sm" className="text-text-secondary">
+              <Td hidden="sm">
                 {client.dateOfBirth}
               </Td>
-              <Td hidden="md" className="text-primary">
+              <Td hidden="md">
                 {client.phone}
               </Td>
-              <Td hidden="lg" className="text-text-secondary">
+              <Td hidden="lg">
                 {client.email}
               </Td>
               <Td hidden="md">

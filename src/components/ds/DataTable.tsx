@@ -72,7 +72,7 @@ export function Th({
 
   return (
     <th
-      className={`p-4 text-${align} text-label-lg text-text first:rounded-tl-lg last:rounded-tr-lg ${hideClass} ${interactive ? "select-none" : ""} ${className}`}
+      className={`p-4 text-${align} text-[14px] font-semibold leading-[22px] text-text first:rounded-tl-lg last:rounded-tr-lg ${hideClass} ${interactive ? "select-none" : ""} ${className}`}
     >
       <div className={`inline-flex items-center gap-1 ${interactive ? "cursor-pointer" : ""}`} onClick={sortable ? onSort : undefined}>
         {children}
@@ -112,7 +112,7 @@ interface TrProps extends React.HTMLAttributes<HTMLTableRowElement> {
 export function Tr({ children, hover = true, clickable, selected, className = "", ...props }: TrProps) {
   return (
     <tr
-      className={`transition-colors ${hover ? "hover:bg-gray-50" : ""} ${clickable ? "cursor-pointer" : ""} ${selected ? "bg-primary/5" : ""} ${className}`}
+      className={`transition-colors ${hover ? "hover:bg-surface-header" : ""} ${clickable ? "cursor-pointer" : ""} ${selected ? "bg-primary/5" : ""} ${className}`}
       {...props}
     >
       {children}

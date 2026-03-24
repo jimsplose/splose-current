@@ -50,7 +50,7 @@ export default function Pagination({
         <button
           onClick={() => currentPage > 1 && onPageChange?.(currentPage - 1)}
           disabled={currentPage === 1}
-          className="flex h-7 w-7 items-center justify-center rounded text-text-secondary hover:bg-gray-100 disabled:opacity-30"
+          className="flex h-8 w-8 items-center justify-center rounded text-text-secondary hover:text-primary disabled:opacity-30"
         >
           &lt;
         </button>
@@ -63,10 +63,10 @@ export default function Pagination({
             <button
               key={p}
               onClick={() => onPageChange?.(p)}
-              className={`flex h-7 w-7 items-center justify-center rounded border text-label-md ${
+              className={`flex h-8 w-8 items-center justify-center rounded border text-[14px] ${
                 p === currentPage
                   ? "border-primary bg-white text-primary"
-                  : "border-border bg-white text-text-secondary hover:bg-gray-50"
+                  : "border-transparent bg-white text-text hover:border-primary hover:text-primary"
               }`}
             >
               {p}
@@ -76,7 +76,7 @@ export default function Pagination({
         <button
           onClick={() => currentPage < totalPages && onPageChange?.(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="flex h-7 w-7 items-center justify-center rounded text-text-secondary hover:bg-gray-100 disabled:opacity-30"
+          className="flex h-8 w-8 items-center justify-center rounded text-text-secondary hover:text-primary disabled:opacity-30"
         >
           &gt;
         </button>
