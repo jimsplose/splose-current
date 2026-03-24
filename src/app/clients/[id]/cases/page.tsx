@@ -2,6 +2,18 @@ import { Button, Card, DataTable, PageHeader, TableHead, Th, TableBody, Tr, Td, 
 
 export default function ClientCasesPage() {
   const mockCases = [
+    // ── Active cases ────────────────────────────────────────────────────
+    {
+      number: "0482",
+      issueDate: "1 Mar 2026",
+      expiryDate: "28 Feb 2027",
+      assignee: "Sarah Chen",
+      type: "Budget",
+      allocated: "1,240.00 of 8,500.00",
+      invoiced: "970.00 of 8,500.00",
+      status: "Active",
+      caseName: "NDIS Plan — Core Supports",
+    },
     {
       number: "0466",
       issueDate: "1 Mar 2026",
@@ -11,17 +23,77 @@ export default function ClientCasesPage() {
       allocated: "0.00 of 100.00",
       invoiced: "0.00 of 100.00",
       status: "Active",
+      caseName: "Private — Initial Assessment",
     },
     {
-      number: "0389",
-      issueDate: "1 Oct 2025",
-      expiryDate: "1 Nov 2025",
+      number: "0460",
+      issueDate: "15 Feb 2026",
+      expiryDate: "15 Feb 2027",
+      assignee: "James Wilson",
+      type: "Hours",
+      allocated: "8.50 of 20.00 hours",
+      invoiced: "6.00 of 20.00 hours",
+      status: "Active",
+      caseName: "Medicare EPC — GP Referral",
+    },
+    {
+      number: "indefinite",
+      issueDate: "30 Sep 2025",
+      expiryDate: "N/A",
+      assignee: "Joseph Ge",
+      type: "Appointments",
+      allocated: "3 of 5 appointments",
+      invoiced: "3 of 5 appointments",
+      status: "Active",
+      caseName: "DVA — Allied Health",
+    },
+    {
+      number: "0360",
+      issueDate: "1 Aug 2025",
+      expiryDate: "2 Aug 2026",
+      assignee: "Cheng Ma",
+      type: "Budget",
+      allocated: "420.00 of 1,000.00",
+      invoiced: "420.00 of 1,000.00",
+      status: "Active",
+      caseName: "NDIS Plan — Capacity Building",
+    },
+    // ── Pending cases ───────────────────────────────────────────────────
+    {
+      number: "0490",
+      issueDate: "20 Mar 2026",
+      expiryDate: "20 Mar 2027",
       assignee: "Unassigned",
       type: "Budget",
-      allocated: "0.00 of 1,000.00",
-      invoiced: "0.00 of 1,000.00",
-      status: "Expired",
+      allocated: "0.00 of 12,000.00",
+      invoiced: "0.00 of 12,000.00",
+      status: "Pending",
+      caseName: "WorkCover SA — Claim #WC-2026-1847",
     },
+    {
+      number: "0488",
+      issueDate: "18 Mar 2026",
+      expiryDate: "18 Sep 2026",
+      assignee: "Unassigned",
+      type: "Appointments",
+      allocated: "0 of 6 appointments",
+      invoiced: "0 of 6 appointments",
+      status: "Pending",
+      caseName: "Medicare EPC — Mental Health Plan",
+    },
+    // ── Closed case ─────────────────────────────────────────────────────
+    {
+      number: "0337",
+      issueDate: "1 Jul 2025",
+      expiryDate: "31 Dec 2025",
+      assignee: "Sarah Chen",
+      type: "Budget",
+      allocated: "980.00 of 1,000.00",
+      invoiced: "980.00 of 1,000.00",
+      status: "Closed",
+      caseName: "Private — Physiotherapy Program",
+    },
+    // ── Expired cases ───────────────────────────────────────────────────
     {
       number: "0405",
       issueDate: "30 Sep 2025",
@@ -31,16 +103,7 @@ export default function ClientCasesPage() {
       allocated: "3.00 of 3.00 hours",
       invoiced: "3.00 of 3.00 hours",
       status: "Expired",
-    },
-    {
-      number: "indefinite",
-      issueDate: "30 Sep 2025",
-      expiryDate: "N/A",
-      assignee: "Joseph Ge",
-      type: "Appointments",
-      allocated: "3 of 3 appointments",
-      invoiced: "3 of 3 appointments",
-      status: "Active",
+      caseName: "Medicare EPC — OT Sessions",
     },
     {
       number: "0391",
@@ -51,6 +114,18 @@ export default function ClientCasesPage() {
       allocated: "2.25 of 1.00 hour",
       invoiced: "2.25 of 1.00 hour",
       status: "Expired",
+      caseName: "NDIS Plan — Therapy (Old)",
+    },
+    {
+      number: "0389",
+      issueDate: "1 Oct 2025",
+      expiryDate: "1 Nov 2025",
+      assignee: "Unassigned",
+      type: "Budget",
+      allocated: "0.00 of 1,000.00",
+      invoiced: "0.00 of 1,000.00",
+      status: "Expired",
+      caseName: "Private — Assessment Block",
     },
     {
       number: "0388",
@@ -61,6 +136,7 @@ export default function ClientCasesPage() {
       allocated: "0 of 1000 appointments",
       invoiced: "0 of 1000 appointments",
       status: "Expired",
+      caseName: "DVA — Bulk Appointments",
     },
     {
       number: "0361",
@@ -71,26 +147,7 @@ export default function ClientCasesPage() {
       allocated: "0.00",
       invoiced: "0.00",
       status: "Expired",
-    },
-    {
-      number: "0360",
-      issueDate: "1 Aug 2025",
-      expiryDate: "2 Aug 2026",
-      assignee: "Cheng Ma",
-      type: "Budget",
-      allocated: "0.00 of 1,000.00",
-      invoiced: "0.00 of 1,000.00",
-      status: "Active",
-    },
-    {
-      number: "0337",
-      issueDate: "1 Jul 2025",
-      expiryDate: "2 Jul 2026",
-      assignee: "Unassigned",
-      type: "Budget",
-      allocated: "0.00 of 1,000.00",
-      invoiced: "0.00 of 1,000.00",
-      status: "Active",
+      caseName: "Private — Trial Session",
     },
     {
       number: "0297 (BSB)",
@@ -101,6 +158,7 @@ export default function ClientCasesPage() {
       allocated: "0 of 10 appointments",
       invoiced: "0 of 10 appointments",
       status: "Expired",
+      caseName: "WorkCover SA — BSB Review",
     },
   ];
 
@@ -114,6 +172,7 @@ export default function ClientCasesPage() {
         <DataTable>
           <TableHead>
             <Th>Case Number</Th>
+            <Th>Case Name</Th>
             <Th>Issue date</Th>
             <Th>Expiry date</Th>
             <Th>Assignee</Th>
@@ -124,8 +183,9 @@ export default function ClientCasesPage() {
           </TableHead>
           <TableBody>
             {mockCases.map((c) => (
-              <Tr key={c.number}>
+              <Tr key={c.number + c.caseName}>
                 <Td className="text-text">{c.number}</Td>
+                <Td className="font-medium text-text">{c.caseName}</Td>
                 <Td className="text-text-secondary">{c.issueDate}</Td>
                 <Td className="text-text-secondary">{c.expiryDate}</Td>
                 <Td className="text-text-secondary">{c.assignee}</Td>
@@ -139,7 +199,7 @@ export default function ClientCasesPage() {
             ))}
           </TableBody>
         </DataTable>
-        <Pagination totalItems={18} totalPages={2} itemsPerPage={10} />
+        <Pagination totalItems={14} totalPages={2} itemsPerPage={10} />
       </Card>
     </div>
   );

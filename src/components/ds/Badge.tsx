@@ -47,6 +47,9 @@ export function statusVariant(status: string): BadgeVariant {
     Cancelled: "red",
     Expired: "red",
     Archived: "orange",
+    Closed: "gray",
+    Opened: "blue",
+    "On Leave": "yellow",
     "Do not invoice": "gray",
   };
   return map[status] ?? "gray";
