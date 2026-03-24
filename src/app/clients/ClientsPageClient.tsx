@@ -31,10 +31,12 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
   return (
     <div className="p-4 sm:p-6">
       <PageHeader title="Clients">
-        <Button>
-          <Plus className="h-4 w-4" />
-          New client
-        </Button>
+        <Link href="/clients/new">
+          <Button>
+            <Plus className="h-4 w-4" />
+            New client
+          </Button>
+        </Link>
       </PageHeader>
       <SearchBar placeholder="Search for name, phone number, and email" />
 

@@ -2,6 +2,7 @@
 
 import { PageHeader, Button, Card, DataTable, SearchBar, Pagination, TableHead, Th, TableBody, Td, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect } from "@/components/ds";
 import { Plus, Minus } from "lucide-react";
+import Link from "next/link";
 import { useState, useMemo, useCallback, Fragment } from "react";
 import { useFormModal } from "@/hooks/useFormModal";
 
@@ -206,10 +207,12 @@ export default function ProductsPage() {
         >
           Display archived products
         </Button>
-        <Button variant="secondary">
-          <Plus className="h-4 w-4" />
-          New product
-        </Button>
+        <Link href="/products/new">
+          <Button variant="secondary">
+            <Plus className="h-4 w-4" />
+            New product
+          </Button>
+        </Link>
       </PageHeader>
 
       <SearchBar

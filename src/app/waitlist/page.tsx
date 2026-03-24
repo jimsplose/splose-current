@@ -2,6 +2,7 @@
 
 import { useState, useEffect, Suspense } from "react";
 import nextDynamic from "next/dynamic";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 const MapView = nextDynamic(() => import("@/components/MapView"), { ssr: false });
@@ -471,10 +472,12 @@ function WaitlistPageInner() {
                 </>
               )}
             </Button>
-            <Button variant="secondary" size="md">
-              <Plus className="h-4 w-4" />
-              Add client
-            </Button>
+            <Link href="/waitlist/new">
+              <Button variant="secondary" size="md">
+                <Plus className="h-4 w-4" />
+                Add to waitlist
+              </Button>
+            </Link>
           </PageHeader>
 
           {viewMode === "list" ? (

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { PageHeader, Button, Card, Pagination, SearchBar, Badge, statusVariant, DataTable, TableHead, Th, TableBody, Tr, Td, LinkCell } from "@/components/ds";
 import { prisma } from "@/lib/prisma";
 import { Plus } from "lucide-react";
@@ -14,10 +15,12 @@ export default async function InvoicesPage() {
     <div className="p-4 sm:p-6">
       <PageHeader title="Invoices">
         <Button variant="secondary">Batch invoice</Button>
-        <Button variant="secondary">
-          <Plus className="h-4 w-4" />
-          New invoice
-        </Button>
+        <Link href="/invoices/new">
+          <Button variant="secondary">
+            <Plus className="h-4 w-4" />
+            New invoice
+          </Button>
+        </Link>
       </PageHeader>
 
       <SearchBar placeholder="Search for invoice number, client name and contact name" />

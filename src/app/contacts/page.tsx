@@ -56,10 +56,12 @@ export default function ContactsPage() {
   return (
     <div className="p-4 sm:p-6">
       <PageHeader title="Contacts">
-        <Button>
-          <Plus className="h-4 w-4" />
-          New contact
-        </Button>
+        <Link href="/contacts/new">
+          <Button>
+            <Plus className="h-4 w-4" />
+            New contact
+          </Button>
+        </Link>
       </PageHeader>
 
       <SearchBar placeholder="Search for contact name, phone number, email and company name" />
