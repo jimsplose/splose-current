@@ -102,6 +102,58 @@ function formatTimeShort(hour: number, minute: number): string {
   return `${h12}${mm} ${ampm}`;
 }
 
+/** Convert "HH:MM" to "h:mm am" format */
+function formatTime12h(time: string): string {
+  const [h, m] = time.split(":").map(Number);
+  const h12 = h > 12 ? h - 12 : h === 0 ? 12 : h;
+  const ampm = h >= 12 ? "pm" : "am";
+  const mm = m === 0 ? "" : `:${m.toString().padStart(2, "0")}`;
+  return `${h12}${mm} ${ampm}`;
+}
+
+/** Lighten a hex/rgb color for appointment block backgrounds */
+function lightenColor(color: string, amount = 0.85): string {
+  // Convert hex to RGB
+  let r = 200, g = 200, b = 220;
+  if (color.startsWith("#")) {
+    const hex = color.replace("#", "");
+    r = parseInt(hex.substring(0, 2), 16);
+    g = parseInt(hex.substring(2, 4), 16);
+    b = parseInt(hex.substring(4, 6), 16);
+  } else if (color.startsWith("rgb")) {
+    const match = color.match(/(\d+)/g);
+    if (match) {
+      r = parseInt(match[0]);
+      g = parseInt(match[1]);
+      b = parseInt(match[2]);
+    }
+  }
+  // Lighten by mixing with white
+  const lr = Math.round(r + (255 - r) * amount);
+  const lg = Math.round(g + (255 - g) * amount);
+  const lb = Math.round(b + (255 - b) * amount);
+  return `rgb(${lr}, ${lg}, ${lb})`;
+}
+
+/** Darken a color for text on light appointment backgrounds */
+function darkenColor(color: string, amount = 0.4): string {
+  let r = 100, g = 100, b = 120;
+  if (color.startsWith("#")) {
+    const hex = color.replace("#", "");
+    r = parseInt(hex.substring(0, 2), 16);
+    g = parseInt(hex.substring(2, 4), 16);
+    b = parseInt(hex.substring(4, 6), 16);
+  } else if (color.startsWith("rgb")) {
+    const match = color.match(/(\d+)/g);
+    if (match) {
+      r = parseInt(match[0]);
+      g = parseInt(match[1]);
+      b = parseInt(match[2]);
+    }
+  }
+  return `rgb(${Math.round(r * amount)}, ${Math.round(g * amount)}, ${Math.round(b * amount)})`;
+}
+
 function isGroupAppointment(appt: Appointment): boolean {
   const t = appt.type.toLowerCase();
   return t.includes("group");
@@ -313,7 +365,7 @@ export default function CalendarView({
                 <ChevronRight className="h-4 w-4" />
               </button>
             </div>
-            <h2 className="text-[14px] font-semibold text-text">{toolbarDateLabel}</h2>
+            <h2 className="text-[16px] font-bold text-text">{toolbarDateLabel}</h2>
             <div className="ml-1 flex items-center gap-1 text-text-secondary">
               <Button variant="icon" size="sm">
                 <Filter className="h-4 w-4" />
@@ -567,12 +619,19 @@ export default function CalendarView({
                                     return (
                                       <div
                                         key={appt.id}
-                                        className="absolute inset-x-0.5 z-10 cursor-pointer overflow-hidden rounded px-1 py-0.5 text-white shadow-sm"
-                                        style={{ backgroundColor: appt.practitionerColor, opacity: appt.status === "Cancelled" ? 0.5 : 1, ...pos }}
+                                        className="absolute inset-x-0.5 z-10 cursor-pointer overflow-hidden rounded border px-1 py-0.5 shadow-sm"
+                                        style={{
+                                          backgroundColor: lightenColor(appt.practitionerColor),
+                                          borderColor: lightenColor(appt.practitionerColor, 0.6),
+                                          color: darkenColor(appt.practitionerColor),
+                                          opacity: appt.status === "Cancelled" ? 0.5 : 1,
+                                          ...pos,
+                                        }}
                                         onClick={(e) => { e.stopPropagation(); setSelectedAppt(appt); }}
                                       >
                                         <p className="truncate text-caption-sm font-medium">{appt.clientName}</p>
-                                        <p className="text-caption-sm opacity-80">{appt.startTime.replace(/^0/, "")}</p>
+                                        <p className="text-caption-sm opacity-80">{formatTime12h(appt.startTime)}</p>
+                                        <p className="truncate text-caption-sm opacity-70">{appt.type}</p>
                                       </div>
                                     );
                                   })}
@@ -1205,12 +1264,16 @@ function MonthView({
                     return (
                       <div
                         key={appt.id}
-                        className={`flex cursor-pointer items-center gap-0.5 rounded px-1 py-0.5 text-caption-sm font-medium text-white ${isCancelled ? "opacity-60" : ""}`}
-                        style={{ backgroundColor: appt.practitionerColor }}
+                        className={`flex cursor-pointer items-center gap-0.5 rounded border px-1 py-0.5 text-caption-sm font-medium ${isCancelled ? "opacity-60" : ""}`}
+                        style={{
+                          backgroundColor: lightenColor(appt.practitionerColor),
+                          borderColor: lightenColor(appt.practitionerColor, 0.6),
+                          color: darkenColor(appt.practitionerColor),
+                        }}
                         onClick={() => onApptClick(appt)}
                       >
                         <span className="truncate">
-                          {appt.startTime.replace(/^0/, "")} {appt.clientName}
+                          {formatTime12h(appt.startTime)} {appt.clientName}
                         </span>
                         {isCancelled && (
                           <span className="ml-auto flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-sm bg-red-500">
