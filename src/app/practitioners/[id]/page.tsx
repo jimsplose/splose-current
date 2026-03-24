@@ -65,7 +65,7 @@ export default async function PractitionerDetailPage({ params }: { params: Promi
   }));
 
   return (
-    <div className="px-[15px] py-[5px]">
+    <div className="px-[22.5px] py-[5px]">
       <PageHeader title={practitioner.name}>
         <Button variant="secondary">
           <Edit className="h-4 w-4" />

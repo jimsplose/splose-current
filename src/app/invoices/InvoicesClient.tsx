@@ -99,7 +99,7 @@ export default function InvoicesClient({
   const activeFilterCount = [locationFilter, practitionerFilter, statusFilter].filter(Boolean).length;
 
   return (
-    <div className="px-[15px] py-[5px]">
+    <div className="px-[22.5px] py-[5px]">
       <PageHeader title="Invoices">
         <Button variant="secondary">Batch invoice</Button>
         <Link href="/invoices/new">
