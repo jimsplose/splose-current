@@ -224,3 +224,81 @@ export const ReportsSidebar: Story = {
     isActive: (href: string) => href === "/reports",
   },
 };
+
+/* ------------------------------------------------------------------ */
+/*  ClientDetailSidebar                                                */
+/*  Pattern: Flat single-section nav with badge counts and custom      */
+/*  isActive logic for a client detail page sidebar                    */
+/*  Source: src/app/clients/[id]/ClientSidebar.tsx — flat nav items    */
+/*  with count badges for sub-pages                                    */
+/* ------------------------------------------------------------------ */
+
+const clientDetailSections: SideNavSection[] = [
+  {
+    title: "",
+    items: [
+      { name: "Details", href: "/clients/abc123" },
+      { name: "Cases", href: "/clients/abc123/cases", badge: "0" },
+      { name: "Appointments", href: "/clients/abc123/appointments", badge: "12" },
+      { name: "Letters", href: "/clients/abc123/letters", badge: "3" },
+      { name: "Invoices", href: "/clients/abc123/invoices", badge: "96" },
+      { name: "Notes", href: "/clients/abc123/notes", badge: "5" },
+      { name: "Files", href: "/clients/abc123/files", badge: "2" },
+      { name: "Forms", href: "/clients/abc123/forms", badge: "1" },
+    ],
+  },
+];
+
+export const ClientDetailSidebar: Story = {
+  name: "Recipe: Client Detail Sidebar",
+  args: {
+    sections: clientDetailSections,
+    className: "w-[200px] py-2",
+    isActive: (href: string) => href === "/clients/abc123",
+  },
+};
+
+/* ------------------------------------------------------------------ */
+/*  SettingsLayoutWithContent                                          */
+/*  Pattern: Full settings layout showing SideNav beside main content  */
+/*  area — the standard settings page layout composition               */
+/*  Source: src/app/settings/layout.tsx — SideNav + children flex       */
+/* ------------------------------------------------------------------ */
+
+export const SettingsLayoutWithContent: Story = {
+  name: "Recipe: Settings Layout with Content",
+  render: () => (
+    <div className="flex h-[500px] overflow-hidden rounded-lg border border-border">
+      <SideNav
+        sections={settingsSections}
+        className="w-64 p-4"
+        isActive={(href: string) => href === "/settings/services"}
+      />
+      <div className="flex-1 overflow-y-auto p-6">
+        <h1 className="mb-4 text-display-lg text-text">Services</h1>
+        <p className="text-body-md text-text-secondary">
+          Manage your service types, durations, and pricing.
+        </p>
+        <div className="mt-4 rounded border border-border p-4 text-body-sm text-text-secondary">
+          Page content area
+        </div>
+      </div>
+    </div>
+  ),
+};
+
+/* ------------------------------------------------------------------ */
+/*  ReportsDeepActive                                                  */
+/*  Pattern: Reports sidebar with a deep active state — showing        */
+/*  how nested items highlight in a multi-section nav                   */
+/*  Source: src/app/reports/ layout — SideNav with active on sub-pages  */
+/* ------------------------------------------------------------------ */
+
+export const ReportsDeepActive: Story = {
+  name: "Recipe: Reports Deep Active",
+  args: {
+    sections: reportsSections,
+    className: "w-56 p-4",
+    isActive: (href: string) => href === "/reports/progress-notes",
+  },
+};

@@ -264,3 +264,158 @@ export const BusyTimes: StoryObj = {
   name: "Recipe: Busy Times",
   render: () => <BusyTimesDemo />,
 };
+
+/* ── Recipe: Tags with Toggle Column ──────────────────────────────── */
+
+interface Tag {
+  [key: string]: unknown;
+  name: string;
+  active: boolean;
+  category: string;
+}
+
+function TagsDemo() {
+  const [items, setItems] = useState<Tag[]>([
+    { name: "NDIS", active: true, category: "Funding" },
+    { name: "Medicare", active: true, category: "Funding" },
+    { name: "Private", active: true, category: "Funding" },
+    { name: "DVA", active: false, category: "Funding" },
+    { name: "Paediatric", active: true, category: "Clinical" },
+    { name: "Adult", active: true, category: "Clinical" },
+    { name: "Aged Care", active: false, category: "Clinical" },
+  ]);
+
+  return (
+    <SettingsListPage<Tag, { name: string; active: boolean; category: string }>
+      title="Tags"
+      description="Manage tags used to categorise clients, appointments and invoices."
+      items={items}
+      columns={[
+        { key: "name", label: "Name" },
+        { key: "category", label: "Category" },
+        {
+          key: "active",
+          label: "Active",
+          render: (item) => (
+            <Toggle checked={item.active} onChange={() => {}} />
+          ),
+        },
+      ]}
+      dropdownItems={SIMPLE_CRUD}
+      primaryButtonLabel="+ New tag"
+      hasSearch
+      searchPlaceholder="Search tags..."
+      searchFilter={(item, q) => item.name.toLowerCase().includes(q.toLowerCase())}
+      formDefaults={{ name: "", active: true, category: "Funding" }}
+      onSave={(values, index) => {
+        if (index !== null) {
+          setItems((prev) => prev.map((t, i) => (i === index ? { ...values } : t)));
+        } else {
+          setItems((prev) => [...prev, { ...values }]);
+        }
+      }}
+      modalTitle={(editing) => (editing ? "Edit tag" : "New tag")}
+      renderForm={(form, setField) => (
+        <>
+          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
+          <FormSelect
+            label="Category"
+            value={form.category}
+            onChange={(e) => setField("category", e.target.value)}
+            options={[
+              { value: "Funding", label: "Funding" },
+              { value: "Clinical", label: "Clinical" },
+            ]}
+          />
+          <Toggle label="Active" checked={form.active} onChange={(v) => setField("active", v)} />
+        </>
+      )}
+    />
+  );
+}
+
+export const TagsWithToggle: StoryObj = {
+  name: "Recipe: Tags with Toggle Column",
+  render: () => <TagsDemo />,
+};
+
+/* ── Recipe: Appointment Types with ColorDot + OnOffBadge ──────────── */
+
+interface ApptType {
+  [key: string]: unknown;
+  name: string;
+  color: string;
+  duration: number;
+  onlineBooking: boolean;
+}
+
+function AppointmentTypesDemo() {
+  const [items, setItems] = useState<ApptType[]>([
+    { name: "Initial Assessment", color: "#7c3aed", duration: 60, onlineBooking: true },
+    { name: "Follow Up", color: "#3b82f6", duration: 30, onlineBooking: true },
+    { name: "Group Session", color: "#22c55e", duration: 90, onlineBooking: false },
+    { name: "Phone Consult", color: "#f59e0b", duration: 15, onlineBooking: false },
+    { name: "Home Visit", color: "#ef4444", duration: 60, onlineBooking: false },
+    { name: "Review", color: "#6366f1", duration: 45, onlineBooking: true },
+  ]);
+
+  return (
+    <SettingsListPage<ApptType, { name: string; color: string; duration: string; onlineBooking: boolean }>
+      title="Appointment types"
+      items={items}
+      columns={[
+        {
+          key: "name",
+          label: "Name",
+          render: (item) => (
+            <div className="flex items-center gap-2">
+              <ColorDot color={item.color} />
+              {item.name}
+            </div>
+          ),
+        },
+        { key: "duration", label: "Duration (mins)" },
+        {
+          key: "onlineBooking",
+          label: "Online booking",
+          render: (item) => <OnOffBadge value={item.onlineBooking} />,
+        },
+      ]}
+      dropdownItems={STANDARD_SETTINGS}
+      primaryButtonLabel="+ New type"
+      formDefaults={{ name: "", color: "#7c3aed", duration: "30", onlineBooking: false }}
+      onSave={(values, index) => {
+        const entry: ApptType = {
+          name: values.name,
+          color: values.color,
+          duration: parseInt(values.duration) || 30,
+          onlineBooking: values.onlineBooking,
+        };
+        if (index !== null) {
+          setItems((prev) => prev.map((a, i) => (i === index ? entry : a)));
+        } else {
+          setItems((prev) => [...prev, entry]);
+        }
+      }}
+      modalTitle={(editing) => (editing ? "Edit appointment type" : "New appointment type")}
+      renderForm={(form, setField) => (
+        <>
+          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
+          <FormColorPicker value={form.color} onChange={(c) => setField("color", c)} />
+          <FormInput
+            label="Duration (mins)"
+            type="number"
+            value={form.duration}
+            onChange={(e) => setField("duration", e.target.value)}
+          />
+          <Toggle label="Enable online booking" checked={form.onlineBooking} onChange={(v) => setField("onlineBooking", v)} />
+        </>
+      )}
+    />
+  );
+}
+
+export const AppointmentTypes: StoryObj = {
+  name: "Recipe: Appointment Types (ColorDot + OnOffBadge)",
+  render: () => <AppointmentTypesDemo />,
+};

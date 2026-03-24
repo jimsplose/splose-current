@@ -158,3 +158,124 @@ export const PractitionerIndicator: Story = {
   ),
   parameters: { layout: "padded" },
 };
+
+/* ------------------------------------------------------------------ */
+/*  RoomsResourcesTable                                                */
+/*  Pattern: ColorDot next to room name in a settings table row.       */
+/*  Each room has a unique color shown as a small dot before the name.  */
+/*  Source: /settings/rooms-resources page — ColorDot in Name column    */
+/* ------------------------------------------------------------------ */
+
+export const RoomsResourcesTable: Story = {
+  name: "Recipe: Rooms & Resources Table",
+  render: () => (
+    <div className="w-[600px]">
+      <table className="w-full">
+        <thead>
+          <tr className="border-b border-border bg-table-header">
+            <th className="px-4 py-3 text-left text-label-lg text-text">Name</th>
+            <th className="px-4 py-3 text-left text-label-lg text-text">Group</th>
+            <th className="px-4 py-3 text-left text-label-lg text-text">Capacity</th>
+            <th className="px-4 py-3 text-left text-label-lg text-text">Location</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-border">
+          {[
+            { name: "Room 1", color: "#ef4444", group: "Treatment", capacity: 1, location: "East Clinics" },
+            { name: "Room 2", color: "#3b82f6", group: "Treatment", capacity: 2, location: "East Clinics" },
+            { name: "Gym", color: "#22c55e", group: "Exercise", capacity: 8, location: "West Clinics" },
+            { name: "Pool", color: "#f59e0b", group: "Hydrotherapy", capacity: 4, location: "West Clinics" },
+          ].map((room) => (
+            <tr key={room.name} className="hover:bg-gray-50">
+              <td className="px-4 py-3 text-body-md text-text">
+                <div className="flex items-center gap-2.5">
+                  <ColorDot color={room.color} />
+                  {room.name}
+                </div>
+              </td>
+              <td className="px-4 py-3 text-body-md text-text-secondary">{room.group}</td>
+              <td className="px-4 py-3 text-body-md text-text-secondary">{room.capacity}</td>
+              <td className="px-4 py-3 text-body-md text-text-secondary">{room.location}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  BusyTimeNameColumn                                                 */
+/*  Pattern: ColorDot paired with busy time name in a table. Each      */
+/*  busy time type has a distinct color to match calendar events.       */
+/*  Source: /settings/busy-times page — ColorDot in Name column         */
+/* ------------------------------------------------------------------ */
+
+export const BusyTimeNameColumn: Story = {
+  name: "Recipe: Busy Time Name Column",
+  render: () => (
+    <div className="w-[500px]">
+      <table className="w-full">
+        <thead>
+          <tr className="border-b border-border bg-table-header">
+            <th className="px-4 py-3 text-left text-label-lg text-text">Name</th>
+            <th className="px-4 py-3 text-left text-label-lg text-text">Utilisation</th>
+            <th className="px-4 py-3 text-left text-label-lg text-text">Duration (mins)</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-border">
+          {[
+            { name: "Leave me alone", color: "#ef4444", util: "Excluded", dur: 15 },
+            { name: "Meeting", color: "#1f2937", util: "Excluded", dur: 30 },
+            { name: "Lunch", color: "#6366f1", util: "Excluded", dur: 30 },
+            { name: "Admin", color: "#a855f7", util: "Included", dur: 30 },
+            { name: "CPD", color: "#3b82f6", util: "Excluded", dur: 30 },
+            { name: "Travel", color: "#22c55e", util: "Excluded", dur: 30 },
+          ].map((b) => (
+            <tr key={b.name} className="hover:bg-gray-50">
+              <td className="px-4 py-3 text-body-md text-text">
+                <div className="flex items-center gap-2">
+                  <ColorDot color={b.color} />
+                  {b.name}
+                </div>
+              </td>
+              <td className="px-4 py-3 text-body-md text-text-secondary">{b.util}</td>
+              <td className="px-4 py-3 text-body-md text-text-secondary">{b.dur}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  AppointmentDetailHeader                                            */
+/*  Pattern: ColorDot next to the appointment client name + type in    */
+/*  the calendar appointment side panel header. Color indicates the    */
+/*  practitioner assigned to the appointment.                          */
+/*  Source: /calendar CalendarView.tsx — appointment detail panel       */
+/* ------------------------------------------------------------------ */
+
+export const AppointmentDetailHeader: Story = {
+  name: "Recipe: Appointment Detail Header",
+  render: () => (
+    <div className="w-80 rounded-lg border border-border bg-white p-4">
+      <div className="mb-4 flex items-start justify-between">
+        <div className="flex items-center gap-2">
+          <ColorDot color="#f59e0b" size="sm" />
+          <span className="text-heading-sm text-text">Sarah Johnson (Initial Assessment)</span>
+        </div>
+        <button className="text-text-secondary hover:text-text">&times;</button>
+      </div>
+      <div className="space-y-2 text-body-md">
+        <p className="text-text-secondary">9:00 AM - 10:00 AM</p>
+        <p className="text-text-secondary">Joseph Go</p>
+        <p className="text-text-secondary">Room 1 - East Clinics</p>
+      </div>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};

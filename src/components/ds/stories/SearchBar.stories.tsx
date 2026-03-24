@@ -91,3 +91,46 @@ export const InvoicesSearch: Story = {
 export const NotesSearch: Story = {
   args: { placeholder: "Search for content and title" },
 };
+
+/* ------------------------------------------------------------------ */
+/*  ContactsSearch                                                     */
+/*  Pattern: Contact list search with compound placeholder             */
+/*  Source: /contacts page                                             */
+/* ------------------------------------------------------------------ */
+
+export const ContactsSearch: Story = {
+  args: { placeholder: "Search for contact name, phone number, email and company name" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  ProductsSearchWithDefault                                          */
+/*  Pattern: Pre-filled search with existing query and onSearch        */
+/*  Source: /products page — searchable product list with state        */
+/* ------------------------------------------------------------------ */
+
+export const ProductsSearchWithDefault: Story = {
+  args: {
+    placeholder: "Search for product by name",
+    defaultValue: "Theraband",
+  },
+};
+
+/* ------------------------------------------------------------------ */
+/*  SettingsServicesSearch                                              */
+/*  Pattern: Settings list search with service-specific placeholder    */
+/*  Source: /settings/services page                                    */
+/* ------------------------------------------------------------------ */
+
+export const SettingsServicesSearch: Story = {
+  args: { placeholder: "Search for service name, type, and item code" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  ClientFilesSearch                                                  */
+/*  Pattern: Simple short placeholder for client sub-tab files list    */
+/*  Source: /clients/[id]/files page                                   */
+/* ------------------------------------------------------------------ */
+
+export const ClientFilesSearch: Story = {
+  args: { placeholder: "Search for file name" },
+};

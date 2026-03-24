@@ -159,3 +159,169 @@ export const ContactDetails: Story = {
   ),
   parameters: { layout: "padded" },
 };
+
+/* ------------------------------------------------------------------ */
+/*  MedicareAndNDIS                                                    */
+/*  Pattern: Medicare and NDIS detail sections, each showing           */
+/*  scheme-specific fields in separate headed sections with dividers   */
+/*  Source: src/app/clients/[id]/ClientDetailClient.tsx — Medicare      */
+/*  details and NDIS details sections                                  */
+/* ------------------------------------------------------------------ */
+
+export const MedicareAndNDIS: Story = {
+  name: "Recipe: Medicare & NDIS Details",
+  render: () => (
+    <div className="w-[500px] space-y-6">
+      <section>
+        <h2 className="mb-4 text-heading-lg text-text">Medicare details</h2>
+        <List
+          items={[
+            { label: "Card number:", value: "2123 45670 1" },
+          ]}
+        />
+      </section>
+
+      <hr className="border-border" />
+
+      <section>
+        <h2 className="mb-4 text-heading-lg text-text">NDIS details</h2>
+        <List
+          items={[
+            { label: "NDIS number:", value: "4312789456" },
+          ]}
+        />
+      </section>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  MedicationsAndAllergies                                            */
+/*  Pattern: Medications, allergies & intolerances section from the    */
+/*  client detail page — three related fields in one List              */
+/*  Source: src/app/clients/[id]/ClientDetailClient.tsx — Medications,  */
+/*  allergies & intolerances section                                   */
+/* ------------------------------------------------------------------ */
+
+export const MedicationsAndAllergies: Story = {
+  name: "Recipe: Medications & Allergies",
+  render: () => (
+    <div className="w-[500px]">
+      <h2 className="mb-4 text-heading-lg text-text">
+        Medications, allergies &amp; intolerances
+      </h2>
+      <List
+        items={[
+          { label: "Medications:", value: "None" },
+          { label: "Allergies:", value: "None" },
+          { label: "Intolerances:", value: "None" },
+        ]}
+      />
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  CustomFieldsAndInvoicing                                           */
+/*  Pattern: Custom fields and invoicing preference sections from the  */
+/*  client detail page — mixed value types in a compact List           */
+/*  Source: src/app/clients/[id]/ClientDetailClient.tsx — Custom        */
+/*  fields and Invoicing sections                                      */
+/* ------------------------------------------------------------------ */
+
+export const CustomFieldsAndInvoicing: Story = {
+  name: "Recipe: Custom Fields & Invoicing",
+  render: () => (
+    <div className="w-[500px] space-y-6">
+      <section>
+        <h2 className="mb-4 text-heading-lg text-text">Custom fields</h2>
+        <List
+          items={[
+            { label: "Date since surgery:", value: "25/09/2025" },
+            { label: "Note:", value: "Note short text check" },
+          ]}
+        />
+      </section>
+
+      <hr className="border-border" />
+
+      <section>
+        <h2 className="mb-4 text-heading-lg text-text">Invoicing</h2>
+        <List
+          items={[
+            { label: "Invoice reminder preference:", value: "On" },
+          ]}
+        />
+      </section>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  FullClientDetailPage                                               */
+/*  Pattern: Complete client detail view showing all List sections      */
+/*  stacked with dividers — the full scrollable detail layout          */
+/*  Source: src/app/clients/[id]/ClientDetailClient.tsx — full page     */
+/* ------------------------------------------------------------------ */
+
+export const FullClientDetailPage: Story = {
+  name: "Recipe: Full Client Detail Page",
+  render: () => (
+    <div className="w-[600px] space-y-8 rounded-lg border border-border bg-white p-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-display-md text-text">Details</h1>
+        <button className="rounded border border-border px-3 py-1.5 text-body-md text-text-secondary">
+          Edit
+        </button>
+      </div>
+
+      <section>
+        <h2 className="mb-4 text-heading-lg text-text">General details</h2>
+        <List
+          items={[
+            { label: "Date of birth:", value: "10 Jun 2001 (24 years old)" },
+            { label: "Sex:", value: "Not specified" },
+          ]}
+        />
+      </section>
+
+      <hr className="border-border" />
+
+      <section>
+        <h2 className="mb-4 text-heading-lg text-text">Client contact details</h2>
+        <List
+          items={[
+            { label: "Email:", value: <span className="text-primary">noah.campbell@email.com</span> },
+            { label: "Phone numbers:", value: <span className="text-primary">0409 999 000</span> },
+            { label: "Preference:", value: "None" },
+            { label: "Address:", value: "123 Main St, Adelaide SA 5000" },
+            { label: "Timezone:", value: "GMT+10:30 - Australia/Adelaide" },
+          ]}
+        />
+      </section>
+
+      <hr className="border-border" />
+
+      <section>
+        <h2 className="mb-4 text-heading-lg text-text">Medicare details</h2>
+        <List items={[{ label: "Card number:", value: "2123 45670 1" }]} />
+      </section>
+
+      <hr className="border-border" />
+
+      <section>
+        <h2 className="mb-4 text-heading-lg text-text">Custom fields</h2>
+        <List
+          items={[
+            { label: "Date since surgery:", value: "25/09/2025" },
+            { label: "Note:", value: "Note short text check" },
+          ]}
+        />
+      </section>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};

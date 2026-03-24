@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Plus } from "lucide-react";
+import { Plus, HelpCircle, Filter as FilterIcon, Map as MapIcon } from "lucide-react";
 import PageHeader from "../PageHeader";
 import Button from "../Button";
 
@@ -115,6 +115,84 @@ export const SettingsPageHeader: Story = {
     <PageHeader title="Online booking settings">
       <Button variant="secondary">Show archived</Button>
       <Button variant="primary">+ New booking page</Button>
+    </PageHeader>
+  ),
+};
+
+/* ------------------------------------------------------------------ */
+/*  ProductsPageHeader                                                 */
+/*  Pattern: Title + archive toggle (active state) + New product       */
+/*  Source: /products page                                             */
+/* ------------------------------------------------------------------ */
+
+export const ProductsPageHeader: Story = {
+  render: () => (
+    <PageHeader title="Products">
+      <Button variant="secondary" className="border-primary bg-primary/5 text-primary">
+        Display archived products
+      </Button>
+      <Button variant="secondary">
+        <Plus className="h-4 w-4" />
+        New product
+      </Button>
+    </PageHeader>
+  ),
+};
+
+/* ------------------------------------------------------------------ */
+/*  WaitlistPageHeader                                                 */
+/*  Pattern: Title + multiple small utility buttons (filter, learn,    */
+/*  map toggle)                                                        */
+/*  Source: /waitlist page — Waitlist tab                               */
+/* ------------------------------------------------------------------ */
+
+export const WaitlistPageHeader: Story = {
+  render: () => (
+    <PageHeader title="Waitlist">
+      <Button variant="secondary" size="sm">
+        <FilterIcon className="h-4 w-4" />
+        Reset all filters
+      </Button>
+      <Button variant="secondary" size="sm">
+        <HelpCircle className="h-4 w-4" />
+        Learn
+      </Button>
+      <Button variant="secondary" size="sm">
+        <MapIcon className="h-4 w-4" />
+        Map
+      </Button>
+    </PageHeader>
+  ),
+};
+
+/* ------------------------------------------------------------------ */
+/*  ReportsPageHeader                                                  */
+/*  Pattern: Report title + Export + Learn about this report           */
+/*  Source: /reports/billed-items, /reports/appointments, etc.          */
+/* ------------------------------------------------------------------ */
+
+export const ReportsPageHeader: Story = {
+  render: () => (
+    <PageHeader title="Billed items">
+      <Button>Export</Button>
+      <Button>Learn about this report</Button>
+    </PageHeader>
+  ),
+};
+
+/* ------------------------------------------------------------------ */
+/*  ContactsPageHeader                                                 */
+/*  Pattern: Title + New contact with Plus icon                        */
+/*  Source: /contacts page                                             */
+/* ------------------------------------------------------------------ */
+
+export const ContactsPageHeader: Story = {
+  render: () => (
+    <PageHeader title="Contacts">
+      <Button>
+        <Plus className="h-4 w-4" />
+        New contact
+      </Button>
     </PageHeader>
   ),
 };

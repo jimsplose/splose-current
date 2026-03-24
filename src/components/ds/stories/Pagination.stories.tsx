@@ -113,3 +113,63 @@ export const SettingsPagination: Story = {
     itemsPerPage: 10,
   },
 };
+
+/* ------------------------------------------------------------------ */
+/*  ContactsPagination                                                 */
+/*  Pattern: Medium dataset with 13 pages of contacts                  */
+/*  Source: /contacts page — 126 contacts, 13 pages                    */
+/* ------------------------------------------------------------------ */
+
+export const ContactsPagination: Story = {
+  args: {
+    currentPage: 1,
+    totalPages: 13,
+    totalItems: 126,
+    itemsPerPage: 10,
+  },
+};
+
+/* ------------------------------------------------------------------ */
+/*  PaymentsPagination                                                 */
+/*  Pattern: Large payment history with 61 pages and ellipsis          */
+/*  Source: /payments page — 608 payments, 61 pages                    */
+/* ------------------------------------------------------------------ */
+
+export const PaymentsPagination: Story = {
+  args: {
+    currentPage: 1,
+    totalPages: 61,
+    totalItems: 608,
+    itemsPerPage: 10,
+  },
+};
+
+/* ------------------------------------------------------------------ */
+/*  ProductsPaginationInteractive                                      */
+/*  Pattern: Interactive pagination with page change handler           */
+/*  Source: /products page — paginated with onPageChange callback      */
+/* ------------------------------------------------------------------ */
+
+export const ProductsPaginationInteractive: Story = {
+  args: {
+    currentPage: 3,
+    totalPages: 8,
+    totalItems: 74,
+    itemsPerPage: 10,
+  },
+};
+
+/* ------------------------------------------------------------------ */
+/*  SinglePagePagination                                               */
+/*  Pattern: Minimal pagination for small datasets that fit one page   */
+/*  Source: /clients/[id]/communications — 7 items, single page        */
+/* ------------------------------------------------------------------ */
+
+export const SinglePagePagination: Story = {
+  args: {
+    currentPage: 1,
+    totalPages: 1,
+    totalItems: 7,
+    itemsPerPage: 10,
+  },
+};

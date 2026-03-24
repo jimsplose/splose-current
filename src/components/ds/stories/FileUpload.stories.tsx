@@ -131,3 +131,105 @@ export const SettingsLogoUpload: Story = {
   ),
   parameters: { layout: "padded" },
 };
+
+/* ------------------------------------------------------------------ */
+/*  ClientProfilePhotoUpload                                           */
+/*  Pattern: Small square upload area for client profile photo. Uses   */
+/*  a text label as icon and compact sizing with p-0 override.        */
+/*  Source: /clients/[id] ClientDetailClient.tsx — FileUpload in the   */
+/*  edit form positioned to the right of the name/DOB fields           */
+/* ------------------------------------------------------------------ */
+
+export const ClientProfilePhotoUpload: Story = {
+  name: "Recipe: Client Profile Photo Upload",
+  render: () => (
+    <div className="flex gap-6">
+      <div className="flex-1 space-y-4">
+        <div>
+          <label className="mb-1 block text-label-lg text-text">First name *</label>
+          <input
+            type="text"
+            defaultValue="Liam"
+            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none"
+            readOnly
+          />
+        </div>
+        <div>
+          <label className="mb-1 block text-label-lg text-text">Last name *</label>
+          <input
+            type="text"
+            defaultValue="Nguyen"
+            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none"
+            readOnly
+          />
+        </div>
+      </div>
+      <div className="shrink-0 pt-6 text-center">
+        <FileUpload
+          icon={<span className="text-body-md text-text-secondary">Profile photo</span>}
+          label="Upload"
+          className="h-32 w-32 p-0"
+        />
+      </div>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  OnlineBookingHeaderUpload                                          */
+/*  Pattern: Header image upload for online booking editor. Uses a     */
+/*  wider layout with Upload icon and drag-and-drop hint text.         */
+/*  Source: /settings/online-bookings/[id] — logo/header image upload  */
+/*  in the Design tab of the online booking editor                     */
+/* ------------------------------------------------------------------ */
+
+export const OnlineBookingHeaderUpload: Story = {
+  name: "Recipe: Online Booking Header Upload",
+  render: () => (
+    <div className="max-w-2xl space-y-4">
+      <div>
+        <label className="mb-1 block text-label-lg text-text">Booking page name</label>
+        <input
+          type="text"
+          defaultValue="Standard Booking"
+          className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none"
+          readOnly
+        />
+      </div>
+      <div>
+        <label className="mb-2 block text-label-lg text-text">Logo / Header image</label>
+        <FileUpload
+          icon={<Upload className="h-8 w-8 text-text-secondary" />}
+          label="Click or drag to upload"
+          className="h-32"
+        />
+      </div>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  CSVImportUpload                                                    */
+/*  Pattern: File upload zone for CSV data import. A taller drop       */
+/*  zone with file type hints, used in the data import settings.       */
+/*  Source: /settings/data-import/csv — upload zone for CSV files      */
+/*  with drag-and-drop, file type restriction, and size limit hints    */
+/* ------------------------------------------------------------------ */
+
+export const CSVImportUpload: Story = {
+  name: "Recipe: CSV Import Upload",
+  render: () => (
+    <div className="max-w-2xl space-y-4">
+      <h3 className="text-heading-md text-text">Upload CSV file</h3>
+      <FileUpload
+        icon={<Upload className="h-8 w-8 text-text-secondary" />}
+        label="Click to upload or drag and drop"
+        className="py-12"
+      />
+      <p className="text-caption-md text-text-secondary">CSV files only, max 10MB</p>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};

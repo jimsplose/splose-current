@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { CheckCircle, LayoutGrid, Columns2 } from "lucide-react";
+import { CheckCircle, LayoutGrid, Columns2, Share2, Eye, Upload, FileSpreadsheet } from "lucide-react";
 import Navbar from "../Navbar";
 import Badge from "../Badge";
 import Button from "../Button";
@@ -161,6 +161,90 @@ export const NoteEditorNavbar: Story = {
       <Button variant="primary" className="border-green-500 bg-green-500 hover:bg-green-600">
         Save as final
       </Button>
+    </Navbar>
+  ),
+};
+
+/* ------------------------------------------------------------------ */
+/*  NewPaymentNavbar                                                   */
+/*  Pattern: New payment form with Cancel + Add actions                */
+/*  Source: /payments/new page                                         */
+/* ------------------------------------------------------------------ */
+
+export const NewPaymentNavbar: Story = {
+  render: () => (
+    <Navbar backHref="/payments" title="New payment">
+      <Button variant="secondary" className="border-primary text-primary hover:bg-primary/10">
+        Cancel
+      </Button>
+      <Button variant="primary">Add</Button>
+    </Navbar>
+  ),
+};
+
+/* ------------------------------------------------------------------ */
+/*  NewNoteNavbar                                                      */
+/*  Pattern: New note with Unsaved badge + green add button + toggle   */
+/*  Source: /notes/new page                                            */
+/* ------------------------------------------------------------------ */
+
+export const NewNoteNavbar: Story = {
+  render: () => (
+    <Navbar
+      backHref="/notes"
+      title="New progress note"
+      badge={<Badge variant="yellow">Unsaved</Badge>}
+    >
+      <Button variant="primary" round size="sm" className="border-green-500 bg-green-500 hover:bg-green-600">
+        <span className="text-heading-lg leading-none">+</span>
+      </Button>
+      <Filter
+        items={[
+          { label: <LayoutGrid className="h-4 w-4" />, value: "single" },
+          { label: <Columns2 className="h-4 w-4" />, value: "split" },
+        ]}
+        value="single"
+        onChange={() => {}}
+      />
+    </Navbar>
+  ),
+};
+
+/* ------------------------------------------------------------------ */
+/*  FormEditorNavbar                                                   */
+/*  Pattern: Form template editor with Share, Preview, and Save        */
+/*  Source: /settings/forms/[id] page                                  */
+/* ------------------------------------------------------------------ */
+
+export const FormEditorNavbar: Story = {
+  render: () => (
+    <Navbar backHref="/settings/forms" title="Client intake form">
+      <div className="flex items-center gap-2">
+        <Button variant="icon" title="Share & Automate">
+          <Share2 className="h-4 w-4" />
+        </Button>
+        <Button variant="secondary">
+          <Eye className="h-4 w-4" /> Preview
+        </Button>
+        <Button variant="primary">Save</Button>
+      </div>
+    </Navbar>
+  ),
+};
+
+/* ------------------------------------------------------------------ */
+/*  CSVImportNavbar                                                    */
+/*  Pattern: Data import wizard with Cancel + Import actions           */
+/*  Source: /settings/data-import/csv page                             */
+/* ------------------------------------------------------------------ */
+
+export const CSVImportNavbar: Story = {
+  render: () => (
+    <Navbar backHref="/settings/data-import" title="CSV Import">
+      <div className="flex items-center gap-2">
+        <Button variant="secondary">Cancel</Button>
+        <Button variant="primary">Import</Button>
+      </div>
     </Navbar>
   ),
 };

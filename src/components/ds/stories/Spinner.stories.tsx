@@ -121,3 +121,90 @@ export const InlineLoader: Story = {
   ),
   parameters: { layout: "padded" },
 };
+
+/* ------------------------------------------------------------------ */
+/*  ButtonLoader                                                       */
+/*  Pattern: Spinner inside a button during form submission            */
+/*  Source: common pattern for save/submit actions across forms         */
+/* ------------------------------------------------------------------ */
+
+export const ButtonLoader: Story = {
+  name: "Recipe: Button Loader",
+  render: () => (
+    <div className="flex items-center gap-4">
+      <button
+        disabled
+        className="inline-flex items-center gap-2 rounded-lg border border-primary bg-primary px-4 py-2 text-label-lg text-white opacity-80"
+      >
+        <Spinner size="sm" className="border-white border-t-transparent" />
+        Saving...
+      </button>
+      <button
+        disabled
+        className="inline-flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-label-lg text-text-secondary opacity-80"
+      >
+        <Spinner size="sm" />
+        Loading...
+      </button>
+    </div>
+  ),
+  parameters: { layout: "centered" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  TableLoadingState                                                  */
+/*  Pattern: Spinner as a placeholder while a data table loads         */
+/*  Source: used in client-side data tables that fetch on mount         */
+/* ------------------------------------------------------------------ */
+
+export const TableLoadingState: Story = {
+  name: "Recipe: Table Loading State",
+  render: () => (
+    <div className="overflow-hidden rounded-lg border border-border bg-white">
+      {/* Table header skeleton */}
+      <div className="flex items-center border-b border-border bg-gray-50 px-4 py-3">
+        <div className="h-3 w-20 rounded bg-gray-200" />
+        <div className="ml-8 h-3 w-32 rounded bg-gray-200" />
+        <div className="ml-auto h-3 w-16 rounded bg-gray-200" />
+      </div>
+      {/* Spinner body */}
+      <div className="flex h-48 items-center justify-center">
+        <Spinner size="md" />
+      </div>
+      {/* Footer skeleton */}
+      <div className="flex items-center justify-end border-t border-border px-4 py-3">
+        <div className="h-3 w-32 rounded bg-gray-200" />
+      </div>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  OverlayLoader                                                      */
+/*  Pattern: Full-screen overlay spinner for page transitions          */
+/*  Source: modal/dialog loading states, route transitions              */
+/* ------------------------------------------------------------------ */
+
+export const OverlayLoader: Story = {
+  name: "Recipe: Overlay Loader",
+  render: () => (
+    <div className="relative h-96 w-full overflow-hidden rounded-lg border border-border">
+      {/* Background content (blurred/dimmed) */}
+      <div className="p-6 opacity-50 blur-[1px]">
+        <div className="mb-4 h-6 w-48 rounded bg-gray-200" />
+        <div className="mb-2 h-4 w-full rounded bg-gray-100" />
+        <div className="mb-2 h-4 w-3/4 rounded bg-gray-100" />
+        <div className="h-4 w-1/2 rounded bg-gray-100" />
+      </div>
+      {/* Overlay */}
+      <div className="absolute inset-0 flex items-center justify-center bg-white/60">
+        <div className="flex flex-col items-center gap-3">
+          <Spinner size="lg" />
+          <span className="text-label-lg text-text-secondary">Loading...</span>
+        </div>
+      </div>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};

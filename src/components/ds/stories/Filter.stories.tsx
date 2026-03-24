@@ -170,3 +170,106 @@ export const CalendarViewFilter: Story = {
   },
   parameters: { layout: "padded" },
 };
+
+/* ------------------------------------------------------------------ */
+/*  NoteEditorToolbarToggle                                            */
+/*  Pattern: View toggle in the note editor navbar, switching between  */
+/*  single (full editor) and split (editor + reference panel) views.   */
+/*  Source: /notes/[id]/edit — Filter in Navbar with LayoutGrid and    */
+/*  Columns2 icons, used alongside + button and lock/save actions      */
+/* ------------------------------------------------------------------ */
+
+export const NoteEditorToolbarToggle: Story = {
+  name: "Recipe: Note Editor Toolbar Toggle",
+  render: function NoteEditorToolbarToggleStory() {
+    const [viewMode, setViewMode] = useState("single");
+    return (
+      <div className="flex items-center gap-3 rounded-lg border border-border bg-surface-header px-4 py-2">
+        {/* Add new note button */}
+        <button className="flex h-7 w-7 items-center justify-center rounded-full bg-green-500 text-heading-lg leading-none text-white hover:bg-green-600">
+          +
+        </button>
+        {/* View toggle */}
+        <Filter
+          items={[
+            { label: <LayoutGrid className="h-4 w-4" />, value: "single" },
+            { label: <Columns2 className="h-4 w-4" />, value: "split" },
+          ]}
+          value={viewMode}
+          onChange={setViewMode}
+        />
+        <span className="ml-2 text-caption-md text-text-secondary">
+          {viewMode === "single" ? "Full editor" : "Editor + reference"}
+        </span>
+      </div>
+    );
+  },
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  TimeViewFilter                                                     */
+/*  Pattern: Time-based view toggling with icon labels. Shows how      */
+/*  Filter can use clock/calendar/list icons for different views.      */
+/*  Source: conceptual pattern based on calendar/schedule pages         */
+/* ------------------------------------------------------------------ */
+
+export const TimeViewFilter: Story = {
+  name: "Recipe: Time View Filter",
+  render: function TimeViewFilterStory() {
+    const [view, setView] = useState("calendar");
+    return (
+      <div className="flex items-center gap-4 rounded-lg border border-border bg-white px-4 py-2">
+        <span className="text-label-lg text-text">View as:</span>
+        <Filter
+          items={[
+            { label: <Calendar className="h-4 w-4" />, value: "calendar" },
+            { label: <Clock className="h-4 w-4" />, value: "timeline" },
+            { label: <ListIcon className="h-4 w-4" />, value: "list" },
+          ]}
+          value={view}
+          onChange={setView}
+        />
+        <span className="text-caption-md text-text-secondary">
+          {view === "calendar" ? "Calendar view" : view === "timeline" ? "Timeline view" : "List view"}
+        </span>
+      </div>
+    );
+  },
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  StatusFilter                                                       */
+/*  Pattern: Text-based status filter for filtering table rows. Uses   */
+/*  multiple text options for filtering by status category.            */
+/*  Source: conceptual pattern based on /invoices, /clients pages      */
+/* ------------------------------------------------------------------ */
+
+export const StatusFilter: Story = {
+  name: "Recipe: Status Filter",
+  render: function StatusFilterStory() {
+    const [status, setStatus] = useState("all");
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <span className="text-label-lg text-text">Status:</span>
+          <Filter
+            items={[
+              { label: "All", value: "all" },
+              { label: "Active", value: "active" },
+              { label: "Inactive", value: "inactive" },
+              { label: "Archived", value: "archived" },
+            ]}
+            value={status}
+            onChange={setStatus}
+          />
+        </div>
+        <p className="text-caption-md text-text-secondary">
+          Showing <strong>{status === "all" ? "all" : status}</strong> records
+        </p>
+      </div>
+    );
+  },
+  parameters: { layout: "padded" },
+};

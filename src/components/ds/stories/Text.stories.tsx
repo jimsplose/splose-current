@@ -271,3 +271,143 @@ export const PageTypographyStack: Story = {
     </div>
   ),
 };
+
+/* ------------------------------------------------------------------ */
+/*  ReportsDashboardMetrics                                            */
+/*  Pattern: Report metrics with metric/lg values, caption dates, and  */
+/*  heading/sm titles — the performance overview dashboard card layout  */
+/*  Source: src/app/reports/page.tsx — Utilisation and Revenue cards    */
+/* ------------------------------------------------------------------ */
+
+export const ReportsDashboardMetrics: Story = {
+  name: "Recipe: Reports Dashboard Metrics",
+  render: () => (
+    <div className="grid max-w-2xl grid-cols-2 gap-6">
+      <div className="rounded-lg border border-border bg-white p-4">
+        <Text variant="heading/sm">Utilisation</Text>
+        <Text variant="caption/md" color="text-text-secondary" className="mt-1">
+          Percentage of available time utilised
+        </Text>
+        <Text variant="metric/lg" className="mt-2">0.85%</Text>
+        <Text variant="caption/md" color="text-text-secondary" className="mt-1">
+          17 Mar 2026 - 23 Mar 2026
+        </Text>
+      </div>
+      <div className="rounded-lg border border-border bg-white p-4">
+        <Text variant="heading/sm">Revenue</Text>
+        <Text variant="caption/md" color="text-text-secondary" className="mt-1">
+          Total invoiced revenue (tax exclusive)
+        </Text>
+        <Text variant="metric/lg" className="mt-2">$1.09K</Text>
+        <Text variant="caption/md" color="text-text-secondary" className="mt-1">
+          17 Mar 2026 - 23 Mar 2026
+        </Text>
+      </div>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  SettingsPageHeader                                                 */
+/*  Pattern: Settings page title using display/lg with action buttons  */
+/*  — the standard heading + save/learn button row                     */
+/*  Source: src/app/settings/ai/page.tsx — "splose AI" heading row     */
+/* ------------------------------------------------------------------ */
+
+export const SettingsPageHeader: Story = {
+  name: "Recipe: Settings Page Header",
+  render: () => (
+    <div className="max-w-2xl rounded-lg border border-border bg-white p-6">
+      <div className="flex items-center justify-between">
+        <Text variant="display/lg">splose AI</Text>
+        <div className="flex items-center gap-2">
+          <button className="rounded border border-border px-3 py-1.5 text-body-md text-text-secondary">
+            Learn
+          </button>
+          <button className="rounded bg-primary px-3 py-1.5 text-body-md text-white">
+            Save
+          </button>
+        </div>
+      </div>
+      <hr className="my-4 border-border" />
+      <Text variant="heading/lg">splose AI settings: More control, your way</Text>
+      <Text variant="display/md" className="mt-4">Preferences</Text>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  CalendarDateDisplay                                                */
+/*  Pattern: Calendar header with display/md for the current date      */
+/*  and caption/md for supporting context                              */
+/*  Source: src/app/calendar/CalendarView.tsx — toolbar date label      */
+/* ------------------------------------------------------------------ */
+
+export const CalendarDateDisplay: Story = {
+  name: "Recipe: Calendar Date Display",
+  render: () => (
+    <div className="flex max-w-md items-center gap-4 rounded-lg border border-border bg-white p-4">
+      <div>
+        <Text variant="display/md">March 2026</Text>
+        <Text variant="caption/md" color="text-text-secondary">
+          Week of 23 Mar - 29 Mar
+        </Text>
+      </div>
+      <div className="ml-auto flex gap-2">
+        <button className="rounded border border-border px-2 py-1 text-body-sm text-text-secondary">
+          &larr;
+        </button>
+        <button className="rounded border border-border px-2 py-1 text-body-sm text-text-secondary">
+          &rarr;
+        </button>
+        <button className="rounded border border-border px-3 py-1 text-body-md text-text-secondary">
+          Today
+        </button>
+      </div>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  SectionHeadingHierarchy                                            */
+/*  Pattern: Nested heading hierarchy used across settings and client  */
+/*  detail pages — display for page title, heading/lg for sections,    */
+/*  heading/sm for sub-sections                                        */
+/*  Source: src/app/settings/ai/page.tsx and                            */
+/*  src/app/clients/[id]/ClientDetailClient.tsx — heading hierarchy    */
+/* ------------------------------------------------------------------ */
+
+export const SectionHeadingHierarchy: Story = {
+  name: "Recipe: Section Heading Hierarchy",
+  render: () => (
+    <div className="max-w-lg space-y-4 rounded-lg border border-border bg-white p-6">
+      <Text variant="display/lg">Page Title (display/lg)</Text>
+      <Text variant="body/md" color="text-text-secondary">
+        Introductory paragraph for the page.
+      </Text>
+
+      <hr className="border-border" />
+
+      <Text variant="heading/lg">Section Heading (heading/lg)</Text>
+      <Text variant="heading/sm">Sub-section (heading/sm)</Text>
+      <div className="space-y-1 pl-4">
+        <div className="flex items-center justify-between">
+          <Text variant="body/md">Toggle setting label</Text>
+          <div className="h-5 w-10 rounded-full bg-primary" />
+        </div>
+        <div className="flex items-center justify-between">
+          <Text variant="body/md">Another setting label</Text>
+          <div className="h-5 w-10 rounded-full bg-gray-300" />
+        </div>
+      </div>
+
+      <Text variant="caption/md" color="text-text-secondary">
+        Last saved 24 Mar 2026
+      </Text>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};

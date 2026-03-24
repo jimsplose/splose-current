@@ -1,7 +1,10 @@
 "use client";
 
 import type { Meta, StoryObj } from "@storybook/react";
+import { Bell, Settings, HelpCircle, MessageSquare } from "lucide-react";
 import TopNav from "../TopNav";
+import Avatar from "../Avatar";
+import Button from "../Button";
 
 const meta: Meta<typeof TopNav> = {
   title: "Navigation/TopNav",
@@ -83,36 +86,117 @@ export const SplosNav: Story = {
         { href: "/products", label: "Products" },
       ]}
     >
-      <button className="relative rounded-full p-2 text-text-secondary hover:bg-gray-100">
-        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-        </svg>
-        <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
-          3
-        </span>
-      </button>
-      <button className="relative rounded-full p-2 text-text-secondary hover:bg-gray-100">
-        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-        </svg>
-        <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
-          8
-        </span>
-      </button>
-      <button className="rounded-full p-2 text-text-secondary hover:bg-gray-100">
-        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-      </button>
-      <button className="rounded-full p-2 text-text-secondary hover:bg-gray-100">
-        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      </button>
-      <div className="ml-1 flex h-8 w-8 items-center justify-center rounded-full bg-purple-100 text-xs font-bold text-primary">
-        SC
-      </div>
+      <Button variant="icon" round className="relative">
+        <Bell className="h-5 w-5" />
+        <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-caption-sm font-bold text-white">3</span>
+      </Button>
+      <Button variant="icon" round className="relative">
+        <MessageSquare className="h-5 w-5" />
+        <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-caption-sm font-bold text-white">8</span>
+      </Button>
+      <Button variant="icon" round>
+        <Settings className="h-5 w-5" />
+      </Button>
+      <Button variant="icon" round>
+        <HelpCircle className="h-5 w-5" />
+      </Button>
+      <Avatar name="Sarah Chen" size="sm" className="ml-1 h-8 w-8" />
+    </TopNav>
+  ),
+};
+
+/* ------------------------------------------------------------------ */
+/*  LayoutTopNav                                                       */
+/*  Pattern: The exact TopNav used in the app layout.tsx. Uses DS      */
+/*  Button with variant="icon" and Avatar for the right-side icons.    */
+/*  Source: /src/components/TopNav.tsx — the wrapper component used     */
+/*  in layout.tsx that composes DSTopNav with Lucide icons + Avatar    */
+/* ------------------------------------------------------------------ */
+
+export const LayoutTopNav: Story = {
+  name: "Recipe: Layout TopNav (production)",
+  render: () => (
+    <TopNav
+      items={[
+        { href: "/", label: "Dashboard" },
+        { href: "/calendar", label: "Calendar" },
+        { href: "/clients", label: "Clients" },
+        { href: "/contacts", label: "Contacts" },
+        { href: "/waitlist", label: "Waitlist" },
+        { href: "/invoices", label: "Invoices" },
+        { href: "/payments", label: "Payments" },
+        { href: "/reports", label: "Reports" },
+        { href: "/products", label: "Products" },
+      ]}
+    >
+      <Button variant="icon" round className="relative">
+        <Bell className="h-5 w-5" />
+        <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-caption-sm font-bold text-white">3</span>
+      </Button>
+      <Button variant="icon" round className="relative">
+        <MessageSquare className="h-5 w-5" />
+        <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-caption-sm font-bold text-white">8</span>
+      </Button>
+      <Button variant="icon" round>
+        <Settings className="h-5 w-5" />
+      </Button>
+      <Button variant="icon" round>
+        <HelpCircle className="h-5 w-5" />
+      </Button>
+      <Avatar name="Sarah Chen" size="sm" className="ml-1 h-8 w-8" />
+    </TopNav>
+  ),
+};
+
+/* ------------------------------------------------------------------ */
+/*  MinimalNav                                                         */
+/*  Pattern: Minimal nav with only 3 items, no right-side icons.       */
+/*  Useful for sub-apps or simplified views (e.g. client portal).      */
+/*  Source: hypothetical client portal — reduced nav items              */
+/* ------------------------------------------------------------------ */
+
+export const MinimalNav: Story = {
+  name: "Recipe: Minimal Nav",
+  render: () => (
+    <TopNav
+      items={[
+        { href: "/", label: "Home" },
+        { href: "/appointments", label: "Appointments" },
+        { href: "/documents", label: "Documents" },
+      ]}
+    >
+      <Avatar name="Liam Nguyen" size="sm" className="h-8 w-8" />
+    </TopNav>
+  ),
+};
+
+/* ------------------------------------------------------------------ */
+/*  NavWithNotificationBadges                                          */
+/*  Pattern: TopNav with notification badge counters on multiple       */
+/*  icon buttons. Shows how Badge elements overlay icon buttons.       */
+/*  Source: /src/components/TopNav.tsx — bell + message icons both     */
+/*  have red badge counters for unread notifications                   */
+/* ------------------------------------------------------------------ */
+
+export const NavWithNotificationBadges: Story = {
+  name: "Recipe: Nav with Notification Badges",
+  render: () => (
+    <TopNav
+      items={[
+        { href: "/", label: "Dashboard" },
+        { href: "/calendar", label: "Calendar" },
+        { href: "/clients", label: "Clients" },
+      ]}
+    >
+      <Button variant="icon" round className="relative">
+        <Bell className="h-5 w-5" />
+        <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-caption-sm font-bold text-white">5</span>
+      </Button>
+      <Button variant="icon" round className="relative">
+        <MessageSquare className="h-5 w-5" />
+        <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-caption-sm font-bold text-white">12</span>
+      </Button>
+      <Avatar name="Emma Williams" size="sm" className="ml-1 h-8 w-8" />
     </TopNav>
   ),
 };

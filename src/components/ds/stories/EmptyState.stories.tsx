@@ -129,3 +129,142 @@ export const NoProductsYet: Story = {
     </div>
   ),
 };
+
+/* ------------------------------------------------------------------ */
+/*  ScreenerTriageEmpty                                                */
+/*  Pattern: Empty state inside a screener/triage table — simple       */
+/*  message without icon, matching the waitlist screener tab           */
+/*  Source: src/app/waitlist/page.tsx — "No screener entries found."    */
+/* ------------------------------------------------------------------ */
+
+export const ScreenerTriageEmpty: Story = {
+  name: "Recipe: Screener Triage Empty",
+  render: () => (
+    <div className="rounded-lg border border-border bg-white">
+      <table className="w-full">
+        <thead>
+          <tr className="border-b border-border text-left">
+            <th className="px-4 py-3 text-label-lg text-text-secondary">Triage</th>
+            <th className="px-4 py-3 text-label-lg text-text-secondary">Tags</th>
+            <th className="px-4 py-3 text-label-lg text-text-secondary">Client</th>
+            <th className="px-4 py-3 text-label-lg text-text-secondary">Date submitted</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colSpan={4}>
+              <EmptyState message="No screener entries found." className="py-8" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  ),
+};
+
+/* ------------------------------------------------------------------ */
+/*  WaitlistClosedEmpty                                                */
+/*  Pattern: Dynamic message empty state for waitlist tabs — the       */
+/*  message changes based on the active tab (active/closed)            */
+/*  Source: src/app/waitlist/page.tsx — "No {tab} entries found."       */
+/* ------------------------------------------------------------------ */
+
+export const WaitlistClosedEmpty: Story = {
+  name: "Recipe: Waitlist Closed Empty",
+  render: () => (
+    <div className="rounded-lg border border-border bg-white">
+      <div className="flex gap-4 border-b border-border px-4 py-2">
+        <span className="text-body-md text-text-secondary">Active</span>
+        <span className="border-b-2 border-primary pb-1 text-body-md font-medium text-primary">
+          Closed
+        </span>
+      </div>
+      <EmptyState message="No closed entries found." className="py-8" />
+    </div>
+  ),
+};
+
+/* ------------------------------------------------------------------ */
+/*  ContactAssociatedClientsEmpty                                      */
+/*  Pattern: EmptyState with icon for no associated clients — used     */
+/*  below a section heading on the contact detail page                 */
+/*  Source: src/app/contacts/[id]/page.tsx — "No associated clients"    */
+/* ------------------------------------------------------------------ */
+
+export const ContactAssociatedClientsEmpty: Story = {
+  name: "Recipe: No Associated Clients",
+  render: () => (
+    <div className="w-[500px] rounded-lg border border-border bg-white p-6">
+      <h2 className="mb-4 text-heading-lg text-text">Associated clients</h2>
+      <EmptyState
+        icon={<Search className="h-10 w-10 text-gray-400" />}
+        message="No associated clients"
+      />
+    </div>
+  ),
+};
+
+/* ------------------------------------------------------------------ */
+/*  FormTemplatesEmpty                                                 */
+/*  Pattern: EmptyState placed below a DataTable (not inside tbody) —  */
+/*  the forms settings page pattern for search-filtered empty results  */
+/*  Source: src/app/settings/forms/page.tsx — "No form templates found" */
+/* ------------------------------------------------------------------ */
+
+export const FormTemplatesEmpty: Story = {
+  name: "Recipe: Form Templates Empty",
+  render: () => (
+    <div className="rounded-lg border border-border bg-white">
+      <table className="w-full">
+        <thead>
+          <tr className="border-b border-border text-left">
+            <th className="px-4 py-3 text-label-lg text-text-secondary">Title</th>
+            <th className="px-4 py-3 text-label-lg text-text-secondary">Form type</th>
+            <th className="px-4 py-3 text-label-lg text-text-secondary">Created at</th>
+            <th className="px-4 py-3 text-label-lg text-text-secondary">Updated at</th>
+          </tr>
+        </thead>
+      </table>
+      <EmptyState message="No form templates found" className="py-8" />
+    </div>
+  ),
+};
+
+/* ------------------------------------------------------------------ */
+/*  PaymentNoLinkedInvoices                                            */
+/*  Pattern: EmptyState inside a payment form table with an            */
+/*  instructional message — tells the user how to proceed              */
+/*  Source: src/app/payments/new/page.tsx — "No invoices linked"        */
+/* ------------------------------------------------------------------ */
+
+export const PaymentNoLinkedInvoices: Story = {
+  name: "Recipe: Payment No Linked Invoices",
+  render: () => (
+    <div className="rounded-lg border border-border bg-white p-4">
+      <div className="mb-3 flex items-center justify-between">
+        <h3 className="text-heading-sm text-text">Linked invoices</h3>
+        <button className="text-body-md text-primary">+ Link invoice</button>
+      </div>
+      <table className="w-full">
+        <thead>
+          <tr className="border-b border-border text-left">
+            <th className="px-4 py-2 text-label-lg text-text-secondary">Invoice #</th>
+            <th className="px-4 py-2 text-label-lg text-text-secondary">Client</th>
+            <th className="px-4 py-2 text-right text-label-lg text-text-secondary">Due</th>
+            <th className="px-4 py-2 text-right text-label-lg text-text-secondary">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colSpan={4}>
+              <EmptyState
+                message='No invoices linked. Click "Link invoice" to apply this payment to outstanding invoices.'
+                className="py-6"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  ),
+};

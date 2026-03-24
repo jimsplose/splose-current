@@ -115,3 +115,98 @@ export const ReportMetrics: Story = {
   ),
   parameters: { layout: "padded" },
 };
+
+/* ------------------------------------------------------------------ */
+/*  DashboardIncomeCard                                                */
+/*  Pattern: Key metrics shown at top of dashboard income/revenue      */
+/*  cards with a heading, a large metric value, and a date range       */
+/*  subtitle — a Stat-like layout but with extra context.              */
+/*  Source: /reports page.tsx — Utilisation + Revenue metric cards      */
+/* ------------------------------------------------------------------ */
+
+export const DashboardIncomeCard: Story = {
+  name: "Recipe: Dashboard Income Card",
+  render: () => (
+    <div className="flex gap-6">
+      <div className="w-72 rounded-lg border border-border bg-white p-4">
+        <h3 className="text-heading-sm text-text">Utilisation</h3>
+        <p className="mb-2 text-caption-md text-text-secondary">Percentage of available time utilised</p>
+        <Stat value="0.85%" label="01 Mar - 24 Mar" />
+      </div>
+      <div className="w-72 rounded-lg border border-border bg-white p-4">
+        <h3 className="text-heading-sm text-text">Revenue</h3>
+        <p className="mb-2 text-caption-md text-text-secondary">Total invoiced revenue (tax exclusive)</p>
+        <Stat value="$1.09K" label="01 Mar - 24 Mar" />
+      </div>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  ClientOverviewStats                                                */
+/*  Pattern: Multiple Stats in a horizontal row inside a client detail */
+/*  overview card, showing appointment history, balance, and notes.    */
+/*  Source: /clients/[id] page — summary metrics for individual client */
+/* ------------------------------------------------------------------ */
+
+export const ClientOverviewStats: Story = {
+  name: "Recipe: Client Overview Stats",
+  render: () => (
+    <div className="w-96 rounded-lg border border-border bg-white p-6">
+      <h3 className="mb-1 text-heading-md text-text">Sarah Johnson</h3>
+      <p className="mb-4 text-caption-md text-text-secondary">Client since 15 Jan 2025</p>
+      <div className="grid grid-cols-4 gap-4 border-t border-border pt-4">
+        <Stat value={18} label="Total Appts" />
+        <Stat value={3} label="Upcoming" />
+        <Stat value="$240" label="Balance" />
+        <Stat value={2} label="Unsigned" />
+      </div>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  PractitionerTableRow                                               */
+/*  Pattern: Stat values used inline within a data table row to show   */
+/*  per-practitioner metrics in the reports dashboard table.           */
+/*  Source: /reports page.tsx — Practitioners table breakdown           */
+/* ------------------------------------------------------------------ */
+
+export const PractitionerTableRow: Story = {
+  name: "Recipe: Practitioner Table Row",
+  render: () => (
+    <div className="w-[600px] rounded-lg border border-border bg-white">
+      <div className="border-b border-border px-4 py-3">
+        <h3 className="text-heading-sm text-text">Practitioners</h3>
+        <p className="text-caption-md text-text-secondary">Breakdown of performance by individual practitioner</p>
+      </div>
+      <table className="w-full">
+        <thead>
+          <tr className="border-b border-border bg-table-header">
+            <th className="px-4 py-3 text-left text-label-lg text-text">Name</th>
+            <th className="px-4 py-3 text-center text-label-lg text-text">Appointments</th>
+            <th className="px-4 py-3 text-center text-label-lg text-text">Revenue</th>
+            <th className="px-4 py-3 text-center text-label-lg text-text">Utilisation</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-border">
+          {[
+            { name: "Joseph Go", appts: 24, revenue: "$4,200", util: "92%" },
+            { name: "Hao Wang", appts: 18, revenue: "$3,100", util: "78%" },
+            { name: "Meghna D.", appts: 31, revenue: "$5,800", util: "95%" },
+          ].map((p) => (
+            <tr key={p.name} className="hover:bg-gray-50">
+              <td className="px-4 py-3 text-body-md text-text">{p.name}</td>
+              <td className="px-4 py-3"><Stat value={p.appts} label="" /></td>
+              <td className="px-4 py-3"><Stat value={p.revenue} label="" /></td>
+              <td className="px-4 py-3"><Stat value={p.util} label="" /></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
