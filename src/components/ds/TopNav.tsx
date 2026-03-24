@@ -95,7 +95,7 @@ export default function TopNav({ brand = "splose", items, children, className = 
 
   return (
     <header className={`sticky top-0 z-40 border-b border-black/[0.06] bg-white ${className}`}>
-      <div className="flex h-14 items-center pr-4">
+      <div className="flex h-14 items-center">
         {/* Mobile hamburger — show at ≤600px */}
         {isMobile && (
           <Button
@@ -167,7 +167,7 @@ export default function TopNav({ brand = "splose", items, children, className = 
         )}
 
         {/* Right side content */}
-        {children && <div className="ml-auto flex items-center gap-2">{children}</div>}
+        {children && <div className="ml-auto flex items-center">{children}</div>}
       </div>
 
       {/* Mobile navigation menu — slides down at ≤600px */}
