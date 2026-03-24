@@ -19,6 +19,7 @@ import {
   Modal,
   FormInput,
   Toggle,
+  usePagination,
 } from "@/components/ds";
 import { Sparkles, X } from "lucide-react";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -57,6 +58,7 @@ export default function ProgressNotesPage() {
   const router = useRouter();
   const [templateList, setTemplateList] = useState(templates);
   const [showBanner, setShowBanner] = useState(true);
+  const { paged, paginationProps } = usePagination(templateList, { pageKey: "/settings/progress-notes" });
 
   const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } =
     useFormModal<{ title: string; hasAi: boolean }>({
@@ -126,7 +128,7 @@ export default function ProgressNotesPage() {
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>
-          {templateList.map((t, i) => (
+          {paged.map((t, i) => (
             <Tr key={t.title + i}>
               <Td>
                 <div className="flex items-center gap-2">
@@ -150,13 +152,7 @@ export default function ProgressNotesPage() {
         </TableBody>
       </DataTable>
 
-      <Pagination
-        currentPage={1}
-        totalPages={1}
-        totalItems={templateList.length}
-        itemsPerPage={10}
-        showPageSize={false}
-      />
+      <Pagination {...paginationProps} showPageSize={false} />
       <Modal
         open={modalOpen}
         onClose={closeModal}

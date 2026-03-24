@@ -19,6 +19,7 @@ import {
   Dropdown,
   DropdownTriggerButton,
   ReorderModal,
+  usePagination,
 } from "@/components/ds";
 import {
   GripVertical,
@@ -147,6 +148,8 @@ export default function CustomFieldsPage() {
     f.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
+  const { paged, paginationProps } = usePagination(filteredFields, { pageKey: "/settings/custom-fields" });
+
   const customFieldDropdownItems = [
     { label: "Edit", value: "edit" },
     { label: "Change log", value: "change-log" },
@@ -198,7 +201,7 @@ export default function CustomFieldsPage() {
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>
-          {filteredFields.map((field) => (
+          {paged.map((field) => (
             <Tr key={field.id}>
               <Td className="text-text">{field.name}</Td>
               <Td>{field.type}</Td>
@@ -221,12 +224,7 @@ export default function CustomFieldsPage() {
         </TableBody>
       </DataTable>
 
-      <Pagination
-        currentPage={1}
-        totalPages={1}
-        totalItems={filteredFields.length}
-        itemsPerPage={10}
-      />
+      <Pagination {...paginationProps} />
 
       {/* Reorder modal (DS component with dnd-kit) */}
       <ReorderModal

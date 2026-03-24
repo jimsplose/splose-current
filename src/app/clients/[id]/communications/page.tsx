@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Plus, ArrowUpDown, Filter } from "lucide-react";
-import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge, statusVariant, Dropdown, DropdownTriggerButton, Modal } from "@/components/ds";
+import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge, statusVariant, Dropdown, DropdownTriggerButton, Modal, usePagination } from "@/components/ds";
 
 const communicationsData = [
   {
@@ -154,6 +154,7 @@ const dropdownItems = [
 ];
 
 export default function ClientCommunicationsPage() {
+  const { paged, paginationProps } = usePagination(communicationsData, { pageKey: "/clients/communications" });
   const [viewModal, setViewModal] = useState<{
     open: boolean;
     subject: string;
@@ -226,7 +227,7 @@ export default function ClientCommunicationsPage() {
             <Th align="right">Actions</Th>
           </TableHead>
           <TableBody>
-            {communicationsData.map((comm) => (
+            {paged.map((comm) => (
               <Tr key={comm.id}>
                 <Td>
                   <div className="flex items-center gap-2">
@@ -259,7 +260,7 @@ export default function ClientCommunicationsPage() {
             ))}
           </TableBody>
         </DataTable>
-        <Pagination totalItems={14} itemsPerPage={10} totalPages={2} />
+        <Pagination {...paginationProps} />
       </Card>
 
       {/* View communication modal */}

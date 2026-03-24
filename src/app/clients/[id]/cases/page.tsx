@@ -1,7 +1,8 @@
-import { Button, Card, DataTable, PageHeader, TableHead, Th, TableBody, Tr, Td, Pagination, Badge, statusVariant } from "@/components/ds";
+"use client";
 
-export default function ClientCasesPage() {
-  const mockCases = [
+import { Button, Card, DataTable, PageHeader, TableHead, Th, TableBody, Tr, Td, Pagination, Badge, statusVariant, usePagination } from "@/components/ds";
+
+const mockCases = [
     // ── Active cases ────────────────────────────────────────────────────
     {
       number: "0482",
@@ -160,7 +161,10 @@ export default function ClientCasesPage() {
       status: "Expired",
       caseName: "WorkCover SA — BSB Review",
     },
-  ];
+];
+
+export default function ClientCasesPage() {
+  const { paged, paginationProps } = usePagination(mockCases, { pageKey: "/clients/cases" });
 
   return (
     <div className="flex-1 overflow-y-auto p-4 sm:p-6">
@@ -182,7 +186,7 @@ export default function ClientCasesPage() {
             <Th>Status</Th>
           </TableHead>
           <TableBody>
-            {mockCases.map((c) => (
+            {paged.map((c) => (
               <Tr key={c.number + c.caseName}>
                 <Td className="text-text">{c.number}</Td>
                 <Td className="font-medium text-text">{c.caseName}</Td>
@@ -199,7 +203,7 @@ export default function ClientCasesPage() {
             ))}
           </TableBody>
         </DataTable>
-        <Pagination totalItems={14} totalPages={2} itemsPerPage={10} />
+        <Pagination {...paginationProps} />
       </Card>
     </div>
   );

@@ -19,6 +19,7 @@ import {
   Modal,
   FormInput,
   FormSelect,
+  usePagination,
 } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { formatTimestamp } from "@/lib/format";
@@ -123,6 +124,8 @@ export default function EmailTemplatesPage() {
     );
   });
 
+  const { paged, paginationProps } = usePagination(filtered, { pageKey: "/settings/email-templates" });
+
   return (
     <div className="p-6">
       <PageHeader title="Email templates">
@@ -142,7 +145,7 @@ export default function EmailTemplatesPage() {
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>
-          {filtered.map((t, i) => (
+          {paged.map((t, i) => (
             <Tr key={t.name + i}>
               <Td className="text-text">{t.name}</Td>
               <Td>
@@ -162,13 +165,7 @@ export default function EmailTemplatesPage() {
         </TableBody>
       </DataTable>
 
-      <Pagination
-        currentPage={1}
-        totalPages={1}
-        totalItems={filtered.length}
-        itemsPerPage={10}
-        showPageSize={false}
-      />
+      <Pagination {...paginationProps} showPageSize={false} />
       <Modal
         open={modalOpen}
         onClose={closeModal}

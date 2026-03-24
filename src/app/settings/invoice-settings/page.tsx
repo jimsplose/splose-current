@@ -21,6 +21,7 @@ import {
   DropdownTriggerButton,
   Modal,
   RichTextEditor,
+  usePagination,
 } from "@/components/ds";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -48,9 +49,6 @@ const invoiceTemplates = [
   { id: 10, name: "Test Invoice" },
 ];
 
-const REMINDERS_PER_PAGE = 10;
-const TEMPLATES_PER_PAGE = 10;
-
 const templateDropdownItems = [
   { label: "Edit", value: "edit" },
   { label: "Duplicate", value: "duplicate" },
@@ -61,17 +59,10 @@ export default function InvoiceSettingsPage() {
   const [enableOnlinePayments, setEnableOnlinePayments] = useState(false);
   const [reminders, setReminders] = useState(invoiceReminders);
   const [templates, setTemplates] = useState(invoiceTemplates);
-  const [reminderPage, setReminderPage] = useState(1);
-  const [templatePage, setTemplatePage] = useState(1);
   const [modalType, setModalType] = useState<"reminder" | "template">("reminder");
 
-  const reminderTotalPages = Math.ceil(reminders.length / REMINDERS_PER_PAGE);
-  const reminderStartIdx = (reminderPage - 1) * REMINDERS_PER_PAGE;
-  const pageReminders = reminders.slice(reminderStartIdx, reminderStartIdx + REMINDERS_PER_PAGE);
-
-  const templateTotalPages = Math.ceil(templates.length / TEMPLATES_PER_PAGE);
-  const templateStartIdx = (templatePage - 1) * TEMPLATES_PER_PAGE;
-  const pageTemplates = templates.slice(templateStartIdx, templateStartIdx + TEMPLATES_PER_PAGE);
+  const { paged: pageReminders, paginationProps: reminderPaginationProps } = usePagination(reminders, { pageKey: "/settings/invoice-items" });
+  const { paged: pageTemplates, paginationProps: templatePaginationProps } = usePagination(templates, { pageKey: "/settings/invoice-templates" });
 
   const onSave = useCallback((values: { name: string; subject: string; body: string; sendTiming: string }, index: number | null) => {
     if (modalType === "reminder") {
@@ -227,7 +218,7 @@ export default function InvoiceSettingsPage() {
                       align="right"
                       trigger={<DropdownTriggerButton />}
                       items={SIMPLE_CRUD}
-                      onSelect={(value) => { if (value === "edit") openModal("reminder", reminderStartIdx + i); }}
+                      onSelect={(value) => { if (value === "edit") openModal("reminder", reminders.indexOf(reminder)); }}
                     />
                   </div>
                 </Td>
@@ -236,13 +227,7 @@ export default function InvoiceSettingsPage() {
           </TableBody>
         </DataTable>
 
-        <Pagination
-          currentPage={reminderPage}
-          totalPages={reminderTotalPages}
-          totalItems={reminders.length}
-          itemsPerPage={REMINDERS_PER_PAGE}
-          onPageChange={setReminderPage}
-        />
+        <Pagination {...reminderPaginationProps} />
 
         <div className="mt-4">
           <Button variant="secondary" className="w-full justify-center" onClick={() => openModal("reminder")}>
@@ -274,7 +259,7 @@ export default function InvoiceSettingsPage() {
                       align="right"
                       trigger={<DropdownTriggerButton />}
                       items={templateDropdownItems}
-                      onSelect={(value) => { if (value === "edit") openModal("template", templateStartIdx + i); }}
+                      onSelect={(value) => { if (value === "edit") openModal("template", templates.indexOf(template)); }}
                     />
                   </div>
                 </Td>
@@ -283,13 +268,7 @@ export default function InvoiceSettingsPage() {
           </TableBody>
         </DataTable>
 
-        <Pagination
-          currentPage={templatePage}
-          totalPages={templateTotalPages}
-          totalItems={templates.length}
-          itemsPerPage={TEMPLATES_PER_PAGE}
-          onPageChange={setTemplatePage}
-        />
+        <Pagination {...templatePaginationProps} />
 
         <div className="mt-4">
           <Button variant="secondary" className="w-full justify-center" onClick={() => openModal("template")}>

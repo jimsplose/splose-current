@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import {
@@ -15,6 +14,7 @@ import {
   Tr,
   Td,
   Pagination,
+  usePagination,
 } from "@/components/ds";
 
 interface ClientRow {
@@ -28,12 +28,8 @@ interface ClientRow {
   medicare: string | null;
 }
 
-const PAGE_SIZE = 10;
-
 export default function ClientsPageClient({ clients }: { clients: ClientRow[] }) {
-  const [page, setPage] = useState(1);
-  const totalPages = Math.ceil(clients.length / PAGE_SIZE);
-  const paged = clients.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const { paged, paginationProps } = usePagination(clients, { pageKey: "/clients" });
 
   return (
     <div className="px-[22.5px] py-[10px]">
@@ -84,7 +80,7 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
           ))}
         </TableBody>
       </DataTable>
-      <Pagination currentPage={page} totalPages={totalPages} totalItems={clients.length} itemsPerPage={PAGE_SIZE} onPageChange={setPage} />
+      <Pagination {...paginationProps} />
     </div>
   );
 }

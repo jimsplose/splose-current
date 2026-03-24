@@ -1,6 +1,8 @@
+"use client";
+
 import { Plus, ArrowUpDown, Filter } from "lucide-react";
 import Link from "next/link";
-import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination } from "@/components/ds";
+import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, usePagination } from "@/components/ds";
 
 const mockContacts = [
   {
@@ -173,6 +175,8 @@ function getTypeLabel(type: string) {
 }
 
 export default function ContactsPage() {
+  const { paged, paginationProps } = usePagination(mockContacts, { pageKey: "/contacts" });
+
   return (
     <div className="px-[22.5px] py-[10px]">
       <PageHeader title="Contacts">
@@ -218,7 +222,7 @@ export default function ContactsPage() {
             <Th hidden="lg">Mobile phone</Th>
           </TableHead>
           <TableBody>
-            {mockContacts.map((contact) => (
+            {paged.map((contact) => (
               <Tr key={contact.id} clickable className="group relative">
                 <Td className="text-text-secondary">
                   <Link
@@ -245,7 +249,7 @@ export default function ContactsPage() {
             ))}
           </TableBody>
         </DataTable>
-        <Pagination currentPage={1} totalPages={2} totalItems={18} itemsPerPage={10} />
+        <Pagination {...paginationProps} />
       </Card>
     </div>
   );

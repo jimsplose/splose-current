@@ -1,8 +1,9 @@
-import { ArrowUpDown, Filter } from "lucide-react";
-import { Badge, Button, Card, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination } from "@/components/ds";
+"use client";
 
-export default function ClientPractitionerAccessPage() {
-  const mockPractitioners = [
+import { ArrowUpDown, Filter } from "lucide-react";
+import { Badge, Button, Card, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, usePagination } from "@/components/ds";
+
+const mockPractitioners = [
     { name: "Delvin Khor", role: "Practitioner admin", roleType: "Practitioner admin", group: "---", status: "Linked" },
     {
       name: "Hrishikesh Koli",
@@ -18,7 +19,10 @@ export default function ClientPractitionerAccessPage() {
       group: "---",
       status: "Linked",
     },
-  ];
+];
+
+export default function ClientPractitionerAccessPage() {
+  const { paged, paginationProps } = usePagination(mockPractitioners, { pageKey: "/clients/practitioner-access" });
 
   return (
     <div className="flex-1 overflow-y-auto p-4 sm:p-6">
@@ -50,7 +54,7 @@ export default function ClientPractitionerAccessPage() {
             <Th align="right">Actions</Th>
           </TableHead>
           <TableBody>
-            {mockPractitioners.map((p) => (
+            {paged.map((p) => (
               <Tr key={p.name}>
                 <Td>
                   <div>
@@ -69,7 +73,7 @@ export default function ClientPractitionerAccessPage() {
             ))}
           </TableBody>
         </DataTable>
-        <Pagination totalItems={mockPractitioners.length} itemsPerPage={10} />
+        <Pagination {...paginationProps} />
       </Card>
     </div>
   );

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Button, PageHeader, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Modal, FormInput, FormSelect } from "@/components/ds";
+import { Button, PageHeader, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Modal, FormInput, FormSelect, usePagination } from "@/components/ds";
 
 const locations = [
   { id: 128, name: "East Clinics", address: "", lastUpdate: "12:24 pm, 6 Mar 2026", rooms: 4 },
@@ -26,6 +26,7 @@ const defaultHours: Record<string, { start: string; end: string }> = {
 
 export default function LocationsPage() {
   const router = useRouter();
+  const { paged, paginationProps } = usePagination(locations, { pageKey: "/settings/locations" });
   const [showNewModal, setShowNewModal] = useState(false);
   const [newName, setNewName] = useState("");
   const [newAddress, setNewAddress] = useState("");
@@ -45,7 +46,7 @@ export default function LocationsPage() {
           <Th>Last update</Th>
         </TableHead>
         <TableBody>
-          {locations.map((loc) => (
+          {paged.map((loc) => (
             <Tr key={loc.id} clickable>
               <Td>
                 <Link
@@ -61,7 +62,7 @@ export default function LocationsPage() {
           ))}
         </TableBody>
       </DataTable>
-      <Pagination currentPage={1} totalPages={1} totalItems={6} itemsPerPage={10} showPageSize={false} />
+      <Pagination {...paginationProps} showPageSize={false} />
 
       <Modal
         open={showNewModal}

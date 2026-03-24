@@ -18,6 +18,7 @@ import {
   FormInput,
   FormSelect,
   FormColorPicker,
+  usePagination,
 } from "@/components/ds";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -83,6 +84,7 @@ export default function TagsPage() {
   const [tagData, setTagData] = useState(initialTagData);
 
   const currentData = tagData[activeTab];
+  const { paged, paginationProps } = usePagination(currentData.tags, { pageKey: "/settings/tags" });
 
   const [mergeTarget, setMergeTarget] = useState("");
   const [editingUsedBy, setEditingUsedBy] = useState(0);
@@ -149,7 +151,7 @@ export default function TagsPage() {
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>
-          {currentData.tags.map((tag, i) => (
+          {paged.map((tag, i) => (
             <Tr key={tag.name}>
               <Td className="text-text">{tag.name}</Td>
               <Td>
@@ -163,7 +165,7 @@ export default function TagsPage() {
                   align="right"
                   trigger={<DropdownTriggerButton />}
                   items={STANDARD_SETTINGS}
-                  onSelect={(value) => handleAction(value, i)}
+                  onSelect={(value) => handleAction(value, currentData.tags.indexOf(tag))}
                 />
               </Td>
             </Tr>
@@ -171,13 +173,7 @@ export default function TagsPage() {
         </TableBody>
       </DataTable>
 
-      <Pagination
-        currentPage={1}
-        totalPages={1}
-        totalItems={currentData.tags.length}
-        itemsPerPage={10}
-        showPageSize={false}
-      />
+      <Pagination {...paginationProps} showPageSize={false} />
 
       <Modal
         open={modalOpen}

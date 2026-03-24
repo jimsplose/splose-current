@@ -1,7 +1,7 @@
-import { Plus } from "lucide-react";
-import { Button, Card, DataTable, PageHeader, TableHead, Th, TableBody, Tr, Td, ActionsCell, Pagination } from "@/components/ds";
+"use client";
 
-export const dynamic = "force-dynamic";
+import { Plus } from "lucide-react";
+import { Button, Card, DataTable, PageHeader, TableHead, Th, TableBody, Tr, Td, ActionsCell, Pagination, usePagination } from "@/components/ds";
 
 const lettersData = [
   {
@@ -14,9 +14,8 @@ const lettersData = [
   },
 ];
 
-export default async function ClientLettersPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  void id;
+export default function ClientLettersPage() {
+  const { paged, paginationProps } = usePagination(lettersData, { pageKey: "/clients/letters" });
 
   return (
     <div className="flex-1 overflow-y-auto p-4 sm:p-6">
@@ -38,7 +37,7 @@ export default async function ClientLettersPage({ params }: { params: Promise<{ 
             <Th align="right">Actions</Th>
           </TableHead>
           <TableBody>
-            {lettersData.map((letter) => (
+            {paged.map((letter) => (
               <Tr key={letter.id}>
                 <Td className="text-text">{letter.title}</Td>
                 <Td className="text-text-secondary">{letter.location}</Td>
@@ -55,7 +54,7 @@ export default async function ClientLettersPage({ params }: { params: Promise<{ 
             ))}
           </TableBody>
         </DataTable>
-        <Pagination totalItems={1} itemsPerPage={10} />
+        <Pagination {...paginationProps} />
       </Card>
     </div>
   );

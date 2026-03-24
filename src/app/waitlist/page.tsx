@@ -39,6 +39,7 @@ import {
   FormSelect,
   FormInput,
   FormTextarea,
+  usePagination,
 } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
@@ -450,6 +451,8 @@ function WaitlistPageInner() {
     if (screenerSearch && !row.client.toLowerCase().includes(screenerSearch.toLowerCase())) return false;
     return true;
   });
+
+  const { paged: pagedWaitlist, paginationProps: waitlistPaginationProps } = usePagination(filteredWaitlist, { pageKey: "/waitlist" });
 
   // Marker colors cycle for map pins
   const markerColors = ["#7c3aed", "#2563eb", "#dc2626", "#059669", "#d97706", "#ec4899"];
@@ -911,14 +914,14 @@ function WaitlistPageInner() {
                   <Th align="right">Actions</Th>
                 </TableHead>
                 <TableBody>
-                  {filteredWaitlist.length === 0 ? (
+                  {pagedWaitlist.length === 0 ? (
                     <tr>
                       <td colSpan={7}>
                         <EmptyState message={`No ${waitlistSubTab} entries found.`} className="py-8" />
                       </td>
                     </tr>
                   ) : (
-                    filteredWaitlist.map((row, idx) => (
+                    pagedWaitlist.map((row, idx) => (
                       <Tr key={idx} onClick={() => openUpdateModal(row)} className="cursor-pointer">
                         <Td>
                           <div className="flex flex-wrap gap-1">
@@ -958,7 +961,7 @@ function WaitlistPageInner() {
                   )}
                 </TableBody>
               </DataTable>
-              <Pagination currentPage={1} totalPages={1} totalItems={filteredWaitlist.length} itemsPerPage={10} />
+              <Pagination {...waitlistPaginationProps} />
             </>
           ) : (
             /* ===== MAP VIEW (Leaflet) ===== */

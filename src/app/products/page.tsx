@@ -1,6 +1,6 @@
 "use client";
 
-import { PageHeader, Button, Card, DataTable, SearchBar, Pagination, TableHead, Th, TableBody, Td, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Checkbox } from "@/components/ds";
+import { PageHeader, Button, Card, DataTable, SearchBar, Pagination, TableHead, Th, TableBody, Td, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Checkbox, usePagination } from "@/components/ds";
 import { Plus, Minus, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useState, useMemo, useCallback, Fragment } from "react";
@@ -269,8 +269,6 @@ const mockProducts: Product[] = [
   },
 ];
 
-const ITEMS_PER_PAGE = 10;
-
 const dropdownItems = [
   { label: "Edit", value: "edit" },
   { label: "Duplicate", value: "duplicate" },
@@ -332,7 +330,6 @@ export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showArchived, setShowArchived] = useState(false);
   const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
-  const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState(mockProducts);
 
   // Manage Stock modal state
@@ -378,10 +375,7 @@ export default function ProductsPage() {
     return filtered;
   }, [searchQuery, showArchived, products]);
 
-  const totalItems = filteredProducts.length;
-  const totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const paginatedProducts = filteredProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const { paged: paginatedProducts, paginationProps } = usePagination(filteredProducts, { pageKey: "/products" });
   const toggleExpand = (index: number) => {
     setExpandedRows((prev) => {
       const next = new Set(prev);
@@ -396,7 +390,6 @@ export default function ProductsPage() {
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    setCurrentPage(1);
   };
 
   const handleDropdownAction = useCallback(
@@ -458,7 +451,6 @@ export default function ProductsPage() {
           variant="secondary"
           onClick={() => {
             setShowArchived(!showArchived);
-            setCurrentPage(1);
           }}
           className={showArchived ? "border-primary bg-primary/5 text-primary" : ""}
         >
@@ -492,7 +484,7 @@ export default function ProductsPage() {
           </TableHead>
           <TableBody>
             {paginatedProducts.map((product, idx) => {
-              const globalIndex = startIndex + idx;
+              const globalIndex = (paginationProps.currentPage - 1) * paginationProps.itemsPerPage + idx;
               const isExpanded = expandedRows.has(globalIndex);
               const hasVariants = product.variants && product.variants.length > 0;
 
@@ -624,13 +616,7 @@ export default function ProductsPage() {
           </TableBody>
         </DataTable>
 
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          totalItems={totalItems}
-          itemsPerPage={ITEMS_PER_PAGE}
-          onPageChange={setCurrentPage}
-        />
+        <Pagination {...paginationProps} />
       </Card>
 
       {/* Edit Product Modal */}

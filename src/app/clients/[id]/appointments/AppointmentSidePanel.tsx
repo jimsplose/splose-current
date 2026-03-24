@@ -33,6 +33,7 @@ import {
   FormTextarea,
   Status,
   statusVariant,
+  usePagination,
 } from "@/components/ds";
 
 interface Appointment {
@@ -97,6 +98,7 @@ export default function AppointmentSidePanel({
   client: ClientInfo;
 }) {
   const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null);
+  const { paged, paginationProps } = usePagination(appointments, { pageKey: "/clients/appointments" });
 
   return (
     <div className="flex flex-1 overflow-hidden">
@@ -135,7 +137,7 @@ export default function AppointmentSidePanel({
                   </td>
                 </tr>
               ) : (
-                appointments.map((appt) => {
+                paged.map((appt) => {
                   const statusDotColor: "green" | "red" | "yellow" | "gray" | "orange" =
                     appt.status === "Completed"
                       ? "gray"
@@ -208,7 +210,7 @@ export default function AppointmentSidePanel({
               )}
             </TableBody>
           </DataTable>
-          <Pagination totalItems={appointments.length} itemsPerPage={10} />
+          <Pagination {...paginationProps} />
         </Card>
       </div>
 

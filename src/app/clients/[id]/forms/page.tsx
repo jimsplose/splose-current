@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Card, DataTable, Dropdown, DropdownTriggerButton, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Badge, Modal } from "@/components/ds";
+import { Button, Card, DataTable, Dropdown, DropdownTriggerButton, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Badge, Modal, usePagination } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 
 const formRowActions: DropdownItem[] = [
@@ -100,6 +100,7 @@ const mockForms = [
 
 export default function ClientFormsPage() {
   const router = useRouter();
+  const { paged, paginationProps } = usePagination(mockForms, { pageKey: "/clients/forms" });
   const [resendModal, setResendModal] = useState<{ open: boolean; formTitle: string }>({
     open: false,
     formTitle: "",
@@ -141,7 +142,7 @@ export default function ClientFormsPage() {
             <Th align="right">Actions</Th>
           </TableHead>
           <TableBody>
-            {mockForms.map((form) => (
+            {paged.map((form) => (
               <Tr key={form.id}>
                 <Td>
                   <span className="text-text">{form.title}</span>
@@ -164,7 +165,7 @@ export default function ClientFormsPage() {
             ))}
           </TableBody>
         </DataTable>
-        <Pagination totalItems={mockForms.length} itemsPerPage={10} />
+        <Pagination {...paginationProps} />
       </Card>
 
       {/* Resend form modal */}

@@ -19,6 +19,7 @@ import {
   ColorDot,
   FormColorPicker,
   FormInput,
+  usePagination,
 } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
@@ -45,6 +46,7 @@ const initialRooms: Room[] = [
 
 export default function SettingsRoomsResourcesPage() {
   const [rooms, setRooms] = useState<Room[]>(initialRooms);
+  const { paged, paginationProps } = usePagination(rooms, { pageKey: "/settings/rooms-resources" });
 
   const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } =
     useFormModal<{ name: string; color: string }>({
@@ -120,7 +122,7 @@ export default function SettingsRoomsResourcesPage() {
             <Th align="right">Actions</Th>
           </TableHead>
           <TableBody>
-            {rooms.map((room, index) => (
+            {paged.map((room, index) => (
               <Tr key={room.id}>
                 <Td>
                   <div className="flex items-center gap-2.5">
@@ -136,7 +138,7 @@ export default function SettingsRoomsResourcesPage() {
                     align="right"
                     trigger={<DropdownTriggerButton />}
                     items={STANDARD_SETTINGS}
-                    onSelect={(action) => handleAction(action, room, index)}
+                    onSelect={(action) => handleAction(action, room, rooms.indexOf(room))}
                   />
                 </Td>
               </Tr>
@@ -151,7 +153,7 @@ export default function SettingsRoomsResourcesPage() {
           </TableBody>
         </DataTable>
 
-        <Pagination currentPage={1} totalPages={1} totalItems={rooms.length} itemsPerPage={10} />
+        <Pagination {...paginationProps} />
       </div>
 
       <Modal

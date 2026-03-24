@@ -15,6 +15,7 @@ import {
   DropdownTriggerButton,
   Modal,
   FormInput,
+  usePagination,
 } from "@/components/ds";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -33,15 +34,9 @@ const initialRates: TaxRate[] = [
   { id: 3, name: "GST Free", rate: "0%", description: "GST Free supply", status: "Active" },
 ];
 
-const ITEMS_PER_PAGE = 10;
-
 export default function TaxRatesPage() {
   const [rates, setRates] = useState(initialRates);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const totalPages = Math.ceil(rates.length / ITEMS_PER_PAGE);
-  const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
-  const pageItems = rates.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+  const { paged: pageItems, paginationProps } = usePagination(rates, { pageKey: "/settings/tax-rates" });
 
   const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } =
     useFormModal<{ name: string; rate: string; description: string }>({
@@ -91,7 +86,7 @@ export default function TaxRatesPage() {
                   align="right"
                   trigger={<DropdownTriggerButton />}
                   items={SIMPLE_CRUD}
-                  onSelect={(value) => handleAction(value, rate, startIdx + i)}
+                  onSelect={(value) => handleAction(value, rate, rates.indexOf(rate))}
                 />
               </Td>
             </Tr>
@@ -99,13 +94,7 @@ export default function TaxRatesPage() {
         </TableBody>
       </DataTable>
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        totalItems={rates.length}
-        itemsPerPage={ITEMS_PER_PAGE}
-        onPageChange={setCurrentPage}
-      />
+      <Pagination {...paginationProps} />
 
       <Modal
         open={modalOpen}

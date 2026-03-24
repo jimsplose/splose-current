@@ -17,6 +17,7 @@ import {
   Tr,
   Td,
   LinkCell,
+  usePagination,
 } from "@/components/ds";
 import { Plus, X } from "lucide-react";
 
@@ -95,6 +96,8 @@ export default function InvoicesClient({
       return true;
     });
   }, [invoices, search, locationFilter, practitionerFilter, statusFilter]);
+
+  const { paged, paginationProps } = usePagination(filtered, { pageKey: "/invoices" });
 
   const activeFilterCount = [locationFilter, practitionerFilter, statusFilter].filter(Boolean).length;
 
@@ -281,7 +284,7 @@ export default function InvoicesClient({
                   </td>
                 </tr>
               )}
-              {filtered.map((inv) => {
+              {paged.map((inv) => {
                 const outstanding = inv.status === "Paid" ? 0 : inv.total;
                 return (
                   <Tr key={inv.id} clickable>
@@ -327,12 +330,7 @@ export default function InvoicesClient({
             </TableBody>
           </DataTable>
         </div>
-        <Pagination
-          currentPage={1}
-          totalPages={1}
-          totalItems={filtered.length}
-          itemsPerPage={10}
-        />
+        <Pagination {...paginationProps} />
       </Card>
     </div>
   );

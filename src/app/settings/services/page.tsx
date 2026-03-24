@@ -14,6 +14,7 @@ import {
   SearchBar,
   Dropdown,
   DropdownTriggerButton,
+  usePagination,
 } from "@/components/ds";
 import { ArrowUpDown, BookOpen } from "lucide-react";
 
@@ -231,8 +232,6 @@ const services: Service[] = [
   },
 ];
 
-const ITEMS_PER_PAGE = 10;
-
 const dropdownItems = [
   { label: "Edit", value: "edit" },
   { label: "Duplicate", value: "duplicate" },
@@ -244,7 +243,6 @@ const dropdownItems = [
 
 export default function SettingsServicesPage() {
   const router = useRouter();
-  const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredServices = searchQuery
@@ -256,9 +254,7 @@ export default function SettingsServicesPage() {
       )
     : services;
 
-  const totalPages = Math.ceil(filteredServices.length / ITEMS_PER_PAGE);
-  const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
-  const pageServices = filteredServices.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+  const { paged: pageServices, paginationProps } = usePagination(filteredServices, { pageKey: "/settings/services" });
 
   return (
     <div className="flex-1 overflow-y-auto p-6">
@@ -280,7 +276,6 @@ export default function SettingsServicesPage() {
         placeholder="Search for service name, type, and item code"
         onSearch={(q) => {
           setSearchQuery(q);
-          setCurrentPage(1);
         }}
       />
 
@@ -337,13 +332,7 @@ export default function SettingsServicesPage() {
       </DataTable>
 
       {/* Pagination */}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        totalItems={filteredServices.length}
-        itemsPerPage={ITEMS_PER_PAGE}
-        onPageChange={setCurrentPage}
-      />
+      <Pagination {...paginationProps} />
     </div>
   );
 }

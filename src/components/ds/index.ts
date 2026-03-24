@@ -3,6 +3,7 @@ export { default as PageHeader } from "./PageHeader";
 export { default as SearchBar } from "./SearchBar";
 export { default as DataTable, TableHead, Th, TableBody, Td, Tr, LinkCell, ActionsCell, ExpandableRow } from "./DataTable";
 export { default as Pagination } from "./Pagination";
+export { default as usePagination } from "./usePagination";
 export { default as Badge, statusVariant } from "./Badge";
 export { default as FormInput } from "./FormInput";
 export { default as FormSelect } from "./FormSelect";

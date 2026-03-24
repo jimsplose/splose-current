@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { AlertTriangle } from "lucide-react";
-import { Button, FormInput, FormTextarea, FormSelect, Tab, Toggle, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, Modal, EmptyState, Badge, Alert } from "@/components/ds";
+import { Button, FormInput, FormTextarea, FormSelect, Tab, Toggle, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, Modal, EmptyState, Badge, Alert, usePagination } from "@/components/ds";
 
 const aiBlocks = [
   { name: "Subjective Assessment", tag: "SOAP", createdBy: "Jim Yencken", lastModified: "12 Mar 2026" },
@@ -141,6 +141,7 @@ function SavedPromptsTab() {
   const [editPrompt, setEditPrompt] = useState<string | null>(null);
   const [editName, setEditName] = useState("");
   const [editGroup, setEditGroup] = useState("Any user");
+  const { paged: pagedPrompts, paginationProps: promptPaginationProps } = usePagination(aiPrompts, { pageKey: "/settings/ai" });
 
   const handleEdit = (name: string) => {
     setEditName(name);
@@ -163,7 +164,7 @@ function SavedPromptsTab() {
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>
-          {aiPrompts.map((prompt) => (
+          {pagedPrompts.map((prompt) => (
             <Tr key={prompt.name}>
               <Td>{prompt.name}</Td>
               <Td className="text-text-secondary">{prompt.userGroup}</Td>
@@ -183,7 +184,7 @@ function SavedPromptsTab() {
           ))}
         </TableBody>
       </DataTable>
-      <Pagination currentPage={1} totalPages={1} totalItems={aiPrompts.length} itemsPerPage={10} />
+      <Pagination {...promptPaginationProps} />
 
       <Modal
         open={editPrompt !== null}

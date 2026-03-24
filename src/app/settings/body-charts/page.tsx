@@ -17,6 +17,7 @@ import {
   Modal,
   FormInput,
   FormSelect,
+  usePagination,
 } from "@/components/ds";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -114,6 +115,8 @@ export default function BodyChartsPage() {
     ? templates.filter((t) => t.name.toLowerCase().includes(search.toLowerCase()))
     : templates;
 
+  const { paged, paginationProps } = usePagination(filtered, { pageKey: "/settings/body-charts" });
+
   function handleAction(value: string, index: number) {
     if (value === "edit") openEdit(index, { name: templates[index].name, type: templates[index].type });
   }
@@ -138,20 +141,20 @@ export default function BodyChartsPage() {
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>
-          {filtered.map((t, i) => (
+          {paged.map((t, i) => (
             <Tr key={t.id} hover>
               <Td><span className="text-body-md font-medium text-text">{t.name}</span></Td>
               <Td className="text-text-secondary">{t.type}</Td>
               <Td className="text-text-secondary">{t.createdAt}</Td>
               <Td className="text-text-secondary">{t.lastUpdate}</Td>
               <Td align="right">
-                <Dropdown trigger={<DropdownTriggerButton />} items={STANDARD_SETTINGS} onSelect={(v) => handleAction(v, i)} align="right" />
+                <Dropdown trigger={<DropdownTriggerButton />} items={STANDARD_SETTINGS} onSelect={(v) => handleAction(v, templates.indexOf(t))} align="right" />
               </Td>
             </Tr>
           ))}
         </TableBody>
       </DataTable>
-      <Pagination currentPage={1} totalPages={1} totalItems={filtered.length} itemsPerPage={10} showPageSize={false} />
+      <Pagination {...paginationProps} showPageSize={false} />
 
       <Modal
         open={modalOpen}

@@ -2,7 +2,7 @@
 
 import { Fragment, useState } from "react";
 import { Plus, ArrowUpDown, Filter } from "lucide-react";
-import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge } from "@/components/ds";
+import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge, usePagination } from "@/components/ds";
 
 const mockPayments = [
   {
@@ -99,6 +99,7 @@ const mockPayments = [
 
 export default function PaymentsPage() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const { paged, paginationProps } = usePagination(mockPayments, { pageKey: "/payments" });
 
   return (
     <div className="px-[22.5px] py-[10px]">
@@ -134,7 +135,7 @@ export default function PaymentsPage() {
             </Th>
           </TableHead>
           <TableBody>
-            {mockPayments.map((payment) => (
+            {paged.map((payment) => (
               <Fragment key={payment.id}>
                 <Tr
                   clickable
@@ -208,7 +209,7 @@ export default function PaymentsPage() {
             ))}
           </TableBody>
         </DataTable>
-        <Pagination currentPage={1} totalPages={61} totalItems={608} itemsPerPage={10} />
+        <Pagination {...paginationProps} />
       </Card>
     </div>
   );

@@ -16,6 +16,7 @@ import {
   Dropdown,
   DropdownTriggerButton,
   Modal,
+  usePagination,
 } from "@/components/ds";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -40,8 +41,6 @@ const paymentMethods: PaymentMethod[] = [
   { id: 10, name: "PE CC", description: "PE Credit Card", status: "Active" },
 ];
 
-const ITEMS_PER_PAGE = 10;
-
 const PAYMENT_TYPE_OPTIONS: { label: string; value: string }[] = [
   { label: "Credit Card", value: "Credit Card" },
   { label: "EFTPOS", value: "EFTPOS" },
@@ -54,11 +53,7 @@ const PAYMENT_TYPE_OPTIONS: { label: string; value: string }[] = [
 
 export default function PaymentSettingsPage() {
   const [methods, setMethods] = useState(paymentMethods);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const totalPages = Math.ceil(methods.length / ITEMS_PER_PAGE);
-  const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
-  const pageItems = methods.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+  const { paged: pageItems, paginationProps } = usePagination(methods, { pageKey: "/settings/payment-settings" });
 
   const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } = useFormModal<{ name: string; description: string }>({
     defaults: { name: "", description: "" },
@@ -148,7 +143,7 @@ export default function PaymentSettingsPage() {
                     align="right"
                     trigger={<DropdownTriggerButton />}
                     items={SIMPLE_CRUD}
-                    onSelect={(value) => handleAction(value, startIdx + i)}
+                    onSelect={(value) => handleAction(value, methods.indexOf(method))}
                   />
                 </Td>
               </Tr>
@@ -156,13 +151,7 @@ export default function PaymentSettingsPage() {
           </TableBody>
         </DataTable>
 
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          totalItems={paymentMethods.length}
-          itemsPerPage={ITEMS_PER_PAGE}
-          onPageChange={setCurrentPage}
-        />
+        <Pagination {...paginationProps} />
 
         <div className="mt-4">
           <Dropdown

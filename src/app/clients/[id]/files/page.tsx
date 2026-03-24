@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ArrowUpDown, FolderPlus, ChevronDown, FileText } from "lucide-react";
-import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput } from "@/components/ds";
+import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, usePagination } from "@/components/ds";
 
 const filesData = [
   {
@@ -29,6 +29,7 @@ const dropdownItems = [
 ];
 
 export default function ClientFilesPage() {
+  const { paged, paginationProps } = usePagination(filesData, { pageKey: "/clients/files" });
   const [renameModal, setRenameModal] = useState<{ open: boolean; fileId: string; fileName: string }>({
     open: false,
     fileId: "",
@@ -92,7 +93,7 @@ export default function ClientFilesPage() {
             <Th align="right">Actions</Th>
           </TableHead>
           <TableBody>
-            {filesData.map((file) => (
+            {paged.map((file) => (
               <Tr key={file.id}>
                 <Td>
                   <div className="flex items-center gap-2">
@@ -115,7 +116,7 @@ export default function ClientFilesPage() {
             ))}
           </TableBody>
         </DataTable>
-        <Pagination totalItems={filesData.length} itemsPerPage={10} />
+        <Pagination {...paginationProps} />
       </Card>
 
       {/* Download toast */}

@@ -16,6 +16,7 @@ import {
   DropdownTriggerButton,
   Modal,
   FormInput,
+  usePagination,
 } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
@@ -74,6 +75,8 @@ export default function UserGroupsPage() {
     (g) => !search || g.name.toLowerCase().includes(search.toLowerCase()),
   );
 
+  const { paged, paginationProps } = usePagination(filtered, { pageKey: "/settings/user-groups" });
+
   function handleAction(value: string, index: number) {
     if (value === "edit") {
       openEdit(index, { name: groups[index].name, selectedUsers: [] });
@@ -107,7 +110,7 @@ export default function UserGroupsPage() {
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>
-          {filtered.map((group) => (
+          {paged.map((group) => (
             <Tr key={group.name}>
               <Td className="text-text">{group.name}</Td>
               <Td>{group.users}</Td>
@@ -124,12 +127,7 @@ export default function UserGroupsPage() {
         </TableBody>
       </DataTable>
 
-      <Pagination
-        currentPage={1}
-        totalPages={1}
-        totalItems={filtered.length}
-        itemsPerPage={10}
-      />
+      <Pagination {...paginationProps} />
       <Modal
         open={modalOpen}
         onClose={closeModal}

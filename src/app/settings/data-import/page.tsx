@@ -17,6 +17,7 @@ import {
   Modal,
   FormSelect,
   Alert,
+  usePagination,
 } from "@/components/ds";
 
 interface ImportRow {
@@ -68,8 +69,6 @@ const importHistory: ImportRow[] = [
   },
 ];
 
-const ITEMS_PER_PAGE = 10;
-
 const dropdownItems = [
   { label: "View details", value: "view" },
   { label: "Re-import", value: "re-import" },
@@ -77,7 +76,6 @@ const dropdownItems = [
 ];
 
 export default function DataImportPage() {
-  const [currentPage, setCurrentPage] = useState(1);
   const [importOpen, setImportOpen] = useState(false);
   const [importStep, setImportStep] = useState<"source" | "upload" | "mapping" | "preview" | "done">("source");
   const [viewRow, setViewRow] = useState<ImportRow | null>(null);
@@ -142,9 +140,7 @@ export default function DataImportPage() {
     setImportStep("source");
   }
 
-  const totalPages = Math.ceil(importHistory.length / ITEMS_PER_PAGE);
-  const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
-  const pageItems = importHistory.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+  const { paged: pageItems, paginationProps } = usePagination(importHistory, { pageKey: "/settings/data-import" });
 
   function handleAction(value: string, row: ImportRow) {
     switch (value) {
@@ -242,13 +238,7 @@ export default function DataImportPage() {
         </TableBody>
       </DataTable>
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        totalItems={importHistory.length}
-        itemsPerPage={ITEMS_PER_PAGE}
-        onPageChange={setCurrentPage}
-      />
+      <Pagination {...paginationProps} />
 
       {/* Import multi-step modal */}
       <Modal
