@@ -1,11 +1,10 @@
-Run a fidelity improvement loop. Read these files first, then follow the fidelity workflow:
+Run a fix gaps workflow. Read these files first:
 
-1. Read `docs/fidelity-workflow.md` (the procedure)
+1. Read `docs/fix-gaps-workflow.md` (the procedure)
 2. Read `docs/agent-block.md` (subagent prompt template — copy into every agent)
-3. Read `docs/quality-gate.md` (post-agent verification)
+3. Read `docs/quality-gate.md` (post-agent verification with 5-iteration loop)
 4. Read `docs/fidelity-gaps.md` (current gap list — pick highest priority open gaps)
 
-Ask the user for duration: Quick (2-3 gaps), Standard (5-6), Extended (autonomous), or Until done.
-For Extended/Until-done, see `docs/reference/autonomous-mode.md`.
+Ask the user for scope: Quick (2-3 gaps), Standard (all partials), Full sweep (everything), or Until done.
 
-Then execute the workflow starting from Step 1.
+Invoke `/impeccable:frontend-design` before writing Fix Briefs. Then execute the workflow.

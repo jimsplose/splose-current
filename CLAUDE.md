@@ -8,15 +8,18 @@ Next.js 16 (App Router), React 19, TypeScript (strict), Turso/Prisma 7, Tailwind
 Before ANY other work, use AskUserQuestion with these options (exception: user's first message is a specific, detailed request):
 
 > **What would you like to work on this session?**
-> 1. **Review status** — Read `docs/progress.md` + `docs/fidelity-gaps.md`, show what's next
-> 2. **Upload screenshots** — Follow `docs/screenshot-workflow.md`
-> 3. **Run fidelity loops** — Follow `docs/fidelity-workflow.md`
-> 4. **Visual audit** — Follow `docs/visual-audit-workflow.md`
-> 5. **Full visual verification sweep** — Follow `docs/visual-verification-sweep.md`
-> 6. **Update Dev Navigator** — Follow `docs/dev-navigator-spec.md`
-> 7. **Something else**
+> 1. **compare-pages-workflow.md** — Compare localhost vs reference screenshots
+> 2. **fix-gaps-workflow.md** — Implement code to close gaps
+> 3. **screenshot-workflow.md** — Process uploaded reference screenshots
+> 4. **dev-navigator-spec.md** — Update Dev Navigator registry
+> 5. **Review status** — Show progress and what's next
+> 6. **Something else**
 
-For options 3/4/5, follow with duration question: Quick (2-3 gaps) / Standard (5-6) / Extended (all, autonomous) / Until done.
+For options 1/2, follow with scope question:
+- **Quick** (2-3 pages)
+- **Standard** (all partials)
+- **Full sweep** (every page in the prototype)
+- **Until done** (autonomous, keep going)
 **Return to menu** after completing any workflow. Show brief summary of what was done.
 
 **Chrome MCP detection:** At session start, check if Chrome MCP tools are available (look for browser/Chrome tools in the tool list). Record the result for the session. If unavailable, inform Jim and note that visual verification will use the fallback path (main-agent screenshot reading + code review). All workflows adapt automatically — see `docs/quality-gate.md` Step 3.
@@ -25,22 +28,20 @@ For options 3/4/5, follow with duration question: Quick (2-3 gaps) / Standard (5
 
 | Workflow | Read first |
 |---|---|
-| Fidelity loops | `docs/fidelity-workflow.md`, `docs/agent-block.md`, `docs/quality-gate.md` |
-| Visual audit | `docs/visual-audit-workflow.md` |
-| Visual verification sweep | `docs/visual-verification-sweep.md` |
+| Compare pages | `docs/compare-pages-workflow.md` |
+| Fix gaps | `docs/fix-gaps-workflow.md`, `docs/agent-block.md`, `docs/quality-gate.md` |
 | Screenshots | `docs/screenshot-workflow.md` |
 | Dev Navigator | `docs/dev-navigator-spec.md` |
 | Codebase | `docs/project-structure.md` |
 
 ## Frontend Design Skill — USE FOR ALL VISUAL WORK
 
-Invoke `/impeccable:frontend-design` at these points in every visual workflow:
-- **Before writing Fix Briefs** (fidelity loops Step 0.5) — design-informed gap analysis
-- **Before comparison** (visual audit Step 3) — catches proportion/hierarchy issues
-- **Before verifying sizing/spacing/typography fixes** (quality gate Step 3) — prevents naive CSS guessing
-- **Before implementing any direct visual fix** — understand the design intent, don't just guess values
+Invoke `/impeccable:frontend-design` before any visual comparison or fix. After invoking, apply these specific checks:
 
-This prevents the pattern of blindly adjusting CSS values without understanding underlying structure (e.g. an SVG with internal whitespace, or font-weight vs font-size contributing to visual weight).
+- **Hierarchy check**: Does the visual importance ranking match the reference? (e.g. logo should be more prominent than nav items, not equal or smaller)
+- **Proportion check**: Are relative sizes correct? Zoom into the specific area and measure element A height vs element B height.
+- **Weight check**: Does visual density/boldness match? Consider stroke width, color saturation, font-weight — not just font-size.
+- **Structural check**: Before changing a CSS value, understand the underlying asset (e.g. does an SVG have internal whitespace? Does a font render differently at different weights?)
 
 ## Gap Completion Rule
 

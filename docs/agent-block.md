@@ -72,22 +72,24 @@ If a design spec exists at `screenshots/specs/<page-name>.md`, read it and imple
 
 **Design intent matters.** When a Fix Brief specifies a value (e.g. `h-9` for a logo), it was derived using `/impeccable:frontend-design` analysis — don't second-guess it with a different value. If something looks wrong after implementing, report back rather than guessing a different value.
 
-## Visual Verification — CONDITIONAL
+## Visual Verification — 5-ITERATION LOOP
 
-After making your code changes, verify visually if Chrome MCP is available:
+After making code changes, run this loop up to 5 times. Do not stop after 1 screenshot.
 
 **If Chrome MCP is available:**
 1. Navigate to the changed page at `http://localhost:3000/<page-path>`
-2. Take a Chrome MCP screenshot and compare against `screenshots/reference/` and `splose-style-reference/`
-3. Fix any visual mismatches and re-check
+2. Take a full-page screenshot
+3. **Zoom into the specific zone you changed** — don't rely on full-page screenshots alone
+4. Compare zoomed crop against the reference screenshot of the same zone
+5. Check: hierarchy (visual importance), proportion (relative sizes), weight (boldness/density), spacing (rhythm)
+6. If mismatch → fix it → go to step 1 (next iteration)
+7. If all checks pass → done
+
+**Max 5 iterations.** If still wrong after 5, report what you tried — don't keep guessing.
 
 **If Chrome MCP is NOT available:**
-1. Skip screenshot capture — do not attempt Chrome MCP operations
-2. Report your changes in a structured summary:
-   - Files modified and what changed in each
-   - DS components used (with props)
-   - Tailwind classes applied for key visual elements (colors, spacing, typography)
-   - Any areas of uncertainty where visual verification would help
+1. Re-read your changed code after each edit and verify against style references
+2. Report your changes in a structured summary with areas of uncertainty
 3. The main agent will verify your work afterward
 
 ### Acceptance criteria (apply regardless of verification method):

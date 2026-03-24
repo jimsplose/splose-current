@@ -40,30 +40,15 @@ npx tsc --noEmit
 
 If it fails, fix or revert the agent's changes before continuing.
 
-## Step 3: Visual Verification
+## Step 3: Visual Verification — 5-Iteration Loop
 
-If the agent changed page UI, verify the page looks correct. Choose the path based on Chrome MCP availability.
+If the agent changed page UI, run the **5-iteration visual verification loop** from `docs/fix-gaps-workflow.md` Step 4. This is mandatory — do not commit until the loop passes or exhausts 5 iterations.
 
-**For sizing, spacing, or typography changes:** Invoke `/impeccable:frontend-design` before verifying. The skill catches visual proportion and hierarchy issues that eyeball comparison misses — e.g. a logo that "looks fine" in a full-page screenshot but is obviously wrong when zoomed and compared to the reference.
+In summary: screenshot → zoom into changed zone → compare against reference → apply hierarchy/proportion/weight/spacing checks → fix if wrong → repeat up to 5 times. Revert if 5 iterations fail.
 
-**Path A — Chrome MCP available:**
-1. Navigate to the changed page in Chrome MCP
-2. Take a screenshot and compare visually against the saved reference in `screenshots/reference/`. **Zoom into the specific changed area** for precise comparison — don't rely only on full-page screenshots.
-3. Also check against the style reference (`splose-style-reference/`) for exact token values (colors, fonts, spacing)
-4. Update `screenshots/screenshot-catalog.md` Match column:
-   - **yes** = page visually matches reference
-   - **partial** = noticeable differences (note what's off)
-   - **no** = significant mismatch
+Invoke `/impeccable:frontend-design` before the first iteration.
 
-**Path B — Chrome MCP not available (fallback):**
-1. Read the changed page source code and verify it structurally matches the fix brief / gap report
-2. Cross-reference Tailwind classes against `splose-style-reference/` token files (colours, typography, borders, shadows, spacing)
-3. Compare the component structure against `splose-style-reference/page-structures/<page>.md`
-4. Update `screenshots/screenshot-catalog.md` Match column:
-   - **yes** = high-confidence structural match, all values verified against style reference
-   - **partial — code-review only** = likely matches but needs visual confirmation in next Chrome MCP session
-   - **no** = clear structural mismatch found in code
-5. Never false-positive to "yes" when uncertain — use "partial" and flag for visual verification later
+**Fallback (no Chrome MCP):** Replace screenshots with code review against style references. Use "partial — code-review only" for catalog entries. The 5-iteration loop still applies.
 
 ## Step 4: Commit or Revert
 

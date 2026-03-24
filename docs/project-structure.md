@@ -37,7 +37,8 @@ src/
   generated/prisma/       # Auto-generated Prisma client (gitignored)
 docs/
   screenshot-workflow.md  # How to process new screenshots
-  fidelity-workflow.md    # Parallel subagent workflow for fidelity improvements
+  fix-gaps-workflow.md    # Implement code to close fidelity gaps
+  compare-pages-workflow.md # Compare localhost vs reference screenshots
   fidelity-gaps.md        # Prioritized list of remaining gaps (with checkboxes)
   dev-navigator-spec.md   # Full Dev Navigator specification
   progress.md             # Append-only session progress log
