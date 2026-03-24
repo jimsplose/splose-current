@@ -8,7 +8,7 @@ export default function LoginPage() {
         {/* Header banner */}
         <div className="relative overflow-hidden rounded-t-2xl bg-primary px-8 py-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/brand/splose logo.svg" alt="splose" className="h-8 brightness-0 invert" />
+          <img src="/images/brand/splose logo.svg" alt="splose" className="h-14 brightness-0 invert" />
           {/* Settings illustration */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/brand/settings.png" alt="" className="absolute top-1/2 right-6 h-20 -translate-y-1/2 object-contain" />
