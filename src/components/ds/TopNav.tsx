@@ -95,7 +95,7 @@ export default function TopNav({ brand = "splose", items, children, className = 
 
   return (
     <header className={`sticky top-0 z-40 border-b border-black/[0.06] bg-white ${className}`}>
-      <div className="flex h-14 items-center px-4">
+      <div className="flex h-14 items-center pr-4">
         {/* Mobile hamburger — show at ≤600px */}
         {isMobile && (
           <Button
@@ -109,7 +109,7 @@ export default function TopNav({ brand = "splose", items, children, className = 
         )}
 
         {/* Logo */}
-        <Link href="/" className="mr-6 flex items-center">
+        <Link href="/" className="flex h-full items-center px-[15px]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/brand/splose logo.svg" alt={brand} className="h-[34px] w-auto" />
         </Link>
