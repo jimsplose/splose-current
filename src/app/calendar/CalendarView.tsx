@@ -7,10 +7,11 @@ import {
   ChevronRight,
   ChevronDown,
   Filter,
-  Settings2,
+  Settings,
+  CalendarDays,
   LayoutGrid,
-  Command,
   Lightbulb,
+  Sparkles,
   X,
   Clock,
   User,
@@ -371,10 +372,10 @@ export default function CalendarView({
                 <Filter className="h-4 w-4" />
               </Button>
               <Button variant="icon" size="sm">
-                <Settings2 className="h-4 w-4" />
+                <Settings className="h-4 w-4" />
               </Button>
               <Button variant="icon" size="sm">
-                <Command className="h-4 w-4" />
+                <CalendarDays className="h-4 w-4" />
               </Button>
               <Button variant="icon" size="sm">
                 <Lightbulb className="h-4 w-4" />
@@ -398,6 +399,11 @@ export default function CalendarView({
                 Booking for <strong>{bookingForFilter}</strong>
               </Chip>
             )}
+
+            {/* AI sparkle */}
+            <button className="flex h-8 w-8 items-center justify-center rounded-full border border-primary/30 text-primary hover:bg-purple-50">
+              <Sparkles className="h-4 w-4" />
+            </button>
 
             {/* Calendar/Rooms dropdown */}
             <Dropdown
