@@ -10,11 +10,13 @@ Before ANY other work, use AskUserQuestion with these options (exception: user's
 > **What would you like to work on this session?**
 > 1. **compare-pages-workflow.md** — Compare localhost vs reference screenshots
 > 2. **fix-gaps-workflow.md** — Implement code to close gaps
-> 3. **screenshot-workflow.md** — Process uploaded reference screenshots
-> 4. **dev-navigator-spec.md** — Update Dev Navigator registry
-> 5. **Review status** — Show progress and what's next
-> 6. **Something else**
+> 3. **bugshot-chrome** — Point at bugs in the browser to fix or log
+> 4. **screenshot-workflow.md** — Process uploaded reference screenshots
+> 5. **dev-navigator-spec.md** — Update Dev Navigator registry
+> 6. **Review status** — Show progress and what's next
+> 7. **Something else**
 
+For option 3, follow with mode question: **Fix one now** / **Log many** (saves to fidelity-gaps.md for later).
 For options 1/2, follow with scope question:
 - **Quick** (2-3 pages)
 - **Standard** (all partials)
