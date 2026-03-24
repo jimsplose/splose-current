@@ -43,7 +43,7 @@
   --color-text: #414549;
   --color-text-secondary: #6b7280;
   --color-surface-header: #f3f5f7;
-  --color-table-header: #eaedf1;
+  --color-table-header: #f3f5f7;
 
   /* Font families */
   --font-sans: var(--font-inter), "Inter", "Sprig Sans", -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";

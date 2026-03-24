@@ -86,9 +86,9 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
               </Td>
               <Td hidden="md">
                 {client.ndisNumber ? (
-                  <span className="inline-flex items-center rounded-full border border-yellow-400 bg-yellow-50 px-2.5 py-0.5 text-label-md text-yellow-800">NDIS</span>
+                  <span className="inline-flex items-center rounded-lg bg-[rgb(249,202,36)] px-[7px] py-0 text-[12px] text-black">NDIS</span>
                 ) : client.medicare ? (
-                  <span className="inline-flex items-center rounded-full border border-yellow-400 bg-yellow-50 px-2.5 py-0.5 text-label-md text-yellow-800">Medicare</span>
+                  <span className="inline-flex items-center rounded-lg bg-[rgb(249,202,36)] px-[7px] py-0 text-[12px] text-black">Medicare</span>
                 ) : null}
               </Td>
             </Tr>
