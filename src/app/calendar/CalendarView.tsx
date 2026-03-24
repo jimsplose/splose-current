@@ -451,18 +451,20 @@ export default function CalendarView({
                 className="grid min-w-[700px] border-b border-border"
                 style={{ gridTemplateColumns: `60px repeat(${practitioners.length}, 1fr)` }}
               >
-                {/* Top-left corner: empty */}
-                <div className="border-r border-border" />
+                {/* Top-left corner: timezone */}
+                <div className="border-r border-border flex items-center justify-center">
+                  <span className="text-[10px] text-text-secondary">+11:00</span>
+                </div>
                 {/* Day + date header spanning all practitioner columns */}
                 <div
                   className="border-b border-border py-2 text-center"
                   style={{ gridColumn: `2 / span ${practitioners.length}` }}
                 >
                   <div className="text-caption-md text-text-secondary">
-                    {DAYS[new Date(weekDates.find((d) => d === todayStr) || weekDates[0] + "T00:00:00").getDay()]}
+                    {DAYS[new Date(todayStr + "T00:00:00").getDay()]}
                   </div>
                   <div className="text-heading-lg text-primary">
-                    {new Date((weekDates.find((d) => d === todayStr) || weekDates[0]) + "T00:00:00").getDate()}
+                    {new Date(todayStr + "T00:00:00").getDate()}
                   </div>
                   <div className="text-caption-sm text-text-secondary">East Clinics</div>
                 </div>
