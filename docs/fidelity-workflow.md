@@ -28,7 +28,7 @@ Each agent should:
 1. Read the design spec (`screenshots/specs/<page-name>.md`) and reference screenshots
 2. Read and edit the page source to match, using DS components and exact spec values
 3. Ensure no TypeScript errors
-4. Run the **Screenshot Verification Loop** from the Agent Block (up to 10 iterations)
+4. Use **Chrome MCP** to capture a screenshot and compare against the reference — iterate until it matches
 
 **Parallelization rules:**
 - Different page directories → parallel safe
@@ -51,6 +51,19 @@ Navigate to each changed page, capture a screenshot, and compare against `screen
 ## Step 4: Update catalog Match status
 
 For each changed page, compare Chrome MCP screenshots against ALL references and update `screenshots/screenshot-catalog.md` Match column ("yes" / "partial — <detail>" / "no"). Only mark the gap `[x]` if ALL entries show "yes". **This step is mandatory.**
+
+## Enrichment Deepening Checklist
+
+When a page is structurally complete but feels shallow, deepen it using these categories:
+
+1. **Dropdown actions** — Wire existing dropdown menus to open modals, show toasts, or navigate (edit, delete, archive, duplicate)
+2. **Sub-pages** — Add new/edit/view pages for entities that only have list views (e.g. `/contacts/new`, `/products/[id]/edit`)
+3. **Modal enrichment** — Add realistic content to modals (form fields, previews, validation, character counts)
+4. **Multi-step flows** — Complete incomplete journeys (e.g. import → mapping → preview → done)
+5. **Interactive states** — Make static elements respond to clicks (expand/collapse, sort, filter, hover tooltips)
+6. **Data enrichment** — Add realistic seed data variety (more rows, mixed statuses, diverse names/dates)
+
+Use this checklist when fidelity gaps are closed but the prototype needs more depth to feel like a real app.
 
 ## Step 5: Update Dev Navigator registry
 

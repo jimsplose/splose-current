@@ -12,10 +12,11 @@ Before ANY other work, use AskUserQuestion with these options (exception: user's
 > 2. **Upload screenshots** — Follow `docs/screenshot-workflow.md`
 > 3. **Run fidelity loops** — Follow `docs/fidelity-workflow.md`
 > 4. **Visual audit** — Follow `docs/visual-audit-workflow.md`
-> 5. **Update Dev Navigator** — Follow `docs/dev-navigator-spec.md`
-> 6. **Something else**
+> 5. **Full visual verification sweep** — Follow `docs/visual-verification-sweep.md`
+> 6. **Update Dev Navigator** — Follow `docs/dev-navigator-spec.md`
+> 7. **Something else**
 
-For options 3/4, follow with duration question: Quick (2-3 gaps) / Standard (5-6) / Extended (all, autonomous) / Until done.
+For options 3/4/5, follow with duration question: Quick (2-3 gaps) / Standard (5-6) / Extended (all, autonomous) / Until done.
 **Return to menu** after completing any workflow. Show brief summary of what was done.
 
 ## Workflow Files — ALWAYS read before starting
@@ -24,6 +25,7 @@ For options 3/4, follow with duration question: Quick (2-3 gaps) / Standard (5-6
 |---|---|
 | Fidelity loops | `docs/fidelity-workflow.md`, `docs/agent-block.md`, `docs/quality-gate.md` |
 | Visual audit | `docs/visual-audit-workflow.md` |
+| Visual verification sweep | `docs/visual-verification-sweep.md` |
 | Screenshots | `docs/screenshot-workflow.md` |
 | Dev Navigator | `docs/dev-navigator-spec.md` |
 | Codebase | `docs/project-structure.md` |
@@ -35,6 +37,17 @@ A gap is `[x]` only when ALL related `screenshots/screenshot-catalog.md` entries
 ## Design System (`src/components/ds/`)
 
 **ALWAYS use DS components** from `@/components/ds` — never inline Tailwind for common patterns. 40+ components (see `docs/reference/ds-component-catalog.md` for full list). Storybook: `npm run storybook` (port 6006). Use [DaisyUI naming](https://daisyui.com/components/). When a pattern appears on 2+ pages, extract to DS and add a Storybook story.
+
+## Chrome MCP Visual Verification — MANDATORY
+
+**All UI work** must be verified visually using Chrome MCP before committing. This applies whether the work was done by a subagent or directly by the main agent. No exceptions.
+
+1. Ensure dev server is running (`npm run dev` on localhost:3000)
+2. Navigate to each changed page in Chrome MCP
+3. Take a screenshot and compare against `screenshots/reference/`
+4. Fix any mismatches before committing
+
+**Do NOT use** Puppeteer, Playwright, pixel-diff scripts, or headless browser screenshots. Chrome MCP is the only visual verification tool.
 
 ## Subagents
 
