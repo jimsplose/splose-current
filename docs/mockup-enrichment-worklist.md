@@ -2,19 +2,17 @@
 
 Interactive enrichments to make the prototype more realistic. Organized by category, prioritized by visibility.
 
-## 1. No-op Dropdown Actions (onSelect={() => {}})
+## 1. No-op Dropdown Actions — DONE (2026-03-24)
 
-These dropdowns have action items that do nothing when clicked. Enrichment: wire to show edit modals, confirm dialogs, or toast feedback.
+All 7 dropdowns wired with modals, confirmations, and toast feedback.
 
-| Page | File | Enrichment |
-|---|---|---|
-| **Products** | `src/app/products/page.tsx:183` | Edit/Archive/Delete actions → edit modal + confirm dialog |
-| **Client files** | `src/app/clients/[id]/files/page.tsx:88` | Download/Delete/Rename actions |
-| **Client forms** | `src/app/clients/[id]/forms/page.tsx:123` | View/Resend/Archive actions |
-| **Client comms** | `src/app/clients/[id]/communications/page.tsx:136` | View/Delete actions |
-| **Settings users** | `src/app/settings/users/page.tsx:45` | Edit/Deactivate/Reset password actions |
-| **Data export** | `src/app/settings/data-export/page.tsx:186` | Download/Re-export actions |
-| **Data import** | `src/app/settings/data-import/page.tsx:158` | View details/Re-import actions |
+- [x] Products — Edit modal, archive toggle, duplicate
+- [x] Client files — Download toast, rename modal, delete confirm
+- [x] Client forms — View navigation, email/archive confirms
+- [x] Client comms — View detail modal, delete confirm
+- [x] Settings users — Edit modal, deactivate/reset password confirms
+- [x] Data export — Download toast, re-export/delete confirms
+- [x] Data import — View details modal, re-import/delete confirms
 
 ## 2. Missing New/Edit/View Sub-Pages
 
