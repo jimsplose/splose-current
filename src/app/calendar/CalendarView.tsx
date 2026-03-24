@@ -178,6 +178,15 @@ function darkenColor(color: string, amount = 0.4): string {
 }
 
 /** Return black or white text based on background luminance */
+/** Get status emoji icons for an appointment */
+function getStatusIcons(appt: Appointment): string {
+  const icons: string[] = [];
+  if (appt.status === "Confirmed") icons.push("✓");
+  if (appt.notes) icons.push("📋");
+  if (appt.status === "Pending" || appt.status === "No Show") icons.push("⚠️");
+  return icons.join("");
+}
+
 function getContrastText(color: string): string {
   let r = 128, g = 128, b = 128;
   if (color.startsWith("#")) {
@@ -318,6 +327,7 @@ export default function CalendarView({
         }
       },
       "rooms-view": () => setCalendarMode("Rooms/resources"),
+      "booking-for": () => setBookingForFilter("a a"),
     };
     actions[forcedState]?.();
   }, [forcedState]);
@@ -488,7 +498,14 @@ export default function CalendarView({
           {/* Right group: sparkle, Calendar, Week — lighter borders */}
           <div className="flex items-center gap-[5px]">
             <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full border border-[rgb(65,69,73)] text-primary hover:bg-purple-50">
-              <Sparkles className="h-4 w-4" />
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Large 4-pointed star — upper right */}
+                <path d="M16 3C16 3 16.5 6.5 17 8C17.5 9.5 19 10.5 21 11C19 11.5 17.5 12.5 17 14C16.5 15.5 16 19 16 19C16 19 15.5 15.5 15 14C14.5 12.5 13 11.5 11 11C13 10.5 14.5 9.5 15 8C15.5 6.5 16 3 16 3Z" fill="currentColor"/>
+                {/* Medium 4-pointed star — lower left */}
+                <path d="M8 14C8 14 8.3 15.8 8.6 16.7C8.9 17.6 9.6 18.3 10.8 18.7C9.6 19.1 8.9 19.8 8.6 20.7C8.3 21.6 8 23.4 8 23.4C8 23.4 7.7 21.6 7.4 20.7C7.1 19.8 6.4 19.1 5.2 18.7C6.4 18.3 7.1 17.6 7.4 16.7C7.7 15.8 8 14 8 14Z" fill="currentColor"/>
+                {/* Small 4-pointed star — left middle */}
+                <path d="M5 7C5 7 5.15 7.9 5.3 8.3C5.45 8.7 5.8 9 6.4 9.2C5.8 9.4 5.45 9.7 5.3 10.1C5.15 10.5 5 11.4 5 11.4C5 11.4 4.85 10.5 4.7 10.1C4.55 9.7 4.2 9.4 3.6 9.2C4.2 9 4.55 8.7 4.7 8.3C4.85 7.9 5 7 5 7Z" fill="currentColor"/>
+              </svg>
             </button>
 
             {/* Calendar/Rooms dropdown — lighter border */}
@@ -605,7 +622,10 @@ export default function CalendarView({
                               a.practitionerName === prac.name &&
                               parseInt(a.startTime.split(":")[0]) === hour,
                           );
-                          const isUnavailable = hour < 9 || hour >= 17;
+                          // Per-practitioner availability (prototype data)
+                          const pracAvailStart = 8 + (pracIdx % 3); // 8, 9, or 10
+                          const pracAvailEnd = 15 + (pracIdx % 4);  // 15, 16, 17, or 18
+                          const isUnavailable = hour < pracAvailStart || hour >= pracAvailEnd;
                           const isGroupEnd = pracIdx === locGroups.slice(0, gi + 1).reduce((s, g) => s + g.practitioners.length, 0) - 1;
                           pracIdx++;
                           return (
@@ -616,7 +636,7 @@ export default function CalendarView({
                                 height: `${HOUR_HEIGHT}px`,
                                 borderBottom: '1px solid #e0e0e0',
                                 borderRight: isGroupEnd ? '1px solid #d0d0d0' : '1px solid #f0f0f0',
-                                backgroundColor: isUnavailable ? '#f5f5f5' : gi % 2 === 0 ? 'rgba(0,0,0,0.012)' : 'transparent',
+                                backgroundColor: isUnavailable ? '#f5f5f5' : gi % 2 === 0 ? '#f7f7f7' : 'transparent',
                               }}
                               onClick={(e) => handleDayCellClick(e, currentDay, hour, prac)}
                             >
@@ -643,7 +663,7 @@ export default function CalendarView({
                                   setSelectedAppt(appt);
                                 }}
                               >
-                                <p className="truncate text-[12px] font-bold">{appt.clientName}</p>
+                                <p className="truncate text-[12px] font-bold">{appt.clientName} {getStatusIcons(appt)}</p>
                                 <p className="text-[12px]">
                                   {formatTime12h(appt.startTime)} – {formatTime12h(appt.endTime)}
                                 </p>
@@ -765,7 +785,7 @@ export default function CalendarView({
                                       className="relative cursor-pointer hover:bg-gray-50/30"
                                       style={{
                                         width: COL_W,
-                                        backgroundColor: gi % 2 === 0 ? 'rgba(0,0,0,0.015)' : 'transparent',
+                                        backgroundColor: gi % 2 === 0 ? '#f7f7f7' : 'transparent',
                                         borderRight: isGroupBorder ? '1px solid #d9d9d9' : '1px solid rgba(0,0,0,0.04)',
                                       }}
                                       onClick={(e) => handleCellClick(e, dateStr, hour)}
@@ -784,7 +804,7 @@ export default function CalendarView({
                                         }}
                                         onClick={(e) => { e.stopPropagation(); setSelectedAppt(appt); }}
                                       >
-                                        <p className="truncate text-[12px] font-bold">{appt.clientName}</p>
+                                        <p className="truncate text-[12px] font-bold">{appt.clientName} {getStatusIcons(appt)}</p>
                                         <p className="text-[12px]">{formatTime12h(appt.startTime)}</p>
                                         <p className="truncate text-[12px]">{appt.type}</p>
                                       </div>

@@ -34,6 +34,7 @@ export const stateRegistry: PageEntry[] = [
       { id: "new-appointment", label: "New appointment modal" },
       { id: "edit-appointment", label: "Edit appointment modal" },
       { id: "rooms-view", label: "Rooms/Resources view" },
+      { id: "booking-for", label: "Booking for client filter" },
     ],
   },
   {
