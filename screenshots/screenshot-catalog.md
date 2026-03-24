@@ -148,10 +148,10 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.51.37 pm.png | Select a location step — default | partial |
-| Screenshot 2026-03-17 at 6.51.45 pm.png | Select a location step — location selected | partial |
-| screencapture-acme-splose-online-booking-7b2c0db8-cb7b-40de-991e-631ecdb30cf0-2026-03-17-18_51_53.png | Online booking public page (variant 1) | partial |
-| screencapture-acme-splose-online-booking-7b2c0db8-cb7b-40de-991e-631ecdb30cf0-2026-03-17-18_52_17.png | Online booking public page (variant 2) | partial |
+| Screenshot 2026-03-17 at 6.51.37 pm.png | Select a location step — default | yes — Location selection step with 6 location cards, Select buttons, sidebar summary, blue info banner 2026-03-24 |
+| Screenshot 2026-03-17 at 6.51.45 pm.png | Select a location step — location selected | yes — Selected state with outlined "Selected" button, border highlight, Continue enabled 2026-03-24 |
+| screencapture-acme-splose-online-booking-7b2c0db8-cb7b-40de-991e-631ecdb30cf0-2026-03-17-18_51_53.png | Online booking public page (variant 1) | yes — Full booking flow with location→appointment→confirm steps 2026-03-24 |
+| screencapture-acme-splose-online-booking-7b2c0db8-cb7b-40de-991e-631ecdb30cf0-2026-03-17-18_52_17.png | Online booking public page (variant 2) | yes — Same flow, different scroll position 2026-03-24 |
 
 ## Settings — Communication Types (`/settings/communications/types`)
 
@@ -619,7 +619,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-11 at 11.18.15 am.png | Performance overview — desktop, All locations dropdown | yes — FormSelect with location options 2026-03-24 |
 | Screenshot 2026-03-11 at 11.18.21 am.png | Performance overview — desktop, All practitioners dropdown | yes — FormSelect with practitioner options 2026-03-24 |
 | Screenshot 2026-03-11 at 11.18.28 am.png | Performance overview — desktop, Compare mode with % change arrows | yes — Compare toggle button implemented 2026-03-24 |
-| Screenshot 2026-03-11 at 11.18.34 am.png | Performance overview — desktop, Compare mode, Utilisation settings popover | partial — Compare mode exists, utilisation settings popover not implemented |
+| Screenshot 2026-03-11 at 11.18.34 am.png | Performance overview — desktop, Compare mode, Utilisation settings popover | yes — Utilisation settings popover with 3 checkboxes (Exclude busy time, Exclude do not invoice, Include invoiced cancellations/DNAs) implemented 2026-03-24 |
 
 ## Reports — Appointments (`/reports/appointments`)
 
@@ -665,7 +665,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 |---|---|---|
 | Screenshot 2026-03-11 at 11.22.40 am.png | Products list — desktop, default view | yes — 3.14% mismatch |
 | Screenshot 2026-03-11 at 11.22.46 am.png | Products list — desktop, expanded product row showing variants | yes — expandable rows with variant sub-rows implemented 2026-03-24 |
-| Screenshot 2026-03-11 at 11.22.51 am.png | Products list — desktop, Manage Stock modal | partial — Manage Stock button exists but no dedicated modal |
+| Screenshot 2026-03-11 at 11.22.51 am.png | Products list — desktop, Manage Stock modal | yes — Manage Stock modal with Location/Available/Track stock/Count/Actions table, 6 locations, pagination, Cancel/OK buttons 2026-03-24 |
 
 ## Calendar — Week View (`/calendar`) — March 11
 
@@ -697,8 +697,8 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 5.55.16 pm.png | Edit progress note — desktop, AI blocks, Splose AI chat panel open | partial — AI blocks implemented, Splose AI chat side panel not yet implemented |
-| Screenshot 2026-03-11 at 5.55.39 pm.png | Edit progress note — desktop, AI chat response visible, AI blocks promo tooltip | partial — AI blocks implemented, chat panel and promo tooltip not yet |
+| Screenshot 2026-03-11 at 5.55.16 pm.png | Edit progress note — desktop, AI blocks, Splose AI chat panel open | yes — AI chat side panel with "Hello, I'm splose AI" greeting, 3 quick-action pills, input field, Saved prompts button 2026-03-24 |
+| Screenshot 2026-03-11 at 5.55.39 pm.png | Edit progress note — desktop, AI chat response visible, AI blocks promo tooltip | partial — AI chat panel implemented, chat responses and promo tooltip not yet interactive |
 
 ## Notes — View Progress Note (`/notes/:id/view`) — March 11
 
