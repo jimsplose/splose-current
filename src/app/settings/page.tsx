@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 import { Button, Checkbox, FileUpload, FormInput, FormSelect, Toggle, Tab, Modal, Dropdown, HintIcon } from "@/components/ds";
 
 const businessHistory = [
@@ -85,7 +86,7 @@ export default function SettingsDetailsPage() {
             <label className="block text-label-lg text-text mb-1">
               Currency code<span className="text-red-500">*</span>
             </label>
-            <FormInput type="text" defaultValue="AUD" />
+            <FormInput type="text" defaultValue="AUD" disabled className="bg-gray-100 text-text-secondary" />
           </div>
         </div>
 
@@ -94,13 +95,13 @@ export default function SettingsDetailsPage() {
             <label className="block text-label-lg text-text mb-1">
               Country<span className="text-red-500">*</span>
             </label>
-            <FormSelect options={[{ value: "Australia", label: "Australia" }, { value: "New Zealand", label: "New Zealand" }, { value: "United Kingdom", label: "United Kingdom" }]} />
+            <FormSelect options={[{ value: "Australia", label: "Australia" }, { value: "New Zealand", label: "New Zealand" }, { value: "United Kingdom", label: "United Kingdom" }]} disabled className="bg-gray-100 text-text-secondary" />
           </div>
           <div>
             <label className="block text-label-lg text-text mb-1">
               Currency symbol<span className="text-red-500">*</span>
             </label>
-            <FormInput type="text" defaultValue="$" />
+            <FormInput type="text" defaultValue="A$" disabled className="bg-gray-100 text-text-secondary" />
           </div>
         </div>
 
@@ -134,14 +135,24 @@ export default function SettingsDetailsPage() {
 
         <div>
           <h2 className="text-heading-md text-text mb-3">Email signature</h2>
-          <Tab
-            items={[
-              { label: "Business", value: "Business" },
-              { label: "User", value: "User" },
-            ]}
-            value={emailSigTab}
-            onChange={(v) => setEmailSigTab(v as "Business" | "User")}
-          />
+          <div className="mb-3 flex items-center gap-2">
+            <Button
+              variant={emailSigTab === "Business" ? "primary" : "secondary"}
+              size="sm"
+              onClick={() => setEmailSigTab("Business")}
+              className="!rounded-full !px-3 !py-1"
+            >
+              Business <ChevronDown className="ml-1 h-3 w-3" />
+            </Button>
+            <Button
+              variant={emailSigTab === "User" ? "primary" : "secondary"}
+              size="sm"
+              onClick={() => setEmailSigTab("User")}
+              className="!rounded-full !px-3 !py-1"
+            >
+              User <ChevronDown className="ml-1 h-3 w-3" />
+            </Button>
+          </div>
           <div className="rounded-t-lg border border-border bg-gray-50 px-2 py-1.5 flex items-center gap-1">
             <Button variant="toolbar" className="font-bold">B</Button>
             <Button variant="toolbar" className="italic">I</Button>
