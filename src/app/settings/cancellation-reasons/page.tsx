@@ -90,7 +90,7 @@ export default function CancellationReasonsPage() {
   return (
     <div className="p-8">
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-display-lg text-text">Cancellation reasons</h1>
+        <h1 className="text-display-lg">Cancellation reasons</h1>
         <div className="flex items-center gap-2">
           <Button variant="secondary">Show archived</Button>
           <Button variant="primary" onClick={openCreate}>+ New reason</Button>

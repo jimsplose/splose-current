@@ -155,7 +155,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
         <div className="rounded-b-lg border border-border bg-white p-8 shadow-sm">
           {/* Title and logo */}
           <div className="mb-8 flex items-start justify-between">
-            <h2 className="text-display-lg text-text">
+            <h2 className="text-display-lg">
               {invoice.status === "Overdue" ? "Overdue Invoice" : invoice.status === "Paid" ? "Tax Invoice" : "Invoice"}
             </h2>
             <div className="text-4xl font-bold italic" style={{ color: "#2d6d40" }}>

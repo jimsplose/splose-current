@@ -128,7 +128,7 @@ export default function DataExportPage() {
 
   return (
     <div className="p-6">
-      <h1 className="mb-6 text-display-lg text-text">Data export</h1>
+      <h1 className="mb-6 text-display-lg">Data export</h1>
 
       {/* Download toast */}
       {downloadMessage && (

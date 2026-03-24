@@ -195,7 +195,7 @@ export default function DataImportPage() {
 
       {/* Import data header */}
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-display-lg text-text">Import data</h1>
+        <h1 className="text-display-lg">Import data</h1>
         <Button variant="primary" onClick={startImportFlow}>
           <Upload className="h-4 w-4" />
           Import

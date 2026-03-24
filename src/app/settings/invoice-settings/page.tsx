@@ -108,7 +108,7 @@ export default function InvoiceSettingsPage() {
 
   return (
     <div className="p-6">
-      <h1 className="mb-6 text-display-lg text-text">Invoice Settings</h1>
+      <h1 className="mb-6 text-display-lg">Invoice Settings</h1>
 
       {/* Stripe info banner */}
       <Alert variant="info" icon={<Info className="h-4 w-4" />} className="mb-6">

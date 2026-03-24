@@ -55,7 +55,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
         <Card padding="none" className="p-10 shadow-sm">
           {/* Client name with logo */}
           <div className="mb-4 flex items-start justify-between">
-            <h2 className="text-display-lg text-text">{clientName}</h2>
+            <h2 className="text-display-lg">{clientName}</h2>
             <div className="h-12 w-12 text-3xl">🦆</div>
           </div>
 

@@ -19,7 +19,7 @@ export default function SettingsDetailsPage() {
   return (
     <div className="p-6 max-w-4xl">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-display-lg text-text">Details</h1>
+        <h1 className="text-display-lg">Details</h1>
         <Button variant="primary">Save</Button>
       </div>
 

@@ -272,7 +272,7 @@ export default function EditLocationClient({ id }: { id: string }) {
               />
             </svg>
           </Link>
-          <h1 className="text-display-lg text-text">{location.name}</h1>
+          <h1 className="text-display-lg">{location.name}</h1>
         </div>
         <div className="flex items-center gap-3">
           <Button variant="danger">Delete</Button>

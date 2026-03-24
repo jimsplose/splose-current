@@ -22,7 +22,7 @@ export default function ClientPractitionerAccessPage() {
 
   return (
     <div className="flex-1 overflow-y-auto p-4 sm:p-6">
-      <h1 className="mb-4 text-display-lg text-text">Practitioner access</h1>
+      <h1 className="mb-4 text-display-lg">Practitioner access</h1>
       <p className="mb-6 text-sm text-text-secondary">
         You can link practitioners to clients via creating an appointment or support activity in the calendar tab.{" "}
         <span className="cursor-pointer text-primary hover:underline">Learn more</span>

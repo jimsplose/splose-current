@@ -98,7 +98,7 @@ export default function IntegrationsPage() {
   return (
     <div className="p-6">
       <div className="mb-8">
-        <h1 className="text-display-lg text-text">Integrations</h1>
+        <h1 className="text-display-lg">Integrations</h1>
       </div>
       <div className="divide-y divide-border">
         {integrations.map((integration) => (

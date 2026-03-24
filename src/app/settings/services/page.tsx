@@ -264,7 +264,7 @@ export default function SettingsServicesPage() {
     <div className="flex-1 overflow-y-auto p-6">
       {/* Header */}
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-display-lg text-text">Services</h1>
+        <h1 className="text-display-lg">Services</h1>
         <div className="flex items-center gap-2">
           <Button variant="secondary">
             <BookOpen className="mr-1.5 h-4 w-4" />

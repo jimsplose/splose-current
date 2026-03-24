@@ -37,7 +37,7 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
       {/* Header bar */}
       <div className="flex items-center justify-between border-b border-border bg-white px-6 py-4">
         <div className="flex items-center gap-3">
-          <h1 className="text-display-lg text-text">{form.title}</h1>
+          <h1 className="text-display-lg">{form.title}</h1>
           <Badge variant={statusVariant(form.status)}>{form.status}</Badge>
           <span className="cursor-pointer text-sm text-primary hover:underline">{form.clientName}</span>
         </div>

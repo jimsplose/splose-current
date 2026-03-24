@@ -86,7 +86,7 @@ export default function PaymentSettingsPage() {
 
   return (
     <div className="p-6">
-      <h1 className="mb-6 text-display-lg text-text">Payment settings</h1>
+      <h1 className="mb-6 text-display-lg">Payment settings</h1>
 
       {/* Next payment number */}
       <section className="mb-8">

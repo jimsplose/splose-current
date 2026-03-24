@@ -47,7 +47,7 @@ export default function EngPage() {
   return (
     <div className="mx-auto max-w-5xl p-4 sm:p-8">
       <div className="mb-6">
-        <h1 className="text-display-lg text-text">Eng Toolkit</h1>
+        <h1 className="text-display-lg">Eng Toolkit</h1>
         <p className="mt-1 text-sm text-text-secondary">
           Design system components and page directory. Internal use only.
         </p>

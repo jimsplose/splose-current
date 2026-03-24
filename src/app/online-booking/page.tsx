@@ -101,7 +101,7 @@ function OnlineBookingPageInner() {
                   <strong>Book Now:</strong> Self-paying clients are required to make payment at the time of service.
                 </Alert>
 
-                <h1 className="mb-6 text-display-lg text-text">Select a location</h1>
+                <h1 className="mb-6 text-display-lg">Select a location</h1>
 
                 <div className="space-y-3">
                   {mockLocations.map((loc) => {
@@ -141,7 +141,7 @@ function OnlineBookingPageInner() {
 
             {step === "select" && (
               <>
-                <h1 className="mb-6 text-display-lg text-text">Select an appointment</h1>
+                <h1 className="mb-6 text-display-lg">Select an appointment</h1>
 
                 {/* Filters */}
                 <div className="mb-4 flex gap-3">
@@ -274,7 +274,7 @@ function OnlineBookingPageInner() {
 
             {step === "confirm" && (
               <>
-                <h1 className="mb-6 text-display-lg text-text">Confirm your appointment</h1>
+                <h1 className="mb-6 text-display-lg">Confirm your appointment</h1>
 
                 <div className="max-w-lg space-y-5">
                   <div className="grid grid-cols-2 gap-4">
@@ -380,7 +380,7 @@ function OnlineBookingPageInner() {
                       <CheckCircle className="h-8 w-8 text-green-600" />
                     </div>
                   </div>
-                  <h1 className="mb-2 text-display-lg text-text">Booking confirmed!</h1>
+                  <h1 className="mb-2 text-display-lg">Booking confirmed!</h1>
                   <p className="mb-6 text-body-lg text-text-secondary">
                     Your appointment has been booked. A confirmation email has been sent to <span className="text-body-lg-strong text-text">{email}</span>.
                   </p>

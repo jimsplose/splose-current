@@ -275,7 +275,7 @@ export const SettingsLayoutWithContent: Story = {
         isActive={(href: string) => href === "/settings/services"}
       />
       <div className="flex-1 overflow-y-auto p-6">
-        <h1 className="mb-4 text-display-lg text-text">Services</h1>
+        <h1 className="mb-4 text-display-lg">Services</h1>
         <p className="text-body-md text-text-secondary">
           Manage your service types, durations, and pricing.
         </p>

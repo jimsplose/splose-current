@@ -54,7 +54,7 @@ function SettingsAIPageInner() {
   return (
     <div className="flex-1 p-6">
         <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-display-lg text-text">splose AI</h1>
+          <h1 className="text-display-lg">splose AI</h1>
           <div className="flex items-center gap-2">
             <Button variant="secondary">Learn</Button>
             <Button variant="primary">Save</Button>

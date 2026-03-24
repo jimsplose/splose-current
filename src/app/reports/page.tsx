@@ -244,7 +244,7 @@ export default function ReportsPage() {
   return (
     <>
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-display-lg text-text">Performance overview</h1>
+        <h1 className="text-display-lg">Performance overview</h1>
       </div>
 
       {/* Filter bar */}
