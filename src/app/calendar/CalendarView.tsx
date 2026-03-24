@@ -525,7 +525,7 @@ export default function CalendarView({
                       className="flex items-start justify-end border-r border-b border-border px-2 py-1"
                       style={{ height: `${HOUR_HEIGHT}px` }}
                     >
-                      <span className="-mt-1.5 text-caption-sm text-text-secondary">
+                      <span className="-mt-1.5 text-[10px] text-[rgb(65,69,73)]">
                         {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
                       </span>
                     </div>
@@ -603,7 +603,7 @@ export default function CalendarView({
                       <div className="flex border-t border-border/50">
                         {groupByLocation(assignLocations(practitioners)).map((group, gi) => (
                           <div key={group.name} className={`text-center ${gi > 0 ? "border-l border-border" : ""}`} style={{ width: group.practitioners.length * COL_W }}>
-                            <div className="truncate px-1 py-0.5 text-caption-sm font-semibold text-text-secondary">{group.name}</div>
+                            <div className="truncate px-1 py-0.5 text-[14px] font-normal text-[rgb(112,117,122)]">{group.name}</div>
                           </div>
                         ))}
                       </div>
@@ -633,7 +633,7 @@ export default function CalendarView({
                 {HOURS.map((hour) => (
                   <div key={hour} className="contents">
                     <div className="flex items-start justify-end border-r border-b border-border px-1 py-1" style={{ height: HOUR_HEIGHT }}>
-                      <span className="-mt-1.5 text-caption-sm text-text-secondary">
+                      <span className="-mt-1.5 text-[10px] text-[rgb(65,69,73)]">
                         {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
                       </span>
                     </div>
