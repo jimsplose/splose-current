@@ -4,6 +4,34 @@ Append-only log. Each session adds an entry summarizing what was done.
 
 ---
 
+## Session — 2026-03-25
+
+**Branch**: `main` (pushed directly, 14 commits)
+
+### Completed — Pixel-Perfect Comparison Audit + Fix Cycle
+
+**Phase 1: Live comparison audit (all major pages)**
+- Compared Dashboard, Calendar (week/day/month), Clients list + detail, Contacts, Invoices, Waitlist, Notes, Reports, Settings against production using Chrome MCP
+- Found 16 fidelity gaps across cross-cutting styling, calendar, dashboard, waitlist, settings
+- Fixed 15/16 gaps (1 deferred: RTE toolbar — third-party limitation)
+
+**Phase 2: Ultra-thorough re-audit with CSS measurements**
+- Used Chrome MCP javascript_tool to measure exact production CSS values
+- Found and fixed: primary color (#7c3aed → #8250ff), heading padding (10px → 16px), message text sizing, time label sizing, location group colors, tag styling (outlined → solid gold), table header bg (#eaedf1 → #f3f5f7), pagination active text color
+
+**Key fixes (20+ changes across 12 files):**
+- Primary color: `#8250ff` matching production `rgb(130,80,255)`
+- Calendar: Practitioner location grouping, muted appointment blocks, 12h time, service names, toolbar icons (gear/calendar/sparkle), timezone indicator, date fix
+- Tables: Purple sort/filter icons, correct table header bg color
+- Clients: Human-readable dates, purple phone links, solid gold tag badges, orange section dividers
+- Invoices: Solid filled status badge pills
+- Waitlist: Vertical triage buttons
+- Settings: Cancel/Reschedule label, disabled fields, email sig pill buttons
+- Dashboard: Chart label rotation/spacing, sender name bold, time text sizing
+- Pagination: Active page gray text (not purple) with purple border
+
+---
+
 ## Session — 2026-03-24
 
 **Branch**: `main` (pushed directly)
