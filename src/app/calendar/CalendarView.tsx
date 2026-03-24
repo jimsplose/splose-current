@@ -642,7 +642,7 @@ export default function CalendarView({
                       <div className="px-2 pt-1 text-center">
                         <div className={`text-[14px] font-medium ${isToday ? "text-primary" : "text-[rgb(112,117,122)]"}`}>{DAYS[i]}</div>
                         {isToday ? (
-                          <div className="mx-auto flex h-[28px] w-[28px] items-center justify-center rounded-full bg-primary text-[14px] font-medium text-white">{date.getDate()}</div>
+                          <div className="mx-auto flex h-[40px] w-[40px] items-center justify-center rounded-full bg-primary text-[20px] font-medium text-white">{date.getDate()}</div>
                         ) : (
                           <div className="text-[24px] font-light text-text">{date.getDate()}</div>
                         )}
