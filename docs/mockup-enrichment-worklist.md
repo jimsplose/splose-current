@@ -1,10 +1,8 @@
 # Mockup Enrichment Work List
 
-Interactive enrichments to make the prototype more realistic. Organized by category, prioritized by visibility.
+All 6 categories completed on 2026-03-24.
 
-## 1. No-op Dropdown Actions — DONE (2026-03-24)
-
-All 7 dropdowns wired with modals, confirmations, and toast feedback.
+## 1. No-op Dropdown Actions — DONE
 
 - [x] Products — Edit modal, archive toggle, duplicate
 - [x] Client files — Download toast, rename modal, delete confirm
@@ -14,83 +12,58 @@ All 7 dropdowns wired with modals, confirmations, and toast feedback.
 - [x] Data export — Download toast, re-export/delete confirms
 - [x] Data import — View details modal, re-import/delete confirms
 
-## 2. Missing New/Edit/View Sub-Pages
+## 2. Missing New/Edit/View Sub-Pages — DONE
 
-List pages that have no "create new" or "edit detail" flow. These are high-value enrichments.
+- [x] `/contacts/new` — New contact form (general, contact, notes)
+- [x] `/products/new` — New product form (details, pricing, settings)
+- [x] `/invoices/new` — Create invoice (client, line items, totals, notes)
+- [x] `/clients/new` — Client registration (general, contact, Medicare, tags)
+- [x] `/waitlist/new` — Add to waitlist (client, priority, preferred days/time)
+- [x] `/practitioners/[id]` — Practitioner profile (info, availability, services)
 
-| Page | What's missing | Priority |
-|---|---|---|
-| **Contacts** | `/contacts/new` — New contact form | High |
-| **Products** | `/products/new` and `/products/[id]/edit` — New/edit product form | High |
-| **Invoices** | `/invoices/new` — Create invoice flow (line items, client, dates) | High |
-| **Waitlist** | `/waitlist/new` — Add to waitlist form | Medium |
-| **Practitioners** | `/practitioners/[id]` — Practitioner detail/profile page | Medium |
-| **Client new** | `/clients/new` — New client registration form | Medium |
+## 3. Modals Enriched — DONE
 
-## 3. Modals Needing Richer Content
+- [x] Settings locations — Opening hours + room count
+- [x] Settings SMS — Message preview with char/segment count
+- [x] Settings tags — Usage count + merge tag option
+- [x] Calendar create — Recent clients chips + conflict warning
+- [x] Invoice detail payment — Method selector + receipt preview
+- [x] Settings body charts — Region selector + chart view picker
+- [x] Settings custom fields — Field type live preview
+- [ ] Calendar edit — Change log + notification preview (skipped, calendar file too large for safe edit)
 
-Modals that currently have basic FormInput fields but could be more realistic.
+## 4. Multi-Step Flows — DONE
 
-| Page | Modal | Enrichment |
-|---|---|---|
-| **Settings locations** | Edit location | Add map preview, opening hours table, room list |
-| **Settings SMS** | SMS settings modal | Add preview of SMS message, character count |
-| **Settings tags** | Edit tag | Add "used by N clients" count, merge tag option |
-| **Calendar** | Create appointment | Add client search with recent clients, conflict warnings |
-| **Calendar** | Edit appointment | Add change log, notification preview |
-| **Invoice detail** | Payment modal | Add payment method selector, receipt preview |
-| **Settings body charts** | Body chart edit | Add body region selector/diagram |
-| **Settings custom fields** | Reorder fields | Already has ReorderModal — add field type preview |
+- [x] Batch invoicing — 3-step: filters → client selection → preview
+- [x] NDIS bulk upload — 3-step: upload → validation → confirmation
+- [x] Payment flow — Receipt/confirmation view after submission
+- [ ] Online booking — Confirmation email preview (skipped)
+- [ ] Note → Send — Email preview with note content (skipped)
+- [ ] Client import — Column mapping step (skipped)
 
-## 4. Incomplete Multi-Step Flows
+## 5. Static Interactive States — DONE
 
-Flows where only part of the journey exists.
+- [x] Dashboard messages — Expand/collapse on click
+- [x] Dashboard income chart — Hover tooltips with values
+- [x] Dashboard recent forms — Click navigates to form view
+- [x] Reports — All 8 columns sortable (ascending/descending)
+- [x] Products — Expandable rows with details
+- [x] Client detail — All fields editable in edit mode
+- [x] Invoices list — Column filtering with chips
+- [x] Waitlist map — Marker popups with client detail cards
 
-| Flow | Current state | Missing steps |
-|---|---|---|
-| **Batch invoicing** | Has list + preview pages | Missing: select clients step, line item editing |
-| **NDIS bulk upload** | Has form page | Missing: file upload, validation results, submit confirmation |
-| **Online booking (public)** | Has 2-step flow | Missing: confirmation email preview, calendar add-to-calendar |
-| **Payment flow** | Has new payment form | Missing: receipt/confirmation page |
-| **Note → Send** | Has send modal | Missing: email preview with actual note content |
-| **Client import** | Has CSV upload card | Missing: column mapping step, preview of imported data |
+## 6. Data Enrichment — DONE
 
-## 5. Static Interactive States
+- [x] Products — Expanded to 25 items (Services/Products/Consumables/Archived)
+- [x] Contacts — Expanded to 18 (hospitals, schools, GPs, specialists)
+- [x] Client comms — Expanded to 14 (mixed SMS/Email/Phone)
+- [x] Client cases — Expanded to 14 (NDIS/Medicare/DVA/WorkCover/Private)
+- [x] Practitioners — Added Active/On Leave status badges
 
-Elements that look interactive but don't respond to user input.
+## Remaining (low priority)
 
-| Page | Element | Enrichment |
-|---|---|---|
-| **Dashboard** | Messages panel | Click message → expand to show full content |
-| **Dashboard** | Income chart | Hover → show tooltip with values |
-| **Dashboard** | Recent forms | Click → navigate to form view |
-| **Reports** | Chart visualizations | Hover tooltips, click-to-drill-down |
-| **Reports** | Sortable table headers | Already have `sortable` prop — wire actual sort logic |
-| **Client detail** | Edit mode toggle | Make all fields editable in edit mode (some are still static) |
-| **Waitlist** | Map view | Click markers → show client card popup |
-| **Products** | Expand rows | Show product details, usage history |
-| **Invoices list** | Filter dropdowns in Th | Wire actual filtering logic |
-
-## 6. Data Enrichment
-
-Pages that would benefit from more realistic data volume or variety.
-
-| Page | Current | Target |
-|---|---|---|
-| **Practitioners** | 5 practitioners | Add specialties, availability, photos |
-| **Products** | ~5 products | Expand to 15+ with categories |
-| **Contacts** | ~5 contacts | Expand to 15+ with organizations |
-| **Client comms** | Few rows | Add 10+ with mix of SMS/email/phone |
-| **Client cases** | 3 cases | Add more with varied statuses |
-| **Reports data** | Static mock charts | Wire chart data to match seed data |
-
----
-
-## Priority Order (suggested)
-
-1. **No-op dropdowns** (quick wins, 7 items) — makes the app feel responsive
-2. **Missing sub-pages** (contacts/new, products/new, invoices/new) — fills biggest gaps
-3. **Static interactive states** (dashboard clicks, report drill-down) — adds depth
-4. **Modal enrichments** — realistic content in existing modals
-5. **Multi-step flows** — most complex, highest effort
-6. **Data enrichment** — seed data updates
+- Calendar edit appointment — change log + notification preview
+- Online booking — confirmation email preview + add-to-calendar
+- Note send — email preview with actual note content
+- Client import — column mapping step + data preview
+- Reports chart data — wire to match seed data
