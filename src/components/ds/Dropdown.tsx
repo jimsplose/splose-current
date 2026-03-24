@@ -46,7 +46,7 @@ export default function Dropdown({ trigger, items, onSelect, align = "left", cla
       <div onClick={() => setOpen(!open)}>{trigger}</div>
       {open && (
         <div
-          className={`absolute z-20 mt-1 w-44 rounded-lg border border-border bg-white py-1 shadow-lg ${
+          className={`absolute z-50 mt-1 w-44 rounded-lg border border-border bg-white py-1 shadow-lg ${
             align === "right" ? "right-0" : "left-0"
           }`}
         >

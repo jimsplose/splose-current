@@ -402,42 +402,40 @@ export default function CalendarView({
     <div className="flex h-[calc(100vh-3.5rem)] overflow-hidden">
       <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
         {/* Calendar toolbar */}
-        <div className="relative z-20 flex h-[60px] shrink-0 items-center justify-between overflow-visible border-b border-[#eee] px-[10px]">
-          <div className="flex shrink-0 items-center gap-2">
-            <Button variant="secondary" size="sm">
+        <div className="relative z-30 flex h-[60px] shrink-0 items-center justify-between overflow-visible border-b border-[#eee] px-[10px]">
+          <div className="flex shrink-0 items-center gap-[2px]">
+            <button className="h-[38px] rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-[14px] font-normal text-text hover:border-primary hover:text-primary">
               Today
-            </Button>
-            <div className="flex items-center">
-              <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-text hover:bg-gray-100">
-                <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-text hover:bg-gray-100">
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-text hover:bg-gray-100">
+              <ChevronRight className="h-4 w-4" />
+            </button>
+            <h2 className="ml-[13px] text-[20px] font-bold text-[rgb(18,22,26)]">{toolbarDateLabel}</h2>
+            <div className="ml-[8px] flex items-center gap-[2px]">
+              <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
+                <Filter className="h-[16px] w-[16px]" />
               </button>
-              <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-text hover:bg-gray-100">
-                <ChevronRight className="h-4 w-4" />
+              <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
+                <Settings className="h-[16px] w-[16px]" />
               </button>
-            </div>
-            <h2 className="text-[16px] font-bold text-text">{toolbarDateLabel}</h2>
-            <div className="ml-1 flex items-center gap-1 text-text-secondary">
-              <Button variant="icon" size="sm">
-                <Filter className="h-4 w-4" />
-              </Button>
-              <Button variant="icon" size="sm">
-                <Settings className="h-4 w-4" />
-              </Button>
-              <Button variant="icon" size="sm">
-                <CalendarDays className="h-4 w-4" />
-              </Button>
-              <Button variant="icon" size="sm">
-                <Lightbulb className="h-4 w-4" />
-              </Button>
+              <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
+                <CalendarDays className="h-[16px] w-[16px]" />
+              </button>
+              <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
+                <Lightbulb className="h-[16px] w-[16px]" />
+              </button>
             </div>
           </div>
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="flex shrink-0 items-center gap-[8px]">
             {/* Location filter dropdown */}
             <Dropdown
               trigger={
-                <Button variant="secondary" size="sm" className="hidden sm:inline-flex">
-                  {locationLabel} <ChevronDown className="ml-1 h-3 w-3" />
-                </Button>
+                <button className="hidden h-[38px] items-center gap-1 rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-[14px] text-text hover:border-primary hover:text-primary sm:inline-flex">
+                  {locationLabel} <ChevronDown className="h-3 w-3" />
+                </button>
               }
               items={[
                 { label: "All locations", value: "all" },
@@ -449,9 +447,9 @@ export default function CalendarView({
             {/* Practitioner filter dropdown */}
             <Dropdown
               trigger={
-                <Button variant="secondary" size="sm" className="hidden sm:inline-flex">
-                  {practitionerLabel} <ChevronDown className="ml-1 h-3 w-3" />
-                </Button>
+                <button className="hidden h-[38px] items-center gap-1 rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-[14px] text-text hover:border-primary hover:text-primary sm:inline-flex">
+                  {practitionerLabel} <ChevronDown className="h-3 w-3" />
+                </button>
               }
               items={[
                 { label: "All practitioners", value: "all" },
@@ -686,32 +684,46 @@ export default function CalendarView({
                       </span>
                     </div>
                     {weekDates.map((dateStr, dayIdx) => {
-                      const isToday = dateStr === todayStr;
                       return (
-                        <div key={dayIdx} className="relative border-r border-border/40 last:border-r-0" style={{ height: HOUR_HEIGHT, borderBottom: '1px dashed #e8e8e8' }}>
+                        <div key={dayIdx} className="relative border-r border-[#e8e8e8] last:border-r-0" style={{ height: HOUR_HEIGHT, borderBottom: '1px solid #e8e8e8' }}>
+                          {/* 15-minute subdivision lines */}
+                          <div className="pointer-events-none absolute inset-0">
+                            <div className="absolute w-full" style={{ top: '25%', borderBottom: '1px dashed #f0f0f0' }} />
+                            <div className="absolute w-full" style={{ top: '50%', borderBottom: '1px dashed #e8e8e8' }} />
+                            <div className="absolute w-full" style={{ top: '75%', borderBottom: '1px dashed #f0f0f0' }} />
+                          </div>
                           {/* Practitioner sub-columns */}
                           <div className="absolute inset-0 flex">
-                            {filteredPractitioners.map((prac, pIdx) => {
-                              const hourAppts = filteredAppointments.filter(
-                                (a) => a.date === dateStr && a.practitionerName === prac.name && parseInt(a.startTime.split(":")[0]) === hour,
-                              );
-                              return (
-                                <div
-                                  key={prac.id}
-                                  className={`relative cursor-pointer hover:bg-gray-50/50 ${pIdx < filteredPractitioners.length - 1 ? "border-r border-border/20" : ""}`}
-                                  style={{ width: COL_W }}
-                                  onClick={(e) => handleCellClick(e, dateStr, hour)}
-                                >
+                            {(() => {
+                              const locGroups = groupByLocation(assignLocations(filteredPractitioners));
+                              let colIndex = 0;
+                              return locGroups.map((group, gi) =>
+                                group.practitioners.map((prac) => {
+                                  const hourAppts = filteredAppointments.filter(
+                                    (a) => a.date === dateStr && a.practitionerName === prac.name && parseInt(a.startTime.split(":")[0]) === hour,
+                                  );
+                                  const isGroupBorder = colIndex === 0 ? false : colIndex === locGroups.slice(0, gi).reduce((sum, g) => sum + g.practitioners.length, 0);
+                                  colIndex++;
+                                  return (
+                                    <div
+                                      key={prac.id}
+                                      className="relative cursor-pointer hover:bg-gray-50/30"
+                                      style={{
+                                        width: COL_W,
+                                        backgroundColor: gi % 2 === 0 ? 'rgba(0,0,0,0.015)' : 'transparent',
+                                        borderRight: isGroupBorder ? '1px solid #d9d9d9' : '1px solid rgba(0,0,0,0.04)',
+                                      }}
+                                      onClick={(e) => handleCellClick(e, dateStr, hour)}
+                                    >
                                   {hourAppts.map((appt) => {
                                     const pos = getApptStyle(appt);
                                     return (
                                       <div
                                         key={appt.id}
-                                        className="absolute inset-x-0.5 z-10 cursor-pointer overflow-hidden rounded border px-1 py-0.5 shadow-sm"
+                                        className="absolute inset-x-0.5 z-10 cursor-pointer overflow-hidden rounded-sm px-1 py-0.5"
                                         style={{
-                                          backgroundColor: lightenColor(appt.practitionerColor),
-                                          borderColor: lightenColor(appt.practitionerColor, 0.6),
-                                          color: darkenColor(appt.practitionerColor),
+                                          backgroundColor: appt.practitionerColor,
+                                          color: '#fff',
                                           opacity: appt.status === "Cancelled" ? 0.5 : 1,
                                           ...pos,
                                         }}
@@ -723,9 +735,11 @@ export default function CalendarView({
                                       </div>
                                     );
                                   })}
-                                </div>
+                                    </div>
+                                  );
+                                })
                               );
-                            })}
+                            })()}
                           </div>
                         </div>
                       );
