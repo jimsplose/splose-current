@@ -434,15 +434,15 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.33.31 pm.png | Patient forms tab, actions dropdown (View/Copy link/Open in new tab/Email form/Change log/Archive) | partial |
+| Screenshot 2026-03-17 at 7.33.31 pm.png | Patient forms tab, actions dropdown (View/Copy link/Open in new tab/Email form/Change log/Archive) | yes — all 6 actions in Dropdown + Archive confirmation modal 2026-03-24 |
 | screencapture-acme-splose-patients-5918810-forms-2026-03-17-19_32_45.png | Patient forms tab | yes — visual audit 2026-03-23 confirmed |
 
 ## Patient Form View (`/patient-form/:id/view`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patient-form-3545217-view-2026-03-17-19_32_54.png | Patient form view (variant 1) | partial |
-| screencapture-acme-splose-patient-form-3545217-view-2026-03-17-19_33_46.png | Patient form view (variant 2) | partial |
+| screencapture-acme-splose-patient-form-3545217-view-2026-03-17-19_32_54.png | Patient form view (variant 1) | yes — header with title/badge/actions, Card with sections, file links, No response placeholders 2026-03-24 |
+| screencapture-acme-splose-patient-form-3545217-view-2026-03-17-19_33_46.png | Patient form view (variant 2) | yes — scrolled view of same structure 2026-03-24 |
 
 ## Patients — Detail / Invoices (`/patients/:id/invoices`)
 
@@ -625,15 +625,15 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.18.50 am.png | Reports Appointments — desktop, Add filter dropdown open | partial |
+| Screenshot 2026-03-11 at 11.18.50 am.png | Reports Appointments — desktop, Add filter dropdown open | partial — Add filter button exists but no dropdown. Reports agent adding Dropdown 2026-03-24 |
 
 ## Reports — Progress Notes (`/reports/progress-notes`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.19.07 am.png | Reports Progress notes — desktop, empty (before running) | partial |
-| Screenshot 2026-03-11 at 11.19.15 am.png | Reports Progress notes — desktop, results with pie charts | partial |
-| Screenshot 2026-03-11 at 11.19.22 am.png | Reports Progress notes — desktop, scrolled to list table | partial |
+| Screenshot 2026-03-11 at 11.19.07 am.png | Reports Progress notes — desktop, empty (before running) | yes — date range, Add filter/Save filters/Load filters/Run report buttons 2026-03-24 |
+| Screenshot 2026-03-11 at 11.19.15 am.png | Reports Progress notes — desktop, results with pie charts | yes — stat cards + summary tables with SVG pie charts + note template/practitioner breakdown 2026-03-24 |
+| Screenshot 2026-03-11 at 11.19.22 am.png | Reports Progress notes — desktop, scrolled to list table | yes — DataTable with Title/Client/Related service/Practitioner/Location columns 2026-03-24 |
 
 ## Reports — Performance (`/reports/performance`)
 
