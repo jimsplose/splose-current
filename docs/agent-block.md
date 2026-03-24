@@ -17,15 +17,14 @@ Failure to do so creates tech debt that must be cleaned up later.
 | `<button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white...">` | `<Button variant="primary">` |
 | `<button className="rounded-lg border border-border bg-white px-4 py-2...">` | `<Button variant="secondary">` |
 | `<button className="border border-red-... text-red-600...">` | `<Button variant="danger">` |
-| `<div><label className="...">Name</label><input className="w-full rounded-lg border..."/></div>` | `<FormInput label="Name" />` |
+| `<div><label>...</label><input className="w-full rounded-lg border..."/></div>` | `<FormInput label="Name" />` |
 | `<div><label>...</label><select className="..."><option>...</select></div>` | `<FormSelect label="..." options={[...]} />` |
 | `<span className="rounded-full px-2 py-0.5 text-xs font-medium bg-green-100...">` | `<Badge variant="green">` |
-| `<div className="flex items-center justify-between mb-4"><h1 className="text-2xl font-bold">` | `<PageHeader title="...">` |
-
-| `<span className="inline-block h-3 w-3 rounded-full" style={{ backgroundColor: color }} />` | `<ColorDot color={color} />` |
-| `<span className={value ? "text-green-600" : "text-red-500"}>{value ? "On" : "Off"}</span>` | `<OnOffBadge value={value} />` |
-| `<input type="color" value={color} onChange={...} className="h-10 w-10...">` + label | `<FormColorPicker value={color} onChange={...} />` |
-| Repeated `const dropdownItems = [{ label: "Edit"... }]` | `import { STANDARD_SETTINGS } from "@/lib/dropdown-presets"` |
+| `<div className="flex items-center justify-between mb-4"><h1 className="text-2xl...">` | `<PageHeader title="...">` |
+| `<span className="inline-block h-3 w-3 rounded-full" style={{ backgroundColor }}>` | `<ColorDot color={color} />` |
+| `<span className={value ? "text-green-600" : "text-red-500"}>` | `<OnOffBadge value={value} />` |
+| `<input type="color" ...>` + label | `<FormColorPicker value={color} onChange={...} />` |
+| Repeated dropdown item arrays (`{ label: "Edit"... }`) | `import { STANDARD_SETTINGS } from "@/lib/dropdown-presets"` |
 | Repeated `modalOpen`/`editingIndex`/`openCreate`/`openEdit`/`handleSave` state | `import { useFormModal } from "@/hooks/useFormModal"` |
 | `new Date().toLocaleString("en-AU", { hour: "numeric", ... })` | `import { formatTimestamp } from "@/lib/format"` |
 | Simple CRUD settings page with DataTable + Modal | `<SettingsListPage>` template |
@@ -54,24 +53,17 @@ Import: `import { Text } from "@/components/ds";`
 Typography classes set font-family, size, weight, line-height, and letter-spacing. Keep color (`text-text-secondary`), alignment, and truncation as separate classes.
 
 ### Banned patterns — do NOT write these:
-- `const inputClass = "w-full rounded-lg border..."` — use `<FormInput>` instead
-- `const labelClass = "block text-sm font-medium..."` — `<FormInput label="">` includes the label
-- Inline badge styles (`rounded-full px-2 py-0.5 text-xs font-medium`) — use `<Badge>`
-- Inline button styles (`rounded-lg bg-primary px-4 py-2 text-sm font-medium`) — use `<Button>`
-- Inline color dot (`<span className="inline-block h-3 w-3 rounded-full"...>`) — use `<ColorDot>`
-- Inline on/off text (`text-green-600`/`text-red-500` conditional) — use `<OnOffBadge>`
+- `const inputClass = "..."` or `const labelClass = "..."` — use `<FormInput>` / `<FormSelect>`
+- Inline badge/button/color-dot/on-off styles — use `<Badge>`, `<Button>`, `<ColorDot>`, `<OnOffBadge>`
 - Inline `<input type="color">` — use `<FormColorPicker>`
-- Repeated dropdown item arrays — use presets from `@/lib/dropdown-presets`
-- Repeated modal state (modalOpen/editingIndex/formFields) — use `useFormModal` from `@/hooks/useFormModal`
-- Raw `text-[Npx]` font sizes (`text-[11px]`, `text-[13px]`) — use the nearest typography class
-- Raw `text-{size} font-{weight}` combos — use a typography class instead
+- Repeated dropdown arrays or modal state — use `@/lib/dropdown-presets` / `useFormModal`
+- Raw `text-[Npx]` font sizes or `text-{size} font-{weight}` combos — use typography classes
 
 ### DS naming convention:
-New components use [DaisyUI](https://daisyui.com/components/) names where a match exists (e.g. `Tab`, `Toggle`, `Modal`, `Avatar`, `Dropdown`, `Card`, `Collapse`, `Filter`, `Status`). This keeps naming predictable. See CLAUDE.md for the full table.
+New components use [DaisyUI](https://daisyui.com/components/) names where a match exists (e.g. `Tab`, `Toggle`, `Modal`, `Avatar`, `Dropdown`, `Card`, `Collapse`, `Filter`, `Status`). See CLAUDE.md for the full table.
 
 ### When DS components don't fit:
-- Tiny icon-only toolbar buttons (rich text editors) — inline is fine
-- One-off custom layouts — inline is fine
+- Tiny icon-only toolbar buttons (rich text editors) or one-off custom layouts — inline is fine
 - All planned DS components are now created: Tab, Toggle, Modal, Avatar, Dropdown, Card, Collapse, Filter, Status, List, Navbar, EmptyState, Select, DateRangeFilter, ColorDot, OnOffBadge, FormColorPicker, SettingsListPage. Use the DS component rather than inline patterns.
 
 ## Design Spec — USE EXACT VALUES
@@ -81,20 +73,16 @@ If a design spec exists at `screenshots/specs/<page-name>.md`, read it and imple
 ## Visual Verification — MANDATORY (Chrome MCP)
 
 After making your code changes, verify visually using Chrome MCP:
-
 1. Navigate to the changed page at `http://localhost:3000/<page-path>`
-2. Take a Chrome MCP screenshot
-3. Compare against the saved reference in `screenshots/reference/`
-4. Also compare against exact style values in `splose-style-reference/` (colors, fonts, spacing, borders)
-5. Fix any visual mismatches and re-check
+2. Take a Chrome MCP screenshot and compare against `screenshots/reference/` and `splose-style-reference/`
+3. Fix any visual mismatches and re-check
 
-### Acceptance criteria (what "matches" means):
+### Acceptance criteria:
 - **Layout**: Same grid/flex structure, same sidebar/header/content arrangement
 - **Components**: Correct DS components used (Button not bare `<button>`, Badge not inline pill, etc.)
 - **Content**: Same column headers, labels, placeholder text, button labels as reference
-- **Colors**: Exact hex/Tailwind values from design spec (not "close enough")
-- **Typography**: Use typography classes (`text-display-lg`, `text-heading-md`, etc.) — not raw `text-sm font-semibold` combos. See `docs/typography-spec.md`
-- **Spacing**: Exact padding/margin values from design spec (not "reasonable match")
+- **Colors/Spacing**: Exact hex/Tailwind values and padding/margin from design spec (not approximations)
+- **Typography**: Use typography classes (`text-display-lg`, `text-heading-md`, etc.) — not raw combos. See `docs/typography-spec.md`
 - **Interactive elements**: Modals, dropdowns, tabs shown in reference exist in code and are wired up
 - **Data shape**: Tables have same columns, forms have same fields as reference
 
