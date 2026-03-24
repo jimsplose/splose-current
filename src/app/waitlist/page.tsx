@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, useMemo, Suspense } from "react";
 import nextDynamic from "next/dynamic";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 const MapView = nextDynamic(() => import("@/components/MapView"), { ssr: false });
+import type { MapMarker } from "@/components/MapView";
 import {
   Plus,
   Filter,
@@ -304,6 +305,36 @@ function WaitlistPageInner() {
     return true;
   });
 
+  // Marker colors cycle for map pins
+  const markerColors = ["#7c3aed", "#2563eb", "#dc2626", "#059669", "#d97706", "#ec4899"];
+
+  // Lat/lng offsets for each active waitlist client (simulated positions around Adelaide)
+  const latLngOffsets: [number, number][] = [
+    [-34.925, 138.600],
+    [-34.932, 138.595],
+    [-34.920, 138.590],
+    [-34.935, 138.610],
+    [-34.928, 138.615],
+    [-34.940, 138.605],
+    [-34.918, 138.608],
+    [-34.930, 138.588],
+  ];
+
+  const mapMarkers: MapMarker[] = useMemo(() => {
+    const activeEntries = waitlistData.filter((w) => w.status === "active");
+    return activeEntries.map((entry, i) => ({
+      name: entry.client,
+      lat: latLngOffsets[i % latLngOffsets.length][0],
+      lng: latLngOffsets[i % latLngOffsets.length][1],
+      color: markerColors[i % markerColors.length],
+      dob: entry.dob,
+      address: entry.address,
+      service: entry.service,
+      dateAdded: entry.dateAdded,
+      tags: entry.tags,
+    }));
+  }, []);
+
   return (
     <div>
       {/* Main tabs: Screener / Waitlist */}
@@ -560,7 +591,7 @@ function WaitlistPageInner() {
               className="overflow-hidden rounded-lg border border-border"
               style={{ height: "calc(100vh - 180px)" }}
             >
-              <MapView />
+              <MapView markers={mapMarkers} />
             </div>
           )}
         </div>

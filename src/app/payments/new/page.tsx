@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { X, Plus, Search } from "lucide-react";
+import { X, Plus, Search, Printer, CheckCircle } from "lucide-react";
 import { Button, Card, DataTable, FormInput, FormSelect, FormTextarea, Navbar, Select, TableHead, Th, TableBody, Td, EmptyState } from "@/components/ds";
 
 const mockClients = [
@@ -73,6 +73,8 @@ export default function NewPaymentPage() {
   const [linkedInvoices, setLinkedInvoices] = useState<string[]>([]);
   const [showLinkSearch, setShowLinkSearch] = useState(false);
   const [invoiceSearch, setInvoiceSearch] = useState("");
+  const [view, setView] = useState<"form" | "receipt">("form");
+  const [paymentNumber] = useState("PAY-003871");
 
   const clientOptions = mockClients.map((c) => ({ label: c, value: c }));
 
@@ -104,7 +106,7 @@ export default function NewPaymentPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push("/payments");
+    setView("receipt");
   };
 
   const linkInvoice = (invoiceNumber: string) => {
@@ -125,6 +127,73 @@ export default function NewPaymentPage() {
       return next;
     });
   };
+
+  if (view === "receipt") {
+    return (
+      <div className="min-h-[calc(100vh-3rem)]">
+        <Navbar backHref="/payments" title="Payment receipt">
+          <Button variant="secondary" onClick={() => window.print()}>
+            <Printer className="h-4 w-4" />
+            Print receipt
+          </Button>
+          <Link href="/payments">
+            <Button variant="primary">Done</Button>
+          </Link>
+        </Navbar>
+
+        <div className="mx-auto max-w-lg p-8">
+          <Card padding="lg" className="text-center">
+            <div className="mb-4 flex justify-center">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-green-100">
+                <CheckCircle className="h-8 w-8 text-green-600" />
+              </div>
+            </div>
+            <h2 className="mb-1 text-heading-lg text-text">Payment recorded</h2>
+            <p className="mb-6 text-body-md text-text-secondary">
+              Payment has been successfully added.
+            </p>
+
+            <div className="space-y-3 border-t border-border pt-4 text-left">
+              <div className="flex items-center justify-between">
+                <span className="text-body-md text-text-secondary">Payment number</span>
+                <span className="text-label-lg text-primary">{paymentNumber}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-body-md text-text-secondary">Date</span>
+                <span className="text-label-lg text-text">{paymentDate}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-body-md text-text-secondary">Client</span>
+                <span className="text-label-lg text-text">{client || "—"}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-body-md text-text-secondary">Amount</span>
+                <span className="text-label-lg text-text">${parseFloat(amount || "0").toFixed(2)}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-body-md text-text-secondary">Method</span>
+                <span className="text-label-lg text-text">{method || "—"}</span>
+              </div>
+              {linkedInvoices.length > 0 && (
+                <div className="flex items-center justify-between">
+                  <span className="text-body-md text-text-secondary">Applied to</span>
+                  <span className="text-label-lg text-text">
+                    {linkedInvoices.length} invoice{linkedInvoices.length !== 1 ? "s" : ""}
+                  </span>
+                </div>
+              )}
+              {note && (
+                <div className="flex items-start justify-between">
+                  <span className="text-body-md text-text-secondary">Note</span>
+                  <span className="max-w-[200px] text-right text-label-lg text-text">{note}</span>
+                </div>
+              )}
+            </div>
+          </Card>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-[calc(100vh-3rem)]">

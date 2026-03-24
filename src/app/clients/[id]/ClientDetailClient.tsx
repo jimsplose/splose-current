@@ -14,6 +14,7 @@ import {
   HintIcon,
   List,
   Collapse,
+  Toggle,
 } from "@/components/ds";
 
 interface ClientData {
@@ -336,6 +337,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
 function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: () => void }) {
   const dobParts = client.dateOfBirth ? client.dateOfBirth.split("-") : ["2025", "01", "01"];
+  const [invoiceReminder, setInvoiceReminder] = useState(true);
 
   return (
     <div className="flex-1 overflow-y-auto p-6">
@@ -508,11 +510,53 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
 
         {/* NDIS */}
         {client.ndisNumber && (
-          <section>
+          <section className="mb-8">
             <h2 className="mb-4 text-heading-lg text-text">NDIS details</h2>
             <FormInput label="NDIS number" type="text" defaultValue={client.ndisNumber} />
           </section>
         )}
+
+        {/* Privacy policy consent */}
+        <section className="mb-8">
+          <h2 className="mb-4 text-heading-lg text-text">Privacy policy consent</h2>
+          <FormSelect
+            label="Consent status"
+            defaultValue="no-response"
+            options={[
+              { value: "no-response", label: "No response" },
+              { value: "accepted", label: "Accepted" },
+              { value: "declined", label: "Declined" },
+            ]}
+          />
+        </section>
+
+        {/* Medications, allergies & intolerances */}
+        <section className="mb-8">
+          <h2 className="mb-4 text-heading-lg text-text">Medications, allergies &amp; intolerances</h2>
+          <div className="space-y-4">
+            <FormTextarea label="Medications" defaultValue="" placeholder="None" rows={2} />
+            <FormTextarea label="Allergies" defaultValue="" placeholder="None" rows={2} />
+            <FormTextarea label="Intolerances" defaultValue="" placeholder="None" rows={2} />
+          </div>
+        </section>
+
+        {/* Custom fields */}
+        <section className="mb-8">
+          <h2 className="mb-4 text-heading-lg text-text">Custom fields</h2>
+          <div className="space-y-4">
+            <FormInput label="Date since surgery" type="text" defaultValue="25/09/2025" />
+            <FormInput label="Note" type="text" defaultValue="Note short text check" />
+          </div>
+        </section>
+
+        {/* Invoicing */}
+        <section className="mb-8">
+          <h2 className="mb-4 text-heading-lg text-text">Invoicing</h2>
+          <div className="flex items-center justify-between">
+            <span className="text-body-md text-text">Invoice reminder preference</span>
+            <Toggle checked={invoiceReminder} onChange={setInvoiceReminder} />
+          </div>
+        </section>
       </div>
     </div>
   );
