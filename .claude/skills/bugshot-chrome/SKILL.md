@@ -41,17 +41,18 @@ If the user has not provided a URL, default to `http://localhost:3000`. Ask whic
 
 Use the `mcp__claude-in-chrome__navigate` tool to open the page. Wait for navigation to complete.
 
-### Step 3: Read and inject the overlay
+### Step 3: Inject the overlay (fast path)
 
-Read the overlay JavaScript from this skill's directory:
+Inject a single script tag that loads the overlay from localhost. Do NOT read the overlay.js file — it's served as a static asset:
 
 ```
-.claude/skills/bugshot-chrome/scripts/overlay.js
+mcp__claude-in-chrome__javascript_tool
+code: "const s = document.createElement('script'); s.src = '/scripts/bugshot-overlay.js'; document.head.appendChild(s);"
 ```
 
-Then inject the full contents into the page using `mcp__claude-in-chrome__javascript_tool`.
+This loads instantly from the dev server. No file reading needed.
 
-**Important:** Inject the complete file contents as a single string. Do not summarise or truncate it.
+**Fallback (non-localhost sites):** If the page is not on localhost, read `.claude/skills/bugshot-chrome/scripts/overlay.js` and inject the full contents inline.
 
 ### Step 4: Tell the user what to do
 
