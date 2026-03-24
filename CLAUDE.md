@@ -43,21 +43,13 @@ A gap is `[x]` only when ALL related `screenshots/screenshot-catalog.md` entries
 - **No worktrees** — use direct agents only. Worktrees cause data loss with concurrent sessions
 - Jim runs 2 concurrent sessions. Coordinate via git, avoid editing same files
 
-## Vercel
+## Vercel & Working Style
 
 - **Dashboard**: https://vercel.com/jimyencken-4159s-projects/splose-current
-- After push: link dashboard, say preview ready in ~2 min, give promote command (see Git Workflow)
-
-## Key Conventions
-
-- Server components by default — `"use client"` only for hooks/browser APIs
-- `export const dynamic = "force-dynamic"` on data-fetching pages
-- Tailwind CSS variables in `globals.css`. Australian locale (dates, Medicare, AUD)
-- Use Chrome MCP for visual verification against `screenshots/reference/` and `splose-style-reference/`
-
-## Working Style
-
-**Jim is non-technical.** Handle all coding, git, builds, debugging. Never ask Jim to run commands. Provide exact copy-paste if action needed on his Mac.
+- After push: link dashboard, say preview ready in ~2 min, give promote instructions (see Git Workflow)
+- **Jim is non-technical.** Handle all coding, git, builds, debugging. Provide exact copy-paste commands.
+- Server components by default. `export const dynamic = "force-dynamic"` on data-fetching pages.
+- Tailwind CSS vars in `globals.css`. Australian locale. Chrome MCP for visual verification.
 
 ## Commit Discipline
 
@@ -79,8 +71,22 @@ git fetch origin main && git merge origin/main --no-edit
 ```
 
 Push to `claude/*` branches. **Auto-promote is disabled** (saves build costs).
-Jim promotes manually: `git checkout main && git pull && git merge origin/<branch> --no-edit && git push`
 Before every push: `npx next build` then `git fetch origin main && git merge origin/main --no-edit`.
+
+### Promoting to production — Claude MUST give Jim these instructions after every push
+
+**Option A (GitHub website — easiest):**
+1. Go to: `https://github.com/jimsplose/splose-current/compare/main...<branch-name>`
+2. Click **"Create pull request"** → give it a title → click **"Create pull request"** again
+3. On the PR page, scroll down and click **"Merge pull request"** → **"Confirm merge"**
+4. Vercel auto-deploys production from main within ~2 minutes
+
+**Option B (terminal — one command):**
+```bash
+git checkout main && git pull && git merge origin/<branch-name> --no-edit && git push
+```
+
+Claude: always replace `<branch-name>` with the actual branch name when giving Jim these instructions.
 
 ## Development
 
