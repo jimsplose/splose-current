@@ -63,7 +63,9 @@ export function Th({
   filterable,
   onFilter,
 }: ThProps) {
-  const hideClass = hidden ? `hidden ${hidden}:table-cell` : "";
+  // Static class map — Tailwind JIT requires full class strings, not dynamic interpolation
+  const hideClassMap = { sm: "hidden sm:table-cell", md: "hidden md:table-cell", lg: "hidden lg:table-cell" };
+  const hideClass = hidden ? hideClassMap[hidden] : "";
   const interactive = sortable || filterable;
 
   const SortIcon = sortDirection === "asc" ? ArrowUp : sortDirection === "desc" ? ArrowDown : ArrowUpDown;
@@ -128,7 +130,8 @@ interface TdProps {
 }
 
 export function Td({ children, align = "left", className = "", hidden }: TdProps) {
-  const hideClass = hidden ? `hidden ${hidden}:table-cell` : "";
+  const hideClassMap = { sm: "hidden sm:table-cell", md: "hidden md:table-cell", lg: "hidden lg:table-cell" };
+  const hideClass = hidden ? hideClassMap[hidden] : "";
   return <td className={`px-4 py-3 text-${align} text-body-md ${hideClass} ${className}`}>{children}</td>;
 }
 
