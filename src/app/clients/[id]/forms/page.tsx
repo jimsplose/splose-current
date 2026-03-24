@@ -1,6 +1,8 @@
 "use client";
 
-import { Button, Card, DataTable, Dropdown, DropdownTriggerButton, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Badge } from "@/components/ds";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Button, Card, DataTable, Dropdown, DropdownTriggerButton, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Badge, Modal } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 
 const formRowActions: DropdownItem[] = [
@@ -13,79 +15,113 @@ const formRowActions: DropdownItem[] = [
   { label: "Archive", value: "archive", danger: true },
 ];
 
+const mockForms = [
+  {
+    id: "f1",
+    title: "baby due date test",
+    status: "Incomplete",
+    createdAt: "10:20 am, 2 Feb 2026",
+    completed: "No",
+    relatedAppt: "1:30 pm, 7 Feb 2026 – 2:2 Consultations 2:2 Consultations",
+  },
+  {
+    id: "f2",
+    title: "Header test",
+    status: "Incomplete",
+    createdAt: "10:20 am, 2 Feb 2026",
+    completed: "No",
+    relatedAppt: "1:30 pm, 7 Feb 2026 – 2:3 Consultations 2:2 Consultations",
+  },
+  {
+    id: "f3",
+    title: "baby due date test",
+    status: "Incomplete",
+    createdAt: "10:16 am, 2 Feb 2026",
+    completed: "No",
+    relatedAppt: "11:30 am, 7 Feb 2026 – 2:2 Consultations 2:2 Consultations",
+  },
+  {
+    id: "f4",
+    title: "Header test",
+    status: "Incomplete",
+    createdAt: "10:16 am, 2 Feb 2026",
+    completed: "No",
+    relatedAppt: "11:30 am, 7 Feb 2026 – 2:2 Consultations 2:3 Consultations",
+  },
+  {
+    id: "f5",
+    title: "baby due date test",
+    status: "Incomplete",
+    createdAt: "10:15 am, 2 Feb 2026",
+    completed: "No",
+    relatedAppt: "9:30 am, 7 Feb 2026 – 2:2 Consultations 2:2 Consultations",
+  },
+  {
+    id: "f6",
+    title: "Header test",
+    status: "Incomplete",
+    createdAt: "10:15 am, 2 Feb 2026",
+    completed: "No",
+    relatedAppt: "9:30 am, 7 Feb 2026 – 2:2 Consultations 2:2 Consultations",
+  },
+  {
+    id: "f7",
+    title: "Header test",
+    status: "Incomplete",
+    createdAt: "9:18 am, 12 Jan 2026",
+    completed: "No",
+    relatedAppt: "10:00 am, 14 Jan 2026 – Group booking Sharon Test",
+  },
+  {
+    id: "f8",
+    title: "baby due date test",
+    status: "Incomplete",
+    createdAt: "9:18 am, 12 Jan 2026",
+    completed: "No",
+    relatedAppt: "10:00 am, 14 Jan 2026 – Group booking Sharon Test",
+  },
+  {
+    id: "f9",
+    title: "baby due date test",
+    status: "Incomplete",
+    createdAt: "10:22 am, 30 Oct 2025",
+    completed: "No",
+    relatedAppt: "6:15 am, 28 Oct 2025 – 1:1 Consultation 1:1 Consultation",
+  },
+  {
+    id: "f10",
+    title: "Header test",
+    status: "Incomplete",
+    createdAt: "10:22 am, 30 Oct 2025",
+    completed: "No",
+    relatedAppt: "9:15 am, 28 Oct 2025 – 1:1 Consultation 1:1 Consultation",
+  },
+];
+
 export default function ClientFormsPage() {
-  const mockForms = [
-    {
-      title: "baby due date test",
-      status: "Incomplete",
-      createdAt: "10:20 am, 2 Feb 2026",
-      completed: "No",
-      relatedAppt: "1:30 pm, 7 Feb 2026 – 2:2 Consultations 2:2 Consultations",
-    },
-    {
-      title: "Header test",
-      status: "Incomplete",
-      createdAt: "10:20 am, 2 Feb 2026",
-      completed: "No",
-      relatedAppt: "1:30 pm, 7 Feb 2026 – 2:3 Consultations 2:2 Consultations",
-    },
-    {
-      title: "baby due date test",
-      status: "Incomplete",
-      createdAt: "10:16 am, 2 Feb 2026",
-      completed: "No",
-      relatedAppt: "11:30 am, 7 Feb 2026 – 2:2 Consultations 2:2 Consultations",
-    },
-    {
-      title: "Header test",
-      status: "Incomplete",
-      createdAt: "10:16 am, 2 Feb 2026",
-      completed: "No",
-      relatedAppt: "11:30 am, 7 Feb 2026 – 2:2 Consultations 2:3 Consultations",
-    },
-    {
-      title: "baby due date test",
-      status: "Incomplete",
-      createdAt: "10:15 am, 2 Feb 2026",
-      completed: "No",
-      relatedAppt: "9:30 am, 7 Feb 2026 – 2:2 Consultations 2:2 Consultations",
-    },
-    {
-      title: "Header test",
-      status: "Incomplete",
-      createdAt: "10:15 am, 2 Feb 2026",
-      completed: "No",
-      relatedAppt: "9:30 am, 7 Feb 2026 – 2:2 Consultations 2:2 Consultations",
-    },
-    {
-      title: "Header test",
-      status: "Incomplete",
-      createdAt: "9:18 am, 12 Jan 2026",
-      completed: "No",
-      relatedAppt: "10:00 am, 14 Jan 2026 – Group booking Sharon Test",
-    },
-    {
-      title: "baby due date test",
-      status: "Incomplete",
-      createdAt: "9:18 am, 12 Jan 2026",
-      completed: "No",
-      relatedAppt: "10:00 am, 14 Jan 2026 – Group booking Sharon Test",
-    },
-    {
-      title: "baby due date test",
-      status: "Incomplete",
-      createdAt: "10:22 am, 30 Oct 2025",
-      completed: "No",
-      relatedAppt: "6:15 am, 28 Oct 2025 – 1:1 Consultation 1:1 Consultation",
-    },
-    {
-      title: "Header test",
-      status: "Incomplete",
-      createdAt: "10:22 am, 30 Oct 2025",
-      completed: "No",
-      relatedAppt: "9:15 am, 28 Oct 2025 – 1:1 Consultation 1:1 Consultation",
-    },
-  ];
+  const router = useRouter();
+  const [resendModal, setResendModal] = useState<{ open: boolean; formTitle: string }>({
+    open: false,
+    formTitle: "",
+  });
+  const [archiveModal, setArchiveModal] = useState<{ open: boolean; formTitle: string }>({
+    open: false,
+    formTitle: "",
+  });
+
+  function handleAction(value: string, form: (typeof mockForms)[number]) {
+    if (value === "view") {
+      router.push(`/patient-form/${form.id}/view`);
+    } else if (value === "copy-link") {
+      // no-op for copy link
+    } else if (value === "open-tab") {
+      window.open(`/patient-form/${form.id}/view`, "_blank");
+    } else if (value === "email") {
+      setResendModal({ open: true, formTitle: form.title });
+    } else if (value === "archive") {
+      setArchiveModal({ open: true, formTitle: form.title });
+    }
+  }
 
   return (
     <div className="flex-1 overflow-y-auto p-4 sm:p-6">
@@ -105,8 +141,8 @@ export default function ClientFormsPage() {
             <Th align="right">Actions</Th>
           </TableHead>
           <TableBody>
-            {mockForms.map((form, idx) => (
-              <Tr key={idx}>
+            {mockForms.map((form) => (
+              <Tr key={form.id}>
                 <Td>
                   <span className="text-text">{form.title}</span>
                   <Badge variant="gray" className="ml-2">
@@ -120,7 +156,7 @@ export default function ClientFormsPage() {
                   <Dropdown
                     trigger={<DropdownTriggerButton />}
                     items={formRowActions}
-                    onSelect={() => {}}
+                    onSelect={(val) => handleAction(val, form)}
                     align="right"
                   />
                 </Td>
@@ -130,6 +166,50 @@ export default function ClientFormsPage() {
         </DataTable>
         <Pagination totalItems={mockForms.length} itemsPerPage={10} />
       </Card>
+
+      {/* Resend form modal */}
+      <Modal
+        open={resendModal.open}
+        onClose={() => setResendModal({ open: false, formTitle: "" })}
+        title="Resend form"
+        maxWidth="md"
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setResendModal({ open: false, formTitle: "" })}>
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={() => setResendModal({ open: false, formTitle: "" })}>
+              Resend
+            </Button>
+          </>
+        }
+      >
+        <p className="text-body-md text-text-secondary">
+          Resend <strong className="text-text">{resendModal.formTitle}</strong> to the client&apos;s email?
+        </p>
+      </Modal>
+
+      {/* Archive form modal */}
+      <Modal
+        open={archiveModal.open}
+        onClose={() => setArchiveModal({ open: false, formTitle: "" })}
+        title="Archive form"
+        maxWidth="md"
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setArchiveModal({ open: false, formTitle: "" })}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={() => setArchiveModal({ open: false, formTitle: "" })}>
+              Archive
+            </Button>
+          </>
+        }
+      >
+        <p className="text-body-md text-text-secondary">
+          Are you sure you want to archive <strong className="text-text">{archiveModal.formTitle}</strong>? Archived forms can be restored later.
+        </p>
+      </Modal>
     </div>
   );
 }

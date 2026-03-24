@@ -16,6 +16,7 @@ import {
   Checkbox,
   Dropdown,
   DropdownTriggerButton,
+  Modal,
 } from "@/components/ds";
 
 interface ExportRow {
@@ -96,19 +97,45 @@ const ITEMS_PER_PAGE = 10;
 
 const dropdownItems = [
   { label: "Download", value: "download" },
+  { label: "Re-export", value: "re-export" },
   { label: "Delete", value: "delete", danger: true },
 ];
 
 export default function DataExportPage() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [downloadMessage, setDownloadMessage] = useState<string | null>(null);
+  const [reExportRow, setReExportRow] = useState<ExportRow | null>(null);
+  const [deleteRow, setDeleteRow] = useState<ExportRow | null>(null);
 
   const totalPages = Math.ceil(exportHistory.length / ITEMS_PER_PAGE);
   const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
   const pageItems = exportHistory.slice(startIdx, startIdx + ITEMS_PER_PAGE);
 
+  function handleAction(value: string, row: ExportRow) {
+    switch (value) {
+      case "download":
+        setDownloadMessage(`Downloading export file for "${row.dataExport}"...`);
+        setTimeout(() => setDownloadMessage(null), 2500);
+        break;
+      case "re-export":
+        setReExportRow(row);
+        break;
+      case "delete":
+        setDeleteRow(row);
+        break;
+    }
+  }
+
   return (
     <div className="p-6">
       <h1 className="mb-6 text-display-lg text-text">Data export</h1>
+
+      {/* Download toast */}
+      {downloadMessage && (
+        <div className="fixed top-4 right-4 z-[60] rounded-lg border border-border bg-white px-4 py-3 shadow-lg">
+          <p className="text-body-md text-text">{downloadMessage}</p>
+        </div>
+      )}
 
       {/* Export form */}
       <div className="mb-6 flex flex-wrap items-end gap-4">
@@ -183,7 +210,7 @@ export default function DataExportPage() {
                   align="right"
                   trigger={<DropdownTriggerButton />}
                   items={dropdownItems}
-                  onSelect={() => {}}
+                  onSelect={(value) => handleAction(value, row)}
                 />
               </Td>
             </Tr>
@@ -198,6 +225,54 @@ export default function DataExportPage() {
         itemsPerPage={ITEMS_PER_PAGE}
         onPageChange={setCurrentPage}
       />
+
+      {/* Re-export confirmation modal */}
+      <Modal
+        open={!!reExportRow}
+        onClose={() => setReExportRow(null)}
+        title="Re-export"
+        maxWidth="sm"
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setReExportRow(null)}>Cancel</Button>
+            <Button variant="primary" onClick={() => setReExportRow(null)}>Re-export</Button>
+          </>
+        }
+      >
+        <p className="text-body-md text-text-secondary">
+          Re-run this export with the same settings?
+        </p>
+        {reExportRow && (
+          <div className="mt-3 rounded-lg bg-gray-50 p-3">
+            <p className="text-label-lg text-text">{reExportRow.dataExport}</p>
+            <p className="text-body-sm text-text-secondary">{reExportRow.dateRange}</p>
+          </div>
+        )}
+      </Modal>
+
+      {/* Delete confirmation modal */}
+      <Modal
+        open={!!deleteRow}
+        onClose={() => setDeleteRow(null)}
+        title="Delete export"
+        maxWidth="sm"
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setDeleteRow(null)}>Cancel</Button>
+            <Button variant="danger" onClick={() => setDeleteRow(null)}>Delete</Button>
+          </>
+        }
+      >
+        <p className="text-body-md text-text-secondary">
+          Delete this export record? This action cannot be undone.
+        </p>
+        {deleteRow && (
+          <div className="mt-3 rounded-lg bg-gray-50 p-3">
+            <p className="text-label-lg text-text">{deleteRow.dataExport}</p>
+            <p className="text-body-sm text-text-secondary">{deleteRow.dateRange}</p>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 }

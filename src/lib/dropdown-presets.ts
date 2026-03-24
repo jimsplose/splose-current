@@ -15,8 +15,10 @@ export const SIMPLE_CRUD: DropdownItem[] = [
   { label: "Delete", value: "delete", danger: true },
 ];
 
-/** Deactivate, Reset password, Log out everywhere, Change log */
+/** Edit, Deactivate, Reset password, Log out everywhere, Change log */
 export const USER_ADMIN: DropdownItem[] = [
+  { label: "Edit", value: "edit" },
+  { label: "", value: "divider-1", divider: true },
   { label: "Deactivate", value: "deactivate", danger: true },
   { label: "Reset password", value: "reset-password" },
   { label: "Log out everywhere", value: "logout-everywhere" },

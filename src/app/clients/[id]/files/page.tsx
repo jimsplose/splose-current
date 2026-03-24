@@ -1,7 +1,8 @@
-import { ArrowUpDown, FolderPlus, ChevronDown, FileText } from "lucide-react";
-import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton } from "@/components/ds";
+"use client";
 
-export const dynamic = "force-dynamic";
+import { useState } from "react";
+import { ArrowUpDown, FolderPlus, ChevronDown, FileText } from "lucide-react";
+import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput } from "@/components/ds";
 
 const filesData = [
   {
@@ -27,9 +28,31 @@ const dropdownItems = [
   { label: "Delete", value: "delete", danger: true },
 ];
 
-export default async function ClientFilesPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  void id;
+export default function ClientFilesPage() {
+  const [renameModal, setRenameModal] = useState<{ open: boolean; fileId: string; fileName: string }>({
+    open: false,
+    fileId: "",
+    fileName: "",
+  });
+  const [deleteModal, setDeleteModal] = useState<{ open: boolean; fileId: string; fileName: string }>({
+    open: false,
+    fileId: "",
+    fileName: "",
+  });
+  const [downloadToast, setDownloadToast] = useState(false);
+  const [renameValue, setRenameValue] = useState("");
+
+  function handleAction(value: string, file: (typeof filesData)[number]) {
+    if (value === "download") {
+      setDownloadToast(true);
+      setTimeout(() => setDownloadToast(false), 2000);
+    } else if (value === "rename") {
+      setRenameValue(file.name);
+      setRenameModal({ open: true, fileId: file.id, fileName: file.name });
+    } else if (value === "delete") {
+      setDeleteModal({ open: true, fileId: file.id, fileName: file.name });
+    }
+  }
 
   return (
     <div className="flex-1 overflow-y-auto p-4 sm:p-6">
@@ -85,7 +108,7 @@ export default async function ClientFilesPage({ params }: { params: Promise<{ id
                     align="right"
                     trigger={<DropdownTriggerButton />}
                     items={dropdownItems}
-                    onSelect={() => {}}
+                    onSelect={(val) => handleAction(val, file)}
                   />
                 </Td>
               </Tr>
@@ -94,6 +117,55 @@ export default async function ClientFilesPage({ params }: { params: Promise<{ id
         </DataTable>
         <Pagination totalItems={filesData.length} itemsPerPage={10} />
       </Card>
+
+      {/* Download toast */}
+      {downloadToast && (
+        <div className="fixed bottom-6 right-6 z-50 rounded-lg bg-gray-800 px-4 py-3 text-body-md text-white shadow-lg">
+          Downloading...
+        </div>
+      )}
+
+      {/* Rename modal */}
+      <Modal
+        open={renameModal.open}
+        onClose={() => setRenameModal({ open: false, fileId: "", fileName: "" })}
+        title="Rename file"
+        maxWidth="md"
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setRenameModal({ open: false, fileId: "", fileName: "" })}>
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={() => setRenameModal({ open: false, fileId: "", fileName: "" })}>
+              Rename
+            </Button>
+          </>
+        }
+      >
+        <FormInput label="File name" value={renameValue} onChange={(e) => setRenameValue(e.target.value)} />
+      </Modal>
+
+      {/* Delete confirmation modal */}
+      <Modal
+        open={deleteModal.open}
+        onClose={() => setDeleteModal({ open: false, fileId: "", fileName: "" })}
+        title="Delete file"
+        maxWidth="md"
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setDeleteModal({ open: false, fileId: "", fileName: "" })}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={() => setDeleteModal({ open: false, fileId: "", fileName: "" })}>
+              Delete
+            </Button>
+          </>
+        }
+      >
+        <p className="text-body-md text-text-secondary">
+          Are you sure you want to delete <strong className="text-text">{deleteModal.fileName}</strong>? This action cannot be undone.
+        </p>
+      </Modal>
     </div>
   );
 }

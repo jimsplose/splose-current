@@ -1,9 +1,36 @@
 "use client";
 
-import { Button, FormInput, Badge, DataTable, TableHead, Th, TableBody, Tr, Td, LinkCell, Dropdown, DropdownTriggerButton } from "@/components/ds";
+import { useState, useCallback } from "react";
+import {
+  Button,
+  FormInput,
+  FormSelect,
+  Badge,
+  DataTable,
+  TableHead,
+  Th,
+  TableBody,
+  Tr,
+  Td,
+  LinkCell,
+  Dropdown,
+  DropdownTriggerButton,
+  Modal,
+} from "@/components/ds";
 import { USER_ADMIN } from "@/lib/dropdown-presets";
+import { useFormModal } from "@/hooks/useFormModal";
 
-const users = [
+interface User {
+  name: string;
+  email: string;
+  roleName: string;
+  roleType: string;
+  group: string;
+  status: string;
+  isOwner: boolean;
+}
+
+const initialUsers: User[] = [
   { name: "Nicholas Smithson", email: "nick@splose.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "OT", status: "Active", isOwner: true },
   { name: "Splose Support", email: "support@splose.com", roleName: "Practice manager", roleType: "Practice manager", group: "", status: "Active", isOwner: false },
   { name: "nick sand", email: "nick1@splose.com", roleName: "Practitioner", roleType: "Practitioner", group: "", status: "Active", isOwner: false },
@@ -13,10 +40,114 @@ const users = [
   { name: "Cheng Test", email: "machengjam@gmail.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "", status: "Active", isOwner: false },
 ];
 
+const roleOptions = [
+  { value: "Practitioner", label: "Practitioner" },
+  { value: "Practitioner admin", label: "Practitioner admin" },
+  { value: "Practice manager", label: "Practice manager" },
+  { value: "Receptionist", label: "Receptionist" },
+];
+
+const groupOptions = [
+  { value: "", label: "None" },
+  { value: "OT", label: "OT" },
+  { value: "Physio", label: "Physio" },
+  { value: "Intake team", label: "Intake team" },
+  { value: "Speech", label: "Speech" },
+];
+
+type UserForm = {
+  [key: string]: unknown;
+  name: string;
+  email: string;
+  role: string;
+  group: string;
+};
+
 export default function UsersPage() {
+  const [users, setUsers] = useState(initialUsers);
+
+  // Confirmation dialog state
+  const [confirmDialog, setConfirmDialog] = useState<{
+    open: boolean;
+    title: string;
+    message: string;
+    action: "deactivate" | "reset-password" | null;
+    userIndex: number | null;
+  }>({ open: false, title: "", message: "", action: null, userIndex: null });
+
+  const { modalOpen, isEditing, form, setField, openEdit, closeModal, handleSave } =
+    useFormModal<UserForm>({
+      defaults: { name: "", email: "", role: "Practitioner", group: "" },
+      onSave: (values, index) => {
+        if (index !== null) {
+          setUsers((prev) => {
+            const updated = [...prev];
+            updated[index] = {
+              ...updated[index],
+              name: values.name,
+              email: values.email,
+              roleName: values.role,
+              roleType: values.role,
+              group: values.group,
+            };
+            return updated;
+          });
+        }
+      },
+    });
+
+  const handleDropdownAction = useCallback(
+    (value: string, user: User, index: number) => {
+      if (value === "deactivate") {
+        setConfirmDialog({
+          open: true,
+          title: "Deactivate user",
+          message: `Are you sure you want to deactivate "${user.name}"? They will no longer be able to log in.`,
+          action: "deactivate",
+          userIndex: index,
+        });
+      } else if (value === "reset-password") {
+        setConfirmDialog({
+          open: true,
+          title: "Reset password",
+          message: `A password reset email will be sent to ${user.email}.`,
+          action: "reset-password",
+          userIndex: index,
+        });
+      } else if (value === "edit") {
+        openEdit(index, {
+          name: user.name,
+          email: user.email,
+          role: user.roleName,
+          group: user.group,
+        });
+      }
+    },
+    [openEdit],
+  );
+
+  const handleConfirmAction = useCallback(() => {
+    if (confirmDialog.action === "deactivate" && confirmDialog.userIndex !== null) {
+      setUsers((prev) => {
+        const updated = [...prev];
+        updated[confirmDialog.userIndex!] = {
+          ...updated[confirmDialog.userIndex!],
+          status: "Inactive",
+        };
+        return updated;
+      });
+    }
+    // For reset-password, just close the dialog (no-op in prototype)
+    setConfirmDialog({ open: false, title: "", message: "", action: null, userIndex: null });
+  }, [confirmDialog]);
+
+  const closeConfirmDialog = useCallback(() => {
+    setConfirmDialog({ open: false, title: "", message: "", action: null, userIndex: null });
+  }, []);
+
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <h1 className="text-display-lg text-text">Users</h1>
         <Button variant="primary">Invite users</Button>
       </div>
@@ -36,19 +167,60 @@ export default function UsersPage() {
               <Td className="text-text-secondary">{user.roleName}</Td>
               <Td className="text-text-secondary">{user.roleType}</Td>
               <Td className="text-text-secondary">{user.group || "---"}</Td>
-              <Td><Badge variant="green">{user.status}</Badge></Td>
+              <Td><Badge variant={user.status === "Active" ? "green" : "gray"}>{user.status}</Badge></Td>
               <Td align="right">
                 <Dropdown
                   align="right"
                   trigger={<DropdownTriggerButton />}
                   items={USER_ADMIN}
-                  onSelect={() => {}}
+                  onSelect={(value) => handleDropdownAction(value, user, index)}
                 />
               </Td>
             </Tr>
           ))}
         </TableBody>
       </DataTable>
+
+      {/* Edit User Modal */}
+      <Modal
+        open={modalOpen}
+        onClose={closeModal}
+        title="Edit user"
+        footer={
+          <>
+            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
+            <Button variant="primary" onClick={handleSave}>Save</Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
+          <FormInput label="Email" type="email" value={form.email} onChange={(e) => setField("email", e.target.value)} />
+          <FormSelect label="Role" options={roleOptions} value={form.role} onChange={(e) => setField("role", e.target.value)} />
+          <FormSelect label="User group" options={groupOptions} value={form.group} onChange={(e) => setField("group", e.target.value)} />
+        </div>
+      </Modal>
+
+      {/* Confirmation Dialog */}
+      <Modal
+        open={confirmDialog.open}
+        onClose={closeConfirmDialog}
+        title={confirmDialog.title}
+        maxWidth="sm"
+        footer={
+          <>
+            <Button variant="secondary" onClick={closeConfirmDialog}>Cancel</Button>
+            <Button
+              variant={confirmDialog.action === "deactivate" ? "danger" : "primary"}
+              onClick={handleConfirmAction}
+            >
+              {confirmDialog.action === "deactivate" ? "Deactivate" : "Send reset email"}
+            </Button>
+          </>
+        }
+      >
+        <p className="text-body-md text-text-secondary">{confirmDialog.message}</p>
+      </Modal>
     </div>
   );
 }

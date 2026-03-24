@@ -1,8 +1,9 @@
 "use client";
 
-import { PageHeader, Button, Card, DataTable, SearchBar, Pagination, TableHead, Th, TableBody, Td, EmptyState, Dropdown, DropdownTriggerButton } from "@/components/ds";
+import { PageHeader, Button, Card, DataTable, SearchBar, Pagination, TableHead, Th, TableBody, Td, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect } from "@/components/ds";
 import { Plus, Minus } from "lucide-react";
-import { useState, useMemo, Fragment } from "react";
+import { useState, useMemo, useCallback, Fragment } from "react";
+import { useFormModal } from "@/hooks/useFormModal";
 
 interface ProductVariant {
   name: string;
@@ -55,23 +56,72 @@ const dropdownItems = [
   { label: "Archive", value: "archive", danger: true },
 ];
 
+type ProductForm = {
+  [key: string]: unknown;
+  name: string;
+  code: string;
+  price: string;
+  tax: string;
+  type: string;
+};
+
+const taxOptions = [
+  { value: "gst", label: "GST (10%)" },
+  { value: "gst-free", label: "GST Free" },
+  { value: "exempt", label: "Exempt" },
+];
+
+const typeOptions = [
+  { value: "physical", label: "Physical" },
+  { value: "digital", label: "Digital" },
+  { value: "service", label: "Service" },
+];
+
 export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showArchived, setShowArchived] = useState(false);
   const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
+  const [products, setProducts] = useState(mockProducts);
+
+  // Confirmation dialog state
+  const [confirmDialog, setConfirmDialog] = useState<{
+    open: boolean;
+    title: string;
+    message: string;
+    action: "archive" | "delete" | null;
+    productIndex: number | null;
+  }>({ open: false, title: "", message: "", action: null, productIndex: null });
+
+  const { modalOpen, isEditing, form, setField, openEdit, closeModal, handleSave } =
+    useFormModal<ProductForm>({
+      defaults: { name: "", code: "", price: "", tax: "gst", type: "physical" },
+      onSave: (values, index) => {
+        if (index !== null) {
+          setProducts((prev) => {
+            const updated = [...prev];
+            updated[index] = {
+              ...updated[index],
+              name: values.name,
+              category: values.type,
+            };
+            return updated;
+          });
+        }
+      },
+    });
 
   const filteredProducts = useMemo(() => {
-    let products = mockProducts;
+    let filtered = products;
     if (!showArchived) {
-      products = products.filter((p) => !p.archived);
+      filtered = filtered.filter((p) => !p.archived);
     }
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
-      products = products.filter((p) => p.name.toLowerCase().includes(query));
+      filtered = filtered.filter((p) => p.name.toLowerCase().includes(query));
     }
-    return products;
-  }, [searchQuery, showArchived]);
+    return filtered;
+  }, [searchQuery, showArchived, products]);
 
   const totalItems = filteredProducts.length;
   const totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
@@ -93,6 +143,55 @@ export default function ProductsPage() {
     setSearchQuery(query);
     setCurrentPage(1);
   };
+
+  const handleDropdownAction = useCallback(
+    (value: string, product: Product, globalIndex: number) => {
+      // Find the actual index in the products array (not filtered/paginated)
+      const actualIndex = products.indexOf(product);
+      if (value === "edit") {
+        openEdit(actualIndex, {
+          name: product.name,
+          code: "",
+          price: product.stock !== null ? String(product.stock) : "",
+          tax: "gst",
+          type: product.category || "physical",
+        });
+      } else if (value === "archive") {
+        setConfirmDialog({
+          open: true,
+          title: product.archived ? "Unarchive product" : "Archive product",
+          message: product.archived
+            ? `Are you sure you want to unarchive "${product.name}"?`
+            : `Are you sure you want to archive "${product.name}"? Archived products will not appear in search results.`,
+          action: "archive",
+          productIndex: actualIndex,
+        });
+      } else if (value === "duplicate") {
+        setProducts((prev) => {
+          const newProduct = { ...product, name: `Copy of ${product.name}` };
+          const idx = prev.indexOf(product);
+          const updated = [...prev];
+          updated.splice(idx + 1, 0, newProduct);
+          return updated;
+        });
+      }
+    },
+    [products, openEdit],
+  );
+
+  const handleConfirmAction = useCallback(() => {
+    if (confirmDialog.action === "archive" && confirmDialog.productIndex !== null) {
+      setProducts((prev) => {
+        const updated = [...prev];
+        updated[confirmDialog.productIndex!] = {
+          ...updated[confirmDialog.productIndex!],
+          archived: !updated[confirmDialog.productIndex!].archived,
+        };
+        return updated;
+      });
+    }
+    setConfirmDialog({ open: false, title: "", message: "", action: null, productIndex: null });
+  }, [confirmDialog]);
 
   return (
     <div className="p-4 sm:p-6">
@@ -180,7 +279,7 @@ export default function ProductsPage() {
                           align="right"
                           trigger={<DropdownTriggerButton />}
                           items={dropdownItems}
-                          onSelect={() => {}}
+                          onSelect={(value) => handleDropdownAction(value, product, globalIndex)}
                         />
                       </div>
                     </Td>
@@ -246,6 +345,47 @@ export default function ProductsPage() {
           onPageChange={setCurrentPage}
         />
       </Card>
+
+      {/* Edit Product Modal */}
+      <Modal
+        open={modalOpen}
+        onClose={closeModal}
+        title={isEditing ? "Edit product" : "New product"}
+        footer={
+          <>
+            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
+            <Button variant="primary" onClick={handleSave}>Save</Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
+          <FormInput label="Code" value={form.code} onChange={(e) => setField("code", e.target.value)} />
+          <FormInput label="Price" type="number" value={form.price} onChange={(e) => setField("price", e.target.value)} />
+          <FormSelect label="Tax" options={taxOptions} value={form.tax} onChange={(e) => setField("tax", e.target.value)} />
+          <FormSelect label="Type" options={typeOptions} value={form.type} onChange={(e) => setField("type", e.target.value)} />
+        </div>
+      </Modal>
+
+      {/* Confirmation Dialog */}
+      <Modal
+        open={confirmDialog.open}
+        onClose={() => setConfirmDialog({ open: false, title: "", message: "", action: null, productIndex: null })}
+        title={confirmDialog.title}
+        maxWidth="sm"
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setConfirmDialog({ open: false, title: "", message: "", action: null, productIndex: null })}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={handleConfirmAction}>
+              {confirmDialog.action === "archive" ? "Archive" : "Delete"}
+            </Button>
+          </>
+        }
+      >
+        <p className="text-body-md text-text-secondary">{confirmDialog.message}</p>
+      </Modal>
     </div>
   );
 }

@@ -69,17 +69,35 @@ const importHistory: ImportRow[] = [
 const ITEMS_PER_PAGE = 10;
 
 const dropdownItems = [
-  { label: "View", value: "view" },
+  { label: "View details", value: "view" },
+  { label: "Re-import", value: "re-import" },
   { label: "Delete", value: "delete", danger: true },
 ];
 
 export default function DataImportPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [importOpen, setImportOpen] = useState(false);
+  const [viewRow, setViewRow] = useState<ImportRow | null>(null);
+  const [reImportRow, setReImportRow] = useState<ImportRow | null>(null);
+  const [deleteRow, setDeleteRow] = useState<ImportRow | null>(null);
 
   const totalPages = Math.ceil(importHistory.length / ITEMS_PER_PAGE);
   const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
   const pageItems = importHistory.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+
+  function handleAction(value: string, row: ImportRow) {
+    switch (value) {
+      case "view":
+        setViewRow(row);
+        break;
+      case "re-import":
+        setReImportRow(row);
+        break;
+      case "delete":
+        setDeleteRow(row);
+        break;
+    }
+  }
 
   return (
     <div className="p-6">
@@ -155,7 +173,7 @@ export default function DataImportPage() {
                   align="right"
                   trigger={<DropdownTriggerButton />}
                   items={dropdownItems}
-                  onSelect={() => {}}
+                  onSelect={(value) => handleAction(value, row)}
                 />
               </Td>
             </Tr>
@@ -171,6 +189,7 @@ export default function DataImportPage() {
         onPageChange={setCurrentPage}
       />
 
+      {/* Import from modal */}
       <Modal open={importOpen} onClose={() => setImportOpen(false)} title="Import from">
         <div className="grid grid-cols-2 gap-4">
           <button
@@ -200,6 +219,90 @@ export default function DataImportPage() {
             </div>
           </button>
         </div>
+      </Modal>
+
+      {/* View details modal */}
+      <Modal
+        open={!!viewRow}
+        onClose={() => setViewRow(null)}
+        title="Import details"
+        maxWidth="md"
+        footer={
+          <Button variant="secondary" onClick={() => setViewRow(null)}>Close</Button>
+        }
+      >
+        {viewRow && (
+          <div className="space-y-3">
+            <div className="flex justify-between border-b border-border pb-2">
+              <span className="text-label-lg text-text-secondary">Type</span>
+              <span className="text-body-md text-text">{viewRow.type}</span>
+            </div>
+            <div className="flex justify-between border-b border-border pb-2">
+              <span className="text-label-lg text-text-secondary">Status</span>
+              <Badge variant={viewRow.statusVariant}>{viewRow.status}</Badge>
+            </div>
+            <div className="flex justify-between border-b border-border pb-2">
+              <span className="text-label-lg text-text-secondary">Message</span>
+              <span className="text-body-md text-text">{viewRow.message || "—"}</span>
+            </div>
+            <div className="flex justify-between border-b border-border pb-2">
+              <span className="text-label-lg text-text-secondary">Created</span>
+              <span className="text-body-md text-text">{viewRow.createdAt}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-label-lg text-text-secondary">Last updated</span>
+              <span className="text-body-md text-text">{viewRow.updatedAt}</span>
+            </div>
+          </div>
+        )}
+      </Modal>
+
+      {/* Re-import confirmation modal */}
+      <Modal
+        open={!!reImportRow}
+        onClose={() => setReImportRow(null)}
+        title="Re-import"
+        maxWidth="sm"
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setReImportRow(null)}>Cancel</Button>
+            <Button variant="primary" onClick={() => setReImportRow(null)}>Re-import</Button>
+          </>
+        }
+      >
+        <p className="text-body-md text-text-secondary">
+          Re-import this file? This will process the original file again.
+        </p>
+        {reImportRow && (
+          <div className="mt-3 rounded-lg bg-gray-50 p-3">
+            <p className="text-label-lg text-text">{reImportRow.type} import</p>
+            <p className="text-body-sm text-text-secondary">Created: {reImportRow.createdAt}</p>
+          </div>
+        )}
+      </Modal>
+
+      {/* Delete confirmation modal */}
+      <Modal
+        open={!!deleteRow}
+        onClose={() => setDeleteRow(null)}
+        title="Delete import"
+        maxWidth="sm"
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setDeleteRow(null)}>Cancel</Button>
+            <Button variant="danger" onClick={() => setDeleteRow(null)}>Delete</Button>
+          </>
+        }
+      >
+        <p className="text-body-md text-text-secondary">
+          Delete this import record? This action cannot be undone.
+        </p>
+        {deleteRow && (
+          <div className="mt-3 rounded-lg bg-gray-50 p-3">
+            <p className="text-label-lg text-text">{deleteRow.type} import</p>
+            <p className="text-body-sm text-text-secondary">Created: {deleteRow.createdAt}</p>
+          </div>
+        )}
       </Modal>
     </div>
   );
