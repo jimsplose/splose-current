@@ -546,8 +546,7 @@ export default function CalendarView({
                     className={`border-r border-border px-1 py-1.5 text-center last:border-r-0`}
                   >
                     <div className="flex items-center justify-center gap-1">
-                      <ColorDot color={p.color} size="xs" />
-                      <span className="truncate text-label-md text-text">
+                      <span className="truncate text-[14px] font-normal text-[rgb(112,117,122)]">
                         {p.name.split(" ")[0]} {p.name.split(" ")[1]?.[0]}.
                       </span>
                     </div>
@@ -562,31 +561,50 @@ export default function CalendarView({
                 className="grid min-w-[700px]"
                 style={{ gridTemplateColumns: `60px repeat(${filteredPractitioners.length}, 1fr)` }}
               >
-                {HOURS.map((hour) => (
+                {HOURS.map((hour) => {
+                  const locGroups = groupByLocation(assignLocations(filteredPractitioners));
+                  return (
                   <div key={hour} className="contents">
                     <div
-                      className="flex items-start justify-end border-r border-border/40 px-2 py-1"
-                      style={{ height: `${HOUR_HEIGHT}px`, borderBottom: '1px dashed #e8e8e8' }}
+                      className="flex items-start justify-end px-2 py-1"
+                      style={{ height: `${HOUR_HEIGHT}px`, borderBottom: '1px solid #e0e0e0', borderRight: '1px solid #e0e0e0' }}
                     >
                       <span className="-mt-1.5 text-[10px] text-[rgb(65,69,73)]">
                         {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
                       </span>
                     </div>
-                    {filteredPractitioners.map((prac) => {
-                      const currentDay = weekDates.find((d) => d === todayStr) || weekDates[0];
-                      const hourAppts = filteredAppointments.filter(
-                        (a) =>
-                          a.date === currentDay &&
-                          a.practitionerName === prac.name &&
-                          parseInt(a.startTime.split(":")[0]) === hour,
-                      );
-                      return (
-                        <div
-                          key={prac.id}
-                          className="relative cursor-pointer border-r border-border/20 last:border-r-0 hover:bg-gray-50/50"
-                          style={{ height: `${HOUR_HEIGHT}px`, borderBottom: '1px dashed #e8e8e8' }}
-                          onClick={(e) => handleDayCellClick(e, currentDay, hour, prac)}
-                        >
+                    {(() => {
+                      let pracIdx = 0;
+                      return locGroups.map((group, gi) =>
+                        group.practitioners.map((prac) => {
+                          const currentDay = weekDates.find((d) => d === todayStr) || weekDates[0];
+                          const hourAppts = filteredAppointments.filter(
+                            (a) =>
+                              a.date === currentDay &&
+                              a.practitionerName === prac.name &&
+                              parseInt(a.startTime.split(":")[0]) === hour,
+                          );
+                          const isUnavailable = hour < 9 || hour >= 17;
+                          const isGroupEnd = pracIdx === locGroups.slice(0, gi + 1).reduce((s, g) => s + g.practitioners.length, 0) - 1;
+                          pracIdx++;
+                          return (
+                            <div
+                              key={prac.id}
+                              className="relative cursor-pointer hover:bg-gray-50/30"
+                              style={{
+                                height: `${HOUR_HEIGHT}px`,
+                                borderBottom: '1px solid #e0e0e0',
+                                borderRight: isGroupEnd ? '1px solid #d0d0d0' : '1px solid #f0f0f0',
+                                backgroundColor: isUnavailable ? '#f5f5f5' : gi % 2 === 0 ? 'rgba(0,0,0,0.012)' : 'transparent',
+                              }}
+                              onClick={(e) => handleDayCellClick(e, currentDay, hour, prac)}
+                            >
+                              {/* 15-min subdivision lines */}
+                              <div className="pointer-events-none absolute inset-0">
+                                <div className="absolute w-full" style={{ top: '25%', borderBottom: '1px solid #f0f0f0' }} />
+                                <div className="absolute w-full" style={{ top: '50%', borderBottom: '1px solid #ebebeb' }} />
+                                <div className="absolute w-full" style={{ top: '75%', borderBottom: '1px solid #f0f0f0' }} />
+                              </div>
                           {hourAppts.map((appt) => {
                             const pos = getApptStyle(appt);
                             return (
@@ -611,11 +629,14 @@ export default function CalendarView({
                               </div>
                             );
                           })}
-                        </div>
+                            </div>
+                          );
+                        })
                       );
-                    })}
+                    })()}
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </>
@@ -632,23 +653,34 @@ export default function CalendarView({
             {/* Single scrollable container for header + grid */}
             <div className="flex-1 overflow-auto">
               {/* Sticky day + practitioner headers */}
-              <div style={{ width: totalWidth, display: "grid", gridTemplateColumns: gridCols }} className="sticky top-0 z-20 border-b border-border bg-white">
-                <div className="border-r border-border" />
-                {weekDates.map((dateStr, i) => {
-                  const date = new Date(dateStr + "T00:00:00");
-                  const isToday = dateStr === todayStr;
-                  return (
-                    <div key={i} className="border-r border-border/40 last:border-r-0">
-                      <div className="px-2 pt-1 text-center">
+              <div className="sticky top-0 z-20 bg-white">
+                {/* Day name + number row — NO vertical borders */}
+                <div style={{ width: totalWidth, display: "grid", gridTemplateColumns: gridCols }}>
+                  <div />
+                  {weekDates.map((dateStr, i) => {
+                    const date = new Date(dateStr + "T00:00:00");
+                    const isToday = dateStr === todayStr;
+                    return (
+                      <div key={i} className="px-2 pt-2 pb-1 text-center">
                         <div className={`text-[14px] font-medium ${isToday ? "text-primary" : "text-[rgb(112,117,122)]"}`}>{DAYS[i]}</div>
                         {isToday ? (
-                          <div className="mx-auto flex h-[40px] w-[40px] items-center justify-center rounded-full bg-primary text-[20px] font-medium text-white">{date.getDate()}</div>
+                          <div className="mx-auto flex h-[48px] w-[48px] items-center justify-center rounded-full bg-primary text-[24px] font-normal text-white">{date.getDate()}</div>
                         ) : (
                           <div className="text-[24px] font-light text-text">{date.getDate()}</div>
                         )}
-                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                {/* Location groups + practitioner names — WITH vertical borders */}
+                <div style={{ width: totalWidth, display: "grid", gridTemplateColumns: gridCols }} className="border-b border-border">
+                  <div className="border-r border-[#d0d0d0]" />
+                  {weekDates.map((dateStr, i) => {
+                    const isToday = dateStr === todayStr;
+                    return (
+                      <div key={i} className="border-r border-[#d0d0d0] last:border-r-0">
                       {/* Location group headers */}
-                      <div className="flex border-t border-border/50">
+                      <div className="flex">
                         {groupByLocation(assignLocations(filteredPractitioners)).map((group, gi) => (
                           <div key={group.name} className={`text-center ${gi > 0 ? "border-l border-border" : ""}`} style={{ width: group.practitioners.length * COL_W }}>
                             <div className="truncate px-1 py-0.5 text-[14px] font-normal text-[rgb(112,117,122)]">{group.name}</div>
@@ -672,13 +704,14 @@ export default function CalendarView({
                     </div>
                   );
                 })}
+                </div>
               </div>
 
               {/* Time grid (scrolls with header) */}
               <div style={{ width: totalWidth, display: "grid", gridTemplateColumns: gridCols }}>
                 {HOURS.map((hour) => (
                   <div key={hour} className="contents">
-                    <div className="flex items-start justify-end border-r border-border/40 px-1 py-1" style={{ height: HOUR_HEIGHT, borderBottom: '1px dashed #e8e8e8' }}>
+                    <div className="flex items-start justify-end border-r border-border/40 px-1 py-1" style={{ height: HOUR_HEIGHT, borderBottom: '1px solid #ebebeb' }}>
                       <span className="-mt-1.5 text-[10px] text-[rgb(65,69,73)]">
                         {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
                       </span>
@@ -688,9 +721,9 @@ export default function CalendarView({
                         <div key={dayIdx} className="relative border-r border-[#e8e8e8] last:border-r-0" style={{ height: HOUR_HEIGHT, borderBottom: '1px solid #e8e8e8' }}>
                           {/* 15-minute subdivision lines */}
                           <div className="pointer-events-none absolute inset-0">
-                            <div className="absolute w-full" style={{ top: '25%', borderBottom: '1px dashed #f0f0f0' }} />
-                            <div className="absolute w-full" style={{ top: '50%', borderBottom: '1px dashed #e8e8e8' }} />
-                            <div className="absolute w-full" style={{ top: '75%', borderBottom: '1px dashed #f0f0f0' }} />
+                            <div className="absolute w-full" style={{ top: '25%', borderBottom: '1px solid #f0f0f0' }} />
+                            <div className="absolute w-full" style={{ top: '50%', borderBottom: '1px solid #ebebeb' }} />
+                            <div className="absolute w-full" style={{ top: '75%', borderBottom: '1px solid #f0f0f0' }} />
                           </div>
                           {/* Practitioner sub-columns */}
                           <div className="absolute inset-0 flex">
