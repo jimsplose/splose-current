@@ -177,6 +177,23 @@ function darkenColor(color: string, amount = 0.4): string {
   return `rgb(${Math.round(r * amount)}, ${Math.round(g * amount)}, ${Math.round(b * amount)})`;
 }
 
+/** Return black or white text based on background luminance */
+function getContrastText(color: string): string {
+  let r = 128, g = 128, b = 128;
+  if (color.startsWith("#")) {
+    const hex = color.replace("#", "");
+    r = parseInt(hex.substring(0, 2), 16);
+    g = parseInt(hex.substring(2, 4), 16);
+    b = parseInt(hex.substring(4, 6), 16);
+  } else if (color.startsWith("rgb")) {
+    const match = color.match(/(\d+)/g);
+    if (match) { r = parseInt(match[0]); g = parseInt(match[1]); b = parseInt(match[2]); }
+  }
+  // Relative luminance formula
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return luminance > 0.6 ? 'rgb(30, 30, 30)' : 'rgb(255, 255, 255)';
+}
+
 function isGroupAppointment(appt: Appointment): boolean {
   const t = appt.type.toLowerCase();
   return t.includes("group");
@@ -470,7 +487,7 @@ export default function CalendarView({
 
           {/* Right group: sparkle, Calendar, Week — lighter borders */}
           <div className="flex items-center gap-[5px]">
-            <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full border border-primary/30 text-primary hover:bg-purple-50">
+            <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full border border-[rgb(65,69,73)] text-primary hover:bg-purple-50">
               <Sparkles className="h-4 w-4" />
             </button>
 
@@ -614,9 +631,10 @@ export default function CalendarView({
                             return (
                               <div
                                 key={appt.id}
-                                className="absolute inset-x-1 z-10 cursor-pointer overflow-hidden rounded px-2 py-1.5 text-white shadow-sm"
+                                className="absolute inset-x-1 z-10 cursor-pointer overflow-hidden rounded px-2 py-1.5 shadow-sm"
                                 style={{
                                   backgroundColor: appt.practitionerColor,
+                                  color: getContrastText(appt.practitionerColor),
                                   opacity: appt.status === "Cancelled" ? 0.5 : 1,
                                   ...pos,
                                 }}
@@ -625,11 +643,11 @@ export default function CalendarView({
                                   setSelectedAppt(appt);
                                 }}
                               >
-                                <p className="truncate text-label-md">{appt.clientName}</p>
-                                <p className="text-caption-sm opacity-80">
-                                  {appt.startTime} – {appt.endTime.replace(/^0/, "")}
+                                <p className="truncate text-[12px] font-bold">{appt.clientName}</p>
+                                <p className="text-[12px]">
+                                  {formatTime12h(appt.startTime)} – {formatTime12h(appt.endTime)}
                                 </p>
-                                <p className="truncate text-caption-sm opacity-70">{appt.type}</p>
+                                <p className="truncate text-[12px]">{appt.type}</p>
                               </div>
                             );
                           })}
@@ -760,15 +778,15 @@ export default function CalendarView({
                                         className="absolute inset-x-0.5 z-10 cursor-pointer overflow-hidden rounded-sm px-1 py-0.5"
                                         style={{
                                           backgroundColor: appt.practitionerColor,
-                                          color: 'rgb(65, 69, 73)',
+                                          color: getContrastText(appt.practitionerColor),
                                           opacity: appt.status === "Cancelled" ? 0.5 : 1,
                                           ...pos,
                                         }}
                                         onClick={(e) => { e.stopPropagation(); setSelectedAppt(appt); }}
                                       >
-                                        <p className="truncate text-[14px] font-normal">{appt.clientName}</p>
-                                        <p className="text-[14px] font-normal">{formatTime12h(appt.startTime)}</p>
-                                        <p className="truncate text-[14px] font-normal">{appt.type}</p>
+                                        <p className="truncate text-[12px] font-bold">{appt.clientName}</p>
+                                        <p className="text-[12px]">{formatTime12h(appt.startTime)}</p>
+                                        <p className="truncate text-[12px]">{appt.type}</p>
                                       </div>
                                     );
                                   })}
@@ -1403,11 +1421,10 @@ function MonthView({
                     return (
                       <div
                         key={appt.id}
-                        className={`flex cursor-pointer items-center gap-0.5 rounded border px-1 py-0.5 text-caption-sm font-medium ${isCancelled ? "opacity-60" : ""}`}
+                        className={`flex cursor-pointer items-center gap-0.5 rounded px-1 py-0.5 text-[12px] font-medium ${isCancelled ? "opacity-60" : ""}`}
                         style={{
-                          backgroundColor: lightenColor(appt.practitionerColor),
-                          borderColor: lightenColor(appt.practitionerColor, 0.6),
-                          color: darkenColor(appt.practitionerColor),
+                          backgroundColor: appt.practitionerColor,
+                          color: getContrastText(appt.practitionerColor),
                         }}
                         onClick={() => onApptClick(appt)}
                       >
