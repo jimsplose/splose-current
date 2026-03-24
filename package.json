@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && tsx scripts/db-push.ts && next build",
+    "build": "prisma generate && tsx scripts/db-push.ts && storybook build -o storybook-static --quiet && rm -rf public/storybook && mv storybook-static public/storybook && next build",
     "db:seed": "tsx prisma/seed.ts",
     "db:push": "prisma db push",
     "postinstall": "prisma generate",
