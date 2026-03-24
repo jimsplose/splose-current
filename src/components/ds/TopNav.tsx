@@ -87,7 +87,7 @@ export default function TopNav({ brand = "splose", items, children, className = 
   const overflowItems = items.slice(visibleCount);
 
   const linkClass = (href: string) =>
-    `flex h-full items-center border-t-2 px-[15px] text-[14px] whitespace-nowrap transition-colors ${
+    `flex h-full items-center border-t-2 px-[15px] text-[14px] leading-[56px] whitespace-nowrap transition-colors subpixel-antialiased ${
       isActive(href)
         ? "border-primary font-semibold text-primary"
         : "border-transparent font-normal text-[rgb(65,69,73)] hover:text-primary"
@@ -135,7 +135,7 @@ export default function TopNav({ brand = "splose", items, children, className = 
                 <button
                   type="button"
                   onClick={() => setMoreOpen(!moreOpen)}
-                  className={`flex h-full items-center gap-1 border-t-2 px-[15px] text-[14px] font-normal transition-colors ${
+                  className={`flex h-full items-center gap-1 border-t-2 px-[15px] text-[14px] leading-[56px] font-normal subpixel-antialiased transition-colors ${
                     overflowItems.some((i) => isActive(i.href))
                       ? "border-primary font-semibold text-primary"
                       : "border-transparent text-[rgb(65,69,73)] hover:text-primary"
