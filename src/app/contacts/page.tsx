@@ -174,7 +174,7 @@ function getTypeLabel(type: string) {
 
 export default function ContactsPage() {
   return (
-    <div className="px-[22.5px] py-[5px]">
+    <div className="px-[22.5px] py-[10px]">
       <PageHeader title="Contacts">
         <Link href="/contacts/new">
           <Button>

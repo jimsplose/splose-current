@@ -85,7 +85,7 @@
     font-family: var(--font-display);
     font-size: var(--text-2xl);
     font-weight: 700;
-    line-height: var(--leading-tight);
+    line-height: 36px;
     letter-spacing: var(--tracking-tight);
     --tw-text-opacity: 1;
     color: rgb(40 103 68 / var(--tw-text-opacity));

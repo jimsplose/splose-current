@@ -29,7 +29,7 @@ interface ClientRow {
 
 export default function ClientsPageClient({ clients }: { clients: ClientRow[] }) {
   return (
-    <div className="px-[22.5px] py-[5px]">
+    <div className="px-[22.5px] py-[10px]">
       <PageHeader title="Clients">
         <Link href="/clients/new">
           <Button>

@@ -101,7 +101,7 @@ export default function PaymentsPage() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   return (
-    <div className="px-[22.5px] py-[5px]">
+    <div className="px-[22.5px] py-[10px]">
       {/* Header */}
       <PageHeader title="Payments">
         <Button variant="secondary">
