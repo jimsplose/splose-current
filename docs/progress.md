@@ -4,6 +4,37 @@ Append-only log. Each session adds an entry summarizing what was done.
 
 ---
 
+## Session — 2026-03-24
+
+**Branch**: `main` (pushed directly)
+
+### Completed — Visual Audit + Workflow Fix
+
+**Workflow improvements ("See then Do" pattern):**
+- Updated 5 docs: `agent-block.md`, `quality-gate.md`, `fidelity-workflow.md`, `visual-audit-workflow.md`, `CLAUDE.md`
+- Core change: Split visual work into "See" (main agent reads screenshots) and "Do" (subagents get text-only Fix Briefs)
+- Chrome MCP verification is now conditional with a fallback path (code review + style reference comparison)
+- Prevents "Prompt is too long" errors when agents try to read screenshot images
+- Added Fix Brief and Gap Report formats for structured text-based audit communication
+
+**Visual audit results:**
+- Catalog: 64 partial → 21 partial (43 entries upgraded to "yes")
+- 236 total "yes" entries, 21 remaining "partial"
+- 11 of 21 remaining partials are inherent limitations (mobile views, native date pickers, design pattern choices)
+
+**Code fixes:**
+- Notes New page: 6 gaps fixed (single Service dropdown, autosaved badge, Save as final button, client name in header, split view default, removed extra + button)
+- Waitlist: Added Update Client modal with 10 fields (Location, Practitioner, Client, Date, Service chips, Preferred days, Preferred time, Note, Waitlist tags)
+- Reports Appointments: Added filter Dropdown (Status/Service type/Location/Practitioner) with filter chips
+- Reports Performance: Added Export Dropdown (CSV/PDF) with toast notification
+- Reports Progress Notes: Enhanced stats row and results view
+
+### Remaining 21 partial entries (categorized)
+**Inherent limitations (11):** Login SVG vs image (2), Settings mobile (2), Invoices mobile (2), native date pickers (2), client list filter pattern change (2), waitlist map placeholder (1)
+**Fixable in future sessions (10):** Form template notification modals (2), Online booking location step (4), Notes AI chat panel (2), Products Manage Stock modal (1), Performance utilisation popover (1)
+
+---
+
 ## Session — 2026-03-18
 
 **Branch**: `claude/fidelity-sprint-automation-0cFV5`
