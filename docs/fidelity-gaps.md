@@ -228,7 +228,7 @@ Patterns identified from the interactive states implementation audit. All opport
 - [x] **Phone number formatting** — Fixed: Clients list phones now render as purple clickable `<a href="tel:">` links. (2026-03-25)
 - [x] **Sort/filter icon colors** — Fixed: Th component uses `text-primary/60` (purple tint) instead of gray. (2026-03-25)
 - [x] **Status badge styling** — Fixed: Badge component has new `solid` prop; invoices use solid filled pills matching production. (2026-03-25)
-- [ ] **Tag styling** — Clients list tags show as small filled colored badges (red NDIS, green Medicare). Production uses larger outlined yellow/gold pill badges. Affects: `src/app/clients/page.tsx`, client detail tags section. (2026-03-25)
+- [x] **Tag styling** — Fixed: Clients list tags now use outlined yellow/gold pill style (border-yellow-400 bg-yellow-50). (2026-03-25)
 - [x] **Section dividers** — Fixed: Client detail uses `border-t-2 border-orange-200` dividers matching production. (2026-03-25)
 - [ ] **Rich text editor toolbar** — Missing GIF button, undo/redo arrows, horizontal rule (—) icon across all editor instances. Extra "N" avatar on Dashboard. Toolbar uses "..." overflow instead of showing all icons. Affects: Dashboard compose area, Settings email signature, note editors. (2026-03-25)
 
@@ -251,8 +251,8 @@ Patterns identified from the interactive states implementation audit. All opport
 ### Group AF — Settings fidelity (`src/app/settings/`)
 
 - [x] **Settings sidebar label** — Fixed: Renamed to "Cancel/Reschedule". (2026-03-25)
-- [ ] **Settings email signature switcher** — Uses plain tab buttons "Business" / "User". Production uses dropdown pill buttons "Business ∨" / "User ∨". (2026-03-25)
-- [ ] **Settings disabled fields** — Currency code, Country, Currency symbol should appear as disabled/gray read-only fields. Currently show as editable. (2026-03-25)
+- [x] **Settings email signature switcher** — Fixed: Uses pill dropdown buttons "Business ∨" / "User ∨" matching production. (2026-03-25)
+- [x] **Settings disabled fields** — Fixed: Currency code, Country, Currency symbol now disabled with gray background. (2026-03-25)
 
 ---
 
