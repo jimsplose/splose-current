@@ -23,7 +23,7 @@ export default function SearchBar({ placeholder = "Search...", onSearch, default
       />
       <button
         onClick={() => onSearch?.(query)}
-        className="h-[38px] rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-[16px] text-text hover:bg-gray-50"
+        className="h-[38px] rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-[16px] text-text hover:border-primary-light hover:text-primary-light"
       >
         Search
       </button>

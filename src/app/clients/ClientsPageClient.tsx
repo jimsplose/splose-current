@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import {
@@ -27,7 +28,13 @@ interface ClientRow {
   medicare: string | null;
 }
 
+const PAGE_SIZE = 10;
+
 export default function ClientsPageClient({ clients }: { clients: ClientRow[] }) {
+  const [page, setPage] = useState(1);
+  const totalPages = Math.ceil(clients.length / PAGE_SIZE);
+  const paged = clients.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
   return (
     <div className="px-[22.5px] py-[10px]">
       <PageHeader title="Clients">
@@ -42,16 +49,16 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
 
       <DataTable className="table-fixed">
         <TableHead>
-          <Th sortable filterable className="w-[25%]">Name</Th>
+          <Th sortable filterable className="w-[25%] bg-table-header">Name</Th>
           <Th hidden="sm" className="w-[8%]">Date of birth</Th>
           <Th hidden="md" className="w-[28%]">Phone</Th>
           <Th hidden="lg" className="w-[16%]">Email</Th>
           <Th hidden="md" filterable className="w-[21%]">Tags</Th>
         </TableHead>
         <TableBody>
-          {clients.map((client) => (
+          {paged.map((client) => (
             <Tr key={client.id} clickable className="group relative">
-              <Td>
+              <Td className="bg-surface-header">
                 <Link href={`/clients/${client.id}`} className="absolute inset-0" aria-label={`View ${client.firstName} ${client.lastName}`} />
                 <span className="group-hover:underline">
                   {client.firstName} {client.lastName}
@@ -77,7 +84,7 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
           ))}
         </TableBody>
       </DataTable>
-      <Pagination currentPage={1} totalPages={1} totalItems={clients.length} itemsPerPage={10} />
+      <Pagination currentPage={page} totalPages={totalPages} totalItems={clients.length} itemsPerPage={PAGE_SIZE} onPageChange={setPage} />
     </div>
   );
 }
