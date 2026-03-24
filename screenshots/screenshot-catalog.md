@@ -352,7 +352,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.25.45 pm.png | New progress note — Service, Template selector, Select/Copy buttons | partial |
+| Screenshot 2026-03-17 at 7.25.45 pm.png | New progress note — Service, Template selector, Select/Copy buttons | yes — Service dropdown, autosaved badge, Save as final button, split view default 2026-03-24 |
 
 ## Notes — Edit Progress Note (`/notes/:id/edit`)
 
@@ -691,7 +691,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 5.54.43 pm.png | New progress note — desktop, empty with Service pre-filled, Template selector | partial |
+| Screenshot 2026-03-11 at 5.54.43 pm.png | New progress note — desktop, empty with Service pre-filled, Template selector | yes — single Service dropdown, autosaved badge, Save as final button, split view 2026-03-24 |
 
 ## Notes — Edit Progress Note (`/notes/:id/edit`) — March 11
 

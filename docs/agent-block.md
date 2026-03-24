@@ -70,14 +70,25 @@ New components use [DaisyUI](https://daisyui.com/components/) names where a matc
 
 If a design spec exists at `screenshots/specs/<page-name>.md`, read it and implement using those **exact values** — colors, font sizes, spacing, border-radius. Do not approximate. Cross-reference your Tailwind classes against the spec.
 
-## Visual Verification — MANDATORY (Chrome MCP)
+## Visual Verification — CONDITIONAL
 
-After making your code changes, verify visually using Chrome MCP:
+After making your code changes, verify visually if Chrome MCP is available:
+
+**If Chrome MCP is available:**
 1. Navigate to the changed page at `http://localhost:3000/<page-path>`
 2. Take a Chrome MCP screenshot and compare against `screenshots/reference/` and `splose-style-reference/`
 3. Fix any visual mismatches and re-check
 
-### Acceptance criteria:
+**If Chrome MCP is NOT available:**
+1. Skip screenshot capture — do not attempt Chrome MCP operations
+2. Report your changes in a structured summary:
+   - Files modified and what changed in each
+   - DS components used (with props)
+   - Tailwind classes applied for key visual elements (colors, spacing, typography)
+   - Any areas of uncertainty where visual verification would help
+3. The main agent will verify your work afterward
+
+### Acceptance criteria (apply regardless of verification method):
 - **Layout**: Same grid/flex structure, same sidebar/header/content arrangement
 - **Components**: Correct DS components used (Button not bare `<button>`, Badge not inline pill, etc.)
 - **Content**: Same column headers, labels, placeholder text, button labels as reference

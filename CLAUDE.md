@@ -19,6 +19,8 @@ Before ANY other work, use AskUserQuestion with these options (exception: user's
 For options 3/4/5, follow with duration question: Quick (2-3 gaps) / Standard (5-6) / Extended (all, autonomous) / Until done.
 **Return to menu** after completing any workflow. Show brief summary of what was done.
 
+**Chrome MCP detection:** At session start, check if Chrome MCP tools are available (look for browser/Chrome tools in the tool list). Record the result for the session. If unavailable, inform Jim and note that visual verification will use the fallback path (main-agent screenshot reading + code review). All workflows adapt automatically — see `docs/quality-gate.md` Step 3.
+
 ## Workflow Files — ALWAYS read before starting
 
 | Workflow | Read first |
@@ -38,16 +40,22 @@ A gap is `[x]` only when ALL related `screenshots/screenshot-catalog.md` entries
 
 **ALWAYS use DS components** from `@/components/ds` — never inline Tailwind for common patterns. 40+ components (see `docs/reference/ds-component-catalog.md` for full list). Storybook: `npm run storybook` (port 6006). Use [DaisyUI naming](https://daisyui.com/components/). When a pattern appears on 2+ pages, extract to DS and add a Storybook story.
 
-## Chrome MCP Visual Verification — MANDATORY
+## Chrome MCP Visual Verification
 
-**All UI work** must be verified visually using Chrome MCP before committing. This applies whether the work was done by a subagent or directly by the main agent. No exceptions.
+**All UI work** must be verified visually before committing. Chrome MCP is the preferred method. If Chrome MCP is unavailable in a session, use the fallback verification path described in `docs/quality-gate.md` Step 3 Path B.
 
+**When Chrome MCP is available:**
 1. Ensure dev server is running (`npm run dev` on localhost:3000)
 2. Navigate to each changed page in Chrome MCP
 3. Take a screenshot and compare against `screenshots/reference/`
 4. Fix any mismatches before committing
 
-**Do NOT use** Puppeteer, Playwright, pixel-diff scripts, or headless browser screenshots. Chrome MCP is the only visual verification tool.
+**When Chrome MCP is not available (fallback):**
+1. Main agent reads reference screenshots (max 2 at a time) and compares against page source code
+2. Cross-reference against `splose-style-reference/` for exact token values
+3. Use "partial — code-review only" for uncertain catalog entries (never false-positive to "yes")
+
+**Do NOT use** Puppeteer, Playwright, pixel-diff scripts, or headless browser screenshots. Chrome MCP is the only live visual verification tool.
 
 ## Subagents
 

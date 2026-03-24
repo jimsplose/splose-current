@@ -12,19 +12,34 @@ Verify implemented pages match their reference screenshots. This closes the loop
 
 See **Gap completion rule** in CLAUDE.md. The catalog (`screenshots/screenshot-catalog.md`) Match column determines gap status: **yes** (matches), **partial** (with notes on what's missing), or **no** (does not match / unverified).
 
+## Step 0: Chrome MCP availability check
+
+At audit start, check if Chrome MCP tools are available in the current session. This determines which verification path to use throughout:
+
+- **Chrome MCP available:** Use the full visual verification path (capture live screenshots, compare against references)
+- **Chrome MCP not available:** Use the fallback path (main-agent reads reference screenshots + code comparison)
+
+Record the result for the session and inform Jim if fallback mode is active.
+
 ## Step 1: Pick pages to audit
 
 Read `screenshots/screenshot-catalog.md` and identify entries with Match = "no" or "partial". Prioritize: (1) "partial" entries, (2) high-traffic pages (Dashboard, Calendar, Clients), (3) recently worked-on pages.
 
 ## Step 2: Capture current state
 
-Use **Chrome MCP** to navigate to each page at `http://localhost:3000/<page-path>` and take screenshots. For pages with multiple states, navigate to each `?state=<variant>` or interact (click tabs, open dropdowns) and capture each state.
+**Chrome MCP available:**
+Use Chrome MCP to navigate to each page at `http://localhost:3000/<page-path>` and take screenshots. For pages with multiple states, navigate to each `?state=<variant>` or interact (click tabs, open dropdowns) and capture each state.
+
+**Chrome MCP not available (fallback):**
+Read the page source code (`src/app/<page>/page.tsx` or relevant component files). Note that live visual capture is unavailable — the audit will use reference screenshot reading and code comparison instead.
 
 ## Step 3: Three-source comparison
 
 ### 3a. Visual — Chrome MCP vs saved references
 
-Capture the current prototype page with Chrome MCP, then compare side-by-side against the saved reference in `screenshots/reference/`.
+**Chrome MCP available:** Capture the current prototype page with Chrome MCP, then compare side-by-side against the saved reference in `screenshots/reference/`.
+
+**Chrome MCP not available:** Skip this step; use Step 3d instead.
 
 ### 3b. Style reference — extracted CSS values
 
@@ -38,6 +53,15 @@ Compare Tailwind classes against extracted CSS values for font sizes, colors, bo
 ### 3c. Structural — DOM hierarchy
 
 Compare the prototype's component tree against page-structure references: same nesting depth, element roles (list/table/tabs/cards), and interactive states (dropdowns/modals/panels).
+
+### 3d. Main-agent screenshot reading (fallback only)
+
+When Chrome MCP is not available, the main agent reads reference screenshots directly:
+
+1. Read reference screenshots from `screenshots/reference/` using the Read tool — **max 2 screenshots per comparison pass**
+2. Process one page group at a time to avoid context overload
+3. Compare the reference image against the page source code and `splose-style-reference/page-structures/<page>.md`
+4. Write findings as a structured Gap Report (see format below)
 
 ### Match criteria
 
@@ -55,6 +79,8 @@ Compare the prototype's component tree against page-structure references: same n
 
 **Catalog:** For each entry — if it matches, set Match to "yes". If partial, set to "partial" with a note. Otherwise keep "no".
 
+When using the fallback path (no Chrome MCP), use "partial — code-review only" for entries where structural match is confirmed but visual verification is pending.
+
 **Fidelity gaps:** For gaps marked `[x]` where ANY related catalog entries are "no" or "partial", **uncheck back to `[ ]`** with note: "Reopened: visual audit found mismatches". For new mismatches with no existing gap, create one in the appropriate priority group with specific details.
 
 ## Step 5: Extract design specs for problem pages
@@ -63,11 +89,39 @@ For pages still at "partial" or "no", check if a design spec exists at `screensh
 
 ## Step 6: Report results
 
-Present a summary to Jim: pages audited, matching/partial/no counts, gaps reopened, new gaps created, and biggest mismatches.
+Present a summary to Jim: pages audited, matching/partial/no counts, gaps reopened, new gaps created, and biggest mismatches. Note whether audit used Chrome MCP or fallback path.
 
 ## Parallelization
 
-Run audit comparisons in parallel using subagents (each audits a different page group). Agents capture screenshots via Chrome MCP, compare against references, and return structured reports: `filename | mismatch % | match status | notes`. Agents do NOT modify code — audit is read-only. The main agent collects results and updates catalog + gaps.
+**Agents must NOT receive screenshot file paths.** Screenshot images are too large for subagent context windows and cause "Prompt is too long" errors.
+
+Instead, use the "See then Do" pattern:
+
+1. **Main agent does the "See" phase:** Reads reference screenshots (max 2 at a time), compares against code and style references, and writes a structured Gap Report per page group
+2. **Subagents receive text-only Gap Reports:** Each agent audits one page group using the text description, the page source code, and the style reference files
+3. **Subagents return structured reports:** `filename | mismatch_area | match_status | notes`
+4. **Subagents remain read-only** — they do NOT modify code. The main agent collects results and updates catalog + gaps
+
+**Batch limits:**
+- Max 1 page per audit sub-task
+- Max 3 screenshots' worth of text descriptions per agent prompt
+- Main agent reads screenshots in passes of 2
+
+### Gap Report Format
+
+For each page audited, produce:
+
+```
+**Page:** `/path/to/page`
+**Reference screenshots read:** `filename1.png`, `filename2.png`
+**Overall match:** yes | partial | no
+
+| Area | Reference shows | Current code has | Match | Fix needed |
+|---|---|---|---|---|
+| Header | "Form templates" title, Learn dropdown | Correct title, Learn dropdown present | yes | — |
+| Table columns | Title, Form type, Created at, Updated at | All present | yes | — |
+| Pagination | Bottom pagination bar | Not visible in code | no | Add Pagination component |
+```
 
 ## Step 7: Return to menu (or continue in autonomous mode)
 

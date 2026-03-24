@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { LayoutGrid, Columns2, Copy, ChevronDown, Save, Lock, ClipboardList } from "lucide-react";
+import { LayoutGrid, Columns2, Copy, ChevronDown, ClipboardList } from "lucide-react";
 import { Button, Badge, EmptyState, Navbar, Filter, FormTextarea, FormInput, FormSelect } from "@/components/ds";
 
 const TEMPLATES = [
@@ -15,6 +15,12 @@ const TEMPLATES = [
   "Default note template all",
 ];
 
+const SERVICE_OPTIONS = [
+  { value: "1", label: "Mon 16 Mar 2026, 10:30am \u2013 Shannon Ford (OT \u2013 Initial Consult)", clientName: "Shannon Ford" },
+  { value: "2", label: "Wed 11 Mar 2026, 2:00pm \u2013 Sharon Test 1 (OT \u2013 Review)", clientName: "Sharon Test 1" },
+  { value: "3", label: "Mon 3 Mar 2026, 10:30am \u2013 Michael Chen (OT \u2013 Follow Up)", clientName: "Michael Chen" },
+];
+
 export default function NewProgressNotePage() {
   return (
     <Suspense>
@@ -25,13 +31,11 @@ export default function NewProgressNotePage() {
 
 function NewProgressNotePageInner() {
   const router = useRouter();
-  const [clientId, setClientId] = useState("");
-  const [practitionerId, setPractitionerId] = useState("");
-  const [serviceDate, setServiceDate] = useState(new Date().toISOString().split("T")[0]);
+  const [serviceId, setServiceId] = useState("");
   const [template, setTemplate] = useState("");
   const [content, setContent] = useState("");
   const [saving, setSaving] = useState(false);
-  const [viewMode, setViewMode] = useState<"single" | "split">("single");
+  const [viewMode, setViewMode] = useState<"single" | "split">("split");
 
   const searchParams = useSearchParams();
   const forcedState = searchParams.get("state");
@@ -42,9 +46,12 @@ function NewProgressNotePageInner() {
     }
   }, [forcedState]);
 
-  const handleSave = async (signed: boolean) => {
-    if (!clientId || !practitionerId || !template) {
-      alert("Please fill in all required fields: Client, Practitioner, and Template.");
+  const selectedService = SERVICE_OPTIONS.find((s) => s.value === serviceId);
+  const clientName = selectedService?.clientName ?? "";
+
+  const handleSave = async () => {
+    if (!serviceId || !template) {
+      alert("Please fill in all required fields: Service and Template.");
       return;
     }
     setSaving(true);
@@ -53,12 +60,10 @@ function NewProgressNotePageInner() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          clientId,
-          practitionerId,
-          date: serviceDate,
+          serviceId,
           template,
           content,
-          signed,
+          signed: true,
         }),
       });
       if (res.ok) {
@@ -76,11 +81,16 @@ function NewProgressNotePageInner() {
   return (
     <div className="min-h-[calc(100vh-3rem)] bg-gray-50/30">
       {/* Header bar */}
-      <Navbar backHref="/notes" title="New progress note" badge={<Badge variant="yellow">Unsaved</Badge>}>
-        {/* Add new note button */}
-        <Button variant="primary" round size="sm" className="bg-green-500 border-green-500 hover:bg-green-600">
-          <span className="text-heading-lg leading-none">+</span>
-        </Button>
+      <Navbar
+        backHref="/notes"
+        title="New progress note"
+        badge={
+          <div className="flex items-center gap-2">
+            <Badge variant="gray">Note has been autosaved</Badge>
+            {clientName && <span className="text-body-md text-primary">{clientName}</span>}
+          </div>
+        }
+      >
         {/* View toggle */}
         <Filter
           items={[
@@ -90,14 +100,9 @@ function NewProgressNotePageInner() {
           value={viewMode}
           onChange={(v) => setViewMode(v as "single" | "split")}
         />
-        {/* Save buttons */}
-        <Button variant="secondary" onClick={() => handleSave(false)} disabled={saving}>
-          <Save className="h-4 w-4" />
-          Save as draft
-        </Button>
-        <Button variant="primary" onClick={() => handleSave(true)} disabled={saving}>
-          <Lock className="h-3.5 w-3.5" />
-          Sign &amp; lock
+        {/* Save as final button */}
+        <Button variant="primary" className="bg-green-500 border-green-500 hover:bg-green-600" onClick={handleSave} disabled={saving}>
+          Save as final
           <ChevronDown className="h-3.5 w-3.5" />
         </Button>
       </Navbar>
@@ -106,29 +111,16 @@ function NewProgressNotePageInner() {
         {/* Left editor panel */}
         <div className={`flex-1 border-r border-border bg-white p-6 ${viewMode === "split" ? "" : ""}`}>
           <div className="mx-auto max-w-2xl">
-            {/* Client select */}
+            {/* Service select */}
             <div className="mb-5">
-              <label className="mb-1 block text-label-lg text-text">
-                Client <span className="text-danger">*</span>
-              </label>
-              <ClientSelect value={clientId} onChange={setClientId} />
-            </div>
-
-            {/* Practitioner select */}
-            <div className="mb-5">
-              <label className="mb-1 block text-label-lg text-text">
-                Practitioner <span className="text-danger">*</span>
-              </label>
-              <PractitionerSelect value={practitionerId} onChange={setPractitionerId} />
-            </div>
-
-            {/* Service date */}
-            <div className="mb-5">
-              <FormInput
-                label="Service date"
-                type="date"
-                value={serviceDate}
-                onChange={(e) => setServiceDate(e.target.value)}
+              <FormSelect
+                label="Service *"
+                value={serviceId}
+                onChange={(e) => setServiceId(e.target.value)}
+                options={[
+                  { value: "", label: "Select service" },
+                  ...SERVICE_OPTIONS.map((s) => ({ value: s.value, label: s.label })),
+                ]}
               />
             </div>
 
@@ -193,61 +185,5 @@ function NewProgressNotePageInner() {
         )}
       </div>
     </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Async select components that fetch data on mount                    */
-/* ------------------------------------------------------------------ */
-
-function ClientSelect({ value, onChange }: { value: string; onChange: (v: string) => void }) {
-  const [clients, setClients] = useState<{ id: string; firstName: string; lastName: string }[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("/api/clients")
-      .then((r) => r.json())
-      .then((data) => {
-        setClients(data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, []);
-
-  return (
-    <FormSelect
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      options={[
-        { value: "", label: loading ? "Loading clients..." : "Select client" },
-        ...clients.map((c) => ({ value: c.id, label: `${c.firstName} ${c.lastName}` })),
-      ]}
-    />
-  );
-}
-
-function PractitionerSelect({ value, onChange }: { value: string; onChange: (v: string) => void }) {
-  const [practitioners, setPractitioners] = useState<{ id: string; name: string }[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("/api/practitioners")
-      .then((r) => r.json())
-      .then((data) => {
-        setPractitioners(data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, []);
-
-  return (
-    <FormSelect
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      options={[
-        { value: "", label: loading ? "Loading practitioners..." : "Select practitioner" },
-        ...practitioners.map((p) => ({ value: p.id, label: p.name })),
-      ]}
-    />
   );
 }

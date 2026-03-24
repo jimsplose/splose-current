@@ -40,10 +40,11 @@ npx tsc --noEmit
 
 If it fails, fix or revert the agent's changes before continuing.
 
-## Step 3: Visual Verification (Chrome MCP)
+## Step 3: Visual Verification
 
-If the agent changed page UI, use **Chrome MCP** to verify the page looks correct:
+If the agent changed page UI, verify the page looks correct. Choose the path based on Chrome MCP availability:
 
+**Path A — Chrome MCP available:**
 1. Navigate to the changed page in Chrome MCP
 2. Take a screenshot and compare visually against the saved reference in `screenshots/reference/`
 3. Also check against the style reference (`splose-style-reference/`) for exact token values (colors, fonts, spacing)
@@ -51,6 +52,16 @@ If the agent changed page UI, use **Chrome MCP** to verify the page looks correc
    - **yes** = page visually matches reference
    - **partial** = noticeable differences (note what's off)
    - **no** = significant mismatch
+
+**Path B — Chrome MCP not available (fallback):**
+1. Read the changed page source code and verify it structurally matches the fix brief / gap report
+2. Cross-reference Tailwind classes against `splose-style-reference/` token files (colours, typography, borders, shadows, spacing)
+3. Compare the component structure against `splose-style-reference/page-structures/<page>.md`
+4. Update `screenshots/screenshot-catalog.md` Match column:
+   - **yes** = high-confidence structural match, all values verified against style reference
+   - **partial — code-review only** = likely matches but needs visual confirmation in next Chrome MCP session
+   - **no** = clear structural mismatch found in code
+5. Never false-positive to "yes" when uncertain — use "partial" and flag for visual verification later
 
 ## Step 4: Commit or Revert
 
@@ -63,9 +74,16 @@ If the agent changed page UI, use **Chrome MCP** to verify the page looks correc
 
 After every push that includes visual changes, the main agent MUST:
 
+**Chrome MCP available:**
 1. Use Chrome MCP to capture 1-2 screenshots of the most significant page changes
 2. Read and display screenshots inline in chat so Jim can see progress immediately
 3. Tell Jim the branch preview URL and link to the Vercel dashboard
+
+**Chrome MCP not available:**
+1. Skip screenshot capture
+2. Tell Jim the branch preview URL and link to the Vercel dashboard
+3. Recommend Jim visually spot-check the preview URL for the changed pages
+4. List the specific pages/routes that changed so Jim knows where to look
 
 ### When to skip
 
