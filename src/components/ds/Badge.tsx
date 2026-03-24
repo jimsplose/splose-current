@@ -3,6 +3,8 @@ type BadgeVariant = "green" | "red" | "blue" | "yellow" | "orange" | "gray" | "p
 interface BadgeProps {
   children: React.ReactNode;
   variant?: BadgeVariant;
+  /** Use solid filled style (white text on dark bg) like production status pills */
+  solid?: boolean;
   className?: string;
 }
 
@@ -16,10 +18,21 @@ const variantClasses: Record<BadgeVariant, string> = {
   purple: "bg-purple-100 text-purple-700",
 };
 
-export default function Badge({ children, variant = "gray", className = "" }: BadgeProps) {
+const solidVariantClasses: Record<BadgeVariant, string> = {
+  green: "bg-green-600 text-white",
+  red: "bg-red-500 text-white",
+  blue: "bg-blue-500 text-white",
+  yellow: "bg-yellow-500 text-white",
+  orange: "bg-orange-500 text-white",
+  gray: "bg-gray-600 text-white",
+  purple: "bg-purple-600 text-white",
+};
+
+export default function Badge({ children, variant = "gray", solid = false, className = "" }: BadgeProps) {
+  const classes = solid ? solidVariantClasses[variant] : variantClasses[variant];
   return (
     <span
-      className={`inline-flex items-center rounded-full px-2 py-0.5 text-label-md ${variantClasses[variant]} ${className}`}
+      className={`inline-flex items-center rounded-full px-2 py-0.5 text-label-md ${classes} ${className}`}
     >
       {children}
     </span>

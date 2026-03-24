@@ -27,7 +27,7 @@ const sidebarSections: SideNavSection[] = [
       { name: "Rooms/Resources", href: "/settings/rooms-resources" },
       { name: "Services", href: "/settings/services" },
       { name: "Busy times", href: "/settings/busy-times" },
-      { name: "Cancellation reasons", href: "/settings/cancellation-reasons" },
+      { name: "Cancel/Reschedule", href: "/settings/cancellation-reasons" },
       { name: "Online bookings", href: "/settings/online-bookings", badge: "New" },
       { name: "Communication types", href: "/settings/communication-types" },
       { name: "Tags", href: "/settings/tags" },

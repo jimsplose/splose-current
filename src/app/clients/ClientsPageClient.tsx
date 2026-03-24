@@ -17,6 +17,21 @@ import {
   usePagination,
 } from "@/components/ds";
 
+function formatDOB(dateStr: string | null): string {
+  if (!dateStr) return "";
+  try {
+    const d = new Date(dateStr + "T00:00:00");
+    return d.toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" });
+  } catch {
+    return dateStr;
+  }
+}
+
+function formatPhone(phone: string | null): React.ReactNode {
+  if (!phone) return null;
+  return <a href={`tel:${phone}`} className="text-primary hover:underline">{phone}</a>;
+}
+
 interface ClientRow {
   id: string;
   firstName: string;
@@ -61,10 +76,10 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
                 </span>
               </Td>
               <Td hidden="sm">
-                {client.dateOfBirth}
+                {formatDOB(client.dateOfBirth)}
               </Td>
               <Td hidden="md">
-                {client.phone}
+                {formatPhone(client.phone)}
               </Td>
               <Td hidden="lg">
                 {client.email}

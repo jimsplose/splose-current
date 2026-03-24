@@ -33,6 +33,15 @@ interface ClientData {
   updatedAt: Date;
 }
 
+function formatDOB(dobStr: string): string {
+  try {
+    const d = new Date(dobStr + "T00:00:00");
+    return d.toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" });
+  } catch {
+    return dobStr;
+  }
+}
+
 function calcAge(dobStr: string): string {
   try {
     const dob = new Date(dobStr + "T00:00:00");
@@ -87,7 +96,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
                 ? [
                     {
                       label: "Date of birth:",
-                      value: `${client.dateOfBirth} (${calcAge(client.dateOfBirth)})`,
+                      value: `${formatDOB(client.dateOfBirth)} (${calcAge(client.dateOfBirth)})`,
                     },
                   ]
                 : []),
@@ -96,7 +105,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <hr className="mb-8 border-border" />
+        <hr className="mb-8 border-t-2 border-orange-200" />
 
         {/* Client contact details */}
         <section className="mb-8">
@@ -133,7 +142,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <hr className="mb-8 border-border" />
+        <hr className="mb-8 border-t-2 border-orange-200" />
 
         {/* Privacy policy consent */}
         <section className="mb-8">
@@ -143,7 +152,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           <List items={[{ label: "", value: "No response" }]} />
         </section>
 
-        <hr className="mb-8 border-border" />
+        <hr className="mb-8 border-t-2 border-orange-200" />
 
         {/* Medications, allergies & intolerances */}
         <section className="mb-8">
@@ -159,7 +168,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <hr className="mb-8 border-border" />
+        <hr className="mb-8 border-t-2 border-orange-200" />
 
         {/* Medicare details */}
         {client.medicare && (
@@ -174,7 +183,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
                 ]}
               />
             </section>
-            <hr className="mb-8 border-border" />
+            <hr className="mb-8 border-t-2 border-orange-200" />
           </>
         )}
 
@@ -190,7 +199,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
                 ]}
               />
             </section>
-            <hr className="mb-8 border-border" />
+            <hr className="mb-8 border-t-2 border-orange-200" />
           </>
         )}
 
@@ -205,7 +214,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <hr className="mb-8 border-border" />
+        <hr className="mb-8 border-t-2 border-orange-200" />
 
         {/* Invoicing */}
         <section className="mb-8">
@@ -220,7 +229,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <hr className="mb-8 border-border" />
+        <hr className="mb-8 border-t-2 border-orange-200" />
 
         {/* Associated contacts */}
         <section className="mb-8">

@@ -315,13 +315,13 @@ export default function InvoicesClient({
                       {outstanding.toFixed(2)}
                     </Td>
                     <Td hidden="sm">
-                      <Badge variant={statusVariant(inv.status)}>
+                      <Badge variant={statusVariant(inv.status)} solid>
                         {inv.status}
                       </Badge>
                     </Td>
                     <Td hidden="lg">
                       {inv.status === "Sent" && (
-                        <Badge variant={statusVariant("Sent")}>Sent</Badge>
+                        <Badge variant={statusVariant("Sent")} solid>Sent</Badge>
                       )}
                     </Td>
                   </Tr>

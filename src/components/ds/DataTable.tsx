@@ -77,11 +77,11 @@ export function Th({
       <div className={`inline-flex items-center gap-1 ${interactive ? "cursor-pointer" : ""}`} onClick={sortable ? onSort : undefined}>
         {children}
         {sortable && (
-          <SortIcon className={`h-3.5 w-3.5 ${sortDirection ? "text-primary" : "text-text-secondary"}`} />
+          <SortIcon className={`h-3.5 w-3.5 ${sortDirection ? "text-primary" : "text-primary/60"}`} />
         )}
         {filterable && (
           <Filter
-            className="h-3.5 w-3.5 cursor-pointer text-text-secondary hover:text-text"
+            className="h-3.5 w-3.5 cursor-pointer text-primary/60 hover:text-primary"
             onClick={(e) => { e.stopPropagation(); onFilter?.(); }}
           />
         )}
