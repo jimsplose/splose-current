@@ -297,24 +297,24 @@ export default function CalendarView({
   }
 
   return (
-    <div className="flex h-[calc(100vh-3rem)]">
-      <div className="flex flex-1 flex-col">
+    <div className="flex h-[calc(100vh-3.5rem)] overflow-hidden">
+      <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
         {/* Calendar toolbar */}
-        <div className="relative z-20 flex items-center justify-between gap-2 overflow-visible border-b border-border px-2 py-2 sm:px-4">
-          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+        <div className="relative z-20 flex h-[60px] shrink-0 items-center justify-between overflow-visible border-b border-[#eee] px-[10px]">
+          <div className="flex shrink-0 items-center gap-2">
             <Button variant="secondary" size="sm">
               Today
             </Button>
-            <div className="flex items-center gap-1">
-              <Button variant="icon" size="sm">
+            <div className="flex items-center">
+              <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-text hover:bg-gray-100">
                 <ChevronLeft className="h-4 w-4" />
-              </Button>
-              <Button variant="icon" size="sm">
+              </button>
+              <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-text hover:bg-gray-100">
                 <ChevronRight className="h-4 w-4" />
-              </Button>
+              </button>
             </div>
-            <h2 className="text-display-md text-text">{toolbarDateLabel}</h2>
-            <div className="ml-2 flex items-center gap-2 text-text-secondary">
+            <h2 className="text-[14px] font-semibold text-text">{toolbarDateLabel}</h2>
+            <div className="ml-1 flex items-center gap-1 text-text-secondary">
               <Button variant="icon" size="sm">
                 <Filter className="h-4 w-4" />
               </Button>

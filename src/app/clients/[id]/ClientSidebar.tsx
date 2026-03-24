@@ -68,7 +68,7 @@ export default function ClientSidebar({ sections }: { sections: Section[] }) {
       <SideNav
         sections={sideNavSections}
         isActive={sideNavIsActive}
-        className="hidden w-[200px] py-2 md:block"
+        className="hidden !w-[200px] !pt-2 md:block"
       />
     </>
   );

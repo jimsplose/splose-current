@@ -30,23 +30,23 @@ export default function SideNav({ sections, isActive: customIsActive, className 
   });
 
   return (
-    <aside className={`shrink-0 overflow-y-auto border-r border-border bg-white ${className}`}>
+    <aside className={`w-[229px] shrink-0 overflow-y-auto border-r border-border bg-white pt-[15px] subpixel-antialiased ${className}`}>
       {sections.map((section) => (
-        <div key={section.title} className="mb-4">
+        <div key={section.title}>
           {section.title && (
-            <h3 className="mb-1 text-body-sm font-bold uppercase tracking-wider text-text">
+            <h3 className="px-4 py-2 text-[14px] font-semibold leading-[22px] text-black">
               {section.title}
             </h3>
           )}
-          <ul className="space-y-0.5">
+          <ul>
             {section.items.map((item) => (
-              <li key={item.name}>
+              <li key={item.name} className="my-0.5 mx-1">
                 <Link
                   href={item.href}
-                  className={`block w-full rounded px-3 py-1.5 text-left text-body-md transition-colors hover:bg-primary/10 hover:text-primary ${
+                  className={`block rounded-lg pl-[24px] pr-4 text-[14px] leading-[38px] transition-colors ${
                     isActive(item.href)
-                      ? "border-l-2 border-primary bg-primary/10 font-medium text-primary"
-                      : "text-text-secondary"
+                      ? "bg-primary/10 font-semibold text-primary"
+                      : "font-normal text-[rgb(65,69,73)] hover:bg-primary/5 hover:text-primary"
                   }`}
                 >
                   {item.name}
