@@ -182,8 +182,8 @@ function MessageItem({
       <Avatar name={message.sender} color={message.color} size="sm" />
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline gap-1.5">
-          <span className="text-heading-sm text-text">{message.sender}</span>
-          <span className="text-caption-sm text-text-secondary">{message.time}</span>
+          <span className="text-[14px] font-bold text-text">{message.sender}</span>
+          <span className="text-[10px] text-text-secondary">{message.time}</span>
           <span className="ml-auto text-text-secondary">
             {expanded ? <ChevronDown className="h-3.5 w-3.5" /> : <ChevronRight className="h-3.5 w-3.5" />}
           </span>
@@ -254,7 +254,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
     <div className="flex min-h-[calc(100vh-3rem)]">
       {/* Left column -- Messages (col1: wider) */}
       <div className="flex flex-1 flex-col border-r border-border">
-        <div className="border-b border-border bg-surface-header px-4 py-2.5">
+        <div className="border-b border-border bg-surface-header px-4 py-4">
           <h2 className="text-label-lg text-text">Messages</h2>
         </div>
 
@@ -354,7 +354,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
       <div className="w-[380px] shrink-0 overflow-y-auto bg-white">
         {/* Income card */}
         <div className="border-b border-border">
-          <div className="border-b border-border bg-surface-header px-4 py-2.5">
+          <div className="border-b border-border bg-surface-header px-4 py-4">
             <h3 className="text-label-lg text-text">Income</h3>
           </div>
           <div className="px-4 pt-3 pb-4">
@@ -401,7 +401,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
 
         {/* Incomplete progress notes card */}
         <div className="border-b border-border">
-          <div className="border-b border-border bg-surface-header px-4 py-2.5">
+          <div className="border-b border-border bg-surface-header px-4 py-4">
             <h3 className="text-label-lg text-text">Incomplete progress notes</h3>
           </div>
           <div className="px-4 pt-3 pb-3">
@@ -438,7 +438,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
 
         {/* Recently submitted forms card */}
         <div>
-          <div className="border-b border-border bg-surface-header px-4 py-2.5">
+          <div className="border-b border-border bg-surface-header px-4 py-4">
             <h3 className="text-label-lg text-text">Recently submitted forms</h3>
           </div>
           <div className="px-4 pt-3 pb-3">
