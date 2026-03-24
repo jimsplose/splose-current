@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   Badge,
   Button,
@@ -15,7 +15,18 @@ import {
   Tr,
 } from "@/components/ds";
 
-const mockAppointments = [
+interface Appointment {
+  date: string;
+  time: string;
+  client: string;
+  service: string;
+  practitioner: string;
+  location: string;
+  status: string;
+  invoice: string;
+}
+
+const mockAppointments: Appointment[] = [
   { date: "03/03/2026", time: "9:00 AM", client: "Liam Nguyen", service: "Initial Assessment", practitioner: "Dr Sarah Chen", location: "Melbourne CBD", status: "Completed", invoice: "Paid" },
   { date: "05/03/2026", time: "10:30 AM", client: "Olivia Smith", service: "Speech Therapy", practitioner: "Emma Williams", location: "Richmond", status: "Completed", invoice: "Paid" },
   { date: "08/03/2026", time: "2:00 PM", client: "Jack Thompson", service: "Occupational Therapy", practitioner: "Dr Sarah Chen", location: "Melbourne CBD", status: "No-show", invoice: "Unpaid" },
@@ -36,8 +47,68 @@ function statusVariantFor(status: string) {
   }
 }
 
+type SortKey = keyof Appointment;
+type SortDirection = "asc" | "desc" | null;
+
+/** Parse AU date dd/mm/yyyy into sortable number */
+function parseAuDate(d: string): number {
+  const [day, month, year] = d.split("/");
+  return Number(year) * 10000 + Number(month) * 100 + Number(day);
+}
+
+/** Parse time "9:00 AM" into minutes since midnight */
+function parseTime(t: string): number {
+  const match = t.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+  if (!match) return 0;
+  let hours = Number(match[1]);
+  const minutes = Number(match[2]);
+  const period = match[3].toUpperCase();
+  if (period === "PM" && hours !== 12) hours += 12;
+  if (period === "AM" && hours === 12) hours = 0;
+  return hours * 60 + minutes;
+}
+
+function compareValues(a: string, b: string, key: SortKey): number {
+  if (key === "date") return parseAuDate(a) - parseAuDate(b);
+  if (key === "time") return parseTime(a) - parseTime(b);
+  return a.localeCompare(b);
+}
+
 export default function ReportsAppointmentsPage() {
   const [showResults, setShowResults] = useState(false);
+  const [sortKey, setSortKey] = useState<SortKey | null>(null);
+  const [sortDir, setSortDir] = useState<SortDirection>(null);
+
+  const handleSort = (key: SortKey) => {
+    if (sortKey === key) {
+      // Cycle: asc -> desc -> null
+      if (sortDir === "asc") setSortDir("desc");
+      else if (sortDir === "desc") { setSortKey(null); setSortDir(null); }
+      else { setSortDir("asc"); }
+    } else {
+      setSortKey(key);
+      setSortDir("asc");
+    }
+  };
+
+  const sortedAppointments = useMemo(() => {
+    if (!sortKey || !sortDir) return mockAppointments;
+    return [...mockAppointments].sort((a, b) => {
+      const cmp = compareValues(a[sortKey], b[sortKey], sortKey);
+      return sortDir === "asc" ? cmp : -cmp;
+    });
+  }, [sortKey, sortDir]);
+
+  const columns: { key: SortKey; label: string }[] = [
+    { key: "date", label: "Date" },
+    { key: "time", label: "Time" },
+    { key: "client", label: "Client" },
+    { key: "service", label: "Service" },
+    { key: "practitioner", label: "Practitioner" },
+    { key: "location", label: "Location" },
+    { key: "status", label: "Status" },
+    { key: "invoice", label: "Invoice status" },
+  ];
 
   return (
     <>
@@ -79,20 +150,22 @@ export default function ReportsAppointmentsPage() {
 
       {showResults && (
         <>
-          <p className="my-4 text-body-md text-text-secondary">{mockAppointments.length} items found.</p>
+          <p className="my-4 text-body-md text-text-secondary">{sortedAppointments.length} items found.</p>
           <DataTable>
             <TableHead>
-              <Th>Date</Th>
-              <Th>Time</Th>
-              <Th>Client</Th>
-              <Th>Service</Th>
-              <Th>Practitioner</Th>
-              <Th>Location</Th>
-              <Th>Status</Th>
-              <Th>Invoice status</Th>
+              {columns.map((col) => (
+                <Th
+                  key={col.key}
+                  sortable
+                  sortDirection={sortKey === col.key ? sortDir : null}
+                  onSort={() => handleSort(col.key)}
+                >
+                  {col.label}
+                </Th>
+              ))}
             </TableHead>
             <TableBody>
-              {mockAppointments.map((row, i) => (
+              {sortedAppointments.map((row, i) => (
                 <Tr key={i}>
                   <Td>{row.date}</Td>
                   <Td>{row.time}</Td>

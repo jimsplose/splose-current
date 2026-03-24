@@ -43,11 +43,41 @@ const typeOptions = [
   { value: "Spine", label: "Spine" },
 ];
 
+const chartViewOptions = [
+  { value: "Front", label: "Front" },
+  { value: "Back", label: "Back" },
+  { value: "Side", label: "Side" },
+];
+
+const bodyRegions = [
+  "Head",
+  "Neck",
+  "Shoulders",
+  "Arms",
+  "Chest",
+  "Abdomen",
+  "Back",
+  "Legs",
+  "Feet",
+] as const;
+
 export default function BodyChartsPage() {
   const [templates, setTemplates] = useState(initialTemplates);
   const [search, setSearch] = useState("");
 
-  const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } = useFormModal<{
+  const [chartView, setChartView] = useState("Front");
+  const [selectedRegions, setSelectedRegions] = useState<Set<string>>(new Set());
+
+  const toggleRegion = (region: string) => {
+    setSelectedRegions((prev) => {
+      const next = new Set(prev);
+      if (next.has(region)) next.delete(region);
+      else next.add(region);
+      return next;
+    });
+  };
+
+  const { modalOpen, isEditing, form, setField, openCreate: rawOpenCreate, openEdit: rawOpenEdit, closeModal: rawCloseModal, handleSave } = useFormModal<{
     name: string;
     type: string;
   }>({
@@ -61,6 +91,24 @@ export default function BodyChartsPage() {
       }
     },
   });
+
+  function openCreate() {
+    setChartView("Front");
+    setSelectedRegions(new Set());
+    rawOpenCreate();
+  }
+
+  function openEdit(index: number, values: { name: string; type: string }) {
+    setChartView("Front");
+    setSelectedRegions(new Set());
+    rawOpenEdit(index, values);
+  }
+
+  function closeModal() {
+    setChartView("Front");
+    setSelectedRegions(new Set());
+    rawCloseModal();
+  }
 
   const filtered = search
     ? templates.filter((t) => t.name.toLowerCase().includes(search.toLowerCase()))
@@ -119,6 +167,33 @@ export default function BodyChartsPage() {
         <div className="space-y-4">
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} placeholder="e.g. Full Body — Front" />
           <FormSelect label="Type" value={form.type} onChange={(e) => setField("type", e.target.value)} options={typeOptions} />
+          <FormSelect label="Chart view" value={chartView} onChange={(e) => setChartView(e.target.value)} options={chartViewOptions} />
+
+          {/* Body region selector */}
+          <div>
+            <p className="mb-2 text-label-lg text-text-secondary">Body regions</p>
+            <div className="grid grid-cols-3 gap-2">
+              {bodyRegions.map((region) => (
+                <label
+                  key={region}
+                  className="flex cursor-pointer items-center gap-2 rounded-lg border border-border px-3 py-2 transition-colors hover:bg-surface-secondary has-[:checked]:border-primary has-[:checked]:bg-primary/5"
+                >
+                  <input
+                    type="checkbox"
+                    className="h-4 w-4 rounded border-border text-primary accent-primary"
+                    checked={selectedRegions.has(region)}
+                    onChange={() => toggleRegion(region)}
+                  />
+                  <span className="text-body-sm text-text">{region}</span>
+                </label>
+              ))}
+            </div>
+            {selectedRegions.size > 0 && (
+              <p className="mt-2 text-caption-md text-text-secondary">
+                {selectedRegions.size} region{selectedRegions.size !== 1 ? "s" : ""} selected
+              </p>
+            )}
+          </div>
         </div>
       </Modal>
     </div>

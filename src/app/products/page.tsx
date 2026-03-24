@@ -21,6 +21,9 @@ interface Product {
   stock: number | null;
   archived?: boolean;
   variants?: ProductVariant[];
+  description?: string;
+  usageCount?: number;
+  lastUsed?: string;
 }
 
 const mockProducts: Product[] = [
@@ -29,23 +32,26 @@ const mockProducts: Product[] = [
     category: "Physiotherapy",
     vendor: "",
     stock: 141,
+    description: "Exercise ball for physiotherapy sessions. Available in multiple sizes.",
+    usageCount: 48,
+    lastUsed: "22/03/2026",
     variants: [
       { name: "Medium", sku: "55", price: 110.0, stock: 120, unit: "Milligrams" },
       { name: "Large", sku: "12", price: 150.0, stock: 21, unit: "Milligrams" },
       { name: "X Large", sku: "", price: 170.0, stock: null, unit: "Items" },
     ],
   },
-  { name: "Roller", category: "Roller", vendor: "", stock: 5 },
-  { name: "Train", category: "transport", vendor: "Tesla", stock: 14 },
-  { name: "test add op", category: "", vendor: "", stock: null },
-  { name: "Copy of test add op", category: "", vendor: "", stock: 1 },
-  { name: "Copy of Roller", category: "Roller", vendor: "", stock: null },
-  { name: "Test", category: "", vendor: "", stock: null },
-  { name: "Crystal", category: "", vendor: "", stock: null },
-  { name: "Grippy socks", category: "Support Item", vendor: "", stock: 16 },
-  { name: "Test", category: "", vendor: "", stock: null },
-  { name: "Resistance band", category: "Physiotherapy", vendor: "", stock: 30, archived: true },
-  { name: "Foam roller (old)", category: "Roller", vendor: "", stock: 0, archived: true },
+  { name: "Roller", category: "Roller", vendor: "", stock: 5, description: "Foam roller for muscle recovery and myofascial release.", usageCount: 22, lastUsed: "20/03/2026" },
+  { name: "Train", category: "transport", vendor: "Tesla", stock: 14, description: "Model train set for occupational therapy fine motor activities.", usageCount: 7, lastUsed: "18/03/2026" },
+  { name: "test add op", category: "", vendor: "", stock: null, description: "Test product for operation validation.", usageCount: 0, lastUsed: undefined },
+  { name: "Copy of test add op", category: "", vendor: "", stock: 1, description: "Duplicate of test product.", usageCount: 1, lastUsed: "15/03/2026" },
+  { name: "Copy of Roller", category: "Roller", vendor: "", stock: null, description: "Secondary foam roller unit.", usageCount: 3, lastUsed: "12/03/2026" },
+  { name: "Test", category: "", vendor: "", stock: null, description: "General test product.", usageCount: 0, lastUsed: undefined },
+  { name: "Crystal", category: "", vendor: "", stock: null, description: "Decorative crystal for sensory therapy room.", usageCount: 5, lastUsed: "19/03/2026" },
+  { name: "Grippy socks", category: "Support Item", vendor: "", stock: 16, description: "Non-slip socks for patient safety during sessions.", usageCount: 34, lastUsed: "23/03/2026" },
+  { name: "Test", category: "", vendor: "", stock: null, description: "Test product entry.", usageCount: 0, lastUsed: undefined },
+  { name: "Resistance band", category: "Physiotherapy", vendor: "", stock: 30, archived: true, description: "Elastic resistance band for strength exercises.", usageCount: 15, lastUsed: "01/02/2026" },
+  { name: "Foam roller (old)", category: "Roller", vendor: "", stock: 0, archived: true, description: "Retired foam roller model.", usageCount: 42, lastUsed: "10/01/2026" },
 ];
 
 const ITEMS_PER_PAGE = 10;
@@ -245,26 +251,20 @@ export default function ProductsPage() {
                     className={`cursor-pointer transition-colors hover:bg-gray-50 ${
                       product.archived ? "opacity-60" : ""
                     }`}
-                    onClick={() => hasVariants && toggleExpand(globalIndex)}
+                    onClick={() => toggleExpand(globalIndex)}
                   >
                     <td className="px-2 py-3 text-center">
-                      {hasVariants ? (
-                        <Button
-                          variant="icon"
-                          size="sm"
-                          round
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toggleExpand(globalIndex);
-                          }}
-                        >
-                          {isExpanded ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
-                        </Button>
-                      ) : (
-                        <span className="inline-flex h-5 w-5 items-center justify-center text-text-secondary">
-                          <Plus className="h-3.5 w-3.5" />
-                        </span>
-                      )}
+                      <Button
+                        variant="icon"
+                        size="sm"
+                        round
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleExpand(globalIndex);
+                        }}
+                      >
+                        {isExpanded ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
+                      </Button>
                     </td>
                     <Td className="text-text">{product.name}</Td>
                     <Td hidden="sm" className="text-text-secondary">
@@ -288,40 +288,65 @@ export default function ProductsPage() {
                     </Td>
                   </tr>
 
-                  {isExpanded && hasVariants && (
+                  {isExpanded && (
                     <tr>
                       <td colSpan={6} className="bg-gray-50/50 px-0 py-0">
-                        <div className="px-8 py-2">
-                          <table className="w-full">
-                            <thead>
-                              <tr className="border-b border-border">
-                                <th className="px-4 py-2 text-left text-label-lg text-text">Name</th>
-                                <th className="px-4 py-2 text-left text-label-lg text-text">SKU</th>
-                                <th className="px-4 py-2 text-left text-label-lg text-text">Price</th>
-                                <th className="px-4 py-2 text-left text-label-lg text-text">Stock</th>
-                                <th className="px-4 py-2 text-left text-label-lg text-text">Unit</th>
-                                <th className="px-4 py-2 text-left text-label-lg text-primary">Actions</th>
-                              </tr>
-                            </thead>
-                            <tbody className="divide-y divide-border">
-                              {product.variants!.map((variant, vIdx) => (
-                                <tr key={vIdx} className="hover:bg-gray-50">
-                                  <td className="px-4 py-2 text-sm text-text">{variant.name}</td>
-                                  <td className="px-4 py-2 text-sm text-text-secondary">{variant.sku}</td>
-                                  <td className="px-4 py-2 text-sm text-text-secondary">
-                                    {variant.price !== null ? variant.price.toFixed(2) : "-"}
-                                  </td>
-                                  <td className="px-4 py-2 text-sm text-text-secondary">
-                                    {variant.stock !== null ? variant.stock : "-"}
-                                  </td>
-                                  <td className="px-4 py-2 text-sm text-text-secondary">{variant.unit}</td>
-                                  <td className="px-4 py-2 text-sm">
-                                    <Button variant="link">Manage Stock</Button>
-                                  </td>
+                        <div className="px-8 py-3">
+                          {/* Product details section */}
+                          <div className="mb-3 grid grid-cols-3 gap-4 text-sm">
+                            <div>
+                              <span className="text-label-md text-text-secondary">Description</span>
+                              <p className="mt-0.5 text-body-md text-text">
+                                {product.description || "No description"}
+                              </p>
+                            </div>
+                            <div>
+                              <span className="text-label-md text-text-secondary">Usage count</span>
+                              <p className="mt-0.5 text-body-md text-text">
+                                {product.usageCount !== undefined ? `${product.usageCount} times` : "-"}
+                              </p>
+                            </div>
+                            <div>
+                              <span className="text-label-md text-text-secondary">Last used</span>
+                              <p className="mt-0.5 text-body-md text-text">
+                                {product.lastUsed || "Never"}
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Variants table (if applicable) */}
+                          {hasVariants && (
+                            <table className="w-full">
+                              <thead>
+                                <tr className="border-b border-border">
+                                  <th className="px-4 py-2 text-left text-label-lg text-text">Name</th>
+                                  <th className="px-4 py-2 text-left text-label-lg text-text">SKU</th>
+                                  <th className="px-4 py-2 text-left text-label-lg text-text">Price</th>
+                                  <th className="px-4 py-2 text-left text-label-lg text-text">Stock</th>
+                                  <th className="px-4 py-2 text-left text-label-lg text-text">Unit</th>
+                                  <th className="px-4 py-2 text-left text-label-lg text-primary">Actions</th>
                                 </tr>
-                              ))}
-                            </tbody>
-                          </table>
+                              </thead>
+                              <tbody className="divide-y divide-border">
+                                {product.variants!.map((variant, vIdx) => (
+                                  <tr key={vIdx} className="hover:bg-gray-50">
+                                    <td className="px-4 py-2 text-sm text-text">{variant.name}</td>
+                                    <td className="px-4 py-2 text-sm text-text-secondary">{variant.sku}</td>
+                                    <td className="px-4 py-2 text-sm text-text-secondary">
+                                      {variant.price !== null ? variant.price.toFixed(2) : "-"}
+                                    </td>
+                                    <td className="px-4 py-2 text-sm text-text-secondary">
+                                      {variant.stock !== null ? variant.stock : "-"}
+                                    </td>
+                                    <td className="px-4 py-2 text-sm text-text-secondary">{variant.unit}</td>
+                                    <td className="px-4 py-2 text-sm">
+                                      <Button variant="link">Manage Stock</Button>
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          )}
                         </div>
                       </td>
                     </tr>

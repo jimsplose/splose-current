@@ -1,19 +1,14 @@
-import { Avatar, Button, Card, ColorDot } from "@/components/ds";
 import { prisma } from "@/lib/prisma";
+import DashboardClient from "./DashboardClient";
 
 export const dynamic = "force-dynamic";
 
 async function getDashboardData() {
-  const [todayAppointments, recentInvoices, unsignedNotes] = await Promise.all([
+  const [todayAppointments, unsignedNotes] = await Promise.all([
     prisma.appointment.findMany({
       where: { date: new Date().toISOString().split("T")[0] },
       include: { client: true, practitioner: true },
       orderBy: { startTime: "asc" },
-    }),
-    prisma.invoice.findMany({
-      include: { client: true },
-      orderBy: { createdAt: "desc" },
-      take: 5,
     }),
     prisma.clinicalNote.findMany({
       where: { signed: false },
@@ -23,324 +18,32 @@ async function getDashboardData() {
     }),
   ]);
 
-  return { todayAppointments, recentInvoices, unsignedNotes };
+  return { todayAppointments, unsignedNotes };
 }
 
 export default async function Dashboard() {
   const data = await getDashboardData();
 
-  const incomeData = [
-    { month: "Sep-2025", invoices: 8, payments: 1 },
-    { month: "Oct-2025", invoices: 15, payments: 3 },
-    { month: "Nov-2025", invoices: 40, payments: 8 },
-    { month: "Dec-2025", invoices: 95, payments: 2 },
-    { month: "Jan-2026", invoices: 10, payments: 1 },
-    { month: "Feb-2026", invoices: 5, payments: 1 },
-    { month: "Mar-2026", invoices: 18, payments: 5 },
-  ];
+  // Serialize data for client component (strip non-serializable fields)
+  const todayAppointments = data.todayAppointments.map((a) => ({
+    id: a.id,
+    startTime: a.startTime,
+    type: a.type,
+    client: { firstName: a.client.firstName, lastName: a.client.lastName },
+    practitioner: { name: a.practitioner.name, color: a.practitioner.color },
+  }));
 
-  const maxVal = Math.max(...incomeData.map((d) => Math.max(d.invoices, d.payments)));
+  const unsignedNotes = data.unsignedNotes.map((n) => ({
+    id: n.id,
+    date: n.date,
+    client: { firstName: n.client.firstName, lastName: n.client.lastName },
+    practitioner: { name: n.practitioner.name },
+  }));
 
   return (
-    <div className="flex min-h-[calc(100vh-3rem)]">
-      {/* Left column — Messages (col1: wider) */}
-      <div className="flex flex-1 flex-col border-r border-border">
-        <div className="border-b border-border bg-surface-header px-4 py-2.5">
-          <h2 className="text-label-lg text-text">Messages</h2>
-        </div>
-
-        <div className="flex-1 overflow-y-auto px-4 pb-2">
-          <div className="space-y-4">
-            <div className="flex items-center justify-center py-2">
-              <span className="text-caption-md text-text-secondary">
-                {new Date().toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" })}
-              </span>
-            </div>
-
-            {data.todayAppointments.slice(0, 5).map((appt) => (
-              <div key={appt.id} className="flex items-start gap-2.5">
-                <Avatar name={appt.practitioner.name} color={appt.practitioner.color} size="sm" />
-                <div className="min-w-0">
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="text-heading-sm text-text">
-                      {appt.practitioner.name}
-                    </span>
-                    <span className="text-caption-sm text-text-secondary">{appt.startTime}</span>
-                  </div>
-                  <p className="mt-0.5 text-body-md text-text-secondary">
-                    Appointment with {appt.client.firstName} {appt.client.lastName} — {appt.type}
-                  </p>
-                </div>
-              </div>
-            ))}
-
-            {data.todayAppointments.length === 0 && (
-              <>
-                <div className="flex items-start gap-2.5">
-                  <Avatar name="Joseph Go" color="#f59e0b" size="sm" />
-                  <div className="min-w-0">
-                    <div className="flex items-baseline gap-1.5">
-                      <span className="text-heading-sm text-text">Joseph Go</span>
-                      <span className="text-caption-sm text-text-secondary">9:48 pm</span>
-                    </div>
-                    <div className="mt-1.5 flex h-36 w-48 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-gray-300 to-gray-400">
-                      <div className="h-full w-full scale-110 bg-gradient-to-br from-pink-200 via-gray-300 to-blue-200 blur-[12px]" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-center py-1">
-                  <span className="text-caption-md text-text-secondary">9 Feb 2026</span>
-                </div>
-
-                <div className="flex items-start gap-2.5">
-                  <Avatar name="Joseph Go" color="#f59e0b" size="sm" />
-                  <div className="min-w-0">
-                    <div className="flex items-baseline gap-1.5">
-                      <span className="text-heading-sm text-text">Joseph Go</span>
-                      <span className="text-caption-sm text-text-secondary">9:50 pm</span>
-                    </div>
-                    <div className="mt-1.5 flex h-40 w-40 flex-col items-center justify-center gap-1 rounded-lg bg-gradient-to-br from-sky-200 to-sky-400">
-                      <div className="relative h-16 w-14 rounded-t-full bg-sky-500">
-                        <div className="absolute -left-1 -top-2 h-4 w-3 rotate-[-15deg] rounded-tl-full bg-sky-500" />
-                        <div className="absolute -right-1 -top-2 h-4 w-3 rotate-[15deg] rounded-tr-full bg-sky-500" />
-                        <div className="absolute left-2 top-4 h-2 w-2 rounded-full bg-white" />
-                        <div className="absolute right-2 top-4 h-2 w-2 rounded-full bg-white" />
-                      </div>
-                      <span className="text-caption-sm font-bold text-sky-800">STFCRS5</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-center py-1">
-                  <span className="cursor-pointer text-caption-md text-text-secondary" title="Click to go forward, hold to see history">16 Feb 2026</span>
-                </div>
-
-                <div className="flex items-start gap-2.5">
-                  <Avatar name="Hao Wang" color="#16a34a" size="sm" />
-                  <div className="min-w-0">
-                    <div className="flex items-baseline gap-1.5">
-                      <span className="text-heading-sm text-text">Hao Wang</span>
-                      <span className="text-caption-sm text-text-secondary">3:56 pm</span>
-                    </div>
-                    <div className="mt-1.5 flex h-40 w-48 items-center justify-center rounded-lg bg-gradient-to-br from-green-100 to-green-300">
-                      <span className="text-5xl font-bold text-green-600">S</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-2.5">
-                  <Avatar name="Joseph Go" color="#f59e0b" size="sm" />
-                  <div className="min-w-0">
-                    <div className="flex items-baseline gap-1.5">
-                      <span className="text-heading-sm text-text">Joseph Go</span>
-                      <span className="text-caption-sm text-text-secondary">10:18 pm</span>
-                    </div>
-                    <div className="mt-1.5 flex h-36 w-48 flex-col items-center justify-center gap-1 rounded-lg bg-gradient-to-br from-amber-100 to-amber-300">
-                      <span className="text-body-md-strong text-amber-800">MADE IT HOME</span>
-                      <div className="relative h-14 w-16 rounded-t-full bg-amber-400/60">
-                        <div className="absolute -left-0.5 -top-1.5 h-3 w-2.5 rotate-[-15deg] rounded-tl-full bg-amber-400/60" />
-                        <div className="absolute -right-0.5 -top-1.5 h-3 w-2.5 rotate-[15deg] rounded-tr-full bg-amber-400/60" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-
-        <div className="border-t border-border p-3">
-          <Card padding="none" className="mb-2 min-h-[80px] px-3 py-2 text-body-md text-text-secondary">
-            Type a message...
-          </Card>
-          <div className="flex items-center gap-0.5 text-text-secondary">
-            <Button variant="icon" size="sm" className="text-body-md-strong" title="Bold">B</Button>
-            <Button variant="icon" size="sm" className="text-body-md italic" title="Italic">I</Button>
-            <Button variant="icon" size="sm" className="text-body-md underline" title="Underline">U</Button>
-            <Button variant="icon" size="sm" className="text-body-md" title="Text size">A<sub className="text-caption-sm">1</sub></Button>
-            <span className="mx-0.5 h-4 w-px bg-border" />
-            <Button variant="icon" size="sm" title="Table">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="12" height="12" rx="1"/><line x1="2" y1="6" x2="14" y2="6"/><line x1="2" y1="10" x2="14" y2="10"/><line x1="6" y1="2" x2="6" y2="14"/><line x1="10" y1="2" x2="10" y2="14"/></svg>
-            </Button>
-            <Button variant="icon" size="sm" title="Link">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6.5 9.5a3 3 0 004.2.1l2-2a3 3 0 00-4.2-4.3l-1.1 1.1"/><path d="M9.5 6.5a3 3 0 00-4.2-.1l-2 2a3 3 0 004.2 4.3l1.1-1.1"/></svg>
-            </Button>
-            <Button variant="icon" size="sm" title="Image">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="12" height="12" rx="1"/><circle cx="5.5" cy="5.5" r="1"/><path d="M14 10l-3-3-7 7"/></svg>
-            </Button>
-            <Button variant="icon" size="sm" title="Emoji">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="8" cy="8" r="6"/><path d="M5.5 6.5h.01M10.5 6.5h.01"/><path d="M5.5 9.5a3.5 3.5 0 005 0"/></svg>
-            </Button>
-            <Button variant="icon" size="sm" title="Align">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="2" y1="3" x2="14" y2="3"/><line x1="2" y1="6" x2="10" y2="6"/><line x1="2" y1="9" x2="14" y2="9"/><line x1="2" y1="12" x2="10" y2="12"/></svg>
-            </Button>
-            <Button variant="icon" size="sm" title="List">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="5" y1="3" x2="14" y2="3"/><line x1="5" y1="8" x2="14" y2="8"/><line x1="5" y1="13" x2="14" y2="13"/><circle cx="2.5" cy="3" r="0.75" fill="currentColor"/><circle cx="2.5" cy="8" r="0.75" fill="currentColor"/><circle cx="2.5" cy="13" r="0.75" fill="currentColor"/></svg>
-            </Button>
-            <span className="mx-0.5 h-4 w-px bg-border" />
-            <Button variant="icon" size="sm" title="More">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/></svg>
-            </Button>
-            <div className="flex-1" />
-            <span className="mr-1 cursor-pointer rounded px-1.5 py-0.5 text-label-md text-text-secondary hover:bg-gray-100">GIF</span>
-            <Button variant="primary" size="sm" className="text-body-md">
-              Send
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* Right column — Analytics (col2: narrower) */}
-      <div className="w-[380px] shrink-0 overflow-y-auto bg-white">
-        {/* Income card */}
-        <div className="border-b border-border">
-          <div className="border-b border-border bg-surface-header px-4 py-2.5">
-            <h3 className="text-label-lg text-text">Income</h3>
-          </div>
-          <div className="px-4 pt-3 pb-4">
-            <div className="relative h-52">
-              <div className="absolute bottom-6 left-0 top-0 flex flex-col justify-between pr-1 text-caption-sm text-text-secondary">
-                <span>500K</span>
-                <span>400K</span>
-                <span>300K</span>
-                <span>200K</span>
-                <span>100K</span>
-                <span>0</span>
-              </div>
-              <div className="absolute -left-4 top-1/2 -translate-y-1/2 -rotate-90 whitespace-nowrap text-caption-sm text-text-secondary">
-                Values
-              </div>
-              <div className="absolute bottom-6 left-7 right-0 top-0 flex flex-col justify-between">
-                {[0, 1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} className="h-0 border-b border-gray-100" />
-                ))}
-              </div>
-              <div className="ml-8 flex h-[calc(100%-24px)] items-end gap-1">
-                {incomeData.map((item) => (
-                  <div key={item.month} className="flex flex-1 flex-col items-center">
-                    <div className="flex w-full items-end justify-center gap-px" style={{ height: "100%" }}>
-                      <div
-                        className="w-3 rounded-t-sm"
-                        style={{
-                          height: `${(item.invoices / maxVal) * 100}%`,
-                          backgroundColor: "#bef264",
-                          minHeight: item.invoices > 0 ? "2px" : "0",
-                        }}
-                      />
-                      <div
-                        className="w-3 rounded-t-sm"
-                        style={{
-                          height: `${(item.payments / maxVal) * 100}%`,
-                          backgroundColor: "#c084fc",
-                          minHeight: item.payments > 0 ? "2px" : "0",
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="ml-8 flex">
-                {incomeData.map((item) => (
-                  <div key={item.month} className="flex-1 text-center">
-                    <span className="whitespace-nowrap text-caption-sm text-text-secondary">{item.month}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="mt-2 flex items-center justify-center gap-4 text-caption-md text-text-secondary">
-              <span className="flex items-center gap-1.5">
-                <ColorDot color="#bef264" size="xs" className="h-2.5 w-2.5" /> Invoices
-              </span>
-              <span className="flex items-center gap-1.5">
-                <ColorDot color="#c084fc" size="xs" className="h-2.5 w-2.5" /> Payments
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Incomplete progress notes card */}
-        <div className="border-b border-border">
-          <div className="border-b border-border bg-surface-header px-4 py-2.5">
-            <h3 className="text-label-lg text-text">Incomplete progress notes</h3>
-          </div>
-          <div className="px-4 pt-3 pb-3">
-            <div className="space-y-1.5">
-              {data.unsignedNotes.length === 0 ? (
-                <>
-                  {[
-                    { name: "Skyler Peterson (Bill Gates Demo)", time: "10:04 am, Wed 11 Mar 2026" },
-                    { name: "A Del (AAA TEST)", time: "3:43 am, Wed 11 Mar 2026" },
-                    { name: "Ethan McKenzie (BIRP Treatment Note - AI Blocks Demo)", time: "1:34 pm, Tue 10 Mar 2026" },
-                    { name: "Shaz Test (AAA TEST)", time: "1:22 pm, Tue 10 Mar 2026" },
-                    { name: "A Jr (Temp progress note test 6March26)", time: "10:16 am, Fri 6 Mar 2026" },
-                  ].map((note) => (
-                    <div key={note.name} className="flex items-start justify-between gap-2 py-0.5">
-                      <span className="cursor-pointer text-body-md text-primary hover:underline">
-                        {note.name}
-                      </span>
-                      <span className="shrink-0 whitespace-nowrap pt-0.5 text-caption-sm text-text-secondary">
-                        {note.time}
-                      </span>
-                    </div>
-                  ))}
-                </>
-              ) : (
-                data.unsignedNotes.map((note) => (
-                  <div key={note.id} className="flex items-start justify-between gap-2 py-0.5">
-                    <span className="cursor-pointer text-body-md text-primary hover:underline">
-                      {note.client.firstName} {note.client.lastName} ({note.practitioner.name})
-                    </span>
-                    <span className="shrink-0 whitespace-nowrap pt-0.5 text-caption-sm text-text-secondary">
-                      {formatDateTime(note.date)}
-                    </span>
-                  </div>
-                ))
-              )}
-              <Button variant="link" className="mt-1">Load more</Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Recently submitted forms card */}
-        <div>
-          <div className="border-b border-border bg-surface-header px-4 py-2.5">
-            <h3 className="text-label-lg text-text">Recently submitted forms</h3>
-          </div>
-          <div className="px-4 pt-3 pb-3">
-            <div className="space-y-1.5">
-              {[
-                { name: "Hao Wang (TEST IMAGE FORM)", time: "8:15 pm, Tue 10 Mar 2026" },
-                { name: "Skyler Peterson (TEST IMAGE FORM)", time: "12:45 pm, Mon 9 Mar 2026" },
-                { name: "DDDDDDD Hun (Test form saved in A Jr)", time: "10:21 am, Fri 6 Mar 2026" },
-                { name: "a a (A)", time: "4:55 pm, Thu 5 Mar 2026" },
-                { name: "A Jr (Test form File upload pdf)", time: "4:02 pm, Thu 5 Mar 2026" },
-              ].map((form) => (
-                <div key={form.name} className="flex items-start justify-between gap-2 py-0.5">
-                  <span className="cursor-pointer text-body-md text-primary hover:underline">
-                    {form.name}
-                  </span>
-                  <span className="shrink-0 whitespace-nowrap pt-0.5 text-caption-sm text-text-secondary">
-                    {form.time}
-                  </span>
-                </div>
-              ))}
-              <Button variant="link" className="mt-1">Load more</Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <DashboardClient
+      todayAppointments={todayAppointments}
+      unsignedNotes={unsignedNotes}
+    />
   );
-}
-
-function formatDateTime(dateStr: string) {
-  try {
-    const d = new Date(dateStr + "T00:00:00");
-    const time = d.toLocaleTimeString("en-AU", { hour: "numeric", minute: "2-digit" });
-    const date = d.toLocaleDateString("en-AU", { weekday: "short", day: "numeric", month: "short", year: "numeric" });
-    return `${time}, ${date}`;
-  } catch {
-    return dateStr;
-  }
 }

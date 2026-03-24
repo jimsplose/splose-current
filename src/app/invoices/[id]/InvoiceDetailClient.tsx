@@ -343,11 +343,12 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
             value={paymentMethod}
             onChange={(e) => setPaymentMethod(e.target.value)}
             options={[
-              { value: "Cash", label: "Cash" },
-              { value: "Card", label: "Card" },
+              { value: "Credit Card", label: "Credit Card" },
               { value: "Bank Transfer", label: "Bank Transfer" },
-              { value: "Medicare", label: "Medicare" },
+              { value: "Cash", label: "Cash" },
+              { value: "EFTPOS", label: "EFTPOS" },
               { value: "NDIS", label: "NDIS" },
+              { value: "Medicare", label: "Medicare" },
             ]}
           />
 
@@ -369,6 +370,43 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
             placeholder="Optional"
             className="resize-none"
           />
+
+          {/* Receipt preview */}
+          {paymentAmount && (
+            <div className="rounded-lg border border-dashed border-gray-300 bg-gray-50 p-4">
+              <p className="mb-3 text-label-lg text-text-secondary">Receipt preview</p>
+              <div className="space-y-2 text-body-md">
+                <div className="flex items-center justify-between">
+                  <span className="font-medium text-text">Receipt #REC-001</span>
+                  <span className="text-label-md text-text-secondary">{paymentDate ? new Date(paymentDate + "T00:00:00").toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" }) : "—"}</span>
+                </div>
+                <div className="border-t border-gray-200 pt-2">
+                  <div className="flex justify-between">
+                    <span className="text-text-secondary">Invoice</span>
+                    <span className="text-text">{invoice.invoiceNumber}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-text-secondary">Client</span>
+                    <span className="text-text">{invoice.client.firstName} {invoice.client.lastName}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-text-secondary">Method</span>
+                    <span className="text-text">{paymentMethod}</span>
+                  </div>
+                  {referenceNumber && (
+                    <div className="flex justify-between">
+                      <span className="text-text-secondary">Reference</span>
+                      <span className="text-text">{referenceNumber}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="flex justify-between border-t border-gray-200 pt-2 font-medium">
+                  <span className="text-text">Amount paid</span>
+                  <span className="text-text">${paymentAmount}</span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </Modal>
 

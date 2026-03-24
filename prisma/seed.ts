@@ -9,6 +9,16 @@ const adapter = new PrismaLibSql({
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
+  // ── Clean existing data (order matters for foreign keys) ───────────────
+  console.log("Clearing existing data...");
+  await prisma.invoiceItem.deleteMany();
+  await prisma.invoice.deleteMany();
+  await prisma.clinicalNote.deleteMany();
+  await prisma.appointment.deleteMany();
+  await prisma.client.deleteMany();
+  await prisma.practitioner.deleteMany();
+  console.log("Existing data cleared.");
+
   // ── Practitioners (15) ───────────────────────────────────────────────────
   const practitioners = await Promise.all([
     // Original 5

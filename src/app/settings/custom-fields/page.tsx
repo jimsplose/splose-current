@@ -293,6 +293,12 @@ export default function CustomFieldsPage() {
             />
             <span className="text-body-md text-text">Required field</span>
           </div>
+
+          {/* Field type preview */}
+          <div className="rounded-lg border border-dashed border-gray-300 bg-gray-50 p-4">
+            <p className="mb-2 text-label-lg text-text-secondary">Field preview</p>
+            <FieldTypePreview type={newField.type} name={newField.name} options={[]} />
+          </div>
         </div>
       </Modal>
     </div>
@@ -414,6 +420,12 @@ function EditFieldModal({
           </div>
         )}
 
+        {/* Field type preview */}
+        <div className="rounded-lg border border-dashed border-gray-300 bg-gray-50 p-4">
+          <p className="mb-2 text-label-lg text-text-secondary">Field preview</p>
+          <FieldTypePreview type={type} name={name} options={options} />
+        </div>
+
         <div className="flex items-center justify-between">
           <span className="text-body-md text-text">Display in client details</span>
           <Toggle
@@ -429,5 +441,115 @@ function EditFieldModal({
         </div>
       </div>
     </Modal>
+  );
+}
+
+
+/* ------------------------------------------------------------------ */
+/*  Field type preview — shows what the custom field looks like        */
+/* ------------------------------------------------------------------ */
+function FieldTypePreview({
+  type,
+  name,
+  options,
+}: {
+  type: string;
+  name: string;
+  options: string[];
+}) {
+  const label = name || "Field name";
+
+  if (type === "Short text") {
+    return (
+      <FormInput
+        label={label}
+        value=""
+        onChange={() => {}}
+        placeholder="Short text value..."
+        disabled
+      />
+    );
+  }
+
+  if (type === "Long text") {
+    return (
+      <div>
+        <label className="mb-1 block text-label-lg text-text">{label}</label>
+        <textarea
+          disabled
+          rows={3}
+          placeholder="Long text value..."
+          className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text-secondary opacity-70"
+        />
+      </div>
+    );
+  }
+
+  if (type === "Numerical") {
+    return (
+      <FormInput
+        label={label}
+        type="number"
+        value=""
+        onChange={() => {}}
+        placeholder="0"
+        disabled
+      />
+    );
+  }
+
+  if (type === "Date") {
+    return (
+      <FormInput
+        label={label}
+        type="date"
+        value=""
+        onChange={() => {}}
+        disabled
+      />
+    );
+  }
+
+  if (type === "Multiple choice") {
+    const previewOpts = options.length > 0 ? options : ["Option 1", "Option 2"];
+    return (
+      <div>
+        <label className="mb-1 block text-label-lg text-text">{label}</label>
+        <div className="space-y-1.5">
+          {previewOpts.map((opt, i) => (
+            <label key={i} className="flex items-center gap-2 text-body-md text-text-secondary">
+              <input
+                type="checkbox"
+                disabled
+                checked={i === 0}
+                className="h-4 w-4 rounded border-border text-primary"
+              />
+              {opt || `Option ${i + 1}`}
+            </label>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (type.includes("Dropdown")) {
+    const previewOpts = options.length > 0 ? options : ["Option 1", "Option 2"];
+    return (
+      <FormSelect
+        label={label}
+        value=""
+        onChange={() => {}}
+        options={[
+          { value: "", label: `Select ${type.includes("Multiple") ? "one or more" : "one"}...` },
+          ...previewOpts.map((opt, i) => ({ value: String(i), label: opt || `Option ${i + 1}` })),
+        ]}
+        disabled
+      />
+    );
+  }
+
+  // Fallback
+  return (
+    <p className="text-body-md text-text-secondary italic">Select a field type to see a preview.</p>
   );
 }

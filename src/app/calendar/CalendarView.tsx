@@ -727,6 +727,26 @@ export default function CalendarView({
                 placeholder="Start typing to search client..."
               />
 
+              {/* Recent clients — quick-fill chips */}
+              {!createClient && (
+                <div>
+                  <p className="mb-1.5 text-label-md text-text-secondary">Recent clients</p>
+                  <div className="flex flex-wrap gap-2">
+                    {["Sarah Johnson", "Marcus Lee", "Priya Patel", "Tom Nguyen"].map((name) => (
+                      <button
+                        key={name}
+                        type="button"
+                        onClick={() => setCreateClient(name)}
+                        className="inline-flex items-center gap-1.5 rounded-full border border-gray-300 bg-gray-50 px-3 py-1 text-label-lg text-gray-700 transition-colors hover:border-primary hover:bg-purple-50 hover:text-primary"
+                      >
+                        <User className="h-3.5 w-3.5" />
+                        {name}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Service */}
               <FormSelect
                 label="Service *"
@@ -776,6 +796,13 @@ export default function CalendarView({
                   options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))}
                 />
               </div>
+
+              {/* Conflict warning — demo: show when selected time is AM (before noon) */}
+              {createTime && createTime.includes("AM") && (
+                <Alert variant="warning" icon={<AlertTriangle className="h-4 w-4 text-yellow-600" />}>
+                  <span className="font-medium">Scheduling conflict:</span> {createPractitioner ? practitioners.find(p => p.id === createPractitioner)?.name || "Practitioner" : "Practitioner"} already has an appointment at {createTime}. Double-check before confirming.
+                </Alert>
+              )}
 
               {/* Room/Resource */}
               <FormSelect
