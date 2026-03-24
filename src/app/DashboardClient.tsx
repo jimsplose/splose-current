@@ -380,15 +380,15 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                   <ChartBar key={item.month} item={item} />
                 ))}
               </div>
-              <div className="ml-8 flex">
+              <div className="ml-8 flex h-12">
                 {incomeData.map((item) => (
-                  <div key={item.month} className="flex-1 text-center">
-                    <span className="whitespace-nowrap text-caption-sm text-text-secondary">{item.month}</span>
+                  <div key={item.month} className="flex-1 pt-1">
+                    <span className="inline-block -rotate-45 origin-top-left whitespace-nowrap text-[10px] text-text-secondary">{item.month.replace("-", " ")}</span>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="mt-2 flex items-center justify-center gap-4 text-caption-md text-text-secondary">
+            <div className="mt-1 flex items-center justify-center gap-4 text-caption-md text-text-secondary">
               <span className="flex items-center gap-1.5">
                 <ColorDot color="#bef264" size="xs" className="h-2.5 w-2.5" /> Invoices
               </span>
