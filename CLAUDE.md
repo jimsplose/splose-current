@@ -36,14 +36,11 @@ For options 1/2, follow with scope question:
 | Dev Navigator | `docs/dev-navigator-spec.md` |
 | Codebase | `docs/project-structure.md` |
 
-## Frontend Design Skill — USE FOR ALL VISUAL WORK
+## Visual Fix Priority: Measure, Don't Guess
 
-Invoke `/impeccable:frontend-design` before any visual comparison or fix. After invoking, apply these specific checks:
+**For matching production screenshots** (most work): Read `splose-style-reference/` for exact CSS values first. Measure current rendered values with `getBoundingClientRect()` via Chrome MCP `javascript_tool`. Calculate the delta. Use arbitrary Tailwind values (`h-[34px]`, `px-[15px]`) for precision. Adjust in 2px increments if iterating.
 
-- **Hierarchy check**: Does the visual importance ranking match the reference? (e.g. logo should be more prominent than nav items, not equal or smaller)
-- **Proportion check**: Are relative sizes correct? Zoom into the specific area and measure element A height vs element B height.
-- **Weight check**: Does visual density/boldness match? Consider stroke width, color saturation, font-weight — not just font-size.
-- **Structural check**: Before changing a CSS value, understand the underlying asset (e.g. does an SVG have internal whitespace? Does a font render differently at different weights?)
+**For new design decisions** (no production reference): Invoke `/impeccable:frontend-design` for design-informed analysis — hierarchy, proportion, weight, spacing.
 
 ## Gap Completion Rule
 

@@ -68,9 +68,9 @@ Say:
 >
 > Let me know once you've submitted."
 
-### Step 5: Wait for the user to confirm
+### Step 5: Wait for the user to respond
 
-Do **not** poll. Wait for the user to say they are done (e.g. "done", "sent", "captured it", "ready").
+Do **not** poll. Wait for the user's next message. **When ANY message arrives while the overlay is active, ALWAYS try reading the capture result first** — the user may have submitted a capture and then commented on something else (e.g. asking a question, noting a problem with the tool). Don't assume "done logging" means no capture was made.
 
 ### Step 6: Read the capture result
 
@@ -116,19 +116,22 @@ Also take a full-page screenshot for context.
 
 #### Mode: Fix one now
 
-Present the bug report, then immediately run the **5-iteration verification loop** from `docs/fix-gaps-workflow.md` Step 4:
+Present the bug report, then **measure before fixing** (see `docs/fix-gaps-workflow.md` Step 0):
+
+1. Read `splose-style-reference/` for exact production CSS values for the affected element
+2. Measure current rendered values with `javascript_tool` + `getBoundingClientRect()`/`getComputedStyle()`
+3. Calculate the exact delta between current and target
+
+Then run the **5-iteration verification loop**:
 
 ```
 FOR iteration = 1 to 5:
-  1. Invoke /impeccable:frontend-design for design-informed analysis
-  2. Analyse the screenshot and issue description
-  3. Identify root cause (don't just guess CSS values)
-  4. Make the fix
-  5. Navigate back to the page, take screenshot
-  6. Zoom into the fixed zone and compare against the pre-fix screenshot
-  7. Check: hierarchy, proportion, weight, spacing
-  8. IF all checks pass → PASS, exit loop
-  9. IF mismatch → document what's wrong, continue to next iteration
+  1. Apply the fix using exact values from style reference (arbitrary Tailwind: h-[34px], px-[15px])
+  2. Navigate back to the page, take screenshot
+  3. Zoom into the fixed zone and compare against the pre-fix screenshot
+  4. Check against style reference values
+  5. IF all checks pass → PASS, exit loop
+  6. IF mismatch → adjust in 2px increments max, continue to next iteration
 
 IF 5 iterations exhausted → revert all changes, report what was tried
 ```

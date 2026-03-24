@@ -17,7 +17,26 @@ Implement code changes to close fidelity gaps. Uses parallel subagents for speed
 
 **Design System:** All work MUST use DS components from `@/components/ds`. See `docs/agent-block.md`.
 
-**Frontend design skill:** Invoke `/impeccable:frontend-design` before writing Fix Briefs.
+**Style reference first:** Read `splose-style-reference/` for exact production CSS values BEFORE touching any code. This is the fastest path to correct values — the nav fix took 1 iteration because exact CSS was available. Only invoke `/impeccable:frontend-design` when no style reference exists for the element (new design decisions, not reference-matching).
+
+## Step 0: Measure before fixing
+
+**MANDATORY before any visual change.** Do not skip this.
+
+1. Read `splose-style-reference/components/` and `splose-style-reference/page-structures/` for the element being fixed — get exact CSS values (color, font-size, font-weight, padding, border)
+2. Use Chrome MCP `javascript_tool` to measure current rendered values:
+   ```js
+   (() => {
+     const el = document.querySelector('<selector>');
+     const rect = el.getBoundingClientRect();
+     const style = getComputedStyle(el);
+     return JSON.stringify({ width: rect.width, height: rect.height, fontSize: style.fontSize, fontWeight: style.fontWeight, color: style.color, padding: style.padding });
+   })()
+   ```
+3. Calculate the exact delta between current and target — don't guess
+4. Use arbitrary Tailwind values (`h-[34px]`, `px-[15px]`, `text-[rgb(65,69,73)]`) for precision
+
+**Sizing iteration rule:** When the first fix doesn't match, adjust in **2px increments max**. Never jump 10px hoping to land on the right value.
 
 ## Step 1: Prepare Fix Briefs ("See" phase)
 
@@ -25,12 +44,8 @@ Before launching agents, the main agent reads references and produces Fix Briefs
 
 1. Read `screenshots/screenshot-catalog.md` — identify partial/no entries
 2. Read reference screenshots (max 2 per pass)
-3. Invoke `/impeccable:frontend-design` and apply design-informed analysis:
-   - **Hierarchy**: What should be most/least prominent?
-   - **Proportion**: What are the relative sizes between elements?
-   - **Weight**: What contributes to visual density (font-weight, stroke, saturation)?
-   - **Structure**: Are there underlying asset issues (SVG whitespace, font rendering)?
-4. Cross-reference against page source, style reference, and design spec
+3. Read `splose-style-reference/` for exact production CSS values for the affected elements
+4. Cross-reference against page source and design spec
 5. Produce a Fix Brief per page:
 
 ```
@@ -44,8 +59,9 @@ Before launching agents, the main agent reads references and produces Fix Briefs
 **Gaps to fix:**
 
 1. **[Zone]** — Reference shows [X], code has [Y].
-   - Root cause: [why it's wrong, e.g. SVG has 50% internal whitespace]
-   - Fix: [specific instruction with exact values]
+   - Production CSS: [exact value from splose-style-reference, e.g. `color: rgb(65,69,73); font-weight: 400; padding: 0 15px`]
+   - Current measured: [value from getBoundingClientRect/getComputedStyle]
+   - Fix: [specific Tailwind class change, e.g. `text-text-secondary` → `text-[rgb(65,69,73)]`]
    - Verify by: [what to zoom into and compare]
 
 **Do NOT change:**
