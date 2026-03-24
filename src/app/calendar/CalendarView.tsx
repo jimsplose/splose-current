@@ -687,9 +687,13 @@ export default function CalendarView({
         {/* Week view — practitioner sub-columns per day, horizontally scrollable */}
         {viewMode === "Week" && (() => {
           const COL_W = 55; // px per practitioner column
-          const dayWidth = filteredPractitioners.length * COL_W;
-          const totalWidth = 48 + dayWidth * 7; // time-gutter + 7 days
-          const gridCols = `48px repeat(7, ${dayWidth}px)`;
+          const naturalDayWidth = filteredPractitioners.length * COL_W;
+          // Ensure week fills viewport: each day gets at least (100% - gutter) / 7
+          const minDayWidth = Math.max(naturalDayWidth, 120); // minimum 120px per day
+          const useFlexible = naturalDayWidth * 7 + 48 < 900; // if total < 900px, use flexible layout
+          const dayWidth = useFlexible ? 0 : naturalDayWidth; // 0 = use 1fr
+          const totalWidth = useFlexible ? '100%' : `${48 + naturalDayWidth * 7}px`;
+          const gridCols = useFlexible ? `48px repeat(7, 1fr)` : `48px repeat(7, ${naturalDayWidth}px)`;
           return (
           <>
             {/* Single scrollable container for header + grid */}
@@ -724,7 +728,7 @@ export default function CalendarView({
                       {/* Location group headers */}
                       <div className="flex">
                         {groupByLocation(assignLocations(filteredPractitioners)).map((group, gi) => (
-                          <div key={group.name} className={`text-center ${gi > 0 ? "border-l border-border" : ""}`} style={{ width: group.practitioners.length * COL_W }}>
+                          <div key={group.name} className={`text-center ${gi > 0 ? "border-l border-border" : ""}`} style={useFlexible ? { flex: group.practitioners.length } : { width: group.practitioners.length * COL_W }}>
                             <div className="truncate px-1 py-0.5 text-[14px] font-normal text-[rgb(112,117,122)]">{group.name}</div>
                           </div>
                         ))}
@@ -734,7 +738,7 @@ export default function CalendarView({
                         {groupByLocation(assignLocations(filteredPractitioners)).map((group, gi) => (
                           <div key={group.name} className={`flex ${gi > 0 ? "border-l border-border" : ""}`}>
                             {group.practitioners.map((p) => (
-                              <div key={p.id} className="flex flex-col items-center py-1" style={{ width: COL_W }}>
+                              <div key={p.id} className="flex flex-col items-center py-1" style={useFlexible ? { flex: 1 } : { width: COL_W }}>
                                 <span className="w-full truncate px-0.5 text-center text-[14px] text-[rgb(112,117,122)]">
                                   {p.name.length > 6 ? p.name.slice(0, 5) + "..." : p.name}
                                 </span>
@@ -784,7 +788,7 @@ export default function CalendarView({
                                       key={prac.id}
                                       className="relative cursor-pointer hover:bg-gray-50/30"
                                       style={{
-                                        width: COL_W,
+                                        ...(useFlexible ? { flex: 1 } : { width: COL_W }),
                                         backgroundColor: gi % 2 === 0 ? '#f7f7f7' : 'transparent',
                                         borderRight: isGroupBorder ? '1px solid #d9d9d9' : '1px solid rgba(0,0,0,0.04)',
                                       }}
