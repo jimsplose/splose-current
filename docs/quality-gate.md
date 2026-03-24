@@ -42,11 +42,13 @@ If it fails, fix or revert the agent's changes before continuing.
 
 ## Step 3: Visual Verification
 
-If the agent changed page UI, verify the page looks correct. Choose the path based on Chrome MCP availability:
+If the agent changed page UI, verify the page looks correct. Choose the path based on Chrome MCP availability.
+
+**For sizing, spacing, or typography changes:** Invoke `/impeccable:frontend-design` before verifying. The skill catches visual proportion and hierarchy issues that eyeball comparison misses — e.g. a logo that "looks fine" in a full-page screenshot but is obviously wrong when zoomed and compared to the reference.
 
 **Path A — Chrome MCP available:**
 1. Navigate to the changed page in Chrome MCP
-2. Take a screenshot and compare visually against the saved reference in `screenshots/reference/`
+2. Take a screenshot and compare visually against the saved reference in `screenshots/reference/`. **Zoom into the specific changed area** for precise comparison — don't rely only on full-page screenshots.
 3. Also check against the style reference (`splose-style-reference/`) for exact token values (colors, fonts, spacing)
 4. Update `screenshots/screenshot-catalog.md` Match column:
    - **yes** = page visually matches reference

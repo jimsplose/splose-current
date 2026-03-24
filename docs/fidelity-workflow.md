@@ -20,6 +20,8 @@ A gap is only `[x]` when ALL related catalog entries show Match = "yes". If any 
 
 **Before launching any agents**, the main agent reads reference screenshots and produces text-only Fix Briefs. This separates "seeing" (image comprehension) from "doing" (code editing) — subagents have smaller context windows and cannot handle screenshot image files.
 
+**Use `/impeccable:frontend-design` for Fix Brief analysis.** Invoke the skill before writing Fix Briefs — it provides design-informed analysis that catches visual weight, sizing ratios, spacing rhythm, and typography issues that mechanical comparison misses. This prevents naive CSS guessing (e.g. blindly changing `h-8` to `h-6` without understanding an SVG's internal whitespace).
+
 1. Read `screenshots/screenshot-catalog.md` to identify the partial/no entries for the pages being worked on
 2. For each page, read reference screenshots using the Read tool (**max 2 screenshots per pass** to avoid context overload)
 3. Cross-reference each screenshot against:
@@ -86,6 +88,8 @@ For each agent: verify CWD → `git diff` → run Quality Gate (DS scan, TS chec
 ## Step 3: Visual verification
 
 Follow the Visual Verification step in `docs/quality-gate.md` — it adapts based on Chrome MCP availability (Path A or Path B).
+
+**For sizing, spacing, or typography fixes:** Invoke `/impeccable:frontend-design` during verification. Compare the Chrome MCP screenshot against the reference with design intent — don't just check "element exists", check that visual weight, proportions, and hierarchy match.
 
 ## Step 4: Update catalog Match status
 

@@ -32,6 +32,16 @@ For options 3/4/5, follow with duration question: Quick (2-3 gaps) / Standard (5
 | Dev Navigator | `docs/dev-navigator-spec.md` |
 | Codebase | `docs/project-structure.md` |
 
+## Frontend Design Skill — USE FOR ALL VISUAL WORK
+
+Invoke `/impeccable:frontend-design` at these points in every visual workflow:
+- **Before writing Fix Briefs** (fidelity loops Step 0.5) — design-informed gap analysis
+- **Before comparison** (visual audit Step 3) — catches proportion/hierarchy issues
+- **Before verifying sizing/spacing/typography fixes** (quality gate Step 3) — prevents naive CSS guessing
+- **Before implementing any direct visual fix** — understand the design intent, don't just guess values
+
+This prevents the pattern of blindly adjusting CSS values without understanding underlying structure (e.g. an SVG with internal whitespace, or font-weight vs font-size contributing to visual weight).
+
 ## Gap Completion Rule
 
 A gap is `[x]` only when ALL related `screenshots/screenshot-catalog.md` entries show Match = "yes".

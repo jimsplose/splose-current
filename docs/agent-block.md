@@ -70,6 +70,8 @@ New components use [DaisyUI](https://daisyui.com/components/) names where a matc
 
 If a design spec exists at `screenshots/specs/<page-name>.md`, read it and implement using those **exact values** — colors, font sizes, spacing, border-radius. Do not approximate. Cross-reference your Tailwind classes against the spec.
 
+**Design intent matters.** When a Fix Brief specifies a value (e.g. `h-9` for a logo), it was derived using `/impeccable:frontend-design` analysis — don't second-guess it with a different value. If something looks wrong after implementing, report back rather than guessing a different value.
+
 ## Visual Verification — CONDITIONAL
 
 After making your code changes, verify visually if Chrome MCP is available:

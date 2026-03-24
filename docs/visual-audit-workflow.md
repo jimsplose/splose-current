@@ -35,9 +35,11 @@ Read the page source code (`src/app/<page>/page.tsx` or relevant component files
 
 ## Step 3: Three-source comparison
 
+**Use `/impeccable:frontend-design` for comparison analysis.** Invoke the skill before starting comparisons. It provides design-quality analysis — catching visual weight mismatches, proportion errors, and hierarchy problems that a mechanical checklist misses. Without it, audits tend to check "element exists: yes" while missing that the element is the wrong size, weight, or visual prominence.
+
 ### 3a. Visual — Chrome MCP vs saved references
 
-**Chrome MCP available:** Capture the current prototype page with Chrome MCP, then compare side-by-side against the saved reference in `screenshots/reference/`.
+**Chrome MCP available:** Capture the current prototype page with Chrome MCP, then compare side-by-side against the saved reference in `screenshots/reference/`. Use zoomed crops of specific areas (nav, headers, cards) for precise comparison — full-page screenshots hide sizing issues.
 
 **Chrome MCP not available:** Skip this step; use Step 3d instead.
 
@@ -83,9 +85,12 @@ When using the fallback path (no Chrome MCP), use "partial — code-review only"
 
 **Fidelity gaps:** For gaps marked `[x]` where ANY related catalog entries are "no" or "partial", **uncheck back to `[ ]`** with note: "Reopened: visual audit found mismatches". For new mismatches with no existing gap, create one in the appropriate priority group with specific details.
 
-## Step 5: Extract design specs for problem pages
+## Step 5: Fix mismatches with design skill
 
-For pages still at "partial" or "no", check if a design spec exists at `screenshots/specs/<page-name>.md`. If not, extract one now following `docs/design-spec-workflow.md`. Prioritize: (1) pages stuck at "partial", (2) pages with >20% mismatch, (3) skip pages with up-to-date specs.
+For pages still at "partial" or "no":
+
+1. Check if a design spec exists at `screenshots/specs/<page-name>.md`. If not, extract one now following `docs/design-spec-workflow.md`. Prioritize: (1) pages stuck at "partial", (2) pages with >20% mismatch, (3) skip pages with up-to-date specs.
+2. **Invoke `/impeccable:frontend-design` before implementing fixes.** The skill analyses the gap with design expertise — understanding *why* a value should be what it is (e.g. a logo SVG has internal whitespace affecting rendered size), not just what the target value is.
 
 ## Step 6: Report results
 
