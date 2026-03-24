@@ -189,7 +189,7 @@ All 22 DS components have been **created** in `src/components/ds/` with full imp
 
 ## Priority 10 — Design system opportunities (2026-03-21)
 
-Patterns identified from the interactive states implementation audit. Full details in `docs/ds-opportunities.md`.
+Patterns identified from the interactive states implementation audit. All opportunities completed.
 
 ### Group X — DS hooks & utilities (`src/lib/`, `src/components/ds/`)
 

@@ -99,7 +99,7 @@ For any integration not listed above (Stripe, Xero, NDIS, Medicare, Google Maps,
 - Exact match over aesthetics. If the real app uses `border-radius: 6px`, use `6px`, not `8px`.
 - Use the same CSS variable names so our token system aligns with the real app.
 - When in doubt, check the screenshot for that page and match it visually.
-- Log any intentional deviations in FIDELITY_LOG.md with a reason.
+- Log any intentional deviations in the commit message with a reason.
 
 ---
 

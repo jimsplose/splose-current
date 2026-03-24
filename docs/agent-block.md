@@ -33,7 +33,7 @@ Import: `import { Button, FormInput, FormSelect, Badge, PageHeader, ColorDot, On
 
 ### Typography — MANDATORY
 
-Use typography utility classes or `<Text>` component instead of inline font-size + font-weight combos. See `docs/typography-spec.md` for the full spec and `docs/typography-migration.md` for the mapping table.
+Use typography utility classes or `<Text>` component instead of inline font-size + font-weight combos. See `docs/typography-spec.md` for the full spec and mapping table.
 
 | Instead of | Use class | Or component |
 |---|---|---|
