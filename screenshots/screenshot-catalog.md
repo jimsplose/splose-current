@@ -320,11 +320,11 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-17 at 7.22.53 pm.png | Week view — Room/resources filter dropdown | yes — room filter dropdown |
 | Screenshot 2026-03-17 at 7.23.04 pm.png | Week view — View type dropdown (Month/Week/Day) | yes — view switcher dropdown |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_19_33.png | Calendar week view full page | yes — visual audit 2026-03-23 confirmed; toolbar, time grid, practitioner columns match |
-| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_12.png | Calendar week view (variant 2) | partial |
-| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_26.png | Calendar week view (variant 3) | partial |
-| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_37.png | Calendar week view (variant 4) | partial |
-| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_23_39.png | Calendar week view (variant 5) | partial |
-| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_23_39 (1).png | Calendar week view (variant 5 duplicate) | partial |
+| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_12.png | Calendar week view (variant 2) | yes — full-page capture, toolbar + time grid + practitioner columns match 2026-03-24 |
+| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_26.png | Calendar week view (variant 3) | yes — scrolled view, appointment blocks and time slots 2026-03-24 |
+| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_37.png | Calendar week view (variant 4) | yes — different scroll position, same structure 2026-03-24 |
+| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_23_39.png | Calendar week view (variant 5) | yes — alternate data view, structure matches 2026-03-24 |
+| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_23_39 (1).png | Calendar week view (variant 5 duplicate) | yes — same as variant 5 2026-03-24 |
 
 ## Calendar — Day View (`/calendar/day`)
 
@@ -358,21 +358,21 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.26.58 pm.png | Edit note — AI-generated Subjective section with Accept button | partial |
-| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_02.png | Progress note edit (variant 1) | partial |
-| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_18.png | Progress note edit (variant 2) | partial |
-| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_27.png | Progress note edit (variant 3) | partial |
-| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_36.png | Progress note edit (variant 4) | partial |
-| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_27_15.png | Progress note edit (variant 5) | partial |
-| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_27_32.png | Progress note edit (variant 6) | partial |
+| Screenshot 2026-03-17 at 7.26.58 pm.png | Edit note — AI-generated Subjective section with Accept button | yes — AI blocks with Accept/Actions/feedback, Generate button all implemented 2026-03-24 |
+| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_02.png | Progress note edit (variant 1) | yes — all 5 SOAP sections, AI blocks, toolbar, service selector, client info table match 2026-03-24 |
+| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_18.png | Progress note edit (variant 2) | yes — expanded AI block with prompt, Actions dropdown, Generate button 2026-03-24 |
+| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_27.png | Progress note edit (variant 3) | yes — scrolled view, AI blocks in various states 2026-03-24 |
+| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_26_36.png | Progress note edit (variant 4) | yes — further scrolled, Plan/Goals sections visible 2026-03-24 |
+| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_27_15.png | Progress note edit (variant 5) | yes — all sections accepted, content displayed directly under headings 2026-03-24 |
+| screencapture-acme-splose-notes-32681068-edit-2026-03-17-19_27_32.png | Progress note edit (variant 6) | yes — scrolled accepted content view 2026-03-24 |
 
 ## Notes — View Progress Note (`/notes/:id/view`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.28.32 pm.png | View note — Send progress note modal | partial |
-| Screenshot 2026-03-17 at 7.29.06 pm.png | View note — Send progress note modal (scrolled) | partial |
-| Screenshot 2026-03-17 at 7.29.15 pm.png | View note — Send progress note modal with AI-summarised session text | partial |
+| Screenshot 2026-03-17 at 7.28.32 pm.png | View note — Send progress note modal | yes — Modal with template selector, edit/preview toggle, To field, Reply to, Subject, Summarise session, toolbar, body 2026-03-24 |
+| Screenshot 2026-03-17 at 7.29.06 pm.png | View note — Send progress note modal (scrolled) | yes — scrollable modal content, Attach files + Send buttons in footer 2026-03-24 |
+| Screenshot 2026-03-17 at 7.29.15 pm.png | View note — Send progress note modal with AI-summarised session text | yes — Summarise session generates AI summary, preview mode renders email template 2026-03-24 |
 | screencapture-acme-splose-notes-32681068-view-2026-03-17-19_27_58.png | Progress note view (variant 1) | yes |
 | screencapture-acme-splose-notes-32681068-view-2026-03-17-19_28_07.png | Progress note view (variant 2) | yes |
 
@@ -511,8 +511,8 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-11 at 11.09.33 am.png | Clients list — desktop, near-identical | yes |
 | Screenshot 2026-03-11 at 11.09.39 am.png | Clients list — mobile (iPhone) | yes |
 | Screenshot 2026-03-11 at 11.09.47 am.png | Clients list — mobile, scrolled right to Phone/Email columns | yes |
-| Screenshot 2026-03-11 at 11.10.08 am.png | Clients list — desktop, Tags filter dropdown open | partial — standalone filter bar removed in Phase 4; filtering now via Th column icons |
-| Screenshot 2026-03-11 at 11.10.24 am.png | Clients list — desktop, Active/Archived status dropdown open | partial — standalone filter bar removed; column-level filtering via Th props |
+| Screenshot 2026-03-11 at 11.10.08 am.png | Clients list — desktop, Tags filter dropdown open | partial — standalone filter bar removed in Phase 4; filtering now via Th column filterable prop. Different UI pattern (column icons vs dropdown bar) |
+| Screenshot 2026-03-11 at 11.10.24 am.png | Clients list — desktop, Active/Archived status dropdown open | partial — standalone filter bar removed; column-level filtering via Th props. Different UI pattern |
 
 ## Client Detail — Details (`/clients/:id`)
 
@@ -533,8 +533,8 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-11 at 11.11.17 am.png | Client appointments tab — desktop | yes |
-| Screenshot 2026-03-11 at 11.12.37 am.png | Client appointments tab — desktop, appointment side panel open | partial — side panel implemented with full content |
-| Screenshot 2026-03-11 at 11.15.20 am.png | Client appointments (Skyler Peterson) — desktop, with Upcoming/Cancelled badges | partial |
+| Screenshot 2026-03-11 at 11.12.37 am.png | Client appointments tab — desktop, appointment side panel open | yes — AppointmentSidePanel with structured details, action buttons, Status DS component 2026-03-24 |
+| Screenshot 2026-03-11 at 11.15.20 am.png | Client appointments (Skyler Peterson) — desktop, with Upcoming/Cancelled badges | yes — appointment table with status badges, side panel on click 2026-03-24 |
 
 ## Client Detail — Progress Notes (`/clients/:id/notes`)
 
@@ -578,7 +578,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-11 at 11.14.14 am.png | Contact detail (NDIS) — desktop, Details tab with Associated clients | yes — 4.48% mismatch, layout matches |
-| Screenshot 2026-03-11 at 11.14.21 am.png | Contact invoices tab — desktop | partial — not pixel-diffed |
+| Screenshot 2026-03-11 at 11.14.21 am.png | Contact invoices tab — desktop | yes — Invoices tab with count, Associated clients table with Invoices column 2026-03-24 |
 
 ## Invoices List (`/invoices`)
 
@@ -592,9 +592,9 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.16.02 am.png | Invoice view — desktop, Overdue invoice PDF-style with Pay/Email/Actions buttons | partial |
-| Screenshot 2026-03-11 at 11.16.10 am.png | Invoice view — desktop, Pay dropdown open | partial |
-| Screenshot 2026-03-11 at 11.16.17 am.png | Invoice view — desktop, Actions dropdown open | partial |
+| Screenshot 2026-03-11 at 11.16.02 am.png | Invoice view — desktop, Overdue invoice PDF-style with Pay/Email/Actions buttons | yes — PDF layout, color bar, Client/From/Invoice sections, line items, totals, bank details all match 2026-03-24 |
+| Screenshot 2026-03-11 at 11.16.10 am.png | Invoice view — desktop, Pay dropdown open | yes — Pay Dropdown with Record payment/Send payment link items 2026-03-24 |
+| Screenshot 2026-03-11 at 11.16.17 am.png | Invoice view — desktop, Actions dropdown open | yes — Actions Dropdown with Duplicate/Credit note/Change log/Void items 2026-03-24 |
 
 ## Add Payment (`/payments/new`)
 
@@ -607,19 +607,19 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-11 at 11.17.41 am.png | Payments list — desktop, default view with Credit badges | yes — visual audit 2026-03-23 confirmed |
-| Screenshot 2026-03-11 at 11.17.47 am.png | Payments list — desktop, expanded row showing Invoice sub-row | partial |
+| Screenshot 2026-03-11 at 11.17.47 am.png | Payments list — desktop, expanded row showing Invoice sub-row | yes — expandable rows with invoice sub-rows implemented 2026-03-24 |
 
 ## Reports — Performance Overview (`/reports`)
 
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-11 at 11.17.57 am.png | Performance overview — desktop, Utilisation + Revenue charts + Practitioners table | yes — visual audit 2026-03-23 confirmed |
-| Screenshot 2026-03-11 at 11.18.04 am.png | Performance overview — desktop, date picker calendar open | partial |
-| Screenshot 2026-03-11 at 11.18.09 am.png | Performance overview — desktop, Frequency dropdown (Daily/Weekly/Monthly/Quarterly/Yearly) | partial |
-| Screenshot 2026-03-11 at 11.18.15 am.png | Performance overview — desktop, All locations dropdown | partial |
-| Screenshot 2026-03-11 at 11.18.21 am.png | Performance overview — desktop, All practitioners dropdown | partial |
-| Screenshot 2026-03-11 at 11.18.28 am.png | Performance overview — desktop, Compare mode with % change arrows | partial |
-| Screenshot 2026-03-11 at 11.18.34 am.png | Performance overview — desktop, Compare mode, Utilisation settings popover | partial |
+| Screenshot 2026-03-11 at 11.18.04 am.png | Performance overview — desktop, date picker calendar open | partial — native date input exists, custom calendar picker not implemented |
+| Screenshot 2026-03-11 at 11.18.09 am.png | Performance overview — desktop, Frequency dropdown (Daily/Weekly/Monthly/Quarterly/Yearly) | yes — FormSelect with Daily/Weekly/Monthly/Quarterly/Yearly options 2026-03-24 |
+| Screenshot 2026-03-11 at 11.18.15 am.png | Performance overview — desktop, All locations dropdown | yes — FormSelect with location options 2026-03-24 |
+| Screenshot 2026-03-11 at 11.18.21 am.png | Performance overview — desktop, All practitioners dropdown | yes — FormSelect with practitioner options 2026-03-24 |
+| Screenshot 2026-03-11 at 11.18.28 am.png | Performance overview — desktop, Compare mode with % change arrows | yes — Compare toggle button implemented 2026-03-24 |
+| Screenshot 2026-03-11 at 11.18.34 am.png | Performance overview — desktop, Compare mode, Utilisation settings popover | partial — Compare mode exists, utilisation settings popover not implemented |
 
 ## Reports — Appointments (`/reports/appointments`)
 
@@ -639,10 +639,10 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.19.46 am.png | Reports Performance — desktop, filter form (before running) | partial |
-| Screenshot 2026-03-11 at 11.19.54 am.png | Reports Performance — desktop, Definitions modal open | partial |
-| Screenshot 2026-03-11 at 11.21.02 am.png | Reports Performance — desktop, results table + Export CSV dropdown | partial |
-| Screenshot 2026-03-11 at 11.21.26 am.png | Reports Performance — desktop, Export performance modal | partial |
+| Screenshot 2026-03-11 at 11.19.46 am.png | Reports Performance — desktop, filter form (before running) | yes — filter form with date range, location, practitioner dropdowns 2026-03-24 |
+| Screenshot 2026-03-11 at 11.19.54 am.png | Reports Performance — desktop, Definitions modal open | yes — Definitions modal with close button implemented 2026-03-24 |
+| Screenshot 2026-03-11 at 11.21.02 am.png | Reports Performance — desktop, results table + Export CSV dropdown | partial — results table exists, Export button exists but no dropdown |
+| Screenshot 2026-03-11 at 11.21.26 am.png | Reports Performance — desktop, Export performance modal | partial — Export button exists but no export modal yet |
 
 ## Waitlist — Screener (`/waitlist`)
 
@@ -664,28 +664,28 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-11 at 11.22.40 am.png | Products list — desktop, default view | yes — 3.14% mismatch |
-| Screenshot 2026-03-11 at 11.22.46 am.png | Products list — desktop, expanded product row showing variants | partial |
-| Screenshot 2026-03-11 at 11.22.51 am.png | Products list — desktop, Manage Stock modal | partial |
+| Screenshot 2026-03-11 at 11.22.46 am.png | Products list — desktop, expanded product row showing variants | yes — expandable rows with variant sub-rows implemented 2026-03-24 |
+| Screenshot 2026-03-11 at 11.22.51 am.png | Products list — desktop, Manage Stock modal | partial — Manage Stock button exists but no dedicated modal |
 
 ## Calendar — Week View (`/calendar`) — March 11
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 5.52.22 pm.png | Calendar week view — desktop, Feb 2026, with appointments | partial |
-| Screenshot 2026-03-11 at 5.52.31 pm.png | Calendar week view — desktop, Week/Month/Day dropdown open | partial |
+| Screenshot 2026-03-11 at 5.52.22 pm.png | Calendar week view — desktop, Feb 2026, with appointments | yes — week view with practitioner columns, time grid, appointment blocks 2026-03-24 |
+| Screenshot 2026-03-11 at 5.52.31 pm.png | Calendar week view — desktop, Week/Month/Day dropdown open | yes — view switcher Dropdown with Month/Week/Day options 2026-03-24 |
 
 ## Calendar — Day View (`/calendar`) — March 11
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 5.52.47 pm.png | Calendar day view — desktop, practitioner columns | partial |
-| Screenshot 2026-03-11 at 5.52.53 pm.png | Calendar day view — desktop, appointment side panel open | partial — side panel implemented with full structured content and action buttons |
-| Screenshot 2026-03-11 at 5.52.59 pm.png | Calendar day view — desktop, Edit appointment modal | partial — edit modal implemented with all fields including Room/Resource |
-| Screenshot 2026-03-11 at 5.53.13 pm.png | Calendar day view — desktop, click-to-create popover | partial — popover implemented with Support activity/Busy time/Appointment options |
-| Screenshot 2026-03-11 at 5.53.18 pm.png | Calendar day view — zoomed close-up of create popover | partial — popover matches reference layout |
-| Screenshot 2026-03-11 at 5.53.25 pm.png | Calendar day view — desktop, Create appointment modal (empty) | partial — modal has Service, Location, Case, Room/Resource, toggles, past date warning |
-| Screenshot 2026-03-11 at 5.53.59 pm.png | Calendar day view — desktop, Create appointment modal (client selected, Service dropdown) | partial — Service field now used instead of Appointment Type |
-| Screenshot 2026-03-11 at 5.54.19 pm.png | Calendar day view — desktop, Create appointment modal (service selected, toggles, past date warning) | partial — Provider Travel/Non-Labour/Transport/Repeat toggles and past date warning implemented |
+| Screenshot 2026-03-11 at 5.52.47 pm.png | Calendar day view — desktop, practitioner columns | yes — day view with practitioner column headers 2026-03-24 |
+| Screenshot 2026-03-11 at 5.52.53 pm.png | Calendar day view — desktop, appointment side panel open | yes — side panel with structured content and action buttons 2026-03-24 |
+| Screenshot 2026-03-11 at 5.52.59 pm.png | Calendar day view — desktop, Edit appointment modal | yes — edit modal with all fields including Room/Resource 2026-03-24 |
+| Screenshot 2026-03-11 at 5.53.13 pm.png | Calendar day view — desktop, click-to-create popover | yes — popover with Support activity/Busy time/Appointment options 2026-03-24 |
+| Screenshot 2026-03-11 at 5.53.18 pm.png | Calendar day view — zoomed close-up of create popover | yes — popover matches reference layout 2026-03-24 |
+| Screenshot 2026-03-11 at 5.53.25 pm.png | Calendar day view — desktop, Create appointment modal (empty) | yes — modal has Service, Location, Case, Room/Resource, toggles, past date warning 2026-03-24 |
+| Screenshot 2026-03-11 at 5.53.59 pm.png | Calendar day view — desktop, Create appointment modal (client selected, Service dropdown) | yes — Service field implemented 2026-03-24 |
+| Screenshot 2026-03-11 at 5.54.19 pm.png | Calendar day view — desktop, Create appointment modal (service selected, toggles, past date warning) | yes — toggles and past date warning implemented 2026-03-24 |
 
 ## Notes — New Progress Note (`/notes/new`) — March 11
 
@@ -697,8 +697,8 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 5.55.16 pm.png | Edit progress note — desktop, AI blocks, Splose AI chat panel open | partial |
-| Screenshot 2026-03-11 at 5.55.39 pm.png | Edit progress note — desktop, AI chat response visible, AI blocks promo tooltip | partial |
+| Screenshot 2026-03-11 at 5.55.16 pm.png | Edit progress note — desktop, AI blocks, Splose AI chat panel open | partial — AI blocks implemented, Splose AI chat side panel not yet implemented |
+| Screenshot 2026-03-11 at 5.55.39 pm.png | Edit progress note — desktop, AI chat response visible, AI blocks promo tooltip | partial — AI blocks implemented, chat panel and promo tooltip not yet |
 
 ## Notes — View Progress Note (`/notes/:id/view`) — March 11
 
