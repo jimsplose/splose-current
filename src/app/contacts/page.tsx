@@ -232,7 +232,7 @@ export default function ContactsPage() {
                   />
                   {getTypeLabel(contact.type)}
                 </Td>
-                <Td className="font-medium text-primary group-hover:underline">{contact.name}</Td>
+                <Td className="font-medium text-text">{contact.name}</Td>
                 <Td hidden="md" className="text-text-secondary">
                   {contact.company}
                 </Td>
