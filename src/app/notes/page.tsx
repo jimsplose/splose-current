@@ -12,7 +12,7 @@ export default async function NotesPage() {
   });
 
   return (
-    <div className="p-4 sm:p-6">
+    <div className="px-[15px] py-[5px]">
       <PageHeader title="Progress notes">
         <Button>Scroll view</Button>
         <Button>

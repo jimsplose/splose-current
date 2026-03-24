@@ -452,7 +452,7 @@ export default function ProductsPage() {
   }, [confirmDialog]);
 
   return (
-    <div className="p-4 sm:p-6">
+    <div className="px-[15px] py-[5px]">
       <PageHeader title="Products">
         <Button
           variant="secondary"

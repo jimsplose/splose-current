@@ -20,7 +20,7 @@ export default async function PractitionersPage() {
   });
 
   return (
-    <div className="p-4 sm:p-6">
+    <div className="px-[15px] py-[5px]">
       <PageHeader title="Practitioners">
         <Button variant="primary">
           <Plus className="h-4 w-4" /> Add Practitioner

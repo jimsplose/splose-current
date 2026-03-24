@@ -496,7 +496,7 @@ function WaitlistPageInner() {
 
       {/* ===== SCREENER TAB ===== */}
       {mainTab === "screener" && (
-        <div className="p-4 sm:p-6">
+        <div className="px-[15px] py-[5px]">
           <PageHeader title="Screener">
             <Button variant="secondary" size="sm">
               <HelpCircle className="h-4 w-4" />
@@ -837,7 +837,7 @@ function WaitlistPageInner() {
 
       {/* ===== WAITLIST TAB ===== */}
       {mainTab === "waitlist" && (
-        <div className="p-4 sm:p-6">
+        <div className="px-[15px] py-[5px]">
           <PageHeader title="Waitlist">
             <Button variant="secondary" size="sm">
               <Filter className="h-4 w-4" />
