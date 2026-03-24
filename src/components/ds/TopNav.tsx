@@ -29,7 +29,7 @@ export default function TopNav({ brand = "splose", items, children, className = 
     pathname === href || (href !== "/" && pathname.startsWith(href));
 
   return (
-    <header className={`sticky top-0 z-40 border-b border-border bg-white ${className}`}>
+    <header className={`sticky top-0 z-40 border-b border-black/[0.06] bg-white ${className}`}>
       <div className="flex h-14 items-center px-4">
         {/* Mobile hamburger */}
         <Button
@@ -48,15 +48,15 @@ export default function TopNav({ brand = "splose", items, children, className = 
         </Link>
 
         {/* Navigation tabs - hidden on mobile */}
-        <nav className="hidden h-full items-center gap-1 lg:flex">
+        <nav className="hidden h-full items-center lg:flex">
           {items.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`flex h-full items-center border-b-2 px-3 text-label-lg transition-colors ${
+              className={`flex h-full items-center border-t-2 px-[15px] text-[14px] transition-colors ${
                 isActive(item.href)
-                  ? "border-primary text-primary"
-                  : "border-transparent text-text-secondary hover:text-text"
+                  ? "border-primary font-semibold text-primary"
+                  : "border-transparent font-normal text-[rgb(65,69,73)] hover:text-primary"
               }`}
             >
               {item.label}
