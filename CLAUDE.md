@@ -91,7 +91,7 @@ Every push to any branch gets a **Vercel preview deployment**. This is how Jim r
 1. Link Jim to the Vercel dashboard
 2. Tell him the preview will be available in 1-2 minutes
 3. Show visual progress (see `docs/quality-gate.md` for details)
-4. Production auto-updates via GitHub Action — no manual step needed
+4. Tell Jim how to promote to production (see Git Workflow below)
 
 ## Design System (`src/components/ds/`)
 
@@ -246,7 +246,9 @@ TURSO_AUTH_TOKEN=<your-turso-token>
 
 ## Deployment
 
-Vercel auto-deploys when `main` is updated. Build: `prisma generate` → `tsx scripts/db-push.ts` → `next build`.
+Vercel auto-deploys when `main` is updated. Build: `prisma generate` → `tsx scripts/db-push.ts` → `storybook build` → `next build`.
+
+**Auto-promote is disabled** (GitHub Action paused to save build costs). Claude must push to `claude/*` branches and tell Jim how to promote manually.
 
 ## Git Workflow
 
@@ -256,13 +258,22 @@ Vercel auto-deploys when `main` is updated. Build: `prisma generate` → `tsx sc
 git fetch origin main
 git merge origin/main --no-edit
 ```
-This prevents branch divergence and auto-promote conflicts.
+This prevents branch divergence when pushing to `claude/*` branches.
 
 ### How code reaches production
 1. Claude Code pushes to `claude/*` branch
-2. Vercel builds a preview deployment
-3. GitHub Action (`.github/workflows/auto-promote.yml`) merges into `main`
+2. Vercel builds a preview deployment automatically
+3. **Jim promotes to production manually** by merging the branch into `main`:
+   ```bash
+   # Run in terminal (Jim can copy-paste this):
+   git checkout main && git pull && git merge origin/<branch-name> --no-edit && git push
+   ```
+   Or on GitHub: open a PR from the `claude/*` branch → merge to `main`.
 4. Vercel auto-deploys production from `main`
+
+### After every push, tell Jim:
+> Preview will be ready in ~2 min at the Vercel dashboard.
+> To promote to production: `git checkout main && git pull && git merge origin/<branch> --no-edit && git push`
 
 ### Before every push
 1. `npx next build` — never push broken code
