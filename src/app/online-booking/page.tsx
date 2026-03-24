@@ -21,7 +21,16 @@ const weekDays = [
 
 const availableSlots = ["9:20am", "10:50am", "12:20pm", "1:50pm"];
 
-type Step = "select" | "confirm" | "confirmed";
+const mockLocations = [
+  { id: "tasks", name: "Tasks", description: "Mobile and/or telehealth services" },
+  { id: "east-clinics", name: "East Clinics", description: "Mobile and/or telehealth services" },
+  { id: "splose-ot", name: "Splose OT", description: "Mobile and/or telehealth services" },
+  { id: "ploc", name: "Ploc", description: "Mobile and/or telehealth services" },
+  { id: "sharons", name: "Sharon's", description: "Mobile and/or telehealth services" },
+  { id: "one-service", name: "One service only", description: "Mobile and/or telehealth services" },
+];
+
+type Step = "location" | "select" | "confirm" | "confirmed";
 
 export default function OnlineBookingPage() {
   return (
@@ -32,19 +41,24 @@ export default function OnlineBookingPage() {
 }
 
 function OnlineBookingPageInner() {
-  const [step, setStep] = useState<Step>("select");
+  const [step, setStep] = useState<Step>("location");
 
   const searchParams = useSearchParams();
   const forcedState = searchParams.get("state");
 
   useEffect(() => {
-    if (forcedState === "confirm") {
+    if (forcedState === "location") {
+      setStep("location");
+    } else if (forcedState === "confirm") {
       setStep("confirm");
     } else if (forcedState === "confirmed") {
       setStep("confirmed");
+    } else if (forcedState === "select") {
+      setStep("select");
     }
   }, [forcedState]);
 
+  const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const [selectedPractitioner, setSelectedPractitioner] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<number | null>(19);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
@@ -69,7 +83,10 @@ function OnlineBookingPageInner() {
         <Button
           variant="ghost"
           size="sm"
-          onClick={() => (step === "confirm" ? setStep("select") : null)}
+          onClick={() => {
+            if (step === "confirm") setStep("select");
+            else if (step === "select") setStep("location");
+          }}
           className="mb-6"
         >
           <ChevronLeft className="h-4 w-4" /> Back
@@ -78,6 +95,50 @@ function OnlineBookingPageInner() {
         <div className="flex gap-8">
           {/* Main content */}
           <div className="flex-1">
+            {step === "location" && (
+              <>
+                <Alert variant="info" className="mb-6">
+                  <strong>Book Now:</strong> Self-paying clients are required to make payment at the time of service.
+                </Alert>
+
+                <h1 className="mb-6 text-display-lg text-text">Select a location</h1>
+
+                <div className="space-y-3">
+                  {mockLocations.map((loc) => {
+                    const isSelected = selectedLocation === loc.id;
+                    return (
+                      <div
+                        key={loc.id}
+                        className={`flex items-center gap-4 rounded-lg border p-4 ${
+                          isSelected ? "border-primary" : "border-border"
+                        }`}
+                      >
+                        <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-lg bg-gray-800 text-2xl">
+                          🔥
+                        </div>
+                        <div className="flex-1">
+                          <div className="text-heading-sm text-text">{loc.name}</div>
+                          <div className="text-body-md text-text-secondary">{loc.description}</div>
+                        </div>
+                        {isSelected ? (
+                          <Button variant="secondary" className="border-primary text-primary">
+                            Selected
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="primary"
+                            onClick={() => setSelectedLocation(loc.id)}
+                          >
+                            Select
+                          </Button>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+
             {step === "select" && (
               <>
                 <h1 className="mb-6 text-display-lg text-text">Select an appointment</h1>
@@ -346,7 +407,7 @@ function OnlineBookingPageInner() {
                       </div>
                       <div className="flex justify-between">
                         <span className="text-body-md text-text-secondary">Location</span>
-                        <span className="text-body-md text-text">Tasks</span>
+                        <span className="text-body-md text-text">{mockLocations.find((l) => l.id === selectedLocation)?.name ?? "Tasks"}</span>
                       </div>
                       <div className="flex justify-between border-t border-border pt-2">
                         <span className="text-label-lg text-text">Total</span>
@@ -383,7 +444,7 @@ function OnlineBookingPageInner() {
                           <p><span className="text-text-secondary">Service:</span> 1:1 Consultation (40 mins)</p>
                           <p><span className="text-text-secondary">Practitioner:</span> {selectedPrac?.name ?? "Hrishikesh Koli"}</p>
                           <p><span className="text-text-secondary">When:</span> Thursday 19 March 2026 at {selectedTime ?? "9:20am"}</p>
-                          <p><span className="text-text-secondary">Where:</span> Tasks</p>
+                          <p><span className="text-text-secondary">Where:</span> {mockLocations.find((l) => l.id === selectedLocation)?.name ?? "Tasks"}</p>
                         </div>
                         <p>If you need to reschedule or cancel, please contact us at least 24 hours before your appointment.</p>
                         <p className="text-text-secondary">— The splose team</p>
@@ -432,31 +493,39 @@ function OnlineBookingPageInner() {
               <div className="space-y-4">
                 {/* Location */}
                 <div className="flex items-start gap-3">
-                  <div className="mt-0.5 h-2.5 w-2.5 rounded-full bg-primary" />
+                  <div className={`mt-0.5 h-2.5 w-2.5 rounded-full ${step === "location" ? "bg-primary" : selectedLocation ? "bg-primary" : "bg-gray-300"}`} />
                   <div className="flex-1">
                     <div className="text-heading-sm text-text">Location</div>
-                    <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
-                      <MapPin className="h-3 w-3" /> Tasks
-                    </div>
+                    {selectedLocation && (
+                      <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
+                        <MapPin className="h-3 w-3" /> {mockLocations.find((l) => l.id === selectedLocation)?.name}
+                      </div>
+                    )}
                   </div>
-                  <Button variant="ghost" size="sm" className="text-text-secondary">
-                    <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.862 4.487z" />
-                    </svg>
-                  </Button>
+                  {selectedLocation && step !== "location" && (
+                    <Button variant="ghost" size="sm" className="text-text-secondary" onClick={() => setStep("location")}>
+                      <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.862 4.487z" />
+                      </svg>
+                    </Button>
+                  )}
                 </div>
 
                 {/* Service */}
                 <div className="flex items-start gap-3">
-                  <div className="mt-0.5 h-2.5 w-2.5 rounded-full bg-gray-300" />
+                  <div className={`mt-0.5 h-2.5 w-2.5 rounded-full ${step === "location" ? "bg-gray-300" : "bg-gray-300"}`} />
                   <div className="flex-1">
-                    <div className="text-heading-sm text-text">Service</div>
-                    <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
-                      <FileText className="h-3 w-3" /> 1:1 Consultation (40 mins d...
-                    </div>
-                    <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
-                      <span className="h-3 w-3 text-center">$</span> A$148.71
-                    </div>
+                    <div className={`text-heading-sm ${step === "location" ? "text-text-secondary" : "text-text"}`}>Service</div>
+                    {step !== "location" && (
+                      <>
+                        <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
+                          <FileText className="h-3 w-3" /> 1:1 Consultation (40 mins d...
+                        </div>
+                        <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
+                          <span className="h-3 w-3 text-center">$</span> A$148.71
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -464,7 +533,7 @@ function OnlineBookingPageInner() {
                 <div className="flex items-start gap-3">
                   <div className={`mt-0.5 h-2.5 w-2.5 rounded-full ${step === "confirm" ? "bg-primary" : "bg-gray-300"}`} />
                   <div className="flex-1">
-                    <div className="text-heading-sm text-text">Appointment</div>
+                    <div className={`text-heading-sm ${step === "location" ? "text-text-secondary" : "text-text"}`}>Appointment</div>
                     {step === "confirm" && selectedPrac && (
                       <>
                         <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
@@ -485,7 +554,7 @@ function OnlineBookingPageInner() {
                 <div className="flex items-start gap-3">
                   <div className={`mt-0.5 h-2.5 w-2.5 rounded-full ${step === "confirm" ? "bg-primary" : "bg-gray-300"}`} />
                   <div className="flex-1">
-                    <div className="text-body-md text-text-secondary">Booking details</div>
+                    <div className={`text-body-md ${step === "location" ? "text-text-secondary" : "text-text-secondary"}`}>Booking details</div>
                     {step === "confirm" && (
                       <div className="mt-2 flex items-center justify-between">
                         <span className="text-label-lg text-text">Total:</span>
@@ -498,7 +567,16 @@ function OnlineBookingPageInner() {
 
               {/* Action button */}
               <div className="mt-6">
-                {step === "select" ? (
+                {step === "location" ? (
+                  <Button
+                    variant={selectedLocation ? "primary" : "secondary"}
+                    disabled={!selectedLocation}
+                    className={`w-full justify-center ${!selectedLocation ? "bg-gray-200 text-gray-400 hover:bg-gray-200" : ""}`}
+                    onClick={() => selectedLocation && setStep("select")}
+                  >
+                    Continue
+                  </Button>
+                ) : step === "select" ? (
                   <Button
                     variant="secondary"
                     disabled

@@ -1,7 +1,7 @@
 "use client";
 
-import { PageHeader, Button, Card, DataTable, SearchBar, Pagination, TableHead, Th, TableBody, Td, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect } from "@/components/ds";
-import { Plus, Minus } from "lucide-react";
+import { PageHeader, Button, Card, DataTable, SearchBar, Pagination, TableHead, Th, TableBody, Td, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Checkbox } from "@/components/ds";
+import { Plus, Minus, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useState, useMemo, useCallback, Fragment } from "react";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -278,6 +278,14 @@ const dropdownItems = [
   { label: "Archive", value: "archive", danger: true },
 ];
 
+const dropdownItemsWithStock = [
+  { label: "Edit", value: "edit" },
+  { label: "Manage stock", value: "manage-stock" },
+  { label: "Duplicate", value: "duplicate" },
+  { label: "", value: "divider-1", divider: true },
+  { label: "Archive", value: "archive", danger: true },
+];
+
 type ProductForm = {
   [key: string]: unknown;
   name: string;
@@ -299,12 +307,37 @@ const typeOptions = [
   { value: "service", label: "Service" },
 ];
 
+interface StockLocation {
+  name: string;
+  available: boolean;
+  trackStock: boolean;
+  count: number | null;
+}
+
+const mockStockLocations: StockLocation[] = [
+  { name: "East Clinics", available: true, trackStock: true, count: 120 },
+  { name: "Splose OT", available: false, trackStock: false, count: null },
+  { name: "Ploc", available: false, trackStock: false, count: null },
+  { name: "Tasks", available: false, trackStock: false, count: null },
+  { name: "Sharon's", available: false, trackStock: false, count: null },
+  { name: "One service only", available: false, trackStock: false, count: null },
+];
+
+const stockDropdownItems = [
+  { label: "Edit", value: "edit" },
+  { label: "Reset count", value: "reset" },
+];
+
 export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showArchived, setShowArchived] = useState(false);
   const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState(mockProducts);
+
+  // Manage Stock modal state
+  const [stockModalOpen, setStockModalOpen] = useState(false);
+  const [stockModalVariant, setStockModalVariant] = useState<string | null>(null);
 
   // Confirmation dialog state
   const [confirmDialog, setConfirmDialog] = useState<{
@@ -388,6 +421,9 @@ export default function ProductsPage() {
           action: "archive",
           productIndex: actualIndex,
         });
+      } else if (value === "manage-stock") {
+        setStockModalVariant(product.name);
+        setStockModalOpen(true);
       } else if (value === "duplicate") {
         setProducts((prev) => {
           const newProduct = { ...product, name: `Copy of ${product.name}` };
@@ -496,7 +532,7 @@ export default function ProductsPage() {
                         <Dropdown
                           align="right"
                           trigger={<DropdownTriggerButton />}
-                          items={dropdownItems}
+                          items={product.stock !== null ? dropdownItemsWithStock : dropdownItems}
                           onSelect={(value) => handleDropdownAction(value, product, globalIndex)}
                         />
                       </div>
@@ -555,7 +591,15 @@ export default function ProductsPage() {
                                     </td>
                                     <td className="px-4 py-2 text-sm text-text-secondary">{variant.unit}</td>
                                     <td className="px-4 py-2 text-sm">
-                                      <Button variant="link">Manage Stock</Button>
+                                      <Button
+                                        variant="link"
+                                        onClick={() => {
+                                          setStockModalVariant(variant.name);
+                                          setStockModalOpen(true);
+                                        }}
+                                      >
+                                        Manage Stock
+                                      </Button>
                                     </td>
                                   </tr>
                                 ))}
@@ -628,6 +672,71 @@ export default function ProductsPage() {
         }
       >
         <p className="text-body-md text-text-secondary">{confirmDialog.message}</p>
+      </Modal>
+
+      {/* Manage Stock Modal */}
+      <Modal
+        open={stockModalOpen}
+        onClose={() => setStockModalOpen(false)}
+        title={`Manage the stock of ${stockModalVariant ?? ""}`}
+        maxWidth="lg"
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setStockModalOpen(false)}>Cancel</Button>
+            <Button variant="primary" onClick={() => setStockModalOpen(false)}>OK</Button>
+          </>
+        }
+      >
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-border">
+                <th className="px-4 py-2 text-left text-label-lg text-text">Location</th>
+                <th className="px-4 py-2 text-center text-label-lg text-text">Available</th>
+                <th className="px-4 py-2 text-center text-label-lg text-text">Track stock</th>
+                <th className="px-4 py-2 text-center text-label-lg text-text">Count</th>
+                <th className="px-4 py-2 text-center text-label-lg text-text">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {mockStockLocations.map((loc) => (
+                <tr key={loc.name} className="hover:bg-gray-50">
+                  <td className="px-4 py-2 text-sm text-text">{loc.name}</td>
+                  <td className="px-4 py-2 text-center">
+                    <Checkbox checked={loc.available} readOnly />
+                  </td>
+                  <td className="px-4 py-2 text-center">
+                    <Checkbox checked={loc.trackStock} readOnly />
+                  </td>
+                  <td className="px-4 py-2 text-center text-sm text-text-secondary">
+                    {loc.trackStock ? loc.count : "N/A"}
+                  </td>
+                  <td className="px-4 py-2 text-center">
+                    <Dropdown
+                      align="right"
+                      trigger={
+                        <button className="inline-flex h-7 w-7 items-center justify-center rounded-md hover:bg-gray-100">
+                          <MoreHorizontal className="h-4 w-4 text-text-secondary" />
+                        </button>
+                      }
+                      items={stockDropdownItems}
+                      onSelect={() => {}}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="mt-4">
+          <Pagination
+            currentPage={1}
+            totalPages={1}
+            totalItems={mockStockLocations.length}
+            itemsPerPage={10}
+            onPageChange={() => {}}
+          />
+        </div>
       </Modal>
     </div>
   );

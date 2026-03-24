@@ -24,6 +24,9 @@ import {
   ListOrdered,
   Palette,
   Type,
+  MessageCircle,
+  ClipboardList,
+  ArrowUp,
 } from "lucide-react";
 import { Button, Badge, Card, Checkbox, FormSelect, FormInput, EmptyState, List, Navbar, Filter, Spinner, Dropdown } from "@/components/ds";
 
@@ -145,6 +148,7 @@ export default function EditProgressNotePage() {
   );
   const [service, setService] = useState("Mon 16 Mar 2026, 10:30am – Sharon Test 1 (OT – Initial Consult)");
   const [accepted, setAccepted] = useState<Record<string, boolean>>({});
+  const [aiChatOpen, setAiChatOpen] = useState(false);
 
   useEffect(() => {
     fetch(`/api/notes/${id}`)
@@ -376,6 +380,15 @@ export default function EditProgressNotePage() {
                 <Sparkles className="h-3.5 w-3.5" />
                 Generate
               </Button>
+              <Button
+                variant={aiChatOpen ? "primary" : "icon"}
+                size="sm"
+                onClick={() => setAiChatOpen(!aiChatOpen)}
+                title="Splose AI Chat"
+                className={aiChatOpen ? "bg-primary text-white" : ""}
+              >
+                <MessageCircle className="h-4 w-4" />
+              </Button>
               <Button variant="primary" round size="sm">
                 <Plus className="h-4 w-4" />
               </Button>
@@ -580,6 +593,76 @@ export default function EditProgressNotePage() {
               message="No reference notes found"
               className="mt-16"
             />
+          </div>
+        )}
+
+        {/* Splose AI Chat Side Panel */}
+        {aiChatOpen && (
+          <div
+            className="flex w-[350px] shrink-0 flex-col border-l border-border bg-white shadow-lg"
+            style={{ maxHeight: "calc(100vh - 6rem)" }}
+          >
+            {/* Panel content - scrollable area */}
+            <div className="flex flex-1 flex-col items-center overflow-y-auto px-6 py-8">
+              {/* Flower illustration placeholder */}
+              <div className="mb-4 text-6xl">🌸</div>
+
+              {/* Greeting */}
+              <h2 className="mb-2 text-center text-heading-lg text-text">
+                Hello, I&apos;m splose AI.
+              </h2>
+              <p className="mb-8 text-center text-sm text-text-secondary">
+                Transcribe your session, ask a question or select a prompt
+              </p>
+
+              {/* Quick action pills */}
+              <div className="flex w-full flex-col gap-3">
+                <button className="rounded-full border border-primary px-4 py-2.5 text-left text-sm text-primary transition-colors hover:bg-primary/5">
+                  Summarise the client&apos;s details
+                </button>
+                <button className="rounded-full border border-primary px-4 py-2.5 text-left text-sm text-primary transition-colors hover:bg-primary/5">
+                  Summarise the last 3 months of notes
+                </button>
+                <button className="rounded-full border border-primary px-4 py-2.5 text-left text-sm text-primary transition-colors hover:bg-primary/5">
+                  List the appointments for the next 2 weeks
+                </button>
+              </div>
+            </div>
+
+            {/* Bottom section - fixed */}
+            <div className="border-t border-border px-4 py-4">
+              {/* Chat input */}
+              <div className="mb-3 flex items-center gap-2 rounded-full border border-border bg-white px-4 py-2.5">
+                <input
+                  type="text"
+                  placeholder="Ask splose AI..."
+                  className="flex-1 bg-transparent text-sm text-text outline-none placeholder:text-text-secondary"
+                  readOnly
+                />
+                <button className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-green-500 text-white transition-colors hover:bg-green-600">
+                  <ArrowUp className="h-4 w-4" />
+                </button>
+              </div>
+
+              {/* Saved prompts button */}
+              <button className="mb-3 flex w-full items-center gap-2 rounded-lg px-2 py-2 text-sm text-text-secondary transition-colors hover:bg-gray-50">
+                <ClipboardList className="h-4 w-4" />
+                Saved prompts
+              </button>
+
+              {/* Footer */}
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-text-secondary">
+                  AI can make mistakes, double-check responses
+                </span>
+                <button
+                  onClick={() => setAiChatOpen(false)}
+                  className="text-xs text-primary hover:underline"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>

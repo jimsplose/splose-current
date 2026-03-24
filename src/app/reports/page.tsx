@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect, useMemo } from "react";
-import { Calendar, ChevronDown } from "lucide-react";
-import { Avatar, Button, Card, ColorDot, Dropdown, FormSelect } from "@/components/ds";
+import { Calendar, ChevronDown, Settings } from "lucide-react";
+import { Avatar, Button, Card, Checkbox, ColorDot, Dropdown, FormSelect } from "@/components/ds";
 import { DataTable, TableHead, Th, TableBody, Tr, Td } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 
@@ -140,6 +140,21 @@ export default function ReportsPage() {
   const [dateEnd, setDateEnd] = useState(() => new Date());
   const [sortKey, setSortKey] = useState<SortKey>("utilisation");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
+  const [utilisationSettingsOpen, setUtilisationSettingsOpen] = useState(false);
+  const [excludeBusyTime, setExcludeBusyTime] = useState(false);
+  const [excludeDoNotInvoice, setExcludeDoNotInvoice] = useState(false);
+  const [includeInvoicedCancellations, setIncludeInvoicedCancellations] = useState(false);
+  const utilisationSettingsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (utilisationSettingsRef.current && !utilisationSettingsRef.current.contains(e.target as Node)) {
+        setUtilisationSettingsOpen(false);
+      }
+    }
+    if (utilisationSettingsOpen) document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [utilisationSettingsOpen]);
 
   const locationItems: DropdownItem[] = [
     { label: "All locations", value: "all" },
@@ -269,8 +284,40 @@ export default function ReportsPage() {
       <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
         {/* Utilisation card */}
         <Card>
-          <div className="mb-1 flex items-center justify-between">
+          <div className="relative mb-1 flex items-center justify-between" ref={utilisationSettingsRef}>
             <h3 className="text-heading-sm text-text">Utilisation</h3>
+            <button
+              type="button"
+              onClick={() => setUtilisationSettingsOpen(!utilisationSettingsOpen)}
+              className="rounded p-1 transition-colors hover:bg-gray-100"
+            >
+              <Settings className="h-4 w-4 text-text-secondary" />
+            </button>
+            {utilisationSettingsOpen && (
+              <div className="absolute right-0 top-full z-30 mt-1 w-[280px] rounded-lg border border-border bg-white p-4 shadow-lg">
+                <h4 className="text-heading-sm text-text">Utilisation settings</h4>
+                <p className="mb-3 text-caption-md text-text-secondary">
+                  Adjust calculation settings for utilisation metrics.
+                </p>
+                <div className="flex flex-col gap-3">
+                  <Checkbox
+                    label="Exclude busy time"
+                    checked={excludeBusyTime}
+                    onChange={(e) => setExcludeBusyTime(e.target.checked)}
+                  />
+                  <Checkbox
+                    label="Exclude do not invoice"
+                    checked={excludeDoNotInvoice}
+                    onChange={(e) => setExcludeDoNotInvoice(e.target.checked)}
+                  />
+                  <Checkbox
+                    label="Include invoiced cancellations/DNAs"
+                    checked={includeInvoicedCancellations}
+                    onChange={(e) => setIncludeInvoicedCancellations(e.target.checked)}
+                  />
+                </div>
+              </div>
+            )}
           </div>
           <p className="mb-2 text-caption-md text-text-secondary">Percentage of available time utilised</p>
           <p className="mb-1 text-metric-lg text-text">{(totalUtilisation / sortedPractitioners.length).toFixed(2)}%</p>
