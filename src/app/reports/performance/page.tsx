@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import {
+  Alert,
   Button,
+  Dropdown,
   Modal,
   DateRangeFilter,
   FormSelect,
@@ -24,14 +26,41 @@ const mockPerformanceRows = [
   { practitioner: "Megan Torres", available: 38, booked: 33, utilisation: 87, revenue: 6270, avgPerAppt: 190 },
 ];
 
+const exportItems = [
+  { label: "Export as CSV", value: "csv" },
+  { label: "Export as PDF", value: "pdf" },
+];
+
 export default function ReportsPerformancePage() {
   const [showResults, setShowResults] = useState(false);
   const [showDefinitions, setShowDefinitions] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const handleExport = (value: string) => {
+    if (value === "csv") {
+      setToastMessage("Export started...");
+      setTimeout(() => setToastMessage(null), 3000);
+    } else if (value === "pdf") {
+      setToastMessage("PDF export started...");
+      setTimeout(() => setToastMessage(null), 3000);
+    }
+  };
 
   return (
     <>
+      {/* Toast notification */}
+      {toastMessage && (
+        <div className="fixed right-4 top-4 z-50 animate-in fade-in slide-in-from-top-2">
+          <Alert variant="success">{toastMessage}</Alert>
+        </div>
+      )}
+
       <PageHeader title="Performance">
-        <Button>Export</Button>
+        <Dropdown
+          trigger={<Button>Export</Button>}
+          items={exportItems}
+          onSelect={handleExport}
+        />
         <Button onClick={() => setShowDefinitions(true)}>Definitions</Button>
       </PageHeader>
 

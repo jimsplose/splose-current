@@ -1,6 +1,25 @@
-import { Badge, Button, Card, DateRangeFilter, PageHeader, Status } from "@/components/ds";
+"use client";
+
+import { useState } from "react";
+import {
+  Badge,
+  Button,
+  Card,
+  DataTable,
+  DateRangeFilter,
+  PageHeader,
+  Stat,
+  Status,
+  TableBody,
+  TableHead,
+  Td,
+  Th,
+  Tr,
+} from "@/components/ds";
 
 export default function ReportsProgressNotesPage() {
+  const [showResults, setShowResults] = useState(false);
+
   return (
     <>
       <PageHeader title="Progress notes">
@@ -21,11 +40,28 @@ export default function ReportsProgressNotesPage() {
         <Button>Add filter</Button>
         <Button>Save filters</Button>
         <Button>Load filters</Button>
-        <Button variant="primary">Run report</Button>
+        <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
       </div>
 
+      {showResults && (<>
       {/* Results */}
       <p className="mb-4 text-body-md text-text-secondary">2 progress notes found.</p>
+
+      {/* Summary stats row */}
+      <div className="mb-6 grid grid-cols-2 gap-4 md:grid-cols-4">
+        <Card className="flex items-center justify-center py-4">
+          <Stat value="2" label="Total notes" />
+        </Card>
+        <Card className="flex items-center justify-center py-4">
+          <Stat value="0" label="Signed" />
+        </Card>
+        <Card className="flex items-center justify-center py-4">
+          <Stat value="2" label="Draft" />
+        </Card>
+        <Card className="flex items-center justify-center py-4">
+          <Stat value="1.0" label="Avg per practitioner" />
+        </Card>
+      </div>
 
       <h2 className="mb-4 text-heading-lg text-text">Summary</h2>
 
@@ -118,41 +154,38 @@ export default function ReportsProgressNotesPage() {
 
       {/* Progress notes list */}
       <h2 className="mb-4 text-heading-lg text-text">Progress notes list</h2>
-      <Card padding="none" className="overflow-x-auto">
-        <table className="w-full min-w-[600px]">
-          <thead>
-            <tr className="border-b border-border bg-gray-50">
-              <th className="px-4 py-2 text-left text-label-lg text-text">Title</th>
-              <th className="px-4 py-2 text-left text-label-lg text-text">Client</th>
-              <th className="px-4 py-2 text-left text-label-lg text-text">Related service</th>
-              <th className="px-4 py-2 text-left text-label-lg text-text">Practitioner</th>
-              <th className="px-4 py-2 text-left text-label-lg text-text">Location</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
-            <tr>
-              <td className="px-4 py-3 text-body-md">
-                <span className="text-primary">Bill Gates Demo</span>
-                <Badge variant="gray" className="ml-2">Draft</Badge>
-              </td>
-              <td className="px-4 py-3 text-body-md text-primary">Skyler Peterson</td>
-              <td className="px-4 py-3 text-body-md text-text-secondary"></td>
-              <td className="px-4 py-3 text-body-md text-text">Ruvi R.</td>
-              <td className="px-4 py-3 text-body-md text-text-secondary"></td>
-            </tr>
-            <tr>
-              <td className="px-4 py-3 text-body-md">
-                <span className="text-primary">AAA TEST</span>
-                <Badge variant="gray" className="ml-2">Draft</Badge>
-              </td>
-              <td className="px-4 py-3 text-body-md text-primary">A Del</td>
-              <td className="px-4 py-3 text-body-md text-text-secondary"></td>
-              <td className="px-4 py-3 text-body-md text-text">Zoe Gomez</td>
-              <td className="px-4 py-3 text-body-md text-text-secondary"></td>
-            </tr>
-          </tbody>
-        </table>
-      </Card>
+      <DataTable>
+        <TableHead>
+          <Th>Title</Th>
+          <Th>Client</Th>
+          <Th>Related service</Th>
+          <Th>Practitioner</Th>
+          <Th>Location</Th>
+        </TableHead>
+        <TableBody>
+          <Tr>
+            <Td>
+              <span className="text-primary">Bill Gates Demo</span>
+              <Badge variant="gray" className="ml-2">Draft</Badge>
+            </Td>
+            <Td><span className="text-primary">Skyler Peterson</span></Td>
+            <Td><span className="text-text-secondary">&mdash;</span></Td>
+            <Td>Ruvi R.</Td>
+            <Td><span className="text-text-secondary">&mdash;</span></Td>
+          </Tr>
+          <Tr>
+            <Td>
+              <span className="text-primary">AAA TEST</span>
+              <Badge variant="gray" className="ml-2">Draft</Badge>
+            </Td>
+            <Td><span className="text-primary">A Del</span></Td>
+            <Td><span className="text-text-secondary">&mdash;</span></Td>
+            <Td>Zoe Gomez</Td>
+            <Td><span className="text-text-secondary">&mdash;</span></Td>
+          </Tr>
+        </TableBody>
+      </DataTable>
+      </>)}
     </>
   );
 }

@@ -4,8 +4,10 @@ import { useState, useMemo } from "react";
 import {
   Badge,
   Button,
+  Chip,
   DataTable,
   DateRangeFilter,
+  Dropdown,
   FormSelect,
   PageHeader,
   TableBody,
@@ -14,6 +16,7 @@ import {
   Th,
   Tr,
 } from "@/components/ds";
+import type { DropdownItem } from "@/components/ds";
 
 interface Appointment {
   date: string;
@@ -74,10 +77,35 @@ function compareValues(a: string, b: string, key: SortKey): number {
   return a.localeCompare(b);
 }
 
+const filterOptions: DropdownItem[] = [
+  { label: "Status (Arrived, Did not arrive, Pending)", value: "status" },
+  { label: "Service type", value: "service_type" },
+  { label: "Location", value: "location" },
+  { label: "Practitioner", value: "practitioner" },
+];
+
+const filterLabels: Record<string, string> = {
+  status: "Status",
+  service_type: "Service type",
+  location: "Location",
+  practitioner: "Practitioner",
+};
+
 export default function ReportsAppointmentsPage() {
   const [showResults, setShowResults] = useState(false);
   const [sortKey, setSortKey] = useState<SortKey | null>(null);
   const [sortDir, setSortDir] = useState<SortDirection>(null);
+  const [activeFilters, setActiveFilters] = useState<string[]>([]);
+
+  const handleAddFilter = (value: string) => {
+    if (!activeFilters.includes(value)) {
+      setActiveFilters((prev) => [...prev, value]);
+    }
+  };
+
+  const handleRemoveFilter = (value: string) => {
+    setActiveFilters((prev) => prev.filter((f) => f !== value));
+  };
 
   const handleSort = (key: SortKey) => {
     if (sortKey === key) {
@@ -141,12 +169,27 @@ export default function ReportsAppointmentsPage() {
       </div>
 
       {/* Filter buttons */}
-      <div className="mb-8 flex flex-wrap items-center gap-2">
-        <Button>Add filter</Button>
+      <div className="mb-4 flex flex-wrap items-center gap-2">
+        <Dropdown
+          trigger={<Button>Add filter</Button>}
+          items={filterOptions.filter((o) => !activeFilters.includes(o.value))}
+          onSelect={handleAddFilter}
+        />
         <Button>Save filters</Button>
         <Button>Load filters</Button>
         <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
       </div>
+
+      {/* Active filter chips */}
+      {activeFilters.length > 0 && (
+        <div className="mb-8 flex flex-wrap items-center gap-2">
+          {activeFilters.map((f) => (
+            <Chip key={f} variant="blue" onRemove={() => handleRemoveFilter(f)}>
+              {filterLabels[f]}
+            </Chip>
+          ))}
+        </div>
+      )}
 
       {showResults && (
         <>
