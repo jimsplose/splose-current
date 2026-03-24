@@ -30,16 +30,16 @@ All 6 categories completed on 2026-03-24.
 - [x] Invoice detail payment — Method selector + receipt preview
 - [x] Settings body charts — Region selector + chart view picker
 - [x] Settings custom fields — Field type live preview
-- [ ] Calendar edit — Change log + notification preview (skipped, calendar file too large for safe edit)
+- [x] Calendar edit — Change log + notification preview
 
 ## 4. Multi-Step Flows — DONE
 
 - [x] Batch invoicing — 3-step: filters → client selection → preview
 - [x] NDIS bulk upload — 3-step: upload → validation → confirmation
 - [x] Payment flow — Receipt/confirmation view after submission
-- [ ] Online booking — Confirmation email preview (skipped)
-- [ ] Note → Send — Email preview with note content (skipped)
-- [ ] Client import — Column mapping step (skipped)
+- [x] Online booking — Confirmation email preview + add-to-calendar
+- [x] Note → Send — Email preview with note content (edit/preview toggle)
+- [x] Client import — Column mapping step + data preview (4-step flow)
 
 ## 5. Static Interactive States — DONE
 
@@ -62,8 +62,4 @@ All 6 categories completed on 2026-03-24.
 
 ## Remaining (low priority)
 
-- Calendar edit appointment — change log + notification preview
-- Online booking — confirmation email preview + add-to-calendar
-- Note send — email preview with actual note content
-- Client import — column mapping step + data preview
-- Reports chart data — wire to match seed data
+All items completed. No remaining work.

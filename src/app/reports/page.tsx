@@ -196,8 +196,27 @@ export default function ReportsPage() {
     return fmtDay(d);
   });
 
-  const utilisationData = [0.0, 0.0, 0.5, 0.3, 0.2, 4.8, 2.0];
-  const revenueData = [0, 50, 100, 350, 250, 400, 150];
+  // Chart data derived from practitioner table totals
+  const totalUtilisation = sortedPractitioners.reduce((sum, p) => sum + p.utilisation, 0);
+  const totalRevenue = sortedPractitioners.reduce((sum, p) => sum + p.revenue, 0);
+  const utilisationData = [
+    totalUtilisation * 0.08,
+    totalUtilisation * 0.12,
+    totalUtilisation * 0.15,
+    totalUtilisation * 0.18,
+    totalUtilisation * 0.14,
+    totalUtilisation * 0.20,
+    totalUtilisation * 0.13,
+  ];
+  const revenueData = [
+    totalRevenue * 0.05,
+    totalRevenue * 0.10,
+    totalRevenue * 0.12,
+    totalRevenue * 0.22,
+    totalRevenue * 0.18,
+    totalRevenue * 0.20,
+    totalRevenue * 0.13,
+  ];
 
   const frequencyOptions = [
     { value: "daily", label: "Frequency: Daily" },
@@ -254,7 +273,7 @@ export default function ReportsPage() {
             <h3 className="text-heading-sm text-text">Utilisation</h3>
           </div>
           <p className="mb-2 text-caption-md text-text-secondary">Percentage of available time utilised</p>
-          <p className="mb-1 text-metric-lg text-text">0.85%</p>
+          <p className="mb-1 text-metric-lg text-text">{(totalUtilisation / sortedPractitioners.length).toFixed(2)}%</p>
           <p className="mb-4 text-caption-md text-text-secondary">{fmtDay(dateStart)} - {fmtDay(dateEnd)}</p>
           <div className="relative h-32">
             <svg viewBox="0 0 280 100" className="h-full w-full" preserveAspectRatio="none">
@@ -265,18 +284,19 @@ export default function ReportsPage() {
                 fill="none"
                 stroke="#7c3aed"
                 strokeWidth="2"
-                points={utilisationData.map((v, i) => `${i * 46.67},${100 - (v / 5) * 100}`).join(" ")}
+                points={utilisationData.map((v, i) => { const max = Math.ceil(Math.max(...utilisationData) + 1); return `${i * 46.67},${100 - (v / max) * 100}`; }).join(" ")}
               />
               <polygon
                 fill="rgba(124, 58, 237, 0.1)"
-                points={`0,100 ${utilisationData.map((v, i) => `${i * 46.67},${100 - (v / 5) * 100}`).join(" ")} 280,100`}
+                points={`0,100 ${utilisationData.map((v, i) => { const max = Math.ceil(Math.max(...utilisationData) + 1); return `${i * 46.67},${100 - (v / max) * 100}`; }).join(" ")} 280,100`}
               />
-              {utilisationData.map((v, i) => (
-                <circle key={i} cx={i * 46.67} cy={100 - (v / 5) * 100} r="3" fill="#7c3aed" />
-              ))}
+              {utilisationData.map((v, i) => {
+                const max = Math.ceil(Math.max(...utilisationData) + 1);
+                return <circle key={i} cx={i * 46.67} cy={100 - (v / max) * 100} r="3" fill="#7c3aed" />;
+              })}
             </svg>
             <div className="absolute top-0 bottom-0 left-0 -ml-1 flex flex-col justify-between text-caption-sm text-text-secondary">
-              <span>6%</span><span>4%</span><span>2%</span><span>0%</span>
+              {(() => { const max = Math.ceil(Math.max(...utilisationData) + 1); return [max, Math.round(max * 0.67), Math.round(max * 0.33), 0].map((v) => <span key={v}>{v}%</span>); })()}
             </div>
           </div>
           <div className="mt-1 flex justify-between px-2 text-caption-sm text-text-secondary">
@@ -294,18 +314,18 @@ export default function ReportsPage() {
             <h3 className="text-heading-sm text-text">Revenue</h3>
           </div>
           <p className="mb-2 text-caption-md text-text-secondary">Total invoiced revenue from appointments and support activities (tax exclusive)</p>
-          <p className="mb-1 text-metric-lg text-text">$1.09K</p>
+          <p className="mb-1 text-metric-lg text-text">${totalRevenue >= 1000 ? (totalRevenue / 1000).toFixed(2) + "K" : totalRevenue.toFixed(2)}</p>
           <p className="mb-4 text-caption-md text-text-secondary">{fmtDay(dateStart)} - {fmtDay(dateEnd)}</p>
           <div className="relative h-32">
             <div className="absolute top-0 bottom-0 left-0 flex flex-col justify-between text-caption-sm text-text-secondary">
-              <span>$600</span><span>$400</span><span>$200</span><span>$0</span>
+              {(() => { const max = Math.ceil(Math.max(...revenueData) / 50) * 50; return [max, Math.round(max * 0.67), Math.round(max * 0.33), 0].map((v) => <span key={v}>${v}</span>); })()}
             </div>
             <div className="ml-8 flex h-full items-end gap-2">
               {revenueData.map((val, i) => (
                 <div key={i} className="flex flex-1 flex-col items-center gap-0.5">
                   <div
                     className="w-full rounded-t bg-primary"
-                    style={{ height: `${(val / 600) * 100}%`, minHeight: val > 0 ? "2px" : "0px" }}
+                    style={{ height: `${(val / (Math.ceil(Math.max(...revenueData) / 50) * 50 || 1)) * 100}%`, minHeight: val > 0 ? "2px" : "0px" }}
                   />
                 </div>
               ))}

@@ -1061,6 +1061,51 @@ export default function CalendarView({
                 value={editApplyTo}
                 onChange={(v) => setEditApplyTo(v as "this" | "following" | "all")}
               />
+
+              {/* Notification preview */}
+              <div className="rounded-lg border border-border bg-purple-50/50 p-4">
+                <div className="mb-2 flex items-center gap-2">
+                  <Mail className="h-4 w-4 text-primary" />
+                  <span className="text-label-lg text-text">Notification preview</span>
+                </div>
+                <p className="mb-3 text-body-sm text-text-secondary">
+                  Client won&apos;t be notified of changes. To notify the client, use Reschedule instead.
+                </p>
+                <div className="rounded-lg bg-white p-3">
+                  <p className="text-body-sm text-text-secondary">
+                    If using Reschedule, the client will receive:
+                  </p>
+                  <div className="mt-2 rounded border border-border bg-gray-50 p-3">
+                    <p className="text-body-sm text-text-secondary">Subject: <span className="text-text">Your appointment has been rescheduled</span></p>
+                    <p className="mt-1 text-body-sm text-text-secondary">
+                      Hi {selectedAppt.clientName.split(" ")[0]}, your appointment with {selectedAppt.practitionerName} has been moved to a new time. Please check your updated appointment details.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Change log */}
+              <div className="rounded-lg border border-border bg-gray-50 p-4">
+                <div className="mb-3 flex items-center gap-2">
+                  <History className="h-4 w-4 text-text-secondary" />
+                  <span className="text-label-lg text-text">Change log</span>
+                </div>
+                <div className="space-y-2">
+                  {[
+                    { date: "24 Mar 2026, 2:15 pm", user: "Hrishikesh Koli", action: "Created appointment" },
+                    { date: "24 Mar 2026, 3:42 pm", user: "Sharon Tan", action: "Changed room from Green to Blue" },
+                    { date: "25 Mar 2026, 9:10 am", user: "Hrishikesh Koli", action: "Updated service to Initial Consultation" },
+                  ].map((log, i) => (
+                    <div key={i} className="flex items-start gap-3 border-b border-border pb-2 last:border-0 last:pb-0">
+                      <div className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                      <div className="flex-1">
+                        <p className="text-body-sm text-text">{log.action}</p>
+                        <p className="text-caption-md text-text-secondary">{log.user} · {log.date}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
       </Modal>
       )}
