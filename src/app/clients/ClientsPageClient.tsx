@@ -40,13 +40,13 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
       </PageHeader>
       <SearchBar placeholder="Search for name, phone number, and email" />
 
-      <DataTable>
+      <DataTable className="table-fixed">
         <TableHead>
-          <Th sortable filterable>Name</Th>
-          <Th hidden="sm">Date of birth</Th>
-          <Th hidden="md">Phone</Th>
-          <Th hidden="lg">Email</Th>
-          <Th hidden="md" filterable>Tags</Th>
+          <Th sortable filterable className="w-[25%]">Name</Th>
+          <Th hidden="sm" className="w-[8%]">Date of birth</Th>
+          <Th hidden="md" className="w-[28%]">Phone</Th>
+          <Th hidden="lg" className="w-[16%]">Email</Th>
+          <Th hidden="md" filterable className="w-[21%]">Tags</Th>
         </TableHead>
         <TableBody>
           {clients.map((client) => (
