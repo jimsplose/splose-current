@@ -65,7 +65,7 @@ export default function Pagination({
               onClick={() => onPageChange?.(p)}
               className={`flex h-8 w-8 items-center justify-center rounded border text-[14px] ${
                 p === currentPage
-                  ? "border-primary bg-white text-primary"
+                  ? "border-primary bg-white text-text"
                   : "border-transparent bg-white text-text hover:border-primary hover:text-primary"
               }`}
             >
