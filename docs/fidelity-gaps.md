@@ -234,7 +234,7 @@ Patterns identified from the interactive states implementation audit. All opport
 
 ### Group AC — Calendar fidelity (`src/app/calendar/CalendarView.tsx`)
 
-- [ ] **Calendar toolbar icons** — Second icon is sliders/adjustments (should be gear ⚙), third icon is command ⌘ (should be calendar/grid). Missing purple AI sparkle icon before Calendar dropdown. (2026-03-25)
+- [x] **Calendar toolbar icons** — Fixed: Settings gear, CalendarDays grid, added purple Sparkles icon. (2026-03-25)
 - [ ] **Calendar practitioner grouping** — Production groups practitioners by location with bold location headers and vertical separators. Localhost shows flat list with colored dots above names. Major structural difference. (2026-03-25)
 - [ ] **Calendar timezone indicator** — Production shows "+11:00" timezone at top-left of time grid. Localhost doesn't show timezone. (2026-03-25)
 - [x] **Appointment block styling** — Fixed: Blocks now use light muted backgrounds with dark text, 12h time format, and service name line. (2026-03-25)
