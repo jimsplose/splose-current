@@ -10,7 +10,7 @@ See the **Gap completion rule** in CLAUDE.md (single source of truth). In short:
 ## Priority 1 — High-traffic pages
 
 ### Group D — Dashboard (`src/app/page.tsx`)
-- [x] **Dashboard improvements** — Messages panel, income chart, incomplete progress notes, recently submitted forms, compose area all implemented.
+- [ ] **Dashboard improvements** — Reopened 2026-03-25: Income chart X-axis labels jammed together (no spacing/rotation), rich text editor missing GIF button/undo-redo/horizontal rule/extra "N" avatar. Messages panel, sidebar panels match well.
 
 ### Group E — Client detail (`src/app/clients/[id]/`)
 - [x] **Client appointments sub-tab** — AppointmentSidePanel.tsx implemented with structured details, Status DS component, action buttons. Profile photo layout improved in edit form. (2026-03-20)
@@ -219,6 +219,40 @@ Patterns identified from the interactive states implementation audit. All opport
 - [x] **Clients list filter cleanup** — Removed standalone Active/Archived + Tags filter bar (not in reference). Migrated to `Th` `sortable`/`filterable` props for column-level filtering. (2026-03-23)
 - [x] **Settings hub** — No structural mismatches found. Sidebar groups, items, and content match reference. (2026-03-23)
 - [x] **Reports hub** — No structural mismatches found. Sidebar groups, filter bar, charts, and table match reference. (2026-03-23)
+
+## Priority 12 — Pixel-perfect comparison audit (2026-03-25)
+
+### Group AB — Cross-cutting styling issues (multiple files)
+
+- [ ] **Date format inconsistency** — Clients list shows ISO dates ("2018-02-14") instead of human-readable ("14 Feb 2018"). Production uses "D Mon YYYY" format. Affects: `src/app/clients/page.tsx`, client detail DOB display. (2026-03-25)
+- [ ] **Phone number formatting** — Clients list shows local format ("0404 444 555") as plain text. Production shows international format ("+61 0123456789") as clickable blue links. Affects: `src/app/clients/page.tsx`, client detail contact section. (2026-03-25)
+- [ ] **Sort/filter icon colors** — Table header sort (⬆️⬇️) and filter (🔽) icons are gray on localhost, purple/blue on production. Affects: all pages using DS `Th` component with `sortable`/`filterable` props. (2026-03-25)
+- [ ] **Status badge styling** — Invoices and other pages use colored text for status. Production uses filled rounded pill badges (darker, more prominent). Affects: `src/app/invoices/page.tsx`, any page using status indicators. (2026-03-25)
+- [ ] **Tag styling** — Clients list tags show as small filled colored badges (red NDIS, green Medicare). Production uses larger outlined yellow/gold pill badges. Affects: `src/app/clients/page.tsx`, client detail tags section. (2026-03-25)
+- [ ] **Section dividers** — Production uses colored (orange/gold) horizontal lines between form sections. Localhost uses gray dashed lines or no dividers. Affects: client detail, settings pages. (2026-03-25)
+- [ ] **Rich text editor toolbar** — Missing GIF button, undo/redo arrows, horizontal rule (—) icon across all editor instances. Extra "N" avatar on Dashboard. Toolbar uses "..." overflow instead of showing all icons. Affects: Dashboard compose area, Settings email signature, note editors. (2026-03-25)
+
+### Group AC — Calendar fidelity (`src/app/calendar/CalendarView.tsx`)
+
+- [ ] **Calendar toolbar icons** — Second icon is sliders/adjustments (should be gear ⚙), third icon is command ⌘ (should be calendar/grid). Missing purple AI sparkle icon before Calendar dropdown. "Mar 2026" font weight should be bolder. (2026-03-25)
+- [ ] **Calendar practitioner grouping** — Production groups practitioners by location with bold location headers and vertical separators. Localhost shows flat list with colored dots above names. Major structural difference. (2026-03-25)
+- [ ] **Calendar timezone indicator** — Production shows "+11:00" timezone at top-left of time grid. Localhost doesn't show timezone. (2026-03-25)
+- [ ] **Appointment block styling** — Localhost uses bright solid colors with white text. Production uses lighter/muted colors with dark text on light background. Blocks should show client name + emoji status icons (⚠️📋🔴) + time (12h am/pm) + service name. Currently showing only truncated name + time (24h). (2026-03-25)
+- [ ] **Calendar day view date mismatch** — Day view column header shows different day than toolbar date ("Tue 24" vs "Wednesday 25 March 2026"). (2026-03-25)
+
+### Group AD — Dashboard fidelity (`src/app/page.tsx`)
+
+- [ ] **Income chart X-axis labels** — Month labels are jammed together without spacing ("Sep-2025Oct-2025Nov-2025..."). Production has properly spaced and rotated labels. "Mar-" is truncated. Chart rendering/spacing issue. (2026-03-25)
+
+### Group AE — Waitlist fidelity (`src/app/waitlist/page.tsx`)
+
+- [ ] **Waitlist triage button layout** — Yes/No buttons are horizontal (side-by-side). Production stacks them vertically (Yes on top, No below). (2026-03-25)
+
+### Group AF — Settings fidelity (`src/app/settings/`)
+
+- [ ] **Settings sidebar label** — "Cancellation reasons" should be "Cancel/Reschedule" to match production. (2026-03-25)
+- [ ] **Settings email signature switcher** — Uses plain tab buttons "Business" / "User". Production uses dropdown pill buttons "Business ∨" / "User ∨". (2026-03-25)
+- [ ] **Settings disabled fields** — Currency code, Country, Currency symbol should appear as disabled/gray read-only fields. Currently show as editable. (2026-03-25)
 
 ---
 
