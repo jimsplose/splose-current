@@ -230,7 +230,7 @@ export default function CalendarView({
 
   const [locationFilter, setLocationFilter] = useState<string>("all");
   const [practitionerFilter, setPractitionerFilter] = useState<string>("all");
-  const [bookingForFilter, setBookingForFilter] = useState<string | null>("a a");
+  const [bookingForFilter, setBookingForFilter] = useState<string | null>(null);
 
   // Derive unique locations from assigned practitioners
   const locatedPractitioners = assignLocations(practitioners);
@@ -567,8 +567,8 @@ export default function CalendarView({
                 {HOURS.map((hour) => (
                   <div key={hour} className="contents">
                     <div
-                      className="flex items-start justify-end border-r border-b border-border px-2 py-1"
-                      style={{ height: `${HOUR_HEIGHT}px` }}
+                      className="flex items-start justify-end border-r border-border/40 px-2 py-1"
+                      style={{ height: `${HOUR_HEIGHT}px`, borderBottom: '1px dashed #e8e8e8' }}
                     >
                       <span className="-mt-1.5 text-[10px] text-[rgb(65,69,73)]">
                         {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
@@ -585,8 +585,8 @@ export default function CalendarView({
                       return (
                         <div
                           key={prac.id}
-                          className="relative cursor-pointer border-r border-b border-border bg-primary/5 last:border-r-0 hover:bg-gray-100/50"
-                          style={{ height: `${HOUR_HEIGHT}px` }}
+                          className="relative cursor-pointer border-r border-border/20 last:border-r-0 hover:bg-gray-50/50"
+                          style={{ height: `${HOUR_HEIGHT}px`, borderBottom: '1px dashed #e8e8e8' }}
                           onClick={(e) => handleDayCellClick(e, currentDay, hour, prac)}
                         >
                           {hourAppts.map((appt) => {
@@ -631,18 +631,23 @@ export default function CalendarView({
           const gridCols = `48px repeat(7, ${dayWidth}px)`;
           return (
           <>
-            {/* Sticky day + practitioner headers */}
-            <div className="overflow-x-auto overflow-y-hidden" style={{ scrollbarWidth: "none" }}>
-              <div style={{ width: totalWidth, display: "grid", gridTemplateColumns: gridCols }} className="border-b border-border">
+            {/* Single scrollable container for header + grid */}
+            <div className="flex-1 overflow-auto">
+              {/* Sticky day + practitioner headers */}
+              <div style={{ width: totalWidth, display: "grid", gridTemplateColumns: gridCols }} className="sticky top-0 z-20 border-b border-border bg-white">
                 <div className="border-r border-border" />
                 {weekDates.map((dateStr, i) => {
                   const date = new Date(dateStr + "T00:00:00");
                   const isToday = dateStr === todayStr;
                   return (
-                    <div key={i} className={`border-r border-border last:border-r-0 ${isToday ? "bg-primary/5" : ""}`}>
+                    <div key={i} className="border-r border-border/40 last:border-r-0">
                       <div className="px-2 pt-1 text-center">
-                        <div className="text-caption-md text-text-secondary">{DAYS[i]}</div>
-                        <div className={`text-heading-lg ${isToday ? "text-primary" : "text-text"}`}>{date.getDate()}</div>
+                        <div className={`text-[14px] font-medium ${isToday ? "text-primary" : "text-[rgb(112,117,122)]"}`}>{DAYS[i]}</div>
+                        {isToday ? (
+                          <div className="mx-auto flex h-[28px] w-[28px] items-center justify-center rounded-full bg-primary text-[14px] font-medium text-white">{date.getDate()}</div>
+                        ) : (
+                          <div className="text-[24px] font-light text-text">{date.getDate()}</div>
+                        )}
                         </div>
                       {/* Location group headers */}
                       <div className="flex border-t border-border/50">
@@ -658,7 +663,7 @@ export default function CalendarView({
                           <div key={group.name} className={`flex ${gi > 0 ? "border-l border-border" : ""}`}>
                             {group.practitioners.map((p) => (
                               <div key={p.id} className="flex flex-col items-center py-1" style={{ width: COL_W }}>
-                                <span className="w-full truncate px-0.5 text-center text-caption-sm text-text-secondary">
+                                <span className="w-full truncate px-0.5 text-center text-[14px] text-[rgb(112,117,122)]">
                                   {p.name.length > 6 ? p.name.slice(0, 5) + "..." : p.name}
                                 </span>
                               </div>
@@ -670,14 +675,12 @@ export default function CalendarView({
                   );
                 })}
               </div>
-            </div>
 
-            {/* Scrollable time grid */}
-            <div className="flex-1 overflow-auto">
+              {/* Time grid (scrolls with header) */}
               <div style={{ width: totalWidth, display: "grid", gridTemplateColumns: gridCols }}>
                 {HOURS.map((hour) => (
                   <div key={hour} className="contents">
-                    <div className="flex items-start justify-end border-r border-b border-border px-1 py-1" style={{ height: HOUR_HEIGHT }}>
+                    <div className="flex items-start justify-end border-r border-border/40 px-1 py-1" style={{ height: HOUR_HEIGHT, borderBottom: '1px dashed #e8e8e8' }}>
                       <span className="-mt-1.5 text-[10px] text-[rgb(65,69,73)]">
                         {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
                       </span>
@@ -685,7 +688,7 @@ export default function CalendarView({
                     {weekDates.map((dateStr, dayIdx) => {
                       const isToday = dateStr === todayStr;
                       return (
-                        <div key={dayIdx} className={`relative border-r border-b border-border last:border-r-0 ${isToday ? "bg-primary/5" : ""}`} style={{ height: HOUR_HEIGHT }}>
+                        <div key={dayIdx} className="relative border-r border-border/40 last:border-r-0" style={{ height: HOUR_HEIGHT, borderBottom: '1px dashed #e8e8e8' }}>
                           {/* Practitioner sub-columns */}
                           <div className="absolute inset-0 flex">
                             {filteredPractitioners.map((prac, pIdx) => {
