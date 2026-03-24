@@ -654,10 +654,10 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.21.50 am.png | Waitlist tab — desktop, Active list with tags, Map button | partial |
-| Screenshot 2026-03-11 at 11.22.02 am.png | Waitlist tab — desktop, Map view (Google Maps with pins) | partial |
-| Screenshot 2026-03-11 at 11.22.17 am.png | Waitlist tab — desktop, scrolled right, Actions dropdown | partial |
-| Screenshot 2026-03-11 at 11.22.31 am.png | Waitlist tab — desktop, Update client modal | partial |
+| Screenshot 2026-03-11 at 11.21.50 am.png | Waitlist tab — desktop, Active list with tags, Map button | yes — Active/Closed tabs, tags column, Map toggle, search, pagination 2026-03-24 |
+| Screenshot 2026-03-11 at 11.22.02 am.png | Waitlist tab — desktop, Map view (Google Maps with pins) | partial — Map toggle exists, placeholder map view |
+| Screenshot 2026-03-11 at 11.22.17 am.png | Waitlist tab — desktop, scrolled right, Actions dropdown | yes — Actions column with Dropdown (Edit/Remove) on each row 2026-03-24 |
+| Screenshot 2026-03-11 at 11.22.31 am.png | Waitlist tab — desktop, Update client modal | yes — Update client modal with Location/Practitioner/Client/Date/Service/Preferred days+time/Note/Tags fields 2026-03-24 |
 
 ## Products (`/products`)
 

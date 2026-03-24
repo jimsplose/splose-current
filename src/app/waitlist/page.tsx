@@ -16,6 +16,10 @@ import {
   ThumbsUp,
   ThumbsDown,
   MoreHorizontal,
+  X,
+  Sun,
+  Moon,
+  SunMedium,
 } from "lucide-react";
 import {
   Button,
@@ -31,6 +35,10 @@ import {
   Badge,
   Tab,
   EmptyState,
+  Modal,
+  FormSelect,
+  FormInput,
+  FormTextarea,
 } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
@@ -145,8 +153,15 @@ const waitlistData = [
     dob: "1 Mar 2022",
     address: "---",
     dateAdded: "5 Mar 2026 (6 days)",
+    dateAddedRaw: "2026-03-05",
     service: "First Appointment ()",
+    services: ["First Appointment ()"],
     status: "active" as const,
+    location: "",
+    practitioner: "jim",
+    preferredDays: [false, true, false, true, false, true, false] as boolean[],
+    preferredTime: { morning: true, afternoon: false, evening: false },
+    note: "",
   },
   {
     tags: ["---"],
@@ -154,8 +169,15 @@ const waitlistData = [
     dob: "---",
     address: "Adelaide 5000",
     dateAdded: "5 Mar 2026 (6 days)",
+    dateAddedRaw: "2026-03-05",
     service: "Copy of ...",
+    services: ["Copy of ..."],
     status: "active" as const,
+    location: "",
+    practitioner: "",
+    preferredDays: [false, false, false, false, false, false, false] as boolean[],
+    preferredTime: { morning: false, afternoon: false, evening: false },
+    note: "",
   },
   {
     tags: ["Admin to review"],
@@ -163,8 +185,15 @@ const waitlistData = [
     dob: "---",
     address: "---",
     dateAdded: "19 Feb 2026 (20 days)",
+    dateAddedRaw: "2026-02-19",
     service: "1:1 Consultation",
+    services: ["299dsdds3234 1:1 Consultation (1:1 Con...)"],
     status: "active" as const,
+    location: "",
+    practitioner: "jim",
+    preferredDays: [false, true, true, true, true, true, false] as boolean[],
+    preferredTime: { morning: true, afternoon: true, evening: false },
+    note: "Prefers morning sessions. Contact via email.",
   },
   {
     tags: ["---"],
@@ -172,8 +201,15 @@ const waitlistData = [
     dob: "18 Feb 2015",
     address: "Adelaide 5000",
     dateAdded: "3 Feb 2026 (36 days)",
+    dateAddedRaw: "2026-02-03",
     service: "First Appointment",
+    services: ["First Appointment"],
     status: "active" as const,
+    location: "adelaide",
+    practitioner: "jim",
+    preferredDays: [false, false, false, true, false, false, false] as boolean[],
+    preferredTime: { morning: false, afternoon: true, evening: false },
+    note: "",
   },
   {
     tags: ["Admin to review"],
@@ -181,8 +217,15 @@ const waitlistData = [
     dob: "2 Feb 1998",
     address: "---",
     dateAdded: "19 Jan 2026 (51 days)",
+    dateAddedRaw: "2026-01-19",
     service: "1:1 Consultation",
+    services: ["1:1 Consultation"],
     status: "active" as const,
+    location: "",
+    practitioner: "",
+    preferredDays: [false, false, false, false, false, false, false] as boolean[],
+    preferredTime: { morning: false, afternoon: false, evening: false },
+    note: "",
   },
   {
     tags: ["Admin to review"],
@@ -190,8 +233,15 @@ const waitlistData = [
     dob: "2 Apr 2021",
     address: "---",
     dateAdded: "19 Jan 2026 (51 days)",
+    dateAddedRaw: "2026-01-19",
     service: "1:1 Consultation",
+    services: ["1:1 Consultation"],
     status: "active" as const,
+    location: "",
+    practitioner: "",
+    preferredDays: [false, false, false, false, false, false, false] as boolean[],
+    preferredTime: { morning: false, afternoon: false, evening: false },
+    note: "",
   },
   {
     tags: ["Low"],
@@ -199,8 +249,15 @@ const waitlistData = [
     dob: "2 Feb 2002",
     address: "---",
     dateAdded: "29 Dec 2025 (72 days)",
+    dateAddedRaw: "2025-12-29",
     service: "First Appointment",
+    services: ["First Appointment"],
     status: "active" as const,
+    location: "",
+    practitioner: "jim",
+    preferredDays: [false, false, true, false, true, false, false] as boolean[],
+    preferredTime: { morning: true, afternoon: false, evening: false },
+    note: "",
   },
   {
     tags: ["Admin to review", "Medium", "NDIS referral"],
@@ -208,8 +265,15 @@ const waitlistData = [
     dob: "5 Jul 1985",
     address: "Adelaide 5000",
     dateAdded: "22 Dec 2025 (79 days)",
+    dateAddedRaw: "2025-12-22",
     service: "Back Re-Alignment",
+    services: ["Back Re-Alignment"],
     status: "active" as const,
+    location: "adelaide",
+    practitioner: "jim",
+    preferredDays: [false, true, false, false, false, true, false] as boolean[],
+    preferredTime: { morning: false, afternoon: true, evening: true },
+    note: "NDIS funded. Requires plan manager approval.",
   },
   {
     tags: ["---"],
@@ -217,8 +281,15 @@ const waitlistData = [
     dob: "12 Jan 1990",
     address: "Melbourne 3000",
     dateAdded: "10 Nov 2025 (120 days)",
+    dateAddedRaw: "2025-11-10",
     service: "1:1 Consultation",
+    services: ["1:1 Consultation"],
     status: "closed" as const,
+    location: "",
+    practitioner: "",
+    preferredDays: [false, false, false, false, false, false, false] as boolean[],
+    preferredTime: { morning: false, afternoon: false, evening: false },
+    note: "",
   },
   {
     tags: ["Low"],
@@ -226,8 +297,15 @@ const waitlistData = [
     dob: "5 May 1988",
     address: "---",
     dateAdded: "1 Oct 2025 (160 days)",
+    dateAddedRaw: "2025-10-01",
     service: "First Appointment",
+    services: ["First Appointment"],
     status: "closed" as const,
+    location: "",
+    practitioner: "",
+    preferredDays: [false, false, false, false, false, false, false] as boolean[],
+    preferredTime: { morning: false, afternoon: false, evening: false },
+    note: "",
   },
 ];
 
@@ -264,6 +342,74 @@ function WaitlistPageInner() {
   });
   const [screenerSearch, setScreenerSearch] = useState("");
   const [waitlistSearch, setWaitlistSearch] = useState("");
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [editingClient, setEditingClient] = useState<(typeof waitlistData)[number] | null>(null);
+
+  // Update modal form state
+  const [modalLocation, setModalLocation] = useState("");
+  const [modalPractitioner, setModalPractitioner] = useState("");
+  const [modalClient, setModalClient] = useState("");
+  const [modalDateAdded, setModalDateAdded] = useState("");
+  const [modalServices, setModalServices] = useState<string[]>([]);
+  const [modalServiceSelect, setModalServiceSelect] = useState("");
+  const [modalPreferredDays, setModalPreferredDays] = useState<boolean[]>([false, false, false, false, false, false, false]);
+  const [modalPreferredTime, setModalPreferredTime] = useState({ morning: false, afternoon: false, evening: false });
+  const [modalNote, setModalNote] = useState("");
+  const [modalTags, setModalTags] = useState<string[]>([]);
+  const [modalTagSelect, setModalTagSelect] = useState("");
+
+  const openUpdateModal = (entry: (typeof waitlistData)[number]) => {
+    setEditingClient(entry);
+    setModalLocation(entry.location);
+    setModalPractitioner(entry.practitioner);
+    setModalClient(entry.client);
+    setModalDateAdded(entry.dateAddedRaw);
+    setModalServices([...entry.services]);
+    setModalServiceSelect("");
+    setModalPreferredDays([...entry.preferredDays]);
+    setModalPreferredTime({ ...entry.preferredTime });
+    setModalNote(entry.note);
+    setModalTags(entry.tags.filter((t) => t !== "---"));
+    setModalTagSelect("");
+    setShowUpdateModal(true);
+  };
+
+  const closeUpdateModal = () => {
+    setShowUpdateModal(false);
+    setEditingClient(null);
+  };
+
+  const addService = () => {
+    if (modalServiceSelect && !modalServices.includes(modalServiceSelect)) {
+      setModalServices([...modalServices, modalServiceSelect]);
+      setModalServiceSelect("");
+    }
+  };
+
+  const removeService = (service: string) => {
+    setModalServices(modalServices.filter((s) => s !== service));
+  };
+
+  const addTag = () => {
+    if (modalTagSelect && !modalTags.includes(modalTagSelect)) {
+      setModalTags([...modalTags, modalTagSelect]);
+      setModalTagSelect("");
+    }
+  };
+
+  const removeTag = (tag: string) => {
+    setModalTags(modalTags.filter((t) => t !== tag));
+  };
+
+  const toggleDay = (index: number) => {
+    const updated = [...modalPreferredDays];
+    updated[index] = !updated[index];
+    setModalPreferredDays(updated);
+  };
+
+  const toggleTime = (key: "morning" | "afternoon" | "evening") => {
+    setModalPreferredTime((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
 
   // Dev Navigator: ?state= param wiring
   const searchParams = useSearchParams();
@@ -468,6 +614,227 @@ function WaitlistPageInner() {
         </div>
       )}
 
+      {/* ===== UPDATE CLIENT MODAL ===== */}
+      <Modal
+        open={showUpdateModal}
+        onClose={closeUpdateModal}
+        title="Update client"
+        maxWidth="md"
+        footer={
+          <>
+            <Button variant="secondary" size="md" onClick={closeUpdateModal}>
+              Cancel
+            </Button>
+            <Button variant="primary" size="md" onClick={closeUpdateModal}>
+              Update
+            </Button>
+          </>
+        }
+      >
+        <div className="flex flex-col gap-4">
+          {/* Location */}
+          <FormSelect
+            label="Location"
+            value={modalLocation}
+            onChange={(e) => setModalLocation(e.target.value)}
+            options={[
+              { value: "", label: "Any location" },
+              { value: "adelaide", label: "Adelaide" },
+              { value: "melbourne", label: "Melbourne" },
+              { value: "sydney", label: "Sydney" },
+            ]}
+          />
+
+          {/* Practitioner */}
+          <FormSelect
+            label="Practitioner"
+            value={modalPractitioner}
+            onChange={(e) => setModalPractitioner(e.target.value)}
+            options={[
+              { value: "", label: "Any practitioner" },
+              { value: "jim", label: "Jim Yencken" },
+              { value: "sarah", label: "Sarah Mitchell" },
+              { value: "alex", label: "Alex Chen" },
+            ]}
+          />
+
+          {/* Client (required) */}
+          <FormSelect
+            label="Client *"
+            value={modalClient}
+            onChange={(e) => setModalClient(e.target.value)}
+            options={[
+              { value: "", label: "Select client" },
+              ...waitlistData.map((w) => ({ value: w.client, label: w.client })),
+            ]}
+          />
+
+          {/* Date added (required) */}
+          <FormInput
+            label="Date added *"
+            type="date"
+            value={modalDateAdded}
+            onChange={(e) => setModalDateAdded(e.target.value)}
+          />
+
+          {/* Service (required) — chips + select to add */}
+          <div>
+            <label className="mb-1 block text-label-lg text-text-secondary">Service *</label>
+            {modalServices.length > 0 && (
+              <div className="mb-2 flex flex-wrap gap-1.5">
+                {modalServices.map((service) => (
+                  <Badge key={service} variant="blue" className="rounded-lg !py-1 !px-2.5 gap-1">
+                    <span className="max-w-[220px] truncate">{service}</span>
+                    <button
+                      type="button"
+                      onClick={() => removeService(service)}
+                      className="ml-0.5 rounded-full p-0.5 hover:bg-blue-200"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </Badge>
+                ))}
+              </div>
+            )}
+            <div className="flex gap-2">
+              <FormSelect
+                value={modalServiceSelect}
+                onChange={(e) => setModalServiceSelect(e.target.value)}
+                options={[
+                  { value: "", label: "Add a service..." },
+                  { value: "1:1 Consultation", label: "1:1 Consultation" },
+                  { value: "First Appointment", label: "First Appointment" },
+                  { value: "Back Re-Alignment", label: "Back Re-Alignment" },
+                  { value: "299dsdds3234 1:1 Consultation (1:1 Con...)", label: "299dsdds3234 1:1 Consultation (1:1 Con...)" },
+                  { value: "Group Session", label: "Group Session" },
+                ]}
+              />
+              <Button variant="secondary" size="sm" onClick={addService} className="shrink-0">
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+
+          {/* Preferred days */}
+          <div>
+            <label className="mb-1.5 block text-label-lg text-text-secondary">Preferred days</label>
+            <div className="flex gap-1.5">
+              {["S", "M", "T", "W", "T", "F", "S"].map((day, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => toggleDay(i)}
+                  className={`flex h-9 w-9 items-center justify-center rounded-full text-label-md transition-colors ${
+                    modalPreferredDays[i]
+                      ? "bg-primary text-white"
+                      : "border border-border bg-white text-text-secondary hover:bg-gray-50"
+                  }`}
+                >
+                  {day}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Preferred time */}
+          <div>
+            <label className="mb-1.5 block text-label-lg text-text-secondary">Preferred time</label>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => toggleTime("morning")}
+                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-label-md transition-colors ${
+                  modalPreferredTime.morning
+                    ? "bg-primary text-white"
+                    : "border border-border bg-white text-text-secondary hover:bg-gray-50"
+                }`}
+              >
+                <Sun className="h-4 w-4" />
+                Morning
+              </button>
+              <button
+                type="button"
+                onClick={() => toggleTime("afternoon")}
+                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-label-md transition-colors ${
+                  modalPreferredTime.afternoon
+                    ? "bg-primary text-white"
+                    : "border border-border bg-white text-text-secondary hover:bg-gray-50"
+                }`}
+              >
+                <SunMedium className="h-4 w-4" />
+                Afternoon
+              </button>
+              <button
+                type="button"
+                onClick={() => toggleTime("evening")}
+                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-label-md transition-colors ${
+                  modalPreferredTime.evening
+                    ? "bg-primary text-white"
+                    : "border border-border bg-white text-text-secondary hover:bg-gray-50"
+                }`}
+              >
+                <Moon className="h-4 w-4" />
+                Evening
+              </button>
+            </div>
+          </div>
+
+          {/* Note */}
+          <div>
+            <FormTextarea
+              label="Note"
+              value={modalNote}
+              onChange={(e) => {
+                if (e.target.value.length <= 500) setModalNote(e.target.value);
+              }}
+              rows={3}
+              placeholder="Add a note..."
+            />
+            <p className="mt-1 text-right text-caption-md text-text-secondary">
+              {modalNote.length} / 500
+            </p>
+          </div>
+
+          {/* Waitlist tags */}
+          <div>
+            <label className="mb-1 block text-label-lg text-text-secondary">Waitlist tags</label>
+            {modalTags.length > 0 && (
+              <div className="mb-2 flex flex-wrap gap-1.5">
+                {modalTags.map((tag) => (
+                  <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} className="rounded-lg !py-1 !px-2.5 gap-1">
+                    {tag}
+                    <button
+                      type="button"
+                      onClick={() => removeTag(tag)}
+                      className="ml-0.5 rounded-full p-0.5 hover:bg-black/10"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </Badge>
+                ))}
+              </div>
+            )}
+            <div className="flex gap-2">
+              <FormSelect
+                value={modalTagSelect}
+                onChange={(e) => setModalTagSelect(e.target.value)}
+                options={[
+                  { value: "", label: "Add a tag..." },
+                  { value: "Admin to review", label: "Admin to review" },
+                  { value: "Low", label: "Low" },
+                  { value: "Medium", label: "Medium" },
+                  { value: "NDIS referral", label: "NDIS referral" },
+                  { value: "To assign a unique ID", label: "To assign a unique ID" },
+                ]}
+              />
+              <Button variant="secondary" size="sm" onClick={addTag} className="shrink-0">
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </Modal>
+
       {/* ===== WAITLIST TAB ===== */}
       {mainTab === "waitlist" && (
         <div className="p-4 sm:p-6">
@@ -552,7 +919,7 @@ function WaitlistPageInner() {
                     </tr>
                   ) : (
                     filteredWaitlist.map((row, idx) => (
-                      <Tr key={idx}>
+                      <Tr key={idx} onClick={() => openUpdateModal(row)} className="cursor-pointer">
                         <Td>
                           <div className="flex flex-wrap gap-1">
                             {row.tags.map((tag) =>
@@ -574,7 +941,15 @@ function WaitlistPageInner() {
                         <Td className="text-text-secondary">{row.dateAdded}</Td>
                         <Td className="text-text-secondary">{row.service}</Td>
                         <Td align="right">
-                          <Button variant="ghost" size="sm" className="!px-1.5 !py-1">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="!px-1.5 !py-1"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              openUpdateModal(row);
+                            }}
+                          >
                             <MoreHorizontal className="h-4 w-4" />
                           </Button>
                         </Td>
