@@ -235,6 +235,15 @@ Patterns identified from the interactive states implementation audit. All opport
 ### Group AC — Calendar fidelity (`src/app/calendar/CalendarView.tsx`)
 
 - [x] **Calendar toolbar icons** — Fixed: Settings gear, CalendarDays grid, added purple Sparkles icon. (2026-03-25)
+
+### Group AG — Calendar remaining gaps (2026-03-25)
+
+- [ ] **Calendar AI sparkle icon graphic** — Production uses a custom sparkle SVG (not Lucide Sparkles). Extract the production SVG and use the same graphic. (2026-03-25)
+- [ ] **Calendar AI sidebar panel** — Clicking the sparkle icon should open an "Ask splose AI" chat sidebar that slides in from the right. Production has this as a collapsible panel with greeting, quick-action pills, input field, and Saved prompts button. Similar to the notes AI chat panel. (2026-03-25)
+- [ ] **Calendar grid alternating column backgrounds** — Location groups should have more visible alternating backgrounds. Production shows clearly alternating white/light-gray columns per location group. Current implementation is too subtle. (2026-03-25)
+- [ ] **Calendar unavailable hours per practitioner** — Production shows darkened cells for hours when specific practitioners don't work (not just before 9am/after 5pm globally). Needs per-practitioner availability data. (2026-03-25)
+- [ ] **Calendar event status icons** — Production events show emoji icons (⚠️📋🔴) for alerts, notes, billing status. Not yet implemented. (2026-03-25)
+- [ ] **Calendar "Booking for" state** — Should be accessible via Dev Navigator (?state=booking-for) but not the default load state. Currently removed from default. (2026-03-25)
 - [x] **Calendar practitioner grouping** — Fixed: Practitioners grouped by location (East Clinics, Splose OT, Tasks) with bold headers and vertical separators. (2026-03-25)
 - [x] **Calendar timezone indicator** — Fixed: Added "+11:00" in top-left corner of day view grid. (2026-03-25)
 - [x] **Appointment block styling** — Fixed: Blocks now use light muted backgrounds with dark text, 12h time format, and service name line. (2026-03-25)
