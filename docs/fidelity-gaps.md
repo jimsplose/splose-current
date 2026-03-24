@@ -236,9 +236,9 @@ Patterns identified from the interactive states implementation audit. All opport
 
 - [x] **Calendar toolbar icons** — Fixed: Settings gear, CalendarDays grid, added purple Sparkles icon. (2026-03-25)
 - [ ] **Calendar practitioner grouping** — Production groups practitioners by location with bold location headers and vertical separators. Localhost shows flat list with colored dots above names. Major structural difference. (2026-03-25)
-- [ ] **Calendar timezone indicator** — Production shows "+11:00" timezone at top-left of time grid. Localhost doesn't show timezone. (2026-03-25)
+- [x] **Calendar timezone indicator** — Fixed: Added "+11:00" in top-left corner of day view grid. (2026-03-25)
 - [x] **Appointment block styling** — Fixed: Blocks now use light muted backgrounds with dark text, 12h time format, and service name line. (2026-03-25)
-- [ ] **Calendar day view date mismatch** — Day view column header shows different day than toolbar date ("Tue 24" vs "Wednesday 25 March 2026"). (2026-03-25)
+- [x] **Calendar day view date mismatch** — Fixed: Header now uses todayStr directly. (2026-03-25)
 
 ### Group AD — Dashboard fidelity (`src/app/page.tsx`)
 
