@@ -51,6 +51,28 @@ type Practitioner = {
   color: string;
 };
 
+type PractitionerWithLocation = Practitioner & { location: string };
+
+/** Assign practitioners to locations for calendar grouping (prototype data) */
+const LOCATION_NAMES = ["East Clinics", "Splose OT", "Tasks"];
+function assignLocations(practitioners: Practitioner[]): PractitionerWithLocation[] {
+  return practitioners.map((p, i) => ({
+    ...p,
+    location: LOCATION_NAMES[i % LOCATION_NAMES.length],
+  }));
+}
+
+type LocationGroup = { name: string; practitioners: PractitionerWithLocation[] };
+function groupByLocation(practitioners: PractitionerWithLocation[]): LocationGroup[] {
+  const map = new Map<string, PractitionerWithLocation[]>();
+  for (const p of practitioners) {
+    const arr = map.get(p.location) || [];
+    arr.push(p);
+    map.set(p.location, arr);
+  }
+  return Array.from(map.entries()).map(([name, pracs]) => ({ name, practitioners: pracs }));
+}
+
 type PopoverState = {
   visible: boolean;
   x: number;
@@ -576,16 +598,26 @@ export default function CalendarView({
                       <div className="px-2 pt-1 text-center">
                         <div className="text-caption-md text-text-secondary">{DAYS[i]}</div>
                         <div className={`text-heading-lg ${isToday ? "text-primary" : "text-text"}`}>{date.getDate()}</div>
-                        <div className="truncate text-caption-sm text-text-secondary">Hands Together Ther...</div>
+                        </div>
+                      {/* Location group headers */}
+                      <div className="flex border-t border-border/50">
+                        {groupByLocation(assignLocations(practitioners)).map((group, gi) => (
+                          <div key={group.name} className={`text-center ${gi > 0 ? "border-l border-border" : ""}`} style={{ width: group.practitioners.length * COL_W }}>
+                            <div className="truncate px-1 py-0.5 text-caption-sm font-semibold text-text-secondary">{group.name}</div>
+                          </div>
+                        ))}
                       </div>
                       {/* Practitioner column headers */}
-                      <div className="flex border-t border-border/50 px-px">
-                        {practitioners.map((p) => (
-                          <div key={p.id} className="flex flex-col items-center py-1" style={{ width: COL_W }}>
-                            <ColorDot color={p.color} size="xs" className="mb-0.5" />
-                            <span className="w-full truncate px-0.5 text-center text-caption-sm text-text-secondary">
-                              {p.name.length > 6 ? p.name.slice(0, 5) + "..." : p.name}
-                            </span>
+                      <div className="flex border-t border-border/30 px-px">
+                        {groupByLocation(assignLocations(practitioners)).map((group, gi) => (
+                          <div key={group.name} className={`flex ${gi > 0 ? "border-l border-border" : ""}`}>
+                            {group.practitioners.map((p) => (
+                              <div key={p.id} className="flex flex-col items-center py-1" style={{ width: COL_W }}>
+                                <span className="w-full truncate px-0.5 text-center text-caption-sm text-text-secondary">
+                                  {p.name.length > 6 ? p.name.slice(0, 5) + "..." : p.name}
+                                </span>
+                              </div>
+                            ))}
                           </div>
                         ))}
                       </div>
