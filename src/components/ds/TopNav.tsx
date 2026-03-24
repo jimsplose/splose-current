@@ -44,7 +44,7 @@ export default function TopNav({ brand = "splose", items, children, className = 
         {/* Logo */}
         <Link href="/" className="mr-6 flex items-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/brand/splose logo.svg" alt={brand} className="h-7 w-auto" />
+          <img src="/images/brand/splose logo.svg" alt={brand} className="h-[30px] w-auto" />
         </Link>
 
         {/* Navigation tabs - hidden on mobile */}
