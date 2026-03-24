@@ -40,25 +40,17 @@ npx tsc --noEmit
 
 If it fails, fix or revert the agent's changes before continuing.
 
-## Step 3: Pixel Diff Verification (main agent)
+## Step 3: Visual Verification (Chrome MCP)
 
-If the agent changed page UI, run the automated pixel diff. **Puppeteer** (bundled Chromium) is used for screenshots — no separate browser install needed. If a persistent browser is running (`start-browser.ts`), captures auto-connect and skip cold start.
+If the agent changed page UI, use **Chrome MCP** to verify the page looks correct:
 
-1. Capture current state:
-   ```bash
-   npx tsx scripts/screenshot-capture.ts http://localhost:3000/<page> /tmp/verify-<page>.png
-   ```
-2. Run pixel diff against each reference screenshot for that page:
-   ```bash
-   npx tsx scripts/pixel-diff.ts screenshots/reference/<reference.png> /tmp/verify-<page>.png --threshold=5 --output=/tmp/diff-<page>.png
-   ```
-3. Read the diff image (`/tmp/diff-<page>.png`) — red pixels show mismatches
-4. If mismatch > 5%: fix the highlighted differences and re-run
-5. If mismatch <= 5%: pass
-6. Update `screenshots/screenshot-catalog.md` Match column:
-   - **yes** = mismatch <= 5%
-   - **partial** = mismatch 5-20% (note what's still off)
-   - **no** = mismatch > 20%
+1. Navigate to the changed page in Chrome MCP
+2. Take a screenshot and compare visually against the saved reference in `screenshots/reference/`
+3. Also check against the style reference (`splose-style-reference/`) for exact token values (colors, fonts, spacing)
+4. Update `screenshots/screenshot-catalog.md` Match column:
+   - **yes** = page visually matches reference
+   - **partial** = noticeable differences (note what's off)
+   - **no** = significant mismatch
 
 ## Step 4: Commit or Revert
 
@@ -71,9 +63,8 @@ If the agent changed page UI, run the automated pixel diff. **Puppeteer** (bundl
 
 After every push that includes visual changes, the main agent MUST:
 
-1. Take 1-2 screenshots of the most significant page changes:
-   - Capture with Puppeteer: `npx tsx scripts/screenshot-capture.ts http://localhost:3000/<changed-page> /tmp/progress-<page>.png`
-2. Read and display screenshots inline in chat (or describe changes with reference screenshots) so Jim can see progress immediately
+1. Use Chrome MCP to capture 1-2 screenshots of the most significant page changes
+2. Read and display screenshots inline in chat so Jim can see progress immediately
 3. Tell Jim the branch preview URL and link to the Vercel dashboard
 
 ### When to skip

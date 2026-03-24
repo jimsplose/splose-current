@@ -24,41 +24,26 @@ Read `screenshots/screenshot-catalog.md` and identify entries with Match = "no" 
 
 ## Step 2: Capture current state of each page
 
-**Puppeteer** (bundled Chromium) is used for screenshots. It's installed automatically via `npm install` — no separate browser download step. For multi-page audits, start a persistent browser first to skip Chromium cold start:
-```bash
-npx tsx scripts/start-browser.ts
-```
+Use **Chrome MCP** to navigate to each page and take screenshots. This gives the most accurate rendering since it uses the same Chrome browser the user sees.
 
-```bash
-npx tsx scripts/screenshot-capture.ts http://localhost:3000/<page-path> /tmp/audit-<page>.png
-```
+1. Navigate to `http://localhost:3000/<page-path>` using Chrome MCP
+2. Take a screenshot using Chrome MCP's screenshot capability
+3. For pages with interactive states, use Chrome MCP to click/interact before capturing
 
 ### For pages with multiple states:
-Capture each state separately using `?state=` params:
-```bash
-npx tsx scripts/screenshot-capture.ts "http://localhost:3000/<page-path>?state=<variant>" /tmp/audit-<page>-<variant>.png
-```
+Navigate to each state using `?state=` params:
+- `http://localhost:3000/<page-path>?state=<variant>`
+- Or use Chrome MCP to interact (click tabs, open dropdowns) and capture each state
 
 ## Step 3: Three-source comparison
 
 Each page is compared against **three sources of truth**:
 
-### 3a. Visual comparison — Puppeteer screenshots vs saved references
+### 3a. Visual comparison — Chrome MCP screenshots vs saved references
 
-Capture the current prototype page and visually compare against the saved reference screenshot:
+Use Chrome MCP to capture the current prototype page, then visually compare against the saved reference screenshot from `screenshots/reference/`.
 
-```bash
-npx tsx scripts/screenshot-capture.ts http://localhost:3000/<page-path> /tmp/audit-<page>.png
-```
-
-**Read both images** (the captured prototype and the saved reference from `screenshots/reference/`) to visually compare layout, structure, and content. This is the primary visual check.
-
-Optionally run the automated pixel diff for a numeric metric:
-```bash
-npx tsx scripts/pixel-diff.ts screenshots/reference/<reference.png> /tmp/audit-<page>.png --threshold=5 --output=/tmp/diff-audit-<page>.png
-```
-
-Note: pixel diff percentages are inflated by DPI differences (references are 2x Retina, captures are 1x) and data content differences. **Visual comparison is authoritative** — use pixel diff as a secondary signal.
+**Read both images** side by side to compare layout, structure, and content. Chrome MCP captures match the real browser rendering exactly — no DPI mismatches.
 
 ### 3b. Style reference comparison — extracted CSS values
 

@@ -31,7 +31,7 @@ When the user selects option **3** or **4**, immediately show a second AskUserQu
 > 4. **Until done** — Run until all open gaps are closed or context limit reached. Same as Extended but no time target.
 
 **Autonomous mode behavior (options 3 and 4):**
-- Start the persistent browser: `npx tsx scripts/start-browser.ts` (run in background)
+- Use Chrome MCP for visual verification throughout the session
 - Auto-select gaps by priority from `docs/fidelity-gaps.md` — highest priority first
 - Skip "return to menu" between rounds — go straight to next batch
 - Commit after every completed gap (not every batch) to preserve work
@@ -230,16 +230,12 @@ These thresholds exist to prevent accidental codebase destruction. If hit, show 
 npm install              # Install deps (also runs prisma generate via postinstall)
 npm run dev              # Start dev server at localhost:3000
 npm run storybook        # Storybook on localhost:6006
-# Puppeteer bundles Chromium automatically via npm install — no separate step needed
 ```
 
-### Pixel diff tools (used by fidelity workflows)
-```bash
-npx tsx scripts/start-browser.ts &                            # Start persistent browser (saves ~3-5s per capture)
-npx tsx scripts/screenshot-capture.ts <url> <output.png>     # Capture page screenshot (auto-connects to persistent browser)
-npx tsx scripts/pixel-diff.ts <reference> <current>           # Compare two images, get mismatch %
-npx tsx scripts/fidelity-loop.ts <reference> <current>        # Convergence-tracked iteration loop
-```
+### Visual verification (Chrome MCP)
+Use **Chrome MCP** for all screenshot capture and visual comparison. Navigate to prototype pages at `http://localhost:3000/` and compare against:
+- Saved reference screenshots in `screenshots/reference/`
+- Extracted style values in `splose-style-reference/`
 
 ## Environment Variables
 

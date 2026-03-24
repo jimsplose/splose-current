@@ -4,15 +4,8 @@ Use **parallel subagents** for speed when working through fidelity gaps.
 
 ## Prerequisites — MANDATORY
 
-### Puppeteer (screenshot capture)
-Puppeteer is a dev dependency and bundles Chromium automatically via `npm install`. No separate browser download step needed. If screenshots fail, run `npm install puppeteer` to re-download.
-
-### Persistent browser (recommended for multi-gap sessions)
-Start a persistent browser to eliminate the ~3-5s Chromium cold start per screenshot capture:
-```bash
-npx tsx scripts/start-browser.ts
-```
-Run this in the background at session start. All `screenshot-capture.ts` calls auto-connect via `/tmp/chrome-ws-endpoint.txt`. **For Extended/Until-done duration modes, this is mandatory.**
+### Chrome MCP (screenshot capture)
+Use **Chrome MCP** for all screenshot capture and visual verification. Chrome MCP provides direct browser control — navigate to pages, interact with elements, and capture screenshots with accurate rendering.
 
 ### Design specs
 Before working on a page, check if a design spec exists at `screenshots/specs/<page-name>.md`. **If not, extract one first** by following `docs/design-spec-workflow.md`. This is not optional — agents produce better results when they have exact values to target. Skip only if the page has no reference screenshots.
@@ -82,35 +75,25 @@ For each agent:
 3. **Run the Quality Gate** (DS violation scan → TypeScript check → screenshot verification → commit or revert)
 4. If applying an agent's changes breaks the build, **revert that agent's changes** and continue with the next — don't spend the session debugging a single agent's output
 
-## Step 3: Screenshot Verification (Pixel Diff)
+## Step 3: Screenshot Verification (Chrome MCP)
 
-**This is handled automatically** if you included the Agent Block from `docs/agent-block.md` in each agent's prompt (Step 1) and ran the Post-Agent Quality Gate (Step 2).
+Use **Chrome MCP** to visually verify each changed page:
 
-- **Subagents**: Run the convergence-based Screenshot Verification Loop from the Agent Block using `scripts/fidelity-loop.ts` (iterates until CONVERGED, PLATEAU, or MAX_ITERATIONS)
-- **Main agent**: Run `scripts/pixel-diff.ts` in the Post-Agent Quality Gate after applying each agent's changes
-- **After push**: Follow the Post-Push Visual Verification section in `docs/quality-gate.md`
-
-### Interpreting results
-- **CONVERGED** (mismatch <= 5%) — page matches reference, mark catalog as "yes"
-- **PLATEAU** — mismatch stopped improving. Remaining diff is structural. Note what's still wrong, keep gap open
-- **MAX_ITERATIONS** — 10 iterations without convergence. Needs a different approach or manual intervention
+1. Navigate to the page in Chrome MCP
+2. Take a screenshot and compare against the saved reference in `screenshots/reference/`
+3. Also compare against style reference values in `splose-style-reference/` for exact token accuracy
+4. Follow the Post-Push Visual Verification section in `docs/quality-gate.md`
 
 ## Step 4: Update catalog Match status
 
 After code changes are committed, update `screenshots/screenshot-catalog.md`:
 
-1. For each page that was changed, capture its current state:
-   ```bash
-   npx tsx scripts/screenshot-capture.ts http://localhost:3000/<page> /tmp/catalog-<page>.png
-   ```
-2. Run pixel diff against ALL reference screenshots for that page:
-   ```bash
-   npx tsx scripts/pixel-diff.ts screenshots/reference/<ref.png> /tmp/catalog-<page>.png --threshold=5 --output=/tmp/diff-catalog-<page>.png
-   ```
-3. Update the Match column based on mismatch %:
-   - "yes" — mismatch <= 5%
-   - "partial — <mismatch%>, <what's wrong>" — mismatch 5-20%
-   - "no" — mismatch > 20%
+1. For each changed page, use Chrome MCP to capture its current state
+2. Visually compare against ALL reference screenshots for that page
+3. Update the Match column:
+   - "yes" — page visually matches reference
+   - "partial — <what's wrong>" — noticeable differences
+   - "no" — significant mismatch
 4. Only mark the corresponding gap as `[x]` in `docs/fidelity-gaps.md` if ALL entries for that page show "yes"
 
 **This step is mandatory.** The catalog is the source of truth for fidelity status.

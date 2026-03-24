@@ -78,26 +78,17 @@ New components use [DaisyUI](https://daisyui.com/components/) names where a matc
 
 If a design spec exists at `screenshots/specs/<page-name>.md`, read it and implement using those **exact values** — colors, font sizes, spacing, border-radius. Do not approximate. Cross-reference your Tailwind classes against the spec.
 
-## Screenshot Verification Loop — MANDATORY (Puppeteer)
+## Visual Verification — MANDATORY (Chrome MCP)
 
-After making your code changes, you MUST run this loop. Puppeteer bundles Chromium automatically via `npm install` — no separate browser download needed. If a persistent browser is running (start-browser.ts), captures auto-connect and skip the ~3-5s cold start.
+After making your code changes, verify visually using Chrome MCP:
 
-### Capture and diff:
-1. Capture: `npx tsx scripts/screenshot-capture.ts http://localhost:3000/<page-path> /tmp/current-<page>.png`
-2. Run pixel diff: `npx tsx scripts/fidelity-loop.ts screenshots/reference/<relevant-file> /tmp/current-<page>.png --iteration=1 --history=/tmp/convergence-<page>.json --threshold=5`
-3. **Iteration 1 only:** Read the diff image at `/tmp/diff-iteration-1.png` to see exactly which pixels differ. Also read both the reference and current screenshots visually for context.
-
-### Convergence loop:
-4. If the fidelity-loop script outputs `CONTINUE` — fix the highlighted differences, re-capture, and run again with `--iteration=2`, etc.
-5. **Iterations 2+:** Do NOT re-read the diff image or screenshots. You already know what's wrong from iteration 1. Just read the mismatch % from the script output and fix based on that + your memory of the diff. Only re-read the diff image if the mismatch % goes UP (regression) or if you're stuck.
-6. If it outputs `CONVERGED` (mismatch <= 5%) — you're done, move on
-7. If it outputs `PLATEAU` — mismatch stopped improving. The remaining diff likely needs a structural change (missing component, wrong layout). Describe what's still wrong in your output so the main agent can decide next steps.
-8. If it outputs `MAX_ITERATIONS` (10) — stop and report remaining mismatch %
-
-**Do NOT use a fixed iteration cap.** Let the convergence tracker decide when to stop.
+1. Navigate to the changed page at `http://localhost:3000/<page-path>`
+2. Take a Chrome MCP screenshot
+3. Compare against the saved reference in `screenshots/reference/`
+4. Also compare against exact style values in `splose-style-reference/` (colors, fonts, spacing, borders)
+5. Fix any visual mismatches and re-check
 
 ### Acceptance criteria (what "matches" means):
-- **Pixel diff**: Mismatch <= 5% (measured by `scripts/pixel-diff.ts`)
 - **Layout**: Same grid/flex structure, same sidebar/header/content arrangement
 - **Components**: Correct DS components used (Button not bare `<button>`, Badge not inline pill, etc.)
 - **Content**: Same column headers, labels, placeholder text, button labels as reference

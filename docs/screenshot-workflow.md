@@ -48,14 +48,12 @@ After saving, catalog every new screenshot:
    |---|---|---|
    | Screenshot 2026-03-19 at 2.30.00 pm.png | Default view | no |
    ```
-3. **Set the Match column** by running pixel diff against the current prototype:
-   ```bash
-   npx tsx scripts/screenshot-capture.ts http://localhost:3000/<page> /tmp/catalog-<page>.png
-   npx tsx scripts/pixel-diff.ts "screenshots/reference/<new-screenshot.png>" /tmp/catalog-<page>.png --threshold=5
-   ```
-   - "yes" — mismatch <= 5%
-   - "partial" — mismatch 5-20% (add note: `partial — 12%, missing dropdown`)
-   - "no" — mismatch > 20% or page doesn't exist yet
+3. **Set the Match column** by using Chrome MCP to visually compare the prototype page against the reference screenshot:
+   - Navigate to the prototype page in Chrome MCP
+   - Take a screenshot and compare visually against the saved reference
+   - "yes" — visually matches
+   - "partial" — noticeable differences (add note: `partial — missing dropdown`)
+   - "no" — significant mismatch or page doesn't exist yet
 4. **Append filenames to `screenshots/processed.txt`** so future sessions skip them
 
 ### Catalog format rules
