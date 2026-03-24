@@ -235,7 +235,7 @@ Patterns identified from the interactive states implementation audit. All opport
 ### Group AC — Calendar fidelity (`src/app/calendar/CalendarView.tsx`)
 
 - [x] **Calendar toolbar icons** — Fixed: Settings gear, CalendarDays grid, added purple Sparkles icon. (2026-03-25)
-- [ ] **Calendar practitioner grouping** — Production groups practitioners by location with bold location headers and vertical separators. Localhost shows flat list with colored dots above names. Major structural difference. (2026-03-25)
+- [x] **Calendar practitioner grouping** — Fixed: Practitioners grouped by location (East Clinics, Splose OT, Tasks) with bold headers and vertical separators. (2026-03-25)
 - [x] **Calendar timezone indicator** — Fixed: Added "+11:00" in top-left corner of day view grid. (2026-03-25)
 - [x] **Appointment block styling** — Fixed: Blocks now use light muted backgrounds with dark text, 12h time format, and service name line. (2026-03-25)
 - [x] **Calendar day view date mismatch** — Fixed: Header now uses todayStr directly. (2026-03-25)
