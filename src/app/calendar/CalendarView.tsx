@@ -402,8 +402,9 @@ export default function CalendarView({
     <div className="flex h-[calc(100vh-3.5rem)] overflow-hidden">
       <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
         {/* Calendar toolbar */}
-        <div className="relative z-30 flex h-[60px] shrink-0 items-center justify-between overflow-visible border-b border-[#eee] px-[10px]">
-          <div className="flex shrink-0 items-center gap-[2px]">
+        <div className="relative z-30 flex h-[60px] shrink-0 items-center overflow-visible border-b border-[#eee] px-[10px]">
+          {/* Left group: Today, arrows, title, icons, filter buttons */}
+          <div className="flex items-center gap-[2px]">
             <button className="h-[38px] rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-[14px] font-normal text-text hover:border-primary hover:text-primary">
               Today
             </button>
@@ -413,28 +414,28 @@ export default function CalendarView({
             <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-text hover:bg-gray-100">
               <ChevronRight className="h-4 w-4" />
             </button>
-            <h2 className="ml-[13px] text-[20px] font-bold text-[rgb(18,22,26)]">{toolbarDateLabel}</h2>
-            <div className="ml-[8px] flex items-center gap-[2px]">
-              <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
-                <Filter className="h-[16px] w-[16px]" />
-              </button>
-              <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
-                <Settings className="h-[16px] w-[16px]" />
-              </button>
-              <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
-                <CalendarDays className="h-[16px] w-[16px]" />
-              </button>
-              <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
-                <Lightbulb className="h-[16px] w-[16px]" />
-              </button>
-            </div>
           </div>
-          <div className="flex shrink-0 items-center gap-[8px]">
-            {/* Location filter dropdown */}
+          <h2 className="ml-[10px] text-[20px] font-bold text-[rgb(18,22,26)]">{toolbarDateLabel}</h2>
+          <div className="ml-[4px] flex items-center">
+            <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
+              <Filter className="h-[16px] w-[16px]" />
+            </button>
+            <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
+              <Settings className="h-[16px] w-[16px]" />
+            </button>
+            <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
+              <CalendarDays className="h-[16px] w-[16px]" />
+            </button>
+            <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
+              <Lightbulb className="h-[16px] w-[16px]" />
+            </button>
+          </div>
+          {/* Location + Practitioner filter buttons */}
+          <div className="ml-[12px] flex items-center gap-[8px]">
             <Dropdown
               trigger={
                 <button className="hidden h-[38px] items-center gap-1 rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-[14px] text-text hover:border-primary hover:text-primary sm:inline-flex">
-                  {locationLabel} <ChevronDown className="h-3 w-3" />
+                  {locationLabel}
                 </button>
               }
               items={[
@@ -443,12 +444,10 @@ export default function CalendarView({
               ]}
               onSelect={(val) => setLocationFilter(val)}
             />
-
-            {/* Practitioner filter dropdown */}
             <Dropdown
               trigger={
                 <button className="hidden h-[38px] items-center gap-1 rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-[14px] text-text hover:border-primary hover:text-primary sm:inline-flex">
-                  {practitionerLabel} <ChevronDown className="h-3 w-3" />
+                  {practitionerLabel}
                 </button>
               }
               items={[
@@ -457,25 +456,30 @@ export default function CalendarView({
               ]}
               onSelect={(val) => setPractitionerFilter(val)}
             />
+          </div>
 
-            {/* Booking-for filter pill */}
-            {bookingForFilter && (
-              <Chip variant="yellow" className="hidden sm:inline-flex" onRemove={() => setBookingForFilter(null)}>
-                Booking for <strong>{bookingForFilter}</strong>
-              </Chip>
-            )}
+          {/* Booking-for filter pill */}
+          {bookingForFilter && (
+            <Chip variant="yellow" className="ml-2 hidden sm:inline-flex" onRemove={() => setBookingForFilter(null)}>
+              Booking for <strong>{bookingForFilter}</strong>
+            </Chip>
+          )}
 
-            {/* AI sparkle */}
-            <button className="flex h-8 w-8 items-center justify-center rounded-full border border-primary/30 text-primary hover:bg-purple-50">
+          {/* Flexible spacer */}
+          <div className="flex-1" />
+
+          {/* Right group: sparkle, Calendar, Week — lighter borders */}
+          <div className="flex items-center gap-[5px]">
+            <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full border border-primary/30 text-primary hover:bg-purple-50">
               <Sparkles className="h-4 w-4" />
             </button>
 
-            {/* Calendar/Rooms dropdown */}
+            {/* Calendar/Rooms dropdown — lighter border */}
             <Dropdown
               trigger={
-                <Button variant="secondary" size="sm">
-                  {calendarMode} <span className="text-text-secondary">&#9662;</span>
-                </Button>
+                <button className="h-[38px] rounded-lg border border-[rgb(217,217,217)] bg-white px-[15px] text-[14px] text-text">
+                  {calendarMode} <span className="ml-1 text-[rgb(112,117,122)]">&#9662;</span>
+                </button>
               }
               items={[
                 { label: "Calendar", value: "Calendar" },
@@ -485,12 +489,12 @@ export default function CalendarView({
               align="right"
             />
 
-            {/* View mode dropdown */}
+            {/* View mode dropdown — lighter border */}
             <Dropdown
               trigger={
-                <Button variant="secondary" size="sm">
-                  {viewMode} <span className="text-text-secondary">&#9662;</span>
-                </Button>
+                <button className="h-[38px] rounded-lg border border-[rgb(217,217,217)] bg-white px-[15px] text-[14px] text-text">
+                  {viewMode} <span className="ml-1 text-[rgb(112,117,122)]">&#9662;</span>
+                </button>
               }
               items={[
                 { label: "Month", value: "Month" },
@@ -664,7 +668,7 @@ export default function CalendarView({
                       <div key={i} className="px-2 pt-2 pb-1 text-center">
                         <div className={`text-[14px] font-medium ${isToday ? "text-primary" : "text-[rgb(112,117,122)]"}`}>{DAYS[i]}</div>
                         {isToday ? (
-                          <div className="mx-auto flex h-[48px] w-[48px] items-center justify-center rounded-full bg-primary text-[24px] font-normal text-white">{date.getDate()}</div>
+                          <div className="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-primary text-[16px] font-normal text-white">{date.getDate()}</div>
                         ) : (
                           <div className="text-[24px] font-light text-text">{date.getDate()}</div>
                         )}
@@ -756,15 +760,15 @@ export default function CalendarView({
                                         className="absolute inset-x-0.5 z-10 cursor-pointer overflow-hidden rounded-sm px-1 py-0.5"
                                         style={{
                                           backgroundColor: appt.practitionerColor,
-                                          color: '#fff',
+                                          color: 'rgb(65, 69, 73)',
                                           opacity: appt.status === "Cancelled" ? 0.5 : 1,
                                           ...pos,
                                         }}
                                         onClick={(e) => { e.stopPropagation(); setSelectedAppt(appt); }}
                                       >
-                                        <p className="truncate text-caption-sm font-medium">{appt.clientName}</p>
-                                        <p className="text-caption-sm opacity-80">{formatTime12h(appt.startTime)}</p>
-                                        <p className="truncate text-caption-sm opacity-70">{appt.type}</p>
+                                        <p className="truncate text-[14px] font-normal">{appt.clientName}</p>
+                                        <p className="text-[14px] font-normal">{formatTime12h(appt.startTime)}</p>
+                                        <p className="truncate text-[14px] font-normal">{appt.type}</p>
                                       </div>
                                     );
                                   })}
