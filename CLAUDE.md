@@ -74,20 +74,7 @@ A gap is `[x]` only when ALL related `screenshots/screenshot-catalog.md` entries
 
 ## Chrome MCP Visual Verification
 
-**All UI work** must be verified visually before committing. Chrome MCP dual-tab comparison is the preferred method. If Chrome MCP is unavailable in a session, use the fallback verification path described in `docs/quality-gate.md` Step 3 Path B.
-
-**When Chrome MCP is available (dual-tab):**
-1. Ensure dev server is running (`npm run dev` on localhost:3000)
-2. Set viewport: `resize_window → { width: 1440, height: 900 }`
-3. Navigate Tab A to `acme.splose.com/<route>` and Tab B to `localhost:3000/<route>` (see `docs/route-mapping.md`)
-4. Run the same `javascript_tool` measurement snippet on both tabs — compare intrinsic CSS properties directly
-5. Screenshot both tabs for structural comparison (missing elements, layout, icons)
-6. Fix any mismatches before committing
-
-**When Chrome MCP is not available (fallback):**
-1. Main agent reads reference screenshots (max 2 at a time) and compares against page source code
-2. Cross-reference against `splose-style-reference/` for expected token values
-3. Use "partial — code-review only" for uncertain catalog entries (never false-positive to "yes")
+**All UI work** must be verified visually before committing. The pre-commit hook blocks commits on `page.tsx` files without a `.verification-evidence` file. See `docs/quality-gate.md` for the full protocol: dual-tab measurement loop, structural screenshots, fallback path when Chrome MCP is unavailable, and how to write verification evidence.
 
 **Do NOT use** Puppeteer, Playwright, pixel-diff scripts, or headless browser screenshots. Chrome MCP is the only live visual verification tool.
 

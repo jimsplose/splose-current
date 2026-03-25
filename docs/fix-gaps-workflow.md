@@ -35,31 +35,14 @@ Only invoke `/impeccable:frontend-design` when no production reference exists fo
 
 **MANDATORY before any visual change.** Do not skip this.
 
-1. **Set up dual tabs** per `docs/route-mapping.md`:
-   - Tab A → `https://acme.splose.com/<production-route>`
-   - Tab B → `http://localhost:3000/<localhost-route>`
-2. **Measure production** — Run `javascript_tool` on Tab A for each element to be fixed:
-   ```js
-   (() => {
-     const el = document.querySelector('<selector>');
-     const rect = el.getBoundingClientRect();
-     const style = getComputedStyle(el);
-     return JSON.stringify({
-       fontSize: style.fontSize, fontWeight: style.fontWeight,
-       color: style.color, backgroundColor: style.backgroundColor,
-       padding: style.padding, lineHeight: style.lineHeight,
-       borderRadius: style.borderRadius, borderColor: style.borderColor,
-       gap: style.gap, letterSpacing: style.letterSpacing
-     });
-   })()
-   ```
-3. **Measure localhost** — Run the same snippet on Tab B
-4. **Calculate delta** — Don't guess. Use exact values from both measurements.
-5. Use arbitrary Tailwind values (`h-[34px]`, `px-[15px]`, `text-[rgb(65,69,73)]`) for precision
+1. Set up dual tabs per `docs/route-mapping.md` (Tab A = production, Tab B = localhost)
+2. Run the measurement snippet from `docs/quality-gate.md` Step 3 on BOTH tabs for each element to be fixed
+3. Calculate delta — don't guess, use exact values from both measurements
+4. Use arbitrary Tailwind values (`h-[34px]`, `px-[15px]`, `text-[rgb(65,69,73)]`) for precision
 
 **Sizing iteration rule:** When the first fix doesn't match, adjust in **2px increments max**. Never jump 10px hoping to land on the right value.
 
-**Selector guidance:** Use generic selectors that work on both sites (see `docs/compare-pages-workflow.md` Step 2c for details). Avoid `.ant-*` classes — those only exist on production.
+**Selector guidance:** Use generic selectors that work on both sites. Avoid `.ant-*` classes — those only exist on production.
 
 ## Step 1: Prepare Fix Briefs ("See" phase)
 
@@ -133,105 +116,18 @@ After each agent completes, run `docs/quality-gate.md` **in full**. All three st
 
 **Mandatory for every visual fix. Do not commit until the loop passes or exhausts 5 iterations.**
 
-```
-FOR iteration = 1 to 5:
+Run the full 5-iteration dual-tab measurement loop from `docs/quality-gate.md` Step 3. That document is the canonical source for:
+- The JS measurement snippet (run on both production and localhost tabs)
+- The comparison table format (Property | Production | Localhost | Delta | Threshold | Pass?)
+- Structural screenshot check format
+- Acceptance thresholds (colors exact RGB, font size/weight exact, line height +/-1px, padding/gap +/-2px, border radius exact)
+- Fallback code-audit loop when Chrome MCP is unavailable
 
-  1. MEASURE — Run the measurement snippet via Chrome MCP `javascript_tool`
-     on BOTH production (Tab A) and localhost (Tab B) for every element in the Fix Brief.
-
-     Use the same snippet on both tabs:
-     (() => {
-       const selectors = [
-         { sel: '<SELECTOR>', label: '<LABEL>' }
-         // One entry per element from Fix Brief
-       ];
-       // Intrinsic properties only
-       const props = [
-         'color','backgroundColor','fontSize','fontWeight','fontFamily',
-         'lineHeight','letterSpacing','padding','paddingTop','paddingRight',
-         'paddingBottom','paddingLeft','gap','borderRadius',
-         'borderColor','borderWidth','boxShadow'
-       ];
-       const results = [];
-       for (const {sel,label} of selectors) {
-         const el = document.querySelector(sel);
-         if (!el) { results.push({label,sel,error:'NOT FOUND'}); continue; }
-         const s = getComputedStyle(el);
-         const m = {}; for (const p of props) m[p] = s[p];
-         results.push({label,sel,measured:m});
-       }
-       JSON.stringify(results,null,2)
-     })()
-
-  2. COMPARE — Build a table comparing production vs localhost:
-
-     | Property | Production | Localhost | Delta | Threshold | Pass? |
-     |---|---|---|---|---|---|
-     | color | rgb(65, 69, 73) | rgb(65, 69, 73) | 0 | exact RGB | PASS |
-     | fontSize | 14px | 16px | +2px | exact | FAIL |
-
-  3. STRUCTURAL CHECK — Screenshot both tabs, zoom into changed zone,
-     compare visually. Record findings:
-     - Production screenshot: [taken]
-     - Localhost screenshot: [taken]
-     - Missing/extra elements: [none / list]
-     - Layout diffs: [none / list]
-
-  4. EVALUATE:
-     - IF 0 measurement failures AND no structural issues → PASS, exit loop
-     - IF failures found:
-       a. Log failing properties with exact deltas
-       b. Fix using the delta (e.g. fontSize 16px→14px = use text-[14px])
-       c. Adjust in 2px increments max for dimensions
-       d. Continue to next iteration
-
-  5. LOG — Record iteration in the Verification Log:
-
-     #### Iteration N
-     | Element | Props Checked | Pass | Fail | Failing Properties |
-     |---|---|---|---|---|
-     | Page title | 8 | 6 | 2 | fontSize (16px→14px), fontWeight (400→600) |
-     **Action:** Changed text-body-md to text-heading-sm
-
-IF 5 iterations exhausted without PASS:
-  - Revert all changes for this gap
-  - Include full Verification Log in the Gap Report
-  - Log root cause hypothesis
-  - Move on to the next gap
-```
-
-### Acceptance Thresholds
-
-| Property Type | Threshold |
-|---|---|
-| Color (`color`, `backgroundColor`, `borderColor`) | Exact RGB match (normalize to `rgb(R, G, B)`) |
-| Font size (`fontSize`) | Exact match |
-| Font weight (`fontWeight`) | Exact match (400/500/600/700) |
-| Font family (`fontFamily`) | Primary font match (first in stack). Production = Inter + Sprig Sans, localhost = Inter. Both OK. |
-| Line height (`lineHeight`) | +/-1px |
-| Letter spacing (`letterSpacing`) | +/-0.5px or "normal" matches "0px" |
-| Dimensions (`height`, `width` from rect) | +/-2px **only for fixed-size elements** (icons, avatars). Skip for flex/block containers. |
-| Padding, margin, gap (each side) | +/-2px |
-| Border radius, border width | Exact match |
-| Box shadow | Same structure, color exact, offsets +/-1px |
-| Layout (`display`, `flexDirection`, etc.) | Report only — different implementations can achieve same visual result |
-
-### Fallback (no Chrome MCP)
-
-When Chrome MCP is unavailable, use a **code-audit loop**:
-
-1. Read the source file for the changed component
-2. For each element in the Fix Brief, trace JSX → Tailwind classes
-3. Resolve each class to CSS values using:
-   - `globals.css` typography classes (e.g. `text-heading-sm` → `font-size: 14px; font-weight: 600`)
-   - Tailwind defaults (e.g. `p-4` → `padding: 16px`)
-   - Arbitrary values (e.g. `h-[56px]` → `height: 56px`)
-   - CSS variables from `globals.css` @theme (e.g. `text-primary` → `color: #8250ff`)
-4. Use `splose-style-reference/` as target values (since live measurement is unavailable)
-5. Build the same comparison table with resolved values vs target values
-6. Mark uncertain resolutions as "UNCERTAIN"
-7. Pass/fail: resolved values must meet thresholds. UNCERTAIN = "partial — code-review only" in catalog
-8. The 5-iteration cap still applies — re-read code after each change
+**Fix Gaps-specific rules:**
+- Use selectors from the Fix Brief for each iteration
+- Log each iteration with failing properties and the fix applied
+- After 5 iterations without PASS: revert all changes, log root cause hypothesis, move on
+- Write `.verification-evidence` with the page path after PASS (required by pre-commit hook)
 
 ## Step 5: Update catalog
 

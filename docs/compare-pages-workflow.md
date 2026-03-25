@@ -85,7 +85,7 @@ This step catches issues that measurement cannot: missing elements, wrong order,
 
 ### 2c. Dual-tab measurement verification
 
-**Run the same `javascript_tool` snippet on BOTH the production tab and the localhost tab.** Compare the values directly.
+Run the measurement snippet from `docs/quality-gate.md` Step 3 on BOTH the production and localhost tabs. That document has the canonical JS snippet, comparison table format, and acceptance thresholds.
 
 **Selectors:** Use generic CSS selectors that work on both production AND localhost. Prefer semantic selectors:
 - `header`, `nav`, `main`, `h1`, `h2`
@@ -95,75 +95,16 @@ This step catches issues that measurement cannot: missing elements, wrong order,
 
 If a selector works on one site but not the other, note it and try an alternative.
 
-**Standard dual-tab measurement snippet** (customize selectors per page):
-```js
-(() => {
-  const selectors = [
-    { sel: '<SELECTOR>', label: '<LABEL>' }
-  ];
-  // Intrinsic properties — these are pass/fail
-  const props = [
-    'color', 'backgroundColor', 'fontSize', 'fontWeight', 'fontFamily',
-    'lineHeight', 'letterSpacing', 'padding', 'paddingTop', 'paddingRight',
-    'paddingBottom', 'paddingLeft', 'gap', 'borderRadius', 'borderColor',
-    'borderWidth', 'boxShadow'
-  ];
-  // Layout properties — report only, don't pass/fail
-  const layoutProps = ['display', 'flexDirection', 'alignItems', 'justifyContent'];
-  const results = [];
-  for (const {sel, label} of selectors) {
-    const el = document.querySelector(sel);
-    if (!el) { results.push({label, sel, error: 'NOT FOUND'}); continue; }
-    const s = getComputedStyle(el);
-    const r = el.getBoundingClientRect();
-    const m = {};
-    for (const p of props) m[p] = s[p];
-    for (const p of layoutProps) m['_layout_' + p] = s[p];
-    // Rect values are viewport-dependent — only compare for fixed-size elements (icons, avatars)
-    m._rect = {
-      width: Math.round(r.width * 10) / 10,
-      height: Math.round(r.height * 10) / 10
-    };
-    results.push({label, sel, measured: m});
-  }
-  JSON.stringify(results, null, 2)
-})()
-```
-
-**Build a comparison table per zone** using values from both tabs:
-
-```
-| Property | Production (live) | Localhost | Delta | Threshold | Pass? |
-|---|---|---|---|---|---|
-| color | rgb(65, 69, 73) | rgb(65, 69, 73) | 0 | exact RGB | PASS |
-| fontSize | 14px | 16px | +2px | exact | FAIL |
-| padding | 12px 16px | 16px | differs | +/-2px | FAIL |
-```
-
 ### 2d. Property classification
 
 Not all properties should be pass/fail. Classify each:
 
 | Category | Properties | Comparison Rule |
 |---|---|---|
-| **Intrinsic (pass/fail)** | color, backgroundColor, fontSize, fontWeight, fontFamily, lineHeight, letterSpacing, borderRadius, borderColor, borderWidth, boxShadow | Must meet thresholds |
+| **Intrinsic (pass/fail)** | color, backgroundColor, fontSize, fontWeight, fontFamily, lineHeight, letterSpacing, borderRadius, borderColor, borderWidth, boxShadow | Must meet thresholds from `docs/quality-gate.md` |
 | **Spacing (pass/fail)** | padding*, gap | Must meet thresholds when element has fixed/intrinsic sizing |
 | **Layout (report only)** | display, flexDirection, alignItems, justifyContent | Report differences but don't auto-fail — production may use different layout achieving same visual result |
 | **Viewport-dependent (skip)** | width, height (from rect) on flex/block containers | Do not compare. Only compare width/height on elements with explicit sizing (icons, avatars, fixed-size components) |
-
-### 2e. Acceptance Thresholds
-
-| Property Type | Threshold |
-|---|---|
-| Color (`color`, `backgroundColor`, `borderColor`) | Exact RGB match (normalize to `rgb(R, G, B)`) |
-| Font size (`fontSize`) | Exact match |
-| Font weight (`fontWeight`) | Exact match (400/500/600/700) |
-| Font family (`fontFamily`) | Primary font match (first in stack). Production uses Inter + Sprig Sans; localhost uses Inter. Primary match = Inter. |
-| Line height (`lineHeight`) | +/-1px |
-| Letter spacing (`letterSpacing`) | +/-0.5px or "normal" matches "0px" |
-| Padding, gap (each side) | +/-2px |
-| Border radius, border width | Exact match |
-| Box shadow | Same structure, color exact, offsets +/-1px |
 
 ### 2f. Per-page verification log (MANDATORY)
 
@@ -200,12 +141,7 @@ For each page checked, output this structured block. **All sections are required
 
 ### 2g. Fallback (no Chrome MCP)
 
-When Chrome MCP is unavailable:
-1. Read reference screenshots (max 2 per pass) using the Read tool
-2. Read page source code and cross-reference against `splose-style-reference/` for expected values
-3. Build comparison table with resolved Tailwind values
-4. Write verification log with `Depth: visual-only`, `Comparison method: static reference (Chrome MCP unavailable)`
-5. Catalog entry MUST include "visual only" qualifier
+Use the fallback code-audit loop from `docs/quality-gate.md` Step 3 Path B. Write verification log with `Depth: visual-only`, `Comparison method: static reference (Chrome MCP unavailable)`. Catalog entry MUST include "visual only" qualifier.
 
 ## Step 3: Update catalog and gaps (per batch)
 
