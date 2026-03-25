@@ -28,6 +28,10 @@ import {
   History,
   AlertTriangle,
   Info,
+  ArrowUp,
+  ClipboardList,
+  Search,
+  Check,
 } from "lucide-react";
 import { Button, Badge, Chip, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert, Dropdown, Card, RadioGroup } from "@/components/ds";
 
@@ -181,9 +185,10 @@ function darkenColor(color: string, amount = 0.4): string {
 /** Get status emoji icons for an appointment */
 function getStatusIcons(appt: Appointment): string {
   const icons: string[] = [];
-  if (appt.status === "Confirmed") icons.push("✓");
+  if (appt.status === "Confirmed") icons.push("✅");
   if (appt.notes) icons.push("📋");
   if (appt.status === "Pending" || appt.status === "No Show") icons.push("⚠️");
+  if (appt.type.includes("NDIS") || appt.type.includes("DVA")) icons.push("💰");
   return icons.join("");
 }
 
@@ -252,7 +257,13 @@ export default function CalendarView({
   const [createNotes, setCreateNotes] = useState("");
   const [viewMode, setViewMode] = useState<ViewMode>("Week");
   const [calendarMode, setCalendarMode] = useState<CalendarMode>("Calendar");
-
+  const [showAISidebar, setShowAISidebar] = useState(false);
+  const [locationDropdownOpen, setLocationDropdownOpen] = useState(false);
+  const [practitionerDropdownOpen, setPractitionerDropdownOpen] = useState(false);
+  const [locationSearchQuery, setLocationSearchQuery] = useState("");
+  const [practitionerSearchQuery, setPractitionerSearchQuery] = useState("");
+  const locationDropdownRef = useRef<HTMLDivElement>(null);
+  const practitionerDropdownRef = useRef<HTMLDivElement>(null);
 
   const [locationFilter, setLocationFilter] = useState<string>("all");
   const [practitionerFilter, setPractitionerFilter] = useState<string>("all");
@@ -307,6 +318,22 @@ export default function CalendarView({
       return () => document.removeEventListener("mousedown", handleClick);
     }
   }, [popover.visible]);
+
+  // Close custom dropdowns on outside click
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (locationDropdownRef.current && !locationDropdownRef.current.contains(e.target as Node)) {
+        setLocationDropdownOpen(false);
+      }
+      if (practitionerDropdownRef.current && !practitionerDropdownRef.current.contains(e.target as Node)) {
+        setPractitionerDropdownOpen(false);
+      }
+    }
+    if (locationDropdownOpen || practitionerDropdownOpen) {
+      document.addEventListener("mousedown", handleClick);
+      return () => document.removeEventListener("mousedown", handleClick);
+    }
+  }, [locationDropdownOpen, practitionerDropdownOpen]);
 
   // Dev Navigator: ?state= param wiring
   const searchParams = useSearchParams();
@@ -457,32 +484,129 @@ export default function CalendarView({
               <Lightbulb className="h-[16px] w-[16px]" />
             </button>
           </div>
-          {/* Location + Practitioner filter buttons */}
+          {/* Location + Practitioner filter buttons — custom popovers */}
           <div className="ml-[12px] flex items-center gap-[8px]">
-            <Dropdown
-              trigger={
-                <button className="hidden h-[38px] items-center gap-1 rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-[14px] text-text hover:border-primary hover:text-primary sm:inline-flex">
-                  {locationLabel}
-                </button>
-              }
-              items={[
-                { label: "All locations", value: "all" },
-                ...uniqueLocations.map(loc => ({ label: loc, value: loc })),
-              ]}
-              onSelect={(val) => setLocationFilter(val)}
-            />
-            <Dropdown
-              trigger={
-                <button className="hidden h-[38px] items-center gap-1 rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-[14px] text-text hover:border-primary hover:text-primary sm:inline-flex">
-                  {practitionerLabel}
-                </button>
-              }
-              items={[
-                { label: "All practitioners", value: "all" },
-                ...practitioners.map(p => ({ label: p.name, value: p.id })),
-              ]}
-              onSelect={(val) => setPractitionerFilter(val)}
-            />
+            {/* Location dropdown */}
+            <div className="relative" ref={locationDropdownRef}>
+              <button
+                className="hidden h-[38px] items-center gap-1 rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-[14px] text-text hover:border-primary hover:text-primary sm:inline-flex"
+                onClick={() => { setLocationDropdownOpen(prev => !prev); setPractitionerDropdownOpen(false); setLocationSearchQuery(""); }}
+              >
+                {locationLabel}
+                <ChevronDown className="h-3.5 w-3.5 text-text-secondary" />
+              </button>
+              {locationDropdownOpen && (
+                <div className="absolute left-0 top-[42px] z-40 w-[260px] rounded-lg border border-border bg-white shadow-lg">
+                  <div className="border-b border-border p-2">
+                    <div className="flex items-center gap-2 rounded-md border border-border bg-gray-50 px-2.5 py-1.5">
+                      <Search className="h-3.5 w-3.5 text-text-secondary" />
+                      <input
+                        type="text"
+                        placeholder="Search locations..."
+                        className="flex-1 bg-transparent text-[13px] text-text outline-none placeholder:text-text-secondary"
+                        value={locationSearchQuery}
+                        onChange={(e) => setLocationSearchQuery(e.target.value)}
+                        autoFocus
+                      />
+                    </div>
+                  </div>
+                  <div className="max-h-[240px] overflow-y-auto py-1">
+                    <button
+                      className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-[13px] text-text hover:bg-gray-50"
+                      onClick={() => { setLocationFilter("all"); setLocationDropdownOpen(false); }}
+                    >
+                      <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${locationFilter === "all" ? "border-primary bg-primary" : "border-gray-300"}`}>
+                        {locationFilter === "all" && <Check className="h-3 w-3 text-white" />}
+                      </div>
+                      <span className="font-medium">Select all</span>
+                    </button>
+                    {uniqueLocations
+                      .filter(loc => loc.toLowerCase().includes(locationSearchQuery.toLowerCase()))
+                      .map(loc => (
+                        <button
+                          key={loc}
+                          className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-[13px] text-text hover:bg-gray-50"
+                          onClick={() => { setLocationFilter(loc); setLocationDropdownOpen(false); }}
+                        >
+                          <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${locationFilter === loc ? "border-primary bg-primary" : "border-gray-300"}`}>
+                            {locationFilter === loc && <Check className="h-3 w-3 text-white" />}
+                          </div>
+                          <span>{loc}</span>
+                        </button>
+                      ))
+                    }
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Practitioner dropdown */}
+            <div className="relative" ref={practitionerDropdownRef}>
+              <button
+                className="hidden h-[38px] items-center gap-1 rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-[14px] text-text hover:border-primary hover:text-primary sm:inline-flex"
+                onClick={() => { setPractitionerDropdownOpen(prev => !prev); setLocationDropdownOpen(false); setPractitionerSearchQuery(""); }}
+              >
+                {practitionerLabel}
+                <ChevronDown className="h-3.5 w-3.5 text-text-secondary" />
+              </button>
+              {practitionerDropdownOpen && (
+                <div className="absolute left-0 top-[42px] z-40 w-[280px] rounded-lg border border-border bg-white shadow-lg">
+                  <div className="border-b border-border p-2">
+                    <div className="flex items-center gap-2 rounded-md border border-border bg-gray-50 px-2.5 py-1.5">
+                      <Search className="h-3.5 w-3.5 text-text-secondary" />
+                      <input
+                        type="text"
+                        placeholder="Search practitioners..."
+                        className="flex-1 bg-transparent text-[13px] text-text outline-none placeholder:text-text-secondary"
+                        value={practitionerSearchQuery}
+                        onChange={(e) => setPractitionerSearchQuery(e.target.value)}
+                        autoFocus
+                      />
+                    </div>
+                  </div>
+                  <div className="max-h-[300px] overflow-y-auto py-1">
+                    <button
+                      className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-[13px] text-text hover:bg-gray-50"
+                      onClick={() => { setPractitionerFilter("all"); setPractitionerDropdownOpen(false); }}
+                    >
+                      <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${practitionerFilter === "all" ? "border-primary bg-primary" : "border-gray-300"}`}>
+                        {practitionerFilter === "all" && <Check className="h-3 w-3 text-white" />}
+                      </div>
+                      <span className="font-medium">All practitioners</span>
+                    </button>
+                    {/* Grouped by location */}
+                    {groupByLocation(locatedPractitioners)
+                      .map(group => {
+                        const filteredPracs = group.practitioners.filter(p =>
+                          p.name.toLowerCase().includes(practitionerSearchQuery.toLowerCase())
+                        );
+                        if (filteredPracs.length === 0) return null;
+                        return (
+                          <div key={group.name}>
+                            <div className="px-3 pb-0.5 pt-2 text-[11px] font-semibold uppercase tracking-wide text-text-secondary">
+                              {group.name}
+                            </div>
+                            {filteredPracs.map(p => (
+                              <button
+                                key={p.id}
+                                className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-[13px] text-text hover:bg-gray-50"
+                                onClick={() => { setPractitionerFilter(p.id); setPractitionerDropdownOpen(false); }}
+                              >
+                                <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${practitionerFilter === p.id ? "border-primary bg-primary" : "border-gray-300"}`}>
+                                  {practitionerFilter === p.id && <Check className="h-3 w-3 text-white" />}
+                                </div>
+                                <ColorDot color={p.color} size="sm" />
+                                <span>{p.name}</span>
+                              </button>
+                            ))}
+                          </div>
+                        );
+                      })
+                    }
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Booking-for filter pill */}
@@ -497,7 +621,10 @@ export default function CalendarView({
 
           {/* Right group: sparkle, Calendar, Week — lighter borders */}
           <div className="flex items-center gap-[5px]">
-            <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full border border-[rgb(65,69,73)] text-primary hover:bg-purple-50">
+            <button
+              className={`flex h-[38px] w-[38px] items-center justify-center rounded-full border text-primary hover:bg-purple-50 ${showAISidebar ? "border-primary bg-purple-50" : "border-[rgb(65,69,73)]"}`}
+              onClick={() => setShowAISidebar(prev => !prev)}
+            >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* Large 4-pointed star — upper right */}
                 <path d="M16 3C16 3 16.5 6.5 17 8C17.5 9.5 19 10.5 21 11C19 11.5 17.5 12.5 17 14C16.5 15.5 16 19 16 19C16 19 15.5 15.5 15 14C14.5 12.5 13 11.5 11 11C13 10.5 14.5 9.5 15 8C15.5 6.5 16 3 16 3Z" fill="currentColor"/>
@@ -636,7 +763,7 @@ export default function CalendarView({
                                 height: `${HOUR_HEIGHT}px`,
                                 borderBottom: '1px solid #e0e0e0',
                                 borderRight: isGroupEnd ? '1px solid #d0d0d0' : '1px solid #f0f0f0',
-                                backgroundColor: isUnavailable ? '#f5f5f5' : gi % 2 === 0 ? '#f7f7f7' : 'transparent',
+                                backgroundColor: isUnavailable ? '#f0f0f0' : gi % 2 === 0 ? '#f3f4f6' : '#ffffff',
                               }}
                               onClick={(e) => handleDayCellClick(e, currentDay, hour, prac)}
                             >
@@ -782,6 +909,10 @@ export default function CalendarView({
                                     (a) => a.date === dateStr && a.practitionerName === prac.name && parseInt(a.startTime.split(":")[0]) === hour,
                                   );
                                   const isGroupBorder = colIndex === 0 ? false : colIndex === locGroups.slice(0, gi).reduce((sum, g) => sum + g.practitioners.length, 0);
+                                  // Per-practitioner availability (prototype data)
+                                  const pracAvailStart = 8 + (colIndex % 3);
+                                  const pracAvailEnd = 15 + (colIndex % 4);
+                                  const isUnavailable = hour < pracAvailStart || hour >= pracAvailEnd;
                                   colIndex++;
                                   return (
                                     <div
@@ -789,7 +920,7 @@ export default function CalendarView({
                                       className="relative cursor-pointer hover:bg-gray-50/30"
                                       style={{
                                         ...(useFlexible ? { flex: 1 } : { width: COL_W }),
-                                        backgroundColor: gi % 2 === 0 ? '#f7f7f7' : 'transparent',
+                                        backgroundColor: isUnavailable ? '#f0f0f0' : gi % 2 === 0 ? '#f3f4f6' : '#ffffff',
                                         borderRight: isGroupBorder ? '1px solid #d9d9d9' : '1px solid rgba(0,0,0,0.04)',
                                       }}
                                       onClick={(e) => handleCellClick(e, dateStr, hour)}
@@ -830,6 +961,90 @@ export default function CalendarView({
           </>
         );
         })()}
+      </div>
+
+      {/* AI Sidebar Panel */}
+      <div
+        className="flex shrink-0 flex-col border-l border-border bg-white shadow-lg transition-all duration-300 ease-in-out"
+        style={{
+          width: showAISidebar ? 360 : 0,
+          minWidth: showAISidebar ? 360 : 0,
+          opacity: showAISidebar ? 1 : 0,
+          overflow: showAISidebar ? "visible" : "hidden",
+        }}
+      >
+        {showAISidebar && (
+          <>
+            {/* Header */}
+            <div className="flex h-[60px] shrink-0 items-center justify-between border-b border-border px-4">
+              <div className="flex items-center gap-2">
+                <Sparkles className="h-4.5 w-4.5 text-primary" />
+                <span className="text-[15px] font-semibold text-text">Ask splose AI</span>
+              </div>
+              <button
+                className="flex h-8 w-8 items-center justify-center rounded-full text-text-secondary hover:bg-gray-100"
+                onClick={() => setShowAISidebar(false)}
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            {/* Main content area — scrollable */}
+            <div className="flex flex-1 flex-col items-center overflow-y-auto px-6 py-8">
+              {/* Greeting card */}
+              <Card padding="md" className="mb-6 w-full text-center">
+                <div className="mb-2 text-3xl">👋</div>
+                <h2 className="text-heading-lg text-text">Hello, I&apos;m splose AI</h2>
+              </Card>
+
+              <p className="mb-6 text-center text-[14px] text-text-secondary">
+                How can I help you today?
+              </p>
+
+              {/* Quick action pills */}
+              <div className="flex w-full flex-col gap-3">
+                <button className="rounded-full border border-primary px-4 py-2.5 text-left text-[13px] text-primary transition-colors hover:bg-primary/5">
+                  Summarise my day
+                </button>
+                <button className="rounded-full border border-primary px-4 py-2.5 text-left text-[13px] text-primary transition-colors hover:bg-primary/5">
+                  Show availability gaps
+                </button>
+                <button className="rounded-full border border-primary px-4 py-2.5 text-left text-[13px] text-primary transition-colors hover:bg-primary/5">
+                  Find open slots
+                </button>
+              </div>
+            </div>
+
+            {/* Bottom section — fixed */}
+            <div className="border-t border-border px-4 py-4">
+              {/* Chat input */}
+              <div className="mb-3 flex items-center gap-2 rounded-full border border-border bg-white px-4 py-2.5">
+                <input
+                  type="text"
+                  placeholder="Ask splose AI anything..."
+                  className="flex-1 bg-transparent text-[13px] text-text outline-none placeholder:text-text-secondary"
+                  readOnly
+                />
+                <button className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white transition-colors hover:bg-primary/90">
+                  <ArrowUp className="h-4 w-4" />
+                </button>
+              </div>
+
+              {/* Saved prompts button */}
+              <button className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-[13px] text-text-secondary transition-colors hover:bg-gray-50">
+                <ClipboardList className="h-4 w-4" />
+                Saved prompts
+              </button>
+
+              {/* Footer */}
+              <div className="mt-2 flex items-center justify-between">
+                <span className="text-[11px] text-text-secondary">
+                  AI can make mistakes, double-check responses
+                </span>
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
       {/* Rooms/Resources placeholder */}

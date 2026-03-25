@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useCallback, useState } from "react";
-import { Bold, Italic, Underline, Strikethrough, Link, List, ListOrdered, Heading1, Heading2, Image, ChevronDown } from "lucide-react";
+import { Bold, Italic, Underline, Strikethrough, Link, List, ListOrdered, Heading1, Heading2, Image, ChevronDown, Undo2, Redo2, Minus } from "lucide-react";
 import Dropdown from "./Dropdown";
 
 interface RichTextEditorProps {
@@ -116,6 +116,21 @@ export default function RichTextEditor({
         >
           <Image className="h-4 w-4" />
         </button>
+        <button
+          type="button"
+          className="rounded px-1.5 py-1 text-[11px] font-semibold text-text-secondary hover:bg-gray-100 hover:text-text"
+        >
+          GIF
+        </button>
+
+        <span className="mx-1 h-5 w-px bg-border" />
+
+        <ToolbarButton command="insertHorizontalRule" icon={Minus} />
+
+        <span className="mx-1 h-5 w-px bg-border" />
+
+        <ToolbarButton command="undo" icon={Undo2} />
+        <ToolbarButton command="redo" icon={Redo2} />
 
         {variables && variables.length > 0 && (
           <>

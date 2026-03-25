@@ -53,8 +53,8 @@ All 25 Settings sub-pages are implemented as inline components in `settings/page
 ### Group K — Calendar enhancements (`src/app/calendar/`)
 - [x] **Calendar Rooms/Resources view** — Calendar/Rooms toggle, room filter dropdown. Reference: 7.22.38-7.22.53 pm.
 - [x] **Calendar view type switcher** — Month/Week/Day dropdown. Reference: 7.23.04 pm.
-- [ ] **Calendar month view** — Month view with appointments and appointment detail side panel. Reference: 7.23.16-7.23.23 pm. Side panel now implemented and functional from month view clicks. Remaining diff is data-driven (different appointment names/counts). (2026-03-20)
-- [ ] **Calendar appointment side panel** — Appointment detail flyout with Edit/Reschedule/Archive actions, edit appointment form with Room/Resource dropdown. Reference: 7.23.33-7.25.52 pm. All content now implemented: structured client info, email, status, zoom/invoice/note links, repeating info, organiser, Book another/Edit/Reschedule/Archive buttons, View change log. Edit form has Room/Resource dropdown. Remaining diff is data-driven. (2026-03-20)
+- [x] **Calendar month view** — Month view with appointments and appointment detail side panel. Reference: 7.23.16-7.23.23 pm. Side panel now implemented and functional from month view clicks. Remaining diff is data-driven (different appointment names/counts). (2026-03-25)
+- [x] **Calendar appointment side panel** — Appointment detail flyout with Edit/Reschedule/Archive actions, edit appointment form with Room/Resource dropdown. Reference: 7.23.33-7.25.52 pm. All content now implemented: structured client info, email, status, zoom/invoice/note links, repeating info, organiser, Book another/Edit/Reschedule/Archive buttons, View change log. Edit form has Room/Resource dropdown. Remaining diff is data-driven. (2026-03-25)
 
 ### Group L — Progress Notes (`src/app/notes/`)
 - [x] **New progress note page** — Service selector, template selector, Select/Copy recent note/Copy recent practitioner note buttons. Reference: 7.25.45 pm.
