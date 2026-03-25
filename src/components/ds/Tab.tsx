@@ -37,10 +37,10 @@ export default function Tab({ items, value, onChange, className = "" }: TabProps
   }
 
   return (
-    <div className={`flex gap-1 overflow-x-auto border-b border-border ${className}`}>
+    <div className={`flex gap-6 overflow-x-auto border-b border-border ${className}`}>
       {items.map((item) => {
         const active = isActive(item);
-        const tabClassName = `shrink-0 border-b-2 px-3 pb-2.5 pt-2.5 text-label-md whitespace-nowrap transition-colors ${
+        const tabClassName = `shrink-0 border-b-2 px-0 py-3 text-body-md whitespace-nowrap transition-colors ${
           active
             ? "border-primary text-primary"
             : "border-transparent text-text-secondary hover:text-text"

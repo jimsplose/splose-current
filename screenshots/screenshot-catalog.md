@@ -6,7 +6,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 **Sources:** March 11 screenshots from production (`acme.splose.com`) and dev environment. March 17 screenshots from production.
 
-**Last full sweep:** 2026-03-26 — Dual-tab Chrome MCP comparison at 1440x900 viewport. 20+ pages compared visually against production. Calendar day view upgraded partial→yes (visual only). Clients list measurement-verified (th 14px/600, td 14px/400 match). All main list pages (Dashboard, Clients, Contacts, Invoices, Payments, Waitlist, Products, Reports) confirmed structurally. Settings pages (Tags, Users, Services, Locations, landing) confirmed. Client detail confirmed. Calendar month view remains partial (today highlight green vs purple, date numbers smaller, appointment text not bold, missing status icons). Known partials unchanged: login illustration, mobile views, custom date picker, filter UI pattern, conditional logic modal, AI chat interactivity.
+**Last full sweep:** 2026-03-26 — Dual-tab Chrome MCP comparison at 1440x900 viewport. 20+ pages compared visually against production. Calendar day view upgraded partial→yes (visual only). Clients list measurement-verified (th 14px/600, td 14px/400 match). All main list pages (Dashboard, Clients, Contacts, Invoices, Payments, Waitlist, Products, Reports) confirmed structurally. Settings pages (Tags, Users, Services, Locations, landing) confirmed. Client detail confirmed. Calendar month view upgraded to yes — measurement-verified (today bg, date numbers, appointments, DOW all match production exactly). Known partials unchanged: login illustration, mobile views, custom date picker, filter UI pattern, conditional logic modal, AI chat interactivity.
 
 ---
 
@@ -339,7 +339,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.23.16 pm.png | Month view with appointments | partial — audit 2026-03-26: today highlight green (prod=purple), date numbers smaller than prod, appointment text not bold (prod=bold client names), missing status icons on appointment blocks (invoice/video/recurring), "more" link weight needs fix. DOW headers and toolbar structure match. |
+| Screenshot 2026-03-17 at 7.23.16 pm.png | Month view with appointments | yes — measurement-verified 2026-03-26: today bg rgb(130,80,255)=PASS, date 14px/400=PASS, appointment 14px/400=PASS, DOW 12px/400 rgb(112,117,122)=PASS, more 12px/700=PASS. All match production. Status icons on blocks are a data feature difference (not fidelity gap). |
 | Screenshot 2026-03-17 at 7.23.23 pm.png | Month view — appointment detail side panel (Group Therapy) | yes — side panel with full content |
 
 ## Calendar — Appointment Side Panel

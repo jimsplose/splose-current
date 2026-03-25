@@ -254,7 +254,7 @@ Patterns identified from the interactive states implementation audit. All opport
 ### Group AD — Dashboard fidelity (`src/app/page.tsx`)
 
 - [x] **Income chart X-axis labels** — Fixed: Labels rotated -45deg, properly spaced, "Sep 2025" format. (2026-03-25)
-- [ ] **Bugshot: Dashboard card margins/borders** — http://localhost:3000/, region 1470x348 at (3,50). Cards run full width/height; production has ~7px margin around all modules with rounded corners and borders, 14px double margin between left/right columns. Severity: high. (2026-03-25)
+- [x] **Bugshot: Dashboard card margins/borders** — Already fixed: p-[7px] gap-[14px] layout matches production. Measurement-verified 2026-03-26: both show ~7px margin, rounded corners, 14px column gap. (2026-03-26)
 
 ### Group AE — Waitlist fidelity (`src/app/waitlist/page.tsx`)
 
