@@ -6,6 +6,7 @@ import {
   PageHeader,
   Button,
   Card,
+  Chip,
   Pagination,
   SearchBar,
   Badge,
@@ -19,7 +20,7 @@ import {
   LinkCell,
   usePagination,
 } from "@/components/ds";
-import { Plus, X } from "lucide-react";
+import { Plus } from "lucide-react";
 
 export interface InvoiceRow {
   id: string;
@@ -123,42 +124,31 @@ export default function InvoicesClient({
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className="text-label-md text-text-secondary">Filters:</span>
           {locationFilter && (
-            <button
-              onClick={() => setLocationFilter(null)}
-              className="inline-flex items-center gap-1 rounded-full border border-border bg-gray-50 px-2.5 py-1 text-caption-md text-text hover:bg-gray-100"
-            >
+            <Chip onRemove={() => setLocationFilter(null)}>
               Location: {locationFilter}
-              <X className="h-3 w-3" />
-            </button>
+            </Chip>
           )}
           {practitionerFilter && (
-            <button
-              onClick={() => setPractitionerFilter(null)}
-              className="inline-flex items-center gap-1 rounded-full border border-border bg-gray-50 px-2.5 py-1 text-caption-md text-text hover:bg-gray-100"
-            >
+            <Chip onRemove={() => setPractitionerFilter(null)}>
               Practitioner: {practitionerFilter}
-              <X className="h-3 w-3" />
-            </button>
+            </Chip>
           )}
           {statusFilter && (
-            <button
-              onClick={() => setStatusFilter(null)}
-              className="inline-flex items-center gap-1 rounded-full border border-border bg-gray-50 px-2.5 py-1 text-caption-md text-text hover:bg-gray-100"
-            >
+            <Chip onRemove={() => setStatusFilter(null)}>
               Status: {statusFilter}
-              <X className="h-3 w-3" />
-            </button>
+            </Chip>
           )}
-          <button
+          <Button
+            variant="link"
+            size="sm"
             onClick={() => {
               setLocationFilter(null);
               setPractitionerFilter(null);
               setStatusFilter(null);
             }}
-            className="text-caption-md text-primary hover:underline"
           >
             Clear all
-          </button>
+          </Button>
         </div>
       )}
 
@@ -225,60 +215,51 @@ export default function InvoicesClient({
                     <div className="flex flex-wrap gap-2">
                       {showLocationDropdown &&
                         uniqueLocations.map((loc) => (
-                          <button
+                          <Button
                             key={loc}
+                            variant={locationFilter === loc ? "primary" : "secondary"}
+                            size="sm"
                             onClick={() => {
                               setLocationFilter(
                                 locationFilter === loc ? null : loc,
                               );
                               setShowLocationDropdown(false);
                             }}
-                            className={`rounded-md border px-3 py-1 text-body-sm transition-colors ${
-                              locationFilter === loc
-                                ? "border-primary bg-primary/10 text-primary"
-                                : "border-border bg-white text-text hover:bg-gray-50"
-                            }`}
                           >
                             {loc}
-                          </button>
+                          </Button>
                         ))}
                       {showPractitionerDropdown &&
                         uniquePractitioners.map((prac) => (
-                          <button
+                          <Button
                             key={prac}
+                            variant={practitionerFilter === prac ? "primary" : "secondary"}
+                            size="sm"
                             onClick={() => {
                               setPractitionerFilter(
                                 practitionerFilter === prac ? null : prac,
                               );
                               setShowPractitionerDropdown(false);
                             }}
-                            className={`rounded-md border px-3 py-1 text-body-sm transition-colors ${
-                              practitionerFilter === prac
-                                ? "border-primary bg-primary/10 text-primary"
-                                : "border-border bg-white text-text hover:bg-gray-50"
-                            }`}
                           >
                             {prac}
-                          </button>
+                          </Button>
                         ))}
                       {showStatusDropdown &&
                         uniqueStatuses.map((st) => (
-                          <button
+                          <Button
                             key={st}
+                            variant={statusFilter === st ? "primary" : "secondary"}
+                            size="sm"
                             onClick={() => {
                               setStatusFilter(
                                 statusFilter === st ? null : st,
                               );
                               setShowStatusDropdown(false);
                             }}
-                            className={`rounded-md border px-3 py-1 text-body-sm transition-colors ${
-                              statusFilter === st
-                                ? "border-primary bg-primary/10 text-primary"
-                                : "border-border bg-white text-text hover:bg-gray-50"
-                            }`}
                           >
                             <Badge variant={statusVariant(st)}>{st}</Badge>
-                          </button>
+                          </Button>
                         ))}
                     </div>
                   </td>

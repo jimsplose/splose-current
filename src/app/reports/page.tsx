@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useMemo } from "react";
 import { Calendar, ChevronDown, Settings } from "lucide-react";
-import { Avatar, Button, Card, Checkbox, ColorDot, Dropdown, FormSelect } from "@/components/ds";
+import { Avatar, Button, Card, Checkbox, ColorDot, Dropdown, FormInput, FormSelect } from "@/components/ds";
 import { DataTable, TableHead, Th, TableBody, Tr, Td } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 
@@ -72,15 +72,17 @@ function DateRangePicker({
 
   return (
     <div className="relative" ref={ref}>
-      <button
+      <Button
+        variant="secondary"
+        size="sm"
         type="button"
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 rounded-full border border-primary bg-primary/10 px-3 py-1.5 text-body-md font-medium text-primary transition-colors hover:bg-primary/20"
+        className="!rounded-full !border-primary !bg-primary/10 !font-medium !text-primary hover:!bg-primary/20"
       >
         <Calendar className="h-4 w-4" />
         {fmtShort(startDate)} &rarr; {fmtShort(endDate)}
         <ChevronDown className="h-3.5 w-3.5" />
-      </button>
+      </Button>
 
       {open && (
         <div className="absolute left-0 top-full z-30 mt-1 w-80 rounded-lg border border-border bg-white shadow-lg">
@@ -89,14 +91,16 @@ function DateRangePicker({
             <p className="mb-1.5 px-2 text-label-md text-text-secondary">Quick select</p>
             <div className="grid grid-cols-2 gap-1">
               {presets.map((p) => (
-                <button
+                <Button
                   key={p.label}
+                  variant="ghost"
+                  size="sm"
                   type="button"
                   onClick={() => applyPreset(p)}
-                  className="rounded-md px-3 py-1.5 text-left text-body-sm text-text transition-colors hover:bg-primary/5 hover:text-primary"
+                  className="!justify-start !rounded-md !text-body-sm !text-text hover:!bg-primary/5 hover:!text-primary"
                 >
                   {p.label}
-                </button>
+                </Button>
               ))}
             </div>
           </div>
@@ -105,18 +109,18 @@ function DateRangePicker({
           <div className="p-3">
             <p className="mb-2 text-label-md text-text-secondary">Custom range</p>
             <div className="flex items-center gap-2">
-              <input
+              <FormInput
                 type="date"
                 value={toInputDate(startDate)}
                 onChange={(e) => onChange(new Date(e.target.value), endDate)}
-                className="flex-1 rounded-lg border border-border px-3 py-1.5 text-body-sm text-text focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
+                className="!py-1.5 !text-body-sm"
               />
               <span className="text-text-secondary">&rarr;</span>
-              <input
+              <FormInput
                 type="date"
                 value={toInputDate(endDate)}
                 onChange={(e) => onChange(startDate, new Date(e.target.value))}
-                className="flex-1 rounded-lg border border-border px-3 py-1.5 text-body-sm text-text focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
+                className="!py-1.5 !text-body-sm"
               />
             </div>
           </div>
@@ -286,13 +290,14 @@ export default function ReportsPage() {
         <Card>
           <div className="relative mb-1 flex items-center justify-between" ref={utilisationSettingsRef}>
             <h3 className="text-heading-sm text-text">Utilisation</h3>
-            <button
+            <Button
+              variant="icon"
+              size="sm"
               type="button"
               onClick={() => setUtilisationSettingsOpen(!utilisationSettingsOpen)}
-              className="rounded p-1 transition-colors hover:bg-gray-100"
             >
               <Settings className="h-4 w-4 text-text-secondary" />
-            </button>
+            </Button>
             {utilisationSettingsOpen && (
               <div className="absolute right-0 top-full z-30 mt-1 w-[280px] rounded-lg border border-border bg-white p-4 shadow-lg">
                 <h4 className="text-heading-sm text-text">Utilisation settings</h4>

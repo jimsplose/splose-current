@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { Button, Checkbox, FileUpload, FormInput, FormSelect, Toggle, Tab, Modal, Dropdown, HintIcon } from "@/components/ds";
+import { Button, Checkbox, FileUpload, FormInput, FormSelect, Toggle, Tab, Modal, Dropdown, HintIcon, PageHeader } from "@/components/ds";
 
 const businessHistory = [
   { date: "15 Jan 2026", description: "Business name changed from 'Acme Therapy' to 'Hands Together Therapies'" },
@@ -19,10 +19,9 @@ export default function SettingsDetailsPage() {
 
   return (
     <div className="p-6 max-w-4xl">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-display-lg">Details</h1>
+      <PageHeader title="Details">
         <Button variant="primary">Save</Button>
-      </div>
+      </PageHeader>
 
       <div className="space-y-6">
         <div className="flex gap-8">
@@ -32,13 +31,13 @@ export default function SettingsDetailsPage() {
                 <label className="block text-label-lg text-text">
                   Business name<span className="text-red-500">*</span>
                 </label>
-                <button
-                  type="button"
+                <Button
+                  variant="link"
+                  size="sm"
                   onClick={() => setHistoryOpen(true)}
-                  className="text-body-sm text-primary hover:underline"
                 >
                   Business history
-                </button>
+                </Button>
               </div>
               <FormInput type="text" defaultValue="Hands Together Therapies" />
             </div>

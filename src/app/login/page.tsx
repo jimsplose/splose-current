@@ -1,5 +1,5 @@
 import { ChevronRight, EyeOff } from "lucide-react";
-import { Button, Checkbox } from "@/components/ds";
+import { Button, Checkbox, FormInput } from "@/components/ds";
 
 export default function LoginPage() {
   return (
@@ -20,21 +20,21 @@ export default function LoginPage() {
           <p className="mt-1 text-heading-lg text-text">acme.splose.com</p>
 
           <div className="mt-6">
-            <label className="block text-sm text-text-secondary">Email</label>
-            <input
+            <FormInput
               type="email"
-              className="mt-1 w-full border-b border-gray-300 bg-transparent py-2 text-sm outline-none focus:border-primary"
+              label="Email"
+              className="mt-1 rounded-none border-0 border-b border-gray-300 bg-transparent px-0 py-2 text-body-md shadow-none ring-0 focus:border-primary focus:ring-0"
             />
           </div>
 
           <div className="mt-6">
-            <label className="block text-sm text-text-secondary">Password</label>
             <div className="relative">
-              <input
+              <FormInput
                 type="password"
-                className="mt-1 w-full border-b border-gray-300 bg-transparent py-2 pr-8 text-sm outline-none focus:border-primary"
+                label="Password"
+                className="mt-1 rounded-none border-0 border-b border-gray-300 bg-transparent px-0 py-2 pr-8 text-body-md shadow-none ring-0 focus:border-primary focus:ring-0"
               />
-              <EyeOff className="absolute top-3 right-0 h-4 w-4 text-text-secondary" />
+              <EyeOff className="absolute bottom-3 right-0 h-4 w-4 text-text-secondary" />
             </div>
           </div>
 

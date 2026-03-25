@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Send, Bold, Italic, Underline, Type, Grid3X3, Link2, Minus, Image, AlignLeft, AlignCenter, AlignRight, ListOrdered, Paperclip, Sparkles, X, Eye, Edit3 } from "lucide-react";
-import { Button, FormSelect, FormInput, Badge } from "@/components/ds";
+import { Send, Bold, Italic, Underline, Type, Grid3X3, Link2, Minus, Image, AlignLeft, AlignCenter, AlignRight, ListOrdered, Paperclip, Sparkles, Eye, Edit3 } from "lucide-react";
+import { Button, FormSelect, FormInput, Badge, Chip } from "@/components/ds";
 import Modal from "@/components/ds/Modal";
 
 interface SendNoteModalProps {
@@ -108,20 +108,22 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
             className="flex-1"
           />
           <div className="flex rounded-lg border border-border">
-            <button
-              type="button"
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={() => setViewMode("edit")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-label-md transition-colors ${viewMode === "edit" ? "bg-primary/10 text-primary" : "text-text-secondary hover:text-text"}`}
+              className={`rounded-none rounded-l-lg border-0 text-label-md ${viewMode === "edit" ? "bg-primary/10 text-primary hover:bg-primary/10" : ""}`}
             >
               <Edit3 className="h-3.5 w-3.5" /> Edit
-            </button>
-            <button
-              type="button"
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={() => setViewMode("preview")}
-              className={`flex items-center gap-1.5 border-l border-border px-3 py-1.5 text-label-md transition-colors ${viewMode === "preview" ? "bg-primary/10 text-primary" : "text-text-secondary hover:text-text"}`}
+              className={`rounded-none rounded-r-lg border-l border-border text-label-md ${viewMode === "preview" ? "bg-primary/10 text-primary hover:bg-primary/10" : ""}`}
             >
               <Eye className="h-3.5 w-3.5" /> Preview
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -130,27 +132,22 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
             {/* To field */}
             <div className="flex flex-wrap items-center gap-1.5 rounded-lg border border-border px-3 py-2">
               {toEmails.map((email) => (
-                <span
+                <Chip
                   key={email}
-                  className="inline-flex items-center gap-1 rounded bg-gray-100 px-2 py-0.5 text-sm text-text"
+                  variant="gray"
+                  onRemove={() => handleRemoveEmail(email)}
+                  className="py-0.5 text-sm"
                 >
                   {email}
-                  <Button
-                    variant="icon"
-                    size="sm"
-                    onClick={() => handleRemoveEmail(email)}
-                  >
-                    <X className="h-3 w-3" />
-                  </Button>
-                </span>
+                </Chip>
               ))}
-              <input
+              <FormInput
                 type="email"
                 value={toInput}
                 onChange={(e) => setToInput(e.target.value)}
                 onKeyDown={handleAddEmail}
                 placeholder={toEmails.length === 0 ? "Add recipient email..." : ""}
-                className="min-w-[120px] flex-1 border-none text-sm outline-none placeholder:text-text-secondary"
+                className="min-w-[120px] flex-1 !border-none !rounded-none !p-0 !ring-0 text-sm !shadow-none"
               />
             </div>
 
