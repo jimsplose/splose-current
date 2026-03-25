@@ -1595,7 +1595,7 @@ function MonthView({
       {/* Day of week headers */}
       <div className="grid grid-cols-7 border-b border-border">
         {DOW_LABELS.map((d) => (
-          <div key={d} className="px-2 py-2 text-center text-body-sm text-text-secondary">
+          <div key={d} className="px-2 py-2 text-center text-body-sm text-[rgb(112,117,122)]">
             {d}
           </div>
         ))}
@@ -1632,10 +1632,9 @@ function MonthView({
                     return (
                       <div
                         key={appt.id}
-                        className={`flex cursor-pointer items-center gap-0.5 rounded-lg px-1 py-0.5 text-[14px] font-normal ${isCancelled ? "opacity-60" : ""}`}
+                        className={`flex cursor-pointer items-center gap-0.5 rounded-lg px-1 py-px text-[14px] font-normal leading-tight text-black ${isCancelled ? "opacity-60" : ""}`}
                         style={{
                           backgroundColor: lightenColor(appt.practitionerColor, 0.7),
-                          color: darkenColor(appt.practitionerColor, 0.5),
                         }}
                         onClick={() => onApptClick(appt)}
                       >
@@ -1656,7 +1655,7 @@ function MonthView({
                     );
                   })}
                   {dayAppts.length > 3 && (
-                    <div className="px-1 text-body-sm font-bold text-text">{dayAppts.length - 3} more</div>
+                    <div className="px-1 text-[12px]" style={{ fontWeight: 700, color: 'rgb(65, 69, 73)' }}>{dayAppts.length - 3} more</div>
                   )}
                 </div>
               </div>
