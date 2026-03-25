@@ -210,7 +210,7 @@ export default function NewPaymentPage() {
 
       <div className="mx-auto max-w-5xl p-8">
         {/* Payment details row */}
-        <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {/* Client / From */}
           <Select
             label="Client / From *"
@@ -219,6 +219,19 @@ export default function NewPaymentPage() {
             onChange={setClient}
             placeholder="Select client"
             searchable
+          />
+
+          {/* Location */}
+          <FormSelect
+            label="Location *"
+            value=""
+            onChange={() => {}}
+            options={[
+              { value: "", label: "Select location" },
+              { value: "east-clinics", label: "East Clinics" },
+              { value: "splose-ot", label: "Splose OT" },
+              { value: "tasks", label: "Tasks" },
+            ]}
           />
 
           {/* Payment date */}

@@ -13,7 +13,6 @@ import {
   Tr,
   Td,
   Pagination,
-  Badge,
   Dropdown,
   DropdownTriggerButton,
   Modal,
@@ -23,7 +22,6 @@ import {
 } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { formatTimestamp } from "@/lib/format";
-import { getBadgeVariant } from "@/lib/badge-variants";
 
 type TemplateType =
   | "Invoice"
@@ -148,9 +146,7 @@ export default function EmailTemplatesPage() {
           {paged.map((t, i) => (
             <Tr key={t.name + i}>
               <Td className="text-text">{t.name}</Td>
-              <Td>
-                <Badge variant={getBadgeVariant(t.type) as React.ComponentProps<typeof Badge>["variant"]}>{t.type}</Badge>
-              </Td>
+              <Td>{t.type}</Td>
               <Td>{t.lastModified}</Td>
               <Td align="right">
                 <Dropdown

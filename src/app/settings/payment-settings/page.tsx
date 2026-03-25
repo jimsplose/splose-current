@@ -86,7 +86,7 @@ export default function PaymentSettingsPage() {
       {/* Next payment number */}
       <section className="mb-8">
         <h2 className="mb-4 text-heading-lg text-text">Next payment number</h2>
-        <div className="max-w-md space-y-4">
+        <div className="max-w-2xl space-y-4">
           <FormInput label="Prefix" defaultValue="MYDD" />
           <FormInput label="Padding" defaultValue="5" />
         </div>
@@ -95,7 +95,7 @@ export default function PaymentSettingsPage() {
       {/* PDF settings */}
       <section className="mb-8">
         <h2 className="mb-4 text-heading-lg text-text">PDF settings</h2>
-        <div className="max-w-md">
+        <div className="max-w-2xl">
           <label className="mb-1 block text-label-lg text-text-secondary">
             Brand colour
           </label>
@@ -115,7 +115,7 @@ export default function PaymentSettingsPage() {
         </div>
       </section>
 
-      <hr className="my-8 border-border" />
+      <hr className="my-8 border-green-600" />
 
       {/* Accepted forms of payment */}
       <section className="mb-8">
@@ -162,12 +162,12 @@ export default function PaymentSettingsPage() {
         </div>
       </section>
 
-      <hr className="my-8 border-border" />
+      <hr className="my-8 border-green-600" />
 
       {/* NDIS bulk upload */}
       <section className="mb-8">
         <h2 className="mb-4 text-heading-lg text-text">NDIS bulk upload</h2>
-        <div className="max-w-md space-y-4">
+        <div className="max-w-2xl space-y-4">
           <FormSelect
             label="Payment method *"
             options={methods.map((m) => ({

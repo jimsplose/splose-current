@@ -3,9 +3,12 @@
 import { useState } from "react";
 import {
   Alert,
+  Badge,
   Button,
+  Chip,
   Dropdown,
   Modal,
+  Toggle,
   DateRangeFilter,
   FormSelect,
   PageHeader,
@@ -31,10 +34,18 @@ const exportItems = [
   { label: "Export as PDF", value: "pdf" },
 ];
 
+const periodOptions = [
+  { value: "daily", label: "Daily" },
+  { value: "weekly", label: "Weekly" },
+  { value: "monthly", label: "Monthly" },
+];
+
 export default function ReportsPerformancePage() {
   const [showResults, setShowResults] = useState(false);
   const [showDefinitions, setShowDefinitions] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [period, setPeriod] = useState("weekly");
+  const [compareEnabled, setCompareEnabled] = useState(false);
 
   const handleExport = (value: string) => {
     if (value === "csv") {
@@ -64,12 +75,35 @@ export default function ReportsPerformancePage() {
         <Button onClick={() => setShowDefinitions(true)}>Definitions</Button>
       </PageHeader>
 
-      {/* Date range */}
-      <div className="mb-4">
-        <label className="mb-1 flex items-center gap-1 text-sm text-text-secondary">
-          Date range *
-        </label>
-        <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
+      {/* Toolbar: date pill, period toggle, compare toggle */}
+      <div className="mb-4 flex flex-wrap items-center gap-3">
+        <Chip variant="green">11 Mar 2026 – 11 Mar 2026</Chip>
+
+        {/* Period selector pills */}
+        <div className="flex rounded-full border border-border bg-white p-0.5">
+          {periodOptions.map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => setPeriod(opt.value)}
+              className={`rounded-full px-3 py-1 text-label-md transition-colors ${
+                period === opt.value
+                  ? "bg-primary text-white"
+                  : "text-text-secondary hover:text-text"
+              }`}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+
+        <Toggle
+          checked={compareEnabled}
+          onChange={setCompareEnabled}
+          label="Compare"
+        />
+        {compareEnabled && (
+          <Badge variant="gray">vs 4 Mar – 4 Mar 2026</Badge>
+        )}
       </div>
 
       {/* Filter buttons */}

@@ -9,15 +9,11 @@ import {
   TableBody,
   Tr,
   Td,
-  Badge,
   Pagination,
-  Dropdown,
-  DropdownTriggerButton,
   Modal,
   FormInput,
   usePagination,
 } from "@/components/ds";
-import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
 
 interface TaxRate {
@@ -66,9 +62,6 @@ export default function TaxRatesPage() {
         <TableHead>
           <Th>Name</Th>
           <Th>Rate</Th>
-          <Th>Description</Th>
-          <Th>Status</Th>
-          <Th>Actions</Th>
         </TableHead>
         <TableBody>
           {pageItems.map((rate, i) => (
@@ -77,18 +70,6 @@ export default function TaxRatesPage() {
                 <span className="font-medium text-text">{rate.name}</span>
               </Td>
               <Td>{rate.rate}</Td>
-              <Td>{rate.description}</Td>
-              <Td>
-                <Badge variant="green">{rate.status}</Badge>
-              </Td>
-              <Td>
-                <Dropdown
-                  align="right"
-                  trigger={<DropdownTriggerButton />}
-                  items={SIMPLE_CRUD}
-                  onSelect={(value) => handleAction(value, rate, rates.indexOf(rate))}
-                />
-              </Td>
             </Tr>
           ))}
         </TableBody>

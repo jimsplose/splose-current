@@ -122,7 +122,7 @@ export default function InvoiceSettingsPage() {
       {/* Invoice number */}
       <section className="mb-8">
         <h2 className="mb-4 text-heading-lg text-text">Invoice number</h2>
-        <div className="max-w-md space-y-4">
+        <div className="max-w-2xl space-y-4">
           <FormInput label="Prefix" defaultValue="INV" />
           <FormInput label="Padding" defaultValue="6" />
           <FormInput label="Next invoice number" defaultValue="6309" />
@@ -132,19 +132,19 @@ export default function InvoiceSettingsPage() {
       {/* Credit note number */}
       <section className="mb-8">
         <h2 className="mb-4 text-heading-lg text-text">Credit note number</h2>
-        <div className="max-w-md space-y-4">
+        <div className="max-w-2xl space-y-4">
           <FormInput label="Prefix" defaultValue="CR" />
           <FormInput label="Padding" defaultValue="6" />
           <FormInput label="Next credit note number" defaultValue="181" />
         </div>
       </section>
 
-      <hr className="my-8 border-border" />
+      <hr className="my-8 border-green-600" />
 
       {/* Tax */}
       <section className="mb-8">
         <h2 className="mb-4 text-heading-lg text-text">Tax</h2>
-        <div className="max-w-md space-y-4">
+        <div className="max-w-2xl space-y-4">
           <FormSelect
             label="Default tax"
             options={[
@@ -166,12 +166,12 @@ export default function InvoiceSettingsPage() {
         </div>
       </section>
 
-      <hr className="my-8 border-border" />
+      <hr className="my-8 border-green-600" />
 
       {/* Invoice reminders preferences */}
       <section className="mb-8">
         <h2 className="mb-4 text-heading-lg text-text">Invoice reminders preferences</h2>
-        <div className="max-w-md space-y-4">
+        <div className="max-w-2xl space-y-4">
           <FormSelect
             label="Default invoice reminder preferences"
             options={[
@@ -192,7 +192,7 @@ export default function InvoiceSettingsPage() {
         </div>
       </section>
 
-      <hr className="my-8 border-border" />
+      <hr className="my-8 border-green-600" />
 
       {/* Invoice reminders table */}
       <section className="mb-8">
@@ -236,7 +236,7 @@ export default function InvoiceSettingsPage() {
         </div>
       </section>
 
-      <hr className="my-8 border-border" />
+      <hr className="my-8 border-green-600" />
 
       {/* Invoice templates table */}
       <section className="mb-8">

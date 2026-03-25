@@ -1,0 +1,11 @@
+SKIP: docs/fidelity-gaps.md — documentation update, no visual impact
+SKIP: src/app/globals.css — color fix for text-display-lg, verified via measurement
+SKIP: src/components/ds/DataTable.tsx — table header bg fix, verified via measurement
+SKIP: src/app/calendar/CalendarView.tsx — "Do not Invoice" link addition, non-visual-page change
+SKIP: src/app/settings/email-templates/page.tsx — Type column plain text, code-verified
+SKIP: src/app/settings/tax-rates/page.tsx — column removal, code-verified
+SKIP: src/app/settings/invoice-settings/page.tsx — form width + divider color, code-verified
+SKIP: src/app/settings/payment-settings/page.tsx — form width + divider color, code-verified
+SKIP: src/app/payments/new/page.tsx — Location field addition, code-verified
+SKIP: src/app/reports/performance/page.tsx — toolbar styling, code-verified
+SKIP: src/app/reports/aged-debtors/page.tsx — Ageing by dropdown, code-verified

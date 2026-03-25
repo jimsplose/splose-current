@@ -53,7 +53,7 @@ All 25 Settings sub-pages are implemented as inline components in `settings/page
 ### Group K — Calendar enhancements (`src/app/calendar/`)
 - [x] **Calendar Rooms/Resources view** — Calendar/Rooms toggle, room filter dropdown. Reference: 7.22.38-7.22.53 pm.
 - [x] **Calendar view type switcher** — Month/Week/Day dropdown. Reference: 7.23.04 pm.
-- [ ] **Calendar month view** — Reopened: compare found measurement mismatches (font weights, appointment styling, today highlight color). See Group AJ. (2026-03-25)
+- [x] **Calendar month view** — Fixed: all measurement mismatches resolved (font weights, DOW color, appointment styling, today highlight, more link). Code-verified 2026-03-25.
 - [x] **Calendar appointment side panel** — Appointment detail flyout with Edit/Reschedule/Archive actions, edit appointment form with Room/Resource dropdown. Reference: 7.23.33-7.25.52 pm. All content now implemented: structured client info, email, status, zoom/invoice/note links, repeating info, organiser, Book another/Edit/Reschedule/Archive buttons, View change log. Edit form has Room/Resource dropdown. Remaining diff is data-driven. (2026-03-25)
 
 ### Group L — Progress Notes (`src/app/notes/`)
@@ -258,12 +258,12 @@ Patterns identified from the interactive states implementation audit. All opport
 
 ### Group AE — Waitlist fidelity (`src/app/waitlist/page.tsx`)
 
-- [ ] **Waitlist triage button layout** — Reopened: Production has horizontal Yes/No, not vertical. See Group AK. (2026-03-25)
+- [x] **Waitlist triage button layout** — Already fixed: Yes/No buttons use flex-row (horizontal). Verified 2026-03-25.
 - [ ] **Bugshot: Tab underline thickness/width** — http://localhost:3000/waitlist, region 100x63 at (457,-10). Current page tab line is wrong thickness and width vs production. Severity: medium. (2026-03-25)
 - [ ] **Bugshot: Missing icon** — http://localhost:3000/waitlist, region 130x53 at (1302,110). Download appropriate icon or rip from production. Severity: medium. (2026-03-25)
 - [ ] **Bugshot: Filter/sort control alignment** — http://localhost:3000/waitlist, region 1343x63 at (15,275). Alignment of filters and sort controls doesn't match production. Check hover states too. Severity: medium. (2026-03-25)
 - [ ] **Bugshot: Button sizing/spacing** — http://localhost:3000/waitlist, region 288x95 at (12,37). Sizing and spacing of tab buttons very different to production. Severity: medium. (2026-03-25)
-- [ ] **Bugshot: Missing pagination controls** — http://localhost:3000/waitlist, region 1403x120 at (19,1106). Table missing pagination. Check all data tables that should have pagination controls. Severity: medium. (2026-03-25)
+- [x] **Bugshot: Missing pagination controls** — Already fixed: Waitlist uses usePagination hook for both screener and waitlist tabs. Verified 2026-03-25.
 
 ### Group AF — Settings fidelity (`src/app/settings/`)
 
@@ -275,112 +275,112 @@ Patterns identified from the interactive states implementation audit. All opport
 
 ### Group AH — Calendar week view (`src/app/calendar/CalendarView.tsx`)
 
-- [ ] **Week view day number styling** — Day numbers (non-today) use fontWeight 300 and color rgb(65,69,73). Production uses fontWeight 500 and color rgb(112,117,122). Fix: change day number to font-medium text-text-secondary. (2026-03-25)
+- [x] **Week view day number styling** — Fixed in code: font-medium text-[rgb(112,117,122)] matches production fontWeight 500 and color. Verified 2026-03-25.
 
 ### Group AI — Calendar day view (`src/app/calendar/CalendarView.tsx`)
 
-- [ ] **Day view title format** — Localhost shows full date "Wednesday 25 March 2026" in toolbar. Production shows "Mar 2026" (same as week view, short month/year). Fix: day view title should match production format. (2026-03-25)
-- [ ] **Day view centered header** — Localhost has a centered "Wed 25 All Locations" header between toolbar and practitioner columns. Production has no such header — goes directly to practitioner columns. Fix: remove or hide centered day header. (2026-03-25)
-- [ ] **Practitioner name format** — Localhost shows "First L." abbreviated names. Production shows full names ("Adam Moyle"). Fix: show full practitioner names. (2026-03-25)
+- [x] **Day view title format** — Fixed: shows "Mar 2026" matching production. Verified via screenshot 2026-03-25.
+- [x] **Day view centered header** — Fixed: removed centered header, goes directly to practitioner columns. Verified 2026-03-25.
+- [x] **Practitioner name format** — Fixed: shows full names. Verified via screenshot 2026-03-25.
 
 ### Group AJ — Calendar month view (`src/app/calendar/CalendarView.tsx`)
 
-- [ ] **Month view font weights** — Multiple elements use fontWeight 500 (localhost) where production uses 400: day-of-week headers, date numbers, today number. Fix: reduce to font-normal. (2026-03-25)
-- [ ] **Month view DOW header color** — Localhost rgb(107,114,128), production rgb(112,117,122). Fix: use text-text-secondary. (2026-03-25)
-- [ ] **Month appointment entry styling** — fontSize 12px (localhost) vs 14px (prod), text color white (localhost) vs black (prod), borderRadius 4px (localhost) vs 8px (prod). Fix: increase font, use dark text on colored backgrounds, use rounded-lg. (2026-03-25)
-- [ ] **Month today highlight color** — Localhost uses green circle, production uses purple. Fix: change to bg-primary (purple). (2026-03-25)
-- [ ] **Month "more" link styling** — Localhost: 11px/400/gray "+7 more". Production: 12px/700/dark "3 more". Fix: increase font, bold weight, darker color, remove "+" prefix. (2026-03-25)
+- [x] **Month view font weights** — Fixed: text-body-sm (400) for DOW headers, text-body-md (400) for date numbers. Verified in code 2026-03-25.
+- [x] **Month view DOW header color** — Fixed: uses text-[rgb(112,117,122)]. Verified in code 2026-03-25.
+- [x] **Month appointment entry styling** — Fixed: text-[14px] font-normal text-black rounded-lg. Verified in code 2026-03-25.
+- [x] **Month today highlight color** — Fixed: bg-primary (purple). Verified in code 2026-03-25.
+- [x] **Month "more" link styling** — Fixed: text-[12px] fontWeight:700 color:rgb(65,69,73), no "+" prefix. Verified in code 2026-03-25.
 
 ### Group AK — Cross-cutting list page issues (multiple files)
 
-- [ ] **Page title green shade** — Localhost uses rgb(40,103,68), production uses rgb(66,105,74). Fix: update `text-green-800` or custom color to match production green. Affects all PageHeader titles using green. (2026-03-25)
-- [ ] **Search bar joined style** — Production input+button share border radius (left 8px on input, right 8px on button, no gap). Localhost has separate rounded elements. Fix: update SearchBar DS component to support joined layout. (2026-03-25)
-- [ ] **Table header background** — Localhost table headers have gray bg `rgb(243,245,247)`. Production has transparent/white header rows. Fix: remove bg-surface-header from DataTable headers. (2026-03-25)
-- [ ] **Client tags styling** — Production uses yellow outlined pills with arbitrary text (dates, company names). Localhost uses solid NDIS/Medicare badges. Fix: tags should render as yellow outlined pills with actual tag text, not funding type badges. (2026-03-25)
-- [ ] **Sorted column tint** — Production highlights the active sort column with a light tinted background (blue/green). Visible on Waitlist (Date submitted), Invoices (Issue date), Payments (Payment date). Localhost has no column tint. Fix: add subtle bg tint to the active sort column. (2026-03-25)
-- [ ] **Waitlist triage button layout** — Reopened: Production has horizontal (side-by-side) Yes/No buttons. Localhost has vertical (stacked) layout. Previous "fix" to flex-col was wrong direction. Fix: change to flex-row. (2026-03-25)
-- [ ] **Invoice status badge "Draft" color** — Production uses dark gray/slate for "Draft" status. Localhost uses green. Fix: update Draft badge to use gray variant. (2026-03-25)
-- [ ] **Contacts phone color** — Production shows phone numbers as plain black text. Localhost shows them as purple links. Fix: remove purple link styling from contact phone numbers (keep tel: href but style as regular text). (2026-03-25)
+- [x] **Page title green shade** — Fixed: globals.css text-display-lg color updated to rgb(66,105,74). (2026-03-25)
+- [x] **Search bar joined style** — Fixed: SearchBar.tsx input rounded-l-lg, button rounded-r-lg, no gap. Measurement-verified: both 8px 0px 0px 8px / 0px 8px 8px 0px. (2026-03-25)
+- [x] **Table header background** — Fixed: Production measured as rgb(234,237,241). Added bg-[rgb(234,237,241)] to TableHead. (2026-03-25)
+- [x] **Client tags styling** — Already fixed: yellow pills bg-[rgb(249,202,36)]. (2026-03-25)
+- [x] **Sorted column tint** — Fixed: Th component adds bg-primary/5 when sortDirection is active. (2026-03-25)
+- [x] **Waitlist triage button layout** — Already fixed: Yes/No buttons use flex-row. Verified via screenshot 2026-03-25.
+- [x] **Invoice status badge "Draft" color** — Already fixed: Badge statusVariant maps Draft to gray. (2026-03-25)
+- [x] **Contacts phone color** — Already fixed: phones render as plain text color. Verified via screenshot 2026-03-25.
 
 ### Group AL — Contact detail fidelity (`src/app/contacts/[id]/page.tsx`)
 
-- [ ] **Contact detail section naming** — Localhost uses "Contact information" section. Production uses "Contact details". Fix: rename section heading. (2026-03-25)
-- [ ] **Contact detail avatar** — Localhost shows avatar circle in General details. Production does not show an avatar. Fix: remove avatar from contact detail. (2026-03-25)
-- [ ] **Contact detail Notes section** — Localhost has standalone "Notes" section. Production has "Note" as a field within Contact details section. Fix: move note into Contact details table row. (2026-03-25)
+- [x] **Contact detail section naming** — Fixed in previous session: renamed to "Contact details". (2026-03-25)
+- [x] **Contact detail avatar** — Fixed in previous session: avatar removed. (2026-03-25)
+- [x] **Contact detail Notes section** — Fixed in previous session: note moved into Contact details as inline row. (2026-03-25)
 
 ### Group AN — Settings sub-pages cross-cutting (`src/app/settings/`, `src/components/ds/`)
 
-- [ ] **Settings "New" button styling** — All settings pages use solid purple filled button for "New" actions (+ New service, Invite users, etc). Production uses outline/ghost buttons. Fix: change to `variant="secondary"` or outline variant. Affects ~15 settings sub-pages. (2026-03-25)
-- [ ] **Settings Users 2FA column** — Localhost Users page is missing the "2FA" column (Enabled/Not enabled). Production has it. Fix: add 2FA column. (2026-03-25)
-- [ ] **Settings Users Status styling** — Localhost shows "Active" as green badge. Production shows "Active" as plain text. Fix: render as plain text. (2026-03-25)
-- [ ] **Settings Users name links** — Localhost renders user names as purple links. Production renders them as plain text. Fix: remove link styling (keep navigability but style as regular text). (2026-03-25)
+- [x] **Settings "New" button styling** — Fixed in previous session: changed to variant="secondary". (2026-03-25)
+- [x] **Settings Users 2FA column** — Fixed in previous session: 2FA column added. (2026-03-25)
+- [x] **Settings Users Status styling** — Fixed in previous session: Status as plain text. (2026-03-25)
+- [x] **Settings Users name links** — Fixed in previous session: plain text styling. (2026-03-25)
 
 ### Group AO — Online booking (`src/app/online-booking/`, `src/app/settings/online-bookings/`)
 
-- [ ] **Online booking nav bar** — Production has NO nav bar (standalone public page). Localhost shows full app nav bar + Back button. Fix: hide TopNav on online booking route, remove Back button. (2026-03-25)
-- [ ] **Online booking title styling** — Production: 36px/600/rgb(16,24,40) dark black. Localhost: 30px/700/rgb(40,103,68) green. Fix: use dark text, larger font, semibold weight. (2026-03-25)
-- [ ] **Online booking card styling** — Production cards: 16px border-radius, 20px padding, 162px height. Localhost: 8px, 16px, 98px. Fix: larger cards with more padding and rounder corners. (2026-03-25)
-- [ ] **Online booking button purple shade** — Production Select buttons: rgb(106,57,228), 16px font, 10px radius. Localhost: rgb(130,80,255), 14px, 8px. Fix: use production purple for booking pages. (2026-03-25)
-- [ ] **Online booking Continue button** — Production: gray disabled (rgba(0,0,0,0.25)) with white text. Localhost: white outline. Fix: use filled gray disabled style. (2026-03-25)
-- [ ] **Online booking summary sidebar** — Production: 700 weight title, dark color, vertical stepper connector lines. Localhost: 600 weight, gray, no connector lines. Fix: match production typography and add vertical lines between stepper dots. (2026-03-25)
-- [ ] **Online booking settings editor — missing Settings tab** — Production has 4 tabs: Design, Settings, Builder, Share. Localhost has 3: Design, Builder, Share. Fix: add Settings tab. (2026-03-25)
-- [ ] **Online booking settings editor — missing Preview button** — Production toolbar has Cancel, Preview, Save buttons. Localhost only has Cancel, Save. Fix: add Preview button that opens the public booking URL in a new tab. (2026-03-25)
-- [ ] **Online booking settings editor — no live preview panel** — Production shows a live preview of the booking page in a right-side panel. Localhost doesn't have this. Fix: add live preview panel on the right. (2026-03-25)
-- [ ] **Online booking settings editor — title format** — Production shows "Edit online booking" as page title. Localhost shows "← [Booking Name]" with back arrow. Fix: match production title format. (2026-03-25)
+- [x] **Online booking nav bar** — Fixed in previous session: TopNav hidden on /online-booking route. (2026-03-25)
+- [x] **Online booking title styling** — Fixed in previous session: 36px/600/dark. (2026-03-25)
+- [x] **Online booking card styling** — Fixed in previous session: rounded-[16px]/p-[20px]/min-h-[162px]. (2026-03-25)
+- [x] **Online booking button purple shade** — Fixed in previous session: bg-[rgb(106,57,228)]. (2026-03-25)
+- [x] **Online booking Continue button** — Fixed in previous session: gray disabled bg-[rgba(0,0,0,0.25)]. (2026-03-25)
+- [x] **Online booking summary sidebar** — Fixed in previous session: 700 weight, dark color, connector lines. (2026-03-25)
+- [x] **Online booking settings editor — missing Settings tab** — Fixed in previous session: Settings tab added. (2026-03-25)
+- [x] **Online booking settings editor — missing Preview button** — Fixed in previous session: Preview button added. (2026-03-25)
+- [x] **Online booking settings editor — no live preview panel** — Fixed in previous session: live preview panel added. (2026-03-25)
+- [x] **Online booking settings editor — title format** — Fixed in previous session: "Edit online booking" title. (2026-03-25)
 - [ ] **Online booking settings editor — form structure** — Production Design tab has "Set your branding" radio group (Display none/map/logo), "Button styling" with Primary+Secondary color pickers, "Accessible colour suggestions". Localhost has simpler form. Fix: match production form fields. (2026-03-25)
 
 ### Group AP — Invoice detail (`src/app/invoices/[id]/page.tsx`)
 
-- [ ] **Invoice detail right sidebar** — Production has a right sidebar with: Payments progress bar (0.00/140.20 AUD), Stripe CTA card, Note textarea, "View change log" link. Localhost has no sidebar. Fix: add right sidebar with payments summary, Stripe card, note, change log. (2026-03-25)
-- [ ] **Invoice detail title** — Production shows "Draft invoice". Localhost shows "Tax Invoice". Fix: show status-appropriate title (Draft invoice, Tax Invoice, etc). (2026-03-25)
-- [ ] **Invoice detail illustration** — Production has splose hand-wave illustration. Localhost has "S" avatar circle. Fix: use splose brand illustration. (2026-03-25)
-- [ ] **Invoice detail label casing** — Localhost uses ALL CAPS for field labels (CLIENT, FROM, etc). Production uses Title Case (Client, From). Fix: switch to title case. (2026-03-25)
-- [ ] **Invoice detail line item borders** — Localhost has bordered table cells. Production has borderless layout with line separators. Fix: remove cell borders, use horizontal separators. (2026-03-25)
+- [x] **Invoice detail right sidebar** — Fixed in previous session: payments bar, Stripe CTA, Note, change log added. (2026-03-25)
+- [x] **Invoice detail title** — Fixed in previous session: status-appropriate title ("Draft invoice" etc). (2026-03-25)
+- [x] **Invoice detail illustration** — Fixed in previous session: SVG illustration. (2026-03-25)
+- [x] **Invoice detail label casing** — Fixed in previous session: Title Case labels. (2026-03-25)
+- [x] **Invoice detail line item borders** — Fixed in previous session: borderless with horizontal separators. (2026-03-25)
 
 ### Group AQ — Waitlist tab (`src/app/waitlist/page.tsx`)
 
-- [ ] **Waitlist tab state routing** — `?state=default` should show the Waitlist tab (not Screener). Currently defaults to Screener regardless of state param. Fix: wire state param to tab switching. (2026-03-25)
-- [ ] **Waitlist tab toolbar** — Production Waitlist tab has: Reset all filters, Learn, Show/hide fields, Map, + Add client buttons. Localhost doesn't render the Waitlist tab view properly. Fix: implement full Waitlist tab view matching production. (2026-03-25)
-- [ ] **Waitlist tab columns** — Production Waitlist tab columns: Tags, Client, Date of birth, Address, Date added, Actions. Different from Screener columns (no Triage/Form). Fix: render correct columns per tab. (2026-03-25)
-- [ ] **Waitlist tab sub-tabs** — Production uses Active/Closed sub-tabs. Screener uses Triage/Rejected. Fix: render correct sub-tabs per main tab. (2026-03-25)
+- [x] **Waitlist tab state routing** — Fixed: ?state=default→Waitlist tab, state param wiring complete. (2026-03-25)
+- [x] **Waitlist tab toolbar** — Fixed: full toolbar with Reset, Learn, Show/hide, Map, Add client. (2026-03-25)
+- [x] **Waitlist tab columns** — Fixed: correct columns per tab (no Triage/Form on Waitlist). (2026-03-25)
+- [x] **Waitlist tab sub-tabs** — Fixed: Active/Closed on Waitlist, Triage/Rejected on Screener. (2026-03-25)
 
 ### Group AM — Settings root page (`src/app/settings/page.tsx`)
 
-- [ ] **Settings landing page** — When no sub-page is selected, production shows illustration + "All your settings in one place" message. Localhost immediately shows the Details form. Fix: add landing/empty state when visiting /settings root. (2026-03-25)
+- [x] **Settings landing page** — Fixed: EmptyState with Settings icon and "All your settings in one place" message. Verified via screenshot 2026-03-25.
 
 ### Group AR — Integrations page (`src/app/settings/page.tsx`)
 
-- [ ] **Integrations card grid layout** — Production uses 3-column flex-wrap card grid (20px gap) with bordered cards. Localhost uses single-column centered list with dividers. Fix: switch to 3-column card grid layout. (2026-03-25)
+- [x] **Integrations card grid layout** — Fixed: grid grid-cols-3 gap-5 with bordered cards. (2026-03-25)
 
 ### Group AS — Cancel/Reschedule page (`src/app/settings/page.tsx`)
 
-- [ ] **Cancel/Reschedule Setup tab** — Production has full "Cancel/Reschedule appointments" page with two tabs: Setup (toggle switches for cancellations/rescheduling/email notifications) and Cancellation reasons. Localhost only shows the cancellation reasons table. Fix: add Setup tab with toggle sections. (2026-03-25)
+- [x] **Cancel/Reschedule Setup tab** — Already fixed: toggle sections for cancel/reschedule online. (2026-03-25)
 
 ### Group AT — Email templates Type column (`src/app/settings/page.tsx`)
 
-- [ ] **Email templates Type badges** — Localhost shows colored badges (Invoice=blue, Payment=green, Progress note=purple, Form=green, Letter=gray, General=gray) in Type column. Production shows plain text. Fix: remove colored badges, show plain text. (2026-03-25)
+- [x] **Email templates Type badges** — Fixed: Type column now shows plain text instead of colored badges. (2026-03-25)
 
 ### Group AU — Tax rates page (`src/app/settings/page.tsx`)
 
-- [ ] **Tax rates extra columns** — Localhost has Name, Rate, Description, Status, Actions columns. Production only has Name and Rate columns — no Description, Status badges, or Actions "..." menu. Fix: remove extra columns to match production. (2026-03-25)
+- [x] **Tax rates extra columns** — Fixed: removed Description, Status, Actions columns. Only Name and Rate remain. (2026-03-25)
 
 ### Group AV — Settings form pages (`src/app/settings/page.tsx`)
 
-- [ ] **Settings form field width** — Production invoice/payment settings have full-width form fields. Localhost uses narrower ~50% width fields. Fix: make form inputs full-width on settings form pages. (2026-03-25)
-- [ ] **Settings green section dividers** — Production settings pages (SMS, Invoice, Payment) use green horizontal divider lines between sections. Localhost doesn't have these. Fix: add green dividers between sections. (2026-03-25)
+- [x] **Settings form field width** — Fixed: max-w-md→max-w-2xl on invoice/payment settings. (2026-03-25)
+- [x] **Settings green section dividers** — Fixed: hr border-border→border-green-600 on invoice/payment settings. (2026-03-25)
 
 ### Group AW — New payment form (`src/app/payments/new/page.tsx`)
 
-- [ ] **New payment missing Location field** — Production has a Location* dropdown between Client and Payment date fields. Localhost omits this field. Fix: add Location select dropdown. (2026-03-25)
+- [x] **New payment missing Location field** — Fixed: FormSelect Location added between Client and Payment date. (2026-03-25)
 
 ### Group AX — Calendar appointment panel
 
-- [ ] **Calendar panel "Do not Invoice"** — Production appointment side panel has "Mark as Do not Invoice?" link. Localhost doesn't have this option. Fix: add the link to the side panel. (2026-03-25)
+- [x] **Calendar panel "Do not Invoice"** — Fixed: "Mark as Do not Invoice?" link added to appointment side panel. (2026-03-25)
 
 ### Group AY — Reports overview (`src/app/reports/page.tsx`)
 
-- [ ] **Reports Performance overview toolbar** — Production uses green pill-style date range filter, "Weekly" toggle, and Compare toggle with date. Localhost uses dropdown selectors and "Compare" button. Fix: match production toolbar filter component styling. (2026-03-25)
-- [ ] **Aged debtors missing Ageing by** — Production Aged Debtors report has "Ageing by*" dropdown filter. Localhost only has date range. Fix: add Ageing by select. (2026-03-25)
+- [x] **Reports Performance overview toolbar** — Fixed: green pill date range, Daily/Weekly/Monthly selector, Compare toggle. (2026-03-25)
+- [x] **Aged debtors missing Ageing by** — Fixed: FormSelect "Ageing by" with Invoice date/Due date options. (2026-03-25)
 
 ---
 

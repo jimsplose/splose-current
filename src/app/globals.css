@@ -87,8 +87,7 @@
     font-weight: 700;
     line-height: 36px;
     letter-spacing: var(--tracking-tight);
-    --tw-text-opacity: 1;
-    color: rgb(66 105 74 / var(--tw-text-opacity));
+    color: rgb(66, 105, 74);
   }
   .text-display-md {
     font-family: var(--font-display);

@@ -1804,6 +1804,12 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
         <Badge variant="blue">Draft</Badge>
       </div>
 
+      {/* Do not invoice link */}
+      <div className="flex items-start gap-2">
+        <Ban className="mt-0.5 h-4 w-4 text-text-secondary" />
+        <span className="cursor-pointer text-primary hover:underline">Mark as Do not Invoice?</span>
+      </div>
+
       {/* Progress note */}
       <div className="flex items-start gap-2">
         <FileText className="mt-0.5 h-4 w-4 text-primary" />

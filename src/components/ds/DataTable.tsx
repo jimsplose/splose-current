@@ -26,7 +26,7 @@ export default function DataTable({ children, minWidth, className = "" }: DataTa
 export function TableHead({ children }: { children: React.ReactNode }) {
   return (
     <thead>
-      <tr className="border-b border-border">{children}</tr>
+      <tr className="border-b border-border bg-[rgb(234,237,241)]">{children}</tr>
     </thead>
   );
 }

@@ -5,6 +5,7 @@ import {
   Button,
   Card,
   DateRangeFilter,
+  FormSelect,
   PageHeader,
   DataTable,
   TableHead,
@@ -42,11 +43,23 @@ export default function ReportsAgedDebtorsPage() {
         <Button>Learn about this report</Button>
       </PageHeader>
 
-      <div className="mb-4">
-        <label className="mb-1 flex items-center gap-1 text-sm text-text-secondary">
-          Date range *
-        </label>
-        <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
+      <div className="mb-4 flex flex-wrap items-start gap-4">
+        <div>
+          <label className="mb-1 flex items-center gap-1 text-sm text-text-secondary">
+            Date range *
+          </label>
+          <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
+        </div>
+        <div className="w-48">
+          <FormSelect
+            label="Ageing by *"
+            options={[
+              { value: "invoice-date", label: "Invoice date" },
+              { value: "due-date", label: "Due date" },
+            ]}
+            required
+          />
+        </div>
       </div>
 
       <div className="mb-8 flex flex-wrap items-center gap-2">
