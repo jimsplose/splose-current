@@ -57,6 +57,16 @@ In summary:
 
 **Fallback (no Chrome MCP):** Code-audit loop — resolve Tailwind classes to CSS values, build the same comparison table. Use "partial — code-review only" for catalog entries with any uncertain resolutions.
 
+### Catalog entry qualifiers
+
+When updating `screenshots/screenshot-catalog.md` after verification, use the correct qualifier:
+- `yes` — measurement-verified (has `javascript_tool` comparison table data)
+- `yes — visual only` — no measurement data, verified by visual/code comparison only. Needs deep verify in a future session.
+- `partial` — with specific reason for the gap
+- `no` — page does not exist or fundamentally doesn't match
+
+Pages marked "yes — visual only" should be prioritized for deep verification in the next compare-pages session. See `docs/compare-pages-workflow.md` for the full verification depth levels.
+
 ## Step 3.5: Worktree Merge (if agent used worktree isolation)
 
 If the agent was given `isolation: "worktree"`:

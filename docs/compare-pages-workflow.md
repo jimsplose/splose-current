@@ -6,8 +6,20 @@ Compare localhost pages against reference screenshots. Find mismatches, update t
 
 - **Quick**: 2-3 pages — pick the highest-priority partials
 - **Standard**: All partial/no entries in the catalog
-- **Full sweep**: Every page in `src/lib/state-registry.ts`, including pages marked "yes" (re-verify)
-- **Until done**: Full sweep, then keep iterating until all pages are checked
+- **Full sweep**: Every page in `src/lib/state-registry.ts`, including pages marked "yes" (re-verify). Process in **batches of 5-8 pages**. Each batch gets full measurement verification. Commit after each batch.
+- **Until done**: Full sweep using batches, keep doing batches until all pages are checked. Depth over coverage — never rush through pages.
+
+## Verification Depth Levels
+
+Every page comparison has one of three depth levels. The depth determines what work is required.
+
+| Depth | When to use | Requirements |
+|---|---|---|
+| **deep** | Pages marked "partial" or "no". Pages marked "yes — visual only". First time verifying any page. | Full measurement (3+ properties), structural check, comparison table |
+| **quick-reverify** | Pages already marked "yes" from a previous **measurement-verified** session | Visual check + 1 spot measurement (min 3 rows in comparison table) |
+| **visual-only** | **NOT ALLOWED for catalog updates.** Only used when Chrome MCP is unavailable and fallback code-review is used | Code-review comparison. Catalog entry MUST say "yes — visual only" |
+
+**Rule:** A page cannot be marked "yes" in the catalog without at least one measurement pass. If measurement is skipped, the entry MUST say "yes — visual only" so we know it wasn't deeply verified.
 
 ## Step 0: Prerequisites
 
@@ -15,11 +27,17 @@ Compare localhost pages against reference screenshots. Find mismatches, update t
 2. Chrome MCP available (if not, use fallback path — read references + code comparison)
 3. Invoke `/impeccable:frontend-design` — this activates design-informed analysis for the session
 
-## Step 1: Pick pages
+## Step 1: Pick pages (batch selection)
 
 **Quick/Standard:** Read `screenshots/screenshot-catalog.md`, pick entries with Match = "no" or "partial". Prioritize: (1) partials, (2) high-traffic pages (Dashboard, Calendar, Clients), (3) recently changed pages.
 
-**Full sweep:** Read `src/lib/state-registry.ts` for all pages grouped by section. Work through every section.
+**Full sweep / Until done:** Read `src/lib/state-registry.ts` for all pages grouped by section. Build a batch of **5-8 pages** from the next unverified group. Process one batch at a time.
+
+Batch selection priority:
+1. Pages marked "partial" or "no" (always deep verify)
+2. Pages marked "yes — visual only" (need deep verify to upgrade)
+3. Pages marked "yes" without measurement evidence (need deep verify)
+4. Pages marked "yes" with prior measurement verification (quick-reverify)
 
 ## Step 2: Zoom-Compare Loop (per page)
 
@@ -37,35 +55,41 @@ For each page, run this loop. **This is the core of the workflow — do not shor
    - Interactive elements (modals, dropdowns, side panels)
 5. **Zoom into each zone** on both localhost and reference for side-by-side comparison
 
-### 2b. Measurement verification
+### 2b. Mandatory measurement verification
 
-For each comparison zone, run the measurement snippet via Chrome MCP `javascript_tool` targeting key elements. Compare measured values against targets from `splose-style-reference/`.
+**Every page MUST have at least one `javascript_tool` measurement run.** This is not optional, even for quick-reverify pages.
+
+**Minimum requirements:**
+- **Deep verify**: Measure primary content zone + at least one secondary zone. Minimum 3 selectors, producing a comparison table with 3+ rows.
+- **Quick-reverify**: Measure one key element from the primary content zone. Minimum 1 selector, producing a comparison table with 3+ rows.
+
+**Target values** come from (in order of preference):
+1. `splose-style-reference/` — extracted production CSS values
+2. Reference screenshot visible properties — measure from the screenshot if no style-ref exists
 
 **Standard measurement snippet** (customize selectors per page):
 ```js
-(() => {
-  const selectors = [
-    { sel: '<SELECTOR>', label: '<LABEL>' }
-  ];
-  const props = [
-    'color', 'backgroundColor', 'fontSize', 'fontWeight', 'fontFamily',
-    'lineHeight', 'padding', 'paddingTop', 'paddingRight', 'paddingBottom',
-    'paddingLeft', 'margin', 'gap', 'borderRadius', 'borderColor',
-    'borderWidth', 'boxShadow', 'display', 'flexDirection', 'alignItems',
-    'justifyContent', 'opacity'
-  ];
-  const results = [];
-  for (const { sel, label } of selectors) {
-    const el = document.querySelector(sel);
-    if (!el) { results.push({ label, sel, error: 'NOT FOUND' }); continue; }
-    const s = getComputedStyle(el);
-    const r = el.getBoundingClientRect();
-    const m = {}; for (const p of props) m[p] = s[p];
-    m._rect = { width: Math.round(r.width * 10) / 10, height: Math.round(r.height * 10) / 10 };
-    results.push({ label, sel, measured: m });
-  }
-  JSON.stringify(results, null, 2)
-})()
+const selectors = [
+  { sel: '<SELECTOR>', label: '<LABEL>' }
+];
+const props = [
+  'color', 'backgroundColor', 'fontSize', 'fontWeight', 'fontFamily',
+  'lineHeight', 'padding', 'paddingTop', 'paddingRight', 'paddingBottom',
+  'paddingLeft', 'margin', 'gap', 'borderRadius', 'borderColor',
+  'borderWidth', 'boxShadow', 'display', 'flexDirection', 'alignItems',
+  'justifyContent', 'opacity'
+];
+const results = [];
+for (const {sel,label} of selectors) {
+  const el = document.querySelector(sel);
+  if (!el) { results.push({label, sel, error:'NOT FOUND'}); continue; }
+  const s = getComputedStyle(el);
+  const r = el.getBoundingClientRect();
+  const m = {}; for (const p of props) m[p] = s[p];
+  m._rect = {width: Math.round(r.width*10)/10, height: Math.round(r.height*10)/10};
+  results.push({label, sel, measured: m});
+}
+JSON.stringify(results)
 ```
 
 **Key elements to measure per zone:**
@@ -89,7 +113,7 @@ For each comparison zone, run the measurement snippet via Chrome MCP `javascript
 
 **Thresholds:** Colors = exact RGB match. Font size/weight = exact. Dimensions/spacing = +/-2px. Border radius = exact.
 
-**Fallback (no Chrome MCP):** Read the page source code, resolve Tailwind classes to CSS values using `globals.css` and Tailwind defaults. Build the same comparison table with resolved values. Mark uncertain resolutions as "UNCERTAIN".
+**Fallback (no Chrome MCP):** Read the page source code, resolve Tailwind classes to CSS values using `globals.css` and Tailwind defaults. Build the same comparison table with resolved values. Mark uncertain resolutions as "UNCERTAIN". Catalog entry MUST say "yes — visual only".
 
 ### 2c. Structural visual check (supplement)
 
@@ -104,40 +128,56 @@ These checks are visual — use the zoomed screenshots from Step 2a. They catch 
 
 **The measurement table (2b) is the pass/fail authority for CSS properties. The structural check (2c) catches layout and content issues.**
 
-### 2d. Record findings
+### 2d. Per-page verification log (MANDATORY)
 
-For each page, produce a Gap Report:
+For each page checked, output this structured block. This is required — it makes it auditable whether the agent actually did the work.
 
 ```
 **Page:** `/path/to/page`
-**Reference:** `filename.png`
-**Overall:** yes | partial | no
-
-| Zone | Reference | Localhost | Match | Detail |
-|---|---|---|---|---|
-| Nav/header | Logo 24px, bold, prominent | Logo 12px, thin, dwarfed by nav items | no | Logo SVG has whitespace, needs viewBox crop |
-| Table | 8 columns, sortable headers | 8 columns, sortable | yes | — |
+**Depth:** deep | quick-reverify | visual-only
+**Measurements:** [count] properties checked across [count] selectors
+**Zones:** [list of zones inspected]
+**Comparison table:**
+| Property | Target | Measured | Pass? |
+|---|---|---|---|
+| ... | ... | ... | ... |
+**Structural:** [summary of structural check findings]
+**Verdict:** yes | partial | no
+**Delta from previous:** changed | unchanged | first check
 ```
+
+Pages without this log block cannot have their catalog entries updated.
 
 ### 2e. Fallback (no Chrome MCP)
 
 When Chrome MCP is unavailable:
 1. Read reference screenshots (max 2 per pass) using the Read tool
 2. Read page source code and cross-reference against style references
-3. Write Gap Report based on code analysis
-4. Use "partial — code-review only" for uncertain entries
+3. Build comparison table with resolved Tailwind values
+4. Write verification log with `Depth: visual-only`
+5. Catalog entry MUST include "visual only" qualifier
 
-## Step 3: Update catalog and gaps
+## Step 3: Update catalog and gaps (per batch)
 
-**Catalog:** Update `screenshots/screenshot-catalog.md` Match column for every page checked.
+**After each batch of 5-8 pages**, not at the end of the full sweep:
+
+**Catalog:** Update `screenshots/screenshot-catalog.md` Match column for every page in the batch. Include verification qualifier:
+- `yes` — measurement-verified
+- `yes — visual only` — no measurement data, needs deep verify in future session
+- `partial` — with specific reason
+- `no` — with specific reason
 
 **Gaps:** For gaps marked `[x]` where catalog entries are now "no" or "partial", **reopen** with note: "Reopened: compare found mismatches". For new mismatches, create gaps in `docs/fidelity-gaps.md`.
 
-## Step 4: Report
+**Commit** catalog and gap updates after each batch. Do not batch up all commits to the end.
 
-Present summary: pages compared, yes/partial/no counts, gaps reopened, new gaps created, biggest mismatches.
+## Step 4: Report (per batch and final)
+
+**Per batch:** Brief summary — pages compared, verdicts, any new gaps.
+
+**Final (after all batches):** Full summary: total pages compared, yes/partial/no counts, measurement-verified vs visual-only counts, gaps reopened, new gaps created, biggest mismatches.
 
 ## Step 5: Return to menu or continue
 
 **Quick/Standard:** Show session start menu with summary.
-**Full sweep/Until done:** Continue through remaining pages. When done, commit catalog updates, push, show full summary.
+**Full sweep/Until done:** Start next batch. When all batches done, commit final catalog updates, push, show full summary, return to menu.
