@@ -42,15 +42,25 @@ For options 1/2, follow with scope question:
 
 | Workflow | Read first |
 |---|---|
-| Compare pages | `docs/compare-pages-workflow.md` |
-| Fix gaps | `docs/fix-gaps-workflow.md`, `docs/agent-block.md`, `docs/quality-gate.md` |
+| Compare pages | `docs/compare-pages-workflow.md`, `docs/route-mapping.md` |
+| Fix gaps | `docs/fix-gaps-workflow.md`, `docs/agent-block.md`, `docs/quality-gate.md`, `docs/route-mapping.md` |
 | Screenshots | `docs/screenshot-workflow.md` |
 | Dev Navigator | `docs/dev-navigator-spec.md` |
 | Codebase | `docs/project-structure.md` |
 
-## Visual Fix Priority: Measure, Don't Guess
+## Canonical Viewport
 
-**For matching production screenshots** (most work): Read `splose-style-reference/` for exact CSS values first. Measure current rendered values with `getBoundingClientRect()` via Chrome MCP `javascript_tool`. Calculate the delta. Use arbitrary Tailwind values (`h-[34px]`, `px-[15px]`) for precision. Adjust in 2px increments if iterating.
+**All Chrome MCP work uses 1440x900.** At the start of every session that uses Chrome MCP, run:
+```
+mcp__claude-in-chrome__resize_window → { width: 1440, height: 900 }
+```
+This is non-negotiable. All measurements and screenshots happen at this size.
+
+## Visual Fix Priority: Dual-Tab Live Measurement
+
+**For matching production** (most work): Navigate Chrome to `acme.splose.com` AND `localhost:3000` (see `docs/route-mapping.md` for URL pairs). Run the same `javascript_tool` measurement snippet on both tabs. Compare production values vs localhost values directly. Use arbitrary Tailwind values (`h-[34px]`, `px-[15px]`) for precision. Adjust in 2px increments if iterating.
+
+**`splose-style-reference/` is documentation, not a comparison target.** Use it to understand the design system (what font-size a heading should be, what colors are used). But always prefer live production measurement when Chrome MCP is available.
 
 **For new design decisions** (no production reference): Invoke `/impeccable:frontend-design` for design-informed analysis — hierarchy, proportion, weight, spacing.
 
@@ -64,17 +74,19 @@ A gap is `[x]` only when ALL related `screenshots/screenshot-catalog.md` entries
 
 ## Chrome MCP Visual Verification
 
-**All UI work** must be verified visually before committing. Chrome MCP is the preferred method. If Chrome MCP is unavailable in a session, use the fallback verification path described in `docs/quality-gate.md` Step 3 Path B.
+**All UI work** must be verified visually before committing. Chrome MCP dual-tab comparison is the preferred method. If Chrome MCP is unavailable in a session, use the fallback verification path described in `docs/quality-gate.md` Step 3 Path B.
 
-**When Chrome MCP is available:**
+**When Chrome MCP is available (dual-tab):**
 1. Ensure dev server is running (`npm run dev` on localhost:3000)
-2. Navigate to each changed page in Chrome MCP
-3. Take a screenshot and compare against `screenshots/reference/`
-4. Fix any mismatches before committing
+2. Set viewport: `resize_window → { width: 1440, height: 900 }`
+3. Navigate Tab A to `acme.splose.com/<route>` and Tab B to `localhost:3000/<route>` (see `docs/route-mapping.md`)
+4. Run the same `javascript_tool` measurement snippet on both tabs — compare intrinsic CSS properties directly
+5. Screenshot both tabs for structural comparison (missing elements, layout, icons)
+6. Fix any mismatches before committing
 
 **When Chrome MCP is not available (fallback):**
 1. Main agent reads reference screenshots (max 2 at a time) and compares against page source code
-2. Cross-reference against `splose-style-reference/` for exact token values
+2. Cross-reference against `splose-style-reference/` for expected token values
 3. Use "partial — code-review only" for uncertain catalog entries (never false-positive to "yes")
 
 **Do NOT use** Puppeteer, Playwright, pixel-diff scripts, or headless browser screenshots. Chrome MCP is the only live visual verification tool.

@@ -58,3 +58,45 @@ Show session start menu (see CLAUDE.md) with summary: "Done — saved N screensh
 ---
 
 **Previously uploaded screenshots**: If files exist in `screenshots/reference/` but not in `screenshots/processed.txt`, process them starting from Step 2.
+
+---
+
+# Refresh Reference Screenshots from Production
+
+Use Chrome MCP to capture fresh, 1:1-comparable screenshots from production. These go in `screenshots/reference-live/` and are the preferred comparison baseline for dual-tab workflows.
+
+## When to use
+
+- Before a compare-pages session, to get screenshots at the canonical viewport (1440x900)
+- When existing references are stale (different viewport sizes, retina scaling, includes browser chrome)
+- When a production page has been updated since the last reference was captured
+
+## Steps
+
+1. **Set viewport:** `mcp__claude-in-chrome__resize_window → { width: 1440, height: 900 }`
+2. **Navigate** to `https://acme.splose.com/<production-route>` (use `docs/route-mapping.md`)
+3. **Screenshot** the page via Chrome MCP
+4. **Save** to `screenshots/reference-live/<route-slug>.png` (e.g. `settings-tags.png`, `clients-detail.png`)
+5. **Repeat** for each page needed
+
+## Naming convention
+
+Convert the localhost route to a filename slug:
+- `/settings/tags` → `settings-tags.png`
+- `/clients/1/appointments` → `clients-detail-appointments.png`
+- `/` → `dashboard.png`
+- `/calendar` → `calendar-week.png` (default view)
+
+## Relationship to existing references
+
+- `screenshots/reference/` — Jim's manual captures (Mac screenshots, screencaptures). Kept as the "spec intent" record. Various viewport sizes and DPI.
+- `screenshots/reference-live/` — Chrome MCP captures at canonical 1440x900 viewport. Same tool and viewport as localhost screenshots. Preferred for visual comparison.
+
+Both directories are valid references. The live captures are more comparable for measurement purposes; the manual captures may show states or details not easily reproduced via navigation.
+
+## Commit
+
+```bash
+git add screenshots/reference-live/
+git commit -m "Refresh N live reference screenshots from production at 1440x900"
+```
