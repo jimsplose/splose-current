@@ -5,18 +5,27 @@ Next.js 16 (App Router), React 19, TypeScript (strict), Turso/Prisma 7, Tailwind
 
 ## Session Start — MANDATORY
 
-Before ANY other work, use AskUserQuestion with a **single question** and these 4 options (exception: user's first message is a specific, detailed request). Do NOT use multiple questions — use exactly one question so Jim doesn't get a "not all questions answered" warning.
+Before ANY other work, print this menu as a text message (do NOT use AskUserQuestion — it has a 4-option limit that forces awkward splits). Exception: user's first message is a specific, detailed request.
 
-> **What would you like to work on this session?**
-> 1. **Compare pages** — Compare localhost vs reference screenshots
-> 2. **Fix gaps** — Implement code to close gaps
-> 3. **Bugshot Chrome** — Point at bugs in the browser to fix or log
-> 4. **Something else** — Screenshots, Dev Navigator, status, commits, deploys, etc.
+Print this exactly:
 
-If Jim picks "Something else", ask what they need (or read their typed response). The less-common workflows (screenshot processing, dev navigator, review status, commits & deployments) are accessed via this option.
+```
+What would you like to work on this session?
 
-For Bugshot Chrome, follow with mode question: **Fix one now** / **Log many** (saves to fidelity-gaps.md for later).
-For commits & deployments (via Something else), show sub-menu:
+1. Compare pages — Compare localhost vs reference screenshots
+2. Fix gaps — Implement code to close gaps
+3. Bugshot Chrome — Point at bugs in the browser to fix or log
+4. Screenshots — Process uploaded reference screenshots
+5. Dev Navigator — Update Dev Navigator registry
+6. Review status — Show progress and what's next
+7. Commits & deploys — Check commit/deploy status or trigger a deploy
+8. Something else
+```
+
+Wait for Jim to reply with a number or keyword. Do NOT proceed until he responds.
+
+For option 3, follow with mode question: **Fix one now** / **Log many** (saves to fidelity-gaps.md for later).
+For option 7, show sub-menu:
 - **Check recent commits** — `git log --oneline -10` and summarise
 - **Check deployment status** — `gh run list --workflow=deploy.yml --limit=5` and summarise
 - **Deploy to production** — Full flow: merge branch → main, trigger `deploy.yml` workflow. **Requires Jim's express permission.** Confirm branch name and show what will be deployed before proceeding.
