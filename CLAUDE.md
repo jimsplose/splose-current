@@ -14,9 +14,14 @@ Before ANY other work, use AskUserQuestion with these options (exception: user's
 > 4. **screenshot-workflow.md** — Process uploaded reference screenshots
 > 5. **dev-navigator-spec.md** — Update Dev Navigator registry
 > 6. **Review status** — Show progress and what's next
-> 7. **Something else**
+> 7. **Commits & deployments** — Check commit/deploy status or trigger a deploy
+> 8. **Something else**
 
 For option 3, follow with mode question: **Fix one now** / **Log many** (saves to fidelity-gaps.md for later).
+For option 7, show sub-menu:
+- **Check recent commits** — `git log --oneline -10` and summarise
+- **Check deployment status** — `gh run list --workflow=deploy.yml --limit=5` and summarise
+- **Deploy to production** — Full flow: merge branch → main, trigger `deploy.yml` workflow. **Requires Jim's express permission.** Confirm branch name and show what will be deployed before proceeding.
 For options 1/2, follow with scope question:
 - **Quick** (2-3 pages)
 - **Standard** (all partials)
@@ -74,10 +79,22 @@ A gap is `[x]` only when ALL related `screenshots/screenshot-catalog.md` entries
 - **No worktrees** — use direct agents only. Worktrees cause data loss with concurrent sessions
 - Jim runs 2 concurrent sessions. Coordinate via git, avoid editing same files
 
-## Vercel & Working Style
+## GitHub & Accounts
+
+- **Repo**: `jimsplose/splose-current` (owner: `jimsplose`)
+- **gh CLI account**: `jimsplose` (Google auth, has `repo` + `workflow` scopes)
+- Jim also has a personal account `jimyencken` — this does NOT have write access to the repo. Ensure `gh auth status` shows `jimsplose` as active before running any `gh` commands.
+- If `gh` commands fail with permission errors, check: `gh auth status` → verify `jimsplose` is the active account.
+
+## Vercel & Deployment
 
 - **Dashboard**: https://vercel.com/jimyencken-4159s-projects/splose-current
-- After push: link dashboard, say preview ready in ~2 min, give promote instructions (see Git Workflow)
+- **Deployment is manual only** via GitHub Actions workflow `deploy.yml` (`gh workflow run deploy.yml --ref main`)
+- **NEVER deploy without Jim's express permission.** After major milestones (completing a workflow, closing a batch of gaps), ask Jim if he wants to deploy. Do not auto-deploy.
+- **Deploy flow** (when Jim approves):
+  1. Merge branch to main: `git checkout main && git pull && git merge origin/<branch> --no-edit && git push`
+  2. Trigger deploy: `gh workflow run deploy.yml --ref main`
+  3. Share run URL: `gh run list --workflow=deploy.yml --limit=1`
 - **Jim is non-technical.** Handle all coding, git, builds, debugging. Provide exact copy-paste commands.
 - Server components by default. `export const dynamic = "force-dynamic"` on data-fetching pages.
 - Tailwind CSS vars in `globals.css`. Australian locale. Chrome MCP for visual verification.
@@ -92,7 +109,7 @@ Verify CWD after agent completion: `cd /Users/jimyenckensplose/claude/splose-cur
 
 ## Session End
 
-1. Commit all WIP  2. Push to `claude/*` branch  3. Update `docs/progress.md`  4. Tell Jim preview URL + promote command
+1. Commit all WIP  2. Push to `claude/*` branch  3. Update `docs/progress.md`  4. Ask Jim if he wants to deploy
 
 ## Git Workflow
 
@@ -101,23 +118,14 @@ Verify CWD after agent completion: `cd /Users/jimyenckensplose/claude/splose-cur
 git fetch origin main && git merge origin/main --no-edit
 ```
 
-Push to `claude/*` branches. **Auto-promote is disabled** (saves build costs).
-Before every push: `npx next build` then `git fetch origin main && git merge origin/main --no-edit`.
+Push to `claude/*` branches. Before every push: `npx next build` then `git fetch origin main && git merge origin/main --no-edit`.
 
-### Promoting to production — Claude MUST give Jim these instructions after every push
+### After major milestones — ask about deployment
 
-**Option A (GitHub website — easiest):**
-1. Go to: `https://github.com/jimsplose/splose-current/compare/main...<branch-name>`
-2. Click **"Create pull request"** → give it a title → click **"Create pull request"** again
-3. On the PR page, scroll down and click **"Merge pull request"** → **"Confirm merge"**
-4. Vercel auto-deploys production from main within ~2 minutes
+After completing a workflow or batch of fixes, ask Jim:
+> "Ready to deploy? I can merge `<branch-name>` to main and trigger a production deployment."
 
-**Option B (terminal — one command):**
-```bash
-git checkout main && git pull && git merge origin/<branch-name> --no-edit && git push
-```
-
-Claude: always replace `<branch-name>` with the actual branch name when giving Jim these instructions.
+**Only proceed if Jim says yes.** Then run the full deploy flow (see Vercel & Deployment section above).
 
 ## Development
 
