@@ -321,7 +321,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-17 at 7.22.47 pm.png | Week view — Rooms/resources mode | yes — Rooms view with room filter |
 | Screenshot 2026-03-17 at 7.22.53 pm.png | Week view — Room/resources filter dropdown | yes — room filter dropdown |
 | Screenshot 2026-03-17 at 7.23.04 pm.png | Week view — View type dropdown (Month/Week/Day) | yes — view switcher dropdown |
-| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_19_33.png | Calendar week view full page | yes — 2026-03-25: toolbar icons fixed (gear/calendar/sparkle), AI sidebar, practitioners grouped by location, status emoji icons, per-practitioner availability, rich filter dropdowns, alternating column backgrounds. |
+| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_19_33.png | Calendar week view full page | yes — measurement-verified 2026-03-25: header 57px, Today btn 38px/8px-radius, month title 20px/700, location filter 14px/38px, Week btn 8px-radius. Toolbar icons, practitioners grouped by location, alternating column backgrounds all match. |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_12.png | Calendar week view (variant 2) | yes — full-page capture, toolbar + time grid + practitioner columns match 2026-03-24 |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_26.png | Calendar week view (variant 3) | yes — scrolled view, appointment blocks and time slots 2026-03-24 |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_37.png | Calendar week view (variant 4) | yes — different scroll position, same structure 2026-03-24 |
@@ -500,7 +500,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.02.16 am.png | Dashboard — desktop, Messages feed + Income chart + Incomplete progress notes + Recently submitted forms | yes — 2026-03-25: Income chart X-axis labels fixed (rotated, spaced), RichTextEditor toolbar has GIF/undo-redo/horizontal rule. |
+| Screenshot 2026-03-11 at 11.02.16 am.png | Dashboard — desktop, Messages feed + Income chart + Incomplete progress notes + Recently submitted forms | yes — measurement-verified 2026-03-25: header 57px/14px/Inter, section headings 14px/500, message authors 14px/600, all rgb(65,69,73). Income chart X-axis labels fixed, RichTextEditor toolbar has GIF/undo-redo/horizontal rule. |
 | Screenshot 2026-03-11 at 11.02.24 am.png | Dashboard — mobile in desktop browser frame, Messages with GIF | yes |
 | Screenshot 2026-03-11 at 11.08.47 am.png | Dashboard — mobile, Income chart + Incomplete progress notes (scrolled) | yes |
 | Screenshot 2026-03-11 at 11.09.05 am.png | Dashboard — desktop, Messages feed (scrolled) with tooltip on income chart | yes |
@@ -509,7 +509,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.09.27 am.png | Clients list — desktop, default view | yes |
+| Screenshot 2026-03-11 at 11.09.27 am.png | Clients list — desktop, default view | yes — measurement-verified 2026-03-25: title 30px/700/rgb(40,103,68), th 14px/600/bg rgb(243,245,247)/padding 16px, td 14px/400/padding 12px 16px, search 38px. |
 | Screenshot 2026-03-11 at 11.09.33 am.png | Clients list — desktop, near-identical | yes |
 | Screenshot 2026-03-11 at 11.09.39 am.png | Clients list — mobile (iPhone) | yes |
 | Screenshot 2026-03-11 at 11.09.47 am.png | Clients list — mobile, scrolled right to Phone/Email columns | yes |
@@ -520,7 +520,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.10.50 am.png | Client detail — desktop, Details tab (General details, Account balance, Client alerts, Stripe, Mailchimp) | yes |
+| Screenshot 2026-03-11 at 11.10.50 am.png | Client detail — desktop, Details tab (General details, Account balance, Client alerts, Stripe, Mailchimp) | yes — measurement-verified 2026-03-25: heading 18px/600, section headings 18px/600/rgb(65,69,73), active tab rgb(130,80,255), inactive tab rgb(107,114,128), action btns 14px/500/34px. |
 | Screenshot 2026-03-11 at 11.11.01 am.png | Client detail — desktop, Details tab (scrolled: Medications, Medicare, Custom fields, Invoicing, Associated contacts) | yes |
 | Screenshot 2026-03-11 at 11.15.13 am.png | Client detail (Skyler Peterson) — desktop, Details tab, different client with more data | yes |
 
@@ -572,7 +572,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.13.20 am.png | Contacts list — desktop, with row highlighted | yes — 4.23% mismatch, structure matches |
+| Screenshot 2026-03-11 at 11.13.20 am.png | Contacts list — desktop, with row highlighted | yes — measurement-verified 2026-03-25: title 30px/700/rgb(40,103,68), th 14px/600/55px/padding 16px, td 14px/400/padding 12px 16px, search 38px. 4.23% mismatch from highlight state. |
 | Screenshot 2026-03-11 at 11.14.04 am.png | Contacts list — desktop, no highlight | yes — structure matches |
 
 ## Contact Detail (`/contacts/:id`)
