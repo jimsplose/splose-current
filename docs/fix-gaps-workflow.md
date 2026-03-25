@@ -118,12 +118,16 @@ Every agent prompt MUST include:
 - The Fix Brief (text only — never screenshot file paths)
 - **If worktree agent:** `Before finishing, you MUST run: git add -A && git commit -m "<summary>"`
 
-## Step 3: Quality gate
+## Step 3: Quality gate — HARD GATE, NO EXCEPTIONS
 
-After each agent completes, run `docs/quality-gate.md`:
+After each agent completes, run `docs/quality-gate.md` **in full**. All three steps are required:
 1. DS violation scan (grep)
 2. TypeScript check (`npx tsc --noEmit`)
-3. Visual verification — **the 5-iteration loop below**
+3. **Visual verification — the 5-iteration measurement loop below**
+
+**Step 3 is the verification step that validates the fix actually works.** Steps 1-2 only catch code-level issues. Without Step 3, you have no evidence the visual fix is correct. Do NOT commit after only Steps 1-2.
+
+**If you find yourself about to commit without running the measurement loop, STOP.** You are skipping the most important step. The gap is not fixed until you have measurement evidence.
 
 ## Step 4: 5-Iteration Measurement Verification Loop
 
@@ -235,7 +239,14 @@ Update `screenshots/screenshot-catalog.md` Match column for every changed page. 
 
 ## Step 6: Build, commit, push
 
-`npx next build` → commit → push. Never push broken code.
+**Pre-commit gate:** Before running `git commit`, confirm:
+1. Every gap in this batch has a measurement comparison table with PASS verdict
+2. `npx next build` passes
+3. No unverified gaps are being committed as "fixed"
+
+If a gap passed Steps 1-2 of the quality gate but NOT Step 3 (measurement verification), it is **not fixed**. Do not mark it `[x]` in fidelity-gaps.md. Leave it `[ ]` and note "needs verification" so the next session picks it up.
+
+Commit → push. Never push broken code. Never push unverified visual fixes as complete.
 
 ## Step 7: Return to menu or continue
 

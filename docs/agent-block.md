@@ -74,7 +74,7 @@ If a design spec exists at `screenshots/specs/<page-name>.md`, read it and imple
 
 ## Visual Verification — 5-ITERATION DUAL-TAB MEASUREMENT LOOP
 
-After making code changes, run this loop up to 5 times. Do not stop after 1 iteration.
+**THIS IS THE MOST IMPORTANT STEP.** Code changes without measurement verification are unverified guesses. The main agent will reject your work if you do not include a measurement comparison table in your output. After making code changes, run this loop up to 5 times. Do not stop after 1 iteration.
 
 **Canonical viewport:** Ensure window is 1440x900. If you can resize, do so. If not, note actual size.
 
@@ -137,6 +137,26 @@ After making code changes, run this loop up to 5 times. Do not stop after 1 iter
 - **Typography**: Use typography classes (`text-display-lg`, `text-heading-md`, etc.) — not raw combos
 - **Interactive elements**: Modals, dropdowns, tabs shown in reference exist in code and are wired up
 - **Data shape**: Tables have same columns, forms have same fields as reference
+
+## Required Output — Verification Evidence
+
+**Your final output MUST include a structured verification summary.** The main agent uses this to decide whether to commit or revert your work. If this section is missing, your changes will be treated as unverified.
+
+```
+### Verification Summary
+- Elements checked: [N]
+- Properties measured: [N]
+- Pass: [N] | Fail: [N]
+- Verdict: PASS / FAIL / SKIPPED (with reason)
+
+| Element | Property | Target | Actual | Pass? |
+|---|---|---|---|---|
+| ... | ... | ... | ... | ... |
+```
+
+If you cannot run Chrome MCP (no browser tools available), use the fallback code-audit path and report resolved Tailwind values vs target values. Mark your verdict as "PARTIAL — code-review only".
+
+**Never report PASS without measurement data.** If you didn't measure, say so.
 
 ## Worktree Safety — IF APPLICABLE
 
