@@ -239,11 +239,19 @@ export default function ContactsPage() {
                 <Td hidden="md" className="text-text-secondary">
                   {contact.email}
                 </Td>
-                <Td hidden="lg" className="text-primary">
-                  {contact.workPhone}
+                <Td hidden="lg">
+                  {contact.workPhone && (
+                    <a href={`tel:${contact.workPhone}`} className="text-text no-underline hover:text-text">
+                      {contact.workPhone}
+                    </a>
+                  )}
                 </Td>
-                <Td hidden="lg" className="text-primary">
-                  {contact.mobilePhone}
+                <Td hidden="lg">
+                  {contact.mobilePhone && (
+                    <a href={`tel:${contact.mobilePhone}`} className="text-text no-underline hover:text-text">
+                      {contact.mobilePhone}
+                    </a>
+                  )}
                 </Td>
               </Tr>
             ))}

@@ -362,11 +362,8 @@ export default function CalendarView({
 
   const today = new Date();
   const monthYear = today.toLocaleDateString("en-AU", { month: "short", year: "numeric" });
-  // Day-view shows full date; week/month show month+year
-  const toolbarDateLabel =
-    viewMode === "Day"
-      ? today.toLocaleDateString("en-AU", { weekday: "long", day: "numeric", month: "long", year: "numeric" })
-      : monthYear;
+  // All views show month+year in toolbar
+  const toolbarDateLabel = monthYear;
 
   function openCreateModal(dateStr?: string, hour?: number, minute?: number, practitionerId?: string) {
     const m = minute ?? 0;
@@ -674,28 +671,6 @@ export default function CalendarView({
         {viewMode === "Day" && (
           <>
             <div className="overflow-x-auto">
-              <div
-                className="grid min-w-[700px] border-b border-border"
-                style={{ gridTemplateColumns: `60px repeat(${filteredPractitioners.length}, 1fr)` }}
-              >
-                {/* Top-left corner: timezone */}
-                <div className="border-r border-border flex items-center justify-center">
-                  <span className="text-[10px] text-text-secondary">+11:00</span>
-                </div>
-                {/* Day + date header spanning all practitioner columns */}
-                <div
-                  className="border-b border-border py-2 text-center"
-                  style={{ gridColumn: `2 / span ${filteredPractitioners.length}` }}
-                >
-                  <div className="text-caption-md text-text-secondary">
-                    {DAYS[new Date(todayStr + "T00:00:00").getDay()]}
-                  </div>
-                  <div className="text-heading-lg text-primary">
-                    {new Date(todayStr + "T00:00:00").getDate()}
-                  </div>
-                  <div className="text-caption-sm text-text-secondary">{locationFilter === "all" ? "All Locations" : locationFilter}</div>
-                </div>
-              </div>
               {/* Practitioner name headers */}
               <div
                 className="grid min-w-[700px] border-b border-border"
@@ -709,7 +684,7 @@ export default function CalendarView({
                   >
                     <div className="flex items-center justify-center gap-1">
                       <span className="truncate text-[14px] font-normal text-[rgb(112,117,122)]">
-                        {p.name.split(" ")[0]} {p.name.split(" ")[1]?.[0]}.
+                        {p.name}
                       </span>
                     </div>
                   </div>
@@ -836,7 +811,7 @@ export default function CalendarView({
                         {isToday ? (
                           <div className="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-primary text-[16px] font-normal text-white">{date.getDate()}</div>
                         ) : (
-                          <div className="text-[24px] font-light text-text">{date.getDate()}</div>
+                          <div className="text-[24px] font-medium text-text-secondary">{date.getDate()}</div>
                         )}
                       </div>
                     );
@@ -1620,7 +1595,7 @@ function MonthView({
       {/* Day of week headers */}
       <div className="grid grid-cols-7 border-b border-border">
         {DOW_LABELS.map((d) => (
-          <div key={d} className="px-2 py-2 text-center text-label-md text-text-secondary">
+          <div key={d} className="px-2 py-2 text-center text-body-sm text-text-secondary">
             {d}
           </div>
         ))}
@@ -1642,9 +1617,9 @@ function MonthView({
                 <div
                   className={`mb-1 ${
                     isToday
-                      ? "text-label-lg inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary text-white"
+                      ? "text-body-md inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary text-white"
                       : cell.isCurrentMonth
-                        ? "text-label-lg text-text"
+                        ? "text-body-md text-text"
                         : "text-body-md text-text-secondary/40"
                   }`}
                 >
@@ -1657,10 +1632,10 @@ function MonthView({
                     return (
                       <div
                         key={appt.id}
-                        className={`flex cursor-pointer items-center gap-0.5 rounded px-1 py-0.5 text-[12px] font-medium ${isCancelled ? "opacity-60" : ""}`}
+                        className={`flex cursor-pointer items-center gap-0.5 rounded-lg px-1 py-0.5 text-[14px] font-normal ${isCancelled ? "opacity-60" : ""}`}
                         style={{
-                          backgroundColor: appt.practitionerColor,
-                          color: getContrastText(appt.practitionerColor),
+                          backgroundColor: lightenColor(appt.practitionerColor, 0.7),
+                          color: darkenColor(appt.practitionerColor, 0.5),
                         }}
                         onClick={() => onApptClick(appt)}
                       >
@@ -1681,7 +1656,7 @@ function MonthView({
                     );
                   })}
                   {dayAppts.length > 3 && (
-                    <div className="px-1 text-caption-sm text-text-secondary">+{dayAppts.length - 3} more</div>
+                    <div className="px-1 text-body-sm font-bold text-text">{dayAppts.length - 3} more</div>
                   )}
                 </div>
               </div>
