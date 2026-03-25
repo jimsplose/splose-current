@@ -10,7 +10,7 @@ See the **Gap completion rule** in CLAUDE.md (single source of truth). In short:
 ## Priority 1 — High-traffic pages
 
 ### Group D — Dashboard (`src/app/page.tsx`)
-- [ ] **Dashboard improvements** — Reopened 2026-03-25: Income chart X-axis labels jammed together (no spacing/rotation), rich text editor missing GIF button/undo-redo/horizontal rule/extra "N" avatar. Messages panel, sidebar panels match well.
+- [x] **Dashboard improvements** — Income chart X-axis fixed (Group AD). RichTextEditor toolbar fixed (Group AB). Messages panel and sidebar panels match. (2026-03-25)
 
 ### Group E — Client detail (`src/app/clients/[id]/`)
 - [x] **Client appointments sub-tab** — AppointmentSidePanel.tsx implemented with structured details, Status DS component, action buttons. Profile photo layout improved in edit form. (2026-03-20)
@@ -230,7 +230,7 @@ Patterns identified from the interactive states implementation audit. All opport
 - [x] **Status badge styling** — Fixed: Badge component has new `solid` prop; invoices use solid filled pills matching production. (2026-03-25)
 - [x] **Tag styling** — Fixed: Clients list tags now use outlined yellow/gold pill style (border-yellow-400 bg-yellow-50). (2026-03-25)
 - [x] **Section dividers** — Fixed: Client detail uses `border-t-2 border-orange-200` dividers matching production. (2026-03-25)
-- [ ] **Rich text editor toolbar** — Missing GIF button, undo/redo arrows, horizontal rule (—) icon across all editor instances. Extra "N" avatar on Dashboard. Toolbar uses "..." overflow instead of showing all icons. Affects: Dashboard compose area, Settings email signature, note editors. (2026-03-25)
+- [x] **Rich text editor toolbar** — Added GIF button, undo/redo arrows, horizontal rule icon to RichTextEditor DS component. All editor instances now have full toolbar. (2026-03-25)
 
 ### Group AC — Calendar fidelity (`src/app/calendar/CalendarView.tsx`)
 
@@ -238,13 +238,13 @@ Patterns identified from the interactive states implementation audit. All opport
 
 ### Group AG — Calendar remaining gaps (2026-03-25)
 
-- [ ] **Calendar AI sparkle icon graphic** — Production uses a custom sparkle SVG (not Lucide Sparkles). Extract the production SVG and use the same graphic. (2026-03-25)
-- [ ] **Calendar AI sidebar panel** — Clicking the sparkle icon should open an "Ask splose AI" chat sidebar that slides in from the right. Production has this as a collapsible panel with greeting, quick-action pills, input field, and Saved prompts button. Similar to the notes AI chat panel. (2026-03-25)
-- [ ] **Calendar grid alternating column backgrounds** — Location groups should have more visible alternating backgrounds. Production shows clearly alternating white/light-gray columns per location group. Current implementation is too subtle. (2026-03-25)
-- [ ] **Calendar unavailable hours per practitioner** — Production shows darkened cells for hours when specific practitioners don't work (not just before 9am/after 5pm globally). Needs per-practitioner availability data. (2026-03-25)
-- [ ] **Calendar event status icons** — Production events show emoji icons (⚠️📋🔴) for alerts, notes, billing status. Not yet implemented. (2026-03-25)
+- [x] **Calendar AI sparkle icon graphic** — Custom 3-star sparkle SVG implemented (matches production). (2026-03-25)
+- [x] **Calendar AI sidebar panel** — Clicking sparkle icon opens 360px "Ask splose AI" sidebar with greeting, quick-action pills, chat input, Saved prompts button. (2026-03-25)
+- [x] **Calendar grid alternating column backgrounds** — Changed to #f3f4f6 vs #ffffff for more visible alternating in both day and week views. (2026-03-25)
+- [x] **Calendar unavailable hours per practitioner** — Per-practitioner availability added to both day and week views. Darkened #f0f0f0 cells for unavailable hours. (2026-03-25)
+- [x] **Calendar event status icons** — getStatusIcons updated with proper emoji (✅📋⚠️💰) for confirmed, notes, pending/no-show, and billing. (2026-03-25)
 - [x] **Calendar "Booking for" state** — Fixed: accessible via ?state=booking-for, removed from default. (2026-03-25)
-- [ ] **Calendar Location/Practitioner dropdown styling** — Dropdowns need grouping headers, search field, checkboxes, and richer styling matching production. Current simple list is too basic. (2026-03-25)
+- [x] **Calendar Location/Practitioner dropdown styling** — Custom popovers with search input, grouped headers (EAST CLINICS, SPLOSE OT, TASKS), checkboxes, color dots. (2026-03-25)
 - [x] **Calendar practitioner grouping** — Fixed: Practitioners grouped by location (East Clinics, Splose OT, Tasks) with bold headers and vertical separators. (2026-03-25)
 - [x] **Calendar timezone indicator** — Fixed: Added "+11:00" in top-left corner of day view grid. (2026-03-25)
 - [x] **Appointment block styling** — Fixed: Blocks now use light muted backgrounds with dark text, 12h time format, and service name line. (2026-03-25)
