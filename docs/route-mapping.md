@@ -139,7 +139,7 @@ Production uses camelCase and `/templates/` prefix for some routes. Localhost us
 | Production Route | Localhost Route |
 |---|---|
 | `/patient-form/{id}/view` | `/patient-form/1/view` |
-| `/online-booking/{id}` | `/online-booking` |
+| `/online-booking/{uuid}` | `/online-booking` | Public booking preview. Production URL is dynamic/ephemeral — navigate to `/settings/online-booking/{id}` and click Preview to get the live URL. |
 | `/login` | `/login` |
 
 ## Usage

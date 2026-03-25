@@ -150,7 +150,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.51.37 pm.png | Select a location step — default | yes — Location selection step with 6 location cards, Select buttons, sidebar summary, blue info banner 2026-03-24 |
+| Screenshot 2026-03-17 at 6.51.37 pm.png | Select a location step — default | partial — measurement-verified 2026-03-25: Localhost has app nav bar (production doesn't), title 30px/700/green vs 36px/600/dark, cards 8px radius/98px vs 16px/162px, Select btn different purple shade, Continue btn outline vs gray disabled, stepper has no connector lines. See Group AO. |
 | Screenshot 2026-03-17 at 6.51.45 pm.png | Select a location step — location selected | yes — Selected state with outlined "Selected" button, border highlight, Continue enabled 2026-03-24 |
 | screencapture-acme-splose-online-booking-7b2c0db8-cb7b-40de-991e-631ecdb30cf0-2026-03-17-18_51_53.png | Online booking public page (variant 1) | yes — Full booking flow with location→appointment→confirm steps 2026-03-24 |
 | screencapture-acme-splose-online-booking-7b2c0db8-cb7b-40de-991e-631ecdb30cf0-2026-03-17-18_52_17.png | Online booking public page (variant 2) | yes — Same flow, different scroll position 2026-03-24 |
