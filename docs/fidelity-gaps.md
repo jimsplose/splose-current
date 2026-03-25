@@ -310,6 +310,15 @@ Patterns identified from the interactive states implementation audit. All opport
 - [ ] **Settings Users Status styling** — Localhost shows "Active" as green badge. Production shows "Active" as plain text. Fix: render as plain text. (2026-03-25)
 - [ ] **Settings Users name links** — Localhost renders user names as purple links. Production renders them as plain text. Fix: remove link styling (keep navigability but style as regular text). (2026-03-25)
 
+### Group AO — Online booking public page (`src/app/online-booking/page.tsx`)
+
+- [ ] **Online booking nav bar** — Production has NO nav bar (standalone public page). Localhost shows full app nav bar + Back button. Fix: hide TopNav on online booking route, remove Back button. (2026-03-25)
+- [ ] **Online booking title styling** — Production: 36px/600/rgb(16,24,40) dark black. Localhost: 30px/700/rgb(40,103,68) green. Fix: use dark text, larger font, semibold weight. (2026-03-25)
+- [ ] **Online booking card styling** — Production cards: 16px border-radius, 20px padding, 162px height. Localhost: 8px, 16px, 98px. Fix: larger cards with more padding and rounder corners. (2026-03-25)
+- [ ] **Online booking button purple shade** — Production Select buttons: rgb(106,57,228), 16px font, 10px radius. Localhost: rgb(130,80,255), 14px, 8px. Fix: use production purple for booking pages. (2026-03-25)
+- [ ] **Online booking Continue button** — Production: gray disabled (rgba(0,0,0,0.25)) with white text. Localhost: white outline. Fix: use filled gray disabled style. (2026-03-25)
+- [ ] **Online booking summary sidebar** — Production: 700 weight title, dark color. Localhost: 600 weight, gray. Fix: match production typography. (2026-03-25)
+
 ### Group AM — Settings root page (`src/app/settings/page.tsx`)
 
 - [ ] **Settings landing page** — When no sub-page is selected, production shows illustration + "All your settings in one place" message. Localhost immediately shows the Details form. Fix: add landing/empty state when visiting /settings root. (2026-03-25)
