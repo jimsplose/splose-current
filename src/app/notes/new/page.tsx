@@ -67,7 +67,7 @@ function NewProgressNotePageInner() {
         }),
       });
       if (res.ok) {
-        router.push("/notes");
+        router.push("/");
       } else {
         alert("Failed to save note. Please try again.");
       }
@@ -82,7 +82,7 @@ function NewProgressNotePageInner() {
     <div className="min-h-[calc(100vh-3rem)] bg-gray-50/30">
       {/* Header bar */}
       <Navbar
-        backHref="/notes"
+        backHref="/"
         title="New progress note"
         badge={
           <div className="flex items-center gap-2">

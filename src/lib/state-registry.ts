@@ -199,7 +199,7 @@ export const stateRegistry: PageEntry[] = [
     path: "/notes",
     label: "Progress Notes",
     group: "Notes",
-    variants: [{ id: "default", label: "Notes list" }],
+    variants: [],
     children: [
       {
         path: "/notes/[id]",

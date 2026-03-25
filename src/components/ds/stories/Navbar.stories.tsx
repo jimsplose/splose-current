@@ -94,7 +94,7 @@ export const WithActions: Story = {
 export const ProgressNoteNavbar: Story = {
   render: () => (
     <Navbar
-      backHref="/notes"
+      backHref="/"
       title="SOAP Note"
       badge={
         <>
@@ -191,7 +191,7 @@ export const NewPaymentNavbar: Story = {
 export const NewNoteNavbar: Story = {
   render: () => (
     <Navbar
-      backHref="/notes"
+      backHref="/"
       title="New progress note"
       badge={<Badge variant="yellow">Unsaved</Badge>}
     >

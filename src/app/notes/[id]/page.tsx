@@ -23,7 +23,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
     <div className="min-h-[calc(100vh-3rem)]">
       {/* Header bar */}
       <Navbar
-        backHref="/notes"
+        backHref="/"
         title={note.template}
         badge={
           <>

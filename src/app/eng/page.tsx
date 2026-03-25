@@ -29,7 +29,6 @@ const pages = [
   { name: "Invoices", href: "/invoices", desc: "Invoice list with status badges" },
   { name: "Payments", href: "/payments", desc: "Payment list with expandable rows" },
   { name: "New Payment", href: "/payments/new", desc: "Payment form with linked invoices" },
-  { name: "Notes", href: "/notes", desc: "Progress notes list" },
   { name: "Note Edit", href: "/notes/new", desc: "New note with template selection" },
   { name: "Reports", href: "/reports", desc: "Performance overview with charts" },
   { name: "Reports - Appointments", href: "/reports/appointments", desc: "Appointment report with filters" },
