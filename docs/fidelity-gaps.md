@@ -324,6 +324,21 @@ Patterns identified from the interactive states implementation audit. All opport
 - [ ] **Online booking settings editor — title format** — Production shows "Edit online booking" as page title. Localhost shows "← [Booking Name]" with back arrow. Fix: match production title format. (2026-03-25)
 - [ ] **Online booking settings editor — form structure** — Production Design tab has "Set your branding" radio group (Display none/map/logo), "Button styling" with Primary+Secondary color pickers, "Accessible colour suggestions". Localhost has simpler form. Fix: match production form fields. (2026-03-25)
 
+### Group AP — Invoice detail (`src/app/invoices/[id]/page.tsx`)
+
+- [ ] **Invoice detail right sidebar** — Production has a right sidebar with: Payments progress bar (0.00/140.20 AUD), Stripe CTA card, Note textarea, "View change log" link. Localhost has no sidebar. Fix: add right sidebar with payments summary, Stripe card, note, change log. (2026-03-25)
+- [ ] **Invoice detail title** — Production shows "Draft invoice". Localhost shows "Tax Invoice". Fix: show status-appropriate title (Draft invoice, Tax Invoice, etc). (2026-03-25)
+- [ ] **Invoice detail illustration** — Production has splose hand-wave illustration. Localhost has "S" avatar circle. Fix: use splose brand illustration. (2026-03-25)
+- [ ] **Invoice detail label casing** — Localhost uses ALL CAPS for field labels (CLIENT, FROM, etc). Production uses Title Case (Client, From). Fix: switch to title case. (2026-03-25)
+- [ ] **Invoice detail line item borders** — Localhost has bordered table cells. Production has borderless layout with line separators. Fix: remove cell borders, use horizontal separators. (2026-03-25)
+
+### Group AQ — Waitlist tab (`src/app/waitlist/page.tsx`)
+
+- [ ] **Waitlist tab state routing** — `?state=default` should show the Waitlist tab (not Screener). Currently defaults to Screener regardless of state param. Fix: wire state param to tab switching. (2026-03-25)
+- [ ] **Waitlist tab toolbar** — Production Waitlist tab has: Reset all filters, Learn, Show/hide fields, Map, + Add client buttons. Localhost doesn't render the Waitlist tab view properly. Fix: implement full Waitlist tab view matching production. (2026-03-25)
+- [ ] **Waitlist tab columns** — Production Waitlist tab columns: Tags, Client, Date of birth, Address, Date added, Actions. Different from Screener columns (no Triage/Form). Fix: render correct columns per tab. (2026-03-25)
+- [ ] **Waitlist tab sub-tabs** — Production uses Active/Closed sub-tabs. Screener uses Triage/Rejected. Fix: render correct sub-tabs per main tab. (2026-03-25)
+
 ### Group AM — Settings root page (`src/app/settings/page.tsx`)
 
 - [ ] **Settings landing page** — When no sub-page is selected, production shows illustration + "All your settings in one place" message. Localhost immediately shows the Details form. Fix: add landing/empty state when visiting /settings root. (2026-03-25)
