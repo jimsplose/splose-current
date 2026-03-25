@@ -21,15 +21,22 @@
     style.textContent = `
       #__uc_root * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
       #__uc_bar {
-        position: fixed; top: 8px; left: 50%; transform: translateX(-50%); z-index: ${Z};
+        position: fixed; bottom: 8px; left: 50%; transform: translateX(-50%); z-index: ${Z};
         height: 34px; background: rgba(13,13,26,.92);
         border: 1px solid rgba(124,58,237,.4);
         border-radius: 20px;
-        display: flex; align-items: center; gap: 8px; padding: 0 6px 0 12px;
+        display: flex; align-items: center; gap: 8px; padding: 0 6px 0 4px;
         box-shadow: 0 2px 20px rgba(0,0,0,.6);
         backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
         pointer-events: auto;
       }
+      #__uc_bar_grip {
+        cursor: grab; padding: 0 4px; display:flex; align-items:center;
+        color:rgba(167,139,250,.4); font-size:14px; user-select:none;
+        -webkit-user-select:none;
+      }
+      #__uc_bar_grip:active { cursor: grabbing; }
+      #__uc_bar_grip svg { width:10px; height:16px; }
       #__uc_bar.capturing { border-color: rgba(168,85,247,.7); box-shadow: 0 2px 20px rgba(168,85,247,.4); }
       #__uc_bar_logo { font-size: 14px; }
       #__uc_bar_title { font-size: 12px; font-weight: 700; color: #e2e8f0; }
@@ -145,6 +152,7 @@
     root.id = '__uc_root';
     root.innerHTML = `
       <div id="__uc_bar">
+        <div id="__uc_bar_grip" title="Drag to reposition"><svg viewBox="0 0 10 16" fill="currentColor"><circle cx="3" cy="2" r="1.2"/><circle cx="7" cy="2" r="1.2"/><circle cx="3" cy="6" r="1.2"/><circle cx="7" cy="6" r="1.2"/><circle cx="3" cy="10" r="1.2"/><circle cx="7" cy="10" r="1.2"/><circle cx="3" cy="14" r="1.2"/><circle cx="7" cy="14" r="1.2"/></svg></div>
         <div id="__uc_bar_logo">📐</div>
         <div id="__uc_bar_title">Bugshot</div>
         <div id="__uc_bar_hint">Browse the page, then capture</div>
@@ -191,6 +199,28 @@
     const btnCap = document.getElementById('__uc_bar_capture');
     const closeB = document.getElementById('__uc_bar_close');
     const countEl= document.getElementById('__uc_bar_count');
+    const grip   = document.getElementById('__uc_bar_grip');
+
+    // Bar drag-to-reposition
+    let barDrag = null;
+    grip.addEventListener('mousedown', e => {
+      e.preventDefault(); e.stopPropagation();
+      const rect = bar.getBoundingClientRect();
+      barDrag = { startX: e.clientX, startY: e.clientY, origLeft: rect.left + rect.width/2, origTop: rect.top };
+      // Switch from bottom/transform positioning to top/left for free placement
+      bar.style.bottom = 'auto';
+      bar.style.transform = 'none';
+      bar.style.left = rect.left + 'px';
+      bar.style.top = rect.top + 'px';
+    });
+    document.addEventListener('mousemove', e => {
+      if (!barDrag) return;
+      const dx = e.clientX - barDrag.startX;
+      const dy = e.clientY - barDrag.startY;
+      bar.style.left = (barDrag.origLeft - bar.offsetWidth/2 + dx) + 'px';
+      bar.style.top  = (barDrag.origTop + dy) + 'px';
+    });
+    document.addEventListener('mouseup', () => { barDrag = null; });
 
     function updateCount() {
       const n = queue.length;
