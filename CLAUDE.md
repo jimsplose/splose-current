@@ -5,20 +5,18 @@ Next.js 16 (App Router), React 19, TypeScript (strict), Turso/Prisma 7, Tailwind
 
 ## Session Start — MANDATORY
 
-Before ANY other work, use AskUserQuestion with these options (exception: user's first message is a specific, detailed request):
+Before ANY other work, use AskUserQuestion with a **single question** and these 4 options (exception: user's first message is a specific, detailed request). Do NOT use multiple questions — use exactly one question so Jim doesn't get a "not all questions answered" warning.
 
 > **What would you like to work on this session?**
-> 1. **compare-pages-workflow.md** — Compare localhost vs reference screenshots
-> 2. **fix-gaps-workflow.md** — Implement code to close gaps
-> 3. **bugshot-chrome** — Point at bugs in the browser to fix or log
-> 4. **screenshot-workflow.md** — Process uploaded reference screenshots
-> 5. **dev-navigator-spec.md** — Update Dev Navigator registry
-> 6. **Review status** — Show progress and what's next
-> 7. **Commits & deployments** — Check commit/deploy status or trigger a deploy
-> 8. **Something else**
+> 1. **Compare pages** — Compare localhost vs reference screenshots
+> 2. **Fix gaps** — Implement code to close gaps
+> 3. **Bugshot Chrome** — Point at bugs in the browser to fix or log
+> 4. **Something else** — Screenshots, Dev Navigator, status, commits, deploys, etc.
 
-For option 3, follow with mode question: **Fix one now** / **Log many** (saves to fidelity-gaps.md for later).
-For option 7, show sub-menu:
+If Jim picks "Something else", ask what they need (or read their typed response). The less-common workflows (screenshot processing, dev navigator, review status, commits & deployments) are accessed via this option.
+
+For Bugshot Chrome, follow with mode question: **Fix one now** / **Log many** (saves to fidelity-gaps.md for later).
+For commits & deployments (via Something else), show sub-menu:
 - **Check recent commits** — `git log --oneline -10` and summarise
 - **Check deployment status** — `gh run list --workflow=deploy.yml --limit=5` and summarise
 - **Deploy to production** — Full flow: merge branch → main, trigger `deploy.yml` workflow. **Requires Jim's express permission.** Confirm branch name and show what will be deployed before proceeding.
