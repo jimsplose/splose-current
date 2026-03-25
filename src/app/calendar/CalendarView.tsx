@@ -273,17 +273,18 @@ export default function CalendarView({
   const locatedPractitioners = assignLocations(practitioners);
   const uniqueLocations = [...new Set(locatedPractitioners.map(p => p.location))];
 
-  // Filter practitioners based on current filters
-  const filteredPractitioners = practitioners.filter((p, i) => {
-    const loc = locatedPractitioners[i]?.location;
-    if (locationFilter !== "all" && loc !== locationFilter) return false;
+  // Filter practitioners based on current filters — use locatedPractitioners to preserve location assignment
+  const filteredLocatedPractitioners = locatedPractitioners.filter((p) => {
+    if (locationFilter !== "all" && p.location !== locationFilter) return false;
     if (practitionerFilter !== "all" && p.id !== practitionerFilter) return false;
     return true;
   });
+  // Keep a plain Practitioner[] for backward compat (same objects, same order)
+  const filteredPractitioners = filteredLocatedPractitioners as Practitioner[];
 
   // Filter appointments based on visible practitioners
   const filteredAppointments = appointments.filter(appt =>
-    filteredPractitioners.some(p => p.name === appt.practitionerName)
+    filteredLocatedPractitioners.some(p => p.name === appt.practitionerName)
   );
 
   // Truncate location name for button display
@@ -457,35 +458,31 @@ export default function CalendarView({
       <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
         {/* Calendar toolbar */}
         <div className="relative z-30 flex h-[60px] shrink-0 items-center overflow-visible border-b border-[#eee] px-[10px]">
-          {/* Left group: Today, arrows, title, icons, filter buttons */}
-          <div className="flex items-center gap-[2px]">
-            <button className="h-[38px] rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-[14px] font-normal text-text hover:border-primary hover:text-primary">
-              Today
-            </button>
-            <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-text hover:bg-gray-100">
-              <ChevronLeft className="h-4 w-4" />
-            </button>
-            <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-text hover:bg-gray-100">
-              <ChevronRight className="h-4 w-4" />
-            </button>
-          </div>
-          <h2 className="ml-[10px] text-[20px] font-bold text-[rgb(18,22,26)]">{toolbarDateLabel}</h2>
-          <div className="ml-[4px] flex items-center">
-            <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
-              <Filter className="h-[16px] w-[16px]" />
-            </button>
-            <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
-              <Settings className="h-[16px] w-[16px]" />
-            </button>
-            <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
-              <CalendarDays className="h-[16px] w-[16px]" />
-            </button>
-            <button className="flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
-              <Lightbulb className="h-[16px] w-[16px]" />
-            </button>
-          </div>
+          {/* All items inline with uniform 2px margins matching production */}
+          <button className="mr-[2px] h-[38px] rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-[14px] font-normal text-text hover:border-primary hover:text-primary">
+            Today
+          </button>
+          <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text hover:bg-gray-100">
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text hover:bg-gray-100">
+            <ChevronRight className="h-4 w-4" />
+          </button>
+          <h2 className="mr-[2px] min-w-0 text-[20px] font-bold text-[rgb(18,22,26)]">{toolbarDateLabel}</h2>
+          <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
+            <Filter className="h-[16px] w-[16px]" />
+          </button>
+          <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
+            <Settings className="h-[16px] w-[16px]" />
+          </button>
+          <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
+            <CalendarDays className="h-[16px] w-[16px]" />
+          </button>
+          <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
+            <Lightbulb className="h-[16px] w-[16px]" />
+          </button>
           {/* Location + Practitioner filter buttons — custom popovers */}
-          <div className="ml-[12px] flex items-center gap-[8px]">
+          <div className="flex items-center gap-[8px]">
             {/* Location dropdown */}
             <div className="relative" ref={locationDropdownRef}>
               <button
@@ -727,7 +724,7 @@ export default function CalendarView({
                 style={{ gridTemplateColumns: `60px repeat(${filteredPractitioners.length}, 1fr)` }}
               >
                 {HOURS.map((hour) => {
-                  const locGroups = groupByLocation(assignLocations(filteredPractitioners));
+                  const locGroups = groupByLocation(filteredLocatedPractitioners);
                   return (
                   <div key={hour} className="contents">
                     <div
@@ -854,7 +851,7 @@ export default function CalendarView({
                       <div key={i} className="border-r border-[#d0d0d0] last:border-r-0">
                       {/* Location group headers */}
                       <div className="flex">
-                        {groupByLocation(assignLocations(filteredPractitioners)).map((group, gi) => (
+                        {groupByLocation(filteredLocatedPractitioners).map((group, gi) => (
                           <div key={group.name} className={`text-center ${gi > 0 ? "border-l border-border" : ""}`} style={useFlexible ? { flex: group.practitioners.length } : { width: group.practitioners.length * COL_W }}>
                             <div className="truncate px-1 py-0.5 text-[14px] font-normal text-[rgb(112,117,122)]">{group.name}</div>
                           </div>
@@ -862,7 +859,7 @@ export default function CalendarView({
                       </div>
                       {/* Practitioner column headers */}
                       <div className="flex border-t border-border/30 px-px">
-                        {groupByLocation(assignLocations(filteredPractitioners)).map((group, gi) => (
+                        {groupByLocation(filteredLocatedPractitioners).map((group, gi) => (
                           <div key={group.name} className={`flex ${gi > 0 ? "border-l border-border" : ""}`}>
                             {group.practitioners.map((p) => (
                               <div key={p.id} className="flex flex-col items-center py-1" style={useFlexible ? { flex: 1 } : { width: COL_W }}>
@@ -901,7 +898,7 @@ export default function CalendarView({
                           {/* Practitioner sub-columns */}
                           <div className="absolute inset-0 flex">
                             {(() => {
-                              const locGroups = groupByLocation(assignLocations(filteredPractitioners));
+                              const locGroups = groupByLocation(filteredLocatedPractitioners);
                               let colIndex = 0;
                               return locGroups.map((group, gi) =>
                                 group.practitioners.map((prac) => {
