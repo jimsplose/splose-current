@@ -348,6 +348,40 @@ Patterns identified from the interactive states implementation audit. All opport
 
 - [ ] **Settings landing page** — When no sub-page is selected, production shows illustration + "All your settings in one place" message. Localhost immediately shows the Details form. Fix: add landing/empty state when visiting /settings root. (2026-03-25)
 
+### Group AR — Integrations page (`src/app/settings/page.tsx`)
+
+- [ ] **Integrations card grid layout** — Production uses 3-column flex-wrap card grid (20px gap) with bordered cards. Localhost uses single-column centered list with dividers. Fix: switch to 3-column card grid layout. (2026-03-25)
+
+### Group AS — Cancel/Reschedule page (`src/app/settings/page.tsx`)
+
+- [ ] **Cancel/Reschedule Setup tab** — Production has full "Cancel/Reschedule appointments" page with two tabs: Setup (toggle switches for cancellations/rescheduling/email notifications) and Cancellation reasons. Localhost only shows the cancellation reasons table. Fix: add Setup tab with toggle sections. (2026-03-25)
+
+### Group AT — Email templates Type column (`src/app/settings/page.tsx`)
+
+- [ ] **Email templates Type badges** — Localhost shows colored badges (Invoice=blue, Payment=green, Progress note=purple, Form=green, Letter=gray, General=gray) in Type column. Production shows plain text. Fix: remove colored badges, show plain text. (2026-03-25)
+
+### Group AU — Tax rates page (`src/app/settings/page.tsx`)
+
+- [ ] **Tax rates extra columns** — Localhost has Name, Rate, Description, Status, Actions columns. Production only has Name and Rate columns — no Description, Status badges, or Actions "..." menu. Fix: remove extra columns to match production. (2026-03-25)
+
+### Group AV — Settings form pages (`src/app/settings/page.tsx`)
+
+- [ ] **Settings form field width** — Production invoice/payment settings have full-width form fields. Localhost uses narrower ~50% width fields. Fix: make form inputs full-width on settings form pages. (2026-03-25)
+- [ ] **Settings green section dividers** — Production settings pages (SMS, Invoice, Payment) use green horizontal divider lines between sections. Localhost doesn't have these. Fix: add green dividers between sections. (2026-03-25)
+
+### Group AW — New payment form (`src/app/payments/new/page.tsx`)
+
+- [ ] **New payment missing Location field** — Production has a Location* dropdown between Client and Payment date fields. Localhost omits this field. Fix: add Location select dropdown. (2026-03-25)
+
+### Group AX — Calendar appointment panel
+
+- [ ] **Calendar panel "Do not Invoice"** — Production appointment side panel has "Mark as Do not Invoice?" link. Localhost doesn't have this option. Fix: add the link to the side panel. (2026-03-25)
+
+### Group AY — Reports overview (`src/app/reports/page.tsx`)
+
+- [ ] **Reports Performance overview toolbar** — Production uses green pill-style date range filter, "Weekly" toggle, and Compare toggle with date. Localhost uses dropdown selectors and "Compare" button. Fix: match production toolbar filter component styling. (2026-03-25)
+- [ ] **Aged debtors missing Ageing by** — Production Aged Debtors report has "Ageing by*" dropdown filter. Localhost only has date range. Fix: add Ageing by select. (2026-03-25)
+
 ---
 
 ## Completed Gaps
