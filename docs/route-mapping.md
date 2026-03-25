@@ -24,9 +24,23 @@ Production uses real numeric IDs. Localhost uses simple sequential IDs.
 | Production Route | Localhost Route | Notes |
 |---|---|---|
 | `/` | `/` | Dashboard |
-| `/calendar/week/{d}/{m}/{y}` | `/calendar` | Use current date |
-| `/calendar/month/{d}/{m}/{y}` | `/calendar?state=month-view` | |
-| `/calendar/day/{d}/{m}/{y}` | `/calendar?state=day-view` | |
+| `/calendar` | `/calendar` | Week view (default). Production accepts plain `/calendar` — do NOT append date segments. |
+| `/calendar` | `/calendar?state=month-view` | Switch to Month view in both tabs after navigating |
+| `/calendar` | `/calendar?state=day-view` | Switch to Day view in both tabs after navigating |
+| `/calendar` | `/calendar?state=rooms-view` | Switch to Rooms/Resources view in both tabs |
+
+### Calendar comparison checklist
+
+Compare these states in order. For each, navigate both tabs to `/calendar` first, then switch view/filters:
+
+1. **Week view** (default) — toolbar, time grid, practitioner columns
+2. **Day view** — switch via view dropdown on both tabs
+3. **Month view** — switch via view dropdown on both tabs
+4. **Rooms/Resources view** — switch via Calendar/Rooms toggle on both tabs
+5. **Location filter off** — deselect location filter, compare layout
+6. **Location filter on** — select a location, compare filtered columns
+7. **Practitioner filter off** — show all practitioners
+8. **Practitioner filter on** — select specific practitioner(s), compare filtered view
 | `/patients` | `/clients` | Different entity name |
 | `/patients/{id}/details` | `/clients/1` | Default tab = details |
 | `/patients/{id}/appointments` | `/clients/1/appointments` | |
@@ -62,7 +76,6 @@ Production uses real numeric IDs. Localhost uses simple sequential IDs.
 | `/notes/{id}/edit` | `/notes/{id}/edit` | |
 | `/notes/new` | `/notes/new` | Not in registry |
 | `/products` | `/products` | |
-| `/practitioners` | `/practitioners` | |
 
 ## Reports
 
