@@ -259,6 +259,11 @@ Patterns identified from the interactive states implementation audit. All opport
 ### Group AE — Waitlist fidelity (`src/app/waitlist/page.tsx`)
 
 - [ ] **Waitlist triage button layout** — Reopened: Production has horizontal Yes/No, not vertical. See Group AK. (2026-03-25)
+- [ ] **Bugshot: Tab underline thickness/width** — http://localhost:3000/waitlist, region 100x63 at (457,-10). Current page tab line is wrong thickness and width vs production. Severity: medium. (2026-03-25)
+- [ ] **Bugshot: Missing icon** — http://localhost:3000/waitlist, region 130x53 at (1302,110). Download appropriate icon or rip from production. Severity: medium. (2026-03-25)
+- [ ] **Bugshot: Filter/sort control alignment** — http://localhost:3000/waitlist, region 1343x63 at (15,275). Alignment of filters and sort controls doesn't match production. Check hover states too. Severity: medium. (2026-03-25)
+- [ ] **Bugshot: Button sizing/spacing** — http://localhost:3000/waitlist, region 288x95 at (12,37). Sizing and spacing of tab buttons very different to production. Severity: medium. (2026-03-25)
+- [ ] **Bugshot: Missing pagination controls** — http://localhost:3000/waitlist, region 1403x120 at (19,1106). Table missing pagination. Check all data tables that should have pagination controls. Severity: medium. (2026-03-25)
 
 ### Group AF — Settings fidelity (`src/app/settings/`)
 
