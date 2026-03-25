@@ -40,15 +40,34 @@ npx tsc --noEmit
 
 If it fails, fix or revert the agent's changes before continuing.
 
-## Step 3: Visual Verification — 5-Iteration Loop
+## Step 3: Measurement Verification — 5-Iteration Loop
 
-If the agent changed page UI, run the **5-iteration visual verification loop** from `docs/fix-gaps-workflow.md` Step 4. This is mandatory — do not commit until the loop passes or exhausts 5 iterations.
+If the agent changed page UI, run the **5-iteration measurement verification loop** from `docs/fix-gaps-workflow.md` Step 4. This is mandatory — do not commit until the loop passes or exhausts 5 iterations.
 
-In summary: screenshot → zoom into changed zone → compare against reference → apply hierarchy/proportion/weight/spacing checks → fix if wrong → repeat up to 5 times. Revert if 5 iterations fail.
+In summary:
+1. **MEASURE** rendered CSS via `javascript_tool` (color, fontSize, fontWeight, padding, height, etc.)
+2. **COMPARE** in a structured table: Property | Target | Measured | Threshold | Pass?
+3. **VISUAL CHECK** via screenshot zoom as structural supplement (catches missing elements, wrong order)
+4. Pass only if **0 measurement failures** AND no structural issues
+5. Log each iteration in a Verification Log with exact deltas
 
-Invoke `/impeccable:frontend-design` before the first iteration.
+**Do NOT use subjective checks** (hierarchy/proportion/weight/spacing) as pass criteria. These are replaced by numerical property comparison. The visual screenshot step catches structural issues only.
 
-**Fallback (no Chrome MCP):** Replace screenshots with code review against style references. Use "partial — code-review only" for catalog entries. The 5-iteration loop still applies.
+**Thresholds:** Colors = exact RGB. Font size/weight = exact. Dimensions/spacing = +/-2px. Border radius = exact. See `docs/fix-gaps-workflow.md` Step 4 for the full threshold table.
+
+**Fallback (no Chrome MCP):** Code-audit loop — resolve Tailwind classes to CSS values, build the same comparison table. Use "partial — code-review only" for catalog entries with any uncertain resolutions.
+
+## Step 3.5: Worktree Merge (if agent used worktree isolation)
+
+If the agent was given `isolation: "worktree"`:
+
+1. Check the agent's output for the worktree branch name
+2. Verify the agent committed: `git log --oneline -1` on the branch should show the agent's commit
+3. Merge: `git merge --no-ff <agent-branch> --no-edit`
+4. Verify: `git log --oneline -3` should show a merge commit
+5. Cleanup: `git worktree prune`
+
+If the agent did NOT commit (no changes on the branch), the work is lost — re-run the agent.
 
 ## Step 4: Commit or Revert
 

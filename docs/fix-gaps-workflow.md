@@ -59,10 +59,19 @@ Before launching agents, the main agent reads references and produces Fix Briefs
 **Gaps to fix:**
 
 1. **[Zone]** — Reference shows [X], code has [Y].
-   - Production CSS: [exact value from splose-style-reference, e.g. `color: rgb(65,69,73); font-weight: 400; padding: 0 15px`]
+   - **Selector:** `<CSS selector to measure this element>`
+   - **Target values** (from splose-style-reference):
+     ```
+     color: rgb(65, 69, 73)
+     fontSize: 14px
+     fontWeight: 600
+     lineHeight: 22px
+     padding: 0px 15px
+     ```
    - Current measured: [value from getBoundingClientRect/getComputedStyle]
-   - Fix: [specific Tailwind class change, e.g. `text-text-secondary` → `text-[rgb(65,69,73)]`]
-   - Verify by: [what to zoom into and compare]
+   - Delta: [e.g. fontSize 16px→14px, fontWeight 400→600]
+   - Fix: [specific Tailwind class change, e.g. `text-body-md` → `text-heading-sm`]
+   - Verify by: Run measurement snippet with selector above; all target values must pass thresholds
 
 **Do NOT change:**
 - [Things that already match]
@@ -70,12 +79,15 @@ Before launching agents, the main agent reads references and produces Fix Briefs
 
 ## Step 2: Launch parallel agents
 
-Group non-conflicting gaps and launch simultaneously. **No worktrees.**
+Group non-conflicting gaps and launch simultaneously. **Worktree strategy:**
+- **Different files** → direct agents (no isolation), parallel OK
+- **Same file** → worktree agents (`isolation: "worktree"`), sequential only. See `docs/worktree-guardrails.md`
 
 Every agent prompt MUST include:
 - The full Agent Block from `docs/agent-block.md`
 - `You are working in /Users/jimyenckensplose/claude/splose-current. Edit files directly.`
 - The Fix Brief (text only — never screenshot file paths)
+- **If worktree agent:** `Before finishing, you MUST run: git add -A && git commit -m "<summary>"`
 
 ## Step 3: Quality gate
 
@@ -84,34 +96,108 @@ After each agent completes, run `docs/quality-gate.md`:
 2. TypeScript check (`npx tsc --noEmit`)
 3. Visual verification — **the 5-iteration loop below**
 
-## Step 4: 5-Iteration Visual Verification Loop
+## Step 4: 5-Iteration Measurement Verification Loop
 
-**This is mandatory for every visual fix. Do not commit until the loop passes or exhausts 5 iterations.**
+**Mandatory for every visual fix. Do not commit until the loop passes or exhausts 5 iterations.**
 
 ```
 FOR iteration = 1 to 5:
-  1. Navigate to the changed page in Chrome MCP
-  2. Take a full-page screenshot
-  3. Zoom into the specific zone that was fixed
-  4. Read the reference screenshot and zoom into the same zone
-  5. Apply design checks:
-     - Hierarchy: Is visual importance ranking correct?
-     - Proportion: Are relative sizes right? (measure A vs B)
-     - Weight: Does visual density match?
-     - Spacing: Is rhythm correct?
-  6. IF all checks pass → mark as PASS, exit loop
-  7. IF mismatch found:
-     - Document what's wrong and why
-     - Make the fix (understand root cause, don't just guess a different value)
-     - Continue to next iteration
+
+  1. MEASURE — Run the measurement snippet via Chrome MCP `javascript_tool`
+     for every element in the Fix Brief:
+
+     (() => {
+       const selectors = [
+         { sel: '<SELECTOR>', label: '<LABEL>' }
+         // One entry per element from Fix Brief
+       ];
+       const props = [
+         'color','backgroundColor','fontSize','fontWeight','fontFamily',
+         'lineHeight','letterSpacing','padding','paddingTop','paddingRight',
+         'paddingBottom','paddingLeft','margin','gap','borderRadius',
+         'borderColor','borderWidth','boxShadow','display','flexDirection',
+         'alignItems','justifyContent','opacity'
+       ];
+       const results = [];
+       for (const {sel,label} of selectors) {
+         const el = document.querySelector(sel);
+         if (!el) { results.push({label,sel,error:'NOT FOUND'}); continue; }
+         const s = getComputedStyle(el);
+         const r = el.getBoundingClientRect();
+         const m = {}; for (const p of props) m[p] = s[p];
+         m._rect = {
+           width: Math.round(r.width*10)/10,
+           height: Math.round(r.height*10)/10
+         };
+         results.push({label,sel,measured:m});
+       }
+       JSON.stringify(results,null,2)
+     })()
+
+  2. COMPARE — Build a comparison table for each element:
+
+     | Property | Target | Measured | Threshold | Pass? |
+     |---|---|---|---|---|
+     | color | rgb(65, 69, 73) | rgb(65, 69, 73) | exact RGB | PASS |
+     | fontSize | 14px | 16px | exact | FAIL |
+
+  3. VISUAL CHECK (supplement) — Take screenshot, zoom into changed zone,
+     compare against reference screenshot of same zone. Catches structural
+     issues measurement misses: missing elements, wrong order, layout breaks.
+
+  4. EVALUATE:
+     - IF 0 measurement failures AND no structural issues → PASS, exit loop
+     - IF failures found:
+       a. Log failing properties with exact deltas
+       b. Fix using the delta (e.g. fontSize 16px→14px = use text-[14px])
+       c. Adjust in 2px increments max for dimensions
+       d. Continue to next iteration
+
+  5. LOG — Record iteration in the Verification Log:
+
+     #### Iteration N
+     | Element | Props | Pass | Fail | Failing Properties |
+     |---|---|---|---|---|
+     | Page title | 8 | 6 | 2 | fontSize (16px→14px), fontWeight (400→600) |
+     **Action:** Changed text-body-md to text-heading-sm
 
 IF 5 iterations exhausted without PASS:
   - Revert all changes for this gap
-  - Log the issue in the Gap Report with details of what was tried
+  - Include full Verification Log in the Gap Report
+  - Log root cause hypothesis
   - Move on to the next gap
 ```
 
-**Fallback (no Chrome MCP):** Replace screenshot steps with code review against style references. Use "partial — code-review only" for catalog entries. The 5-iteration loop still applies — re-read code after each change and verify against spec values.
+### Acceptance Thresholds
+
+| Property Type | Threshold |
+|---|---|
+| Color (`color`, `backgroundColor`, `borderColor`) | Exact RGB match (normalize to `rgb(R, G, B)`) |
+| Font size (`fontSize`) | Exact match |
+| Font weight (`fontWeight`) | Exact match (400/500/600/700) |
+| Font family (`fontFamily`) | Primary font match (first in stack) |
+| Line height (`lineHeight`) | +/-1px |
+| Dimensions (`height`, `width` from rect) | +/-2px |
+| Padding, margin, gap (each side) | +/-2px |
+| Border radius, border width | Exact match |
+| Box shadow | Same structure, color exact, offsets +/-1px |
+| Layout (`display`, `flexDirection`, `alignItems`, `justifyContent`) | Exact match |
+
+### Fallback (no Chrome MCP)
+
+When Chrome MCP is unavailable, use a **code-audit loop**:
+
+1. Read the source file for the changed component
+2. For each element in the Fix Brief, trace JSX → Tailwind classes
+3. Resolve each class to CSS values using:
+   - `globals.css` typography classes (e.g. `text-heading-sm` → `font-size: 14px; font-weight: 600`)
+   - Tailwind defaults (e.g. `p-4` → `padding: 16px`)
+   - Arbitrary values (e.g. `h-[56px]` → `height: 56px`)
+   - CSS variables from `globals.css` @theme (e.g. `text-primary` → `color: #8250ff`)
+4. Build the same comparison table with resolved values vs target values
+5. Mark uncertain resolutions as "UNCERTAIN"
+6. Pass/fail: resolved values must meet thresholds. UNCERTAIN = "partial — code-review only" in catalog
+7. The 5-iteration cap still applies — re-read code after each change
 
 ## Step 5: Update catalog
 

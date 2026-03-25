@@ -76,8 +76,8 @@ A gap is `[x]` only when ALL related `screenshots/screenshot-catalog.md` entries
 
 - Read `docs/agent-block.md` — copy the Agent Block into every UI-touching subagent prompt
 - Read `docs/quality-gate.md` — run after every UI change (subagent OR direct edits)
-- **No worktrees** — use direct agents only. Worktrees cause data loss with concurrent sessions
-- Jim runs 2 concurrent sessions. Coordinate via git, avoid editing same files
+- **Worktrees: sequential only** — Use direct agents for independent page edits (different files = rare conflicts). Use `isolation: "worktree"` only when sequential editing of the same file is needed. See `docs/worktree-guardrails.md` before launching worktree agents.
+- Jim runs 2 concurrent sessions. Before creating worktrees, check `git worktree list` — if another session has active worktrees, use direct agents instead.
 
 ## GitHub & Accounts
 

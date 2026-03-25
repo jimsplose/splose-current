@@ -72,34 +72,66 @@ If a design spec exists at `screenshots/specs/<page-name>.md`, read it and imple
 
 **Design intent matters.** When a Fix Brief specifies a value (e.g. `h-9` for a logo), it was derived using `/impeccable:frontend-design` analysis — don't second-guess it with a different value. If something looks wrong after implementing, report back rather than guessing a different value.
 
-## Visual Verification — 5-ITERATION LOOP
+## Visual Verification — 5-ITERATION MEASUREMENT LOOP
 
-After making code changes, run this loop up to 5 times. Do not stop after 1 screenshot.
+After making code changes, run this loop up to 5 times. Do not stop after 1 iteration.
 
 **If Chrome MCP is available:**
-1. Navigate to the changed page at `http://localhost:3000/<page-path>`
-2. Take a full-page screenshot
-3. **Zoom into the specific zone you changed** — don't rely on full-page screenshots alone
-4. Compare zoomed crop against the reference screenshot of the same zone
-5. Check: hierarchy (visual importance), proportion (relative sizes), weight (boldness/density), spacing (rhythm)
-6. If mismatch → fix it → go to step 1 (next iteration)
-7. If all checks pass → done
 
-**Max 5 iterations.** If still wrong after 5, report what you tried — don't keep guessing.
+1. **MEASURE** — Run the measurement snippet via `javascript_tool` for every changed element:
+   ```js
+   (() => {
+     const selectors = [{ sel: '<SELECTOR>', label: '<LABEL>' }];
+     const props = ['color','backgroundColor','fontSize','fontWeight','fontFamily','lineHeight','letterSpacing','padding','paddingTop','paddingRight','paddingBottom','paddingLeft','margin','gap','borderRadius','borderColor','borderWidth','boxShadow','display','flexDirection','alignItems','justifyContent','opacity'];
+     const results = [];
+     for (const {sel,label} of selectors) {
+       const el = document.querySelector(sel);
+       if (!el) { results.push({label,sel,error:'NOT FOUND'}); continue; }
+       const s = getComputedStyle(el);
+       const r = el.getBoundingClientRect();
+       const m = {}; for (const p of props) m[p] = s[p];
+       m._rect = {width:Math.round(r.width*10)/10, height:Math.round(r.height*10)/10};
+       results.push({label,sel,measured:m});
+     }
+     JSON.stringify(results,null,2)
+   })()
+   ```
+2. **COMPARE** — Build a table for each element:
+   ```
+   | Property | Target | Measured | Threshold | Pass? |
+   |---|---|---|---|---|
+   | color | rgb(65, 69, 73) | rgb(65, 69, 73) | exact RGB | PASS |
+   | fontSize | 14px | 16px | exact | FAIL |
+   ```
+3. **VISUAL CHECK** — Screenshot + zoom into changed zone, compare against reference. Catches structural issues (missing elements, wrong order, layout breaks).
+4. **EVALUATE** — 0 failures + no structural issues = PASS. Otherwise fix using exact delta, next iteration.
+
+**Thresholds:** Colors exact RGB. Font size/weight exact. Line height +/-1px. Dimensions/spacing +/-2px. Border radius exact.
+
+**Max 5 iterations.** If still wrong after 5, report your Verification Log — don't keep guessing.
 
 **If Chrome MCP is NOT available:**
-1. Re-read your changed code after each edit and verify against style references
-2. Report your changes in a structured summary with areas of uncertainty
-3. The main agent will verify your work afterward
+1. Re-read your changed code and resolve Tailwind classes to CSS values
+2. Build the same comparison table using resolved values vs target values from Fix Brief
+3. Mark uncertain resolutions as "UNCERTAIN"
+4. Report structured summary. The main agent will verify afterward.
 
-### Acceptance criteria (apply regardless of verification method):
+### Acceptance criteria (structural — supplement to measurement):
 - **Layout**: Same grid/flex structure, same sidebar/header/content arrangement
 - **Components**: Correct DS components used (Button not bare `<button>`, Badge not inline pill, etc.)
 - **Content**: Same column headers, labels, placeholder text, button labels as reference
-- **Colors/Spacing**: Exact hex/Tailwind values and padding/margin from design spec (not approximations)
-- **Typography**: Use typography classes (`text-display-lg`, `text-heading-md`, etc.) — not raw combos. See `docs/typography-spec.md`
+- **Typography**: Use typography classes (`text-display-lg`, `text-heading-md`, etc.) — not raw combos
 - **Interactive elements**: Modals, dropdowns, tabs shown in reference exist in code and are wired up
 - **Data shape**: Tables have same columns, forms have same fields as reference
+
+## Worktree Safety — IF APPLICABLE
+
+**Only if your prompt says you are in a worktree (`isolation: "worktree"`):**
+
+1. **On start:** Verify you are in the worktree directory (`pwd`). Run: `git fetch origin main && git merge origin/main --no-edit`
+2. **During work:** Edit only files listed in your Fix Brief. Run `npx tsc --noEmit` after each file change.
+3. **Before exiting — CRITICAL:** You MUST commit: `git add -A && git commit -m "<summary of changes>"`. Agents that don't commit lose all work.
+4. **Do not** push to remote or manually delete the worktree — the main agent handles merge and cleanup.
 
 ---END AGENT BLOCK---
 ```
