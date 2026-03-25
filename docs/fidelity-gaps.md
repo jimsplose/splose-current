@@ -218,6 +218,7 @@ Patterns identified from the interactive states implementation audit. All opport
 - [x] **Calendar toolbar icons** — Replaced LayoutGrid/MapPin with Command/Lightbulb to match reference `anticon-mac-command`/`anticon-bulb`. Changed location/service filters from Chips to Buttons. Removed orphan `+` button. Added full date display in day view. (2026-03-23)
 - [x] **Clients list filter cleanup** — Removed standalone Active/Archived + Tags filter bar (not in reference). Migrated to `Th` `sortable`/`filterable` props for column-level filtering. (2026-03-23)
 - [x] **Settings hub** — No structural mismatches found. Sidebar groups, items, and content match reference. (2026-03-23)
+- [ ] **Bugshot: Settings root page missing** — http://localhost:3000/settings, region 1431x752 at (3,0). Should show a landing page with image and "All your settings in one place" message (like production). Severity: medium. (2026-03-25)
 - [x] **Reports hub** — No structural mismatches found. Sidebar groups, filter bar, charts, and table match reference. (2026-03-23)
 
 ## Priority 12 — Pixel-perfect comparison audit (2026-03-25)
