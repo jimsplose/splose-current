@@ -146,11 +146,11 @@ Present the bug report, then add it to `docs/fidelity-gaps.md` as a new gap entr
 - [ ] **Bugshot: [description]** — [url], region [width]x[height] at ([pageX],[pageY]). Severity: [severity]. ([timestamp])
 ```
 
-Then re-show the overlay for the next capture:
+Then re-show the overlay for the next capture using the exposed reset function:
 
 ```
 mcp__claude-in-chrome__javascript_tool
-code: "document.getElementById('__uc_root').style.display = ''; window.__uiCaptureResult.done = false; window.__uiCaptureResult.data = null; document.getElementById('__uc_panel').classList.remove('open'); document.getElementById('__uc_sel').style.display = 'none'; document.getElementById('__uc_dim').classList.remove('capturing', 'active'); document.getElementById('__uc_bar').classList.remove('capturing'); document.getElementById('__uc_ta').value = ''; document.getElementById('__uc_bar_hint').textContent = 'Browse the page, then capture'; document.getElementById('__uc_bar_hint').classList.remove('pulse'); document.getElementById('__uc_bar_capture').textContent = 'Capture'; document.getElementById('__uc_bar_capture').classList.remove('active');"
+code: "document.getElementById('__uc_root').style.display = ''; window.__uiCaptureReset();"
 ```
 
 Repeat from Step 4. When the user says they're done logging, commit the updated fidelity-gaps.md.

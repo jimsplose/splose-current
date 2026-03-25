@@ -271,6 +271,13 @@
     btnRet.addEventListener('click', resetPanel);
     closeB.addEventListener('click', () => { result.done=true; result.data=null; });
 
+    // Expose reset for external callers (e.g. Claude Code "log many" mode)
+    window.__uiCaptureReset = function() {
+      resetPanel();
+      result.done = false;
+      result.data = null;
+    };
+
     // Send
     btnSend.addEventListener('click', send);
     document.addEventListener('keydown', e => {
