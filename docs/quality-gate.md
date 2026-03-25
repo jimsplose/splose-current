@@ -117,13 +117,33 @@ If the agent was given `isolation: "worktree"`:
 
 If the agent did NOT commit (no changes on the branch), the work is lost — re-run the agent.
 
-## Step 4: Commit or Revert
+## Step 4: Write Verification Evidence
 
-**Pre-commit checklist — ALL must be true before `git commit`:**
-- [ ] DS violation scan passed (Step 1)
-- [ ] TypeScript check passed (Step 2)
+**After the measurement loop passes, write a `.verification-evidence` file** listing every verified page path. The pre-commit hook checks this file exists and contains all staged `page.tsx` paths. Without it, the commit is blocked.
+
+```bash
+# After measurement loop passes, write evidence:
+echo "src/app/settings/users/page.tsx" >> .verification-evidence
+```
+
+Each line is a verified file path. Add one line per page you verified. The file is automatically deleted after a successful commit.
+
+**For non-visual changes** (refactors, type fixes) to page files, use the SKIP prefix:
+```bash
+echo "SKIP: src/app/settings/users/page.tsx — type-only change, no visual impact" >> .verification-evidence
+```
+
+## Step 5: Commit or Revert
+
+**Automated pre-commit gates (hooks block the commit if any fail):**
+- TypeScript check (`npx tsc --noEmit`)
+- DS violation scan (banned inline patterns, missing DS imports)
+- Verification evidence gate (`.verification-evidence` must list all staged page.tsx files)
+
+**Manual pre-commit checklist — ALL must be true:**
 - [ ] Measurement comparison table produced with PASS verdict (Step 3)
 - [ ] Structural screenshot check completed with findings recorded (Step 3)
+- [ ] Verification evidence written (Step 4)
 
 If ALL pass → commit. Include "Verified: [N] properties measured, [M] elements checked" in the commit message.
 

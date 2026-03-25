@@ -38,6 +38,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# verification evidence (temporary gate file for pre-commit hook)
+.verification-evidence
+
 # storybook build output (built during Vercel deploy)
 /public/storybook
 /storybook-static
