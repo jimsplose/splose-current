@@ -37,21 +37,74 @@ For each page, run this loop. **This is the core of the workflow — do not shor
    - Interactive elements (modals, dropdowns, side panels)
 5. **Zoom into each zone** on both localhost and reference for side-by-side comparison
 
-### 2b. Design-informed comparison
+### 2b. Measurement verification
 
-For each zone, apply these checks (from `/impeccable:frontend-design`):
+For each comparison zone, run the measurement snippet via Chrome MCP `javascript_tool` targeting key elements. Compare measured values against targets from `splose-style-reference/`.
 
-| Check | What to look for | How to verify |
+**Standard measurement snippet** (customize selectors per page):
+```js
+(() => {
+  const selectors = [
+    { sel: '<SELECTOR>', label: '<LABEL>' }
+  ];
+  const props = [
+    'color', 'backgroundColor', 'fontSize', 'fontWeight', 'fontFamily',
+    'lineHeight', 'padding', 'paddingTop', 'paddingRight', 'paddingBottom',
+    'paddingLeft', 'margin', 'gap', 'borderRadius', 'borderColor',
+    'borderWidth', 'boxShadow', 'display', 'flexDirection', 'alignItems',
+    'justifyContent', 'opacity'
+  ];
+  const results = [];
+  for (const { sel, label } of selectors) {
+    const el = document.querySelector(sel);
+    if (!el) { results.push({ label, sel, error: 'NOT FOUND' }); continue; }
+    const s = getComputedStyle(el);
+    const r = el.getBoundingClientRect();
+    const m = {}; for (const p of props) m[p] = s[p];
+    m._rect = { width: Math.round(r.width * 10) / 10, height: Math.round(r.height * 10) / 10 };
+    results.push({ label, sel, measured: m });
+  }
+  JSON.stringify(results, null, 2)
+})()
+```
+
+**Key elements to measure per zone:**
+
+| Zone | Elements | Key Properties |
 |---|---|---|
-| **Hierarchy** | Is the visual importance ranking correct? | Compare relative prominence of elements (bigger = more important) |
-| **Proportion** | Are relative sizes right? | Zoom and compare element A height vs element B height |
-| **Weight** | Does visual density match? | Check font-weight, stroke width, color saturation, not just size |
-| **Spacing** | Is the rhythm correct? | Compare gaps between elements — are they proportional? |
-| **Typography** | Do fonts match? | Check size, weight, line-height, letter-spacing against style reference |
-| **Color** | Do colors match tokens? | Cross-reference against `splose-style-reference/design-tokens/` |
-| **Structure** | Is the DOM hierarchy right? | Compare against `splose-style-reference/page-structures/<page>.md` |
+| Nav/header | `header`, nav links, active item | height, fontSize, fontWeight, color, backgroundColor, padding |
+| Page title/toolbar | `h1`/`h2`, toolbar buttons | fontSize, fontWeight, lineHeight, color, height, padding, gap |
+| Main content (table) | `th`, `td`, table wrapper | fontSize, fontWeight, backgroundColor, padding, height, borderColor |
+| Main content (cards) | card wrapper, title, body | padding, gap, borderRadius, boxShadow, fontSize, color |
+| Sidebar | sidebar wrapper, menu items | width, fontSize, fontWeight, color, padding, backgroundColor |
 
-### 2c. Record findings
+**Build a comparison table per zone:**
+
+```
+| Property | Target (style-ref) | Measured | Threshold | Pass? |
+|---|---|---|---|---|
+| color | rgb(65, 69, 73) | rgb(65, 69, 73) | exact RGB | PASS |
+| fontSize | 14px | 14px | exact | PASS |
+```
+
+**Thresholds:** Colors = exact RGB match. Font size/weight = exact. Dimensions/spacing = +/-2px. Border radius = exact.
+
+**Fallback (no Chrome MCP):** Read the page source code, resolve Tailwind classes to CSS values using `globals.css` and Tailwind defaults. Build the same comparison table with resolved values. Mark uncertain resolutions as "UNCERTAIN".
+
+### 2c. Structural visual check (supplement)
+
+After measurement, apply these structural checks that measurement cannot catch:
+- **Layout**: Same grid/flex structure, sidebar/header/content arrangement?
+- **Content**: Same column headers, labels, placeholder text, button labels?
+- **Components**: Correct DS components used (Button not bare `<button>`, etc.)?
+- **Missing elements**: Anything in reference that is absent from localhost?
+- **Interactive elements**: Modals, dropdowns, tabs from reference exist in code?
+
+These checks are visual — use the zoomed screenshots from Step 2a. They catch things measurement misses (wrong element present, incorrect stacking order, missing icons).
+
+**The measurement table (2b) is the pass/fail authority for CSS properties. The structural check (2c) catches layout and content issues.**
+
+### 2d. Record findings
 
 For each page, produce a Gap Report:
 
@@ -66,7 +119,7 @@ For each page, produce a Gap Report:
 | Table | 8 columns, sortable headers | 8 columns, sortable | yes | — |
 ```
 
-### 2d. Fallback (no Chrome MCP)
+### 2e. Fallback (no Chrome MCP)
 
 When Chrome MCP is unavailable:
 1. Read reference screenshots (max 2 per pass) using the Read tool
