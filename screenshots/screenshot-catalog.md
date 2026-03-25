@@ -6,6 +6,8 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 **Sources:** March 11 screenshots from production (`acme.splose.com`) and dev environment. March 17 screenshots from production.
 
+**Last full sweep:** 2026-03-25 — All pages verified via Chrome MCP. All "yes" entries confirmed, all "partial" entries reviewed and unchanged. No new gaps or regressions found. 14 partial entries remain (known limitations: login illustration, mobile views, custom date picker, filter UI pattern, conditional logic modal, AI chat interactivity).
+
 ---
 
 ## Settings — Details (`/settings/details`)
