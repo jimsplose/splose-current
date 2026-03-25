@@ -20,6 +20,7 @@ import {
   Sun,
   Moon,
   SunMedium,
+  Columns,
 } from "lucide-react";
 import {
   Button,
@@ -418,6 +419,26 @@ function WaitlistPageInner() {
   useEffect(() => {
     if (!forcedState) return;
     const actions: Record<string, () => void> = {
+      default: () => {
+        setMainTab("waitlist");
+        setWaitlistSubTab("active");
+        setViewMode("list");
+      },
+      waitlist: () => {
+        setMainTab("waitlist");
+        setWaitlistSubTab("active");
+        setViewMode("list");
+      },
+      "waitlist-active": () => {
+        setMainTab("waitlist");
+        setWaitlistSubTab("active");
+        setViewMode("list");
+      },
+      "waitlist-closed": () => {
+        setMainTab("waitlist");
+        setWaitlistSubTab("closed");
+        setViewMode("list");
+      },
       "screener-triage": () => {
         setMainTab("screener");
         setScreenerSubTab("triage");
@@ -452,6 +473,7 @@ function WaitlistPageInner() {
     return true;
   });
 
+  const { paged: pagedScreener, paginationProps: screenerPaginationProps } = usePagination(filteredScreener, { pageKey: "/waitlist-screener" });
   const { paged: pagedWaitlist, paginationProps: waitlistPaginationProps } = usePagination(filteredWaitlist, { pageKey: "/waitlist" });
 
   // Marker colors cycle for map pins
@@ -547,17 +569,17 @@ function WaitlistPageInner() {
             </TableHead>
             <TableBody>
               {screenerSubTab === "triage" ? (
-                filteredScreener.length === 0 ? (
+                pagedScreener.length === 0 ? (
                   <tr>
                     <td colSpan={8}>
                       <EmptyState message="No screener entries found." className="py-8" />
                     </td>
                   </tr>
                 ) : (
-                  filteredScreener.map((row, idx) => (
+                  pagedScreener.map((row, idx) => (
                     <Tr key={idx}>
                       <Td>
-                        <div className="flex flex-col items-center gap-1">
+                        <div className="flex flex-row items-center gap-1">
                           <Button
                             variant="secondary"
                             size="sm"
@@ -850,6 +872,10 @@ function WaitlistPageInner() {
               <HelpCircle className="h-4 w-4" />
               Learn
             </Button>
+            <Button variant="secondary" size="sm">
+              <Columns className="h-4 w-4" />
+              Show/hide fields
+            </Button>
             {/* Map / List toggle */}
             <Button
               variant="secondary"
@@ -876,7 +902,7 @@ function WaitlistPageInner() {
             <Link href="/waitlist/new">
               <Button variant="secondary" size="md">
                 <Plus className="h-4 w-4" />
-                Add to waitlist
+                Add client
               </Button>
             </Link>
           </PageHeader>
@@ -910,13 +936,12 @@ function WaitlistPageInner() {
                   <Th>Date of birth</Th>
                   <Th>Address</Th>
                   <Th>Date added</Th>
-                  <Th>Service</Th>
                   <Th align="right">Actions</Th>
                 </TableHead>
                 <TableBody>
                   {pagedWaitlist.length === 0 ? (
                     <tr>
-                      <td colSpan={7}>
+                      <td colSpan={6}>
                         <EmptyState message={`No ${waitlistSubTab} entries found.`} className="py-8" />
                       </td>
                     </tr>
@@ -942,7 +967,6 @@ function WaitlistPageInner() {
                         <Td className="text-text-secondary">{row.dob}</Td>
                         <Td className="text-text-secondary">{row.address}</Td>
                         <Td className="text-text-secondary">{row.dateAdded}</Td>
-                        <Td className="text-text-secondary">{row.service}</Td>
                         <Td align="right">
                           <Button
                             variant="ghost"

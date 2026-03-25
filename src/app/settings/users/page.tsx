@@ -12,7 +12,6 @@ import {
   TableBody,
   Tr,
   Td,
-  LinkCell,
   Dropdown,
   DropdownTriggerButton,
   Modal,
@@ -28,16 +27,17 @@ interface User {
   group: string;
   status: string;
   isOwner: boolean;
+  twoFA: boolean;
 }
 
 const initialUsers: User[] = [
-  { name: "Nicholas Smithson", email: "nick@splose.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "OT", status: "Active", isOwner: true },
-  { name: "Splose Support", email: "support@splose.com", roleName: "Practice manager", roleType: "Practice manager", group: "", status: "Active", isOwner: false },
-  { name: "nick sand", email: "nick1@splose.com", roleName: "Practitioner", roleType: "Practitioner", group: "", status: "Active", isOwner: false },
-  { name: "Harry Nguyen", email: "harry@splose.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "OT", status: "Active", isOwner: true },
-  { name: "Cheng Ma", email: "cheng@splose.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "Intake team, +1 more", status: "Active", isOwner: true },
-  { name: "Rakesh Soni", email: "rakesh@splose.com", roleName: "Practice manager", roleType: "Practice manager", group: "Physio", status: "Active", isOwner: true },
-  { name: "Cheng Test", email: "machengjam@gmail.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "", status: "Active", isOwner: false },
+  { name: "Nicholas Smithson", email: "nick@splose.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "OT", status: "Active", isOwner: true, twoFA: true },
+  { name: "Splose Support", email: "support@splose.com", roleName: "Practice manager", roleType: "Practice manager", group: "", status: "Active", isOwner: false, twoFA: false },
+  { name: "nick sand", email: "nick1@splose.com", roleName: "Practitioner", roleType: "Practitioner", group: "", status: "Active", isOwner: false, twoFA: false },
+  { name: "Harry Nguyen", email: "harry@splose.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "OT", status: "Active", isOwner: true, twoFA: true },
+  { name: "Cheng Ma", email: "cheng@splose.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "Intake team, +1 more", status: "Active", isOwner: true, twoFA: false },
+  { name: "Rakesh Soni", email: "rakesh@splose.com", roleName: "Practice manager", roleType: "Practice manager", group: "Physio", status: "Active", isOwner: true, twoFA: false },
+  { name: "Cheng Test", email: "machengjam@gmail.com", roleName: "Practitioner admin", roleType: "Practitioner admin", group: "", status: "Active", isOwner: false, twoFA: false },
 ];
 
 const roleOptions = [
@@ -156,18 +156,19 @@ export default function UsersPage() {
         <Button variant="secondary">Search</Button>
       </div>
       <DataTable>
-        <TableHead><Th>Name</Th><Th>Email</Th><Th>Role name</Th><Th>Role type</Th><Th>Group</Th><Th>Status</Th><Th align="right">Actions</Th></TableHead>
+        <TableHead><Th>Name</Th><Th>Email</Th><Th>Role name</Th><Th>Role type</Th><Th>Group</Th><Th>2FA</Th><Th>Status</Th><Th align="right">Actions</Th></TableHead>
         <TableBody>
           {users.map((user, index) => (
             <Tr key={user.email}>
               <Td className="font-medium text-text">
-                <div><LinkCell href={`/settings/users/${index + 1}`}>{user.name}</LinkCell>{user.isOwner && <Badge variant="green" className="ml-2">Account owner</Badge>}</div>
+                <div><a href={`/settings/users/${index + 1}`} className="hover:underline">{user.name}</a>{user.isOwner && <Badge variant="green" className="ml-2">Account owner</Badge>}</div>
               </Td>
               <Td className="text-text-secondary">{user.email}</Td>
               <Td className="text-text-secondary">{user.roleName}</Td>
               <Td className="text-text-secondary">{user.roleType}</Td>
               <Td className="text-text-secondary">{user.group || "---"}</Td>
-              <Td><Badge variant={user.status === "Active" ? "green" : "gray"}>{user.status}</Badge></Td>
+              <Td className="text-text-secondary">{user.twoFA ? "Enabled" : "Not enabled"}</Td>
+              <Td className="text-text-secondary">{user.status}</Td>
               <Td align="right">
                 <Dropdown
                   align="right"

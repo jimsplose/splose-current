@@ -7,7 +7,7 @@ const sidebarSections: SideNavSection[] = [
   {
     title: "Workspace",
     items: [
-      { name: "Details", href: "/settings" },
+      { name: "Details", href: "/settings/details" },
       { name: "Integrations", href: "/settings/integrations" },
       { name: "SMS settings", href: "/settings/sms-settings" },
     ],
