@@ -1,5 +1,5 @@
 import { Mail, Phone, MapPin, Building2 } from "lucide-react";
-import { Avatar, Button, DataTable, TableHead, Th, TableBody, Tr, Td, LinkCell, EmptyState } from "@/components/ds";
+import { Button, DataTable, TableHead, Th, TableBody, Tr, Td, LinkCell, EmptyState } from "@/components/ds";
 
 const mockContacts = [
   {
@@ -218,7 +218,6 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
           <section className="mb-8">
             <h2 className="mb-4 text-heading-lg text-text">General details</h2>
             <div className="flex items-start gap-6">
-              <Avatar name={contact.name} size="lg" />
               <div className="space-y-2 text-sm">
                 <div className="flex gap-16">
                   <span className="w-28 shrink-0 text-text-secondary">Name:</span>
@@ -252,7 +251,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
           {/* Contact information */}
           <section className="mb-8">
-            <h2 className="mb-4 text-heading-lg text-text">Contact information</h2>
+            <h2 className="mb-4 text-heading-lg text-text">Contact details</h2>
             <div className="space-y-3 text-sm">
               <div className="flex gap-16">
                 <span className="w-28 shrink-0 text-text-secondary">Email:</span>
@@ -298,19 +297,13 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                   <span className="text-text-secondary">Not provided</span>
                 )}
               </div>
+              <div className="flex gap-16">
+                <span className="w-28 shrink-0 text-text-secondary">Note:</span>
+                <span className="text-text">
+                  {contact.notes || <span className="text-text-secondary">Not provided</span>}
+                </span>
+              </div>
             </div>
-          </section>
-
-          <hr className="mb-8 border-border" />
-
-          {/* Notes */}
-          <section className="mb-8">
-            <h2 className="mb-4 text-heading-lg text-text">Notes</h2>
-            {contact.notes ? (
-              <p className="text-sm text-text">{contact.notes}</p>
-            ) : (
-              <p className="text-sm text-text-secondary">No notes</p>
-            )}
           </section>
 
           <hr className="mb-8 border-border" />
