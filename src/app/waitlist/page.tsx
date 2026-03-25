@@ -331,7 +331,11 @@ export default function WaitlistPage() {
 }
 
 function WaitlistPageInner() {
-  const [mainTab, setMainTab] = useState<"screener" | "waitlist">("screener");
+  const _initState = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("state") : null;
+  const [mainTab, setMainTab] = useState<"screener" | "waitlist">(
+    _initState === "default" || _initState === "waitlist" || _initState?.startsWith("waitlist-")
+      ? "waitlist" : "screener"
+  );
   const [screenerSubTab, setScreenerSubTab] = useState<"triage" | "rejected">("triage");
   const [waitlistSubTab, setWaitlistSubTab] = useState<"active" | "closed">("active");
   const [viewMode, setViewMode] = useState<"list" | "map">("list");
