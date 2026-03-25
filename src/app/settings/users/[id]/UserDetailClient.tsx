@@ -131,7 +131,7 @@ export default function UserDetailClient({ id }: { id: string }) {
 
             {/* Availability grid */}
             <div className="overflow-hidden rounded-lg border border-border">
-              <div className="grid grid-cols-8 border-b border-border bg-table-header">
+              <div className="grid grid-cols-8 border-b border-border">
                 <div className="p-3 text-label-lg text-text">Time</div>
                 {DAYS.map((day) => (
                   <div key={day} className="p-3 text-center text-label-lg text-text">{day}</div>
