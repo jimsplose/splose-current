@@ -303,6 +303,13 @@ Patterns identified from the interactive states implementation audit. All opport
 - [ ] **Contact detail avatar** — Localhost shows avatar circle in General details. Production does not show an avatar. Fix: remove avatar from contact detail. (2026-03-25)
 - [ ] **Contact detail Notes section** — Localhost has standalone "Notes" section. Production has "Note" as a field within Contact details section. Fix: move note into Contact details table row. (2026-03-25)
 
+### Group AN — Settings sub-pages cross-cutting (`src/app/settings/`, `src/components/ds/`)
+
+- [ ] **Settings "New" button styling** — All settings pages use solid purple filled button for "New" actions (+ New service, Invite users, etc). Production uses outline/ghost buttons. Fix: change to `variant="secondary"` or outline variant. Affects ~15 settings sub-pages. (2026-03-25)
+- [ ] **Settings Users 2FA column** — Localhost Users page is missing the "2FA" column (Enabled/Not enabled). Production has it. Fix: add 2FA column. (2026-03-25)
+- [ ] **Settings Users Status styling** — Localhost shows "Active" as green badge. Production shows "Active" as plain text. Fix: render as plain text. (2026-03-25)
+- [ ] **Settings Users name links** — Localhost renders user names as purple links. Production renders them as plain text. Fix: remove link styling (keep navigability but style as regular text). (2026-03-25)
+
 ### Group AM — Settings root page (`src/app/settings/page.tsx`)
 
 - [ ] **Settings landing page** — When no sub-page is selected, production shows illustration + "All your settings in one place" message. Localhost immediately shows the Details form. Fix: add landing/empty state when visiting /settings root. (2026-03-25)
