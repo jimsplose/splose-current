@@ -125,7 +125,7 @@ export default function BodyChartsPage() {
     <div className="p-6">
       <PageHeader title="Body chart templates">
         <Button variant="secondary">Show archived</Button>
-        <Button variant="primary" onClick={openCreate}>+ New template</Button>
+        <Button variant="secondary" onClick={openCreate}>+ New template</Button>
       </PageHeader>
 
       <div className="mb-4">

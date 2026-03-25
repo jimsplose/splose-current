@@ -275,7 +275,7 @@ function AIBlockLibraryTab() {
             />
           </svg>
         </Button>
-        <Button variant="primary">+ New AI block</Button>
+        <Button variant="secondary">+ New AI block</Button>
       </div>
 
       {/* Table */}

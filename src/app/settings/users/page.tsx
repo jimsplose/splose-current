@@ -149,7 +149,7 @@ export default function UsersPage() {
     <div className="p-6">
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-display-lg">Users</h1>
-        <Button variant="primary">Invite users</Button>
+        <Button variant="secondary">Invite users</Button>
       </div>
       <div className="mb-4 flex items-center gap-2">
         <div className="flex-1"><FormInput type="text" placeholder="Search for user name and email" /></div>

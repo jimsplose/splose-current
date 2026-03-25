@@ -37,7 +37,7 @@ export default function LocationsPage() {
     <div className="p-6">
       <PageHeader title="Locations">
         <Button variant="secondary">Show archived</Button>
-        <Button variant="primary" onClick={() => { setNewName(""); setNewAddress(""); setOpeningHours(defaultHours); setNewRoomCount("1"); setShowNewModal(true); }}>+ New location</Button>
+        <Button variant="secondary" onClick={() => { setNewName(""); setNewAddress(""); setOpeningHours(defaultHours); setNewRoomCount("1"); setShowNewModal(true); }}>+ New location</Button>
       </PageHeader>
       <DataTable>
         <TableHead>

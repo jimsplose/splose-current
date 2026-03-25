@@ -184,7 +184,7 @@ export default function CustomFieldsPage() {
           <BookOpen className="h-4 w-4" />
           Learn
         </Button>
-        <Button variant="primary" onClick={() => { setNewField({ name: "", type: "Short text", required: false }); setShowNewModal(true); }}>+ New custom field</Button>
+        <Button variant="secondary" onClick={() => { setNewField({ name: "", type: "Short text", required: false }); setShowNewModal(true); }}>+ New custom field</Button>
       </PageHeader>
 
       <SearchBar

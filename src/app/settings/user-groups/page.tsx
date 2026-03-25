@@ -90,7 +90,7 @@ export default function UserGroupsPage() {
           <BookOpen className="h-4 w-4" />
           Learn
         </Button>
-        <Button variant="primary" onClick={openCreate}>+ New group</Button>
+        <Button variant="secondary" onClick={openCreate}>+ New group</Button>
       </PageHeader>
 
       <SearchBar

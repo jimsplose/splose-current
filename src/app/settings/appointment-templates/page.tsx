@@ -121,7 +121,7 @@ export default function AppointmentTemplatesPage() {
   return (
     <div className="p-6">
       <PageHeader title="Appointment templates">
-        <Button variant="primary" onClick={openCreate}>+ New template</Button>
+        <Button variant="secondary" onClick={openCreate}>+ New template</Button>
       </PageHeader>
 
       <SearchBar placeholder="Search for template and type" />

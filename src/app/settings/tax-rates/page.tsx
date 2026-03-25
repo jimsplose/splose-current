@@ -59,7 +59,7 @@ export default function TaxRatesPage() {
     <div className="p-6">
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-display-lg">Tax rates</h1>
-        <Button variant="primary" onClick={openCreate}>+ New tax rate</Button>
+        <Button variant="secondary" onClick={openCreate}>+ New tax rate</Button>
       </div>
 
       <DataTable>

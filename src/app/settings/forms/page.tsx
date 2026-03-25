@@ -83,7 +83,7 @@ export default function FormsPage() {
           onSelect={(value) => console.log("Learn:", value)}
         />
         <Button variant="secondary">Show archived</Button>
-        <Button variant="primary" onClick={openCreate}>+ New template</Button>
+        <Button variant="secondary" onClick={openCreate}>+ New template</Button>
       </PageHeader>
 
       <SearchBar

@@ -53,7 +53,7 @@ export default function BusyTimesPage() {
         <h1 className="text-display-lg">Busy time types</h1>
         <div className="flex items-center gap-2">
           <Button variant="secondary">Show archived</Button>
-          <Button variant="primary" onClick={openCreate}>+ New type</Button>
+          <Button variant="secondary" onClick={openCreate}>+ New type</Button>
         </div>
       </div>
       <p className="mb-6 text-sm text-text-secondary">

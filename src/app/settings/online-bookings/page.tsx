@@ -93,7 +93,7 @@ export default function OnlineBookingsPage() {
     <div className="p-6">
       <PageHeader title="Online booking settings">
         <Button variant="secondary">Show archived</Button>
-        <Button variant="primary" onClick={openCreate}>+ New booking page</Button>
+        <Button variant="secondary" onClick={openCreate}>+ New booking page</Button>
       </PageHeader>
 
       <DataTable>

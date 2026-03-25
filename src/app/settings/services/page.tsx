@@ -267,7 +267,7 @@ export default function SettingsServicesPage() {
             Learn
           </Button>
           <Button variant="secondary">Show archived</Button>
-          <Button variant="primary">+ New service</Button>
+          <Button variant="secondary">+ New service</Button>
         </div>
       </div>
 

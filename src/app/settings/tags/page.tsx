@@ -126,7 +126,7 @@ export default function TagsPage() {
   return (
     <div className="p-6">
       <PageHeader title="Tags">
-        <Button variant="primary" onClick={openCreate}>+ New tag</Button>
+        <Button variant="secondary" onClick={openCreate}>+ New tag</Button>
       </PageHeader>
 
       <Tab

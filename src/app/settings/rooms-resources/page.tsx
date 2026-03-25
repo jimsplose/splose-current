@@ -100,7 +100,7 @@ export default function SettingsRoomsResourcesPage() {
         <PageHeader title="Rooms/Resources">
           <Button variant="secondary">Learn</Button>
           <Button variant="secondary">Show archived</Button>
-          <Button variant="primary" onClick={openCreate}>+ Room/resource</Button>
+          <Button variant="secondary" onClick={openCreate}>+ Room/resource</Button>
         </PageHeader>
 
         <SearchBar placeholder="Search for rooms/resources" />

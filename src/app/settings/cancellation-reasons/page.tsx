@@ -95,7 +95,7 @@ export default function CancellationReasonsPage() {
         <h1 className="text-display-lg">Cancellation reasons</h1>
         <div className="flex items-center gap-2">
           <Button variant="secondary">Show archived</Button>
-          <Button variant="primary" onClick={openCreate}>+ New reason</Button>
+          <Button variant="secondary" onClick={openCreate}>+ New reason</Button>
         </div>
       </div>
       <DataTable>

@@ -129,7 +129,7 @@ export default function EmailTemplatesPage() {
   return (
     <div className="p-6">
       <PageHeader title="Email templates">
-        <Button variant="primary" onClick={openCreate}>+ New template</Button>
+        <Button variant="secondary" onClick={openCreate}>+ New template</Button>
       </PageHeader>
 
       <SearchBar

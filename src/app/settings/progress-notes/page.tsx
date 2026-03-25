@@ -88,7 +88,7 @@ export default function ProgressNotesPage() {
     <div className="p-6">
       <PageHeader title="Progress note templates">
         <Button variant="secondary">Show archived</Button>
-        <Button variant="primary" onClick={openCreate}>+ New template</Button>
+        <Button variant="secondary" onClick={openCreate}>+ New template</Button>
       </PageHeader>
 
       {showBanner && (
