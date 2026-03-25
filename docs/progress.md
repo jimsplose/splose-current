@@ -4,6 +4,41 @@ Append-only log. Each session adds an entry summarizing what was done.
 
 ---
 
+## Session — 2026-03-25 (batch 3)
+
+**Branch**: `main`
+
+### Completed — Verification Sweep + Gap Fixes
+
+**Measurement verification:**
+- Dual-tab Chrome MCP verification on Dashboard, Clients, Contacts, Invoices, Waitlist, Settings, Calendar (day/month/week views)
+- Key measurements: title color, search bar joined radius, table header bg, nav link properties, practitioner names, time labels
+- Production table header measured as rgb(234,237,241) — corrected DataTable to match (was transparent)
+- Title green corrected from rgb(40,103,68) to rgb(66,105,74) in globals.css
+
+**DS component fixes (3):**
+- SearchBar: joined input+button (rounded-l-lg/rounded-r-lg, no gap, shared border)
+- DataTable: table header bg rgb(234,237,241) matching production
+- Th: sorted column tint bg-primary/5 when active sort
+
+**Settings page fixes (6):**
+- Integrations: 3-column card grid with bordered cards
+- Email templates: Type column plain text (removed colored badges)
+- Tax rates: simplified to Name + Rate columns only
+- Invoice/Payment settings: wider form fields (max-w-2xl), green section dividers
+
+**New features (4):**
+- Payments: Location dropdown in new payment form
+- Calendar: "Mark as Do not Invoice?" link in appointment panel
+- Reports Performance: green pill filter, Daily/Weekly/Monthly selector, Compare toggle
+- Reports Aged Debtors: "Ageing by" dropdown (Invoice date/Due date)
+
+**Fidelity gaps closed: 30+** (from ~40 open to ~8 remaining)
+
+Remaining open gaps: Dashboard card margins, Waitlist tab UI polish (underline, icons, filter alignment, button sizing), Online booking form structure.
+
+---
+
 ## Session — 2026-03-25 (batch 2)
 
 **Branch**: `claude/fix-gaps-batch-1`
