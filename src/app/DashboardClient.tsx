@@ -47,7 +47,7 @@ const staticMessages = [
   {
     id: "msg-1",
     sender: "Joseph Go",
-    color: "#f59e0b",
+    color: "var(--color-warning)",
     time: "9:48 pm",
     preview: "Shared an image",
     fullContent: "Hey team, check out this new layout mockup I put together for the patient intake form. Let me know your thoughts!",
@@ -56,7 +56,7 @@ const staticMessages = [
   {
     id: "msg-2",
     sender: "Joseph Go",
-    color: "#f59e0b",
+    color: "var(--color-warning)",
     time: "9:50 pm",
     preview: "Shared a sticker",
     fullContent: "Looking forward to the team meeting tomorrow. We should discuss the Q2 roadmap and new feature priorities.",
@@ -65,7 +65,7 @@ const staticMessages = [
   {
     id: "msg-3",
     sender: "Hao Wang",
-    color: "#16a34a",
+    color: "var(--color-success)",
     time: "3:56 pm",
     preview: "Shared the Splose logo",
     fullContent: "Just updated the Splose branding assets. The new logo files are in the shared drive under /design/brand-2026/.",
@@ -74,7 +74,7 @@ const staticMessages = [
   {
     id: "msg-4",
     sender: "Joseph Go",
-    color: "#f59e0b",
+    color: "var(--color-warning)",
     time: "10:18 pm",
     preview: "MADE IT HOME",
     fullContent: "Made it home safe from the conference. Great presentations today - especially the one on telehealth integration. Will share my notes tomorrow.",

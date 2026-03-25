@@ -26,7 +26,7 @@ export default function EditOnlineBookingPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("design");
   const [name, setName] = useState("Standard Booking");
-  const [buttonColor, setButtonColor] = useState("#7c3aed");
+  const [buttonColor, setButtonColor] = useState("#8250ff");
   const [buttonText, setButtonText] = useState("Book Now");
   const [headerImage, setHeaderImage] = useState("");
   const [termsEnabled, setTermsEnabled] = useState(true);
