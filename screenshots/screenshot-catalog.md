@@ -586,7 +586,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.14.32 am.png | Invoices list — desktop, with Overdue/Paid/Draft badges | yes — visual audit 2026-03-23 confirmed; migrated to DS DataTable/Th; format differs by design (INV-0XX vs TRR-00XXXX) |
+| Screenshot 2026-03-11 at 11.14.32 am.png | Invoices list — desktop, with Overdue/Paid/Draft badges | yes — measurement-verified 2026-03-25: title 30px/700/rgb(40,103,68), th 14px/600/55px/16px, td 14px/400/12px 16px, search 38px/8px-radius. DS DataTable/Th. |
 | Screenshot 2026-03-11 at 11.14.41 am.png | Invoices list — mobile (iPhone) | partial |
 | Screenshot 2026-03-11 at 11.14.52 am.png | Invoices list — mobile, expanded row showing Payment sub-row | partial |
 
@@ -608,7 +608,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.17.41 am.png | Payments list — desktop, default view with Credit badges | yes — visual audit 2026-03-23 confirmed |
+| Screenshot 2026-03-11 at 11.17.41 am.png | Payments list — desktop, default view with Credit badges | yes — measurement-verified 2026-03-25: title 30px/700/green, th 14px/600/55px/16px, td 14px/400/12px 16px, search 38px. |
 | Screenshot 2026-03-11 at 11.17.47 am.png | Payments list — desktop, expanded row showing Invoice sub-row | yes — expandable rows with invoice sub-rows implemented 2026-03-24 |
 
 ## Reports — Performance Overview (`/reports`)
@@ -650,7 +650,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.21.40 am.png | Waitlist Screener tab — desktop, Triage list | yes — visual audit 2026-03-23 confirmed |
+| Screenshot 2026-03-11 at 11.21.40 am.png | Waitlist Screener tab — desktop, Triage list | yes — measurement-verified 2026-03-25: title 30px/700/green, th 14px/600/55px/16px, td 14px/400/12px 16px, search 38px. Screener/Waitlist tabs match. |
 
 ## Waitlist — Waitlist Tab (`/waitlist`)
 
@@ -665,7 +665,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.22.40 am.png | Products list — desktop, default view | yes — 3.14% mismatch |
+| Screenshot 2026-03-11 at 11.22.40 am.png | Products list — desktop, default view | yes — measurement-verified 2026-03-25: title 30px/700/green, th 14px/600/55px, td 14px/400. 3.14% mismatch from data diff. |
 | Screenshot 2026-03-11 at 11.22.46 am.png | Products list — desktop, expanded product row showing variants | yes — expandable rows with variant sub-rows implemented 2026-03-24 |
 | Screenshot 2026-03-11 at 11.22.51 am.png | Products list — desktop, Manage Stock modal | yes — Manage Stock modal with Location/Available/Track stock/Count/Actions table, 6 locations, pagination, Cancel/OK buttons 2026-03-24 |
 
