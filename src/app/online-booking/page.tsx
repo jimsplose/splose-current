@@ -79,18 +79,18 @@ function OnlineBookingPageInner() {
   return (
     <div className="min-h-screen bg-white">
       <div className="mx-auto max-w-5xl px-4 py-8">
-        {/* Back link */}
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => {
-            if (step === "confirm") setStep("select");
-            else if (step === "select") setStep("location");
-          }}
-          className="mb-6"
-        >
-          <ChevronLeft className="h-4 w-4" /> Back
-        </Button>
+        {/* Back link — only shown when not on first step */}
+        {step !== "location" && (
+          <button
+            onClick={() => {
+              if (step === "confirm") setStep("select");
+              else if (step === "select") setStep("location");
+            }}
+            className="mb-6 flex items-center gap-1 text-[14px] text-[rgb(16,24,40)] hover:underline"
+          >
+            <ChevronLeft className="h-4 w-4" /> Back
+          </button>
+        )}
 
         <div className="flex gap-8">
           {/* Main content */}
@@ -101,7 +101,7 @@ function OnlineBookingPageInner() {
                   <strong>Book Now:</strong> Self-paying clients are required to make payment at the time of service.
                 </Alert>
 
-                <h1 className="mb-6 text-display-lg">Select a location</h1>
+                <h1 className="mb-6 text-[36px] font-semibold text-[rgb(16,24,40)]">Select a location</h1>
 
                 <div className="space-y-3">
                   {mockLocations.map((loc) => {
@@ -109,7 +109,7 @@ function OnlineBookingPageInner() {
                     return (
                       <div
                         key={loc.id}
-                        className={`flex items-center gap-4 rounded-lg border p-4 ${
+                        className={`flex items-center gap-4 rounded-[16px] border p-[20px] min-h-[162px] ${
                           isSelected ? "border-primary" : "border-border"
                         }`}
                       >
@@ -121,16 +121,16 @@ function OnlineBookingPageInner() {
                           <div className="text-body-md text-text-secondary">{loc.description}</div>
                         </div>
                         {isSelected ? (
-                          <Button variant="secondary" className="border-primary text-primary">
+                          <button className="rounded-[10px] border border-[rgb(106,57,228)] bg-white px-4 py-2 text-[16px] font-medium text-[rgb(106,57,228)]">
                             Selected
-                          </Button>
+                          </button>
                         ) : (
-                          <Button
-                            variant="primary"
+                          <button
+                            className="rounded-[10px] bg-[rgb(106,57,228)] px-4 py-2 text-[16px] font-medium text-white hover:bg-[rgb(90,45,200)]"
                             onClick={() => setSelectedLocation(loc.id)}
                           >
                             Select
-                          </Button>
+                          </button>
                         )}
                       </div>
                     );
@@ -141,7 +141,7 @@ function OnlineBookingPageInner() {
 
             {step === "select" && (
               <>
-                <h1 className="mb-6 text-display-lg">Select an appointment</h1>
+                <h1 className="mb-6 text-[36px] font-semibold text-[rgb(16,24,40)]">Select an appointment</h1>
 
                 {/* Filters */}
                 <div className="mb-4 flex gap-3">
@@ -274,7 +274,7 @@ function OnlineBookingPageInner() {
 
             {step === "confirm" && (
               <>
-                <h1 className="mb-6 text-display-lg">Confirm your appointment</h1>
+                <h1 className="mb-6 text-[36px] font-semibold text-[rgb(16,24,40)]">Confirm your appointment</h1>
 
                 <div className="max-w-lg space-y-5">
                   <div className="grid grid-cols-2 gap-4">
@@ -380,7 +380,7 @@ function OnlineBookingPageInner() {
                       <CheckCircle className="h-8 w-8 text-green-600" />
                     </div>
                   </div>
-                  <h1 className="mb-2 text-display-lg">Booking confirmed!</h1>
+                  <h1 className="mb-2 text-[36px] font-semibold text-[rgb(16,24,40)]">Booking confirmed!</h1>
                   <p className="mb-6 text-body-lg text-text-secondary">
                     Your appointment has been booked. A confirmation email has been sent to <span className="text-body-lg-strong text-text">{email}</span>.
                   </p>
@@ -488,14 +488,17 @@ function OnlineBookingPageInner() {
           {/* Sidebar — Appointment summary */}
           <div className={`w-72 shrink-0 ${step === "confirmed" ? "hidden" : ""}`}>
             <div className="rounded-xl border border-border bg-white p-5 shadow-sm">
-              <h2 className="mb-4 text-heading-md text-text">Appointment summary</h2>
+              <h2 className="mb-4 font-bold text-[rgb(16,24,40)]">Appointment summary</h2>
 
-              <div className="space-y-4">
+              <div className="relative space-y-4">
+                {/* Vertical connector line between stepper dots */}
+                <div className="absolute left-[5px] top-[14px] bottom-[14px] w-[1px] bg-gray-300" />
+
                 {/* Location */}
-                <div className="flex items-start gap-3">
-                  <div className={`mt-0.5 h-2.5 w-2.5 rounded-full ${step === "location" ? "bg-primary" : selectedLocation ? "bg-primary" : "bg-gray-300"}`} />
+                <div className="relative flex items-start gap-3">
+                  <div className={`relative z-10 mt-0.5 h-2.5 w-2.5 rounded-full ${step === "location" ? "bg-primary" : selectedLocation ? "bg-primary" : "bg-gray-300"}`} />
                   <div className="flex-1">
-                    <div className="text-heading-sm text-text">Location</div>
+                    <div className="text-heading-sm text-[rgb(16,24,40)]">Location</div>
                     {selectedLocation && (
                       <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
                         <MapPin className="h-3 w-3" /> {mockLocations.find((l) => l.id === selectedLocation)?.name}
@@ -512,10 +515,10 @@ function OnlineBookingPageInner() {
                 </div>
 
                 {/* Service */}
-                <div className="flex items-start gap-3">
-                  <div className={`mt-0.5 h-2.5 w-2.5 rounded-full ${step === "location" ? "bg-gray-300" : "bg-gray-300"}`} />
+                <div className="relative flex items-start gap-3">
+                  <div className={`relative z-10 mt-0.5 h-2.5 w-2.5 rounded-full ${step === "location" ? "bg-gray-300" : "bg-gray-300"}`} />
                   <div className="flex-1">
-                    <div className={`text-heading-sm ${step === "location" ? "text-text-secondary" : "text-text"}`}>Service</div>
+                    <div className={`text-heading-sm ${step === "location" ? "text-text-secondary" : "text-[rgb(16,24,40)]"}`}>Service</div>
                     {step !== "location" && (
                       <>
                         <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
@@ -530,10 +533,10 @@ function OnlineBookingPageInner() {
                 </div>
 
                 {/* Appointment */}
-                <div className="flex items-start gap-3">
-                  <div className={`mt-0.5 h-2.5 w-2.5 rounded-full ${step === "confirm" ? "bg-primary" : "bg-gray-300"}`} />
+                <div className="relative flex items-start gap-3">
+                  <div className={`relative z-10 mt-0.5 h-2.5 w-2.5 rounded-full ${step === "confirm" ? "bg-primary" : "bg-gray-300"}`} />
                   <div className="flex-1">
-                    <div className={`text-heading-sm ${step === "location" ? "text-text-secondary" : "text-text"}`}>Appointment</div>
+                    <div className={`text-heading-sm ${step === "location" ? "text-text-secondary" : "text-[rgb(16,24,40)]"}`}>Appointment</div>
                     {step === "confirm" && selectedPrac && (
                       <>
                         <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
@@ -551,8 +554,8 @@ function OnlineBookingPageInner() {
                 </div>
 
                 {/* Booking details */}
-                <div className="flex items-start gap-3">
-                  <div className={`mt-0.5 h-2.5 w-2.5 rounded-full ${step === "confirm" ? "bg-primary" : "bg-gray-300"}`} />
+                <div className="relative flex items-start gap-3">
+                  <div className={`relative z-10 mt-0.5 h-2.5 w-2.5 rounded-full ${step === "confirm" ? "bg-primary" : "bg-gray-300"}`} />
                   <div className="flex-1">
                     <div className={`text-body-md ${step === "location" ? "text-text-secondary" : "text-text-secondary"}`}>Booking details</div>
                     {step === "confirm" && (
@@ -568,22 +571,29 @@ function OnlineBookingPageInner() {
               {/* Action button */}
               <div className="mt-6">
                 {step === "location" ? (
-                  <Button
-                    variant={selectedLocation ? "primary" : "secondary"}
-                    disabled={!selectedLocation}
-                    className={`w-full justify-center ${!selectedLocation ? "bg-gray-200 text-gray-400 hover:bg-gray-200" : ""}`}
-                    onClick={() => selectedLocation && setStep("select")}
-                  >
-                    Continue
-                  </Button>
+                  selectedLocation ? (
+                    <Button
+                      variant="primary"
+                      className="w-full justify-center"
+                      onClick={() => setStep("select")}
+                    >
+                      Continue
+                    </Button>
+                  ) : (
+                    <button
+                      disabled
+                      className="w-full rounded-[10px] bg-[rgba(0,0,0,0.25)] px-4 py-2.5 text-[16px] font-medium text-white cursor-not-allowed"
+                    >
+                      Continue
+                    </button>
+                  )
                 ) : step === "select" ? (
-                  <Button
-                    variant="secondary"
+                  <button
                     disabled
-                    className="w-full justify-center bg-gray-200 text-gray-400 hover:bg-gray-200"
+                    className="w-full rounded-[10px] bg-[rgba(0,0,0,0.25)] px-4 py-2.5 text-[16px] font-medium text-white cursor-not-allowed"
                   >
                     Continue
-                  </Button>
+                  </button>
                 ) : (
                   <Button variant="primary" className="w-full justify-center" onClick={() => setStep("confirmed")}>
                     Confirm

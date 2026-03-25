@@ -2,6 +2,19 @@
 
 **After EVERY UI change — whether made by a subagent or the main agent directly — and BEFORE committing, MUST run these checks.** This is not optional. Do not batch — run the gate after each individual agent or each round of direct edits.
 
+## HARD GATE — No Commit Without Verification Evidence
+
+**A gap fix is NOT complete until you have run the measurement verification loop and recorded evidence.** You MUST paste a comparison table (production vs localhost values) into the commit message or conversation BEFORE running `git commit`. If you cannot produce this table, you have not verified.
+
+**Common rationalizations that are NOT acceptable reasons to skip verification:**
+- "The fix instructions were specific enough" — instructions can be wrong or stale
+- "The agent confirmed it passes TypeScript" — TypeScript checks types, not visual fidelity
+- "I'll verify later in a batch" — verification debt compounds; fixes interact and mask each other
+- "It's a simple text/color change" — simple changes are where measurement drift hides
+- "Chrome MCP isn't available" — use the fallback path (code-audit loop), never skip entirely
+
+**Enforcement:** If Chrome MCP is available, Steps 1-3 below are ALL required. Skipping Step 3 (visual verification) invalidates the entire quality gate — the gap stays open regardless of Steps 1-2 passing.
+
 ## Step 1: DS Violation Scan
 
 Use the Grep tool (NOT bash grep) on the agent's changed files. If any matches are found, fix them before committing.
@@ -106,8 +119,17 @@ If the agent did NOT commit (no changes on the branch), the work is lost — re-
 
 ## Step 4: Commit or Revert
 
-- If all checks pass → commit the agent's changes
-- If any check fails and can't be fixed quickly → revert the agent's changes and move on
+**Pre-commit checklist — ALL must be true before `git commit`:**
+- [ ] DS violation scan passed (Step 1)
+- [ ] TypeScript check passed (Step 2)
+- [ ] Measurement comparison table produced with PASS verdict (Step 3)
+- [ ] Structural screenshot check completed with findings recorded (Step 3)
+
+If ALL pass → commit. Include "Verified: [N] properties measured, [M] elements checked" in the commit message.
+
+If Step 3 was not run → **do not commit**. The gap stays open. Move on and flag it for verification in the next session.
+
+If Step 3 failed after 5 iterations → revert the agent's changes, log what was tried, move on.
 
 ---
 

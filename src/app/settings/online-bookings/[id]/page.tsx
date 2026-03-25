@@ -17,6 +17,7 @@ import {
 
 const designTabs = [
   { label: "Design", value: "design" },
+  { label: "Settings", value: "settings" },
   { label: "Builder", value: "builder" },
   { label: "Share", value: "share" },
 ];
@@ -32,6 +33,7 @@ export default function EditOnlineBookingPage() {
   const [terms, setTerms] = useState("By booking an appointment, you agree to our cancellation policy. Cancellations made less than 24 hours before the appointment may incur a fee.");
   const [confirmationMsg, setConfirmationMsg] = useState("Thank you for your booking! You will receive a confirmation email shortly.");
   const [showLocationModal, setShowLocationModal] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
 
   const shareUrl = "https://acme.splose.com/online-booking/7b2c0db8-cb7b-40de-991e-631ecdb30cf0";
 
@@ -39,10 +41,11 @@ export default function EditOnlineBookingPage() {
     <div>
       <Navbar
         backHref="/settings/online-bookings"
-        title={name || "Edit online booking"}
+        title="Edit online booking"
       >
         <div className="flex items-center gap-2">
           <Button variant="secondary" onClick={() => router.push("/settings/online-bookings")}>Cancel</Button>
+          <Button variant="secondary" onClick={() => setShowPreview(!showPreview)}>Preview</Button>
           <Button variant="primary" onClick={() => router.push("/settings/online-bookings")}>Save</Button>
         </div>
       </Navbar>
@@ -51,7 +54,8 @@ export default function EditOnlineBookingPage() {
         <Tab items={designTabs} value={activeTab} onChange={setActiveTab} />
       </div>
 
-      <div className="mx-auto max-w-3xl p-6">
+      <div className="flex">
+      <div className={`${showPreview ? "flex-1" : "mx-auto max-w-3xl w-full"} p-6`}>
         {activeTab === "design" && (
           <div className="space-y-6">
             <FormInput label="Booking page name" value={name} onChange={(e) => setName(e.target.value)} />
@@ -86,6 +90,59 @@ export default function EditOnlineBookingPage() {
             </div>
 
             <FormTextarea label="Confirmation message" value={confirmationMsg} onChange={(e) => setConfirmationMsg(e.target.value)} rows={3} />
+          </div>
+        )}
+
+        {activeTab === "settings" && (
+          <div className="space-y-6">
+            <div>
+              <h3 className="mb-3 text-heading-md text-text">Booking preferences</h3>
+              <div className="space-y-4">
+                <Toggle label="Allow clients to select a practitioner" checked={true} onChange={() => {}} />
+                <Toggle label="Allow clients to add to waitlist" checked={true} onChange={() => {}} />
+                <Toggle label="Require phone number" checked={true} onChange={() => {}} />
+                <Toggle label="Require date of birth" checked={false} onChange={() => {}} />
+              </div>
+            </div>
+
+            <div>
+              <h3 className="mb-3 text-heading-md text-text">Scheduling</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <FormSelect
+                  label="Minimum notice"
+                  options={[
+                    { value: "1h", label: "1 hour" },
+                    { value: "2h", label: "2 hours" },
+                    { value: "4h", label: "4 hours" },
+                    { value: "24h", label: "24 hours" },
+                    { value: "48h", label: "48 hours" },
+                  ]}
+                  value="24h"
+                  onChange={() => {}}
+                />
+                <FormSelect
+                  label="Maximum advance booking"
+                  options={[
+                    { value: "1w", label: "1 week" },
+                    { value: "2w", label: "2 weeks" },
+                    { value: "1m", label: "1 month" },
+                    { value: "3m", label: "3 months" },
+                    { value: "6m", label: "6 months" },
+                  ]}
+                  value="3m"
+                  onChange={() => {}}
+                />
+              </div>
+            </div>
+
+            <div>
+              <h3 className="mb-3 text-heading-md text-text">Notifications</h3>
+              <div className="space-y-4">
+                <Toggle label="Send confirmation email to client" checked={true} onChange={() => {}} />
+                <Toggle label="Send reminder email (24h before)" checked={true} onChange={() => {}} />
+                <Toggle label="Notify practitioner of new bookings" checked={true} onChange={() => {}} />
+              </div>
+            </div>
           </div>
         )}
 
@@ -148,6 +205,56 @@ export default function EditOnlineBookingPage() {
             </div>
           </div>
         )}
+      </div>
+
+      {/* Live preview panel */}
+      {showPreview && (
+        <div className="w-[400px] shrink-0 border-l border-border bg-gray-50 p-6">
+          <div className="mb-4 flex items-center justify-between">
+            <h3 className="text-heading-sm text-text">Preview</h3>
+            <Button variant="ghost" size="sm" onClick={() => setShowPreview(false)}>
+              Close
+            </Button>
+          </div>
+          <div className="rounded-lg border border-border bg-white shadow-sm">
+            <div className="p-5">
+              <h2 className="mb-4 text-[20px] font-semibold text-[rgb(16,24,40)]">Select a location</h2>
+              <div className="space-y-2">
+                {["East Clinics", "West Clinics"].map((loc) => (
+                  <div key={loc} className="flex items-center justify-between rounded-[12px] border border-border p-3">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800 text-lg">
+                        🔥
+                      </div>
+                      <div>
+                        <div className="text-[14px] font-medium text-[rgb(16,24,40)]">{loc}</div>
+                        <div className="text-[12px] text-text-secondary">Mobile and/or telehealth</div>
+                      </div>
+                    </div>
+                    <button
+                      className="rounded-[8px] px-3 py-1.5 text-[13px] font-medium text-white"
+                      style={{ backgroundColor: buttonColor }}
+                    >
+                      {buttonText || "Select"}
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-4">
+                <button
+                  disabled
+                  className="w-full rounded-[8px] bg-[rgba(0,0,0,0.25)] px-3 py-2 text-[14px] font-medium text-white cursor-not-allowed"
+                >
+                  Continue
+                </button>
+              </div>
+            </div>
+            <div className="border-t border-border px-5 py-3 text-center text-[12px] text-text-secondary">
+              Powered by <span className="font-semibold text-primary">splose</span>
+            </div>
+          </div>
+        </div>
+      )}
       </div>
 
       <Modal open={showLocationModal} onClose={() => setShowLocationModal(false)} title="Manage locations displayed">

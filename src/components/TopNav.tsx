@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { TopNav as DSTopNav } from "@/components/ds";
 import type { NavItem } from "@/components/ds";
 
@@ -76,6 +77,11 @@ function HeaderIcon({ children, badge, href }: { children: React.ReactNode; badg
 }
 
 export default function TopNav() {
+  const pathname = usePathname();
+
+  // Hide TopNav on public-facing online booking page
+  if (pathname.startsWith("/online-booking")) return null;
+
   return (
     <DSTopNav items={navItems}>
       <HeaderIcon badge={3}>
