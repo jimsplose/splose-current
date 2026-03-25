@@ -218,7 +218,7 @@ export default function EditOnlineBookingPage() {
           </div>
           <div className="rounded-lg border border-border bg-white shadow-sm">
             <div className="p-5">
-              <h2 className="mb-4 text-[20px] font-semibold text-[rgb(16,24,40)]">Select a location</h2>
+              <h2 className="mb-4 text-heading-lg text-text">Select a location</h2>
               <div className="space-y-2">
                 {["East Clinics", "West Clinics"].map((loc) => (
                   <div key={loc} className="flex items-center justify-between rounded-[12px] border border-border p-3">
@@ -227,12 +227,12 @@ export default function EditOnlineBookingPage() {
                         🔥
                       </div>
                       <div>
-                        <div className="text-[14px] font-medium text-[rgb(16,24,40)]">{loc}</div>
-                        <div className="text-[12px] text-text-secondary">Mobile and/or telehealth</div>
+                        <div className="text-body-md font-medium text-text">{loc}</div>
+                        <div className="text-caption-md text-text-secondary">Mobile and/or telehealth</div>
                       </div>
                     </div>
                     <button
-                      className="rounded-[8px] px-3 py-1.5 text-[13px] font-medium text-white"
+                      className="rounded-[8px] px-3 py-1.5 text-body-sm font-medium text-white"
                       style={{ backgroundColor: buttonColor }}
                     >
                       {buttonText || "Select"}
@@ -243,13 +243,13 @@ export default function EditOnlineBookingPage() {
               <div className="mt-4">
                 <button
                   disabled
-                  className="w-full rounded-[8px] bg-[rgba(0,0,0,0.25)] px-3 py-2 text-[14px] font-medium text-white cursor-not-allowed"
+                  className="w-full rounded-[8px] bg-[rgba(0,0,0,0.25)] px-3 py-2 text-body-md font-medium text-white cursor-not-allowed"
                 >
                   Continue
                 </button>
               </div>
             </div>
-            <div className="border-t border-border px-5 py-3 text-center text-[12px] text-text-secondary">
+            <div className="border-t border-border px-5 py-3 text-center text-caption-md text-text-secondary">
               Powered by <span className="font-semibold text-primary">splose</span>
             </div>
           </div>

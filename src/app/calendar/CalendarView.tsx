@@ -456,7 +456,7 @@ export default function CalendarView({
         {/* Calendar toolbar */}
         <div className="relative z-30 flex h-[60px] shrink-0 items-center overflow-visible border-b border-[#eee] px-[10px]">
           {/* All items inline with uniform 2px margins matching production */}
-          <button className="mr-[2px] h-[38px] rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-[14px] font-normal text-text hover:border-primary hover:text-primary">
+          <button className="mr-[2px] h-[38px] rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-body-md text-text hover:border-primary hover:text-primary">
             Today
           </button>
           <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text hover:bg-gray-100">
@@ -465,7 +465,7 @@ export default function CalendarView({
           <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text hover:bg-gray-100">
             <ChevronRight className="h-4 w-4" />
           </button>
-          <h2 className="mr-[2px] min-w-0 text-[20px] font-bold text-[rgb(18,22,26)]">{toolbarDateLabel}</h2>
+          <h2 className="mr-[2px] min-w-0 text-display-sm text-[rgb(18,22,26)]">{toolbarDateLabel}</h2>
           <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
             <Filter className="h-[16px] w-[16px]" />
           </button>
@@ -483,7 +483,7 @@ export default function CalendarView({
             {/* Location dropdown */}
             <div className="relative" ref={locationDropdownRef}>
               <button
-                className="hidden h-[38px] items-center gap-1 rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-[14px] text-text hover:border-primary hover:text-primary sm:inline-flex"
+                className="hidden h-[38px] items-center gap-1 rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-body-md text-text hover:border-primary hover:text-primary sm:inline-flex"
                 onClick={() => { setLocationDropdownOpen(prev => !prev); setPractitionerDropdownOpen(false); setLocationSearchQuery(""); }}
               >
                 {locationLabel}
@@ -497,7 +497,7 @@ export default function CalendarView({
                       <input
                         type="text"
                         placeholder="Search locations..."
-                        className="flex-1 bg-transparent text-[13px] text-text outline-none placeholder:text-text-secondary"
+                        className="flex-1 bg-transparent text-body-sm text-text outline-none placeholder:text-text-secondary"
                         value={locationSearchQuery}
                         onChange={(e) => setLocationSearchQuery(e.target.value)}
                         autoFocus
@@ -506,7 +506,7 @@ export default function CalendarView({
                   </div>
                   <div className="max-h-[240px] overflow-y-auto py-1">
                     <button
-                      className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-[13px] text-text hover:bg-gray-50"
+                      className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-body-sm text-text hover:bg-gray-50"
                       onClick={() => { setLocationFilter("all"); setLocationDropdownOpen(false); }}
                     >
                       <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${locationFilter === "all" ? "border-primary bg-primary" : "border-gray-300"}`}>
@@ -519,7 +519,7 @@ export default function CalendarView({
                       .map(loc => (
                         <button
                           key={loc}
-                          className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-[13px] text-text hover:bg-gray-50"
+                          className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-body-sm text-text hover:bg-gray-50"
                           onClick={() => { setLocationFilter(loc); setLocationDropdownOpen(false); }}
                         >
                           <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${locationFilter === loc ? "border-primary bg-primary" : "border-gray-300"}`}>
@@ -537,7 +537,7 @@ export default function CalendarView({
             {/* Practitioner dropdown */}
             <div className="relative" ref={practitionerDropdownRef}>
               <button
-                className="hidden h-[38px] items-center gap-1 rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-[14px] text-text hover:border-primary hover:text-primary sm:inline-flex"
+                className="hidden h-[38px] items-center gap-1 rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-body-md text-text hover:border-primary hover:text-primary sm:inline-flex"
                 onClick={() => { setPractitionerDropdownOpen(prev => !prev); setLocationDropdownOpen(false); setPractitionerSearchQuery(""); }}
               >
                 {practitionerLabel}
@@ -551,7 +551,7 @@ export default function CalendarView({
                       <input
                         type="text"
                         placeholder="Search practitioners..."
-                        className="flex-1 bg-transparent text-[13px] text-text outline-none placeholder:text-text-secondary"
+                        className="flex-1 bg-transparent text-body-sm text-text outline-none placeholder:text-text-secondary"
                         value={practitionerSearchQuery}
                         onChange={(e) => setPractitionerSearchQuery(e.target.value)}
                         autoFocus
@@ -560,7 +560,7 @@ export default function CalendarView({
                   </div>
                   <div className="max-h-[300px] overflow-y-auto py-1">
                     <button
-                      className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-[13px] text-text hover:bg-gray-50"
+                      className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-body-sm text-text hover:bg-gray-50"
                       onClick={() => { setPractitionerFilter("all"); setPractitionerDropdownOpen(false); }}
                     >
                       <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${practitionerFilter === "all" ? "border-primary bg-primary" : "border-gray-300"}`}>
@@ -577,13 +577,13 @@ export default function CalendarView({
                         if (filteredPracs.length === 0) return null;
                         return (
                           <div key={group.name}>
-                            <div className="px-3 pb-0.5 pt-2 text-[11px] font-semibold uppercase tracking-wide text-text-secondary">
+                            <div className="px-3 pb-0.5 pt-2 text-label-sm uppercase tracking-wide text-text-secondary">
                               {group.name}
                             </div>
                             {filteredPracs.map(p => (
                               <button
                                 key={p.id}
-                                className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-[13px] text-text hover:bg-gray-50"
+                                className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-body-sm text-text hover:bg-gray-50"
                                 onClick={() => { setPractitionerFilter(p.id); setPractitionerDropdownOpen(false); }}
                               >
                                 <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${practitionerFilter === p.id ? "border-primary bg-primary" : "border-gray-300"}`}>
@@ -632,7 +632,7 @@ export default function CalendarView({
             {/* Calendar/Rooms dropdown — lighter border */}
             <Dropdown
               trigger={
-                <button className="h-[38px] rounded-lg border border-[rgb(217,217,217)] bg-white px-[15px] text-[14px] text-text">
+                <button className="h-[38px] rounded-lg border border-[rgb(217,217,217)] bg-white px-[15px] text-body-md text-text">
                   {calendarMode} <span className="ml-1 text-[rgb(112,117,122)]">&#9662;</span>
                 </button>
               }
@@ -647,7 +647,7 @@ export default function CalendarView({
             {/* View mode dropdown — lighter border */}
             <Dropdown
               trigger={
-                <button className="h-[38px] rounded-lg border border-[rgb(217,217,217)] bg-white px-[15px] text-[14px] text-text">
+                <button className="h-[38px] rounded-lg border border-[rgb(217,217,217)] bg-white px-[15px] text-body-md text-text">
                   {viewMode} <span className="ml-1 text-[rgb(112,117,122)]">&#9662;</span>
                 </button>
               }
@@ -683,7 +683,7 @@ export default function CalendarView({
                     className={`border-r border-border px-1 py-1.5 text-center last:border-r-0`}
                   >
                     <div className="flex items-center justify-center gap-1">
-                      <span className="truncate text-[14px] font-normal text-[rgb(112,117,122)]">
+                      <span className="truncate text-body-md text-[rgb(112,117,122)]">
                         {p.name}
                       </span>
                     </div>
@@ -706,7 +706,7 @@ export default function CalendarView({
                       className="flex items-start justify-end px-2 py-1"
                       style={{ height: `${HOUR_HEIGHT}px`, borderBottom: '1px solid #e0e0e0', borderRight: '1px solid #e0e0e0' }}
                     >
-                      <span className="-mt-1.5 text-[10px] text-[rgb(65,69,73)]">
+                      <span className="-mt-1.5 text-caption-sm text-[rgb(65,69,73)]">
                         {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
                       </span>
                     </div>
@@ -762,11 +762,11 @@ export default function CalendarView({
                                   setSelectedAppt(appt);
                                 }}
                               >
-                                <p className="truncate text-[12px] font-bold">{appt.clientName} {getStatusIcons(appt)}</p>
-                                <p className="text-[12px]">
+                                <p className="truncate text-body-sm font-bold">{appt.clientName} {getStatusIcons(appt)}</p>
+                                <p className="text-body-sm">
                                   {formatTime12h(appt.startTime)} – {formatTime12h(appt.endTime)}
                                 </p>
-                                <p className="truncate text-[12px]">{appt.type}</p>
+                                <p className="truncate text-body-sm">{appt.type}</p>
                               </div>
                             );
                           })}
@@ -807,11 +807,11 @@ export default function CalendarView({
                     const isToday = dateStr === todayStr;
                     return (
                       <div key={i} className="px-2 pt-2 pb-1 text-center">
-                        <div className={`text-[14px] font-medium ${isToday ? "text-primary" : "text-[rgb(112,117,122)]"}`}>{DAYS[i]}</div>
+                        <div className={`text-label-lg ${isToday ? "text-primary" : "text-[rgb(112,117,122)]"}`}>{DAYS[i]}</div>
                         {isToday ? (
-                          <div className="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-primary text-[16px] font-normal text-white">{date.getDate()}</div>
+                          <div className="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-primary text-body-lg text-white">{date.getDate()}</div>
                         ) : (
-                          <div className="text-[24px] font-medium text-[rgb(112,117,122)]">{date.getDate()}</div>
+                          <div className="text-display-md text-[rgb(112,117,122)]">{date.getDate()}</div>
                         )}
                       </div>
                     );
@@ -828,7 +828,7 @@ export default function CalendarView({
                       <div className="flex">
                         {groupByLocation(filteredLocatedPractitioners).map((group, gi) => (
                           <div key={group.name} className={`text-center ${gi > 0 ? "border-l border-border" : ""}`} style={useFlexible ? { flex: group.practitioners.length } : { width: group.practitioners.length * COL_W }}>
-                            <div className="truncate px-1 py-0.5 text-[14px] font-normal text-[rgb(112,117,122)]">{group.name}</div>
+                            <div className="truncate px-1 py-0.5 text-body-md text-[rgb(112,117,122)]">{group.name}</div>
                           </div>
                         ))}
                       </div>
@@ -838,7 +838,7 @@ export default function CalendarView({
                           <div key={group.name} className={`flex ${gi > 0 ? "border-l border-border" : ""}`}>
                             {group.practitioners.map((p) => (
                               <div key={p.id} className="flex flex-col items-center py-1" style={useFlexible ? { flex: 1 } : { width: COL_W }}>
-                                <span className="w-full truncate px-0.5 text-center text-[14px] text-[rgb(112,117,122)]">
+                                <span className="w-full truncate px-0.5 text-center text-body-md text-[rgb(112,117,122)]">
                                   {p.name.length > 6 ? p.name.slice(0, 5) + "..." : p.name}
                                 </span>
                               </div>
@@ -857,7 +857,7 @@ export default function CalendarView({
                 {HOURS.map((hour) => (
                   <div key={hour} className="contents">
                     <div className="flex items-start justify-end border-r border-border/40 px-1 py-1" style={{ height: HOUR_HEIGHT, borderBottom: '1px solid #ebebeb' }}>
-                      <span className="-mt-1.5 text-[10px] text-[rgb(65,69,73)]">
+                      <span className="-mt-1.5 text-caption-sm text-[rgb(65,69,73)]">
                         {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
                       </span>
                     </div>
@@ -911,9 +911,9 @@ export default function CalendarView({
                                         }}
                                         onClick={(e) => { e.stopPropagation(); setSelectedAppt(appt); }}
                                       >
-                                        <p className="truncate text-[12px] font-bold">{appt.clientName} {getStatusIcons(appt)}</p>
-                                        <p className="text-[12px]">{formatTime12h(appt.startTime)}</p>
-                                        <p className="truncate text-[12px]">{appt.type}</p>
+                                        <p className="truncate text-body-sm font-bold">{appt.clientName} {getStatusIcons(appt)}</p>
+                                        <p className="text-body-sm">{formatTime12h(appt.startTime)}</p>
+                                        <p className="truncate text-body-sm">{appt.type}</p>
                                       </div>
                                     );
                                   })}
@@ -951,7 +951,7 @@ export default function CalendarView({
             <div className="flex h-[60px] shrink-0 items-center justify-between border-b border-border px-4">
               <div className="flex items-center gap-2">
                 <Sparkles className="h-4.5 w-4.5 text-primary" />
-                <span className="text-[15px] font-semibold text-text">Ask splose AI</span>
+                <span className="text-heading-sm text-text">Ask splose AI</span>
               </div>
               <button
                 className="flex h-8 w-8 items-center justify-center rounded-full text-text-secondary hover:bg-gray-100"
@@ -969,19 +969,19 @@ export default function CalendarView({
                 <h2 className="text-heading-lg text-text">Hello, I&apos;m splose AI</h2>
               </Card>
 
-              <p className="mb-6 text-center text-[14px] text-text-secondary">
+              <p className="mb-6 text-center text-body-md text-text-secondary">
                 How can I help you today?
               </p>
 
               {/* Quick action pills */}
               <div className="flex w-full flex-col gap-3">
-                <button className="rounded-full border border-primary px-4 py-2.5 text-left text-[13px] text-primary transition-colors hover:bg-primary/5">
+                <button className="rounded-full border border-primary px-4 py-2.5 text-left text-body-sm text-primary transition-colors hover:bg-primary/5">
                   Summarise my day
                 </button>
-                <button className="rounded-full border border-primary px-4 py-2.5 text-left text-[13px] text-primary transition-colors hover:bg-primary/5">
+                <button className="rounded-full border border-primary px-4 py-2.5 text-left text-body-sm text-primary transition-colors hover:bg-primary/5">
                   Show availability gaps
                 </button>
-                <button className="rounded-full border border-primary px-4 py-2.5 text-left text-[13px] text-primary transition-colors hover:bg-primary/5">
+                <button className="rounded-full border border-primary px-4 py-2.5 text-left text-body-sm text-primary transition-colors hover:bg-primary/5">
                   Find open slots
                 </button>
               </div>
@@ -994,7 +994,7 @@ export default function CalendarView({
                 <input
                   type="text"
                   placeholder="Ask splose AI anything..."
-                  className="flex-1 bg-transparent text-[13px] text-text outline-none placeholder:text-text-secondary"
+                  className="flex-1 bg-transparent text-body-sm text-text outline-none placeholder:text-text-secondary"
                   readOnly
                 />
                 <button className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white transition-colors hover:bg-primary/90">
@@ -1003,14 +1003,14 @@ export default function CalendarView({
               </div>
 
               {/* Saved prompts button */}
-              <button className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-[13px] text-text-secondary transition-colors hover:bg-gray-50">
+              <button className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-body-sm text-text-secondary transition-colors hover:bg-gray-50">
                 <ClipboardList className="h-4 w-4" />
                 Saved prompts
               </button>
 
               {/* Footer */}
               <div className="mt-2 flex items-center justify-between">
-                <span className="text-[11px] text-text-secondary">
+                <span className="text-caption-sm text-text-secondary">
                   AI can make mistakes, double-check responses
                 </span>
               </div>
@@ -1632,7 +1632,7 @@ function MonthView({
                     return (
                       <div
                         key={appt.id}
-                        className={`flex cursor-pointer items-center gap-0.5 rounded-lg px-1 py-px text-[14px] font-normal leading-tight text-black ${isCancelled ? "opacity-60" : ""}`}
+                        className={`flex cursor-pointer items-center gap-0.5 rounded-lg px-1 py-px text-body-md leading-tight text-black ${isCancelled ? "opacity-60" : ""}`}
                         style={{
                           backgroundColor: lightenColor(appt.practitionerColor, 0.7),
                         }}
@@ -1655,7 +1655,7 @@ function MonthView({
                     );
                   })}
                   {dayAppts.length > 3 && (
-                    <div className="px-1 text-[12px]" style={{ fontWeight: 700, color: 'rgb(65, 69, 73)' }}>{dayAppts.length - 3} more</div>
+                    <div className="px-1 text-body-sm" style={{ fontWeight: 700, color: 'rgb(65, 69, 73)' }}>{dayAppts.length - 3} more</div>
                   )}
                 </div>
               </div>

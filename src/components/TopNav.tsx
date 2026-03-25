@@ -65,9 +65,9 @@ function UserIcon() {
 function HeaderIcon({ children, badge, href }: { children: React.ReactNode; badge?: number; href?: string }) {
   const inner = (
     <div className="group relative flex h-14 w-[42px] cursor-pointer items-center justify-center text-[rgb(65,69,73)] transition-colors hover:text-primary">
-      <span className="flex h-[26px] w-[26px] items-center justify-center rounded-full text-[20px] transition-colors group-hover:bg-black/[0.04]">{children}</span>
+      <span className="flex h-[26px] w-[26px] items-center justify-center rounded-full text-heading-lg transition-colors group-hover:bg-black/[0.04]">{children}</span>
       {badge != null && (
-        <span className="absolute top-2 right-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-danger px-1 text-[10px] font-bold text-white">
+        <span className="absolute top-2 right-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-danger px-1 text-caption-sm font-bold text-white">
           {badge}
         </span>
       )}
@@ -98,7 +98,7 @@ export default function TopNav() {
       </HeaderIcon>
       {/* Production avatar: 26×26, rgba(0,0,0,0.25) bg, 50% radius */}
       <div className="flex h-14 w-[42px] items-center justify-center">
-        <div className="flex h-[26px] w-[26px] items-center justify-center rounded-full bg-black/25 text-[12px] font-medium text-white">
+        <div className="flex h-[26px] w-[26px] items-center justify-center rounded-full bg-black/25 text-label-md text-white">
           SC
         </div>
       </div>
