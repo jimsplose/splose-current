@@ -53,7 +53,7 @@ All 25 Settings sub-pages are implemented as inline components in `settings/page
 ### Group K — Calendar enhancements (`src/app/calendar/`)
 - [x] **Calendar Rooms/Resources view** — Calendar/Rooms toggle, room filter dropdown. Reference: 7.22.38-7.22.53 pm.
 - [x] **Calendar view type switcher** — Month/Week/Day dropdown. Reference: 7.23.04 pm.
-- [x] **Calendar month view** — Month view with appointments and appointment detail side panel. Reference: 7.23.16-7.23.23 pm. Side panel now implemented and functional from month view clicks. Remaining diff is data-driven (different appointment names/counts). (2026-03-25)
+- [ ] **Calendar month view** — Reopened: compare found measurement mismatches (font weights, appointment styling, today highlight color). See Group AJ. (2026-03-25)
 - [x] **Calendar appointment side panel** — Appointment detail flyout with Edit/Reschedule/Archive actions, edit appointment form with Room/Resource dropdown. Reference: 7.23.33-7.25.52 pm. All content now implemented: structured client info, email, status, zoom/invoice/note links, repeating info, organiser, Book another/Edit/Reschedule/Archive buttons, View change log. Edit form has Room/Resource dropdown. Remaining diff is data-driven. (2026-03-25)
 
 ### Group L — Progress Notes (`src/app/notes/`)
@@ -264,6 +264,26 @@ Patterns identified from the interactive states implementation audit. All opport
 - [x] **Settings sidebar label** — Fixed: Renamed to "Cancel/Reschedule". (2026-03-25)
 - [x] **Settings email signature switcher** — Fixed: Uses pill dropdown buttons "Business ∨" / "User ∨" matching production. (2026-03-25)
 - [x] **Settings disabled fields** — Fixed: Currency code, Country, Currency symbol now disabled with gray background. (2026-03-25)
+
+## Priority 13 — Calendar measurement gaps (2026-03-25, compare-pages session)
+
+### Group AH — Calendar week view (`src/app/calendar/CalendarView.tsx`)
+
+- [ ] **Week view day number styling** — Day numbers (non-today) use fontWeight 300 and color rgb(65,69,73). Production uses fontWeight 500 and color rgb(112,117,122). Fix: change day number to font-medium text-text-secondary. (2026-03-25)
+
+### Group AI — Calendar day view (`src/app/calendar/CalendarView.tsx`)
+
+- [ ] **Day view title format** — Localhost shows full date "Wednesday 25 March 2026" in toolbar. Production shows "Mar 2026" (same as week view, short month/year). Fix: day view title should match production format. (2026-03-25)
+- [ ] **Day view centered header** — Localhost has a centered "Wed 25 All Locations" header between toolbar and practitioner columns. Production has no such header — goes directly to practitioner columns. Fix: remove or hide centered day header. (2026-03-25)
+- [ ] **Practitioner name format** — Localhost shows "First L." abbreviated names. Production shows full names ("Adam Moyle"). Fix: show full practitioner names. (2026-03-25)
+
+### Group AJ — Calendar month view (`src/app/calendar/CalendarView.tsx`)
+
+- [ ] **Month view font weights** — Multiple elements use fontWeight 500 (localhost) where production uses 400: day-of-week headers, date numbers, today number. Fix: reduce to font-normal. (2026-03-25)
+- [ ] **Month view DOW header color** — Localhost rgb(107,114,128), production rgb(112,117,122). Fix: use text-text-secondary. (2026-03-25)
+- [ ] **Month appointment entry styling** — fontSize 12px (localhost) vs 14px (prod), text color white (localhost) vs black (prod), borderRadius 4px (localhost) vs 8px (prod). Fix: increase font, use dark text on colored backgrounds, use rounded-lg. (2026-03-25)
+- [ ] **Month today highlight color** — Localhost uses green circle, production uses purple. Fix: change to bg-primary (purple). (2026-03-25)
+- [ ] **Month "more" link styling** — Localhost: 11px/400/gray "+7 more". Production: 12px/700/dark "3 more". Fix: increase font, bold weight, darker color, remove "+" prefix. (2026-03-25)
 
 ---
 

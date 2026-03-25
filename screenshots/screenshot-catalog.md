@@ -321,7 +321,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-17 at 7.22.47 pm.png | Week view — Rooms/resources mode | yes — Rooms view with room filter |
 | Screenshot 2026-03-17 at 7.22.53 pm.png | Week view — Room/resources filter dropdown | yes — room filter dropdown |
 | Screenshot 2026-03-17 at 7.23.04 pm.png | Week view — View type dropdown (Month/Week/Day) | yes — view switcher dropdown |
-| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_19_33.png | Calendar week view full page | yes — measurement-verified 2026-03-25: header 57px, Today btn 38px/8px-radius, month title 20px/700, location filter 14px/38px, Week btn 8px-radius. Toolbar icons, practitioners grouped by location, alternating column backgrounds all match. |
+| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_19_33.png | Calendar week view full page | partial — measurement-verified 2026-03-25: toolbar matches (Today 38px/8px, month title 20px/700, time labels 10px, day labels 14px/500). FAIL: day number fontWeight 500 (prod) vs 300 (localhost), day number color rgb(112,117,122) (prod) vs rgb(65,69,73) (localhost). |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_12.png | Calendar week view (variant 2) | yes — full-page capture, toolbar + time grid + practitioner columns match 2026-03-24 |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_26.png | Calendar week view (variant 3) | yes — scrolled view, appointment blocks and time slots 2026-03-24 |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_37.png | Calendar week view (variant 4) | yes — different scroll position, same structure 2026-03-24 |
@@ -333,13 +333,13 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 7.23.10 pm.png | Day view — practitioner columns, empty | yes — day view with practitioner columns |
-| screencapture-acme-splose-calendar-day-17-3-2026-2026-03-17-19_31_10.png | Calendar day view full page | yes — visual audit 2026-03-23 confirmed; toolbar icons fixed, day layout matches |
+| screencapture-acme-splose-calendar-day-17-3-2026-2026-03-17-19_31_10.png | Calendar day view full page | partial — measurement-verified 2026-03-25: FAIL: title format "Mar 2026" (prod) vs "Wednesday 25 March 2026" (localhost); production has no centered day header row; practitioner names full (prod) vs abbreviated "First L." (localhost). Toolbar font properties match. |
 
 ## Calendar — Month View (`/calendar/month`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.23.16 pm.png | Month view with appointments | yes — month grid with appointment blocks, today highlight; pixel diff is data-driven (different dates/appointments) 2026-03-24 |
+| Screenshot 2026-03-17 at 7.23.16 pm.png | Month view with appointments | partial — measurement-verified 2026-03-25: multiple FAILs: DOW header fontWeight 400→500, date number fontWeight 400→500, appointment fontSize 14px→12px, appointment text color black→white, appointment borderRadius 8px→4px, today highlight purple→green, more link fontSize 12px→11px and fontWeight 700→400. |
 | Screenshot 2026-03-17 at 7.23.23 pm.png | Month view — appointment detail side panel (Group Therapy) | yes — side panel with full content |
 
 ## Calendar — Appointment Side Panel
