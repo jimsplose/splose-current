@@ -40,27 +40,52 @@ npx tsc --noEmit
 
 If it fails, fix or revert the agent's changes before continuing.
 
-## Step 3: Measurement Verification — 5-Iteration Loop
+## Step 3: Dual-Tab Measurement Verification — 5-Iteration Loop
 
 If the agent changed page UI, run the **5-iteration measurement verification loop** from `docs/fix-gaps-workflow.md` Step 4. This is mandatory — do not commit until the loop passes or exhausts 5 iterations.
 
-In summary:
-1. **MEASURE** rendered CSS via `javascript_tool` (color, fontSize, fontWeight, padding, height, etc.)
-2. **COMPARE** in a structured table: Property | Target | Measured | Threshold | Pass?
-3. **VISUAL CHECK** via screenshot zoom as structural supplement (catches missing elements, wrong order)
+### Viewport
+
+Ensure canonical viewport is set:
+```
+mcp__claude-in-chrome__resize_window → { width: 1440, height: 900 }
+```
+
+### Dual-tab setup
+
+1. Look up route in `docs/route-mapping.md`
+2. Tab A → `https://acme.splose.com/<production-route>`
+3. Tab B → `http://localhost:3000/<localhost-route>`
+4. If production is auth-gated, fall back to Path B below
+
+### Path A: Dual-tab live comparison (preferred)
+
+1. **MEASURE** — Run the same `javascript_tool` snippet on both production and localhost tabs. Measure intrinsic CSS properties only (color, fontSize, fontWeight, padding, borderRadius, etc.). Skip viewport-dependent properties (container width/height).
+2. **COMPARE** — Build a structured table: Property | Production | Localhost | Delta | Threshold | Pass?
+3. **STRUCTURAL CHECK** — Screenshot both tabs, compare zones visually. Record findings explicitly:
+   - Production screenshot: taken/skipped
+   - Localhost screenshot: taken/skipped
+   - Missing/extra elements: list
+   - Layout diffs: list
 4. Pass only if **0 measurement failures** AND no structural issues
 5. Log each iteration in a Verification Log with exact deltas
 
-**Do NOT use subjective checks** (hierarchy/proportion/weight/spacing) as pass criteria. These are replaced by numerical property comparison. The visual screenshot step catches structural issues only.
+### Path B: Fallback (no Chrome MCP or auth-gated production page)
 
-**Thresholds:** Colors = exact RGB. Font size/weight = exact. Dimensions/spacing = +/-2px. Border radius = exact. See `docs/fix-gaps-workflow.md` Step 4 for the full threshold table.
+1. Read reference screenshots (max 2 per pass) and compare against localhost source code
+2. Cross-reference against `splose-style-reference/` for expected token values
+3. Build comparison table with resolved Tailwind values vs target values
+4. Use "partial — code-review only" for catalog entries with any uncertain resolutions
+5. Structural check: compare reference screenshot visually against page source to check for missing elements, wrong order, etc.
 
-**Fallback (no Chrome MCP):** Code-audit loop — resolve Tailwind classes to CSS values, build the same comparison table. Use "partial — code-review only" for catalog entries with any uncertain resolutions.
+**Do NOT use** subjective checks (hierarchy/proportion/weight/spacing) as pass criteria. These are replaced by numerical property comparison. The visual screenshot step catches structural issues only.
+
+**Thresholds:** Colors = exact RGB. Font size/weight = exact. Line height +/-1px. Dimensions/spacing = +/-2px (fixed-size elements only). Border radius = exact. See `docs/fix-gaps-workflow.md` Step 4 for the full threshold table.
 
 ### Catalog entry qualifiers
 
 When updating `screenshots/screenshot-catalog.md` after verification, use the correct qualifier:
-- `yes` — measurement-verified (has `javascript_tool` comparison table data)
+- `yes` — measurement-verified via dual-tab live comparison
 - `yes — visual only` — no measurement data, verified by visual/code comparison only. Needs deep verify in a future session.
 - `partial` — with specific reason for the gap
 - `no` — page does not exist or fundamentally doesn't match

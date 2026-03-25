@@ -70,51 +70,65 @@ New components use [DaisyUI](https://daisyui.com/components/) names where a matc
 
 If a design spec exists at `screenshots/specs/<page-name>.md`, read it and implement using those **exact values** — colors, font sizes, spacing, border-radius. Do not approximate. Cross-reference your Tailwind classes against the spec.
 
-**Design intent matters.** When a Fix Brief specifies a value (e.g. `h-9` for a logo), it was derived using `/impeccable:frontend-design` analysis — don't second-guess it with a different value. If something looks wrong after implementing, report back rather than guessing a different value.
+**Design intent matters.** When a Fix Brief specifies a value (e.g. `h-9` for a logo), it was derived from live production measurement — don't second-guess it with a different value. If something looks wrong after implementing, report back rather than guessing a different value.
 
-## Visual Verification — 5-ITERATION MEASUREMENT LOOP
+## Visual Verification — 5-ITERATION DUAL-TAB MEASUREMENT LOOP
 
 After making code changes, run this loop up to 5 times. Do not stop after 1 iteration.
 
+**Canonical viewport:** Ensure window is 1440x900. If you can resize, do so. If not, note actual size.
+
 **If Chrome MCP is available:**
 
-1. **MEASURE** — Run the measurement snippet via `javascript_tool` for every changed element:
+1. **MEASURE** — Run the same `javascript_tool` snippet on BOTH production (`acme.splose.com`) and localhost for every changed element. Use `docs/route-mapping.md` for URL pairs. If production is auth-gated, fall back to style-reference values.
+
+   Use generic selectors that work on both sites (header, nav, main, h1, table, th, td, [role="menuitem"], etc.). Do NOT use `.ant-*` selectors — those only exist on production.
+
+   Measure intrinsic properties only:
    ```js
    (() => {
      const selectors = [{ sel: '<SELECTOR>', label: '<LABEL>' }];
-     const props = ['color','backgroundColor','fontSize','fontWeight','fontFamily','lineHeight','letterSpacing','padding','paddingTop','paddingRight','paddingBottom','paddingLeft','margin','gap','borderRadius','borderColor','borderWidth','boxShadow','display','flexDirection','alignItems','justifyContent','opacity'];
+     const props = ['color','backgroundColor','fontSize','fontWeight','fontFamily','lineHeight','letterSpacing','padding','paddingTop','paddingRight','paddingBottom','paddingLeft','gap','borderRadius','borderColor','borderWidth','boxShadow'];
      const results = [];
      for (const {sel,label} of selectors) {
        const el = document.querySelector(sel);
        if (!el) { results.push({label,sel,error:'NOT FOUND'}); continue; }
        const s = getComputedStyle(el);
-       const r = el.getBoundingClientRect();
        const m = {}; for (const p of props) m[p] = s[p];
-       m._rect = {width:Math.round(r.width*10)/10, height:Math.round(r.height*10)/10};
        results.push({label,sel,measured:m});
      }
      JSON.stringify(results,null,2)
    })()
    ```
+
 2. **COMPARE** — Build a table for each element:
    ```
-   | Property | Target | Measured | Threshold | Pass? |
-   |---|---|---|---|---|
-   | color | rgb(65, 69, 73) | rgb(65, 69, 73) | exact RGB | PASS |
-   | fontSize | 14px | 16px | exact | FAIL |
+   | Property | Production | Localhost | Delta | Threshold | Pass? |
+   |---|---|---|---|---|---|
+   | color | rgb(65, 69, 73) | rgb(65, 69, 73) | 0 | exact RGB | PASS |
+   | fontSize | 14px | 16px | +2px | exact | FAIL |
    ```
-3. **VISUAL CHECK** — Screenshot + zoom into changed zone, compare against reference. Catches structural issues (missing elements, wrong order, layout breaks).
+
+3. **STRUCTURAL CHECK** — Screenshot both production and localhost, zoom into changed zone. Record:
+   - Production screenshot: [taken / skipped — reason]
+   - Localhost screenshot: [taken / skipped — reason]
+   - Missing/extra elements: [none / list]
+   - Layout diffs: [none / list]
+
+   **This step is mandatory.** A verification without structural findings is incomplete.
+
 4. **EVALUATE** — 0 failures + no structural issues = PASS. Otherwise fix using exact delta, next iteration.
 
-**Thresholds:** Colors exact RGB. Font size/weight exact. Line height +/-1px. Dimensions/spacing +/-2px. Border radius exact.
+**Thresholds:** Colors exact RGB. Font size/weight exact. Line height +/-1px. Letter spacing +/-0.5px. Padding/gap +/-2px. Border radius exact. Skip container width/height (viewport-dependent).
 
 **Max 5 iterations.** If still wrong after 5, report your Verification Log — don't keep guessing.
 
 **If Chrome MCP is NOT available:**
 1. Re-read your changed code and resolve Tailwind classes to CSS values
-2. Build the same comparison table using resolved values vs target values from Fix Brief
-3. Mark uncertain resolutions as "UNCERTAIN"
-4. Report structured summary. The main agent will verify afterward.
+2. Use `splose-style-reference/` as target values (since live measurement unavailable)
+3. Build the same comparison table using resolved values vs target values
+4. Mark uncertain resolutions as "UNCERTAIN"
+5. Report structured summary. The main agent will verify afterward.
 
 ### Acceptance criteria (structural — supplement to measurement):
 - **Layout**: Same grid/flex structure, same sidebar/header/content arrangement
