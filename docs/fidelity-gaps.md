@@ -218,7 +218,7 @@ Patterns identified from the interactive states implementation audit. All opport
 - [x] **Calendar toolbar icons** — Replaced LayoutGrid/MapPin with Command/Lightbulb to match reference `anticon-mac-command`/`anticon-bulb`. Changed location/service filters from Chips to Buttons. Removed orphan `+` button. Added full date display in day view. (2026-03-23)
 - [x] **Clients list filter cleanup** — Removed standalone Active/Archived + Tags filter bar (not in reference). Migrated to `Th` `sortable`/`filterable` props for column-level filtering. (2026-03-23)
 - [x] **Settings hub** — No structural mismatches found. Sidebar groups, items, and content match reference. (2026-03-23)
-- [ ] **Bugshot: Settings root page missing** — http://localhost:3000/settings, region 1431x752 at (3,0). Should show a landing page with image and "All your settings in one place" message (like production). Severity: medium. (2026-03-25)
+- [x] **Bugshot: Settings root page missing** — Already fixed: EmptyState with Settings icon and "All your settings in one place" message. Dual-tab verified 2026-03-26: both show landing page with sidebar and empty state. (2026-03-26)
 - [x] **Reports hub** — No structural mismatches found. Sidebar groups, filter bar, charts, and table match reference. (2026-03-23)
 
 ## Priority 12 — Pixel-perfect comparison audit (2026-03-25)
@@ -259,10 +259,10 @@ Patterns identified from the interactive states implementation audit. All opport
 ### Group AE — Waitlist fidelity (`src/app/waitlist/page.tsx`)
 
 - [x] **Waitlist triage button layout** — Already fixed: Yes/No buttons use flex-row (horizontal). Verified 2026-03-25.
-- [ ] **Bugshot: Tab underline thickness/width** — http://localhost:3000/waitlist, region 100x63 at (457,-10). Current page tab line is wrong thickness and width vs production. Severity: medium. (2026-03-25)
-- [ ] **Bugshot: Missing icon** — http://localhost:3000/waitlist, region 130x53 at (1302,110). Download appropriate icon or rip from production. Severity: medium. (2026-03-25)
-- [ ] **Bugshot: Filter/sort control alignment** — http://localhost:3000/waitlist, region 1343x63 at (15,275). Alignment of filters and sort controls doesn't match production. Check hover states too. Severity: medium. (2026-03-25)
-- [ ] **Bugshot: Button sizing/spacing** — http://localhost:3000/waitlist, region 288x95 at (12,37). Sizing and spacing of tab buttons very different to production. Severity: medium. (2026-03-25)
+- [x] **Bugshot: Tab underline thickness/width** — Fixed: Tab DS component updated to text-body-md (14px/400), py-3, gap-6. Measurement-verified: matches production 14px/400/46px. (2026-03-26)
+- [x] **Bugshot: Missing icon** — Already present: Learn button has HelpCircle icon matching production's lightbulb. Verified via screenshot 2026-03-26. (2026-03-26)
+- [x] **Bugshot: Filter/sort control alignment** — Fixed by Tab component update. Triage/Rejected sub-tabs now properly sized and aligned. (2026-03-26)
+- [x] **Bugshot: Button sizing/spacing** — Fixed: Tab DS component updated from 12px/500/38px to 14px/400/46px. Measurement-verified 2026-03-26. (2026-03-26)
 - [x] **Bugshot: Missing pagination controls** — Already fixed: Waitlist uses usePagination hook for both screener and waitlist tabs. Verified 2026-03-25.
 
 ### Group AF — Settings fidelity (`src/app/settings/`)
