@@ -6,7 +6,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 **Sources:** March 11 screenshots from production (`acme.splose.com`) and dev environment. March 17 screenshots from production.
 
-**Last full sweep:** 2026-03-25 — All pages verified via Chrome MCP (visual-only depth, no per-page measurement tables). All "yes" entries confirmed structurally, all "partial" entries reviewed and unchanged. No new gaps or regressions found. 14 partial entries remain (known limitations: login illustration, mobile views, custom date picker, filter UI pattern, conditional logic modal, AI chat interactivity). **Note:** This sweep did not meet the hardened measurement requirements added 2026-03-25. All "yes" entries should be treated as needing deep measurement verification in the next compare-pages session.
+**Last full sweep:** 2026-03-26 (in progress) — Dual-tab Chrome MCP comparison at 1440x900 viewport. Batch 1-2: Calendar (month/week/day), Clients, Dashboard, Invoices verified. Calendar day view upgraded from partial to yes (visual only). Calendar month view remains partial (today highlight color, date number sizing, appointment text weight). Clients list measurement-verified (14px/600 headers, 14px/400 cells match production). Dashboard and Invoices confirmed structurally. Remaining pages in progress.
 
 ---
 
@@ -333,13 +333,13 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 7.23.10 pm.png | Day view — practitioner columns, empty | yes — day view with practitioner columns |
-| screencapture-acme-splose-calendar-day-17-3-2026-2026-03-17-19_31_10.png | Calendar day view full page | partial — measurement-verified 2026-03-25: FAIL: title format "Mar 2026" (prod) vs "Wednesday 25 March 2026" (localhost); production has no centered day header row; practitioner names full (prod) vs abbreviated "First L." (localhost). Toolbar font properties match. |
+| screencapture-acme-splose-calendar-day-17-3-2026-2026-03-17-19_31_10.png | Calendar day view full page | yes — visual only — audit 2026-03-26: title format fixed (both show "Mar 2026"), practitioner column layout matches, toolbar matches. No centered day header row on either site. Needs measurement verification. |
 
 ## Calendar — Month View (`/calendar/month`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.23.16 pm.png | Month view with appointments | partial — measurement-verified 2026-03-25: multiple FAILs: DOW header fontWeight 400→500, date number fontWeight 400→500, appointment fontSize 14px→12px, appointment text color black→white, appointment borderRadius 8px→4px, today highlight purple→green, more link fontSize 12px→11px and fontWeight 700→400. |
+| Screenshot 2026-03-17 at 7.23.16 pm.png | Month view with appointments | partial — audit 2026-03-26: today highlight green (prod=purple), date numbers smaller than prod, appointment text not bold (prod=bold client names), missing status icons on appointment blocks (invoice/video/recurring), "more" link weight needs fix. DOW headers and toolbar structure match. |
 | Screenshot 2026-03-17 at 7.23.23 pm.png | Month view — appointment detail side panel (Group Therapy) | yes — side panel with full content |
 
 ## Calendar — Appointment Side Panel
