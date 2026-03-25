@@ -24,23 +24,24 @@ Production uses real numeric IDs. Localhost uses simple sequential IDs.
 | Production Route | Localhost Route | Notes |
 |---|---|---|
 | `/` | `/` | Dashboard |
-| `/calendar` | `/calendar` | Week view (default). Production accepts plain `/calendar` — do NOT append date segments. |
-| `/calendar` | `/calendar?state=month-view` | Switch to Month view in both tabs after navigating |
-| `/calendar` | `/calendar?state=day-view` | Switch to Day view in both tabs after navigating |
-| `/calendar` | `/calendar?state=rooms-view` | Switch to Rooms/Resources view in both tabs |
+| `/calendar/week/{d}/{m}/{y}` | `/calendar` | Week view. Production requires dated URL — construct with current date (e.g. `/calendar/week/25/3/2026`). Plain `/calendar` redirects to dashboard. |
+| `/calendar/month/{d}/{m}/{y}` | `/calendar?state=month-view` | Month view. Same date construction rule. |
+| `/calendar/day/{d}/{m}/{y}` | `/calendar?state=day-view` | Day view. Same date construction rule. |
 
 ### Calendar comparison checklist
 
-Compare these states in order. For each, navigate both tabs to `/calendar` first, then switch view/filters:
+Production calendar requires `/calendar/{view}/{d}/{m}/{y}` format. Localhost uses `/calendar` with `?state=` query params.
 
-1. **Week view** (default) — toolbar, time grid, practitioner columns
-2. **Day view** — switch via view dropdown on both tabs
-3. **Month view** — switch via view dropdown on both tabs
-4. **Rooms/Resources view** — switch via Calendar/Rooms toggle on both tabs
-5. **Location filter off** — deselect location filter, compare layout
-6. **Location filter on** — select a location, compare filtered columns
-7. **Practitioner filter off** — show all practitioners
-8. **Practitioner filter on** — select specific practitioner(s), compare filtered view
+Compare these states in order:
+
+1. **Week view** (default) — Production: `/calendar/week/{d}/{m}/{y}`, Localhost: `/calendar`
+2. **Day view** — Production: `/calendar/day/{d}/{m}/{y}`, Localhost: `/calendar?state=day-view`
+3. **Month view** — Production: `/calendar/month/{d}/{m}/{y}`, Localhost: `/calendar?state=month-view`
+4. **Rooms/Resources view** — Switch via Calendar/Rooms toggle on both tabs (from week view)
+5. **Location filter on** — Select a location, compare filtered columns
+6. **Location filter off** — Deselect location filter, compare layout
+7. **Practitioner filter on** — Select specific practitioner(s), compare filtered view
+8. **Practitioner filter off** — Show all practitioners
 | `/patients` | `/clients` | Different entity name |
 | `/patients/{id}/details` | `/clients/1` | Default tab = details |
 | `/patients/{id}/appointments` | `/clients/1/appointments` | |
