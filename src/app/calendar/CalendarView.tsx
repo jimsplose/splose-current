@@ -811,7 +811,7 @@ export default function CalendarView({
                         {isToday ? (
                           <div className="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-primary text-[16px] font-normal text-white">{date.getDate()}</div>
                         ) : (
-                          <div className="text-[24px] font-medium text-text-secondary">{date.getDate()}</div>
+                          <div className="text-[24px] font-medium text-[rgb(112,117,122)]">{date.getDate()}</div>
                         )}
                       </div>
                     );
