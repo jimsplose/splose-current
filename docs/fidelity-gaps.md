@@ -285,6 +285,13 @@ Patterns identified from the interactive states implementation audit. All opport
 - [ ] **Month today highlight color** — Localhost uses green circle, production uses purple. Fix: change to bg-primary (purple). (2026-03-25)
 - [ ] **Month "more" link styling** — Localhost: 11px/400/gray "+7 more". Production: 12px/700/dark "3 more". Fix: increase font, bold weight, darker color, remove "+" prefix. (2026-03-25)
 
+### Group AK — Clients list fidelity (`src/app/clients/page.tsx`)
+
+- [ ] **Page title green shade** — Localhost uses rgb(40,103,68), production uses rgb(66,105,74). Fix: update `text-green-800` or custom color to match production green. Affects all PageHeader titles using green. (2026-03-25)
+- [ ] **Search bar joined style** — Production input+button share border radius (left 8px on input, right 8px on button, no gap). Localhost has separate rounded elements. Fix: update SearchBar DS component to support joined layout. (2026-03-25)
+- [ ] **Table header background** — Localhost table headers have gray bg `rgb(243,245,247)`. Production has transparent/white header rows. Fix: remove bg-surface-header from DataTable headers. (2026-03-25)
+- [ ] **Client tags styling** — Production uses yellow outlined pills with arbitrary text (dates, company names). Localhost uses solid NDIS/Medicare badges. Fix: tags should render as yellow outlined pills with actual tag text, not funding type badges. (2026-03-25)
+
 ---
 
 ## Completed Gaps

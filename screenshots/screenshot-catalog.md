@@ -382,7 +382,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-2026-03-17-19_29_34.png | Patients list default | yes — visual audit 2026-03-23 confirmed; columns, layout, search match |
+| screencapture-acme-splose-patients-2026-03-17-19_29_34.png | Patients list default | partial — measurement-verified 2026-03-25: title green rgb(66,105,74) vs rgb(40,103,68), table header bg transparent (prod) vs gray (localhost), search bar joined (prod) vs separate (localhost), tags are yellow pills (prod) vs solid NDIS/Medicare badges (localhost). Table cell font 14px/400 matches. |
 | screencapture-acme-splose-patients-2026-03-17-19_29_34 (1).png | Patients list (duplicate) | yes — visual audit 2026-03-23 confirmed |
 
 ## Patients — Detail / Appointments (`/patients/:id/appointments`)
