@@ -1,0 +1,140 @@
+# Route Mapping: Production vs Localhost
+
+Maps `acme.splose.com` routes to `localhost:3000` equivalents for dual-tab comparison.
+
+**Production base:** `https://acme.splose.com`
+**Localhost base:** `http://localhost:3000`
+
+## ID Mapping
+
+Production uses real numeric IDs. Localhost uses simple sequential IDs.
+
+| Entity | Production ID (example) | Localhost ID |
+|---|---|---|
+| Patient/Client | `5918810` | `1` |
+| Contact | `416008` | `1` |
+| Invoice | `14130707` | `cmn2fh20l00evwpwguzx7sw1y` |
+| Note | `31606299` | `cmn2fgub500e4wpwg2vaszage` |
+| Payment | `14689638` | (use first available) |
+| Batch Invoice | `330044` | `1` |
+| Case | `740288` | (use first available) |
+
+## Core Pages
+
+| Production Route | Localhost Route | Notes |
+|---|---|---|
+| `/` | `/` | Dashboard |
+| `/calendar/week/{d}/{m}/{y}` | `/calendar` | Use current date |
+| `/calendar/month/{d}/{m}/{y}` | `/calendar?state=month-view` | |
+| `/calendar/day/{d}/{m}/{y}` | `/calendar?state=day-view` | |
+| `/patients` | `/clients` | Different entity name |
+| `/patients/{id}/details` | `/clients/1` | Default tab = details |
+| `/patients/{id}/appointments` | `/clients/1/appointments` | |
+| `/patients/{id}/communications` | `/clients/1/communications` | |
+| `/patients/{id}/files` | `/clients/1/files` | |
+| `/patients/{id}/notes` | `/clients/1/notes` | |
+| `/patients/{id}/cases` | `/clients/1/cases` | |
+| `/patients/{id}/support-activities` | `/clients/1/support-activities` | |
+| `/patients/{id}/forms` | `/clients/1/forms` | |
+| `/patients/{id}/invoices` | `/clients/1/invoices` | |
+| `/patients/{id}/payments` | `/clients/1/payments` | |
+| `/patients/{id}/statements` | `/clients/1/statements` | |
+| `/patients/{id}/letters` | `/clients/1/letters` | |
+| `/patients/{id}/practitioner-access` | `/clients/1/practitioner-access` | |
+| `/patients/new` | `/clients/new` | Not in state registry yet |
+| `/contacts` | `/contacts` | |
+| `/contacts/{id}/details` | `/contacts/1` | |
+| `/contacts/{id}/cases` | `/contacts/1?tab=cases` | Tab variant |
+| `/contacts/{id}/invoices` | `/contacts/1?tab=invoices` | Tab variant |
+| `/contacts/{id}/letters` | `/contacts/1?tab=letters` | Tab variant |
+| `/contacts/new` | `/contacts/new` | Not in state registry yet |
+| `/waitlist` | `/waitlist` | |
+| `/invoices` | `/invoices` | |
+| `/invoices/{id}/view` | `/invoices/{id}` | Different path shape |
+| `/invoices/batch-invoice` | `/invoices/batch-invoice` | |
+| `/invoices/batch-invoice/{id}` | `/invoices/batch-invoice/1` | |
+| `/invoices/batch-invoice/new` | `/invoices/batch-invoice/new` | Not in registry |
+| `/invoices/batch-invoice/preview` | `/invoices/batch-invoice/preview` | |
+| `/payments` | `/payments` | |
+| `/payments/{id}/view` | (no equivalent) | Payment view page not implemented yet |
+| `/payments/new` | `/payments/new` | |
+| `/notes/{id}/view` | `/notes/{id}` | |
+| `/notes/{id}/edit` | `/notes/{id}/edit` | |
+| `/notes/new` | `/notes/new` | Not in registry |
+| `/products` | `/products` | |
+| `/practitioners` | `/practitioners` | |
+
+## Reports
+
+| Production Route | Localhost Route |
+|---|---|
+| `/reports` | `/reports` |
+| `/reports/appointments` | `/reports/appointments` |
+| `/reports/performance` | `/reports/performance` |
+| `/reports/progress-notes` | `/reports/progress-notes` |
+| `/reports/aged-debtors` | `/reports/aged-debtors` |
+| `/reports/billed-items` | `/reports/billed-items` |
+| `/reports/cases` | `/reports/cases` |
+| `/reports/form` | `/reports/form` |
+| `/reports/patients` | `/reports/patients` |
+| `/reports/payments` | `/reports/payments` |
+| `/reports/support-activities` | `/reports/support-activities` |
+| `/reports/uninvoiced` | `/reports/uninvoiced` |
+| `/reports/waitlist` | `/reports/waitlist` |
+| `/reports/ndis-bulk-upload` | `/reports/ndis-bulk-upload` |
+| `/reports/ndis-bulk-upload/new` | `/reports/ndis-bulk-upload/new` |
+| `/reports/ndis-bulk-upload/{id}` | `/reports/ndis-bulk-upload/1` |
+
+## Settings
+
+Production uses camelCase and `/templates/` prefix for some routes. Localhost uses kebab-case with flat paths.
+
+| Production Route | Localhost Route |
+|---|---|
+| `/settings` or `/settings/details` | `/settings` |
+| `/settings/integrations` | `/settings/integrations` |
+| `/settings/smsSettings` | `/settings/sms-settings` |
+| `/settings/ai` | `/settings/ai` |
+| `/settings/locations` | `/settings/locations` |
+| `/settings/custom-fields` | `/settings/custom-fields` |
+| `/settings/rooms-resources` | `/settings/rooms-resources` |
+| `/settings/services` | `/settings/services` |
+| `/settings/busy-times` | `/settings/busy-times` |
+| `/settings/cancellationReasons` | `/settings/cancellation-reasons` |
+| `/settings/online-booking` | `/settings/online-bookings` |
+| `/settings/communications/types` | `/settings/communication-types` |
+| `/settings/tags` | `/settings/tags` |
+| `/settings/referralTypes` | `/settings/referral-types` |
+| `/settings/users` | `/settings/users` |
+| `/settings/user-groups` | `/settings/user-groups` |
+| `/settings/templates/appointments` | `/settings/appointment-templates` |
+| `/settings/templates/emails` | `/settings/email-templates` |
+| `/settings/templates/forms` | `/settings/forms` |
+| `/settings/templates/progress-notes` | `/settings/progress-notes` |
+| `/settings/templates/letters` | `/settings/letter-templates` |
+| `/settings/templates/body-charts` | `/settings/body-charts` |
+| `/settings/invoices` | `/settings/invoice-settings` |
+| `/settings/payments` | `/settings/payment-settings` |
+| `/settings/tax-rates` | `/settings/tax-rates` |
+| `/settings/export` | `/settings/data-export` |
+| `/settings/import` | `/settings/data-import` |
+| `/settings/patient-data` | (no equivalent) |
+
+## Other
+
+| Production Route | Localhost Route |
+|---|---|
+| `/patient-form/{id}/view` | `/patient-form/1/view` |
+| `/online-booking/{id}` | `/online-booking` |
+| `/login` | `/login` |
+
+## Usage
+
+When running dual-tab comparison:
+1. Look up the page's localhost route in the state registry
+2. Find the corresponding production route in this table
+3. Navigate Tab A to `https://acme.splose.com{production_route}`
+4. Navigate Tab B to `http://localhost:3000{localhost_route}`
+5. Both tabs should show the equivalent page for measurement comparison
+
+**Note:** Some production routes require authentication. If you get redirected to login, the page cannot be compared via dual-tab. Fall back to static reference screenshot comparison.

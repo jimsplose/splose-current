@@ -35,7 +35,6 @@ const pages = [
   { name: "Reports - Appointments", href: "/reports/appointments", desc: "Appointment report with filters" },
   { name: "Reports - Progress Notes", href: "/reports/progress-notes", desc: "Notes report with pie charts" },
   { name: "Products", href: "/products", desc: "Product catalog" },
-  { name: "Practitioners", href: "/practitioners", desc: "Practitioner cards" },
   { name: "Settings", href: "/settings", desc: "25 settings sub-pages" },
   { name: "Settings AI", href: "/settings/ai", desc: "AI preferences, prompts, block library" },
   { name: "Login", href: "/login", desc: "Login form with hand illustration" },

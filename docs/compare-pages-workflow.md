@@ -100,17 +100,15 @@ If a selector works on one site but not the other, note it and try an alternativ
   const selectors = [
     { sel: '<SELECTOR>', label: '<LABEL>' }
   ];
-  // Intrinsic properties only — skip viewport-dependent values
+  // Intrinsic properties — these are pass/fail
   const props = [
     'color', 'backgroundColor', 'fontSize', 'fontWeight', 'fontFamily',
     'lineHeight', 'letterSpacing', 'padding', 'paddingTop', 'paddingRight',
     'paddingBottom', 'paddingLeft', 'gap', 'borderRadius', 'borderColor',
     'borderWidth', 'boxShadow'
   ];
-  // Layout-dependent (report but don't pass/fail):
+  // Layout properties — report only, don't pass/fail
   const layoutProps = ['display', 'flexDirection', 'alignItems', 'justifyContent'];
-  // Viewport-dependent (report only, never pass/fail):
-  const skipProps = ['width', 'height'];
   const results = [];
   for (const {sel, label} of selectors) {
     const el = document.querySelector(sel);
@@ -120,11 +118,11 @@ If a selector works on one site but not the other, note it and try an alternativ
     const m = {};
     for (const p of props) m[p] = s[p];
     for (const p of layoutProps) m['_layout_' + p] = s[p];
+    // Rect values are viewport-dependent — only compare for fixed-size elements (icons, avatars)
     m._rect = {
       width: Math.round(r.width * 10) / 10,
       height: Math.round(r.height * 10) / 10
     };
-    m._note = 'rect values are viewport-dependent — compare only intrinsic properties';
     results.push({label, sel, measured: m});
   }
   JSON.stringify(results, null, 2)

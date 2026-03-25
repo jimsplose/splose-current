@@ -12,7 +12,7 @@ Print this exactly:
 ```
 What would you like to work on this session?
 
-1. Compare pages — Compare localhost vs reference screenshots
+1. Compare pages — Dual-tab comparison: production vs localhost
 2. Fix gaps — Implement code to close gaps
 3. Bugshot Chrome — Point at bugs in the browser to fix or log
 4. Screenshots — Process uploaded reference screenshots

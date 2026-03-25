@@ -227,12 +227,6 @@ export const stateRegistry: PageEntry[] = [
     ],
   },
   {
-    path: "/practitioners",
-    label: "Practitioners",
-    group: "Practitioners",
-    variants: [{ id: "default", label: "Practitioner list" }],
-  },
-  {
     path: "/products",
     label: "Products",
     group: "Products",
