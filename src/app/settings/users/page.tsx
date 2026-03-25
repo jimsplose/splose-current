@@ -156,7 +156,7 @@ export default function UsersPage() {
         <Button variant="secondary">Search</Button>
       </div>
       <DataTable>
-        <TableHead><Th>Name</Th><Th>Email</Th><Th>Role name</Th><Th>Role type</Th><Th>Group</Th><Th>2FA</Th><Th>Status</Th><Th align="right">Actions</Th></TableHead>
+        <TableHead><Th>Name</Th><Th>Email</Th><Th>Role name</Th><Th>Role type</Th><Th>Group</Th><Th>Status</Th><Th>2FA</Th><Th align="right">Actions</Th></TableHead>
         <TableBody>
           {users.map((user, index) => (
             <Tr key={user.email}>
@@ -167,8 +167,8 @@ export default function UsersPage() {
               <Td className="text-text-secondary">{user.roleName}</Td>
               <Td className="text-text-secondary">{user.roleType}</Td>
               <Td className="text-text-secondary">{user.group || "---"}</Td>
-              <Td className="text-text-secondary">{user.twoFA ? "Enabled" : "Not enabled"}</Td>
               <Td className="text-text-secondary">{user.status}</Td>
+              <Td className="text-text-secondary">{user.twoFA ? "Enabled" : "Not enabled"}</Td>
               <Td align="right">
                 <Dropdown
                   align="right"
