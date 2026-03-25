@@ -3,50 +3,22 @@
 High-fidelity UI prototype of [Splose](https://splose.com) for allied health professionals.
 Next.js 16 (App Router), React 19, TypeScript (strict), Turso/Prisma 7, Tailwind CSS 4, Lucide icons, Vercel.
 
-## Session Start — MANDATORY
+## Session Start
 
-Before ANY other work, print this menu as a text message (do NOT use AskUserQuestion — it has a 4-option limit that forces awkward splits). Exception: user's first message is a specific, detailed request.
-
-Print this exactly:
+Unless Jim's first message is a specific request, print available workflows:
 
 ```
-What would you like to work on this session?
-
-1. Compare pages — Dual-tab comparison: production vs localhost
-2. Fix gaps — Implement code to close gaps
-3. Bugshot Chrome — Point at bugs in the browser to fix or log
-4. Screenshots — Process uploaded reference screenshots
-5. Dev Navigator — Update Dev Navigator registry
-6. Review status — Show progress and what's next
-7. Commits & deploys — Check commit/deploy status or trigger a deploy
-8. Something else
+/audit       — Compare pages (production vs localhost)
+/fidelity    — Fix gaps (implement code to close gaps)
+/screenshots — Process uploaded reference screenshots
+/status      — Show progress and what's next
+/devnav      — Update Dev Navigator registry
+/deploy      — Commits, deploys, git status
 ```
 
-Wait for Jim to reply with a number or keyword. Do NOT proceed until he responds.
+Or tell me what you'd like to work on. Bugshot: use `/bugshot-chrome`.
 
-For option 3, follow with mode question: **Fix one now** / **Log many** (saves to fidelity-gaps.md for later).
-For option 7, show sub-menu:
-- **Check recent commits** — `git log --oneline -10` and summarise
-- **Check deployment status** — `gh run list --workflow=deploy.yml --limit=5` and summarise
-- **Deploy to production** — Full flow: merge branch → main, trigger `deploy.yml` workflow. **Requires Jim's express permission.** Confirm branch name and show what will be deployed before proceeding.
-For options 1/2, follow with scope question:
-- **Quick** (2-3 pages)
-- **Standard** (all partials)
-- **Full sweep** (every page in the prototype)
-- **Until done** (autonomous, keep going)
-**Return to menu** after completing any workflow. Show brief summary of what was done.
-
-**Chrome MCP detection:** At session start, check if Chrome MCP tools are available (look for browser/Chrome tools in the tool list). Record the result for the session. If unavailable, inform Jim and note that visual verification will use the fallback path (main-agent screenshot reading + code review). All workflows adapt automatically — see `docs/quality-gate.md` Step 3.
-
-## Workflow Files — ALWAYS read before starting
-
-| Workflow | Read first |
-|---|---|
-| Compare pages | `docs/compare-pages-workflow.md`, `docs/route-mapping.md` |
-| Fix gaps | `docs/fix-gaps-workflow.md`, `docs/agent-block.md`, `docs/quality-gate.md`, `docs/route-mapping.md` |
-| Screenshots | `docs/screenshot-workflow.md` |
-| Dev Navigator | `docs/dev-navigator-spec.md` |
-| Codebase | `docs/project-structure.md` |
+After completing any workflow, show this list again with a brief summary of what was done.
 
 ## Canonical Viewport
 

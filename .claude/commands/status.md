@@ -14,4 +14,4 @@ Present:
 - Build/deploy status
 - Suggested next steps
 
-Then show the session start menu.
+Then show the available workflow commands.
