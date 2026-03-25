@@ -636,6 +636,7 @@ function WaitlistPageInner() {
               )}
             </TableBody>
           </DataTable>
+          <Pagination {...screenerPaginationProps} />
         </div>
       )}
 
