@@ -251,9 +251,9 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
   };
 
   return (
-    <div className="flex min-h-[calc(100vh-3rem)]">
+    <div className="flex min-h-[calc(100vh-3rem)] gap-[14px] p-[7px]">
       {/* Left column -- Messages (col1: wider) */}
-      <div className="flex flex-1 flex-col border-r border-border">
+      <div className="flex flex-1 flex-col overflow-hidden rounded-lg border border-border">
         <div className="border-b border-border bg-surface-header px-4 py-4">
           <h2 className="text-label-lg text-text">Messages</h2>
         </div>
@@ -351,9 +351,9 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
       </div>
 
       {/* Right column -- Analytics (col2: narrower) */}
-      <div className="w-[380px] shrink-0 overflow-y-auto bg-white">
+      <div className="flex w-[380px] shrink-0 flex-col gap-[7px]">
         {/* Income card */}
-        <div className="border-b border-border">
+        <div className="overflow-hidden rounded-lg border border-border bg-white">
           <div className="border-b border-border bg-surface-header px-4 py-4">
             <h3 className="text-label-lg text-text">Income</h3>
           </div>
@@ -400,7 +400,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
         </div>
 
         {/* Incomplete progress notes card */}
-        <div className="border-b border-border">
+        <div className="overflow-hidden rounded-lg border border-border bg-white">
           <div className="border-b border-border bg-surface-header px-4 py-4">
             <h3 className="text-label-lg text-text">Incomplete progress notes</h3>
           </div>
@@ -437,7 +437,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
         </div>
 
         {/* Recently submitted forms card */}
-        <div>
+        <div className="overflow-hidden rounded-lg border border-border bg-white">
           <div className="border-b border-border bg-surface-header px-4 py-4">
             <h3 className="text-label-lg text-text">Recently submitted forms</h3>
           </div>
