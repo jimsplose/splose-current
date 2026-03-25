@@ -297,6 +297,16 @@ Patterns identified from the interactive states implementation audit. All opport
 - [ ] **Invoice status badge "Draft" color** — Production uses dark gray/slate for "Draft" status. Localhost uses green. Fix: update Draft badge to use gray variant. (2026-03-25)
 - [ ] **Contacts phone color** — Production shows phone numbers as plain black text. Localhost shows them as purple links. Fix: remove purple link styling from contact phone numbers (keep tel: href but style as regular text). (2026-03-25)
 
+### Group AL — Contact detail fidelity (`src/app/contacts/[id]/page.tsx`)
+
+- [ ] **Contact detail section naming** — Localhost uses "Contact information" section. Production uses "Contact details". Fix: rename section heading. (2026-03-25)
+- [ ] **Contact detail avatar** — Localhost shows avatar circle in General details. Production does not show an avatar. Fix: remove avatar from contact detail. (2026-03-25)
+- [ ] **Contact detail Notes section** — Localhost has standalone "Notes" section. Production has "Note" as a field within Contact details section. Fix: move note into Contact details table row. (2026-03-25)
+
+### Group AM — Settings root page (`src/app/settings/page.tsx`)
+
+- [ ] **Settings landing page** — When no sub-page is selected, production shows illustration + "All your settings in one place" message. Localhost immediately shows the Details form. Fix: add landing/empty state when visiting /settings root. (2026-03-25)
+
 ---
 
 ## Completed Gaps
