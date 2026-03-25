@@ -7,6 +7,10 @@
   const result = { done: false, data: null };
   window.__uiCaptureResult = result;
 
+  // Capture queue — accumulates all captures for batch reading
+  if (!window.__uiCaptureQueue) window.__uiCaptureQueue = [];
+  const queue = window.__uiCaptureQueue;
+
   // Wait for body to exist before injecting UI
   function init() {
     if (document.getElementById('__uc_root')) return;
@@ -32,6 +36,11 @@
       #__uc_bar_hint { font-size:11px; color:#7c3aed; }
       #__uc_bar_hint.pulse { animation: __uc_pulse 2s infinite; }
       @keyframes __uc_pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+      #__uc_bar_count {
+        font-size:10px; font-weight:700; color:#a78bfa;
+        background:rgba(109,40,217,.3); border:1px solid rgba(109,40,217,.5);
+        border-radius:10px; padding:2px 7px; display:none;
+      }
       #__uc_bar_capture {
         padding: 3px 10px; border-radius: 12px;
         background: linear-gradient(135deg,#7c3aed,#5b21b6);
@@ -128,6 +137,9 @@
     `;
     document.head.appendChild(style);
 
+    // Default CTA label
+    const CTA_DEFAULT = '⚡ Log & Next <span id="__uc_shortcut" style="font-size:10px;color:rgba(255,255,255,.35);background:rgba(255,255,255,.07);border-radius:3px;padding:1px 5px">⌘↵</span>';
+
     // DOM
     const root = document.createElement('div');
     root.id = '__uc_root';
@@ -136,6 +148,7 @@
         <div id="__uc_bar_logo">📐</div>
         <div id="__uc_bar_title">Bugshot</div>
         <div id="__uc_bar_hint">Browse the page, then capture</div>
+        <div id="__uc_bar_count"></div>
         <button id="__uc_bar_capture">Capture</button>
         <div id="__uc_bar_close" title="End session">✕</div>
       </div>
@@ -156,7 +169,7 @@
             <option value="critical">🚨 Critical</option>
           </select>
           <button id="__uc_retake">✕ Retake</button>
-          <button id="__uc_send">⚡ Done <span id="__uc_shortcut">⌘↵</span></button>
+          <button id="__uc_send">${CTA_DEFAULT}</button>
         </div>
       </div>
     `;
@@ -177,6 +190,17 @@
     const hint   = document.getElementById('__uc_bar_hint');
     const btnCap = document.getElementById('__uc_bar_capture');
     const closeB = document.getElementById('__uc_bar_close');
+    const countEl= document.getElementById('__uc_bar_count');
+
+    function updateCount() {
+      const n = queue.length;
+      if (n > 0) {
+        countEl.textContent = n + ' logged';
+        countEl.style.display = 'inline-block';
+      } else {
+        countEl.style.display = 'none';
+      }
+    }
 
     // Capture mode toggle
     function enterCaptureMode() {
@@ -195,13 +219,18 @@
       bar.classList.remove('capturing');
       btnCap.textContent = 'Capture';
       btnCap.classList.remove('active');
-      hint.textContent = 'Browse the page, then capture';
       hint.classList.remove('pulse');
       sel.style.display = 'none';
       chH.style.display = chV.style.display = 'none';
       badge.style.display = 'none';
       drag = null;
       committed = null;
+      // Restore hint based on queue state
+      if (queue.length > 0) {
+        hint.textContent = queue.length + ' captured \u2014 click Capture for more';
+      } else {
+        hint.textContent = 'Browse the page, then capture';
+      }
     }
 
     btnCap.addEventListener('click', () => {
@@ -232,7 +261,7 @@
       badge.style.left=(e.clientX+10)+'px';
       badge.style.top =(e.clientY+10)+'px';
       const w=Math.abs(e.clientX-drag.x0), h=Math.abs(e.clientY-drag.y0);
-      badge.textContent=`${Math.round(w)} × ${Math.round(h)}`;
+      badge.textContent=`${Math.round(w)} \u00d7 ${Math.round(h)}`;
     });
 
     document.addEventListener('mouseup', e => {
@@ -247,7 +276,7 @@
         pageY: Math.round(Math.min(drag.y0,e.clientY)+window.scrollY),
       };
       drag = null;
-      chip.textContent = `${committed.width} × ${committed.height} px`;
+      chip.textContent = `${committed.width} \u00d7 ${committed.height} px`;
       hint.textContent = 'Describe the issue below';
       hint.classList.remove('pulse');
       panel.classList.add('open');
@@ -264,21 +293,23 @@
       panel.classList.remove('open');
       exitCaptureMode();
       ta.value='';
+      sevEl.value='medium';
       btnSend.disabled=false;
-      btnSend.innerHTML='⚡ Done <span id="__uc_shortcut" style="font-size:10px;color:rgba(255,255,255,.35);background:rgba(255,255,255,.07);border-radius:3px;padding:1px 5px">⌘↵</span>';
+      btnSend.innerHTML=CTA_DEFAULT;
+      updateCount();
     }
 
     btnRet.addEventListener('click', resetPanel);
     closeB.addEventListener('click', () => { result.done=true; result.data=null; });
 
-    // Expose reset for external callers (e.g. Claude Code "log many" mode)
+    // Expose reset for external callers
     window.__uiCaptureReset = function() {
       resetPanel();
       result.done = false;
       result.data = null;
     };
 
-    // Send
+    // Send — pushes to queue, flashes confirmation, then auto-resets
     btnSend.addEventListener('click', send);
     document.addEventListener('keydown', e => {
       if (e.key==='Escape') { if (panel.classList.contains('open')) resetPanel(); else if (capturing) exitCaptureMode(); }
@@ -292,10 +323,9 @@
     function send() {
       const desc = ta.value.trim();
       if (!desc) { ta.style.borderColor='#ef4444'; ta.focus(); setTimeout(()=>ta.style.borderColor='',1500); return; }
-      btnSend.disabled=true;
-      btnSend.innerHTML='✅ Captured! Return to Claude Code.';
-      result.done = true;
-      result.data = {
+
+      // Build capture data
+      const data = {
         url:         location.href,
         title:       document.title,
         description: desc,
@@ -306,6 +336,25 @@
         scrollX:     window.scrollX,
         scrollY:     window.scrollY,
       };
+
+      // Push to queue
+      queue.push(data);
+
+      // Also set legacy single-capture result for backwards compat
+      result.done = true;
+      result.data = data;
+
+      // Flash confirmation
+      btnSend.disabled=true;
+      const n = queue.length;
+      btnSend.innerHTML='\u2705 Logged! (' + n + ')';
+      hint.textContent = 'Logged! ' + n + ' captured';
+      hint.classList.remove('pulse');
+
+      // Auto-reset after flash
+      setTimeout(() => {
+        resetPanel();
+      }, 1200);
     }
   } // end init()
 

@@ -7,7 +7,7 @@ description: Capture a UI bug from any live URL using Claude in Chrome and injec
 
 Capture UI bugs from any live URL using Claude in Chrome. No Playwright, no Chromium, no Python.
 
-The user drags to select the broken area, describes the issue, and hits Send. You receive a structured report and screenshot, then start fixing.
+The user drags to select the broken area, describes the issue, and hits Log & Next. Captures accumulate in a queue — the user can rapid-fire multiple bugs without waiting for Claude between each one.
 
 ---
 
@@ -31,7 +31,7 @@ Use AskUserQuestion:
 
 > **How would you like to handle bugs?**
 > 1. **Fix one now** — Capture a bug and fix it immediately with the 5-iteration verification loop
-> 2. **Log many** — Capture multiple bugs, save them to `docs/fidelity-gaps.md` for fixing in a later session
+> 2. **Log many** — Rapid-fire capture multiple bugs, then batch-save to `docs/fidelity-gaps.md`
 
 ### Step 1: Determine the URL
 
@@ -64,22 +64,28 @@ Say:
 > 2. **Drag** to select the broken area (purple selection box)
 > 3. **Describe the issue** in the panel that slides up
 > 4. **Set the severity** (Low / Medium / High / Critical)
-> 5. Hit **Cmd+Enter** or click **Done**
+> 5. Hit **Cmd+Enter** or click **Log & Next**
 >
-> Let me know once you've submitted."
+> The overlay auto-resets after each capture — keep going! Navigate to other pages too.
+> The counter badge in the bar tracks how many you've logged.
+> Say **done logging** when you're finished."
 
-### Step 5: Wait for the user to respond
+### Step 5: Wait for the user to say they're done
 
-Do **not** poll. Wait for the user's next message. **When ANY message arrives while the overlay is active, ALWAYS try reading the capture result first** — the user may have submitted a capture and then commented on something else (e.g. asking a question, noting a problem with the tool). Don't assume "done logging" means no capture was made.
+Do **not** poll or read results between captures. The overlay handles queuing automatically — each capture pushes to `window.__uiCaptureQueue` and auto-resets after a 1.2s confirmation flash.
 
-### Step 6: Read the capture result
+Wait for the user to say "done logging", "done", "finished", "that's all", etc.
+
+**When ANY message arrives while the overlay is active, ALWAYS try reading the queue first** — the user may have captured bugs and then commented on something else.
+
+### Step 6: Read the capture queue
 
 ```
 mcp__claude-in-chrome__javascript_tool
-code: "JSON.stringify(window.__uiCaptureResult)"
+code: "JSON.stringify(window.__uiCaptureQueue)"
 ```
 
-Parse the JSON. The `data` field contains:
+Parse the returned JSON array. Each entry contains:
 
 | Field         | Description                                  |
 |---------------|----------------------------------------------|
@@ -93,16 +99,18 @@ Parse the JSON. The `data` field contains:
 | `scrollX`     | Horizontal scroll offset                     |
 | `scrollY`     | Vertical scroll offset                       |
 
-If `data` is `null`, the user clicked close. Let them know no capture was recorded.
+If the array is empty, the user closed the overlay without capturing anything. Let them know.
 
-### Step 7: Hide overlay and take screenshot
+**Legacy compat:** `window.__uiCaptureResult` still holds the most recent single capture for backwards compatibility with "fix one now" mode.
+
+### Step 7: Hide overlay and take screenshots
 
 ```
 mcp__claude-in-chrome__javascript_tool
 code: "document.getElementById('__uc_root').style.display = 'none'"
 ```
 
-Then zoom into the captured region for a precise screenshot:
+For "fix one now" mode, zoom into the captured region:
 
 ```
 mcp__claude-in-chrome__computer
@@ -115,6 +123,8 @@ Also take a full-page screenshot for context.
 ### Step 8: Branch based on mode
 
 #### Mode: Fix one now
+
+Read the first (and only) entry from `window.__uiCaptureQueue[0]`.
 
 Present the bug report, then **measure before fixing** (see `docs/fix-gaps-workflow.md` Step 0):
 
@@ -140,20 +150,31 @@ IF 5 iterations exhausted → revert all changes, report what was tried
 
 #### Mode: Log many
 
-Present the bug report, then add it to `docs/fidelity-gaps.md` as a new gap entry:
+**Batch-process the entire queue in one go.** For each entry in the array, add a gap entry to `docs/fidelity-gaps.md`:
 
 ```markdown
 - [ ] **Bugshot: [description]** — [url], region [width]x[height] at ([pageX],[pageY]). Severity: [severity]. ([timestamp])
 ```
 
-Then re-show the overlay for the next capture using the exposed reset function:
+Group entries under the appropriate existing section in fidelity-gaps.md based on the URL/page, or create a new Bugshot group if needed.
 
-```
-mcp__claude-in-chrome__javascript_tool
-code: "document.getElementById('__uc_root').style.display = ''; window.__uiCaptureReset();"
-```
+Present a summary to the user showing how many bugs were logged, then commit.
 
-Repeat from Step 4. When the user says they're done logging, commit the updated fidelity-gaps.md.
+---
+
+## Overlay UI states
+
+The overlay auto-manages its own state. Here's the flow for reference:
+
+| State | Bar hint | CTA button | Bar capture button | Count badge |
+|---|---|---|---|---|
+| Fresh | "Browse the page, then capture" | (panel hidden) | "Capture" | hidden |
+| Capturing | "Drag to select the problem area" | (panel hidden) | "Cancel" | visible if >0 |
+| Describing | "Describe the issue below" | "Log & Next ⌘↵" | — | visible if >0 |
+| Flash (1.2s) | "Logged! N captured" | "Logged! (N)" disabled | — | updates |
+| Ready again | "N captured — click Capture for more" | (panel hidden) | "Capture" | visible |
+
+The overlay resets itself after each capture. **Claude does NOT need to call any reset function between captures.**
 
 ---
 
@@ -172,13 +193,26 @@ Never guess between coarse steps like h-7 (28px) vs h-8 (32px) when the correct 
 
 ---
 
+## API reference
+
+| Global | Type | Description |
+|---|---|---|
+| `window.__uiCaptureQueue` | Array | All captures accumulated this session |
+| `window.__uiCaptureResult` | Object | Legacy single-capture result (`{ done, data }`) |
+| `window.__uiCaptureReset()` | Function | Manual reset (rarely needed — overlay auto-resets) |
+| `window.__uiCaptureReady` | Boolean | Guard flag to prevent double-injection |
+
+---
+
 ## Troubleshooting
 
 **"Claude in Chrome tools not available"** — The extension must be installed and connected.
 
 **"Overlay did not appear"** — The page may have CSP blocking inline scripts. Try localhost.
 
-**"Result is null"** — The user may have clicked close instead of Done.
+**"Queue is empty"** — The user may have clicked close (X) instead of using Log & Next.
+
+**"Overlay didn't reset after capture"** — Clear and re-inject: `window.__uiCaptureReady = false; document.getElementById('__uc_root').remove();` then re-inject the script tag.
 
 ---
 
