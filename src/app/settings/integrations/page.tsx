@@ -100,9 +100,9 @@ export default function IntegrationsPage() {
       <div className="mb-8">
         <h1 className="text-display-lg">Integrations</h1>
       </div>
-      <div className="divide-y divide-border">
+      <div className="grid grid-cols-3 gap-5">
         {integrations.map((integration) => (
-          <div key={integration.name} className="py-8 first:pt-0 last:pb-0">
+          <div key={integration.name} className="rounded-lg border border-border p-4">
             <div className="flex flex-col items-center text-center">
               {/* Logo */}
               <div className="mb-3 flex h-20 items-center justify-center">
@@ -115,7 +115,7 @@ export default function IntegrationsPage() {
               </h2>
 
               {/* Description */}
-              <p className="mb-4 max-w-2xl text-body-md leading-relaxed text-text-secondary">
+              <p className="mb-4 text-body-md leading-relaxed text-text-secondary">
                 {integration.description}
               </p>
 
@@ -130,7 +130,7 @@ export default function IntegrationsPage() {
               )}
 
               {/* Action buttons */}
-              <div className="flex items-center gap-2">
+              <div className="mt-auto flex items-center gap-2">
                 {integration.actions.map((action) => (
                   <Button
                     key={action.label}

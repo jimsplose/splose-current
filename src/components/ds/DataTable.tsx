@@ -69,10 +69,11 @@ export function Th({
   const interactive = sortable || filterable;
 
   const SortIcon = sortDirection === "asc" ? ArrowUp : sortDirection === "desc" ? ArrowDown : ArrowUpDown;
+  const sortedBg = sortDirection ? "bg-primary/5" : "";
 
   return (
     <th
-      className={`p-4 text-${align} text-[14px] font-semibold leading-[22px] text-text first:rounded-tl-lg last:rounded-tr-lg ${hideClass} ${interactive ? "select-none" : ""} ${className}`}
+      className={`p-4 text-${align} text-[14px] font-semibold leading-[22px] text-text first:rounded-tl-lg last:rounded-tr-lg ${sortedBg} ${hideClass} ${interactive ? "select-none" : ""} ${className}`}
     >
       <div className={`inline-flex items-center gap-1 ${interactive ? "cursor-pointer" : ""}`} onClick={sortable ? onSort : undefined}>
         {children}
