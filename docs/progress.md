@@ -4,6 +4,28 @@ Append-only log. Each session adds an entry summarizing what was done.
 
 ---
 
+## Session — 2026-03-25 (batch 2)
+
+**Branch**: `claude/fix-gaps-batch-1`
+
+### Completed — Fix Gaps Until Done
+
+**Calendar fixes (6 gaps closed):**
+- AI sidebar panel: "Ask splose AI" chat sidebar (360px, greeting, quick-action pills, input, saved prompts)
+- Custom sparkle SVG icon (3-star design matching production)
+- Rich Location/Practitioner filter dropdowns with search, grouped headers, checkboxes, color dots
+- Per-practitioner unavailable hours in week view (was day-view only)
+- Alternating column backgrounds increased contrast (#f3f4f6 vs #ffffff)
+- Event status icons with proper emoji (✅📋⚠️💰)
+
+**RichTextEditor toolbar fix:**
+- Added GIF button, undo/redo arrows, horizontal rule icon to DS component
+- All editor instances (invoice reminders, email templates, note templates, letter templates) get the new toolbar
+
+**Gap status:** Only 1 remaining open gap (process new screenshots — meta-task). All code gaps closed.
+
+---
+
 ## Session — 2026-03-25
 
 **Branch**: `main` (pushed directly, 14 commits)
