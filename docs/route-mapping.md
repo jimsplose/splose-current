@@ -137,4 +137,4 @@ When running dual-tab comparison:
 4. Navigate Tab B to `http://localhost:3000{localhost_route}`
 5. Both tabs should show the equivalent page for measurement comparison
 
-**Note:** Some production routes require authentication. If you get redirected to login, the page cannot be compared via dual-tab. Fall back to static reference screenshot comparison.
+**Authentication:** `acme.splose.com` requires login. Chrome MCP uses Jim's actual Chrome browser, so if Jim is logged in, all routes are accessible. If Chrome navigates to a production route and gets redirected to `/login`, ask Jim to log into `acme.splose.com` in Chrome first. If auth can't be established, fall back to static reference screenshot comparison for that session.

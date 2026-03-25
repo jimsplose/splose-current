@@ -31,13 +31,14 @@ Every page comparison has one of three depth levels. The depth determines what w
 
 1. Dev server running (`npm run dev` on localhost:3000)
 2. Chrome MCP available (if not, use fallback path — read references + code comparison)
-3. **MANDATORY: Set canonical viewport size:**
+3. **Production login:** Jim must be logged into `acme.splose.com` in Chrome for dual-tab to work. At session start, navigate to `https://acme.splose.com/` — if it loads the dashboard, auth is good. If it redirects to login, ask Jim to log in first, or fall back to static reference comparison for all pages.
+4. **MANDATORY: Set canonical viewport size:**
    ```
    mcp__claude-in-chrome__resize_window → { width: 1440, height: 900 }
    ```
    This is non-negotiable. All measurements and screenshots in the session happen at this size. If the window cannot be resized, note the actual size in the verification log.
-4. Read `docs/route-mapping.md` — needed for production URL lookups
-5. Invoke `/impeccable:frontend-design` — activates design-informed analysis for the session
+5. Read `docs/route-mapping.md` — needed for production URL lookups
+6. Invoke `/impeccable:frontend-design` — activates design-informed analysis for the session
 
 ## Step 1: Pick pages (batch selection)
 
