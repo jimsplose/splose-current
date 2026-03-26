@@ -327,7 +327,7 @@ Patterns identified from the interactive states implementation audit. All opport
 - [x] **Online booking settings editor — missing Preview button** — Fixed in previous session: Preview button added. (2026-03-25)
 - [x] **Online booking settings editor — no live preview panel** — Fixed in previous session: live preview panel added. (2026-03-25)
 - [x] **Online booking settings editor — title format** — Fixed in previous session: "Edit online booking" title. (2026-03-25)
-- [ ] **Online booking settings editor — form structure** — Production Design tab has "Set your branding" radio group (Display none/map/logo), "Button styling" with Primary+Secondary color pickers, "Accessible colour suggestions". Localhost has simpler form. Fix: match production form fields. (2026-03-25)
+- [x] **Online booking settings editor — form structure** — Fixed: added branding radio group, dual color pickers, accessible colour suggestions, important notice banner, auto risk, service rating, download notice sections, GTM ID on Share tab. (2026-03-26)
 
 ### Group AP — Invoice detail (`src/app/invoices/[id]/page.tsx`)
 
