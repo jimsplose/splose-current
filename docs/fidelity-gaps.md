@@ -275,7 +275,10 @@ Patterns identified from the interactive states implementation audit. All opport
 
 ### Group AH — Calendar week view (`src/app/calendar/CalendarView.tsx`)
 
-- [x] **Week view day number styling** — Fixed in code: font-medium text-[rgb(112,117,122)] matches production fontWeight 500 and color. Verified 2026-03-25.
+- [ ] **Week view day number styling** — Reopened: audit 2026-03-26 found fontWeight 700 (localhost) vs 500 (prod), color rgb(107,114,128) vs rgb(112,117,122). Was marked fixed 2026-03-25.
+- [ ] **Week view DOW header styling** — NEW: audit 2026-03-26. Prod: 14px/500/rgb(112,117,122). Localhost: 14px/400/rgb(65,69,73). Need font-medium and correct gray.
+- [ ] **Week view time label size** — NEW: audit 2026-03-26. Prod: 10px. Localhost: 14px. Time labels in left gutter are too large.
+- [ ] **Week view month title** — NEW: audit 2026-03-26. Production has NO visible month/year title in the toolbar. Localhost shows H2 "Mar 2026" 18px/700. Remove or hide the month title to match production.
 
 ### Group AI — Calendar day view (`src/app/calendar/CalendarView.tsx`)
 
@@ -318,9 +321,9 @@ Patterns identified from the interactive states implementation audit. All opport
 ### Group AO — Online booking (`src/app/online-booking/`, `src/app/settings/online-bookings/`)
 
 - [x] **Online booking nav bar** — Fixed in previous session: TopNav hidden on /online-booking route. (2026-03-25)
-- [x] **Online booking title styling** — Fixed in previous session: 36px/600/dark. (2026-03-25)
-- [x] **Online booking card styling** — Fixed in previous session: rounded-[16px]/p-[20px]/min-h-[162px]. (2026-03-25)
-- [x] **Online booking button purple shade** — Fixed in previous session: bg-[rgb(106,57,228)]. (2026-03-25)
+- [ ] **Online booking title styling** — Reopened: audit 2026-03-26 found regression. Prod: 36px/600/rgb(16,24,40). Localhost: 30px/700/rgb(66,105,74). Was marked fixed 2026-03-25.
+- [ ] **Online booking card styling** — Reopened: audit 2026-03-26 found regression. Prod: 0px radius/12px 22px padding/244px. Localhost: 12px radius/20px padding/272px. Was marked fixed 2026-03-25.
+- [ ] **Online booking button purple shade** — Reopened: audit 2026-03-26 found regression. Prod: rgb(106,57,228). Localhost: rgb(130,80,255). Was marked fixed 2026-03-25.
 - [x] **Online booking Continue button** — Fixed in previous session: gray disabled bg-[rgba(0,0,0,0.25)]. (2026-03-25)
 - [x] **Online booking summary sidebar** — Fixed in previous session: 700 weight, dark color, connector lines. (2026-03-25)
 - [x] **Online booking settings editor — missing Settings tab** — Fixed in previous session: Settings tab added. (2026-03-25)
@@ -372,6 +375,10 @@ Patterns identified from the interactive states implementation audit. All opport
 ### Group AW — New payment form (`src/app/payments/new/page.tsx`)
 
 - [x] **New payment missing Location field** — Fixed: FormSelect Location added between Client and Payment date. (2026-03-25)
+
+### Group AZ — AI Chat simulated interaction (`src/app/notes/`, `src/app/calendar/`)
+
+- [ ] **AI Chat simulated LLM interaction** — The AI chat side panel (progress notes + calendar) needs interactive demo behavior: (1) Clicking into the text field inserts a random silly prompt from a pool of ~12 options (e.g. "Write a clinically relevant haiku about bears", "Generate a clinically relevant report about the contents of my fridge"). (2) Pressing Send shows the prompt in a chat bubble, displays a typing/waiting animation, then shows a silly generated answer. (3) Need ~12 silly prompt options and ~12 silly response options. This upgrades the AI chat from static to interactive demo. Reference: Screenshot 2026-03-11 at 5.55.16/5.55.39 pm.
 
 ### Group AX — Calendar appointment panel
 

@@ -150,7 +150,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.51.37 pm.png | Select a location step — default | partial — measurement-verified 2026-03-25: Localhost has app nav bar (production doesn't), title 30px/700/green vs 36px/600/dark, cards 8px radius/98px vs 16px/162px, Select btn different purple shade, Continue btn outline vs gray disabled, stepper has no connector lines. See Group AO. |
+| Screenshot 2026-03-17 at 6.51.37 pm.png | Select a location step — default | partial — measurement-verified 2026-03-26: Nav bar PASS (both hidden). FAIL: title 36px/600/rgb(16,24,40) (prod) vs 30px/700/rgb(66,105,74) (localhost). Select btn purple rgb(106,57,228) (prod) vs rgb(130,80,255) (localhost). Cards: prod 0px radius/244px vs localhost 12px/272px. Group AO fixes regressed. |
 | Screenshot 2026-03-17 at 6.51.45 pm.png | Select a location step — location selected | yes — Selected state with outlined "Selected" button, border highlight, Continue enabled 2026-03-24 |
 | screencapture-acme-splose-online-booking-7b2c0db8-cb7b-40de-991e-631ecdb30cf0-2026-03-17-18_51_53.png | Online booking public page (variant 1) | yes — Full booking flow with location→appointment→confirm steps 2026-03-24 |
 | screencapture-acme-splose-online-booking-7b2c0db8-cb7b-40de-991e-631ecdb30cf0-2026-03-17-18_52_17.png | Online booking public page (variant 2) | yes — Same flow, different scroll position 2026-03-24 |
@@ -321,7 +321,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-17 at 7.22.47 pm.png | Week view — Rooms/resources mode | yes — Rooms view with room filter |
 | Screenshot 2026-03-17 at 7.22.53 pm.png | Week view — Room/resources filter dropdown | yes — room filter dropdown |
 | Screenshot 2026-03-17 at 7.23.04 pm.png | Week view — View type dropdown (Month/Week/Day) | yes — view switcher dropdown |
-| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_19_33.png | Calendar week view full page | partial — measurement-verified 2026-03-25: toolbar matches (Today 38px/8px, month title 20px/700, time labels 10px, day labels 14px/500). FAIL: day number fontWeight 500 (prod) vs 300 (localhost), day number color rgb(112,117,122) (prod) vs rgb(65,69,73) (localhost). |
+| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_19_33.png | Calendar week view full page | partial — measurement-verified 2026-03-26: Today btn 14px/400/38px PASS. FAIL: DOW header fontWeight 500 (prod) vs 400 (localhost), DOW color rgb(112,117,122) vs rgb(65,69,73). Day number fontWeight 500 (prod) vs 700 (localhost), color rgb(112,117,122) vs rgb(107,114,128). Time labels 10px (prod) vs 14px (localhost). Month title: prod has none, localhost shows H2 "Mar 2026" 18px/700. |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_12.png | Calendar week view (variant 2) | yes — full-page capture, toolbar + time grid + practitioner columns match 2026-03-24 |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_26.png | Calendar week view (variant 3) | yes — scrolled view, appointment blocks and time slots 2026-03-24 |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_37.png | Calendar week view (variant 4) | yes — different scroll position, same structure 2026-03-24 |
@@ -382,7 +382,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-2026-03-17-19_29_34.png | Patients list default | partial — measurement-verified 2026-03-25: title green rgb(66,105,74) vs rgb(40,103,68), table header bg transparent (prod) vs gray (localhost), search bar joined (prod) vs separate (localhost), tags are yellow pills (prod) vs solid NDIS/Medicare badges (localhost). Table cell font 14px/400 matches. |
+| screencapture-acme-splose-patients-2026-03-17-19_29_34.png | Patients list default | yes — measurement-verified 2026-03-26: title 30px/700/rgb(66,105,74) PASS, th 14px/600/rgb(234,237,241) PASS, td 14px/400 PASS, search 38px/joined PASS, tags yellow rgb(249,202,36)/8px PASS. All previous issues fixed. |
 | screencapture-acme-splose-patients-2026-03-17-19_29_34 (1).png | Patients list (duplicate) | yes — visual audit 2026-03-23 confirmed |
 
 ## Patients — Detail / Appointments (`/patients/:id/appointments`)
