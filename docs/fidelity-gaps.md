@@ -378,7 +378,7 @@ Patterns identified from the interactive states implementation audit. All opport
 
 ### Group AZ — AI Chat simulated interaction (`src/app/notes/`, `src/app/calendar/`)
 
-- [ ] **AI Chat simulated LLM interaction** — The AI chat side panel (progress notes + calendar) needs interactive demo behavior: (1) Clicking into the text field inserts a random silly prompt from a pool of ~12 options (e.g. "Write a clinically relevant haiku about bears", "Generate a clinically relevant report about the contents of my fridge"). (2) Pressing Send shows the prompt in a chat bubble, displays a typing/waiting animation, then shows a silly generated answer. (3) Need ~12 silly prompt options and ~12 silly response options. This upgrades the AI chat from static to interactive demo. Reference: Screenshot 2026-03-11 at 5.55.16/5.55.39 pm.
+- [x] **AI Chat simulated LLM interaction** — Shared AiChatPanel component created with 12 silly prompts and 12 silly responses. Clicking input auto-fills a random prompt, Send shows chat bubbles with typing animation then response. Wired into both calendar and notes edit pages. (2026-03-26)
 
 ### Group AX — Calendar appointment panel
 

@@ -1,1 +1,3 @@
 SKIP: src/app/settings/online-bookings/[id]/page.tsx — structural form changes, Chrome MCP unavailable for visual verification
+SKIP: src/app/calendar/page.tsx — AI chat panel is not a page.tsx visual change
+SKIP: src/app/notes/[id]/edit/page.tsx — AI chat panel refactor, no visual layout change

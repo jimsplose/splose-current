@@ -34,6 +34,7 @@ import {
   Check,
 } from "lucide-react";
 import { Button, Badge, Chip, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert, Dropdown, Card, RadioGroup } from "@/components/ds";
+import AiChatPanel from "@/components/AiChatPanel";
 
 type Appointment = {
   id: string;
@@ -946,76 +947,7 @@ export default function CalendarView({
         }}
       >
         {showAISidebar && (
-          <>
-            {/* Header */}
-            <div className="flex h-[60px] shrink-0 items-center justify-between border-b border-border px-4">
-              <div className="flex items-center gap-2">
-                <Sparkles className="h-4.5 w-4.5 text-primary" />
-                <span className="text-heading-sm text-text">Ask splose AI</span>
-              </div>
-              <button
-                className="flex h-8 w-8 items-center justify-center rounded-full text-text-secondary hover:bg-gray-100"
-                onClick={() => setShowAISidebar(false)}
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
-
-            {/* Main content area — scrollable */}
-            <div className="flex flex-1 flex-col items-center overflow-y-auto px-6 py-8">
-              {/* Greeting card */}
-              <Card padding="md" className="mb-6 w-full text-center">
-                <div className="mb-2 text-3xl">👋</div>
-                <h2 className="text-heading-lg text-text">Hello, I&apos;m splose AI</h2>
-              </Card>
-
-              <p className="mb-6 text-center text-body-md text-text-secondary">
-                How can I help you today?
-              </p>
-
-              {/* Quick action pills */}
-              <div className="flex w-full flex-col gap-3">
-                <button className="rounded-full border border-primary px-4 py-2.5 text-left text-body-sm text-primary transition-colors hover:bg-primary/5">
-                  Summarise my day
-                </button>
-                <button className="rounded-full border border-primary px-4 py-2.5 text-left text-body-sm text-primary transition-colors hover:bg-primary/5">
-                  Show availability gaps
-                </button>
-                <button className="rounded-full border border-primary px-4 py-2.5 text-left text-body-sm text-primary transition-colors hover:bg-primary/5">
-                  Find open slots
-                </button>
-              </div>
-            </div>
-
-            {/* Bottom section — fixed */}
-            <div className="border-t border-border px-4 py-4">
-              {/* Chat input */}
-              <div className="mb-3 flex items-center gap-2 rounded-full border border-border bg-white px-4 py-2.5">
-                <input
-                  type="text"
-                  placeholder="Ask splose AI anything..."
-                  className="flex-1 bg-transparent text-body-sm text-text outline-none placeholder:text-text-secondary"
-                  readOnly
-                />
-                <button className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white transition-colors hover:bg-primary/90">
-                  <ArrowUp className="h-4 w-4" />
-                </button>
-              </div>
-
-              {/* Saved prompts button */}
-              <button className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-body-sm text-text-secondary transition-colors hover:bg-gray-50">
-                <ClipboardList className="h-4 w-4" />
-                Saved prompts
-              </button>
-
-              {/* Footer */}
-              <div className="mt-2 flex items-center justify-between">
-                <span className="text-caption-sm text-text-secondary">
-                  AI can make mistakes, double-check responses
-                </span>
-              </div>
-            </div>
-          </>
+          <AiChatPanel onClose={() => setShowAISidebar(false)} variant="calendar" />
         )}
       </div>
 
