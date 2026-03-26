@@ -86,9 +86,9 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
               </Td>
               <Td hidden="md">
                 {client.ndisNumber ? (
-                  <Badge variant="yellow" className="!rounded-lg !bg-[rgb(249,202,36)] !px-[7px] !py-0 !text-[12px] !text-black">NDIS</Badge>
+                  <Badge variant="yellow" className="!rounded-lg !bg-[rgb(249,202,36)] !px-[7px] !py-0 !text-body-sm !text-black">NDIS</Badge>
                 ) : client.medicare ? (
-                  <Badge variant="yellow" className="!rounded-lg !bg-[rgb(249,202,36)] !px-[7px] !py-0 !text-[12px] !text-black">Medicare</Badge>
+                  <Badge variant="yellow" className="!rounded-lg !bg-[rgb(249,202,36)] !px-[7px] !py-0 !text-body-sm !text-black">Medicare</Badge>
                 ) : null}
               </Td>
             </Tr>

@@ -64,7 +64,7 @@ function UserIcon() {
 /* Production header icon container: 42×56px, centered icon 20×20 */
 function HeaderIcon({ children, badge, href }: { children: React.ReactNode; badge?: number; href?: string }) {
   const inner = (
-    <div className="group relative flex h-14 w-[42px] cursor-pointer items-center justify-center text-[rgb(65,69,73)] transition-colors hover:text-primary">
+    <div className="group relative flex h-14 w-[42px] cursor-pointer items-center justify-center text-text transition-colors hover:text-primary">
       <span className="flex h-[26px] w-[26px] items-center justify-center rounded-full text-heading-lg transition-colors group-hover:bg-black/[0.04]">{children}</span>
       {badge != null && (
         <span className="absolute top-2 right-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-danger px-1 text-caption-sm font-bold text-white">

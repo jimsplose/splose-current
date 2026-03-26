@@ -454,9 +454,9 @@ export default function CalendarView({
     <div className="flex h-[calc(100vh-3.5rem)] overflow-hidden">
       <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
         {/* Calendar toolbar */}
-        <div className="relative z-30 flex h-[60px] shrink-0 items-center overflow-visible border-b border-[#eee] px-[10px]">
+        <div className="relative z-30 flex h-[60px] shrink-0 items-center overflow-visible border-b border-gray-200 px-[10px]">
           {/* All items inline with uniform 2px margins matching production */}
-          <button className="mr-[2px] h-[38px] rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-body-md text-text hover:border-primary hover:text-primary">
+          <button className="mr-[2px] h-[38px] rounded-lg border border-gray-500 bg-white px-[15px] text-body-md text-text hover:border-primary hover:text-primary">
             Today
           </button>
           <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text hover:bg-gray-100">
@@ -465,17 +465,17 @@ export default function CalendarView({
           <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text hover:bg-gray-100">
             <ChevronRight className="h-4 w-4" />
           </button>
-          <h2 className="mr-[2px] min-w-0 text-display-sm text-[rgb(18,22,26)]">{toolbarDateLabel}</h2>
-          <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
+          <h2 className="mr-[2px] min-w-0 text-display-sm text-text">{toolbarDateLabel}</h2>
+          <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
             <Filter className="h-[16px] w-[16px]" />
           </button>
-          <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
+          <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
             <Settings className="h-[16px] w-[16px]" />
           </button>
-          <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
+          <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
             <CalendarDays className="h-[16px] w-[16px]" />
           </button>
-          <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-[rgb(112,117,122)] hover:bg-gray-100">
+          <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
             <Lightbulb className="h-[16px] w-[16px]" />
           </button>
           {/* Location + Practitioner filter buttons — custom popovers */}
@@ -483,7 +483,7 @@ export default function CalendarView({
             {/* Location dropdown */}
             <div className="relative" ref={locationDropdownRef}>
               <button
-                className="hidden h-[38px] items-center gap-1 rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-body-md text-text hover:border-primary hover:text-primary sm:inline-flex"
+                className="hidden h-[38px] items-center gap-1 rounded-lg border border-gray-500 bg-white px-[15px] text-body-md text-text hover:border-primary hover:text-primary sm:inline-flex"
                 onClick={() => { setLocationDropdownOpen(prev => !prev); setPractitionerDropdownOpen(false); setLocationSearchQuery(""); }}
               >
                 {locationLabel}
@@ -537,7 +537,7 @@ export default function CalendarView({
             {/* Practitioner dropdown */}
             <div className="relative" ref={practitionerDropdownRef}>
               <button
-                className="hidden h-[38px] items-center gap-1 rounded-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-body-md text-text hover:border-primary hover:text-primary sm:inline-flex"
+                className="hidden h-[38px] items-center gap-1 rounded-lg border border-gray-500 bg-white px-[15px] text-body-md text-text hover:border-primary hover:text-primary sm:inline-flex"
                 onClick={() => { setPractitionerDropdownOpen(prev => !prev); setLocationDropdownOpen(false); setPractitionerSearchQuery(""); }}
               >
                 {practitionerLabel}
@@ -616,7 +616,7 @@ export default function CalendarView({
           {/* Right group: sparkle, Calendar, Week — lighter borders */}
           <div className="flex items-center gap-[5px]">
             <button
-              className={`flex h-[38px] w-[38px] items-center justify-center rounded-full border text-primary hover:bg-purple-50 ${showAISidebar ? "border-primary bg-purple-50" : "border-[rgb(65,69,73)]"}`}
+              className={`flex h-[38px] w-[38px] items-center justify-center rounded-full border text-primary hover:bg-purple-50 ${showAISidebar ? "border-primary bg-purple-50" : "border-gray-500"}`}
               onClick={() => setShowAISidebar(prev => !prev)}
             >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -632,8 +632,8 @@ export default function CalendarView({
             {/* Calendar/Rooms dropdown — lighter border */}
             <Dropdown
               trigger={
-                <button className="h-[38px] rounded-lg border border-[rgb(217,217,217)] bg-white px-[15px] text-body-md text-text">
-                  {calendarMode} <span className="ml-1 text-[rgb(112,117,122)]">&#9662;</span>
+                <button className="h-[38px] rounded-lg border border-gray-300 bg-white px-[15px] text-body-md text-text">
+                  {calendarMode} <span className="ml-1 text-text-secondary">&#9662;</span>
                 </button>
               }
               items={[
@@ -647,8 +647,8 @@ export default function CalendarView({
             {/* View mode dropdown — lighter border */}
             <Dropdown
               trigger={
-                <button className="h-[38px] rounded-lg border border-[rgb(217,217,217)] bg-white px-[15px] text-body-md text-text">
-                  {viewMode} <span className="ml-1 text-[rgb(112,117,122)]">&#9662;</span>
+                <button className="h-[38px] rounded-lg border border-gray-300 bg-white px-[15px] text-body-md text-text">
+                  {viewMode} <span className="ml-1 text-text-secondary">&#9662;</span>
                 </button>
               }
               items={[
@@ -683,7 +683,7 @@ export default function CalendarView({
                     className={`border-r border-border px-1 py-1.5 text-center last:border-r-0`}
                   >
                     <div className="flex items-center justify-center gap-1">
-                      <span className="truncate text-body-md text-[rgb(112,117,122)]">
+                      <span className="truncate text-body-md text-text-secondary">
                         {p.name}
                       </span>
                     </div>
@@ -704,9 +704,9 @@ export default function CalendarView({
                   <div key={hour} className="contents">
                     <div
                       className="flex items-start justify-end px-2 py-1"
-                      style={{ height: `${HOUR_HEIGHT}px`, borderBottom: '1px solid #e0e0e0', borderRight: '1px solid #e0e0e0' }}
+                      style={{ height: `${HOUR_HEIGHT}px`, borderBottom: '1px solid var(--color-border)', borderRight: '1px solid var(--color-border)' }}
                     >
-                      <span className="-mt-1.5 text-caption-sm text-[rgb(65,69,73)]">
+                      <span className="-mt-1.5 text-caption-sm text-text">
                         {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
                       </span>
                     </div>
@@ -733,17 +733,17 @@ export default function CalendarView({
                               className="relative cursor-pointer hover:bg-gray-50/30"
                               style={{
                                 height: `${HOUR_HEIGHT}px`,
-                                borderBottom: '1px solid #e0e0e0',
-                                borderRight: isGroupEnd ? '1px solid #d0d0d0' : '1px solid #f0f0f0',
+                                borderBottom: '1px solid var(--color-border)',
+                                borderRight: isGroupEnd ? '1px solid var(--color-border)' : '1px solid var(--color-border)',
                                 backgroundColor: isUnavailable ? '#f0f0f0' : gi % 2 === 0 ? '#f3f4f6' : '#ffffff',
                               }}
                               onClick={(e) => handleDayCellClick(e, currentDay, hour, prac)}
                             >
                               {/* 15-min subdivision lines */}
                               <div className="pointer-events-none absolute inset-0">
-                                <div className="absolute w-full" style={{ top: '25%', borderBottom: '1px solid #f0f0f0' }} />
-                                <div className="absolute w-full" style={{ top: '50%', borderBottom: '1px solid #ebebeb' }} />
-                                <div className="absolute w-full" style={{ top: '75%', borderBottom: '1px solid #f0f0f0' }} />
+                                <div className="absolute w-full" style={{ top: '25%', borderBottom: '1px solid var(--color-border)' }} />
+                                <div className="absolute w-full" style={{ top: '50%', borderBottom: '1px solid var(--color-border)' }} />
+                                <div className="absolute w-full" style={{ top: '75%', borderBottom: '1px solid var(--color-border)' }} />
                               </div>
                           {hourAppts.map((appt) => {
                             const pos = getApptStyle(appt);
@@ -807,11 +807,11 @@ export default function CalendarView({
                     const isToday = dateStr === todayStr;
                     return (
                       <div key={i} className="px-2 pt-2 pb-1 text-center">
-                        <div className={`text-label-lg ${isToday ? "text-primary" : "text-[rgb(112,117,122)]"}`}>{DAYS[i]}</div>
+                        <div className={`text-label-lg ${isToday ? "text-primary" : "text-text-secondary"}`}>{DAYS[i]}</div>
                         {isToday ? (
                           <div className="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-primary text-body-lg text-white">{date.getDate()}</div>
                         ) : (
-                          <div className="text-display-md text-[rgb(112,117,122)]">{date.getDate()}</div>
+                          <div className="text-display-md text-text-secondary">{date.getDate()}</div>
                         )}
                       </div>
                     );
@@ -819,16 +819,16 @@ export default function CalendarView({
                 </div>
                 {/* Location groups + practitioner names — WITH vertical borders */}
                 <div style={{ width: totalWidth, display: "grid", gridTemplateColumns: gridCols }} className="border-b border-border">
-                  <div className="border-r border-[#d0d0d0]" />
+                  <div className="border-r border-gray-300" />
                   {weekDates.map((dateStr, i) => {
                     const isToday = dateStr === todayStr;
                     return (
-                      <div key={i} className="border-r border-[#d0d0d0] last:border-r-0">
+                      <div key={i} className="border-r border-gray-300 last:border-r-0">
                       {/* Location group headers */}
                       <div className="flex">
                         {groupByLocation(filteredLocatedPractitioners).map((group, gi) => (
                           <div key={group.name} className={`text-center ${gi > 0 ? "border-l border-border" : ""}`} style={useFlexible ? { flex: group.practitioners.length } : { width: group.practitioners.length * COL_W }}>
-                            <div className="truncate px-1 py-0.5 text-body-md text-[rgb(112,117,122)]">{group.name}</div>
+                            <div className="truncate px-1 py-0.5 text-body-md text-text-secondary">{group.name}</div>
                           </div>
                         ))}
                       </div>
@@ -838,7 +838,7 @@ export default function CalendarView({
                           <div key={group.name} className={`flex ${gi > 0 ? "border-l border-border" : ""}`}>
                             {group.practitioners.map((p) => (
                               <div key={p.id} className="flex flex-col items-center py-1" style={useFlexible ? { flex: 1 } : { width: COL_W }}>
-                                <span className="w-full truncate px-0.5 text-center text-body-md text-[rgb(112,117,122)]">
+                                <span className="w-full truncate px-0.5 text-center text-body-md text-text-secondary">
                                   {p.name.length > 6 ? p.name.slice(0, 5) + "..." : p.name}
                                 </span>
                               </div>
@@ -856,19 +856,19 @@ export default function CalendarView({
               <div style={{ width: totalWidth, display: "grid", gridTemplateColumns: gridCols }}>
                 {HOURS.map((hour) => (
                   <div key={hour} className="contents">
-                    <div className="flex items-start justify-end border-r border-border/40 px-1 py-1" style={{ height: HOUR_HEIGHT, borderBottom: '1px solid #ebebeb' }}>
-                      <span className="-mt-1.5 text-caption-sm text-[rgb(65,69,73)]">
+                    <div className="flex items-start justify-end border-r border-border/40 px-1 py-1" style={{ height: HOUR_HEIGHT, borderBottom: '1px solid var(--color-border)' }}>
+                      <span className="-mt-1.5 text-caption-sm text-text">
                         {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
                       </span>
                     </div>
                     {weekDates.map((dateStr, dayIdx) => {
                       return (
-                        <div key={dayIdx} className="relative border-r border-[#e8e8e8] last:border-r-0" style={{ height: HOUR_HEIGHT, borderBottom: '1px solid #e8e8e8' }}>
+                        <div key={dayIdx} className="relative border-r border-border last:border-r-0" style={{ height: HOUR_HEIGHT, borderBottom: '1px solid var(--color-border)' }}>
                           {/* 15-minute subdivision lines */}
                           <div className="pointer-events-none absolute inset-0">
-                            <div className="absolute w-full" style={{ top: '25%', borderBottom: '1px solid #f0f0f0' }} />
-                            <div className="absolute w-full" style={{ top: '50%', borderBottom: '1px solid #ebebeb' }} />
-                            <div className="absolute w-full" style={{ top: '75%', borderBottom: '1px solid #f0f0f0' }} />
+                            <div className="absolute w-full" style={{ top: '25%', borderBottom: '1px solid var(--color-border)' }} />
+                            <div className="absolute w-full" style={{ top: '50%', borderBottom: '1px solid var(--color-border)' }} />
+                            <div className="absolute w-full" style={{ top: '75%', borderBottom: '1px solid var(--color-border)' }} />
                           </div>
                           {/* Practitioner sub-columns */}
                           <div className="absolute inset-0 flex">
@@ -893,7 +893,7 @@ export default function CalendarView({
                                       style={{
                                         ...(useFlexible ? { flex: 1 } : { width: COL_W }),
                                         backgroundColor: isUnavailable ? '#f0f0f0' : gi % 2 === 0 ? '#f3f4f6' : '#ffffff',
-                                        borderRight: isGroupBorder ? '1px solid #d9d9d9' : '1px solid rgba(0,0,0,0.04)',
+                                        borderRight: isGroupBorder ? '1px solid var(--color-border)' : '1px solid var(--color-border)',
                                       }}
                                       onClick={(e) => handleCellClick(e, dateStr, hour)}
                                     >
@@ -1595,7 +1595,7 @@ function MonthView({
       {/* Day of week headers */}
       <div className="grid grid-cols-7 border-b border-border">
         {DOW_LABELS.map((d) => (
-          <div key={d} className="px-2 py-2 text-center text-body-sm text-[rgb(112,117,122)]">
+          <div key={d} className="px-2 py-2 text-center text-body-sm text-text-secondary">
             {d}
           </div>
         ))}
@@ -1655,7 +1655,7 @@ function MonthView({
                     );
                   })}
                   {dayAppts.length > 3 && (
-                    <div className="px-1 text-body-sm" style={{ fontWeight: 700, color: 'rgb(65, 69, 73)' }}>{dayAppts.length - 3} more</div>
+                    <div className="px-1 text-body-sm" style={{ fontWeight: 700, color: 'var(--color-text)' }}>{dayAppts.length - 3} more</div>
                   )}
                 </div>
               </div>
