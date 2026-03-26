@@ -101,24 +101,46 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
       if (overlayRef.current) overlayRef.current.style.display = "none";
       if (devNavRef.current) devNavRef.current.style.display = "none";
 
-      // 2. Dynamic import html2canvas
-      const html2canvas = (await import("html2canvas")).default;
+      // 2. Dynamic import html-to-image (handles modern CSS like oklab() colors)
+      const { toBlob } = await import("html-to-image");
 
-      // 3. Render full page and crop to region
-      const canvas = await html2canvas(document.body, {
-        x: region.x + window.scrollX,
-        y: region.y + window.scrollY,
-        width: region.width,
-        height: region.height,
-        windowWidth: document.documentElement.scrollWidth,
-        windowHeight: document.documentElement.scrollHeight,
-        useCORS: true,
+      // 3. Capture the selected region as a PNG blob
+      const blob = await toBlob(document.body, {
+        pixelRatio: 1,
+        filter: (node) => {
+          // Skip the bugshot overlay and DevNavigator (already hidden, but belt & suspenders)
+          if (node === overlayRef.current || node === devNavRef.current) return false;
+          return true;
+        },
+      });
+      if (!blob) throw new Error("Screenshot capture returned null");
+
+      // 4. Crop to selected region using an offscreen canvas
+      const img = await createImageBitmap(blob);
+      const cropCanvas = document.createElement("canvas");
+      cropCanvas.width = region.width;
+      cropCanvas.height = region.height;
+      const ctx = cropCanvas.getContext("2d");
+      if (!ctx) throw new Error("Could not get canvas context");
+      ctx.drawImage(
+        img,
+        region.x + window.scrollX,
+        region.y + window.scrollY,
+        region.width,
+        region.height,
+        0,
+        0,
+        region.width,
+        region.height,
+      );
+      const croppedBlob = await new Promise<Blob>((resolve, reject) => {
+        cropCanvas.toBlob((b) => (b ? resolve(b) : reject(new Error("Crop toBlob failed"))), "image/png");
       });
 
-      // 4. Extract styles from region
+      // 5. Extract styles from region
       const { elements, hasIframe } = extractStyles(region);
 
-      // 5. Generate filename and prompt
+      // 6. Generate filename and prompt
       const filename = generateFilename();
       const allTags = [...categoryTags, ...(severityTag ? [severityTag] : [])];
       const prompt = generatePrompt({
@@ -130,13 +152,10 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
         hasIframe,
       });
 
-      // 6. Download the screenshot
-      const blob = await new Promise<Blob>((resolve, reject) => {
-        canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("Canvas toBlob failed"))), "image/png");
-      });
-      downloadBlob(blob, filename);
+      // 7. Download the cropped screenshot
+      downloadBlob(croppedBlob, filename);
 
-      // 7. Copy prompt to clipboard
+      // 8. Copy prompt to clipboard
       try {
         await navigator.clipboard.writeText(prompt);
       } catch {
@@ -148,7 +167,7 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
         return;
       }
 
-      // 8. Show toast
+      // 9. Show toast
       if (overlayRef.current) overlayRef.current.style.display = "";
       if (devNavRef.current) devNavRef.current.style.display = "";
       setState("done");
