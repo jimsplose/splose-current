@@ -7,7 +7,7 @@ import { FormInput, Toggle, OnOffBadge, ColorDot, FormColorPicker, FormSelect } 
 import { SIMPLE_CRUD, STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 
 const meta: Meta<typeof SettingsListPage> = {
-  title: "Templates/SettingsListPage",
+  title: "Patterns/SettingsListPage",
   component: SettingsListPage,
 };
 export default meta;

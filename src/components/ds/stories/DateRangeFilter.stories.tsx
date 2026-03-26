@@ -5,7 +5,7 @@ import { useState } from "react";
 import DateRangeFilter from "../DateRangeFilter";
 
 const meta: Meta<typeof DateRangeFilter> = {
-  title: "Layout/DateRangeFilter",
+  title: "Forms/DateRangeFilter",
   component: DateRangeFilter,
   argTypes: {
     startDate: { control: "text" },

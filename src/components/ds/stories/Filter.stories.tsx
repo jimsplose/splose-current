@@ -10,7 +10,7 @@ import Filter from "../Filter";
 /* ------------------------------------------------------------------ */
 
 const meta: Meta<typeof Filter> = {
-  title: "Layout/Filter",
+  title: "Forms/Filter",
   component: Filter,
   argTypes: {
     value: {

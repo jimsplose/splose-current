@@ -14,7 +14,7 @@ import Badge from "../Badge";
 /* ------------------------------------------------------------------ */
 
 const meta: Meta<typeof Modal> = {
-  title: "Feedback/Modal",
+  title: "Overlays/Modal",
   component: Modal,
   argTypes: {
     open: {

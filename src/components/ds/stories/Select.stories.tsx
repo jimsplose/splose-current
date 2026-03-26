@@ -5,7 +5,7 @@ import { useState } from "react";
 import Select from "../Select";
 
 const meta: Meta<typeof Select> = {
-  title: "Overlays/Select",
+  title: "Forms/Select",
   component: Select,
   argTypes: {
     value: { control: "text" },

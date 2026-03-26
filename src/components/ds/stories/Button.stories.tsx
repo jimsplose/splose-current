@@ -41,7 +41,7 @@ import Chip from "../Chip";
 /* ------------------------------------------------------------------ */
 
 const meta: Meta<typeof Button> = {
-  title: "Design System/Button",
+  title: "Actions/Button",
   component: Button,
   argTypes: {
     variant: {

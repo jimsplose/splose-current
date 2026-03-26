@@ -7,7 +7,7 @@ import Chip from "../Chip";
 /* ------------------------------------------------------------------ */
 
 const meta: Meta<typeof Chip> = {
-  title: "Layout/Chip",
+  title: "Data Display/Chip",
   component: Chip,
   argTypes: {
     variant: {
