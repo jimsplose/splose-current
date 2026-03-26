@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { stateRegistry, flattenRegistry, getVariantUrl, countVariants } from "@/lib/state-registry";
 import type { PageEntry, StateVariant } from "@/lib/state-registry";
 import { ChevronRight, ChevronDown, Search, X } from "lucide-react";
+import Bugshot from "./Bugshot";
 
 export default function DevNavigator() {
   const pathname = usePathname();
@@ -13,6 +14,8 @@ export default function DevNavigator() {
   const [expanded, setExpanded] = useState(false);
   const [search, setSearch] = useState("");
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
+  const [bugshotActive, setBugshotActive] = useState(false);
+  const devNavRef = useRef<HTMLDivElement>(null);
 
   // Hide completely if ?devnav=0
   if (searchParams.get("devnav") === "0") return null;
@@ -77,87 +80,97 @@ export default function DevNavigator() {
     return filtered;
   }, [search, groups]);
 
-  if (!expanded) {
-    return (
-      <button
-        onClick={() => setExpanded(true)}
-        className="fixed right-4 bottom-4 z-50 rounded-full bg-gray-900/90 px-3 py-1.5 text-label-md text-white shadow-lg backdrop-blur-sm transition-all hover:bg-gray-900"
-        title="Dev Navigator (Ctrl+Shift+N)"
-      >
-        &#9670; Nav
-      </button>
-    );
-  }
-
   return (
-    <div className="fixed right-4 bottom-4 z-50 flex max-h-[70vh] w-80 flex-col overflow-hidden rounded-lg bg-gray-900/95 text-white shadow-2xl backdrop-blur-sm">
-      {/* Header */}
-      <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
-        <div className="flex items-center gap-2">
-          <span className="text-heading-sm">Dev Navigator</span>
-          <span className="rounded-full bg-primary/80 px-2 py-0.5 text-caption-sm">
-            {pages} pages / {variants} variants
-          </span>
-        </div>
-        <button onClick={() => setExpanded(false)} className="rounded p-1 hover:bg-white/10">
-          <X className="h-4 w-4" />
+    <div ref={devNavRef}>
+      {!expanded ? (
+        <button
+          onClick={() => setExpanded(true)}
+          className="fixed right-4 bottom-4 z-50 rounded-full bg-gray-900/90 px-3 py-1.5 text-label-md text-white shadow-lg backdrop-blur-sm transition-all hover:bg-gray-900"
+          title="Dev Navigator (Ctrl+Shift+N)"
+        >
+          &#9670; Nav
         </button>
-      </div>
-
-      {/* Search */}
-      <div className="border-b border-white/10 px-3 py-2">
-        <div className="flex items-center gap-2 rounded-md bg-white/10 px-2.5 py-1.5">
-          <Search className="h-3.5 w-3.5 text-white/50" />
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search pages..."
-            className="flex-1 bg-transparent text-body-sm text-white outline-none placeholder:text-white/40"
-            autoFocus
-          />
-        </div>
-      </div>
-
-      {/* Page tree */}
-      <div className="flex-1 overflow-y-auto px-2 py-2">
-        {Array.from(filteredGroups).map(([group, entries]) => (
-          <div key={group} className="mb-1">
-            <button
-              onClick={() => toggleGroup(group)}
-              className="flex w-full items-center gap-1.5 rounded px-2 py-1 text-caption-sm font-bold tracking-wider text-white/50 uppercase hover:bg-white/5 hover:text-white/80"
-            >
-              {expandedGroups.has(group) ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
-              {group}
-              <span className="ml-auto text-caption-sm text-white/30">{entries.length}</span>
+      ) : (
+        <div className="fixed right-4 bottom-4 z-50 flex max-h-[70vh] w-80 flex-col overflow-hidden rounded-lg bg-gray-900/95 text-white shadow-2xl backdrop-blur-sm">
+          {/* Header */}
+          <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
+            <div className="flex items-center gap-2">
+              <span className="text-heading-sm">Dev Navigator</span>
+              <span className="rounded-full bg-primary/80 px-2 py-0.5 text-caption-sm">
+                {pages} pages / {variants} variants
+              </span>
+            </div>
+            <button onClick={() => setExpanded(false)} className="rounded p-1 hover:bg-white/10">
+              <X className="h-4 w-4" />
             </button>
-
-            {expandedGroups.has(group) && (
-              <div className="ml-2 space-y-0.5">
-                {entries.map((entry) => (
-                  <PageNode key={entry.path} entry={entry} pathname={pathname} depth={0} />
-                ))}
-              </div>
-            )}
           </div>
-        ))}
-      </div>
 
-      {/* Quick links */}
-      <div className="flex items-center gap-3 border-t border-white/10 px-4 py-2">
-        <Link href="/eng" className="text-caption-sm text-primary-light hover:text-white">
-          Eng Toolkit
-        </Link>
-        <a href="/storybook/index.html" target="_blank" rel="noopener" className="text-caption-sm text-primary-light hover:text-white">
-          Storybook ↗
-        </a>
-        <span className="ml-auto text-caption-sm text-white/40">
-          {pages}p / {variants}v
-        </span>
-        <button onClick={() => setExpanded(false)} className="text-caption-sm text-white/50 hover:text-white">
-          Hide
-        </button>
-      </div>
+          {/* Search */}
+          <div className="border-b border-white/10 px-3 py-2">
+            <div className="flex items-center gap-2 rounded-md bg-white/10 px-2.5 py-1.5">
+              <Search className="h-3.5 w-3.5 text-white/50" />
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search pages..."
+                className="flex-1 bg-transparent text-body-sm text-white outline-none placeholder:text-white/40"
+                autoFocus
+              />
+            </div>
+          </div>
+
+          {/* Page tree */}
+          <div className="flex-1 overflow-y-auto px-2 py-2">
+            {Array.from(filteredGroups).map(([group, entries]) => (
+              <div key={group} className="mb-1">
+                <button
+                  onClick={() => toggleGroup(group)}
+                  className="flex w-full items-center gap-1.5 rounded px-2 py-1 text-caption-sm font-bold tracking-wider text-white/50 uppercase hover:bg-white/5 hover:text-white/80"
+                >
+                  {expandedGroups.has(group) ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
+                  {group}
+                  <span className="ml-auto text-caption-sm text-white/30">{entries.length}</span>
+                </button>
+
+                {expandedGroups.has(group) && (
+                  <div className="ml-2 space-y-0.5">
+                    {entries.map((entry) => (
+                      <PageNode key={entry.path} entry={entry} pathname={pathname} depth={0} />
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Quick links */}
+          <div className="flex items-center gap-3 border-t border-white/10 px-4 py-2">
+            <Link href="/eng" className="text-caption-sm text-primary-light hover:text-white">
+              Eng Toolkit
+            </Link>
+            <a href="/storybook/index.html" target="_blank" rel="noopener" className="text-caption-sm text-primary-light hover:text-white">
+              Storybook ↗
+            </a>
+            <button
+              onClick={() => {
+                setBugshotActive(true);
+                setExpanded(false);
+              }}
+              className="text-caption-sm text-primary-light hover:text-white"
+            >
+              Bugshot
+            </button>
+            <span className="ml-auto text-caption-sm text-white/40">
+              {pages}p / {variants}v
+            </span>
+            <button onClick={() => setExpanded(false)} className="text-caption-sm text-white/50 hover:text-white">
+              Hide
+            </button>
+          </div>
+        </div>
+      )}
+      {bugshotActive && <Bugshot onClose={() => setBugshotActive(false)} devNavRef={devNavRef} />}
     </div>
   );
 }
