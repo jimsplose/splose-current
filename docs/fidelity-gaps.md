@@ -384,6 +384,11 @@ Patterns identified from the interactive states implementation audit. All opport
 
 - [x] **Calendar panel "Do not Invoice"** — Fixed: "Mark as Do not Invoice?" link added to appointment side panel. (2026-03-25)
 
+### Group BA — Invoice badge styling (`src/app/invoices/page.tsx`, `src/components/ds/Badge.tsx`)
+
+- [ ] **Invoice status badge border-radius** — NEW: audit 2026-03-26. Prod: borderRadius 8px (rounded-rect). Localhost: rounded-full (pill). Badge DS component solid variant needs borderRadius 8px to match production.
+- [ ] **Invoice status badge colors** — NEW: audit 2026-03-26. Prod Draft: rgb(165,165,158), Sent: rgb(180,235,100). Localhost uses lab() color values that resolve differently. Need to match production RGB values exactly.
+
 ### Group AY — Reports overview (`src/app/reports/page.tsx`)
 
 - [x] **Reports Performance overview toolbar** — Fixed: green pill date range, Daily/Weekly/Monthly selector, Compare toggle. (2026-03-25)
