@@ -123,32 +123,6 @@ export const SettingsAITabs: Story = {
 };
 
 /**
- * Eng toolkit page — Components / Pages tabs.
- * Source: `src/app/eng/page.tsx`
- */
-export const EngToolkitTabs: Story = {
-  name: "Recipe: Eng Toolkit Tabs",
-  render: () => {
-    const [value, setValue] = useState("components");
-    return (
-      <div>
-        <Tab
-          items={[
-            { label: "Components", value: "components" },
-            { label: "Pages (22)", value: "pages" },
-          ]}
-          value={value}
-          onChange={setValue}
-        />
-        <div className="mt-4 rounded border border-border p-4 text-sm text-text-secondary">
-          {value === "components" ? "Design system component showcase" : "Page directory with links"}
-        </div>
-      </div>
-    );
-  },
-};
-
-/**
  * Waitlist page — Screener / Waitlist main tabs with nested sub-tabs.
  * Source: `src/app/waitlist/page.tsx`
  */

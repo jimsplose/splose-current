@@ -233,12 +233,6 @@ export const stateRegistry: PageEntry[] = [
     variants: [{ id: "default", label: "Product list" }],
   },
   {
-    path: "/eng",
-    label: "Eng Toolkit",
-    group: "Internal",
-    variants: [{ id: "default", label: "Component showcase + page directory" }],
-  },
-  {
     path: "/reports",
     label: "Reports",
     group: "Reports",

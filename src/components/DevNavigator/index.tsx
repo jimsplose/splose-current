@@ -146,9 +146,6 @@ export default function DevNavigator() {
 
           {/* Quick links */}
           <div className="flex items-center gap-3 border-t border-white/10 px-4 py-2">
-            <Link href="/eng" className="text-caption-sm text-primary-light hover:text-white">
-              Eng Toolkit
-            </Link>
             <a href="/storybook/index.html" target="_blank" rel="noopener" className="text-caption-sm text-primary-light hover:text-white">
               Storybook ↗
             </a>
