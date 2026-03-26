@@ -13,6 +13,7 @@ import {
   Navbar,
   FormColorPicker,
   Modal,
+  RadioGroup,
 } from "@/components/ds";
 
 const designTabs = [
@@ -22,16 +23,41 @@ const designTabs = [
   { label: "Share", value: "share" },
 ];
 
+const brandingOptions = [
+  { value: "none", label: "Display none" },
+  { value: "map", label: "Display map" },
+  { value: "logo", label: "Display logo / image" },
+];
+
+const COLOR_SWATCHES = [
+  "#8250ff",
+  "#6366f1",
+  "#2563eb",
+  "#0891b2",
+  "#059669",
+  "#ea580c",
+  "#dc2626",
+  "#ec4899",
+];
+
 export default function EditOnlineBookingPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("design");
   const [name, setName] = useState("Standard Booking");
   const [buttonColor, setButtonColor] = useState("#8250ff");
+  const [secondaryColor, setSecondaryColor] = useState("#f3f0ff");
   const [buttonText, setButtonText] = useState("Book Now");
   const [headerImage, setHeaderImage] = useState("");
+  const [brandingMode, setBrandingMode] = useState("none");
   const [termsEnabled, setTermsEnabled] = useState(true);
   const [terms, setTerms] = useState("By booking an appointment, you agree to our cancellation policy. Cancellations made less than 24 hours before the appointment may incur a fee.");
   const [confirmationMsg, setConfirmationMsg] = useState("Thank you for your booking! You will receive a confirmation email shortly.");
+  const [noticeEnabled, setNoticeEnabled] = useState(true);
+  const [noticeText, setNoticeText] = useState("Due to high demand, please book at least 48 hours in advance.");
+  const [autoRisk, setAutoRisk] = useState(false);
+  const [serviceRating, setServiceRating] = useState(false);
+  const [downloadNotice, setDownloadNotice] = useState(false);
+  const [gtmId, setGtmId] = useState("");
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
 
@@ -60,28 +86,134 @@ export default function EditOnlineBookingPage() {
           <div className="space-y-6">
             <FormInput label="Booking page name" value={name} onChange={(e) => setName(e.target.value)} />
 
-            <div>
-              <label className="mb-2 block text-label-lg text-text">Logo / Header image</label>
-              <div className="flex h-32 items-center justify-center rounded-lg border-2 border-dashed border-border bg-gray-50">
-                <div className="text-center">
-                  <Upload className="mx-auto mb-1 h-6 w-6 text-text-secondary" />
-                  <span className="text-caption-md text-text-secondary">Click or drag to upload</span>
+            {/* Branding section */}
+            <div className="space-y-3">
+              <div>
+                <h3 className="text-heading-sm text-text">Set your branding</h3>
+                <p className="text-body-sm text-text-secondary">Select a look for the branding</p>
+              </div>
+              <RadioGroup
+                name="brandingMode"
+                options={brandingOptions}
+                value={brandingMode}
+                onChange={setBrandingMode}
+              />
+              {brandingMode === "logo" && (
+                <div>
+                  <label className="mb-2 block text-label-lg text-text">Logo / Header image</label>
+                  <div className="flex h-32 items-center justify-center rounded-lg border-2 border-dashed border-border bg-gray-50">
+                    <div className="text-center">
+                      <Upload className="mx-auto mb-1 h-6 w-6 text-text-secondary" />
+                      <span className="text-caption-md text-text-secondary">Click or drag to upload</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Button styling section */}
+            <div className="space-y-3">
+              <div>
+                <h3 className="text-heading-sm text-text">Button styling</h3>
+              </div>
+              <div>
+                <p className="mb-2 text-label-lg text-text-secondary">Colours</p>
+                <div className="grid grid-cols-2 gap-4">
+                  <FormColorPicker label="Primary" value={buttonColor} onChange={setButtonColor} />
+                  <FormColorPicker label="Secondary" value={secondaryColor} onChange={setSecondaryColor} />
+                </div>
+              </div>
+              <div>
+                <p className="mb-2 text-label-md text-text-secondary">Accessible colour suggestions</p>
+                <div className="flex flex-wrap gap-2">
+                  {COLOR_SWATCHES.map((color) => (
+                    <button
+                      key={color}
+                      type="button"
+                      onClick={() => setButtonColor(color)}
+                      className="h-7 w-7 rounded-full border-2 border-transparent hover:border-border focus:outline-none focus:ring-2 focus:ring-primary"
+                      style={{ backgroundColor: color }}
+                      title={color}
+                    />
+                  ))}
                 </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <FormColorPicker label="Button colour" value={buttonColor} onChange={setButtonColor} />
-              <FormInput label="Button text" value={buttonText} onChange={(e) => setButtonText(e.target.value)} />
-            </div>
-
+            {/* Button preview */}
             <div className="rounded-lg border border-border p-4">
               <h3 className="mb-3 text-heading-sm text-text">Preview</h3>
-              <button className="rounded-lg px-6 py-2.5 text-label-lg text-white" style={{ backgroundColor: buttonColor }}>
-                {buttonText}
-              </button>
+              <div className="flex items-center gap-3">
+                <button className="rounded-lg px-6 py-2.5 text-label-lg text-white" style={{ backgroundColor: buttonColor }}>
+                  {buttonText}
+                </button>
+                <button className="rounded-lg px-6 py-2.5 text-label-lg" style={{ backgroundColor: secondaryColor, color: buttonColor }}>
+                  {buttonText}
+                </button>
+              </div>
             </div>
 
+            {/* Important notice banner */}
+            <div className="space-y-3">
+              <Toggle label="Important notice banner" checked={noticeEnabled} onChange={setNoticeEnabled} />
+              <p className="text-body-sm text-text-secondary">
+                This message appears on the online bookings page to inform clients of important updates, policies or any changes to the service.
+              </p>
+              {noticeEnabled && (
+                <FormTextarea
+                  label="Notice content"
+                  value={noticeText}
+                  onChange={(e) => setNoticeText(e.target.value)}
+                  rows={3}
+                  placeholder="e.g. Due to high demand, please book at least 48 hours in advance."
+                />
+              )}
+            </div>
+
+            {/* Auto Risk */}
+            <div className="space-y-2">
+              <Toggle label="Auto Risk" checked={autoRisk} onChange={setAutoRisk} />
+              <p className="text-body-sm text-text-secondary">
+                Auto-assign clients are required to review practice at the time of service.
+              </p>
+            </div>
+
+            {/* Service rating */}
+            <div className="space-y-2">
+              <Toggle label="Service rating" checked={serviceRating} onChange={setServiceRating} />
+            </div>
+
+            {/* Download online booking notice */}
+            <div className="space-y-3">
+              <Toggle label="Download online booking notice" checked={downloadNotice} onChange={setDownloadNotice} />
+              <p className="text-body-sm text-text-secondary">
+                The notice message will display if you turn this online booking page.
+              </p>
+              {downloadNotice && (
+                <div className="space-y-4">
+                  <FormInput label="Online Booking Document" value="" onChange={() => {}} />
+                  <FormTextarea
+                    label="Notice content"
+                    value=""
+                    onChange={() => {}}
+                    rows={4}
+                    placeholder="By proceeding with this online booking, you acknowledge and agree to our booking terms and conditions."
+                  />
+                  <div className="space-y-2">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input type="checkbox" className="h-4 w-4 rounded border-border text-primary accent-primary" />
+                      <span className="text-body-md text-text">I have read and agree to the terms</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input type="checkbox" className="h-4 w-4 rounded border-border text-primary accent-primary" />
+                      <span className="text-body-md text-text">I accept the privacy policy</span>
+                    </label>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Terms & policies */}
             <div className="space-y-4">
               <Toggle label="Enable booking terms & policies" checked={termsEnabled} onChange={setTermsEnabled} />
               {termsEnabled && (
@@ -202,6 +334,16 @@ export default function EditOnlineBookingPage() {
   frameBorder="0"
 ></iframe>`}
               </pre>
+            </div>
+
+            <div>
+              <h3 className="mb-2 text-heading-md text-text">Google Tag Manager ID</h3>
+              <FormInput
+                label=""
+                value={gtmId}
+                onChange={(e) => setGtmId(e.target.value)}
+                placeholder="GTM-TEST131"
+              />
             </div>
           </div>
         )}

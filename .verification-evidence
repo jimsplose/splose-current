@@ -1,2 +1,1 @@
-src/components/ds/Tab.tsx
-SKIP: src/app/calendar/CalendarView.tsx — no code changes, measurement re-verified only
+SKIP: src/app/settings/online-bookings/[id]/page.tsx — structural form changes, Chrome MCP unavailable for visual verification
