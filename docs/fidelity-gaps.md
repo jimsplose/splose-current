@@ -384,10 +384,14 @@ Patterns identified from the interactive states implementation audit. All opport
 
 - [x] **Calendar panel "Do not Invoice"** — Fixed: "Mark as Do not Invoice?" link added to appointment side panel. (2026-03-25)
 
-### Group BA — Invoice badge styling (`src/app/invoices/page.tsx`, `src/components/ds/Badge.tsx`)
+### Group BA — Badge styling cross-cutting (`src/components/ds/Badge.tsx`)
 
-- [ ] **Invoice status badge border-radius** — NEW: audit 2026-03-26. Prod: borderRadius 8px (rounded-rect). Localhost: rounded-full (pill). Badge DS component solid variant needs borderRadius 8px to match production.
-- [ ] **Invoice status badge colors** — NEW: audit 2026-03-26. Prod Draft: rgb(165,165,158), Sent: rgb(180,235,100). Localhost uses lab() color values that resolve differently. Need to match production RGB values exactly.
+- [ ] **Badge border-radius mismatch** — NEW: audit 2026-03-26. Prod: borderRadius 8px (rounded-rect) on all status badges (invoices, notes, etc). Localhost: rounded-full (pill). Cross-cutting issue affecting Badge DS component solid variant everywhere. Need borderRadius 8px.
+- [ ] **Badge color values** — NEW: audit 2026-03-26. Prod Draft: rgb(165,165,158), Sent: rgb(180,235,100). Localhost uses lab() color values. Need to match production RGB values exactly.
+
+### Group BB — Client detail heading weight (`src/app/clients/[id]/`)
+
+- [ ] **Client detail section heading fontWeight** — NEW: audit 2026-03-26. Prod: 18px/700. Localhost: 18px/600. "General details", "Client contact details" etc should use font-bold not font-semibold.
 
 ### Group AY — Reports overview (`src/app/reports/page.tsx`)
 
