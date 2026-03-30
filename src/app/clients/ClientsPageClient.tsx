@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Plus } from "lucide-react";
+import { PlusOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import {
   Badge,
   Button,
@@ -29,7 +30,7 @@ function formatDOB(dateStr: string | null): string {
 
 function formatPhone(phone: string | null): React.ReactNode {
   if (!phone) return null;
-  return <a href={`tel:${phone}`} className="text-primary hover:underline">{phone}</a>;
+  return <a href={`tel:${phone}`} style={{ color: 'var(--ant-color-primary)' }} className="hover:underline">{phone}</a>;
 }
 
 interface ClientRow {
@@ -47,11 +48,11 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
   const { paged, paginationProps } = usePagination(clients, { pageKey: "/clients" });
 
   return (
-    <div className="px-[22.5px] py-[10px]">
+    <div style={{ paddingLeft: 22.5, paddingRight: 22.5, paddingTop: 10, paddingBottom: 10 }}>
       <PageHeader title="Clients">
         <Link href="/clients/new">
           <Button variant="secondary">
-            <Plus className="h-4 w-4" />
+            <PlusOutlined style={{ fontSize: 16 }} />
             New client
           </Button>
         </Link>
