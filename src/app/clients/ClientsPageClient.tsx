@@ -30,7 +30,7 @@ function formatDOB(dateStr: string | null): string {
 
 function formatPhone(phone: string | null): React.ReactNode {
   if (!phone) return null;
-  return <a href={`tel:${phone}`} style={{ color: 'var(--ant-color-primary)' }} className="hover:underline">{phone}</a>;
+  return <a href={`tel:${phone}`} style={{ color: 'var(--color-primary)' }} className="hover:underline">{phone}</a>;
 }
 
 interface ClientRow {

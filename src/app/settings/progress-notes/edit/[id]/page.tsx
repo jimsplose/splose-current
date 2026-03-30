@@ -147,9 +147,9 @@ export default function EditProgressNoteTemplatePage() {
               <h3 className="text-heading-md text-text">AI blocks</h3>
               {blocks.map((block) => (
                 <Card key={block.id} padding="none">
-                  <Flex align="center" gap={8} style={{ borderBottom: '1px solid var(--ant-color-border)', backgroundColor: 'rgba(var(--ant-color-primary-rgb, 130, 80, 255), 0.05)', padding: '8px 16px' }}>
-                    <HolderOutlined style={{ fontSize: 16, cursor: 'grab', color: 'var(--ant-color-text-secondary)' }} />
-                    <ThunderboltOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary)' }} />
+                  <Flex align="center" gap={8} style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'rgba(var(--color-primary-rgb, 130, 80, 255), 0.05)', padding: '8px 16px' }}>
+                    <HolderOutlined style={{ fontSize: 16, cursor: 'grab', color: 'var(--color-text-secondary)' }} />
+                    <ThunderboltOutlined style={{ fontSize: 16, color: 'var(--color-primary)' }} />
                     <span style={{ flex: 1 }} className="text-label-lg text-text">{block.name}</span>
                     {savedBlockId === block.id && (
                       <Flex align="center" gap={4} className="text-caption-md" style={{ color: '#059669' }}>
@@ -158,7 +158,7 @@ export default function EditProgressNoteTemplatePage() {
                     )}
                     <Dropdown
                       trigger={
-                        <button style={{ borderRadius: 4, padding: 4, color: 'var(--ant-color-text-secondary)' }} className="hover:bg-gray-100">
+                        <button style={{ borderRadius: 4, padding: 4, color: 'var(--color-text-secondary)' }} className="hover:bg-gray-100">
                           <MoreOutlined style={{ fontSize: 16 }} />
                         </button>
                       }
@@ -169,7 +169,7 @@ export default function EditProgressNoteTemplatePage() {
                   </Flex>
                   <div style={{ padding: '12px 16px' }}>
                     <textarea
-                      style={{ width: '100%', borderRadius: 4, border: '1px solid var(--ant-color-border)', padding: '8px 12px', outline: 'none' }}
+                      style={{ width: '100%', borderRadius: 4, border: '1px solid var(--color-border)', padding: '8px 12px', outline: 'none' }}
                       className="text-body-md text-text focus:border-primary focus:ring-1 focus:ring-primary"
                       rows={2}
                       value={block.prompt}
@@ -187,7 +187,7 @@ export default function EditProgressNoteTemplatePage() {
           )}
 
           <div>
-            <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--ant-color-text-secondary)' }}>Free text section</label>
+            <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--color-text-secondary)' }}>Free text section</label>
             <RichTextEditor value={freeText} onChange={setFreeText} rows={6} />
           </div>
         </Flex>
@@ -217,10 +217,10 @@ export default function EditProgressNoteTemplatePage() {
                 <button
                   key={block.id}
                   onClick={() => addBlock(block)}
-                  style={{ display: 'flex', width: '100%', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--ant-color-border)', padding: '12px 16px', textAlign: 'left', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}
+                  style={{ display: 'flex', width: '100%', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', padding: '12px 16px', textAlign: 'left', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}
                   className="hover:border-primary hover:bg-primary/5"
                 >
-                  <ThunderboltOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--ant-color-primary)' }} />
+                  <ThunderboltOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-primary)' }} />
                   <div>
                     <div className="text-label-lg text-text">{block.name}</div>
                     <div className="text-caption-md text-text-secondary">{block.prompt}</div>

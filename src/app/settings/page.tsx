@@ -5,7 +5,7 @@ export default function SettingsLandingPage() {
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', minHeight: '60vh' }}>
       <EmptyState
-        icon={<SettingOutlined style={{ fontSize: 40, color: 'var(--ant-color-text-secondary)' }} />}
+        icon={<SettingOutlined style={{ fontSize: 40, color: 'var(--color-text-secondary)' }} />}
         title="All your settings in one place"
         message="Select a setting from the menu to get started."
       />

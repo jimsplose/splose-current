@@ -150,7 +150,7 @@ export default function RichTextEditor({
             <span className={styles.divider} />
             <Dropdown
               trigger={
-                <button type="button" style={{ display: "flex", alignItems: "center", gap: 4, borderRadius: 4, padding: "4px 8px", fontSize: 12, color: "var(--ant-color-primary)", background: "none", border: "none", cursor: "pointer" }}>
+                <button type="button" style={{ display: "flex", alignItems: "center", gap: 4, borderRadius: 4, padding: "4px 8px", fontSize: 12, color: "var(--color-primary)", background: "none", border: "none", cursor: "pointer" }}>
                   Insert variable <DownOutlined style={{ fontSize: 10 }} />
                 </button>
               }

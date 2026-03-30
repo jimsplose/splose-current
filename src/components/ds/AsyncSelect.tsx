@@ -38,7 +38,7 @@ export default function AsyncSelect({
   return (
     <div className={className}>
       {label && (
-        <label style={{ display: "block", marginBottom: 4, fontSize: 14, color: "var(--ant-color-text-secondary)" }}>
+        <label style={{ display: "block", marginBottom: 4, fontSize: 14, color: "var(--color-text-secondary)" }}>
           {label}
         </label>
       )}

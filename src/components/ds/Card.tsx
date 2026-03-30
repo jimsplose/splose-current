@@ -28,7 +28,7 @@ export default function Card({ children, title, headerBar, className, style, pad
       style={style}
       styles={{
         body: { padding: paddingMap[padding] },
-        header: headerBar ? { backgroundColor: "var(--ant-color-fill-alter)" } : undefined,
+        header: headerBar ? { backgroundColor: "var(--color-fill-alter)" } : undefined,
       }}
     >
       {title && !headerBar && (

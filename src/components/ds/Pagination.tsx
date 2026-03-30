@@ -26,7 +26,7 @@ export default function Pagination({
   const total = totalItems ?? totalPages * itemsPerPage;
 
   return (
-    <div style={{ display: "flex", justifyContent: "flex-end", borderTop: "1px solid var(--ant-color-border)", padding: "12px 16px" }}>
+    <div style={{ display: "flex", justifyContent: "flex-end", borderTop: "1px solid var(--color-border)", padding: "12px 16px" }}>
       <AntPagination
         current={currentPage}
         total={total}

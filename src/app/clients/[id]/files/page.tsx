@@ -80,18 +80,18 @@ export default function ClientFilesPage() {
           <TableHead>
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                Name <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+                Name <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
             <Th>Uploader</Th>
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                Upload date <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+                Upload date <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                File size <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+                File size <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
             <Th align="right">Actions</Th>
@@ -101,7 +101,7 @@ export default function ClientFilesPage() {
               <Tr key={file.id}>
                 <Td>
                   <Flex align="center" gap={8}>
-                    <FileTextOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
+                    <FileTextOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
                     <span>{file.name}</span>
                   </Flex>
                 </Td>
@@ -173,7 +173,7 @@ export default function ClientFilesPage() {
           </>
         }
       >
-        <p className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>
+        <p className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>
           Are you sure you want to delete <strong>{deleteModal.fileName}</strong>? This action cannot be undone.
         </p>
       </Modal>

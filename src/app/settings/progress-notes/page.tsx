@@ -75,7 +75,7 @@ export default function ProgressNotesPage() {
       </PageHeader>
 
       {showBanner && (
-        <Flex align="flex-start" gap={12} style={{ marginBottom: 16, borderRadius: 8, border: '1px solid rgba(var(--ant-color-primary-rgb, 130, 80, 255), 0.2)', backgroundColor: 'rgba(var(--ant-color-primary-rgb, 130, 80, 255), 0.1)', padding: '12px 16px' }}>
+        <Flex align="flex-start" gap={12} style={{ marginBottom: 16, borderRadius: 8, border: '1px solid rgba(var(--color-primary-rgb, 130, 80, 255), 0.2)', backgroundColor: 'rgba(var(--color-primary-rgb, 130, 80, 255), 0.1)', padding: '12px 16px' }}>
           <Badge variant="purple">New</Badge>
           <p style={{ flex: 1, fontSize: 12 }} className="text-text">
             Add AI blocks to templates to generate instant drafts, every
@@ -96,7 +96,7 @@ export default function ProgressNotesPage() {
         </Flex>
       )}
 
-      <p style={{ marginBottom: 16, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
+      <p style={{ marginBottom: 16, fontSize: 12, color: 'var(--color-text-secondary)' }}>
         Create templates for any appointment type to save time and keep
         documentation consistent. Add tables, auto-fill placeholders,
         interactive fields and AI blocks.
@@ -116,7 +116,7 @@ export default function ProgressNotesPage() {
               <Td>
                 <Flex align="center" gap={8}>
                   {t.hasAi && (
-                    <ThunderboltOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--ant-color-primary)' }} />
+                    <ThunderboltOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-primary)' }} />
                   )}
                   <span className="text-text">{t.title}</span>
                 </Flex>

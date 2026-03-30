@@ -88,7 +88,7 @@ function NewProgressNotePageInner() {
         badge={
           <Flex align="center" gap={8}>
             <Badge variant="gray">Note has been autosaved</Badge>
-            {clientName && <span className="text-body-md" style={{ color: 'var(--ant-color-primary)' }}>{clientName}</span>}
+            {clientName && <span className="text-body-md" style={{ color: 'var(--color-primary)' }}>{clientName}</span>}
           </Flex>
         }
       >
@@ -110,7 +110,7 @@ function NewProgressNotePageInner() {
 
       <div style={{ display: 'flex' }}>
         {/* Left editor panel */}
-        <div style={{ flex: 1, borderRight: '1px solid var(--ant-color-border)', backgroundColor: '#fff', padding: 24 }}>
+        <div style={{ flex: 1, borderRight: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
           <div style={{ maxWidth: 672, margin: '0 auto' }}>
             {/* Service select */}
             <div style={{ marginBottom: 20 }}>
@@ -177,7 +177,7 @@ function NewProgressNotePageInner() {
               placeholder="Search notes"
             />
             <EmptyState
-              icon={<SnippetsOutlined style={{ fontSize: 40, color: 'var(--ant-color-primary)', opacity: 0.4 }} />}
+              icon={<SnippetsOutlined style={{ fontSize: 40, color: 'var(--color-primary)', opacity: 0.4 }} />}
               title="No reference notes found"
               message="Select a client to see their previous notes"
               style={{ marginTop: 64 }}

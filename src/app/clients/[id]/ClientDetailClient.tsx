@@ -118,7 +118,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
               {
                 label: "Email:",
                 value: (
-                  <span style={{ color: 'var(--ant-color-primary)' }}>
+                  <span style={{ color: 'var(--color-primary)' }}>
                     {client.email || "\u2014"}
                   </span>
                 ),
@@ -126,7 +126,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
               {
                 label: "Phone numbers:",
                 value: (
-                  <span style={{ color: 'var(--ant-color-primary)' }}>
+                  <span style={{ color: 'var(--color-primary)' }}>
                     {client.phone || "\u2014"}
                   </span>
                 ),
@@ -240,7 +240,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           </h2>
           <table style={{ width: '100%' }} className="text-body-md">
             <thead>
-              <tr style={{ borderBottom: '1px solid var(--ant-color-border)' }}>
+              <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
                 <th style={{ paddingBottom: 8, textAlign: 'left' }} className="text-label-lg">Name</th>
                 <th style={{ paddingBottom: 8, textAlign: 'left' }} className="text-label-lg">Type</th>
                 <th style={{ paddingBottom: 8, textAlign: 'left' }} className="text-label-lg">Notes</th>
@@ -250,16 +250,16 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
               </tr>
             </thead>
             <tbody>
-              <tr style={{ borderBottom: '1px solid var(--ant-color-border)' }}>
-                <td style={{ paddingTop: 8, paddingBottom: 8, color: 'var(--ant-color-primary)' }}>Test doctor</td>
+              <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+                <td style={{ paddingTop: 8, paddingBottom: 8, color: 'var(--color-primary)' }}>Test doctor</td>
                 <td style={{ paddingTop: 8, paddingBottom: 8 }}>Doctor</td>
                 <td style={{ paddingTop: 8, paddingBottom: 8 }}>hello</td>
                 <td style={{ paddingTop: 8, paddingBottom: 8, textAlign: 'center' }}></td>
                 <td style={{ paddingTop: 8, paddingBottom: 8, textAlign: 'center' }}></td>
                 <td style={{ paddingTop: 8, paddingBottom: 8, textAlign: 'center' }}></td>
               </tr>
-              <tr style={{ borderBottom: '1px solid var(--ant-color-border)' }}>
-                <td style={{ paddingTop: 8, paddingBottom: 8, color: 'var(--ant-color-primary)' }}>Jo malone</td>
+              <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+                <td style={{ paddingTop: 8, paddingBottom: 8, color: 'var(--color-primary)' }}>Jo malone</td>
                 <td style={{ paddingTop: 8, paddingBottom: 8 }}>Standard</td>
                 <td style={{ paddingTop: 8, paddingBottom: 8 }}>N/A</td>
                 <td style={{ paddingTop: 8, paddingBottom: 8, textAlign: 'center' }}></td>
@@ -270,13 +270,13 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           </table>
         </section>
 
-        <Button variant="ghost" size="sm" style={{ color: 'var(--ant-color-primary)' }} className="hover:bg-transparent hover:underline">View change log</Button>
+        <Button variant="ghost" size="sm" style={{ color: 'var(--color-primary)' }} className="hover:bg-transparent hover:underline">View change log</Button>
       </div>
 
       {/* Right panel */}
-      <aside style={{ width: 280, flexShrink: 0, overflowY: 'auto', borderLeft: '1px solid var(--ant-color-border)', backgroundColor: '#fff', padding: 16 }}>
+      <aside style={{ width: 280, flexShrink: 0, overflowY: 'auto', borderLeft: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
         {/* Account balance */}
-        <div style={{ marginBottom: 16, borderRadius: 8, backgroundColor: 'var(--ant-color-primary)', padding: 16, color: '#fff' }}>
+        <div style={{ marginBottom: 16, borderRadius: 8, backgroundColor: 'var(--color-primary)', padding: 16, color: '#fff' }}>
           <Flex justify="space-between" align="center">
             <h3 className="text-label-lg" style={{ fontWeight: 600, color: '#fff' }}>Account balance</h3>
             <HintIcon className="h-5 w-5 border-white/50 text-white/80" />
@@ -301,7 +301,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* Stripe */}
         <Collapse title="Stripe" defaultOpen>
-          <p className="text-body-sm" style={{ color: 'var(--ant-color-text-secondary)' }}>
+          <p className="text-body-sm" style={{ color: 'var(--color-text-secondary)' }}>
             Connect with Stripe and save a credit card for clients and use for
             future use.
           </p>
@@ -311,15 +311,15 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         <Collapse title="Mailchimp" defaultOpen>
           <Flex vertical gap={4} className="text-body-sm">
             <Flex align="center" gap={4}>
-              <span style={{ color: 'var(--ant-color-primary)' }}>rakesh.splose@gmail.com</span>
+              <span style={{ color: 'var(--color-primary)' }}>rakesh.splose@gmail.com</span>
               <Badge variant="orange" className="text-caption-sm">
                 ARCHIVED
               </Badge>
             </Flex>
-            <p style={{ color: 'var(--ant-color-text-secondary)' }}>a a</p>
-            <p style={{ color: 'var(--ant-color-text-secondary)' }}>Open rate: 0%</p>
-            <p style={{ color: 'var(--ant-color-text-secondary)' }}>Click rate: 0%</p>
-            <p style={{ color: 'var(--ant-color-text-secondary)' }}>
+            <p style={{ color: 'var(--color-text-secondary)' }}>a a</p>
+            <p style={{ color: 'var(--color-text-secondary)' }}>Open rate: 0%</p>
+            <p style={{ color: 'var(--color-text-secondary)' }}>Click rate: 0%</p>
+            <p style={{ color: 'var(--color-text-secondary)' }}>
               Opt-in: 11:41 am, 16 Nov 2022
             </p>
             <Button
@@ -335,7 +335,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* QuickBooks */}
         <Collapse title="QuickBooks">
-          <p className="text-body-sm" style={{ color: 'var(--ant-color-text-secondary)' }}>
+          <p className="text-body-sm" style={{ color: 'var(--color-text-secondary)' }}>
             No QuickBooks connection.
           </p>
         </Collapse>
@@ -495,7 +495,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         {/* Alerts */}
         <section style={{ marginBottom: 32 }}>
           <h2 className="text-heading-lg" style={{ fontWeight: 700, marginBottom: 16 }}>Alerts</h2>
-          <p className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)', marginBottom: 8 }}>
+          <p className="text-body-md" style={{ color: 'var(--color-text-secondary)', marginBottom: 8 }}>
             Information you add here will be displayed in important places like scheduling appointments.
           </p>
           <FormTextarea defaultValue="Include KM" rows={3} />

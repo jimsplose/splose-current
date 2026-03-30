@@ -32,9 +32,9 @@ export default function ClientPractitionerAccessPage() {
   return (
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <h1 className="text-display-lg" style={{ marginBottom: 16 }}>Practitioner access</h1>
-      <p style={{ marginBottom: 24, fontSize: 14, color: 'var(--ant-color-text-secondary)' }}>
+      <p style={{ marginBottom: 24, fontSize: 14, color: 'var(--color-text-secondary)' }}>
         You can link practitioners to clients via creating an appointment or support activity in the calendar tab.{" "}
-        <span style={{ cursor: 'pointer', color: 'var(--ant-color-primary)' }} className="hover:underline">Learn more</span>
+        <span style={{ cursor: 'pointer', color: 'var(--color-primary)' }} className="hover:underline">Learn more</span>
       </p>
 
       <Card padding="none" className="overflow-x-auto">
@@ -43,7 +43,7 @@ export default function ClientPractitionerAccessPage() {
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Name
-                <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
             <Th>Role name</Th>
@@ -51,8 +51,8 @@ export default function ClientPractitionerAccessPage() {
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Group
-                <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
-                <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+                <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
             <Th>Status</Th>
@@ -72,7 +72,7 @@ export default function ClientPractitionerAccessPage() {
                 <Td className="text-text-secondary">{p.group}</Td>
                 <Td className="text-text-secondary">{p.status}</Td>
                 <Td align="right">
-                  <Button variant="ghost" size="sm" style={{ color: 'var(--ant-color-text-secondary)' }}>...</Button>
+                  <Button variant="ghost" size="sm" style={{ color: 'var(--color-text-secondary)' }}>...</Button>
                 </Td>
               </Tr>
             ))}

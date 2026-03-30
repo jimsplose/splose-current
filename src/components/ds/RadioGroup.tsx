@@ -20,7 +20,7 @@ export default function RadioGroup({ name, label, options, value, onChange, clas
   return (
     <div className={className}>
       {label && (
-        <div style={{ marginBottom: 8, fontSize: 14, color: "var(--ant-color-text-secondary)" }}>
+        <div style={{ marginBottom: 8, fontSize: 14, color: "var(--color-text-secondary)" }}>
           {label}
         </div>
       )}

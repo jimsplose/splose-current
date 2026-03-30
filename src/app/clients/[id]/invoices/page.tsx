@@ -35,27 +35,27 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
               <Th>
                 <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Invoice #
-                  <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
-                  <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                  <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+                  <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
                 </Flex>
               </Th>
               <Th>To</Th>
               <Th>
                 <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Location
-                  <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                  <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
                 </Flex>
               </Th>
               <Th>
                 <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Practitioner
-                  <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                  <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
                 </Flex>
               </Th>
               <Th>
                 <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Issue date
-                  <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                  <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
                 </Flex>
               </Th>
               <Th>
@@ -66,13 +66,13 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
               <Th>
                 <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Status
-                  <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                  <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
                 </Flex>
               </Th>
               <Th>
                 <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Sent status
-                  <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                  <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
                 </Flex>
               </Th>
             </TableHead>

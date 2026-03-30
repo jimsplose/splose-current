@@ -20,7 +20,7 @@ export default function BatchInvoicePreviewPage() {
       </Navbar>
 
       <div style={{ padding: 24 }}>
-        <p className="text-body-md" style={{ marginBottom: 16, color: 'var(--ant-color-text-secondary)' }}>
+        <p className="text-body-md" style={{ marginBottom: 16, color: 'var(--color-text-secondary)' }}>
           {invoices.length} invoices will be created. Review below before confirming.
         </p>
 
@@ -43,9 +43,9 @@ export default function BatchInvoicePreviewPage() {
           </TableBody>
         </DataTable>
 
-        <Flex justify="end" style={{ marginTop: 16, borderTop: '1px solid var(--ant-color-border)', paddingTop: 16 }}>
+        <Flex justify="end" style={{ marginTop: 16, borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
           <div style={{ textAlign: 'right' }}>
-            <p className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Total</p>
+            <p className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Total</p>
             <p className="text-heading-md text-text">$550.07</p>
           </div>
         </Flex>

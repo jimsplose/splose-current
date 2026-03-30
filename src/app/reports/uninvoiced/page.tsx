@@ -40,7 +40,7 @@ export default function ReportsUninvoicedPage() {
       </PageHeader>
 
       <div style={{ marginBottom: 16 }}>
-        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
+        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
           Date range *
         </Flex>
         <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
@@ -55,14 +55,14 @@ export default function ReportsUninvoicedPage() {
 
       {showResults && (
         <>
-          <div style={{ marginBottom: 16, borderRadius: 8, border: '1px solid var(--ant-color-border)', backgroundColor: 'var(--ant-color-fill-quaternary)', padding: '12px 16px' }}>
-            <p className="text-body-md" style={{ color: 'var(--ant-color-text)' }}>
+          <div style={{ marginBottom: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-quaternary)', padding: '12px 16px' }}>
+            <p className="text-body-md" style={{ color: 'var(--color-text)' }}>
               <span style={{ fontWeight: 600 }}>{mockUninvoicedRows.length} uninvoiced appointments</span> found, total value:{" "}
               <span style={{ fontWeight: 600 }}>${totalValue.toLocaleString("en-AU", { minimumFractionDigits: 2 })}</span>
             </p>
           </div>
 
-          <div style={{ overflowX: 'auto', borderRadius: 8, border: '1px solid var(--ant-color-border)' }}>
+          <div style={{ overflowX: 'auto', borderRadius: 8, border: '1px solid var(--color-border)' }}>
             <DataTable>
               <TableHead>
                 <Th>Date</Th>
@@ -77,7 +77,7 @@ export default function ReportsUninvoicedPage() {
                 {mockUninvoicedRows.map((row, i) => (
                   <Tr key={i}>
                     <Td>{row.date}</Td>
-                    <Td style={{ color: 'var(--ant-color-primary)' }}>{row.client}</Td>
+                    <Td style={{ color: 'var(--color-primary)' }}>{row.client}</Td>
                     <Td>{row.service}</Td>
                     <Td>{row.practitioner}</Td>
                     <Td>{row.duration}</Td>

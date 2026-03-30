@@ -101,7 +101,7 @@ export default function FormTemplateEditorPage() {
         </Flex>
       </Navbar>
 
-      <div style={{ borderBottom: '1px solid var(--ant-color-border)', padding: '0 24px' }}>
+      <div style={{ borderBottom: '1px solid var(--color-border)', padding: '0 24px' }}>
         <Tab items={editorTabs} value={activeTab} onChange={setActiveTab} />
       </div>
 
@@ -117,8 +117,8 @@ export default function FormTemplateEditorPage() {
                   return (
                     <Card key={field.id} padding="none" className="group">
                       <Flex align="center" gap={8} style={{ padding: '12px 16px' }}>
-                        <HolderOutlined style={{ fontSize: 16, flexShrink: 0, cursor: 'grab', color: 'var(--ant-color-text-secondary)' }} />
-                        <FieldIcon style={{ fontSize: 16, flexShrink: 0, color: 'var(--ant-color-primary)' }} />
+                        <HolderOutlined style={{ fontSize: 16, flexShrink: 0, cursor: 'grab', color: 'var(--color-text-secondary)' }} />
+                        <FieldIcon style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-primary)' }} />
                         <input
                           style={{ flex: 1, border: 'none', backgroundColor: 'transparent', outline: 'none' }}
                           className="text-body-md text-text"
@@ -126,7 +126,7 @@ export default function FormTemplateEditorPage() {
                           onChange={(e) => setFields((prev) => prev.map((f) => f.id === field.id ? { ...f, label: e.target.value } : f))}
                         />
                         <Toggle checked={field.required} onChange={(checked) => setFields((prev) => prev.map((f) => f.id === field.id ? { ...f, required: checked } : f))} label="Required" />
-                        <button onClick={() => removeField(field.id)} style={{ borderRadius: 4, padding: 4, color: 'var(--ant-color-text-secondary)', opacity: 0 }} className="group-hover:opacity-100 hover:text-danger">
+                        <button onClick={() => removeField(field.id)} style={{ borderRadius: 4, padding: 4, color: 'var(--color-text-secondary)', opacity: 0 }} className="group-hover:opacity-100 hover:text-danger">
                           <DeleteOutlined style={{ fontSize: 14 }} />
                         </button>
                       </Flex>
@@ -167,7 +167,7 @@ export default function FormTemplateEditorPage() {
 
           {activeTab === "preview" && (
             <div style={{ maxWidth: 512, margin: '0 auto' }}>
-              <div style={{ borderRadius: 8, border: '1px solid var(--ant-color-border)', padding: 24, borderTopColor: themeColor, borderTopWidth: 4 }}>
+              <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', padding: 24, borderTopColor: themeColor, borderTopWidth: 4 }}>
                 <h2 className="text-heading-lg text-text" style={{ marginBottom: 24 }}>{title}</h2>
                 <Flex vertical gap={16}>
                   {fields.map((field) => (
@@ -176,18 +176,18 @@ export default function FormTemplateEditorPage() {
                         {field.label} {field.required && <span className="text-danger">*</span>}
                       </label>
                       {field.type === "long-text" ? (
-                        <textarea style={{ width: '100%', borderRadius: 8, border: '1px solid var(--ant-color-border)', padding: '8px 12px' }} className="text-body-md" rows={3} disabled />
+                        <textarea style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '8px 12px' }} className="text-body-md" rows={3} disabled />
                       ) : field.type === "boolean" ? (
                         <Flex gap={16}>
                           <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}><input type="radio" name={`f${field.id}`} disabled /> Yes</label>
                           <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}><input type="radio" name={`f${field.id}`} disabled /> No</label>
                         </Flex>
                       ) : field.type === "file-upload" ? (
-                        <div style={{ display: 'flex', height: 80, alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '2px dashed var(--ant-color-border)', backgroundColor: 'var(--ant-color-bg-layout)' }} className="text-caption-md text-text-secondary">
+                        <div style={{ display: 'flex', height: 80, alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-bg-layout)' }} className="text-caption-md text-text-secondary">
                           Click or drag to upload
                         </div>
                       ) : (
-                        <input style={{ width: '100%', borderRadius: 8, border: '1px solid var(--ant-color-border)', padding: '8px 12px' }} className="text-body-md" type={field.type === "date" ? "date" : "text"} disabled />
+                        <input style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '8px 12px' }} className="text-body-md" type={field.type === "date" ? "date" : "text"} disabled />
                       )}
                     </div>
                   ))}
@@ -199,21 +199,21 @@ export default function FormTemplateEditorPage() {
         </div>
 
         {sidePanel === "share" && (
-          <div style={{ width: 320, flexShrink: 0, borderLeft: '1px solid var(--ant-color-border)', backgroundColor: 'white', padding: 16 }}>
+          <div style={{ width: 320, flexShrink: 0, borderLeft: '1px solid var(--color-border)', backgroundColor: 'white', padding: 16 }}>
             <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
               <h3 className="text-heading-sm text-text">Share & Automate</h3>
-              <button onClick={() => setSidePanel(null)} style={{ borderRadius: 4, padding: 4, color: 'var(--ant-color-text-secondary)' }} className="hover:bg-gray-100">&times;</button>
+              <button onClick={() => setSidePanel(null)} style={{ borderRadius: 4, padding: 4, color: 'var(--color-text-secondary)' }} className="hover:bg-gray-100">&times;</button>
             </Flex>
             <Flex vertical gap={16}>
               <div>
-                <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--ant-color-text-secondary)' }}>Form link</label>
-                <div style={{ borderRadius: 8, border: '1px solid var(--ant-color-border)', backgroundColor: 'var(--ant-color-bg-layout)', padding: '8px 12px', wordBreak: 'break-all' }} className="text-body-sm text-primary">
+                <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--color-text-secondary)' }}>Form link</label>
+                <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-layout)', padding: '8px 12px', wordBreak: 'break-all' }} className="text-body-sm text-primary">
                   https://acme.splose.com/patient-form/81783/view
                 </div>
               </div>
               <Button variant="secondary" style={{ width: '100%' }}>Copy link</Button>
               <Button variant="secondary" style={{ width: '100%' }}>Send to client</Button>
-              <div style={{ borderTop: '1px solid var(--ant-color-border)', paddingTop: 16 }}>
+              <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
                 <h4 className="text-label-lg text-text" style={{ marginBottom: 8 }}>Automations</h4>
                 <p className="text-caption-md text-text-secondary">Automatically send this form to new clients or on appointment creation.</p>
                 <Button variant="secondary" style={{ marginTop: 8 }}>+ Add automation</Button>
@@ -229,10 +229,10 @@ export default function FormTemplateEditorPage() {
             <button
               key={value}
               onClick={() => addField(value)}
-              style={{ display: 'flex', alignItems: 'center', gap: 8, borderRadius: 8, border: '1px solid var(--ant-color-border)', padding: '10px 12px', textAlign: 'left', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}
+              style={{ display: 'flex', alignItems: 'center', gap: 8, borderRadius: 8, border: '1px solid var(--color-border)', padding: '10px 12px', textAlign: 'left', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}
               className="hover:border-primary hover:bg-primary/5"
             >
-              <Icon style={{ fontSize: 16, color: 'var(--ant-color-primary)' }} />
+              <Icon style={{ fontSize: 16, color: 'var(--color-primary)' }} />
               <span className="text-body-md text-text">{label}</span>
             </button>
           ))}

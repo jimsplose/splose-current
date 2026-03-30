@@ -13,7 +13,7 @@ export default function HintIcon({ tooltip, className }: HintIconProps) {
     <Tooltip title={tooltip}>
       <InfoCircleOutlined
         className={className}
-        style={{ fontSize: 14, color: "var(--ant-color-text-quaternary)", cursor: "help", marginLeft: 2 }}
+        style={{ fontSize: 14, color: "var(--color-text-quaternary)", cursor: "help", marginLeft: 2 }}
       />
     </Tooltip>
   );

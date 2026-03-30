@@ -63,32 +63,32 @@ export default function NdisBulkUploadNewPage() {
                 <CheckCircleOutlined style={{ fontSize: 32, color: '#16a34a' }} />
               </div>
             </Flex>
-            <h2 className="text-heading-lg" style={{ marginBottom: 4, color: 'var(--ant-color-text)' }}>Upload submitted</h2>
-            <p className="text-body-md" style={{ marginBottom: 24, color: 'var(--ant-color-text-secondary)' }}>
+            <h2 className="text-heading-lg" style={{ marginBottom: 4, color: 'var(--color-text)' }}>Upload submitted</h2>
+            <p className="text-body-md" style={{ marginBottom: 24, color: 'var(--color-text-secondary)' }}>
               {validCount} valid claims have been submitted to the NDIS portal for processing.
               {errorCount > 0 && ` ${errorCount} items with errors were skipped.`}
             </p>
 
-            <Flex vertical gap={12} style={{ borderTop: '1px solid var(--ant-color-border)', paddingTop: 16, textAlign: 'left' }}>
+            <Flex vertical gap={12} style={{ borderTop: '1px solid var(--color-border)', paddingTop: 16, textAlign: 'left' }}>
               <Flex align="center" justify="space-between">
-                <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>File</span>
-                <span className="text-label-lg" style={{ color: 'var(--ant-color-text)' }}>{fileName}</span>
+                <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>File</span>
+                <span className="text-label-lg" style={{ color: 'var(--color-text)' }}>{fileName}</span>
               </Flex>
               <Flex align="center" justify="space-between">
-                <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Total claims</span>
-                <span className="text-label-lg" style={{ color: 'var(--ant-color-text)' }}>{mockValidationResults.length}</span>
+                <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Total claims</span>
+                <span className="text-label-lg" style={{ color: 'var(--color-text)' }}>{mockValidationResults.length}</span>
               </Flex>
               <Flex align="center" justify="space-between">
-                <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Submitted</span>
+                <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Submitted</span>
                 <span className="text-label-lg" style={{ color: '#16a34a' }}>{validCount}</span>
               </Flex>
               <Flex align="center" justify="space-between">
-                <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Skipped (errors)</span>
+                <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Skipped (errors)</span>
                 <span className="text-label-lg" style={{ color: '#dc2626' }}>{errorCount}</span>
               </Flex>
               <Flex align="center" justify="space-between">
-                <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Total amount</span>
-                <span className="text-label-lg" style={{ color: 'var(--ant-color-text)' }}>
+                <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Total amount</span>
+                <span className="text-label-lg" style={{ color: 'var(--color-text)' }}>
                   $
                   {mockValidationResults
                     .filter((r) => r.status === "valid")
@@ -129,7 +129,7 @@ export default function NdisBulkUploadNewPage() {
               <ExclamationCircleOutlined style={{ fontSize: 16, color: '#dc2626' }} />
               <span className="text-label-lg" style={{ color: '#b91c1c' }}>{errorCount} errors</span>
             </Flex>
-            <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>
+            <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>
               from <strong>{fileName}</strong>
             </span>
           </Flex>
@@ -150,16 +150,16 @@ export default function NdisBulkUploadNewPage() {
                   <tr
                     key={row.line}
                     style={{
-                      borderBottom: '1px solid var(--ant-color-border)',
+                      borderBottom: '1px solid var(--color-border)',
                       backgroundColor: row.status === "error" ? 'rgba(254, 242, 242, 0.5)' : undefined,
                     }}
                     className={row.status !== "error" ? "hover:bg-gray-50" : ""}
                   >
-                    <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{row.line}</Td>
-                    <Td style={{ fontWeight: 500, color: 'var(--ant-color-text)' }}>{row.client}</Td>
-                    <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{row.serviceDate}</Td>
-                    <Td className="text-body-sm" style={{ fontFamily: 'monospace', color: 'var(--ant-color-text-secondary)' }}>{row.item}</Td>
-                    <Td align="right" style={{ color: 'var(--ant-color-text)' }}>
+                    <Td style={{ color: 'var(--color-text-secondary)' }}>{row.line}</Td>
+                    <Td style={{ fontWeight: 500, color: 'var(--color-text)' }}>{row.client}</Td>
+                    <Td style={{ color: 'var(--color-text-secondary)' }}>{row.serviceDate}</Td>
+                    <Td className="text-body-sm" style={{ fontFamily: 'monospace', color: 'var(--color-text-secondary)' }}>{row.item}</Td>
+                    <Td align="right" style={{ color: 'var(--color-text)' }}>
                       {row.amount}
                     </Td>
                     <Td>
@@ -192,9 +192,9 @@ export default function NdisBulkUploadNewPage() {
 
       <Flex vertical gap={24} style={{ maxWidth: 672, padding: 24 }}>
         <div>
-          <label style={{ display: 'block', marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>Date range *</label>
+          <label style={{ display: 'block', marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>Date range *</label>
           <DateRangeFilter startDate="2026-03-01" endDate="2026-03-27" />
-          <p className="text-caption-md" style={{ marginTop: 4, color: 'var(--ant-color-text-secondary)' }}>
+          <p className="text-caption-md" style={{ marginTop: 4, color: 'var(--color-text-secondary)' }}>
             12 support items from 1 Mar 2026 to 27 Mar 2026 at all practitioners
           </p>
         </div>
@@ -211,16 +211,16 @@ export default function NdisBulkUploadNewPage() {
         <FormInput label="Reference (optional)" placeholder="e.g. March 2026 upload" />
 
         <div>
-          <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--ant-color-text-secondary)' }}>Upload file *</label>
+          <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--color-text-secondary)' }}>Upload file *</label>
           {fileName ? (
             <Card padding="md">
               <Flex align="center" gap={12}>
-                <div style={{ display: 'flex', height: 40, width: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 8, backgroundColor: 'var(--ant-color-primary-bg)' }}>
-                  <FileTextOutlined style={{ fontSize: 20, color: 'var(--ant-color-primary)' }} />
+                <div style={{ display: 'flex', height: 40, width: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 8, backgroundColor: 'var(--color-primary-bg)' }}>
+                  <FileTextOutlined style={{ fontSize: 20, color: 'var(--color-primary)' }} />
                 </div>
                 <div style={{ flex: 1 }}>
-                  <p className="text-label-lg" style={{ color: 'var(--ant-color-text)' }}>{fileName}</p>
-                  <p className="text-caption-md" style={{ color: 'var(--ant-color-text-secondary)' }}>CSV file — 5 rows</p>
+                  <p className="text-label-lg" style={{ color: 'var(--color-text)' }}>{fileName}</p>
+                  <p className="text-caption-md" style={{ color: 'var(--color-text-secondary)' }}>CSV file — 5 rows</p>
                 </div>
                 <Button
                   variant="ghost"
@@ -233,13 +233,13 @@ export default function NdisBulkUploadNewPage() {
             </Card>
           ) : (
             <FileUpload
-              icon={<UploadOutlined style={{ fontSize: 32, color: 'var(--ant-color-text-secondary)' }} />}
+              icon={<UploadOutlined style={{ fontSize: 32, color: 'var(--color-text-secondary)' }} />}
               label="Choose CSV file"
               onClick={handleFileUpload}
               className="cursor-pointer"
             />
           )}
-          <p className="text-caption-md" style={{ marginTop: 4, color: 'var(--ant-color-text-secondary)' }}>
+          <p className="text-caption-md" style={{ marginTop: 4, color: 'var(--color-text-secondary)' }}>
             Upload a CSV file with NDIS claim data. Required columns: Client, Service Date, Support Item Number, Amount.
           </p>
         </div>

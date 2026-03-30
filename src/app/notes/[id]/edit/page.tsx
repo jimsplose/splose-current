@@ -288,7 +288,7 @@ export default function EditProgressNotePage() {
         title={note?.template || "Note"}
         badge={
           <>
-            <span className="text-body-md" style={{ cursor: 'pointer', color: 'var(--ant-color-primary)' }}>{clientName}</span>
+            <span className="text-body-md" style={{ cursor: 'pointer', color: 'var(--color-primary)' }}>{clientName}</span>
             {note?.signed ? (
               <Badge variant="green">
                 <CheckCircleOutlined style={{ fontSize: 12 }} />
@@ -329,7 +329,7 @@ export default function EditProgressNotePage() {
             </div>
 
             {/* Rich text toolbar */}
-            <Card padding="none" style={{ marginBottom: 16, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 4, padding: '6px 8px', color: 'var(--ant-color-text-secondary)' }}>
+            <Card padding="none" style={{ marginBottom: 16, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 4, padding: '6px 8px', color: 'var(--color-text-secondary)' }}>
               <Button variant="toolbar" size="sm" style={{ display: 'flex', alignItems: 'center', gap: 2, fontSize: 12 }}>
                 Arial
                 <DownOutlined style={{ fontSize: 12 }} />
@@ -338,7 +338,7 @@ export default function EditProgressNotePage() {
                 <FontSizeOutlined style={{ fontSize: 16 }} />
                 <DownOutlined style={{ fontSize: 12 }} />
               </Button>
-              <span style={{ height: 16, width: 1, backgroundColor: 'var(--ant-color-border)' }} />
+              <span style={{ height: 16, width: 1, backgroundColor: 'var(--color-border)' }} />
               <Button variant="icon">
                 <BoldOutlined style={{ fontSize: 16 }} />
               </Button>
@@ -351,7 +351,7 @@ export default function EditProgressNotePage() {
               <Button variant="icon">
                 <StrikethroughOutlined style={{ fontSize: 16 }} />
               </Button>
-              <span style={{ height: 16, width: 1, backgroundColor: 'var(--ant-color-border)' }} />
+              <span style={{ height: 16, width: 1, backgroundColor: 'var(--color-border)' }} />
               <Button variant="icon">
                 <LinkOutlined style={{ fontSize: 16 }} />
               </Button>
@@ -377,7 +377,7 @@ export default function EditProgressNotePage() {
               <Button
                 variant="secondary"
                 onClick={generateAll}
-                style={{ borderColor: 'var(--ant-color-primary)', color: 'var(--ant-color-primary)' }}
+                style={{ borderColor: 'var(--color-primary)', color: 'var(--color-primary)' }}
               >
                 <ThunderboltOutlined style={{ fontSize: 14 }} />
                 Generate
@@ -397,12 +397,12 @@ export default function EditProgressNotePage() {
             </Card>
 
             {/* Syncing notice */}
-            <Flex align="center" gap={8} style={{ marginBottom: 16, borderRadius: 8, backgroundColor: 'var(--ant-color-primary-bg)', padding: '8px 12px', fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
+            <Flex align="center" gap={8} style={{ marginBottom: 16, borderRadius: 8, backgroundColor: 'var(--color-primary-bg)', padding: '8px 12px', fontSize: 12, color: 'var(--color-text-secondary)' }}>
               <Flex align="center" gap={4}>
                 <Checkbox checked readOnly className="h-3 w-3" />
                 <span>Syncing client history</span>
               </Flex>
-              <span style={{ color: 'var(--ant-color-text-secondary)' }}>
+              <span style={{ color: 'var(--color-text-secondary)' }}>
                 Clients with more notes may take longer. AI will have full context once complete
               </span>
             </Flex>
@@ -436,7 +436,7 @@ export default function EditProgressNotePage() {
 
                 {/* AI Block — hidden once accepted */}
                 {!accepted[section.id] && (
-                  <div style={{ borderRadius: 8, border: '1px solid rgba(var(--ant-color-primary-rgb, 124, 58, 237), 0.2)', backgroundColor: 'rgba(var(--ant-color-primary-rgb, 124, 58, 237), 0.05)' }} className="border-primary/20 bg-primary/5 rounded-lg">
+                  <div style={{ borderRadius: 8, border: '1px solid rgba(var(--color-primary-rgb, 124, 58, 237), 0.2)', backgroundColor: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.05)' }} className="border-primary/20 bg-primary/5 rounded-lg">
                     {/* AI block header */}
                     <Flex
                       align="center"
@@ -445,8 +445,8 @@ export default function EditProgressNotePage() {
                       onClick={() => toggleSection(section.id)}
                     >
                       <Flex align="center" gap={8}>
-                        <ThunderboltOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary)' }} />
-                        <span className="text-label-lg" style={{ color: 'var(--ant-color-primary)' }}>AI block</span>
+                        <ThunderboltOutlined style={{ fontSize: 16, color: 'var(--color-primary)' }} />
+                        <span className="text-label-lg" style={{ color: 'var(--color-primary)' }}>AI block</span>
                       </Flex>
                       <Flex align="center" gap={8}>
                         <Button
@@ -462,9 +462,9 @@ export default function EditProgressNotePage() {
                           <span className="text-label-lg">&times;</span>
                         </Button>
                         {section.expanded ? (
-                          <UpOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
+                          <UpOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
                         ) : (
-                          <DownOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
+                          <DownOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
                         )}
                       </Flex>
                     </Flex>
@@ -475,7 +475,7 @@ export default function EditProgressNotePage() {
                         {section.generating ? (
                           <Flex align="center" gap={8} style={{ padding: '16px 0' }}>
                             <Spinner size="sm" />
-                            <span style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }}>
+                            <span style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>
                               Thinking<span className="animate-pulse">...</span>
                             </span>
                           </Flex>
@@ -545,7 +545,7 @@ export default function EditProgressNotePage() {
                           </div>
                         ) : (
                           <div>
-                            <p style={{ fontSize: 14, lineHeight: 1.625, color: 'var(--ant-color-text-secondary)' }}>{section.prompt}</p>
+                            <p style={{ fontSize: 14, lineHeight: 1.625, color: 'var(--color-text-secondary)' }}>{section.prompt}</p>
                             {/* Actions dropdown and Generate button row */}
                             <Flex align="center" justify="space-between" style={{ marginTop: 12 }}>
                               <Dropdown
@@ -585,7 +585,7 @@ export default function EditProgressNotePage() {
         {/* Split view reference panel */}
         {viewMode === "split" && (
           <div
-            style={{ width: 320, flexShrink: 0, overflowY: 'auto', borderLeft: '1px solid var(--ant-color-border)', backgroundColor: '#fff', padding: 24, maxHeight: 'calc(100vh - 6rem)' }}
+            style={{ width: 320, flexShrink: 0, overflowY: 'auto', borderLeft: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24, maxHeight: 'calc(100vh - 6rem)' }}
           >
             <h3 className="text-heading-sm" style={{ marginBottom: 12 }}>Filter previous progress notes</h3>
             <FormInput
@@ -602,7 +602,7 @@ export default function EditProgressNotePage() {
         {/* Splose AI Chat Side Panel */}
         {aiChatOpen && (
           <div
-            style={{ display: 'flex', width: 350, flexShrink: 0, flexDirection: 'column', borderLeft: '1px solid var(--ant-color-border)', backgroundColor: '#fff', boxShadow: '-4px 0 12px rgba(0,0,0,0.1)', maxHeight: 'calc(100vh - 6rem)' }}
+            style={{ display: 'flex', width: 350, flexShrink: 0, flexDirection: 'column', borderLeft: '1px solid var(--color-border)', backgroundColor: '#fff', boxShadow: '-4px 0 12px rgba(0,0,0,0.1)', maxHeight: 'calc(100vh - 6rem)' }}
           >
             <AiChatPanel onClose={() => setAiChatOpen(false)} variant="notes" />
           </div>

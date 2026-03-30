@@ -46,7 +46,7 @@ export default function ReportsAgedDebtorsPage() {
 
       <Flex wrap="wrap" align="flex-start" gap={16} style={{ marginBottom: 16 }}>
         <div>
-          <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
+          <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
             Date range *
           </Flex>
           <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
@@ -75,13 +75,13 @@ export default function ReportsAgedDebtorsPage() {
           <div style={{ marginBottom: 16, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
             {agingSummary.map((item) => (
               <Card key={item.label}>
-                <p className="text-label-md" style={{ color: 'var(--ant-color-text-secondary)' }}>{item.label}</p>
+                <p className="text-label-md" style={{ color: 'var(--color-text-secondary)' }}>{item.label}</p>
                 <p className="text-heading-lg" style={{ marginTop: 4, color: item.color }}>{item.amount}</p>
               </Card>
             ))}
           </div>
 
-          <div style={{ overflowX: 'auto', borderRadius: 8, border: '1px solid var(--ant-color-border)' }}>
+          <div style={{ overflowX: 'auto', borderRadius: 8, border: '1px solid var(--color-border)' }}>
             <DataTable>
               <TableHead>
                 <Th>Client</Th>
@@ -94,8 +94,8 @@ export default function ReportsAgedDebtorsPage() {
               <TableBody>
                 {mockDebtorRows.map((row, i) => (
                   <Tr key={i}>
-                    <Td style={{ color: 'var(--ant-color-primary)' }}>{row.client}</Td>
-                    <Td style={{ color: 'var(--ant-color-primary)' }}>{row.invoice}</Td>
+                    <Td style={{ color: 'var(--color-primary)' }}>{row.client}</Td>
+                    <Td style={{ color: 'var(--color-primary)' }}>{row.invoice}</Td>
                     <Td align="right">{row.amount}</Td>
                     <Td align="right">{row.outstanding}</Td>
                     <Td>{row.dueDate}</Td>

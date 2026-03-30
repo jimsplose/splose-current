@@ -73,7 +73,7 @@ export default function SettingsListPage<
   onAction,
   showActions = true,
   showDropdown,
-  hiddenDropdownContent = <span style={{ color: "var(--ant-color-text-secondary)" }}>-</span>,
+  hiddenDropdownContent = <span style={{ color: "var(--color-text-secondary)" }}>-</span>,
   primaryButtonLabel,
   headerButtons,
   hasSearch = false,
@@ -134,7 +134,7 @@ export default function SettingsListPage<
       </PageHeader>
 
       {description && (
-        <p style={{ marginBottom: 16, fontSize: 14, color: "var(--ant-color-text-secondary)" }}>{description}</p>
+        <p style={{ marginBottom: 16, fontSize: 14, color: "var(--color-text-secondary)" }}>{description}</p>
       )}
 
       {beforeTable}
@@ -188,7 +188,7 @@ export default function SettingsListPage<
             <tr>
               <td
                 colSpan={columns.length + (showActions ? 1 : 0)}
-                style={{ padding: "32px 16px", textAlign: "center", fontSize: 14, color: "var(--ant-color-text-secondary)" }}
+                style={{ padding: "32px 16px", textAlign: "center", fontSize: 14, color: "var(--color-text-secondary)" }}
               >
                 No items found.
               </td>

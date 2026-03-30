@@ -85,7 +85,7 @@ export default function BatchInvoicePage() {
         </Navbar>
 
         <div style={{ padding: 24 }}>
-          <p className="text-body-md" style={{ marginBottom: 16, color: 'var(--ant-color-text-secondary)' }}>
+          <p className="text-body-md" style={{ marginBottom: 16, color: 'var(--color-text-secondary)' }}>
             {selectedPreviewInvoices.length} invoices will be created for {selectedClients.length} clients. Review below
             before confirming.
           </p>
@@ -111,9 +111,9 @@ export default function BatchInvoicePage() {
             </DataTable>
           </Card>
 
-          <Flex justify="end" style={{ marginTop: 16, borderTop: '1px solid var(--ant-color-border)', paddingTop: 16 }}>
+          <Flex justify="end" style={{ marginTop: 16, borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
             <div style={{ textAlign: 'right' }}>
-              <p className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Total</p>
+              <p className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Total</p>
               <p className="text-heading-md text-text">${previewTotal.toFixed(2)}</p>
             </div>
           </Flex>
@@ -133,7 +133,7 @@ export default function BatchInvoicePage() {
         </PageHeader>
 
         <div style={{ maxWidth: 768, padding: 24 }}>
-          <p className="text-body-md" style={{ marginBottom: 16, color: 'var(--ant-color-text-secondary)' }}>
+          <p className="text-body-md" style={{ marginBottom: 16, color: 'var(--color-text-secondary)' }}>
             Select which clients to include in this batch invoice.
           </p>
 
@@ -174,7 +174,7 @@ export default function BatchInvoicePage() {
             </DataTable>
           </Card>
 
-          <div className="text-body-sm" style={{ marginTop: 16, color: 'var(--ant-color-text-secondary)' }}>
+          <div className="text-body-sm" style={{ marginTop: 16, color: 'var(--color-text-secondary)' }}>
             {selectedClients.length} of {mockClients.length} clients selected
           </div>
         </div>
@@ -194,7 +194,7 @@ export default function BatchInvoicePage() {
       <div style={{ maxWidth: 672, padding: 24 }}>
         <Flex vertical gap={24}>
           <div>
-            <label style={{ display: 'block', marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>Date range *</label>
+            <label style={{ display: 'block', marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>Date range *</label>
             <DateRangeFilter startDate="2026-03-01" endDate="2026-03-27" />
           </div>
 

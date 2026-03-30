@@ -22,7 +22,7 @@ export default function ClientStatementsPage() {
           <label className="text-label-lg">Type*</label>
           <Button style={{ minWidth: 140, justifyContent: 'space-between' }}>
             Activity
-            <DownOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
+            <DownOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
           </Button>
         </Flex>
 
@@ -34,7 +34,7 @@ export default function ClientStatementsPage() {
               defaultValue="1 Mar 2026"
               style={{ width: 130 }}
             />
-            <span style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }}>&mdash;</span>
+            <span style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>&mdash;</span>
             <FormInput
               type="text"
               defaultValue="31 Mar 2026"
@@ -47,7 +47,7 @@ export default function ClientStatementsPage() {
           <label className="text-label-lg">Location*</label>
           <Button style={{ minWidth: 160, justifyContent: 'space-between' }}>
             All Locations
-            <DownOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
+            <DownOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
           </Button>
         </Flex>
 

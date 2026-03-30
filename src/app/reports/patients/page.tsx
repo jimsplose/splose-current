@@ -46,14 +46,14 @@ export default function ReportsPatientsPage() {
       </PageHeader>
 
       <div style={{ marginBottom: 16 }}>
-        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
+        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
           Date range *
         </Flex>
         <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
       </div>
 
       <div style={{ marginBottom: 16 }}>
-        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
+        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
           Status
         </Flex>
         <FormSelect
@@ -75,7 +75,7 @@ export default function ReportsPatientsPage() {
 
       {showResults && (
         <>
-          <p className="text-body-md" style={{ margin: '16px 0', color: 'var(--ant-color-text-secondary)' }}>{mockPatients.length} items found.</p>
+          <p className="text-body-md" style={{ margin: '16px 0', color: 'var(--color-text-secondary)' }}>{mockPatients.length} items found.</p>
           <DataTable>
             <TableHead>
               <Th>Name</Th>
@@ -99,7 +99,7 @@ export default function ReportsPatientsPage() {
                         ? row.tags.map((tag) => (
                             <Badge key={tag} variant={tagVariant(tag)}>{tag}</Badge>
                           ))
-                        : <span style={{ color: 'var(--ant-color-text-tertiary)' }}>—</span>}
+                        : <span style={{ color: 'var(--color-text-tertiary)' }}>—</span>}
                     </Flex>
                   </Td>
                   <Td>{row.created}</Td>

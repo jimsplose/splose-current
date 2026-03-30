@@ -15,7 +15,7 @@ export default function BatchInvoiceDetailPage() {
       </Navbar>
 
       <div style={{ padding: 24 }}>
-        <div className="text-body-md" style={{ marginBottom: 16, color: 'var(--ant-color-text-secondary)' }}>
+        <div className="text-body-md" style={{ marginBottom: 16, color: 'var(--color-text-secondary)' }}>
           Created on 22 Mar 2026 &middot; 3 invoices
         </div>
 

@@ -194,7 +194,7 @@ export default function ClientFormsPage() {
           </>
         }
       >
-        <p className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>
+        <p className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>
           Resend <strong>{resendModal.formTitle}</strong> to the client&apos;s email?
         </p>
       </Modal>
@@ -216,7 +216,7 @@ export default function ClientFormsPage() {
           </>
         }
       >
-        <p className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>
+        <p className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>
           Are you sure you want to archive <strong>{archiveModal.formTitle}</strong>? Archived forms can be restored later.
         </p>
       </Modal>

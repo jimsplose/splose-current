@@ -172,7 +172,7 @@ const mockContacts = [
 
 function getTypeLabel(type: string) {
   if (!type) return null;
-  return <span style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>{type}</span>;
+  return <span style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>{type}</span>;
 }
 
 export default function ContactsPage() {
@@ -195,26 +195,26 @@ export default function ContactsPage() {
             <Th>
               <Flex align="center" gap={4}>
                 Type
-                <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
-                <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+                <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
             <Th>
               <Flex align="center" gap={4}>
                 Name
-                <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
             <Th hidden="md">
               <Flex align="center" gap={4}>
                 Company
-                <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
             <Th hidden="md">
               <Flex align="center" gap={4}>
                 Email
-                <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
             <Th hidden="lg">Work phone</Th>

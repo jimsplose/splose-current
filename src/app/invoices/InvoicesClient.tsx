@@ -123,7 +123,7 @@ export default function InvoicesClient({
       {/* Active filters */}
       {activeFilterCount > 0 && (
         <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 12 }}>
-          <span className="text-label-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Filters:</span>
+          <span className="text-label-md" style={{ color: 'var(--color-text-secondary)' }}>Filters:</span>
           {locationFilter && (
             <Chip onRemove={() => setLocationFilter(null)}>
               Location: {locationFilter}
@@ -212,7 +212,7 @@ export default function InvoicesClient({
                 showPractitionerDropdown ||
                 showStatusDropdown) && (
                 <tr>
-                  <td colSpan={10} style={{ borderBottom: '1px solid var(--ant-color-border)', background: '#f9fafb', padding: '8px 16px' }}>
+                  <td colSpan={10} style={{ borderBottom: '1px solid var(--color-border)', background: '#f9fafb', padding: '8px 16px' }}>
                     <Flex wrap="wrap" gap={8}>
                       {showLocationDropdown &&
                         uniqueLocations.map((loc) => (

@@ -78,11 +78,11 @@ export default function SMSSettingsPage() {
       <div style={{ marginBottom: 32, maxWidth: 672 }}>
         <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Message preview</h2>
         <div style={{ marginBottom: 12 }}>
-          <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--ant-color-text-secondary)' }}>
+          <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--color-text-secondary)' }}>
             Sample message
           </label>
           <textarea
-            style={{ width: '100%', borderRadius: 8, border: '1px solid var(--ant-color-border)', backgroundColor: 'white', padding: '8px 12px', outline: 'none' }}
+            style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', padding: '8px 12px', outline: 'none' }}
             className="text-body-md text-text focus:border-primary focus:ring-1 focus:ring-primary/20"
             rows={3}
             value={sampleMessage}

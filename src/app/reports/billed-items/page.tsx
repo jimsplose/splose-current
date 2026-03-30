@@ -38,7 +38,7 @@ export default function ReportsBilledItemsPage() {
       </PageHeader>
 
       <div style={{ marginBottom: 16 }}>
-        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
+        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
           Date range *
         </Flex>
         <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
@@ -55,7 +55,7 @@ export default function ReportsBilledItemsPage() {
         <>
           <Flex align="center" gap={8} style={{ margin: '16px 0' }}>
             <span className="text-heading-md" style={{ fontWeight: 600 }}>Total invoiced: {totalInvoiced}</span>
-            <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>({mockBilledItems.length} items)</span>
+            <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>({mockBilledItems.length} items)</span>
           </Flex>
           <DataTable>
             <TableHead>

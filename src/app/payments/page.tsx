@@ -125,8 +125,8 @@ export default function PaymentsPage() {
             <Th className="w-[280px]">
               <Flex align="center" gap={6}>
                 Payment #
-                <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
-                <FilterOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+                <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                <FilterOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
             <Th>From</Th>
@@ -134,7 +134,7 @@ export default function PaymentsPage() {
             <Th align="right">
               <Flex align="center" justify="end" gap={6}>
                 Payment date
-                <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+                <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
           </TableHead>
@@ -179,7 +179,7 @@ export default function PaymentsPage() {
                   <Td align="right">
                     {payment.amount.toLocaleString("en-AU", { minimumFractionDigits: 2 })}
                   </Td>
-                  <Td align="right" style={{ color: 'var(--ant-color-text-secondary)' }}>
+                  <Td align="right" style={{ color: 'var(--color-text-secondary)' }}>
                     {payment.date}
                   </Td>
                 </Tr>
@@ -189,7 +189,7 @@ export default function PaymentsPage() {
                       <div style={{ padding: '8px 0 8px 28px' }}>
                         <table style={{ width: '100%' }}>
                           <thead>
-                            <tr style={{ borderBottom: '1px solid var(--ant-color-border)' }}>
+                            <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
                               <th style={{ padding: '8px 0', textAlign: 'left' }} className="text-label-lg">Invoice #</th>
                               <th style={{ padding: '8px 0', textAlign: 'left' }} className="text-label-lg">Amount</th>
                               <th style={{ padding: '8px 0', textAlign: 'left' }} className="text-label-lg">Date</th>
@@ -200,7 +200,7 @@ export default function PaymentsPage() {
                               <tr key={inv.number}>
                                 <td style={{ padding: '8px 0', fontSize: 14 }}><LinkCell>{inv.number}</LinkCell></td>
                                 <td style={{ padding: '8px 0', fontSize: 14 }}>{inv.amount.toFixed(2)}</td>
-                                <td style={{ padding: '8px 0', fontSize: 14, color: 'var(--ant-color-text-secondary)' }}>{inv.date}</td>
+                                <td style={{ padding: '8px 0', fontSize: 14, color: 'var(--color-text-secondary)' }}>{inv.date}</td>
                               </tr>
                             ))}
                           </tbody>

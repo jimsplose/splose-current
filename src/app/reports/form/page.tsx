@@ -42,14 +42,14 @@ export default function ReportsFormPage() {
       </PageHeader>
 
       <div style={{ marginBottom: 16 }}>
-        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
+        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
           Date range *
         </Flex>
         <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
       </div>
 
       <div style={{ marginBottom: 16 }}>
-        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
+        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
           Form type
         </Flex>
         <FormSelect
@@ -71,7 +71,7 @@ export default function ReportsFormPage() {
       </Flex>
 
       {showResults && (
-        <div style={{ overflowX: 'auto', borderRadius: 8, border: '1px solid var(--ant-color-border)' }}>
+        <div style={{ overflowX: 'auto', borderRadius: 8, border: '1px solid var(--color-border)' }}>
           <DataTable>
             <TableHead>
               <Th>Form name</Th>
@@ -84,7 +84,7 @@ export default function ReportsFormPage() {
               {mockFormRows.map((row, i) => (
                 <Tr key={i}>
                   <Td>{row.form}</Td>
-                  <Td style={{ color: 'var(--ant-color-primary)' }}>{row.client}</Td>
+                  <Td style={{ color: 'var(--color-primary)' }}>{row.client}</Td>
                   <Td><Badge variant={formStatusVariant(row.status)}>{row.status}</Badge></Td>
                   <Td>{row.submitted}</Td>
                   <Td>{row.practitioner}</Td>

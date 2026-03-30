@@ -81,7 +81,7 @@ export default function ReportsPerformancePage() {
         <Chip variant="green">11 Mar 2026 – 11 Mar 2026</Chip>
 
         {/* Period selector pills */}
-        <Flex style={{ borderRadius: 9999, border: '1px solid var(--ant-color-border)', backgroundColor: 'white', padding: 2 }}>
+        <Flex style={{ borderRadius: 9999, border: '1px solid var(--color-border)', backgroundColor: 'white', padding: 2 }}>
           {periodOptions.map((opt) => (
             <button
               key={opt.value}
@@ -93,8 +93,8 @@ export default function ReportsPerformancePage() {
                 paddingTop: 4,
                 paddingBottom: 4,
                 transition: 'color 0.2s',
-                backgroundColor: period === opt.value ? 'var(--ant-color-primary)' : 'transparent',
-                color: period === opt.value ? 'white' : 'var(--ant-color-text-secondary)',
+                backgroundColor: period === opt.value ? 'var(--color-primary)' : 'transparent',
+                color: period === opt.value ? 'white' : 'var(--color-text-secondary)',
                 border: 'none',
                 cursor: 'pointer',
               }}
@@ -126,7 +126,7 @@ export default function ReportsPerformancePage() {
       {/* Configuration options */}
       <Flex vertical gap={12} style={{ fontSize: 12 }}>
         <Flex align="center" gap={16}>
-          <span style={{ width: 320, color: 'var(--ant-color-text)' }}>Identify as new client if no previous service:</span>
+          <span style={{ width: 320, color: 'var(--color-text)' }}>Identify as new client if no previous service:</span>
           <FormSelect
             options={[
               { value: "ever", label: "Ever" },
@@ -137,7 +137,7 @@ export default function ReportsPerformancePage() {
           />
         </Flex>
         <Flex align="center" gap={16}>
-          <span style={{ width: 320, color: 'var(--ant-color-text)' }}>Exclude busy time from utilisation calculation:</span>
+          <span style={{ width: 320, color: 'var(--color-text)' }}>Exclude busy time from utilisation calculation:</span>
           <FormSelect
             options={[
               { value: "no", label: "No" },
@@ -147,7 +147,7 @@ export default function ReportsPerformancePage() {
           />
         </Flex>
         <Flex align="center" gap={16}>
-          <span style={{ width: 320, color: 'var(--ant-color-text)' }}>
+          <span style={{ width: 320, color: 'var(--color-text)' }}>
             Include all appointments regardless of status:
           </span>
           <FormSelect
@@ -159,7 +159,7 @@ export default function ReportsPerformancePage() {
           />
         </Flex>
         <Flex align="center" gap={16}>
-          <span style={{ width: 320, color: 'var(--ant-color-text)' }}>
+          <span style={{ width: 320, color: 'var(--color-text)' }}>
             Exclude items marked as do not invoice:
           </span>
           <FormSelect
@@ -173,7 +173,7 @@ export default function ReportsPerformancePage() {
       </Flex>
 
       {showResults && (
-        <div style={{ marginTop: 24, overflowX: 'auto', borderRadius: 8, border: '1px solid var(--ant-color-border)' }}>
+        <div style={{ marginTop: 24, overflowX: 'auto', borderRadius: 8, border: '1px solid var(--color-border)' }}>
           <DataTable>
             <TableHead>
               <Th>Practitioner</Th>
@@ -186,7 +186,7 @@ export default function ReportsPerformancePage() {
             <TableBody>
               {mockPerformanceRows.map((row, i) => (
                 <Tr key={i}>
-                  <Td style={{ color: 'var(--ant-color-primary)' }}>{row.practitioner}</Td>
+                  <Td style={{ color: 'var(--color-primary)' }}>{row.practitioner}</Td>
                   <Td align="right">{row.available}h</Td>
                   <Td align="right">{row.booked}h</Td>
                   <Td align="right">
@@ -211,26 +211,26 @@ export default function ReportsPerformancePage() {
       >
         <Flex vertical gap={16}>
           <div>
-            <dt className="text-label-lg" style={{ color: 'var(--ant-color-text)' }}>Available hours</dt>
-            <dd className="text-body-md" style={{ marginTop: 2, color: 'var(--ant-color-text-secondary)' }}>
+            <dt className="text-label-lg" style={{ color: 'var(--color-text)' }}>Available hours</dt>
+            <dd className="text-body-md" style={{ marginTop: 2, color: 'var(--color-text-secondary)' }}>
               The total number of hours a practitioner has marked as available in their schedule during the selected date range, excluding blocked time and leave.
             </dd>
           </div>
           <div>
-            <dt className="text-label-lg" style={{ color: 'var(--ant-color-text)' }}>Booked hours</dt>
-            <dd className="text-body-md" style={{ marginTop: 2, color: 'var(--ant-color-text-secondary)' }}>
+            <dt className="text-label-lg" style={{ color: 'var(--color-text)' }}>Booked hours</dt>
+            <dd className="text-body-md" style={{ marginTop: 2, color: 'var(--color-text-secondary)' }}>
               The total number of hours occupied by confirmed client appointments during the selected date range. Does not include cancelled or no-show appointments unless configured otherwise.
             </dd>
           </div>
           <div>
-            <dt className="text-label-lg" style={{ color: 'var(--ant-color-text)' }}>Utilisation %</dt>
-            <dd className="text-body-md" style={{ marginTop: 2, color: 'var(--ant-color-text-secondary)' }}>
+            <dt className="text-label-lg" style={{ color: 'var(--color-text)' }}>Utilisation %</dt>
+            <dd className="text-body-md" style={{ marginTop: 2, color: 'var(--color-text-secondary)' }}>
               The percentage of available hours that were booked with client appointments. Calculated as (Booked hours / Available hours) x 100. A higher percentage indicates more efficient use of available time.
             </dd>
           </div>
           <div>
-            <dt className="text-label-lg" style={{ color: 'var(--ant-color-text)' }}>Revenue</dt>
-            <dd className="text-body-md" style={{ marginTop: 2, color: 'var(--ant-color-text-secondary)' }}>
+            <dt className="text-label-lg" style={{ color: 'var(--color-text)' }}>Revenue</dt>
+            <dd className="text-body-md" style={{ marginTop: 2, color: 'var(--color-text-secondary)' }}>
               The total dollar value of services delivered by the practitioner during the selected date range, based on the service rates at the time of the appointment.
             </dd>
           </div>

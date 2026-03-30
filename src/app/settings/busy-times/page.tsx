@@ -57,14 +57,14 @@ export default function BusyTimesPage() {
           <Button variant="secondary" onClick={openCreate}>+ New type</Button>
         </Flex>
       </Flex>
-      <p style={{ marginBottom: 24, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
+      <p style={{ marginBottom: 24, fontSize: 12, color: 'var(--color-text-secondary)' }}>
         Use busy time to indicate non billable events in Practitioner calendars. You can change utilisation settings to control whether specific types of busy time are used in utilisation reports.
       </p>
       <DataTable>
         <TableHead><Th>Name</Th><Th>Utilisation</Th><Th>Duration (mins)</Th><Th>Actions</Th></TableHead>
         <TableBody>
           {busyTimes.map((b, i) => (
-            <tr key={i} style={{ borderBottom: '1px solid var(--ant-color-border)' }}>
+            <tr key={i} style={{ borderBottom: '1px solid var(--color-border)' }}>
               <Td><Flex align="center" gap={8}><ColorDot color={b.color} />{b.name}</Flex></Td>
               <Td>{b.utilisation}</Td><Td>{b.duration}</Td>
               <Td>

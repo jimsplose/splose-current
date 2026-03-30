@@ -141,7 +141,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
             defaultValue="progress-note"
             className="flex-1"
           />
-          <div style={{ display: 'flex', borderRadius: 8, border: '1px solid var(--ant-color-border)' }}>
+          <div style={{ display: 'flex', borderRadius: 8, border: '1px solid var(--color-border)' }}>
             <Button
               variant="ghost"
               size="sm"
@@ -164,7 +164,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
         {viewMode === "edit" ? (
           <>
             {/* To field */}
-            <Flex wrap align="center" gap={6} style={{ borderRadius: 8, border: '1px solid var(--ant-color-border)', padding: '8px 12px' }}>
+            <Flex wrap align="center" gap={6} style={{ borderRadius: 8, border: '1px solid var(--color-border)', padding: '8px 12px' }}>
               {toEmails.map((email) => (
                 <Chip
                   key={email}
@@ -187,8 +187,8 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
 
             {/* Reply to */}
             <div>
-              <label className="mb-1 block text-label-lg" style={{ color: 'var(--ant-color-text-secondary)' }}>
-                Reply to <span style={{ color: 'var(--ant-color-error)' }}>*</span>
+              <label className="mb-1 block text-label-lg" style={{ color: 'var(--color-text-secondary)' }}>
+                Reply to <span style={{ color: 'var(--color-error)' }}>*</span>
               </label>
               <FormSelect
                 options={[
@@ -220,7 +220,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
             </Flex>
 
             {/* Toolbar */}
-            <Flex align="center" gap={2} style={{ borderBottom: '1px solid var(--ant-color-border)', paddingBottom: 8 }}>
+            <Flex align="center" gap={2} style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: 8 }}>
               {toolbarIcons.map((Icon, i) => (
                 <Button key={i} variant="icon">
                   <Icon style={{ fontSize: 16 }} />
@@ -238,18 +238,18 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
           </>
         ) : (
           /* Email preview */
-          <div style={{ borderRadius: 8, border: '1px solid var(--ant-color-border)', backgroundColor: 'var(--ant-color-bg-layout)', padding: 20 }}>
-            <Flex vertical gap={6} style={{ marginBottom: 16, borderBottom: '1px solid var(--ant-color-border)', paddingBottom: 16 }}>
+          <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-layout)', padding: 20 }}>
+            <Flex vertical gap={6} style={{ marginBottom: 16, borderBottom: '1px solid var(--color-border)', paddingBottom: 16 }}>
               <Flex gap={8} className="text-body-sm">
-                <span style={{ width: 64, color: 'var(--ant-color-text-secondary)' }}>From:</span>
+                <span style={{ width: 64, color: 'var(--color-text-secondary)' }}>From:</span>
                 <span>Hands Together Therapies &lt;hello@hands-together-therapy.com&gt;</span>
               </Flex>
               <Flex gap={8} className="text-body-sm">
-                <span style={{ width: 64, color: 'var(--ant-color-text-secondary)' }}>To:</span>
+                <span style={{ width: 64, color: 'var(--color-text-secondary)' }}>To:</span>
                 <span>{toEmails.join(", ") || "No recipients"}</span>
               </Flex>
               <Flex gap={8} className="text-body-sm">
-                <span style={{ width: 64, color: 'var(--ant-color-text-secondary)' }}>Subject:</span>
+                <span style={{ width: 64, color: 'var(--color-text-secondary)' }}>Subject:</span>
                 <span className="text-body-md-strong">{subject}</span>
               </Flex>
             </Flex>
@@ -257,8 +257,8 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
             {/* Email body preview */}
             <div style={{ borderRadius: 8, backgroundColor: '#fff', padding: 20, boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
               {/* Logo header */}
-              <div style={{ marginBottom: 16, borderBottom: '1px solid var(--ant-color-border-secondary)', paddingBottom: 16, textAlign: 'center' }}>
-                <span className="text-heading-lg" style={{ color: 'var(--ant-color-primary)' }}>splose</span>
+              <div style={{ marginBottom: 16, borderBottom: '1px solid var(--color-border-secondary)', paddingBottom: 16, textAlign: 'center' }}>
+                <span className="text-heading-lg" style={{ color: 'var(--color-primary)' }}>splose</span>
               </div>
 
               {/* Body content */}
@@ -267,19 +267,19 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
               </div>
 
               {/* Attachment indicator */}
-              <div style={{ marginTop: 24, borderTop: '1px solid var(--ant-color-border-secondary)', paddingTop: 16 }}>
-                <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: 'var(--ant-color-primary-bg)', padding: '8px 12px' }}>
-                  <PaperClipOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary)' }} />
+              <div style={{ marginTop: 24, borderTop: '1px solid var(--color-border-secondary)', paddingTop: 16 }}>
+                <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: 'var(--color-primary-bg)', padding: '8px 12px' }}>
+                  <PaperClipOutlined style={{ fontSize: 16, color: 'var(--color-primary)' }} />
                   <span className="text-body-sm">Progress note — {clientName} — {formatDisplayDate(noteDate)}.pdf</span>
                   <Badge variant="purple">PDF</Badge>
                 </Flex>
               </div>
 
               {/* Footer */}
-              <div className="text-caption-md" style={{ marginTop: 24, borderTop: '1px solid var(--ant-color-border-secondary)', paddingTop: 16, textAlign: 'center', color: 'var(--ant-color-text-secondary)' }}>
+              <div className="text-caption-md" style={{ marginTop: 24, borderTop: '1px solid var(--color-border-secondary)', paddingTop: 16, textAlign: 'center', color: 'var(--color-text-secondary)' }}>
                 <p>Sent via splose — Practice management software for allied health</p>
                 <p style={{ marginTop: 4 }}>
-                  <a href="#" style={{ color: 'var(--ant-color-primary)' }}>Unsubscribe</a> · <a href="#" style={{ color: 'var(--ant-color-primary)' }}>Privacy policy</a>
+                  <a href="#" style={{ color: 'var(--color-primary)' }}>Unsubscribe</a> · <a href="#" style={{ color: 'var(--color-primary)' }}>Privacy policy</a>
                 </p>
               </div>
             </div>

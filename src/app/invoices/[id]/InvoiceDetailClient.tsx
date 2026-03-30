@@ -103,7 +103,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
   return (
     <div style={{ minHeight: 'calc(100vh - 3rem)' }}>
       {/* Header bar */}
-      <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--ant-color-border)', padding: '12px 24px' }}>
+      <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', padding: '12px 24px' }}>
         <Flex align="center" gap={12}>
           <h1 className="text-display-md text-text">{invoice.invoiceNumber}</h1>
           <Badge variant={statusVariant(invoice.status)}>{invoice.status}</Badge>
@@ -116,7 +116,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
             trigger={
               <Button variant="secondary">
                 Pay
-                <DownOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+                <DownOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Button>
             }
             items={payItems}
@@ -129,14 +129,14 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
             align="right"
           />
           <Button variant="secondary" onClick={handleEmailInvoice}>
-            <MailOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
+            <MailOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
             Email invoice
           </Button>
           <Dropdown
             trigger={
               <Button variant="secondary">
                 Actions
-                <DownOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+                <DownOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Button>
             }
             items={actionsItems}
@@ -151,9 +151,9 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
       {/* Invoice document */}
       <div style={{ maxWidth: 896, margin: '0 auto', padding: 32 }}>
         {/* Color bar */}
-        <div style={{ height: 8, borderRadius: '8px 8px 0 0', background: 'linear-gradient(to right, var(--ant-color-primary), #22c55e, #facc15)' }} />
+        <div style={{ height: 8, borderRadius: '8px 8px 0 0', background: 'linear-gradient(to right, var(--color-primary), #22c55e, #facc15)' }} />
 
-        <div style={{ borderRadius: '0 0 8px 8px', border: '1px solid var(--ant-color-border)', borderTop: 'none', background: 'white', padding: 32, boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
+        <div style={{ borderRadius: '0 0 8px 8px', border: '1px solid var(--color-border)', borderTop: 'none', background: 'white', padding: 32, boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
           {/* Title and logo */}
           <Flex align="start" justify="space-between" style={{ marginBottom: 32 }}>
             <h2 className="text-display-lg">
@@ -168,45 +168,45 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32, marginBottom: 32, fontSize: 12 }}>
             {/* Client */}
             <div>
-              <h3 style={{ marginBottom: 4, fontWeight: 700, color: 'var(--ant-color-text)' }}>Client</h3>
+              <h3 style={{ marginBottom: 4, fontWeight: 700, color: 'var(--color-text)' }}>Client</h3>
               <p className="text-primary">
                 {invoice.client.firstName} {invoice.client.lastName}
               </p>
-              {invoice.client.address && <p style={{ color: 'var(--ant-color-text-secondary)' }}>{invoice.client.address}</p>}
+              {invoice.client.address && <p style={{ color: 'var(--color-text-secondary)' }}>{invoice.client.address}</p>}
               {invoice.client.ndisNumber && (
                 <>
-                  <p style={{ color: 'var(--ant-color-text-secondary)' }}>NDIS Number: {invoice.client.ndisNumber}</p>
-                  <p style={{ color: 'var(--ant-color-text-secondary)' }}>Prac No.</p>
-                  <p style={{ color: 'var(--ant-color-text-secondary)' }}>Prac No.</p>
-                  <p style={{ color: 'var(--ant-color-text-secondary)' }}>Prac No.</p>
+                  <p style={{ color: 'var(--color-text-secondary)' }}>NDIS Number: {invoice.client.ndisNumber}</p>
+                  <p style={{ color: 'var(--color-text-secondary)' }}>Prac No.</p>
+                  <p style={{ color: 'var(--color-text-secondary)' }}>Prac No.</p>
+                  <p style={{ color: 'var(--color-text-secondary)' }}>Prac No.</p>
                 </>
               )}
-              {invoice.client.medicare && <p style={{ color: 'var(--ant-color-text-secondary)' }}>Medicare: {invoice.client.medicare}</p>}
+              {invoice.client.medicare && <p style={{ color: 'var(--color-text-secondary)' }}>Medicare: {invoice.client.medicare}</p>}
               {invoice.billingType === "NDIS" && (
                 <div style={{ marginTop: 12 }}>
-                  <h4 style={{ fontWeight: 700, color: 'var(--ant-color-text)' }}>Care of client above</h4>
+                  <h4 style={{ fontWeight: 700, color: 'var(--color-text)' }}>Care of client above</h4>
                   <p className="text-primary">C/o [Client above]</p>
-                  <p style={{ color: 'var(--ant-color-text-secondary)' }}>161 Bay St.</p>
-                  <p style={{ color: 'var(--ant-color-text-secondary)' }}>Toronto ON M5J 1C4</p>
+                  <p style={{ color: 'var(--color-text-secondary)' }}>161 Bay St.</p>
+                  <p style={{ color: 'var(--color-text-secondary)' }}>Toronto ON M5J 1C4</p>
                 </div>
               )}
             </div>
 
             {/* From */}
             <div>
-              <h3 style={{ marginBottom: 4, fontWeight: 700, color: 'var(--ant-color-text)' }}>From</h3>
-              <p style={{ color: 'var(--ant-color-text)' }}>Hands Together Therapies</p>
-              <p style={{ color: 'var(--ant-color-text-secondary)' }}>East Clinics</p>
-              <p style={{ color: 'var(--ant-color-text-secondary)' }}>4 Williamstown Rd</p>
-              <p style={{ color: 'var(--ant-color-text-secondary)' }}>Kingsville VIC 3012</p>
+              <h3 style={{ marginBottom: 4, fontWeight: 700, color: 'var(--color-text)' }}>From</h3>
+              <p style={{ color: 'var(--color-text)' }}>Hands Together Therapies</p>
+              <p style={{ color: 'var(--color-text-secondary)' }}>East Clinics</p>
+              <p style={{ color: 'var(--color-text-secondary)' }}>4 Williamstown Rd</p>
+              <p style={{ color: 'var(--color-text-secondary)' }}>Kingsville VIC 3012</p>
               <div style={{ marginTop: 8 }}>
-                <p style={{ fontWeight: 700, color: 'var(--ant-color-text)' }}>ABN</p>
-                <p style={{ color: 'var(--ant-color-text-secondary)' }}>112345678110</p>
+                <p style={{ fontWeight: 700, color: 'var(--color-text)' }}>ABN</p>
+                <p style={{ color: 'var(--color-text-secondary)' }}>112345678110</p>
               </div>
               {invoice.practitionerName && (
                 <div style={{ marginTop: 8 }}>
-                  <p style={{ fontWeight: 700, color: 'var(--ant-color-text)' }}>Provider</p>
-                  <p style={{ color: 'var(--ant-color-text-secondary)' }}>{invoice.practitionerName}</p>
+                  <p style={{ fontWeight: 700, color: 'var(--color-text)' }}>Provider</p>
+                  <p style={{ color: 'var(--color-text-secondary)' }}>{invoice.practitionerName}</p>
                 </div>
               )}
             </div>
@@ -215,16 +215,16 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
             <div>
               <Flex vertical gap={8}>
                 <div>
-                  <p style={{ fontWeight: 700, color: 'var(--ant-color-text)' }}>Invoice #</p>
-                  <p style={{ color: 'var(--ant-color-text-secondary)' }}>{invoice.invoiceNumber}</p>
+                  <p style={{ fontWeight: 700, color: 'var(--color-text)' }}>Invoice #</p>
+                  <p style={{ color: 'var(--color-text-secondary)' }}>{invoice.invoiceNumber}</p>
                 </div>
                 <div>
-                  <p style={{ fontWeight: 700, color: 'var(--ant-color-text)' }}>Issue date</p>
-                  <p style={{ color: 'var(--ant-color-text-secondary)' }}>{formatDate(invoice.date)}</p>
+                  <p style={{ fontWeight: 700, color: 'var(--color-text)' }}>Issue date</p>
+                  <p style={{ color: 'var(--color-text-secondary)' }}>{formatDate(invoice.date)}</p>
                 </div>
                 <div>
-                  <p style={{ fontWeight: 700, color: 'var(--ant-color-text)' }}>Due date</p>
-                  <p style={{ color: 'var(--ant-color-text-secondary)' }}>{formatDate(invoice.dueDate)}</p>
+                  <p style={{ fontWeight: 700, color: 'var(--color-text)' }}>Due date</p>
+                  <p style={{ color: 'var(--color-text-secondary)' }}>{formatDate(invoice.dueDate)}</p>
                 </div>
               </Flex>
             </div>
@@ -233,28 +233,28 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           {/* Line items table */}
           <table style={{ width: '100%', fontSize: 12, marginBottom: 24 }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid var(--ant-color-border)' }}>
-                <th style={{ padding: '8px 0', textAlign: 'left', fontWeight: 500, color: 'var(--ant-color-text)' }}>Item code</th>
-                <th style={{ padding: '8px 0', textAlign: 'left', fontWeight: 500, color: 'var(--ant-color-text)' }}>Description</th>
-                <th style={{ padding: '8px 0', textAlign: 'right', fontWeight: 500, color: 'var(--ant-color-text)' }}>Unit price</th>
-                <th style={{ padding: '8px 0', textAlign: 'right', fontWeight: 500, color: 'var(--ant-color-text)' }}>Quantity</th>
-                <th style={{ padding: '8px 0', textAlign: 'right', fontWeight: 500, color: 'var(--ant-color-text)' }}>Unit</th>
-                <th style={{ padding: '8px 0', textAlign: 'right', fontWeight: 500, color: 'var(--ant-color-text)' }}>Discount</th>
-                <th style={{ padding: '8px 0', textAlign: 'right', fontWeight: 500, color: 'var(--ant-color-text)' }}>GST</th>
-                <th style={{ padding: '8px 0', textAlign: 'right', fontWeight: 500, color: 'var(--ant-color-text)' }}>Amount AUD</th>
+              <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+                <th style={{ padding: '8px 0', textAlign: 'left', fontWeight: 500, color: 'var(--color-text)' }}>Item code</th>
+                <th style={{ padding: '8px 0', textAlign: 'left', fontWeight: 500, color: 'var(--color-text)' }}>Description</th>
+                <th style={{ padding: '8px 0', textAlign: 'right', fontWeight: 500, color: 'var(--color-text)' }}>Unit price</th>
+                <th style={{ padding: '8px 0', textAlign: 'right', fontWeight: 500, color: 'var(--color-text)' }}>Quantity</th>
+                <th style={{ padding: '8px 0', textAlign: 'right', fontWeight: 500, color: 'var(--color-text)' }}>Unit</th>
+                <th style={{ padding: '8px 0', textAlign: 'right', fontWeight: 500, color: 'var(--color-text)' }}>Discount</th>
+                <th style={{ padding: '8px 0', textAlign: 'right', fontWeight: 500, color: 'var(--color-text)' }}>GST</th>
+                <th style={{ padding: '8px 0', textAlign: 'right', fontWeight: 500, color: 'var(--color-text)' }}>Amount AUD</th>
               </tr>
             </thead>
             <tbody>
               {invoice.items.map((item, idx) => (
-                <tr key={item.id} style={{ borderBottom: '1px solid var(--ant-color-border)' }}>
-                  <td style={{ padding: '12px 0', color: 'var(--ant-color-text-secondary)' }}>{`299dsdds${3234 + idx}`}</td>
-                  <td style={{ padding: '12px 0', color: 'var(--ant-color-text)' }}>{item.description}</td>
-                  <td style={{ padding: '12px 0', textAlign: 'right', color: 'var(--ant-color-text)' }}>{item.unitPrice.toFixed(2)}</td>
-                  <td style={{ padding: '12px 0', textAlign: 'right', color: 'var(--ant-color-text)' }}>{item.quantity.toFixed(2)}</td>
-                  <td style={{ padding: '12px 0', textAlign: 'right', color: 'var(--ant-color-text-secondary)' }}>Hour</td>
-                  <td style={{ padding: '12px 0', textAlign: 'right', color: 'var(--ant-color-text-secondary)' }}>0.00</td>
-                  <td style={{ padding: '12px 0', textAlign: 'right', color: 'var(--ant-color-text-secondary)' }}>15%</td>
-                  <td style={{ padding: '12px 0', textAlign: 'right', fontWeight: 500, color: 'var(--ant-color-text)' }}>{item.total.toFixed(2)}</td>
+                <tr key={item.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                  <td style={{ padding: '12px 0', color: 'var(--color-text-secondary)' }}>{`299dsdds${3234 + idx}`}</td>
+                  <td style={{ padding: '12px 0', color: 'var(--color-text)' }}>{item.description}</td>
+                  <td style={{ padding: '12px 0', textAlign: 'right', color: 'var(--color-text)' }}>{item.unitPrice.toFixed(2)}</td>
+                  <td style={{ padding: '12px 0', textAlign: 'right', color: 'var(--color-text)' }}>{item.quantity.toFixed(2)}</td>
+                  <td style={{ padding: '12px 0', textAlign: 'right', color: 'var(--color-text-secondary)' }}>Hour</td>
+                  <td style={{ padding: '12px 0', textAlign: 'right', color: 'var(--color-text-secondary)' }}>0.00</td>
+                  <td style={{ padding: '12px 0', textAlign: 'right', color: 'var(--color-text-secondary)' }}>15%</td>
+                  <td style={{ padding: '12px 0', textAlign: 'right', fontWeight: 500, color: 'var(--color-text)' }}>{item.total.toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
@@ -264,27 +264,27 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           <Flex justify="end" style={{ marginBottom: 32 }}>
             <Flex vertical gap={4} style={{ width: 256, fontSize: 12 }}>
               <Flex justify="space-between">
-                <span style={{ color: 'var(--ant-color-text-secondary)' }}>Subtotal excl. tax</span>
-                <span style={{ color: 'var(--ant-color-text)' }}>{invoice.subtotal.toFixed(2)}</span>
+                <span style={{ color: 'var(--color-text-secondary)' }}>Subtotal excl. tax</span>
+                <span style={{ color: 'var(--color-text)' }}>{invoice.subtotal.toFixed(2)}</span>
               </Flex>
               <Flex justify="space-between">
-                <span style={{ color: 'var(--ant-color-text-secondary)' }}>Tax</span>
-                <span style={{ color: 'var(--ant-color-text)' }}>{invoice.tax.toFixed(2)}</span>
+                <span style={{ color: 'var(--color-text-secondary)' }}>Tax</span>
+                <span style={{ color: 'var(--color-text)' }}>{invoice.tax.toFixed(2)}</span>
               </Flex>
-              <Flex justify="space-between" style={{ borderTop: '1px solid var(--ant-color-border)', paddingTop: 4 }}>
-                <span style={{ fontWeight: 700, color: 'var(--ant-color-text)' }}>Total AUD</span>
-                <span style={{ fontWeight: 700, color: 'var(--ant-color-text)' }}>{invoice.total.toFixed(2)}</span>
+              <Flex justify="space-between" style={{ borderTop: '1px solid var(--color-border)', paddingTop: 4 }}>
+                <span style={{ fontWeight: 700, color: 'var(--color-text)' }}>Total AUD</span>
+                <span style={{ fontWeight: 700, color: 'var(--color-text)' }}>{invoice.total.toFixed(2)}</span>
               </Flex>
               <Flex justify="space-between" style={{ borderRadius: 4, background: '#f9fafb', padding: '4px 8px', fontWeight: 700 }}>
-                <span style={{ color: 'var(--ant-color-text)' }}>Total Amount Due AUD</span>
-                <span style={{ color: 'var(--ant-color-text)' }}>{invoice.status === "Paid" ? "0.00" : invoice.total.toFixed(2)}</span>
+                <span style={{ color: 'var(--color-text)' }}>Total Amount Due AUD</span>
+                <span style={{ color: 'var(--color-text)' }}>{invoice.status === "Paid" ? "0.00" : invoice.total.toFixed(2)}</span>
               </Flex>
             </Flex>
           </Flex>
 
           {/* Additional information */}
-          <div style={{ borderTop: '1px solid var(--ant-color-border)', paddingTop: 16, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
-            <h4 style={{ marginBottom: 8, fontWeight: 700, color: 'var(--ant-color-text)' }}>Additional Information</h4>
+          <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: 16, fontSize: 12, color: 'var(--color-text-secondary)' }}>
+            <h4 style={{ marginBottom: 8, fontWeight: 700, color: 'var(--color-text)' }}>Additional Information</h4>
             <p>Please note that the service dates are displayed at the beginning of each line item.</p>
             <div style={{ marginTop: 16 }}>
               <p>aA Direct deposit details:</p>
@@ -320,7 +320,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           <div>
             <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>Amount</label>
             <div style={{ position: 'relative' }}>
-              <span style={{ position: 'absolute', top: '50%', left: 12, zIndex: 10, transform: 'translateY(-50%)', fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>$</span>
+              <span style={{ position: 'absolute', top: '50%', left: 12, zIndex: 10, transform: 'translateY(-50%)', fontSize: 12, color: 'var(--color-text-secondary)' }}>$</span>
               <FormInput
                 type="text"
                 value={paymentAmount}
@@ -375,35 +375,35 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           {/* Receipt preview */}
           {paymentAmount && (
             <div style={{ borderRadius: 8, border: '1px dashed #d1d5db', background: '#f9fafb', padding: 16 }}>
-              <p className="text-label-lg" style={{ marginBottom: 12, color: 'var(--ant-color-text-secondary)' }}>Receipt preview</p>
+              <p className="text-label-lg" style={{ marginBottom: 12, color: 'var(--color-text-secondary)' }}>Receipt preview</p>
               <div className="text-body-md">
                 <Flex align="center" justify="space-between">
-                  <span style={{ fontWeight: 500, color: 'var(--ant-color-text)' }}>Receipt #REC-001</span>
-                  <span className="text-label-md" style={{ color: 'var(--ant-color-text-secondary)' }}>{paymentDate ? new Date(paymentDate + "T00:00:00").toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" }) : "\u2014"}</span>
+                  <span style={{ fontWeight: 500, color: 'var(--color-text)' }}>Receipt #REC-001</span>
+                  <span className="text-label-md" style={{ color: 'var(--color-text-secondary)' }}>{paymentDate ? new Date(paymentDate + "T00:00:00").toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" }) : "\u2014"}</span>
                 </Flex>
                 <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: 8, marginTop: 8 }}>
                   <Flex justify="space-between">
-                    <span style={{ color: 'var(--ant-color-text-secondary)' }}>Invoice</span>
-                    <span style={{ color: 'var(--ant-color-text)' }}>{invoice.invoiceNumber}</span>
+                    <span style={{ color: 'var(--color-text-secondary)' }}>Invoice</span>
+                    <span style={{ color: 'var(--color-text)' }}>{invoice.invoiceNumber}</span>
                   </Flex>
                   <Flex justify="space-between">
-                    <span style={{ color: 'var(--ant-color-text-secondary)' }}>Client</span>
-                    <span style={{ color: 'var(--ant-color-text)' }}>{invoice.client.firstName} {invoice.client.lastName}</span>
+                    <span style={{ color: 'var(--color-text-secondary)' }}>Client</span>
+                    <span style={{ color: 'var(--color-text)' }}>{invoice.client.firstName} {invoice.client.lastName}</span>
                   </Flex>
                   <Flex justify="space-between">
-                    <span style={{ color: 'var(--ant-color-text-secondary)' }}>Method</span>
-                    <span style={{ color: 'var(--ant-color-text)' }}>{paymentMethod}</span>
+                    <span style={{ color: 'var(--color-text-secondary)' }}>Method</span>
+                    <span style={{ color: 'var(--color-text)' }}>{paymentMethod}</span>
                   </Flex>
                   {referenceNumber && (
                     <Flex justify="space-between">
-                      <span style={{ color: 'var(--ant-color-text-secondary)' }}>Reference</span>
-                      <span style={{ color: 'var(--ant-color-text)' }}>{referenceNumber}</span>
+                      <span style={{ color: 'var(--color-text-secondary)' }}>Reference</span>
+                      <span style={{ color: 'var(--color-text)' }}>{referenceNumber}</span>
                     </Flex>
                   )}
                 </div>
                 <Flex justify="space-between" style={{ borderTop: '1px solid #e5e7eb', paddingTop: 8, marginTop: 8, fontWeight: 500 }}>
-                  <span style={{ color: 'var(--ant-color-text)' }}>Amount paid</span>
-                  <span style={{ color: 'var(--ant-color-text)' }}>${paymentAmount}</span>
+                  <span style={{ color: 'var(--color-text)' }}>Amount paid</span>
+                  <span style={{ color: 'var(--color-text)' }}>${paymentAmount}</span>
                 </Flex>
               </div>
             </div>

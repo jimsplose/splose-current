@@ -92,7 +92,7 @@ function PreferencesTab() {
   return (
     <div>
       <h2 className="text-heading-lg text-text" style={{ marginBottom: 8 }}>splose AI settings: More control, your way</h2>
-      <hr style={{ marginBottom: 24, borderColor: 'var(--ant-color-border)' }} />
+      <hr style={{ marginBottom: 24, borderColor: 'var(--color-border)' }} />
 
       <h3 className="text-display-md text-text" style={{ marginBottom: 24 }}>Preferences</h3>
 

@@ -50,10 +50,10 @@ export default async function ClientLayout({
       <ClientSidebar sections={sidebarSections} />
       <div style={{ display: 'flex', minWidth: 0, flex: 1, flexDirection: 'column', overflow: 'hidden' }}>
         {/* Top action bar */}
-        <div style={{ flexShrink: 0, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 8, borderBottom: '1px solid var(--ant-color-border)', paddingLeft: 24, paddingRight: 24, paddingTop: 12, paddingBottom: 12 }}>
+        <div style={{ flexShrink: 0, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 8, borderBottom: '1px solid var(--color-border)', paddingLeft: 24, paddingRight: 24, paddingTop: 12, paddingBottom: 12 }}>
           <Flex align="center" gap={8}>
             <h2 className="text-heading-lg">Client</h2>
-            <span className="text-body-lg" style={{ color: 'var(--ant-color-text-secondary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            <span className="text-body-lg" style={{ color: 'var(--color-text-secondary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {client.firstName} ({client.firstName.slice(0, 3)}) {client.lastName}
             </span>
           </Flex>
@@ -68,7 +68,7 @@ export default async function ClientLayout({
               </svg>
               <span className="hidden sm:inline">New SMS</span>
             </Button>
-            <Button variant="secondary" size="sm" style={{ borderColor: 'var(--ant-color-primary)', backgroundColor: 'var(--ant-color-primary-bg)', color: 'var(--ant-color-primary)' }}>
+            <Button variant="secondary" size="sm" style={{ borderColor: 'var(--color-primary)', backgroundColor: 'var(--color-primary-bg)', color: 'var(--color-primary)' }}>
               <svg style={{ height: 16, width: 16 }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path
                   strokeLinecap="round"

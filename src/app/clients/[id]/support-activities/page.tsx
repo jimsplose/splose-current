@@ -35,8 +35,8 @@ export default async function ClientSupportActivitiesPage({ params }: { params: 
             <tr>
               <td colSpan={6}>
                 <Flex vertical align="center" justify="center" style={{ paddingTop: 64, paddingBottom: 64 }}>
-                  <Flex align="center" justify="center" style={{ marginBottom: 16, height: 96, width: 96, borderRadius: '50%', backgroundColor: 'var(--ant-color-fill-quaternary)' }}>
-                    <svg style={{ height: 48, width: 48, color: 'var(--ant-color-text-quaternary)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <Flex align="center" justify="center" style={{ marginBottom: 16, height: 96, width: 96, borderRadius: '50%', backgroundColor: 'var(--color-fill-quaternary)' }}>
+                    <svg style={{ height: 48, width: 48, color: 'var(--color-text-quaternary)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -45,8 +45,8 @@ export default async function ClientSupportActivitiesPage({ params }: { params: 
                       />
                     </svg>
                   </Flex>
-                  <p style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }}>No support activities</p>
-                  <Button variant="ghost" style={{ marginTop: 8, color: 'var(--ant-color-primary)' }}>
+                  <p style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>No support activities</p>
+                  <Button variant="ghost" style={{ marginTop: 8, color: 'var(--color-primary)' }}>
                     Add new support activity
                   </Button>
                 </Flex>

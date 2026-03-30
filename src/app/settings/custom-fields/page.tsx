@@ -229,8 +229,8 @@ export default function CustomFieldsPage() {
           </Flex>
 
           {/* Field type preview */}
-          <div style={{ borderRadius: 8, border: '1px dashed #d1d5db', backgroundColor: 'var(--ant-color-bg-layout)', padding: 16 }}>
-            <p className="text-label-lg" style={{ marginBottom: 8, color: 'var(--ant-color-text-secondary)' }}>Field preview</p>
+          <div style={{ borderRadius: 8, border: '1px dashed #d1d5db', backgroundColor: 'var(--color-bg-layout)', padding: 16 }}>
+            <p className="text-label-lg" style={{ marginBottom: 8, color: 'var(--color-text-secondary)' }}>Field preview</p>
             <FieldTypePreview type={newField.type} name={newField.name} options={[]} />
           </div>
         </Flex>
@@ -319,11 +319,11 @@ function EditFieldModal({
 
         {showOptions && (
           <div>
-            <p className="text-label-lg" style={{ marginBottom: 8, color: 'var(--ant-color-text-secondary)' }}>Options</p>
+            <p className="text-label-lg" style={{ marginBottom: 8, color: 'var(--color-text-secondary)' }}>Options</p>
             <Flex vertical gap={8}>
               {options.map((opt, index) => (
                 <Flex key={index} align="center" gap={8}>
-                  <HolderOutlined style={{ fontSize: 16, flexShrink: 0, cursor: 'grab', color: 'var(--ant-color-text-secondary)' }} />
+                  <HolderOutlined style={{ fontSize: 16, flexShrink: 0, cursor: 'grab', color: 'var(--color-text-secondary)' }} />
                   <div style={{ flex: 1 }}>
                     <FormInput
                       type="text"
@@ -355,8 +355,8 @@ function EditFieldModal({
         )}
 
         {/* Field type preview */}
-        <div style={{ borderRadius: 8, border: '1px dashed #d1d5db', backgroundColor: 'var(--ant-color-bg-layout)', padding: 16 }}>
-          <p className="text-label-lg" style={{ marginBottom: 8, color: 'var(--ant-color-text-secondary)' }}>Field preview</p>
+        <div style={{ borderRadius: 8, border: '1px dashed #d1d5db', backgroundColor: 'var(--color-bg-layout)', padding: 16 }}>
+          <p className="text-label-lg" style={{ marginBottom: 8, color: 'var(--color-text-secondary)' }}>Field preview</p>
           <FieldTypePreview type={type} name={name} options={options} />
         </div>
 
@@ -413,7 +413,7 @@ function FieldTypePreview({
           disabled
           rows={3}
           placeholder="Long text value..."
-          style={{ width: '100%', borderRadius: 8, border: '1px solid var(--ant-color-border)', backgroundColor: 'white', padding: '8px 12px', opacity: 0.7 }}
+          style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', padding: '8px 12px', opacity: 0.7 }}
           className="text-body-md text-text-secondary"
         />
       </div>

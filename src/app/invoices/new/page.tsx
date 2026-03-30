@@ -214,7 +214,7 @@ export default function NewInvoicePage() {
             <div style={{ overflowX: 'auto' }}>
               <table style={{ width: '100%' }} className="text-body-md">
                 <thead>
-                  <tr style={{ borderBottom: '1px solid var(--ant-color-border)', background: '#f9fafb', textAlign: 'left' }} className="text-label-lg text-text-secondary">
+                  <tr style={{ borderBottom: '1px solid var(--color-border)', background: '#f9fafb', textAlign: 'left' }} className="text-label-lg text-text-secondary">
                     <th style={{ padding: '10px 16px' }}>Service</th>
                     <th style={{ padding: '10px 16px' }}>Description</th>
                     <th style={{ padding: '10px 16px', width: 80 }}>Qty</th>
@@ -226,7 +226,7 @@ export default function NewInvoicePage() {
                 </thead>
                 <tbody>
                   {lineItems.map((item) => (
-                    <tr key={item.id} style={{ borderBottom: '1px solid var(--ant-color-border)' }}>
+                    <tr key={item.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
                       <td style={{ padding: '8px 12px' }}>
                         <FormSelect
                           value={item.service}
@@ -268,7 +268,7 @@ export default function NewInvoicePage() {
                           options={mockTaxOptions}
                         />
                       </td>
-                      <td style={{ padding: '8px 12px', textAlign: 'right', fontWeight: 500, color: 'var(--ant-color-text)' }}>
+                      <td style={{ padding: '8px 12px', textAlign: 'right', fontWeight: 500, color: 'var(--color-text)' }}>
                         ${calculateLineTotal(item).toFixed(2)}
                       </td>
                       <td style={{ padding: '8px 8px' }}>
@@ -301,16 +301,16 @@ export default function NewInvoicePage() {
             <Flex justify="end">
               <Flex vertical gap={8} style={{ width: 256 }}>
                 <Flex align="center" justify="space-between" className="text-body-md">
-                  <span style={{ color: 'var(--ant-color-text-secondary)' }}>Subtotal</span>
-                  <span style={{ fontWeight: 500, color: 'var(--ant-color-text)' }}>${subtotal.toFixed(2)}</span>
+                  <span style={{ color: 'var(--color-text-secondary)' }}>Subtotal</span>
+                  <span style={{ fontWeight: 500, color: 'var(--color-text)' }}>${subtotal.toFixed(2)}</span>
                 </Flex>
                 <Flex align="center" justify="space-between" className="text-body-md">
-                  <span style={{ color: 'var(--ant-color-text-secondary)' }}>Tax</span>
-                  <span style={{ fontWeight: 500, color: 'var(--ant-color-text)' }}>${totalTax.toFixed(2)}</span>
+                  <span style={{ color: 'var(--color-text-secondary)' }}>Tax</span>
+                  <span style={{ fontWeight: 500, color: 'var(--color-text)' }}>${totalTax.toFixed(2)}</span>
                 </Flex>
-                <Flex align="center" justify="space-between" className="text-heading-sm" style={{ borderTop: '1px solid var(--ant-color-border)', paddingTop: 8 }}>
-                  <span style={{ color: 'var(--ant-color-text)' }}>Total</span>
-                  <span style={{ color: 'var(--ant-color-text)' }}>${total.toFixed(2)}</span>
+                <Flex align="center" justify="space-between" className="text-heading-sm" style={{ borderTop: '1px solid var(--color-border)', paddingTop: 8 }}>
+                  <span style={{ color: 'var(--color-text)' }}>Total</span>
+                  <span style={{ color: 'var(--color-text)' }}>${total.toFixed(2)}</span>
                 </Flex>
               </Flex>
             </Flex>

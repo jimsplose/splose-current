@@ -28,15 +28,15 @@ export default async function ClientPaymentsPage({ params }: { params: Promise<{
           <TableHead>
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                Payment # <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />{" "}
-                <FilterOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+                Payment # <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />{" "}
+                <FilterOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
             <Th>From</Th>
             <Th>Amount</Th>
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                Payment date <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+                Payment date <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
           </TableHead>
@@ -44,8 +44,8 @@ export default async function ClientPaymentsPage({ params }: { params: Promise<{
             <tr>
               <td colSpan={4}>
                 <Flex vertical align="center" justify="center" style={{ paddingTop: 64, paddingBottom: 64 }}>
-                  <Flex align="center" justify="center" style={{ marginBottom: 16, height: 96, width: 96, borderRadius: '50%', backgroundColor: 'var(--ant-color-fill-quaternary)' }}>
-                    <svg style={{ height: 48, width: 48, color: 'var(--ant-color-text-quaternary)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <Flex align="center" justify="center" style={{ marginBottom: 16, height: 96, width: 96, borderRadius: '50%', backgroundColor: 'var(--color-fill-quaternary)' }}>
+                    <svg style={{ height: 48, width: 48, color: 'var(--color-text-quaternary)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -54,8 +54,8 @@ export default async function ClientPaymentsPage({ params }: { params: Promise<{
                       />
                     </svg>
                   </Flex>
-                  <p style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }}>No payments</p>
-                  <Button variant="ghost" style={{ marginTop: 8, color: 'var(--ant-color-primary)' }}>
+                  <p style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>No payments</p>
+                  <Button variant="ghost" style={{ marginTop: 8, color: 'var(--color-primary)' }}>
                     Add new payment
                   </Button>
                 </Flex>

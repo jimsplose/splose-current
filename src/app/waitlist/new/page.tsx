@@ -81,7 +81,7 @@ export default function WaitlistNewPage() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: 'var(--ant-color-bg-layout)' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: 'var(--color-bg-layout)' }}>
       <Navbar backHref="/waitlist" title="Add to waitlist">
         <Button variant="secondary" onClick={() => router.push("/waitlist")}>
           Cancel
@@ -126,7 +126,7 @@ export default function WaitlistNewPage() {
               onChange={setPriority}
             />
             <div>
-              <label className="text-label-lg" style={{ display: 'block', marginBottom: 8, color: 'var(--ant-color-text-secondary)' }}>Preferred days</label>
+              <label className="text-label-lg" style={{ display: 'block', marginBottom: 8, color: 'var(--color-text-secondary)' }}>Preferred days</label>
               <Flex wrap gap={16}>
                 {days.map((day) => (
                   <Checkbox

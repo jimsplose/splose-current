@@ -155,7 +155,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
   if (!contact) {
     return (
       <div style={{ padding: 24 }}>
-        <p style={{ color: 'var(--ant-color-text-secondary)' }}>Contact not found.</p>
+        <p style={{ color: 'var(--color-text-secondary)' }}>Contact not found.</p>
       </div>
     );
   }
@@ -163,10 +163,10 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
   return (
     <Flex style={{ height: "calc(100vh - 48px)" }}>
       {/* Sidebar */}
-      <aside style={{ width: 180, flexShrink: 0, borderRight: '1px solid var(--ant-color-border)', background: 'white', padding: 16 }}>
+      <aside style={{ width: 180, flexShrink: 0, borderRight: '1px solid var(--color-border)', background: 'white', padding: 16 }}>
         <div style={{ marginBottom: 16 }}>
           <h2 className="text-body-md-strong text-text">Contact</h2>
-          <p className="text-caption-md" style={{ color: 'var(--ant-color-text-secondary)' }}>{contact.name}</p>
+          <p className="text-caption-md" style={{ color: 'var(--color-text-secondary)' }}>{contact.name}</p>
         </div>
         <Flex vertical gap={2}>
           {[
@@ -186,7 +186,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
               style={{ fontSize: 12 }}
             >
               {item.label}
-              {"count" in item && item.count ? <span style={{ fontSize: 10, color: 'var(--ant-color-text-secondary)' }}>{item.count}</span> : null}
+              {"count" in item && item.count ? <span style={{ fontSize: 10, color: 'var(--color-text-secondary)' }}>{item.count}</span> : null}
             </Button>
           ))}
         </Flex>
@@ -195,10 +195,10 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
       {/* Main content */}
       <div style={{ flex: 1, overflowY: 'auto' }}>
         {/* Top action bar */}
-        <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--ant-color-border)', padding: '12px 24px' }}>
+        <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', padding: '12px 24px' }}>
           <Flex align="center" gap={8}>
             <h2 className="text-heading-lg text-text">Contact</h2>
-            <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>{contact.name}</span>
+            <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>{contact.name}</span>
           </Flex>
           <Button variant="secondary" size="sm">
             Actions
@@ -222,11 +222,11 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             <Flex align="start" gap={24}>
               <Flex vertical gap={8} style={{ fontSize: 12 }}>
                 <Flex gap={64}>
-                  <span style={{ width: 112, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }}>Name:</span>
-                  <span style={{ fontWeight: 500, color: 'var(--ant-color-text)' }}>{contact.name}</span>
+                  <span style={{ width: 112, flexShrink: 0, color: 'var(--color-text-secondary)' }}>Name:</span>
+                  <span style={{ fontWeight: 500, color: 'var(--color-text)' }}>{contact.name}</span>
                 </Flex>
                 <Flex gap={64}>
-                  <span style={{ width: 112, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }}>Type:</span>
+                  <span style={{ width: 112, flexShrink: 0, color: 'var(--color-text-secondary)' }}>Type:</span>
                   <span>
                     {contact.type ? (
                       <span
@@ -241,80 +241,80 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                         {contact.type}
                       </span>
                     ) : (
-                      <span style={{ color: 'var(--ant-color-text-secondary)' }}>Not set</span>
+                      <span style={{ color: 'var(--color-text-secondary)' }}>Not set</span>
                     )}
                   </span>
                 </Flex>
                 <Flex gap={64}>
-                  <span style={{ width: 112, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }}>Company:</span>
-                  <span style={{ color: 'var(--ant-color-text)' }}>
-                    {contact.company || <span style={{ color: 'var(--ant-color-text-secondary)' }}>Not provided</span>}
+                  <span style={{ width: 112, flexShrink: 0, color: 'var(--color-text-secondary)' }}>Company:</span>
+                  <span style={{ color: 'var(--color-text)' }}>
+                    {contact.company || <span style={{ color: 'var(--color-text-secondary)' }}>Not provided</span>}
                   </span>
                 </Flex>
               </Flex>
             </Flex>
           </section>
 
-          <hr style={{ marginBottom: 32, border: 'none', borderTop: '1px solid var(--ant-color-border)' }} />
+          <hr style={{ marginBottom: 32, border: 'none', borderTop: '1px solid var(--color-border)' }} />
 
           {/* Contact information */}
           <section style={{ marginBottom: 32 }}>
             <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Contact details</h2>
             <Flex vertical gap={12} style={{ fontSize: 12 }}>
               <Flex gap={64}>
-                <span style={{ width: 112, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }}>Email:</span>
+                <span style={{ width: 112, flexShrink: 0, color: 'var(--color-text-secondary)' }}>Email:</span>
                 {contact.email ? (
                   <Flex align="center" gap={6}>
-                    <MailOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+                    <MailOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
                     <span className="text-primary">{contact.email}</span>
                   </Flex>
                 ) : (
-                  <span style={{ color: 'var(--ant-color-text-secondary)' }}>Not provided</span>
+                  <span style={{ color: 'var(--color-text-secondary)' }}>Not provided</span>
                 )}
               </Flex>
               <Flex gap={64}>
-                <span style={{ width: 112, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }}>Work phone:</span>
+                <span style={{ width: 112, flexShrink: 0, color: 'var(--color-text-secondary)' }}>Work phone:</span>
                 {contact.workPhone ? (
                   <Flex align="center" gap={6}>
-                    <PhoneOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+                    <PhoneOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
                     <span className="text-primary">{contact.workPhone}</span>
                   </Flex>
                 ) : (
-                  <span style={{ color: 'var(--ant-color-text-secondary)' }}>Not provided</span>
+                  <span style={{ color: 'var(--color-text-secondary)' }}>Not provided</span>
                 )}
               </Flex>
               <Flex gap={64}>
-                <span style={{ width: 112, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }}>Mobile phone:</span>
+                <span style={{ width: 112, flexShrink: 0, color: 'var(--color-text-secondary)' }}>Mobile phone:</span>
                 {contact.mobilePhone ? (
                   <Flex align="center" gap={6}>
-                    <PhoneOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+                    <PhoneOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
                     <span className="text-primary">{contact.mobilePhone}</span>
                   </Flex>
                 ) : (
-                  <span style={{ color: 'var(--ant-color-text-secondary)' }}>Not provided</span>
+                  <span style={{ color: 'var(--color-text-secondary)' }}>Not provided</span>
                 )}
               </Flex>
               <Flex gap={64}>
-                <span style={{ width: 112, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }}>Address:</span>
+                <span style={{ width: 112, flexShrink: 0, color: 'var(--color-text-secondary)' }}>Address:</span>
                 {contact.address ? (
                   <Flex align="center" gap={6}>
-                    <EnvironmentOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
-                    <span style={{ color: 'var(--ant-color-text)' }}>{contact.address}</span>
+                    <EnvironmentOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                    <span style={{ color: 'var(--color-text)' }}>{contact.address}</span>
                   </Flex>
                 ) : (
-                  <span style={{ color: 'var(--ant-color-text-secondary)' }}>Not provided</span>
+                  <span style={{ color: 'var(--color-text-secondary)' }}>Not provided</span>
                 )}
               </Flex>
               <Flex gap={64}>
-                <span style={{ width: 112, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }}>Note:</span>
-                <span style={{ color: 'var(--ant-color-text)' }}>
-                  {contact.notes || <span style={{ color: 'var(--ant-color-text-secondary)' }}>Not provided</span>}
+                <span style={{ width: 112, flexShrink: 0, color: 'var(--color-text-secondary)' }}>Note:</span>
+                <span style={{ color: 'var(--color-text)' }}>
+                  {contact.notes || <span style={{ color: 'var(--color-text-secondary)' }}>Not provided</span>}
                 </span>
               </Flex>
             </Flex>
           </section>
 
-          <hr style={{ marginBottom: 32, border: 'none', borderTop: '1px solid var(--ant-color-border)' }} />
+          <hr style={{ marginBottom: 32, border: 'none', borderTop: '1px solid var(--color-border)' }} />
 
           {/* Associated clients */}
           <section style={{ marginBottom: 32 }}>
@@ -348,12 +348,12 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             )}
           </section>
 
-          <hr style={{ marginBottom: 32, border: 'none', borderTop: '1px solid var(--ant-color-border)' }} />
+          <hr style={{ marginBottom: 32, border: 'none', borderTop: '1px solid var(--color-border)' }} />
 
           {/* Custom fields */}
           <section style={{ marginBottom: 32 }}>
             <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Custom fields</h2>
-            <p style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>No custom fields</p>
+            <p style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>No custom fields</p>
           </section>
 
           <Button variant="ghost" size="sm" className="text-primary hover:underline">

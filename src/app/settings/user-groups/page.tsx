@@ -106,7 +106,7 @@ export default function UserGroupsPage() {
           <Th>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
               Name
-              <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+              <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
             </span>
           </Th>
           <Th>Users</Th>
@@ -146,7 +146,7 @@ export default function UserGroupsPage() {
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
         </Flex>
 
-        <div style={{ marginTop: 24, paddingTop: 24, borderTop: '1px solid var(--ant-color-border)' }}>
+        <div style={{ marginTop: 24, paddingTop: 24, borderTop: '1px solid var(--color-border)' }}>
           <h3 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Users</h3>
           <Flex vertical gap={4}>
             {MOCK_USERS.map((user) => {
@@ -160,8 +160,8 @@ export default function UserGroupsPage() {
                   <span
                     style={{
                       display: 'flex', height: 20, width: 20, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 4,
-                      border: `1px solid ${isSelected ? 'var(--ant-color-primary)' : 'var(--ant-color-border)'}`,
-                      backgroundColor: isSelected ? 'var(--ant-color-primary)' : 'white',
+                      border: `1px solid ${isSelected ? 'var(--color-primary)' : 'var(--color-border)'}`,
+                      backgroundColor: isSelected ? 'var(--color-primary)' : 'white',
                     }}
                   >
                     {isSelected && <CheckOutlined style={{ fontSize: 14, color: 'white' }} />}

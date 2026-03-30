@@ -20,7 +20,7 @@ const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
         {label && (
           <label
             htmlFor={textareaId}
-            style={{ display: "block", marginBottom: 4, fontSize: 14, color: "var(--ant-color-text-secondary)" }}
+            style={{ display: "block", marginBottom: 4, fontSize: 14, color: "var(--color-text-secondary)" }}
           >
             {label}
           </label>
@@ -32,7 +32,7 @@ const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
           {...(props as Record<string, unknown>)}
         />
         {error && (
-          <div style={{ marginTop: 4, fontSize: 12, color: "var(--ant-color-error)" }}>
+          <div style={{ marginTop: 4, fontSize: 12, color: "var(--color-error)" }}>
             {error}
           </div>
         )}

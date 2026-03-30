@@ -68,7 +68,7 @@ export default function CSVImportPage() {
         </Flex>
       </Navbar>
 
-      <div style={{ borderBottom: '1px solid var(--ant-color-border)', padding: '0 24px' }}>
+      <div style={{ borderBottom: '1px solid var(--color-border)', padding: '0 24px' }}>
         <Tab items={importTabs} value={activeTab} onChange={setActiveTab} />
       </div>
 
@@ -81,22 +81,22 @@ export default function CSVImportPage() {
               {!fileUploaded ? (
                 <button
                   onClick={() => setFileUploaded(true)}
-                  style={{ display: 'flex', width: '100%', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '2px dashed var(--ant-color-border)', backgroundColor: 'var(--ant-color-bg-layout)', padding: '48px 0', transition: 'all 0.2s', cursor: 'pointer' }}
+                  style={{ display: 'flex', width: '100%', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-bg-layout)', padding: '48px 0', transition: 'all 0.2s', cursor: 'pointer' }}
                   className="hover:border-primary hover:bg-primary/5"
                 >
-                  <UploadOutlined style={{ fontSize: 32, marginBottom: 8, color: 'var(--ant-color-text-secondary)' }} />
+                  <UploadOutlined style={{ fontSize: 32, marginBottom: 8, color: 'var(--color-text-secondary)' }} />
                   <span className="text-body-md text-text">Click to upload or drag and drop</span>
                   <span className="text-caption-md text-text-secondary" style={{ marginTop: 4 }}>CSV files only, max 10MB</span>
                 </button>
               ) : (
                 <Card padding="none">
                   <Flex align="center" gap={12} style={{ padding: '12px 16px' }}>
-                    <FileExcelOutlined style={{ fontSize: 20, color: 'var(--ant-color-primary)' }} />
+                    <FileExcelOutlined style={{ fontSize: 20, color: 'var(--color-primary)' }} />
                     <div style={{ flex: 1 }}>
                       <span className="text-body-md text-text">{activeTab}_import_2026.csv</span>
                       <span className="text-caption-md text-text-secondary" style={{ marginLeft: 8 }}>245 rows</span>
                     </div>
-                    <CheckCircleFilled style={{ fontSize: 20, color: 'var(--ant-color-success)' }} />
+                    <CheckCircleFilled style={{ fontSize: 20, color: 'var(--color-success)' }} />
                     <Button variant="secondary" size="sm" onClick={() => setFileUploaded(false)}>Remove</Button>
                   </Flex>
                 </Card>
@@ -135,7 +135,7 @@ export default function CSVImportPage() {
                           </Td>
                           <Td align="center">
                             {m.mapped ? (
-                              <CheckCircleFilled style={{ fontSize: 16, color: 'var(--ant-color-success)', display: 'block', margin: '0 auto' }} />
+                              <CheckCircleFilled style={{ fontSize: 16, color: 'var(--color-success)', display: 'block', margin: '0 auto' }} />
                             ) : (
                               <span className="text-caption-md text-warning">Unmapped</span>
                             )}

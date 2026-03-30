@@ -486,13 +486,13 @@ export default function CalendarView({
                 onClick={() => { setLocationDropdownOpen(prev => !prev); setPractitionerDropdownOpen(false); setLocationSearchQuery(""); }}
               >
                 {locationLabel}
-                <DownOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+                <DownOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </button>
               {locationDropdownOpen && (
                 <div className="absolute left-0 top-[42px] z-40 w-[260px] rounded-lg border border-border bg-white shadow-lg">
                   <div className="border-b border-border p-2">
                     <div className="flex items-center gap-2 rounded-md border border-border bg-gray-50 px-2.5 py-1.5">
-                      <SearchOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+                      <SearchOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
                       <input
                         type="text"
                         placeholder="Search locations..."
@@ -540,13 +540,13 @@ export default function CalendarView({
                 onClick={() => { setPractitionerDropdownOpen(prev => !prev); setLocationDropdownOpen(false); setPractitionerSearchQuery(""); }}
               >
                 {practitionerLabel}
-                <DownOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+                <DownOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </button>
               {practitionerDropdownOpen && (
                 <div className="absolute left-0 top-[42px] z-40 w-[280px] rounded-lg border border-border bg-white shadow-lg">
                   <div className="border-b border-border p-2">
                     <div className="flex items-center gap-2 rounded-md border border-border bg-gray-50 px-2.5 py-1.5">
-                      <SearchOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+                      <SearchOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
                       <input
                         type="text"
                         placeholder="Search practitioners..."
@@ -985,7 +985,7 @@ export default function CalendarView({
                   // Support activity - just close for now
                 }}
               >
-                <ClockCircleOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
+                <ClockCircleOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
                 Support activity
               </Button>
               <Button
@@ -996,7 +996,7 @@ export default function CalendarView({
                   // Busy time - just close for now
                 }}
               >
-                <StopOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
+                <StopOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
                 Busy time
               </Button>
               <Button
@@ -1006,7 +1006,7 @@ export default function CalendarView({
                   openCreateModal(popover.dateStr, popover.hour, popover.minute, popover.practitionerId);
                 }}
               >
-                <CalendarOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
+                <CalendarOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
                 Appointment
               </Button>
             </div>
@@ -1241,7 +1241,7 @@ export default function CalendarView({
               <div className="rounded-lg border border-border bg-gray-50 p-3">
                 <Button variant="ghost" size="sm" className="w-full justify-between text-label-lg text-text">
                   Waitlist matches (2)
-                  <DownOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
+                  <DownOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
                 </Button>
               </div>
 
@@ -1422,7 +1422,7 @@ export default function CalendarView({
               {/* Notification preview */}
               <div className="rounded-lg border border-border bg-purple-50/50 p-4">
                 <div className="mb-2 flex items-center gap-2">
-                  <MailOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary)' }} />
+                  <MailOutlined style={{ fontSize: 16, color: 'var(--color-primary)' }} />
                   <span className="text-label-lg text-text">Notification preview</span>
                 </div>
                 <p className="mb-3 text-body-sm text-text-secondary">
@@ -1444,7 +1444,7 @@ export default function CalendarView({
               {/* Change log */}
               <div className="rounded-lg border border-border bg-gray-50 p-4">
                 <div className="mb-3 flex items-center gap-2">
-                  <HistoryOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
+                  <HistoryOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
                   <span className="text-label-lg text-text">Change log</span>
                 </div>
                 <div className="space-y-2">
@@ -1634,7 +1634,7 @@ function AppointmentSidePanel({
               </span>
             </div>
             <Button variant="icon" size="sm" onClick={onClose}>
-              <CloseOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
+              <CloseOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
             </Button>
           </div>
 
@@ -1680,7 +1680,7 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
     <div className="space-y-3 text-body-md">
       {/* Location */}
       <div className="flex items-start gap-2">
-        <EnvironmentOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)', marginTop: 2 }} />
+        <EnvironmentOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)', marginTop: 2 }} />
         <div>
           <span className="text-text">{appt.practitionerName}</span>
           <span className="text-text-secondary"> at </span>
@@ -1696,7 +1696,7 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
 
       {/* Time */}
       <div className="flex items-start gap-2">
-        <ClockCircleOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)', marginTop: 2 }} />
+        <ClockCircleOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)', marginTop: 2 }} />
         <span className="text-text">
           {appt.startTime}, {formatDateLong(appt.date)} for{" "}
           {calcDuration(appt.startTime, appt.endTime)}
@@ -1705,13 +1705,13 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
 
       {/* Client name link */}
       <div className="flex items-start gap-2">
-        <UserOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary)', marginTop: 2 }} />
+        <UserOutlined style={{ fontSize: 16, color: 'var(--color-primary)', marginTop: 2 }} />
         <span className="cursor-pointer font-medium text-primary hover:underline">{appt.clientName}</span>
       </div>
 
       {/* Email */}
       <div className="flex items-start gap-2">
-        <MailOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)', marginTop: 2 }} />
+        <MailOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)', marginTop: 2 }} />
         <span className="text-text-secondary">thyxueen@gmail.com</span>
       </div>
 
@@ -1723,32 +1723,32 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
 
       {/* Zoom link */}
       <div className="flex items-start gap-2">
-        <VideoCameraOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary)', marginTop: 2 }} />
+        <VideoCameraOutlined style={{ fontSize: 16, color: 'var(--color-primary)', marginTop: 2 }} />
         <span className="cursor-pointer text-primary hover:underline">Create zoom meeting</span>
       </div>
 
       {/* Invoice */}
       <div className="flex items-center gap-2">
-        <FileTextOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary)', marginTop: 2 }} />
+        <FileTextOutlined style={{ fontSize: 16, color: 'var(--color-primary)', marginTop: 2 }} />
         <span className="cursor-pointer text-primary hover:underline">TRR-005673</span>
         <Badge variant="blue">Draft</Badge>
       </div>
 
       {/* Do not invoice link */}
       <div className="flex items-start gap-2">
-        <StopOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)', marginTop: 2 }} />
+        <StopOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)', marginTop: 2 }} />
         <span className="cursor-pointer text-primary hover:underline">Mark as Do not Invoice?</span>
       </div>
 
       {/* Progress note */}
       <div className="flex items-start gap-2">
-        <FileTextOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary)', marginTop: 2 }} />
+        <FileTextOutlined style={{ fontSize: 16, color: 'var(--color-primary)', marginTop: 2 }} />
         <span className="cursor-pointer text-primary hover:underline">Add progress note</span>
       </div>
 
       {/* Repeating info */}
       <div className="flex items-start gap-2">
-        <SyncOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)', marginTop: 2 }} />
+        <SyncOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)', marginTop: 2 }} />
         <span className="text-caption-md text-text-secondary">Repeating every 2 weeks on Monday for 6 times</span>
       </div>
 
@@ -1778,7 +1778,7 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
     <div className="space-y-3 text-body-md">
       {/* Location */}
       <div className="flex items-start gap-2">
-        <EnvironmentOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)', marginTop: 2 }} />
+        <EnvironmentOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)', marginTop: 2 }} />
         <div>
           <span className="text-text">{appt.practitionerName}</span>
           <span className="text-text-secondary"> at </span>
@@ -1794,7 +1794,7 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
 
       {/* Time */}
       <div className="flex items-start gap-2">
-        <ClockCircleOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)', marginTop: 2 }} />
+        <ClockCircleOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)', marginTop: 2 }} />
         <span className="text-text">
           {appt.startTime}, {formatDateLong(appt.date)} for{" "}
           {calcDuration(appt.startTime, appt.endTime)}
@@ -1803,20 +1803,20 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
 
       {/* Zoom */}
       <div className="flex items-start gap-2">
-        <VideoCameraOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary)', marginTop: 2 }} />
+        <VideoCameraOutlined style={{ fontSize: 16, color: 'var(--color-primary)', marginTop: 2 }} />
         <span className="cursor-pointer text-primary hover:underline">Create zoom meeting</span>
       </div>
 
       {/* Teams */}
       <div className="flex items-start gap-2">
-        <DesktopOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary)', marginTop: 2 }} />
+        <DesktopOutlined style={{ fontSize: 16, color: 'var(--color-primary)', marginTop: 2 }} />
         <span className="cursor-pointer text-primary hover:underline">Create Microsoft Teams meeting</span>
       </div>
 
       {/* Attendees section */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <TeamOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
+          <TeamOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
           <span className="text-text-secondary">1 of 6 clients attending</span>
         </div>
         <Button variant="secondary" size="sm">

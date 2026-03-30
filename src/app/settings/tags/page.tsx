@@ -144,7 +144,7 @@ export default function TagsPage() {
       />
 
       {currentData.description && (
-        <p style={{ marginBottom: 16, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>{currentData.description}</p>
+        <p style={{ marginBottom: 16, fontSize: 12, color: 'var(--color-text-secondary)' }}>{currentData.description}</p>
       )}
 
       <DataTable>
@@ -193,8 +193,8 @@ export default function TagsPage() {
           <FormColorPicker value={form.color} onChange={(c) => setField("color", c)} />
 
           {isEditing && (
-            <div style={{ borderRadius: 8, border: '1px solid var(--ant-color-border)', backgroundColor: 'var(--ant-color-fill-secondary)', padding: '8px 12px' }}>
-              <p className="text-body-sm" style={{ color: 'var(--ant-color-text-secondary)' }}>
+            <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-secondary)', padding: '8px 12px' }}>
+              <p className="text-body-sm" style={{ color: 'var(--color-text-secondary)' }}>
                 Used by <span style={{ fontWeight: 600 }} className="text-text">{editingUsedBy}</span>{" "}
                 {activeTab === "Client tags" ? "client" : activeTab === "Service tags" ? "service" : activeTab === "Waitlist tags" ? "waitlist entry" : "block"}
                 {editingUsedBy !== 1 ? "s" : ""}

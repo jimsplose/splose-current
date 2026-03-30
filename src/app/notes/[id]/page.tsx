@@ -36,7 +36,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
             ) : (
               <Badge variant="gray">Draft</Badge>
             )}
-            <Link href={`/clients/${note.clientId}`} className="text-label-lg" style={{ color: 'var(--ant-color-primary)' }}>
+            <Link href={`/clients/${note.clientId}`} className="text-label-lg" style={{ color: 'var(--color-primary)' }}>
               {clientName}
             </Link>
           </>
@@ -61,12 +61,12 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
           </Flex>
 
           {/* Service info */}
-          <div className="text-sm" style={{ color: 'var(--ant-color-text-secondary)', marginBottom: 8 }}>
+          <div className="text-sm" style={{ color: 'var(--color-text-secondary)', marginBottom: 8 }}>
             Service: {note.date ? `10:30 am, ${formatNoteDate(note.date)} – Sharon Test 1 (OT – Initial Consult)` : "—"}
           </div>
 
           {/* Client info table */}
-          <div style={{ marginBottom: 32, borderRadius: 8, border: '1px solid var(--ant-color-border)', padding: '8px 16px' }}>
+          <div style={{ marginBottom: 32, borderRadius: 8, border: '1px solid var(--color-border)', padding: '8px 16px' }}>
             <List
               labelWidth="w-40"
               items={[
@@ -167,16 +167,16 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
           </Flex>
 
           {/* Signature / metadata */}
-          <div style={{ marginTop: 40, borderTop: '1px solid var(--ant-color-border)', paddingTop: 16 }}>
+          <div style={{ marginTop: 40, borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
             {note.signed ? (
-              <Flex align="center" gap={8} className="text-body-md" style={{ color: 'var(--ant-color-success)' }}>
+              <Flex align="center" gap={8} className="text-body-md" style={{ color: 'var(--color-success)' }}>
                 <CheckCircleOutlined style={{ fontSize: 16 }} />
                 <span className="text-label-lg">
                   Signed and locked by {note.practitioner.name} on {formatNoteDate(note.date)}
                 </span>
               </Flex>
             ) : (
-              <p className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>
+              <p className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>
                 This note has not been signed yet. Click &quot;Sign &amp; lock&quot; above to finalise.
               </p>
             )}

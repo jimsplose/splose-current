@@ -112,14 +112,14 @@ export default function SettingsRoomsResourcesPage() {
           <TableHead>
             <Th>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-                Name <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+                Name <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </span>
             </Th>
             <Th>Group</Th>
             <Th>Capacity/Available</Th>
             <Th>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-                Location <FilterOutlined style={{ fontSize: 14, color: 'var(--ant-color-primary)' }} />
+                Location <FilterOutlined style={{ fontSize: 14, color: 'var(--color-primary)' }} />
               </span>
             </Th>
             <Th align="right">Actions</Th>
@@ -148,7 +148,7 @@ export default function SettingsRoomsResourcesPage() {
             ))}
             {rooms.length === 0 && (
               <tr>
-                <td colSpan={5} style={{ padding: '32px 16px', textAlign: 'center', color: 'var(--ant-color-text-secondary)' }} className="text-body-md">
+                <td colSpan={5} style={{ padding: '32px 16px', textAlign: 'center', color: 'var(--color-text-secondary)' }} className="text-body-md">
                   No rooms or resources added yet.
                 </td>
               </tr>

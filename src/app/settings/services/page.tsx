@@ -108,13 +108,13 @@ export default function SettingsServicesPage() {
           <Th>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
               Name
-              <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+              <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
             </span>
           </Th>
           <Th>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
               Type
-              <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+              <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
             </span>
           </Th>
           <Th>Item code</Th>

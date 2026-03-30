@@ -128,7 +128,7 @@ export default function SettingsDetailsPage() {
               Tax Label for invoices (E.g. ABN)<span className="text-red-500">*</span>
             </label>
             <FormInput type="text" defaultValue="ABN" />
-            <p className="text-body-md" style={{ marginTop: 8, color: 'var(--ant-color-text-secondary)' }}>
+            <p className="text-body-md" style={{ marginTop: 8, color: 'var(--color-text-secondary)' }}>
               Enter your business number in{" "}
               <span className="text-primary" style={{ cursor: 'pointer' }}>Location settings</span>
             </p>
@@ -155,7 +155,7 @@ export default function SettingsDetailsPage() {
               User <DownOutlined style={{ fontSize: 12, marginLeft: 4 }} />
             </Button>
           </Flex>
-          <Flex align="center" gap={4} style={{ borderRadius: '8px 8px 0 0', border: '1px solid var(--ant-color-border)', backgroundColor: 'var(--ant-color-bg-layout)', padding: '6px 8px' }}>
+          <Flex align="center" gap={4} style={{ borderRadius: '8px 8px 0 0', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-layout)', padding: '6px 8px' }}>
             <Button variant="toolbar" className="font-bold">B</Button>
             <Button variant="toolbar" className="italic">I</Button>
             <div style={{ margin: '0 4px', height: 16, width: 1, backgroundColor: '#d1d5db' }} />
@@ -179,7 +179,7 @@ export default function SettingsDetailsPage() {
               <svg style={{ height: 16, width: 16 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
             </Button>
           </Flex>
-          <div style={{ borderRadius: '0 0 8px 8px', border: '1px solid var(--ant-color-border)', borderTop: 'none', backgroundColor: 'white', padding: 16, minHeight: 200, position: 'relative' }} className="text-body-md text-text">
+          <div style={{ borderRadius: '0 0 8px 8px', border: '1px solid var(--color-border)', borderTop: 'none', backgroundColor: 'white', padding: 16, minHeight: 200, position: 'relative' }} className="text-body-md text-text">
             <p style={{ textDecoration: 'line-through' }}>Warm Regards,</p>
             <p className="text-primary" style={{ marginTop: 4 }}>{"{user_fullName}"}</p>
             <p className="text-primary">{"{user_professionTitle}"}</p>
@@ -197,7 +197,7 @@ export default function SettingsDetailsPage() {
 
         <div>
           <h2 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Calendar lock dates</h2>
-          <p className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)', marginBottom: 8 }}>
+          <p className="text-body-md" style={{ color: 'var(--color-text-secondary)', marginBottom: 8 }}>
             Prevent users with the practitioner role from making changes on the calendar on and before
           </p>
           <FormInput type="text" defaultValue="19 Dec 2025" className="max-w-xs" />
@@ -226,7 +226,7 @@ export default function SettingsDetailsPage() {
           {businessHistory.map((entry, i) => (
             <li key={i} style={{ paddingTop: i === 0 ? 0 : 12, paddingBottom: i === businessHistory.length - 1 ? 0 : 12 }}>
               <p className="text-body-md text-text">{entry.description}</p>
-              <p className="text-body-sm" style={{ color: 'var(--ant-color-text-secondary)', marginTop: 2 }}>{entry.date}</p>
+              <p className="text-body-sm" style={{ color: 'var(--color-text-secondary)', marginTop: 2 }}>{entry.date}</p>
             </li>
           ))}
         </ul>

@@ -17,7 +17,7 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            style={{ display: "block", marginBottom: 4, fontSize: 14, color: "var(--ant-color-text-secondary)" }}
+            style={{ display: "block", marginBottom: 4, fontSize: 14, color: "var(--color-text-secondary)" }}
           >
             {label}
           </label>
@@ -29,7 +29,7 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
           {...(props as Record<string, unknown>)}
         />
         {error && (
-          <div style={{ marginTop: 4, fontSize: 12, color: "var(--ant-color-error)" }}>
+          <div style={{ marginTop: 4, fontSize: 12, color: "var(--color-error)" }}>
             {error}
           </div>
         )}

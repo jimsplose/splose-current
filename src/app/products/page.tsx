@@ -541,20 +541,20 @@ export default function ProductsPage() {
                           {/* Product details section */}
                           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginBottom: 12, fontSize: 12 }}>
                             <div>
-                              <span className="text-label-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Description</span>
-                              <p className="text-body-md" style={{ marginTop: 2, color: 'var(--ant-color-text)' }}>
+                              <span className="text-label-md" style={{ color: 'var(--color-text-secondary)' }}>Description</span>
+                              <p className="text-body-md" style={{ marginTop: 2, color: 'var(--color-text)' }}>
                                 {product.description || "No description"}
                               </p>
                             </div>
                             <div>
-                              <span className="text-label-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Usage count</span>
-                              <p className="text-body-md" style={{ marginTop: 2, color: 'var(--ant-color-text)' }}>
+                              <span className="text-label-md" style={{ color: 'var(--color-text-secondary)' }}>Usage count</span>
+                              <p className="text-body-md" style={{ marginTop: 2, color: 'var(--color-text)' }}>
                                 {product.usageCount !== undefined ? `${product.usageCount} times` : "-"}
                               </p>
                             </div>
                             <div>
-                              <span className="text-label-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Last used</span>
-                              <p className="text-body-md" style={{ marginTop: 2, color: 'var(--ant-color-text)' }}>
+                              <span className="text-label-md" style={{ color: 'var(--color-text-secondary)' }}>Last used</span>
+                              <p className="text-body-md" style={{ marginTop: 2, color: 'var(--color-text)' }}>
                                 {product.lastUsed || "Never"}
                               </p>
                             </div>
@@ -564,7 +564,7 @@ export default function ProductsPage() {
                           {hasVariants && (
                             <table style={{ width: '100%' }}>
                               <thead>
-                                <tr style={{ borderBottom: '1px solid var(--ant-color-border)' }}>
+                                <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
                                   <th style={{ padding: '8px 16px', textAlign: 'left' }} className="text-label-lg text-text">Name</th>
                                   <th style={{ padding: '8px 16px', textAlign: 'left' }} className="text-label-lg text-text">SKU</th>
                                   <th style={{ padding: '8px 16px', textAlign: 'left' }} className="text-label-lg text-text">Price</th>
@@ -576,15 +576,15 @@ export default function ProductsPage() {
                               <tbody className="divide-y divide-border">
                                 {product.variants!.map((variant, vIdx) => (
                                   <tr key={vIdx} className="hover:bg-gray-50">
-                                    <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--ant-color-text)' }}>{variant.name}</td>
-                                    <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>{variant.sku}</td>
-                                    <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
+                                    <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--color-text)' }}>{variant.name}</td>
+                                    <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--color-text-secondary)' }}>{variant.sku}</td>
+                                    <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--color-text-secondary)' }}>
                                       {variant.price !== null ? variant.price.toFixed(2) : "-"}
                                     </td>
-                                    <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
+                                    <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--color-text-secondary)' }}>
                                       {variant.stock !== null ? variant.stock : "-"}
                                     </td>
-                                    <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>{variant.unit}</td>
+                                    <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--color-text-secondary)' }}>{variant.unit}</td>
                                     <td style={{ padding: '8px 16px', fontSize: 12 }}>
                                       <Button
                                         variant="link"
@@ -666,7 +666,7 @@ export default function ProductsPage() {
           </>
         }
       >
-        <p className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>{confirmDialog.message}</p>
+        <p className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>{confirmDialog.message}</p>
       </Modal>
 
       {/* Manage Stock Modal */}
@@ -685,7 +685,7 @@ export default function ProductsPage() {
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%' }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid var(--ant-color-border)' }}>
+              <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
                 <th style={{ padding: '8px 16px', textAlign: 'left' }} className="text-label-lg text-text">Location</th>
                 <th style={{ padding: '8px 16px', textAlign: 'center' }} className="text-label-lg text-text">Available</th>
                 <th style={{ padding: '8px 16px', textAlign: 'center' }} className="text-label-lg text-text">Track stock</th>
@@ -696,14 +696,14 @@ export default function ProductsPage() {
             <tbody className="divide-y divide-border">
               {mockStockLocations.map((loc) => (
                 <tr key={loc.name} className="hover:bg-gray-50">
-                  <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--ant-color-text)' }}>{loc.name}</td>
+                  <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--color-text)' }}>{loc.name}</td>
                   <td style={{ padding: '8px 16px', textAlign: 'center' }}>
                     <Checkbox checked={loc.available} readOnly />
                   </td>
                   <td style={{ padding: '8px 16px', textAlign: 'center' }}>
                     <Checkbox checked={loc.trackStock} readOnly />
                   </td>
-                  <td style={{ padding: '8px 16px', textAlign: 'center', fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
+                  <td style={{ padding: '8px 16px', textAlign: 'center', fontSize: 12, color: 'var(--color-text-secondary)' }}>
                     {loc.trackStock ? loc.count : "N/A"}
                   </td>
                   <td style={{ padding: '8px 16px', textAlign: 'center' }}>
@@ -711,7 +711,7 @@ export default function ProductsPage() {
                       align="right"
                       trigger={
                         <button style={{ display: 'inline-flex', height: 28, width: 28, alignItems: 'center', justifyContent: 'center', borderRadius: 6, border: 'none', background: 'transparent', cursor: 'pointer' }} className="hover:bg-gray-100">
-                          <MoreOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
+                          <MoreOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
                         </button>
                       }
                       items={stockDropdownItems}

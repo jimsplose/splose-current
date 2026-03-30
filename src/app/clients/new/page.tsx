@@ -265,13 +265,13 @@ export default function NewClientPage() {
                           alignItems: 'center',
                           gap: 4,
                           borderRadius: 9999,
-                          backgroundColor: 'var(--ant-color-primary-bg)',
+                          backgroundColor: 'var(--color-primary-bg)',
                           paddingLeft: 12,
                           paddingRight: 12,
                           paddingTop: 4,
                           paddingBottom: 4,
                           fontSize: 14,
-                          color: 'var(--ant-color-primary)',
+                          color: 'var(--color-primary)',
                         }}
                       >
                         {opt?.label || tag}

@@ -2,7 +2,7 @@
   width: 229px;
   flex-shrink: 0;
   overflow-y: auto;
-  border-right: 1px solid var(--ant-color-border);
+  border-right: 1px solid var(--color-border);
   background-color: #ffffff;
   padding-top: 15px;
   -webkit-font-smoothing: antialiased;
@@ -41,19 +41,19 @@
 
 .link:hover {
   background-color: rgba(130, 80, 255, 0.05);
-  color: var(--ant-color-primary);
+  color: var(--color-primary);
 }
 
 .linkActive {
   background-color: rgba(130, 80, 255, 0.1);
   font-weight: 600;
-  color: var(--ant-color-primary);
+  color: var(--color-primary);
 }
 
 .badge {
   margin-left: 8px;
   border-radius: 4px;
-  background-color: var(--ant-color-primary);
+  background-color: var(--color-primary);
   padding: 2px 6px;
   font-size: 11px;
   color: #ffffff;

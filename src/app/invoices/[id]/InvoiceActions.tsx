@@ -39,7 +39,7 @@ export default function InvoiceActions() {
         trigger={
           <Button variant="secondary" className="shadow-sm">
             Pay
-            <DownOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+            <DownOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
           </Button>
         }
         items={payItems}
@@ -47,14 +47,14 @@ export default function InvoiceActions() {
         align="right"
       />
       <Button variant="secondary" className="shadow-sm">
-        <MailOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
+        <MailOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
         Email Invoice
       </Button>
       <Dropdown
         trigger={
           <Button variant="secondary" className="shadow-sm">
             Actions
-            <DownOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+            <DownOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
           </Button>
         }
         items={actionsItems}

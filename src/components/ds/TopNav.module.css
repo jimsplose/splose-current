@@ -50,13 +50,13 @@
 }
 
 .navLink:hover {
-  color: var(--ant-color-primary);
+  color: var(--color-primary);
 }
 
 .navLinkActive {
-  border-top-color: var(--ant-color-primary);
+  border-top-color: var(--color-primary);
   font-weight: 600;
-  color: var(--ant-color-primary);
+  color: var(--color-primary);
 }
 
 .moreButton {
@@ -77,13 +77,13 @@
 }
 
 .moreButton:hover {
-  color: var(--ant-color-primary);
+  color: var(--color-primary);
 }
 
 .moreButtonActive {
-  border-top-color: var(--ant-color-primary);
+  border-top-color: var(--color-primary);
   font-weight: 600;
-  color: var(--ant-color-primary);
+  color: var(--color-primary);
 }
 
 .moreDropdown {
@@ -110,13 +110,13 @@
 }
 
 .moreDropdownLink:hover {
-  background-color: var(--ant-color-fill-secondary);
-  color: var(--ant-color-primary);
+  background-color: var(--color-fill-secondary);
+  color: var(--color-primary);
 }
 
 .moreDropdownLinkActive {
   font-weight: 600;
-  color: var(--ant-color-primary);
+  color: var(--color-primary);
 }
 
 .rightSide {
@@ -126,7 +126,7 @@
 }
 
 .mobileNav {
-  border-top: 1px solid var(--ant-color-border);
+  border-top: 1px solid var(--color-border);
   background-color: #ffffff;
   padding: 8px 16px;
 }
@@ -137,17 +137,17 @@
   padding: 8px 12px;
   font-size: 14px;
   font-weight: 500;
-  color: var(--ant-color-text-secondary);
+  color: var(--color-text-secondary);
   text-decoration: none;
   transition: background-color 0.2s, color 0.2s;
 }
 
 .mobileNavLink:hover {
-  background-color: var(--ant-color-fill-secondary);
-  color: var(--ant-color-text);
+  background-color: var(--color-fill-secondary);
+  color: var(--color-text);
 }
 
 .mobileNavLinkActive {
   background-color: rgba(130, 80, 255, 0.1);
-  color: var(--ant-color-primary);
+  color: var(--color-primary);
 }

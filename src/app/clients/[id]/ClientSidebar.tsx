@@ -45,7 +45,7 @@ export default function ClientSidebar({ sections }: { sections: Section[] }) {
   return (
     <>
       {/* Mobile: horizontal scrolling tabs */}
-      <div style={{ flexShrink: 0, overflowX: 'auto', borderBottom: '1px solid var(--ant-color-border)', backgroundColor: '#fff' }} className="md:hidden">
+      <div style={{ flexShrink: 0, overflowX: 'auto', borderBottom: '1px solid var(--color-border)', backgroundColor: '#fff' }} className="md:hidden">
         <nav style={{ display: 'flex', minWidth: 'max-content', gap: 4, paddingLeft: 8, paddingRight: 8, paddingTop: 6, paddingBottom: 6 }}>
           {sections.map((section) => {
             const active = isActive(section);
@@ -62,8 +62,8 @@ export default function ClientSidebar({ sections }: { sections: Section[] }) {
                   whiteSpace: 'nowrap',
                   transition: 'color 0.2s, background-color 0.2s',
                   ...(active
-                    ? { backgroundColor: 'var(--ant-color-primary-bg)', color: 'var(--ant-color-primary)' }
-                    : { color: 'var(--ant-color-text-secondary)' }),
+                    ? { backgroundColor: 'var(--color-primary-bg)', color: 'var(--color-primary)' }
+                    : { color: 'var(--color-text-secondary)' }),
                 }}
                 className="text-label-md"
               >

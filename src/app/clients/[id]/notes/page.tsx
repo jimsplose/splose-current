@@ -36,7 +36,7 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Created by
-                <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
             <Th>Service date</Th>
@@ -44,14 +44,14 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Created at
-                <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
           </TableHead>
           <TableBody>
             {client.clinicalNotes.length === 0 ? (
               <tr>
-                <td colSpan={5} style={{ padding: '32px 16px', textAlign: 'center', fontSize: 14, color: 'var(--ant-color-text-secondary)' }}>
+                <td colSpan={5} style={{ padding: '32px 16px', textAlign: 'center', fontSize: 14, color: 'var(--color-text-secondary)' }}>
                   No progress notes
                 </td>
               </tr>
@@ -60,7 +60,7 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
                 <Tr key={note.id} clickable>
                   <Td>
                     <Flex align="center" gap={8}>
-                      <span style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>&raquo;</span>
+                      <span style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>&raquo;</span>
                       <span style={{ fontSize: 14 }}>{note.template}</span>
                       {note.signed ? (
                         <Badge variant="green">Final</Badge>

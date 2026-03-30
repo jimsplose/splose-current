@@ -111,7 +111,7 @@ export default function DataImportPage() {
   return (
     <div style={{ padding: 24 }}>
       {/* Concierge data import banner */}
-      <Flex align="flex-start" gap={16} style={{ marginBottom: 32, borderRadius: 8, border: '1px solid var(--ant-color-border)', backgroundColor: 'var(--ant-color-bg-layout)', padding: 24 }}>
+      <Flex align="flex-start" gap={16} style={{ marginBottom: 32, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-layout)', padding: 24 }}>
         <div style={{ flexShrink: 0, fontSize: '2.25rem' }}><span role="img" aria-label="folder">📂</span></div>
         <div>
           <h2 className="text-heading-lg text-text" style={{ marginBottom: 4 }}>Concierge data import</h2>
@@ -185,15 +185,15 @@ export default function DataImportPage() {
       >
         {importStep === "source" && (
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-            <button type="button" onClick={handleImportNext} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--ant-color-border)', padding: 24, textAlign: 'center', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }} className="hover:border-primary hover:bg-purple-50">
-              <FileExcelOutlined style={{ fontSize: 40, color: 'var(--ant-color-primary)' }} />
+            <button type="button" onClick={handleImportNext} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', padding: 24, textAlign: 'center', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }} className="hover:border-primary hover:bg-purple-50">
+              <FileExcelOutlined style={{ fontSize: 40, color: 'var(--color-primary)' }} />
               <div>
                 <p className="text-label-lg text-text">CSV</p>
                 <p className="text-body-sm text-text-secondary" style={{ marginTop: 4 }}>Import clients, contacts, or appointments from a CSV file</p>
               </div>
             </button>
-            <button type="button" onClick={handleImportNext} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--ant-color-border)', padding: 24, textAlign: 'center', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }} className="hover:border-primary hover:bg-purple-50">
-              <DatabaseOutlined style={{ fontSize: 40, color: 'var(--ant-color-primary)' }} />
+            <button type="button" onClick={handleImportNext} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', padding: 24, textAlign: 'center', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }} className="hover:border-primary hover:bg-purple-50">
+              <DatabaseOutlined style={{ fontSize: 40, color: 'var(--color-primary)' }} />
               <div>
                 <p className="text-label-lg text-text">Cliniko</p>
                 <p className="text-body-sm text-text-secondary" style={{ marginTop: 4 }}>Migrate your data from Cliniko</p>
@@ -205,8 +205,8 @@ export default function DataImportPage() {
         {importStep === "upload" && (
           <Flex vertical gap={16}>
             <FormSelect label="Import type" options={[{ value: "clients", label: "Clients" }, { value: "contacts", label: "Contacts" }, { value: "appointments", label: "Appointments" }]} defaultValue="clients" />
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, borderRadius: 8, border: '2px dashed var(--ant-color-border)', padding: 40, textAlign: 'center', transition: 'all 0.2s' }} className="hover:border-primary hover:bg-purple-50">
-              <UploadOutlined style={{ fontSize: 40, color: 'var(--ant-color-text-secondary)' }} />
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, borderRadius: 8, border: '2px dashed var(--color-border)', padding: 40, textAlign: 'center', transition: 'all 0.2s' }} className="hover:border-primary hover:bg-purple-50">
+              <UploadOutlined style={{ fontSize: 40, color: 'var(--color-text-secondary)' }} />
               <div>
                 <p className="text-body-md text-text">Drag and drop your CSV file here</p>
                 <p className="text-body-sm text-text-secondary">or click to browse</p>
@@ -285,7 +285,7 @@ export default function DataImportPage() {
                 </TableBody>
               </DataTable>
             </div>
-            <Flex align="center" gap={16} style={{ borderRadius: 8, backgroundColor: 'var(--ant-color-bg-layout)', padding: 12 }}>
+            <Flex align="center" gap={16} style={{ borderRadius: 8, backgroundColor: 'var(--color-bg-layout)', padding: 12 }}>
               <Flex align="center" gap={6}><CheckCircleOutlined style={{ fontSize: 16, color: '#16a34a' }} /><span className="text-body-sm text-text">4 valid</span></Flex>
               <Flex align="center" gap={6}><WarningOutlined style={{ fontSize: 16, color: '#ca8a04' }} /><span className="text-body-sm text-text">1 warning</span></Flex>
               <Flex align="center" gap={6}><span className="text-body-sm text-text-secondary">0 errors</span></Flex>
@@ -302,7 +302,7 @@ export default function DataImportPage() {
             </div>
             <h3 className="text-heading-lg text-text" style={{ marginBottom: 8 }}>Import complete!</h3>
             <p className="text-body-md text-text-secondary" style={{ marginBottom: 16 }}>Successfully imported 5 clients into splose.</p>
-            <div style={{ maxWidth: 320, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 8, borderRadius: 8, backgroundColor: 'var(--ant-color-bg-layout)', padding: 16 }}>
+            <div style={{ maxWidth: 320, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 8, borderRadius: 8, backgroundColor: 'var(--color-bg-layout)', padding: 16 }}>
               <Flex justify="space-between" className="text-body-sm"><span className="text-text-secondary">Total records</span><span className="text-text">5</span></Flex>
               <Flex justify="space-between" className="text-body-sm"><span className="text-text-secondary">Imported</span><span style={{ color: '#16a34a' }}>5</span></Flex>
               <Flex justify="space-between" className="text-body-sm"><span className="text-text-secondary">Skipped</span><span className="text-text">0</span></Flex>
@@ -316,10 +316,10 @@ export default function DataImportPage() {
       <Modal open={!!viewRow} onClose={() => setViewRow(null)} title="Import details" maxWidth="md" footer={<Button variant="secondary" onClick={() => setViewRow(null)}>Close</Button>}>
         {viewRow && (
           <Flex vertical gap={12}>
-            <Flex justify="space-between" style={{ borderBottom: '1px solid var(--ant-color-border)', paddingBottom: 8 }}><span className="text-label-lg text-text-secondary">Type</span><span className="text-body-md text-text">{viewRow.type}</span></Flex>
-            <Flex justify="space-between" style={{ borderBottom: '1px solid var(--ant-color-border)', paddingBottom: 8 }}><span className="text-label-lg text-text-secondary">Status</span><Badge variant={viewRow.statusVariant}>{viewRow.status}</Badge></Flex>
-            <Flex justify="space-between" style={{ borderBottom: '1px solid var(--ant-color-border)', paddingBottom: 8 }}><span className="text-label-lg text-text-secondary">Message</span><span className="text-body-md text-text">{viewRow.message || "\u2014"}</span></Flex>
-            <Flex justify="space-between" style={{ borderBottom: '1px solid var(--ant-color-border)', paddingBottom: 8 }}><span className="text-label-lg text-text-secondary">Created</span><span className="text-body-md text-text">{viewRow.createdAt}</span></Flex>
+            <Flex justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: 8 }}><span className="text-label-lg text-text-secondary">Type</span><span className="text-body-md text-text">{viewRow.type}</span></Flex>
+            <Flex justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: 8 }}><span className="text-label-lg text-text-secondary">Status</span><Badge variant={viewRow.statusVariant}>{viewRow.status}</Badge></Flex>
+            <Flex justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: 8 }}><span className="text-label-lg text-text-secondary">Message</span><span className="text-body-md text-text">{viewRow.message || "\u2014"}</span></Flex>
+            <Flex justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: 8 }}><span className="text-label-lg text-text-secondary">Created</span><span className="text-body-md text-text">{viewRow.createdAt}</span></Flex>
             <Flex justify="space-between"><span className="text-label-lg text-text-secondary">Last updated</span><span className="text-body-md text-text">{viewRow.updatedAt}</span></Flex>
           </Flex>
         )}
@@ -328,13 +328,13 @@ export default function DataImportPage() {
       {/* Re-import confirmation modal */}
       <Modal open={!!reImportRow} onClose={() => setReImportRow(null)} title="Re-import" maxWidth="sm" footer={<><Button variant="secondary" onClick={() => setReImportRow(null)}>Cancel</Button><Button variant="primary" onClick={() => setReImportRow(null)}>Re-import</Button></>}>
         <p className="text-body-md text-text-secondary">Re-import this file? This will process the original file again.</p>
-        {reImportRow && (<div style={{ marginTop: 12, borderRadius: 8, backgroundColor: 'var(--ant-color-bg-layout)', padding: 12 }}><p className="text-label-lg text-text">{reImportRow.type} import</p><p className="text-body-sm text-text-secondary">Created: {reImportRow.createdAt}</p></div>)}
+        {reImportRow && (<div style={{ marginTop: 12, borderRadius: 8, backgroundColor: 'var(--color-bg-layout)', padding: 12 }}><p className="text-label-lg text-text">{reImportRow.type} import</p><p className="text-body-sm text-text-secondary">Created: {reImportRow.createdAt}</p></div>)}
       </Modal>
 
       {/* Delete confirmation modal */}
       <Modal open={!!deleteRow} onClose={() => setDeleteRow(null)} title="Delete import" maxWidth="sm" footer={<><Button variant="secondary" onClick={() => setDeleteRow(null)}>Cancel</Button><Button variant="danger" onClick={() => setDeleteRow(null)}>Delete</Button></>}>
         <p className="text-body-md text-text-secondary">Delete this import record? This action cannot be undone.</p>
-        {deleteRow && (<div style={{ marginTop: 12, borderRadius: 8, backgroundColor: 'var(--ant-color-bg-layout)', padding: 12 }}><p className="text-label-lg text-text">{deleteRow.type} import</p><p className="text-body-sm text-text-secondary">Created: {deleteRow.createdAt}</p></div>)}
+        {deleteRow && (<div style={{ marginTop: 12, borderRadius: 8, backgroundColor: 'var(--color-bg-layout)', padding: 12 }}><p className="text-label-lg text-text">{deleteRow.type} import</p><p className="text-body-sm text-text-secondary">Created: {deleteRow.createdAt}</p></div>)}
       </Modal>
     </div>
   );

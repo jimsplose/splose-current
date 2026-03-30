@@ -148,7 +148,7 @@ export default function ReportsAppointmentsPage() {
 
       {/* Date range */}
       <div style={{ marginBottom: 16 }}>
-        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
+        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
           <span>&#128197;</span> Date range *
         </Flex>
         <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
@@ -156,7 +156,7 @@ export default function ReportsAppointmentsPage() {
 
       {/* Contains note filter */}
       <div style={{ marginBottom: 16 }}>
-        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
+        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
           <span>&#128196;</span> Contains note
           <Button variant="ghost" size="sm" style={{ marginLeft: 4, color: '#f87171' }}>&#10005;</Button>
         </Flex>
@@ -194,7 +194,7 @@ export default function ReportsAppointmentsPage() {
 
       {showResults && (
         <>
-          <p className="text-body-md" style={{ margin: '16px 0', color: 'var(--ant-color-text-secondary)' }}>{sortedAppointments.length} items found.</p>
+          <p className="text-body-md" style={{ margin: '16px 0', color: 'var(--color-text-secondary)' }}>{sortedAppointments.length} items found.</p>
           <DataTable>
             <TableHead>
               {columns.map((col) => (

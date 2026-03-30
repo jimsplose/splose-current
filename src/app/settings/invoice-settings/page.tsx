@@ -221,7 +221,7 @@ export default function InvoiceSettingsPage() {
               <Tr key={reminder.id}>
                 <Td>
                   <Flex align="center" gap={8}>
-                    <CalendarOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
+                    <CalendarOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
                     <span className="text-text">{reminder.name}</span>
                   </Flex>
                 </Td>
@@ -324,7 +324,7 @@ export default function InvoiceSettingsPage() {
               />
               <FormInput label="Subject" value={form.subject} onChange={(e) => setField("subject", e.target.value)} />
               <div>
-                <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--ant-color-text-secondary)' }}>Body</label>
+                <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--color-text-secondary)' }}>Body</label>
                 <RichTextEditor
                   value={form.body}
                   onChange={(html) => setField("body", html)}

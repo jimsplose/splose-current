@@ -86,10 +86,10 @@ function DateRangePicker({
       </Button>
 
       {open && (
-        <div style={{ position: 'absolute', left: 0, top: '100%', zIndex: 30, marginTop: 4, width: 320, borderRadius: 8, border: '1px solid var(--ant-color-border)', backgroundColor: 'white', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
+        <div style={{ position: 'absolute', left: 0, top: '100%', zIndex: 30, marginTop: 4, width: 320, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
           {/* Presets */}
-          <div style={{ borderBottom: '1px solid var(--ant-color-border)', padding: 8 }}>
-            <p style={{ marginBottom: 6, paddingLeft: 8, paddingRight: 8, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>Quick select</p>
+          <div style={{ borderBottom: '1px solid var(--color-border)', padding: 8 }}>
+            <p style={{ marginBottom: 6, paddingLeft: 8, paddingRight: 8, fontSize: 12, color: 'var(--color-text-secondary)' }}>Quick select</p>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4 }}>
               {presets.map((p) => (
                 <Button
@@ -108,7 +108,7 @@ function DateRangePicker({
 
           {/* Custom date inputs */}
           <div style={{ padding: 12 }}>
-            <p style={{ marginBottom: 8, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>Custom range</p>
+            <p style={{ marginBottom: 8, fontSize: 12, color: 'var(--color-text-secondary)' }}>Custom range</p>
             <Flex align="center" gap={8}>
               <FormInput
                 type="date"
@@ -116,7 +116,7 @@ function DateRangePicker({
                 onChange={(e) => onChange(new Date(e.target.value), endDate)}
                 className="!py-1.5 !text-body-sm"
               />
-              <span style={{ color: 'var(--ant-color-text-secondary)' }}>&rarr;</span>
+              <span style={{ color: 'var(--color-text-secondary)' }}>&rarr;</span>
               <FormInput
                 type="date"
                 value={toInputDate(endDate)}
@@ -291,20 +291,20 @@ export default function ReportsPage() {
         <Card>
           <div style={{ position: 'relative', marginBottom: 4 }} ref={utilisationSettingsRef}>
             <Flex align="center" justify="space-between">
-              <h3 className="text-heading-sm" style={{ color: 'var(--ant-color-text)' }}>Utilisation</h3>
+              <h3 className="text-heading-sm" style={{ color: 'var(--color-text)' }}>Utilisation</h3>
               <Button
                 variant="icon"
                 size="sm"
                 htmlType="button"
                 onClick={() => setUtilisationSettingsOpen(!utilisationSettingsOpen)}
               >
-                <SettingOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
+                <SettingOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
               </Button>
             </Flex>
             {utilisationSettingsOpen && (
-              <div style={{ position: 'absolute', right: 0, top: '100%', zIndex: 30, marginTop: 4, width: 280, borderRadius: 8, border: '1px solid var(--ant-color-border)', backgroundColor: 'white', padding: 16, boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
-                <h4 className="text-heading-sm" style={{ color: 'var(--ant-color-text)' }}>Utilisation settings</h4>
-                <p className="text-caption-md" style={{ marginBottom: 12, color: 'var(--ant-color-text-secondary)' }}>
+              <div style={{ position: 'absolute', right: 0, top: '100%', zIndex: 30, marginTop: 4, width: 280, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', padding: 16, boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
+                <h4 className="text-heading-sm" style={{ color: 'var(--color-text)' }}>Utilisation settings</h4>
+                <p className="text-caption-md" style={{ marginBottom: 12, color: 'var(--color-text-secondary)' }}>
                   Adjust calculation settings for utilisation metrics.
                 </p>
                 <Flex vertical gap={12}>
@@ -327,9 +327,9 @@ export default function ReportsPage() {
               </div>
             )}
           </div>
-          <p className="text-caption-md" style={{ marginBottom: 8, color: 'var(--ant-color-text-secondary)' }}>Percentage of available time utilised</p>
-          <p className="text-metric-lg" style={{ marginBottom: 4, color: 'var(--ant-color-text)' }}>{(totalUtilisation / sortedPractitioners.length).toFixed(2)}%</p>
-          <p className="text-caption-md" style={{ marginBottom: 16, color: 'var(--ant-color-text-secondary)' }}>{fmtDay(dateStart)} - {fmtDay(dateEnd)}</p>
+          <p className="text-caption-md" style={{ marginBottom: 8, color: 'var(--color-text-secondary)' }}>Percentage of available time utilised</p>
+          <p className="text-metric-lg" style={{ marginBottom: 4, color: 'var(--color-text)' }}>{(totalUtilisation / sortedPractitioners.length).toFixed(2)}%</p>
+          <p className="text-caption-md" style={{ marginBottom: 16, color: 'var(--color-text-secondary)' }}>{fmtDay(dateStart)} - {fmtDay(dateEnd)}</p>
           <div style={{ position: 'relative', height: 128 }}>
             <svg viewBox="0 0 280 100" style={{ height: '100%', width: '100%' }} preserveAspectRatio="none">
               {[0, 25, 50, 75, 100].map((y) => (
@@ -366,11 +366,11 @@ export default function ReportsPage() {
         {/* Revenue card */}
         <Card>
           <Flex align="center" justify="space-between" style={{ marginBottom: 4 }}>
-            <h3 className="text-heading-sm" style={{ color: 'var(--ant-color-text)' }}>Revenue</h3>
+            <h3 className="text-heading-sm" style={{ color: 'var(--color-text)' }}>Revenue</h3>
           </Flex>
-          <p className="text-caption-md" style={{ marginBottom: 8, color: 'var(--ant-color-text-secondary)' }}>Total invoiced revenue from appointments and support activities (tax exclusive)</p>
-          <p className="text-metric-lg" style={{ marginBottom: 4, color: 'var(--ant-color-text)' }}>${totalRevenue >= 1000 ? (totalRevenue / 1000).toFixed(2) + "K" : totalRevenue.toFixed(2)}</p>
-          <p className="text-caption-md" style={{ marginBottom: 16, color: 'var(--ant-color-text-secondary)' }}>{fmtDay(dateStart)} - {fmtDay(dateEnd)}</p>
+          <p className="text-caption-md" style={{ marginBottom: 8, color: 'var(--color-text-secondary)' }}>Total invoiced revenue from appointments and support activities (tax exclusive)</p>
+          <p className="text-metric-lg" style={{ marginBottom: 4, color: 'var(--color-text)' }}>${totalRevenue >= 1000 ? (totalRevenue / 1000).toFixed(2) + "K" : totalRevenue.toFixed(2)}</p>
+          <p className="text-caption-md" style={{ marginBottom: 16, color: 'var(--color-text-secondary)' }}>{fmtDay(dateStart)} - {fmtDay(dateEnd)}</p>
           <div style={{ position: 'relative', height: 128 }}>
             <Flex vertical justify="space-between" style={{ position: 'absolute', top: 0, bottom: 0, left: 0 }} className="text-caption-sm text-text-secondary">
               {(() => { const max = Math.ceil(Math.max(...revenueData) / 50) * 50; return [max, Math.round(max * 0.67), Math.round(max * 0.33), 0].map((v) => <span key={v}>${v}</span>); })()}
@@ -379,7 +379,7 @@ export default function ReportsPage() {
               {revenueData.map((val, i) => (
                 <Flex key={i} vertical align="center" gap={2} style={{ flex: 1 }}>
                   <div
-                    style={{ width: '100%', borderTopLeftRadius: 4, borderTopRightRadius: 4, backgroundColor: 'var(--ant-color-primary)', height: `${(val / (Math.ceil(Math.max(...revenueData) / 50) * 50 || 1)) * 100}%`, minHeight: val > 0 ? 2 : 0 }}
+                    style={{ width: '100%', borderTopLeftRadius: 4, borderTopRightRadius: 4, backgroundColor: 'var(--color-primary)', height: `${(val / (Math.ceil(Math.max(...revenueData) / 50) * 50 || 1)) * 100}%`, minHeight: val > 0 ? 2 : 0 }}
                   />
                 </Flex>
               ))}
@@ -397,10 +397,10 @@ export default function ReportsPage() {
 
       {/* Practitioners table */}
       <Card padding="none">
-        <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--ant-color-border)', padding: '12px 16px' }}>
+        <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', padding: '12px 16px' }}>
           <div>
-            <h3 className="text-heading-sm" style={{ color: 'var(--ant-color-text)' }}>Practitioners</h3>
-            <p className="text-caption-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Breakdown of performance by individual practitioner</p>
+            <h3 className="text-heading-sm" style={{ color: 'var(--color-text)' }}>Practitioners</h3>
+            <p className="text-caption-md" style={{ color: 'var(--color-text-secondary)' }}>Breakdown of performance by individual practitioner</p>
           </div>
         </Flex>
         <DataTable>
@@ -434,17 +434,17 @@ export default function ReportsPage() {
                 <Td>
                   <Flex align="center" gap={12}>
                     <Avatar name={p.name} color={p.color} size="sm" />
-                    <span className="text-body-md" style={{ color: 'var(--ant-color-text)' }}>{p.name}</span>
+                    <span className="text-body-md" style={{ color: 'var(--color-text)' }}>{p.name}</span>
                   </Flex>
                 </Td>
                 <Td>
                   <Flex align="center" gap={8}>
                     <div style={{ height: 6, width: 64, borderRadius: 9999, backgroundColor: '#f3f4f6' }}>
                       <div
-                        style={{ height: 6, borderRadius: 9999, backgroundColor: 'var(--ant-color-primary)', width: `${Math.min(p.utilisation * 10, 100)}%` }}
+                        style={{ height: 6, borderRadius: 9999, backgroundColor: 'var(--color-primary)', width: `${Math.min(p.utilisation * 10, 100)}%` }}
                       />
                     </div>
-                    <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>{p.utilisation.toFixed(2)}%</span>
+                    <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>{p.utilisation.toFixed(2)}%</span>
                   </Flex>
                 </Td>
                 <Td align="right">${p.revenue.toFixed(2)}</Td>

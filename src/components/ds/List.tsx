@@ -22,7 +22,7 @@ export default function List({ items, labelWidth, className }: ListProps) {
       renderItem={(item) => (
         <AntList.Item style={{ padding: "4px 0", border: "none" }}>
           <Flex gap={64}>
-            <span style={{ width: labelWidth || 112, flexShrink: 0, fontSize: 14, color: "var(--ant-color-text-secondary)" }}>
+            <span style={{ width: labelWidth || 112, flexShrink: 0, fontSize: 14, color: "var(--color-text-secondary)" }}>
               {item.label}
             </span>
             <span style={{ fontSize: 14 }}>
