@@ -9,13 +9,13 @@ const items = [
 
 export default function BatchInvoiceDetailPage() {
   return (
-    <div className="min-h-[calc(100vh-3.5rem)]">
+    <div style={{ minHeight: 'calc(100vh - 3.5rem)' }}>
       <Navbar backHref="/invoices/batch-invoice" title="Batch invoice #330044">
         <Button>Export</Button>
       </Navbar>
 
-      <div className="p-6">
-        <div className="mb-4 text-body-md text-text-secondary">
+      <div style={{ padding: 24 }}>
+        <div className="text-body-md" style={{ marginBottom: 16, color: 'var(--ant-color-text-secondary)' }}>
           Created on 22 Mar 2026 &middot; 3 invoices
         </div>
 
@@ -31,7 +31,7 @@ export default function BatchInvoiceDetailPage() {
             {items.map((inv) => (
               <tr key={inv.number} className="border-b border-border hover:bg-gray-50">
                 <Td>
-                  <Link href={`/invoices/${inv.number}`} className="font-medium text-primary hover:underline">
+                  <Link href={`/invoices/${inv.number}`} style={{ fontWeight: 500 }} className="text-primary hover:underline">
                     {inv.number}
                   </Link>
                 </Td>

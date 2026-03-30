@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import { ArrowUpDown, Filter } from "lucide-react";
+import { SwapOutlined, FilterOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import { Button, Card, DataTable, PageHeader, SearchBar, EmptyState, TableHead, Th, TableBody, Tr, Td, Pagination, Badge } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
@@ -20,70 +21,70 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
   if (!client) notFound();
 
   return (
-    <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Invoices">
         <Button>+ New invoice</Button>
       </PageHeader>
 
       <SearchBar placeholder="Search for invoice number, client name and contact name" />
 
-      <Card padding="none" className="overflow-x-auto">
-        <div className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
+        <div style={{ overflowX: 'auto' }}>
           <DataTable>
             <TableHead>
               <Th>
-                <div className="flex items-center gap-1">
+                <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Invoice #
-                  <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-                  <Filter className="h-3 w-3 text-text-secondary" />
-                </div>
+                  <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                  <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                </Flex>
               </Th>
               <Th>To</Th>
               <Th>
-                <div className="flex items-center gap-1">
+                <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Location
-                  <Filter className="h-3 w-3 text-text-secondary" />
-                </div>
+                  <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                </Flex>
               </Th>
               <Th>
-                <div className="flex items-center gap-1">
+                <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Practitioner
-                  <Filter className="h-3 w-3 text-text-secondary" />
-                </div>
+                  <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                </Flex>
               </Th>
               <Th>
-                <div className="flex items-center gap-1">
+                <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Issue date
-                  <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-                </div>
+                  <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                </Flex>
               </Th>
               <Th>
-                <div className="flex items-center gap-1">Due date</div>
+                <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>Due date</Flex>
               </Th>
               <Th align="right">Amount</Th>
               <Th align="right">Outstanding</Th>
               <Th>
-                <div className="flex items-center gap-1">
+                <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Status
-                  <Filter className="h-3 w-3 text-text-secondary" />
-                </div>
+                  <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                </Flex>
               </Th>
               <Th>
-                <div className="flex items-center gap-1">
+                <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Sent status
-                  <Filter className="h-3 w-3 text-text-secondary" />
-                </div>
+                  <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                </Flex>
               </Th>
             </TableHead>
             <TableBody>
               {client.invoices.length === 0 ? (
                 <tr>
-                  <td colSpan={10} className="px-4 py-16 text-center">
-                    <div className="flex flex-col items-center">
-                      <div className="mb-3 text-4xl">📋💵</div>
-                      <p className="text-label-lg text-text">No invoices</p>
-                      <Button variant="link" size="sm" className="mt-1">Add new invoice</Button>
-                    </div>
+                  <td colSpan={10} style={{ padding: '64px 16px', textAlign: 'center' }}>
+                    <Flex vertical align="center">
+                      <div style={{ marginBottom: 12, fontSize: 32 }}>&#x1F4CB;&#x1F4B5;</div>
+                      <p className="text-label-lg">No invoices</p>
+                      <Button variant="link" size="sm" style={{ marginTop: 4 }}>Add new invoice</Button>
+                    </Flex>
                   </td>
                 </tr>
               ) : (
@@ -92,18 +93,18 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
                   const practitioner = inv.appointment?.practitioner;
                   return (
                     <Tr key={inv.id}>
-                      <Td className="text-text">{inv.invoiceNumber}</Td>
-                      <Td className="text-primary">
+                      <Td>{inv.invoiceNumber}</Td>
+                      <Td style={{ color: 'var(--ant-color-primary)' }}>
                         {client.firstName} {client.lastName} ({inv.billingType})
                       </Td>
-                      <Td className="text-text-secondary">East Clinics</Td>
-                      <Td className="text-text-secondary">{practitioner ? practitioner.name : "—"}</Td>
-                      <Td className="text-text-secondary">{formatDate(inv.date)}</Td>
-                      <Td className="text-text-secondary">{formatDate(inv.dueDate)}</Td>
-                      <Td align="right" className="text-text">
+                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>East Clinics</Td>
+                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{practitioner ? practitioner.name : "\u2014"}</Td>
+                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{formatDate(inv.date)}</Td>
+                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{formatDate(inv.dueDate)}</Td>
+                      <Td align="right">
                         {inv.total.toFixed(2)}
                       </Td>
-                      <Td align="right" className="text-text">
+                      <Td align="right">
                         {outstanding.toFixed(2)}
                       </Td>
                       <Td>
@@ -121,7 +122,7 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
                           </Badge>
                         )}
                       </Td>
-                      <Td className="text-text-secondary">—</Td>
+                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{"\u2014"}</Td>
                     </Tr>
                   );
                 })

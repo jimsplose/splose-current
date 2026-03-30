@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Flex } from "antd";
 import {
   Button,
   Badge,
@@ -90,14 +91,14 @@ export default function CancellationReasonsPage() {
   }
 
   return (
-    <div className="p-8">
-      <div className="mb-6 flex items-center justify-between">
+    <div style={{ padding: 32 }}>
+      <Flex justify="space-between" align="center" style={{ marginBottom: 24 }}>
         <h1 className="text-display-lg">Cancellation reasons</h1>
-        <div className="flex items-center gap-2">
+        <Flex align="center" gap={8}>
           <Button variant="secondary">Show archived</Button>
           <Button variant="secondary" onClick={openCreate}>+ New reason</Button>
-        </div>
-      </div>
+        </Flex>
+      </Flex>
       <DataTable>
         <TableHead>
           <Th>Name</Th>
@@ -135,14 +136,14 @@ export default function CancellationReasonsPage() {
           </>
         }
       >
-        <div className="space-y-4">
+        <Flex vertical gap={16}>
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
           <FormInput label="Code" value={form.code} onChange={(e) => setField("code", e.target.value)} placeholder="Optional" />
-        </div>
+        </Flex>
 
-        <div className="mt-6 border-t border-border pt-6">
-          <h3 className="text-heading-md text-text mb-4">Cancellation rules</h3>
-          <div className="space-y-4">
+        <div style={{ marginTop: 24, paddingTop: 24, borderTop: '1px solid var(--ant-color-border)' }}>
+          <h3 className="text-heading-md text-text" style={{ marginBottom: 16 }}>Cancellation rules</h3>
+          <Flex vertical gap={16}>
             <Toggle
               label="Allow clients to cancel online"
               checked={form.allowCancelOnline}
@@ -169,7 +170,7 @@ export default function CancellationReasonsPage() {
                 onChange={(value) => setField("reschedulingWindow", value)}
               />
             )}
-          </div>
+          </Flex>
         </div>
       </Modal>
     </div>

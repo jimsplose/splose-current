@@ -45,20 +45,30 @@ export default function ClientSidebar({ sections }: { sections: Section[] }) {
   return (
     <>
       {/* Mobile: horizontal scrolling tabs */}
-      <div className="shrink-0 overflow-x-auto border-b border-border bg-white md:hidden">
-        <nav className="flex min-w-max gap-1 px-2 py-1.5">
+      <div style={{ flexShrink: 0, overflowX: 'auto', borderBottom: '1px solid var(--ant-color-border)', backgroundColor: '#fff' }} className="md:hidden">
+        <nav style={{ display: 'flex', minWidth: 'max-content', gap: 4, paddingLeft: 8, paddingRight: 8, paddingTop: 6, paddingBottom: 6 }}>
           {sections.map((section) => {
             const active = isActive(section);
             return (
               <Link
                 key={section.label}
                 href={section.href}
-                className={`rounded-full px-3 py-1 text-label-md whitespace-nowrap transition-colors ${
-                  active ? "bg-primary/10 text-primary" : "text-text-secondary hover:bg-gray-50"
-                }`}
+                style={{
+                  borderRadius: 9999,
+                  paddingLeft: 12,
+                  paddingRight: 12,
+                  paddingTop: 4,
+                  paddingBottom: 4,
+                  whiteSpace: 'nowrap',
+                  transition: 'color 0.2s, background-color 0.2s',
+                  ...(active
+                    ? { backgroundColor: 'var(--ant-color-primary-bg)', color: 'var(--ant-color-primary)' }
+                    : { color: 'var(--ant-color-text-secondary)' }),
+                }}
+                className="text-label-md"
               >
                 {section.label}
-                {section.count !== null && <span className="ml-1 text-caption-sm">{section.count}</span>}
+                {section.count !== null && <span className="text-caption-sm" style={{ marginLeft: 4 }}>{section.count}</span>}
               </Link>
             );
           })}

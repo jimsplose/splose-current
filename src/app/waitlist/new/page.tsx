@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Flex } from "antd";
 import { Button, Card, Checkbox, FormSelect, FormTextarea, Navbar } from "@/components/ds";
 
 const clientOptions = [
@@ -80,7 +81,7 @@ export default function WaitlistNewPage() {
   };
 
   return (
-    <div className="min-h-screen bg-surface">
+    <div style={{ minHeight: '100vh', backgroundColor: 'var(--ant-color-bg-layout)' }}>
       <Navbar backHref="/waitlist" title="Add to waitlist">
         <Button variant="secondary" onClick={() => router.push("/waitlist")}>
           Cancel
@@ -90,10 +91,10 @@ export default function WaitlistNewPage() {
         </Button>
       </Navbar>
 
-      <div className="mx-auto max-w-2xl space-y-6 p-6">
+      <Flex vertical gap={24} style={{ maxWidth: 672, margin: '0 auto', padding: 24 }}>
         {/* Client */}
         <Card title="Client" headerBar>
-          <div className="space-y-4">
+          <Flex vertical gap={16}>
             <FormSelect
               label="Client"
               options={clientOptions}
@@ -106,12 +107,12 @@ export default function WaitlistNewPage() {
               value={practitioner}
               onChange={setPractitioner}
             />
-          </div>
+          </Flex>
         </Card>
 
         {/* Details */}
         <Card title="Details" headerBar>
-          <div className="space-y-4">
+          <Flex vertical gap={16}>
             <FormSelect
               label="Service"
               options={serviceOptions}
@@ -125,8 +126,8 @@ export default function WaitlistNewPage() {
               onChange={setPriority}
             />
             <div>
-              <label className="mb-2 block text-label-lg text-text-secondary">Preferred days</label>
-              <div className="flex flex-wrap gap-4">
+              <label className="text-label-lg" style={{ display: 'block', marginBottom: 8, color: 'var(--ant-color-text-secondary)' }}>Preferred days</label>
+              <Flex wrap gap={16}>
                 {days.map((day) => (
                   <Checkbox
                     key={day}
@@ -135,7 +136,7 @@ export default function WaitlistNewPage() {
                     onChange={() => handleDayToggle(day)}
                   />
                 ))}
-              </div>
+              </Flex>
             </div>
             <FormSelect
               label="Preferred time"
@@ -143,12 +144,12 @@ export default function WaitlistNewPage() {
               value={preferredTime}
               onChange={setPreferredTime}
             />
-          </div>
+          </Flex>
         </Card>
 
         {/* Notes */}
         <Card title="Notes" headerBar>
-          <div className="space-y-4">
+          <Flex vertical gap={16}>
             <FormTextarea
               label="Reason for waitlist"
               placeholder="Why is the client being added to the waitlist?"
@@ -163,9 +164,9 @@ export default function WaitlistNewPage() {
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
             />
-          </div>
+          </Flex>
         </Card>
-      </div>
+      </Flex>
     </div>
   );
 }

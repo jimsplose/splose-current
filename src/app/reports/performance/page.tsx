@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Flex } from "antd";
 import {
   Alert,
   Badge,
@@ -61,7 +62,7 @@ export default function ReportsPerformancePage() {
     <>
       {/* Toast notification */}
       {toastMessage && (
-        <div className="fixed right-4 top-4 z-50 animate-in fade-in slide-in-from-top-2">
+        <div style={{ position: 'fixed', right: 16, top: 16, zIndex: 50 }} className="animate-in fade-in slide-in-from-top-2">
           <Alert variant="success">{toastMessage}</Alert>
         </div>
       )}
@@ -76,25 +77,33 @@ export default function ReportsPerformancePage() {
       </PageHeader>
 
       {/* Toolbar: date pill, period toggle, compare toggle */}
-      <div className="mb-4 flex flex-wrap items-center gap-3">
+      <Flex wrap="wrap" align="center" gap={12} style={{ marginBottom: 16 }}>
         <Chip variant="green">11 Mar 2026 – 11 Mar 2026</Chip>
 
         {/* Period selector pills */}
-        <div className="flex rounded-full border border-border bg-white p-0.5">
+        <Flex style={{ borderRadius: 9999, border: '1px solid var(--ant-color-border)', backgroundColor: 'white', padding: 2 }}>
           {periodOptions.map((opt) => (
             <button
               key={opt.value}
               onClick={() => setPeriod(opt.value)}
-              className={`rounded-full px-3 py-1 text-label-md transition-colors ${
-                period === opt.value
-                  ? "bg-primary text-white"
-                  : "text-text-secondary hover:text-text"
-              }`}
+              style={{
+                borderRadius: 9999,
+                paddingLeft: 12,
+                paddingRight: 12,
+                paddingTop: 4,
+                paddingBottom: 4,
+                transition: 'color 0.2s',
+                backgroundColor: period === opt.value ? 'var(--ant-color-primary)' : 'transparent',
+                color: period === opt.value ? 'white' : 'var(--ant-color-text-secondary)',
+                border: 'none',
+                cursor: 'pointer',
+              }}
+              className="text-label-md"
             >
               {opt.label}
             </button>
           ))}
-        </div>
+        </Flex>
 
         <Toggle
           checked={compareEnabled}
@@ -104,20 +113,20 @@ export default function ReportsPerformancePage() {
         {compareEnabled && (
           <Badge variant="gray">vs 4 Mar – 4 Mar 2026</Badge>
         )}
-      </div>
+      </Flex>
 
       {/* Filter buttons */}
-      <div className="mb-6 flex flex-wrap items-center gap-2">
+      <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 24 }}>
         <Button>Add filter</Button>
         <Button>Save filters</Button>
         <Button>Load filters</Button>
         <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
-      </div>
+      </Flex>
 
       {/* Configuration options */}
-      <div className="space-y-3 text-sm">
-        <div className="flex items-center gap-4">
-          <span className="w-80 text-text">Identify as new client if no previous service:</span>
+      <Flex vertical gap={12} style={{ fontSize: 12 }}>
+        <Flex align="center" gap={16}>
+          <span style={{ width: 320, color: 'var(--ant-color-text)' }}>Identify as new client if no previous service:</span>
           <FormSelect
             options={[
               { value: "ever", label: "Ever" },
@@ -126,9 +135,9 @@ export default function ReportsPerformancePage() {
             ]}
             className="!w-auto"
           />
-        </div>
-        <div className="flex items-center gap-4">
-          <span className="w-80 text-text">Exclude busy time from utilisation calculation:</span>
+        </Flex>
+        <Flex align="center" gap={16}>
+          <span style={{ width: 320, color: 'var(--ant-color-text)' }}>Exclude busy time from utilisation calculation:</span>
           <FormSelect
             options={[
               { value: "no", label: "No" },
@@ -136,9 +145,9 @@ export default function ReportsPerformancePage() {
             ]}
             className="!w-auto"
           />
-        </div>
-        <div className="flex items-center gap-4">
-          <span className="w-80 text-text">
+        </Flex>
+        <Flex align="center" gap={16}>
+          <span style={{ width: 320, color: 'var(--ant-color-text)' }}>
             Include all appointments regardless of status:
           </span>
           <FormSelect
@@ -148,9 +157,9 @@ export default function ReportsPerformancePage() {
             ]}
             className="!w-auto"
           />
-        </div>
-        <div className="flex items-center gap-4">
-          <span className="w-80 text-text">
+        </Flex>
+        <Flex align="center" gap={16}>
+          <span style={{ width: 320, color: 'var(--ant-color-text)' }}>
             Exclude items marked as do not invoice:
           </span>
           <FormSelect
@@ -160,11 +169,11 @@ export default function ReportsPerformancePage() {
             ]}
             className="!w-auto"
           />
-        </div>
-      </div>
+        </Flex>
+      </Flex>
 
       {showResults && (
-        <div className="mt-6 overflow-x-auto rounded-lg border border-border">
+        <div style={{ marginTop: 24, overflowX: 'auto', borderRadius: 8, border: '1px solid var(--ant-color-border)' }}>
           <DataTable>
             <TableHead>
               <Th>Practitioner</Th>
@@ -177,11 +186,11 @@ export default function ReportsPerformancePage() {
             <TableBody>
               {mockPerformanceRows.map((row, i) => (
                 <Tr key={i}>
-                  <Td className="text-primary">{row.practitioner}</Td>
+                  <Td style={{ color: 'var(--ant-color-primary)' }}>{row.practitioner}</Td>
                   <Td align="right">{row.available}h</Td>
                   <Td align="right">{row.booked}h</Td>
                   <Td align="right">
-                    <span className={row.utilisation >= 80 ? "font-semibold text-green-600" : row.utilisation >= 70 ? "text-yellow-600" : "text-red-600"}>
+                    <span style={{ fontWeight: row.utilisation >= 80 ? 600 : 400, color: row.utilisation >= 80 ? '#16a34a' : row.utilisation >= 70 ? '#ca8a04' : '#dc2626' }}>
                       {row.utilisation}%
                     </span>
                   </Td>
@@ -200,32 +209,32 @@ export default function ReportsPerformancePage() {
         title="Performance metric definitions"
         footer={<Button variant="primary" onClick={() => setShowDefinitions(false)}>Close</Button>}
       >
-        <dl className="space-y-4">
+        <Flex vertical gap={16}>
           <div>
-            <dt className="text-label-lg text-text">Available hours</dt>
-            <dd className="mt-0.5 text-body-md text-text-secondary">
+            <dt className="text-label-lg" style={{ color: 'var(--ant-color-text)' }}>Available hours</dt>
+            <dd className="text-body-md" style={{ marginTop: 2, color: 'var(--ant-color-text-secondary)' }}>
               The total number of hours a practitioner has marked as available in their schedule during the selected date range, excluding blocked time and leave.
             </dd>
           </div>
           <div>
-            <dt className="text-label-lg text-text">Booked hours</dt>
-            <dd className="mt-0.5 text-body-md text-text-secondary">
+            <dt className="text-label-lg" style={{ color: 'var(--ant-color-text)' }}>Booked hours</dt>
+            <dd className="text-body-md" style={{ marginTop: 2, color: 'var(--ant-color-text-secondary)' }}>
               The total number of hours occupied by confirmed client appointments during the selected date range. Does not include cancelled or no-show appointments unless configured otherwise.
             </dd>
           </div>
           <div>
-            <dt className="text-label-lg text-text">Utilisation %</dt>
-            <dd className="mt-0.5 text-body-md text-text-secondary">
+            <dt className="text-label-lg" style={{ color: 'var(--ant-color-text)' }}>Utilisation %</dt>
+            <dd className="text-body-md" style={{ marginTop: 2, color: 'var(--ant-color-text-secondary)' }}>
               The percentage of available hours that were booked with client appointments. Calculated as (Booked hours / Available hours) x 100. A higher percentage indicates more efficient use of available time.
             </dd>
           </div>
           <div>
-            <dt className="text-label-lg text-text">Revenue</dt>
-            <dd className="mt-0.5 text-body-md text-text-secondary">
+            <dt className="text-label-lg" style={{ color: 'var(--ant-color-text)' }}>Revenue</dt>
+            <dd className="text-body-md" style={{ marginTop: 2, color: 'var(--ant-color-text-secondary)' }}>
               The total dollar value of services delivered by the practitioner during the selected date range, based on the service rates at the time of the appointment.
             </dd>
           </div>
-        </dl>
+        </Flex>
       </Modal>
     </>
   );

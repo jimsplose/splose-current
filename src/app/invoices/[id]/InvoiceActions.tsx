@@ -1,9 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { DownOutlined, MailOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import { Button, Dropdown } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
-import { ChevronDown, Mail } from "lucide-react";
 
 const payItems: DropdownItem[] = [
   { label: "Record payment", value: "record-payment" },
@@ -33,12 +34,12 @@ export default function InvoiceActions() {
   }
 
   return (
-    <div className="flex items-center gap-2">
+    <Flex align="center" gap={8}>
       <Dropdown
         trigger={
           <Button variant="secondary" className="shadow-sm">
             Pay
-            <ChevronDown className="h-3.5 w-3.5 text-text-secondary" />
+            <DownOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
           </Button>
         }
         items={payItems}
@@ -46,20 +47,20 @@ export default function InvoiceActions() {
         align="right"
       />
       <Button variant="secondary" className="shadow-sm">
-        <Mail className="h-4 w-4 text-text-secondary" />
+        <MailOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
         Email Invoice
       </Button>
       <Dropdown
         trigger={
           <Button variant="secondary" className="shadow-sm">
             Actions
-            <ChevronDown className="h-3.5 w-3.5 text-text-secondary" />
+            <DownOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
           </Button>
         }
         items={actionsItems}
         onSelect={handleActionsSelect}
         align="right"
       />
-    </div>
+    </Flex>
   );
 }

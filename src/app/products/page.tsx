@@ -1,7 +1,8 @@
 "use client";
 
-import { PageHeader, Button, Card, DataTable, SearchBar, Pagination, TableHead, Th, TableBody, Td, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Checkbox, usePagination } from "@/components/ds";
-import { Plus, Minus, MoreHorizontal } from "lucide-react";
+import { PageHeader, Button, Card, DataTable, SearchBar, Pagination, TableHead, Th, TableBody, Td, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Checkbox } from "@/components/ds";
+import { PlusOutlined, MinusOutlined, MoreOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import Link from "next/link";
 import { useState, useMemo, useCallback, Fragment } from "react";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -375,7 +376,9 @@ export default function ProductsPage() {
     return filtered;
   }, [searchQuery, showArchived, products]);
 
-  const { paged: paginatedProducts, paginationProps } = usePagination(filteredProducts, { pageKey: "/products" });
+  const totalPages = Math.ceil(filteredProducts.length / 20);
+  const paginatedProducts = filteredProducts.slice(0, 20);
+
   const toggleExpand = (index: number) => {
     setExpandedRows((prev) => {
       const next = new Set(prev);
@@ -445,7 +448,7 @@ export default function ProductsPage() {
   }, [confirmDialog]);
 
   return (
-    <div className="px-[22.5px] py-[10px]">
+    <div style={{ padding: '10px 22.5px' }}>
       <PageHeader title="Products">
         <Button
           variant="secondary"
@@ -458,7 +461,7 @@ export default function ProductsPage() {
         </Button>
         <Link href="/products/new">
           <Button variant="secondary">
-            <Plus className="h-4 w-4" />
+            <PlusOutlined style={{ fontSize: 16 }} />
             New product
           </Button>
         </Link>
@@ -484,7 +487,7 @@ export default function ProductsPage() {
           </TableHead>
           <TableBody>
             {paginatedProducts.map((product, idx) => {
-              const globalIndex = (paginationProps.currentPage - 1) * paginationProps.itemsPerPage + idx;
+              const globalIndex = idx;
               const isExpanded = expandedRows.has(globalIndex);
               const hasVariants = product.variants && product.variants.length > 0;
 
@@ -496,7 +499,7 @@ export default function ProductsPage() {
                     }`}
                     onClick={() => toggleExpand(globalIndex)}
                   >
-                    <td className="px-2 py-3 text-center">
+                    <td style={{ padding: '12px 8px', textAlign: 'center' }}>
                       <Button
                         variant="icon"
                         size="sm"
@@ -506,7 +509,7 @@ export default function ProductsPage() {
                           toggleExpand(globalIndex);
                         }}
                       >
-                        {isExpanded ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
+                        {isExpanded ? <MinusOutlined style={{ fontSize: 14 }} /> : <PlusOutlined style={{ fontSize: 14 }} />}
                       </Button>
                     </td>
                     <Td className="text-text">{product.name}</Td>
@@ -533,25 +536,25 @@ export default function ProductsPage() {
 
                   {isExpanded && (
                     <tr>
-                      <td colSpan={6} className="bg-gray-50/50 px-0 py-0">
-                        <div className="px-8 py-3">
+                      <td colSpan={6} style={{ background: 'rgba(249, 250, 251, 0.5)', padding: 0 }}>
+                        <div style={{ padding: '12px 32px' }}>
                           {/* Product details section */}
-                          <div className="mb-3 grid grid-cols-3 gap-4 text-sm">
+                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginBottom: 12, fontSize: 12 }}>
                             <div>
-                              <span className="text-label-md text-text-secondary">Description</span>
-                              <p className="mt-0.5 text-body-md text-text">
+                              <span className="text-label-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Description</span>
+                              <p className="text-body-md" style={{ marginTop: 2, color: 'var(--ant-color-text)' }}>
                                 {product.description || "No description"}
                               </p>
                             </div>
                             <div>
-                              <span className="text-label-md text-text-secondary">Usage count</span>
-                              <p className="mt-0.5 text-body-md text-text">
+                              <span className="text-label-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Usage count</span>
+                              <p className="text-body-md" style={{ marginTop: 2, color: 'var(--ant-color-text)' }}>
                                 {product.usageCount !== undefined ? `${product.usageCount} times` : "-"}
                               </p>
                             </div>
                             <div>
-                              <span className="text-label-md text-text-secondary">Last used</span>
-                              <p className="mt-0.5 text-body-md text-text">
+                              <span className="text-label-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Last used</span>
+                              <p className="text-body-md" style={{ marginTop: 2, color: 'var(--ant-color-text)' }}>
                                 {product.lastUsed || "Never"}
                               </p>
                             </div>
@@ -559,30 +562,30 @@ export default function ProductsPage() {
 
                           {/* Variants table (if applicable) */}
                           {hasVariants && (
-                            <table className="w-full">
+                            <table style={{ width: '100%' }}>
                               <thead>
-                                <tr className="border-b border-border">
-                                  <th className="px-4 py-2 text-left text-label-lg text-text">Name</th>
-                                  <th className="px-4 py-2 text-left text-label-lg text-text">SKU</th>
-                                  <th className="px-4 py-2 text-left text-label-lg text-text">Price</th>
-                                  <th className="px-4 py-2 text-left text-label-lg text-text">Stock</th>
-                                  <th className="px-4 py-2 text-left text-label-lg text-text">Unit</th>
-                                  <th className="px-4 py-2 text-left text-label-lg text-primary">Actions</th>
+                                <tr style={{ borderBottom: '1px solid var(--ant-color-border)' }}>
+                                  <th style={{ padding: '8px 16px', textAlign: 'left' }} className="text-label-lg text-text">Name</th>
+                                  <th style={{ padding: '8px 16px', textAlign: 'left' }} className="text-label-lg text-text">SKU</th>
+                                  <th style={{ padding: '8px 16px', textAlign: 'left' }} className="text-label-lg text-text">Price</th>
+                                  <th style={{ padding: '8px 16px', textAlign: 'left' }} className="text-label-lg text-text">Stock</th>
+                                  <th style={{ padding: '8px 16px', textAlign: 'left' }} className="text-label-lg text-text">Unit</th>
+                                  <th style={{ padding: '8px 16px', textAlign: 'left' }} className="text-label-lg text-primary">Actions</th>
                                 </tr>
                               </thead>
                               <tbody className="divide-y divide-border">
                                 {product.variants!.map((variant, vIdx) => (
                                   <tr key={vIdx} className="hover:bg-gray-50">
-                                    <td className="px-4 py-2 text-sm text-text">{variant.name}</td>
-                                    <td className="px-4 py-2 text-sm text-text-secondary">{variant.sku}</td>
-                                    <td className="px-4 py-2 text-sm text-text-secondary">
+                                    <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--ant-color-text)' }}>{variant.name}</td>
+                                    <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>{variant.sku}</td>
+                                    <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
                                       {variant.price !== null ? variant.price.toFixed(2) : "-"}
                                     </td>
-                                    <td className="px-4 py-2 text-sm text-text-secondary">
+                                    <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
                                       {variant.stock !== null ? variant.stock : "-"}
                                     </td>
-                                    <td className="px-4 py-2 text-sm text-text-secondary">{variant.unit}</td>
-                                    <td className="px-4 py-2 text-sm">
+                                    <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>{variant.unit}</td>
+                                    <td style={{ padding: '8px 16px', fontSize: 12 }}>
                                       <Button
                                         variant="link"
                                         onClick={() => {
@@ -609,14 +612,20 @@ export default function ProductsPage() {
             {paginatedProducts.length === 0 && (
               <tr>
                 <td colSpan={6}>
-                  <EmptyState message="No products found." className="py-8" />
+                  <EmptyState message="No products found." style={{ padding: '32px 0' }} />
                 </td>
               </tr>
             )}
           </TableBody>
         </DataTable>
 
-        <Pagination {...paginationProps} />
+        <Pagination
+          currentPage={1}
+          totalPages={totalPages}
+          totalItems={filteredProducts.length}
+          itemsPerPage={20}
+          onPageChange={() => {}}
+        />
       </Card>
 
       {/* Edit Product Modal */}
@@ -631,13 +640,13 @@ export default function ProductsPage() {
           </>
         }
       >
-        <div className="space-y-4">
+        <Flex vertical gap={16}>
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
           <FormInput label="Code" value={form.code} onChange={(e) => setField("code", e.target.value)} />
           <FormInput label="Price" type="number" value={form.price} onChange={(e) => setField("price", e.target.value)} />
           <FormSelect label="Tax" options={taxOptions} value={form.tax} onChange={(value) => setField("tax", value)} />
           <FormSelect label="Type" options={typeOptions} value={form.type} onChange={(value) => setField("type", value)} />
-        </div>
+        </Flex>
       </Modal>
 
       {/* Confirmation Dialog */}
@@ -657,7 +666,7 @@ export default function ProductsPage() {
           </>
         }
       >
-        <p className="text-body-md text-text-secondary">{confirmDialog.message}</p>
+        <p className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>{confirmDialog.message}</p>
       </Modal>
 
       {/* Manage Stock Modal */}
@@ -673,36 +682,36 @@ export default function ProductsPage() {
           </>
         }
       >
-        <div className="overflow-x-auto">
-          <table className="w-full">
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%' }}>
             <thead>
-              <tr className="border-b border-border">
-                <th className="px-4 py-2 text-left text-label-lg text-text">Location</th>
-                <th className="px-4 py-2 text-center text-label-lg text-text">Available</th>
-                <th className="px-4 py-2 text-center text-label-lg text-text">Track stock</th>
-                <th className="px-4 py-2 text-center text-label-lg text-text">Count</th>
-                <th className="px-4 py-2 text-center text-label-lg text-text">Actions</th>
+              <tr style={{ borderBottom: '1px solid var(--ant-color-border)' }}>
+                <th style={{ padding: '8px 16px', textAlign: 'left' }} className="text-label-lg text-text">Location</th>
+                <th style={{ padding: '8px 16px', textAlign: 'center' }} className="text-label-lg text-text">Available</th>
+                <th style={{ padding: '8px 16px', textAlign: 'center' }} className="text-label-lg text-text">Track stock</th>
+                <th style={{ padding: '8px 16px', textAlign: 'center' }} className="text-label-lg text-text">Count</th>
+                <th style={{ padding: '8px 16px', textAlign: 'center' }} className="text-label-lg text-text">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
               {mockStockLocations.map((loc) => (
                 <tr key={loc.name} className="hover:bg-gray-50">
-                  <td className="px-4 py-2 text-sm text-text">{loc.name}</td>
-                  <td className="px-4 py-2 text-center">
+                  <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--ant-color-text)' }}>{loc.name}</td>
+                  <td style={{ padding: '8px 16px', textAlign: 'center' }}>
                     <Checkbox checked={loc.available} readOnly />
                   </td>
-                  <td className="px-4 py-2 text-center">
+                  <td style={{ padding: '8px 16px', textAlign: 'center' }}>
                     <Checkbox checked={loc.trackStock} readOnly />
                   </td>
-                  <td className="px-4 py-2 text-center text-sm text-text-secondary">
+                  <td style={{ padding: '8px 16px', textAlign: 'center', fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
                     {loc.trackStock ? loc.count : "N/A"}
                   </td>
-                  <td className="px-4 py-2 text-center">
+                  <td style={{ padding: '8px 16px', textAlign: 'center' }}>
                     <Dropdown
                       align="right"
                       trigger={
-                        <button className="inline-flex h-7 w-7 items-center justify-center rounded-md hover:bg-gray-100">
-                          <MoreHorizontal className="h-4 w-4 text-text-secondary" />
+                        <button style={{ display: 'inline-flex', height: 28, width: 28, alignItems: 'center', justifyContent: 'center', borderRadius: 6, border: 'none', background: 'transparent', cursor: 'pointer' }} className="hover:bg-gray-100">
+                          <MoreOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
                         </button>
                       }
                       items={stockDropdownItems}
@@ -714,7 +723,7 @@ export default function ProductsPage() {
             </tbody>
           </table>
         </div>
-        <div className="mt-4">
+        <div style={{ marginTop: 16 }}>
           <Pagination
             currentPage={1}
             totalPages={1}

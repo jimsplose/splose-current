@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpDown, FolderPlus, ChevronDown, FileText } from "lucide-react";
+import { SwapOutlined, FolderAddOutlined, DownOutlined, FileTextOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, usePagination } from "@/components/ds";
 
 const filesData = [
@@ -56,39 +57,39 @@ export default function ClientFilesPage() {
   }
 
   return (
-    <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Files /">
         <Button>
-          <FolderPlus className="h-4 w-4" />
+          <FolderAddOutlined style={{ fontSize: 16 }} />
           New folder
         </Button>
         <Button>Show deleted files</Button>
         <Button>
           Upload
-          <ChevronDown className="h-4 w-4" />
+          <DownOutlined style={{ fontSize: 16 }} />
         </Button>
       </PageHeader>
 
       <SearchBar placeholder="Search for file name" />
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
             <Th>
-              <span className="inline-flex items-center gap-1">
-                Name <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
-              </span>
+              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+                Name <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+              </Flex>
             </Th>
             <Th>Uploader</Th>
             <Th>
-              <span className="inline-flex items-center gap-1">
-                Upload date <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
-              </span>
+              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+                Upload date <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+              </Flex>
             </Th>
             <Th>
-              <span className="inline-flex items-center gap-1">
-                File size <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
-              </span>
+              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+                File size <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+              </Flex>
             </Th>
             <Th align="right">Actions</Th>
           </TableHead>
@@ -96,14 +97,14 @@ export default function ClientFilesPage() {
             {paged.map((file) => (
               <Tr key={file.id}>
                 <Td>
-                  <div className="flex items-center gap-2">
-                    <FileText className="h-4 w-4 text-text-secondary" />
-                    <span className="text-text">{file.name}</span>
-                  </div>
+                  <Flex align="center" gap={8}>
+                    <FileTextOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
+                    <span>{file.name}</span>
+                  </Flex>
                 </Td>
-                <Td className="text-text-secondary">{file.uploader || "—"}</Td>
-                <Td className="text-text-secondary">{file.uploadDate}</Td>
-                <Td className="text-text-secondary">{file.fileSize}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{file.uploader || "\u2014"}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{file.uploadDate}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{file.fileSize}</Td>
                 <Td align="right">
                   <Dropdown
                     align="right"
@@ -121,7 +122,7 @@ export default function ClientFilesPage() {
 
       {/* Download toast */}
       {downloadToast && (
-        <div className="fixed bottom-6 right-6 z-50 rounded-lg bg-gray-800 px-4 py-3 text-body-md text-white shadow-lg">
+        <div style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 50, borderRadius: 8, backgroundColor: '#1f2937', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, color: '#fff', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }} className="text-body-md">
           Downloading...
         </div>
       )}
@@ -163,8 +164,8 @@ export default function ClientFilesPage() {
           </>
         }
       >
-        <p className="text-body-md text-text-secondary">
-          Are you sure you want to delete <strong className="text-text">{deleteModal.fileName}</strong>? This action cannot be undone.
+        <p className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>
+          Are you sure you want to delete <strong>{deleteModal.fileName}</strong>? This action cannot be undone.
         </p>
       </Modal>
     </div>

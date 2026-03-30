@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { Flex } from "antd";
+import { ReadOutlined, SwapOutlined, CheckOutlined } from "@ant-design/icons";
 import {
   Button,
   PageHeader,
@@ -20,7 +22,6 @@ import {
 } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
-import { BookOpen, ArrowUpDown, Check } from "lucide-react";
 
 const MOCK_USERS = [
   "Sophie Anderson",
@@ -84,10 +85,10 @@ export default function UserGroupsPage() {
   }
 
   return (
-    <div className="p-6">
+    <div style={{ padding: 24 }}>
       <PageHeader title="User groups">
         <Button variant="secondary">
-          <BookOpen className="h-4 w-4" />
+          <ReadOutlined style={{ fontSize: 16 }} />
           Learn
         </Button>
         <Button variant="secondary" onClick={openCreate}>+ New group</Button>
@@ -101,9 +102,9 @@ export default function UserGroupsPage() {
       <DataTable>
         <TableHead>
           <Th>
-            <span className="inline-flex items-center gap-1">
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
               Name
-              <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
+              <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
             </span>
           </Th>
           <Th>Users</Th>
@@ -139,26 +140,29 @@ export default function UserGroupsPage() {
           </>
         }
       >
-        <div className="space-y-4">
+        <Flex vertical gap={16}>
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
-        </div>
+        </Flex>
 
-        <div className="mt-6 border-t border-border pt-6">
-          <h3 className="text-heading-md text-text mb-3">Users</h3>
-          <div className="space-y-1">
+        <div style={{ marginTop: 24, paddingTop: 24, borderTop: '1px solid var(--ant-color-border)' }}>
+          <h3 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Users</h3>
+          <Flex vertical gap={4}>
             {MOCK_USERS.map((user) => {
               const isSelected = form.selectedUsers.includes(user);
               return (
                 <label
                   key={user}
-                  className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 hover:bg-surface-secondary"
+                  style={{ display: 'flex', cursor: 'pointer', alignItems: 'center', gap: 12, borderRadius: 8, padding: '8px 12px' }}
+                  className="hover:bg-surface-secondary"
                 >
                   <span
-                    className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border ${
-                      isSelected ? "border-primary bg-primary" : "border-border bg-white"
-                    }`}
+                    style={{
+                      display: 'flex', height: 20, width: 20, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 4,
+                      border: `1px solid ${isSelected ? 'var(--ant-color-primary)' : 'var(--ant-color-border)'}`,
+                      backgroundColor: isSelected ? 'var(--ant-color-primary)' : 'white',
+                    }}
                   >
-                    {isSelected && <Check className="h-3.5 w-3.5 text-white" />}
+                    {isSelected && <CheckOutlined style={{ fontSize: 14, color: 'white' }} />}
                   </span>
                   <input
                     type="checkbox"
@@ -170,7 +174,7 @@ export default function UserGroupsPage() {
                 </label>
               );
             })}
-          </div>
+          </Flex>
         </div>
       </Modal>
     </div>

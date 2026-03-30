@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus } from "lucide-react";
+import { PlusOutlined } from "@ant-design/icons";
 import { Button, Card, DataTable, PageHeader, TableHead, Th, TableBody, Tr, Td, ActionsCell, Pagination, usePagination } from "@/components/ds";
 
 const lettersData = [
@@ -18,15 +18,15 @@ export default function ClientLettersPage() {
   const { paged, paginationProps } = usePagination(lettersData, { pageKey: "/clients/letters" });
 
   return (
-    <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Letters">
         <Button>
-          <Plus className="h-4 w-4" />
+          <PlusOutlined style={{ fontSize: 16 }} />
           New letter
         </Button>
       </PageHeader>
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
             <Th>Title</Th>
@@ -39,11 +39,11 @@ export default function ClientLettersPage() {
           <TableBody>
             {paged.map((letter) => (
               <Tr key={letter.id}>
-                <Td className="text-text">{letter.title}</Td>
-                <Td className="text-text-secondary">{letter.location}</Td>
-                <Td className="text-text-secondary">{letter.writtenBy}</Td>
-                <Td className="text-text-secondary">{letter.createdAt}</Td>
-                <Td className="text-text-secondary">{letter.lastUpdated}</Td>
+                <Td>{letter.title}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{letter.location}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{letter.writtenBy}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{letter.createdAt}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{letter.lastUpdated}</Td>
                 <ActionsCell
                   items={[
                     { label: "Edit", value: "edit" },

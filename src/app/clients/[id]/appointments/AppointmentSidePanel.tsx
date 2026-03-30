@@ -2,22 +2,22 @@
 
 import { useState } from "react";
 import {
-  X,
-  User,
-  Clock,
-  Phone,
-  Mail,
-  AlertTriangle,
-  Link2,
-  Video,
-  FileText,
-  Plus,
-  ChevronDown,
-  MoreHorizontal,
-  ArrowUpDown,
-  MapPin,
-  StickyNote,
-} from "lucide-react";
+  CloseOutlined,
+  UserOutlined,
+  ClockCircleOutlined,
+  PhoneOutlined,
+  MailOutlined,
+  WarningOutlined,
+  LinkOutlined,
+  VideoCameraOutlined,
+  FileTextOutlined,
+  PlusOutlined,
+  DownOutlined,
+  EllipsisOutlined,
+  SwapOutlined,
+  EnvironmentOutlined,
+} from "@ant-design/icons";
+import { Flex } from "antd";
 import {
   Button,
   DataTable,
@@ -101,27 +101,27 @@ export default function AppointmentSidePanel({
   const { paged, paginationProps } = usePagination(appointments, { pageKey: "/clients/appointments" });
 
   return (
-    <div className="flex flex-1 overflow-hidden">
+    <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
       {/* Main table area */}
-      <div className={`flex-1 overflow-y-auto p-4 transition-all sm:p-6 ${selectedAppointment ? "pr-0" : ""}`}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: 24, transition: 'all 0.2s', ...(selectedAppointment ? { paddingRight: 0 } : {}) }}>
         <PageHeader title="Appointments">
           <Button>
             Send upcoming appointments
-            <ChevronDown className="h-4 w-4 text-text-secondary" />
+            <DownOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
           </Button>
           <Button>
-            <Plus className="h-4 w-4" />
+            <PlusOutlined style={{ fontSize: 16 }} />
             New appointment
           </Button>
         </PageHeader>
 
-        <Card padding="none" className="overflow-x-auto">
+        <Card padding="none" style={{ overflowX: 'auto' }}>
           <DataTable>
             <TableHead>
               <Th>
-                <span className="inline-flex items-center gap-1">
-                  When <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
-                </span>
+                <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+                  When <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+                </Flex>
               </Th>
               <Th>Where</Th>
               <Th>Type</Th>
@@ -132,7 +132,7 @@ export default function AppointmentSidePanel({
             <TableBody>
               {appointments.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-4 py-8 text-center text-sm text-text-secondary">
+                  <td colSpan={6} style={{ padding: '32px 16px', textAlign: 'center', fontSize: 14, color: 'var(--ant-color-text-secondary)' }}>
                     No appointments
                   </td>
                 </tr>
@@ -155,13 +155,14 @@ export default function AppointmentSidePanel({
                   return (
                     <tr
                       key={appt.id}
-                      className={`cursor-pointer hover:bg-gray-50 ${isSelected ? "bg-primary/5" : ""}`}
+                      style={{ cursor: 'pointer', ...(isSelected ? { backgroundColor: 'var(--ant-color-primary-bg)' } : {}) }}
+                      className="hover:bg-gray-50"
                       onClick={() => setSelectedAppointment(appt)}
                     >
                       <Td>
-                        <div className="flex items-center gap-2">
+                        <Flex align="center" gap={8}>
                           <Status color={isUpcoming ? "green" : statusDotColor} />
-                          <span className="text-text">
+                          <span>
                             {formatDate(appt.date)}, {appt.startTime}
                           </span>
                           {isUpcoming && (
@@ -173,11 +174,11 @@ export default function AppointmentSidePanel({
                             <Badge variant={statusVariant("Cancelled")}>Cancelled</Badge>
                           )}
                           {appt.status === "No Show" && <Badge variant={statusVariant(appt.status)}>{appt.status}</Badge>}
-                        </div>
+                        </Flex>
                       </Td>
-                      <Td className="text-text-secondary">East Clinics</Td>
-                      <Td className="text-text-secondary">{appt.type}</Td>
-                      <Td className="text-text-secondary">{appt.practitioner.name}</Td>
+                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>East Clinics</Td>
+                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{appt.type}</Td>
+                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{appt.practitioner.name}</Td>
                       <Td>
                         {invoiceStatus === "Paid" && (
                           <Badge variant="red" className="bg-red-500 text-white">
@@ -201,7 +202,7 @@ export default function AppointmentSidePanel({
                           size="sm"
                           onClick={(e) => e.stopPropagation()}
                         >
-                          <MoreHorizontal className="h-5 w-5" />
+                          <EllipsisOutlined style={{ fontSize: 20 }} />
                         </Button>
                       </Td>
                     </tr>
@@ -216,14 +217,14 @@ export default function AppointmentSidePanel({
 
       {/* Side panel */}
       {selectedAppointment && (
-        <aside className="w-[380px] shrink-0 overflow-y-auto border-l border-border bg-white shadow-lg">
+        <aside style={{ width: 380, flexShrink: 0, overflowY: 'auto', borderLeft: '1px solid var(--ant-color-border)', backgroundColor: '#fff', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
           {/* Header */}
-          <div className="flex items-start justify-between border-b border-border p-4">
-            <div className="min-w-0 flex-1">
-              <h3 className="text-body-lg-strong text-text">
+          <Flex justify="space-between" align="flex-start" style={{ borderBottom: '1px solid var(--ant-color-border)', padding: 16 }}>
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <h3 className="text-body-lg-strong">
                 {selectedAppointment.type}
               </h3>
-              <p className="mt-0.5 text-xs text-text-secondary">
+              <p style={{ marginTop: 2, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
                 ({selectedAppointment.type})
               </p>
             </div>
@@ -231,137 +232,137 @@ export default function AppointmentSidePanel({
               variant="icon"
               size="sm"
               onClick={() => setSelectedAppointment(null)}
-              className="ml-2 shrink-0"
+              style={{ marginLeft: 8, flexShrink: 0 }}
             >
-              <X className="h-5 w-5" />
+              <CloseOutlined style={{ fontSize: 20 }} />
             </Button>
-          </div>
+          </Flex>
 
           {/* Details */}
-          <div className="space-y-3 p-4 text-sm">
+          <Flex vertical gap={12} style={{ padding: 16, fontSize: 14 }}>
             {/* Practitioner at Location */}
-            <div className="flex items-start gap-3">
-              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-text-secondary" />
-              <span className="text-text">
+            <Flex align="flex-start" gap={12}>
+              <EnvironmentOutlined style={{ fontSize: 16, flexShrink: 0, marginTop: 2, color: 'var(--ant-color-text-secondary)' }} />
+              <span>
                 {selectedAppointment.practitioner.name} at East Clinics
               </span>
-            </div>
+            </Flex>
 
             {/* Practitioner */}
-            <div className="flex items-center gap-3">
-              <User className="h-4 w-4 shrink-0 text-text-secondary" />
-              <span className="text-text">{selectedAppointment.practitioner.name}</span>
-            </div>
+            <Flex align="center" gap={12}>
+              <UserOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }} />
+              <span>{selectedAppointment.practitioner.name}</span>
+            </Flex>
 
             {/* Time */}
-            <div className="flex items-start gap-3">
-              <Clock className="mt-0.5 h-4 w-4 shrink-0 text-text-secondary" />
-              <span className="text-text">
+            <Flex align="flex-start" gap={12}>
+              <ClockCircleOutlined style={{ fontSize: 16, flexShrink: 0, marginTop: 2, color: 'var(--ant-color-text-secondary)' }} />
+              <span>
                 {formatPanelDate(selectedAppointment.date, selectedAppointment.startTime)} for 60 minutes
               </span>
-            </div>
+            </Flex>
 
             {/* Client */}
-            <div className="flex items-center gap-3">
+            <Flex align="center" gap={12}>
               <Avatar
                 name={`${client.firstName} ${client.lastName}`}
                 size="sm"
               />
-              <span className="text-text">
+              <span>
                 {client.firstName} {client.lastName}
               </span>
-            </div>
+            </Flex>
 
             {/* Alert */}
-            <div className="flex items-center gap-3">
-              <AlertTriangle className="h-4 w-4 shrink-0 text-yellow-500" />
-              <span className="text-yellow-700">Include KM</span>
-            </div>
+            <Flex align="center" gap={12}>
+              <WarningOutlined style={{ fontSize: 16, flexShrink: 0, color: '#faad14' }} />
+              <span style={{ color: '#d48806' }}>Include KM</span>
+            </Flex>
 
             {/* Phone */}
-            <div className="flex items-center gap-3">
-              <Phone className="h-4 w-4 shrink-0 text-text-secondary" />
+            <Flex align="center" gap={12}>
+              <PhoneOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }} />
               {client.phone ? (
-                <a href={`tel:${client.phone}`} className="text-primary hover:underline">
+                <a href={`tel:${client.phone}`} style={{ color: 'var(--ant-color-primary)' }} className="hover:underline">
                   {client.phone}
                 </a>
               ) : (
-                <span className="text-text-secondary">No phone</span>
+                <span style={{ color: 'var(--ant-color-text-secondary)' }}>No phone</span>
               )}
-            </div>
+            </Flex>
 
             {/* Email */}
-            <div className="flex items-center gap-3">
-              <Mail className="h-4 w-4 shrink-0 text-text-secondary" />
+            <Flex align="center" gap={12}>
+              <MailOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }} />
               {client.email ? (
-                <a href={`mailto:${client.email}`} className="text-primary hover:underline">
+                <a href={`mailto:${client.email}`} style={{ color: 'var(--ant-color-primary)' }} className="hover:underline">
                   {client.email}
                 </a>
               ) : (
-                <span className="text-text-secondary">No email</span>
+                <span style={{ color: 'var(--ant-color-text-secondary)' }}>No email</span>
               )}
-            </div>
+            </Flex>
 
             {/* Status */}
-            <div className="flex items-center gap-3">
-              <div className="flex h-4 w-4 shrink-0 items-center justify-center">
+            <Flex align="center" gap={12}>
+              <div style={{ display: 'flex', height: 16, width: 16, flexShrink: 0, alignItems: 'center', justifyContent: 'center' }}>
                 <Status color="gray" />
               </div>
-              <span className="text-text-secondary">No status</span>
-            </div>
+              <span style={{ color: 'var(--ant-color-text-secondary)' }}>No status</span>
+            </Flex>
 
-            <hr className="border-border" />
+            <hr style={{ borderColor: 'var(--ant-color-border)' }} />
 
             {/* Links */}
-            <div className="flex items-center gap-3">
-              <Link2 className="h-4 w-4 shrink-0 text-text-secondary" />
-              <div className="flex flex-wrap items-center gap-1.5">
-                <span className="text-text">baby due date test</span>
+            <Flex align="center" gap={12}>
+              <LinkOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }} />
+              <Flex wrap align="center" gap={6}>
+                <span>baby due date test</span>
                 <Badge variant="yellow">incomplete</Badge>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <Link2 className="h-4 w-4 shrink-0 text-text-secondary" />
-              <div className="flex flex-wrap items-center gap-1.5">
-                <span className="text-text">header test</span>
+              </Flex>
+            </Flex>
+            <Flex align="center" gap={12}>
+              <LinkOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }} />
+              <Flex wrap align="center" gap={6}>
+                <span>header test</span>
                 <Badge variant="yellow">incomplete</Badge>
-              </div>
-            </div>
+              </Flex>
+            </Flex>
 
-            <hr className="border-border" />
+            <hr style={{ borderColor: 'var(--ant-color-border)' }} />
 
             {/* Create Zoom meeting */}
-            <div className="flex items-center gap-3">
-              <Video className="h-4 w-4 shrink-0 text-text-secondary" />
+            <Flex align="center" gap={12}>
+              <VideoCameraOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }} />
               <Button variant="link">Create Zoom meeting</Button>
-            </div>
+            </Flex>
 
-            <hr className="border-border" />
+            <hr style={{ borderColor: 'var(--ant-color-border)' }} />
 
             {/* Invoice actions */}
-            <div className="flex items-center gap-3">
-              <FileText className="h-4 w-4 shrink-0 text-text-secondary" />
+            <Flex align="center" gap={12}>
+              <FileTextOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }} />
               <Button variant="link">Add invoice</Button>
-            </div>
-            <div className="flex items-center gap-3 pl-7">
+            </Flex>
+            <Flex align="center" gap={12} style={{ paddingLeft: 28 }}>
               <Button variant="link">Mark as</Button>
-              <span className="text-text-secondary">and</span>
+              <span style={{ color: 'var(--ant-color-text-secondary)' }}>and</span>
               <Button variant="link">Do not invoice?</Button>
-            </div>
+            </Flex>
 
-            <hr className="border-border" />
+            <hr style={{ borderColor: 'var(--ant-color-border)' }} />
 
             {/* Test item */}
-            <div className="flex items-center gap-3">
-              <span className="text-text">AAA TEST</span>
+            <Flex align="center" gap={12}>
+              <span>AAA TEST</span>
               <Badge variant="green">new</Badge>
-            </div>
+            </Flex>
 
-            <hr className="border-border" />
+            <hr style={{ borderColor: 'var(--ant-color-border)' }} />
 
             {/* Google integrations */}
-            <div className="flex items-center gap-3">
-              <svg className="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none">
+            <Flex align="center" gap={12}>
+              <svg style={{ height: 16, width: 16, flexShrink: 0 }} viewBox="0 0 24 24" fill="none">
                 <path
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
                   fill="#4285F4"
@@ -380,37 +381,37 @@ export default function AppointmentSidePanel({
                 />
               </svg>
               <Button variant="link">View in Google</Button>
-            </div>
+            </Flex>
 
-            <div className="flex items-center gap-3">
-              <Video className="h-4 w-4 shrink-0 text-text-secondary" />
+            <Flex align="center" gap={12}>
+              <VideoCameraOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }} />
               <Button variant="link">Join with Google Meet</Button>
-            </div>
+            </Flex>
 
-            <div className="flex items-center gap-3">
-              <Link2 className="h-4 w-4 shrink-0 text-text-secondary" />
-              <span className="truncate text-xs text-primary">https://meet.google.com/...</span>
-            </div>
+            <Flex align="center" gap={12}>
+              <LinkOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }} />
+              <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: 12, color: 'var(--ant-color-primary)' }}>https://meet.google.com/...</span>
+            </Flex>
 
-            <hr className="border-border" />
+            <hr style={{ borderColor: 'var(--ant-color-border)' }} />
 
             {/* Note */}
             <div>
-              <div className="mb-2 flex items-center gap-2">
-                <StickyNote className="h-4 w-4 text-text-secondary" />
-                <span className="font-medium text-text">Note</span>
-              </div>
+              <Flex align="center" gap={8} style={{ marginBottom: 8 }}>
+                <FileTextOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
+                <span style={{ fontWeight: 500 }}>Note</span>
+              </Flex>
               <FormTextarea
                 rows={3}
                 placeholder="Add a note..."
-                className="text-sm"
+                style={{ fontSize: 14 }}
               />
             </div>
-          </div>
+          </Flex>
 
           {/* Action buttons */}
-          <div className="border-t border-border p-4">
-            <div className="flex flex-wrap gap-2">
+          <div style={{ borderTop: '1px solid var(--ant-color-border)', padding: 16 }}>
+            <Flex wrap gap={8}>
               <Button variant="secondary" size="sm">
                 Book another
               </Button>
@@ -423,8 +424,8 @@ export default function AppointmentSidePanel({
               <Button variant="danger" size="sm">
                 Archive
               </Button>
-            </div>
-            <div className="mt-3">
+            </Flex>
+            <div style={{ marginTop: 12 }}>
               <Button variant="link" size="sm">View change log</Button>
             </div>
           </div>

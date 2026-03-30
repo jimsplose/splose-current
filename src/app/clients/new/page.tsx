@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Flex } from "antd";
 import {
   Button,
   Card,
@@ -108,7 +109,7 @@ export default function NewClientPage() {
   const [expiryDate, setExpiryDate] = useState("");
 
   return (
-    <div className="min-h-[calc(100vh-3rem)]">
+    <div style={{ minHeight: 'calc(100vh - 3rem)' }}>
       <Navbar backHref="/clients" title="New client">
         <Button variant="secondary" onClick={() => router.push("/clients")}>
           Cancel
@@ -118,187 +119,201 @@ export default function NewClientPage() {
         </Button>
       </Navbar>
 
-      <div className="mx-auto max-w-4xl space-y-6 p-6">
-        {/* General details */}
-        <Card title="General details" headerBar>
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <FormSelect
-                label="Title"
-                value={title}
-                onChange={setTitle}
-                options={titleOptions}
-              />
-              <FormInput
-                label="First name"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                placeholder="First name"
-              />
-              <FormInput
-                label="Preferred name"
-                value={preferredName}
-                onChange={(e) => setPreferredName(e.target.value)}
-                placeholder="Preferred name"
-              />
-              <FormInput
-                label="Last name"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                placeholder="Last name"
-              />
-            </div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <FormInput
-                label="Date of birth"
-                type="date"
-                value={dateOfBirth}
-                onChange={(e) => setDateOfBirth(e.target.value)}
-              />
-              <FormSelect
-                label="Gender"
-                value={gender}
-                onChange={setGender}
-                options={genderOptions}
-              />
-            </div>
-          </div>
-        </Card>
-
-        {/* Contact details */}
-        <Card title="Contact details" headerBar>
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <FormInput
-                label="Email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="email@example.com"
-              />
-              <FormInput
-                label="Phone"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="02 1234 5678"
-              />
-            </div>
-            <FormInput
-              label="Mobile"
-              value={mobile}
-              onChange={(e) => setMobile(e.target.value)}
-              placeholder="0412 345 678"
-            />
-            <FormInput
-              label="Address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              placeholder="Street address"
-            />
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <FormInput
-                label="Suburb"
-                value={suburb}
-                onChange={(e) => setSuburb(e.target.value)}
-                placeholder="Suburb"
-              />
-              <FormSelect
-                label="State"
-                value={state}
-                onChange={setState}
-                options={stateOptions}
-              />
-              <FormInput
-                label="Postcode"
-                value={postcode}
-                onChange={(e) => setPostcode(e.target.value)}
-                placeholder="3000"
-              />
-            </div>
-          </div>
-        </Card>
-
-        {/* Additional */}
-        <Card title="Additional" headerBar>
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <FormSelect
-                label="Referral source"
-                value={referralSource}
-                onChange={setReferralSource}
-                options={referralOptions}
-              />
-              <FormSelect
-                label="Practitioner"
-                value={practitioner}
-                onChange={setPractitioner}
-                options={practitionerOptions}
-              />
-            </div>
-            <Select
-              label="Tags"
-              options={tagOptions}
-              value={tags.join(",")}
-              onChange={(val) => {
-                if (!val) {
-                  setTags([]);
-                } else if (tags.includes(val)) {
-                  setTags(tags.filter((t) => t !== val));
-                } else {
-                  setTags([...tags, val]);
-                }
-              }}
-              placeholder="Select tags"
-              searchable
-            />
-            {tags.length > 0 && (
-              <div className="flex flex-wrap gap-2">
-                {tags.map((tag) => {
-                  const opt = tagOptions.find((o) => o.value === tag);
-                  return (
-                    <span
-                      key={tag}
-                      className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 text-label-lg text-primary"
-                    >
-                      {opt?.label || tag}
-                      <button
-                        type="button"
-                        onClick={() => setTags(tags.filter((t) => t !== tag))}
-                        className="ml-0.5 hover:text-primary-dark"
-                      >
-                        x
-                      </button>
-                    </span>
-                  );
-                })}
+      <div style={{ maxWidth: '56rem', marginLeft: 'auto', marginRight: 'auto', padding: 24 }}>
+        <Flex vertical gap={24}>
+          {/* General details */}
+          <Card title="General details" headerBar>
+            <Flex vertical gap={16}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+                <FormSelect
+                  label="Title"
+                  value={title}
+                  onChange={setTitle}
+                  options={titleOptions}
+                />
+                <FormInput
+                  label="First name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  placeholder="First name"
+                />
+                <FormInput
+                  label="Preferred name"
+                  value={preferredName}
+                  onChange={(e) => setPreferredName(e.target.value)}
+                  placeholder="Preferred name"
+                />
+                <FormInput
+                  label="Last name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  placeholder="Last name"
+                />
               </div>
-            )}
-          </div>
-        </Card>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+                <FormInput
+                  label="Date of birth"
+                  type="date"
+                  value={dateOfBirth}
+                  onChange={(e) => setDateOfBirth(e.target.value)}
+                />
+                <FormSelect
+                  label="Gender"
+                  value={gender}
+                  onChange={setGender}
+                  options={genderOptions}
+                />
+              </div>
+            </Flex>
+          </Card>
 
-        {/* Medicare */}
-        <Card title="Medicare" headerBar>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <FormInput
-              label="Medicare number"
-              value={medicareNumber}
-              onChange={(e) => setMedicareNumber(e.target.value)}
-              placeholder="1234 56789 0"
-            />
-            <FormInput
-              label="Reference number"
-              value={referenceNumber}
-              onChange={(e) => setReferenceNumber(e.target.value)}
-              placeholder="1"
-            />
-            <FormInput
-              label="Expiry date"
-              type="date"
-              value={expiryDate}
-              onChange={(e) => setExpiryDate(e.target.value)}
-            />
-          </div>
-        </Card>
+          {/* Contact details */}
+          <Card title="Contact details" headerBar>
+            <Flex vertical gap={16}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+                <FormInput
+                  label="Email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="email@example.com"
+                />
+                <FormInput
+                  label="Phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="02 1234 5678"
+                />
+              </div>
+              <FormInput
+                label="Mobile"
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value)}
+                placeholder="0412 345 678"
+              />
+              <FormInput
+                label="Address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                placeholder="Street address"
+              />
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+                <FormInput
+                  label="Suburb"
+                  value={suburb}
+                  onChange={(e) => setSuburb(e.target.value)}
+                  placeholder="Suburb"
+                />
+                <FormSelect
+                  label="State"
+                  value={state}
+                  onChange={setState}
+                  options={stateOptions}
+                />
+                <FormInput
+                  label="Postcode"
+                  value={postcode}
+                  onChange={(e) => setPostcode(e.target.value)}
+                  placeholder="3000"
+                />
+              </div>
+            </Flex>
+          </Card>
+
+          {/* Additional */}
+          <Card title="Additional" headerBar>
+            <Flex vertical gap={16}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+                <FormSelect
+                  label="Referral source"
+                  value={referralSource}
+                  onChange={setReferralSource}
+                  options={referralOptions}
+                />
+                <FormSelect
+                  label="Practitioner"
+                  value={practitioner}
+                  onChange={setPractitioner}
+                  options={practitionerOptions}
+                />
+              </div>
+              <Select
+                label="Tags"
+                options={tagOptions}
+                value={tags.join(",")}
+                onChange={(val) => {
+                  if (!val) {
+                    setTags([]);
+                  } else if (tags.includes(val)) {
+                    setTags(tags.filter((t) => t !== val));
+                  } else {
+                    setTags([...tags, val]);
+                  }
+                }}
+                placeholder="Select tags"
+                searchable
+              />
+              {tags.length > 0 && (
+                <Flex wrap gap={8}>
+                  {tags.map((tag) => {
+                    const opt = tagOptions.find((o) => o.value === tag);
+                    return (
+                      <span
+                        key={tag}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 4,
+                          borderRadius: 9999,
+                          backgroundColor: 'var(--ant-color-primary-bg)',
+                          paddingLeft: 12,
+                          paddingRight: 12,
+                          paddingTop: 4,
+                          paddingBottom: 4,
+                          fontSize: 14,
+                          color: 'var(--ant-color-primary)',
+                        }}
+                      >
+                        {opt?.label || tag}
+                        <button
+                          type="button"
+                          onClick={() => setTags(tags.filter((t) => t !== tag))}
+                          style={{ marginLeft: 2 }}
+                        >
+                          x
+                        </button>
+                      </span>
+                    );
+                  })}
+                </Flex>
+              )}
+            </Flex>
+          </Card>
+
+          {/* Medicare */}
+          <Card title="Medicare" headerBar>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+              <FormInput
+                label="Medicare number"
+                value={medicareNumber}
+                onChange={(e) => setMedicareNumber(e.target.value)}
+                placeholder="1234 56789 0"
+              />
+              <FormInput
+                label="Reference number"
+                value={referenceNumber}
+                onChange={(e) => setReferenceNumber(e.target.value)}
+                placeholder="1"
+              />
+              <FormInput
+                label="Expiry date"
+                type="date"
+                value={expiryDate}
+                onChange={(e) => setExpiryDate(e.target.value)}
+              />
+            </div>
+          </Card>
+        </Flex>
       </div>
     </div>
   );

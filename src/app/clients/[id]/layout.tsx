@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
+import { Flex } from "antd";
 import { Button } from "@/components/ds";
 import ClientSidebar from "./ClientSidebar";
 
@@ -47,18 +48,18 @@ export default async function ClientLayout({
   return (
     <div className="flex flex-col md:flex-row" style={{ height: "calc(100vh - 48px)" }}>
       <ClientSidebar sections={sidebarSections} />
-      <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
+      <div style={{ display: 'flex', minWidth: 0, flex: 1, flexDirection: 'column', overflow: 'hidden' }}>
         {/* Top action bar */}
-        <div className="flex shrink-0 flex-wrap items-center justify-between gap-2 border-b border-border px-4 py-3 md:px-6">
-          <div className="flex items-center gap-2">
-            <h2 className="text-heading-lg text-text">Client</h2>
-            <span className="truncate text-body-lg text-text-secondary">
+        <div style={{ flexShrink: 0, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 8, borderBottom: '1px solid var(--ant-color-border)', paddingLeft: 24, paddingRight: 24, paddingTop: 12, paddingBottom: 12 }}>
+          <Flex align="center" gap={8}>
+            <h2 className="text-heading-lg">Client</h2>
+            <span className="text-body-lg" style={{ color: 'var(--ant-color-text-secondary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {client.firstName} ({client.firstName.slice(0, 3)}) {client.lastName}
             </span>
-          </div>
-          <div className="flex items-center gap-2">
+          </Flex>
+          <Flex align="center" gap={8}>
             <Button variant="secondary" size="sm">
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg style={{ height: 16, width: 16 }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -67,8 +68,8 @@ export default async function ClientLayout({
               </svg>
               <span className="hidden sm:inline">New SMS</span>
             </Button>
-            <Button variant="secondary" size="sm" className="border-primary bg-primary/5 text-primary hover:bg-primary/10">
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <Button variant="secondary" size="sm" style={{ borderColor: 'var(--ant-color-primary)', backgroundColor: 'var(--ant-color-primary-bg)', color: 'var(--ant-color-primary)' }}>
+              <svg style={{ height: 16, width: 16 }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -79,13 +80,13 @@ export default async function ClientLayout({
             </Button>
             <Button variant="secondary" size="sm">
               Actions
-              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg style={{ height: 14, width: 14 }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
             </Button>
-          </div>
+          </Flex>
         </div>
-        <div className="flex-1 overflow-hidden">{children}</div>
+        <div style={{ flex: 1, overflow: 'hidden' }}>{children}</div>
       </div>
     </div>
   );

@@ -125,14 +125,14 @@ export default function ClientFormsPage() {
   }
 
   return (
-    <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Forms">
         <Button>+ New form</Button>
       </PageHeader>
 
       <SearchBar placeholder="Search for title" />
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
             <Th>Title</Th>
@@ -145,14 +145,14 @@ export default function ClientFormsPage() {
             {paged.map((form) => (
               <Tr key={form.id}>
                 <Td>
-                  <span className="text-text">{form.title}</span>
-                  <Badge variant="gray" className="ml-2">
+                  <span>{form.title}</span>
+                  <Badge variant="gray" style={{ marginLeft: 8 }}>
                     {form.status}
                   </Badge>
                 </Td>
-                <Td className="text-text-secondary">{form.createdAt}</Td>
-                <Td className="text-text-secondary">{form.completed}</Td>
-                <Td className="text-primary">{form.relatedAppt}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{form.createdAt}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{form.completed}</Td>
+                <Td style={{ color: 'var(--ant-color-primary)' }}>{form.relatedAppt}</Td>
                 <Td align="right">
                   <Dropdown
                     trigger={<DropdownTriggerButton />}
@@ -185,8 +185,8 @@ export default function ClientFormsPage() {
           </>
         }
       >
-        <p className="text-body-md text-text-secondary">
-          Resend <strong className="text-text">{resendModal.formTitle}</strong> to the client&apos;s email?
+        <p className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>
+          Resend <strong>{resendModal.formTitle}</strong> to the client&apos;s email?
         </p>
       </Modal>
 
@@ -207,8 +207,8 @@ export default function ClientFormsPage() {
           </>
         }
       >
-        <p className="text-body-md text-text-secondary">
-          Are you sure you want to archive <strong className="text-text">{archiveModal.formTitle}</strong>? Archived forms can be restored later.
+        <p className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>
+          Are you sure you want to archive <strong>{archiveModal.formTitle}</strong>? Archived forms can be restored later.
         </p>
       </Modal>
     </div>

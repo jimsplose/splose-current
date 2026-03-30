@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, ArrowUpDown, Filter } from "lucide-react";
+import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge, statusVariant, Dropdown, DropdownTriggerButton, Modal, usePagination } from "@/components/ds";
 
 const communicationsData = [
@@ -198,30 +199,30 @@ export default function ClientCommunicationsPage() {
   }
 
   return (
-    <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Communications">
         <Button>
-          <Plus className="h-4 w-4" />
+          <PlusOutlined style={{ fontSize: 16 }} />
           Log communication
         </Button>
       </PageHeader>
 
       <SearchBar placeholder="Search for message, to and from" />
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
             <Th>
-              <span className="inline-flex items-center gap-1">
-                Date and time <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
-              </span>
+              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+                Date and time <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+              </Flex>
             </Th>
             <Th>Subject</Th>
             <Th>Type</Th>
             <Th>
-              <span className="inline-flex items-center gap-1">
-                Direction <Filter className="h-3.5 w-3.5 text-text-secondary" />
-              </span>
+              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+                Direction <FilterOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+              </Flex>
             </Th>
             <Th>Links</Th>
             <Th align="right">Actions</Th>
@@ -230,23 +231,23 @@ export default function ClientCommunicationsPage() {
             {paged.map((comm) => (
               <Tr key={comm.id}>
                 <Td>
-                  <div className="flex items-center gap-2">
-                    <Button variant="icon" size="sm" className="h-5 w-5 rounded border border-border text-xs">
+                  <Flex align="center" gap={8}>
+                    <Button variant="icon" size="sm" style={{ height: 20, width: 20, borderRadius: 4, border: '1px solid var(--ant-color-border)', fontSize: 12 }}>
                       +
                     </Button>
                     {comm.dateTime}
-                  </div>
+                  </Flex>
                 </Td>
-                <Td className="text-text-secondary">{comm.subject || "—"}</Td>
-                <Td className="text-text-secondary">{comm.type}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{comm.subject || "\u2014"}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{comm.type}</Td>
                 <Td>
-                  <div className="flex flex-col gap-1">
-                    <span className="text-text-secondary">{comm.direction}</span>
+                  <Flex vertical gap={4}>
+                    <span style={{ color: 'var(--ant-color-text-secondary)' }}>{comm.direction}</span>
                     <Badge variant={statusVariant(comm.status)}>{comm.status}</Badge>
-                  </div>
+                  </Flex>
                 </Td>
                 <Td>
-                  {comm.link ? <LinkCell>{comm.link}</LinkCell> : "—"}
+                  {comm.link ? <LinkCell>{comm.link}</LinkCell> : "\u2014"}
                 </Td>
                 <Td align="right">
                   <Dropdown
@@ -275,12 +276,12 @@ export default function ClientCommunicationsPage() {
           </Button>
         }
       >
-        <div className="mb-4 flex flex-wrap gap-4 text-caption-md text-text-secondary">
-          <span><strong className="text-text">Date:</strong> {viewModal.dateTime}</span>
-          <span><strong className="text-text">Type:</strong> {viewModal.type}</span>
-          <span><strong className="text-text">Status:</strong> {viewModal.status}</span>
-        </div>
-        <div className="whitespace-pre-wrap rounded-lg bg-gray-50 p-4 text-body-md text-text">
+        <Flex wrap gap={16} className="text-caption-md" style={{ marginBottom: 16, color: 'var(--ant-color-text-secondary)' }}>
+          <span><strong>Date:</strong> {viewModal.dateTime}</span>
+          <span><strong>Type:</strong> {viewModal.type}</span>
+          <span><strong>Status:</strong> {viewModal.status}</span>
+        </Flex>
+        <div className="text-body-md" style={{ whiteSpace: 'pre-wrap', borderRadius: 8, backgroundColor: 'var(--ant-color-fill-quaternary)', padding: 16 }}>
           {viewModal.body}
         </div>
       </Modal>
@@ -302,8 +303,8 @@ export default function ClientCommunicationsPage() {
           </>
         }
       >
-        <p className="text-body-md text-text-secondary">
-          Are you sure you want to delete <strong className="text-text">{deleteModal.subject}</strong>? This action cannot be undone.
+        <p className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>
+          Are you sure you want to delete <strong>{deleteModal.subject}</strong>? This action cannot be undone.
         </p>
       </Modal>
     </div>

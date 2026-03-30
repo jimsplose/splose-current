@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Flex } from "antd";
 import {
   Button,
   PageHeader,
@@ -124,7 +125,7 @@ export default function TagsPage() {
   }
 
   return (
-    <div className="p-6">
+    <div style={{ padding: 24 }}>
       <PageHeader title="Tags">
         <Button variant="secondary" onClick={openCreate}>+ New tag</Button>
       </PageHeader>
@@ -141,7 +142,7 @@ export default function TagsPage() {
       />
 
       {currentData.description && (
-        <p className="mb-4 text-sm text-text-secondary">{currentData.description}</p>
+        <p style={{ marginBottom: 16, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>{currentData.description}</p>
       )}
 
       <DataTable>
@@ -156,8 +157,7 @@ export default function TagsPage() {
               <Td className="text-text">{tag.name}</Td>
               <Td>
                 <div
-                  className="h-4 w-20 rounded"
-                  style={{ backgroundColor: tag.color }}
+                  style={{ height: 16, width: 80, borderRadius: 4, backgroundColor: tag.color }}
                 />
               </Td>
               <Td align="right">
@@ -186,22 +186,20 @@ export default function TagsPage() {
           </>
         }
       >
-        <div className="space-y-4">
+        <Flex vertical gap={16}>
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
           <FormColorPicker value={form.color} onChange={(c) => setField("color", c)} />
 
-          {/* Usage count — only shown when editing */}
           {isEditing && (
-            <div className="rounded-lg border border-border bg-surface-secondary px-3 py-2">
-              <p className="text-body-sm text-text-secondary">
-                Used by <span className="font-semibold text-text">{editingUsedBy}</span>{" "}
+            <div style={{ borderRadius: 8, border: '1px solid var(--ant-color-border)', backgroundColor: 'var(--ant-color-fill-secondary)', padding: '8px 12px' }}>
+              <p className="text-body-sm" style={{ color: 'var(--ant-color-text-secondary)' }}>
+                Used by <span style={{ fontWeight: 600 }} className="text-text">{editingUsedBy}</span>{" "}
                 {activeTab === "Client tags" ? "client" : activeTab === "Service tags" ? "service" : activeTab === "Waitlist tags" ? "waitlist entry" : "block"}
                 {editingUsedBy !== 1 ? "s" : ""}
               </p>
             </div>
           )}
 
-          {/* Merge into another tag — only shown when editing */}
           {isEditing && (
             <div>
               <FormSelect
@@ -216,13 +214,13 @@ export default function TagsPage() {
                 ]}
               />
               {mergeTarget && (
-                <p className="mt-1 text-caption-md text-amber-600">
+                <p className="text-caption-md" style={{ marginTop: 4, color: '#d97706' }}>
                   This tag will be deleted and all {editingUsedBy} usage{editingUsedBy !== 1 ? "s" : ""} will be moved to &ldquo;{mergeTarget}&rdquo;.
                 </p>
               )}
             </div>
           )}
-        </div>
+        </Flex>
       </Modal>
     </div>
   );

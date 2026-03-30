@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Flex } from "antd";
 import {
   Button,
   PageHeader,
@@ -89,7 +90,7 @@ export default function LetterTemplatesPage() {
   }
 
   return (
-    <div className="p-6">
+    <div style={{ padding: 24 }}>
       <PageHeader title="Letter templates">
         <Button variant="secondary">Show archived</Button>
         <Button variant="secondary" onClick={openCreate}>+ New template</Button>
@@ -135,9 +136,9 @@ export default function LetterTemplatesPage() {
           </>
         }
       >
-        <div className="space-y-4">
+        <Flex vertical gap={16}>
           <FormInput label="Title" value={form.title} onChange={(e) => setField("title", e.target.value)} />
-        </div>
+        </Flex>
       </Modal>
     </div>
   );

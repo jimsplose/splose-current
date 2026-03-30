@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Flex } from "antd";
 import {
   Badge,
   Button,
@@ -44,17 +45,17 @@ export default function ReportsPatientsPage() {
         <Button>Learn about this report</Button>
       </PageHeader>
 
-      <div className="mb-4">
-        <label className="mb-1 flex items-center gap-1 text-sm text-text-secondary">
+      <div style={{ marginBottom: 16 }}>
+        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
           Date range *
-        </label>
+        </Flex>
         <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
       </div>
 
-      <div className="mb-4">
-        <label className="mb-1 flex items-center gap-1 text-sm text-text-secondary">
+      <div style={{ marginBottom: 16 }}>
+        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
           Status
-        </label>
+        </Flex>
         <FormSelect
           options={[
             { value: "active", label: "Active" },
@@ -65,16 +66,16 @@ export default function ReportsPatientsPage() {
         />
       </div>
 
-      <div className="mb-8 flex flex-wrap items-center gap-2">
+      <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 32 }}>
         <Button>Add filter</Button>
         <Button>Save filters</Button>
         <Button>Load filters</Button>
         <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
-      </div>
+      </Flex>
 
       {showResults && (
         <>
-          <p className="my-4 text-body-md text-text-secondary">{mockPatients.length} items found.</p>
+          <p className="text-body-md" style={{ margin: '16px 0', color: 'var(--ant-color-text-secondary)' }}>{mockPatients.length} items found.</p>
           <DataTable>
             <TableHead>
               <Th>Name</Th>
@@ -93,13 +94,13 @@ export default function ReportsPatientsPage() {
                   <Td>{row.phone}</Td>
                   <Td>{row.email}</Td>
                   <Td>
-                    <div className="flex gap-1">
+                    <Flex gap={4}>
                       {row.tags.length > 0
                         ? row.tags.map((tag) => (
                             <Badge key={tag} variant={tagVariant(tag)}>{tag}</Badge>
                           ))
-                        : <span className="text-text-tertiary">—</span>}
-                    </div>
+                        : <span style={{ color: 'var(--ant-color-text-tertiary)' }}>—</span>}
+                    </Flex>
                   </Td>
                   <Td>{row.created}</Td>
                   <Td>{row.lastAppt}</Td>

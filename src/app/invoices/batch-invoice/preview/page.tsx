@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Flex } from "antd";
 import { Button, Navbar, DataTable, TableHead, Th, TableBody, Td } from "@/components/ds";
 
 const invoices = [
@@ -10,7 +11,7 @@ const invoices = [
 
 export default function BatchInvoicePreviewPage() {
   return (
-    <div className="min-h-[calc(100vh-3.5rem)]">
+    <div style={{ minHeight: 'calc(100vh - 3.5rem)' }}>
       <Navbar backHref="/invoices/batch-invoice" title="Preview batch invoice">
         <Link href="/invoices/batch-invoice">
           <Button>Back</Button>
@@ -18,8 +19,8 @@ export default function BatchInvoicePreviewPage() {
         <Button variant="primary">Create invoices</Button>
       </Navbar>
 
-      <div className="p-6">
-        <p className="mb-4 text-body-md text-text-secondary">
+      <div style={{ padding: 24 }}>
+        <p className="text-body-md" style={{ marginBottom: 16, color: 'var(--ant-color-text-secondary)' }}>
           {invoices.length} invoices will be created. Review below before confirming.
         </p>
 
@@ -33,7 +34,7 @@ export default function BatchInvoicePreviewPage() {
           <TableBody>
             {invoices.map((inv) => (
               <tr key={inv.number} className="border-b border-border hover:bg-gray-50">
-                <Td className="font-medium text-primary">{inv.number}</Td>
+                <Td style={{ fontWeight: 500 }} className="text-primary">{inv.number}</Td>
                 <Td>{inv.client}</Td>
                 <Td>{inv.service}</Td>
                 <Td align="right">{inv.amount}</Td>
@@ -42,12 +43,12 @@ export default function BatchInvoicePreviewPage() {
           </TableBody>
         </DataTable>
 
-        <div className="mt-4 flex justify-end border-t border-border pt-4">
-          <div className="text-right">
-            <p className="text-body-md text-text-secondary">Total</p>
+        <Flex justify="end" style={{ marginTop: 16, borderTop: '1px solid var(--ant-color-border)', paddingTop: 16 }}>
+          <div style={{ textAlign: 'right' }}>
+            <p className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Total</p>
             <p className="text-heading-md text-text">$550.07</p>
           </div>
-        </div>
+        </Flex>
       </div>
     </div>
   );

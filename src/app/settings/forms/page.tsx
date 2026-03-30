@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { Flex } from "antd";
+import { DownOutlined } from "@ant-design/icons";
 import {
   Button,
   PageHeader,
@@ -19,7 +21,6 @@ import {
   FormInput,
   FormSelect,
 } from "@/components/ds";
-import { ChevronDown } from "lucide-react";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 
@@ -68,12 +69,12 @@ export default function FormsPage() {
   });
 
   return (
-    <div className="p-6">
+    <div style={{ padding: 24 }}>
       <PageHeader title="Form templates">
         <Dropdown
           trigger={
             <Button variant="secondary">
-              <span className="flex items-center gap-1">Learn <ChevronDown className="h-4 w-4" /></span>
+              <Flex align="center" gap={4}>Learn <DownOutlined style={{ fontSize: 16 }} /></Flex>
             </Button>
           }
           items={[
@@ -104,10 +105,10 @@ export default function FormsPage() {
             <Tr key={f.title + i}>
               <Td className="text-text">{f.title}</Td>
               <Td>
-                <span className="flex items-center gap-2">
+                <Flex align="center" gap={8}>
                   {f.formType}
                   {f.published && <Badge variant="green">Published</Badge>}
-                </span>
+                </Flex>
               </Td>
               <Td>{f.createdAt}</Td>
               <Td>{f.updatedAt}</Td>
@@ -136,7 +137,7 @@ export default function FormsPage() {
           </>
         }
       >
-        <div className="space-y-4">
+        <Flex vertical gap={16}>
           <FormInput label="Title" value={form.title} onChange={(e) => setField("title", e.target.value)} />
           <FormSelect
             label="Form type"
@@ -147,7 +148,7 @@ export default function FormsPage() {
               { value: "Embeddable form", label: "Embeddable form" },
             ]}
           />
-        </div>
+        </Flex>
       </Modal>
     </div>
   );

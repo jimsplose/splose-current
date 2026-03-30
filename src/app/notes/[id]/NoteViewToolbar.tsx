@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Pencil, Lock, RotateCcw, ChevronDown, Send } from "lucide-react";
+import { EditOutlined, LockOutlined, UndoOutlined, DownOutlined, SendOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import { Button } from "@/components/ds";
 import SendNoteModal from "./SendNoteModal";
 
@@ -27,31 +28,31 @@ export default function NoteViewToolbar({
 
   return (
     <>
-      <div className="flex items-center gap-2">
+      <Flex align="center" gap={8}>
         <Button variant="secondary" onClick={() => setShowSendModal(true)}>
-          <Send className="h-3.5 w-3.5" />
+          <SendOutlined style={{ fontSize: 14 }} />
           Send
         </Button>
         {signed ? (
           <Button variant="secondary">
-            <RotateCcw className="h-4 w-4" />
+            <UndoOutlined style={{ fontSize: 16 }} />
             Revert to draft
           </Button>
         ) : (
           <Button variant="primary">
-            <Lock className="h-3.5 w-3.5" />
+            <LockOutlined style={{ fontSize: 14 }} />
             Sign &amp; lock
           </Button>
         )}
         <Button>
-          <Link href={`/notes/${noteId}/edit`} className="flex items-center gap-1.5">
-            Edit <Pencil className="h-3.5 w-3.5" />
+          <Link href={`/notes/${noteId}/edit`} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            Edit <EditOutlined style={{ fontSize: 14 }} />
           </Link>
         </Button>
         <Button variant="secondary">
-          Actions <ChevronDown className="h-3.5 w-3.5" />
+          Actions <DownOutlined style={{ fontSize: 14 }} />
         </Button>
-      </div>
+      </Flex>
 
       <SendNoteModal
         isOpen={showSendModal}

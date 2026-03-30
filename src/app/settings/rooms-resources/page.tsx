@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpDown, Filter as FilterIcon } from "lucide-react";
+import { Flex } from "antd";
+import { SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import {
   Button,
   PageHeader,
@@ -96,7 +97,7 @@ export default function SettingsRoomsResourcesPage() {
 
   return (
     <>
-      <div className="flex-1 p-6">
+      <div style={{ flex: 1, padding: 24 }}>
         <PageHeader title="Rooms/Resources">
           <Button variant="secondary">Learn</Button>
           <Button variant="secondary">Show archived</Button>
@@ -108,15 +109,15 @@ export default function SettingsRoomsResourcesPage() {
         <DataTable>
           <TableHead>
             <Th>
-              <span className="inline-flex items-center gap-1">
-                Name <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                Name <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
               </span>
             </Th>
             <Th>Group</Th>
             <Th>Capacity/Available</Th>
             <Th>
-              <span className="inline-flex items-center gap-1">
-                Location <FilterIcon className="h-3.5 w-3.5 text-primary" />
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                Location <FilterOutlined style={{ fontSize: 14, color: 'var(--ant-color-primary)' }} />
               </span>
             </Th>
             <Th align="right">Actions</Th>
@@ -125,10 +126,10 @@ export default function SettingsRoomsResourcesPage() {
             {paged.map((room, index) => (
               <Tr key={room.id}>
                 <Td>
-                  <div className="flex items-center gap-2.5">
+                  <Flex align="center" gap={10}>
                     <ColorDot color={room.color} />
                     {room.name}
-                  </div>
+                  </Flex>
                 </Td>
                 <Td>{room.group}</Td>
                 <Td>{room.capacity}</Td>
@@ -145,7 +146,7 @@ export default function SettingsRoomsResourcesPage() {
             ))}
             {rooms.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-body-md text-text-secondary">
+                <td colSpan={5} style={{ padding: '32px 16px', textAlign: 'center', color: 'var(--ant-color-text-secondary)' }} className="text-body-md">
                   No rooms or resources added yet.
                 </td>
               </tr>
@@ -168,7 +169,7 @@ export default function SettingsRoomsResourcesPage() {
           </>
         }
       >
-        <div className="space-y-4">
+        <Flex vertical gap={16}>
           <FormInput
             label="Name"
             id="room-name"
@@ -177,7 +178,7 @@ export default function SettingsRoomsResourcesPage() {
             onChange={(e) => setField("name", e.target.value)}
           />
           <FormColorPicker value={form.color} onChange={(c) => setField("color", c)} variant="swatches" />
-        </div>
+        </Flex>
       </Modal>
     </>
   );

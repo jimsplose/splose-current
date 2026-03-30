@@ -2,6 +2,8 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import { Flex } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 import {
   PageHeader,
   Button,
@@ -18,9 +20,7 @@ import {
   Tr,
   Td,
   LinkCell,
-  usePagination,
 } from "@/components/ds";
-import { Plus } from "lucide-react";
 
 export interface InvoiceRow {
   id: string;
@@ -98,17 +98,18 @@ export default function InvoicesClient({
     });
   }, [invoices, search, locationFilter, practitionerFilter, statusFilter]);
 
-  const { paged, paginationProps } = usePagination(filtered, { pageKey: "/invoices" });
+  const totalPages = Math.ceil(filtered.length / 20);
+  const paged = filtered.slice(0, 20);
 
   const activeFilterCount = [locationFilter, practitionerFilter, statusFilter].filter(Boolean).length;
 
   return (
-    <div className="px-[22.5px] py-[10px]">
+    <div style={{ padding: '10px 22.5px' }}>
       <PageHeader title="Invoices">
         <Button variant="secondary">Batch invoice</Button>
         <Link href="/invoices/new">
           <Button variant="secondary">
-            <Plus className="h-4 w-4" />
+            <PlusOutlined style={{ fontSize: 16 }} />
             New invoice
           </Button>
         </Link>
@@ -121,8 +122,8 @@ export default function InvoicesClient({
 
       {/* Active filters */}
       {activeFilterCount > 0 && (
-        <div className="mb-3 flex flex-wrap items-center gap-2">
-          <span className="text-label-md text-text-secondary">Filters:</span>
+        <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 12 }}>
+          <span className="text-label-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Filters:</span>
           {locationFilter && (
             <Chip onRemove={() => setLocationFilter(null)}>
               Location: {locationFilter}
@@ -149,11 +150,11 @@ export default function InvoicesClient({
           >
             Clear all
           </Button>
-        </div>
+        </Flex>
       )}
 
       <Card padding="none" className="overflow-hidden">
-        <div className="overflow-x-auto">
+        <div style={{ overflowX: 'auto' }}>
           <DataTable>
             <TableHead>
               <Th sortable>Invoice #</Th>
@@ -211,8 +212,8 @@ export default function InvoicesClient({
                 showPractitionerDropdown ||
                 showStatusDropdown) && (
                 <tr>
-                  <td colSpan={10} className="border-b border-border bg-gray-50 px-4 py-2">
-                    <div className="flex flex-wrap gap-2">
+                  <td colSpan={10} style={{ borderBottom: '1px solid var(--ant-color-border)', background: '#f9fafb', padding: '8px 16px' }}>
+                    <Flex wrap="wrap" gap={8}>
                       {showLocationDropdown &&
                         uniqueLocations.map((loc) => (
                           <Button
@@ -261,7 +262,7 @@ export default function InvoicesClient({
                             <Badge variant={statusVariant(st)}>{st}</Badge>
                           </Button>
                         ))}
-                    </div>
+                    </Flex>
                   </td>
                 </tr>
               )}
@@ -311,7 +312,13 @@ export default function InvoicesClient({
             </TableBody>
           </DataTable>
         </div>
-        <Pagination {...paginationProps} />
+        <Pagination
+          currentPage={1}
+          totalPages={totalPages}
+          totalItems={filtered.length}
+          itemsPerPage={20}
+          onPageChange={() => {}}
+        />
       </Card>
     </div>
   );

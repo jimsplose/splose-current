@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect, useMemo } from "react";
-import { Calendar, ChevronDown, Settings } from "lucide-react";
+import { CalendarOutlined, DownOutlined, SettingOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import { Avatar, Button, Card, Checkbox, ColorDot, Dropdown, FormInput, FormSelect } from "@/components/ds";
 import { DataTable, TableHead, Th, TableBody, Tr, Td } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
@@ -71,7 +72,7 @@ function DateRangePicker({
   }
 
   return (
-    <div className="relative" ref={ref}>
+    <div style={{ position: 'relative' }} ref={ref}>
       <Button
         variant="secondary"
         size="sm"
@@ -79,17 +80,17 @@ function DateRangePicker({
         onClick={() => setOpen(!open)}
         className="!rounded-full !border-primary !bg-primary/10 !font-medium !text-primary hover:!bg-primary/20"
       >
-        <Calendar className="h-4 w-4" />
+        <CalendarOutlined style={{ fontSize: 16 }} />
         {fmtShort(startDate)} &rarr; {fmtShort(endDate)}
-        <ChevronDown className="h-3.5 w-3.5" />
+        <DownOutlined style={{ fontSize: 14 }} />
       </Button>
 
       {open && (
-        <div className="absolute left-0 top-full z-30 mt-1 w-80 rounded-lg border border-border bg-white shadow-lg">
+        <div style={{ position: 'absolute', left: 0, top: '100%', zIndex: 30, marginTop: 4, width: 320, borderRadius: 8, border: '1px solid var(--ant-color-border)', backgroundColor: 'white', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
           {/* Presets */}
-          <div className="border-b border-border p-2">
-            <p className="mb-1.5 px-2 text-label-md text-text-secondary">Quick select</p>
-            <div className="grid grid-cols-2 gap-1">
+          <div style={{ borderBottom: '1px solid var(--ant-color-border)', padding: 8 }}>
+            <p style={{ marginBottom: 6, paddingLeft: 8, paddingRight: 8, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>Quick select</p>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4 }}>
               {presets.map((p) => (
                 <Button
                   key={p.label}
@@ -106,23 +107,23 @@ function DateRangePicker({
           </div>
 
           {/* Custom date inputs */}
-          <div className="p-3">
-            <p className="mb-2 text-label-md text-text-secondary">Custom range</p>
-            <div className="flex items-center gap-2">
+          <div style={{ padding: 12 }}>
+            <p style={{ marginBottom: 8, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>Custom range</p>
+            <Flex align="center" gap={8}>
               <FormInput
                 type="date"
                 value={toInputDate(startDate)}
                 onChange={(e) => onChange(new Date(e.target.value), endDate)}
                 className="!py-1.5 !text-body-sm"
               />
-              <span className="text-text-secondary">&rarr;</span>
+              <span style={{ color: 'var(--ant-color-text-secondary)' }}>&rarr;</span>
               <FormInput
                 type="date"
                 value={toInputDate(endDate)}
                 onChange={(e) => onChange(startDate, new Date(e.target.value))}
                 className="!py-1.5 !text-body-sm"
               />
-            </div>
+            </Flex>
           </div>
         </div>
       )}
@@ -247,12 +248,12 @@ export default function ReportsPage() {
 
   return (
     <>
-      <div className="mb-4 flex items-center justify-between">
+      <Flex align="center" justify="space-between" style={{ marginBottom: 16 }}>
         <h1 className="text-display-lg">Performance overview</h1>
-      </div>
+      </Flex>
 
       {/* Filter bar */}
-      <div className="mb-6 flex flex-wrap items-center gap-2">
+      <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 24 }}>
         <DateRangePicker
           startDate={dateStart}
           endDate={dateEnd}
@@ -282,29 +283,31 @@ export default function ReportsPage() {
         >
           Compare
         </Button>
-      </div>
+      </Flex>
 
       {/* Charts row */}
-      <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+      <div style={{ marginBottom: 24, display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 24 }}>
         {/* Utilisation card */}
         <Card>
-          <div className="relative mb-1 flex items-center justify-between" ref={utilisationSettingsRef}>
-            <h3 className="text-heading-sm text-text">Utilisation</h3>
-            <Button
-              variant="icon"
-              size="sm"
-              htmlType="button"
-              onClick={() => setUtilisationSettingsOpen(!utilisationSettingsOpen)}
-            >
-              <Settings className="h-4 w-4 text-text-secondary" />
-            </Button>
+          <div style={{ position: 'relative', marginBottom: 4 }} ref={utilisationSettingsRef}>
+            <Flex align="center" justify="space-between">
+              <h3 className="text-heading-sm" style={{ color: 'var(--ant-color-text)' }}>Utilisation</h3>
+              <Button
+                variant="icon"
+                size="sm"
+                htmlType="button"
+                onClick={() => setUtilisationSettingsOpen(!utilisationSettingsOpen)}
+              >
+                <SettingOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
+              </Button>
+            </Flex>
             {utilisationSettingsOpen && (
-              <div className="absolute right-0 top-full z-30 mt-1 w-[280px] rounded-lg border border-border bg-white p-4 shadow-lg">
-                <h4 className="text-heading-sm text-text">Utilisation settings</h4>
-                <p className="mb-3 text-caption-md text-text-secondary">
+              <div style={{ position: 'absolute', right: 0, top: '100%', zIndex: 30, marginTop: 4, width: 280, borderRadius: 8, border: '1px solid var(--ant-color-border)', backgroundColor: 'white', padding: 16, boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
+                <h4 className="text-heading-sm" style={{ color: 'var(--ant-color-text)' }}>Utilisation settings</h4>
+                <p className="text-caption-md" style={{ marginBottom: 12, color: 'var(--ant-color-text-secondary)' }}>
                   Adjust calculation settings for utilisation metrics.
                 </p>
-                <div className="flex flex-col gap-3">
+                <Flex vertical gap={12}>
                   <Checkbox
                     label="Exclude busy time"
                     checked={excludeBusyTime}
@@ -320,15 +323,15 @@ export default function ReportsPage() {
                     checked={includeInvoicedCancellations}
                     onChange={(e) => setIncludeInvoicedCancellations(e.target.checked)}
                   />
-                </div>
+                </Flex>
               </div>
             )}
           </div>
-          <p className="mb-2 text-caption-md text-text-secondary">Percentage of available time utilised</p>
-          <p className="mb-1 text-metric-lg text-text">{(totalUtilisation / sortedPractitioners.length).toFixed(2)}%</p>
-          <p className="mb-4 text-caption-md text-text-secondary">{fmtDay(dateStart)} - {fmtDay(dateEnd)}</p>
-          <div className="relative h-32">
-            <svg viewBox="0 0 280 100" className="h-full w-full" preserveAspectRatio="none">
+          <p className="text-caption-md" style={{ marginBottom: 8, color: 'var(--ant-color-text-secondary)' }}>Percentage of available time utilised</p>
+          <p className="text-metric-lg" style={{ marginBottom: 4, color: 'var(--ant-color-text)' }}>{(totalUtilisation / sortedPractitioners.length).toFixed(2)}%</p>
+          <p className="text-caption-md" style={{ marginBottom: 16, color: 'var(--ant-color-text-secondary)' }}>{fmtDay(dateStart)} - {fmtDay(dateEnd)}</p>
+          <div style={{ position: 'relative', height: 128 }}>
+            <svg viewBox="0 0 280 100" style={{ height: '100%', width: '100%' }} preserveAspectRatio="none">
               {[0, 25, 50, 75, 100].map((y) => (
                 <line key={y} x1="0" y1={y} x2="280" y2={y} stroke="#f0f0f0" strokeWidth="0.5" />
               ))}
@@ -347,60 +350,59 @@ export default function ReportsPage() {
                 return <circle key={i} cx={i * 46.67} cy={100 - (v / max) * 100} r="3" fill="#7c3aed" />;
               })}
             </svg>
-            <div className="absolute top-0 bottom-0 left-0 -ml-1 flex flex-col justify-between text-caption-sm text-text-secondary">
+            <Flex vertical justify="space-between" style={{ position: 'absolute', top: 0, bottom: 0, left: 0, marginLeft: -4 }} className="text-caption-sm text-text-secondary">
               {(() => { const max = Math.ceil(Math.max(...utilisationData) + 1); return [max, Math.round(max * 0.67), Math.round(max * 0.33), 0].map((v) => <span key={v}>{v}%</span>); })()}
-            </div>
+            </Flex>
           </div>
-          <div className="mt-1 flex justify-between px-2 text-caption-sm text-text-secondary">
+          <Flex justify="space-between" style={{ marginTop: 4, paddingLeft: 8, paddingRight: 8 }} className="text-caption-sm text-text-secondary">
             {chartDays.map((d) => (<span key={d}>{d}</span>))}
-          </div>
-          <div className="mt-2 flex items-center justify-center gap-1 text-caption-sm text-text-secondary">
+          </Flex>
+          <Flex align="center" justify="center" gap={4} style={{ marginTop: 8 }} className="text-caption-sm text-text-secondary">
             <ColorDot color="var(--color-primary)" size="xs" />
             {fmtDay(dateStart)} - {fmtDay(dateEnd)}
-          </div>
+          </Flex>
         </Card>
 
         {/* Revenue card */}
         <Card>
-          <div className="mb-1 flex items-center justify-between">
-            <h3 className="text-heading-sm text-text">Revenue</h3>
-          </div>
-          <p className="mb-2 text-caption-md text-text-secondary">Total invoiced revenue from appointments and support activities (tax exclusive)</p>
-          <p className="mb-1 text-metric-lg text-text">${totalRevenue >= 1000 ? (totalRevenue / 1000).toFixed(2) + "K" : totalRevenue.toFixed(2)}</p>
-          <p className="mb-4 text-caption-md text-text-secondary">{fmtDay(dateStart)} - {fmtDay(dateEnd)}</p>
-          <div className="relative h-32">
-            <div className="absolute top-0 bottom-0 left-0 flex flex-col justify-between text-caption-sm text-text-secondary">
+          <Flex align="center" justify="space-between" style={{ marginBottom: 4 }}>
+            <h3 className="text-heading-sm" style={{ color: 'var(--ant-color-text)' }}>Revenue</h3>
+          </Flex>
+          <p className="text-caption-md" style={{ marginBottom: 8, color: 'var(--ant-color-text-secondary)' }}>Total invoiced revenue from appointments and support activities (tax exclusive)</p>
+          <p className="text-metric-lg" style={{ marginBottom: 4, color: 'var(--ant-color-text)' }}>${totalRevenue >= 1000 ? (totalRevenue / 1000).toFixed(2) + "K" : totalRevenue.toFixed(2)}</p>
+          <p className="text-caption-md" style={{ marginBottom: 16, color: 'var(--ant-color-text-secondary)' }}>{fmtDay(dateStart)} - {fmtDay(dateEnd)}</p>
+          <div style={{ position: 'relative', height: 128 }}>
+            <Flex vertical justify="space-between" style={{ position: 'absolute', top: 0, bottom: 0, left: 0 }} className="text-caption-sm text-text-secondary">
               {(() => { const max = Math.ceil(Math.max(...revenueData) / 50) * 50; return [max, Math.round(max * 0.67), Math.round(max * 0.33), 0].map((v) => <span key={v}>${v}</span>); })()}
-            </div>
-            <div className="ml-8 flex h-full items-end gap-2">
+            </Flex>
+            <Flex align="flex-end" gap={8} style={{ marginLeft: 32, height: '100%' }}>
               {revenueData.map((val, i) => (
-                <div key={i} className="flex flex-1 flex-col items-center gap-0.5">
+                <Flex key={i} vertical align="center" gap={2} style={{ flex: 1 }}>
                   <div
-                    className="w-full rounded-t bg-primary"
-                    style={{ height: `${(val / (Math.ceil(Math.max(...revenueData) / 50) * 50 || 1)) * 100}%`, minHeight: val > 0 ? "2px" : "0px" }}
+                    style={{ width: '100%', borderTopLeftRadius: 4, borderTopRightRadius: 4, backgroundColor: 'var(--ant-color-primary)', height: `${(val / (Math.ceil(Math.max(...revenueData) / 50) * 50 || 1)) * 100}%`, minHeight: val > 0 ? 2 : 0 }}
                   />
-                </div>
+                </Flex>
               ))}
-            </div>
+            </Flex>
           </div>
-          <div className="mt-1 ml-8 flex justify-between text-caption-sm text-text-secondary">
+          <Flex justify="space-between" style={{ marginTop: 4, marginLeft: 32 }} className="text-caption-sm text-text-secondary">
             {chartDays.map((d) => (<span key={d}>{d}</span>))}
-          </div>
-          <div className="mt-2 flex items-center justify-center gap-1 text-caption-sm text-text-secondary">
+          </Flex>
+          <Flex align="center" justify="center" gap={4} style={{ marginTop: 8 }} className="text-caption-sm text-text-secondary">
             <ColorDot color="var(--color-primary)" size="xs" />
             {fmtDay(dateStart)} - {fmtDay(dateEnd)}
-          </div>
+          </Flex>
         </Card>
       </div>
 
       {/* Practitioners table */}
       <Card padding="none">
-        <div className="flex items-center justify-between border-b border-border px-4 py-3">
+        <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--ant-color-border)', padding: '12px 16px' }}>
           <div>
-            <h3 className="text-heading-sm text-text">Practitioners</h3>
-            <p className="text-caption-md text-text-secondary">Breakdown of performance by individual practitioner</p>
+            <h3 className="text-heading-sm" style={{ color: 'var(--ant-color-text)' }}>Practitioners</h3>
+            <p className="text-caption-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Breakdown of performance by individual practitioner</p>
           </div>
-        </div>
+        </Flex>
         <DataTable>
           <TableHead>
             <Th
@@ -430,21 +432,20 @@ export default function ReportsPage() {
             {sortedPractitioners.map((p) => (
               <Tr key={p.name} hover>
                 <Td>
-                  <div className="flex items-center gap-3">
+                  <Flex align="center" gap={12}>
                     <Avatar name={p.name} color={p.color} size="sm" />
-                    <span className="text-body-md text-text">{p.name}</span>
-                  </div>
+                    <span className="text-body-md" style={{ color: 'var(--ant-color-text)' }}>{p.name}</span>
+                  </Flex>
                 </Td>
                 <Td>
-                  <div className="flex items-center gap-2">
-                    <div className="h-1.5 w-16 rounded-full bg-gray-100">
+                  <Flex align="center" gap={8}>
+                    <div style={{ height: 6, width: 64, borderRadius: 9999, backgroundColor: '#f3f4f6' }}>
                       <div
-                        className="h-1.5 rounded-full bg-primary"
-                        style={{ width: `${Math.min(p.utilisation * 10, 100)}%` }}
+                        style={{ height: 6, borderRadius: 9999, backgroundColor: 'var(--ant-color-primary)', width: `${Math.min(p.utilisation * 10, 100)}%` }}
                       />
                     </div>
-                    <span className="text-body-md text-text-secondary">{p.utilisation.toFixed(2)}%</span>
-                  </div>
+                    <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>{p.utilisation.toFixed(2)}%</span>
+                  </Flex>
                 </Td>
                 <Td align="right">${p.revenue.toFixed(2)}</Td>
               </Tr>

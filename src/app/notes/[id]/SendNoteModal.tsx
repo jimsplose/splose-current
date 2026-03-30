@@ -1,7 +1,26 @@
 "use client";
 
 import { useState } from "react";
-import { Send, Bold, Italic, Underline, Type, Grid3X3, Link2, Minus, Image, AlignLeft, AlignCenter, AlignRight, ListOrdered, Paperclip, Sparkles, Eye, Edit3 } from "lucide-react";
+import {
+  SendOutlined,
+  BoldOutlined,
+  ItalicOutlined,
+  UnderlineOutlined,
+  FontSizeOutlined,
+  TableOutlined,
+  LinkOutlined,
+  MinusOutlined,
+  PictureOutlined,
+  AlignLeftOutlined,
+  AlignCenterOutlined,
+  AlignRightOutlined,
+  OrderedListOutlined,
+  PaperClipOutlined,
+  ThunderboltOutlined,
+  EyeOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
+import { Flex } from "antd";
 import { Button, FormSelect, FormInput, Badge, Chip } from "@/components/ds";
 import Modal from "@/components/ds/Modal";
 
@@ -77,6 +96,21 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
     }, 800);
   }
 
+  const toolbarIcons = [
+    BoldOutlined,
+    ItalicOutlined,
+    UnderlineOutlined,
+    FontSizeOutlined,
+    TableOutlined,
+    LinkOutlined,
+    MinusOutlined,
+    PictureOutlined,
+    AlignLeftOutlined,
+    AlignCenterOutlined,
+    AlignRightOutlined,
+    OrderedListOutlined,
+  ];
+
   return (
     <Modal
       open={isOpen}
@@ -84,21 +118,21 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
       title="Send progress note"
       maxWidth="xl"
       footer={
-        <div className="flex w-full items-center justify-between">
+        <Flex align="center" justify="space-between" style={{ width: '100%' }}>
           <Button variant="ghost" size="sm">
-            <Paperclip className="h-4 w-4" />
+            <PaperClipOutlined style={{ fontSize: 16 }} />
             Attach files
           </Button>
           <Button variant="primary" onClick={onClose}>
-            <Send className="h-3.5 w-3.5" />
+            <SendOutlined style={{ fontSize: 14 }} />
             Send
           </Button>
-        </div>
+        </Flex>
       }
     >
-      <div className="max-h-[calc(100vh-20rem)] space-y-4 overflow-y-auto">
+      <Flex vertical gap={16} style={{ maxHeight: 'calc(100vh - 20rem)', overflowY: 'auto' }}>
         {/* Mode toggle */}
-        <div className="flex items-center gap-2">
+        <Flex align="center" gap={8}>
           <FormSelect
             options={[
               { value: "progress-note", label: "#2_Progress note email template" },
@@ -107,14 +141,14 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
             defaultValue="progress-note"
             className="flex-1"
           />
-          <div className="flex rounded-lg border border-border">
+          <div style={{ display: 'flex', borderRadius: 8, border: '1px solid var(--ant-color-border)' }}>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setViewMode("edit")}
               className={`rounded-none rounded-l-lg border-0 text-label-md ${viewMode === "edit" ? "bg-primary/10 text-primary hover:bg-primary/10" : ""}`}
             >
-              <Edit3 className="h-3.5 w-3.5" /> Edit
+              <EditOutlined style={{ fontSize: 14 }} /> Edit
             </Button>
             <Button
               variant="ghost"
@@ -122,15 +156,15 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
               onClick={() => setViewMode("preview")}
               className={`rounded-none rounded-r-lg border-l border-border text-label-md ${viewMode === "preview" ? "bg-primary/10 text-primary hover:bg-primary/10" : ""}`}
             >
-              <Eye className="h-3.5 w-3.5" /> Preview
+              <EyeOutlined style={{ fontSize: 14 }} /> Preview
             </Button>
           </div>
-        </div>
+        </Flex>
 
         {viewMode === "edit" ? (
           <>
             {/* To field */}
-            <div className="flex flex-wrap items-center gap-1.5 rounded-lg border border-border px-3 py-2">
+            <Flex wrap align="center" gap={6} style={{ borderRadius: 8, border: '1px solid var(--ant-color-border)', padding: '8px 12px' }}>
               {toEmails.map((email) => (
                 <Chip
                   key={email}
@@ -149,12 +183,12 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
                 placeholder={toEmails.length === 0 ? "Add recipient email..." : ""}
                 className="min-w-[120px] flex-1 !border-none !rounded-none !p-0 !ring-0 text-sm !shadow-none"
               />
-            </div>
+            </Flex>
 
             {/* Reply to */}
             <div>
-              <label className="mb-1 block text-label-lg text-text-secondary">
-                Reply to <span className="text-red-500">*</span>
+              <label className="mb-1 block text-label-lg" style={{ color: 'var(--ant-color-text-secondary)' }}>
+                Reply to <span style={{ color: 'var(--ant-color-error)' }}>*</span>
               </label>
               <FormSelect
                 options={[
@@ -166,8 +200,8 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
             </div>
 
             {/* Subject + Summarise button row */}
-            <div className="flex items-center gap-2">
-              <div className="flex-1">
+            <Flex align="center" gap={8}>
+              <div style={{ flex: 1 }}>
                 <FormInput
                   type="text"
                   value={subject}
@@ -178,80 +212,80 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
                 variant="primary"
                 onClick={handleSummariseSession}
                 disabled={isGenerating}
-                className="shrink-0"
+                style={{ flexShrink: 0 }}
               >
-                <Sparkles className="h-4 w-4" />
+                <ThunderboltOutlined style={{ fontSize: 16 }} />
                 {isGenerating ? "Generating..." : "Summarise session"}
               </Button>
-            </div>
+            </Flex>
 
             {/* Toolbar */}
-            <div className="flex items-center gap-0.5 border-b border-border pb-2">
-              {[Bold, Italic, Underline, Type, Grid3X3, Link2, Minus, Image, AlignLeft, AlignCenter, AlignRight, ListOrdered].map((Icon, i) => (
+            <Flex align="center" gap={2} style={{ borderBottom: '1px solid var(--ant-color-border)', paddingBottom: 8 }}>
+              {toolbarIcons.map((Icon, i) => (
                 <Button key={i} variant="icon">
-                  <Icon className="h-4 w-4" />
+                  <Icon style={{ fontSize: 16 }} />
                 </Button>
               ))}
-            </div>
+            </Flex>
 
             {/* Body text area */}
             <textarea
               value={body}
               onChange={(e) => setBody(e.target.value)}
               rows={10}
-              className="w-full resize-none rounded-lg border-none text-sm leading-relaxed text-text outline-none placeholder:text-text-secondary"
+              style={{ width: '100%', resize: 'none', borderRadius: 8, border: 'none', fontSize: 14, lineHeight: 1.625, outline: 'none' }}
             />
           </>
         ) : (
           /* Email preview */
-          <div className="rounded-lg border border-border bg-gray-50 p-5">
-            <div className="mb-4 space-y-1.5 border-b border-border pb-4">
-              <div className="flex gap-2 text-body-sm">
-                <span className="w-16 text-text-secondary">From:</span>
-                <span className="text-text">Hands Together Therapies &lt;hello@hands-together-therapy.com&gt;</span>
-              </div>
-              <div className="flex gap-2 text-body-sm">
-                <span className="w-16 text-text-secondary">To:</span>
-                <span className="text-text">{toEmails.join(", ") || "No recipients"}</span>
-              </div>
-              <div className="flex gap-2 text-body-sm">
-                <span className="w-16 text-text-secondary">Subject:</span>
-                <span className="text-body-md-strong text-text">{subject}</span>
-              </div>
-            </div>
+          <div style={{ borderRadius: 8, border: '1px solid var(--ant-color-border)', backgroundColor: 'var(--ant-color-bg-layout)', padding: 20 }}>
+            <Flex vertical gap={6} style={{ marginBottom: 16, borderBottom: '1px solid var(--ant-color-border)', paddingBottom: 16 }}>
+              <Flex gap={8} className="text-body-sm">
+                <span style={{ width: 64, color: 'var(--ant-color-text-secondary)' }}>From:</span>
+                <span>Hands Together Therapies &lt;hello@hands-together-therapy.com&gt;</span>
+              </Flex>
+              <Flex gap={8} className="text-body-sm">
+                <span style={{ width: 64, color: 'var(--ant-color-text-secondary)' }}>To:</span>
+                <span>{toEmails.join(", ") || "No recipients"}</span>
+              </Flex>
+              <Flex gap={8} className="text-body-sm">
+                <span style={{ width: 64, color: 'var(--ant-color-text-secondary)' }}>Subject:</span>
+                <span className="text-body-md-strong">{subject}</span>
+              </Flex>
+            </Flex>
 
             {/* Email body preview */}
-            <div className="rounded-lg bg-white p-5 shadow-sm">
+            <div style={{ borderRadius: 8, backgroundColor: '#fff', padding: 20, boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
               {/* Logo header */}
-              <div className="mb-4 border-b border-gray-100 pb-4 text-center">
-                <span className="text-heading-lg text-primary">splose</span>
+              <div style={{ marginBottom: 16, borderBottom: '1px solid var(--ant-color-border-secondary)', paddingBottom: 16, textAlign: 'center' }}>
+                <span className="text-heading-lg" style={{ color: 'var(--ant-color-primary)' }}>splose</span>
               </div>
 
               {/* Body content */}
-              <div className="whitespace-pre-wrap text-body-md leading-relaxed text-text">
+              <div className="text-body-md" style={{ whiteSpace: 'pre-wrap', lineHeight: 1.625 }}>
                 {body}
               </div>
 
               {/* Attachment indicator */}
-              <div className="mt-6 border-t border-gray-100 pt-4">
-                <div className="flex items-center gap-2 rounded-lg bg-purple-50 px-3 py-2">
-                  <Paperclip className="h-4 w-4 text-primary" />
-                  <span className="text-body-sm text-text">Progress note — {clientName} — {formatDisplayDate(noteDate)}.pdf</span>
+              <div style={{ marginTop: 24, borderTop: '1px solid var(--ant-color-border-secondary)', paddingTop: 16 }}>
+                <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: 'var(--ant-color-primary-bg)', padding: '8px 12px' }}>
+                  <PaperClipOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary)' }} />
+                  <span className="text-body-sm">Progress note — {clientName} — {formatDisplayDate(noteDate)}.pdf</span>
                   <Badge variant="purple">PDF</Badge>
-                </div>
+                </Flex>
               </div>
 
               {/* Footer */}
-              <div className="mt-6 border-t border-gray-100 pt-4 text-center text-caption-md text-text-secondary">
+              <div className="text-caption-md" style={{ marginTop: 24, borderTop: '1px solid var(--ant-color-border-secondary)', paddingTop: 16, textAlign: 'center', color: 'var(--ant-color-text-secondary)' }}>
                 <p>Sent via splose — Practice management software for allied health</p>
-                <p className="mt-1">
-                  <a href="#" className="text-primary hover:underline">Unsubscribe</a> · <a href="#" className="text-primary hover:underline">Privacy policy</a>
+                <p style={{ marginTop: 4 }}>
+                  <a href="#" style={{ color: 'var(--ant-color-primary)' }}>Unsubscribe</a> · <a href="#" style={{ color: 'var(--ant-color-primary)' }}>Privacy policy</a>
                 </p>
               </div>
             </div>
           </div>
         )}
-      </div>
+      </Flex>
     </Modal>
   );
 }

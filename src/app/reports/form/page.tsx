@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Flex } from "antd";
 import {
   Button,
   Badge,
@@ -40,17 +41,17 @@ export default function ReportsFormPage() {
         <Button>Learn about this report</Button>
       </PageHeader>
 
-      <div className="mb-4">
-        <label className="mb-1 flex items-center gap-1 text-sm text-text-secondary">
+      <div style={{ marginBottom: 16 }}>
+        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
           Date range *
-        </label>
+        </Flex>
         <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
       </div>
 
-      <div className="mb-4">
-        <label className="mb-1 flex items-center gap-1 text-sm text-text-secondary">
+      <div style={{ marginBottom: 16 }}>
+        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
           Form type
-        </label>
+        </Flex>
         <FormSelect
           options={[
             { value: "all", label: "All" },
@@ -62,15 +63,15 @@ export default function ReportsFormPage() {
         />
       </div>
 
-      <div className="mb-8 flex flex-wrap items-center gap-2">
+      <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 32 }}>
         <Button>Add filter</Button>
         <Button>Save filters</Button>
         <Button>Load filters</Button>
         <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
-      </div>
+      </Flex>
 
       {showResults && (
-        <div className="overflow-x-auto rounded-lg border border-border">
+        <div style={{ overflowX: 'auto', borderRadius: 8, border: '1px solid var(--ant-color-border)' }}>
           <DataTable>
             <TableHead>
               <Th>Form name</Th>
@@ -83,7 +84,7 @@ export default function ReportsFormPage() {
               {mockFormRows.map((row, i) => (
                 <Tr key={i}>
                   <Td>{row.form}</Td>
-                  <Td className="text-primary">{row.client}</Td>
+                  <Td style={{ color: 'var(--ant-color-primary)' }}>{row.client}</Td>
                   <Td><Badge variant={formStatusVariant(row.status)}>{row.status}</Badge></Td>
                   <Td>{row.submitted}</Td>
                   <Td>{row.practitioner}</Td>

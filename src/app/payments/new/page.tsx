@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { X, Plus, Search, Printer, CheckCircle } from "lucide-react";
+import { CloseOutlined, PlusOutlined, SearchOutlined, PrinterOutlined, CheckCircleOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import { Button, Card, DataTable, FormInput, FormSelect, FormTextarea, Navbar, Select, TableHead, Th, TableBody, Td, EmptyState } from "@/components/ds";
 
 const mockClients = [
@@ -130,10 +131,10 @@ export default function NewPaymentPage() {
 
   if (view === "receipt") {
     return (
-      <div className="min-h-[calc(100vh-3rem)]">
+      <div style={{ minHeight: 'calc(100vh - 3rem)' }}>
         <Navbar backHref="/payments" title="Payment receipt">
           <Button variant="secondary" onClick={() => window.print()}>
-            <Printer className="h-4 w-4" />
+            <PrinterOutlined style={{ fontSize: 16 }} />
             Print receipt
           </Button>
           <Link href="/payments">
@@ -141,54 +142,58 @@ export default function NewPaymentPage() {
           </Link>
         </Navbar>
 
-        <div className="mx-auto max-w-lg p-8">
-          <Card padding="lg" className="text-center">
-            <div className="mb-4 flex justify-center">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-green-100">
-                <CheckCircle className="h-8 w-8 text-green-600" />
-              </div>
-            </div>
-            <h2 className="mb-1 text-heading-lg text-text">Payment recorded</h2>
-            <p className="mb-6 text-body-md text-text-secondary">
+        <div style={{ maxWidth: 512, margin: '0 auto', padding: 32 }}>
+          <Card padding="lg" style={{ textAlign: 'center' }}>
+            <Flex justify="center" style={{ marginBottom: 16 }}>
+              <Flex
+                align="center"
+                justify="center"
+                style={{ height: 56, width: 56, borderRadius: '50%', backgroundColor: 'var(--ant-color-success-bg)' }}
+              >
+                <CheckCircleOutlined style={{ fontSize: 32, color: 'var(--ant-color-success)' }} />
+              </Flex>
+            </Flex>
+            <h2 className="text-heading-lg" style={{ marginBottom: 4 }}>Payment recorded</h2>
+            <p className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)', marginBottom: 24 }}>
               Payment has been successfully added.
             </p>
 
-            <div className="space-y-3 border-t border-border pt-4 text-left">
-              <div className="flex items-center justify-between">
-                <span className="text-body-md text-text-secondary">Payment number</span>
-                <span className="text-label-lg text-primary">{paymentNumber}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-body-md text-text-secondary">Date</span>
-                <span className="text-label-lg text-text">{paymentDate}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-body-md text-text-secondary">Client</span>
-                <span className="text-label-lg text-text">{client || "—"}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-body-md text-text-secondary">Amount</span>
-                <span className="text-label-lg text-text">${parseFloat(amount || "0").toFixed(2)}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-body-md text-text-secondary">Method</span>
-                <span className="text-label-lg text-text">{method || "—"}</span>
-              </div>
+            <Flex vertical gap={12} style={{ borderTop: '1px solid var(--ant-color-border)', paddingTop: 16, textAlign: 'left' }}>
+              <Flex align="center" justify="space-between">
+                <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Payment number</span>
+                <span className="text-label-lg" style={{ color: 'var(--ant-color-primary)' }}>{paymentNumber}</span>
+              </Flex>
+              <Flex align="center" justify="space-between">
+                <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Date</span>
+                <span className="text-label-lg">{paymentDate}</span>
+              </Flex>
+              <Flex align="center" justify="space-between">
+                <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Client</span>
+                <span className="text-label-lg">{client || "—"}</span>
+              </Flex>
+              <Flex align="center" justify="space-between">
+                <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Amount</span>
+                <span className="text-label-lg">${parseFloat(amount || "0").toFixed(2)}</span>
+              </Flex>
+              <Flex align="center" justify="space-between">
+                <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Method</span>
+                <span className="text-label-lg">{method || "—"}</span>
+              </Flex>
               {linkedInvoices.length > 0 && (
-                <div className="flex items-center justify-between">
-                  <span className="text-body-md text-text-secondary">Applied to</span>
-                  <span className="text-label-lg text-text">
+                <Flex align="center" justify="space-between">
+                  <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Applied to</span>
+                  <span className="text-label-lg">
                     {linkedInvoices.length} invoice{linkedInvoices.length !== 1 ? "s" : ""}
                   </span>
-                </div>
+                </Flex>
               )}
               {note && (
-                <div className="flex items-start justify-between">
-                  <span className="text-body-md text-text-secondary">Note</span>
-                  <span className="max-w-[200px] text-right text-label-lg text-text">{note}</span>
-                </div>
+                <Flex align="start" justify="space-between">
+                  <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Note</span>
+                  <span className="text-label-lg" style={{ maxWidth: 200, textAlign: 'right' }}>{note}</span>
+                </Flex>
               )}
-            </div>
+            </Flex>
           </Card>
         </div>
       </div>
@@ -196,10 +201,10 @@ export default function NewPaymentPage() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-3rem)]">
+    <div style={{ minHeight: 'calc(100vh - 3rem)' }}>
       <Navbar backHref="/payments" title="New payment">
         <Link href="/payments">
-          <Button variant="secondary" className="border-primary text-primary hover:bg-primary/10">
+          <Button variant="secondary" style={{ borderColor: 'var(--ant-color-primary)', color: 'var(--ant-color-primary)' }}>
             Cancel
           </Button>
         </Link>
@@ -208,7 +213,7 @@ export default function NewPaymentPage() {
         </Button>
       </Navbar>
 
-      <div className="mx-auto max-w-5xl p-8">
+      <div style={{ maxWidth: 1024, margin: '0 auto', padding: 32 }}>
         {/* Payment details row */}
         <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {/* Client / From */}
@@ -247,11 +252,11 @@ export default function NewPaymentPage() {
 
           {/* Amount */}
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">
-              Amount <span className="text-red-500">*</span>
+            <label className="mb-1 block text-label-lg" style={{ color: 'var(--ant-color-text-secondary)' }}>
+              Amount <span style={{ color: 'var(--ant-color-error)' }}>*</span>
             </label>
-            <div className="relative">
-              <span className="absolute top-1/2 left-3 z-10 -translate-y-1/2 text-sm text-text-secondary">$</span>
+            <div style={{ position: 'relative' }}>
+              <span style={{ position: 'absolute', top: '50%', left: 12, zIndex: 10, transform: 'translateY(-50%)', fontSize: 14, color: 'var(--ant-color-text-secondary)' }}>$</span>
               <FormInput
                 type="number"
                 step="0.01"
@@ -266,18 +271,18 @@ export default function NewPaymentPage() {
         </div>
 
         {/* Apply to outstanding invoices */}
-        <div className="mb-3 flex items-center justify-between">
-          <p className="text-label-lg text-text">Apply to outstanding invoices</p>
+        <Flex align="center" justify="space-between" style={{ marginBottom: 12 }}>
+          <p className="text-label-lg">Apply to outstanding invoices</p>
           <Button variant="secondary" size="sm" onClick={() => setShowLinkSearch(!showLinkSearch)}>
-            <Plus className="h-3.5 w-3.5" />
+            <PlusOutlined style={{ fontSize: 14 }} />
             Link invoice
           </Button>
-        </div>
+        </Flex>
 
         {showLinkSearch && (
-          <Card padding="sm" className="mb-3">
-            <div className="relative">
-              <Search className="absolute top-1/2 left-3 z-10 h-4 w-4 -translate-y-1/2 text-text-secondary" />
+          <Card padding="sm" style={{ marginBottom: 12 }}>
+            <div style={{ position: 'relative' }}>
+              <SearchOutlined style={{ position: 'absolute', top: '50%', left: 12, zIndex: 10, fontSize: 16, transform: 'translateY(-50%)', color: 'var(--ant-color-text-secondary)' }} />
               <FormInput
                 type="text"
                 placeholder="Search invoices by number or client..."
@@ -288,7 +293,7 @@ export default function NewPaymentPage() {
               />
             </div>
             {searchableInvoices.length > 0 && (
-              <div className="mt-2 max-h-40 divide-y divide-border overflow-y-auto rounded-lg border border-border">
+              <div style={{ marginTop: 8, maxHeight: 160, overflowY: 'auto', borderRadius: 8, border: '1px solid var(--ant-color-border)' }}>
                 {searchableInvoices.map((inv) => (
                   <Button
                     key={inv.number}
@@ -297,23 +302,23 @@ export default function NewPaymentPage() {
                     onClick={() => linkInvoice(inv.number)}
                     className="flex w-full items-center justify-between px-3 py-2 text-sm hover:bg-primary/10"
                   >
-                    <div className="flex items-center gap-4">
-                      <span className="font-medium text-primary">{inv.number}</span>
-                      <span className="text-text">{inv.client}</span>
-                      <span className="text-text-secondary">{inv.practitioner}</span>
-                    </div>
-                    <span className="font-medium text-text">${inv.due.toFixed(2)}</span>
+                    <Flex align="center" gap={16}>
+                      <span style={{ fontWeight: 500, color: 'var(--ant-color-primary)' }}>{inv.number}</span>
+                      <span>{inv.client}</span>
+                      <span style={{ color: 'var(--ant-color-text-secondary)' }}>{inv.practitioner}</span>
+                    </Flex>
+                    <span style={{ fontWeight: 500 }}>${inv.due.toFixed(2)}</span>
                   </Button>
                 ))}
               </div>
             )}
             {searchableInvoices.length === 0 && (
-              <p className="mt-2 text-sm text-text-secondary">No outstanding invoices found.</p>
+              <p style={{ marginTop: 8, fontSize: 14, color: 'var(--ant-color-text-secondary)' }}>No outstanding invoices found.</p>
             )}
           </Card>
         )}
 
-        <Card padding="none" className="mb-6 overflow-hidden">
+        <Card padding="none" style={{ marginBottom: 24, overflow: 'hidden' }}>
           <DataTable>
             <TableHead>
               <Th>Invoice #</Th>
@@ -330,7 +335,7 @@ export default function NewPaymentPage() {
               {linkedInvoices.length === 0 ? (
                 <tr>
                   <td colSpan={9}>
-                    <EmptyState message='No invoices linked. Click "Link invoice" to apply this payment to outstanding invoices.' className="py-6" />
+                    <EmptyState message='No invoices linked. Click "Link invoice" to apply this payment to outstanding invoices.' style={{ padding: '24px 0' }} />
                   </td>
                 </tr>
               ) : (
@@ -340,13 +345,13 @@ export default function NewPaymentPage() {
                   const appliedAmount = parseFloat(invoiceAmounts[invoiceNumber] || "0") || 0;
                   const remaining = Math.max(0, inv.due - appliedAmount);
                   return (
-                    <tr key={inv.number} className="border-b border-border transition-colors hover:bg-gray-50">
-                      <Td className="font-medium text-primary">{inv.number}</Td>
-                      <Td className="text-text">{inv.client}</Td>
-                      <Td className="text-text">{inv.practitioner}</Td>
-                      <Td className="text-text-secondary">{inv.issueDate}</Td>
-                      <Td className="text-text-secondary">{inv.dueDate}</Td>
-                      <Td align="right" className="text-text">
+                    <tr key={inv.number} style={{ borderBottom: '1px solid var(--ant-color-border)', transition: 'background-color 0.2s' }} className="hover:bg-gray-50">
+                      <Td style={{ fontWeight: 500, color: 'var(--ant-color-primary)' }}>{inv.number}</Td>
+                      <Td>{inv.client}</Td>
+                      <Td>{inv.practitioner}</Td>
+                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{inv.issueDate}</Td>
+                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{inv.dueDate}</Td>
+                      <Td align="right">
                         {inv.due.toFixed(2)}
                       </Td>
                       <Td align="right">
@@ -357,10 +362,10 @@ export default function NewPaymentPage() {
                           className="w-24 rounded border px-2 py-1 text-right text-sm"
                         />
                       </Td>
-                      <Td align="right" className="text-text">
+                      <Td align="right">
                         {remaining.toFixed(2)}
                       </Td>
-                      <td className="px-2 py-3 text-center">
+                      <td style={{ padding: '12px 8px', textAlign: 'center' }}>
                         <Button
                           variant="icon"
                           size="sm"
@@ -368,7 +373,7 @@ export default function NewPaymentPage() {
                           onClick={() => unlinkInvoice(invoiceNumber)}
                           className="h-6 w-6 hover:bg-red-50 hover:text-danger"
                         >
-                          <X className="h-3.5 w-3.5" />
+                          <CloseOutlined style={{ fontSize: 14 }} />
                         </Button>
                       </td>
                     </tr>
@@ -380,7 +385,7 @@ export default function NewPaymentPage() {
         </Card>
 
         {/* Note and totals */}
-        <div className="flex items-start justify-between">
+        <Flex align="start" justify="space-between">
           <FormTextarea
             label="Note"
             value={note}
@@ -389,17 +394,17 @@ export default function NewPaymentPage() {
             className="w-64 resize-none text-sm"
             rows={3}
           />
-          <div className="space-y-1.5 text-right text-sm">
-            <div className="flex items-center justify-end gap-8">
-              <span className="text-text-secondary">Applied to invoices</span>
-              <span className="w-20 text-right font-medium text-text">{appliedTotal.toFixed(2)}</span>
-            </div>
-            <div className="flex items-center justify-end gap-8">
-              <span className="text-text-secondary">Amount to credit</span>
-              <span className="w-20 text-right font-medium text-text">{creditAmount.toFixed(2)}</span>
-            </div>
-          </div>
-        </div>
+          <Flex vertical gap={6} style={{ textAlign: 'right', fontSize: 14 }}>
+            <Flex align="center" justify="end" gap={32}>
+              <span style={{ color: 'var(--ant-color-text-secondary)' }}>Applied to invoices</span>
+              <span style={{ width: 80, textAlign: 'right', fontWeight: 500 }}>{appliedTotal.toFixed(2)}</span>
+            </Flex>
+            <Flex align="center" justify="end" gap={32}>
+              <span style={{ color: 'var(--ant-color-text-secondary)' }}>Amount to credit</span>
+              <span style={{ width: 80, textAlign: 'right', fontWeight: 500 }}>{creditAmount.toFixed(2)}</span>
+            </Flex>
+          </Flex>
+        </Flex>
       </div>
     </div>
   );

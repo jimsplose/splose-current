@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Trash2 } from "lucide-react";
+import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import {
   Button,
   Card,
@@ -146,7 +147,7 @@ export default function NewInvoicePage() {
   const total = subtotal + totalTax;
 
   return (
-    <div className="min-h-[calc(100vh-3rem)]">
+    <div style={{ minHeight: 'calc(100vh - 3rem)' }}>
       <Navbar backHref="/invoices" title="New invoice">
         <Button variant="secondary" onClick={() => router.push("/invoices")}>
           Cancel
@@ -156,182 +157,184 @@ export default function NewInvoicePage() {
         </Button>
       </Navbar>
 
-      <div className="mx-auto max-w-5xl space-y-6 p-6">
-        {/* Client section */}
-        <Card title="Client" headerBar>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <Select
-              label="Client name"
-              options={mockClients}
-              value={client}
-              onChange={setClient}
-              placeholder="Select client"
-              searchable
-            />
-            <FormSelect
-              label="Contact"
-              value={contact}
-              onChange={setContact}
-              options={mockContacts}
-            />
-          </div>
-        </Card>
-
-        {/* Invoice details */}
-        <Card title="Invoice details" headerBar>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <FormInput
-              label="Invoice number"
-              value={invoiceNumber}
-              readOnly
-              className="bg-gray-50 text-text-secondary"
-            />
-            <FormInput
-              label="Date"
-              type="date"
-              value={invoiceDate}
-              onChange={(e) => setInvoiceDate(e.target.value)}
-            />
-            <FormInput
-              label="Due date"
-              type="date"
-              value={dueDate}
-              onChange={(e) => setDueDate(e.target.value)}
-            />
-            <FormSelect
-              label="Location"
-              value={location}
-              onChange={setLocation}
-              options={mockLocations}
-            />
-          </div>
-        </Card>
-
-        {/* Line items */}
-        <Card title="Line items" headerBar padding="none">
-          <div className="overflow-x-auto">
-            <table className="w-full text-body-md">
-              <thead>
-                <tr className="border-b border-border bg-gray-50 text-left text-label-lg text-text-secondary">
-                  <th className="px-4 py-2.5">Service</th>
-                  <th className="px-4 py-2.5">Description</th>
-                  <th className="w-20 px-4 py-2.5">Qty</th>
-                  <th className="w-28 px-4 py-2.5">Unit Price</th>
-                  <th className="w-32 px-4 py-2.5">Tax</th>
-                  <th className="w-28 px-4 py-2.5 text-right">Total</th>
-                  <th className="w-10 px-2 py-2.5" />
-                </tr>
-              </thead>
-              <tbody>
-                {lineItems.map((item) => (
-                  <tr key={item.id} className="border-b border-border">
-                    <td className="px-3 py-2">
-                      <FormSelect
-                        value={item.service}
-                        onChange={(value) => updateLineItem(item.id, "service", value)}
-                        options={mockServices}
-                      />
-                    </td>
-                    <td className="px-3 py-2">
-                      <FormInput
-                        value={item.description}
-                        onChange={(e) => updateLineItem(item.id, "description", e.target.value)}
-                        placeholder="Description"
-                      />
-                    </td>
-                    <td className="px-3 py-2">
-                      <FormInput
-                        type="number"
-                        min="1"
-                        value={item.qty}
-                        onChange={(e) => updateLineItem(item.id, "qty", e.target.value)}
-                        className="text-right"
-                      />
-                    </td>
-                    <td className="px-3 py-2">
-                      <FormInput
-                        type="number"
-                        step="0.01"
-                        min="0"
-                        value={item.unitPrice}
-                        onChange={(e) => updateLineItem(item.id, "unitPrice", e.target.value)}
-                        placeholder="0.00"
-                        className="text-right"
-                      />
-                    </td>
-                    <td className="px-3 py-2">
-                      <FormSelect
-                        value={item.tax}
-                        onChange={(value) => updateLineItem(item.id, "tax", value)}
-                        options={mockTaxOptions}
-                      />
-                    </td>
-                    <td className="px-3 py-2 text-right font-medium text-text">
-                      ${calculateLineTotal(item).toFixed(2)}
-                    </td>
-                    <td className="px-2 py-2">
-                      {lineItems.length > 1 && (
-                        <Button
-                          variant="icon"
-                          size="sm"
-                          onClick={() => removeLineItem(item.id)}
-                          className="hover:text-danger"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="px-4 py-3">
-            <Button variant="ghost" size="sm" onClick={addLineItem}>
-              <Plus className="h-4 w-4" />
-              Add line item
-            </Button>
-          </div>
-        </Card>
-
-        {/* Totals */}
-        <Card padding="md">
-          <div className="flex justify-end">
-            <div className="w-64 space-y-2">
-              <div className="flex items-center justify-between text-body-md">
-                <span className="text-text-secondary">Subtotal</span>
-                <span className="font-medium text-text">${subtotal.toFixed(2)}</span>
-              </div>
-              <div className="flex items-center justify-between text-body-md">
-                <span className="text-text-secondary">Tax</span>
-                <span className="font-medium text-text">${totalTax.toFixed(2)}</span>
-              </div>
-              <div className="flex items-center justify-between border-t border-border pt-2 text-heading-sm">
-                <span className="text-text">Total</span>
-                <span className="text-text">${total.toFixed(2)}</span>
-              </div>
+      <div style={{ maxWidth: 1024, margin: '0 auto', padding: 24 }}>
+        <Flex vertical gap={24}>
+          {/* Client section */}
+          <Card title="Client" headerBar>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+              <Select
+                label="Client name"
+                options={mockClients}
+                value={client}
+                onChange={setClient}
+                placeholder="Select client"
+                searchable
+              />
+              <FormSelect
+                label="Contact"
+                value={contact}
+                onChange={setContact}
+                options={mockContacts}
+              />
             </div>
-          </div>
-        </Card>
+          </Card>
 
-        {/* Additional info */}
-        <Card title="Additional information" headerBar>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <FormTextarea
-              label="Notes"
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              placeholder="Add any notes for this invoice..."
-              rows={4}
-            />
-            <FormSelect
-              label="Payment terms"
-              value={paymentTerms}
-              onChange={setPaymentTerms}
-              options={paymentTermsOptions}
-            />
-          </div>
-        </Card>
+          {/* Invoice details */}
+          <Card title="Invoice details" headerBar>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+              <FormInput
+                label="Invoice number"
+                value={invoiceNumber}
+                readOnly
+                className="bg-gray-50 text-text-secondary"
+              />
+              <FormInput
+                label="Date"
+                type="date"
+                value={invoiceDate}
+                onChange={(e) => setInvoiceDate(e.target.value)}
+              />
+              <FormInput
+                label="Due date"
+                type="date"
+                value={dueDate}
+                onChange={(e) => setDueDate(e.target.value)}
+              />
+              <FormSelect
+                label="Location"
+                value={location}
+                onChange={setLocation}
+                options={mockLocations}
+              />
+            </div>
+          </Card>
+
+          {/* Line items */}
+          <Card title="Line items" headerBar padding="none">
+            <div style={{ overflowX: 'auto' }}>
+              <table style={{ width: '100%' }} className="text-body-md">
+                <thead>
+                  <tr style={{ borderBottom: '1px solid var(--ant-color-border)', background: '#f9fafb', textAlign: 'left' }} className="text-label-lg text-text-secondary">
+                    <th style={{ padding: '10px 16px' }}>Service</th>
+                    <th style={{ padding: '10px 16px' }}>Description</th>
+                    <th style={{ padding: '10px 16px', width: 80 }}>Qty</th>
+                    <th style={{ padding: '10px 16px', width: 112 }}>Unit Price</th>
+                    <th style={{ padding: '10px 16px', width: 128 }}>Tax</th>
+                    <th style={{ padding: '10px 16px', width: 112, textAlign: 'right' }}>Total</th>
+                    <th style={{ padding: '10px 8px', width: 40 }} />
+                  </tr>
+                </thead>
+                <tbody>
+                  {lineItems.map((item) => (
+                    <tr key={item.id} style={{ borderBottom: '1px solid var(--ant-color-border)' }}>
+                      <td style={{ padding: '8px 12px' }}>
+                        <FormSelect
+                          value={item.service}
+                          onChange={(value) => updateLineItem(item.id, "service", value)}
+                          options={mockServices}
+                        />
+                      </td>
+                      <td style={{ padding: '8px 12px' }}>
+                        <FormInput
+                          value={item.description}
+                          onChange={(e) => updateLineItem(item.id, "description", e.target.value)}
+                          placeholder="Description"
+                        />
+                      </td>
+                      <td style={{ padding: '8px 12px' }}>
+                        <FormInput
+                          type="number"
+                          min="1"
+                          value={item.qty}
+                          onChange={(e) => updateLineItem(item.id, "qty", e.target.value)}
+                          className="text-right"
+                        />
+                      </td>
+                      <td style={{ padding: '8px 12px' }}>
+                        <FormInput
+                          type="number"
+                          step="0.01"
+                          min="0"
+                          value={item.unitPrice}
+                          onChange={(e) => updateLineItem(item.id, "unitPrice", e.target.value)}
+                          placeholder="0.00"
+                          className="text-right"
+                        />
+                      </td>
+                      <td style={{ padding: '8px 12px' }}>
+                        <FormSelect
+                          value={item.tax}
+                          onChange={(value) => updateLineItem(item.id, "tax", value)}
+                          options={mockTaxOptions}
+                        />
+                      </td>
+                      <td style={{ padding: '8px 12px', textAlign: 'right', fontWeight: 500, color: 'var(--ant-color-text)' }}>
+                        ${calculateLineTotal(item).toFixed(2)}
+                      </td>
+                      <td style={{ padding: '8px 8px' }}>
+                        {lineItems.length > 1 && (
+                          <Button
+                            variant="icon"
+                            size="sm"
+                            onClick={() => removeLineItem(item.id)}
+                            className="hover:text-danger"
+                          >
+                            <DeleteOutlined style={{ fontSize: 16 }} />
+                          </Button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div style={{ padding: '12px 16px' }}>
+              <Button variant="ghost" size="sm" onClick={addLineItem}>
+                <PlusOutlined style={{ fontSize: 16 }} />
+                Add line item
+              </Button>
+            </div>
+          </Card>
+
+          {/* Totals */}
+          <Card padding="md">
+            <Flex justify="end">
+              <Flex vertical gap={8} style={{ width: 256 }}>
+                <Flex align="center" justify="space-between" className="text-body-md">
+                  <span style={{ color: 'var(--ant-color-text-secondary)' }}>Subtotal</span>
+                  <span style={{ fontWeight: 500, color: 'var(--ant-color-text)' }}>${subtotal.toFixed(2)}</span>
+                </Flex>
+                <Flex align="center" justify="space-between" className="text-body-md">
+                  <span style={{ color: 'var(--ant-color-text-secondary)' }}>Tax</span>
+                  <span style={{ fontWeight: 500, color: 'var(--ant-color-text)' }}>${totalTax.toFixed(2)}</span>
+                </Flex>
+                <Flex align="center" justify="space-between" className="text-heading-sm" style={{ borderTop: '1px solid var(--ant-color-border)', paddingTop: 8 }}>
+                  <span style={{ color: 'var(--ant-color-text)' }}>Total</span>
+                  <span style={{ color: 'var(--ant-color-text)' }}>${total.toFixed(2)}</span>
+                </Flex>
+              </Flex>
+            </Flex>
+          </Card>
+
+          {/* Additional info */}
+          <Card title="Additional information" headerBar>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+              <FormTextarea
+                label="Notes"
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                placeholder="Add any notes for this invoice..."
+                rows={4}
+              />
+              <FormSelect
+                label="Payment terms"
+                value={paymentTerms}
+                onChange={setPaymentTerms}
+                options={paymentTermsOptions}
+              />
+            </div>
+          </Card>
+        </Flex>
       </div>
     </div>
   );

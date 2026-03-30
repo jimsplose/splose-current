@@ -2,7 +2,22 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { GripVertical, Plus, Trash2, Eye, Share2, Settings, Type, Hash, Calendar, ToggleLeft, List, FileText, Upload } from "lucide-react";
+import { Flex } from "antd";
+import {
+  HolderOutlined,
+  PlusOutlined,
+  DeleteOutlined,
+  EyeOutlined,
+  ShareAltOutlined,
+  SettingOutlined,
+  FontSizeOutlined,
+  NumberOutlined,
+  CalendarOutlined,
+  SwitcherOutlined,
+  UnorderedListOutlined,
+  FileTextOutlined,
+  UploadOutlined,
+} from "@ant-design/icons";
 import {
   Button,
   FormInput,
@@ -18,14 +33,14 @@ import {
 } from "@/components/ds";
 
 const FIELD_TYPES = [
-  { icon: Type, label: "Short text", value: "short-text" },
-  { icon: FileText, label: "Long text", value: "long-text" },
-  { icon: Hash, label: "Number", value: "number" },
-  { icon: Calendar, label: "Date", value: "date" },
-  { icon: ToggleLeft, label: "Yes/No", value: "boolean" },
-  { icon: List, label: "Multiple choice", value: "multiple-choice" },
-  { icon: List, label: "Dropdown", value: "dropdown" },
-  { icon: Upload, label: "File upload", value: "file-upload" },
+  { icon: FontSizeOutlined, label: "Short text", value: "short-text" },
+  { icon: FileTextOutlined, label: "Long text", value: "long-text" },
+  { icon: NumberOutlined, label: "Number", value: "number" },
+  { icon: CalendarOutlined, label: "Date", value: "date" },
+  { icon: SwitcherOutlined, label: "Yes/No", value: "boolean" },
+  { icon: UnorderedListOutlined, label: "Multiple choice", value: "multiple-choice" },
+  { icon: UnorderedListOutlined, label: "Dropdown", value: "dropdown" },
+  { icon: UploadOutlined, label: "File upload", value: "file-upload" },
 ];
 
 interface FormField {
@@ -73,105 +88,110 @@ export default function FormTemplateEditorPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Navbar backHref="/settings/forms" title={title || "Edit form template"}>
-        <div className="flex items-center gap-2">
+        <Flex align="center" gap={8}>
           <Button variant="icon" onClick={() => setSidePanel(sidePanel === "share" ? null : "share")} title="Share & Automate">
-            <Share2 className="h-4 w-4" />
+            <ShareAltOutlined style={{ fontSize: 16 }} />
           </Button>
           <Button variant="secondary" onClick={() => setActiveTab("preview")}>
-            <Eye className="h-4 w-4" /> Preview
+            <EyeOutlined style={{ fontSize: 16 }} /> Preview
           </Button>
           <Button variant="primary" onClick={() => router.push("/settings/forms")}>Save</Button>
-        </div>
+        </Flex>
       </Navbar>
 
-      <div className="border-b border-border px-6">
+      <div style={{ borderBottom: '1px solid var(--ant-color-border)', padding: '0 24px' }}>
         <Tab items={editorTabs} value={activeTab} onChange={setActiveTab} />
       </div>
 
-      <div className="flex flex-1">
-        <div className="flex-1 overflow-y-auto p-6">
+      <div style={{ display: 'flex', flex: 1 }}>
+        <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
           {activeTab === "builder" && (
-            <div className="mx-auto max-w-2xl space-y-3">
-              <FormInput label="Form title" value={title} onChange={(e) => setTitle(e.target.value)} className="mb-4" />
+            <div style={{ maxWidth: 672, margin: '0 auto' }}>
+              <Flex vertical gap={12}>
+                <FormInput label="Form title" value={title} onChange={(e) => setTitle(e.target.value)} style={{ marginBottom: 16 }} />
 
-              {fields.map((field) => {
-                const FieldIcon = FIELD_TYPES.find((t) => t.value === field.type)?.icon || Type;
-                return (
-                  <Card key={field.id} padding="none" className="group">
-                    <div className="flex items-center gap-2 px-4 py-3">
-                      <GripVertical className="h-4 w-4 shrink-0 cursor-grab text-text-secondary" />
-                      <FieldIcon className="h-4 w-4 shrink-0 text-primary" />
-                      <input
-                        className="flex-1 border-none bg-transparent text-body-md text-text outline-none"
-                        value={field.label}
-                        onChange={(e) => setFields((prev) => prev.map((f) => f.id === field.id ? { ...f, label: e.target.value } : f))}
-                      />
-                      <Toggle checked={field.required} onChange={(checked) => setFields((prev) => prev.map((f) => f.id === field.id ? { ...f, required: checked } : f))} label="Required" />
-                      <button onClick={() => removeField(field.id)} className="rounded p-1 text-text-secondary opacity-0 group-hover:opacity-100 hover:text-danger">
-                        <Trash2 className="h-3.5 w-3.5" />
-                      </button>
-                    </div>
-                  </Card>
-                );
-              })}
+                {fields.map((field) => {
+                  const FieldIcon = FIELD_TYPES.find((t) => t.value === field.type)?.icon || FontSizeOutlined;
+                  return (
+                    <Card key={field.id} padding="none" className="group">
+                      <Flex align="center" gap={8} style={{ padding: '12px 16px' }}>
+                        <HolderOutlined style={{ fontSize: 16, flexShrink: 0, cursor: 'grab', color: 'var(--ant-color-text-secondary)' }} />
+                        <FieldIcon style={{ fontSize: 16, flexShrink: 0, color: 'var(--ant-color-primary)' }} />
+                        <input
+                          style={{ flex: 1, border: 'none', backgroundColor: 'transparent', outline: 'none' }}
+                          className="text-body-md text-text"
+                          value={field.label}
+                          onChange={(e) => setFields((prev) => prev.map((f) => f.id === field.id ? { ...f, label: e.target.value } : f))}
+                        />
+                        <Toggle checked={field.required} onChange={(checked) => setFields((prev) => prev.map((f) => f.id === field.id ? { ...f, required: checked } : f))} label="Required" />
+                        <button onClick={() => removeField(field.id)} style={{ borderRadius: 4, padding: 4, color: 'var(--ant-color-text-secondary)', opacity: 0 }} className="group-hover:opacity-100 hover:text-danger">
+                          <DeleteOutlined style={{ fontSize: 14 }} />
+                        </button>
+                      </Flex>
+                    </Card>
+                  );
+                })}
 
-              <Button variant="secondary" onClick={() => setShowAddField(true)}>
-                <Plus className="h-4 w-4" /> Add field
-              </Button>
+                <Button variant="secondary" onClick={() => setShowAddField(true)}>
+                  <PlusOutlined style={{ fontSize: 16 }} /> Add field
+                </Button>
+              </Flex>
             </div>
           )}
 
           {activeTab === "settings" && (
-            <div className="mx-auto max-w-2xl space-y-6">
-              <div>
-                <h3 className="mb-3 text-heading-md text-text">Design</h3>
-                <div className="space-y-4">
-                  <FormColorPicker label="Theme colour" value={themeColor} onChange={setThemeColor} />
-                  <Toggle label="Show header image" checked={headerImage} onChange={setHeaderImage} />
+            <div style={{ maxWidth: 672, margin: '0 auto' }}>
+              <Flex vertical gap={24}>
+                <div>
+                  <h3 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Design</h3>
+                  <Flex vertical gap={16}>
+                    <FormColorPicker label="Theme colour" value={themeColor} onChange={setThemeColor} />
+                    <Toggle label="Show header image" checked={headerImage} onChange={setHeaderImage} />
+                  </Flex>
                 </div>
-              </div>
 
-              <div>
-                <h3 className="mb-3 text-heading-md text-text">Form completion</h3>
-                <FormTextarea label="Completion message" value={completionMessage} onChange={(e) => setCompletionMessage(e.target.value)} rows={3} />
-              </div>
+                <div>
+                  <h3 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Form completion</h3>
+                  <FormTextarea label="Completion message" value={completionMessage} onChange={(e) => setCompletionMessage(e.target.value)} rows={3} />
+                </div>
 
-              <div>
-                <h3 className="mb-3 text-heading-md text-text">Email notifications</h3>
-                <Toggle label="Send email notification when form is submitted" checked={emailNotifications} onChange={setEmailNotifications} />
-              </div>
+                <div>
+                  <h3 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Email notifications</h3>
+                  <Toggle label="Send email notification when form is submitted" checked={emailNotifications} onChange={setEmailNotifications} />
+                </div>
+              </Flex>
             </div>
           )}
 
           {activeTab === "preview" && (
-            <div className="mx-auto max-w-lg">
-              <div className="rounded-lg border border-border p-6" style={{ borderTopColor: themeColor, borderTopWidth: 4 }}>
-                <h2 className="mb-6 text-heading-lg text-text">{title}</h2>
-                <div className="space-y-4">
+            <div style={{ maxWidth: 512, margin: '0 auto' }}>
+              <div style={{ borderRadius: 8, border: '1px solid var(--ant-color-border)', padding: 24, borderTopColor: themeColor, borderTopWidth: 4 }}>
+                <h2 className="text-heading-lg text-text" style={{ marginBottom: 24 }}>{title}</h2>
+                <Flex vertical gap={16}>
                   {fields.map((field) => (
                     <div key={field.id}>
-                      <label className="mb-1 block text-label-lg text-text">
+                      <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
                         {field.label} {field.required && <span className="text-danger">*</span>}
                       </label>
                       {field.type === "long-text" ? (
-                        <textarea className="w-full rounded-lg border border-border px-3 py-2 text-body-md" rows={3} disabled />
+                        <textarea style={{ width: '100%', borderRadius: 8, border: '1px solid var(--ant-color-border)', padding: '8px 12px' }} className="text-body-md" rows={3} disabled />
                       ) : field.type === "boolean" ? (
-                        <div className="flex gap-4">
-                          <label className="flex items-center gap-2"><input type="radio" name={`f${field.id}`} disabled /> Yes</label>
-                          <label className="flex items-center gap-2"><input type="radio" name={`f${field.id}`} disabled /> No</label>
-                        </div>
+                        <Flex gap={16}>
+                          <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}><input type="radio" name={`f${field.id}`} disabled /> Yes</label>
+                          <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}><input type="radio" name={`f${field.id}`} disabled /> No</label>
+                        </Flex>
                       ) : field.type === "file-upload" ? (
-                        <div className="flex h-20 items-center justify-center rounded-lg border-2 border-dashed border-border bg-gray-50 text-caption-md text-text-secondary">
+                        <div style={{ display: 'flex', height: 80, alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '2px dashed var(--ant-color-border)', backgroundColor: 'var(--ant-color-bg-layout)' }} className="text-caption-md text-text-secondary">
                           Click or drag to upload
                         </div>
                       ) : (
-                        <input className="w-full rounded-lg border border-border px-3 py-2 text-body-md" type={field.type === "date" ? "date" : "text"} disabled />
+                        <input style={{ width: '100%', borderRadius: 8, border: '1px solid var(--ant-color-border)', padding: '8px 12px' }} className="text-body-md" type={field.type === "date" ? "date" : "text"} disabled />
                       )}
                     </div>
                   ))}
-                </div>
+                </Flex>
                 <Button variant="primary" className="mt-6 w-full" style={{ backgroundColor: themeColor }}>Submit</Button>
               </div>
             </div>
@@ -179,39 +199,40 @@ export default function FormTemplateEditorPage() {
         </div>
 
         {sidePanel === "share" && (
-          <div className="w-80 shrink-0 border-l border-border bg-white p-4">
-            <div className="flex items-center justify-between mb-4">
+          <div style={{ width: 320, flexShrink: 0, borderLeft: '1px solid var(--ant-color-border)', backgroundColor: 'white', padding: 16 }}>
+            <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
               <h3 className="text-heading-sm text-text">Share & Automate</h3>
-              <button onClick={() => setSidePanel(null)} className="rounded p-1 text-text-secondary hover:bg-gray-100">&times;</button>
-            </div>
-            <div className="space-y-4">
+              <button onClick={() => setSidePanel(null)} style={{ borderRadius: 4, padding: 4, color: 'var(--ant-color-text-secondary)' }} className="hover:bg-gray-100">&times;</button>
+            </Flex>
+            <Flex vertical gap={16}>
               <div>
-                <label className="mb-1 block text-label-lg text-text-secondary">Form link</label>
-                <div className="rounded-lg border border-border bg-gray-50 px-3 py-2 text-body-sm text-primary break-all">
+                <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--ant-color-text-secondary)' }}>Form link</label>
+                <div style={{ borderRadius: 8, border: '1px solid var(--ant-color-border)', backgroundColor: 'var(--ant-color-bg-layout)', padding: '8px 12px', wordBreak: 'break-all' }} className="text-body-sm text-primary">
                   https://acme.splose.com/patient-form/81783/view
                 </div>
               </div>
-              <Button variant="secondary" className="w-full">Copy link</Button>
-              <Button variant="secondary" className="w-full">Send to client</Button>
-              <div className="border-t border-border pt-4">
-                <h4 className="mb-2 text-label-lg text-text">Automations</h4>
+              <Button variant="secondary" style={{ width: '100%' }}>Copy link</Button>
+              <Button variant="secondary" style={{ width: '100%' }}>Send to client</Button>
+              <div style={{ borderTop: '1px solid var(--ant-color-border)', paddingTop: 16 }}>
+                <h4 className="text-label-lg text-text" style={{ marginBottom: 8 }}>Automations</h4>
                 <p className="text-caption-md text-text-secondary">Automatically send this form to new clients or on appointment creation.</p>
-                <Button variant="secondary" className="mt-2">+ Add automation</Button>
+                <Button variant="secondary" style={{ marginTop: 8 }}>+ Add automation</Button>
               </div>
-            </div>
+            </Flex>
           </div>
         )}
       </div>
 
       <Modal open={showAddField} onClose={() => setShowAddField(false)} title="Add field" maxWidth="sm">
-        <div className="grid grid-cols-2 gap-2">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
           {FIELD_TYPES.map(({ icon: Icon, label, value }) => (
             <button
               key={value}
               onClick={() => addField(value)}
-              className="flex items-center gap-2 rounded-lg border border-border px-3 py-2.5 text-left transition-colors hover:border-primary hover:bg-primary/5"
+              style={{ display: 'flex', alignItems: 'center', gap: 8, borderRadius: 8, border: '1px solid var(--ant-color-border)', padding: '10px 12px', textAlign: 'left', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}
+              className="hover:border-primary hover:bg-primary/5"
             >
-              <Icon className="h-4 w-4 text-primary" />
+              <Icon style={{ fontSize: 16, color: 'var(--ant-color-primary)' }} />
               <span className="text-body-md text-text">{label}</span>
             </button>
           ))}

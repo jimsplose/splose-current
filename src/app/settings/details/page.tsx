@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { DownOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import { Button, Checkbox, FileUpload, FormInput, FormSelect, Toggle, Tab, Modal, Dropdown, HintIcon, PageHeader } from "@/components/ds";
 
 const businessHistory = [
@@ -18,45 +19,47 @@ export default function SettingsDetailsPage() {
   const [historyOpen, setHistoryOpen] = useState(false);
 
   return (
-    <div className="p-6 max-w-4xl">
+    <div style={{ padding: 24, maxWidth: 896 }}>
       <PageHeader title="Details">
         <Button variant="primary">Save</Button>
       </PageHeader>
 
-      <div className="space-y-6">
-        <div className="flex gap-8">
-          <div className="flex-1 space-y-4">
-            <div>
-              <div className="flex items-center justify-between mb-1">
-                <label className="block text-label-lg text-text">
-                  Business name<span className="text-red-500">*</span>
-                </label>
-                <Button
-                  variant="link"
-                  size="sm"
-                  onClick={() => setHistoryOpen(true)}
-                >
-                  Business history
-                </Button>
+      <Flex vertical gap={24}>
+        <Flex gap={32}>
+          <div style={{ flex: 1 }}>
+            <Flex vertical gap={16}>
+              <div>
+                <Flex align="center" justify="space-between" style={{ marginBottom: 4 }}>
+                  <label className="block text-label-lg text-text">
+                    Business name<span className="text-red-500">*</span>
+                  </label>
+                  <Button
+                    variant="link"
+                    size="sm"
+                    onClick={() => setHistoryOpen(true)}
+                  >
+                    Business history
+                  </Button>
+                </Flex>
+                <FormInput type="text" defaultValue="Hands Together Therapies" />
               </div>
-              <FormInput type="text" defaultValue="Hands Together Therapies" />
-            </div>
-            <div>
-              <label className="block text-label-lg text-text mb-1">
-                Workspace URL{" "}
-                <HintIcon />
-              </label>
-              <FormInput type="text" defaultValue="acme.splose.com" />
-            </div>
-            <FormInput label="Website" type="text" defaultValue="hands-together-therapy.com" />
-            <div>
-              <label className="block text-label-lg text-text mb-1">
-                Business email<span className="text-red-500">*</span>
-              </label>
-              <FormInput type="email" defaultValue="hello@hands-together-therapy.com" />
-            </div>
+              <div>
+                <label className="block text-label-lg text-text" style={{ marginBottom: 4 }}>
+                  Workspace URL{" "}
+                  <HintIcon />
+                </label>
+                <FormInput type="text" defaultValue="acme.splose.com" />
+              </div>
+              <FormInput label="Website" type="text" defaultValue="hands-together-therapy.com" />
+              <div>
+                <label className="block text-label-lg text-text" style={{ marginBottom: 4 }}>
+                  Business email<span className="text-red-500">*</span>
+                </label>
+                <FormInput type="email" defaultValue="hello@hands-together-therapy.com" />
+              </div>
+            </Flex>
           </div>
-          <div className="w-48 shrink-0">
+          <div style={{ width: 192, flexShrink: 0 }}>
             <FileUpload
               icon={
                 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -70,11 +73,11 @@ export default function SettingsDetailsPage() {
               label="Upload"
             />
           </div>
-        </div>
+        </Flex>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
           <div>
-            <label className="block text-label-lg text-text mb-1">
+            <label className="block text-label-lg text-text" style={{ marginBottom: 4 }}>
               Patient terminology{" "}
               <HintIcon />
               <span className="text-red-500">*</span>
@@ -82,37 +85,37 @@ export default function SettingsDetailsPage() {
             <FormSelect options={[{ value: "Client", label: "Client" }, { value: "Patient", label: "Patient" }, { value: "Participant", label: "Participant" }]} />
           </div>
           <div>
-            <label className="block text-label-lg text-text mb-1">
+            <label className="block text-label-lg text-text" style={{ marginBottom: 4 }}>
               Currency code<span className="text-red-500">*</span>
             </label>
             <FormInput type="text" defaultValue="AUD" disabled className="bg-gray-100 text-text-secondary" />
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
           <div>
-            <label className="block text-label-lg text-text mb-1">
+            <label className="block text-label-lg text-text" style={{ marginBottom: 4 }}>
               Country<span className="text-red-500">*</span>
             </label>
             <FormSelect options={[{ value: "Australia", label: "Australia" }, { value: "New Zealand", label: "New Zealand" }, { value: "United Kingdom", label: "United Kingdom" }]} disabled className="bg-gray-100 text-text-secondary" />
           </div>
           <div>
-            <label className="block text-label-lg text-text mb-1">
+            <label className="block text-label-lg text-text" style={{ marginBottom: 4 }}>
               Currency symbol<span className="text-red-500">*</span>
             </label>
             <FormInput type="text" defaultValue="A$" disabled className="bg-gray-100 text-text-secondary" />
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
           <div>
-            <label className="block text-label-lg text-text mb-1">
+            <label className="block text-label-lg text-text" style={{ marginBottom: 4 }}>
               Default appointment communication preferences{" "}
               <HintIcon />
               <span className="text-red-500">*</span>
             </label>
             <FormSelect options={[{ value: "SMS & Email", label: "SMS & Email" }, { value: "SMS only", label: "SMS only" }, { value: "Email only", label: "Email only" }, { value: "None", label: "None" }]} />
-            <div className="mt-2">
+            <div style={{ marginTop: 8 }}>
               <Checkbox
                 label="Apply to all existing clients and override the current contact preferences"
                 checked={applyToAll}
@@ -121,27 +124,27 @@ export default function SettingsDetailsPage() {
             </div>
           </div>
           <div>
-            <label className="block text-label-lg text-text mb-1">
+            <label className="block text-label-lg text-text" style={{ marginBottom: 4 }}>
               Tax Label for invoices (E.g. ABN)<span className="text-red-500">*</span>
             </label>
             <FormInput type="text" defaultValue="ABN" />
-            <p className="mt-2 text-body-md text-text-secondary">
+            <p className="text-body-md" style={{ marginTop: 8, color: 'var(--ant-color-text-secondary)' }}>
               Enter your business number in{" "}
-              <span className="text-primary cursor-pointer hover:underline">Location settings</span>
+              <span className="text-primary" style={{ cursor: 'pointer' }}>Location settings</span>
             </p>
           </div>
         </div>
 
         <div>
-          <h2 className="text-heading-md text-text mb-3">Email signature</h2>
-          <div className="mb-3 flex items-center gap-2">
+          <h2 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Email signature</h2>
+          <Flex align="center" gap={8} style={{ marginBottom: 12 }}>
             <Button
               variant={emailSigTab === "Business" ? "primary" : "secondary"}
               size="sm"
               onClick={() => setEmailSigTab("Business")}
               className="!rounded-full !px-3 !py-1"
             >
-              Business <ChevronDown className="ml-1 h-3 w-3" />
+              Business <DownOutlined style={{ fontSize: 12, marginLeft: 4 }} />
             </Button>
             <Button
               variant={emailSigTab === "User" ? "primary" : "secondary"}
@@ -149,81 +152,81 @@ export default function SettingsDetailsPage() {
               onClick={() => setEmailSigTab("User")}
               className="!rounded-full !px-3 !py-1"
             >
-              User <ChevronDown className="ml-1 h-3 w-3" />
+              User <DownOutlined style={{ fontSize: 12, marginLeft: 4 }} />
             </Button>
-          </div>
-          <div className="rounded-t-lg border border-border bg-gray-50 px-2 py-1.5 flex items-center gap-1">
+          </Flex>
+          <Flex align="center" gap={4} style={{ borderRadius: '8px 8px 0 0', border: '1px solid var(--ant-color-border)', backgroundColor: 'var(--ant-color-bg-layout)', padding: '6px 8px' }}>
             <Button variant="toolbar" className="font-bold">B</Button>
             <Button variant="toolbar" className="italic">I</Button>
-            <div className="mx-1 h-4 w-px bg-gray-300" />
+            <div style={{ margin: '0 4px', height: 16, width: 1, backgroundColor: '#d1d5db' }} />
             <Button variant="toolbar" className="text-primary">AI</Button>
-            <div className="mx-1 h-4 w-px bg-gray-300" />
+            <div style={{ margin: '0 4px', height: 16, width: 1, backgroundColor: '#d1d5db' }} />
             <Button variant="toolbar">
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h18v18H3V3zm0 6h18M3 15h18M9 3v18M15 3v18" /></svg>
+              <svg style={{ height: 16, width: 16 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h18v18H3V3zm0 6h18M3 15h18M9 3v18M15 3v18" /></svg>
             </Button>
             <Button variant="toolbar">
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+              <svg style={{ height: 16, width: 16 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
             </Button>
             <Button variant="toolbar">+</Button>
-            <div className="mx-1 h-4 w-px bg-gray-300" />
+            <div style={{ margin: '0 4px', height: 16, width: 1, backgroundColor: '#d1d5db' }} />
             <Button variant="toolbar">
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h10M4 18h16" /></svg>
+              <svg style={{ height: 16, width: 16 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h10M4 18h16" /></svg>
             </Button>
             <Button variant="toolbar">
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M7 12h10M4 18h16" /></svg>
+              <svg style={{ height: 16, width: 16 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M7 12h10M4 18h16" /></svg>
             </Button>
             <Button variant="toolbar">
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
+              <svg style={{ height: 16, width: 16 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
             </Button>
-          </div>
-          <div className="rounded-b-lg border border-t-0 border-border bg-white p-4 min-h-[200px] text-body-md text-text relative">
-            <p className="line-through">Warm Regards,</p>
-            <p className="text-primary mt-1">{"{user_fullName}"}</p>
+          </Flex>
+          <div style={{ borderRadius: '0 0 8px 8px', border: '1px solid var(--ant-color-border)', borderTop: 'none', backgroundColor: 'white', padding: 16, minHeight: 200, position: 'relative' }} className="text-body-md text-text">
+            <p style={{ textDecoration: 'line-through' }}>Warm Regards,</p>
+            <p className="text-primary" style={{ marginTop: 4 }}>{"{user_fullName}"}</p>
             <p className="text-primary">{"{user_professionTitle}"}</p>
             <p className="text-primary">{"{user_email}"}</p>
-            <p className="mt-2 text-primary">{"{business_name}"}</p>
+            <p className="text-primary" style={{ marginTop: 8 }}>{"{business_name}"}</p>
             <p className="text-primary">{"{business_email}"}</p>
             <p className="text-primary">{"{business_website}"}</p>
             <p className="text-primary">{"{user_signature}"}</p>
             <p className="text-primary">{"{user_workPhoneNumber}{user_professionTitle}"}</p>
-            <div className="absolute right-6 bottom-6">
-              <span className="text-5xl font-bold text-purple-200 select-none tracking-wide">splose</span>
+            <div style={{ position: 'absolute', right: 24, bottom: 24 }}>
+              <span style={{ fontSize: '3rem', fontWeight: 700, color: '#e9d5ff', userSelect: 'none', letterSpacing: '0.05em' }}>splose</span>
             </div>
           </div>
         </div>
 
         <div>
-          <h2 className="text-heading-md text-text mb-3">Calendar lock dates</h2>
-          <p className="text-body-md text-text-secondary mb-2">
+          <h2 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Calendar lock dates</h2>
+          <p className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)', marginBottom: 8 }}>
             Prevent users with the practitioner role from making changes on the calendar on and before
           </p>
           <FormInput type="text" defaultValue="19 Dec 2025" className="max-w-xs" />
         </div>
 
         <div>
-          <h2 className="text-heading-md text-text mb-3">Google Tag Manager</h2>
+          <h2 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Google Tag Manager</h2>
           <FormInput label="Google Tag Manager ID" type="text" defaultValue="GTM-TEST1231" className="max-w-xs" />
         </div>
 
         <div>
-          <h2 className="text-heading-md text-text mb-3">Cases</h2>
-          <div className="flex items-center justify-between">
+          <h2 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Cases</h2>
+          <Flex align="center" justify="space-between">
             <p className="text-body-md text-text">Block bookings exceeding case or funding periods (default setting)</p>
             <Toggle checked={casesToggle} onChange={setCasesToggle} />
-          </div>
+          </Flex>
         </div>
 
         <div>
-          <span className="text-body-md text-primary cursor-pointer hover:underline">Business settings change log</span>
+          <span className="text-body-md text-primary" style={{ cursor: 'pointer' }}>Business settings change log</span>
         </div>
-      </div>
+      </Flex>
 
       <Modal open={historyOpen} onClose={() => setHistoryOpen(false)} title="Business history">
         <ul className="divide-y divide-border">
           {businessHistory.map((entry, i) => (
-            <li key={i} className="py-3 first:pt-0 last:pb-0">
+            <li key={i} style={{ paddingTop: i === 0 ? 0 : 12, paddingBottom: i === businessHistory.length - 1 ? 0 : 12 }}>
               <p className="text-body-md text-text">{entry.description}</p>
-              <p className="text-body-sm text-text-secondary mt-0.5">{entry.date}</p>
+              <p className="text-body-sm" style={{ color: 'var(--ant-color-text-secondary)', marginTop: 2 }}>{entry.date}</p>
             </li>
           ))}
         </ul>

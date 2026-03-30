@@ -1,4 +1,5 @@
-import { Mail, Phone, MapPin, Building2 } from "lucide-react";
+import { MailOutlined, PhoneOutlined, EnvironmentOutlined, BankOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import { Button, DataTable, TableHead, Th, TableBody, Tr, Td, LinkCell, EmptyState } from "@/components/ds";
 
 const mockContacts = [
@@ -130,20 +131,20 @@ const mockContacts = [
   },
 ];
 
-function getTypeColor(type: string): string {
+function getTypeColor(type: string): { background: string; color: string } {
   switch (type) {
     case "Doctor":
-      return "bg-blue-100 text-blue-700";
+      return { background: '#dbeafe', color: '#1d4ed8' };
     case "3rd party payer":
-      return "bg-purple-100 text-purple-700";
+      return { background: '#f3e8ff', color: '#7c3aed' };
     case "Plan manager":
-      return "bg-green-100 text-green-700";
+      return { background: '#dcfce7', color: '#15803d' };
     case "Parent":
-      return "bg-orange-100 text-orange-700";
+      return { background: '#ffedd5', color: '#c2410c' };
     case "Standard":
-      return "bg-gray-100 text-gray-700";
+      return { background: '#f3f4f6', color: '#374151' };
     default:
-      return "bg-gray-100 text-gray-700";
+      return { background: '#f3f4f6', color: '#374151' };
   }
 }
 
@@ -153,21 +154,21 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
   if (!contact) {
     return (
-      <div className="p-6">
-        <p className="text-text-secondary">Contact not found.</p>
+      <div style={{ padding: 24 }}>
+        <p style={{ color: 'var(--ant-color-text-secondary)' }}>Contact not found.</p>
       </div>
     );
   }
 
   return (
-    <div className="flex" style={{ height: "calc(100vh - 48px)" }}>
+    <Flex style={{ height: "calc(100vh - 48px)" }}>
       {/* Sidebar */}
-      <aside className="w-[180px] shrink-0 border-r border-border bg-white p-4">
-        <div className="mb-4">
+      <aside style={{ width: 180, flexShrink: 0, borderRight: '1px solid var(--ant-color-border)', background: 'white', padding: 16 }}>
+        <div style={{ marginBottom: 16 }}>
           <h2 className="text-body-md-strong text-text">Contact</h2>
-          <p className="text-caption-md text-text-secondary">{contact.name}</p>
+          <p className="text-caption-md" style={{ color: 'var(--ant-color-text-secondary)' }}>{contact.name}</p>
         </div>
-        <nav className="space-y-0.5">
+        <Flex vertical gap={2}>
           {[
             { label: "Details", active: true },
             { label: "Cases", count: 0 },
@@ -177,140 +178,147 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             <Button
               key={item.label}
               variant="ghost"
-              className={`w-full justify-between text-sm ${
+              className={`w-full justify-between ${
                 "active" in item && item.active
                   ? "border-l-2 border-primary bg-primary/5 font-medium text-primary"
                   : "text-text-secondary hover:bg-gray-50"
               }`}
+              style={{ fontSize: 12 }}
             >
               {item.label}
-              {"count" in item && item.count ? <span className="text-xs text-text-secondary">{item.count}</span> : null}
+              {"count" in item && item.count ? <span style={{ fontSize: 10, color: 'var(--ant-color-text-secondary)' }}>{item.count}</span> : null}
             </Button>
           ))}
-        </nav>
+        </Flex>
       </aside>
 
       {/* Main content */}
-      <div className="flex-1 overflow-y-auto">
+      <div style={{ flex: 1, overflowY: 'auto' }}>
         {/* Top action bar */}
-        <div className="flex items-center justify-between border-b border-border px-6 py-3">
-          <div className="flex items-center gap-2">
+        <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--ant-color-border)', padding: '12px 24px' }}>
+          <Flex align="center" gap={8}>
             <h2 className="text-heading-lg text-text">Contact</h2>
-            <span className="text-body-md text-text-secondary">{contact.name}</span>
-          </div>
+            <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>{contact.name}</span>
+          </Flex>
           <Button variant="secondary" size="sm">
             Actions
-            <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg style={{ height: 14, width: 14 }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
           </Button>
-        </div>
+        </Flex>
 
-        <div className="p-6">
-          <div className="mb-6 flex items-center justify-between">
+        <div style={{ padding: 24 }}>
+          <Flex align="center" justify="space-between" style={{ marginBottom: 24 }}>
             <h1 className="text-display-md text-text">Details</h1>
             <Button variant="secondary" size="sm">
               Edit
             </Button>
-          </div>
+          </Flex>
 
           {/* General details */}
-          <section className="mb-8">
-            <h2 className="mb-4 text-heading-lg text-text">General details</h2>
-            <div className="flex items-start gap-6">
-              <div className="space-y-2 text-sm">
-                <div className="flex gap-16">
-                  <span className="w-28 shrink-0 text-text-secondary">Name:</span>
-                  <span className="font-medium text-text">{contact.name}</span>
-                </div>
-                <div className="flex gap-16">
-                  <span className="w-28 shrink-0 text-text-secondary">Type:</span>
+          <section style={{ marginBottom: 32 }}>
+            <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>General details</h2>
+            <Flex align="start" gap={24}>
+              <Flex vertical gap={8} style={{ fontSize: 12 }}>
+                <Flex gap={64}>
+                  <span style={{ width: 112, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }}>Name:</span>
+                  <span style={{ fontWeight: 500, color: 'var(--ant-color-text)' }}>{contact.name}</span>
+                </Flex>
+                <Flex gap={64}>
+                  <span style={{ width: 112, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }}>Type:</span>
                   <span>
                     {contact.type ? (
                       <span
-                        className={`inline-block rounded px-2 py-0.5 text-label-md ${getTypeColor(contact.type)}`}
+                        className="text-label-md"
+                        style={{
+                          display: 'inline-block',
+                          borderRadius: 4,
+                          padding: '2px 8px',
+                          ...getTypeColor(contact.type),
+                        }}
                       >
                         {contact.type}
                       </span>
                     ) : (
-                      <span className="text-text-secondary">Not set</span>
+                      <span style={{ color: 'var(--ant-color-text-secondary)' }}>Not set</span>
                     )}
                   </span>
-                </div>
-                <div className="flex gap-16">
-                  <span className="w-28 shrink-0 text-text-secondary">Company:</span>
-                  <span className="text-text">
-                    {contact.company || <span className="text-text-secondary">Not provided</span>}
+                </Flex>
+                <Flex gap={64}>
+                  <span style={{ width: 112, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }}>Company:</span>
+                  <span style={{ color: 'var(--ant-color-text)' }}>
+                    {contact.company || <span style={{ color: 'var(--ant-color-text-secondary)' }}>Not provided</span>}
                   </span>
-                </div>
-              </div>
-            </div>
+                </Flex>
+              </Flex>
+            </Flex>
           </section>
 
-          <hr className="mb-8 border-border" />
+          <hr style={{ marginBottom: 32, border: 'none', borderTop: '1px solid var(--ant-color-border)' }} />
 
           {/* Contact information */}
-          <section className="mb-8">
-            <h2 className="mb-4 text-heading-lg text-text">Contact details</h2>
-            <div className="space-y-3 text-sm">
-              <div className="flex gap-16">
-                <span className="w-28 shrink-0 text-text-secondary">Email:</span>
+          <section style={{ marginBottom: 32 }}>
+            <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Contact details</h2>
+            <Flex vertical gap={12} style={{ fontSize: 12 }}>
+              <Flex gap={64}>
+                <span style={{ width: 112, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }}>Email:</span>
                 {contact.email ? (
-                  <span className="flex items-center gap-1.5">
-                    <Mail className="h-3.5 w-3.5 text-text-secondary" />
+                  <Flex align="center" gap={6}>
+                    <MailOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
                     <span className="text-primary">{contact.email}</span>
-                  </span>
+                  </Flex>
                 ) : (
-                  <span className="text-text-secondary">Not provided</span>
+                  <span style={{ color: 'var(--ant-color-text-secondary)' }}>Not provided</span>
                 )}
-              </div>
-              <div className="flex gap-16">
-                <span className="w-28 shrink-0 text-text-secondary">Work phone:</span>
+              </Flex>
+              <Flex gap={64}>
+                <span style={{ width: 112, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }}>Work phone:</span>
                 {contact.workPhone ? (
-                  <span className="flex items-center gap-1.5">
-                    <Phone className="h-3.5 w-3.5 text-text-secondary" />
+                  <Flex align="center" gap={6}>
+                    <PhoneOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
                     <span className="text-primary">{contact.workPhone}</span>
-                  </span>
+                  </Flex>
                 ) : (
-                  <span className="text-text-secondary">Not provided</span>
+                  <span style={{ color: 'var(--ant-color-text-secondary)' }}>Not provided</span>
                 )}
-              </div>
-              <div className="flex gap-16">
-                <span className="w-28 shrink-0 text-text-secondary">Mobile phone:</span>
+              </Flex>
+              <Flex gap={64}>
+                <span style={{ width: 112, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }}>Mobile phone:</span>
                 {contact.mobilePhone ? (
-                  <span className="flex items-center gap-1.5">
-                    <Phone className="h-3.5 w-3.5 text-text-secondary" />
+                  <Flex align="center" gap={6}>
+                    <PhoneOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
                     <span className="text-primary">{contact.mobilePhone}</span>
-                  </span>
+                  </Flex>
                 ) : (
-                  <span className="text-text-secondary">Not provided</span>
+                  <span style={{ color: 'var(--ant-color-text-secondary)' }}>Not provided</span>
                 )}
-              </div>
-              <div className="flex gap-16">
-                <span className="w-28 shrink-0 text-text-secondary">Address:</span>
+              </Flex>
+              <Flex gap={64}>
+                <span style={{ width: 112, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }}>Address:</span>
                 {contact.address ? (
-                  <span className="flex items-center gap-1.5">
-                    <MapPin className="h-3.5 w-3.5 text-text-secondary" />
-                    <span className="text-text">{contact.address}</span>
-                  </span>
+                  <Flex align="center" gap={6}>
+                    <EnvironmentOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+                    <span style={{ color: 'var(--ant-color-text)' }}>{contact.address}</span>
+                  </Flex>
                 ) : (
-                  <span className="text-text-secondary">Not provided</span>
+                  <span style={{ color: 'var(--ant-color-text-secondary)' }}>Not provided</span>
                 )}
-              </div>
-              <div className="flex gap-16">
-                <span className="w-28 shrink-0 text-text-secondary">Note:</span>
-                <span className="text-text">
-                  {contact.notes || <span className="text-text-secondary">Not provided</span>}
+              </Flex>
+              <Flex gap={64}>
+                <span style={{ width: 112, flexShrink: 0, color: 'var(--ant-color-text-secondary)' }}>Note:</span>
+                <span style={{ color: 'var(--ant-color-text)' }}>
+                  {contact.notes || <span style={{ color: 'var(--ant-color-text-secondary)' }}>Not provided</span>}
                 </span>
-              </div>
-            </div>
+              </Flex>
+            </Flex>
           </section>
 
-          <hr className="mb-8 border-border" />
+          <hr style={{ marginBottom: 32, border: 'none', borderTop: '1px solid var(--ant-color-border)' }} />
 
           {/* Associated clients */}
-          <section className="mb-8">
-            <h2 className="mb-4 text-heading-lg text-text">Associated clients</h2>
+          <section style={{ marginBottom: 32 }}>
+            <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Associated clients</h2>
             {contact.associatedClients.length > 0 ? (
               <DataTable>
                 <TableHead>
@@ -324,28 +332,28 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                   {contact.associatedClients.map((client) => (
                     <Tr key={client.id}>
                       <Td><LinkCell>{client.name}</LinkCell></Td>
-                      <Td className="text-text-secondary">5 Jun 2011</Td>
-                      <Td align="center" className="text-text-secondary"></Td>
-                      <Td align="center" className="text-text-secondary"></Td>
-                      <Td align="center" className="text-text-secondary"></Td>
+                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>5 Jun 2011</Td>
+                      <Td align="center" style={{ color: 'var(--ant-color-text-secondary)' }}></Td>
+                      <Td align="center" style={{ color: 'var(--ant-color-text-secondary)' }}></Td>
+                      <Td align="center" style={{ color: 'var(--ant-color-text-secondary)' }}></Td>
                     </Tr>
                   ))}
                 </TableBody>
               </DataTable>
             ) : (
               <EmptyState
-                icon={<Building2 className="h-10 w-10 text-gray-400" />}
+                icon={<BankOutlined style={{ fontSize: 40, color: '#9ca3af' }} />}
                 message="No associated clients"
               />
             )}
           </section>
 
-          <hr className="mb-8 border-border" />
+          <hr style={{ marginBottom: 32, border: 'none', borderTop: '1px solid var(--ant-color-border)' }} />
 
           {/* Custom fields */}
-          <section className="mb-8">
-            <h2 className="mb-4 text-heading-lg text-text">Custom fields</h2>
-            <p className="text-sm text-text-secondary">No custom fields</p>
+          <section style={{ marginBottom: 32 }}>
+            <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Custom fields</h2>
+            <p style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>No custom fields</p>
           </section>
 
           <Button variant="ghost" size="sm" className="text-primary hover:underline">
@@ -353,6 +361,6 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
           </Button>
         </div>
       </div>
-    </div>
+    </Flex>
   );
 }

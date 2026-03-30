@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Flex } from "antd";
 import {
   Button,
   FormSelect,
@@ -75,7 +76,7 @@ export default function BatchInvoicePage() {
 
   if (step === "preview") {
     return (
-      <div className="min-h-[calc(100vh-3.5rem)]">
+      <div style={{ minHeight: 'calc(100vh - 3.5rem)' }}>
         <Navbar backHref="#" title="Preview batch invoice">
           <Button onClick={() => setStep("clients")}>Back</Button>
           <Link href="/invoices">
@@ -83,8 +84,8 @@ export default function BatchInvoicePage() {
           </Link>
         </Navbar>
 
-        <div className="p-6">
-          <p className="mb-4 text-body-md text-text-secondary">
+        <div style={{ padding: 24 }}>
+          <p className="text-body-md" style={{ marginBottom: 16, color: 'var(--ant-color-text-secondary)' }}>
             {selectedPreviewInvoices.length} invoices will be created for {selectedClients.length} clients. Review below
             before confirming.
           </p>
@@ -100,7 +101,7 @@ export default function BatchInvoicePage() {
               <TableBody>
                 {selectedPreviewInvoices.map((inv) => (
                   <tr key={inv.number} className="border-b border-border hover:bg-gray-50">
-                    <Td className="font-medium text-primary">{inv.number}</Td>
+                    <Td style={{ fontWeight: 500 }} className="text-primary">{inv.number}</Td>
                     <Td>{inv.client}</Td>
                     <Td>{inv.service}</Td>
                     <Td align="right">{inv.amount}</Td>
@@ -110,12 +111,12 @@ export default function BatchInvoicePage() {
             </DataTable>
           </Card>
 
-          <div className="mt-4 flex justify-end border-t border-border pt-4">
-            <div className="text-right">
-              <p className="text-body-md text-text-secondary">Total</p>
+          <Flex justify="end" style={{ marginTop: 16, borderTop: '1px solid var(--ant-color-border)', paddingTop: 16 }}>
+            <div style={{ textAlign: 'right' }}>
+              <p className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Total</p>
               <p className="text-heading-md text-text">${previewTotal.toFixed(2)}</p>
             </div>
-          </div>
+          </Flex>
         </div>
       </div>
     );
@@ -123,7 +124,7 @@ export default function BatchInvoicePage() {
 
   if (step === "clients") {
     return (
-      <div className="min-h-[calc(100vh-3.5rem)]">
+      <div style={{ minHeight: 'calc(100vh - 3.5rem)' }}>
         <PageHeader title="Batch invoice — Select clients">
           <Button onClick={() => setStep("filters")}>Back</Button>
           <Button variant="primary" onClick={() => setStep("preview")} disabled={selectedClients.length === 0}>
@@ -131,8 +132,8 @@ export default function BatchInvoicePage() {
           </Button>
         </PageHeader>
 
-        <div className="max-w-3xl p-6">
-          <p className="mb-4 text-body-md text-text-secondary">
+        <div style={{ maxWidth: 768, padding: 24 }}>
+          <p className="text-body-md" style={{ marginBottom: 16, color: 'var(--ant-color-text-secondary)' }}>
             Select which clients to include in this batch invoice.
           </p>
 
@@ -160,11 +161,11 @@ export default function BatchInvoicePage() {
                         onClick={(e) => e.stopPropagation()}
                       />
                     </Td>
-                    <Td className="font-medium text-text">{client.name}</Td>
-                    <Td align="right" className="text-text-secondary">
+                    <Td style={{ fontWeight: 500, color: 'var(--ant-color-text)' }}>{client.name}</Td>
+                    <Td align="right" style={{ color: 'var(--ant-color-text-secondary)' }}>
                       {client.appointments}
                     </Td>
-                    <Td align="right" className="font-medium text-text">
+                    <Td align="right" style={{ fontWeight: 500, color: 'var(--ant-color-text)' }}>
                       {client.total}
                     </Td>
                   </tr>
@@ -173,7 +174,7 @@ export default function BatchInvoicePage() {
             </DataTable>
           </Card>
 
-          <div className="mt-4 text-body-sm text-text-secondary">
+          <div className="text-body-sm" style={{ marginTop: 16, color: 'var(--ant-color-text-secondary)' }}>
             {selectedClients.length} of {mockClients.length} clients selected
           </div>
         </div>
@@ -183,42 +184,44 @@ export default function BatchInvoicePage() {
 
   // Step: filters (default)
   return (
-    <div className="min-h-[calc(100vh-3.5rem)]">
+    <div style={{ minHeight: 'calc(100vh - 3.5rem)' }}>
       <PageHeader title="Batch invoice">
         <Link href="/invoices">
           <Button>Cancel</Button>
         </Link>
       </PageHeader>
 
-      <div className="max-w-2xl space-y-6 p-6">
-        <div>
-          <label className="mb-1 block text-sm text-text-secondary">Date range *</label>
-          <DateRangeFilter startDate="2026-03-01" endDate="2026-03-27" />
-        </div>
+      <div style={{ maxWidth: 672, padding: 24 }}>
+        <Flex vertical gap={24}>
+          <div>
+            <label style={{ display: 'block', marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>Date range *</label>
+            <DateRangeFilter startDate="2026-03-01" endDate="2026-03-27" />
+          </div>
 
-        <FormSelect
-          label="Practitioner"
-          options={[
-            { value: "all", label: "All practitioners" },
-            { value: "sarah", label: "Sarah Chen" },
-            { value: "james", label: "James Wilson" },
-          ]}
-        />
+          <FormSelect
+            label="Practitioner"
+            options={[
+              { value: "all", label: "All practitioners" },
+              { value: "sarah", label: "Sarah Chen" },
+              { value: "james", label: "James Wilson" },
+            ]}
+          />
 
-        <FormSelect
-          label="Invoice type"
-          options={[
-            { value: "standard", label: "Standard" },
-            { value: "ndis", label: "NDIS" },
-            { value: "medicare", label: "Medicare" },
-          ]}
-        />
+          <FormSelect
+            label="Invoice type"
+            options={[
+              { value: "standard", label: "Standard" },
+              { value: "ndis", label: "NDIS" },
+              { value: "medicare", label: "Medicare" },
+            ]}
+          />
 
-        <div className="flex gap-3">
-          <Button variant="primary" onClick={() => setStep("clients")}>
-            Next
-          </Button>
-        </div>
+          <Flex gap={12}>
+            <Button variant="primary" onClick={() => setStep("clients")}>
+              Next
+            </Button>
+          </Flex>
+        </Flex>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Flex } from "antd";
 import {
   Button,
   DateRangeFilter,
@@ -38,30 +39,30 @@ export default function ReportsUninvoicedPage() {
         <Button>Learn about this report</Button>
       </PageHeader>
 
-      <div className="mb-4">
-        <label className="mb-1 flex items-center gap-1 text-sm text-text-secondary">
+      <div style={{ marginBottom: 16 }}>
+        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
           Date range *
-        </label>
+        </Flex>
         <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
       </div>
 
-      <div className="mb-8 flex flex-wrap items-center gap-2">
+      <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 32 }}>
         <Button>Add filter</Button>
         <Button>Save filters</Button>
         <Button>Load filters</Button>
         <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
-      </div>
+      </Flex>
 
       {showResults && (
         <>
-          <div className="mb-4 rounded-lg border border-border bg-surface-header px-4 py-3">
-            <p className="text-body-md text-text">
-              <span className="font-semibold">{mockUninvoicedRows.length} uninvoiced appointments</span> found, total value:{" "}
-              <span className="font-semibold">${totalValue.toLocaleString("en-AU", { minimumFractionDigits: 2 })}</span>
+          <div style={{ marginBottom: 16, borderRadius: 8, border: '1px solid var(--ant-color-border)', backgroundColor: 'var(--ant-color-fill-quaternary)', padding: '12px 16px' }}>
+            <p className="text-body-md" style={{ color: 'var(--ant-color-text)' }}>
+              <span style={{ fontWeight: 600 }}>{mockUninvoicedRows.length} uninvoiced appointments</span> found, total value:{" "}
+              <span style={{ fontWeight: 600 }}>${totalValue.toLocaleString("en-AU", { minimumFractionDigits: 2 })}</span>
             </p>
           </div>
 
-          <div className="overflow-x-auto rounded-lg border border-border">
+          <div style={{ overflowX: 'auto', borderRadius: 8, border: '1px solid var(--ant-color-border)' }}>
             <DataTable>
               <TableHead>
                 <Th>Date</Th>
@@ -76,7 +77,7 @@ export default function ReportsUninvoicedPage() {
                 {mockUninvoicedRows.map((row, i) => (
                   <Tr key={i}>
                     <Td>{row.date}</Td>
-                    <Td className="text-primary">{row.client}</Td>
+                    <Td style={{ color: 'var(--ant-color-primary)' }}>{row.client}</Td>
                     <Td>{row.service}</Td>
                     <Td>{row.practitioner}</Td>
                     <Td>{row.duration}</Td>

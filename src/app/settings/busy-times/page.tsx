@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Flex } from "antd";
 import { Button, DataTable, TableHead, Th, TableBody, Td, ColorDot, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, FormColorPicker } from "@/components/ds";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -48,23 +49,23 @@ export default function BusyTimesPage() {
   }
 
   return (
-    <div className="p-8">
-      <div className="mb-2 flex items-center justify-between">
+    <div style={{ padding: 32 }}>
+      <Flex justify="space-between" align="center" style={{ marginBottom: 8 }}>
         <h1 className="text-display-lg">Busy time types</h1>
-        <div className="flex items-center gap-2">
+        <Flex align="center" gap={8}>
           <Button variant="secondary">Show archived</Button>
           <Button variant="secondary" onClick={openCreate}>+ New type</Button>
-        </div>
-      </div>
-      <p className="mb-6 text-sm text-text-secondary">
+        </Flex>
+      </Flex>
+      <p style={{ marginBottom: 24, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
         Use busy time to indicate non billable events in Practitioner calendars. You can change utilisation settings to control whether specific types of busy time are used in utilisation reports.
       </p>
       <DataTable>
         <TableHead><Th>Name</Th><Th>Utilisation</Th><Th>Duration (mins)</Th><Th>Actions</Th></TableHead>
         <TableBody>
           {busyTimes.map((b, i) => (
-            <tr key={i} className="border-b border-border">
-              <Td><div className="flex items-center gap-2"><ColorDot color={b.color} />{b.name}</div></Td>
+            <tr key={i} style={{ borderBottom: '1px solid var(--ant-color-border)' }}>
+              <Td><Flex align="center" gap={8}><ColorDot color={b.color} />{b.name}</Flex></Td>
               <Td>{b.utilisation}</Td><Td>{b.duration}</Td>
               <Td>
                 <Dropdown
@@ -90,7 +91,7 @@ export default function BusyTimesPage() {
           </>
         }
       >
-        <div className="space-y-4">
+        <Flex vertical gap={16}>
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
           <FormColorPicker value={form.color} onChange={(c) => setField("color", c)} />
           <FormSelect
@@ -103,7 +104,7 @@ export default function BusyTimesPage() {
             ]}
           />
           <FormInput label="Duration (mins)" type="number" value={form.duration} onChange={(e) => setField("duration", e.target.value)} />
-        </div>
+        </Flex>
       </Modal>
     </div>
   );

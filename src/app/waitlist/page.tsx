@@ -8,20 +8,18 @@ import { useSearchParams } from "next/navigation";
 const MapView = nextDynamic(() => import("@/components/MapView"), { ssr: false });
 import type { MapMarker } from "@/components/MapView";
 import {
-  Plus,
-  Filter,
-  List,
-  Map as MapIcon,
-  HelpCircle,
-  ThumbsUp,
-  ThumbsDown,
-  MoreHorizontal,
-  X,
-  Sun,
-  Moon,
-  SunMedium,
-  Columns,
-} from "lucide-react";
+  PlusOutlined,
+  FilterOutlined,
+  UnorderedListOutlined,
+  QuestionCircleOutlined,
+  LikeOutlined,
+  DislikeOutlined,
+  MoreOutlined,
+  CloseOutlined,
+  ColumnWidthOutlined,
+} from "@ant-design/icons";
+import { Sun, Moon, SunMedium, Map as MapIcon } from "lucide-react";
+import { Flex } from "antd";
 import {
   Button,
   PageHeader,
@@ -525,10 +523,10 @@ function WaitlistPageInner() {
 
       {/* ===== SCREENER TAB ===== */}
       {mainTab === "screener" && (
-        <div className="px-[22.5px] py-[10px]">
+        <div style={{ padding: '10px 22.5px' }}>
           <PageHeader title="Screener">
             <Button variant="secondary" size="sm">
-              <HelpCircle className="h-4 w-4" />
+              <QuestionCircleOutlined style={{ fontSize: 16 }} />
               Learn
             </Button>
           </PageHeader>
@@ -552,18 +550,18 @@ function WaitlistPageInner() {
             <TableHead>
               <Th>Triage</Th>
               <Th>
-                <div className="flex items-center gap-1">
+                <Flex align="center" gap={4}>
                   Tags
-                  <Filter className="h-3 w-3 text-text-secondary" />
-                </div>
+                  <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                </Flex>
               </Th>
               <Th>
-                <div className="flex items-center gap-1">
+                <Flex align="center" gap={4}>
                   Client
-                  <svg className="h-3 w-3 text-text-secondary" viewBox="0 0 12 12" fill="currentColor">
+                  <svg className="h-3 w-3" style={{ color: 'var(--ant-color-text-secondary)' }} viewBox="0 0 12 12" fill="currentColor">
                     <path d="M6 0L9 5H3L6 0ZM6 12L3 7H9L6 12Z" />
                   </svg>
-                </div>
+                </Flex>
               </Th>
               <Th>Date of birth</Th>
               <Th>Address</Th>
@@ -576,14 +574,14 @@ function WaitlistPageInner() {
                 pagedScreener.length === 0 ? (
                   <tr>
                     <td colSpan={8}>
-                      <EmptyState message="No screener entries found." className="py-8" />
+                      <EmptyState message="No screener entries found." style={{ padding: '32px 0' }} />
                     </td>
                   </tr>
                 ) : (
                   pagedScreener.map((row, idx) => (
                     <Tr key={idx}>
                       <Td>
-                        <div className="flex flex-row items-center gap-1">
+                        <Flex align="center" gap={4}>
                           <Button
                             variant="secondary"
                             size="sm"
@@ -594,7 +592,7 @@ function WaitlistPageInner() {
                                 : "!text-text-secondary"
                             }`}
                           >
-                            <ThumbsUp className="h-3 w-3" />
+                            <LikeOutlined style={{ fontSize: 12 }} />
                             <span>Yes</span>
                           </Button>
                           <Button
@@ -607,25 +605,25 @@ function WaitlistPageInner() {
                                 : "!text-text-secondary"
                             }`}
                           >
-                            <ThumbsDown className="h-3 w-3" />
+                            <DislikeOutlined style={{ fontSize: 12 }} />
                             <span>No</span>
                           </Button>
-                        </div>
+                        </Flex>
                       </Td>
-                      <Td className="text-text-secondary">{row.tags}</Td>
-                      <Td className="text-primary">{row.client}</Td>
-                      <Td className="text-text-secondary">{row.dob}</Td>
-                      <Td className="text-text-secondary">{row.address}</Td>
-                      <Td className="text-primary">{row.form}</Td>
-                      <Td className="text-text-secondary">
-                        <div className="flex items-center gap-2">
+                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{row.tags}</Td>
+                      <Td style={{ color: 'var(--ant-color-primary)' }}>{row.client}</Td>
+                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{row.dob}</Td>
+                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{row.address}</Td>
+                      <Td style={{ color: 'var(--ant-color-primary)' }}>{row.form}</Td>
+                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>
+                        <Flex align="center" gap={8}>
                           {row.dateSubmitted}
                           {row.archived && <Badge variant="red">Archived</Badge>}
-                        </div>
+                        </Flex>
                       </Td>
                       <Td align="right">
                         <Button variant="ghost" size="sm" className="!px-1.5 !py-1">
-                          <MoreHorizontal className="h-4 w-4" />
+                          <MoreOutlined style={{ fontSize: 16 }} />
                         </Button>
                       </Td>
                     </Tr>
@@ -634,7 +632,7 @@ function WaitlistPageInner() {
               ) : (
                 <tr>
                   <td colSpan={8}>
-                    <EmptyState message="No rejected entries." className="py-8" />
+                    <EmptyState message="No rejected entries." style={{ padding: '32px 0' }} />
                   </td>
                 </tr>
               )}
@@ -661,7 +659,7 @@ function WaitlistPageInner() {
           </>
         }
       >
-        <div className="flex flex-col gap-4">
+        <Flex vertical gap={16}>
           {/* Location */}
           <FormSelect
             label="Location"
@@ -709,24 +707,25 @@ function WaitlistPageInner() {
 
           {/* Service (required) — chips + select to add */}
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Service *</label>
+            <label className="mb-1 block text-label-lg" style={{ color: 'var(--ant-color-text-secondary)' }}>Service *</label>
             {modalServices.length > 0 && (
-              <div className="mb-2 flex flex-wrap gap-1.5">
+              <Flex wrap gap={6} style={{ marginBottom: 8 }}>
                 {modalServices.map((service) => (
                   <Badge key={service} variant="blue" className="rounded-lg !py-1 !px-2.5 gap-1">
-                    <span className="max-w-[220px] truncate">{service}</span>
+                    <span style={{ maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{service}</span>
                     <button
                       type="button"
                       onClick={() => removeService(service)}
-                      className="ml-0.5 rounded-full p-0.5 hover:bg-blue-200"
+                      style={{ marginLeft: 2, borderRadius: '50%', padding: 2 }}
+                      className="hover:bg-blue-200"
                     >
-                      <X className="h-3 w-3" />
+                      <CloseOutlined style={{ fontSize: 12 }} />
                     </button>
                   </Badge>
                 ))}
-              </div>
+              </Flex>
             )}
-            <div className="flex gap-2">
+            <Flex gap={8}>
               <FormSelect
                 value={modalServiceSelect}
                 onChange={setModalServiceSelect}
@@ -739,45 +738,60 @@ function WaitlistPageInner() {
                   { value: "Group Session", label: "Group Session" },
                 ]}
               />
-              <Button variant="secondary" size="sm" onClick={addService} className="shrink-0">
-                <Plus className="h-4 w-4" />
+              <Button variant="secondary" size="sm" onClick={addService} style={{ flexShrink: 0 }}>
+                <PlusOutlined style={{ fontSize: 16 }} />
               </Button>
-            </div>
+            </Flex>
           </div>
 
           {/* Preferred days */}
           <div>
-            <label className="mb-1.5 block text-label-lg text-text-secondary">Preferred days</label>
-            <div className="flex gap-1.5">
+            <label className="mb-1.5 block text-label-lg" style={{ color: 'var(--ant-color-text-secondary)' }}>Preferred days</label>
+            <Flex gap={6}>
               {["S", "M", "T", "W", "T", "F", "S"].map((day, i) => (
                 <button
                   key={i}
                   type="button"
                   onClick={() => toggleDay(i)}
-                  className={`flex h-9 w-9 items-center justify-center rounded-full text-label-md transition-colors ${
-                    modalPreferredDays[i]
-                      ? "bg-primary text-white"
-                      : "border border-border bg-white text-text-secondary hover:bg-gray-50"
-                  }`}
+                  className="text-label-md"
+                  style={{
+                    display: 'flex',
+                    height: 36,
+                    width: 36,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: '50%',
+                    transition: 'background-color 0.2s, color 0.2s',
+                    ...(modalPreferredDays[i]
+                      ? { backgroundColor: 'var(--ant-color-primary)', color: '#fff', border: 'none' }
+                      : { border: '1px solid var(--ant-color-border)', backgroundColor: '#fff', color: 'var(--ant-color-text-secondary)' }),
+                  }}
                 >
                   {day}
                 </button>
               ))}
-            </div>
+            </Flex>
           </div>
 
           {/* Preferred time */}
           <div>
-            <label className="mb-1.5 block text-label-lg text-text-secondary">Preferred time</label>
-            <div className="flex gap-2">
+            <label className="mb-1.5 block text-label-lg" style={{ color: 'var(--ant-color-text-secondary)' }}>Preferred time</label>
+            <Flex gap={8}>
               <button
                 type="button"
                 onClick={() => toggleTime("morning")}
-                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-label-md transition-colors ${
-                  modalPreferredTime.morning
-                    ? "bg-primary text-white"
-                    : "border border-border bg-white text-text-secondary hover:bg-gray-50"
-                }`}
+                className="text-label-md"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  borderRadius: 9999,
+                  padding: '6px 12px',
+                  transition: 'background-color 0.2s, color 0.2s',
+                  ...(modalPreferredTime.morning
+                    ? { backgroundColor: 'var(--ant-color-primary)', color: '#fff', border: 'none' }
+                    : { border: '1px solid var(--ant-color-border)', backgroundColor: '#fff', color: 'var(--ant-color-text-secondary)' }),
+                }}
               >
                 <Sun className="h-4 w-4" />
                 Morning
@@ -785,11 +799,18 @@ function WaitlistPageInner() {
               <button
                 type="button"
                 onClick={() => toggleTime("afternoon")}
-                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-label-md transition-colors ${
-                  modalPreferredTime.afternoon
-                    ? "bg-primary text-white"
-                    : "border border-border bg-white text-text-secondary hover:bg-gray-50"
-                }`}
+                className="text-label-md"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  borderRadius: 9999,
+                  padding: '6px 12px',
+                  transition: 'background-color 0.2s, color 0.2s',
+                  ...(modalPreferredTime.afternoon
+                    ? { backgroundColor: 'var(--ant-color-primary)', color: '#fff', border: 'none' }
+                    : { border: '1px solid var(--ant-color-border)', backgroundColor: '#fff', color: 'var(--ant-color-text-secondary)' }),
+                }}
               >
                 <SunMedium className="h-4 w-4" />
                 Afternoon
@@ -797,16 +818,23 @@ function WaitlistPageInner() {
               <button
                 type="button"
                 onClick={() => toggleTime("evening")}
-                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-label-md transition-colors ${
-                  modalPreferredTime.evening
-                    ? "bg-primary text-white"
-                    : "border border-border bg-white text-text-secondary hover:bg-gray-50"
-                }`}
+                className="text-label-md"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  borderRadius: 9999,
+                  padding: '6px 12px',
+                  transition: 'background-color 0.2s, color 0.2s',
+                  ...(modalPreferredTime.evening
+                    ? { backgroundColor: 'var(--ant-color-primary)', color: '#fff', border: 'none' }
+                    : { border: '1px solid var(--ant-color-border)', backgroundColor: '#fff', color: 'var(--ant-color-text-secondary)' }),
+                }}
               >
                 <Moon className="h-4 w-4" />
                 Evening
               </button>
-            </div>
+            </Flex>
           </div>
 
           {/* Note */}
@@ -820,31 +848,32 @@ function WaitlistPageInner() {
               rows={3}
               placeholder="Add a note..."
             />
-            <p className="mt-1 text-right text-caption-md text-text-secondary">
+            <p className="text-caption-md" style={{ marginTop: 4, textAlign: 'right', color: 'var(--ant-color-text-secondary)' }}>
               {modalNote.length} / 500
             </p>
           </div>
 
           {/* Waitlist tags */}
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Waitlist tags</label>
+            <label className="mb-1 block text-label-lg" style={{ color: 'var(--ant-color-text-secondary)' }}>Waitlist tags</label>
             {modalTags.length > 0 && (
-              <div className="mb-2 flex flex-wrap gap-1.5">
+              <Flex wrap gap={6} style={{ marginBottom: 8 }}>
                 {modalTags.map((tag) => (
                   <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} className="rounded-lg !py-1 !px-2.5 gap-1">
                     {tag}
                     <button
                       type="button"
                       onClick={() => removeTag(tag)}
-                      className="ml-0.5 rounded-full p-0.5 hover:bg-black/10"
+                      style={{ marginLeft: 2, borderRadius: '50%', padding: 2 }}
+                      className="hover:bg-black/10"
                     >
-                      <X className="h-3 w-3" />
+                      <CloseOutlined style={{ fontSize: 12 }} />
                     </button>
                   </Badge>
                 ))}
-              </div>
+              </Flex>
             )}
-            <div className="flex gap-2">
+            <Flex gap={8}>
               <FormSelect
                 value={modalTagSelect}
                 onChange={setModalTagSelect}
@@ -857,28 +886,28 @@ function WaitlistPageInner() {
                   { value: "To assign a unique ID", label: "To assign a unique ID" },
                 ]}
               />
-              <Button variant="secondary" size="sm" onClick={addTag} className="shrink-0">
-                <Plus className="h-4 w-4" />
+              <Button variant="secondary" size="sm" onClick={addTag} style={{ flexShrink: 0 }}>
+                <PlusOutlined style={{ fontSize: 16 }} />
               </Button>
-            </div>
+            </Flex>
           </div>
-        </div>
+        </Flex>
       </Modal>
 
       {/* ===== WAITLIST TAB ===== */}
       {mainTab === "waitlist" && (
-        <div className="px-[22.5px] py-[10px]">
+        <div style={{ padding: '10px 22.5px' }}>
           <PageHeader title="Waitlist">
             <Button variant="secondary" size="sm">
-              <Filter className="h-4 w-4" />
+              <FilterOutlined style={{ fontSize: 16 }} />
               Reset all filters
             </Button>
             <Button variant="secondary" size="sm">
-              <HelpCircle className="h-4 w-4" />
+              <QuestionCircleOutlined style={{ fontSize: 16 }} />
               Learn
             </Button>
             <Button variant="secondary" size="sm">
-              <Columns className="h-4 w-4" />
+              <ColumnWidthOutlined style={{ fontSize: 16 }} />
               Show/hide fields
             </Button>
             {/* Map / List toggle */}
@@ -899,14 +928,14 @@ function WaitlistPageInner() {
                 </>
               ) : (
                 <>
-                  <List className="h-4 w-4" />
+                  <UnorderedListOutlined style={{ fontSize: 16 }} />
                   List
                 </>
               )}
             </Button>
             <Link href="/waitlist/new">
               <Button variant="secondary" size="md">
-                <Plus className="h-4 w-4" />
+                <PlusOutlined style={{ fontSize: 16 }} />
                 Add client
               </Button>
             </Link>
@@ -932,10 +961,10 @@ function WaitlistPageInner() {
               <DataTable minWidth="700px">
                 <TableHead>
                   <Th>
-                    <div className="flex items-center gap-1">
+                    <Flex align="center" gap={4}>
                       Tags
-                      <Filter className="h-3 w-3 text-text-secondary" />
-                    </div>
+                      <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                    </Flex>
                   </Th>
                   <Th>Client</Th>
                   <Th>Date of birth</Th>
@@ -947,17 +976,17 @@ function WaitlistPageInner() {
                   {pagedWaitlist.length === 0 ? (
                     <tr>
                       <td colSpan={6}>
-                        <EmptyState message={`No ${waitlistSubTab} entries found.`} className="py-8" />
+                        <EmptyState message={`No ${waitlistSubTab} entries found.`} style={{ padding: '32px 0' }} />
                       </td>
                     </tr>
                   ) : (
                     pagedWaitlist.map((row, idx) => (
                       <Tr key={idx} onClick={() => openUpdateModal(row)} className="cursor-pointer">
                         <Td>
-                          <div className="flex flex-wrap gap-1">
+                          <Flex wrap gap={4}>
                             {row.tags.map((tag) =>
                               tag === "---" ? (
-                                <span key={tag} className="text-body-md text-text-secondary">
+                                <span key={tag} className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>
                                   ---
                                 </span>
                               ) : (
@@ -966,12 +995,12 @@ function WaitlistPageInner() {
                                 </Badge>
                               ),
                             )}
-                          </div>
+                          </Flex>
                         </Td>
-                        <Td className="text-primary">{row.client}</Td>
-                        <Td className="text-text-secondary">{row.dob}</Td>
-                        <Td className="text-text-secondary">{row.address}</Td>
-                        <Td className="text-text-secondary">{row.dateAdded}</Td>
+                        <Td style={{ color: 'var(--ant-color-primary)' }}>{row.client}</Td>
+                        <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{row.dob}</Td>
+                        <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{row.address}</Td>
+                        <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{row.dateAdded}</Td>
                         <Td align="right">
                           <Button
                             variant="ghost"
@@ -982,7 +1011,7 @@ function WaitlistPageInner() {
                               openUpdateModal(row);
                             }}
                           >
-                            <MoreHorizontal className="h-4 w-4" />
+                            <MoreOutlined style={{ fontSize: 16 }} />
                           </Button>
                         </Td>
                       </Tr>

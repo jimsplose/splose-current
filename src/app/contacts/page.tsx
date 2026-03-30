@@ -1,8 +1,9 @@
 "use client";
 
-import { Plus, ArrowUpDown, Filter } from "lucide-react";
+import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import Link from "next/link";
-import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, usePagination } from "@/components/ds";
+import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination } from "@/components/ds";
 
 const mockContacts = [
   {
@@ -171,18 +172,16 @@ const mockContacts = [
 
 function getTypeLabel(type: string) {
   if (!type) return null;
-  return <span className="text-sm text-text-secondary">{type}</span>;
+  return <span style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>{type}</span>;
 }
 
 export default function ContactsPage() {
-  const { paged, paginationProps } = usePagination(mockContacts, { pageKey: "/contacts" });
-
   return (
-    <div className="px-[22.5px] py-[10px]">
+    <div style={{ padding: '10px 22.5px' }}>
       <PageHeader title="Contacts">
         <Link href="/contacts/new">
           <Button>
-            <Plus className="h-4 w-4" />
+            <PlusOutlined style={{ fontSize: 16 }} />
             New contact
           </Button>
         </Link>
@@ -194,35 +193,35 @@ export default function ContactsPage() {
         <DataTable>
           <TableHead>
             <Th>
-              <div className="flex items-center gap-1">
+              <Flex align="center" gap={4}>
                 Type
-                <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-                <Filter className="h-3 w-3 text-text-secondary" />
-              </div>
+                <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+              </Flex>
             </Th>
             <Th>
-              <div className="flex items-center gap-1">
+              <Flex align="center" gap={4}>
                 Name
-                <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-              </div>
+                <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+              </Flex>
             </Th>
             <Th hidden="md">
-              <div className="flex items-center gap-1">
+              <Flex align="center" gap={4}>
                 Company
-                <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-              </div>
+                <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+              </Flex>
             </Th>
             <Th hidden="md">
-              <div className="flex items-center gap-1">
+              <Flex align="center" gap={4}>
                 Email
-                <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-              </div>
+                <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+              </Flex>
             </Th>
             <Th hidden="lg">Work phone</Th>
             <Th hidden="lg">Mobile phone</Th>
           </TableHead>
           <TableBody>
-            {paged.map((contact) => (
+            {mockContacts.map((contact) => (
               <Tr key={contact.id} clickable className="group relative">
                 <Td className="text-text-secondary">
                   <Link
@@ -257,7 +256,13 @@ export default function ContactsPage() {
             ))}
           </TableBody>
         </DataTable>
-        <Pagination {...paginationProps} />
+        <Pagination
+          currentPage={1}
+          totalPages={1}
+          totalItems={mockContacts.length}
+          itemsPerPage={20}
+          onPageChange={() => {}}
+        />
       </Card>
     </div>
   );

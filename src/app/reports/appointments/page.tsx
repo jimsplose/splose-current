@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { Flex } from "antd";
 import {
   Badge,
   Button,
@@ -146,19 +147,19 @@ export default function ReportsAppointmentsPage() {
       </PageHeader>
 
       {/* Date range */}
-      <div className="mb-4">
-        <label className="mb-1 flex items-center gap-1 text-sm text-text-secondary">
+      <div style={{ marginBottom: 16 }}>
+        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
           <span>&#128197;</span> Date range *
-        </label>
+        </Flex>
         <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
       </div>
 
       {/* Contains note filter */}
-      <div className="mb-4">
-        <label className="mb-1 flex items-center gap-1 text-sm text-text-secondary">
+      <div style={{ marginBottom: 16 }}>
+        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
           <span>&#128196;</span> Contains note
-          <Button variant="ghost" size="sm" className="ml-1 text-red-400 hover:text-red-600">&#10005;</Button>
-        </label>
+          <Button variant="ghost" size="sm" style={{ marginLeft: 4, color: '#f87171' }}>&#10005;</Button>
+        </Flex>
         <FormSelect
           options={[
             { value: "yes", label: "Yes" },
@@ -169,7 +170,7 @@ export default function ReportsAppointmentsPage() {
       </div>
 
       {/* Filter buttons */}
-      <div className="mb-4 flex flex-wrap items-center gap-2">
+      <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 16 }}>
         <Dropdown
           trigger={<Button>Add filter</Button>}
           items={filterOptions.filter((o) => !activeFilters.includes(o.value))}
@@ -178,22 +179,22 @@ export default function ReportsAppointmentsPage() {
         <Button>Save filters</Button>
         <Button>Load filters</Button>
         <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
-      </div>
+      </Flex>
 
       {/* Active filter chips */}
       {activeFilters.length > 0 && (
-        <div className="mb-8 flex flex-wrap items-center gap-2">
+        <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 32 }}>
           {activeFilters.map((f) => (
             <Chip key={f} variant="blue" onRemove={() => handleRemoveFilter(f)}>
               {filterLabels[f]}
             </Chip>
           ))}
-        </div>
+        </Flex>
       )}
 
       {showResults && (
         <>
-          <p className="my-4 text-body-md text-text-secondary">{sortedAppointments.length} items found.</p>
+          <p className="text-body-md" style={{ margin: '16px 0', color: 'var(--ant-color-text-secondary)' }}>{sortedAppointments.length} items found.</p>
           <DataTable>
             <TableHead>
               {columns.map((col) => (

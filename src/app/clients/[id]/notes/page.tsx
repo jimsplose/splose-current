@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import { ArrowUpDown } from "lucide-react";
+import { SwapOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import { Badge, Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
@@ -20,7 +21,7 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
   if (!client) notFound();
 
   return (
-    <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Progress notes">
         <Button>Scroll view</Button>
         <Button>+ New note</Button>
@@ -28,29 +29,29 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
 
       <SearchBar placeholder="Search for content and title" />
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
             <Th>Name</Th>
             <Th>
-              <div className="flex items-center gap-1">
+              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Created by
-                <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-              </div>
+                <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+              </Flex>
             </Th>
             <Th>Service date</Th>
             <Th>Last update</Th>
             <Th>
-              <div className="flex items-center gap-1">
+              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Created at
-                <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-              </div>
+                <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+              </Flex>
             </Th>
           </TableHead>
           <TableBody>
             {client.clinicalNotes.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-sm text-text-secondary">
+                <td colSpan={5} style={{ padding: '32px 16px', textAlign: 'center', fontSize: 14, color: 'var(--ant-color-text-secondary)' }}>
                   No progress notes
                 </td>
               </tr>
@@ -58,22 +59,22 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
               client.clinicalNotes.map((note) => (
                 <Tr key={note.id} clickable>
                   <Td>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs text-text-secondary">»</span>
-                      <span className="text-sm text-text">{note.template}</span>
+                    <Flex align="center" gap={8}>
+                      <span style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>&raquo;</span>
+                      <span style={{ fontSize: 14 }}>{note.template}</span>
                       {note.signed ? (
                         <Badge variant="green">Final</Badge>
                       ) : (
                         <Badge variant="gray">Draft</Badge>
                       )}
-                    </div>
+                    </Flex>
                   </Td>
-                  <Td className="text-text-secondary">{note.practitioner.name}</Td>
+                  <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{note.practitioner.name}</Td>
                   <Td>
-                    <LinkCell>{note.date ? formatDate(note.date) : "—"}</LinkCell>
+                    <LinkCell>{note.date ? formatDate(note.date) : "\u2014"}</LinkCell>
                   </Td>
-                  <Td className="text-text-secondary">{formatDateTime(note.createdAt)}</Td>
-                  <Td className="text-text-secondary">{formatDateTime(note.createdAt)}</Td>
+                  <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{formatDateTime(note.createdAt)}</Td>
+                  <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{formatDateTime(note.createdAt)}</Td>
                 </Tr>
               ))
             )}

@@ -1,7 +1,8 @@
 "use client";
 
 import { Fragment, useState } from "react";
-import { Plus, ArrowUpDown, Filter } from "lucide-react";
+import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge, usePagination } from "@/components/ds";
 
 const mockPayments = [
@@ -102,11 +103,11 @@ export default function PaymentsPage() {
   const { paged, paginationProps } = usePagination(mockPayments, { pageKey: "/payments" });
 
   return (
-    <div className="px-[22.5px] py-[10px]">
+    <div style={{ padding: '10px 22.5px' }}>
       {/* Header */}
       <PageHeader title="Payments">
         <Button variant="secondary">
-          <Plus className="h-4 w-4" />
+          <PlusOutlined style={{ fontSize: 16 }} />
           New payment
         </Button>
       </PageHeader>
@@ -119,19 +120,19 @@ export default function PaymentsPage() {
         <DataTable>
           <TableHead>
             <Th className="w-[280px]">
-              <div className="flex items-center gap-1.5">
+              <Flex align="center" gap={6}>
                 Payment #
-                <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
-                <Filter className="h-3.5 w-3.5 text-text-secondary" />
-              </div>
+                <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+                <FilterOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+              </Flex>
             </Th>
             <Th>From</Th>
             <Th align="right">Amount</Th>
             <Th align="right">
-              <div className="flex items-center justify-end gap-1.5">
+              <Flex align="center" justify="end" gap={6}>
                 Payment date
-                <ArrowUpDown className="h-3.5 w-3.5 text-text-secondary" />
-              </div>
+                <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
+              </Flex>
             </Th>
           </TableHead>
           <TableBody>
@@ -146,7 +147,7 @@ export default function PaymentsPage() {
                   }}
                 >
                   <Td>
-                    <div className="flex items-center gap-2">
+                    <Flex align="center" gap={8}>
                       {payment.invoices.length > 0 ? (
                         <Button variant="icon" size="sm" className="h-5 w-5" round>
                           {expandedId === payment.id ? (
@@ -165,38 +166,38 @@ export default function PaymentsPage() {
                           )}
                         </Button>
                       ) : (
-                        <span className="w-5" />
+                        <span style={{ width: 20 }} />
                       )}
-                      <span className="text-text">{payment.reference}</span>
+                      <span>{payment.reference}</span>
                       {payment.type && <Badge variant="gray">{payment.type}</Badge>}
-                    </div>
+                    </Flex>
                   </Td>
                   <Td><LinkCell>{payment.from}</LinkCell></Td>
-                  <Td align="right" className="text-text">
+                  <Td align="right">
                     {payment.amount.toLocaleString("en-AU", { minimumFractionDigits: 2 })}
                   </Td>
-                  <Td align="right" className="text-text-secondary">
+                  <Td align="right" style={{ color: 'var(--ant-color-text-secondary)' }}>
                     {payment.date}
                   </Td>
                 </Tr>
                 {expandedId === payment.id && payment.invoices.length > 0 && (
                   <tr>
-                    <td colSpan={4} className="bg-gray-50/70 px-4 py-0">
-                      <div className="py-2 pl-7">
-                        <table className="w-full">
+                    <td colSpan={4} style={{ backgroundColor: 'rgba(249, 250, 251, 0.7)', padding: '0 16px' }}>
+                      <div style={{ padding: '8px 0 8px 28px' }}>
+                        <table style={{ width: '100%' }}>
                           <thead>
-                            <tr className="border-b border-border">
-                              <th className="py-2 text-left text-label-lg text-text">Invoice #</th>
-                              <th className="py-2 text-left text-label-lg text-text">Amount</th>
-                              <th className="py-2 text-left text-label-lg text-text">Date</th>
+                            <tr style={{ borderBottom: '1px solid var(--ant-color-border)' }}>
+                              <th style={{ padding: '8px 0', textAlign: 'left' }} className="text-label-lg">Invoice #</th>
+                              <th style={{ padding: '8px 0', textAlign: 'left' }} className="text-label-lg">Amount</th>
+                              <th style={{ padding: '8px 0', textAlign: 'left' }} className="text-label-lg">Date</th>
                             </tr>
                           </thead>
                           <tbody>
                             {payment.invoices.map((inv) => (
                               <tr key={inv.number}>
-                                <td className="py-2 text-sm"><LinkCell>{inv.number}</LinkCell></td>
-                                <td className="py-2 text-sm text-text">{inv.amount.toFixed(2)}</td>
-                                <td className="py-2 text-sm text-text-secondary">{inv.date}</td>
+                                <td style={{ padding: '8px 0', fontSize: 14 }}><LinkCell>{inv.number}</LinkCell></td>
+                                <td style={{ padding: '8px 0', fontSize: 14 }}>{inv.amount.toFixed(2)}</td>
+                                <td style={{ padding: '8px 0', fontSize: 14, color: 'var(--ant-color-text-secondary)' }}>{inv.date}</td>
                               </tr>
                             ))}
                           </tbody>

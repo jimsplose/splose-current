@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { CheckCircle } from "lucide-react";
+import { CheckCircleOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import { Badge, Card, List, Navbar } from "@/components/ds";
 import NoteViewToolbar from "./NoteViewToolbar";
 
@@ -20,7 +21,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
   const clientName = `${note.client.firstName} ${note.client.lastName}`;
 
   return (
-    <div className="min-h-[calc(100vh-3rem)]">
+    <div style={{ minHeight: 'calc(100vh - 3rem)' }}>
       {/* Header bar */}
       <Navbar
         backHref="/"
@@ -29,13 +30,13 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
           <>
             {note.signed ? (
               <Badge variant="green">
-                <CheckCircle className="h-3 w-3" />
+                <CheckCircleOutlined style={{ fontSize: 12 }} />
                 Final
               </Badge>
             ) : (
               <Badge variant="gray">Draft</Badge>
             )}
-            <Link href={`/clients/${note.clientId}`} className="text-label-lg text-primary hover:underline">
+            <Link href={`/clients/${note.clientId}`} className="text-label-lg" style={{ color: 'var(--ant-color-primary)' }}>
               {clientName}
             </Link>
           </>
@@ -51,21 +52,21 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
       </Navbar>
 
       {/* Note content as document */}
-      <div className="mx-auto max-w-3xl p-8">
-        <Card padding="none" className="p-10 shadow-sm">
+      <div style={{ maxWidth: 768, margin: '0 auto', padding: 32 }}>
+        <Card padding="none" className="shadow-sm" style={{ padding: 40 }}>
           {/* Client name with logo */}
-          <div className="mb-4 flex items-start justify-between">
+          <Flex align="start" justify="space-between" style={{ marginBottom: 16 }}>
             <h2 className="text-display-lg">{clientName}</h2>
-            <div className="h-12 w-12 text-3xl">🦆</div>
-          </div>
+            <div style={{ height: 48, width: 48, fontSize: 30 }}>🦆</div>
+          </Flex>
 
           {/* Service info */}
-          <div className="mb-2 text-sm text-text-secondary">
+          <div className="text-sm" style={{ color: 'var(--ant-color-text-secondary)', marginBottom: 8 }}>
             Service: {note.date ? `10:30 am, ${formatNoteDate(note.date)} – Sharon Test 1 (OT – Initial Consult)` : "—"}
           </div>
 
           {/* Client info table */}
-          <div className="mb-8 rounded-lg border border-border px-4 py-2">
+          <div style={{ marginBottom: 32, borderRadius: 8, border: '1px solid var(--ant-color-border)', padding: '8px 16px' }}>
             <List
               labelWidth="w-40"
               items={[
@@ -80,32 +81,32 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
           </div>
 
           {/* SOAP Sections */}
-          <div className="space-y-6">
+          <Flex vertical gap={24}>
             <div>
-              <h3 className="mb-2 text-heading-lg text-text">Subjective</h3>
-              <ul className="list-disc space-y-1 pl-6 text-sm leading-relaxed text-text">
-                <li>
+              <h3 className="text-heading-lg" style={{ marginBottom: 8 }}>Subjective</h3>
+              <ul style={{ listStyleType: 'disc', paddingLeft: 24, fontSize: 14, lineHeight: 1.625 }}>
+                <li style={{ marginBottom: 4 }}>
                   The participant did not provide a session transcript or verbal report regarding communication
                   progress, challenges, or concerns since the last session.
                 </li>
-                <li>No changes in the participant&apos;s communication abilities or confidence were reported.</li>
-                <li>The participant did not state any specific goals or priorities for today&apos;s session.</li>
+                <li style={{ marginBottom: 4 }}>No changes in the participant&apos;s communication abilities or confidence were reported.</li>
+                <li style={{ marginBottom: 4 }}>The participant did not state any specific goals or priorities for today&apos;s session.</li>
                 <li>No preferences or choices about activities or approaches were expressed by the participant.</li>
               </ul>
             </div>
 
             <div>
-              <h3 className="mb-2 text-heading-lg text-text">Objective</h3>
-              <ul className="list-disc space-y-1 pl-6 text-sm leading-relaxed text-text">
-                <li>
+              <h3 className="text-heading-lg" style={{ marginBottom: 8 }}>Objective</h3>
+              <ul style={{ listStyleType: 'disc', paddingLeft: 24, fontSize: 14, lineHeight: 1.625 }}>
+                <li style={{ marginBottom: 4 }}>
                   The participant demonstrated consistent engagement throughout the session, responding to prompts and
                   completing assigned activities as directed.
                 </li>
-                <li>
+                <li style={{ marginBottom: 4 }}>
                   Measurable results from today&apos;s activities were not recorded in the available documentation; no
                   assessment data or specific performance metrics provided.
                 </li>
-                <li>
+                <li style={{ marginBottom: 4 }}>
                   Interventions and strategies used during the session were not detailed in the available records.
                 </li>
                 <li>
@@ -116,17 +117,17 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
             </div>
 
             <div>
-              <h3 className="mb-2 text-heading-lg text-text">Assessment</h3>
-              <ul className="list-disc space-y-1 pl-6 text-sm leading-relaxed text-text">
-                <li>
+              <h3 className="text-heading-lg" style={{ marginBottom: 8 }}>Assessment</h3>
+              <ul style={{ listStyleType: 'disc', paddingLeft: 24, fontSize: 14, lineHeight: 1.625 }}>
+                <li style={{ marginBottom: 4 }}>
                   The participant has demonstrated consistent engagement in therapy sessions over the past two months,
                   with active participation observed at each session.
                 </li>
-                <li>
+                <li style={{ marginBottom: 4 }}>
                   Week-on-week trends indicate the participant is maintaining current skill levels, with no significant
                   improvement or decline noted in recent sessions.
                 </li>
-                <li>
+                <li style={{ marginBottom: 4 }}>
                   Progress towards NDIS plan goals appears steady, with the participant continuing to work towards
                   identified objectives without regression.
                 </li>
@@ -138,22 +139,22 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
             </div>
 
             <div>
-              <h3 className="mb-2 text-heading-lg text-text">Plan</h3>
-              <p className="text-sm leading-relaxed text-text">
+              <h3 className="text-heading-lg" style={{ marginBottom: 8 }}>Plan</h3>
+              <p style={{ fontSize: 14, lineHeight: 1.625 }}>
                 No transcript available for this session. Unable to complete the Plan section as requested due to lack
                 of source information.
               </p>
             </div>
 
             <div>
-              <h3 className="mb-2 text-heading-lg text-text">Goals</h3>
-              <ul className="list-disc space-y-1 pl-6 text-sm leading-relaxed text-text">
-                <li>
+              <h3 className="text-heading-lg" style={{ marginBottom: 8 }}>Goals</h3>
+              <ul style={{ listStyleType: 'disc', paddingLeft: 24, fontSize: 14, lineHeight: 1.625 }}>
+                <li style={{ marginBottom: 4 }}>
                   No session transcript (transcription) is available for today&apos;s session; therefore, no measurable
                   progress, evidence of choice and control, or next steps/homework can be documented for any NDIS plan
                   goal at this time.
                 </li>
-                <li>
+                <li style={{ marginBottom: 4 }}>
                   No NDIS plan goals can be addressed in this section without relevant information from the current
                   session transcript.
                 </li>
@@ -163,19 +164,19 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
                 </li>
               </ul>
             </div>
-          </div>
+          </Flex>
 
           {/* Signature / metadata */}
-          <div className="mt-10 border-t border-border pt-4">
+          <div style={{ marginTop: 40, borderTop: '1px solid var(--ant-color-border)', paddingTop: 16 }}>
             {note.signed ? (
-              <div className="flex items-center gap-2 text-body-md text-green-700">
-                <CheckCircle className="h-4 w-4" />
+              <Flex align="center" gap={8} className="text-body-md" style={{ color: 'var(--ant-color-success)' }}>
+                <CheckCircleOutlined style={{ fontSize: 16 }} />
                 <span className="text-label-lg">
                   Signed and locked by {note.practitioner.name} on {formatNoteDate(note.date)}
                 </span>
-              </div>
+              </Flex>
             ) : (
-              <p className="text-body-md text-text-secondary">
+              <p className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>
                 This note has not been signed yet. Click &quot;Sign &amp; lock&quot; above to finalise.
               </p>
             )}
