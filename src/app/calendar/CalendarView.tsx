@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
+import { Flex } from "antd";
 import {
   LeftOutlined,
   RightOutlined,
@@ -26,13 +27,12 @@ import {
   HistoryOutlined,
   WarningOutlined,
   InfoCircleOutlined,
-  ArrowUpOutlined,
-  SnippetsOutlined,
   SearchOutlined,
   CheckOutlined,
 } from "@ant-design/icons";
 import { Button, Badge, Chip, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert, Dropdown, Card, RadioGroup } from "@/components/ds";
 import AiChatPanel from "@/components/AiChatPanel";
+import styles from "./CalendarView.module.css";
 
 type Appointment = {
   id: string;
@@ -56,7 +56,6 @@ type Practitioner = {
 
 type PractitionerWithLocation = Practitioner & { location: string };
 
-/** Assign practitioners to locations for calendar grouping (prototype data) */
 const LOCATION_NAMES = ["East Clinics", "Splose OT", "Tasks"];
 function assignLocations(practitioners: Practitioner[]): PractitionerWithLocation[] {
   return practitioners.map((p, i) => ({
@@ -88,7 +87,7 @@ type PopoverState = {
   practitionerId: string;
 };
 
-const HOUR_HEIGHT = 80; // pixels per hour row
+const HOUR_HEIGHT = 80;
 const HOURS = Array.from({ length: 11 }, (_, i) => i + 8);
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -128,7 +127,6 @@ function formatTimeShort(hour: number, minute: number): string {
   return `${h12}${mm} ${ampm}`;
 }
 
-/** Convert "HH:MM" to "h:mm am" format */
 function formatTime12h(time: string): string {
   const [h, m] = time.split(":").map(Number);
   const h12 = h > 12 ? h - 12 : h === 0 ? 12 : h;
@@ -137,9 +135,7 @@ function formatTime12h(time: string): string {
   return `${h12}${mm} ${ampm}`;
 }
 
-/** Lighten a hex/rgb color for appointment block backgrounds */
 function lightenColor(color: string, amount = 0.85): string {
-  // Convert hex to RGB
   let r = 200, g = 200, b = 220;
   if (color.startsWith("#")) {
     const hex = color.replace("#", "");
@@ -154,34 +150,12 @@ function lightenColor(color: string, amount = 0.85): string {
       b = parseInt(match[2]);
     }
   }
-  // Lighten by mixing with white
   const lr = Math.round(r + (255 - r) * amount);
   const lg = Math.round(g + (255 - g) * amount);
   const lb = Math.round(b + (255 - b) * amount);
   return `rgb(${lr}, ${lg}, ${lb})`;
 }
 
-/** Darken a color for text on light appointment backgrounds */
-function darkenColor(color: string, amount = 0.4): string {
-  let r = 100, g = 100, b = 120;
-  if (color.startsWith("#")) {
-    const hex = color.replace("#", "");
-    r = parseInt(hex.substring(0, 2), 16);
-    g = parseInt(hex.substring(2, 4), 16);
-    b = parseInt(hex.substring(4, 6), 16);
-  } else if (color.startsWith("rgb")) {
-    const match = color.match(/(\d+)/g);
-    if (match) {
-      r = parseInt(match[0]);
-      g = parseInt(match[1]);
-      b = parseInt(match[2]);
-    }
-  }
-  return `rgb(${Math.round(r * amount)}, ${Math.round(g * amount)}, ${Math.round(b * amount)})`;
-}
-
-/** Return black or white text based on background luminance */
-/** Get status emoji icons for an appointment */
 function getStatusIcons(appt: Appointment): string {
   const icons: string[] = [];
   if (appt.status === "Confirmed") icons.push("✅");
@@ -202,14 +176,12 @@ function getContrastText(color: string): string {
     const match = color.match(/(\d+)/g);
     if (match) { r = parseInt(match[0]); g = parseInt(match[1]); b = parseInt(match[2]); }
   }
-  // Relative luminance formula
   const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-  return luminance > 0.6 ? 'rgb(30, 30, 30)' : 'rgb(255, 255, 255)';
+  return luminance > 0.6 ? "rgb(30, 30, 30)" : "rgb(255, 255, 255)";
 }
 
 function isGroupAppointment(appt: Appointment): boolean {
-  const t = appt.type.toLowerCase();
-  return t.includes("group");
+  return appt.type.toLowerCase().includes("group");
 }
 
 function isDateInPast(dateStr: string): boolean {
@@ -245,7 +217,6 @@ export default function CalendarView({
   const [createClient, setCreateClient] = useState("");
   const [createPractitioner, setCreatePractitioner] = useState("");
   const [createService, setCreateService] = useState("");
-  const [createType, setCreateType] = useState("Initial Assessment");
   const [createCase, setCreateCase] = useState("");
   const [createLocation, setCreateLocation] = useState("Hands Together Therapy (East)");
   const [createRoom, setCreateRoom] = useState("");
@@ -268,31 +239,27 @@ export default function CalendarView({
   const [practitionerFilter, setPractitionerFilter] = useState<string>("all");
   const [bookingForFilter, setBookingForFilter] = useState<string | null>(null);
 
-  // Derive unique locations from assigned practitioners
   const locatedPractitioners = assignLocations(practitioners);
   const uniqueLocations = [...new Set(locatedPractitioners.map(p => p.location))];
 
-  // Filter practitioners based on current filters — use locatedPractitioners to preserve location assignment
   const filteredLocatedPractitioners = locatedPractitioners.filter((p) => {
     if (locationFilter !== "all" && p.location !== locationFilter) return false;
     if (practitionerFilter !== "all" && p.id !== practitionerFilter) return false;
     return true;
   });
-  // Keep a plain Practitioner[] for backward compat (same objects, same order)
   const filteredPractitioners = filteredLocatedPractitioners as Practitioner[];
 
-  // Filter appointments based on visible practitioners
   const filteredAppointments = appointments.filter(appt =>
     filteredLocatedPractitioners.some(p => p.name === appt.practitionerName)
   );
 
-  // Truncate location name for button display
   const locationLabel = locationFilter === "all"
     ? `Locations(All)`
     : locationFilter.length > 12 ? locationFilter.slice(0, 12) + "..." : locationFilter;
   const practitionerLabel = practitionerFilter === "all"
     ? `Practitioners(All)`
     : (practitioners.find(p => p.id === practitionerFilter)?.name.split(" ")[0] || "—");
+
   const [popover, setPopover] = useState<PopoverState>({
     visible: false,
     x: 0,
@@ -306,7 +273,6 @@ export default function CalendarView({
   });
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  // Close popover on outside click
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (popoverRef.current && !popoverRef.current.contains(e.target as Node)) {
@@ -319,7 +285,6 @@ export default function CalendarView({
     }
   }, [popover.visible]);
 
-  // Close custom dropdowns on outside click
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (locationDropdownRef.current && !locationDropdownRef.current.contains(e.target as Node)) {
@@ -335,7 +300,6 @@ export default function CalendarView({
     }
   }, [locationDropdownOpen, practitionerDropdownOpen]);
 
-  // Dev Navigator: ?state= param wiring
   const searchParams = useSearchParams();
   const forcedState = searchParams.get("state");
   useEffect(() => {
@@ -361,7 +325,6 @@ export default function CalendarView({
 
   const today = new Date();
   const monthYear = today.toLocaleDateString("en-AU", { month: "short", year: "numeric" });
-  // All views show month+year in toolbar
   const toolbarDateLabel = monthYear;
 
   function openCreateModal(dateStr?: string, hour?: number, minute?: number, practitionerId?: string) {
@@ -369,7 +332,6 @@ export default function CalendarView({
     if (dateStr && hour !== undefined) {
       setCreateDate(dateStr);
       setCreateTime(formatTime24to12(hour, m));
-      // Default 30 min appointment
       const endMinute = m + 30;
       const endHour = hour + Math.floor(endMinute / 60);
       setCreateEndTime(formatTime24to12(endHour, endMinute % 60));
@@ -401,16 +363,12 @@ export default function CalendarView({
     hour: number,
     prac: Practitioner,
   ) {
-    // Calculate minute from click position within the cell
     const rect = e.currentTarget.getBoundingClientRect();
     const yOffset = e.clientY - rect.top;
     const minuteFraction = yOffset / HOUR_HEIGHT;
-    const minute = Math.floor(minuteFraction * 60 / 30) * 30; // snap to 30-min
+    const minute = Math.floor(minuteFraction * 60 / 30) * 30;
     const clampedMinute = Math.min(minute, 30);
-
     const timeLabel = formatTimeShort(hour, clampedMinute);
-
-    // Position popover near click
     setPopover({
       visible: true,
       x: e.clientX,
@@ -435,7 +393,6 @@ export default function CalendarView({
     const minute = Math.floor(minuteFraction * 60 / 30) * 30;
     const clampedMinute = Math.min(minute, 30);
     const timeLabel = formatTimeShort(hour, clampedMinute);
-
     setPopover({
       visible: true,
       x: e.clientX,
@@ -450,79 +407,77 @@ export default function CalendarView({
   }
 
   return (
-    <div className="flex h-[calc(100vh-3.5rem)] overflow-hidden">
-      <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
+    <div className={styles.root}>
+      <div className={styles.mainContent}>
         {/* Calendar toolbar */}
-        <div className="relative z-30 flex h-[60px] shrink-0 items-center overflow-visible border-b border-gray-200 px-[10px]">
-          {/* All items inline with uniform 2px margins matching production */}
-          <button className="mr-[2px] h-[38px] rounded-lg border border-gray-500 bg-white px-[15px] text-body-md text-text hover:border-primary hover:text-primary">
-            Today
-          </button>
-          <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text hover:bg-gray-100">
+        <div className={styles.toolbar}>
+          <button className={styles.todayBtn}>Today</button>
+          <button className={styles.iconBtn}>
             <LeftOutlined style={{ fontSize: 16 }} />
           </button>
-          <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text hover:bg-gray-100">
+          <button className={styles.iconBtn}>
             <RightOutlined style={{ fontSize: 16 }} />
           </button>
-          {/* Month title hidden — production has no visible title in week/day toolbar */}
-          <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
+          <span className={styles.dateLabel}>{toolbarDateLabel}</span>
+          <button className={styles.iconBtnSecondary}>
             <FilterOutlined style={{ fontSize: 16 }} />
           </button>
-          <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
+          <button className={styles.iconBtnSecondary}>
             <SettingOutlined style={{ fontSize: 16 }} />
           </button>
-          <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
+          <button className={styles.iconBtnSecondary}>
             <CalendarOutlined style={{ fontSize: 16 }} />
           </button>
-          <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
+          <button className={styles.iconBtnSecondary}>
             <BulbOutlined style={{ fontSize: 16 }} />
           </button>
-          {/* Location + Practitioner filter buttons — custom popovers */}
-          <div className="flex items-center gap-[8px]">
+
+          {/* Location + Practitioner filter buttons */}
+          <div className={styles.filterGroup}>
             {/* Location dropdown */}
-            <div className="relative" ref={locationDropdownRef}>
+            <div style={{ position: "relative" }} ref={locationDropdownRef}>
               <button
-                className="hidden h-[38px] items-center gap-1 rounded-lg border border-gray-500 bg-white px-[15px] text-body-md text-text hover:border-primary hover:text-primary sm:inline-flex"
+                className={styles.filterTrigger}
                 onClick={() => { setLocationDropdownOpen(prev => !prev); setPractitionerDropdownOpen(false); setLocationSearchQuery(""); }}
               >
                 {locationLabel}
-                <DownOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                <DownOutlined style={{ fontSize: 14, color: "var(--color-text-secondary)" }} />
               </button>
               {locationDropdownOpen && (
-                <div className="absolute left-0 top-[42px] z-40 w-[260px] rounded-lg border border-border bg-white shadow-lg">
-                  <div className="border-b border-border p-2">
-                    <div className="flex items-center gap-2 rounded-md border border-border bg-gray-50 px-2.5 py-1.5">
-                      <SearchOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                <div className={styles.filterDropdown}>
+                  <div className={styles.filterSearchBox}>
+                    <div className={styles.filterSearchInput}>
+                      <SearchOutlined style={{ fontSize: 14, color: "var(--color-text-secondary)" }} />
                       <input
                         type="text"
                         placeholder="Search locations..."
-                        className="flex-1 bg-transparent text-body-sm text-text outline-none placeholder:text-text-secondary"
+                        className={styles.filterSearchField}
                         value={locationSearchQuery}
                         onChange={(e) => setLocationSearchQuery(e.target.value)}
                         autoFocus
                       />
                     </div>
                   </div>
-                  <div className="max-h-[240px] overflow-y-auto py-1">
+                  <div className={styles.filterList}>
                     <button
-                      className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-body-sm text-text hover:bg-gray-50"
+                      className={styles.filterOption}
                       onClick={() => { setLocationFilter("all"); setLocationDropdownOpen(false); }}
                     >
-                      <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${locationFilter === "all" ? "border-primary bg-primary" : "border-gray-300"}`}>
-                        {locationFilter === "all" && <CheckOutlined style={{ fontSize: 12, color: 'white' }} />}
+                      <div className={locationFilter === "all" ? styles.filterCheckboxChecked : styles.filterCheckbox}>
+                        {locationFilter === "all" && <CheckOutlined style={{ fontSize: 12, color: "white" }} />}
                       </div>
-                      <span className="font-medium">Select all</span>
+                      <span style={{ fontWeight: 500 }}>Select all</span>
                     </button>
                     {uniqueLocations
                       .filter(loc => loc.toLowerCase().includes(locationSearchQuery.toLowerCase()))
                       .map(loc => (
                         <button
                           key={loc}
-                          className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-body-sm text-text hover:bg-gray-50"
+                          className={styles.filterOption}
                           onClick={() => { setLocationFilter(loc); setLocationDropdownOpen(false); }}
                         >
-                          <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${locationFilter === loc ? "border-primary bg-primary" : "border-gray-300"}`}>
-                            {locationFilter === loc && <CheckOutlined style={{ fontSize: 12, color: 'white' }} />}
+                          <div className={locationFilter === loc ? styles.filterCheckboxChecked : styles.filterCheckbox}>
+                            {locationFilter === loc && <CheckOutlined style={{ fontSize: 12, color: "white" }} />}
                           </div>
                           <span>{loc}</span>
                         </button>
@@ -534,68 +489,63 @@ export default function CalendarView({
             </div>
 
             {/* Practitioner dropdown */}
-            <div className="relative" ref={practitionerDropdownRef}>
+            <div style={{ position: "relative" }} ref={practitionerDropdownRef}>
               <button
-                className="hidden h-[38px] items-center gap-1 rounded-lg border border-gray-500 bg-white px-[15px] text-body-md text-text hover:border-primary hover:text-primary sm:inline-flex"
+                className={styles.filterTrigger}
                 onClick={() => { setPractitionerDropdownOpen(prev => !prev); setLocationDropdownOpen(false); setPractitionerSearchQuery(""); }}
               >
                 {practitionerLabel}
-                <DownOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                <DownOutlined style={{ fontSize: 14, color: "var(--color-text-secondary)" }} />
               </button>
               {practitionerDropdownOpen && (
-                <div className="absolute left-0 top-[42px] z-40 w-[280px] rounded-lg border border-border bg-white shadow-lg">
-                  <div className="border-b border-border p-2">
-                    <div className="flex items-center gap-2 rounded-md border border-border bg-gray-50 px-2.5 py-1.5">
-                      <SearchOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                <div className={styles.filterDropdownWide}>
+                  <div className={styles.filterSearchBox}>
+                    <div className={styles.filterSearchInput}>
+                      <SearchOutlined style={{ fontSize: 14, color: "var(--color-text-secondary)" }} />
                       <input
                         type="text"
                         placeholder="Search practitioners..."
-                        className="flex-1 bg-transparent text-body-sm text-text outline-none placeholder:text-text-secondary"
+                        className={styles.filterSearchField}
                         value={practitionerSearchQuery}
                         onChange={(e) => setPractitionerSearchQuery(e.target.value)}
                         autoFocus
                       />
                     </div>
                   </div>
-                  <div className="max-h-[300px] overflow-y-auto py-1">
+                  <div className={styles.filterListTall}>
                     <button
-                      className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-body-sm text-text hover:bg-gray-50"
+                      className={styles.filterOption}
                       onClick={() => { setPractitionerFilter("all"); setPractitionerDropdownOpen(false); }}
                     >
-                      <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${practitionerFilter === "all" ? "border-primary bg-primary" : "border-gray-300"}`}>
-                        {practitionerFilter === "all" && <CheckOutlined style={{ fontSize: 12, color: 'white' }} />}
+                      <div className={practitionerFilter === "all" ? styles.filterCheckboxChecked : styles.filterCheckbox}>
+                        {practitionerFilter === "all" && <CheckOutlined style={{ fontSize: 12, color: "white" }} />}
                       </div>
-                      <span className="font-medium">All practitioners</span>
+                      <span style={{ fontWeight: 500 }}>All practitioners</span>
                     </button>
-                    {/* Grouped by location */}
-                    {groupByLocation(locatedPractitioners)
-                      .map(group => {
-                        const filteredPracs = group.practitioners.filter(p =>
-                          p.name.toLowerCase().includes(practitionerSearchQuery.toLowerCase())
-                        );
-                        if (filteredPracs.length === 0) return null;
-                        return (
-                          <div key={group.name}>
-                            <div className="px-3 pb-0.5 pt-2 text-label-sm uppercase tracking-wide text-text-secondary">
-                              {group.name}
-                            </div>
-                            {filteredPracs.map(p => (
-                              <button
-                                key={p.id}
-                                className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-body-sm text-text hover:bg-gray-50"
-                                onClick={() => { setPractitionerFilter(p.id); setPractitionerDropdownOpen(false); }}
-                              >
-                                <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${practitionerFilter === p.id ? "border-primary bg-primary" : "border-gray-300"}`}>
-                                  {practitionerFilter === p.id && <CheckOutlined style={{ fontSize: 12, color: 'white' }} />}
-                                </div>
-                                <ColorDot color={p.color} size="sm" />
-                                <span>{p.name}</span>
-                              </button>
-                            ))}
-                          </div>
-                        );
-                      })
-                    }
+                    {groupByLocation(locatedPractitioners).map(group => {
+                      const filteredPracs = group.practitioners.filter(p =>
+                        p.name.toLowerCase().includes(practitionerSearchQuery.toLowerCase())
+                      );
+                      if (filteredPracs.length === 0) return null;
+                      return (
+                        <div key={group.name}>
+                          <div className={styles.filterGroupLabel}>{group.name}</div>
+                          {filteredPracs.map(p => (
+                            <button
+                              key={p.id}
+                              className={styles.filterOption}
+                              onClick={() => { setPractitionerFilter(p.id); setPractitionerDropdownOpen(false); }}
+                            >
+                              <div className={practitionerFilter === p.id ? styles.filterCheckboxChecked : styles.filterCheckbox}>
+                                {practitionerFilter === p.id && <CheckOutlined style={{ fontSize: 12, color: "white" }} />}
+                              </div>
+                              <ColorDot color={p.color} size="sm" />
+                              <span>{p.name}</span>
+                            </button>
+                          ))}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               )}
@@ -604,35 +554,30 @@ export default function CalendarView({
 
           {/* Booking-for filter pill */}
           {bookingForFilter && (
-            <Chip variant="yellow" className="ml-2 hidden sm:inline-flex" onRemove={() => setBookingForFilter(null)}>
+            <Chip variant="yellow" className={styles.bookingChip} onRemove={() => setBookingForFilter(null)}>
               Booking for <strong>{bookingForFilter}</strong>
             </Chip>
           )}
 
-          {/* Flexible spacer */}
-          <div className="flex-1" />
+          <div className={styles.toolbarSpacer} />
 
-          {/* Right group: sparkle, Calendar, Week — lighter borders */}
-          <div className="flex items-center gap-[5px]">
+          {/* Right group: sparkle, Calendar, Week */}
+          <div className={styles.toolbarRight}>
             <button
-              className={`flex h-[38px] w-[38px] items-center justify-center rounded-full border text-primary hover:bg-purple-50 ${showAISidebar ? "border-primary bg-purple-50" : "border-gray-500"}`}
+              className={showAISidebar ? styles.sparkleBtnActive : styles.sparkleBtn}
               onClick={() => setShowAISidebar(prev => !prev)}
             >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Large 4-pointed star — upper right */}
                 <path d="M16 3C16 3 16.5 6.5 17 8C17.5 9.5 19 10.5 21 11C19 11.5 17.5 12.5 17 14C16.5 15.5 16 19 16 19C16 19 15.5 15.5 15 14C14.5 12.5 13 11.5 11 11C13 10.5 14.5 9.5 15 8C15.5 6.5 16 3 16 3Z" fill="currentColor"/>
-                {/* Medium 4-pointed star — lower left */}
                 <path d="M8 14C8 14 8.3 15.8 8.6 16.7C8.9 17.6 9.6 18.3 10.8 18.7C9.6 19.1 8.9 19.8 8.6 20.7C8.3 21.6 8 23.4 8 23.4C8 23.4 7.7 21.6 7.4 20.7C7.1 19.8 6.4 19.1 5.2 18.7C6.4 18.3 7.1 17.6 7.4 16.7C7.7 15.8 8 14 8 14Z" fill="currentColor"/>
-                {/* Small 4-pointed star — left middle */}
                 <path d="M5 7C5 7 5.15 7.9 5.3 8.3C5.45 8.7 5.8 9 6.4 9.2C5.8 9.4 5.45 9.7 5.3 10.1C5.15 10.5 5 11.4 5 11.4C5 11.4 4.85 10.5 4.7 10.1C4.55 9.7 4.2 9.4 3.6 9.2C4.2 9 4.55 8.7 4.7 8.3C4.85 7.9 5 7 5 7Z" fill="currentColor"/>
               </svg>
             </button>
 
-            {/* Calendar/Rooms dropdown — lighter border */}
             <Dropdown
               trigger={
-                <button className="h-[38px] rounded-lg border border-gray-300 bg-white px-[15px] text-body-md text-text">
-                  {calendarMode} <span className="ml-1 text-text-secondary">&#9662;</span>
+                <button className={styles.dropdownTrigger}>
+                  {calendarMode} <span className={styles.dropdownArrow}>&#9662;</span>
                 </button>
               }
               items={[
@@ -643,11 +588,10 @@ export default function CalendarView({
               align="right"
             />
 
-            {/* View mode dropdown — lighter border */}
             <Dropdown
               trigger={
-                <button className="h-[38px] rounded-lg border border-gray-300 bg-white px-[15px] text-body-md text-text">
-                  {viewMode} <span className="ml-1 text-text-secondary">&#9662;</span>
+                <button className={styles.dropdownTrigger}>
+                  {viewMode} <span className={styles.dropdownArrow}>&#9662;</span>
                 </button>
               }
               items={[
@@ -666,115 +610,95 @@ export default function CalendarView({
           <MonthView appointments={appointments} todayStr={todayStr} onApptClick={(appt) => setSelectedAppt(appt)} />
         )}
 
-        {/* Day view — one column per practitioner */}
+        {/* Day view */}
         {viewMode === "Day" && (
           <>
-            <div className="overflow-x-auto">
-              {/* Practitioner name headers */}
+            <div className={styles.dayViewScroll}>
               <div
-                className="grid min-w-[700px] border-b border-border"
+                className={styles.dayViewHeaderGrid}
                 style={{ gridTemplateColumns: `60px repeat(${filteredPractitioners.length}, 1fr)` }}
               >
-                <div className="border-r border-border" />
-                {filteredPractitioners.map((p, idx) => (
-                  <div
-                    key={p.id}
-                    className={`border-r border-border px-1 py-1.5 text-center last:border-r-0`}
-                  >
-                    <div className="flex items-center justify-center gap-1">
-                      <span className="truncate text-body-md text-text-secondary">
-                        {p.name}
-                      </span>
+                <div className={styles.dayViewGutter} />
+                {filteredPractitioners.map((p) => (
+                  <div key={p.id} className={styles.dayViewPracHeader}>
+                    <div className={styles.dayViewPracName}>
+                      <span className={styles.dayViewPracNameText}>{p.name}</span>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Time grid — Day view */}
-            <div className="flex-1 overflow-x-auto overflow-y-auto">
+            <div className={styles.dayViewGrid}>
               <div
-                className="grid min-w-[700px]"
+                className={styles.dayViewGridInner}
                 style={{ gridTemplateColumns: `60px repeat(${filteredPractitioners.length}, 1fr)` }}
               >
                 {HOURS.map((hour) => {
                   const locGroups = groupByLocation(filteredLocatedPractitioners);
                   return (
-                  <div key={hour} className="contents">
-                    <div
-                      className="flex items-start justify-end px-2 py-1"
-                      style={{ height: `${HOUR_HEIGHT}px`, borderBottom: '1px solid var(--color-border)', borderRight: '1px solid var(--color-border)' }}
-                    >
-                      <span className="-mt-1.5 text-[10px] text-text">
-                        {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
-                      </span>
-                    </div>
-                    {(() => {
-                      let pracIdx = 0;
-                      return locGroups.map((group, gi) =>
-                        group.practitioners.map((prac) => {
-                          const currentDay = weekDates.find((d) => d === todayStr) || weekDates[0];
-                          const hourAppts = filteredAppointments.filter(
-                            (a) =>
-                              a.date === currentDay &&
-                              a.practitionerName === prac.name &&
-                              parseInt(a.startTime.split(":")[0]) === hour,
-                          );
-                          // Per-practitioner availability (prototype data)
-                          const pracAvailStart = 8 + (pracIdx % 3); // 8, 9, or 10
-                          const pracAvailEnd = 15 + (pracIdx % 4);  // 15, 16, 17, or 18
-                          const isUnavailable = hour < pracAvailStart || hour >= pracAvailEnd;
-                          const isGroupEnd = pracIdx === locGroups.slice(0, gi + 1).reduce((s, g) => s + g.practitioners.length, 0) - 1;
-                          pracIdx++;
-                          return (
-                            <div
-                              key={prac.id}
-                              className="relative cursor-pointer hover:bg-gray-50/30"
-                              style={{
-                                height: `${HOUR_HEIGHT}px`,
-                                borderBottom: '1px solid var(--color-border)',
-                                borderRight: isGroupEnd ? '1px solid var(--color-border)' : '1px solid var(--color-border)',
-                                backgroundColor: isUnavailable ? '#f0f0f0' : gi % 2 === 0 ? '#f3f4f6' : '#ffffff',
-                              }}
-                              onClick={(e) => handleDayCellClick(e, currentDay, hour, prac)}
-                            >
-                              {/* 15-min subdivision lines */}
-                              <div className="pointer-events-none absolute inset-0">
-                                <div className="absolute w-full" style={{ top: '25%', borderBottom: '1px solid var(--color-border)' }} />
-                                <div className="absolute w-full" style={{ top: '50%', borderBottom: '1px solid var(--color-border)' }} />
-                                <div className="absolute w-full" style={{ top: '75%', borderBottom: '1px solid var(--color-border)' }} />
-                              </div>
-                          {hourAppts.map((appt) => {
-                            const pos = getApptStyle(appt);
+                    <div key={hour} style={{ display: "contents" }}>
+                      <div className={styles.dayViewTimeLabelCell} style={{ height: HOUR_HEIGHT }}>
+                        <span className={styles.timeLabel}>
+                          {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
+                        </span>
+                      </div>
+                      {(() => {
+                        let pracIdx = 0;
+                        return locGroups.map((group, gi) =>
+                          group.practitioners.map((prac) => {
+                            const currentDay = weekDates.find((d) => d === todayStr) || weekDates[0];
+                            const hourAppts = filteredAppointments.filter(
+                              (a) =>
+                                a.date === currentDay &&
+                                a.practitionerName === prac.name &&
+                                parseInt(a.startTime.split(":")[0]) === hour,
+                            );
+                            const pracAvailStart = 8 + (pracIdx % 3);
+                            const pracAvailEnd = 15 + (pracIdx % 4);
+                            const isUnavailable = hour < pracAvailStart || hour >= pracAvailEnd;
+                            pracIdx++;
                             return (
                               <div
-                                key={appt.id}
-                                className="absolute inset-x-1 z-10 cursor-pointer overflow-hidden rounded px-2 py-1.5 shadow-sm"
+                                key={prac.id}
+                                className={styles.dayViewPracCell}
                                 style={{
-                                  backgroundColor: appt.practitionerColor,
-                                  color: getContrastText(appt.practitionerColor),
-                                  opacity: appt.status === "Cancelled" ? 0.5 : 1,
-                                  ...pos,
+                                  height: HOUR_HEIGHT,
+                                  backgroundColor: isUnavailable ? "#f0f0f0" : gi % 2 === 0 ? "#f3f4f6" : "#ffffff",
                                 }}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setSelectedAppt(appt);
-                                }}
+                                onClick={(e) => handleDayCellClick(e, currentDay, hour, prac)}
                               >
-                                <p className="truncate text-body-sm font-bold">{appt.clientName} {getStatusIcons(appt)}</p>
-                                <p className="text-body-sm">
-                                  {formatTime12h(appt.startTime)} – {formatTime12h(appt.endTime)}
-                                </p>
-                                <p className="truncate text-body-sm">{appt.type}</p>
+                                <div className={styles.subdivisionLines}>
+                                  <div className={styles.subdivisionLine25} />
+                                  <div className={styles.subdivisionLine50} />
+                                  <div className={styles.subdivisionLine75} />
+                                </div>
+                                {hourAppts.map((appt) => {
+                                  const pos = getApptStyle(appt);
+                                  return (
+                                    <div
+                                      key={appt.id}
+                                      className={styles.apptBlock}
+                                      style={{
+                                        backgroundColor: appt.practitionerColor,
+                                        color: getContrastText(appt.practitionerColor),
+                                        opacity: appt.status === "Cancelled" ? 0.5 : 1,
+                                        ...pos,
+                                      }}
+                                      onClick={(e) => { e.stopPropagation(); setSelectedAppt(appt); }}
+                                    >
+                                      <p className={styles.apptClientName}>{appt.clientName} {getStatusIcons(appt)}</p>
+                                      <p className={styles.apptTime}>{formatTime12h(appt.startTime)} – {formatTime12h(appt.endTime)}</p>
+                                      <p className={styles.apptType}>{appt.type}</p>
+                                    </div>
+                                  );
+                                })}
                               </div>
                             );
-                          })}
-                            </div>
-                          );
-                        })
-                      );
-                    })()}
-                  </div>
+                          })
+                        );
+                      })()}
+                    </div>
                   );
                 })}
               </div>
@@ -782,95 +706,86 @@ export default function CalendarView({
           </>
         )}
 
-        {/* Week view — practitioner sub-columns per day, horizontally scrollable */}
+        {/* Week view */}
         {viewMode === "Week" && (() => {
-          const COL_W = 55; // px per practitioner column
+          const COL_W = 55;
           const naturalDayWidth = filteredPractitioners.length * COL_W;
-          // Ensure week fills viewport: each day gets at least (100% - gutter) / 7
-          const minDayWidth = Math.max(naturalDayWidth, 120); // minimum 120px per day
-          const useFlexible = naturalDayWidth * 7 + 48 < 900; // if total < 900px, use flexible layout
-          const dayWidth = useFlexible ? 0 : naturalDayWidth; // 0 = use 1fr
-          const totalWidth = useFlexible ? '100%' : `${48 + naturalDayWidth * 7}px`;
+          const useFlexible = naturalDayWidth * 7 + 48 < 900;
+          const totalWidth = useFlexible ? "100%" : `${48 + naturalDayWidth * 7}px`;
           const gridCols = useFlexible ? `48px repeat(7, 1fr)` : `48px repeat(7, ${naturalDayWidth}px)`;
           return (
-          <>
-            {/* Single scrollable container for header + grid */}
-            <div className="flex-1 overflow-auto">
-              {/* Sticky day + practitioner headers */}
-              <div className="sticky top-0 z-20 bg-white">
-                {/* Day name + number row — NO vertical borders */}
-                <div style={{ width: totalWidth, display: "grid", gridTemplateColumns: gridCols }}>
-                  <div />
-                  {weekDates.map((dateStr, i) => {
-                    const date = new Date(dateStr + "T00:00:00");
-                    const isToday = dateStr === todayStr;
-                    return (
-                      <div key={i} className="px-2 pt-2 pb-1 text-center">
-                        <div className={`text-label-lg ${isToday ? "text-primary" : "text-[rgb(112,117,122)]"}`}>{DAYS[i]}</div>
-                        {isToday ? (
-                          <div className="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-primary text-body-lg text-white">{date.getDate()}</div>
-                        ) : (
-                          <div className="text-display-md !font-medium text-[rgb(112,117,122)]">{date.getDate()}</div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-                {/* Location groups + practitioner names — WITH vertical borders */}
-                <div style={{ width: totalWidth, display: "grid", gridTemplateColumns: gridCols }} className="border-b border-border">
-                  <div className="border-r border-gray-300" />
-                  {weekDates.map((dateStr, i) => {
-                    const isToday = dateStr === todayStr;
-                    return (
-                      <div key={i} className="border-r border-gray-300 last:border-r-0">
-                      {/* Location group headers */}
-                      <div className="flex">
-                        {groupByLocation(filteredLocatedPractitioners).map((group, gi) => (
-                          <div key={group.name} className={`text-center ${gi > 0 ? "border-l border-border" : ""}`} style={useFlexible ? { flex: group.practitioners.length } : { width: group.practitioners.length * COL_W }}>
-                            <div className="truncate px-1 py-0.5 text-body-md text-text-secondary">{group.name}</div>
-                          </div>
-                        ))}
-                      </div>
-                      {/* Practitioner column headers */}
-                      <div className="flex border-t border-border/30 px-px">
-                        {groupByLocation(filteredLocatedPractitioners).map((group, gi) => (
-                          <div key={group.name} className={`flex ${gi > 0 ? "border-l border-border" : ""}`}>
-                            {group.practitioners.map((p) => (
-                              <div key={p.id} className="flex flex-col items-center py-1" style={useFlexible ? { flex: 1 } : { width: COL_W }}>
-                                <span className="w-full truncate px-0.5 text-center text-body-md text-text-secondary">
-                                  {p.name.length > 6 ? p.name.slice(0, 5) + "..." : p.name}
-                                </span>
-                              </div>
-                            ))}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })}
-                </div>
-              </div>
-
-              {/* Time grid (scrolls with header) */}
-              <div style={{ width: totalWidth, display: "grid", gridTemplateColumns: gridCols }}>
-                {HOURS.map((hour) => (
-                  <div key={hour} className="contents">
-                    <div className="flex items-start justify-end border-r border-border/40 px-1 py-1" style={{ height: HOUR_HEIGHT, borderBottom: '1px solid var(--color-border)' }}>
-                      <span className="-mt-1.5 text-[10px] text-text">
-                        {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
-                      </span>
-                    </div>
-                    {weekDates.map((dateStr, dayIdx) => {
+            <>
+              <div className={styles.weekContainer}>
+                <div className={styles.weekStickyHeader}>
+                  {/* Day name + number row */}
+                  <div style={{ width: totalWidth, display: "grid", gridTemplateColumns: gridCols }}>
+                    <div />
+                    {weekDates.map((dateStr, i) => {
+                      const date = new Date(dateStr + "T00:00:00");
+                      const isToday = dateStr === todayStr;
                       return (
-                        <div key={dayIdx} className="relative border-r border-border last:border-r-0" style={{ height: HOUR_HEIGHT, borderBottom: '1px solid var(--color-border)' }}>
-                          {/* 15-minute subdivision lines */}
-                          <div className="pointer-events-none absolute inset-0">
-                            <div className="absolute w-full" style={{ top: '25%', borderBottom: '1px solid var(--color-border)' }} />
-                            <div className="absolute w-full" style={{ top: '50%', borderBottom: '1px solid var(--color-border)' }} />
-                            <div className="absolute w-full" style={{ top: '75%', borderBottom: '1px solid var(--color-border)' }} />
+                        <div key={i} className={styles.dayHeader}>
+                          <div className={isToday ? styles.dayOfWeekToday : styles.dayOfWeek}>{DAYS[i]}</div>
+                          {isToday ? (
+                            <div className={styles.dayNumberToday}>{date.getDate()}</div>
+                          ) : (
+                            <div className={styles.dayNumber}>{date.getDate()}</div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                  {/* Location groups + practitioner names */}
+                  <div style={{ width: totalWidth, display: "grid", gridTemplateColumns: gridCols }} className={styles.weekSubHeader}>
+                    <div className={styles.weekSubHeaderGutter} />
+                    {weekDates.map((dateStr, i) => (
+                      <div key={i} className={styles.daySubColumn}>
+                        <Flex>
+                          {groupByLocation(filteredLocatedPractitioners).map((group, gi) => (
+                            <div
+                              key={group.name}
+                              className={`${styles.locationGroupHeader} ${gi > 0 ? styles.locationGroupBorder : ""}`}
+                              style={useFlexible ? { flex: group.practitioners.length } : { width: group.practitioners.length * COL_W }}
+                            >
+                              {group.name}
+                            </div>
+                          ))}
+                        </Flex>
+                        <div className={styles.practitionerHeaderRow}>
+                          {groupByLocation(filteredLocatedPractitioners).map((group, gi) => (
+                            <Flex key={group.name} className={gi > 0 ? styles.locationGroupBorder : undefined}>
+                              {group.practitioners.map((p) => (
+                                <div key={p.id} className={styles.practitionerName} style={useFlexible ? { flex: 1 } : { width: COL_W }}>
+                                  <span className={styles.practitionerNameText}>
+                                    {p.name.length > 6 ? p.name.slice(0, 5) + "..." : p.name}
+                                  </span>
+                                </div>
+                              ))}
+                            </Flex>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Time grid */}
+                <div style={{ width: totalWidth, display: "grid", gridTemplateColumns: gridCols }}>
+                  {HOURS.map((hour) => (
+                    <div key={hour} style={{ display: "contents" }}>
+                      <div className={styles.timeLabelCell} style={{ height: HOUR_HEIGHT }}>
+                        <span className={styles.timeLabel}>
+                          {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
+                        </span>
+                      </div>
+                      {weekDates.map((dateStr, dayIdx) => (
+                        <div key={dayIdx} className={styles.hourCell} style={{ height: HOUR_HEIGHT }}>
+                          <div className={styles.subdivisionLines}>
+                            <div className={styles.subdivisionLine25} />
+                            <div className={styles.subdivisionLine50} />
+                            <div className={styles.subdivisionLine75} />
                           </div>
-                          {/* Practitioner sub-columns */}
-                          <div className="absolute inset-0 flex">
+                          <Flex style={{ position: "absolute", inset: 0 }}>
                             {(() => {
                               const locGroups = groupByLocation(filteredLocatedPractitioners);
                               let colIndex = 0;
@@ -879,8 +794,6 @@ export default function CalendarView({
                                   const hourAppts = filteredAppointments.filter(
                                     (a) => a.date === dateStr && a.practitionerName === prac.name && parseInt(a.startTime.split(":")[0]) === hour,
                                   );
-                                  const isGroupBorder = colIndex === 0 ? false : colIndex === locGroups.slice(0, gi).reduce((sum, g) => sum + g.practitioners.length, 0);
-                                  // Per-practitioner availability (prototype data)
                                   const pracAvailStart = 8 + (colIndex % 3);
                                   const pracAvailEnd = 15 + (colIndex % 4);
                                   const isUnavailable = hour < pracAvailStart || hour >= pracAvailEnd;
@@ -888,55 +801,53 @@ export default function CalendarView({
                                   return (
                                     <div
                                       key={prac.id}
-                                      className="relative cursor-pointer hover:bg-gray-50/30"
+                                      className={styles.pracSubCol}
                                       style={{
                                         ...(useFlexible ? { flex: 1 } : { width: COL_W }),
-                                        backgroundColor: isUnavailable ? '#f0f0f0' : gi % 2 === 0 ? '#f3f4f6' : '#ffffff',
-                                        borderRight: isGroupBorder ? '1px solid var(--color-border)' : '1px solid var(--color-border)',
+                                        backgroundColor: isUnavailable ? "#f0f0f0" : gi % 2 === 0 ? "#f3f4f6" : "#ffffff",
                                       }}
                                       onClick={(e) => handleCellClick(e, dateStr, hour)}
                                     >
-                                  {hourAppts.map((appt) => {
-                                    const pos = getApptStyle(appt);
-                                    return (
-                                      <div
-                                        key={appt.id}
-                                        className="absolute inset-x-0.5 z-10 cursor-pointer overflow-hidden rounded-sm px-1 py-0.5"
-                                        style={{
-                                          backgroundColor: appt.practitionerColor,
-                                          color: getContrastText(appt.practitionerColor),
-                                          opacity: appt.status === "Cancelled" ? 0.5 : 1,
-                                          ...pos,
-                                        }}
-                                        onClick={(e) => { e.stopPropagation(); setSelectedAppt(appt); }}
-                                      >
-                                        <p className="truncate text-body-sm font-bold">{appt.clientName} {getStatusIcons(appt)}</p>
-                                        <p className="text-body-sm">{formatTime12h(appt.startTime)}</p>
-                                        <p className="truncate text-body-sm">{appt.type}</p>
-                                      </div>
-                                    );
-                                  })}
+                                      {hourAppts.map((appt) => {
+                                        const pos = getApptStyle(appt);
+                                        return (
+                                          <div
+                                            key={appt.id}
+                                            className={styles.apptBlockSmall}
+                                            style={{
+                                              backgroundColor: appt.practitionerColor,
+                                              color: getContrastText(appt.practitionerColor),
+                                              opacity: appt.status === "Cancelled" ? 0.5 : 1,
+                                              ...pos,
+                                            }}
+                                            onClick={(e) => { e.stopPropagation(); setSelectedAppt(appt); }}
+                                          >
+                                            <p className={styles.apptClientName}>{appt.clientName} {getStatusIcons(appt)}</p>
+                                            <p className={styles.apptTime}>{formatTime12h(appt.startTime)}</p>
+                                            <p className={styles.apptType}>{appt.type}</p>
+                                          </div>
+                                        );
+                                      })}
                                     </div>
                                   );
                                 })
                               );
                             })()}
-                          </div>
+                          </Flex>
                         </div>
-                      );
-                    })}
-                  </div>
-                ))}
+                      ))}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          </>
-        );
+            </>
+          );
         })()}
       </div>
 
       {/* AI Sidebar Panel */}
       <div
-        className="flex shrink-0 flex-col border-l border-border bg-white shadow-lg transition-all duration-300 ease-in-out"
+        className={styles.aiSidebar}
         style={{
           width: showAISidebar ? 360 : 0,
           minWidth: showAISidebar ? 360 : 0,
@@ -951,13 +862,13 @@ export default function CalendarView({
 
       {/* Rooms/Resources placeholder */}
       {calendarMode === "Rooms/resources" && viewMode !== "Month" && (
-        <div className="absolute inset-0 top-12 z-10 flex items-center justify-center bg-white/80">
-          <div className="text-center">
-            <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
-              <AppstoreOutlined style={{ fontSize: 32, color: '#9ca3af' }} />
+        <div className={styles.roomsOverlay}>
+          <div className={styles.roomsOverlayContent}>
+            <div className={styles.roomsOverlayIcon}>
+              <AppstoreOutlined style={{ fontSize: 32, color: "#9ca3af" }} />
             </div>
             <p className="text-body-md text-text-secondary">Rooms/Resources view</p>
-            <p className="mt-1 text-caption-md text-text-secondary">Select rooms to display in the calendar</p>
+            <p className="text-caption-md text-text-secondary" style={{ marginTop: 4 }}>Select rooms to display in the calendar</p>
           </div>
         </div>
       )}
@@ -966,53 +877,41 @@ export default function CalendarView({
       {popover.visible && (
         <div
           ref={popoverRef}
-          className="fixed z-30 w-52"
-          style={{
-            left: `${popover.x - 104}px`,
-            top: `${popover.y - 180}px`,
-          }}
+          className={styles.popover}
+          style={{ left: popover.x - 104, top: popover.y - 180 }}
         >
           <Card padding="none" className="shadow-lg">
-            <div className="px-3 pt-3 pb-1">
+            <div style={{ padding: "12px 12px 4px" }}>
               <p className="text-heading-sm text-text">{popover.time}</p>
             </div>
-            <div className="py-1">
+            <div style={{ padding: "4px 0" }}>
               <Button
                 variant="ghost"
                 className="w-full justify-start gap-2.5 px-3 py-2"
-                onClick={() => {
-                  setPopover((prev) => ({ ...prev, visible: false }));
-                  // Support activity - just close for now
-                }}
+                onClick={() => setPopover((prev) => ({ ...prev, visible: false }))}
               >
-                <ClockCircleOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
+                <ClockCircleOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
                 Support activity
               </Button>
               <Button
                 variant="ghost"
                 className="w-full justify-start gap-2.5 px-3 py-2"
-                onClick={() => {
-                  setPopover((prev) => ({ ...prev, visible: false }));
-                  // Busy time - just close for now
-                }}
+                onClick={() => setPopover((prev) => ({ ...prev, visible: false }))}
               >
-                <StopOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
+                <StopOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
                 Busy time
               </Button>
               <Button
                 variant="ghost"
                 className="w-full justify-start gap-2.5 px-3 py-2"
-                onClick={() => {
-                  openCreateModal(popover.dateStr, popover.hour, popover.minute, popover.practitionerId);
-                }}
+                onClick={() => openCreateModal(popover.dateStr, popover.hour, popover.minute, popover.practitionerId)}
               >
-                <CalendarOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
+                <CalendarOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
                 Appointment
               </Button>
             </div>
-            {/* Downward arrow */}
-            <div className="flex justify-center pb-0">
-              <div className="h-0 w-0 border-x-8 border-t-8 border-x-transparent border-t-white drop-shadow-sm" />
+            <div className={styles.popoverArrow}>
+              <div className={styles.popoverArrowShape} />
             </div>
           </Card>
         </div>
@@ -1036,435 +935,219 @@ export default function CalendarView({
         maxWidth="lg"
         footer={
           <>
-            <Button variant="secondary" onClick={() => setShowCreateModal(false)}>
-              Cancel
-            </Button>
-            <Button variant="primary" onClick={() => setShowCreateModal(false)}>
-              Create
-            </Button>
+            <Button variant="secondary" onClick={() => setShowCreateModal(false)}>Cancel</Button>
+            <Button variant="primary" onClick={() => setShowCreateModal(false)}>Create</Button>
           </>
         }
       >
-            <div className="space-y-4">
-              {/* Past date warning */}
-              {createDate && isDateInPast(createDate) && (
-                <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16, color: '#ca8a04' }} />}>
-                  This appointment is in the past. Are you sure you want to create it?
-                </Alert>
-              )}
-
-              {/* Location */}
-              <FormSelect
-                label="Location"
-                value={createLocation}
-                onChange={setCreateLocation}
-                options={[
-                  { value: "Hands Together Therapy (East)", label: "Hands Together Therapy (East)" },
-                  { value: "Hands Together Therapy (West)", label: "Hands Together Therapy (West)" },
-                ]}
-              />
-
-              {/* Practitioner */}
-              <FormSelect
-                label="Practitioner *"
-                value={createPractitioner}
-                onChange={setCreatePractitioner}
-                options={practitioners.map((p) => ({
-                  value: p.id,
-                  label: p.name,
-                }))}
-              />
-
-              {/* Client */}
-              <FormInput
-                label="Client *"
-                type="text"
-                value={createClient}
-                onChange={(e) => setCreateClient(e.target.value)}
-                placeholder="Start typing to search client..."
-              />
-
-              {/* Recent clients — quick-fill chips */}
-              {!createClient && (
-                <div>
-                  <p className="mb-1.5 text-label-md text-text-secondary">Recent clients</p>
-                  <div className="flex flex-wrap gap-2">
-                    {["Sarah Johnson", "Marcus Lee", "Priya Patel", "Tom Nguyen"].map((name) => (
-                      <button
-                        key={name}
-                        type="button"
-                        onClick={() => setCreateClient(name)}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-gray-300 bg-gray-50 px-3 py-1 text-label-lg text-gray-700 transition-colors hover:border-primary hover:bg-purple-50 hover:text-primary"
-                      >
-                        <UserOutlined style={{ fontSize: 14 }} />
-                        {name}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Service */}
-              <FormSelect
-                label="Service *"
-                value={createService}
-                onChange={setCreateService}
-                options={[
-                  { value: "", label: "Select a service" },
-                  { value: "initial-assessment", label: "Initial Assessment" },
-                  { value: "follow-up", label: "Follow Up" },
-                  { value: "review", label: "Review" },
-                  { value: "group-session", label: "Group Session" },
-                  { value: "targeted-services", label: "Targeted Services (Goodstart)" },
-                  { value: "capacity-building", label: "Capacity Building" },
-                ]}
-              />
-
-              {/* Case */}
-              <FormSelect
-                label="Case"
-                value={createCase}
-                onChange={setCreateCase}
-                options={[
-                  { value: "", label: "Choose a case" },
-                ]}
-              />
-
-              {/* Date */}
-              <FormInput
-                label="Date *"
-                type="date"
-                value={createDate}
-                onChange={(e) => setCreateDate(e.target.value)}
-              />
-
-              {/* Start / End time */}
-              <div className="grid grid-cols-2 gap-3">
-                <FormSelect
-                  label="Start time *"
-                  value={createTime}
-                  onChange={setCreateTime}
-                  options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))}
-                />
-                <FormSelect
-                  label="End time *"
-                  value={createEndTime}
-                  onChange={setCreateEndTime}
-                  options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))}
-                />
+        <div className={styles.formStack}>
+          {createDate && isDateInPast(createDate) && (
+            <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16, color: "#ca8a04" }} />}>
+              This appointment is in the past. Are you sure you want to create it?
+            </Alert>
+          )}
+          <FormSelect label="Location" value={createLocation} onChange={setCreateLocation} options={[
+            { value: "Hands Together Therapy (East)", label: "Hands Together Therapy (East)" },
+            { value: "Hands Together Therapy (West)", label: "Hands Together Therapy (West)" },
+          ]} />
+          <FormSelect label="Practitioner *" value={createPractitioner} onChange={setCreatePractitioner} options={practitioners.map((p) => ({ value: p.id, label: p.name }))} />
+          <FormInput label="Client *" type="text" value={createClient} onChange={(e) => setCreateClient(e.target.value)} placeholder="Start typing to search client..." />
+          {!createClient && (
+            <div>
+              <p className={styles.sectionLabel}>Recent clients</p>
+              <div className={styles.clientChips}>
+                {["Sarah Johnson", "Marcus Lee", "Priya Patel", "Tom Nguyen"].map((name) => (
+                  <button key={name} type="button" onClick={() => setCreateClient(name)} className={styles.clientChip}>
+                    <UserOutlined style={{ fontSize: 14 }} />
+                    {name}
+                  </button>
+                ))}
               </div>
-
-              {/* Conflict warning — demo: show when selected time is AM (before noon) */}
-              {createTime && createTime.includes("AM") && (
-                <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16, color: '#ca8a04' }} />}>
-                  <span className="font-medium">Scheduling conflict:</span> {createPractitioner ? practitioners.find(p => p.id === createPractitioner)?.name || "Practitioner" : "Practitioner"} already has an appointment at {createTime}. Double-check before confirming.
-                </Alert>
-              )}
-
-              {/* Room/Resource */}
-              <FormSelect
-                label="Room/Resource"
-                value={createRoom}
-                onChange={setCreateRoom}
-                options={[
-                  { value: "", label: "Choose a room/resource" },
-                  { value: "green", label: "Green (1 available of 1)" },
-                  { value: "red", label: "Red (1 available of 1)" },
-                  { value: "blue", label: "Blue (2 available of 2)" },
-                  { value: "room1", label: "Room 1 (1 available of 1)" },
-                ]}
-              />
-
-              {/* Toggles */}
-              <Toggle
-                checked={createProviderTravel}
-                onChange={setCreateProviderTravel}
-                label="Provider travel"
-              />
-              <Toggle
-                checked={createProviderTravelNonLabour}
-                onChange={setCreateProviderTravelNonLabour}
-                label="Provider Travel - Non-Labour Costs"
-              />
-              <Toggle
-                checked={createActivityTransport}
-                onChange={setCreateActivityTransport}
-                label="Activity Based Transport"
-              />
-              <Toggle
-                checked={createRepeat}
-                onChange={setCreateRepeat}
-                label="Repeat"
-              />
-
-              {createRepeat && (
-                <div className="space-y-3 rounded-lg border border-border bg-gray-50 p-4">
-                  <FormSelect
-                    label="Repeat"
-                    options={[
-                      { value: "weekly", label: "Every week" },
-                      { value: "2weeks", label: "Every 2 weeks" },
-                      { value: "3weeks", label: "Every 3 weeks" },
-                      { value: "4weeks", label: "Every 4 weeks" },
-                    ]}
-                  />
-                  <div>
-                    <label className="mb-1 block text-label-lg text-text-secondary">Repeat on *</label>
-                    <div className="flex gap-1">
-                      {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d) => (
-                        <Button
-                          key={d}
-                          variant={d === "Mo" ? "primary" : "secondary"}
-                          size="sm"
-                          round
-                          className="px-2.5 py-1 text-label-md"
-                        >
-                          {d}
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
-                  <FormSelect
-                    label="Ends"
-                    options={[
-                      { value: "6", label: "After 6 times" },
-                      { value: "4", label: "After 4 times" },
-                      { value: "8", label: "After 8 times" },
-                      { value: "12", label: "After 12 times" },
-                      { value: "date", label: "On date" },
-                    ]}
-                  />
-                </div>
-              )}
-
-              {/* Waitlist matches */}
-              <div className="rounded-lg border border-border bg-gray-50 p-3">
-                <Button variant="ghost" size="sm" className="w-full justify-between text-label-lg text-text">
-                  Waitlist matches (2)
-                  <DownOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
-                </Button>
-              </div>
-
-              {/* Notes */}
-              <FormTextarea
-                label="Notes"
-                value={createNotes}
-                onChange={(e) => setCreateNotes(e.target.value)}
-                placeholder="Add notes..."
-                rows={3}
-                className="resize-none"
-              />
             </div>
+          )}
+          <FormSelect label="Service *" value={createService} onChange={setCreateService} options={[
+            { value: "", label: "Select a service" },
+            { value: "initial-assessment", label: "Initial Assessment" },
+            { value: "follow-up", label: "Follow Up" },
+            { value: "review", label: "Review" },
+            { value: "group-session", label: "Group Session" },
+            { value: "targeted-services", label: "Targeted Services (Goodstart)" },
+            { value: "capacity-building", label: "Capacity Building" },
+          ]} />
+          <FormSelect label="Case" value={createCase} onChange={setCreateCase} options={[{ value: "", label: "Choose a case" }]} />
+          <FormInput label="Date *" type="date" value={createDate} onChange={(e) => setCreateDate(e.target.value)} />
+          <div className={styles.formGrid2}>
+            <FormSelect label="Start time *" value={createTime} onChange={setCreateTime} options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))} />
+            <FormSelect label="End time *" value={createEndTime} onChange={setCreateEndTime} options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))} />
+          </div>
+          {createTime && createTime.includes("AM") && (
+            <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16, color: "#ca8a04" }} />}>
+              <span style={{ fontWeight: 500 }}>Scheduling conflict:</span> {createPractitioner ? practitioners.find(p => p.id === createPractitioner)?.name || "Practitioner" : "Practitioner"} already has an appointment at {createTime}. Double-check before confirming.
+            </Alert>
+          )}
+          <FormSelect label="Room/Resource" value={createRoom} onChange={setCreateRoom} options={[
+            { value: "", label: "Choose a room/resource" },
+            { value: "green", label: "Green (1 available of 1)" },
+            { value: "red", label: "Red (1 available of 1)" },
+            { value: "blue", label: "Blue (2 available of 2)" },
+            { value: "room1", label: "Room 1 (1 available of 1)" },
+          ]} />
+          <Toggle checked={createProviderTravel} onChange={setCreateProviderTravel} label="Provider travel" />
+          <Toggle checked={createProviderTravelNonLabour} onChange={setCreateProviderTravelNonLabour} label="Provider Travel - Non-Labour Costs" />
+          <Toggle checked={createActivityTransport} onChange={setCreateActivityTransport} label="Activity Based Transport" />
+          <Toggle checked={createRepeat} onChange={setCreateRepeat} label="Repeat" />
+          {createRepeat && (
+            <div className={styles.repeatSection}>
+              <FormSelect label="Repeat" options={[
+                { value: "weekly", label: "Every week" },
+                { value: "2weeks", label: "Every 2 weeks" },
+                { value: "3weeks", label: "Every 3 weeks" },
+                { value: "4weeks", label: "Every 4 weeks" },
+              ]} />
+              <div>
+                <label className={styles.sectionLabel}>Repeat on *</label>
+                <div className={styles.dayPicker}>
+                  {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d) => (
+                    <Button key={d} variant={d === "Mo" ? "primary" : "secondary"} size="sm" round>{d}</Button>
+                  ))}
+                </div>
+              </div>
+              <FormSelect label="Ends" options={[
+                { value: "6", label: "After 6 times" },
+                { value: "4", label: "After 4 times" },
+                { value: "8", label: "After 8 times" },
+                { value: "12", label: "After 12 times" },
+                { value: "date", label: "On date" },
+              ]} />
+            </div>
+          )}
+          <div className={styles.waitlistBox}>
+            <Button variant="ghost" size="sm" style={{ width: "100%", justifyContent: "space-between" }}>
+              <span className="text-label-lg text-text">Waitlist matches (2)</span>
+              <DownOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
+            </Button>
+          </div>
+          <FormTextarea label="Notes" value={createNotes} onChange={(e) => setCreateNotes(e.target.value)} placeholder="Add notes..." rows={3} />
+        </div>
       </Modal>
 
       {/* Edit appointment modal */}
       {showEditModal && selectedAppt && (
-      <Modal
-        open={showEditModal}
-        onClose={() => setShowEditModal(false)}
-        title="Edit appointment"
-        maxWidth="lg"
-        footer={
-          <>
-            <Button variant="secondary" onClick={() => setShowEditModal(false)}>
-              Cancel
-            </Button>
-            <Button variant="primary" onClick={() => setShowEditModal(false)}>
-              Save changes
-            </Button>
-          </>
-        }
-      >
-            <div className="space-y-4">
-              {/* Info banner */}
-              <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 16, color: '#2563eb' }} />}>
-                Client won&apos;t be notified of changes. To do this, use Reschedule.
-              </Alert>
-
-              {/* Location */}
-              <FormSelect
-                label="Location"
-                defaultValue="Hands Together Therapy (East)"
-                options={[
-                  { value: "Hands Together Therapy (East)", label: "Hands Together Therapy (East)" },
-                  { value: "Hands Together Therapy (West)", label: "Hands Together Therapy (West)" },
-                ]}
-              />
-
-              {/* Practitioner */}
-              <FormSelect
-                label="Practitioner *"
-                defaultValue={selectedAppt.practitionerName}
-                options={practitioners.map((p) => ({
-                  value: p.name,
-                  label: p.name,
-                }))}
-              />
-
-              {/* Client */}
-              <FormInput
-                label="Client *"
-                type="text"
-                defaultValue={selectedAppt.clientName}
-              />
-
-              {/* Service */}
-              <FormInput
-                label="Service *"
-                type="text"
-                defaultValue={selectedAppt.type}
-              />
-
-              {/* Case */}
-              <FormSelect
-                label="Case"
-                options={[
-                  { value: "", label: "Choose a case" },
-                ]}
-              />
-
-              {/* Date */}
-              <FormInput
-                label="Date *"
-                type="date"
-                defaultValue={selectedAppt.date}
-              />
-
-              {/* Time */}
-              <div className="grid grid-cols-2 gap-3">
-                <FormSelect
-                  label="Time *"
-                  defaultValue={selectedAppt.startTime}
-                  options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))}
-                />
-                <FormSelect
-                  label="&nbsp;"
-                  defaultValue={selectedAppt.endTime}
-                  options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))}
-                />
-              </div>
-
-              {/* Room/Resource */}
-              <FormSelect
-                label="Room/Resource"
-                value={editRoom}
-                onChange={setEditRoom}
-                options={[
-                  { value: "", label: "Choose a room/resource" },
-                  { value: "green", label: "Green (1 available of 1)" },
-                  { value: "red", label: "Red (1 available of 1)" },
-                  { value: "blue", label: "Blue (2 available of 2)" },
-                  { value: "car", label: "Car (1 available of 1)" },
-                  { value: "room1", label: "Room 1 (1 available of 1)" },
-                ]}
-              />
-
-              {/* Repeat toggle */}
-              <Toggle
-                checked={editRepeat}
-                onChange={setEditRepeat}
-                label="Repeat"
-              />
-
-              {editRepeat && (
-                <div className="space-y-3 rounded-lg border border-border bg-gray-50 p-4">
-                  <FormSelect
-                    label="Repeat"
-                    options={[
-                      { value: "2weeks", label: "Every 2 weeks" },
-                      { value: "weekly", label: "Every week" },
-                      { value: "3weeks", label: "Every 3 weeks" },
-                      { value: "4weeks", label: "Every 4 weeks" },
-                    ]}
-                  />
-                  <div>
-                    <label className="mb-1 block text-label-lg text-text-secondary">Repeat on *</label>
-                    <div className="flex gap-1">
-                      {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d) => (
-                        <Button
-                          key={d}
-                          variant={d === "Mo" ? "primary" : "secondary"}
-                          size="sm"
-                          round
-                          className="px-2.5 py-1 text-label-md"
-                        >
-                          {d}
-                        </Button>
-                      ))}
-                    </div>
+        <Modal
+          open={showEditModal}
+          onClose={() => setShowEditModal(false)}
+          title="Edit appointment"
+          maxWidth="lg"
+          footer={
+            <>
+              <Button variant="secondary" onClick={() => setShowEditModal(false)}>Cancel</Button>
+              <Button variant="primary" onClick={() => setShowEditModal(false)}>Save changes</Button>
+            </>
+          }
+        >
+          <div className={styles.formStack}>
+            <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 16, color: "#2563eb" }} />}>
+              Client won&apos;t be notified of changes. To do this, use Reschedule.
+            </Alert>
+            <FormSelect label="Location" defaultValue="Hands Together Therapy (East)" options={[
+              { value: "Hands Together Therapy (East)", label: "Hands Together Therapy (East)" },
+              { value: "Hands Together Therapy (West)", label: "Hands Together Therapy (West)" },
+            ]} />
+            <FormSelect label="Practitioner *" defaultValue={selectedAppt.practitionerName} options={practitioners.map((p) => ({ value: p.name, label: p.name }))} />
+            <FormInput label="Client *" type="text" defaultValue={selectedAppt.clientName} />
+            <FormInput label="Service *" type="text" defaultValue={selectedAppt.type} />
+            <FormSelect label="Case" options={[{ value: "", label: "Choose a case" }]} />
+            <FormInput label="Date *" type="date" defaultValue={selectedAppt.date} />
+            <div className={styles.formGrid2}>
+              <FormSelect label="Time *" defaultValue={selectedAppt.startTime} options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))} />
+              <FormSelect label="&nbsp;" defaultValue={selectedAppt.endTime} options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))} />
+            </div>
+            <FormSelect label="Room/Resource" value={editRoom} onChange={setEditRoom} options={[
+              { value: "", label: "Choose a room/resource" },
+              { value: "green", label: "Green (1 available of 1)" },
+              { value: "red", label: "Red (1 available of 1)" },
+              { value: "blue", label: "Blue (2 available of 2)" },
+              { value: "car", label: "Car (1 available of 1)" },
+              { value: "room1", label: "Room 1 (1 available of 1)" },
+            ]} />
+            <Toggle checked={editRepeat} onChange={setEditRepeat} label="Repeat" />
+            {editRepeat && (
+              <div className={styles.repeatSection}>
+                <FormSelect label="Repeat" options={[
+                  { value: "2weeks", label: "Every 2 weeks" },
+                  { value: "weekly", label: "Every week" },
+                  { value: "3weeks", label: "Every 3 weeks" },
+                  { value: "4weeks", label: "Every 4 weeks" },
+                ]} />
+                <div>
+                  <label className={styles.sectionLabel}>Repeat on *</label>
+                  <div className={styles.dayPicker}>
+                    {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d) => (
+                      <Button key={d} variant={d === "Mo" ? "primary" : "secondary"} size="sm" round>{d}</Button>
+                    ))}
                   </div>
-                  <FormSelect
-                    label="Ends"
-                    options={[
-                      { value: "6", label: "After 6 times" },
-                      { value: "4", label: "After 4 times" },
-                      { value: "8", label: "After 8 times" },
-                      { value: "12", label: "After 12 times" },
-                      { value: "date", label: "On date" },
-                    ]}
-                  />
                 </div>
-              )}
-
-              {/* Apply to */}
-              <RadioGroup
-                name="applyTo"
-                label="Apply to:"
-                options={[
-                  { value: "this", label: "This occurrence" },
-                  { value: "following", label: "This and all following occurrences" },
-                  { value: "all", label: "All occurrences" },
-                ]}
-                value={editApplyTo}
-                onChange={(v) => setEditApplyTo(v as "this" | "following" | "all")}
-              />
-
-              {/* Notification preview */}
-              <div className="rounded-lg border border-border bg-purple-50/50 p-4">
-                <div className="mb-2 flex items-center gap-2">
-                  <MailOutlined style={{ fontSize: 16, color: 'var(--color-primary)' }} />
-                  <span className="text-label-lg text-text">Notification preview</span>
-                </div>
-                <p className="mb-3 text-body-sm text-text-secondary">
-                  Client won&apos;t be notified of changes. To notify the client, use Reschedule instead.
-                </p>
-                <div className="rounded-lg bg-white p-3">
-                  <p className="text-body-sm text-text-secondary">
-                    If using Reschedule, the client will receive:
+                <FormSelect label="Ends" options={[
+                  { value: "6", label: "After 6 times" },
+                  { value: "4", label: "After 4 times" },
+                  { value: "8", label: "After 8 times" },
+                  { value: "12", label: "After 12 times" },
+                  { value: "date", label: "On date" },
+                ]} />
+              </div>
+            )}
+            <RadioGroup
+              name="applyTo"
+              label="Apply to:"
+              options={[
+                { value: "this", label: "This occurrence" },
+                { value: "following", label: "This and all following occurrences" },
+                { value: "all", label: "All occurrences" },
+              ]}
+              value={editApplyTo}
+              onChange={(v) => setEditApplyTo(v as "this" | "following" | "all")}
+            />
+            <div className={styles.notificationBox}>
+              <div className={styles.notificationHeader}>
+                <MailOutlined style={{ fontSize: 16, color: "var(--color-primary)" }} />
+                <span className="text-label-lg text-text">Notification preview</span>
+              </div>
+              <p className="text-body-sm text-text-secondary" style={{ marginBottom: 12 }}>
+                Client won&apos;t be notified of changes. To notify the client, use Reschedule instead.
+              </p>
+              <div className={styles.notificationPreview}>
+                <p className="text-body-sm text-text-secondary">If using Reschedule, the client will receive:</p>
+                <div className={styles.emailPreview}>
+                  <p className="text-body-sm text-text-secondary">Subject: <span className="text-text">Your appointment has been rescheduled</span></p>
+                  <p className="text-body-sm text-text-secondary" style={{ marginTop: 4 }}>
+                    Hi {selectedAppt.clientName.split(" ")[0]}, your appointment with {selectedAppt.practitionerName} has been moved to a new time. Please check your updated appointment details.
                   </p>
-                  <div className="mt-2 rounded border border-border bg-gray-50 p-3">
-                    <p className="text-body-sm text-text-secondary">Subject: <span className="text-text">Your appointment has been rescheduled</span></p>
-                    <p className="mt-1 text-body-sm text-text-secondary">
-                      Hi {selectedAppt.clientName.split(" ")[0]}, your appointment with {selectedAppt.practitionerName} has been moved to a new time. Please check your updated appointment details.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Change log */}
-              <div className="rounded-lg border border-border bg-gray-50 p-4">
-                <div className="mb-3 flex items-center gap-2">
-                  <HistoryOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
-                  <span className="text-label-lg text-text">Change log</span>
-                </div>
-                <div className="space-y-2">
-                  {[
-                    { date: "24 Mar 2026, 2:15 pm", user: "Hrishikesh Koli", action: "Created appointment" },
-                    { date: "24 Mar 2026, 3:42 pm", user: "Sharon Tan", action: "Changed room from Green to Blue" },
-                    { date: "25 Mar 2026, 9:10 am", user: "Hrishikesh Koli", action: "Updated service to Initial Consultation" },
-                  ].map((log, i) => (
-                    <div key={i} className="flex items-start gap-3 border-b border-border pb-2 last:border-0 last:pb-0">
-                      <div className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                      <div className="flex-1">
-                        <p className="text-body-sm text-text">{log.action}</p>
-                        <p className="text-caption-md text-text-secondary">{log.user} · {log.date}</p>
-                      </div>
-                    </div>
-                  ))}
                 </div>
               </div>
             </div>
-      </Modal>
+            <div className={styles.changeLogSection}>
+              <div className={styles.changeLogHeader}>
+                <HistoryOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
+                <span className="text-label-lg text-text">Change log</span>
+              </div>
+              <div className={styles.changeLogEntries}>
+                {[
+                  { date: "24 Mar 2026, 2:15 pm", user: "Hrishikesh Koli", action: "Created appointment" },
+                  { date: "24 Mar 2026, 3:42 pm", user: "Sharon Tan", action: "Changed room from Green to Blue" },
+                  { date: "25 Mar 2026, 9:10 am", user: "Hrishikesh Koli", action: "Updated service to Initial Consultation" },
+                ].map((log, i) => (
+                  <div key={i} className={styles.changeLogEntry}>
+                    <div className={styles.logDot} />
+                    <div className={styles.changeLogEntryContent}>
+                      <p className="text-body-sm text-text">{log.action}</p>
+                      <p className="text-caption-md text-text-secondary">{log.user} · {log.date}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Modal>
       )}
     </div>
   );
@@ -1485,13 +1168,11 @@ function MonthView({
   const year = today.getFullYear();
   const month = today.getMonth();
 
-  // Build calendar grid
   const firstDay = new Date(year, month, 1);
   const lastDay = new Date(year, month + 1, 0);
-  const startDow = firstDay.getDay(); // 0=Sun
+  const startDow = firstDay.getDay();
   const daysInMonth = lastDay.getDate();
 
-  // Previous month fill
   const prevMonthLast = new Date(year, month, 0).getDate();
   const cells: { day: number; month: number; year: number; isCurrentMonth: boolean }[] = [];
 
@@ -1501,7 +1182,6 @@ function MonthView({
   for (let d = 1; d <= daysInMonth; d++) {
     cells.push({ day: d, month, year, isCurrentMonth: true });
   }
-  // Fill to 42 cells (6 rows)
   const remaining = 42 - cells.length;
   for (let d = 1; d <= remaining; d++) {
     cells.push({ day: d, month: month + 1, year, isCurrentMonth: false });
@@ -1521,71 +1201,54 @@ function MonthView({
   const DOW_LABELS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
   return (
-    <div className="flex-1 overflow-y-auto">
-      {/* Day of week headers */}
-      <div className="grid grid-cols-7 border-b border-border">
+    <div className={styles.monthContainer}>
+      <div className={styles.monthDowRow}>
         {DOW_LABELS.map((d) => (
-          <div key={d} className="px-2 py-2 text-center text-body-sm text-[rgb(112,117,122)]">
-            {d}
-          </div>
+          <div key={d} className={styles.monthDowLabel}>{d}</div>
         ))}
       </div>
 
-      {/* Calendar grid */}
       {rows.map((row, ri) => (
-        <div key={ri} className="grid grid-cols-7 border-b border-border" style={{ minHeight: "100px" }}>
+        <div key={ri} className={styles.monthWeekRow}>
           {row.map((cell, ci) => {
             const ds = dateStr(cell);
             const isToday = ds === todayStr;
             const dayAppts = appointments.filter((a) => a.date === ds);
 
             return (
-              <div
-                key={ci}
-                className={`border-r border-border p-1 last:border-r-0 ${!cell.isCurrentMonth ? "bg-gray-50/50" : ""}`}
-              >
-                <div
-                  className={`mb-1 ${
-                    isToday
-                      ? "text-body-md inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary text-white"
-                      : cell.isCurrentMonth
-                        ? "text-body-md text-text"
-                        : "text-body-md text-text-secondary/40"
-                  }`}
-                >
-                  {cell.day}
-                </div>
-                <div className="space-y-0.5">
+              <div key={ci} className={cell.isCurrentMonth ? styles.monthDayCell : styles.monthDayCellOther}>
+                {isToday ? (
+                  <div className={styles.monthTodayBadge}>{cell.day}</div>
+                ) : (
+                  <div className={cell.isCurrentMonth ? styles.monthDayNumber : styles.monthDayNumberOther}>{cell.day}</div>
+                )}
+                <div className={styles.monthAppts}>
                   {dayAppts.slice(0, 3).map((appt) => {
                     const isCancelled = appt.status === "Cancelled";
                     const isGroup = appt.type === "Group Session";
                     return (
                       <div
                         key={appt.id}
-                        className={`flex cursor-pointer items-center gap-0.5 rounded-lg px-1 py-px text-body-md leading-tight text-black ${isCancelled ? "opacity-60" : ""}`}
-                        style={{
-                          backgroundColor: lightenColor(appt.practitionerColor, 0.7),
-                        }}
+                        className={isCancelled ? styles.monthApptChipCancelled : styles.monthApptChip}
+                        style={{ backgroundColor: lightenColor(appt.practitionerColor, 0.7) }}
                         onClick={() => onApptClick(appt)}
                       >
-                        <span className="truncate">
+                        <span className={styles.monthApptText}>
                           {formatTime12h(appt.startTime)} {appt.clientName}
                         </span>
                         {isCancelled && (
-                          <span className="ml-auto flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-sm bg-red-500">
-                            <CloseOutlined style={{ fontSize: 10, color: 'white' }} />
+                          <span className={styles.monthCancelBadge}>
+                            <CloseOutlined style={{ fontSize: 10, color: "white" }} />
                           </span>
                         )}
                         {isGroup && !isCancelled && (
-                          <span className="ml-auto shrink-0 rounded bg-white/30 px-1 text-caption-sm font-semibold">
-                            0/10
-                          </span>
+                          <span className={styles.monthGroupBadge}>0/10</span>
                         )}
                       </div>
                     );
                   })}
                   {dayAppts.length > 3 && (
-                    <div className="px-1 text-body-sm" style={{ fontWeight: 700, color: 'var(--color-text)' }}>{dayAppts.length - 3} more</div>
+                    <div className={styles.monthMore}>{dayAppts.length - 3} more</div>
                   )}
                 </div>
               </div>
@@ -1612,59 +1275,42 @@ function AppointmentSidePanel({
 }) {
   const isGroup = isGroupAppointment(appt);
 
-  // For month view, render as a slide-in overlay on the right
-  const panelClasses = isMonthView
-    ? "fixed right-0 top-0 z-30 h-full w-[420px] animate-in slide-in-from-right border-l border-border bg-white shadow-xl overflow-y-auto"
-    : "animate-in slide-in-from-right absolute inset-0 z-20 w-full shrink-0 overflow-y-auto border-l border-border bg-white sm:relative sm:inset-auto sm:w-[420px]";
-
   return (
     <>
-      {/* Backdrop for month view — very subtle so calendar stays visible */}
       {isMonthView && (
-        <div className="fixed inset-0 z-20" onClick={onClose} />
+        <div className={styles.sidePanelBackdrop} onClick={onClose} />
       )}
-      <div className={panelClasses}>
-        <div className="p-4">
-          {/* Header */}
-          <div className="mb-4 flex items-start justify-between">
-            <div className="flex items-center gap-2">
+      <div className={isMonthView ? styles.sidePanelFixed : styles.sidePanelInline}>
+        <div className={styles.sidePanelContent}>
+          <div className={styles.sidePanelHeader}>
+            <div className={styles.sidePanelTitle}>
               <ColorDot color={appt.practitionerColor} size="sm" />
               <span className="text-heading-sm text-text">
                 {appt.clientName} ({appt.type})
               </span>
             </div>
             <Button variant="icon" size="sm" onClick={onClose}>
-              <CloseOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
+              <CloseOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
             </Button>
           </div>
 
-          {/* Details */}
           {isGroup ? (
             <GroupAppointmentDetails appt={appt} />
           ) : (
             <SingleAppointmentDetails appt={appt} />
           )}
 
-          {/* Action buttons */}
-          <div className="mt-6 flex flex-wrap items-center gap-2">
+          <div className={styles.actionButtons}>
             {!isGroup && (
-              <Button variant="secondary" size="sm">
-                Book another
-              </Button>
+              <Button variant="secondary" size="sm">Book another</Button>
             )}
-            <Button variant="secondary" size="sm" onClick={onEdit}>
-              Edit
-            </Button>
-            <Button variant="secondary" size="sm">
-              Reschedule
-            </Button>
-            <Button variant="danger" size="sm">
-              Archive
-            </Button>
+            <Button variant="secondary" size="sm" onClick={onEdit}>Edit</Button>
+            <Button variant="secondary" size="sm">Reschedule</Button>
+            <Button variant="danger" size="sm">Archive</Button>
           </div>
 
-          <div className="mt-3 text-center">
-            <Button variant="link" className="mx-auto">
+          <div className={styles.changeLogLink}>
+            <Button variant="link">
               <HistoryOutlined style={{ fontSize: 14 }} />
               View change log
             </Button>
@@ -1677,97 +1323,67 @@ function AppointmentSidePanel({
 
 function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
   return (
-    <div className="space-y-3 text-body-md">
-      {/* Location */}
-      <div className="flex items-start gap-2">
-        <EnvironmentOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)', marginTop: 2 }} />
+    <div className={styles.detailRows}>
+      <div className={styles.detailRow}>
+        <EnvironmentOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)", marginTop: 2 }} />
         <div>
           <span className="text-text">{appt.practitionerName}</span>
           <span className="text-text-secondary"> at </span>
-          <span className="font-medium text-text">East Clinics</span>
+          <span className="text-text" style={{ fontWeight: 500 }}>East Clinics</span>
         </div>
       </div>
-
-      {/* Practitioner */}
-      <div className="flex items-center gap-2">
+      <div className={styles.detailRowCenter}>
         <Avatar name={appt.practitionerName} color={appt.practitionerColor} size="sm" />
         <span className="text-text">{appt.practitionerName}</span>
       </div>
-
-      {/* Time */}
-      <div className="flex items-start gap-2">
-        <ClockCircleOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)', marginTop: 2 }} />
+      <div className={styles.detailRow}>
+        <ClockCircleOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)", marginTop: 2 }} />
         <span className="text-text">
-          {appt.startTime}, {formatDateLong(appt.date)} for{" "}
-          {calcDuration(appt.startTime, appt.endTime)}
+          {appt.startTime}, {formatDateLong(appt.date)} for {calcDuration(appt.startTime, appt.endTime)}
         </span>
       </div>
-
-      {/* Client name link */}
-      <div className="flex items-start gap-2">
-        <UserOutlined style={{ fontSize: 16, color: 'var(--color-primary)', marginTop: 2 }} />
-        <span className="cursor-pointer font-medium text-primary hover:underline">{appt.clientName}</span>
+      <div className={styles.detailRow}>
+        <UserOutlined style={{ fontSize: 16, color: "var(--color-primary)", marginTop: 2 }} />
+        <span className={styles.linkTextMedium}>{appt.clientName}</span>
       </div>
-
-      {/* Email */}
-      <div className="flex items-start gap-2">
-        <MailOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)', marginTop: 2 }} />
+      <div className={styles.detailRow}>
+        <MailOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)", marginTop: 2 }} />
         <span className="text-text-secondary">thyxueen@gmail.com</span>
       </div>
-
-      {/* Status */}
-      <div className="flex items-start gap-2">
-        <div className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-gray-300" />
+      <div className={styles.detailRow}>
+        <div className={styles.statusDot} />
         <span className="text-text-secondary">No status</span>
       </div>
-
-      {/* Zoom link */}
-      <div className="flex items-start gap-2">
-        <VideoCameraOutlined style={{ fontSize: 16, color: 'var(--color-primary)', marginTop: 2 }} />
-        <span className="cursor-pointer text-primary hover:underline">Create zoom meeting</span>
+      <div className={styles.detailRow}>
+        <VideoCameraOutlined style={{ fontSize: 16, color: "var(--color-primary)", marginTop: 2 }} />
+        <span className={styles.linkText}>Create zoom meeting</span>
       </div>
-
-      {/* Invoice */}
-      <div className="flex items-center gap-2">
-        <FileTextOutlined style={{ fontSize: 16, color: 'var(--color-primary)', marginTop: 2 }} />
-        <span className="cursor-pointer text-primary hover:underline">TRR-005673</span>
+      <div className={styles.detailRowCenter}>
+        <FileTextOutlined style={{ fontSize: 16, color: "var(--color-primary)", marginTop: 2 }} />
+        <span className={styles.linkText}>TRR-005673</span>
         <Badge variant="blue">Draft</Badge>
       </div>
-
-      {/* Do not invoice link */}
-      <div className="flex items-start gap-2">
-        <StopOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)', marginTop: 2 }} />
-        <span className="cursor-pointer text-primary hover:underline">Mark as Do not Invoice?</span>
+      <div className={styles.detailRow}>
+        <StopOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)", marginTop: 2 }} />
+        <span className={styles.linkText}>Mark as Do not Invoice?</span>
       </div>
-
-      {/* Progress note */}
-      <div className="flex items-start gap-2">
-        <FileTextOutlined style={{ fontSize: 16, color: 'var(--color-primary)', marginTop: 2 }} />
-        <span className="cursor-pointer text-primary hover:underline">Add progress note</span>
+      <div className={styles.detailRow}>
+        <FileTextOutlined style={{ fontSize: 16, color: "var(--color-primary)", marginTop: 2 }} />
+        <span className={styles.linkText}>Add progress note</span>
       </div>
-
-      {/* Repeating info */}
-      <div className="flex items-start gap-2">
-        <SyncOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)', marginTop: 2 }} />
+      <div className={styles.detailRow}>
+        <SyncOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)", marginTop: 2 }} />
         <span className="text-caption-md text-text-secondary">Repeating every 2 weeks on Monday for 6 times</span>
       </div>
-
-      {/* Organiser */}
-      <div className="flex items-center gap-2">
+      <div className={styles.detailRowCenter}>
         <Avatar name={appt.practitionerName} color={appt.practitionerColor} size="sm" />
         <span className="text-text-secondary">{appt.practitionerName} (Organiser)</span>
       </div>
-
-      {/* Note field */}
-      <div className="mt-4">
-        <label className="flex items-center gap-1 text-label-md text-text-secondary">
+      <div className={styles.detailSection}>
+        <label className={styles.noteLabel}>
           <FileTextOutlined style={{ fontSize: 12 }} /> Note
         </label>
-        <FormTextarea
-          className="mt-1 resize-none"
-          rows={3}
-          placeholder="Add a note..."
-        />
+        <FormTextarea rows={3} placeholder="Add a note..." />
       </div>
     </div>
   );
@@ -1775,79 +1391,57 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
 
 function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
   return (
-    <div className="space-y-3 text-body-md">
-      {/* Location */}
-      <div className="flex items-start gap-2">
-        <EnvironmentOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)', marginTop: 2 }} />
+    <div className={styles.detailRows}>
+      <div className={styles.detailRow}>
+        <EnvironmentOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)", marginTop: 2 }} />
         <div>
           <span className="text-text">{appt.practitionerName}</span>
           <span className="text-text-secondary"> at </span>
-          <span className="font-medium text-text">East Clinics</span>
+          <span className="text-text" style={{ fontWeight: 500 }}>East Clinics</span>
         </div>
       </div>
-
-      {/* Practitioner */}
-      <div className="flex items-center gap-2">
+      <div className={styles.detailRowCenter}>
         <Avatar name={appt.practitionerName} color={appt.practitionerColor} size="sm" />
         <span className="text-text">{appt.practitionerName}</span>
       </div>
-
-      {/* Time */}
-      <div className="flex items-start gap-2">
-        <ClockCircleOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)', marginTop: 2 }} />
+      <div className={styles.detailRow}>
+        <ClockCircleOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)", marginTop: 2 }} />
         <span className="text-text">
-          {appt.startTime}, {formatDateLong(appt.date)} for{" "}
-          {calcDuration(appt.startTime, appt.endTime)}
+          {appt.startTime}, {formatDateLong(appt.date)} for {calcDuration(appt.startTime, appt.endTime)}
         </span>
       </div>
-
-      {/* Zoom */}
-      <div className="flex items-start gap-2">
-        <VideoCameraOutlined style={{ fontSize: 16, color: 'var(--color-primary)', marginTop: 2 }} />
-        <span className="cursor-pointer text-primary hover:underline">Create zoom meeting</span>
+      <div className={styles.detailRow}>
+        <VideoCameraOutlined style={{ fontSize: 16, color: "var(--color-primary)", marginTop: 2 }} />
+        <span className={styles.linkText}>Create zoom meeting</span>
       </div>
-
-      {/* Teams */}
-      <div className="flex items-start gap-2">
-        <DesktopOutlined style={{ fontSize: 16, color: 'var(--color-primary)', marginTop: 2 }} />
-        <span className="cursor-pointer text-primary hover:underline">Create Microsoft Teams meeting</span>
+      <div className={styles.detailRow}>
+        <DesktopOutlined style={{ fontSize: 16, color: "var(--color-primary)", marginTop: 2 }} />
+        <span className={styles.linkText}>Create Microsoft Teams meeting</span>
       </div>
-
-      {/* Attendees section */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <TeamOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
+      <div className={styles.attendeesHeader}>
+        <Flex align="center" gap={8}>
+          <TeamOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
           <span className="text-text-secondary">1 of 6 clients attending</span>
-        </div>
+        </Flex>
         <Button variant="secondary" size="sm">
           <UserAddOutlined style={{ fontSize: 12 }} /> Client
         </Button>
       </div>
-
-      {/* Attendee list */}
-      <div className="ml-6 space-y-1">
-        <div className="flex items-center gap-2 text-text">
+      <div className={styles.attendeeList}>
+        <div className={styles.attendeeRow}>
           <Avatar name="elsa frozen" size="sm" />
           <span>elsa frozen</span>
         </div>
       </div>
-
-      {/* Organiser */}
-      <div className="flex items-center gap-2">
+      <div className={styles.detailRowCenter}>
         <Avatar name="Meghna Damodaran" color={appt.practitionerColor} size="sm" />
         <span className="text-text-secondary">Meghna Damodaran (Organiser)</span>
       </div>
-
-      {/* Note field */}
-      <div className="mt-4">
-        <label className="flex items-center gap-1 text-label-md text-text-secondary">
+      <div className={styles.detailSection}>
+        <label className={styles.noteLabel}>
           <FileTextOutlined style={{ fontSize: 12 }} /> Note
         </label>
-        <FormTextarea
-          className="mt-1 resize-none"
-          rows={3}
-          placeholder="Add a note..."
-        />
+        <FormTextarea rows={3} placeholder="Add a note..." />
       </div>
     </div>
   );

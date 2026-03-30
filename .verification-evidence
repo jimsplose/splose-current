@@ -1,3 +1,2 @@
 src/app/calendar/CalendarView.tsx
-src/app/online-booking/page.tsx
-src/app/clients/[id]/ClientDetailClient.tsx
+SKIP: src/app/calendar/page.tsx — no changes to page.tsx

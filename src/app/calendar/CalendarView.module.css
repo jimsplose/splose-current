@@ -1,0 +1,1056 @@
+/* ── Root layout ─────────────────────────────────────────────────────────── */
+
+.root {
+  display: flex;
+  height: calc(100vh - 3.5rem);
+  overflow: hidden;
+}
+
+.mainContent {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Toolbar ─────────────────────────────────────────────────────────────── */
+
+.toolbar {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  height: 60px;
+  flex-shrink: 0;
+  align-items: center;
+  overflow: visible;
+  border-bottom: 1px solid #e7e8e8;
+  padding: 0 10px;
+}
+
+.todayBtn {
+  margin-right: 2px;
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid rgb(65, 69, 73);
+  background: white;
+  padding: 7px 15px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.todayBtn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.iconBtn {
+  margin-right: 2px;
+  display: flex;
+  height: 38px;
+  width: 38px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: none;
+  background: none;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.iconBtn:hover {
+  background-color: #f3f4f6;
+}
+
+.iconBtnSecondary {
+  composes: iconBtn;
+  color: var(--color-text-secondary);
+}
+
+.dateLabel {
+  margin: 0 4px;
+  font-family: 'Sprig Sans', 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filterTrigger {
+  display: inline-flex;
+  height: 38px;
+  align-items: center;
+  gap: 4px;
+  border-radius: 8px;
+  border: 1px solid rgb(65, 69, 73);
+  background: white;
+  padding: 7px 15px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.filterTrigger:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.filterDropdown {
+  position: absolute;
+  left: 0;
+  top: 42px;
+  z-index: 40;
+  width: 260px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: white;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.filterDropdownWide {
+  composes: filterDropdown;
+  width: 280px;
+}
+
+.filterSearchBox {
+  border-bottom: 1px solid var(--color-border);
+  padding: 8px;
+}
+
+.filterSearchInput {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  background: #f9fafb;
+  padding: 6px 10px;
+}
+
+.filterSearchField {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.67;
+  color: var(--color-text);
+}
+
+.filterSearchField::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.filterList {
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+.filterListTall {
+  composes: filterList;
+  max-height: 300px;
+}
+
+.filterOption {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.67;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.filterOption:hover {
+  background: #f9fafb;
+}
+
+.filterCheckbox {
+  display: flex;
+  height: 16px;
+  width: 16px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  border: 1px solid #d1d5db;
+}
+
+.filterCheckboxChecked {
+  composes: filterCheckbox;
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+.filterGroupLabel {
+  padding: 8px 12px 2px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+}
+
+.toolbarSpacer {
+  flex: 1;
+}
+
+.toolbarRight {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sparkleBtn {
+  display: flex;
+  height: 38px;
+  width: 38px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid #6b7280;
+  background: none;
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.sparkleBtn:hover {
+  background: #f3e8ff;
+}
+
+.sparkleBtnActive {
+  composes: sparkleBtn;
+  border-color: var(--color-primary);
+  background: #f3e8ff;
+}
+
+.dropdownTrigger {
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: white;
+  padding: 0 15px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.57;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.dropdownArrow {
+  margin-left: 4px;
+  color: var(--color-text-secondary);
+}
+
+/* ── Week view ───────────────────────────────────────────────────────────── */
+
+.weekContainer {
+  flex: 1;
+  overflow: auto;
+}
+
+.weekStickyHeader {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: white;
+}
+
+.dayHeader {
+  padding: 8px 8px 4px;
+  text-align: center;
+}
+
+.dayOfWeek {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.57;
+  color: rgb(112, 117, 122);
+}
+
+.dayOfWeekToday {
+  composes: dayOfWeek;
+  color: var(--color-primary);
+}
+
+.dayNumber {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: rgb(112, 117, 122);
+}
+
+.dayNumberToday {
+  display: inline-flex;
+  height: 36px;
+  width: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--color-primary);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: white;
+  margin: 0 auto;
+}
+
+.weekSubHeader {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.weekSubHeaderGutter {
+  border-right: 1px solid #d1d5db;
+}
+
+.daySubColumn {
+  border-right: 1px solid #d1d5db;
+}
+
+.daySubColumn:last-child {
+  border-right: none;
+}
+
+.locationGroupHeader {
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 2px 4px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.57;
+  color: var(--color-text-secondary);
+}
+
+.locationGroupBorder {
+  border-left: 1px solid var(--color-border);
+}
+
+.practitionerName {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.practitionerNameText {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 2px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.57;
+  color: var(--color-text-secondary);
+}
+
+.practitionerHeaderRow {
+  display: flex;
+  border-top: 1px solid rgba(0, 0, 0, 0.03);
+  padding: 0 1px;
+}
+
+/* ── Time grid (shared week/day) ─────────────────────────────────────────── */
+
+.timeLabel {
+  margin-top: -6px;
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--color-text);
+}
+
+.timeLabelCell {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 4px;
+  border-right: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.hourCell {
+  position: relative;
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.hourCell:last-child {
+  border-right: none;
+}
+
+.subdivisionLines {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+}
+
+.subdivisionLine25 {
+  position: absolute;
+  width: 100%;
+  top: 25%;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.subdivisionLine50 {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.subdivisionLine75 {
+  position: absolute;
+  width: 100%;
+  top: 75%;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.pracSubCol {
+  position: relative;
+  cursor: pointer;
+  border-right: 1px solid var(--color-border);
+}
+
+.pracSubCol:hover {
+  background-color: rgba(249, 250, 251, 0.3);
+}
+
+/* ── Appointment block ───────────────────────────────────────────────────── */
+
+.apptBlock {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  z-index: 10;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 4px;
+  padding: 6px 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.apptBlockSmall {
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  z-index: 10;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 2px;
+  padding: 2px 4px;
+}
+
+.apptClientName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.67;
+}
+
+.apptTime {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.67;
+}
+
+.apptType {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.67;
+}
+
+/* ── Day view ────────────────────────────────────────────────────────────── */
+
+.dayViewScroll {
+  overflow-x: auto;
+}
+
+.dayViewHeaderGrid {
+  display: grid;
+  min-width: 700px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dayViewGutter {
+  border-right: 1px solid var(--color-border);
+}
+
+.dayViewPracHeader {
+  border-right: 1px solid var(--color-border);
+  padding: 4px 6px;
+  text-align: center;
+}
+
+.dayViewPracHeader:last-child {
+  border-right: none;
+}
+
+.dayViewPracName {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.dayViewPracNameText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 25px;
+  color: rgb(112, 117, 122);
+}
+
+.dayViewGrid {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.dayViewGridInner {
+  display: grid;
+  min-width: 700px;
+}
+
+.dayViewTimeLabelCell {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+}
+
+.dayViewPracCell {
+  position: relative;
+  cursor: pointer;
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+}
+
+.dayViewPracCell:hover {
+  background-color: rgba(249, 250, 251, 0.3);
+}
+
+/* ── Month view ──────────────────────────────────────────────────────────── */
+
+.monthContainer {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.monthDowRow {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.monthDowLabel {
+  padding: 8px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.67;
+  color: rgb(112, 117, 122);
+}
+
+.monthWeekRow {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-bottom: 1px solid var(--color-border);
+  min-height: 100px;
+}
+
+.monthDayCell {
+  border-right: 1px solid var(--color-border);
+  padding: 4px;
+}
+
+.monthDayCell:last-child {
+  border-right: none;
+}
+
+.monthDayCellOther {
+  composes: monthDayCell;
+  background: rgba(249, 250, 251, 0.5);
+}
+
+.monthDayNumber {
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.57;
+  color: var(--color-text);
+}
+
+.monthDayNumberOther {
+  composes: monthDayNumber;
+  color: rgba(110, 110, 100, 0.4);
+}
+
+.monthTodayBadge {
+  display: inline-flex;
+  height: 24px;
+  width: 24px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--color-primary);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.57;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.monthAppts {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.monthApptChip {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 2px;
+  border-radius: 8px;
+  padding: 1px 4px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: black;
+}
+
+.monthApptChipCancelled {
+  composes: monthApptChip;
+  opacity: 0.6;
+}
+
+.monthApptText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.monthCancelBadge {
+  margin-left: auto;
+  display: flex;
+  flex-shrink: 0;
+  height: 14px;
+  width: 14px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  background: #ef4444;
+}
+
+.monthGroupBadge {
+  margin-left: auto;
+  flex-shrink: 0;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 0 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.monthMore {
+  padding: 0 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* ── Side panel ──────────────────────────────────────────────────────────── */
+
+.sidePanelBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+}
+
+.sidePanelFixed {
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 30;
+  height: 100%;
+  width: 420px;
+  border-left: 1px solid var(--color-border);
+  background: white;
+  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.08);
+  overflow-y: auto;
+}
+
+.sidePanelInline {
+  position: relative;
+  width: 420px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  border-left: 1px solid var(--color-border);
+  background: white;
+}
+
+.sidePanelContent {
+  padding: 16px;
+}
+
+.sidePanelHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.sidePanelTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.detailRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.detailRowCenter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.detailRows {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.57;
+}
+
+.actionButtons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.changeLogLink {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.statusDot {
+  margin-top: 6px;
+  height: 10px;
+  width: 10px;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background: #d1d5db;
+}
+
+.logDot {
+  margin-top: 4px;
+  height: 6px;
+  width: 6px;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background: var(--color-primary);
+}
+
+.linkText {
+  cursor: pointer;
+  color: var(--color-primary);
+}
+
+.linkText:hover {
+  text-decoration: underline;
+}
+
+.linkTextMedium {
+  composes: linkText;
+  font-weight: 500;
+}
+
+/* ── Popover ─────────────────────────────────────────────────────────────── */
+
+.popover {
+  position: fixed;
+  z-index: 30;
+  width: 208px;
+}
+
+.popoverArrow {
+  display: flex;
+  justify-content: center;
+}
+
+.popoverArrowShape {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid white;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.05));
+}
+
+/* ── AI sidebar ──────────────────────────────────────────────────────────── */
+
+.aiSidebar {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  border-left: 1px solid var(--color-border);
+  background: white;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.06);
+  transition: width 0.3s ease, min-width 0.3s ease, opacity 0.3s ease;
+}
+
+/* ── Rooms overlay ───────────────────────────────────────────────────────── */
+
+.roomsOverlay {
+  position: absolute;
+  inset: 0;
+  top: 48px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.roomsOverlayContent {
+  text-align: center;
+}
+
+.roomsOverlayIcon {
+  margin: 0 auto 12px;
+  display: flex;
+  height: 64px;
+  width: 64px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #f3f4f6;
+}
+
+/* ── Modal form helpers ──────────────────────────────────────────────────── */
+
+.formStack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formGrid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.repeatSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: #f9fafb;
+  padding: 16px;
+}
+
+.dayPicker {
+  display: flex;
+  gap: 4px;
+}
+
+.waitlistBox {
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: #f9fafb;
+  padding: 12px;
+}
+
+.notificationBox {
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: rgba(243, 232, 255, 0.5);
+  padding: 16px;
+}
+
+.notificationHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.notificationPreview {
+  border-radius: 8px;
+  background: white;
+  padding: 12px;
+  margin-top: 12px;
+}
+
+.emailPreview {
+  margin-top: 8px;
+  border-radius: 4px;
+  border: 1px solid var(--color-border);
+  background: #f9fafb;
+  padding: 12px;
+}
+
+.changeLogSection {
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: #f9fafb;
+  padding: 16px;
+}
+
+.changeLogHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.changeLogEntries {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.changeLogEntry {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.changeLogEntry:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.changeLogEntryContent {
+  flex: 1;
+}
+
+/* ── Recent client chips ─────────────────────────────────────────────────── */
+
+.clientChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 9999px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  padding: 4px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.57;
+  color: #374151;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.clientChip:hover {
+  border-color: var(--color-primary);
+  background: #f3e8ff;
+  color: var(--color-primary);
+}
+
+.clientChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ── Note label ──────────────────────────────────────────────────────────── */
+
+.noteLabel {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.67;
+  color: var(--color-text-secondary);
+  margin-bottom: 4px;
+}
+
+.sectionLabel {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.57;
+  color: var(--color-text-secondary);
+}
+
+/* ── Booking for chip ────────────────────────────────────────────────────── */
+
+.bookingChip {
+  margin-left: 8px;
+}
+
+/* ── Attendee list ───────────────────────────────────────────────────────── */
+
+.attendeeList {
+  margin-left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.attendeeRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text);
+}
+
+/* ── Shared between detail views ─────────────────────────────────────────── */
+
+.detailSection {
+  margin-top: 16px;
+}
+
+.attendeesHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
