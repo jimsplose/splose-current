@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { stateRegistry, flattenRegistry, getVariantUrl, countVariants } from "@/lib/state-registry";
 import type { PageEntry, StateVariant } from "@/lib/state-registry";
-import { ChevronRight, ChevronDown, Search, X } from "lucide-react";
+import { RightOutlined, DownOutlined, SearchOutlined, CloseOutlined } from "@ant-design/icons";
 import Bugshot from "./Bugshot";
 
 export default function DevNavigator() {
@@ -101,14 +101,14 @@ export default function DevNavigator() {
               </span>
             </div>
             <button onClick={() => setExpanded(false)} className="rounded p-1 hover:bg-white/10">
-              <X className="h-4 w-4" />
+              <CloseOutlined style={{ fontSize: 16 }} />
             </button>
           </div>
 
           {/* Search */}
           <div className="border-b border-white/10 px-3 py-2">
             <div className="flex items-center gap-2 rounded-md bg-white/10 px-2.5 py-1.5">
-              <Search className="h-3.5 w-3.5 text-white/50" />
+              <SearchOutlined style={{ fontSize: 14, color: "rgba(255,255,255,0.5)" }} />
               <input
                 type="text"
                 value={search}
@@ -128,7 +128,7 @@ export default function DevNavigator() {
                   onClick={() => toggleGroup(group)}
                   className="flex w-full items-center gap-1.5 rounded px-2 py-1 text-caption-sm font-bold tracking-wider text-white/50 uppercase hover:bg-white/5 hover:text-white/80"
                 >
-                  {expandedGroups.has(group) ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
+                  {expandedGroups.has(group) ? <DownOutlined style={{ fontSize: 12 }} /> : <RightOutlined style={{ fontSize: 12 }} />}
                   {group}
                   <span className="ml-auto text-caption-sm text-white/30">{entries.length}</span>
                 </button>
@@ -184,9 +184,9 @@ function PageNode({ entry, pathname, depth }: { entry: PageEntry; pathname: stri
         {hasChildren ? (
           <button onClick={() => setOpen(!open)} className="rounded p-0.5 hover:bg-white/10">
             {open ? (
-              <ChevronDown className="h-3 w-3 text-white/40" />
+              <DownOutlined style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }} />
             ) : (
-              <ChevronRight className="h-3 w-3 text-white/40" />
+              <RightOutlined style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }} />
             )}
           </button>
         ) : (

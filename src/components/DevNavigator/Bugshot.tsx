@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
-import { Camera } from "lucide-react";
+import { CameraOutlined } from "@ant-design/icons";
 import { Button } from "@/components/ds";
 import {
   extractStyles,
@@ -297,7 +297,7 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
               onClick={handleCapture}
               disabled={!description.trim()}
             >
-              <Camera className="h-4 w-4" /> Capture
+              <CameraOutlined style={{ fontSize: 16 }} /> Capture
             </Button>
           </div>
         </div>
