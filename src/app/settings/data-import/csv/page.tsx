@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Upload, FileSpreadsheet, CheckCircle2 } from "lucide-react";
+import { Flex } from "antd";
+import { UploadOutlined, FileExcelOutlined, CheckCircleFilled } from "@ant-design/icons";
 import {
   Button,
   Tab,
@@ -59,89 +60,94 @@ export default function CSVImportPage() {
   const mappings = fieldMappings[activeTab] || [];
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Navbar backHref="/settings/data-import" title="CSV Import">
-        <div className="flex items-center gap-2">
+        <Flex align="center" gap={8}>
           <Button variant="secondary" onClick={() => router.push("/settings/data-import")}>Cancel</Button>
           <Button variant="primary" onClick={() => router.push("/settings/data-import")} disabled={!fileUploaded}>Import</Button>
-        </div>
+        </Flex>
       </Navbar>
 
-      <div className="border-b border-border px-6">
+      <div style={{ borderBottom: '1px solid var(--ant-color-border)', padding: '0 24px' }}>
         <Tab items={importTabs} value={activeTab} onChange={setActiveTab} />
       </div>
 
-      <div className="flex-1 overflow-y-auto p-6">
-        <div className="mx-auto max-w-3xl space-y-6">
-          {/* Upload zone */}
-          <div>
-            <h3 className="mb-3 text-heading-md text-text">Upload CSV file</h3>
-            {!fileUploaded ? (
-              <button
-                onClick={() => setFileUploaded(true)}
-                className="flex w-full flex-col items-center justify-center rounded-lg border-2 border-dashed border-border bg-gray-50 py-12 transition-colors hover:border-primary hover:bg-primary/5"
-              >
-                <Upload className="mb-2 h-8 w-8 text-text-secondary" />
-                <span className="text-body-md text-text">Click to upload or drag and drop</span>
-                <span className="mt-1 text-caption-md text-text-secondary">CSV files only, max 10MB</span>
-              </button>
-            ) : (
-              <Card padding="none" className="flex items-center gap-3 px-4 py-3">
-                <FileSpreadsheet className="h-5 w-5 text-primary" />
-                <div className="flex-1">
-                  <span className="text-body-md text-text">{activeTab}_import_2026.csv</span>
-                  <span className="ml-2 text-caption-md text-text-secondary">245 rows</span>
-                </div>
-                <CheckCircle2 className="h-5 w-5 text-success" />
-                <Button variant="secondary" size="sm" onClick={() => setFileUploaded(false)}>Remove</Button>
-              </Card>
-            )}
-          </div>
-
-          {/* Field mapping */}
-          {fileUploaded && (
+      <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+        <div style={{ maxWidth: 768, margin: '0 auto' }}>
+          <Flex vertical gap={24}>
+            {/* Upload zone */}
             <div>
-              <h3 className="mb-3 text-heading-md text-text">Field mapping</h3>
-              <p className="mb-4 text-body-md text-text-secondary">
-                Map CSV columns to Splose fields. Unmapped columns will be skipped.
-              </p>
-              <Card padding="none" className="overflow-hidden">
-                <DataTable>
-                  <TableHead>
-                    <Th>CSV column</Th>
-                    <Th>Splose field</Th>
-                    <Th align="center">Status</Th>
-                  </TableHead>
-                  <TableBody>
-                    {mappings.map((m, i) => (
-                      <Tr key={i}>
-                        <Td>
-                          <span className="rounded bg-gray-100 px-2 py-0.5 font-mono text-body-sm text-text">{m.csvColumn}</span>
-                        </Td>
-                        <Td>
-                          <FormSelect
-                            value={m.spField}
-                            onChange={() => {}}
-                            options={[
-                              { value: "", label: "— Skip —" },
-                              ...mappings.map((x) => ({ value: x.spField, label: x.spField })),
-                            ]}
-                          />
-                        </Td>
-                        <Td align="center">
-                          {m.mapped ? (
-                            <CheckCircle2 className="mx-auto h-4 w-4 text-success" />
-                          ) : (
-                            <span className="text-caption-md text-warning">Unmapped</span>
-                          )}
-                        </Td>
-                      </Tr>
-                    ))}
-                  </TableBody>
-                </DataTable>
-              </Card>
+              <h3 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Upload CSV file</h3>
+              {!fileUploaded ? (
+                <button
+                  onClick={() => setFileUploaded(true)}
+                  style={{ display: 'flex', width: '100%', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '2px dashed var(--ant-color-border)', backgroundColor: 'var(--ant-color-bg-layout)', padding: '48px 0', transition: 'all 0.2s', cursor: 'pointer' }}
+                  className="hover:border-primary hover:bg-primary/5"
+                >
+                  <UploadOutlined style={{ fontSize: 32, marginBottom: 8, color: 'var(--ant-color-text-secondary)' }} />
+                  <span className="text-body-md text-text">Click to upload or drag and drop</span>
+                  <span className="text-caption-md text-text-secondary" style={{ marginTop: 4 }}>CSV files only, max 10MB</span>
+                </button>
+              ) : (
+                <Card padding="none">
+                  <Flex align="center" gap={12} style={{ padding: '12px 16px' }}>
+                    <FileExcelOutlined style={{ fontSize: 20, color: 'var(--ant-color-primary)' }} />
+                    <div style={{ flex: 1 }}>
+                      <span className="text-body-md text-text">{activeTab}_import_2026.csv</span>
+                      <span className="text-caption-md text-text-secondary" style={{ marginLeft: 8 }}>245 rows</span>
+                    </div>
+                    <CheckCircleFilled style={{ fontSize: 20, color: 'var(--ant-color-success)' }} />
+                    <Button variant="secondary" size="sm" onClick={() => setFileUploaded(false)}>Remove</Button>
+                  </Flex>
+                </Card>
+              )}
             </div>
-          )}
+
+            {/* Field mapping */}
+            {fileUploaded && (
+              <div>
+                <h3 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Field mapping</h3>
+                <p className="text-body-md text-text-secondary" style={{ marginBottom: 16 }}>
+                  Map CSV columns to Splose fields. Unmapped columns will be skipped.
+                </p>
+                <Card padding="none" style={{ overflow: 'hidden' }}>
+                  <DataTable>
+                    <TableHead>
+                      <Th>CSV column</Th>
+                      <Th>Splose field</Th>
+                      <Th align="center">Status</Th>
+                    </TableHead>
+                    <TableBody>
+                      {mappings.map((m, i) => (
+                        <Tr key={i}>
+                          <Td>
+                            <span style={{ borderRadius: 4, backgroundColor: '#f3f4f6', padding: '2px 8px', fontFamily: 'monospace' }} className="text-body-sm text-text">{m.csvColumn}</span>
+                          </Td>
+                          <Td>
+                            <FormSelect
+                              value={m.spField}
+                              onChange={() => {}}
+                              options={[
+                                { value: "", label: "— Skip —" },
+                                ...mappings.map((x) => ({ value: x.spField, label: x.spField })),
+                              ]}
+                            />
+                          </Td>
+                          <Td align="center">
+                            {m.mapped ? (
+                              <CheckCircleFilled style={{ fontSize: 16, color: 'var(--ant-color-success)', display: 'block', margin: '0 auto' }} />
+                            ) : (
+                              <span className="text-caption-md text-warning">Unmapped</span>
+                            )}
+                          </Td>
+                        </Tr>
+                      ))}
+                    </TableBody>
+                  </DataTable>
+                </Card>
+              </div>
+            )}
+          </Flex>
         </div>
       </div>
     </div>
