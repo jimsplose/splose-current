@@ -181,8 +181,8 @@ export function TableBody({ children }: { children: ReactNode }) {
   return <tbody>{children}</tbody>;
 }
 /** @deprecated Use DataTableColumn.render instead */
-export function Td({ children, align = "left", className, hidden }: { children?: ReactNode; align?: string; className?: string; hidden?: string }) {
-  return <td style={{ padding: "12px 16px", textAlign: align as React.CSSProperties["textAlign"], fontSize: 14 }}>{children}</td>;
+export function Td({ children, align = "left", className, hidden, style }: { children?: ReactNode; align?: string; className?: string; hidden?: string; style?: React.CSSProperties }) {
+  return <td style={{ padding: "12px 16px", textAlign: align as React.CSSProperties["textAlign"], fontSize: 14, ...style }}>{children}</td>;
 }
 /** @deprecated Use onRow prop instead */
 export function Tr({ children, hover, clickable, selected, className, ...props }: { children: ReactNode; hover?: boolean; clickable?: boolean; selected?: boolean; className?: string } & React.HTMLAttributes<HTMLTableRowElement>) {

@@ -2,11 +2,12 @@
 
 import { Card as AntCard } from "antd";
 
-interface CardProps {
+export interface CardProps {
   children: React.ReactNode;
   title?: string;
   headerBar?: boolean;
   className?: string;
+  style?: React.CSSProperties;
   padding?: "none" | "sm" | "md" | "lg";
 }
 
@@ -17,13 +18,14 @@ const paddingMap: Record<string, number> = {
   lg: 20,
 };
 
-export default function Card({ children, title, headerBar, className, padding = "md" }: CardProps) {
+export default function Card({ children, title, headerBar, className, style, padding = "md" }: CardProps) {
   const showAntTitle = title && headerBar;
 
   return (
     <AntCard
       title={showAntTitle ? title : undefined}
       className={className}
+      style={style}
       styles={{
         body: { padding: paddingMap[padding] },
         header: headerBar ? { backgroundColor: "var(--ant-color-fill-alter)" } : undefined,

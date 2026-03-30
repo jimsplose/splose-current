@@ -2,7 +2,8 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { LayoutGrid, Columns2, Copy, ChevronDown, ClipboardList } from "lucide-react";
+import { AppstoreOutlined, ColumnWidthOutlined, CopyOutlined, DownOutlined, SnippetsOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import { Button, Badge, EmptyState, Navbar, Filter, FormTextarea, FormInput, FormSelect } from "@/components/ds";
 
 const TEMPLATES = [
@@ -79,23 +80,23 @@ function NewProgressNotePageInner() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-3rem)] bg-gray-50/30">
+    <div style={{ minHeight: 'calc(100vh - 3rem)', backgroundColor: 'rgba(249, 250, 251, 0.3)' }}>
       {/* Header bar */}
       <Navbar
         backHref="/"
         title="New progress note"
         badge={
-          <div className="flex items-center gap-2">
+          <Flex align="center" gap={8}>
             <Badge variant="gray">Note has been autosaved</Badge>
-            {clientName && <span className="text-body-md text-primary">{clientName}</span>}
-          </div>
+            {clientName && <span className="text-body-md" style={{ color: 'var(--ant-color-primary)' }}>{clientName}</span>}
+          </Flex>
         }
       >
         {/* View toggle */}
         <Filter
           items={[
-            { label: <LayoutGrid className="h-4 w-4" />, value: "single" },
-            { label: <Columns2 className="h-4 w-4" />, value: "split" },
+            { label: <AppstoreOutlined style={{ fontSize: 16 }} />, value: "single" },
+            { label: <ColumnWidthOutlined style={{ fontSize: 16 }} />, value: "split" },
           ]}
           value={viewMode}
           onChange={(v) => setViewMode(v as "single" | "split")}
@@ -103,16 +104,16 @@ function NewProgressNotePageInner() {
         {/* Save as final button */}
         <Button variant="primary" className="bg-green-500 border-green-500 hover:bg-green-600" onClick={handleSave} disabled={saving}>
           Save as final
-          <ChevronDown className="h-3.5 w-3.5" />
+          <DownOutlined style={{ fontSize: 14 }} />
         </Button>
       </Navbar>
 
-      <div className="flex">
+      <div style={{ display: 'flex' }}>
         {/* Left editor panel */}
-        <div className={`flex-1 border-r border-border bg-white p-6 ${viewMode === "split" ? "" : ""}`}>
-          <div className="mx-auto max-w-2xl">
+        <div style={{ flex: 1, borderRight: '1px solid var(--ant-color-border)', backgroundColor: '#fff', padding: 24 }}>
+          <div style={{ maxWidth: 672, margin: '0 auto' }}>
             {/* Service select */}
-            <div className="mb-5">
+            <div style={{ marginBottom: 20 }}>
               <FormSelect
                 label="Service *"
                 value={serviceId}
@@ -125,7 +126,7 @@ function NewProgressNotePageInner() {
             </div>
 
             {/* Template field */}
-            <div className="mb-5">
+            <div style={{ marginBottom: 20 }}>
               <FormSelect
                 label="Template *"
                 value={template}
@@ -138,23 +139,23 @@ function NewProgressNotePageInner() {
             </div>
 
             {/* Quick action buttons */}
-            <div className="mb-5 flex items-center gap-2">
+            <Flex align="center" gap={8} style={{ marginBottom: 20 }}>
               <Button variant="secondary" size="sm">
-                <LayoutGrid className="h-3.5 w-3.5" />
+                <AppstoreOutlined style={{ fontSize: 14 }} />
                 Select
               </Button>
               <Button variant="secondary" size="sm">
-                <Copy className="h-3.5 w-3.5" />
+                <CopyOutlined style={{ fontSize: 14 }} />
                 Copy recent note
               </Button>
               <Button variant="secondary" size="sm">
-                <Copy className="h-3.5 w-3.5" />
+                <CopyOutlined style={{ fontSize: 14 }} />
                 Copy recent practitioner note
               </Button>
-            </div>
+            </Flex>
 
             {/* Note content */}
-            <div className="mb-4">
+            <div style={{ marginBottom: 16 }}>
               <FormTextarea
                 label="Note content"
                 value={content}
@@ -169,17 +170,17 @@ function NewProgressNotePageInner() {
 
         {/* Right reference panel */}
         {viewMode === "split" && (
-          <div className="w-80 shrink-0 bg-white p-6">
-            <h3 className="mb-3 text-heading-sm text-text">Filter previous progress notes</h3>
+          <div style={{ width: 320, flexShrink: 0, backgroundColor: '#fff', padding: 24 }}>
+            <h3 className="text-heading-sm" style={{ marginBottom: 12 }}>Filter previous progress notes</h3>
             <FormInput
               type="text"
               placeholder="Search notes"
             />
             <EmptyState
-              icon={<ClipboardList className="h-10 w-10 text-primary-light opacity-40" />}
+              icon={<SnippetsOutlined style={{ fontSize: 40, color: 'var(--ant-color-primary)', opacity: 0.4 }} />}
               title="No reference notes found"
               message="Select a client to see their previous notes"
-              className="mt-16"
+              style={{ marginTop: 64 }}
             />
           </div>
         )}

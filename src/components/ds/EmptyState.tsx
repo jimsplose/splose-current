@@ -2,19 +2,20 @@
 
 import { Flex, theme } from "antd";
 
-interface EmptyStateProps {
+export interface EmptyStateProps {
   icon?: React.ReactNode;
   title?: string;
   message: string;
   action?: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 }
 
-export default function EmptyState({ icon, title, message, action, className }: EmptyStateProps) {
+export default function EmptyState({ icon, title, message, action, className, style }: EmptyStateProps) {
   const { token } = theme.useToken();
 
   return (
-    <Flex vertical align="center" justify="center" className={className} style={{ padding: "64px 0" }}>
+    <Flex vertical align="center" justify="center" className={className} style={{ padding: "64px 0", ...style }}>
       {icon && (
         <div style={{
           marginBottom: 16,
