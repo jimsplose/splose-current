@@ -19,12 +19,12 @@ const variantClasses: Record<BadgeVariant, string> = {
 };
 
 const solidVariantClasses: Record<BadgeVariant, string> = {
-  green: "bg-green-600 text-white",
-  red: "bg-red-500 text-white",
-  blue: "bg-blue-500 text-white",
-  yellow: "bg-yellow-500 text-white",
+  green: "bg-[rgb(180,235,100)] text-white",
+  red: "bg-[rgb(240,0,50)] text-white",
+  blue: "bg-[rgb(180,235,100)] text-white",
+  yellow: "bg-[rgb(249,202,36)] text-white",
   orange: "bg-orange-500 text-white",
-  gray: "bg-gray-600 text-white",
+  gray: "bg-[rgb(165,165,158)] text-white",
   purple: "bg-purple-600 text-white",
 };
 
@@ -32,7 +32,7 @@ export default function Badge({ children, variant = "gray", solid = false, class
   const classes = solid ? solidVariantClasses[variant] : variantClasses[variant];
   return (
     <span
-      className={`inline-flex items-center rounded-full px-2 py-0.5 text-label-md ${classes} ${className}`}
+      className={`inline-flex items-center rounded-lg px-[7px] text-body-sm ${classes} ${className}`}
     >
       {children}
     </span>

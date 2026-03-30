@@ -466,7 +466,7 @@ export default function CalendarView({
           <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text hover:bg-gray-100">
             <ChevronRight className="h-4 w-4" />
           </button>
-          <h2 className="mr-[2px] min-w-0 text-display-sm text-text">{toolbarDateLabel}</h2>
+          {/* Month title hidden — production has no visible title in week/day toolbar */}
           <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
             <Filter className="h-[16px] w-[16px]" />
           </button>
@@ -707,7 +707,7 @@ export default function CalendarView({
                       className="flex items-start justify-end px-2 py-1"
                       style={{ height: `${HOUR_HEIGHT}px`, borderBottom: '1px solid var(--color-border)', borderRight: '1px solid var(--color-border)' }}
                     >
-                      <span className="-mt-1.5 text-caption-sm text-text">
+                      <span className="-mt-1.5 text-[10px] text-text">
                         {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
                       </span>
                     </div>
@@ -808,11 +808,11 @@ export default function CalendarView({
                     const isToday = dateStr === todayStr;
                     return (
                       <div key={i} className="px-2 pt-2 pb-1 text-center">
-                        <div className={`text-label-lg ${isToday ? "text-primary" : "text-text-secondary"}`}>{DAYS[i]}</div>
+                        <div className={`text-label-lg ${isToday ? "text-primary" : "text-[rgb(112,117,122)]"}`}>{DAYS[i]}</div>
                         {isToday ? (
                           <div className="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-primary text-body-lg text-white">{date.getDate()}</div>
                         ) : (
-                          <div className="text-display-md text-text-secondary">{date.getDate()}</div>
+                          <div className="text-display-md !font-medium text-[rgb(112,117,122)]">{date.getDate()}</div>
                         )}
                       </div>
                     );
@@ -858,7 +858,7 @@ export default function CalendarView({
                 {HOURS.map((hour) => (
                   <div key={hour} className="contents">
                     <div className="flex items-start justify-end border-r border-border/40 px-1 py-1" style={{ height: HOUR_HEIGHT, borderBottom: '1px solid var(--color-border)' }}>
-                      <span className="-mt-1.5 text-caption-sm text-text">
+                      <span className="-mt-1.5 text-[10px] text-text">
                         {hour === 12 ? "12 PM" : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
                       </span>
                     </div>
@@ -1527,7 +1527,7 @@ function MonthView({
       {/* Day of week headers */}
       <div className="grid grid-cols-7 border-b border-border">
         {DOW_LABELS.map((d) => (
-          <div key={d} className="px-2 py-2 text-center text-body-sm text-text-secondary">
+          <div key={d} className="px-2 py-2 text-center text-body-sm text-[rgb(112,117,122)]">
             {d}
           </div>
         ))}

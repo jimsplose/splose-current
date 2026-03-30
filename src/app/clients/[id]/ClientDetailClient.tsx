@@ -83,7 +83,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* General details */}
         <section className="mb-8">
-          <h2 className="mb-4 text-heading-lg text-text">General details</h2>
+          <h2 className="mb-4 text-heading-lg !font-bold text-text">General details</h2>
           <div className="mb-3 flex items-center gap-4 text-body-md">
             <Avatar name={`${client.firstName} ${client.lastName}`} />
             <span>
@@ -109,7 +109,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* Client contact details */}
         <section className="mb-8">
-          <h2 className="mb-4 text-heading-lg text-text">
+          <h2 className="mb-4 text-heading-lg !font-bold text-text">
             Client contact details
           </h2>
           <List
@@ -146,7 +146,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* Privacy policy consent */}
         <section className="mb-8">
-          <h2 className="mb-4 text-heading-lg text-text">
+          <h2 className="mb-4 text-heading-lg !font-bold text-text">
             Privacy policy consent
           </h2>
           <List items={[{ label: "", value: "No response" }]} />
@@ -156,7 +156,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* Medications, allergies & intolerances */}
         <section className="mb-8">
-          <h2 className="mb-4 text-heading-lg text-text">
+          <h2 className="mb-4 text-heading-lg !font-bold text-text">
             Medications, allergies &amp; intolerances
           </h2>
           <List
@@ -174,7 +174,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         {client.medicare && (
           <>
             <section className="mb-8">
-              <h2 className="mb-4 text-heading-lg text-text">
+              <h2 className="mb-4 text-heading-lg !font-bold text-text">
                 Medicare details
               </h2>
               <List
@@ -190,7 +190,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         {client.ndisNumber && (
           <>
             <section className="mb-8">
-              <h2 className="mb-4 text-heading-lg text-text">
+              <h2 className="mb-4 text-heading-lg !font-bold text-text">
                 NDIS details
               </h2>
               <List
@@ -205,7 +205,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* Custom fields */}
         <section className="mb-8">
-          <h2 className="mb-4 text-heading-lg text-text">Custom fields</h2>
+          <h2 className="mb-4 text-heading-lg !font-bold text-text">Custom fields</h2>
           <List
             items={[
               { label: "Date since surgery:", value: "25/09/2025" },
@@ -218,7 +218,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* Invoicing */}
         <section className="mb-8">
-          <h2 className="mb-4 text-heading-lg text-text">Invoicing</h2>
+          <h2 className="mb-4 text-heading-lg !font-bold text-text">Invoicing</h2>
           <List
             items={[
               {
@@ -233,7 +233,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* Associated contacts */}
         <section className="mb-8">
-          <h2 className="mb-4 text-heading-lg text-text">
+          <h2 className="mb-4 text-heading-lg !font-bold text-text">
             Associated contacts{" "}
             <HintIcon className="ml-1" />
           </h2>
@@ -277,7 +277,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         {/* Account balance */}
         <div className="mb-4 rounded-lg bg-primary p-4 text-white">
           <div className="flex items-center justify-between">
-            <h3 className="text-label-lg">Account balance</h3>
+            <h3 className="text-label-lg !font-semibold">Account balance</h3>
             <HintIcon className="h-5 w-5 border-white/50 text-white/80" />
           </div>
           <div className="mt-2 flex items-center justify-between text-body-md">
@@ -365,7 +365,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
       <div className="max-w-2xl">
         {/* General details with profile photo side-by-side */}
         <section className="mb-8">
-          <h2 className="mb-4 text-heading-lg text-text">General details</h2>
+          <h2 className="mb-4 text-heading-lg !font-bold text-text">General details</h2>
           <div className="flex gap-8">
             {/* Form fields */}
             <div className="flex-1 space-y-4">
@@ -483,7 +483,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
 
         {/* Other details */}
         <section className="mb-8">
-          <h2 className="mb-4 text-heading-lg text-text">Other details</h2>
+          <h2 className="mb-4 text-heading-lg !font-bold text-text">Other details</h2>
           <FormTextarea
             defaultValue='For fields that are not available with the splose template, will show up here if they are all included in "Other Details" on the CSV file.'
             rows={4}
@@ -492,7 +492,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
 
         {/* Alerts */}
         <section className="mb-8">
-          <h2 className="mb-4 text-heading-lg text-text">Alerts</h2>
+          <h2 className="mb-4 text-heading-lg !font-bold text-text">Alerts</h2>
           <p className="mb-2 text-body-md text-text-secondary">
             Information you add here will be displayed in important places like scheduling appointments.
           </p>
@@ -501,7 +501,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
 
         {/* Contact details */}
         <section className="mb-8">
-          <h2 className="mb-4 text-heading-lg text-text">Contact details</h2>
+          <h2 className="mb-4 text-heading-lg !font-bold text-text">Contact details</h2>
           <div className="space-y-4">
             <FormInput label="Email" type="email" defaultValue={client.email || ""} />
             <FormInput label="Phone" type="tel" defaultValue={client.phone || ""} />
@@ -512,7 +512,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         {/* Medicare */}
         {client.medicare && (
           <section>
-            <h2 className="mb-4 text-heading-lg text-text">Medicare details</h2>
+            <h2 className="mb-4 text-heading-lg !font-bold text-text">Medicare details</h2>
             <FormInput label="Card number" type="text" defaultValue={client.medicare} />
           </section>
         )}
@@ -520,14 +520,14 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         {/* NDIS */}
         {client.ndisNumber && (
           <section className="mb-8">
-            <h2 className="mb-4 text-heading-lg text-text">NDIS details</h2>
+            <h2 className="mb-4 text-heading-lg !font-bold text-text">NDIS details</h2>
             <FormInput label="NDIS number" type="text" defaultValue={client.ndisNumber} />
           </section>
         )}
 
         {/* Privacy policy consent */}
         <section className="mb-8">
-          <h2 className="mb-4 text-heading-lg text-text">Privacy policy consent</h2>
+          <h2 className="mb-4 text-heading-lg !font-bold text-text">Privacy policy consent</h2>
           <FormSelect
             label="Consent status"
             defaultValue="no-response"
@@ -541,7 +541,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
 
         {/* Medications, allergies & intolerances */}
         <section className="mb-8">
-          <h2 className="mb-4 text-heading-lg text-text">Medications, allergies &amp; intolerances</h2>
+          <h2 className="mb-4 text-heading-lg !font-bold text-text">Medications, allergies &amp; intolerances</h2>
           <div className="space-y-4">
             <FormTextarea label="Medications" defaultValue="" placeholder="None" rows={2} />
             <FormTextarea label="Allergies" defaultValue="" placeholder="None" rows={2} />
@@ -551,7 +551,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
 
         {/* Custom fields */}
         <section className="mb-8">
-          <h2 className="mb-4 text-heading-lg text-text">Custom fields</h2>
+          <h2 className="mb-4 text-heading-lg !font-bold text-text">Custom fields</h2>
           <div className="space-y-4">
             <FormInput label="Date since surgery" type="text" defaultValue="25/09/2025" />
             <FormInput label="Note" type="text" defaultValue="Note short text check" />
@@ -560,7 +560,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
 
         {/* Invoicing */}
         <section className="mb-8">
-          <h2 className="mb-4 text-heading-lg text-text">Invoicing</h2>
+          <h2 className="mb-4 text-heading-lg !font-bold text-text">Invoicing</h2>
           <div className="flex items-center justify-between">
             <span className="text-body-md text-text">Invoice reminder preference</span>
             <Toggle checked={invoiceReminder} onChange={setInvoiceReminder} />

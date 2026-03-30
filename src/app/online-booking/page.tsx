@@ -101,7 +101,7 @@ function OnlineBookingPageInner() {
                   <strong>Book Now:</strong> Self-paying clients are required to make payment at the time of service.
                 </Alert>
 
-                <h1 className="mb-6 text-display-lg text-text">Select a location</h1>
+                <h1 className="mb-6 text-[36px] font-semibold leading-[44px] text-[rgb(16,24,40)]">Select a location</h1>
 
                 <div className="space-y-3">
                   {mockLocations.map((loc) => {
@@ -109,8 +109,8 @@ function OnlineBookingPageInner() {
                     return (
                       <div
                         key={loc.id}
-                        className={`flex items-center gap-4 rounded-[16px] border p-[20px] min-h-[162px] ${
-                          isSelected ? "border-primary" : "border-border"
+                        className={`flex items-center gap-4 rounded-[16px] border p-[20px] min-h-[162px] bg-white ${
+                          isSelected ? "border-primary" : "border-[rgb(208,213,221)]"
                         }`}
                       >
                         <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-lg bg-gray-800 text-2xl">
@@ -121,12 +121,12 @@ function OnlineBookingPageInner() {
                           <div className="text-body-md text-text-secondary">{loc.description}</div>
                         </div>
                         {isSelected ? (
-                          <button className="rounded-[10px] border border-primary bg-white px-4 py-2 text-body-lg text-[rgb(106,57,228)]">
+                          <button className="rounded-lg border border-[rgb(106,57,228)] bg-white px-[15px] py-1 text-body-lg text-[rgb(106,57,228)]">
                             Selected
                           </button>
                         ) : (
                           <button
-                            className="rounded-[10px] bg-primary px-4 py-2 text-body-lg text-white hover:bg-[rgb(90,45,200)]"
+                            className="rounded-lg bg-[rgb(106,57,228)] px-[15px] py-1 text-body-lg text-white hover:bg-[rgb(90,45,200)]"
                             onClick={() => setSelectedLocation(loc.id)}
                           >
                             Select
@@ -141,7 +141,7 @@ function OnlineBookingPageInner() {
 
             {step === "select" && (
               <>
-                <h1 className="mb-6 text-display-lg text-text">Select an appointment</h1>
+                <h1 className="mb-6 text-[36px] font-semibold leading-[44px] text-[rgb(16,24,40)]">Select an appointment</h1>
 
                 {/* Filters */}
                 <div className="mb-4 flex gap-3">
@@ -274,7 +274,7 @@ function OnlineBookingPageInner() {
 
             {step === "confirm" && (
               <>
-                <h1 className="mb-6 text-display-lg text-text">Confirm your appointment</h1>
+                <h1 className="mb-6 text-[36px] font-semibold leading-[44px] text-[rgb(16,24,40)]">Confirm your appointment</h1>
 
                 <div className="max-w-lg space-y-5">
                   <div className="grid grid-cols-2 gap-4">
@@ -380,7 +380,7 @@ function OnlineBookingPageInner() {
                       <CheckCircle className="h-8 w-8 text-green-600" />
                     </div>
                   </div>
-                  <h1 className="mb-2 text-display-lg text-text">Booking confirmed!</h1>
+                  <h1 className="mb-2 text-[36px] font-semibold leading-[44px] text-[rgb(16,24,40)]">Booking confirmed!</h1>
                   <p className="mb-6 text-body-lg text-text-secondary">
                     Your appointment has been booked. A confirmation email has been sent to <span className="text-body-lg-strong text-text">{email}</span>.
                   </p>
@@ -582,7 +582,7 @@ function OnlineBookingPageInner() {
                   ) : (
                     <button
                       disabled
-                      className="w-full rounded-[10px] bg-black/25 px-4 py-2.5 text-body-lg text-white cursor-not-allowed"
+                      className="w-full rounded-lg bg-black/25 px-[15px] py-1 text-body-lg text-white cursor-not-allowed"
                     >
                       Continue
                     </button>
@@ -590,7 +590,7 @@ function OnlineBookingPageInner() {
                 ) : step === "select" ? (
                   <button
                     disabled
-                    className="w-full rounded-[10px] bg-black/25 px-4 py-2.5 text-body-lg text-white cursor-not-allowed"
+                    className="w-full rounded-lg bg-black/25 px-[15px] py-1 text-body-lg text-white cursor-not-allowed"
                   >
                     Continue
                   </button>
