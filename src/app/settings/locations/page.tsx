@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Button, PageHeader, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Modal, FormInput, FormSelect, usePagination } from "@/components/ds";
+import { Button, PageHeader, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Modal, FormInput, FormSelect } from "@/components/ds";
 
 const locations = [
   { id: 128, name: "East Clinics", address: "", lastUpdate: "12:24 pm, 6 Mar 2026", rooms: 4 },
@@ -26,7 +26,10 @@ const defaultHours: Record<string, { start: string; end: string }> = {
 
 export default function LocationsPage() {
   const router = useRouter();
-  const { paged, paginationProps } = usePagination(locations, { pageKey: "/settings/locations" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(locations.length / pageSize);
+  const paged = locations.slice((currentPage - 1) * pageSize, currentPage * pageSize);
   const [showNewModal, setShowNewModal] = useState(false);
   const [newName, setNewName] = useState("");
   const [newAddress, setNewAddress] = useState("");
@@ -62,7 +65,7 @@ export default function LocationsPage() {
           ))}
         </TableBody>
       </DataTable>
-      <Pagination {...paginationProps} showPageSize={false} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={locations.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} showPageSize={false} />
 
       <Modal
         open={showNewModal}

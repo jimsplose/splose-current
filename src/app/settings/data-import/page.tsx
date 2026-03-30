@@ -18,7 +18,6 @@ import {
   Modal,
   FormSelect,
   Alert,
-  usePagination,
 } from "@/components/ds";
 
 interface ImportRow {
@@ -100,7 +99,10 @@ export default function DataImportPage() {
   }
   function handleImportClose() { setImportOpen(false); setImportStep("source"); }
 
-  const { paged: pageItems, paginationProps } = usePagination(importHistory, { pageKey: "/settings/data-import" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(importHistory.length / pageSize);
+  const pageItems = importHistory.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   function handleAction(value: string, row: ImportRow) {
     switch (value) { case "view": setViewRow(row); break; case "re-import": setReImportRow(row); break; case "delete": setDeleteRow(row); break; }
@@ -153,7 +155,7 @@ export default function DataImportPage() {
           ))}
         </TableBody>
       </DataTable>
-      <Pagination {...paginationProps} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={importHistory.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} />
 
       {/* Import multi-step modal */}
       <Modal

@@ -17,7 +17,6 @@ import {
   Dropdown,
   DropdownTriggerButton,
   Modal,
-  usePagination,
 } from "@/components/ds";
 
 interface ExportRow {
@@ -105,7 +104,10 @@ export default function DataExportPage() {
   const [reExportRow, setReExportRow] = useState<ExportRow | null>(null);
   const [deleteRow, setDeleteRow] = useState<ExportRow | null>(null);
 
-  const { paged: pageItems, paginationProps } = usePagination(exportHistory, { pageKey: "/settings/data-export" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(exportHistory.length / pageSize);
+  const pageItems = exportHistory.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   function handleAction(value: string, row: ExportRow) {
     switch (value) {
@@ -214,7 +216,7 @@ export default function DataExportPage() {
         </TableBody>
       </DataTable>
 
-      <Pagination {...paginationProps} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={exportHistory.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} />
 
       {/* Re-export confirmation modal */}
       <Modal

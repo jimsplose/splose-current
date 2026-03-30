@@ -21,7 +21,6 @@ import {
   Toggle,
   OnOffBadge,
   EmailPreview,
-  usePagination,
 } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
@@ -91,7 +90,10 @@ export default function AppointmentTemplatesPage() {
   const router = useRouter();
   const [templateList, setTemplateList] = useState(initialTemplates);
   const [emailPreviewOpen, setEmailPreviewOpen] = useState(false);
-  const { paged, paginationProps } = usePagination(templateList, { pageKey: "/settings/appointment-templates" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(templateList.length / pageSize);
+  const paged = templateList.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } = useFormModal<{
     name: string;
@@ -160,7 +162,7 @@ export default function AppointmentTemplatesPage() {
         </TableBody>
       </DataTable>
 
-      <Pagination {...paginationProps} showPageSize={false} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={templateList.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} showPageSize={false} />
       <Modal
         open={modalOpen}
         onClose={closeModal}

@@ -18,7 +18,6 @@ import {
   Modal,
   FormInput,
   FormSelect,
-  usePagination,
 } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { formatTimestamp } from "@/lib/format";
@@ -122,7 +121,10 @@ export default function EmailTemplatesPage() {
     );
   });
 
-  const { paged, paginationProps } = usePagination(filtered, { pageKey: "/settings/email-templates" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(filtered.length / pageSize);
+  const paged = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   return (
     <div className="p-6">
@@ -161,7 +163,7 @@ export default function EmailTemplatesPage() {
         </TableBody>
       </DataTable>
 
-      <Pagination {...paginationProps} showPageSize={false} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={filtered.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} showPageSize={false} />
       <Modal
         open={modalOpen}
         onClose={closeModal}

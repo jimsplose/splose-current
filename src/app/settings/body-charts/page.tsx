@@ -17,7 +17,6 @@ import {
   Modal,
   FormInput,
   FormSelect,
-  usePagination,
 } from "@/components/ds";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -115,7 +114,10 @@ export default function BodyChartsPage() {
     ? templates.filter((t) => t.name.toLowerCase().includes(search.toLowerCase()))
     : templates;
 
-  const { paged, paginationProps } = usePagination(filtered, { pageKey: "/settings/body-charts" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(filtered.length / pageSize);
+  const paged = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   function handleAction(value: string, index: number) {
     if (value === "edit") openEdit(index, { name: templates[index].name, type: templates[index].type });
@@ -154,7 +156,7 @@ export default function BodyChartsPage() {
           ))}
         </TableBody>
       </DataTable>
-      <Pagination {...paginationProps} showPageSize={false} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={filtered.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} showPageSize={false} />
 
       <Modal
         open={modalOpen}

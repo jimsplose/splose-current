@@ -16,7 +16,6 @@ import {
   Dropdown,
   DropdownTriggerButton,
   Modal,
-  usePagination,
 } from "@/components/ds";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -53,7 +52,10 @@ const PAYMENT_TYPE_OPTIONS: { label: string; value: string }[] = [
 
 export default function PaymentSettingsPage() {
   const [methods, setMethods] = useState(paymentMethods);
-  const { paged: pageItems, paginationProps } = usePagination(methods, { pageKey: "/settings/payment-settings" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(methods.length / pageSize);
+  const pageItems = methods.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } = useFormModal<{ name: string; description: string }>({
     defaults: { name: "", description: "" },
@@ -151,7 +153,7 @@ export default function PaymentSettingsPage() {
           </TableBody>
         </DataTable>
 
-        <Pagination {...paginationProps} />
+        <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={methods.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} />
 
         <div className="mt-4">
           <Dropdown

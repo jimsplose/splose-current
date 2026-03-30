@@ -26,7 +26,6 @@ import {
   Dropdown,
   DropdownTriggerButton,
   ReorderModal,
-  usePagination,
 } from "@/components/ds";
 
 /* ------------------------------------------------------------------ */
@@ -82,7 +81,10 @@ export default function CustomFieldsPage() {
     f.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
-  const { paged, paginationProps } = usePagination(filteredFields, { pageKey: "/settings/custom-fields" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(filteredFields.length / pageSize);
+  const paged = filteredFields.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   const customFieldDropdownItems = [
     { label: "Edit", value: "edit" },
@@ -158,7 +160,7 @@ export default function CustomFieldsPage() {
         </TableBody>
       </DataTable>
 
-      <Pagination {...paginationProps} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={filteredFields.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} />
 
       {/* Reorder modal (DS component with dnd-kit) */}
       <ReorderModal

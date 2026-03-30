@@ -42,7 +42,6 @@ import {
   FormSelect,
   FormInput,
   FormTextarea,
-  usePagination,
 } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
@@ -479,8 +478,13 @@ function WaitlistPageInner() {
     return true;
   });
 
-  const { paged: pagedScreener, paginationProps: screenerPaginationProps } = usePagination(filteredScreener, { pageKey: "/waitlist-screener" });
-  const { paged: pagedWaitlist, paginationProps: waitlistPaginationProps } = usePagination(filteredWaitlist, { pageKey: "/waitlist" });
+  const [screenerPage, setScreenerPage] = useState(1);
+  const [waitlistPage, setWaitlistPage] = useState(1);
+  const pageSize = 10;
+  const screenerTotalPages = Math.ceil(filteredScreener.length / pageSize);
+  const pagedScreener = filteredScreener.slice((screenerPage - 1) * pageSize, screenerPage * pageSize);
+  const waitlistTotalPages = Math.ceil(filteredWaitlist.length / pageSize);
+  const pagedWaitlist = filteredWaitlist.slice((waitlistPage - 1) * pageSize, waitlistPage * pageSize);
 
   // Marker colors cycle for map pins
   const markerColors = ["#7c3aed", "#2563eb", "#dc2626", "#059669", "#d97706", "#ec4899"];
@@ -642,7 +646,7 @@ function WaitlistPageInner() {
               )}
             </TableBody>
           </DataTable>
-          <Pagination {...screenerPaginationProps} />
+          <Pagination currentPage={screenerPage} totalPages={screenerTotalPages} totalItems={filteredScreener.length} itemsPerPage={pageSize} onPageChange={setScreenerPage} />
         </div>
       )}
 
@@ -1023,7 +1027,7 @@ function WaitlistPageInner() {
                   )}
                 </TableBody>
               </DataTable>
-              <Pagination {...waitlistPaginationProps} />
+              <Pagination currentPage={waitlistPage} totalPages={waitlistTotalPages} totalItems={filteredWaitlist.length} itemsPerPage={pageSize} onPageChange={setWaitlistPage} />
             </>
           ) : (
             /* ===== MAP VIEW (Leaflet) ===== */

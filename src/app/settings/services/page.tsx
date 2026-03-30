@@ -16,7 +16,6 @@ import {
   SearchBar,
   Dropdown,
   DropdownTriggerButton,
-  usePagination,
 } from "@/components/ds";
 
 interface Service {
@@ -75,7 +74,10 @@ export default function SettingsServicesPage() {
       )
     : services;
 
-  const { paged: pageServices, paginationProps } = usePagination(filteredServices, { pageKey: "/settings/services" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(filteredServices.length / pageSize);
+  const pageServices = filteredServices.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   return (
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
@@ -153,7 +155,7 @@ export default function SettingsServicesPage() {
       </DataTable>
 
       {/* Pagination */}
-      <Pagination {...paginationProps} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={filteredServices.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} />
     </div>
   );
 }

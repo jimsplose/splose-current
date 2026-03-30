@@ -18,7 +18,6 @@ import {
   DropdownTriggerButton,
   Modal,
   FormInput,
-  usePagination,
 } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
@@ -65,7 +64,10 @@ const templates = [
 export default function LetterTemplatesPage() {
   const router = useRouter();
   const [templateList, setTemplateList] = useState(templates);
-  const { paged, paginationProps } = usePagination(templateList, { pageKey: "/settings/letter-templates" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(templateList.length / pageSize);
+  const paged = templateList.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } =
     useFormModal<{ title: string }>({
@@ -124,7 +126,7 @@ export default function LetterTemplatesPage() {
         </TableBody>
       </DataTable>
 
-      <Pagination {...paginationProps} showPageSize={false} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={templateList.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} showPageSize={false} />
       <Modal
         open={modalOpen}
         onClose={closeModal}

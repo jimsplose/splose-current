@@ -22,7 +22,6 @@ import {
   DropdownTriggerButton,
   Modal,
   RichTextEditor,
-  usePagination,
 } from "@/components/ds";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -62,8 +61,13 @@ export default function InvoiceSettingsPage() {
   const [templates, setTemplates] = useState(invoiceTemplates);
   const [modalType, setModalType] = useState<"reminder" | "template">("reminder");
 
-  const { paged: pageReminders, paginationProps: reminderPaginationProps } = usePagination(reminders, { pageKey: "/settings/invoice-items" });
-  const { paged: pageTemplates, paginationProps: templatePaginationProps } = usePagination(templates, { pageKey: "/settings/invoice-templates" });
+  const [reminderPage, setReminderPage] = useState(1);
+  const [templatePage, setTemplatePage] = useState(1);
+  const pageSize = 10;
+  const reminderTotalPages = Math.ceil(reminders.length / pageSize);
+  const pageReminders = reminders.slice((reminderPage - 1) * pageSize, reminderPage * pageSize);
+  const templateTotalPages = Math.ceil(templates.length / pageSize);
+  const pageTemplates = templates.slice((templatePage - 1) * pageSize, templatePage * pageSize);
 
   const onSave = useCallback((values: { name: string; subject: string; body: string; sendTiming: string }, index: number | null) => {
     if (modalType === "reminder") {
@@ -236,7 +240,7 @@ export default function InvoiceSettingsPage() {
           </TableBody>
         </DataTable>
 
-        <Pagination {...reminderPaginationProps} />
+        <Pagination currentPage={reminderPage} totalPages={reminderTotalPages} totalItems={reminders.length} itemsPerPage={pageSize} onPageChange={setReminderPage} />
 
         <div style={{ marginTop: 16 }}>
           <Button variant="secondary" style={{ width: '100%', justifyContent: 'center' }} onClick={() => openModal("reminder")}>
@@ -277,7 +281,7 @@ export default function InvoiceSettingsPage() {
           </TableBody>
         </DataTable>
 
-        <Pagination {...templatePaginationProps} />
+        <Pagination currentPage={templatePage} totalPages={templateTotalPages} totalItems={templates.length} itemsPerPage={pageSize} onPageChange={setTemplatePage} />
 
         <div style={{ marginTop: 16 }}>
           <Button variant="secondary" style={{ width: '100%', justifyContent: 'center' }} onClick={() => openModal("template")}>

@@ -12,7 +12,6 @@ import {
   Pagination,
   Modal,
   FormInput,
-  usePagination,
 } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 
@@ -32,7 +31,10 @@ const initialRates: TaxRate[] = [
 
 export default function TaxRatesPage() {
   const [rates, setRates] = useState(initialRates);
-  const { paged: pageItems, paginationProps } = usePagination(rates, { pageKey: "/settings/tax-rates" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(rates.length / pageSize);
+  const pageItems = rates.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } =
     useFormModal<{ name: string; rate: string; description: string }>({
@@ -75,7 +77,7 @@ export default function TaxRatesPage() {
         </TableBody>
       </DataTable>
 
-      <Pagination {...paginationProps} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={rates.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} />
 
       <Modal
         open={modalOpen}

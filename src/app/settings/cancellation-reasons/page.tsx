@@ -18,7 +18,6 @@ import {
   FormInput,
   FormSelect,
   Toggle,
-  usePagination,
 } from "@/components/ds";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -43,7 +42,10 @@ const initialReasons: CancellationReason[] = [
 
 export default function CancellationReasonsPage() {
   const [reasons, setReasons] = useState(initialReasons);
-  const { paged, paginationProps } = usePagination(reasons, { pageKey: "/settings/cancellation-reasons" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(reasons.length / pageSize);
+  const paged = reasons.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   const cancellationWindowOptions = [
     { value: "1h", label: "1 hour" },
@@ -123,7 +125,7 @@ export default function CancellationReasonsPage() {
         </TableBody>
       </DataTable>
 
-      <Pagination {...paginationProps} showPageSize={false} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={reasons.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} showPageSize={false} />
 
       <Modal
         open={modalOpen}

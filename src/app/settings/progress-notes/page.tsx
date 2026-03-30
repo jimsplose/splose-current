@@ -21,7 +21,6 @@ import {
   Modal,
   FormInput,
   Toggle,
-  usePagination,
 } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
@@ -39,7 +38,10 @@ export default function ProgressNotesPage() {
   const router = useRouter();
   const [templateList, setTemplateList] = useState(templates);
   const [showBanner, setShowBanner] = useState(true);
-  const { paged, paginationProps } = usePagination(templateList, { pageKey: "/settings/progress-notes" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(templateList.length / pageSize);
+  const paged = templateList.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   const { modalOpen, isEditing, form, setField, openCreate, openEdit, closeModal, handleSave } =
     useFormModal<{ title: string; hasAi: boolean }>({
@@ -133,7 +135,7 @@ export default function ProgressNotesPage() {
         </TableBody>
       </DataTable>
 
-      <Pagination {...paginationProps} showPageSize={false} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={templateList.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} showPageSize={false} />
       <Modal
         open={modalOpen}
         onClose={closeModal}
