@@ -3,31 +3,32 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams } from "next/navigation";
 import {
-  LayoutGrid,
-  Columns2,
-  ChevronDown,
-  Sparkles,
-  CheckCircle,
-  ChevronUp,
-  Plus,
-  Bold,
-  Italic,
-  Underline,
-  Strikethrough,
-  Link2,
-  Image,
-  Table,
-  ThumbsUp,
-  ThumbsDown,
-  AlignLeft,
-  List as ListIcon,
-  ListOrdered,
-  Palette,
-  Type,
-  MessageCircle,
-  ClipboardList,
-  ArrowUp,
-} from "lucide-react";
+  AppstoreOutlined,
+  ColumnWidthOutlined,
+  DownOutlined,
+  ThunderboltOutlined,
+  CheckCircleOutlined,
+  UpOutlined,
+  PlusOutlined,
+  BoldOutlined,
+  ItalicOutlined,
+  UnderlineOutlined,
+  StrikethroughOutlined,
+  LinkOutlined,
+  PictureOutlined,
+  TableOutlined,
+  LikeOutlined,
+  DislikeOutlined,
+  AlignLeftOutlined,
+  UnorderedListOutlined,
+  OrderedListOutlined,
+  BgColorsOutlined,
+  FontSizeOutlined,
+  MessageOutlined,
+  SnippetsOutlined,
+  ArrowUpOutlined,
+} from "@ant-design/icons";
+import { Flex } from "antd";
 import { Button, Badge, Card, Checkbox, FormSelect, FormInput, EmptyState, List, Navbar, Filter, Spinner, Dropdown } from "@/components/ds";
 import AiChatPanel from "@/components/AiChatPanel";
 
@@ -271,26 +272,26 @@ export default function EditProgressNotePage() {
 
   if (loading) {
     return (
-      <div className="flex h-[calc(100vh-3rem)] items-center justify-center">
+      <Flex align="center" justify="center" style={{ height: 'calc(100vh - 3rem)' }}>
         <Spinner size="lg" />
-      </div>
+      </Flex>
     );
   }
 
   const clientName = note ? `${note.client.firstName} ${note.client.lastName}` : "Client";
 
   return (
-    <div className="min-h-[calc(100vh-3rem)] bg-gray-50/30">
+    <div style={{ minHeight: 'calc(100vh - 3rem)', backgroundColor: 'rgba(249, 250, 251, 0.3)' }}>
       {/* Header bar */}
       <Navbar
         backHref={`/notes/${id}`}
         title={note?.template || "Note"}
         badge={
           <>
-            <span className="cursor-pointer text-body-md text-primary hover:underline">{clientName}</span>
+            <span className="text-body-md" style={{ cursor: 'pointer', color: 'var(--ant-color-primary)' }}>{clientName}</span>
             {note?.signed ? (
               <Badge variant="green">
-                <CheckCircle className="h-3 w-3" />
+                <CheckCircleOutlined style={{ fontSize: 12 }} />
                 Saved
               </Badge>
             ) : (
@@ -302,8 +303,8 @@ export default function EditProgressNotePage() {
         {/* View toggle */}
         <Filter
           items={[
-            { label: <LayoutGrid className="h-4 w-4" />, value: "single" },
-            { label: <Columns2 className="h-4 w-4" />, value: "split" },
+            { label: <AppstoreOutlined style={{ fontSize: 16 }} />, value: "single" },
+            { label: <ColumnWidthOutlined style={{ fontSize: 16 }} />, value: "split" },
           ]}
           value={viewMode}
           onChange={(v) => setViewMode(v as "single" | "split")}
@@ -313,12 +314,12 @@ export default function EditProgressNotePage() {
         </Button>
       </Navbar>
 
-      <div className="flex">
+      <div style={{ display: 'flex' }}>
         {/* Editor panel */}
-        <div className="flex-1 overflow-y-auto bg-white p-6" style={{ maxHeight: "calc(100vh - 6rem)" }}>
-          <div className="mx-auto max-w-3xl">
+        <div style={{ flex: 1, overflowY: 'auto', backgroundColor: '#fff', padding: 24, maxHeight: 'calc(100vh - 6rem)' }}>
+          <div style={{ maxWidth: 768, margin: '0 auto' }}>
             {/* Service selector */}
-            <div className="mb-4">
+            <div style={{ marginBottom: 16 }}>
               <FormSelect
                 label="Service"
                 options={SERVICE_OPTIONS}
@@ -328,57 +329,57 @@ export default function EditProgressNotePage() {
             </div>
 
             {/* Rich text toolbar */}
-            <Card padding="none" className="mb-4 flex flex-wrap items-center gap-1 px-2 py-1.5 text-text-secondary">
-              <Button variant="toolbar" size="sm" className="flex items-center gap-0.5 text-xs">
+            <Card padding="none" style={{ marginBottom: 16, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 4, padding: '6px 8px', color: 'var(--ant-color-text-secondary)' }}>
+              <Button variant="toolbar" size="sm" style={{ display: 'flex', alignItems: 'center', gap: 2, fontSize: 12 }}>
                 Arial
-                <ChevronDown className="h-3 w-3" />
+                <DownOutlined style={{ fontSize: 12 }} />
               </Button>
-              <Button variant="toolbar" size="sm" className="flex items-center gap-0.5">
-                <Type className="h-4 w-4" />
-                <ChevronDown className="h-3 w-3" />
+              <Button variant="toolbar" size="sm" style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                <FontSizeOutlined style={{ fontSize: 16 }} />
+                <DownOutlined style={{ fontSize: 12 }} />
               </Button>
-              <span className="h-4 w-px bg-border" />
+              <span style={{ height: 16, width: 1, backgroundColor: 'var(--ant-color-border)' }} />
               <Button variant="icon">
-                <Bold className="h-4 w-4" />
-              </Button>
-              <Button variant="icon">
-                <Italic className="h-4 w-4" />
+                <BoldOutlined style={{ fontSize: 16 }} />
               </Button>
               <Button variant="icon">
-                <Underline className="h-4 w-4" />
+                <ItalicOutlined style={{ fontSize: 16 }} />
               </Button>
               <Button variant="icon">
-                <Strikethrough className="h-4 w-4" />
-              </Button>
-              <span className="h-4 w-px bg-border" />
-              <Button variant="icon">
-                <Link2 className="h-4 w-4" />
+                <UnderlineOutlined style={{ fontSize: 16 }} />
               </Button>
               <Button variant="icon">
-                <Image className="h-4 w-4" />
+                <StrikethroughOutlined style={{ fontSize: 16 }} />
+              </Button>
+              <span style={{ height: 16, width: 1, backgroundColor: 'var(--ant-color-border)' }} />
+              <Button variant="icon">
+                <LinkOutlined style={{ fontSize: 16 }} />
               </Button>
               <Button variant="icon">
-                <Table className="h-4 w-4" />
+                <PictureOutlined style={{ fontSize: 16 }} />
               </Button>
               <Button variant="icon">
-                <ListIcon className="h-4 w-4" />
+                <TableOutlined style={{ fontSize: 16 }} />
               </Button>
               <Button variant="icon">
-                <ListOrdered className="h-4 w-4" />
+                <UnorderedListOutlined style={{ fontSize: 16 }} />
               </Button>
               <Button variant="icon">
-                <AlignLeft className="h-4 w-4" />
+                <OrderedListOutlined style={{ fontSize: 16 }} />
               </Button>
               <Button variant="icon">
-                <Palette className="h-4 w-4" />
+                <AlignLeftOutlined style={{ fontSize: 16 }} />
               </Button>
-              <span className="flex-1" />
+              <Button variant="icon">
+                <BgColorsOutlined style={{ fontSize: 16 }} />
+              </Button>
+              <span style={{ flex: 1 }} />
               <Button
                 variant="secondary"
                 onClick={generateAll}
-                className="border-primary text-primary hover:bg-primary/10"
+                style={{ borderColor: 'var(--ant-color-primary)', color: 'var(--ant-color-primary)' }}
               >
-                <Sparkles className="h-3.5 w-3.5" />
+                <ThunderboltOutlined style={{ fontSize: 14 }} />
                 Generate
               </Button>
               <Button
@@ -388,26 +389,26 @@ export default function EditProgressNotePage() {
                 title="Splose AI Chat"
                 className={aiChatOpen ? "bg-primary text-white" : ""}
               >
-                <MessageCircle className="h-4 w-4" />
+                <MessageOutlined style={{ fontSize: 16 }} />
               </Button>
               <Button variant="primary" round size="sm">
-                <Plus className="h-4 w-4" />
+                <PlusOutlined style={{ fontSize: 16 }} />
               </Button>
             </Card>
 
             {/* Syncing notice */}
-            <div className="mb-4 flex items-center gap-2 rounded-lg bg-primary/10 px-3 py-2 text-xs text-text-secondary">
-              <div className="flex items-center gap-1">
+            <Flex align="center" gap={8} style={{ marginBottom: 16, borderRadius: 8, backgroundColor: 'var(--ant-color-primary-bg)', padding: '8px 12px', fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
+              <Flex align="center" gap={4}>
                 <Checkbox checked readOnly className="h-3 w-3" />
                 <span>Syncing client history</span>
-              </div>
-              <span className="text-text-secondary">
+              </Flex>
+              <span style={{ color: 'var(--ant-color-text-secondary)' }}>
                 Clients with more notes may take longer. AI will have full context once complete
               </span>
-            </div>
+            </Flex>
 
             {/* Client info table */}
-            <Card padding="sm" className="mb-6">
+            <Card padding="sm" style={{ marginBottom: 24 }}>
               <List
                 labelWidth="w-40"
                 items={[
@@ -423,29 +424,31 @@ export default function EditProgressNotePage() {
 
             {/* AI Sections */}
             {sections.map((section) => (
-              <div key={section.id} className="mb-6">
-                <h3 className="mb-2 text-heading-lg text-text">{section.title}</h3>
+              <div key={section.id} style={{ marginBottom: 24 }}>
+                <h3 className="text-heading-lg" style={{ marginBottom: 8 }}>{section.title}</h3>
 
                 {/* Show accepted content directly under heading */}
                 {accepted[section.id] && section.generated && (
-                  <div className="mb-2 text-sm leading-relaxed whitespace-pre-wrap text-text">
+                  <div style={{ marginBottom: 8, fontSize: 14, lineHeight: 1.625, whiteSpace: 'pre-wrap' }}>
                     {section.content}
                   </div>
                 )}
 
                 {/* AI Block — hidden once accepted */}
                 {!accepted[section.id] && (
-                  <div className="rounded-lg border border-primary/20 bg-primary/5">
+                  <div style={{ borderRadius: 8, border: '1px solid rgba(var(--ant-color-primary-rgb, 124, 58, 237), 0.2)', backgroundColor: 'rgba(var(--ant-color-primary-rgb, 124, 58, 237), 0.05)' }} className="border-primary/20 bg-primary/5 rounded-lg">
                     {/* AI block header */}
-                    <div
-                      className="flex cursor-pointer items-center justify-between px-4 py-3"
+                    <Flex
+                      align="center"
+                      justify="space-between"
+                      style={{ padding: '12px 16px', cursor: 'pointer' }}
                       onClick={() => toggleSection(section.id)}
                     >
-                      <div className="flex items-center gap-2">
-                        <Sparkles className="h-4 w-4 text-primary" />
-                        <span className="text-label-lg text-primary">AI block</span>
-                      </div>
-                      <div className="flex items-center gap-2">
+                      <Flex align="center" gap={8}>
+                        <ThunderboltOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary)' }} />
+                        <span className="text-label-lg" style={{ color: 'var(--ant-color-primary)' }}>AI block</span>
+                      </Flex>
+                      <Flex align="center" gap={8}>
                         <Button
                           variant="icon"
                           size="sm"
@@ -459,35 +462,35 @@ export default function EditProgressNotePage() {
                           <span className="text-label-lg">&times;</span>
                         </Button>
                         {section.expanded ? (
-                          <ChevronUp className="h-4 w-4 text-text-secondary" />
+                          <UpOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
                         ) : (
-                          <ChevronDown className="h-4 w-4 text-text-secondary" />
+                          <DownOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
                         )}
-                      </div>
-                    </div>
+                      </Flex>
+                    </Flex>
 
                     {/* AI block content */}
                     {section.expanded && (
-                      <div className="border-t border-purple-200 px-4 py-3">
+                      <div style={{ borderTop: '1px solid rgba(168, 85, 247, 0.3)', padding: '12px 16px' }}>
                         {section.generating ? (
-                          <div className="flex items-center gap-2 py-4">
+                          <Flex align="center" gap={8} style={{ padding: '16px 0' }}>
                             <Spinner size="sm" />
-                            <span className="text-sm text-text-secondary">
+                            <span style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }}>
                               Thinking<span className="animate-pulse">...</span>
                             </span>
-                          </div>
+                          </Flex>
                         ) : section.generated ? (
                           <div>
-                            <div className="text-sm leading-relaxed whitespace-pre-wrap text-text">
+                            <div style={{ fontSize: 14, lineHeight: 1.625, whiteSpace: 'pre-wrap' }}>
                               {section.content}
                             </div>
                             {/* Feedback and actions row */}
-                            <div className="mt-3 flex items-center justify-between">
+                            <Flex align="center" justify="space-between" style={{ marginTop: 12 }}>
                               <Dropdown
                                 trigger={
                                   <Button variant="ghost" size="sm" className="hover:bg-purple-100">
                                     Actions
-                                    <ChevronDown className="h-3 w-3" />
+                                    <DownOutlined style={{ fontSize: 12 }} />
                                   </Button>
                                 }
                                 items={[
@@ -500,7 +503,7 @@ export default function EditProgressNotePage() {
                                   else if (v === "copy") navigator.clipboard.writeText(section.content);
                                 }}
                               />
-                              <div className="flex items-center gap-2">
+                              <Flex align="center" gap={8}>
                                 {/* Thumbs up/down feedback */}
                                 <Button
                                   variant="icon"
@@ -513,7 +516,7 @@ export default function EditProgressNotePage() {
                                   }
                                   title="Good response"
                                 >
-                                  <ThumbsUp className="h-3.5 w-3.5" />
+                                  <LikeOutlined style={{ fontSize: 14 }} />
                                 </Button>
                                 <Button
                                   variant="icon"
@@ -526,7 +529,7 @@ export default function EditProgressNotePage() {
                                   }
                                   title="Poor response"
                                 >
-                                  <ThumbsDown className="h-3.5 w-3.5" />
+                                  <DislikeOutlined style={{ fontSize: 14 }} />
                                 </Button>
                                 {/* Accept button */}
                                 <Button
@@ -534,22 +537,22 @@ export default function EditProgressNotePage() {
                                   size="sm"
                                   onClick={() => acceptSection(section.id)}
                                 >
-                                  <CheckCircle className="h-3.5 w-3.5" />
+                                  <CheckCircleOutlined style={{ fontSize: 14 }} />
                                   Accept
                                 </Button>
-                              </div>
-                            </div>
+                              </Flex>
+                            </Flex>
                           </div>
                         ) : (
                           <div>
-                            <p className="text-sm leading-relaxed text-text-secondary">{section.prompt}</p>
+                            <p style={{ fontSize: 14, lineHeight: 1.625, color: 'var(--ant-color-text-secondary)' }}>{section.prompt}</p>
                             {/* Actions dropdown and Generate button row */}
-                            <div className="mt-3 flex items-center justify-between">
+                            <Flex align="center" justify="space-between" style={{ marginTop: 12 }}>
                               <Dropdown
                                 trigger={
                                   <Button variant="ghost" size="sm" className="hover:bg-purple-100">
                                     Actions
-                                    <ChevronDown className="h-3 w-3" />
+                                    <DownOutlined style={{ fontSize: 12 }} />
                                   </Button>
                                 }
                                 items={[
@@ -567,7 +570,7 @@ export default function EditProgressNotePage() {
                               >
                                 Generate
                               </Button>
-                            </div>
+                            </Flex>
                           </div>
                         )}
                       </div>
@@ -582,17 +585,16 @@ export default function EditProgressNotePage() {
         {/* Split view reference panel */}
         {viewMode === "split" && (
           <div
-            className="w-80 shrink-0 overflow-y-auto border-l border-border bg-white p-6"
-            style={{ maxHeight: "calc(100vh - 6rem)" }}
+            style={{ width: 320, flexShrink: 0, overflowY: 'auto', borderLeft: '1px solid var(--ant-color-border)', backgroundColor: '#fff', padding: 24, maxHeight: 'calc(100vh - 6rem)' }}
           >
-            <h3 className="mb-3 text-heading-sm text-text">Filter previous progress notes</h3>
+            <h3 className="text-heading-sm" style={{ marginBottom: 12 }}>Filter previous progress notes</h3>
             <FormInput
               type="text"
               placeholder="Search notes"
             />
             <EmptyState
               message="No reference notes found"
-              className="mt-16"
+              style={{ marginTop: 64 }}
             />
           </div>
         )}
@@ -600,8 +602,7 @@ export default function EditProgressNotePage() {
         {/* Splose AI Chat Side Panel */}
         {aiChatOpen && (
           <div
-            className="flex w-[350px] shrink-0 flex-col border-l border-border bg-white shadow-lg"
-            style={{ maxHeight: "calc(100vh - 6rem)" }}
+            style={{ display: 'flex', width: 350, flexShrink: 0, flexDirection: 'column', borderLeft: '1px solid var(--ant-color-border)', backgroundColor: '#fff', boxShadow: '-4px 0 12px rgba(0,0,0,0.1)', maxHeight: 'calc(100vh - 6rem)' }}
           >
             <AiChatPanel onClose={() => setAiChatOpen(false)} variant="notes" />
           </div>

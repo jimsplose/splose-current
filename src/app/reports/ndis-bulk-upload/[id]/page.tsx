@@ -17,7 +17,7 @@ export default function NdisBulkUploadDetailPage() {
       </PageHeader>
 
       {hasErrors && (
-        <Alert variant="error" className="mb-4">
+        <Alert variant="error" style={{ marginBottom: 16 }}>
           1 item failed to upload. Please review and retry.
         </Alert>
       )}
@@ -32,7 +32,7 @@ export default function NdisBulkUploadDetailPage() {
         </TableHead>
         <TableBody>
           {items.map((item, i) => (
-            <tr key={i} className="border-b border-border hover:bg-gray-50">
+            <tr key={i} style={{ borderBottom: '1px solid var(--ant-color-border)' }} className="hover:bg-gray-50">
               <Td>{item.client}</Td>
               <Td>{item.service}</Td>
               <Td>{item.date}</Td>

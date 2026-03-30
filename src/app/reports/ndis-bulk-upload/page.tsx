@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Button, PageHeader, DataTable, TableHead, Th, TableBody, Td, Badge, Pagination, usePagination } from "@/components/ds";
+import { Button, PageHeader, DataTable, TableHead, Th, TableBody, Td, Badge } from "@/components/ds";
 
 const uploads = [
   { id: "54901", date: "22 Mar 2026", items: 12, status: "Done", practitioner: "Sarah Chen" },
@@ -11,8 +11,6 @@ const uploads = [
 ];
 
 export default function NdisBulkUploadPage() {
-  const { paged, paginationProps } = usePagination(uploads, { pageKey: "/reports/ndis-bulk-upload" });
-
   return (
     <>
       <PageHeader title="NDIS bulk upload">
@@ -29,10 +27,10 @@ export default function NdisBulkUploadPage() {
           <Th>Status</Th>
         </TableHead>
         <TableBody>
-          {paged.map((u) => (
-            <tr key={u.id} className="border-b border-border hover:bg-gray-50">
+          {uploads.map((u) => (
+            <tr key={u.id} style={{ borderBottom: '1px solid var(--ant-color-border)' }} className="hover:bg-gray-50">
               <Td>
-                <Link href={`/reports/ndis-bulk-upload/${u.id}`} className="text-primary hover:underline">
+                <Link href={`/reports/ndis-bulk-upload/${u.id}`} style={{ color: 'var(--ant-color-primary)' }} className="hover:underline">
                   {u.date}
                 </Link>
               </Td>
@@ -45,7 +43,6 @@ export default function NdisBulkUploadPage() {
           ))}
         </TableBody>
       </DataTable>
-      <Pagination {...paginationProps} />
     </>
   );
 }

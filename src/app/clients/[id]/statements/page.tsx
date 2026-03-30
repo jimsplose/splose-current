@@ -1,7 +1,8 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { ChevronDown } from "lucide-react";
+import { DownOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import { Button, Checkbox, PageHeader, FormInput, Card } from "@/components/ds";
 
 export default function ClientStatementsPage() {
@@ -9,58 +10,58 @@ export default function ClientStatementsPage() {
   const _id = params.id as string;
 
   return (
-    <div className="flex-1 overflow-y-auto p-6">
+    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Statements">
         <Button>Email statement</Button>
         <Button>Download PDF</Button>
       </PageHeader>
 
       {/* Filter row */}
-      <div className="mb-4 flex items-end gap-4">
-        <div className="flex flex-col gap-1">
-          <label className="text-label-lg text-text">Type*</label>
-          <Button className="min-w-[140px] justify-between">
+      <Flex align="flex-end" gap={16} style={{ marginBottom: 16 }}>
+        <Flex vertical gap={4}>
+          <label className="text-label-lg">Type*</label>
+          <Button style={{ minWidth: 140, justifyContent: 'space-between' }}>
             Activity
-            <ChevronDown className="h-4 w-4 text-text-secondary" />
+            <DownOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
           </Button>
-        </div>
+        </Flex>
 
-        <div className="flex flex-col gap-1">
-          <label className="text-label-lg text-text">Date range*</label>
-          <div className="flex items-center gap-2">
+        <Flex vertical gap={4}>
+          <label className="text-label-lg">Date range*</label>
+          <Flex align="center" gap={8}>
             <FormInput
               type="text"
               defaultValue="1 Mar 2026"
-              className="w-[130px]"
+              style={{ width: 130 }}
             />
-            <span className="text-sm text-text-secondary">&mdash;</span>
+            <span style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }}>&mdash;</span>
             <FormInput
               type="text"
               defaultValue="31 Mar 2026"
-              className="w-[130px]"
+              style={{ width: 130 }}
             />
-          </div>
-        </div>
+          </Flex>
+        </Flex>
 
-        <div className="flex flex-col gap-1">
-          <label className="text-label-lg text-text">Location*</label>
-          <Button className="min-w-[160px] justify-between">
+        <Flex vertical gap={4}>
+          <label className="text-label-lg">Location*</label>
+          <Button style={{ minWidth: 160, justifyContent: 'space-between' }}>
             All Locations
-            <ChevronDown className="h-4 w-4 text-text-secondary" />
+            <DownOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
           </Button>
-        </div>
+        </Flex>
 
         <Button>Update</Button>
-      </div>
+      </Flex>
 
       {/* Show client address checkbox */}
-      <div className="mb-6">
+      <div style={{ marginBottom: 24 }}>
         <Checkbox label="Show client address" defaultChecked />
       </div>
 
       {/* Empty content area */}
-      <Card padding="none" className="p-8">
-        <div className="min-h-[200px]" />
+      <Card padding="none" style={{ padding: 32 }}>
+        <div style={{ minHeight: 200 }} />
       </Card>
     </div>
   );

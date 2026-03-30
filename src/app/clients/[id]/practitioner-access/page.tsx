@@ -1,6 +1,7 @@
 "use client";
 
-import { ArrowUpDown, Filter } from "lucide-react";
+import { SwapOutlined, FilterOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import { Badge, Button, Card, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, usePagination } from "@/components/ds";
 
 const mockPractitioners = [
@@ -25,30 +26,30 @@ export default function ClientPractitionerAccessPage() {
   const { paged, paginationProps } = usePagination(mockPractitioners, { pageKey: "/clients/practitioner-access" });
 
   return (
-    <div className="flex-1 overflow-y-auto p-4 sm:p-6">
-      <h1 className="mb-4 text-display-lg">Practitioner access</h1>
-      <p className="mb-6 text-sm text-text-secondary">
+    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+      <h1 className="text-display-lg" style={{ marginBottom: 16 }}>Practitioner access</h1>
+      <p style={{ marginBottom: 24, fontSize: 14, color: 'var(--ant-color-text-secondary)' }}>
         You can link practitioners to clients via creating an appointment or support activity in the calendar tab.{" "}
-        <span className="cursor-pointer text-primary hover:underline">Learn more</span>
+        <span style={{ cursor: 'pointer', color: 'var(--ant-color-primary)' }} className="hover:underline">Learn more</span>
       </p>
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
             <Th>
-              <div className="flex items-center gap-1">
+              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Name
-                <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-              </div>
+                <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+              </Flex>
             </Th>
             <Th>Role name</Th>
             <Th>Role type</Th>
             <Th>
-              <div className="flex items-center gap-1">
+              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Group
-                <ArrowUpDown className="h-3 w-3 text-text-secondary" />
-                <Filter className="h-3 w-3 text-text-secondary" />
-              </div>
+                <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+                <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary)' }} />
+              </Flex>
             </Th>
             <Th>Status</Th>
             <Th align="right">Actions</Th>
@@ -58,16 +59,16 @@ export default function ClientPractitionerAccessPage() {
               <Tr key={p.name}>
                 <Td>
                   <div>
-                    <span className="text-text">{p.name}</span>
-                    <Badge variant="green" className="ml-2">Account owner</Badge>
+                    <span>{p.name}</span>
+                    <Badge variant="green" style={{ marginLeft: 8 }}>Account owner</Badge>
                   </div>
                 </Td>
-                <Td className="text-text-secondary">{p.role}</Td>
-                <Td className="text-text-secondary">{p.roleType}</Td>
-                <Td className="text-text-secondary">{p.group}</Td>
-                <Td className="text-text-secondary">{p.status}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{p.role}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{p.roleType}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{p.group}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{p.status}</Td>
                 <Td align="right">
-                  <Button variant="ghost" size="sm" className="text-text-secondary">...</Button>
+                  <Button variant="ghost" size="sm" style={{ color: 'var(--ant-color-text-secondary)' }}>...</Button>
                 </Td>
               </Tr>
             ))}

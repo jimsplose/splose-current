@@ -2,7 +2,8 @@
 
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { Sparkles, Plus, GripVertical, MoreHorizontal, Check } from "lucide-react";
+import { Flex } from "antd";
+import { ThunderboltOutlined, PlusOutlined, HolderOutlined, MoreOutlined, CheckOutlined } from "@ant-design/icons";
 import {
   Button,
   FormInput,
@@ -73,7 +74,6 @@ export default function EditProgressNoteTemplatePage() {
 
   function addBlock(block: AIBlock) {
     if (libraryTargetBlockId !== null) {
-      // Replace the target block with the library block
       setBlocks((prev) =>
         prev.map((b) => (b.id === libraryTargetBlockId ? { ...block, id: libraryTargetBlockId } : b)),
       );
@@ -129,65 +129,68 @@ export default function EditProgressNoteTemplatePage() {
         backHref="/settings/progress-notes"
         title={title || "Edit progress note template"}
         children={
-          <div className="flex items-center gap-2">
+          <Flex align="center" gap={8}>
             <Button variant="secondary" onClick={() => router.push("/settings/progress-notes")}>Cancel</Button>
             <Button variant="primary" onClick={() => router.push("/settings/progress-notes")}>Save</Button>
-          </div>
+          </Flex>
         }
       />
 
-      <div className="mx-auto max-w-3xl space-y-6 p-6">
-        <FormInput label="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
+      <div style={{ maxWidth: 768, margin: '0 auto', padding: 24 }}>
+        <Flex vertical gap={24}>
+          <FormInput label="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
 
-        <Toggle label="Enable AI-assisted documentation" checked={hasAi} onChange={setHasAi} />
+          <Toggle label="Enable AI-assisted documentation" checked={hasAi} onChange={setHasAi} />
 
-        {hasAi && (
-          <div className="space-y-3">
-            <h3 className="text-heading-md text-text">AI blocks</h3>
-            {blocks.map((block) => (
-              <Card key={block.id} padding="none">
-                <div className="flex items-center gap-2 border-b border-border bg-primary/5 px-4 py-2">
-                  <GripVertical className="h-4 w-4 cursor-grab text-text-secondary" />
-                  <Sparkles className="h-4 w-4 text-primary" />
-                  <span className="flex-1 text-label-lg text-text">{block.name}</span>
-                  {savedBlockId === block.id && (
-                    <span className="flex items-center gap-1 text-caption-md text-emerald-600">
-                      <Check className="h-3.5 w-3.5" /> Saved
-                    </span>
-                  )}
-                  <Dropdown
-                    trigger={
-                      <button className="rounded p-1 text-text-secondary hover:bg-gray-100">
-                        <MoreHorizontal className="h-4 w-4" />
-                      </button>
-                    }
-                    items={blockDropdownItems}
-                    onSelect={(value) => handleBlockAction(block.id, value)}
-                    align="right"
-                  />
-                </div>
-                <div className="px-4 py-3">
-                  <textarea
-                    className="w-full rounded border border-border px-3 py-2 text-body-md text-text focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
-                    rows={2}
-                    value={block.prompt}
-                    onChange={(e) =>
-                      setBlocks((prev) => prev.map((b) => (b.id === block.id ? { ...b, prompt: e.target.value } : b)))
-                    }
-                  />
-                </div>
-              </Card>
-            ))}
-            <Button variant="secondary" onClick={() => setShowLibrary(true)}>
-              <Plus className="h-4 w-4" /> Add an AI block
-            </Button>
+          {hasAi && (
+            <Flex vertical gap={12}>
+              <h3 className="text-heading-md text-text">AI blocks</h3>
+              {blocks.map((block) => (
+                <Card key={block.id} padding="none">
+                  <Flex align="center" gap={8} style={{ borderBottom: '1px solid var(--ant-color-border)', backgroundColor: 'rgba(var(--ant-color-primary-rgb, 130, 80, 255), 0.05)', padding: '8px 16px' }}>
+                    <HolderOutlined style={{ fontSize: 16, cursor: 'grab', color: 'var(--ant-color-text-secondary)' }} />
+                    <ThunderboltOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary)' }} />
+                    <span style={{ flex: 1 }} className="text-label-lg text-text">{block.name}</span>
+                    {savedBlockId === block.id && (
+                      <Flex align="center" gap={4} className="text-caption-md" style={{ color: '#059669' }}>
+                        <CheckOutlined style={{ fontSize: 14 }} /> Saved
+                      </Flex>
+                    )}
+                    <Dropdown
+                      trigger={
+                        <button style={{ borderRadius: 4, padding: 4, color: 'var(--ant-color-text-secondary)' }} className="hover:bg-gray-100">
+                          <MoreOutlined style={{ fontSize: 16 }} />
+                        </button>
+                      }
+                      items={blockDropdownItems}
+                      onSelect={(value) => handleBlockAction(block.id, value)}
+                      align="right"
+                    />
+                  </Flex>
+                  <div style={{ padding: '12px 16px' }}>
+                    <textarea
+                      style={{ width: '100%', borderRadius: 4, border: '1px solid var(--ant-color-border)', padding: '8px 12px', outline: 'none' }}
+                      className="text-body-md text-text focus:border-primary focus:ring-1 focus:ring-primary"
+                      rows={2}
+                      value={block.prompt}
+                      onChange={(e) =>
+                        setBlocks((prev) => prev.map((b) => (b.id === block.id ? { ...b, prompt: e.target.value } : b)))
+                      }
+                    />
+                  </div>
+                </Card>
+              ))}
+              <Button variant="secondary" onClick={() => setShowLibrary(true)}>
+                <PlusOutlined style={{ fontSize: 16 }} /> Add an AI block
+              </Button>
+            </Flex>
+          )}
+
+          <div>
+            <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--ant-color-text-secondary)' }}>Free text section</label>
+            <RichTextEditor value={freeText} onChange={setFreeText} rows={6} />
           </div>
-        )}
-
-        <div>
-          <label className="mb-1 block text-label-lg text-text-secondary">Free text section</label>
-          <RichTextEditor value={freeText} onChange={setFreeText} rows={6} />
-        </div>
+        </Flex>
       </div>
 
       <Modal
@@ -199,24 +202,25 @@ export default function EditProgressNoteTemplatePage() {
         title="AI block library"
         maxWidth="md"
       >
-        <div className="space-y-3">
+        <Flex vertical gap={12}>
           <FormSelect
             label="Filter by tag"
             options={tagFilterOptions}
             value={tagFilter}
             onChange={(value) => setTagFilter(value as TagFilter)}
           />
-          <div className="space-y-2">
+          <Flex vertical gap={8}>
             {filteredLibraryBlocks.length === 0 ? (
-              <p className="py-4 text-center text-body-md text-text-secondary">No blocks match this filter.</p>
+              <p style={{ padding: '16px 0', textAlign: 'center' }} className="text-body-md text-text-secondary">No blocks match this filter.</p>
             ) : (
               filteredLibraryBlocks.map((block) => (
                 <button
                   key={block.id}
                   onClick={() => addBlock(block)}
-                  className="flex w-full items-center gap-3 rounded-lg border border-border px-4 py-3 text-left transition-colors hover:border-primary hover:bg-primary/5"
+                  style={{ display: 'flex', width: '100%', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--ant-color-border)', padding: '12px 16px', textAlign: 'left', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}
+                  className="hover:border-primary hover:bg-primary/5"
                 >
-                  <Sparkles className="h-4 w-4 shrink-0 text-primary" />
+                  <ThunderboltOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--ant-color-primary)' }} />
                   <div>
                     <div className="text-label-lg text-text">{block.name}</div>
                     <div className="text-caption-md text-text-secondary">{block.prompt}</div>
@@ -224,8 +228,8 @@ export default function EditProgressNoteTemplatePage() {
                 </button>
               ))
             )}
-          </div>
-        </div>
+          </Flex>
+        </Flex>
       </Modal>
     </div>
   );

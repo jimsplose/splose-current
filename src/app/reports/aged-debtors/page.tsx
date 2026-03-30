@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Flex } from "antd";
 import {
   Button,
   Card,
@@ -16,10 +17,10 @@ import {
 } from "@/components/ds";
 
 const agingSummary = [
-  { label: "Current", amount: "$2,450.00", color: "text-green-600" },
-  { label: "30 days", amount: "$1,200.00", color: "text-yellow-600" },
-  { label: "60 days", amount: "$800.00", color: "text-orange-600" },
-  { label: "90+ days", amount: "$350.00", color: "text-red-600" },
+  { label: "Current", amount: "$2,450.00", color: "#16a34a" },
+  { label: "30 days", amount: "$1,200.00", color: "#ca8a04" },
+  { label: "60 days", amount: "$800.00", color: "#ea580c" },
+  { label: "90+ days", amount: "$350.00", color: "#dc2626" },
 ];
 
 const mockDebtorRows = [
@@ -43,14 +44,14 @@ export default function ReportsAgedDebtorsPage() {
         <Button>Learn about this report</Button>
       </PageHeader>
 
-      <div className="mb-4 flex flex-wrap items-start gap-4">
+      <Flex wrap="wrap" align="flex-start" gap={16} style={{ marginBottom: 16 }}>
         <div>
-          <label className="mb-1 flex items-center gap-1 text-sm text-text-secondary">
+          <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
             Date range *
-          </label>
+          </Flex>
           <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
         </div>
-        <div className="w-48">
+        <div style={{ width: 192 }}>
           <FormSelect
             label="Ageing by *"
             options={[
@@ -60,27 +61,27 @@ export default function ReportsAgedDebtorsPage() {
             required
           />
         </div>
-      </div>
+      </Flex>
 
-      <div className="mb-8 flex flex-wrap items-center gap-2">
+      <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 32 }}>
         <Button>Add filter</Button>
         <Button>Save filters</Button>
         <Button>Load filters</Button>
         <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
-      </div>
+      </Flex>
 
       {showResults && (
         <>
-          <div className="mb-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div style={{ marginBottom: 16, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
             {agingSummary.map((item) => (
               <Card key={item.label}>
-                <p className="text-label-md text-text-secondary">{item.label}</p>
-                <p className={`mt-1 text-heading-lg ${item.color}`}>{item.amount}</p>
+                <p className="text-label-md" style={{ color: 'var(--ant-color-text-secondary)' }}>{item.label}</p>
+                <p className="text-heading-lg" style={{ marginTop: 4, color: item.color }}>{item.amount}</p>
               </Card>
             ))}
           </div>
 
-          <div className="overflow-x-auto rounded-lg border border-border">
+          <div style={{ overflowX: 'auto', borderRadius: 8, border: '1px solid var(--ant-color-border)' }}>
             <DataTable>
               <TableHead>
                 <Th>Client</Th>
@@ -93,13 +94,13 @@ export default function ReportsAgedDebtorsPage() {
               <TableBody>
                 {mockDebtorRows.map((row, i) => (
                   <Tr key={i}>
-                    <Td className="text-primary">{row.client}</Td>
-                    <Td className="text-primary">{row.invoice}</Td>
+                    <Td style={{ color: 'var(--ant-color-primary)' }}>{row.client}</Td>
+                    <Td style={{ color: 'var(--ant-color-primary)' }}>{row.invoice}</Td>
                     <Td align="right">{row.amount}</Td>
                     <Td align="right">{row.outstanding}</Td>
                     <Td>{row.dueDate}</Td>
                     <Td align="right">
-                      <span className={row.daysOverdue >= 90 ? "font-semibold text-red-600" : row.daysOverdue >= 60 ? "text-orange-600" : row.daysOverdue >= 30 ? "text-yellow-600" : ""}>
+                      <span style={{ fontWeight: row.daysOverdue >= 90 ? 600 : 400, color: row.daysOverdue >= 90 ? '#dc2626' : row.daysOverdue >= 60 ? '#ea580c' : row.daysOverdue >= 30 ? '#ca8a04' : undefined }}>
                         {row.daysOverdue}
                       </span>
                     </Td>

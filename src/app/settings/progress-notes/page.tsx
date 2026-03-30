@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Flex } from "antd";
+import { ThunderboltOutlined, CloseOutlined } from "@ant-design/icons";
 import {
   Button,
   PageHeader,
@@ -21,37 +23,16 @@ import {
   Toggle,
   usePagination,
 } from "@/components/ds";
-import { Sparkles, X } from "lucide-react";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { formatTimestamp } from "@/lib/format";
 
 const templates = [
-  {
-    title: "Exercise Physiology Follow-up Report",
-    createdAt: "4:39 pm, 16 Oct 2023",
-    hasAi: true,
-  },
-  {
-    title: "ST | Note",
-    createdAt: "3:35 pm, 5 Jun 2024",
-    hasAi: true,
-  },
-  {
-    title: "Standard Consultation. 123",
-    createdAt: "11:32 am, 12 Jun 2024",
-    hasAi: false,
-  },
-  {
-    title: "Standard Consultation",
-    createdAt: "8:21 pm, 5 Mar 2014",
-    hasAi: false,
-  },
-  {
-    title: "Initial Consultation",
-    createdAt: "8:21 pm, 5 Mar 2014",
-    hasAi: false,
-  },
+  { title: "Exercise Physiology Follow-up Report", createdAt: "4:39 pm, 16 Oct 2023", hasAi: true },
+  { title: "ST | Note", createdAt: "3:35 pm, 5 Jun 2024", hasAi: true },
+  { title: "Standard Consultation. 123", createdAt: "11:32 am, 12 Jun 2024", hasAi: false },
+  { title: "Standard Consultation", createdAt: "8:21 pm, 5 Mar 2014", hasAi: false },
+  { title: "Initial Consultation", createdAt: "8:21 pm, 5 Mar 2014", hasAi: false },
 ];
 
 export default function ProgressNotesPage() {
@@ -85,19 +66,19 @@ export default function ProgressNotesPage() {
   }
 
   return (
-    <div className="p-6">
+    <div style={{ padding: 24 }}>
       <PageHeader title="Progress note templates">
         <Button variant="secondary">Show archived</Button>
         <Button variant="secondary" onClick={openCreate}>+ New template</Button>
       </PageHeader>
 
       {showBanner && (
-        <div className="mb-4 flex items-start gap-3 rounded-lg border border-primary/20 bg-primary/10 px-4 py-3">
+        <Flex align="flex-start" gap={12} style={{ marginBottom: 16, borderRadius: 8, border: '1px solid rgba(var(--ant-color-primary-rgb, 130, 80, 255), 0.2)', backgroundColor: 'rgba(var(--ant-color-primary-rgb, 130, 80, 255), 0.1)', padding: '12px 16px' }}>
           <Badge variant="purple">New</Badge>
-          <p className="flex-1 text-sm text-text">
+          <p style={{ flex: 1, fontSize: 12 }} className="text-text">
             Add AI blocks to templates to generate instant drafts, every
             session. Try a template{" "}
-            <a href="#" className="font-medium text-primary underline">
+            <a href="#" style={{ fontWeight: 500 }} className="text-primary underline">
               created by splose
             </a>
             .
@@ -108,12 +89,12 @@ export default function ProgressNotesPage() {
             className="shrink-0 hover:bg-purple-100 hover:text-text"
             onClick={() => setShowBanner(false)}
           >
-            <X className="h-4 w-4" />
+            <CloseOutlined style={{ fontSize: 16 }} />
           </Button>
-        </div>
+        </Flex>
       )}
 
-      <p className="mb-4 text-sm text-text-secondary">
+      <p style={{ marginBottom: 16, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>
         Create templates for any appointment type to save time and keep
         documentation consistent. Add tables, auto-fill placeholders,
         interactive fields and AI blocks.
@@ -131,12 +112,12 @@ export default function ProgressNotesPage() {
           {paged.map((t, i) => (
             <Tr key={t.title + i}>
               <Td>
-                <div className="flex items-center gap-2">
+                <Flex align="center" gap={8}>
                   {t.hasAi && (
-                    <Sparkles className="h-4 w-4 shrink-0 text-primary" />
+                    <ThunderboltOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--ant-color-primary)' }} />
                   )}
                   <span className="text-text">{t.title}</span>
-                </div>
+                </Flex>
               </Td>
               <Td>{t.createdAt}</Td>
               <Td align="right">
@@ -164,10 +145,10 @@ export default function ProgressNotesPage() {
           </>
         }
       >
-        <div className="space-y-4">
+        <Flex vertical gap={16}>
           <FormInput label="Title" value={form.title} onChange={(e) => setField("title", e.target.value)} />
           <Toggle label="AI-powered" checked={form.hasAi} onChange={(v) => setField("hasAi", v)} />
-        </div>
+        </Flex>
       </Modal>
     </div>
   );

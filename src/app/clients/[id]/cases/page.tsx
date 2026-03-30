@@ -167,12 +167,12 @@ export default function ClientCasesPage() {
   const { paged, paginationProps } = usePagination(mockCases, { pageKey: "/clients/cases" });
 
   return (
-    <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Cases">
         <Button>+ New case</Button>
       </PageHeader>
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
             <Th>Case Number</Th>
@@ -188,14 +188,14 @@ export default function ClientCasesPage() {
           <TableBody>
             {paged.map((c) => (
               <Tr key={c.number + c.caseName}>
-                <Td className="text-text">{c.number}</Td>
-                <Td className="font-medium text-text">{c.caseName}</Td>
-                <Td className="text-text-secondary">{c.issueDate}</Td>
-                <Td className="text-text-secondary">{c.expiryDate}</Td>
-                <Td className="text-text-secondary">{c.assignee}</Td>
-                <Td className="text-text-secondary">{c.type}</Td>
-                <Td className="text-text-secondary">{c.allocated}</Td>
-                <Td className="text-text-secondary">{c.invoiced}</Td>
+                <Td>{c.number}</Td>
+                <Td style={{ fontWeight: 500 }}>{c.caseName}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{c.issueDate}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{c.expiryDate}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{c.assignee}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{c.type}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{c.allocated}</Td>
+                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{c.invoiced}</Td>
                 <Td>
                   <Badge variant={statusVariant(c.status)}>{c.status}</Badge>
                 </Td>

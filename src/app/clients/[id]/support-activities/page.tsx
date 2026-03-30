@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import { Plus } from "lucide-react";
+import { PlusOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import { Button, Card, DataTable, PageHeader, TableHead, Th } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
@@ -12,15 +13,15 @@ export default async function ClientSupportActivitiesPage({ params }: { params: 
   if (!client) notFound();
 
   return (
-    <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Support activities">
         <Button>
-          <Plus className="h-4 w-4" />
+          <PlusOutlined style={{ fontSize: 16 }} />
           New support activity
         </Button>
       </PageHeader>
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
             <Th>When</Th>
@@ -33,9 +34,9 @@ export default async function ClientSupportActivitiesPage({ params }: { params: 
           <tbody>
             <tr>
               <td colSpan={6}>
-                <div className="flex flex-col items-center justify-center py-16">
-                  <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-gray-100">
-                    <svg className="h-12 w-12 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <Flex vertical align="center" justify="center" style={{ paddingTop: 64, paddingBottom: 64 }}>
+                  <Flex align="center" justify="center" style={{ marginBottom: 16, height: 96, width: 96, borderRadius: '50%', backgroundColor: 'var(--ant-color-fill-quaternary)' }}>
+                    <svg style={{ height: 48, width: 48, color: 'var(--ant-color-text-quaternary)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -43,12 +44,12 @@ export default async function ClientSupportActivitiesPage({ params }: { params: 
                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                       />
                     </svg>
-                  </div>
-                  <p className="text-sm text-text-secondary">No support activities</p>
-                  <Button variant="ghost" className="mt-2 text-primary">
+                  </Flex>
+                  <p style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }}>No support activities</p>
+                  <Button variant="ghost" style={{ marginTop: 8, color: 'var(--ant-color-primary)' }}>
                     Add new support activity
                   </Button>
-                </div>
+                </Flex>
               </td>
             </tr>
           </tbody>
