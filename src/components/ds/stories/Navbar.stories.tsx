@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { CheckCircle, LayoutGrid, Columns2, Share2, Eye, Upload, FileSpreadsheet } from "lucide-react";
+import { CheckCircleOutlined, AppstoreOutlined, SplitCellsOutlined, ShareAltOutlined, EyeOutlined } from "@ant-design/icons";
 import Navbar from "../Navbar";
 import Badge from "../Badge";
 import Button from "../Button";
@@ -99,7 +99,7 @@ export const ProgressNoteNavbar: Story = {
       badge={
         <>
           <Badge variant="green">
-            <CheckCircle className="h-3 w-3" />
+            <CheckCircleOutlined style={{ fontSize: 12 }} />
             Final
           </Badge>
           <span className="text-label-lg text-primary hover:underline">Sarah Johnson</span>
@@ -152,8 +152,8 @@ export const NoteEditorNavbar: Story = {
     >
       <Filter
         items={[
-          { label: <LayoutGrid className="h-4 w-4" />, value: "single" },
-          { label: <Columns2 className="h-4 w-4" />, value: "split" },
+          { label: <AppstoreOutlined style={{ fontSize: 16 }} />, value: "single" },
+          { label: <SplitCellsOutlined style={{ fontSize: 16 }} />, value: "split" },
         ]}
         value="single"
         onChange={() => {}}
@@ -200,8 +200,8 @@ export const NewNoteNavbar: Story = {
       </Button>
       <Filter
         items={[
-          { label: <LayoutGrid className="h-4 w-4" />, value: "single" },
-          { label: <Columns2 className="h-4 w-4" />, value: "split" },
+          { label: <AppstoreOutlined style={{ fontSize: 16 }} />, value: "single" },
+          { label: <SplitCellsOutlined style={{ fontSize: 16 }} />, value: "split" },
         ]}
         value="single"
         onChange={() => {}}
@@ -221,10 +221,10 @@ export const FormEditorNavbar: Story = {
     <Navbar backHref="/settings/forms" title="Client intake form">
       <div className="flex items-center gap-2">
         <Button variant="icon" title="Share & Automate">
-          <Share2 className="h-4 w-4" />
+          <ShareAltOutlined style={{ fontSize: 16 }} />
         </Button>
         <Button variant="secondary">
-          <Eye className="h-4 w-4" /> Preview
+          <EyeOutlined style={{ fontSize: 16 }} /> Preview
         </Button>
         <Button variant="primary">Save</Button>
       </div>

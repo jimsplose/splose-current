@@ -1,7 +1,7 @@
 "use client";
 
 import type { Meta, StoryObj } from "@storybook/react";
-import { Bell, Settings, HelpCircle, MessageSquare } from "lucide-react";
+import { BellOutlined, SettingOutlined, QuestionCircleOutlined, MessageOutlined } from "@ant-design/icons";
 import TopNav from "../TopNav";
 import Avatar from "../Avatar";
 import Button from "../Button";
@@ -87,18 +87,18 @@ export const SplosNav: Story = {
       ]}
     >
       <Button variant="icon" round className="relative">
-        <Bell className="h-5 w-5" />
+        <BellOutlined style={{ fontSize: 20 }} />
         <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-caption-sm font-bold text-white">3</span>
       </Button>
       <Button variant="icon" round className="relative">
-        <MessageSquare className="h-5 w-5" />
+        <MessageOutlined style={{ fontSize: 20 }} />
         <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-caption-sm font-bold text-white">8</span>
       </Button>
       <Button variant="icon" round>
-        <Settings className="h-5 w-5" />
+        <SettingOutlined style={{ fontSize: 20 }} />
       </Button>
       <Button variant="icon" round>
-        <HelpCircle className="h-5 w-5" />
+        <QuestionCircleOutlined style={{ fontSize: 20 }} />
       </Button>
       <Avatar name="Sarah Chen" size="sm" className="ml-1 h-8 w-8" />
     </TopNav>
@@ -130,18 +130,18 @@ export const LayoutTopNav: Story = {
       ]}
     >
       <Button variant="icon" round className="relative">
-        <Bell className="h-5 w-5" />
+        <BellOutlined style={{ fontSize: 20 }} />
         <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-caption-sm font-bold text-white">3</span>
       </Button>
       <Button variant="icon" round className="relative">
-        <MessageSquare className="h-5 w-5" />
+        <MessageOutlined style={{ fontSize: 20 }} />
         <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-caption-sm font-bold text-white">8</span>
       </Button>
       <Button variant="icon" round>
-        <Settings className="h-5 w-5" />
+        <SettingOutlined style={{ fontSize: 20 }} />
       </Button>
       <Button variant="icon" round>
-        <HelpCircle className="h-5 w-5" />
+        <QuestionCircleOutlined style={{ fontSize: 20 }} />
       </Button>
       <Avatar name="Sarah Chen" size="sm" className="ml-1 h-8 w-8" />
     </TopNav>
@@ -189,11 +189,11 @@ export const NavWithNotificationBadges: Story = {
       ]}
     >
       <Button variant="icon" round className="relative">
-        <Bell className="h-5 w-5" />
+        <BellOutlined style={{ fontSize: 20 }} />
         <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-caption-sm font-bold text-white">5</span>
       </Button>
       <Button variant="icon" round className="relative">
-        <MessageSquare className="h-5 w-5" />
+        <MessageOutlined style={{ fontSize: 20 }} />
         <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-caption-sm font-bold text-white">12</span>
       </Button>
       <Avatar name="Emma Williams" size="sm" className="ml-1 h-8 w-8" />

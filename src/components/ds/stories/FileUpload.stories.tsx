@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Upload, Image, Camera } from "lucide-react";
+import { UploadOutlined, PictureOutlined, CameraOutlined } from "@ant-design/icons";
 import FileUpload from "../FileUpload";
 
 /* ------------------------------------------------------------------ */
@@ -30,7 +30,7 @@ type Story = StoryObj<typeof FileUpload>;
 /** All controls wired — use this to experiment with every prop. */
 export const Playground: Story = {
   args: {
-    icon: <Upload className="h-8 w-8 text-primary/40" />,
+    icon: <UploadOutlined style={{ fontSize: 32, color: 'rgba(var(--color-primary), 0.4)' }} />,
     label: "Upload",
   },
 };
@@ -40,15 +40,15 @@ export const Playground: Story = {
 /* ================================================================== */
 
 export const Default: Story = {
-  args: { icon: <Upload className="h-8 w-8 text-primary/40" />, label: "Upload" },
+  args: { icon: <UploadOutlined style={{ fontSize: 32, color: 'rgba(var(--color-primary), 0.4)' }} />, label: "Upload" },
 };
 
 export const WithIcon: Story = {
-  args: { icon: <Image className="h-10 w-10 text-primary/40" />, label: "Choose image" },
+  args: { icon: <PictureOutlined style={{ fontSize: 40, color: 'rgba(var(--color-primary), 0.4)' }} />, label: "Choose image" },
 };
 
 export const NoLabel: Story = {
-  args: { icon: <Upload className="h-8 w-8 text-primary/40" />, label: undefined },
+  args: { icon: <UploadOutlined style={{ fontSize: 32, color: 'rgba(var(--color-primary), 0.4)' }} />, label: undefined },
 };
 
 /* ================================================================== */
@@ -67,7 +67,7 @@ export const ProfilePhotoUpload: Story = {
     <div className="w-80">
       <p className="mb-2 text-label-lg text-text">Profile photo</p>
       <FileUpload
-        icon={<Camera className="h-10 w-10 text-primary/40" />}
+        icon={<CameraOutlined style={{ fontSize: 40, color: 'rgba(var(--color-primary), 0.4)' }} />}
         label="Upload photo"
         className="h-40"
       />
@@ -200,7 +200,7 @@ export const OnlineBookingHeaderUpload: Story = {
       <div>
         <label className="mb-2 block text-label-lg text-text">Logo / Header image</label>
         <FileUpload
-          icon={<Upload className="h-8 w-8 text-text-secondary" />}
+          icon={<UploadOutlined style={{ fontSize: 32 }} className="text-text-secondary" />}
           label="Click or drag to upload"
           className="h-32"
         />
@@ -224,7 +224,7 @@ export const CSVImportUpload: Story = {
     <div className="max-w-2xl space-y-4">
       <h3 className="text-heading-md text-text">Upload CSV file</h3>
       <FileUpload
-        icon={<Upload className="h-8 w-8 text-text-secondary" />}
+        icon={<UploadOutlined style={{ fontSize: 32 }} className="text-text-secondary" />}
         label="Click to upload or drag and drop"
         className="py-12"
       />

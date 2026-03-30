@@ -1,34 +1,34 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import {
-  Plus,
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  Settings2,
-  Filter,
-  LayoutGrid,
-  MapPin,
-  Bold,
-  Italic,
-  Underline,
-  Strikethrough,
-  Link2,
-  Image,
-  Table,
-  List,
-  ListOrdered,
-  AlignLeft,
-  Palette,
-  Sparkles,
-  Type,
-  Video,
-  FileText,
-  History,
-  Clock,
-  Ban,
-  Calendar,
-  Send,
-} from "lucide-react";
+  PlusOutlined,
+  DownOutlined,
+  LeftOutlined,
+  RightOutlined,
+  SettingOutlined,
+  FilterOutlined,
+  AppstoreOutlined,
+  EnvironmentOutlined,
+  BoldOutlined,
+  ItalicOutlined,
+  UnderlineOutlined,
+  StrikethroughOutlined,
+  LinkOutlined,
+  PictureOutlined,
+  TableOutlined,
+  UnorderedListOutlined,
+  OrderedListOutlined,
+  AlignLeftOutlined,
+  BgColorsOutlined,
+  ThunderboltOutlined,
+  FontSizeOutlined,
+  VideoCameraAddOutlined,
+  FileTextOutlined,
+  HistoryOutlined,
+  ClockCircleOutlined,
+  StopOutlined,
+  CalendarOutlined,
+  SendOutlined,
+} from "@ant-design/icons";
 import Button from "../Button";
 import PageHeader from "../PageHeader";
 import Card from "../Card";
@@ -122,7 +122,7 @@ export const Toolbar: Story = {
   render: () => (
     <Button variant="toolbar" size="sm" className="flex items-center gap-0.5">
       Arial
-      <ChevronDown className="h-3 w-3" />
+      <DownOutlined style={{ fontSize: 12 }} />
     </Button>
   ),
   parameters: { docs: { description: { story: "Used in rich-text toolbars for font/size pickers." } } },
@@ -141,10 +141,10 @@ export const AllVariants: Story = {
       <Button variant="ghost">Ghost</Button>
       <Button variant="link">Link</Button>
       <Button variant="icon">
-        <Plus className="h-4 w-4" />
+        <PlusOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="toolbar" size="sm">
-        Toolbar <ChevronDown className="h-3 w-3" />
+        Toolbar <DownOutlined style={{ fontSize: 12 }} />
       </Button>
     </div>
   ),
@@ -162,13 +162,13 @@ export const AllSizes: Story = {
         <div key={variant} className="flex items-center gap-3">
           <span className="w-20 text-label-lg text-text-secondary">{variant}</span>
           <Button variant={variant} size="sm">
-            {variant === "icon" ? <Plus className="h-3.5 w-3.5" /> : "Small"}
+            {variant === "icon" ? <PlusOutlined style={{ fontSize: 14 }} /> : "Small"}
           </Button>
           <Button variant={variant} size="md">
-            {variant === "icon" ? <Plus className="h-4 w-4" /> : "Medium"}
+            {variant === "icon" ? <PlusOutlined style={{ fontSize: 16 }} /> : "Medium"}
           </Button>
           <Button variant={variant} size="lg">
-            {variant === "icon" ? <Plus className="h-5 w-5" /> : "Large"}
+            {variant === "icon" ? <PlusOutlined style={{ fontSize: 20 }} /> : "Large"}
           </Button>
         </div>
       ))}
@@ -185,56 +185,56 @@ export const RoundButtons: Story = {
   render: () => (
     <div className="flex items-center gap-3">
       <Button variant="primary" size="sm" round>
-        <Plus className="h-4 w-4" />
+        <PlusOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="primary" size="md" round>
-        <Plus className="h-4 w-4" />
+        <PlusOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="primary" size="lg" round>
-        <Plus className="h-5 w-5" />
+        <PlusOutlined style={{ fontSize: 20 }} />
       </Button>
       <Button variant="secondary" size="md" round>
-        <Settings2 className="h-4 w-4" />
+        <SettingOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="ghost" round className="h-10 w-10 justify-center">
-        <ChevronLeft className="h-4 w-4" />
+        <LeftOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="icon" round>
-        <ChevronRight className="h-4 w-4" />
+        <RightOutlined style={{ fontSize: 16 }} />
       </Button>
     </div>
   ),
 };
 
 /* ------------------------------------------------------------------ */
-/*  With Lucide Icons                                                  */
+/*  With Icons                                                         */
 /* ------------------------------------------------------------------ */
 
 export const WithIcons: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
       <Button variant="primary">
-        <Plus className="h-4 w-4" />
+        <PlusOutlined style={{ fontSize: 16 }} />
         New client
       </Button>
       <Button variant="secondary">
-        <Settings2 className="h-4 w-4" />
+        <SettingOutlined style={{ fontSize: 16 }} />
         Settings
       </Button>
       <Button variant="secondary">
         Export
-        <ChevronDown className="h-4 w-4" />
+        <DownOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="danger">
-        <Ban className="h-4 w-4" />
+        <StopOutlined style={{ fontSize: 16 }} />
         Delete
       </Button>
       <Button variant="ghost">
-        <Filter className="h-4 w-4" />
+        <FilterOutlined style={{ fontSize: 16 }} />
         Filter
       </Button>
       <Button variant="link">
-        <History className="h-3.5 w-3.5" />
+        <HistoryOutlined style={{ fontSize: 14 }} />
         View change log
       </Button>
     </div>
@@ -258,7 +258,7 @@ export const PageHeaderActions: Story = {
       <PageHeader title="Invoices">
         <Button variant="secondary">Export</Button>
         <Button variant="primary">
-          <Plus className="h-4 w-4" />
+          <PlusOutlined style={{ fontSize: 16 }} />
           New Invoice
         </Button>
       </PageHeader>
@@ -278,54 +278,54 @@ export const ToolbarButtons: Story = {
     <Card padding="none" className="inline-flex flex-wrap items-center gap-1 px-2 py-1.5 text-text-secondary">
       <Button variant="toolbar" size="sm" className="flex items-center gap-0.5 text-xs">
         Arial
-        <ChevronDown className="h-3 w-3" />
+        <DownOutlined style={{ fontSize: 12 }} />
       </Button>
       <Button variant="toolbar" size="sm" className="flex items-center gap-0.5">
-        <Type className="h-4 w-4" />
-        <ChevronDown className="h-3 w-3" />
+        <FontSizeOutlined style={{ fontSize: 16 }} />
+        <DownOutlined style={{ fontSize: 12 }} />
       </Button>
       <span className="h-4 w-px bg-border" />
       <Button variant="icon">
-        <Bold className="h-4 w-4" />
+        <BoldOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="icon">
-        <Italic className="h-4 w-4" />
+        <ItalicOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="icon">
-        <Underline className="h-4 w-4" />
+        <UnderlineOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="icon">
-        <Strikethrough className="h-4 w-4" />
+        <StrikethroughOutlined style={{ fontSize: 16 }} />
       </Button>
       <span className="h-4 w-px bg-border" />
       <Button variant="icon">
-        <Link2 className="h-4 w-4" />
+        <LinkOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="icon">
-        <Image className="h-4 w-4" />
+        <PictureOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="icon">
-        <Table className="h-4 w-4" />
+        <TableOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="icon">
-        <List className="h-4 w-4" />
+        <UnorderedListOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="icon">
-        <ListOrdered className="h-4 w-4" />
+        <OrderedListOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="icon">
-        <AlignLeft className="h-4 w-4" />
+        <AlignLeftOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="icon">
-        <Palette className="h-4 w-4" />
+        <BgColorsOutlined style={{ fontSize: 16 }} />
       </Button>
       <span className="flex-1" />
       <Button variant="secondary" className="border-primary text-primary hover:bg-primary/10">
-        <Sparkles className="h-3.5 w-3.5" />
+        <ThunderboltOutlined style={{ fontSize: 14 }} />
         Generate
       </Button>
       <Button variant="primary" round size="sm">
-        <Plus className="h-4 w-4" />
+        <PlusOutlined style={{ fontSize: 16 }} />
       </Button>
     </Card>
   ),
@@ -346,26 +346,26 @@ export const FilterChipRow: Story = {
       </Button>
       <div className="flex items-center gap-1">
         <Button variant="icon" size="sm">
-          <ChevronLeft className="h-4 w-4" />
+          <LeftOutlined style={{ fontSize: 16 }} />
         </Button>
         <Button variant="icon" size="sm">
-          <ChevronRight className="h-4 w-4" />
+          <RightOutlined style={{ fontSize: 16 }} />
         </Button>
       </div>
       <span className="text-display-md text-text">March 2026</span>
       <div className="ml-2 flex items-center gap-2 text-text-secondary">
         <Button variant="icon" size="sm">
-          <Filter className="h-4 w-4" />
+          <FilterOutlined style={{ fontSize: 16 }} />
         </Button>
         <Button variant="icon" size="sm">
-          <Settings2 className="h-4 w-4" />
+          <SettingOutlined style={{ fontSize: 16 }} />
         </Button>
       </div>
       <div className="flex-1" />
       <Chip variant="green">East Clinics</Chip>
       <Chip variant="purple">Physio</Chip>
       <Button variant="primary" size="sm" round>
-        <Plus className="h-4 w-4" />
+        <PlusOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="secondary" size="sm">
         Calendar <span className="text-text-secondary">&#9662;</span>
@@ -413,16 +413,16 @@ export const IconButtonGroup: Story = {
   render: () => (
     <div className="flex items-center gap-2 text-text-secondary">
       <Button variant="icon" size="sm">
-        <Filter className="h-4 w-4" />
+        <FilterOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="icon" size="sm">
-        <Settings2 className="h-4 w-4" />
+        <SettingOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="icon" size="sm">
-        <LayoutGrid className="h-4 w-4" />
+        <AppstoreOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="icon" size="sm">
-        <MapPin className="h-4 w-4" />
+        <EnvironmentOutlined style={{ fontSize: 16 }} />
       </Button>
     </div>
   ),
@@ -439,11 +439,11 @@ export const LinkActions: Story = {
     <div className="w-72 space-y-2 rounded-lg border border-border bg-white p-4">
       <p className="text-heading-sm text-text">Actions</p>
       <div className="flex items-center gap-3">
-        <Video className="h-4 w-4 shrink-0 text-text-secondary" />
+        <VideoCameraAddOutlined style={{ fontSize: 16 }} className="shrink-0 text-text-secondary" />
         <Button variant="link">Create Zoom meeting</Button>
       </div>
       <div className="flex items-center gap-3">
-        <FileText className="h-4 w-4 shrink-0 text-text-secondary" />
+        <FileTextOutlined style={{ fontSize: 16 }} className="shrink-0 text-text-secondary" />
         <Button variant="link">Add invoice</Button>
       </div>
       <div className="flex items-center gap-3 pl-7">
@@ -452,7 +452,7 @@ export const LinkActions: Story = {
         <Button variant="link">Do not invoice?</Button>
       </div>
       <div className="flex items-center gap-3">
-        <History className="h-4 w-4 shrink-0 text-text-secondary" />
+        <HistoryOutlined style={{ fontSize: 16 }} className="shrink-0 text-text-secondary" />
         <Button variant="link" size="sm">
           View change log
         </Button>
@@ -475,7 +475,7 @@ export const FABButton: Story = {
         Page content
       </div>
       <Button variant="primary" size="md" round className="absolute right-4 bottom-4 shadow-lg">
-        <Plus className="h-5 w-5" />
+        <PlusOutlined style={{ fontSize: 20 }} />
       </Button>
     </div>
   ),
@@ -512,15 +512,15 @@ export const ContextMenuButtons: Story = {
       </div>
       <div className="py-1">
         <Button variant="ghost" className="w-full justify-start gap-2.5 px-3 py-2">
-          <Clock className="h-4 w-4 text-text-secondary" />
+          <ClockCircleOutlined style={{ fontSize: 16 }} className="text-text-secondary" />
           Support activity
         </Button>
         <Button variant="ghost" className="w-full justify-start gap-2.5 px-3 py-2">
-          <Ban className="h-4 w-4 text-text-secondary" />
+          <StopOutlined style={{ fontSize: 16 }} className="text-text-secondary" />
           Busy time
         </Button>
         <Button variant="ghost" className="w-full justify-start gap-2.5 px-3 py-2">
-          <Calendar className="h-4 w-4 text-text-secondary" />
+          <CalendarOutlined style={{ fontSize: 16 }} className="text-text-secondary" />
           Appointment
         </Button>
       </div>
@@ -553,17 +553,17 @@ export const ComposeToolbar: Story = {
         </Button>
         <span className="mx-0.5 h-4 w-px bg-border" />
         <Button variant="icon" size="sm" title="Link">
-          <Link2 className="h-3.5 w-3.5" />
+          <LinkOutlined style={{ fontSize: 14 }} />
         </Button>
         <Button variant="icon" size="sm" title="Image">
-          <Image className="h-3.5 w-3.5" />
+          <PictureOutlined style={{ fontSize: 14 }} />
         </Button>
         <Button variant="icon" size="sm" title="List">
-          <List className="h-3.5 w-3.5" />
+          <UnorderedListOutlined style={{ fontSize: 14 }} />
         </Button>
         <div className="flex-1" />
         <Button variant="primary" size="sm">
-          <Send className="h-3.5 w-3.5" />
+          <SendOutlined style={{ fontSize: 14 }} />
           Send
         </Button>
       </div>

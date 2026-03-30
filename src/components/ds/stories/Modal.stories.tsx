@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { AlertTriangle, Info } from "lucide-react";
+import { WarningOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import Modal from "../Modal";
 import Button from "../Button";
 import FormInput from "../FormInput";
@@ -171,7 +171,7 @@ export const CreateAppointmentModal: Story = {
       }
     >
       <div className="space-y-4">
-        <Alert variant="warning" icon={<AlertTriangle className="h-4 w-4 text-yellow-600" />}>
+        <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16, color: '#ca8a04' }} />}>
           This appointment is in the past. Are you sure you want to create it?
         </Alert>
 
@@ -327,7 +327,7 @@ export const PaymentModal: Story = {
 
         <FormTextarea label="Notes" rows={3} placeholder="Optional payment notes..." />
 
-        <Alert variant="info" icon={<Info className="h-4 w-4 text-blue-600" />}>
+        <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 16, color: '#2563eb' }} />}>
           This payment will be linked to the client&apos;s outstanding invoices.
         </Alert>
       </div>

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Plus, HelpCircle, Filter as FilterIcon, Map as MapIcon } from "lucide-react";
+import { PlusOutlined, QuestionCircleOutlined, FilterOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import PageHeader from "../PageHeader";
 import Button from "../Button";
 
@@ -49,7 +49,7 @@ export const WithActions: Story = {
     <PageHeader title="Invoices">
       <Button variant="secondary">Export</Button>
       <Button variant="primary">
-        <Plus className="h-4 w-4" />
+        <PlusOutlined style={{ fontSize: 16 }} />
         New Invoice
       </Button>
     </PageHeader>
@@ -79,7 +79,7 @@ export const ClientsPageHeader: Story = {
   render: () => (
     <PageHeader title="Clients">
       <Button>
-        <Plus className="h-4 w-4" />
+        <PlusOutlined style={{ fontSize: 16 }} />
         New client
       </Button>
     </PageHeader>
@@ -97,7 +97,7 @@ export const InvoicesPageHeader: Story = {
     <PageHeader title="Invoices">
       <Button variant="secondary">Batch invoice</Button>
       <Button variant="secondary">
-        <Plus className="h-4 w-4" />
+        <PlusOutlined style={{ fontSize: 16 }} />
         New invoice
       </Button>
     </PageHeader>
@@ -132,7 +132,7 @@ export const ProductsPageHeader: Story = {
         Display archived products
       </Button>
       <Button variant="secondary">
-        <Plus className="h-4 w-4" />
+        <PlusOutlined style={{ fontSize: 16 }} />
         New product
       </Button>
     </PageHeader>
@@ -150,15 +150,15 @@ export const WaitlistPageHeader: Story = {
   render: () => (
     <PageHeader title="Waitlist">
       <Button variant="secondary" size="sm">
-        <FilterIcon className="h-4 w-4" />
+        <FilterOutlined style={{ fontSize: 16 }} />
         Reset all filters
       </Button>
       <Button variant="secondary" size="sm">
-        <HelpCircle className="h-4 w-4" />
+        <QuestionCircleOutlined style={{ fontSize: 16 }} />
         Learn
       </Button>
       <Button variant="secondary" size="sm">
-        <MapIcon className="h-4 w-4" />
+        <EnvironmentOutlined style={{ fontSize: 16 }} />
         Map
       </Button>
     </PageHeader>
@@ -190,7 +190,7 @@ export const ContactsPageHeader: Story = {
   render: () => (
     <PageHeader title="Contacts">
       <Button>
-        <Plus className="h-4 w-4" />
+        <PlusOutlined style={{ fontSize: 16 }} />
         New contact
       </Button>
     </PageHeader>

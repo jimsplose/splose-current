@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Mail, Phone, MapPin, Globe, Clock } from "lucide-react";
+import { MailOutlined, PhoneOutlined, EnvironmentOutlined, GlobalOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import IconText from "../IconText";
 
 /* ------------------------------------------------------------------ */
@@ -30,7 +30,7 @@ type Story = StoryObj<typeof IconText>;
 /** All controls wired — use this to experiment with every prop. */
 export const Playground: Story = {
   args: {
-    icon: <Mail className="h-4 w-4" />,
+    icon: <MailOutlined style={{ fontSize: 16 }} />,
     children: "hello@splose.com",
   },
 };
@@ -40,15 +40,15 @@ export const Playground: Story = {
 /* ================================================================== */
 
 export const Email: Story = {
-  args: { icon: <Mail className="h-4 w-4" />, children: "hello@splose.com" },
+  args: { icon: <MailOutlined style={{ fontSize: 16 }} />, children: "hello@splose.com" },
 };
 
 export const PhoneNumber: Story = {
-  args: { icon: <Phone className="h-4 w-4" />, children: "0412 345 678" },
+  args: { icon: <PhoneOutlined style={{ fontSize: 16 }} />, children: "0412 345 678" },
 };
 
 export const Location: Story = {
-  args: { icon: <MapPin className="h-4 w-4" />, children: "123 Main St, Melbourne VIC 3000" },
+  args: { icon: <EnvironmentOutlined style={{ fontSize: 16 }} />, children: "123 Main St, Melbourne VIC 3000" },
 };
 
 /* ================================================================== */
@@ -71,8 +71,8 @@ export const PractitionerContactInfo: Story = {
         <p className="text-sm text-text-secondary">Occupational Therapist</p>
       </div>
       <div className="space-y-2">
-        <IconText icon={<Mail className="h-4 w-4" />}>joseph.go@splose.com</IconText>
-        <IconText icon={<Phone className="h-4 w-4" />}>0412 345 678</IconText>
+        <IconText icon={<MailOutlined style={{ fontSize: 16 }} />}>joseph.go@splose.com</IconText>
+        <IconText icon={<PhoneOutlined style={{ fontSize: 16 }} />}>0412 345 678</IconText>
       </div>
     </div>
   ),
@@ -91,11 +91,11 @@ export const ContactDetailsSection: Story = {
     <div className="w-96 space-y-4 rounded-lg border border-border bg-white p-6">
       <h3 className="text-heading-lg text-text">Contact Information</h3>
       <div className="space-y-3">
-        <IconText icon={<Mail className="h-4 w-4" />}>emma.thompson@handstogether.com.au</IconText>
-        <IconText icon={<Phone className="h-4 w-4" />}>0408 123 456</IconText>
-        <IconText icon={<MapPin className="h-4 w-4" />}>4 Williamstown Rd, Adelaide SA 5000</IconText>
-        <IconText icon={<Globe className="h-4 w-4" />}>www.handstogether.com.au</IconText>
-        <IconText icon={<Clock className="h-4 w-4" />}>Mon-Fri, 9:00 am - 5:00 pm</IconText>
+        <IconText icon={<MailOutlined style={{ fontSize: 16 }} />}>emma.thompson@handstogether.com.au</IconText>
+        <IconText icon={<PhoneOutlined style={{ fontSize: 16 }} />}>0408 123 456</IconText>
+        <IconText icon={<EnvironmentOutlined style={{ fontSize: 16 }} />}>4 Williamstown Rd, Adelaide SA 5000</IconText>
+        <IconText icon={<GlobalOutlined style={{ fontSize: 16 }} />}>www.handstogether.com.au</IconText>
+        <IconText icon={<ClockCircleOutlined style={{ fontSize: 16 }} />}>Mon-Fri, 9:00 am - 5:00 pm</IconText>
       </div>
     </div>
   ),
@@ -133,8 +133,8 @@ export const PractitionerCardGrid: Story = {
             </div>
           </div>
           <div className="mt-4 space-y-2">
-            <IconText icon={<Mail className="h-4 w-4" />}>{p.email}</IconText>
-            <IconText icon={<Phone className="h-4 w-4" />}>{p.phone}</IconText>
+            <IconText icon={<MailOutlined style={{ fontSize: 16 }} />}>{p.email}</IconText>
+            <IconText icon={<PhoneOutlined style={{ fontSize: 16 }} />}>{p.phone}</IconText>
           </div>
         </div>
       ))}
@@ -159,21 +159,21 @@ export const ContactDetailInline: Story = {
         <div className="flex gap-16">
           <span className="w-28 shrink-0 text-text-secondary">Email:</span>
           <span className="flex items-center gap-1.5">
-            <Mail className="h-3.5 w-3.5 text-text-secondary" />
+            <MailOutlined style={{ fontSize: 14 }} className="text-text-secondary" />
             <span className="text-primary">cheng@splose.com</span>
           </span>
         </div>
         <div className="flex gap-16">
           <span className="w-28 shrink-0 text-text-secondary">Mobile phone:</span>
           <span className="flex items-center gap-1.5">
-            <Phone className="h-3.5 w-3.5 text-text-secondary" />
+            <PhoneOutlined style={{ fontSize: 14 }} className="text-text-secondary" />
             <span className="text-primary">+61 423 939 047</span>
           </span>
         </div>
         <div className="flex gap-16">
           <span className="w-28 shrink-0 text-text-secondary">Address:</span>
           <span className="flex items-center gap-1.5">
-            <MapPin className="h-3.5 w-3.5 text-text-secondary" />
+            <EnvironmentOutlined style={{ fontSize: 14 }} className="text-text-secondary" />
             <span className="text-text">45 Collins St, Melbourne VIC 3000</span>
           </span>
         </div>
@@ -196,15 +196,15 @@ export const ConditionalPhoneRow: Story = {
     <div className="w-80 rounded-lg border border-border bg-white p-6">
       <h4 className="mb-3 text-heading-sm text-text">With phone</h4>
       <div className="space-y-2">
-        <IconText icon={<Mail className="h-4 w-4" />}>alex@splose.com</IconText>
-        <IconText icon={<Phone className="h-4 w-4" />}>0412 345 678</IconText>
+        <IconText icon={<MailOutlined style={{ fontSize: 16 }} />}>alex@splose.com</IconText>
+        <IconText icon={<PhoneOutlined style={{ fontSize: 16 }} />}>0412 345 678</IconText>
       </div>
 
       <hr className="my-4 border-border" />
 
       <h4 className="mb-3 text-heading-sm text-text">Without phone</h4>
       <div className="space-y-2">
-        <IconText icon={<Mail className="h-4 w-4" />}>sarah@splose.com</IconText>
+        <IconText icon={<MailOutlined style={{ fontSize: 16 }} />}>sarah@splose.com</IconText>
         <p className="text-body-sm text-text-secondary">No phone number on file</p>
       </div>
     </div>

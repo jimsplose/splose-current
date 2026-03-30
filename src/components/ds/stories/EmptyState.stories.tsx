@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Search, FileText, Package } from "lucide-react";
+import { SearchOutlined, FileTextOutlined, InboxOutlined } from "@ant-design/icons";
 import EmptyState from "../EmptyState";
 import Button from "../Button";
 
@@ -37,7 +37,7 @@ export const Playground: Story = {
   args: {
     title: "Nothing here yet",
     message: "Get started by creating your first item.",
-    icon: <FileText className="h-10 w-10 text-text-secondary" />,
+    icon: <FileTextOutlined style={{ fontSize: 40 }} className="text-text-secondary" />,
     action: <Button variant="primary">Create item</Button>,
   },
 };
@@ -61,7 +61,7 @@ export const WithAction: Story = {
 
 export const WithIcon: Story = {
   args: {
-    icon: <Search className="h-10 w-10 text-text-secondary" />,
+    icon: <SearchOutlined style={{ fontSize: 40 }} className="text-text-secondary" />,
     title: "No results",
     message: "Try adjusting your search or filters.",
   },
@@ -118,7 +118,7 @@ export const NoProductsYet: Story = {
           <tr>
             <td colSpan={3}>
               <EmptyState
-                icon={<Package className="h-10 w-10 text-text-secondary" />}
+                icon={<InboxOutlined style={{ fontSize: 40 }} className="text-text-secondary" />}
                 message="No products found."
                 className="py-8"
               />
@@ -197,7 +197,7 @@ export const ContactAssociatedClientsEmpty: Story = {
     <div className="w-[500px] rounded-lg border border-border bg-white p-6">
       <h2 className="mb-4 text-heading-lg text-text">Associated clients</h2>
       <EmptyState
-        icon={<Search className="h-10 w-10 text-gray-400" />}
+        icon={<SearchOutlined style={{ fontSize: 40, color: '#9ca3af' }} />}
         message="No associated clients"
       />
     </div>

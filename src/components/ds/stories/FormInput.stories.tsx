@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Search } from "lucide-react";
+import { SearchOutlined } from "@ant-design/icons";
 import FormInput from "../FormInput";
 import FormSelect from "../FormSelect";
 import Button from "../Button";
@@ -185,7 +185,7 @@ export const SearchInput: Story = {
   render: () => (
     <div className="max-w-md">
       <div className="relative">
-        <Search className="absolute top-1/2 left-3 z-10 h-4 w-4 -translate-y-1/2 text-text-secondary" />
+        <SearchOutlined style={{ fontSize: 16 }} className="absolute top-1/2 left-3 z-10 -translate-y-1/2 text-text-secondary" />
         <FormInput type="text" placeholder="Search invoices by number or client..." className="h-9 pl-10" />
       </div>
     </div>

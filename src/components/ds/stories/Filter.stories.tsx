@@ -2,7 +2,7 @@
 
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
-import { LayoutGrid, Columns2, Calendar, Clock, List as ListIcon } from "lucide-react";
+import { AppstoreOutlined, SplitCellsOutlined, CalendarOutlined, ClockCircleOutlined, UnorderedListOutlined } from "@ant-design/icons";
 import Filter from "../Filter";
 
 /* ------------------------------------------------------------------ */
@@ -77,8 +77,8 @@ export const WithIcons: Story = {
     return (
       <Filter
         items={[
-          { label: <LayoutGrid className="h-4 w-4" />, value: "single" },
-          { label: <Columns2 className="h-4 w-4" />, value: "split" },
+          { label: <AppstoreOutlined style={{ fontSize: 16 }} />, value: "single" },
+          { label: <SplitCellsOutlined style={{ fontSize: 16 }} />, value: "split" },
         ]}
         value={value}
         onChange={setValue}
@@ -124,8 +124,8 @@ export const NoteViewToggle: Story = {
         <span className="text-label-lg text-text">View:</span>
         <Filter
           items={[
-            { label: <LayoutGrid className="h-4 w-4" />, value: "single" },
-            { label: <Columns2 className="h-4 w-4" />, value: "split" },
+            { label: <AppstoreOutlined style={{ fontSize: 16 }} />, value: "single" },
+            { label: <SplitCellsOutlined style={{ fontSize: 16 }} />, value: "split" },
           ]}
           value={viewMode}
           onChange={setViewMode}
@@ -153,7 +153,7 @@ export const CalendarViewFilter: Story = {
     return (
       <div className="flex items-center gap-4 rounded-lg border border-border bg-white px-4 py-2">
         <div className="flex items-center gap-2">
-          <Calendar className="h-4 w-4 text-text-secondary" />
+          <CalendarOutlined style={{ fontSize: 16 }} className="text-text-secondary" />
           <span className="text-label-lg text-text">March 2026</span>
         </div>
         <Filter
@@ -192,8 +192,8 @@ export const NoteEditorToolbarToggle: Story = {
         {/* View toggle */}
         <Filter
           items={[
-            { label: <LayoutGrid className="h-4 w-4" />, value: "single" },
-            { label: <Columns2 className="h-4 w-4" />, value: "split" },
+            { label: <AppstoreOutlined style={{ fontSize: 16 }} />, value: "single" },
+            { label: <SplitCellsOutlined style={{ fontSize: 16 }} />, value: "split" },
           ]}
           value={viewMode}
           onChange={setViewMode}
@@ -223,9 +223,9 @@ export const TimeViewFilter: Story = {
         <span className="text-label-lg text-text">View as:</span>
         <Filter
           items={[
-            { label: <Calendar className="h-4 w-4" />, value: "calendar" },
-            { label: <Clock className="h-4 w-4" />, value: "timeline" },
-            { label: <ListIcon className="h-4 w-4" />, value: "list" },
+            { label: <CalendarOutlined style={{ fontSize: 16 }} />, value: "calendar" },
+            { label: <ClockCircleOutlined style={{ fontSize: 16 }} />, value: "timeline" },
+            { label: <UnorderedListOutlined style={{ fontSize: 16 }} />, value: "list" },
           ]}
           value={view}
           onChange={setView}
