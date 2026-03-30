@@ -110,7 +110,7 @@ export const SplosNav: Story = {
 /*  Pattern: The exact TopNav used in the app layout.tsx. Uses DS      */
 /*  Button with variant="icon" and Avatar for the right-side icons.    */
 /*  Source: /src/components/TopNav.tsx — the wrapper component used     */
-/*  in layout.tsx that composes DSTopNav with Lucide icons + Avatar    */
+/*  in layout.tsx that composes DSTopNav with AntD icons + Avatar      */
 /* ------------------------------------------------------------------ */
 
 export const LayoutTopNav: Story = {
