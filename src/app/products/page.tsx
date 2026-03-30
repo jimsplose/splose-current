@@ -612,7 +612,7 @@ export default function ProductsPage() {
             {paginatedProducts.length === 0 && (
               <tr>
                 <td colSpan={6}>
-                  <EmptyState message="No products found." style={{ padding: '32px 0' }} />
+                  <EmptyState message="No products found." className="py-8" />
                 </td>
               </tr>
             )}

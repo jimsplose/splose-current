@@ -332,10 +332,10 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                   {contact.associatedClients.map((client) => (
                     <Tr key={client.id}>
                       <Td><LinkCell>{client.name}</LinkCell></Td>
-                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>5 Jun 2011</Td>
-                      <Td align="center" style={{ color: 'var(--ant-color-text-secondary)' }}></Td>
-                      <Td align="center" style={{ color: 'var(--ant-color-text-secondary)' }}></Td>
-                      <Td align="center" style={{ color: 'var(--ant-color-text-secondary)' }}></Td>
+                      <Td className="text-text-secondary">5 Jun 2011</Td>
+                      <Td align="center" className="text-text-secondary"></Td>
+                      <Td align="center" className="text-text-secondary"></Td>
+                      <Td align="center" className="text-text-secondary"></Td>
                     </Tr>
                   ))}
                 </TableBody>

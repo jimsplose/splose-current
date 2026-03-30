@@ -101,7 +101,7 @@ export default function BatchInvoicePage() {
               <TableBody>
                 {selectedPreviewInvoices.map((inv) => (
                   <tr key={inv.number} className="border-b border-border hover:bg-gray-50">
-                    <Td style={{ fontWeight: 500 }} className="text-primary">{inv.number}</Td>
+                    <Td className="font-medium text-primary">{inv.number}</Td>
                     <Td>{inv.client}</Td>
                     <Td>{inv.service}</Td>
                     <Td align="right">{inv.amount}</Td>
@@ -161,11 +161,11 @@ export default function BatchInvoicePage() {
                         onClick={(e) => e.stopPropagation()}
                       />
                     </Td>
-                    <Td style={{ fontWeight: 500, color: 'var(--ant-color-text)' }}>{client.name}</Td>
-                    <Td align="right" style={{ color: 'var(--ant-color-text-secondary)' }}>
+                    <Td className="font-medium text-text">{client.name}</Td>
+                    <Td align="right" className="text-text-secondary">
                       {client.appointments}
                     </Td>
-                    <Td align="right" style={{ fontWeight: 500, color: 'var(--ant-color-text)' }}>
+                    <Td align="right" className="font-medium text-text">
                       {client.total}
                     </Td>
                   </tr>
