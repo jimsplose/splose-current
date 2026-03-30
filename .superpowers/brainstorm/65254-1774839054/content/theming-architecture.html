@@ -1,0 +1,116 @@
+<h2>Section 2: Theming & Styling Architecture</h2>
+<p class="subtitle">How to make Ant Design 5.x look exactly like current Splose, with zero Tailwind.</p>
+
+<div class="section">
+  <h3>Current State → Target State</h3>
+  <div class="split">
+    <div class="mockup">
+      <div class="mockup-header">Current: Tailwind CSS 4</div>
+      <div class="mockup-body" style="font-size:13px; line-height:1.8;">
+        <div><strong>Theme:</strong> CSS variables in globals.css</div>
+        <div><strong>Styling:</strong> Tailwind utility classes on every element</div>
+        <div><strong>Typography:</strong> Custom CSS classes (text-display-lg, text-body-md)</div>
+        <div><strong>Colors:</strong> --color-primary: #8250ff, etc.</div>
+        <div><strong>Fonts:</strong> Sprig Sans (display) + Inter (body)</div>
+        <div><strong>Spacing:</strong> Tailwind spacing scale (p-4, gap-6)</div>
+        <div><strong>Icons:</strong> Lucide React</div>
+        <div style="margin-top:12px; color:#ef4444;"><strong>Problem:</strong> Engineers copy Tailwind classes between files. No enforced consistency.</div>
+      </div>
+    </div>
+    <div class="mockup">
+      <div class="mockup-header">Target: Ant Design 5.x Token System</div>
+      <div class="mockup-body" style="font-size:13px; line-height:1.8;">
+        <div><strong>Theme:</strong> ConfigProvider with custom theme tokens</div>
+        <div><strong>Styling:</strong> AntD's CSS-in-JS (cssinjs) — no utility classes</div>
+        <div><strong>Typography:</strong> AntD Typography + custom Text wrapper</div>
+        <div><strong>Colors:</strong> colorPrimary: '#8250ff' in theme config</div>
+        <div><strong>Fonts:</strong> fontFamily: 'Inter' + custom Sprig Sans for display</div>
+        <div><strong>Spacing:</strong> AntD Flex/Space components + theme tokens</div>
+        <div><strong>Icons:</strong> @ant-design/icons</div>
+        <div style="margin-top:12px; color:#22c55e;"><strong>Result:</strong> Engineers use components with props. No raw styling decisions.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Theme Token Mapping</h3>
+  <p class="subtitle">Your current CSS variables → Ant Design 5.x theme tokens</p>
+  <table style="width:100%; border-collapse:collapse; font-size:13px; margin-top:12px;">
+    <thead>
+      <tr style="border-bottom:2px solid #e5e7eb; text-align:left;">
+        <th style="padding:8px 12px; width:35%;">Current CSS Variable</th>
+        <th style="padding:8px 12px; width:30%;">AntD Token</th>
+        <th style="padding:8px 12px; width:35%;">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #f3f4f6; background:#f8f0ff;">
+        <td style="padding:8px 12px;" colspan="3"><strong>Colors</strong></td>
+      </tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">--color-primary</td><td style="padding:8px 12px;">colorPrimary</td><td style="padding:8px 12px;">#8250ff</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">--color-primary-dark</td><td style="padding:8px 12px;">colorPrimaryHover</td><td style="padding:8px 12px;">#6d3dd4</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">--color-primary-light</td><td style="padding:8px 12px;">colorPrimaryBg</td><td style="padding:8px 12px;">#a78bfa</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">--color-success</td><td style="padding:8px 12px;">colorSuccess</td><td style="padding:8px 12px;">#22c55e</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">--color-warning</td><td style="padding:8px 12px;">colorWarning</td><td style="padding:8px 12px;">#f59e0b</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">--color-danger</td><td style="padding:8px 12px;">colorError</td><td style="padding:8px 12px;">#ef4444</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">--color-bg</td><td style="padding:8px 12px;">colorBgContainer</td><td style="padding:8px 12px;">#ffffff</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">--color-border</td><td style="padding:8px 12px;">colorBorder</td><td style="padding:8px 12px;">#e8e8e8</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">--color-text</td><td style="padding:8px 12px;">colorText</td><td style="padding:8px 12px;">#414549</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">--color-text-secondary</td><td style="padding:8px 12px;">colorTextSecondary</td><td style="padding:8px 12px;">#6b7280</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">--color-surface-header</td><td style="padding:8px 12px;">colorFillAlter</td><td style="padding:8px 12px;">#f3f5f7</td></tr>
+
+      <tr style="border-bottom:1px solid #f3f4f6; background:#f0f8ff;">
+        <td style="padding:8px 12px;" colspan="3"><strong>Typography</strong></td>
+      </tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">--font-sans (Inter)</td><td style="padding:8px 12px;">fontFamily</td><td style="padding:8px 12px;">'Inter', sans-serif</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">--font-display (Sprig Sans)</td><td style="padding:8px 12px;">(custom — see below)</td><td style="padding:8px 12px;">Text wrapper handles this</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">--text-base (14px)</td><td style="padding:8px 12px;">fontSize</td><td style="padding:8px 12px;">14</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">--text-sm (12px)</td><td style="padding:8px 12px;">fontSizeSM</td><td style="padding:8px 12px;">12</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">--text-lg (18px)</td><td style="padding:8px 12px;">fontSizeLG</td><td style="padding:8px 12px;">18</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">--text-xl (24px)</td><td style="padding:8px 12px;">fontSizeXL</td><td style="padding:8px 12px;">24</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">--text-2xl (30px)</td><td style="padding:8px 12px;">fontSizeHeading1</td><td style="padding:8px 12px;">30</td></tr>
+
+      <tr style="border-bottom:1px solid #f3f4f6; background:#f0fff4;">
+        <td style="padding:8px 12px;" colspan="3"><strong>Spacing & Shape</strong></td>
+      </tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">rounded-lg (8px)</td><td style="padding:8px 12px;">borderRadius</td><td style="padding:8px 12px;">8</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">Tailwind spacing scale</td><td style="padding:8px 12px;">AntD Flex/Space + padding/margin tokens</td><td style="padding:8px 12px;">4px base unit</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h3>Layout Without Tailwind</h3>
+  <p class="subtitle">How page-level layout works after removing Tailwind entirely</p>
+  <table style="width:100%; border-collapse:collapse; font-size:13px; margin-top:12px;">
+    <thead>
+      <tr style="border-bottom:2px solid #e5e7eb; text-align:left;">
+        <th style="padding:8px 12px; width:35%;">Current (Tailwind)</th>
+        <th style="padding:8px 12px; width:35%;">Replacement</th>
+        <th style="padding:8px 12px; width:30%;">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><code>flex, flex-col, items-center</code></td><td style="padding:8px 12px;">AntD <code>Flex</code> component</td><td style="padding:8px 12px;">direction, align, justify props</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><code>gap-4, gap-6</code></td><td style="padding:8px 12px;">AntD <code>Flex gap={16}</code> or <code>Space</code></td><td style="padding:8px 12px;">Numeric pixel values</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><code>grid, grid-cols-2</code></td><td style="padding:8px 12px;">AntD <code>Row</code> + <code>Col</code></td><td style="padding:8px 12px;">24-column grid system</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><code>p-4, px-6, mt-8</code></td><td style="padding:8px 12px;">CSS Modules or inline style</td><td style="padding:8px 12px;">Minimal — mostly inside components</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><code>w-full, max-w-screen-xl</code></td><td style="padding:8px 12px;">AntD <code>Layout</code> component</td><td style="padding:8px 12px;">Header, Sider, Content, Footer</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><code>hidden sm:block</code></td><td style="padding:8px 12px;">AntD Grid responsive props</td><td style="padding:8px 12px;"><code>&lt;Col xs={0} sm={12}&gt;</code></td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><code>overflow-x-auto</code></td><td style="padding:8px 12px;">AntD Table <code>scroll={{ x: true }}</code></td><td style="padding:8px 12px;">Built into Table component</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:12px; color:#6b7280; font-size:13px;">For the rare case where AntD layout components don't fit, use <strong>CSS Modules</strong> (co-located .module.css files) — never inline Tailwind.</p>
+</div>
+
+<div class="section">
+  <h3>Sprig Sans: The Exception</h3>
+  <p>Ant Design's token system handles one font family globally. Your <strong>display headings</strong> use Sprig Sans, which needs special treatment:</p>
+  <ul style="font-size:13px; line-height:2;">
+    <li>The <strong>Text</strong> wrapper component stays custom — it applies Sprig Sans for display variants and Inter for everything else</li>
+    <li>AntD's <code>fontFamily</code> token is set to Inter (the 95% case)</li>
+    <li>The Text component uses a CSS Module or <code>createStyles</code> to apply Sprig Sans only on display/lg, display/md, display/sm variants</li>
+    <li>This is the one place where a font-family override exists outside AntD's token system</li>
+  </ul>
+</div>

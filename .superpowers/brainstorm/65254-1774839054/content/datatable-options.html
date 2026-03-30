@@ -1,0 +1,141 @@
+<h2>DataTable: Comprehensive Replacement Options</h2>
+<p class="subtitle">Your current DataTable is used across 25+ pages with 14 distinct patterns: sorting, filtering, pagination, expansion, row selection, actions dropdowns, link cells, responsive column hiding, and search integration. No inline editing today, but production Splose likely needs it.</p>
+
+<div class="section">
+  <h3>Current State</h3>
+  <p>Your DataTable is a <strong>primitive JSX table</strong> — no column definition system, no built-in sort/filter/pagination logic. All state management lives in each page component. Engineers manually wire <code>.map()</code> loops, <code>useState</code> for sort/expand/select, and the <code>usePagination</code> hook. This is the core of the copy-paste problem.</p>
+</div>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Ant Design Table (built-in) — Recommended</h3>
+      <p><strong>Zero extra dependencies.</strong> Ships with antd. Perfect theme integration.</p>
+      <div class="pros-cons" style="margin-top:12px;">
+        <div class="pros">
+          <h4>Pros</h4>
+          <ul>
+            <li>No extra bundle cost — it's already in antd</li>
+            <li>Column definition system (no more .map() loops)</li>
+            <li>Built-in sort, filter, pagination, expand, selection</li>
+            <li>Perfect AntD theming — inherits ConfigProvider</li>
+            <li>Server-side pagination via onChange callback</li>
+            <li>Virtual scrolling (v5.4+) for large datasets</li>
+            <li>Excellent TypeScript, active maintenance (94k stars)</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>Cons</h4>
+          <ul>
+            <li>Inline editing requires custom wiring (Form + Table)</li>
+            <li>Column resizing needs react-resizable addon</li>
+            <li>Virtual scroll can't combine with expandable rows</li>
+            <li>No built-in CSV/Excel export</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:8px; color:#6b7280; font-size:13px;"><strong>Covers ~80% of your 14 patterns out of the box.</strong> For the remaining 20% (inline editing, export), build targeted wrappers.</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>TanStack Table v8 (headless) + AntD rendering</h3>
+      <p><strong>Maximum flexibility.</strong> Logic engine only — you render with AntD components. ~17KB bundle.</p>
+      <div class="pros-cons" style="margin-top:12px;">
+        <div class="pros">
+          <h4>Pros</h4>
+          <ul>
+            <li>Every feature works together (virtual + expand + edit)</li>
+            <li>You render AntD markup, so theme integration is perfect</li>
+            <li>Tiny bundle (~17KB core + ~5KB virtual)</li>
+            <li>Column definition system with full TypeScript generics</li>
+            <li>Global search, multi-sort, column visibility all built-in</li>
+            <li>No feature limitations or incompatibilities</li>
+            <li>MIT license, 26k stars, very popular</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>Cons</h4>
+          <ul>
+            <li>Headless = you build ALL the UI (sort arrows, filter dropdowns, pagination)</li>
+            <li>3-5 days upfront to build a polished DataTable wrapper</li>
+            <li>More code to maintain than using AntD Table directly</li>
+            <li>Inline editing still DIY (but easier to compose)</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:8px; color:#6b7280; font-size:13px;"><strong>Covers 100% of patterns</strong> but requires significant upfront investment to wire the rendering layer.</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>AG Grid Community/Enterprise</h3>
+      <p><strong>Most powerful.</strong> Full spreadsheet-like grid. Enterprise: $999/dev/year.</p>
+      <div class="pros-cons" style="margin-top:12px;">
+        <div class="pros">
+          <h4>Pros</h4>
+          <ul>
+            <li>Every feature built-in: sort, filter, resize, reorder, edit, export</li>
+            <li>Best-in-class virtual scrolling (100k+ rows)</li>
+            <li>Column resizing and reordering work perfectly</li>
+            <li>Inline editing is first-class</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>Cons</h4>
+          <ul>
+            <li><strong>Separate visual system</strong> — will never look like native AntD without constant theme maintenance</li>
+            <li>Row expansion requires Enterprise license ($999/dev/yr)</li>
+            <li>Excel export requires Enterprise license</li>
+            <li>Large bundle: 80-200KB</li>
+            <li>Subscription model — features stop if you stop paying</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:8px; color:#ef4444; font-size:13px;"><strong>Not recommended.</strong> Visual mismatch with AntD is a dealbreaker for this project's goals.</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="d" onclick="toggleSelect(this)">
+    <div class="letter">D</div>
+    <div class="content">
+      <h3>Ant Design ProTable (@ant-design/pro-table)</h3>
+      <p><strong>Enhanced AntD Table.</strong> Auto-generated search forms, EditableProTable for inline editing.</p>
+      <div class="pros-cons" style="margin-top:12px;">
+        <div class="pros">
+          <h4>Pros</h4>
+          <ul>
+            <li>Built on AntD Table — native theme integration</li>
+            <li>Auto-generates filter/search forms from column definitions</li>
+            <li><strong>EditableProTable</strong> — best built-in inline editing of any option</li>
+            <li>valueType system reduces boilerplate (money, date, status, etc.)</li>
+            <li>MIT license</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>Cons</h4>
+          <ul>
+            <li><strong>React 19 / Next.js 16 compatibility is uncertain</strong> — open issues</li>
+            <li>Bundles ALL ProComponents even if you only want ProTable</li>
+            <li>Documentation primarily Chinese, machine-translated English</li>
+            <li>Slower release cadence than core antd</li>
+            <li>Known pagination bugs with EditableProTable</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:8px; color:#f59e0b; font-size:13px;"><strong>Risky.</strong> React 19 compat and bundle bloat are concerns. Great if EditableProTable is essential.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:24px; padding:16px; background:#f8f9fa; border-radius:8px;">
+  <h3>My Recommendation</h3>
+  <p><strong>Option A (Ant Design Table)</strong> as the primary table component. It eliminates the copy-paste problem with a proper column definition system, handles 80% of your patterns natively, and has zero extra dependencies.</p>
+  <p style="margin-top:8px;">For the 20% edge cases: build a reusable <code>&lt;EditableTable&gt;</code> wrapper for inline editing, add <code>SheetJS</code> for export, and <code>react-resizable</code> for the rare table that needs column resizing.</p>
+  <p style="margin-top:8px;">If you later find AntD Table's limitations are blocking, <strong>TanStack Table (B) is the upgrade path</strong> — same column definitions, just swap the rendering engine.</p>
+</div>

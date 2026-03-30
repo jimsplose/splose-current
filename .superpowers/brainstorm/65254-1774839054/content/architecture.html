@@ -1,0 +1,137 @@
+<h2>Section 3: Project Architecture</h2>
+<p class="subtitle">File structure, import rules, and how everything fits together.</p>
+
+<div class="section">
+  <h3>Directory Structure</h3>
+  <pre style="background:#1e1e2e; color:#cdd6f4; padding:16px; border-radius:8px; font-size:13px; line-height:1.6; overflow-x:auto;">
+src/
+├── components/
+│   └── ds/                          <span style="color:#6c7086;">← Still the single import point</span>
+│       ├── index.ts                 <span style="color:#6c7086;">← Barrel export (engineers import from here)</span>
+│       ├── theme.ts                 <span style="color:#a6e3a1;">← NEW: AntD ConfigProvider theme config</span>
+│       ├── ThemeProvider.tsx         <span style="color:#a6e3a1;">← NEW: Wraps app in ConfigProvider</span>
+│       │
+│       ├── <span style="color:#89b4fa;">Alert.tsx</span>                <span style="color:#6c7086;">← Wrapper: AntD Alert + Splose defaults</span>
+│       ├── <span style="color:#89b4fa;">Avatar.tsx</span>               <span style="color:#6c7086;">← Wrapper: AntD Avatar</span>
+│       ├── <span style="color:#89b4fa;">Badge.tsx</span>                <span style="color:#6c7086;">← Wrapper: AntD Tag (renamed for Splose API)</span>
+│       ├── <span style="color:#89b4fa;">Button.tsx</span>               <span style="color:#6c7086;">← Wrapper: AntD Button + variant mapping</span>
+│       ├── <span style="color:#89b4fa;">Card.tsx</span>                 <span style="color:#6c7086;">← Wrapper: AntD Card</span>
+│       ├── <span style="color:#89b4fa;">DataTable.tsx</span>            <span style="color:#6c7086;">← Wrapper: AntD Table + column defs</span>
+│       ├── <span style="color:#89b4fa;">...</span>                      <span style="color:#6c7086;">← ~22 more AntD wrappers</span>
+│       │
+│       ├── <span style="color:#f9e2af;">ColorDot.tsx</span>             <span style="color:#6c7086;">← Custom: standalone, uses AntD tokens</span>
+│       ├── <span style="color:#f9e2af;">EmailPreview.tsx</span>         <span style="color:#6c7086;">← Custom: domain-specific</span>
+│       ├── <span style="color:#f9e2af;">EmptyState.tsx</span>           <span style="color:#6c7086;">← Custom: Splose-specific layout</span>
+│       ├── <span style="color:#f9e2af;">PageHeader.tsx</span>           <span style="color:#6c7086;">← Custom: page-level layout</span>
+│       ├── <span style="color:#f9e2af;">Text.tsx</span>                 <span style="color:#6c7086;">← Custom: Sprig Sans + Inter type scale</span>
+│       ├── <span style="color:#f9e2af;">TopNav.tsx</span>               <span style="color:#6c7086;">← Custom: responsive nav</span>
+│       ├── <span style="color:#f9e2af;">...</span>                      <span style="color:#6c7086;">← ~12 more custom components</span>
+│       │
+│       └── stories/                 <span style="color:#6c7086;">← Storybook stories (rebuilt)</span>
+│
+├── app/
+│   ├── layout.tsx                   <span style="color:#a6e3a1;">← Wraps children in ThemeProvider</span>
+│   ├── globals.css                  <span style="color:#a6e3a1;">← REDUCED: font-face declarations only</span>
+│   └── ...pages                     <span style="color:#6c7086;">← Import from @/components/ds only</span>
+│
+└── styles/                          <span style="color:#a6e3a1;">← NEW (if needed): CSS Modules for edge cases</span>
+  </pre>
+</div>
+
+<div class="section">
+  <h3>Import Rules (Enforced by ESLint)</h3>
+  <table style="width:100%; border-collapse:collapse; font-size:13px; margin-top:12px;">
+    <thead>
+      <tr style="border-bottom:2px solid #e5e7eb; text-align:left;">
+        <th style="padding:8px 12px; width:15%;">Rule</th>
+        <th style="padding:8px 12px; width:45%;">Description</th>
+        <th style="padding:8px 12px; width:40%;">Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #f3f4f6; background:#f0fff4;">
+        <td style="padding:8px 12px;">✅ Allowed</td>
+        <td style="padding:8px 12px;">Import from <code>@/components/ds</code></td>
+        <td style="padding:8px 12px; font-family:monospace; font-size:12px;">import { Button, Card } from '@/components/ds'</td>
+      </tr>
+      <tr style="border-bottom:1px solid #f3f4f6; background:#fff0f0;">
+        <td style="padding:8px 12px;">❌ Banned</td>
+        <td style="padding:8px 12px;">Direct import from <code>antd</code> in page/feature code</td>
+        <td style="padding:8px 12px; font-family:monospace; font-size:12px;">import { Button } from 'antd'</td>
+      </tr>
+      <tr style="border-bottom:1px solid #f3f4f6; background:#fff0f0;">
+        <td style="padding:8px 12px;">❌ Banned</td>
+        <td style="padding:8px 12px;">Direct import from <code>@ant-design/icons</code> in page code</td>
+        <td style="padding:8px 12px; font-family:monospace; font-size:12px;">import { EditOutlined } from '@ant-design/icons'</td>
+      </tr>
+      <tr style="border-bottom:1px solid #f3f4f6; background:#f0fff4;">
+        <td style="padding:8px 12px;">✅ Allowed</td>
+        <td style="padding:8px 12px;">Direct <code>antd</code> imports inside <code>ds/</code> components only</td>
+        <td style="padding:8px 12px; font-family:monospace; font-size:12px;">// inside ds/Button.tsx<br/>import { Button as AntButton } from 'antd'</td>
+      </tr>
+      <tr style="border-bottom:1px solid #f3f4f6; background:#fffff0;">
+        <td style="padding:8px 12px;">⚠️ Exception</td>
+        <td style="padding:8px 12px;">AntD layout components (Flex, Row, Col, Space) allowed in pages</td>
+        <td style="padding:8px 12px; font-family:monospace; font-size:12px;">import { Flex, Row, Col } from 'antd'</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="margin-top:12px; color:#6b7280; font-size:13px;">The layout exception exists because wrapping Flex/Row/Col adds no value — they have no Splose-specific defaults. This keeps the DS focused on components with actual opinions.</p>
+</div>
+
+<div class="section">
+  <h3>Data Flow: Theme → Components → Pages</h3>
+  <div style="background:#f8f9fa; padding:16px; border-radius:8px; font-family:monospace; font-size:13px; line-height:2;">
+    <div><strong>1. theme.ts</strong> — defines Splose token overrides (colors, fonts, sizes, radii)</div>
+    <div style="padding-left:20px;">↓</div>
+    <div><strong>2. ThemeProvider.tsx</strong> — wraps app in <code>&lt;ConfigProvider theme={sploseTheme}&gt;</code></div>
+    <div style="padding-left:20px;">↓</div>
+    <div><strong>3. layout.tsx</strong> — renders <code>&lt;ThemeProvider&gt;{children}&lt;/ThemeProvider&gt;</code></div>
+    <div style="padding-left:20px;">↓</div>
+    <div><strong>4. DS wrappers</strong> (Button.tsx, etc.) — import from antd, apply Splose-specific prop defaults</div>
+    <div style="padding-left:20px;">↓</div>
+    <div><strong>5. Pages</strong> — import from @/components/ds, use components with Splose API</div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>What Gets Deleted</h3>
+  <table style="width:100%; border-collapse:collapse; font-size:13px; margin-top:12px;">
+    <thead>
+      <tr style="border-bottom:2px solid #e5e7eb; text-align:left;">
+        <th style="padding:8px 12px; width:50%;">Removed</th>
+        <th style="padding:8px 12px; width:50%;">Why</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><code>tailwindcss</code>, <code>@tailwindcss/postcss</code></td><td style="padding:8px 12px;">Replaced by AntD CSS-in-JS</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><code>prettier-plugin-tailwindcss</code></td><td style="padding:8px 12px;">No Tailwind classes to sort</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><code>lucide-react</code></td><td style="padding:8px 12px;">Replaced by @ant-design/icons</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><code>postcss.config.mjs</code></td><td style="padding:8px 12px;">No PostCSS needed without Tailwind</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><code>src/components/ds/portable/</code></td><td style="padding:8px 12px;">Dropped (agreed earlier)</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><code>usePagination.ts</code></td><td style="padding:8px 12px;">Replaced by AntD Table pagination</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">All Tailwind classes in every file</td><td style="padding:8px 12px;">Replaced by component props + AntD layout</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">Most of <code>globals.css</code></td><td style="padding:8px 12px;">Keep only @font-face for Sprig Sans + Inter loading</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h3>What Gets Added</h3>
+  <table style="width:100%; border-collapse:collapse; font-size:13px; margin-top:12px;">
+    <thead>
+      <tr style="border-bottom:2px solid #e5e7eb; text-align:left;">
+        <th style="padding:8px 12px; width:50%;">Added</th>
+        <th style="padding:8px 12px; width:50%;">Purpose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><code>antd</code></td><td style="padding:8px 12px;">Component library</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><code>@ant-design/icons</code></td><td style="padding:8px 12px;">Icon library</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><code>@ant-design/nextjs-registry</code></td><td style="padding:8px 12px;">SSR style extraction for Next.js App Router</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><code>theme.ts</code></td><td style="padding:8px 12px;">Splose token overrides</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><code>ThemeProvider.tsx</code></td><td style="padding:8px 12px;">ConfigProvider wrapper</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;">ESLint rule: no-restricted-imports</td><td style="padding:8px 12px;">Ban direct antd imports outside ds/</td></tr>
+    </tbody>
+  </table>
+</div>

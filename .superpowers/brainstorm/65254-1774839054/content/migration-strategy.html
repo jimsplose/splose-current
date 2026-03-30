@@ -1,0 +1,133 @@
+<h2>Section 4: Migration Strategy</h2>
+<p class="subtitle">How the migration rolls out across 43 components and 96 pages.</p>
+
+<div class="section">
+  <h3>Migration Phases</h3>
+  <div style="display:flex; flex-direction:column; gap:16px;">
+
+    <div style="border:2px solid #8250ff; border-radius:8px; padding:16px;">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+        <span style="background:#8250ff; color:white; font-weight:bold; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; font-size:14px;">1</span>
+        <h3 style="margin:0;">Foundation</h3>
+      </div>
+      <p style="font-size:13px; color:#6b7280; margin-bottom:8px;">Set up the infrastructure before touching any components.</p>
+      <ul style="font-size:13px; line-height:1.8;">
+        <li>Install <code>antd</code>, <code>@ant-design/icons</code>, <code>@ant-design/nextjs-registry</code></li>
+        <li>Create <code>theme.ts</code> with all Splose token overrides</li>
+        <li>Create <code>ThemeProvider.tsx</code> wrapping ConfigProvider</li>
+        <li>Wire ThemeProvider into <code>layout.tsx</code></li>
+        <li>Add ESLint <code>no-restricted-imports</code> rule</li>
+        <li>Verify AntD renders correctly alongside existing Tailwind (temporary coexistence)</li>
+      </ul>
+      <p style="font-size:12px; color:#8250ff; margin-top:8px;"><strong>Tailwind still active.</strong> Both systems coexist briefly during this phase.</p>
+    </div>
+
+    <div style="border:2px solid #8250ff; border-radius:8px; padding:16px;">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+        <span style="background:#8250ff; color:white; font-weight:bold; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; font-size:14px;">2</span>
+        <h3 style="margin:0;">DS Component Rewrite</h3>
+      </div>
+      <p style="font-size:13px; color:#6b7280; margin-bottom:8px;">Rewrite all 43 components in ds/ to use AntD internally. Keep the same export names and prop APIs where possible.</p>
+      <ul style="font-size:13px; line-height:1.8;">
+        <li><strong>Same-API wrappers first</strong> — Button, Card, Modal, Badge, Alert, Checkbox, Toggle, Spinner, Avatar (props barely change)</li>
+        <li><strong>Adapted wrappers next</strong> — FormInput, FormSelect, FormTextarea, Select, Dropdown, Tab, Collapse (prop shape changes)</li>
+        <li><strong>DataTable last</strong> — heaviest migration. Rewrite from primitive JSX table to AntD Table with column definitions. This changes how every page defines its table.</li>
+        <li><strong>Custom components</strong> — rewrite to use AntD tokens + CSS Modules instead of Tailwind classes. No AntD component dependency, just visual consistency.</li>
+        <li>Rebuild all 43 Storybook stories against new implementations</li>
+      </ul>
+      <p style="font-size:12px; color:#8250ff; margin-top:8px;"><strong>Barrel export stays stable.</strong> Pages still import from <code>@/components/ds</code> — internal rewrites are invisible to consumers where APIs don't change.</p>
+    </div>
+
+    <div style="border:2px solid #8250ff; border-radius:8px; padding:16px;">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+        <span style="background:#8250ff; color:white; font-weight:bold; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; font-size:14px;">3</span>
+        <h3 style="margin:0;">Page Migration</h3>
+      </div>
+      <p style="font-size:13px; color:#6b7280; margin-bottom:8px;">Update all 96 pages to use the new DS APIs and remove Tailwind classes.</p>
+      <ul style="font-size:13px; line-height:1.8;">
+        <li><strong>Simple pages first</strong> — settings pages, static layouts (mostly swapping Tailwind layout → AntD Flex/Row/Col)</li>
+        <li><strong>Table pages next</strong> — rewrite inline <code>.map()</code> loops to AntD Table column definitions</li>
+        <li><strong>Complex pages last</strong> — Dashboard, Calendar, DataImport wizard (most Tailwind-heavy)</li>
+        <li>Replace all Lucide icons with @ant-design/icons equivalents</li>
+        <li>Replace all Tailwind layout classes with AntD layout components</li>
+      </ul>
+      <p style="font-size:12px; color:#8250ff; margin-top:8px;"><strong>Page-by-page.</strong> Each page is independently migratable. No big-bang switchover.</p>
+    </div>
+
+    <div style="border:2px solid #8250ff; border-radius:8px; padding:16px;">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+        <span style="background:#8250ff; color:white; font-weight:bold; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; font-size:14px;">4</span>
+        <h3 style="margin:0;">Cleanup</h3>
+      </div>
+      <p style="font-size:13px; color:#6b7280; margin-bottom:8px;">Remove all traces of the old system.</p>
+      <ul style="font-size:13px; line-height:1.8;">
+        <li>Uninstall <code>tailwindcss</code>, <code>@tailwindcss/postcss</code>, <code>prettier-plugin-tailwindcss</code>, <code>lucide-react</code></li>
+        <li>Delete <code>postcss.config.mjs</code></li>
+        <li>Strip <code>globals.css</code> down to @font-face declarations only</li>
+        <li>Delete <code>portable/</code> directory</li>
+        <li>Delete <code>usePagination.ts</code></li>
+        <li>Verify build passes with zero Tailwind references</li>
+        <li>Final Storybook verification</li>
+      </ul>
+      <p style="font-size:12px; color:#22c55e; margin-top:8px;"><strong>Zero Tailwind left.</strong> Build should fail if any Tailwind class or import remains.</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <h3>API Changes: What Breaks for Consumers</h3>
+  <p class="subtitle">Most wrappers preserve the current API. These are the exceptions where page code must change.</p>
+  <table style="width:100%; border-collapse:collapse; font-size:13px; margin-top:12px;">
+    <thead>
+      <tr style="border-bottom:2px solid #e5e7eb; text-align:left;">
+        <th style="padding:8px 12px; width:20%;">Component</th>
+        <th style="padding:8px 12px; width:40%;">Current API</th>
+        <th style="padding:8px 12px; width:40%;">New API</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #f3f4f6; background:#fff0f0;">
+        <td style="padding:8px 12px;"><strong>DataTable</strong></td>
+        <td style="padding:8px 12px;">Inline JSX: <code>&lt;Tr&gt;&lt;Td&gt;...&lt;/Td&gt;&lt;/Tr&gt;</code> with <code>.map()</code></td>
+        <td style="padding:8px 12px;">Column definitions: <code>columns={[...]} dataSource={data}</code></td>
+      </tr>
+      <tr style="border-bottom:1px solid #f3f4f6; background:#fff0f0;">
+        <td style="padding:8px 12px;"><strong>Th (sort)</strong></td>
+        <td style="padding:8px 12px;">Props: <code>sortable, sortDirection, onSort</code></td>
+        <td style="padding:8px 12px;">Column def: <code>sorter: true, sortOrder</code></td>
+      </tr>
+      <tr style="border-bottom:1px solid #f3f4f6; background:#fff0f0;">
+        <td style="padding:8px 12px;"><strong>ExpandableRow</strong></td>
+        <td style="padding:8px 12px;">Component: <code>&lt;ExpandableRow expandContent={...}&gt;</code></td>
+        <td style="padding:8px 12px;">Table prop: <code>expandable={{ expandedRowRender }}</code></td>
+      </tr>
+      <tr style="border-bottom:1px solid #f3f4f6; background:#fffff0;">
+        <td style="padding:8px 12px;"><strong>FormInput</strong></td>
+        <td style="padding:8px 12px;">Props: <code>label, error</code> on the input</td>
+        <td style="padding:8px 12px;">May wrap in Form.Item internally (API stays similar)</td>
+      </tr>
+      <tr style="border-bottom:1px solid #f3f4f6; background:#fffff0;">
+        <td style="padding:8px 12px;"><strong>Dropdown</strong></td>
+        <td style="padding:8px 12px;">Props: <code>items: DropdownItem[]</code></td>
+        <td style="padding:8px 12px;">Maps to AntD menu items format internally (API stays similar)</td>
+      </tr>
+      <tr style="border-bottom:1px solid #f3f4f6; background:#f0fff4;">
+        <td style="padding:8px 12px;"><strong>Button, Card, Modal, Badge, etc.</strong></td>
+        <td style="padding:8px 12px;">Current props</td>
+        <td style="padding:8px 12px;">Same props — wrapper maps internally to AntD</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="margin-top:12px; color:#6b7280; font-size:13px;"><span style="background:#fff0f0; padding:2px 6px; border-radius:4px;">Red</span> = page code must change. <span style="background:#fffff0; padding:2px 6px; border-radius:4px;">Yellow</span> = minor adaptation. <span style="background:#f0fff4; padding:2px 6px; border-radius:4px;">Green</span> = no change needed.</p>
+</div>
+
+<div class="section">
+  <h3>Risk: Next.js App Router + AntD CSS-in-JS</h3>
+  <p style="font-size:13px; line-height:1.8;">Ant Design 5.x uses CSS-in-JS which requires client-side style injection. In Next.js App Router with server components, styles can flash (FOUC) on first render. The fix:</p>
+  <ul style="font-size:13px; line-height:1.8;">
+    <li><code>@ant-design/nextjs-registry</code> extracts styles at build time for SSR</li>
+    <li>Wrap the app in <code>&lt;AntdRegistry&gt;</code> in layout.tsx alongside ThemeProvider</li>
+    <li>This is Ant Design's official solution — well-documented and actively maintained</li>
+  </ul>
+</div>

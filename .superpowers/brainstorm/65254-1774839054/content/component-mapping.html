@@ -1,0 +1,96 @@
+<h2>Section 1: Component Mapping</h2>
+<p class="subtitle">How each current DS component maps to Ant Design 5.x</p>
+
+<div class="section">
+  <h3>Direct Wrappers (~25 components)</h3>
+  <p class="subtitle">Current DS → Ant Design equivalent. Thin wrapper applies Splose defaults.</p>
+  <table style="width:100%; border-collapse:collapse; font-size:14px; margin-top:12px;">
+    <thead>
+      <tr style="border-bottom:2px solid #e5e7eb; text-align:left;">
+        <th style="padding:8px 12px; width:30%;">Current DS</th>
+        <th style="padding:8px 12px; width:30%;">Ant Design 5.x</th>
+        <th style="padding:8px 12px; width:40%;">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Alert</strong></td><td style="padding:8px 12px;">Alert</td><td style="padding:8px 12px;">Map variants to AntD types</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Avatar</strong></td><td style="padding:8px 12px;">Avatar</td><td style="padding:8px 12px;">Direct match</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Badge</strong></td><td style="padding:8px 12px;">Tag</td><td style="padding:8px 12px;">AntD Tag is closer to current Badge (colored labels)</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Button</strong></td><td style="padding:8px 12px;">Button</td><td style="padding:8px 12px;">Map 7 variants to AntD type/danger/ghost props</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Card</strong></td><td style="padding:8px 12px;">Card</td><td style="padding:8px 12px;">Map headerBar → title + extra</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Checkbox</strong></td><td style="padding:8px 12px;">Checkbox</td><td style="padding:8px 12px;">Direct match</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Collapse</strong></td><td style="padding:8px 12px;">Collapse</td><td style="padding:8px 12px;">Direct match</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>DataTable</strong></td><td style="padding:8px 12px;">Table</td><td style="padding:8px 12px;">Heaviest migration — sort, filter, expand, responsive hiding</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>DateRangeFilter</strong></td><td style="padding:8px 12px;">DatePicker.RangePicker</td><td style="padding:8px 12px;">Wrap with filter presets</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Dropdown</strong></td><td style="padding:8px 12px;">Dropdown</td><td style="padding:8px 12px;">Map items array to AntD menu format</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>FormInput</strong></td><td style="padding:8px 12px;">Form.Item + Input</td><td style="padding:8px 12px;">Label + error via Form.Item</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>FormSelect</strong></td><td style="padding:8px 12px;">Form.Item + Select</td><td style="padding:8px 12px;">Same pattern</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>FormTextarea</strong></td><td style="padding:8px 12px;">Form.Item + Input.TextArea</td><td style="padding:8px 12px;">Same pattern</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>AsyncSelect</strong></td><td style="padding:8px 12px;">Select + async search</td><td style="padding:8px 12px;">AntD Select has built-in async/search</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Filter</strong></td><td style="padding:8px 12px;">Select (tag mode)</td><td style="padding:8px 12px;">Filter chip pattern</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>List</strong></td><td style="padding:8px 12px;">List</td><td style="padding:8px 12px;">Direct match</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Modal</strong></td><td style="padding:8px 12px;">Modal</td><td style="padding:8px 12px;">Map maxWidth sizes to AntD width</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Pagination</strong></td><td style="padding:8px 12px;">Pagination</td><td style="padding:8px 12px;">Direct match, drop usePagination hook</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>RadioGroup</strong></td><td style="padding:8px 12px;">Radio.Group</td><td style="padding:8px 12px;">Direct match</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>SearchBar</strong></td><td style="padding:8px 12px;">Input.Search</td><td style="padding:8px 12px;">Direct match</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Select</strong></td><td style="padding:8px 12px;">Select</td><td style="padding:8px 12px;">Direct match</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Spinner</strong></td><td style="padding:8px 12px;">Spin</td><td style="padding:8px 12px;">Direct match</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Stat</strong></td><td style="padding:8px 12px;">Statistic</td><td style="padding:8px 12px;">Direct match</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Tab</strong></td><td style="padding:8px 12px;">Tabs</td><td style="padding:8px 12px;">Map TabItem[] to AntD items</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Toggle</strong></td><td style="padding:8px 12px;">Switch</td><td style="padding:8px 12px;">Direct match</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h3>Custom Components (~18 components)</h3>
+  <p class="subtitle">No Ant Design equivalent — built as standalone React components using AntD design tokens for visual consistency.</p>
+  <table style="width:100%; border-collapse:collapse; font-size:14px; margin-top:12px;">
+    <thead>
+      <tr style="border-bottom:2px solid #e5e7eb; text-align:left;">
+        <th style="padding:8px 12px; width:30%;">Component</th>
+        <th style="padding:8px 12px; width:70%;">Why Custom</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Chip</strong></td><td style="padding:8px 12px;">Splose-specific styled tag variant</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>ColorDot</strong></td><td style="padding:8px 12px;">Tiny colored circle indicator — no AntD match</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>EmailPreview</strong></td><td style="padding:8px 12px;">Domain-specific email rendering</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>EmptyState</strong></td><td style="padding:8px 12px;">AntD Empty is simpler — keep custom for Splose layout</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>FileUpload</strong></td><td style="padding:8px 12px;">Splose-specific upload UX</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>FormColorPicker</strong></td><td style="padding:8px 12px;">Could wrap AntD ColorPicker — evaluate during implementation</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>HintIcon</strong></td><td style="padding:8px 12px;">Tooltip + icon combo — could wrap AntD Tooltip</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>IconText</strong></td><td style="padding:8px 12px;">Simple icon + text layout helper</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Navbar</strong></td><td style="padding:8px 12px;">Splose-specific horizontal navigation</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>OnOffBadge</strong></td><td style="padding:8px 12px;">On/off status indicator — domain-specific</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>PageHeader</strong></td><td style="padding:8px 12px;">Splose-specific page header layout</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>RichTextEditor</strong></td><td style="padding:8px 12px;">Third-party editor — independent of DS library</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>ReorderModal</strong></td><td style="padding:8px 12px;">Drag-and-drop reorder — uses @dnd-kit + AntD Modal wrapper</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>SettingsListPage</strong></td><td style="padding:8px 12px;">Page-level layout template</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>SideNav</strong></td><td style="padding:8px 12px;">Could wrap AntD Menu (vertical) — evaluate</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Status</strong></td><td style="padding:8px 12px;">Colored status indicator — domain-specific</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Text</strong></td><td style="padding:8px 12px;">Custom typography scale (Sprig Sans + Inter)</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>TopNav</strong></td><td style="padding:8px 12px;">Responsive nav with "More" menu — Splose-specific</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h3>Utilities — Replaced by Ant Design</h3>
+  <table style="width:100%; border-collapse:collapse; font-size:14px; margin-top:12px;">
+    <thead>
+      <tr style="border-bottom:2px solid #e5e7eb; text-align:left;">
+        <th style="padding:8px 12px; width:30%;">Current Utility</th>
+        <th style="padding:8px 12px; width:30%;">Replacement</th>
+        <th style="padding:8px 12px; width:40%;">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>useFormModal</strong></td><td style="padding:8px 12px;">Form + Modal integration</td><td style="padding:8px 12px;">AntD's Form.useForm() + Modal pattern</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>usePagination</strong></td><td style="padding:8px 12px;">Table built-in pagination</td><td style="padding:8px 12px;">AntD Table has pagination prop</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>formatTimestamp</strong></td><td style="padding:8px 12px;">Keep (date-fns)</td><td style="padding:8px 12px;">Not a UI concern — stays as utility</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>getBadgeVariant</strong></td><td style="padding:8px 12px;">Keep (maps status → color)</td><td style="padding:8px 12px;">Business logic — stays as utility</td></tr>
+      <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px 12px;"><strong>Presets</strong></td><td style="padding:8px 12px;">Keep / refactor</td><td style="padding:8px 12px;">Page-level patterns — may simplify with AntD</td></tr>
+    </tbody>
+  </table>
+</div>
