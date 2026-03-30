@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
+import { ThemeProvider } from "@/components/ds";
 import "./globals.css";
 import TopNav from "@/components/TopNav";
 import DevNavigator from "@/components/DevNavigator";
@@ -25,12 +27,16 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="subpixel-antialiased">
-        <TopNav />
-        <main>{children}</main>
-        <Suspense fallback={null}>
-          <DevNavigator />
-        </Suspense>
-        <Analytics />
+        <AntdRegistry>
+          <ThemeProvider>
+            <TopNav />
+            <main>{children}</main>
+            <Suspense fallback={null}>
+              <DevNavigator />
+            </Suspense>
+            <Analytics />
+          </ThemeProvider>
+        </AntdRegistry>
       </body>
     </html>
   );
