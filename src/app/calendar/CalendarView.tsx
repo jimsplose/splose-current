@@ -1573,7 +1573,7 @@ function MonthView({
                         </span>
                         {isCancelled && (
                           <span className="ml-auto flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-sm bg-red-500">
-                            <X className="h-2.5 w-2.5 text-white" />
+                            <CloseOutlined style={{ fontSize: 10, color: 'white' }} />
                           </span>
                         )}
                         {isGroup && !isCancelled && (
@@ -1761,7 +1761,7 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
       {/* Note field */}
       <div className="mt-4">
         <label className="flex items-center gap-1 text-label-md text-text-secondary">
-          <FileText className="h-3 w-3" /> Note
+          <FileTextOutlined style={{ fontSize: 12 }} /> Note
         </label>
         <FormTextarea
           className="mt-1 resize-none"
@@ -1809,18 +1809,18 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
 
       {/* Teams */}
       <div className="flex items-start gap-2">
-        <Monitor className="mt-0.5 h-4 w-4 text-primary" />
+        <DesktopOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary)', marginTop: 2 }} />
         <span className="cursor-pointer text-primary hover:underline">Create Microsoft Teams meeting</span>
       </div>
 
       {/* Attendees section */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Users className="h-4 w-4 text-text-secondary" />
+          <TeamOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
           <span className="text-text-secondary">1 of 6 clients attending</span>
         </div>
         <Button variant="secondary" size="sm">
-          <UserPlus className="h-3 w-3" /> Client
+          <UserAddOutlined style={{ fontSize: 12 }} /> Client
         </Button>
       </div>
 
@@ -1841,7 +1841,7 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
       {/* Note field */}
       <div className="mt-4">
         <label className="flex items-center gap-1 text-label-md text-text-secondary">
-          <FileText className="h-3 w-3" /> Note
+          <FileTextOutlined style={{ fontSize: 12 }} /> Note
         </label>
         <FormTextarea
           className="mt-1 resize-none"
