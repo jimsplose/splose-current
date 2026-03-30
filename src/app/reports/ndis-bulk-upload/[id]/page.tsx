@@ -17,7 +17,7 @@ export default function NdisBulkUploadDetailPage() {
       </PageHeader>
 
       {hasErrors && (
-        <Alert variant="error" style={{ marginBottom: 16 }}>
+        <Alert variant="error" className="mb-4">
           1 item failed to upload. Please review and retry.
         </Alert>
       )}

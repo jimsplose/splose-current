@@ -167,7 +167,7 @@ export default function ReportsProgressNotesPage() {
           <Tr>
             <Td>
               <span style={{ color: 'var(--ant-color-primary)' }}>Bill Gates Demo</span>
-              <Badge variant="gray" style={{ marginLeft: 8 }}>Draft</Badge>
+              <Badge variant="gray" className="ml-2">Draft</Badge>
             </Td>
             <Td><span style={{ color: 'var(--ant-color-primary)' }}>Skyler Peterson</span></Td>
             <Td><span style={{ color: 'var(--ant-color-text-secondary)' }}>&mdash;</span></Td>
@@ -177,7 +177,7 @@ export default function ReportsProgressNotesPage() {
           <Tr>
             <Td>
               <span style={{ color: 'var(--ant-color-primary)' }}>AAA TEST</span>
-              <Badge variant="gray" style={{ marginLeft: 8 }}>Draft</Badge>
+              <Badge variant="gray" className="ml-2">Draft</Badge>
             </Td>
             <Td><span style={{ color: 'var(--ant-color-primary)' }}>A Del</span></Td>
             <Td><span style={{ color: 'var(--ant-color-text-secondary)' }}>&mdash;</span></Td>
