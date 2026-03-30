@@ -115,7 +115,7 @@ export default function AppointmentSidePanel({
           </Button>
         </PageHeader>
 
-        <Card padding="none" style={{ overflowX: 'auto' }}>
+        <Card padding="none" className="overflow-x-auto">
           <DataTable>
             <TableHead>
               <Th>
@@ -176,9 +176,9 @@ export default function AppointmentSidePanel({
                           {appt.status === "No Show" && <Badge variant={statusVariant(appt.status)}>{appt.status}</Badge>}
                         </Flex>
                       </Td>
-                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>East Clinics</Td>
-                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{appt.type}</Td>
-                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{appt.practitioner.name}</Td>
+                      <Td className="text-text-secondary">East Clinics</Td>
+                      <Td className="text-text-secondary">{appt.type}</Td>
+                      <Td className="text-text-secondary">{appt.practitioner.name}</Td>
                       <Td>
                         {invoiceStatus === "Paid" && (
                           <Badge variant="red" className="bg-red-500 text-white">

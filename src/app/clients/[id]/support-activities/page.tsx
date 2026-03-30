@@ -21,7 +21,7 @@ export default async function ClientSupportActivitiesPage({ params }: { params: 
         </Button>
       </PageHeader>
 
-      <Card padding="none" style={{ overflowX: 'auto' }}>
+      <Card padding="none" className="overflow-x-auto">
         <DataTable>
           <TableHead>
             <Th>When</Th>

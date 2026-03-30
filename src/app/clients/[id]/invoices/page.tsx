@@ -28,7 +28,7 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
 
       <SearchBar placeholder="Search for invoice number, client name and contact name" />
 
-      <Card padding="none" style={{ overflowX: 'auto' }}>
+      <Card padding="none" className="overflow-x-auto">
         <div style={{ overflowX: 'auto' }}>
           <DataTable>
             <TableHead>
@@ -94,13 +94,13 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
                   return (
                     <Tr key={inv.id}>
                       <Td>{inv.invoiceNumber}</Td>
-                      <Td style={{ color: 'var(--ant-color-primary)' }}>
+                      <Td className="text-primary">
                         {client.firstName} {client.lastName} ({inv.billingType})
                       </Td>
-                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>East Clinics</Td>
-                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{practitioner ? practitioner.name : "\u2014"}</Td>
-                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{formatDate(inv.date)}</Td>
-                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{formatDate(inv.dueDate)}</Td>
+                      <Td className="text-text-secondary">East Clinics</Td>
+                      <Td className="text-text-secondary">{practitioner ? practitioner.name : "\u2014"}</Td>
+                      <Td className="text-text-secondary">{formatDate(inv.date)}</Td>
+                      <Td className="text-text-secondary">{formatDate(inv.dueDate)}</Td>
                       <Td align="right">
                         {inv.total.toFixed(2)}
                       </Td>
@@ -122,7 +122,7 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
                           </Badge>
                         )}
                       </Td>
-                      <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{"\u2014"}</Td>
+                      <Td className="text-text-secondary">{"\u2014"}</Td>
                     </Tr>
                   );
                 })

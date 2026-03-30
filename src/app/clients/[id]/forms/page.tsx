@@ -132,7 +132,7 @@ export default function ClientFormsPage() {
 
       <SearchBar placeholder="Search for title" />
 
-      <Card padding="none" style={{ overflowX: 'auto' }}>
+      <Card padding="none" className="overflow-x-auto">
         <DataTable>
           <TableHead>
             <Th>Title</Th>
@@ -146,13 +146,13 @@ export default function ClientFormsPage() {
               <Tr key={form.id}>
                 <Td>
                   <span>{form.title}</span>
-                  <Badge variant="gray" style={{ marginLeft: 8 }}>
+                  <Badge variant="gray" className="ml-2">
                     {form.status}
                   </Badge>
                 </Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{form.createdAt}</Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{form.completed}</Td>
-                <Td style={{ color: 'var(--ant-color-primary)' }}>{form.relatedAppt}</Td>
+                <Td className="text-text-secondary">{form.createdAt}</Td>
+                <Td className="text-text-secondary">{form.completed}</Td>
+                <Td className="text-primary">{form.relatedAppt}</Td>
                 <Td align="right">
                   <Dropdown
                     trigger={<DropdownTriggerButton />}

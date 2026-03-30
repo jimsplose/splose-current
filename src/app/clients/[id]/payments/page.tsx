@@ -23,7 +23,7 @@ export default async function ClientPaymentsPage({ params }: { params: Promise<{
 
       <SearchBar placeholder="Search for recipient name and payment number" />
 
-      <Card padding="none" style={{ overflowX: 'auto' }}>
+      <Card padding="none" className="overflow-x-auto">
         <DataTable>
           <TableHead>
             <Th>

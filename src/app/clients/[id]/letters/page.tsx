@@ -26,7 +26,7 @@ export default function ClientLettersPage() {
         </Button>
       </PageHeader>
 
-      <Card padding="none" style={{ overflowX: 'auto' }}>
+      <Card padding="none" className="overflow-x-auto">
         <DataTable>
           <TableHead>
             <Th>Title</Th>
@@ -40,10 +40,10 @@ export default function ClientLettersPage() {
             {paged.map((letter) => (
               <Tr key={letter.id}>
                 <Td>{letter.title}</Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{letter.location}</Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{letter.writtenBy}</Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{letter.createdAt}</Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{letter.lastUpdated}</Td>
+                <Td className="text-text-secondary">{letter.location}</Td>
+                <Td className="text-text-secondary">{letter.writtenBy}</Td>
+                <Td className="text-text-secondary">{letter.createdAt}</Td>
+                <Td className="text-text-secondary">{letter.lastUpdated}</Td>
                 <ActionsCell
                   items={[
                     { label: "Edit", value: "edit" },

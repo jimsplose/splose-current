@@ -72,7 +72,7 @@ export default function ClientFilesPage() {
 
       <SearchBar placeholder="Search for file name" />
 
-      <Card padding="none" style={{ overflowX: 'auto' }}>
+      <Card padding="none" className="overflow-x-auto">
         <DataTable>
           <TableHead>
             <Th>
@@ -102,9 +102,9 @@ export default function ClientFilesPage() {
                     <span>{file.name}</span>
                   </Flex>
                 </Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{file.uploader || "\u2014"}</Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{file.uploadDate}</Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{file.fileSize}</Td>
+                <Td className="text-text-secondary">{file.uploader || "\u2014"}</Td>
+                <Td className="text-text-secondary">{file.uploadDate}</Td>
+                <Td className="text-text-secondary">{file.fileSize}</Td>
                 <Td align="right">
                   <Dropdown
                     align="right"

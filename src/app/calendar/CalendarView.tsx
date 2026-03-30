@@ -3,36 +3,34 @@
 import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronDown,
-  Filter,
-  Settings,
-  CalendarDays,
-  LayoutGrid,
-  Lightbulb,
-  Sparkles,
-  X,
-  Clock,
-  User,
-  Users,
-  MapPin,
-  FileText,
-  Calendar,
-  Video,
-  Monitor,
-  UserPlus,
-  Ban,
-  Mail,
-  Repeat,
-  History,
-  AlertTriangle,
-  Info,
-  ArrowUp,
-  ClipboardList,
-  Search,
-  Check,
-} from "lucide-react";
+  LeftOutlined,
+  RightOutlined,
+  DownOutlined,
+  FilterOutlined,
+  SettingOutlined,
+  CalendarOutlined,
+  AppstoreOutlined,
+  BulbOutlined,
+  CloseOutlined,
+  ClockCircleOutlined,
+  UserOutlined,
+  TeamOutlined,
+  EnvironmentOutlined,
+  FileTextOutlined,
+  VideoCameraOutlined,
+  DesktopOutlined,
+  UserAddOutlined,
+  StopOutlined,
+  MailOutlined,
+  SyncOutlined,
+  HistoryOutlined,
+  WarningOutlined,
+  InfoCircleOutlined,
+  ArrowUpOutlined,
+  SnippetsOutlined,
+  SearchOutlined,
+  CheckOutlined,
+} from "@ant-design/icons";
 import { Button, Badge, Chip, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert, Dropdown, Card, RadioGroup } from "@/components/ds";
 import AiChatPanel from "@/components/AiChatPanel";
 
@@ -461,23 +459,23 @@ export default function CalendarView({
             Today
           </button>
           <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text hover:bg-gray-100">
-            <ChevronLeft className="h-4 w-4" />
+            <LeftOutlined style={{ fontSize: 16 }} />
           </button>
           <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text hover:bg-gray-100">
-            <ChevronRight className="h-4 w-4" />
+            <RightOutlined style={{ fontSize: 16 }} />
           </button>
           {/* Month title hidden — production has no visible title in week/day toolbar */}
           <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
-            <Filter className="h-[16px] w-[16px]" />
+            <FilterOutlined style={{ fontSize: 16 }} />
           </button>
           <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
-            <Settings className="h-[16px] w-[16px]" />
+            <SettingOutlined style={{ fontSize: 16 }} />
           </button>
           <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
-            <CalendarDays className="h-[16px] w-[16px]" />
+            <CalendarOutlined style={{ fontSize: 16 }} />
           </button>
           <button className="mr-[2px] flex h-[38px] w-[38px] items-center justify-center rounded-full text-text-secondary hover:bg-gray-100">
-            <Lightbulb className="h-[16px] w-[16px]" />
+            <BulbOutlined style={{ fontSize: 16 }} />
           </button>
           {/* Location + Practitioner filter buttons — custom popovers */}
           <div className="flex items-center gap-[8px]">
@@ -488,13 +486,13 @@ export default function CalendarView({
                 onClick={() => { setLocationDropdownOpen(prev => !prev); setPractitionerDropdownOpen(false); setLocationSearchQuery(""); }}
               >
                 {locationLabel}
-                <ChevronDown className="h-3.5 w-3.5 text-text-secondary" />
+                <DownOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
               </button>
               {locationDropdownOpen && (
                 <div className="absolute left-0 top-[42px] z-40 w-[260px] rounded-lg border border-border bg-white shadow-lg">
                   <div className="border-b border-border p-2">
                     <div className="flex items-center gap-2 rounded-md border border-border bg-gray-50 px-2.5 py-1.5">
-                      <Search className="h-3.5 w-3.5 text-text-secondary" />
+                      <SearchOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
                       <input
                         type="text"
                         placeholder="Search locations..."
@@ -511,7 +509,7 @@ export default function CalendarView({
                       onClick={() => { setLocationFilter("all"); setLocationDropdownOpen(false); }}
                     >
                       <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${locationFilter === "all" ? "border-primary bg-primary" : "border-gray-300"}`}>
-                        {locationFilter === "all" && <Check className="h-3 w-3 text-white" />}
+                        {locationFilter === "all" && <CheckOutlined style={{ fontSize: 12, color: 'white' }} />}
                       </div>
                       <span className="font-medium">Select all</span>
                     </button>
@@ -524,7 +522,7 @@ export default function CalendarView({
                           onClick={() => { setLocationFilter(loc); setLocationDropdownOpen(false); }}
                         >
                           <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${locationFilter === loc ? "border-primary bg-primary" : "border-gray-300"}`}>
-                            {locationFilter === loc && <Check className="h-3 w-3 text-white" />}
+                            {locationFilter === loc && <CheckOutlined style={{ fontSize: 12, color: 'white' }} />}
                           </div>
                           <span>{loc}</span>
                         </button>
@@ -542,13 +540,13 @@ export default function CalendarView({
                 onClick={() => { setPractitionerDropdownOpen(prev => !prev); setLocationDropdownOpen(false); setPractitionerSearchQuery(""); }}
               >
                 {practitionerLabel}
-                <ChevronDown className="h-3.5 w-3.5 text-text-secondary" />
+                <DownOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
               </button>
               {practitionerDropdownOpen && (
                 <div className="absolute left-0 top-[42px] z-40 w-[280px] rounded-lg border border-border bg-white shadow-lg">
                   <div className="border-b border-border p-2">
                     <div className="flex items-center gap-2 rounded-md border border-border bg-gray-50 px-2.5 py-1.5">
-                      <Search className="h-3.5 w-3.5 text-text-secondary" />
+                      <SearchOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary)' }} />
                       <input
                         type="text"
                         placeholder="Search practitioners..."
@@ -565,7 +563,7 @@ export default function CalendarView({
                       onClick={() => { setPractitionerFilter("all"); setPractitionerDropdownOpen(false); }}
                     >
                       <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${practitionerFilter === "all" ? "border-primary bg-primary" : "border-gray-300"}`}>
-                        {practitionerFilter === "all" && <Check className="h-3 w-3 text-white" />}
+                        {practitionerFilter === "all" && <CheckOutlined style={{ fontSize: 12, color: 'white' }} />}
                       </div>
                       <span className="font-medium">All practitioners</span>
                     </button>
@@ -588,7 +586,7 @@ export default function CalendarView({
                                 onClick={() => { setPractitionerFilter(p.id); setPractitionerDropdownOpen(false); }}
                               >
                                 <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${practitionerFilter === p.id ? "border-primary bg-primary" : "border-gray-300"}`}>
-                                  {practitionerFilter === p.id && <Check className="h-3 w-3 text-white" />}
+                                  {practitionerFilter === p.id && <CheckOutlined style={{ fontSize: 12, color: 'white' }} />}
                                 </div>
                                 <ColorDot color={p.color} size="sm" />
                                 <span>{p.name}</span>
@@ -956,7 +954,7 @@ export default function CalendarView({
         <div className="absolute inset-0 top-12 z-10 flex items-center justify-center bg-white/80">
           <div className="text-center">
             <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
-              <LayoutGrid className="h-8 w-8 text-gray-400" />
+              <AppstoreOutlined style={{ fontSize: 32, color: '#9ca3af' }} />
             </div>
             <p className="text-body-md text-text-secondary">Rooms/Resources view</p>
             <p className="mt-1 text-caption-md text-text-secondary">Select rooms to display in the calendar</p>
@@ -987,7 +985,7 @@ export default function CalendarView({
                   // Support activity - just close for now
                 }}
               >
-                <Clock className="h-4 w-4 text-text-secondary" />
+                <ClockCircleOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
                 Support activity
               </Button>
               <Button

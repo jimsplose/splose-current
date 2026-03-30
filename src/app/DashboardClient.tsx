@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Avatar, Button, Card, ColorDot } from "@/components/ds";
-import { ChevronDown, ChevronRight } from "lucide-react";
+import { DownOutlined, RightOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
@@ -117,15 +118,18 @@ function ChartBar({ item }: { item: typeof incomeData[number] }) {
   const [hovered, setHovered] = useState<"invoices" | "payments" | null>(null);
 
   return (
-    <div className="flex flex-1 flex-col items-center">
-      <div className="relative flex w-full items-end justify-center gap-px" style={{ height: "100%" }}>
+    <Flex vertical align="center" style={{ flex: 1 }}>
+      <div style={{ position: 'relative', display: 'flex', width: '100%', alignItems: 'flex-end', justifyContent: 'center', gap: 1, height: '100%' }}>
         {/* Invoice bar */}
         <div
-          className="w-3 rounded-t-sm transition-opacity"
           style={{
+            width: 12,
+            borderTopLeftRadius: 2,
+            borderTopRightRadius: 2,
+            transition: 'opacity 0.2s',
             height: `${(item.invoices / maxVal) * 100}%`,
             backgroundColor: "#bef264",
-            minHeight: item.invoices > 0 ? "2px" : "0",
+            minHeight: item.invoices > 0 ? 2 : 0,
             opacity: hovered === "payments" ? 0.5 : 1,
           }}
           onMouseEnter={() => setHovered("invoices")}
@@ -133,11 +137,14 @@ function ChartBar({ item }: { item: typeof incomeData[number] }) {
         />
         {/* Payment bar */}
         <div
-          className="w-3 rounded-t-sm transition-opacity"
           style={{
+            width: 12,
+            borderTopLeftRadius: 2,
+            borderTopRightRadius: 2,
+            transition: 'opacity 0.2s',
             height: `${(item.payments / maxVal) * 100}%`,
             backgroundColor: "#c084fc",
-            minHeight: item.payments > 0 ? "2px" : "0",
+            minHeight: item.payments > 0 ? 2 : 0,
             opacity: hovered === "invoices" ? 0.5 : 1,
           }}
           onMouseEnter={() => setHovered("payments")}
@@ -145,21 +152,21 @@ function ChartBar({ item }: { item: typeof incomeData[number] }) {
         />
         {/* Tooltip */}
         {hovered && (
-          <div className="pointer-events-none absolute -top-14 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded bg-gray-800 px-2.5 py-1.5 text-caption-sm text-white shadow-lg">
-            <div className="font-semibold">{item.month}</div>
-            <div className="flex items-center gap-1.5">
-              <span className="inline-block h-2 w-2 rounded-sm" style={{ backgroundColor: "#bef264" }} />
+          <div className="text-caption-sm" style={{ pointerEvents: 'none', position: 'absolute', top: -56, left: '50%', zIndex: 10, transform: 'translateX(-50%)', whiteSpace: 'nowrap', borderRadius: 4, backgroundColor: '#1f2937', padding: '6px 10px', color: 'white', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
+            <div style={{ fontWeight: 600 }}>{item.month}</div>
+            <Flex align="center" gap={6}>
+              <span style={{ display: 'inline-block', height: 8, width: 8, borderRadius: 2, backgroundColor: "#bef264" }} />
               Invoices: ${(item.invoices * 100).toLocaleString()}
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="inline-block h-2 w-2 rounded-sm" style={{ backgroundColor: "#c084fc" }} />
+            </Flex>
+            <Flex align="center" gap={6}>
+              <span style={{ display: 'inline-block', height: 8, width: 8, borderRadius: 2, backgroundColor: "#c084fc" }} />
               Payments: ${(item.payments * 100).toLocaleString()}
-            </div>
-            <div className="absolute -bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-gray-800" />
+            </Flex>
+            <div style={{ position: 'absolute', bottom: -4, left: '50%', height: 8, width: 8, transform: 'translateX(-50%) rotate(45deg)', backgroundColor: '#1f2937' }} />
           </div>
         )}
       </div>
-    </div>
+    </Flex>
   );
 }
 
@@ -175,61 +182,64 @@ function MessageItem({
   onToggle: () => void;
 }) {
   return (
-    <div
-      className="flex cursor-pointer items-start gap-2.5 rounded-lg px-1 py-1 transition-colors hover:bg-gray-50"
+    <Flex
+      gap={10}
+      align="flex-start"
+      style={{ cursor: 'pointer', borderRadius: 8, padding: 4, transition: 'background-color 0.2s' }}
+      className="hover:bg-gray-50"
       onClick={onToggle}
     >
       <Avatar name={message.sender} color={message.color} size="sm" />
-      <div className="min-w-0 flex-1">
-        <div className="flex items-baseline gap-1.5">
-          <span className="text-body-md font-bold text-text">{message.sender}</span>
-          <span className="text-caption-sm text-text-secondary">{message.time}</span>
-          <span className="ml-auto text-text-secondary">
-            {expanded ? <ChevronDown className="h-3.5 w-3.5" /> : <ChevronRight className="h-3.5 w-3.5" />}
+      <div style={{ minWidth: 0, flex: 1 }}>
+        <Flex align="baseline" gap={6}>
+          <span className="text-body-md" style={{ fontWeight: 700, color: 'var(--ant-color-text)' }}>{message.sender}</span>
+          <span className="text-caption-sm" style={{ color: 'var(--ant-color-text-secondary)' }}>{message.time}</span>
+          <span style={{ marginLeft: 'auto', color: 'var(--ant-color-text-secondary)' }}>
+            {expanded ? <DownOutlined style={{ fontSize: 14 }} /> : <RightOutlined style={{ fontSize: 14 }} />}
           </span>
-        </div>
+        </Flex>
         {!expanded && (
-          <p className="mt-0.5 truncate text-body-md text-text-secondary">{message.preview}</p>
+          <p className="text-body-md" style={{ marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--ant-color-text-secondary)' }}>{message.preview}</p>
         )}
         {expanded && (
-          <div className="mt-1.5 space-y-2">
+          <Flex vertical gap={8} style={{ marginTop: 6 }}>
             {/* The visual element */}
             {message.type === "image" && message.id === "msg-1" && (
-              <div className="flex h-36 w-48 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-gray-300 to-gray-400">
-                <div className="h-full w-full scale-110 bg-gradient-to-br from-pink-200 via-gray-300 to-blue-200 blur-[12px]" />
+              <div style={{ display: 'flex', height: 144, width: 192, alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderRadius: 8, background: 'linear-gradient(to bottom right, #d1d5db, #9ca3af)' }}>
+                <div style={{ height: '100%', width: '100%', transform: 'scale(1.1)', background: 'linear-gradient(to bottom right, #fbcfe8, #d1d5db, #bfdbfe)', filter: 'blur(12px)' }} />
               </div>
             )}
             {message.type === "sticker" && (
-              <div className="flex h-40 w-40 flex-col items-center justify-center gap-1 rounded-lg bg-gradient-to-br from-sky-200 to-sky-400">
-                <div className="relative h-16 w-14 rounded-t-full bg-sky-500">
-                  <div className="absolute -left-1 -top-2 h-4 w-3 rotate-[-15deg] rounded-tl-full bg-sky-500" />
-                  <div className="absolute -right-1 -top-2 h-4 w-3 rotate-[15deg] rounded-tr-full bg-sky-500" />
-                  <div className="absolute left-2 top-4 h-2 w-2 rounded-full bg-white" />
-                  <div className="absolute right-2 top-4 h-2 w-2 rounded-full bg-white" />
+              <Flex vertical align="center" justify="center" gap={4} style={{ height: 160, width: 160, borderRadius: 8, background: 'linear-gradient(to bottom right, #bae6fd, #38bdf8)' }}>
+                <div style={{ position: 'relative', height: 64, width: 56, borderTopLeftRadius: 9999, borderTopRightRadius: 9999, backgroundColor: '#0ea5e9' }}>
+                  <div style={{ position: 'absolute', left: -4, top: -8, height: 16, width: 12, transform: 'rotate(-15deg)', borderTopLeftRadius: 9999, backgroundColor: '#0ea5e9' }} />
+                  <div style={{ position: 'absolute', right: -4, top: -8, height: 16, width: 12, transform: 'rotate(15deg)', borderTopRightRadius: 9999, backgroundColor: '#0ea5e9' }} />
+                  <div style={{ position: 'absolute', left: 8, top: 16, height: 8, width: 8, borderRadius: 9999, backgroundColor: 'white' }} />
+                  <div style={{ position: 'absolute', right: 8, top: 16, height: 8, width: 8, borderRadius: 9999, backgroundColor: 'white' }} />
                 </div>
-                <span className="text-caption-sm font-bold text-sky-800">STFCRS5</span>
-              </div>
+                <span className="text-caption-sm" style={{ fontWeight: 700, color: '#075985' }}>STFCRS5</span>
+              </Flex>
             )}
             {message.type === "logo" && (
-              <div className="flex h-40 w-48 items-center justify-center rounded-lg bg-gradient-to-br from-green-100 to-green-300">
-                <span className="text-5xl font-bold text-green-600">S</span>
-              </div>
+              <Flex align="center" justify="center" style={{ height: 160, width: 192, borderRadius: 8, background: 'linear-gradient(to bottom right, #dcfce7, #86efac)' }}>
+                <span style={{ fontSize: 48, fontWeight: 700, color: '#16a34a' }}>S</span>
+              </Flex>
             )}
             {message.type === "image" && message.id === "msg-4" && (
-              <div className="flex h-36 w-48 flex-col items-center justify-center gap-1 rounded-lg bg-gradient-to-br from-amber-100 to-amber-300">
-                <span className="text-body-md-strong text-amber-800">MADE IT HOME</span>
-                <div className="relative h-14 w-16 rounded-t-full bg-amber-400/60">
-                  <div className="absolute -left-0.5 -top-1.5 h-3 w-2.5 rotate-[-15deg] rounded-tl-full bg-amber-400/60" />
-                  <div className="absolute -right-0.5 -top-1.5 h-3 w-2.5 rotate-[15deg] rounded-tr-full bg-amber-400/60" />
+              <Flex vertical align="center" justify="center" gap={4} style={{ height: 144, width: 192, borderRadius: 8, background: 'linear-gradient(to bottom right, #fef3c7, #fcd34d)' }}>
+                <span className="text-body-md-strong" style={{ color: '#92400e' }}>MADE IT HOME</span>
+                <div style={{ position: 'relative', height: 56, width: 64, borderTopLeftRadius: 9999, borderTopRightRadius: 9999, backgroundColor: 'rgba(251, 191, 36, 0.6)' }}>
+                  <div style={{ position: 'absolute', left: -2, top: -6, height: 12, width: 10, transform: 'rotate(-15deg)', borderTopLeftRadius: 9999, backgroundColor: 'rgba(251, 191, 36, 0.6)' }} />
+                  <div style={{ position: 'absolute', right: -2, top: -6, height: 12, width: 10, transform: 'rotate(15deg)', borderTopRightRadius: 9999, backgroundColor: 'rgba(251, 191, 36, 0.6)' }} />
                 </div>
-              </div>
+              </Flex>
             )}
             {/* Full text content */}
-            <p className="text-body-md text-text-secondary">{message.fullContent}</p>
-          </div>
+            <p className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>{message.fullContent}</p>
+          </Flex>
         )}
       </div>
-    </div>
+    </Flex>
   );
 }
 
@@ -251,36 +261,36 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
   };
 
   return (
-    <div className="flex min-h-[calc(100vh-3rem)] gap-[14px] p-[7px]">
+    <Flex style={{ minHeight: 'calc(100vh - 3rem)', gap: 14, padding: 7 }}>
       {/* Left column -- Messages (col1: wider) */}
-      <div className="flex flex-1 flex-col overflow-hidden rounded-lg border border-border">
-        <div className="border-b border-border bg-surface-header px-4 py-4">
-          <h2 className="text-label-lg text-text">Messages</h2>
+      <Flex vertical style={{ flex: 1, overflow: 'hidden', borderRadius: 8, border: '1px solid var(--ant-color-border)' }}>
+        <div style={{ borderBottom: '1px solid var(--ant-color-border)', backgroundColor: 'var(--ant-color-fill-quaternary)', padding: 16 }}>
+          <h2 className="text-label-lg" style={{ color: 'var(--ant-color-text)' }}>Messages</h2>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-4 pb-2">
-          <div className="space-y-4">
-            <div className="flex items-center justify-center py-2">
-              <span className="text-caption-md text-text-secondary">
+        <div style={{ flex: 1, overflowY: 'auto', paddingLeft: 16, paddingRight: 16, paddingBottom: 8 }}>
+          <Flex vertical gap={16}>
+            <Flex align="center" justify="center" style={{ paddingTop: 8, paddingBottom: 8 }}>
+              <span className="text-caption-md" style={{ color: 'var(--ant-color-text-secondary)' }}>
                 {new Date().toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" })}
               </span>
-            </div>
+            </Flex>
 
             {todayAppointments.slice(0, 5).map((appt) => (
-              <div key={appt.id} className="flex items-start gap-2.5">
+              <Flex key={appt.id} align="flex-start" gap={10}>
                 <Avatar name={appt.practitioner.name} color={appt.practitioner.color} size="sm" />
-                <div className="min-w-0">
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="text-heading-sm text-text">
+                <div style={{ minWidth: 0 }}>
+                  <Flex align="baseline" gap={6}>
+                    <span className="text-heading-sm" style={{ color: 'var(--ant-color-text)' }}>
                       {appt.practitioner.name}
                     </span>
-                    <span className="text-caption-sm text-text-secondary">{appt.startTime}</span>
-                  </div>
-                  <p className="mt-0.5 text-body-md text-text-secondary">
+                    <span className="text-caption-sm" style={{ color: 'var(--ant-color-text-secondary)' }}>{appt.startTime}</span>
+                  </Flex>
+                  <p className="text-body-md" style={{ marginTop: 2, color: 'var(--ant-color-text-secondary)' }}>
                     Appointment with {appt.client.firstName} {appt.client.lastName} -- {appt.type}
                   </p>
                 </div>
-              </div>
+              </Flex>
             ))}
 
             {todayAppointments.length === 0 && (
@@ -288,14 +298,14 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                 {staticMessages.map((msg, idx) => (
                   <div key={msg.id}>
                     {idx === 1 && (
-                      <div className="flex items-center justify-center py-1">
-                        <span className="text-caption-md text-text-secondary">9 Feb 2026</span>
-                      </div>
+                      <Flex align="center" justify="center" style={{ paddingTop: 4, paddingBottom: 4 }}>
+                        <span className="text-caption-md" style={{ color: 'var(--ant-color-text-secondary)' }}>9 Feb 2026</span>
+                      </Flex>
                     )}
                     {idx === 2 && (
-                      <div className="flex items-center justify-center py-1">
-                        <span className="cursor-pointer text-caption-md text-text-secondary" title="Click to go forward, hold to see history">16 Feb 2026</span>
-                      </div>
+                      <Flex align="center" justify="center" style={{ paddingTop: 4, paddingBottom: 4 }}>
+                        <span className="text-caption-md" style={{ cursor: 'pointer', color: 'var(--ant-color-text-secondary)' }} title="Click to go forward, hold to see history">16 Feb 2026</span>
+                      </Flex>
                     )}
                     <MessageItem
                       message={msg}
@@ -306,19 +316,19 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                 ))}
               </>
             )}
-          </div>
+          </Flex>
         </div>
 
-        <div className="border-t border-border p-3">
-          <Card padding="none" className="mb-2 min-h-[80px] px-3 py-2 text-body-md text-text-secondary">
+        <div style={{ borderTop: '1px solid var(--ant-color-border)', padding: 12 }}>
+          <Card padding="none" className="text-body-md" style={{ marginBottom: 8, minHeight: 80, padding: '8px 12px', color: 'var(--ant-color-text-secondary)' }}>
             Type a message...
           </Card>
-          <div className="flex items-center gap-0.5 text-text-secondary">
+          <Flex align="center" gap={2} style={{ color: 'var(--ant-color-text-secondary)' }}>
             <Button variant="icon" size="sm" className="text-body-md-strong" title="Bold">B</Button>
-            <Button variant="icon" size="sm" className="text-body-md italic" title="Italic">I</Button>
-            <Button variant="icon" size="sm" className="text-body-md underline" title="Underline">U</Button>
+            <Button variant="icon" size="sm" className="text-body-md" style={{ fontStyle: 'italic' }} title="Italic">I</Button>
+            <Button variant="icon" size="sm" className="text-body-md" style={{ textDecoration: 'underline' }} title="Underline">U</Button>
             <Button variant="icon" size="sm" className="text-body-md" title="Text size">A<sub className="text-caption-sm">1</sub></Button>
-            <span className="mx-0.5 h-4 w-px bg-border" />
+            <span style={{ marginLeft: 2, marginRight: 2, height: 16, width: 1, backgroundColor: 'var(--ant-color-border)' }} />
             <Button variant="icon" size="sm" title="Table">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="12" height="12" rx="1"/><line x1="2" y1="6" x2="14" y2="6"/><line x1="2" y1="10" x2="14" y2="10"/><line x1="6" y1="2" x2="6" y2="14"/><line x1="10" y1="2" x2="10" y2="14"/></svg>
             </Button>
@@ -337,130 +347,131 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
             <Button variant="icon" size="sm" title="List">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="5" y1="3" x2="14" y2="3"/><line x1="5" y1="8" x2="14" y2="8"/><line x1="5" y1="13" x2="14" y2="13"/><circle cx="2.5" cy="3" r="0.75" fill="currentColor"/><circle cx="2.5" cy="8" r="0.75" fill="currentColor"/><circle cx="2.5" cy="13" r="0.75" fill="currentColor"/></svg>
             </Button>
-            <span className="mx-0.5 h-4 w-px bg-border" />
+            <span style={{ marginLeft: 2, marginRight: 2, height: 16, width: 1, backgroundColor: 'var(--ant-color-border)' }} />
             <Button variant="icon" size="sm" title="More">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/></svg>
             </Button>
-            <div className="flex-1" />
-            <span className="mr-1 cursor-pointer rounded px-1.5 py-0.5 text-label-md text-text-secondary hover:bg-gray-100">GIF</span>
+            <div style={{ flex: 1 }} />
+            <span className="text-label-md" style={{ marginRight: 4, cursor: 'pointer', borderRadius: 4, padding: '2px 6px', color: 'var(--ant-color-text-secondary)' }} className="text-label-md hover:bg-gray-100">GIF</span>
             <Button variant="primary" size="sm" className="text-body-md">
               Send
             </Button>
-          </div>
+          </Flex>
         </div>
-      </div>
+      </Flex>
 
       {/* Right column -- Analytics (col2: narrower) */}
-      <div className="flex w-[380px] shrink-0 flex-col gap-[7px]">
+      <Flex vertical gap={7} style={{ width: 380, flexShrink: 0 }}>
         {/* Income card */}
-        <div className="overflow-hidden rounded-lg border border-border bg-white">
-          <div className="border-b border-border bg-surface-header px-4 py-4">
-            <h3 className="text-label-lg text-text">Income</h3>
+        <div style={{ overflow: 'hidden', borderRadius: 8, border: '1px solid var(--ant-color-border)', backgroundColor: 'white' }}>
+          <div style={{ borderBottom: '1px solid var(--ant-color-border)', backgroundColor: 'var(--ant-color-fill-quaternary)', padding: 16 }}>
+            <h3 className="text-label-lg" style={{ color: 'var(--ant-color-text)' }}>Income</h3>
           </div>
-          <div className="px-4 pt-3 pb-4">
-            <div className="relative h-52">
-              <div className="absolute bottom-6 left-0 top-0 flex flex-col justify-between pr-1 text-caption-sm text-text-secondary">
+          <div style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 16 }}>
+            <div style={{ position: 'relative', height: 208 }}>
+              <Flex vertical justify="space-between" className="text-caption-sm" style={{ position: 'absolute', bottom: 24, left: 0, top: 0, paddingRight: 4, color: 'var(--ant-color-text-secondary)' }}>
                 <span>500K</span>
                 <span>400K</span>
                 <span>300K</span>
                 <span>200K</span>
                 <span>100K</span>
                 <span>0</span>
-              </div>
-              <div className="absolute -left-4 top-1/2 -translate-y-1/2 -rotate-90 whitespace-nowrap text-caption-sm text-text-secondary">
+              </Flex>
+              <div className="text-caption-sm" style={{ position: 'absolute', left: -16, top: '50%', transform: 'translateY(-50%) rotate(-90deg)', whiteSpace: 'nowrap', color: 'var(--ant-color-text-secondary)' }}>
                 Values
               </div>
-              <div className="absolute bottom-6 left-7 right-0 top-0 flex flex-col justify-between">
+              <Flex vertical justify="space-between" style={{ position: 'absolute', bottom: 24, left: 28, right: 0, top: 0 }}>
                 {[0, 1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} className="h-0 border-b border-gray-100" />
+                  <div key={i} style={{ height: 0, borderBottom: '1px solid #f3f4f6' }} />
                 ))}
-              </div>
-              <div className="ml-8 flex h-[calc(100%-24px)] items-end gap-1">
+              </Flex>
+              <Flex align="flex-end" gap={4} style={{ marginLeft: 32, height: 'calc(100% - 24px)' }}>
                 {incomeData.map((item) => (
                   <ChartBar key={item.month} item={item} />
                 ))}
-              </div>
-              <div className="ml-8 flex h-12">
+              </Flex>
+              <Flex style={{ marginLeft: 32, height: 48 }}>
                 {incomeData.map((item) => (
-                  <div key={item.month} className="flex-1 pt-1">
-                    <span className="inline-block -rotate-45 origin-top-left whitespace-nowrap text-caption-sm text-text-secondary">{item.month.replace("-", " ")}</span>
+                  <div key={item.month} style={{ flex: 1, paddingTop: 4 }}>
+                    <span className="text-caption-sm" style={{ display: 'inline-block', transform: 'rotate(-45deg)', transformOrigin: 'top left', whiteSpace: 'nowrap', color: 'var(--ant-color-text-secondary)' }}>{item.month.replace("-", " ")}</span>
                   </div>
                 ))}
-              </div>
+              </Flex>
             </div>
-            <div className="mt-1 flex items-center justify-center gap-4 text-caption-md text-text-secondary">
-              <span className="flex items-center gap-1.5">
-                <ColorDot color="#bef264" size="xs" className="h-2.5 w-2.5" /> Invoices
-              </span>
-              <span className="flex items-center gap-1.5">
-                <ColorDot color="#c084fc" size="xs" className="h-2.5 w-2.5" /> Payments
-              </span>
-            </div>
+            <Flex align="center" justify="center" gap={16} className="text-caption-md" style={{ marginTop: 4, color: 'var(--ant-color-text-secondary)' }}>
+              <Flex align="center" gap={6}>
+                <ColorDot color="#bef264" size="xs" style={{ height: 10, width: 10 }} /> Invoices
+              </Flex>
+              <Flex align="center" gap={6}>
+                <ColorDot color="#c084fc" size="xs" style={{ height: 10, width: 10 }} /> Payments
+              </Flex>
+            </Flex>
           </div>
         </div>
 
         {/* Incomplete progress notes card */}
-        <div className="overflow-hidden rounded-lg border border-border bg-white">
-          <div className="border-b border-border bg-surface-header px-4 py-4">
-            <h3 className="text-label-lg text-text">Incomplete progress notes</h3>
+        <div style={{ overflow: 'hidden', borderRadius: 8, border: '1px solid var(--ant-color-border)', backgroundColor: 'white' }}>
+          <div style={{ borderBottom: '1px solid var(--ant-color-border)', backgroundColor: 'var(--ant-color-fill-quaternary)', padding: 16 }}>
+            <h3 className="text-label-lg" style={{ color: 'var(--ant-color-text)' }}>Incomplete progress notes</h3>
           </div>
-          <div className="px-4 pt-3 pb-3">
-            <div className="space-y-1.5">
+          <div style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
+            <Flex vertical gap={6}>
               {unsignedNotes.length === 0 ? (
                 <>
                   {incompleteNotes.map((note) => (
-                    <div key={note.name} className="flex items-start justify-between gap-2 py-0.5">
-                      <span className="cursor-pointer text-body-md text-primary hover:underline">
+                    <Flex key={note.name} align="flex-start" justify="space-between" gap={8} style={{ paddingTop: 2, paddingBottom: 2 }}>
+                      <span className="text-body-md" style={{ cursor: 'pointer', color: 'var(--ant-color-primary)' }} className="text-body-md hover:underline">
                         {note.name}
                       </span>
-                      <span className="shrink-0 whitespace-nowrap pt-0.5 text-caption-sm text-text-secondary">
+                      <span className="text-caption-sm" style={{ flexShrink: 0, whiteSpace: 'nowrap', paddingTop: 2, color: 'var(--ant-color-text-secondary)' }}>
                         {note.time}
                       </span>
-                    </div>
+                    </Flex>
                   ))}
                 </>
               ) : (
                 unsignedNotes.map((note) => (
-                  <div key={note.id} className="flex items-start justify-between gap-2 py-0.5">
-                    <span className="cursor-pointer text-body-md text-primary hover:underline">
+                  <Flex key={note.id} align="flex-start" justify="space-between" gap={8} style={{ paddingTop: 2, paddingBottom: 2 }}>
+                    <span className="text-body-md" style={{ cursor: 'pointer', color: 'var(--ant-color-primary)' }} className="text-body-md hover:underline">
                       {note.client.firstName} {note.client.lastName} ({note.practitioner.name})
                     </span>
-                    <span className="shrink-0 whitespace-nowrap pt-0.5 text-caption-sm text-text-secondary">
+                    <span className="text-caption-sm" style={{ flexShrink: 0, whiteSpace: 'nowrap', paddingTop: 2, color: 'var(--ant-color-text-secondary)' }}>
                       {formatDateTime(note.date)}
                     </span>
-                  </div>
+                  </Flex>
                 ))
               )}
-              <Button variant="link" className="mt-1">Load more</Button>
-            </div>
+              <Button variant="link" style={{ marginTop: 4 }}>Load more</Button>
+            </Flex>
           </div>
         </div>
 
         {/* Recently submitted forms card */}
-        <div className="overflow-hidden rounded-lg border border-border bg-white">
-          <div className="border-b border-border bg-surface-header px-4 py-4">
-            <h3 className="text-label-lg text-text">Recently submitted forms</h3>
+        <div style={{ overflow: 'hidden', borderRadius: 8, border: '1px solid var(--ant-color-border)', backgroundColor: 'white' }}>
+          <div style={{ borderBottom: '1px solid var(--ant-color-border)', backgroundColor: 'var(--ant-color-fill-quaternary)', padding: 16 }}>
+            <h3 className="text-label-lg" style={{ color: 'var(--ant-color-text)' }}>Recently submitted forms</h3>
           </div>
-          <div className="px-4 pt-3 pb-3">
-            <div className="space-y-1.5">
+          <div style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
+            <Flex vertical gap={6}>
               {recentForms.map((form) => (
-                <div key={form.id} className="flex items-start justify-between gap-2 py-0.5">
+                <Flex key={form.id} align="flex-start" justify="space-between" gap={8} style={{ paddingTop: 2, paddingBottom: 2 }}>
                   <Link
                     href={`/patient-form/${form.id}/view`}
-                    className="cursor-pointer text-body-md text-primary hover:underline"
+                    className="text-body-md hover:underline"
+                    style={{ cursor: 'pointer', color: 'var(--ant-color-primary)' }}
                   >
                     {form.name}
                   </Link>
-                  <span className="shrink-0 whitespace-nowrap pt-0.5 text-caption-sm text-text-secondary">
+                  <span className="text-caption-sm" style={{ flexShrink: 0, whiteSpace: 'nowrap', paddingTop: 2, color: 'var(--ant-color-text-secondary)' }}>
                     {form.time}
                   </span>
-                </div>
+                </Flex>
               ))}
-              <Button variant="link" className="mt-1">Load more</Button>
-            </div>
+              <Button variant="link" style={{ marginTop: 4 }}>Load more</Button>
+            </Flex>
           </div>
         </div>
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   );
 }

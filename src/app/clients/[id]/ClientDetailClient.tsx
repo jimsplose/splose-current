@@ -236,7 +236,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         <section style={{ marginBottom: 32 }}>
           <h2 className="text-heading-lg" style={{ fontWeight: 700, marginBottom: 16 }}>
             Associated contacts{" "}
-            <HintIcon style={{ marginLeft: 4 }} />
+            <HintIcon className="ml-1" />
           </h2>
           <table style={{ width: '100%' }} className="text-body-md">
             <thead>
@@ -279,12 +279,12 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         <div style={{ marginBottom: 16, borderRadius: 8, backgroundColor: 'var(--ant-color-primary)', padding: 16, color: '#fff' }}>
           <Flex justify="space-between" align="center">
             <h3 className="text-label-lg" style={{ fontWeight: 600, color: '#fff' }}>Account balance</h3>
-            <HintIcon style={{ height: 20, width: 20, borderColor: 'rgba(255,255,255,0.5)', color: 'rgba(255,255,255,0.8)' }} />
+            <HintIcon className="h-5 w-5 border-white/50 text-white/80" />
           </Flex>
           <Flex justify="space-between" align="center" className="text-body-md" style={{ marginTop: 8 }}>
             <Flex align="center" gap={4}>
               They owe
-              <HintIcon style={{ borderColor: 'rgba(255,255,255,0.4)', color: 'rgba(255,255,255,0.8)' }} />
+              <HintIcon className="border-white/40 text-white/80" />
             </Flex>
             <span className="text-body-md-strong">3,310.56</span>
           </Flex>
@@ -475,9 +475,9 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
             {/* Profile photo - positioned to the right */}
             <div style={{ flexShrink: 0, paddingTop: 24, textAlign: 'center' }}>
               <FileUpload
-                icon={<span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Profile photo</span>}
+                icon={<span className="text-body-md text-text-secondary">Profile photo</span>}
                 label="Upload"
-                style={{ height: 128, width: 128, padding: 0 }}
+                className="h-32 w-32 p-0"
               />
             </div>
           </Flex>

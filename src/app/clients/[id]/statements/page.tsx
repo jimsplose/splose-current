@@ -60,7 +60,7 @@ export default function ClientStatementsPage() {
       </div>
 
       {/* Empty content area */}
-      <Card padding="none" style={{ padding: 32 }}>
+      <Card padding="none" className="p-8">
         <div style={{ minHeight: 200 }} />
       </Card>
     </div>

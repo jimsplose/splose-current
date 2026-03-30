@@ -209,7 +209,7 @@ export default function ClientCommunicationsPage() {
 
       <SearchBar placeholder="Search for message, to and from" />
 
-      <Card padding="none" style={{ overflowX: 'auto' }}>
+      <Card padding="none" className="overflow-x-auto">
         <DataTable>
           <TableHead>
             <Th>
@@ -238,8 +238,8 @@ export default function ClientCommunicationsPage() {
                     {comm.dateTime}
                   </Flex>
                 </Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{comm.subject || "\u2014"}</Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{comm.type}</Td>
+                <Td className="text-text-secondary">{comm.subject || "\u2014"}</Td>
+                <Td className="text-text-secondary">{comm.type}</Td>
                 <Td>
                   <Flex vertical gap={4}>
                     <span style={{ color: 'var(--ant-color-text-secondary)' }}>{comm.direction}</span>

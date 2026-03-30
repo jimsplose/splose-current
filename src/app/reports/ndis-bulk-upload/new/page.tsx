@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Upload, CheckCircle, AlertCircle, FileText } from "lucide-react";
+import { UploadOutlined, CheckCircleOutlined, ExclamationCircleOutlined, FileTextOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import {
   Button,
   FormInput,
@@ -55,53 +56,53 @@ export default function NdisBulkUploadNewPage() {
           </Link>
         </PageHeader>
 
-        <div className="mx-auto max-w-lg p-6">
-          <Card padding="lg" className="text-center">
-            <div className="mb-4 flex justify-center">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-green-100">
-                <CheckCircle className="h-8 w-8 text-green-600" />
+        <div style={{ maxWidth: 512, margin: '0 auto', padding: 24 }}>
+          <Card padding="lg" style={{ textAlign: 'center' }}>
+            <Flex justify="center" style={{ marginBottom: 16 }}>
+              <div style={{ display: 'flex', height: 56, width: 56, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', backgroundColor: '#dcfce7' }}>
+                <CheckCircleOutlined style={{ fontSize: 32, color: '#16a34a' }} />
               </div>
-            </div>
-            <h2 className="mb-1 text-heading-lg text-text">Upload submitted</h2>
-            <p className="mb-6 text-body-md text-text-secondary">
+            </Flex>
+            <h2 className="text-heading-lg" style={{ marginBottom: 4, color: 'var(--ant-color-text)' }}>Upload submitted</h2>
+            <p className="text-body-md" style={{ marginBottom: 24, color: 'var(--ant-color-text-secondary)' }}>
               {validCount} valid claims have been submitted to the NDIS portal for processing.
               {errorCount > 0 && ` ${errorCount} items with errors were skipped.`}
             </p>
 
-            <div className="space-y-3 border-t border-border pt-4 text-left">
-              <div className="flex items-center justify-between">
-                <span className="text-body-md text-text-secondary">File</span>
-                <span className="text-label-lg text-text">{fileName}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-body-md text-text-secondary">Total claims</span>
-                <span className="text-label-lg text-text">{mockValidationResults.length}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-body-md text-text-secondary">Submitted</span>
-                <span className="text-label-lg text-green-600">{validCount}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-body-md text-text-secondary">Skipped (errors)</span>
-                <span className="text-label-lg text-red-600">{errorCount}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-body-md text-text-secondary">Total amount</span>
-                <span className="text-label-lg text-text">
+            <Flex vertical gap={12} style={{ borderTop: '1px solid var(--ant-color-border)', paddingTop: 16, textAlign: 'left' }}>
+              <Flex align="center" justify="space-between">
+                <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>File</span>
+                <span className="text-label-lg" style={{ color: 'var(--ant-color-text)' }}>{fileName}</span>
+              </Flex>
+              <Flex align="center" justify="space-between">
+                <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Total claims</span>
+                <span className="text-label-lg" style={{ color: 'var(--ant-color-text)' }}>{mockValidationResults.length}</span>
+              </Flex>
+              <Flex align="center" justify="space-between">
+                <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Submitted</span>
+                <span className="text-label-lg" style={{ color: '#16a34a' }}>{validCount}</span>
+              </Flex>
+              <Flex align="center" justify="space-between">
+                <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Skipped (errors)</span>
+                <span className="text-label-lg" style={{ color: '#dc2626' }}>{errorCount}</span>
+              </Flex>
+              <Flex align="center" justify="space-between">
+                <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>Total amount</span>
+                <span className="text-label-lg" style={{ color: 'var(--ant-color-text)' }}>
                   $
                   {mockValidationResults
                     .filter((r) => r.status === "valid")
                     .reduce((sum, r) => sum + parseFloat(r.amount.replace("$", "")), 0)
                     .toFixed(2)}
                 </span>
-              </div>
-            </div>
+              </Flex>
+            </Flex>
 
-            <div className="mt-6 flex justify-center gap-3">
+            <Flex justify="center" gap={12} style={{ marginTop: 24 }}>
               <Link href="/reports/ndis-bulk-upload">
                 <Button variant="primary">Back to uploads</Button>
               </Link>
-            </div>
+            </Flex>
           </Card>
         </div>
       </>
@@ -118,22 +119,22 @@ export default function NdisBulkUploadNewPage() {
           </Button>
         </PageHeader>
 
-        <div className="p-6">
-          <div className="mb-4 flex items-center gap-4">
-            <div className="flex items-center gap-2 rounded-lg bg-green-50 px-3 py-2">
-              <CheckCircle className="h-4 w-4 text-green-600" />
-              <span className="text-label-lg text-green-700">{validCount} valid</span>
-            </div>
-            <div className="flex items-center gap-2 rounded-lg bg-red-50 px-3 py-2">
-              <AlertCircle className="h-4 w-4 text-red-600" />
-              <span className="text-label-lg text-red-700">{errorCount} errors</span>
-            </div>
-            <span className="text-body-md text-text-secondary">
+        <div style={{ padding: 24 }}>
+          <Flex align="center" gap={16} style={{ marginBottom: 16 }}>
+            <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: '#f0fdf4', padding: '8px 12px' }}>
+              <CheckCircleOutlined style={{ fontSize: 16, color: '#16a34a' }} />
+              <span className="text-label-lg" style={{ color: '#15803d' }}>{validCount} valid</span>
+            </Flex>
+            <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: '#fef2f2', padding: '8px 12px' }}>
+              <ExclamationCircleOutlined style={{ fontSize: 16, color: '#dc2626' }} />
+              <span className="text-label-lg" style={{ color: '#b91c1c' }}>{errorCount} errors</span>
+            </Flex>
+            <span className="text-body-md" style={{ color: 'var(--ant-color-text-secondary)' }}>
               from <strong>{fileName}</strong>
             </span>
-          </div>
+          </Flex>
 
-          <Card padding="none" className="overflow-hidden">
+          <Card padding="none" style={{ overflow: 'hidden' }}>
             <DataTable>
               <TableHead>
                 <Th>Line</Th>
@@ -148,13 +149,17 @@ export default function NdisBulkUploadNewPage() {
                 {mockValidationResults.map((row) => (
                   <tr
                     key={row.line}
-                    className={`border-b border-border ${row.status === "error" ? "bg-red-50/50" : "hover:bg-gray-50"}`}
+                    style={{
+                      borderBottom: '1px solid var(--ant-color-border)',
+                      backgroundColor: row.status === "error" ? 'rgba(254, 242, 242, 0.5)' : undefined,
+                    }}
+                    className={row.status !== "error" ? "hover:bg-gray-50" : ""}
                   >
-                    <Td className="text-text-secondary">{row.line}</Td>
-                    <Td className="font-medium text-text">{row.client}</Td>
-                    <Td className="text-text-secondary">{row.serviceDate}</Td>
-                    <Td className="font-mono text-body-sm text-text-secondary">{row.item}</Td>
-                    <Td align="right" className="text-text">
+                    <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{row.line}</Td>
+                    <Td style={{ fontWeight: 500, color: 'var(--ant-color-text)' }}>{row.client}</Td>
+                    <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{row.serviceDate}</Td>
+                    <Td className="text-body-sm" style={{ fontFamily: 'monospace', color: 'var(--ant-color-text-secondary)' }}>{row.item}</Td>
+                    <Td align="right" style={{ color: 'var(--ant-color-text)' }}>
                       {row.amount}
                     </Td>
                     <Td>
@@ -162,7 +167,7 @@ export default function NdisBulkUploadNewPage() {
                         {row.status === "valid" ? "Valid" : "Error"}
                       </Badge>
                     </Td>
-                    <Td className="text-body-sm text-red-600">{row.error || "—"}</Td>
+                    <Td className="text-body-sm" style={{ color: '#dc2626' }}>{row.error || "—"}</Td>
                   </tr>
                 ))}
               </TableBody>
@@ -185,11 +190,11 @@ export default function NdisBulkUploadNewPage() {
         </Button>
       </PageHeader>
 
-      <div className="max-w-2xl space-y-6 p-6">
+      <Flex vertical gap={24} style={{ maxWidth: 672, padding: 24 }}>
         <div>
-          <label className="mb-1 block text-sm text-text-secondary">Date range *</label>
+          <label style={{ display: 'block', marginBottom: 4, fontSize: 12, color: 'var(--ant-color-text-secondary)' }}>Date range *</label>
           <DateRangeFilter startDate="2026-03-01" endDate="2026-03-27" />
-          <p className="mt-1 text-caption-md text-text-secondary">
+          <p className="text-caption-md" style={{ marginTop: 4, color: 'var(--ant-color-text-secondary)' }}>
             12 support items from 1 Mar 2026 to 27 Mar 2026 at all practitioners
           </p>
         </div>
@@ -206,37 +211,39 @@ export default function NdisBulkUploadNewPage() {
         <FormInput label="Reference (optional)" placeholder="e.g. March 2026 upload" />
 
         <div>
-          <label className="mb-1 block text-label-lg text-text-secondary">Upload file *</label>
+          <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--ant-color-text-secondary)' }}>Upload file *</label>
           {fileName ? (
-            <Card padding="md" className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                <FileText className="h-5 w-5 text-primary" />
-              </div>
-              <div className="flex-1">
-                <p className="text-label-lg text-text">{fileName}</p>
-                <p className="text-caption-md text-text-secondary">CSV file — 5 rows</p>
-              </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setFileName(null)}
-              >
-                Remove
-              </Button>
+            <Card padding="md">
+              <Flex align="center" gap={12}>
+                <div style={{ display: 'flex', height: 40, width: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 8, backgroundColor: 'var(--ant-color-primary-bg)' }}>
+                  <FileTextOutlined style={{ fontSize: 20, color: 'var(--ant-color-primary)' }} />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <p className="text-label-lg" style={{ color: 'var(--ant-color-text)' }}>{fileName}</p>
+                  <p className="text-caption-md" style={{ color: 'var(--ant-color-text-secondary)' }}>CSV file — 5 rows</p>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setFileName(null)}
+                >
+                  Remove
+                </Button>
+              </Flex>
             </Card>
           ) : (
             <FileUpload
-              icon={<Upload className="h-8 w-8 text-text-secondary" />}
+              icon={<UploadOutlined style={{ fontSize: 32, color: 'var(--ant-color-text-secondary)' }} />}
               label="Choose CSV file"
               onClick={handleFileUpload}
               className="cursor-pointer"
             />
           )}
-          <p className="mt-1 text-caption-md text-text-secondary">
+          <p className="text-caption-md" style={{ marginTop: 4, color: 'var(--ant-color-text-secondary)' }}>
             Upload a CSV file with NDIS claim data. Required columns: Client, Service Date, Support Item Number, Amount.
           </p>
         </div>
-      </div>
+      </Flex>
     </>
   );
 }

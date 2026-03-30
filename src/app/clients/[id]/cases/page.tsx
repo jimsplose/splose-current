@@ -172,7 +172,7 @@ export default function ClientCasesPage() {
         <Button>+ New case</Button>
       </PageHeader>
 
-      <Card padding="none" style={{ overflowX: 'auto' }}>
+      <Card padding="none" className="overflow-x-auto">
         <DataTable>
           <TableHead>
             <Th>Case Number</Th>
@@ -188,14 +188,14 @@ export default function ClientCasesPage() {
           <TableBody>
             {paged.map((c) => (
               <Tr key={c.number + c.caseName}>
-                <Td>{c.number}</Td>
-                <Td style={{ fontWeight: 500 }}>{c.caseName}</Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{c.issueDate}</Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{c.expiryDate}</Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{c.assignee}</Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{c.type}</Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{c.allocated}</Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{c.invoiced}</Td>
+                <Td className="text-text">{c.number}</Td>
+                <Td className="font-medium text-text">{c.caseName}</Td>
+                <Td className="text-text-secondary">{c.issueDate}</Td>
+                <Td className="text-text-secondary">{c.expiryDate}</Td>
+                <Td className="text-text-secondary">{c.assignee}</Td>
+                <Td className="text-text-secondary">{c.type}</Td>
+                <Td className="text-text-secondary">{c.allocated}</Td>
+                <Td className="text-text-secondary">{c.invoiced}</Td>
                 <Td>
                   <Badge variant={statusVariant(c.status)}>{c.status}</Badge>
                 </Td>

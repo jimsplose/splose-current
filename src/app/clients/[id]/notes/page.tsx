@@ -29,7 +29,7 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
 
       <SearchBar placeholder="Search for content and title" />
 
-      <Card padding="none" style={{ overflowX: 'auto' }}>
+      <Card padding="none" className="overflow-x-auto">
         <DataTable>
           <TableHead>
             <Th>Name</Th>
@@ -69,12 +69,12 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
                       )}
                     </Flex>
                   </Td>
-                  <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{note.practitioner.name}</Td>
+                  <Td className="text-text-secondary">{note.practitioner.name}</Td>
                   <Td>
                     <LinkCell>{note.date ? formatDate(note.date) : "\u2014"}</LinkCell>
                   </Td>
-                  <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{formatDateTime(note.createdAt)}</Td>
-                  <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{formatDateTime(note.createdAt)}</Td>
+                  <Td className="text-text-secondary">{formatDateTime(note.createdAt)}</Td>
+                  <Td className="text-text-secondary">{formatDateTime(note.createdAt)}</Td>
                 </Tr>
               ))
             )}

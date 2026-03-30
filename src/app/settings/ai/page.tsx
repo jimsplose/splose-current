@@ -2,7 +2,8 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { AlertTriangle } from "lucide-react";
+import { Flex } from "antd";
+import { WarningOutlined } from "@ant-design/icons";
 import { Button, FormInput, FormTextarea, FormSelect, Tab, Toggle, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, Modal, EmptyState, Badge, Alert, usePagination } from "@/components/ds";
 
 const aiBlocks = [
@@ -52,14 +53,14 @@ function SettingsAIPageInner() {
   }, [forcedState]);
 
   return (
-    <div className="flex-1 p-6">
-        <div className="mb-6 flex items-center justify-between">
+    <div style={{ flex: 1, padding: 24 }}>
+        <Flex justify="space-between" align="center" style={{ marginBottom: 24 }}>
           <h1 className="text-display-lg">splose AI</h1>
-          <div className="flex items-center gap-2">
+          <Flex align="center" gap={8}>
             <Button variant="secondary">Learn</Button>
             <Button variant="primary">Save</Button>
-          </div>
-        </div>
+          </Flex>
+        </Flex>
 
         {/* Tabs */}
         <Tab
@@ -90,48 +91,48 @@ function PreferencesTab() {
 
   return (
     <div>
-      <h2 className="mb-2 text-heading-lg text-text">splose AI settings: More control, your way</h2>
-      <hr className="mb-6 border-border" />
+      <h2 className="text-heading-lg text-text" style={{ marginBottom: 8 }}>splose AI settings: More control, your way</h2>
+      <hr style={{ marginBottom: 24, borderColor: 'var(--ant-color-border)' }} />
 
-      <h3 className="mb-6 text-display-md text-text">Preferences</h3>
+      <h3 className="text-display-md text-text" style={{ marginBottom: 24 }}>Preferences</h3>
 
       {/* Progress notes */}
-      <div className="mb-8">
-        <h4 className="mb-4 text-heading-lg text-text">splose AI - progress notes</h4>
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
+      <div style={{ marginBottom: 32 }}>
+        <h4 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>splose AI - progress notes</h4>
+        <Flex vertical gap={16}>
+          <Flex align="center" justify="space-between">
             <span className="text-body-md text-text">Enable voice to text and ask splose AI</span>
             <Toggle checked={voiceToText} onChange={setVoiceToText} />
-          </div>
-          <div className="flex items-center justify-between">
+          </Flex>
+          <Flex align="center" justify="space-between">
             <span className="text-body-md text-text">Save recording to client file</span>
             <Toggle checked={saveRecording} onChange={setSaveRecording} />
-          </div>
-        </div>
+          </Flex>
+        </Flex>
       </div>
 
       {/* Email */}
-      <div className="mb-8">
-        <h4 className="mb-4 text-heading-lg text-text">splose AI - email</h4>
-        <div className="flex items-center justify-between">
+      <div style={{ marginBottom: 32 }}>
+        <h4 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>splose AI - email</h4>
+        <Flex align="center" justify="space-between">
           <span className="text-body-md text-text">Enable splose AI email assistant</span>
           <Toggle checked={emailAssistant} onChange={setEmailAssistant} />
-        </div>
+        </Flex>
       </div>
 
       {/* Calendar */}
-      <div className="mb-8">
-        <h4 className="mb-4 text-heading-lg text-text">splose AI - calendar</h4>
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
+      <div style={{ marginBottom: 32 }}>
+        <h4 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>splose AI - calendar</h4>
+        <Flex vertical gap={16}>
+          <Flex align="center" justify="space-between">
             <span className="text-body-md text-text">Enable splose AI for calendar</span>
             <Toggle checked={calendarAI} onChange={setCalendarAI} />
-          </div>
-          <div className="flex items-center justify-between">
+          </Flex>
+          <Flex align="center" justify="space-between">
             <span className="text-body-md text-text">Include cancelled appointment slots in splose AI for calendar</span>
             <Toggle checked={cancelledSlots} onChange={setCancelledSlots} />
-          </div>
-        </div>
+          </Flex>
+        </Flex>
       </div>
     </div>
   );
@@ -152,10 +153,10 @@ function SavedPromptsTab() {
 
   return (
     <div>
-      <div className="mb-4 flex items-center justify-between">
+      <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
         <h2 className="text-heading-lg text-text">AI prompts</h2>
         <Button variant="secondary">+ New prompt</Button>
-      </div>
+      </Flex>
 
       <DataTable>
         <TableHead>
@@ -197,7 +198,7 @@ function SavedPromptsTab() {
           </>
         }
       >
-        <div className="space-y-4">
+        <Flex vertical gap={16}>
           <FormInput label="Prompt name" value={editName} onChange={(e) => setEditName(e.target.value)} />
           <FormSelect
             label="User group"
@@ -215,7 +216,7 @@ function SavedPromptsTab() {
             rows={6}
             defaultValue="Write a professional progress note based on the session."
           />
-        </div>
+        </Flex>
       </Modal>
     </div>
   );
@@ -236,37 +237,37 @@ function AIBlockLibraryTab() {
   return (
     <div>
       {/* Beta banner */}
-      <Alert variant="warning" icon={<AlertTriangle className="h-4 w-4" />} className="mb-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+      <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16 }} />} className="mb-4">
+        <Flex justify="space-between" align="center">
+          <Flex align="center" gap={8}>
             <Badge variant="yellow">BETA</Badge>
             <span className="text-body-md text-text">We need your feedback on AI blocks</span>
-          </div>
-          <div className="flex items-center gap-2 text-body-md">
+          </Flex>
+          <Flex align="center" gap={8} className="text-body-md">
             <span className="text-text-secondary">Fill a</span>
-            <span className="cursor-pointer text-primary underline">short survey</span>
+            <span style={{ cursor: 'pointer' }} className="text-primary underline">short survey</span>
             <span className="text-text-secondary">or</span>
-            <span className="cursor-pointer text-primary underline">book a time</span>
+            <span style={{ cursor: 'pointer' }} className="text-primary underline">book a time</span>
             <span className="text-text-secondary">to chat</span>
             <Button variant="ghost" size="sm" className="ml-2 text-text-secondary">&times;</Button>
-          </div>
-        </div>
+          </Flex>
+        </Flex>
       </Alert>
 
-      <p className="mb-4 text-body-md text-text-secondary">
+      <p className="text-body-md text-text-secondary" style={{ marginBottom: 16 }}>
         Spend less time writing prompts with your saved library of AI blocks, organised by{" "}
-        <span className="cursor-pointer text-primary underline">tags</span>. AI blocks are reusable, customisable and
+        <span style={{ cursor: 'pointer' }} className="text-primary underline">tags</span>. AI blocks are reusable, customisable and
         adjust to your client&apos;s context. Insert them into a template or progress note.{" "}
-        <span className="cursor-pointer text-primary underline">Learn more</span>.
+        <span style={{ cursor: 'pointer' }} className="text-primary underline">Learn more</span>.
       </p>
 
       {/* Search and new button */}
-      <div className="mb-4 flex items-center gap-2">
-        <div className="relative flex-1">
+      <Flex align="center" gap={8} style={{ marginBottom: 16 }}>
+        <div style={{ flex: 1, position: 'relative' }}>
           <FormInput placeholder="Search" className="h-10 px-4" />
         </div>
         <Button variant="primary" size="sm" className="px-2 py-2">
-          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg style={{ height: 20, width: 20 }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -276,15 +277,15 @@ function AIBlockLibraryTab() {
           </svg>
         </Button>
         <Button variant="secondary">+ New AI block</Button>
-      </div>
+      </Flex>
 
       {/* Table */}
       <DataTable>
         <TableHead>
-          <Th><div className="flex items-center gap-1">AI block <span className="text-caption-md text-text-secondary">&#8645;</span></div></Th>
-          <Th><div className="flex items-center gap-1">Tag <span className="text-caption-md text-text-secondary">&#8645;</span></div></Th>
-          <Th><div className="flex items-center gap-1">Created by <span className="text-caption-md text-text-secondary">&#9660;</span></div></Th>
-          <Th><div className="flex items-center gap-1">Last modified <span className="text-caption-md text-text-secondary">&#8645;</span></div></Th>
+          <Th><div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>AI block <span className="text-caption-md text-text-secondary">&#8645;</span></div></Th>
+          <Th><div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>Tag <span className="text-caption-md text-text-secondary">&#8645;</span></div></Th>
+          <Th><div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>Created by <span className="text-caption-md text-text-secondary">&#9660;</span></div></Th>
+          <Th><div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>Last modified <span className="text-caption-md text-text-secondary">&#8645;</span></div></Th>
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>
@@ -322,7 +323,7 @@ function AIBlockLibraryTab() {
           </>
         }
       >
-        <div className="space-y-4">
+        <Flex vertical gap={16}>
           <FormInput label="Block name" value={editBlockName} onChange={(e) => setEditBlockName(e.target.value)} />
           <FormInput label="Tag" value={editBlockTag} onChange={(e) => setEditBlockTag(e.target.value)} />
           <FormTextarea
@@ -330,7 +331,7 @@ function AIBlockLibraryTab() {
             rows={6}
             defaultValue="Generate a detailed {block_name} section based on the session context, including relevant clinical observations and findings."
           />
-        </div>
+        </Flex>
       </Modal>
     </div>
   );

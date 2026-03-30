@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { CalendarDays, Info } from "lucide-react";
+import { Flex } from "antd";
+import { CalendarOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import {
   Alert,
   Button,
@@ -98,20 +99,20 @@ export default function InvoiceSettingsPage() {
   }
 
   return (
-    <div className="p-6">
-      <h1 className="mb-6 text-display-lg">Invoice Settings</h1>
+    <div style={{ padding: 24 }}>
+      <h1 className="text-display-lg" style={{ marginBottom: 24 }}>Invoice Settings</h1>
 
       {/* Stripe info banner */}
-      <Alert variant="info" icon={<Info className="h-4 w-4" />} className="mb-6">
+      <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 16 }} />} className="mb-6">
         <p className="text-body-md text-text">
           You need an active Stripe connection for online payments.{" "}
-          <a href="#" className="font-medium text-primary hover:underline">
+          <a href="#" style={{ fontWeight: 500 }} className="text-primary hover:underline">
             Connect to Stripe
           </a>
         </p>
       </Alert>
 
-      <div className="mb-8">
+      <div style={{ marginBottom: 32 }}>
         <Toggle
           checked={enableOnlinePayments}
           onChange={setEnableOnlinePayments}
@@ -120,83 +121,91 @@ export default function InvoiceSettingsPage() {
       </div>
 
       {/* Invoice number */}
-      <section className="mb-8">
-        <h2 className="mb-4 text-heading-lg text-text">Invoice number</h2>
-        <div className="max-w-2xl space-y-4">
-          <FormInput label="Prefix" defaultValue="INV" />
-          <FormInput label="Padding" defaultValue="6" />
-          <FormInput label="Next invoice number" defaultValue="6309" />
+      <section style={{ marginBottom: 32 }}>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Invoice number</h2>
+        <div style={{ maxWidth: 672 }}>
+          <Flex vertical gap={16}>
+            <FormInput label="Prefix" defaultValue="INV" />
+            <FormInput label="Padding" defaultValue="6" />
+            <FormInput label="Next invoice number" defaultValue="6309" />
+          </Flex>
         </div>
       </section>
 
       {/* Credit note number */}
-      <section className="mb-8">
-        <h2 className="mb-4 text-heading-lg text-text">Credit note number</h2>
-        <div className="max-w-2xl space-y-4">
-          <FormInput label="Prefix" defaultValue="CR" />
-          <FormInput label="Padding" defaultValue="6" />
-          <FormInput label="Next credit note number" defaultValue="181" />
+      <section style={{ marginBottom: 32 }}>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Credit note number</h2>
+        <div style={{ maxWidth: 672 }}>
+          <Flex vertical gap={16}>
+            <FormInput label="Prefix" defaultValue="CR" />
+            <FormInput label="Padding" defaultValue="6" />
+            <FormInput label="Next credit note number" defaultValue="181" />
+          </Flex>
         </div>
       </section>
 
       <hr className="my-8 border-green-600" />
 
       {/* Tax */}
-      <section className="mb-8">
-        <h2 className="mb-4 text-heading-lg text-text">Tax</h2>
-        <div className="max-w-2xl space-y-4">
-          <FormSelect
-            label="Default tax"
-            options={[
-              { value: "exclusive", label: "Tax exclusive" },
-              { value: "inclusive", label: "Tax inclusive" },
-              { value: "none", label: "No tax" },
-            ]}
-            defaultValue="exclusive"
-          />
-          <FormSelect
-            label="Tax rate"
-            options={[
-              { value: "gst", label: "GST (10%)" },
-              { value: "no-tax", label: "No tax (0%)" },
-              { value: "gst-free", label: "GST Free (0%)" },
-            ]}
-            defaultValue="gst"
-          />
+      <section style={{ marginBottom: 32 }}>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Tax</h2>
+        <div style={{ maxWidth: 672 }}>
+          <Flex vertical gap={16}>
+            <FormSelect
+              label="Default tax"
+              options={[
+                { value: "exclusive", label: "Tax exclusive" },
+                { value: "inclusive", label: "Tax inclusive" },
+                { value: "none", label: "No tax" },
+              ]}
+              defaultValue="exclusive"
+            />
+            <FormSelect
+              label="Tax rate"
+              options={[
+                { value: "gst", label: "GST (10%)" },
+                { value: "no-tax", label: "No tax (0%)" },
+                { value: "gst-free", label: "GST Free (0%)" },
+              ]}
+              defaultValue="gst"
+            />
+          </Flex>
         </div>
       </section>
 
       <hr className="my-8 border-green-600" />
 
       {/* Invoice reminders preferences */}
-      <section className="mb-8">
-        <h2 className="mb-4 text-heading-lg text-text">Invoice reminders preferences</h2>
-        <div className="max-w-2xl space-y-4">
-          <FormSelect
-            label="Default invoice reminder preferences"
-            options={[
-              { value: "on", label: "On" },
-              { value: "off", label: "Off" },
-            ]}
-            defaultValue="on"
-          />
-          <Checkbox
-            label="Apply to all existing clients and override the current invoice reminder preferences."
-            defaultChecked
-          />
-          <FormInput
-            label="Don't send reminders for amounts owing on an invoice under"
-            defaultValue=""
-            placeholder="0"
-          />
+      <section style={{ marginBottom: 32 }}>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Invoice reminders preferences</h2>
+        <div style={{ maxWidth: 672 }}>
+          <Flex vertical gap={16}>
+            <FormSelect
+              label="Default invoice reminder preferences"
+              options={[
+                { value: "on", label: "On" },
+                { value: "off", label: "Off" },
+              ]}
+              defaultValue="on"
+            />
+            <Checkbox
+              label="Apply to all existing clients and override the current invoice reminder preferences."
+              defaultChecked
+            />
+            <FormInput
+              label="Don't send reminders for amounts owing on an invoice under"
+              defaultValue=""
+              placeholder="0"
+            />
+          </Flex>
         </div>
       </section>
 
       <hr className="my-8 border-green-600" />
 
       {/* Invoice reminders table */}
-      <section className="mb-8">
-        <h2 className="mb-4 text-heading-lg text-text">Invoice reminders</h2>
+      <section style={{ marginBottom: 32 }}>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Invoice reminders</h2>
 
         <DataTable>
           <TableHead>
@@ -207,20 +216,20 @@ export default function InvoiceSettingsPage() {
             {pageReminders.map((reminder, i) => (
               <Tr key={reminder.id}>
                 <Td>
-                  <div className="flex items-center gap-2">
-                    <CalendarDays className="h-4 w-4 text-text-secondary" />
+                  <Flex align="center" gap={8}>
+                    <CalendarOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
                     <span className="text-text">{reminder.name}</span>
-                  </div>
+                  </Flex>
                 </Td>
                 <Td>
-                  <div className="flex items-center justify-end">
+                  <Flex align="center" justify="flex-end">
                     <Dropdown
                       align="right"
                       trigger={<DropdownTriggerButton />}
                       items={SIMPLE_CRUD}
                       onSelect={(value) => { if (value === "edit") openModal("reminder", reminders.indexOf(reminder)); }}
                     />
-                  </div>
+                  </Flex>
                 </Td>
               </Tr>
             ))}
@@ -229,8 +238,8 @@ export default function InvoiceSettingsPage() {
 
         <Pagination {...reminderPaginationProps} />
 
-        <div className="mt-4">
-          <Button variant="secondary" className="w-full justify-center" onClick={() => openModal("reminder")}>
+        <div style={{ marginTop: 16 }}>
+          <Button variant="secondary" style={{ width: '100%', justifyContent: 'center' }} onClick={() => openModal("reminder")}>
             + New invoice reminder
           </Button>
         </div>
@@ -239,8 +248,8 @@ export default function InvoiceSettingsPage() {
       <hr className="my-8 border-green-600" />
 
       {/* Invoice templates table */}
-      <section className="mb-8">
-        <h2 className="mb-4 text-heading-lg text-text">Invoice templates</h2>
+      <section style={{ marginBottom: 32 }}>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Invoice templates</h2>
 
         <DataTable>
           <TableHead>
@@ -254,14 +263,14 @@ export default function InvoiceSettingsPage() {
                   <span className="text-text">{template.name}</span>
                 </Td>
                 <Td>
-                  <div className="flex items-center justify-end">
+                  <Flex align="center" justify="flex-end">
                     <Dropdown
                       align="right"
                       trigger={<DropdownTriggerButton />}
                       items={templateDropdownItems}
                       onSelect={(value) => { if (value === "edit") openModal("template", templates.indexOf(template)); }}
                     />
-                  </div>
+                  </Flex>
                 </Td>
               </Tr>
             ))}
@@ -270,8 +279,8 @@ export default function InvoiceSettingsPage() {
 
         <Pagination {...templatePaginationProps} />
 
-        <div className="mt-4">
-          <Button variant="secondary" className="w-full justify-center" onClick={() => openModal("template")}>
+        <div style={{ marginTop: 16 }}>
+          <Button variant="secondary" style={{ width: '100%', justifyContent: 'center' }} onClick={() => openModal("template")}>
             + Add invoice template
           </Button>
         </div>
@@ -292,7 +301,7 @@ export default function InvoiceSettingsPage() {
           </>
         }
       >
-        <div className="space-y-4">
+        <Flex vertical gap={16}>
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
 
           {modalType === "reminder" && (
@@ -311,7 +320,7 @@ export default function InvoiceSettingsPage() {
               />
               <FormInput label="Subject" value={form.subject} onChange={(e) => setField("subject", e.target.value)} />
               <div>
-                <label className="mb-1 block text-label-lg text-text-secondary">Body</label>
+                <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--ant-color-text-secondary)' }}>Body</label>
                 <RichTextEditor
                   value={form.body}
                   onChange={(html) => setField("body", html)}
@@ -321,7 +330,7 @@ export default function InvoiceSettingsPage() {
               </div>
             </>
           )}
-        </div>
+        </Flex>
       </Modal>
     </div>
   );

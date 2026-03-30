@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { Flex } from "antd";
+import { ReadOutlined, MessageOutlined } from "@ant-design/icons";
 import { Button, PageHeader, Modal, Card } from "@/components/ds";
-import { BookOpen, MessageCircle } from "lucide-react";
 
 const creditOptions = [
   { credits: 200, price: "A$22.00" },
@@ -29,24 +30,24 @@ export default function SMSSettingsPage() {
   }, [sampleMessage]);
 
   return (
-    <div className="p-6">
+    <div style={{ padding: 24 }}>
       <PageHeader title="SMS settings">
         <Button variant="secondary">
-          <BookOpen className="h-4 w-4" />
+          <ReadOutlined style={{ fontSize: 16 }} />
           Learn
         </Button>
       </PageHeader>
 
       {/* SMS credit balance card */}
-      <Card padding="none" className="mb-8 inline-block px-5 py-4">
+      <Card padding="none" style={{ display: 'inline-block', padding: '16px 20px', marginBottom: 32 }}>
         <p className="text-body-md text-text-secondary">SMS credit balance</p>
-        <p className="text-3xl font-bold text-text">884</p>
+        <p style={{ fontSize: '1.875rem', fontWeight: 700 }} className="text-text">884</p>
       </Card>
 
       {/* Recharge credits section */}
-      <div className="mb-8">
-        <h2 className="mb-4 text-heading-lg text-text">Recharge credits</h2>
-        <div className="mb-4 flex gap-3">
+      <div style={{ marginBottom: 32 }}>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Recharge credits</h2>
+        <Flex gap={12} style={{ marginBottom: 16 }}>
           {creditOptions.map((option) => (
             <Button
               key={option.credits}
@@ -64,7 +65,7 @@ export default function SMSSettingsPage() {
               </div>
             </Button>
           ))}
-        </div>
+        </Flex>
         <Button
           variant="primary"
           onClick={() => setShowRechargeConfirm(true)}
@@ -74,14 +75,15 @@ export default function SMSSettingsPage() {
       </div>
 
       {/* SMS message preview */}
-      <div className="mb-8 max-w-2xl">
-        <h2 className="mb-4 text-heading-lg text-text">Message preview</h2>
-        <div className="mb-3">
-          <label className="mb-1 block text-label-lg text-text-secondary">
+      <div style={{ marginBottom: 32, maxWidth: 672 }}>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Message preview</h2>
+        <div style={{ marginBottom: 12 }}>
+          <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--ant-color-text-secondary)' }}>
             Sample message
           </label>
           <textarea
-            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+            style={{ width: '100%', borderRadius: 8, border: '1px solid var(--ant-color-border)', backgroundColor: 'white', padding: '8px 12px', outline: 'none' }}
+            className="text-body-md text-text focus:border-primary focus:ring-1 focus:ring-primary/20"
             rows={3}
             value={sampleMessage}
             onChange={(e) => setSampleMessage(e.target.value)}
@@ -89,7 +91,7 @@ export default function SMSSettingsPage() {
         </div>
 
         {/* Character count and segment info */}
-        <div className="mb-4 flex items-center gap-4 text-body-sm text-text-secondary">
+        <Flex align="center" gap={16} style={{ marginBottom: 16 }} className="text-body-sm text-text-secondary">
           <span>
             {charInfo.len} character{charInfo.len !== 1 ? "s" : ""}
           </span>
@@ -103,26 +105,26 @@ export default function SMSSettingsPage() {
               <span className="text-amber-600">Contains special characters</span>
             </>
           )}
-        </div>
+        </Flex>
 
         {/* Phone-style preview */}
-        <div className="mx-auto w-72 rounded-3xl border-2 border-gray-300 bg-gray-100 p-4">
-          <div className="mb-2 flex items-center justify-center gap-1.5 text-caption-md text-text-secondary">
-            <MessageCircle className="h-3.5 w-3.5" />
+        <div style={{ width: 288, margin: '0 auto', borderRadius: 24, border: '2px solid #d1d5db', backgroundColor: '#f3f4f6', padding: 16 }}>
+          <Flex justify="center" align="center" gap={6} className="text-caption-md text-text-secondary" style={{ marginBottom: 8 }}>
+            <MessageOutlined style={{ fontSize: 14 }} />
             <span>SMS Preview</span>
-          </div>
-          <div className="min-h-[80px] rounded-2xl bg-white p-3">
-            <div className="inline-block max-w-full rounded-2xl rounded-bl-sm bg-gray-200 px-3 py-2 text-body-sm text-text">
-              {sampleMessage || <span className="italic text-text-secondary">Type a message above...</span>}
+          </Flex>
+          <div style={{ minHeight: 80, borderRadius: 16, backgroundColor: 'white', padding: 12 }}>
+            <div style={{ display: 'inline-block', maxWidth: '100%', borderRadius: 16, borderBottomLeftRadius: 4, backgroundColor: '#e5e7eb', padding: '8px 12px' }} className="text-body-sm text-text">
+              {sampleMessage || <span style={{ fontStyle: 'italic' }} className="text-text-secondary">Type a message above...</span>}
             </div>
           </div>
         </div>
       </div>
 
       {/* SMS pricing section */}
-      <div className="max-w-2xl">
-        <h2 className="mb-4 text-heading-lg text-text">SMS pricing</h2>
-        <div className="space-y-3 text-body-md text-text-secondary leading-relaxed">
+      <div style={{ maxWidth: 672 }}>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>SMS pricing</h2>
+        <Flex vertical gap={12} className="text-body-md text-text-secondary" style={{ lineHeight: 1.6 }}>
           <p>
             A standard SMS message contains 160 characters per segment (if a message has more
             than 160 characters, the message is split into segments, each consisting of 153
@@ -140,7 +142,7 @@ export default function SMSSettingsPage() {
             </a>
             .
           </p>
-        </div>
+        </Flex>
       </div>
 
       <Modal

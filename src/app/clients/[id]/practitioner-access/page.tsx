@@ -33,7 +33,7 @@ export default function ClientPractitionerAccessPage() {
         <span style={{ cursor: 'pointer', color: 'var(--ant-color-primary)' }} className="hover:underline">Learn more</span>
       </p>
 
-      <Card padding="none" style={{ overflowX: 'auto' }}>
+      <Card padding="none" className="overflow-x-auto">
         <DataTable>
           <TableHead>
             <Th>
@@ -60,13 +60,13 @@ export default function ClientPractitionerAccessPage() {
                 <Td>
                   <div>
                     <span>{p.name}</span>
-                    <Badge variant="green" style={{ marginLeft: 8 }}>Account owner</Badge>
+                    <Badge variant="green" className="ml-2">Account owner</Badge>
                   </div>
                 </Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{p.role}</Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{p.roleType}</Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{p.group}</Td>
-                <Td style={{ color: 'var(--ant-color-text-secondary)' }}>{p.status}</Td>
+                <Td className="text-text-secondary">{p.role}</Td>
+                <Td className="text-text-secondary">{p.roleType}</Td>
+                <Td className="text-text-secondary">{p.group}</Td>
+                <Td className="text-text-secondary">{p.status}</Td>
                 <Td align="right">
                   <Button variant="ghost" size="sm" style={{ color: 'var(--ant-color-text-secondary)' }}>...</Button>
                 </Td>
