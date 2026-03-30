@@ -4,6 +4,54 @@ Append-only log. Each session adds an entry summarizing what was done.
 
 ---
 
+## Session — 2026-03-30 (AntD Migration — All 4 Phases)
+
+**Branch**: `antd-migration`
+
+### Completed — Full Ant Design Migration
+
+**Phase 1: Foundation (8 tasks)**
+- Installed antd, @ant-design/icons, @ant-design/nextjs-registry
+- Created `theme.ts` with all confirmed colour tokens from Figma audit
+- Created `ThemeProvider.tsx` wrapping AntD ConfigProvider
+- Wired AntdRegistry + ThemeProvider into root layout.tsx
+- Added ESLint rule banning direct antd imports outside ds/
+- Added AntD ThemeProvider decorator to Storybook
+- Created `tailwind-archive` branch as frozen rollback snapshot
+
+**Phase 2: DS Component Rewrite (31 tasks, 43 components)**
+- Rewrote all 43 DS components to use AntD internally
+- Created CSS Modules for TopNav, SideNav, Text, RichTextEditor
+- DataTable supports dual-mode: legacy children + new columns/dataSource API
+- All 11 Storybook stories migrated from lucide-react to @ant-design/icons
+- Zero lucide-react imports in src/components/ds/
+- FormSelect onChange breaking change: event-based → value-based (pages updated)
+
+**Phase 3: Page Migration (19 tasks, 96 pages)**
+- 6 parallel agents migrated all pages simultaneously:
+  - Settings (36 files), Clients (20 files), Contacts+Products+Invoices (14 files)
+  - Payments+Waitlist+Notes (9 files), Reports+Dashboard+Calendar (22 files)
+  - Login+Online Booking+Shared (8 files)
+- All lucide-react icons replaced with @ant-design/icons across entire codebase
+- All Tailwind className props replaced with inline styles + AntD Flex layout
+- 4 specialty SVG icons (Sun/Moon/SunMedium/Map) inlined in waitlist
+
+**Phase 4: Cleanup (10 tasks)**
+- Uninstalled: tailwindcss, @tailwindcss/postcss, prettier-plugin-tailwindcss, lucide-react
+- Deleted: postcss.config.mjs, portable/ directory, icon-mapping.ts, page-template.module.css
+- Stripped globals.css from 234 lines to 44 lines (font-face + reset only)
+- Cleaned .prettierrc (removed Tailwind plugin config)
+- usePagination kept (28 pages still use it — future cleanup)
+
+**Final state:**
+- `npx tsc --noEmit` — zero errors
+- `npx next build` — passes clean
+- Zero lucide-react imports in src/
+- Zero Tailwind/PostCSS packages in dependencies
+- Branch `antd-migration` pushed and ready for merge to main
+
+---
+
 ## Session — 2026-03-25 (batch 3)
 
 **Branch**: `main`
