@@ -391,7 +391,19 @@ Patterns identified from the interactive states implementation audit. All opport
 
 ### Group BB — Client detail heading weight (`src/app/clients/[id]/`)
 
-- [ ] **Client detail section heading fontWeight** — NEW: audit 2026-03-26. Prod: 18px/700. Localhost: 18px/600. "General details", "Client contact details" etc should use font-bold not font-semibold.
+- [ ] **Client detail section heading fontWeight** — NEW: audit 2026-03-26, confirmed 2026-03-30. Prod: 18px/700. Localhost: 18px/600. "General details", "Client contact details" etc should use font-bold not font-semibold. Also: Account balance heading fontWeight 600 (prod) vs 500 (localhost).
+
+### Group BC — Dashboard section heading fontWeight (`src/app/page.tsx`)
+
+- [ ] **Dashboard section heading fontWeight** — NEW: audit 2026-03-30. Prod: 14px/500 (font-medium). Localhost: 14px/400 (font-normal). Affects "Messages", "Income", "Incomplete progress notes" headings. Cross-cutting: may affect other panel headings using same component.
+
+### Group BD — Calendar DOW color mismatch (`src/app/calendar/`)
+
+- [ ] **Calendar month DOW header color** — NEW: audit 2026-03-30. Prod: rgb(112,117,122). Localhost: rgb(107,114,128). Tailwind gray shade mismatch. Also affects day number color in week view. Cross-cutting calendar issue.
+
+### Group BE — Tag badge fontWeight (`src/components/ds/Badge.tsx`)
+
+- [ ] **Tag badge fontWeight** — NEW: audit 2026-03-30. Prod: 12px/400. Localhost: 12px/500. Client list tag badges use font-medium but prod uses font-normal. May be cross-cutting with Badge component.
 
 ### Group AY — Reports overview (`src/app/reports/page.tsx`)
 

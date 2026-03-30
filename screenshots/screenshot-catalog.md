@@ -6,7 +6,9 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 **Sources:** March 11 screenshots from production (`acme.splose.com`) and dev environment. March 17 screenshots from production.
 
-**Last full sweep:** 2026-03-26 (session 2) — Full sweep dual-tab Chrome MCP at 1440x900. 30+ pages measured across all sections. **Upgraded:** Clients list partial→yes (title/th/tags/search all match now). **New gaps found:** Badge border-radius cross-cutting (8px prod vs rounded-full localhost, Group BA), Badge colors lab() vs RGB (Group BA), Client detail section heading weight 700 vs 600 (Group BB), Calendar week time labels 10px vs 14px (Group AH), Calendar week month title absent on prod (Group AH). **Regressions:** Online booking Group AO fixes (title/button/cards) regressed — 3 gaps reopened. **Confirmed yes:** Dashboard, Contacts, Invoices, Payments, Waitlist, Products, Reports, Settings (users/details/landing), Client detail, Client sub-tabs, Calendar month/day views. **Known partials:** login illustration, mobile views, custom date picker, calendar week view, online booking, AI chat interactivity.
+**Last full sweep:** 2026-03-30 (in progress) — Full sweep dual-tab Chrome MCP at 1440x900. **Batch 1 (6 pages):** Dashboard partial (section heading fontWeight 500 vs 400), Calendar week partial (time labels 10px vs 11px, extra month title), Calendar month partial (DOW color rgb(112,117,122) vs rgb(107,114,128)), Calendar day partial (time labels 10px vs 11px), Clients list partial (tag badge fontWeight 400 vs 500), Client detail partial (section heading fontWeight 700 vs 600, account heading 600 vs 500). **Cross-cutting issues found:** fontWeight mismatches on section headings and badges across multiple pages.
+
+**Previous sweep:** 2026-03-26 (session 2) — Full sweep dual-tab Chrome MCP at 1440x900. 30+ pages measured across all sections. **Known partials:** login illustration, mobile views, custom date picker, calendar week view, online booking, AI chat interactivity.
 
 ---
 
@@ -321,7 +323,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-17 at 7.22.47 pm.png | Week view — Rooms/resources mode | yes — Rooms view with room filter |
 | Screenshot 2026-03-17 at 7.22.53 pm.png | Week view — Room/resources filter dropdown | yes — room filter dropdown |
 | Screenshot 2026-03-17 at 7.23.04 pm.png | Week view — View type dropdown (Month/Week/Day) | yes — view switcher dropdown |
-| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_19_33.png | Calendar week view full page | partial — measurement-verified 2026-03-26: Today btn 14px/400/38px PASS. FAIL: DOW header fontWeight 500 (prod) vs 400 (localhost), DOW color rgb(112,117,122) vs rgb(65,69,73). Day number fontWeight 500 (prod) vs 700 (localhost), color rgb(112,117,122) vs rgb(107,114,128). Time labels 10px (prod) vs 14px (localhost). Month title: prod has none, localhost shows H2 "Mar 2026" 18px/700. |
+| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_19_33.png | Calendar week view full page | partial — measurement-verified 2026-03-30: Time labels 10px (prod) vs 11px (localhost) — improved from 14px. Extra month title on localhost. Layout structurally different (practitioner-columns vs day-columns). Today btn PASS. |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_12.png | Calendar week view (variant 2) | yes — full-page capture, toolbar + time grid + practitioner columns match 2026-03-24 |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_26.png | Calendar week view (variant 3) | yes — scrolled view, appointment blocks and time slots 2026-03-24 |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_37.png | Calendar week view (variant 4) | yes — different scroll position, same structure 2026-03-24 |
@@ -333,13 +335,13 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 7.23.10 pm.png | Day view — practitioner columns, empty | yes — day view with practitioner columns |
-| screencapture-acme-splose-calendar-day-17-3-2026-2026-03-17-19_31_10.png | Calendar day view full page | yes — visual only — audit 2026-03-26: title format fixed (both show "Mar 2026"), practitioner column layout matches, toolbar matches. No centered day header row on either site. Needs measurement verification. |
+| screencapture-acme-splose-calendar-day-17-3-2026-2026-03-17-19_31_10.png | Calendar day view full page | partial — measurement-verified 2026-03-30: time labels 10px (prod) vs 11px (localhost) FAIL. Practitioner column layout matches. Toolbar matches. Title element differs. |
 
 ## Calendar — Month View (`/calendar/month`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.23.16 pm.png | Month view with appointments | yes — measurement-verified 2026-03-26: today bg rgb(130,80,255)=PASS, date 14px/400=PASS, appointment 14px/400=PASS, DOW 12px/400 rgb(112,117,122)=PASS, more 12px/700=PASS. All match production. Status icons on blocks are a data feature difference (not fidelity gap). |
+| Screenshot 2026-03-17 at 7.23.16 pm.png | Month view with appointments | partial — measurement-verified 2026-03-30: DOW color rgb(112,117,122) (prod) vs rgb(107,114,128) (localhost) FAIL. Today bg, date, appointment, borderRadius all PASS. |
 | Screenshot 2026-03-17 at 7.23.23 pm.png | Month view — appointment detail side panel (Group Therapy) | yes — side panel with full content |
 
 ## Calendar — Appointment Side Panel
@@ -382,7 +384,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-2026-03-17-19_29_34.png | Patients list default | yes — measurement-verified 2026-03-26: title 30px/700/rgb(66,105,74) PASS, th 14px/600/rgb(234,237,241) PASS, td 14px/400 PASS, search 38px/joined PASS, tags yellow rgb(249,202,36)/8px PASS. All previous issues fixed. |
+| screencapture-acme-splose-patients-2026-03-17-19_29_34.png | Patients list default | partial — measurement-verified 2026-03-30: tag badge fontWeight 400 (prod) vs 500 (localhost) FAIL. Search, th, td fontSize/fontWeight all PASS. th bg rgb(234,237,241) vs transparent (may be parent). |
 | screencapture-acme-splose-patients-2026-03-17-19_29_34 (1).png | Patients list (duplicate) | yes — visual audit 2026-03-23 confirmed |
 
 ## Patients — Detail / Appointments (`/patients/:id/appointments`)
@@ -398,7 +400,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-details-2026-03-17-19_29_56.png | Patient details tab | yes — visual audit 2026-03-23 confirmed; sidebar restored, layout matches |
+| screencapture-acme-splose-patients-5918810-details-2026-03-17-19_29_56.png | Patient details tab | partial — measurement-verified 2026-03-30: section heading "General details" fontWeight 700 (prod) vs 600 (localhost) FAIL. Account balance heading fontWeight 600 vs 500 FAIL. Layout and structure match. |
 | screencapture-acme-splose-patients-5918810-details-2026-03-17-19_29_56 (1).png | Patient details (duplicate) | yes — visual audit 2026-03-23 confirmed |
 
 ## Patients — Detail / Communications (`/patients/:id/communications`)
@@ -500,7 +502,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.02.16 am.png | Dashboard — desktop, Messages feed + Income chart + Incomplete progress notes + Recently submitted forms | yes — measurement-verified 2026-03-25: header 57px/14px/Inter, section headings 14px/500, message authors 14px/600, all rgb(65,69,73). Income chart X-axis labels fixed, RichTextEditor toolbar has GIF/undo-redo/horizontal rule. |
+| Screenshot 2026-03-11 at 11.02.16 am.png | Dashboard — desktop, Messages feed + Income chart + Incomplete progress notes + Recently submitted forms | partial — measurement-verified 2026-03-30: section heading fontWeight 500 (prod) vs 400 (localhost). Header, nav, note links, search all PASS. |
 | Screenshot 2026-03-11 at 11.02.24 am.png | Dashboard — mobile in desktop browser frame, Messages with GIF | yes |
 | Screenshot 2026-03-11 at 11.08.47 am.png | Dashboard — mobile, Income chart + Incomplete progress notes (scrolled) | yes |
 | Screenshot 2026-03-11 at 11.09.05 am.png | Dashboard — desktop, Messages feed (scrolled) with tooltip on income chart | yes |
