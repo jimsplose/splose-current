@@ -1,31 +1,41 @@
+"use client";
+
+import { Input } from "antd";
 import { forwardRef } from "react";
 
-interface FormTextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+const { TextArea } = Input;
+
+interface FormTextareaProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange"> {
   label?: string;
   error?: string;
+  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
 }
 
 const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
-  ({ label, error, className = "", id, ...props }, ref) => {
+  ({ label, error, className, id, ...props }, ref) => {
     const textareaId = id || label?.toLowerCase().replace(/\s+/g, "-");
+
     return (
-      <div>
+      <div className={className}>
         {label && (
-          <label htmlFor={textareaId} className="mb-1 block text-label-lg text-text-secondary">
+          <label
+            htmlFor={textareaId}
+            style={{ display: "block", marginBottom: 4, fontSize: 14, color: "var(--ant-color-text-secondary)" }}
+          >
             {label}
           </label>
         )}
-        <textarea
-          ref={ref}
+        <TextArea
+          ref={ref as never}
           id={textareaId}
-          className={`w-full rounded-lg border bg-white px-3 py-2 text-body-md transition-colors outline-none ${
-            error
-              ? "border-red-400 focus:border-red-500 focus:ring-1 focus:ring-red-200"
-              : "border-border focus:border-primary focus:ring-1 focus:ring-primary/20"
-          } ${className}`}
-          {...props}
+          status={error ? "error" : undefined}
+          {...(props as Record<string, unknown>)}
         />
-        {error && <p className="mt-1 text-caption-md text-red-500">{error}</p>}
+        {error && (
+          <div style={{ marginTop: 4, fontSize: 12, color: "var(--ant-color-error)" }}>
+            {error}
+          </div>
+        )}
       </div>
     );
   },

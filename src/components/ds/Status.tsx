@@ -1,3 +1,7 @@
+"use client";
+
+import { Badge, Flex } from "antd";
+
 type StatusColor = "green" | "red" | "yellow" | "blue" | "gray" | "purple" | "orange";
 
 interface StatusProps {
@@ -6,21 +10,21 @@ interface StatusProps {
   className?: string;
 }
 
-const colorClasses: Record<StatusColor, string> = {
-  green: "bg-green-500",
-  red: "bg-red-500",
-  yellow: "bg-yellow-500",
-  blue: "bg-blue-500",
-  gray: "bg-gray-400",
-  purple: "bg-purple-500",
-  orange: "bg-orange-500",
+const colorMap: Record<StatusColor, string> = {
+  green: "#00C269",
+  red: "#D00032",
+  yellow: "#FFD232",
+  blue: "#5578FF",
+  gray: "#b8bcc0",
+  purple: "#8250FF",
+  orange: "#f97316",
 };
 
-export default function Status({ color = "gray", label, className = "" }: StatusProps) {
+export default function Status({ color = "gray", label, className }: StatusProps) {
   return (
-    <span className={`inline-flex items-center gap-2 ${className}`}>
-      <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${colorClasses[color]}`} />
-      {label && <span className="text-body-md text-text">{label}</span>}
-    </span>
+    <Flex align="center" gap={8} className={className}>
+      <Badge color={colorMap[color]} />
+      {label && <span style={{ fontSize: 14 }}>{label}</span>}
+    </Flex>
   );
 }

@@ -1,5 +1,10 @@
 "use client";
 
+import { DatePicker } from "antd";
+import dayjs from "dayjs";
+
+const { RangePicker } = DatePicker;
+
 interface DateRangeFilterProps {
   startDate: string;
   endDate: string;
@@ -13,22 +18,27 @@ export default function DateRangeFilter({
   endDate,
   onStartChange,
   onEndChange,
-  className = "",
+  className,
 }: DateRangeFilterProps) {
+  const value: [dayjs.Dayjs | null, dayjs.Dayjs | null] = [
+    startDate ? dayjs(startDate) : null,
+    endDate ? dayjs(endDate) : null,
+  ];
+
   return (
-    <div className={`flex items-center gap-2 ${className}`}>
-      <input
-        type="date"
-        value={startDate}
-        onChange={(e) => onStartChange?.(e.target.value)}
-        className="rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-      />
-      <span className="text-text-secondary">&rarr;</span>
-      <input
-        type="date"
-        value={endDate}
-        onChange={(e) => onEndChange?.(e.target.value)}
-        className="rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+    <div className={className}>
+      <RangePicker
+        value={value}
+        onChange={(dates) => {
+          if (dates) {
+            onStartChange?.(dates[0]?.format("YYYY-MM-DD") ?? "");
+            onEndChange?.(dates[1]?.format("YYYY-MM-DD") ?? "");
+          } else {
+            onStartChange?.("");
+            onEndChange?.("");
+          }
+        }}
+        format="DD/MM/YYYY"
       />
     </div>
   );

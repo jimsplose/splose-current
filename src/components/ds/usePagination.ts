@@ -26,6 +26,7 @@ interface PaginationResult<T> {
   };
 }
 
+/** @deprecated Migrate to AntD Table built-in pagination in Phase 3 */
 export default function usePagination<T>(
   items: T[],
   options: UsePaginationOptions,

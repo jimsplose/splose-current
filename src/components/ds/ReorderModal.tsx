@@ -18,7 +18,8 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { GripVertical } from "lucide-react";
+import { HolderOutlined } from "@ant-design/icons";
+import { theme, Flex } from "antd";
 import Modal from "./Modal";
 import Button from "./Button";
 
@@ -36,46 +37,38 @@ interface ReorderModalProps {
 }
 
 function SortableRow({ item }: { item: ReorderItem }) {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id: item.id });
+  const { token } = theme.useToken();
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: item.id });
 
-  const style = {
+  const style: React.CSSProperties = {
     transform: CSS.Transform.toString(transform),
     transition,
+    display: "flex",
+    alignItems: "center",
+    gap: 12,
+    borderRadius: token.borderRadius,
+    border: `1px solid ${token.colorBorder}`,
+    backgroundColor: token.colorBgContainer,
+    padding: "10px 12px",
+    ...(isDragging ? { zIndex: 10, boxShadow: token.boxShadowSecondary, opacity: 0.9 } : {}),
   };
 
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      className={`flex items-center gap-3 rounded-lg border border-border bg-white px-3 py-2.5 ${isDragging ? "z-10 shadow-lg opacity-90" : "hover:bg-gray-50"}`}
-    >
+    <div ref={setNodeRef} style={style}>
       <button
         type="button"
-        className="cursor-grab touch-none text-text-secondary hover:text-text active:cursor-grabbing"
+        style={{ cursor: "grab", color: token.colorTextSecondary, background: "none", border: "none", padding: 0, touchAction: "none" }}
         {...attributes}
         {...listeners}
       >
-        <GripVertical className="h-4 w-4" />
+        <HolderOutlined style={{ fontSize: 14 }} />
       </button>
-      <span className="text-body-md text-text">{item.label}</span>
+      <span style={{ fontSize: 14 }}>{item.label}</span>
     </div>
   );
 }
 
-export default function ReorderModal({
-  open,
-  onClose,
-  title = "Reorder items",
-  items: initialItems,
-  onReorder,
-}: ReorderModalProps) {
+export default function ReorderModal({ open, onClose, title = "Reorder items", items: initialItems, onReorder }: ReorderModalProps) {
   const [items, setItems] = useState<ReorderItem[]>(initialItems);
 
   const sensors = useSensors(
@@ -94,7 +87,6 @@ export default function ReorderModal({
     }
   }
 
-  // Reset when modal opens with new items
   if (open && JSON.stringify(items.map((i) => i.id)) !== JSON.stringify(initialItems.map((i) => i.id))) {
     setItems(initialItems);
   }
@@ -106,19 +98,19 @@ export default function ReorderModal({
       title={title}
       maxWidth="md"
       footer={
-        <div className="flex justify-end gap-2">
+        <Flex justify="flex-end" gap={8}>
           <Button variant="secondary" onClick={onClose}>Cancel</Button>
           <Button variant="primary" onClick={() => { onReorder(items); onClose(); }}>Save order</Button>
-        </div>
+        </Flex>
       }
     >
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext items={items.map((i) => i.id)} strategy={verticalListSortingStrategy}>
-          <div className="space-y-1.5">
+          <Flex vertical gap={6}>
             {items.map((item) => (
               <SortableRow key={item.id} item={item} />
             ))}
-          </div>
+          </Flex>
         </SortableContext>
       </DndContext>
     </Modal>

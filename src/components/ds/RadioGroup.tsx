@@ -1,3 +1,7 @@
+"use client";
+
+import { Radio } from "antd";
+
 interface RadioOption {
   value: string;
   label: string;
@@ -12,25 +16,22 @@ interface RadioGroupProps {
   className?: string;
 }
 
-export default function RadioGroup({ name, label, options, value, onChange, className = "" }: RadioGroupProps) {
+export default function RadioGroup({ name, label, options, value, onChange, className }: RadioGroupProps) {
   return (
-    <fieldset className={className}>
-      {label && <legend className="mb-2 block text-label-lg text-text-secondary">{label}</legend>}
-      <div className="space-y-2">
-        {options.map((opt) => (
-          <label key={opt.value} className="flex cursor-pointer items-center gap-2 text-body-md text-text">
-            <input
-              type="radio"
-              name={name}
-              value={opt.value}
-              checked={value === opt.value}
-              onChange={() => onChange?.(opt.value)}
-              className="h-4 w-4 border-gray-300 text-primary accent-primary focus:ring-primary"
-            />
-            {opt.label}
-          </label>
-        ))}
-      </div>
-    </fieldset>
+    <div className={className}>
+      {label && (
+        <div style={{ marginBottom: 8, fontSize: 14, color: "var(--ant-color-text-secondary)" }}>
+          {label}
+        </div>
+      )}
+      <Radio.Group
+        name={name}
+        value={value}
+        onChange={(e) => onChange?.(e.target.value)}
+        options={options}
+        optionType="default"
+        style={{ display: "flex", flexDirection: "column", gap: 8 }}
+      />
+    </div>
   );
 }

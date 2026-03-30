@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import { Flex } from "antd";
 import {
   Button,
   PageHeader,
@@ -26,7 +27,6 @@ export interface ColumnDef<T> {
   key: string;
   label: string | ReactNode;
   align?: "left" | "right" | "center";
-  /** Custom cell renderer. If omitted, renders `String(item[key])`. */
   render?: (item: T, index: number) => ReactNode;
 }
 
@@ -34,55 +34,26 @@ export interface SettingsListPageProps<
   T extends Record<string, unknown>,
   F extends Record<string, unknown>,
 > {
-  /** Page title shown in PageHeader */
   title: string;
-  /** Description text below header (optional) */
   description?: string;
-  /** Items to display in the table */
   items: T[];
-  /** Column definitions */
   columns: ColumnDef<T>[];
-  /** Dropdown preset or custom items for the Actions column */
   dropdownItems: DropdownItem[];
-  /** Called when a dropdown action is selected. Default handles "edit" → openEdit. */
   onAction?: (action: string, item: T, index: number) => void;
-  /** Whether to show the actions column (default: true) */
   showActions?: boolean;
-  /** Condition to show dropdown for a row (default: always show) */
   showDropdown?: (item: T, index: number) => boolean;
-  /** Fallback content when dropdown is hidden (default: "-") */
   hiddenDropdownContent?: ReactNode;
-
-  // --- Header buttons ---
-  /** Primary button label (e.g. "+ New tag"). If omitted, no primary button. */
   primaryButtonLabel?: string;
-  /** Extra header buttons (Learn, Show archived, etc.) */
   headerButtons?: ReactNode;
-
-  // --- Search ---
-  /** Show search bar */
   hasSearch?: boolean;
   searchPlaceholder?: string;
-  /** Filter function for search. If omitted, search is disabled. */
   searchFilter?: (item: T, query: string) => boolean;
-
-  // --- Pagination ---
   itemsPerPage?: number;
-
-  // --- Modal form ---
-  /** Form field defaults for useFormModal. If omitted, no modal is rendered. */
   formDefaults?: F;
-  /** Called on save — receives form values and edit index (null for create) */
   onSave?: (values: F, index: number | null) => void;
-  /** Modal title factory */
   modalTitle?: (isEditing: boolean) => string;
-  /** Render the modal form body */
   renderForm?: (form: F, setField: <K extends keyof F>(key: K, value: F[K]) => void) => ReactNode;
-
-  // --- Wrapper ---
-  /** Additional className on outer div */
   className?: string;
-  /** Content rendered between header and table (tabs, description, etc.) */
   beforeTable?: ReactNode;
 }
 
@@ -102,7 +73,7 @@ export default function SettingsListPage<
   onAction,
   showActions = true,
   showDropdown,
-  hiddenDropdownContent = <span className="text-text-secondary">-</span>,
+  hiddenDropdownContent = <span style={{ color: "var(--ant-color-text-secondary)" }}>-</span>,
   primaryButtonLabel,
   headerButtons,
   hasSearch = false,
@@ -113,20 +84,18 @@ export default function SettingsListPage<
   onSave,
   modalTitle,
   renderForm,
-  className = "",
+  className,
   beforeTable,
 }: SettingsListPageProps<T, F>) {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Modal (only used when formDefaults + onSave are provided)
   const hasModal = formDefaults && onSave && renderForm;
   const modalHook = useFormModal<F>({
     defaults: (formDefaults ?? {}) as F,
     onSave: onSave ?? (() => {}),
   } as UseFormModalOptions<F>);
 
-  // Search + pagination
   const filtered =
     hasSearch && searchFilter && searchQuery
       ? items.filter((item) => searchFilter(item, searchQuery))
@@ -141,9 +110,7 @@ export default function SettingsListPage<
       onAction(action, item, globalIndex);
       return;
     }
-    // Default: open edit modal
     if (action === "edit" && hasModal) {
-      // Extract form fields from item
       const values = {} as F;
       for (const key of Object.keys(formDefaults!)) {
         (values as Record<string, unknown>)[key] = (item as Record<string, unknown>)[key];
@@ -153,7 +120,7 @@ export default function SettingsListPage<
   }
 
   return (
-    <div className={`p-6 ${className}`}>
+    <div style={{ padding: 24 }} className={className}>
       <PageHeader title={title}>
         {headerButtons}
         {primaryButtonLabel && hasModal && (
@@ -167,7 +134,7 @@ export default function SettingsListPage<
       </PageHeader>
 
       {description && (
-        <p className="mb-4 text-body-md text-text-secondary">{description}</p>
+        <p style={{ marginBottom: 16, fontSize: 14, color: "var(--ant-color-text-secondary)" }}>{description}</p>
       )}
 
       {beforeTable}
@@ -193,7 +160,7 @@ export default function SettingsListPage<
         </TableHead>
         <TableBody>
           {pageItems.map((item, i) => (
-            <tr key={i} className="hover:bg-gray-50">
+            <tr key={i}>
               {columns.map((col) => (
                 <Td key={col.key} align={col.align}>
                   {col.render
@@ -221,7 +188,7 @@ export default function SettingsListPage<
             <tr>
               <td
                 colSpan={columns.length + (showActions ? 1 : 0)}
-                className="px-4 py-8 text-center text-body-md text-text-secondary"
+                style={{ padding: "32px 16px", textAlign: "center", fontSize: 14, color: "var(--ant-color-text-secondary)" }}
               >
                 No items found.
               </td>
@@ -244,19 +211,19 @@ export default function SettingsListPage<
           onClose={modalHook.closeModal}
           title={modalTitle ? modalTitle(modalHook.isEditing) : (modalHook.isEditing ? "Edit" : "Create")}
           footer={
-            <>
+            <Flex justify="flex-end" gap={8}>
               <Button variant="secondary" onClick={modalHook.closeModal}>
                 Cancel
               </Button>
               <Button variant="primary" onClick={modalHook.handleSave}>
                 Save
               </Button>
-            </>
+            </Flex>
           }
         >
-          <div className="space-y-4">
+          <Flex vertical gap={16}>
             {renderForm(modalHook.form, modalHook.setField)}
-          </div>
+          </Flex>
         </Modal>
       )}
     </div>

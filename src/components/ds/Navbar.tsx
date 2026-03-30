@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeftOutlined } from "@ant-design/icons";
+import { Flex, theme } from "antd";
 
 interface NavbarProps {
   backHref: string;
@@ -9,16 +12,26 @@ interface NavbarProps {
 }
 
 export default function Navbar({ backHref, title, badge, children }: NavbarProps) {
+  const { token } = theme.useToken();
+
   return (
-    <div className="flex items-center justify-between border-b border-border bg-white px-6 py-3">
-      <div className="flex items-center gap-3">
-        <Link href={backHref} className="flex items-center text-text-secondary hover:text-text">
-          <ArrowLeft className="h-4 w-4" />
+    <Flex
+      justify="space-between"
+      align="center"
+      style={{
+        borderBottom: `1px solid ${token.colorBorder}`,
+        backgroundColor: token.colorBgContainer,
+        padding: "12px 24px",
+      }}
+    >
+      <Flex align="center" gap={12}>
+        <Link href={backHref} style={{ color: token.colorTextSecondary, display: "flex", alignItems: "center" }}>
+          <ArrowLeftOutlined style={{ fontSize: 14 }} />
         </Link>
-        <h1 className="text-heading-lg text-text">{title}</h1>
+        <h1 style={{ fontSize: 18, fontWeight: 600 }}>{title}</h1>
         {badge}
-      </div>
-      {children && <div className="flex items-center gap-2">{children}</div>}
-    </div>
+      </Flex>
+      {children && <Flex align="center" gap={8}>{children}</Flex>}
+    </Flex>
   );
 }

@@ -1,237 +1,194 @@
 "use client";
 
-import { useState, Fragment } from "react";
-import { ArrowUpDown, ArrowUp, ArrowDown, Filter, ChevronDown, ChevronRight, MoreHorizontal } from "lucide-react";
-import Dropdown from "./Dropdown";
+import { Table, Dropdown, Button } from "antd";
+import { EllipsisOutlined } from "@ant-design/icons";
+import type { ColumnsType } from "antd/es/table";
 import type { DropdownItem } from "./Dropdown";
+import type { MenuProps } from "antd";
+import type { Key, ReactNode } from "react";
 
-/* ─── DataTable wrapper ───────────────────────────────────────────────── */
+// ─── Column Definition ─────────────────────────────────────────────────────
 
-interface DataTableProps {
-  children: React.ReactNode;
-  minWidth?: string;
-  className?: string;
-}
-
-export default function DataTable({ children, minWidth, className = "" }: DataTableProps) {
-  return (
-    <table className={`w-full ${className}`} style={minWidth ? { minWidth } : undefined}>
-      {children}
-    </table>
-  );
-}
-
-/* ─── TableHead ───────────────────────────────────────────────────────── */
-
-export function TableHead({ children }: { children: React.ReactNode }) {
-  return (
-    <thead>
-      <tr className="border-b border-border bg-[rgb(234,237,241)]">{children}</tr>
-    </thead>
-  );
-}
-
-/* ─── Th (sortable + filterable) ──────────────────────────────────────── */
-
-type SortDirection = "asc" | "desc" | null;
-
-interface ThProps {
-  children?: React.ReactNode;
+export interface DataTableColumn<T> {
+  key: string;
+  title: string | ReactNode;
+  dataIndex?: string | string[];
   align?: "left" | "right" | "center";
-  className?: string;
-  hidden?: "sm" | "md" | "lg";
-  /** Show sort indicator and make header clickable */
   sortable?: boolean;
-  /** Current sort direction (controlled) */
-  sortDirection?: SortDirection;
-  /** Called when sort is toggled */
-  onSort?: () => void;
-  /** Show filter funnel icon */
-  filterable?: boolean;
-  /** Called when filter icon is clicked */
-  onFilter?: () => void;
+  sorter?: (a: T, b: T) => number;
+  filters?: { text: string; value: string }[];
+  onFilter?: (value: string, record: T) => boolean;
+  render?: (value: unknown, record: T, index: number) => ReactNode;
+  responsive?: ("xs" | "sm" | "md" | "lg" | "xl" | "xxl")[];
+  width?: number | string;
+  fixed?: "left" | "right";
 }
 
-export function Th({
+// ─── Props ──────────────────────────────────────────────────────────────────
+
+export interface DataTableProps<T extends Record<string, unknown>> {
+  columns?: DataTableColumn<T>[];
+  dataSource?: T[];
+  rowKey?: string | ((record: T) => Key);
+  loading?: boolean;
+  minWidth?: number | string;
+  pagination?: false | {
+    current?: number;
+    pageSize?: number;
+    total?: number;
+    onChange?: (page: number, pageSize: number) => void;
+    showSizeChanger?: boolean;
+    pageSizeOptions?: number[];
+    showTotal?: (total: number, range: [number, number]) => string;
+  };
+  rowSelection?: {
+    selectedRowKeys: Key[];
+    onChange: (keys: Key[], rows: T[]) => void;
+  };
+  expandable?: {
+    expandedRowRender: (record: T) => ReactNode;
+    rowExpandable?: (record: T) => boolean;
+  };
+  onRow?: (record: T, index: number) => {
+    onClick?: () => void;
+    style?: React.CSSProperties;
+  };
+  /** Legacy: children-based rendering (Phase 3 migration to columns/dataSource) */
+  children?: ReactNode;
+  className?: string;
+}
+
+// ─── Component ──────────────────────────────────────────────────────────────
+
+export default function DataTable<T extends Record<string, unknown>>({
+  columns,
+  dataSource,
+  rowKey = "id",
+  loading,
+  minWidth,
+  pagination,
+  rowSelection,
+  expandable,
+  onRow,
   children,
-  align = "left",
-  className = "",
-  hidden,
-  sortable,
-  sortDirection,
-  onSort,
-  filterable,
-  onFilter,
-}: ThProps) {
-  // Static class map — Tailwind JIT requires full class strings, not dynamic interpolation
-  const hideClassMap = { sm: "hidden sm:table-cell", md: "hidden md:table-cell", lg: "hidden lg:table-cell" };
-  const hideClass = hidden ? hideClassMap[hidden] : "";
-  const interactive = sortable || filterable;
-
-  const SortIcon = sortDirection === "asc" ? ArrowUp : sortDirection === "desc" ? ArrowDown : ArrowUpDown;
-  const sortedBg = sortDirection ? "bg-primary/5" : "";
-
-  return (
-    <th
-      className={`p-4 text-${align} text-[14px] font-semibold leading-[22px] text-text first:rounded-tl-lg last:rounded-tr-lg ${sortedBg} ${hideClass} ${interactive ? "select-none" : ""} ${className}`}
-    >
-      <div className={`inline-flex items-center gap-1 ${interactive ? "cursor-pointer" : ""}`} onClick={sortable ? onSort : undefined}>
+  className,
+}: DataTableProps<T>) {
+  // Legacy mode: render as plain <table> when children are passed
+  if (children) {
+    return (
+      <table className={className} style={{ width: "100%", ...(minWidth ? { minWidth: typeof minWidth === "number" ? `${minWidth}px` : minWidth } : {}) }}>
         {children}
-        {sortable && (
-          <SortIcon className={`h-3.5 w-3.5 ${sortDirection ? "text-primary" : "text-primary/60"}`} />
-        )}
-        {filterable && (
-          <Filter
-            className="h-3.5 w-3.5 cursor-pointer text-primary/60 hover:text-primary"
-            onClick={(e) => { e.stopPropagation(); onFilter?.(); }}
-          />
-        )}
-      </div>
-    </th>
-  );
-}
+      </table>
+    );
+  }
 
-/* ─── TableBody ───────────────────────────────────────────────────────── */
+  // New AntD Table mode
+  const antColumns: ColumnsType<T> = (columns || []).map((col) => ({
+    key: col.key,
+    title: col.title,
+    dataIndex: col.dataIndex ?? col.key,
+    align: col.align,
+    sorter: col.sortable ? (col.sorter ?? true) : undefined,
+    filters: col.filters,
+    onFilter: col.onFilter
+      ? (value: boolean | Key, record: T) => col.onFilter!(String(value), record)
+      : undefined,
+    render: col.render
+      ? (_value: unknown, record: T, index: number) => col.render!(_value, record, index)
+      : undefined,
+    responsive: col.responsive,
+    width: col.width,
+    fixed: col.fixed,
+  }));
 
-export function TableBody({ children }: { children: React.ReactNode }) {
-  return <tbody className="divide-y divide-border">{children}</tbody>;
-}
-
-/* ─── Tr (row with hover, clickable, selected) ────────────────────────── */
-
-interface TrProps extends React.HTMLAttributes<HTMLTableRowElement> {
-  children: React.ReactNode;
-  /** Apply hover background (default true) */
-  hover?: boolean;
-  /** Show pointer cursor */
-  clickable?: boolean;
-  /** Highlight as selected row */
-  selected?: boolean;
-  className?: string;
-}
-
-export function Tr({ children, hover = true, clickable, selected, className = "", ...props }: TrProps) {
   return (
-    <tr
-      className={`transition-colors ${hover ? "hover:bg-surface-header" : ""} ${clickable ? "cursor-pointer" : ""} ${selected ? "bg-primary/5" : ""} ${className}`}
-      {...props}
-    >
-      {children}
-    </tr>
+    <Table<T>
+      columns={antColumns}
+      dataSource={dataSource}
+      rowKey={rowKey}
+      loading={loading}
+      scroll={minWidth ? { x: typeof minWidth === "number" ? minWidth : undefined } : undefined}
+      pagination={pagination === false ? false : pagination ? {
+        current: pagination.current,
+        pageSize: pagination.pageSize,
+        total: pagination.total,
+        onChange: pagination.onChange,
+        showSizeChanger: pagination.showSizeChanger,
+        pageSizeOptions: pagination.pageSizeOptions?.map(String),
+        showTotal: pagination.showTotal ?? ((total, range) => `${range[0]}-${range[1]} of ${total} items`),
+        size: "small",
+      } : undefined}
+      rowSelection={rowSelection ? {
+        type: "checkbox",
+        selectedRowKeys: rowSelection.selectedRowKeys,
+        onChange: rowSelection.onChange as (keys: Key[], rows: T[]) => void,
+      } : undefined}
+      expandable={expandable ? {
+        expandedRowRender: (record) => expandable.expandedRowRender(record),
+        rowExpandable: expandable.rowExpandable,
+      } : undefined}
+      onRow={onRow ? (record, index) => onRow(record, index ?? 0) : undefined}
+      className={className}
+      size="middle"
+    />
   );
 }
 
-/* ─── Td ──────────────────────────────────────────────────────────────── */
+// ─── Helper Components ──────────────────────────────────────────────────────
 
-interface TdProps {
-  children?: React.ReactNode;
-  align?: "left" | "right" | "center";
-  className?: string;
-  hidden?: "sm" | "md" | "lg";
-}
-
-export function Td({ children, align = "left", className = "", hidden }: TdProps) {
-  const hideClassMap = { sm: "hidden sm:table-cell", md: "hidden md:table-cell", lg: "hidden lg:table-cell" };
-  const hideClass = hidden ? hideClassMap[hidden] : "";
-  return <td className={`px-4 py-3 text-${align} text-body-md ${hideClass} ${className}`}>{children}</td>;
-}
-
-/* ─── LinkCell (primary-colored clickable text) ───────────────────────── */
-
-interface LinkCellProps {
-  children: React.ReactNode;
+/** @deprecated Use DataTableColumn.render with <a> tag instead */
+export function LinkCell({ children, href, onClick, className }: {
+  children: ReactNode;
   href?: string;
   onClick?: () => void;
   className?: string;
-}
-
-export function LinkCell({ children, href, onClick, className = "" }: LinkCellProps) {
+}) {
   if (href) {
-    return (
-      <a href={href} className={`text-primary hover:underline ${className}`}>
-        {children}
-      </a>
-    );
+    return <a href={href} className={className} style={{ color: "var(--ant-color-primary)" }}>{children}</a>;
   }
-  return (
-    <button onClick={onClick} className={`text-primary hover:underline ${className}`}>
-      {children}
-    </button>
-  );
+  return <button onClick={onClick} className={className} style={{ color: "var(--ant-color-primary)", background: "none", border: "none", cursor: "pointer", padding: 0 }}>{children}</button>;
 }
 
-/* ─── ActionsCell (... dropdown in right-aligned cell) ────────────────── */
-
-interface ActionsCellProps {
+/** @deprecated Use DataTableColumn with a render function that includes a Dropdown */
+export function ActionsCell({ items, onSelect }: {
   items: DropdownItem[];
   onSelect?: (value: string) => void;
-}
+}) {
+  const menuItems: MenuProps["items"] = items.map((item) =>
+    item.divider
+      ? { type: "divider" as const, key: item.value }
+      : { key: item.value, label: item.label, danger: item.danger }
+  );
 
-export function ActionsCell({ items, onSelect }: ActionsCellProps) {
   return (
-    <Td align="right">
-      <Dropdown
-        trigger={
-          <button className="rounded p-1 text-text-secondary hover:bg-gray-100">
-            <MoreHorizontal className="h-4 w-4" />
-          </button>
-        }
-        items={items}
-        onSelect={onSelect || (() => {})}
-        align="right"
-      />
-    </Td>
+    <Dropdown menu={{ items: menuItems, onClick: ({ key }) => onSelect?.(key) }} trigger={["click"]}>
+      <Button type="text" icon={<EllipsisOutlined />} size="small" />
+    </Dropdown>
   );
 }
 
-/* ─── ExpandableRow (expand/collapse with sub-content) ────────────────── */
-
-interface ExpandableRowProps {
-  children: React.ReactNode;
-  /** Content shown when expanded (rendered in a full-width sub-row) */
-  expandContent: React.ReactNode;
-  /** Number of columns for the expanded content to span */
-  colSpan: number;
-  /** Controlled expanded state (optional — uses internal state if not provided) */
-  expanded?: boolean;
-  /** Controlled toggle (optional) */
-  onToggle?: () => void;
-  hover?: boolean;
-  className?: string;
+// Legacy sub-components — exported for backward compat during Phase 3 migration
+/** @deprecated Use DataTable with columns prop */
+export function TableHead({ children }: { children: ReactNode }) {
+  return <thead><tr style={{ borderBottom: "1px solid var(--ant-color-border)", backgroundColor: "rgb(234, 237, 241)" }}>{children}</tr></thead>;
 }
-
-export function ExpandableRow({
-  children,
-  expandContent,
-  colSpan,
-  expanded: controlledExpanded,
-  onToggle,
-  hover = true,
-  className = "",
-}: ExpandableRowProps) {
-  const [internalExpanded, setInternalExpanded] = useState(false);
-  const isExpanded = controlledExpanded ?? internalExpanded;
-  const toggle = onToggle ?? (() => setInternalExpanded((v) => !v));
-
-  return (
-    <Fragment>
-      <Tr hover={hover} clickable className={className} onClick={toggle}>
-        <Td className="w-8">
-          {isExpanded ? (
-            <ChevronDown className="h-4 w-4 text-text-secondary" />
-          ) : (
-            <ChevronRight className="h-4 w-4 text-text-secondary" />
-          )}
-        </Td>
-        {children}
-      </Tr>
-      {isExpanded && (
-        <tr className="bg-gray-50/50">
-          <td colSpan={colSpan} className="px-4 py-3">
-            {expandContent}
-          </td>
-        </tr>
-      )}
-    </Fragment>
-  );
+/** @deprecated Use DataTableColumn instead */
+export function Th({ children, align = "left", className, hidden, sortable, sortDirection, onSort }: { children?: ReactNode; align?: string; className?: string; hidden?: string; sortable?: boolean; sortDirection?: string | null; onSort?: () => void; filterable?: boolean; onFilter?: () => void }) {
+  return <th style={{ padding: "16px", textAlign: align as React.CSSProperties["textAlign"], fontSize: 14, fontWeight: 600, lineHeight: "22px" }}>{children}</th>;
+}
+/** @deprecated Use DataTable with dataSource prop */
+export function TableBody({ children }: { children: ReactNode }) {
+  return <tbody>{children}</tbody>;
+}
+/** @deprecated Use DataTableColumn.render instead */
+export function Td({ children, align = "left", className, hidden }: { children?: ReactNode; align?: string; className?: string; hidden?: string }) {
+  return <td style={{ padding: "12px 16px", textAlign: align as React.CSSProperties["textAlign"], fontSize: 14 }}>{children}</td>;
+}
+/** @deprecated Use onRow prop instead */
+export function Tr({ children, hover, clickable, selected, className, ...props }: { children: ReactNode; hover?: boolean; clickable?: boolean; selected?: boolean; className?: string } & React.HTMLAttributes<HTMLTableRowElement>) {
+  return <tr style={{ cursor: clickable ? "pointer" : undefined }} {...props}>{children}</tr>;
+}
+/** @deprecated Use expandable prop instead */
+export function ExpandableRow({ children }: { children: ReactNode; expandContent: ReactNode; colSpan: number; expanded?: boolean; onToggle?: () => void; hover?: boolean; className?: string }) {
+  return <tr>{children}</tr>;
 }

@@ -1,0 +1,60 @@
+.aside {
+  width: 229px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  border-right: 1px solid var(--ant-color-border);
+  background-color: #ffffff;
+  padding-top: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.sectionTitle {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 22px;
+  color: #000000;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listItem {
+  margin: 2px 4px;
+}
+
+.link {
+  display: block;
+  border-radius: 8px;
+  padding-left: 24px;
+  padding-right: 16px;
+  font-size: 14px;
+  line-height: 38px;
+  font-weight: 400;
+  color: rgb(65, 69, 73);
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.link:hover {
+  background-color: rgba(130, 80, 255, 0.05);
+  color: var(--ant-color-primary);
+}
+
+.linkActive {
+  background-color: rgba(130, 80, 255, 0.1);
+  font-weight: 600;
+  color: var(--ant-color-primary);
+}
+
+.badge {
+  margin-left: 8px;
+  border-radius: 4px;
+  background-color: var(--ant-color-primary);
+  padding: 2px 6px;
+  font-size: 11px;
+  color: #ffffff;
+}

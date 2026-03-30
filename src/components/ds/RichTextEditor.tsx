@@ -1,8 +1,23 @@
 "use client";
 
 import { useRef, useCallback, useState } from "react";
-import { Bold, Italic, Underline, Strikethrough, Link, List, ListOrdered, Heading1, Heading2, Image, ChevronDown, Undo2, Redo2, Minus } from "lucide-react";
+import {
+  BoldOutlined,
+  ItalicOutlined,
+  UnderlineOutlined,
+  StrikethroughOutlined,
+  LinkOutlined,
+  UnorderedListOutlined,
+  OrderedListOutlined,
+  FontSizeOutlined,
+  PictureOutlined,
+  UndoOutlined,
+  RedoOutlined,
+  MinusOutlined,
+  DownOutlined,
+} from "@ant-design/icons";
 import Dropdown from "./Dropdown";
+import styles from "./RichTextEditor.module.css";
 
 interface RichTextEditorProps {
   value?: string;
@@ -60,85 +75,83 @@ export default function RichTextEditor({
     }
   }, [onChange]);
 
-  const ToolbarButton = ({ command, icon: Icon, active }: { command: string; icon: React.ComponentType<{ className?: string }>; active?: boolean }) => (
+  const ToolbarButton = ({ command, icon, active }: { command: string; icon: React.ReactNode; active?: boolean }) => (
     <button
       type="button"
       onMouseDown={(e) => { e.preventDefault(); execCommand(command); }}
-      className={`rounded p-1.5 transition-colors ${active ? "bg-primary/10 text-primary" : "text-text-secondary hover:bg-gray-100 hover:text-text"}`}
+      className={`${styles.toolbarButton} ${active ? styles.toolbarButtonActive : ""}`}
     >
-      <Icon className="h-4 w-4" />
+      {icon}
     </button>
   );
 
   return (
-    <div className="overflow-hidden rounded-lg border border-border focus-within:border-primary focus-within:ring-1 focus-within:ring-primary">
-      {/* Toolbar */}
-      <div className="flex flex-wrap items-center gap-0.5 border-b border-border bg-gray-50/50 px-2 py-1.5">
-        <ToolbarButton command="bold" icon={Bold} active={activeFormats.has("bold")} />
-        <ToolbarButton command="italic" icon={Italic} active={activeFormats.has("italic")} />
-        <ToolbarButton command="underline" icon={Underline} active={activeFormats.has("underline")} />
-        <ToolbarButton command="strikeThrough" icon={Strikethrough} active={activeFormats.has("strikeThrough")} />
+    <div className={styles.wrapper}>
+      <div className={styles.toolbar}>
+        <ToolbarButton command="bold" icon={<BoldOutlined />} active={activeFormats.has("bold")} />
+        <ToolbarButton command="italic" icon={<ItalicOutlined />} active={activeFormats.has("italic")} />
+        <ToolbarButton command="underline" icon={<UnderlineOutlined />} active={activeFormats.has("underline")} />
+        <ToolbarButton command="strikeThrough" icon={<StrikethroughOutlined />} active={activeFormats.has("strikeThrough")} />
 
-        <span className="mx-1 h-5 w-px bg-border" />
+        <span className={styles.divider} />
 
         <button
           type="button"
           onMouseDown={(e) => { e.preventDefault(); execCommand("formatBlock", "h1"); }}
-          className="rounded p-1.5 text-text-secondary hover:bg-gray-100 hover:text-text"
+          className={styles.toolbarButton}
         >
-          <Heading1 className="h-4 w-4" />
+          <FontSizeOutlined />
         </button>
         <button
           type="button"
           onMouseDown={(e) => { e.preventDefault(); execCommand("formatBlock", "h2"); }}
-          className="rounded p-1.5 text-text-secondary hover:bg-gray-100 hover:text-text"
+          className={styles.toolbarButton}
+          style={{ fontSize: 12 }}
         >
-          <Heading2 className="h-4 w-4" />
+          <FontSizeOutlined />
         </button>
 
-        <span className="mx-1 h-5 w-px bg-border" />
+        <span className={styles.divider} />
 
-        <ToolbarButton command="insertUnorderedList" icon={List} />
-        <ToolbarButton command="insertOrderedList" icon={ListOrdered} />
+        <ToolbarButton command="insertUnorderedList" icon={<UnorderedListOutlined />} />
+        <ToolbarButton command="insertOrderedList" icon={<OrderedListOutlined />} />
 
-        <span className="mx-1 h-5 w-px bg-border" />
+        <span className={styles.divider} />
 
         <button
           type="button"
           onMouseDown={(e) => { e.preventDefault(); handleLink(); }}
-          className="rounded p-1.5 text-text-secondary hover:bg-gray-100 hover:text-text"
+          className={styles.toolbarButton}
         >
-          <Link className="h-4 w-4" />
+          <LinkOutlined />
+        </button>
+        <button type="button" className={styles.toolbarButton}>
+          <PictureOutlined />
         </button>
         <button
           type="button"
-          className="rounded p-1.5 text-text-secondary hover:bg-gray-100 hover:text-text"
-        >
-          <Image className="h-4 w-4" />
-        </button>
-        <button
-          type="button"
-          className="rounded px-1.5 py-1 text-[11px] font-semibold text-text-secondary hover:bg-gray-100 hover:text-text"
+          className={styles.toolbarButton}
+          style={{ width: "auto", padding: "0 6px", fontSize: 11, fontWeight: 600 }}
         >
           GIF
         </button>
 
-        <span className="mx-1 h-5 w-px bg-border" />
+        <span className={styles.divider} />
 
-        <ToolbarButton command="insertHorizontalRule" icon={Minus} />
+        <ToolbarButton command="insertHorizontalRule" icon={<MinusOutlined />} />
 
-        <span className="mx-1 h-5 w-px bg-border" />
+        <span className={styles.divider} />
 
-        <ToolbarButton command="undo" icon={Undo2} />
-        <ToolbarButton command="redo" icon={Redo2} />
+        <ToolbarButton command="undo" icon={<UndoOutlined />} />
+        <ToolbarButton command="redo" icon={<RedoOutlined />} />
 
         {variables && variables.length > 0 && (
           <>
-            <span className="mx-1 h-5 w-px bg-border" />
+            <span className={styles.divider} />
             <Dropdown
               trigger={
-                <button type="button" className="flex items-center gap-1 rounded px-2 py-1 text-caption-md text-primary hover:bg-primary/5">
-                  Insert variable <ChevronDown className="h-3 w-3" />
+                <button type="button" style={{ display: "flex", alignItems: "center", gap: 4, borderRadius: 4, padding: "4px 8px", fontSize: 12, color: "var(--ant-color-primary)", background: "none", border: "none", cursor: "pointer" }}>
+                  Insert variable <DownOutlined style={{ fontSize: 10 }} />
                 </button>
               }
               items={variables.map((v) => ({ label: `{${v}}`, value: v }))}
@@ -149,7 +162,6 @@ export default function RichTextEditor({
         )}
       </div>
 
-      {/* Editable area */}
       <div
         ref={editorRef}
         contentEditable
@@ -157,7 +169,7 @@ export default function RichTextEditor({
         onInput={handleInput}
         onKeyUp={updateActiveFormats}
         onMouseUp={updateActiveFormats}
-        className="prose prose-sm max-w-none px-4 py-3 text-body-md text-text outline-none"
+        className={styles.editor}
         style={{ minHeight: `${rows * 24}px` }}
         data-placeholder={placeholder}
         dangerouslySetInnerHTML={{ __html: value }}

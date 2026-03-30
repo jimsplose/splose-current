@@ -1,5 +1,7 @@
 "use client";
 
+import { ColorPicker, Flex, theme } from "antd";
+
 const DEFAULT_SWATCHES = [
   "#ef4444", "#f97316", "#f59e0b", "#eab308", "#84cc16",
   "#22c55e", "#10b981", "#14b8a6", "#06b6d4", "#0ea5e9",
@@ -11,9 +13,7 @@ interface FormColorPickerProps {
   label?: string;
   value: string;
   onChange: (color: string) => void;
-  /** "native" shows browser color input, "swatches" shows a swatch grid */
   variant?: "native" | "swatches";
-  /** Custom swatch colors (only used with variant="swatches") */
   swatches?: string[];
 }
 
@@ -24,34 +24,43 @@ export default function FormColorPicker({
   variant = "native",
   swatches = DEFAULT_SWATCHES,
 }: FormColorPickerProps) {
+  const { token } = theme.useToken();
+
   return (
     <div>
-      <label className="mb-1 block text-label-lg text-text-secondary">{label}</label>
+      <label style={{ display: "block", marginBottom: 4, fontSize: 14, color: token.colorTextSecondary }}>
+        {label}
+      </label>
       {variant === "swatches" ? (
-        <div className="grid grid-cols-10 gap-2">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(10, 1fr)", gap: 8 }}>
           {swatches.map((swatch) => (
             <button
               key={swatch}
               type="button"
               onClick={() => onChange(swatch)}
-              className={`h-7 w-7 rounded-full transition-all ${
-                value === swatch ? "ring-2 ring-primary ring-offset-2" : "hover:scale-110"
-              }`}
-              style={{ backgroundColor: swatch }}
+              style={{
+                width: 28,
+                height: 28,
+                borderRadius: "50%",
+                backgroundColor: swatch,
+                border: "none",
+                cursor: "pointer",
+                outline: value === swatch ? `2px solid ${token.colorPrimary}` : "none",
+                outlineOffset: 2,
+                transition: "transform 0.15s",
+              }}
               aria-label={`Select colour ${swatch}`}
             />
           ))}
         </div>
       ) : (
-        <div className="flex items-center gap-3">
-          <input
-            type="color"
+        <Flex align="center" gap={12}>
+          <ColorPicker
             value={value}
-            onChange={(e) => onChange(e.target.value)}
-            className="h-10 w-10 cursor-pointer rounded border border-border"
+            onChange={(_, hex) => onChange(hex)}
           />
-          <span className="text-sm text-text-secondary">{value}</span>
-        </div>
+          <span style={{ fontSize: 12, color: token.colorTextSecondary }}>{value}</span>
+        </Flex>
       )}
     </div>
   );

@@ -1,3 +1,5 @@
+import { Flex } from "antd";
+
 interface PageHeaderProps {
   title: string;
   children?: React.ReactNode;
@@ -5,9 +7,9 @@ interface PageHeaderProps {
 
 export default function PageHeader({ title, children }: PageHeaderProps) {
   return (
-    <div className="mt-1 mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <h1 className="text-display-lg">{title}</h1>
-      {children && <div className="flex items-center gap-2">{children}</div>}
-    </div>
+    <Flex justify="space-between" align="center" wrap="wrap" gap={12} style={{ marginTop: 4, marginBottom: 16 }}>
+      <h1 style={{ fontSize: 30, fontWeight: 700, fontFamily: "'Sprig Sans', 'Inter', sans-serif", lineHeight: 1.2 }}>{title}</h1>
+      {children && <Flex align="center" gap={8}>{children}</Flex>}
+    </Flex>
   );
 }

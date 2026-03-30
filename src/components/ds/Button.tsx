@@ -1,57 +1,62 @@
+"use client";
+
+import { Button as AntButton } from "antd";
+import type { ButtonProps as AntButtonProps } from "antd";
 import { forwardRef } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "danger" | "ghost" | "link" | "icon" | "toolbar";
 type ButtonSize = "sm" | "md" | "lg";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "type" | "color"> {
   variant?: ButtonVariant;
   size?: ButtonSize;
-  /** Render as a circle (for FAB/round icon buttons) */
   round?: boolean;
   children: React.ReactNode;
+  htmlType?: "button" | "submit" | "reset";
 }
 
-const variantClasses: Record<ButtonVariant, string> = {
-  primary: "bg-primary text-white hover:bg-primary-dark border border-primary hover:border-primary-dark",
-  secondary: "border border-[rgb(65,69,73)] bg-white text-text hover:border-primary-light hover:text-primary-light",
-  danger: "border border-red-300 bg-white text-red-600 hover:bg-red-50",
-  ghost: "text-text-secondary hover:bg-gray-100",
-  link: "text-primary hover:underline",
-  icon: "rounded p-1.5 text-text-secondary hover:bg-gray-100",
-  toolbar: "rounded px-2 py-1 text-body-md text-text hover:bg-gray-200",
+const sizeMap: Record<ButtonSize, AntButtonProps["size"]> = {
+  sm: "small",
+  md: "middle",
+  lg: "large",
 };
 
-const sizeClasses: Record<ButtonVariant, Record<ButtonSize, string>> = {
-  primary: { sm: "px-3 py-1.5 text-label-lg", md: "px-4 py-2 text-label-lg", lg: "px-6 py-2.5 text-label-lg" },
-  secondary: { sm: "px-3 py-1.5 text-label-lg", md: "px-4 py-2 text-label-lg", lg: "px-6 py-2.5 text-label-lg" },
-  danger: { sm: "px-3 py-1.5 text-label-lg", md: "px-4 py-2 text-label-lg", lg: "px-6 py-2.5 text-label-lg" },
-  ghost: { sm: "px-2 py-1 text-label-lg", md: "px-3 py-1.5 text-label-lg", lg: "px-4 py-2 text-label-lg" },
-  link: { sm: "text-caption-md", md: "text-body-md", lg: "text-body-lg" },
-  icon: { sm: "p-1", md: "p-1.5", lg: "p-2" },
-  toolbar: { sm: "px-1.5 py-0.5 text-caption-md", md: "px-2 py-1 text-body-md", lg: "px-3 py-1.5 text-body-md" },
-};
-
-const baseClasses: Record<ButtonVariant, string> = {
-  primary: "inline-flex items-center gap-1.5 rounded-lg transition-all duration-200",
-  secondary: "inline-flex items-center gap-1.5 rounded-lg transition-all duration-200",
-  danger: "inline-flex items-center gap-1.5 rounded-lg transition-all duration-200",
-  ghost: "inline-flex items-center gap-1.5 rounded-lg transition-all duration-200",
-  link: "inline-flex items-center gap-1 transition-all duration-200",
-  icon: "inline-flex items-center justify-center transition-all duration-200",
-  toolbar: "inline-flex items-center justify-center transition-all duration-200",
-};
+function mapVariant(variant: ButtonVariant): Pick<AntButtonProps, "type" | "danger" | "shape"> {
+  switch (variant) {
+    case "primary":
+      return { type: "primary" };
+    case "secondary":
+      return { type: "default" };
+    case "danger":
+      return { type: "default", danger: true };
+    case "ghost":
+      return { type: "text" };
+    case "link":
+      return { type: "link" };
+    case "icon":
+      return { type: "text" };
+    case "toolbar":
+      return { type: "text" };
+  }
+}
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = "secondary", size = "md", round = false, className = "", children, ...props }, ref) => {
-    const roundClass = round ? "rounded-full" : "";
+  ({ variant = "secondary", size = "md", round = false, className, children, htmlType, disabled, onClick, ...props }, ref) => {
+    const antProps = mapVariant(variant);
+
     return (
-      <button
+      <AntButton
         ref={ref}
-        className={`${baseClasses[variant]} ${variantClasses[variant]} ${sizeClasses[variant][size]} ${roundClass} ${className}`}
-        {...props}
+        {...antProps}
+        size={sizeMap[size]}
+        shape={round ? "circle" : undefined}
+        className={className}
+        disabled={disabled}
+        onClick={onClick}
+        htmlType={htmlType}
       >
         {children}
-      </button>
+      </AntButton>
     );
   },
 );

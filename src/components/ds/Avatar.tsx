@@ -1,3 +1,8 @@
+"use client";
+
+import { Avatar as AntAvatar } from "antd";
+import { theme } from "antd";
+
 type AvatarSize = "sm" | "md" | "lg" | "xl";
 
 interface AvatarProps {
@@ -7,11 +12,11 @@ interface AvatarProps {
   className?: string;
 }
 
-const sizeClasses: Record<AvatarSize, string> = {
-  sm: "h-7 w-7 text-caption-sm",
-  md: "h-10 w-10 text-body-md",
-  lg: "h-12 w-12 text-body-lg",
-  xl: "h-14 w-14 text-heading-lg",
+const sizeMap: Record<AvatarSize, number> = {
+  sm: 28,
+  md: 40,
+  lg: 48,
+  xl: 56,
 };
 
 function getInitials(name: string): string {
@@ -24,14 +29,16 @@ function getInitials(name: string): string {
     .slice(0, 2);
 }
 
-export default function Avatar({ name, color, size = "md", className = "" }: AvatarProps) {
+export default function Avatar({ name, color, size = "md", className }: AvatarProps) {
+  const { token } = theme.useToken();
+
   return (
-    <div
-      className={`inline-flex shrink-0 items-center justify-center rounded-full font-medium text-white ${sizeClasses[size]} ${className}`}
-      style={{ backgroundColor: color || "var(--color-primary)" }}
-      title={name}
+    <AntAvatar
+      size={sizeMap[size]}
+      className={className}
+      style={{ backgroundColor: color || token.colorPrimary, flexShrink: 0 }}
     >
       {getInitials(name)}
-    </div>
+    </AntAvatar>
   );
 }

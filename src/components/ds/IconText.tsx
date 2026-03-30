@@ -1,14 +1,16 @@
+import { Flex } from "antd";
+
 interface IconTextProps {
   icon: React.ReactNode;
   children: React.ReactNode;
   className?: string;
 }
 
-export default function IconText({ icon, children, className = "" }: IconTextProps) {
+export default function IconText({ icon, children, className }: IconTextProps) {
   return (
-    <div className={`flex items-center gap-2 text-body-md text-text-secondary ${className}`}>
-      <span className="shrink-0">{icon}</span>
+    <Flex align="center" gap={8} className={className} style={{ fontSize: 14, color: "var(--ant-color-text-secondary)" }}>
+      <span style={{ flexShrink: 0 }}>{icon}</span>
       <span>{children}</span>
-    </div>
+    </Flex>
   );
 }

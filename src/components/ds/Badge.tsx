@@ -1,45 +1,67 @@
+"use client";
+
+import { Tag } from "antd";
+
 type BadgeVariant = "green" | "red" | "blue" | "yellow" | "orange" | "gray" | "purple";
 
 interface BadgeProps {
   children: React.ReactNode;
   variant?: BadgeVariant;
-  /** Use solid filled style (white text on dark bg) like production status pills */
   solid?: boolean;
   className?: string;
 }
 
-const variantClasses: Record<BadgeVariant, string> = {
-  green: "bg-green-100 text-green-700",
-  red: "bg-red-100 text-red-700",
-  blue: "bg-blue-100 text-blue-700",
-  yellow: "bg-yellow-100 text-yellow-700",
-  orange: "bg-orange-100 text-orange-700",
-  gray: "bg-gray-100 text-gray-600",
-  purple: "bg-purple-100 text-purple-700",
+const variantColorMap: Record<BadgeVariant, string> = {
+  green: "success",
+  red: "error",
+  blue: "processing",
+  yellow: "warning",
+  orange: "warning",
+  gray: "default",
+  purple: "purple",
 };
 
-const solidVariantClasses: Record<BadgeVariant, string> = {
-  green: "bg-[rgb(180,235,100)] text-white",
-  red: "bg-[rgb(240,0,50)] text-white",
-  blue: "bg-[rgb(180,235,100)] text-white",
-  yellow: "bg-[rgb(249,202,36)] text-white",
-  orange: "bg-orange-500 text-white",
-  gray: "bg-[rgb(165,165,158)] text-white",
-  purple: "bg-purple-600 text-white",
+const solidColorMap: Record<BadgeVariant, { bg: string; text: string }> = {
+  green: { bg: "#b4eb64", text: "#ffffff" },
+  red: { bg: "#D00032", text: "#ffffff" },
+  blue: { bg: "#5578FF", text: "#ffffff" },
+  yellow: { bg: "#FFD232", text: "#ffffff" },
+  orange: { bg: "#f97316", text: "#ffffff" },
+  gray: { bg: "#a5a59e", text: "#ffffff" },
+  purple: { bg: "#8250FF", text: "#ffffff" },
 };
 
-export default function Badge({ children, variant = "gray", solid = false, className = "" }: BadgeProps) {
-  const classes = solid ? solidVariantClasses[variant] : variantClasses[variant];
+export default function Badge({ children, variant = "gray", solid = false, className }: BadgeProps) {
+  if (solid) {
+    const colors = solidColorMap[variant];
+    return (
+      <Tag
+        bordered={false}
+        className={className}
+        style={{
+          backgroundColor: colors.bg,
+          color: colors.text,
+          borderRadius: 8,
+          fontSize: 12,
+        }}
+      >
+        {children}
+      </Tag>
+    );
+  }
+
   return (
-    <span
-      className={`inline-flex items-center rounded-lg px-[7px] text-body-sm ${classes} ${className}`}
+    <Tag
+      color={variantColorMap[variant]}
+      className={className}
+      style={{ borderRadius: 8, fontSize: 12 }}
     >
       {children}
-    </span>
+    </Tag>
   );
 }
 
-/** Convenience map for common status → variant */
+/** Convenience map for common status -> variant */
 export function statusVariant(status: string): BadgeVariant {
   const map: Record<string, BadgeVariant> = {
     Active: "green",

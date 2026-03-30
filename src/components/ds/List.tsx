@@ -1,3 +1,7 @@
+"use client";
+
+import { List as AntList, Flex } from "antd";
+
 interface ListItem {
   label: string;
   value: React.ReactNode;
@@ -9,15 +13,24 @@ interface ListProps {
   className?: string;
 }
 
-export default function List({ items, labelWidth = "w-28", className = "" }: ListProps) {
+export default function List({ items, labelWidth, className }: ListProps) {
   return (
-    <div className={`space-y-2 ${className}`}>
-      {items.map((item) => (
-        <div key={item.label} className="flex gap-16">
-          <span className={`${labelWidth} shrink-0 text-body-md text-text-secondary`}>{item.label}</span>
-          <span className="text-body-md text-text">{item.value}</span>
-        </div>
-      ))}
-    </div>
+    <AntList
+      className={className}
+      dataSource={items}
+      split={false}
+      renderItem={(item) => (
+        <AntList.Item style={{ padding: "4px 0", border: "none" }}>
+          <Flex gap={64}>
+            <span style={{ width: labelWidth || 112, flexShrink: 0, fontSize: 14, color: "var(--ant-color-text-secondary)" }}>
+              {item.label}
+            </span>
+            <span style={{ fontSize: 14 }}>
+              {item.value}
+            </span>
+          </Flex>
+        </AntList.Item>
+      )}
+    />
   );
 }

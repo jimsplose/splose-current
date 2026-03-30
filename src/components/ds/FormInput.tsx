@@ -1,31 +1,38 @@
+"use client";
+
+import { Input } from "antd";
 import { forwardRef } from "react";
 
-interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface FormInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
   label?: string;
   error?: string;
 }
 
 const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
-  ({ label, error, className = "", id, ...props }, ref) => {
+  ({ label, error, className, id, ...props }, ref) => {
     const inputId = id || label?.toLowerCase().replace(/\s+/g, "-");
+
     return (
-      <div>
+      <div className={className}>
         {label && (
-          <label htmlFor={inputId} className="mb-1 block text-label-lg text-text-secondary">
+          <label
+            htmlFor={inputId}
+            style={{ display: "block", marginBottom: 4, fontSize: 14, color: "var(--ant-color-text-secondary)" }}
+          >
             {label}
           </label>
         )}
-        <input
-          ref={ref}
+        <Input
+          ref={ref as never}
           id={inputId}
-          className={`w-full rounded-lg border bg-white px-3 py-2 text-body-md transition-colors outline-none ${
-            error
-              ? "border-red-400 focus:border-red-500 focus:ring-1 focus:ring-red-200"
-              : "border-border focus:border-primary focus:ring-1 focus:ring-primary/20"
-          } ${className}`}
-          {...props}
+          status={error ? "error" : undefined}
+          {...(props as Record<string, unknown>)}
         />
-        {error && <p className="mt-1 text-caption-md text-red-500">{error}</p>}
+        {error && (
+          <div style={{ marginTop: 4, fontSize: 12, color: "var(--ant-color-error)" }}>
+            {error}
+          </div>
+        )}
       </div>
     );
   },

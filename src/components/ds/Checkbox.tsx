@@ -1,23 +1,31 @@
+"use client";
+
+import { Checkbox as AntCheckbox } from "antd";
+import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import { forwardRef } from "react";
 
-interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
+interface CheckboxProps {
   label?: string;
+  checked?: boolean;
+  defaultChecked?: boolean;
+  disabled?: boolean;
+  onChange?: (e: CheckboxChangeEvent) => void;
+  className?: string;
+  id?: string;
+  name?: string;
+  value?: string;
+  readOnly?: boolean;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
-  ({ label, className = "", id, ...props }, ref) => {
-    const checkboxId = id || label?.toLowerCase().replace(/\s+/g, "-");
+  ({ label, className, readOnly, onClick, ...props }, ref) => {
     return (
-      <label htmlFor={checkboxId} className="inline-flex items-center gap-2 cursor-pointer">
-        <input
-          ref={ref}
-          id={checkboxId}
-          type="checkbox"
-          className={`h-4 w-4 rounded border-gray-300 text-primary accent-primary focus:ring-primary ${className}`}
-          {...props}
-        />
-        {label && <span className="text-body-md text-text">{label}</span>}
-      </label>
+      <span onClick={onClick}>
+        <AntCheckbox ref={ref as never} className={className} disabled={readOnly || props.disabled} {...props}>
+          {label}
+        </AntCheckbox>
+      </span>
     );
   },
 );

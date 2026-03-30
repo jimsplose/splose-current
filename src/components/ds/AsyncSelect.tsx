@@ -1,7 +1,7 @@
 "use client";
 
+import { Select, Spin } from "antd";
 import { useState, useEffect } from "react";
-import FormSelect from "./FormSelect";
 
 interface AsyncSelectProps {
   url: string;
@@ -20,7 +20,7 @@ export default function AsyncSelect({
   onChange,
   label,
   placeholder = "Select...",
-  className = "",
+  className,
 }: AsyncSelectProps) {
   const [options, setOptions] = useState<{ value: string; label: string }[]>([]);
   const [loading, setLoading] = useState(true);
@@ -35,11 +35,24 @@ export default function AsyncSelect({
       .catch(() => setLoading(false));
   }, [url, mapOption]);
 
-  const allOptions = [{ value: "", label: loading ? "Loading..." : placeholder }, ...options];
-
   return (
     <div className={className}>
-      <FormSelect label={label} options={allOptions} value={value} onChange={(e) => onChange(e.target.value)} />
+      {label && (
+        <label style={{ display: "block", marginBottom: 4, fontSize: 14, color: "var(--ant-color-text-secondary)" }}>
+          {label}
+        </label>
+      )}
+      <Select
+        value={value || undefined}
+        onChange={onChange}
+        placeholder={placeholder}
+        options={options}
+        loading={loading}
+        notFoundContent={loading ? <Spin size="small" /> : undefined}
+        showSearch
+        optionFilterProp="label"
+        style={{ width: "100%" }}
+      />
     </div>
   );
 }

@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { Input } from "antd";
+
+const { Search } = Input;
 
 interface SearchBarProps {
   placeholder?: string;
@@ -9,24 +11,15 @@ interface SearchBarProps {
 }
 
 export default function SearchBar({ placeholder = "Search...", onSearch, defaultValue = "" }: SearchBarProps) {
-  const [query, setQuery] = useState(defaultValue);
-
   return (
-    <div className="mb-4 flex items-center">
-      <input
-        type="text"
+    <div style={{ marginBottom: 16 }}>
+      <Search
         placeholder={placeholder}
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && onSearch?.(query)}
-        className="h-[38px] flex-1 rounded-l-lg rounded-r-none border border-r-0 border-[rgb(217,217,217)] bg-white px-[11px] text-[16px] outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+        defaultValue={defaultValue}
+        onSearch={onSearch}
+        enterButton="Search"
+        allowClear
       />
-      <button
-        onClick={() => onSearch?.(query)}
-        className="h-[38px] rounded-l-none rounded-r-lg border border-[rgb(65,69,73)] bg-white px-[15px] text-[16px] text-text hover:border-primary-light hover:text-primary-light"
-      >
-        Search
-      </button>
     </div>
   );
 }

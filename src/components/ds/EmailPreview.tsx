@@ -1,5 +1,6 @@
 "use client";
 
+import { theme, Flex } from "antd";
 import Modal from "./Modal";
 
 interface EmailPreviewProps {
@@ -19,32 +20,30 @@ export default function EmailPreview({
   body,
   senderName = "Hands Together Therapies",
 }: EmailPreviewProps) {
+  const { token } = theme.useToken();
+
   return (
     <Modal open={open} onClose={onClose} title="Email Preview" maxWidth="lg">
-      <div className="overflow-hidden rounded-lg border border-border">
-        {/* Email header */}
-        <div className="space-y-1 bg-gray-50 px-4 py-3">
-          <p className="text-body-sm text-text-secondary">
-            <span className="text-label-sm text-text">From:</span> {senderName}
-          </p>
-          <p className="text-body-sm text-text-secondary">
-            <span className="text-label-sm text-text">To:</span> {recipientName}
-          </p>
-          <p className="text-body-sm text-text-secondary">
-            <span className="text-label-sm text-text">Subject:</span> {subject}
-          </p>
+      <div style={{ borderRadius: token.borderRadius, border: `1px solid ${token.colorBorder}`, overflow: "hidden" }}>
+        <div style={{ backgroundColor: token.colorFillTertiary, padding: "12px 16px" }}>
+          <Flex vertical gap={4}>
+            <p style={{ fontSize: 12, color: token.colorTextSecondary }}>
+              <span style={{ fontWeight: 500 }}>From:</span> {senderName}
+            </p>
+            <p style={{ fontSize: 12, color: token.colorTextSecondary }}>
+              <span style={{ fontWeight: 500 }}>To:</span> {recipientName}
+            </p>
+            <p style={{ fontSize: 12, color: token.colorTextSecondary }}>
+              <span style={{ fontWeight: 500 }}>Subject:</span> {subject}
+            </p>
+          </Flex>
         </div>
-
-        <hr className="border-border" />
-
-        {/* Email body */}
-        <div className="bg-white px-4 py-4">
-          <div className="whitespace-pre-line text-body-md text-text">{body}</div>
+        <hr style={{ border: "none", borderTop: `1px solid ${token.colorBorder}`, margin: 0 }} />
+        <div style={{ padding: 16, backgroundColor: token.colorBgContainer }}>
+          <div style={{ whiteSpace: "pre-line", fontSize: 14 }}>{body}</div>
         </div>
-
-        {/* Footer */}
-        <div className="border-t border-border bg-gray-50 px-4 py-2 text-center">
-          <p className="text-caption text-text-tertiary">Sent via Splose</p>
+        <div style={{ borderTop: `1px solid ${token.colorBorder}`, backgroundColor: token.colorFillTertiary, padding: "8px 16px", textAlign: "center" }}>
+          <p style={{ fontSize: 12, color: token.colorTextTertiary }}>Sent via Splose</p>
         </div>
       </div>
     </Modal>
