@@ -275,10 +275,10 @@ Patterns identified from the interactive states implementation audit. All opport
 
 ### Group AH — Calendar week view (`src/app/calendar/CalendarView.tsx`)
 
-- [ ] **Week view day number styling** — Reopened: audit 2026-03-26 found fontWeight 700 (localhost) vs 500 (prod), color rgb(107,114,128) vs rgb(112,117,122). Was marked fixed 2026-03-25.
-- [ ] **Week view DOW header styling** — NEW: audit 2026-03-26. Prod: 14px/500/rgb(112,117,122). Localhost: 14px/400/rgb(65,69,73). Need font-medium and correct gray.
-- [ ] **Week view time label size** — NEW: audit 2026-03-26. Prod: 10px. Localhost: 14px. Time labels in left gutter are too large.
-- [ ] **Week view month title** — NEW: audit 2026-03-26. Production has NO visible month/year title in the toolbar. Localhost shows H2 "Mar 2026" 18px/700. Remove or hide the month title to match production.
+- [x] **Week view day number styling** — Fixed: fontWeight 700→500 (!font-medium), color to rgb(112,117,122). Measurement-verified 2026-03-30.
+- [x] **Week view DOW header styling** — Fixed: color to rgb(112,117,122). Weight already 500. Measurement-verified 2026-03-30.
+- [x] **Week view time label size** — Fixed: text-caption-sm (11px) → text-[10px]. Measurement-verified 2026-03-30.
+- [x] **Week view month title** — Fixed: H2 removed from toolbar. Production has none. Measurement-verified 2026-03-30.
 
 ### Group AI — Calendar day view (`src/app/calendar/CalendarView.tsx`)
 
@@ -321,9 +321,9 @@ Patterns identified from the interactive states implementation audit. All opport
 ### Group AO — Online booking (`src/app/online-booking/`, `src/app/settings/online-bookings/`)
 
 - [x] **Online booking nav bar** — Fixed in previous session: TopNav hidden on /online-booking route. (2026-03-25)
-- [ ] **Online booking title styling** — Reopened: audit 2026-03-26 found regression. Prod: 36px/600/rgb(16,24,40). Localhost: 30px/700/rgb(66,105,74). Was marked fixed 2026-03-25.
-- [ ] **Online booking card styling** — Reopened: audit 2026-03-26 found regression. Prod: 0px radius/12px 22px padding/244px. Localhost: 12px radius/20px padding/272px. Was marked fixed 2026-03-25.
-- [ ] **Online booking button purple shade** — Reopened: audit 2026-03-26 found regression. Prod: rgb(106,57,228). Localhost: rgb(130,80,255). Was marked fixed 2026-03-25.
+- [x] **Online booking title styling** — Fixed: 30px/700/green → 36px/600/rgb(16,24,40). Measurement-verified 2026-03-30.
+- [x] **Online booking card styling** — Fixed: bg-white, border rgb(208,213,221), 16px radius, 20px padding, 162px height. All match production. Measurement-verified 2026-03-30.
+- [x] **Online booking button purple shade** — Fixed: bg-[rgb(106,57,228)], rounded-lg (8px), padding 4px 15px. Measurement-verified 2026-03-30.
 - [x] **Online booking Continue button** — Fixed in previous session: gray disabled bg-[rgba(0,0,0,0.25)]. (2026-03-25)
 - [x] **Online booking summary sidebar** — Fixed in previous session: 700 weight, dark color, connector lines. (2026-03-25)
 - [x] **Online booking settings editor — missing Settings tab** — Fixed in previous session: Settings tab added. (2026-03-25)
@@ -386,24 +386,24 @@ Patterns identified from the interactive states implementation audit. All opport
 
 ### Group BA — Badge styling cross-cutting (`src/components/ds/Badge.tsx`)
 
-- [ ] **Badge border-radius mismatch** — NEW: audit 2026-03-26. Prod: borderRadius 8px (rounded-rect) on all status badges (invoices, notes, etc). Localhost: rounded-full (pill). Cross-cutting issue affecting Badge DS component solid variant everywhere. Need borderRadius 8px.
-- [ ] **Badge color values** — NEW: audit 2026-03-26. Prod Draft: rgb(165,165,158), Sent: rgb(180,235,100). Localhost uses lab() color values. Need to match production RGB values exactly.
+- [x] **Badge border-radius mismatch** — Fixed: rounded-full → rounded-lg (8px) in Badge DS component. Measurement-verified on invoices page 2026-03-30.
+- [x] **Badge color values** — Fixed: solidVariantClasses updated to exact production RGB (Draft: rgb(165,165,158), Overdue: rgb(240,0,50), Sent/Paid: rgb(180,235,100)). Measurement-verified 2026-03-30.
 
 ### Group BB — Client detail heading weight (`src/app/clients/[id]/`)
 
-- [ ] **Client detail section heading fontWeight** — NEW: audit 2026-03-26, confirmed 2026-03-30. Prod: 18px/700. Localhost: 18px/600. "General details", "Client contact details" etc should use font-bold not font-semibold. Also: Account balance heading fontWeight 600 (prod) vs 500 (localhost).
+- [x] **Client detail section heading fontWeight** — Fixed: !font-bold override on text-heading-lg (600→700). Account balance !font-semibold (500→600). Measurement-verified 2026-03-30.
 
 ### Group BC — Dashboard section heading fontWeight (`src/app/page.tsx`)
 
-- [ ] **Dashboard section heading fontWeight** — NEW: audit 2026-03-30. Prod: 14px/500 (font-medium). Localhost: 14px/400 (font-normal). Affects "Messages", "Income", "Incomplete progress notes" headings. Cross-cutting: may affect other panel headings using same component.
+- [x] **Dashboard section heading fontWeight** — Already matches production: 14px/500/rgb(65,69,73) on both. Gap was stale — verified 2026-03-30.
 
 ### Group BD — Calendar DOW color mismatch (`src/app/calendar/`)
 
-- [ ] **Calendar month DOW header color** — NEW: audit 2026-03-30. Prod: rgb(112,117,122). Localhost: rgb(107,114,128). Tailwind gray shade mismatch. Also affects day number color in week view. Cross-cutting calendar issue.
+- [x] **Calendar month DOW header color** — Fixed: text-text-secondary → text-[rgb(112,117,122)] in both week and month views. Measurement-verified 2026-03-30.
 
 ### Group BE — Tag badge fontWeight (`src/components/ds/Badge.tsx`)
 
-- [ ] **Tag badge fontWeight** — NEW: audit 2026-03-30. Prod: 12px/400. Localhost: 12px/500. Client list tag badges use font-medium but prod uses font-normal. May be cross-cutting with Badge component.
+- [x] **Tag badge fontWeight** — Fixed: Badge base class text-label-md (500) → text-body-sm (400). Measurement-verified on clients list 2026-03-30.
 
 ### Group AY — Reports overview (`src/app/reports/page.tsx`)
 
