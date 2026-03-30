@@ -62,20 +62,20 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
       </PageHeader>
       <SearchBar placeholder="Search for name, phone number, and email" />
 
-      <DataTable className="table-fixed">
+      <DataTable style={{ tableLayout: 'fixed' }}>
         <TableHead>
-          <Th sortable filterable className="w-[25%]">Name</Th>
-          <Th hidden="sm" className="w-[8%]">Date of birth</Th>
-          <Th hidden="md" className="w-[28%]">Phone</Th>
-          <Th hidden="lg" className="w-[16%]">Email</Th>
-          <Th hidden="md" filterable className="w-[21%]">Tags</Th>
+          <Th sortable filterable style={{ width: '25%' }}>Name</Th>
+          <Th hidden="sm" style={{ width: '8%' }}>Date of birth</Th>
+          <Th hidden="md" style={{ width: '28%' }}>Phone</Th>
+          <Th hidden="lg" style={{ width: '16%' }}>Email</Th>
+          <Th hidden="md" filterable style={{ width: '21%' }}>Tags</Th>
         </TableHead>
         <TableBody>
           {paged.map((client) => (
-            <Tr key={client.id} clickable className="group relative">
-              <Td className="bg-surface-header">
-                <Link href={`/clients/${client.id}`} className="absolute inset-0" aria-label={`View ${client.firstName} ${client.lastName}`} />
-                <span className="group-hover:underline">
+            <Tr key={client.id} clickable style={{ position: 'relative' }}>
+              <Td style={{ backgroundColor: 'var(--color-surface-header, #fff)' }}>
+                <Link href={`/clients/${client.id}`} style={{ position: 'absolute', inset: 0 }} aria-label={`View ${client.firstName} ${client.lastName}`} />
+                <span className="hover-underline-on-row-hover">
                   {client.firstName} {client.lastName}
                 </span>
               </Td>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Avatar, Button, Card, ColorDot } from "@/components/ds";
 import { DownOutlined, RightOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
+import styles from "./DashboardClient.module.css";
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
@@ -186,7 +187,7 @@ function MessageItem({
       gap={10}
       align="flex-start"
       style={{ cursor: 'pointer', borderRadius: 8, padding: 4, transition: 'background-color 0.2s' }}
-      className="hover:bg-gray-50"
+      className={styles.messageItem}
       onClick={onToggle}
     >
       <Avatar name={message.sender} color={message.color} size="sm" />
@@ -352,7 +353,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
               <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/></svg>
             </Button>
             <div style={{ flex: 1 }} />
-            <span className="text-label-md hover:bg-gray-100" style={{ marginRight: 4, cursor: 'pointer', borderRadius: 4, padding: '2px 6px', color: 'var(--color-text-secondary)' }}>GIF</span>
+            <span className={`text-label-md ${styles.gifButton}`} style={{ marginRight: 4, cursor: 'pointer', borderRadius: 4, padding: '2px 6px', color: 'var(--color-text-secondary)' }}>GIF</span>
             <Button variant="primary" size="sm" className="text-body-md">
               Send
             </Button>
