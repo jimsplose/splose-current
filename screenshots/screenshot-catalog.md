@@ -325,7 +325,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-17 at 7.22.47 pm.png | Week view — Rooms/resources mode | yes — Rooms view with room filter |
 | Screenshot 2026-03-17 at 7.22.53 pm.png | Week view — Room/resources filter dropdown | yes — room filter dropdown |
 | Screenshot 2026-03-17 at 7.23.04 pm.png | Week view — View type dropdown (Month/Week/Day) | yes — view switcher dropdown |
-| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_19_33.png | Calendar week view full page | partial — measurement-verified 2026-03-31: Time labels 10px (prod) vs 16px (localhost) REGRESSION from 11px. Toolbar uses native selects instead of styled dropdowns. Today btn 14px vs 13.3px native. Colors rgb(65,69,73) vs rgb(0,0,0). Layout structurally different (practitioner-columns vs day-columns). |
+| screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_19_33.png | Calendar week view full page | yes — measurement-verified 2026-03-31: CSS module conversion fixed all regressions. Today btn 14px/38px/8px-radius match. Time labels 10px/rgb(65,69,73) match. DOW headers 14px/500/rgb(112,117,122) match. Toolbar fully styled with DS dropdowns. |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_12.png | Calendar week view (variant 2) | yes — full-page capture, toolbar + time grid + practitioner columns match 2026-03-24 |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_26.png | Calendar week view (variant 3) | yes — scrolled view, appointment blocks and time slots 2026-03-24 |
 | screencapture-acme-splose-calendar-week-17-3-2026-2026-03-17-19_20_37.png | Calendar week view (variant 4) | yes — different scroll position, same structure 2026-03-24 |
@@ -337,13 +337,13 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 7.23.10 pm.png | Day view — practitioner columns, empty | yes — day view with practitioner columns |
-| screencapture-acme-splose-calendar-day-17-3-2026-2026-03-17-19_31_10.png | Calendar day view full page | no — REGRESSION 2026-03-31: day view layout broken. Practitioner names render as plain vertical text list with only "8 AM" label. No time grid, no columns, no appointment blocks. Toolbar uses native selects. |
+| screencapture-acme-splose-calendar-day-17-3-2026-2026-03-17-19_31_10.png | Calendar day view full page | yes — measurement-verified 2026-03-31: CSS module conversion fixed layout regression. Practitioner columns, time grid, appointment blocks all render correctly. Time labels 10px, prac headers 14px/rgb(112,117,122) match production. |
 
 ## Calendar — Month View (`/calendar/month`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.23.16 pm.png | Month view with appointments | no — REGRESSION 2026-03-31: month view layout completely broken. Days render as vertical plain text list instead of 7-column grid. No appointment blocks visible. Toolbar uses native selects. |
+| Screenshot 2026-03-17 at 7.23.16 pm.png | Month view with appointments | yes — measurement-verified 2026-03-31: CSS module conversion fixed layout regression. 7-column grid, DOW headers 12px/rgb(112,117,122), day numbers 14px/rgb(65,69,73) all match production. Appointment chips, today badge, "more" links working. |
 | Screenshot 2026-03-17 at 7.23.23 pm.png | Month view — appointment detail side panel (Group Therapy) | yes — side panel with full content |
 
 ## Calendar — Appointment Side Panel
