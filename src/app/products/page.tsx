@@ -635,8 +635,8 @@ export default function ProductsPage() {
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
           <FormInput label="Code" value={form.code} onChange={(e) => setField("code", e.target.value)} />
           <FormInput label="Price" type="number" value={form.price} onChange={(e) => setField("price", e.target.value)} />
-          <FormSelect label="Tax" options={taxOptions} value={form.tax} onChange={(e) => setField("tax", e.target.value)} />
-          <FormSelect label="Type" options={typeOptions} value={form.type} onChange={(e) => setField("type", e.target.value)} />
+          <FormSelect label="Tax" options={taxOptions} value={form.tax} onChange={(value) => setField("tax", value)} />
+          <FormSelect label="Type" options={typeOptions} value={form.type} onChange={(value) => setField("type", value)} />
         </div>
       </Modal>
 

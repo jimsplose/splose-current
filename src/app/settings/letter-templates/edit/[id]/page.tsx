@@ -49,7 +49,7 @@ export default function EditLetterTemplatePage() {
       <div className="mx-auto max-w-3xl space-y-4 p-6">
         <div className="grid grid-cols-2 gap-4">
           <FormInput label="Template name" value={name} onChange={(e) => setName(e.target.value)} />
-          <FormSelect label="Default recipient" value={recipient} onChange={(e) => setRecipient(e.target.value)} options={recipientOptions} />
+          <FormSelect label="Default recipient" value={recipient} onChange={setRecipient} options={recipientOptions} />
         </div>
 
         <FormInput label="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />

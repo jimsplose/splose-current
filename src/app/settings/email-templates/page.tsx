@@ -178,7 +178,7 @@ export default function EmailTemplatesPage() {
           <FormSelect
             label="Type"
             value={form.type}
-            onChange={(e) => setField("type", e.target.value as TemplateType)}
+            onChange={(value) => setField("type", value as TemplateType)}
             options={templateTypes.map((t) => ({ value: t, label: t }))}
           />
         </div>

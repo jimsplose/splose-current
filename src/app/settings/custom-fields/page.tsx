@@ -279,7 +279,7 @@ export default function CustomFieldsPage() {
           <FormSelect
             label="Field type"
             value={newField.type}
-            onChange={(e) => setNewField((p) => ({ ...p, type: e.target.value }))}
+            onChange={(value) => setNewField((p) => ({ ...p, type: value }))}
             options={fieldTypes.map((t) => ({ value: t, label: t }))}
           />
           <div className="flex items-center gap-2">
@@ -377,7 +377,7 @@ function EditFieldModal({
         <FormSelect
           label="Field type *"
           value={type}
-          onChange={(e) => setType(e.target.value)}
+          onChange={setType}
           options={fieldTypes.map((t) => ({ value: t, label: t }))}
         />
 

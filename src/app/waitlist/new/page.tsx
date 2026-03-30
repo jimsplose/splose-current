@@ -98,13 +98,13 @@ export default function WaitlistNewPage() {
               label="Client"
               options={clientOptions}
               value={client}
-              onChange={(e) => setClient(e.target.value)}
+              onChange={setClient}
             />
             <FormSelect
               label="Preferred practitioner"
               options={practitionerOptions}
               value={practitioner}
-              onChange={(e) => setPractitioner(e.target.value)}
+              onChange={setPractitioner}
             />
           </div>
         </Card>
@@ -116,13 +116,13 @@ export default function WaitlistNewPage() {
               label="Service"
               options={serviceOptions}
               value={service}
-              onChange={(e) => setService(e.target.value)}
+              onChange={setService}
             />
             <FormSelect
               label="Priority"
               options={priorityOptions}
               value={priority}
-              onChange={(e) => setPriority(e.target.value)}
+              onChange={setPriority}
             />
             <div>
               <label className="mb-2 block text-label-lg text-text-secondary">Preferred days</label>
@@ -141,7 +141,7 @@ export default function WaitlistNewPage() {
               label="Preferred time"
               options={timeOptions}
               value={preferredTime}
-              onChange={(e) => setPreferredTime(e.target.value)}
+              onChange={setPreferredTime}
             />
           </div>
         </Card>

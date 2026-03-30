@@ -207,7 +207,7 @@ export default function TagsPage() {
               <FormSelect
                 label="Merge into another tag"
                 value={mergeTarget}
-                onChange={(e) => setMergeTarget(e.target.value)}
+                onChange={setMergeTarget}
                 options={[
                   { value: "", label: "— Don\u2019t merge —" },
                   ...currentData.tags

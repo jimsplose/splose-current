@@ -83,7 +83,7 @@ export default function NewProductPage() {
               label="Tax rate"
               options={taxOptions}
               value={form.taxRate}
-              onChange={(e) => setField("taxRate", e.target.value)}
+              onChange={(value) => setField("taxRate", value)}
             />
           </div>
         </Card>
@@ -94,7 +94,7 @@ export default function NewProductPage() {
               label="Type"
               options={typeOptions}
               value={form.type}
-              onChange={(e) => setField("type", e.target.value)}
+              onChange={(value) => setField("type", value)}
             />
             <Toggle
               label="Track inventory"

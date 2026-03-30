@@ -52,7 +52,7 @@ export default function EditEmailTemplatePage() {
       <div className="mx-auto max-w-3xl space-y-4 p-6">
         <div className="grid grid-cols-2 gap-4">
           <FormInput label="Name" value={name} onChange={(e) => setName(e.target.value)} />
-          <FormSelect label="Type" value={type} onChange={(e) => setType(e.target.value)} options={typeOptions} />
+          <FormSelect label="Type" value={type} onChange={setType} options={typeOptions} />
         </div>
 
         <FormInput label="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />

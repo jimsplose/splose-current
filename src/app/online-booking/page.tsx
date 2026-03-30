@@ -301,7 +301,7 @@ function OnlineBookingPageInner() {
                             { value: "+1", label: "+1" },
                           ]}
                           value={phoneCode}
-                          onChange={(e) => setPhoneCode(e.target.value)}
+                          onChange={setPhoneCode}
                           className="w-20"
                         />
                         <FormInput
@@ -329,7 +329,7 @@ function OnlineBookingPageInner() {
                           label: String(i + 1),
                         }))}
                         value={dobDay}
-                        onChange={(e) => setDobDay(e.target.value)}
+                        onChange={setDobDay}
                       />
                       <FormSelect
                         options={[
@@ -337,7 +337,7 @@ function OnlineBookingPageInner() {
                           "July", "August", "September", "October", "November", "December",
                         ].map((m) => ({ value: m, label: m }))}
                         value={dobMonth}
-                        onChange={(e) => setDobMonth(e.target.value)}
+                        onChange={setDobMonth}
                       />
                       <FormSelect
                         options={Array.from({ length: 100 }, (_, i) => ({
@@ -345,7 +345,7 @@ function OnlineBookingPageInner() {
                           label: String(2026 - i),
                         }))}
                         value={dobYear}
-                        onChange={(e) => setDobYear(e.target.value)}
+                        onChange={setDobYear}
                       />
                     </div>
                   </div>

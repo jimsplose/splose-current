@@ -75,7 +75,7 @@ function DateRangePicker({
       <Button
         variant="secondary"
         size="sm"
-        type="button"
+        htmlType="button"
         onClick={() => setOpen(!open)}
         className="!rounded-full !border-primary !bg-primary/10 !font-medium !text-primary hover:!bg-primary/20"
       >
@@ -95,7 +95,7 @@ function DateRangePicker({
                   key={p.label}
                   variant="ghost"
                   size="sm"
-                  type="button"
+                  htmlType="button"
                   onClick={() => applyPreset(p)}
                   className="!justify-start !rounded-md !text-body-sm !text-text hover:!bg-primary/5 hover:!text-primary"
                 >
@@ -261,7 +261,7 @@ export default function ReportsPage() {
         <FormSelect
           options={frequencyOptions}
           value={frequency}
-          onChange={(e) => setFrequency(e.target.value)}
+          onChange={setFrequency}
           className="!w-auto cursor-pointer !rounded-full !border-primary !bg-primary/10 !font-medium !text-primary"
         />
         <Dropdown
@@ -293,7 +293,7 @@ export default function ReportsPage() {
             <Button
               variant="icon"
               size="sm"
-              type="button"
+              htmlType="button"
               onClick={() => setUtilisationSettingsOpen(!utilisationSettingsOpen)}
             >
               <Settings className="h-4 w-4 text-text-secondary" />

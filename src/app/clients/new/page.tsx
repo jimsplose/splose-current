@@ -126,7 +126,7 @@ export default function NewClientPage() {
               <FormSelect
                 label="Title"
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={setTitle}
                 options={titleOptions}
               />
               <FormInput
@@ -158,7 +158,7 @@ export default function NewClientPage() {
               <FormSelect
                 label="Gender"
                 value={gender}
-                onChange={(e) => setGender(e.target.value)}
+                onChange={setGender}
                 options={genderOptions}
               />
             </div>
@@ -205,7 +205,7 @@ export default function NewClientPage() {
               <FormSelect
                 label="State"
                 value={state}
-                onChange={(e) => setState(e.target.value)}
+                onChange={setState}
                 options={stateOptions}
               />
               <FormInput
@@ -225,13 +225,13 @@ export default function NewClientPage() {
               <FormSelect
                 label="Referral source"
                 value={referralSource}
-                onChange={(e) => setReferralSource(e.target.value)}
+                onChange={setReferralSource}
                 options={referralOptions}
               />
               <FormSelect
                 label="Practitioner"
                 value={practitioner}
-                onChange={(e) => setPractitioner(e.target.value)}
+                onChange={setPractitioner}
                 options={practitionerOptions}
               />
             </div>

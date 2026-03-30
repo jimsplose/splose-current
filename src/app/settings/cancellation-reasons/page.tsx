@@ -153,7 +153,7 @@ export default function CancellationReasonsPage() {
                 label="Cancellation window"
                 options={cancellationWindowOptions}
                 value={form.cancellationWindow}
-                onChange={(e) => setField("cancellationWindow", e.target.value)}
+                onChange={(value) => setField("cancellationWindow", value)}
               />
             )}
             <Toggle
@@ -166,7 +166,7 @@ export default function CancellationReasonsPage() {
                 label="Rescheduling window"
                 options={cancellationWindowOptions}
                 value={form.reschedulingWindow}
-                onChange={(e) => setField("reschedulingWindow", e.target.value)}
+                onChange={(value) => setField("reschedulingWindow", value)}
               />
             )}
           </div>

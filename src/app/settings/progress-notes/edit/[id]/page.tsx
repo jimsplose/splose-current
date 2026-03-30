@@ -204,7 +204,7 @@ export default function EditProgressNoteTemplatePage() {
             label="Filter by tag"
             options={tagFilterOptions}
             value={tagFilter}
-            onChange={(e) => setTagFilter(e.target.value as TagFilter)}
+            onChange={(value) => setTagFilter(value as TagFilter)}
           />
           <div className="space-y-2">
             {filteredLibraryBlocks.length === 0 ? (

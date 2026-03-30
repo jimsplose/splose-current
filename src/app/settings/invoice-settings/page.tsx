@@ -300,7 +300,7 @@ export default function InvoiceSettingsPage() {
               <FormSelect
                 label="Send"
                 value={form.sendTiming}
-                onChange={(e) => setField("sendTiming", e.target.value)}
+                onChange={(value) => setField("sendTiming", value)}
                 options={[
                   { value: "on-due-date", label: "On due date" },
                   { value: "1-day-before", label: "1 day before" },

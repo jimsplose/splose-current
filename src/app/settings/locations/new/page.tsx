@@ -77,10 +77,10 @@ export default function NewLocationPage() {
             <FormInput label="Address" value={address} onChange={(e) => setAddress(e.target.value)} />
             <div className="grid grid-cols-3 gap-4">
               <FormInput label="Suburb" value={suburb} onChange={(e) => setSuburb(e.target.value)} />
-              <FormSelect label="State" value={state} onChange={(e) => setState(e.target.value)} options={stateOptions} />
+              <FormSelect label="State" value={state} onChange={setState} options={stateOptions} />
               <FormInput label="Post code" value={postcode} onChange={(e) => setPostcode(e.target.value)} />
             </div>
-            <FormSelect label="Country" value={country} onChange={(e) => setCountry(e.target.value)} options={countryOptions} />
+            <FormSelect label="Country" value={country} onChange={setCountry} options={countryOptions} />
           </div>
         </Collapse>
 

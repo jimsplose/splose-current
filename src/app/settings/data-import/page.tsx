@@ -351,7 +351,7 @@ export default function DataImportPage() {
                       <FormSelect
                         options={sploseFields}
                         value={columnMapping[col] || ""}
-                        onChange={(e) => setColumnMapping((prev) => ({ ...prev, [col]: e.target.value }))}
+                        onChange={(value) => setColumnMapping((prev) => ({ ...prev, [col]: value }))}
                       />
                     </Td>
                     <Td>

@@ -179,7 +179,7 @@ export default function AppointmentTemplatesPage() {
           <FormSelect
             label="Type"
             value={form.type}
-            onChange={(e) => setField("type", e.target.value)}
+            onChange={(value) => setField("type", value)}
             options={[
               { value: "Confirmation", label: "Confirmation" },
               { value: "Reschedule", label: "Reschedule" },

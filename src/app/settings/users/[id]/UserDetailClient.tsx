@@ -106,8 +106,8 @@ export default function UserDetailClient({ id }: { id: string }) {
 
             <Collapse title="Role & Access" defaultOpen>
               <div className="space-y-4">
-                <FormSelect label="Role name" options={roleNameOptions} value={roleName} onChange={(e) => setRoleName(e.target.value)} />
-                <FormSelect label="Role type" options={roleTypeOptions} value={roleType} onChange={(e) => setRoleType(e.target.value)} />
+                <FormSelect label="Role name" options={roleNameOptions} value={roleName} onChange={setRoleName} />
+                <FormSelect label="Role type" options={roleTypeOptions} value={roleType} onChange={setRoleType} />
                 <FormInput label="Group" value={group} onChange={(e) => setGroup(e.target.value)} />
               </div>
             </Collapse>
@@ -179,12 +179,12 @@ export default function UserDetailClient({ id }: { id: string }) {
 
       <Modal open={editAvailOpen} onClose={() => setEditAvailOpen(false)} title="Edit availability">
         <div className="space-y-4">
-          <FormSelect label="Day" value={editDay} onChange={(e) => setEditDay(e.target.value)} options={DAYS.map((d) => ({ value: d, label: d }))} />
+          <FormSelect label="Day" value={editDay} onChange={setEditDay} options={DAYS.map((d) => ({ value: d, label: d }))} />
           <div className="grid grid-cols-2 gap-4">
             <FormInput label="Start time" type="time" value={editStart} onChange={(e) => setEditStart(e.target.value)} />
             <FormInput label="End time" type="time" value={editEnd} onChange={(e) => setEditEnd(e.target.value)} />
           </div>
-          <FormSelect label="Apply to" value={editApplyTo} onChange={(e) => setEditApplyTo(e.target.value)} options={applyToOptions} />
+          <FormSelect label="Apply to" value={editApplyTo} onChange={setEditApplyTo} options={applyToOptions} />
           <div className="flex justify-end gap-2">
             <Button variant="secondary" onClick={() => setEditAvailOpen(false)}>Cancel</Button>
             <Button variant="primary" onClick={() => setEditAvailOpen(false)}>Save</Button>

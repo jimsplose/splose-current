@@ -241,7 +241,7 @@ export default function NewPaymentPage() {
           <FormSelect
             label="Payment method *"
             value={method}
-            onChange={(e) => setMethod(e.target.value)}
+            onChange={setMethod}
             options={[{ value: "", label: "Select method" }, ...paymentMethods.map((m) => ({ value: m, label: m }))]}
           />
 
@@ -293,7 +293,7 @@ export default function NewPaymentPage() {
                   <Button
                     key={inv.number}
                     variant="ghost"
-                    type="button"
+                    htmlType="button"
                     onClick={() => linkInvoice(inv.number)}
                     className="flex w-full items-center justify-between px-3 py-2 text-sm hover:bg-primary/10"
                   >
@@ -364,7 +364,7 @@ export default function NewPaymentPage() {
                         <Button
                           variant="icon"
                           size="sm"
-                          type="button"
+                          htmlType="button"
                           onClick={() => unlinkInvoice(invoiceNumber)}
                           className="h-6 w-6 hover:bg-red-50 hover:text-danger"
                         >

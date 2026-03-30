@@ -171,7 +171,7 @@ export default function NewInvoicePage() {
             <FormSelect
               label="Contact"
               value={contact}
-              onChange={(e) => setContact(e.target.value)}
+              onChange={setContact}
               options={mockContacts}
             />
           </div>
@@ -201,7 +201,7 @@ export default function NewInvoicePage() {
             <FormSelect
               label="Location"
               value={location}
-              onChange={(e) => setLocation(e.target.value)}
+              onChange={setLocation}
               options={mockLocations}
             />
           </div>
@@ -228,7 +228,7 @@ export default function NewInvoicePage() {
                     <td className="px-3 py-2">
                       <FormSelect
                         value={item.service}
-                        onChange={(e) => updateLineItem(item.id, "service", e.target.value)}
+                        onChange={(value) => updateLineItem(item.id, "service", value)}
                         options={mockServices}
                       />
                     </td>
@@ -262,7 +262,7 @@ export default function NewInvoicePage() {
                     <td className="px-3 py-2">
                       <FormSelect
                         value={item.tax}
-                        onChange={(e) => updateLineItem(item.id, "tax", e.target.value)}
+                        onChange={(value) => updateLineItem(item.id, "tax", value)}
                         options={mockTaxOptions}
                       />
                     </td>
@@ -327,7 +327,7 @@ export default function NewInvoicePage() {
             <FormSelect
               label="Payment terms"
               value={paymentTerms}
-              onChange={(e) => setPaymentTerms(e.target.value)}
+              onChange={setPaymentTerms}
               options={paymentTermsOptions}
             />
           </div>

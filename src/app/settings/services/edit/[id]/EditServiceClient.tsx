@@ -169,7 +169,7 @@ export default function EditServiceClient({ id }: { id: string }) {
                 <FormSelect
                   label="Payment requirement"
                   value={paymentRequired}
-                  onChange={(e) => setPaymentRequired(e.target.value)}
+                  onChange={setPaymentRequired}
                   options={[
                     { value: "optional", label: "Optional — client can choose to pay" },
                     { value: "required", label: "Required — must pay to confirm" },
@@ -185,8 +185,8 @@ export default function EditServiceClient({ id }: { id: string }) {
             <div className="space-y-4">
               <Toggle checked={confirmationSms} onChange={setConfirmationSms} label="Send SMS confirmation" />
               <Toggle checked={confirmationEmail} onChange={setConfirmationEmail} label="Send email confirmation" />
-              <FormSelect label="SMS reminder" value={smsReminder} onChange={(e) => setSmsReminder(e.target.value)} options={reminderOptions} />
-              <FormSelect label="Email reminder" value={emailReminder} onChange={(e) => setEmailReminder(e.target.value)} options={reminderOptions} />
+              <FormSelect label="SMS reminder" value={smsReminder} onChange={setSmsReminder} options={reminderOptions} />
+              <FormSelect label="Email reminder" value={emailReminder} onChange={setEmailReminder} options={reminderOptions} />
             </div>
           </Collapse>
         </div>

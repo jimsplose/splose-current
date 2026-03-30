@@ -141,7 +141,7 @@ export default function FormsPage() {
           <FormSelect
             label="Form type"
             value={form.formType}
-            onChange={(e) => setField("formType", e.target.value)}
+            onChange={(value) => setField("formType", value)}
             options={[
               { value: "Standard form", label: "Standard form" },
               { value: "Embeddable form", label: "Embeddable form" },

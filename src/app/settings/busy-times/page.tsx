@@ -96,7 +96,7 @@ export default function BusyTimesPage() {
           <FormSelect
             label="Utilisation"
             value={form.utilisation}
-            onChange={(e) => setField("utilisation", e.target.value)}
+            onChange={(value) => setField("utilisation", value)}
             options={[
               { value: "Excluded", label: "Excluded" },
               { value: "Included", label: "Included" },

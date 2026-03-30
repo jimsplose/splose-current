@@ -197,8 +197,8 @@ export default function UsersPage() {
         <div className="space-y-4">
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
           <FormInput label="Email" type="email" value={form.email} onChange={(e) => setField("email", e.target.value)} />
-          <FormSelect label="Role" options={roleOptions} value={form.role} onChange={(e) => setField("role", e.target.value)} />
-          <FormSelect label="User group" options={groupOptions} value={form.group} onChange={(e) => setField("group", e.target.value)} />
+          <FormSelect label="Role" options={roleOptions} value={form.role} onChange={(value) => setField("role", value)} />
+          <FormSelect label="User group" options={groupOptions} value={form.group} onChange={(value) => setField("group", value)} />
         </div>
       </Modal>
 

@@ -323,7 +323,7 @@ export default function EditProgressNotePage() {
                 label="Service"
                 options={SERVICE_OPTIONS}
                 value={service}
-                onChange={(e) => setService(e.target.value)}
+                onChange={setService}
               />
             </div>
 

@@ -341,7 +341,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           <FormSelect
             label="Payment method"
             value={paymentMethod}
-            onChange={(e) => setPaymentMethod(e.target.value)}
+            onChange={setPaymentMethod}
             options={[
               { value: "Credit Card", label: "Credit Card" },
               { value: "Bank Transfer", label: "Bank Transfer" },

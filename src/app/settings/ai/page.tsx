@@ -202,7 +202,7 @@ function SavedPromptsTab() {
           <FormSelect
             label="User group"
             value={editGroup}
-            onChange={(e) => setEditGroup(e.target.value)}
+            onChange={setEditGroup}
             options={[
               { value: "Any user", label: "Any user" },
               { value: "Physiotherapists", label: "Physiotherapists" },

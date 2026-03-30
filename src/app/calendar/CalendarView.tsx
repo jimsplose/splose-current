@@ -1059,7 +1059,7 @@ export default function CalendarView({
               <FormSelect
                 label="Location"
                 value={createLocation}
-                onChange={(e) => setCreateLocation(e.target.value)}
+                onChange={setCreateLocation}
                 options={[
                   { value: "Hands Together Therapy (East)", label: "Hands Together Therapy (East)" },
                   { value: "Hands Together Therapy (West)", label: "Hands Together Therapy (West)" },
@@ -1070,7 +1070,7 @@ export default function CalendarView({
               <FormSelect
                 label="Practitioner *"
                 value={createPractitioner}
-                onChange={(e) => setCreatePractitioner(e.target.value)}
+                onChange={setCreatePractitioner}
                 options={practitioners.map((p) => ({
                   value: p.id,
                   label: p.name,
@@ -1110,7 +1110,7 @@ export default function CalendarView({
               <FormSelect
                 label="Service *"
                 value={createService}
-                onChange={(e) => setCreateService(e.target.value)}
+                onChange={setCreateService}
                 options={[
                   { value: "", label: "Select a service" },
                   { value: "initial-assessment", label: "Initial Assessment" },
@@ -1126,7 +1126,7 @@ export default function CalendarView({
               <FormSelect
                 label="Case"
                 value={createCase}
-                onChange={(e) => setCreateCase(e.target.value)}
+                onChange={setCreateCase}
                 options={[
                   { value: "", label: "Choose a case" },
                 ]}
@@ -1145,13 +1145,13 @@ export default function CalendarView({
                 <FormSelect
                   label="Start time *"
                   value={createTime}
-                  onChange={(e) => setCreateTime(e.target.value)}
+                  onChange={setCreateTime}
                   options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))}
                 />
                 <FormSelect
                   label="End time *"
                   value={createEndTime}
-                  onChange={(e) => setCreateEndTime(e.target.value)}
+                  onChange={setCreateEndTime}
                   options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))}
                 />
               </div>
@@ -1167,7 +1167,7 @@ export default function CalendarView({
               <FormSelect
                 label="Room/Resource"
                 value={createRoom}
-                onChange={(e) => setCreateRoom(e.target.value)}
+                onChange={setCreateRoom}
                 options={[
                   { value: "", label: "Choose a room/resource" },
                   { value: "green", label: "Green (1 available of 1)" },
@@ -1350,7 +1350,7 @@ export default function CalendarView({
               <FormSelect
                 label="Room/Resource"
                 value={editRoom}
-                onChange={(e) => setEditRoom(e.target.value)}
+                onChange={setEditRoom}
                 options={[
                   { value: "", label: "Choose a room/resource" },
                   { value: "green", label: "Green (1 available of 1)" },

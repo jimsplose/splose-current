@@ -666,7 +666,7 @@ function WaitlistPageInner() {
           <FormSelect
             label="Location"
             value={modalLocation}
-            onChange={(e) => setModalLocation(e.target.value)}
+            onChange={setModalLocation}
             options={[
               { value: "", label: "Any location" },
               { value: "adelaide", label: "Adelaide" },
@@ -679,7 +679,7 @@ function WaitlistPageInner() {
           <FormSelect
             label="Practitioner"
             value={modalPractitioner}
-            onChange={(e) => setModalPractitioner(e.target.value)}
+            onChange={setModalPractitioner}
             options={[
               { value: "", label: "Any practitioner" },
               { value: "jim", label: "Jim Yencken" },
@@ -692,7 +692,7 @@ function WaitlistPageInner() {
           <FormSelect
             label="Client *"
             value={modalClient}
-            onChange={(e) => setModalClient(e.target.value)}
+            onChange={setModalClient}
             options={[
               { value: "", label: "Select client" },
               ...waitlistData.map((w) => ({ value: w.client, label: w.client })),
@@ -729,7 +729,7 @@ function WaitlistPageInner() {
             <div className="flex gap-2">
               <FormSelect
                 value={modalServiceSelect}
-                onChange={(e) => setModalServiceSelect(e.target.value)}
+                onChange={setModalServiceSelect}
                 options={[
                   { value: "", label: "Add a service..." },
                   { value: "1:1 Consultation", label: "1:1 Consultation" },
@@ -847,7 +847,7 @@ function WaitlistPageInner() {
             <div className="flex gap-2">
               <FormSelect
                 value={modalTagSelect}
-                onChange={(e) => setModalTagSelect(e.target.value)}
+                onChange={setModalTagSelect}
                 options={[
                   { value: "", label: "Add a tag..." },
                   { value: "Admin to review", label: "Admin to review" },

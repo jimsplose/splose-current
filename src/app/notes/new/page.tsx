@@ -116,7 +116,7 @@ function NewProgressNotePageInner() {
               <FormSelect
                 label="Service *"
                 value={serviceId}
-                onChange={(e) => setServiceId(e.target.value)}
+                onChange={setServiceId}
                 options={[
                   { value: "", label: "Select service" },
                   ...SERVICE_OPTIONS.map((s) => ({ value: s.value, label: s.label })),
@@ -129,7 +129,7 @@ function NewProgressNotePageInner() {
               <FormSelect
                 label="Template *"
                 value={template}
-                onChange={(e) => setTemplate(e.target.value)}
+                onChange={setTemplate}
                 options={[
                   { value: "", label: "Select template" },
                   ...TEMPLATES.map((t) => ({ value: t, label: t })),

@@ -169,8 +169,8 @@ export default function BodyChartsPage() {
       >
         <div className="space-y-4">
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} placeholder="e.g. Full Body — Front" />
-          <FormSelect label="Type" value={form.type} onChange={(e) => setField("type", e.target.value)} options={typeOptions} />
-          <FormSelect label="Chart view" value={chartView} onChange={(e) => setChartView(e.target.value)} options={chartViewOptions} />
+          <FormSelect label="Type" value={form.type} onChange={(value) => setField("type", value)} options={typeOptions} />
+          <FormSelect label="Chart view" value={chartView} onChange={setChartView} options={chartViewOptions} />
 
           {/* Body region selector */}
           <div>
