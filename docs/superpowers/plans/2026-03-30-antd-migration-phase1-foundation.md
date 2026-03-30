@@ -10,6 +10,8 @@
 
 **Spec:** `docs/superpowers/specs/2026-03-30-antd-migration-design.md`
 
+**Colour tokens:** Read `docs/superpowers/specs/2026-03-30-colour-tokens-reference.md` before writing `theme.ts` or touching any colour values. This is the canonical source of truth and supersedes the colour table in the migration design spec. It contains a complete recommended `theme.ts` config block. Only implement tokens marked Confirmed, Updated, Fixed, or New — skip anything marked Parked or Deprecated.
+
 **Branching:** Before starting, create `tailwind-archive` branch from current main as frozen snapshot, then create `antd-migration` branch for all work.
 
 ---
@@ -85,36 +87,86 @@ git commit -m "chore: install antd, @ant-design/icons, @ant-design/nextjs-regist
 **Files:**
 - Create: `src/components/ds/theme.ts`
 
-- [ ] **Step 1: Create the Splose theme configuration**
+- [ ] **Step 1: Read the colour tokens reference**
 
-Create `src/components/ds/theme.ts` with:
+Read `docs/superpowers/specs/2026-03-30-colour-tokens-reference.md` in full. This is the canonical source of truth for all colour values. It supersedes the colour table in the migration design spec. Key changes from the original spec:
+
+- `colorPrimaryHover`: now `#6B3FDB` (was `#6d3dd4`)
+- `colorPrimaryBg`: now `#f3eeff` (was `#a78bfa`)
+- `colorSuccess`: now `#00C269` (was `#22c55e`)
+- `colorWarning`: now `#FFD232` (was `#f59e0b`)
+- `colorError`: now `#D00032` (was `#ef4444`)
+- `colorTextSecondary`: now `#6E6E64` (was `#6b7280`)
+- `colorBorder`: now `#e7e8e8` (was `#e8e8e8`)
+
+Only implement tokens marked Confirmed, Updated, Fixed, or New. Skip anything marked Parked or Deprecated.
+
+- [ ] **Step 2: Create the Splose theme configuration**
+
+Create `src/components/ds/theme.ts` using the recommended `theme.ts` config block from the colour tokens reference doc as the starting point. Add typography, shape, and component-level overrides:
 
 ```typescript
 import type { ThemeConfig } from "antd";
 
-/**
- * Splose theme token overrides for Ant Design 5.x ConfigProvider.
- *
- * Maps the current Splose design tokens (from globals.css) to AntD's
- * token system. This is the single source of truth for all visual
- * customisation — components inherit these values automatically.
- */
 export const sploseTheme: ThemeConfig = {
   token: {
-    // ── Colors ──────────────────────────────────────────────
-    colorPrimary: "#8250ff",
-    colorPrimaryHover: "#6d3dd4",
-    colorPrimaryBg: "#a78bfa",
-    colorSuccess: "#22c55e",
-    colorWarning: "#f59e0b",
-    colorError: "#ef4444",
-    colorBgContainer: "#ffffff",
-    colorBorder: "#e8e8e8",
-    colorText: "#414549",
-    colorTextSecondary: "#6b7280",
-    colorFillAlter: "#f3f5f7",
+    // === PRIMARY (Violet) ===
+    colorPrimary: '#8250FF',        // violet-600
+    colorPrimaryBg: '#f3eeff',      // violet-100
+    colorPrimaryBgHover: '#ede5ff', // violet-200
+    colorPrimaryBorder: '#D6C1FF',  // violet-300
+    colorPrimaryHover: '#6B3FDB',   // violet-700
+    colorPrimaryActive: '#5532B3',  // violet-800
 
-    // ── Typography ──────────────────────────────────────────
+    // === SUCCESS ===
+    colorSuccess: '#00C269',        // success-600
+    colorSuccessBg: '#E6F9F0',      // success-100
+    colorSuccessBorder: '#99E7C3',  // success-300
+    colorSuccessHover: '#33CF87',   // success-500
+    colorSuccessActive: '#00A651',  // success-700
+
+    // === WARNING ===
+    colorWarning: '#FFD232',        // warning-600
+    colorWarningBg: '#FFFBEB',      // warning-100
+    colorWarningBorder: '#FFE89E',  // warning-300
+    colorWarningHover: '#FFD54C',   // warning-500
+    colorWarningActive: '#D4A20A',  // warning-700
+
+    // === ERROR (Critical) ===
+    colorError: '#D00032',          // critical-600 (Figma, confirmed)
+    colorErrorBg: '#FEF2F3',        // critical-100
+    colorErrorBorder: '#FBCBD1',    // critical-300
+    colorErrorHover: '#F2667A',     // critical-500
+    colorErrorActive: '#B00029',    // critical-700
+
+    // === INFO ===
+    colorInfo: '#5578FF',           // info-600
+    colorInfoBg: '#F0F4FF',         // info-100
+    colorInfoBorder: '#C7D9FF',     // info-300
+    colorInfoHover: '#7C9DFF',      // info-500
+    colorInfoActive: '#3D5FDB',     // info-700
+
+    // === TEXT ===
+    colorText: '#414549',           // neutral-700 / cool-black-700
+    colorTextSecondary: '#6E6E64',  // neutral-600
+    colorTextTertiary: '#b8bcc0',   // cool-black-600
+    colorTextQuaternary: '#e7e8e8', // cool-black-500
+
+    // === BACKGROUNDS & FILLS ===
+    colorBgContainer: '#ffffff',
+    colorBgElevated: '#ffffff',
+    colorBgLayout: '#f9fafb',       // cool-black-100
+    colorFill: '#eaedf1',           // cool-black-400
+    colorFillSecondary: '#f3f5f7',  // cool-black-200
+    colorFillTertiary: '#f9fafb',   // cool-black-100
+    colorFillQuaternary: '#FAFAF7', // neutral-100
+    colorFillAlter: '#f3f5f7',      // cool-black-200 (surface header)
+
+    // === BORDERS ===
+    colorBorder: '#e7e8e8',         // cool-black-500
+    colorBorderSecondary: '#edf0f3', // cool-black-300
+
+    // === TYPOGRAPHY ===
     fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
     fontSize: 14,
     fontSizeSM: 12,
@@ -126,53 +178,38 @@ export const sploseTheme: ThemeConfig = {
     fontSizeHeading4: 16,
     fontSizeHeading5: 14,
 
-    // ── Shape ───────────────────────────────────────────────
+    // === SHAPE ===
     borderRadius: 8,
     borderRadiusSM: 6,
     borderRadiusLG: 12,
-
-    // ── Spacing ─────────────────────────────────────────────
-    // AntD uses a 4px base unit by default, matching Tailwind's scale.
-    // No override needed — the default is correct.
   },
 
   components: {
-    // ── Table ─────────────────────────────────────────────────
     Table: {
-      headerBg: "rgb(234, 237, 241)", // matches current --color-table-header
+      headerBg: "rgb(234, 237, 241)",
       headerColor: "#414549",
-      rowHoverBg: "#f3f5f7", // matches --color-surface-header
-      rowSelectedBg: "rgba(130, 80, 255, 0.05)", // matches bg-primary/5
+      rowHoverBg: "#f3f5f7",
+      rowSelectedBg: "rgba(130, 80, 255, 0.05)",
       rowSelectedHoverBg: "rgba(130, 80, 255, 0.08)",
     },
-
-    // ── Button ────────────────────────────────────────────────
     Button: {
       primaryShadow: "none",
       defaultShadow: "none",
       dangerShadow: "none",
     },
-
-    // ── Card ──────────────────────────────────────────────────
     Card: {
-      headerBg: "#f3f5f7", // matches --color-surface-header for headerBar
+      headerBg: "#f3f5f7",
     },
-
-    // ── Modal ─────────────────────────────────────────────────
     Modal: {
       titleFontSize: 18,
     },
-
-    // ── Input ─────────────────────────────────────────────────
     Input: {
-      activeBorderColor: "#8250ff",
-      hoverBorderColor: "#6d3dd4",
+      activeBorderColor: "#8250FF",
+      hoverBorderColor: "#6B3FDB",
     },
-
-    // ── Select ────────────────────────────────────────────────
     Select: {
-      activeBorderColor: "#8250ff",
-      hoverBorderColor: "#6d3dd4",
+      activeBorderColor: "#8250FF",
+      hoverBorderColor: "#6B3FDB",
     },
   },
 };
