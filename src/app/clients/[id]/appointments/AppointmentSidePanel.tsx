@@ -33,7 +33,6 @@ import {
   FormTextarea,
   Status,
   statusVariant,
-  usePagination,
 } from "@/components/ds";
 
 interface Appointment {
@@ -98,7 +97,10 @@ export default function AppointmentSidePanel({
   client: ClientInfo;
 }) {
   const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null);
-  const { paged, paginationProps } = usePagination(appointments, { pageKey: "/clients/appointments" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(appointments.length / pageSize);
+  const paged = appointments.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   return (
     <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
@@ -211,7 +213,13 @@ export default function AppointmentSidePanel({
               )}
             </TableBody>
           </DataTable>
-          <Pagination {...paginationProps} />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            totalItems={appointments.length}
+            itemsPerPage={pageSize}
+            onPageChange={setCurrentPage}
+          />
         </Card>
       </div>
 

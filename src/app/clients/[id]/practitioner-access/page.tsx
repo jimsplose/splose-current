@@ -2,7 +2,8 @@
 
 import { SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Badge, Button, Card, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, usePagination } from "@/components/ds";
+import { useState } from "react";
+import { Badge, Button, Card, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination } from "@/components/ds";
 
 const mockPractitioners = [
     { name: "Delvin Khor", role: "Practitioner admin", roleType: "Practitioner admin", group: "---", status: "Linked" },
@@ -23,7 +24,10 @@ const mockPractitioners = [
 ];
 
 export default function ClientPractitionerAccessPage() {
-  const { paged, paginationProps } = usePagination(mockPractitioners, { pageKey: "/clients/practitioner-access" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(mockPractitioners.length / pageSize);
+  const paged = mockPractitioners.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   return (
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
@@ -74,7 +78,13 @@ export default function ClientPractitionerAccessPage() {
             ))}
           </TableBody>
         </DataTable>
-        <Pagination {...paginationProps} />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={mockPractitioners.length}
+          itemsPerPage={pageSize}
+          onPageChange={setCurrentPage}
+        />
       </Card>
     </div>
   );

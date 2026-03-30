@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { PlusOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
@@ -15,7 +16,6 @@ import {
   Tr,
   Td,
   Pagination,
-  usePagination,
 } from "@/components/ds";
 
 function formatDOB(dateStr: string | null): string {
@@ -45,7 +45,10 @@ interface ClientRow {
 }
 
 export default function ClientsPageClient({ clients }: { clients: ClientRow[] }) {
-  const { paged, paginationProps } = usePagination(clients, { pageKey: "/clients" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(clients.length / pageSize);
+  const paged = clients.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   return (
     <div style={{ paddingLeft: 22.5, paddingRight: 22.5, paddingTop: 10, paddingBottom: 10 }}>
@@ -96,7 +99,13 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
           ))}
         </TableBody>
       </DataTable>
-      <Pagination {...paginationProps} />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        totalItems={clients.length}
+        itemsPerPage={pageSize}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 }

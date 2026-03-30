@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge, statusVariant, Dropdown, DropdownTriggerButton, Modal, usePagination } from "@/components/ds";
+import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge, statusVariant, Dropdown, DropdownTriggerButton, Modal } from "@/components/ds";
 
 const communicationsData = [
   {
@@ -155,7 +155,10 @@ const dropdownItems = [
 ];
 
 export default function ClientCommunicationsPage() {
-  const { paged, paginationProps } = usePagination(communicationsData, { pageKey: "/clients/communications" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(communicationsData.length / pageSize);
+  const paged = communicationsData.slice((currentPage - 1) * pageSize, currentPage * pageSize);
   const [viewModal, setViewModal] = useState<{
     open: boolean;
     subject: string;
@@ -261,7 +264,13 @@ export default function ClientCommunicationsPage() {
             ))}
           </TableBody>
         </DataTable>
-        <Pagination {...paginationProps} />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={communicationsData.length}
+          itemsPerPage={pageSize}
+          onPageChange={setCurrentPage}
+        />
       </Card>
 
       {/* View communication modal */}

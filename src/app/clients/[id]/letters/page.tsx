@@ -1,7 +1,8 @@
 "use client";
 
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, Card, DataTable, PageHeader, TableHead, Th, TableBody, Tr, Td, ActionsCell, Pagination, usePagination } from "@/components/ds";
+import { useState } from "react";
+import { Button, Card, DataTable, PageHeader, TableHead, Th, TableBody, Tr, Td, ActionsCell, Pagination } from "@/components/ds";
 
 const lettersData = [
   {
@@ -15,7 +16,10 @@ const lettersData = [
 ];
 
 export default function ClientLettersPage() {
-  const { paged, paginationProps } = usePagination(lettersData, { pageKey: "/clients/letters" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(lettersData.length / pageSize);
+  const paged = lettersData.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   return (
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
@@ -54,7 +58,13 @@ export default function ClientLettersPage() {
             ))}
           </TableBody>
         </DataTable>
-        <Pagination {...paginationProps} />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={lettersData.length}
+          itemsPerPage={pageSize}
+          onPageChange={setCurrentPage}
+        />
       </Card>
     </div>
   );

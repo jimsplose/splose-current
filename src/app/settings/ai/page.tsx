@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Flex } from "antd";
 import { WarningOutlined } from "@ant-design/icons";
-import { Button, FormInput, FormTextarea, FormSelect, Tab, Toggle, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, Modal, EmptyState, Badge, Alert, usePagination } from "@/components/ds";
+import { Button, FormInput, FormTextarea, FormSelect, Tab, Toggle, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, Modal, EmptyState, Badge, Alert } from "@/components/ds";
 
 const aiBlocks = [
   { name: "Subjective Assessment", tag: "SOAP", createdBy: "Jim Yencken", lastModified: "12 Mar 2026" },
@@ -142,7 +142,10 @@ function SavedPromptsTab() {
   const [editPrompt, setEditPrompt] = useState<string | null>(null);
   const [editName, setEditName] = useState("");
   const [editGroup, setEditGroup] = useState("Any user");
-  const { paged: pagedPrompts, paginationProps: promptPaginationProps } = usePagination(aiPrompts, { pageKey: "/settings/ai" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(aiPrompts.length / pageSize);
+  const pagedPrompts = aiPrompts.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   const handleEdit = (name: string) => {
     setEditName(name);
@@ -185,7 +188,13 @@ function SavedPromptsTab() {
           ))}
         </TableBody>
       </DataTable>
-      <Pagination {...promptPaginationProps} />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        totalItems={aiPrompts.length}
+        itemsPerPage={pageSize}
+        onPageChange={setCurrentPage}
+      />
 
       <Modal
         open={editPrompt !== null}

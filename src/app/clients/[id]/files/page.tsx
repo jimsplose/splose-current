@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { SwapOutlined, FolderAddOutlined, DownOutlined, FileTextOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, usePagination } from "@/components/ds";
+import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput } from "@/components/ds";
 
 const filesData = [
   {
@@ -30,7 +30,10 @@ const dropdownItems = [
 ];
 
 export default function ClientFilesPage() {
-  const { paged, paginationProps } = usePagination(filesData, { pageKey: "/clients/files" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(filesData.length / pageSize);
+  const paged = filesData.slice((currentPage - 1) * pageSize, currentPage * pageSize);
   const [renameModal, setRenameModal] = useState<{ open: boolean; fileId: string; fileName: string }>({
     open: false,
     fileId: "",
@@ -117,7 +120,13 @@ export default function ClientFilesPage() {
             ))}
           </TableBody>
         </DataTable>
-        <Pagination {...paginationProps} />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={filesData.length}
+          itemsPerPage={pageSize}
+          onPageChange={setCurrentPage}
+        />
       </Card>
 
       {/* Download toast */}

@@ -3,7 +3,7 @@
 import { Fragment, useState } from "react";
 import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge, usePagination } from "@/components/ds";
+import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge } from "@/components/ds";
 
 const mockPayments = [
   {
@@ -100,7 +100,10 @@ const mockPayments = [
 
 export default function PaymentsPage() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const { paged, paginationProps } = usePagination(mockPayments, { pageKey: "/payments" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(mockPayments.length / pageSize);
+  const paged = mockPayments.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   return (
     <div style={{ padding: '10px 22.5px' }}>
@@ -210,7 +213,13 @@ export default function PaymentsPage() {
             ))}
           </TableBody>
         </DataTable>
-        <Pagination {...paginationProps} />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={mockPayments.length}
+          itemsPerPage={pageSize}
+          onPageChange={setCurrentPage}
+        />
       </Card>
     </div>
   );

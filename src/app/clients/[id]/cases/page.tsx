@@ -1,6 +1,7 @@
 "use client";
 
-import { Button, Card, DataTable, PageHeader, TableHead, Th, TableBody, Tr, Td, Pagination, Badge, statusVariant, usePagination } from "@/components/ds";
+import { useState } from "react";
+import { Button, Card, DataTable, PageHeader, TableHead, Th, TableBody, Tr, Td, Pagination, Badge, statusVariant } from "@/components/ds";
 
 const mockCases = [
     // ── Active cases ────────────────────────────────────────────────────
@@ -164,7 +165,10 @@ const mockCases = [
 ];
 
 export default function ClientCasesPage() {
-  const { paged, paginationProps } = usePagination(mockCases, { pageKey: "/clients/cases" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalPages = Math.ceil(mockCases.length / pageSize);
+  const paged = mockCases.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   return (
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
@@ -203,7 +207,13 @@ export default function ClientCasesPage() {
             ))}
           </TableBody>
         </DataTable>
-        <Pagination {...paginationProps} />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={mockCases.length}
+          itemsPerPage={pageSize}
+          onPageChange={setCurrentPage}
+        />
       </Card>
     </div>
   );
