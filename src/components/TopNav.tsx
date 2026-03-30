@@ -61,13 +61,53 @@ function UserIcon() {
   );
 }
 
-/* Production header icon container: 42×56px, centered icon 20×20 */
+/* Production header icon container: 42x56px, centered icon 20x20 */
 function HeaderIcon({ children, badge, href }: { children: React.ReactNode; badge?: number; href?: string }) {
   const inner = (
-    <div className="group relative flex h-14 w-[42px] cursor-pointer items-center justify-center text-text transition-colors hover:text-primary">
-      <span className="flex h-[26px] w-[26px] items-center justify-center rounded-full text-heading-lg transition-colors group-hover:bg-black/[0.04]">{children}</span>
+    <div
+      style={{
+        position: "relative",
+        display: "flex",
+        height: 56,
+        width: 42,
+        cursor: "pointer",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "var(--color-text)",
+      }}
+    >
+      <span
+        style={{
+          display: "flex",
+          height: 26,
+          width: 26,
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: "50%",
+          fontSize: "var(--font-size-heading-lg)",
+        }}
+      >
+        {children}
+      </span>
       {badge != null && (
-        <span className="absolute top-2 right-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-danger px-1 text-caption-sm font-bold text-white">
+        <span
+          style={{
+            position: "absolute",
+            top: 8,
+            right: 4,
+            display: "flex",
+            height: 18,
+            minWidth: 18,
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: "50%",
+            background: "var(--color-danger)",
+            padding: "0 4px",
+            fontSize: "var(--font-size-caption-sm)",
+            fontWeight: 700,
+            color: "#fff",
+          }}
+        >
           {badge}
         </span>
       )}
@@ -96,9 +136,21 @@ export default function TopNav() {
       <HeaderIcon>
         <QuestionCircleIcon />
       </HeaderIcon>
-      {/* Production avatar: 26×26, rgba(0,0,0,0.25) bg, 50% radius */}
-      <div className="flex h-14 w-[42px] items-center justify-center">
-        <div className="flex h-[26px] w-[26px] items-center justify-center rounded-full bg-black/25 text-label-md text-white">
+      {/* Production avatar: 26x26, rgba(0,0,0,0.25) bg, 50% radius */}
+      <div style={{ display: "flex", height: 56, width: 42, alignItems: "center", justifyContent: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            height: 26,
+            width: 26,
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: "50%",
+            background: "rgba(0,0,0,0.25)",
+            fontSize: "var(--font-size-label-md)",
+            color: "#fff",
+          }}
+        >
           SC
         </div>
       </div>

@@ -111,8 +111,7 @@ export default function MapView({ markers }: MapViewProps) {
   return (
     <div
       ref={containerRef}
-      className="h-full w-full"
-      style={{ minHeight: "400px" }}
+      style={{ height: "100%", width: "100%", minHeight: 400 }}
     />
   );
 }

@@ -1,8 +1,27 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { X, ArrowUp, ClipboardList, Sparkles } from "lucide-react";
+import { CloseOutlined, ArrowUpOutlined, UnorderedListOutlined } from "@ant-design/icons";
 import Card from "@/components/ds/Card";
+
+/* Sparkles icon — no direct AntD equivalent, use a custom SVG */
+function SparklesIcon({ style }: { style?: React.CSSProperties }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ width: "1em", height: "1em", ...style }}
+    >
+      <path d="M9.937 15.5A2 2 0 008.5 14.063l-6.135-1.582a.5.5 0 010-.962L8.5 9.936A2 2 0 009.937 8.5l1.582-6.135a.5.5 0 01.963 0L14.063 8.5A2 2 0 0015.5 9.937l6.135 1.581a.5.5 0 010 .964L15.5 14.063a2 2 0 00-1.437 1.437l-1.582 6.135a.5.5 0 01-.963 0z" />
+      <path d="M20 3v4" />
+      <path d="M22 5h-4" />
+    </svg>
+  );
+}
 
 const SILLY_PROMPTS = [
   "Write a clinically relevant haiku about bears",
@@ -110,42 +129,42 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
   return (
     <>
       {/* Header */}
-      <div className="flex h-[60px] shrink-0 items-center justify-between border-b border-border px-4">
-        <div className="flex items-center gap-2">
-          <Sparkles className="h-4.5 w-4.5 text-primary" />
+      <div style={{ display: "flex", height: 60, flexShrink: 0, alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid var(--color-border)", padding: "0 16px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <SparklesIcon style={{ fontSize: 18, color: "var(--color-primary)" }} />
           <span className="text-heading-sm text-text">Ask splose AI</span>
         </div>
         <button
-          className="flex h-8 w-8 items-center justify-center rounded-full text-text-secondary hover:bg-gray-100"
+          style={{ display: "flex", height: 32, width: 32, alignItems: "center", justifyContent: "center", borderRadius: "50%", border: "none", background: "transparent", color: "var(--color-text-secondary)", cursor: "pointer" }}
           onClick={onClose}
         >
-          <X className="h-4 w-4" />
+          <CloseOutlined style={{ fontSize: 16 }} />
         </button>
       </div>
 
       {/* Main content area — scrollable */}
-      <div className="flex flex-1 flex-col overflow-y-auto px-6 py-6">
+      <div style={{ display: "flex", flex: 1, flexDirection: "column", overflowY: "auto", padding: 24 }}>
         {!hasMessages ? (
-          <div className="flex flex-1 flex-col items-center justify-center">
+          <div style={{ display: "flex", flex: 1, flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
             {/* Greeting card */}
             <Card padding="md" className="mb-6 w-full text-center">
-              <div className="mb-2 text-3xl">{variant === "calendar" ? "👋" : "🌸"}</div>
+              <div style={{ marginBottom: 8, fontSize: 30 }}>{variant === "calendar" ? "👋" : "🌸"}</div>
               <h2 className="text-heading-lg text-text">Hello, I&apos;m splose AI</h2>
             </Card>
 
-            <p className="mb-6 text-center text-body-md text-text-secondary">
+            <p style={{ marginBottom: 24, textAlign: "center" }} className="text-body-md text-text-secondary">
               {variant === "calendar"
                 ? "How can I help you today?"
                 : "Transcribe your session, ask a question or select a prompt"}
             </p>
 
             {/* Quick action pills */}
-            <div className="flex w-full flex-col gap-3">
+            <div style={{ display: "flex", width: "100%", flexDirection: "column", gap: 12 }}>
               {quickActions.map((action) => (
                 <button
                   key={action}
                   onClick={() => handleQuickAction(action)}
-                  className="rounded-full border border-primary px-4 py-2.5 text-left text-body-sm text-primary transition-colors hover:bg-primary/5"
+                  style={{ borderRadius: 9999, border: "1px solid var(--color-primary)", padding: "10px 16px", textAlign: "left", background: "transparent", color: "var(--color-primary)", cursor: "pointer", fontSize: "var(--font-size-body-sm)" }}
                 >
                   {action}
                 </button>
@@ -153,24 +172,27 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
             </div>
           </div>
         ) : (
-          <div className="flex flex-col gap-4">
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {messages.map((msg, i) => (
-              <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+              <div key={i} style={{ display: "flex", justifyContent: msg.role === "user" ? "flex-end" : "flex-start" }}>
                 <div
-                  className={`max-w-[85%] rounded-2xl px-4 py-3 text-body-sm ${
-                    msg.role === "user"
-                      ? "bg-primary text-white"
-                      : "bg-gray-100 text-text"
-                  }`}
+                  style={{
+                    maxWidth: "85%",
+                    borderRadius: 16,
+                    padding: "12px 16px",
+                    fontSize: "var(--font-size-body-sm)",
+                    background: msg.role === "user" ? "var(--color-primary)" : "var(--color-gray-100, #f3f4f6)",
+                    color: msg.role === "user" ? "#fff" : "var(--color-text)",
+                  }}
                 >
-                  <div className="whitespace-pre-line">{msg.content}</div>
+                  <div style={{ whiteSpace: "pre-line" }}>{msg.content}</div>
                 </div>
               </div>
             ))}
 
             {isTyping && (
-              <div className="flex justify-start">
-                <div className="flex items-center gap-1.5 rounded-2xl bg-gray-100 px-4 py-3">
+              <div style={{ display: "flex", justifyContent: "flex-start" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 6, borderRadius: 16, background: "var(--color-gray-100, #f3f4f6)", padding: "12px 16px" }}>
                   <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400" style={{ animationDelay: "0ms" }} />
                   <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400" style={{ animationDelay: "150ms" }} />
                   <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400" style={{ animationDelay: "300ms" }} />
@@ -184,9 +206,9 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
       </div>
 
       {/* Bottom section — fixed */}
-      <div className="border-t border-border px-4 py-4">
+      <div style={{ borderTop: "1px solid var(--color-border)", padding: 16 }}>
         {/* Chat input */}
-        <div className="mb-3 flex items-center gap-2 rounded-full border border-border bg-white px-4 py-2.5 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary">
+        <div style={{ marginBottom: 12, display: "flex", alignItems: "center", gap: 8, borderRadius: 9999, border: "1px solid var(--color-border)", background: "#fff", padding: "10px 16px" }}>
           <input
             ref={inputRef}
             type="text"
@@ -195,26 +217,39 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
             onChange={(e) => setInputValue(e.target.value)}
             onFocus={handleInputFocus}
             onKeyDown={handleKeyDown}
-            className="flex-1 bg-transparent text-body-sm text-text outline-none placeholder:text-text-secondary"
+            style={{ flex: 1, background: "transparent", fontSize: "var(--font-size-body-sm)", color: "var(--color-text)", outline: "none", border: "none" }}
           />
           <button
             onClick={handleSend}
             disabled={!inputValue.trim() || isTyping}
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white transition-colors hover:bg-primary/90 disabled:opacity-40"
+            style={{
+              display: "flex",
+              height: 32,
+              width: 32,
+              flexShrink: 0,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: "50%",
+              border: "none",
+              background: "var(--color-primary)",
+              color: "#fff",
+              cursor: !inputValue.trim() || isTyping ? "not-allowed" : "pointer",
+              opacity: !inputValue.trim() || isTyping ? 0.4 : 1,
+            }}
           >
-            <ArrowUp className="h-4 w-4" />
+            <ArrowUpOutlined style={{ fontSize: 16 }} />
           </button>
         </div>
 
         {/* Saved prompts button */}
-        <button className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-body-sm text-text-secondary transition-colors hover:bg-gray-50">
-          <ClipboardList className="h-4 w-4" />
+        <button style={{ display: "flex", width: "100%", alignItems: "center", gap: 8, borderRadius: 8, padding: "8px 8px", border: "none", background: "transparent", fontSize: "var(--font-size-body-sm)", color: "var(--color-text-secondary)", cursor: "pointer" }}>
+          <UnorderedListOutlined style={{ fontSize: 16 }} />
           Saved prompts
         </button>
 
         {/* Footer */}
-        <div className="mt-2 flex items-center justify-between">
-          <span className="text-caption-sm text-text-secondary">
+        <div style={{ marginTop: 8, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <span style={{ fontSize: "var(--font-size-caption-sm)", color: "var(--color-text-secondary)" }}>
             AI can make mistakes, double-check responses
           </span>
         </div>

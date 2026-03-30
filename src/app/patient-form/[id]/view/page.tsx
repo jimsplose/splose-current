@@ -1,4 +1,4 @@
-import { ChevronDown, Mail } from "lucide-react";
+import { DownOutlined, MailOutlined } from "@ant-design/icons";
 import { Badge, Button, Card, statusVariant } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
@@ -43,12 +43,12 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
         </div>
         <div className="flex items-center gap-2">
           <Button variant="secondary">
-            <Mail className="h-4 w-4" />
+            <MailOutlined style={{ fontSize: 16 }} />
             Email form
           </Button>
           <Button variant="secondary">
             Actions
-            <ChevronDown className="h-3.5 w-3.5" />
+            <DownOutlined style={{ fontSize: 14 }} />
           </Button>
         </div>
       </div>

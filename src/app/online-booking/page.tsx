@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { ChevronLeft, ChevronRight, MapPin, FileText, Clock, Calendar, User, CheckCircle, Mail, CalendarPlus, Copy } from "lucide-react";
+import { LeftOutlined, RightOutlined, EnvironmentOutlined, FileTextOutlined, ClockCircleOutlined, CalendarOutlined, UserOutlined, CheckCircleOutlined, MailOutlined, PlusOutlined, CopyOutlined } from "@ant-design/icons";
 import { Avatar, Button, Checkbox, FormInput, FormSelect, FormTextarea, Alert } from "@/components/ds";
 
 const practitioners = [
@@ -88,7 +88,7 @@ function OnlineBookingPageInner() {
             }}
             className="mb-6 flex items-center gap-1 text-body-md text-text hover:underline"
           >
-            <ChevronLeft className="h-4 w-4" /> Back
+            <LeftOutlined style={{ fontSize: 16 }} /> Back
           </button>
         )}
 
@@ -146,15 +146,15 @@ function OnlineBookingPageInner() {
                 {/* Filters */}
                 <div className="mb-4 flex gap-3">
                   <div className="flex-1 rounded-lg border border-border px-3 py-2 text-body-md text-text-secondary">
-                    <User className="mr-2 inline h-4 w-4" />
+                    <UserOutlined style={{ fontSize: 16, marginRight: 8 }} />
                     All practitioners
                   </div>
                   <div className="flex-1 rounded-lg border border-border px-3 py-2 text-body-md text-text-secondary">
-                    <Calendar className="mr-2 inline h-4 w-4" />
+                    <CalendarOutlined style={{ fontSize: 16, marginRight: 8 }} />
                     Any date
                   </div>
                   <div className="flex-1 rounded-lg border border-border px-3 py-2 text-body-md text-text-secondary">
-                    <Clock className="mr-2 inline h-4 w-4" />
+                    <ClockCircleOutlined style={{ fontSize: 16, marginRight: 8 }} />
                     Any time
                   </div>
                 </div>
@@ -196,7 +196,7 @@ function OnlineBookingPageInner() {
                           <div className="mb-2 text-heading-sm text-text">March 2026</div>
                           <div className="mb-4 flex items-center gap-1">
                             <Button variant="icon" round>
-                              <ChevronLeft className="h-4 w-4" />
+                              <LeftOutlined style={{ fontSize: 16 }} />
                             </Button>
                             {weekDays.map((d) => (
                               <Button
@@ -217,7 +217,7 @@ function OnlineBookingPageInner() {
                               </Button>
                             ))}
                             <Button variant="icon" round>
-                              <ChevronRight className="h-4 w-4" />
+                              <RightOutlined style={{ fontSize: 16 }} />
                             </Button>
                           </div>
                           <div className="mb-1 flex text-caption-sm text-text-secondary">
@@ -376,8 +376,8 @@ function OnlineBookingPageInner() {
               <>
                 <div className="mx-auto max-w-lg text-center">
                   <div className="mb-4 flex justify-center">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-                      <CheckCircle className="h-8 w-8 text-green-600" />
+                    <div style={{ display: "flex", height: 64, width: 64, alignItems: "center", justifyContent: "center", borderRadius: "50%", background: "var(--color-green-100, #dcfce7)" }}>
+                      <CheckCircleOutlined style={{ fontSize: 32, color: "var(--color-green-600, #16a34a)" }} />
                     </div>
                   </div>
                   <h1 className="mb-2 text-[36px] font-semibold leading-[44px] text-[rgb(16,24,40)]">Booking confirmed!</h1>
@@ -418,8 +418,8 @@ function OnlineBookingPageInner() {
 
                   {/* Email preview card */}
                   <div className="mb-6 rounded-xl border border-border bg-white p-5 text-left">
-                    <div className="mb-3 flex items-center gap-2">
-                      <Mail className="h-4 w-4 text-text-secondary" />
+                    <div style={{ marginBottom: 12, display: "flex", alignItems: "center", gap: 8 }}>
+                      <MailOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
                       <h3 className="text-heading-sm text-text">Confirmation email sent</h3>
                     </div>
                     <div className="rounded-lg border border-border bg-gray-50 p-4">
@@ -457,19 +457,19 @@ function OnlineBookingPageInner() {
                     <h3 className="text-heading-sm text-text">Add to your calendar</h3>
                     <div className="flex gap-2">
                       <Button variant="secondary" size="sm">
-                        <CalendarPlus className="h-4 w-4" />
+                        <PlusOutlined style={{ fontSize: 16 }} />
                         Google Calendar
                       </Button>
                       <Button variant="secondary" size="sm">
-                        <CalendarPlus className="h-4 w-4" />
+                        <PlusOutlined style={{ fontSize: 16 }} />
                         Apple Calendar
                       </Button>
                       <Button variant="secondary" size="sm">
-                        <CalendarPlus className="h-4 w-4" />
+                        <PlusOutlined style={{ fontSize: 16 }} />
                         Outlook
                       </Button>
                       <Button variant="secondary" size="sm">
-                        <Copy className="h-4 w-4" />
+                        <CopyOutlined style={{ fontSize: 16 }} />
                         Copy .ics
                       </Button>
                     </div>
@@ -500,8 +500,8 @@ function OnlineBookingPageInner() {
                   <div className="flex-1">
                     <div className="text-heading-sm text-text">Location</div>
                     {selectedLocation && (
-                      <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
-                        <MapPin className="h-3 w-3" /> {mockLocations.find((l) => l.id === selectedLocation)?.name}
+                      <div style={{ display: "flex", alignItems: "center", gap: 6 }} className="text-caption-md text-text-secondary">
+                        <EnvironmentOutlined style={{ fontSize: 12 }} /> {mockLocations.find((l) => l.id === selectedLocation)?.name}
                       </div>
                     )}
                   </div>
@@ -521,11 +521,11 @@ function OnlineBookingPageInner() {
                     <div className={`text-heading-sm ${step === "location" ? "text-text-secondary" : "text-text"}`}>Service</div>
                     {step !== "location" && (
                       <>
-                        <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
-                          <FileText className="h-3 w-3" /> 1:1 Consultation (40 mins d...
+                        <div style={{ display: "flex", alignItems: "center", gap: 6 }} className="text-caption-md text-text-secondary">
+                          <FileTextOutlined style={{ fontSize: 12 }} /> 1:1 Consultation (40 mins d...
                         </div>
-                        <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
-                          <span className="h-3 w-3 text-center">$</span> A$148.71
+                        <div style={{ display: "flex", alignItems: "center", gap: 6 }} className="text-caption-md text-text-secondary">
+                          <span style={{ width: 12, textAlign: "center", fontSize: 12 }}>$</span> A$148.71
                         </div>
                       </>
                     )}
@@ -539,14 +539,14 @@ function OnlineBookingPageInner() {
                     <div className={`text-heading-sm ${step === "location" ? "text-text-secondary" : "text-text"}`}>Appointment</div>
                     {step === "confirm" && selectedPrac && (
                       <>
-                        <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
-                          <User className="h-3 w-3" /> {selectedPrac.name}
+                        <div style={{ display: "flex", alignItems: "center", gap: 6 }} className="text-caption-md text-text-secondary">
+                          <UserOutlined style={{ fontSize: 12 }} /> {selectedPrac.name}
                         </div>
-                        <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
-                          <Clock className="h-3 w-3" /> {selectedTime}
+                        <div style={{ display: "flex", alignItems: "center", gap: 6 }} className="text-caption-md text-text-secondary">
+                          <ClockCircleOutlined style={{ fontSize: 12 }} /> {selectedTime}
                         </div>
-                        <div className="flex items-center gap-1.5 text-caption-md text-text-secondary">
-                          <Calendar className="h-3 w-3" /> Thursday 19 March 2026
+                        <div style={{ display: "flex", alignItems: "center", gap: 6 }} className="text-caption-md text-text-secondary">
+                          <CalendarOutlined style={{ fontSize: 12 }} /> Thursday 19 March 2026
                         </div>
                       </>
                     )}

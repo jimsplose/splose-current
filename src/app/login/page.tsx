@@ -1,25 +1,25 @@
-import { ChevronRight, EyeOff } from "lucide-react";
+import { RightOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 import { Button, Checkbox, FormInput } from "@/components/ds";
 
 export default function LoginPage() {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-purple-300">
-      <div className="w-full max-w-md">
+    <div style={{ position: "fixed", inset: 0, zIndex: 50, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--color-purple-300, #d8b4fe)" }}>
+      <div style={{ width: "100%", maxWidth: 448 }}>
         {/* Header banner */}
-        <div className="relative overflow-hidden rounded-t-2xl bg-primary px-8 py-10">
+        <div style={{ position: "relative", overflow: "hidden", borderRadius: "16px 16px 0 0", background: "var(--color-primary)", padding: "40px 32px" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/brand/splose logo.svg" alt="splose" className="h-14 brightness-0 invert" />
+          <img src="/images/brand/splose logo.svg" alt="splose" style={{ height: 56, filter: "brightness(0) invert(1)" }} />
           {/* Settings illustration */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/brand/settings.png" alt="" className="absolute top-1/2 right-6 h-20 -translate-y-1/2 object-contain" />
+          <img src="/images/brand/settings.png" alt="" style={{ position: "absolute", top: "50%", right: 24, height: 80, transform: "translateY(-50%)", objectFit: "contain" }} />
         </div>
 
         {/* Form card */}
-        <div className="rounded-b-2xl bg-white px-8 py-8">
-          <p className="text-sm text-primary">You are logging into</p>
-          <p className="mt-1 text-heading-lg text-text">acme.splose.com</p>
+        <div style={{ borderRadius: "0 0 16px 16px", background: "#fff", padding: "32px 32px" }}>
+          <p style={{ fontSize: 14, color: "var(--color-primary)" }}>You are logging into</p>
+          <p style={{ marginTop: 4, fontSize: "var(--font-size-heading-lg)", fontWeight: "var(--font-weight-heading-lg)", color: "var(--color-text)" }}>acme.splose.com</p>
 
-          <div className="mt-6">
+          <div style={{ marginTop: 24 }}>
             <FormInput
               type="email"
               label="Email"
@@ -27,20 +27,20 @@ export default function LoginPage() {
             />
           </div>
 
-          <div className="mt-6">
-            <div className="relative">
+          <div style={{ marginTop: 24 }}>
+            <div style={{ position: "relative" }}>
               <FormInput
                 type="password"
                 label="Password"
                 className="mt-1 rounded-none border-0 border-b border-gray-300 bg-transparent px-0 py-2 pr-8 text-body-md shadow-none ring-0 focus:border-primary focus:ring-0"
               />
-              <EyeOff className="absolute bottom-3 right-0 h-4 w-4 text-text-secondary" />
+              <EyeInvisibleOutlined style={{ position: "absolute", bottom: 12, right: 0, fontSize: 16, color: "var(--color-text-secondary)" }} />
             </div>
           </div>
 
-          <div className="mt-4 flex items-center justify-between">
+          <div style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <Checkbox label="Remember me" />
-            <a href="#" className="text-sm text-primary hover:underline">
+            <a href="#" style={{ fontSize: 14, color: "var(--color-primary)", textDecoration: "none" }}>
               Forgot password?
             </a>
           </div>
@@ -51,16 +51,16 @@ export default function LoginPage() {
             className="mt-6 flex w-full justify-between py-3"
           >
             Log in
-            <ChevronRight className="h-5 w-5" />
+            <RightOutlined style={{ fontSize: 20 }} />
           </Button>
         </div>
 
         {/* Footer links */}
-        <div className="mt-4 flex justify-center gap-6 text-sm text-primary">
-          <a href="#" className="hover:underline">
+        <div style={{ marginTop: 16, display: "flex", justifyContent: "center", gap: 24, fontSize: 14, color: "var(--color-primary)" }}>
+          <a href="#" style={{ color: "inherit", textDecoration: "none" }}>
             Terms of Service
           </a>
-          <a href="#" className="hover:underline">
+          <a href="#" style={{ color: "inherit", textDecoration: "none" }}>
             Privacy Policy
           </a>
         </div>
