@@ -996,7 +996,7 @@ export default function CalendarView({
                   // Busy time - just close for now
                 }}
               >
-                <Ban className="h-4 w-4 text-text-secondary" />
+                <StopOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
                 Busy time
               </Button>
               <Button
@@ -1006,7 +1006,7 @@ export default function CalendarView({
                   openCreateModal(popover.dateStr, popover.hour, popover.minute, popover.practitionerId);
                 }}
               >
-                <Calendar className="h-4 w-4 text-text-secondary" />
+                <CalendarOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
                 Appointment
               </Button>
             </div>
@@ -1048,7 +1048,7 @@ export default function CalendarView({
             <div className="space-y-4">
               {/* Past date warning */}
               {createDate && isDateInPast(createDate) && (
-                <Alert variant="warning" icon={<AlertTriangle className="h-4 w-4 text-yellow-600" />}>
+                <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16, color: '#ca8a04' }} />}>
                   This appointment is in the past. Are you sure you want to create it?
                 </Alert>
               )}
@@ -1096,7 +1096,7 @@ export default function CalendarView({
                         onClick={() => setCreateClient(name)}
                         className="inline-flex items-center gap-1.5 rounded-full border border-gray-300 bg-gray-50 px-3 py-1 text-label-lg text-gray-700 transition-colors hover:border-primary hover:bg-purple-50 hover:text-primary"
                       >
-                        <User className="h-3.5 w-3.5" />
+                        <UserOutlined style={{ fontSize: 14 }} />
                         {name}
                       </button>
                     ))}
@@ -1156,7 +1156,7 @@ export default function CalendarView({
 
               {/* Conflict warning — demo: show when selected time is AM (before noon) */}
               {createTime && createTime.includes("AM") && (
-                <Alert variant="warning" icon={<AlertTriangle className="h-4 w-4 text-yellow-600" />}>
+                <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16, color: '#ca8a04' }} />}>
                   <span className="font-medium">Scheduling conflict:</span> {createPractitioner ? practitioners.find(p => p.id === createPractitioner)?.name || "Practitioner" : "Practitioner"} already has an appointment at {createTime}. Double-check before confirming.
                 </Alert>
               )}
@@ -1241,7 +1241,7 @@ export default function CalendarView({
               <div className="rounded-lg border border-border bg-gray-50 p-3">
                 <Button variant="ghost" size="sm" className="w-full justify-between text-label-lg text-text">
                   Waitlist matches (2)
-                  <ChevronDown className="h-4 w-4 text-text-secondary" />
+                  <DownOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
                 </Button>
               </div>
 
@@ -1277,7 +1277,7 @@ export default function CalendarView({
       >
             <div className="space-y-4">
               {/* Info banner */}
-              <Alert variant="info" icon={<Info className="h-4 w-4 text-blue-600" />}>
+              <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 16, color: '#2563eb' }} />}>
                 Client won&apos;t be notified of changes. To do this, use Reschedule.
               </Alert>
 
@@ -1422,7 +1422,7 @@ export default function CalendarView({
               {/* Notification preview */}
               <div className="rounded-lg border border-border bg-purple-50/50 p-4">
                 <div className="mb-2 flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-primary" />
+                  <MailOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary)' }} />
                   <span className="text-label-lg text-text">Notification preview</span>
                 </div>
                 <p className="mb-3 text-body-sm text-text-secondary">
@@ -1444,7 +1444,7 @@ export default function CalendarView({
               {/* Change log */}
               <div className="rounded-lg border border-border bg-gray-50 p-4">
                 <div className="mb-3 flex items-center gap-2">
-                  <History className="h-4 w-4 text-text-secondary" />
+                  <HistoryOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
                   <span className="text-label-lg text-text">Change log</span>
                 </div>
                 <div className="space-y-2">
@@ -1634,7 +1634,7 @@ function AppointmentSidePanel({
               </span>
             </div>
             <Button variant="icon" size="sm" onClick={onClose}>
-              <X className="h-4 w-4 text-text-secondary" />
+              <CloseOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)' }} />
             </Button>
           </div>
 
@@ -1665,7 +1665,7 @@ function AppointmentSidePanel({
 
           <div className="mt-3 text-center">
             <Button variant="link" className="mx-auto">
-              <History className="h-3.5 w-3.5" />
+              <HistoryOutlined style={{ fontSize: 14 }} />
               View change log
             </Button>
           </div>
@@ -1680,7 +1680,7 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
     <div className="space-y-3 text-body-md">
       {/* Location */}
       <div className="flex items-start gap-2">
-        <MapPin className="mt-0.5 h-4 w-4 text-text-secondary" />
+        <EnvironmentOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)', marginTop: 2 }} />
         <div>
           <span className="text-text">{appt.practitionerName}</span>
           <span className="text-text-secondary"> at </span>
@@ -1696,7 +1696,7 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
 
       {/* Time */}
       <div className="flex items-start gap-2">
-        <Clock className="mt-0.5 h-4 w-4 text-text-secondary" />
+        <ClockCircleOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)', marginTop: 2 }} />
         <span className="text-text">
           {appt.startTime}, {formatDateLong(appt.date)} for{" "}
           {calcDuration(appt.startTime, appt.endTime)}
@@ -1705,13 +1705,13 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
 
       {/* Client name link */}
       <div className="flex items-start gap-2">
-        <User className="mt-0.5 h-4 w-4 text-primary" />
+        <UserOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary)', marginTop: 2 }} />
         <span className="cursor-pointer font-medium text-primary hover:underline">{appt.clientName}</span>
       </div>
 
       {/* Email */}
       <div className="flex items-start gap-2">
-        <Mail className="mt-0.5 h-4 w-4 text-text-secondary" />
+        <MailOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)', marginTop: 2 }} />
         <span className="text-text-secondary">thyxueen@gmail.com</span>
       </div>
 
@@ -1723,32 +1723,32 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
 
       {/* Zoom link */}
       <div className="flex items-start gap-2">
-        <Video className="mt-0.5 h-4 w-4 text-primary" />
+        <VideoCameraOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary)', marginTop: 2 }} />
         <span className="cursor-pointer text-primary hover:underline">Create zoom meeting</span>
       </div>
 
       {/* Invoice */}
       <div className="flex items-center gap-2">
-        <FileText className="mt-0.5 h-4 w-4 text-primary" />
+        <FileTextOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary)', marginTop: 2 }} />
         <span className="cursor-pointer text-primary hover:underline">TRR-005673</span>
         <Badge variant="blue">Draft</Badge>
       </div>
 
       {/* Do not invoice link */}
       <div className="flex items-start gap-2">
-        <Ban className="mt-0.5 h-4 w-4 text-text-secondary" />
+        <StopOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)', marginTop: 2 }} />
         <span className="cursor-pointer text-primary hover:underline">Mark as Do not Invoice?</span>
       </div>
 
       {/* Progress note */}
       <div className="flex items-start gap-2">
-        <FileText className="mt-0.5 h-4 w-4 text-primary" />
+        <FileTextOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary)', marginTop: 2 }} />
         <span className="cursor-pointer text-primary hover:underline">Add progress note</span>
       </div>
 
       {/* Repeating info */}
       <div className="flex items-start gap-2">
-        <Repeat className="mt-0.5 h-4 w-4 text-text-secondary" />
+        <SyncOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)', marginTop: 2 }} />
         <span className="text-caption-md text-text-secondary">Repeating every 2 weeks on Monday for 6 times</span>
       </div>
 
@@ -1778,7 +1778,7 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
     <div className="space-y-3 text-body-md">
       {/* Location */}
       <div className="flex items-start gap-2">
-        <MapPin className="mt-0.5 h-4 w-4 text-text-secondary" />
+        <EnvironmentOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)', marginTop: 2 }} />
         <div>
           <span className="text-text">{appt.practitionerName}</span>
           <span className="text-text-secondary"> at </span>
@@ -1794,7 +1794,7 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
 
       {/* Time */}
       <div className="flex items-start gap-2">
-        <Clock className="mt-0.5 h-4 w-4 text-text-secondary" />
+        <ClockCircleOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary)', marginTop: 2 }} />
         <span className="text-text">
           {appt.startTime}, {formatDateLong(appt.date)} for{" "}
           {calcDuration(appt.startTime, appt.endTime)}
@@ -1803,7 +1803,7 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
 
       {/* Zoom */}
       <div className="flex items-start gap-2">
-        <Video className="mt-0.5 h-4 w-4 text-primary" />
+        <VideoCameraOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary)', marginTop: 2 }} />
         <span className="cursor-pointer text-primary hover:underline">Create zoom meeting</span>
       </div>
 
