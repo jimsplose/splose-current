@@ -352,7 +352,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
               <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/></svg>
             </Button>
             <div style={{ flex: 1 }} />
-            <span className="text-label-md" style={{ marginRight: 4, cursor: 'pointer', borderRadius: 4, padding: '2px 6px', color: 'var(--ant-color-text-secondary)' }} className="text-label-md hover:bg-gray-100">GIF</span>
+            <span className="text-label-md hover:bg-gray-100" style={{ marginRight: 4, cursor: 'pointer', borderRadius: 4, padding: '2px 6px', color: 'var(--ant-color-text-secondary)' }}>GIF</span>
             <Button variant="primary" size="sm" className="text-body-md">
               Send
             </Button>
@@ -400,10 +400,10 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
             </div>
             <Flex align="center" justify="center" gap={16} className="text-caption-md" style={{ marginTop: 4, color: 'var(--ant-color-text-secondary)' }}>
               <Flex align="center" gap={6}>
-                <ColorDot color="#bef264" size="xs" style={{ height: 10, width: 10 }} /> Invoices
+                <ColorDot color="#bef264" size="xs" className="h-2.5 w-2.5" /> Invoices
               </Flex>
               <Flex align="center" gap={6}>
-                <ColorDot color="#c084fc" size="xs" style={{ height: 10, width: 10 }} /> Payments
+                <ColorDot color="#c084fc" size="xs" className="h-2.5 w-2.5" /> Payments
               </Flex>
             </Flex>
           </div>
@@ -420,7 +420,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                 <>
                   {incompleteNotes.map((note) => (
                     <Flex key={note.name} align="flex-start" justify="space-between" gap={8} style={{ paddingTop: 2, paddingBottom: 2 }}>
-                      <span className="text-body-md" style={{ cursor: 'pointer', color: 'var(--ant-color-primary)' }} className="text-body-md hover:underline">
+                      <span className="text-body-md hover:underline" style={{ cursor: 'pointer', color: 'var(--ant-color-primary)' }}>
                         {note.name}
                       </span>
                       <span className="text-caption-sm" style={{ flexShrink: 0, whiteSpace: 'nowrap', paddingTop: 2, color: 'var(--ant-color-text-secondary)' }}>
@@ -432,7 +432,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
               ) : (
                 unsignedNotes.map((note) => (
                   <Flex key={note.id} align="flex-start" justify="space-between" gap={8} style={{ paddingTop: 2, paddingBottom: 2 }}>
-                    <span className="text-body-md" style={{ cursor: 'pointer', color: 'var(--ant-color-primary)' }} className="text-body-md hover:underline">
+                    <span className="text-body-md hover:underline" style={{ cursor: 'pointer', color: 'var(--ant-color-primary)' }}>
                       {note.client.firstName} {note.client.lastName} ({note.practitioner.name})
                     </span>
                     <span className="text-caption-sm" style={{ flexShrink: 0, whiteSpace: 'nowrap', paddingTop: 2, color: 'var(--ant-color-text-secondary)' }}>
