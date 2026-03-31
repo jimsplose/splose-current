@@ -41,7 +41,7 @@ function mapVariant(variant: ButtonVariant): Pick<AntButtonProps, "type" | "dang
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = "secondary", size = "md", round = false, className, children, htmlType, disabled, onClick, ...props }, ref) => {
+  ({ variant = "secondary", size = "md", round = false, className, style, children, htmlType, disabled, onClick, ...props }, ref) => {
     const antProps = mapVariant(variant);
 
     return (
@@ -51,6 +51,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         size={sizeMap[size]}
         shape={round ? "circle" : undefined}
         className={className}
+        style={style}
         disabled={disabled}
         onClick={onClick}
         htmlType={htmlType}

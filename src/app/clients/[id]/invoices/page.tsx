@@ -28,7 +28,7 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
 
       <SearchBar placeholder="Search for invoice number, client name and contact name" />
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <div style={{ overflowX: 'auto' }}>
           <DataTable>
             <TableHead>
@@ -109,15 +109,15 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
                       </Td>
                       <Td>
                         {inv.status === "Paid" ? (
-                          <Badge variant="green" className="bg-green-500 text-white">
+                          <Badge variant="green" style={{ backgroundColor: '#22c55e', color: '#fff' }}>
                             Paid
                           </Badge>
                         ) : inv.status === "Draft" ? (
-                          <Badge variant="blue" className="bg-blue-500 text-white">
+                          <Badge variant="blue" style={{ backgroundColor: '#3b82f6', color: '#fff' }}>
                             Draft
                           </Badge>
                         ) : (
-                          <Badge variant="yellow" className="bg-yellow-500 text-white">
+                          <Badge variant="yellow" style={{ backgroundColor: '#eab308', color: '#fff' }}>
                             {inv.status}
                           </Badge>
                         )}

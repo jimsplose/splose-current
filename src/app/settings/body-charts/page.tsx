@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Flex } from "antd";
 import {
   Button,
   PageHeader,
@@ -124,13 +125,13 @@ export default function BodyChartsPage() {
   }
 
   return (
-    <div className="p-6">
+    <div style={{ padding: 24 }}>
       <PageHeader title="Body chart templates">
         <Button variant="secondary">Show archived</Button>
         <Button variant="secondary" onClick={openCreate}>+ New template</Button>
       </PageHeader>
 
-      <div className="mb-4">
+      <div style={{ marginBottom: 16 }}>
         <SearchBar placeholder="Search for body chart template" onSearch={setSearch} />
       </div>
 
@@ -145,7 +146,7 @@ export default function BodyChartsPage() {
         <TableBody>
           {paged.map((t, i) => (
             <Tr key={t.id} hover>
-              <Td><span className="text-body-md font-medium text-text">{t.name}</span></Td>
+              <Td><span className="text-body-md text-text" style={{ fontWeight: 500 }}>{t.name}</span></Td>
               <Td className="text-text-secondary">{t.type}</Td>
               <Td className="text-text-secondary">{t.createdAt}</Td>
               <Td className="text-text-secondary">{t.lastUpdate}</Td>
@@ -163,29 +164,34 @@ export default function BodyChartsPage() {
         onClose={closeModal}
         title={isEditing ? "Edit body chart template" : "New body chart template"}
         footer={
-          <div className="flex justify-end gap-2">
+          <Flex justify="flex-end" gap={8}>
             <Button variant="secondary" onClick={closeModal}>Cancel</Button>
             <Button variant="primary" onClick={handleSave}>Save</Button>
-          </div>
+          </Flex>
         }
       >
-        <div className="space-y-4">
+        <Flex vertical gap={16}>
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} placeholder="e.g. Full Body — Front" />
           <FormSelect label="Type" value={form.type} onChange={(value) => setField("type", value)} options={typeOptions} />
           <FormSelect label="Chart view" value={chartView} onChange={setChartView} options={chartViewOptions} />
 
           {/* Body region selector */}
           <div>
-            <p className="mb-2 text-label-lg text-text-secondary">Body regions</p>
-            <div className="grid grid-cols-3 gap-2">
+            <p className="text-label-lg" style={{ marginBottom: 8, color: 'var(--color-text-secondary)' }}>Body regions</p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
               {bodyRegions.map((region) => (
                 <label
                   key={region}
-                  className="flex cursor-pointer items-center gap-2 rounded-lg border border-border px-3 py-2 transition-colors hover:bg-surface-secondary has-[:checked]:border-primary has-[:checked]:bg-primary/5"
+                  style={{
+                    display: 'flex', cursor: 'pointer', alignItems: 'center', gap: 8, borderRadius: 8,
+                    border: `1px solid ${selectedRegions.has(region) ? 'var(--color-primary)' : 'var(--color-border)'}`,
+                    padding: '8px 12px', transition: 'all 0.2s',
+                    backgroundColor: selectedRegions.has(region) ? 'rgba(var(--color-primary-rgb, 130, 80, 255), 0.05)' : undefined,
+                  }}
                 >
                   <input
                     type="checkbox"
-                    className="h-4 w-4 rounded border-border text-primary accent-primary"
+                    style={{ height: 16, width: 16, accentColor: 'var(--color-primary)' }}
                     checked={selectedRegions.has(region)}
                     onChange={() => toggleRegion(region)}
                   />
@@ -194,12 +200,12 @@ export default function BodyChartsPage() {
               ))}
             </div>
             {selectedRegions.size > 0 && (
-              <p className="mt-2 text-caption-md text-text-secondary">
+              <p className="text-caption-md text-text-secondary" style={{ marginTop: 8 }}>
                 {selectedRegions.size} region{selectedRegions.size !== 1 ? "s" : ""} selected
               </p>
             )}
           </div>
-        </div>
+        </Flex>
       </Modal>
     </div>
   );

@@ -43,6 +43,7 @@ import {
   FormInput,
   FormTextarea,
 } from "@/components/ds";
+import wStyles from "./waitlist.module.css";
 
 export const dynamic = "force-dynamic";
 
@@ -526,7 +527,7 @@ function WaitlistPageInner() {
         ]}
         value={mainTab}
         onChange={(val) => setMainTab(val as "screener" | "waitlist")}
-        className="px-6 pt-2"
+        style={{ padding: '8px 24px 0' }}
       />
 
       {/* ===== SCREENER TAB ===== */}
@@ -550,7 +551,7 @@ function WaitlistPageInner() {
             ]}
             value={screenerSubTab}
             onChange={(val) => setScreenerSubTab(val as "triage" | "rejected")}
-            className="mb-4"
+            style={{ marginBottom: 16 }}
           />
 
           {/* Screener table */}
@@ -566,7 +567,7 @@ function WaitlistPageInner() {
               <Th>
                 <Flex align="center" gap={4}>
                   Client
-                  <svg className="h-3 w-3" style={{ color: 'var(--color-text-secondary)' }} viewBox="0 0 12 12" fill="currentColor">
+                  <svg style={{ width: 12, height: 12, color: 'var(--color-text-secondary)' }} viewBox="0 0 12 12" fill="currentColor">
                     <path d="M6 0L9 5H3L6 0ZM6 12L3 7H9L6 12Z" />
                   </svg>
                 </Flex>
@@ -594,11 +595,17 @@ function WaitlistPageInner() {
                             variant="secondary"
                             size="sm"
                             onClick={() => handleTriage(idx, "yes")}
-                            className={`!gap-0.5 !rounded !px-2 !py-1 text-body-sm ${
+                            className={`text-body-sm ${
                               triageState[idx] === "yes"
-                                ? "!border-green-300 !bg-green-50 !text-green-700"
-                                : "!text-text-secondary"
+                                ? wStyles.triageYesActive
+                                : ""
                             }`}
+                            style={{
+                              gap: 2,
+                              borderRadius: 4,
+                              padding: '4px 8px',
+                              ...(triageState[idx] !== "yes" ? { color: 'var(--color-text-secondary)' } : {}),
+                            }}
                           >
                             <LikeOutlined style={{ fontSize: 12 }} />
                             <span>Yes</span>
@@ -607,11 +614,17 @@ function WaitlistPageInner() {
                             variant={triageState[idx] === "no" ? "danger" : "secondary"}
                             size="sm"
                             onClick={() => handleTriage(idx, "no")}
-                            className={`!gap-0.5 !rounded !px-2 !py-1 text-body-sm ${
+                            className={`text-body-sm ${
                               triageState[idx] === "no"
-                                ? "!bg-red-50"
-                                : "!text-text-secondary"
+                                ? wStyles.triageNoActive
+                                : ""
                             }`}
+                            style={{
+                              gap: 2,
+                              borderRadius: 4,
+                              padding: '4px 8px',
+                              ...(triageState[idx] !== "no" ? { color: 'var(--color-text-secondary)' } : {}),
+                            }}
                           >
                             <DislikeOutlined style={{ fontSize: 12 }} />
                             <span>No</span>
@@ -630,7 +643,7 @@ function WaitlistPageInner() {
                         </Flex>
                       </Td>
                       <Td align="right">
-                        <Button variant="ghost" size="sm" className="!px-1.5 !py-1">
+                        <Button variant="ghost" size="sm" style={{ padding: '4px 6px' }}>
                           <MoreOutlined style={{ fontSize: 16 }} />
                         </Button>
                       </Td>
@@ -715,17 +728,17 @@ function WaitlistPageInner() {
 
           {/* Service (required) — chips + select to add */}
           <div>
-            <label className="mb-1 block text-label-lg" style={{ color: 'var(--color-text-secondary)' }}>Service *</label>
+            <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--color-text-secondary)' }}>Service *</label>
             {modalServices.length > 0 && (
               <Flex wrap gap={6} style={{ marginBottom: 8 }}>
                 {modalServices.map((service) => (
-                  <Badge key={service} variant="blue" className="rounded-lg !py-1 !px-2.5 gap-1">
+                  <Badge key={service} variant="blue" style={{ borderRadius: 8, padding: '4px 10px', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                     <span style={{ maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{service}</span>
                     <button
                       type="button"
                       onClick={() => removeService(service)}
                       style={{ marginLeft: 2, borderRadius: '50%', padding: 2 }}
-                      className="hover:bg-blue-200"
+                      className={wStyles.serviceChipClose}
                     >
                       <CloseOutlined style={{ fontSize: 12 }} />
                     </button>
@@ -754,7 +767,7 @@ function WaitlistPageInner() {
 
           {/* Preferred days */}
           <div>
-            <label className="mb-1.5 block text-label-lg" style={{ color: 'var(--color-text-secondary)' }}>Preferred days</label>
+            <label className="text-label-lg" style={{ display: 'block', marginBottom: 6, color: 'var(--color-text-secondary)' }}>Preferred days</label>
             <Flex gap={6}>
               {["S", "M", "T", "W", "T", "F", "S"].map((day, i) => (
                 <button
@@ -783,7 +796,7 @@ function WaitlistPageInner() {
 
           {/* Preferred time */}
           <div>
-            <label className="mb-1.5 block text-label-lg" style={{ color: 'var(--color-text-secondary)' }}>Preferred time</label>
+            <label className="text-label-lg" style={{ display: 'block', marginBottom: 6, color: 'var(--color-text-secondary)' }}>Preferred time</label>
             <Flex gap={8}>
               <button
                 type="button"
@@ -801,7 +814,7 @@ function WaitlistPageInner() {
                     : { border: '1px solid var(--color-border)', backgroundColor: '#fff', color: 'var(--color-text-secondary)' }),
                 }}
               >
-                <Sun className="h-4 w-4" />
+                <Sun  />
                 Morning
               </button>
               <button
@@ -820,7 +833,7 @@ function WaitlistPageInner() {
                     : { border: '1px solid var(--color-border)', backgroundColor: '#fff', color: 'var(--color-text-secondary)' }),
                 }}
               >
-                <SunMedium className="h-4 w-4" />
+                <SunMedium  />
                 Afternoon
               </button>
               <button
@@ -839,7 +852,7 @@ function WaitlistPageInner() {
                     : { border: '1px solid var(--color-border)', backgroundColor: '#fff', color: 'var(--color-text-secondary)' }),
                 }}
               >
-                <Moon className="h-4 w-4" />
+                <Moon  />
                 Evening
               </button>
             </Flex>
@@ -867,13 +880,13 @@ function WaitlistPageInner() {
             {modalTags.length > 0 && (
               <Flex wrap gap={6} style={{ marginBottom: 8 }}>
                 {modalTags.map((tag) => (
-                  <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} className="rounded-lg !py-1 !px-2.5 gap-1">
+                  <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} style={{ borderRadius: 8, padding: '4px 10px', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                     {tag}
                     <button
                       type="button"
                       onClick={() => removeTag(tag)}
                       style={{ marginLeft: 2, borderRadius: '50%', padding: 2 }}
-                      className="hover:bg-black/10"
+                      className={wStyles.tagChipClose}
                     >
                       <CloseOutlined style={{ fontSize: 12 }} />
                     </button>
@@ -925,13 +938,13 @@ function WaitlistPageInner() {
               onClick={() => setViewMode(viewMode === "list" ? "map" : "list")}
               className={
                 viewMode === "map"
-                  ? "border-primary bg-primary/5 text-primary"
+                  ? wStyles.activeToggleButton
                   : ""
               }
             >
               {viewMode === "list" ? (
                 <>
-                  <MapIcon className="h-4 w-4" />
+                  <MapIcon  />
                   Map
                 </>
               ) : (
@@ -959,7 +972,7 @@ function WaitlistPageInner() {
                 ]}
                 value={waitlistSubTab}
                 onChange={(val) => setWaitlistSubTab(val as "active" | "closed")}
-                className="mb-4"
+                style={{ marginBottom: 16 }}
               />
 
               {/* Search */}
@@ -1013,7 +1026,7 @@ function WaitlistPageInner() {
                           <Button
                             variant="ghost"
                             size="sm"
-                            className="!px-1.5 !py-1"
+                            style={{ padding: '4px 6px' }}
                             onClick={(e) => {
                               e.stopPropagation();
                               openUpdateModal(row);

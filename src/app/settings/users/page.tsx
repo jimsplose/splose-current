@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { Flex } from "antd";
 import {
   Button,
   FormInput,
@@ -146,22 +147,22 @@ export default function UsersPage() {
   }, []);
 
   return (
-    <div className="p-6">
-      <div className="mb-4 flex items-center justify-between">
+    <div style={{ padding: 24 }}>
+      <Flex align="center" justify="space-between" style={{ marginBottom: 16 }}>
         <h1 className="text-display-lg">Users</h1>
         <Button variant="secondary">Invite users</Button>
-      </div>
-      <div className="mb-4 flex items-center gap-2">
-        <div className="flex-1"><FormInput type="text" placeholder="Search for user name and email" /></div>
+      </Flex>
+      <Flex align="center" gap={8} style={{ marginBottom: 16 }}>
+        <div style={{ flex: 1 }}><FormInput type="text" placeholder="Search for user name and email" /></div>
         <Button variant="secondary">Search</Button>
-      </div>
+      </Flex>
       <DataTable>
         <TableHead><Th>Name</Th><Th>Email</Th><Th>Role name</Th><Th>Role type</Th><Th>Group</Th><Th>Status</Th><Th>2FA</Th><Th align="right">Actions</Th></TableHead>
         <TableBody>
           {users.map((user, index) => (
             <Tr key={user.email}>
-              <Td className="font-medium text-text">
-                <div><a href={`/settings/users/${index + 1}`} className="hover:underline">{user.name}</a>{user.isOwner && <Badge variant="green" className="ml-2">Account owner</Badge>}</div>
+              <Td className="text-text" style={{ fontWeight: 500 }}>
+                <div><a href={`/settings/users/${index + 1}`} className="text-text">{user.name}</a>{user.isOwner && <Badge variant="green" style={{ marginLeft: 8 }}>Account owner</Badge>}</div>
               </Td>
               <Td className="text-text-secondary">{user.email}</Td>
               <Td className="text-text-secondary">{user.roleName}</Td>
@@ -194,12 +195,12 @@ export default function UsersPage() {
           </>
         }
       >
-        <div className="space-y-4">
+        <Flex vertical gap={16}>
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
           <FormInput label="Email" type="email" value={form.email} onChange={(e) => setField("email", e.target.value)} />
           <FormSelect label="Role" options={roleOptions} value={form.role} onChange={(value) => setField("role", value)} />
           <FormSelect label="User group" options={groupOptions} value={form.group} onChange={(value) => setField("group", value)} />
-        </div>
+        </Flex>
       </Modal>
 
       {/* Confirmation Dialog */}

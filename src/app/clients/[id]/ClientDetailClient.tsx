@@ -236,7 +236,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         <section style={{ marginBottom: 32 }}>
           <h2 className="text-heading-lg" style={{ fontWeight: 700, marginBottom: 16 }}>
             Associated contacts{" "}
-            <HintIcon className="ml-1" />
+            <HintIcon style={{ marginLeft: 4 }} />
           </h2>
           <table style={{ width: '100%' }} className="text-body-md">
             <thead>
@@ -270,7 +270,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           </table>
         </section>
 
-        <Button variant="ghost" size="sm" style={{ color: 'var(--color-primary)' }} className="hover:bg-transparent hover:underline">View change log</Button>
+        <Button variant="ghost" size="sm" style={{ color: 'var(--color-primary)' }} onMouseEnter={e => { e.currentTarget.style.textDecoration = 'underline'; e.currentTarget.style.background = 'transparent'; }} onMouseLeave={e => { e.currentTarget.style.textDecoration = 'none'; }}>View change log</Button>
       </div>
 
       {/* Right panel */}
@@ -279,12 +279,12 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         <div style={{ marginBottom: 16, borderRadius: 8, backgroundColor: 'var(--color-primary)', padding: 16, color: '#fff' }}>
           <Flex justify="space-between" align="center">
             <h3 className="text-label-lg" style={{ fontWeight: 600, color: '#fff' }}>Account balance</h3>
-            <HintIcon className="h-5 w-5 border-white/50 text-white/80" />
+            <HintIcon style={{ height: 20, width: 20, borderColor: 'rgba(255,255,255,0.5)', color: 'rgba(255,255,255,0.8)' }} />
           </Flex>
           <Flex justify="space-between" align="center" className="text-body-md" style={{ marginTop: 8 }}>
             <Flex align="center" gap={4}>
               They owe
-              <HintIcon className="border-white/40 text-white/80" />
+              <HintIcon style={{ borderColor: 'rgba(255,255,255,0.4)', color: 'rgba(255,255,255,0.8)' }} />
             </Flex>
             <span className="text-body-md-strong">3,310.56</span>
           </Flex>
@@ -477,7 +477,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
               <FileUpload
                 icon={<span className="text-body-md text-text-secondary">Profile photo</span>}
                 label="Upload"
-                className="h-32 w-32 p-0"
+                style={{ height: 128, width: 128, padding: 0 }}
               />
             </div>
           </Flex>

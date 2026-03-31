@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Flex } from "antd";
 import { Button, FormInput, FormSelect, Navbar, Collapse, Tab, Toggle, Modal, Card } from "@/components/ds";
 
 interface User {
@@ -85,71 +86,71 @@ export default function UserDetailClient({ id }: { id: string }) {
   const [editApplyTo, setEditApplyTo] = useState("date");
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Navbar backHref="/settings/users" title={name || user.name}>
         <Button variant="primary">Save changes</Button>
       </Navbar>
 
-      <div className="border-b border-border px-6">
+      <div style={{ borderBottom: '1px solid var(--color-border)', padding: '0 24px' }}>
         <Tab items={tabs} value={activeTab} onChange={setActiveTab} />
       </div>
 
-      <div className="flex-1 overflow-y-auto p-6">
+      <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
         {activeTab === "details" && (
-          <div className="max-w-2xl space-y-6">
+          <Flex vertical gap={24} style={{ maxWidth: 672 }}>
             <Collapse title="Profile" defaultOpen>
-              <div className="space-y-4">
+              <Flex vertical gap={16}>
                 <FormInput label="Name" value={name} onChange={(e) => setName(e.target.value)} />
-                <FormInput label="Email" type="email" defaultValue={user.email} disabled className="bg-gray-50 text-text-secondary" />
-              </div>
+                <FormInput label="Email" type="email" defaultValue={user.email} disabled className="text-text-secondary" style={{ backgroundColor: '#f9fafb' }} />
+              </Flex>
             </Collapse>
 
             <Collapse title="Role & Access" defaultOpen>
-              <div className="space-y-4">
+              <Flex vertical gap={16}>
                 <FormSelect label="Role name" options={roleNameOptions} value={roleName} onChange={setRoleName} />
                 <FormSelect label="Role type" options={roleTypeOptions} value={roleType} onChange={setRoleType} />
                 <FormInput label="Group" value={group} onChange={(e) => setGroup(e.target.value)} />
-              </div>
+              </Flex>
             </Collapse>
 
             <Collapse title="Security" defaultOpen>
-              <div className="space-y-3">
+              <Flex vertical gap={12}>
                 <Button variant="secondary">Reset password</Button>
                 <Button variant="secondary">Log out everywhere</Button>
                 <Button variant="danger">Deactivate account</Button>
-              </div>
+              </Flex>
             </Collapse>
-          </div>
+          </Flex>
         )}
 
         {activeTab === "availability" && (
-          <div className="max-w-4xl">
-            <div className="mb-4 flex items-center justify-between">
+          <div style={{ maxWidth: 896 }}>
+            <Flex align="center" justify="space-between" style={{ marginBottom: 16 }}>
               <h3 className="text-heading-md text-text">Weekly availability</h3>
               <Button variant="secondary" onClick={() => setEditAvailOpen(true)}>Edit availability</Button>
-            </div>
+            </Flex>
 
             {/* Availability grid */}
-            <div className="overflow-hidden rounded-lg border border-border">
-              <div className="grid grid-cols-8 border-b border-border">
-                <div className="p-3 text-label-lg text-text">Time</div>
+            <div style={{ overflow: 'hidden', borderRadius: 8, border: '1px solid var(--color-border)' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', borderBottom: '1px solid var(--color-border)' }}>
+                <div style={{ padding: 12 }} className="text-label-lg text-text">Time</div>
                 {DAYS.map((day) => (
-                  <div key={day} className="p-3 text-center text-label-lg text-text">{day}</div>
+                  <div key={day} style={{ padding: 12, textAlign: 'center' }} className="text-label-lg text-text">{day}</div>
                 ))}
               </div>
-              {HOURS.map((hour) => (
-                <div key={hour} className="grid grid-cols-8 border-b border-border last:border-b-0">
-                  <div className="p-2 text-caption-md text-text-secondary">{hour}:00</div>
+              {HOURS.map((hour, hourIdx) => (
+                <div key={hour} style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', borderBottom: hourIdx < HOURS.length - 1 ? '1px solid var(--color-border)' : 'none' }}>
+                  <div style={{ padding: 8 }} className="text-caption-md text-text-secondary">{hour}:00</div>
                   {DAYS.map((day) => {
                     const avail = defaultAvailability.find((a) => a.day === day);
                     const isAvailable = avail && hour >= avail.start && hour < avail.end;
                     return (
                       <div
                         key={day}
-                        className={`border-l border-border p-2 ${isAvailable ? "bg-primary/10" : ""}`}
+                        style={{ borderLeft: '1px solid var(--color-border)', padding: 8, backgroundColor: isAvailable ? 'rgba(var(--color-primary-rgb, 130, 80, 255), 0.1)' : undefined, cursor: 'pointer' }}
                         onClick={() => { setEditDay(day); setEditAvailOpen(true); }}
                       >
-                        {isAvailable && <div className="h-full rounded bg-primary/20" />}
+                        {isAvailable && <div style={{ height: '100%', borderRadius: 4, backgroundColor: 'rgba(var(--color-primary-rgb, 130, 80, 255), 0.2)' }} />}
                       </div>
                     );
                   })}
@@ -160,36 +161,38 @@ export default function UserDetailClient({ id }: { id: string }) {
         )}
 
         {activeTab === "body-charts" && (
-          <div className="max-w-2xl">
-            <div className="mb-4 flex items-center justify-between">
+          <div style={{ maxWidth: 672 }}>
+            <Flex align="center" justify="space-between" style={{ marginBottom: 16 }}>
               <h3 className="text-heading-md text-text">Body chart templates</h3>
               <Button variant="secondary">+ New template</Button>
-            </div>
-            <div className="space-y-2">
+            </Flex>
+            <Flex vertical gap={8}>
               {bodyChartTemplates.map((t) => (
-                <Card key={t.id} padding="none" className="flex items-center justify-between px-4 py-3">
-                  <span className="text-body-md text-primary">{t.name}</span>
-                  <span className="text-caption-md text-text-secondary">Updated {t.updatedAt}</span>
+                <Card key={t.id} padding="none">
+                  <Flex align="center" justify="space-between" style={{ padding: '12px 16px' }}>
+                    <span className="text-body-md text-primary">{t.name}</span>
+                    <span className="text-caption-md text-text-secondary">Updated {t.updatedAt}</span>
+                  </Flex>
                 </Card>
               ))}
-            </div>
+            </Flex>
           </div>
         )}
       </div>
 
       <Modal open={editAvailOpen} onClose={() => setEditAvailOpen(false)} title="Edit availability">
-        <div className="space-y-4">
+        <Flex vertical gap={16}>
           <FormSelect label="Day" value={editDay} onChange={setEditDay} options={DAYS.map((d) => ({ value: d, label: d }))} />
-          <div className="grid grid-cols-2 gap-4">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
             <FormInput label="Start time" type="time" value={editStart} onChange={(e) => setEditStart(e.target.value)} />
             <FormInput label="End time" type="time" value={editEnd} onChange={(e) => setEditEnd(e.target.value)} />
           </div>
           <FormSelect label="Apply to" value={editApplyTo} onChange={setEditApplyTo} options={applyToOptions} />
-          <div className="flex justify-end gap-2">
+          <Flex justify="flex-end" gap={8}>
             <Button variant="secondary" onClick={() => setEditAvailOpen(false)}>Cancel</Button>
             <Button variant="primary" onClick={() => setEditAvailOpen(false)}>Save</Button>
-          </div>
-        </div>
+          </Flex>
+        </Flex>
       </Modal>
     </div>
   );

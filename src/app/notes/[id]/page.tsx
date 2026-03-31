@@ -53,7 +53,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
 
       {/* Note content as document */}
       <div style={{ maxWidth: 768, margin: '0 auto', padding: 32 }}>
-        <Card padding="none" className="shadow-sm" style={{ padding: 40 }}>
+        <Card padding="none" style={{ padding: 40, boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
           {/* Client name with logo */}
           <Flex align="start" justify="space-between" style={{ marginBottom: 16 }}>
             <h2 className="text-display-lg">{clientName}</h2>
@@ -61,7 +61,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
           </Flex>
 
           {/* Service info */}
-          <div className="text-sm" style={{ color: 'var(--color-text-secondary)', marginBottom: 8 }}>
+          <div style={{ fontSize: 14, color: 'var(--color-text-secondary)', marginBottom: 8 }}>
             Service: {note.date ? `10:30 am, ${formatNoteDate(note.date)} – Sharon Test 1 (OT – Initial Consult)` : "—"}
           </div>
 

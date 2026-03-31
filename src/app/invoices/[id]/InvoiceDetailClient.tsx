@@ -109,7 +109,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           <Badge variant={statusVariant(invoice.status)}>{invoice.status}</Badge>
         </Flex>
         <Flex align="center" gap={8}>
-          <Badge variant="green" className="rounded-lg px-3 py-1.5 text-label-lg">
+          <Badge variant="green" className="text-label-lg" style={{ borderRadius: 8, padding: '6px 12px' }}>
             Credit balance: ${invoice.status === "Paid" ? "0.00" : "680.00"}
           </Badge>
           <Dropdown
@@ -325,7 +325,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
                 type="text"
                 value={paymentAmount}
                 onChange={(e) => setPaymentAmount(e.target.value)}
-                className="pl-7"
+                style={{ paddingLeft: 28 }}
               />
             </div>
           </div>
@@ -369,7 +369,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
             onChange={(e) => setPaymentNotes(e.target.value)}
             rows={3}
             placeholder="Optional"
-            className="resize-none"
+            style={{ resize: 'none' }}
           />
 
           {/* Receipt preview */}

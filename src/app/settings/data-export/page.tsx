@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Flex } from "antd";
 import {
   Button,
   DataTable,
@@ -125,19 +126,19 @@ export default function DataExportPage() {
   }
 
   return (
-    <div className="p-6">
-      <h1 className="mb-6 text-display-lg">Data export</h1>
+    <div style={{ padding: 24 }}>
+      <h1 className="text-display-lg" style={{ marginBottom: 24 }}>Data export</h1>
 
       {/* Download toast */}
       {downloadMessage && (
-        <div className="fixed top-4 right-4 z-[60] rounded-lg border border-border bg-white px-4 py-3 shadow-lg">
+        <div style={{ position: 'fixed', top: 16, right: 16, zIndex: 60, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', padding: '12px 16px', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
           <p className="text-body-md text-text">{downloadMessage}</p>
         </div>
       )}
 
       {/* Export form */}
-      <div className="mb-6 flex flex-wrap items-end gap-4">
-        <div className="w-48">
+      <Flex wrap="wrap" align="flex-end" gap={16} style={{ marginBottom: 24 }}>
+        <div style={{ width: 192 }}>
           <FormSelect
             label="Export"
             options={[
@@ -153,30 +154,30 @@ export default function DataExportPage() {
           />
         </div>
         <div>
-          <label className="mb-1 block text-label-lg text-text-secondary">Date *</label>
-          <div className="flex items-center gap-2">
+          <label className="text-label-lg text-text-secondary" style={{ display: 'block', marginBottom: 4 }}>Date *</label>
+          <Flex align="center" gap={8}>
             <FormInput
               type="date"
               placeholder="Start date"
             />
-            <span className="text-text-secondary">–</span>
+            <span className="text-text-secondary">&ndash;</span>
             <FormInput
               type="date"
               placeholder="End date"
             />
-          </div>
+          </Flex>
         </div>
         <Button variant="primary">Export</Button>
-      </div>
+      </Flex>
 
-      <div className="mb-6">
+      <div style={{ marginBottom: 24 }}>
         <Checkbox label="Include archived" />
       </div>
 
-      <hr className="my-6 border-border" />
+      <hr style={{ margin: '24px 0', borderColor: 'var(--color-border)' }} />
 
       {/* Export history */}
-      <h2 className="mb-4 text-heading-lg text-text">Export history</h2>
+      <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Export history</h2>
 
       <DataTable>
         <TableHead>
@@ -193,7 +194,7 @@ export default function DataExportPage() {
           {pageItems.map((row) => (
             <Tr key={row.id}>
               <Td>
-                <span className="font-medium text-text">{row.dataExport}</span>
+                <span style={{ fontWeight: 500 }} className="text-text">{row.dataExport}</span>
               </Td>
               <Td>{row.dateRange}</Td>
               <Td>{row.includeArchived}</Td>
@@ -235,7 +236,7 @@ export default function DataExportPage() {
           Re-run this export with the same settings?
         </p>
         {reExportRow && (
-          <div className="mt-3 rounded-lg bg-gray-50 p-3">
+          <div style={{ marginTop: 12, borderRadius: 8, backgroundColor: '#f9fafb', padding: 12 }}>
             <p className="text-label-lg text-text">{reExportRow.dataExport}</p>
             <p className="text-body-sm text-text-secondary">{reExportRow.dateRange}</p>
           </div>
@@ -259,7 +260,7 @@ export default function DataExportPage() {
           Delete this export record? This action cannot be undone.
         </p>
         {deleteRow && (
-          <div className="mt-3 rounded-lg bg-gray-50 p-3">
+          <div style={{ marginTop: 12, borderRadius: 8, backgroundColor: '#f9fafb', padding: 12 }}>
             <p className="text-label-lg text-text">{deleteRow.dataExport}</p>
             <p className="text-body-sm text-text-secondary">{deleteRow.dateRange}</p>
           </div>

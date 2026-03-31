@@ -6,6 +6,7 @@ import { Flex } from "antd";
 import Link from "next/link";
 import { useState, useMemo, useCallback, Fragment } from "react";
 import { useFormModal } from "@/hooks/useFormModal";
+import pStyles from "./products.module.css";
 
 interface ProductVariant {
   name: string;
@@ -455,7 +456,7 @@ export default function ProductsPage() {
           onClick={() => {
             setShowArchived(!showArchived);
           }}
-          className={showArchived ? "border-primary bg-primary/5 text-primary" : ""}
+          className={showArchived ? pStyles.activeFilterButton : ""}
         >
           Display archived products
         </Button>
@@ -473,15 +474,15 @@ export default function ProductsPage() {
         defaultValue={searchQuery}
       />
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
-            <Th className="w-8 px-2">{/* expand */}</Th>
+            <Th>{/* expand */}</Th>
             <Th>Name</Th>
             <Th hidden="sm">Category</Th>
             <Th hidden="md">Vendor</Th>
             <Th align="center">Stock</Th>
-            <Th align="center" className="w-16">
+            <Th align="center">
               Actions
             </Th>
           </TableHead>
@@ -494,8 +495,8 @@ export default function ProductsPage() {
               return (
                 <Fragment key={globalIndex}>
                   <tr
-                    className={`cursor-pointer transition-colors hover:bg-gray-50 ${
-                      product.archived ? "opacity-60" : ""
+                    className={`${pStyles.productRow} ${
+                      product.archived ? pStyles.productRowArchived : ""
                     }`}
                     onClick={() => toggleExpand(globalIndex)}
                   >
@@ -512,14 +513,14 @@ export default function ProductsPage() {
                         {isExpanded ? <MinusOutlined style={{ fontSize: 14 }} /> : <PlusOutlined style={{ fontSize: 14 }} />}
                       </Button>
                     </td>
-                    <Td className="text-text">{product.name}</Td>
-                    <Td hidden="sm" className="text-text-secondary">
+                    <Td style={{ color: 'var(--color-text)' }}>{product.name}</Td>
+                    <Td hidden="sm" style={{ color: 'var(--color-text-secondary)' }}>
                       {product.category}
                     </Td>
-                    <Td hidden="md" className="text-text-secondary">
+                    <Td hidden="md" style={{ color: 'var(--color-text-secondary)' }}>
                       {product.vendor}
                     </Td>
-                    <Td align="center" className="text-text-secondary">
+                    <Td align="center" style={{ color: 'var(--color-text-secondary)' }}>
                       {product.stock !== null ? product.stock : "-"}
                     </Td>
                     <Td align="center">
@@ -573,9 +574,9 @@ export default function ProductsPage() {
                                   <th style={{ padding: '8px 16px', textAlign: 'left' }} className="text-label-lg text-primary">Actions</th>
                                 </tr>
                               </thead>
-                              <tbody className="divide-y divide-border">
+                              <tbody>
                                 {product.variants!.map((variant, vIdx) => (
-                                  <tr key={vIdx} className="hover:bg-gray-50">
+                                  <tr key={vIdx} className={pStyles.variantRow} style={{ borderBottom: '1px solid var(--color-border)' }}>
                                     <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--color-text)' }}>{variant.name}</td>
                                     <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--color-text-secondary)' }}>{variant.sku}</td>
                                     <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--color-text-secondary)' }}>
@@ -612,7 +613,7 @@ export default function ProductsPage() {
             {paginatedProducts.length === 0 && (
               <tr>
                 <td colSpan={6}>
-                  <EmptyState message="No products found." className="py-8" />
+                  <EmptyState message="No products found." style={{ padding: '32px 0' }} />
                 </td>
               </tr>
             )}
@@ -693,9 +694,9 @@ export default function ProductsPage() {
                 <th style={{ padding: '8px 16px', textAlign: 'center' }} className="text-label-lg text-text">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border">
+            <tbody>
               {mockStockLocations.map((loc) => (
-                <tr key={loc.name} className="hover:bg-gray-50">
+                <tr key={loc.name} className={pStyles.stockRow} style={{ borderBottom: '1px solid var(--color-border)' }}>
                   <td style={{ padding: '8px 16px', fontSize: 12, color: 'var(--color-text)' }}>{loc.name}</td>
                   <td style={{ padding: '8px 16px', textAlign: 'center' }}>
                     <Checkbox checked={loc.available} readOnly />
@@ -710,7 +711,7 @@ export default function ProductsPage() {
                     <Dropdown
                       align="right"
                       trigger={
-                        <button style={{ display: 'inline-flex', height: 28, width: 28, alignItems: 'center', justifyContent: 'center', borderRadius: 6, border: 'none', background: 'transparent', cursor: 'pointer' }} className="hover:bg-gray-100">
+                        <button style={{ display: 'inline-flex', height: 28, width: 28, alignItems: 'center', justifyContent: 'center', borderRadius: 6, border: 'none', background: 'transparent', cursor: 'pointer' }} className={pStyles.stockActionButton}>
                           <MoreOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
                         </button>
                       }

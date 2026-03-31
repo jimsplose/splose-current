@@ -135,7 +135,7 @@ export default function ClientFormsPage() {
 
       <SearchBar placeholder="Search for title" />
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
             <Th>Title</Th>
@@ -149,7 +149,7 @@ export default function ClientFormsPage() {
               <Tr key={form.id}>
                 <Td>
                   <span>{form.title}</span>
-                  <Badge variant="gray" className="ml-2">
+                  <Badge variant="gray" style={{ marginLeft: 8 }}>
                     {form.status}
                   </Badge>
                 </Td>

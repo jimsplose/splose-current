@@ -309,7 +309,7 @@ export default function EditProgressNotePage() {
           value={viewMode}
           onChange={(v) => setViewMode(v as "single" | "split")}
         />
-        <Button variant="primary" className="border-green-500 bg-green-500 hover:bg-green-600">
+        <Button variant="primary" style={{ borderColor: '#22c55e', background: '#22c55e' }}>
           Save as final
         </Button>
       </Navbar>
@@ -399,7 +399,7 @@ export default function EditProgressNotePage() {
             {/* Syncing notice */}
             <Flex align="center" gap={8} style={{ marginBottom: 16, borderRadius: 8, backgroundColor: 'var(--color-primary-bg)', padding: '8px 12px', fontSize: 12, color: 'var(--color-text-secondary)' }}>
               <Flex align="center" gap={4}>
-                <Checkbox checked readOnly className="h-3 w-3" />
+                <Checkbox checked readOnly style={{ height: 12, width: 12 }} />
                 <span>Syncing client history</span>
               </Flex>
               <span style={{ color: 'var(--color-text-secondary)' }}>

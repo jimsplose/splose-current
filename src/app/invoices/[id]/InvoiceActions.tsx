@@ -37,7 +37,7 @@ export default function InvoiceActions() {
     <Flex align="center" gap={8}>
       <Dropdown
         trigger={
-          <Button variant="secondary" className="shadow-sm">
+          <Button variant="secondary" style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
             Pay
             <DownOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
           </Button>
@@ -46,13 +46,13 @@ export default function InvoiceActions() {
         onSelect={handlePaySelect}
         align="right"
       />
-      <Button variant="secondary" className="shadow-sm">
+      <Button variant="secondary" style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
         <MailOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
         Email Invoice
       </Button>
       <Dropdown
         trigger={
-          <Button variant="secondary" className="shadow-sm">
+          <Button variant="secondary" style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
             Actions
             <DownOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
           </Button>

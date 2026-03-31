@@ -46,7 +46,7 @@ export default async function ClientLayout({
   ];
 
   return (
-    <div className="flex flex-col md:flex-row" style={{ height: "calc(100vh - 48px)" }}>
+    <div className="md\:flex-row-replacement" style={{ display: 'flex', flexDirection: 'column', height: "calc(100vh - 48px)" }}>
       <ClientSidebar sections={sidebarSections} />
       <div style={{ display: 'flex', minWidth: 0, flex: 1, flexDirection: 'column', overflow: 'hidden' }}>
         {/* Top action bar */}
@@ -66,7 +66,7 @@ export default async function ClientLayout({
                   d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                 />
               </svg>
-              <span className="hidden sm:inline">New SMS</span>
+              <span className="sm\:inline-replacement">New SMS</span>
             </Button>
             <Button variant="secondary" size="sm" style={{ borderColor: 'var(--color-primary)', backgroundColor: 'var(--color-primary-bg)', color: 'var(--color-primary)' }}>
               <svg style={{ height: 16, width: 16 }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -76,7 +76,7 @@ export default async function ClientLayout({
                   d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                 />
               </svg>
-              <span className="hidden sm:inline">New email</span>
+              <span className="sm\:inline-replacement">New email</span>
             </Button>
             <Button variant="secondary" size="sm">
               Actions

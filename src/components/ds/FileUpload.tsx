@@ -6,10 +6,11 @@ interface FileUploadProps {
   icon?: React.ReactNode;
   label?: string;
   className?: string;
+  style?: React.CSSProperties;
   onClick?: () => void;
 }
 
-export default function FileUpload({ icon, label = "Upload", className, onClick }: FileUploadProps) {
+export default function FileUpload({ icon, label = "Upload", className, style: styleProp, onClick }: FileUploadProps) {
   const { token } = theme.useToken();
 
   return (
@@ -28,6 +29,7 @@ export default function FileUpload({ icon, label = "Upload", className, onClick 
         backgroundColor: token.colorFillTertiary,
         cursor: onClick ? "pointer" : undefined,
         transition: "border-color 0.2s, background-color 0.2s",
+        ...styleProp,
       }}
     >
       {icon && <div>{icon}</div>}

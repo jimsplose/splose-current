@@ -189,7 +189,7 @@ export default function ContactsPage() {
 
       <SearchBar placeholder="Search for contact name, phone number, email and company name" />
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
             <Th>
@@ -222,32 +222,28 @@ export default function ContactsPage() {
           </TableHead>
           <TableBody>
             {mockContacts.map((contact) => (
-              <Tr key={contact.id} clickable className="group relative">
+              <Tr key={contact.id} clickable style={{ position: 'relative' }}>
                 <Td className="text-text-secondary">
                   <Link
                     href={`/contacts/${contact.id}`}
-                    className="absolute inset-0"
+                    style={{ position: 'absolute', inset: 0 }}
                     aria-label={`View ${contact.name}`}
                   />
                   {getTypeLabel(contact.type)}
                 </Td>
-                <Td className="font-medium text-text">{contact.name}</Td>
-                <Td hidden="md" className="text-text-secondary">
-                  {contact.company}
-                </Td>
-                <Td hidden="md" className="text-text-secondary">
-                  {contact.email}
-                </Td>
+                <Td className="text-text" style={{ fontWeight: 500 }}>{contact.name}</Td>
+                <Td hidden="md" className="text-text-secondary">{contact.company}</Td>
+                <Td hidden="md" className="text-text-secondary">{contact.email}</Td>
                 <Td hidden="lg">
                   {contact.workPhone && (
-                    <a href={`tel:${contact.workPhone}`} className="text-text no-underline hover:text-text">
+                    <a href={`tel:${contact.workPhone}`} className="text-text" style={{ textDecoration: 'none' }}>
                       {contact.workPhone}
                     </a>
                   )}
                 </Td>
                 <Td hidden="lg">
                   {contact.mobilePhone && (
-                    <a href={`tel:${contact.mobilePhone}`} className="text-text no-underline hover:text-text">
+                    <a href={`tel:${contact.mobilePhone}`} className="text-text" style={{ textDecoration: 'none' }}>
                       {contact.mobilePhone}
                     </a>
                   )}

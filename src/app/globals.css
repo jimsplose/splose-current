@@ -174,3 +174,32 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* ── Layout utility classes (replacing dead Tailwind) ─────────────────────── */
+
+/* Row hover → child underline (replaces group/group-hover:underline) */
+tr:hover .hover-underline-on-row-hover { text-decoration: underline; }
+
+/* Table row hover background (replaces hover:bg-gray-50) */
+tr.row-hover:hover { background-color: #f9fafb; }
+
+/* Responsive visibility (replaces Tailwind sm:/md:/lg: responsive classes) */
+@media (max-width: 767px) {
+  .md\:hidden-replacement { display: block; }
+  .md\:block-replacement { display: none; }
+  .md\:flex-row-replacement { flex-direction: column; }
+}
+@media (min-width: 768px) {
+  .md\:hidden-replacement { display: none; }
+  .md\:block-replacement { display: block; }
+  .md\:flex-row-replacement { flex-direction: row; }
+}
+@media (max-width: 639px) {
+  .sm\:inline-replacement { display: none; }
+}
+@media (min-width: 640px) {
+  .sm\:inline-replacement { display: inline; }
+}
+
+/* Overflow utility */
+.overflow-x-auto-util { overflow-x: auto; }

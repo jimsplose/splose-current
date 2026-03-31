@@ -178,12 +178,15 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             <Button
               key={item.label}
               variant="ghost"
-              className={`w-full justify-between ${
-                "active" in item && item.active
-                  ? "border-l-2 border-primary bg-primary/5 font-medium text-primary"
-                  : "text-text-secondary hover:bg-gray-50"
-              }`}
-              style={{ fontSize: 12 }}
+              className={"active" in item && item.active ? "text-primary" : "text-text-secondary"}
+              style={{
+                fontSize: 12,
+                width: '100%',
+                justifyContent: 'space-between',
+                ...("active" in item && item.active
+                  ? { borderLeft: '2px solid var(--color-primary)', background: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.05)', fontWeight: 500 }
+                  : {}),
+              }}
             >
               {item.label}
               {"count" in item && item.count ? <span style={{ fontSize: 10, color: 'var(--color-text-secondary)' }}>{item.count}</span> : null}
@@ -356,7 +359,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             <p style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>No custom fields</p>
           </section>
 
-          <Button variant="ghost" size="sm" className="text-primary hover:underline">
+          <Button variant="ghost" size="sm" className="text-primary">
             View change log
           </Button>
         </div>

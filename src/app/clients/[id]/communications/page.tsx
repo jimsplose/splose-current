@@ -212,7 +212,7 @@ export default function ClientCommunicationsPage() {
 
       <SearchBar placeholder="Search for message, to and from" />
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
             <Th>

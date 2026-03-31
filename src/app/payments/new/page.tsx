@@ -215,7 +215,7 @@ export default function NewPaymentPage() {
 
       <div style={{ maxWidth: 1024, margin: '0 auto', padding: 32 }}>
         {/* Payment details row */}
-        <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 16, marginBottom: 32 }}>
           {/* Client / From */}
           <Select
             label="Client / From *"
@@ -252,7 +252,7 @@ export default function NewPaymentPage() {
 
           {/* Amount */}
           <div>
-            <label className="mb-1 block text-label-lg" style={{ color: 'var(--color-text-secondary)' }}>
+            <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--color-text-secondary)' }}>
               Amount <span style={{ color: 'var(--color-error)' }}>*</span>
             </label>
             <div style={{ position: 'relative' }}>
@@ -264,7 +264,7 @@ export default function NewPaymentPage() {
                 placeholder="0.00"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                className="pl-7"
+                style={{ paddingLeft: 28 }}
               />
             </div>
           </div>
@@ -288,7 +288,7 @@ export default function NewPaymentPage() {
                 placeholder="Search invoices by number or client..."
                 value={invoiceSearch}
                 onChange={(e) => setInvoiceSearch(e.target.value)}
-                className="h-9 pl-10"
+                style={{ height: 36, paddingLeft: 40 }}
                 autoFocus
               />
             </div>
@@ -300,7 +300,7 @@ export default function NewPaymentPage() {
                     variant="ghost"
                     htmlType="button"
                     onClick={() => linkInvoice(inv.number)}
-                    className="flex w-full items-center justify-between px-3 py-2 text-sm hover:bg-primary/10"
+                    style={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', fontSize: 14 }}
                   >
                     <Flex align="center" gap={16}>
                       <span style={{ fontWeight: 500, color: 'var(--color-primary)' }}>{inv.number}</span>
@@ -329,7 +329,7 @@ export default function NewPaymentPage() {
               <Th align="right">Due</Th>
               <Th align="right">Amount</Th>
               <Th align="right">Remaining</Th>
-              <Th className="w-10" />
+              <Th style={{ width: 40 }} />
             </TableHead>
             <tbody>
               {linkedInvoices.length === 0 ? (
@@ -345,7 +345,7 @@ export default function NewPaymentPage() {
                   const appliedAmount = parseFloat(invoiceAmounts[invoiceNumber] || "0") || 0;
                   const remaining = Math.max(0, inv.due - appliedAmount);
                   return (
-                    <tr key={inv.number} style={{ borderBottom: '1px solid var(--color-border)', transition: 'background-color 0.2s' }} className="hover:bg-gray-50">
+                    <tr key={inv.number} style={{ borderBottom: '1px solid var(--color-border)', transition: 'background-color 0.2s' }}>
                       <Td style={{ fontWeight: 500, color: 'var(--color-primary)' }}>{inv.number}</Td>
                       <Td>{inv.client}</Td>
                       <Td>{inv.practitioner}</Td>
@@ -359,7 +359,7 @@ export default function NewPaymentPage() {
                           type="text"
                           value={invoiceAmounts[invoiceNumber] || ""}
                           onChange={(e) => setInvoiceAmounts((prev) => ({ ...prev, [invoiceNumber]: e.target.value }))}
-                          className="w-24 rounded border px-2 py-1 text-right text-sm"
+                          style={{ width: 96, borderRadius: 4, border: '1px solid var(--color-border)', padding: '4px 8px', textAlign: 'right', fontSize: 14 }}
                         />
                       </Td>
                       <Td align="right">
@@ -371,7 +371,7 @@ export default function NewPaymentPage() {
                           size="sm"
                           htmlType="button"
                           onClick={() => unlinkInvoice(invoiceNumber)}
-                          className="h-6 w-6 hover:bg-red-50 hover:text-danger"
+                          style={{ height: 24, width: 24 }}
                         >
                           <CloseOutlined style={{ fontSize: 14 }} />
                         </Button>
@@ -391,7 +391,7 @@ export default function NewPaymentPage() {
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder="Optional payment note..."
-            className="w-64 resize-none text-sm"
+            style={{ width: 256, resize: 'none', fontSize: 14 }}
             rows={3}
           />
           <Flex vertical gap={6} style={{ textAlign: 'right', fontSize: 14 }}>

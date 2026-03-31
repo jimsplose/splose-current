@@ -75,7 +75,7 @@ export default function ClientFilesPage() {
 
       <SearchBar placeholder="Search for file name" />
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
             <Th>

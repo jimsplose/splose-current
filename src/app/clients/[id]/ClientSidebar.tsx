@@ -45,7 +45,7 @@ export default function ClientSidebar({ sections }: { sections: Section[] }) {
   return (
     <>
       {/* Mobile: horizontal scrolling tabs */}
-      <div style={{ flexShrink: 0, overflowX: 'auto', borderBottom: '1px solid var(--color-border)', backgroundColor: '#fff' }} className="md:hidden">
+      <div style={{ flexShrink: 0, overflowX: 'auto', borderBottom: '1px solid var(--color-border)', backgroundColor: '#fff' }} className="md\:hidden-replacement">
         <nav style={{ display: 'flex', minWidth: 'max-content', gap: 4, paddingLeft: 8, paddingRight: 8, paddingTop: 6, paddingBottom: 6 }}>
           {sections.map((section) => {
             const active = isActive(section);
@@ -78,7 +78,8 @@ export default function ClientSidebar({ sections }: { sections: Section[] }) {
       <SideNav
         sections={sideNavSections}
         isActive={sideNavIsActive}
-        className="hidden !w-[200px] !pt-2 md:block"
+        className="md\:block-replacement"
+        style={{ width: 200, paddingTop: 8 }}
       />
     </>
   );

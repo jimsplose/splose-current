@@ -7,6 +7,7 @@ import { stateRegistry, flattenRegistry, getVariantUrl, countVariants } from "@/
 import type { PageEntry, StateVariant } from "@/lib/state-registry";
 import { RightOutlined, DownOutlined, SearchOutlined, CloseOutlined } from "@ant-design/icons";
 import Bugshot from "./Bugshot";
+import styles from "./DevNavigator.module.css";
 
 export default function DevNavigator() {
   const pathname = usePathname();
@@ -85,56 +86,56 @@ export default function DevNavigator() {
       {!expanded ? (
         <button
           onClick={() => setExpanded(true)}
-          className="fixed right-4 bottom-4 z-50 rounded-full bg-gray-900/90 px-3 py-1.5 text-label-md text-white shadow-lg backdrop-blur-sm transition-all hover:bg-gray-900"
+          className={`${styles.toggleBtn} text-label-md`}
           title="Dev Navigator (Ctrl+Shift+N)"
         >
           &#9670; Nav
         </button>
       ) : (
-        <div className="fixed right-4 bottom-4 z-50 flex max-h-[70vh] w-80 flex-col overflow-hidden rounded-lg bg-gray-900/95 text-white shadow-2xl backdrop-blur-sm">
+        <div className={styles.panel}>
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
-            <div className="flex items-center gap-2">
+          <div className={styles.header}>
+            <div className={styles.headerLeft}>
               <span className="text-heading-sm">Dev Navigator</span>
-              <span className="rounded-full bg-primary/80 px-2 py-0.5 text-caption-sm">
+              <span className={`${styles.headerBadge} text-caption-sm`}>
                 {pages} pages / {variants} variants
               </span>
             </div>
-            <button onClick={() => setExpanded(false)} className="rounded p-1 hover:bg-white/10">
+            <button onClick={() => setExpanded(false)} className={styles.closeBtn}>
               <CloseOutlined style={{ fontSize: 16 }} />
             </button>
           </div>
 
           {/* Search */}
-          <div className="border-b border-white/10 px-3 py-2">
-            <div className="flex items-center gap-2 rounded-md bg-white/10 px-2.5 py-1.5">
+          <div className={styles.searchWrapper}>
+            <div className={styles.searchBox}>
               <SearchOutlined style={{ fontSize: 14, color: "rgba(255,255,255,0.5)" }} />
               <input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search pages..."
-                className="flex-1 bg-transparent text-body-sm text-white outline-none placeholder:text-white/40"
+                className={`${styles.searchInput} text-body-sm`}
                 autoFocus
               />
             </div>
           </div>
 
           {/* Page tree */}
-          <div className="flex-1 overflow-y-auto px-2 py-2">
+          <div className={styles.pageTree}>
             {Array.from(filteredGroups).map(([group, entries]) => (
-              <div key={group} className="mb-1">
+              <div key={group} className={styles.groupWrapper}>
                 <button
                   onClick={() => toggleGroup(group)}
-                  className="flex w-full items-center gap-1.5 rounded px-2 py-1 text-caption-sm font-bold tracking-wider text-white/50 uppercase hover:bg-white/5 hover:text-white/80"
+                  className={`${styles.groupBtn} text-caption-sm`}
                 >
                   {expandedGroups.has(group) ? <DownOutlined style={{ fontSize: 12 }} /> : <RightOutlined style={{ fontSize: 12 }} />}
                   {group}
-                  <span className="ml-auto text-caption-sm text-white/30">{entries.length}</span>
+                  <span className={`${styles.groupCount} text-caption-sm`}>{entries.length}</span>
                 </button>
 
                 {expandedGroups.has(group) && (
-                  <div className="ml-2 space-y-0.5">
+                  <div className={styles.groupChildren}>
                     {entries.map((entry) => (
                       <PageNode key={entry.path} entry={entry} pathname={pathname} depth={0} />
                     ))}
@@ -145,8 +146,8 @@ export default function DevNavigator() {
           </div>
 
           {/* Quick links */}
-          <div className="flex items-center gap-3 border-t border-white/10 px-4 py-2">
-            <a href="/storybook/index.html" target="_blank" rel="noopener" className="text-caption-sm text-primary-light hover:text-white">
+          <div className={styles.quickLinks}>
+            <a href="/storybook/index.html" target="_blank" rel="noopener" className={`${styles.quickLink} text-caption-sm`}>
               Storybook ↗
             </a>
             <button
@@ -154,14 +155,14 @@ export default function DevNavigator() {
                 setBugshotActive(true);
                 setExpanded(false);
               }}
-              className="text-caption-sm text-primary-light hover:text-white"
+              className={`${styles.quickLink} text-caption-sm`}
             >
               Bugshot
             </button>
-            <span className="ml-auto text-caption-sm text-white/40">
+            <span className={`${styles.quickLinkCount} text-caption-sm`}>
               {pages}p / {variants}v
             </span>
-            <button onClick={() => setExpanded(false)} className="text-caption-sm text-white/50 hover:text-white">
+            <button onClick={() => setExpanded(false)} className={`${styles.hideBtn} text-caption-sm`}>
               Hide
             </button>
           </div>
@@ -180,9 +181,9 @@ function PageNode({ entry, pathname, depth }: { entry: PageEntry; pathname: stri
 
   return (
     <div style={{ marginLeft: depth * 8 }}>
-      <div className="flex items-center gap-1">
+      <div className={styles.pageNodeRow}>
         {hasChildren ? (
-          <button onClick={() => setOpen(!open)} className="rounded p-0.5 hover:bg-white/10">
+          <button onClick={() => setOpen(!open)} className={styles.expandBtn}>
             {open ? (
               <DownOutlined style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }} />
             ) : (
@@ -190,22 +191,18 @@ function PageNode({ entry, pathname, depth }: { entry: PageEntry; pathname: stri
             )}
           </button>
         ) : (
-          <span className="w-4" />
+          <span className={styles.spacer} />
         )}
         <Link
           href={resolvedPath}
-          className={`flex-1 rounded px-1.5 py-0.5 text-xs transition-colors ${
-            isCurrentPage
-              ? "bg-primary/30 font-medium text-primary-light"
-              : "text-white/70 hover:bg-white/5 hover:text-white"
-          }`}
+          className={`${styles.pageLink} ${isCurrentPage ? styles.pageLinkActive : ""}`}
         >
           {entry.label}
         </Link>
       </div>
 
       {open && (
-        <div className="mt-0.5 ml-4 space-y-0.5">
+        <div className={styles.pageNodeChildren}>
           {/* Variants */}
           {entry.variants.length > 1 &&
             entry.variants.map((v) => <VariantLink key={v.id} page={entry} variant={v} pathname={pathname} />)}
@@ -224,23 +221,21 @@ function VariantLink({ page, variant, pathname }: { page: PageEntry; variant: St
   const url = getVariantUrl(page, variant);
   const isActive = pathname === url || pathname + "?state=" + variant.id === url;
 
-  const matchDot = variant.match
+  const matchDotClass = variant.match
     ? {
-        yes: "bg-green-400",
-        partial: "bg-yellow-400",
-        no: "bg-red-400",
-        unknown: "bg-gray-400",
+        yes: styles.matchGreen,
+        partial: styles.matchYellow,
+        no: styles.matchRed,
+        unknown: styles.matchGray,
       }[variant.match]
     : null;
 
   return (
     <Link
       href={url}
-      className={`flex items-center gap-1.5 rounded px-2 py-0.5 text-caption-sm transition-colors ${
-        isActive ? "bg-primary/20 text-primary-light" : "text-white/50 hover:bg-white/5 hover:text-white/80"
-      }`}
+      className={`${styles.variantLink} ${isActive ? styles.variantLinkActive : ""} text-caption-sm`}
     >
-      {matchDot && <span className={`h-1.5 w-1.5 rounded-full ${matchDot}`} />}
+      {matchDotClass && <span className={`${styles.matchDot} ${matchDotClass}`} />}
       {variant.label}
     </Link>
   );

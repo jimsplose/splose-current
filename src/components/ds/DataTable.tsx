@@ -56,6 +56,7 @@ export interface DataTableProps<T extends Record<string, unknown>> {
   /** Legacy: children-based rendering (Phase 3 migration to columns/dataSource) */
   children?: ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 // ─── Component ──────────────────────────────────────────────────────────────
@@ -72,11 +73,12 @@ export default function DataTable<T extends Record<string, unknown>>({
   onRow,
   children,
   className,
+  style: styleProp,
 }: DataTableProps<T>) {
   // Legacy mode: render as plain <table> when children are passed
   if (children) {
     return (
-      <table className={className} style={{ width: "100%", ...(minWidth ? { minWidth: typeof minWidth === "number" ? `${minWidth}px` : minWidth } : {}) }}>
+      <table className={className} style={{ width: "100%", ...(minWidth ? { minWidth: typeof minWidth === "number" ? `${minWidth}px` : minWidth } : {}), ...styleProp }}>
         {children}
       </table>
     );
@@ -173,8 +175,8 @@ export function TableHead({ children }: { children: ReactNode }) {
   return <thead><tr style={{ borderBottom: "1px solid var(--color-border)", backgroundColor: "rgb(234, 237, 241)" }}>{children}</tr></thead>;
 }
 /** @deprecated Use DataTableColumn instead */
-export function Th({ children, align = "left", className, hidden, sortable, sortDirection, onSort }: { children?: ReactNode; align?: string; className?: string; hidden?: string; sortable?: boolean; sortDirection?: string | null; onSort?: () => void; filterable?: boolean; onFilter?: () => void }) {
-  return <th style={{ padding: "16px", textAlign: align as React.CSSProperties["textAlign"], fontSize: 14, fontWeight: 600, lineHeight: "22px", color: "rgb(65, 69, 73)" }}>{children}</th>;
+export function Th({ children, align = "left", className, hidden, sortable, sortDirection, onSort, style: styleProp }: { children?: ReactNode; align?: string; className?: string; hidden?: string; sortable?: boolean; sortDirection?: string | null; onSort?: () => void; filterable?: boolean; onFilter?: () => void; style?: React.CSSProperties }) {
+  return <th style={{ padding: "16px", textAlign: align as React.CSSProperties["textAlign"], fontSize: 14, fontWeight: 600, lineHeight: "22px", color: "rgb(65, 69, 73)", ...styleProp }}>{children}</th>;
 }
 /** @deprecated Use DataTable with dataSource prop */
 export function TableBody({ children }: { children: ReactNode }) {
@@ -185,8 +187,8 @@ export function Td({ children, align = "left", className, hidden, style }: { chi
   return <td style={{ padding: "12px 16px", textAlign: align as React.CSSProperties["textAlign"], fontSize: 14, color: "rgb(65, 69, 73)", ...style }}>{children}</td>;
 }
 /** @deprecated Use onRow prop instead */
-export function Tr({ children, hover, clickable, selected, className, ...props }: { children: ReactNode; hover?: boolean; clickable?: boolean; selected?: boolean; className?: string } & React.HTMLAttributes<HTMLTableRowElement>) {
-  return <tr style={{ cursor: clickable ? "pointer" : undefined }} {...props}>{children}</tr>;
+export function Tr({ children, hover, clickable, selected, className, style: styleProp, ...props }: { children: ReactNode; hover?: boolean; clickable?: boolean; selected?: boolean; className?: string; style?: React.CSSProperties } & React.HTMLAttributes<HTMLTableRowElement>) {
+  return <tr style={{ cursor: clickable ? "pointer" : undefined, ...styleProp }} className={className} {...props}>{children}</tr>;
 }
 /** @deprecated Use expandable prop instead */
 export function ExpandableRow({ children }: { children: ReactNode; expandContent: ReactNode; colSpan: number; expanded?: boolean; onToggle?: () => void; hover?: boolean; className?: string }) {

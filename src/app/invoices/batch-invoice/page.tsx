@@ -90,7 +90,7 @@ export default function BatchInvoicePage() {
             before confirming.
           </p>
 
-          <Card padding="none" className="overflow-hidden">
+          <Card padding="none" style={{ overflow: 'hidden' }}>
             <DataTable>
               <TableHead>
                 <Th>Invoice #</Th>
@@ -100,8 +100,8 @@ export default function BatchInvoicePage() {
               </TableHead>
               <TableBody>
                 {selectedPreviewInvoices.map((inv) => (
-                  <tr key={inv.number} className="border-b border-border hover:bg-gray-50">
-                    <Td className="font-medium text-primary">{inv.number}</Td>
+                  <tr key={inv.number} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                    <Td className="text-primary" style={{ fontWeight: 500 }}>{inv.number}</Td>
                     <Td>{inv.client}</Td>
                     <Td>{inv.service}</Td>
                     <Td align="right">{inv.amount}</Td>
@@ -137,10 +137,10 @@ export default function BatchInvoicePage() {
             Select which clients to include in this batch invoice.
           </p>
 
-          <Card padding="none" className="overflow-hidden">
+          <Card padding="none" style={{ overflow: 'hidden' }}>
             <DataTable>
               <TableHead>
-                <Th className="w-10">
+                <Th style={{ width: 40 }}>
                   <Checkbox checked={selectAll} onChange={toggleAll} />
                 </Th>
                 <Th>Client</Th>
@@ -151,21 +151,21 @@ export default function BatchInvoicePage() {
                 {mockClients.map((client) => (
                   <tr
                     key={client.id}
-                    className="cursor-pointer border-b border-border transition-colors hover:bg-gray-50"
+                    style={{ borderBottom: '1px solid var(--color-border)', cursor: 'pointer', transition: 'background-color 0.2s' }}
                     onClick={() => toggleClient(client.id)}
                   >
-                    <Td className="w-10">
+                    <Td style={{ width: 40 }}>
                       <Checkbox
                         checked={selectedClients.includes(client.id)}
                         onChange={() => toggleClient(client.id)}
                         onClick={(e) => e.stopPropagation()}
                       />
                     </Td>
-                    <Td className="font-medium text-text">{client.name}</Td>
+                    <Td className="text-text" style={{ fontWeight: 500 }}>{client.name}</Td>
                     <Td align="right" className="text-text-secondary">
                       {client.appointments}
                     </Td>
-                    <Td align="right" className="font-medium text-text">
+                    <Td align="right" className="text-text" style={{ fontWeight: 500 }}>
                       {client.total}
                     </Td>
                   </tr>

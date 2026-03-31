@@ -16,9 +16,10 @@ interface TabProps {
   value: string;
   onChange?: (value: string) => void;
   className?: string;
+  style?: React.CSSProperties;
 }
 
-export default function Tab({ items, value, onChange, className }: TabProps) {
+export default function Tab({ items, value, onChange, className, style }: TabProps) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -72,6 +73,7 @@ export default function Tab({ items, value, onChange, className }: TabProps) {
       onChange={handleChange}
       items={tabItems}
       className={className}
+      style={style}
     />
   );
 }

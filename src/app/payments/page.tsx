@@ -119,10 +119,10 @@ export default function PaymentsPage() {
       <SearchBar placeholder="Search for recipient name and payment number" />
 
       {/* Table */}
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
-            <Th className="w-[280px]">
+            <Th style={{ width: 280 }}>
               <Flex align="center" gap={6}>
                 Payment #
                 <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
@@ -152,7 +152,7 @@ export default function PaymentsPage() {
                   <Td>
                     <Flex align="center" gap={8}>
                       {payment.invoices.length > 0 ? (
-                        <Button variant="icon" size="sm" className="h-5 w-5" round>
+                        <Button variant="icon" size="sm" style={{ height: 20, width: 20 }} round>
                           {expandedId === payment.id ? (
                             <svg
                               width="14"

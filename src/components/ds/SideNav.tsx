@@ -19,9 +19,10 @@ export interface SideNavProps {
   sections: SideNavSection[];
   isActive?: (href: string) => boolean;
   className?: string;
+  style?: React.CSSProperties;
 }
 
-export default function SideNav({ sections, isActive: customIsActive, className }: SideNavProps) {
+export default function SideNav({ sections, isActive: customIsActive, className, style }: SideNavProps) {
   const pathname = usePathname();
 
   const isActive = customIsActive || ((href: string) => {
@@ -30,7 +31,7 @@ export default function SideNav({ sections, isActive: customIsActive, className 
   });
 
   return (
-    <aside className={`${styles.aside} ${className || ""}`}>
+    <aside className={`${styles.aside} ${className || ""}`} style={style}>
       {sections.map((section) => (
         <div key={section.title}>
           {section.title && (

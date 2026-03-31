@@ -153,7 +153,7 @@ export default function InvoicesClient({
         </Flex>
       )}
 
-      <Card padding="none" className="overflow-hidden">
+      <Card padding="none" style={{ overflow: 'hidden' }}>
         <div style={{ overflowX: 'auto' }}>
           <DataTable>
             <TableHead>

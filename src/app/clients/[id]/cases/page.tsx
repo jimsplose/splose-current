@@ -176,7 +176,7 @@ export default function ClientCasesPage() {
         <Button>+ New case</Button>
       </PageHeader>
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
             <Th>Case Number</Th>
@@ -193,7 +193,7 @@ export default function ClientCasesPage() {
             {paged.map((c) => (
               <Tr key={c.number + c.caseName}>
                 <Td className="text-text">{c.number}</Td>
-                <Td className="font-medium text-text">{c.caseName}</Td>
+                <Td className="text-text" style={{ fontWeight: 500 }}>{c.caseName}</Td>
                 <Td className="text-text-secondary">{c.issueDate}</Td>
                 <Td className="text-text-secondary">{c.expiryDate}</Td>
                 <Td className="text-text-secondary">{c.assignee}</Td>

@@ -29,7 +29,7 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
 
       <SearchBar placeholder="Search for content and title" />
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
             <Th>Name</Th>

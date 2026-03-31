@@ -186,7 +186,8 @@ export default function NewInvoicePage() {
                 label="Invoice number"
                 value={invoiceNumber}
                 readOnly
-                className="bg-gray-50 text-text-secondary"
+                className="text-text-secondary"
+                style={{ background: '#f9fafb' }}
               />
               <FormInput
                 label="Date"
@@ -247,7 +248,7 @@ export default function NewInvoicePage() {
                           min="1"
                           value={item.qty}
                           onChange={(e) => updateLineItem(item.id, "qty", e.target.value)}
-                          className="text-right"
+                          style={{ textAlign: 'right' }}
                         />
                       </td>
                       <td style={{ padding: '8px 12px' }}>
@@ -258,7 +259,7 @@ export default function NewInvoicePage() {
                           value={item.unitPrice}
                           onChange={(e) => updateLineItem(item.id, "unitPrice", e.target.value)}
                           placeholder="0.00"
-                          className="text-right"
+                          style={{ textAlign: 'right' }}
                         />
                       </td>
                       <td style={{ padding: '8px 12px' }}>
@@ -277,7 +278,6 @@ export default function NewInvoicePage() {
                             variant="icon"
                             size="sm"
                             onClick={() => removeLineItem(item.id)}
-                            className="hover:text-danger"
                           >
                             <DeleteOutlined style={{ fontSize: 16 }} />
                           </Button>

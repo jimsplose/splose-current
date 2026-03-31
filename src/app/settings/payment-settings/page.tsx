@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Flex } from "antd";
 import {
   Button,
   DataTable,
@@ -82,46 +83,45 @@ export default function PaymentSettingsPage() {
   }
 
   return (
-    <div className="p-6">
-      <h1 className="mb-6 text-display-lg">Payment settings</h1>
+    <div style={{ padding: 24 }}>
+      <h1 className="text-display-lg" style={{ marginBottom: 24 }}>Payment settings</h1>
 
       {/* Next payment number */}
-      <section className="mb-8">
-        <h2 className="mb-4 text-heading-lg text-text">Next payment number</h2>
-        <div className="max-w-2xl space-y-4">
+      <section style={{ marginBottom: 32 }}>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Next payment number</h2>
+        <Flex vertical gap={16} style={{ maxWidth: 672 }}>
           <FormInput label="Prefix" defaultValue="MYDD" />
           <FormInput label="Padding" defaultValue="5" />
-        </div>
+        </Flex>
       </section>
 
       {/* PDF settings */}
-      <section className="mb-8">
-        <h2 className="mb-4 text-heading-lg text-text">PDF settings</h2>
-        <div className="max-w-2xl">
-          <label className="mb-1 block text-label-lg text-text-secondary">
+      <section style={{ marginBottom: 32 }}>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>PDF settings</h2>
+        <div style={{ maxWidth: 672 }}>
+          <label className="text-label-lg text-text-secondary" style={{ display: 'block', marginBottom: 4 }}>
             Brand colour
           </label>
-          <div className="mb-4 flex items-center gap-3">
+          <Flex align="center" gap={12} style={{ marginBottom: 16 }}>
             <div
-              className="h-10 w-10 rounded border border-border"
-              style={{ backgroundColor: "#8690FC" }}
+              style={{ height: 40, width: 40, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: "#8690FC" }}
             />
             <FormInput
               type="text"
               defaultValue="#8690FC"
             />
-          </div>
+          </Flex>
           <Button variant="primary" size="sm">
             Save
           </Button>
         </div>
       </section>
 
-      <hr className="my-8 border-green-600" />
+      <hr style={{ margin: '32px 0', borderColor: '#16a34a' }} />
 
       {/* Accepted forms of payment */}
-      <section className="mb-8">
-        <h2 className="mb-4 text-heading-lg text-text">Accepted forms of payment</h2>
+      <section style={{ marginBottom: 32 }}>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Accepted forms of payment</h2>
 
         <DataTable>
           <TableHead>
@@ -134,7 +134,7 @@ export default function PaymentSettingsPage() {
             {pageItems.map((method, i) => (
               <Tr key={method.id}>
                 <Td>
-                  <span className="font-medium text-text">{method.name}</span>
+                  <span style={{ fontWeight: 500 }} className="text-text">{method.name}</span>
                 </Td>
                 <Td>{method.description}</Td>
                 <Td>
@@ -155,7 +155,7 @@ export default function PaymentSettingsPage() {
 
         <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={methods.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} />
 
-        <div className="mt-4">
+        <div style={{ marginTop: 16 }}>
           <Dropdown
             trigger={<Button variant="secondary">+ Add payment method</Button>}
             items={PAYMENT_TYPE_OPTIONS}
@@ -164,12 +164,12 @@ export default function PaymentSettingsPage() {
         </div>
       </section>
 
-      <hr className="my-8 border-green-600" />
+      <hr style={{ margin: '32px 0', borderColor: '#16a34a' }} />
 
       {/* NDIS bulk upload */}
-      <section className="mb-8">
-        <h2 className="mb-4 text-heading-lg text-text">NDIS bulk upload</h2>
-        <div className="max-w-2xl space-y-4">
+      <section style={{ marginBottom: 32 }}>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>NDIS bulk upload</h2>
+        <Flex vertical gap={16} style={{ maxWidth: 672 }}>
           <FormSelect
             label="Payment method *"
             options={methods.map((m) => ({
@@ -181,7 +181,7 @@ export default function PaymentSettingsPage() {
           <Button variant="primary" size="sm">
             Save changes
           </Button>
-        </div>
+        </Flex>
       </section>
 
       <Modal
@@ -195,10 +195,10 @@ export default function PaymentSettingsPage() {
           </>
         }
       >
-        <div className="space-y-4">
+        <Flex vertical gap={16}>
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
           <FormInput label="Description" value={form.description} onChange={(e) => setField("description", e.target.value)} />
-        </div>
+        </Flex>
       </Modal>
     </div>
   );

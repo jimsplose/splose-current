@@ -30,7 +30,7 @@ export default function ClientLettersPage() {
         </Button>
       </PageHeader>
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
             <Th>Title</Th>

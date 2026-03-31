@@ -30,7 +30,7 @@ function formatDOB(dateStr: string | null): string {
 
 function formatPhone(phone: string | null): React.ReactNode {
   if (!phone) return null;
-  return <a href={`tel:${phone}`} style={{ color: 'var(--color-primary)' }} className="hover:underline">{phone}</a>;
+  return <a href={`tel:${phone}`} style={{ color: 'var(--color-primary)' }} onMouseEnter={e => (e.currentTarget.style.textDecoration = 'underline')} onMouseLeave={e => (e.currentTarget.style.textDecoration = 'none')}>{phone}</a>;
 }
 
 interface ClientRow {
@@ -90,9 +90,9 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
               </Td>
               <Td hidden="md">
                 {client.ndisNumber ? (
-                  <Badge variant="yellow" className="!rounded-lg !bg-[rgb(249,202,36)] !px-[7px] !py-0 !text-body-sm !text-black">NDIS</Badge>
+                  <Badge variant="yellow" className="text-body-sm" style={{ borderRadius: 8, backgroundColor: 'rgb(249,202,36)', paddingLeft: 7, paddingRight: 7, paddingTop: 0, paddingBottom: 0, color: '#000' }}>NDIS</Badge>
                 ) : client.medicare ? (
-                  <Badge variant="yellow" className="!rounded-lg !bg-[rgb(249,202,36)] !px-[7px] !py-0 !text-body-sm !text-black">Medicare</Badge>
+                  <Badge variant="yellow" className="text-body-sm" style={{ borderRadius: 8, backgroundColor: 'rgb(249,202,36)', paddingLeft: 7, paddingRight: 7, paddingTop: 0, paddingBottom: 0, color: '#000' }}>Medicare</Badge>
                 ) : null}
               </Td>
             </Tr>

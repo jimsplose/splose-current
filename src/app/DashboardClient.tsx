@@ -401,10 +401,10 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
             </div>
             <Flex align="center" justify="center" gap={16} className="text-caption-md" style={{ marginTop: 4, color: 'var(--color-text-secondary)' }}>
               <Flex align="center" gap={6}>
-                <ColorDot color="#bef264" size="xs" className="h-2.5 w-2.5" /> Invoices
+                <ColorDot color="#bef264" size="xs" /> Invoices
               </Flex>
               <Flex align="center" gap={6}>
-                <ColorDot color="#c084fc" size="xs" className="h-2.5 w-2.5" /> Payments
+                <ColorDot color="#c084fc" size="xs" /> Payments
               </Flex>
             </Flex>
           </div>
@@ -421,7 +421,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                 <>
                   {incompleteNotes.map((note) => (
                     <Flex key={note.name} align="flex-start" justify="space-between" gap={8} style={{ paddingTop: 2, paddingBottom: 2 }}>
-                      <span className="text-body-md hover:underline" style={{ cursor: 'pointer', color: 'var(--color-primary)' }}>
+                      <span className={`text-body-md ${styles.hoverUnderline}`} style={{ cursor: 'pointer', color: 'var(--color-primary)' }}>
                         {note.name}
                       </span>
                       <span className="text-caption-sm" style={{ flexShrink: 0, whiteSpace: 'nowrap', paddingTop: 2, color: 'var(--color-text-secondary)' }}>
@@ -433,7 +433,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
               ) : (
                 unsignedNotes.map((note) => (
                   <Flex key={note.id} align="flex-start" justify="space-between" gap={8} style={{ paddingTop: 2, paddingBottom: 2 }}>
-                    <span className="text-body-md hover:underline" style={{ cursor: 'pointer', color: 'var(--color-primary)' }}>
+                    <span className={`text-body-md ${styles.hoverUnderline}`} style={{ cursor: 'pointer', color: 'var(--color-primary)' }}>
                       {note.client.firstName} {note.client.lastName} ({note.practitioner.name})
                     </span>
                     <span className="text-caption-sm" style={{ flexShrink: 0, whiteSpace: 'nowrap', paddingTop: 2, color: 'var(--color-text-secondary)' }}>
@@ -458,7 +458,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                 <Flex key={form.id} align="flex-start" justify="space-between" gap={8} style={{ paddingTop: 2, paddingBottom: 2 }}>
                   <Link
                     href={`/patient-form/${form.id}/view`}
-                    className="text-body-md hover:underline"
+                    className={`text-body-md ${styles.hoverUnderline}`}
                     style={{ cursor: 'pointer', color: 'var(--color-primary)' }}
                   >
                     {form.name}

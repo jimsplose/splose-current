@@ -9,6 +9,7 @@ interface BadgeProps {
   variant?: BadgeVariant;
   solid?: boolean;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 const variantColorMap: Record<BadgeVariant, string> = {
@@ -31,7 +32,7 @@ const solidColorMap: Record<BadgeVariant, { bg: string; text: string }> = {
   purple: { bg: "#8250FF", text: "#ffffff" },
 };
 
-export default function Badge({ children, variant = "gray", solid = false, className }: BadgeProps) {
+export default function Badge({ children, variant = "gray", solid = false, className, style: styleProp }: BadgeProps) {
   if (solid) {
     const colors = solidColorMap[variant];
     return (
@@ -43,6 +44,7 @@ export default function Badge({ children, variant = "gray", solid = false, class
           color: colors.text,
           borderRadius: 8,
           fontSize: 12,
+          ...styleProp,
         }}
       >
         {children}
@@ -54,7 +56,7 @@ export default function Badge({ children, variant = "gray", solid = false, class
     <Tag
       color={variantColorMap[variant]}
       className={className}
-      style={{ borderRadius: 8, fontSize: 12 }}
+      style={{ borderRadius: 8, fontSize: 12, ...styleProp }}
     >
       {children}
     </Tag>

@@ -117,7 +117,7 @@ export default function AppointmentSidePanel({
           </Button>
         </PageHeader>
 
-        <Card padding="none" className="overflow-x-auto">
+        <Card padding="none" style={{ overflowX: 'auto' }}>
           <DataTable>
             <TableHead>
               <Th>
@@ -158,7 +158,7 @@ export default function AppointmentSidePanel({
                     <tr
                       key={appt.id}
                       style={{ cursor: 'pointer', ...(isSelected ? { backgroundColor: 'var(--color-primary-bg)' } : {}) }}
-                      className="hover:bg-gray-50"
+                      className="row-hover"
                       onClick={() => setSelectedAppointment(appt)}
                     >
                       <Td>
@@ -168,7 +168,7 @@ export default function AppointmentSidePanel({
                             {formatDate(appt.date)}, {appt.startTime}
                           </span>
                           {isUpcoming && (
-                            <Badge variant="green" className="bg-green-500 text-white">
+                            <Badge variant="green" style={{ backgroundColor: '#22c55e', color: '#fff' }}>
                               Upcoming
                             </Badge>
                           )}
@@ -183,17 +183,17 @@ export default function AppointmentSidePanel({
                       <Td className="text-text-secondary">{appt.practitioner.name}</Td>
                       <Td>
                         {invoiceStatus === "Paid" && (
-                          <Badge variant="red" className="bg-red-500 text-white">
+                          <Badge variant="red" style={{ backgroundColor: '#ef4444', color: '#fff' }}>
                             Paid
                           </Badge>
                         )}
                         {invoiceStatus === "Draft" && (
-                          <Badge variant="blue" className="bg-blue-500 text-white">
+                          <Badge variant="blue" style={{ backgroundColor: '#3b82f6', color: '#fff' }}>
                             Draft
                           </Badge>
                         )}
                         {invoiceStatus === "Do not invoice" && (
-                          <Badge variant="gray" className="bg-gray-700 text-white">
+                          <Badge variant="gray" style={{ backgroundColor: '#374151', color: '#fff' }}>
                             Do not invoice
                           </Badge>
                         )}
@@ -291,7 +291,7 @@ export default function AppointmentSidePanel({
             <Flex align="center" gap={12}>
               <PhoneOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-text-secondary)' }} />
               {client.phone ? (
-                <a href={`tel:${client.phone}`} style={{ color: 'var(--color-primary)' }} className="hover:underline">
+                <a href={`tel:${client.phone}`} style={{ color: 'var(--color-primary)' }} onMouseEnter={e => (e.currentTarget.style.textDecoration = 'underline')} onMouseLeave={e => (e.currentTarget.style.textDecoration = 'none')}>
                   {client.phone}
                 </a>
               ) : (
@@ -303,7 +303,7 @@ export default function AppointmentSidePanel({
             <Flex align="center" gap={12}>
               <MailOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-text-secondary)' }} />
               {client.email ? (
-                <a href={`mailto:${client.email}`} style={{ color: 'var(--color-primary)' }} className="hover:underline">
+                <a href={`mailto:${client.email}`} style={{ color: 'var(--color-primary)' }} onMouseEnter={e => (e.currentTarget.style.textDecoration = 'underline')} onMouseLeave={e => (e.currentTarget.style.textDecoration = 'none')}>
                   {client.email}
                 </a>
               ) : (

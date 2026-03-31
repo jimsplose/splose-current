@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Flex } from "antd";
 import {
   Button,
   FormInput,
@@ -105,16 +106,16 @@ export default function EditServiceClient({ id }: { id: string }) {
   const [confirmationEmail, setConfirmationEmail] = useState(true);
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Navbar backHref="/settings/services" title="Edit service">
         <Button variant="primary">Save</Button>
       </Navbar>
 
-      <div className="flex-1 overflow-y-auto p-6">
-        <div className="max-w-2xl space-y-0">
+      <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+        <div style={{ maxWidth: 672 }}>
           {/* General */}
           <Collapse title="General" defaultOpen>
-            <div className="space-y-4">
+            <Flex vertical gap={16}>
               <FormInput label="Name" defaultValue={service.name} />
               <FormSelect
                 label="Type"
@@ -127,12 +128,12 @@ export default function EditServiceClient({ id }: { id: string }) {
                 value={service.color}
                 onChange={() => {}}
               />
-            </div>
+            </Flex>
           </Collapse>
 
           {/* Pricing */}
           <Collapse title="Pricing" defaultOpen>
-            <div className="space-y-4">
+            <Flex vertical gap={16}>
               <FormInput
                 label="Price"
                 type="number"
@@ -147,12 +148,12 @@ export default function EditServiceClient({ id }: { id: string }) {
                 label="Duration (minutes)"
                 defaultValue={service.duration}
               />
-            </div>
+            </Flex>
           </Collapse>
 
           {/* Online booking */}
           <Collapse title="Online booking" defaultOpen>
-            <div className="py-1">
+            <div style={{ padding: '4px 0' }}>
               <Toggle
                 checked={onlineBookingEnabled}
                 onChange={setOnlineBookingEnabled}
@@ -163,7 +164,7 @@ export default function EditServiceClient({ id }: { id: string }) {
 
           {/* Online payment */}
           <Collapse title="Online payment">
-            <div className="space-y-4">
+            <Flex vertical gap={16}>
               <Toggle checked={onlinePayment} onChange={setOnlinePayment} label="Enable online payment" />
               {onlinePayment && (
                 <FormSelect
@@ -177,17 +178,17 @@ export default function EditServiceClient({ id }: { id: string }) {
                   ]}
                 />
               )}
-            </div>
+            </Flex>
           </Collapse>
 
           {/* Appointment notifications */}
           <Collapse title="Appointment notifications">
-            <div className="space-y-4">
+            <Flex vertical gap={16}>
               <Toggle checked={confirmationSms} onChange={setConfirmationSms} label="Send SMS confirmation" />
               <Toggle checked={confirmationEmail} onChange={setConfirmationEmail} label="Send email confirmation" />
               <FormSelect label="SMS reminder" value={smsReminder} onChange={setSmsReminder} options={reminderOptions} />
               <FormSelect label="Email reminder" value={emailReminder} onChange={setEmailReminder} options={reminderOptions} />
-            </div>
+            </Flex>
           </Collapse>
         </div>
       </div>

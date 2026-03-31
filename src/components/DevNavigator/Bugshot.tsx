@@ -11,6 +11,7 @@ import {
   downloadBlob,
   type Region,
 } from "./bugshot-utils";
+import styles from "./Bugshot.module.css";
 
 type BugshotState = "idle" | "selecting" | "describing" | "capturing" | "done" | "error";
 
@@ -205,7 +206,7 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
   return createPortal(
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-[9998]"
+      className={styles.overlay}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
@@ -213,13 +214,13 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
     >
       {/* Semi-transparent backdrop */}
       {state === "selecting" && (
-        <div className="absolute inset-0 bg-black/20" />
+        <div className={styles.backdrop} />
       )}
 
       {/* Selection rectangle */}
       {region && (
         <div
-          className="absolute border-2 border-dashed border-primary bg-primary/10 pointer-events-none"
+          className={styles.selectionRect}
           style={{
             left: region.x,
             top: region.y,
@@ -231,7 +232,7 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
 
       {/* Instruction hint while selecting */}
       {state === "selecting" && !region && (
-        <div className="absolute top-6 left-1/2 -translate-x-1/2 rounded-lg bg-gray-900/90 px-4 py-2 text-body-md text-white shadow-lg">
+        <div className={`${styles.instructionHint} text-body-md`} style={{ color: '#fff' }}>
           Click and drag to select the problem area. Press Escape to cancel.
         </div>
       )}
@@ -239,7 +240,7 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
       {/* Description panel */}
       {state === "describing" && region && (
         <div
-          className="absolute z-[9999] w-[320px] rounded-lg border border-border bg-white p-4 shadow-xl"
+          className={styles.descPanel}
           style={{ left: panelPosition.left, top: panelPosition.top }}
           onMouseDown={(e) => e.stopPropagation()}
         >
@@ -248,21 +249,17 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
             onChange={(e) => setDescription(e.target.value)}
             placeholder="What's wrong here?"
             rows={3}
-            className="w-full rounded-lg border border-border px-3 py-2 text-body-md text-text outline-none focus:border-primary"
+            className={`${styles.descTextarea} text-body-md`}
             autoFocus
           />
 
           {/* Category tags — inline toggle buttons (DS Chip doesn't support selectable mode) */}
-          <div className="mt-3 flex flex-wrap gap-1.5">
+          <div className={styles.tagRow}>
             {CATEGORY_TAGS.map((tag) => (
               <button
                 key={tag}
                 onClick={() => toggleCategory(tag)}
-                className={`rounded-full border px-3 py-1 text-label-lg transition-colors ${
-                  categoryTags.has(tag)
-                    ? "border-primary bg-primary/10 text-primary"
-                    : "border-border bg-white text-text-secondary hover:border-primary/50"
-                }`}
+                className={`${styles.tagBtn} ${categoryTags.has(tag) ? styles.tagBtnActive : ""} text-label-lg`}
               >
                 {tag}
               </button>
@@ -270,16 +267,12 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
           </div>
 
           {/* Severity tags — single select */}
-          <div className="mt-2 flex flex-wrap gap-1.5">
+          <div className={styles.tagRowSeverity}>
             {SEVERITY_TAGS.map((tag) => (
               <button
                 key={tag}
                 onClick={() => toggleSeverity(tag)}
-                className={`rounded-full border px-3 py-1 text-label-lg transition-colors ${
-                  severityTag === tag
-                    ? "border-primary bg-primary/10 text-primary"
-                    : "border-border bg-white text-text-secondary hover:border-primary/50"
-                }`}
+                className={`${styles.tagBtn} ${severityTag === tag ? styles.tagBtnActive : ""} text-label-lg`}
               >
                 {tag}
               </button>
@@ -287,7 +280,7 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
           </div>
 
           {/* Actions */}
-          <div className="mt-4 flex justify-end gap-2">
+          <div className={styles.actionRow}>
             <Button variant="ghost" size="sm" onClick={onClose}>
               Cancel
             </Button>
@@ -305,10 +298,10 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
 
       {/* Capturing spinner */}
       {state === "capturing" && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-          <div className="rounded-lg bg-white px-6 py-4 shadow-xl">
-            <div className="flex items-center gap-3">
-              <div className="h-5 w-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+        <div className={styles.capturingOverlay}>
+          <div className={styles.capturingCard}>
+            <div className={styles.capturingInner}>
+              <div className={styles.spinner} />
               <span className="text-body-md text-text">Capturing...</span>
             </div>
           </div>
@@ -317,25 +310,25 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
 
       {/* Error state */}
       {state === "error" && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+        <div className={styles.errorOverlay}>
           <div
-            className="z-[9999] w-[400px] rounded-lg border border-border bg-white p-5 shadow-xl"
+            className={styles.errorCard}
             onMouseDown={(e) => e.stopPropagation()}
           >
             {fallbackPrompt ? (
               <>
-                <h3 className="mb-2 text-heading-sm text-text">Clipboard unavailable</h3>
-                <p className="mb-3 text-body-sm text-text-secondary">
+                <h3 className={`${styles.errorTitle} text-heading-sm text-text`}>Clipboard unavailable</h3>
+                <p className={`${styles.errorText} text-body-sm text-text-secondary`}>
                   Screenshot downloaded. Copy the prompt below manually:
                 </p>
                 <textarea
                   value={fallbackPrompt}
                   readOnly
                   rows={10}
-                  className="w-full rounded-lg border border-border bg-gray-50 px-3 py-2 text-body-sm text-text font-mono"
+                  className={`${styles.fallbackTextarea} text-body-sm`}
                   onFocus={(e) => e.target.select()}
                 />
-                <div className="mt-3 flex justify-end gap-2">
+                <div className={styles.errorActions}>
                   <Button variant="ghost" size="sm" onClick={onClose}>
                     Close
                   </Button>
@@ -343,9 +336,9 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
               </>
             ) : (
               <>
-                <h3 className="mb-2 text-heading-sm text-text">Capture failed</h3>
-                <p className="mb-3 text-body-sm text-text-secondary">{errorMessage}</p>
-                <div className="mt-3 flex justify-end gap-2">
+                <h3 className={`${styles.errorTitle} text-heading-sm text-text`}>Capture failed</h3>
+                <p className={`${styles.errorText} text-body-sm text-text-secondary`}>{errorMessage}</p>
+                <div className={styles.errorActions}>
                   <Button variant="ghost" size="sm" onClick={onClose}>
                     Dismiss
                   </Button>
@@ -361,7 +354,7 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
 
       {/* Success toast */}
       {toastVisible && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[9999] rounded-lg bg-gray-900/90 px-5 py-3 text-body-md text-white shadow-lg">
+        <div className={`${styles.toast} text-body-md`} style={{ color: '#fff' }}>
           Bugshot copied to clipboard + screenshot downloaded
         </div>
       )}

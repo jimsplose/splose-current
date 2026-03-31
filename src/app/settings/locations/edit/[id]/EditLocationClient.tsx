@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Flex } from "antd";
 import { Button, Checkbox, FormInput, FormSelect, Toggle, Collapse } from "@/components/ds";
 
 const services = [
@@ -250,16 +251,16 @@ export default function EditLocationClient({ id }: { id: string }) {
   };
 
   return (
-    <div className="p-6">
+    <div style={{ padding: 24 }}>
       {/* Header */}
-      <div className="mb-6 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+      <Flex align="center" justify="space-between" style={{ marginBottom: 24 }}>
+        <Flex align="center" gap={12}>
           <Link
             href="/settings/locations"
-            className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border text-text-secondary transition-colors hover:bg-gray-50"
+            style={{ display: 'inline-flex', height: 32, width: 32, alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '1px solid var(--color-border)', color: 'var(--color-text-secondary)', transition: 'all 0.2s' }}
           >
             <svg
-              className="h-4 w-4"
+              style={{ height: 16, width: 16 }}
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -273,15 +274,15 @@ export default function EditLocationClient({ id }: { id: string }) {
             </svg>
           </Link>
           <h1 className="text-display-lg">{location.name}</h1>
-        </div>
-        <div className="flex items-center gap-3">
+        </Flex>
+        <Flex align="center" gap={12}>
           <Button variant="danger">Delete</Button>
           <Button variant="primary">Save</Button>
-        </div>
-      </div>
+        </Flex>
+      </Flex>
 
       {/* Form */}
-      <div className="max-w-2xl space-y-5">
+      <Flex vertical gap={20} style={{ maxWidth: 672 }}>
         <FormInput label="Name" defaultValue={location.name} />
         <FormInput label="ABN" defaultValue={location.abn} />
         <FormInput label="Email" type="email" defaultValue={location.email} />
@@ -290,19 +291,19 @@ export default function EditLocationClient({ id }: { id: string }) {
         <FormInput label="Web address" type="url" defaultValue={location.web} />
 
         {/* Location address section */}
-        <div className="border-t border-border pt-5">
-          <h2 className="mb-1 text-heading-lg text-text">
+        <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: 20 }}>
+          <h2 className="text-heading-lg text-text" style={{ marginBottom: 4 }}>
             Location address
           </h2>
-          <p className="mb-4 text-body-md text-text-secondary">
+          <p className="text-body-md text-text-secondary" style={{ marginBottom: 16 }}>
             Enter your location address below to enable timezone detection for
             online bookings so that clients booking from a different timezone see
             the correct times on your booking page.
           </p>
-          <div className="space-y-4">
+          <Flex vertical gap={16}>
             <FormInput label="Address" defaultValue={location.address} />
             <FormInput label="Suburb" defaultValue={location.suburb} />
-            <div className="grid grid-cols-2 gap-4">
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
               <FormSelect
                 label="State"
                 options={stateOptions}
@@ -311,15 +312,15 @@ export default function EditLocationClient({ id }: { id: string }) {
               <FormInput label="Post code" defaultValue={location.postCode} />
             </div>
             <FormInput label="Country" defaultValue={location.country} />
-          </div>
+          </Flex>
         </div>
 
         {/* Services available at this location */}
-        <div className="border-t border-border pt-5">
+        <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: 20 }}>
           <Collapse title="Services available at this location" defaultOpen>
-            <div className="space-y-2">
+            <Flex vertical gap={8}>
               {services.map((service) => (
-                <div key={service} className="rounded px-1 py-1 hover:bg-gray-50">
+                <div key={service} style={{ borderRadius: 4, padding: '4px 4px' }}>
                   <Checkbox
                     label={service}
                     checked={enabledServices.has(service)}
@@ -327,13 +328,13 @@ export default function EditLocationClient({ id }: { id: string }) {
                   />
                 </div>
               ))}
-            </div>
+            </Flex>
           </Collapse>
         </div>
 
         {/* Online bookings */}
-        <div className="border-t border-border pt-5">
-          <h2 className="mb-4 text-heading-lg text-text">
+        <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: 20 }}>
+          <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>
             Online bookings
           </h2>
           <Toggle
@@ -344,9 +345,9 @@ export default function EditLocationClient({ id }: { id: string }) {
         </div>
 
         {/* Notices */}
-        <div className="border-t border-border pt-5 pb-8">
-          <h2 className="mb-4 text-heading-lg text-text">Notices</h2>
-          <div className="space-y-3">
+        <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: 20, paddingBottom: 32 }}>
+          <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Notices</h2>
+          <Flex vertical gap={12}>
             <Toggle
               checked={phoneNotice}
               onChange={setPhoneNotice}
@@ -357,9 +358,9 @@ export default function EditLocationClient({ id }: { id: string }) {
               onChange={setEmailNotice}
               label="Email"
             />
-          </div>
+          </Flex>
         </div>
-      </div>
+      </Flex>
     </div>
   );
 }
