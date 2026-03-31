@@ -7,6 +7,25 @@ Priority ordering: high-traffic pages first (Dashboard, Calendar, Clients), then
 
 See the **Gap completion rule** in CLAUDE.md (single source of truth). In short: a gap is only `[x]` when ALL related catalog entries show Match = "yes".
 
+## Priority 0 — AntD Migration Systemic Regressions (2026-03-31 audit)
+
+Cross-cutting issues affecting multiple pages. Fix these first for maximum impact.
+
+### Group S1 — PageHeader consistency (10 settings + 3 detail pages)
+- [ ] **Gray title color on pages using bare h1** — Pages with `<h1 className="text-display-lg">` get gray (rgb(65,69,73)) instead of green (rgb(66,105,74)). Fix: migrate to `PageHeader` component. Affected: Services, Users, Integrations, Payment settings, Invoice settings, AI, Data export, Busy times, Cancellation reasons, Tax rates, Reports overview. Also: Client detail, Contact detail page headers (different issue — sizes 20→18, 30→24 and colors differ).
+
+### Group S2 — Search input sizing (all list pages)
+- [ ] **Search input height/fontSize mismatch** — Production: 38px height, 16px font. Localhost: 32px height, 14px font. Affects: Clients, Contacts, Invoices, Payments, Waitlist, Products, and all settings list pages.
+
+### Group S3 — Table header background (all list pages)
+- [ ] **Th background color mismatch** — Production: rgb(243,245,247) on `th` cells directly. Localhost: rgb(234,237,241) on `thead tr` (close but not exact). Affects all pages with DataTable.
+
+### Group S4 — Dashboard card headers
+- [ ] **Dashboard section heading bg missing** — Production has gray bg (rgb(243,245,247)) on section headers (Messages, Income, etc.). Localhost has transparent bg. Also body fontSize 15px→14px.
+
+### Group S5 — Detail page header component
+- [ ] **Detail page header sizes/colors** — Client/Contact detail: "Patient/Contact" label should be 20px/700/green but is 18px/600/gray. "Details" heading should be 30px/700/green but is 24px/700/gray. Active sub-nav: production uses 600/black, localhost uses purple.
+
 ## Priority 1 — High-traffic pages
 
 ### Group D — Dashboard (`src/app/page.tsx`)
