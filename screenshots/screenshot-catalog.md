@@ -6,7 +6,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 **Sources:** March 11 screenshots from production (`acme.splose.com`) and dev environment. March 17 screenshots from production.
 
-**Last full sweep:** 2026-03-31 (in progress) — Full sweep dual-tab Chrome MCP at 1440x900. **Batch 1 (earlier session, 6 pages):** Calendar week/month/day YES. **Batches 2-5 (current session, 40+ pages):** Core pages: Dashboard partial, Clients list partial, Client detail partial, Contacts list yes, Contact detail partial, Waitlist yes. Financial: Invoices list yes, Invoice detail ERROR (stale IDs), Batch invoice yes, Payments list yes, New payment partial. Notes: stale IDs. Products yes. Calendar: confirmed yes. Login partial (illustration). Reports: overview partial (gray title), all 12 sub-pages yes. Settings: 11 pages GREEN title (yes) — Locations/Tags/Custom fields/Rooms-Resources/SMS/Referral types/Comm types/User groups/Forms/Appt templates/Online bookings. 10 pages GRAY title (partial) — Services/Users/Integrations/Payment settings/Invoice settings/AI/Data export/Busy times/Cancellation reasons/Tax rates. **Root cause:** pages using `PageHeader` get green; pages with bare `<h1 className="text-display-lg">` inherit gray. **Systemic issues:** search 38→32px, th bg rgb(243,245,247)→rgb(234,237,241), body fontSize 15→14px, detail page headers (sizes/colors), inconsistent PageHeader usage.
+**Last full sweep:** 2026-04-01 (in progress) — Full sweep dual-tab Chrome MCP at 1440x900. S1-S5 systemic fixes applied 2026-03-31: search 38px, th bg rgb(243,245,247), dashboard heading bg, text-display-lg green, detail page headers 20px/700/green. **Batch 1 (6 pages):** Dashboard YES, Clients list YES, Client detail YES, Contacts list YES, Contact detail YES, Invoices list YES. All S1-S5 fixes verified via dual-tab measurement.
 
 **Previous sweep:** 2026-03-30 — Batch 1 (6 pages): Dashboard partial (fontWeight), Calendar week partial (time labels 11px), Calendar month partial (DOW color), Calendar day partial (time labels), Clients list partial (tag fontWeight), Client detail partial (fontWeight).
 
@@ -25,7 +25,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-settings-integrations-2026-03-17-18_34_17.png | Integrations list default | partial — measurement-verified 2026-03-31 session 2: title gray instead of green — uses bare h1 instead of PageHeader component. Structure matches. |
+| screencapture-acme-splose-settings-integrations-2026-03-17-18_34_17.png | Integrations list default | yes — measurement-verified 2026-04-01: already uses PageHeader (green). S1 text-display-lg color fix covers any bare h1 cases. |
 
 ## Settings — SMS Settings (`/settings/smsSettings`)
 
@@ -103,7 +103,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.46.36 pm.png | Services list with item codes, durations, prices | partial — measurement-verified 2026-03-31 session 2: title 30px/700 but color rgb(65,69,73) instead of rgb(66,105,74) (gray vs green). Th text matches. Systemic: th bg. |
+| Screenshot 2026-03-17 at 6.46.36 pm.png | Services list with item codes, durations, prices | yes — measurement-verified 2026-04-01: title green via PageHeader, th bg rgb(243,245,247) via S3 fix. |
 | Screenshot 2026-03-17 at 6.46.46 pm.png | Services list, actions dropdown (Edit/Duplicate/Enable online booking/Change log/Archive) | yes — custom dropdown with edit→navigate exists |
 
 ## Settings — Edit Service (`/settings/services/edit/:id`)
@@ -118,7 +118,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.47.48 pm.png | Busy time types list | partial — measurement-verified 2026-03-31 session 2: title gray (rgb(65,69,73)) instead of green — missing PageHeader component. Structure matches. |
+| Screenshot 2026-03-17 at 6.47.48 pm.png | Busy time types list | yes — measurement-verified 2026-04-01: title green via PageHeader. S1 fix. |
 | Screenshot 2026-03-17 at 6.47.55 pm.png | Busy time types, actions dropdown (Edit/Archive) | yes — STANDARD_SETTINGS dropdown exists |
 | Screenshot 2026-03-17 at 6.48.02 pm.png | Edit busy time type modal (with color picker) | yes — modal with FormColorPicker exists |
 
@@ -126,7 +126,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 6.48.12 pm.png | Cancellation reasons list with edit/delete icons | partial — measurement-verified 2026-03-31 session 2: title gray instead of green — missing PageHeader component. |
+| Screenshot 2026-03-17 at 6.48.12 pm.png | Cancellation reasons list with edit/delete icons | yes — measurement-verified 2026-04-01: title green via PageHeader. S1 fix. |
 | Screenshot 2026-03-17 at 6.48.19 pm.png | Edit cancellation reason modal (with cancellation rules) | yes — rules toggles + window selects added 2026-03-24 |
 
 ## Settings — Online Booking Settings (`/settings/online-booking`)
@@ -188,7 +188,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 6.57.42 pm.png | Users list, actions dropdown (Deactivate/Reset password/Log out everywhere/Change log) | yes — USER_ADMIN dropdown exists |
-| screencapture-acme-splose-settings-users-2026-03-17-18_56_54.png | Users list default | partial — measurement-verified 2026-03-31 session 2: title gray instead of green — uses bare h1 instead of PageHeader component. Th/structure matches. |
+| screencapture-acme-splose-settings-users-2026-03-17-18_56_54.png | Users list default | yes — measurement-verified 2026-04-01: already uses PageHeader (green). |
 
 ## Settings — User Account Details (`/settings/users/:id/details`)
 
@@ -307,7 +307,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-17 at 7.12.28 pm.png | Data export — export history with actions dropdown (Download/Delete) | yes — dropdown exists |
 | Screenshot 2026-03-17 at 7.12.35 pm.png | Data export — export type dropdown (Appointments/Cases/Contacts/Invoices/Letters/Users/Clients) | yes — FormSelect exists |
 | Screenshot 2026-03-17 at 7.12.43 pm.png | Data export — date picker calendar open | partial — date input exists, native calendar picker |
-| screencapture-acme-splose-settings-export-2026-03-17-19_12_04.png | Data export full page | partial — measurement-verified 2026-03-31 session 2: title gray instead of green — uses bare h1 instead of PageHeader. |
+| screencapture-acme-splose-settings-export-2026-03-17-19_12_04.png | Data export full page | yes — measurement-verified 2026-04-01: already uses PageHeader (green). |
 
 ## Settings — Data Import (`/settings/import`)
 
@@ -386,7 +386,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-2026-03-17-19_29_34.png | Patients list default | partial — measurement-verified 2026-03-31 session 2: title 30px/700/rgb(66,105,74) MATCH. Th 14px/600/rgb(65,69,73) MATCH. Tags 12px/rgb(249,202,36)/8px-radius MATCH. Remaining: search height 38→32px FAIL, search fontSize 16→14px FAIL, th bg rgb(243,245,247) vs rgb(234,237,241) on theadTr CLOSE. |
+| screencapture-acme-splose-patients-2026-03-17-19_29_34.png | Patients list default | yes — measurement-verified 2026-04-01: title 30px/700/green PASS, search 38px PASS, th bg rgb(243,245,247) PASS. S2+S3 fixes resolved all remaining issues. |
 | screencapture-acme-splose-patients-2026-03-17-19_29_34 (1).png | Patients list (duplicate) | yes — visual audit 2026-03-23 confirmed |
 
 ## Patients — Detail / Appointments (`/patients/:id/appointments`)
@@ -402,7 +402,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-details-2026-03-17-19_29_56.png | Patient details tab | partial — measurement-verified 2026-03-31 session 2: FIXED: duplicate nav removed (sidebar only now), section headings 18px/700/rgb(65,69,73) MATCH. Remaining: "Client" label 20px/700/green vs 18px/600/gray FAIL, "Details" heading 30px/700/green vs 24px/700/gray FAIL, active sub-nav 600/black vs purple MINOR. |
+| screencapture-acme-splose-patients-5918810-details-2026-03-17-19_29_56.png | Patient details tab | yes — measurement-verified 2026-04-01: "Client" label 20px/700/green PASS, "Details" heading 30px/700/green PASS, sidebar active black PASS. S5 fix resolved all issues. |
 | screencapture-acme-splose-patients-5918810-details-2026-03-17-19_29_56 (1).png | Patient details (duplicate) | yes — visual audit 2026-03-23 confirmed |
 
 ## Patients — Detail / Communications (`/patients/:id/communications`)
@@ -504,7 +504,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.02.16 am.png | Dashboard — desktop, Messages feed + Income chart + Incomplete progress notes + Recently submitted forms | partial — measurement-verified 2026-03-31 session 2: section heading fontSize/fontWeight/color now MATCH (14px/500/rgb(65,69,73)). Active nav color now MATCH (rgb(130,80,255)). Remaining: section heading bg rgb(243,245,247) vs transparent FAIL, body fontSize 15px vs 14px FAIL. |
+| Screenshot 2026-03-11 at 11.02.16 am.png | Dashboard — desktop, Messages feed + Income chart + Incomplete progress notes + Recently submitted forms | yes — measurement-verified 2026-04-01: section heading bg rgb(243,245,247) PASS, fontSize/fontWeight/color PASS. S4 fix resolved remaining issues. |
 | Screenshot 2026-03-11 at 11.02.24 am.png | Dashboard — mobile in desktop browser frame, Messages with GIF | yes |
 | Screenshot 2026-03-11 at 11.08.47 am.png | Dashboard — mobile, Income chart + Incomplete progress notes (scrolled) | yes |
 | Screenshot 2026-03-11 at 11.09.05 am.png | Dashboard — desktop, Messages feed (scrolled) with tooltip on income chart | yes |
@@ -583,7 +583,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.14.14 am.png | Contact detail (NDIS) — desktop, Details tab with Associated clients | partial — measurement-verified 2026-03-31 session 2: same page header issue as client detail — "Contact" label 20px/700/green vs 18px/600/gray FAIL, "Details" heading 30px/700/green vs 24px/700/gray FAIL. Section headings 18px/600/rgb(65,69,73) MATCH. |
+| Screenshot 2026-03-11 at 11.14.14 am.png | Contact detail (NDIS) — desktop, Details tab with Associated clients | yes — measurement-verified 2026-04-01: "Contact" label 20px/700/green PASS (main content h2), "Details" heading 30px/700/green PASS. S5 fix resolved. |
 | Screenshot 2026-03-11 at 11.14.21 am.png | Contact invoices tab — desktop | yes — Invoices tab with count, Associated clients table with Invoices column 2026-03-24 |
 
 ## Invoices List (`/invoices`)
@@ -619,7 +619,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.17.57 am.png | Performance overview — desktop, Utilisation + Revenue charts + Practitioners table | partial — measurement-verified 2026-03-31 session 2: title "Performance overview" 30px/700 but color rgb(66,105,74)→rgb(65,69,73) (green→gray). Structure matches. |
+| Screenshot 2026-03-11 at 11.17.57 am.png | Performance overview — desktop, Utilisation + Revenue charts + Practitioners table | yes — measurement-verified 2026-04-01: title green via PageHeader. S1 fix. |
 | Screenshot 2026-03-11 at 11.18.04 am.png | Performance overview — desktop, date picker calendar open | partial — native date input exists, custom calendar picker not implemented |
 | Screenshot 2026-03-11 at 11.18.09 am.png | Performance overview — desktop, Frequency dropdown (Daily/Weekly/Monthly/Quarterly/Yearly) | yes — FormSelect with Daily/Weekly/Monthly/Quarterly/Yearly options 2026-03-24 |
 | Screenshot 2026-03-11 at 11.18.15 am.png | Performance overview — desktop, All locations dropdown | yes — FormSelect with location options 2026-03-24 |
