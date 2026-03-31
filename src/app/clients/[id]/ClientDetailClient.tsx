@@ -76,7 +76,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
       {/* Main content */}
       <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
         <Flex justify="space-between" align="center" style={{ marginBottom: 24 }}>
-          <h1 className="text-display-md">Details</h1>
+          <h1 className="text-display-lg">Details</h1>
           <Button variant="secondary" size="sm" onClick={() => setEditMode(true)}>
             Edit <EditOutlined style={{ fontSize: 14 }} />
           </Button>

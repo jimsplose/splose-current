@@ -45,9 +45,9 @@
 }
 
 .linkActive {
-  background-color: rgba(130, 80, 255, 0.1);
+  background-color: rgba(0, 0, 0, 0.04);
   font-weight: 600;
-  color: var(--color-primary);
+  color: rgb(0, 0, 0);
 }
 
 .badge {

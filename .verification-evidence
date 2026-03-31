@@ -1,2 +1,9 @@
-src/app/calendar/CalendarView.tsx
-SKIP: src/app/calendar/page.tsx — no changes to page.tsx
+SKIP: src/components/ds/SearchBar.tsx — DS component size change, no page.tsx
+SKIP: src/components/ds/DataTable.tsx — DS component bg fix, no page.tsx
+SKIP: src/components/ds/theme.ts — theme token updates, no page.tsx
+SKIP: src/components/ds/SideNav.module.css — active state color fix, no page.tsx
+SKIP: src/app/globals.css — typography class update, no page.tsx
+src/app/page.tsx
+src/app/DashboardClient.tsx
+src/app/clients/[id]/ClientDetailClient.tsx
+src/app/contacts/[id]/page.tsx

@@ -52,7 +52,7 @@ export default async function ClientLayout({
         {/* Top action bar */}
         <div style={{ flexShrink: 0, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 8, borderBottom: '1px solid var(--color-border)', paddingLeft: 24, paddingRight: 24, paddingTop: 12, paddingBottom: 12 }}>
           <Flex align="center" gap={8}>
-            <h2 className="text-heading-lg">Client</h2>
+            <h2 style={{ fontSize: 20, fontWeight: 700, fontFamily: "'Sprig Sans', 'Inter', sans-serif", color: "rgb(66, 105, 74)" }}>Client</h2>
             <span className="text-body-lg" style={{ color: 'var(--color-text-secondary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {client.firstName} ({client.firstName.slice(0, 3)}) {client.lastName}
             </span>

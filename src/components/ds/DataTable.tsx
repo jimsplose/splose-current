@@ -172,11 +172,11 @@ export function ActionsCell({ items, onSelect }: {
 // Legacy sub-components — exported for backward compat during Phase 3 migration
 /** @deprecated Use DataTable with columns prop */
 export function TableHead({ children }: { children: ReactNode }) {
-  return <thead><tr style={{ borderBottom: "1px solid var(--color-border)", backgroundColor: "rgb(234, 237, 241)" }}>{children}</tr></thead>;
+  return <thead><tr style={{ borderBottom: "1px solid var(--color-border)" }}>{children}</tr></thead>;
 }
 /** @deprecated Use DataTableColumn instead */
 export function Th({ children, align = "left", className, hidden, sortable, sortDirection, onSort, style: styleProp }: { children?: ReactNode; align?: string; className?: string; hidden?: string; sortable?: boolean; sortDirection?: string | null; onSort?: () => void; filterable?: boolean; onFilter?: () => void; style?: React.CSSProperties }) {
-  return <th style={{ padding: "16px", textAlign: align as React.CSSProperties["textAlign"], fontSize: 14, fontWeight: 600, lineHeight: "22px", color: "rgb(65, 69, 73)", ...styleProp }}>{children}</th>;
+  return <th style={{ padding: "16px", textAlign: align as React.CSSProperties["textAlign"], fontSize: 14, fontWeight: 600, lineHeight: "22px", color: "rgb(65, 69, 73)", backgroundColor: "rgb(243, 245, 247)", ...styleProp }}>{children}</th>;
 }
 /** @deprecated Use DataTable with dataSource prop */
 export function TableBody({ children }: { children: ReactNode }) {

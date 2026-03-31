@@ -200,7 +200,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
         {/* Top action bar */}
         <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', padding: '12px 24px' }}>
           <Flex align="center" gap={8}>
-            <h2 className="text-heading-lg text-text">Contact</h2>
+            <h2 style={{ fontSize: 20, fontWeight: 700, fontFamily: "'Sprig Sans', 'Inter', sans-serif", color: "rgb(66, 105, 74)" }}>Contact</h2>
             <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>{contact.name}</span>
           </Flex>
           <Button variant="secondary" size="sm">
@@ -213,7 +213,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
         <div style={{ padding: 24 }}>
           <Flex align="center" justify="space-between" style={{ marginBottom: 24 }}>
-            <h1 className="text-display-md text-text">Details</h1>
+            <h1 className="text-display-lg">Details</h1>
             <Button variant="secondary" size="sm">
               Edit
             </Button>

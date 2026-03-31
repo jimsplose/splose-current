@@ -265,7 +265,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
     <Flex style={{ minHeight: 'calc(100vh - 3rem)', gap: 14, padding: 7 }}>
       {/* Left column -- Messages (col1: wider) */}
       <Flex vertical style={{ flex: 1, overflow: 'hidden', borderRadius: 8, border: '1px solid var(--color-border)' }}>
-        <div style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-quaternary)', padding: 16 }}>
+        <div style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
           <h2 className="text-label-lg" style={{ color: 'var(--color-text)' }}>Messages</h2>
         </div>
 
@@ -365,7 +365,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
       <Flex vertical gap={7} style={{ width: 380, flexShrink: 0 }}>
         {/* Income card */}
         <div style={{ overflow: 'hidden', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white' }}>
-          <div style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-quaternary)', padding: 16 }}>
+          <div style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
             <h3 className="text-label-lg" style={{ color: 'var(--color-text)' }}>Income</h3>
           </div>
           <div style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 16 }}>
@@ -412,7 +412,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
 
         {/* Incomplete progress notes card */}
         <div style={{ overflow: 'hidden', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white' }}>
-          <div style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-quaternary)', padding: 16 }}>
+          <div style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
             <h3 className="text-label-lg" style={{ color: 'var(--color-text)' }}>Incomplete progress notes</h3>
           </div>
           <div style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
@@ -449,7 +449,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
 
         {/* Recently submitted forms card */}
         <div style={{ overflow: 'hidden', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white' }}>
-          <div style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-quaternary)', padding: 16 }}>
+          <div style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
             <h3 className="text-label-lg" style={{ color: 'var(--color-text)' }}>Recently submitted forms</h3>
           </div>
           <div style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>

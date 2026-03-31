@@ -62,7 +62,8 @@ export const sploseTheme: ThemeConfig = {
       "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
     fontSize: 14,
     fontSizeSM: 12,
-    fontSizeLG: 18,
+    fontSizeLG: 16,
+    controlHeightLG: 38,
     fontSizeXL: 24,
     fontSizeHeading1: 30,
     fontSizeHeading2: 24,
@@ -78,7 +79,7 @@ export const sploseTheme: ThemeConfig = {
 
   components: {
     Table: {
-      headerBg: "rgb(234, 237, 241)",
+      headerBg: "rgb(243, 245, 247)",
       headerColor: "#414549",
       rowHoverBg: "#f3f5f7",
       rowSelectedBg: "rgba(130, 80, 255, 0.05)",

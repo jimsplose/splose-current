@@ -59,6 +59,7 @@
   font-size: 30px;
   font-weight: 700;
   line-height: 1.2;
+  color: rgb(66, 105, 74);
 }
 .text-display-md {
   font-family: 'Sprig Sans', 'Inter', sans-serif;
@@ -216,3 +217,9 @@ tr.row-hover:hover { background-color: #f9fafb; }
 
 /* Overflow utility */
 .overflow-x-auto-util { overflow-x: auto; }
+
+/* AntD table header background to match production */
+.ant-table-thead > tr > th,
+.ant-table-thead > tr > td {
+  background-color: rgb(243, 245, 247) !important;
+}

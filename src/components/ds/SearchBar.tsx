@@ -19,6 +19,7 @@ export default function SearchBar({ placeholder = "Search...", onSearch, default
         onSearch={onSearch}
         enterButton="Search"
         allowClear
+        size="large"
       />
     </div>
   );
