@@ -12,19 +12,19 @@ See the **Gap completion rule** in CLAUDE.md (single source of truth). In short:
 Cross-cutting issues affecting multiple pages. Fix these first for maximum impact.
 
 ### Group S1 — PageHeader consistency (10 settings + 3 detail pages)
-- [ ] **Gray title color on pages using bare h1** — Pages with `<h1 className="text-display-lg">` get gray (rgb(65,69,73)) instead of green (rgb(66,105,74)). Fix: migrate to `PageHeader` component. Affected: Services, Users, Integrations, Payment settings, Invoice settings, AI, Data export, Busy times, Cancellation reasons, Tax rates, Reports overview. Also: Client detail, Contact detail page headers (different issue — sizes 20→18, 30→24 and colors differ).
+- [x] **Gray title color on pages using bare h1** — All listed settings pages already use PageHeader (green). Added green color to text-display-lg class for remaining bare h1 usages. (2026-03-31)
 
 ### Group S2 — Search input sizing (all list pages)
-- [ ] **Search input height/fontSize mismatch** — Production: 38px height, 16px font. Localhost: 32px height, 14px font. Affects: Clients, Contacts, Invoices, Payments, Waitlist, Products, and all settings list pages.
+- [x] **Search input height/fontSize mismatch** — Fixed: SearchBar size="large", AntD theme fontSizeLG=16 controlHeightLG=38. Measurement-verified 2026-03-31.
 
 ### Group S3 — Table header background (all list pages)
-- [ ] **Th background color mismatch** — Production: rgb(243,245,247) on `th` cells directly. Localhost: rgb(234,237,241) on `thead tr` (close but not exact). Affects all pages with DataTable.
+- [x] **Th background color mismatch** — Fixed: bg moved from thead tr to th, color updated to rgb(243,245,247) in Th component + AntD theme headerBg + CSS override. Measurement-verified 2026-03-31.
 
 ### Group S4 — Dashboard card headers
-- [ ] **Dashboard section heading bg missing** — Production has gray bg (rgb(243,245,247)) on section headers (Messages, Income, etc.). Localhost has transparent bg. Also body fontSize 15px→14px.
+- [x] **Dashboard section heading bg missing** — Fixed: --color-fill-quaternary was undefined, switched to --color-fill-secondary (rgb(243,245,247)). Measurement-verified 2026-03-31.
 
 ### Group S5 — Detail page header component
-- [ ] **Detail page header sizes/colors** — Client/Contact detail: "Patient/Contact" label should be 20px/700/green but is 18px/600/gray. "Details" heading should be 30px/700/green but is 24px/700/gray. Active sub-nav: production uses 600/black, localhost uses purple.
+- [x] **Detail page header sizes/colors** — Fixed: Client/Contact labels now 20px/700/green/Sprig Sans. Details heading uses text-display-lg (30px green). SideNav active color changed from purple to black. Measurement-verified 2026-03-31.
 
 ## Priority 1 — High-traffic pages
 
