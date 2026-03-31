@@ -6,7 +6,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 **Sources:** March 11 screenshots from production (`acme.splose.com`) and dev environment. March 17 screenshots from production.
 
-**Last full sweep:** 2026-03-31 (in progress) — Full sweep dual-tab Chrome MCP at 1440x900. **Batch 1 (6 pages):** Dashboard partial (section heading fontSize 14→16px, fontWeight 500→400, color gray→black, active nav purple→black), Calendar week partial (time labels 10→16px REGRESSION, native selects, layout structurally different), Calendar month NO/REGRESSION (layout completely broken — days render as vertical list, no grid), Calendar day NO/REGRESSION (layout broken — practitioners as plain text, no time grid), Clients list partial (title color green→black, search styling stripped, th bg gray→transparent, th color gray→black), Client detail partial (duplicate navigation tabs+sidebar, heading sizes all larger, colors green/gray→black). **Cross-cutting issues:** AntD migration regressions — browser-default font sizes (16px), lost color theme (green/gray→black), calendar grid layouts broken.
+**Last full sweep:** 2026-03-31 (in progress) — Full sweep dual-tab Chrome MCP at 1440x900. **Batch 1 (6 pages, earlier session):** Calendar week YES (CSS module conversion fixed all regressions), Calendar month YES (grid layout fixed), Calendar day YES (layout fixed). **Batch 2 (6 pages, current session):** Dashboard partial (section heading bg rgb(243,245,247)→transparent, body fontSize 15→14px; FIXED: heading color/weight/nav color now match), Clients list partial (search height 38→32px, fontSize 16→14px; FIXED: title color, tags now badge chips, th color), Client detail partial (page header 20px/green→18px/gray, heading 30px/green→24px/gray; FIXED: duplicate nav removed, section headings match), Contacts list yes (title/th/tabs match), Contact detail partial (same page header size/color issues as client detail), Waitlist yes (tabs/table match). **Systemic issues:** search input 38→32px height, th bg rgb(243,245,247)→rgb(234,237,241), body fontSize 15→14px, detail page header sizes/colors.
 
 **Previous sweep:** 2026-03-30 — Batch 1 (6 pages): Dashboard partial (fontWeight), Calendar week partial (time labels 11px), Calendar month partial (DOW color), Calendar day partial (time labels), Clients list partial (tag fontWeight), Client detail partial (fontWeight).
 
@@ -386,7 +386,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-2026-03-17-19_29_34.png | Patients list default | partial — measurement-verified 2026-03-31: title color rgb(66,105,74) vs rgb(0,0,0) FAIL. Search fontSize 16px vs 14px, padding/borderRadius stripped FAIL. Th bg rgb(243,245,247) vs transparent FAIL. Th color rgb(65,69,73) vs rgb(0,0,0) FAIL. Tags display as plain text instead of badge chips. |
+| screencapture-acme-splose-patients-2026-03-17-19_29_34.png | Patients list default | partial — measurement-verified 2026-03-31 session 2: title 30px/700/rgb(66,105,74) MATCH. Th 14px/600/rgb(65,69,73) MATCH. Tags 12px/rgb(249,202,36)/8px-radius MATCH. Remaining: search height 38→32px FAIL, search fontSize 16→14px FAIL, th bg rgb(243,245,247) vs rgb(234,237,241) on theadTr CLOSE. |
 | screencapture-acme-splose-patients-2026-03-17-19_29_34 (1).png | Patients list (duplicate) | yes — visual audit 2026-03-23 confirmed |
 
 ## Patients — Detail / Appointments (`/patients/:id/appointments`)
@@ -402,7 +402,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-5918810-details-2026-03-17-19_29_56.png | Patient details tab | partial — measurement-verified 2026-03-31: duplicate navigation (tabs+sidebar). "Client" label 20px vs 24px, color green vs black FAIL. "Details" 30px vs 32px FAIL. "General details" 18px vs 24px FAIL. All heading colors green/gray→black. Layout order different — content pushed down by duplicate nav. |
+| screencapture-acme-splose-patients-5918810-details-2026-03-17-19_29_56.png | Patient details tab | partial — measurement-verified 2026-03-31 session 2: FIXED: duplicate nav removed (sidebar only now), section headings 18px/700/rgb(65,69,73) MATCH. Remaining: "Client" label 20px/700/green vs 18px/600/gray FAIL, "Details" heading 30px/700/green vs 24px/700/gray FAIL, active sub-nav 600/black vs purple MINOR. |
 | screencapture-acme-splose-patients-5918810-details-2026-03-17-19_29_56 (1).png | Patient details (duplicate) | yes — visual audit 2026-03-23 confirmed |
 
 ## Patients — Detail / Communications (`/patients/:id/communications`)
@@ -504,7 +504,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.02.16 am.png | Dashboard — desktop, Messages feed + Income chart + Incomplete progress notes + Recently submitted forms | partial — measurement-verified 2026-03-31: section heading fontSize 14px (prod) vs 16px (localhost), fontWeight 500 vs 400, color rgb(65,69,73) vs rgb(0,0,0), bg rgb(243,245,247) vs rgb(250,250,247). Active nav color purple vs black. |
+| Screenshot 2026-03-11 at 11.02.16 am.png | Dashboard — desktop, Messages feed + Income chart + Incomplete progress notes + Recently submitted forms | partial — measurement-verified 2026-03-31 session 2: section heading fontSize/fontWeight/color now MATCH (14px/500/rgb(65,69,73)). Active nav color now MATCH (rgb(130,80,255)). Remaining: section heading bg rgb(243,245,247) vs transparent FAIL, body fontSize 15px vs 14px FAIL. |
 | Screenshot 2026-03-11 at 11.02.24 am.png | Dashboard — mobile in desktop browser frame, Messages with GIF | yes |
 | Screenshot 2026-03-11 at 11.08.47 am.png | Dashboard — mobile, Income chart + Incomplete progress notes (scrolled) | yes |
 | Screenshot 2026-03-11 at 11.09.05 am.png | Dashboard — desktop, Messages feed (scrolled) with tooltip on income chart | yes |
@@ -576,14 +576,14 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.13.20 am.png | Contacts list — desktop, with row highlighted | yes — measurement-verified 2026-03-25: title 30px/700/rgb(40,103,68), th 14px/600/55px/padding 16px, td 14px/400/padding 12px 16px, search 38px. 4.23% mismatch from highlight state. |
+| Screenshot 2026-03-11 at 11.13.20 am.png | Contacts list — desktop, with row highlighted | yes — measurement-verified 2026-03-31 session 2: title 30px/700/rgb(66,105,74) MATCH, th 14px/600/rgb(65,69,73) MATCH, tabs MATCH. Systemic: search 38→32px, th bg rgb(243,245,247)→rgb(234,237,241). |
 | Screenshot 2026-03-11 at 11.14.04 am.png | Contacts list — desktop, no highlight | yes — structure matches |
 
 ## Contact Detail (`/contacts/:id`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.14.14 am.png | Contact detail (NDIS) — desktop, Details tab with Associated clients | yes — 4.48% mismatch, layout matches |
+| Screenshot 2026-03-11 at 11.14.14 am.png | Contact detail (NDIS) — desktop, Details tab with Associated clients | partial — measurement-verified 2026-03-31 session 2: same page header issue as client detail — "Contact" label 20px/700/green vs 18px/600/gray FAIL, "Details" heading 30px/700/green vs 24px/700/gray FAIL. Section headings 18px/600/rgb(65,69,73) MATCH. |
 | Screenshot 2026-03-11 at 11.14.21 am.png | Contact invoices tab — desktop | yes — Invoices tab with count, Associated clients table with Invoices column 2026-03-24 |
 
 ## Invoices List (`/invoices`)
@@ -654,7 +654,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.21.40 am.png | Waitlist Screener tab — desktop, Triage list | yes — measurement-verified 2026-03-25: title 30px/700/green, th 14px/600/55px/16px, td 14px/400/12px 16px, search 38px. Screener/Waitlist tabs match. |
+| Screenshot 2026-03-11 at 11.21.40 am.png | Waitlist Screener tab — desktop, Triage list | yes — measurement-verified 2026-03-31 session 2: Screener/Waitlist tabs 14px/purple-active/gray-inactive MATCH. Th 14px/600/rgb(65,69,73) MATCH. Systemic: search height, th bg color. |
 
 ## Waitlist — Waitlist Tab (`/waitlist`)
 
