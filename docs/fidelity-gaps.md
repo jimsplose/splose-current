@@ -32,6 +32,9 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 ### Group S7 — Add payment page (`src/app/payments/new/page.tsx`)
 - [ ] **Title text/style mismatch** — Production: "Add payment" 30px/700/rgb(66,105,74) green PageHeader. Localhost: "New payment" 18px/600/rgb(65,69,73) gray. Labels 600/rgb(34,34,34) on prod vs 400/rgb(110,110,100). Cancel btn red on prod vs purple. Button height 38px on prod vs 32px. Found 2026-04-01 full sweep batch 1.
 
+### Group S8 — Invoice detail typography (`src/app/invoices/[id]/page.tsx`)
+- [ ] **Section labels and sidebar heading too small/light** — Section labels (Client, From, Invoice #): prod 13px/700/rgb(65,69,73), localhost 11px/600/rgb(156,163,175). Payments sidebar heading: prod 21px/500, localhost 14px/600. Found 2026-04-01 full sweep batch 4.
+
 ## Priority 1 — High-traffic pages
 
 ### Group D — Dashboard (`src/app/page.tsx`)
