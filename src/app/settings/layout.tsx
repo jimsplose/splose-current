@@ -74,9 +74,9 @@ export default function SettingsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-[calc(100vh-3rem)]">
+    <div style={{ display: 'flex', minHeight: 'calc(100vh - 3rem)' }}>
       <SideNav sections={sidebarSections} />
-      <div className="flex-1 overflow-y-auto">{children}</div>
+      <div style={{ flex: 1, overflowY: 'auto' }}>{children}</div>
     </div>
   );
 }

@@ -40,7 +40,7 @@ function CustomRangeDemo() {
   const [end, setEnd] = useState("2026-03-31");
 
   return (
-    <div className="space-y-4">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       <DateRangeFilter
         startDate={start}
         endDate={end}
@@ -66,13 +66,13 @@ function ReportsDateRangeRecipe() {
   const [end, setEnd] = useState("2026-03-11");
 
   return (
-    <div className="space-y-4">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">reports/appointments</code> — date range
+        From <code style={{ fontSize: 11 }}>reports/appointments</code> — date range
         filter with label, used alongside report filters.
       </p>
       <div>
-        <label className="mb-1 flex items-center gap-1 text-sm text-text-secondary">
+        <label className="text-text-secondary" style={{ marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4, fontSize: 12 }}>
           Date range *
         </label>
         <DateRangeFilter
@@ -82,17 +82,17 @@ function ReportsDateRangeRecipe() {
           onEndChange={setEnd}
         />
       </div>
-      <div className="flex flex-wrap items-center gap-2">
-        <button className="rounded border border-border bg-white px-3 py-1.5 text-body-md text-text hover:bg-gray-50">
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
+        <button className="border-border text-body-md text-text" style={{ borderRadius: 4, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6 }}>
           Add filter
         </button>
-        <button className="rounded border border-border bg-white px-3 py-1.5 text-body-md text-text hover:bg-gray-50">
+        <button className="border-border text-body-md text-text" style={{ borderRadius: 4, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6 }}>
           Save filters
         </button>
-        <button className="rounded border border-border bg-white px-3 py-1.5 text-body-md text-text hover:bg-gray-50">
+        <button className="border-border text-body-md text-text" style={{ borderRadius: 4, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6 }}>
           Load filters
         </button>
-        <button className="rounded bg-primary px-3 py-1.5 text-body-md text-white hover:bg-primary/90">
+        <button className="bg-primary text-body-md" style={{ borderRadius: 4, paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6, color: '#fff' }}>
           Run report
         </button>
       </div>
@@ -116,32 +116,32 @@ export const ReportsDateRange: Story = {
 export const BatchInvoiceDateRange: Story = {
   name: "Recipe: Batch Invoice Date Range",
   render: () => (
-    <div className="max-w-2xl space-y-6">
+    <div style={{ maxWidth: 672, display: 'flex', flexDirection: 'column', gap: 24 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">invoices/batch-invoice</code> — date range
+        From <code style={{ fontSize: 11 }}>invoices/batch-invoice</code> — date range
         picker alongside practitioner and invoice type selects.
       </p>
       <div>
-        <label className="mb-1 block text-sm text-text-secondary">Date range *</label>
+        <label className="text-text-secondary" style={{ marginBottom: 4, display: 'block', fontSize: 12 }}>Date range *</label>
         <DateRangeFilter startDate="2026-03-01" endDate="2026-03-27" />
       </div>
       <div>
-        <label className="mb-1 block text-sm text-text-secondary">Practitioner</label>
-        <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none">
+        <label className="text-text-secondary" style={{ marginBottom: 4, display: 'block', fontSize: 12 }}>Practitioner</label>
+        <select className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}>
           <option>All practitioners</option>
           <option>Sarah Chen</option>
           <option>James Wilson</option>
         </select>
       </div>
       <div>
-        <label className="mb-1 block text-sm text-text-secondary">Invoice type</label>
-        <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none">
+        <label className="text-text-secondary" style={{ marginBottom: 4, display: 'block', fontSize: 12 }}>Invoice type</label>
+        <select className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}>
           <option>Standard</option>
           <option>NDIS</option>
           <option>Medicare</option>
         </select>
       </div>
-      <button className="rounded-lg bg-primary px-4 py-2 text-label-lg text-white hover:bg-primary/90">
+      <button className="bg-primary text-label-lg" style={{ borderRadius: 8, paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, color: '#fff' }}>
         Preview
       </button>
     </div>
@@ -162,20 +162,20 @@ function NdisBulkUploadDateRangeRecipe() {
   const [end, setEnd] = useState("2026-03-27");
 
   return (
-    <div className="max-w-2xl space-y-6">
+    <div style={{ maxWidth: 672, display: 'flex', flexDirection: 'column', gap: 24 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">reports/ndis-bulk-upload/new</code> — date
+        From <code style={{ fontSize: 11 }}>reports/ndis-bulk-upload/new</code> — date
         range with a summary count of items in the range.
       </p>
       <div>
-        <label className="mb-1 block text-sm text-text-secondary">Date range *</label>
+        <label className="text-text-secondary" style={{ marginBottom: 4, display: 'block', fontSize: 12 }}>Date range *</label>
         <DateRangeFilter
           startDate={start}
           endDate={end}
           onStartChange={setStart}
           onEndChange={setEnd}
         />
-        <p className="mt-1 text-caption-md text-text-secondary">
+        <p className="text-caption-md text-text-secondary" style={{ marginTop: 4 }}>
           12 support items from {start} to {end} at all practitioners
         </p>
       </div>
@@ -210,13 +210,13 @@ function AgedDebtorsDateRangeRecipe() {
   ];
 
   return (
-    <div className="max-w-3xl space-y-4">
+    <div style={{ maxWidth: 768, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">reports/aged-debtors</code> — date range
+        From <code style={{ fontSize: 11 }}>reports/aged-debtors</code> — date range
         filter with &quot;Run report&quot; button revealing aging summary cards.
       </p>
       <div>
-        <label className="mb-1 flex items-center gap-1 text-sm text-text-secondary">
+        <label className="text-text-secondary" style={{ marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4, fontSize: 12 }}>
           Date range *
         </label>
         <DateRangeFilter
@@ -226,21 +226,21 @@ function AgedDebtorsDateRangeRecipe() {
           onEndChange={setEnd}
         />
       </div>
-      <div className="flex flex-wrap items-center gap-2">
-        <button className="rounded border border-border bg-white px-3 py-1.5 text-body-md text-text hover:bg-gray-50">
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
+        <button className="border-border text-body-md text-text" style={{ borderRadius: 4, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6 }}>
           Add filter
         </button>
         <button
-          className="rounded bg-primary px-3 py-1.5 text-body-md text-white hover:bg-primary/90"
+          className="bg-primary text-body-md" style={{ borderRadius: 4, paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6, color: '#fff' }}
           onClick={() => setShowResults(true)}
         >
           Run report
         </button>
       </div>
       {showResults && (
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
           {agingSummary.map((item) => (
-            <div key={item.label} className="rounded-lg border border-border p-4">
+            <div key={item.label} style={{ borderRadius: 8, border: '1px solid var(--color-border)', padding: 16 }}>
               <p className="text-label-md text-text-secondary">{item.label}</p>
               <p className={`mt-1 text-heading-lg ${item.color}`}>{item.amount}</p>
             </div>

@@ -30,26 +30,26 @@ interface Service {
 }
 
 const services: Service[] = [
-  { id: 1, name: "1:1 Consultation", type: "1:1 Consultation", itemCode: "299sdsdds3234", duration: "40 minutes", price: "193.00", rate: "Hour", color: "bg-green-500" },
-  { id: 2, name: "1x Initial 1:1 Assessment, 14 x Group Therapy Sessions, and 1x Review Session", type: "Group Package Deal", itemCode: "", duration: "60 minutes", price: "1000.00", rate: "Each", color: "bg-purple-500" },
-  { id: 3, name: "2:2 Consultations", type: "2:2 Consultations", itemCode: "2997952838_61 627l_abc", duration: "60 minutes", price: "193.99", rate: "Hour", color: "bg-yellow-500" },
-  { id: 4, name: "2. Payment optional - partial - Online booking", type: "1. Payment test - Online booking", itemCode: "sd", duration: "30 minutes", price: "200.00", rate: "Hour", color: "bg-gray-400" },
-  { id: 5, name: "3 cases services", type: "3 cases service", itemCode: "", duration: "45 minutes", price: "120.00", rate: "Hour", color: "bg-green-500" },
-  { id: 6, name: "3. Payment required - partial - Online booking", type: "1. Payment test - Online booking", itemCode: "", duration: "30 minutes", price: "200.00", rate: "Hour", color: "bg-gray-400" },
-  { id: 7, name: "4. Payment required - full - Online booking", type: "1. Payment test - Online booking", itemCode: "", duration: "30 minutes", price: "200.00", rate: "Hour", color: "bg-gray-400" },
-  { id: 8, name: "Assessment", type: "1:1 Consultation", itemCode: "93", duration: "60 minutes", price: "224.60", rate: "Hour", color: "bg-green-500" },
-  { id: 9, name: "Initial Consultation", type: "1:1 Consultation", itemCode: "93", duration: "60 minutes", price: "224.60", rate: "Hour", color: "bg-green-500" },
-  { id: 10, name: "Standard Consultation", type: "1:1 Consultation", itemCode: "93", duration: "30 minutes", price: "112.30", rate: "Hour", color: "bg-green-500" },
-  { id: 11, name: "Extended Consultation", type: "1:1 Consultation", itemCode: "93", duration: "45 minutes", price: "168.45", rate: "Hour", color: "bg-green-500" },
-  { id: 12, name: "Review Appointment", type: "1:1 Consultation", itemCode: "93", duration: "20 minutes", price: "84.00", rate: "Hour", color: "bg-blue-500" },
-  { id: 13, name: "Telehealth Consultation", type: "1:1 Consultation", itemCode: "93", duration: "30 minutes", price: "112.30", rate: "Hour", color: "bg-green-500" },
-  { id: 14, name: "Group Session", type: "Group", itemCode: "93", duration: "60 minutes", price: "65.00", rate: "Hour", color: "bg-orange-500" },
-  { id: 15, name: "Home Visit", type: "1:1 Consultation", itemCode: "93", duration: "60 minutes", price: "280.00", rate: "Hour", color: "bg-green-500" },
-  { id: 16, name: "NDIS Initial Assessment", type: "1:1 Consultation", itemCode: "93", duration: "90 minutes", price: "336.90", rate: "Hour", color: "bg-green-500" },
-  { id: 17, name: "NDIS Standard Session", type: "1:1 Consultation", itemCode: "93", duration: "60 minutes", price: "224.60", rate: "Hour", color: "bg-green-500" },
-  { id: 18, name: "Report Writing", type: "1:1 Consultation", itemCode: "93", duration: "60 minutes", price: "224.60", rate: "Hour", color: "bg-green-500" },
-  { id: 19, name: "Case Conference", type: "1:1 Consultation", itemCode: "93", duration: "30 minutes", price: "112.30", rate: "Hour", color: "bg-green-500" },
-  { id: 20, name: "Supervision Session", type: "1:1 Consultation", itemCode: "93", duration: "60 minutes", price: "150.00", rate: "Hour", color: "bg-green-500" },
+  { id: 1, name: "1:1 Consultation", type: "1:1 Consultation", itemCode: "299sdsdds3234", duration: "40 minutes", price: "193.00", rate: "Hour", color: "#22c55e" },
+  { id: 2, name: "1x Initial 1:1 Assessment, 14 x Group Therapy Sessions, and 1x Review Session", type: "Group Package Deal", itemCode: "", duration: "60 minutes", price: "1000.00", rate: "Each", color: "#a855f7" },
+  { id: 3, name: "2:2 Consultations", type: "2:2 Consultations", itemCode: "2997952838_61 627l_abc", duration: "60 minutes", price: "193.99", rate: "Hour", color: "#eab308" },
+  { id: 4, name: "2. Payment optional - partial - Online booking", type: "1. Payment test - Online booking", itemCode: "sd", duration: "30 minutes", price: "200.00", rate: "Hour", color: "#9ca3af" },
+  { id: 5, name: "3 cases services", type: "3 cases service", itemCode: "", duration: "45 minutes", price: "120.00", rate: "Hour", color: "#22c55e" },
+  { id: 6, name: "3. Payment required - partial - Online booking", type: "1. Payment test - Online booking", itemCode: "", duration: "30 minutes", price: "200.00", rate: "Hour", color: "#9ca3af" },
+  { id: 7, name: "4. Payment required - full - Online booking", type: "1. Payment test - Online booking", itemCode: "", duration: "30 minutes", price: "200.00", rate: "Hour", color: "#9ca3af" },
+  { id: 8, name: "Assessment", type: "1:1 Consultation", itemCode: "93", duration: "60 minutes", price: "224.60", rate: "Hour", color: "#22c55e" },
+  { id: 9, name: "Initial Consultation", type: "1:1 Consultation", itemCode: "93", duration: "60 minutes", price: "224.60", rate: "Hour", color: "#22c55e" },
+  { id: 10, name: "Standard Consultation", type: "1:1 Consultation", itemCode: "93", duration: "30 minutes", price: "112.30", rate: "Hour", color: "#22c55e" },
+  { id: 11, name: "Extended Consultation", type: "1:1 Consultation", itemCode: "93", duration: "45 minutes", price: "168.45", rate: "Hour", color: "#22c55e" },
+  { id: 12, name: "Review Appointment", type: "1:1 Consultation", itemCode: "93", duration: "20 minutes", price: "84.00", rate: "Hour", color: "#3b82f6" },
+  { id: 13, name: "Telehealth Consultation", type: "1:1 Consultation", itemCode: "93", duration: "30 minutes", price: "112.30", rate: "Hour", color: "#22c55e" },
+  { id: 14, name: "Group Session", type: "Group", itemCode: "93", duration: "60 minutes", price: "65.00", rate: "Hour", color: "#f97316" },
+  { id: 15, name: "Home Visit", type: "1:1 Consultation", itemCode: "93", duration: "60 minutes", price: "280.00", rate: "Hour", color: "#22c55e" },
+  { id: 16, name: "NDIS Initial Assessment", type: "1:1 Consultation", itemCode: "93", duration: "90 minutes", price: "336.90", rate: "Hour", color: "#22c55e" },
+  { id: 17, name: "NDIS Standard Session", type: "1:1 Consultation", itemCode: "93", duration: "60 minutes", price: "224.60", rate: "Hour", color: "#22c55e" },
+  { id: 18, name: "Report Writing", type: "1:1 Consultation", itemCode: "93", duration: "60 minutes", price: "224.60", rate: "Hour", color: "#22c55e" },
+  { id: 19, name: "Case Conference", type: "1:1 Consultation", itemCode: "93", duration: "30 minutes", price: "112.30", rate: "Hour", color: "#22c55e" },
+  { id: 20, name: "Supervision Session", type: "1:1 Consultation", itemCode: "93", duration: "60 minutes", price: "150.00", rate: "Hour", color: "#22c55e" },
 ];
 
 const dropdownItems = [
@@ -127,7 +127,7 @@ export default function SettingsServicesPage() {
             <Tr key={service.id}>
               <Td>
                 <Flex align="center" gap={8}>
-                  <span className={`inline-block h-2.5 w-2.5 shrink-0 rounded-full ${service.color}`} />
+                  <span style={{ display: 'inline-block', height: 10, width: 10, flexShrink: 0, borderRadius: '50%', backgroundColor: service.color }} />
                   <span style={{ fontWeight: 500 }} className="text-text">{service.name}</span>
                 </Flex>
               </Td>

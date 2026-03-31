@@ -102,7 +102,7 @@ export const ProgressNoteNavbar: Story = {
             <CheckCircleOutlined style={{ fontSize: 12 }} />
             Final
           </Badge>
-          <span className="text-label-lg text-primary hover:underline">Sarah Johnson</span>
+          <span className="text-label-lg text-primary">Sarah Johnson</span>
         </>
       }
     >
@@ -145,7 +145,7 @@ export const NoteEditorNavbar: Story = {
       title="SOAP Note"
       badge={
         <>
-          <span className="cursor-pointer text-body-md text-primary hover:underline">Sarah Johnson</span>
+          <span className="text-body-md text-primary" style={{ cursor: 'pointer' }}>Sarah Johnson</span>
           <Badge variant="green">Saved</Badge>
         </>
       }
@@ -158,7 +158,7 @@ export const NoteEditorNavbar: Story = {
         value="single"
         onChange={() => {}}
       />
-      <Button variant="primary" className="border-green-500 bg-green-500 hover:bg-green-600">
+      <Button variant="primary" style={{ borderColor: '#22c55e', backgroundColor: '#22c55e' }}>
         Save as final
       </Button>
     </Navbar>
@@ -174,7 +174,7 @@ export const NoteEditorNavbar: Story = {
 export const NewPaymentNavbar: Story = {
   render: () => (
     <Navbar backHref="/payments" title="New payment">
-      <Button variant="secondary" className="border-primary text-primary hover:bg-primary/10">
+      <Button variant="secondary" className="border-primary text-primary">
         Cancel
       </Button>
       <Button variant="primary">Add</Button>
@@ -195,8 +195,8 @@ export const NewNoteNavbar: Story = {
       title="New progress note"
       badge={<Badge variant="yellow">Unsaved</Badge>}
     >
-      <Button variant="primary" round size="sm" className="border-green-500 bg-green-500 hover:bg-green-600">
-        <span className="text-heading-lg leading-none">+</span>
+      <Button variant="primary" round size="sm" style={{ borderColor: '#22c55e', backgroundColor: '#22c55e' }}>
+        <span className="text-heading-lg" style={{ lineHeight: 1 }}>+</span>
       </Button>
       <Filter
         items={[
@@ -219,7 +219,7 @@ export const NewNoteNavbar: Story = {
 export const FormEditorNavbar: Story = {
   render: () => (
     <Navbar backHref="/settings/forms" title="Client intake form">
-      <div className="flex items-center gap-2">
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
         <Button variant="icon" title="Share & Automate">
           <ShareAltOutlined style={{ fontSize: 16 }} />
         </Button>
@@ -241,7 +241,7 @@ export const FormEditorNavbar: Story = {
 export const CSVImportNavbar: Story = {
   render: () => (
     <Navbar backHref="/settings/data-import" title="CSV Import">
-      <div className="flex items-center gap-2">
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
         <Button variant="secondary">Cancel</Button>
         <Button variant="primary">Import</Button>
       </div>

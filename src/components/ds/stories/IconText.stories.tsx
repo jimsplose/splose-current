@@ -65,12 +65,12 @@ export const Location: Story = {
 export const PractitionerContactInfo: Story = {
   name: "Recipe: Practitioner Contact Info",
   render: () => (
-    <div className="w-80 rounded-lg border border-border bg-white p-6">
-      <div className="mb-4">
-        <h3 className="font-semibold text-text">Joseph Go</h3>
-        <p className="text-sm text-text-secondary">Occupational Therapist</p>
+    <div style={{ width: 320, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
+      <div style={{ marginBottom: 16 }}>
+        <h3 className="text-text" style={{ fontWeight: 600 }}>Joseph Go</h3>
+        <p className="text-text-secondary" style={{ fontSize: 12 }}>Occupational Therapist</p>
       </div>
-      <div className="space-y-2">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         <IconText icon={<MailOutlined style={{ fontSize: 16 }} />}>joseph.go@splose.com</IconText>
         <IconText icon={<PhoneOutlined style={{ fontSize: 16 }} />}>0412 345 678</IconText>
       </div>
@@ -88,9 +88,9 @@ export const PractitionerContactInfo: Story = {
 export const ContactDetailsSection: Story = {
   name: "Recipe: Contact Details Section",
   render: () => (
-    <div className="w-96 space-y-4 rounded-lg border border-border bg-white p-6">
+    <div style={{ width: 384, display: 'flex', flexDirection: 'column', gap: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
       <h3 className="text-heading-lg text-text">Contact Information</h3>
-      <div className="space-y-3">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <IconText icon={<MailOutlined style={{ fontSize: 16 }} />}>emma.thompson@handstogether.com.au</IconText>
         <IconText icon={<PhoneOutlined style={{ fontSize: 16 }} />}>0408 123 456</IconText>
         <IconText icon={<EnvironmentOutlined style={{ fontSize: 16 }} />}>4 Williamstown Rd, Adelaide SA 5000</IconText>
@@ -112,27 +112,27 @@ export const ContactDetailsSection: Story = {
 export const PractitionerCardGrid: Story = {
   name: "Recipe: Practitioner Card Grid",
   render: () => (
-    <div className="grid w-[700px] grid-cols-2 gap-6">
+    <div style={{ display: 'grid', width: 700, gridTemplateColumns: 'repeat(2, 1fr)', gap: 24 }}>
       {[
         { name: "Joseph Go", role: "Occupational Therapist", email: "joseph.go@splose.com", phone: "0412 345 678", specialty: "Paediatrics" },
         { name: "Sarah Chen", role: "Speech Pathologist", email: "sarah.chen@splose.com", phone: "0408 999 111", specialty: null },
       ].map((p) => (
-        <div key={p.name} className="rounded-lg border border-border bg-white p-6">
-          <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-lg font-semibold text-white">
+        <div key={p.name} style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+            <div className="bg-primary" style={{ display: 'flex', height: 48, width: 48, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', fontSize: 18, fontWeight: 600, color: '#fff' }}>
               {p.name.split(" ").map((n) => n[0]).join("")}
             </div>
-            <div className="min-w-0">
-              <h3 className="truncate font-semibold text-text">{p.name}</h3>
-              <p className="truncate text-sm text-text-secondary">{p.role}</p>
+            <div style={{ minWidth: 0 }}>
+              <h3 className="text-text" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontWeight: 600 }}>{p.name}</h3>
+              <p className="text-text-secondary" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: 12 }}>{p.role}</p>
               {p.specialty && (
-                <span className="mt-1 inline-block rounded-full bg-purple-100 px-2 py-0.5 text-xs text-purple-700">
+                <span style={{ marginTop: 4, display: 'inline-block', borderRadius: '50%', backgroundColor: '#f3e8ff', paddingLeft: 8, paddingRight: 8, paddingTop: 2, paddingBottom: 2, fontSize: 11, color: '#7e22ce' }}>
                   {p.specialty}
                 </span>
               )}
             </div>
           </div>
-          <div className="mt-4 space-y-2">
+          <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 8 }}>
             <IconText icon={<MailOutlined style={{ fontSize: 16 }} />}>{p.email}</IconText>
             <IconText icon={<PhoneOutlined style={{ fontSize: 16 }} />}>{p.phone}</IconText>
           </div>
@@ -153,26 +153,26 @@ export const PractitionerCardGrid: Story = {
 export const ContactDetailInline: Story = {
   name: "Recipe: Contact Detail Inline",
   render: () => (
-    <div className="w-[500px] rounded-lg border border-border bg-white p-6">
-      <h2 className="mb-4 text-heading-lg text-text">Contact information</h2>
-      <div className="space-y-3 text-sm">
-        <div className="flex gap-16">
-          <span className="w-28 shrink-0 text-text-secondary">Email:</span>
-          <span className="flex items-center gap-1.5">
+    <div style={{ width: 500, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
+      <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Contact information</h2>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 12 }}>
+        <div style={{ display: 'flex', gap: 64 }}>
+          <span className="text-text-secondary" style={{ width: 112, flexShrink: 0 }}>Email:</span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <MailOutlined style={{ fontSize: 14 }} className="text-text-secondary" />
             <span className="text-primary">cheng@splose.com</span>
           </span>
         </div>
-        <div className="flex gap-16">
-          <span className="w-28 shrink-0 text-text-secondary">Mobile phone:</span>
-          <span className="flex items-center gap-1.5">
+        <div style={{ display: 'flex', gap: 64 }}>
+          <span className="text-text-secondary" style={{ width: 112, flexShrink: 0 }}>Mobile phone:</span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <PhoneOutlined style={{ fontSize: 14 }} className="text-text-secondary" />
             <span className="text-primary">+61 423 939 047</span>
           </span>
         </div>
-        <div className="flex gap-16">
-          <span className="w-28 shrink-0 text-text-secondary">Address:</span>
-          <span className="flex items-center gap-1.5">
+        <div style={{ display: 'flex', gap: 64 }}>
+          <span className="text-text-secondary" style={{ width: 112, flexShrink: 0 }}>Address:</span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <EnvironmentOutlined style={{ fontSize: 14 }} className="text-text-secondary" />
             <span className="text-text">45 Collins St, Melbourne VIC 3000</span>
           </span>
@@ -193,17 +193,17 @@ export const ContactDetailInline: Story = {
 export const ConditionalPhoneRow: Story = {
   name: "Recipe: Conditional Phone Row",
   render: () => (
-    <div className="w-80 rounded-lg border border-border bg-white p-6">
-      <h4 className="mb-3 text-heading-sm text-text">With phone</h4>
-      <div className="space-y-2">
+    <div style={{ width: 320, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
+      <h4 className="text-heading-sm text-text" style={{ marginBottom: 12 }}>With phone</h4>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         <IconText icon={<MailOutlined style={{ fontSize: 16 }} />}>alex@splose.com</IconText>
         <IconText icon={<PhoneOutlined style={{ fontSize: 16 }} />}>0412 345 678</IconText>
       </div>
 
-      <hr className="my-4 border-border" />
+      <hr className="border-border" style={{ marginTop: 16, marginBottom: 16 }} />
 
-      <h4 className="mb-3 text-heading-sm text-text">Without phone</h4>
-      <div className="space-y-2">
+      <h4 className="text-heading-sm text-text" style={{ marginBottom: 12 }}>Without phone</h4>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         <IconText icon={<MailOutlined style={{ fontSize: 16 }} />}>sarah@splose.com</IconText>
         <p className="text-body-sm text-text-secondary">No phone number on file</p>
       </div>

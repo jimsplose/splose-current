@@ -140,7 +140,7 @@ export default function TagsPage() {
         }))}
         value={activeTab}
         onChange={(val) => setActiveTab(val as TagTab)}
-        className="mb-6"
+        style={{ marginBottom: 24 }}
       />
 
       {currentData.description && (

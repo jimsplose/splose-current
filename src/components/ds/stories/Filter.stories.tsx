@@ -120,7 +120,7 @@ export const NoteViewToggle: Story = {
   render: function NoteViewToggleStory() {
     const [viewMode, setViewMode] = useState("single");
     return (
-      <div className="flex items-center gap-3 rounded-lg border border-border bg-white px-4 py-2">
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>
         <span className="text-label-lg text-text">View:</span>
         <Filter
           items={[
@@ -151,8 +151,8 @@ export const CalendarViewFilter: Story = {
   render: function CalendarViewFilterStory() {
     const [view, setView] = useState("week");
     return (
-      <div className="flex items-center gap-4 rounded-lg border border-border bg-white px-4 py-2">
-        <div className="flex items-center gap-2">
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <CalendarOutlined style={{ fontSize: 16 }} className="text-text-secondary" />
           <span className="text-label-lg text-text">March 2026</span>
         </div>
@@ -184,9 +184,9 @@ export const NoteEditorToolbarToggle: Story = {
   render: function NoteEditorToolbarToggleStory() {
     const [viewMode, setViewMode] = useState("single");
     return (
-      <div className="flex items-center gap-3 rounded-lg border border-border bg-surface-header px-4 py-2">
+      <div className="border-border" style={{ display: 'flex', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>
         {/* Add new note button */}
-        <button className="flex h-7 w-7 items-center justify-center rounded-full bg-green-500 text-heading-lg leading-none text-white hover:bg-green-600">
+        <button className="text-heading-lg" style={{ display: 'flex', height: 28, width: 28, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', backgroundColor: '#22c55e', lineHeight: 1, color: '#fff' }}>
           +
         </button>
         {/* View toggle */}
@@ -198,7 +198,7 @@ export const NoteEditorToolbarToggle: Story = {
           value={viewMode}
           onChange={setViewMode}
         />
-        <span className="ml-2 text-caption-md text-text-secondary">
+        <span className="text-caption-md text-text-secondary" style={{ marginLeft: 8 }}>
           {viewMode === "single" ? "Full editor" : "Editor + reference"}
         </span>
       </div>
@@ -219,7 +219,7 @@ export const TimeViewFilter: Story = {
   render: function TimeViewFilterStory() {
     const [view, setView] = useState("calendar");
     return (
-      <div className="flex items-center gap-4 rounded-lg border border-border bg-white px-4 py-2">
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>
         <span className="text-label-lg text-text">View as:</span>
         <Filter
           items={[
@@ -251,8 +251,8 @@ export const StatusFilter: Story = {
   render: function StatusFilterStory() {
     const [status, setStatus] = useState("all");
     return (
-      <div className="space-y-4">
-        <div className="flex items-center gap-3">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <span className="text-label-lg text-text">Status:</span>
           <Filter
             items={[

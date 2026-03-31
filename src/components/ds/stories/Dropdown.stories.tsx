@@ -66,7 +66,7 @@ export const AlignRight: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="flex justify-end">
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Story />
       </div>
     ),
@@ -104,7 +104,7 @@ export const WithDivider: Story = {
 export const CustomTrigger: Story = {
   args: {
     trigger: (
-      <button className="rounded-md border border-border bg-white px-3 py-1.5 text-sm font-medium text-text hover:bg-gray-50">
+      <button className="border-border text-text" style={{ borderRadius: 6, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6, fontSize: 12, fontWeight: 500 }}>
         Calendar <span className="text-text-secondary">&#9662;</span>
       </button>
     ),
@@ -189,7 +189,7 @@ export const InvoiceActionsMenu: Story = {
 export const TableRowActions: Story = {
   name: "Recipe: Table Row Actions",
   render: () => (
-    <div className="flex items-center justify-end rounded border border-border bg-white p-3">
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', borderRadius: 4, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 12 }}>
       <Dropdown
         trigger={<DropdownTriggerButton />}
         align="right"

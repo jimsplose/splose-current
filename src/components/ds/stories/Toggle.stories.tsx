@@ -79,14 +79,14 @@ export const DisabledOn: Story = {
 
 export const SettingsToggle: Story = {
   render: () => (
-    <div className="w-[480px] space-y-4 rounded-lg border border-border bg-white p-6">
+    <div style={{ width: 480, display: 'flex', flexDirection: 'column', gap: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
       <h4 className="text-heading-lg text-text">splose AI - voice</h4>
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span className="text-body-md text-text">Enable voice to text and ask splose AI</span>
           <Toggle checked={true} onChange={() => {}} />
         </div>
-        <div className="flex items-center justify-between">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span className="text-body-md text-text">Save recording to client file</span>
           <Toggle checked={false} onChange={() => {}} />
         </div>
@@ -104,7 +104,7 @@ export const SettingsToggle: Story = {
 
 export const CalendarRepeatToggle: Story = {
   render: () => (
-    <div className="w-[360px] space-y-3 rounded-lg border border-border bg-white p-6">
+    <div style={{ width: 360, display: 'flex', flexDirection: 'column', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
       <Toggle checked={true} onChange={() => {}} label="Provider travel" />
       <Toggle checked={false} onChange={() => {}} label="Provider Travel - Non-Labour Costs" />
       <Toggle checked={false} onChange={() => {}} label="Activity Based Transport" />
@@ -122,7 +122,7 @@ export const CalendarRepeatToggle: Story = {
 
 export const SMSOptOut: Story = {
   render: () => (
-    <div className="w-[360px] space-y-3 rounded-lg border border-border bg-white p-6">
+    <div style={{ width: 360, display: 'flex', flexDirection: 'column', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
       <h4 className="text-heading-sm text-text">Notifications</h4>
       <Toggle label="SMS" checked={true} onChange={() => {}} />
       <Toggle label="Email" checked={true} onChange={() => {}} />
@@ -141,7 +141,7 @@ export const SMSOptOut: Story = {
 export const InvoiceOnlinePayments: Story = {
   name: "Recipe: Invoice Online Payments",
   render: () => (
-    <div className="w-[480px] space-y-4 rounded-lg border border-border bg-white p-6">
+    <div style={{ width: 480, display: 'flex', flexDirection: 'column', gap: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
       <h4 className="text-heading-lg text-text">Online payments</h4>
       <p className="text-body-md text-text-secondary">
         Enable online payment functionality for invoices sent to clients.
@@ -167,27 +167,27 @@ export const InvoiceOnlinePayments: Story = {
 export const CustomFieldModalToggles: Story = {
   name: "Recipe: Custom Field Modal Toggles",
   render: () => (
-    <div className="w-[400px] rounded-lg border border-border bg-white p-6">
-      <h4 className="mb-4 text-heading-md text-text">New custom field</h4>
-      <div className="space-y-4">
+    <div style={{ width: 400, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
+      <h4 className="text-heading-md text-text" style={{ marginBottom: 16 }}>New custom field</h4>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div>
-          <label className="mb-1 block text-label-md text-text">Field name</label>
+          <label className="text-label-md text-text" style={{ marginBottom: 4, display: 'block' }}>Field name</label>
           <input
-            className="w-full rounded-md border border-border px-3 py-2 text-body-md text-text"
+            className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 6, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
             defaultValue="Medicare number"
           />
         </div>
         <div>
-          <label className="mb-1 block text-label-md text-text">Field type</label>
-          <select className="w-full rounded-md border border-border px-3 py-2 text-body-md text-text">
+          <label className="text-label-md text-text" style={{ marginBottom: 4, display: 'block' }}>Field type</label>
+          <select className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 6, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
             <option>Text</option>
           </select>
         </div>
-        <div className="flex items-center justify-between">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span className="text-body-md text-text">Display in client details</span>
           <Toggle checked={true} onChange={() => {}} label="Yes" />
         </div>
-        <div className="flex items-center justify-between">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span className="text-body-md text-text">Required</span>
           <Toggle checked={false} onChange={() => {}} />
         </div>
@@ -207,9 +207,9 @@ export const CustomFieldModalToggles: Story = {
 export const OnlineBookingLocationToggles: Story = {
   name: "Recipe: Online Booking Location Toggles",
   render: () => (
-    <div className="w-[440px] rounded-lg border border-border bg-white p-6">
-      <h4 className="mb-4 text-heading-md text-text">Location settings</h4>
-      <div className="space-y-2">
+    <div style={{ width: 440, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
+      <h4 className="text-heading-md text-text" style={{ marginBottom: 16 }}>Location settings</h4>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {[
           { name: "East Clinics", enabled: true },
           { name: "West Clinics", enabled: true },
@@ -217,7 +217,7 @@ export const OnlineBookingLocationToggles: Story = {
         ].map((loc) => (
           <div
             key={loc.name}
-            className="flex items-center justify-between rounded-lg border border-border px-4 py-3"
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderRadius: 8, border: '1px solid var(--color-border)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}
           >
             <span className="text-body-md text-text">{loc.name}</span>
             <Toggle checked={loc.enabled} onChange={() => {}} />
@@ -239,20 +239,20 @@ export const OnlineBookingLocationToggles: Story = {
 export const ServiceNotificationToggles: Story = {
   name: "Recipe: Service Notification Toggles",
   render: () => (
-    <div className="w-[440px] rounded-lg border border-border bg-white p-6">
-      <h4 className="mb-4 text-heading-md text-text">Appointment notifications</h4>
-      <div className="space-y-4">
+    <div style={{ width: 440, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
+      <h4 className="text-heading-md text-text" style={{ marginBottom: 16 }}>Appointment notifications</h4>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <Toggle checked={true} onChange={() => {}} label="Send SMS confirmation" />
         <Toggle checked={true} onChange={() => {}} label="Send email confirmation" />
         <div>
-          <label className="mb-1 block text-label-md text-text">SMS reminder</label>
-          <select className="w-full rounded-md border border-border px-3 py-2 text-body-md text-text">
+          <label className="text-label-md text-text" style={{ marginBottom: 4, display: 'block' }}>SMS reminder</label>
+          <select className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 6, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
             <option>24 hours before</option>
           </select>
         </div>
         <div>
-          <label className="mb-1 block text-label-md text-text">Email reminder</label>
-          <select className="w-full rounded-md border border-border px-3 py-2 text-body-md text-text">
+          <label className="text-label-md text-text" style={{ marginBottom: 4, display: 'block' }}>Email reminder</label>
+          <select className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 6, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
             <option>48 hours before</option>
           </select>
         </div>

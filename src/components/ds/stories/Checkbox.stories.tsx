@@ -49,18 +49,18 @@ function RememberMeRecipe() {
   const [checked, setChecked] = useState(false);
 
   return (
-    <div className="max-w-sm space-y-4">
+    <div style={{ maxWidth: 384, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">login</code> — Remember me checkbox
+        From <code style={{ fontSize: 11 }}>login</code> — Remember me checkbox
         alongside forgot password link.
       </p>
-      <div className="flex items-center justify-between">
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Checkbox
           label="Remember me"
           checked={checked}
           onChange={(e) => setChecked(e.target.checked)}
         />
-        <a href="#" className="text-sm text-primary hover:underline">
+        <a href="#" className="text-primary" style={{ fontSize: 12 }}>
           Forgot password?
         </a>
       </div>
@@ -72,16 +72,16 @@ function ApplyToAllRecipe() {
   const [checked, setChecked] = useState(false);
 
   return (
-    <div className="max-w-md space-y-4">
+    <div style={{ maxWidth: 448, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">settings (details)</code> — Apply to
+        From <code style={{ fontSize: 11 }}>settings (details)</code> — Apply to
         all clients checkbox below a contact preference selector.
       </p>
       <div>
-        <label className="mb-1 block text-label-lg text-text-secondary">
+        <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>
           Default contact preference
         </label>
-        <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text">
+        <select className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
           <option>SMS & Email</option>
           <option>SMS only</option>
           <option>Email only</option>
@@ -101,15 +101,15 @@ function IncludeArchivedRecipe() {
   const [checked, setChecked] = useState(false);
 
   return (
-    <div className="max-w-md space-y-4">
+    <div style={{ maxWidth: 448, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">settings/data-export</code> — Include
+        From <code style={{ fontSize: 11 }}>settings/data-export</code> — Include
         archived checkbox in the data export form.
       </p>
-      <div className="flex flex-wrap items-end gap-4">
-        <div className="w-48">
-          <label className="mb-1 block text-label-lg text-text-secondary">Export</label>
-          <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text">
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', gap: 16 }}>
+        <div style={{ width: 192 }}>
+          <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Export</label>
+          <select className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
             <option>Appointments</option>
             <option>Clients</option>
             <option>Contacts</option>
@@ -118,7 +118,7 @@ function IncludeArchivedRecipe() {
             <option>Waitlist</option>
           </select>
         </div>
-        <button className="rounded bg-primary px-3 py-2 text-body-md text-white">
+        <button className="bg-primary text-body-md" style={{ borderRadius: 4, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, color: '#fff' }}>
           Export
         </button>
       </div>

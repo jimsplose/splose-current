@@ -107,10 +107,10 @@ export default function InvoiceSettingsPage() {
       <h1 className="text-display-lg" style={{ marginBottom: 24 }}>Invoice Settings</h1>
 
       {/* Stripe info banner */}
-      <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 16 }} />} className="mb-6">
+      <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 16 }} />} style={{ marginBottom: 24 }}>
         <p className="text-body-md text-text">
           You need an active Stripe connection for online payments.{" "}
-          <a href="#" style={{ fontWeight: 500 }} className="text-primary hover:underline">
+          <a href="#" style={{ fontWeight: 500 }} className="text-primary">
             Connect to Stripe
           </a>
         </p>
@@ -148,7 +148,7 @@ export default function InvoiceSettingsPage() {
         </div>
       </section>
 
-      <hr className="my-8 border-green-600" />
+      <hr style={{ marginTop: 32, marginBottom: 32, borderColor: '#16a34a' }} />
 
       {/* Tax */}
       <section style={{ marginBottom: 32 }}>
@@ -177,7 +177,7 @@ export default function InvoiceSettingsPage() {
         </div>
       </section>
 
-      <hr className="my-8 border-green-600" />
+      <hr style={{ marginTop: 32, marginBottom: 32, borderColor: '#16a34a' }} />
 
       {/* Invoice reminders preferences */}
       <section style={{ marginBottom: 32 }}>
@@ -205,7 +205,7 @@ export default function InvoiceSettingsPage() {
         </div>
       </section>
 
-      <hr className="my-8 border-green-600" />
+      <hr style={{ marginTop: 32, marginBottom: 32, borderColor: '#16a34a' }} />
 
       {/* Invoice reminders table */}
       <section style={{ marginBottom: 32 }}>
@@ -249,7 +249,7 @@ export default function InvoiceSettingsPage() {
         </div>
       </section>
 
-      <hr className="my-8 border-green-600" />
+      <hr style={{ marginTop: 32, marginBottom: 32, borderColor: '#16a34a' }} />
 
       {/* Invoice templates table */}
       <section style={{ marginBottom: 32 }}>

@@ -48,24 +48,24 @@ export default function NewLocationPage() {
   return (
     <div>
       <Navbar backHref="/settings/locations" title="New location">
-        <div className="flex items-center gap-2">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <Button variant="secondary" onClick={() => router.push("/settings/locations")}>Cancel</Button>
           <Button variant="primary" onClick={() => router.push("/settings/locations")}>Save</Button>
         </div>
       </Navbar>
 
-      <div className="mx-auto max-w-3xl space-y-4 p-6">
+      <div style={{ maxWidth: 768, margin: '0 auto', padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
         <Collapse title="General" defaultOpen>
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
               <FormInput label="Name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. East Clinics" />
               <FormInput label="ABN" value={abn} onChange={(e) => setAbn(e.target.value)} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
               <FormInput label="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
               <FormInput label="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
               <FormInput label="Fax" value={fax} onChange={(e) => setFax(e.target.value)} />
               <FormInput label="Website" value={web} onChange={(e) => setWeb(e.target.value)} />
             </div>
@@ -73,9 +73,9 @@ export default function NewLocationPage() {
         </Collapse>
 
         <Collapse title="Address" defaultOpen>
-          <div className="space-y-4">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <FormInput label="Address" value={address} onChange={(e) => setAddress(e.target.value)} />
-            <div className="grid grid-cols-3 gap-4">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
               <FormInput label="Suburb" value={suburb} onChange={(e) => setSuburb(e.target.value)} />
               <FormSelect label="State" value={state} onChange={setState} options={stateOptions} />
               <FormInput label="Post code" value={postcode} onChange={(e) => setPostcode(e.target.value)} />

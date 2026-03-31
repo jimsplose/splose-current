@@ -1,0 +1,30 @@
+.productRow {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.productRow:hover {
+  background-color: #f9fafb;
+}
+
+.productRowArchived {
+  opacity: 0.6;
+}
+
+.variantRow:hover {
+  background-color: #f9fafb;
+}
+
+.stockRow:hover {
+  background-color: #f9fafb;
+}
+
+.stockActionButton:hover {
+  background-color: #f3f4f6;
+}
+
+.activeFilterButton {
+  border-color: var(--color-primary);
+  background-color: color-mix(in srgb, var(--color-primary) 5%, transparent);
+  color: var(--color-primary);
+}

@@ -120,7 +120,7 @@ export const Icon: Story = {
 
 export const Toolbar: Story = {
   render: () => (
-    <Button variant="toolbar" size="sm" className="flex items-center gap-0.5">
+    <Button variant="toolbar" size="sm" style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
       Arial
       <DownOutlined style={{ fontSize: 12 }} />
     </Button>
@@ -134,7 +134,7 @@ export const Toolbar: Story = {
 
 export const AllVariants: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-3">
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
       <Button variant="primary">Primary</Button>
       <Button variant="secondary">Secondary</Button>
       <Button variant="danger">Danger</Button>
@@ -157,10 +157,10 @@ export const AllVariants: Story = {
 
 export const AllSizes: Story = {
   render: () => (
-    <div className="space-y-4">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       {(["primary", "secondary", "danger", "ghost", "link", "icon", "toolbar"] as const).map((variant) => (
-        <div key={variant} className="flex items-center gap-3">
-          <span className="w-20 text-label-lg text-text-secondary">{variant}</span>
+        <div key={variant} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <span className="text-label-lg text-text-secondary" style={{ width: 80 }}>{variant}</span>
           <Button variant={variant} size="sm">
             {variant === "icon" ? <PlusOutlined style={{ fontSize: 14 }} /> : "Small"}
           </Button>
@@ -183,7 +183,7 @@ export const AllSizes: Story = {
 
 export const RoundButtons: Story = {
   render: () => (
-    <div className="flex items-center gap-3">
+    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
       <Button variant="primary" size="sm" round>
         <PlusOutlined style={{ fontSize: 16 }} />
       </Button>
@@ -196,7 +196,7 @@ export const RoundButtons: Story = {
       <Button variant="secondary" size="md" round>
         <SettingOutlined style={{ fontSize: 16 }} />
       </Button>
-      <Button variant="ghost" round className="h-10 w-10 justify-center">
+      <Button variant="ghost" round style={{ height: 40, width: 40, justifyContent: 'center' }}>
         <LeftOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="icon" round>
@@ -212,7 +212,7 @@ export const RoundButtons: Story = {
 
 export const WithIcons: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-3">
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
       <Button variant="primary">
         <PlusOutlined style={{ fontSize: 16 }} />
         New client
@@ -254,7 +254,7 @@ export const WithIcons: Story = {
 
 export const PageHeaderActions: Story = {
   render: () => (
-    <div className="w-[640px]">
+    <div style={{ width: 640 }}>
       <PageHeader title="Invoices">
         <Button variant="secondary">Export</Button>
         <Button variant="primary">
@@ -275,16 +275,16 @@ export const PageHeaderActions: Story = {
 
 export const ToolbarButtons: Story = {
   render: () => (
-    <Card padding="none" className="inline-flex flex-wrap items-center gap-1 px-2 py-1.5 text-text-secondary">
-      <Button variant="toolbar" size="sm" className="flex items-center gap-0.5 text-xs">
+    <Card padding="none" className="text-text-secondary" style={{ display: 'inline-flex', flexWrap: 'wrap', alignItems: 'center', gap: 4, paddingLeft: 8, paddingRight: 8, paddingTop: 6, paddingBottom: 6 }}>
+      <Button variant="toolbar" size="sm" style={{ display: 'flex', alignItems: 'center', gap: 2, fontSize: 11 }}>
         Arial
         <DownOutlined style={{ fontSize: 12 }} />
       </Button>
-      <Button variant="toolbar" size="sm" className="flex items-center gap-0.5">
+      <Button variant="toolbar" size="sm" style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <FontSizeOutlined style={{ fontSize: 16 }} />
         <DownOutlined style={{ fontSize: 12 }} />
       </Button>
-      <span className="h-4 w-px bg-border" />
+      <span className="bg-border" style={{ height: 16, width: 1 }} />
       <Button variant="icon">
         <BoldOutlined style={{ fontSize: 16 }} />
       </Button>
@@ -297,7 +297,7 @@ export const ToolbarButtons: Story = {
       <Button variant="icon">
         <StrikethroughOutlined style={{ fontSize: 16 }} />
       </Button>
-      <span className="h-4 w-px bg-border" />
+      <span className="bg-border" style={{ height: 16, width: 1 }} />
       <Button variant="icon">
         <LinkOutlined style={{ fontSize: 16 }} />
       </Button>
@@ -319,8 +319,8 @@ export const ToolbarButtons: Story = {
       <Button variant="icon">
         <BgColorsOutlined style={{ fontSize: 16 }} />
       </Button>
-      <span className="flex-1" />
-      <Button variant="secondary" className="border-primary text-primary hover:bg-primary/10">
+      <span style={{ flex: 1 }} />
+      <Button variant="secondary" className="border-primary text-primary">
         <ThunderboltOutlined style={{ fontSize: 14 }} />
         Generate
       </Button>
@@ -340,11 +340,11 @@ export const ToolbarButtons: Story = {
 
 export const FilterChipRow: Story = {
   render: () => (
-    <div className="flex items-center gap-2 border-b border-border px-4 py-2">
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid var(--color-border)', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>
       <Button variant="secondary" size="sm">
         Today
       </Button>
-      <div className="flex items-center gap-1">
+      <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
         <Button variant="icon" size="sm">
           <LeftOutlined style={{ fontSize: 16 }} />
         </Button>
@@ -353,7 +353,7 @@ export const FilterChipRow: Story = {
         </Button>
       </div>
       <span className="text-display-md text-text">March 2026</span>
-      <div className="ml-2 flex items-center gap-2 text-text-secondary">
+      <div className="text-text-secondary" style={{ marginLeft: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
         <Button variant="icon" size="sm">
           <FilterOutlined style={{ fontSize: 16 }} />
         </Button>
@@ -361,7 +361,7 @@ export const FilterChipRow: Story = {
           <SettingOutlined style={{ fontSize: 16 }} />
         </Button>
       </div>
-      <div className="flex-1" />
+      <div style={{ flex: 1 }} />
       <Chip variant="green">East Clinics</Chip>
       <Chip variant="purple">Physio</Chip>
       <Button variant="primary" size="sm" round>
@@ -386,7 +386,7 @@ export const FilterChipRow: Story = {
 
 export const FormActions: Story = {
   render: () => (
-    <div className="flex items-center justify-end gap-2 border-t border-border pt-4">
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8, borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
       <Button variant="secondary">Cancel</Button>
       <Button variant="primary">Save</Button>
     </div>
@@ -396,7 +396,7 @@ export const FormActions: Story = {
 /** Danger variant for destructive confirmation modals. */
 export const FormActionsDanger: Story = {
   render: () => (
-    <div className="flex items-center justify-end gap-2 border-t border-border pt-4">
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8, borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
       <Button variant="secondary">Cancel</Button>
       <Button variant="danger">Delete</Button>
     </div>
@@ -411,7 +411,7 @@ export const FormActionsDanger: Story = {
 
 export const IconButtonGroup: Story = {
   render: () => (
-    <div className="flex items-center gap-2 text-text-secondary">
+    <div className="text-text-secondary" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
       <Button variant="icon" size="sm">
         <FilterOutlined style={{ fontSize: 16 }} />
       </Button>
@@ -436,23 +436,23 @@ export const IconButtonGroup: Story = {
 
 export const LinkActions: Story = {
   render: () => (
-    <div className="w-72 space-y-2 rounded-lg border border-border bg-white p-4">
+    <div style={{ width: 288, display: 'flex', flexDirection: 'column', gap: 8, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
       <p className="text-heading-sm text-text">Actions</p>
-      <div className="flex items-center gap-3">
-        <VideoCameraAddOutlined style={{ fontSize: 16 }} className="shrink-0 text-text-secondary" />
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <VideoCameraAddOutlined style={{ fontSize: 16 }} className="text-text-secondary" style={{ flexShrink: 0 }} />
         <Button variant="link">Create Zoom meeting</Button>
       </div>
-      <div className="flex items-center gap-3">
-        <FileTextOutlined style={{ fontSize: 16 }} className="shrink-0 text-text-secondary" />
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <FileTextOutlined style={{ fontSize: 16 }} className="text-text-secondary" style={{ flexShrink: 0 }} />
         <Button variant="link">Add invoice</Button>
       </div>
-      <div className="flex items-center gap-3 pl-7">
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, paddingLeft: 28 }}>
         <Button variant="link">Mark as</Button>
         <span className="text-text-secondary">and</span>
         <Button variant="link">Do not invoice?</Button>
       </div>
-      <div className="flex items-center gap-3">
-        <HistoryOutlined style={{ fontSize: 16 }} className="shrink-0 text-text-secondary" />
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <HistoryOutlined style={{ fontSize: 16 }} className="text-text-secondary" style={{ flexShrink: 0 }} />
         <Button variant="link" size="sm">
           View change log
         </Button>
@@ -470,11 +470,11 @@ export const LinkActions: Story = {
 
 export const FABButton: Story = {
   render: () => (
-    <div className="relative h-40 w-72 rounded-lg border border-border bg-gray-50">
-      <div className="flex h-full items-center justify-center text-body-md text-text-secondary">
+    <div style={{ position: 'relative', height: 160, width: 288, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#f9fafb' }}>
+      <div className="text-body-md text-text-secondary" style={{ display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
         Page content
       </div>
-      <Button variant="primary" size="md" round className="absolute right-4 bottom-4 shadow-lg">
+      <Button variant="primary" size="md" round style={{ position: 'absolute', right: 16, bottom: 16, boxShadow: '0 10px 15px rgba(0,0,0,.1)' }}>
         <PlusOutlined style={{ fontSize: 20 }} />
       </Button>
     </div>
@@ -506,20 +506,20 @@ export const NavbarWithButtons: Story = {
 
 export const ContextMenuButtons: Story = {
   render: () => (
-    <Card padding="none" className="w-52 shadow-lg">
-      <div className="px-3 pt-3 pb-1">
+    <Card padding="none" style={{ width: 208, boxShadow: '0 10px 15px rgba(0,0,0,.1)' }}>
+      <div style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 12, paddingBottom: 4 }}>
         <p className="text-heading-sm text-text">9:00 AM</p>
       </div>
-      <div className="py-1">
-        <Button variant="ghost" className="w-full justify-start gap-2.5 px-3 py-2">
+      <div style={{ paddingTop: 4, paddingBottom: 4 }}>
+        <Button variant="ghost" style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
           <ClockCircleOutlined style={{ fontSize: 16 }} className="text-text-secondary" />
           Support activity
         </Button>
-        <Button variant="ghost" className="w-full justify-start gap-2.5 px-3 py-2">
+        <Button variant="ghost" style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
           <StopOutlined style={{ fontSize: 16 }} className="text-text-secondary" />
           Busy time
         </Button>
-        <Button variant="ghost" className="w-full justify-start gap-2.5 px-3 py-2">
+        <Button variant="ghost" style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
           <CalendarOutlined style={{ fontSize: 16 }} className="text-text-secondary" />
           Appointment
         </Button>
@@ -537,21 +537,21 @@ export const ContextMenuButtons: Story = {
 
 export const ComposeToolbar: Story = {
   render: () => (
-    <div className="w-[480px] border-t border-border p-3">
-      <Card padding="none" className="mb-2 min-h-[48px] px-3 py-2 text-body-md text-text-secondary">
+    <div style={{ width: 480, borderTop: '1px solid var(--color-border)', padding: 12 }}>
+      <Card padding="none" className="text-body-md text-text-secondary" style={{ marginBottom: 8, minHeight: 48, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
         Type a message...
       </Card>
-      <div className="flex items-center gap-0.5 text-text-secondary">
+      <div className="text-text-secondary" style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <Button variant="icon" size="sm" className="text-body-md-strong" title="Bold">
           B
         </Button>
-        <Button variant="icon" size="sm" className="italic" title="Italic">
+        <Button variant="icon" size="sm" style={{ fontStyle: 'italic' }} title="Italic">
           I
         </Button>
-        <Button variant="icon" size="sm" className="underline" title="Underline">
+        <Button variant="icon" size="sm" style={{ textDecoration: 'underline' }} title="Underline">
           U
         </Button>
-        <span className="mx-0.5 h-4 w-px bg-border" />
+        <span className="bg-border" style={{ marginLeft: 2, marginRight: 2, height: 16, width: 1 }} />
         <Button variant="icon" size="sm" title="Link">
           <LinkOutlined style={{ fontSize: 14 }} />
         </Button>
@@ -561,7 +561,7 @@ export const ComposeToolbar: Story = {
         <Button variant="icon" size="sm" title="List">
           <UnorderedListOutlined style={{ fontSize: 14 }} />
         </Button>
-        <div className="flex-1" />
+        <div style={{ flex: 1 }} />
         <Button variant="primary" size="sm">
           <SendOutlined style={{ fontSize: 14 }} />
           Send

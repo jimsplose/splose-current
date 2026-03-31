@@ -121,7 +121,7 @@ export default function AppointmentTemplatesPage() {
   }
 
   return (
-    <div className="p-6">
+    <div style={{ padding: 24 }}>
       <PageHeader title="Appointment templates">
         <Button variant="secondary" onClick={openCreate}>+ New template</Button>
       </PageHeader>
@@ -170,13 +170,13 @@ export default function AppointmentTemplatesPage() {
         footer={
           <>
             <Button variant="secondary" onClick={() => setEmailPreviewOpen(true)}>Email preview</Button>
-            <div className="flex-1" />
+            <div style={{ flex: 1 }} />
             <Button variant="secondary" onClick={closeModal}>Cancel</Button>
             <Button variant="primary" onClick={handleSave}>Save</Button>
           </>
         }
       >
-        <div className="space-y-4">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
           <FormSelect
             label="Type"

@@ -153,7 +153,6 @@ export default function NdisBulkUploadNewPage() {
                       borderBottom: '1px solid var(--color-border)',
                       backgroundColor: row.status === "error" ? 'rgba(254, 242, 242, 0.5)' : undefined,
                     }}
-                    className={row.status !== "error" ? "hover:bg-gray-50" : ""}
                   >
                     <Td style={{ color: 'var(--color-text-secondary)' }}>{row.line}</Td>
                     <Td style={{ fontWeight: 500, color: 'var(--color-text)' }}>{row.client}</Td>
@@ -236,7 +235,7 @@ export default function NdisBulkUploadNewPage() {
               icon={<UploadOutlined style={{ fontSize: 32, color: 'var(--color-text-secondary)' }} />}
               label="Choose CSV file"
               onClick={handleFileUpload}
-              className="cursor-pointer"
+              style={{ cursor: 'pointer' }}
             />
           )}
           <p className="text-caption-md" style={{ marginTop: 4, color: 'var(--color-text-secondary)' }}>

@@ -105,13 +105,13 @@ export const NoNotesFound: Story = {
 
 export const NoProductsYet: Story = {
   render: () => (
-    <div className="rounded-lg border border-border bg-white">
-      <table className="w-full">
+    <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff' }}>
+      <table style={{ width: '100%' }}>
         <thead>
-          <tr className="border-b border-border text-left">
-            <th className="px-4 py-3 text-label-lg text-text-secondary">Name</th>
-            <th className="px-4 py-3 text-label-lg text-text-secondary">Price</th>
-            <th className="px-4 py-3 text-label-lg text-text-secondary">Status</th>
+          <tr style={{ borderBottom: '1px solid var(--color-border)', textAlign: 'left' }}>
+            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Name</th>
+            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Price</th>
+            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -120,7 +120,7 @@ export const NoProductsYet: Story = {
               <EmptyState
                 icon={<InboxOutlined style={{ fontSize: 40 }} className="text-text-secondary" />}
                 message="No products found."
-                className="py-8"
+                style={{ paddingTop: 32, paddingBottom: 32 }}
               />
             </td>
           </tr>
@@ -140,20 +140,20 @@ export const NoProductsYet: Story = {
 export const ScreenerTriageEmpty: Story = {
   name: "Recipe: Screener Triage Empty",
   render: () => (
-    <div className="rounded-lg border border-border bg-white">
-      <table className="w-full">
+    <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff' }}>
+      <table style={{ width: '100%' }}>
         <thead>
-          <tr className="border-b border-border text-left">
-            <th className="px-4 py-3 text-label-lg text-text-secondary">Triage</th>
-            <th className="px-4 py-3 text-label-lg text-text-secondary">Tags</th>
-            <th className="px-4 py-3 text-label-lg text-text-secondary">Client</th>
-            <th className="px-4 py-3 text-label-lg text-text-secondary">Date submitted</th>
+          <tr style={{ borderBottom: '1px solid var(--color-border)', textAlign: 'left' }}>
+            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Triage</th>
+            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Tags</th>
+            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Client</th>
+            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Date submitted</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td colSpan={4}>
-              <EmptyState message="No screener entries found." className="py-8" />
+              <EmptyState message="No screener entries found." style={{ paddingTop: 32, paddingBottom: 32 }} />
             </td>
           </tr>
         </tbody>
@@ -172,14 +172,14 @@ export const ScreenerTriageEmpty: Story = {
 export const WaitlistClosedEmpty: Story = {
   name: "Recipe: Waitlist Closed Empty",
   render: () => (
-    <div className="rounded-lg border border-border bg-white">
-      <div className="flex gap-4 border-b border-border px-4 py-2">
+    <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff' }}>
+      <div style={{ display: 'flex', gap: 16, borderBottom: '1px solid var(--color-border)', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>
         <span className="text-body-md text-text-secondary">Active</span>
-        <span className="border-b-2 border-primary pb-1 text-body-md font-medium text-primary">
+        <span className="border-b-2 border-primary text-body-md text-primary" style={{ paddingBottom: 4, fontWeight: 500 }}>
           Closed
         </span>
       </div>
-      <EmptyState message="No closed entries found." className="py-8" />
+      <EmptyState message="No closed entries found." style={{ paddingTop: 32, paddingBottom: 32 }} />
     </div>
   ),
 };
@@ -194,8 +194,8 @@ export const WaitlistClosedEmpty: Story = {
 export const ContactAssociatedClientsEmpty: Story = {
   name: "Recipe: No Associated Clients",
   render: () => (
-    <div className="w-[500px] rounded-lg border border-border bg-white p-6">
-      <h2 className="mb-4 text-heading-lg text-text">Associated clients</h2>
+    <div style={{ width: 500, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
+      <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Associated clients</h2>
       <EmptyState
         icon={<SearchOutlined style={{ fontSize: 40, color: '#9ca3af' }} />}
         message="No associated clients"
@@ -214,18 +214,18 @@ export const ContactAssociatedClientsEmpty: Story = {
 export const FormTemplatesEmpty: Story = {
   name: "Recipe: Form Templates Empty",
   render: () => (
-    <div className="rounded-lg border border-border bg-white">
-      <table className="w-full">
+    <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff' }}>
+      <table style={{ width: '100%' }}>
         <thead>
-          <tr className="border-b border-border text-left">
-            <th className="px-4 py-3 text-label-lg text-text-secondary">Title</th>
-            <th className="px-4 py-3 text-label-lg text-text-secondary">Form type</th>
-            <th className="px-4 py-3 text-label-lg text-text-secondary">Created at</th>
-            <th className="px-4 py-3 text-label-lg text-text-secondary">Updated at</th>
+          <tr style={{ borderBottom: '1px solid var(--color-border)', textAlign: 'left' }}>
+            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Title</th>
+            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Form type</th>
+            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Created at</th>
+            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Updated at</th>
           </tr>
         </thead>
       </table>
-      <EmptyState message="No form templates found" className="py-8" />
+      <EmptyState message="No form templates found" style={{ paddingTop: 32, paddingBottom: 32 }} />
     </div>
   ),
 };
@@ -240,18 +240,18 @@ export const FormTemplatesEmpty: Story = {
 export const PaymentNoLinkedInvoices: Story = {
   name: "Recipe: Payment No Linked Invoices",
   render: () => (
-    <div className="rounded-lg border border-border bg-white p-4">
-      <div className="mb-3 flex items-center justify-between">
+    <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
+      <div style={{ marginBottom: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <h3 className="text-heading-sm text-text">Linked invoices</h3>
         <button className="text-body-md text-primary">+ Link invoice</button>
       </div>
-      <table className="w-full">
+      <table style={{ width: '100%' }}>
         <thead>
-          <tr className="border-b border-border text-left">
-            <th className="px-4 py-2 text-label-lg text-text-secondary">Invoice #</th>
-            <th className="px-4 py-2 text-label-lg text-text-secondary">Client</th>
-            <th className="px-4 py-2 text-right text-label-lg text-text-secondary">Due</th>
-            <th className="px-4 py-2 text-right text-label-lg text-text-secondary">Amount</th>
+          <tr style={{ borderBottom: '1px solid var(--color-border)', textAlign: 'left' }}>
+            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>Invoice #</th>
+            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>Client</th>
+            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, textAlign: 'right' }}>Due</th>
+            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, textAlign: 'right' }}>Amount</th>
           </tr>
         </thead>
         <tbody>
@@ -259,7 +259,7 @@ export const PaymentNoLinkedInvoices: Story = {
             <td colSpan={4}>
               <EmptyState
                 message='No invoices linked. Click "Link invoice" to apply this payment to outstanding invoices.'
-                className="py-6"
+                style={{ paddingTop: 24, paddingBottom: 24 }}
               />
             </td>
           </tr>

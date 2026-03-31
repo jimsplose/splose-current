@@ -876,7 +876,7 @@ function WaitlistPageInner() {
 
           {/* Waitlist tags */}
           <div>
-            <label className="mb-1 block text-label-lg" style={{ color: 'var(--color-text-secondary)' }}>Waitlist tags</label>
+            <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--color-text-secondary)' }}>Waitlist tags</label>
             {modalTags.length > 0 && (
               <Flex wrap gap={6} style={{ marginBottom: 8 }}>
                 {modalTags.map((tag) => (
@@ -1002,7 +1002,7 @@ function WaitlistPageInner() {
                     </tr>
                   ) : (
                     pagedWaitlist.map((row, idx) => (
-                      <Tr key={idx} onClick={() => openUpdateModal(row)} className="cursor-pointer">
+                      <Tr key={idx} onClick={() => openUpdateModal(row)} style={{ cursor: 'pointer' }}>
                         <Td>
                           <Flex wrap gap={4}>
                             {row.tags.map((tag) =>
@@ -1011,7 +1011,7 @@ function WaitlistPageInner() {
                                   ---
                                 </span>
                               ) : (
-                                <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} className="rounded">
+                                <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} style={{ borderRadius: 4 }}>
                                   {tag}
                                 </Badge>
                               ),
@@ -1045,8 +1045,7 @@ function WaitlistPageInner() {
           ) : (
             /* ===== MAP VIEW (Leaflet) ===== */
             <div
-              className="overflow-hidden rounded-lg border border-border"
-              style={{ height: "calc(100vh - 180px)" }}
+              style={{ height: "calc(100vh - 180px)", overflow: 'hidden', borderRadius: 8, border: '1px solid var(--color-border)' }}
             >
               <MapView markers={mapMarkers} />
             </div>

@@ -59,7 +59,7 @@ export default function ReportsFormPage() {
             { value: "consent", label: "Consent" },
             { value: "assessment", label: "Assessment" },
           ]}
-          className="!w-48"
+          style={{ width: 192 }}
         />
       </div>
 

@@ -90,7 +90,7 @@ export default function OnlineBookingsPage() {
   }
 
   return (
-    <div className="p-6">
+    <div style={{ padding: 24 }}>
       <PageHeader title="Online booking settings">
         <Button variant="secondary">Show archived</Button>
         <Button variant="secondary" onClick={openCreate}>+ New booking page</Button>
@@ -106,7 +106,7 @@ export default function OnlineBookingsPage() {
         <TableBody>
           {bookingList.map((b, i) => (
             <Tr key={b.name + i}>
-              <Td className="font-medium text-text">{b.name}</Td>
+              <Td className="text-text" style={{ fontWeight: 500 }}>{b.name}</Td>
               <Td>{b.createdAt}</Td>
               <Td>{b.lastUpdated}</Td>
               <Td align="right">
@@ -133,7 +133,7 @@ export default function OnlineBookingsPage() {
           </>
         }
       >
-        <div className="space-y-4">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
         </div>
       </Modal>

@@ -102,7 +102,7 @@ function NewProgressNotePageInner() {
           onChange={(v) => setViewMode(v as "single" | "split")}
         />
         {/* Save as final button */}
-        <Button variant="primary" className="bg-green-500 border-green-500 hover:bg-green-600" onClick={handleSave} disabled={saving}>
+        <Button variant="primary" style={{ backgroundColor: '#22c55e', borderColor: '#22c55e' }} onClick={handleSave} disabled={saving}>
           Save as final
           <DownOutlined style={{ fontSize: 14 }} />
         </Button>
@@ -162,7 +162,7 @@ function NewProgressNotePageInner() {
                 onChange={(e) => setContent(e.target.value)}
                 rows={18}
                 placeholder="Start writing your progress note here..."
-                className="resize-y px-4 py-3 text-sm leading-relaxed"
+                style={{ resize: 'vertical', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, fontSize: 12, lineHeight: 1.625 }}
               />
             </div>
           </div>

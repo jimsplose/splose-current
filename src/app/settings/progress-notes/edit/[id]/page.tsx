@@ -158,7 +158,7 @@ export default function EditProgressNoteTemplatePage() {
                     )}
                     <Dropdown
                       trigger={
-                        <button style={{ borderRadius: 4, padding: 4, color: 'var(--color-text-secondary)' }} className="hover:bg-gray-100">
+                        <button style={{ borderRadius: 4, padding: 4, color: 'var(--color-text-secondary)' }}>
                           <MoreOutlined style={{ fontSize: 16 }} />
                         </button>
                       }
@@ -170,7 +170,7 @@ export default function EditProgressNoteTemplatePage() {
                   <div style={{ padding: '12px 16px' }}>
                     <textarea
                       style={{ width: '100%', borderRadius: 4, border: '1px solid var(--color-border)', padding: '8px 12px', outline: 'none' }}
-                      className="text-body-md text-text focus:border-primary focus:ring-1 focus:ring-primary"
+                      className="text-body-md text-text"
                       rows={2}
                       value={block.prompt}
                       onChange={(e) =>
@@ -218,7 +218,6 @@ export default function EditProgressNoteTemplatePage() {
                   key={block.id}
                   onClick={() => addBlock(block)}
                   style={{ display: 'flex', width: '100%', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', padding: '12px 16px', textAlign: 'left', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}
-                  className="hover:border-primary hover:bg-primary/5"
                 >
                   <ThunderboltOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-primary)' }} />
                   <div>

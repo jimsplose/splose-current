@@ -109,7 +109,7 @@ function CommunicationTypesDemo() {
           <Toggle label="Default type" checked={form.defaultType} onChange={(v) => setField("defaultType", v)} />
         </>
       )}
-      className="p-2"
+      style={{ padding: 8 }}
     />
   );
 }
@@ -168,7 +168,7 @@ function ReferralTypesDemo() {
           <Toggle label="Default type" checked={form.defaultType} onChange={(v) => setField("defaultType", v)} />
         </>
       )}
-      className="p-2"
+      style={{ padding: 8 }}
     />
   );
 }
@@ -209,7 +209,7 @@ function BusyTimesDemo() {
           key: "name",
           label: "Name",
           render: (item) => (
-            <div className="flex items-center gap-2">
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <ColorDot color={item.color} />
               {item.name}
             </div>
@@ -368,7 +368,7 @@ function AppointmentTypesDemo() {
           key: "name",
           label: "Name",
           render: (item) => (
-            <div className="flex items-center gap-2">
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <ColorDot color={item.color} />
               {item.name}
             </div>

@@ -64,14 +64,14 @@ export const NoLabel: Story = {
 export const ProfilePhotoUpload: Story = {
   name: "Recipe: Profile Photo Upload",
   render: () => (
-    <div className="w-80">
-      <p className="mb-2 text-label-lg text-text">Profile photo</p>
+    <div style={{ width: 320 }}>
+      <p className="text-label-lg text-text" style={{ marginBottom: 8 }}>Profile photo</p>
       <FileUpload
         icon={<CameraOutlined style={{ fontSize: 40, color: 'rgba(var(--color-primary), 0.4)' }} />}
         label="Upload photo"
-        className="h-40"
+        style={{ height: 160 }}
       />
-      <p className="mt-2 text-caption-md text-text-secondary">
+      <p className="text-caption-md text-text-secondary" style={{ marginTop: 8 }}>
         Recommended: 256x256px, JPG or PNG, max 2MB
       </p>
     </div>
@@ -90,30 +90,30 @@ export const ProfilePhotoUpload: Story = {
 export const SettingsLogoUpload: Story = {
   name: "Recipe: Settings Logo Upload",
   render: () => (
-    <div className="flex gap-8">
-      <div className="flex-1 space-y-4">
+    <div style={{ display: 'flex', gap: 32 }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div>
-          <label className="mb-1 block text-label-lg text-text">
-            Business name<span className="text-red-500">*</span>
+          <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>
+            Business name<span style={{ color: '#ef4444' }}>*</span>
           </label>
           <input
             type="text"
             defaultValue="Hands Together Therapies"
-            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+            className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
             readOnly
           />
         </div>
         <div>
-          <label className="mb-1 block text-label-lg text-text">Workspace URL</label>
+          <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>Workspace URL</label>
           <input
             type="text"
             defaultValue="acme.splose.com"
-            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+            className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
             readOnly
           />
         </div>
       </div>
-      <div className="w-48 shrink-0">
+      <div style={{ width: 192, flexShrink: 0 }}>
         <FileUpload
           icon={
             <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -143,32 +143,32 @@ export const SettingsLogoUpload: Story = {
 export const ClientProfilePhotoUpload: Story = {
   name: "Recipe: Client Profile Photo Upload",
   render: () => (
-    <div className="flex gap-6">
-      <div className="flex-1 space-y-4">
+    <div style={{ display: 'flex', gap: 24 }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div>
-          <label className="mb-1 block text-label-lg text-text">First name *</label>
+          <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>First name *</label>
           <input
             type="text"
             defaultValue="Liam"
-            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none"
+            className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
             readOnly
           />
         </div>
         <div>
-          <label className="mb-1 block text-label-lg text-text">Last name *</label>
+          <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>Last name *</label>
           <input
             type="text"
             defaultValue="Nguyen"
-            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none"
+            className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
             readOnly
           />
         </div>
       </div>
-      <div className="shrink-0 pt-6 text-center">
+      <div style={{ flexShrink: 0, paddingTop: 24, textAlign: 'center' }}>
         <FileUpload
           icon={<span className="text-body-md text-text-secondary">Profile photo</span>}
           label="Upload"
-          className="h-32 w-32 p-0"
+          style={{ height: 128, width: 128, padding: 0 }}
         />
       </div>
     </div>
@@ -187,22 +187,22 @@ export const ClientProfilePhotoUpload: Story = {
 export const OnlineBookingHeaderUpload: Story = {
   name: "Recipe: Online Booking Header Upload",
   render: () => (
-    <div className="max-w-2xl space-y-4">
+    <div style={{ maxWidth: 672, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <div>
-        <label className="mb-1 block text-label-lg text-text">Booking page name</label>
+        <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>Booking page name</label>
         <input
           type="text"
           defaultValue="Standard Booking"
-          className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none"
+          className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
           readOnly
         />
       </div>
       <div>
-        <label className="mb-2 block text-label-lg text-text">Logo / Header image</label>
+        <label className="text-label-lg text-text" style={{ marginBottom: 8, display: 'block' }}>Logo / Header image</label>
         <FileUpload
           icon={<UploadOutlined style={{ fontSize: 32 }} className="text-text-secondary" />}
           label="Click or drag to upload"
-          className="h-32"
+          style={{ height: 128 }}
         />
       </div>
     </div>
@@ -221,12 +221,12 @@ export const OnlineBookingHeaderUpload: Story = {
 export const CSVImportUpload: Story = {
   name: "Recipe: CSV Import Upload",
   render: () => (
-    <div className="max-w-2xl space-y-4">
+    <div style={{ maxWidth: 672, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <h3 className="text-heading-md text-text">Upload CSV file</h3>
       <FileUpload
         icon={<UploadOutlined style={{ fontSize: 32 }} className="text-text-secondary" />}
         label="Click to upload or drag and drop"
-        className="py-12"
+        style={{ paddingTop: 48, paddingBottom: 48 }}
       />
       <p className="text-caption-md text-text-secondary">CSV files only, max 10MB</p>
     </div>

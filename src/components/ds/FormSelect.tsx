@@ -13,14 +13,15 @@ interface FormSelectProps {
   required?: boolean;
   id?: string;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 const FormSelect = forwardRef<HTMLDivElement, FormSelectProps>(
-  ({ label, options, className, id, onChange, value, defaultValue, disabled }, ref) => {
+  ({ label, options, className, style, id, onChange, value, defaultValue, disabled }, ref) => {
     const selectId = id || label?.toLowerCase().replace(/\s+/g, "-");
 
     return (
-      <div ref={ref} className={className}>
+      <div ref={ref} className={className} style={style}>
         {label && (
           <label
             htmlFor={selectId}

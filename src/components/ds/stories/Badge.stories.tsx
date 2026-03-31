@@ -77,7 +77,7 @@ export const Purple: Story = {
 
 export const AllVariants: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-2">
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
       <Badge variant="green">Active</Badge>
       <Badge variant="red">Overdue</Badge>
       <Badge variant="blue">Draft</Badge>
@@ -107,11 +107,11 @@ export const StatusVariantHelper: Story = {
       "Do not invoice",
     ];
     return (
-      <div className="space-y-3">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <p className="text-label-lg text-text-secondary">
           <code>statusVariant(status)</code> maps status strings to badge colors:
         </p>
-        <div className="flex flex-wrap items-center gap-2">
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
           {statuses.map((s) => (
             <Badge key={s} variant={statusVariant(s)}>
               {s}
@@ -136,45 +136,45 @@ export const StatusVariantHelper: Story = {
 
 export const InvoiceStatusRow: Story = {
   render: () => (
-    <div className="w-[600px]">
-      <table className="w-full">
+    <div style={{ width: 600 }}>
+      <table style={{ width: '100%' }}>
         <thead>
-          <tr className="border-b border-border bg-table-header">
-            <th className="px-4 py-3 text-left text-label-lg text-text">Invoice</th>
-            <th className="px-4 py-3 text-left text-label-lg text-text">Client</th>
-            <th className="px-4 py-3 text-right text-label-lg text-text">Amount</th>
-            <th className="px-4 py-3 text-left text-label-lg text-text">Status</th>
-            <th className="px-4 py-3 text-left text-label-lg text-text">Delivery</th>
+          <tr className="border-border bg-table-header" style={{ borderBottom: '1px solid var(--color-border)' }}>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Invoice</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Client</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'right' }}>Amount</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Status</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Delivery</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-border">
-          <tr className="hover:bg-gray-50">
-            <td className="px-4 py-3 text-body-md text-primary">INV-006312</td>
-            <td className="px-4 py-3 text-body-md text-text">Sarah Mitchell</td>
-            <td className="px-4 py-3 text-right text-body-md text-text">$185.00</td>
-            <td className="px-4 py-3"><Badge variant={statusVariant("Paid")}>Paid</Badge></td>
-            <td className="px-4 py-3"><Badge variant={statusVariant("Sent")}>Sent</Badge></td>
+          <tr >
+            <td className="text-body-md text-primary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>INV-006312</td>
+            <td className="text-body-md text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Sarah Mitchell</td>
+            <td className="text-body-md text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'right' }}>$185.00</td>
+            <td style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}><Badge variant={statusVariant("Paid")}>Paid</Badge></td>
+            <td style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}><Badge variant={statusVariant("Sent")}>Sent</Badge></td>
           </tr>
-          <tr className="hover:bg-gray-50">
-            <td className="px-4 py-3 text-body-md text-primary">INV-006311</td>
-            <td className="px-4 py-3 text-body-md text-text">James Park</td>
-            <td className="px-4 py-3 text-right text-body-md text-text">$95.50</td>
-            <td className="px-4 py-3"><Badge variant={statusVariant("Overdue")}>Overdue</Badge></td>
-            <td className="px-4 py-3"><Badge variant={statusVariant("Sent")}>Sent</Badge></td>
+          <tr >
+            <td className="text-body-md text-primary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>INV-006311</td>
+            <td className="text-body-md text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>James Park</td>
+            <td className="text-body-md text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'right' }}>$95.50</td>
+            <td style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}><Badge variant={statusVariant("Overdue")}>Overdue</Badge></td>
+            <td style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}><Badge variant={statusVariant("Sent")}>Sent</Badge></td>
           </tr>
-          <tr className="hover:bg-gray-50">
-            <td className="px-4 py-3 text-body-md text-primary">INV-006310</td>
-            <td className="px-4 py-3 text-body-md text-text">Lisa Wang</td>
-            <td className="px-4 py-3 text-right text-body-md text-text">$220.00</td>
-            <td className="px-4 py-3"><Badge variant={statusVariant("Draft")}>Draft</Badge></td>
-            <td className="px-4 py-3" />
+          <tr >
+            <td className="text-body-md text-primary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>INV-006310</td>
+            <td className="text-body-md text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Lisa Wang</td>
+            <td className="text-body-md text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'right' }}>$220.00</td>
+            <td style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}><Badge variant={statusVariant("Draft")}>Draft</Badge></td>
+            <td style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }} />
           </tr>
-          <tr className="hover:bg-gray-50">
-            <td className="px-4 py-3 text-body-md text-primary">INV-006309</td>
-            <td className="px-4 py-3 text-body-md text-text">Mark Thompson</td>
-            <td className="px-4 py-3 text-right text-body-md text-text">$150.00</td>
-            <td className="px-4 py-3"><Badge variant={statusVariant("Outstanding")}>Outstanding</Badge></td>
-            <td className="px-4 py-3"><Badge variant={statusVariant("Sent")}>Sent</Badge></td>
+          <tr >
+            <td className="text-body-md text-primary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>INV-006309</td>
+            <td className="text-body-md text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Mark Thompson</td>
+            <td className="text-body-md text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'right' }}>$150.00</td>
+            <td style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}><Badge variant={statusVariant("Outstanding")}>Outstanding</Badge></td>
+            <td style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}><Badge variant={statusVariant("Sent")}>Sent</Badge></td>
           </tr>
         </tbody>
       </table>
@@ -191,23 +191,23 @@ export const InvoiceStatusRow: Story = {
 
 export const AppointmentBadges: Story = {
   render: () => (
-    <div className="space-y-4">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-label-lg text-text-secondary">Appointment status badges:</p>
-      <div className="flex flex-wrap items-center gap-2">
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
         <Badge variant={statusVariant("Scheduled")}>Scheduled</Badge>
         <Badge variant={statusVariant("Completed")}>Completed</Badge>
         <Badge variant={statusVariant("Cancelled")}>Cancelled</Badge>
         <Badge variant={statusVariant("No Show")}>No Show</Badge>
         <Badge variant={statusVariant("In progress")}>In progress</Badge>
       </div>
-      <p className="mt-6 text-label-lg text-text-secondary">Note/progress note status badges:</p>
-      <div className="flex flex-wrap items-center gap-2">
+      <p className="text-label-lg text-text-secondary" style={{ marginTop: 24 }}>Note/progress note status badges:</p>
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
         <Badge variant={statusVariant("Draft")}>Draft</Badge>
         <Badge variant={statusVariant("Final")}>Final</Badge>
         <Badge variant={statusVariant("Delivered")}>Delivered</Badge>
       </div>
-      <p className="mt-6 text-label-lg text-text-secondary">Invoice lifecycle badges:</p>
-      <div className="flex flex-wrap items-center gap-2">
+      <p className="text-label-lg text-text-secondary" style={{ marginTop: 24 }}>Invoice lifecycle badges:</p>
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
         <Badge variant={statusVariant("Draft")}>Draft</Badge>
         <Badge variant={statusVariant("Sent")}>Sent</Badge>
         <Badge variant={statusVariant("Outstanding")}>Outstanding</Badge>

@@ -73,7 +73,6 @@ export default function CommunicationTypesPage() {
           />
         </>
       )}
-      className="p-2"
     />
   );
 }

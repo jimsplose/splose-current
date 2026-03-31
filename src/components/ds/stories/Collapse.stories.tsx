@@ -65,7 +65,7 @@ export const InitiallyOpen: Story = {
 
 export const Multiple: Story = {
   render: () => (
-    <div className="w-[400px]">
+    <div style={{ width: 400 }}>
       <Collapse title="General" defaultOpen>
         <p className="text-body-md text-text-secondary">General settings content.</p>
       </Collapse>
@@ -91,7 +91,7 @@ export const Multiple: Story = {
 
 export const ClientSidebarSections: Story = {
   render: () => (
-    <aside className="w-[320px] space-y-0 rounded-lg border border-border bg-white p-4">
+    <aside style={{ width: 320, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
       <Collapse title="Client alerts" defaultOpen>
         <span className="text-body-md text-text">Include KM</span>
       </Collapse>
@@ -103,8 +103,8 @@ export const ClientSidebarSections: Story = {
       </Collapse>
 
       <Collapse title="Mailchimp" defaultOpen>
-        <div className="space-y-1 text-body-sm">
-          <div className="flex items-center gap-1">
+        <div className="text-body-sm" style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
             <span className="text-primary">rakesh.splose@gmail.com</span>
             <Badge variant="orange" className="text-caption-sm">ARCHIVED</Badge>
           </div>
@@ -127,36 +127,36 @@ export const ClientSidebarSections: Story = {
 
 export const ServiceEditSections: Story = {
   render: () => (
-    <div className="w-[600px] space-y-0">
+    <div style={{ width: 600 }}>
       <Collapse title="General" defaultOpen>
-        <div className="space-y-4">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Name</label>
-            <input className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text" defaultValue="Initial Consultation" />
+            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Name</label>
+            <input className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} defaultValue="Initial Consultation" />
           </div>
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Item code</label>
-            <input className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text" defaultValue="93010" />
+            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Item code</label>
+            <input className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} defaultValue="93010" />
           </div>
         </div>
       </Collapse>
 
       <Collapse title="Pricing" defaultOpen>
-        <div className="space-y-4">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Price</label>
-            <input type="number" className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text" defaultValue="200" />
+            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Price</label>
+            <input type="number" className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} defaultValue="200" />
           </div>
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Duration (minutes)</label>
-            <input className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text" defaultValue="60" />
+            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Duration (minutes)</label>
+            <input className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} defaultValue="60" />
           </div>
         </div>
       </Collapse>
 
       <Collapse title="Online booking" defaultOpen>
-        <div className="flex items-center gap-3 py-1">
-          <div className="h-5 w-9 rounded-full bg-primary" />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, paddingTop: 4, paddingBottom: 4 }}>
+          <div style={{ height: 20, width: 36, borderRadius: 9999 }} className="bg-primary" />
           <span className="text-body-md text-text">Enable online booking</span>
         </div>
       </Collapse>
@@ -181,26 +181,27 @@ export const ServiceEditSections: Story = {
 
 export const AppointmentTemplateSections: Story = {
   render: () => (
-    <div className="w-[600px] space-y-4">
+    <div style={{ width: 600, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">settings/appointment-templates/new</code> — collapse sections
+        From <code style={{ fontSize: 11 }}>settings/appointment-templates/new</code> — collapse sections
         that wrap notification channels with toggle + message editor inside.
       </p>
 
       <Collapse title="SMS" defaultOpen>
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="h-5 w-9 rounded-full bg-primary" />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div style={{ height: 20, width: 36, borderRadius: 9999 }} className="bg-primary" />
             <span className="text-body-md text-text">Enable SMS notification</span>
           </div>
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Message</label>
+            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Message</label>
             <textarea
-              className="w-full rounded-lg border border-border px-3 py-2 text-body-md text-text"
+              className="text-body-md text-text"
+              style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
               rows={3}
               defaultValue="Hi {client_first_name}, this is a reminder about your appointment on {appointment_date} at {appointment_time}."
             />
-            <p className="mt-1 text-caption-md text-text-secondary">
+            <p style={{ marginTop: 4 }} className="text-caption-md text-text-secondary">
               Variables: {"{client_first_name}"}, {"{appointment_date}"}, {"{appointment_time}"}
             </p>
           </div>
@@ -208,15 +209,16 @@ export const AppointmentTemplateSections: Story = {
       </Collapse>
 
       <Collapse title="Email" defaultOpen>
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="h-5 w-9 rounded-full bg-primary" />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div style={{ height: 20, width: 36, borderRadius: 9999 }} className="bg-primary" />
             <span className="text-body-md text-text">Enable email notification</span>
           </div>
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Subject</label>
+            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Subject</label>
             <input
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text"
+              className="text-body-md text-text"
+              style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
               defaultValue="Your upcoming appointment"
             />
           </div>
@@ -235,38 +237,38 @@ export const AppointmentTemplateSections: Story = {
 
 export const UserDetailSections: Story = {
   render: () => (
-    <div className="w-[600px] space-y-6">
+    <div style={{ width: 600, display: 'flex', flexDirection: 'column', gap: 24 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">settings/users/[id]</code> — user detail page
+        From <code style={{ fontSize: 11 }}>settings/users/[id]</code> — user detail page
         with Profile, Role &amp; Access, and Security sections.
       </p>
 
       <Collapse title="Profile" defaultOpen>
-        <div className="space-y-4">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Name</label>
-            <input className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text" defaultValue="Sarah Johnson" />
+            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Name</label>
+            <input className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} defaultValue="Sarah Johnson" />
           </div>
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Email</label>
-            <input className="w-full rounded-lg border border-border bg-gray-50 px-3 py-2 text-body-md text-text-secondary" defaultValue="sarah@example.com" readOnly />
+            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Email</label>
+            <input className="text-body-md text-text-secondary" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#f9fafb', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} defaultValue="sarah@example.com" readOnly />
           </div>
         </div>
       </Collapse>
 
       <Collapse title="Role & Access" defaultOpen>
-        <div className="space-y-4">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Role name</label>
-            <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text">
+            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Role name</label>
+            <select className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
               <option>Practitioner</option>
               <option>Admin</option>
               <option>Receptionist</option>
             </select>
           </div>
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Role type</label>
-            <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text">
+            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Role type</label>
+            <select className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
               <option>Clinical</option>
               <option>Administrative</option>
             </select>
@@ -275,10 +277,10 @@ export const UserDetailSections: Story = {
       </Collapse>
 
       <Collapse title="Security" defaultOpen>
-        <div className="space-y-3">
-          <button className="rounded-lg border border-border bg-white px-4 py-2 text-body-md text-text hover:bg-gray-50">Reset password</button>
-          <button className="rounded-lg border border-border bg-white px-4 py-2 text-body-md text-text hover:bg-gray-50">Log out everywhere</button>
-          <button className="rounded-lg border border-red-200 bg-white px-4 py-2 text-body-md text-red-600 hover:bg-red-50">Deactivate account</button>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <button className="text-body-md text-text" style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>Reset password</button>
+          <button className="text-body-md text-text" style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>Log out everywhere</button>
+          <button className="text-body-md" style={{ borderRadius: 8, border: '1px solid #fecaca', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, color: '#dc2626' }}>Deactivate account</button>
         </div>
       </Collapse>
     </div>
@@ -294,67 +296,67 @@ export const UserDetailSections: Story = {
 
 export const LocationFormSections: Story = {
   render: () => (
-    <div className="w-[700px] space-y-4">
+    <div style={{ width: 700, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">settings/locations/new</code> — location form
+        From <code style={{ fontSize: 11 }}>settings/locations/new</code> — location form
         with General, Address, and Online booking sections.
       </p>
 
       <Collapse title="General" defaultOpen>
-        <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
             <div>
-              <label className="mb-1 block text-label-lg text-text-secondary">Name</label>
-              <input className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text" placeholder="e.g. East Clinics" />
+              <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Name</label>
+              <input className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} placeholder="e.g. East Clinics" />
             </div>
             <div>
-              <label className="mb-1 block text-label-lg text-text-secondary">ABN</label>
-              <input className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text" />
+              <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">ABN</label>
+              <input className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} />
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
             <div>
-              <label className="mb-1 block text-label-lg text-text-secondary">Email</label>
-              <input type="email" className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text" />
+              <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Email</label>
+              <input type="email" className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} />
             </div>
             <div>
-              <label className="mb-1 block text-label-lg text-text-secondary">Phone</label>
-              <input className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text" />
+              <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Phone</label>
+              <input className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} />
             </div>
           </div>
         </div>
       </Collapse>
 
       <Collapse title="Address" defaultOpen>
-        <div className="space-y-4">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Address</label>
-            <input className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text" />
+            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Address</label>
+            <input className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} />
           </div>
-          <div className="grid grid-cols-3 gap-4">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
             <div>
-              <label className="mb-1 block text-label-lg text-text-secondary">Suburb</label>
-              <input className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text" />
+              <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Suburb</label>
+              <input className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} />
             </div>
             <div>
-              <label className="mb-1 block text-label-lg text-text-secondary">State</label>
-              <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text">
+              <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">State</label>
+              <select className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
                 <option>NSW</option>
                 <option>VIC</option>
                 <option>QLD</option>
               </select>
             </div>
             <div>
-              <label className="mb-1 block text-label-lg text-text-secondary">Post code</label>
-              <input className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text" />
+              <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Post code</label>
+              <input className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} />
             </div>
           </div>
         </div>
       </Collapse>
 
       <Collapse title="Online booking">
-        <div className="flex items-center gap-3 py-1">
-          <div className="h-5 w-9 rounded-full bg-gray-300" />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, paddingTop: 4, paddingBottom: 4 }}>
+          <div style={{ height: 20, width: 36, borderRadius: 9999, backgroundColor: '#d1d5db' }} />
           <span className="text-body-md text-text">Enable online booking for this location</span>
         </div>
       </Collapse>

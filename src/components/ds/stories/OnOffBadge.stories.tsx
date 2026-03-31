@@ -69,22 +69,22 @@ export const CustomLabelsOff: Story = {
 
 export const Comparison: Story = {
   render: () => (
-    <div className="flex items-center gap-6">
-      <div className="text-center">
+    <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+      <div style={{ textAlign: 'center' }}>
         <OnOffBadge value={true} />
-        <p className="mt-1 text-xs text-text-secondary">Default on</p>
+        <p className="text-text-secondary" style={{ marginTop: 4, fontSize: 11 }}>Default on</p>
       </div>
-      <div className="text-center">
+      <div style={{ textAlign: 'center' }}>
         <OnOffBadge value={false} />
-        <p className="mt-1 text-xs text-text-secondary">Default off</p>
+        <p className="text-text-secondary" style={{ marginTop: 4, fontSize: 11 }}>Default off</p>
       </div>
-      <div className="text-center">
+      <div style={{ textAlign: 'center' }}>
         <OnOffBadge value={true} onLabel="Yes" offLabel="No" />
-        <p className="mt-1 text-xs text-text-secondary">Yes/No</p>
+        <p className="text-text-secondary" style={{ marginTop: 4, fontSize: 11 }}>Yes/No</p>
       </div>
-      <div className="text-center">
+      <div style={{ textAlign: 'center' }}>
         <OnOffBadge value={false} onLabel="Enabled" offLabel="Disabled" />
-        <p className="mt-1 text-xs text-text-secondary">Enabled/Disabled</p>
+        <p className="text-text-secondary" style={{ marginTop: 4, fontSize: 11 }}>Enabled/Disabled</p>
       </div>
     </div>
   ),
@@ -106,15 +106,15 @@ export const Comparison: Story = {
 export const SettingsTemplateRow: Story = {
   name: "Recipe: Settings Template Row",
   render: () => (
-    <div className="w-[700px]">
-      <table className="w-full">
+    <div style={{ width: 700 }}>
+      <table style={{ width: '100%' }}>
         <thead>
-          <tr className="border-b border-border bg-table-header">
-            <th className="px-4 py-3 text-left text-label-lg text-text">Name</th>
-            <th className="px-4 py-3 text-left text-label-lg text-text">Type</th>
-            <th className="px-4 py-3 text-left text-label-lg text-text">SMS</th>
-            <th className="px-4 py-3 text-left text-label-lg text-text">Email</th>
-            <th className="px-4 py-3 text-left text-label-lg text-text">Last modified</th>
+          <tr className="border-border bg-table-header" style={{ borderBottom: '1px solid var(--color-border)' }}>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Name</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Type</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>SMS</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Email</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Last modified</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-border">
@@ -125,16 +125,16 @@ export const SettingsTemplateRow: Story = {
             { name: "Reminder - 24 Hours", type: "Reminder", sms: true, email: true, modified: "8 Mar 2026, 4:00 pm" },
             { name: "No Show Follow Up", type: "No Show", sms: false, email: false, modified: "5 Mar 2026, 11:30 am" },
           ].map((t) => (
-            <tr key={t.name} className="hover:bg-gray-50">
-              <td className="px-4 py-3 text-body-md text-text">{t.name}</td>
-              <td className="px-4 py-3 text-body-md text-text-secondary">{t.type}</td>
-              <td className="px-4 py-3 text-body-md">
+            <tr key={t.name} >
+              <td className="text-body-md text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{t.name}</td>
+              <td className="text-body-md text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{t.type}</td>
+              <td className="text-body-md" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
                 <OnOffBadge value={t.sms} />
               </td>
-              <td className="px-4 py-3 text-body-md">
+              <td className="text-body-md" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
                 <OnOffBadge value={t.email} />
               </td>
-              <td className="px-4 py-3 text-body-md text-text-secondary">{t.modified}</td>
+              <td className="text-body-md text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{t.modified}</td>
             </tr>
           ))}
         </tbody>
@@ -155,13 +155,13 @@ export const SettingsTemplateRow: Story = {
 export const ReferralTypeDefaultColumn: Story = {
   name: "Recipe: Referral Type Default Column",
   render: () => (
-    <div className="w-[500px]">
-      <table className="w-full">
+    <div style={{ width: 500 }}>
+      <table style={{ width: '100%' }}>
         <thead>
-          <tr className="border-b border-border bg-table-header">
-            <th className="px-4 py-3 text-left text-label-lg text-text">Name</th>
-            <th className="px-4 py-3 text-left text-label-lg text-text">Default type</th>
-            <th className="px-4 py-3 text-right text-label-lg text-text">Actions</th>
+          <tr className="border-border bg-table-header" style={{ borderBottom: '1px solid var(--color-border)' }}>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Name</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Default type</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'right' }}>Actions</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-border">
@@ -174,12 +174,12 @@ export const ReferralTypeDefaultColumn: Story = {
             { name: "Doctor", isDefault: false },
             { name: "GP", isDefault: false },
           ].map((r) => (
-            <tr key={r.name} className="hover:bg-gray-50">
-              <td className="px-4 py-3 text-body-md text-text">{r.name}</td>
-              <td className="px-4 py-3 text-body-md">
+            <tr key={r.name} >
+              <td className="text-body-md text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{r.name}</td>
+              <td className="text-body-md" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
                 <OnOffBadge value={r.isDefault} onLabel="Yes" offLabel="No" />
               </td>
-              <td className="px-4 py-3 text-right text-body-md text-text-secondary">
+              <td className="text-body-md text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'right' }}>
                 {r.isDefault ? "-" : "..."}
               </td>
             </tr>
@@ -202,12 +202,12 @@ export const ReferralTypeDefaultColumn: Story = {
 export const CommunicationTypesList: Story = {
   name: "Recipe: Communication Types List",
   render: () => (
-    <div className="w-[500px]">
-      <table className="w-full">
+    <div style={{ width: 500 }}>
+      <table style={{ width: '100%' }}>
         <thead>
-          <tr className="border-b border-border bg-table-header">
-            <th className="px-4 py-3 text-left text-label-lg text-text">Name</th>
-            <th className="px-4 py-3 text-left text-label-lg text-text">Default type</th>
+          <tr className="border-border bg-table-header" style={{ borderBottom: '1px solid var(--color-border)' }}>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Name</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Default type</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-border">
@@ -219,9 +219,9 @@ export const CommunicationTypesList: Story = {
             { name: "Fax", isDefault: false },
             { name: "Admin Notes", isDefault: false },
           ].map((c) => (
-            <tr key={c.name} className="hover:bg-gray-50">
-              <td className="px-4 py-3 text-body-md text-text">{c.name}</td>
-              <td className="px-4 py-3 text-body-md">
+            <tr key={c.name} >
+              <td className="text-body-md text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{c.name}</td>
+              <td className="text-body-md" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
                 <OnOffBadge value={c.isDefault} onLabel="Yes" offLabel="No" />
               </td>
             </tr>
@@ -243,9 +243,9 @@ export const CommunicationTypesList: Story = {
 export const InlineStatus: Story = {
   name: "Recipe: Inline Status Summary",
   render: () => (
-    <div className="w-80 rounded-lg border border-border bg-white p-4">
-      <h4 className="mb-3 text-heading-sm text-text">Notification Settings</h4>
-      <div className="space-y-2">
+    <div style={{ width: 320, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
+      <h4 className="text-heading-sm text-text" style={{ marginBottom: 12 }}>Notification Settings</h4>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {[
           { label: "SMS confirmations", enabled: true },
           { label: "Email confirmations", enabled: true },
@@ -253,7 +253,7 @@ export const InlineStatus: Story = {
           { label: "Email reminders", enabled: true },
           { label: "Cancellation notices", enabled: false },
         ].map((s) => (
-          <div key={s.label} className="flex items-center justify-between">
+          <div key={s.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <span className="text-body-md text-text">{s.label}</span>
             <OnOffBadge value={s.enabled} />
           </div>

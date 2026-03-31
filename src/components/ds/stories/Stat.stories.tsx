@@ -72,16 +72,16 @@ export const StringValue: Story = {
 export const PractitionerStats: Story = {
   name: "Recipe: Practitioner Stats",
   render: () => (
-    <div className="w-80">
+    <div style={{ width: 320 }}>
       {[
         { name: "Joseph Go", appts: 24, notes: 18 },
         { name: "Hao Wang", appts: 12, notes: 8 },
         { name: "Meghna Damodaran", appts: 36, notes: 30 },
       ].map((p) => (
-        <div key={p.name} className="mb-4 rounded-lg border border-border bg-white p-6">
-          <h3 className="mb-2 font-semibold text-text">{p.name}</h3>
-          <p className="mb-4 text-sm text-text-secondary">Occupational Therapist</p>
-          <div className="flex gap-4 border-t border-border pt-4">
+        <div key={p.name} style={{ marginBottom: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
+          <h3 className="text-text" style={{ marginBottom: 8, fontWeight: 600 }}>{p.name}</h3>
+          <p className="text-text-secondary" style={{ marginBottom: 16, fontSize: 12 }}>Occupational Therapist</p>
+          <div style={{ display: 'flex', gap: 16, borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
             <Stat value={p.appts} label="Appointments" />
             <Stat value={p.notes} label="Notes" />
           </div>
@@ -102,9 +102,9 @@ export const PractitionerStats: Story = {
 export const ReportMetrics: Story = {
   name: "Recipe: Report Metrics",
   render: () => (
-    <div className="rounded-lg border border-border bg-white p-6">
-      <p className="mb-4 text-label-lg text-text-secondary">Dashboard Summary</p>
-      <div className="flex gap-8">
+    <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
+      <p className="text-label-lg text-text-secondary" style={{ marginBottom: 16 }}>Dashboard Summary</p>
+      <div style={{ display: 'flex', gap: 32 }}>
         <Stat value="87%" label="Utilisation" />
         <Stat value="$24,580" label="Revenue" />
         <Stat value={142} label="Appointments" />
@@ -127,15 +127,15 @@ export const ReportMetrics: Story = {
 export const DashboardIncomeCard: Story = {
   name: "Recipe: Dashboard Income Card",
   render: () => (
-    <div className="flex gap-6">
-      <div className="w-72 rounded-lg border border-border bg-white p-4">
+    <div style={{ display: 'flex', gap: 24 }}>
+      <div style={{ width: 288, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
         <h3 className="text-heading-sm text-text">Utilisation</h3>
-        <p className="mb-2 text-caption-md text-text-secondary">Percentage of available time utilised</p>
+        <p className="text-caption-md text-text-secondary" style={{ marginBottom: 8 }}>Percentage of available time utilised</p>
         <Stat value="0.85%" label="01 Mar - 24 Mar" />
       </div>
-      <div className="w-72 rounded-lg border border-border bg-white p-4">
+      <div style={{ width: 288, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
         <h3 className="text-heading-sm text-text">Revenue</h3>
-        <p className="mb-2 text-caption-md text-text-secondary">Total invoiced revenue (tax exclusive)</p>
+        <p className="text-caption-md text-text-secondary" style={{ marginBottom: 8 }}>Total invoiced revenue (tax exclusive)</p>
         <Stat value="$1.09K" label="01 Mar - 24 Mar" />
       </div>
     </div>
@@ -153,10 +153,10 @@ export const DashboardIncomeCard: Story = {
 export const ClientOverviewStats: Story = {
   name: "Recipe: Client Overview Stats",
   render: () => (
-    <div className="w-96 rounded-lg border border-border bg-white p-6">
-      <h3 className="mb-1 text-heading-md text-text">Sarah Johnson</h3>
-      <p className="mb-4 text-caption-md text-text-secondary">Client since 15 Jan 2025</p>
-      <div className="grid grid-cols-4 gap-4 border-t border-border pt-4">
+    <div style={{ width: 384, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
+      <h3 className="text-heading-md text-text" style={{ marginBottom: 4 }}>Sarah Johnson</h3>
+      <p className="text-caption-md text-text-secondary" style={{ marginBottom: 16 }}>Client since 15 Jan 2025</p>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
         <Stat value={18} label="Total Appts" />
         <Stat value={3} label="Upcoming" />
         <Stat value="$240" label="Balance" />
@@ -177,18 +177,18 @@ export const ClientOverviewStats: Story = {
 export const PractitionerTableRow: Story = {
   name: "Recipe: Practitioner Table Row",
   render: () => (
-    <div className="w-[600px] rounded-lg border border-border bg-white">
-      <div className="border-b border-border px-4 py-3">
+    <div style={{ width: 600, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff' }}>
+      <div style={{ borderBottom: '1px solid var(--color-border)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
         <h3 className="text-heading-sm text-text">Practitioners</h3>
         <p className="text-caption-md text-text-secondary">Breakdown of performance by individual practitioner</p>
       </div>
-      <table className="w-full">
+      <table style={{ width: '100%' }}>
         <thead>
-          <tr className="border-b border-border bg-table-header">
-            <th className="px-4 py-3 text-left text-label-lg text-text">Name</th>
-            <th className="px-4 py-3 text-center text-label-lg text-text">Appointments</th>
-            <th className="px-4 py-3 text-center text-label-lg text-text">Revenue</th>
-            <th className="px-4 py-3 text-center text-label-lg text-text">Utilisation</th>
+          <tr className="border-border bg-table-header" style={{ borderBottom: '1px solid var(--color-border)' }}>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Name</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'center' }}>Appointments</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'center' }}>Revenue</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'center' }}>Utilisation</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-border">
@@ -197,11 +197,11 @@ export const PractitionerTableRow: Story = {
             { name: "Hao Wang", appts: 18, revenue: "$3,100", util: "78%" },
             { name: "Meghna D.", appts: 31, revenue: "$5,800", util: "95%" },
           ].map((p) => (
-            <tr key={p.name} className="hover:bg-gray-50">
-              <td className="px-4 py-3 text-body-md text-text">{p.name}</td>
-              <td className="px-4 py-3"><Stat value={p.appts} label="" /></td>
-              <td className="px-4 py-3"><Stat value={p.revenue} label="" /></td>
-              <td className="px-4 py-3"><Stat value={p.util} label="" /></td>
+            <tr key={p.name} >
+              <td className="text-body-md text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{p.name}</td>
+              <td style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}><Stat value={p.appts} label="" /></td>
+              <td style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}><Stat value={p.revenue} label="" /></td>
+              <td style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}><Stat value={p.util} label="" /></td>
             </tr>
           ))}
         </tbody>

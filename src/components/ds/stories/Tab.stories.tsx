@@ -80,7 +80,7 @@ export const Controlled: Story = {
           value={value}
           onChange={setValue}
         />
-        <div className="mt-4 rounded border border-border p-4 text-sm text-text">
+        <div className="border-border text-text" style={{ marginTop: 16, borderRadius: 4, border: '1px solid var(--color-border)', padding: 16, fontSize: 12 }}>
           Active tab: <strong>{value}</strong>
         </div>
       </div>
@@ -110,9 +110,9 @@ export const SettingsAITabs: Story = {
           ]}
           value={value}
           onChange={setValue}
-          className="mb-6"
+          style={{ marginBottom: 24 }}
         />
-        <div className="rounded border border-border p-4 text-sm text-text-secondary">
+        <div className="border-border text-text-secondary" style={{ borderRadius: 4, border: '1px solid var(--color-border)', padding: 16, fontSize: 12 }}>
           {value === "preferences" && "Voice-to-text, email assistant, and AI note generation settings."}
           {value === "saved-prompts" && "Custom prompts for AI-assisted note writing."}
           {value === "ai-block-library" && "Reusable AI block templates (BETA)."}
@@ -143,9 +143,9 @@ export const WaitlistTabs: Story = {
             setMainTab(v);
             setSubTab(v === "screener" ? "triage" : "active");
           }}
-          className="px-6 pt-2"
+          style={{ paddingLeft: 24, paddingRight: 24, paddingTop: 8 }}
         />
-        <div className="mt-4 px-6">
+        <div style={{ marginTop: 16, paddingLeft: 24, paddingRight: 24 }}>
           {mainTab === "screener" && (
             <Tab
               items={[
@@ -166,7 +166,7 @@ export const WaitlistTabs: Story = {
               onChange={setSubTab}
             />
           )}
-          <div className="mt-4 rounded border border-border p-4 text-sm text-text-secondary">
+          <div className="border-border text-text-secondary" style={{ marginTop: 16, borderRadius: 4, border: '1px solid var(--color-border)', padding: 16, fontSize: 12 }}>
             Showing: {mainTab} &rarr; {subTab}
           </div>
         </div>

@@ -34,10 +34,10 @@ export default function ClientPractitionerAccessPage() {
       <h1 className="text-display-lg" style={{ marginBottom: 16 }}>Practitioner access</h1>
       <p style={{ marginBottom: 24, fontSize: 14, color: 'var(--color-text-secondary)' }}>
         You can link practitioners to clients via creating an appointment or support activity in the calendar tab.{" "}
-        <span style={{ cursor: 'pointer', color: 'var(--color-primary)' }} className="hover:underline">Learn more</span>
+        <span style={{ cursor: 'pointer', color: 'var(--color-primary)' }}>Learn more</span>
       </p>
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
             <Th>
@@ -64,7 +64,7 @@ export default function ClientPractitionerAccessPage() {
                 <Td>
                   <div>
                     <span>{p.name}</span>
-                    <Badge variant="green" className="ml-2">Account owner</Badge>
+                    <Badge variant="green" style={{ marginLeft: 8 }}>Account owner</Badge>
                   </div>
                 </Td>
                 <Td className="text-text-secondary">{p.role}</Td>

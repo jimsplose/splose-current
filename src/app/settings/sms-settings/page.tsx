@@ -53,11 +53,12 @@ export default function SMSSettingsPage() {
               key={option.credits}
               variant="secondary"
               onClick={() => setSelectedCredits(option.credits)}
-              className={`px-5 py-3 text-center ${
-                selectedCredits === option.credits
-                  ? "border-primary bg-primary/10 text-primary"
-                  : "hover:border-gray-300"
-              }`}
+              style={{
+                paddingLeft: 20, paddingRight: 20, paddingTop: 12, paddingBottom: 12, textAlign: 'center',
+                ...(selectedCredits === option.credits
+                  ? { borderColor: 'var(--color-primary)', backgroundColor: 'rgba(var(--color-primary-rgb, 130, 80, 255), 0.1)', color: 'var(--color-primary)' }
+                  : {}),
+              }}
             >
               <div>
                 <p className="text-label-lg">{option.credits} credits</p>
@@ -83,7 +84,7 @@ export default function SMSSettingsPage() {
           </label>
           <textarea
             style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', padding: '8px 12px', outline: 'none' }}
-            className="text-body-md text-text focus:border-primary focus:ring-1 focus:ring-primary/20"
+            className="text-body-md text-text"
             rows={3}
             value={sampleMessage}
             onChange={(e) => setSampleMessage(e.target.value)}
@@ -95,14 +96,14 @@ export default function SMSSettingsPage() {
           <span>
             {charInfo.len} character{charInfo.len !== 1 ? "s" : ""}
           </span>
-          <span className="text-border">|</span>
+          <span style={{ color: 'var(--color-border)' }}>|</span>
           <span>
             {charInfo.segments} segment{charInfo.segments !== 1 ? "s" : ""} ({charInfo.segments} credit{charInfo.segments !== 1 ? "s" : ""})
           </span>
           {charInfo.hasSpecial && (
             <>
-              <span className="text-border">|</span>
-              <span className="text-amber-600">Contains special characters</span>
+              <span style={{ color: 'var(--color-border)' }}>|</span>
+              <span style={{ color: '#d97706' }}>Contains special characters</span>
             </>
           )}
         </Flex>
@@ -137,7 +138,7 @@ export default function SMSSettingsPage() {
             messages cost one credit per segment, and inbound messages cost 0.5 credits per
             segment. SMS credits purchased get billed to the credit card attached to your splose
             account. Receipts will appear in your{" "}
-            <a href="#" className="text-primary hover:underline">
+            <a href="#" className="text-primary">
               billing history
             </a>
             .

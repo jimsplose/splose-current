@@ -165,7 +165,7 @@ export default function ReportsAppointmentsPage() {
             { value: "yes", label: "Yes" },
             { value: "no", label: "No" },
           ]}
-          className="!w-48"
+          style={{ width: 192 }}
         />
       </div>
 

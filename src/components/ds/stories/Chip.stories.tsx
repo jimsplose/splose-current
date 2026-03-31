@@ -82,7 +82,7 @@ export const WithRemove: Story = {
 
 export const AllVariants: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-2">
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
       <Chip variant="green">Green</Chip>
       <Chip variant="purple">Purple</Chip>
       <Chip variant="yellow">Yellow</Chip>
@@ -106,7 +106,7 @@ export const AllVariants: Story = {
 
 export const CalendarFilterPills: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-2">
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
       <Chip variant="green">East Clinics</Chip>
       <Chip variant="purple">Physio</Chip>
       <Chip variant="yellow" onRemove={fn()}>
@@ -125,7 +125,7 @@ export const CalendarFilterPills: Story = {
 
 export const ReportsDateRange: Story = {
   render: () => (
-    <div className="flex items-center gap-2">
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
       <Chip variant="purple" className="border-primary text-body-md text-primary">
         1 Mar 2026
       </Chip>
@@ -146,9 +146,9 @@ export const ReportsDateRange: Story = {
 
 export const TagFilters: Story = {
   render: () => (
-    <div className="space-y-2">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
       <p className="text-label-lg text-text-secondary">Active filters:</p>
-      <div className="flex flex-wrap items-center gap-2">
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
         <Chip variant="blue" onRemove={fn()}>
           NDIS Participant
         </Chip>

@@ -66,25 +66,25 @@ export const InLabel: Story = {
 export const SettingsFormLabel: Story = {
   name: "Recipe: Settings Form Label",
   render: () => (
-    <div className="w-96 space-y-6 rounded-lg border border-border bg-white p-6">
+    <div style={{ width: 384, display: 'flex', flexDirection: 'column', gap: 24, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
       <div>
-        <label className="mb-1 block text-label-lg text-text">
+        <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>
           Workspace URL <HintIcon tooltip="Your unique Splose workspace URL" />
         </label>
         <input
           type="text"
           defaultValue="acme.splose.com"
-          className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+          className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
           readOnly
         />
       </div>
 
       <div>
-        <label className="mb-1 block text-label-lg text-text">
+        <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>
           Patient terminology <HintIcon tooltip="Choose how you refer to your patients across the platform" />
-          <span className="text-red-500">*</span>
+          <span style={{ color: '#ef4444' }}>*</span>
         </label>
-        <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+        <select className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}>
           <option>Client</option>
           <option>Patient</option>
           <option>Participant</option>
@@ -92,12 +92,12 @@ export const SettingsFormLabel: Story = {
       </div>
 
       <div>
-        <label className="mb-1 block text-label-lg text-text">
+        <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>
           Default appointment communication preferences{" "}
           <HintIcon tooltip="Set default SMS and email preferences for new appointment templates" />
-          <span className="text-red-500">*</span>
+          <span style={{ color: '#ef4444' }}>*</span>
         </label>
-        <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+        <select className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}>
           <option>SMS &amp; Email</option>
           <option>SMS only</option>
           <option>Email only</option>
@@ -119,28 +119,28 @@ export const SettingsFormLabel: Story = {
 export const SectionHeadingHint: Story = {
   name: "Recipe: Section Heading Hint",
   render: () => (
-    <div className="w-[600px] space-y-4 rounded-lg border border-border bg-white p-6">
+    <div style={{ width: 600, display: 'flex', flexDirection: 'column', gap: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
       <h2 className="text-heading-lg text-text">
-        Associated contacts <HintIcon className="ml-1" tooltip="Contacts linked to this client record" />
+        Associated contacts <HintIcon style={{ marginLeft: 4 }} tooltip="Contacts linked to this client record" />
       </h2>
-      <table className="w-full text-body-md">
+      <table className="text-body-md" style={{ width: '100%' }}>
         <thead>
-          <tr className="border-b border-border">
-            <th className="pb-2 text-left text-label-lg text-text">Name</th>
-            <th className="pb-2 text-left text-label-lg text-text">Type</th>
-            <th className="pb-2 text-left text-label-lg text-text">Notes</th>
+          <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+            <th className="text-label-lg text-text" style={{ paddingBottom: 8, textAlign: 'left' }}>Name</th>
+            <th className="text-label-lg text-text" style={{ paddingBottom: 8, textAlign: 'left' }}>Type</th>
+            <th className="text-label-lg text-text" style={{ paddingBottom: 8, textAlign: 'left' }}>Notes</th>
           </tr>
         </thead>
         <tbody>
-          <tr className="border-b border-border">
-            <td className="py-2 text-primary">Test doctor</td>
-            <td className="py-2">Doctor</td>
-            <td className="py-2">hello</td>
+          <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+            <td className="text-primary" style={{ paddingTop: 8, paddingBottom: 8 }}>Test doctor</td>
+            <td style={{ paddingTop: 8, paddingBottom: 8 }}>Doctor</td>
+            <td style={{ paddingTop: 8, paddingBottom: 8 }}>hello</td>
           </tr>
-          <tr className="border-b border-border">
-            <td className="py-2 text-primary">Jo malone</td>
-            <td className="py-2">Standard</td>
-            <td className="py-2">N/A</td>
+          <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+            <td className="text-primary" style={{ paddingTop: 8, paddingBottom: 8 }}>Jo malone</td>
+            <td style={{ paddingTop: 8, paddingBottom: 8 }}>Standard</td>
+            <td style={{ paddingTop: 8, paddingBottom: 8 }}>N/A</td>
           </tr>
         </tbody>
       </table>
@@ -159,22 +159,22 @@ export const SectionHeadingHint: Story = {
 export const AccountBalanceHints: Story = {
   name: "Recipe: Account Balance Hints",
   render: () => (
-    <div className="w-[280px]">
-      <div className="rounded-lg bg-primary p-4 text-white">
-        <div className="flex items-center justify-between">
+    <div style={{ width: 280 }}>
+      <div className="bg-primary" style={{ borderRadius: 8, padding: 16, color: '#fff' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <h3 className="text-label-lg">Account balance</h3>
-          <HintIcon className="h-5 w-5 border-white/50 text-white/80" tooltip="Outstanding balance for this client" />
+          <HintIcon className="text-white/80" style={{borderColor: 'rgba(255,255,255,0.5)', height: 20, width: 20 }} tooltip="Outstanding balance for this client" />
         </div>
-        <div className="mt-2 flex items-center justify-between text-body-md">
-          <span className="flex items-center gap-1">
+        <div className="text-body-md" style={{ marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
             They owe
-            <HintIcon className="border-white/40 text-white/80" tooltip="Total of unpaid invoices" />
+            <HintIcon className="text-white/80" style={{ borderColor: 'rgba(255,255,255,0.4)' }} tooltip="Total of unpaid invoices" />
           </span>
-          <span className="font-semibold">3,310.56</span>
+          <span style={{ fontWeight: 600 }}>3,310.56</span>
         </div>
-        <div className="flex items-center justify-between text-body-md">
+        <div className="text-body-md" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span>Available credit balance</span>
-          <span className="font-semibold">0.00</span>
+          <span style={{ fontWeight: 600 }}>0.00</span>
         </div>
       </div>
     </div>
@@ -192,14 +192,14 @@ export const AccountBalanceHints: Story = {
 export const InlineWithRequired: Story = {
   name: "Recipe: Inline With Required Asterisk",
   render: () => (
-    <div className="w-80 space-y-6 rounded-lg border border-border bg-white p-6">
+    <div style={{ width: 320, display: 'flex', flexDirection: 'column', gap: 24, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
       <div>
-        <label className="mb-1 block text-label-lg text-text">
+        <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>
           Patient terminology{" "}
           <HintIcon tooltip="Choose how you refer to your patients" />
-          <span className="text-red-500">*</span>
+          <span style={{ color: '#ef4444' }}>*</span>
         </label>
-        <select className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text">
+        <select className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
           <option>Client</option>
           <option>Patient</option>
           <option>Participant</option>
@@ -207,26 +207,26 @@ export const InlineWithRequired: Story = {
       </div>
 
       <div>
-        <label className="mb-1 block text-label-lg text-text">
+        <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>
           Business email{" "}
           <HintIcon tooltip="Primary contact email for your business" />
-          <span className="text-red-500">*</span>
+          <span style={{ color: '#ef4444' }}>*</span>
         </label>
         <input
           type="email"
           defaultValue="hello@example.com"
-          className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary"
+          className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
         />
       </div>
 
       <div>
-        <label className="mb-1 block text-label-lg text-text">
+        <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>
           Website <HintIcon tooltip="Your public-facing website URL" />
         </label>
         <input
           type="text"
           defaultValue="hands-together-therapy.com"
-          className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary"
+          className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
         />
       </div>
     </div>

@@ -82,7 +82,7 @@ export const DotOnly: Story = {
 
 export const AllColors: Story = {
   render: () => (
-    <div className="flex flex-col gap-2">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
       <Status color="green" label="Active" />
       <Status color="red" label="Cancelled" />
       <Status color="yellow" label="Pending" />
@@ -109,15 +109,15 @@ export const AllColors: Story = {
 export const AppointmentStatusColumn: Story = {
   name: "Recipe: Appointment Status Column",
   render: () => (
-    <div className="w-[700px]">
-      <table className="w-full">
+    <div style={{ width: 700 }}>
+      <table style={{ width: '100%' }}>
         <thead>
-          <tr className="border-b border-border bg-table-header">
-            <th className="px-4 py-3 text-left text-label-lg text-text">When</th>
-            <th className="px-4 py-3 text-left text-label-lg text-text">Where</th>
-            <th className="px-4 py-3 text-left text-label-lg text-text">Type</th>
-            <th className="px-4 py-3 text-left text-label-lg text-text">Practitioner</th>
-            <th className="px-4 py-3 text-left text-label-lg text-text">Invoice status</th>
+          <tr className="border-border bg-table-header" style={{ borderBottom: '1px solid var(--color-border)' }}>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>When</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Where</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Type</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Practitioner</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Invoice status</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-border">
@@ -127,17 +127,17 @@ export const AppointmentStatusColumn: Story = {
             { date: "Thu 5 Feb 2026, 2:00 pm", where: "West Clinics", type: "Follow Up", prac: "Lisa Adams", status: "Cancelled", color: "red" as const },
             { date: "Wed 4 Feb 2026, 9:00 am", where: "East Clinics", type: "Standard", prac: "Emma Thompson", status: "Do not invoice", color: "gray" as const },
           ].map((a) => (
-            <tr key={a.date} className="hover:bg-gray-50">
-              <td className="px-4 py-3 text-body-md text-text">
-                <div className="flex items-center gap-2">
+            <tr key={a.date} >
+              <td className="text-body-md text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <Status color={a.color} />
                   {a.date}
                 </div>
               </td>
-              <td className="px-4 py-3 text-body-md text-text">{a.where}</td>
-              <td className="px-4 py-3 text-body-md text-text">{a.type}</td>
-              <td className="px-4 py-3 text-body-md text-text">{a.prac}</td>
-              <td className="px-4 py-3">
+              <td className="text-body-md text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{a.where}</td>
+              <td className="text-body-md text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{a.type}</td>
+              <td className="text-body-md text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{a.prac}</td>
+              <td style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
                 <Badge variant={statusVariant(a.status)}>{a.status}</Badge>
               </td>
             </tr>
@@ -158,9 +158,9 @@ export const AppointmentStatusColumn: Story = {
 export const ProgressNotesPractitioner: Story = {
   name: "Recipe: Progress Notes Practitioner",
   render: () => (
-    <div className="w-80 space-y-3 rounded-lg border border-border bg-white p-4">
+    <div style={{ width: 320, display: 'flex', flexDirection: 'column', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
       <p className="text-label-lg text-text">Practitioners</p>
-      <div className="space-y-2">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         <Status color="green" label="AAA TEST" />
         <Status color="purple" label="Bill Gates Demo" />
         <Status color="green" label="Ruvi R." />

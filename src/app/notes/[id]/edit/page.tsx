@@ -387,7 +387,7 @@ export default function EditProgressNotePage() {
                 size="sm"
                 onClick={() => setAiChatOpen(!aiChatOpen)}
                 title="Splose AI Chat"
-                className={aiChatOpen ? "bg-primary text-white" : ""}
+                style={aiChatOpen ? { backgroundColor: 'var(--color-primary)', color: '#fff' } : undefined}
               >
                 <MessageOutlined style={{ fontSize: 16 }} />
               </Button>
@@ -436,7 +436,7 @@ export default function EditProgressNotePage() {
 
                 {/* AI Block — hidden once accepted */}
                 {!accepted[section.id] && (
-                  <div style={{ borderRadius: 8, border: '1px solid rgba(var(--color-primary-rgb, 124, 58, 237), 0.2)', backgroundColor: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.05)' }} className="border-primary/20 bg-primary/5 rounded-lg">
+                  <div style={{ borderRadius: 8, border: '1px solid rgba(var(--color-primary-rgb, 124, 58, 237), 0.2)', backgroundColor: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.05)' }}>
                     {/* AI block header */}
                     <Flex
                       align="center"
@@ -456,7 +456,6 @@ export default function EditProgressNotePage() {
                             e.stopPropagation();
                             dismissSection(section.id);
                           }}
-                          className="hover:bg-purple-100"
                           title="Dismiss"
                         >
                           <span className="text-label-lg">&times;</span>
@@ -476,7 +475,7 @@ export default function EditProgressNotePage() {
                           <Flex align="center" gap={8} style={{ padding: '16px 0' }}>
                             <Spinner size="sm" />
                             <span style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>
-                              Thinking<span className="animate-pulse">...</span>
+                              Thinking<span>...</span>
                             </span>
                           </Flex>
                         ) : section.generated ? (
@@ -488,7 +487,7 @@ export default function EditProgressNotePage() {
                             <Flex align="center" justify="space-between" style={{ marginTop: 12 }}>
                               <Dropdown
                                 trigger={
-                                  <Button variant="ghost" size="sm" className="hover:bg-purple-100">
+                                  <Button variant="ghost" size="sm">
                                     Actions
                                     <DownOutlined style={{ fontSize: 12 }} />
                                   </Button>
@@ -509,10 +508,10 @@ export default function EditProgressNotePage() {
                                   variant="icon"
                                   size="sm"
                                   onClick={() => setFeedback(section.id, "up")}
-                                  className={
+                                  style={
                                     section.feedback === "up"
-                                      ? "bg-green-100 text-green-600"
-                                      : ""
+                                      ? { backgroundColor: '#dcfce7', color: '#16a34a' }
+                                      : undefined
                                   }
                                   title="Good response"
                                 >
@@ -522,10 +521,10 @@ export default function EditProgressNotePage() {
                                   variant="icon"
                                   size="sm"
                                   onClick={() => setFeedback(section.id, "down")}
-                                  className={
+                                  style={
                                     section.feedback === "down"
-                                      ? "bg-red-100 text-red-600"
-                                      : ""
+                                      ? { backgroundColor: '#fee2e2', color: '#dc2626' }
+                                      : undefined
                                   }
                                   title="Poor response"
                                 >
@@ -550,7 +549,7 @@ export default function EditProgressNotePage() {
                             <Flex align="center" justify="space-between" style={{ marginTop: 12 }}>
                               <Dropdown
                                 trigger={
-                                  <Button variant="ghost" size="sm" className="hover:bg-purple-100">
+                                  <Button variant="ghost" size="sm">
                                     Actions
                                     <DownOutlined style={{ fontSize: 12 }} />
                                   </Button>

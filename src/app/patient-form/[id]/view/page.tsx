@@ -33,15 +33,15 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
   const form = mockFormData;
 
   return (
-    <div className="min-h-[calc(100vh-3rem)]">
+    <div style={{ minHeight: 'calc(100vh - 3rem)' }}>
       {/* Header bar */}
-      <div className="flex items-center justify-between border-b border-border bg-white px-6 py-4">
-        <div className="flex items-center gap-3">
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 24, paddingRight: 24, paddingTop: 16, paddingBottom: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <h1 className="text-display-lg">{form.title}</h1>
           <Badge variant={statusVariant(form.status)}>{form.status}</Badge>
-          <span className="cursor-pointer text-sm text-primary hover:underline">{form.clientName}</span>
+          <span style={{ cursor: 'pointer', fontSize: 12, color: 'var(--color-primary)' }}>{form.clientName}</span>
         </div>
-        <div className="flex items-center gap-2">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <Button variant="secondary">
             <MailOutlined style={{ fontSize: 16 }} />
             Email form
@@ -54,34 +54,34 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
       </div>
 
       {/* Form content */}
-      <div className="mx-auto max-w-3xl p-8">
-        <Card padding="none" className="p-10 shadow-sm">
+      <div style={{ maxWidth: 768, marginLeft: 'auto', marginRight: 'auto', padding: 32 }}>
+        <Card padding="none" style={{ padding: 40, boxShadow: '0 1px 2px rgba(0,0,0,.05)' }}>
           {/* Client name with logo */}
-          <div className="mb-4 flex items-start justify-between">
+          <div style={{ marginBottom: 16, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
             <h2 className="text-display-md text-text">{form.clientName}</h2>
-            <div className="h-12 w-12 text-3xl">🦆</div>
+            <div style={{ height: 48, width: 48, fontSize: 30 }}>🦆</div>
           </div>
 
-          <p className="mb-6 text-sm text-text-secondary italic">Not completed</p>
+          <p className="text-text-secondary" style={{ marginBottom: 24, fontSize: 12, fontStyle: 'italic' }}>Not completed</p>
 
           {/* Form sections */}
           {form.sections.map((section, si) => (
-            <div key={si} className="mb-6">
-              <h3 className="mb-4 text-heading-lg text-text">{section.title}</h3>
-              <div className="space-y-5">
+            <div key={si} style={{ marginBottom: 24 }}>
+              <h3 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>{section.title}</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
                 {section.fields.map((field, fi) => (
                   <div key={fi}>
                     <p className="text-label-lg text-text">{field.label}</p>
                     {field.value ? (
                       field.type === "file" ? (
-                        <a href="#" className="text-sm text-primary hover:underline">
+                        <a href="#" className="text-primary" style={{ fontSize: 12 }}>
                           {field.value}
                         </a>
                       ) : (
-                        <p className="text-sm text-text">{field.value}</p>
+                        <p className="text-text" style={{ fontSize: 12 }}>{field.value}</p>
                       )
                     ) : (
-                      <p className="text-sm text-text-secondary/60 italic">No response</p>
+                      <p className="text-text-secondary" style={{ fontSize: 12, fontStyle: 'italic', opacity: 0.6 }}>No response</p>
                     )}
                   </div>
                 ))}

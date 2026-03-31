@@ -110,7 +110,7 @@ export const ClickableRows: Story = {
           ].map((r) => (
             <Tr key={r.id} clickable selected={selected === r.id} onClick={() => setSelected(r.id)}>
               <Td>
-                <div className="flex items-center gap-2">
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <Status color={r.color} />
                   {r.appt}
                 </div>
@@ -131,7 +131,7 @@ export const ExpandableRows: Story = {
   render: () => (
     <DataTable>
       <TableHead>
-        <Th className="w-8" />
+        <Th style={{ width: 32 }} />
         <Th>Payment #</Th>
         <Th>From</Th>
         <Th align="right">Amount</Th>
@@ -140,14 +140,14 @@ export const ExpandableRows: Story = {
         <ExpandableRow
           colSpan={4}
           expandContent={
-            <div className="pl-8">
-              <p className="mb-2 text-label-lg text-text">Linked Invoices</p>
-              <table className="w-full text-body-md">
+            <div style={{ paddingLeft: 32 }}>
+              <p className="text-label-lg text-text" style={{ marginBottom: 8 }}>Linked Invoices</p>
+              <table className="text-body-md" style={{ width: '100%' }}>
                 <tbody>
-                  <tr className="border-b border-border">
-                    <td className="py-2">INV-0001</td>
-                    <td className="py-2">$110.00</td>
-                    <td className="py-2">10 Mar 2026</td>
+                  <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+                    <td style={{ paddingTop: 8, paddingBottom: 8 }}>INV-0001</td>
+                    <td style={{ paddingTop: 8, paddingBottom: 8 }}>$110.00</td>
+                    <td style={{ paddingTop: 8, paddingBottom: 8 }}>10 Mar 2026</td>
                   </tr>
                 </tbody>
               </table>
@@ -161,14 +161,14 @@ export const ExpandableRows: Story = {
         <ExpandableRow
           colSpan={4}
           expandContent={
-            <div className="pl-8">
-              <p className="mb-2 text-label-lg text-text">Linked Invoices</p>
-              <table className="w-full text-body-md">
+            <div style={{ paddingLeft: 32 }}>
+              <p className="text-label-lg text-text" style={{ marginBottom: 8 }}>Linked Invoices</p>
+              <table className="text-body-md" style={{ width: '100%' }}>
                 <tbody>
-                  <tr className="border-b border-border">
-                    <td className="py-2">INV-0015</td>
-                    <td className="py-2">$2,000.00</td>
-                    <td className="py-2">5 Mar 2026</td>
+                  <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+                    <td style={{ paddingTop: 8, paddingBottom: 8 }}>INV-0015</td>
+                    <td style={{ paddingTop: 8, paddingBottom: 8 }}>$2,000.00</td>
+                    <td style={{ paddingTop: 8, paddingBottom: 8 }}>5 Mar 2026</td>
                   </tr>
                 </tbody>
               </table>
@@ -252,7 +252,7 @@ export const WithPagination: Story = {
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     return (
-      <div className="rounded-lg border border-border bg-white">
+      <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff' }}>
         <DataTable>
           <TableHead>
             <Th sortable>Name</Th>
@@ -285,7 +285,7 @@ export const RecipeClientsList: Story = {
   render: function ClientsListRecipe() {
     const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
     return (
-      <div className="rounded-lg border border-border bg-white">
+      <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff' }}>
         <DataTable>
           <TableHead>
             <Th sortable sortDirection={sortDir} onSort={() => setSortDir(d => d === "asc" ? "desc" : "asc")} filterable>Name</Th>
@@ -340,7 +340,7 @@ export const RecipeAppointments: Story = {
             { id: "3", when: "Thu 5 Feb 2026, 2:00 pm", where: "West Clinics", type: "Follow Up", prac: "Lisa A.", status: "Do not invoice", color: "gray" as const },
           ].map((a) => (
             <Tr key={a.id} clickable selected={selected === a.id} onClick={() => setSelected(a.id)}>
-              <Td><div className="flex items-center gap-2"><Status color={a.color} />{a.when}</div></Td>
+              <Td><div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Status color={a.color} />{a.when}</div></Td>
               <Td>{a.where}</Td>
               <Td>{a.type}</Td>
               <Td>{a.prac}</Td>

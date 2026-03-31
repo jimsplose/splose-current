@@ -155,7 +155,6 @@ export default function UserGroupsPage() {
                 <label
                   key={user}
                   style={{ display: 'flex', cursor: 'pointer', alignItems: 'center', gap: 12, borderRadius: 8, padding: '8px 12px' }}
-                  className="hover:bg-surface-secondary"
                 >
                   <span
                     style={{
@@ -168,7 +167,7 @@ export default function UserGroupsPage() {
                   </span>
                   <input
                     type="checkbox"
-                    className="sr-only"
+                    style={{ position: 'absolute', width: 1, height: 1, padding: 0, margin: -1, overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap', borderWidth: 0 }}
                     checked={isSelected}
                     onChange={() => toggleUser(user)}
                   />

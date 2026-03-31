@@ -51,7 +51,7 @@ export const Playground: Story = {
     error: "",
     disabled: false,
   },
-  decorators: [(Story) => <div className="w-96">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 384 }}>{Story()}</div>],
 };
 
 /* ================================================================== */
@@ -60,12 +60,12 @@ export const Playground: Story = {
 
 export const Default: Story = {
   args: { placeholder: "Type here..." },
-  decorators: [(Story) => <div className="w-96">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 384 }}>{Story()}</div>],
 };
 
 export const WithLabel: Story = {
   args: { label: "Description", placeholder: "Enter a description..." },
-  decorators: [(Story) => <div className="w-96">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 384 }}>{Story()}</div>],
 };
 
 export const WithError: Story = {
@@ -74,7 +74,7 @@ export const WithError: Story = {
     placeholder: "Enter notes...",
     error: "This field is required",
   },
-  decorators: [(Story) => <div className="w-96">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 384 }}>{Story()}</div>],
 };
 
 export const Resizable: Story = {
@@ -83,7 +83,7 @@ export const Resizable: Story = {
     rows: 4,
     placeholder: "Drag the bottom-right corner to resize...",
   },
-  decorators: [(Story) => <div className="w-96">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 384 }}>{Story()}</div>],
 };
 
 export const Disabled: Story = {
@@ -93,7 +93,7 @@ export const Disabled: Story = {
     defaultValue: "This content cannot be edited.",
     rows: 3,
   },
-  decorators: [(Story) => <div className="w-96">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 384 }}>{Story()}</div>],
 };
 
 /* ------------------------------------------------------------------ */
@@ -102,7 +102,7 @@ export const Disabled: Story = {
 
 export const AllStates: Story = {
   render: () => (
-    <div className="flex max-w-md flex-col gap-4">
+    <div style={{ display: 'flex', maxWidth: 448, flexDirection: 'column', gap: 16 }}>
       <FormTextarea label="Normal" placeholder="Type here..." />
       <FormTextarea label="With value" defaultValue="This is a sample description that spans multiple lines." rows={4} />
       <FormTextarea label="With error" error="This field is required" />
@@ -124,7 +124,7 @@ export const AllStates: Story = {
 
 export const NoteContent: Story = {
   render: () => (
-    <div className="max-w-2xl">
+    <div style={{ maxWidth: 672 }}>
       <FormTextarea
         label="Note content"
         rows={18}
@@ -144,11 +144,11 @@ export const NoteContent: Story = {
 
 export const AppointmentNotes: Story = {
   render: () => (
-    <div className="w-80">
+    <div style={{ width: 320 }}>
       <FormTextarea
         label="Notes"
         rows={3}
-        className="resize-none"
+        style={{ resize: 'none' }}
         placeholder="Add a note..."
       />
     </div>
@@ -164,7 +164,7 @@ export const AppointmentNotes: Story = {
 
 export const AIPromptEditor: Story = {
   render: () => (
-    <div className="max-w-lg">
+    <div style={{ maxWidth: 512 }}>
       <FormTextarea
         label="Prompt"
         rows={6}
@@ -183,12 +183,12 @@ export const AIPromptEditor: Story = {
 
 export const PaymentNotes: Story = {
   render: () => (
-    <div className="w-64">
+    <div style={{ width: 256 }}>
       <FormTextarea
         label="Notes"
         rows={3}
         placeholder="Optional"
-        className="resize-none text-sm"
+        style={{ resize: 'none', fontSize: 12 }}
       />
     </div>
   ),

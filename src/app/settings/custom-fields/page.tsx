@@ -142,10 +142,10 @@ export default function CustomFieldsPage() {
               <Td className="text-text">{field.name}</Td>
               <Td>{field.type}</Td>
               <Td>
-                <span className="text-green-600">{field.visible ? "Yes" : "No"}</span>
+                <span style={{ color: '#16a34a' }}>{field.visible ? "Yes" : "No"}</span>
               </Td>
               <Td>
-                <span className="text-red-500" style={{ fontWeight: 500 }}>{field.required ? "Yes" : "No"}</span>
+                <span style={{ fontWeight: 500, color: '#ef4444' }}>{field.required ? "Yes" : "No"}</span>
               </Td>
               <Td align="right">
                 <Dropdown
@@ -223,7 +223,7 @@ export default function CustomFieldsPage() {
               type="checkbox"
               checked={newField.required}
               onChange={(e) => setNewField((p) => ({ ...p, required: e.target.checked }))}
-              className="h-4 w-4 rounded border-border text-primary"
+              style={{ height: 16, width: 16, borderRadius: 4 }}
             />
             <span className="text-body-md text-text">Required field</span>
           </Flex>
@@ -329,13 +329,13 @@ function EditFieldModal({
                       type="text"
                       value={opt}
                       onChange={(e) => handleOptionChange(index, e.target.value)}
-                      className="h-10"
+                      style={{ height: 40 }}
                     />
                   </div>
                   <Button
                     variant="icon"
                     size="sm"
-                    className="text-red-400 hover:text-red-600"
+                    style={{ color: '#f87171' }}
                     onClick={() => handleRemoveOption(index)}
                   >
                     <DeleteOutlined style={{ fontSize: 16 }} />
@@ -345,7 +345,7 @@ function EditFieldModal({
             </Flex>
             <Button
               variant="secondary"
-              className="mt-2 w-full border-dashed hover:border-primary hover:text-primary"
+              style={{ marginTop: 8, width: '100%', borderStyle: 'dashed' }}
               onClick={handleAddOption}
             >
               <PlusOutlined style={{ fontSize: 16 }} />
@@ -457,7 +457,7 @@ function FieldTypePreview({
                 type="checkbox"
                 disabled
                 checked={i === 0}
-                className="h-4 w-4 rounded border-border text-primary"
+                style={{ height: 16, width: 16, borderRadius: 4 }}
               />
               {opt || `Option ${i + 1}`}
             </label>

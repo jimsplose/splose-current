@@ -54,8 +54,8 @@ export default function TaxRatesPage() {
   }
 
   return (
-    <div className="p-6">
-      <div className="mb-4 flex items-center justify-between">
+    <div style={{ padding: 24 }}>
+      <div style={{ marginBottom: 16, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <h1 className="text-display-lg">Tax rates</h1>
         <Button variant="secondary" onClick={openCreate}>+ New tax rate</Button>
       </div>
@@ -69,7 +69,7 @@ export default function TaxRatesPage() {
           {pageItems.map((rate, i) => (
             <Tr key={rate.id}>
               <Td>
-                <span className="font-medium text-text">{rate.name}</span>
+                <span className="text-text" style={{ fontWeight: 500 }}>{rate.name}</span>
               </Td>
               <Td>{rate.rate}</Td>
             </Tr>
@@ -90,7 +90,7 @@ export default function TaxRatesPage() {
           </>
         }
       >
-        <div className="space-y-4">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
           <FormInput label="Rate" value={form.rate} onChange={(e) => setField("rate", e.target.value)} placeholder="e.g. 10%" />
           <FormInput label="Description" value={form.description} onChange={(e) => setField("description", e.target.value)} />

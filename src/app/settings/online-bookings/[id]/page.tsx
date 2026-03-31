@@ -133,7 +133,6 @@ export default function EditOnlineBookingPage() {
                       type="button"
                       onClick={() => setButtonColor(color)}
                       style={{ height: 28, width: 28, borderRadius: '50%', border: '2px solid transparent', backgroundColor: color, cursor: 'pointer' }}
-                      className="hover:border-border focus:outline-none focus:ring-2 focus:ring-primary"
                       title={color}
                     />
                   ))}
@@ -202,11 +201,11 @@ export default function EditOnlineBookingPage() {
                   />
                   <Flex vertical gap={8}>
                     <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
-                      <input type="checkbox" className="h-4 w-4 rounded border-border text-primary accent-primary" />
+                      <input type="checkbox" style={{ height: 16, width: 16, borderRadius: 4 }} />
                       <span className="text-body-md text-text">I have read and agree to the terms</span>
                     </label>
                     <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
-                      <input type="checkbox" className="h-4 w-4 rounded border-border text-primary accent-primary" />
+                      <input type="checkbox" style={{ height: 16, width: 16, borderRadius: 4 }} />
                       <span className="text-body-md text-text">I accept the privacy policy</span>
                     </label>
                   </Flex>
@@ -403,8 +402,8 @@ export default function EditOnlineBookingPage() {
       <Modal open={showLocationModal} onClose={() => setShowLocationModal(false)} title="Manage locations displayed">
         <Flex vertical gap={8}>
           {["East Clinics", "West Clinics", "North Clinics", "Telehealth"].map((loc) => (
-            <label key={loc} style={{ display: 'flex', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', padding: '12px 16px', cursor: 'pointer' }} className="hover:bg-gray-50">
-              <input type="checkbox" defaultChecked={loc !== "Telehealth"} className="h-4 w-4 rounded border-border text-primary" />
+            <label key={loc} style={{ display: 'flex', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', padding: '12px 16px', cursor: 'pointer' }}>
+              <input type="checkbox" defaultChecked={loc !== "Telehealth"} style={{ height: 16, width: 16, borderRadius: 4 }} />
               <span className="text-body-md text-text">{loc}</span>
             </label>
           ))}

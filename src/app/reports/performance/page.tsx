@@ -62,7 +62,7 @@ export default function ReportsPerformancePage() {
     <>
       {/* Toast notification */}
       {toastMessage && (
-        <div style={{ position: 'fixed', right: 16, top: 16, zIndex: 50 }} className="animate-in fade-in slide-in-from-top-2">
+        <div style={{ position: 'fixed', right: 16, top: 16, zIndex: 50 }}>
           <Alert variant="success">{toastMessage}</Alert>
         </div>
       )}
@@ -133,7 +133,7 @@ export default function ReportsPerformancePage() {
               { value: "12months", label: "Last 12 months" },
               { value: "6months", label: "Last 6 months" },
             ]}
-            className="!w-auto"
+            style={{ width: 'auto' }}
           />
         </Flex>
         <Flex align="center" gap={16}>
@@ -143,7 +143,7 @@ export default function ReportsPerformancePage() {
               { value: "no", label: "No" },
               { value: "yes", label: "Yes" },
             ]}
-            className="!w-auto"
+            style={{ width: 'auto' }}
           />
         </Flex>
         <Flex align="center" gap={16}>
@@ -155,7 +155,7 @@ export default function ReportsPerformancePage() {
               { value: "no", label: "No" },
               { value: "yes", label: "Yes" },
             ]}
-            className="!w-auto"
+            style={{ width: 'auto' }}
           />
         </Flex>
         <Flex align="center" gap={16}>
@@ -167,7 +167,7 @@ export default function ReportsPerformancePage() {
               { value: "no", label: "No" },
               { value: "yes", label: "Yes" },
             ]}
-            className="!w-auto"
+            style={{ width: 'auto' }}
           />
         </Flex>
       </Flex>

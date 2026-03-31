@@ -413,7 +413,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
 
       {/* Toast notification */}
       {showToast && (
-        <div className="animate-in fade-in slide-in-from-bottom-2" style={{ position: 'fixed', right: 24, bottom: 24, zIndex: 50, borderRadius: 8, background: '#111827', padding: '12px 16px', fontSize: 12, color: 'white', boxShadow: '0 10px 15px rgba(0,0,0,0.1)' }}>
+        <div style={{ position: 'fixed', right: 24, bottom: 24, zIndex: 50, borderRadius: 8, background: '#111827', padding: '12px 16px', fontSize: 12, color: 'white', boxShadow: '0 10px 15px rgba(0,0,0,0.1)' }}>
           Invoice email sent
         </div>
       )}

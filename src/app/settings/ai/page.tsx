@@ -71,7 +71,7 @@ function SettingsAIPageInner() {
           ]}
           value={activeTab}
           onChange={(v) => setActiveTab(v as TabValue)}
-          className="mb-6"
+          style={{ marginBottom: 24 }}
         />
 
         {/* Tab content */}
@@ -246,7 +246,7 @@ function AIBlockLibraryTab() {
   return (
     <div>
       {/* Beta banner */}
-      <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16 }} />} className="mb-4">
+      <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16 }} />} style={{ marginBottom: 16 }}>
         <Flex justify="space-between" align="center">
           <Flex align="center" gap={8}>
             <Badge variant="yellow">BETA</Badge>
@@ -254,28 +254,28 @@ function AIBlockLibraryTab() {
           </Flex>
           <Flex align="center" gap={8} className="text-body-md">
             <span className="text-text-secondary">Fill a</span>
-            <span style={{ cursor: 'pointer' }} className="text-primary underline">short survey</span>
+            <span style={{ cursor: 'pointer', textDecoration: 'underline' }} className="text-primary">short survey</span>
             <span className="text-text-secondary">or</span>
-            <span style={{ cursor: 'pointer' }} className="text-primary underline">book a time</span>
+            <span style={{ cursor: 'pointer', textDecoration: 'underline' }} className="text-primary">book a time</span>
             <span className="text-text-secondary">to chat</span>
-            <Button variant="ghost" size="sm" className="ml-2 text-text-secondary">&times;</Button>
+            <Button variant="ghost" size="sm" className="text-text-secondary" style={{ marginLeft: 8 }}>&times;</Button>
           </Flex>
         </Flex>
       </Alert>
 
       <p className="text-body-md text-text-secondary" style={{ marginBottom: 16 }}>
         Spend less time writing prompts with your saved library of AI blocks, organised by{" "}
-        <span style={{ cursor: 'pointer' }} className="text-primary underline">tags</span>. AI blocks are reusable, customisable and
+        <span style={{ cursor: 'pointer', textDecoration: 'underline' }} className="text-primary">tags</span>. AI blocks are reusable, customisable and
         adjust to your client&apos;s context. Insert them into a template or progress note.{" "}
-        <span style={{ cursor: 'pointer' }} className="text-primary underline">Learn more</span>.
+        <span style={{ cursor: 'pointer', textDecoration: 'underline' }} className="text-primary">Learn more</span>.
       </p>
 
       {/* Search and new button */}
       <Flex align="center" gap={8} style={{ marginBottom: 16 }}>
         <div style={{ flex: 1, position: 'relative' }}>
-          <FormInput placeholder="Search" className="h-10 px-4" />
+          <FormInput placeholder="Search" style={{ height: 40, paddingLeft: 16, paddingRight: 16 }} />
         </div>
-        <Button variant="primary" size="sm" className="px-2 py-2">
+        <Button variant="primary" size="sm" style={{ paddingLeft: 8, paddingRight: 8, paddingTop: 8, paddingBottom: 8 }}>
           <svg style={{ height: 20, width: 20 }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"

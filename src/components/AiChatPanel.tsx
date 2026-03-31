@@ -147,7 +147,7 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
         {!hasMessages ? (
           <div style={{ display: "flex", flex: 1, flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
             {/* Greeting card */}
-            <Card padding="md" className="mb-6 w-full text-center">
+            <Card padding="md" style={{ marginBottom: 24, width: '100%', textAlign: 'center' }}>
               <div style={{ marginBottom: 8, fontSize: 30 }}>{variant === "calendar" ? "👋" : "🌸"}</div>
               <h2 className="text-heading-lg text-text">Hello, I&apos;m splose AI</h2>
             </Card>
@@ -193,9 +193,9 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
             {isTyping && (
               <div style={{ display: "flex", justifyContent: "flex-start" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 6, borderRadius: 16, background: "var(--color-gray-100, #f3f4f6)", padding: "12px 16px" }}>
-                  <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400" style={{ animationDelay: "0ms" }} />
-                  <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400" style={{ animationDelay: "150ms" }} />
-                  <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400" style={{ animationDelay: "300ms" }} />
+                  <div style={{ height: 8, width: 8, borderRadius: '50%', backgroundColor: '#9ca3af' }} />
+                  <div style={{ height: 8, width: 8, borderRadius: '50%', backgroundColor: '#9ca3af' }} />
+                  <div style={{ height: 8, width: 8, borderRadius: '50%', backgroundColor: '#9ca3af' }} />
                 </div>
               </div>
             )}

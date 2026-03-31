@@ -99,9 +99,9 @@ function ClientSelectRecipe() {
   ].map((c) => ({ label: c, value: c }));
 
   return (
-    <div className="max-w-sm space-y-4">
+    <div style={{ maxWidth: 384, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">payments/new</code> — searchable client
+        From <code style={{ fontSize: 11 }}>payments/new</code> — searchable client
         dropdown with real client names.
       </p>
       <Select
@@ -145,12 +145,12 @@ function PaymentFormRowRecipe() {
   ].map((c) => ({ label: c, value: c }));
 
   return (
-    <div className="max-w-4xl space-y-4">
+    <div style={{ maxWidth: 896, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">payments/new</code> — Select in a
+        From <code style={{ fontSize: 11 }}>payments/new</code> — Select in a
         grid row alongside regular form inputs.
       </p>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(1, 1fr)', gap: 16 }}>
         <Select
           label="Client / From *"
           options={clientOptions}
@@ -160,16 +160,16 @@ function PaymentFormRowRecipe() {
           searchable
         />
         <div>
-          <label className="mb-1 block text-label-lg text-text-secondary">Payment date *</label>
+          <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Payment date *</label>
           <input
             type="text"
             defaultValue="24/03/2026"
-            className="flex h-10 w-full rounded-lg border border-border bg-white px-3 text-body-md text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+            className="border-border text-body-md text-text" style={{ display: 'flex', height: 40, width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, outline: 'none' }}
           />
         </div>
         <div>
-          <label className="mb-1 block text-label-lg text-text-secondary">Payment method *</label>
-          <select className="flex h-10 w-full rounded-lg border border-border bg-white px-3 text-body-md text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20">
+          <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Payment method *</label>
+          <select className="border-border text-body-md text-text" style={{ display: 'flex', height: 40, width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, outline: 'none' }}>
             <option>Select method</option>
             <option>Cash</option>
             <option>Card</option>
@@ -178,13 +178,13 @@ function PaymentFormRowRecipe() {
           </select>
         </div>
         <div>
-          <label className="mb-1 block text-label-lg text-text-secondary">Amount *</label>
-          <div className="relative">
-            <span className="absolute left-3 top-1/2 z-10 -translate-y-1/2 text-sm text-text-secondary">$</span>
+          <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Amount *</label>
+          <div style={{ position: 'relative' }}>
+            <span className="text-text-secondary" style={{top: '50%', position: 'absolute', left: 12, zIndex: 10, transform: 'translateY(-50%)', fontSize: 12 }}>$</span>
             <input
               type="number"
               placeholder="0.00"
-              className="flex h-10 w-full rounded-lg border border-border bg-white pl-7 pr-3 text-body-md text-text outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+              className="border-border text-body-md text-text" style={{ display: 'flex', height: 40, width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 28, paddingRight: 12, outline: 'none' }}
             />
           </div>
         </div>
@@ -215,9 +215,9 @@ function PractitionerSelectRecipe() {
   ];
 
   return (
-    <div className="max-w-xs space-y-4">
+    <div style={{ maxWidth: 320, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">calendar</code> — practitioner
+        From <code style={{ fontSize: 11 }}>calendar</code> — practitioner
         selection with a short list, no search needed.
       </p>
       <Select
@@ -228,8 +228,8 @@ function PractitionerSelectRecipe() {
         placeholder="Choose a practitioner..."
       />
       {practitioner && (
-        <div className="flex items-center gap-2 rounded-lg border border-border p-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/20 text-label-md text-primary">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, borderRadius: 8, border: '1px solid var(--color-border)', padding: 12 }}>
+          <div className="bg-primary/20 text-label-md text-primary" style={{ display: 'flex', height: 32, width: 32, alignItems: 'center', justifyContent: 'center', borderRadius: '50%' }}>
             {practitionerOptions.find((p) => p.value === practitioner)?.label.charAt(0)}
           </div>
           <span className="text-body-md text-text">
@@ -274,7 +274,7 @@ function LongListSearchableRecipe() {
   ].map((s) => ({ label: s, value: s }));
 
   return (
-    <div className="max-w-sm space-y-4">
+    <div style={{ maxWidth: 384, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
         Searchable select for a long list of services — common pattern
         when there are many options to filter through.

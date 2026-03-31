@@ -39,15 +39,15 @@ export default function EditLetterTemplatePage() {
         backHref="/settings/letter-templates"
         title={name || "Edit letter template"}
         children={
-          <div className="flex items-center gap-2">
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <Button variant="secondary" onClick={() => router.push("/settings/letter-templates")}>Cancel</Button>
             <Button variant="primary" onClick={() => router.push("/settings/letter-templates")}>Save</Button>
           </div>
         }
       />
 
-      <div className="mx-auto max-w-3xl space-y-4 p-6">
-        <div className="grid grid-cols-2 gap-4">
+      <div style={{ maxWidth: 768, margin: '0 auto', padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
           <FormInput label="Template name" value={name} onChange={(e) => setName(e.target.value)} />
           <FormSelect label="Default recipient" value={recipient} onChange={setRecipient} options={recipientOptions} />
         </div>
@@ -55,7 +55,7 @@ export default function EditLetterTemplatePage() {
         <FormInput label="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
 
         <div>
-          <label className="mb-1 block text-label-lg text-text-secondary">Letter body</label>
+          <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Letter body</label>
           <RichTextEditor
             value={body}
             onChange={setBody}

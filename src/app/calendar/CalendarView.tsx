@@ -880,14 +880,14 @@ export default function CalendarView({
           className={styles.popover}
           style={{ left: popover.x - 104, top: popover.y - 180 }}
         >
-          <Card padding="none" className="shadow-lg">
+          <Card padding="none" style={{ boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)' }}>
             <div style={{ padding: "12px 12px 4px" }}>
               <p className="text-heading-sm text-text">{popover.time}</p>
             </div>
             <div style={{ padding: "4px 0" }}>
               <Button
                 variant="ghost"
-                className="w-full justify-start gap-2.5 px-3 py-2"
+                style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
                 onClick={() => setPopover((prev) => ({ ...prev, visible: false }))}
               >
                 <ClockCircleOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
@@ -895,7 +895,7 @@ export default function CalendarView({
               </Button>
               <Button
                 variant="ghost"
-                className="w-full justify-start gap-2.5 px-3 py-2"
+                style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
                 onClick={() => setPopover((prev) => ({ ...prev, visible: false }))}
               >
                 <StopOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
@@ -903,7 +903,7 @@ export default function CalendarView({
               </Button>
               <Button
                 variant="ghost"
-                className="w-full justify-start gap-2.5 px-3 py-2"
+                style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
                 onClick={() => openCreateModal(popover.dateStr, popover.hour, popover.minute, popover.practitionerId)}
               >
                 <CalendarOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />

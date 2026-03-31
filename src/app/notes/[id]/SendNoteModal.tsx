@@ -139,14 +139,15 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
               { value: "default", label: "Default template" },
             ]}
             defaultValue="progress-note"
-            className="flex-1"
+            style={{ flex: 1 }}
           />
           <div style={{ display: 'flex', borderRadius: 8, border: '1px solid var(--color-border)' }}>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setViewMode("edit")}
-              className={`rounded-none rounded-l-lg border-0 text-label-md ${viewMode === "edit" ? "bg-primary/10 text-primary hover:bg-primary/10" : ""}`}
+              className="text-label-md"
+              style={{ borderRadius: '8px 0 0 8px', border: 'none', ...(viewMode === "edit" ? { backgroundColor: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.1)', color: 'var(--color-primary)' } : {}) }}
             >
               <EditOutlined style={{ fontSize: 14 }} /> Edit
             </Button>
@@ -154,7 +155,8 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
               variant="ghost"
               size="sm"
               onClick={() => setViewMode("preview")}
-              className={`rounded-none rounded-r-lg border-l border-border text-label-md ${viewMode === "preview" ? "bg-primary/10 text-primary hover:bg-primary/10" : ""}`}
+              className="text-label-md"
+              style={{ borderRadius: '0 8px 8px 0', borderLeft: '1px solid var(--color-border)', ...(viewMode === "preview" ? { backgroundColor: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.1)', color: 'var(--color-primary)' } : {}) }}
             >
               <EyeOutlined style={{ fontSize: 14 }} /> Preview
             </Button>
@@ -170,7 +172,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
                   key={email}
                   variant="gray"
                   onRemove={() => handleRemoveEmail(email)}
-                  className="py-0.5 text-sm"
+                  style={{ paddingTop: 2, paddingBottom: 2, fontSize: 12 }}
                 >
                   {email}
                 </Chip>
@@ -181,13 +183,13 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
                 onChange={(e) => setToInput(e.target.value)}
                 onKeyDown={handleAddEmail}
                 placeholder={toEmails.length === 0 ? "Add recipient email..." : ""}
-                className="min-w-[120px] flex-1 !border-none !rounded-none !p-0 !ring-0 text-sm !shadow-none"
+                style={{ minWidth: 120, flex: 1, border: 'none', borderRadius: 0, padding: 0, fontSize: 12, boxShadow: 'none' }}
               />
             </Flex>
 
             {/* Reply to */}
             <div>
-              <label className="mb-1 block text-label-lg" style={{ color: 'var(--color-text-secondary)' }}>
+              <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--color-text-secondary)' }}>
                 Reply to <span style={{ color: 'var(--color-error)' }}>*</span>
               </label>
               <FormSelect

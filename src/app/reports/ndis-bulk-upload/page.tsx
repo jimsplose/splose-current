@@ -28,9 +28,9 @@ export default function NdisBulkUploadPage() {
         </TableHead>
         <TableBody>
           {uploads.map((u) => (
-            <tr key={u.id} style={{ borderBottom: '1px solid var(--color-border)' }} className="hover:bg-gray-50">
+            <tr key={u.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
               <Td>
-                <Link href={`/reports/ndis-bulk-upload/${u.id}`} style={{ color: 'var(--color-primary)' }} className="hover:underline">
+                <Link href={`/reports/ndis-bulk-upload/${u.id}`} style={{ color: 'var(--color-primary)' }}>
                   {u.date}
                 </Link>
               </Td>

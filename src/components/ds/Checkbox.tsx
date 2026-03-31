@@ -11,6 +11,7 @@ interface CheckboxProps {
   disabled?: boolean;
   onChange?: (e: CheckboxChangeEvent) => void;
   className?: string;
+  style?: React.CSSProperties;
   id?: string;
   name?: string;
   value?: string;
@@ -19,10 +20,10 @@ interface CheckboxProps {
 }
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
-  ({ label, className, readOnly, onClick, ...props }, ref) => {
+  ({ label, className, style, readOnly, onClick, ...props }, ref) => {
     return (
       <span onClick={onClick}>
-        <AntCheckbox ref={ref as never} className={className} disabled={readOnly || props.disabled} {...props}>
+        <AntCheckbox ref={ref as never} className={className} style={style} disabled={readOnly || props.disabled} {...props}>
           {label}
         </AntCheckbox>
       </span>

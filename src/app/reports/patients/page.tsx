@@ -62,7 +62,7 @@ export default function ReportsPatientsPage() {
             { value: "archived", label: "Archived" },
             { value: "all", label: "All" },
           ]}
-          className="!w-48"
+          style={{ width: 192 }}
         />
       </div>
 

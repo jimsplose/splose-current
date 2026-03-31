@@ -62,22 +62,22 @@ export const DefaultColor: Story = {
 
 export const AllSizes: Story = {
   render: () => (
-    <div className="flex items-end gap-4">
-      <div className="flex flex-col items-center gap-1">
+    <div style={{ display: 'flex', alignItems: 'flex-end', gap: 16 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
         <Avatar name="Sarah Johnson" size="sm" color="#7c3aed" />
-        <span className="text-xs text-text-secondary">sm</span>
+        <span className="text-text-secondary" style={{ fontSize: 11 }}>sm</span>
       </div>
-      <div className="flex flex-col items-center gap-1">
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
         <Avatar name="Sarah Johnson" size="md" color="#7c3aed" />
-        <span className="text-xs text-text-secondary">md</span>
+        <span className="text-text-secondary" style={{ fontSize: 11 }}>md</span>
       </div>
-      <div className="flex flex-col items-center gap-1">
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
         <Avatar name="Sarah Johnson" size="lg" color="#7c3aed" />
-        <span className="text-xs text-text-secondary">lg</span>
+        <span className="text-text-secondary" style={{ fontSize: 11 }}>lg</span>
       </div>
-      <div className="flex flex-col items-center gap-1">
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
         <Avatar name="Sarah Johnson" size="xl" color="#7c3aed" />
-        <span className="text-xs text-text-secondary">xl</span>
+        <span className="text-text-secondary" style={{ fontSize: 11 }}>xl</span>
       </div>
     </div>
   ),
@@ -94,7 +94,7 @@ export const AllSizes: Story = {
 export const PractitionerGrid: Story = {
   name: "Recipe: Practitioner Grid",
   render: () => (
-    <div className="grid grid-cols-3 gap-4">
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
       {[
         { name: "Joseph Go", color: "#f59e0b", role: "Occupational Therapist", specialty: "Paediatrics" },
         { name: "Hao Wang", color: "#16a34a", role: "Speech Pathologist", specialty: "" },
@@ -102,14 +102,14 @@ export const PractitionerGrid: Story = {
       ].map((p) => (
         <div
           key={p.name}
-          className="flex items-center gap-4 rounded-lg border border-border bg-white p-6"
+          style={{ display: 'flex', alignItems: 'center', gap: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}
         >
           <Avatar name={p.name} color={p.color} size="xl" />
-          <div className="min-w-0">
-            <h3 className="truncate font-semibold text-text">{p.name}</h3>
-            <p className="truncate text-sm text-text-secondary">{p.role}</p>
+          <div style={{ minWidth: 0 }}>
+            <h3 className="text-text" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontWeight: 600 }}>{p.name}</h3>
+            <p className="text-text-secondary" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: 12 }}>{p.role}</p>
             {p.specialty && (
-              <span className="mt-1 inline-block rounded-full bg-purple-100 px-2 py-0.5 text-xs font-medium text-purple-700">
+              <span style={{ marginTop: 4, display: 'inline-block', borderRadius: '50%', backgroundColor: '#f3e8ff', paddingLeft: 8, paddingRight: 8, paddingTop: 2, paddingBottom: 2, fontSize: 11, fontWeight: 500, color: '#7e22ce' }}>
                 {p.specialty}
               </span>
             )}
@@ -127,9 +127,9 @@ export const PractitionerGrid: Story = {
 export const TopNavUser: Story = {
   name: "Recipe: Top Nav User",
   render: () => (
-    <div className="flex items-center gap-2 rounded-md bg-white px-3 py-2">
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8, borderRadius: 6, backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
       <Avatar name="Nicholas Smithson" color="#7c3aed" size="sm" />
-      <span className="text-sm font-medium text-text">Nicholas Smithson</span>
+      <span className="text-text" style={{ fontSize: 12, fontWeight: 500 }}>Nicholas Smithson</span>
     </div>
   ),
 };
@@ -141,16 +141,16 @@ export const TopNavUser: Story = {
 export const CalendarPractitionerHeaders: Story = {
   name: "Recipe: Calendar Practitioner Headers",
   render: () => (
-    <div className="flex gap-6 border-b border-border pb-3">
+    <div style={{ display: 'flex', gap: 24, borderBottom: '1px solid var(--color-border)', paddingBottom: 12 }}>
       {[
         { name: "Joseph Go", color: "#f59e0b" },
         { name: "Hao Wang", color: "#16a34a" },
         { name: "Meghna Damodaran", color: "#ec4899" },
         { name: "Sarah Johnson", color: "#3b82f6" },
       ].map((p) => (
-        <div key={p.name} className="flex items-center gap-2">
+        <div key={p.name} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <Avatar name={p.name} color={p.color} size="sm" />
-          <span className="text-sm text-text">{p.name}</span>
+          <span className="text-text" style={{ fontSize: 12 }}>{p.name}</span>
         </div>
       ))}
     </div>
@@ -164,11 +164,11 @@ export const CalendarPractitionerHeaders: Story = {
 export const OnlineBookingPractitioner: Story = {
   name: "Recipe: Online Booking Practitioner",
   render: () => (
-    <div className="flex items-center gap-3 rounded-lg border border-border bg-white p-4">
+    <div style={{ display: 'flex', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
       <Avatar name="Joseph Go" color="#f59e0b" size="md" />
       <div>
-        <div className="font-medium text-text">Joseph Go</div>
-        <div className="text-sm text-text-secondary">Occupational Therapist</div>
+        <div className="text-text" style={{ fontWeight: 500 }}>Joseph Go</div>
+        <div className="text-text-secondary" style={{ fontSize: 12 }}>Occupational Therapist</div>
       </div>
     </div>
   ),

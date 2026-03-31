@@ -80,24 +80,24 @@ function CalendarApplyChangesRecipe() {
   const [applyTo, setApplyTo] = useState("this");
 
   return (
-    <div className="max-w-md space-y-4">
+    <div style={{ maxWidth: 448, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">calendar</code> edit modal — when
+        From <code style={{ fontSize: 11 }}>calendar</code> edit modal — when
         editing a recurring appointment, choose which occurrences to update.
       </p>
-      <div className="rounded-lg border border-border bg-white p-6 shadow-sm">
-        <h3 className="mb-4 text-heading-md text-text">Edit Appointment</h3>
+      <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24, boxShadow: '0 1px 2px rgba(0,0,0,.05)' }}>
+        <h3 className="text-heading-md text-text" style={{ marginBottom: 16 }}>Edit Appointment</h3>
 
-        <div className="mb-4 space-y-3">
+        <div style={{ marginBottom: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Service</label>
-            <div className="rounded-lg border border-border bg-gray-50 px-3 py-2 text-body-md text-text">
+            <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Service</label>
+            <div className="border-border text-body-md text-text" style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#f9fafb', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
               Initial Consultation — 60 min
             </div>
           </div>
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Date</label>
-            <div className="rounded-lg border border-border bg-gray-50 px-3 py-2 text-body-md text-text">
+            <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Date</label>
+            <div className="border-border text-body-md text-text" style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#f9fafb', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
               Monday, 24 Mar 2026
             </div>
           </div>
@@ -115,11 +115,11 @@ function CalendarApplyChangesRecipe() {
           onChange={setApplyTo}
         />
 
-        <div className="mt-4 flex justify-end gap-2">
-          <button className="rounded border border-border bg-white px-4 py-2 text-body-md text-text hover:bg-gray-50">
+        <div style={{ marginTop: 16, display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
+          <button className="border-border text-body-md text-text" style={{ borderRadius: 4, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>
             Cancel
           </button>
-          <button className="rounded bg-primary px-4 py-2 text-body-md text-white hover:bg-primary/90">
+          <button className="bg-primary text-body-md" style={{ borderRadius: 4, paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, color: '#fff' }}>
             Save
           </button>
         </div>
@@ -144,14 +144,14 @@ function CalendarDeleteRecurringRecipe() {
   const [deleteScope, setDeleteScope] = useState("this");
 
   return (
-    <div className="max-w-md space-y-4">
+    <div style={{ maxWidth: 448, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">calendar</code> — delete confirmation
+        From <code style={{ fontSize: 11 }}>calendar</code> — delete confirmation
         for a recurring appointment, choosing scope of deletion.
       </p>
-      <div className="rounded-lg border border-border bg-white p-6 shadow-sm">
-        <h3 className="mb-2 text-heading-md text-text">Delete Appointment</h3>
-        <p className="mb-4 text-body-md text-text-secondary">
+      <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24, boxShadow: '0 1px 2px rgba(0,0,0,.05)' }}>
+        <h3 className="text-heading-md text-text" style={{ marginBottom: 8 }}>Delete Appointment</h3>
+        <p className="text-body-md text-text-secondary" style={{ marginBottom: 16 }}>
           This is a recurring appointment. Which occurrences would you like to delete?
         </p>
 
@@ -166,11 +166,11 @@ function CalendarDeleteRecurringRecipe() {
           onChange={setDeleteScope}
         />
 
-        <div className="mt-6 flex justify-end gap-2">
-          <button className="rounded border border-border bg-white px-4 py-2 text-body-md text-text hover:bg-gray-50">
+        <div style={{ marginTop: 24, display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
+          <button className="border-border text-body-md text-text" style={{ borderRadius: 4, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>
             Cancel
           </button>
-          <button className="rounded bg-red-600 px-4 py-2 text-body-md text-white hover:bg-red-700">
+          <button className="text-body-md" style={{ borderRadius: 4, backgroundColor: '#dc2626', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, color: '#fff' }}>
             Delete
           </button>
         </div>
@@ -196,12 +196,12 @@ function FormBooleanFieldRecipe() {
   const [medication, setMedication] = useState("");
 
   return (
-    <div className="max-w-lg space-y-4">
+    <div style={{ maxWidth: 512, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">settings/forms/[id]</code> — boolean
+        From <code style={{ fontSize: 11 }}>settings/forms/[id]</code> — boolean
         fields in clinical forms rendered as Yes/No radio groups.
       </p>
-      <div className="rounded-lg border border-border bg-white p-6 space-y-6">
+      <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
         <h3 className="text-heading-md text-text">Client Intake Form</h3>
 
         <RadioGroup
@@ -230,9 +230,9 @@ function FormBooleanFieldRecipe() {
 
         {medication === "yes" && (
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Please list your medications</label>
+            <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Please list your medications</label>
             <textarea
-              className="w-full rounded-lg border border-border px-3 py-2 text-body-md text-text"
+              className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
               rows={3}
               placeholder="Enter medication details..."
             />
@@ -259,12 +259,12 @@ function NotificationPreferenceRecipe() {
   const [preference, setPreference] = useState("sms-email");
 
   return (
-    <div className="max-w-md space-y-4">
+    <div style={{ maxWidth: 448, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">settings</code> — appointment
+        From <code style={{ fontSize: 11 }}>settings</code> — appointment
         communication preference selection.
       </p>
-      <div className="rounded-lg border border-border bg-white p-6">
+      <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
         <RadioGroup
           name="commPref"
           label="Default appointment communication preferences *"
@@ -278,7 +278,7 @@ function NotificationPreferenceRecipe() {
           onChange={setPreference}
         />
 
-        <div className="mt-4 rounded border border-border bg-gray-50 p-3">
+        <div style={{ marginTop: 16, borderRadius: 4, border: '1px solid var(--color-border)', backgroundColor: '#f9fafb', padding: 12 }}>
           <p className="text-body-sm text-text-secondary">
             Selected: <strong className="text-text">{preference === "sms-email" ? "SMS & Email" : preference === "sms" ? "SMS only" : preference === "email" ? "Email only" : "None"}</strong>
           </p>

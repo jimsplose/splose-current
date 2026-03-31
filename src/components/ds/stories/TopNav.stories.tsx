@@ -56,12 +56,12 @@ export const WithChildren: Story = {
   },
   render: (args) => (
     <TopNav {...args}>
-      <button className="rounded-full bg-gray-100 p-2 text-text-secondary hover:bg-gray-200">
-        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <button className="text-text-secondary" style={{ borderRadius: '50%', backgroundColor: '#f3f4f6', padding: 8 }}>
+        <svg style={{ height: 20, width: 20 }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
         </svg>
       </button>
-      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-100 text-xs font-bold text-primary">
+      <div className="text-primary" style={{ display: 'flex', height: 32, width: 32, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', backgroundColor: '#f3e8ff', fontSize: 11, fontWeight: 700 }}>
         SC
       </div>
     </TopNav>
@@ -86,13 +86,13 @@ export const SplosNav: Story = {
         { href: "/products", label: "Products" },
       ]}
     >
-      <Button variant="icon" round className="relative">
+      <Button variant="icon" round style={{ position: 'relative' }}>
         <BellOutlined style={{ fontSize: 20 }} />
-        <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-caption-sm font-bold text-white">3</span>
+        <span className="bg-danger text-caption-sm" style={{ position: 'absolute', right: 6, top: 6, display: 'flex', height: 16, width: 16, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', fontWeight: 700, color: '#fff' }}>3</span>
       </Button>
-      <Button variant="icon" round className="relative">
+      <Button variant="icon" round style={{ position: 'relative' }}>
         <MessageOutlined style={{ fontSize: 20 }} />
-        <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-caption-sm font-bold text-white">8</span>
+        <span className="bg-danger text-caption-sm" style={{ position: 'absolute', right: 6, top: 6, display: 'flex', height: 16, width: 16, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', fontWeight: 700, color: '#fff' }}>8</span>
       </Button>
       <Button variant="icon" round>
         <SettingOutlined style={{ fontSize: 20 }} />
@@ -100,7 +100,7 @@ export const SplosNav: Story = {
       <Button variant="icon" round>
         <QuestionCircleOutlined style={{ fontSize: 20 }} />
       </Button>
-      <Avatar name="Sarah Chen" size="sm" className="ml-1 h-8 w-8" />
+      <Avatar name="Sarah Chen" size="sm" style={{ marginLeft: 4, height: 32, width: 32 }} />
     </TopNav>
   ),
 };
@@ -129,13 +129,13 @@ export const LayoutTopNav: Story = {
         { href: "/products", label: "Products" },
       ]}
     >
-      <Button variant="icon" round className="relative">
+      <Button variant="icon" round style={{ position: 'relative' }}>
         <BellOutlined style={{ fontSize: 20 }} />
-        <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-caption-sm font-bold text-white">3</span>
+        <span className="bg-danger text-caption-sm" style={{ position: 'absolute', top: 6, right: 6, display: 'flex', height: 16, width: 16, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', fontWeight: 700, color: '#fff' }}>3</span>
       </Button>
-      <Button variant="icon" round className="relative">
+      <Button variant="icon" round style={{ position: 'relative' }}>
         <MessageOutlined style={{ fontSize: 20 }} />
-        <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-caption-sm font-bold text-white">8</span>
+        <span className="bg-danger text-caption-sm" style={{ position: 'absolute', top: 6, right: 6, display: 'flex', height: 16, width: 16, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', fontWeight: 700, color: '#fff' }}>8</span>
       </Button>
       <Button variant="icon" round>
         <SettingOutlined style={{ fontSize: 20 }} />
@@ -143,7 +143,7 @@ export const LayoutTopNav: Story = {
       <Button variant="icon" round>
         <QuestionCircleOutlined style={{ fontSize: 20 }} />
       </Button>
-      <Avatar name="Sarah Chen" size="sm" className="ml-1 h-8 w-8" />
+      <Avatar name="Sarah Chen" size="sm" style={{ marginLeft: 4, height: 32, width: 32 }} />
     </TopNav>
   ),
 };
@@ -165,7 +165,7 @@ export const MinimalNav: Story = {
         { href: "/documents", label: "Documents" },
       ]}
     >
-      <Avatar name="Liam Nguyen" size="sm" className="h-8 w-8" />
+      <Avatar name="Liam Nguyen" size="sm" style={{ height: 32, width: 32 }} />
     </TopNav>
   ),
 };
@@ -188,15 +188,15 @@ export const NavWithNotificationBadges: Story = {
         { href: "/clients", label: "Clients" },
       ]}
     >
-      <Button variant="icon" round className="relative">
+      <Button variant="icon" round style={{ position: 'relative' }}>
         <BellOutlined style={{ fontSize: 20 }} />
-        <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-caption-sm font-bold text-white">5</span>
+        <span className="bg-danger text-caption-sm" style={{ position: 'absolute', top: 6, right: 6, display: 'flex', height: 16, width: 16, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', fontWeight: 700, color: '#fff' }}>5</span>
       </Button>
-      <Button variant="icon" round className="relative">
+      <Button variant="icon" round style={{ position: 'relative' }}>
         <MessageOutlined style={{ fontSize: 20 }} />
-        <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-caption-sm font-bold text-white">12</span>
+        <span className="bg-danger text-caption-sm" style={{ position: 'absolute', top: 6, right: 6, display: 'flex', height: 16, width: 16, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', fontWeight: 700, color: '#fff' }}>12</span>
       </Button>
-      <Avatar name="Emma Williams" size="sm" className="ml-1 h-8 w-8" />
+      <Avatar name="Emma Williams" size="sm" style={{ marginLeft: 4, height: 32, width: 32 }} />
     </TopNav>
   ),
 };

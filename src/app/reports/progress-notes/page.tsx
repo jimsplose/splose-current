@@ -95,7 +95,7 @@ export default function ReportsProgressNotesPage() {
             </table>
             <Flex align="center" justify="flex-end" className="text-body-md" style={{ borderTop: '1px solid var(--color-border)', padding: '8px 16px', color: 'var(--color-text-secondary)' }}>
               <span>&lt;</span>
-              <Button variant="ghost" size="sm" className="mx-1 !h-6 !w-6 !rounded !border !border-primary !p-0 !text-xs !font-medium !text-primary">
+              <Button variant="ghost" size="sm" style={{ marginLeft: 4, marginRight: 4, height: 24, width: 24, borderRadius: 4, border: '1px solid var(--color-primary)', padding: 0, fontSize: 11, fontWeight: 500, color: 'var(--color-primary)' }}>
                 1
               </Button>
               <span>&gt;</span>
@@ -137,7 +137,7 @@ export default function ReportsProgressNotesPage() {
             </table>
             <Flex align="center" justify="flex-end" className="text-body-md" style={{ borderTop: '1px solid var(--color-border)', padding: '8px 16px', color: 'var(--color-text-secondary)' }}>
               <span>&lt;</span>
-              <Button variant="ghost" size="sm" className="mx-1 !h-6 !w-6 !rounded !border !border-primary !p-0 !text-xs !font-medium !text-primary">
+              <Button variant="ghost" size="sm" style={{ marginLeft: 4, marginRight: 4, height: 24, width: 24, borderRadius: 4, border: '1px solid var(--color-primary)', padding: 0, fontSize: 11, fontWeight: 500, color: 'var(--color-primary)' }}>
                 1
               </Button>
               <span>&gt;</span>
@@ -167,7 +167,7 @@ export default function ReportsProgressNotesPage() {
           <Tr>
             <Td>
               <span style={{ color: 'var(--color-primary)' }}>Bill Gates Demo</span>
-              <Badge variant="gray" className="ml-2">Draft</Badge>
+              <Badge variant="gray" style={{ marginLeft: 8 }}>Draft</Badge>
             </Td>
             <Td><span style={{ color: 'var(--color-primary)' }}>Skyler Peterson</span></Td>
             <Td><span style={{ color: 'var(--color-text-secondary)' }}>&mdash;</span></Td>
@@ -177,7 +177,7 @@ export default function ReportsProgressNotesPage() {
           <Tr>
             <Td>
               <span style={{ color: 'var(--color-primary)' }}>AAA TEST</span>
-              <Badge variant="gray" className="ml-2">Draft</Badge>
+              <Badge variant="gray" style={{ marginLeft: 8 }}>Draft</Badge>
             </Td>
             <Td><span style={{ color: 'var(--color-primary)' }}>A Del</span></Td>
             <Td><span style={{ color: 'var(--color-text-secondary)' }}>&mdash;</span></Td>

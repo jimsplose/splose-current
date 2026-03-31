@@ -78,7 +78,7 @@ function DateRangePicker({
         size="sm"
         htmlType="button"
         onClick={() => setOpen(!open)}
-        className="!rounded-full !border-primary !bg-primary/10 !font-medium !text-primary hover:!bg-primary/20"
+        style={{ borderRadius: 9999, borderColor: 'var(--color-primary)', backgroundColor: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.1)', fontWeight: 500, color: 'var(--color-primary)' }}
       >
         <CalendarOutlined style={{ fontSize: 16 }} />
         {fmtShort(startDate)} &rarr; {fmtShort(endDate)}
@@ -98,7 +98,8 @@ function DateRangePicker({
                   size="sm"
                   htmlType="button"
                   onClick={() => applyPreset(p)}
-                  className="!justify-start !rounded-md !text-body-sm !text-text hover:!bg-primary/5 hover:!text-primary"
+                  className="text-body-sm text-text"
+                  style={{ justifyContent: 'flex-start', borderRadius: 6 }}
                 >
                   {p.label}
                 </Button>
@@ -114,14 +115,16 @@ function DateRangePicker({
                 type="date"
                 value={toInputDate(startDate)}
                 onChange={(e) => onChange(new Date(e.target.value), endDate)}
-                className="!py-1.5 !text-body-sm"
+                className="text-body-sm"
+                style={{ paddingTop: 6, paddingBottom: 6 }}
               />
               <span style={{ color: 'var(--color-text-secondary)' }}>&rarr;</span>
               <FormInput
                 type="date"
                 value={toInputDate(endDate)}
                 onChange={(e) => onChange(startDate, new Date(e.target.value))}
-                className="!py-1.5 !text-body-sm"
+                className="text-body-sm"
+                style={{ paddingTop: 6, paddingBottom: 6 }}
               />
             </Flex>
           </div>
@@ -263,22 +266,22 @@ export default function ReportsPage() {
           options={frequencyOptions}
           value={frequency}
           onChange={setFrequency}
-          className="!w-auto cursor-pointer !rounded-full !border-primary !bg-primary/10 !font-medium !text-primary"
+          style={{ cursor: 'pointer' }}
         />
         <Dropdown
-          trigger={<Button variant="secondary" size="sm" className="rounded-full">{locationLabel}</Button>}
+          trigger={<Button variant="secondary" size="sm" style={{ borderRadius: 9999 }}>{locationLabel}</Button>}
           items={locationItems}
           onSelect={setSelectedLocation}
         />
         <Dropdown
-          trigger={<Button variant="secondary" size="sm" className="rounded-full">{practitionerLabel}</Button>}
+          trigger={<Button variant="secondary" size="sm" style={{ borderRadius: 9999 }}>{practitionerLabel}</Button>}
           items={practitionerItems}
           onSelect={setSelectedPractitioner}
         />
         <Button
           variant={compareMode ? "primary" : "secondary"}
           size="sm"
-          className="rounded-full"
+          style={{ borderRadius: 9999 }}
           onClick={() => setCompareMode(!compareMode)}
         >
           Compare

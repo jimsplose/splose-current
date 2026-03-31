@@ -1,0 +1,23 @@
+.triageYesActive {
+  border-color: #86efac !important;
+  background-color: #f0fdf4 !important;
+  color: #15803d !important;
+}
+
+.triageNoActive {
+  background-color: #fef2f2 !important;
+}
+
+.serviceChipClose:hover {
+  background-color: #bfdbfe;
+}
+
+.tagChipClose:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.activeToggleButton {
+  border-color: var(--color-primary);
+  background-color: color-mix(in srgb, var(--color-primary) 5%, transparent);
+  color: var(--color-primary);
+}

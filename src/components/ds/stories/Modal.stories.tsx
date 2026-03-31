@@ -113,7 +113,7 @@ export const WithForm: Story = {
     open: true,
     title: "Edit details",
     children: (
-      <div className="space-y-4">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <FormInput label="Name" defaultValue="Dr Sarah Chen" />
         <FormInput label="Email" type="email" defaultValue="sarah@clinic.com.au" />
       </div>
@@ -170,7 +170,7 @@ export const CreateAppointmentModal: Story = {
         </>
       }
     >
-      <div className="space-y-4">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16, color: '#ca8a04' }} />}>
           This appointment is in the past. Are you sure you want to create it?
         </Alert>
@@ -209,8 +209,8 @@ export const CreateAppointmentModal: Story = {
 
         <FormInput label="Date *" type="date" defaultValue="2026-03-20" />
 
-        <div className="flex gap-4">
-          <div className="flex-1">
+        <div style={{ display: 'flex', gap: 16 }}>
+          <div style={{ flex: 1 }}>
             <FormSelect
               label="Start time *"
               options={[
@@ -220,7 +220,7 @@ export const CreateAppointmentModal: Story = {
               ]}
             />
           </div>
-          <div className="flex-1">
+          <div style={{ flex: 1 }}>
             <FormSelect
               label="End time *"
               options={[
@@ -257,7 +257,7 @@ export const EditPromptModal: Story = {
         </>
       }
     >
-      <div className="space-y-4">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <FormInput label="Prompt name" defaultValue="Session summary" />
         <FormSelect
           label="User group"
@@ -272,7 +272,7 @@ export const EditPromptModal: Story = {
           rows={6}
           defaultValue="Generate a detailed session summary based on the session context, including relevant clinical observations and findings."
         />
-        <div className="flex items-center gap-2">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <Badge variant="yellow">BETA</Badge>
           <span className="text-caption-md text-text-secondary">AI features are in beta. Results may vary.</span>
         </div>
@@ -300,7 +300,7 @@ export const PaymentModal: Story = {
         </>
       }
     >
-      <div className="space-y-4">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <FormInput label="Client *" placeholder="Select client" />
 
         <FormInput label="Payment date *" type="date" defaultValue="2026-03-23" />
@@ -316,12 +316,12 @@ export const PaymentModal: Story = {
         />
 
         <div>
-          <label className="mb-1 block text-label-lg text-text-secondary">
-            Amount <span className="text-red-500">*</span>
+          <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>
+            Amount <span style={{ color: '#ef4444' }}>*</span>
           </label>
-          <div className="relative">
-            <span className="absolute top-1/2 left-3 z-10 -translate-y-1/2 text-sm text-text-secondary">$</span>
-            <FormInput type="number" step="0.01" min="0" placeholder="0.00" className="pl-7" />
+          <div style={{ position: 'relative' }}>
+            <span className="text-text-secondary" style={{top: '50%', position: 'absolute', left: 12, zIndex: 10, transform: 'translateY(-50%)', fontSize: 12 }}>$</span>
+            <FormInput type="number" step="0.01" min="0" placeholder="0.00" style={{ paddingLeft: 28 }} />
           </div>
         </div>
 

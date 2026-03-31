@@ -64,23 +64,23 @@ function RoomColorPickerRecipe() {
   const [color, setColor] = useState("#3b82f6");
 
   return (
-    <div className="max-w-sm space-y-4">
+    <div style={{ maxWidth: 384, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">settings/rooms-resources</code> — room
+        From <code style={{ fontSize: 11 }}>settings/rooms-resources</code> — room
         edit modal uses swatch picker.
       </p>
       <div>
-        <label className="mb-1 block text-label-lg text-text-secondary">Name</label>
+        <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Name</label>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary"
+          className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
         />
       </div>
       <FormColorPicker value={color} onChange={setColor} variant="swatches" />
-      <div className="flex items-center gap-2 rounded border border-border p-3">
-        <div className="h-6 w-6 rounded-full" style={{ backgroundColor: color }} />
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, borderRadius: 4, border: '1px solid var(--color-border)', padding: 12 }}>
+        <div style={{height: 24, width: 24, borderRadius: '50%', backgroundColor: color }} />
         <span className="text-body-md text-text">{name}</span>
         <span className="text-body-sm text-text-secondary">({color})</span>
       </div>
@@ -93,25 +93,24 @@ function TagColorPickerRecipe() {
   const [color, setColor] = useState("#ef4444");
 
   return (
-    <div className="max-w-sm space-y-4">
+    <div style={{ maxWidth: 384, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">settings/tags</code> — tag edit modal
+        From <code style={{ fontSize: 11 }}>settings/tags</code> — tag edit modal
         uses native color picker.
       </p>
       <div>
-        <label className="mb-1 block text-label-lg text-text-secondary">Name</label>
+        <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Name</label>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary"
+          className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
         />
       </div>
       <FormColorPicker value={color} onChange={setColor} variant="native" />
-      <div className="flex items-center gap-2">
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
         <span
-          className="inline-flex items-center rounded-full px-2.5 py-0.5 text-body-sm font-medium text-white"
-          style={{ backgroundColor: color }}
+          className="text-body-sm" style={{display: 'inline-flex', alignItems: 'center', borderRadius: '50%', paddingLeft: 10, paddingRight: 10, paddingTop: 2, paddingBottom: 2, fontWeight: 500, color: '#fff', backgroundColor: color }}
         >
           {name}
         </span>
@@ -143,46 +142,46 @@ function BusyTimeColorPickerRecipe() {
   const [utilisation, setUtilisation] = useState("Excluded");
 
   return (
-    <div className="max-w-sm space-y-4">
+    <div style={{ maxWidth: 384, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">settings/busy-times</code> — busy time
+        From <code style={{ fontSize: 11 }}>settings/busy-times</code> — busy time
         type modal with native color picker alongside utilisation controls.
       </p>
-      <div className="rounded-lg border border-border bg-white p-6 shadow-sm">
-        <h3 className="mb-4 text-heading-md text-text">New busy time type</h3>
-        <div className="space-y-4">
+      <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24, boxShadow: '0 1px 2px rgba(0,0,0,.05)' }}>
+        <h3 className="text-heading-md text-text" style={{ marginBottom: 16 }}>New busy time type</h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Name</label>
+            <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Name</label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary"
+              className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
             />
           </div>
           <FormColorPicker value={color} onChange={setColor} />
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Utilisation</label>
+            <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Utilisation</label>
             <select
               value={utilisation}
               onChange={(e) => setUtilisation(e.target.value)}
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text"
+              className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
             >
               <option>Excluded</option>
               <option>Included</option>
             </select>
           </div>
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Duration (mins)</label>
+            <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Duration (mins)</label>
             <input
               type="number"
               defaultValue={60}
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary"
+              className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
             />
           </div>
         </div>
-        <div className="mt-4 flex items-center gap-2 rounded border border-border p-3">
-          <div className="h-4 w-4 rounded" style={{ backgroundColor: color }} />
+        <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', gap: 8, borderRadius: 4, border: '1px solid var(--color-border)', padding: 12 }}>
+          <div style={{height: 16, width: 16, borderRadius: 4, backgroundColor: color }} />
           <span className="text-body-md text-text">{name}</span>
           <span className="text-caption-md text-text-secondary">({utilisation})</span>
         </div>
@@ -208,30 +207,29 @@ function OnlineBookingButtonColorRecipe() {
   const [buttonText, setButtonText] = useState("Book now");
 
   return (
-    <div className="max-w-md space-y-4">
+    <div style={{ maxWidth: 448, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">settings/online-bookings/[id]</code> —
+        From <code style={{ fontSize: 11 }}>settings/online-bookings/[id]</code> —
         button colour customisation with live preview.
       </p>
-      <div className="rounded-lg border border-border bg-white p-6">
-        <h3 className="mb-4 text-heading-md text-text">Widget Appearance</h3>
-        <div className="grid grid-cols-2 gap-4">
+      <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
+        <h3 className="text-heading-md text-text" style={{ marginBottom: 16 }}>Widget Appearance</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
           <FormColorPicker label="Button colour" value={buttonColor} onChange={setButtonColor} />
           <div>
-            <label className="mb-1 block text-label-lg text-text-secondary">Button text</label>
+            <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Button text</label>
             <input
               type="text"
               value={buttonText}
               onChange={(e) => setButtonText(e.target.value)}
-              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary"
+              className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
             />
           </div>
         </div>
-        <div className="mt-4 rounded-lg border border-border p-4">
-          <h4 className="mb-3 text-heading-sm text-text">Preview</h4>
+        <div style={{ marginTop: 16, borderRadius: 8, border: '1px solid var(--color-border)', padding: 16 }}>
+          <h4 className="text-heading-sm text-text" style={{ marginBottom: 12 }}>Preview</h4>
           <button
-            className="rounded-lg px-6 py-2.5 text-label-lg text-white"
-            style={{ backgroundColor: buttonColor }}
+            className="text-label-lg" style={{borderRadius: 8, paddingLeft: 24, paddingRight: 24, paddingTop: 10, paddingBottom: 10, color: '#fff', backgroundColor: buttonColor }}
           >
             {buttonText}
           </button>
@@ -258,28 +256,28 @@ function FormDesignThemeColorRecipe() {
   const [headerImage, setHeaderImage] = useState(true);
 
   return (
-    <div className="max-w-md space-y-4">
+    <div style={{ maxWidth: 448, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">settings/forms/[id]</code> — form
+        From <code style={{ fontSize: 11 }}>settings/forms/[id]</code> — form
         design settings with theme colour and header image toggle.
       </p>
-      <div className="rounded-lg border border-border bg-white p-6">
-        <h3 className="mb-3 text-heading-md text-text">Design</h3>
-        <div className="space-y-4">
+      <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
+        <h3 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Design</h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <FormColorPicker label="Theme colour" value={themeColor} onChange={setThemeColor} />
-          <div className="flex items-center gap-3">
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <button
               onClick={() => setHeaderImage(!headerImage)}
-              className={`h-5 w-9 rounded-full transition-colors ${headerImage ? "bg-primary" : "bg-gray-300"}`}
+              style={{ height: 20, width: 36, borderRadius: 9999, transition: 'background-color 0.2s', backgroundColor: headerImage ? 'var(--ant-color-primary, #8250FF)' : '#d1d5db', position: 'relative' }}
             >
-              <div className={`h-4 w-4 rounded-full bg-white transition-transform ${headerImage ? "translate-x-4" : "translate-x-0.5"}`} />
+              <div style={{ height: 16, width: 16, borderRadius: 9999, backgroundColor: '#fff', transition: 'transform 0.2s', transform: headerImage ? 'translateX(16px)' : 'translateX(2px)' }} />
             </button>
             <span className="text-body-md text-text">Show header image</span>
           </div>
         </div>
-        <div className="mt-4 rounded-lg border border-border overflow-hidden">
-          <div className="h-3" style={{ backgroundColor: themeColor }} />
-          <div className="p-4">
+        <div style={{ marginTop: 16, borderRadius: 8, border: '1px solid var(--color-border)', overflow: 'hidden' }}>
+          <div style={{height: 12, backgroundColor: themeColor }} />
+          <div style={{ padding: 16 }}>
             <p className="text-body-sm text-text-secondary">
               Form preview with theme colour applied to the header bar.
             </p>
@@ -306,32 +304,32 @@ function ServiceEditColorRecipe() {
   const [color, setColor] = useState("#8b5cf6");
 
   return (
-    <div className="max-w-md space-y-4">
+    <div style={{ maxWidth: 448, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <p className="text-body-sm text-text-secondary">
-        From <code className="text-xs">settings/services/edit/[id]</code> —
+        From <code style={{ fontSize: 11 }}>settings/services/edit/[id]</code> —
         service colour selection in the General section.
       </p>
-      <div className="space-y-4">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div>
-          <label className="mb-1 block text-label-lg text-text-secondary">Name</label>
+          <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Name</label>
           <input
             type="text"
             defaultValue="Initial Consultation"
-            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary"
+            className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
           />
         </div>
         <div>
-          <label className="mb-1 block text-label-lg text-text-secondary">Item code</label>
+          <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Item code</label>
           <input
             type="text"
             defaultValue="93010"
-            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-body-md text-text outline-none focus:border-primary"
+            className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
           />
         </div>
         <FormColorPicker label="Color" value={color} onChange={setColor} />
       </div>
-      <div className="flex items-center gap-3 rounded-lg border border-border p-3">
-        <div className="h-3 w-3 rounded-full" style={{ backgroundColor: color }} />
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', padding: 12 }}>
+        <div style={{height: 12, width: 12, borderRadius: '50%', backgroundColor: color }} />
         <span className="text-body-md text-text">Initial Consultation</span>
         <span className="text-caption-md text-text-secondary">93010</span>
       </div>

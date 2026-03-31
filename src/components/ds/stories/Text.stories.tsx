@@ -53,10 +53,10 @@ const StyleRow = ({
   label: string;
   specs: string;
 }) => (
-  <div className="flex items-baseline gap-6 border-b border-gray-100 py-3">
-    <code className="w-44 shrink-0 text-xs text-gray-400">{label}</code>
+  <div style={{ display: 'flex', alignItems: 'baseline', gap: 24, borderBottom: '1px solid var(--color-border)', borderColor: '#f3f4f6', paddingTop: 12, paddingBottom: 12 }}>
+    <code style={{ width: 176, flexShrink: 0, fontSize: 11, color: '#9ca3af' }}>{label}</code>
     <Text variant={variant}>{sampleText(variant)}</Text>
-    <span className="ml-auto shrink-0 text-xs text-gray-400">{specs}</span>
+    <span style={{ marginLeft: 'auto', flexShrink: 0, fontSize: 11, color: '#9ca3af' }}>{specs}</span>
   </div>
 );
 
@@ -71,9 +71,9 @@ function sampleText(variant: TextVariant): string {
 
 export const AllStyles: Story = {
   render: () => (
-    <div className="max-w-3xl space-y-8">
+    <div style={{ maxWidth: 768, display: 'flex', flexDirection: 'column', gap: 32 }}>
       <section>
-        <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-gray-400">
+        <h3 style={{ marginBottom: 8, fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#9ca3af' }}>
           Display — Sprig Sans, Bold
         </h3>
         <StyleRow variant="display/lg" label="display/lg" specs="30px / 700 / 1.2" />
@@ -82,7 +82,7 @@ export const AllStyles: Story = {
       </section>
 
       <section>
-        <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-gray-400">
+        <h3 style={{ marginBottom: 8, fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#9ca3af' }}>
           Heading — Inter, SemiBold
         </h3>
         <StyleRow variant="heading/lg" label="heading/lg" specs="18px / 600 / 1.33" />
@@ -91,7 +91,7 @@ export const AllStyles: Story = {
       </section>
 
       <section>
-        <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-gray-400">
+        <h3 style={{ marginBottom: 8, fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#9ca3af' }}>
           Body — Inter, Regular & Bold
         </h3>
         <StyleRow variant="body/lg" label="body/lg" specs="16px / 400 / 1.375" />
@@ -102,7 +102,7 @@ export const AllStyles: Story = {
       </section>
 
       <section>
-        <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-gray-400">
+        <h3 style={{ marginBottom: 8, fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#9ca3af' }}>
           Label — Inter, Medium
         </h3>
         <StyleRow variant="label/lg" label="label/lg" specs="14px / 500 / 1.43" />
@@ -111,7 +111,7 @@ export const AllStyles: Story = {
       </section>
 
       <section>
-        <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-gray-400">
+        <h3 style={{ marginBottom: 8, fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#9ca3af' }}>
           Caption — Inter, Regular
         </h3>
         <StyleRow variant="caption/md" label="caption/md" specs="12px / 400 / 1.33" />
@@ -119,7 +119,7 @@ export const AllStyles: Story = {
       </section>
 
       <section>
-        <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-gray-400">
+        <h3 style={{ marginBottom: 8, fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#9ca3af' }}>
           Metric — Inter, Bold, tabular figures
         </h3>
         <StyleRow variant="metric/lg" label="metric/lg" specs="30px / 700 / 1.2 tnum" />
@@ -131,7 +131,7 @@ export const AllStyles: Story = {
 
 export const WithColorOverride: Story = {
   render: () => (
-    <div className="space-y-2">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
       <Text variant="body/md">Default color (text)</Text>
       <Text variant="body/md" color="text-text-secondary">Secondary color</Text>
       <Text variant="body/md" color="text-primary">Primary color</Text>
@@ -142,7 +142,7 @@ export const WithColorOverride: Story = {
 
 export const WithElementOverride: Story = {
   render: () => (
-    <div className="space-y-2">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
       <Text variant="display/lg">Default renders as h1</Text>
       <Text variant="display/lg" as="span">Same style but renders as span</Text>
       <Text variant="body/md" as="label">Body text as a label element</Text>
@@ -174,26 +174,26 @@ export const QuickReference: Story = {
       { variant: "metric/md", css: "text-metric-md", font: "Inter 24/700 tnum" },
     ];
     return (
-      <table className="w-full text-sm">
+      <table style={{ width: '100%', fontSize: 12 }}>
         <thead>
-          <tr className="border-b text-left">
-            <th className="py-2 pr-4 font-medium">Variant</th>
-            <th className="py-2 pr-4 font-medium">CSS Class</th>
-            <th className="py-2 pr-4 font-medium">Font / Size / Weight</th>
-            <th className="py-2 font-medium">Preview</th>
+          <tr style={{ borderBottom: '1px solid var(--color-border)', textAlign: 'left' }}>
+            <th style={{ paddingTop: 8, paddingBottom: 8, paddingRight: 16, fontWeight: 500 }}>Variant</th>
+            <th style={{ paddingTop: 8, paddingBottom: 8, paddingRight: 16, fontWeight: 500 }}>CSS Class</th>
+            <th style={{ paddingTop: 8, paddingBottom: 8, paddingRight: 16, fontWeight: 500 }}>Font / Size / Weight</th>
+            <th style={{ paddingTop: 8, paddingBottom: 8, fontWeight: 500 }}>Preview</th>
           </tr>
         </thead>
         <tbody>
           {rows.map((r) => (
-            <tr key={r.variant} className="border-b border-gray-100">
-              <td className="py-2 pr-4">
-                <code className="text-xs">{r.variant}</code>
+            <tr key={r.variant} style={{ borderBottom: '1px solid var(--color-border)', borderColor: '#f3f4f6' }}>
+              <td style={{ paddingTop: 8, paddingBottom: 8, paddingRight: 16 }}>
+                <code style={{ fontSize: 11 }}>{r.variant}</code>
               </td>
-              <td className="py-2 pr-4">
-                <code className="text-xs text-gray-500">{r.css}</code>
+              <td style={{ paddingTop: 8, paddingBottom: 8, paddingRight: 16 }}>
+                <code style={{ fontSize: 11, color: '#6b7280' }}>{r.css}</code>
               </td>
-              <td className="py-2 pr-4 text-xs text-gray-500">{r.font}</td>
-              <td className="py-2">
+              <td style={{ paddingTop: 8, paddingBottom: 8, paddingRight: 16, fontSize: 11, color: '#6b7280' }}>{r.font}</td>
+              <td style={{ paddingTop: 8, paddingBottom: 8 }}>
                 <Text variant={r.variant}>{sampleText(r.variant)}</Text>
               </td>
             </tr>
@@ -209,7 +209,7 @@ export const QuickReference: Story = {
 export const PageTypographyStack: Story = {
   name: "Recipe: Page Typography Stack",
   render: () => (
-    <div className="max-w-2xl space-y-6 rounded-lg border border-border bg-white p-8">
+    <div style={{ maxWidth: 672, display: 'flex', flexDirection: 'column', gap: 24, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 32 }}>
       <p className="text-body-sm text-text-secondary">
         How display, heading, body, label, caption, and metric are used
         together on a typical Splose page.
@@ -230,7 +230,7 @@ export const PageTypographyStack: Story = {
       </Text>
 
       {/* Metric row */}
-      <div className="grid grid-cols-3 gap-6 rounded-lg border border-border p-4">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24, borderRadius: 8, border: '1px solid var(--color-border)', padding: 16 }}>
         <div>
           <Text variant="label/md" color="text-text-secondary">Total Invoiced</Text>
           <Text variant="metric/lg">$12,450.00</Text>
@@ -249,17 +249,17 @@ export const PageTypographyStack: Story = {
       <Text variant="heading/md">Contact Details</Text>
 
       {/* Label/value pairs */}
-      <div className="space-y-2">
-        <div className="flex gap-4">
-          <Text variant="label/lg" color="text-text-secondary" className="w-32">Email</Text>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div style={{ display: 'flex', gap: 16 }}>
+          <Text variant="label/lg" color="text-text-secondary" style={{ width: 128 }}>Email</Text>
           <Text variant="body/md">sarah.johnson@example.com</Text>
         </div>
-        <div className="flex gap-4">
-          <Text variant="label/lg" color="text-text-secondary" className="w-32">Phone</Text>
+        <div style={{ display: 'flex', gap: 16 }}>
+          <Text variant="label/lg" color="text-text-secondary" style={{ width: 128 }}>Phone</Text>
           <Text variant="body/md">0412 345 678</Text>
         </div>
-        <div className="flex gap-4">
-          <Text variant="label/lg" color="text-text-secondary" className="w-32">Medicare</Text>
+        <div style={{ display: 'flex', gap: 16 }}>
+          <Text variant="label/lg" color="text-text-secondary" style={{ width: 128 }}>Medicare</Text>
           <Text variant="body/md">2123 45670 1</Text>
         </div>
       </div>
@@ -282,24 +282,24 @@ export const PageTypographyStack: Story = {
 export const ReportsDashboardMetrics: Story = {
   name: "Recipe: Reports Dashboard Metrics",
   render: () => (
-    <div className="grid max-w-2xl grid-cols-2 gap-6">
-      <div className="rounded-lg border border-border bg-white p-4">
+    <div style={{ display: 'grid', maxWidth: 672, gridTemplateColumns: 'repeat(2, 1fr)', gap: 24 }}>
+      <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
         <Text variant="heading/sm">Utilisation</Text>
-        <Text variant="caption/md" color="text-text-secondary" className="mt-1">
+        <Text variant="caption/md" color="text-text-secondary" style={{ marginTop: 4 }}>
           Percentage of available time utilised
         </Text>
-        <Text variant="metric/lg" className="mt-2">0.85%</Text>
-        <Text variant="caption/md" color="text-text-secondary" className="mt-1">
+        <Text variant="metric/lg" style={{ marginTop: 8 }}>0.85%</Text>
+        <Text variant="caption/md" color="text-text-secondary" style={{ marginTop: 4 }}>
           17 Mar 2026 - 23 Mar 2026
         </Text>
       </div>
-      <div className="rounded-lg border border-border bg-white p-4">
+      <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
         <Text variant="heading/sm">Revenue</Text>
-        <Text variant="caption/md" color="text-text-secondary" className="mt-1">
+        <Text variant="caption/md" color="text-text-secondary" style={{ marginTop: 4 }}>
           Total invoiced revenue (tax exclusive)
         </Text>
-        <Text variant="metric/lg" className="mt-2">$1.09K</Text>
-        <Text variant="caption/md" color="text-text-secondary" className="mt-1">
+        <Text variant="metric/lg" style={{ marginTop: 8 }}>$1.09K</Text>
+        <Text variant="caption/md" color="text-text-secondary" style={{ marginTop: 4 }}>
           17 Mar 2026 - 23 Mar 2026
         </Text>
       </div>
@@ -318,21 +318,21 @@ export const ReportsDashboardMetrics: Story = {
 export const SettingsPageHeader: Story = {
   name: "Recipe: Settings Page Header",
   render: () => (
-    <div className="max-w-2xl rounded-lg border border-border bg-white p-6">
-      <div className="flex items-center justify-between">
+    <div style={{ maxWidth: 672, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Text variant="display/lg">splose AI</Text>
-        <div className="flex items-center gap-2">
-          <button className="rounded border border-border px-3 py-1.5 text-body-md text-text-secondary">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <button className="border-border text-body-md text-text-secondary" style={{ borderRadius: 4, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6 }}>
             Learn
           </button>
-          <button className="rounded bg-primary px-3 py-1.5 text-body-md text-white">
+          <button className="bg-primary text-body-md" style={{ borderRadius: 4, paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6, color: '#fff' }}>
             Save
           </button>
         </div>
       </div>
-      <hr className="my-4 border-border" />
+      <hr className="border-border" style={{ marginTop: 16, marginBottom: 16 }} />
       <Text variant="heading/lg">splose AI settings: More control, your way</Text>
-      <Text variant="display/md" className="mt-4">Preferences</Text>
+      <Text variant="display/md" style={{ marginTop: 16 }}>Preferences</Text>
     </div>
   ),
   parameters: { layout: "padded" },
@@ -348,21 +348,21 @@ export const SettingsPageHeader: Story = {
 export const CalendarDateDisplay: Story = {
   name: "Recipe: Calendar Date Display",
   render: () => (
-    <div className="flex max-w-md items-center gap-4 rounded-lg border border-border bg-white p-4">
+    <div style={{ display: 'flex', maxWidth: 448, alignItems: 'center', gap: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
       <div>
         <Text variant="display/md">March 2026</Text>
         <Text variant="caption/md" color="text-text-secondary">
           Week of 23 Mar - 29 Mar
         </Text>
       </div>
-      <div className="ml-auto flex gap-2">
-        <button className="rounded border border-border px-2 py-1 text-body-sm text-text-secondary">
+      <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
+        <button className="border-border text-body-sm text-text-secondary" style={{ borderRadius: 4, border: '1px solid var(--color-border)', paddingLeft: 8, paddingRight: 8, paddingTop: 4, paddingBottom: 4 }}>
           &larr;
         </button>
-        <button className="rounded border border-border px-2 py-1 text-body-sm text-text-secondary">
+        <button className="border-border text-body-sm text-text-secondary" style={{ borderRadius: 4, border: '1px solid var(--color-border)', paddingLeft: 8, paddingRight: 8, paddingTop: 4, paddingBottom: 4 }}>
           &rarr;
         </button>
-        <button className="rounded border border-border px-3 py-1 text-body-md text-text-secondary">
+        <button className="border-border text-body-md text-text-secondary" style={{ borderRadius: 4, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 4, paddingBottom: 4 }}>
           Today
         </button>
       </div>
@@ -383,7 +383,7 @@ export const CalendarDateDisplay: Story = {
 export const SectionHeadingHierarchy: Story = {
   name: "Recipe: Section Heading Hierarchy",
   render: () => (
-    <div className="max-w-lg space-y-4 rounded-lg border border-border bg-white p-6">
+    <div style={{ maxWidth: 512, display: 'flex', flexDirection: 'column', gap: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
       <Text variant="display/lg">Page Title (display/lg)</Text>
       <Text variant="body/md" color="text-text-secondary">
         Introductory paragraph for the page.
@@ -393,14 +393,14 @@ export const SectionHeadingHierarchy: Story = {
 
       <Text variant="heading/lg">Section Heading (heading/lg)</Text>
       <Text variant="heading/sm">Sub-section (heading/sm)</Text>
-      <div className="space-y-1 pl-4">
-        <div className="flex items-center justify-between">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4, paddingLeft: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Text variant="body/md">Toggle setting label</Text>
-          <div className="h-5 w-10 rounded-full bg-primary" />
+          <div className="bg-primary" style={{ height: 20, width: 40, borderRadius: '50%' }} />
         </div>
-        <div className="flex items-center justify-between">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Text variant="body/md">Another setting label</Text>
-          <div className="h-5 w-10 rounded-full bg-gray-300" />
+          <div style={{ height: 20, width: 40, borderRadius: '50%', backgroundColor: '#d1d5db' }} />
         </div>
       </div>
 

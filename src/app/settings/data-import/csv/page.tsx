@@ -82,7 +82,6 @@ export default function CSVImportPage() {
                 <button
                   onClick={() => setFileUploaded(true)}
                   style={{ display: 'flex', width: '100%', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-bg-layout)', padding: '48px 0', transition: 'all 0.2s', cursor: 'pointer' }}
-                  className="hover:border-primary hover:bg-primary/5"
                 >
                   <UploadOutlined style={{ fontSize: 32, marginBottom: 8, color: 'var(--color-text-secondary)' }} />
                   <span className="text-body-md text-text">Click to upload or drag and drop</span>
@@ -137,7 +136,7 @@ export default function CSVImportPage() {
                             {m.mapped ? (
                               <CheckCircleFilled style={{ fontSize: 16, color: 'var(--color-success)', display: 'block', margin: '0 auto' }} />
                             ) : (
-                              <span className="text-caption-md text-warning">Unmapped</span>
+                              <span className="text-caption-md" style={{ color: '#d97706' }}>Unmapped</span>
                             )}
                           </Td>
                         </Tr>

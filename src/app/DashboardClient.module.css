@@ -1,0 +1,11 @@
+.messageItem:hover {
+  background-color: #f9fafb;
+}
+
+.gifButton:hover {
+  background-color: #f3f4f6;
+}
+
+.hoverUnderline:hover {
+  text-decoration: underline;
+}

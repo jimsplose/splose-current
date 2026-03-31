@@ -65,11 +65,11 @@ export const Large: Story = {
 
 export const AllSizes: Story = {
   render: () => (
-    <div className="flex items-end gap-4">
+    <div style={{ display: 'flex', alignItems: 'flex-end', gap: 16 }}>
       {(["xs", "sm", "md", "lg"] as const).map((s) => (
-        <div key={s} className="flex flex-col items-center gap-1">
+        <div key={s} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
           <ColorDot color="#7c3aed" size={s} />
-          <span className="text-xs text-text-secondary">{s}</span>
+          <span className="text-text-secondary" style={{ fontSize: 11 }}>{s}</span>
         </div>
       ))}
     </div>
@@ -82,7 +82,7 @@ export const AllSizes: Story = {
 
 export const AllColors: Story = {
   render: () => (
-    <div className="flex items-center gap-2">
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
       <ColorDot color="#ef4444" />
       <ColorDot color="#f59e0b" />
       <ColorDot color="#22c55e" />
@@ -107,22 +107,22 @@ export const AllColors: Story = {
 export const ChartLegend: Story = {
   name: "Recipe: Chart Legend",
   render: () => (
-    <div className="w-96 rounded-lg border border-border bg-white p-4">
-      <p className="mb-3 text-label-lg text-text">Income</p>
+    <div style={{ width: 384, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
+      <p className="text-label-lg text-text" style={{ marginBottom: 12 }}>Income</p>
       {/* Simulated bar chart placeholder */}
-      <div className="mb-3 flex h-32 items-end gap-2">
+      <div style={{ marginBottom: 12, display: 'flex', height: 128, alignItems: 'flex-end', gap: 8 }}>
         {[60, 80, 45, 70, 90, 55, 75, 65, 85, 50, 95, 70].map((h, i) => (
-          <div key={i} className="flex flex-1 flex-col items-stretch gap-0.5">
-            <div className="rounded-sm bg-[#bef264]" style={{ height: `${h * 0.6}%` }} />
-            <div className="rounded-sm bg-[#c084fc]" style={{ height: `${h * 0.4}%` }} />
+          <div key={i} style={{ display: 'flex', flex: 1, flexDirection: 'column', alignItems: 'stretch', gap: 2 }}>
+            <div style={{ borderRadius: 2, backgroundColor: '#bef264' }} style={{ height: `${h * 0.6}%` }} />
+            <div style={{ borderRadius: 2, backgroundColor: '#c084fc' }} style={{ height: `${h * 0.4}%` }} />
           </div>
         ))}
       </div>
-      <div className="flex items-center justify-center gap-4 text-caption-md text-text-secondary">
-        <span className="flex items-center gap-1.5">
+      <div className="text-caption-md text-text-secondary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
           <ColorDot color="#bef264" size="xs" /> Invoices
         </span>
-        <span className="flex items-center gap-1.5">
+        <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
           <ColorDot color="#c084fc" size="xs" /> Payments
         </span>
       </div>
@@ -140,16 +140,16 @@ export const ChartLegend: Story = {
 export const PractitionerIndicator: Story = {
   name: "Recipe: Practitioner Indicator",
   render: () => (
-    <div className="flex gap-6 border-b border-border pb-3">
+    <div style={{ display: 'flex', gap: 24, borderBottom: '1px solid var(--color-border)', paddingBottom: 12 }}>
       {[
         { name: "Joseph Go", color: "#f59e0b" },
         { name: "Hao Wang", color: "#16a34a" },
         { name: "Meghna Damodaran", color: "#ec4899" },
         { name: "Sarah Johnson", color: "#3b82f6" },
       ].map((p) => (
-        <div key={p.name} className="flex items-center gap-1">
+        <div key={p.name} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
           <ColorDot color={p.color} size="xs" />
-          <span className="truncate text-label-md text-text">
+          <span className="text-label-md text-text" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {p.name.split(" ")[0]} {p.name.split(" ")[1]?.[0]}.
           </span>
         </div>
@@ -169,14 +169,14 @@ export const PractitionerIndicator: Story = {
 export const RoomsResourcesTable: Story = {
   name: "Recipe: Rooms & Resources Table",
   render: () => (
-    <div className="w-[600px]">
-      <table className="w-full">
+    <div style={{ width: 600 }}>
+      <table style={{ width: '100%' }}>
         <thead>
-          <tr className="border-b border-border bg-table-header">
-            <th className="px-4 py-3 text-left text-label-lg text-text">Name</th>
-            <th className="px-4 py-3 text-left text-label-lg text-text">Group</th>
-            <th className="px-4 py-3 text-left text-label-lg text-text">Capacity</th>
-            <th className="px-4 py-3 text-left text-label-lg text-text">Location</th>
+          <tr className="border-border bg-table-header" style={{ borderBottom: '1px solid var(--color-border)' }}>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Name</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Group</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Capacity</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Location</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-border">
@@ -186,16 +186,16 @@ export const RoomsResourcesTable: Story = {
             { name: "Gym", color: "#22c55e", group: "Exercise", capacity: 8, location: "West Clinics" },
             { name: "Pool", color: "#f59e0b", group: "Hydrotherapy", capacity: 4, location: "West Clinics" },
           ].map((room) => (
-            <tr key={room.name} className="hover:bg-gray-50">
-              <td className="px-4 py-3 text-body-md text-text">
-                <div className="flex items-center gap-2.5">
+            <tr key={room.name} >
+              <td className="text-body-md text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <ColorDot color={room.color} />
                   {room.name}
                 </div>
               </td>
-              <td className="px-4 py-3 text-body-md text-text-secondary">{room.group}</td>
-              <td className="px-4 py-3 text-body-md text-text-secondary">{room.capacity}</td>
-              <td className="px-4 py-3 text-body-md text-text-secondary">{room.location}</td>
+              <td className="text-body-md text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{room.group}</td>
+              <td className="text-body-md text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{room.capacity}</td>
+              <td className="text-body-md text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{room.location}</td>
             </tr>
           ))}
         </tbody>
@@ -215,13 +215,13 @@ export const RoomsResourcesTable: Story = {
 export const BusyTimeNameColumn: Story = {
   name: "Recipe: Busy Time Name Column",
   render: () => (
-    <div className="w-[500px]">
-      <table className="w-full">
+    <div style={{ width: 500 }}>
+      <table style={{ width: '100%' }}>
         <thead>
-          <tr className="border-b border-border bg-table-header">
-            <th className="px-4 py-3 text-left text-label-lg text-text">Name</th>
-            <th className="px-4 py-3 text-left text-label-lg text-text">Utilisation</th>
-            <th className="px-4 py-3 text-left text-label-lg text-text">Duration (mins)</th>
+          <tr className="border-border bg-table-header" style={{ borderBottom: '1px solid var(--color-border)' }}>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Name</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Utilisation</th>
+            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Duration (mins)</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-border">
@@ -233,15 +233,15 @@ export const BusyTimeNameColumn: Story = {
             { name: "CPD", color: "#3b82f6", util: "Excluded", dur: 30 },
             { name: "Travel", color: "#22c55e", util: "Excluded", dur: 30 },
           ].map((b) => (
-            <tr key={b.name} className="hover:bg-gray-50">
-              <td className="px-4 py-3 text-body-md text-text">
-                <div className="flex items-center gap-2">
+            <tr key={b.name} >
+              <td className="text-body-md text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <ColorDot color={b.color} />
                   {b.name}
                 </div>
               </td>
-              <td className="px-4 py-3 text-body-md text-text-secondary">{b.util}</td>
-              <td className="px-4 py-3 text-body-md text-text-secondary">{b.dur}</td>
+              <td className="text-body-md text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{b.util}</td>
+              <td className="text-body-md text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{b.dur}</td>
             </tr>
           ))}
         </tbody>
@@ -262,15 +262,15 @@ export const BusyTimeNameColumn: Story = {
 export const AppointmentDetailHeader: Story = {
   name: "Recipe: Appointment Detail Header",
   render: () => (
-    <div className="w-80 rounded-lg border border-border bg-white p-4">
-      <div className="mb-4 flex items-start justify-between">
-        <div className="flex items-center gap-2">
+    <div style={{ width: 320, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
+      <div style={{ marginBottom: 16, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <ColorDot color="#f59e0b" size="sm" />
           <span className="text-heading-sm text-text">Sarah Johnson (Initial Assessment)</span>
         </div>
-        <button className="text-text-secondary hover:text-text">&times;</button>
+        <button className="text-text-secondary">&times;</button>
       </div>
-      <div className="space-y-2 text-body-md">
+      <div className="text-body-md" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         <p className="text-text-secondary">9:00 AM - 10:00 AM</p>
         <p className="text-text-secondary">Joseph Go</p>
         <p className="text-text-secondary">Room 1 - East Clinics</p>

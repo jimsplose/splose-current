@@ -9,9 +9,10 @@ interface AlertProps {
   variant?: AlertVariant;
   icon?: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 }
 
-export default function Alert({ children, variant = "info", icon, className }: AlertProps) {
+export default function Alert({ children, variant = "info", icon, className, style }: AlertProps) {
   return (
     <AntAlert
       type={variant}
@@ -19,6 +20,7 @@ export default function Alert({ children, variant = "info", icon, className }: A
       icon={icon}
       showIcon={!!icon}
       className={className}
+      style={style}
     />
   );
 }

@@ -1,0 +1,523 @@
+/* Online Booking page styles — replaces dead Tailwind utilities */
+
+.page {
+  min-height: 100vh;
+  background: #fff;
+}
+
+.container {
+  max-width: 64rem; /* max-w-5xl */
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.backButton:hover {
+  text-decoration: underline;
+}
+
+.mainLayout {
+  display: flex;
+  gap: 32px;
+}
+
+.mainContent {
+  flex: 1;
+}
+
+.pageTitle {
+  margin-bottom: 24px;
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 44px;
+  color: rgb(16, 24, 40);
+}
+
+/* Location step */
+.locationList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.locationCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-radius: 16px;
+  border: 1px solid rgb(208, 213, 221);
+  padding: 20px;
+  min-height: 162px;
+  background: #fff;
+}
+
+.locationCardSelected {
+  border-color: var(--color-primary);
+}
+
+.locationIcon {
+  display: flex;
+  height: 64px;
+  width: 64px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #1f2937;
+  font-size: 24px;
+}
+
+.locationInfo {
+  flex: 1;
+}
+
+.selectBtn {
+  border-radius: 8px;
+  background: rgb(106, 57, 228);
+  padding: 4px 15px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.selectBtn:hover {
+  background: rgb(90, 45, 200);
+}
+
+.selectedBtn {
+  border-radius: 8px;
+  border: 1px solid rgb(106, 57, 228);
+  background: #fff;
+  padding: 4px 15px;
+  color: rgb(106, 57, 228);
+  cursor: default;
+}
+
+/* Select step */
+.filterRow {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.filterItem {
+  flex: 1;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  padding: 8px 12px;
+}
+
+.timezoneNote {
+  margin-bottom: 32px;
+}
+
+.divider {
+  margin-bottom: 32px;
+  border: none;
+  border-top: 1px solid var(--color-border);
+}
+
+.practitionerList {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.practitionerRow {
+  display: flex;
+  gap: 24px;
+}
+
+.practitionerInfo {
+  width: 160px;
+  flex-shrink: 0;
+}
+
+.practitionerHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.practitionerAvatar {
+  display: flex;
+  height: 40px;
+  width: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e5e7eb;
+}
+
+.dateTimePicker {
+  flex: 1;
+}
+
+.weekNav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.dayButton {
+  display: flex;
+  height: 40px;
+  width: 40px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dayButtonActive {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.dayButtonActive:hover {
+  background: var(--color-primary);
+}
+
+.dayLabels {
+  display: flex;
+  margin-bottom: 4px;
+}
+
+.dayLabel {
+  width: 40px;
+  text-align: center;
+}
+
+.slotList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.slotButton {
+  width: 112px;
+}
+
+.slotButton:hover {
+  border-color: var(--color-primary);
+  background: rgba(var(--color-primary), 0.1);
+}
+
+.seeAllBtn {
+  margin-top: 8px;
+}
+
+.noSlotsMessage {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Confirm step */
+.confirmForm {
+  max-width: 32rem;
+}
+
+.confirmFormFields {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGrid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.formGrid3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.phoneRow {
+  display: flex;
+  gap: 8px;
+}
+
+.phoneCode {
+  width: 80px;
+}
+
+.phoneInput {
+  flex: 1;
+}
+
+.labelBlock {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.charCount {
+  margin-top: 4px;
+  text-align: right;
+}
+
+/* Confirmed step */
+.confirmedWrapper {
+  max-width: 32rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.successIcon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.successCircle {
+  display: flex;
+  height: 64px;
+  width: 64px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-green-100, #dcfce7);
+}
+
+.confirmedTitle {
+  margin-bottom: 8px;
+}
+
+.confirmedSubtext {
+  margin-bottom: 24px;
+}
+
+.detailsCard {
+  margin-bottom: 24px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  background: #f9fafb;
+  padding: 20px;
+  text-align: left;
+}
+
+.detailsTitle {
+  margin-bottom: 12px;
+}
+
+.detailRows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--color-border);
+  padding-top: 8px;
+}
+
+/* Email preview card */
+.emailCard {
+  margin-bottom: 24px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  background: #fff;
+  padding: 20px;
+  text-align: left;
+}
+
+.emailBody {
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: #f9fafb;
+  padding: 16px;
+}
+
+.emailHeader {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.emailRow {
+  display: flex;
+  gap: 8px;
+}
+
+.emailContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.emailServiceBox {
+  margin: 12px 0;
+  border-radius: 8px;
+  background: #fff;
+  padding: 12px;
+}
+
+/* Calendar actions */
+.calendarActions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.calendarButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.bookAnotherWrapper {
+  margin-top: 32px;
+}
+
+.bookAnotherBtn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 288px;
+  flex-shrink: 0;
+}
+
+.sidebarHidden {
+  display: none;
+}
+
+.sidebarCard {
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.sidebarTitle {
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.stepperContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stepperLine {
+  position: absolute;
+  left: 5px;
+  top: 14px;
+  bottom: 14px;
+  width: 1px;
+  background: #d1d5db;
+}
+
+.stepperItem {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.stepperDot {
+  position: relative;
+  z-index: 1;
+  margin-top: 2px;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background: #d1d5db;
+}
+
+.stepperDotActive {
+  background: var(--color-primary);
+}
+
+.stepperContent {
+  flex: 1;
+}
+
+.sidebarEditBtn {
+  /* Edit pencil button — inherits ghost from DS */
+}
+
+.editSvg {
+  height: 14px;
+  width: 14px;
+}
+
+.totalLine {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.actionWrapper {
+  margin-top: 24px;
+}
+
+.continueBtn {
+  width: 100%;
+  justify-content: center;
+}
+
+.disabledContinueBtn {
+  width: 100%;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 4px 15px;
+  color: #fff;
+  cursor: not-allowed;
+  border: none;
+}
+
+.waitlistNote {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.waitlistLink {
+  color: var(--color-primary);
+}
+
+.waitlistLink:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+.footer {
+  margin-top: 64px;
+  padding-bottom: 32px;
+  text-align: center;
+}
+
+/* Alert wrapper */
+.alertWrapper {
+  margin-bottom: 24px;
+}

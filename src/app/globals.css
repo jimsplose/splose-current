@@ -158,6 +158,14 @@
 .text-text-secondary { color: var(--ant-color-text-secondary, #6E6E64); }
 .text-text-tertiary { color: var(--ant-color-text-tertiary, #b8bcc0); }
 .text-primary { color: var(--ant-color-primary, #8250FF); }
+.text-danger { color: var(--ant-color-error, #D00032); }
+.text-warning { color: var(--ant-color-warning, #FFD232); }
+.text-success { color: var(--ant-color-success, #00C269); }
+.text-border { color: var(--ant-color-border, #e7e8e8); }
+.bg-primary { background-color: var(--ant-color-primary, #8250FF); }
+.border-border { border-color: var(--ant-color-border, #e7e8e8); }
+.border-primary { border-color: var(--ant-color-primary, #8250FF); }
+.divide-border > * + * { border-top-color: var(--ant-color-border, #e7e8e8); }
 
 /* ── Global reset ──────────────────────────────────────────────────────────── */
 /* AntD handles all component styling via CSS-in-JS tokens.                    */

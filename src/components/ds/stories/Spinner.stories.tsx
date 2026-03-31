@@ -48,18 +48,18 @@ export const Large: Story = { args: { size: "lg" } };
 
 export const AllSizes: Story = {
   render: () => (
-    <div className="flex items-center gap-4">
-      <div className="flex flex-col items-center gap-2">
+    <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
         <Spinner size="sm" />
-        <span className="text-xs text-text-secondary">sm</span>
+        <span className="text-text-secondary" style={{ fontSize: 11 }}>sm</span>
       </div>
-      <div className="flex flex-col items-center gap-2">
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
         <Spinner size="md" />
-        <span className="text-xs text-text-secondary">md</span>
+        <span className="text-text-secondary" style={{ fontSize: 11 }}>md</span>
       </div>
-      <div className="flex flex-col items-center gap-2">
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
         <Spinner size="lg" />
-        <span className="text-xs text-text-secondary">lg</span>
+        <span className="text-text-secondary" style={{ fontSize: 11 }}>lg</span>
       </div>
     </div>
   ),
@@ -79,7 +79,7 @@ export const AllSizes: Story = {
 export const FullPageLoader: Story = {
   name: "Recipe: Full Page Loader",
   render: () => (
-    <div className="flex h-96 w-full items-center justify-center rounded-lg border border-dashed border-border bg-gray-50/30">
+    <div style={{ display: 'flex', height: 384, width: '100%', alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '1px solid var(--color-border)', borderStyle: 'dashed', backgroundColor: 'rgba(249,250,251,0.3)' }}>
       <Spinner size="lg" />
     </div>
   ),
@@ -97,23 +97,23 @@ export const FullPageLoader: Story = {
 export const InlineLoader: Story = {
   name: "Recipe: Inline Loader",
   render: () => (
-    <div className="w-96 space-y-4">
+    <div style={{ width: 384, display: 'flex', flexDirection: 'column', gap: 16 }}>
       {/* AI generation in progress */}
-      <div className="rounded-lg border border-purple-200 bg-primary/5 p-4">
-        <div className="mb-3 flex items-center justify-between">
-          <span className="text-label-lg text-purple-700">Subjective</span>
-          <span className="text-caption-sm text-purple-400">AI Assisted</span>
+      <div className="bg-primary/5" style={{ borderRadius: 8, border: '1px solid var(--color-border)', borderColor: '#e9d5ff', padding: 16 }}>
+        <div style={{ marginBottom: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span className="text-label-lg" style={{ color: '#7e22ce' }}>Subjective</span>
+          <span className="text-caption-sm" style={{ color: '#c084fc' }}>AI Assisted</span>
         </div>
-        <div className="flex items-center gap-2 py-4">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingTop: 16, paddingBottom: 16 }}>
           <Spinner size="sm" />
-          <span className="text-sm text-text-secondary">
-            Thinking<span className="animate-pulse">...</span>
+          <span className="text-text-secondary" style={{ fontSize: 12 }}>
+            Thinking<span>...</span>
           </span>
         </div>
       </div>
 
       {/* Standalone inline variant */}
-      <div className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-3">
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
         <Spinner size="sm" />
         <span className="text-body-md text-text-secondary">Loading notes...</span>
       </div>
@@ -131,17 +131,17 @@ export const InlineLoader: Story = {
 export const ButtonLoader: Story = {
   name: "Recipe: Button Loader",
   render: () => (
-    <div className="flex items-center gap-4">
+    <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
       <button
         disabled
-        className="inline-flex items-center gap-2 rounded-lg border border-primary bg-primary px-4 py-2 text-label-lg text-white opacity-80"
+        className="border-primary bg-primary text-label-lg" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, borderRadius: 8, border: '1px solid var(--color-border)', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, color: '#fff', opacity: 0.8 }}
       >
-        <Spinner size="sm" className="border-white border-t-transparent" />
+        <Spinner size="sm" style={{ borderColor: '#fff', borderTopColor: 'transparent' }} />
         Saving...
       </button>
       <button
         disabled
-        className="inline-flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 text-label-lg text-text-secondary opacity-80"
+        className="border-border text-label-lg text-text-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, opacity: 0.8 }}
       >
         <Spinner size="sm" />
         Loading...
@@ -160,20 +160,20 @@ export const ButtonLoader: Story = {
 export const TableLoadingState: Story = {
   name: "Recipe: Table Loading State",
   render: () => (
-    <div className="overflow-hidden rounded-lg border border-border bg-white">
+    <div style={{ overflow: 'hidden', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff' }}>
       {/* Table header skeleton */}
-      <div className="flex items-center border-b border-border bg-gray-50 px-4 py-3">
-        <div className="h-3 w-20 rounded bg-gray-200" />
-        <div className="ml-8 h-3 w-32 rounded bg-gray-200" />
-        <div className="ml-auto h-3 w-16 rounded bg-gray-200" />
+      <div style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid var(--color-border)', backgroundColor: '#f9fafb', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
+        <div style={{ height: 12, width: 80, borderRadius: 4, backgroundColor: '#e5e7eb' }} />
+        <div style={{ marginLeft: 32, height: 12, width: 128, borderRadius: 4, backgroundColor: '#e5e7eb' }} />
+        <div style={{ marginLeft: 'auto', height: 12, width: 64, borderRadius: 4, backgroundColor: '#e5e7eb' }} />
       </div>
       {/* Spinner body */}
-      <div className="flex h-48 items-center justify-center">
+      <div style={{ display: 'flex', height: 192, alignItems: 'center', justifyContent: 'center' }}>
         <Spinner size="md" />
       </div>
       {/* Footer skeleton */}
-      <div className="flex items-center justify-end border-t border-border px-4 py-3">
-        <div className="h-3 w-32 rounded bg-gray-200" />
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', borderTop: '1px solid var(--color-border)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
+        <div style={{ height: 12, width: 128, borderRadius: 4, backgroundColor: '#e5e7eb' }} />
       </div>
     </div>
   ),
@@ -189,17 +189,17 @@ export const TableLoadingState: Story = {
 export const OverlayLoader: Story = {
   name: "Recipe: Overlay Loader",
   render: () => (
-    <div className="relative h-96 w-full overflow-hidden rounded-lg border border-border">
+    <div style={{ position: 'relative', height: 384, width: '100%', overflow: 'hidden', borderRadius: 8, border: '1px solid var(--color-border)' }}>
       {/* Background content (blurred/dimmed) */}
-      <div className="p-6 opacity-50 blur-[1px]">
-        <div className="mb-4 h-6 w-48 rounded bg-gray-200" />
-        <div className="mb-2 h-4 w-full rounded bg-gray-100" />
-        <div className="mb-2 h-4 w-3/4 rounded bg-gray-100" />
-        <div className="h-4 w-1/2 rounded bg-gray-100" />
+      <div style={{ padding: 24, opacity: 0.5, filter: 'blur(1px)' }}>
+        <div style={{ marginBottom: 16, height: 24, width: 192, borderRadius: 4, backgroundColor: '#e5e7eb' }} />
+        <div style={{ marginBottom: 8, height: 16, width: '100%', borderRadius: 4, backgroundColor: '#f3f4f6' }} />
+        <div style={{ marginBottom: 8, height: 16, width: '75%', borderRadius: 4, backgroundColor: '#f3f4f6' }} />
+        <div style={{ height: 16, width: '50%', borderRadius: 4, backgroundColor: '#f3f4f6' }} />
       </div>
       {/* Overlay */}
-      <div className="absolute inset-0 flex items-center justify-center bg-white/60">
-        <div className="flex flex-col items-center gap-3">
+      <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.6)' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
           <Spinner size="lg" />
           <span className="text-label-lg text-text-secondary">Loading...</span>
         </div>

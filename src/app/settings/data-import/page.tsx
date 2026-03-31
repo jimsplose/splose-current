@@ -117,10 +117,10 @@ export default function DataImportPage() {
           <h2 className="text-heading-lg text-text" style={{ marginBottom: 4 }}>Concierge data import</h2>
           <p className="text-body-md text-text-secondary" style={{ marginBottom: 12 }}>Data importing is complicated. Chat with us to schedule a data import.</p>
           <Flex align="center" gap={16}>
-            <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }} className="text-label-lg text-text hover:text-primary">
+            <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }} className="text-label-lg text-text">
               <MessageOutlined style={{ fontSize: 16 }} /> Chat with us
             </a>
-            <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }} className="text-label-lg text-text hover:text-primary">
+            <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }} className="text-label-lg text-text">
               <ReadOutlined style={{ fontSize: 16 }} /> Help guide
             </a>
           </Flex>
@@ -185,14 +185,14 @@ export default function DataImportPage() {
       >
         {importStep === "source" && (
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-            <button type="button" onClick={handleImportNext} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', padding: 24, textAlign: 'center', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }} className="hover:border-primary hover:bg-purple-50">
+            <button type="button" onClick={handleImportNext} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', padding: 24, textAlign: 'center', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}>
               <FileExcelOutlined style={{ fontSize: 40, color: 'var(--color-primary)' }} />
               <div>
                 <p className="text-label-lg text-text">CSV</p>
                 <p className="text-body-sm text-text-secondary" style={{ marginTop: 4 }}>Import clients, contacts, or appointments from a CSV file</p>
               </div>
             </button>
-            <button type="button" onClick={handleImportNext} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', padding: 24, textAlign: 'center', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }} className="hover:border-primary hover:bg-purple-50">
+            <button type="button" onClick={handleImportNext} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', padding: 24, textAlign: 'center', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}>
               <DatabaseOutlined style={{ fontSize: 40, color: 'var(--color-primary)' }} />
               <div>
                 <p className="text-label-lg text-text">Cliniko</p>
@@ -205,7 +205,7 @@ export default function DataImportPage() {
         {importStep === "upload" && (
           <Flex vertical gap={16}>
             <FormSelect label="Import type" options={[{ value: "clients", label: "Clients" }, { value: "contacts", label: "Contacts" }, { value: "appointments", label: "Appointments" }]} defaultValue="clients" />
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, borderRadius: 8, border: '2px dashed var(--color-border)', padding: 40, textAlign: 'center', transition: 'all 0.2s' }} className="hover:border-primary hover:bg-purple-50">
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, borderRadius: 8, border: '2px dashed var(--color-border)', padding: 40, textAlign: 'center', transition: 'all 0.2s' }}>
               <UploadOutlined style={{ fontSize: 40, color: 'var(--color-text-secondary)' }} />
               <div>
                 <p className="text-body-md text-text">Drag and drop your CSV file here</p>

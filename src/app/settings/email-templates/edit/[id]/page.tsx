@@ -41,7 +41,7 @@ export default function EditEmailTemplatePage() {
         backHref="/settings/email-templates"
         title={name || "Edit email template"}
         children={
-          <div className="flex items-center gap-2">
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <Button variant="secondary" onClick={() => setShowPreview(true)}>Preview</Button>
             <Button variant="secondary" onClick={() => router.push("/settings/email-templates")}>Cancel</Button>
             <Button variant="primary" onClick={() => router.push("/settings/email-templates")}>Save</Button>
@@ -49,8 +49,8 @@ export default function EditEmailTemplatePage() {
         }
       />
 
-      <div className="mx-auto max-w-3xl space-y-4 p-6">
-        <div className="grid grid-cols-2 gap-4">
+      <div style={{ maxWidth: 768, margin: '0 auto', padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
           <FormInput label="Name" value={name} onChange={(e) => setName(e.target.value)} />
           <FormSelect label="Type" value={type} onChange={setType} options={typeOptions} />
         </div>
@@ -58,7 +58,7 @@ export default function EditEmailTemplatePage() {
         <FormInput label="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
 
         <div>
-          <label className="mb-1 block text-label-lg text-text-secondary">Body</label>
+          <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Body</label>
           <RichTextEditor
             value={body}
             onChange={setBody}

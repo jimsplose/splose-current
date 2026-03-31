@@ -74,7 +74,6 @@ export default function ReferralTypesPage() {
           />
         </>
       )}
-      className="p-2"
     />
   );
 }

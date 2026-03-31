@@ -115,7 +115,7 @@ export default function FormTemplateEditorPage() {
                 {fields.map((field) => {
                   const FieldIcon = FIELD_TYPES.find((t) => t.value === field.type)?.icon || FontSizeOutlined;
                   return (
-                    <Card key={field.id} padding="none" className="group">
+                    <Card key={field.id} padding="none">
                       <Flex align="center" gap={8} style={{ padding: '12px 16px' }}>
                         <HolderOutlined style={{ fontSize: 16, flexShrink: 0, cursor: 'grab', color: 'var(--color-text-secondary)' }} />
                         <FieldIcon style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-primary)' }} />
@@ -126,7 +126,7 @@ export default function FormTemplateEditorPage() {
                           onChange={(e) => setFields((prev) => prev.map((f) => f.id === field.id ? { ...f, label: e.target.value } : f))}
                         />
                         <Toggle checked={field.required} onChange={(checked) => setFields((prev) => prev.map((f) => f.id === field.id ? { ...f, required: checked } : f))} label="Required" />
-                        <button onClick={() => removeField(field.id)} style={{ borderRadius: 4, padding: 4, color: 'var(--color-text-secondary)', opacity: 0 }} className="group-hover:opacity-100 hover:text-danger">
+                        <button onClick={() => removeField(field.id)} style={{ borderRadius: 4, padding: 4, color: 'var(--color-text-secondary)' }}>
                           <DeleteOutlined style={{ fontSize: 14 }} />
                         </button>
                       </Flex>
@@ -173,7 +173,7 @@ export default function FormTemplateEditorPage() {
                   {fields.map((field) => (
                     <div key={field.id}>
                       <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
-                        {field.label} {field.required && <span className="text-danger">*</span>}
+                        {field.label} {field.required && <span style={{ color: '#ef4444' }}>*</span>}
                       </label>
                       {field.type === "long-text" ? (
                         <textarea style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '8px 12px' }} className="text-body-md" rows={3} disabled />
@@ -192,7 +192,7 @@ export default function FormTemplateEditorPage() {
                     </div>
                   ))}
                 </Flex>
-                <Button variant="primary" className="mt-6 w-full" style={{ backgroundColor: themeColor }}>Submit</Button>
+                <Button variant="primary" style={{ marginTop: 24, width: '100%', backgroundColor: themeColor }}>Submit</Button>
               </div>
             </div>
           )}
@@ -202,7 +202,7 @@ export default function FormTemplateEditorPage() {
           <div style={{ width: 320, flexShrink: 0, borderLeft: '1px solid var(--color-border)', backgroundColor: 'white', padding: 16 }}>
             <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
               <h3 className="text-heading-sm text-text">Share & Automate</h3>
-              <button onClick={() => setSidePanel(null)} style={{ borderRadius: 4, padding: 4, color: 'var(--color-text-secondary)' }} className="hover:bg-gray-100">&times;</button>
+              <button onClick={() => setSidePanel(null)} style={{ borderRadius: 4, padding: 4, color: 'var(--color-text-secondary)' }}>&times;</button>
             </Flex>
             <Flex vertical gap={16}>
               <div>
@@ -230,7 +230,6 @@ export default function FormTemplateEditorPage() {
               key={value}
               onClick={() => addField(value)}
               style={{ display: 'flex', alignItems: 'center', gap: 8, borderRadius: 8, border: '1px solid var(--color-border)', padding: '10px 12px', textAlign: 'left', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}
-              className="hover:border-primary hover:bg-primary/5"
             >
               <Icon style={{ fontSize: 16, color: 'var(--color-primary)' }} />
               <span className="text-body-md text-text">{label}</span>

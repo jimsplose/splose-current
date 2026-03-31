@@ -124,7 +124,7 @@ export default function FormsPage() {
           ))}
         </TableBody>
       </DataTable>
-      {filtered.length === 0 && <EmptyState message="No form templates found" className="py-8" />}
+      {filtered.length === 0 && <EmptyState message="No form templates found" style={{ paddingTop: 32, paddingBottom: 32 }} />}
 
       <Modal
         open={modalOpen}

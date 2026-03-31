@@ -9,6 +9,7 @@ interface ChipProps {
   variant?: ChipVariant;
   onRemove?: () => void;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 const colorMap: Record<ChipVariant, string> = {
@@ -20,14 +21,14 @@ const colorMap: Record<ChipVariant, string> = {
   gray: "default",
 };
 
-export default function Chip({ children, variant = "gray", onRemove, className }: ChipProps) {
+export default function Chip({ children, variant = "gray", onRemove, className, style: styleProp }: ChipProps) {
   return (
     <Tag
       color={colorMap[variant]}
       closable={!!onRemove}
       onClose={onRemove}
       className={className}
-      style={{ borderRadius: 9999, padding: "4px 12px", fontSize: 14, fontWeight: 500 }}
+      style={{ borderRadius: 9999, padding: "4px 12px", fontSize: 14, fontWeight: 500, ...styleProp }}
     >
       {children}
     </Tag>

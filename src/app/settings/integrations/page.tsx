@@ -16,8 +16,8 @@ interface Integration {
 }
 
 /* eslint-disable @next/next/no-img-element */
-function IntegrationLogo({ src, alt, className = "h-12" }: { src: string; alt: string; className?: string }) {
-  return <img src={src} alt={alt} className={`w-auto object-contain ${className}`} />;
+function IntegrationLogo({ src, alt, height = 48 }: { src: string; alt: string; height?: number }) {
+  return <img src={src} alt={alt} style={{ width: 'auto', objectFit: 'contain', height }} />;
 }
 
 const integrations: Integration[] = [
@@ -81,7 +81,7 @@ const integrations: Integration[] = [
     description:
       "Zoom is the leader in modern enterprise video communications with an easy, reliable cloud platform for video and audio conferencing, online chat. Automatically create and attach Zoom Meetings for appointments created in splose and send it to clients in email and SMS.",
     connected: true,
-    logo: <span className="text-5xl font-bold text-[#2D8CFF]">Zoom</span>,
+    logo: <span style={{ fontSize: '3rem', fontWeight: 700, color: '#2D8CFF' }}>Zoom</span>,
     actions: [{ label: "Settings", variant: "secondary" }],
   },
   {
@@ -96,26 +96,26 @@ const integrations: Integration[] = [
 
 export default function IntegrationsPage() {
   return (
-    <div className="p-6">
-      <div className="mb-8">
+    <div style={{ padding: 24 }}>
+      <div style={{ marginBottom: 32 }}>
         <h1 className="text-display-lg">Integrations</h1>
       </div>
-      <div className="grid grid-cols-3 gap-5">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
         {integrations.map((integration) => (
-          <div key={integration.name} className="rounded-lg border border-border p-4">
-            <div className="flex flex-col items-center text-center">
+          <div key={integration.name} style={{ borderRadius: 8, border: '1px solid var(--color-border)', padding: 16 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
               {/* Logo */}
-              <div className="mb-3 flex h-20 items-center justify-center">
+              <div style={{ marginBottom: 12, display: 'flex', height: 80, alignItems: 'center', justifyContent: 'center' }}>
                 {integration.logo}
               </div>
 
               {/* Name */}
-              <h2 className="mb-2 text-heading-md text-text">
+              <h2 className="text-heading-md text-text" style={{ marginBottom: 8 }}>
                 {integration.name}
               </h2>
 
               {/* Description */}
-              <p className="mb-4 text-body-md leading-relaxed text-text-secondary">
+              <p className="text-body-md text-text-secondary" style={{ marginBottom: 16, lineHeight: 1.625 }}>
                 {integration.description}
               </p>
 
@@ -123,14 +123,15 @@ export default function IntegrationsPage() {
               {integration.profileLink && (
                 <a
                   href={integration.profileLink.href}
-                  className="mb-4 text-body-md text-primary hover:underline"
+                  className="text-body-md text-primary"
+                  style={{ marginBottom: 16 }}
                 >
                   {integration.profileLink.label}
                 </a>
               )}
 
               {/* Action buttons */}
-              <div className="mt-auto flex items-center gap-2">
+              <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
                 {integration.actions.map((action) => (
                   <Button
                     key={action.label}

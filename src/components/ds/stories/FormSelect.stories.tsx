@@ -51,7 +51,7 @@ export const Playground: Story = {
     ],
     disabled: false,
   },
-  decorators: [(Story) => <div className="w-80">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 320 }}>{Story()}</div>],
 };
 
 /* ================================================================== */
@@ -66,12 +66,12 @@ const sampleOptions = [
 
 export const Default: Story = {
   args: { options: sampleOptions },
-  decorators: [(Story) => <div className="w-80">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 320 }}>{Story()}</div>],
 };
 
 export const WithLabel: Story = {
   args: { label: "Status", options: sampleOptions },
-  decorators: [(Story) => <div className="w-80">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 320 }}>{Story()}</div>],
 };
 
 export const WithPlaceholder: Story = {
@@ -84,12 +84,12 @@ export const WithPlaceholder: Story = {
       { value: "review", label: "Plan Review" },
     ],
   },
-  decorators: [(Story) => <div className="w-80">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 320 }}>{Story()}</div>],
 };
 
 export const Disabled: Story = {
   args: { label: "Locked field", options: sampleOptions, disabled: true },
-  decorators: [(Story) => <div className="w-80">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 320 }}>{Story()}</div>],
 };
 
 /* ------------------------------------------------------------------ */
@@ -98,7 +98,7 @@ export const Disabled: Story = {
 
 export const AllStates: Story = {
   render: () => (
-    <div className="flex max-w-md flex-col gap-4">
+    <div style={{ display: 'flex', maxWidth: 448, flexDirection: 'column', gap: 16 }}>
       <FormSelect label="Normal" options={sampleOptions} />
       <FormSelect
         label="With placeholder"
@@ -122,7 +122,7 @@ export const AllStates: Story = {
 
 export const LocationSelect: Story = {
   render: () => (
-    <div className="w-80">
+    <div style={{ width: 320 }}>
       <FormSelect
         label="Location"
         options={[
@@ -143,7 +143,7 @@ export const LocationSelect: Story = {
 
 export const StatusFilter: Story = {
   render: () => (
-    <div className="w-60">
+    <div style={{ width: 240 }}>
       <FormSelect
         label="Status"
         options={[
@@ -164,7 +164,7 @@ export const StatusFilter: Story = {
 
 export const TemplateSelect: Story = {
   render: () => (
-    <div className="w-80">
+    <div style={{ width: 320 }}>
       <FormSelect
         label="Template *"
         options={[
@@ -189,9 +189,9 @@ export const TemplateSelect: Story = {
 
 export const SettingsFormSelects: Story = {
   render: () => (
-    <div className="max-w-lg space-y-4">
+    <div style={{ maxWidth: 512, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <h2 className="text-heading-lg text-text">Practice settings</h2>
-      <div className="grid grid-cols-2 gap-4">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
         <FormSelect
           label="Patient terminology"
           options={[
@@ -202,7 +202,7 @@ export const SettingsFormSelects: Story = {
         />
         <FormInput label="Currency code" type="text" defaultValue="AUD" />
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
         <FormSelect
           label="Country"
           options={[

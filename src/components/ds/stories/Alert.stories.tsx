@@ -45,7 +45,7 @@ export const Playground: Story = {
     icon: <InfoCircleOutlined style={{ fontSize: 16 }} />,
     children: "This is an informational alert. Change the variant and content using the controls.",
   },
-  decorators: [(Story) => <div className="w-[480px]">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 480 }}>{Story()}</div>],
 };
 
 /* ================================================================== */
@@ -58,7 +58,7 @@ export const InfoAlert: Story = {
     icon: <InfoCircleOutlined style={{ fontSize: 16 }} />,
     children: "Client won't be notified of changes.",
   },
-  decorators: [(Story) => <div className="w-[480px]">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 480 }}>{Story()}</div>],
 };
 
 export const WarningAlert: Story = {
@@ -67,7 +67,7 @@ export const WarningAlert: Story = {
     icon: <WarningOutlined style={{ fontSize: 16 }} />,
     children: "This appointment is in the past.",
   },
-  decorators: [(Story) => <div className="w-[480px]">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 480 }}>{Story()}</div>],
 };
 
 export const SuccessAlert: Story = {
@@ -76,7 +76,7 @@ export const SuccessAlert: Story = {
     icon: <CheckCircleOutlined style={{ fontSize: 16 }} />,
     children: "Changes saved successfully.",
   },
-  decorators: [(Story) => <div className="w-[480px]">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 480 }}>{Story()}</div>],
 };
 
 export const ErrorAlert: Story = {
@@ -85,7 +85,7 @@ export const ErrorAlert: Story = {
     icon: <CloseCircleOutlined style={{ fontSize: 16 }} />,
     children: "Failed to save changes. Please try again.",
   },
-  decorators: [(Story) => <div className="w-[480px]">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 480 }}>{Story()}</div>],
 };
 
 export const WithoutIcon: Story = {
@@ -93,7 +93,7 @@ export const WithoutIcon: Story = {
     variant: "info",
     children: "This alert has no icon, just text content.",
   },
-  decorators: [(Story) => <div className="w-[480px]">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 480 }}>{Story()}</div>],
 };
 
 /* ------------------------------------------------------------------ */
@@ -102,7 +102,7 @@ export const WithoutIcon: Story = {
 
 export const AllVariants: Story = {
   render: () => (
-    <div className="w-[480px] space-y-3">
+    <div style={{ width: 480, display: 'flex', flexDirection: 'column', gap: 12 }}>
       <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 16 }} />}>
         Informational message — neutral context or guidance.
       </Alert>
@@ -132,7 +132,7 @@ export const AllVariants: Story = {
 
 export const PastDateWarning: Story = {
   render: () => (
-    <div className="w-[480px]">
+    <div style={{ width: 480 }}>
       <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16, color: '#ca8a04' }} />}>
         This appointment is in the past. Are you sure you want to create it?
       </Alert>
@@ -149,13 +149,13 @@ export const PastDateWarning: Story = {
 
 export const StripeConnectionBanner: Story = {
   render: () => (
-    <div className="w-[560px]">
+    <div style={{ width: 560 }}>
       <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 16, color: '#2563eb' }} />}>
-        <div className="flex items-center justify-between">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span className="text-body-md">
             Connect your Stripe account to accept online payments from clients.
           </span>
-          <Button variant="primary" size="sm" className="ml-4 shrink-0">
+          <Button variant="primary" size="sm" style={{ marginLeft: 16, flexShrink: 0 }}>
             Connect Stripe
           </Button>
         </div>
@@ -173,14 +173,14 @@ export const StripeConnectionBanner: Story = {
 
 export const BetaFeatureBanner: Story = {
   render: () => (
-    <div className="w-[560px]">
+    <div style={{ width: 560 }}>
       <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16 }} />}>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <Badge variant="yellow">BETA</Badge>
             <span className="text-body-md text-text">We need your feedback on AI blocks</span>
           </div>
-          <Button variant="link" size="sm" className="shrink-0">
+          <Button variant="link" size="sm" style={{ flexShrink: 0 }}>
             <ThunderboltOutlined style={{ fontSize: 14 }} />
             Give feedback
           </Button>
@@ -199,7 +199,7 @@ export const BetaFeatureBanner: Story = {
 
 export const EditModalInfoBanner: Story = {
   render: () => (
-    <div className="w-[480px]">
+    <div style={{ width: 480 }}>
       <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 16, color: '#2563eb' }} />}>
         Client won&apos;t be notified of changes. To do this, use Reschedule.
       </Alert>

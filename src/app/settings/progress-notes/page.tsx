@@ -80,7 +80,7 @@ export default function ProgressNotesPage() {
           <p style={{ flex: 1, fontSize: 12 }} className="text-text">
             Add AI blocks to templates to generate instant drafts, every
             session. Try a template{" "}
-            <a href="#" style={{ fontWeight: 500 }} className="text-primary underline">
+            <a href="#" style={{ fontWeight: 500, textDecoration: 'underline' }} className="text-primary">
               created by splose
             </a>
             .
@@ -88,7 +88,7 @@ export default function ProgressNotesPage() {
           <Button
             variant="icon"
             size="sm"
-            className="shrink-0 hover:bg-purple-100 hover:text-text"
+            style={{ flexShrink: 0 }}
             onClick={() => setShowBanner(false)}
           >
             <CloseOutlined style={{ fontSize: 16 }} />

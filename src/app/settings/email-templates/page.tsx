@@ -127,7 +127,7 @@ export default function EmailTemplatesPage() {
   const paged = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   return (
-    <div className="p-6">
+    <div style={{ padding: 24 }}>
       <PageHeader title="Email templates">
         <Button variant="secondary" onClick={openCreate}>+ New template</Button>
       </PageHeader>
@@ -175,7 +175,7 @@ export default function EmailTemplatesPage() {
           </>
         }
       >
-        <div className="space-y-4">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
           <FormSelect
             label="Type"

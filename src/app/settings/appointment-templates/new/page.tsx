@@ -56,15 +56,15 @@ export default function NewAppointmentTemplatePage() {
         backHref="/settings/appointment-templates"
         title={name || "New appointment template"}
         children={
-          <div className="flex items-center gap-2">
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <Button variant="secondary" onClick={() => router.push("/settings/appointment-templates")}>Cancel</Button>
             <Button variant="primary" onClick={() => router.push("/settings/appointment-templates")}>Save</Button>
           </div>
         }
       />
 
-      <div className="mx-auto max-w-3xl space-y-4 p-6">
-        <div className="grid grid-cols-2 gap-4">
+      <div style={{ maxWidth: 768, margin: '0 auto', padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
           <FormInput label="Name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Appointment confirmation" />
           <FormSelect label="Type" value={type} onChange={setType} options={typeOptions} />
         </div>
@@ -74,18 +74,19 @@ export default function NewAppointmentTemplatePage() {
         )}
 
         <Collapse title="SMS" defaultOpen={smsEnabled}>
-          <div className="space-y-4">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <Toggle label="Enable SMS notification" checked={smsEnabled} onChange={setSmsEnabled} />
             {smsEnabled && (
               <div>
-                <label className="mb-1 block text-label-lg text-text-secondary">Message</label>
+                <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Message</label>
                 <textarea
-                  className="w-full rounded-lg border border-border px-3 py-2 text-body-md text-text focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
+                  className="text-body-md text-text"
+                  style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
                   rows={4}
                   value={smsBody}
                   onChange={(e) => setSmsBody(e.target.value)}
                 />
-                <p className="mt-1 text-caption-md text-text-secondary">
+                <p className="text-caption-md text-text-secondary" style={{ marginTop: 4 }}>
                   Variables: {variableTokens.map((v) => `{${v}}`).join(", ")}
                 </p>
               </div>
@@ -94,13 +95,13 @@ export default function NewAppointmentTemplatePage() {
         </Collapse>
 
         <Collapse title="Email" defaultOpen={emailEnabled}>
-          <div className="space-y-4">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <Toggle label="Enable email notification" checked={emailEnabled} onChange={setEmailEnabled} />
             {emailEnabled && (
               <>
                 <FormInput label="Subject" value={emailSubject} onChange={(e) => setEmailSubject(e.target.value)} />
                 <div>
-                  <label className="mb-1 block text-label-lg text-text-secondary">Body</label>
+                  <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Body</label>
                   <RichTextEditor
                     value={emailBody}
                     onChange={setEmailBody}

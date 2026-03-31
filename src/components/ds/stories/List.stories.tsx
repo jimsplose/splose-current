@@ -96,7 +96,7 @@ export const WideLabel: Story = {
 export const ClientInfoTable: Story = {
   name: "Recipe: Client Info Table",
   render: () => (
-    <div className="w-[600px] rounded-lg border border-border bg-white px-4 py-2">
+    <div style={{ width: 600, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>
       <List
         labelWidth="w-40"
         items={[
@@ -124,9 +124,9 @@ export const ClientInfoTable: Story = {
 export const ContactDetails: Story = {
   name: "Recipe: Contact Details",
   render: () => (
-    <div className="w-[500px] space-y-6">
+    <div style={{ width: 500, display: 'flex', flexDirection: 'column', gap: 24 }}>
       <section>
-        <h2 className="mb-4 text-heading-lg text-text">General details</h2>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>General details</h2>
         <List
           items={[
             { label: "Date of birth:", value: "10 Jun 2001 (24)" },
@@ -138,7 +138,7 @@ export const ContactDetails: Story = {
       <hr className="border-border" />
 
       <section>
-        <h2 className="mb-4 text-heading-lg text-text">Client contact details</h2>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Client contact details</h2>
         <List
           items={[
             {
@@ -171,9 +171,9 @@ export const ContactDetails: Story = {
 export const MedicareAndNDIS: Story = {
   name: "Recipe: Medicare & NDIS Details",
   render: () => (
-    <div className="w-[500px] space-y-6">
+    <div style={{ width: 500, display: 'flex', flexDirection: 'column', gap: 24 }}>
       <section>
-        <h2 className="mb-4 text-heading-lg text-text">Medicare details</h2>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Medicare details</h2>
         <List
           items={[
             { label: "Card number:", value: "2123 45670 1" },
@@ -184,7 +184,7 @@ export const MedicareAndNDIS: Story = {
       <hr className="border-border" />
 
       <section>
-        <h2 className="mb-4 text-heading-lg text-text">NDIS details</h2>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>NDIS details</h2>
         <List
           items={[
             { label: "NDIS number:", value: "4312789456" },
@@ -207,8 +207,8 @@ export const MedicareAndNDIS: Story = {
 export const MedicationsAndAllergies: Story = {
   name: "Recipe: Medications & Allergies",
   render: () => (
-    <div className="w-[500px]">
-      <h2 className="mb-4 text-heading-lg text-text">
+    <div style={{ width: 500 }}>
+      <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>
         Medications, allergies &amp; intolerances
       </h2>
       <List
@@ -234,9 +234,9 @@ export const MedicationsAndAllergies: Story = {
 export const CustomFieldsAndInvoicing: Story = {
   name: "Recipe: Custom Fields & Invoicing",
   render: () => (
-    <div className="w-[500px] space-y-6">
+    <div style={{ width: 500, display: 'flex', flexDirection: 'column', gap: 24 }}>
       <section>
-        <h2 className="mb-4 text-heading-lg text-text">Custom fields</h2>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Custom fields</h2>
         <List
           items={[
             { label: "Date since surgery:", value: "25/09/2025" },
@@ -248,7 +248,7 @@ export const CustomFieldsAndInvoicing: Story = {
       <hr className="border-border" />
 
       <section>
-        <h2 className="mb-4 text-heading-lg text-text">Invoicing</h2>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Invoicing</h2>
         <List
           items={[
             { label: "Invoice reminder preference:", value: "On" },
@@ -270,16 +270,16 @@ export const CustomFieldsAndInvoicing: Story = {
 export const FullClientDetailPage: Story = {
   name: "Recipe: Full Client Detail Page",
   render: () => (
-    <div className="w-[600px] space-y-8 rounded-lg border border-border bg-white p-6">
-      <div className="flex items-center justify-between">
+    <div style={{ width: 600, display: 'flex', flexDirection: 'column', gap: 32, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <h1 className="text-display-md text-text">Details</h1>
-        <button className="rounded border border-border px-3 py-1.5 text-body-md text-text-secondary">
+        <button className="border-border text-body-md text-text-secondary" style={{ borderRadius: 4, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6 }}>
           Edit
         </button>
       </div>
 
       <section>
-        <h2 className="mb-4 text-heading-lg text-text">General details</h2>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>General details</h2>
         <List
           items={[
             { label: "Date of birth:", value: "10 Jun 2001 (24 years old)" },
@@ -291,7 +291,7 @@ export const FullClientDetailPage: Story = {
       <hr className="border-border" />
 
       <section>
-        <h2 className="mb-4 text-heading-lg text-text">Client contact details</h2>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Client contact details</h2>
         <List
           items={[
             { label: "Email:", value: <span className="text-primary">noah.campbell@email.com</span> },
@@ -306,14 +306,14 @@ export const FullClientDetailPage: Story = {
       <hr className="border-border" />
 
       <section>
-        <h2 className="mb-4 text-heading-lg text-text">Medicare details</h2>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Medicare details</h2>
         <List items={[{ label: "Card number:", value: "2123 45670 1" }]} />
       </section>
 
       <hr className="border-border" />
 
       <section>
-        <h2 className="mb-4 text-heading-lg text-text">Custom fields</h2>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Custom fields</h2>
         <List
           items={[
             { label: "Date since surgery:", value: "25/09/2025" },

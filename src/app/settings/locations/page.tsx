@@ -37,7 +37,7 @@ export default function LocationsPage() {
   const [newRoomCount, setNewRoomCount] = useState("1");
 
   return (
-    <div className="p-6">
+    <div style={{ padding: 24 }}>
       <PageHeader title="Locations">
         <Button variant="secondary">Show archived</Button>
         <Button variant="secondary" onClick={() => { setNewName(""); setNewAddress(""); setOpeningHours(defaultHours); setNewRoomCount("1"); setShowNewModal(true); }}>+ New location</Button>
@@ -54,7 +54,8 @@ export default function LocationsPage() {
               <Td>
                 <Link
                   href={`/settings/locations/edit/${loc.id}`}
-                  className="font-medium text-text hover:text-primary"
+                  className="text-text"
+                  style={{ fontWeight: 500 }}
                 >
                   {loc.name}
                 </Link>
@@ -72,13 +73,13 @@ export default function LocationsPage() {
         onClose={() => setShowNewModal(false)}
         title="New location"
         footer={
-          <div className="flex justify-end gap-2">
+          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
             <Button variant="secondary" onClick={() => setShowNewModal(false)}>Cancel</Button>
             <Button variant="primary" onClick={() => { setShowNewModal(false); router.push("/settings/locations/new"); }}>Create & edit</Button>
           </div>
         }
       >
-        <div className="space-y-4">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <FormInput label="Location name" value={newName} onChange={(e) => setNewName(e.target.value)} placeholder="e.g. North Clinics" />
           <FormInput label="Address" value={newAddress} onChange={(e) => setNewAddress(e.target.value)} placeholder="e.g. 123 Main St, Adelaide SA 5000" />
 
@@ -94,14 +95,15 @@ export default function LocationsPage() {
 
           {/* Opening hours */}
           <div>
-            <p className="mb-2 text-label-lg text-text-secondary">Opening hours</p>
-            <div className="space-y-2">
+            <p className="text-label-lg text-text-secondary" style={{ marginBottom: 8 }}>Opening hours</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {weekdays.map((day) => (
-                <div key={day} className="flex items-center gap-3">
-                  <span className="w-24 text-body-sm text-text">{day}</span>
+                <div key={day} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <span className="text-body-sm text-text" style={{ width: 96 }}>{day}</span>
                   <input
                     type="time"
-                    className="rounded-lg border border-border bg-white px-2 py-1.5 text-body-sm text-text outline-none focus:border-primary"
+                    className="text-body-sm text-text"
+                    style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', paddingLeft: 8, paddingRight: 8, paddingTop: 6, paddingBottom: 6, outline: 'none' }}
                     value={openingHours[day].start}
                     onChange={(e) =>
                       setOpeningHours((prev) => ({
@@ -113,7 +115,8 @@ export default function LocationsPage() {
                   <span className="text-body-sm text-text-secondary">to</span>
                   <input
                     type="time"
-                    className="rounded-lg border border-border bg-white px-2 py-1.5 text-body-sm text-text outline-none focus:border-primary"
+                    className="text-body-sm text-text"
+                    style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', paddingLeft: 8, paddingRight: 8, paddingTop: 6, paddingBottom: 6, outline: 'none' }}
                     value={openingHours[day].end}
                     onChange={(e) =>
                       setOpeningHours((prev) => ({

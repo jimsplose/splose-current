@@ -60,7 +60,7 @@ export const Playground: Story = {
     disabled: false,
     defaultValue: "",
   },
-  decorators: [(Story) => <div className="w-80">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 320 }}>{Story()}</div>],
 };
 
 /* ================================================================== */
@@ -69,32 +69,32 @@ export const Playground: Story = {
 
 export const Default: Story = {
   args: { placeholder: "Type here..." },
-  decorators: [(Story) => <div className="w-80">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 320 }}>{Story()}</div>],
 };
 
 export const WithLabel: Story = {
   args: { label: "Email address", placeholder: "you@example.com" },
-  decorators: [(Story) => <div className="w-80">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 320 }}>{Story()}</div>],
 };
 
 export const WithError: Story = {
   args: { label: "Email", placeholder: "you@example.com", error: "Please enter a valid email" },
-  decorators: [(Story) => <div className="w-80">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 320 }}>{Story()}</div>],
 };
 
 export const Password: Story = {
   args: { label: "Password", type: "password", placeholder: "Enter password..." },
-  decorators: [(Story) => <div className="w-80">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 320 }}>{Story()}</div>],
 };
 
 export const Disabled: Story = {
   args: { label: "Locked field", disabled: true, defaultValue: "Cannot edit this" },
-  decorators: [(Story) => <div className="w-80">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 320 }}>{Story()}</div>],
 };
 
 export const WithPlaceholder: Story = {
   args: { label: "Search clients", placeholder: "Start typing to search..." },
-  decorators: [(Story) => <div className="w-80">{Story()}</div>],
+  decorators: [(Story) => <div style={{ width: 320 }}>{Story()}</div>],
 };
 
 /* ------------------------------------------------------------------ */
@@ -103,7 +103,7 @@ export const WithPlaceholder: Story = {
 
 export const AllStates: Story = {
   render: () => (
-    <div className="flex max-w-md flex-col gap-4">
+    <div style={{ display: 'flex', maxWidth: 448, flexDirection: 'column', gap: 16 }}>
       <FormInput label="Normal" placeholder="Type here..." />
       <FormInput label="With value" defaultValue="hello@splose.com" />
       <FormInput label="With error" error="This field is required" />
@@ -127,9 +127,9 @@ export const AllStates: Story = {
 
 export const SettingsFormField: Story = {
   render: () => (
-    <div className="max-w-md">
-      <h2 className="mb-4 text-heading-lg text-text">Invoice number</h2>
-      <div className="space-y-4">
+    <div style={{ maxWidth: 448 }}>
+      <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Invoice number</h2>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <FormInput label="Prefix" defaultValue="INV" />
         <FormInput label="Padding" defaultValue="6" />
         <FormInput label="Next invoice number" defaultValue="6309" />
@@ -147,13 +147,13 @@ export const SettingsFormField: Story = {
 
 export const PaymentAmountInput: Story = {
   render: () => (
-    <div className="max-w-sm">
-      <label className="mb-1 block text-label-lg text-text-secondary">
-        Amount <span className="text-red-500">*</span>
+    <div style={{ maxWidth: 384 }}>
+      <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>
+        Amount <span style={{ color: '#ef4444' }}>*</span>
       </label>
-      <div className="relative">
-        <span className="absolute top-1/2 left-3 z-10 -translate-y-1/2 text-sm text-text-secondary">$</span>
-        <FormInput type="number" step="0.01" min="0" placeholder="0.00" className="pl-7" />
+      <div style={{ position: 'relative' }}>
+        <span className="text-text-secondary" style={{top: '50%', position: 'absolute', left: 12, zIndex: 10, transform: 'translateY(-50%)', fontSize: 12 }}>$</span>
+        <FormInput type="number" step="0.01" min="0" placeholder="0.00" style={{ paddingLeft: 28 }} />
       </div>
     </div>
   ),
@@ -168,7 +168,7 @@ export const PaymentAmountInput: Story = {
 
 export const DateInput: Story = {
   render: () => (
-    <div className="max-w-sm">
+    <div style={{ maxWidth: 384 }}>
       <FormInput label="Date *" type="date" defaultValue="2026-03-23" />
     </div>
   ),
@@ -183,10 +183,10 @@ export const DateInput: Story = {
 
 export const SearchInput: Story = {
   render: () => (
-    <div className="max-w-md">
-      <div className="relative">
-        <SearchOutlined style={{ fontSize: 16 }} className="absolute top-1/2 left-3 z-10 -translate-y-1/2 text-text-secondary" />
-        <FormInput type="text" placeholder="Search invoices by number or client..." className="h-9 pl-10" />
+    <div style={{ maxWidth: 448 }}>
+      <div style={{ position: 'relative' }}>
+        <SearchOutlined style={{ fontSize: 16 }} className="text-text-secondary" style={{top: '50%', position: 'absolute', left: 12, zIndex: 10, transform: 'translateY(-50%)' }} />
+        <FormInput type="text" placeholder="Search invoices by number or client..." style={{ height: 36, paddingLeft: 40 }} />
       </div>
     </div>
   ),
@@ -201,7 +201,7 @@ export const SearchInput: Story = {
 
 export const AppointmentForm: Story = {
   render: () => (
-    <div className="max-w-lg space-y-4">
+    <div style={{ maxWidth: 512, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <FormSelect
         label="Location"
         options={[
@@ -218,7 +218,7 @@ export const AppointmentForm: Story = {
       />
       <FormInput label="Client *" type="text" placeholder="Start typing to search client..." />
       <FormInput label="Date *" type="date" defaultValue="2026-03-23" />
-      <div className="flex items-center justify-end gap-2 border-t border-border pt-4">
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8, borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
         <Button variant="secondary">Cancel</Button>
         <Button variant="primary">Save</Button>
       </div>

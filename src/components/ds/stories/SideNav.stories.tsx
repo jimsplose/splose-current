@@ -268,18 +268,18 @@ export const ClientDetailSidebar: Story = {
 export const SettingsLayoutWithContent: Story = {
   name: "Recipe: Settings Layout with Content",
   render: () => (
-    <div className="flex h-[500px] overflow-hidden rounded-lg border border-border">
+    <div style={{ display: 'flex', height: 500, overflow: 'hidden', borderRadius: 8, border: '1px solid var(--color-border)' }}>
       <SideNav
         sections={settingsSections}
-        className="w-64 p-4"
+        style={{ width: 256, padding: 16 }}
         isActive={(href: string) => href === "/settings/services"}
       />
-      <div className="flex-1 overflow-y-auto p-6">
-        <h1 className="mb-4 text-display-lg">Services</h1>
+      <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+        <h1 className="text-display-lg" style={{ marginBottom: 16 }}>Services</h1>
         <p className="text-body-md text-text-secondary">
           Manage your service types, durations, and pricing.
         </p>
-        <div className="mt-4 rounded border border-border p-4 text-body-sm text-text-secondary">
+        <div className="border-border text-body-sm text-text-secondary" style={{ marginTop: 16, borderRadius: 4, border: '1px solid var(--color-border)', padding: 16 }}>
           Page content area
         </div>
       </div>
