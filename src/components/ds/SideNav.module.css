@@ -13,7 +13,7 @@
   font-size: 14px;
   font-weight: 600;
   line-height: 22px;
-  color: #000000;
+  color: var(--color-text);
 }
 
 .list {
