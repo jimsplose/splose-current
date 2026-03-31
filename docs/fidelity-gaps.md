@@ -26,6 +26,12 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 ### Group S5 — Detail page header component
 - [x] **Detail page header sizes/colors** — Fixed: Client/Contact labels now 20px/700/green/Sprig Sans. Details heading uses text-display-lg (30px green). SideNav active color changed from purple to black. Measurement-verified 2026-03-31.
 
+### Group S6 — Reports overview card headings (`src/app/reports/page.tsx`)
+- [ ] **Card headings (Utilisation/Revenue) too small** — Production: 20px/700/rgb(65,69,73). Localhost: 14px/600/rgb(65,69,73). Found 2026-04-01 full sweep batch 3.
+
+### Group S7 — Add payment page (`src/app/payments/new/page.tsx`)
+- [ ] **Title text/style mismatch** — Production: "Add payment" 30px/700/rgb(66,105,74) green PageHeader. Localhost: "New payment" 18px/600/rgb(65,69,73) gray. Labels 600/rgb(34,34,34) on prod vs 400/rgb(110,110,100). Cancel btn red on prod vs purple. Button height 38px on prod vs 32px. Found 2026-04-01 full sweep batch 1.
+
 ## Priority 1 — High-traffic pages
 
 ### Group D — Dashboard (`src/app/page.tsx`)

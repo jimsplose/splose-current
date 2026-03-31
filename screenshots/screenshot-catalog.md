@@ -6,7 +6,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 **Sources:** March 11 screenshots from production (`acme.splose.com`) and dev environment. March 17 screenshots from production.
 
-**Last full sweep:** 2026-04-01 (in progress) — Full sweep dual-tab Chrome MCP at 1440x900. S1-S5 systemic fixes applied 2026-03-31: search 38px, th bg rgb(243,245,247), dashboard heading bg, text-display-lg green, detail page headers 20px/700/green. **Batch 1 (6 pages):** Dashboard YES, Clients list YES, Client detail YES, Contacts list YES, Contact detail YES, Invoices list YES. All S1-S5 fixes verified via dual-tab measurement.
+**Last full sweep:** 2026-04-01 (in progress) — Full sweep dual-tab Chrome MCP at 1440x900. S1-S5 systemic fixes applied 2026-03-31: search 38px, th bg rgb(243,245,247), dashboard heading bg, text-display-lg green, detail page headers 20px/700/green. **Batch 1 (6 pages):** Dashboard YES, Clients list YES, Client detail YES, Contacts list YES, Contact detail YES, Invoices list YES. All S1-S5 fixes verified via dual-tab measurement. **Batch 2-3 (15 pages):** Quick-reverify of high-traffic pages all PASS. Calendar week/day/month YES. Payments list YES, Waitlist YES, Products YES. Reports overview downgraded to PARTIAL — card headings (Utilisation/Revenue) 14px/600 vs production 20px/700. Reports sub-pages (Appointments, Performance) YES. Settings landing YES, Settings/Services YES. New gap: /payments/new title/labels/buttons. New gap: Reports card headings.
 
 **Previous sweep:** 2026-03-30 — Batch 1 (6 pages): Dashboard partial (fontWeight), Calendar week partial (time labels 11px), Calendar month partial (DOW color), Calendar day partial (time labels), Clients list partial (tag fontWeight), Client detail partial (fontWeight).
 
@@ -619,7 +619,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.17.57 am.png | Performance overview — desktop, Utilisation + Revenue charts + Practitioners table | yes — measurement-verified 2026-04-01: title green via PageHeader. S1 fix. |
+| Screenshot 2026-03-11 at 11.17.57 am.png | Performance overview — desktop, Utilisation + Revenue charts + Practitioners table | partial — measurement-verified 2026-04-01: title 30px/700/green PASS. Card headings (Utilisation/Revenue) 14px/600 on localhost vs 20px/700 on production FAIL. Sidebar section headers rgb(65,69,73) vs production rgb(0,0,0) NOTE. |
 | Screenshot 2026-03-11 at 11.18.04 am.png | Performance overview — desktop, date picker calendar open | partial — native date input exists, custom calendar picker not implemented |
 | Screenshot 2026-03-11 at 11.18.09 am.png | Performance overview — desktop, Frequency dropdown (Daily/Weekly/Monthly/Quarterly/Yearly) | yes — FormSelect with Daily/Weekly/Monthly/Quarterly/Yearly options 2026-03-24 |
 | Screenshot 2026-03-11 at 11.18.15 am.png | Performance overview — desktop, All locations dropdown | yes — FormSelect with location options 2026-03-24 |
