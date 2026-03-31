@@ -4,6 +4,61 @@ Append-only log. Each session adds an entry summarizing what was done.
 
 ---
 
+## Session — 2026-03-31 (Full Sweep Audit + S1 Fidelity Fix)
+
+**Branch**: `antd-migration`
+
+### Completed — Full Sweep Audit (40+ pages)
+
+Dual-tab Chrome MCP measurement at 1440x900 across all page sections.
+
+**Verdicts:**
+- Calendar week/month/day: YES (confirmed from earlier CSS module fixes)
+- Dashboard: partial (section heading bg missing, body fontSize 15→14px; FIXED: heading color/weight/nav color now match)
+- Clients list: partial (search sizing; FIXED: title color, tags, th color)
+- Client detail: partial (page header sizes/colors; FIXED: duplicate nav removed)
+- Contacts list: yes | Contact detail: partial (page header sizes/colors)
+- Waitlist: yes | Invoices list: yes | Payments list: yes | Products: yes
+- Reports: overview partial (gray title), all 12 sub-pages yes
+- Settings: 11 pages green title (yes), 10 pages gray title (partial)
+- Login: partial (SVG illustration) | Invoice detail/Notes: stale IDs, couldn't verify
+
+**5 systemic gaps filed (Priority 0 in fidelity-gaps.md):**
+- S1: PageHeader consistency (10 settings + reports overview use bare h1 → gray title)
+- S2: Search input sizing (38→32px height across list pages)
+- S3: Table header bg color (rgb(243,245,247) → rgb(234,237,241))
+- S4: Dashboard section heading bg missing
+- S5: Detail page header sizes/colors
+
+**Root cause identified:** Pages using `PageHeader` component get green title; pages with bare `<h1 className="text-display-lg">` inherit body gray.
+
+### In Progress — S1 Fix (PageHeader Consistency)
+
+**Code changes complete (11 files):**
+- `src/app/settings/services/page.tsx` — h1 → PageHeader ✓
+- `src/app/settings/users/page.tsx` — h1 → PageHeader ✓
+- `src/app/settings/integrations/page.tsx` — h1 → PageHeader ✓
+- `src/app/settings/payment-settings/page.tsx` — h1 → PageHeader ✓
+- `src/app/settings/invoice-settings/page.tsx` — h1 → PageHeader ✓
+- `src/app/settings/ai/page.tsx` — h1 → PageHeader ✓
+- `src/app/settings/data-export/page.tsx` — h1 → PageHeader ✓
+- `src/app/settings/busy-times/page.tsx` — h1 → PageHeader ✓
+- `src/app/settings/cancellation-reasons/page.tsx` — h1 → PageHeader ✓
+- `src/app/settings/tax-rates/page.tsx` — h1 → PageHeader ✓
+- `src/app/settings/data-import/page.tsx` — h1 → PageHeader ✓
+- `src/app/reports/page.tsx` — h1 → PageHeader ✓
+
+**TypeScript passes.** Services and Users verified green via Chrome MCP.
+
+**Still needed to complete S1:**
+1. Verify remaining 9 pages (quick spot-check title color)
+2. Write `.verification-evidence` for all page.tsx files
+3. `npx next build`
+4. Commit and push
+5. Update catalog entries from partial → yes
+
+---
+
 ## Session — 2026-03-30 (AntD Migration — All 4 Phases)
 
 **Branch**: `antd-migration`
