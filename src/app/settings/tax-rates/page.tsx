@@ -12,6 +12,7 @@ import {
   Pagination,
   Modal,
   FormInput,
+  PageHeader,
 } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 
@@ -55,10 +56,9 @@ export default function TaxRatesPage() {
 
   return (
     <div style={{ padding: 24 }}>
-      <div style={{ marginBottom: 16, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <h1 className="text-display-lg">Tax rates</h1>
+      <PageHeader title="Tax rates">
         <Button variant="secondary" onClick={openCreate}>+ New tax rate</Button>
-      </div>
+      </PageHeader>
 
       <DataTable>
         <TableHead>

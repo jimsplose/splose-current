@@ -18,6 +18,7 @@ import {
   Modal,
   FormSelect,
   Alert,
+  PageHeader,
 } from "@/components/ds";
 
 interface ImportRow {
@@ -127,12 +128,11 @@ export default function DataImportPage() {
         </div>
       </Flex>
 
-      <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
-        <h1 className="text-display-lg">Import data</h1>
+      <PageHeader title="Import data">
         <Button variant="primary" onClick={startImportFlow}>
           <UploadOutlined style={{ fontSize: 16 }} /> Import
         </Button>
-      </Flex>
+      </PageHeader>
 
       <DataTable>
         <TableHead><Th>Type</Th><Th>Status</Th><Th>Message</Th><Th>Last Activity</Th><Th>Actions</Th></TableHead>

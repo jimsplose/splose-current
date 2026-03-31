@@ -16,6 +16,7 @@ import {
   Dropdown,
   DropdownTriggerButton,
   Modal,
+  PageHeader,
 } from "@/components/ds";
 import { USER_ADMIN } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -148,10 +149,9 @@ export default function UsersPage() {
 
   return (
     <div style={{ padding: 24 }}>
-      <Flex align="center" justify="space-between" style={{ marginBottom: 16 }}>
-        <h1 className="text-display-lg">Users</h1>
+      <PageHeader title="Users">
         <Button variant="secondary">Invite users</Button>
-      </Flex>
+      </PageHeader>
       <Flex align="center" gap={8} style={{ marginBottom: 16 }}>
         <div style={{ flex: 1 }}><FormInput type="text" placeholder="Search for user name and email" /></div>
         <Button variant="secondary">Search</Button>

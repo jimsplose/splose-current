@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Flex } from "antd";
-import { Button, DataTable, TableHead, Th, TableBody, Td, ColorDot, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, FormColorPicker } from "@/components/ds";
+import { Button, DataTable, TableHead, Th, TableBody, Td, ColorDot, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, FormColorPicker, PageHeader } from "@/components/ds";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
 
@@ -50,13 +50,10 @@ export default function BusyTimesPage() {
 
   return (
     <div style={{ padding: 32 }}>
-      <Flex justify="space-between" align="center" style={{ marginBottom: 8 }}>
-        <h1 className="text-display-lg">Busy time types</h1>
-        <Flex align="center" gap={8}>
-          <Button variant="secondary">Show archived</Button>
-          <Button variant="secondary" onClick={openCreate}>+ New type</Button>
-        </Flex>
-      </Flex>
+      <PageHeader title="Busy time types">
+        <Button variant="secondary">Show archived</Button>
+        <Button variant="secondary" onClick={openCreate}>+ New type</Button>
+      </PageHeader>
       <p style={{ marginBottom: 24, fontSize: 12, color: 'var(--color-text-secondary)' }}>
         Use busy time to indicate non billable events in Practitioner calendars. You can change utilisation settings to control whether specific types of busy time are used in utilisation reports.
       </p>

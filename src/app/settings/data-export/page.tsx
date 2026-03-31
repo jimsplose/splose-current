@@ -18,6 +18,7 @@ import {
   Dropdown,
   DropdownTriggerButton,
   Modal,
+  PageHeader,
 } from "@/components/ds";
 
 interface ExportRow {
@@ -127,7 +128,7 @@ export default function DataExportPage() {
 
   return (
     <div style={{ padding: 24 }}>
-      <h1 className="text-display-lg" style={{ marginBottom: 24 }}>Data export</h1>
+      <PageHeader title="Data export" />
 
       {/* Download toast */}
       {downloadMessage && (

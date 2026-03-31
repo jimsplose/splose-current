@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ds";
+import { Button, PageHeader } from "@/components/ds";
 
 interface Integration {
   name: string;
@@ -97,9 +97,7 @@ const integrations: Integration[] = [
 export default function IntegrationsPage() {
   return (
     <div style={{ padding: 24 }}>
-      <div style={{ marginBottom: 32 }}>
-        <h1 className="text-display-lg">Integrations</h1>
-      </div>
+      <PageHeader title="Integrations" />
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
         {integrations.map((integration) => (
           <div key={integration.name} style={{ borderRadius: 8, border: '1px solid var(--color-border)', padding: 16 }}>

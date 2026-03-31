@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Flex } from "antd";
 import { WarningOutlined } from "@ant-design/icons";
-import { Button, FormInput, FormTextarea, FormSelect, Tab, Toggle, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, Modal, EmptyState, Badge, Alert } from "@/components/ds";
+import { Button, FormInput, FormTextarea, FormSelect, Tab, Toggle, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, Modal, EmptyState, Badge, Alert, PageHeader } from "@/components/ds";
 
 const aiBlocks = [
   { name: "Subjective Assessment", tag: "SOAP", createdBy: "Jim Yencken", lastModified: "12 Mar 2026" },
@@ -54,13 +54,10 @@ function SettingsAIPageInner() {
 
   return (
     <div style={{ flex: 1, padding: 24 }}>
-        <Flex justify="space-between" align="center" style={{ marginBottom: 24 }}>
-          <h1 className="text-display-lg">splose AI</h1>
-          <Flex align="center" gap={8}>
-            <Button variant="secondary">Learn</Button>
-            <Button variant="primary">Save</Button>
-          </Flex>
-        </Flex>
+        <PageHeader title="splose AI">
+          <Button variant="secondary">Learn</Button>
+          <Button variant="primary">Save</Button>
+        </PageHeader>
 
         {/* Tabs */}
         <Tab

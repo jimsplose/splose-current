@@ -16,6 +16,7 @@ import {
   SearchBar,
   Dropdown,
   DropdownTriggerButton,
+  PageHeader,
 } from "@/components/ds";
 
 interface Service {
@@ -82,17 +83,14 @@ export default function SettingsServicesPage() {
   return (
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       {/* Header */}
-      <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
-        <h1 className="text-display-lg">Services</h1>
-        <Flex align="center" gap={8}>
-          <Button variant="secondary">
-            <ReadOutlined style={{ fontSize: 16, marginRight: 6 }} />
-            Learn
-          </Button>
-          <Button variant="secondary">Show archived</Button>
-          <Button variant="secondary">+ New service</Button>
-        </Flex>
-      </Flex>
+      <PageHeader title="Services">
+        <Button variant="secondary">
+          <ReadOutlined style={{ fontSize: 16, marginRight: 6 }} />
+          Learn
+        </Button>
+        <Button variant="secondary">Show archived</Button>
+        <Button variant="secondary">+ New service</Button>
+      </PageHeader>
 
       {/* Search */}
       <SearchBar

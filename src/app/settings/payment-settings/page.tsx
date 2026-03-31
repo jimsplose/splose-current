@@ -17,6 +17,7 @@ import {
   Dropdown,
   DropdownTriggerButton,
   Modal,
+  PageHeader,
 } from "@/components/ds";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -84,7 +85,7 @@ export default function PaymentSettingsPage() {
 
   return (
     <div style={{ padding: 24 }}>
-      <h1 className="text-display-lg" style={{ marginBottom: 24 }}>Payment settings</h1>
+      <PageHeader title="Payment settings" />
 
       {/* Next payment number */}
       <section style={{ marginBottom: 32 }}>

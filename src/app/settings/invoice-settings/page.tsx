@@ -22,6 +22,7 @@ import {
   DropdownTriggerButton,
   Modal,
   RichTextEditor,
+  PageHeader,
 } from "@/components/ds";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -104,7 +105,7 @@ export default function InvoiceSettingsPage() {
 
   return (
     <div style={{ padding: 24 }}>
-      <h1 className="text-display-lg" style={{ marginBottom: 24 }}>Invoice Settings</h1>
+      <PageHeader title="Invoice Settings" />
 
       {/* Stripe info banner */}
       <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 16 }} />} style={{ marginBottom: 24 }}>

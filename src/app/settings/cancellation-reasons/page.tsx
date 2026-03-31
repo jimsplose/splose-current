@@ -18,6 +18,7 @@ import {
   FormInput,
   FormSelect,
   Toggle,
+  PageHeader,
 } from "@/components/ds";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -94,13 +95,10 @@ export default function CancellationReasonsPage() {
 
   return (
     <div style={{ padding: 32 }}>
-      <Flex justify="space-between" align="center" style={{ marginBottom: 24 }}>
-        <h1 className="text-display-lg">Cancellation reasons</h1>
-        <Flex align="center" gap={8}>
-          <Button variant="secondary">Show archived</Button>
-          <Button variant="secondary" onClick={openCreate}>+ New reason</Button>
-        </Flex>
-      </Flex>
+      <PageHeader title="Cancellation reasons">
+        <Button variant="secondary">Show archived</Button>
+        <Button variant="secondary" onClick={openCreate}>+ New reason</Button>
+      </PageHeader>
       <DataTable>
         <TableHead>
           <Th>Name</Th>

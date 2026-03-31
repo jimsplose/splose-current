@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { CalendarOutlined, DownOutlined, SettingOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Avatar, Button, Card, Checkbox, ColorDot, Dropdown, FormInput, FormSelect } from "@/components/ds";
+import { Avatar, Button, Card, Checkbox, ColorDot, Dropdown, FormInput, FormSelect, PageHeader } from "@/components/ds";
 import { DataTable, TableHead, Th, TableBody, Tr, Td } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 
@@ -251,9 +251,7 @@ export default function ReportsPage() {
 
   return (
     <>
-      <Flex align="center" justify="space-between" style={{ marginBottom: 16 }}>
-        <h1 className="text-display-lg">Performance overview</h1>
-      </Flex>
+      <PageHeader title="Performance overview" />
 
       {/* Filter bar */}
       <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 24 }}>
