@@ -590,7 +590,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.14.32 am.png | Invoices list — desktop, with Overdue/Paid/Draft badges | yes — measurement-verified 2026-03-25: title 30px/700/rgb(40,103,68), th 14px/600/55px/16px, td 14px/400/12px 16px, search 38px/8px-radius. DS DataTable/Th. |
+| Screenshot 2026-03-11 at 11.14.32 am.png | Invoices list — desktop, with Overdue/Paid/Draft badges | yes — measurement-verified 2026-03-31 session 2: title 30px/700/rgb(66,105,74) MATCH, th 14px/600/rgb(65,69,73) MATCH. Systemic: th bg, search sizing. |
 | Screenshot 2026-03-11 at 11.14.41 am.png | Invoices list — mobile (iPhone) | partial |
 | Screenshot 2026-03-11 at 11.14.52 am.png | Invoices list — mobile, expanded row showing Payment sub-row | partial |
 
@@ -598,7 +598,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.16.02 am.png | Invoice view — desktop, Overdue invoice PDF-style with Pay/Email/Actions buttons | yes — PDF layout, color bar, Client/From/Invoice sections, line items, totals, bank details all match 2026-03-24 |
+| Screenshot 2026-03-11 at 11.16.02 am.png | Invoice view — desktop, Overdue invoice PDF-style with Pay/Email/Actions buttons | partial — 2026-03-31 session 2: server error on localhost (stale invoice IDs). Previously yes — PDF layout matches 2026-03-24. Needs re-verify with valid ID. |
 | Screenshot 2026-03-11 at 11.16.10 am.png | Invoice view — desktop, Pay dropdown open | yes — Pay Dropdown with Record payment/Send payment link items 2026-03-24 |
 | Screenshot 2026-03-11 at 11.16.17 am.png | Invoice view — desktop, Actions dropdown open | yes — Actions Dropdown with Duplicate/Credit note/Change log/Void items 2026-03-24 |
 
@@ -606,13 +606,13 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.16.25 am.png | Add payment to invoice — desktop, form with location/date/method/amount | yes — 3.92% mismatch |
+| Screenshot 2026-03-11 at 11.16.25 am.png | Add payment to invoice — desktop, form with location/date/method/amount | partial — measurement-verified 2026-03-31 session 2: title "Add payment" 30px/700/green vs "New payment" 18px/600/gray FAIL. Labels 14px/600/rgb(34,34,34) vs 14px/400/rgb(110,110,100) FAIL. |
 
 ## Payments List (`/payments`)
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.17.41 am.png | Payments list — desktop, default view with Credit badges | yes — measurement-verified 2026-03-25: title 30px/700/green, th 14px/600/55px/16px, td 14px/400/12px 16px, search 38px. |
+| Screenshot 2026-03-11 at 11.17.41 am.png | Payments list — desktop, default view with Credit badges | yes — measurement-verified 2026-03-31 session 2: title 30px/700/rgb(66,105,74) MATCH, th 14px/600/rgb(65,69,73) MATCH. Systemic: th bg, search sizing. |
 | Screenshot 2026-03-11 at 11.17.47 am.png | Payments list — desktop, expanded row showing Invoice sub-row | yes — expandable rows with invoice sub-rows implemented 2026-03-24 |
 
 ## Reports — Performance Overview (`/reports`)
