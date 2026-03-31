@@ -394,6 +394,7 @@ Patterns identified from the interactive states implementation audit. All opport
 ### Group AW — New payment form (`src/app/payments/new/page.tsx`)
 
 - [x] **New payment missing Location field** — Fixed: FormSelect Location added between Client and Payment date. (2026-03-25)
+- [ ] **New payment title/labels mismatch** — Title: "New payment" 18px/600/gray vs production "Add payment" 30px/700/green. Labels: fontWeight 400/gray vs 600/dark. Needs PageHeader + Navbar styling + label weight fix. (2026-04-01 audit)
 
 ### Group AZ — AI Chat simulated interaction (`src/app/notes/`, `src/app/calendar/`)
 

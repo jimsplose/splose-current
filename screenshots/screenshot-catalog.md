@@ -598,7 +598,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.16.02 am.png | Invoice view — desktop, Overdue invoice PDF-style with Pay/Email/Actions buttons | partial — 2026-03-31 session 2: server error on localhost (stale invoice IDs). Previously yes — PDF layout matches 2026-03-24. Needs re-verify with valid ID. |
+| Screenshot 2026-03-11 at 11.16.02 am.png | Invoice view — desktop, Overdue invoice PDF-style with Pay/Email/Actions buttons | yes — measurement-verified 2026-04-01: fixed server/client boundary bug. Page loads with correct layout, badges, line items, sidebar. |
 | Screenshot 2026-03-11 at 11.16.10 am.png | Invoice view — desktop, Pay dropdown open | yes — Pay Dropdown with Record payment/Send payment link items 2026-03-24 |
 | Screenshot 2026-03-11 at 11.16.17 am.png | Invoice view — desktop, Actions dropdown open | yes — Actions Dropdown with Duplicate/Credit note/Change log/Void items 2026-03-24 |
 
