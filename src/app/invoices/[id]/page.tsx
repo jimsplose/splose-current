@@ -1,7 +1,12 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { Flex } from "antd";
-import { Badge, statusVariant } from "@/components/ds";
+import { Badge } from "@/components/ds";
+
+const STATUS_VARIANTS: Record<string, "green" | "red" | "blue" | "yellow" | "gray"> = {
+  Paid: "green", Draft: "gray", Sent: "blue", Overdue: "red",
+  Outstanding: "yellow", Cancelled: "red", "Partially Paid": "yellow",
+};
 import InvoiceActions from "./InvoiceActions";
 
 export const dynamic = "force-dynamic";
@@ -30,7 +35,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
       <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', background: 'white', padding: '12px 24px' }}>
         <Flex align="center" gap={12}>
           <h1 className="text-heading-lg text-text">{invoice.invoiceNumber}</h1>
-          <Badge variant={statusVariant(invoice.status)}>{invoice.status}</Badge>
+          <Badge variant={STATUS_VARIANTS[invoice.status] ?? "gray"}>{invoice.status}</Badge>
           {creditBalance > 0 && <Badge variant="green">Credit balance: ${creditBalance.toFixed(2)}</Badge>}
         </Flex>
         <InvoiceActions />
