@@ -35,6 +35,9 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 ### Group S8 — Invoice detail typography (`src/app/invoices/[id]/page.tsx`)
 - [ ] **Section labels and sidebar heading too small/light** — Section labels (Client, From, Invoice #): prod 13px/700/rgb(65,69,73), localhost 11px/600/rgb(156,163,175). Payments sidebar heading: prod 21px/500, localhost 14px/600. Found 2026-04-01 full sweep batch 4.
 
+### Group S9 — Edit/detail page titles (systemic across settings sub-pages)
+- [ ] **Edit/detail pages use wrong title pattern** — Production: 30px/700/rgb(66,105,74) green PageHeader. Localhost: 18px/600/rgb(65,69,73) gray with back arrow. Affects: edit service, user detail, edit/new appointment template, and likely all settings edit/detail sub-pages. Also: labels use rgb(110,110,100)/400 vs prod rgb(65,69,73)/400, Cancel button missing on localhost, Save button 32px vs 38px. Consolidates with S7 (same root cause). Found 2026-04-01 full sweep.
+
 ## Priority 1 — High-traffic pages
 
 ### Group D — Dashboard (`src/app/page.tsx`)
