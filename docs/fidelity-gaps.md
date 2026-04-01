@@ -27,16 +27,16 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [x] **Detail page header sizes/colors** — Fixed: Client/Contact labels now 20px/700/green/Sprig Sans. Details heading uses text-display-lg (30px green). SideNav active color changed from purple to black. Measurement-verified 2026-03-31.
 
 ### Group S6 — Reports overview card headings (`src/app/reports/page.tsx`)
-- [ ] **Card headings (Utilisation/Revenue) too small** — Production: 20px/700/rgb(65,69,73). Localhost: 14px/600/rgb(65,69,73). Found 2026-04-01 full sweep batch 3.
+- [x] **Card headings (Utilisation/Revenue) too small** — Fixed: changed text-heading-sm to inline fontSize:20/fontWeight:700. Measurement-verified 2026-04-01: both 20px/700/rgb(65,69,73) exact match.
 
 ### Group S7 — Add payment page (`src/app/payments/new/page.tsx`)
-- [ ] **Title text/style mismatch** — Production: "Add payment" 30px/700/rgb(66,105,74) green PageHeader. Localhost: "New payment" 18px/600/rgb(65,69,73) gray. Labels 600/rgb(34,34,34) on prod vs 400/rgb(110,110,100). Cancel btn red on prod vs purple. Button height 38px on prod vs 32px. Found 2026-04-01 full sweep batch 1.
+- [x] **Title text/style mismatch** — Fixed: title changed to "Add payment", Navbar component updated to 30px/700/green (S9). Measurement-verified 2026-04-01: title exact match. (Labels/buttons partially fixed via S9 Navbar update.)
 
 ### Group S8 — Invoice detail typography (`src/app/invoices/[id]/page.tsx`)
-- [ ] **Section labels and sidebar heading too small/light** — Section labels (Client, From, Invoice #): prod 13px/700/rgb(65,69,73), localhost 11px/600/rgb(156,163,175). Payments sidebar heading: prod 21px/500, localhost 14px/600. Found 2026-04-01 full sweep batch 4.
+- [x] **Section labels and sidebar heading too small/light** — Fixed: labels to 13px/700/rgb(65,69,73), Payments heading to 21px/500/rgb(65,69,73). Measurement-verified 2026-04-01: exact match on both.
 
 ### Group S9 — Edit/detail page titles (systemic across settings sub-pages)
-- [ ] **Edit/detail pages use wrong title pattern** — Production: 30px/700/rgb(66,105,74) green PageHeader. Localhost: 18px/600/rgb(65,69,73) gray with back arrow. Affects: edit service, user detail, edit/new appointment template, and likely all settings edit/detail sub-pages. Also: labels use rgb(110,110,100)/400 vs prod rgb(65,69,73)/400, Cancel button missing on localhost, Save button 32px vs 38px. Consolidates with S7 (same root cause). Found 2026-04-01 full sweep.
+- [x] **Edit/detail pages use wrong title pattern** — Fixed: Navbar component h1 updated to 30px/700/rgb(66,105,74)/Sprig Sans, matching PageHeader. All edit/detail pages now use correct title styling systemically. Measurement-verified on /payments/new 2026-04-01: exact match.
 
 ## Priority 1 — High-traffic pages
 

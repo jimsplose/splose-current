@@ -292,7 +292,7 @@ export default function ReportsPage() {
         <Card>
           <div style={{ position: 'relative', marginBottom: 4 }} ref={utilisationSettingsRef}>
             <Flex align="center" justify="space-between">
-              <h3 className="text-heading-sm" style={{ color: 'var(--color-text)' }}>Utilisation</h3>
+              <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--color-text)' }}>Utilisation</h3>
               <Button
                 variant="icon"
                 size="sm"
@@ -367,7 +367,7 @@ export default function ReportsPage() {
         {/* Revenue card */}
         <Card>
           <Flex align="center" justify="space-between" style={{ marginBottom: 4 }}>
-            <h3 className="text-heading-sm" style={{ color: 'var(--color-text)' }}>Revenue</h3>
+            <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--color-text)' }}>Revenue</h3>
           </Flex>
           <p className="text-caption-md" style={{ marginBottom: 8, color: 'var(--color-text-secondary)' }}>Total invoiced revenue from appointments and support activities (tax exclusive)</p>
           <p className="text-metric-lg" style={{ marginBottom: 4, color: 'var(--color-text)' }}>${totalRevenue >= 1000 ? (totalRevenue / 1000).toFixed(2) + "K" : totalRevenue.toFixed(2)}</p>

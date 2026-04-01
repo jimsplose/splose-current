@@ -598,7 +598,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.16.02 am.png | Invoice view — desktop, Overdue invoice PDF-style with Pay/Email/Actions buttons | partial — measurement-verified 2026-04-01: layout/structure matches, but section labels (Patient/Client, From, Invoice #) differ: 13px/700/rgb(65,69,73) prod vs 11px/600/rgb(156,163,175) localhost. Payments sidebar heading 21px prod vs 14px localhost. |
+| Screenshot 2026-03-11 at 11.16.02 am.png | Invoice view — desktop, Overdue invoice PDF-style with Pay/Email/Actions buttons | yes — measurement-verified 2026-04-01: S8 fix applied. Section labels 13px/700/rgb(65,69,73) PASS. Payments heading 21px/500/rgb(65,69,73) PASS. |
 | Screenshot 2026-03-11 at 11.16.10 am.png | Invoice view — desktop, Pay dropdown open | yes — Pay Dropdown with Record payment/Send payment link items 2026-03-24 |
 | Screenshot 2026-03-11 at 11.16.17 am.png | Invoice view — desktop, Actions dropdown open | yes — Actions Dropdown with Duplicate/Credit note/Change log/Void items 2026-03-24 |
 
@@ -619,7 +619,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.17.57 am.png | Performance overview — desktop, Utilisation + Revenue charts + Practitioners table | partial — measurement-verified 2026-04-01: title 30px/700/green PASS. Card headings (Utilisation/Revenue) 14px/600 on localhost vs 20px/700 on production FAIL. Sidebar section headers rgb(65,69,73) vs production rgb(0,0,0) NOTE. |
+| Screenshot 2026-03-11 at 11.17.57 am.png | Performance overview — desktop, Utilisation + Revenue charts + Practitioners table | yes — measurement-verified 2026-04-01: S6 fix applied. Title green PASS. Card headings (Utilisation/Revenue) 20px/700 PASS. Sidebar section headers rgb(65,69,73) vs prod rgb(0,0,0) minor note. |
 | Screenshot 2026-03-11 at 11.18.04 am.png | Performance overview — desktop, date picker calendar open | partial — native date input exists, custom calendar picker not implemented |
 | Screenshot 2026-03-11 at 11.18.09 am.png | Performance overview — desktop, Frequency dropdown (Daily/Weekly/Monthly/Quarterly/Yearly) | yes — FormSelect with Daily/Weekly/Monthly/Quarterly/Yearly options 2026-03-24 |
 | Screenshot 2026-03-11 at 11.18.15 am.png | Performance overview — desktop, All locations dropdown | yes — FormSelect with location options 2026-03-24 |

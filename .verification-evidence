@@ -1,1 +1,4 @@
-SKIP: src/app/invoices/[id]/page.tsx — server/client boundary fix, no visual change
+src/components/ds/Navbar.tsx
+src/app/payments/new/page.tsx
+src/app/reports/page.tsx
+src/app/invoices/[id]/page.tsx

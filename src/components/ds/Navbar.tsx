@@ -28,7 +28,7 @@ export default function Navbar({ backHref, title, badge, children }: NavbarProps
         <Link href={backHref} style={{ color: token.colorTextSecondary, display: "flex", alignItems: "center" }}>
           <ArrowLeftOutlined style={{ fontSize: 14 }} />
         </Link>
-        <h1 style={{ fontSize: 18, fontWeight: 600 }}>{title}</h1>
+        <h1 style={{ fontSize: 30, fontWeight: 700, color: "rgb(66, 105, 74)", fontFamily: "'Sprig Sans', 'Inter', sans-serif", lineHeight: 1.2 }}>{title}</h1>
         {badge}
       </Flex>
       {children && <Flex align="center" gap={8}>{children}</Flex>}

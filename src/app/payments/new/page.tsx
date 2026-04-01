@@ -202,7 +202,7 @@ export default function NewPaymentPage() {
 
   return (
     <div style={{ minHeight: 'calc(100vh - 3rem)' }}>
-      <Navbar backHref="/payments" title="New payment">
+      <Navbar backHref="/payments" title="Add payment">
         <Link href="/payments">
           <Button variant="secondary" style={{ borderColor: 'var(--color-primary)', color: 'var(--color-primary)' }}>
             Cancel
