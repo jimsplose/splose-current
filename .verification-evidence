@@ -1,1 +1,8 @@
-SKIP: src/app/patient-form/[id]/view/page.tsx — bug fix, not visual change
+src/app/clients/[id]/layout.tsx
+src/app/clients/[id]/ClientSidebar.tsx
+src/app/invoices/[id]/page.tsx
+src/app/payments/new/page.tsx
+SKIP: src/components/ds/FormInput.tsx — DS label styling change, verified via payments/new
+SKIP: src/components/ds/FormSelect.tsx — DS label styling change, verified via payments/new
+SKIP: src/components/ds/FormTextarea.tsx — DS label styling change, verified via payments/new
+SKIP: src/components/ds/Select.tsx — DS label styling change, verified via payments/new
