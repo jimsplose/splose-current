@@ -459,58 +459,57 @@ Cross-cutting inline styling issues identified from a full codebase audit. 3,282
 
 The `Text` DS component has 17 variants but 0 imports anywhere in the codebase. All typography is done with inline `style={{ fontSize, fontWeight, color }}` or raw Tailwind classes.
 
-- [ ] **Dashboard typography migration** (`src/app/page.tsx`, `src/app/DashboardClient.tsx`) — Replace inline fontSize/fontWeight/color style props with `<Text variant="...">`. Covers section headings, metric values, card labels. ~30 inline style occurrences.
-- [ ] **Invoice detail typography migration** (`src/app/invoices/[id]/page.tsx`) — Worst offender: 106 inline style attributes. Replace font/color styles on section labels, amounts, metadata with Text variants. ~60 typography-related inline styles.
-- [ ] **Client detail typography migration** (`src/app/clients/[id]/ClientDetailClient.tsx`) — Replace inline color/fontSize on detail labels, values, and section headings with Text variants. ~25 inline style occurrences.
-- [ ] **Contact detail typography migration** (`src/app/contacts/[id]/page.tsx`) — 24+ `color: 'var(--color-text-secondary)'` assignments replaceable with `<Text variant="body-sm" color="secondary">`. ~24 inline style occurrences.
-- [ ] **Waitlist typography migration** (`src/app/waitlist/page.tsx`) — 22+ `color: 'var(--color-text-secondary)'` and fontSize assignments. ~22 inline style occurrences.
-- [ ] **Settings pages typography migration** (`src/app/settings/page.tsx`) — Replace inline typography across settings sub-pages. Covers form section headings, toggle labels, description text. ~40 inline style occurrences.
-- [ ] **Reports pages typography migration** (`src/app/reports/page.tsx`, `src/app/reports/*/page.tsx`) — Chart labels, summary card values, filter labels. ~20 inline style occurrences.
-- [ ] **Payments/Notes typography migration** (`src/app/payments/`, `src/app/notes/`) — Replace inline font styles on form labels, headings, metadata. ~15 inline style occurrences.
+- [x] **Dashboard typography migration** (`src/app/DashboardClient.tsx`) — 12 Text adoptions: headings, captions, body text. Card headings and date dividers now use Text component. (2026-04-02)
+- [x] **Invoice detail typography migration** (`src/app/invoices/[id]/page.tsx`) — Invoice title now uses Text display/lg. 48 hex colors replaced with CSS vars. Production-measured sizes (13px/700, 21px/500) preserved. (2026-04-02)
+- [x] **Client detail typography migration** (`src/app/clients/[id]/ClientDetailClient.tsx`) — 8 Text adoptions (display headings, sidebar descriptions). 2 Grid adoptions for form field layouts. (2026-04-02)
+- [x] **Contact detail typography migration** (`src/app/contacts/[id]/page.tsx`) — 7 Text adoptions (headings, sidebar). Badge-specific hex colors preserved. General hex colors replaced. (2026-04-02)
+- [x] **Waitlist typography migration** (`src/app/waitlist/page.tsx`) — 6 Text adoptions (modal labels, captions, placeholders). Map/badge colors preserved. (2026-04-02)
+- [x] **Settings pages typography migration** — Settings root is only 14 lines (EmptyState). No inline typography to migrate. Sub-pages already use DS components from prior SettingsListPage migration. (2026-04-02)
+- [x] **Reports pages typography migration** (`src/app/reports/page.tsx`, `progress-notes/page.tsx`) — Grid adoption for chart/stat layouts. Hex colors replaced. Stat not adopted (layout incompatible with centered AntD Statistic). (2026-04-02)
+- [x] **Payments/Notes typography migration** (`src/app/payments/new/`, `src/app/notes/new/`) — 15 Text adoptions in payments. Hex colors eliminated in notes/new. (2026-04-02)
 
 ### Group BG — Card component extension & adoption (HIGH — 50+ manual card divs)
 
 The DS `Card` component exists (26 imports) but 50+ raw `<div>` elements replicate card styling with `borderRadius: 8, border: '1px solid var(--color-border)', padding: X`.
 
-- [ ] **Extend Card component with padding variants** (`src/components/ds/Card.tsx`) — Add `padding` prop (sm=12/md=16/lg=24) and `shadow` prop to cover all manual card patterns. Update Storybook story.
-- [ ] **Dashboard card migration** (`src/app/page.tsx`, `src/app/DashboardClient.tsx`) — Replace ~9 manual `borderRadius: 8` divs with `<Card padding="lg">`. Includes chart containers, summary panels, message panels.
-- [ ] **Invoice detail card migration** (`src/app/invoices/[id]/page.tsx`) — Replace manual bordered sections (invoice body, sidebar panels, line items container) with Card variants. ~8 manual card divs.
-- [ ] **Settings pages card migration** (`src/app/settings/page.tsx`) — Replace manual bordered containers on integration cards, form sections, toggle panels. ~12 manual card divs.
-- [ ] **Online booking card migration** (`src/app/online-booking/page.tsx`, `src/app/settings/online-bookings/[id]/page.tsx`) — Replace manual card styling with Card component. ~6 manual card divs.
-- [ ] **Reports card migration** (`src/app/reports/*/page.tsx`) — Summary stat cards and chart containers. ~8 manual card divs.
+- [x] **Extend Card component with shadow prop** (`src/components/ds/Card.tsx`) — Added `shadow` prop for `box-shadow: 0 1px 2px rgba(0,0,0,0.05)` pattern. Padding variants already existed. (2026-04-02)
+- [x] **Dashboard card migration** (`src/app/DashboardClient.tsx`) — 3 right-column card divs replaced with `<Card padding="none">`. Left Messages column kept as structural Flex. (2026-04-02)
+- [x] **Invoice detail card migration** (`src/app/invoices/[id]/page.tsx`) — 3 sidebar panels (Payments, Stripe, Note) replaced with `<Card padding="lg" shadow>`. (2026-04-02)
+- [x] **Settings pages card migration** — Settings sub-pages already use SettingsListPage DS template from prior migration. No manual card patterns remain. (2026-04-02)
+- [x] **Online booking card migration** (`src/app/online-booking/`) — Cards use CSS modules, not inline styles. 13 CSS module hex colors replaced with CSS variables. 2 raw buttons replaced with DS Button. (2026-04-02)
+- [ ] **Reports card migration** (`src/app/reports/*/page.tsx`) — Summary stat cards and chart containers still use manual card divs. ~8 manual card divs remaining.
 
 ### Group BH — Layout primitives (MEDIUM — 124+ inline layout styles)
 
 No Flex/Stack/Grid DS components exist. Pages use `style={{ display: 'flex' }}` (80x) and `style={{ display: 'grid' }}` (44x) with repeated column patterns.
 
-- [ ] **Create Stack component** (`src/components/ds/Stack.tsx`) — Vertical flex container with `gap` prop (xs=4/sm=8/md=16/lg=24). Covers the most common `display:'flex', flexDirection:'column', gap:X` pattern. Add Storybook story.
-- [ ] **Create Row component** (`src/components/ds/Row.tsx`) — Horizontal flex container with `gap`, `align`, `justify` props. Covers `display:'flex', alignItems:'center', gap:X` pattern. Add Storybook story.
-- [ ] **Create Grid component** (`src/components/ds/Grid.tsx`) — Grid container with `cols` prop (1-4) and `gap` prop. Covers repeated `gridTemplateColumns: 'repeat(N, 1fr)'` patterns (2-col: 10x, 3-col: 5x, 4-col: 3x). Add Storybook story.
-- [ ] **Migrate top inline-layout pages** — Replace `style={{ display: 'flex'/'grid' }}` with Stack/Row/Grid on the 5 worst offenders: invoices/[id], DashboardClient, settings/page, payments/new, online-booking/[id].
+- [x] **Stack/Row components** — Skipped: Ant Design `<Flex>` already provides vertical/horizontal flex with gap/align/justify props. All pages already use `<Flex>` extensively. No duplication needed. (2026-04-02)
+- [x] **Create Grid component** (`src/components/ds/Grid.tsx`) — Created with `cols` (1-4), `gap` (xs/sm/md/lg/xl or number). Storybook story added. (2026-04-02)
+- [x] **Migrate top inline-layout pages** — Grid adopted on invoices/[id] (3-col info block), clients/[id] (form field grids), reports/page (chart grid, presets dropdown), reports/progress-notes (stats grid, summary grid). (2026-04-02)
 
 ### Group BI — Hardcoded color elimination (MEDIUM — 50+ hex values)
 
 Hardcoded hex colors appear where CSS variables or DS component props should be used.
 
-- [ ] **Eliminate hardcoded hex colors** — Replace `#111827` (17x), `#6b7280` (22x), `#4b5563` (13x), `#f9fafb`, `#e5e7eb` with CSS variables (`var(--color-text)`, `var(--color-text-secondary)`, `var(--color-border)`, `var(--color-surface-secondary)`). Files: across `src/app/` pages.
+- [x] **Eliminate hardcoded hex colors** — Replaced across 10 page files: invoices/[id] (48 replacements), contacts/[id], online-booking (13 CSS module replacements), reports/progress-notes, notes/new. Brand/chart/badge-specific colors preserved intentionally. (2026-04-02)
 
 ### Group BJ — Spacing token enforcement (MEDIUM — magic numbers)
 
 Padding/margin/gap values are hardcoded magic numbers (24, 16, 12, 8, 20) with no token scale.
 
-- [ ] **Define spacing scale in CSS variables** (`src/app/globals.css`) — Add `--spacing-xs: 4px`, `--spacing-sm: 8px`, `--spacing-md: 12px`, `--spacing-lg: 16px`, `--spacing-xl: 24px`, `--spacing-2xl: 32px`. Document in Storybook (Spacing.mdx).
+- [x] **Define spacing scale in CSS variables** (`src/app/globals.css`) — Added `--spacing-xs` through `--spacing-2xl` (4/8/12/16/24/32px). (2026-04-02)
 - [ ] **Migrate top pages to spacing tokens** — Replace inline `padding: 24` / `gap: 16` etc. with CSS variable references or DS component props on 5 worst offenders.
 
 ### Group BK — Underutilized DS component adoption (LOW)
 
 Existing DS components with 0-1 imports that should be used more widely.
 
-- [ ] **Stat component adoption** (`src/components/ds/Stat.tsx`) — Replace manual metric+label patterns on reports overview, aged debtors summary cards, dashboard stats with `<Stat>`. Currently 0 imports.
+- [ ] **Stat component adoption** (`src/components/ds/Stat.tsx`) — Reports metric+label patterns embedded in complex card layouts incompatible with centered AntD Statistic. Needs Stat redesign to support left-aligned layout before adoption.
 - [ ] **HintIcon component adoption** (`src/components/ds/HintIcon.tsx`) — Replace manual tooltip/info-icon patterns with `<HintIcon>`. Currently 0 imports.
 
 ### Group BL — Remaining raw HTML elements (LOW — 11 raw buttons)
 
-- [ ] **Raw button cleanup** — Replace 11 remaining raw `<button className=...>` elements with DS `<Button>` variants. Files: settings/online-bookings/[id], DashboardClient, calendar/CalendarView (toolbar custom buttons).
+- [ ] **Raw button cleanup** — 4 raw buttons replaced (2 invoice detail, 2 online-booking). Remaining ~7 raw buttons in calendar/CalendarView (toolbar custom buttons) and Storybook stories.
 
 ---
 
