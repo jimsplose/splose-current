@@ -42,6 +42,7 @@ import {
   FormSelect,
   FormInput,
   FormTextarea,
+  Text,
 } from "@/components/ds";
 import wStyles from "./waitlist.module.css";
 
@@ -728,7 +729,7 @@ function WaitlistPageInner() {
 
           {/* Service (required) — chips + select to add */}
           <div>
-            <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--color-text-secondary)' }}>Service *</label>
+            <Text variant="label/lg" as="label" color="secondary" style={{ display: 'block', marginBottom: 4 }}>Service *</Text>
             {modalServices.length > 0 && (
               <Flex wrap gap={6} style={{ marginBottom: 8 }}>
                 {modalServices.map((service) => (
@@ -767,7 +768,7 @@ function WaitlistPageInner() {
 
           {/* Preferred days */}
           <div>
-            <label className="text-label-lg" style={{ display: 'block', marginBottom: 6, color: 'var(--color-text-secondary)' }}>Preferred days</label>
+            <Text variant="label/lg" as="label" color="secondary" style={{ display: 'block', marginBottom: 6 }}>Preferred days</Text>
             <Flex gap={6}>
               {["S", "M", "T", "W", "T", "F", "S"].map((day, i) => (
                 <button
@@ -796,7 +797,7 @@ function WaitlistPageInner() {
 
           {/* Preferred time */}
           <div>
-            <label className="text-label-lg" style={{ display: 'block', marginBottom: 6, color: 'var(--color-text-secondary)' }}>Preferred time</label>
+            <Text variant="label/lg" as="label" color="secondary" style={{ display: 'block', marginBottom: 6 }}>Preferred time</Text>
             <Flex gap={8}>
               <button
                 type="button"
@@ -869,14 +870,14 @@ function WaitlistPageInner() {
               rows={3}
               placeholder="Add a note..."
             />
-            <p className="text-caption-md" style={{ marginTop: 4, textAlign: 'right', color: 'var(--color-text-secondary)' }}>
+            <Text variant="caption/md" color="secondary" style={{ marginTop: 4, textAlign: 'right', display: 'block' }}>
               {modalNote.length} / 500
-            </p>
+            </Text>
           </div>
 
           {/* Waitlist tags */}
           <div>
-            <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--color-text-secondary)' }}>Waitlist tags</label>
+            <Text variant="label/lg" as="label" color="secondary" style={{ display: 'block', marginBottom: 4 }}>Waitlist tags</Text>
             {modalTags.length > 0 && (
               <Flex wrap gap={6} style={{ marginBottom: 8 }}>
                 {modalTags.map((tag) => (
@@ -1007,9 +1008,9 @@ function WaitlistPageInner() {
                           <Flex wrap gap={4}>
                             {row.tags.map((tag) =>
                               tag === "---" ? (
-                                <span key={tag} className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>
+                                <Text key={tag} variant="body/md" as="span" color="secondary">
                                   ---
-                                </span>
+                                </Text>
                               ) : (
                                 <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} style={{ borderRadius: 4 }}>
                                   {tag}

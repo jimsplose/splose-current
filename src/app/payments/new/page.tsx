@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CloseOutlined, PlusOutlined, SearchOutlined, PrinterOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, Card, DataTable, FormInput, FormSelect, FormTextarea, Navbar, Select, TableHead, Th, TableBody, Td, EmptyState } from "@/components/ds";
+import { Button, Card, DataTable, FormInput, FormSelect, FormTextarea, Navbar, Select, TableHead, Th, TableBody, Td, EmptyState, Text } from "@/components/ds";
 
 const mockClients = [
   "Skyler Peterson",
@@ -153,44 +153,44 @@ export default function NewPaymentPage() {
                 <CheckCircleOutlined style={{ fontSize: 32, color: 'var(--color-success)' }} />
               </Flex>
             </Flex>
-            <h2 className="text-heading-lg" style={{ marginBottom: 4 }}>Payment recorded</h2>
-            <p className="text-body-md" style={{ color: 'var(--color-text-secondary)', marginBottom: 24 }}>
+            <Text variant="heading/lg" style={{ marginBottom: 4 }}>Payment recorded</Text>
+            <Text variant="body/md" color="secondary" style={{ marginBottom: 24 }}>
               Payment has been successfully added.
-            </p>
+            </Text>
 
             <Flex vertical gap={12} style={{ borderTop: '1px solid var(--color-border)', paddingTop: 16, textAlign: 'left' }}>
               <Flex align="center" justify="space-between">
-                <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Payment number</span>
-                <span className="text-label-lg" style={{ color: 'var(--color-primary)' }}>{paymentNumber}</span>
+                <Text variant="body/md" as="span" color="secondary">Payment number</Text>
+                <Text variant="label/lg" as="span" color="primary">{paymentNumber}</Text>
               </Flex>
               <Flex align="center" justify="space-between">
-                <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Date</span>
-                <span className="text-label-lg">{paymentDate}</span>
+                <Text variant="body/md" as="span" color="secondary">Date</Text>
+                <Text variant="label/lg" as="span">{paymentDate}</Text>
               </Flex>
               <Flex align="center" justify="space-between">
-                <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Client</span>
-                <span className="text-label-lg">{client || "—"}</span>
+                <Text variant="body/md" as="span" color="secondary">Client</Text>
+                <Text variant="label/lg" as="span">{client || "—"}</Text>
               </Flex>
               <Flex align="center" justify="space-between">
-                <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Amount</span>
-                <span className="text-label-lg">${parseFloat(amount || "0").toFixed(2)}</span>
+                <Text variant="body/md" as="span" color="secondary">Amount</Text>
+                <Text variant="label/lg" as="span">${parseFloat(amount || "0").toFixed(2)}</Text>
               </Flex>
               <Flex align="center" justify="space-between">
-                <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Method</span>
-                <span className="text-label-lg">{method || "—"}</span>
+                <Text variant="body/md" as="span" color="secondary">Method</Text>
+                <Text variant="label/lg" as="span">{method || "—"}</Text>
               </Flex>
               {linkedInvoices.length > 0 && (
                 <Flex align="center" justify="space-between">
-                  <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Applied to</span>
-                  <span className="text-label-lg">
+                  <Text variant="body/md" as="span" color="secondary">Applied to</Text>
+                  <Text variant="label/lg" as="span">
                     {linkedInvoices.length} invoice{linkedInvoices.length !== 1 ? "s" : ""}
-                  </span>
+                  </Text>
                 </Flex>
               )}
               {note && (
                 <Flex align="start" justify="space-between">
-                  <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Note</span>
-                  <span className="text-label-lg" style={{ maxWidth: 200, textAlign: 'right' }}>{note}</span>
+                  <Text variant="body/md" as="span" color="secondary">Note</Text>
+                  <Text variant="label/lg" as="span" style={{ maxWidth: 200, textAlign: 'right' }}>{note}</Text>
                 </Flex>
               )}
             </Flex>
@@ -252,9 +252,9 @@ export default function NewPaymentPage() {
 
           {/* Amount */}
           <div>
-            <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--color-text-secondary)' }}>
+            <Text variant="label/lg" as="label" color="secondary" style={{ display: 'block', marginBottom: 4 }}>
               Amount <span style={{ color: 'var(--color-error)' }}>*</span>
-            </label>
+            </Text>
             <div style={{ position: 'relative' }}>
               <span style={{ position: 'absolute', top: '50%', left: 12, zIndex: 10, transform: 'translateY(-50%)', fontSize: 14, color: 'var(--color-text-secondary)' }}>$</span>
               <FormInput
@@ -272,7 +272,7 @@ export default function NewPaymentPage() {
 
         {/* Apply to outstanding invoices */}
         <Flex align="center" justify="space-between" style={{ marginBottom: 12 }}>
-          <p className="text-label-lg">Apply to outstanding invoices</p>
+          <Text variant="label/lg" as="p">Apply to outstanding invoices</Text>
           <Button variant="secondary" size="sm" onClick={() => setShowLinkSearch(!showLinkSearch)}>
             <PlusOutlined style={{ fontSize: 14 }} />
             Link invoice

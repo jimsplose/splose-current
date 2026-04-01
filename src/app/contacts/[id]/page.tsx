@@ -1,6 +1,6 @@
 import { MailOutlined, PhoneOutlined, EnvironmentOutlined, BankOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, DataTable, TableHead, Th, TableBody, Tr, Td, LinkCell, EmptyState } from "@/components/ds";
+import { Button, DataTable, TableHead, Th, TableBody, Tr, Td, LinkCell, EmptyState, Text } from "@/components/ds";
 
 const mockContacts = [
   {
@@ -136,15 +136,15 @@ function getTypeColor(type: string): { background: string; color: string } {
     case "Doctor":
       return { background: '#dbeafe', color: '#1d4ed8' };
     case "3rd party payer":
-      return { background: '#f3e8ff', color: '#7c3aed' };
+      return { background: '#f3e8ff', color: 'var(--color-primary)' };
     case "Plan manager":
       return { background: '#dcfce7', color: '#15803d' };
     case "Parent":
       return { background: '#ffedd5', color: '#c2410c' };
     case "Standard":
-      return { background: '#f3f4f6', color: '#374151' };
+      return { background: 'var(--color-fill-secondary)', color: 'var(--color-text)' };
     default:
-      return { background: '#f3f4f6', color: '#374151' };
+      return { background: 'var(--color-fill-secondary)', color: 'var(--color-text)' };
   }
 }
 
@@ -155,7 +155,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
   if (!contact) {
     return (
       <div style={{ padding: 24 }}>
-        <p style={{ color: 'var(--color-text-secondary)' }}>Contact not found.</p>
+        <Text variant="body/md" color="secondary">Contact not found.</Text>
       </div>
     );
   }
@@ -165,8 +165,8 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
       {/* Sidebar */}
       <aside style={{ width: 180, flexShrink: 0, borderRight: '1px solid var(--color-border)', background: 'white', padding: 16 }}>
         <div style={{ marginBottom: 16 }}>
-          <h2 className="text-body-md-strong text-text">Contact</h2>
-          <p className="text-caption-md" style={{ color: 'var(--color-text-secondary)' }}>{contact.name}</p>
+          <Text variant="body/md-strong" color="text" as="h2">Contact</Text>
+          <Text variant="caption/md" color="secondary">{contact.name}</Text>
         </div>
         <Flex vertical gap={2}>
           {[
@@ -213,7 +213,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
         <div style={{ padding: 24 }}>
           <Flex align="center" justify="space-between" style={{ marginBottom: 24 }}>
-            <h1 className="text-display-lg">Details</h1>
+            <Text variant="display/lg">Details</Text>
             <Button variant="secondary" size="sm">
               Edit
             </Button>
@@ -221,7 +221,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
           {/* General details */}
           <section style={{ marginBottom: 32 }}>
-            <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>General details</h2>
+            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16 }}>General details</Text>
             <Flex align="start" gap={24}>
               <Flex vertical gap={8} style={{ fontSize: 12 }}>
                 <Flex gap={64}>
@@ -262,7 +262,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
           {/* Contact information */}
           <section style={{ marginBottom: 32 }}>
-            <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Contact details</h2>
+            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16 }}>Contact details</Text>
             <Flex vertical gap={12} style={{ fontSize: 12 }}>
               <Flex gap={64}>
                 <span style={{ width: 112, flexShrink: 0, color: 'var(--color-text-secondary)' }}>Email:</span>
@@ -321,7 +321,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
           {/* Associated clients */}
           <section style={{ marginBottom: 32 }}>
-            <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Associated clients</h2>
+            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16 }}>Associated clients</Text>
             {contact.associatedClients.length > 0 ? (
               <DataTable>
                 <TableHead>
@@ -355,8 +355,8 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
           {/* Custom fields */}
           <section style={{ marginBottom: 32 }}>
-            <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Custom fields</h2>
-            <p style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>No custom fields</p>
+            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16 }}>Custom fields</Text>
+            <Text variant="body/sm" color="secondary">No custom fields</Text>
           </section>
 
           <Button variant="ghost" size="sm" className="text-primary">

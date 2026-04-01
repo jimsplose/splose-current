@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Avatar, Button, Card, ColorDot } from "@/components/ds";
+import { Avatar, Button, Card, ColorDot, Text } from "@/components/ds";
 import { DownOutlined, RightOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
 import styles from "./DashboardClient.module.css";
@@ -194,13 +194,13 @@ function MessageItem({
       <div style={{ minWidth: 0, flex: 1 }}>
         <Flex align="baseline" gap={6}>
           <span className="text-body-md" style={{ fontWeight: 700, color: 'var(--color-text)' }}>{message.sender}</span>
-          <span className="text-caption-sm" style={{ color: 'var(--color-text-secondary)' }}>{message.time}</span>
+          <Text variant="caption/sm" as="span" color="secondary">{message.time}</Text>
           <span style={{ marginLeft: 'auto', color: 'var(--color-text-secondary)' }}>
             {expanded ? <DownOutlined style={{ fontSize: 14 }} /> : <RightOutlined style={{ fontSize: 14 }} />}
           </span>
         </Flex>
         {!expanded && (
-          <p className="text-body-md" style={{ marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--color-text-secondary)' }}>{message.preview}</p>
+          <Text variant="body/md" color="secondary" style={{ marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{message.preview}</Text>
         )}
         {expanded && (
           <Flex vertical gap={8} style={{ marginTop: 6 }}>
@@ -236,7 +236,7 @@ function MessageItem({
               </Flex>
             )}
             {/* Full text content */}
-            <p className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>{message.fullContent}</p>
+            <Text variant="body/md" color="secondary">{message.fullContent}</Text>
           </Flex>
         )}
       </div>
@@ -266,15 +266,15 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
       {/* Left column -- Messages (col1: wider) */}
       <Flex vertical style={{ flex: 1, overflow: 'hidden', borderRadius: 8, border: '1px solid var(--color-border)' }}>
         <div style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
-          <h2 className="text-label-lg" style={{ color: 'var(--color-text)' }}>Messages</h2>
+          <Text variant="label/lg" as="h2" color="text">Messages</Text>
         </div>
 
         <div style={{ flex: 1, overflowY: 'auto', paddingLeft: 16, paddingRight: 16, paddingBottom: 8 }}>
           <Flex vertical gap={16}>
             <Flex align="center" justify="center" style={{ paddingTop: 8, paddingBottom: 8 }}>
-              <span className="text-caption-md" style={{ color: 'var(--color-text-secondary)' }}>
+              <Text variant="caption/md" as="span" color="secondary">
                 {new Date().toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" })}
-              </span>
+              </Text>
             </Flex>
 
             {todayAppointments.slice(0, 5).map((appt) => (
@@ -282,14 +282,14 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                 <Avatar name={appt.practitioner.name} color={appt.practitioner.color} size="sm" />
                 <div style={{ minWidth: 0 }}>
                   <Flex align="baseline" gap={6}>
-                    <span className="text-heading-sm" style={{ color: 'var(--color-text)' }}>
+                    <Text variant="heading/sm" as="span" color="text">
                       {appt.practitioner.name}
-                    </span>
-                    <span className="text-caption-sm" style={{ color: 'var(--color-text-secondary)' }}>{appt.startTime}</span>
+                    </Text>
+                    <Text variant="caption/sm" as="span" color="secondary">{appt.startTime}</Text>
                   </Flex>
-                  <p className="text-body-md" style={{ marginTop: 2, color: 'var(--color-text-secondary)' }}>
+                  <Text variant="body/md" color="secondary" style={{ marginTop: 2 }}>
                     Appointment with {appt.client.firstName} {appt.client.lastName} -- {appt.type}
-                  </p>
+                  </Text>
                 </div>
               </Flex>
             ))}
@@ -300,12 +300,12 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                   <div key={msg.id}>
                     {idx === 1 && (
                       <Flex align="center" justify="center" style={{ paddingTop: 4, paddingBottom: 4 }}>
-                        <span className="text-caption-md" style={{ color: 'var(--color-text-secondary)' }}>9 Feb 2026</span>
+                        <Text variant="caption/md" as="span" color="secondary">9 Feb 2026</Text>
                       </Flex>
                     )}
                     {idx === 2 && (
                       <Flex align="center" justify="center" style={{ paddingTop: 4, paddingBottom: 4 }}>
-                        <span className="text-caption-md" style={{ cursor: 'pointer', color: 'var(--color-text-secondary)' }} title="Click to go forward, hold to see history">16 Feb 2026</span>
+                        <Text variant="caption/md" as="span" color="secondary" style={{ cursor: 'pointer' }} title="Click to go forward, hold to see history">16 Feb 2026</Text>
                       </Flex>
                     )}
                     <MessageItem
@@ -364,9 +364,9 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
       {/* Right column -- Analytics (col2: narrower) */}
       <Flex vertical gap={7} style={{ width: 380, flexShrink: 0 }}>
         {/* Income card */}
-        <div style={{ overflow: 'hidden', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white' }}>
+        <Card padding="none" style={{ overflow: 'hidden' }}>
           <div style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
-            <h3 className="text-label-lg" style={{ color: 'var(--color-text)' }}>Income</h3>
+            <Text variant="label/lg" as="h3" color="text">Income</Text>
           </div>
           <div style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 16 }}>
             <div style={{ position: 'relative', height: 208 }}>
@@ -383,7 +383,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
               </div>
               <Flex vertical justify="space-between" style={{ position: 'absolute', bottom: 24, left: 28, right: 0, top: 0 }}>
                 {[0, 1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} style={{ height: 0, borderBottom: '1px solid #f3f4f6' }} />
+                  <div key={i} style={{ height: 0, borderBottom: '1px solid var(--color-fill-secondary)' }} />
                 ))}
               </Flex>
               <Flex align="flex-end" gap={4} style={{ marginLeft: 32, height: 'calc(100% - 24px)' }}>
@@ -408,12 +408,12 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
               </Flex>
             </Flex>
           </div>
-        </div>
+        </Card>
 
         {/* Incomplete progress notes card */}
-        <div style={{ overflow: 'hidden', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white' }}>
+        <Card padding="none" style={{ overflow: 'hidden' }}>
           <div style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
-            <h3 className="text-label-lg" style={{ color: 'var(--color-text)' }}>Incomplete progress notes</h3>
+            <Text variant="label/lg" as="h3" color="text">Incomplete progress notes</Text>
           </div>
           <div style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
             <Flex vertical gap={6}>
@@ -424,9 +424,9 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                       <span className={`text-body-md ${styles.hoverUnderline}`} style={{ cursor: 'pointer', color: 'var(--color-primary)' }}>
                         {note.name}
                       </span>
-                      <span className="text-caption-sm" style={{ flexShrink: 0, whiteSpace: 'nowrap', paddingTop: 2, color: 'var(--color-text-secondary)' }}>
+                      <Text variant="caption/sm" as="span" color="secondary" style={{ flexShrink: 0, whiteSpace: 'nowrap', paddingTop: 2 }}>
                         {note.time}
-                      </span>
+                      </Text>
                     </Flex>
                   ))}
                 </>
@@ -436,21 +436,21 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                     <span className={`text-body-md ${styles.hoverUnderline}`} style={{ cursor: 'pointer', color: 'var(--color-primary)' }}>
                       {note.client.firstName} {note.client.lastName} ({note.practitioner.name})
                     </span>
-                    <span className="text-caption-sm" style={{ flexShrink: 0, whiteSpace: 'nowrap', paddingTop: 2, color: 'var(--color-text-secondary)' }}>
+                    <Text variant="caption/sm" as="span" color="secondary" style={{ flexShrink: 0, whiteSpace: 'nowrap', paddingTop: 2 }}>
                       {formatDateTime(note.date)}
-                    </span>
+                    </Text>
                   </Flex>
                 ))
               )}
               <Button variant="link" style={{ marginTop: 4 }}>Load more</Button>
             </Flex>
           </div>
-        </div>
+        </Card>
 
         {/* Recently submitted forms card */}
-        <div style={{ overflow: 'hidden', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white' }}>
+        <Card padding="none" style={{ overflow: 'hidden' }}>
           <div style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
-            <h3 className="text-label-lg" style={{ color: 'var(--color-text)' }}>Recently submitted forms</h3>
+            <Text variant="label/lg" as="h3" color="text">Recently submitted forms</Text>
           </div>
           <div style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
             <Flex vertical gap={6}>
@@ -463,15 +463,15 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                   >
                     {form.name}
                   </Link>
-                  <span className="text-caption-sm" style={{ flexShrink: 0, whiteSpace: 'nowrap', paddingTop: 2, color: 'var(--color-text-secondary)' }}>
+                  <Text variant="caption/sm" as="span" color="secondary" style={{ flexShrink: 0, whiteSpace: 'nowrap', paddingTop: 2 }}>
                     {form.time}
-                  </span>
+                  </Text>
                 </Flex>
               ))}
               <Button variant="link" style={{ marginTop: 4 }}>Load more</Button>
             </Flex>
           </div>
-        </div>
+        </Card>
       </Flex>
     </Flex>
   );

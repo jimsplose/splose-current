@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AppstoreOutlined, ColumnWidthOutlined, CopyOutlined, DownOutlined, SnippetsOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, Badge, EmptyState, Navbar, Filter, FormTextarea, FormInput, FormSelect } from "@/components/ds";
+import { Button, Badge, EmptyState, Navbar, Filter, FormTextarea, FormInput, FormSelect, Text } from "@/components/ds";
 
 const TEMPLATES = [
   "Initial Assessment",
@@ -80,7 +80,7 @@ function NewProgressNotePageInner() {
   };
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 3rem)', backgroundColor: 'rgba(249, 250, 251, 0.3)' }}>
+    <div style={{ minHeight: 'calc(100vh - 3rem)', backgroundColor: 'var(--color-bg-layout)' }}>
       {/* Header bar */}
       <Navbar
         backHref="/"
@@ -88,7 +88,7 @@ function NewProgressNotePageInner() {
         badge={
           <Flex align="center" gap={8}>
             <Badge variant="gray">Note has been autosaved</Badge>
-            {clientName && <span className="text-body-md" style={{ color: 'var(--color-primary)' }}>{clientName}</span>}
+            {clientName && <Text variant="body/md" as="span" color="primary">{clientName}</Text>}
           </Flex>
         }
       >
@@ -102,7 +102,7 @@ function NewProgressNotePageInner() {
           onChange={(v) => setViewMode(v as "single" | "split")}
         />
         {/* Save as final button */}
-        <Button variant="primary" style={{ backgroundColor: '#22c55e', borderColor: '#22c55e' }} onClick={handleSave} disabled={saving}>
+        <Button variant="primary" style={{ backgroundColor: 'var(--color-success)', borderColor: 'var(--color-success)' }} onClick={handleSave} disabled={saving}>
           Save as final
           <DownOutlined style={{ fontSize: 14 }} />
         </Button>
@@ -110,7 +110,7 @@ function NewProgressNotePageInner() {
 
       <div style={{ display: 'flex' }}>
         {/* Left editor panel */}
-        <div style={{ flex: 1, borderRight: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
+        <div style={{ flex: 1, borderRight: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-base)', padding: 24 }}>
           <div style={{ maxWidth: 672, margin: '0 auto' }}>
             {/* Service select */}
             <div style={{ marginBottom: 20 }}>
@@ -170,8 +170,8 @@ function NewProgressNotePageInner() {
 
         {/* Right reference panel */}
         {viewMode === "split" && (
-          <div style={{ width: 320, flexShrink: 0, backgroundColor: '#fff', padding: 24 }}>
-            <h3 className="text-heading-sm" style={{ marginBottom: 12 }}>Filter previous progress notes</h3>
+          <div style={{ width: 320, flexShrink: 0, backgroundColor: 'var(--color-bg-base)', padding: 24 }}>
+            <Text variant="heading/sm" as="h3" style={{ marginBottom: 12 }}>Filter previous progress notes</Text>
             <FormInput
               type="text"
               placeholder="Search notes"

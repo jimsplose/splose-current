@@ -590,20 +590,22 @@ function OnlineBookingPageInner() {
                       Continue
                     </Button>
                   ) : (
-                    <button
+                    <Button
+                      variant="primary"
                       disabled
-                      className={`${styles.disabledContinueBtn} text-body-lg`}
+                      style={{ width: '100%', justifyContent: 'center' }}
                     >
                       Continue
-                    </button>
+                    </Button>
                   )
                 ) : step === "select" ? (
-                  <button
+                  <Button
+                    variant="primary"
                     disabled
-                    className={`${styles.disabledContinueBtn} text-body-lg`}
+                    style={{ width: '100%', justifyContent: 'center' }}
                   >
                     Continue
-                  </button>
+                  </Button>
                 ) : (
                   <Button variant="primary" style={{ width: '100%', justifyContent: 'center' }} onClick={() => setStep("confirmed")}>
                     Confirm

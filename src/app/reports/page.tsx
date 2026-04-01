@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { CalendarOutlined, DownOutlined, SettingOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Avatar, Button, Card, Checkbox, ColorDot, Dropdown, FormInput, FormSelect, PageHeader } from "@/components/ds";
+import { Avatar, Button, Card, Checkbox, ColorDot, Dropdown, FormInput, FormSelect, Grid, PageHeader } from "@/components/ds";
 import { DataTable, TableHead, Th, TableBody, Tr, Td } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 
@@ -90,7 +90,7 @@ function DateRangePicker({
           {/* Presets */}
           <div style={{ borderBottom: '1px solid var(--color-border)', padding: 8 }}>
             <p style={{ marginBottom: 6, paddingLeft: 8, paddingRight: 8, fontSize: 12, color: 'var(--color-text-secondary)' }}>Quick select</p>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4 }}>
+            <Grid cols={2} gap="xs">
               {presets.map((p) => (
                 <Button
                   key={p.label}
@@ -104,7 +104,7 @@ function DateRangePicker({
                   {p.label}
                 </Button>
               ))}
-            </div>
+            </Grid>
           </div>
 
           {/* Custom date inputs */}
@@ -287,7 +287,7 @@ export default function ReportsPage() {
       </Flex>
 
       {/* Charts row */}
-      <div style={{ marginBottom: 24, display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 24 }}>
+      <Grid cols={2} gap="lg" style={{ marginBottom: 24 }}>
         {/* Utilisation card */}
         <Card>
           <div style={{ position: 'relative', marginBottom: 4 }} ref={utilisationSettingsRef}>
@@ -394,7 +394,7 @@ export default function ReportsPage() {
             {fmtDay(dateStart)} - {fmtDay(dateEnd)}
           </Flex>
         </Card>
-      </div>
+      </Grid>
 
       {/* Practitioners table */}
       <Card padding="none">
@@ -440,7 +440,7 @@ export default function ReportsPage() {
                 </Td>
                 <Td>
                   <Flex align="center" gap={8}>
-                    <div style={{ height: 6, width: 64, borderRadius: 9999, backgroundColor: '#f3f4f6' }}>
+                    <div style={{ height: 6, width: 64, borderRadius: 9999, backgroundColor: 'var(--color-fill-secondary)' }}>
                       <div
                         style={{ height: 6, borderRadius: 9999, backgroundColor: 'var(--color-primary)', width: `${Math.min(p.utilisation * 10, 100)}%` }}
                       />

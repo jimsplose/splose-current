@@ -9,10 +9,12 @@ export type TextVariant =
   | "caption/md" | "caption/sm"
   | "metric/lg" | "metric/md";
 
+export type TextColor = "text" | "secondary" | "tertiary" | "primary" | "danger" | "warning" | "success";
+
 interface TextProps extends HTMLAttributes<HTMLElement> {
   variant: TextVariant;
   as?: ElementType;
-  color?: string;
+  color?: TextColor | (string & {});
   children: ReactNode;
 }
 
@@ -37,6 +39,16 @@ const variantClass: Record<TextVariant, string> = {
   "metric/md": styles.metricMd,
 };
 
+const colorPresets: Record<string, string> = {
+  text: "text-text",
+  secondary: "text-text-secondary",
+  tertiary: "text-text-tertiary",
+  primary: "text-primary",
+  danger: "text-danger",
+  warning: "text-warning",
+  success: "text-success",
+};
+
 const defaultElement: Record<string, ElementType> = {
   display: "h1",
   heading: "h2",
@@ -50,10 +62,18 @@ function getCategory(variant: TextVariant): string {
   return variant.split("/")[0];
 }
 
+function resolveColor(color?: string): { className?: string; style?: { color: string } } {
+  if (!color) return {};
+  if (color in colorPresets) return { className: colorPresets[color] };
+  if (color.startsWith("text-")) return { className: color };
+  return { style: { color } };
+}
+
 export default function Text({ variant, as, color, className = "", children, style, ...props }: TextProps) {
   const Component = as ?? defaultElement[getCategory(variant)] ?? "span";
-  const classes = [variantClass[variant], color, className].filter(Boolean).join(" ");
-  const mergedStyle = color && !color.startsWith("text-") ? { ...style, color } : style;
+  const resolved = resolveColor(color);
+  const classes = [variantClass[variant], resolved.className, className].filter(Boolean).join(" ");
+  const mergedStyle = resolved.style ? { ...style, ...resolved.style } : style;
 
   return (
     <Component className={classes} style={mergedStyle} {...props}>

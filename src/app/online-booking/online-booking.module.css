@@ -2,7 +2,7 @@
 
 .page {
   min-height: 100vh;
-  background: #fff;
+  background: var(--color-bg-container);
 }
 
 .container {
@@ -40,7 +40,7 @@
   font-size: 36px;
   font-weight: 600;
   line-height: 44px;
-  color: rgb(16, 24, 40);
+  color: var(--color-text);
 }
 
 /* Location step */
@@ -55,10 +55,10 @@
   align-items: center;
   gap: 16px;
   border-radius: 16px;
-  border: 1px solid rgb(208, 213, 221);
+  border: 1px solid var(--color-border);
   padding: 20px;
   min-height: 162px;
-  background: #fff;
+  background: var(--color-bg-container);
 }
 
 .locationCardSelected {
@@ -97,7 +97,7 @@
 .selectedBtn {
   border-radius: 8px;
   border: 1px solid rgb(106, 57, 228);
-  background: #fff;
+  background: var(--color-bg-container);
   padding: 4px 15px;
   color: rgb(106, 57, 228);
   cursor: default;
@@ -157,7 +157,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #e5e7eb;
+  background: var(--color-border);
 }
 
 .dateTimePicker {
@@ -305,7 +305,7 @@
   margin-bottom: 24px;
   border-radius: 12px;
   border: 1px solid var(--color-border);
-  background: #f9fafb;
+  background: var(--color-bg-layout);
   padding: 20px;
   text-align: left;
 }
@@ -337,7 +337,7 @@
   margin-bottom: 24px;
   border-radius: 12px;
   border: 1px solid var(--color-border);
-  background: #fff;
+  background: var(--color-bg-container);
   padding: 20px;
   text-align: left;
 }
@@ -345,7 +345,7 @@
 .emailBody {
   border-radius: 8px;
   border: 1px solid var(--color-border);
-  background: #f9fafb;
+  background: var(--color-bg-layout);
   padding: 16px;
 }
 
@@ -372,7 +372,7 @@
 .emailServiceBox {
   margin: 12px 0;
   border-radius: 8px;
-  background: #fff;
+  background: var(--color-bg-container);
   padding: 12px;
 }
 
@@ -411,7 +411,7 @@
 .sidebarCard {
   border-radius: 12px;
   border: 1px solid var(--color-border);
-  background: #fff;
+  background: var(--color-bg-container);
   padding: 20px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
@@ -434,7 +434,7 @@
   top: 14px;
   bottom: 14px;
   width: 1px;
-  background: #d1d5db;
+  background: var(--color-border);
 }
 
 .stepperItem {
@@ -451,7 +451,7 @@
   height: 10px;
   width: 10px;
   border-radius: 50%;
-  background: #d1d5db;
+  background: var(--color-border);
 }
 
 .stepperDotActive {
@@ -485,16 +485,6 @@
 .continueBtn {
   width: 100%;
   justify-content: center;
-}
-
-.disabledContinueBtn {
-  width: 100%;
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.25);
-  padding: 4px 15px;
-  color: #fff;
-  cursor: not-allowed;
-  border: none;
 }
 
 .waitlistNote {

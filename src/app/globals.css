@@ -49,6 +49,14 @@
   --color-purple-300: #D6C1FF;
   --font-size-heading-lg: 24px;
   --font-weight-heading-lg: 700;
+
+  /* Spacing scale */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
 }
 
 /* ── Typography utility classes ────────────────────────────────────────────── */

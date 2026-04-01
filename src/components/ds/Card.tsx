@@ -9,6 +9,7 @@ export interface CardProps {
   className?: string;
   style?: React.CSSProperties;
   padding?: "none" | "sm" | "md" | "lg";
+  shadow?: boolean;
 }
 
 const paddingMap: Record<string, number> = {
@@ -18,14 +19,17 @@ const paddingMap: Record<string, number> = {
   lg: 20,
 };
 
-export default function Card({ children, title, headerBar, className, style, padding = "md" }: CardProps) {
+export default function Card({ children, title, headerBar, className, style, padding = "md", shadow }: CardProps) {
   const showAntTitle = title && headerBar;
+  const mergedStyle = shadow
+    ? { boxShadow: "0 1px 2px rgba(0,0,0,0.05)", ...style }
+    : style;
 
   return (
     <AntCard
       title={showAntTitle ? title : undefined}
       className={className}
-      style={style}
+      style={mergedStyle}
       styles={{
         body: { padding: paddingMap[padding] },
         header: headerBar ? { backgroundColor: "var(--color-fill-alter)" } : undefined,

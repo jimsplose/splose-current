@@ -12,9 +12,11 @@ import {
   FormInput,
   FormSelect,
   FormTextarea,
+  Grid,
   HintIcon,
   List,
   Collapse,
+  Text,
   Toggle,
 } from "@/components/ds";
 
@@ -76,7 +78,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
       {/* Main content */}
       <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
         <Flex justify="space-between" align="center" style={{ marginBottom: 24 }}>
-          <h1 className="text-display-lg">Details</h1>
+          <Text variant="display/lg">Details</Text>
           <Button variant="secondary" size="sm" onClick={() => setEditMode(true)}>
             Edit <EditOutlined style={{ fontSize: 14 }} />
           </Button>
@@ -274,11 +276,11 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
       </div>
 
       {/* Right panel */}
-      <aside style={{ width: 280, flexShrink: 0, overflowY: 'auto', borderLeft: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
+      <aside style={{ width: 280, flexShrink: 0, overflowY: 'auto', borderLeft: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-container)', padding: 16 }}>
         {/* Account balance */}
-        <div style={{ marginBottom: 16, borderRadius: 8, backgroundColor: 'var(--color-primary)', padding: 16, color: '#fff' }}>
+        <div style={{ marginBottom: 16, borderRadius: 8, backgroundColor: 'var(--color-primary)', padding: 16, color: 'white' }}>
           <Flex justify="space-between" align="center">
-            <h3 className="text-label-lg" style={{ fontWeight: 600, color: '#fff' }}>Account balance</h3>
+            <h3 className="text-label-lg" style={{ fontWeight: 600, color: 'white' }}>Account balance</h3>
             <HintIcon style={{ height: 20, width: 20, borderColor: 'rgba(255,255,255,0.5)', color: 'rgba(255,255,255,0.8)' }} />
           </Flex>
           <Flex justify="space-between" align="center" className="text-body-md" style={{ marginTop: 8 }}>
@@ -301,10 +303,10 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* Stripe */}
         <Collapse title="Stripe" defaultOpen>
-          <p className="text-body-sm" style={{ color: 'var(--color-text-secondary)' }}>
+          <Text variant="body/sm" as="p" color="secondary">
             Connect with Stripe and save a credit card for clients and use for
             future use.
-          </p>
+          </Text>
         </Collapse>
 
         {/* Mailchimp */}
@@ -316,12 +318,12 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
                 ARCHIVED
               </Badge>
             </Flex>
-            <p style={{ color: 'var(--color-text-secondary)' }}>a a</p>
-            <p style={{ color: 'var(--color-text-secondary)' }}>Open rate: 0%</p>
-            <p style={{ color: 'var(--color-text-secondary)' }}>Click rate: 0%</p>
-            <p style={{ color: 'var(--color-text-secondary)' }}>
+            <Text variant="body/sm" as="p" color="secondary">a a</Text>
+            <Text variant="body/sm" as="p" color="secondary">Open rate: 0%</Text>
+            <Text variant="body/sm" as="p" color="secondary">Click rate: 0%</Text>
+            <Text variant="body/sm" as="p" color="secondary">
               Opt-in: 11:41 am, 16 Nov 2022
-            </p>
+            </Text>
             <Button
               variant="secondary"
               size="sm"
@@ -335,9 +337,9 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* QuickBooks */}
         <Collapse title="QuickBooks">
-          <p className="text-body-sm" style={{ color: 'var(--color-text-secondary)' }}>
+          <Text variant="body/sm" as="p" color="secondary">
             No QuickBooks connection.
-          </p>
+          </Text>
         </Collapse>
       </aside>
     </div>
@@ -353,7 +355,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
   return (
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <Flex justify="space-between" align="center" style={{ marginBottom: 24 }}>
-        <h1 className="text-display-md">Edit details</h1>
+        <Text variant="display/md">Edit details</Text>
         <Flex align="center" gap={8}>
           <Button variant="secondary" onClick={onCancel}>
             Cancel
@@ -382,7 +384,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
                 ]}
               />
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+              <Grid cols={3} gap={12}>
                 <FormInput
                   label="First name*"
                   type="text"
@@ -398,11 +400,11 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
                   type="text"
                   defaultValue={client.lastName}
                 />
-              </div>
+              </Grid>
 
               <FormInput label="Preferred name" type="text" />
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+              <Grid cols={3} gap={12}>
                 <FormSelect
                   label="Day"
                   defaultValue={dobParts[2]}
@@ -440,7 +442,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
                     return { value: String(y), label: String(y) };
                   })}
                 />
-              </div>
+              </Grid>
 
               <FormSelect
                 label="Sex"
@@ -495,9 +497,9 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         {/* Alerts */}
         <section style={{ marginBottom: 32 }}>
           <h2 className="text-heading-lg" style={{ fontWeight: 700, marginBottom: 16 }}>Alerts</h2>
-          <p className="text-body-md" style={{ color: 'var(--color-text-secondary)', marginBottom: 8 }}>
+          <Text variant="body/md" as="p" color="secondary" style={{ marginBottom: 8 }}>
             Information you add here will be displayed in important places like scheduling appointments.
-          </p>
+          </Text>
           <FormTextarea defaultValue="Include KM" rows={3} />
         </section>
 

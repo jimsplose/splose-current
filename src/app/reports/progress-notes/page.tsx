@@ -8,6 +8,7 @@ import {
   Card,
   DataTable,
   DateRangeFilter,
+  Grid,
   PageHeader,
   Stat,
   Status,
@@ -49,7 +50,7 @@ export default function ReportsProgressNotesPage() {
       <p className="text-body-md" style={{ marginBottom: 16, color: 'var(--color-text-secondary)' }}>2 progress notes found.</p>
 
       {/* Summary stats row */}
-      <div style={{ marginBottom: 24, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+      <Grid cols={4} gap="md" style={{ marginBottom: 24 }}>
         <Card style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 16, paddingBottom: 16 }}>
           <Stat value="2" label="Total notes" />
         </Card>
@@ -62,18 +63,18 @@ export default function ReportsProgressNotesPage() {
         <Card style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 16, paddingBottom: 16 }}>
           <Stat value="1.0" label="Avg per practitioner" />
         </Card>
-      </div>
+      </Grid>
 
       <h2 className="text-heading-lg" style={{ marginBottom: 16, color: 'var(--color-text)' }}>Summary</h2>
 
       {/* Summary tables and pie charts */}
-      <div style={{ marginBottom: 32, display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 24 }}>
+      <Grid cols={2} gap="lg" style={{ marginBottom: 32 }}>
         {/* Note template breakdown */}
         <div>
           <Card padding="none" style={{ marginBottom: 16 }}>
             <table style={{ width: '100%' }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: '#f9fafb' }}>
+                <tr style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-layout)' }}>
                   <th className="text-label-lg" style={{ padding: '8px 16px', textAlign: 'left', color: 'var(--color-text)' }}>Note template</th>
                   <th className="text-label-lg" style={{ padding: '8px 16px', textAlign: 'right', color: 'var(--color-text)' }}>Number</th>
                 </tr>
@@ -115,7 +116,7 @@ export default function ReportsProgressNotesPage() {
           <Card padding="none" style={{ marginBottom: 16 }}>
             <table style={{ width: '100%' }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: '#f9fafb' }}>
+                <tr style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-layout)' }}>
                   <th className="text-label-lg" style={{ padding: '8px 16px', textAlign: 'left', color: 'var(--color-text)' }}>Practitioner</th>
                   <th className="text-label-lg" style={{ padding: '8px 16px', textAlign: 'right', color: 'var(--color-text)' }}>Number</th>
                 </tr>
@@ -151,7 +152,7 @@ export default function ReportsProgressNotesPage() {
             </svg>
           </Flex>
         </div>
-      </div>
+      </Grid>
 
       {/* Progress notes list */}
       <h2 className="text-heading-lg" style={{ marginBottom: 16, color: 'var(--color-text)' }}>Progress notes list</h2>
