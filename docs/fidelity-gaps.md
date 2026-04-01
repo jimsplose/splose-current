@@ -38,6 +38,15 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 ### Group S9 — Edit/detail page titles (systemic across settings sub-pages)
 - [x] **Edit/detail pages use wrong title pattern** — Fixed: Navbar component h1 updated to 30px/700/rgb(66,105,74)/Sprig Sans, matching PageHeader. All edit/detail pages now use correct title styling systemically. Measurement-verified on /payments/new 2026-04-01: exact match.
 
+### Group S10 — Client detail layout gap (13 pages)
+- [x] **Horizontal tabs duplicating sidebar + empty gap** — Fixed: removed horizontal tabs from ClientSidebar.tsx, restructured layout.tsx so heading row spans full width above sidebar+content row. Matches production. Measurement-verified 2026-04-01: all properties match.
+
+### Group S11 — Invoice detail heading (`src/app/invoices/[id]/page.tsx`)
+- [x] **Invoice # title wrong size/color** — Fixed: h1 changed from text-heading-lg (18px/600/gray) to inline 30px/700/rgb(66,105,74). "Note" heading changed from text-label-lg to 21px/500/rgb(65,69,73). Measurement-verified 2026-04-01.
+
+### Group S12 — Form label styling (DS components)
+- [x] **Form labels wrong weight/color** — Fixed: FormInput, FormSelect, FormTextarea, Select DS components updated from 400/var(--color-text-secondary) to 600/rgb(34,34,34). Measurement-verified on /payments/new 2026-04-01.
+
 ## Priority 1 — High-traffic pages
 
 ### Group D — Dashboard (`src/app/page.tsx`)

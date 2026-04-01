@@ -25,7 +25,7 @@ const FormSelect = forwardRef<HTMLDivElement, FormSelectProps>(
         {label && (
           <label
             htmlFor={selectId}
-            style={{ display: "block", marginBottom: 4, fontSize: 14, color: "var(--color-text-secondary)" }}
+            style={{ display: "block", marginBottom: 4, fontSize: 14, fontWeight: 600, color: "rgb(34, 34, 34)" }}
           >
             {label}
           </label>

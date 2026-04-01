@@ -34,7 +34,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
       {/* Top header bar */}
       <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', background: 'white', padding: '12px 24px' }}>
         <Flex align="center" gap={12}>
-          <h1 className="text-heading-lg text-text">{invoice.invoiceNumber}</h1>
+          <h1 style={{ fontSize: 30, fontWeight: 700, fontFamily: "'Sprig Sans', 'Inter', sans-serif", color: "rgb(66, 105, 74)" }}>{invoice.invoiceNumber}</h1>
           <Badge variant={STATUS_VARIANTS[invoice.status] ?? "gray"}>{invoice.status}</Badge>
           {creditBalance > 0 && <Badge variant="green">Credit balance: ${creditBalance.toFixed(2)}</Badge>}
         </Flex>
@@ -359,7 +359,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
 
           {/* Note */}
           <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', background: 'white', padding: 20, boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
-            <h3 className="text-label-lg" style={{ marginBottom: 8, fontWeight: 600, color: '#111827' }}>Note</h3>
+            <h3 style={{ marginBottom: 8, fontSize: 21, fontWeight: 500, color: 'rgb(65, 69, 73)' }}>Note</h3>
             <textarea
               style={{ width: '100%', borderRadius: 8, border: '1px solid #e5e7eb', background: '#f9fafb', padding: 12, fontSize: 14, color: '#374151', outline: 'none' }}
               rows={4}

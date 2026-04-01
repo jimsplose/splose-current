@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SideNav } from "@/components/ds";
 import type { SideNavSection } from "@/components/ds";
@@ -43,44 +42,10 @@ export default function ClientSidebar({ sections }: { sections: Section[] }) {
   };
 
   return (
-    <>
-      {/* Mobile: horizontal scrolling tabs */}
-      <div style={{ flexShrink: 0, overflowX: 'auto', borderBottom: '1px solid var(--color-border)', backgroundColor: '#fff' }} className="md\:hidden-replacement">
-        <nav style={{ display: 'flex', minWidth: 'max-content', gap: 4, paddingLeft: 8, paddingRight: 8, paddingTop: 6, paddingBottom: 6 }}>
-          {sections.map((section) => {
-            const active = isActive(section);
-            return (
-              <Link
-                key={section.label}
-                href={section.href}
-                style={{
-                  borderRadius: 9999,
-                  paddingLeft: 12,
-                  paddingRight: 12,
-                  paddingTop: 4,
-                  paddingBottom: 4,
-                  whiteSpace: 'nowrap',
-                  transition: 'color 0.2s, background-color 0.2s',
-                  ...(active
-                    ? { backgroundColor: 'var(--color-primary-bg)', color: 'var(--color-primary)' }
-                    : { color: 'var(--color-text-secondary)' }),
-                }}
-                className="text-label-md"
-              >
-                {section.label}
-                {section.count !== null && <span className="text-caption-sm" style={{ marginLeft: 4 }}>{section.count}</span>}
-              </Link>
-            );
-          })}
-        </nav>
-      </div>
-      {/* Desktop: vertical sidebar */}
-      <SideNav
-        sections={sideNavSections}
-        isActive={sideNavIsActive}
-        className="md\:block-replacement"
-        style={{ width: 200, paddingTop: 8 }}
-      />
-    </>
+    <SideNav
+      sections={sideNavSections}
+      isActive={sideNavIsActive}
+      style={{ width: 200, flexShrink: 0, paddingTop: 8 }}
+    />
   );
 }
