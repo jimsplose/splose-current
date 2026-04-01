@@ -1,5 +1,5 @@
 import { DownOutlined, MailOutlined } from "@ant-design/icons";
-import { Badge, Button, Card, statusVariant } from "@/components/ds";
+import { Badge, Button, Card } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -38,7 +38,7 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 24, paddingRight: 24, paddingTop: 16, paddingBottom: 16 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <h1 className="text-display-lg">{form.title}</h1>
-          <Badge variant={statusVariant(form.status)}>{form.status}</Badge>
+          <Badge variant="green">{form.status}</Badge>
           <span style={{ cursor: 'pointer', fontSize: 12, color: 'var(--color-primary)' }}>{form.clientName}</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>

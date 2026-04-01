@@ -1,4 +1,1 @@
-src/components/ds/Navbar.tsx
-src/app/payments/new/page.tsx
-src/app/reports/page.tsx
-src/app/invoices/[id]/page.tsx
+SKIP: src/app/patient-form/[id]/view/page.tsx — bug fix, not visual change
