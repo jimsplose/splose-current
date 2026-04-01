@@ -451,6 +451,67 @@ Patterns identified from the interactive states implementation audit. All opport
 - [x] **Reports Performance overview toolbar** — Fixed: green pill date range, Daily/Weekly/Monthly selector, Compare toggle. (2026-03-25)
 - [x] **Aged debtors missing Ageing by** — Fixed: FormSelect "Ageing by" with Invoice date/Due date options. (2026-03-25)
 
+## Priority 14 — Design system coverage gaps (2026-04-01 audit)
+
+Cross-cutting inline styling issues identified from a full codebase audit. 3,282 inline `style={}` props found across 112 files. DS components exist for 90% of files but actual styling coverage is ~40%. These gaps address the ~40% of content styled with inline React `style={}` objects and the ~20% using raw Tailwind classes instead of DS components.
+
+### Group BF — Text component adoption (HIGH — 400+ inline font styles)
+
+The `Text` DS component has 17 variants but 0 imports anywhere in the codebase. All typography is done with inline `style={{ fontSize, fontWeight, color }}` or raw Tailwind classes.
+
+- [ ] **Dashboard typography migration** (`src/app/page.tsx`, `src/app/DashboardClient.tsx`) — Replace inline fontSize/fontWeight/color style props with `<Text variant="...">`. Covers section headings, metric values, card labels. ~30 inline style occurrences.
+- [ ] **Invoice detail typography migration** (`src/app/invoices/[id]/page.tsx`) — Worst offender: 106 inline style attributes. Replace font/color styles on section labels, amounts, metadata with Text variants. ~60 typography-related inline styles.
+- [ ] **Client detail typography migration** (`src/app/clients/[id]/ClientDetailClient.tsx`) — Replace inline color/fontSize on detail labels, values, and section headings with Text variants. ~25 inline style occurrences.
+- [ ] **Contact detail typography migration** (`src/app/contacts/[id]/page.tsx`) — 24+ `color: 'var(--color-text-secondary)'` assignments replaceable with `<Text variant="body-sm" color="secondary">`. ~24 inline style occurrences.
+- [ ] **Waitlist typography migration** (`src/app/waitlist/page.tsx`) — 22+ `color: 'var(--color-text-secondary)'` and fontSize assignments. ~22 inline style occurrences.
+- [ ] **Settings pages typography migration** (`src/app/settings/page.tsx`) — Replace inline typography across settings sub-pages. Covers form section headings, toggle labels, description text. ~40 inline style occurrences.
+- [ ] **Reports pages typography migration** (`src/app/reports/page.tsx`, `src/app/reports/*/page.tsx`) — Chart labels, summary card values, filter labels. ~20 inline style occurrences.
+- [ ] **Payments/Notes typography migration** (`src/app/payments/`, `src/app/notes/`) — Replace inline font styles on form labels, headings, metadata. ~15 inline style occurrences.
+
+### Group BG — Card component extension & adoption (HIGH — 50+ manual card divs)
+
+The DS `Card` component exists (26 imports) but 50+ raw `<div>` elements replicate card styling with `borderRadius: 8, border: '1px solid var(--color-border)', padding: X`.
+
+- [ ] **Extend Card component with padding variants** (`src/components/ds/Card.tsx`) — Add `padding` prop (sm=12/md=16/lg=24) and `shadow` prop to cover all manual card patterns. Update Storybook story.
+- [ ] **Dashboard card migration** (`src/app/page.tsx`, `src/app/DashboardClient.tsx`) — Replace ~9 manual `borderRadius: 8` divs with `<Card padding="lg">`. Includes chart containers, summary panels, message panels.
+- [ ] **Invoice detail card migration** (`src/app/invoices/[id]/page.tsx`) — Replace manual bordered sections (invoice body, sidebar panels, line items container) with Card variants. ~8 manual card divs.
+- [ ] **Settings pages card migration** (`src/app/settings/page.tsx`) — Replace manual bordered containers on integration cards, form sections, toggle panels. ~12 manual card divs.
+- [ ] **Online booking card migration** (`src/app/online-booking/page.tsx`, `src/app/settings/online-bookings/[id]/page.tsx`) — Replace manual card styling with Card component. ~6 manual card divs.
+- [ ] **Reports card migration** (`src/app/reports/*/page.tsx`) — Summary stat cards and chart containers. ~8 manual card divs.
+
+### Group BH — Layout primitives (MEDIUM — 124+ inline layout styles)
+
+No Flex/Stack/Grid DS components exist. Pages use `style={{ display: 'flex' }}` (80x) and `style={{ display: 'grid' }}` (44x) with repeated column patterns.
+
+- [ ] **Create Stack component** (`src/components/ds/Stack.tsx`) — Vertical flex container with `gap` prop (xs=4/sm=8/md=16/lg=24). Covers the most common `display:'flex', flexDirection:'column', gap:X` pattern. Add Storybook story.
+- [ ] **Create Row component** (`src/components/ds/Row.tsx`) — Horizontal flex container with `gap`, `align`, `justify` props. Covers `display:'flex', alignItems:'center', gap:X` pattern. Add Storybook story.
+- [ ] **Create Grid component** (`src/components/ds/Grid.tsx`) — Grid container with `cols` prop (1-4) and `gap` prop. Covers repeated `gridTemplateColumns: 'repeat(N, 1fr)'` patterns (2-col: 10x, 3-col: 5x, 4-col: 3x). Add Storybook story.
+- [ ] **Migrate top inline-layout pages** — Replace `style={{ display: 'flex'/'grid' }}` with Stack/Row/Grid on the 5 worst offenders: invoices/[id], DashboardClient, settings/page, payments/new, online-booking/[id].
+
+### Group BI — Hardcoded color elimination (MEDIUM — 50+ hex values)
+
+Hardcoded hex colors appear where CSS variables or DS component props should be used.
+
+- [ ] **Eliminate hardcoded hex colors** — Replace `#111827` (17x), `#6b7280` (22x), `#4b5563` (13x), `#f9fafb`, `#e5e7eb` with CSS variables (`var(--color-text)`, `var(--color-text-secondary)`, `var(--color-border)`, `var(--color-surface-secondary)`). Files: across `src/app/` pages.
+
+### Group BJ — Spacing token enforcement (MEDIUM — magic numbers)
+
+Padding/margin/gap values are hardcoded magic numbers (24, 16, 12, 8, 20) with no token scale.
+
+- [ ] **Define spacing scale in CSS variables** (`src/app/globals.css`) — Add `--spacing-xs: 4px`, `--spacing-sm: 8px`, `--spacing-md: 12px`, `--spacing-lg: 16px`, `--spacing-xl: 24px`, `--spacing-2xl: 32px`. Document in Storybook (Spacing.mdx).
+- [ ] **Migrate top pages to spacing tokens** — Replace inline `padding: 24` / `gap: 16` etc. with CSS variable references or DS component props on 5 worst offenders.
+
+### Group BK — Underutilized DS component adoption (LOW)
+
+Existing DS components with 0-1 imports that should be used more widely.
+
+- [ ] **Stat component adoption** (`src/components/ds/Stat.tsx`) — Replace manual metric+label patterns on reports overview, aged debtors summary cards, dashboard stats with `<Stat>`. Currently 0 imports.
+- [ ] **HintIcon component adoption** (`src/components/ds/HintIcon.tsx`) — Replace manual tooltip/info-icon patterns with `<HintIcon>`. Currently 0 imports.
+
+### Group BL — Remaining raw HTML elements (LOW — 11 raw buttons)
+
+- [ ] **Raw button cleanup** — Replace 11 remaining raw `<button className=...>` elements with DS `<Button>` variants. Files: settings/online-bookings/[id], DashboardClient, calendar/CalendarView (toolbar custom buttons).
+
 ---
 
 ## Completed Gaps
