@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Flex } from "antd";
-import { Button, Navbar, Card, FormInput, FormTextarea } from "@/components/ds";
+import { Button, FormPage, Card, FormInput, FormTextarea } from "@/components/ds";
 
 export default function NewContactPage() {
   const router = useRouter();
@@ -29,90 +29,93 @@ export default function NewContactPage() {
   };
 
   return (
-    <div>
-      <Navbar backHref="/contacts" title="New contact">
-        <Button variant="secondary" onClick={() => router.push("/contacts")}>
-          Cancel
-        </Button>
-        <Button variant="primary" onClick={handleSave}>
-          Save
-        </Button>
-      </Navbar>
-
-      <div style={{ maxWidth: 768, margin: '0 auto', padding: 24 }}>
-        <Flex vertical gap={24}>
-          <Card title="General details">
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
-              <FormInput
-                label="First name"
-                value={form.firstName}
-                onChange={(e) => setField("firstName", e.target.value)}
-              />
-              <FormInput
-                label="Last name"
-                value={form.lastName}
-                onChange={(e) => setField("lastName", e.target.value)}
-              />
-              <FormInput
-                label="Organisation"
-                value={form.organisation}
-                onChange={(e) => setField("organisation", e.target.value)}
-              />
-              <FormInput
-                label="Job title"
-                value={form.jobTitle}
-                onChange={(e) => setField("jobTitle", e.target.value)}
-              />
-            </div>
-          </Card>
-
-          <Card title="Contact details">
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
-              <FormInput
-                label="Email"
-                type="email"
-                value={form.email}
-                onChange={(e) => setField("email", e.target.value)}
-              />
-              <FormInput
-                label="Phone"
-                type="tel"
-                value={form.phone}
-                onChange={(e) => setField("phone", e.target.value)}
-              />
-              <FormInput
-                label="Mobile"
-                type="tel"
-                value={form.mobile}
-                onChange={(e) => setField("mobile", e.target.value)}
-              />
-              <FormInput
-                label="Fax"
-                type="tel"
-                value={form.fax}
-                onChange={(e) => setField("fax", e.target.value)}
-              />
-            </div>
-            <div style={{ marginTop: 16 }}>
-              <FormInput
-                label="Address"
-                value={form.address}
-                onChange={(e) => setField("address", e.target.value)}
-              />
-            </div>
-          </Card>
-
-          <Card title="Notes">
-            <FormTextarea
-              label="Notes"
-              rows={4}
-              value={form.notes}
-              onChange={(e) => setField("notes", e.target.value)}
-              placeholder="Add any notes about this contact..."
+    <FormPage
+      title="New contact"
+      backHref="/contacts"
+      maxWidth={768}
+      actions={
+        <>
+          <Button variant="secondary" onClick={() => router.push("/contacts")}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleSave}>
+            Save
+          </Button>
+        </>
+      }
+    >
+      <Flex vertical gap={24}>
+        <Card title="General details">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+            <FormInput
+              label="First name"
+              value={form.firstName}
+              onChange={(e) => setField("firstName", e.target.value)}
             />
-          </Card>
-        </Flex>
-      </div>
-    </div>
+            <FormInput
+              label="Last name"
+              value={form.lastName}
+              onChange={(e) => setField("lastName", e.target.value)}
+            />
+            <FormInput
+              label="Organisation"
+              value={form.organisation}
+              onChange={(e) => setField("organisation", e.target.value)}
+            />
+            <FormInput
+              label="Job title"
+              value={form.jobTitle}
+              onChange={(e) => setField("jobTitle", e.target.value)}
+            />
+          </div>
+        </Card>
+
+        <Card title="Contact details">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+            <FormInput
+              label="Email"
+              type="email"
+              value={form.email}
+              onChange={(e) => setField("email", e.target.value)}
+            />
+            <FormInput
+              label="Phone"
+              type="tel"
+              value={form.phone}
+              onChange={(e) => setField("phone", e.target.value)}
+            />
+            <FormInput
+              label="Mobile"
+              type="tel"
+              value={form.mobile}
+              onChange={(e) => setField("mobile", e.target.value)}
+            />
+            <FormInput
+              label="Fax"
+              type="tel"
+              value={form.fax}
+              onChange={(e) => setField("fax", e.target.value)}
+            />
+          </div>
+          <div style={{ marginTop: 16 }}>
+            <FormInput
+              label="Address"
+              value={form.address}
+              onChange={(e) => setField("address", e.target.value)}
+            />
+          </div>
+        </Card>
+
+        <Card title="Notes">
+          <FormTextarea
+            label="Notes"
+            rows={4}
+            value={form.notes}
+            onChange={(e) => setField("notes", e.target.value)}
+            placeholder="Add any notes about this contact..."
+          />
+        </Card>
+      </Flex>
+    </FormPage>
   );
 }

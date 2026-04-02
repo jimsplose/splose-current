@@ -8,7 +8,7 @@ import {
   Card,
   DateRangeFilter,
   FormSelect,
-  PageHeader,
+  ListPage,
   DataTable,
   TableHead,
   Th,
@@ -36,12 +36,16 @@ export default function ReportsFormPage() {
   const [showResults, setShowResults] = useState(false);
 
   return (
-    <>
-      <PageHeader title="Forms">
-        <Button>Export</Button>
-        <Button>Learn about this report</Button>
-      </PageHeader>
-
+    <ListPage
+      title="Forms"
+      actions={
+        <>
+          <Button>Export</Button>
+          <Button>Learn about this report</Button>
+        </>
+      }
+      cardWrap={false}
+    >
       <div style={{ marginBottom: 16 }}>
         <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
           Date range *
@@ -95,6 +99,6 @@ export default function ReportsFormPage() {
           </DataTable>
         </Card>
       )}
-    </>
+    </ListPage>
   );
 }

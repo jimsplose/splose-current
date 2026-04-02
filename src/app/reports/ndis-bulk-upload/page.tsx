@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Button, PageHeader, DataTable, TableHead, Th, TableBody, Td, Badge } from "@/components/ds";
+import { Button, ListPage, DataTable, TableHead, Th, TableBody, Td, Badge } from "@/components/ds";
 
 const uploads = [
   { id: "54901", date: "22 Mar 2026", items: 12, status: "Done", practitioner: "Sarah Chen" },
@@ -12,13 +12,14 @@ const uploads = [
 
 export default function NdisBulkUploadPage() {
   return (
-    <>
-      <PageHeader title="NDIS bulk upload">
+    <ListPage
+      title="NDIS bulk upload"
+      actions={
         <Link href="/reports/ndis-bulk-upload/new">
           <Button variant="primary">New upload</Button>
         </Link>
-      </PageHeader>
-
+      }
+    >
       <DataTable>
         <TableHead>
           <Th>Date</Th>
@@ -43,6 +44,6 @@ export default function NdisBulkUploadPage() {
           ))}
         </TableBody>
       </DataTable>
-    </>
+    </ListPage>
   );
 }

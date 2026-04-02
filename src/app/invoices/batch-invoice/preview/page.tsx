@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Flex } from "antd";
-import { Button, Navbar, DataTable, TableHead, Th, TableBody, Td } from "@/components/ds";
+import { Button, FormPage, DataTable, TableHead, Th, TableBody, Td } from "@/components/ds";
 
 const invoices = [
   { number: "INV-0142", client: "Emma Thompson", service: "Individual Therapy", amount: "$193.99" },
@@ -11,45 +11,48 @@ const invoices = [
 
 export default function BatchInvoicePreviewPage() {
   return (
-    <div style={{ minHeight: 'calc(100vh - 3.5rem)' }}>
-      <Navbar backHref="/invoices/batch-invoice" title="Preview batch invoice">
-        <Link href="/invoices/batch-invoice">
-          <Button>Back</Button>
-        </Link>
-        <Button variant="primary">Create invoices</Button>
-      </Navbar>
+    <FormPage
+      title="Preview batch invoice"
+      backHref="/invoices/batch-invoice"
+      actions={
+        <>
+          <Link href="/invoices/batch-invoice">
+            <Button>Back</Button>
+          </Link>
+          <Button variant="primary">Create invoices</Button>
+        </>
+      }
+      style={{ minHeight: 'calc(100vh - 3.5rem)' }}
+    >
+      <p className="text-body-md" style={{ marginBottom: 16, color: 'var(--color-text-secondary)' }}>
+        {invoices.length} invoices will be created. Review below before confirming.
+      </p>
 
-      <div style={{ padding: 24 }}>
-        <p className="text-body-md" style={{ marginBottom: 16, color: 'var(--color-text-secondary)' }}>
-          {invoices.length} invoices will be created. Review below before confirming.
-        </p>
+      <DataTable>
+        <TableHead>
+          <Th>Invoice #</Th>
+          <Th>Client</Th>
+          <Th>Service</Th>
+          <Th align="right">Amount</Th>
+        </TableHead>
+        <TableBody>
+          {invoices.map((inv) => (
+            <tr key={inv.number} style={{ borderBottom: '1px solid var(--color-border)' }}>
+              <Td className="text-primary" style={{ fontWeight: 500 }}>{inv.number}</Td>
+              <Td>{inv.client}</Td>
+              <Td>{inv.service}</Td>
+              <Td align="right">{inv.amount}</Td>
+            </tr>
+          ))}
+        </TableBody>
+      </DataTable>
 
-        <DataTable>
-          <TableHead>
-            <Th>Invoice #</Th>
-            <Th>Client</Th>
-            <Th>Service</Th>
-            <Th align="right">Amount</Th>
-          </TableHead>
-          <TableBody>
-            {invoices.map((inv) => (
-              <tr key={inv.number} style={{ borderBottom: '1px solid var(--color-border)' }}>
-                <Td className="text-primary" style={{ fontWeight: 500 }}>{inv.number}</Td>
-                <Td>{inv.client}</Td>
-                <Td>{inv.service}</Td>
-                <Td align="right">{inv.amount}</Td>
-              </tr>
-            ))}
-          </TableBody>
-        </DataTable>
-
-        <Flex justify="end" style={{ marginTop: 16, borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
-          <div style={{ textAlign: 'right' }}>
-            <p className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Total</p>
-            <p className="text-heading-md text-text">$550.07</p>
-          </div>
-        </Flex>
-      </div>
-    </div>
+      <Flex justify="end" style={{ marginTop: 16, borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
+        <div style={{ textAlign: 'right' }}>
+          <p className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Total</p>
+          <p className="text-heading-md text-text">$550.07</p>
+        </div>
+      </Flex>
+    </FormPage>
   );
 }

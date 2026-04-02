@@ -7,7 +7,6 @@ import {
   Button,
   FormSelect,
   DateRangeFilter,
-  PageHeader,
   Checkbox,
   Card,
   DataTable,
@@ -15,7 +14,8 @@ import {
   Th,
   TableBody,
   Td,
-  Navbar,
+  FormPage,
+  ListPage,
 } from "@/components/ds";
 
 const mockClients = [
@@ -76,63 +76,71 @@ export default function BatchInvoicePage() {
 
   if (step === "preview") {
     return (
-      <div style={{ minHeight: 'calc(100vh - 3.5rem)' }}>
-        <Navbar backHref="#" title="Preview batch invoice">
-          <Button onClick={() => setStep("clients")}>Back</Button>
-          <Link href="/invoices">
-            <Button variant="primary">Create invoices</Button>
-          </Link>
-        </Navbar>
+      <FormPage
+        title="Preview batch invoice"
+        backHref="#"
+        style={{ minHeight: 'calc(100vh - 3.5rem)' }}
+        actions={
+          <>
+            <Button onClick={() => setStep("clients")}>Back</Button>
+            <Link href="/invoices">
+              <Button variant="primary">Create invoices</Button>
+            </Link>
+          </>
+        }
+      >
+        <p className="text-body-md" style={{ marginBottom: 16, color: 'var(--color-text-secondary)' }}>
+          {selectedPreviewInvoices.length} invoices will be created for {selectedClients.length} clients. Review below
+          before confirming.
+        </p>
 
-        <div style={{ padding: 24 }}>
-          <p className="text-body-md" style={{ marginBottom: 16, color: 'var(--color-text-secondary)' }}>
-            {selectedPreviewInvoices.length} invoices will be created for {selectedClients.length} clients. Review below
-            before confirming.
-          </p>
+        <Card padding="none" style={{ overflow: 'hidden' }}>
+          <DataTable>
+            <TableHead>
+              <Th>Invoice #</Th>
+              <Th>Client</Th>
+              <Th>Service</Th>
+              <Th align="right">Amount</Th>
+            </TableHead>
+            <TableBody>
+              {selectedPreviewInvoices.map((inv) => (
+                <tr key={inv.number} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                  <Td className="text-primary" style={{ fontWeight: 500 }}>{inv.number}</Td>
+                  <Td>{inv.client}</Td>
+                  <Td>{inv.service}</Td>
+                  <Td align="right">{inv.amount}</Td>
+                </tr>
+              ))}
+            </TableBody>
+          </DataTable>
+        </Card>
 
-          <Card padding="none" style={{ overflow: 'hidden' }}>
-            <DataTable>
-              <TableHead>
-                <Th>Invoice #</Th>
-                <Th>Client</Th>
-                <Th>Service</Th>
-                <Th align="right">Amount</Th>
-              </TableHead>
-              <TableBody>
-                {selectedPreviewInvoices.map((inv) => (
-                  <tr key={inv.number} style={{ borderBottom: '1px solid var(--color-border)' }}>
-                    <Td className="text-primary" style={{ fontWeight: 500 }}>{inv.number}</Td>
-                    <Td>{inv.client}</Td>
-                    <Td>{inv.service}</Td>
-                    <Td align="right">{inv.amount}</Td>
-                  </tr>
-                ))}
-              </TableBody>
-            </DataTable>
-          </Card>
-
-          <Flex justify="end" style={{ marginTop: 16, borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
-            <div style={{ textAlign: 'right' }}>
-              <p className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Total</p>
-              <p className="text-heading-md text-text">${previewTotal.toFixed(2)}</p>
-            </div>
-          </Flex>
-        </div>
-      </div>
+        <Flex justify="end" style={{ marginTop: 16, borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
+          <div style={{ textAlign: 'right' }}>
+            <p className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Total</p>
+            <p className="text-heading-md text-text">${previewTotal.toFixed(2)}</p>
+          </div>
+        </Flex>
+      </FormPage>
     );
   }
 
   if (step === "clients") {
     return (
-      <div style={{ minHeight: 'calc(100vh - 3.5rem)' }}>
-        <PageHeader title="Batch invoice — Select clients">
-          <Button onClick={() => setStep("filters")}>Back</Button>
-          <Button variant="primary" onClick={() => setStep("preview")} disabled={selectedClients.length === 0}>
-            Next ({selectedClients.length} selected)
-          </Button>
-        </PageHeader>
-
-        <div style={{ maxWidth: 768, padding: 24 }}>
+      <ListPage
+        title="Batch invoice — Select clients"
+        cardWrap={false}
+        style={{ minHeight: 'calc(100vh - 3.5rem)' }}
+        actions={
+          <>
+            <Button onClick={() => setStep("filters")}>Back</Button>
+            <Button variant="primary" onClick={() => setStep("preview")} disabled={selectedClients.length === 0}>
+              Next ({selectedClients.length} selected)
+            </Button>
+          </>
+        }
+      >
+        <div style={{ maxWidth: 768 }}>
           <p className="text-body-md" style={{ marginBottom: 16, color: 'var(--color-text-secondary)' }}>
             Select which clients to include in this batch invoice.
           </p>
@@ -178,20 +186,23 @@ export default function BatchInvoicePage() {
             {selectedClients.length} of {mockClients.length} clients selected
           </div>
         </div>
-      </div>
+      </ListPage>
     );
   }
 
   // Step: filters (default)
   return (
-    <div style={{ minHeight: 'calc(100vh - 3.5rem)' }}>
-      <PageHeader title="Batch invoice">
+    <ListPage
+      title="Batch invoice"
+      cardWrap={false}
+      style={{ minHeight: 'calc(100vh - 3.5rem)' }}
+      actions={
         <Link href="/invoices">
           <Button>Cancel</Button>
         </Link>
-      </PageHeader>
-
-      <div style={{ maxWidth: 672, padding: 24 }}>
+      }
+    >
+      <div style={{ maxWidth: 672 }}>
         <Flex vertical gap={24}>
           <div>
             <label style={{ display: 'block', marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>Date range *</label>
@@ -223,6 +234,6 @@ export default function BatchInvoicePage() {
           </Flex>
         </Flex>
       </div>
-    </div>
+    </ListPage>
   );
 }

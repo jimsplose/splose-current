@@ -9,7 +9,7 @@ import {
   DateRangeFilter,
   Dropdown,
   FormSelect,
-  PageHeader,
+  ListPage,
   TableBody,
   TableHead,
   Td,
@@ -139,12 +139,16 @@ export default function ReportsAppointmentsPage() {
   ];
 
   return (
-    <>
-      <PageHeader title="Appointments">
-        <Button>Export</Button>
-        <Button>Learn about this report</Button>
-      </PageHeader>
-
+    <ListPage
+      title="Appointments"
+      actions={
+        <>
+          <Button>Export</Button>
+          <Button>Learn about this report</Button>
+        </>
+      }
+      cardWrap={false}
+    >
       {/* Date range */}
       <div style={{ marginBottom: 16 }}>
         <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
@@ -224,6 +228,6 @@ export default function ReportsAppointmentsPage() {
           </DataTable>
         </>
       )}
-    </>
+    </ListPage>
   );
 }
