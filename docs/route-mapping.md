@@ -7,11 +7,13 @@ Maps `acme.splose.com` routes to `localhost:3000` equivalents for dual-tab compa
 
 ## ID Mapping
 
-Production uses real numeric IDs. Localhost uses simple sequential IDs.
+Production uses real numeric IDs. Localhost uses Prisma CUIDs.
+
+**Canonical reference patient:** Production `446604` (Harry Nguyen) ↔ Localhost `cmngtw7n9005eycwg4e67506h` (Noah Campbell). Use these IDs for all patient/client detail page comparisons.
 
 | Entity | Production ID (example) | Localhost ID |
 |---|---|---|
-| Patient/Client | `5918810` | `cmn6b958o00fcwpwg8mfwpwa4` (Noah Campbell) |
+| Patient/Client | `446604` (Harry Nguyen) | `cmngtw7n9005eycwg4e67506h` (Noah Campbell) |
 | Contact | `416008` | `1` |
 | Invoice | `14130707` | `cmn2fh20l00evwpwguzx7sw1y` |
 | Note | `31606299` | `cmn2fgub500e4wpwg2vaszage` |
@@ -43,19 +45,19 @@ Compare these states in order:
 7. **Practitioner filter on** — Select specific practitioner(s), compare filtered view
 8. **Practitioner filter off** — Show all practitioners
 | `/patients` | `/clients` | Different entity name |
-| `/patients/{id}/details` | `/clients/1` | Default tab = details |
-| `/patients/{id}/appointments` | `/clients/1/appointments` | |
-| `/patients/{id}/communications` | `/clients/1/communications` | |
-| `/patients/{id}/files` | `/clients/1/files` | |
-| `/patients/{id}/notes` | `/clients/1/notes` | |
-| `/patients/{id}/cases` | `/clients/1/cases` | |
-| `/patients/{id}/support-activities` | `/clients/1/support-activities` | |
-| `/patients/{id}/forms` | `/clients/1/forms` | |
-| `/patients/{id}/invoices` | `/clients/1/invoices` | |
-| `/patients/{id}/payments` | `/clients/1/payments` | |
-| `/patients/{id}/statements` | `/clients/1/statements` | |
-| `/patients/{id}/letters` | `/clients/1/letters` | |
-| `/patients/{id}/practitioner-access` | `/clients/1/practitioner-access` | |
+| `/patients/446604/details` | `/clients/cmngtw7n9005eycwg4e67506h` | Default tab = details |
+| `/patients/446604/appointments` | `/clients/cmngtw7n9005eycwg4e67506h/appointments` | |
+| `/patients/446604/communications` | `/clients/cmngtw7n9005eycwg4e67506h/communications` | |
+| `/patients/446604/files` | `/clients/cmngtw7n9005eycwg4e67506h/files` | |
+| `/patients/446604/notes` | `/clients/cmngtw7n9005eycwg4e67506h/notes` | |
+| `/patients/446604/cases` | `/clients/cmngtw7n9005eycwg4e67506h/cases` | |
+| `/patients/446604/support-activities` | `/clients/cmngtw7n9005eycwg4e67506h/support-activities` | |
+| `/patients/446604/forms` | `/clients/cmngtw7n9005eycwg4e67506h/forms` | |
+| `/patients/446604/invoices` | `/clients/cmngtw7n9005eycwg4e67506h/invoices` | |
+| `/patients/446604/payments` | `/clients/cmngtw7n9005eycwg4e67506h/payments` | |
+| `/patients/446604/statements` | `/clients/cmngtw7n9005eycwg4e67506h/statements` | |
+| `/patients/446604/letters` | `/clients/cmngtw7n9005eycwg4e67506h/letters` | |
+| `/patients/446604/practitioner-access` | `/clients/cmngtw7n9005eycwg4e67506h/practitioner-access` | |
 | `/patients/new` | `/clients/new` | Not in state registry yet |
 | `/contacts` | `/contacts` | |
 | `/contacts/{id}/details` | `/contacts/1` | |
