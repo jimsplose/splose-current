@@ -63,6 +63,7 @@ export const sploseTheme: ThemeConfig = {
     fontSize: 14,
     fontSizeSM: 12,
     fontSizeLG: 16,
+    controlHeight: 38,
     controlHeightLG: 38,
     fontSizeXL: 24,
     fontSizeHeading1: 30,
