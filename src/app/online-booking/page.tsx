@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { LeftOutlined, RightOutlined, EnvironmentOutlined, FileTextOutlined, ClockCircleOutlined, CalendarOutlined, UserOutlined, CheckCircleOutlined, MailOutlined, PlusOutlined, CopyOutlined } from "@ant-design/icons";
-import { Avatar, Button, Checkbox, FormInput, FormSelect, FormTextarea, Alert } from "@/components/ds";
+import { Avatar, Button, Checkbox, FormInput, FormSelect, FormTextarea, Alert, Text } from "@/components/ds";
 import styles from "./online-booking.module.css";
 
 const practitioners = [
@@ -87,9 +87,9 @@ function OnlineBookingPageInner() {
               if (step === "confirm") setStep("select");
               else if (step === "select") setStep("location");
             }}
-            className={`${styles.backButton} text-body-md text-text`}
+            className={styles.backButton}
           >
-            <LeftOutlined style={{ fontSize: 16 }} /> Back
+            <LeftOutlined style={{ fontSize: 16 }} /> <Text variant="body/md" as="span">Back</Text>
           </button>
         )}
 
@@ -118,19 +118,19 @@ function OnlineBookingPageInner() {
                           🔥
                         </div>
                         <div className={styles.locationInfo}>
-                          <div className="text-heading-sm text-text">{loc.name}</div>
-                          <div className="text-body-md text-text-secondary">{loc.description}</div>
+                          <Text variant="heading/sm" as="div">{loc.name}</Text>
+                          <Text variant="body/md" as="div" color="secondary">{loc.description}</Text>
                         </div>
                         {isSelected ? (
                           <button className={styles.selectedBtn}>
-                            <span className="text-body-lg">Selected</span>
+                            <Text variant="body/lg" as="span">Selected</Text>
                           </button>
                         ) : (
                           <button
                             className={styles.selectBtn}
                             onClick={() => setSelectedLocation(loc.id)}
                           >
-                            <span className="text-body-lg">Select</span>
+                            <Text variant="body/lg" as="span">Select</Text>
                           </button>
                         )}
                       </div>
@@ -146,23 +146,23 @@ function OnlineBookingPageInner() {
 
                 {/* Filters */}
                 <div className={styles.filterRow}>
-                  <div className={`${styles.filterItem} text-body-md text-text-secondary`}>
+                  <div className={styles.filterItem}>
                     <UserOutlined style={{ fontSize: 16, marginRight: 8 }} />
-                    All practitioners
+                    <Text variant="body/md" as="span" color="secondary">All practitioners</Text>
                   </div>
-                  <div className={`${styles.filterItem} text-body-md text-text-secondary`}>
+                  <div className={styles.filterItem}>
                     <CalendarOutlined style={{ fontSize: 16, marginRight: 8 }} />
-                    Any date
+                    <Text variant="body/md" as="span" color="secondary">Any date</Text>
                   </div>
-                  <div className={`${styles.filterItem} text-body-md text-text-secondary`}>
+                  <div className={styles.filterItem}>
                     <ClockCircleOutlined style={{ fontSize: 16, marginRight: 8 }} />
-                    Any time
+                    <Text variant="body/md" as="span" color="secondary">Any time</Text>
                   </div>
                 </div>
 
-                <p className={`${styles.timezoneNote} text-caption-md text-text-secondary`}>
+                <Text variant="caption/md" as="p" color="secondary" className={styles.timezoneNote}>
                   All times are shown in (GMT+10:30) – Adelaide
-                </p>
+                </Text>
 
                 <hr className={styles.divider} />
 
@@ -176,25 +176,25 @@ function OnlineBookingPageInner() {
                         <div className={styles.practitionerInfo}>
                           <div className={styles.practitionerHeader}>
                             {prac.hasPhoto ? (
-                              <div className={`${styles.practitionerAvatar} text-label-lg text-text-secondary`}>
-                                {prac.name[0]}
+                              <div className={styles.practitionerAvatar}>
+                                <Text variant="label/lg" as="span" color="secondary">{prac.name[0]}</Text>
                               </div>
                             ) : (
                               <Avatar name={prac.name} color={prac.color} size="md" />
                             )}
                             <div>
-                              <div className="text-heading-sm text-text">{prac.name}</div>
-                              <div className="text-caption-md text-text-secondary">{prac.role}</div>
+                              <Text variant="heading/sm" as="div">{prac.name}</Text>
+                              <Text variant="caption/md" as="div" color="secondary">{prac.role}</Text>
                             </div>
                           </div>
                           {prac.tagline && (
-                            <div className="text-caption-md text-text-secondary">{prac.tagline}</div>
+                            <Text variant="caption/md" as="div" color="secondary">{prac.tagline}</Text>
                           )}
                         </div>
 
                         {/* Date/time picker */}
                         <div className={styles.dateTimePicker}>
-                          <div className="text-heading-sm text-text" style={{ marginBottom: 8 }}>March 2026</div>
+                          <Text variant="heading/sm" as="div" style={{ marginBottom: 8 }}>March 2026</Text>
                           <div className={styles.weekNav}>
                             <Button variant="icon" round>
                               <LeftOutlined style={{ fontSize: 16 }} />
@@ -208,7 +208,6 @@ function OnlineBookingPageInner() {
                                   setSelectedDate(d.date);
                                   setSelectedPractitioner(prac.id);
                                 }}
-                                className={`text-caption-md`}
                                 style={{
                                   display: 'flex',
                                   height: 40,
@@ -221,7 +220,7 @@ function OnlineBookingPageInner() {
                                     : {}),
                                 }}
                               >
-                                <span className="text-caption-sm">{d.date}</span>
+                                <Text variant="caption/sm" as="span">{d.date}</Text>
                               </Button>
                             ))}
                             <Button variant="icon" round>
@@ -230,9 +229,9 @@ function OnlineBookingPageInner() {
                           </div>
                           <div className={styles.dayLabels}>
                             {weekDays.map((d) => (
-                              <span key={d.date} className={`${styles.dayLabel} text-caption-sm text-text-secondary`}>
+                              <Text key={d.date} variant="caption/sm" as="span" color="secondary" className={styles.dayLabel}>
                                 {d.day}
-                              </span>
+                              </Text>
                             ))}
                           </div>
 
@@ -263,10 +262,10 @@ function OnlineBookingPageInner() {
                             </div>
                           ) : (
                             <div className={styles.noSlotsMessage}>
-                              <p className="text-body-md text-text-secondary">
+                              <Text variant="body/md" color="secondary">
                                 No available times for your search. Please try a different date or join the waitlist to be
                                 notified if a spot opens.
-                              </p>
+                              </Text>
                               <Button variant="primary" size="sm">
                                 Next available
                               </Button>
@@ -301,7 +300,7 @@ function OnlineBookingPageInner() {
 
                     <div className={styles.formGrid2}>
                       <div>
-                        <label className={`${styles.labelBlock} text-label-lg text-text-secondary`}>Phone number *</label>
+                        <Text variant="label/lg" as="label" color="secondary" className={styles.labelBlock}>Phone number *</Text>
                         <div className={styles.phoneRow}>
                           <FormSelect
                             options={[
@@ -330,7 +329,7 @@ function OnlineBookingPageInner() {
                     </div>
 
                     <div>
-                      <label className={`${styles.labelBlock} text-label-lg text-text-secondary`}>Date of birth *</label>
+                      <Text variant="label/lg" as="label" color="secondary" className={styles.labelBlock}>Date of birth *</Text>
                       <div className={styles.formGrid3}>
                         <FormSelect
                           options={Array.from({ length: 31 }, (_, i) => ({
@@ -367,9 +366,9 @@ function OnlineBookingPageInner() {
                         maxLength={500}
                         rows={4}
                       />
-                      <div className={`${styles.charCount} text-caption-md text-text-secondary`}>
+                      <Text variant="caption/md" as="div" color="secondary" className={styles.charCount}>
                         {comments.length} / 500
-                      </div>
+                      </Text>
                     </div>
 
                     <Checkbox
@@ -391,37 +390,37 @@ function OnlineBookingPageInner() {
                     </div>
                   </div>
                   <h1 className={`${styles.confirmedTitle} ${styles.pageTitle}`}>Booking confirmed!</h1>
-                  <p className={`${styles.confirmedSubtext} text-body-lg text-text-secondary`}>
-                    Your appointment has been booked. A confirmation email has been sent to <span className="text-body-lg-strong text-text">{email}</span>.
-                  </p>
+                  <Text variant="body/lg" color="secondary" className={styles.confirmedSubtext}>
+                    Your appointment has been booked. A confirmation email has been sent to <Text variant="body/lg-strong" as="span">{email}</Text>.
+                  </Text>
 
                   {/* Confirmation details card */}
                   <div className={styles.detailsCard}>
-                    <h3 className={`${styles.detailsTitle} text-heading-sm text-text`}>Appointment details</h3>
+                    <Text variant="heading/sm" as="h3" className={styles.detailsTitle}>Appointment details</Text>
                     <div className={styles.detailRows}>
                       <div className={styles.detailRow}>
-                        <span className="text-body-md text-text-secondary">Service</span>
-                        <span className="text-body-md text-text">1:1 Consultation (40 mins)</span>
+                        <Text variant="body/md" as="span" color="secondary">Service</Text>
+                        <Text variant="body/md" as="span">1:1 Consultation (40 mins)</Text>
                       </div>
                       <div className={styles.detailRow}>
-                        <span className="text-body-md text-text-secondary">Practitioner</span>
-                        <span className="text-body-md text-text">{selectedPrac?.name ?? "Hrishikesh Koli"}</span>
+                        <Text variant="body/md" as="span" color="secondary">Practitioner</Text>
+                        <Text variant="body/md" as="span">{selectedPrac?.name ?? "Hrishikesh Koli"}</Text>
                       </div>
                       <div className={styles.detailRow}>
-                        <span className="text-body-md text-text-secondary">Date</span>
-                        <span className="text-body-md text-text">Thursday 19 March 2026</span>
+                        <Text variant="body/md" as="span" color="secondary">Date</Text>
+                        <Text variant="body/md" as="span">Thursday 19 March 2026</Text>
                       </div>
                       <div className={styles.detailRow}>
-                        <span className="text-body-md text-text-secondary">Time</span>
-                        <span className="text-body-md text-text">{selectedTime ?? "9:20am"} — 10:00am</span>
+                        <Text variant="body/md" as="span" color="secondary">Time</Text>
+                        <Text variant="body/md" as="span">{selectedTime ?? "9:20am"} — 10:00am</Text>
                       </div>
                       <div className={styles.detailRow}>
-                        <span className="text-body-md text-text-secondary">Location</span>
-                        <span className="text-body-md text-text">{mockLocations.find((l) => l.id === selectedLocation)?.name ?? "Tasks"}</span>
+                        <Text variant="body/md" as="span" color="secondary">Location</Text>
+                        <Text variant="body/md" as="span">{mockLocations.find((l) => l.id === selectedLocation)?.name ?? "Tasks"}</Text>
                       </div>
                       <div className={styles.totalRow}>
-                        <span className="text-label-lg text-text">Total</span>
-                        <span className="text-heading-sm text-text">A$148.71</span>
+                        <Text variant="label/lg" as="span">Total</Text>
+                        <Text variant="heading/sm" as="span">A$148.71</Text>
                       </div>
                     </div>
                   </div>
@@ -430,41 +429,41 @@ function OnlineBookingPageInner() {
                   <div className={styles.emailCard}>
                     <div style={{ marginBottom: 12, display: "flex", alignItems: "center", gap: 8 }}>
                       <MailOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
-                      <h3 className="text-heading-sm text-text">Confirmation email sent</h3>
+                      <Text variant="heading/sm" as="h3">Confirmation email sent</Text>
                     </div>
                     <div className={styles.emailBody}>
                       <div className={styles.emailHeader}>
-                        <div className={`${styles.emailRow} text-body-sm`}>
-                          <span className="text-text-secondary">From:</span>
-                          <span className="text-text">noreply@splose.com</span>
+                        <div className={styles.emailRow}>
+                          <Text variant="body/sm" as="span" color="secondary">From:</Text>
+                          <Text variant="body/sm" as="span">noreply@splose.com</Text>
                         </div>
-                        <div className={`${styles.emailRow} text-body-sm`}>
-                          <span className="text-text-secondary">To:</span>
-                          <span className="text-text">{email}</span>
+                        <div className={styles.emailRow}>
+                          <Text variant="body/sm" as="span" color="secondary">To:</Text>
+                          <Text variant="body/sm" as="span">{email}</Text>
                         </div>
-                        <div className={`${styles.emailRow} text-body-sm`}>
-                          <span className="text-text-secondary">Subject:</span>
-                          <span className="text-body-sm-strong text-text">Appointment confirmed — Thu 19 Mar, {selectedTime ?? "9:20am"}</span>
+                        <div className={styles.emailRow}>
+                          <Text variant="body/sm" as="span" color="secondary">Subject:</Text>
+                          <Text variant="body/md-strong" as="span">Appointment confirmed — Thu 19 Mar, {selectedTime ?? "9:20am"}</Text>
                         </div>
                       </div>
-                      <div className={`${styles.emailContent} text-body-sm text-text`}>
-                        <p>Hi {firstName},</p>
-                        <p>Your appointment has been confirmed with the following details:</p>
+                      <div className={styles.emailContent}>
+                        <Text variant="body/sm" as="p">Hi {firstName},</Text>
+                        <Text variant="body/sm" as="p">Your appointment has been confirmed with the following details:</Text>
                         <div className={styles.emailServiceBox}>
-                          <p className="text-body-sm"><span className="text-text-secondary">Service:</span> 1:1 Consultation (40 mins)</p>
-                          <p className="text-body-sm"><span className="text-text-secondary">Practitioner:</span> {selectedPrac?.name ?? "Hrishikesh Koli"}</p>
-                          <p className="text-body-sm"><span className="text-text-secondary">When:</span> Thursday 19 March 2026 at {selectedTime ?? "9:20am"}</p>
-                          <p className="text-body-sm"><span className="text-text-secondary">Where:</span> {mockLocations.find((l) => l.id === selectedLocation)?.name ?? "Tasks"}</p>
+                          <Text variant="body/sm" as="p"><Text variant="body/sm" as="span" color="secondary">Service:</Text> 1:1 Consultation (40 mins)</Text>
+                          <Text variant="body/sm" as="p"><Text variant="body/sm" as="span" color="secondary">Practitioner:</Text> {selectedPrac?.name ?? "Hrishikesh Koli"}</Text>
+                          <Text variant="body/sm" as="p"><Text variant="body/sm" as="span" color="secondary">When:</Text> Thursday 19 March 2026 at {selectedTime ?? "9:20am"}</Text>
+                          <Text variant="body/sm" as="p"><Text variant="body/sm" as="span" color="secondary">Where:</Text> {mockLocations.find((l) => l.id === selectedLocation)?.name ?? "Tasks"}</Text>
                         </div>
-                        <p>If you need to reschedule or cancel, please contact us at least 24 hours before your appointment.</p>
-                        <p className="text-text-secondary">— The splose team</p>
+                        <Text variant="body/sm" as="p">If you need to reschedule or cancel, please contact us at least 24 hours before your appointment.</Text>
+                        <Text variant="body/sm" as="p" color="secondary">— The splose team</Text>
                       </div>
                     </div>
                   </div>
 
                   {/* Add to calendar actions */}
                   <div className={styles.calendarActions}>
-                    <h3 className="text-heading-sm text-text">Add to your calendar</h3>
+                    <Text variant="heading/sm" as="h3">Add to your calendar</Text>
                     <div className={styles.calendarButtons}>
                       <Button variant="secondary" size="sm">
                         <PlusOutlined style={{ fontSize: 16 }} />
@@ -498,7 +497,7 @@ function OnlineBookingPageInner() {
           {/* Sidebar — Appointment summary */}
           <div className={`${styles.sidebar} ${step === "confirmed" ? styles.sidebarHidden : ""}`}>
             <div className={styles.sidebarCard}>
-              <h2 className={`${styles.sidebarTitle} text-text`}>Appointment summary</h2>
+              <h2 className={styles.sidebarTitle}>Appointment summary</h2>
 
               <div className={styles.stepperContainer}>
                 {/* Vertical connector line between stepper dots */}
@@ -508,15 +507,16 @@ function OnlineBookingPageInner() {
                 <div className={styles.stepperItem}>
                   <div className={`${styles.stepperDot} ${step === "location" || selectedLocation ? styles.stepperDotActive : ""}`} />
                   <div className={styles.stepperContent}>
-                    <div className="text-heading-sm text-text">Location</div>
+                    <Text variant="heading/sm" as="div">Location</Text>
                     {selectedLocation && (
-                      <div style={{ display: "flex", alignItems: "center", gap: 6 }} className="text-caption-md text-text-secondary">
-                        <EnvironmentOutlined style={{ fontSize: 12 }} /> {mockLocations.find((l) => l.id === selectedLocation)?.name}
+                      <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                        <EnvironmentOutlined style={{ fontSize: 12 }} />
+                        <Text variant="caption/md" as="span" color="secondary">{mockLocations.find((l) => l.id === selectedLocation)?.name}</Text>
                       </div>
                     )}
                   </div>
                   {selectedLocation && step !== "location" && (
-                    <Button variant="ghost" size="sm" className="text-text-secondary" onClick={() => setStep("location")}>
+                    <Button variant="ghost" size="sm" onClick={() => setStep("location")}>
                       <svg className={styles.editSvg} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.862 4.487z" />
                       </svg>
@@ -528,14 +528,16 @@ function OnlineBookingPageInner() {
                 <div className={styles.stepperItem}>
                   <div className={styles.stepperDot} />
                   <div className={styles.stepperContent}>
-                    <div className={`text-heading-sm ${step === "location" ? "text-text-secondary" : "text-text"}`}>Service</div>
+                    <Text variant="heading/sm" as="div" color={step === "location" ? "secondary" : undefined}>Service</Text>
                     {step !== "location" && (
                       <>
-                        <div style={{ display: "flex", alignItems: "center", gap: 6 }} className="text-caption-md text-text-secondary">
-                          <FileTextOutlined style={{ fontSize: 12 }} /> 1:1 Consultation (40 mins d...
+                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                          <FileTextOutlined style={{ fontSize: 12 }} />
+                          <Text variant="caption/md" as="span" color="secondary">1:1 Consultation (40 mins d...</Text>
                         </div>
-                        <div style={{ display: "flex", alignItems: "center", gap: 6 }} className="text-caption-md text-text-secondary">
-                          <span style={{ width: 12, textAlign: "center", fontSize: 12 }}>$</span> A$148.71
+                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                          <span style={{ width: 12, textAlign: "center", fontSize: 12 }}>$</span>
+                          <Text variant="caption/md" as="span" color="secondary">A$148.71</Text>
                         </div>
                       </>
                     )}
@@ -546,17 +548,20 @@ function OnlineBookingPageInner() {
                 <div className={styles.stepperItem}>
                   <div className={`${styles.stepperDot} ${step === "confirm" ? styles.stepperDotActive : ""}`} />
                   <div className={styles.stepperContent}>
-                    <div className={`text-heading-sm ${step === "location" ? "text-text-secondary" : "text-text"}`}>Appointment</div>
+                    <Text variant="heading/sm" as="div" color={step === "location" ? "secondary" : undefined}>Appointment</Text>
                     {step === "confirm" && selectedPrac && (
                       <>
-                        <div style={{ display: "flex", alignItems: "center", gap: 6 }} className="text-caption-md text-text-secondary">
-                          <UserOutlined style={{ fontSize: 12 }} /> {selectedPrac.name}
+                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                          <UserOutlined style={{ fontSize: 12 }} />
+                          <Text variant="caption/md" as="span" color="secondary">{selectedPrac.name}</Text>
                         </div>
-                        <div style={{ display: "flex", alignItems: "center", gap: 6 }} className="text-caption-md text-text-secondary">
-                          <ClockCircleOutlined style={{ fontSize: 12 }} /> {selectedTime}
+                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                          <ClockCircleOutlined style={{ fontSize: 12 }} />
+                          <Text variant="caption/md" as="span" color="secondary">{selectedTime}</Text>
                         </div>
-                        <div style={{ display: "flex", alignItems: "center", gap: 6 }} className="text-caption-md text-text-secondary">
-                          <CalendarOutlined style={{ fontSize: 12 }} /> Thursday 19 March 2026
+                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                          <CalendarOutlined style={{ fontSize: 12 }} />
+                          <Text variant="caption/md" as="span" color="secondary">Thursday 19 March 2026</Text>
                         </div>
                       </>
                     )}
@@ -567,11 +572,11 @@ function OnlineBookingPageInner() {
                 <div className={styles.stepperItem}>
                   <div className={`${styles.stepperDot} ${step === "confirm" ? styles.stepperDotActive : ""}`} />
                   <div className={styles.stepperContent}>
-                    <div className="text-body-md text-text-secondary">Booking details</div>
+                    <Text variant="body/md" as="div" color="secondary">Booking details</Text>
                     {step === "confirm" && (
                       <div className={styles.totalLine}>
-                        <span className="text-label-lg text-text">Total:</span>
-                        <span className="text-heading-sm text-text">A$148.71</span>
+                        <Text variant="label/lg" as="span">Total:</Text>
+                        <Text variant="heading/sm" as="span">A$148.71</Text>
                       </div>
                     )}
                   </div>
@@ -614,20 +619,21 @@ function OnlineBookingPageInner() {
               </div>
 
               {step === "select" && (
-                <p className={`${styles.waitlistNote} text-caption-md text-text-secondary`}>
+                <Text variant="caption/md" as="p" color="secondary" className={styles.waitlistNote}>
                   Can&apos;t find a suitable time?{" "}
                   <a href="#" className={styles.waitlistLink}>
                     Join the waitlist.
                   </a>
-                </p>
+                </Text>
               )}
             </div>
           </div>
         </div>
 
         {/* Footer */}
-        <div className={`${styles.footer} text-body-md text-text-secondary`}>
-          Powered by <span className="text-body-md-strong text-primary">splose</span>
+        <div className={styles.footer}>
+          <Text variant="body/md" as="span" color="secondary">Powered by </Text>
+          <Text variant="body/md-strong" as="span" color="primary">splose</Text>
         </div>
       </div>
     </div>

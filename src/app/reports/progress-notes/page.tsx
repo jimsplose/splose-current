@@ -8,6 +8,7 @@ import {
   Card,
   DataTable,
   DateRangeFilter,
+  Divider,
   Grid,
   ListPage,
   Stat,
@@ -15,6 +16,7 @@ import {
   TableBody,
   TableHead,
   Td,
+  Text,
   Th,
   Tr,
 } from "@/components/ds";
@@ -30,9 +32,9 @@ export default function ReportsProgressNotesPage() {
     >
       {/* Date range */}
       <div style={{ marginBottom: 16 }}>
-        <Flex align="center" gap={4} className="text-body-md" style={{ marginBottom: 4, color: 'var(--color-text-secondary)' }}>
+        <Text variant="body/md" as="div" color="secondary" style={{ marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4 }}>
           <span>&#128197;</span> Date range *
-        </Flex>
+        </Text>
         <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
       </div>
 
@@ -46,7 +48,7 @@ export default function ReportsProgressNotesPage() {
 
       {showResults && (<>
       {/* Results */}
-      <p className="text-body-md" style={{ marginBottom: 16, color: 'var(--color-text-secondary)' }}>2 progress notes found.</p>
+      <Text variant="body/md" color="secondary" style={{ marginBottom: 16 }}>2 progress notes found.</Text>
 
       {/* Summary stats row */}
       <Grid cols={4} gap="md" style={{ marginBottom: 24 }}>
@@ -64,7 +66,7 @@ export default function ReportsProgressNotesPage() {
         </Card>
       </Grid>
 
-      <h2 className="text-heading-lg" style={{ marginBottom: 16, color: 'var(--color-text)' }}>Summary</h2>
+      <Text variant="heading/lg" style={{ marginBottom: 16 }}>Summary</Text>
 
       {/* Summary tables and pie charts */}
       <Grid cols={2} gap="lg" style={{ marginBottom: 32 }}>
@@ -74,31 +76,31 @@ export default function ReportsProgressNotesPage() {
             <table style={{ width: '100%' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)' }}>
-                  <th className="text-label-lg" style={{ padding: '8px 16px', textAlign: 'left', color: 'var(--color-text)' }}>Note template</th>
-                  <th className="text-label-lg" style={{ padding: '8px 16px', textAlign: 'right', color: 'var(--color-text)' }}>Number</th>
+                  <th style={{ padding: '8px 16px', textAlign: 'left' }}><Text variant="label/lg" as="span">Note template</Text></th>
+                  <th style={{ padding: '8px 16px', textAlign: 'right' }}><Text variant="label/lg" as="span">Number</Text></th>
                 </tr>
               </thead>
               <tbody>
                 <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-                  <td className="text-body-md" style={{ padding: '8px 16px', color: 'var(--color-text)' }}>
+                  <td style={{ padding: '8px 16px' }}>
                     <Status color="green" label="AAA TEST" />
                   </td>
-                  <td className="text-body-md" style={{ padding: '8px 16px', textAlign: 'right', color: 'var(--color-text)' }}>1 (50.0%)</td>
+                  <td style={{ padding: '8px 16px', textAlign: 'right' }}><Text variant="body/md" as="span">1 (50.0%)</Text></td>
                 </tr>
                 <tr>
-                  <td className="text-body-md" style={{ padding: '8px 16px', color: 'var(--color-text)' }}>
+                  <td style={{ padding: '8px 16px' }}>
                     <Status color="purple" label="Bill Gates Demo" />
                   </td>
-                  <td className="text-body-md" style={{ padding: '8px 16px', textAlign: 'right', color: 'var(--color-text)' }}>1 (50.0%)</td>
+                  <td style={{ padding: '8px 16px', textAlign: 'right' }}><Text variant="body/md" as="span">1 (50.0%)</Text></td>
                 </tr>
               </tbody>
             </table>
-            <Flex align="center" justify="flex-end" className="text-body-md" style={{ borderTop: '1px solid var(--color-border)', padding: '8px 16px', color: 'var(--color-text-secondary)' }}>
-              <span>&lt;</span>
+            <Flex align="center" justify="flex-end" style={{ borderTop: '1px solid var(--color-border)', padding: '8px 16px' }}>
+              <Text variant="body/md" as="span" color="secondary">&lt;</Text>
               <Button variant="ghost" size="sm" style={{ marginLeft: 4, marginRight: 4, height: 24, width: 24, borderRadius: 4, border: '1px solid var(--color-primary)', padding: 0, fontSize: 11, fontWeight: 500, color: 'var(--color-primary)' }}>
                 1
               </Button>
-              <span>&gt;</span>
+              <Text variant="body/md" as="span" color="secondary">&gt;</Text>
             </Flex>
           </Card>
           {/* Pie chart */}
@@ -116,31 +118,31 @@ export default function ReportsProgressNotesPage() {
             <table style={{ width: '100%' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)' }}>
-                  <th className="text-label-lg" style={{ padding: '8px 16px', textAlign: 'left', color: 'var(--color-text)' }}>Practitioner</th>
-                  <th className="text-label-lg" style={{ padding: '8px 16px', textAlign: 'right', color: 'var(--color-text)' }}>Number</th>
+                  <th style={{ padding: '8px 16px', textAlign: 'left' }}><Text variant="label/lg" as="span">Practitioner</Text></th>
+                  <th style={{ padding: '8px 16px', textAlign: 'right' }}><Text variant="label/lg" as="span">Number</Text></th>
                 </tr>
               </thead>
               <tbody>
                 <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-                  <td className="text-body-md" style={{ padding: '8px 16px', color: 'var(--color-text)' }}>
+                  <td style={{ padding: '8px 16px' }}>
                     <Status color="green" label="Ruvi R." />
                   </td>
-                  <td className="text-body-md" style={{ padding: '8px 16px', textAlign: 'right', color: 'var(--color-text)' }}>1 (50.0%)</td>
+                  <td style={{ padding: '8px 16px', textAlign: 'right' }}><Text variant="body/md" as="span">1 (50.0%)</Text></td>
                 </tr>
                 <tr>
-                  <td className="text-body-md" style={{ padding: '8px 16px', color: 'var(--color-text)' }}>
+                  <td style={{ padding: '8px 16px' }}>
                     <Status color="purple" label="Zoe Gomez" />
                   </td>
-                  <td className="text-body-md" style={{ padding: '8px 16px', textAlign: 'right', color: 'var(--color-text)' }}>1 (50.0%)</td>
+                  <td style={{ padding: '8px 16px', textAlign: 'right' }}><Text variant="body/md" as="span">1 (50.0%)</Text></td>
                 </tr>
               </tbody>
             </table>
-            <Flex align="center" justify="flex-end" className="text-body-md" style={{ borderTop: '1px solid var(--color-border)', padding: '8px 16px', color: 'var(--color-text-secondary)' }}>
-              <span>&lt;</span>
+            <Flex align="center" justify="flex-end" style={{ borderTop: '1px solid var(--color-border)', padding: '8px 16px' }}>
+              <Text variant="body/md" as="span" color="secondary">&lt;</Text>
               <Button variant="ghost" size="sm" style={{ marginLeft: 4, marginRight: 4, height: 24, width: 24, borderRadius: 4, border: '1px solid var(--color-primary)', padding: 0, fontSize: 11, fontWeight: 500, color: 'var(--color-primary)' }}>
                 1
               </Button>
-              <span>&gt;</span>
+              <Text variant="body/md" as="span" color="secondary">&gt;</Text>
             </Flex>
           </Card>
           {/* Pie chart */}
@@ -154,7 +156,7 @@ export default function ReportsProgressNotesPage() {
       </Grid>
 
       {/* Progress notes list */}
-      <h2 className="text-heading-lg" style={{ marginBottom: 16, color: 'var(--color-text)' }}>Progress notes list</h2>
+      <Text variant="heading/lg" style={{ marginBottom: 16 }}>Progress notes list</Text>
       <DataTable>
         <TableHead>
           <Th>Title</Th>
@@ -166,23 +168,23 @@ export default function ReportsProgressNotesPage() {
         <TableBody>
           <Tr>
             <Td>
-              <span style={{ color: 'var(--color-primary)' }}>Bill Gates Demo</span>
+              <Text variant="body/md" as="span" color="primary">Bill Gates Demo</Text>
               <Badge variant="gray" style={{ marginLeft: 8 }}>Draft</Badge>
             </Td>
-            <Td><span style={{ color: 'var(--color-primary)' }}>Skyler Peterson</span></Td>
-            <Td><span style={{ color: 'var(--color-text-secondary)' }}>&mdash;</span></Td>
+            <Td><Text variant="body/md" as="span" color="primary">Skyler Peterson</Text></Td>
+            <Td><Text variant="body/md" as="span" color="secondary">&mdash;</Text></Td>
             <Td>Ruvi R.</Td>
-            <Td><span style={{ color: 'var(--color-text-secondary)' }}>&mdash;</span></Td>
+            <Td><Text variant="body/md" as="span" color="secondary">&mdash;</Text></Td>
           </Tr>
           <Tr>
             <Td>
-              <span style={{ color: 'var(--color-primary)' }}>AAA TEST</span>
+              <Text variant="body/md" as="span" color="primary">AAA TEST</Text>
               <Badge variant="gray" style={{ marginLeft: 8 }}>Draft</Badge>
             </Td>
-            <Td><span style={{ color: 'var(--color-primary)' }}>A Del</span></Td>
-            <Td><span style={{ color: 'var(--color-text-secondary)' }}>&mdash;</span></Td>
+            <Td><Text variant="body/md" as="span" color="primary">A Del</Text></Td>
+            <Td><Text variant="body/md" as="span" color="secondary">&mdash;</Text></Td>
             <Td>Zoe Gomez</Td>
-            <Td><span style={{ color: 'var(--color-text-secondary)' }}>&mdash;</span></Td>
+            <Td><Text variant="body/md" as="span" color="secondary">&mdash;</Text></Td>
           </Tr>
         </TableBody>
       </DataTable>
