@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { fn } from "@storybook/test";
 import Badge, { statusVariant } from "../Badge";
 
 /* ------------------------------------------------------------------ */
@@ -17,6 +18,15 @@ const meta: Meta<typeof Badge> = {
     children: {
       control: "text",
       description: "Badge label text",
+    },
+    shape: {
+      control: "select",
+      options: ["rounded", "pill"],
+      description: "Shape of the badge — pill for filter chips",
+    },
+    onRemove: {
+      action: "remove",
+      description: "Callback when close icon is clicked",
     },
   },
   parameters: {
@@ -214,6 +224,48 @@ export const AppointmentBadges: Story = {
         <Badge variant={statusVariant("Paid")}>Paid</Badge>
         <Badge variant={statusVariant("Overdue")}>Overdue</Badge>
       </div>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ================================================================== */
+/*  4. PILL SHAPE (formerly Chip)                                      */
+/* ================================================================== */
+
+/** Pill-shaped badges for filter chips and tags. */
+export const PillShape: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
+      <Badge variant="green" shape="pill">East Clinics</Badge>
+      <Badge variant="purple" shape="pill">Physio</Badge>
+      <Badge variant="yellow" shape="pill">Pending Review</Badge>
+      <Badge variant="blue" shape="pill">11 Mar 2026 – 11 Mar 2026</Badge>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  Removable filter chips                                             */
+/*  Source: /invoices, /calendar — active filter indicators             */
+/* ------------------------------------------------------------------ */
+
+export const RemovableFilterChips: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
+      <Badge variant="blue" shape="pill" onRemove={fn()}>
+        Location: East Clinics
+      </Badge>
+      <Badge variant="green" shape="pill" onRemove={fn()}>
+        Practitioner: Dr. Smith
+      </Badge>
+      <Badge variant="purple" shape="pill" onRemove={fn()}>
+        Status: Active
+      </Badge>
+      <Badge variant="gray" shape="pill" onRemove={fn()}>
+        user@example.com
+      </Badge>
     </div>
   ),
   parameters: { layout: "padded" },

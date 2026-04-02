@@ -11,7 +11,6 @@ import {
   FormSelect,
   FormTextarea,
   Navbar,
-  Select,
 } from "@/components/ds";
 
 const mockClients = [
@@ -162,7 +161,7 @@ export default function NewInvoicePage() {
           {/* Client section */}
           <Card title="Client" headerBar>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
-              <Select
+              <FormSelect
                 label="Client name"
                 options={mockClients}
                 value={client}

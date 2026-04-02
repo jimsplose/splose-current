@@ -30,7 +30,7 @@ import {
   SearchOutlined,
   CheckOutlined,
 } from "@ant-design/icons";
-import { Button, Badge, Chip, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert, Dropdown, Card, RadioGroup } from "@/components/ds";
+import { Button, Badge, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert, Dropdown, Card, RadioGroup } from "@/components/ds";
 import AiChatPanel from "@/components/AiChatPanel";
 import styles from "./CalendarView.module.css";
 
@@ -554,9 +554,9 @@ export default function CalendarView({
 
           {/* Booking-for filter pill */}
           {bookingForFilter && (
-            <Chip variant="yellow" className={styles.bookingChip} onRemove={() => setBookingForFilter(null)}>
+            <Badge variant="yellow" shape="pill" className={styles.bookingChip} onRemove={() => setBookingForFilter(null)}>
               Booking for <strong>{bookingForFilter}</strong>
-            </Chip>
+            </Badge>
           )}
 
           <div className={styles.toolbarSpacer} />

@@ -8,6 +8,8 @@ interface BadgeProps {
   children: React.ReactNode;
   variant?: BadgeVariant;
   solid?: boolean;
+  shape?: "rounded" | "pill";
+  onRemove?: () => void;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -32,19 +34,29 @@ const solidColorMap: Record<BadgeVariant, { bg: string; text: string }> = {
   purple: { bg: "#8250FF", text: "#ffffff" },
 };
 
-export default function Badge({ children, variant = "gray", solid = false, className, style: styleProp }: BadgeProps) {
+export default function Badge({ children, variant = "gray", solid = false, shape = "rounded", onRemove, className, style: styleProp }: BadgeProps) {
+  const borderRadius = shape === "pill" ? 9999 : 8;
+  const isPill = shape === "pill";
+
+  const baseStyle: React.CSSProperties = {
+    borderRadius,
+    fontSize: isPill ? 14 : 12,
+    ...(isPill ? { padding: "4px 12px", fontWeight: 500 } : {}),
+    ...styleProp,
+  };
+
   if (solid) {
     const colors = solidColorMap[variant];
     return (
       <Tag
         bordered={false}
+        closable={!!onRemove}
+        onClose={onRemove}
         className={className}
         style={{
           backgroundColor: colors.bg,
           color: colors.text,
-          borderRadius: 8,
-          fontSize: 12,
-          ...styleProp,
+          ...baseStyle,
         }}
       >
         {children}
@@ -55,8 +67,10 @@ export default function Badge({ children, variant = "gray", solid = false, class
   return (
     <Tag
       color={variantColorMap[variant]}
+      closable={!!onRemove}
+      onClose={onRemove}
       className={className}
-      style={{ borderRadius: 8, fontSize: 12, ...styleProp }}
+      style={baseStyle}
     >
       {children}
     </Tag>
@@ -91,3 +105,5 @@ export function statusVariant(status: string): BadgeVariant {
   };
   return map[status] ?? "gray";
 }
+
+export type { BadgeVariant, BadgeProps };

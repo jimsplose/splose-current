@@ -21,7 +21,7 @@ import {
   EditOutlined,
 } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, FormSelect, FormInput, Badge, Chip } from "@/components/ds";
+import { Button, FormSelect, FormInput, Badge } from "@/components/ds";
 import Modal from "@/components/ds/Modal";
 
 interface SendNoteModalProps {
@@ -168,14 +168,15 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
             {/* To field */}
             <Flex wrap align="center" gap={6} style={{ borderRadius: 8, border: '1px solid var(--color-border)', padding: '8px 12px' }}>
               {toEmails.map((email) => (
-                <Chip
+                <Badge
                   key={email}
                   variant="gray"
+                  shape="pill"
                   onRemove={() => handleRemoveEmail(email)}
                   style={{ paddingTop: 2, paddingBottom: 2, fontSize: 12 }}
                 >
                   {email}
-                </Chip>
+                </Badge>
               ))}
               <FormInput
                 type="email"

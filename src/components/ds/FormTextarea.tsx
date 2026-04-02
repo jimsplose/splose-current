@@ -2,41 +2,31 @@
 
 import { Input } from "antd";
 import { forwardRef } from "react";
+import FormField from "./FormField";
 
 const { TextArea } = Input;
 
 interface FormTextareaProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange"> {
   label?: string;
   error?: string;
+  hint?: string;
+  required?: boolean;
   onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
 }
 
 const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
-  ({ label, error, className, id, ...props }, ref) => {
+  ({ label, error, hint, required, className, id, ...props }, ref) => {
     const textareaId = id || label?.toLowerCase().replace(/\s+/g, "-");
 
     return (
-      <div className={className}>
-        {label && (
-          <label
-            htmlFor={textareaId}
-            style={{ display: "block", marginBottom: 4, fontSize: 14, fontWeight: 600, color: "rgb(34, 34, 34)" }}
-          >
-            {label}
-          </label>
-        )}
+      <FormField label={label} error={error} hint={hint} required={required} id={textareaId} className={className}>
         <TextArea
           ref={ref as never}
           id={textareaId}
           status={error ? "error" : undefined}
           {...(props as Record<string, unknown>)}
         />
-        {error && (
-          <div style={{ marginTop: 4, fontSize: 12, color: "var(--color-error)" }}>
-            {error}
-          </div>
-        )}
-      </div>
+      </FormField>
     );
   },
 );

@@ -9,7 +9,6 @@ import {
   FormInput,
   FormSelect,
   Navbar,
-  Select,
 } from "@/components/ds";
 
 const titleOptions = [
@@ -237,11 +236,11 @@ export default function NewClientPage() {
                   options={practitionerOptions}
                 />
               </div>
-              <Select
+              <FormSelect
                 label="Tags"
                 options={tagOptions}
                 value={tags.join(",")}
-                onChange={(val) => {
+                onChange={(val: string) => {
                   if (!val) {
                     setTags([]);
                   } else if (tags.includes(val)) {

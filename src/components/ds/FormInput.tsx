@@ -2,38 +2,28 @@
 
 import { Input } from "antd";
 import { forwardRef } from "react";
+import FormField from "./FormField";
 
 interface FormInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
   label?: string;
   error?: string;
+  hint?: string;
+  required?: boolean;
 }
 
 const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
-  ({ label, error, className, id, ...props }, ref) => {
+  ({ label, error, hint, required, className, id, ...props }, ref) => {
     const inputId = id || label?.toLowerCase().replace(/\s+/g, "-");
 
     return (
-      <div className={className}>
-        {label && (
-          <label
-            htmlFor={inputId}
-            style={{ display: "block", marginBottom: 4, fontSize: 14, fontWeight: 600, color: "rgb(34, 34, 34)" }}
-          >
-            {label}
-          </label>
-        )}
+      <FormField label={label} error={error} hint={hint} required={required} id={inputId} className={className}>
         <Input
           ref={ref as never}
           id={inputId}
           status={error ? "error" : undefined}
           {...(props as Record<string, unknown>)}
         />
-        {error && (
-          <div style={{ marginTop: 4, fontSize: 12, color: "var(--color-error)" }}>
-            {error}
-          </div>
-        )}
-      </div>
+      </FormField>
     );
   },
 );

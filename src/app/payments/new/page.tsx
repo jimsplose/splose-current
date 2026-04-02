@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CloseOutlined, PlusOutlined, SearchOutlined, PrinterOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, Card, DataTable, FormInput, FormSelect, FormTextarea, Navbar, Select, TableHead, Th, TableBody, Td, EmptyState, Text } from "@/components/ds";
+import { Button, Card, DataTable, FormInput, FormSelect, FormTextarea, Navbar, TableHead, Th, TableBody, Td, EmptyState, Text } from "@/components/ds";
 
 const mockClients = [
   "Skyler Peterson",
@@ -217,7 +217,7 @@ export default function NewPaymentPage() {
         {/* Payment details row */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 16, marginBottom: 32 }}>
           {/* Client / From */}
-          <Select
+          <FormSelect
             label="Client / From *"
             options={clientOptions}
             value={client}

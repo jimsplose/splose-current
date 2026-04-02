@@ -8,7 +8,6 @@ import {
   PageHeader,
   Button,
   Card,
-  Chip,
   Pagination,
   SearchBar,
   Badge,
@@ -125,19 +124,19 @@ export default function InvoicesClient({
         <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 12 }}>
           <span className="text-label-md" style={{ color: 'var(--color-text-secondary)' }}>Filters:</span>
           {locationFilter && (
-            <Chip onRemove={() => setLocationFilter(null)}>
+            <Badge shape="pill" onRemove={() => setLocationFilter(null)}>
               Location: {locationFilter}
-            </Chip>
+            </Badge>
           )}
           {practitionerFilter && (
-            <Chip onRemove={() => setPractitionerFilter(null)}>
+            <Badge shape="pill" onRemove={() => setPractitionerFilter(null)}>
               Practitioner: {practitionerFilter}
-            </Chip>
+            </Badge>
           )}
           {statusFilter && (
-            <Chip onRemove={() => setStatusFilter(null)}>
+            <Badge shape="pill" onRemove={() => setStatusFilter(null)}>
               Status: {statusFilter}
-            </Chip>
+            </Badge>
           )}
           <Button
             variant="link"

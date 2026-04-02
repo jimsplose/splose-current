@@ -34,7 +34,7 @@ import PageHeader from "../PageHeader";
 import Card from "../Card";
 import Navbar from "../Navbar";
 import Badge from "../Badge";
-import Chip from "../Chip";
+import Badge from "../Badge";
 
 /* ------------------------------------------------------------------ */
 /*  Meta                                                               */
@@ -362,8 +362,8 @@ export const FilterChipRow: Story = {
         </Button>
       </div>
       <div style={{ flex: 1 }} />
-      <Chip variant="green">East Clinics</Chip>
-      <Chip variant="purple">Physio</Chip>
+      <Badge variant="green" shape="pill">East Clinics</Badge>
+      <Badge variant="purple" shape="pill">Physio</Badge>
       <Button variant="primary" size="sm" round>
         <PlusOutlined style={{ fontSize: 16 }} />
       </Button>

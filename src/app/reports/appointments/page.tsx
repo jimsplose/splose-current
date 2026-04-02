@@ -5,7 +5,6 @@ import { Flex } from "antd";
 import {
   Badge,
   Button,
-  Chip,
   DataTable,
   DateRangeFilter,
   Dropdown,
@@ -185,9 +184,9 @@ export default function ReportsAppointmentsPage() {
       {activeFilters.length > 0 && (
         <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 32 }}>
           {activeFilters.map((f) => (
-            <Chip key={f} variant="blue" onRemove={() => handleRemoveFilter(f)}>
+            <Badge key={f} variant="blue" shape="pill" onRemove={() => handleRemoveFilter(f)}>
               {filterLabels[f]}
-            </Chip>
+            </Badge>
           ))}
         </Flex>
       )}
