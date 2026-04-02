@@ -1,7 +1,7 @@
 # Design System Consolidation Plan
 
 **Goal:** Get from ~35% DS component coverage to 95%+ across all pages.
-**Status:** Plan drafted 2026-04-02. Ready for execution.
+**Status:** Phases 1-4 complete (2026-04-02). Phase 5 ongoing enforcement.
 
 ## Current State (2026-04-02)
 
@@ -125,10 +125,40 @@ Priority stories to enrich:
 - New work should use DS components and templates, not inline styles
 - Consider adding a lint rule or pre-commit check for `style={{` count per file
 
-## Execution Notes
+## Progress Log
 
-- Phases 1-2 are infrastructure. Do them before page migrations.
-- Phase 3 can be parallelized heavily — each page is independent.
-- Phase 4 can happen any time.
-- Phase 5 is ongoing enforcement.
-- Estimated effort: Phase 1 (1 session), Phase 2 (1-2 sessions), Phase 3 (2-3 sessions), Phase 4 (1 session).
+### 2026-04-02 — Phases 1-4 complete in single session
+
+**Phase 1 — Consolidate Components:**
+- ✅ 1a: Extracted FormField wrapper (shared label/error/hint/required)
+- ✅ 1b: Merged Chip → Badge (shape="pill" + onRemove), deleted Chip
+- ✅ 1c: Folded Select → FormSelect (searchable + placeholder), deleted Select
+- ✅ 1d: Created Divider component
+- ✅ 1e: Created Section component
+- Net: -2 components deleted, +3 created. Component count: 44 → 45
+
+**Phase 2 — Page Templates:**
+- ✅ 2a: ListPage template (title, search, filters, card-wrapped content)
+- ✅ 2b: DetailPage template (header, tabs, sidebar, scrollable content)
+- ✅ 2c: FormPage template (Navbar back-nav, centered form, actions)
+
+**Phase 3 — Migrate Pages:**
+- ✅ Batch 1: 20 pages migrated (14 → ListPage, 6 → FormPage)
+  - contacts, clients, invoices, payments, products, waitlist
+  - 8 report pages, 5 form/new pages
+- ✅ Batch 2: 6 more pages (reports/form, reports/appointments, ndis-bulk-upload, contacts/new, batch-invoice pages)
+- Total: 26 pages now use templates
+
+**Phase 4 — Enrich Storybook:**
+- ✅ RichTextEditor: 48→310 lines (email/note/SMS recipes)
+- ✅ ReorderModal: 39→141 lines (form fields/services/template recipes)
+- ✅ Grid: 60→206 lines (dashboard/settings/report recipes)
+- ✅ EmailPreview: 51→144 lines (invoice/note/reminder recipes)
+
+**Phase 5 — Enforce DS-First:** Ongoing. Updated DS component catalog and compliance grading.
+
+### Remaining work
+- ~2,002 inline style={{}} props remain (mostly in page content, not wrappers)
+- Highest: invoices/[id] (101), ClientDetailClient (91), DashboardClient (82)
+- Future sessions should migrate inline styles → DS component props within pages
+- Consider ESLint rule to warn on high inline style counts per file
