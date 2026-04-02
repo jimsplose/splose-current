@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CloseOutlined, PlusOutlined, SearchOutlined, PrinterOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, Card, DataTable, FormInput, FormSelect, FormTextarea, Navbar, TableHead, Th, TableBody, Td, EmptyState, Text } from "@/components/ds";
+import { Button, Card, DataTable, FormInput, FormPage, FormSelect, FormTextarea, TableHead, Th, TableBody, Td, EmptyState, Text } from "@/components/ds";
 
 const mockClients = [
   "Skyler Peterson",
@@ -131,18 +131,23 @@ export default function NewPaymentPage() {
 
   if (view === "receipt") {
     return (
-      <div style={{ minHeight: 'calc(100vh - 3rem)' }}>
-        <Navbar backHref="/payments" title="Payment receipt">
-          <Button variant="secondary" onClick={() => window.print()}>
-            <PrinterOutlined style={{ fontSize: 16 }} />
-            Print receipt
-          </Button>
-          <Link href="/payments">
-            <Button variant="primary">Done</Button>
-          </Link>
-        </Navbar>
-
-        <div style={{ maxWidth: 512, margin: '0 auto', padding: 32 }}>
+      <FormPage
+        title="Payment receipt"
+        backHref="/payments"
+        maxWidth={512}
+        actions={
+          <>
+            <Button variant="secondary" onClick={() => window.print()}>
+              <PrinterOutlined style={{ fontSize: 16 }} />
+              Print receipt
+            </Button>
+            <Link href="/payments">
+              <Button variant="primary">Done</Button>
+            </Link>
+          </>
+        }
+        style={{ minHeight: 'calc(100vh - 3rem)' }}
+      >
           <Card padding="lg" style={{ textAlign: 'center' }}>
             <Flex justify="center" style={{ marginBottom: 16 }}>
               <Flex
@@ -195,25 +200,28 @@ export default function NewPaymentPage() {
               )}
             </Flex>
           </Card>
-        </div>
-      </div>
+      </FormPage>
     );
   }
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 3rem)' }}>
-      <Navbar backHref="/payments" title="Add payment">
-        <Link href="/payments">
-          <Button variant="secondary" style={{ borderColor: 'var(--color-primary)', color: 'var(--color-primary)' }}>
-            Cancel
+    <FormPage
+      title="Add payment"
+      backHref="/payments"
+      actions={
+        <>
+          <Link href="/payments">
+            <Button variant="secondary" style={{ borderColor: 'var(--color-primary)', color: 'var(--color-primary)' }}>
+              Cancel
+            </Button>
+          </Link>
+          <Button variant="primary" onClick={handleSubmit}>
+            Add
           </Button>
-        </Link>
-        <Button variant="primary" onClick={handleSubmit}>
-          Add
-        </Button>
-      </Navbar>
-
-      <div style={{ maxWidth: 1024, margin: '0 auto', padding: 32 }}>
+        </>
+      }
+      style={{ minHeight: 'calc(100vh - 3rem)' }}
+    >
         {/* Payment details row */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 16, marginBottom: 32 }}>
           {/* Client / From */}
@@ -405,7 +413,6 @@ export default function NewPaymentPage() {
             </Flex>
           </Flex>
         </Flex>
-      </div>
-    </div>
+    </FormPage>
   );
 }

@@ -26,7 +26,7 @@ const MapIcon = ({ style, className }: { style?: React.CSSProperties; className?
 import { Flex } from "antd";
 import {
   Button,
-  PageHeader,
+  ListPage,
   SearchBar,
   DataTable,
   TableHead,
@@ -533,28 +533,29 @@ function WaitlistPageInner() {
 
       {/* ===== SCREENER TAB ===== */}
       {mainTab === "screener" && (
-        <div style={{ padding: '10px 22.5px' }}>
-          <PageHeader title="Screener">
+        <ListPage
+          title="Screener"
+          actions={
             <Button variant="secondary" size="sm">
               <QuestionCircleOutlined style={{ fontSize: 16 }} />
               Learn
             </Button>
-          </PageHeader>
-
-          {/* Search */}
-          <SearchBar placeholder="Search for client name" onSearch={(query) => setScreenerSearch(query)} />
-
-          {/* Triage / Rejected sub-tabs */}
-          <Tab
-            items={[
-              { label: "Triage", value: "triage" },
-              { label: "Rejected", value: "rejected" },
-            ]}
-            value={screenerSubTab}
-            onChange={(val) => setScreenerSubTab(val as "triage" | "rejected")}
-            style={{ marginBottom: 16 }}
-          />
-
+          }
+          searchPlaceholder="Search for client name"
+          onSearch={(query) => setScreenerSearch(query)}
+          filters={
+            <Tab
+              items={[
+                { label: "Triage", value: "triage" },
+                { label: "Rejected", value: "rejected" },
+              ]}
+              value={screenerSubTab}
+              onChange={(val) => setScreenerSubTab(val as "triage" | "rejected")}
+              style={{ marginBottom: 16 }}
+            />
+          }
+          cardWrap={false}
+        >
           {/* Screener table */}
           <DataTable minWidth="800px">
             <TableHead>
@@ -661,7 +662,7 @@ function WaitlistPageInner() {
             </TableBody>
           </DataTable>
           <Pagination currentPage={screenerPage} totalPages={screenerTotalPages} totalItems={filteredScreener.length} itemsPerPage={pageSize} onPageChange={setScreenerPage} />
-        </div>
+        </ListPage>
       )}
 
       {/* ===== UPDATE CLIENT MODAL ===== */}
@@ -918,50 +919,55 @@ function WaitlistPageInner() {
 
       {/* ===== WAITLIST TAB ===== */}
       {mainTab === "waitlist" && (
-        <div style={{ padding: '10px 22.5px' }}>
-          <PageHeader title="Waitlist">
-            <Button variant="secondary" size="sm">
-              <FilterOutlined style={{ fontSize: 16 }} />
-              Reset all filters
-            </Button>
-            <Button variant="secondary" size="sm">
-              <QuestionCircleOutlined style={{ fontSize: 16 }} />
-              Learn
-            </Button>
-            <Button variant="secondary" size="sm">
-              <ColumnWidthOutlined style={{ fontSize: 16 }} />
-              Show/hide fields
-            </Button>
-            {/* Map / List toggle */}
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() => setViewMode(viewMode === "list" ? "map" : "list")}
-              className={
-                viewMode === "map"
-                  ? wStyles.activeToggleButton
-                  : ""
-              }
-            >
-              {viewMode === "list" ? (
-                <>
-                  <MapIcon  />
-                  Map
-                </>
-              ) : (
-                <>
-                  <UnorderedListOutlined style={{ fontSize: 16 }} />
-                  List
-                </>
-              )}
-            </Button>
-            <Link href="/waitlist/new">
-              <Button variant="secondary" size="md">
-                <PlusOutlined style={{ fontSize: 16 }} />
-                Add client
+        <ListPage
+          title="Waitlist"
+          actions={
+            <>
+              <Button variant="secondary" size="sm">
+                <FilterOutlined style={{ fontSize: 16 }} />
+                Reset all filters
               </Button>
-            </Link>
-          </PageHeader>
+              <Button variant="secondary" size="sm">
+                <QuestionCircleOutlined style={{ fontSize: 16 }} />
+                Learn
+              </Button>
+              <Button variant="secondary" size="sm">
+                <ColumnWidthOutlined style={{ fontSize: 16 }} />
+                Show/hide fields
+              </Button>
+              {/* Map / List toggle */}
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => setViewMode(viewMode === "list" ? "map" : "list")}
+                className={
+                  viewMode === "map"
+                    ? wStyles.activeToggleButton
+                    : ""
+                }
+              >
+                {viewMode === "list" ? (
+                  <>
+                    <MapIcon  />
+                    Map
+                  </>
+                ) : (
+                  <>
+                    <UnorderedListOutlined style={{ fontSize: 16 }} />
+                    List
+                  </>
+                )}
+              </Button>
+              <Link href="/waitlist/new">
+                <Button variant="secondary" size="md">
+                  <PlusOutlined style={{ fontSize: 16 }} />
+                  Add client
+                </Button>
+              </Link>
+            </>
+          }
+          cardWrap={false}
+        >
 
           {viewMode === "list" ? (
             <>
@@ -1051,7 +1057,7 @@ function WaitlistPageInner() {
               <MapView markers={mapMarkers} />
             </div>
           )}
-        </div>
+        </ListPage>
       )}
     </div>
   );

@@ -7,7 +7,7 @@ import {
   Card,
   DateRangeFilter,
   FormSelect,
-  PageHeader,
+  ListPage,
   DataTable,
   TableHead,
   Th,
@@ -38,12 +38,11 @@ export default function ReportsAgedDebtorsPage() {
   const [showResults, setShowResults] = useState(false);
 
   return (
-    <>
-      <PageHeader title="Aged debtors">
-        <Button>Export</Button>
-        <Button>Learn about this report</Button>
-      </PageHeader>
-
+    <ListPage
+      title="Aged debtors"
+      actions={<><Button>Export</Button><Button>Learn about this report</Button></>}
+      cardWrap={false}
+    >
       <Flex wrap="wrap" align="flex-start" gap={16} style={{ marginBottom: 16 }}>
         <div>
           <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
@@ -111,6 +110,6 @@ export default function ReportsAgedDebtorsPage() {
           </Card>
         </>
       )}
-    </>
+    </ListPage>
   );
 }

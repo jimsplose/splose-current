@@ -3,7 +3,7 @@
 import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
 import Link from "next/link";
-import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination } from "@/components/ds";
+import { ListPage, Button, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination } from "@/components/ds";
 
 const mockContacts = [
   {
@@ -177,89 +177,87 @@ function getTypeLabel(type: string) {
 
 export default function ContactsPage() {
   return (
-    <div style={{ padding: '10px 22.5px' }}>
-      <PageHeader title="Contacts">
+    <ListPage
+      title="Contacts"
+      searchPlaceholder="Search for contact name, phone number, email and company name"
+      actions={
         <Link href="/contacts/new">
           <Button>
             <PlusOutlined style={{ fontSize: 16 }} />
             New contact
           </Button>
         </Link>
-      </PageHeader>
-
-      <SearchBar placeholder="Search for contact name, phone number, email and company name" />
-
-      <Card padding="none" style={{ overflowX: 'auto' }}>
-        <DataTable>
-          <TableHead>
-            <Th>
-              <Flex align="center" gap={4}>
-                Type
-                <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
-                <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
-              </Flex>
-            </Th>
-            <Th>
-              <Flex align="center" gap={4}>
-                Name
-                <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
-              </Flex>
-            </Th>
-            <Th hidden="md">
-              <Flex align="center" gap={4}>
-                Company
-                <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
-              </Flex>
-            </Th>
-            <Th hidden="md">
-              <Flex align="center" gap={4}>
-                Email
-                <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
-              </Flex>
-            </Th>
-            <Th hidden="lg">Work phone</Th>
-            <Th hidden="lg">Mobile phone</Th>
-          </TableHead>
-          <TableBody>
-            {mockContacts.map((contact) => (
-              <Tr key={contact.id} clickable style={{ position: 'relative' }}>
-                <Td className="text-text-secondary">
-                  <Link
-                    href={`/contacts/${contact.id}`}
-                    style={{ position: 'absolute', inset: 0 }}
-                    aria-label={`View ${contact.name}`}
-                  />
-                  {getTypeLabel(contact.type)}
-                </Td>
-                <Td className="text-text" style={{ fontWeight: 500 }}>{contact.name}</Td>
-                <Td hidden="md" className="text-text-secondary">{contact.company}</Td>
-                <Td hidden="md" className="text-text-secondary">{contact.email}</Td>
-                <Td hidden="lg">
-                  {contact.workPhone && (
-                    <a href={`tel:${contact.workPhone}`} className="text-text" style={{ textDecoration: 'none' }}>
-                      {contact.workPhone}
-                    </a>
-                  )}
-                </Td>
-                <Td hidden="lg">
-                  {contact.mobilePhone && (
-                    <a href={`tel:${contact.mobilePhone}`} className="text-text" style={{ textDecoration: 'none' }}>
-                      {contact.mobilePhone}
-                    </a>
-                  )}
-                </Td>
-              </Tr>
-            ))}
-          </TableBody>
-        </DataTable>
-        <Pagination
-          currentPage={1}
-          totalPages={1}
-          totalItems={mockContacts.length}
-          itemsPerPage={20}
-          onPageChange={() => {}}
-        />
-      </Card>
-    </div>
+      }
+    >
+      <DataTable>
+        <TableHead>
+          <Th>
+            <Flex align="center" gap={4}>
+              Type
+              <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+              <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+            </Flex>
+          </Th>
+          <Th>
+            <Flex align="center" gap={4}>
+              Name
+              <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+            </Flex>
+          </Th>
+          <Th hidden="md">
+            <Flex align="center" gap={4}>
+              Company
+              <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+            </Flex>
+          </Th>
+          <Th hidden="md">
+            <Flex align="center" gap={4}>
+              Email
+              <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+            </Flex>
+          </Th>
+          <Th hidden="lg">Work phone</Th>
+          <Th hidden="lg">Mobile phone</Th>
+        </TableHead>
+        <TableBody>
+          {mockContacts.map((contact) => (
+            <Tr key={contact.id} clickable style={{ position: 'relative' }}>
+              <Td className="text-text-secondary">
+                <Link
+                  href={`/contacts/${contact.id}`}
+                  style={{ position: 'absolute', inset: 0 }}
+                  aria-label={`View ${contact.name}`}
+                />
+                {getTypeLabel(contact.type)}
+              </Td>
+              <Td className="text-text" style={{ fontWeight: 500 }}>{contact.name}</Td>
+              <Td hidden="md" className="text-text-secondary">{contact.company}</Td>
+              <Td hidden="md" className="text-text-secondary">{contact.email}</Td>
+              <Td hidden="lg">
+                {contact.workPhone && (
+                  <a href={`tel:${contact.workPhone}`} className="text-text" style={{ textDecoration: 'none' }}>
+                    {contact.workPhone}
+                  </a>
+                )}
+              </Td>
+              <Td hidden="lg">
+                {contact.mobilePhone && (
+                  <a href={`tel:${contact.mobilePhone}`} className="text-text" style={{ textDecoration: 'none' }}>
+                    {contact.mobilePhone}
+                  </a>
+                )}
+              </Td>
+            </Tr>
+          ))}
+        </TableBody>
+      </DataTable>
+      <Pagination
+        currentPage={1}
+        totalPages={1}
+        totalItems={mockContacts.length}
+        itemsPerPage={20}
+        onPageChange={() => {}}
+      />
+    </ListPage>
   );
 }

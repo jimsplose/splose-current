@@ -3,7 +3,7 @@
 import { Fragment, useState } from "react";
 import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge } from "@/components/ds";
+import { Button, DataTable, ListPage, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge } from "@/components/ds";
 
 const mockPayments = [
   {
@@ -106,20 +106,16 @@ export default function PaymentsPage() {
   const paged = mockPayments.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   return (
-    <div style={{ padding: '10px 22.5px' }}>
-      {/* Header */}
-      <PageHeader title="Payments">
+    <ListPage
+      title="Payments"
+      actions={
         <Button variant="secondary">
           <PlusOutlined style={{ fontSize: 16 }} />
           New payment
         </Button>
-      </PageHeader>
-
-      {/* Search */}
-      <SearchBar placeholder="Search for recipient name and payment number" />
-
-      {/* Table */}
-      <Card padding="none" style={{ overflowX: 'auto' }}>
+      }
+      searchPlaceholder="Search for recipient name and payment number"
+    >
         <DataTable>
           <TableHead>
             <Th style={{ width: 280 }}>
@@ -220,7 +216,6 @@ export default function PaymentsPage() {
           itemsPerPage={pageSize}
           onPageChange={setCurrentPage}
         />
-      </Card>
-    </div>
+    </ListPage>
   );
 }

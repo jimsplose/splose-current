@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AppstoreOutlined, ColumnWidthOutlined, CopyOutlined, DownOutlined, SnippetsOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, Badge, EmptyState, Navbar, Filter, FormTextarea, FormInput, FormSelect, Text } from "@/components/ds";
+import { Button, Badge, EmptyState, Filter, FormPage, FormTextarea, FormInput, FormSelect, Text } from "@/components/ds";
 
 const TEMPLATES = [
   "Initial Assessment",
@@ -80,35 +80,37 @@ function NewProgressNotePageInner() {
   };
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 3rem)', backgroundColor: 'var(--color-bg-layout)' }}>
-      {/* Header bar */}
-      <Navbar
-        backHref="/"
-        title="New progress note"
-        badge={
-          <Flex align="center" gap={8}>
-            <Badge variant="gray">Note has been autosaved</Badge>
-            {clientName && <Text variant="body/md" as="span" color="primary">{clientName}</Text>}
-          </Flex>
-        }
-      >
-        {/* View toggle */}
-        <Filter
-          items={[
-            { label: <AppstoreOutlined style={{ fontSize: 16 }} />, value: "single" },
-            { label: <ColumnWidthOutlined style={{ fontSize: 16 }} />, value: "split" },
-          ]}
-          value={viewMode}
-          onChange={(v) => setViewMode(v as "single" | "split")}
-        />
-        {/* Save as final button */}
-        <Button variant="primary" style={{ backgroundColor: 'var(--color-success)', borderColor: 'var(--color-success)' }} onClick={handleSave} disabled={saving}>
-          Save as final
-          <DownOutlined style={{ fontSize: 14 }} />
-        </Button>
-      </Navbar>
-
-      <div style={{ display: 'flex' }}>
+    <FormPage
+      title="New progress note"
+      backHref="/"
+      badge={
+        <Flex align="center" gap={8}>
+          <Badge variant="gray">Note has been autosaved</Badge>
+          {clientName && <Text variant="body/md" as="span" color="primary">{clientName}</Text>}
+        </Flex>
+      }
+      actions={
+        <>
+          {/* View toggle */}
+          <Filter
+            items={[
+              { label: <AppstoreOutlined style={{ fontSize: 16 }} />, value: "single" },
+              { label: <ColumnWidthOutlined style={{ fontSize: 16 }} />, value: "split" },
+            ]}
+            value={viewMode}
+            onChange={(v) => setViewMode(v as "single" | "split")}
+          />
+          {/* Save as final button */}
+          <Button variant="primary" style={{ backgroundColor: 'var(--color-success)', borderColor: 'var(--color-success)' }} onClick={handleSave} disabled={saving}>
+            Save as final
+            <DownOutlined style={{ fontSize: 14 }} />
+          </Button>
+        </>
+      }
+      maxWidth={99999}
+      style={{ minHeight: 'calc(100vh - 3rem)', backgroundColor: 'var(--color-bg-layout)' }}
+    >
+      <div style={{ display: 'flex', margin: -24 }}>
         {/* Left editor panel */}
         <div style={{ flex: 1, borderRight: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-base)', padding: 24 }}>
           <div style={{ maxWidth: 672, margin: '0 auto' }}>
@@ -185,6 +187,6 @@ function NewProgressNotePageInner() {
           </div>
         )}
       </div>
-    </div>
+    </FormPage>
   );
 }

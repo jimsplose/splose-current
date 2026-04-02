@@ -9,7 +9,7 @@ import {
   DataTable,
   DateRangeFilter,
   Grid,
-  PageHeader,
+  ListPage,
   Stat,
   Status,
   TableBody,
@@ -23,12 +23,11 @@ export default function ReportsProgressNotesPage() {
   const [showResults, setShowResults] = useState(false);
 
   return (
-    <>
-      <PageHeader title="Progress notes">
-        <Button>Export</Button>
-        <Button>Learn about this report</Button>
-      </PageHeader>
-
+    <ListPage
+      title="Progress notes"
+      actions={<><Button>Export</Button><Button>Learn about this report</Button></>}
+      cardWrap={false}
+    >
       {/* Date range */}
       <div style={{ marginBottom: 16 }}>
         <Flex align="center" gap={4} className="text-body-md" style={{ marginBottom: 4, color: 'var(--color-text-secondary)' }}>
@@ -188,6 +187,6 @@ export default function ReportsProgressNotesPage() {
         </TableBody>
       </DataTable>
       </>)}
-    </>
+    </ListPage>
   );
 }

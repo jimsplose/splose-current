@@ -3,12 +3,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import { PlusOutlined } from "@ant-design/icons";
-import { Flex } from "antd";
 import {
   Badge,
   Button,
-  PageHeader,
-  SearchBar,
+  ListPage,
   DataTable,
   TableHead,
   Th,
@@ -51,17 +49,19 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
   const paged = clients.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   return (
-    <div style={{ paddingLeft: 22.5, paddingRight: 22.5, paddingTop: 10, paddingBottom: 10 }}>
-      <PageHeader title="Clients">
+    <ListPage
+      title="Clients"
+      actions={
         <Link href="/clients/new">
           <Button variant="secondary">
             <PlusOutlined style={{ fontSize: 16 }} />
             New client
           </Button>
         </Link>
-      </PageHeader>
-      <SearchBar placeholder="Search for name, phone number, and email" />
-
+      }
+      searchPlaceholder="Search for name, phone number, and email"
+      cardWrap={false}
+    >
       <DataTable style={{ tableLayout: 'fixed' }}>
         <TableHead>
           <Th sortable filterable style={{ width: '25%' }}>Name</Th>
@@ -106,6 +106,6 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
         itemsPerPage={pageSize}
         onPageChange={setCurrentPage}
       />
-    </div>
+    </ListPage>
   );
 }

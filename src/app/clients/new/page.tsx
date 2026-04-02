@@ -7,8 +7,8 @@ import {
   Button,
   Card,
   FormInput,
+  FormPage,
   FormSelect,
-  Navbar,
 } from "@/components/ds";
 
 const titleOptions = [
@@ -108,17 +108,22 @@ export default function NewClientPage() {
   const [expiryDate, setExpiryDate] = useState("");
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 3rem)' }}>
-      <Navbar backHref="/clients" title="New client">
-        <Button variant="secondary" onClick={() => router.push("/clients")}>
-          Cancel
-        </Button>
-        <Button variant="primary" onClick={() => router.push("/clients")}>
-          Save
-        </Button>
-      </Navbar>
-
-      <div style={{ maxWidth: '56rem', marginLeft: 'auto', marginRight: 'auto', padding: 24 }}>
+    <FormPage
+      title="New client"
+      backHref="/clients"
+      maxWidth={896}
+      style={{ minHeight: 'calc(100vh - 3rem)' }}
+      actions={
+        <>
+          <Button variant="secondary" onClick={() => router.push("/clients")}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={() => router.push("/clients")}>
+            Save
+          </Button>
+        </>
+      }
+    >
         <Flex vertical gap={24}>
           {/* General details */}
           <Card title="General details" headerBar>
@@ -313,7 +318,6 @@ export default function NewClientPage() {
             </div>
           </Card>
         </Flex>
-      </div>
-    </div>
+    </FormPage>
   );
 }

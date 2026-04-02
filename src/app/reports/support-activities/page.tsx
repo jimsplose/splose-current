@@ -5,9 +5,8 @@ import { Flex } from "antd";
 import {
   Button,
   Badge,
-  Card,
   DateRangeFilter,
-  PageHeader,
+  ListPage,
   DataTable,
   TableHead,
   Th,
@@ -36,54 +35,59 @@ export default function ReportsSupportActivitiesPage() {
   const [showResults, setShowResults] = useState(false);
 
   return (
-    <>
-      <PageHeader title="Support activities">
-        <Button>Export</Button>
-        <Button>Learn about this report</Button>
-      </PageHeader>
+    <ListPage
+      title="Support activities"
+      actions={
+        <>
+          <Button>Export</Button>
+          <Button>Learn about this report</Button>
+        </>
+      }
+      toolbar={
+        <>
+          <div style={{ marginBottom: 16 }}>
+            <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
+              Date range *
+            </Flex>
+            <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
+          </div>
 
-      <div style={{ marginBottom: 16 }}>
-        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
-          Date range *
-        </Flex>
-        <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
-      </div>
-
-      <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 32 }}>
-        <Button>Add filter</Button>
-        <Button>Save filters</Button>
-        <Button>Load filters</Button>
-        <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
-      </Flex>
-
+          <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 32 }}>
+            <Button>Add filter</Button>
+            <Button>Save filters</Button>
+            <Button>Load filters</Button>
+            <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
+          </Flex>
+        </>
+      }
+      cardWrap={false}
+    >
       {showResults && (
-        <Card padding="none" style={{ overflowX: 'auto' }}>
-          <DataTable>
-            <TableHead>
-              <Th>Date</Th>
-              <Th>Client</Th>
-              <Th>Activity type</Th>
-              <Th>Practitioner</Th>
-              <Th>Duration</Th>
-              <Th>Location</Th>
-              <Th>Status</Th>
-            </TableHead>
-            <TableBody>
-              {mockActivityRows.map((row, i) => (
-                <Tr key={i}>
-                  <Td>{row.date}</Td>
-                  <Td style={{ color: 'var(--color-primary)' }}>{row.client}</Td>
-                  <Td>{row.activityType}</Td>
-                  <Td>{row.practitioner}</Td>
-                  <Td>{row.duration}</Td>
-                  <Td>{row.location}</Td>
-                  <Td><Badge variant={activityStatusVariant(row.status)}>{row.status}</Badge></Td>
-                </Tr>
-              ))}
-            </TableBody>
-          </DataTable>
-        </Card>
+        <DataTable>
+          <TableHead>
+            <Th>Date</Th>
+            <Th>Client</Th>
+            <Th>Activity type</Th>
+            <Th>Practitioner</Th>
+            <Th>Duration</Th>
+            <Th>Location</Th>
+            <Th>Status</Th>
+          </TableHead>
+          <TableBody>
+            {mockActivityRows.map((row, i) => (
+              <Tr key={i}>
+                <Td>{row.date}</Td>
+                <Td style={{ color: 'var(--color-primary)' }}>{row.client}</Td>
+                <Td>{row.activityType}</Td>
+                <Td>{row.practitioner}</Td>
+                <Td>{row.duration}</Td>
+                <Td>{row.location}</Td>
+                <Td><Badge variant={activityStatusVariant(row.status)}>{row.status}</Badge></Td>
+              </Tr>
+            ))}
+          </TableBody>
+        </DataTable>
       )}
-    </>
+    </ListPage>
   );
 }

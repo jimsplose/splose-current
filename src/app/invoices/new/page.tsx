@@ -8,9 +8,9 @@ import {
   Button,
   Card,
   FormInput,
+  FormPage,
   FormSelect,
   FormTextarea,
-  Navbar,
 } from "@/components/ds";
 
 const mockClients = [
@@ -146,18 +146,21 @@ export default function NewInvoicePage() {
   const total = subtotal + totalTax;
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 3rem)' }}>
-      <Navbar backHref="/invoices" title="New invoice">
-        <Button variant="secondary" onClick={() => router.push("/invoices")}>
-          Cancel
-        </Button>
-        <Button variant="primary" onClick={() => router.push("/invoices")}>
-          Save
-        </Button>
-      </Navbar>
-
-      <div style={{ maxWidth: 1024, margin: '0 auto', padding: 24 }}>
-        <Flex vertical gap={24}>
+    <FormPage
+      title="New invoice"
+      backHref="/invoices"
+      actions={
+        <>
+          <Button variant="secondary" onClick={() => router.push("/invoices")}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={() => router.push("/invoices")}>
+            Save
+          </Button>
+        </>
+      }
+    >
+      <Flex vertical gap={24}>
           {/* Client section */}
           <Card title="Client" headerBar>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
@@ -334,7 +337,6 @@ export default function NewInvoicePage() {
             </div>
           </Card>
         </Flex>
-      </div>
-    </div>
+    </FormPage>
   );
 }

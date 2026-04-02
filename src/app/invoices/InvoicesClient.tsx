@@ -5,11 +5,9 @@ import Link from "next/link";
 import { Flex } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import {
-  PageHeader,
+  ListPage,
   Button,
-  Card,
   Pagination,
-  SearchBar,
   Badge,
   statusVariant,
   DataTable,
@@ -102,59 +100,58 @@ export default function InvoicesClient({
 
   const activeFilterCount = [locationFilter, practitionerFilter, statusFilter].filter(Boolean).length;
 
-  return (
-    <div style={{ padding: '10px 22.5px' }}>
-      <PageHeader title="Invoices">
-        <Button variant="secondary">Batch invoice</Button>
-        <Link href="/invoices/new">
-          <Button variant="secondary">
-            <PlusOutlined style={{ fontSize: 16 }} />
-            New invoice
-          </Button>
-        </Link>
-      </PageHeader>
-
-      <SearchBar
-        placeholder="Search for invoice number, client name and contact name"
-        onSearch={(query) => setSearch(query)}
-      />
-
-      {/* Active filters */}
-      {activeFilterCount > 0 && (
-        <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 12 }}>
-          <span className="text-label-md" style={{ color: 'var(--color-text-secondary)' }}>Filters:</span>
-          {locationFilter && (
-            <Badge shape="pill" onRemove={() => setLocationFilter(null)}>
-              Location: {locationFilter}
-            </Badge>
-          )}
-          {practitionerFilter && (
-            <Badge shape="pill" onRemove={() => setPractitionerFilter(null)}>
-              Practitioner: {practitionerFilter}
-            </Badge>
-          )}
-          {statusFilter && (
-            <Badge shape="pill" onRemove={() => setStatusFilter(null)}>
-              Status: {statusFilter}
-            </Badge>
-          )}
-          <Button
-            variant="link"
-            size="sm"
-            onClick={() => {
-              setLocationFilter(null);
-              setPractitionerFilter(null);
-              setStatusFilter(null);
-            }}
-          >
-            Clear all
-          </Button>
-        </Flex>
+  const filterChips = activeFilterCount > 0 ? (
+    <>
+      <span className="text-label-md" style={{ color: 'var(--color-text-secondary)' }}>Filters:</span>
+      {locationFilter && (
+        <Badge shape="pill" onRemove={() => setLocationFilter(null)}>
+          Location: {locationFilter}
+        </Badge>
       )}
+      {practitionerFilter && (
+        <Badge shape="pill" onRemove={() => setPractitionerFilter(null)}>
+          Practitioner: {practitionerFilter}
+        </Badge>
+      )}
+      {statusFilter && (
+        <Badge shape="pill" onRemove={() => setStatusFilter(null)}>
+          Status: {statusFilter}
+        </Badge>
+      )}
+      <Button
+        variant="link"
+        size="sm"
+        onClick={() => {
+          setLocationFilter(null);
+          setPractitionerFilter(null);
+          setStatusFilter(null);
+        }}
+      >
+        Clear all
+      </Button>
+    </>
+  ) : undefined;
 
-      <Card padding="none" style={{ overflow: 'hidden' }}>
-        <div style={{ overflowX: 'auto' }}>
-          <DataTable>
+  return (
+    <ListPage
+      title="Invoices"
+      actions={
+        <>
+          <Button variant="secondary">Batch invoice</Button>
+          <Link href="/invoices/new">
+            <Button variant="secondary">
+              <PlusOutlined style={{ fontSize: 16 }} />
+              New invoice
+            </Button>
+          </Link>
+        </>
+      }
+      searchPlaceholder="Search for invoice number, client name and contact name"
+      onSearch={(query) => setSearch(query)}
+      filters={filterChips}
+    >
+      <div style={{ overflowX: 'auto' }}>
+        <DataTable>
             <TableHead>
               <Th sortable>Invoice #</Th>
               <Th>To</Th>
@@ -311,14 +308,13 @@ export default function InvoicesClient({
             </TableBody>
           </DataTable>
         </div>
-        <Pagination
-          currentPage={1}
-          totalPages={totalPages}
-          totalItems={filtered.length}
-          itemsPerPage={20}
-          onPageChange={() => {}}
-        />
-      </Card>
-    </div>
+      <Pagination
+        currentPage={1}
+        totalPages={totalPages}
+        totalItems={filtered.length}
+        itemsPerPage={20}
+        onPageChange={() => {}}
+      />
+    </ListPage>
   );
 }

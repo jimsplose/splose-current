@@ -1,6 +1,6 @@
 "use client";
 
-import { PageHeader, Button, Card, DataTable, SearchBar, Pagination, TableHead, Th, TableBody, Td, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Checkbox } from "@/components/ds";
+import { ListPage, Button, DataTable, Pagination, TableHead, Th, TableBody, Td, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Checkbox } from "@/components/ds";
 import { PlusOutlined, MinusOutlined, MoreOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
 import Link from "next/link";
@@ -449,32 +449,31 @@ export default function ProductsPage() {
   }, [confirmDialog]);
 
   return (
-    <div style={{ padding: '10px 22.5px' }}>
-      <PageHeader title="Products">
-        <Button
-          variant="secondary"
-          onClick={() => {
-            setShowArchived(!showArchived);
-          }}
-          className={showArchived ? pStyles.activeFilterButton : ""}
-        >
-          Display archived products
-        </Button>
-        <Link href="/products/new">
-          <Button variant="secondary">
-            <PlusOutlined style={{ fontSize: 16 }} />
-            New product
+    <>
+    <ListPage
+      title="Products"
+      actions={
+        <>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setShowArchived(!showArchived);
+            }}
+            className={showArchived ? pStyles.activeFilterButton : ""}
+          >
+            Display archived products
           </Button>
-        </Link>
-      </PageHeader>
-
-      <SearchBar
-        placeholder="Search for product by name"
-        onSearch={handleSearch}
-        defaultValue={searchQuery}
-      />
-
-      <Card padding="none" style={{ overflowX: 'auto' }}>
+          <Link href="/products/new">
+            <Button variant="secondary">
+              <PlusOutlined style={{ fontSize: 16 }} />
+              New product
+            </Button>
+          </Link>
+        </>
+      }
+      searchPlaceholder="Search for product by name"
+      onSearch={handleSearch}
+    >
         <DataTable>
           <TableHead>
             <Th>{/* expand */}</Th>
@@ -627,7 +626,7 @@ export default function ProductsPage() {
           itemsPerPage={20}
           onPageChange={() => {}}
         />
-      </Card>
+    </ListPage>
 
       {/* Edit Product Modal */}
       <Modal
@@ -734,6 +733,6 @@ export default function ProductsPage() {
           />
         </div>
       </Modal>
-    </div>
+    </>
   );
 }

@@ -8,7 +8,7 @@ import {
   DataTable,
   DateRangeFilter,
   FormSelect,
-  PageHeader,
+  ListPage,
   TableBody,
   TableHead,
   Td,
@@ -39,40 +39,47 @@ export default function ReportsPatientsPage() {
   const [showResults, setShowResults] = useState(false);
 
   return (
-    <>
-      <PageHeader title="Clients">
-        <Button>Export</Button>
-        <Button>Learn about this report</Button>
-      </PageHeader>
+    <ListPage
+      title="Clients"
+      actions={
+        <>
+          <Button>Export</Button>
+          <Button>Learn about this report</Button>
+        </>
+      }
+      toolbar={
+        <>
+          <div style={{ marginBottom: 16 }}>
+            <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
+              Date range *
+            </Flex>
+            <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
+          </div>
 
-      <div style={{ marginBottom: 16 }}>
-        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
-          Date range *
-        </Flex>
-        <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
-      </div>
+          <div style={{ marginBottom: 16 }}>
+            <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
+              Status
+            </Flex>
+            <FormSelect
+              options={[
+                { value: "active", label: "Active" },
+                { value: "archived", label: "Archived" },
+                { value: "all", label: "All" },
+              ]}
+              style={{ width: 192 }}
+            />
+          </div>
 
-      <div style={{ marginBottom: 16 }}>
-        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
-          Status
-        </Flex>
-        <FormSelect
-          options={[
-            { value: "active", label: "Active" },
-            { value: "archived", label: "Archived" },
-            { value: "all", label: "All" },
-          ]}
-          style={{ width: 192 }}
-        />
-      </div>
-
-      <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 32 }}>
-        <Button>Add filter</Button>
-        <Button>Save filters</Button>
-        <Button>Load filters</Button>
-        <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
-      </Flex>
-
+          <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 32 }}>
+            <Button>Add filter</Button>
+            <Button>Save filters</Button>
+            <Button>Load filters</Button>
+            <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
+          </Flex>
+        </>
+      }
+      cardWrap={false}
+    >
       {showResults && (
         <>
           <p className="text-body-md" style={{ margin: '16px 0', color: 'var(--color-text-secondary)' }}>{mockPatients.length} items found.</p>
@@ -99,7 +106,7 @@ export default function ReportsPatientsPage() {
                         ? row.tags.map((tag) => (
                             <Badge key={tag} variant={tagVariant(tag)}>{tag}</Badge>
                           ))
-                        : <span style={{ color: 'var(--color-text-tertiary)' }}>—</span>}
+                        : <span style={{ color: 'var(--color-text-tertiary)' }}>--</span>}
                     </Flex>
                   </Td>
                   <Td>{row.created}</Td>
@@ -110,6 +117,6 @@ export default function ReportsPatientsPage() {
           </DataTable>
         </>
       )}
-    </>
+    </ListPage>
   );
 }

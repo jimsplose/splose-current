@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Flex } from "antd";
-import { Button, Card, Checkbox, FormSelect, FormTextarea, Navbar } from "@/components/ds";
+import { Button, Card, Checkbox, FormPage, FormSelect, FormTextarea } from "@/components/ds";
 
 const clientOptions = [
   { value: "", label: "Select a client..." },
@@ -81,17 +81,23 @@ export default function WaitlistNewPage() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: 'var(--color-bg-layout)' }}>
-      <Navbar backHref="/waitlist" title="Add to waitlist">
-        <Button variant="secondary" onClick={() => router.push("/waitlist")}>
-          Cancel
-        </Button>
-        <Button variant="primary" onClick={handleSave}>
-          Save
-        </Button>
-      </Navbar>
-
-      <Flex vertical gap={24} style={{ maxWidth: 672, margin: '0 auto', padding: 24 }}>
+    <FormPage
+      title="Add to waitlist"
+      backHref="/waitlist"
+      maxWidth={672}
+      actions={
+        <>
+          <Button variant="secondary" onClick={() => router.push("/waitlist")}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleSave}>
+            Save
+          </Button>
+        </>
+      }
+      style={{ minHeight: '100vh', backgroundColor: 'var(--color-bg-layout)' }}
+    >
+      <Flex vertical gap={24}>
         {/* Client */}
         <Card title="Client" headerBar>
           <Flex vertical gap={16}>
@@ -167,6 +173,6 @@ export default function WaitlistNewPage() {
           </Flex>
         </Card>
       </Flex>
-    </div>
+    </FormPage>
   );
 }
