@@ -8,6 +8,8 @@ interface FormPageProps {
   title: string;
   /** Back navigation href */
   backHref: string;
+  /** When provided, shows a purple text link instead of the arrow icon */
+  backLabel?: string;
   /** Optional badge next to the title */
   badge?: ReactNode;
   /** Action buttons in the navbar (e.g. Save, Cancel) */
@@ -23,6 +25,7 @@ interface FormPageProps {
 export default function FormPage({
   title,
   backHref,
+  backLabel,
   badge,
   actions,
   maxWidth = 1024,
@@ -32,7 +35,7 @@ export default function FormPage({
 }: FormPageProps) {
   return (
     <div className={className} style={style}>
-      <Navbar backHref={backHref} title={title} badge={badge}>
+      <Navbar backHref={backHref} title={title} backLabel={backLabel} badge={badge}>
         {actions}
       </Navbar>
       <div style={{ maxWidth, margin: "0 auto", padding: 24 }}>

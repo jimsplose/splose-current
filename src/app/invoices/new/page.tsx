@@ -6,14 +6,14 @@ import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
 import {
   Button,
-  Card,
   FormInput,
   FormPage,
   FormSelect,
   FormTextarea,
+  Text,
 } from "@/components/ds";
 
-const mockClients = [
+const mockPatients = [
   { value: "michael-brooks", label: "Michael Brooks" },
   { value: "lisa-martinez", label: "Lisa Martinez" },
   { value: "tom-nguyen", label: "Tom Nguyen" },
@@ -28,11 +28,12 @@ const mockClients = [
   { value: "fiona-mcallister", label: "Fiona McAllister" },
 ];
 
-const mockContacts = [
-  { value: "", label: "Select contact" },
+const mockInvoiceTo = [
+  { value: "", label: "Select..." },
   { value: "self", label: "Self" },
   { value: "parent", label: "Parent/Guardian" },
   { value: "employer", label: "Employer" },
+  { value: "ndis", label: "NDIS" },
 ];
 
 const mockLocations = [
@@ -42,37 +43,41 @@ const mockLocations = [
   { value: "north-clinics", label: "North Clinics" },
 ];
 
-const mockServices = [
-  { value: "", label: "Select service" },
-  { value: "initial-consult", label: "Initial Consultation" },
-  { value: "standard-consult", label: "Standard Consultation" },
-  { value: "review", label: "Review Appointment" },
-  { value: "group-session", label: "Group Session" },
-  { value: "telehealth", label: "Telehealth Consultation" },
-  { value: "report-writing", label: "Report Writing" },
-  { value: "ndis-assessment", label: "NDIS Assessment" },
+const mockPractitioners = [
+  { value: "", label: "Select practitioner" },
+  { value: "dr-sarah-chen", label: "Dr Sarah Chen" },
+  { value: "dr-james-wilson", label: "Dr James Wilson" },
+  { value: "emma-davis", label: "Emma Davis" },
 ];
 
-const mockTaxOptions = [
-  { value: "gst-free", label: "GST Free" },
+const mockTypeOptions = [
+  { value: "service", label: "Service" },
+  { value: "product", label: "Product" },
+  { value: "travel", label: "Travel" },
+];
+
+const mockTaxRateOptions = [
+  { value: "gst-free", label: "GST Free (0%)" },
   { value: "gst", label: "GST (10%)" },
 ];
 
-const paymentTermsOptions = [
-  { value: "", label: "Select payment terms" },
-  { value: "due-on-receipt", label: "Due on receipt" },
-  { value: "net-7", label: "Net 7 days" },
-  { value: "net-14", label: "Net 14 days" },
-  { value: "net-30", label: "Net 30 days" },
+const mockUnitOptions = [
+  { value: "each", label: "Each" },
+  { value: "hour", label: "Hour" },
+  { value: "session", label: "Session" },
+  { value: "km", label: "Km" },
 ];
 
 interface LineItem {
   id: number;
-  service: string;
+  type: string;
   description: string;
+  code: string;
+  unit: string;
+  taxRate: string;
+  price: string;
   qty: string;
-  unitPrice: string;
-  tax: string;
+  discount: string;
 }
 
 function getDefaultDate(): string {
@@ -91,22 +96,25 @@ let nextId = 2;
 export default function NewInvoicePage() {
   const router = useRouter();
 
-  const [client, setClient] = useState("");
-  const [contact, setContact] = useState("");
+  const [patient, setPatient] = useState("michael-brooks");
+  const [invoiceTo, setInvoiceTo] = useState("");
   const [invoiceNumber] = useState("INV-00026");
-  const [invoiceDate, setInvoiceDate] = useState(getDefaultDate());
+  const [reference, setReference] = useState("");
+  const [issueDate, setIssueDate] = useState(getDefaultDate());
   const [dueDate, setDueDate] = useState(getDueDate());
+  const [extraDetails, setExtraDetails] = useState("");
   const [location, setLocation] = useState("");
-  const [notes, setNotes] = useState("");
-  const [paymentTerms, setPaymentTerms] = useState("");
+  const [practitioner, setPractitioner] = useState("");
+  const [providerNumbers, setProviderNumbers] = useState("");
+  const [additionalInfo, setAdditionalInfo] = useState("");
   const [lineItems, setLineItems] = useState<LineItem[]>([
-    { id: 1, service: "", description: "", qty: "1", unitPrice: "", tax: "gst-free" },
+    { id: 1, type: "service", description: "", code: "", unit: "each", taxRate: "gst-free", price: "", qty: "1", discount: "" },
   ]);
 
   const addLineItem = () => {
     setLineItems((prev) => [
       ...prev,
-      { id: nextId++, service: "", description: "", qty: "1", unitPrice: "", tax: "gst-free" },
+      { id: nextId++, type: "service", description: "", code: "", unit: "each", taxRate: "gst-free", price: "", qty: "1", discount: "" },
     ]);
   };
 
@@ -120,223 +128,276 @@ export default function NewInvoicePage() {
     );
   };
 
-  const calculateLineTotal = (item: LineItem): number => {
+  const calcLineSubtotal = (item: LineItem): number => {
     const qty = parseFloat(item.qty) || 0;
-    const price = parseFloat(item.unitPrice) || 0;
-    const subtotal = qty * price;
-    if (item.tax === "gst") return subtotal * 1.1;
-    return subtotal;
+    const price = parseFloat(item.price) || 0;
+    const discountPct = parseFloat(item.discount) || 0;
+    return qty * price * (1 - discountPct / 100);
   };
 
-  const calculateLineTax = (item: LineItem): number => {
-    const qty = parseFloat(item.qty) || 0;
-    const price = parseFloat(item.unitPrice) || 0;
-    const subtotal = qty * price;
-    if (item.tax === "gst") return subtotal * 0.1;
+  const calcLineTax = (item: LineItem): number => {
+    const sub = calcLineSubtotal(item);
+    if (item.taxRate === "gst") return sub * 0.1;
     return 0;
   };
 
-  const subtotal = lineItems.reduce((sum, item) => {
+  const subtotalExclTax = lineItems.reduce((sum, item) => sum + calcLineSubtotal(item), 0);
+  const totalDiscount = lineItems.reduce((sum, item) => {
     const qty = parseFloat(item.qty) || 0;
-    const price = parseFloat(item.unitPrice) || 0;
-    return sum + qty * price;
+    const price = parseFloat(item.price) || 0;
+    const discountPct = parseFloat(item.discount) || 0;
+    return sum + qty * price * (discountPct / 100);
   }, 0);
-
-  const totalTax = lineItems.reduce((sum, item) => sum + calculateLineTax(item), 0);
-  const total = subtotal + totalTax;
+  const totalTax = lineItems.reduce((sum, item) => sum + calcLineTax(item), 0);
+  const totalAud = subtotalExclTax + totalTax;
 
   return (
     <FormPage
-      title="New invoice"
+      title="Create invoice"
       backHref="/invoices"
+      backLabel="Invoices"
       actions={
         <>
-          <Button variant="secondary" onClick={() => router.push("/invoices")}>
+          <Button variant="secondary">Show/hide fields</Button>
+          <Button variant="secondary">Preview</Button>
+          <Button variant="danger" onClick={() => router.push("/invoices")}>
             Cancel
           </Button>
           <Button variant="primary" onClick={() => router.push("/invoices")}>
-            Save
+            Create
           </Button>
         </>
       }
     >
-      <Flex vertical gap={24}>
-          {/* Client section */}
-          <Card title="Client" headerBar>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
-              <FormSelect
-                label="Client name"
-                options={mockClients}
-                value={client}
-                onChange={setClient}
-                placeholder="Select client"
-                searchable
-              />
-              <FormSelect
-                label="Contact"
-                value={contact}
-                onChange={setContact}
-                options={mockContacts}
-              />
-            </div>
-          </Card>
+      {/* Form fields — flat layout, no Card wrappers */}
+      <Flex vertical gap={16}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+          <FormInput
+            label="Invoice #"
+            value={invoiceNumber}
+            readOnly
+          />
+          <FormInput
+            label="Reference"
+            value={reference}
+            onChange={(e) => setReference(e.target.value)}
+            placeholder="Reference"
+          />
+          <FormInput
+            label="Issue date"
+            type="date"
+            value={issueDate}
+            onChange={(e) => setIssueDate(e.target.value)}
+          />
+          <FormInput
+            label="Due date"
+            type="date"
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
+          />
+        </div>
 
-          {/* Invoice details */}
-          <Card title="Invoice details" headerBar>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
-              <FormInput
-                label="Invoice number"
-                value={invoiceNumber}
-                readOnly
-                className="text-text-secondary"
-                style={{ background: '#f9fafb' }}
-              />
-              <FormInput
-                label="Date"
-                type="date"
-                value={invoiceDate}
-                onChange={(e) => setInvoiceDate(e.target.value)}
-              />
-              <FormInput
-                label="Due date"
-                type="date"
-                value={dueDate}
-                onChange={(e) => setDueDate(e.target.value)}
-              />
-              <FormSelect
-                label="Location"
-                value={location}
-                onChange={setLocation}
-                options={mockLocations}
-              />
-            </div>
-          </Card>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
+          <FormSelect
+            label="Patient"
+            options={mockPatients}
+            value={patient}
+            onChange={setPatient}
+            placeholder="Select patient"
+            searchable
+          />
+          <FormSelect
+            label="Invoice to"
+            options={mockInvoiceTo}
+            value={invoiceTo}
+            onChange={setInvoiceTo}
+          />
+        </div>
 
-          {/* Line items */}
-          <Card title="Line items" headerBar padding="none">
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%' }} className="text-body-md">
-                <thead>
-                  <tr style={{ borderBottom: '1px solid var(--color-border)', background: '#f9fafb', textAlign: 'left' }} className="text-label-lg text-text-secondary">
-                    <th style={{ padding: '10px 16px' }}>Service</th>
-                    <th style={{ padding: '10px 16px' }}>Description</th>
-                    <th style={{ padding: '10px 16px', width: 80 }}>Qty</th>
-                    <th style={{ padding: '10px 16px', width: 112 }}>Unit Price</th>
-                    <th style={{ padding: '10px 16px', width: 128 }}>Tax</th>
-                    <th style={{ padding: '10px 16px', width: 112, textAlign: 'right' }}>Total</th>
-                    <th style={{ padding: '10px 8px', width: 40 }} />
+        <FormTextarea
+          label="Extra invoice details"
+          value={extraDetails}
+          onChange={(e) => setExtraDetails(e.target.value)}
+          rows={2}
+        />
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+          <FormSelect
+            label="Location"
+            options={mockLocations}
+            value={location}
+            onChange={setLocation}
+          />
+          <FormSelect
+            label="Practitioner"
+            options={mockPractitioners}
+            value={practitioner}
+            onChange={setPractitioner}
+          />
+          <FormInput
+            label="Provider numbers"
+            value={providerNumbers}
+            onChange={(e) => setProviderNumbers(e.target.value)}
+            placeholder="Provider numbers"
+          />
+        </div>
+      </Flex>
+
+      {/* Line items table */}
+      {patient && (
+        <div style={{ marginTop: 24 }}>
+          <div style={{ overflowX: "auto", border: "1px solid var(--color-border)", borderRadius: 8 }}>
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <thead>
+                <tr style={{ background: "var(--color-fill-quaternary)", textAlign: "left" }}>
+                  <th style={{ padding: "10px 12px", fontSize: 14, fontWeight: 500, color: "var(--color-text-secondary)", width: 100 }}>Type</th>
+                  <th style={{ padding: "10px 12px", fontSize: 14, fontWeight: 500, color: "var(--color-text-secondary)" }}>Description</th>
+                  <th style={{ padding: "10px 12px", fontSize: 14, fontWeight: 500, color: "var(--color-text-secondary)", width: 100 }}>Code</th>
+                  <th style={{ padding: "10px 12px", fontSize: 14, fontWeight: 500, color: "var(--color-text-secondary)", width: 90 }}>Unit</th>
+                  <th style={{ padding: "10px 12px", fontSize: 14, fontWeight: 500, color: "var(--color-text-secondary)", width: 120 }}>Tax rate</th>
+                  <th style={{ padding: "10px 12px", fontSize: 14, fontWeight: 500, color: "var(--color-text-secondary)", width: 100, textAlign: "right" }}>Price</th>
+                  <th style={{ padding: "10px 12px", fontSize: 14, fontWeight: 500, color: "var(--color-text-secondary)", width: 70, textAlign: "right" }}>Qty</th>
+                  <th style={{ padding: "10px 12px", fontSize: 14, fontWeight: 500, color: "var(--color-text-secondary)", width: 90, textAlign: "right" }}>Discount</th>
+                  <th style={{ padding: "10px 12px", fontSize: 14, fontWeight: 500, color: "var(--color-text-secondary)", width: 100, textAlign: "right" }}>Amount</th>
+                  <th style={{ padding: "10px 8px", width: 40 }} />
+                </tr>
+              </thead>
+              <tbody>
+                {lineItems.map((item) => (
+                  <tr key={item.id} style={{ borderTop: "1px solid var(--color-border)" }}>
+                    <td style={{ padding: "8px 8px" }}>
+                      <FormSelect
+                        value={item.type}
+                        onChange={(value) => updateLineItem(item.id, "type", value)}
+                        options={mockTypeOptions}
+                      />
+                    </td>
+                    <td style={{ padding: "8px 8px" }}>
+                      <FormInput
+                        value={item.description}
+                        onChange={(e) => updateLineItem(item.id, "description", e.target.value)}
+                        placeholder="Description"
+                      />
+                    </td>
+                    <td style={{ padding: "8px 8px" }}>
+                      <FormInput
+                        value={item.code}
+                        onChange={(e) => updateLineItem(item.id, "code", e.target.value)}
+                        placeholder="Code"
+                      />
+                    </td>
+                    <td style={{ padding: "8px 8px" }}>
+                      <FormSelect
+                        value={item.unit}
+                        onChange={(value) => updateLineItem(item.id, "unit", value)}
+                        options={mockUnitOptions}
+                      />
+                    </td>
+                    <td style={{ padding: "8px 8px" }}>
+                      <FormSelect
+                        value={item.taxRate}
+                        onChange={(value) => updateLineItem(item.id, "taxRate", value)}
+                        options={mockTaxRateOptions}
+                      />
+                    </td>
+                    <td style={{ padding: "8px 8px" }}>
+                      <FormInput
+                        type="number"
+                        step="0.01"
+                        min="0"
+                        value={item.price}
+                        onChange={(e) => updateLineItem(item.id, "price", e.target.value)}
+                        placeholder="0.00"
+                        style={{ textAlign: "right" }}
+                      />
+                    </td>
+                    <td style={{ padding: "8px 8px" }}>
+                      <FormInput
+                        type="number"
+                        min="1"
+                        value={item.qty}
+                        onChange={(e) => updateLineItem(item.id, "qty", e.target.value)}
+                        style={{ textAlign: "right" }}
+                      />
+                    </td>
+                    <td style={{ padding: "8px 8px" }}>
+                      <FormInput
+                        type="number"
+                        min="0"
+                        max="100"
+                        value={item.discount}
+                        onChange={(e) => updateLineItem(item.id, "discount", e.target.value)}
+                        placeholder="0%"
+                        style={{ textAlign: "right" }}
+                      />
+                    </td>
+                    <td style={{ padding: "8px 12px", textAlign: "right", fontWeight: 500, fontSize: 14, color: "var(--color-text)" }}>
+                      ${(calcLineSubtotal(item) + calcLineTax(item)).toFixed(2)}
+                    </td>
+                    <td style={{ padding: "8px 4px" }}>
+                      {lineItems.length > 1 && (
+                        <Button
+                          variant="icon"
+                          size="sm"
+                          onClick={() => removeLineItem(item.id)}
+                        >
+                          <DeleteOutlined style={{ fontSize: 16 }} />
+                        </Button>
+                      )}
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {lineItems.map((item) => (
-                    <tr key={item.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
-                      <td style={{ padding: '8px 12px' }}>
-                        <FormSelect
-                          value={item.service}
-                          onChange={(value) => updateLineItem(item.id, "service", value)}
-                          options={mockServices}
-                        />
-                      </td>
-                      <td style={{ padding: '8px 12px' }}>
-                        <FormInput
-                          value={item.description}
-                          onChange={(e) => updateLineItem(item.id, "description", e.target.value)}
-                          placeholder="Description"
-                        />
-                      </td>
-                      <td style={{ padding: '8px 12px' }}>
-                        <FormInput
-                          type="number"
-                          min="1"
-                          value={item.qty}
-                          onChange={(e) => updateLineItem(item.id, "qty", e.target.value)}
-                          style={{ textAlign: 'right' }}
-                        />
-                      </td>
-                      <td style={{ padding: '8px 12px' }}>
-                        <FormInput
-                          type="number"
-                          step="0.01"
-                          min="0"
-                          value={item.unitPrice}
-                          onChange={(e) => updateLineItem(item.id, "unitPrice", e.target.value)}
-                          placeholder="0.00"
-                          style={{ textAlign: 'right' }}
-                        />
-                      </td>
-                      <td style={{ padding: '8px 12px' }}>
-                        <FormSelect
-                          value={item.tax}
-                          onChange={(value) => updateLineItem(item.id, "tax", value)}
-                          options={mockTaxOptions}
-                        />
-                      </td>
-                      <td style={{ padding: '8px 12px', textAlign: 'right', fontWeight: 500, color: 'var(--color-text)' }}>
-                        ${calculateLineTotal(item).toFixed(2)}
-                      </td>
-                      <td style={{ padding: '8px 8px' }}>
-                        {lineItems.length > 1 && (
-                          <Button
-                            variant="icon"
-                            size="sm"
-                            onClick={() => removeLineItem(item.id)}
-                          >
-                            <DeleteOutlined style={{ fontSize: 16 }} />
-                          </Button>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div style={{ padding: '12px 16px' }}>
-              <Button variant="ghost" size="sm" onClick={addLineItem}>
-                <PlusOutlined style={{ fontSize: 16 }} />
-                Add line item
-              </Button>
-            </div>
-          </Card>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div style={{ padding: "12px 0" }}>
+            <Button variant="ghost" size="sm" onClick={addLineItem}>
+              <PlusOutlined style={{ fontSize: 16 }} />
+              Add line item
+            </Button>
+          </div>
 
           {/* Totals */}
-          <Card padding="md">
-            <Flex justify="end">
-              <Flex vertical gap={8} style={{ width: 256 }}>
-                <Flex align="center" justify="space-between" className="text-body-md">
-                  <span style={{ color: 'var(--color-text-secondary)' }}>Subtotal</span>
-                  <span style={{ fontWeight: 500, color: 'var(--color-text)' }}>${subtotal.toFixed(2)}</span>
-                </Flex>
-                <Flex align="center" justify="space-between" className="text-body-md">
-                  <span style={{ color: 'var(--color-text-secondary)' }}>Tax</span>
-                  <span style={{ fontWeight: 500, color: 'var(--color-text)' }}>${totalTax.toFixed(2)}</span>
-                </Flex>
-                <Flex align="center" justify="space-between" className="text-heading-sm" style={{ borderTop: '1px solid var(--color-border)', paddingTop: 8 }}>
-                  <span style={{ color: 'var(--color-text)' }}>Total</span>
-                  <span style={{ color: 'var(--color-text)' }}>${total.toFixed(2)}</span>
-                </Flex>
+          <Flex justify="end" style={{ marginTop: 8 }}>
+            <Flex vertical gap={6} style={{ width: 280 }}>
+              <Flex align="center" justify="space-between">
+                <Text variant="body/md" color="secondary">Subtotal excl. tax</Text>
+                <Text variant="body/md-strong">${subtotalExclTax.toFixed(2)}</Text>
+              </Flex>
+              <Flex align="center" justify="space-between">
+                <Text variant="body/md" color="secondary">Total discount</Text>
+                <Text variant="body/md-strong">-${totalDiscount.toFixed(2)}</Text>
+              </Flex>
+              <Flex align="center" justify="space-between">
+                <Text variant="body/md" color="secondary">Total tax</Text>
+                <Text variant="body/md-strong">${totalTax.toFixed(2)}</Text>
+              </Flex>
+              <Flex
+                align="center"
+                justify="space-between"
+                style={{ borderTop: "1px solid var(--color-border)", paddingTop: 8, marginTop: 4 }}
+              >
+                <Text variant="heading/lg">TOTAL AUD</Text>
+                <Text variant="heading/lg">${totalAud.toFixed(2)}</Text>
               </Flex>
             </Flex>
-          </Card>
+          </Flex>
 
-          {/* Additional info */}
-          <Card title="Additional information" headerBar>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
-              <FormTextarea
-                label="Notes"
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-                placeholder="Add any notes for this invoice..."
-                rows={4}
-              />
-              <FormSelect
-                label="Payment terms"
-                value={paymentTerms}
-                onChange={setPaymentTerms}
-                options={paymentTermsOptions}
-              />
-            </div>
-          </Card>
-        </Flex>
+          {/* Additional information */}
+          <div style={{ marginTop: 24 }}>
+            <Flex align="center" gap={8} style={{ marginBottom: 8 }}>
+              <Text variant="label/lg">Additional information</Text>
+              <Button variant="ghost" size="sm">Apply business default</Button>
+            </Flex>
+            <FormTextarea
+              value={additionalInfo}
+              onChange={(e) => setAdditionalInfo(e.target.value)}
+              rows={3}
+              placeholder="Additional information..."
+            />
+          </div>
+        </div>
+      )}
     </FormPage>
   );
 }
