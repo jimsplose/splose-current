@@ -109,7 +109,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <Divider spacing="none" style={{ marginBottom: 32, borderColor: 'var(--ant-orange-3, #ffd591)', borderWidth: 2 }} />
+        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Client contact details */}
         <section style={{ marginBottom: 32 }}>
@@ -146,7 +146,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <Divider spacing="none" style={{ marginBottom: 32, borderColor: 'var(--ant-orange-3, #ffd591)', borderWidth: 2 }} />
+        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Privacy policy consent */}
         <section style={{ marginBottom: 32 }}>
@@ -156,7 +156,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           <List items={[{ label: "", value: "No response" }]} />
         </section>
 
-        <Divider spacing="none" style={{ marginBottom: 32, borderColor: 'var(--ant-orange-3, #ffd591)', borderWidth: 2 }} />
+        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Medications, allergies & intolerances */}
         <section style={{ marginBottom: 32 }}>
@@ -172,7 +172,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <Divider spacing="none" style={{ marginBottom: 32, borderColor: 'var(--ant-orange-3, #ffd591)', borderWidth: 2 }} />
+        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Medicare details */}
         {client.medicare && (
@@ -187,7 +187,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
                 ]}
               />
             </section>
-            <Divider spacing="none" style={{ marginBottom: 32, borderColor: 'var(--ant-orange-3, #ffd591)', borderWidth: 2 }} />
+            <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
           </>
         )}
 
@@ -203,7 +203,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
                 ]}
               />
             </section>
-            <Divider spacing="none" style={{ marginBottom: 32, borderColor: 'var(--ant-orange-3, #ffd591)', borderWidth: 2 }} />
+            <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
           </>
         )}
 
@@ -218,7 +218,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <Divider spacing="none" style={{ marginBottom: 32, borderColor: 'var(--ant-orange-3, #ffd591)', borderWidth: 2 }} />
+        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Invoicing */}
         <section style={{ marginBottom: 32 }}>
@@ -233,7 +233,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <Divider spacing="none" style={{ marginBottom: 32, borderColor: 'var(--ant-orange-3, #ffd591)', borderWidth: 2 }} />
+        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Associated contacts */}
         <section style={{ marginBottom: 32 }}>
@@ -302,6 +302,13 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         {/* Client alerts */}
         <Collapse title="Client alerts" defaultOpen>
           <Text variant="body/md" as="span">Include KM</Text>
+        </Collapse>
+
+        {/* Client tags */}
+        <Collapse title="Client tags" defaultOpen>
+          <Flex wrap="wrap" gap={4}>
+            <Badge variant="blue">Plan-managed</Badge>
+          </Flex>
         </Collapse>
 
         {/* Stripe */}

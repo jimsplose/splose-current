@@ -56,7 +56,7 @@ export default async function ClientLayout({
           </span>
         </Flex>
         <Flex align="center" gap={8}>
-          <Button variant="secondary" size="sm">
+          <Button variant="secondary">
             <svg style={{ height: 16, width: 16 }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path
                 strokeLinecap="round"
@@ -66,7 +66,7 @@ export default async function ClientLayout({
             </svg>
             New SMS
           </Button>
-          <Button variant="secondary" size="sm" style={{ borderColor: 'var(--color-primary)', backgroundColor: 'var(--color-primary-bg)', color: 'var(--color-primary)' }}>
+          <Button variant="secondary">
             <svg style={{ height: 16, width: 16 }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path
                 strokeLinecap="round"
@@ -76,7 +76,7 @@ export default async function ClientLayout({
             </svg>
             New email
           </Button>
-          <Button variant="secondary" size="sm">
+          <Button variant="secondary">
             Actions
             <svg style={{ height: 14, width: 14 }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
