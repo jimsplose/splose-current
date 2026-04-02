@@ -5,6 +5,7 @@ import { Flex } from "antd";
 import {
   Button,
   Badge,
+  Card,
   DateRangeFilter,
   FormSelect,
   PageHeader,
@@ -71,7 +72,7 @@ export default function ReportsFormPage() {
       </Flex>
 
       {showResults && (
-        <div style={{ overflowX: 'auto', borderRadius: 8, border: '1px solid var(--color-border)' }}>
+        <Card padding="none" style={{ overflowX: 'auto' }}>
           <DataTable>
             <TableHead>
               <Th>Form name</Th>
@@ -92,7 +93,7 @@ export default function ReportsFormPage() {
               ))}
             </TableBody>
           </DataTable>
-        </div>
+        </Card>
       )}
     </>
   );

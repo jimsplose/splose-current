@@ -17,6 +17,19 @@ const meta: Meta<typeof Stat> = {
       control: "text",
       description: "Label text below the value",
     },
+    description: {
+      control: "text",
+      description: "Subtitle text below the label",
+    },
+    align: {
+      control: "radio",
+      options: ["left", "center"],
+      description: "Text alignment (default: left)",
+    },
+    color: {
+      control: "color",
+      description: "Color applied to the value text",
+    },
   },
   parameters: {
     layout: "centered",
@@ -56,6 +69,22 @@ export const Zero: Story = {
 
 export const StringValue: Story = {
   args: { value: "$12,450", label: "Revenue" },
+};
+
+export const LeftAligned: Story = {
+  args: { value: 42, label: "Appointments", align: "left" },
+};
+
+export const CenterAligned: Story = {
+  args: { value: 42, label: "Appointments", align: "center" },
+};
+
+export const WithDescription: Story = {
+  args: { value: "87%", label: "Utilisation", description: "Percentage of available time utilised" },
+};
+
+export const WithColor: Story = {
+  args: { value: "$12,450", label: "Revenue", color: "#52c41a" },
 };
 
 /* ================================================================== */

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Flex } from "antd";
 import {
   Button,
+  Card,
   DateRangeFilter,
   PageHeader,
   DataTable,
@@ -55,14 +56,14 @@ export default function ReportsUninvoicedPage() {
 
       {showResults && (
         <>
-          <div style={{ marginBottom: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-quaternary)', padding: '12px 16px' }}>
+          <Card padding="sm" style={{ marginBottom: 16, backgroundColor: 'var(--color-fill-quaternary)' }}>
             <p className="text-body-md" style={{ color: 'var(--color-text)' }}>
               <span style={{ fontWeight: 600 }}>{mockUninvoicedRows.length} uninvoiced appointments</span> found, total value:{" "}
               <span style={{ fontWeight: 600 }}>${totalValue.toLocaleString("en-AU", { minimumFractionDigits: 2 })}</span>
             </p>
-          </div>
+          </Card>
 
-          <div style={{ overflowX: 'auto', borderRadius: 8, border: '1px solid var(--color-border)' }}>
+          <Card padding="none" style={{ overflowX: 'auto' }}>
             <DataTable>
               <TableHead>
                 <Th>Date</Th>
@@ -87,7 +88,7 @@ export default function ReportsUninvoicedPage() {
                 ))}
               </TableBody>
             </DataTable>
-          </div>
+          </Card>
         </>
       )}
     </>

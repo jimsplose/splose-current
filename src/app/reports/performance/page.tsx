@@ -6,6 +6,7 @@ import {
   Alert,
   Badge,
   Button,
+  Card,
   Chip,
   Dropdown,
   Modal,
@@ -173,7 +174,7 @@ export default function ReportsPerformancePage() {
       </Flex>
 
       {showResults && (
-        <div style={{ marginTop: 24, overflowX: 'auto', borderRadius: 8, border: '1px solid var(--color-border)' }}>
+        <Card padding="none" style={{ marginTop: 24, overflowX: 'auto' }}>
           <DataTable>
             <TableHead>
               <Th>Practitioner</Th>
@@ -200,7 +201,7 @@ export default function ReportsPerformancePage() {
               ))}
             </TableBody>
           </DataTable>
-        </div>
+        </Card>
       )}
 
       <Modal

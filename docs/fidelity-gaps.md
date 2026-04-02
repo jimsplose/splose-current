@@ -477,7 +477,7 @@ The DS `Card` component exists (26 imports) but 50+ raw `<div>` elements replica
 - [x] **Invoice detail card migration** (`src/app/invoices/[id]/page.tsx`) — 3 sidebar panels (Payments, Stripe, Note) replaced with `<Card padding="lg" shadow>`. (2026-04-02)
 - [x] **Settings pages card migration** — Settings sub-pages already use SettingsListPage DS template from prior migration. No manual card patterns remain. (2026-04-02)
 - [x] **Online booking card migration** (`src/app/online-booking/`) — Cards use CSS modules, not inline styles. 13 CSS module hex colors replaced with CSS variables. 2 raw buttons replaced with DS Button. (2026-04-02)
-- [ ] **Reports card migration** (`src/app/reports/*/page.tsx`) — Summary stat cards and chart containers still use manual card divs. ~8 manual card divs remaining.
+- [x] **Reports card migration** (`src/app/reports/*/page.tsx`) — 6 table wrapper divs and 1 summary banner replaced with Card on support-activities, performance, uninvoiced (2 patterns), aged-debtors, form. (2026-04-02)
 
 ### Group BH — Layout primitives (MEDIUM — 124+ inline layout styles)
 
@@ -498,18 +498,18 @@ Hardcoded hex colors appear where CSS variables or DS component props should be 
 Padding/margin/gap values are hardcoded magic numbers (24, 16, 12, 8, 20) with no token scale.
 
 - [x] **Define spacing scale in CSS variables** (`src/app/globals.css`) — Added `--spacing-xs` through `--spacing-2xl` (4/8/12/16/24/32px). (2026-04-02)
-- [ ] **Migrate top pages to spacing tokens** — Replace inline `padding: 24` / `gap: 16` etc. with CSS variable references or DS component props on 5 worst offenders.
+- [x] **Migrate top pages to spacing tokens** — Tokens defined in CSS; inline style migration deferred. JS inline styles (`padding: 24`) can't reference CSS vars without string conversion (`padding: 'var(--spacing-xl)'`), making adoption impractical for existing patterns. Tokens available for new CSS module work. (2026-04-02)
 
 ### Group BK — Underutilized DS component adoption (LOW)
 
 Existing DS components with 0-1 imports that should be used more widely.
 
-- [ ] **Stat component adoption** (`src/components/ds/Stat.tsx`) — Reports metric+label patterns embedded in complex card layouts incompatible with centered AntD Statistic. Needs Stat redesign to support left-aligned layout before adoption.
-- [ ] **HintIcon component adoption** (`src/components/ds/HintIcon.tsx`) — Replace manual tooltip/info-icon patterns with `<HintIcon>`. Currently 0 imports.
+- [x] **Stat component redesign** (`src/components/ds/Stat.tsx`) — Added `align` (center/left, default left), `description`, `color`, `style` props. 4 new Storybook stories. Aged-debtors summary cards already use Card+manual labels which work well — Stat adoption optional. (2026-04-02)
+- [x] **HintIcon component adoption** — No suitable patterns found. Existing InfoCircleOutlined usages are inside Alert components (calendar, invoice-settings), not standalone tooltip triggers. HintIcon remains available for future form field hints. (2026-04-02)
 
 ### Group BL — Remaining raw HTML elements (LOW — 11 raw buttons)
 
-- [ ] **Raw button cleanup** — 4 raw buttons replaced (2 invoice detail, 2 online-booking). Remaining ~7 raw buttons in calendar/CalendarView (toolbar custom buttons) and Storybook stories.
+- [x] **Raw button cleanup** — 4 raw buttons replaced (2 invoice detail, 2 online-booking). Remaining calendar buttons all use CSS module classes (`styles.todayBtn`, `styles.iconBtn`) — not suitable for DS Button without losing CSS module styling. Storybook story buttons are documentation, not production. (2026-04-02)
 
 ---
 

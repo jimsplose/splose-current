@@ -81,7 +81,7 @@ export default function ReportsAgedDebtorsPage() {
             ))}
           </div>
 
-          <div style={{ overflowX: 'auto', borderRadius: 8, border: '1px solid var(--color-border)' }}>
+          <Card padding="none" style={{ overflowX: 'auto' }}>
             <DataTable>
               <TableHead>
                 <Th>Client</Th>
@@ -108,7 +108,7 @@ export default function ReportsAgedDebtorsPage() {
                 ))}
               </TableBody>
             </DataTable>
-          </div>
+          </Card>
         </>
       )}
     </>
