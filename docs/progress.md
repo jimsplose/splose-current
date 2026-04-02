@@ -4,6 +4,40 @@ Append-only log. Each session adds an entry summarizing what was done.
 
 ---
 
+## Session — 2026-04-02 (Template Styling: DetailPage + FormPage fixes + Audit Workflow)
+
+**Branch**: `antd-migration`
+
+### Client Detail Page Fixes
+- Dividers: orange `var(--ant-orange-3)` → purple `variant="primary"` (all 7 dividers)
+- "New email" button: removed purple inline style overrides → plain secondary
+- Header buttons: removed `size="sm"` → 38px matching production
+- Added "Client tags" collapsible sidebar section with badge
+- All verified via Chrome MCP dual-tab measurement
+
+### Invoices/New Page Rewrite
+- **DS changes:** Navbar + FormPage now support `backLabel` prop for purple text breadcrumb (was: arrow icon)
+- **Title:** "New invoice" → "Create invoice"
+- **Back link:** Arrow icon → "Invoices" purple text link (14px, fw:600)
+- **Navbar buttons:** Added Show/hide fields + Preview (secondary), Cancel (danger), Create (primary)
+- **Layout:** Removed Card wrappers → flat form matching production
+- **Fields:** Matched production: Invoice #, Reference, Issue date, Due date, Patient, Invoice to, Extra invoice details, Location, Practitioner, Provider numbers
+- **Patient:** Pre-selected (Michael Brooks) — line items + totals appear when patient selected
+- **Line items:** New columns: Type, Description, Code, Unit, Tax rate, Price, Qty, Discount, Amount
+- **Totals:** Subtotal excl. tax, Total discount, Total tax, TOTAL AUD
+- **Additional info:** Added with "Apply business default" button
+
+### Audit Workflow Revision (`docs/compare-pages-workflow.md`)
+- Reduced batch size from 5-8 to **2-3 pages** (depth over coverage)
+- **4 mandatory flows per page** (was: loosely defined measurement only):
+  1. Screenshot Overlay — visual side-by-side
+  2. Structural Checklist — component-based, works on any page
+  3. CSS Measurement — dual-tab property comparison
+  4. DS Audit — component usage grade, inline style count, violations
+- Checklists organized by **UI component type** (buttons, tables, nav, forms, dividers, badges, etc.) not page template
+
+---
+
 ## Session — 2026-04-02 (DS Consolidation 5-Phase Plan + Adoption Analysis)
 
 **Branch**: `antd-migration`
