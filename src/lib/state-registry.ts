@@ -45,7 +45,7 @@ export const stateRegistry: PageEntry[] = [
     children: [
       {
         path: "/clients/[id]",
-        resolvedPath: "/clients/1",
+        resolvedPath: "/clients/cmnf4tv32002zycwgvtequnnt",
         label: "Client Detail",
         variants: [
           { id: "default", label: "Details tab" },
@@ -54,73 +54,73 @@ export const stateRegistry: PageEntry[] = [
         children: [
           {
             path: "/clients/[id]/appointments",
-            resolvedPath: "/clients/1/appointments",
+            resolvedPath: "/clients/cmnf4tv32002zycwgvtequnnt/appointments",
             label: "Appointments",
             variants: [{ id: "default", label: "Appointments list" }],
           },
           {
             path: "/clients/[id]/communications",
-            resolvedPath: "/clients/1/communications",
+            resolvedPath: "/clients/cmnf4tv32002zycwgvtequnnt/communications",
             label: "Communications",
             variants: [{ id: "default", label: "Communications list" }],
           },
           {
             path: "/clients/[id]/files",
-            resolvedPath: "/clients/1/files",
+            resolvedPath: "/clients/cmnf4tv32002zycwgvtequnnt/files",
             label: "Files",
             variants: [{ id: "default", label: "Files list" }],
           },
           {
             path: "/clients/[id]/notes",
-            resolvedPath: "/clients/1/notes",
+            resolvedPath: "/clients/cmnf4tv32002zycwgvtequnnt/notes",
             label: "Progress Notes",
             variants: [{ id: "default", label: "Notes list" }],
           },
           {
             path: "/clients/[id]/cases",
-            resolvedPath: "/clients/1/cases",
+            resolvedPath: "/clients/cmnf4tv32002zycwgvtequnnt/cases",
             label: "Cases",
             variants: [{ id: "default", label: "Cases list" }],
           },
           {
             path: "/clients/[id]/support-activities",
-            resolvedPath: "/clients/1/support-activities",
+            resolvedPath: "/clients/cmnf4tv32002zycwgvtequnnt/support-activities",
             label: "Support Activities",
             variants: [{ id: "default", label: "Activities list" }],
           },
           {
             path: "/clients/[id]/forms",
-            resolvedPath: "/clients/1/forms",
+            resolvedPath: "/clients/cmnf4tv32002zycwgvtequnnt/forms",
             label: "Forms",
             variants: [{ id: "default", label: "Forms list" }],
           },
           {
             path: "/clients/[id]/invoices",
-            resolvedPath: "/clients/1/invoices",
+            resolvedPath: "/clients/cmnf4tv32002zycwgvtequnnt/invoices",
             label: "Invoices",
             variants: [{ id: "default", label: "Invoices list" }],
           },
           {
             path: "/clients/[id]/payments",
-            resolvedPath: "/clients/1/payments",
+            resolvedPath: "/clients/cmnf4tv32002zycwgvtequnnt/payments",
             label: "Payments",
             variants: [{ id: "default", label: "Payments list" }],
           },
           {
             path: "/clients/[id]/statements",
-            resolvedPath: "/clients/1/statements",
+            resolvedPath: "/clients/cmnf4tv32002zycwgvtequnnt/statements",
             label: "Statements",
             variants: [{ id: "default", label: "Statements view" }],
           },
           {
             path: "/clients/[id]/letters",
-            resolvedPath: "/clients/1/letters",
+            resolvedPath: "/clients/cmnf4tv32002zycwgvtequnnt/letters",
             label: "Letters",
             variants: [{ id: "default", label: "Letters list" }],
           },
           {
             path: "/clients/[id]/practitioner-access",
-            resolvedPath: "/clients/1/practitioner-access",
+            resolvedPath: "/clients/cmnf4tv32002zycwgvtequnnt/practitioner-access",
             label: "Practitioner Access",
             variants: [{ id: "default", label: "Access list" }],
           },
@@ -164,7 +164,7 @@ export const stateRegistry: PageEntry[] = [
     children: [
       {
         path: "/invoices/[id]",
-        resolvedPath: "/invoices/cmn2fh20l00evwpwguzx7sw1y",
+        resolvedPath: "/invoices/cmnf4ual90051ycwgfwf9rr7o",
         label: "Invoice Detail",
         variants: [{ id: "default", label: "Invoice view" }],
       },

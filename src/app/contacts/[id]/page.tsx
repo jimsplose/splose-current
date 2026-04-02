@@ -221,7 +221,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
           {/* General details */}
           <section style={{ marginBottom: 32 }}>
-            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16 }}>General details</Text>
+            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16, fontWeight: 700 }}>General details</Text>
             <Flex align="start" gap={24}>
               <Flex vertical gap={8} style={{ fontSize: 12 }}>
                 <Flex gap={64}>
@@ -262,7 +262,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
           {/* Contact information */}
           <section style={{ marginBottom: 32 }}>
-            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16 }}>Contact details</Text>
+            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16, fontWeight: 700 }}>Contact details</Text>
             <Flex vertical gap={12} style={{ fontSize: 12 }}>
               <Flex gap={64}>
                 <span style={{ width: 112, flexShrink: 0, color: 'var(--color-text-secondary)' }}>Email:</span>
@@ -321,7 +321,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
           {/* Associated clients */}
           <section style={{ marginBottom: 32 }}>
-            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16 }}>Associated clients</Text>
+            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16, fontWeight: 700 }}>Associated clients</Text>
             {contact.associatedClients.length > 0 ? (
               <DataTable>
                 <TableHead>
@@ -355,7 +355,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
           {/* Custom fields */}
           <section style={{ marginBottom: 32 }}>
-            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16 }}>Custom fields</Text>
+            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16, fontWeight: 700 }}>Custom fields</Text>
             <Text variant="body/sm" color="secondary">No custom fields</Text>
           </section>
 
