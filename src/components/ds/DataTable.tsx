@@ -176,7 +176,7 @@ export function TableHead({ children }: { children: ReactNode }) {
 }
 /** @deprecated Use DataTableColumn instead */
 export function Th({ children, align = "left", className, hidden, sortable, sortDirection, onSort, style: styleProp }: { children?: ReactNode; align?: string; className?: string; hidden?: string; sortable?: boolean; sortDirection?: string | null; onSort?: () => void; filterable?: boolean; onFilter?: () => void; style?: React.CSSProperties }) {
-  return <th style={{ padding: "16px", textAlign: align as React.CSSProperties["textAlign"], fontSize: 14, fontWeight: 600, lineHeight: "22px", color: "rgb(65, 69, 73)", backgroundColor: "rgb(243, 245, 247)", ...styleProp }}>{children}</th>;
+  return <th style={{ padding: "16px", textAlign: align as React.CSSProperties["textAlign"], fontSize: 14, fontWeight: 600, lineHeight: "22px", color: "rgb(65, 69, 73)", backgroundColor: "#eaedf1", ...styleProp }}>{children}</th>;
 }
 /** @deprecated Use DataTable with dataSource prop */
 export function TableBody({ children }: { children: ReactNode }) {
@@ -184,7 +184,7 @@ export function TableBody({ children }: { children: ReactNode }) {
 }
 /** @deprecated Use DataTableColumn.render instead */
 export function Td({ children, align = "left", className, hidden, style }: { children?: ReactNode; align?: string; className?: string; hidden?: string; style?: React.CSSProperties }) {
-  return <td className={className} style={{ padding: "12px 16px", textAlign: align as React.CSSProperties["textAlign"], fontSize: 14, color: "rgb(65, 69, 73)", ...style }}>{children}</td>;
+  return <td className={className} style={{ padding: "16px", textAlign: align as React.CSSProperties["textAlign"], fontSize: 14, color: "rgb(65, 69, 73)", ...style }}>{children}</td>;
 }
 /** @deprecated Use onRow prop instead */
 export function Tr({ children, hover, clickable, selected, className, style: styleProp, ...props }: { children: ReactNode; hover?: boolean; clickable?: boolean; selected?: boolean; className?: string; style?: React.CSSProperties } & React.HTMLAttributes<HTMLTableRowElement>) {

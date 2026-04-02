@@ -12,7 +12,7 @@ interface SearchBarProps {
 
 export default function SearchBar({ placeholder = "Search...", onSearch, defaultValue = "" }: SearchBarProps) {
   return (
-    <div style={{ marginBottom: 16 }}>
+    <div style={{ marginBottom: 10 }}>
       <Search
         placeholder={placeholder}
         defaultValue={defaultValue}
@@ -20,6 +20,7 @@ export default function SearchBar({ placeholder = "Search...", onSearch, default
         enterButton="Search"
         allowClear
         size="large"
+        className="ds-search-bar"
       />
     </div>
   );

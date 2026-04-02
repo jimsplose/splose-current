@@ -230,5 +230,16 @@ tr.row-hover:hover { background-color: #f9fafb; }
 /* AntD table header background to match production */
 .ant-table-thead > tr > th,
 .ant-table-thead > tr > td {
-  background-color: rgb(243, 245, 247) !important;
+  background-color: #eaedf1 !important;
+}
+
+/* SearchBar: white search button to match production */
+.ds-search-bar .ant-input-search-button {
+  background-color: #ffffff !important;
+  color: rgba(0, 0, 0, 0.45) !important;
+  border-color: #e7e8e8 !important;
+}
+.ds-search-bar .ant-input-search-button:hover {
+  color: rgba(0, 0, 0, 0.88) !important;
+  border-color: #414549 !important;
 }

@@ -79,7 +79,7 @@ export const sploseTheme: ThemeConfig = {
 
   components: {
     Table: {
-      headerBg: "rgb(243, 245, 247)",
+      headerBg: "#eaedf1",
       headerColor: "#414549",
       rowHoverBg: "#f3f5f7",
       rowSelectedBg: "rgba(130, 80, 255, 0.05)",
@@ -89,6 +89,7 @@ export const sploseTheme: ThemeConfig = {
       primaryShadow: "none",
       defaultShadow: "none",
       dangerShadow: "none",
+      defaultBorderColor: "#414549",
     },
     Card: {
       headerBg: "#f3f5f7",
