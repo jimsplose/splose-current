@@ -4,6 +4,55 @@ Append-only log. Each session adds an entry summarizing what was done.
 
 ---
 
+## Session — 2026-04-02 (DS Coverage Audit + Fixes + Background Color Fix)
+
+**Branch**: `antd-migration`
+
+### DS Coverage Audit
+
+Audited entire codebase for DS component usage vs inline styles. Found 3,282 inline `style={{` props across 112 files. DS components cover ~35-40% of visual structure despite 90% import rate.
+
+### DS Coverage Fixes (Priority 14 — all 28 items resolved)
+
+**New infrastructure:**
+- Text component: added named color presets (`color="secondary"`, `"primary"`, etc.)
+- Card component: added `shadow` prop
+- Grid component: new layout component (cols 1-4, gap presets) + Storybook story
+- Stat component: redesigned with `align`, `description`, `color`, `style` props
+- Spacing tokens (`--spacing-xs` through `--spacing-2xl`) added to globals.css
+
+**Page migrations (12 files):**
+- Invoice detail: 48 hex→CSS var, 3 Card, Grid, 2 raw buttons→Button
+- Dashboard: 3 Card, 12 Text adoptions
+- Client detail: 8 Text, 2 Grid
+- Contact detail: 7 Text, heading weight fix
+- Waitlist, Reports, Payments, Notes, Online booking: Text/Grid/hex cleanup
+- Reports sub-pages: 6 table wrappers → Card
+
+### Background Color Fix
+
+Production uses `rgb(255,255,255)` (white) for layout background. Our `colorBgLayout` was `#f9fafb` (gray). Changed theme token to white. Redirected 20+ secondary surface usages from `--color-bg-layout` to `--color-fill-tertiary`. Measurement-verified across all pages.
+
+### Audit Sweep (19 pages verified)
+
+Post-fix dual-tab Chrome MCP verification at 1440x900. All 19 pages YES. Payments/new upgraded from PARTIAL to YES (labels now match). Contact detail heading fixed. No regressions from DS changes.
+
+### Workflow Revisions
+
+- Audit workflow: added DS compliance grading (A/B/C) per page
+- Fidelity gaps: added DS compliance grading criteria, DS-first requirement
+
+### Plan for Next Session
+
+Documented `docs/ds-consolidation-plan.md` — 5-phase plan to reach 95% DS coverage:
+1. Consolidate components (FormField, Badge+Chip, Divider, Section)
+2. Page templates (ListPage, DetailPage, FormPage)
+3. Migrate pages to templates
+4. Enrich Storybook recipes
+5. Enforce DS-first going forward
+
+---
+
 ## Session — 2026-03-31 (Full Sweep Audit + S1 Fidelity Fix)
 
 **Branch**: `antd-migration`
