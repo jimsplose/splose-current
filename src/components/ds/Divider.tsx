@@ -1,7 +1,7 @@
 import { Divider as AntDivider } from "antd";
 
 interface DividerProps {
-  variant?: "default" | "subtle";
+  variant?: "default" | "subtle" | "primary";
   spacing?: "none" | "sm" | "md" | "lg";
   className?: string;
   style?: React.CSSProperties;
@@ -14,12 +14,18 @@ const spacingMap: Record<string, number> = {
   lg: 24,
 };
 
+const variantColorMap: Record<string, string> = {
+  default: "var(--color-border)",
+  subtle: "var(--color-border-secondary)",
+  primary: "var(--color-primary)",
+};
+
 export default function Divider({ variant = "default", spacing = "md", className, style }: DividerProps) {
   return (
     <AntDivider
       className={className}
       style={{
-        borderColor: variant === "subtle" ? "var(--color-border-secondary)" : "var(--color-border)",
+        borderColor: variantColorMap[variant],
         margin: `${spacingMap[spacing]}px 0`,
         ...style,
       }}

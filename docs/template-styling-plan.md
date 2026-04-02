@@ -154,9 +154,98 @@ Our localhost version always shows line items (doesn't depend on patient selecti
 
 ---
 
-## DetailPage Template Issues
+## DetailPage Template Issues (measured: /patients/446604/details vs /clients/[id])
 
-**Status:** Needs measurement — compare production patient detail vs localhost client detail.
+**Status:** Measured 2026-04-02. Major structural + styling differences.
+
+### Issue D1: Header — label + name layout
+
+| | Production | Localhost |
+|---|---|---|
+| Top label | "Patient" — 20px, green (#42694A), fw:700 | "Client" heading — 30px, gray, fw:700 |
+| Patient name | "Harry Nguyen" — 15px, gray, fw:400 (below label) | "Jack Thompson" — separate line, different style |
+
+**Fix (DS):** The header should show entity type label ("Patient"/"Client") as the display title, and name as subtitle. DetailPage already has `title` + `subtitle` — but the page isn't using DetailPage at all.
+**Fix (Page):** Migrate ClientDetailClient to use DetailPage template.
+
+### Issue D2: Action buttons completely different styling
+
+| | Production | Localhost |
+|---|---|---|
+| "New SMS" | h:38px, white bg, dark border, icon+text | h:28.5px, white bg, dark border, no icon |
+| "New email" | h:38px, white bg, dark border, icon+text | h:28.5px, **purple border+text** (wrong!) |
+| "Actions" | h:38px, white bg, dark border, dropdown arrow | h:28.5px, white bg, dark border, no arrow |
+| "Edit" | h:38px, white bg, dark border, edit icon | h:28.5px, white bg, dark border |
+
+**Fix (DS):** Button height already fixed to 38px via controlHeight. The "New email" button is using wrong variant — should be secondary not link/outline-primary.
+**Fix (Page):** Add icons to buttons. Fix "New email" variant. Add dropdown arrow to "Actions".
+
+### Issue D3: Tab bar / side navigation
+
+| | Production | Localhost |
+|---|---|---|
+| Style | Vertical left sidebar menu, 215px wide | Vertical left sidebar (similar structure) |
+| Active indicator | Purple text color highlight | Needs verification |
+| Count badges | "119" (Appointments), "520" (Comms) — red bg for some, white bg for others | No count badges |
+| Border | `1px solid rgba(5,5,5,0.06)` right border | Needs measurement |
+
+**Fix (DS):** SideNav component needs count badge support — add `badge` or `count` prop to SideNavItem.
+**Fix (Page):** Add count numbers to tab items from mock data.
+
+### Issue D4: Section dividers are PURPLE in production
+
+| | Production | Localhost |
+|---|---|---|
+| Color | `rgb(130, 80, 255)` — **purple** (primary color) | Standard gray border |
+| Style | `1px solid`, margin `0 0 12px` | Gray hr |
+
+**Fix (DS):** Add `variant="primary"` to Divider component for purple dividers. This is a distinctive Splose design pattern — section dividers on detail pages use the brand purple.
+**Fix (Page):** Use `<Divider variant="primary">` between sections.
+
+### Issue D5: Content sections — outlined table layout
+
+| | Production | Localhost |
+|---|---|---|
+| Layout | Label-value pairs with labels as `<label>` elements, inline layout | Uses DS `List` component with different styling |
+| Label style | 14px, fw:500, dark gray | Similar but different spacing/weight |
+| Section headings | h3, 18px, fw:700 | h2, different size |
+| Content padding | Generous padding around sections | Tighter, different spacing |
+
+**Fix (Page):** Review and match the label-value pair layout, heading sizes, and spacing. The production layout is more spacious with clear label:value alignment.
+
+### Issue D6: Right sidebar
+
+| | Production | Localhost |
+|---|---|---|
+| Width | ~303px | Needs measurement |
+| Sections | Account balance ($4,893.40), Patient alerts, Patient tags, Stripe, Mailchimp | Account balance, Client alerts, Stripe, Mailchimp, QuickBooks |
+| "Patient tags" section | Has "Plan-managed" tag | **Missing entirely** |
+| Balance styling | "They owe" label + large amount | Similar but different styling |
+
+**Fix (Page):** Add "Client tags" collapsible section with tag badges. Match balance styling.
+
+### Issue D7: Missing "Patient tags" sidebar section
+
+Production has a collapsible "Patient tags" section showing tags like "Plan-managed". Localhost doesn't have this.
+
+**Fix (Page):** Add tags section to ClientSidebar.
+
+### Summary: DetailPage fixes
+
+| Fix | Level | Priority |
+|---|---|---|
+| Purple section dividers (`variant="primary"`) | **DS** (Divider component) | High |
+| SideNav count badge support | **DS** (SideNav component) | High |
+| Button height 38px | **DS** (already fixed via controlHeight) | Done |
+| Migrate to DetailPage template | **Page** (ClientDetailClient) | High |
+| Fix "New email" button variant | **Page** | High |
+| Add icons to header buttons | **Page** | Medium |
+| Add tab count badges | **Page** | Medium |
+| Add "Client tags" sidebar section | **Page** | Medium |
+| Match label-value pair layout + spacing | **Page** | Medium |
+| Section heading sizes (h3, 18px) | **Page** | Low |
+
+---
 
 Pages to check:
 - `/patients/[id]` (production) vs `/clients/[id]` (localhost)
