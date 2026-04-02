@@ -122,15 +122,35 @@ Note: User reported difference — may be a subtle off-white in some areas. Need
 **Fix:** Production uses text breadcrumb link, not arrow. Consider adding a `backLabel` prop to Navbar/FormPage. Title text is page-level.
 **Files:** `src/components/ds/Navbar.tsx`, `src/components/ds/FormPage.tsx`
 
+### Issue F7: Production form has patient-dependent state
+
+When a patient is selected in production, the form shows:
+- **Line items table** with columns: Type, Description, Code, Unit, Tax rate, Price, Qty, Discount, Amount
+- **Totals section**: Subtotal excl. tax, Total discount, Total tax, TOTAL AUD
+- **Additional information** field with "Apply business default" button
+
+Our localhost version always shows line items (doesn't depend on patient selection). The localhost line items table has: Service, Description, Qty, Unit Price, Tax, Total — **missing**: Type, Code, Unit, Tax rate, Discount columns.
+
+**Fix:** Update line items table columns to match production. Add "Apply business default" button to additional info. Make client pre-selected by default.
+**Files:** `src/app/invoices/new/page.tsx`
+
 ### Summary: FormPage template vs page-level fixes
 
 | Fix | Level | Priority |
 |---|---|---|
 | Back link as text breadcrumb | **DS template** (Navbar/FormPage) | High |
 | Input field bg transparency | **DS theme** | Medium |
-| Cancel button red variant | **DS** (Button already supports `danger`) | Low — already works |
-| Missing buttons, field labels, layout | **Page-level** (invoices/new) | High |
-| Card wrappers → flat layout | **Page-level** (invoices/new) | High |
+| Cancel button red variant | **DS** (already supports `danger`) | Low — already works |
+| Title: "Create invoice" not "New invoice" | **Page-level** | High |
+| Navbar buttons: add "Show/hide fields", "Preview" | **Page-level** | High |
+| Cancel button: red (danger variant) | **Page-level** | High |
+| CTA text: "Create" not "Save" | **Page-level** | High |
+| Remove Card wrappers → flat form layout | **Page-level** | High |
+| Field labels: match production names | **Page-level** | High |
+| Add missing fields: Reference, Invoice to, Practitioner, Provider numbers | **Page-level** | High |
+| Line items: add Type, Code, Unit, Tax rate, Discount columns | **Page-level** | Medium |
+| Totals: add Subtotal excl. tax, Total discount labels | **Page-level** | Medium |
+| Default patient selected | **Page-level** | Medium |
 
 ---
 
