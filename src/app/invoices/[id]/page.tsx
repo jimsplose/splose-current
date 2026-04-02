@@ -297,7 +297,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
                 <p style={{ color: 'var(--color-text-secondary)' }}>
                   Please note that the service dates are displayed at the beginning of each line item.
                 </p>
-                <div style={{ marginTop: 16, borderRadius: 8, background: 'var(--color-bg-layout)', padding: 16 }}>
+                <div style={{ marginTop: 16, borderRadius: 8, background: 'var(--color-fill-tertiary)', padding: 16 }}>
                   <p style={{ fontWeight: 500, color: 'var(--color-text)' }}>Direct deposit details:</p>
                   <Flex vertical gap={4} style={{ marginTop: 8, color: 'var(--color-text-secondary)' }}>
                     <p>
@@ -359,7 +359,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
           <Card padding="lg" shadow>
             <h3 style={{ marginBottom: 8, fontSize: 21, fontWeight: 500, color: 'rgb(65, 69, 73)' }}>Note</h3>
             <textarea
-              style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', background: 'var(--color-bg-layout)', padding: 12, fontSize: 14, color: 'var(--color-text)', outline: 'none' }}
+              style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', background: 'var(--color-fill-tertiary)', padding: 12, fontSize: 14, color: 'var(--color-text)', outline: 'none' }}
               rows={4}
               placeholder="Add an internal note..."
               defaultValue=""

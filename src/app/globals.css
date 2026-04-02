@@ -39,7 +39,8 @@
   --color-info: var(--ant-color-info, #5578FF);
   --color-accent: var(--ant-color-primary, #8250FF);
   --color-bg-container: var(--ant-color-bg-container, #ffffff);
-  --color-bg-layout: var(--ant-color-bg-layout, #f9fafb);
+  --color-bg-layout: var(--ant-color-bg-layout, #ffffff);
+  --color-fill-tertiary: var(--ant-color-fill-tertiary, #f9fafb);
   --color-fill: var(--ant-color-fill, #eaedf1);
   --color-fill-secondary: var(--ant-color-fill-secondary, #f3f5f7);
   --color-gray-100: #f3f5f7;
@@ -192,7 +193,7 @@ body {
   font-size: 14px;
   line-height: 1.57;
   color: var(--ant-color-text, #414549);
-  background-color: var(--ant-color-bg-layout, #f9fafb);
+  background-color: var(--ant-color-bg-layout, #ffffff);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

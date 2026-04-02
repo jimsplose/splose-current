@@ -305,7 +305,7 @@
   margin-bottom: 24px;
   border-radius: 12px;
   border: 1px solid var(--color-border);
-  background: var(--color-bg-layout);
+  background: var(--color-fill-tertiary);
   padding: 20px;
   text-align: left;
 }
@@ -345,7 +345,7 @@
 .emailBody {
   border-radius: 8px;
   border: 1px solid var(--color-border);
-  background: var(--color-bg-layout);
+  background: var(--color-fill-tertiary);
   padding: 16px;
 }
 

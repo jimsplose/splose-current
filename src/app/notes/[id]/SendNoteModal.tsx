@@ -240,7 +240,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
           </>
         ) : (
           /* Email preview */
-          <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-layout)', padding: 20 }}>
+          <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: 20 }}>
             <Flex vertical gap={6} style={{ marginBottom: 16, borderBottom: '1px solid var(--color-border)', paddingBottom: 16 }}>
               <Flex gap={8} className="text-body-sm">
                 <span style={{ width: 64, color: 'var(--color-text-secondary)' }}>From:</span>

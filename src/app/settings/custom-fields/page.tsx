@@ -229,7 +229,7 @@ export default function CustomFieldsPage() {
           </Flex>
 
           {/* Field type preview */}
-          <div style={{ borderRadius: 8, border: '1px dashed #d1d5db', backgroundColor: 'var(--color-bg-layout)', padding: 16 }}>
+          <div style={{ borderRadius: 8, border: '1px dashed #d1d5db', backgroundColor: 'var(--color-fill-tertiary)', padding: 16 }}>
             <p className="text-label-lg" style={{ marginBottom: 8, color: 'var(--color-text-secondary)' }}>Field preview</p>
             <FieldTypePreview type={newField.type} name={newField.name} options={[]} />
           </div>
@@ -355,7 +355,7 @@ function EditFieldModal({
         )}
 
         {/* Field type preview */}
-        <div style={{ borderRadius: 8, border: '1px dashed #d1d5db', backgroundColor: 'var(--color-bg-layout)', padding: 16 }}>
+        <div style={{ borderRadius: 8, border: '1px dashed #d1d5db', backgroundColor: 'var(--color-fill-tertiary)', padding: 16 }}>
           <p className="text-label-lg" style={{ marginBottom: 8, color: 'var(--color-text-secondary)' }}>Field preview</p>
           <FieldTypePreview type={type} name={name} options={options} />
         </div>

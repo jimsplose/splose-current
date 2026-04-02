@@ -102,7 +102,7 @@ export default function EditOnlineBookingPage() {
               {brandingMode === "logo" && (
                 <div>
                   <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 8 }}>Logo / Header image</label>
-                  <div style={{ display: 'flex', height: 128, alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-bg-layout)' }}>
+                  <div style={{ display: 'flex', height: 128, alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)' }}>
                     <div style={{ textAlign: 'center' }}>
                       <UploadOutlined style={{ fontSize: 24, display: 'block', margin: '0 auto 4px', color: 'var(--color-text-secondary)' }} />
                       <span className="text-caption-md text-text-secondary">Click or drag to upload</span>
@@ -311,7 +311,7 @@ export default function EditOnlineBookingPage() {
               <h3 className="text-heading-md text-text" style={{ marginBottom: 8 }}>Shareable link</h3>
               <p className="text-body-md text-text-secondary" style={{ marginBottom: 12 }}>Share this link with your clients to allow them to book online.</p>
               <Flex align="center" gap={8}>
-                <div style={{ flex: 1, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-layout)', padding: '10px 16px' }}>
+                <div style={{ flex: 1, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '10px 16px' }}>
                   <span className="text-body-md text-primary" style={{ wordBreak: 'break-all' }}>{shareUrl}</span>
                 </div>
                 <Button variant="secondary" onClick={() => navigator.clipboard?.writeText(shareUrl)}>
@@ -326,7 +326,7 @@ export default function EditOnlineBookingPage() {
             <div>
               <h3 className="text-heading-md text-text" style={{ marginBottom: 8 }}>Embed code</h3>
               <p className="text-body-md text-text-secondary" style={{ marginBottom: 12 }}>Add this code to your website to embed the booking widget.</p>
-              <pre style={{ overflowX: 'auto', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-layout)', padding: 16 }} className="text-body-sm text-text">
+              <pre style={{ overflowX: 'auto', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: 16 }} className="text-body-sm text-text">
 {`<iframe
   src="${shareUrl}"
   width="100%"
@@ -351,7 +351,7 @@ export default function EditOnlineBookingPage() {
 
       {/* Live preview panel */}
       {showPreview && (
-        <div style={{ width: 400, flexShrink: 0, borderLeft: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-layout)', padding: 24 }}>
+        <div style={{ width: 400, flexShrink: 0, borderLeft: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: 24 }}>
           <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
             <h3 className="text-heading-sm text-text">Preview</h3>
             <Button variant="ghost" size="sm" onClick={() => setShowPreview(false)}>

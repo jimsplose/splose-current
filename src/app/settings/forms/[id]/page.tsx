@@ -183,7 +183,7 @@ export default function FormTemplateEditorPage() {
                           <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}><input type="radio" name={`f${field.id}`} disabled /> No</label>
                         </Flex>
                       ) : field.type === "file-upload" ? (
-                        <div style={{ display: 'flex', height: 80, alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-bg-layout)' }} className="text-caption-md text-text-secondary">
+                        <div style={{ display: 'flex', height: 80, alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)' }} className="text-caption-md text-text-secondary">
                           Click or drag to upload
                         </div>
                       ) : (
@@ -207,7 +207,7 @@ export default function FormTemplateEditorPage() {
             <Flex vertical gap={16}>
               <div>
                 <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--color-text-secondary)' }}>Form link</label>
-                <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-layout)', padding: '8px 12px', wordBreak: 'break-all' }} className="text-body-sm text-primary">
+                <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '8px 12px', wordBreak: 'break-all' }} className="text-body-sm text-primary">
                   https://acme.splose.com/patient-form/81783/view
                 </div>
               </div>

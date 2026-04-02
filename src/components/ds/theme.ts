@@ -47,7 +47,7 @@ export const sploseTheme: ThemeConfig = {
     // === BACKGROUNDS & FILLS ===
     colorBgContainer: "#ffffff",
     colorBgElevated: "#ffffff",
-    colorBgLayout: "#f9fafb", // cool-black-100
+    colorBgLayout: "#ffffff", // white — matches production
     colorFill: "#eaedf1", // cool-black-400
     colorFillSecondary: "#f3f5f7", // cool-black-200
     colorFillTertiary: "#f9fafb", // cool-black-100

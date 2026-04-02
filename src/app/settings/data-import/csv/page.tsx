@@ -81,7 +81,7 @@ export default function CSVImportPage() {
               {!fileUploaded ? (
                 <button
                   onClick={() => setFileUploaded(true)}
-                  style={{ display: 'flex', width: '100%', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-bg-layout)', padding: '48px 0', transition: 'all 0.2s', cursor: 'pointer' }}
+                  style={{ display: 'flex', width: '100%', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '48px 0', transition: 'all 0.2s', cursor: 'pointer' }}
                 >
                   <UploadOutlined style={{ fontSize: 32, marginBottom: 8, color: 'var(--color-text-secondary)' }} />
                   <span className="text-body-md text-text">Click to upload or drag and drop</span>

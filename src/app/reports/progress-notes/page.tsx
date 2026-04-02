@@ -74,7 +74,7 @@ export default function ReportsProgressNotesPage() {
           <Card padding="none" style={{ marginBottom: 16 }}>
             <table style={{ width: '100%' }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-layout)' }}>
+                <tr style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)' }}>
                   <th className="text-label-lg" style={{ padding: '8px 16px', textAlign: 'left', color: 'var(--color-text)' }}>Note template</th>
                   <th className="text-label-lg" style={{ padding: '8px 16px', textAlign: 'right', color: 'var(--color-text)' }}>Number</th>
                 </tr>
@@ -116,7 +116,7 @@ export default function ReportsProgressNotesPage() {
           <Card padding="none" style={{ marginBottom: 16 }}>
             <table style={{ width: '100%' }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-layout)' }}>
+                <tr style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)' }}>
                   <th className="text-label-lg" style={{ padding: '8px 16px', textAlign: 'left', color: 'var(--color-text)' }}>Practitioner</th>
                   <th className="text-label-lg" style={{ padding: '8px 16px', textAlign: 'right', color: 'var(--color-text)' }}>Number</th>
                 </tr>

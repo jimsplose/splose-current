@@ -155,7 +155,7 @@ export default function SettingsDetailsPage() {
               User <DownOutlined style={{ fontSize: 12, marginLeft: 4 }} />
             </Button>
           </Flex>
-          <Flex align="center" gap={4} style={{ borderRadius: '8px 8px 0 0', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-layout)', padding: '6px 8px' }}>
+          <Flex align="center" gap={4} style={{ borderRadius: '8px 8px 0 0', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '6px 8px' }}>
             <Button variant="toolbar" style={{ fontWeight: 700 }}>B</Button>
             <Button variant="toolbar" style={{ fontStyle: 'italic' }}>I</Button>
             <div style={{ margin: '0 4px', height: 16, width: 1, backgroundColor: '#d1d5db' }} />
