@@ -525,6 +525,60 @@ Existing DS components with 0-1 imports that should be used more widely.
 
 ---
 
+## Priority 15 — DS Component Adoption (2026-04-02 analysis)
+
+Post-Phase 1-4 consolidation. Templates exist but inline styles dominate. 1,788 total inline styles, 661 raw className text utilities. Target: Grade A (≤10 inline styles) on all pages.
+
+### Group 15a — Text component migration (~550 inline styles)
+
+Replace `fontSize`, `fontWeight`, `color` inline styles with `<Text variant="..." color="...">`.
+
+- [ ] **invoices/[id]/page.tsx** — 101 inline styles, Grade C. Replace text styling with Text component.
+- [ ] **invoices/[id]/InvoiceDetailClient.tsx** — 97 inline styles, Grade C. Replace text styling with Text component.
+- [ ] **clients/[id]/ClientDetailClient.tsx** — 91 inline styles, Grade C. Replace text styling with Text component.
+- [ ] **DashboardClient.tsx** — 83 inline styles, Grade C. Replace text styling with Text component.
+- [ ] **calendar/CalendarView.tsx** — 82 inline styles, Grade C. Replace text styling with Text component.
+- [ ] **notes/[id]/edit/page.tsx** — 67 inline styles, Grade C. Replace text styling with Text component.
+- [ ] **settings/details/page.tsx** — 62 inline styles, Grade C. Replace text styling with Text component.
+- [ ] **settings/data-import/page.tsx** — 52 inline styles, Grade C. Replace text styling with Text component.
+- [ ] **reports/page.tsx** — 52 inline styles, Grade C. Replace text styling with Text component.
+- [ ] **contacts/[id]/page.tsx** — 51 inline styles, Grade C. Replace text styling with Text component.
+- [ ] **settings/online-bookings/[id]/page.tsx** — 51 inline styles, Grade C. Replace text styling with Text component.
+- [ ] **products/page.tsx** — 51 inline styles, Grade C. Replace text styling with Text component.
+- [ ] **reports/ndis-bulk-upload/new/page.tsx** — 48 inline styles, Grade C. Replace text styling with Text component.
+- [ ] **payments/new/page.tsx** — 47 inline styles, Grade C. Replace text styling with Text component.
+- [ ] **reports/progress-notes/page.tsx** — 46 inline styles, Grade C. Replace text styling with Text component.
+- [ ] **settings/forms/[id]/page.tsx** — 43 inline styles, Grade C. Replace text styling with Text component.
+- [ ] **online-booking/page.tsx** — 36 inline styles, Grade C. Replace text styling with Text component.
+- [ ] **All Grade B pages (28 files, 11-30 styles each)** — Replace fontSize/fontWeight/color with Text.
+
+### Group 15b — Remaining template migrations (55 pages)
+
+Pages still using manual PageHeader/Navbar/SearchBar instead of ListPage/FormPage.
+
+- [ ] **14 Navbar → FormPage** — settings edit pages, notes/[id], products/new, batch-invoice/[id]
+- [ ] **10 client sub-tab pages → ListPage** — clients/[id]/payments, invoices, notes, files, etc.
+- [ ] **~20 settings pages using SettingsListPage** — already templated, verify Grade A
+- [ ] **reports/performance, reports/page** — still using manual PageHeader
+
+### Group 15c — Grid adoption (41 inline grid patterns → Grid component)
+
+- [ ] **Replace `display: 'grid', gridTemplateColumns: 'repeat(N, 1fr)'` with `<Grid cols={N}>`** — 41 instances across ~25 files. Grid component exists with cols 1-4 and gap props.
+
+### Group 15d — Divider adoption (57 borderBottom patterns → Divider component)
+
+- [ ] **Replace `borderBottom: '1px solid var(--color-border)'` with `<Divider>`** — 57 instances across ~30 files. Divider component exists with variant and spacing props.
+
+### Group 15e — Flex cleanup (97 inline flex patterns)
+
+- [ ] **Replace `style={{ display: 'flex', ... }}` with `<Flex>` from antd** — 97 instances. Most are already importing Flex but using inline styles instead.
+
+### Group 15f — FormField adoption (50+ inline label patterns)
+
+- [ ] **Replace `style={{ display: 'block', marginBottom: 4, fontSize: 14, fontWeight: 600 }}` label patterns with `<FormField>`** — FormField component exists but has 0 direct page usages. All instances currently in FormInput/FormSelect/FormTextarea internals.
+
+---
+
 ## Completed Gaps
 
 - [x] **Calendar Rooms/Resources view** — Calendar/Rooms toggle dropdown (2026-03-18)

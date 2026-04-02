@@ -4,6 +4,58 @@ Append-only log. Each session adds an entry summarizing what was done.
 
 ---
 
+## Session — 2026-04-02 (DS Consolidation 5-Phase Plan + Adoption Analysis)
+
+**Branch**: `antd-migration`
+
+### DS Consolidation — All 5 Phases Complete
+
+**Phase 1 — Consolidate Components:**
+- Extracted FormField wrapper (shared label/error/hint/required)
+- Merged Chip → Badge (shape="pill" + onRemove), deleted Chip component
+- Folded Select → FormSelect (searchable + placeholder), deleted Select component
+- Created Divider component (wraps AntD Divider with variant/spacing)
+- Created Section component (Card + title + description for form sections)
+
+**Phase 2 — Page Templates:**
+- Created ListPage (PageHeader + SearchBar + filters + Card-wrapped content)
+- Created DetailPage (header + tabs + sidebar + scrollable content)
+- Created FormPage (Navbar back-nav + centered form + actions)
+
+**Phase 3 — Migrate Pages (26 total):**
+- Batch 1: 20 pages (14 → ListPage, 6 → FormPage)
+- Batch 2: 6 pages (3 reports → ListPage, 3 → FormPage)
+
+**Phase 4 — Enrich Storybook:**
+- RichTextEditor: 48→310 lines, Grid: 60→206 lines
+- ReorderModal: 39→141 lines, EmailPreview: 51→144 lines
+
+**Phase 5 — Enforce DS-First:**
+- Rewrote ds-component-catalog.md (organized by category, compliance grading)
+- Updated ds-consolidation-plan.md with full progress log
+
+### DS Adoption Analysis
+
+Full codebase scan revealed:
+- 101 page files, 92 import DS (91%), but only 26 use templates (26%)
+- 1,788 inline `style={{}}` props remain, 661 raw `className="text-*"`
+- 0 pages use DetailPage, Section, Divider, or FormField directly
+- Text component: 61 usages where ~550 are needed
+- Grid: 7 usages where 41 are needed
+- 69 direct antd imports bypassing DS, 45 direct icon imports
+
+**Created Priority 15 in fidelity-gaps.md** with 6 groups:
+- 15a: Text migration (~550 styles, 18 Grade C files)
+- 15b: Remaining template migrations (55 pages)
+- 15c: Grid adoption (41 patterns)
+- 15d: Divider adoption (57 patterns)
+- 15e: Flex cleanup (97 patterns)
+- 15f: FormField adoption (50+ patterns)
+
+### Now executing Priority 15 gaps
+
+---
+
 ## Session — 2026-04-02 (DS Coverage Audit + Fixes + Background Color Fix)
 
 **Branch**: `antd-migration`
