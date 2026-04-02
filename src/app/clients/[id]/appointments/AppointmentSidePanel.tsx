@@ -33,6 +33,8 @@ import {
   FormTextarea,
   Status,
   statusVariant,
+  Text,
+  Divider,
 } from "@/components/ds";
 
 interface Appointment {
@@ -134,8 +136,8 @@ export default function AppointmentSidePanel({
             <TableBody>
               {appointments.length === 0 ? (
                 <tr>
-                  <td colSpan={6} style={{ padding: '32px 16px', textAlign: 'center', fontSize: 14, color: 'var(--color-text-secondary)' }}>
-                    No appointments
+                  <td colSpan={6} style={{ padding: '32px 16px', textAlign: 'center' }}>
+                    <Text variant="body/md" as="span" color="secondary">No appointments</Text>
                   </td>
                 </tr>
               ) : (
@@ -229,12 +231,12 @@ export default function AppointmentSidePanel({
           {/* Header */}
           <Flex justify="space-between" align="flex-start" style={{ borderBottom: '1px solid var(--color-border)', padding: 16 }}>
             <div style={{ minWidth: 0, flex: 1 }}>
-              <h3 className="text-body-lg-strong">
+              <Text variant="body/lg-strong" as="h3">
                 {selectedAppointment.type}
-              </h3>
-              <p style={{ marginTop: 2, fontSize: 12, color: 'var(--color-text-secondary)' }}>
+              </Text>
+              <Text variant="body/sm" color="secondary" style={{ marginTop: 2 }}>
                 ({selectedAppointment.type})
-              </p>
+              </Text>
             </div>
             <Button
               variant="icon"
@@ -284,7 +286,7 @@ export default function AppointmentSidePanel({
             {/* Alert */}
             <Flex align="center" gap={12}>
               <WarningOutlined style={{ fontSize: 16, flexShrink: 0, color: '#faad14' }} />
-              <span style={{ color: '#d48806' }}>Include KM</span>
+              <Text variant="body/md" as="span" color="warning">Include KM</Text>
             </Flex>
 
             {/* Phone */}
@@ -295,7 +297,7 @@ export default function AppointmentSidePanel({
                   {client.phone}
                 </a>
               ) : (
-                <span style={{ color: 'var(--color-text-secondary)' }}>No phone</span>
+                <Text variant="body/md" as="span" color="secondary">No phone</Text>
               )}
             </Flex>
 
@@ -307,7 +309,7 @@ export default function AppointmentSidePanel({
                   {client.email}
                 </a>
               ) : (
-                <span style={{ color: 'var(--color-text-secondary)' }}>No email</span>
+                <Text variant="body/md" as="span" color="secondary">No email</Text>
               )}
             </Flex>
 
@@ -316,10 +318,10 @@ export default function AppointmentSidePanel({
               <div style={{ display: 'flex', height: 16, width: 16, flexShrink: 0, alignItems: 'center', justifyContent: 'center' }}>
                 <Status color="gray" />
               </div>
-              <span style={{ color: 'var(--color-text-secondary)' }}>No status</span>
+              <Text variant="body/md" as="span" color="secondary">No status</Text>
             </Flex>
 
-            <hr style={{ borderColor: 'var(--color-border)' }} />
+            <Divider spacing="none" />
 
             {/* Links */}
             <Flex align="center" gap={12}>
@@ -337,7 +339,7 @@ export default function AppointmentSidePanel({
               </Flex>
             </Flex>
 
-            <hr style={{ borderColor: 'var(--color-border)' }} />
+            <Divider spacing="none" />
 
             {/* Create Zoom meeting */}
             <Flex align="center" gap={12}>
@@ -345,7 +347,7 @@ export default function AppointmentSidePanel({
               <Button variant="link">Create Zoom meeting</Button>
             </Flex>
 
-            <hr style={{ borderColor: 'var(--color-border)' }} />
+            <Divider spacing="none" />
 
             {/* Invoice actions */}
             <Flex align="center" gap={12}>
@@ -354,11 +356,11 @@ export default function AppointmentSidePanel({
             </Flex>
             <Flex align="center" gap={12} style={{ paddingLeft: 28 }}>
               <Button variant="link">Mark as</Button>
-              <span style={{ color: 'var(--color-text-secondary)' }}>and</span>
+              <Text variant="body/md" as="span" color="secondary">and</Text>
               <Button variant="link">Do not invoice?</Button>
             </Flex>
 
-            <hr style={{ borderColor: 'var(--color-border)' }} />
+            <Divider spacing="none" />
 
             {/* Test item */}
             <Flex align="center" gap={12}>
@@ -366,7 +368,7 @@ export default function AppointmentSidePanel({
               <Badge variant="green">new</Badge>
             </Flex>
 
-            <hr style={{ borderColor: 'var(--color-border)' }} />
+            <Divider spacing="none" />
 
             {/* Google integrations */}
             <Flex align="center" gap={12}>
@@ -398,16 +400,16 @@ export default function AppointmentSidePanel({
 
             <Flex align="center" gap={12}>
               <LinkOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-text-secondary)' }} />
-              <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: 12, color: 'var(--color-primary)' }}>https://meet.google.com/...</span>
+              <Text variant="body/sm" as="span" color="primary" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>https://meet.google.com/...</Text>
             </Flex>
 
-            <hr style={{ borderColor: 'var(--color-border)' }} />
+            <Divider spacing="none" />
 
             {/* Note */}
             <div>
               <Flex align="center" gap={8} style={{ marginBottom: 8 }}>
                 <FileTextOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
-                <span style={{ fontWeight: 500 }}>Note</span>
+                <Text variant="label/lg" as="span">Note</Text>
               </Flex>
               <FormTextarea
                 rows={3}
@@ -418,7 +420,8 @@ export default function AppointmentSidePanel({
           </Flex>
 
           {/* Action buttons */}
-          <div style={{ borderTop: '1px solid var(--color-border)', padding: 16 }}>
+          <Divider spacing="none" />
+          <div style={{ padding: 16 }}>
             <Flex wrap gap={8}>
               <Button variant="secondary" size="sm">
                 Book another

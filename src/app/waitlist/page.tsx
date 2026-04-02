@@ -43,6 +43,7 @@ import {
   FormInput,
   FormTextarea,
   Text,
+  Divider,
 } from "@/components/ds";
 import wStyles from "./waitlist.module.css";
 
@@ -633,12 +634,12 @@ function WaitlistPageInner() {
                           </Button>
                         </Flex>
                       </Td>
-                      <Td style={{ color: 'var(--color-text-secondary)' }}>{row.tags}</Td>
-                      <Td style={{ color: 'var(--color-primary)' }}>{row.client}</Td>
-                      <Td style={{ color: 'var(--color-text-secondary)' }}>{row.dob}</Td>
-                      <Td style={{ color: 'var(--color-text-secondary)' }}>{row.address}</Td>
-                      <Td style={{ color: 'var(--color-primary)' }}>{row.form}</Td>
-                      <Td style={{ color: 'var(--color-text-secondary)' }}>
+                      <Td><Text variant="body/md" as="span" color="secondary">{row.tags}</Text></Td>
+                      <Td><Text variant="body/md" as="span" color="primary">{row.client}</Text></Td>
+                      <Td><Text variant="body/md" as="span" color="secondary">{row.dob}</Text></Td>
+                      <Td><Text variant="body/md" as="span" color="secondary">{row.address}</Text></Td>
+                      <Td><Text variant="body/md" as="span" color="primary">{row.form}</Text></Td>
+                      <Td>
                         <Flex align="center" gap={8}>
                           {row.dateSubmitted}
                           {row.archived && <Badge variant="red">Archived</Badge>}
@@ -1025,10 +1026,10 @@ function WaitlistPageInner() {
                             )}
                           </Flex>
                         </Td>
-                        <Td style={{ color: 'var(--color-primary)' }}>{row.client}</Td>
-                        <Td style={{ color: 'var(--color-text-secondary)' }}>{row.dob}</Td>
-                        <Td style={{ color: 'var(--color-text-secondary)' }}>{row.address}</Td>
-                        <Td style={{ color: 'var(--color-text-secondary)' }}>{row.dateAdded}</Td>
+                        <Td><Text variant="body/md" as="span" color="primary">{row.client}</Text></Td>
+                        <Td><Text variant="body/md" as="span" color="secondary">{row.dob}</Text></Td>
+                        <Td><Text variant="body/md" as="span" color="secondary">{row.address}</Text></Td>
+                        <Td><Text variant="body/md" as="span" color="secondary">{row.dateAdded}</Text></Td>
                         <Td align="right">
                           <Button
                             variant="ghost"
