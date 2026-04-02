@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, Checkbox, FileUpload, FormInput, FormSelect, Toggle, Tab, Modal, Dropdown, HintIcon, PageHeader } from "@/components/ds";
+import { Button, Checkbox, FileUpload, FormInput, FormSelect, Toggle, Tab, Modal, Dropdown, HintIcon, PageHeader, Text, Grid, Divider } from "@/components/ds";
 
 const businessHistory = [
   { date: "15 Jan 2026", description: "Business name changed from 'Acme Therapy' to 'Hands Together Therapies'" },
@@ -31,7 +31,7 @@ export default function SettingsDetailsPage() {
               <div>
                 <Flex align="center" justify="space-between" style={{ marginBottom: 4 }}>
                   <label className="text-label-lg text-text" style={{ display: 'block' }}>
-                    Business name<span style={{ color: '#ef4444' }}>*</span>
+                    Business name<Text as="span" variant="body/md" color="danger">*</Text>
                   </label>
                   <Button
                     variant="link"
@@ -53,7 +53,7 @@ export default function SettingsDetailsPage() {
               <FormInput label="Website" type="text" defaultValue="hands-together-therapy.com" />
               <div>
                 <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
-                  Business email<span style={{ color: '#ef4444' }}>*</span>
+                  Business email<Text as="span" variant="body/md" color="danger">*</Text>
                 </label>
                 <FormInput type="email" defaultValue="hello@hands-together-therapy.com" />
               </div>
@@ -75,44 +75,44 @@ export default function SettingsDetailsPage() {
           </div>
         </Flex>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        <Grid cols={2} gap="md">
           <div>
             <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
               Patient terminology{" "}
               <HintIcon />
-              <span style={{ color: '#ef4444' }}>*</span>
+              <Text as="span" variant="body/md" color="danger">*</Text>
             </label>
             <FormSelect options={[{ value: "Client", label: "Client" }, { value: "Patient", label: "Patient" }, { value: "Participant", label: "Participant" }]} />
           </div>
           <div>
             <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
-              Currency code<span style={{ color: '#ef4444' }}>*</span>
+              Currency code<Text as="span" variant="body/md" color="danger">*</Text>
             </label>
             <FormInput type="text" defaultValue="AUD" disabled className="text-text-secondary" style={{ backgroundColor: '#f3f4f6' }} />
           </div>
-        </div>
+        </Grid>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        <Grid cols={2} gap="md">
           <div>
             <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
-              Country<span style={{ color: '#ef4444' }}>*</span>
+              Country<Text as="span" variant="body/md" color="danger">*</Text>
             </label>
             <FormSelect options={[{ value: "Australia", label: "Australia" }, { value: "New Zealand", label: "New Zealand" }, { value: "United Kingdom", label: "United Kingdom" }]} disabled className="text-text-secondary" style={{ backgroundColor: '#f3f4f6' }} />
           </div>
           <div>
             <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
-              Currency symbol<span style={{ color: '#ef4444' }}>*</span>
+              Currency symbol<Text as="span" variant="body/md" color="danger">*</Text>
             </label>
             <FormInput type="text" defaultValue="A$" disabled className="text-text-secondary" style={{ backgroundColor: '#f3f4f6' }} />
           </div>
-        </div>
+        </Grid>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        <Grid cols={2} gap="md">
           <div>
             <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
               Default appointment communication preferences{" "}
               <HintIcon />
-              <span style={{ color: '#ef4444' }}>*</span>
+              <Text as="span" variant="body/md" color="danger">*</Text>
             </label>
             <FormSelect options={[{ value: "SMS & Email", label: "SMS & Email" }, { value: "SMS only", label: "SMS only" }, { value: "Email only", label: "Email only" }, { value: "None", label: "None" }]} />
             <div style={{ marginTop: 8 }}>
@@ -125,18 +125,18 @@ export default function SettingsDetailsPage() {
           </div>
           <div>
             <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
-              Tax Label for invoices (E.g. ABN)<span style={{ color: '#ef4444' }}>*</span>
+              Tax Label for invoices (E.g. ABN)<Text as="span" variant="body/md" color="danger">*</Text>
             </label>
             <FormInput type="text" defaultValue="ABN" />
-            <p className="text-body-md" style={{ marginTop: 8, color: 'var(--color-text-secondary)' }}>
+            <Text variant="body/md" color="secondary" style={{ marginTop: 8 }}>
               Enter your business number in{" "}
-              <span className="text-primary" style={{ cursor: 'pointer' }}>Location settings</span>
-            </p>
+              <Text as="span" variant="body/md" color="primary" style={{ cursor: 'pointer' }}>Location settings</Text>
+            </Text>
           </div>
-        </div>
+        </Grid>
 
         <div>
-          <h2 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Email signature</h2>
+          <Text variant="heading/md" style={{ marginBottom: 12 }}>Email signature</Text>
           <Flex align="center" gap={8} style={{ marginBottom: 12 }}>
             <Button
               variant={emailSigTab === "Business" ? "primary" : "secondary"}
@@ -190,26 +190,26 @@ export default function SettingsDetailsPage() {
             <p className="text-primary">{"{user_signature}"}</p>
             <p className="text-primary">{"{user_workPhoneNumber}{user_professionTitle}"}</p>
             <div style={{ position: 'absolute', right: 24, bottom: 24 }}>
-              <span style={{ fontSize: '3rem', fontWeight: 700, color: '#e9d5ff', userSelect: 'none', letterSpacing: '0.05em' }}>splose</span>
+              <Text as="span" variant="display/lg" style={{ color: '#e9d5ff', userSelect: 'none', letterSpacing: '0.05em' }}>splose</Text>
             </div>
           </div>
         </div>
 
         <div>
-          <h2 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Calendar lock dates</h2>
-          <p className="text-body-md" style={{ color: 'var(--color-text-secondary)', marginBottom: 8 }}>
+          <Text variant="heading/md" style={{ marginBottom: 12 }}>Calendar lock dates</Text>
+          <Text variant="body/md" color="secondary" style={{ marginBottom: 8 }}>
             Prevent users with the practitioner role from making changes on the calendar on and before
-          </p>
+          </Text>
           <FormInput type="text" defaultValue="19 Dec 2025" style={{ maxWidth: 320 }} />
         </div>
 
         <div>
-          <h2 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Google Tag Manager</h2>
+          <Text variant="heading/md" style={{ marginBottom: 12 }}>Google Tag Manager</Text>
           <FormInput label="Google Tag Manager ID" type="text" defaultValue="GTM-TEST1231" style={{ maxWidth: 320 }} />
         </div>
 
         <div>
-          <h2 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Cases</h2>
+          <Text variant="heading/md" style={{ marginBottom: 12 }}>Cases</Text>
           <Flex align="center" justify="space-between">
             <p className="text-body-md text-text">Block bookings exceeding case or funding periods (default setting)</p>
             <Toggle checked={casesToggle} onChange={setCasesToggle} />
@@ -217,7 +217,7 @@ export default function SettingsDetailsPage() {
         </div>
 
         <div>
-          <span className="text-body-md text-primary" style={{ cursor: 'pointer' }}>Business settings change log</span>
+          <Text as="span" variant="body/md" color="primary" style={{ cursor: 'pointer' }}>Business settings change log</Text>
         </div>
       </Flex>
 
@@ -226,7 +226,7 @@ export default function SettingsDetailsPage() {
           {businessHistory.map((entry, i) => (
             <li key={i} style={{ paddingTop: i === 0 ? 0 : 12, paddingBottom: i === businessHistory.length - 1 ? 0 : 12, borderTop: i === 0 ? 'none' : '1px solid var(--color-border)' }}>
               <p className="text-body-md text-text">{entry.description}</p>
-              <p className="text-body-sm" style={{ color: 'var(--color-text-secondary)', marginTop: 2 }}>{entry.date}</p>
+              <Text variant="body/sm" color="secondary" style={{ marginTop: 2 }}>{entry.date}</Text>
             </li>
           ))}
         </ul>

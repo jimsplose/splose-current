@@ -23,7 +23,7 @@ import {
   FormInput,
   FormSelect,
   Tab,
-  Navbar,
+  FormPage,
   Card,
   Toggle,
   FormColorPicker,
@@ -88,8 +88,11 @@ export default function FormTemplateEditorPage() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <Navbar backHref="/settings/forms" title={title || "Edit form template"}>
+    <FormPage
+      backHref="/settings/forms"
+      title={title || "Edit form template"}
+      maxWidth={99999}
+      actions={
         <Flex align="center" gap={8}>
           <Button variant="icon" onClick={() => setSidePanel(sidePanel === "share" ? null : "share")} title="Share & Automate">
             <ShareAltOutlined style={{ fontSize: 16 }} />
@@ -99,13 +102,14 @@ export default function FormTemplateEditorPage() {
           </Button>
           <Button variant="primary" onClick={() => router.push("/settings/forms")}>Save</Button>
         </Flex>
-      </Navbar>
-
-      <div style={{ borderBottom: '1px solid var(--color-border)', padding: '0 24px' }}>
+      }
+      style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
+    >
+      <div style={{ borderBottom: '1px solid var(--color-border)', padding: '0 24px', margin: '-24px -24px 0' }}>
         <Tab items={editorTabs} value={activeTab} onChange={setActiveTab} />
       </div>
 
-      <div style={{ display: 'flex', flex: 1 }}>
+      <div style={{ display: 'flex', flex: 1, margin: '0 -24px -24px' }}>
         <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
           {activeTab === "builder" && (
             <div style={{ maxWidth: 672, margin: '0 auto' }}>
@@ -237,6 +241,6 @@ export default function FormTemplateEditorPage() {
           ))}
         </div>
       </Modal>
-    </div>
+    </FormPage>
   );
 }

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Flex } from "antd";
-import { Button, Navbar, Card, FormInput, FormSelect, FormTextarea, Toggle } from "@/components/ds";
+import { Button, FormPage, Card, FormInput, FormSelect, FormTextarea, Toggle } from "@/components/ds";
 
 const taxOptions = [
   { value: "gst", label: "GST (10%)" },
@@ -38,17 +38,21 @@ export default function NewProductPage() {
   };
 
   return (
-    <div>
-      <Navbar backHref="/products" title="New product">
-        <Button variant="secondary" onClick={() => router.push("/products")}>
-          Cancel
-        </Button>
-        <Button variant="primary" onClick={handleSave}>
-          Save
-        </Button>
-      </Navbar>
-
-      <div style={{ maxWidth: 768, margin: '0 auto', padding: 24 }}>
+    <FormPage
+      backHref="/products"
+      title="New product"
+      maxWidth={768}
+      actions={
+        <>
+          <Button variant="secondary" onClick={() => router.push("/products")}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleSave}>
+            Save
+          </Button>
+        </>
+      }
+    >
         <Flex vertical gap={24}>
           <Card title="Product details">
             <Flex vertical gap={16}>
@@ -106,7 +110,6 @@ export default function NewProductPage() {
             </Flex>
           </Card>
         </Flex>
-      </div>
-    </div>
+    </FormPage>
   );
 }

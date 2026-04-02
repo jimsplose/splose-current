@@ -8,7 +8,7 @@ import {
   FormSelect,
   Toggle,
   Collapse,
-  Navbar,
+  FormPage,
 } from "@/components/ds";
 
 const stateOptions = [
@@ -46,15 +46,18 @@ export default function NewLocationPage() {
   const [onlineBooking, setOnlineBooking] = useState(false);
 
   return (
-    <div>
-      <Navbar backHref="/settings/locations" title="New location">
+    <FormPage
+      backHref="/settings/locations"
+      title="New location"
+      maxWidth={768}
+      actions={
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <Button variant="secondary" onClick={() => router.push("/settings/locations")}>Cancel</Button>
           <Button variant="primary" onClick={() => router.push("/settings/locations")}>Save</Button>
         </div>
-      </Navbar>
-
-      <div style={{ maxWidth: 768, margin: '0 auto', padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      }
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <Collapse title="General" defaultOpen>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
@@ -88,6 +91,6 @@ export default function NewLocationPage() {
           <Toggle label="Enable online booking for this location" checked={onlineBooking} onChange={setOnlineBooking} />
         </Collapse>
       </div>
-    </div>
+    </FormPage>
   );
 }

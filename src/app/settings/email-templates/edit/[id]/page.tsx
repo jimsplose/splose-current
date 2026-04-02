@@ -6,7 +6,7 @@ import {
   Button,
   FormInput,
   FormSelect,
-  Navbar,
+  FormPage,
   RichTextEditor,
   EmailPreview,
 } from "@/components/ds";
@@ -36,37 +36,38 @@ export default function EditEmailTemplatePage() {
   const [showPreview, setShowPreview] = useState(false);
 
   return (
-    <div>
-      <Navbar
+    <>
+      <FormPage
         backHref="/settings/email-templates"
         title={name || "Edit email template"}
-        children={
+        maxWidth={768}
+        actions={
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <Button variant="secondary" onClick={() => setShowPreview(true)}>Preview</Button>
             <Button variant="secondary" onClick={() => router.push("/settings/email-templates")}>Cancel</Button>
             <Button variant="primary" onClick={() => router.push("/settings/email-templates")}>Save</Button>
           </div>
         }
-      />
+      >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+            <FormInput label="Name" value={name} onChange={(e) => setName(e.target.value)} />
+            <FormSelect label="Type" value={type} onChange={setType} options={typeOptions} />
+          </div>
 
-      <div style={{ maxWidth: 768, margin: '0 auto', padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
-          <FormInput label="Name" value={name} onChange={(e) => setName(e.target.value)} />
-          <FormSelect label="Type" value={type} onChange={setType} options={typeOptions} />
+          <FormInput label="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
+
+          <div>
+            <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Body</label>
+            <RichTextEditor
+              value={body}
+              onChange={setBody}
+              rows={14}
+              variables={variables}
+            />
+          </div>
         </div>
-
-        <FormInput label="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
-
-        <div>
-          <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Body</label>
-          <RichTextEditor
-            value={body}
-            onChange={setBody}
-            rows={14}
-            variables={variables}
-          />
-        </div>
-      </div>
+      </FormPage>
 
       <EmailPreview
         open={showPreview}
@@ -82,6 +83,6 @@ export default function EditEmailTemplatePage() {
           .replace(/{practice_name}/g, "Hands Together Therapies")
         }
       />
-    </div>
+    </>
   );
 }

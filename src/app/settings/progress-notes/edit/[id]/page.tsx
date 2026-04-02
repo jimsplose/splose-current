@@ -9,7 +9,7 @@ import {
   FormInput,
   FormSelect,
   Toggle,
-  Navbar,
+  FormPage,
   RichTextEditor,
   Card,
   Modal,
@@ -124,19 +124,18 @@ export default function EditProgressNoteTemplatePage() {
   );
 
   return (
-    <div>
-      <Navbar
+    <>
+      <FormPage
         backHref="/settings/progress-notes"
         title={title || "Edit progress note template"}
-        children={
+        maxWidth={768}
+        actions={
           <Flex align="center" gap={8}>
             <Button variant="secondary" onClick={() => router.push("/settings/progress-notes")}>Cancel</Button>
             <Button variant="primary" onClick={() => router.push("/settings/progress-notes")}>Save</Button>
           </Flex>
         }
-      />
-
-      <div style={{ maxWidth: 768, margin: '0 auto', padding: 24 }}>
+      >
         <Flex vertical gap={24}>
           <FormInput label="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
 
@@ -191,7 +190,7 @@ export default function EditProgressNoteTemplatePage() {
             <RichTextEditor value={freeText} onChange={setFreeText} rows={6} />
           </div>
         </Flex>
-      </div>
+      </FormPage>
 
       <Modal
         open={showLibrary}
@@ -230,6 +229,6 @@ export default function EditProgressNoteTemplatePage() {
           </Flex>
         </Flex>
       </Modal>
-    </div>
+    </>
   );
 }

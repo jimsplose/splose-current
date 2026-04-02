@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { DownOutlined, MailOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, Dropdown, FormInput, FormSelect, FormTextarea, Badge, statusVariant } from "@/components/ds";
+import { Button, Divider, Dropdown, FormInput, FormSelect, FormTextarea, Grid, Badge, statusVariant, Text } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 import Modal from "@/components/ds/Modal";
 
@@ -116,7 +116,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
             trigger={
               <Button variant="secondary">
                 Pay
-                <DownOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                <DownOutlined className="text-text-secondary" style={{ fontSize: 14 }} />
               </Button>
             }
             items={payItems}
@@ -129,14 +129,14 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
             align="right"
           />
           <Button variant="secondary" onClick={handleEmailInvoice}>
-            <MailOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
+            <MailOutlined className="text-text-secondary" style={{ fontSize: 16 }} />
             Email invoice
           </Button>
           <Dropdown
             trigger={
               <Button variant="secondary">
                 Actions
-                <DownOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                <DownOutlined className="text-text-secondary" style={{ fontSize: 14 }} />
               </Button>
             }
             items={actionsItems}
@@ -165,48 +165,48 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           </Flex>
 
           {/* Three column header */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32, marginBottom: 32, fontSize: 12 }}>
+          <Grid cols={3} gap={32} style={{ marginBottom: 32, fontSize: 12 }}>
             {/* Client */}
             <div>
-              <h3 style={{ marginBottom: 4, fontWeight: 700, color: 'var(--color-text)' }}>Client</h3>
+              <Text variant="body/sm" as="h3" color="text" style={{ marginBottom: 4, fontWeight: 700 }}>Client</Text>
               <p className="text-primary">
                 {invoice.client.firstName} {invoice.client.lastName}
               </p>
-              {invoice.client.address && <p style={{ color: 'var(--color-text-secondary)' }}>{invoice.client.address}</p>}
+              {invoice.client.address && <Text variant="body/sm" as="p" color="secondary">{invoice.client.address}</Text>}
               {invoice.client.ndisNumber && (
                 <>
-                  <p style={{ color: 'var(--color-text-secondary)' }}>NDIS Number: {invoice.client.ndisNumber}</p>
-                  <p style={{ color: 'var(--color-text-secondary)' }}>Prac No.</p>
-                  <p style={{ color: 'var(--color-text-secondary)' }}>Prac No.</p>
-                  <p style={{ color: 'var(--color-text-secondary)' }}>Prac No.</p>
+                  <Text variant="body/sm" as="p" color="secondary">NDIS Number: {invoice.client.ndisNumber}</Text>
+                  <Text variant="body/sm" as="p" color="secondary">Prac No.</Text>
+                  <Text variant="body/sm" as="p" color="secondary">Prac No.</Text>
+                  <Text variant="body/sm" as="p" color="secondary">Prac No.</Text>
                 </>
               )}
-              {invoice.client.medicare && <p style={{ color: 'var(--color-text-secondary)' }}>Medicare: {invoice.client.medicare}</p>}
+              {invoice.client.medicare && <Text variant="body/sm" as="p" color="secondary">Medicare: {invoice.client.medicare}</Text>}
               {invoice.billingType === "NDIS" && (
                 <div style={{ marginTop: 12 }}>
-                  <h4 style={{ fontWeight: 700, color: 'var(--color-text)' }}>Care of client above</h4>
+                  <Text variant="body/sm" as="h4" color="text" style={{ fontWeight: 700 }}>Care of client above</Text>
                   <p className="text-primary">C/o [Client above]</p>
-                  <p style={{ color: 'var(--color-text-secondary)' }}>161 Bay St.</p>
-                  <p style={{ color: 'var(--color-text-secondary)' }}>Toronto ON M5J 1C4</p>
+                  <Text variant="body/sm" as="p" color="secondary">161 Bay St.</Text>
+                  <Text variant="body/sm" as="p" color="secondary">Toronto ON M5J 1C4</Text>
                 </div>
               )}
             </div>
 
             {/* From */}
             <div>
-              <h3 style={{ marginBottom: 4, fontWeight: 700, color: 'var(--color-text)' }}>From</h3>
-              <p style={{ color: 'var(--color-text)' }}>Hands Together Therapies</p>
-              <p style={{ color: 'var(--color-text-secondary)' }}>East Clinics</p>
-              <p style={{ color: 'var(--color-text-secondary)' }}>4 Williamstown Rd</p>
-              <p style={{ color: 'var(--color-text-secondary)' }}>Kingsville VIC 3012</p>
+              <Text variant="body/sm" as="h3" color="text" style={{ marginBottom: 4, fontWeight: 700 }}>From</Text>
+              <Text variant="body/sm" as="p" color="text">Hands Together Therapies</Text>
+              <Text variant="body/sm" as="p" color="secondary">East Clinics</Text>
+              <Text variant="body/sm" as="p" color="secondary">4 Williamstown Rd</Text>
+              <Text variant="body/sm" as="p" color="secondary">Kingsville VIC 3012</Text>
               <div style={{ marginTop: 8 }}>
-                <p style={{ fontWeight: 700, color: 'var(--color-text)' }}>ABN</p>
-                <p style={{ color: 'var(--color-text-secondary)' }}>112345678110</p>
+                <Text variant="body/sm" as="p" color="text" style={{ fontWeight: 700 }}>ABN</Text>
+                <Text variant="body/sm" as="p" color="secondary">112345678110</Text>
               </div>
               {invoice.practitionerName && (
                 <div style={{ marginTop: 8 }}>
-                  <p style={{ fontWeight: 700, color: 'var(--color-text)' }}>Provider</p>
-                  <p style={{ color: 'var(--color-text-secondary)' }}>{invoice.practitionerName}</p>
+                  <Text variant="body/sm" as="p" color="text" style={{ fontWeight: 700 }}>Provider</Text>
+                  <Text variant="body/sm" as="p" color="secondary">{invoice.practitionerName}</Text>
                 </div>
               )}
             </div>
@@ -228,7 +228,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
                 </div>
               </Flex>
             </div>
-          </div>
+          </Grid>
 
           {/* Line items table */}
           <table style={{ width: '100%', fontSize: 12, marginBottom: 24 }}>

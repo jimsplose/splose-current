@@ -7,7 +7,7 @@ import { UploadOutlined, FileExcelOutlined, CheckCircleFilled } from "@ant-desig
 import {
   Button,
   Tab,
-  Navbar,
+  FormPage,
   Card,
   DataTable,
   TableHead,
@@ -60,19 +60,23 @@ export default function CSVImportPage() {
   const mappings = fieldMappings[activeTab] || [];
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <Navbar backHref="/settings/data-import" title="CSV Import">
+    <FormPage
+      backHref="/settings/data-import"
+      title="CSV Import"
+      maxWidth={99999}
+      actions={
         <Flex align="center" gap={8}>
           <Button variant="secondary" onClick={() => router.push("/settings/data-import")}>Cancel</Button>
           <Button variant="primary" onClick={() => router.push("/settings/data-import")} disabled={!fileUploaded}>Import</Button>
         </Flex>
-      </Navbar>
-
-      <div style={{ borderBottom: '1px solid var(--color-border)', padding: '0 24px' }}>
+      }
+      style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
+    >
+      <div style={{ borderBottom: '1px solid var(--color-border)', padding: '0 24px', margin: '-24px -24px 0' }}>
         <Tab items={importTabs} value={activeTab} onChange={setActiveTab} />
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: 24, margin: '0 -24px -24px' }}>
         <div style={{ maxWidth: 768, margin: '0 auto' }}>
           <Flex vertical gap={24}>
             {/* Upload zone */}
@@ -149,6 +153,6 @@ export default function CSVImportPage() {
           </Flex>
         </div>
       </div>
-    </div>
+    </FormPage>
   );
 }

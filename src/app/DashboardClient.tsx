@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Avatar, Button, Card, ColorDot, Text } from "@/components/ds";
+import { Avatar, Button, Card, ColorDot, Divider, Text } from "@/components/ds";
 import { DownOutlined, RightOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
 import styles from "./DashboardClient.module.css";
@@ -154,7 +154,7 @@ function ChartBar({ item }: { item: typeof incomeData[number] }) {
         {/* Tooltip */}
         {hovered && (
           <div className="text-caption-sm" style={{ pointerEvents: 'none', position: 'absolute', top: -56, left: '50%', zIndex: 10, transform: 'translateX(-50%)', whiteSpace: 'nowrap', borderRadius: 4, backgroundColor: '#1f2937', padding: '6px 10px', color: 'white', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
-            <div style={{ fontWeight: 600 }}>{item.month}</div>
+            <Text variant="label/sm" as="div">{item.month}</Text>
             <Flex align="center" gap={6}>
               <span style={{ display: 'inline-block', height: 8, width: 8, borderRadius: 2, backgroundColor: "#bef264" }} />
               Invoices: ${(item.invoices * 100).toLocaleString()}
@@ -193,11 +193,11 @@ function MessageItem({
       <Avatar name={message.sender} color={message.color} size="sm" />
       <div style={{ minWidth: 0, flex: 1 }}>
         <Flex align="baseline" gap={6}>
-          <span className="text-body-md" style={{ fontWeight: 700, color: 'var(--color-text)' }}>{message.sender}</span>
+          <Text variant="body/md-strong" as="span" color="text">{message.sender}</Text>
           <Text variant="caption/sm" as="span" color="secondary">{message.time}</Text>
-          <span style={{ marginLeft: 'auto', color: 'var(--color-text-secondary)' }}>
+          <Text variant="body/md" as="span" color="secondary" style={{ marginLeft: 'auto' }}>
             {expanded ? <DownOutlined style={{ fontSize: 14 }} /> : <RightOutlined style={{ fontSize: 14 }} />}
-          </span>
+          </Text>
         </Flex>
         {!expanded && (
           <Text variant="body/md" color="secondary" style={{ marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{message.preview}</Text>
@@ -218,7 +218,7 @@ function MessageItem({
                   <div style={{ position: 'absolute', left: 8, top: 16, height: 8, width: 8, borderRadius: 9999, backgroundColor: 'white' }} />
                   <div style={{ position: 'absolute', right: 8, top: 16, height: 8, width: 8, borderRadius: 9999, backgroundColor: 'white' }} />
                 </div>
-                <span className="text-caption-sm" style={{ fontWeight: 700, color: '#075985' }}>STFCRS5</span>
+                <Text variant="caption/sm" as="span" color="#075985" style={{ fontWeight: 700 }}>STFCRS5</Text>
               </Flex>
             )}
             {message.type === "logo" && (
@@ -228,7 +228,7 @@ function MessageItem({
             )}
             {message.type === "image" && message.id === "msg-4" && (
               <Flex vertical align="center" justify="center" gap={4} style={{ height: 144, width: 192, borderRadius: 8, background: 'linear-gradient(to bottom right, #fef3c7, #fcd34d)' }}>
-                <span className="text-body-md-strong" style={{ color: '#92400e' }}>MADE IT HOME</span>
+                <Text variant="body/md-strong" as="span" color="#92400e">MADE IT HOME</Text>
                 <div style={{ position: 'relative', height: 56, width: 64, borderTopLeftRadius: 9999, borderTopRightRadius: 9999, backgroundColor: 'rgba(251, 191, 36, 0.6)' }}>
                   <div style={{ position: 'absolute', left: -2, top: -6, height: 12, width: 10, transform: 'rotate(-15deg)', borderTopLeftRadius: 9999, backgroundColor: 'rgba(251, 191, 36, 0.6)' }} />
                   <div style={{ position: 'absolute', right: -2, top: -6, height: 12, width: 10, transform: 'rotate(15deg)', borderTopRightRadius: 9999, backgroundColor: 'rgba(251, 191, 36, 0.6)' }} />
@@ -265,9 +265,10 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
     <Flex style={{ minHeight: 'calc(100vh - 3rem)', gap: 14, padding: 7 }}>
       {/* Left column -- Messages (col1: wider) */}
       <Flex vertical style={{ flex: 1, overflow: 'hidden', borderRadius: 8, border: '1px solid var(--color-border)' }}>
-        <div style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
+        <div style={{ backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
           <Text variant="label/lg" as="h2" color="text">Messages</Text>
         </div>
+        <Divider spacing="none" />
 
         <div style={{ flex: 1, overflowY: 'auto', paddingLeft: 16, paddingRight: 16, paddingBottom: 8 }}>
           <Flex vertical gap={16}>
@@ -320,9 +321,10 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
           </Flex>
         </div>
 
-        <div style={{ borderTop: '1px solid var(--color-border)', padding: 12 }}>
-          <Card padding="none" className="text-body-md" style={{ marginBottom: 8, minHeight: 80, padding: '8px 12px', color: 'var(--color-text-secondary)' }}>
-            Type a message...
+        <Divider spacing="none" />
+        <div style={{ padding: 12 }}>
+          <Card padding="none" style={{ marginBottom: 8, minHeight: 80, padding: '8px 12px' }}>
+            <Text variant="body/md" color="secondary">Type a message...</Text>
           </Card>
           <Flex align="center" gap={2} style={{ color: 'var(--color-text-secondary)' }}>
             <Button variant="icon" size="sm" className="text-body-md-strong" title="Bold">B</Button>
@@ -353,7 +355,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
               <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/></svg>
             </Button>
             <div style={{ flex: 1 }} />
-            <span className={`text-label-md ${styles.gifButton}`} style={{ marginRight: 4, cursor: 'pointer', borderRadius: 4, padding: '2px 6px', color: 'var(--color-text-secondary)' }}>GIF</span>
+            <Text variant="label/md" as="span" color="secondary" className={styles.gifButton} style={{ marginRight: 4, cursor: 'pointer', borderRadius: 4, padding: '2px 6px' }}>GIF</Text>
             <Button variant="primary" size="sm" className="text-body-md">
               Send
             </Button>
@@ -365,25 +367,26 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
       <Flex vertical gap={7} style={{ width: 380, flexShrink: 0 }}>
         {/* Income card */}
         <Card padding="none" style={{ overflow: 'hidden' }}>
-          <div style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
+          <div style={{ backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
             <Text variant="label/lg" as="h3" color="text">Income</Text>
           </div>
+          <Divider spacing="none" />
           <div style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 16 }}>
             <div style={{ position: 'relative', height: 208 }}>
-              <Flex vertical justify="space-between" className="text-caption-sm" style={{ position: 'absolute', bottom: 24, left: 0, top: 0, paddingRight: 4, color: 'var(--color-text-secondary)' }}>
-                <span>500K</span>
-                <span>400K</span>
-                <span>300K</span>
-                <span>200K</span>
-                <span>100K</span>
-                <span>0</span>
+              <Flex vertical justify="space-between" style={{ position: 'absolute', bottom: 24, left: 0, top: 0, paddingRight: 4 }}>
+                <Text variant="caption/sm" as="span" color="secondary">500K</Text>
+                <Text variant="caption/sm" as="span" color="secondary">400K</Text>
+                <Text variant="caption/sm" as="span" color="secondary">300K</Text>
+                <Text variant="caption/sm" as="span" color="secondary">200K</Text>
+                <Text variant="caption/sm" as="span" color="secondary">100K</Text>
+                <Text variant="caption/sm" as="span" color="secondary">0</Text>
               </Flex>
-              <div className="text-caption-sm" style={{ position: 'absolute', left: -16, top: '50%', transform: 'translateY(-50%) rotate(-90deg)', whiteSpace: 'nowrap', color: 'var(--color-text-secondary)' }}>
+              <Text variant="caption/sm" as="div" color="secondary" style={{ position: 'absolute', left: -16, top: '50%', transform: 'translateY(-50%) rotate(-90deg)', whiteSpace: 'nowrap' }}>
                 Values
-              </div>
+              </Text>
               <Flex vertical justify="space-between" style={{ position: 'absolute', bottom: 24, left: 28, right: 0, top: 0 }}>
                 {[0, 1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} style={{ height: 0, borderBottom: '1px solid var(--color-fill-secondary)' }} />
+                  <Divider key={i} variant="subtle" spacing="none" />
                 ))}
               </Flex>
               <Flex align="flex-end" gap={4} style={{ marginLeft: 32, height: 'calc(100% - 24px)' }}>
@@ -394,17 +397,17 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
               <Flex style={{ marginLeft: 32, height: 48 }}>
                 {incomeData.map((item) => (
                   <div key={item.month} style={{ flex: 1, paddingTop: 4 }}>
-                    <span className="text-caption-sm" style={{ display: 'inline-block', transform: 'rotate(-45deg)', transformOrigin: 'top left', whiteSpace: 'nowrap', color: 'var(--color-text-secondary)' }}>{item.month.replace("-", " ")}</span>
+                    <Text variant="caption/sm" as="span" color="secondary" style={{ display: 'inline-block', transform: 'rotate(-45deg)', transformOrigin: 'top left', whiteSpace: 'nowrap' }}>{item.month.replace("-", " ")}</Text>
                   </div>
                 ))}
               </Flex>
             </div>
-            <Flex align="center" justify="center" gap={16} className="text-caption-md" style={{ marginTop: 4, color: 'var(--color-text-secondary)' }}>
+            <Flex align="center" justify="center" gap={16} style={{ marginTop: 4 }}>
               <Flex align="center" gap={6}>
-                <ColorDot color="#bef264" size="xs" /> Invoices
+                <ColorDot color="#bef264" size="xs" /> <Text variant="caption/md" as="span" color="secondary">Invoices</Text>
               </Flex>
               <Flex align="center" gap={6}>
-                <ColorDot color="#c084fc" size="xs" /> Payments
+                <ColorDot color="#c084fc" size="xs" /> <Text variant="caption/md" as="span" color="secondary">Payments</Text>
               </Flex>
             </Flex>
           </div>
@@ -412,9 +415,10 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
 
         {/* Incomplete progress notes card */}
         <Card padding="none" style={{ overflow: 'hidden' }}>
-          <div style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
+          <div style={{ backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
             <Text variant="label/lg" as="h3" color="text">Incomplete progress notes</Text>
           </div>
+          <Divider spacing="none" />
           <div style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
             <Flex vertical gap={6}>
               {unsignedNotes.length === 0 ? (
@@ -449,9 +453,10 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
 
         {/* Recently submitted forms card */}
         <Card padding="none" style={{ overflow: 'hidden' }}>
-          <div style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
+          <div style={{ backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
             <Text variant="label/lg" as="h3" color="text">Recently submitted forms</Text>
           </div>
+          <Divider spacing="none" />
           <div style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
             <Flex vertical gap={6}>
               {recentForms.map((form) => (

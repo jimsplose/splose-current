@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button, Navbar, DataTable, TableHead, Th, TableBody, Td, Badge } from "@/components/ds";
+import { Button, FormPage, DataTable, TableHead, Th, TableBody, Td, Badge } from "@/components/ds";
 
 const items = [
   { number: "INV-0142", client: "Emma Thompson", service: "Individual Therapy", amount: "$193.99", status: "Sent" },
@@ -9,12 +9,12 @@ const items = [
 
 export default function BatchInvoiceDetailPage() {
   return (
-    <div style={{ minHeight: 'calc(100vh - 3.5rem)' }}>
-      <Navbar backHref="/invoices/batch-invoice" title="Batch invoice #330044">
-        <Button>Export</Button>
-      </Navbar>
-
-      <div style={{ padding: 24 }}>
+    <FormPage
+      title="Batch invoice #330044"
+      backHref="/invoices/batch-invoice"
+      actions={<Button>Export</Button>}
+      style={{ minHeight: 'calc(100vh - 3.5rem)' }}
+    >
         <div className="text-body-md" style={{ marginBottom: 16, color: 'var(--color-text-secondary)' }}>
           Created on 22 Mar 2026 &middot; 3 invoices
         </div>
@@ -45,7 +45,6 @@ export default function BatchInvoiceDetailPage() {
             ))}
           </TableBody>
         </DataTable>
-      </div>
-    </div>
+    </FormPage>
   );
 }

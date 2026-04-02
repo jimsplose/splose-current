@@ -8,7 +8,7 @@ import {
   FormSelect,
   Toggle,
   Collapse,
-  Navbar,
+  FormPage,
   RichTextEditor,
   EmailPreview,
 } from "@/components/ds";
@@ -51,19 +51,19 @@ export default function NewAppointmentTemplatePage() {
   const [showPreview, setShowPreview] = useState(false);
 
   return (
-    <div>
-      <Navbar
+    <>
+      <FormPage
         backHref="/settings/appointment-templates"
         title={name || "New appointment template"}
-        children={
+        maxWidth={768}
+        actions={
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <Button variant="secondary" onClick={() => router.push("/settings/appointment-templates")}>Cancel</Button>
             <Button variant="primary" onClick={() => router.push("/settings/appointment-templates")}>Save</Button>
           </div>
         }
-      />
-
-      <div style={{ maxWidth: 768, margin: '0 auto', padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
           <FormInput label="Name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Appointment confirmation" />
           <FormSelect label="Type" value={type} onChange={setType} options={typeOptions} />
@@ -114,7 +114,8 @@ export default function NewAppointmentTemplatePage() {
             )}
           </div>
         </Collapse>
-      </div>
+        </div>
+      </FormPage>
 
       <EmailPreview
         open={showPreview}
@@ -131,6 +132,6 @@ export default function NewAppointmentTemplatePage() {
           .replace(/{service_name}/g, "1:1 Consultation")
         }
       />
-    </div>
+    </>
   );
 }

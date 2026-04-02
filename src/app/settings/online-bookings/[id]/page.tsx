@@ -11,10 +11,12 @@ import {
   FormTextarea,
   Toggle,
   Tab,
-  Navbar,
+  FormPage,
   FormColorPicker,
   Modal,
   RadioGroup,
+  Text,
+  Grid,
 } from "@/components/ds";
 
 const designTabs = [
@@ -65,23 +67,23 @@ export default function EditOnlineBookingPage() {
   const shareUrl = "https://acme.splose.com/online-booking/7b2c0db8-cb7b-40de-991e-631ecdb30cf0";
 
   return (
-    <div>
-      <Navbar
-        backHref="/settings/online-bookings"
-        title="Edit online booking"
-      >
+    <FormPage
+      backHref="/settings/online-bookings"
+      title="Edit online booking"
+      maxWidth={99999}
+      actions={
         <Flex align="center" gap={8}>
           <Button variant="secondary" onClick={() => router.push("/settings/online-bookings")}>Cancel</Button>
           <Button variant="secondary" onClick={() => setShowPreview(!showPreview)}>Preview</Button>
           <Button variant="primary" onClick={() => router.push("/settings/online-bookings")}>Save</Button>
         </Flex>
-      </Navbar>
-
-      <div style={{ borderBottom: '1px solid var(--color-border)', padding: '0 24px' }}>
+      }
+    >
+      <div style={{ borderBottom: '1px solid var(--color-border)', padding: '0 24px', margin: '-24px -24px 0' }}>
         <Tab items={designTabs} value={activeTab} onChange={setActiveTab} />
       </div>
 
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', margin: '0 -24px -24px' }}>
       <div style={{ flex: showPreview ? 1 : undefined, maxWidth: showPreview ? undefined : 768, width: showPreview ? undefined : '100%', margin: showPreview ? undefined : '0 auto', padding: 24 }}>
         {activeTab === "design" && (
           <Flex vertical gap={24}>
@@ -90,8 +92,8 @@ export default function EditOnlineBookingPage() {
             {/* Branding section */}
             <Flex vertical gap={12}>
               <div>
-                <h3 className="text-heading-sm text-text">Set your branding</h3>
-                <p className="text-body-sm text-text-secondary">Select a look for the branding</p>
+                <Text variant="heading/sm" as="h3">Set your branding</Text>
+                <Text variant="body/sm" color="secondary">Select a look for the branding</Text>
               </div>
               <RadioGroup
                 name="brandingMode"
@@ -115,17 +117,17 @@ export default function EditOnlineBookingPage() {
             {/* Button styling section */}
             <Flex vertical gap={12}>
               <div>
-                <h3 className="text-heading-sm text-text">Button styling</h3>
+                <Text variant="heading/sm" as="h3">Button styling</Text>
               </div>
               <div>
-                <p className="text-label-lg" style={{ marginBottom: 8, color: 'var(--color-text-secondary)' }}>Colours</p>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                <Text variant="label/lg" color="secondary" style={{ marginBottom: 8 }}>Colours</Text>
+                <Grid cols={2} gap="md">
                   <FormColorPicker label="Primary" value={buttonColor} onChange={setButtonColor} />
                   <FormColorPicker label="Secondary" value={secondaryColor} onChange={setSecondaryColor} />
-                </div>
+                </Grid>
               </div>
               <div>
-                <p className="text-label-md" style={{ marginBottom: 8, color: 'var(--color-text-secondary)' }}>Accessible colour suggestions</p>
+                <Text variant="label/md" color="secondary" style={{ marginBottom: 8 }}>Accessible colour suggestions</Text>
                 <Flex wrap="wrap" gap={8}>
                   {COLOR_SWATCHES.map((color) => (
                     <button
@@ -409,6 +411,6 @@ export default function EditOnlineBookingPage() {
           ))}
         </Flex>
       </Modal>
-    </div>
+    </FormPage>
   );
 }

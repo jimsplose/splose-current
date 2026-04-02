@@ -6,7 +6,7 @@ import {
   Button,
   FormInput,
   FormSelect,
-  Navbar,
+  FormPage,
   RichTextEditor,
 } from "@/components/ds";
 
@@ -34,19 +34,18 @@ export default function EditLetterTemplatePage() {
   );
 
   return (
-    <div>
-      <Navbar
-        backHref="/settings/letter-templates"
-        title={name || "Edit letter template"}
-        children={
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <Button variant="secondary" onClick={() => router.push("/settings/letter-templates")}>Cancel</Button>
-            <Button variant="primary" onClick={() => router.push("/settings/letter-templates")}>Save</Button>
-          </div>
-        }
-      />
-
-      <div style={{ maxWidth: 768, margin: '0 auto', padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <FormPage
+      backHref="/settings/letter-templates"
+      title={name || "Edit letter template"}
+      maxWidth={768}
+      actions={
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Button variant="secondary" onClick={() => router.push("/settings/letter-templates")}>Cancel</Button>
+          <Button variant="primary" onClick={() => router.push("/settings/letter-templates")}>Save</Button>
+        </div>
+      }
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
           <FormInput label="Template name" value={name} onChange={(e) => setName(e.target.value)} />
           <FormSelect label="Default recipient" value={recipient} onChange={setRecipient} options={recipientOptions} />
@@ -64,6 +63,6 @@ export default function EditLetterTemplatePage() {
           />
         </div>
       </div>
-    </div>
+    </FormPage>
   );
 }

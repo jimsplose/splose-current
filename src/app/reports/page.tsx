@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { CalendarOutlined, DownOutlined, SettingOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Avatar, Button, Card, Checkbox, ColorDot, Dropdown, FormInput, FormSelect, Grid, PageHeader } from "@/components/ds";
+import { Avatar, Button, Card, Checkbox, ColorDot, Divider, Dropdown, FormInput, FormSelect, Grid, PageHeader, Text } from "@/components/ds";
 import { DataTable, TableHead, Th, TableBody, Tr, Td } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 
@@ -88,8 +88,8 @@ function DateRangePicker({
       {open && (
         <div style={{ position: 'absolute', left: 0, top: '100%', zIndex: 30, marginTop: 4, width: 320, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
           {/* Presets */}
-          <div style={{ borderBottom: '1px solid var(--color-border)', padding: 8 }}>
-            <p style={{ marginBottom: 6, paddingLeft: 8, paddingRight: 8, fontSize: 12, color: 'var(--color-text-secondary)' }}>Quick select</p>
+          <div style={{ padding: 8 }}>
+            <Text variant="body/sm" color="secondary" style={{ marginBottom: 6, paddingLeft: 8, paddingRight: 8 }}>Quick select</Text>
             <Grid cols={2} gap="xs">
               {presets.map((p) => (
                 <Button
@@ -106,10 +106,11 @@ function DateRangePicker({
               ))}
             </Grid>
           </div>
+          <Divider spacing="none" />
 
           {/* Custom date inputs */}
           <div style={{ padding: 12 }}>
-            <p style={{ marginBottom: 8, fontSize: 12, color: 'var(--color-text-secondary)' }}>Custom range</p>
+            <Text variant="body/sm" color="secondary" style={{ marginBottom: 8 }}>Custom range</Text>
             <Flex align="center" gap={8}>
               <FormInput
                 type="date"
@@ -118,7 +119,7 @@ function DateRangePicker({
                 className="text-body-sm"
                 style={{ paddingTop: 6, paddingBottom: 6 }}
               />
-              <span style={{ color: 'var(--color-text-secondary)' }}>&rarr;</span>
+              <Text variant="body/md" as="span" color="secondary">&rarr;</Text>
               <FormInput
                 type="date"
                 value={toInputDate(endDate)}
@@ -292,7 +293,7 @@ export default function ReportsPage() {
         <Card>
           <div style={{ position: 'relative', marginBottom: 4 }} ref={utilisationSettingsRef}>
             <Flex align="center" justify="space-between">
-              <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--color-text)' }}>Utilisation</h3>
+              <Text variant="display/sm" as="h3" color="text" style={{ fontSize: 20 }}>Utilisation</Text>
               <Button
                 variant="icon"
                 size="sm"
@@ -304,10 +305,10 @@ export default function ReportsPage() {
             </Flex>
             {utilisationSettingsOpen && (
               <div style={{ position: 'absolute', right: 0, top: '100%', zIndex: 30, marginTop: 4, width: 280, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', padding: 16, boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
-                <h4 className="text-heading-sm" style={{ color: 'var(--color-text)' }}>Utilisation settings</h4>
-                <p className="text-caption-md" style={{ marginBottom: 12, color: 'var(--color-text-secondary)' }}>
+                <Text variant="heading/sm" as="h4" color="text">Utilisation settings</Text>
+                <Text variant="caption/md" color="secondary" style={{ marginBottom: 12 }}>
                   Adjust calculation settings for utilisation metrics.
-                </p>
+                </Text>
                 <Flex vertical gap={12}>
                   <Checkbox
                     label="Exclude busy time"
@@ -328,9 +329,9 @@ export default function ReportsPage() {
               </div>
             )}
           </div>
-          <p className="text-caption-md" style={{ marginBottom: 8, color: 'var(--color-text-secondary)' }}>Percentage of available time utilised</p>
-          <p className="text-metric-lg" style={{ marginBottom: 4, color: 'var(--color-text)' }}>{(totalUtilisation / sortedPractitioners.length).toFixed(2)}%</p>
-          <p className="text-caption-md" style={{ marginBottom: 16, color: 'var(--color-text-secondary)' }}>{fmtDay(dateStart)} - {fmtDay(dateEnd)}</p>
+          <Text variant="caption/md" color="secondary" style={{ marginBottom: 8 }}>Percentage of available time utilised</Text>
+          <Text variant="metric/lg" as="p" color="text" style={{ marginBottom: 4 }}>{(totalUtilisation / sortedPractitioners.length).toFixed(2)}%</Text>
+          <Text variant="caption/md" color="secondary" style={{ marginBottom: 16 }}>{fmtDay(dateStart)} - {fmtDay(dateEnd)}</Text>
           <div style={{ position: 'relative', height: 128 }}>
             <svg viewBox="0 0 280 100" style={{ height: '100%', width: '100%' }} preserveAspectRatio="none">
               {[0, 25, 50, 75, 100].map((y) => (
@@ -351,27 +352,27 @@ export default function ReportsPage() {
                 return <circle key={i} cx={i * 46.67} cy={100 - (v / max) * 100} r="3" fill="#7c3aed" />;
               })}
             </svg>
-            <Flex vertical justify="space-between" style={{ position: 'absolute', top: 0, bottom: 0, left: 0, marginLeft: -4 }} className="text-caption-sm text-text-secondary">
-              {(() => { const max = Math.ceil(Math.max(...utilisationData) + 1); return [max, Math.round(max * 0.67), Math.round(max * 0.33), 0].map((v) => <span key={v}>{v}%</span>); })()}
+            <Flex vertical justify="space-between" style={{ position: 'absolute', top: 0, bottom: 0, left: 0, marginLeft: -4 }}>
+              {(() => { const max = Math.ceil(Math.max(...utilisationData) + 1); return [max, Math.round(max * 0.67), Math.round(max * 0.33), 0].map((v) => <Text variant="caption/sm" as="span" color="secondary" key={v}>{v}%</Text>); })()}
             </Flex>
           </div>
-          <Flex justify="space-between" style={{ marginTop: 4, paddingLeft: 8, paddingRight: 8 }} className="text-caption-sm text-text-secondary">
-            {chartDays.map((d) => (<span key={d}>{d}</span>))}
+          <Flex justify="space-between" style={{ marginTop: 4, paddingLeft: 8, paddingRight: 8 }}>
+            {chartDays.map((d) => (<Text variant="caption/sm" as="span" color="secondary" key={d}>{d}</Text>))}
           </Flex>
-          <Flex align="center" justify="center" gap={4} style={{ marginTop: 8 }} className="text-caption-sm text-text-secondary">
+          <Flex align="center" justify="center" gap={4} style={{ marginTop: 8 }}>
             <ColorDot color="var(--color-primary)" size="xs" />
-            {fmtDay(dateStart)} - {fmtDay(dateEnd)}
+            <Text variant="caption/sm" as="span" color="secondary">{fmtDay(dateStart)} - {fmtDay(dateEnd)}</Text>
           </Flex>
         </Card>
 
         {/* Revenue card */}
         <Card>
           <Flex align="center" justify="space-between" style={{ marginBottom: 4 }}>
-            <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--color-text)' }}>Revenue</h3>
+            <Text variant="display/sm" as="h3" color="text" style={{ fontSize: 20 }}>Revenue</Text>
           </Flex>
-          <p className="text-caption-md" style={{ marginBottom: 8, color: 'var(--color-text-secondary)' }}>Total invoiced revenue from appointments and support activities (tax exclusive)</p>
-          <p className="text-metric-lg" style={{ marginBottom: 4, color: 'var(--color-text)' }}>${totalRevenue >= 1000 ? (totalRevenue / 1000).toFixed(2) + "K" : totalRevenue.toFixed(2)}</p>
-          <p className="text-caption-md" style={{ marginBottom: 16, color: 'var(--color-text-secondary)' }}>{fmtDay(dateStart)} - {fmtDay(dateEnd)}</p>
+          <Text variant="caption/md" color="secondary" style={{ marginBottom: 8 }}>Total invoiced revenue from appointments and support activities (tax exclusive)</Text>
+          <Text variant="metric/lg" as="p" color="text" style={{ marginBottom: 4 }}>${totalRevenue >= 1000 ? (totalRevenue / 1000).toFixed(2) + "K" : totalRevenue.toFixed(2)}</Text>
+          <Text variant="caption/md" color="secondary" style={{ marginBottom: 16 }}>{fmtDay(dateStart)} - {fmtDay(dateEnd)}</Text>
           <div style={{ position: 'relative', height: 128 }}>
             <Flex vertical justify="space-between" style={{ position: 'absolute', top: 0, bottom: 0, left: 0 }} className="text-caption-sm text-text-secondary">
               {(() => { const max = Math.ceil(Math.max(...revenueData) / 50) * 50; return [max, Math.round(max * 0.67), Math.round(max * 0.33), 0].map((v) => <span key={v}>${v}</span>); })()}
