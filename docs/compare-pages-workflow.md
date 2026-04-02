@@ -137,6 +137,13 @@ For each page checked, output this structured block. **All sections are required
 **Verdict:** yes | partial | no
 **Reason:** [if partial/no, specific explanation]
 **Delta from previous:** changed | unchanged | first check
+
+**DS compliance (quick scan):**
+- DS imports: [count] — e.g. "Button, Card, Text, DataTable, PageHeader"
+- Inline `style={{` count: [count] — target: <10 per page
+- Raw HTML with styling: [count] — raw `<button>`, `<div style=`, `<span className="text-`
+- DS grade: A (>90% DS) | B (60-90%) | C (<60%)
+- Violations: [list top 3 — e.g. "12 raw div with card pattern", "8 className text- instead of Text"]
 ```
 
 ### 2g. Fallback (no Chrome MCP)

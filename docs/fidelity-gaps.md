@@ -7,6 +7,18 @@ Priority ordering: high-traffic pages first (Dashboard, Calendar, Clients), then
 
 See the **Gap completion rule** in CLAUDE.md (single source of truth). In short: a gap is only `[x]` when ALL related catalog entries show Match = "yes".
 
+## DS compliance grading
+
+Every page should aim for **Grade A (>90% DS component usage)**. The `/audit` workflow now includes a DS compliance quick scan per page. Grade definitions:
+
+| Grade | Inline `style={{` | Raw HTML with styling | Criteria |
+|-------|-------------------|----------------------|----------|
+| **A** | ≤10 | 0 raw buttons/cards | Page structure almost entirely DS components |
+| **B** | 11-30 | ≤5 raw patterns | Some inline styles for layout/positioning |
+| **C** | >30 | >5 raw patterns | Significant inline styling, needs migration |
+
+When creating new gaps or fixing existing ones, prefer DS component solutions over inline style fixes. A gap should not be marked `[x]` if the fix introduces new inline styles that could use existing DS components.
+
 ## Priority 0 — AntD Migration Systemic Regressions (2026-03-31 audit)
 
 Cross-cutting issues affecting multiple pages. Fix these first for maximum impact.
