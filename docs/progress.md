@@ -52,7 +52,37 @@ Full codebase scan revealed:
 - 15e: Flex cleanup (97 patterns)
 - 15f: FormField adoption (50+ patterns)
 
-### Now executing Priority 15 gaps
+### Priority 15 Execution (partial)
+- Migrated 10 Grade C files for Text component adoption
+- 11 of 14 Navbar→FormPage migrations done (4 complex pages kept Navbar)
+- Grid + Divider adopted in migrated files
+- Inline styles reduced from 2,002 → 1,880
+
+### Template Styling Plan (new: `docs/template-styling-plan.md`)
+Dual-tab Chrome MCP measurement of production vs localhost for all 3 major templates.
+
+**ListPage** — 5 DS-level fixes applied:
+- Table header bg: `#f3f5f7` → `#eaedf1`
+- Button default border: light → `#414549`
+- Cell padding: `12px 16px` → `16px` uniform
+- Search button: purple → white
+- Control height: 32px → 38px
+
+**FormPage** (invoices/new) — 7 issues documented, not yet fixed:
+- Missing header buttons (Show/hide fields, Preview)
+- Wrong CTA text (Save → Create), wrong Cancel style (should be red/danger)
+- Card-wrapped layout should be flat form
+- Different field set, missing fields (Reference, Invoice to, Practitioner, Provider numbers)
+- Line items table missing columns (Type, Code, Unit, Tax rate, Discount)
+- Patient should be pre-selected by default
+
+**DetailPage** (client detail) — 7 issues documented, 1 DS fix applied:
+- Added `variant="primary"` to Divider for purple section dividers (brand pattern)
+- Still needed: SideNav count badge support, button icon/variant fixes, migrate to DetailPage template, add Client tags sidebar section
+
+### Route Mapping Updated
+- Canonical reference patient: Production `446604` (Harry Nguyen) ↔ Localhost `cmngtw7n9005eycwg4e67506h`
+- All `/clients/1` placeholders updated to real CUIDs
 
 ---
 
