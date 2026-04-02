@@ -61,20 +61,82 @@ Affects: clients, contacts, invoices, payments, products, waitlist, all report l
 
 ---
 
-## FormPage Template Issues
+## FormPage Template Issues (measured: /invoices/new)
 
-**Status:** Needs measurement — compare production settings edit pages vs localhost.
+**Status:** Measured 2026-04-02. Significant structural + styling differences.
 
-Pages to check:
-- `/settings/email-templates/edit/[id]` (production) vs localhost
-- `/invoices/new` (production) vs localhost
-- `/notes/new` (production) vs localhost
+### Issue F1: Page background color
 
-Expected issues: Navbar height, form section spacing, button alignment.
+| | Production | Localhost |
+|---|---|---|
+| Background | white (`rgb(255,255,255)`) | white (`rgb(255,255,255)`) |
+
+Note: User reported difference — may be a subtle off-white in some areas. Needs visual check.
+
+### Issue F2: Content container structure
+
+| | Production | Localhost |
+|---|---|---|
+| Layout | Flat form, no Card wrappers | Card sections with `headerBar` titles ("Client", "Invoice details") |
+| Max width | No maxWidth constraint visible | 1024px centered |
+
+**Fix:** Production invoices/new uses a flat layout with field groups, not Cards. The localhost version wraps everything in Card components with headerBar. This is a structural difference in the page itself, not the FormPage template.
+**Files:** `src/app/invoices/new/page.tsx`
+
+### Issue F3: Missing header buttons
+
+| | Production | Localhost |
+|---|---|---|
+| Buttons | "Show/hide fields", "Preview", "Cancel" (red), "Create" (purple) | "Cancel" (secondary), "Save" (primary) |
+
+**Fix:** Add missing buttons to invoices/new navbar actions. "Cancel" should have red text/border (`variant="danger"`). "Create" instead of "Save". Add "Show/hide fields" and "Preview" buttons.
+**Files:** `src/app/invoices/new/page.tsx`
+
+### Issue F4: Different field set
+
+| | Production | Localhost |
+|---|---|---|
+| Fields | Invoice #, Reference, Issue date, Due date, Patient, Invoice to, Extra invoice details, Location, Practitioner, Provider numbers | Client name, Contact, Invoice number, Date, Due date, Location, Notes, Payment terms |
+
+**Fix:** Update field labels and add missing fields to match production. This is page-level content, not a template issue.
+**Files:** `src/app/invoices/new/page.tsx`
+
+### Issue F5: Input field background color (DS-level)
+
+| | Production | Localhost |
+|---|---|---|
+| Input bg | `rgba(0,0,0,0)` (transparent — field renders on white form) | white |
+| Select bg | white | white |
+| Input border | `1px solid rgb(217,217,217)` | same via AntD |
+
+**Fix:** If input fields appear differently colored, check AntD Input component token `colorBgContainer`. Currently white, may need to be transparent for certain form contexts. Consider adding a `variant` prop to FormInput for "filled" vs "outlined" styles.
+**Files:** `src/components/ds/theme.ts`, potentially `src/components/ds/FormInput.tsx`
+
+### Issue F6: Navbar back link style
+
+| | Production | Localhost |
+|---|---|---|
+| Back element | "Invoices" text link (purple, 14px) | Arrow icon (←) |
+| Title | "Create invoice" | "New invoice" |
+
+**Fix:** Production uses text breadcrumb link, not arrow. Consider adding a `backLabel` prop to Navbar/FormPage. Title text is page-level.
+**Files:** `src/components/ds/Navbar.tsx`, `src/components/ds/FormPage.tsx`
+
+### Summary: FormPage template vs page-level fixes
+
+| Fix | Level | Priority |
+|---|---|---|
+| Back link as text breadcrumb | **DS template** (Navbar/FormPage) | High |
+| Input field bg transparency | **DS theme** | Medium |
+| Cancel button red variant | **DS** (Button already supports `danger`) | Low — already works |
+| Missing buttons, field labels, layout | **Page-level** (invoices/new) | High |
+| Card wrappers → flat layout | **Page-level** (invoices/new) | High |
+
+---
 
 ## DetailPage Template Issues
 
-**Status:** Needs measurement — compare production client detail vs localhost.
+**Status:** Needs measurement — compare production patient detail vs localhost client detail.
 
 Pages to check:
 - `/patients/[id]` (production) vs `/clients/[id]` (localhost)
