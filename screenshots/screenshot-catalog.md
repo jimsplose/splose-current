@@ -10,6 +10,8 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 **Sweep 2026-04-02** — Post DS-coverage-fix verification. Background color fixed (colorBgLayout #f9fafb→#ffffff), 48 hex colors replaced with CSS vars, Text/Card/Grid DS components adopted across 12 pages. **Batch 1 (8 pages):** Dashboard YES (bg white, headings 14px/500 match), Clients list YES, Client detail YES (section headings 18px/700 match), Invoices list YES, Invoice detail YES (labels 13px/700 ✓, sidebar 21px/500 ✓, bg white ✓), Contacts list YES, Contact detail FIXED then YES (section heading fontWeight 600→700), Waitlist YES. **Batch 2 (6 pages):** Calendar week YES (time 10px, DOW 14px/500/rgb(112,117,122) exact), Payments YES, Products YES, Reports overview YES (card headings 20px/700 exact), Settings/services YES. **Batch 3 (5 pages):** Payments/new UPGRADED to YES (labels now 14px/600/rgb(34,34,34) exact match after S12 fix), Notes/new YES, Client sub-tabs YES (th 14px/600 ✓), Reports/aged-debtors YES. All shared components (PageHeader, Th, Card, body bg) confirmed matching across all pages. **Known remaining partials:** Login (illustration), Online booking (colors/radius). **Note:** DB re-seeds cause stale CUID IDs — state registry updated twice this session.
 
+**Sweep 2026-04-07** — Full sweep audit (Chrome MCP unstable, mixed live-measurement + code-review). Found 5 new systemic issues: **(S13)** Search button CSS selector `.ant-input-search-button` should be `.ant-input-search-btn` — button renders purple/filled instead of white/outline on ALL ListPage instances. **(S14)** `colorLink` missing from theme — antd v5 defaults to `colorInfo` (#5578FF blue) instead of `colorPrimary` (#8250FF purple). Affects "New X" buttons, "Load more" links. **(S15)** `heading/lg` fontWeight 600 should be 700 — affects DetailPage section headings. **(S16)** `body/md-strong` fontWeight 600 should be 700 — affects Dashboard message author names. **(S17)** Dashboard messages widget: Send button size="sm" (29px) vs prod 38px; timestamp/date colors wrong (secondary vs text). **Downgrades:** Dashboard PARTIAL (S16+S17), Clients list PARTIAL (S13+S14), all ListPages PARTIAL (S13). Client detail section headings affected by S15 but layout/typography otherwise correct. Settings pages unaffected (no SearchBar, use PageHeader correctly). Calendar/Reports unaffected by S13-S17.
+
 **Previous sweep:** 2026-03-30 — Batch 1 (6 pages): Dashboard partial (fontWeight), Calendar week partial (time labels 11px), Calendar month partial (DOW color), Calendar day partial (time labels), Clients list partial (tag fontWeight), Client detail partial (fontWeight).
 
 **Previous sweep:** 2026-03-26 (session 2) — Full sweep dual-tab Chrome MCP at 1440x900. 30+ pages measured across all sections. **Known partials:** login illustration, mobile views, custom date picker, calendar week view, online booking, AI chat interactivity.
@@ -388,7 +390,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-2026-03-17-19_29_34.png | Patients list default | yes — measurement-verified 2026-04-01: title 30px/700/green PASS, search 38px PASS, th bg rgb(243,245,247) PASS. S2+S3 fixes resolved all remaining issues. |
+| screencapture-acme-splose-patients-2026-03-17-19_29_34.png | Patients list default | partial — 2026-04-07: S13 Search button selector mismatch (purple instead of white). S14 action link color blue vs purple. Title/th/td typography still match. |
 | screencapture-acme-splose-patients-2026-03-17-19_29_34 (1).png | Patients list (duplicate) | yes — visual audit 2026-03-23 confirmed |
 
 ## Patients — Detail / Appointments (`/patients/:id/appointments`)
@@ -506,7 +508,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.02.16 am.png | Dashboard — desktop, Messages feed + Income chart + Incomplete progress notes + Recently submitted forms | yes — measurement-verified 2026-04-01: section heading bg rgb(243,245,247) PASS, fontSize/fontWeight/color PASS. S4 fix resolved remaining issues. |
+| Screenshot 2026-03-11 at 11.02.16 am.png | Dashboard — desktop, Messages feed + Income chart + Incomplete progress notes + Recently submitted forms | partial — 2026-04-07: S16 author name fontWeight 600 vs prod 700, S17 Send button 29px vs prod 38px, timestamp colors secondary vs text, date divider 12px vs 14px, Load more blue vs purple (S14). Section headings/bg still match. |
 | Screenshot 2026-03-11 at 11.02.24 am.png | Dashboard — mobile in desktop browser frame, Messages with GIF | yes |
 | Screenshot 2026-03-11 at 11.08.47 am.png | Dashboard — mobile, Income chart + Incomplete progress notes (scrolled) | yes |
 | Screenshot 2026-03-11 at 11.09.05 am.png | Dashboard — desktop, Messages feed (scrolled) with tooltip on income chart | yes |
@@ -515,7 +517,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.09.27 am.png | Clients list — desktop, default view | yes — measurement-verified 2026-03-25: title 30px/700/rgb(40,103,68), th 14px/600/bg rgb(243,245,247)/padding 16px, td 14px/400/padding 12px 16px, search 38px. |
+| Screenshot 2026-03-11 at 11.09.27 am.png | Clients list — desktop, default view | partial — 2026-04-07: S13 Search button purple/filled instead of white/outline (CSS selector mismatch .ant-input-search-button vs .ant-input-search-btn). S14 "New client" link color blue #5578FF vs prod purple #8250FF. Title/th/td still match. |
 | Screenshot 2026-03-11 at 11.09.33 am.png | Clients list — desktop, near-identical | yes |
 | Screenshot 2026-03-11 at 11.09.39 am.png | Clients list — mobile (iPhone) | yes |
 | Screenshot 2026-03-11 at 11.09.47 am.png | Clients list — mobile, scrolled right to Phone/Email columns | yes |
@@ -526,7 +528,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.10.50 am.png | Client detail — desktop, Details tab (General details, Account balance, Client alerts, Stripe, Mailchimp) | yes — measurement-verified 2026-03-25: heading 18px/600, section headings 18px/600/rgb(65,69,73), active tab rgb(130,80,255), inactive tab rgb(107,114,128), action btns 14px/500/34px. |
+| Screenshot 2026-03-11 at 11.10.50 am.png | Client detail — desktop, Details tab (General details, Account balance, Client alerts, Stripe, Mailchimp) | partial — 2026-04-07: S15 section headings fontWeight 600 vs prod 700 (heading/lg variant). Layout/type label/sidebar all match. |
 | Screenshot 2026-03-11 at 11.11.01 am.png | Client detail — desktop, Details tab (scrolled: Medications, Medicare, Custom fields, Invoicing, Associated contacts) | yes |
 | Screenshot 2026-03-11 at 11.15.13 am.png | Client detail (Skyler Peterson) — desktop, Details tab, different client with more data | yes |
 
@@ -578,7 +580,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.13.20 am.png | Contacts list — desktop, with row highlighted | yes — measurement-verified 2026-03-31 session 2: title 30px/700/rgb(66,105,74) MATCH, th 14px/600/rgb(65,69,73) MATCH, tabs MATCH. Systemic: search 38→32px, th bg rgb(243,245,247)→rgb(234,237,241). |
+| Screenshot 2026-03-11 at 11.13.20 am.png | Contacts list — desktop, with row highlighted | partial — 2026-04-07: S13 Search button purple instead of white (systemic). Title/th/tabs still match. |
 | Screenshot 2026-03-11 at 11.14.04 am.png | Contacts list — desktop, no highlight | yes — structure matches |
 
 ## Contact Detail (`/contacts/:id`)
@@ -592,7 +594,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.14.32 am.png | Invoices list — desktop, with Overdue/Paid/Draft badges | yes — measurement-verified 2026-03-31 session 2: title 30px/700/rgb(66,105,74) MATCH, th 14px/600/rgb(65,69,73) MATCH. Systemic: th bg, search sizing. |
+| Screenshot 2026-03-11 at 11.14.32 am.png | Invoices list — desktop, with Overdue/Paid/Draft badges | partial — 2026-04-07: S13 Search button purple instead of white (systemic). S14 action link color blue vs purple. Title/th/td still match. |
 | Screenshot 2026-03-11 at 11.14.41 am.png | Invoices list — mobile (iPhone) | partial |
 | Screenshot 2026-03-11 at 11.14.52 am.png | Invoices list — mobile, expanded row showing Payment sub-row | partial |
 
@@ -614,7 +616,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.17.41 am.png | Payments list — desktop, default view with Credit badges | yes — measurement-verified 2026-03-31 session 2: title 30px/700/rgb(66,105,74) MATCH, th 14px/600/rgb(65,69,73) MATCH. Systemic: th bg, search sizing. |
+| Screenshot 2026-03-11 at 11.17.41 am.png | Payments list — desktop, default view with Credit badges | partial — 2026-04-07: S13 Search button purple instead of white (systemic). Title/th still match. |
 | Screenshot 2026-03-11 at 11.17.47 am.png | Payments list — desktop, expanded row showing Invoice sub-row | yes — expandable rows with invoice sub-rows implemented 2026-03-24 |
 
 ## Reports — Performance Overview (`/reports`)
@@ -656,7 +658,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.21.40 am.png | Waitlist Screener tab — desktop, Triage list | yes — measurement-verified 2026-03-31 session 2: Screener/Waitlist tabs 14px/purple-active/gray-inactive MATCH. Th 14px/600/rgb(65,69,73) MATCH. Systemic: search height, th bg color. |
+| Screenshot 2026-03-11 at 11.21.40 am.png | Waitlist Screener tab — desktop, Triage list | partial — 2026-04-07: S13 Search button purple instead of white (systemic). Tabs/th still match. |
 
 ## Waitlist — Waitlist Tab (`/waitlist`)
 
@@ -671,7 +673,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.22.40 am.png | Products list — desktop, default view | yes — measurement-verified 2026-03-31 session 2: title 30px/700/rgb(66,105,74) MATCH, th 14px/600/rgb(65,69,73) MATCH. Systemic: th bg. |
+| Screenshot 2026-03-11 at 11.22.40 am.png | Products list — desktop, default view | partial — 2026-04-07: S13 Search button purple instead of white (systemic). Title/th still match. |
 | Screenshot 2026-03-11 at 11.22.46 am.png | Products list — desktop, expanded product row showing variants | yes — expandable rows with variant sub-rows implemented 2026-03-24 |
 | Screenshot 2026-03-11 at 11.22.51 am.png | Products list — desktop, Manage Stock modal | yes — Manage Stock modal with Location/Available/Track stock/Count/Actions table, 6 locations, pagination, Cancel/OK buttons 2026-03-24 |
 

@@ -59,6 +59,22 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 ### Group S12 — Form label styling (DS components)
 - [x] **Form labels wrong weight/color** — Fixed: FormInput, FormSelect, FormTextarea, Select DS components updated from 400/var(--color-text-secondary) to 600/rgb(34,34,34). Measurement-verified on /payments/new 2026-04-01.
 
+### Group S13 — Search button CSS selector (all ListPage instances) `src/app/globals.css`
+- [ ] **Search button purple instead of white** — CSS targets `.ant-input-search-button` but antd v5 uses `.ant-input-search-btn`. The override in globals.css (line 237) never applies, so the button renders as purple/filled instead of white/outline. **Fix:** Change `.ant-input-search-button` to `.ant-input-search-btn` in globals.css. Affects: Clients, Contacts, Invoices, Payments, Waitlist, Products, all ListPage instances. Measured 2026-04-07: prod bg rgb(255,255,255)/color rgba(0,0,0,0.45)/border 1px solid rgb(65,69,73) vs localhost bg rgb(130,80,255)/color rgb(255,255,255).
+
+### Group S14 — colorLink missing from theme `src/components/ds/theme.ts`
+- [ ] **Link-colored elements blue instead of purple** — antd v5 defaults `colorLink` from `colorInfo` (#5578FF blue) when not explicitly set. Production uses primary purple (#8250FF) for links. **Fix:** Add `colorLink: "#8250FF"` to `sploseTheme.token`. Affects: "New X" action links on ListPages, "Load more" buttons on Dashboard, and any antd `type="link"` button. Measured 2026-04-07: prod "New patient" color rgb(130,80,255) vs localhost rgb(85,120,255).
+
+### Group S15 — heading/lg fontWeight mismatch `src/components/ds/Text.module.css`
+- [ ] **Section headings fontWeight 600 should be 700** — `heading/lg` variant uses `font-weight: 600` but production shows 700 for section headings like "General details" on client detail page. **Fix:** Update `.headingLg` font-weight from 600 to 700 in Text.module.css. Affects: all DetailPage section headings. Measured 2026-04-07: prod "General details" 18px/700 vs localhost 18px/600.
+
+### Group S16 — body/md-strong fontWeight mismatch `src/components/ds/Text.module.css`
+- [ ] **Strong body text fontWeight 600 should be 700** — `body/md-strong` variant uses `font-weight: 600` but production shows 700 for message author names on Dashboard. **Fix:** Update `.bodyMdStrong` font-weight from 600 to 700 in Text.module.css. Measured 2026-04-07: prod author name 14px/700 vs localhost 14px/600.
+
+### Group S17 — Dashboard messages widget styling `src/app/DashboardClient.tsx`
+- [ ] **Send button too small** — Uses `size="sm"` (29px height, 6px radius) but production is 38px/8px. **Fix:** Change to `size="md"` or remove size prop. Measured 2026-04-07: prod 38px/8px vs localhost 29px/6px.
+- [ ] **Timestamp/date divider colors wrong** — Timestamps use secondary color rgb(110,110,100) vs production rgb(65,69,73). Date divider fontSize 12px vs production 14px. **Fix:** Change Text color prop from "secondary" to "text" for timestamps and date dividers, update fontSize.
+
 ## Priority 1 — High-traffic pages
 
 ### Group D — Dashboard (`src/app/page.tsx`)
