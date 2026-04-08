@@ -9,6 +9,7 @@ export const sploseTheme: ThemeConfig = {
     colorPrimaryBorder: "#D6C1FF", // violet-300
     colorPrimaryHover: "#6B3FDB", // violet-700
     colorPrimaryActive: "#5532B3", // violet-800
+    colorLink: "#8250FF", // match primary — antd v5 defaults to colorInfo otherwise
 
     // === SUCCESS ===
     colorSuccess: "#00C269", // success-600

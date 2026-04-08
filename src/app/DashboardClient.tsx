@@ -194,7 +194,7 @@ function MessageItem({
       <div style={{ minWidth: 0, flex: 1 }}>
         <Flex align="baseline" gap={6}>
           <Text variant="body/md-strong" as="span" color="text">{message.sender}</Text>
-          <Text variant="caption/sm" as="span" color="secondary">{message.time}</Text>
+          <Text variant="caption/sm" as="span" color="text">{message.time}</Text>
           <Text variant="body/md" as="span" color="secondary" style={{ marginLeft: 'auto' }}>
             {expanded ? <DownOutlined style={{ fontSize: 14 }} /> : <RightOutlined style={{ fontSize: 14 }} />}
           </Text>
@@ -273,7 +273,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
         <div style={{ flex: 1, overflowY: 'auto', paddingLeft: 16, paddingRight: 16, paddingBottom: 8 }}>
           <Flex vertical gap={16}>
             <Flex align="center" justify="center" style={{ paddingTop: 8, paddingBottom: 8 }}>
-              <Text variant="caption/md" as="span" color="secondary">
+              <Text variant="body/md" as="span" color="text">
                 {new Date().toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" })}
               </Text>
             </Flex>
@@ -283,10 +283,10 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                 <Avatar name={appt.practitioner.name} color={appt.practitioner.color} size="sm" />
                 <div style={{ minWidth: 0 }}>
                   <Flex align="baseline" gap={6}>
-                    <Text variant="heading/sm" as="span" color="text">
+                    <Text variant="body/md-strong" as="span" color="text">
                       {appt.practitioner.name}
                     </Text>
-                    <Text variant="caption/sm" as="span" color="secondary">{appt.startTime}</Text>
+                    <Text variant="caption/sm" as="span" color="text">{appt.startTime}</Text>
                   </Flex>
                   <Text variant="body/md" color="secondary" style={{ marginTop: 2 }}>
                     Appointment with {appt.client.firstName} {appt.client.lastName} -- {appt.type}
@@ -356,7 +356,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
             </Button>
             <div style={{ flex: 1 }} />
             <Text variant="label/md" as="span" color="secondary" className={styles.gifButton} style={{ marginRight: 4, cursor: 'pointer', borderRadius: 4, padding: '2px 6px' }}>GIF</Text>
-            <Button variant="primary" size="sm" className="text-body-md">
+            <Button variant="primary" className="text-body-md">
               Send
             </Button>
           </Flex>

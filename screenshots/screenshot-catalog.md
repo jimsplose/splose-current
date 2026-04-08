@@ -390,7 +390,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patients-2026-03-17-19_29_34.png | Patients list default | partial — 2026-04-07: S13 Search button selector mismatch (purple instead of white). S14 action link color blue vs purple. Title/th/td typography still match. |
+| screencapture-acme-splose-patients-2026-03-17-19_29_34.png | Patients list default | yes — measurement-verified 2026-04-08: S13+S14 fixed. Search btn white, action links purple. |
 | screencapture-acme-splose-patients-2026-03-17-19_29_34 (1).png | Patients list (duplicate) | yes — visual audit 2026-03-23 confirmed |
 
 ## Patients — Detail / Appointments (`/patients/:id/appointments`)
@@ -508,7 +508,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.02.16 am.png | Dashboard — desktop, Messages feed + Income chart + Incomplete progress notes + Recently submitted forms | partial — 2026-04-07: S16 author name fontWeight 600 vs prod 700, S17 Send button 29px vs prod 38px, timestamp colors secondary vs text, date divider 12px vs 14px, Load more blue vs purple (S14). Section headings/bg still match. |
+| Screenshot 2026-03-11 at 11.02.16 am.png | Dashboard — desktop, Messages feed + Income chart + Incomplete progress notes + Recently submitted forms | yes — measurement-verified 2026-04-08: S16+S17 fixed. Author 14px/700, Send btn 38px/8px, timestamp/date colors rgb(65,69,73), Load more purple. |
 | Screenshot 2026-03-11 at 11.02.24 am.png | Dashboard — mobile in desktop browser frame, Messages with GIF | yes |
 | Screenshot 2026-03-11 at 11.08.47 am.png | Dashboard — mobile, Income chart + Incomplete progress notes (scrolled) | yes |
 | Screenshot 2026-03-11 at 11.09.05 am.png | Dashboard — desktop, Messages feed (scrolled) with tooltip on income chart | yes |
@@ -517,7 +517,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.09.27 am.png | Clients list — desktop, default view | partial — 2026-04-07: S13 Search button purple/filled instead of white/outline (CSS selector mismatch .ant-input-search-button vs .ant-input-search-btn). S14 "New client" link color blue #5578FF vs prod purple #8250FF. Title/th/td still match. |
+| Screenshot 2026-03-11 at 11.09.27 am.png | Clients list — desktop, default view | yes — measurement-verified 2026-04-08: S13+S14 fixed. Search btn white bg/rgba(0,0,0,0.45), "New client" purple rgb(130,80,255). Title/th/td unchanged. |
 | Screenshot 2026-03-11 at 11.09.33 am.png | Clients list — desktop, near-identical | yes |
 | Screenshot 2026-03-11 at 11.09.39 am.png | Clients list — mobile (iPhone) | yes |
 | Screenshot 2026-03-11 at 11.09.47 am.png | Clients list — mobile, scrolled right to Phone/Email columns | yes |
@@ -528,7 +528,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.10.50 am.png | Client detail — desktop, Details tab (General details, Account balance, Client alerts, Stripe, Mailchimp) | partial — 2026-04-07: S15 section headings fontWeight 600 vs prod 700 (heading/lg variant). Layout/type label/sidebar all match. |
+| Screenshot 2026-03-11 at 11.10.50 am.png | Client detail — desktop, Details tab (General details, Account balance, Client alerts, Stripe, Mailchimp) | yes — measurement-verified 2026-04-08: S15 fixed. "General details" 18px/700 exact match. Layout/sidebar unchanged. |
 | Screenshot 2026-03-11 at 11.11.01 am.png | Client detail — desktop, Details tab (scrolled: Medications, Medicare, Custom fields, Invoicing, Associated contacts) | yes |
 | Screenshot 2026-03-11 at 11.15.13 am.png | Client detail (Skyler Peterson) — desktop, Details tab, different client with more data | yes |
 
@@ -580,7 +580,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.13.20 am.png | Contacts list — desktop, with row highlighted | partial — 2026-04-07: S13 Search button purple instead of white (systemic). Title/th/tabs still match. |
+| Screenshot 2026-03-11 at 11.13.20 am.png | Contacts list — desktop, with row highlighted | yes — 2026-04-08: S13 fixed systemically. Search btn white. |
 | Screenshot 2026-03-11 at 11.14.04 am.png | Contacts list — desktop, no highlight | yes — structure matches |
 
 ## Contact Detail (`/contacts/:id`)
@@ -594,7 +594,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.14.32 am.png | Invoices list — desktop, with Overdue/Paid/Draft badges | partial — 2026-04-07: S13 Search button purple instead of white (systemic). S14 action link color blue vs purple. Title/th/td still match. |
+| Screenshot 2026-03-11 at 11.14.32 am.png | Invoices list — desktop, with Overdue/Paid/Draft badges | yes — 2026-04-08: S13+S14 fixed systemically. Search btn white, links purple. |
 | Screenshot 2026-03-11 at 11.14.41 am.png | Invoices list — mobile (iPhone) | partial |
 | Screenshot 2026-03-11 at 11.14.52 am.png | Invoices list — mobile, expanded row showing Payment sub-row | partial |
 
@@ -616,7 +616,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.17.41 am.png | Payments list — desktop, default view with Credit badges | partial — 2026-04-07: S13 Search button purple instead of white (systemic). Title/th still match. |
+| Screenshot 2026-03-11 at 11.17.41 am.png | Payments list — desktop, default view with Credit badges | yes — 2026-04-08: S13 fixed systemically. Search btn white. |
 | Screenshot 2026-03-11 at 11.17.47 am.png | Payments list — desktop, expanded row showing Invoice sub-row | yes — expandable rows with invoice sub-rows implemented 2026-03-24 |
 
 ## Reports — Performance Overview (`/reports`)
@@ -658,7 +658,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.21.40 am.png | Waitlist Screener tab — desktop, Triage list | partial — 2026-04-07: S13 Search button purple instead of white (systemic). Tabs/th still match. |
+| Screenshot 2026-03-11 at 11.21.40 am.png | Waitlist Screener tab — desktop, Triage list | yes — 2026-04-08: S13 fixed systemically. Search btn white. |
 
 ## Waitlist — Waitlist Tab (`/waitlist`)
 
@@ -673,7 +673,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.22.40 am.png | Products list — desktop, default view | partial — 2026-04-07: S13 Search button purple instead of white (systemic). Title/th still match. |
+| Screenshot 2026-03-11 at 11.22.40 am.png | Products list — desktop, default view | yes — 2026-04-08: S13 fixed systemically. Search btn white. |
 | Screenshot 2026-03-11 at 11.22.46 am.png | Products list — desktop, expanded product row showing variants | yes — expandable rows with variant sub-rows implemented 2026-03-24 |
 | Screenshot 2026-03-11 at 11.22.51 am.png | Products list — desktop, Manage Stock modal | yes — Manage Stock modal with Location/Available/Track stock/Count/Actions table, 6 locations, pagination, Cancel/OK buttons 2026-03-24 |
 
