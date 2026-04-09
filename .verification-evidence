@@ -1,2 +1,2 @@
-SKIP: src/app/calendar/CalendarView.tsx — visual verification deferred (Chrome MCP disconnected)
-SKIP: src/app/calendar/CalendarView.module.css — visual verification deferred (Chrome MCP disconnected)
+src/app/calendar/CalendarView.tsx
+src/app/calendar/CalendarView.module.css
