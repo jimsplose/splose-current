@@ -71,7 +71,11 @@
 }
 
 .dateLabel {
-  margin: 0 20px;
+  display: inline-flex;
+  align-items: center;
+  min-width: 208px;
+  margin: 0;
+  padding: 7px 11px;
   font-family: 'Sprig Sans', 'Inter', sans-serif;
   font-size: 20px;
   font-weight: 600;
