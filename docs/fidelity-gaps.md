@@ -76,7 +76,7 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [x] **Timestamp/date divider colors wrong** — Fixed: Changed color prop from "secondary" to "text", date divider variant from "caption/md" to "body/md", appointment author from "heading/sm" to "body/md-strong". Measurement-verified 2026-04-08: timestamp color rgb(65,69,73), date divider 14px/rgb(65,69,73) exact match.
 
 ### Group S18 — Settings sidebar layout `src/app/settings/layout.tsx`
-- [ ] **Sidebar scroll architecture** — Production: sidebar parent has overflow-y: auto, height clipped to viewport. Document doesn't scroll. Localhost: sidebar is full height (1508px), pushes document to 1564px, causing broken window scrolling. Fix: constrain sidebar container height, add overflow-y: auto. (2026-04-09 audit)
+- [x] **Sidebar scroll architecture** — Fixed: removed `overflowY: auto` from content container, made SideNav `position: sticky; top: 57px; height: calc(100vh - 57px); align-self: flex-start`. Content now scrolls with document, sidebar stays pinned. Committed 2026-04-09.
 - [ ] **Section header color** — Production: rgb(0,0,0) black. Localhost: rgb(65,69,73) gray. Fix in SideNav DS component. (2026-04-09 audit)
 - [ ] **Missing "Client data" menu item** — Production has 28 sidebar items, localhost has 27. "Client data" under Data section is missing. (2026-04-09 audit)
 - [ ] **"New" badge shape** — Production: borderRadius 24px (pill), fontSize 12px. Localhost: borderRadius 4px, fontSize 11px. Fix in SideNav component. (2026-04-09 audit)
