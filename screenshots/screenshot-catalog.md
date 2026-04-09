@@ -23,13 +23,13 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-17 at 6.39.04 pm.png | Business history modal open | yes — implemented 2026-03-24, Modal with history entries |
-| screencapture-acme-splose-settings-details-2026-03-17-18_33_39.png | Details page default view | yes — visual audit 2026-03-23 confirmed structural match; pixel diff from viewport vs full-page scroll |
+| screencapture-acme-splose-settings-details-2026-03-17-18_33_39.png | Details page default view | partial — 4-flow audit 2026-04-09: title/buttons match, but missing 5 purple dividers, section headings wrong size (16px vs 18px), sidebar scroll layout broken |
 
 ## Settings — Integrations (`/settings/integrations`)
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-settings-integrations-2026-03-17-18_34_17.png | Integrations list default | yes — measurement-verified 2026-04-01: already uses PageHeader (green). S1 text-display-lg color fix covers any bare h1 cases. |
+| screencapture-acme-splose-settings-integrations-2026-03-17-18_34_17.png | Integrations list default | no — 4-flow audit 2026-04-09: cards center-aligned (should be left), heading 16px/600/gray (should be 21px/700/green), card dimensions differ, border weight wrong |
 
 ## Settings — SMS Settings (`/settings/smsSettings`)
 

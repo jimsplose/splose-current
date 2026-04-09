@@ -268,7 +268,7 @@ After each session, update this table:
 
 | Session | Status | Pages Audited | Verdicts | Action Items | Date |
 |---------|--------|---------------|----------|--------------|------|
-| 1 | pending | — | — | — | — |
+| 1 | **done** | Sidebar, Details, Integrations | partial, partial, no | 17 | 2026-04-09 |
 | 2 | pending | — | — | — | — |
 | 3 | pending | — | — | — | — |
 | 4 | pending | — | — | — | — |

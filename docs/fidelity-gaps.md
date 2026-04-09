@@ -75,6 +75,14 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [x] **Send button too small** — Fixed: Removed `size="sm"` prop. Measurement-verified 2026-04-08: 38px/8px exact match.
 - [x] **Timestamp/date divider colors wrong** — Fixed: Changed color prop from "secondary" to "text", date divider variant from "caption/md" to "body/md", appointment author from "heading/sm" to "body/md-strong". Measurement-verified 2026-04-08: timestamp color rgb(65,69,73), date divider 14px/rgb(65,69,73) exact match.
 
+### Group S18 — Settings sidebar layout `src/app/settings/layout.tsx`
+- [ ] **Sidebar scroll architecture** — Production: sidebar parent has overflow-y: auto, height clipped to viewport. Document doesn't scroll. Localhost: sidebar is full height (1508px), pushes document to 1564px, causing broken window scrolling. Fix: constrain sidebar container height, add overflow-y: auto. (2026-04-09 audit)
+- [ ] **Section header color** — Production: rgb(0,0,0) black. Localhost: rgb(65,69,73) gray. Fix in SideNav DS component. (2026-04-09 audit)
+- [ ] **Missing "Client data" menu item** — Production has 28 sidebar items, localhost has 27. "Client data" under Data section is missing. (2026-04-09 audit)
+- [ ] **"New" badge shape** — Production: borderRadius 24px (pill), fontSize 12px. Localhost: borderRadius 4px, fontSize 11px. Fix in SideNav component. (2026-04-09 audit)
+- [ ] **Sidebar paddingTop** — Production: 0px. Localhost: 15px. Remove extra padding. (2026-04-09 audit)
+- [ ] **Active item background** — Production: transparent. Localhost: rgba(0,0,0,0.04). Minor — match production. (2026-04-09 audit)
+
 ## Priority 1 — High-traffic pages
 
 ### Group D — Dashboard (`src/app/page.tsx`)
@@ -91,8 +99,8 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 
 ### Group C — Settings (`src/app/settings/`)
 All 25 Settings sub-pages are implemented as inline components in `settings/page.tsx`:
-- [x] **Settings Details page** — Form with business name, ABN, address, phone, email, logo, email signature.
-- [x] **Settings Integrations page** — Integration cards (Xero, MYOB, Stripe, Tyro, Halaxy, Zoom, Google Calendar).
+- [ ] **Settings Details page** — REOPENED 2026-04-09 4-flow audit: missing 5 purple dividers (rgb(130,80,255)), section headings wrong (16px/600 should be 18px/700), sidebar scroll layout broken (pushes document height). See `docs/settings-audit-session1.md`.
+- [ ] **Settings Integrations page** — REOPENED 2026-04-09 4-flow audit: cards center-aligned (should be left), heading 16px/600/gray (should be 21px/700/green rgb(33,105,71)), card border 1px (should be 0.5px), card width 454px (should be ~420px). See `docs/settings-audit-session1.md`.
 - [x] **Settings SMS Settings page** — SMS provider config, sender name, reply-to, opt-out settings.
 - [x] **Settings Form Templates** — Fixed: columns updated to Title/Form type/Created at/Updated at, title changed to "Form templates", Learn/Show archived added. 5.55% pixel diff (full-page vs viewport). (2026-03-20)
 - [x] **Settings Splose AI** — Core page matches. Edit prompt modal, AI block actions dropdown, and Edit AI block modal all implemented. AI block library populated with 5 sample blocks. (2026-03-19)
