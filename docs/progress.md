@@ -4,6 +4,55 @@ Append-only log. Each session adds an entry summarizing what was done.
 
 ---
 
+## Session — 2026-04-09 (Settings Audit + Workflow Restructure)
+
+**Branch**: `antd-migration`
+
+### Settings Audit Sessions 1-2 (REDO REQUIRED)
+
+Attempted exhaustive audit of 6 settings pages across 2 sessions. **Insufficient depth** — did not use zoom-region visual diffs, rushed 3 pages per session, measurement tables incomplete. Preliminary findings are directionally correct but unverified at pixel level:
+
+- **Sidebar:** Missing "Client data" item, badge shape wrong, section header color wrong, scroll architecture fundamentally different (production scrolls sidebar internally, localhost pushes document)
+- **Details:** Missing 5 purple dividers, section heading size/weight wrong
+- **Integrations:** Cards center-aligned (should be left), heading style/color wrong
+- **SMS Settings:** Missing "Two-way SMS" section, no purple dividers
+- **Forms (list):** Best match — SettingsListPage template works well
+- **AI:** Badge "BETA" should be "New", dividers not purple
+
+**All 6 pages marked for redo** with the revised workflow. See `docs/settings-audit-plan.md`.
+
+### Workflow Restructure
+
+Restructured all workflow documentation to eliminate duplication and enforce visual diff depth:
+
+1. **Created `docs/reference/measurement-protocol.md`** — Single source of truth for:
+   - Viewport setup (1440x900)
+   - Dual-tab setup procedure
+   - Visual diff technique (zoom-region comparison — 6 regions per scroll position)
+   - CSS measurement procedures and JS snippet
+   - Thresholds (colors exact RGB, font sizes exact, spacing ±2px, etc.)
+   - DS compliance rules and grades
+   - 5-iteration verification loop
+   - Catalog entry qualifiers
+
+2. **Slimmed down workflow docs** to reference the protocol instead of duplicating:
+   - `docs/compare-pages-workflow.md` — Restructured into 3 phases: See (visual diff + screenshots), Measure (structural checklist + CSS), Audit (DS compliance). Batch size reduced from 2-3 to 1-2 pages.
+   - `docs/fix-gaps-workflow.md` — Removed duplicated measurement procedures, references protocol
+   - `docs/quality-gate.md` — Removed duplicated thresholds/procedures, references protocol
+   - `docs/agent-block.md` — Added maintenance note linking to protocol as canonical source (block stays self-contained for subagents)
+
+3. **Architecture:**
+   ```
+   docs/reference/measurement-protocol.md  ← Single source of truth
+       ↑ referenced by
+   docs/compare-pages-workflow.md  (audit)
+   docs/fix-gaps-workflow.md       (fix)
+   docs/quality-gate.md            (commit gate)
+   docs/agent-block.md             (subagent block — self-contained copy)
+   ```
+
+---
+
 ## Session — 2026-04-02 (Template Styling: DetailPage + FormPage fixes + Audit Workflow)
 
 **Branch**: `antd-migration`

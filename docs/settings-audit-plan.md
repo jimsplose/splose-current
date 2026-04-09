@@ -268,16 +268,13 @@ After each session, update this table:
 
 | Session | Status | Pages Audited | Verdicts | Action Items | Date |
 |---------|--------|---------------|----------|--------------|------|
-| 1 | **done** | Sidebar, Details, Integrations | partial, partial, no | 17 | 2026-04-09 |
-| 2 | **done** | SMS Settings, Forms, AI | partial, **yes**, partial | 9 | 2026-04-09 |
-| 3 | pending | — | — | — | — |
-| 4 | pending | — | — | — | — |
-| 5 | pending | — | — | — | — |
-| 6 | pending | — | — | — | — |
-| 7 | pending | — | — | — | — |
-| 8 | pending | — | — | — | — |
-| 9 | pending | — | — | — | — |
-| 10 | pending | — | — | — | — |
+| 1 | **REDO** | Sidebar, Details, Integrations | shallow — no zoom diffs, insufficient depth | 17 (preliminary) | 2026-04-09 |
+| 2 | **REDO** | SMS Settings, Forms, AI | shallow — no zoom diffs, insufficient depth | 9 (preliminary) | 2026-04-09 |
+| 3+ | pending | — | — | — | — |
+
+**Note:** Sessions 1-2 were conducted before the workflow revision (2026-04-09). They did not include Flow 0 (zoom region comparison), did not meet minimum measurement counts, and rushed 3 pages per session. All 6 pages from sessions 1-2 must be re-audited with the revised workflow (1 page per session, full zoom diff, 30-60+ measurements per page). The preliminary action items from sessions 1-2 are directionally correct but need verification with proper depth.
+
+Session numbering restarts from the redo. Expect ~25-30 sessions total at 1 page per session.
 
 ## Known Issues to Watch For
 
@@ -295,7 +292,7 @@ These were flagged in prior work and should get extra scrutiny:
 | Top-level pages | 27 |
 | Sub-pages (edit/new/detail) | ~10 |
 | Total page views to audit | ~37 |
-| Flows per page | 4 |
-| Total flow executions | ~148 |
-| Sessions | 8-10 |
-| Pages per session | 3-4 (including sub-pages) |
+| Phases per page | 3 (See, Measure, Audit) |
+| Sessions | ~25-30 |
+| Pages per session | 1-2 (max) |
+| Minimum measurements per page | 30-60+ |

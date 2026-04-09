@@ -1,6 +1,8 @@
 # Subagent Prompt Template
 
-**Every subagent that creates or modifies page UI MUST receive this block at the top of its prompt.** Do NOT launch a UI-touching subagent without it. This is a single, self-contained block that covers DS enforcement AND screenshot verification.
+**Every subagent that creates or modifies page UI MUST receive this block at the top of its prompt.** Do NOT launch a UI-touching subagent without it. This is a single, self-contained block that covers DS enforcement AND visual verification.
+
+**Maintenance:** The measurement procedures in this block are derived from `docs/reference/measurement-protocol.md`. When updating thresholds, DS rules, or measurement procedures, update the protocol first, then sync this block.
 
 **Copy everything between the `---START AGENT BLOCK---` and `---END AGENT BLOCK---` markers into every subagent prompt verbatim.**
 
