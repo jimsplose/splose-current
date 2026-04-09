@@ -73,7 +73,7 @@
 .dateLabel {
   display: inline-flex;
   align-items: center;
-  min-width: 208px;
+  min-width: 230px;
   margin: 0;
   padding: 7px 11px;
   font-family: 'Sprig Sans', 'Inter', sans-serif;
