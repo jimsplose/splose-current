@@ -1,2 +1,1 @@
-src/app/calendar/CalendarView.tsx
 src/app/calendar/CalendarView.module.css
