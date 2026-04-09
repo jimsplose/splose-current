@@ -114,6 +114,12 @@ Write this log for each page. **Every section required.**
   1. Line [N]: [description]
   2. ...
 
+### Visual Diff Summary (shown to user)
+[Plain-language description of the visual differences for this page.
+This section is MANDATORY — it must be printed to the user during the
+audit AND added to progress docs. Write it so Jim can see exactly what
+looks different without needing to read CSS measurements.]
+
 ### Verdict: yes | partial | no
 **Reason:** [detailed]
 **Action items:**
@@ -121,7 +127,15 @@ Write this log for each page. **Every section required.**
 2. ...
 ```
 
-## Step 4: Update catalog and gaps
+## Step 4: Show visual diff to user
+
+**Before updating files**, print the Visual Diff Summary for each page to the user. This is the key output Jim sees — it should be a clear, non-technical description of what looks different. Example:
+
+> **Integrations page:** Cards are center-aligned instead of left. Headings are small gray text instead of large green. Logos are tiny (48px vs 100px). No links in descriptions. "Connect to QuickBooks" button is purple instead of green.
+
+After the user has seen the diff, proceed to update catalog and gaps.
+
+## Step 5: Update catalog and gaps
 
 - Update `screenshots/screenshot-catalog.md` Match column (protocol Section 8 qualifiers)
 - Reopen `[x]` gaps where catalog is now "partial" or "no"
