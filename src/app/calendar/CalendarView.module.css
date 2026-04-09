@@ -453,6 +453,11 @@
   border-radius: 6px;
   padding: 2px 4px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  opacity: 0.85;
+}
+
+.apptBlock:hover {
+  opacity: 1;
 }
 
 .apptBlockSmall {
@@ -464,6 +469,11 @@
   overflow: hidden;
   border-radius: 2px;
   padding: 2px 4px;
+  opacity: 0.85;
+}
+
+.apptBlockSmall:hover {
+  opacity: 1;
 }
 
 .apptClientName {
