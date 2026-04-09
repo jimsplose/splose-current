@@ -680,7 +680,7 @@ export default function CalendarView({
                                       style={{
                                         backgroundColor: lightenColor(appt.practitionerColor, 0.7),
                                         color: "rgb(0, 0, 0)",
-                                        opacity: appt.status === "Cancelled" ? 0.5 : 1,
+                                        opacity: appt.status === "Cancelled" ? 0.5 : undefined,
                                         ...pos,
                                       }}
                                       onClick={(e) => { e.stopPropagation(); setSelectedAppt(appt); }}
@@ -815,7 +815,7 @@ export default function CalendarView({
                                             style={{
                                               backgroundColor: lightenColor(appt.practitionerColor, 0.7),
                                               color: "rgb(0, 0, 0)",
-                                              opacity: appt.status === "Cancelled" ? 0.5 : 1,
+                                              opacity: appt.status === "Cancelled" ? 0.5 : undefined,
                                               ...pos,
                                             }}
                                             onClick={(e) => { e.stopPropagation(); setSelectedAppt(appt); }}
