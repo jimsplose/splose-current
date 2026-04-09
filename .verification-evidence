@@ -1,5 +1,2 @@
-src/app/globals.css
-src/components/ds/theme.ts
-src/components/ds/Text.module.css
-src/app/DashboardClient.tsx
-SKIP: src/app/page.tsx — no direct changes, server component unchanged
+SKIP: src/app/calendar/CalendarView.tsx — visual verification deferred (Chrome MCP disconnected)
+SKIP: src/app/calendar/CalendarView.module.css — visual verification deferred (Chrome MCP disconnected)
