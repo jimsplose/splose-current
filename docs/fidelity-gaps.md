@@ -101,9 +101,9 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 All 25 Settings sub-pages are implemented as inline components in `settings/page.tsx`:
 - [ ] **Settings Details page** — REOPENED 2026-04-09 4-flow audit: missing 5 purple dividers (rgb(130,80,255)), section headings wrong (16px/600 should be 18px/700), sidebar scroll layout broken (pushes document height). See `docs/settings-audit-session1.md`.
 - [ ] **Settings Integrations page** — REOPENED 2026-04-09 4-flow audit: cards center-aligned (should be left), heading 16px/600/gray (should be 21px/700/green rgb(33,105,71)), card border 1px (should be 0.5px), card width 454px (should be ~420px). See `docs/settings-audit-session1.md`.
-- [x] **Settings SMS Settings page** — SMS provider config, sender name, reply-to, opt-out settings.
+- [ ] **Settings SMS Settings page** — REOPENED 2026-04-09 4-flow audit: missing "Two-way SMS" section + Save button, no purple dividers, section heading fontWeight 600 vs 700, extra "Message preview" section not on production.
 - [x] **Settings Form Templates** — Fixed: columns updated to Title/Form type/Created at/Updated at, title changed to "Form templates", Learn/Show archived added. 5.55% pixel diff (full-page vs viewport). (2026-03-20)
-- [x] **Settings Splose AI** — Core page matches. Edit prompt modal, AI block actions dropdown, and Edit AI block modal all implemented. AI block library populated with 5 sample blocks. (2026-03-19)
+- [ ] **Settings Splose AI** — REOPENED 2026-04-09 4-flow audit: badge "BETA" should be "New" (purple bg), dividers gray not purple, preferences not in bordered Card container, section heading sizes differ from production.
 - [x] **Settings Locations page** — Locations list with edit form.
 - [x] **Settings Custom Fields page** — List with reorder, actions dropdown, update field modal.
 - [x] **Settings Rooms/Resources page** — Fixed: Group/Capacity/Location columns added, search bar, Learn/Show archived buttons added. 6.43% pixel diff (browser chrome). (2026-03-20)

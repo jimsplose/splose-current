@@ -269,7 +269,7 @@ After each session, update this table:
 | Session | Status | Pages Audited | Verdicts | Action Items | Date |
 |---------|--------|---------------|----------|--------------|------|
 | 1 | **done** | Sidebar, Details, Integrations | partial, partial, no | 17 | 2026-04-09 |
-| 2 | pending | — | — | — | — |
+| 2 | **done** | SMS Settings, Forms, AI | partial, **yes**, partial | 9 | 2026-04-09 |
 | 3 | pending | — | — | — | — |
 | 4 | pending | — | — | — | — |
 | 5 | pending | — | — | — | — |

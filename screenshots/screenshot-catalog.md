@@ -35,8 +35,8 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-settings-smsSettings-2026-03-17-18_34_37.png | SMS settings default view | yes — visual audit 2026-03-23 confirmed structural match |
-| screencapture-acme-splose-settings-smsSettings-2026-03-17-18_39_35.png | SMS settings alternate view | yes — visual audit 2026-03-23 confirmed |
+| screencapture-acme-splose-settings-smsSettings-2026-03-17-18_34_37.png | SMS settings default view | partial — 4-flow audit 2026-04-09: missing Two-way SMS section + Save button, no purple dividers, section heading fontWeight 600 vs 700 |
+| screencapture-acme-splose-settings-smsSettings-2026-03-17-18_39_35.png | SMS settings alternate view | partial — 4-flow audit 2026-04-09: see above |
 
 ## Settings — Forms / Form Templates (`/settings/templates/forms`)
 
@@ -69,7 +69,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-settings-ai-2026-03-17-18_36_17.png | AI Preferences tab | yes |
+| screencapture-acme-splose-settings-ai-2026-03-17-18_36_17.png | AI Preferences tab | partial — 4-flow audit 2026-04-09: badge "BETA" should be "New" (purple), dividers gray not purple, preferences not in bordered container |
 | screencapture-acme-splose-settings-ai-2026-03-17-18_36_41.png | AI settings alternate view | yes |
 | screencapture-acme-splose-settings-ai-2026-03-17-18_37_14.png | AI settings alternate view 2 | yes |
 | Screenshot 2026-03-17 at 6.44.00 pm.png | Saved prompts tab, actions dropdown (Edit/Change log/Delete) | yes — dropdown with edit/delete exists on AI page |
