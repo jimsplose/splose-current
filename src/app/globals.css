@@ -194,8 +194,6 @@ body {
   line-height: 1.57;
   color: var(--ant-color-text, #414549);
   background-color: var(--ant-color-bg-layout, #ffffff);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 /* ── Layout utility classes (replacing dead Tailwind) ─────────────────────── */

@@ -5,7 +5,6 @@
   border-right: 1px solid var(--color-border);
   background-color: #ffffff;
   padding-top: 15px;
-  -webkit-font-smoothing: antialiased;
 }
 
 .sectionTitle {
