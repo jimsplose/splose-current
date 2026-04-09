@@ -407,27 +407,28 @@
   pointer-events: none;
   position: absolute;
   inset: 0;
+  z-index: 2;
 }
 
 .subdivisionLine25 {
   position: absolute;
   width: 100%;
   top: 25%;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .subdivisionLine50 {
   position: absolute;
   width: 100%;
   top: 50%;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.10);
 }
 
 .subdivisionLine75 {
   position: absolute;
   width: 100%;
   top: 75%;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .pracSubCol {
