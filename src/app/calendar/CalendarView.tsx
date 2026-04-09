@@ -441,7 +441,6 @@ export default function CalendarView({
                 onClick={() => { setLocationDropdownOpen(prev => !prev); setPractitionerDropdownOpen(false); setLocationSearchQuery(""); }}
               >
                 {locationLabel}
-                <DownOutlined style={{ fontSize: 14, color: "var(--color-text-secondary)" }} />
               </button>
               {locationDropdownOpen && (
                 <div className={styles.filterDropdown}>
@@ -495,7 +494,6 @@ export default function CalendarView({
                 onClick={() => { setPractitionerDropdownOpen(prev => !prev); setLocationDropdownOpen(false); setPractitionerSearchQuery(""); }}
               >
                 {practitionerLabel}
-                <DownOutlined style={{ fontSize: 14, color: "var(--color-text-secondary)" }} />
               </button>
               {practitionerDropdownOpen && (
                 <div className={styles.filterDropdownWide}>
@@ -560,49 +558,6 @@ export default function CalendarView({
           )}
 
           <div className={styles.toolbarSpacer} />
-
-          {/* Right group: sparkle, Calendar, Week */}
-          <div className={styles.toolbarRight}>
-            <button
-              className={showAISidebar ? styles.sparkleBtnActive : styles.sparkleBtn}
-              onClick={() => setShowAISidebar(prev => !prev)}
-            >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16 3C16 3 16.5 6.5 17 8C17.5 9.5 19 10.5 21 11C19 11.5 17.5 12.5 17 14C16.5 15.5 16 19 16 19C16 19 15.5 15.5 15 14C14.5 12.5 13 11.5 11 11C13 10.5 14.5 9.5 15 8C15.5 6.5 16 3 16 3Z" fill="currentColor"/>
-                <path d="M8 14C8 14 8.3 15.8 8.6 16.7C8.9 17.6 9.6 18.3 10.8 18.7C9.6 19.1 8.9 19.8 8.6 20.7C8.3 21.6 8 23.4 8 23.4C8 23.4 7.7 21.6 7.4 20.7C7.1 19.8 6.4 19.1 5.2 18.7C6.4 18.3 7.1 17.6 7.4 16.7C7.7 15.8 8 14 8 14Z" fill="currentColor"/>
-                <path d="M5 7C5 7 5.15 7.9 5.3 8.3C5.45 8.7 5.8 9 6.4 9.2C5.8 9.4 5.45 9.7 5.3 10.1C5.15 10.5 5 11.4 5 11.4C5 11.4 4.85 10.5 4.7 10.1C4.55 9.7 4.2 9.4 3.6 9.2C4.2 9 4.55 8.7 4.7 8.3C4.85 7.9 5 7 5 7Z" fill="currentColor"/>
-              </svg>
-            </button>
-
-            <Dropdown
-              trigger={
-                <button className={styles.dropdownTrigger}>
-                  {calendarMode} <span className={styles.dropdownArrow}>&#9662;</span>
-                </button>
-              }
-              items={[
-                { label: "Calendar", value: "Calendar" },
-                { label: "Rooms/resources", value: "Rooms/resources" },
-              ]}
-              onSelect={(v) => setCalendarMode(v as CalendarMode)}
-              align="right"
-            />
-
-            <Dropdown
-              trigger={
-                <button className={styles.dropdownTrigger}>
-                  {viewMode} <span className={styles.dropdownArrow}>&#9662;</span>
-                </button>
-              }
-              items={[
-                { label: "Month", value: "Month" },
-                { label: "Week", value: "Week" },
-                { label: "Day", value: "Day" },
-              ]}
-              onSelect={(v) => setViewMode(v as ViewMode)}
-              align="right"
-            />
-          </div>
         </div>
 
         {/* Month View */}
@@ -680,8 +635,8 @@ export default function CalendarView({
                                       key={appt.id}
                                       className={styles.apptBlock}
                                       style={{
-                                        backgroundColor: appt.practitionerColor,
-                                        color: getContrastText(appt.practitionerColor),
+                                        backgroundColor: lightenColor(appt.practitionerColor, 0.7),
+                                        color: "rgb(0, 0, 0)",
                                         opacity: appt.status === "Cancelled" ? 0.5 : 1,
                                         ...pos,
                                       }}
@@ -815,8 +770,8 @@ export default function CalendarView({
                                             key={appt.id}
                                             className={styles.apptBlockSmall}
                                             style={{
-                                              backgroundColor: appt.practitionerColor,
-                                              color: getContrastText(appt.practitionerColor),
+                                              backgroundColor: lightenColor(appt.practitionerColor, 0.7),
+                                              color: "rgb(0, 0, 0)",
                                               opacity: appt.status === "Cancelled" ? 0.5 : 1,
                                               ...pos,
                                             }}
@@ -1277,10 +1232,8 @@ function AppointmentSidePanel({
 
   return (
     <>
-      {isMonthView && (
-        <div className={styles.sidePanelBackdrop} onClick={onClose} />
-      )}
-      <div className={isMonthView ? styles.sidePanelFixed : styles.sidePanelInline}>
+      <div className={styles.sidePanelBackdrop} onClick={onClose} />
+      <div className={styles.sidePanelFixed}>
         <div className={styles.sidePanelContent}>
           <div className={styles.sidePanelHeader}>
             <div className={styles.sidePanelTitle}>

@@ -412,21 +412,21 @@
   position: absolute;
   width: 100%;
   top: 25%;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .subdivisionLine50 {
   position: absolute;
   width: 100%;
   top: 50%;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .subdivisionLine75 {
   position: absolute;
   width: 100%;
   top: 75%;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .pracSubCol {
@@ -448,8 +448,8 @@
   z-index: 10;
   cursor: pointer;
   overflow: hidden;
-  border-radius: 4px;
-  padding: 6px 8px;
+  border-radius: 6px;
+  padding: 2px 4px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
