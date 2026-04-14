@@ -1,6 +1,6 @@
 "use client";
 
-import { Tabs, Badge } from "antd";
+import { Tabs } from "antd";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -48,11 +48,18 @@ export default function Tab({ items, value, onChange, className, style }: TabPro
           item.label
         )}
         {item.badge && (
-          <Badge
-            count={item.badge}
-            size="small"
-            style={{ marginLeft: 6 }}
-          />
+          <span style={{
+            marginLeft: 6,
+            borderRadius: 24,
+            backgroundColor: 'rgb(130, 80, 255)',
+            color: '#fff',
+            padding: '1px 8px',
+            fontSize: 12,
+            fontWeight: 400,
+            verticalAlign: 'middle',
+          }}>
+            {item.badge}
+          </span>
         )}
       </span>
     ),

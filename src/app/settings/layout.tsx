@@ -64,6 +64,7 @@ const sidebarSections: SideNavSection[] = [
     items: [
       { name: "Export", href: "/settings/data-export" },
       { name: "Import", href: "/settings/data-import" },
+      { name: "Client data", href: "/settings/client-data" },
     ],
   },
 ];

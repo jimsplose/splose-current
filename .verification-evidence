@@ -1,1 +1,4 @@
-src/app/calendar/CalendarView.module.css
+/settings/details
+/settings/integrations
+/settings/sms-settings
+/settings/ai

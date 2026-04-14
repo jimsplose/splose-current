@@ -75,6 +75,8 @@ export default function SettingsDetailsPage() {
           </div>
         </Flex>
 
+        <Divider variant="primary" spacing="sm" />
+
         <Grid cols={2} gap="md">
           <div>
             <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
@@ -135,8 +137,10 @@ export default function SettingsDetailsPage() {
           </div>
         </Grid>
 
+        <Divider variant="primary" spacing="sm" />
+
         <div>
-          <Text variant="heading/md" style={{ marginBottom: 12 }}>Email signature</Text>
+          <Text variant="heading/lg" style={{ marginBottom: 12 }}>Email signature</Text>
           <Flex align="center" gap={8} style={{ marginBottom: 12 }}>
             <Button
               variant={emailSigTab === "Business" ? "primary" : "secondary"}
@@ -195,21 +199,27 @@ export default function SettingsDetailsPage() {
           </div>
         </div>
 
+        <Divider variant="primary" spacing="sm" />
+
         <div>
-          <Text variant="heading/md" style={{ marginBottom: 12 }}>Calendar lock dates</Text>
+          <Text variant="heading/lg" style={{ marginBottom: 12 }}>Calendar lock dates</Text>
           <Text variant="body/md" color="secondary" style={{ marginBottom: 8 }}>
             Prevent users with the practitioner role from making changes on the calendar on and before
           </Text>
           <FormInput type="text" defaultValue="19 Dec 2025" style={{ maxWidth: 320 }} />
         </div>
 
+        <Divider variant="primary" spacing="sm" />
+
         <div>
-          <Text variant="heading/md" style={{ marginBottom: 12 }}>Google Tag Manager</Text>
+          <Text variant="heading/lg" style={{ marginBottom: 12 }}>Google Tag Manager</Text>
           <FormInput label="Google Tag Manager ID" type="text" defaultValue="GTM-TEST1231" style={{ maxWidth: 320 }} />
         </div>
 
+        <Divider variant="primary" spacing="sm" />
+
         <div>
-          <Text variant="heading/md" style={{ marginBottom: 12 }}>Cases</Text>
+          <Text variant="heading/lg" style={{ marginBottom: 12 }}>Cases</Text>
           <Flex align="center" justify="space-between">
             <p className="text-body-md text-text">Block bookings exceeding case or funding periods (default setting)</p>
             <Toggle checked={casesToggle} onChange={setCasesToggle} />

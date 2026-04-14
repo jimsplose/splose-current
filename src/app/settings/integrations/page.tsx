@@ -98,47 +98,45 @@ export default function IntegrationsPage() {
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Integrations" />
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20 }}>
         {integrations.map((integration) => (
-          <div key={integration.name} style={{ borderRadius: 8, border: '1px solid var(--color-border)', padding: 16 }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-              {/* Logo */}
-              <div style={{ marginBottom: 12, display: 'flex', height: 80, alignItems: 'center', justifyContent: 'center' }}>
-                {integration.logo}
-              </div>
+          <div key={integration.name} style={{ borderRadius: 8, border: '0.5px solid rgb(217, 217, 217)', padding: 25, width: 343, display: 'flex', flexDirection: 'column' }}>
+            {/* Logo */}
+            <div style={{ marginBottom: 12, display: 'flex', height: 80, alignItems: 'center' }}>
+              {integration.logo}
+            </div>
 
-              {/* Name */}
-              <h2 className="text-heading-md text-text" style={{ marginBottom: 8 }}>
-                {integration.name}
-              </h2>
+            {/* Name */}
+            <div style={{ fontSize: 21, fontWeight: 700, color: 'rgb(33, 105, 71)', marginBottom: 15 }}>
+              {integration.name}
+            </div>
 
-              {/* Description */}
-              <p className="text-body-md text-text-secondary" style={{ marginBottom: 16, lineHeight: 1.625 }}>
-                {integration.description}
-              </p>
+            {/* Description */}
+            <p className="text-body-md text-text-secondary" style={{ marginBottom: 16, lineHeight: '19.6px' }}>
+              {integration.description}
+            </p>
 
-              {/* Profile link (Stripe) */}
-              {integration.profileLink && (
-                <a
-                  href={integration.profileLink.href}
-                  className="text-body-md text-primary"
-                  style={{ marginBottom: 16 }}
+            {/* Profile link (Stripe) */}
+            {integration.profileLink && (
+              <a
+                href={integration.profileLink.href}
+                className="text-body-md text-primary"
+                style={{ marginBottom: 16 }}
+              >
+                {integration.profileLink.label}
+              </a>
+            )}
+
+            {/* Action buttons */}
+            <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
+              {integration.actions.map((action) => (
+                <Button
+                  key={action.label}
+                  variant={action.variant}
                 >
-                  {integration.profileLink.label}
-                </a>
-              )}
-
-              {/* Action buttons */}
-              <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
-                {integration.actions.map((action) => (
-                  <Button
-                    key={action.label}
-                    variant={action.variant}
-                  >
-                    {action.label}
-                  </Button>
-                ))}
-              </div>
+                  {action.label}
+                </Button>
+              ))}
             </div>
           </div>
         ))}

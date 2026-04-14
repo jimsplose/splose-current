@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { Flex } from "antd";
-import { ReadOutlined, MessageOutlined } from "@ant-design/icons";
-import { Button, PageHeader, Modal, Card } from "@/components/ds";
+import { ReadOutlined } from "@ant-design/icons";
+import { Button, PageHeader, Modal, Card, Divider, FormInput } from "@/components/ds";
 
 const creditOptions = [
   { credits: 200, price: "A$22.00" },
@@ -12,23 +12,10 @@ const creditOptions = [
   { credits: 2500, price: "A$275.00" },
 ];
 
-const defaultSampleMessage =
-  "Hi {first_name}, this is a reminder about your appointment at {location} on {date} at {time}. Reply YES to confirm or call us on (08) 8123 4567 to reschedule.";
 
 export default function SMSSettingsPage() {
   const [selectedCredits, setSelectedCredits] = useState(200);
   const [showRechargeConfirm, setShowRechargeConfirm] = useState(false);
-  const [sampleMessage, setSampleMessage] = useState(defaultSampleMessage);
-
-  const charInfo = useMemo(() => {
-    const len = sampleMessage.length;
-    const hasSpecial = /[^\u0000-\u007F]/.test(sampleMessage);
-    const segmentSize = hasSpecial ? 70 : 160;
-    const multiSegmentSize = hasSpecial ? 67 : 153;
-    const segments = len <= segmentSize ? 1 : Math.ceil(len / multiSegmentSize);
-    return { len, segments, segmentSize, hasSpecial };
-  }, [sampleMessage]);
-
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="SMS settings">
@@ -36,6 +23,7 @@ export default function SMSSettingsPage() {
           <ReadOutlined style={{ fontSize: 16 }} />
           Learn
         </Button>
+        <Button variant="primary">Save</Button>
       </PageHeader>
 
       {/* SMS credit balance card */}
@@ -43,6 +31,8 @@ export default function SMSSettingsPage() {
         <p className="text-body-md text-text-secondary">SMS credit balance</p>
         <p style={{ fontSize: '1.875rem', fontWeight: 700 }} className="text-text">884</p>
       </Card>
+
+      <Divider variant="primary" spacing="sm" />
 
       {/* Recharge credits section */}
       <div style={{ marginBottom: 32 }}>
@@ -75,52 +65,7 @@ export default function SMSSettingsPage() {
         </Button>
       </div>
 
-      {/* SMS message preview */}
-      <div style={{ marginBottom: 32, maxWidth: 672 }}>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Message preview</h2>
-        <div style={{ marginBottom: 12 }}>
-          <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--color-text-secondary)' }}>
-            Sample message
-          </label>
-          <textarea
-            style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', padding: '8px 12px', outline: 'none' }}
-            className="text-body-md text-text"
-            rows={3}
-            value={sampleMessage}
-            onChange={(e) => setSampleMessage(e.target.value)}
-          />
-        </div>
-
-        {/* Character count and segment info */}
-        <Flex align="center" gap={16} style={{ marginBottom: 16 }} className="text-body-sm text-text-secondary">
-          <span>
-            {charInfo.len} character{charInfo.len !== 1 ? "s" : ""}
-          </span>
-          <span style={{ color: 'var(--color-border)' }}>|</span>
-          <span>
-            {charInfo.segments} segment{charInfo.segments !== 1 ? "s" : ""} ({charInfo.segments} credit{charInfo.segments !== 1 ? "s" : ""})
-          </span>
-          {charInfo.hasSpecial && (
-            <>
-              <span style={{ color: 'var(--color-border)' }}>|</span>
-              <span style={{ color: '#d97706' }}>Contains special characters</span>
-            </>
-          )}
-        </Flex>
-
-        {/* Phone-style preview */}
-        <div style={{ width: 288, margin: '0 auto', borderRadius: 24, border: '2px solid #d1d5db', backgroundColor: '#f3f4f6', padding: 16 }}>
-          <Flex justify="center" align="center" gap={6} className="text-caption-md text-text-secondary" style={{ marginBottom: 8 }}>
-            <MessageOutlined style={{ fontSize: 14 }} />
-            <span>SMS Preview</span>
-          </Flex>
-          <div style={{ minHeight: 80, borderRadius: 16, backgroundColor: 'white', padding: 12 }}>
-            <div style={{ display: 'inline-block', maxWidth: '100%', borderRadius: 16, borderBottomLeftRadius: 4, backgroundColor: '#e5e7eb', padding: '8px 12px' }} className="text-body-sm text-text">
-              {sampleMessage || <span style={{ fontStyle: 'italic' }} className="text-text-secondary">Type a message above...</span>}
-            </div>
-          </div>
-        </div>
-      </div>
+      <Divider variant="primary" spacing="sm" />
 
       {/* SMS pricing section */}
       <div style={{ maxWidth: 672 }}>
@@ -144,6 +89,14 @@ export default function SMSSettingsPage() {
             .
           </p>
         </Flex>
+      </div>
+
+      <Divider variant="primary" spacing="sm" />
+
+      {/* Two-way SMS section */}
+      <div style={{ maxWidth: 672 }}>
+        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Two-way SMS</h2>
+        <FormInput label="Your number" type="text" defaultValue="+61 412 345 678" style={{ maxWidth: 320 }} />
       </div>
 
       <Modal

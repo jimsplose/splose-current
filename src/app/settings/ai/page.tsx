@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Flex } from "antd";
 import { WarningOutlined } from "@ant-design/icons";
-import { Button, FormInput, FormTextarea, FormSelect, Tab, Toggle, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, Modal, EmptyState, Badge, Alert, PageHeader } from "@/components/ds";
+import { Button, FormInput, FormTextarea, FormSelect, Tab, Toggle, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, Modal, EmptyState, Badge, Alert, PageHeader, Divider } from "@/components/ds";
 
 const aiBlocks = [
   { name: "Subjective Assessment", tag: "SOAP", createdBy: "Jim Yencken", lastModified: "12 Mar 2026" },
@@ -64,7 +64,7 @@ function SettingsAIPageInner() {
           items={[
             { label: "Preferences", value: "preferences" },
             { label: "Saved prompts", value: "saved-prompts" },
-            { label: "AI block library", value: "ai-block-library", badge: "BETA" },
+            { label: "AI block library", value: "ai-block-library", badge: "New" },
           ]}
           value={activeTab}
           onChange={(v) => setActiveTab(v as TabValue)}
@@ -88,14 +88,14 @@ function PreferencesTab() {
 
   return (
     <div>
-      <h2 className="text-heading-lg text-text" style={{ marginBottom: 8 }}>splose AI settings: More control, your way</h2>
-      <hr style={{ marginBottom: 24, borderColor: 'var(--color-border)' }} />
+      <h2 style={{ fontSize: 28, fontWeight: 700, marginBottom: 8 }} className="text-text">splose AI settings: More control, your way</h2>
+      <Divider variant="primary" spacing="sm" />
 
-      <h3 className="text-display-md text-text" style={{ marginBottom: 24 }}>Preferences</h3>
+      <h3 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }} className="text-text">Preferences</h3>
 
       {/* Progress notes */}
       <div style={{ marginBottom: 32 }}>
-        <h4 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>splose AI - progress notes</h4>
+        <h4 style={{ fontSize: 28, fontWeight: 700, marginBottom: 16 }} className="text-text">splose AI - progress notes</h4>
         <Flex vertical gap={16}>
           <Flex align="center" justify="space-between">
             <span className="text-body-md text-text">Enable voice to text and ask splose AI</span>
@@ -108,18 +108,22 @@ function PreferencesTab() {
         </Flex>
       </div>
 
+      <Divider variant="primary" spacing="sm" />
+
       {/* Email */}
       <div style={{ marginBottom: 32 }}>
-        <h4 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>splose AI - email</h4>
+        <h4 style={{ fontSize: 28, fontWeight: 700, marginBottom: 16 }} className="text-text">splose AI - email</h4>
         <Flex align="center" justify="space-between">
           <span className="text-body-md text-text">Enable splose AI email assistant</span>
           <Toggle checked={emailAssistant} onChange={setEmailAssistant} />
         </Flex>
       </div>
 
+      <Divider variant="primary" spacing="sm" />
+
       {/* Calendar */}
       <div style={{ marginBottom: 32 }}>
-        <h4 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>splose AI - calendar</h4>
+        <h4 style={{ fontSize: 28, fontWeight: 700, marginBottom: 16 }} className="text-text">splose AI - calendar</h4>
         <Flex vertical gap={16}>
           <Flex align="center" justify="space-between">
             <span className="text-body-md text-text">Enable splose AI for calendar</span>
