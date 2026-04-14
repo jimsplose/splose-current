@@ -83,12 +83,12 @@ export default async function ClientLayout({
             </svg>
           </Button>
         </Flex>
-      </div>
+      </Flex>
       {/* Sidebar + content row */}
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+      <Flex style={{ flex: 1, overflow: 'hidden' }}>
         <ClientSidebar sections={sidebarSections} />
         <div style={{ flex: 1, minWidth: 0, overflow: 'auto' }}>{children}</div>
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   );
 }

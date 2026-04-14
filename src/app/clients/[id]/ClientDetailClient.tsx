@@ -75,7 +75,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
   }
 
   return (
-    <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+    <Flex style={{ flex: 1, overflow: 'hidden' }}>
       {/* Main content */}
       <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
         <Flex justify="space-between" align="center" style={{ marginBottom: 24 }}>
@@ -352,7 +352,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           </Text>
         </Collapse>
       </aside>
-    </div>
+    </Flex>
   );
 }
 

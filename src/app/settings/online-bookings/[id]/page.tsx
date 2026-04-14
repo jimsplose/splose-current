@@ -104,12 +104,12 @@ export default function EditOnlineBookingPage() {
               {brandingMode === "logo" && (
                 <div>
                   <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 8 }}>Logo / Header image</label>
-                  <div style={{ display: 'flex', height: 128, alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)' }}>
+                  <Flex align="center" justify="center" style={{ height: 128, borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)' }}>
                     <div style={{ textAlign: 'center' }}>
                       <UploadOutlined style={{ fontSize: 24, display: 'block', margin: '0 auto 4px', color: 'var(--color-text-secondary)' }} />
                       <span className="text-caption-md text-text-secondary">Click or drag to upload</span>
                     </div>
-                  </div>
+                  </Flex>
                 </div>
               )}
             </Flex>
@@ -399,7 +399,7 @@ export default function EditOnlineBookingPage() {
           </div>
         </div>
       )}
-      </div>
+      </Flex>
 
       <Modal open={showLocationModal} onClose={() => setShowLocationModal(false)} title="Manage locations displayed">
         <Flex vertical gap={8}>
