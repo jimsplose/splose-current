@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Flex } from "antd";
 import {
   Button,
   PageHeader,
@@ -175,7 +176,7 @@ export default function EmailTemplatesPage() {
           </>
         }
       >
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <Flex vertical gap={16}>
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
           <FormSelect
             label="Type"
@@ -183,7 +184,7 @@ export default function EmailTemplatesPage() {
             onChange={(value) => setField("type", value as TemplateType)}
             options={templateTypes.map((t) => ({ value: t, label: t }))}
           />
-        </div>
+        </Flex>
       </Modal>
     </div>
   );

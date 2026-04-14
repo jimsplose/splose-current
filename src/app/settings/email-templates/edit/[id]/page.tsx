@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Flex } from "antd";
 import {
   Button,
   FormInput,
@@ -43,14 +44,14 @@ export default function EditEmailTemplatePage() {
         title={name || "Edit email template"}
         maxWidth={768}
         actions={
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Flex align="center" gap={8}>
             <Button variant="secondary" onClick={() => setShowPreview(true)}>Preview</Button>
             <Button variant="secondary" onClick={() => router.push("/settings/email-templates")}>Cancel</Button>
             <Button variant="primary" onClick={() => router.push("/settings/email-templates")}>Save</Button>
-          </div>
+          </Flex>
         }
       >
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <Flex vertical gap={16}>
           <Grid cols={2} gap="md">
             <FormInput label="Name" value={name} onChange={(e) => setName(e.target.value)} />
             <FormSelect label="Type" value={type} onChange={setType} options={typeOptions} />
@@ -67,7 +68,7 @@ export default function EditEmailTemplatePage() {
               variables={variables}
             />
           </div>
-        </div>
+        </Flex>
       </FormPage>
 
       <EmailPreview

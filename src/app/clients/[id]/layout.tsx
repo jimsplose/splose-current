@@ -46,9 +46,9 @@ export default async function ClientLayout({
   ];
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: "calc(100vh - 48px)" }}>
+    <Flex vertical style={{ height: "calc(100vh - 48px)" }}>
       {/* Full-width heading row — matches production layout */}
-      <div style={{ flexShrink: 0, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 8, borderBottom: '1px solid var(--color-border)', paddingLeft: 24, paddingRight: 24, paddingTop: 12, paddingBottom: 12 }}>
+      <Flex wrap="wrap" align="center" justify="space-between" gap={8} style={{ flexShrink: 0, borderBottom: '1px solid var(--color-border)', paddingLeft: 24, paddingRight: 24, paddingTop: 12, paddingBottom: 12 }}>
         <Flex align="center" gap={8}>
           <h2 style={{ fontSize: 20, fontWeight: 700, fontFamily: "'Sprig Sans', 'Inter', sans-serif", color: "rgb(66, 105, 74)" }}>Client</h2>
           <span className="text-body-lg" style={{ color: 'var(--color-text-secondary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>

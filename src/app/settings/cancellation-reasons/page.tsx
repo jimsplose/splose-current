@@ -19,6 +19,7 @@ import {
   FormSelect,
   Toggle,
   PageHeader,
+  Divider,
 } from "@/components/ds";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -141,7 +142,8 @@ export default function CancellationReasonsPage() {
           <FormInput label="Code" value={form.code} onChange={(e) => setField("code", e.target.value)} placeholder="Optional" />
         </Flex>
 
-        <div style={{ marginTop: 24, paddingTop: 24, borderTop: '1px solid var(--color-border)' }}>
+        <Divider spacing="none" style={{ marginTop: 24 }} />
+        <div style={{ paddingTop: 24 }}>
           <h3 className="text-heading-md text-text" style={{ marginBottom: 16 }}>Cancellation rules</h3>
           <Flex vertical gap={16}>
             <Toggle

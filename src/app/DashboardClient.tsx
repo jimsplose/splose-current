@@ -120,7 +120,7 @@ function ChartBar({ item }: { item: typeof incomeData[number] }) {
 
   return (
     <Flex vertical align="center" style={{ flex: 1 }}>
-      <div style={{ position: 'relative', display: 'flex', width: '100%', alignItems: 'flex-end', justifyContent: 'center', gap: 1, height: '100%' }}>
+      <Flex align="flex-end" justify="center" gap={1} style={{ position: 'relative', width: '100%', height: '100%' }}>
         {/* Invoice bar */}
         <div
           style={{
@@ -166,7 +166,7 @@ function ChartBar({ item }: { item: typeof incomeData[number] }) {
             <div style={{ position: 'absolute', bottom: -4, left: '50%', height: 8, width: 8, transform: 'translateX(-50%) rotate(45deg)', backgroundColor: '#1f2937' }} />
           </div>
         )}
-      </div>
+      </Flex>
     </Flex>
   );
 }
@@ -206,9 +206,9 @@ function MessageItem({
           <Flex vertical gap={8} style={{ marginTop: 6 }}>
             {/* The visual element */}
             {message.type === "image" && message.id === "msg-1" && (
-              <div style={{ display: 'flex', height: 144, width: 192, alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderRadius: 8, background: 'linear-gradient(to bottom right, #d1d5db, #9ca3af)' }}>
+              <Flex align="center" justify="center" style={{ height: 144, width: 192, overflow: 'hidden', borderRadius: 8, background: 'linear-gradient(to bottom right, #d1d5db, #9ca3af)' }}>
                 <div style={{ height: '100%', width: '100%', transform: 'scale(1.1)', background: 'linear-gradient(to bottom right, #fbcfe8, #d1d5db, #bfdbfe)', filter: 'blur(12px)' }} />
-              </div>
+              </Flex>
             )}
             {message.type === "sticker" && (
               <Flex vertical align="center" justify="center" gap={4} style={{ height: 160, width: 160, borderRadius: 8, background: 'linear-gradient(to bottom right, #bae6fd, #38bdf8)' }}>

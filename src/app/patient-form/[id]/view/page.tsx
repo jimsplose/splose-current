@@ -1,5 +1,6 @@
 import { DownOutlined, MailOutlined } from "@ant-design/icons";
-import { Badge, Button, Card } from "@/components/ds";
+import { Flex } from "antd";
+import { Badge, Button, Card, Text } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -35,13 +36,13 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
   return (
     <div style={{ minHeight: 'calc(100vh - 3rem)' }}>
       {/* Header bar */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 24, paddingRight: 24, paddingTop: 16, paddingBottom: 16 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+      <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: '#fff', padding: '16px 24px' }}>
+        <Flex align="center" gap={12}>
           <h1 className="text-display-lg">{form.title}</h1>
           <Badge variant="green">{form.status}</Badge>
-          <span style={{ cursor: 'pointer', fontSize: 12, color: 'var(--color-primary)' }}>{form.clientName}</span>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Text variant="body/sm" as="span" color="primary" style={{ cursor: 'pointer' }}>{form.clientName}</Text>
+        </Flex>
+        <Flex align="center" gap={8}>
           <Button variant="secondary">
             <MailOutlined style={{ fontSize: 16 }} />
             Email form
@@ -50,42 +51,42 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
             Actions
             <DownOutlined style={{ fontSize: 14 }} />
           </Button>
-        </div>
-      </div>
+        </Flex>
+      </Flex>
 
       {/* Form content */}
       <div style={{ maxWidth: 768, marginLeft: 'auto', marginRight: 'auto', padding: 32 }}>
         <Card padding="none" style={{ padding: 40, boxShadow: '0 1px 2px rgba(0,0,0,.05)' }}>
           {/* Client name with logo */}
-          <div style={{ marginBottom: 16, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+          <Flex align="flex-start" justify="space-between" style={{ marginBottom: 16 }}>
             <h2 className="text-display-md text-text">{form.clientName}</h2>
             <div style={{ height: 48, width: 48, fontSize: 30 }}>🦆</div>
-          </div>
+          </Flex>
 
-          <p className="text-text-secondary" style={{ marginBottom: 24, fontSize: 12, fontStyle: 'italic' }}>Not completed</p>
+          <Text variant="body/sm" color="secondary" style={{ marginBottom: 24, fontStyle: 'italic' }}>Not completed</Text>
 
           {/* Form sections */}
           {form.sections.map((section, si) => (
             <div key={si} style={{ marginBottom: 24 }}>
               <h3 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>{section.title}</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+              <Flex vertical gap={20}>
                 {section.fields.map((field, fi) => (
                   <div key={fi}>
                     <p className="text-label-lg text-text">{field.label}</p>
                     {field.value ? (
                       field.type === "file" ? (
-                        <a href="#" className="text-primary" style={{ fontSize: 12 }}>
+                        <Text variant="body/sm" as="a" color="primary" style={{ cursor: 'pointer' }}>
                           {field.value}
-                        </a>
+                        </Text>
                       ) : (
-                        <p className="text-text" style={{ fontSize: 12 }}>{field.value}</p>
+                        <Text variant="body/sm" color="text">{field.value}</Text>
                       )
                     ) : (
-                      <p className="text-text-secondary" style={{ fontSize: 12, fontStyle: 'italic', opacity: 0.6 }}>No response</p>
+                      <Text variant="body/sm" color="secondary" style={{ fontStyle: 'italic', opacity: 0.6 }}>No response</Text>
                     )}
                   </div>
                 ))}
-              </div>
+              </Flex>
             </div>
           ))}
         </Card>

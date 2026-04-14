@@ -18,6 +18,7 @@ import {
   DropdownTriggerButton,
   Modal,
   FormInput,
+  Divider,
 } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
@@ -146,25 +147,32 @@ export default function UserGroupsPage() {
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
         </Flex>
 
-        <div style={{ marginTop: 24, paddingTop: 24, borderTop: '1px solid var(--color-border)' }}>
+        <Divider spacing="none" style={{ marginTop: 24 }} />
+        <div style={{ paddingTop: 24 }}>
           <h3 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Users</h3>
           <Flex vertical gap={4}>
             {MOCK_USERS.map((user) => {
               const isSelected = form.selectedUsers.includes(user);
               return (
-                <label
+                <Flex
+                  component="label"
                   key={user}
-                  style={{ display: 'flex', cursor: 'pointer', alignItems: 'center', gap: 12, borderRadius: 8, padding: '8px 12px' }}
+                  align="center"
+                  gap={12}
+                  style={{ cursor: 'pointer', borderRadius: 8, padding: '8px 12px' }}
                 >
-                  <span
+                  <Flex
+                    component="span"
+                    align="center"
+                    justify="center"
                     style={{
-                      display: 'flex', height: 20, width: 20, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 4,
+                      height: 20, width: 20, flexShrink: 0, borderRadius: 4,
                       border: `1px solid ${isSelected ? 'var(--color-primary)' : 'var(--color-border)'}`,
                       backgroundColor: isSelected ? 'var(--color-primary)' : 'white',
                     }}
                   >
                     {isSelected && <CheckOutlined style={{ fontSize: 14, color: 'white' }} />}
-                  </span>
+                  </Flex>
                   <input
                     type="checkbox"
                     style={{ position: 'absolute', width: 1, height: 1, padding: 0, margin: -1, overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap', borderWidth: 0 }}
@@ -172,7 +180,7 @@ export default function UserGroupsPage() {
                     onChange={() => toggleUser(user)}
                   />
                   <span className="text-body-md text-text">{user}</span>
-                </label>
+                </Flex>
               );
             })}
           </Flex>

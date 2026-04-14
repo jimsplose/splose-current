@@ -21,7 +21,7 @@ import {
   EditOutlined,
 } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, FormSelect, FormInput, Badge } from "@/components/ds";
+import { Button, FormSelect, FormInput, Badge, Divider } from "@/components/ds";
 import Modal from "@/components/ds/Modal";
 
 interface SendNoteModalProps {
@@ -223,13 +223,14 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
             </Flex>
 
             {/* Toolbar */}
-            <Flex align="center" gap={2} style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: 8 }}>
+            <Flex align="center" gap={2} style={{ paddingBottom: 8 }}>
               {toolbarIcons.map((Icon, i) => (
                 <Button key={i} variant="icon">
                   <Icon style={{ fontSize: 16 }} />
                 </Button>
               ))}
             </Flex>
+            <Divider spacing="none" />
 
             {/* Body text area */}
             <textarea
@@ -242,7 +243,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
         ) : (
           /* Email preview */
           <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: 20 }}>
-            <Flex vertical gap={6} style={{ marginBottom: 16, borderBottom: '1px solid var(--color-border)', paddingBottom: 16 }}>
+            <Flex vertical gap={6} style={{ marginBottom: 16, paddingBottom: 16 }}>
               <Flex gap={8} className="text-body-sm">
                 <span style={{ width: 64, color: 'var(--color-text-secondary)' }}>From:</span>
                 <span>Hands Together Therapies &lt;hello@hands-together-therapy.com&gt;</span>
@@ -256,13 +257,15 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
                 <span className="text-body-md-strong">{subject}</span>
               </Flex>
             </Flex>
+            <Divider spacing="none" />
 
             {/* Email body preview */}
             <div style={{ borderRadius: 8, backgroundColor: '#fff', padding: 20, boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
               {/* Logo header */}
-              <div style={{ marginBottom: 16, borderBottom: '1px solid var(--color-border-secondary)', paddingBottom: 16, textAlign: 'center' }}>
+              <div style={{ marginBottom: 16, paddingBottom: 16, textAlign: 'center' }}>
                 <span className="text-heading-lg" style={{ color: 'var(--color-primary)' }}>splose</span>
               </div>
+              <Divider variant="subtle" spacing="none" />
 
               {/* Body content */}
               <div className="text-body-md" style={{ whiteSpace: 'pre-wrap', lineHeight: 1.625 }}>
@@ -270,7 +273,8 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
               </div>
 
               {/* Attachment indicator */}
-              <div style={{ marginTop: 24, borderTop: '1px solid var(--color-border-secondary)', paddingTop: 16 }}>
+              <Divider variant="subtle" spacing="none" style={{ marginTop: 24 }} />
+              <div style={{ paddingTop: 16 }}>
                 <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: 'var(--color-primary-bg)', padding: '8px 12px' }}>
                   <PaperClipOutlined style={{ fontSize: 16, color: 'var(--color-primary)' }} />
                   <span className="text-body-sm">Progress note — {clientName} — {formatDisplayDate(noteDate)}.pdf</span>
@@ -279,7 +283,8 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
               </div>
 
               {/* Footer */}
-              <div className="text-caption-md" style={{ marginTop: 24, borderTop: '1px solid var(--color-border-secondary)', paddingTop: 16, textAlign: 'center', color: 'var(--color-text-secondary)' }}>
+              <Divider variant="subtle" spacing="none" style={{ marginTop: 24 }} />
+              <div className="text-caption-md" style={{ paddingTop: 16, textAlign: 'center', color: 'var(--color-text-secondary)' }}>
                 <p>Sent via splose — Practice management software for allied health</p>
                 <p style={{ marginTop: 4 }}>
                   <a href="#" style={{ color: 'var(--color-primary)' }}>Unsubscribe</a> · <a href="#" style={{ color: 'var(--color-primary)' }}>Privacy policy</a>

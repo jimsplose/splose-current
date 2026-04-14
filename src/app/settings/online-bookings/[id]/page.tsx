@@ -83,7 +83,7 @@ export default function EditOnlineBookingPage() {
         <Tab items={designTabs} value={activeTab} onChange={setActiveTab} />
       </div>
 
-      <div style={{ display: 'flex', margin: '0 -24px -24px' }}>
+      <Flex style={{ margin: '0 -24px -24px' }}>
       <div style={{ flex: showPreview ? 1 : undefined, maxWidth: showPreview ? undefined : 768, width: showPreview ? undefined : '100%', margin: showPreview ? undefined : '0 auto', padding: 24 }}>
         {activeTab === "design" && (
           <Flex vertical gap={24}>

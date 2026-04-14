@@ -106,7 +106,7 @@ export default function EditServiceClient({ id }: { id: string }) {
   const [confirmationEmail, setConfirmationEmail] = useState(true);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <Flex vertical style={{ minHeight: '100vh' }}>
       <Navbar backHref="/settings/services" title="Edit service">
         <Button variant="primary">Save</Button>
       </Navbar>
@@ -192,6 +192,6 @@ export default function EditServiceClient({ id }: { id: string }) {
           </Collapse>
         </div>
       </div>
-    </div>
+    </Flex>
   );
 }

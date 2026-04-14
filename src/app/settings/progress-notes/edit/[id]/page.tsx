@@ -213,17 +213,20 @@ export default function EditProgressNoteTemplatePage() {
               <p style={{ padding: '16px 0', textAlign: 'center' }} className="text-body-md text-text-secondary">No blocks match this filter.</p>
             ) : (
               filteredLibraryBlocks.map((block) => (
-                <button
+                <Flex
+                  component="button"
                   key={block.id}
                   onClick={() => addBlock(block)}
-                  style={{ display: 'flex', width: '100%', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', padding: '12px 16px', textAlign: 'left', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}
+                  align="center"
+                  gap={12}
+                  style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '12px 16px', textAlign: 'left', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}
                 >
                   <ThunderboltOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-primary)' }} />
                   <div>
                     <div className="text-label-lg text-text">{block.name}</div>
                     <div className="text-caption-md text-text-secondary">{block.prompt}</div>
                   </div>
-                </button>
+                </Flex>
               ))
             )}
           </Flex>

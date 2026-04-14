@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { LeftOutlined, RightOutlined, EnvironmentOutlined, FileTextOutlined, ClockCircleOutlined, CalendarOutlined, UserOutlined, CheckCircleOutlined, MailOutlined, PlusOutlined, CopyOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
 import { Avatar, Button, Checkbox, FormInput, FormSelect, FormTextarea, Alert, Text } from "@/components/ds";
 import styles from "./online-booking.module.css";
 
@@ -427,10 +428,10 @@ function OnlineBookingPageInner() {
 
                   {/* Email preview card */}
                   <div className={styles.emailCard}>
-                    <div style={{ marginBottom: 12, display: "flex", alignItems: "center", gap: 8 }}>
+                    <Flex align="center" gap={8} style={{ marginBottom: 12 }}>
                       <MailOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
                       <Text variant="heading/sm" as="h3">Confirmation email sent</Text>
-                    </div>
+                    </Flex>
                     <div className={styles.emailBody}>
                       <div className={styles.emailHeader}>
                         <div className={styles.emailRow}>
@@ -509,10 +510,10 @@ function OnlineBookingPageInner() {
                   <div className={styles.stepperContent}>
                     <Text variant="heading/sm" as="div">Location</Text>
                     {selectedLocation && (
-                      <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                      <Flex align="center" gap={6}>
                         <EnvironmentOutlined style={{ fontSize: 12 }} />
                         <Text variant="caption/md" as="span" color="secondary">{mockLocations.find((l) => l.id === selectedLocation)?.name}</Text>
-                      </div>
+                      </Flex>
                     )}
                   </div>
                   {selectedLocation && step !== "location" && (
@@ -531,14 +532,14 @@ function OnlineBookingPageInner() {
                     <Text variant="heading/sm" as="div" color={step === "location" ? "secondary" : undefined}>Service</Text>
                     {step !== "location" && (
                       <>
-                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                        <Flex align="center" gap={6}>
                           <FileTextOutlined style={{ fontSize: 12 }} />
                           <Text variant="caption/md" as="span" color="secondary">1:1 Consultation (40 mins d...</Text>
-                        </div>
-                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                        </Flex>
+                        <Flex align="center" gap={6}>
                           <span style={{ width: 12, textAlign: "center", fontSize: 12 }}>$</span>
                           <Text variant="caption/md" as="span" color="secondary">A$148.71</Text>
-                        </div>
+                        </Flex>
                       </>
                     )}
                   </div>
@@ -551,18 +552,18 @@ function OnlineBookingPageInner() {
                     <Text variant="heading/sm" as="div" color={step === "location" ? "secondary" : undefined}>Appointment</Text>
                     {step === "confirm" && selectedPrac && (
                       <>
-                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                        <Flex align="center" gap={6}>
                           <UserOutlined style={{ fontSize: 12 }} />
                           <Text variant="caption/md" as="span" color="secondary">{selectedPrac.name}</Text>
-                        </div>
-                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                        </Flex>
+                        <Flex align="center" gap={6}>
                           <ClockCircleOutlined style={{ fontSize: 12 }} />
                           <Text variant="caption/md" as="span" color="secondary">{selectedTime}</Text>
-                        </div>
-                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                        </Flex>
+                        <Flex align="center" gap={6}>
                           <CalendarOutlined style={{ fontSize: 12 }} />
                           <Text variant="caption/md" as="span" color="secondary">Thursday 19 March 2026</Text>
-                        </div>
+                        </Flex>
                       </>
                     )}
                   </div>

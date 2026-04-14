@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Text from "./Text";
 
 interface FormFieldProps {
   label?: string;
@@ -16,22 +17,18 @@ export default function FormField({ label, error, required, hint, id, className,
       {label && (
         <label
           htmlFor={id}
-          style={{ display: "block", marginBottom: 4, fontSize: 14, fontWeight: 600, color: "rgb(34, 34, 34)" }}
+          style={{ display: "block", marginBottom: 4 }}
         >
-          {label}
+          <Text variant="label/lg" as="span" color="rgb(34, 34, 34)">{label}</Text>
           {required && <span style={{ color: "var(--color-error)", marginLeft: 2 }}>*</span>}
         </label>
       )}
       {hint && (
-        <div style={{ marginBottom: 4, fontSize: 12, color: "var(--color-text-secondary)" }}>
-          {hint}
-        </div>
+        <Text variant="body/sm" as="div" color="secondary" style={{ marginBottom: 4 }}>{hint}</Text>
       )}
       {children}
       {error && (
-        <div style={{ marginTop: 4, fontSize: 12, color: "var(--color-error)" }}>
-          {error}
-        </div>
+        <Text variant="body/sm" as="div" color="danger" style={{ marginTop: 4 }}>{error}</Text>
       )}
     </div>
   );

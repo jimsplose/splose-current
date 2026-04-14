@@ -1,5 +1,6 @@
 "use client";
 
+import { Flex } from "antd";
 import { Button, PageHeader } from "@/components/ds";
 
 interface Integration {
@@ -98,13 +99,13 @@ export default function IntegrationsPage() {
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Integrations" />
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20 }}>
+      <Flex wrap="wrap" gap={20}>
         {integrations.map((integration) => (
-          <div key={integration.name} style={{ borderRadius: 8, border: '0.5px solid rgb(217, 217, 217)', padding: 25, width: 343, display: 'flex', flexDirection: 'column' }}>
+          <Flex vertical key={integration.name} style={{ borderRadius: 8, border: '0.5px solid rgb(217, 217, 217)', padding: 25, width: 343 }}>
             {/* Logo */}
-            <div style={{ marginBottom: 12, display: 'flex', height: 80, alignItems: 'center' }}>
+            <Flex align="center" style={{ marginBottom: 12, height: 80 }}>
               {integration.logo}
-            </div>
+            </Flex>
 
             {/* Name */}
             <div style={{ fontSize: 21, fontWeight: 700, color: 'rgb(33, 105, 71)', marginBottom: 15 }}>
@@ -128,7 +129,7 @@ export default function IntegrationsPage() {
             )}
 
             {/* Action buttons */}
-            <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
+            <Flex align="center" gap={8} style={{ marginTop: 'auto' }}>
               {integration.actions.map((action) => (
                 <Button
                   key={action.label}
@@ -137,10 +138,10 @@ export default function IntegrationsPage() {
                   {action.label}
                 </Button>
               ))}
-            </div>
-          </div>
+            </Flex>
+          </Flex>
         ))}
-      </div>
+      </Flex>
     </div>
   );
 }

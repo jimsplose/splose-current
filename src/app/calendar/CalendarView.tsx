@@ -30,7 +30,7 @@ import {
   SearchOutlined,
   CheckOutlined,
 } from "@ant-design/icons";
-import { Button, Badge, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert, Dropdown, Card, RadioGroup } from "@/components/ds";
+import { Button, Badge, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert, Dropdown, Card, RadioGroup, Text } from "@/components/ds";
 import AiChatPanel from "@/components/AiChatPanel";
 import styles from "./CalendarView.module.css";
 
@@ -465,7 +465,7 @@ export default function CalendarView({
                       <div className={locationFilter === "all" ? styles.filterCheckboxChecked : styles.filterCheckbox}>
                         {locationFilter === "all" && <CheckOutlined style={{ fontSize: 12, color: "white" }} />}
                       </div>
-                      <span style={{ fontWeight: 500 }}>Select all</span>
+                      <Text variant="label/lg" as="span" color="text">Select all</Text>
                     </button>
                     {uniqueLocations
                       .filter(loc => loc.toLowerCase().includes(locationSearchQuery.toLowerCase()))
@@ -518,7 +518,7 @@ export default function CalendarView({
                       <div className={practitionerFilter === "all" ? styles.filterCheckboxChecked : styles.filterCheckbox}>
                         {practitionerFilter === "all" && <CheckOutlined style={{ fontSize: 12, color: "white" }} />}
                       </div>
-                      <span style={{ fontWeight: 500 }}>All practitioners</span>
+                      <Text variant="label/lg" as="span" color="text">All practitioners</Text>
                     </button>
                     {groupByLocation(locatedPractitioners).map(group => {
                       const filteredPracs = group.practitioners.filter(p =>
@@ -980,7 +980,7 @@ export default function CalendarView({
           </div>
           {createTime && createTime.includes("AM") && (
             <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16, color: "#ca8a04" }} />}>
-              <span style={{ fontWeight: 500 }}>Scheduling conflict:</span> {createPractitioner ? practitioners.find(p => p.id === createPractitioner)?.name || "Practitioner" : "Practitioner"} already has an appointment at {createTime}. Double-check before confirming.
+              <Text variant="label/lg" as="span" color="text">Scheduling conflict:</Text> {createPractitioner ? practitioners.find(p => p.id === createPractitioner)?.name || "Practitioner" : "Practitioner"} already has an appointment at {createTime}. Double-check before confirming.
             </Alert>
           )}
           <FormSelect label="Room/Resource" value={createRoom} onChange={setCreateRoom} options={[
@@ -1325,7 +1325,7 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
         <div>
           <span className="text-text">{appt.practitionerName}</span>
           <span className="text-text-secondary"> at </span>
-          <span className="text-text" style={{ fontWeight: 500 }}>East Clinics</span>
+          <Text variant="label/lg" as="span" color="text">East Clinics</Text>
         </div>
       </div>
       <div className={styles.detailRowCenter}>
@@ -1393,7 +1393,7 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
         <div>
           <span className="text-text">{appt.practitionerName}</span>
           <span className="text-text-secondary"> at </span>
-          <span className="text-text" style={{ fontWeight: 500 }}>East Clinics</span>
+          <Text variant="label/lg" as="span" color="text">East Clinics</Text>
         </div>
       </div>
       <div className={styles.detailRowCenter}>

@@ -257,7 +257,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             </Flex>
           </section>
 
-          <Divider spacing="lg" />
+          <Divider spacing="none" style={{ marginBottom: 32 }} />
 
           {/* Contact information */}
           <section style={{ marginBottom: 32 }}>
@@ -316,7 +316,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             </Flex>
           </section>
 
-          <Divider spacing="lg" />
+          <Divider spacing="none" style={{ marginBottom: 32 }} />
 
           {/* Associated clients */}
           <section style={{ marginBottom: 32 }}>
@@ -350,7 +350,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             )}
           </section>
 
-          <Divider spacing="lg" />
+          <Divider spacing="none" style={{ marginBottom: 32 }} />
 
           {/* Custom fields */}
           <section style={{ marginBottom: 32 }}>

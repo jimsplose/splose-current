@@ -61,9 +61,9 @@ export default function NdisBulkUploadNewPage() {
         <div style={{ maxWidth: 512, margin: '0 auto', padding: 24 }}>
           <Card padding="lg" style={{ textAlign: 'center' }}>
             <Flex justify="center" style={{ marginBottom: 16 }}>
-              <div style={{ display: 'flex', height: 56, width: 56, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', backgroundColor: '#dcfce7' }}>
+              <Flex align="center" justify="center" style={{ height: 56, width: 56, borderRadius: '50%', backgroundColor: '#dcfce7' }}>
                 <CheckCircleOutlined style={{ fontSize: 32, color: '#16a34a' }} />
-              </div>
+              </Flex>
             </Flex>
             <Text variant="heading/lg" style={{ marginBottom: 4 }}>Upload submitted</Text>
             <Text variant="body/md" color="secondary" style={{ marginBottom: 24 }}>
@@ -71,7 +71,8 @@ export default function NdisBulkUploadNewPage() {
               {errorCount > 0 && ` ${errorCount} items with errors were skipped.`}
             </Text>
 
-            <Flex vertical gap={12} style={{ borderTop: '1px solid var(--color-border)', paddingTop: 16, textAlign: 'left' }}>
+            <Divider spacing="none" />
+            <Flex vertical gap={12} style={{ paddingTop: 16, textAlign: 'left' }}>
               <Flex align="center" justify="space-between">
                 <Text variant="body/md" as="span" color="secondary">File</Text>
                 <Text variant="label/lg" as="span">{fileName}</Text>
@@ -216,9 +217,9 @@ export default function NdisBulkUploadNewPage() {
           {fileName ? (
             <Card padding="md">
               <Flex align="center" gap={12}>
-                <div style={{ display: 'flex', height: 40, width: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 8, backgroundColor: 'var(--color-primary-bg)' }}>
+                <Flex align="center" justify="center" style={{ height: 40, width: 40, borderRadius: 8, backgroundColor: 'var(--color-primary-bg)' }}>
                   <FileTextOutlined style={{ fontSize: 20, color: 'var(--color-primary)' }} />
-                </div>
+                </Flex>
                 <div style={{ flex: 1 }}>
                   <Text variant="label/lg" as="p">{fileName}</Text>
                   <Text variant="caption/md" as="p" color="secondary">CSV file — 5 rows</Text>
