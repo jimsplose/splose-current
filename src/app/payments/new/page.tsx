@@ -260,9 +260,9 @@ export default function NewPaymentPage() {
 
           {/* Amount */}
           <div>
-            <Text variant="label/lg" as="label" color="secondary" style={{ display: 'block', marginBottom: 4 }}>
+            <label style={{ display: 'block', marginBottom: 4, fontSize: 14, fontWeight: 600, color: 'rgb(34, 34, 34)' }}>
               Amount <span style={{ color: 'var(--color-error)' }}>*</span>
-            </Text>
+            </label>
             <div style={{ position: 'relative' }}>
               <Text variant="body/md" as="span" color="secondary" style={{ position: 'absolute', top: '50%', left: 12, zIndex: 10, transform: 'translateY(-50%)' }}>$</Text>
               <FormInput
