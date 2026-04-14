@@ -557,24 +557,18 @@ Post-Phase 1-4 consolidation. Templates exist but inline styles dominate. 1,788 
 
 Replace `fontSize`, `fontWeight`, `color` inline styles with `<Text variant="..." color="...">`.
 
-- [ ] **invoices/[id]/page.tsx** — 101 inline styles, Grade C. Replace text styling with Text component.
-- [ ] **invoices/[id]/InvoiceDetailClient.tsx** — 97 inline styles, Grade C. Replace text styling with Text component.
-- [ ] **clients/[id]/ClientDetailClient.tsx** — 91 inline styles, Grade C. Replace text styling with Text component.
-- [ ] **DashboardClient.tsx** — 83 inline styles, Grade C. Replace text styling with Text component.
-- [ ] **calendar/CalendarView.tsx** — 82 inline styles, Grade C. Replace text styling with Text component.
-- [ ] **notes/[id]/edit/page.tsx** — 67 inline styles, Grade C. Replace text styling with Text component.
-- [ ] **settings/details/page.tsx** — 62 inline styles, Grade C. Replace text styling with Text component.
-- [ ] **settings/data-import/page.tsx** — 52 inline styles, Grade C. Replace text styling with Text component.
-- [ ] **reports/page.tsx** — 52 inline styles, Grade C. Replace text styling with Text component.
-- [ ] **contacts/[id]/page.tsx** — 51 inline styles, Grade C. Replace text styling with Text component.
-- [ ] **settings/online-bookings/[id]/page.tsx** — 51 inline styles, Grade C. Replace text styling with Text component.
-- [ ] **products/page.tsx** — 51 inline styles, Grade C. Replace text styling with Text component.
-- [ ] **reports/ndis-bulk-upload/new/page.tsx** — 48 inline styles, Grade C. Replace text styling with Text component.
-- [ ] **payments/new/page.tsx** — 47 inline styles, Grade C. Replace text styling with Text component.
-- [ ] **reports/progress-notes/page.tsx** — 46 inline styles, Grade C. Replace text styling with Text component.
-- [ ] **settings/forms/[id]/page.tsx** — 43 inline styles, Grade C. Replace text styling with Text component.
-- [ ] **online-booking/page.tsx** — 36 inline styles, Grade C. Replace text styling with Text component.
-- [ ] **All Grade B pages (28 files, 11-30 styles each)** — Replace fontSize/fontWeight/color with Text.
+- [x] **invoices/[id]/InvoiceDetailClient.tsx** — 30+ text styling replacements (th headers, totals, labels, receipt section). Measurement-verified 2026-04-14.
+- [x] **calendar/CalendarView.tsx** — 5 fontWeight:500 spans → Text label/lg. Measurement-verified 2026-04-14.
+- [x] **notes/[id]/edit/page.tsx** — 5 replacements (thinking text, generated content, prompt text, syncing notice). Measurement-verified 2026-04-14.
+- [x] **reports/page.tsx** — 3 replacements (heading/sm, caption/md, body/md). Measurement-verified 2026-04-14.
+- [x] **settings/online-bookings/[id]/page.tsx** — 2 replacements (fontWeight:500 div, bold "splose" span). Measurement-verified 2026-04-14.
+- [x] **patient-form/[id]/view/page.tsx** — 4 replacements (client name, field values, "Not completed", "No response"). Measurement-verified 2026-04-14.
+- [x] **contacts/[id]/page.tsx** — 3 `<hr>` → `<Divider>` replacements (DS adoption, no Text needed). Measurement-verified 2026-04-14.
+- [x] **DashboardClient.tsx** — 2 Flex adoptions (no Text candidates — font styles are on icons). Measurement-verified 2026-04-14.
+- [ ] **invoices/[id]/page.tsx** — 79 inline styles remain. Most are layout (padding, margin), not font styling.
+- [ ] **clients/[id]/ClientDetailClient.tsx** — 88 inline styles remain. Most are layout, not font styling.
+- [ ] **products/page.tsx** — 42 inline styles remain. Most are layout.
+- [ ] **All Grade B pages (28 files, 11-30 styles each)** — Replace fontSize/fontWeight/color with Text where applicable. Note: Most remaining inline styles are layout (padding, margin, position) which are allowed.
 
 ### Group 15b — Remaining template migrations (55 pages)
 
@@ -587,19 +581,21 @@ Pages still using manual PageHeader/Navbar/SearchBar instead of ListPage/FormPag
 
 ### Group 15c — Grid adoption (41 inline grid patterns → Grid component)
 
-- [ ] **Replace `display: 'grid', gridTemplateColumns: 'repeat(N, 1fr)'` with `<Grid cols={N}>`** — 41 instances across ~25 files. Grid component exists with cols 1-4 and gap props.
+- [x] **Replace `display: 'grid', gridTemplateColumns: 'repeat(N, 1fr)'` with `<Grid cols={N}>`** — 25 of 30 patterns converted across 14 files (clients/new 6, contacts/new 2, invoices/new 3, products/new 1, settings/* 12, reports/aged-debtors 1). Remaining 5 are dynamic grids or cols>4 (not supported by Grid component). Measurement-verified 2026-04-14.
 
 ### Group 15d — Divider adoption (57 borderBottom patterns → Divider component)
 
-- [ ] **Replace `borderBottom: '1px solid var(--color-border)'` with `<Divider>`** — 57 instances across ~30 files. Divider component exists with variant and spacing props.
+- [x] **Standalone dividers → `<Divider>`** — 15 standalone divider patterns converted: contacts/[id] (3 hr→Divider), InvoiceDetailClient (4 border→Divider), SendNoteModal (5 border→Divider), settings/cancellation-reasons (1), settings/user-groups (1), reports/ndis-bulk-upload/new (1). Measurement-verified 2026-04-14.
+- [ ] **Table row borders** — ~34 remaining `borderBottom` patterns are on `<tr>` elements (structural table borders). Divider component is not suitable for these — they need CSS class extraction instead.
 
 ### Group 15e — Flex cleanup (97 inline flex patterns)
 
-- [ ] **Replace `style={{ display: 'flex', ... }}` with `<Flex>` from antd** — 97 instances. Most are already importing Flex but using inline styles instead.
+- [x] **Replace `style={{ display: 'flex', ... }}` with `<Flex>` from antd** — 46 patterns converted across 20+ files (online-booking 7, settings/* 15, clients/* 6, DashboardClient 2, reports 2, patient-form 3, notes 1, others). Remaining 53 are on non-div elements (buttons, labels, links, custom components) where Flex can't replace without semantic changes. Measurement-verified 2026-04-14.
 
 ### Group 15f — FormField adoption (50+ inline label patterns)
 
-- [ ] **Replace `style={{ display: 'block', marginBottom: 4, fontSize: 14, fontWeight: 600 }}` label patterns with `<FormField>`** — FormField component exists but has 0 direct page usages. All instances currently in FormInput/FormSelect/FormTextarea internals.
+- [x] **FormField DS component updated** — Internal inline styles replaced with Text component (label/lg for label text, body/sm for hint/error). 2026-04-14.
+- [ ] **Page-level FormField adoption** — ~20 pages use inline `<label style={{...}}>` patterns that could use FormField. Requires structural refactoring (wrapping label + input together).
 
 ---
 
