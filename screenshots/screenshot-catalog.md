@@ -31,7 +31,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-settings-integrations-2026-03-17-18_34_17.png | Integrations list default | no — 4-flow audit 2026-04-09: cards center-aligned (should be left), heading 16px/600/gray (should be 21px/700/green), card dimensions differ, border weight wrong |
+| screencapture-acme-splose-settings-integrations-2026-03-17-18_34_17.png | Integrations list default | no — dual-tab audit 2026-04-14: headings/card-border/grid match, but logos 48px vs prod 100px, Connect buttons purple-filled vs prod outlined, missing brand-name description links, card bg transparent vs white, Disconnect red rgb(208,0,50) vs prod rgb(240,0,50), desc fontSize 14px vs prod 15px. 12 measurement failures. |
 
 ## Settings — SMS Settings (`/settings/smsSettings`)
 
