@@ -150,9 +150,18 @@ Scan 1 — Banned inline patterns:
 
 Scan 2 — Missing DS imports:
   Files with <button or <input tags but no @/components/ds import
+
+Scan 3 — Inline style visual properties:
+  style={{ containing fontSize, fontWeight, borderRadius, backgroundColor, color, padding, lineHeight
+  Each hit: is there a DS component or typography class? → Use it. DS component almost fits? → Extend it.
+  Layout-only values (maxWidth, marginTop, flex, gap) are allowed.
+
+Scan 4 — DS component bypass:
+  Changes in src/components/ds/ that add inline <span style={{ or <div style={{ duplicating the
+  component's own responsibility. DS components must expose variants/props, not hardcode inline styles.
 ```
 
-**Allowed exceptions:** Icon-only toolbar buttons, tab switcher active/inactive toggles, checkbox/radio `<input>`, hidden inputs.
+**Allowed exceptions:** Icon-only toolbar buttons, tab switcher active/inactive toggles, checkbox/radio `<input>`, hidden inputs. Layout positioning (`maxWidth`, `margin`, `flex`, `gap`, `position`) is fine as inline style.
 
 ### DS Grade
 

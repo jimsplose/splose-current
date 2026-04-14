@@ -67,11 +67,21 @@ Group non-conflicting gaps. Every agent prompt MUST include:
 ## Step 3: Quality gate
 
 After each agent, run `docs/quality-gate.md` **in full**:
-1. DS violation scan
+1. DS violation scan (all 4 scans — including inline style and DS bypass checks)
 2. TypeScript check
 3. **Visual verification — 5-iteration loop (protocol Section 7)**
 
 **Do NOT commit without Step 3.** Steps 1-2 catch code issues only. Without Step 3 you have no evidence the visual fix works.
+
+## Step 3.5: DS implementation review
+
+Before committing, review each changed file and ask:
+
+1. **Did I extend or bypass?** If production needs a value a DS component doesn't support, the fix must add a prop/variant to the DS component — not inline the style on the page. A visually correct fix that bypasses DS is incomplete.
+2. **Did I hardcode in a DS component?** If a changed file is in `src/components/ds/`, check that new values are exposed as props, not baked in as inline styles. DS components should be configurable, not page-specific.
+3. **Did I use typography classes?** Any `fontSize`/`fontWeight` combo in `style={{}}` should use a typography utility class or `<Text>` variant instead. If no class fits, add one to `globals.css` and the typography spec.
+
+If any answer is wrong, fix it before committing. The gap stays open until the DS-proper implementation is done — visual match alone is not sufficient.
 
 ## Step 4: Update catalog
 

@@ -27,6 +27,15 @@ Grep changed `.tsx` files for banned patterns (protocol Section 6):
 **Scan 2 — Missing DS imports:**
 Files with `<button` or `<input` but no `@/components/ds` import.
 
+**Scan 3 — Inline style visual properties (new):**
+Grep changed `.tsx` files for `style={{` containing visual properties: `fontSize`, `fontWeight`, `borderRadius`, `backgroundColor`, `color`, `padding`, `lineHeight`. Each hit is a potential DS violation. For each:
+- Is there a DS component or typography class that handles this? → Use it.
+- Is there a DS component that *almost* handles it but lacks a prop? → Extend the component first, then use it.
+- Is this truly a one-off layout value (e.g. `maxWidth`, `marginTop`, `flex`)? → Allowed.
+
+**Scan 4 — DS component bypass (new):**
+If any changed file is inside `src/components/ds/`, check: does the change add inline `<span style={{`, `<div style={{`, or raw HTML that duplicates the component's own responsibility? DS components must be extended via props, not patched with inline elements. A DS component with hardcoded inline styles is a code smell — it should expose a variant or prop instead.
+
 ## Step 2: TypeScript Check
 
 ```bash

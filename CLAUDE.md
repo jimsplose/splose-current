@@ -52,6 +52,8 @@ A gap is `[x]` only when ALL related `screenshots/screenshot-catalog.md` entries
 
 **ALWAYS use DS components** from `@/components/ds` — never inline Tailwind for common patterns. 40+ components (see `docs/reference/ds-component-catalog.md` for full list). Storybook: `npm run storybook` (port 6006). Use [DaisyUI naming](https://daisyui.com/components/). When a pattern appears on 2+ pages, extract to DS and add a Storybook story.
 
+**Extend, don't bypass.** When a DS component exists but doesn't support the exact styling production needs, add a prop to the component — do NOT replace it with an inline `<span style={{...}}>` or `<div style={{...}}>`. Inline styles that duplicate DS component responsibilities are banned even when they visually match production. The correct sequence: (1) measure production, (2) add a prop/variant to the DS component, (3) use it from the page. This keeps styling centralized and prevents drift.
+
 ## Chrome MCP Visual Verification
 
 **All UI work** must be verified visually before committing. The pre-commit hook blocks commits on `page.tsx` files without a `.verification-evidence` file. See `docs/quality-gate.md` for the full protocol: dual-tab measurement loop, structural screenshots, fallback path when Chrome MCP is unavailable, and how to write verification evidence.

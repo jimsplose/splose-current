@@ -54,12 +54,22 @@ Import: `import { Text } from "@/components/ds";`
 
 Typography classes set font-family, size, weight, line-height, and letter-spacing. Keep color (`text-text-secondary`), alignment, and truncation as separate classes.
 
+### Extend, don't bypass
+
+When a DS component exists but doesn't support the exact value production needs (e.g. Badge renders square but production is pill-shaped), the correct fix is:
+1. Add a prop/variant to the DS component (e.g. `shape="pill"`)
+2. Use the DS component with the new prop from the page
+
+**Do NOT** replace the DS component with an inline `<span style={{...}}>` or `<div style={{...}}>`. Even if the inline version visually matches production, it bypasses the design system and creates drift. The same rule applies inside DS components — expose values as props, don't hardcode them.
+
 ### Banned patterns — do NOT write these:
 - `const inputClass = "..."` or `const labelClass = "..."` — use `<FormInput>` / `<FormSelect>`
 - Inline badge/button/color-dot/on-off styles — use `<Badge>`, `<Button>`, `<ColorDot>`, `<OnOffBadge>`
 - Inline `<input type="color">` — use `<FormColorPicker>`
 - Repeated dropdown arrays or modal state — use `@/lib/dropdown-presets` / `useFormModal`
 - Raw `text-[Npx]` font sizes or `text-{size} font-{weight}` combos — use typography classes
+- `<span style={{ borderRadius, backgroundColor, fontSize, ... }}>` replacing a DS Badge/Button — extend the DS component instead
+- `style={{ fontSize: N, fontWeight: N }}` on headings — add a typography class to `globals.css` if none fits
 
 ### DS naming convention:
 New components use [DaisyUI](https://daisyui.com/components/) names where a match exists (e.g. `Tab`, `Toggle`, `Modal`, `Avatar`, `Dropdown`, `Card`, `Collapse`, `Filter`, `Status`). See CLAUDE.md for the full table.
