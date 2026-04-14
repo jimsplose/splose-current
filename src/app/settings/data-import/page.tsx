@@ -208,13 +208,13 @@ export default function DataImportPage() {
         {importStep === "upload" && (
           <Flex vertical gap={16}>
             <FormSelect label="Import type" options={[{ value: "clients", label: "Clients" }, { value: "contacts", label: "Contacts" }, { value: "appointments", label: "Appointments" }]} defaultValue="clients" />
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, borderRadius: 8, border: '2px dashed var(--color-border)', padding: 40, textAlign: 'center', transition: 'all 0.2s' }}>
+            <Flex vertical align="center" gap={12} style={{ borderRadius: 8, border: '2px dashed var(--color-border)', padding: 40, textAlign: 'center', transition: 'all 0.2s' }}>
               <UploadOutlined style={{ fontSize: 40, color: 'var(--color-text-secondary)' }} />
               <div>
                 <p className="text-body-md text-text">Drag and drop your CSV file here</p>
                 <p className="text-body-sm text-text-secondary">or click to browse</p>
               </div>
-            </div>
+            </Flex>
             <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: '#f0fdf4', padding: '8px 12px' }}>
               <FileTextOutlined style={{ fontSize: 16, color: '#16a34a' }} />
               <span className="text-body-sm" style={{ color: '#15803d' }}>client_export_march_2026.csv</span>
@@ -298,11 +298,11 @@ export default function DataImportPage() {
 
         {importStep === "done" && (
           <div style={{ padding: '24px 0', textAlign: 'center' }}>
-            <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'center' }}>
-              <div style={{ display: 'flex', height: 64, width: 64, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', backgroundColor: '#dcfce7' }}>
+            <Flex justify="center" style={{ marginBottom: 16 }}>
+              <Flex align="center" justify="center" style={{ height: 64, width: 64, borderRadius: '50%', backgroundColor: '#dcfce7' }}>
                 <CheckCircleOutlined style={{ fontSize: 32, color: '#16a34a' }} />
-              </div>
-            </div>
+              </Flex>
+            </Flex>
             <Text variant="heading/lg" as="h3" style={{ marginBottom: 8 }}>Import complete!</Text>
             <Text variant="body/md" color="secondary" style={{ marginBottom: 16 }}>Successfully imported 5 clients into splose.</Text>
             <div style={{ maxWidth: 320, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 8, borderRadius: 8, backgroundColor: 'var(--color-fill-tertiary)', padding: 16 }}>

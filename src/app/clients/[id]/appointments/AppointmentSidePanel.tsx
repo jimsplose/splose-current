@@ -105,7 +105,7 @@ export default function AppointmentSidePanel({
   const paged = appointments.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   return (
-    <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+    <Flex style={{ flex: 1, overflow: 'hidden' }}>
       {/* Main table area */}
       <div style={{ flex: 1, overflowY: 'auto', padding: 24, transition: 'all 0.2s', ...(selectedAppointment ? { paddingRight: 0 } : {}) }}>
         <PageHeader title="Appointments">
@@ -315,9 +315,9 @@ export default function AppointmentSidePanel({
 
             {/* Status */}
             <Flex align="center" gap={12}>
-              <div style={{ display: 'flex', height: 16, width: 16, flexShrink: 0, alignItems: 'center', justifyContent: 'center' }}>
+              <Flex align="center" justify="center" style={{ height: 16, width: 16, flexShrink: 0 }}>
                 <Status color="gray" />
-              </div>
+              </Flex>
               <Text variant="body/md" as="span" color="secondary">No status</Text>
             </Flex>
 
@@ -442,6 +442,6 @@ export default function AppointmentSidePanel({
           </div>
         </aside>
       )}
-    </div>
+    </Flex>
   );
 }

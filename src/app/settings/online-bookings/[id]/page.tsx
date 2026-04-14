@@ -367,9 +367,9 @@ export default function EditOnlineBookingPage() {
                 {["East Clinics", "West Clinics"].map((loc) => (
                   <Flex key={loc} align="center" justify="space-between" style={{ borderRadius: 12, border: '1px solid var(--color-border)', padding: 12 }}>
                     <Flex align="center" gap={12}>
-                      <div style={{ display: 'flex', height: 40, width: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 8, backgroundColor: '#1f2937', fontSize: 18 }}>
+                      <Flex align="center" justify="center" style={{ height: 40, width: 40, borderRadius: 8, backgroundColor: '#1f2937', fontSize: 18 }}>
                         🔥
-                      </div>
+                      </Flex>
                       <div>
                         <Text variant="label/lg" as="div" color="text">{loc}</Text>
                         <div className="text-caption-md text-text-secondary">Mobile and/or telehealth</div>
