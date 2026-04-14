@@ -27,8 +27,8 @@ Implement code changes to close fidelity gaps. Uses parallel subagents with mand
 **MANDATORY before any visual change.**
 
 1. Set up dual tabs (protocol Section 2)
-2. **Visual diff first** — Run protocol Section 3 (zoom regions) to establish baseline
-3. Run measurement snippet on BOTH tabs for each element to be fixed
+2. **VISUAL DIFF FIRST — NOT OPTIONAL.** Screenshot both tabs side-by-side. Look at the WHOLE page, not just the elements in the gap description. Note ALL visible differences including backgrounds, card containers, content width, spacing, and layout structure. Gap descriptions are often incomplete — they name specific properties but miss structural/layout differences that are obvious visually. **If you skip this step, you WILL miss things.**
+3. Run measurement snippet on BOTH tabs for every difference found in step 2
 4. Calculate deltas with exact values
 5. Use arbitrary Tailwind values (`h-[34px]`, `text-[rgb(65,69,73)]`) for precision
 
