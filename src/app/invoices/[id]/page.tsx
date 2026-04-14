@@ -121,10 +121,10 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
               </Flex>
 
               {/* Three-column info block */}
-              <Grid cols={3} gap={32} style={{ marginBottom: 40, fontSize: 14, lineHeight: 1.625 }}>
+              <Grid cols={3} gap={32} style={{ marginBottom: 40 }}>
                 {/* Column 1: Client info */}
                 <div>
-                  <Text variant="label/md" as="h3" style={{ marginBottom: 8, fontSize: 13, color: 'rgb(65, 69, 73)', fontWeight: 700 }}>Client</Text>
+                  <Text variant="body/md-strong" as="h3" color="secondary" style={{ marginBottom: 8 }}>Client</Text>
                   <Text variant="label/lg" as="p" color="primary">
                     {invoice.client.firstName} {invoice.client.lastName}
                   </Text>
@@ -148,7 +148,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
                   {/* Care of client */}
                   {invoice.billingType === "NDIS" && (
                     <div style={{ marginTop: 20 }}>
-                      <Text variant="label/md" as="h3" style={{ marginBottom: 8, fontSize: 13, color: 'rgb(65, 69, 73)', fontWeight: 700 }}>
+                      <Text variant="body/md-strong" as="h3" color="secondary" style={{ marginBottom: 8 }}>
                         Care of client above
                       </Text>
                       <Text variant="label/lg" as="p" color="primary">National Disability Insurance Agency</Text>
@@ -160,7 +160,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
 
                 {/* Column 2: From info */}
                 <div>
-                  <Text variant="label/md" as="h3" style={{ marginBottom: 8, fontSize: 13, color: 'rgb(65, 69, 73)', fontWeight: 700 }}>From</Text>
+                  <Text variant="body/md-strong" as="h3" color="secondary" style={{ marginBottom: 8 }}>From</Text>
                   <Text variant="label/lg" as="p" color="text">Hands Together Therapies</Text>
                   <Text variant="body/md" as="p" color="secondary" style={{ marginTop: 2 }}>East Clinics</Text>
                   <Text variant="body/md" as="p" color="secondary">4 Williamstown Rd</Text>
@@ -168,13 +168,13 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
 
                   {practitioner && (
                     <div style={{ marginTop: 16 }}>
-                      <Text variant="label/md" as="p" style={{ fontSize: 13, color: 'rgb(65, 69, 73)', fontWeight: 700 }}>Provider</Text>
+                      <Text variant="body/md-strong" as="p" color="secondary">Provider</Text>
                       <Text variant="body/md" as="p" color="secondary" style={{ marginTop: 4 }}>{practitioner.name}</Text>
                     </div>
                   )}
 
                   <div style={{ marginTop: 16 }}>
-                    <Text variant="label/md" as="p" style={{ fontSize: 13, color: 'rgb(65, 69, 73)', fontWeight: 700 }}>ABN</Text>
+                    <Text variant="body/md-strong" as="p" color="secondary">ABN</Text>
                     <Text variant="body/md" as="p" color="secondary" style={{ marginTop: 4 }}>11 234 567 811</Text>
                   </div>
                 </div>
@@ -182,15 +182,15 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
                 {/* Column 3: Invoice details */}
                 <Flex vertical gap={16}>
                   <div>
-                    <Text variant="label/md" as="p" style={{ fontSize: 13, color: 'rgb(65, 69, 73)', fontWeight: 700 }}>Invoice #</Text>
+                    <Text variant="body/md-strong" as="p" color="secondary">Invoice #</Text>
                     <Text variant="body/md" as="p" color="text" style={{ marginTop: 4 }}>{invoice.invoiceNumber}</Text>
                   </div>
                   <div>
-                    <Text variant="label/md" as="p" style={{ fontSize: 13, color: 'rgb(65, 69, 73)', fontWeight: 700 }}>Issue date</Text>
+                    <Text variant="body/md-strong" as="p" color="secondary">Issue date</Text>
                     <Text variant="body/md" as="p" color="text" style={{ marginTop: 4 }}>{formatDate(invoice.date)}</Text>
                   </div>
                   <div>
-                    <Text variant="label/md" as="p" style={{ fontSize: 13, color: 'rgb(65, 69, 73)', fontWeight: 700 }}>Due date</Text>
+                    <Text variant="body/md-strong" as="p" color="secondary">Due date</Text>
                     <Text variant="body/md" as="p" color="text" style={{ marginTop: 4 }}>{formatDate(invoice.dueDate)}</Text>
                   </div>
                 </Flex>
@@ -198,7 +198,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
 
               {/* Line items table */}
               <div style={{ marginBottom: 32 }}>
-                <table style={{ width: '100%', fontSize: 14 }}>
+                <table style={{ width: '100%' }}>
                   <thead>
                     <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
                       <th style={{ paddingBottom: 12, textAlign: 'left' }}>
@@ -278,7 +278,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
 
               {/* Totals section */}
               <Flex justify="end" style={{ marginBottom: 40 }}>
-                <Flex vertical gap={8} style={{ width: 288, fontSize: 14 }}>
+                <Flex vertical gap={8} style={{ width: 288 }}>
                   <Flex align="center" justify="space-between" style={{ padding: '4px 0' }}>
                     <Text variant="body/md" as="span" color="secondary">Subtotal excl. tax</Text>
                     <Text variant="body/md" as="span" color="text" style={{ fontVariantNumeric: 'tabular-nums' }}>${invoice.subtotal.toFixed(2)}</Text>
@@ -292,8 +292,8 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
                     <Text variant="heading/md" as="span" color="text" style={{ fontVariantNumeric: 'tabular-nums' }}>${invoice.total.toFixed(2)}</Text>
                   </Flex>
                   <Flex align="center" justify="space-between" style={{ marginTop: 4, borderRadius: 8, background: 'var(--color-fill-secondary)', padding: '10px 12px' }}>
-                    <Text variant="body/md" as="span" color="text" style={{ fontWeight: 700 }}>Total Amount Due AUD</Text>
-                    <Text variant="body/md" as="span" color="text" style={{ fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>${amountDue.toFixed(2)}</Text>
+                    <Text variant="body/md-strong" as="span" color="text">Total Amount Due AUD</Text>
+                    <Text variant="body/md-strong" as="span" color="text" style={{ fontVariantNumeric: 'tabular-nums' }}>${amountDue.toFixed(2)}</Text>
                   </Flex>
                 </Flex>
               </Flex>
@@ -302,7 +302,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
               <Divider spacing="none" />
 
               {/* Additional Information */}
-              <div style={{ marginTop: 24, fontSize: 14 }}>
+              <div style={{ marginTop: 24 }}>
                 <Text variant="heading/md" as="h4" color="text" style={{ marginBottom: 12 }}>Additional Information</Text>
                 <Text variant="body/md" as="p" color="secondary">
                   Please note that the service dates are displayed at the beginning of each line item.
@@ -333,7 +333,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
         <Flex vertical gap={20} style={{ width: 320, flexShrink: 0, paddingTop: 8 }}>
           {/* Payments summary */}
           <Card padding="lg" shadow>
-            <Text variant="display/sm" as="h3" style={{ marginBottom: 12, fontSize: 21, fontWeight: 500, color: 'rgb(65, 69, 73)' }}>Payments</Text>
+            <Text variant="heading/lg" as="h3" color="secondary" style={{ marginBottom: 12 }}>Payments</Text>
             <Flex align="baseline" justify="space-between" style={{ marginBottom: 8 }}>
               <Text variant="body/md" as="span" color="secondary">
                 {invoice.status === "Paid" ? invoice.total.toFixed(2) : "0.00"} / {invoice.total.toFixed(2)} AUD
@@ -367,9 +367,10 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
 
           {/* Note */}
           <Card padding="lg" shadow>
-            <Text variant="display/sm" as="h3" style={{ marginBottom: 8, fontSize: 21, fontWeight: 500, color: 'rgb(65, 69, 73)' }}>Note</Text>
+            <Text variant="heading/lg" as="h3" color="secondary" style={{ marginBottom: 8 }}>Note</Text>
             <textarea
-              style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', background: 'var(--color-fill-tertiary)', padding: 12, fontSize: 14, color: 'var(--color-text)', outline: 'none' }}
+              className="text-body-md text-text"
+              style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', background: 'var(--color-fill-tertiary)', padding: 12, outline: 'none' }}
               rows={4}
               placeholder="Add an internal note..."
               defaultValue=""

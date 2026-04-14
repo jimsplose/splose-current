@@ -178,18 +178,17 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             <Button
               key={item.label}
               variant="ghost"
-              className={"active" in item && item.active ? "text-primary" : "text-text-secondary"}
+              className={`text-body-sm ${"active" in item && item.active ? "text-primary font-medium" : "text-text-secondary"}`}
               style={{
-                fontSize: 12,
                 width: '100%',
                 justifyContent: 'space-between',
                 ...("active" in item && item.active
-                  ? { borderLeft: '2px solid var(--color-primary)', background: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.05)', fontWeight: 500 }
+                  ? { borderLeft: '2px solid var(--color-primary)', background: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.05)' }
                   : {}),
               }}
             >
               {item.label}
-              {"count" in item && item.count ? <span style={{ fontSize: 10, color: 'var(--color-text-secondary)' }}>{item.count}</span> : null}
+              {"count" in item && item.count ? <Text variant="caption/sm" color="secondary" as="span">{item.count}</Text> : null}
             </Button>
           ))}
         </Flex>
@@ -200,8 +199,8 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
         {/* Top action bar */}
         <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', padding: '12px 24px' }}>
           <Flex align="center" gap={8}>
-            <h2 style={{ fontSize: 20, fontWeight: 700, fontFamily: "'Sprig Sans', 'Inter', sans-serif", color: "rgb(66, 105, 74)" }}>Contact</h2>
-            <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>{contact.name}</span>
+            <Text variant="display/sm" as="h2" color="rgb(66, 105, 74)">Contact</Text>
+            <Text variant="body/md" color="secondary" as="span">{contact.name}</Text>
           </Flex>
           <Button variant="secondary" size="sm">
             Actions
@@ -221,15 +220,15 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
           {/* General details */}
           <section style={{ marginBottom: 32 }}>
-            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16, fontWeight: 700 }}>General details</Text>
+            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16 }}>General details</Text>
             <Flex align="start" gap={24}>
-              <Flex vertical gap={8} style={{ fontSize: 12 }}>
+              <Flex vertical gap={8} className="text-body-sm">
                 <Flex gap={64}>
-                  <span style={{ width: 112, flexShrink: 0, color: 'var(--color-text-secondary)' }}>Name:</span>
-                  <span style={{ fontWeight: 500, color: 'var(--color-text)' }}>{contact.name}</span>
+                  <Text variant="body/sm" color="secondary" as="span" style={{ width: 112, flexShrink: 0 }}>Name:</Text>
+                  <Text variant="label/md" color="text" as="span">{contact.name}</Text>
                 </Flex>
                 <Flex gap={64}>
-                  <span style={{ width: 112, flexShrink: 0, color: 'var(--color-text-secondary)' }}>Type:</span>
+                  <Text variant="body/sm" color="secondary" as="span" style={{ width: 112, flexShrink: 0 }}>Type:</Text>
                   <span>
                     {contact.type ? (
                       <span
@@ -244,15 +243,15 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                         {contact.type}
                       </span>
                     ) : (
-                      <span style={{ color: 'var(--color-text-secondary)' }}>Not set</span>
+                      <Text variant="body/sm" color="secondary" as="span">Not set</Text>
                     )}
                   </span>
                 </Flex>
                 <Flex gap={64}>
-                  <span style={{ width: 112, flexShrink: 0, color: 'var(--color-text-secondary)' }}>Company:</span>
-                  <span style={{ color: 'var(--color-text)' }}>
-                    {contact.company || <span style={{ color: 'var(--color-text-secondary)' }}>Not provided</span>}
-                  </span>
+                  <Text variant="body/sm" color="secondary" as="span" style={{ width: 112, flexShrink: 0 }}>Company:</Text>
+                  <Text variant="body/sm" color="text" as="span">
+                    {contact.company || <Text variant="body/sm" color="secondary" as="span">Not provided</Text>}
+                  </Text>
                 </Flex>
               </Flex>
             </Flex>
@@ -262,57 +261,57 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
           {/* Contact information */}
           <section style={{ marginBottom: 32 }}>
-            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16, fontWeight: 700 }}>Contact details</Text>
-            <Flex vertical gap={12} style={{ fontSize: 12 }}>
+            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16 }}>Contact details</Text>
+            <Flex vertical gap={12} className="text-body-sm">
               <Flex gap={64}>
-                <span style={{ width: 112, flexShrink: 0, color: 'var(--color-text-secondary)' }}>Email:</span>
+                <Text variant="body/sm" color="secondary" as="span" style={{ width: 112, flexShrink: 0 }}>Email:</Text>
                 {contact.email ? (
                   <Flex align="center" gap={6}>
                     <MailOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
-                    <span className="text-primary">{contact.email}</span>
+                    <Text variant="body/sm" color="primary" as="span">{contact.email}</Text>
                   </Flex>
                 ) : (
-                  <span style={{ color: 'var(--color-text-secondary)' }}>Not provided</span>
+                  <Text variant="body/sm" color="secondary" as="span">Not provided</Text>
                 )}
               </Flex>
               <Flex gap={64}>
-                <span style={{ width: 112, flexShrink: 0, color: 'var(--color-text-secondary)' }}>Work phone:</span>
+                <Text variant="body/sm" color="secondary" as="span" style={{ width: 112, flexShrink: 0 }}>Work phone:</Text>
                 {contact.workPhone ? (
                   <Flex align="center" gap={6}>
                     <PhoneOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
-                    <span className="text-primary">{contact.workPhone}</span>
+                    <Text variant="body/sm" color="primary" as="span">{contact.workPhone}</Text>
                   </Flex>
                 ) : (
-                  <span style={{ color: 'var(--color-text-secondary)' }}>Not provided</span>
+                  <Text variant="body/sm" color="secondary" as="span">Not provided</Text>
                 )}
               </Flex>
               <Flex gap={64}>
-                <span style={{ width: 112, flexShrink: 0, color: 'var(--color-text-secondary)' }}>Mobile phone:</span>
+                <Text variant="body/sm" color="secondary" as="span" style={{ width: 112, flexShrink: 0 }}>Mobile phone:</Text>
                 {contact.mobilePhone ? (
                   <Flex align="center" gap={6}>
                     <PhoneOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
-                    <span className="text-primary">{contact.mobilePhone}</span>
+                    <Text variant="body/sm" color="primary" as="span">{contact.mobilePhone}</Text>
                   </Flex>
                 ) : (
-                  <span style={{ color: 'var(--color-text-secondary)' }}>Not provided</span>
+                  <Text variant="body/sm" color="secondary" as="span">Not provided</Text>
                 )}
               </Flex>
               <Flex gap={64}>
-                <span style={{ width: 112, flexShrink: 0, color: 'var(--color-text-secondary)' }}>Address:</span>
+                <Text variant="body/sm" color="secondary" as="span" style={{ width: 112, flexShrink: 0 }}>Address:</Text>
                 {contact.address ? (
                   <Flex align="center" gap={6}>
                     <EnvironmentOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
-                    <span style={{ color: 'var(--color-text)' }}>{contact.address}</span>
+                    <Text variant="body/sm" color="text" as="span">{contact.address}</Text>
                   </Flex>
                 ) : (
-                  <span style={{ color: 'var(--color-text-secondary)' }}>Not provided</span>
+                  <Text variant="body/sm" color="secondary" as="span">Not provided</Text>
                 )}
               </Flex>
               <Flex gap={64}>
-                <span style={{ width: 112, flexShrink: 0, color: 'var(--color-text-secondary)' }}>Note:</span>
-                <span style={{ color: 'var(--color-text)' }}>
-                  {contact.notes || <span style={{ color: 'var(--color-text-secondary)' }}>Not provided</span>}
-                </span>
+                <Text variant="body/sm" color="secondary" as="span" style={{ width: 112, flexShrink: 0 }}>Note:</Text>
+                <Text variant="body/sm" color="text" as="span">
+                  {contact.notes || <Text variant="body/sm" color="secondary" as="span">Not provided</Text>}
+                </Text>
               </Flex>
             </Flex>
           </section>
@@ -321,7 +320,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
           {/* Associated clients */}
           <section style={{ marginBottom: 32 }}>
-            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16, fontWeight: 700 }}>Associated clients</Text>
+            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16 }}>Associated clients</Text>
             {contact.associatedClients.length > 0 ? (
               <DataTable>
                 <TableHead>
@@ -355,7 +354,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
           {/* Custom fields */}
           <section style={{ marginBottom: 32 }}>
-            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16, fontWeight: 700 }}>Custom fields</Text>
+            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16 }}>Custom fields</Text>
             <Text variant="body/sm" color="secondary">No custom fields</Text>
           </section>
 

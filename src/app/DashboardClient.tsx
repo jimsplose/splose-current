@@ -153,7 +153,7 @@ function ChartBar({ item }: { item: typeof incomeData[number] }) {
         />
         {/* Tooltip */}
         {hovered && (
-          <div className="text-caption-sm" style={{ pointerEvents: 'none', position: 'absolute', top: -56, left: '50%', zIndex: 10, transform: 'translateX(-50%)', whiteSpace: 'nowrap', borderRadius: 4, backgroundColor: '#1f2937', padding: '6px 10px', color: 'white', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
+          <div className="text-caption-sm text-white" style={{ pointerEvents: 'none', position: 'absolute', top: -56, left: '50%', zIndex: 10, transform: 'translateX(-50%)', whiteSpace: 'nowrap', borderRadius: 4, backgroundColor: '#1f2937', padding: '6px 10px', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
             <Text variant="label/sm" as="div">{item.month}</Text>
             <Flex align="center" gap={6}>
               <span style={{ display: 'inline-block', height: 8, width: 8, borderRadius: 2, backgroundColor: "#bef264" }} />
@@ -218,12 +218,12 @@ function MessageItem({
                   <div style={{ position: 'absolute', left: 8, top: 16, height: 8, width: 8, borderRadius: 9999, backgroundColor: 'white' }} />
                   <div style={{ position: 'absolute', right: 8, top: 16, height: 8, width: 8, borderRadius: 9999, backgroundColor: 'white' }} />
                 </div>
-                <Text variant="caption/sm" as="span" color="#075985" style={{ fontWeight: 700 }}>STFCRS5</Text>
+                <Text variant="caption/sm" as="span" color="#075985" className="font-bold">STFCRS5</Text>
               </Flex>
             )}
             {message.type === "logo" && (
               <Flex align="center" justify="center" style={{ height: 160, width: 192, borderRadius: 8, background: 'linear-gradient(to bottom right, #dcfce7, #86efac)' }}>
-                <span style={{ fontSize: 48, fontWeight: 700, color: '#16a34a' }}>S</span>
+                <Text variant="display/lg" as="span" color="#16a34a" style={{ fontSize: 48 }}>S</Text>
               </Flex>
             )}
             {message.type === "image" && message.id === "msg-4" && (
@@ -326,7 +326,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
           <Card padding="none" style={{ marginBottom: 8, minHeight: 80, padding: '8px 12px' }}>
             <Text variant="body/md" color="secondary">Type a message...</Text>
           </Card>
-          <Flex align="center" gap={2} style={{ color: 'var(--color-text-secondary)' }}>
+          <Flex align="center" gap={2} className="text-text-secondary">
             <Button variant="icon" size="sm" className="text-body-md-strong" title="Bold">B</Button>
             <Button variant="icon" size="sm" className="text-body-md" style={{ fontStyle: 'italic' }} title="Italic">I</Button>
             <Button variant="icon" size="sm" className="text-body-md" style={{ textDecoration: 'underline' }} title="Underline">U</Button>
@@ -425,9 +425,9 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                 <>
                   {incompleteNotes.map((note) => (
                     <Flex key={note.name} align="flex-start" justify="space-between" gap={8} style={{ paddingTop: 2, paddingBottom: 2 }}>
-                      <span className={`text-body-md ${styles.hoverUnderline}`} style={{ cursor: 'pointer', color: 'var(--color-primary)' }}>
+                      <Text variant="body/md" as="span" color="primary" className={styles.hoverUnderline} style={{ cursor: 'pointer' }}>
                         {note.name}
-                      </span>
+                      </Text>
                       <Text variant="caption/sm" as="span" color="secondary" style={{ flexShrink: 0, whiteSpace: 'nowrap', paddingTop: 2 }}>
                         {note.time}
                       </Text>
@@ -437,9 +437,9 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
               ) : (
                 unsignedNotes.map((note) => (
                   <Flex key={note.id} align="flex-start" justify="space-between" gap={8} style={{ paddingTop: 2, paddingBottom: 2 }}>
-                    <span className={`text-body-md ${styles.hoverUnderline}`} style={{ cursor: 'pointer', color: 'var(--color-primary)' }}>
+                    <Text variant="body/md" as="span" color="primary" className={styles.hoverUnderline} style={{ cursor: 'pointer' }}>
                       {note.client.firstName} {note.client.lastName} ({note.practitioner.name})
-                    </span>
+                    </Text>
                     <Text variant="caption/sm" as="span" color="secondary" style={{ flexShrink: 0, whiteSpace: 'nowrap', paddingTop: 2 }}>
                       {formatDateTime(note.date)}
                     </Text>
@@ -463,8 +463,8 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                 <Flex key={form.id} align="flex-start" justify="space-between" gap={8} style={{ paddingTop: 2, paddingBottom: 2 }}>
                   <Link
                     href={`/patient-form/${form.id}/view`}
-                    className={`text-body-md ${styles.hoverUnderline}`}
-                    style={{ cursor: 'pointer', color: 'var(--color-primary)' }}
+                    className={`text-body-md text-primary ${styles.hoverUnderline}`}
+                    style={{ cursor: 'pointer' }}
                   >
                     {form.name}
                   </Link>

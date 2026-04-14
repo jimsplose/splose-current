@@ -38,8 +38,12 @@ export default function FormPage({
       <Navbar backHref={backHref} title={title} backLabel={backLabel} badge={badge}>
         {actions}
       </Navbar>
-      <div style={{ maxWidth, margin: "0 auto", padding: 24 }}>
-        {children}
+      <div style={{ backgroundColor: "rgb(241, 241, 241)", padding: "12px 0", minHeight: "calc(100vh - 57px)" }}>
+        <div style={{ backgroundColor: "#fff", border: "1px solid rgb(241, 241, 241)", margin: "0 72px", padding: "32px 48px" }}>
+          <div style={{ maxWidth, margin: "0 auto" }}>
+            {children}
+          </div>
+        </div>
       </div>
     </div>
   );
