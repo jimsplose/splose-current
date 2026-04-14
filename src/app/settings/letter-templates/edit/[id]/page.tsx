@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Flex } from "antd";
 import {
   Button,
   FormInput,
@@ -40,13 +41,13 @@ export default function EditLetterTemplatePage() {
       title={name || "Edit letter template"}
       maxWidth={768}
       actions={
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <Flex align="center" gap={8}>
           <Button variant="secondary" onClick={() => router.push("/settings/letter-templates")}>Cancel</Button>
           <Button variant="primary" onClick={() => router.push("/settings/letter-templates")}>Save</Button>
-        </div>
+        </Flex>
       }
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <Flex vertical gap={16}>
         <Grid cols={2} gap="md">
           <FormInput label="Template name" value={name} onChange={(e) => setName(e.target.value)} />
           <FormSelect label="Default recipient" value={recipient} onChange={setRecipient} options={recipientOptions} />
@@ -63,7 +64,7 @@ export default function EditLetterTemplatePage() {
             variables={variables}
           />
         </div>
-      </div>
+      </Flex>
     </FormPage>
   );
 }

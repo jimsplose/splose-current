@@ -110,7 +110,7 @@ export default function FormTemplateEditorPage() {
         <Tab items={editorTabs} value={activeTab} onChange={setActiveTab} />
       </div>
 
-      <div style={{ display: 'flex', flex: 1, margin: '0 -24px -24px' }}>
+      <Flex style={{ flex: 1, margin: '0 -24px -24px' }}>
         <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
           {activeTab === "builder" && (
             <div style={{ maxWidth: 672, margin: '0 auto' }}>
@@ -188,9 +188,9 @@ export default function FormTemplateEditorPage() {
                           <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}><input type="radio" name={`f${field.id}`} disabled /> No</label>
                         </Flex>
                       ) : field.type === "file-upload" ? (
-                        <div style={{ display: 'flex', height: 80, alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)' }} className="text-caption-md text-text-secondary">
+                        <Flex align="center" justify="center" style={{ height: 80, borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)' }} className="text-caption-md text-text-secondary">
                           Click or drag to upload
-                        </div>
+                        </Flex>
                       ) : (
                         <input style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '8px 12px' }} className="text-body-md" type={field.type === "date" ? "date" : "text"} disabled />
                       )}
@@ -226,7 +226,7 @@ export default function FormTemplateEditorPage() {
             </Flex>
           </div>
         )}
-      </div>
+      </Flex>
 
       <Modal open={showAddField} onClose={() => setShowAddField(false)} title="Add field" maxWidth="sm">
         <Grid cols={2} gap="sm">

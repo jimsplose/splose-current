@@ -305,12 +305,12 @@ export default function DataImportPage() {
             </Flex>
             <Text variant="heading/lg" as="h3" style={{ marginBottom: 8 }}>Import complete!</Text>
             <Text variant="body/md" color="secondary" style={{ marginBottom: 16 }}>Successfully imported 5 clients into splose.</Text>
-            <div style={{ maxWidth: 320, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 8, borderRadius: 8, backgroundColor: 'var(--color-fill-tertiary)', padding: 16 }}>
+            <Flex vertical gap={8} style={{ maxWidth: 320, margin: '0 auto', borderRadius: 8, backgroundColor: 'var(--color-fill-tertiary)', padding: 16 }}>
               <Flex justify="space-between" className="text-body-sm"><span className="text-text-secondary">Total records</span><span className="text-text">5</span></Flex>
               <Flex justify="space-between" className="text-body-sm"><span className="text-text-secondary">Imported</span><span style={{ color: '#16a34a' }}>5</span></Flex>
               <Flex justify="space-between" className="text-body-sm"><span className="text-text-secondary">Skipped</span><span className="text-text">0</span></Flex>
               <Flex justify="space-between" className="text-body-sm"><span className="text-text-secondary">Errors</span><span className="text-text">0</span></Flex>
-            </div>
+            </Flex>
           </div>
         )}
       </Modal>
