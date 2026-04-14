@@ -2,7 +2,7 @@
 
 **After EVERY UI change — subagent or direct — and BEFORE committing.** Not optional. Not batchable.
 
-**Shared procedures:** `docs/reference/measurement-protocol.md` (thresholds, measurement, DS rules).
+**Prerequisites:** Read `docs/reference/measurement-protocol.md` before running this gate. It contains the canonical thresholds (Section 5), DS scan patterns (Section 6), and verification loop (Section 7) referenced below.
 
 ## HARD GATE
 
@@ -13,7 +13,7 @@ A fix is NOT complete until you have a comparison table (production vs localhost
 - "TypeScript passes"
 - "I'll verify later in a batch"
 - "It's a simple change"
-- "Chrome MCP isn't available" (use fallback path, never skip entirely)
+- "Chrome MCP isn't available" (troubleshoot it — see CLAUDE.md Decision Trees. Do not commit visual changes without Chrome MCP.)
 
 ## Step 1: DS Violation Scan
 
@@ -44,9 +44,9 @@ npx tsc --noEmit
 
 ## Step 3: Visual Verification
 
-### Path A: Chrome MCP available (preferred)
+**Chrome MCP is required.** There is no fallback path. If Chrome MCP is not responding, troubleshoot it (see CLAUDE.md "Chrome MCP not responding" Decision Tree). Do not proceed with visual work until Chrome MCP is restored.
 
-Run the **5-iteration verification loop** (protocol Section 7):
+Run the **5-iteration verification loop** (canonical procedure: `measurement-protocol.md` Section 7):
 
 1. Set up dual tabs (protocol Section 2), viewport 1440x900
 2. **Visual diff first** — Zoom into changed zones (protocol Section 3)
@@ -55,16 +55,7 @@ Run the **5-iteration verification loop** (protocol Section 7):
 5. Evaluate against thresholds (protocol Section 5)
 6. 0 failures = PASS. Otherwise fix, re-measure, max 5 iterations.
 
-**Structural check:** Screenshot both tabs, zoom into changed zone. Note missing/extra elements, layout diffs.
-
-### Path B: No Chrome MCP (fallback)
-
-1. Read reference screenshots + compare against source code
-2. Resolve Tailwind classes to CSS values
-3. Cross-reference against `splose-style-reference/`
-4. Build comparison table with resolved vs target values
-5. Mark uncertain resolutions as "UNCERTAIN"
-6. Use "partial — code-review only" for catalog entries
+**Structural check (mandatory):** Screenshot both tabs, zoom into changed zone. Record missing/extra elements and layout diffs. A verification without structural findings is incomplete — do not skip this.
 
 ## Step 3.5: Worktree Merge (if applicable)
 

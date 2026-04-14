@@ -28,6 +28,41 @@ Or tell me what you'd like to work on. Bugshot: use `/bugshot-chrome`.
 
 After completing any workflow, show this list again with a brief summary of what was done.
 
+## Required Reading
+
+Before doing ANY visual/UI work, read these docs. Do not skip them even if the task seems simple.
+
+| Situation | Read BEFORE starting |
+|---|---|
+| Any visual change (direct or subagent) | `docs/quality-gate.md`, `docs/reference/measurement-protocol.md` |
+| Launching a UI-touching subagent | `docs/agent-block.md` (copy the block into the prompt) |
+| Running `/fidelity` or fixing gaps | `docs/fix-gaps-workflow.md`, `docs/route-mapping.md` |
+| Running `/audit` or comparing pages | `docs/route-mapping.md`, `docs/reference/measurement-protocol.md` |
+
+These docs contain the actual procedures (measurement snippets, threshold tables, DS scan patterns). CLAUDE.md provides the rules and principles — the docs above provide the step-by-step execution.
+
+## Judgment Calls — Decision Trees
+
+### Live measurement vs design spec
+1. **Live production measurement always wins.** If you can measure it on `acme.splose.com`, use that value.
+2. Design specs (`screenshots/specs/`) are reference material for understanding intent — not override values.
+3. If a Fix Brief specifies a value and your live measurement differs, re-measure. If they still differ, use the live measurement and note the discrepancy.
+
+### DS: extend vs inline
+1. Does a DS component exist for this pattern? (Badge, Button, Text, Divider, etc.) → **Use it.**
+2. Does the DS component exist but lack the exact prop you need? → **Add a prop/variant to the component, then use it.**
+3. Is this a one-off layout value (`maxWidth`, `margin`, `flex`, `gap`, `position`)? → **Inline style is fine.**
+4. Is this a tiny icon-only toolbar button or truly unique one-off? → **Inline is fine, but if the pattern appears on 2+ pages, extract to DS.**
+
+If in doubt, extend the DS component. The cost of one extra prop is lower than the cost of inline drift.
+
+### Chrome MCP not responding
+**Chrome MCP is mandatory for visual work. Do not use fallback code-review paths.** Instead, troubleshoot:
+1. Check Chrome is running and visible on the desktop
+2. Run `mcp__claude-in-chrome__tabs_context_mcp` — if it fails, the MCP server may need restarting
+3. Ask Jim to restart Chrome or the MCP extension if repeated failures
+4. If Chrome MCP cannot be restored in this session, stop visual work and do non-visual tasks (refactoring, docs, TypeScript fixes) until the next session
+
 ## Canonical Viewport
 
 **All Chrome MCP work uses 1440x900.** At the start of every session that uses Chrome MCP, run:
@@ -56,7 +91,9 @@ A gap is `[x]` only when ALL related `screenshots/screenshot-catalog.md` entries
 
 ## Chrome MCP Visual Verification
 
-**All UI work** must be verified visually before committing. The pre-commit hook blocks commits on `page.tsx` files without a `.verification-evidence` file. See `docs/quality-gate.md` for the full protocol: dual-tab measurement loop, structural screenshots, fallback path when Chrome MCP is unavailable, and how to write verification evidence.
+**All UI work** must be verified visually before committing. The pre-commit hook blocks commits on `page.tsx` files without a `.verification-evidence` file. See `docs/quality-gate.md` for the full protocol: dual-tab measurement loop, structural screenshots, and how to write verification evidence.
+
+**Chrome MCP is mandatory** for visual verification — there is no acceptable fallback. If Chrome MCP is down, troubleshoot it (see "Chrome MCP not responding" in Decision Trees above). Do not commit visual changes without Chrome MCP measurement.
 
 **Do NOT use** Puppeteer, Playwright, pixel-diff scripts, or headless browser screenshots. Chrome MCP is the only live visual verification tool.
 
@@ -121,3 +158,21 @@ After completing a workflow or batch of fixes, ask Jim:
 npm run dev         # localhost:3000
 npm run storybook   # localhost:6006
 ```
+
+## Workflow Documentation Sync Map
+
+Workflow docs have a canonical source for each rule. When updating any rule, update the canonical source FIRST, then sync all downstream files listed below. **Do not update a downstream file without updating the canonical source.**
+
+| Rule / Procedure | Canonical source | Downstream (must sync) |
+|---|---|---|
+| Measurement thresholds (colors, fonts, spacing) | `measurement-protocol.md` Section 5 | `agent-block.md` (inline thresholds paragraph) |
+| DS violation scan patterns (Scans 1-4) | `measurement-protocol.md` Section 6 | `quality-gate.md` Step 1, `agent-block.md` (banned patterns) |
+| 5-iteration verification loop | `measurement-protocol.md` Section 7 | `agent-block.md` (verification section), `quality-gate.md` Step 3 |
+| Measurement JS snippet | `measurement-protocol.md` Section 4b | `agent-block.md` (inline snippet) |
+| Catalog entry qualifiers | `measurement-protocol.md` Section 8 | `fix-gaps-workflow.md` Step 4 |
+| DS component lookup table | `agent-block.md` (DS section) | `measurement-protocol.md` Section 6 (component mandate) |
+| DS "extend, don't bypass" rule | `CLAUDE.md` (DS section + Decision Trees) | `agent-block.md` (extend section), `quality-gate.md` Step 1 Scans 3-4, `fix-gaps-workflow.md` Step 3.5 |
+| Chrome MCP is mandatory | `CLAUDE.md` (Decision Trees) | `quality-gate.md` (remove fallback paths) |
+| Gap completion rule | `CLAUDE.md` (Gap Completion Rule) | `fix-gaps-workflow.md` Step 4, `fidelity-gaps.md` header |
+
+**When making workflow/instruction updates:** Read this table. Update the canonical source, then grep for the rule in downstream files and sync them. If you add a new rule, add it to this table.

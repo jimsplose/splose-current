@@ -1,6 +1,8 @@
 # Measurement Protocol
 
-Shared reference for all visual comparison work. Every workflow that touches visual fidelity MUST follow this protocol. Do NOT duplicate these procedures in other docs — reference this file instead.
+Shared reference for all visual comparison work. Every workflow that touches visual fidelity MUST follow this protocol.
+
+**This is the canonical source** for thresholds (Section 5), DS scan patterns (Section 6), and the verification loop (Section 7). The agent block (`docs/agent-block.md`) contains an inline copy for subagent self-containment — see the Sync Map in CLAUDE.md. When updating any section here, sync downstream files listed in the Sync Map.
 
 ## 1. Viewport
 

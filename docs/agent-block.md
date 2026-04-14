@@ -2,7 +2,7 @@
 
 **Every subagent that creates or modifies page UI MUST receive this block at the top of its prompt.** Do NOT launch a UI-touching subagent without it. This is a single, self-contained block that covers DS enforcement AND visual verification.
 
-**Maintenance:** The measurement procedures in this block are derived from `docs/reference/measurement-protocol.md`. When updating thresholds, DS rules, or measurement procedures, update the protocol first, then sync this block.
+**Maintenance & sync:** This block is self-contained so subagents get everything they need. But it derives from canonical sources — see the Sync Map in CLAUDE.md. When updating thresholds, DS rules, or measurement procedures: update `docs/reference/measurement-protocol.md` first (canonical), then sync changes into this block. Never update this block without updating the canonical source.
 
 **Copy everything between the `---START AGENT BLOCK---` and `---END AGENT BLOCK---` markers into every subagent prompt verbatim.**
 
@@ -136,11 +136,7 @@ If a design spec exists at `screenshots/specs/<page-name>.md`, read it and imple
 **Max 5 iterations.** If still wrong after 5, report your Verification Log — don't keep guessing.
 
 **If Chrome MCP is NOT available:**
-1. Re-read your changed code and resolve Tailwind classes to CSS values
-2. Use `splose-style-reference/` as target values (since live measurement unavailable)
-3. Build the same comparison table using resolved values vs target values
-4. Mark uncertain resolutions as "UNCERTAIN"
-5. Report structured summary. The main agent will verify afterward.
+Chrome MCP is mandatory. If browser tools are not available to you as a subagent, report this in your output: "BLOCKED: Chrome MCP not available — cannot verify." The main agent will handle troubleshooting. Do not attempt code-review-only verification or commit unverified visual changes.
 
 ### Acceptance criteria (structural — supplement to measurement):
 - **Layout**: Same grid/flex structure, same sidebar/header/content arrangement
@@ -166,9 +162,7 @@ If a design spec exists at `screenshots/specs/<page-name>.md`, read it and imple
 | ... | ... | ... | ... | ... |
 ```
 
-If you cannot run Chrome MCP (no browser tools available), use the fallback code-audit path and report resolved Tailwind values vs target values. Mark your verdict as "PARTIAL — code-review only".
-
-**Never report PASS without measurement data.** If you didn't measure, say so.
+**Never report PASS without measurement data.** If you didn't measure, say so. If Chrome MCP was not available, report "BLOCKED" — do not report "PARTIAL" or guess.
 
 ## Worktree Safety — IF APPLICABLE
 

@@ -13,13 +13,14 @@ Implement code changes to close fidelity gaps. Uses parallel subagents with mand
 
 ## Prerequisites
 
-1. Chrome MCP available (preferred; fallback in protocol Section 7)
+1. Chrome MCP available and responding (**mandatory** — no fallback. See CLAUDE.md Decision Trees if not working.)
 2. Viewport: 1440x900 (protocol Section 1)
-3. `docs/route-mapping.md` read
-4. Design specs checked (`screenshots/specs/<page-name>.md`)
-5. DS components mandatory (`docs/agent-block.md`)
+3. `docs/reference/measurement-protocol.md` read (thresholds, measurement snippet, DS scan patterns)
+4. `docs/route-mapping.md` read (production ↔ localhost URL pairs)
+5. Design specs checked (`screenshots/specs/<page-name>.md`)
+6. DS components mandatory (`docs/agent-block.md`)
 
-**Target values priority:** Live production measurement > `splose-style-reference/` > reference screenshots.
+**Target values priority:** Live production measurement wins. Always. Design specs and reference screenshots are supporting context, not overrides.
 
 ## Step 0: Measure before fixing
 
@@ -83,9 +84,14 @@ Before committing, review each changed file and ask:
 
 If any answer is wrong, fix it before committing. The gap stays open until the DS-proper implementation is done — visual match alone is not sufficient.
 
-## Step 4: Update catalog
+## Step 4: Update BOTH tracking files
 
-Update `screenshots/screenshot-catalog.md` (protocol Section 8 qualifiers). Only mark gap `[x]` if ALL entries show "yes".
+**You must update both files — not one, not the other, both.**
+
+1. **`screenshots/screenshot-catalog.md`** — Update match status using protocol Section 8 qualifiers.
+2. **`docs/fidelity-gaps.md`** — Mark gap `[x]` only if ALL related catalog entries show "yes". Include a one-line summary with date (e.g. "Fixed: ... Measurement-verified 2026-04-14.")
+
+If you update the catalog but forget fidelity-gaps.md (or vice versa), the next session will see inconsistent state and waste time re-verifying.
 
 ## Step 5: Build, commit, push
 
