@@ -14,6 +14,7 @@ import {
   TableBody,
   Tr,
   Td,
+  Grid,
 } from "@/components/ds";
 
 const agingSummary = [
@@ -71,14 +72,14 @@ export default function ReportsAgedDebtorsPage() {
 
       {showResults && (
         <>
-          <div style={{ marginBottom: 16, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
+          <Grid cols={4} gap={12} style={{ marginBottom: 16 }}>
             {agingSummary.map((item) => (
               <Card key={item.label}>
                 <p className="text-label-md" style={{ color: 'var(--color-text-secondary)' }}>{item.label}</p>
                 <p className="text-heading-lg" style={{ marginTop: 4, color: item.color }}>{item.amount}</p>
               </Card>
             ))}
-          </div>
+          </Grid>
 
           <Card padding="none" style={{ overflowX: 'auto' }}>
             <DataTable>

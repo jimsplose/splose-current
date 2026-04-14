@@ -30,6 +30,7 @@ import {
   FormTextarea,
   Modal,
   RichTextEditor,
+  Grid,
 } from "@/components/ds";
 
 const FIELD_TYPES = [
@@ -228,7 +229,7 @@ export default function FormTemplateEditorPage() {
       </div>
 
       <Modal open={showAddField} onClose={() => setShowAddField(false)} title="Add field" maxWidth="sm">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+        <Grid cols={2} gap="sm">
           {FIELD_TYPES.map(({ icon: Icon, label, value }) => (
             <button
               key={value}
@@ -239,7 +240,7 @@ export default function FormTemplateEditorPage() {
               <span className="text-body-md text-text">{label}</span>
             </button>
           ))}
-        </div>
+        </Grid>
       </Modal>
     </FormPage>
   );

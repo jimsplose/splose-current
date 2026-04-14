@@ -401,8 +401,8 @@ export default function ReportsPage() {
       <Card padding="none">
         <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', padding: '12px 16px' }}>
           <div>
-            <h3 className="text-heading-sm" style={{ color: 'var(--color-text)' }}>Practitioners</h3>
-            <p className="text-caption-md" style={{ color: 'var(--color-text-secondary)' }}>Breakdown of performance by individual practitioner</p>
+            <Text variant="heading/sm" as="h3" color="text">Practitioners</Text>
+            <Text variant="caption/md" color="secondary">Breakdown of performance by individual practitioner</Text>
           </div>
         </Flex>
         <DataTable>
@@ -436,7 +436,7 @@ export default function ReportsPage() {
                 <Td>
                   <Flex align="center" gap={12}>
                     <Avatar name={p.name} color={p.color} size="sm" />
-                    <span className="text-body-md" style={{ color: 'var(--color-text)' }}>{p.name}</span>
+                    <Text variant="body/md" as="span" color="text">{p.name}</Text>
                   </Flex>
                 </Td>
                 <Td>
@@ -446,7 +446,7 @@ export default function ReportsPage() {
                         style={{ height: 6, borderRadius: 9999, backgroundColor: 'var(--color-primary)', width: `${Math.min(p.utilisation * 10, 100)}%` }}
                       />
                     </div>
-                    <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>{p.utilisation.toFixed(2)}%</span>
+                    <Text variant="body/md" as="span" color="secondary">{p.utilisation.toFixed(2)}%</Text>
                   </Flex>
                 </Td>
                 <Td align="right">${p.revenue.toFixed(2)}</Td>

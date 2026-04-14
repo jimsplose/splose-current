@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Flex } from "antd";
-import { Button, FormInput, FormSelect, Navbar, Collapse, Tab, Toggle, Modal, Card } from "@/components/ds";
+import { Button, FormInput, FormSelect, Navbar, Collapse, Tab, Toggle, Modal, Card, Grid } from "@/components/ds";
 
 interface User {
   name: string;
@@ -183,10 +183,10 @@ export default function UserDetailClient({ id }: { id: string }) {
       <Modal open={editAvailOpen} onClose={() => setEditAvailOpen(false)} title="Edit availability">
         <Flex vertical gap={16}>
           <FormSelect label="Day" value={editDay} onChange={setEditDay} options={DAYS.map((d) => ({ value: d, label: d }))} />
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+          <Grid cols={2} gap="md">
             <FormInput label="Start time" type="time" value={editStart} onChange={(e) => setEditStart(e.target.value)} />
             <FormInput label="End time" type="time" value={editEnd} onChange={(e) => setEditEnd(e.target.value)} />
-          </div>
+          </Grid>
           <FormSelect label="Apply to" value={editApplyTo} onChange={setEditApplyTo} options={applyToOptions} />
           <Flex justify="flex-end" gap={8}>
             <Button variant="secondary" onClick={() => setEditAvailOpen(false)}>Cancel</Button>

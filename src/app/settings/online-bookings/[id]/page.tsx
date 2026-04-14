@@ -371,7 +371,7 @@ export default function EditOnlineBookingPage() {
                         🔥
                       </div>
                       <div>
-                        <div className="text-body-md text-text" style={{ fontWeight: 500 }}>{loc}</div>
+                        <Text variant="label/lg" as="div" color="text">{loc}</Text>
                         <div className="text-caption-md text-text-secondary">Mobile and/or telehealth</div>
                       </div>
                     </Flex>
@@ -394,7 +394,7 @@ export default function EditOnlineBookingPage() {
               </div>
             </div>
             <div style={{ borderTop: '1px solid var(--color-border)', padding: '12px 20px', textAlign: 'center' }} className="text-caption-md text-text-secondary">
-              Powered by <span style={{ fontWeight: 600 }} className="text-primary">splose</span>
+              Powered by <Text variant="label/lg" as="span" color="primary">splose</Text>
             </div>
           </div>
         </div>

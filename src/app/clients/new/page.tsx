@@ -175,7 +175,7 @@ export default function NewClientPage() {
           {/* Contact details */}
           <Card title="Contact details" headerBar>
             <Flex vertical gap={16}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+              <Grid cols={2} gap="md">
                 <FormInput
                   label="Email"
                   type="email"
@@ -189,7 +189,7 @@ export default function NewClientPage() {
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="02 1234 5678"
                 />
-              </div>
+              </Grid>
               <FormInput
                 label="Mobile"
                 value={mobile}
@@ -202,7 +202,7 @@ export default function NewClientPage() {
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="Street address"
               />
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+              <Grid cols={3} gap="md">
                 <FormInput
                   label="Suburb"
                   value={suburb}
@@ -221,14 +221,14 @@ export default function NewClientPage() {
                   onChange={(e) => setPostcode(e.target.value)}
                   placeholder="3000"
                 />
-              </div>
+              </Grid>
             </Flex>
           </Card>
 
           {/* Additional */}
           <Card title="Additional" headerBar>
             <Flex vertical gap={16}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+              <Grid cols={2} gap="md">
                 <FormSelect
                   label="Referral source"
                   value={referralSource}
@@ -241,7 +241,7 @@ export default function NewClientPage() {
                   onChange={setPractitioner}
                   options={practitionerOptions}
                 />
-              </div>
+              </Grid>
               <FormSelect
                 label="Tags"
                 options={tagOptions}
@@ -297,7 +297,7 @@ export default function NewClientPage() {
 
           {/* Medicare */}
           <Card title="Medicare" headerBar>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+            <Grid cols={3} gap="md">
               <FormInput
                 label="Medicare number"
                 value={medicareNumber}
@@ -316,7 +316,7 @@ export default function NewClientPage() {
                 value={expiryDate}
                 onChange={(e) => setExpiryDate(e.target.value)}
               />
-            </div>
+            </Grid>
           </Card>
         </Flex>
     </FormPage>

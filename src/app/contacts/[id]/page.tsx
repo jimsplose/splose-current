@@ -1,6 +1,6 @@
 import { MailOutlined, PhoneOutlined, EnvironmentOutlined, BankOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, DataTable, TableHead, Th, TableBody, Tr, Td, LinkCell, EmptyState, Text } from "@/components/ds";
+import { Button, DataTable, TableHead, Th, TableBody, Tr, Td, LinkCell, EmptyState, Text, Divider } from "@/components/ds";
 
 const mockContacts = [
   {
@@ -257,7 +257,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             </Flex>
           </section>
 
-          <hr style={{ marginBottom: 32, border: 'none', borderTop: '1px solid var(--color-border)' }} />
+          <Divider spacing="lg" />
 
           {/* Contact information */}
           <section style={{ marginBottom: 32 }}>
@@ -316,7 +316,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             </Flex>
           </section>
 
-          <hr style={{ marginBottom: 32, border: 'none', borderTop: '1px solid var(--color-border)' }} />
+          <Divider spacing="lg" />
 
           {/* Associated clients */}
           <section style={{ marginBottom: 32 }}>
@@ -350,7 +350,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             )}
           </section>
 
-          <hr style={{ marginBottom: 32, border: 'none', borderTop: '1px solid var(--color-border)' }} />
+          <Divider spacing="lg" />
 
           {/* Custom fields */}
           <section style={{ marginBottom: 32 }}>

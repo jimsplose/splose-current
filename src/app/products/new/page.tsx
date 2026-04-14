@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Flex } from "antd";
-import { Button, FormPage, Card, FormInput, FormSelect, FormTextarea, Toggle } from "@/components/ds";
+import { Button, FormPage, Card, FormInput, FormSelect, FormTextarea, Grid, Toggle } from "@/components/ds";
 
 const taxOptions = [
   { value: "gst", label: "GST (10%)" },
@@ -77,7 +77,7 @@ export default function NewProductPage() {
           </Card>
 
           <Card title="Pricing">
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+            <Grid cols={2} gap="md">
               <FormInput
                 label="Price"
                 type="number"
@@ -91,7 +91,7 @@ export default function NewProductPage() {
                 value={form.taxRate}
                 onChange={(value) => setField("taxRate", value)}
               />
-            </div>
+            </Grid>
           </Card>
 
           <Card title="Settings">

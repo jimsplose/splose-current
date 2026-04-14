@@ -11,6 +11,7 @@ import {
   FormPage,
   RichTextEditor,
   EmailPreview,
+  Grid,
 } from "@/components/ds";
 
 const typeOptions = [
@@ -64,10 +65,10 @@ export default function NewAppointmentTemplatePage() {
         }
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+        <Grid cols={2} gap="md">
           <FormInput label="Name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Appointment confirmation" />
           <FormSelect label="Type" value={type} onChange={setType} options={typeOptions} />
-        </div>
+        </Grid>
 
         {type === "reminder" && (
           <FormSelect label="When to send" value={whenToSend} onChange={setWhenToSend} options={whenToSendOptions} />

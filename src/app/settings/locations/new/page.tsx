@@ -9,6 +9,7 @@ import {
   Toggle,
   Collapse,
   FormPage,
+  Grid,
 } from "@/components/ds";
 
 const stateOptions = [
@@ -60,29 +61,29 @@ export default function NewLocationPage() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <Collapse title="General" defaultOpen>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+            <Grid cols={2} gap="md">
               <FormInput label="Name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. East Clinics" />
               <FormInput label="ABN" value={abn} onChange={(e) => setAbn(e.target.value)} />
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+            </Grid>
+            <Grid cols={2} gap="md">
               <FormInput label="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
               <FormInput label="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+            </Grid>
+            <Grid cols={2} gap="md">
               <FormInput label="Fax" value={fax} onChange={(e) => setFax(e.target.value)} />
               <FormInput label="Website" value={web} onChange={(e) => setWeb(e.target.value)} />
-            </div>
+            </Grid>
           </div>
         </Collapse>
 
         <Collapse title="Address" defaultOpen>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <FormInput label="Address" value={address} onChange={(e) => setAddress(e.target.value)} />
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+            <Grid cols={3} gap="md">
               <FormInput label="Suburb" value={suburb} onChange={(e) => setSuburb(e.target.value)} />
               <FormSelect label="State" value={state} onChange={setState} options={stateOptions} />
               <FormInput label="Post code" value={postcode} onChange={(e) => setPostcode(e.target.value)} />
-            </div>
+            </Grid>
             <FormSelect label="Country" value={country} onChange={setCountry} options={countryOptions} />
           </div>
         </Collapse>

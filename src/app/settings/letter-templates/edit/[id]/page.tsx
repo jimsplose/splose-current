@@ -8,6 +8,7 @@ import {
   FormSelect,
   FormPage,
   RichTextEditor,
+  Grid,
 } from "@/components/ds";
 
 const recipientOptions = [
@@ -46,10 +47,10 @@ export default function EditLetterTemplatePage() {
       }
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+        <Grid cols={2} gap="md">
           <FormInput label="Template name" value={name} onChange={(e) => setName(e.target.value)} />
           <FormSelect label="Default recipient" value={recipient} onChange={setRecipient} options={recipientOptions} />
-        </div>
+        </Grid>
 
         <FormInput label="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
 

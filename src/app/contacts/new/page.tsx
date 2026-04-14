@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Flex } from "antd";
-import { Button, FormPage, Card, FormInput, FormTextarea } from "@/components/ds";
+import { Button, FormPage, Card, FormInput, FormTextarea, Grid } from "@/components/ds";
 
 export default function NewContactPage() {
   const router = useRouter();
@@ -46,7 +46,7 @@ export default function NewContactPage() {
     >
       <Flex vertical gap={24}>
         <Card title="General details">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+          <Grid cols={2} gap="md">
             <FormInput
               label="First name"
               value={form.firstName}
@@ -67,11 +67,11 @@ export default function NewContactPage() {
               value={form.jobTitle}
               onChange={(e) => setField("jobTitle", e.target.value)}
             />
-          </div>
+          </Grid>
         </Card>
 
         <Card title="Contact details">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+          <Grid cols={2} gap="md">
             <FormInput
               label="Email"
               type="email"
@@ -96,7 +96,7 @@ export default function NewContactPage() {
               value={form.fax}
               onChange={(e) => setField("fax", e.target.value)}
             />
-          </div>
+          </Grid>
           <div style={{ marginTop: 16 }}>
             <FormInput
               label="Address"

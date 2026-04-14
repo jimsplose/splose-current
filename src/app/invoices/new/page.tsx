@@ -10,6 +10,7 @@ import {
   FormPage,
   FormSelect,
   FormTextarea,
+  Grid,
   Text,
 } from "@/components/ds";
 
@@ -171,7 +172,7 @@ export default function NewInvoicePage() {
     >
       {/* Form fields — flat layout, no Card wrappers */}
       <Flex vertical gap={16}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+        <Grid cols={4} gap="md">
           <FormInput
             label="Invoice #"
             value={invoiceNumber}
@@ -195,9 +196,9 @@ export default function NewInvoicePage() {
             value={dueDate}
             onChange={(e) => setDueDate(e.target.value)}
           />
-        </div>
+        </Grid>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
+        <Grid cols={2} gap="md">
           <FormSelect
             label="Patient"
             options={mockPatients}
@@ -212,7 +213,7 @@ export default function NewInvoicePage() {
             value={invoiceTo}
             onChange={setInvoiceTo}
           />
-        </div>
+        </Grid>
 
         <FormTextarea
           label="Extra invoice details"
@@ -221,7 +222,7 @@ export default function NewInvoicePage() {
           rows={2}
         />
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+        <Grid cols={3} gap="md">
           <FormSelect
             label="Location"
             options={mockLocations}
@@ -240,7 +241,7 @@ export default function NewInvoicePage() {
             onChange={(e) => setProviderNumbers(e.target.value)}
             placeholder="Provider numbers"
           />
-        </div>
+        </Grid>
       </Flex>
 
       {/* Line items table */}

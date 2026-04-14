@@ -29,7 +29,7 @@ import {
   ArrowUpOutlined,
 } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, Badge, Card, Checkbox, FormSelect, FormInput, EmptyState, List, Navbar, Filter, Spinner, Dropdown } from "@/components/ds";
+import { Button, Badge, Card, Checkbox, FormSelect, FormInput, EmptyState, List, Navbar, Filter, Spinner, Dropdown, Text } from "@/components/ds";
 import AiChatPanel from "@/components/AiChatPanel";
 
 type NoteData = {
@@ -397,14 +397,14 @@ export default function EditProgressNotePage() {
             </Card>
 
             {/* Syncing notice */}
-            <Flex align="center" gap={8} style={{ marginBottom: 16, borderRadius: 8, backgroundColor: 'var(--color-primary-bg)', padding: '8px 12px', fontSize: 12, color: 'var(--color-text-secondary)' }}>
+            <Flex align="center" gap={8} style={{ marginBottom: 16, borderRadius: 8, backgroundColor: 'var(--color-primary-bg)', padding: '8px 12px' }}>
               <Flex align="center" gap={4}>
                 <Checkbox checked readOnly style={{ height: 12, width: 12 }} />
-                <span>Syncing client history</span>
+                <Text variant="body/sm" as="span" color="secondary">Syncing client history</Text>
               </Flex>
-              <span style={{ color: 'var(--color-text-secondary)' }}>
+              <Text variant="body/sm" as="span" color="secondary">
                 Clients with more notes may take longer. AI will have full context once complete
-              </span>
+              </Text>
             </Flex>
 
             {/* Client info table */}
@@ -429,9 +429,9 @@ export default function EditProgressNotePage() {
 
                 {/* Show accepted content directly under heading */}
                 {accepted[section.id] && section.generated && (
-                  <div style={{ marginBottom: 8, fontSize: 14, lineHeight: 1.625, whiteSpace: 'pre-wrap' }}>
+                  <Text variant="body/md" as="div" style={{ marginBottom: 8, lineHeight: 1.625, whiteSpace: 'pre-wrap' }}>
                     {section.content}
-                  </div>
+                  </Text>
                 )}
 
                 {/* AI Block — hidden once accepted */}
@@ -474,15 +474,15 @@ export default function EditProgressNotePage() {
                         {section.generating ? (
                           <Flex align="center" gap={8} style={{ padding: '16px 0' }}>
                             <Spinner size="sm" />
-                            <span style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>
+                            <Text variant="body/md" as="span" color="secondary">
                               Thinking<span>...</span>
-                            </span>
+                            </Text>
                           </Flex>
                         ) : section.generated ? (
                           <div>
-                            <div style={{ fontSize: 14, lineHeight: 1.625, whiteSpace: 'pre-wrap' }}>
+                            <Text variant="body/md" as="div" style={{ lineHeight: 1.625, whiteSpace: 'pre-wrap' }}>
                               {section.content}
-                            </div>
+                            </Text>
                             {/* Feedback and actions row */}
                             <Flex align="center" justify="space-between" style={{ marginTop: 12 }}>
                               <Dropdown
@@ -544,7 +544,7 @@ export default function EditProgressNotePage() {
                           </div>
                         ) : (
                           <div>
-                            <p style={{ fontSize: 14, lineHeight: 1.625, color: 'var(--color-text-secondary)' }}>{section.prompt}</p>
+                            <Text variant="body/md" color="secondary" style={{ lineHeight: 1.625 }}>{section.prompt}</Text>
                             {/* Actions dropdown and Generate button row */}
                             <Flex align="center" justify="space-between" style={{ marginTop: 12 }}>
                               <Dropdown

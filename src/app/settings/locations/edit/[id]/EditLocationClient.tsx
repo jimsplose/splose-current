@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Flex } from "antd";
-import { Button, Checkbox, FormInput, FormSelect, Toggle, Collapse } from "@/components/ds";
+import { Button, Checkbox, FormInput, FormSelect, Toggle, Collapse, Grid } from "@/components/ds";
 
 const services = [
   "ACC - Acupuncture Initial Consultation",
@@ -303,14 +303,14 @@ export default function EditLocationClient({ id }: { id: string }) {
           <Flex vertical gap={16}>
             <FormInput label="Address" defaultValue={location.address} />
             <FormInput label="Suburb" defaultValue={location.suburb} />
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            <Grid cols={2} gap="md">
               <FormSelect
                 label="State"
                 options={stateOptions}
                 defaultValue={location.state}
               />
               <FormInput label="Post code" defaultValue={location.postCode} />
-            </div>
+            </Grid>
             <FormInput label="Country" defaultValue={location.country} />
           </Flex>
         </div>

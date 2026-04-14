@@ -18,6 +18,7 @@ import {
   Modal,
   FormInput,
   FormSelect,
+  Grid,
 } from "@/components/ds";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -178,7 +179,7 @@ export default function BodyChartsPage() {
           {/* Body region selector */}
           <div>
             <p className="text-label-lg" style={{ marginBottom: 8, color: 'var(--color-text-secondary)' }}>Body regions</p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+            <Grid cols={3} gap="sm">
               {bodyRegions.map((region) => (
                 <label
                   key={region}
@@ -198,7 +199,7 @@ export default function BodyChartsPage() {
                   <span className="text-body-sm text-text">{region}</span>
                 </label>
               ))}
-            </div>
+            </Grid>
             {selectedRegions.size > 0 && (
               <p className="text-caption-md text-text-secondary" style={{ marginTop: 8 }}>
                 {selectedRegions.size} region{selectedRegions.size !== 1 ? "s" : ""} selected
