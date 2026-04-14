@@ -207,7 +207,6 @@ export default function NewPaymentPage() {
   return (
     <FormPage
       title="Add payment"
-      backHref="/payments"
       actions={
         <>
           <Link href="/payments">
@@ -222,18 +221,21 @@ export default function NewPaymentPage() {
       }
       style={{ minHeight: 'calc(100vh - 3rem)' }}
     >
-        {/* Payment details row */}
-        <Grid cols={4} gap="md" style={{ marginBottom: 32, gridTemplateColumns: 'repeat(5, 1fr)' }}>
-          {/* Client / From */}
+        {/* Client field — own row */}
+        <div style={{ marginBottom: 24 }}>
           <FormSelect
-            label="Client / From *"
+            label="Client *"
             options={clientOptions}
             value={client}
             onChange={setClient}
-            placeholder="Select client"
+            placeholder="Start typing to search client"
             searchable
+            style={{ maxWidth: 360 }}
           />
+        </div>
 
+        {/* 4-field row */}
+        <Grid cols={4} gap="md" style={{ marginBottom: 32 }}>
           {/* Location */}
           <FormSelect
             label="Location *"
@@ -259,33 +261,18 @@ export default function NewPaymentPage() {
           />
 
           {/* Amount */}
-          <div>
-            <label style={{ display: 'block', marginBottom: 4, fontSize: 14, fontWeight: 600, color: 'rgb(34, 34, 34)' }}>
-              Amount <span style={{ color: 'var(--color-error)' }}>*</span>
-            </label>
-            <div style={{ position: 'relative' }}>
-              <Text variant="body/md" as="span" color="secondary" style={{ position: 'absolute', top: '50%', left: 12, zIndex: 10, transform: 'translateY(-50%)' }}>$</Text>
-              <FormInput
-                type="number"
-                step="0.01"
-                min="0"
-                placeholder="0.00"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                style={{ paddingLeft: 28 }}
-              />
-            </div>
-          </div>
+          <FormInput
+            label="Amount *"
+            type="number"
+            step="0.01"
+            min="0"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          />
         </Grid>
 
         {/* Apply to outstanding invoices */}
-        <Flex align="center" justify="space-between" style={{ marginBottom: 12 }}>
-          <Text variant="label/lg" as="p">Apply to outstanding invoices</Text>
-          <Button variant="secondary" size="sm" onClick={() => setShowLinkSearch(!showLinkSearch)}>
-            <PlusOutlined style={{ fontSize: 14 }} />
-            Link invoice
-          </Button>
-        </Flex>
+        <Text variant="label/lg" as="p" style={{ marginBottom: 12 }}>Apply to outstanding invoices</Text>
 
         {showLinkSearch && (
           <Card padding="sm" style={{ marginBottom: 12 }}>
@@ -326,7 +313,7 @@ export default function NewPaymentPage() {
           </Card>
         )}
 
-        <Card padding="none" style={{ marginBottom: 24, overflow: 'hidden' }}>
+        <div style={{ marginBottom: 24 }}>
           <DataTable>
             <TableHead>
               <Th>Invoice #</Th>
@@ -337,13 +324,12 @@ export default function NewPaymentPage() {
               <Th align="right">Due</Th>
               <Th align="right">Amount</Th>
               <Th align="right">Remaining</Th>
-              <Th style={{ width: 40 }} />
             </TableHead>
             <tbody>
               {linkedInvoices.length === 0 ? (
                 <tr>
-                  <td colSpan={9}>
-                    <EmptyState message='No invoices linked. Click "Link invoice" to apply this payment to outstanding invoices.' style={{ padding: '24px 0' }} />
+                  <td colSpan={8}>
+                    <EmptyState message="No outstanding invoices" style={{ padding: '24px 0' }} />
                   </td>
                 </tr>
               ) : (
@@ -390,7 +376,7 @@ export default function NewPaymentPage() {
               )}
             </tbody>
           </DataTable>
-        </Card>
+        </div>
 
         {/* Note and totals */}
         <Flex align="start" justify="space-between">
@@ -398,7 +384,7 @@ export default function NewPaymentPage() {
             label="Note"
             value={note}
             onChange={(e) => setNote(e.target.value)}
-            placeholder="Optional payment note..."
+            placeholder=""
             style={{ width: 256, resize: 'none', fontSize: 14 }}
             rows={3}
           />

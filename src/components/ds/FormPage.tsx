@@ -6,8 +6,8 @@ import Navbar from "./Navbar";
 interface FormPageProps {
   /** Page title shown in the navbar */
   title: string;
-  /** Back navigation href */
-  backHref: string;
+  /** Back navigation href. Omit to hide back arrow. */
+  backHref?: string;
   /** When provided, shows a purple text link instead of the arrow icon */
   backLabel?: string;
   /** Optional badge next to the title */
