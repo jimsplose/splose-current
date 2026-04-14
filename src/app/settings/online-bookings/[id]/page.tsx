@@ -241,7 +241,7 @@ export default function EditOnlineBookingPage() {
 
             <div>
               <h3 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Scheduling</h3>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+              <Grid cols={2} gap="md">
                 <FormSelect
                   label="Minimum notice"
                   options={[
@@ -266,7 +266,7 @@ export default function EditOnlineBookingPage() {
                   value="3m"
                   onChange={() => {}}
                 />
-              </div>
+              </Grid>
             </div>
 
             <div>

@@ -9,6 +9,7 @@ import {
   FormInput,
   FormPage,
   FormSelect,
+  Grid,
 } from "@/components/ds";
 
 const titleOptions = [
@@ -128,7 +129,7 @@ export default function NewClientPage() {
           {/* General details */}
           <Card title="General details" headerBar>
             <Flex vertical gap={16}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+              <Grid cols={4} gap="md">
                 <FormSelect
                   label="Title"
                   value={title}
@@ -153,8 +154,8 @@ export default function NewClientPage() {
                   onChange={(e) => setLastName(e.target.value)}
                   placeholder="Last name"
                 />
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+              </Grid>
+              <Grid cols={2} gap="md">
                 <FormInput
                   label="Date of birth"
                   type="date"
@@ -167,7 +168,7 @@ export default function NewClientPage() {
                   onChange={setGender}
                   options={genderOptions}
                 />
-              </div>
+              </Grid>
             </Flex>
           </Card>
 
