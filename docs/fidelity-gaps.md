@@ -77,11 +77,11 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 
 ### Group S18 — Settings sidebar layout `src/app/settings/layout.tsx`
 - [x] **Sidebar scroll architecture** — Fixed: removed `overflowY: auto` from content container, made SideNav `position: sticky; top: 57px; height: calc(100vh - 57px); align-self: flex-start`. Content now scrolls with document, sidebar stays pinned. Committed 2026-04-09.
-- [ ] **Section header color** — Production: rgb(0,0,0) black. Localhost: rgb(65,69,73) gray. Fix in SideNav DS component. (2026-04-09 audit)
-- [ ] **Missing "Client data" menu item** — Production has 28 sidebar items, localhost has 27. "Client data" under Data section is missing. (2026-04-09 audit)
-- [ ] **"New" badge shape** — Production: borderRadius 24px (pill), fontSize 12px. Localhost: borderRadius 4px, fontSize 11px. Fix in SideNav component. (2026-04-09 audit)
-- [ ] **Sidebar paddingTop** — Production: 0px. Localhost: 15px. Remove extra padding. (2026-04-09 audit)
-- [ ] **Active item background** — Production: transparent. Localhost: rgba(0,0,0,0.04). Minor — match production. (2026-04-09 audit)
+- [x] **Section header color** — Fixed: SideNav.module.css `.sectionTitle` color changed from `var(--color-text)` to `rgb(0, 0, 0)`. Measurement-verified 2026-04-14.
+- [x] **Missing "Client data" menu item** — Fixed: Added to Data section in settings/layout.tsx + stub page at /settings/client-data. Measurement-verified 2026-04-14: 28 items.
+- [x] **"New" badge shape** — Fixed: SideNav.module.css `.badge` borderRadius 4px→24px, fontSize 11px→12px, padding 2px 6px→1px 8px. Measurement-verified 2026-04-14.
+- [x] **Sidebar paddingTop** — Both production and localhost already 15px. Confirmed via measurement 2026-04-14. Original gap description was incorrect.
+- [x] **Active item background** — Fixed: SideNav.module.css `.linkActive` bg changed from rgba(0,0,0,0.04) to transparent. Measurement-verified 2026-04-14.
 
 ## Priority 1 — High-traffic pages
 
@@ -99,11 +99,11 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 
 ### Group C — Settings (`src/app/settings/`)
 All 25 Settings sub-pages are implemented as inline components in `settings/page.tsx`:
-- [ ] **Settings Details page** — REOPENED 2026-04-09 4-flow audit: missing 5 purple dividers (rgb(130,80,255)), section headings wrong (16px/600 should be 18px/700), sidebar scroll layout broken (pushes document height). See `docs/settings-audit-session1.md`.
-- [ ] **Settings Integrations page** — REOPENED 2026-04-09 4-flow audit: cards center-aligned (should be left), heading 16px/600/gray (should be 21px/700/green rgb(33,105,71)), card border 1px (should be 0.5px), card width 454px (should be ~420px). See `docs/settings-audit-session1.md`.
-- [ ] **Settings SMS Settings page** — REOPENED 2026-04-09 4-flow audit: missing "Two-way SMS" section + Save button, no purple dividers, section heading fontWeight 600 vs 700, extra "Message preview" section not on production.
+- [x] **Settings Details page** — Fixed: 5 purple dividers added (Divider variant="primary"), section headings changed from heading/md (16px/600) to heading/lg (18px/700). Also fixed text-heading-lg utility class fontWeight 600→700 in globals.css. Measurement-verified 2026-04-14.
+- [x] **Settings Integrations page** — Fixed: cards left-aligned, heading 21px/700/green rgb(33,105,71), border 0.5px, padding 25px, flex-wrap layout (was CSS grid). Card width 343px matching production. Measurement-verified 2026-04-14.
+- [x] **Settings SMS Settings page** — Fixed: 3 purple dividers added, "Two-way SMS" section + "Your number" input added, Save button added to PageHeader, "Message preview" section removed (not on production). Measurement-verified 2026-04-14.
 - [x] **Settings Form Templates** — Fixed: columns updated to Title/Form type/Created at/Updated at, title changed to "Form templates", Learn/Show archived added. 5.55% pixel diff (full-page vs viewport). (2026-03-20)
-- [ ] **Settings Splose AI** — REOPENED 2026-04-09 4-flow audit: badge "BETA" should be "New" (purple bg), dividers gray not purple, preferences not in bordered Card container, section heading sizes differ from production.
+- [x] **Settings Splose AI** — Fixed: tab badge "BETA"→"New" (purple pill bg), Tab DS component badge changed from AntD Badge (red) to purple pill span. Dividers gray→purple (Divider variant="primary"). Section headings matched to production 28px/700. Measurement-verified 2026-04-14.
 - [x] **Settings Locations page** — Locations list with edit form.
 - [x] **Settings Custom Fields page** — List with reorder, actions dropdown, update field modal.
 - [x] **Settings Rooms/Resources page** — Fixed: Group/Capacity/Location columns added, search bar, Learn/Show archived buttons added. 6.43% pixel diff (browser chrome). (2026-03-20)
