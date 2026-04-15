@@ -31,7 +31,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-settings-integrations-2026-03-17-18_34_17.png | Integrations list default | no — dual-tab audit 2026-04-14: headings/card-border/grid match, but logos 48px vs prod 100px, Connect buttons purple-filled vs prod outlined, missing brand-name description links, card bg transparent vs white, Disconnect red rgb(208,0,50) vs prod rgb(240,0,50), desc fontSize 14px vs prod 15px. 12 measurement failures. |
+| screencapture-acme-splose-settings-integrations-2026-03-17-18_34_17.png | Integrations list default | no — dual-tab audit 2026-04-15: 26 measurement failures. Logos 48px vs prod 100px (all 8 cards), Connect buttons purple-filled vs prod white-outlined, QuickBooks needs Intuit official SVG (not generic Button), missing brand-name purple `<a>` links in all descriptions (e.g. "**Xero** is..."), brand heading fontFamily Inter vs prod Sprig Sans, description color rgb(110,110,100) vs prod rgb(65,69,73), Disconnect rgb(208,0,50) vs prod rgb(240,0,50), card bg transparent vs prod white, Zoom logo is styled span not real SVG, copy errors ("Worksite"→"Worksafe", Tyro grammar), card connected states don't match prod acme account. 14 action items. |
 
 ## Settings — SMS Settings (`/settings/smsSettings`)
 
