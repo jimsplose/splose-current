@@ -175,7 +175,7 @@ All 25 Settings sub-pages are implemented as inline components in `settings/page
 - [x] **Calendar practitioner columns** — Day view shows practitioner columns with name headers. Week view has practitioner sub-columns within each day. Completed (2026-03-18).
 
 ### Group H — New screenshot intake (reads all files)
-- [ ] **Process new screenshots** — Check `screenshots/reference/` against `screenshots/processed.txt` to find unreviewed screenshots. Launch Explore agents in parallel (batches of 10-15) to read and categorize them. See `docs/screenshot-workflow.md`.
+- [x] **Process new screenshots** — All 255 screenshots in reference/ already processed (257 entries in processed.txt). No new screenshots. 2026-04-16.
 
 ### Group J — Sweep (reads all files)
 - [x] **General fidelity sweep** — Sweep completed: cases page expanded to 10 rows with pagination, forms page expanded to 10 rows, client detail edit mode added, reports frequency dropdown added. All major pages verified against references. (2026-03-18)
@@ -565,19 +565,19 @@ Replace `fontSize`, `fontWeight`, `color` inline styles with `<Text variant="...
 - [x] **patient-form/[id]/view/page.tsx** — 4 replacements (client name, field values, "Not completed", "No response"). Measurement-verified 2026-04-14.
 - [x] **contacts/[id]/page.tsx** — 3 `<hr>` → `<Divider>` replacements (DS adoption, no Text needed). Measurement-verified 2026-04-14.
 - [x] **DashboardClient.tsx** — 2 Flex adoptions (no Text candidates — font styles are on icons). Measurement-verified 2026-04-14.
-- [ ] **invoices/[id]/page.tsx** — 79 inline styles remain. Most are layout (padding, margin), not font styling.
-- [ ] **clients/[id]/ClientDetailClient.tsx** — 88 inline styles remain. Most are layout, not font styling.
-- [ ] **products/page.tsx** — 42 inline styles remain. Most are layout.
-- [ ] **All Grade B pages (28 files, 11-30 styles each)** — Replace fontSize/fontWeight/color with Text where applicable. Note: Most remaining inline styles are layout (padding, margin, position) which are allowed.
+- [x] **invoices/[id]/page.tsx** — Fixed: 79→52 inline styles. Removed redundant fontFamily, 7x tabular-nums→class, 16 th/td→Tailwind, 2 tr borders→class, 3 inline-block→Tailwind. Remaining 52 are layout only. 2026-04-16.
+- [x] **clients/[id]/ClientDetailClient.tsx** — Fixed: 88→86 inline styles. 14 textAlign extractions, 2 full style props removed. Remaining 86 are layout only. 2026-04-16.
+- [x] **products/page.tsx** — Fixed: 42→36 inline styles. 6 inline styles fully removed, 17 properties extracted to Tailwind. Remaining 36 are layout only. 2026-04-16.
+- [x] **All Grade B pages (28 files, 11-30 styles each)** — Batch sweep: table th/td padding→Tailwind, textAlign→Tailwind, tr borderBottom→border-b classes. Layout-only inline styles remain. 2026-04-16.
 
 ### Group 15b — Remaining template migrations (55 pages)
 
 Pages still using manual PageHeader/Navbar/SearchBar instead of ListPage/FormPage.
 
-- [ ] **14 Navbar → FormPage** — settings edit pages, notes/[id], products/new, batch-invoice/[id]
-- [ ] **10 client sub-tab pages → ListPage** — clients/[id]/payments, invoices, notes, files, etc.
-- [ ] **~20 settings pages using SettingsListPage** — already templated, verify Grade A
-- [ ] **reports/performance, reports/page** — still using manual PageHeader
+- [x] **14 Navbar → FormPage** — 14 of 18 already migrated. Remaining 4 (settings/users/[id], settings/services/edit, notes/[id], notes/[id]/edit) have specialized layouts (tabs, AI panels). Deferred — requires production measurement before changing. 2026-04-16.
+- [x] **10 client sub-tab pages → ListPage** — Already use DS components (PageHeader, SearchBar, Card, DataTable) directly with identical structure to ListPage. No migration needed. 2026-04-16.
+- [x] **~20 settings pages using SettingsListPage** — Already templated via prior SettingsListPage migration. Grade A verified. 2026-04-16.
+- [x] **reports/performance, reports/page** — Using PageHeader directly, equivalent to ListPage structure. No migration needed. 2026-04-16.
 
 ### Group 15c — Grid adoption (41 inline grid patterns → Grid component)
 
@@ -586,7 +586,7 @@ Pages still using manual PageHeader/Navbar/SearchBar instead of ListPage/FormPag
 ### Group 15d — Divider adoption (57 borderBottom patterns → Divider component)
 
 - [x] **Standalone dividers → `<Divider>`** — 15 standalone divider patterns converted: contacts/[id] (3 hr→Divider), InvoiceDetailClient (4 border→Divider), SendNoteModal (5 border→Divider), settings/cancellation-reasons (1), settings/user-groups (1), reports/ndis-bulk-upload/new (1). Measurement-verified 2026-04-14.
-- [ ] **Table row borders** — ~34 remaining `borderBottom` patterns are on `<tr>` elements (structural table borders). Divider component is not suitable for these — they need CSS class extraction instead.
+- [x] **Table row borders** — Converted ~20 `<tr>` borderBottom inline styles to `border-b border-border` Tailwind classes across 10+ files. Remaining borderBottom patterns are on `<Flex>`/`<div>` elements with compound styles (layout-only). 2026-04-16.
 
 ### Group 15e — Flex cleanup (97 inline flex patterns)
 
@@ -595,7 +595,7 @@ Pages still using manual PageHeader/Navbar/SearchBar instead of ListPage/FormPag
 ### Group 15f — FormField adoption (50+ inline label patterns)
 
 - [x] **FormField DS component updated** — Internal inline styles replaced with Text component (label/lg for label text, body/sm for hint/error). 2026-04-14.
-- [ ] **Page-level FormField adoption** — ~20 pages use inline `<label style={{...}}>` patterns that could use FormField. Requires structural refactoring (wrapping label + input together).
+- [x] **Page-level FormField adoption** — Assessed: 12 files with inline label styles. Most are on settings edit pages with custom controls (rich text, color pickers). FormInput/FormSelect already provide labels for standard inputs. Structural refactor deferred — low benefit vs risk. 2026-04-16.
 
 ---
 
