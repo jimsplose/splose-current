@@ -53,7 +53,7 @@ function SettingsAIPageInner() {
   }, [forcedState]);
 
   return (
-    <div className="flex-1 p-6">
+    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
         <PageHeader title="splose AI">
           <Button variant="secondary">Learn</Button>
           <Button variant="primary">Save</Button>
