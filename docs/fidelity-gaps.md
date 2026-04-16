@@ -165,6 +165,18 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [ ] **Two-way SMS incomplete** — Missing description paragraph ("Enable two-way SMS to receive client replies..."), copy button on phone number, "Contact the account owner to enable two-way SMS." text.
 - [ ] **Remove header Save button** — Production doesn't have Save in the PageHeader (only "Learn"). The Save button is inline within the auto-recharge section.
 
+### Group S26 — Batch invoice detail page (`src/app/invoices/batch-invoice/[id]/page.tsx`)
+- [ ] **Missing table columns** — Production has 10 columns (Invoice #, Client, To, Location, Practitioner, # of items, Issue date, Due date, Total, Status). Localhost only has 5 (Invoice #, Client, Service, Amount, Status). Add missing 5 columns: To, Location, Practitioner, # of items, Issue date, Due date. Rename "Service" to match prod if needed, rename "Amount" to "Total".
+- [ ] **Missing action buttons** — Production has "Mark as Sent" + "Email invoices" buttons (both outlined/white). Localhost only has "Export". Add the two missing buttons.
+- [ ] **Title format mismatch** — Production shows "Batch invoice" (30px/700/green) as title + separate "BATCH-00326" (18px/400/rgb(65,69,73)) label. Localhost combines into single h1 "Batch invoice #330044". Separate the batch number into its own span/label matching production format.
+- [ ] **Summary text content** — Production: "This batch contains 3 invoices totalling 388.39 AUD." Localhost: "Created on 22 Mar 2026 · 3 invoices". Change to match production format.
+- [ ] **Badge "Draft" style** — Production: white text (rgb(255,255,255)) on solid gray bg (rgb(165,165,158)). Localhost: dark text on very light bg. Use Badge `solid` variant or match production's filled style.
+- [ ] **Th background color** — Production: rgb(243,245,247). Localhost: rgb(234,237,241). Investigate if FormPage card context is affecting the Th bg.
+- [ ] **Invoice link fontWeight** — Production: 400. Localhost: 500. Remove `style={{ fontWeight: 500 }}` from Link.
+- [ ] **Row border-bottom missing** — Production rows have 1px solid rgb(240,240,240) bottom border. Localhost has none. Add border-b to table rows.
+- [ ] **Pagination missing** — Production has "< 1 >" pagination with "10 / page" selector. Add pagination.
+- [ ] **Table container** — Production renders table flat on white bg (no card wrapper). Localhost wraps in FormPage card. Consider switching to a flat layout matching production, or removing the card from FormPage for this page.
+
 ## Priority 1 — High-traffic pages
 
 ### Group D — Dashboard (`src/app/page.tsx`)
