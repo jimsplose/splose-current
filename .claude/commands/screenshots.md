@@ -1,8 +1,7 @@
-Process uploaded screenshots. Read these files first:
+Process uploaded screenshots of modal/dropdown states.
 
-1. Read `docs/screenshot-workflow.md` (the procedure)
-2. Read `docs/design-spec-workflow.md` (for extracting specs from new screenshots)
+Save to `screenshots/reference/`, add entries to `screenshots/screenshot-catalog.md`, and create fidelity gaps in `docs/fidelity-gaps.md` if mismatches are found.
 
-Then follow the workflow: collect images → save to screenshots/reference/ → catalog → create fidelity gaps → extract design specs → commit and push.
+**Note:** Page view screenshots are no longer stored — all page-level comparison uses live Chrome MCP dual-tab measurement. Only modal states, dropdown menus, side panels, and other interactive UI states that are hard to reproduce live should be saved as reference screenshots.
 
 If the user has already pasted images, start processing immediately.

@@ -67,8 +67,6 @@ This is non-negotiable. All measurements and screenshots happen at this size.
 
 **For matching production** (most work): Navigate Chrome to `acme.splose.com` AND `localhost:3000` (see `docs/route-mapping.md` for URL pairs). Run the same `javascript_tool` measurement snippet on both tabs. Compare production values vs localhost values directly. Use arbitrary Tailwind values (`h-[34px]`, `px-[15px]`) for precision. Adjust in 2px increments if iterating.
 
-**`splose-style-reference/` is documentation, not a comparison target.** Use it to understand the design system (what font-size a heading should be, what colors are used). But always prefer live production measurement when Chrome MCP is available.
-
 **For new design decisions** (no production reference): Invoke `/impeccable:frontend-design` for design-informed analysis — hierarchy, proportion, weight, spacing.
 
 ## Gap Completion Rule

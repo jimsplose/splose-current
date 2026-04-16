@@ -17,10 +17,9 @@ Implement code changes to close fidelity gaps. Uses parallel subagents with mand
 2. Viewport: 1440x900 (protocol Section 1)
 3. `docs/reference/measurement-protocol.md` read (thresholds, measurement snippet, DS scan patterns)
 4. `docs/route-mapping.md` read (production ↔ localhost URL pairs)
-5. Design specs checked (`screenshots/specs/<page-name>.md`)
-6. DS components mandatory (`docs/agent-block.md`)
+5. DS components mandatory (`docs/agent-block.md`)
 
-**Target values priority:** Live production measurement wins. Always. Design specs and reference screenshots are supporting context, not overrides.
+**Target values priority:** Live production measurement wins. Always.
 
 ## Step 0: Measure before fixing
 
@@ -43,8 +42,6 @@ For each page to fix:
 
 **Page path:** `/localhost-path` (production: `/production-path`)
 **Source files:** `src/app/<path>/page.tsx`
-**Design spec:** `screenshots/specs/<page-name>.md`
-
 **Gaps to fix:**
 
 1. **[Zone]** — Production shows [X], localhost has [Y].

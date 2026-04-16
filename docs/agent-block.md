@@ -78,11 +78,9 @@ New components use [DaisyUI](https://daisyui.com/components/) names where a matc
 - Tiny icon-only toolbar buttons (rich text editors) or one-off custom layouts — inline is fine
 - All planned DS components are now created: Tab, Toggle, Modal, Avatar, Dropdown, Card, Collapse, Filter, Status, List, Navbar, EmptyState, Select, DateRangeFilter, ColorDot, OnOffBadge, FormColorPicker, SettingsListPage. Use the DS component rather than inline patterns.
 
-## Design Spec — USE EXACT VALUES
+## Fix Brief Values — USE EXACT VALUES
 
-If a design spec exists at `screenshots/specs/<page-name>.md`, read it and implement using those **exact values** — colors, font sizes, spacing, border-radius. Do not approximate. Cross-reference your Tailwind classes against the spec.
-
-**Design intent matters.** When a Fix Brief specifies a value (e.g. `h-9` for a logo), it was derived from live production measurement — don't second-guess it with a different value. If something looks wrong after implementing, report back rather than guessing a different value.
+When a Fix Brief specifies a value (e.g. `h-9` for a logo), it was derived from live production measurement — don't second-guess it with a different value. Implement using those **exact values** — colors, font sizes, spacing, border-radius. Do not approximate. If something looks wrong after implementing, report back rather than guessing a different value.
 
 ## Visual Verification — 5-ITERATION DUAL-TAB MEASUREMENT LOOP
 
