@@ -29,11 +29,12 @@ import {
   ArrowUpOutlined,
 } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, Badge, Card, Checkbox, FormSelect, FormInput, EmptyState, List, Navbar, Filter, Spinner, Dropdown, Text } from "@/components/ds";
+import { Button, Card, Checkbox, FormSelect, List, Navbar, Filter, Spinner, Dropdown, Text } from "@/components/ds";
 import AiChatPanel from "@/components/AiChatPanel";
 
 type NoteData = {
   id: string;
+  name: string;
   template: string;
   date: string;
   content: string;
@@ -166,6 +167,7 @@ export default function EditProgressNotePage() {
         // Use placeholder data if API doesn't exist
         setNote({
           id: id,
+          name: "Initial Consultation Notes",
           template: "ST | Note",
           date: "2026-03-16",
           content: "",
@@ -285,21 +287,25 @@ export default function EditProgressNotePage() {
       {/* Header bar */}
       <Navbar
         backHref={`/notes/${id}`}
-        title={note?.template || "Note"}
+        title={note?.name || "Note"}
         badge={
           <>
-            <span className="text-body-md" style={{ cursor: 'pointer', color: 'var(--color-primary)' }}>{clientName}</span>
-            {note?.signed ? (
-              <Badge variant="green">
-                <CheckCircleOutlined style={{ fontSize: 12 }} />
-                Saved
-              </Badge>
-            ) : (
-              <Badge variant="green">Saved</Badge>
-            )}
+            <span style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-primary)', cursor: 'pointer' }}>{clientName}</span>
+            <span style={{ fontSize: 13, fontWeight: 400, color: 'rgb(66, 105, 74)' }}>Note has been autosaved</span>
           </>
         }
       >
+        {/* AI sparkle button */}
+        <Button
+          variant={aiChatOpen ? "primary" : "icon"}
+          round
+          size="sm"
+          onClick={() => setAiChatOpen(!aiChatOpen)}
+          title="Splose AI"
+          style={aiChatOpen ? { backgroundColor: 'var(--color-primary)', color: '#fff', width: 36, height: 36 } : { width: 36, height: 36, border: '1px solid var(--color-border)' }}
+        >
+          <SnippetsOutlined style={{ fontSize: 16 }} />
+        </Button>
         {/* View toggle */}
         <Filter
           items={[
@@ -309,9 +315,15 @@ export default function EditProgressNotePage() {
           value={viewMode}
           onChange={(v) => setViewMode(v as "single" | "split")}
         />
-        <Button variant="primary" style={{ borderColor: '#22c55e', background: '#22c55e' }}>
-          Save as final
-        </Button>
+        {/* Save as final — purple split button */}
+        <Flex>
+          <Button variant="primary" style={{ borderRadius: '8px 0px 0px 8px' }}>
+            Save as final
+          </Button>
+          <Button variant="primary" style={{ borderRadius: '0px 8px 8px 0px', borderLeft: '1px solid rgba(255,255,255,0.3)', padding: '0 8px', minWidth: 0 }}>
+            <DownOutlined style={{ fontSize: 12 }} />
+          </Button>
+        </Flex>
       </Navbar>
 
       <div style={{ display: 'flex' }}>
@@ -320,8 +332,8 @@ export default function EditProgressNotePage() {
           <div style={{ maxWidth: 768, margin: '0 auto' }}>
             {/* Service selector */}
             <div style={{ marginBottom: 16 }}>
+              <div style={{ fontSize: 14, fontWeight: 400, color: 'rgb(65, 69, 73)', marginBottom: 4 }}>Service</div>
               <FormSelect
-                label="Service"
                 options={SERVICE_OPTIONS}
                 value={service}
                 onChange={setService}
@@ -377,7 +389,7 @@ export default function EditProgressNotePage() {
               <Button
                 variant="secondary"
                 onClick={generateAll}
-                style={{ borderColor: 'var(--color-primary)', color: 'var(--color-primary)' }}
+                style={{ backgroundColor: 'rgb(239, 239, 239)', borderColor: 'transparent', color: 'rgb(65, 69, 73)', borderRadius: 12, height: 32 }}
               >
                 <ThunderboltOutlined style={{ fontSize: 14 }} />
                 Generate
@@ -581,20 +593,40 @@ export default function EditProgressNotePage() {
           </div>
         </div>
 
-        {/* Split view reference panel */}
+        {/* Split view transcript panel */}
         {viewMode === "split" && (
           <div
-            style={{ width: 320, flexShrink: 0, overflowY: 'auto', borderLeft: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24, maxHeight: 'calc(100vh - 6rem)' }}
+            style={{ width: 420, flexShrink: 0, overflowY: 'auto', borderLeft: '1px solid var(--color-border)', backgroundColor: '#fff', maxHeight: 'calc(100vh - 6rem)' }}
           >
-            <h3 className="text-heading-sm" style={{ marginBottom: 12 }}>Filter previous progress notes</h3>
-            <FormInput
-              type="text"
-              placeholder="Search notes"
-            />
-            <EmptyState
-              message="No reference notes found"
-              style={{ marginTop: 64 }}
-            />
+            {/* Audio player */}
+            <Flex align="center" gap={8} style={{ padding: '12px 16px', borderBottom: '1px solid var(--color-border)' }}>
+              <Button variant="secondary" size="sm">Restart</Button>
+              <div style={{ flex: 1, height: 24, backgroundColor: 'rgb(243, 245, 247)', borderRadius: 4, display: 'flex', alignItems: 'center', padding: '0 8px' }}>
+                {Array.from({ length: 40 }).map((_, i) => (
+                  <div key={i} style={{ width: 2, height: Math.random() * 16 + 4, backgroundColor: 'rgb(130, 80, 255)', marginRight: 2, borderRadius: 1 }} />
+                ))}
+              </div>
+              <span className="text-body-sm" style={{ color: 'rgb(65, 69, 73)' }}>00:00</span>
+              <Button variant="primary" round size="sm" style={{ width: 28, height: 28, minWidth: 0, padding: 0 }}>▶</Button>
+            </Flex>
+            {/* Transcript */}
+            <div style={{ padding: 16 }}>
+              {[
+                { speaker: 0, text: "Don\'t worry about coffee. We\'ll have a bite." },
+                { speaker: 1, text: "Okay. Good. So," },
+                { speaker: 2, text: "Rosa, Ida, my name is Datt. I\'m an occupational therapist. Yeah. Looks like you\'ve seen occupational therapist before with the rails and Yeah." },
+                { speaker: 1, text: "Yeah. For years. For years. Because I got back at the trouble." },
+                { speaker: 0, text: "Around last time. Yeah." },
+                { speaker: 2, text: "Yeah." },
+              ].map((line, i) => (
+                <Flex key={i} gap={8} style={{ marginBottom: 8 }}>
+                  <span style={{ fontSize: 13, color: 'rgb(130, 80, 255)', flexShrink: 0 }}>✎</span>
+                  <Text variant="body/md" style={{ color: 'rgb(130, 80, 255)' }}>
+                    Speaker {line.speaker}: {line.text}
+                  </Text>
+                </Flex>
+              ))}
+            </div>
           </div>
         )}
 
