@@ -25,12 +25,12 @@ function BrandDescription({ name, brandUrl, text }: { name: string; brandUrl?: s
   // Render first occurrence of brand name as a purple link, rest as plain text
   const idx = text.indexOf(name);
   if (idx === -1 || !brandUrl) {
-    return <Text variant="body/md" color="text">{text}</Text>;
+    return <Text variant="body/md" color="text" style={{ lineHeight: "inherit" }}>{text}</Text>;
   }
   const before = text.slice(0, idx);
   const after = text.slice(idx + name.length);
   return (
-    <Text variant="body/md" color="text">
+    <Text variant="body/md" color="text" style={{ lineHeight: "inherit" }}>
       {before}
       <a href={brandUrl} className="text-primary" style={{ textDecoration: "none" }}>{name}</a>
       {after}
@@ -154,7 +154,7 @@ export default function IntegrationsPage() {
             </Text>
 
             {/* Description with brand link */}
-            <div style={{ marginBottom: 16, lineHeight: "19.6px", fontSize: 14 }}>
+            <div style={{ marginBottom: 16, lineHeight: "19.6px" }}>
               <BrandDescription
                 name={integration.name}
                 brandUrl={integration.brandUrl}
