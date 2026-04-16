@@ -27,7 +27,7 @@ export default function SMSSettingsPage() {
       </PageHeader>
 
       {/* SMS credit balance card */}
-      <Card padding="none" style={{ display: 'inline-block', padding: '16px 20px', marginBottom: 32 }}>
+      <Card padding="none" className="inline-block" style={{ padding: '16px 20px', marginBottom: 32 }}>
         <p className="text-body-md text-text-secondary">SMS credit balance</p>
         <p style={{ fontSize: '1.875rem', fontWeight: 700 }} className="text-text">884</p>
       </Card>
@@ -42,9 +42,10 @@ export default function SMSSettingsPage() {
             <Button
               key={option.credits}
               variant="secondary"
+              className="text-center"
               onClick={() => setSelectedCredits(option.credits)}
               style={{
-                paddingLeft: 20, paddingRight: 20, paddingTop: 12, paddingBottom: 12, textAlign: 'center',
+                paddingLeft: 20, paddingRight: 20, paddingTop: 12, paddingBottom: 12,
                 ...(selectedCredits === option.credits
                   ? { borderColor: 'var(--color-primary)', backgroundColor: 'rgba(var(--color-primary-rgb, 130, 80, 255), 0.1)', color: 'var(--color-primary)' }
                   : {}),

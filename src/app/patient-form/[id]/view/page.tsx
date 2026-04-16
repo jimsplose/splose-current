@@ -40,7 +40,7 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
         <Flex align="center" gap={12}>
           <h1 className="text-display-lg">{form.title}</h1>
           <Badge variant="green">{form.status}</Badge>
-          <Text variant="body/sm" as="span" color="primary" style={{ cursor: 'pointer' }}>{form.clientName}</Text>
+          <Text variant="body/sm" as="span" color="primary" className="cursor-pointer">{form.clientName}</Text>
         </Flex>
         <Flex align="center" gap={8}>
           <Button variant="secondary">
@@ -63,7 +63,7 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
             <div style={{ height: 48, width: 48, fontSize: 30 }}>🦆</div>
           </Flex>
 
-          <Text variant="body/sm" color="secondary" style={{ marginBottom: 24, fontStyle: 'italic' }}>Not completed</Text>
+          <Text variant="body/sm" color="secondary" className="italic" style={{ marginBottom: 24 }}>Not completed</Text>
 
           {/* Form sections */}
           {form.sections.map((section, si) => (
@@ -75,14 +75,14 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
                     <p className="text-label-lg text-text">{field.label}</p>
                     {field.value ? (
                       field.type === "file" ? (
-                        <Text variant="body/sm" as="a" color="primary" style={{ cursor: 'pointer' }}>
+                        <Text variant="body/sm" as="a" color="primary" className="cursor-pointer">
                           {field.value}
                         </Text>
                       ) : (
                         <Text variant="body/sm" color="text">{field.value}</Text>
                       )
                     ) : (
-                      <Text variant="body/sm" color="secondary" style={{ fontStyle: 'italic', opacity: 0.6 }}>No response</Text>
+                      <Text variant="body/sm" color="secondary" className="italic" style={{ opacity: 0.6 }}>No response</Text>
                     )}
                   </div>
                 ))}

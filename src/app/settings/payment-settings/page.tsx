@@ -100,7 +100,7 @@ export default function PaymentSettingsPage() {
       <section style={{ marginBottom: 32 }}>
         <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>PDF settings</h2>
         <div style={{ maxWidth: 672 }}>
-          <label className="text-label-lg text-text-secondary" style={{ display: 'block', marginBottom: 4 }}>
+          <label className="block mb-1 text-label-lg text-text-secondary">
             Brand colour
           </label>
           <Flex align="center" gap={12} style={{ marginBottom: 16 }}>

@@ -408,7 +408,7 @@ function FieldTypePreview({
   if (type === "Long text") {
     return (
       <div>
-        <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>{label}</label>
+        <label className="block mb-1 text-label-lg text-text">{label}</label>
         <textarea
           disabled
           rows={3}
@@ -449,10 +449,10 @@ function FieldTypePreview({
     const previewOpts = options.length > 0 ? options : ["Option 1", "Option 2"];
     return (
       <div>
-        <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>{label}</label>
+        <label className="block mb-1 text-label-lg text-text">{label}</label>
         <Flex vertical gap={6}>
           {previewOpts.map((opt, i) => (
-            <label key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }} className="text-body-md text-text-secondary">
+            <label key={i} className="flex items-center gap-2 text-body-md text-text-secondary">
               <input
                 type="checkbox"
                 disabled
@@ -485,6 +485,6 @@ function FieldTypePreview({
 
   // Fallback
   return (
-    <p className="text-body-md text-text-secondary" style={{ fontStyle: 'italic' }}>Select a field type to see a preview.</p>
+    <p className="italic text-body-md text-text-secondary">Select a field type to see a preview.</p>
   );
 }

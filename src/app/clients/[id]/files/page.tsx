@@ -79,18 +79,18 @@ export default function ClientFilesPage() {
         <DataTable>
           <TableHead>
             <Th>
-              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+              <Flex align="center" gap={4} component="span" className="inline-flex">
                 Name <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
             <Th>Uploader</Th>
             <Th>
-              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+              <Flex align="center" gap={4} component="span" className="inline-flex">
                 Upload date <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
             <Th>
-              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+              <Flex align="center" gap={4} component="span" className="inline-flex">
                 File size <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>

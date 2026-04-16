@@ -235,14 +235,14 @@ export default function ContactsPage() {
               <Td hidden="md" className="text-text-secondary">{contact.email}</Td>
               <Td hidden="lg">
                 {contact.workPhone && (
-                  <a href={`tel:${contact.workPhone}`} className="text-text" style={{ textDecoration: 'none' }}>
+                  <a href={`tel:${contact.workPhone}`} className="text-text no-underline">
                     {contact.workPhone}
                   </a>
                 )}
               </Td>
               <Td hidden="lg">
                 {contact.mobilePhone && (
-                  <a href={`tel:${contact.mobilePhone}`} className="text-text" style={{ textDecoration: 'none' }}>
+                  <a href={`tel:${contact.mobilePhone}`} className="text-text no-underline">
                     {contact.mobilePhone}
                   </a>
                 )}

@@ -59,7 +59,7 @@ export default function NdisBulkUploadNewPage() {
         </PageHeader>
 
         <div style={{ maxWidth: 512, margin: '0 auto', padding: 24 }}>
-          <Card padding="lg" style={{ textAlign: 'center' }}>
+          <Card padding="lg" className="text-center">
             <Flex justify="center" style={{ marginBottom: 16 }}>
               <Flex align="center" justify="center" style={{ height: 56, width: 56, borderRadius: '50%', backgroundColor: '#dcfce7' }}>
                 <CheckCircleOutlined style={{ fontSize: 32, color: '#16a34a' }} />
@@ -72,7 +72,7 @@ export default function NdisBulkUploadNewPage() {
             </Text>
 
             <Divider spacing="none" />
-            <Flex vertical gap={12} style={{ paddingTop: 16, textAlign: 'left' }}>
+            <Flex vertical gap={12} className="text-left" style={{ paddingTop: 16 }}>
               <Flex align="center" justify="space-between">
                 <Text variant="body/md" as="span" color="secondary">File</Text>
                 <Text variant="label/lg" as="span">{fileName}</Text>
@@ -137,7 +137,7 @@ export default function NdisBulkUploadNewPage() {
             </Text>
           </Flex>
 
-          <Card padding="none" style={{ overflow: 'hidden' }}>
+          <Card padding="none" className="overflow-hidden">
             <DataTable>
               <TableHead>
                 <Th>Line</Th>
@@ -152,8 +152,8 @@ export default function NdisBulkUploadNewPage() {
                 {mockValidationResults.map((row) => (
                   <tr
                     key={row.line}
+                    className="border-b border-border"
                     style={{
-                      borderBottom: '1px solid var(--color-border)',
                       backgroundColor: row.status === "error" ? 'rgba(254, 242, 242, 0.5)' : undefined,
                     }}
                   >
@@ -194,7 +194,7 @@ export default function NdisBulkUploadNewPage() {
 
       <Flex vertical gap={24} style={{ maxWidth: 672, padding: 24 }}>
         <div>
-          <Text variant="body/sm" as="label" color="secondary" style={{ display: 'block', marginBottom: 4 }}>Date range *</Text>
+          <Text variant="body/sm" as="label" color="secondary" className="block mb-1">Date range *</Text>
           <DateRangeFilter startDate="2026-03-01" endDate="2026-03-27" />
           <Text variant="caption/md" as="p" color="secondary" style={{ marginTop: 4 }}>
             12 support items from 1 Mar 2026 to 27 Mar 2026 at all practitioners
@@ -213,7 +213,7 @@ export default function NdisBulkUploadNewPage() {
         <FormInput label="Reference (optional)" placeholder="e.g. March 2026 upload" />
 
         <div>
-          <Text variant="label/lg" as="label" color="secondary" style={{ display: 'block', marginBottom: 4 }}>Upload file *</Text>
+          <Text variant="label/lg" as="label" color="secondary" className="block mb-1">Upload file *</Text>
           {fileName ? (
             <Card padding="md">
               <Flex align="center" gap={12}>

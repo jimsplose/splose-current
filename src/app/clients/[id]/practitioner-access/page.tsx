@@ -34,14 +34,14 @@ export default function ClientPractitionerAccessPage() {
       <h1 className="text-display-lg" style={{ marginBottom: 16 }}>Practitioner access</h1>
       <p style={{ marginBottom: 24, fontSize: 14, color: 'var(--color-text-secondary)' }}>
         You can link practitioners to clients via creating an appointment or support activity in the calendar tab.{" "}
-        <span style={{ cursor: 'pointer', color: 'var(--color-primary)' }}>Learn more</span>
+        <span className="cursor-pointer" style={{ color: 'var(--color-primary)' }}>Learn more</span>
       </p>
 
       <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
             <Th>
-              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+              <Flex align="center" gap={4} component="span" className="inline-flex">
                 Name
                 <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
               </Flex>
@@ -49,7 +49,7 @@ export default function ClientPractitionerAccessPage() {
             <Th>Role name</Th>
             <Th>Role type</Th>
             <Th>
-              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+              <Flex align="center" gap={4} component="span" className="inline-flex">
                 Group
                 <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
                 <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />

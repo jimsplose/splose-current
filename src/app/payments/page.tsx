@@ -185,18 +185,18 @@ export default function PaymentsPage() {
                       <div style={{ padding: '8px 0 8px 28px' }}>
                         <table style={{ width: '100%' }}>
                           <thead>
-                            <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-                              <th style={{ padding: '8px 0', textAlign: 'left' }} className="text-label-lg">Invoice #</th>
-                              <th style={{ padding: '8px 0', textAlign: 'left' }} className="text-label-lg">Amount</th>
-                              <th style={{ padding: '8px 0', textAlign: 'left' }} className="text-label-lg">Date</th>
+                            <tr className="border-b border-border">
+                              <th className="py-2 text-left text-label-lg">Invoice #</th>
+                              <th className="py-2 text-left text-label-lg">Amount</th>
+                              <th className="py-2 text-left text-label-lg">Date</th>
                             </tr>
                           </thead>
                           <tbody>
                             {payment.invoices.map((inv) => (
                               <tr key={inv.number}>
-                                <td style={{ padding: '8px 0', fontSize: 14 }}><LinkCell>{inv.number}</LinkCell></td>
-                                <td style={{ padding: '8px 0', fontSize: 14 }}>{inv.amount.toFixed(2)}</td>
-                                <td style={{ padding: '8px 0', fontSize: 14, color: 'var(--color-text-secondary)' }}>{inv.date}</td>
+                                <td className="py-2" style={{ fontSize: 14 }}><LinkCell>{inv.number}</LinkCell></td>
+                                <td className="py-2" style={{ fontSize: 14 }}>{inv.amount.toFixed(2)}</td>
+                                <td className="py-2" style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>{inv.date}</td>
                               </tr>
                             ))}
                           </tbody>

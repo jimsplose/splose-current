@@ -155,7 +155,7 @@ export default function DataExportPage() {
           />
         </div>
         <div>
-          <label className="text-label-lg text-text-secondary" style={{ display: 'block', marginBottom: 4 }}>Date *</label>
+          <label className="block mb-1 text-label-lg text-text-secondary">Date *</label>
           <Flex align="center" gap={8}>
             <FormInput
               type="date"

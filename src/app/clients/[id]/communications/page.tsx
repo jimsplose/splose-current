@@ -216,14 +216,14 @@ export default function ClientCommunicationsPage() {
         <DataTable>
           <TableHead>
             <Th>
-              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+              <Flex align="center" gap={4} component="span" className="inline-flex">
                 Date and time <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
             <Th>Subject</Th>
             <Th>Type</Th>
             <Th>
-              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+              <Flex align="center" gap={4} component="span" className="inline-flex">
                 Direction <FilterOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
@@ -290,7 +290,7 @@ export default function ClientCommunicationsPage() {
           <span><strong>Type:</strong> {viewModal.type}</span>
           <span><strong>Status:</strong> {viewModal.status}</span>
         </Flex>
-        <div className="text-body-md" style={{ whiteSpace: 'pre-wrap', borderRadius: 8, backgroundColor: 'var(--color-fill-quaternary)', padding: 16 }}>
+        <div className="text-body-md whitespace-pre-wrap" style={{ borderRadius: 8, backgroundColor: 'var(--color-fill-quaternary)', padding: 16 }}>
           {viewModal.body}
         </div>
       </Modal>

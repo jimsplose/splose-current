@@ -33,7 +33,7 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
           <DataTable>
             <TableHead>
               <Th>
-                <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+                <Flex align="center" gap={4} component="span" className="inline-flex">
                   Invoice #
                   <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
                   <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
@@ -41,36 +41,36 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
               </Th>
               <Th>To</Th>
               <Th>
-                <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+                <Flex align="center" gap={4} component="span" className="inline-flex">
                   Location
                   <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
                 </Flex>
               </Th>
               <Th>
-                <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+                <Flex align="center" gap={4} component="span" className="inline-flex">
                   Practitioner
                   <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
                 </Flex>
               </Th>
               <Th>
-                <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+                <Flex align="center" gap={4} component="span" className="inline-flex">
                   Issue date
                   <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
                 </Flex>
               </Th>
               <Th>
-                <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>Due date</Flex>
+                <Flex align="center" gap={4} component="span" className="inline-flex">Due date</Flex>
               </Th>
               <Th align="right">Amount</Th>
               <Th align="right">Outstanding</Th>
               <Th>
-                <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+                <Flex align="center" gap={4} component="span" className="inline-flex">
                   Status
                   <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
                 </Flex>
               </Th>
               <Th>
-                <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+                <Flex align="center" gap={4} component="span" className="inline-flex">
                   Sent status
                   <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
                 </Flex>
@@ -79,7 +79,7 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
             <TableBody>
               {client.invoices.length === 0 ? (
                 <tr>
-                  <td colSpan={10} style={{ padding: '64px 16px', textAlign: 'center' }}>
+                  <td colSpan={10} className="text-center" style={{ padding: '64px 16px' }}>
                     <Flex vertical align="center">
                       <div style={{ marginBottom: 12, fontSize: 32 }}>&#x1F4CB;&#x1F4B5;</div>
                       <p className="text-label-lg">No invoices</p>

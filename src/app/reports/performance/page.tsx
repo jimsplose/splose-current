@@ -62,7 +62,7 @@ export default function ReportsPerformancePage() {
     <>
       {/* Toast notification */}
       {toastMessage && (
-        <div style={{ position: 'fixed', right: 16, top: 16, zIndex: 50 }}>
+        <div className="fixed right-4 top-4 z-50">
           <Alert variant="success">{toastMessage}</Alert>
         </div>
       )}

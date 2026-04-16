@@ -537,7 +537,7 @@ function OnlineBookingPageInner() {
                           <Text variant="caption/md" as="span" color="secondary">1:1 Consultation (40 mins d...</Text>
                         </Flex>
                         <Flex align="center" gap={6}>
-                          <span style={{ width: 12, textAlign: "center", fontSize: 12 }}>$</span>
+                          <span className="text-center" style={{ width: 12, fontSize: 12 }}>$</span>
                           <Text variant="caption/md" as="span" color="secondary">A$148.71</Text>
                         </Flex>
                       </>

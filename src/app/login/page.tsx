@@ -3,7 +3,7 @@ import { Button, Checkbox, FormInput } from "@/components/ds";
 
 export default function LoginPage() {
   return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 50, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--color-purple-300, #d8b4fe)" }}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center" style={{ background: "var(--color-purple-300, #d8b4fe)" }}>
       <div style={{ width: "100%", maxWidth: 448 }}>
         {/* Header banner */}
         <div style={{ position: "relative", overflow: "hidden", borderRadius: "16px 16px 0 0", background: "var(--color-primary)", padding: "40px 32px" }}>
@@ -40,9 +40,9 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <div style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div className="flex items-center justify-between" style={{ marginTop: 16 }}>
             <Checkbox label="Remember me" />
-            <a href="#" style={{ fontSize: 14, color: "var(--color-primary)", textDecoration: "none" }}>
+            <a href="#" className="no-underline" style={{ fontSize: 14, color: "var(--color-primary)" }}>
               Forgot password?
             </a>
           </div>
@@ -50,7 +50,8 @@ export default function LoginPage() {
           <Button
             variant="primary"
             size="lg"
-            style={{ marginTop: 24, display: 'flex', width: '100%', justifyContent: 'space-between', paddingTop: 12, paddingBottom: 12 }}
+            className="flex w-full justify-between"
+            style={{ marginTop: 24, paddingTop: 12, paddingBottom: 12 }}
           >
             Log in
             <RightOutlined style={{ fontSize: 20 }} />
@@ -58,11 +59,11 @@ export default function LoginPage() {
         </div>
 
         {/* Footer links */}
-        <div style={{ marginTop: 16, display: "flex", justifyContent: "center", gap: 24, fontSize: 14, color: "var(--color-primary)" }}>
-          <a href="#" style={{ color: "inherit", textDecoration: "none" }}>
+        <div className="flex justify-center" style={{ marginTop: 16, gap: 24, fontSize: 14, color: "var(--color-primary)" }}>
+          <a href="#" className="no-underline" style={{ color: "inherit" }}>
             Terms of Service
           </a>
-          <a href="#" style={{ color: "inherit", textDecoration: "none" }}>
+          <a href="#" className="no-underline" style={{ color: "inherit" }}>
             Privacy Policy
           </a>
         </div>

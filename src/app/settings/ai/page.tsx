@@ -255,9 +255,9 @@ function AIBlockLibraryTab() {
           </Flex>
           <Flex align="center" gap={8} className="text-body-md">
             <span className="text-text-secondary">Fill a</span>
-            <span style={{ cursor: 'pointer', textDecoration: 'underline' }} className="text-primary">short survey</span>
+            <span className="cursor-pointer underline text-primary">short survey</span>
             <span className="text-text-secondary">or</span>
-            <span style={{ cursor: 'pointer', textDecoration: 'underline' }} className="text-primary">book a time</span>
+            <span className="cursor-pointer underline text-primary">book a time</span>
             <span className="text-text-secondary">to chat</span>
             <Button variant="ghost" size="sm" className="text-text-secondary" style={{ marginLeft: 8 }}>&times;</Button>
           </Flex>
@@ -266,9 +266,9 @@ function AIBlockLibraryTab() {
 
       <p className="text-body-md text-text-secondary" style={{ marginBottom: 16 }}>
         Spend less time writing prompts with your saved library of AI blocks, organised by{" "}
-        <span style={{ cursor: 'pointer', textDecoration: 'underline' }} className="text-primary">tags</span>. AI blocks are reusable, customisable and
+        <span className="cursor-pointer underline text-primary">tags</span>. AI blocks are reusable, customisable and
         adjust to your client&apos;s context. Insert them into a template or progress note.{" "}
-        <span style={{ cursor: 'pointer', textDecoration: 'underline' }} className="text-primary">Learn more</span>.
+        <span className="cursor-pointer underline text-primary">Learn more</span>.
       </p>
 
       {/* Search and new button */}
@@ -292,10 +292,10 @@ function AIBlockLibraryTab() {
       {/* Table */}
       <DataTable>
         <TableHead>
-          <Th><div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>AI block <span className="text-caption-md text-text-secondary">&#8645;</span></div></Th>
-          <Th><div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>Tag <span className="text-caption-md text-text-secondary">&#8645;</span></div></Th>
-          <Th><div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>Created by <span className="text-caption-md text-text-secondary">&#9660;</span></div></Th>
-          <Th><div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>Last modified <span className="text-caption-md text-text-secondary">&#8645;</span></div></Th>
+          <Th><div className="flex items-center gap-1">AI block <span className="text-caption-md text-text-secondary">&#8645;</span></div></Th>
+          <Th><div className="flex items-center gap-1">Tag <span className="text-caption-md text-text-secondary">&#8645;</span></div></Th>
+          <Th><div className="flex items-center gap-1">Created by <span className="text-caption-md text-text-secondary">&#9660;</span></div></Th>
+          <Th><div className="flex items-center gap-1">Last modified <span className="text-caption-md text-text-secondary">&#8645;</span></div></Th>
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>

@@ -186,7 +186,7 @@ export default function EditProgressNoteTemplatePage() {
           )}
 
           <div>
-            <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--color-text-secondary)' }}>Free text section</label>
+            <label className="block mb-1 text-label-lg" style={{ color: 'var(--color-text-secondary)' }}>Free text section</label>
             <RichTextEditor value={freeText} onChange={setFreeText} rows={6} />
           </div>
         </Flex>
@@ -210,7 +210,7 @@ export default function EditProgressNoteTemplatePage() {
           />
           <Flex vertical gap={8}>
             {filteredLibraryBlocks.length === 0 ? (
-              <p style={{ padding: '16px 0', textAlign: 'center' }} className="text-body-md text-text-secondary">No blocks match this filter.</p>
+              <p className="text-center text-body-md text-text-secondary" style={{ padding: '16px 0' }}>No blocks match this filter.</p>
             ) : (
               filteredLibraryBlocks.map((block) => (
                 <Flex
@@ -219,7 +219,8 @@ export default function EditProgressNoteTemplatePage() {
                   onClick={() => addBlock(block)}
                   align="center"
                   gap={12}
-                  style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '12px 16px', textAlign: 'left', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}
+                  className="text-left"
+                  style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '12px 16px', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}
                 >
                   <ThunderboltOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-primary)' }} />
                   <div>

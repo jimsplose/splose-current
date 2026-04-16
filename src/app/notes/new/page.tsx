@@ -110,7 +110,7 @@ function NewProgressNotePageInner() {
       maxWidth={99999}
       style={{ minHeight: 'calc(100vh - 3rem)', backgroundColor: 'var(--color-bg-layout)' }}
     >
-      <div style={{ display: 'flex', margin: -24 }}>
+      <div className="flex" style={{ margin: -24 }}>
         {/* Left editor panel */}
         <div style={{ flex: 1, borderRight: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-base)', padding: 24 }}>
           <div style={{ maxWidth: 672, margin: '0 auto' }}>

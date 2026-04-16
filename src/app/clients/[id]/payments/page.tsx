@@ -27,7 +27,7 @@ export default async function ClientPaymentsPage({ params }: { params: Promise<{
         <DataTable>
           <TableHead>
             <Th>
-              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+              <Flex align="center" gap={4} component="span" className="inline-flex">
                 Payment # <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />{" "}
                 <FilterOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Flex>
@@ -35,7 +35,7 @@ export default async function ClientPaymentsPage({ params }: { params: Promise<{
             <Th>From</Th>
             <Th>Amount</Th>
             <Th>
-              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+              <Flex align="center" gap={4} component="span" className="inline-flex">
                 Payment date <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>

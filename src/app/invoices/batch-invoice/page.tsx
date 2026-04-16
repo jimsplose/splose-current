@@ -94,7 +94,7 @@ export default function BatchInvoicePage() {
           before confirming.
         </p>
 
-        <Card padding="none" style={{ overflow: 'hidden' }}>
+        <Card padding="none" className="overflow-hidden">
           <DataTable>
             <TableHead>
               <Th>Invoice #</Th>
@@ -104,7 +104,7 @@ export default function BatchInvoicePage() {
             </TableHead>
             <TableBody>
               {selectedPreviewInvoices.map((inv) => (
-                <tr key={inv.number} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                <tr key={inv.number} className="border-b border-border">
                   <Td className="text-primary" style={{ fontWeight: 500 }}>{inv.number}</Td>
                   <Td>{inv.client}</Td>
                   <Td>{inv.service}</Td>
@@ -116,7 +116,7 @@ export default function BatchInvoicePage() {
         </Card>
 
         <Flex justify="end" style={{ marginTop: 16, borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
-          <div style={{ textAlign: 'right' }}>
+          <div className="text-right">
             <p className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Total</p>
             <p className="text-heading-md text-text">${previewTotal.toFixed(2)}</p>
           </div>
@@ -145,7 +145,7 @@ export default function BatchInvoicePage() {
             Select which clients to include in this batch invoice.
           </p>
 
-          <Card padding="none" style={{ overflow: 'hidden' }}>
+          <Card padding="none" className="overflow-hidden">
             <DataTable>
               <TableHead>
                 <Th style={{ width: 40 }}>
@@ -159,7 +159,8 @@ export default function BatchInvoicePage() {
                 {mockClients.map((client) => (
                   <tr
                     key={client.id}
-                    style={{ borderBottom: '1px solid var(--color-border)', cursor: 'pointer', transition: 'background-color 0.2s' }}
+                    className="border-b border-border"
+                    style={{ cursor: 'pointer', transition: 'background-color 0.2s' }}
                     onClick={() => toggleClient(client.id)}
                   >
                     <Td style={{ width: 40 }}>
@@ -205,7 +206,7 @@ export default function BatchInvoicePage() {
       <div style={{ maxWidth: 672 }}>
         <Flex vertical gap={24}>
           <div>
-            <label style={{ display: 'block', marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>Date range *</label>
+            <label className="block mb-1" style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>Date range *</label>
             <DateRangeFilter startDate="2026-03-01" endDate="2026-03-27" />
           </div>
 

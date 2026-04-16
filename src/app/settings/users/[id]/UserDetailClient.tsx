@@ -86,7 +86,7 @@ export default function UserDetailClient({ id }: { id: string }) {
   const [editApplyTo, setEditApplyTo] = useState("date");
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <div className="flex flex-col" style={{ minHeight: '100vh' }}>
       <Navbar backHref="/settings/users" title={name || user.name}>
         <Button variant="primary">Save changes</Button>
       </Navbar>
@@ -131,11 +131,11 @@ export default function UserDetailClient({ id }: { id: string }) {
             </Flex>
 
             {/* Availability grid */}
-            <div style={{ overflow: 'hidden', borderRadius: 8, border: '1px solid var(--color-border)' }}>
+            <div className="overflow-hidden" style={{ borderRadius: 8, border: '1px solid var(--color-border)' }}>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', borderBottom: '1px solid var(--color-border)' }}>
                 <div style={{ padding: 12 }} className="text-label-lg text-text">Time</div>
                 {DAYS.map((day) => (
-                  <div key={day} style={{ padding: 12, textAlign: 'center' }} className="text-label-lg text-text">{day}</div>
+                  <div key={day} className="text-center text-label-lg text-text" style={{ padding: 12 }}>{day}</div>
                 ))}
               </div>
               {HOURS.map((hour, hourIdx) => (

@@ -257,7 +257,8 @@ export default function EditLocationClient({ id }: { id: string }) {
         <Flex align="center" gap={12}>
           <Link
             href="/settings/locations"
-            style={{ display: 'inline-flex', height: 32, width: 32, alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '1px solid var(--color-border)', color: 'var(--color-text-secondary)', transition: 'all 0.2s' }}
+            className="inline-flex items-center justify-center"
+            style={{ height: 32, width: 32, borderRadius: 8, border: '1px solid var(--color-border)', color: 'var(--color-text-secondary)', transition: 'all 0.2s' }}
           >
             <svg
               style={{ height: 16, width: 16 }}

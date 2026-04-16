@@ -105,7 +105,7 @@ export default function UserGroupsPage() {
       <DataTable>
         <TableHead>
           <Th>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+            <span className="inline-flex items-center gap-1">
               Name
               <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
             </span>
@@ -175,7 +175,7 @@ export default function UserGroupsPage() {
                   </Flex>
                   <input
                     type="checkbox"
-                    style={{ position: 'absolute', width: 1, height: 1, padding: 0, margin: -1, overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap', borderWidth: 0 }}
+                    className="sr-only"
                     checked={isSelected}
                     onChange={() => toggleUser(user)}
                   />
