@@ -611,8 +611,8 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Filename | State | Match |
 |---|---|---|
 | Screenshot 2026-03-11 at 11.16.02 am.png | Invoice view — desktop, Overdue invoice PDF-style with Pay/Email/Actions buttons | partial — sweep 2026-04-16 S2: invoice # heading 30px/700/green still correct, but REGRESSIONS: status label ("Draft invoice") 30px/700 vs prod 26px/500, section labels (Client/From/etc.) 14px/rgb(110,110,100) vs prod 13px/rgb(65,69,73), Note heading 18px vs prod 21px. New S22 gap. |
-| Screenshot 2026-03-11 at 11.16.10 am.png | Invoice view — desktop, Pay dropdown open | yes — Pay Dropdown with Record payment/Send payment link items 2026-03-24 |
-| Screenshot 2026-03-11 at 11.16.17 am.png | Invoice view — desktop, Actions dropdown open | yes — Actions Dropdown with Duplicate/Credit note/Change log/Void items 2026-03-24 |
+| Screenshot 2026-03-11 at 11.16.10 am.png | Invoice view — desktop, Pay dropdown open | partial — modal audit 2026-04-16: dropdown items present but missing icons (systemic M1). Text color lighter than production. |
+| Screenshot 2026-03-11 at 11.16.17 am.png | Invoice view — desktop, Actions dropdown open | partial — modal audit 2026-04-16: dropdown items present but missing icons (systemic M1). Dividers between items that production doesn't have. |
 
 ## Add Payment (`/payments/new`)
 
@@ -699,11 +699,11 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-11 at 5.52.47 pm.png | Calendar day view — desktop, practitioner columns | yes — day view with practitioner column headers 2026-03-24 |
 | Screenshot 2026-03-11 at 5.52.53 pm.png | Calendar day view — desktop, appointment side panel open | yes — side panel with structured content and action buttons 2026-03-24 |
 | Screenshot 2026-03-11 at 5.52.59 pm.png | Calendar day view — desktop, Edit appointment modal | yes — edit modal with all fields including Room/Resource 2026-03-24 |
-| Screenshot 2026-03-11 at 5.53.13 pm.png | Calendar day view — desktop, click-to-create popover | yes — popover with Support activity/Busy time/Appointment options 2026-03-24 |
-| Screenshot 2026-03-11 at 5.53.18 pm.png | Calendar day view — zoomed close-up of create popover | yes — popover matches reference layout 2026-03-24 |
-| Screenshot 2026-03-11 at 5.53.25 pm.png | Calendar day view — desktop, Create appointment modal (empty) | yes — modal has Service, Location, Case, Room/Resource, toggles, past date warning 2026-03-24 |
-| Screenshot 2026-03-11 at 5.53.59 pm.png | Calendar day view — desktop, Create appointment modal (client selected, Service dropdown) | yes — Service field implemented 2026-03-24 |
-| Screenshot 2026-03-11 at 5.54.19 pm.png | Calendar day view — desktop, Create appointment modal (service selected, toggles, past date warning) | yes — toggles and past date warning implemented 2026-03-24 |
+| Screenshot 2026-03-11 at 5.53.13 pm.png | Calendar day view — desktop, click-to-create popover | partial — modal audit 2026-04-16: popover styling matches (icons, bg, shadow) but missing "Availability" option (prod has 4 items, localhost has 3). New M3 gap. |
+| Screenshot 2026-03-11 at 5.53.18 pm.png | Calendar day view — zoomed close-up of create popover | partial — see above, missing Availability option. |
+| Screenshot 2026-03-11 at 5.53.25 pm.png | Calendar day view — desktop, Create appointment modal (empty) | partial — modal audit 2026-04-16: 5 issues. Title "New appointment" vs prod "Create appointment". Stacked label layout vs prod side-by-side. "Recent clients" pills vs prod "waitlist matches" callout. Separate Start/End time vs prod inline Time row. Location missing required asterisk. New M2 gap. |
+| Screenshot 2026-03-11 at 5.53.59 pm.png | Calendar day view — desktop, Create appointment modal (client selected, Service dropdown) | partial — see M2 gap, form layout differs from production. |
+| Screenshot 2026-03-11 at 5.54.19 pm.png | Calendar day view — desktop, Create appointment modal (service selected, toggles, past date warning) | partial — see M2 gap, form layout differs from production. |
 
 ## Notes — New Progress Note (`/notes/new`) — March 11
 

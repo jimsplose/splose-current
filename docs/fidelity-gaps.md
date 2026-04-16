@@ -115,6 +115,21 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [ ] **"Your saved blocks" heading missing** — Production shows "Your saved blocks" (16px/600/rgb(65,69,73)) above the table. Add this heading.
 - [ ] **Banner extra text** — Localhost has "or book a time to chat" text and link. Production only has "Fill a short survey." Remove extra text.
 
+### Group M1 — Dropdown items missing icons (systemic, `src/components/ds/Dropdown.tsx`)
+- [ ] **Dropdown items lack icons** — Production dropdowns (Invoice Actions, Invoice Pay, Settings row actions) show icons next to each item (pencil for Edit, copy for Duplicate, trash for Delete, etc.). Localhost dropdowns render text-only with no icons. This is systemic across all Dropdown usages in the app. The DS Dropdown component or its item configuration needs icon support.
+- [ ] **Dropdown item dividers** — Localhost shows thin gray separator lines between dropdown items. Production does not have dividers between regular items (only before destructive items). Remove non-destructive dividers.
+- [ ] **Dropdown text color too light** — Localhost dropdown item text appears lighter/grayer than production's darker text color.
+
+### Group M2 — Create appointment modal layout (`src/app/calendar/CreateAppointmentModal.tsx`)
+- [ ] **Modal title mismatch** — Production: "Create appointment". Localhost: "New appointment". Change to match production.
+- [ ] **Form field layout mismatch** — Production uses side-by-side layout (label left, input right). Localhost uses stacked layout (label above input). This is a fundamental layout pattern difference.
+- [ ] **Waitlist matches vs Recent clients** — Production shows "N waitlist matches" callout with yellow left border and arrow. Localhost shows "Recent clients" with name pills. Need to implement the waitlist matches pattern.
+- [ ] **Time field structure** — Production has single "Time" label with start/end time inputs inline. Localhost has separate "Start time" and "End time" labels as distinct rows.
+- [ ] **Location required asterisk missing** — Production marks Location as required (*). Localhost does not show the asterisk.
+
+### Group M3 — Calendar create popover missing option (`src/app/calendar/`)
+- [ ] **"Availability" option missing** — Production click-to-create popover shows 4 options: Support activity, Busy time, Appointment, Availability. Localhost only shows 3 (missing Availability).
+
 ### Group S25 — Settings/SMS missing sections (`src/app/settings/sms-settings/page.tsx`)
 - [ ] **Low credit balance email reminder section** — Production has checkbox + description + threshold input (value 100) below SMS pricing. Localhost is missing this entire section.
 - [ ] **Automatic recharge section** — Production has checkbox + description + threshold input + "SMS credits to purchase" input + inline Save button. Missing on localhost.
