@@ -92,15 +92,15 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [ ] **Search button borderRadius mismatch** — Production: 0px 8px 8px 0px, localhost: 0px 12px 12px 0px. Change from 12px to 8px.
 
 ### Group S21 — Client detail sidebar styling (`src/app/clients/[id]/layout.tsx`, `src/components/ds/SideNav.tsx`)
-- [ ] **Sidebar active item background missing** — Production "Details" sidebar item has light purple/lavender background when active. Localhost has no background.
-- [ ] **Sidebar count badge style mismatch** — Production uses small gray outlined pills for counts (119, 520). Localhost uses filled purple circles with white text. Need to match production's outlined style.
-- [ ] **Client tags rendering mismatch** — Production shows client tags as filled color badges. Localhost renders them as plain purple text links.
-- [ ] **Collapse chevron position** — Production has section collapse chevrons on the right side. Localhost has them on the left side of section titles (Client alerts, Client tags, Stripe, Mailchimp).
+- [ ] **Sidebar active item background missing** — Production: `rgb(237, 229, 255)` lavender bg on selected `.ant-menu-item-selected` (CSS rule `.ant-menu-light .ant-menu-item-selected { background-color: rgb(237, 229, 255) }`). Hover: `rgb(247, 245, 250)`. Localhost: transparent (no bg). Fix: add active bg to the client sidebar nav items.
+- [ ] **Sidebar count badge style mismatch** — Production: 12px/400, color `rgb(44, 44, 44)`, bg `rgb(255, 255, 255)` (white), border `1px solid rgb(217, 217, 217)`, borderRadius `8px`, padding `0px 7px`, height `22px`. Localhost: 12px/400, color `rgb(255, 255, 255)` (white), bg `rgb(130, 80, 255)` (purple filled), borderRadius `24px`, padding `1px 8px`. Change to gray outlined pill matching production values.
+- [ ] **Client tags rendering mismatch** — Production shows "Plan-managed" as filled green badge. Localhost renders client tags as plain purple text links. Use Badge component with appropriate color variant.
+- [ ] **Collapse chevron position** — Production has section collapse chevrons on the RIGHT side of headers (Client alerts ∨, Client tags ∨, Stripe ∨, Mailchimp ∨). Localhost has them on the LEFT side (> QuickBooks). Move chevron to right side.
 
 ### Group S22 — Invoice detail regression (`src/app/invoices/[id]/page.tsx`)
-- [ ] **Invoice status label typography** — Production "Draft invoice"/"Overdue Invoice" is 26px/500/rgb(65,69,73). Localhost renders 30px/700. Reduce from 30px/700 to 26px/500.
-- [ ] **Section labels (Client, From, Invoice #, etc.)** — Production: 13px/700/rgb(65,69,73). Localhost: 14px/700/rgb(110,110,100). Revert fontSize to 13px and color to rgb(65,69,73). (Regression from S8 fix.)
-- [ ] **Note sidebar heading** — Production: 21px. Localhost: 18px/700/rgb(110,110,100). Revert to 21px/500/rgb(65,69,73). (Regression from S11 fix.)
+- [ ] **Invoice status label typography** — Production h1 "Draft invoice": `26px`/`500`/`rgb(65,69,73)`. Localhost h2 "Overdue Invoice": `30px`/`700`/`rgb(65,69,73)`. Change to 26px/500. Note: prod renders status as h1, localhost renders invoice # as h1 and status as h2.
+- [ ] **Section labels (Client, From, Invoice #, Issue date, Due date)** — Production: `13px`/`700`/`rgb(65,69,73)`. Localhost: `14px`/`700`/`rgb(110,110,100)`. Fix fontSize 14→13, color to rgb(65,69,73).
+- [ ] **Note/Payments sidebar heading** — Production h2 "Payments": `21px`/`500`/`rgb(65,69,73)`. Localhost h3: `18px`/`700`/`rgb(110,110,100)`. Fix fontSize 18→21, fontWeight 700→500, color to rgb(65,69,73).
 
 ### Group S23 — Settings/Integrations content + logo (`src/app/settings/integrations/page.tsx`)
 - [ ] **QuickBooks logo aspect ratio** — Production renders at 313x80 (wide), localhost at 204x100 (square). The IntegrationLogo `maxWidth: "70%"` constrains the image. Either increase maxWidth for QB or use natural dimensions with height auto.
@@ -110,10 +110,10 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [ ] **"Connect to QuickBooks" button size** — Localhost image is 250x46, production button is 205x38. Adjust image height from 46 to match production.
 
 ### Group S24 — Settings/AI block library tab (`src/app/settings/ai/page.tsx`)
-- [ ] **BETA badge in feedback banner** — Localhost shows "BETA" badge (yellow). Production does not have it. Remove the BETA badge.
-- [ ] **"+ New AI block" button style** — Localhost uses variant="secondary" (white/outlined). Production is variant="primary" (purple-filled rgb(130,80,255)). Change to primary.
-- [ ] **"Your saved blocks" heading missing** — Production shows "Your saved blocks" (16px/600/rgb(65,69,73)) above the table. Add this heading.
-- [ ] **Banner extra text** — Localhost has "or book a time to chat" text and link. Production only has "Fill a short survey." Remove extra text.
+- [ ] **BETA badge in feedback banner** — Localhost shows "BETA" badge (yellow). Production does not have it. Confirmed 2026-04-16. Remove the BETA badge.
+- [ ] **"+ New AI block" button style** — Production: `bg: rgb(130, 80, 255)` (purple filled), `color: white`, `border: transparent`. Localhost: white bg, outlined. Change to `variant="primary"`. Confirmed 2026-04-16.
+- [ ] **"Your saved blocks" heading missing** — Production: `16px`/`600`/`rgb(65, 69, 73)` heading above the table. Localhost does not render it. Confirmed 2026-04-16.
+- [ ] **Banner extra text** — Localhost: "Fill a short survey or book a time to chat". Production: "Fill a short survey." only. Remove "or book a time to chat" text and link. Confirmed 2026-04-16.
 
 ### Group M1 — Dropdown items missing icons (systemic, `src/components/ds/Dropdown.tsx`)
 - [ ] **Dropdown items lack icons** — Production dropdowns (Invoice Actions, Invoice Pay, Settings row actions) show icons next to each item (pencil for Edit, copy for Duplicate, trash for Delete, etc.). Localhost dropdowns render text-only with no icons. This is systemic across all Dropdown usages in the app. The DS Dropdown component or its item configuration needs icon support.
@@ -160,9 +160,9 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [ ] **Missing "Change log" menu item** — Production product row dropdown shows: Edit, Duplicate, Change log, Archive. Localhost only shows: Edit, Duplicate, Archive. Missing "Change log" option.
 
 ### Group S25 — Settings/SMS missing sections (`src/app/settings/sms-settings/page.tsx`)
-- [ ] **Low credit balance email reminder section** — Production has checkbox + description + threshold input (value 100) below SMS pricing. Localhost is missing this entire section.
-- [ ] **Automatic recharge section** — Production has checkbox + description + threshold input + "SMS credits to purchase" input + inline Save button. Missing on localhost.
-- [ ] **Two-way SMS incomplete** — Missing description paragraph ("Enable two-way SMS to receive client replies..."), copy button on phone number, "Contact the account owner to enable two-way SMS." text.
+- [ ] **Low credit balance email reminder section** — Production has checked checkbox + "Receive an email reminder when SMS credits go below the level you specify below." description + threshold input (value 100). Localhost is missing this entire section. Confirmed 2026-04-16.
+- [ ] **Automatic recharge section** — Production has checked checkbox + "Automatically recharge SMS credits when the balance reaches the number you specify below." description + threshold input (100) + "SMS credits to purchase" input (200) + inline purple Save button. Missing on localhost. Confirmed 2026-04-16.
+- [ ] **Two-way SMS incomplete** — Production has: description paragraph ("Enable two-way SMS to receive client replies from the dashboard and send messages from a dedicated mobile number. Subscribe to two-way SMS for A$9.90 (GST included) per month."), phone input with copy button icon, "Contact the account owner to enable two-way SMS." text. Localhost has only "Your number" + input, no description/copy/contact text. Confirmed 2026-04-16.
 - [ ] **Remove header Save button** — Production doesn't have Save in the PageHeader (only "Learn"). The Save button is inline within the auto-recharge section.
 
 ### Group S28 — Patient form view typography (`src/app/patient-form/[id]/view/page.tsx`)
