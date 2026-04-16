@@ -81,7 +81,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         <Flex justify="space-between" align="center" style={{ marginBottom: 24 }}>
           <Text variant="display/lg">Details</Text>
           <Button variant="secondary" size="sm" onClick={() => setEditMode(true)}>
-            Edit <EditOutlined style={{ fontSize: 14 }} />
+            Edit <EditOutlined className="text-[14px]" />
           </Button>
         </Flex>
 
@@ -241,15 +241,15 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
             Associated contacts{" "}
             <HintIcon style={{ marginLeft: 4 }} />
           </Text>
-          <table style={{ width: '100%' }} className="text-body-md">
+          <table className="w-full text-body-md">
             <thead>
               <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-                <th style={{ paddingBottom: 8, textAlign: 'left' }} className="text-label-lg">Name</th>
-                <th style={{ paddingBottom: 8, textAlign: 'left' }} className="text-label-lg">Type</th>
-                <th style={{ paddingBottom: 8, textAlign: 'left' }} className="text-label-lg">Notes</th>
-                <th style={{ paddingBottom: 8, textAlign: 'center' }} className="text-label-lg">Appts</th>
-                <th style={{ paddingBottom: 8, textAlign: 'center' }} className="text-label-lg">Invoices</th>
-                <th style={{ paddingBottom: 8, textAlign: 'center' }} className="text-label-lg">Notes</th>
+                <th style={{ paddingBottom: 8 }} className="text-left text-label-lg">Name</th>
+                <th style={{ paddingBottom: 8 }} className="text-left text-label-lg">Type</th>
+                <th style={{ paddingBottom: 8 }} className="text-left text-label-lg">Notes</th>
+                <th style={{ paddingBottom: 8 }} className="text-center text-label-lg">Appts</th>
+                <th style={{ paddingBottom: 8 }} className="text-center text-label-lg">Invoices</th>
+                <th style={{ paddingBottom: 8 }} className="text-center text-label-lg">Notes</th>
               </tr>
             </thead>
             <tbody>
@@ -257,17 +257,17 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
                 <td style={{ paddingTop: 8, paddingBottom: 8 }}><Text variant="body/md" as="span" color="primary">Test doctor</Text></td>
                 <td style={{ paddingTop: 8, paddingBottom: 8 }}>Doctor</td>
                 <td style={{ paddingTop: 8, paddingBottom: 8 }}>hello</td>
-                <td style={{ paddingTop: 8, paddingBottom: 8, textAlign: 'center' }}></td>
-                <td style={{ paddingTop: 8, paddingBottom: 8, textAlign: 'center' }}></td>
-                <td style={{ paddingTop: 8, paddingBottom: 8, textAlign: 'center' }}></td>
+                <td style={{ paddingTop: 8, paddingBottom: 8 }} className="text-center"></td>
+                <td style={{ paddingTop: 8, paddingBottom: 8 }} className="text-center"></td>
+                <td style={{ paddingTop: 8, paddingBottom: 8 }} className="text-center"></td>
               </tr>
               <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
                 <td style={{ paddingTop: 8, paddingBottom: 8 }}><Text variant="body/md" as="span" color="primary">Jo malone</Text></td>
                 <td style={{ paddingTop: 8, paddingBottom: 8 }}>Standard</td>
                 <td style={{ paddingTop: 8, paddingBottom: 8 }}>N/A</td>
-                <td style={{ paddingTop: 8, paddingBottom: 8, textAlign: 'center' }}></td>
-                <td style={{ paddingTop: 8, paddingBottom: 8, textAlign: 'center' }}></td>
-                <td style={{ paddingTop: 8, paddingBottom: 8, textAlign: 'center' }}></td>
+                <td style={{ paddingTop: 8, paddingBottom: 8 }} className="text-center"></td>
+                <td style={{ paddingTop: 8, paddingBottom: 8 }} className="text-center"></td>
+                <td style={{ paddingTop: 8, paddingBottom: 8 }} className="text-center"></td>
               </tr>
             </tbody>
           </table>
@@ -485,7 +485,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
             </Flex>
 
             {/* Profile photo - positioned to the right */}
-            <div style={{ flexShrink: 0, paddingTop: 24, textAlign: 'center' }}>
+            <div style={{ flexShrink: 0, paddingTop: 24 }} className="text-center">
               <FileUpload
                 icon={<Text variant="body/md" as="span" color="secondary">Profile photo</Text>}
                 label="Upload"
