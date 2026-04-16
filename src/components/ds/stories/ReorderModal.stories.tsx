@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
-import { fn } from "@storybook/test";
+const fn = () => () => {};
 import ReorderModal, { type ReorderItem } from "../ReorderModal";
 import Button from "../Button";
 
