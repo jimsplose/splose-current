@@ -34,7 +34,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
       {/* Top header bar */}
       <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', background: 'white', padding: '12px 24px' }}>
         <Flex align="center" gap={12}>
-          <Text variant="display/lg" as="h1" style={{ fontFamily: "'Sprig Sans', 'Inter', sans-serif", color: "rgb(66, 105, 74)" }}>{invoice.invoiceNumber}</Text>
+          <Text variant="display/lg" as="h1" color="rgb(66, 105, 74)">{invoice.invoiceNumber}</Text>
           <Badge variant={STATUS_VARIANTS[invoice.status] ?? "gray"}>{invoice.status}</Badge>
           {creditBalance > 0 && <Badge variant="green">Credit balance: ${creditBalance.toFixed(2)}</Badge>}
         </Flex>
@@ -200,29 +200,29 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
               <div style={{ marginBottom: 32 }}>
                 <table style={{ width: '100%' }}>
                   <thead>
-                    <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-                      <th style={{ paddingBottom: 12, textAlign: 'left' }}>
+                    <tr className="border-b border-border">
+                      <th className="pb-3 text-left">
                         <Text variant="heading/sm" as="span" color="secondary">Item code</Text>
                       </th>
-                      <th style={{ paddingBottom: 12, textAlign: 'left' }}>
+                      <th className="pb-3 text-left">
                         <Text variant="heading/sm" as="span" color="secondary">Description</Text>
                       </th>
-                      <th style={{ paddingBottom: 12, textAlign: 'right' }}>
+                      <th className="pb-3 text-right">
                         <Text variant="heading/sm" as="span" color="secondary">Unit price</Text>
                       </th>
-                      <th style={{ paddingBottom: 12, textAlign: 'right' }}>
+                      <th className="pb-3 text-right">
                         <Text variant="heading/sm" as="span" color="secondary">Quantity</Text>
                       </th>
-                      <th style={{ paddingBottom: 12, textAlign: 'right' }}>
+                      <th className="pb-3 text-right">
                         <Text variant="heading/sm" as="span" color="secondary">Unit</Text>
                       </th>
-                      <th style={{ paddingBottom: 12, textAlign: 'right' }}>
+                      <th className="pb-3 text-right">
                         <Text variant="heading/sm" as="span" color="secondary">Discount</Text>
                       </th>
-                      <th style={{ paddingBottom: 12, textAlign: 'right' }}>
+                      <th className="pb-3 text-right">
                         <Text variant="heading/sm" as="span" color="secondary">GST</Text>
                       </th>
-                      <th style={{ paddingBottom: 12, textAlign: 'right' }}>
+                      <th className="pb-3 text-right">
                         <Text variant="heading/sm" as="span" color="secondary">Amount AUD</Text>
                       </th>
                     </tr>
@@ -236,29 +236,29 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
                         const itemCode = generateItemCode(item.description, idx);
                         const gstRate = invoice.billingType === "NDIS" ? 0 : 10;
                         return (
-                          <tr key={item.id} style={{ borderBottom: '1px solid var(--color-fill-secondary)' }}>
-                            <td style={{ padding: '12px 0' }}>
+                          <tr key={item.id} className="border-b border-fill-secondary">
+                            <td className="py-3">
                               <Text variant="body/sm" as="span" color="secondary" style={{ fontFamily: 'monospace' }}>{itemCode}</Text>
                             </td>
-                            <td style={{ padding: '12px 0' }}>
+                            <td className="py-3">
                               <Text variant="body/md" as="span" color="text">{item.description}</Text>
                             </td>
-                            <td style={{ padding: '12px 0', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>
+                            <td className="py-3 text-right tabular-nums">
                               <Text variant="body/md" as="span" color="text">${item.unitPrice.toFixed(2)}</Text>
                             </td>
-                            <td style={{ padding: '12px 0', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>
+                            <td className="py-3 text-right tabular-nums">
                               <Text variant="body/md" as="span" color="text">{item.quantity.toFixed(2)}</Text>
                             </td>
-                            <td style={{ padding: '12px 0', textAlign: 'right' }}>
+                            <td className="py-3 text-right">
                               <Text variant="body/md" as="span" color="secondary">Hour</Text>
                             </td>
-                            <td style={{ padding: '12px 0', textAlign: 'right' }}>
+                            <td className="py-3 text-right">
                               <Text variant="body/md" as="span" color="secondary">$0.00</Text>
                             </td>
-                            <td style={{ padding: '12px 0', textAlign: 'right' }}>
+                            <td className="py-3 text-right">
                               <Text variant="body/md" as="span" color="secondary">{gstRate}%</Text>
                             </td>
-                            <td style={{ padding: '12px 0', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>
+                            <td className="py-3 text-right tabular-nums">
                               <Text variant="label/lg" as="span" color="text">${item.total.toFixed(2)}</Text>
                             </td>
                           </tr>
@@ -267,7 +267,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
                     )}
                     {invoice.items.length === 0 && (
                       <tr>
-                        <td colSpan={8} style={{ padding: '24px 0', textAlign: 'center' }}>
+                        <td colSpan={8} className="py-6 text-center">
                           <Text variant="body/md" as="span" color="tertiary">No line items</Text>
                         </td>
                       </tr>
@@ -281,19 +281,19 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
                 <Flex vertical gap={8} style={{ width: 288 }}>
                   <Flex align="center" justify="space-between" style={{ padding: '4px 0' }}>
                     <Text variant="body/md" as="span" color="secondary">Subtotal excl. tax</Text>
-                    <Text variant="body/md" as="span" color="text" style={{ fontVariantNumeric: 'tabular-nums' }}>${invoice.subtotal.toFixed(2)}</Text>
+                    <Text variant="body/md" as="span" color="text" className="tabular-nums">${invoice.subtotal.toFixed(2)}</Text>
                   </Flex>
                   <Flex align="center" justify="space-between" style={{ padding: '4px 0' }}>
                     <Text variant="body/md" as="span" color="secondary">Tax</Text>
-                    <Text variant="body/md" as="span" color="text" style={{ fontVariantNumeric: 'tabular-nums' }}>${invoice.tax.toFixed(2)}</Text>
+                    <Text variant="body/md" as="span" color="text" className="tabular-nums">${invoice.tax.toFixed(2)}</Text>
                   </Flex>
                   <Flex align="center" justify="space-between" style={{ borderTop: '1px solid var(--color-border)', paddingTop: 8 }}>
                     <Text variant="heading/md" as="span" color="text">Total AUD</Text>
-                    <Text variant="heading/md" as="span" color="text" style={{ fontVariantNumeric: 'tabular-nums' }}>${invoice.total.toFixed(2)}</Text>
+                    <Text variant="heading/md" as="span" color="text" className="tabular-nums">${invoice.total.toFixed(2)}</Text>
                   </Flex>
                   <Flex align="center" justify="space-between" style={{ marginTop: 4, borderRadius: 8, background: 'var(--color-fill-secondary)', padding: '10px 12px' }}>
                     <Text variant="body/md-strong" as="span" color="text">Total Amount Due AUD</Text>
-                    <Text variant="body/md-strong" as="span" color="text" style={{ fontVariantNumeric: 'tabular-nums' }}>${amountDue.toFixed(2)}</Text>
+                    <Text variant="body/md-strong" as="span" color="text" className="tabular-nums">${amountDue.toFixed(2)}</Text>
                   </Flex>
                 </Flex>
               </Flex>
@@ -311,15 +311,15 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
                   <Text variant="label/lg" as="p" color="text">Direct deposit details:</Text>
                   <Flex vertical gap={4} style={{ marginTop: 8 }}>
                     <Text variant="body/md" as="p" color="secondary">
-                      <Text variant="body/md" as="span" color="secondary" style={{ display: 'inline-block', width: 64 }}>Name:</Text>
+                      <Text variant="body/md" as="span" color="secondary" className="inline-block w-16">Name:</Text>
                       Hands Together Therapies
                     </Text>
                     <Text variant="body/md" as="p" color="secondary">
-                      <Text variant="body/md" as="span" color="secondary" style={{ display: 'inline-block', width: 64 }}>Acc:</Text>
+                      <Text variant="body/md" as="span" color="secondary" className="inline-block w-16">Acc:</Text>
                       901802703
                     </Text>
                     <Text variant="body/md" as="p" color="secondary">
-                      <Text variant="body/md" as="span" color="secondary" style={{ display: 'inline-block', width: 64 }}>BSB:</Text>
+                      <Text variant="body/md" as="span" color="secondary" className="inline-block w-16">BSB:</Text>
                       505-500
                     </Text>
                   </Flex>
