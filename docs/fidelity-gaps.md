@@ -139,6 +139,17 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 ### Group M5 — Products dropdown missing "Change log" (`src/app/products/`)
 - [ ] **Missing "Change log" menu item** — Production product row dropdown shows: Edit, Duplicate, Change log, Archive. Localhost only shows: Edit, Duplicate, Archive. Missing "Change log" option.
 
+### Group M6 — Settings edit modals form differences (systemic, `useFormModal` pattern)
+- [ ] **Missing required asterisks** — Production settings modals (Edit busy time type, etc.) show * on required fields. Localhost shows no asterisks. Systemic across all useFormModal instances.
+- [ ] **Label naming differences** — Production uses full descriptive labels ("Utilisation calculations", "Default duration (minutes)"). Localhost uses shortened versions ("Utilisation", "Duration (mins)"). Sync label text with production.
+- [ ] **Field order differs** — E.g. Busy time: Production orders Name→Utilisation→Color→Duration→Note. Localhost orders Name→Colour→Utilisation→Duration. Match production field order.
+- [ ] **Missing "Default note" field** — Edit busy time type modal on localhost is missing the "Default note" text input that production has.
+- [ ] **Submit button text** — Production uses contextual text ("Edit"). Localhost uses generic "Save". Match production's contextual button text.
+
+### Group M7 — Reports Definitions modal (`src/app/reports/performance/page.tsx`)
+- [ ] **Modal doesn't open** — The "Definitions" button exists on both but clicking it on localhost does not open the modal. Production shows a large 2-column overlay with metric definitions. Localhost's click handler may not be connected.
+- [ ] **Missing "Change log" menu item** — Production product row dropdown shows: Edit, Duplicate, Change log, Archive. Localhost only shows: Edit, Duplicate, Archive. Missing "Change log" option.
+
 ### Group S25 — Settings/SMS missing sections (`src/app/settings/sms-settings/page.tsx`)
 - [ ] **Low credit balance email reminder section** — Production has checkbox + description + threshold input (value 100) below SMS pricing. Localhost is missing this entire section.
 - [ ] **Automatic recharge section** — Production has checkbox + description + threshold input + "SMS credits to purchase" input + inline Save button. Missing on localhost.
