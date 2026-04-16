@@ -4,6 +4,42 @@ Append-only log. Each session adds an entry summarizing what was done.
 
 ---
 
+## Session — 2026-04-16 (Full Sweep Fidelity Fix)
+
+**Branch**: `antd-migration`
+
+### Settings Integrations Page (15 action items — all resolved)
+- Logo heights increased (48→100px default, 80→120px container)
+- Connect buttons changed from primary (purple) to secondary (white outlined)
+- QuickBooks: green Intuit-style SVG connect button
+- Brand names rendered as purple links in descriptions
+- Description text color corrected to rgb(65,69,73)
+- Theme colorError updated from #D00032 to #F00032 matching production
+- New `display/xs` Text variant (21px/700/Sprig Sans/lh 1.4)
+- Cards migrated to DS Card component with production-matched borders
+- Zoom logo: replaced fake text span with real SVG
+- Copy fixes: "Worksafe Victoria", Tyro Health description
+- Connected states reconciled to production (Xero=false, Stripe=incomplete-profile, Mailchimp=true, etc.)
+- Stripe: "Complete your profile in Stripe" button + Disconnect
+
+### Inline Style Cleanup Sweep
+- **invoices/[id]/page.tsx**: 79→52 inline styles (27 removed — tabular-nums, th/td padding, tr borders, fontFamily)
+- **ClientDetailClient.tsx**: 88→86 (14 textAlign extractions, 2 full removals)
+- **products/page.tsx**: 42→36 (6 removals, 17 property extractions)
+- **28 Grade B pages**: Batch cleanup of table styles → Tailwind classes
+- **Table row borders**: ~20 tr borderBottom → `border-b border-border` across 10+ files
+
+### DS Component Extensions
+- Card: Added `xl` padding (25px) and numeric padding support
+- Text: Added `display/xs` variant (21px/700/Sprig Sans/lineHeight 1.4)
+
+### Assessed & Deferred
+- Navbar→FormPage: 14/18 done, remaining 4 have specialized layouts (tabs, AI panels)
+- Client sub-tab→ListPage: Already use DS components directly, no wrapper needed
+- FormField adoption: 12 files with custom controls, structural refactor deferred
+
+---
+
 ## Session — 2026-04-09 (Settings Audit + Workflow Restructure)
 
 **Branch**: `antd-migration`
