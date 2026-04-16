@@ -546,7 +546,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.11.08 am.png | Client edit details — desktop, Edit form (General details, Profile photo, DOB, Sex, Gender, Pronouns) | yes — 4.99% |
+| Screenshot 2026-03-11 at 11.11.08 am.png | Client edit details — desktop, Edit form (General details, Profile photo, DOB, Sex, Gender, Pronouns) | partial — audit 2026-04-16: no `/clients/{id}/edit` route exists on localhost (404). Production has a dedicated edit page at `/patients/{id}/edit` with flat form layout (Title/First/Middle/Last name, Preferred name, DOB Day/Month/Year dropdowns, Sex, Gender, Profile photo + Upload, Cancel + Save buttons). Localhost edit is inline within client detail page (no separate route). Needs dedicated edit route or matching production's pattern. |
 
 ## Client Detail — Appointments (`/clients/:id/appointments`)
 
