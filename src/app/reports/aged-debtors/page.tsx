@@ -44,7 +44,7 @@ export default function ReportsAgedDebtorsPage() {
       actions={<><Button>Export</Button><Button>Learn about this report</Button></>}
       cardWrap={false}
     >
-      <Flex wrap="wrap" align="flex-start" gap={16} style={{ marginBottom: 16 }}>
+      <Flex wrap="wrap" align="flex-start" gap={16} className="mb-4">
         <div>
           <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
             Date range *
@@ -63,7 +63,7 @@ export default function ReportsAgedDebtorsPage() {
         </div>
       </Flex>
 
-      <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 32 }}>
+      <Flex wrap="wrap" align="center" gap={8} className="mb-8">
         <Button>Add filter</Button>
         <Button>Save filters</Button>
         <Button>Load filters</Button>
@@ -72,7 +72,7 @@ export default function ReportsAgedDebtorsPage() {
 
       {showResults && (
         <>
-          <Grid cols={4} gap={12} style={{ marginBottom: 16 }}>
+          <Grid cols={4} gap={12} className="mb-4">
             {agingSummary.map((item) => (
               <Card key={item.label}>
                 <p className="text-label-md" style={{ color: 'var(--color-text-secondary)' }}>{item.label}</p>
@@ -81,7 +81,7 @@ export default function ReportsAgedDebtorsPage() {
             ))}
           </Grid>
 
-          <Card padding="none" style={{ overflowX: 'auto' }}>
+          <Card padding="none" className="overflow-x-auto">
             <DataTable>
               <TableHead>
                 <Th>Client</Th>

@@ -21,15 +21,15 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
   if (!client) notFound();
 
   return (
-    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+    <div className="flex-1 overflow-y-auto p-6">
       <PageHeader title="Invoices">
         <Button>+ New invoice</Button>
       </PageHeader>
 
       <SearchBar placeholder="Search for invoice number, client name and contact name" />
 
-      <Card padding="none" style={{ overflowX: 'auto' }}>
-        <div style={{ overflowX: 'auto' }}>
+      <Card padding="none" className="overflow-x-auto">
+        <div className="overflow-x-auto">
           <DataTable>
             <TableHead>
               <Th>

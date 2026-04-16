@@ -73,16 +73,16 @@ export default function CSVImportPage() {
       className="flex flex-col"
       style={{ minHeight: '100vh' }}
     >
-      <div style={{ borderBottom: '1px solid var(--color-border)', padding: '0 24px', margin: '-24px -24px 0' }}>
+      <div className="border-b border-border" style={{ padding: '0 24px', margin: '-24px -24px 0' }}>
         <Tab items={importTabs} value={activeTab} onChange={setActiveTab} />
       </div>
 
       <div style={{ flex: 1, overflowY: 'auto', padding: 24, margin: '0 -24px -24px' }}>
-        <div style={{ maxWidth: 768, margin: '0 auto' }}>
+        <div className="mx-auto max-w-3xl">
           <Flex vertical gap={24}>
             {/* Upload zone */}
             <div>
-              <h3 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Upload CSV file</h3>
+              <h3 className="mb-3 text-heading-md text-text">Upload CSV file</h3>
               {!fileUploaded ? (
                 <button
                   onClick={() => setFileUploaded(true)}
@@ -91,7 +91,7 @@ export default function CSVImportPage() {
                 >
                   <UploadOutlined style={{ fontSize: 32, marginBottom: 8, color: 'var(--color-text-secondary)' }} />
                   <span className="text-body-md text-text">Click to upload or drag and drop</span>
-                  <span className="text-caption-md text-text-secondary" style={{ marginTop: 4 }}>CSV files only, max 10MB</span>
+                  <span className="mt-1 text-caption-md text-text-secondary">CSV files only, max 10MB</span>
                 </button>
               ) : (
                 <Card padding="none">
@@ -99,7 +99,7 @@ export default function CSVImportPage() {
                     <FileExcelOutlined style={{ fontSize: 20, color: 'var(--color-primary)' }} />
                     <div style={{ flex: 1 }}>
                       <span className="text-body-md text-text">{activeTab}_import_2026.csv</span>
-                      <span className="text-caption-md text-text-secondary" style={{ marginLeft: 8 }}>245 rows</span>
+                      <span className="ml-2 text-caption-md text-text-secondary">245 rows</span>
                     </div>
                     <CheckCircleFilled style={{ fontSize: 20, color: 'var(--color-success)' }} />
                     <Button variant="secondary" size="sm" onClick={() => setFileUploaded(false)}>Remove</Button>
@@ -111,8 +111,8 @@ export default function CSVImportPage() {
             {/* Field mapping */}
             {fileUploaded && (
               <div>
-                <h3 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Field mapping</h3>
-                <p className="text-body-md text-text-secondary" style={{ marginBottom: 16 }}>
+                <h3 className="mb-3 text-heading-md text-text">Field mapping</h3>
+                <p className="mb-4 text-body-md text-text-secondary">
                   Map CSV columns to Splose fields. Unmapped columns will be skipped.
                 </p>
                 <Card padding="none" className="overflow-hidden">

@@ -10,14 +10,14 @@ export default function ClientStatementsPage() {
   const _id = params.id as string;
 
   return (
-    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+    <div className="flex-1 overflow-y-auto p-6">
       <PageHeader title="Statements">
         <Button>Email statement</Button>
         <Button>Download PDF</Button>
       </PageHeader>
 
       {/* Filter row */}
-      <Flex align="flex-end" gap={16} style={{ marginBottom: 16 }}>
+      <Flex align="flex-end" gap={16} className="mb-4">
         <Flex vertical gap={4}>
           <label className="text-label-lg">Type*</label>
           <Button style={{ minWidth: 140, justifyContent: 'space-between' }}>
@@ -55,7 +55,7 @@ export default function ClientStatementsPage() {
       </Flex>
 
       {/* Show client address checkbox */}
-      <div style={{ marginBottom: 24 }}>
+      <div className="mb-6">
         <Checkbox label="Show client address" defaultChecked />
       </div>
 

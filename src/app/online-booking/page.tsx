@@ -148,15 +148,15 @@ function OnlineBookingPageInner() {
                 {/* Filters */}
                 <div className={styles.filterRow}>
                   <div className={styles.filterItem}>
-                    <UserOutlined style={{ fontSize: 16, marginRight: 8 }} />
+                    <UserOutlined className="mr-2" style={{ fontSize: 16 }} />
                     <Text variant="body/md" as="span" color="secondary">All practitioners</Text>
                   </div>
                   <div className={styles.filterItem}>
-                    <CalendarOutlined style={{ fontSize: 16, marginRight: 8 }} />
+                    <CalendarOutlined className="mr-2" style={{ fontSize: 16 }} />
                     <Text variant="body/md" as="span" color="secondary">Any date</Text>
                   </div>
                   <div className={styles.filterItem}>
-                    <ClockCircleOutlined style={{ fontSize: 16, marginRight: 8 }} />
+                    <ClockCircleOutlined className="mr-2" style={{ fontSize: 16 }} />
                     <Text variant="body/md" as="span" color="secondary">Any time</Text>
                   </div>
                 </div>
@@ -195,7 +195,7 @@ function OnlineBookingPageInner() {
 
                         {/* Date/time picker */}
                         <div className={styles.dateTimePicker}>
-                          <Text variant="heading/sm" as="div" style={{ marginBottom: 8 }}>March 2026</Text>
+                          <Text variant="heading/sm" as="div" className="mb-2">March 2026</Text>
                           <div className={styles.weekNav}>
                             <Button variant="icon" round>
                               <LeftOutlined style={{ fontSize: 16 }} />
@@ -209,13 +209,10 @@ function OnlineBookingPageInner() {
                                   setSelectedDate(d.date);
                                   setSelectedPractitioner(prac.id);
                                 }}
+                                className="flex flex-col items-center justify-center"
                                 style={{
-                                  display: 'flex',
                                   height: 40,
                                   width: 40,
-                                  flexDirection: 'column',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
                                   ...(selectedDate === d.date && selectedPractitioner === prac.id
                                     ? { background: 'var(--color-primary)', color: '#fff' }
                                     : {}),
@@ -256,7 +253,7 @@ function OnlineBookingPageInner() {
                                 variant="primary"
                                 size="sm"
                                 onClick={() => setShowAllTimes(!showAllTimes)}
-                                style={{ marginTop: 8 }}
+                                className="mt-2"
                               >
                                 {showAllTimes ? "Show fewer" : "See all times"}
                               </Button>
@@ -428,7 +425,7 @@ function OnlineBookingPageInner() {
 
                   {/* Email preview card */}
                   <div className={styles.emailCard}>
-                    <Flex align="center" gap={8} style={{ marginBottom: 12 }}>
+                    <Flex align="center" gap={8} className="mb-3">
                       <MailOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
                       <Text variant="heading/sm" as="h3">Confirmation email sent</Text>
                     </Flex>
@@ -486,7 +483,7 @@ function OnlineBookingPageInner() {
                   </div>
 
                   <div className={styles.bookAnotherWrapper}>
-                    <Button variant="primary" onClick={() => setStep("select")} style={{ width: '100%', justifyContent: 'center' }}>
+                    <Button variant="primary" onClick={() => setStep("select")} className="w-full justify-center">
                       Book another appointment
                     </Button>
                   </div>
@@ -590,7 +587,7 @@ function OnlineBookingPageInner() {
                   selectedLocation ? (
                     <Button
                       variant="primary"
-                      style={{ width: '100%', justifyContent: 'center' }}
+                      className="w-full justify-center"
                       onClick={() => setStep("select")}
                     >
                       Continue
@@ -599,7 +596,7 @@ function OnlineBookingPageInner() {
                     <Button
                       variant="primary"
                       disabled
-                      style={{ width: '100%', justifyContent: 'center' }}
+                      className="w-full justify-center"
                     >
                       Continue
                     </Button>
@@ -608,12 +605,12 @@ function OnlineBookingPageInner() {
                   <Button
                     variant="primary"
                     disabled
-                    style={{ width: '100%', justifyContent: 'center' }}
+                    className="w-full justify-center"
                   >
                     Continue
                   </Button>
                 ) : (
-                  <Button variant="primary" style={{ width: '100%', justifyContent: 'center' }} onClick={() => setStep("confirmed")}>
+                  <Button variant="primary" className="w-full justify-center" onClick={() => setStep("confirmed")}>
                     Confirm
                   </Button>
                 )}

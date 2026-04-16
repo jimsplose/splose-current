@@ -89,7 +89,7 @@ export default function BatchInvoicePage() {
           </>
         }
       >
-        <p className="text-body-md" style={{ marginBottom: 16, color: 'var(--color-text-secondary)' }}>
+        <p className="mb-4 text-body-md" style={{ color: 'var(--color-text-secondary)' }}>
           {selectedPreviewInvoices.length} invoices will be created for {selectedClients.length} clients. Review below
           before confirming.
         </p>
@@ -115,7 +115,7 @@ export default function BatchInvoicePage() {
           </DataTable>
         </Card>
 
-        <Flex justify="end" style={{ marginTop: 16, borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
+        <Flex justify="end" className="mt-4 border-t border-border pt-4">
           <div className="text-right">
             <p className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Total</p>
             <p className="text-heading-md text-text">${previewTotal.toFixed(2)}</p>
@@ -140,8 +140,8 @@ export default function BatchInvoicePage() {
           </>
         }
       >
-        <div style={{ maxWidth: 768 }}>
-          <p className="text-body-md" style={{ marginBottom: 16, color: 'var(--color-text-secondary)' }}>
+        <div className="max-w-3xl">
+          <p className="mb-4 text-body-md" style={{ color: 'var(--color-text-secondary)' }}>
             Select which clients to include in this batch invoice.
           </p>
 
@@ -159,8 +159,8 @@ export default function BatchInvoicePage() {
                 {mockClients.map((client) => (
                   <tr
                     key={client.id}
-                    className="border-b border-border"
-                    style={{ cursor: 'pointer', transition: 'background-color 0.2s' }}
+                    className="border-b border-border cursor-pointer"
+                    style={{ transition: 'background-color 0.2s' }}
                     onClick={() => toggleClient(client.id)}
                   >
                     <Td style={{ width: 40 }}>
@@ -183,7 +183,7 @@ export default function BatchInvoicePage() {
             </DataTable>
           </Card>
 
-          <div className="text-body-sm" style={{ marginTop: 16, color: 'var(--color-text-secondary)' }}>
+          <div className="mt-4 text-body-sm" style={{ color: 'var(--color-text-secondary)' }}>
             {selectedClients.length} of {mockClients.length} clients selected
           </div>
         </div>
@@ -203,7 +203,7 @@ export default function BatchInvoicePage() {
         </Link>
       }
     >
-      <div style={{ maxWidth: 672 }}>
+      <div className="max-w-[672px]">
         <Flex vertical gap={24}>
           <div>
             <label className="block mb-1" style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>Date range *</label>

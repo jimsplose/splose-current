@@ -104,11 +104,11 @@ export default function InvoiceSettingsPage() {
   }
 
   return (
-    <div style={{ padding: 24 }}>
+    <div className="p-6">
       <PageHeader title="Invoice Settings" />
 
       {/* Stripe info banner */}
-      <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 16 }} />} style={{ marginBottom: 24 }}>
+      <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 16 }} />} className="mb-6">
         <p className="text-body-md text-text">
           You need an active Stripe connection for online payments.{" "}
           <a href="#" style={{ fontWeight: 500 }} className="text-primary">
@@ -117,7 +117,7 @@ export default function InvoiceSettingsPage() {
         </p>
       </Alert>
 
-      <div style={{ marginBottom: 32 }}>
+      <div className="mb-8">
         <Toggle
           checked={enableOnlinePayments}
           onChange={setEnableOnlinePayments}
@@ -126,9 +126,9 @@ export default function InvoiceSettingsPage() {
       </div>
 
       {/* Invoice number */}
-      <section style={{ marginBottom: 32 }}>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Invoice number</h2>
-        <div style={{ maxWidth: 672 }}>
+      <section className="mb-8">
+        <h2 className="mb-4 text-heading-lg text-text">Invoice number</h2>
+        <div className="max-w-[672px]">
           <Flex vertical gap={16}>
             <FormInput label="Prefix" defaultValue="INV" />
             <FormInput label="Padding" defaultValue="6" />
@@ -138,9 +138,9 @@ export default function InvoiceSettingsPage() {
       </section>
 
       {/* Credit note number */}
-      <section style={{ marginBottom: 32 }}>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Credit note number</h2>
-        <div style={{ maxWidth: 672 }}>
+      <section className="mb-8">
+        <h2 className="mb-4 text-heading-lg text-text">Credit note number</h2>
+        <div className="max-w-[672px]">
           <Flex vertical gap={16}>
             <FormInput label="Prefix" defaultValue="CR" />
             <FormInput label="Padding" defaultValue="6" />
@@ -149,12 +149,12 @@ export default function InvoiceSettingsPage() {
         </div>
       </section>
 
-      <hr style={{ marginTop: 32, marginBottom: 32, borderColor: '#16a34a' }} />
+      <hr className="my-8" style={{ borderColor: '#16a34a' }} />
 
       {/* Tax */}
-      <section style={{ marginBottom: 32 }}>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Tax</h2>
-        <div style={{ maxWidth: 672 }}>
+      <section className="mb-8">
+        <h2 className="mb-4 text-heading-lg text-text">Tax</h2>
+        <div className="max-w-[672px]">
           <Flex vertical gap={16}>
             <FormSelect
               label="Default tax"
@@ -178,12 +178,12 @@ export default function InvoiceSettingsPage() {
         </div>
       </section>
 
-      <hr style={{ marginTop: 32, marginBottom: 32, borderColor: '#16a34a' }} />
+      <hr className="my-8" style={{ borderColor: '#16a34a' }} />
 
       {/* Invoice reminders preferences */}
-      <section style={{ marginBottom: 32 }}>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Invoice reminders preferences</h2>
-        <div style={{ maxWidth: 672 }}>
+      <section className="mb-8">
+        <h2 className="mb-4 text-heading-lg text-text">Invoice reminders preferences</h2>
+        <div className="max-w-[672px]">
           <Flex vertical gap={16}>
             <FormSelect
               label="Default invoice reminder preferences"
@@ -206,11 +206,11 @@ export default function InvoiceSettingsPage() {
         </div>
       </section>
 
-      <hr style={{ marginTop: 32, marginBottom: 32, borderColor: '#16a34a' }} />
+      <hr className="my-8" style={{ borderColor: '#16a34a' }} />
 
       {/* Invoice reminders table */}
-      <section style={{ marginBottom: 32 }}>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Invoice reminders</h2>
+      <section className="mb-8">
+        <h2 className="mb-4 text-heading-lg text-text">Invoice reminders</h2>
 
         <DataTable>
           <TableHead>
@@ -243,18 +243,18 @@ export default function InvoiceSettingsPage() {
 
         <Pagination currentPage={reminderPage} totalPages={reminderTotalPages} totalItems={reminders.length} itemsPerPage={pageSize} onPageChange={setReminderPage} />
 
-        <div style={{ marginTop: 16 }}>
-          <Button variant="secondary" style={{ width: '100%', justifyContent: 'center' }} onClick={() => openModal("reminder")}>
+        <div className="mt-4">
+          <Button variant="secondary" className="w-full justify-center" onClick={() => openModal("reminder")}>
             + New invoice reminder
           </Button>
         </div>
       </section>
 
-      <hr style={{ marginTop: 32, marginBottom: 32, borderColor: '#16a34a' }} />
+      <hr className="my-8" style={{ borderColor: '#16a34a' }} />
 
       {/* Invoice templates table */}
-      <section style={{ marginBottom: 32 }}>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Invoice templates</h2>
+      <section className="mb-8">
+        <h2 className="mb-4 text-heading-lg text-text">Invoice templates</h2>
 
         <DataTable>
           <TableHead>
@@ -284,8 +284,8 @@ export default function InvoiceSettingsPage() {
 
         <Pagination currentPage={templatePage} totalPages={templateTotalPages} totalItems={templates.length} itemsPerPage={pageSize} onPageChange={setTemplatePage} />
 
-        <div style={{ marginTop: 16 }}>
-          <Button variant="secondary" style={{ width: '100%', justifyContent: 'center' }} onClick={() => openModal("template")}>
+        <div className="mt-4">
+          <Button variant="secondary" className="w-full justify-center" onClick={() => openModal("template")}>
             + Add invoice template
           </Button>
         </div>

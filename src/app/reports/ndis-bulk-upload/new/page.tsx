@@ -60,7 +60,7 @@ export default function NdisBulkUploadNewPage() {
 
         <div style={{ maxWidth: 512, margin: '0 auto', padding: 24 }}>
           <Card padding="lg" className="text-center">
-            <Flex justify="center" style={{ marginBottom: 16 }}>
+            <Flex justify="center" className="mb-4">
               <Flex align="center" justify="center" style={{ height: 56, width: 56, borderRadius: '50%', backgroundColor: '#dcfce7' }}>
                 <CheckCircleOutlined style={{ fontSize: 32, color: '#16a34a' }} />
               </Flex>
@@ -101,7 +101,7 @@ export default function NdisBulkUploadNewPage() {
               </Flex>
             </Flex>
 
-            <Flex justify="center" gap={12} style={{ marginTop: 24 }}>
+            <Flex justify="center" gap={12} className="mt-6">
               <Link href="/reports/ndis-bulk-upload">
                 <Button variant="primary">Back to uploads</Button>
               </Link>
@@ -122,8 +122,8 @@ export default function NdisBulkUploadNewPage() {
           </Button>
         </PageHeader>
 
-        <div style={{ padding: 24 }}>
-          <Flex align="center" gap={16} style={{ marginBottom: 16 }}>
+        <div className="p-6">
+          <Flex align="center" gap={16} className="mb-4">
             <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: '#f0fdf4', padding: '8px 12px' }}>
               <CheckCircleOutlined style={{ fontSize: 16, color: '#16a34a' }} />
               <Text variant="label/lg" as="span" color="#15803d">{validCount} valid</Text>
@@ -196,7 +196,7 @@ export default function NdisBulkUploadNewPage() {
         <div>
           <Text variant="body/sm" as="label" color="secondary" className="block mb-1">Date range *</Text>
           <DateRangeFilter startDate="2026-03-01" endDate="2026-03-27" />
-          <Text variant="caption/md" as="p" color="secondary" style={{ marginTop: 4 }}>
+          <Text variant="caption/md" as="p" color="secondary" className="mt-1">
             12 support items from 1 Mar 2026 to 27 Mar 2026 at all practitioners
           </Text>
         </div>
@@ -238,10 +238,10 @@ export default function NdisBulkUploadNewPage() {
               icon={<UploadOutlined style={{ fontSize: 32, color: 'var(--color-text-secondary)' }} />}
               label="Choose CSV file"
               onClick={handleFileUpload}
-              style={{ cursor: 'pointer' }}
+              className="cursor-pointer"
             />
           )}
-          <Text variant="caption/md" as="p" color="secondary" style={{ marginTop: 4 }}>
+          <Text variant="caption/md" as="p" color="secondary" className="mt-1">
             Upload a CSV file with NDIS claim data. Required columns: Client, Service Date, Support Item Number, Amount.
           </Text>
         </div>

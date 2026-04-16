@@ -13,7 +13,7 @@ export default async function ClientPaymentsPage({ params }: { params: Promise<{
   if (!client) notFound();
 
   return (
-    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+    <div className="flex-1 overflow-y-auto p-6">
       <PageHeader title="Payments">
         <Button>
           <PlusOutlined style={{ fontSize: 16 }} />
@@ -23,7 +23,7 @@ export default async function ClientPaymentsPage({ params }: { params: Promise<{
 
       <SearchBar placeholder="Search for recipient name and payment number" />
 
-      <Card padding="none" style={{ overflowX: 'auto' }}>
+      <Card padding="none" className="overflow-x-auto">
         <DataTable>
           <TableHead>
             <Th>

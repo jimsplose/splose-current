@@ -202,7 +202,7 @@ export default function ClientCommunicationsPage() {
   }
 
   return (
-    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+    <div className="flex-1 overflow-y-auto p-6">
       <PageHeader title="Communications">
         <Button>
           <PlusOutlined style={{ fontSize: 16 }} />
@@ -212,7 +212,7 @@ export default function ClientCommunicationsPage() {
 
       <SearchBar placeholder="Search for message, to and from" />
 
-      <Card padding="none" style={{ overflowX: 'auto' }}>
+      <Card padding="none" className="overflow-x-auto">
         <DataTable>
           <TableHead>
             <Th>

@@ -91,13 +91,13 @@ export default function UserDetailClient({ id }: { id: string }) {
         <Button variant="primary">Save changes</Button>
       </Navbar>
 
-      <div style={{ borderBottom: '1px solid var(--color-border)', padding: '0 24px' }}>
+      <div className="border-b border-border px-6">
         <Tab items={tabs} value={activeTab} onChange={setActiveTab} />
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+      <div className="flex-1 overflow-y-auto p-6">
         {activeTab === "details" && (
-          <Flex vertical gap={24} style={{ maxWidth: 672 }}>
+          <Flex vertical gap={24} className="max-w-[672px]">
             <Collapse title="Profile" defaultOpen>
               <Flex vertical gap={16}>
                 <FormInput label="Name" value={name} onChange={(e) => setName(e.target.value)} />
@@ -124,8 +124,8 @@ export default function UserDetailClient({ id }: { id: string }) {
         )}
 
         {activeTab === "availability" && (
-          <div style={{ maxWidth: 896 }}>
-            <Flex align="center" justify="space-between" style={{ marginBottom: 16 }}>
+          <div className="max-w-[896px]">
+            <Flex align="center" justify="space-between" className="mb-4">
               <h3 className="text-heading-md text-text">Weekly availability</h3>
               <Button variant="secondary" onClick={() => setEditAvailOpen(true)}>Edit availability</Button>
             </Flex>
@@ -161,8 +161,8 @@ export default function UserDetailClient({ id }: { id: string }) {
         )}
 
         {activeTab === "body-charts" && (
-          <div style={{ maxWidth: 672 }}>
-            <Flex align="center" justify="space-between" style={{ marginBottom: 16 }}>
+          <div className="max-w-[672px]">
+            <Flex align="center" justify="space-between" className="mb-4">
               <h3 className="text-heading-md text-text">Body chart templates</h3>
               <Button variant="secondary">+ New template</Button>
             </Flex>

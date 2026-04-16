@@ -84,26 +84,26 @@ export default function PaymentSettingsPage() {
   }
 
   return (
-    <div style={{ padding: 24 }}>
+    <div className="p-6">
       <PageHeader title="Payment settings" />
 
       {/* Next payment number */}
-      <section style={{ marginBottom: 32 }}>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Next payment number</h2>
-        <Flex vertical gap={16} style={{ maxWidth: 672 }}>
+      <section className="mb-8">
+        <h2 className="mb-4 text-heading-lg text-text">Next payment number</h2>
+        <Flex vertical gap={16} className="max-w-[672px]">
           <FormInput label="Prefix" defaultValue="MYDD" />
           <FormInput label="Padding" defaultValue="5" />
         </Flex>
       </section>
 
       {/* PDF settings */}
-      <section style={{ marginBottom: 32 }}>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>PDF settings</h2>
-        <div style={{ maxWidth: 672 }}>
+      <section className="mb-8">
+        <h2 className="mb-4 text-heading-lg text-text">PDF settings</h2>
+        <div className="max-w-[672px]">
           <label className="block mb-1 text-label-lg text-text-secondary">
             Brand colour
           </label>
-          <Flex align="center" gap={12} style={{ marginBottom: 16 }}>
+          <Flex align="center" gap={12} className="mb-4">
             <div
               style={{ height: 40, width: 40, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: "#8690FC" }}
             />
@@ -118,11 +118,11 @@ export default function PaymentSettingsPage() {
         </div>
       </section>
 
-      <hr style={{ margin: '32px 0', borderColor: '#16a34a' }} />
+      <hr className="my-8" style={{ borderColor: '#16a34a' }} />
 
       {/* Accepted forms of payment */}
-      <section style={{ marginBottom: 32 }}>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Accepted forms of payment</h2>
+      <section className="mb-8">
+        <h2 className="mb-4 text-heading-lg text-text">Accepted forms of payment</h2>
 
         <DataTable>
           <TableHead>
@@ -156,7 +156,7 @@ export default function PaymentSettingsPage() {
 
         <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={methods.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} />
 
-        <div style={{ marginTop: 16 }}>
+        <div className="mt-4">
           <Dropdown
             trigger={<Button variant="secondary">+ Add payment method</Button>}
             items={PAYMENT_TYPE_OPTIONS}
@@ -165,12 +165,12 @@ export default function PaymentSettingsPage() {
         </div>
       </section>
 
-      <hr style={{ margin: '32px 0', borderColor: '#16a34a' }} />
+      <hr className="my-8" style={{ borderColor: '#16a34a' }} />
 
       {/* NDIS bulk upload */}
-      <section style={{ marginBottom: 32 }}>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>NDIS bulk upload</h2>
-        <Flex vertical gap={16} style={{ maxWidth: 672 }}>
+      <section className="mb-8">
+        <h2 className="mb-4 text-heading-lg text-text">NDIS bulk upload</h2>
+        <Flex vertical gap={16} className="max-w-[672px]">
           <FormSelect
             label="Payment method *"
             options={methods.map((m) => ({

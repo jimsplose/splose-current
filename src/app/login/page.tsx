@@ -19,7 +19,7 @@ export default function LoginPage() {
           <p style={{ fontSize: 14, color: "var(--color-primary)" }}>You are logging into</p>
           <p style={{ marginTop: 4, fontSize: "var(--font-size-heading-lg)", fontWeight: "var(--font-weight-heading-lg)", color: "var(--color-text)" }}>acme.splose.com</p>
 
-          <div style={{ marginTop: 24 }}>
+          <div className="mt-6">
             <FormInput
               type="email"
               label="Email"
@@ -28,7 +28,7 @@ export default function LoginPage() {
             />
           </div>
 
-          <div style={{ marginTop: 24 }}>
+          <div className="mt-6">
             <div style={{ position: "relative" }}>
               <FormInput
                 type="password"
@@ -40,7 +40,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <div className="flex items-center justify-between" style={{ marginTop: 16 }}>
+          <div className="mt-4 flex items-center justify-between">
             <Checkbox label="Remember me" />
             <a href="#" className="no-underline" style={{ fontSize: 14, color: "var(--color-primary)" }}>
               Forgot password?
@@ -50,8 +50,8 @@ export default function LoginPage() {
           <Button
             variant="primary"
             size="lg"
-            className="flex w-full justify-between"
-            style={{ marginTop: 24, paddingTop: 12, paddingBottom: 12 }}
+            className="mt-6 flex w-full justify-between"
+            style={{ paddingTop: 12, paddingBottom: 12 }}
           >
             Log in
             <RightOutlined style={{ fontSize: 20 }} />
@@ -59,7 +59,7 @@ export default function LoginPage() {
         </div>
 
         {/* Footer links */}
-        <div className="flex justify-center" style={{ marginTop: 16, gap: 24, fontSize: 14, color: "var(--color-primary)" }}>
+        <div className="mt-4 flex justify-center gap-6" style={{ fontSize: 14, color: "var(--color-primary)" }}>
           <a href="#" className="no-underline" style={{ color: "inherit" }}>
             Terms of Service
           </a>

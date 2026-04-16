@@ -88,7 +88,7 @@ export default function UserGroupsPage() {
   }
 
   return (
-    <div style={{ padding: 24 }}>
+    <div className="p-6">
       <PageHeader title="User groups">
         <Button variant="secondary">
           <ReadOutlined style={{ fontSize: 16 }} />
@@ -147,9 +147,9 @@ export default function UserGroupsPage() {
           <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
         </Flex>
 
-        <Divider spacing="none" style={{ marginTop: 24 }} />
-        <div style={{ paddingTop: 24 }}>
-          <h3 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Users</h3>
+        <Divider spacing="none" className="mt-6" />
+        <div className="pt-6">
+          <h3 className="mb-3 text-heading-md text-text">Users</h3>
           <Flex vertical gap={4}>
             {MOCK_USERS.map((user) => {
               const isSelected = form.selectedUsers.includes(user);
@@ -159,7 +159,8 @@ export default function UserGroupsPage() {
                   key={user}
                   align="center"
                   gap={12}
-                  style={{ cursor: 'pointer', borderRadius: 8, padding: '8px 12px' }}
+                  className="cursor-pointer"
+                  style={{ borderRadius: 8, padding: '8px 12px' }}
                 >
                   <Flex
                     component="span"

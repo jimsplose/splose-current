@@ -55,20 +55,20 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
       </Flex>
 
       {/* Form content */}
-      <div style={{ maxWidth: 768, marginLeft: 'auto', marginRight: 'auto', padding: 32 }}>
+      <div className="mx-auto max-w-3xl p-8">
         <Card padding="none" style={{ padding: 40, boxShadow: '0 1px 2px rgba(0,0,0,.05)' }}>
           {/* Client name with logo */}
-          <Flex align="flex-start" justify="space-between" style={{ marginBottom: 16 }}>
+          <Flex align="flex-start" justify="space-between" className="mb-4">
             <h2 className="text-display-md text-text">{form.clientName}</h2>
             <div style={{ height: 48, width: 48, fontSize: 30 }}>🦆</div>
           </Flex>
 
-          <Text variant="body/sm" color="secondary" className="italic" style={{ marginBottom: 24 }}>Not completed</Text>
+          <Text variant="body/sm" color="secondary" className="mb-6 italic">Not completed</Text>
 
           {/* Form sections */}
           {form.sections.map((section, si) => (
-            <div key={si} style={{ marginBottom: 24 }}>
-              <h3 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>{section.title}</h3>
+            <div key={si} className="mb-6">
+              <h3 className="mb-4 text-heading-lg text-text">{section.title}</h3>
               <Flex vertical gap={20}>
                 {section.fields.map((field, fi) => (
                   <div key={fi}>

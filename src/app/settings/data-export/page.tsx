@@ -127,7 +127,7 @@ export default function DataExportPage() {
   }
 
   return (
-    <div style={{ padding: 24 }}>
+    <div className="p-6">
       <PageHeader title="Data export" />
 
       {/* Download toast */}
@@ -138,7 +138,7 @@ export default function DataExportPage() {
       )}
 
       {/* Export form */}
-      <Flex wrap="wrap" align="flex-end" gap={16} style={{ marginBottom: 24 }}>
+      <Flex wrap="wrap" align="flex-end" gap={16} className="mb-6">
         <div style={{ width: 192 }}>
           <FormSelect
             label="Export"
@@ -171,14 +171,14 @@ export default function DataExportPage() {
         <Button variant="primary">Export</Button>
       </Flex>
 
-      <div style={{ marginBottom: 24 }}>
+      <div className="mb-6">
         <Checkbox label="Include archived" />
       </div>
 
-      <hr style={{ margin: '24px 0', borderColor: 'var(--color-border)' }} />
+      <hr className="my-6 border-border" />
 
       {/* Export history */}
-      <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Export history</h2>
+      <h2 className="mb-4 text-heading-lg text-text">Export history</h2>
 
       <DataTable>
         <TableHead>

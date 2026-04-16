@@ -110,7 +110,7 @@ export default function CustomFieldsPage() {
   }
 
   return (
-    <div style={{ padding: 24 }}>
+    <div className="p-6">
       <PageHeader title="Custom fields">
         <Button variant="secondary" onClick={() => setShowReorderModal(true)}>
           Reorder

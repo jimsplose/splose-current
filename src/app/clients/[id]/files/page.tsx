@@ -60,7 +60,7 @@ export default function ClientFilesPage() {
   }
 
   return (
-    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+    <div className="flex-1 overflow-y-auto p-6">
       <PageHeader title="Files /">
         <Button>
           <FolderAddOutlined style={{ fontSize: 16 }} />
@@ -75,7 +75,7 @@ export default function ClientFilesPage() {
 
       <SearchBar placeholder="Search for file name" />
 
-      <Card padding="none" style={{ overflowX: 'auto' }}>
+      <Card padding="none" className="overflow-x-auto">
         <DataTable>
           <TableHead>
             <Th>

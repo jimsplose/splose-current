@@ -115,7 +115,7 @@ function NewProgressNotePageInner() {
         <div style={{ flex: 1, borderRight: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-base)', padding: 24 }}>
           <div style={{ maxWidth: 672, margin: '0 auto' }}>
             {/* Service select */}
-            <div style={{ marginBottom: 20 }}>
+            <div className="mb-5">
               <FormSelect
                 label="Service *"
                 value={serviceId}
@@ -128,7 +128,7 @@ function NewProgressNotePageInner() {
             </div>
 
             {/* Template field */}
-            <div style={{ marginBottom: 20 }}>
+            <div className="mb-5">
               <FormSelect
                 label="Template *"
                 value={template}
@@ -141,7 +141,7 @@ function NewProgressNotePageInner() {
             </div>
 
             {/* Quick action buttons */}
-            <Flex align="center" gap={8} style={{ marginBottom: 20 }}>
+            <Flex align="center" gap={8} className="mb-5">
               <Button variant="secondary" size="sm">
                 <AppstoreOutlined style={{ fontSize: 14 }} />
                 Select
@@ -157,7 +157,7 @@ function NewProgressNotePageInner() {
             </Flex>
 
             {/* Note content */}
-            <div style={{ marginBottom: 16 }}>
+            <div className="mb-4">
               <FormTextarea
                 label="Note content"
                 value={content}

@@ -17,7 +17,7 @@ export default function SMSSettingsPage() {
   const [selectedCredits, setSelectedCredits] = useState(200);
   const [showRechargeConfirm, setShowRechargeConfirm] = useState(false);
   return (
-    <div style={{ padding: 24 }}>
+    <div className="p-6">
       <PageHeader title="SMS settings">
         <Button variant="secondary">
           <ReadOutlined style={{ fontSize: 16 }} />
@@ -35,9 +35,9 @@ export default function SMSSettingsPage() {
       <Divider variant="primary" spacing="sm" />
 
       {/* Recharge credits section */}
-      <div style={{ marginBottom: 32 }}>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Recharge credits</h2>
-        <Flex gap={12} style={{ marginBottom: 16 }}>
+      <div className="mb-8">
+        <h2 className="mb-4 text-heading-lg text-text">Recharge credits</h2>
+        <Flex gap={12} className="mb-4">
           {creditOptions.map((option) => (
             <Button
               key={option.credits}
@@ -69,8 +69,8 @@ export default function SMSSettingsPage() {
       <Divider variant="primary" spacing="sm" />
 
       {/* SMS pricing section */}
-      <div style={{ maxWidth: 672 }}>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>SMS pricing</h2>
+      <div className="max-w-[672px]">
+        <h2 className="mb-4 text-heading-lg text-text">SMS pricing</h2>
         <Flex vertical gap={12} className="text-body-md text-text-secondary" style={{ lineHeight: 1.6 }}>
           <p>
             A standard SMS message contains 160 characters per segment (if a message has more
@@ -95,8 +95,8 @@ export default function SMSSettingsPage() {
       <Divider variant="primary" spacing="sm" />
 
       {/* Two-way SMS section */}
-      <div style={{ maxWidth: 672 }}>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Two-way SMS</h2>
+      <div className="max-w-[672px]">
+        <h2 className="mb-4 text-heading-lg text-text">Two-way SMS</h2>
         <FormInput label="Your number" type="text" defaultValue="+61 412 345 678" style={{ maxWidth: 320 }} />
       </div>
 

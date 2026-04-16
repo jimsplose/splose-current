@@ -53,7 +53,7 @@ function SettingsAIPageInner() {
   }, [forcedState]);
 
   return (
-    <div style={{ flex: 1, padding: 24 }}>
+    <div className="flex-1 p-6">
         <PageHeader title="splose AI">
           <Button variant="secondary">Learn</Button>
           <Button variant="primary">Save</Button>
@@ -68,7 +68,7 @@ function SettingsAIPageInner() {
           ]}
           value={activeTab}
           onChange={(v) => setActiveTab(v as TabValue)}
-          style={{ marginBottom: 24 }}
+          className="mb-6"
         />
 
         {/* Tab content */}
@@ -94,7 +94,7 @@ function PreferencesTab() {
       <h3 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }} className="text-text">Preferences</h3>
 
       {/* Progress notes */}
-      <div style={{ marginBottom: 32 }}>
+      <div className="mb-8">
         <h4 style={{ fontSize: 28, fontWeight: 700, marginBottom: 16 }} className="text-text">splose AI - progress notes</h4>
         <Flex vertical gap={16}>
           <Flex align="center" justify="space-between">
@@ -111,7 +111,7 @@ function PreferencesTab() {
       <Divider variant="primary" spacing="sm" />
 
       {/* Email */}
-      <div style={{ marginBottom: 32 }}>
+      <div className="mb-8">
         <h4 style={{ fontSize: 28, fontWeight: 700, marginBottom: 16 }} className="text-text">splose AI - email</h4>
         <Flex align="center" justify="space-between">
           <span className="text-body-md text-text">Enable splose AI email assistant</span>
@@ -122,7 +122,7 @@ function PreferencesTab() {
       <Divider variant="primary" spacing="sm" />
 
       {/* Calendar */}
-      <div style={{ marginBottom: 32 }}>
+      <div className="mb-8">
         <h4 style={{ fontSize: 28, fontWeight: 700, marginBottom: 16 }} className="text-text">splose AI - calendar</h4>
         <Flex vertical gap={16}>
           <Flex align="center" justify="space-between">
@@ -157,7 +157,7 @@ function SavedPromptsTab() {
 
   return (
     <div>
-      <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
+      <Flex justify="space-between" align="center" className="mb-4">
         <h2 className="text-heading-lg text-text">AI prompts</h2>
         <Button variant="secondary">+ New prompt</Button>
       </Flex>
@@ -247,7 +247,7 @@ function AIBlockLibraryTab() {
   return (
     <div>
       {/* Beta banner */}
-      <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16 }} />} style={{ marginBottom: 16 }}>
+      <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16 }} />} className="mb-4">
         <Flex justify="space-between" align="center">
           <Flex align="center" gap={8}>
             <Badge variant="yellow">BETA</Badge>
@@ -259,12 +259,12 @@ function AIBlockLibraryTab() {
             <span className="text-text-secondary">or</span>
             <span className="cursor-pointer underline text-primary">book a time</span>
             <span className="text-text-secondary">to chat</span>
-            <Button variant="ghost" size="sm" className="text-text-secondary" style={{ marginLeft: 8 }}>&times;</Button>
+            <Button variant="ghost" size="sm" className="ml-2 text-text-secondary">&times;</Button>
           </Flex>
         </Flex>
       </Alert>
 
-      <p className="text-body-md text-text-secondary" style={{ marginBottom: 16 }}>
+      <p className="mb-4 text-body-md text-text-secondary">
         Spend less time writing prompts with your saved library of AI blocks, organised by{" "}
         <span className="cursor-pointer underline text-primary">tags</span>. AI blocks are reusable, customisable and
         adjust to your client&apos;s context. Insert them into a template or progress note.{" "}
@@ -272,7 +272,7 @@ function AIBlockLibraryTab() {
       </p>
 
       {/* Search and new button */}
-      <Flex align="center" gap={8} style={{ marginBottom: 16 }}>
+      <Flex align="center" gap={8} className="mb-4">
         <div style={{ flex: 1, position: 'relative' }}>
           <FormInput placeholder="Search" style={{ height: 40, paddingLeft: 16, paddingRight: 16 }} />
         </div>
