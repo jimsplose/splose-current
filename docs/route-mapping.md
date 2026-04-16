@@ -16,7 +16,8 @@ Production uses real numeric IDs. Localhost uses Prisma CUIDs.
 | Patient/Client | `446604` (Harry Nguyen) | `cmngtw7n9005eycwg4e67506h` (Noah Campbell) |
 | Contact | `416008` | `1` |
 | Invoice | `14130707` | `cmn2fh20l00evwpwguzx7sw1y` |
-| Note | `35255497` (Draft, patient 5918810) | `cmn2fgub500e4wpwg2vaszage` |
+| Note (Draft) | `35255497` (patient 5918810) | `cmngtwibv006rycwgpdt246vd` (client cmngtw7n9005eycwg4e67506h) |
+| Note (Final) | `35255656` (patient 5918810) | (no Final notes in seed — use Draft for view page too) |
 | Payment | `14689638` | (use first available) |
 | Batch Invoice | `330044` | `1` |
 | Case | `740288` | (use first available) |

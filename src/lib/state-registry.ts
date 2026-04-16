@@ -203,13 +203,13 @@ export const stateRegistry: PageEntry[] = [
     children: [
       {
         path: "/notes/[id]",
-        resolvedPath: "/notes/cmn2fgub500e4wpwg2vaszage",
+        resolvedPath: "/notes/cmngtwibv006rycwgpdt246vd",
         label: "View Note",
         variants: [{ id: "default", label: "Note view" }],
       },
       {
         path: "/notes/[id]/edit",
-        resolvedPath: "/notes/cmn2fgub500e4wpwg2vaszage/edit",
+        resolvedPath: "/notes/cmngtwibv006rycwgpdt246vd/edit",
         label: "Edit Note",
         variants: [
           { id: "default", label: "Edit note" },

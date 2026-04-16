@@ -393,8 +393,8 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-17 at 7.28.32 pm.png | View note — Send progress note modal | yes — Modal with template selector, edit/preview toggle, To field, Reply to, Subject, Summarise session, toolbar, body 2026-03-24 |
 | Screenshot 2026-03-17 at 7.29.06 pm.png | View note — Send progress note modal (scrolled) | yes — scrollable modal content, Attach files + Send buttons in footer 2026-03-24 |
 | Screenshot 2026-03-17 at 7.29.15 pm.png | View note — Send progress note modal with AI-summarised session text | yes — Summarise session generates AI summary, preview mode renders email template 2026-03-24 |
-| screencapture-acme-splose-notes-32681068-view-2026-03-17-19_27_58.png | Progress note view (variant 1) | yes |
-| screencapture-acme-splose-notes-32681068-view-2026-03-17-19_28_07.png | Progress note view (variant 2) | yes |
+| screencapture-acme-splose-notes-32681068-view-2026-03-17-19_27_58.png | Progress note view (variant 1) | partial — audit 2026-04-16 S4: title shows "Progress Note" (template) instead of note name. Has ← back arrow (prod has none). Company logo is 🦆 emoji vs prod actual image. Shares S27 Navbar gaps. Document card layout matches (centered card with SOAP sections). |
+| screencapture-acme-splose-notes-32681068-view-2026-03-17-19_28_07.png | Progress note view (variant 2) | partial — see above, same S27 Navbar issues |
 
 ## Patients — List (`/patients`)
 
