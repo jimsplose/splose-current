@@ -1,2 +1,3 @@
 /settings/sms-settings
 /settings/integrations
+/invoices/batch-invoice/[id]
