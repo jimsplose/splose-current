@@ -929,7 +929,7 @@ export default function CalendarView({
       <Modal
         open={showCreateModal}
         onClose={() => setShowCreateModal(false)}
-        title="New appointment"
+        title="Create appointment"
         maxWidth="lg"
         footer={
           <>
@@ -944,56 +944,83 @@ export default function CalendarView({
               This appointment is in the past. Are you sure you want to create it?
             </Alert>
           )}
-          <FormSelect label="Location" value={createLocation} onChange={setCreateLocation} options={[
-            { value: "Hands Together Therapy (East)", label: "Hands Together Therapy (East)" },
-            { value: "Hands Together Therapy (West)", label: "Hands Together Therapy (West)" },
-          ]} />
-          <FormSelect label="Practitioner *" value={createPractitioner} onChange={setCreatePractitioner} options={practitioners.map((p) => ({ value: p.id, label: p.name }))} />
-          <FormInput label="Client *" type="text" value={createClient} onChange={(e) => setCreateClient(e.target.value)} placeholder="Start typing to search client..." />
+          <div className={styles.formRow}>
+            <span className={styles.formRowLabel}>Location *</span>
+            <FormSelect value={createLocation} onChange={setCreateLocation} options={[
+              { value: "Hands Together Therapy (East)", label: "Hands Together Therapy (East)" },
+              { value: "Hands Together Therapy (West)", label: "Hands Together Therapy (West)" },
+            ]} />
+          </div>
+          <div className={styles.formRow}>
+            <span className={styles.formRowLabel}>Practitioner *</span>
+            <FormSelect value={createPractitioner} onChange={setCreatePractitioner} options={practitioners.map((p) => ({ value: p.id, label: p.name }))} />
+          </div>
+          <div className={styles.formRow}>
+            <span className={styles.formRowLabel}>Client *</span>
+            <FormInput type="text" value={createClient} onChange={(e) => setCreateClient(e.target.value)} placeholder="Start typing to search client..." />
+          </div>
           {!createClient && (
-            <div>
-              <p className={styles.sectionLabel}>Recent clients</p>
-              <div className={styles.clientChips}>
-                {["Sarah Johnson", "Marcus Lee", "Priya Patel", "Tom Nguyen"].map((name) => (
-                  <button key={name} type="button" onClick={() => setCreateClient(name)} className={styles.clientChip}>
-                    <UserOutlined style={{ fontSize: 14 }} />
-                    {name}
-                  </button>
-                ))}
-              </div>
+            <div style={{ borderLeft: '3px solid #ca8a04', backgroundColor: '#fefce8', borderRadius: 4, padding: '8px 12px', marginLeft: 152 }}>
+              <Text variant="label/lg" as="span" color="text">2 waitlist matches</Text>
+              <DownOutlined style={{ fontSize: 12, marginLeft: 8, color: 'var(--color-text-secondary)' }} />
             </div>
           )}
-          <FormSelect label="Service *" value={createService} onChange={setCreateService} options={[
-            { value: "", label: "Select a service" },
-            { value: "initial-assessment", label: "Initial Assessment" },
-            { value: "follow-up", label: "Follow Up" },
-            { value: "review", label: "Review" },
-            { value: "group-session", label: "Group Session" },
-            { value: "targeted-services", label: "Targeted Services (Goodstart)" },
-            { value: "capacity-building", label: "Capacity Building" },
-          ]} />
-          <FormSelect label="Case" value={createCase} onChange={setCreateCase} options={[{ value: "", label: "Choose a case" }]} />
-          <FormInput label="Date *" type="date" value={createDate} onChange={(e) => setCreateDate(e.target.value)} />
-          <div className={styles.formGrid2}>
-            <FormSelect label="Start time *" value={createTime} onChange={setCreateTime} options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))} />
-            <FormSelect label="End time *" value={createEndTime} onChange={setCreateEndTime} options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))} />
+          <div className={styles.formRow}>
+            <span className={styles.formRowLabel}>Service *</span>
+            <FormSelect value={createService} onChange={setCreateService} options={[
+              { value: "", label: "Select a service" },
+              { value: "initial-assessment", label: "Initial Assessment" },
+              { value: "follow-up", label: "Follow Up" },
+              { value: "review", label: "Review" },
+              { value: "group-session", label: "Group Session" },
+              { value: "targeted-services", label: "Targeted Services (Goodstart)" },
+              { value: "capacity-building", label: "Capacity Building" },
+            ]} />
+          </div>
+          <div className={styles.formRow}>
+            <span className={styles.formRowLabel}>Case</span>
+            <FormSelect value={createCase} onChange={setCreateCase} options={[{ value: "", label: "Choose a case" }]} />
+          </div>
+          <div className={styles.formRow}>
+            <span className={styles.formRowLabel}>Date *</span>
+            <FormInput type="date" value={createDate} onChange={(e) => setCreateDate(e.target.value)} />
+          </div>
+          <div className={styles.timeRow}>
+            <span className={styles.formRowLabel}>Time *</span>
+            <FormSelect value={createTime} onChange={setCreateTime} options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))} />
+            <FormSelect value={createEndTime} onChange={setCreateEndTime} options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))} />
           </div>
           {createTime && createTime.includes("AM") && (
             <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16, color: "#ca8a04" }} />}>
               <Text variant="label/lg" as="span" color="text">Scheduling conflict:</Text> {createPractitioner ? practitioners.find(p => p.id === createPractitioner)?.name || "Practitioner" : "Practitioner"} already has an appointment at {createTime}. Double-check before confirming.
             </Alert>
           )}
-          <FormSelect label="Room/Resource" value={createRoom} onChange={setCreateRoom} options={[
-            { value: "", label: "Choose a room/resource" },
-            { value: "green", label: "Green (1 available of 1)" },
-            { value: "red", label: "Red (1 available of 1)" },
-            { value: "blue", label: "Blue (2 available of 2)" },
-            { value: "room1", label: "Room 1 (1 available of 1)" },
-          ]} />
-          <Toggle checked={createProviderTravel} onChange={setCreateProviderTravel} label="Provider travel" />
-          <Toggle checked={createProviderTravelNonLabour} onChange={setCreateProviderTravelNonLabour} label="Provider Travel - Non-Labour Costs" />
-          <Toggle checked={createActivityTransport} onChange={setCreateActivityTransport} label="Activity Based Transport" />
-          <Toggle checked={createRepeat} onChange={setCreateRepeat} label="Repeat" />
+          <div className={styles.formRow}>
+            <span className={styles.formRowLabel}>Room/Resource</span>
+            <FormSelect value={createRoom} onChange={setCreateRoom} options={[
+              { value: "", label: "Choose a room/resource" },
+              { value: "green", label: "Green (1 available of 1)" },
+              { value: "red", label: "Red (1 available of 1)" },
+              { value: "blue", label: "Blue (2 available of 2)" },
+              { value: "room1", label: "Room 1 (1 available of 1)" },
+            ]} />
+          </div>
+          <div className={styles.formRow}>
+            <span className={styles.formRowLabel}>Provider travel</span>
+            <Toggle checked={createProviderTravel} onChange={setCreateProviderTravel} />
+          </div>
+          <div className={styles.formRow}>
+            <span className={styles.formRowLabel}>Non-Labour Costs</span>
+            <Toggle checked={createProviderTravelNonLabour} onChange={setCreateProviderTravelNonLabour} />
+          </div>
+          <div className={styles.formRow}>
+            <span className={styles.formRowLabel}>Transport</span>
+            <Toggle checked={createActivityTransport} onChange={setCreateActivityTransport} />
+          </div>
+          <div className={styles.formRow}>
+            <span className={styles.formRowLabel}>Repeat</span>
+            <Toggle checked={createRepeat} onChange={setCreateRepeat} />
+          </div>
           {createRepeat && (
             <div className={styles.repeatSection}>
               <FormSelect label="Repeat" options={[
@@ -1019,13 +1046,10 @@ export default function CalendarView({
               ]} />
             </div>
           )}
-          <div className={styles.waitlistBox}>
-            <Button variant="ghost" size="sm" style={{ width: "100%", justifyContent: "space-between" }}>
-              <span className="text-label-lg text-text">Waitlist matches (2)</span>
-              <DownOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
-            </Button>
+          <div className={styles.formRow}>
+            <span className={styles.formRowLabel}>Notes</span>
+            <FormTextarea value={createNotes} onChange={(e) => setCreateNotes(e.target.value)} placeholder="Add notes..." rows={3} />
           </div>
-          <FormTextarea label="Notes" value={createNotes} onChange={(e) => setCreateNotes(e.target.value)} placeholder="Add notes..." rows={3} />
         </div>
       </Modal>
 

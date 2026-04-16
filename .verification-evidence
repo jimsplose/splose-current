@@ -2,3 +2,4 @@
 /settings/integrations
 /invoices/batch-invoice/[id]
 /notes/[id]/edit
+/calendar
