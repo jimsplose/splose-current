@@ -139,12 +139,12 @@ export default function UserGroupsPage() {
         footer={
           <>
             <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>Save</Button>
+            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </>
         }
       >
         <Flex vertical gap={16}>
-          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
+          <FormInput label="Name *" value={form.name} onChange={(e) => setField("name", e.target.value)} />
         </Flex>
 
         <Divider spacing="none" className="mt-6" />

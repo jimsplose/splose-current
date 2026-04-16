@@ -167,12 +167,12 @@ export default function BodyChartsPage() {
         footer={
           <Flex justify="flex-end" gap={8}>
             <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>Save</Button>
+            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </Flex>
         }
       >
         <Flex vertical gap={16}>
-          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} placeholder="e.g. Full Body — Front" />
+          <FormInput label="Name *" value={form.name} onChange={(e) => setField("name", e.target.value)} placeholder="e.g. Full Body — Front" />
           <FormSelect label="Type" value={form.type} onChange={(value) => setField("type", value)} options={typeOptions} />
           <FormSelect label="Chart view" value={chartView} onChange={setChartView} options={chartViewOptions} />
 

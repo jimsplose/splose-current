@@ -11,26 +11,27 @@ interface BusyTime {
   color: string;
   utilisation: string;
   duration: number;
+  defaultNote: string;
 }
 
 const initialBusyTimes: BusyTime[] = [
-  { name: "Leave me alone", color: "#ef4444", utilisation: "Excluded", duration: 15 },
-  { name: "OT referral", color: "#f59e0b", utilisation: "Excluded", duration: 30 },
-  { name: "Meeting", color: "#1f2937", utilisation: "Excluded", duration: 30 },
-  { name: "Lunch", color: "#6366f1", utilisation: "Excluded", duration: 30 },
-  { name: "Admin", color: "#a855f7", utilisation: "Included", duration: 30 },
-  { name: "CPD", color: "#3b82f6", utilisation: "Excluded", duration: 30 },
-  { name: "Travel", color: "#22c55e", utilisation: "Excluded", duration: 30 },
+  { name: "Leave me alone", color: "#ef4444", utilisation: "Excluded", duration: 15, defaultNote: "" },
+  { name: "OT referral", color: "#f59e0b", utilisation: "Excluded", duration: 30, defaultNote: "" },
+  { name: "Meeting", color: "#1f2937", utilisation: "Excluded", duration: 30, defaultNote: "" },
+  { name: "Lunch", color: "#6366f1", utilisation: "Excluded", duration: 30, defaultNote: "" },
+  { name: "Admin", color: "#a855f7", utilisation: "Included", duration: 30, defaultNote: "" },
+  { name: "CPD", color: "#3b82f6", utilisation: "Excluded", duration: 30, defaultNote: "" },
+  { name: "Travel", color: "#22c55e", utilisation: "Excluded", duration: 30, defaultNote: "" },
 ];
 
 export default function BusyTimesPage() {
   const [busyTimes, setBusyTimes] = useState(initialBusyTimes);
 
   const { modalOpen, isEditing, editingIndex, form, setField, openCreate, openEdit, closeModal, handleSave } =
-    useFormModal<{ name: string; color: string; utilisation: string; duration: string }>({
-      defaults: { name: "", color: "#ef4444", utilisation: "Excluded", duration: "30" },
+    useFormModal<{ name: string; color: string; utilisation: string; duration: string; defaultNote: string }>({
+      defaults: { name: "", color: "#ef4444", utilisation: "Excluded", duration: "30", defaultNote: "" },
       onSave: (values, index) => {
-        const entry: BusyTime = { name: values.name, color: values.color, utilisation: values.utilisation, duration: parseInt(values.duration) || 30 };
+        const entry: BusyTime = { name: values.name, color: values.color, utilisation: values.utilisation, duration: parseInt(values.duration) || 30, defaultNote: values.defaultNote };
         if (index !== null) {
           setBusyTimes((prev) => prev.map((b, i) => (i === index ? entry : b)));
         } else {
@@ -45,6 +46,7 @@ export default function BusyTimesPage() {
       color: busyTimes[index].color,
       utilisation: busyTimes[index].utilisation,
       duration: String(busyTimes[index].duration),
+      defaultNote: busyTimes[index].defaultNote,
     });
   }
 
@@ -84,15 +86,14 @@ export default function BusyTimesPage() {
         footer={
           <>
             <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>Save</Button>
+            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </>
         }
       >
         <Flex vertical gap={16}>
-          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
-          <FormColorPicker value={form.color} onChange={(c) => setField("color", c)} />
+          <FormInput label="Name *" value={form.name} onChange={(e) => setField("name", e.target.value)} />
           <FormSelect
-            label="Utilisation"
+            label="Utilisation calculations *"
             value={form.utilisation}
             onChange={(value) => setField("utilisation", value)}
             options={[
@@ -100,7 +101,9 @@ export default function BusyTimesPage() {
               { value: "Included", label: "Included" },
             ]}
           />
-          <FormInput label="Duration (mins)" type="number" value={form.duration} onChange={(e) => setField("duration", e.target.value)} />
+          <FormColorPicker value={form.color} onChange={(c) => setField("color", c)} />
+          <FormInput label="Default duration (minutes)" type="number" value={form.duration} onChange={(e) => setField("duration", e.target.value)} />
+          <FormInput label="Default note" value={form.defaultNote} onChange={(e) => setField("defaultNote", e.target.value)} />
         </Flex>
       </Modal>
     </div>

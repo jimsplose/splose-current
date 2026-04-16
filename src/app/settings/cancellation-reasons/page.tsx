@@ -133,12 +133,12 @@ export default function CancellationReasonsPage() {
         footer={
           <>
             <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>Save</Button>
+            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </>
         }
       >
         <Flex vertical gap={16}>
-          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
+          <FormInput label="Name *" value={form.name} onChange={(e) => setField("name", e.target.value)} />
           <FormInput label="Code" value={form.code} onChange={(e) => setField("code", e.target.value)} placeholder="Optional" />
         </Flex>
 

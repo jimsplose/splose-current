@@ -191,12 +191,12 @@ export default function UsersPage() {
         footer={
           <>
             <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>Save</Button>
+            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </>
         }
       >
         <Flex vertical gap={16}>
-          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
+          <FormInput label="Name *" value={form.name} onChange={(e) => setField("name", e.target.value)} />
           <FormInput label="Email" type="email" value={form.email} onChange={(e) => setField("email", e.target.value)} />
           <FormSelect label="Role" options={roleOptions} value={form.role} onChange={(value) => setField("role", value)} />
           <FormSelect label="User group" options={groupOptions} value={form.group} onChange={(value) => setField("group", value)} />
