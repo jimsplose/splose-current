@@ -461,8 +461,8 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-patient-form-3545217-view-2026-03-17-19_32_54.png | Patient form view (variant 1) | yes — header with title/badge/actions, Card with sections, file links, No response placeholders 2026-03-24 |
-| screencapture-acme-splose-patient-form-3545217-view-2026-03-17-19_33_46.png | Patient form view (variant 2) | yes — scrolled view of same structure 2026-03-24 |
+| screencapture-acme-splose-patient-form-3545217-view-2026-03-17-19_32_54.png | Patient form view (variant 1) | partial — audit 2026-04-16 S4: structure matches (title+badge+actions header, card with sections/links/placeholders). But: "In progress" badge GREEN outlined vs prod BLUE filled rgb(85,120,255). Client name 12px/purple vs prod 18px/gray. Content fontSize 12px vs prod 14px (file links, No response). "Not completed" not italic (prod is). Section title 18px/700 vs prod 20px/600. Field label 600 vs prod 500. File link purple vs prod blue. Company logo is 🦆 vs prod actual image. New S28 gap. |
+| screencapture-acme-splose-patient-form-3545217-view-2026-03-17-19_33_46.png | Patient form view (variant 2) | partial — see S28, same typography/badge gaps |
 
 ## Patients — Detail / Invoices (`/patients/:id/invoices`)
 

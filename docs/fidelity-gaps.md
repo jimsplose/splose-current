@@ -165,6 +165,16 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [ ] **Two-way SMS incomplete** — Missing description paragraph ("Enable two-way SMS to receive client replies..."), copy button on phone number, "Contact the account owner to enable two-way SMS." text.
 - [ ] **Remove header Save button** — Production doesn't have Save in the PageHeader (only "Learn"). The Save button is inline within the auto-recharge section.
 
+### Group S28 — Patient form view typography (`src/app/patient-form/[id]/view/page.tsx`)
+- [ ] **"In progress" badge wrong color** — Production uses BLUE filled badge (rgb(85,120,255) bg, white text). Localhost uses GREEN outlined badge (green text, light green bg). Badge `statusVariant` mapping for "In progress" needs to output blue, not green.
+- [ ] **Content font sizes too small** — File links, "No response" placeholders, and "Not completed" text all render at 12px on localhost vs 14px on production. Increase to 14px.
+- [ ] **Client name in title bar** — Production: 18px/400/rgb(65,69,73) gray. Localhost: 12px/400/purple. Match production size and color.
+- [ ] **"Not completed" should be italic** — Production renders in italic, localhost does not.
+- [ ] **Section title size/weight** — Production: 20px/600. Localhost: 18px/700. Adjust to match.
+- [ ] **Field label fontWeight** — Production: 500. Localhost: 600. Reduce to 500.
+- [ ] **File link color** — Production: native blue rgb(0,0,255). Localhost: purple rgb(130,80,255). Change to blue or verify if production uses colorLink.
+- [ ] **"No response" color** — Production: rgb(204,204,204) light gray. Localhost: rgb(110,110,100) darker. Lighten to match.
+
 ### Group S27 — Notes edit page styling (`src/app/notes/[id]/edit/page.tsx`, `src/components/ds/Navbar.tsx`)
 - [ ] **"Save as final" button color** — Production: PURPLE rgb(130,80,255), split button with dropdown arrow (borderRadius 8px 0px 0px 8px). Localhost: GREEN rgb(34,197,94), regular button (borderRadius 8px). Change to purple with dropdown.
 - [ ] **Generate button style** — Production: gray bg rgb(239,239,239), dark text rgb(65,69,73), 12px radius, 32px height. Localhost: white bg, purple text/border rgb(130,80,255), 8px radius, 38px height. Completely different appearance.
