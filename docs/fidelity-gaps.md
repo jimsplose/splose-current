@@ -83,6 +83,25 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [x] **Sidebar paddingTop** — Both production and localhost already 15px. Confirmed via measurement 2026-04-14. Original gap description was incorrect.
 - [x] **Active item background** — Fixed: SideNav.module.css `.linkActive` bg changed from rgba(0,0,0,0.04) to transparent. Measurement-verified 2026-04-14.
 
+### Group S19 — Dashboard card heading fontWeight + message timestamp (`src/app/DashboardClient.tsx`)
+- [ ] **Card heading fontWeight mismatch** — Production "Messages"/"Income"/"Incomplete progress notes" headings are 14px/500, localhost is 14px/600. Change fontWeight to 500 on dashboard card headings.
+- [ ] **Message timestamp fontSize mismatch** — Production message time is 9.8px, localhost is 11px. Adjust timestamp font size to match production.
+
+### Group S20 — ListPage search button border styling (`src/components/ds/SearchBar.tsx` or `globals.css`)
+- [ ] **Search button border color mismatch** — Production: 1px solid rgb(65,69,73), localhost: 1px solid rgb(231,232,232). Affects all ListPages (Clients, Contacts, Invoices, Payments, Waitlist, Products).
+- [ ] **Search button borderRadius mismatch** — Production: 0px 8px 8px 0px, localhost: 0px 12px 12px 0px. Change from 12px to 8px.
+
+### Group S21 — Client detail sidebar styling (`src/app/clients/[id]/layout.tsx`, `src/components/ds/SideNav.tsx`)
+- [ ] **Sidebar active item background missing** — Production "Details" sidebar item has light purple/lavender background when active. Localhost has no background.
+- [ ] **Sidebar count badge style mismatch** — Production uses small gray outlined pills for counts (119, 520). Localhost uses filled purple circles with white text. Need to match production's outlined style.
+- [ ] **Client tags rendering mismatch** — Production shows client tags as filled color badges. Localhost renders them as plain purple text links.
+- [ ] **Collapse chevron position** — Production has section collapse chevrons on the right side. Localhost has them on the left side of section titles (Client alerts, Client tags, Stripe, Mailchimp).
+
+### Group S22 — Invoice detail regression (`src/app/invoices/[id]/page.tsx`)
+- [ ] **Invoice status label typography** — Production "Draft invoice"/"Overdue Invoice" is 26px/500/rgb(65,69,73). Localhost renders 30px/700. Reduce from 30px/700 to 26px/500.
+- [ ] **Section labels (Client, From, Invoice #, etc.)** — Production: 13px/700/rgb(65,69,73). Localhost: 14px/700/rgb(110,110,100). Revert fontSize to 13px and color to rgb(65,69,73). (Regression from S8 fix.)
+- [ ] **Note sidebar heading** — Production: 21px. Localhost: 18px/700/rgb(110,110,100). Revert to 21px/500/rgb(65,69,73). (Regression from S11 fix.)
+
 ## Priority 1 — High-traffic pages
 
 ### Group D — Dashboard (`src/app/page.tsx`)
