@@ -92,10 +92,10 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [ ] **Search button borderRadius mismatch** — Production: 0px 8px 8px 0px, localhost: 0px 12px 12px 0px. Change from 12px to 8px.
 
 ### Group S21 — Client detail sidebar styling (`src/app/clients/[id]/layout.tsx`, `src/components/ds/SideNav.tsx`)
-- [ ] **Sidebar active item background missing** — Production: `rgb(237, 229, 255)` lavender bg on selected `.ant-menu-item-selected` (CSS rule `.ant-menu-light .ant-menu-item-selected { background-color: rgb(237, 229, 255) }`). Hover: `rgb(247, 245, 250)`. Localhost: transparent (no bg). Fix: add active bg to the client sidebar nav items.
-- [ ] **Sidebar count badge style mismatch** — Production: 12px/400, color `rgb(44, 44, 44)`, bg `rgb(255, 255, 255)` (white), border `1px solid rgb(217, 217, 217)`, borderRadius `8px`, padding `0px 7px`, height `22px`. Localhost: 12px/400, color `rgb(255, 255, 255)` (white), bg `rgb(130, 80, 255)` (purple filled), borderRadius `24px`, padding `1px 8px`. Change to gray outlined pill matching production values.
-- [ ] **Client tags rendering mismatch** — Production shows "Plan-managed" as filled green badge. Localhost renders client tags as plain purple text links. Use Badge component with appropriate color variant.
-- [ ] **Collapse chevron position** — Production has section collapse chevrons on the RIGHT side of headers (Client alerts ∨, Client tags ∨, Stripe ∨, Mailchimp ∨). Localhost has them on the LEFT side (> QuickBooks). Move chevron to right side.
+- [x] **Sidebar active item background missing** — Fixed: SideNav.module.css `.linkActive` bg changed from transparent to `rgb(237, 229, 255)`. Measurement-verified 2026-04-16: exact match.
+- [x] **Sidebar count badge style mismatch** — Fixed: SideNav.module.css `.badge` changed from purple filled (24px radius) to gray outlined (8px radius, 1px solid rgb(217,217,217), white bg, rgb(44,44,44) text). Measurement-verified 2026-04-16: exact match.
+- [x] **Client tags rendering mismatch** — Fixed: Badge variant changed from "blue" to "green" for "Plan-managed" tag. Measurement-verified 2026-04-16.
+- [x] **Collapse chevron position** — Fixed: Collapse.tsx added `expandIconPosition="end"` to AntCollapse. Measurement-verified 2026-04-16: chevrons on right side.
 
 ### Group S22 — Invoice detail regression (`src/app/invoices/[id]/page.tsx`)
 - [x] **Invoice status label typography** — Fixed: h2 changed from Text display/lg (30px/700) to inline 26px/500/rgb(65,69,73). Measurement-verified 2026-04-16: exact match.

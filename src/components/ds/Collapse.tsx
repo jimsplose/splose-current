@@ -15,6 +15,7 @@ export default function Collapse({ title, children, defaultOpen = false, classNa
       defaultActiveKey={defaultOpen ? ["1"] : []}
       className={className}
       bordered={false}
+      expandIconPosition="end"
       items={[
         {
           key: "1",
