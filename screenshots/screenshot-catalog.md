@@ -362,7 +362,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-17 at 7.23.33 pm.png | Week view — appointment detail side panel (1:1 appointment, with Edit/Reschedule/Archive actions) | yes — all content and actions implemented |
+| Screenshot 2026-03-17 at 7.23.33 pm.png | Week view — appointment detail side panel (1:1 appointment, with Edit/Reschedule/Archive actions) | partial — modal audit 2026-04-16: 4 issues. Missing colored title bar (prod has service name + color dot header). Archive button red on localhost vs muted gray on prod. View change log centered with icon vs left-aligned plain text. Status row missing dropdown chevron. New M4 gap. |
 | Screenshot 2026-03-17 at 7.25.23 pm.png | Week view — edit appointment form, Room/Resource dropdown open | yes — edit form with Room/Resource dropdown |
 | Screenshot 2026-03-17 at 7.25.52 pm.png | Week view — appointment side panel (alternate view) | yes — this is the "New progress note" page, not calendar side panel |
 

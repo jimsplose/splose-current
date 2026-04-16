@@ -130,6 +130,15 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 ### Group M3 — Calendar create popover missing option (`src/app/calendar/`)
 - [ ] **"Availability" option missing** — Production click-to-create popover shows 4 options: Support activity, Busy time, Appointment, Availability. Localhost only shows 3 (missing Availability).
 
+### Group M4 — Appointment side panel (`src/app/calendar/AppointmentSidePanel.tsx`)
+- [ ] **Missing colored title bar** — Production side panel has a colored header bar at the top with appointment color dot + service name (e.g. "Copy of 1:1 Consultation (1:1 Consultation)") + X close button. Localhost starts directly with the first data row (practitioner at location), no colored header.
+- [ ] **Archive button styling** — Production "Archive" button uses muted gray style (lighter border/text). Localhost renders it with red border/text (destructive style). Production treats it as a soft action, not destructive red.
+- [ ] **View change log styling** — Production "View change log" is a left-aligned plain purple text link. Localhost centers it and adds a clock icon prefix.
+- [ ] **Status dropdown missing** — Production "No status" row has a dropdown chevron for changing status. Localhost shows plain "No status" text with gray dot, no interactive chevron.
+
+### Group M5 — Products dropdown missing "Change log" (`src/app/products/`)
+- [ ] **Missing "Change log" menu item** — Production product row dropdown shows: Edit, Duplicate, Change log, Archive. Localhost only shows: Edit, Duplicate, Archive. Missing "Change log" option.
+
 ### Group S25 — Settings/SMS missing sections (`src/app/settings/sms-settings/page.tsx`)
 - [ ] **Low credit balance email reminder section** — Production has checkbox + description + threshold input (value 100) below SMS pricing. Localhost is missing this entire section.
 - [ ] **Automatic recharge section** — Production has checkbox + description + threshold input + "SMS credits to purchase" input + inline Save button. Missing on localhost.
