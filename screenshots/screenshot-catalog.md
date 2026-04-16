@@ -84,7 +84,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | screencapture-acme-splose-settings-ai-2026-03-17-18_37_14.png | AI settings alternate view 2 | yes |
 | Screenshot 2026-03-17 at 6.44.00 pm.png | Saved prompts tab, actions dropdown (Edit/Change log/Delete) | yes — dropdown with edit/delete exists on AI page |
 | Screenshot 2026-03-17 at 6.44.10 pm.png | Edit prompt modal | yes — edit prompt modal exists |
-| Screenshot 2026-03-17 at 6.44.22 pm.png | AI block library tab, list of saved blocks | partial — sweep 2026-04-16 S3: BETA badge present (prod has none), "+ New AI block" btn secondary/outlined (prod is primary/purple-filled rgb(130,80,255)), "Your saved blocks" heading missing (prod 16px/600/rgb(65,69,73)). Banner has extra "or book a time to chat" text. Table structure matches. |
+| Screenshot 2026-03-17 at 6.44.22 pm.png | AI block library tab, list of saved blocks | yes — fidelity fix 2026-04-16: BETA badge removed, "+ New AI block" btn now primary/purple rgb(130,80,255), "Your saved blocks" heading 16px/600/rgb(65,69,73) added, banner extra text removed. All 4 S24 items measurement-verified. |
 | Screenshot 2026-03-17 at 6.44.28 pm.png | AI block library tab, actions dropdown (Edit/Change log/Delete) | yes — dropdown on each block |
 | Screenshot 2026-03-17 at 6.44.38 pm.png | Edit AI block modal | yes — edit modal exists |
 
@@ -612,7 +612,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.16.02 am.png | Invoice view — desktop, Overdue invoice PDF-style with Pay/Email/Actions buttons | partial — sweep 2026-04-16 S2: invoice # heading 30px/700/green still correct, but REGRESSIONS: status label ("Draft invoice") 30px/700 vs prod 26px/500, section labels (Client/From/etc.) 14px/rgb(110,110,100) vs prod 13px/rgb(65,69,73), Note heading 18px vs prod 21px. New S22 gap. |
+| Screenshot 2026-03-11 at 11.16.02 am.png | Invoice view — desktop, Overdue invoice PDF-style with Pay/Email/Actions buttons | yes — fidelity fix 2026-04-16: S22 regression fixed. Status label 26px/500, section labels 13px/700/rgb(65,69,73), Note+Payments headings 21px/500/rgb(65,69,73). All measurement-verified. |
 | Screenshot 2026-03-11 at 11.16.10 am.png | Invoice view — desktop, Pay dropdown open | partial — modal audit 2026-04-16: dropdown items present but missing icons (systemic M1). Text color lighter than production. |
 | Screenshot 2026-03-11 at 11.16.17 am.png | Invoice view — desktop, Actions dropdown open | partial — modal audit 2026-04-16: dropdown items present but missing icons (systemic M1). Dividers between items that production doesn't have. |
 

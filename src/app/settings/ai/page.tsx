@@ -264,16 +264,10 @@ function AIBlockLibraryTab() {
       {/* Beta banner */}
       <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16 }} />} className="mb-4">
         <Flex justify="space-between" align="center">
-          <Flex align="center" gap={8}>
-            <Badge variant="yellow">BETA</Badge>
-            <span className="text-body-md text-text">We need your feedback on AI blocks</span>
-          </Flex>
+          <span className="text-body-md text-text">We need your feedback on AI blocks.</span>
           <Flex align="center" gap={8} className="text-body-md">
             <span className="text-text-secondary">Fill a</span>
-            <span className="cursor-pointer underline text-primary">short survey</span>
-            <span className="text-text-secondary">or</span>
-            <span className="cursor-pointer underline text-primary">book a time</span>
-            <span className="text-text-secondary">to chat</span>
+            <span className="cursor-pointer underline text-primary">short survey.</span>
             <Button variant="ghost" size="sm" className="ml-2 text-text-secondary">&times;</Button>
           </Flex>
         </Flex>
@@ -301,8 +295,11 @@ function AIBlockLibraryTab() {
             />
           </svg>
         </Button>
-        <Button variant="secondary">+ New AI block</Button>
+        <Button variant="primary">+ New AI block</Button>
       </Flex>
+
+      {/* Saved blocks heading */}
+      <h3 style={{ fontSize: 16, fontWeight: 600, color: 'rgb(65, 69, 73)', marginBottom: 12 }}>Your saved blocks</h3>
 
       {/* Table */}
       <DataTable>

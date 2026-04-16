@@ -98,9 +98,9 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [ ] **Collapse chevron position** — Production has section collapse chevrons on the RIGHT side of headers (Client alerts ∨, Client tags ∨, Stripe ∨, Mailchimp ∨). Localhost has them on the LEFT side (> QuickBooks). Move chevron to right side.
 
 ### Group S22 — Invoice detail regression (`src/app/invoices/[id]/page.tsx`)
-- [ ] **Invoice status label typography** — Production h1 "Draft invoice": `26px`/`500`/`rgb(65,69,73)`. Localhost h2 "Overdue Invoice": `30px`/`700`/`rgb(65,69,73)`. Change to 26px/500. Note: prod renders status as h1, localhost renders invoice # as h1 and status as h2.
-- [ ] **Section labels (Client, From, Invoice #, Issue date, Due date)** — Production: `13px`/`700`/`rgb(65,69,73)`. Localhost: `14px`/`700`/`rgb(110,110,100)`. Fix fontSize 14→13, color to rgb(65,69,73).
-- [ ] **Note/Payments sidebar heading** — Production h2 "Payments": `21px`/`500`/`rgb(65,69,73)`. Localhost h3: `18px`/`700`/`rgb(110,110,100)`. Fix fontSize 18→21, fontWeight 700→500, color to rgb(65,69,73).
+- [x] **Invoice status label typography** — Fixed: h2 changed from Text display/lg (30px/700) to inline 26px/500/rgb(65,69,73). Measurement-verified 2026-04-16: exact match.
+- [x] **Section labels (Client, From, Invoice #, Issue date, Due date)** — Fixed: Text body/md-strong color="secondary" → style fontSize:13 color:rgb(65,69,73). Measurement-verified 2026-04-16: all 5 labels 13px/700/rgb(65,69,73) exact match.
+- [x] **Note/Payments sidebar heading** — Fixed: Text heading/lg → inline h3 21px/500/rgb(65,69,73). Measurement-verified 2026-04-16: both headings exact match.
 
 ### Group S23 — Settings/Integrations content + logo (`src/app/settings/integrations/page.tsx`)
 - [ ] **QuickBooks logo aspect ratio** — Production renders at 313x80 (wide), localhost at 204x100 (square). The IntegrationLogo `maxWidth: "70%"` constrains the image. Either increase maxWidth for QB or use natural dimensions with height auto.
@@ -110,10 +110,10 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [ ] **"Connect to QuickBooks" button size** — Localhost image is 250x46, production button is 205x38. Adjust image height from 46 to match production.
 
 ### Group S24 — Settings/AI block library tab (`src/app/settings/ai/page.tsx`)
-- [ ] **BETA badge in feedback banner** — Localhost shows "BETA" badge (yellow). Production does not have it. Confirmed 2026-04-16. Remove the BETA badge.
-- [ ] **"+ New AI block" button style** — Production: `bg: rgb(130, 80, 255)` (purple filled), `color: white`, `border: transparent`. Localhost: white bg, outlined. Change to `variant="primary"`. Confirmed 2026-04-16.
-- [ ] **"Your saved blocks" heading missing** — Production: `16px`/`600`/`rgb(65, 69, 73)` heading above the table. Localhost does not render it. Confirmed 2026-04-16.
-- [ ] **Banner extra text** — Localhost: "Fill a short survey or book a time to chat". Production: "Fill a short survey." only. Remove "or book a time to chat" text and link. Confirmed 2026-04-16.
+- [x] **BETA badge in feedback banner** — Fixed: removed Badge. Measurement-verified 2026-04-16: no BETA badge present.
+- [x] **"+ New AI block" button style** — Fixed: changed variant="secondary" to variant="primary". Measurement-verified 2026-04-16: bg rgb(130,80,255) exact match.
+- [x] **"Your saved blocks" heading missing** — Fixed: added h3 16px/600/rgb(65,69,73). Measurement-verified 2026-04-16: exact match.
+- [x] **Banner extra text** — Fixed: removed "or book a time to chat" text. Measurement-verified 2026-04-16: only "Fill a short survey." present.
 
 ### Group M1 — Dropdown items missing icons (systemic, `src/components/ds/Dropdown.tsx`)
 - [ ] **Dropdown items lack icons** — Production dropdowns (Invoice Actions, Invoice Pay, Settings row actions) show icons next to each item (pencil for Edit, copy for Duplicate, trash for Delete, etc.). Localhost dropdowns render text-only with no icons. This is systemic across all Dropdown usages in the app. The DS Dropdown component or its item configuration needs icon support.
