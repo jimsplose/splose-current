@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-const fn = () => () => {};
+import { fn } from "storybook/test";
 import Dropdown, { DropdownTriggerButton } from "../Dropdown";
 import type { DropdownItem } from "../Dropdown";
 import Button from "../Button";

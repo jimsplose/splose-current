@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-const fn = () => () => {};
+import { fn } from "storybook/test";
 import Badge, { statusVariant } from "../Badge";
 
 /* ------------------------------------------------------------------ */
