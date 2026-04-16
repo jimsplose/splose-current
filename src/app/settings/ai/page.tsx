@@ -88,52 +88,67 @@ function PreferencesTab() {
 
   return (
     <div>
-      <h2 style={{ fontSize: 28, fontWeight: 700, marginBottom: 8 }} className="text-text">splose AI settings: More control, your way</h2>
-      <Divider variant="primary" spacing="sm" />
+      <h3 style={{ fontSize: 28, fontWeight: 700, lineHeight: '44px', marginBottom: 8 }} className="text-text">splose AI settings: More control, your way</h3>
 
-      <h3 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }} className="text-text">Preferences</h3>
+      {/* Two-column layout: description (left) + video preview (right) */}
+      <div style={{ display: 'flex', gap: 60 }}>
+        {/* Left column — preferences */}
+        <div style={{ flex: '1 1 0' }}>
+          <Divider variant="primary" spacing="sm" />
+          <h4 style={{ fontSize: 14, fontWeight: 400, color: 'rgb(65, 69, 73)', marginBottom: 10 }}>Preferences</h4>
 
-      {/* Progress notes */}
-      <div className="mb-8">
-        <h4 style={{ fontSize: 28, fontWeight: 700, marginBottom: 16 }} className="text-text">splose AI - progress notes</h4>
-        <Flex vertical gap={16}>
-          <Flex align="center" justify="space-between">
-            <span className="text-body-md text-text">Enable voice to text and ask splose AI</span>
-            <Toggle checked={voiceToText} onChange={setVoiceToText} />
-          </Flex>
-          <Flex align="center" justify="space-between">
-            <span className="text-body-md text-text">Save recording to client file</span>
-            <Toggle checked={saveRecording} onChange={setSaveRecording} />
-          </Flex>
-        </Flex>
-      </div>
+          {/* Card container */}
+          <div style={{ border: '1px solid rgb(217, 217, 217)', borderRadius: 8, padding: 20, backgroundColor: '#fff', boxShadow: 'rgba(193, 167, 255, 0.1) 0px 2px 4px 0px' }}>
+            {/* Progress notes */}
+            <h4 style={{ fontSize: 28, fontWeight: 700, marginBottom: 30 }} className="text-text">splose AI - progress notes</h4>
+            <Flex vertical gap={16}>
+              <Flex align="center" justify="space-between">
+                <span className="text-body-md text-text">Enable voice to text and ask splose AI</span>
+                <Toggle checked={voiceToText} onChange={setVoiceToText} />
+              </Flex>
+              <Flex align="center" justify="space-between">
+                <span className="text-body-md text-text">Save recording to client file</span>
+                <Toggle checked={saveRecording} onChange={setSaveRecording} />
+              </Flex>
+            </Flex>
 
-      <Divider variant="primary" spacing="sm" />
+            <Divider variant="primary" spacing="sm" style={{ margin: '0 0 12px' }} />
 
-      {/* Email */}
-      <div className="mb-8">
-        <h4 style={{ fontSize: 28, fontWeight: 700, marginBottom: 16 }} className="text-text">splose AI - email</h4>
-        <Flex align="center" justify="space-between">
-          <span className="text-body-md text-text">Enable splose AI email assistant</span>
-          <Toggle checked={emailAssistant} onChange={setEmailAssistant} />
-        </Flex>
-      </div>
+            {/* Email */}
+            <h4 style={{ fontSize: 28, fontWeight: 700, marginBottom: 30 }} className="text-text">splose AI - email</h4>
+            <Flex align="center" justify="space-between">
+              <span className="text-body-md text-text">Enable splose AI email assistant</span>
+              <Toggle checked={emailAssistant} onChange={setEmailAssistant} />
+            </Flex>
 
-      <Divider variant="primary" spacing="sm" />
+            <Divider variant="primary" spacing="sm" style={{ margin: '0 0 12px' }} />
 
-      {/* Calendar */}
-      <div className="mb-8">
-        <h4 style={{ fontSize: 28, fontWeight: 700, marginBottom: 16 }} className="text-text">splose AI - calendar</h4>
-        <Flex vertical gap={16}>
-          <Flex align="center" justify="space-between">
-            <span className="text-body-md text-text">Enable splose AI for calendar</span>
-            <Toggle checked={calendarAI} onChange={setCalendarAI} />
-          </Flex>
-          <Flex align="center" justify="space-between">
-            <span className="text-body-md text-text">Include cancelled appointment slots in splose AI for calendar</span>
-            <Toggle checked={cancelledSlots} onChange={setCancelledSlots} />
-          </Flex>
-        </Flex>
+            {/* Calendar */}
+            <h4 style={{ fontSize: 28, fontWeight: 700, marginBottom: 30 }} className="text-text">splose AI - calendar</h4>
+            <Flex vertical gap={16}>
+              <Flex align="center" justify="space-between">
+                <span className="text-body-md text-text">Enable splose AI for calendar</span>
+                <Toggle checked={calendarAI} onChange={setCalendarAI} />
+              </Flex>
+              <Flex align="center" justify="space-between">
+                <span className="text-body-md text-text">Include cancelled appointment slots in splose AI for calendar</span>
+                <Toggle checked={cancelledSlots} onChange={setCancelledSlots} />
+              </Flex>
+            </Flex>
+          </div>
+        </div>
+
+        {/* Right column — Wistia video preview */}
+        <div style={{ flexShrink: 0, width: 383 }}>
+          <div style={{ width: 383, height: 383 }}>
+            <iframe
+              src="https://fast.wistia.net/embed/iframe/xpxc3cl0j7"
+              title="splose AI preview"
+              allow="autoplay; fullscreen"
+              style={{ width: '100%', height: '100%', border: 'none' }}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
