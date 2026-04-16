@@ -165,6 +165,16 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [ ] **Two-way SMS incomplete** — Missing description paragraph ("Enable two-way SMS to receive client replies..."), copy button on phone number, "Contact the account owner to enable two-way SMS." text.
 - [ ] **Remove header Save button** — Production doesn't have Save in the PageHeader (only "Learn"). The Save button is inline within the auto-recharge section.
 
+### Group S27 — Notes edit page styling (`src/app/notes/[id]/edit/page.tsx`, `src/components/ds/Navbar.tsx`)
+- [ ] **"Save as final" button color** — Production: PURPLE rgb(130,80,255), split button with dropdown arrow (borderRadius 8px 0px 0px 8px). Localhost: GREEN rgb(34,197,94), regular button (borderRadius 8px). Change to purple with dropdown.
+- [ ] **Generate button style** — Production: gray bg rgb(239,239,239), dark text rgb(65,69,73), 12px radius, 32px height. Localhost: white bg, purple text/border rgb(130,80,255), 8px radius, 38px height. Completely different appearance.
+- [ ] **Title shows template abbreviation instead of note name** — Production title is the note's name ("placeholder test"). Localhost shows "ST | Note" (service template abbreviation). Should display the actual note title.
+- [ ] **Client name size/weight** — Production: 18px/500/purple. Localhost: 14px/400/purple. Increase to match production.
+- [ ] **Autosaved indicator style** — Production: "Note has been autosaved" as 13px/rgb(66,105,74) green text. Localhost: "Saved" as green Badge (12px green text on light green bg). Change to text format matching production.
+- [ ] **Service label styling** — Production: 14px/400/rgb(65,69,73) (gray, normal weight). Localhost: 14px/600/rgb(34,34,34) (dark, semibold). Reduce weight and lighten color.
+- [ ] **Missing AI sparkle button in header** — Production has a round purple sparkle (✨) button in the top-right toolbar area next to the view toggles. Localhost does not show this button in the header bar.
+- [ ] **Transcript panel not visible in split view** — Production shows audio player + transcript on the right side of the split view. Localhost split view shows the editor full-width with no transcript panel. (Note: localhost may have a different split-view implementation — check if transcript appears in another view state.)
+
 ### Group S26 — Batch invoice detail page (`src/app/invoices/batch-invoice/[id]/page.tsx`)
 - [ ] **Missing table columns** — Production has 10 columns (Invoice #, Client, To, Location, Practitioner, # of items, Issue date, Due date, Total, Status). Localhost only has 5 (Invoice #, Client, Service, Amount, Status). Add missing 5 columns: To, Location, Practitioner, # of items, Issue date, Due date. Rename "Service" to match prod if needed, rename "Amount" to "Total".
 - [ ] **Missing action buttons** — Production has "Mark as Sent" + "Email invoices" buttons (both outlined/white). Localhost only has "Export". Add the two missing buttons.

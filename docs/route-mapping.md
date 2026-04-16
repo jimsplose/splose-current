@@ -16,7 +16,7 @@ Production uses real numeric IDs. Localhost uses Prisma CUIDs.
 | Patient/Client | `446604` (Harry Nguyen) | `cmngtw7n9005eycwg4e67506h` (Noah Campbell) |
 | Contact | `416008` | `1` |
 | Invoice | `14130707` | `cmn2fh20l00evwpwguzx7sw1y` |
-| Note | `31606299` | `cmn2fgub500e4wpwg2vaszage` |
+| Note | `35255497` (Draft, patient 5918810) | `cmn2fgub500e4wpwg2vaszage` |
 | Payment | `14689638` | (use first available) |
 | Batch Invoice | `330044` | `1` |
 | Case | `740288` | (use first available) |
@@ -75,10 +75,23 @@ Compare these states in order:
 | `/payments` | `/payments` | |
 | `/payments/{id}/view` | (no equivalent) | Payment view page not implemented yet |
 | `/payments/new` | `/payments/new` | |
-| `/notes/{id}/view` | `/notes/{id}` | |
-| `/notes/{id}/edit` | `/notes/{id}/edit` | |
+| `/notes/{id}/view` | `/notes/{id}` | Final notes go to view |
+| `/notes/{id}/edit` | `/notes/{id}/edit` | Draft notes go to edit |
 | `/notes/new` | `/notes/new` | Not in registry |
 | `/products` | `/products` | |
+
+### Notes comparison checklist
+
+Production note IDs go stale frequently (notes get deleted/finalized). **Do not hardcode a single production note ID.** Instead, find a fresh one each session:
+
+1. Navigate to `https://acme.splose.com/patients/5918810/notes` (patient "a a" — has 16+ notes)
+2. Look for a **Draft** note in the list (Draft notes open in `/notes/{id}/edit`, Final notes open in `/notes/{id}/view`)
+3. Click on a Draft note — the URL will contain the current note ID (e.g. `/notes/35255497/edit?patientId=5918810`)
+4. Use that ID for the production comparison tab
+
+**Why not Harry Nguyen (446604)?** He has few/no notes. Patient 5918810 ("a a") is the test patient with the most notes on production.
+
+**Edit vs View:** Production redirects Final notes to `/view` (edit URL returns 404). Only Draft notes can be compared on the `/edit` route. The `/view` route works for both statuses.
 
 ## Reports
 
