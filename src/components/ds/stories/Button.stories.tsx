@@ -34,7 +34,6 @@ import PageHeader from "../PageHeader";
 import Card from "../Card";
 import Navbar from "../Navbar";
 import Badge from "../Badge";
-import Badge from "../Badge";
 
 /* ------------------------------------------------------------------ */
 /*  Meta                                                               */
@@ -439,11 +438,11 @@ export const LinkActions: Story = {
     <div style={{ width: 288, display: 'flex', flexDirection: 'column', gap: 8, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
       <p className="text-heading-sm text-text">Actions</p>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <VideoCameraAddOutlined style={{ fontSize: 16 }} className="text-text-secondary" style={{ flexShrink: 0 }} />
+        <VideoCameraAddOutlined className="shrink-0 text-text-secondary" style={{ fontSize: 16 }} />
         <Button variant="link">Create Zoom meeting</Button>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <FileTextOutlined style={{ fontSize: 16 }} className="text-text-secondary" style={{ flexShrink: 0 }} />
+        <FileTextOutlined className="shrink-0 text-text-secondary" style={{ fontSize: 16 }} />
         <Button variant="link">Add invoice</Button>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, paddingLeft: 28 }}>
@@ -452,7 +451,7 @@ export const LinkActions: Story = {
         <Button variant="link">Do not invoice?</Button>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <HistoryOutlined style={{ fontSize: 16 }} className="text-text-secondary" style={{ flexShrink: 0 }} />
+        <HistoryOutlined className="shrink-0 text-text-secondary" style={{ fontSize: 16 }} />
         <Button variant="link" size="sm">
           View change log
         </Button>

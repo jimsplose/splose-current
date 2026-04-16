@@ -3,14 +3,6 @@
 High-fidelity UI prototype of [Splose](https://splose.com) for allied health professionals.
 Next.js 16 (App Router), React 19, TypeScript (strict), Turso/Prisma 7, Tailwind CSS 4, Lucide icons, Vercel.
 
-## ⛔ FREEZE: No Deployments or Merges to Main
-
-The `antd-migration` branch has serious visual issues that must be resolved first. Until Jim lifts this freeze:
-- **Do NOT merge any branch to main**
-- **Do NOT trigger deployments**
-- **Do NOT ask Jim about deploying** — the answer is no
-- Focus all work on fixing visual issues on the `antd-migration` branch
-
 ## Session Start
 
 Unless Jim's first message is a specific request, print available workflows:
