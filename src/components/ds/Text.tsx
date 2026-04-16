@@ -2,7 +2,7 @@ import type { ElementType, HTMLAttributes, ReactNode } from "react";
 import styles from "./Text.module.css";
 
 export type TextVariant =
-  | "display/lg" | "display/md" | "display/sm"
+  | "display/lg" | "display/md" | "display/sm" | "display/xs"
   | "heading/lg" | "heading/md" | "heading/sm"
   | "body/lg" | "body/md" | "body/sm" | "body/md-strong" | "body/lg-strong"
   | "label/lg" | "label/md" | "label/sm"
@@ -22,6 +22,7 @@ const variantClass: Record<TextVariant, string> = {
   "display/lg": styles.displayLg,
   "display/md": styles.displayMd,
   "display/sm": styles.displaySm,
+  "display/xs": styles.displayXs,
   "heading/lg": styles.headingLg,
   "heading/md": styles.headingMd,
   "heading/sm": styles.headingSm,

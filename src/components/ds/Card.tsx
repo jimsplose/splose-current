@@ -8,7 +8,7 @@ export interface CardProps {
   headerBar?: boolean;
   className?: string;
   style?: React.CSSProperties;
-  padding?: "none" | "sm" | "md" | "lg";
+  padding?: "none" | "sm" | "md" | "lg" | "xl" | number;
   shadow?: boolean;
 }
 
@@ -17,6 +17,7 @@ const paddingMap: Record<string, number> = {
   sm: 12,
   md: 16,
   lg: 20,
+  xl: 25,
 };
 
 export default function Card({ children, title, headerBar, className, style, padding = "md", shadow }: CardProps) {
@@ -31,7 +32,7 @@ export default function Card({ children, title, headerBar, className, style, pad
       className={className}
       style={mergedStyle}
       styles={{
-        body: { padding: paddingMap[padding] },
+        body: { padding: typeof padding === "number" ? padding : paddingMap[padding] },
         header: headerBar ? { backgroundColor: "var(--color-fill-alter)" } : undefined,
       }}
     >

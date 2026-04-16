@@ -26,7 +26,7 @@ export const sploseTheme: ThemeConfig = {
     colorWarningActive: "#D4A20A", // warning-700
 
     // === ERROR (Critical) ===
-    colorError: "#D00032", // critical-600 (Figma, confirmed)
+    colorError: "#F00032", // critical-600 — matches production antd danger red
     colorErrorBg: "#FEF2F3", // critical-100
     colorErrorBorder: "#FBCBD1", // critical-300
     colorErrorHover: "#F2667A", // critical-500

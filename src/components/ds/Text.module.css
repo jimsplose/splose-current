@@ -19,6 +19,13 @@
   line-height: 1.3;
 }
 
+.displayXs {
+  font-family: 'Sprig Sans', 'Inter', sans-serif;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
 .headingLg {
   font-size: 18px;
   font-weight: 700;
