@@ -249,7 +249,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 | Screenshot 2026-03-17 at 7.03.09 pm.png | Edit template — SMS section with Patient variable dropdown | yes — SMS section with variable tokens in editor 2026-03-24 |
 | Screenshot 2026-03-17 at 7.03.20 pm.png | Edit template — Email section with rich text editor | yes — RichTextEditor with toolbar + variables 2026-03-24 |
 | Screenshot 2026-03-17 at 7.03.28 pm.png | Email preview modal | yes — EmailPreview DS component 2026-03-24 |
-| screencapture-acme-splose-settings-templates-appointments-edit-947-2026-03-17-19_02_29.png | Edit appointment template full page | yes — editor page with SMS/Email/RichTextEditor 2026-03-24 |
+| screencapture-acme-splose-settings-templates-appointments-edit-947-2026-03-17-19_02_29.png | Edit appointment template full page | partial — audit 2026-04-16: no `/settings/appointment-templates/edit/[id]` route exists on localhost (only `new/`). Production has full edit page with settings sidebar, Template type radio, Template title, SMS section (On toggle + variable tokens + textarea), Email section, Preview SMS button. Same P1 pattern as other missing edit routes. |
 
 ## Settings — New Appointment Template (`/settings/templates/appointments/new`)
 
@@ -651,7 +651,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| Screenshot 2026-03-11 at 11.18.50 am.png | Reports Appointments — desktop, Add filter dropdown open | yes — Dropdown with Status/Service type/Location/Practitioner filter options, filter chips with remove 2026-03-24 |
+| Screenshot 2026-03-11 at 11.18.50 am.png | Reports Appointments — desktop, Add filter dropdown open | yes — dual-tab verified 2026-04-16: title 30px/700/green matches, all buttons 14px/38px/8px match, sidebar structure matches. Minor: Export/Learn buttons missing icons, date format differs, active sidebar lacks bg highlight. |
 
 ## Reports — Progress Notes (`/reports/progress-notes`)
 
