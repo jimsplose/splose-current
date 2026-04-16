@@ -103,11 +103,11 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [x] **Note/Payments sidebar heading** — Fixed: Text heading/lg → inline h3 21px/500/rgb(65,69,73). Measurement-verified 2026-04-16: both headings exact match.
 
 ### Group S23 — Settings/Integrations content + logo (`src/app/settings/integrations/page.tsx`)
-- [ ] **QuickBooks logo aspect ratio** — Production renders at 313x80 (wide), localhost at 204x100 (square). The IntegrationLogo `maxWidth: "70%"` constrains the image. Either increase maxWidth for QB or use natural dimensions with height auto.
-- [ ] **Stripe description extra text** — Localhost includes "Standard Stripe fees — splose EFTPOS platform fee applies to successful payments." that production doesn't have. Remove the extra sentence.
-- [ ] **HICAPS description wording** — Localhost says "Medicare, MBS" / "price determination". Production says "Medibank, NIB" / "pre-determination". Fix to match production.
-- [ ] **Tyro Health description wording** — Localhost differs from production. Fix parenthetical format and ending text to match production.
-- [ ] **"Connect to QuickBooks" button size** — Localhost image is 250x46, production button is 205x38. Adjust image height from 46 to match production.
+- [x] **QuickBooks logo aspect ratio** — Fixed: height set to 80 (was 100), maxWidth removed from 70% to 100%. Visually verified 2026-04-16.
+- [x] **Stripe description extra text** — Fixed: removed "Standard Stripe fees — splose EFTPOS platform fee" sentence. Visually verified 2026-04-16.
+- [x] **HICAPS description wording** — Fixed: "Medicare, MBS" → "Medibank, NIB", "price determination" → "pre-determination". Visually verified 2026-04-16.
+- [x] **Tyro Health description wording** — Fixed: parenthetical format updated to match production. Visually verified 2026-04-16.
+- [x] **"Connect to QuickBooks" button size** — Fixed: image height 46 → 38. Now 207x38 (close to prod 205x38). Visually verified 2026-04-16.
 
 ### Group S24 — Settings/AI block library tab (`src/app/settings/ai/page.tsx`)
 - [x] **BETA badge in feedback banner** — Fixed: removed Badge. Measurement-verified 2026-04-16: no BETA badge present.
@@ -160,10 +160,10 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [ ] **Missing "Change log" menu item** — Production product row dropdown shows: Edit, Duplicate, Change log, Archive. Localhost only shows: Edit, Duplicate, Archive. Missing "Change log" option.
 
 ### Group S25 — Settings/SMS missing sections (`src/app/settings/sms-settings/page.tsx`)
-- [ ] **Low credit balance email reminder section** — Production has checked checkbox + "Receive an email reminder when SMS credits go below the level you specify below." description + threshold input (value 100). Localhost is missing this entire section. Confirmed 2026-04-16.
-- [ ] **Automatic recharge section** — Production has checked checkbox + "Automatically recharge SMS credits when the balance reaches the number you specify below." description + threshold input (100) + "SMS credits to purchase" input (200) + inline purple Save button. Missing on localhost. Confirmed 2026-04-16.
-- [ ] **Two-way SMS incomplete** — Production has: description paragraph ("Enable two-way SMS to receive client replies from the dashboard and send messages from a dedicated mobile number. Subscribe to two-way SMS for A$9.90 (GST included) per month."), phone input with copy button icon, "Contact the account owner to enable two-way SMS." text. Localhost has only "Your number" + input, no description/copy/contact text. Confirmed 2026-04-16.
-- [ ] **Remove header Save button** — Production doesn't have Save in the PageHeader (only "Learn"). The Save button is inline within the auto-recharge section.
+- [x] **Low credit balance email reminder section** — Fixed: added Toggle + description + threshold input (100). Visually verified 2026-04-16.
+- [x] **Automatic recharge section** — Fixed: added Toggle + description + threshold (100) + SMS credits to purchase (200) + inline Save button. Visually verified 2026-04-16.
+- [x] **Two-way SMS incomplete** — Fixed: added description paragraph with pricing, copy button on phone number, "Contact the account owner" text. Visually verified 2026-04-16.
+- [x] **Remove header Save button** — Fixed: removed Save from PageHeader, now inline in auto-recharge section only. Visually verified 2026-04-16.
 
 ### Group S28 — Patient form view typography (`src/app/patient-form/[id]/view/page.tsx`)
 - [ ] **"In progress" badge wrong color** — Production uses BLUE filled badge (rgb(85,120,255) bg, white text). Localhost uses GREEN outlined badge (green text, light green bg). Badge `statusVariant` mapping for "In progress" needs to output blue, not green.

@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { Flex } from "antd";
 import { ReadOutlined } from "@ant-design/icons";
-import { Button, PageHeader, Modal, Card, Divider, FormInput } from "@/components/ds";
+import { CopyOutlined } from "@ant-design/icons";
+import { Button, PageHeader, Modal, Card, Divider, FormInput, Toggle } from "@/components/ds";
 
 const creditOptions = [
   { credits: 200, price: "A$22.00" },
@@ -16,6 +17,8 @@ const creditOptions = [
 export default function SMSSettingsPage() {
   const [selectedCredits, setSelectedCredits] = useState(200);
   const [showRechargeConfirm, setShowRechargeConfirm] = useState(false);
+  const [lowCreditEnabled, setLowCreditEnabled] = useState(true);
+  const [autoRechargeEnabled, setAutoRechargeEnabled] = useState(true);
   return (
     <div className="p-6">
       <PageHeader title="SMS settings">
@@ -23,7 +26,6 @@ export default function SMSSettingsPage() {
           <ReadOutlined style={{ fontSize: 16 }} />
           Learn
         </Button>
-        <Button variant="primary">Save</Button>
       </PageHeader>
 
       {/* SMS credit balance card */}
@@ -94,10 +96,51 @@ export default function SMSSettingsPage() {
 
       <Divider variant="primary" spacing="sm" />
 
+      {/* Low credit balance email reminder */}
+      <div className="max-w-[672px] mb-6">
+        <Flex align="center" gap={8} className="mb-2">
+          <Toggle checked={lowCreditEnabled} onChange={setLowCreditEnabled} />
+          <span className="text-body-md text-text">Low credit balance email reminder</span>
+        </Flex>
+        <p className="text-body-md text-text-secondary mb-3">
+          Receive an email reminder when SMS credits go below the level you specify below.
+        </p>
+        <FormInput type="number" defaultValue="100" style={{ maxWidth: 320 }} />
+      </div>
+
+      {/* Automatic recharge */}
+      <div className="max-w-[672px] mb-6">
+        <Flex align="center" gap={8} className="mb-2">
+          <Toggle checked={autoRechargeEnabled} onChange={setAutoRechargeEnabled} />
+          <span className="text-body-md text-text">Automatic recharge</span>
+        </Flex>
+        <p className="text-body-md text-text-secondary mb-3">
+          Automatically recharge SMS credits when the balance reaches the number you specify below.
+        </p>
+        <FormInput type="number" defaultValue="100" style={{ maxWidth: 320, marginBottom: 16 }} />
+        <FormInput label="SMS credits to purchase" type="number" defaultValue="200" style={{ maxWidth: 320, marginBottom: 16 }} />
+        <Button variant="primary">Save</Button>
+      </div>
+
+      <Divider variant="primary" spacing="sm" />
+
       {/* Two-way SMS section */}
       <div className="max-w-[672px]">
         <h2 className="mb-4 text-heading-lg text-text">Two-way SMS</h2>
-        <FormInput label="Your number" type="text" defaultValue="+61 412 345 678" style={{ maxWidth: 320 }} />
+        <p className="text-body-md text-text-secondary mb-4">
+          Enable two-way SMS to receive client replies from the dashboard and send messages
+          from a dedicated mobile number. Subscribe to two-way SMS for A$9.90 (GST included) per month.
+        </p>
+        <div className="mb-2">
+          <label className="text-label-lg text-text mb-1 block">Your number</label>
+          <Flex align="center" gap={8}>
+            <FormInput type="text" defaultValue="+61468039383" style={{ maxWidth: 320 }} />
+            <Button variant="ghost" size="sm"><CopyOutlined /></Button>
+          </Flex>
+        </div>
+        <p className="text-body-md text-text-secondary mt-2">
+          Contact the account owner to enable two-way SMS.
+        </p>
       </div>
 
       <Modal

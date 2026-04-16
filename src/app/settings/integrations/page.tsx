@@ -18,7 +18,7 @@ interface Integration {
 
 /* eslint-disable @next/next/no-img-element */
 function IntegrationLogo({ src, alt, height = 100 }: { src: string; alt: string; height?: number }) {
-  return <img src={src} alt={alt} style={{ width: "auto", maxWidth: "70%", objectFit: "contain", height }} />;
+  return <img src={src} alt={alt} style={{ width: "auto", maxWidth: "100%", objectFit: "contain", height }} />;
 }
 
 function BrandDescription({ name, brandUrl, text }: { name: string; brandUrl?: string; text: string }) {
@@ -54,13 +54,13 @@ const integrations: Integration[] = [
     description:
       "QuickBooks is a leading online accounting solution designed for small businesses. splose syncs all invoices, payments, clients, contacts, chart of accounts, and tax rates with QuickBooks automatically. QuickBooks encourages all users to enable two-factor authentication to enhance the security of their accounts.",
     connected: false,
-    logo: <IntegrationLogo src="/images/integrations/quickbooks.svg" alt="QuickBooks" />,
+    logo: <IntegrationLogo src="/images/integrations/quickbooks.svg" alt="QuickBooks" height={80} />,
     customButton: (
       <a href="#" style={{ display: "inline-block" }}>
         <img
           src="/images/integrations/connect-to-quickbooks.svg"
           alt="Connect to QuickBooks"
-          style={{ height: 46 }}
+          style={{ height: 38 }}
         />
       </a>
     ),
@@ -70,7 +70,7 @@ const integrations: Integration[] = [
     name: "Stripe",
     brandUrl: "https://stripe.com",
     description:
-      "Stripe is a payment processing platform that helps you get paid online. Accept credit card payments via online bookings, and add a 'Pay now' button to your invoices. Standard Stripe fees \u2014 splose EFTPOS platform fee applies to successful payments.",
+      "Stripe is a payment processing platform that helps you get paid online. Accept credit card payments via online bookings, and add a \u2018Pay now\u2019 button to your invoices.",
     connected: "incomplete-profile",
     logo: <IntegrationLogo src="/images/integrations/stripe.svg" alt="Stripe" />,
     actions: [
@@ -94,7 +94,7 @@ const integrations: Integration[] = [
     name: "HICAPS",
     brandUrl: "https://www.hicaps.com.au",
     description:
-      "HICAPS is an online claiming platform that allows you to easily claim invoices to the TAC, Worksafe Victoria, NDIS, Medicare, MBS and more. With HICAPS and splose, you can run a price determination for NDIS plan managed invoices and submit them for fast payment.",
+      "HICAPS is an online claiming platform that allows you to easily claim invoices to the TAC, Worksafe Victoria, NDIS, Medibank, NIB and more. With HICAPS and splose, you can run a pre-determination for NDIS plan managed invoices and submit them for fast payment.",
     connected: false,
     logo: <IntegrationLogo src="/images/integrations/hicaps.png" alt="HICAPS" />,
     actions: [{ label: "Connect", variant: "secondary" }],
@@ -103,7 +103,7 @@ const integrations: Integration[] = [
     name: "Tyro Health",
     brandUrl: "https://www.tyrohealth.com",
     description:
-      "Tyro Health enables healthcare providers to process digital payments and claims online. This includes Medicare, Bulk Bill and Patient Claims, DVA, health fund claims and contactless debit and credit cards (incl. NDIS, plus or running a card directly within an invoice or payment).",
+      "Tyro Health enables healthcare providers to process digital payments and claims online. This includes Medicare (Bulk Bill and Patient Claims), DVA, health fund claims and contactless debit and credit cards, incl. NDIS plus running a card directly within an invoice or payment.",
     connected: false,
     logo: <IntegrationLogo src="/images/integrations/tyro-health.png" alt="Tyro Health" />,
     actions: [{ label: "Connect", variant: "secondary" }],
