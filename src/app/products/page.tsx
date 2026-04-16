@@ -499,7 +499,7 @@ export default function ProductsPage() {
                     }`}
                     onClick={() => toggleExpand(globalIndex)}
                   >
-                    <td style={{ padding: '12px 8px', textAlign: 'center' }}>
+                    <td className="text-center" style={{ padding: '12px 8px' }}>
                       <Button
                         variant="icon"
                         size="sm"
@@ -536,7 +536,7 @@ export default function ProductsPage() {
 
                   {isExpanded && (
                     <tr>
-                      <td colSpan={6} style={{ background: 'rgba(249, 250, 251, 0.5)', padding: 0 }}>
+                      <td colSpan={6} className="bg-gray-50/50" style={{ padding: 0 }}>
                         <div style={{ padding: '12px 32px' }}>
                           {/* Product details section */}
                           <Grid cols={3} gap="md" style={{ marginBottom: 12 }}>
@@ -564,18 +564,18 @@ export default function ProductsPage() {
                           {hasVariants && (
                             <table style={{ width: '100%' }}>
                               <thead>
-                                <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-                                  <th style={{ padding: '8px 16px', textAlign: 'left' }}><Text variant="label/lg" as="span" color="text">Name</Text></th>
-                                  <th style={{ padding: '8px 16px', textAlign: 'left' }}><Text variant="label/lg" as="span" color="text">SKU</Text></th>
-                                  <th style={{ padding: '8px 16px', textAlign: 'left' }}><Text variant="label/lg" as="span" color="text">Price</Text></th>
-                                  <th style={{ padding: '8px 16px', textAlign: 'left' }}><Text variant="label/lg" as="span" color="text">Stock</Text></th>
-                                  <th style={{ padding: '8px 16px', textAlign: 'left' }}><Text variant="label/lg" as="span" color="text">Unit</Text></th>
-                                  <th style={{ padding: '8px 16px', textAlign: 'left' }}><Text variant="label/lg" as="span" color="primary">Actions</Text></th>
+                                <tr className="border-b border-border">
+                                  <th className="text-left" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="text">Name</Text></th>
+                                  <th className="text-left" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="text">SKU</Text></th>
+                                  <th className="text-left" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="text">Price</Text></th>
+                                  <th className="text-left" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="text">Stock</Text></th>
+                                  <th className="text-left" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="text">Unit</Text></th>
+                                  <th className="text-left" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="primary">Actions</Text></th>
                                 </tr>
                               </thead>
                               <tbody>
                                 {product.variants!.map((variant, vIdx) => (
-                                  <tr key={vIdx} className={pStyles.variantRow} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                                  <tr key={vIdx} className={`${pStyles.variantRow} border-b border-border`}>
                                     <td style={{ padding: '8px 16px' }}><Text variant="body/sm" as="span" color="text">{variant.name}</Text></td>
                                     <td style={{ padding: '8px 16px' }}><Text variant="body/sm" as="span" color="secondary">{variant.sku}</Text></td>
                                     <td style={{ padding: '8px 16px' }}>
@@ -685,33 +685,33 @@ export default function ProductsPage() {
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%' }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-                <th style={{ padding: '8px 16px', textAlign: 'left' }}><Text variant="label/lg" as="span" color="text">Location</Text></th>
-                <th style={{ padding: '8px 16px', textAlign: 'center' }}><Text variant="label/lg" as="span" color="text">Available</Text></th>
-                <th style={{ padding: '8px 16px', textAlign: 'center' }}><Text variant="label/lg" as="span" color="text">Track stock</Text></th>
-                <th style={{ padding: '8px 16px', textAlign: 'center' }}><Text variant="label/lg" as="span" color="text">Count</Text></th>
-                <th style={{ padding: '8px 16px', textAlign: 'center' }}><Text variant="label/lg" as="span" color="text">Actions</Text></th>
+              <tr className="border-b border-border">
+                <th className="text-left" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="text">Location</Text></th>
+                <th className="text-center" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="text">Available</Text></th>
+                <th className="text-center" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="text">Track stock</Text></th>
+                <th className="text-center" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="text">Count</Text></th>
+                <th className="text-center" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="text">Actions</Text></th>
               </tr>
             </thead>
             <tbody>
               {mockStockLocations.map((loc) => (
-                <tr key={loc.name} className={pStyles.stockRow} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                <tr key={loc.name} className={`${pStyles.stockRow} border-b border-border`}>
                   <td style={{ padding: '8px 16px' }}><Text variant="body/sm" as="span" color="text">{loc.name}</Text></td>
-                  <td style={{ padding: '8px 16px', textAlign: 'center' }}>
+                  <td className="text-center" style={{ padding: '8px 16px' }}>
                     <Checkbox checked={loc.available} readOnly />
                   </td>
-                  <td style={{ padding: '8px 16px', textAlign: 'center' }}>
+                  <td className="text-center" style={{ padding: '8px 16px' }}>
                     <Checkbox checked={loc.trackStock} readOnly />
                   </td>
-                  <td style={{ padding: '8px 16px', textAlign: 'center' }}>
+                  <td className="text-center" style={{ padding: '8px 16px' }}>
                     <Text variant="body/sm" as="span" color="secondary">{loc.trackStock ? loc.count : "N/A"}</Text>
                   </td>
-                  <td style={{ padding: '8px 16px', textAlign: 'center' }}>
+                  <td className="text-center" style={{ padding: '8px 16px' }}>
                     <Dropdown
                       align="right"
                       trigger={
-                        <button style={{ display: 'inline-flex', height: 28, width: 28, alignItems: 'center', justifyContent: 'center', borderRadius: 6, border: 'none', background: 'transparent', cursor: 'pointer' }} className={pStyles.stockActionButton}>
-                          <MoreOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
+                        <button className={`inline-flex items-center justify-center rounded-[6px] border-none bg-transparent cursor-pointer ${pStyles.stockActionButton}`} style={{ height: 28, width: 28 }}>
+                          <MoreOutlined className="text-text-secondary" style={{ fontSize: 16 }} />
                         </button>
                       }
                       items={stockDropdownItems}

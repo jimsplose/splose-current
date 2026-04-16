@@ -61,7 +61,7 @@ export default function BusyTimesPage() {
         <TableHead><Th>Name</Th><Th>Utilisation</Th><Th>Duration (mins)</Th><Th>Actions</Th></TableHead>
         <TableBody>
           {busyTimes.map((b, i) => (
-            <tr key={i} style={{ borderBottom: '1px solid var(--color-border)' }}>
+            <tr key={i} className="border-b border-border">
               <Td><Flex align="center" gap={8}><ColorDot color={b.color} />{b.name}</Flex></Td>
               <Td>{b.utilisation}</Td><Td>{b.duration}</Td>
               <Td>

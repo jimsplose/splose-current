@@ -29,7 +29,7 @@ export default function BatchInvoiceDetailPage() {
           </TableHead>
           <TableBody>
             {items.map((inv) => (
-              <tr key={inv.number} style={{ borderBottom: '1px solid var(--color-border)' }}>
+              <tr key={inv.number} className="border-b border-border">
                 <Td>
                   <Link href={`/invoices/${inv.number}`} style={{ fontWeight: 500 }} className="text-primary">
                     {inv.number}

@@ -37,7 +37,7 @@ export default function BatchInvoicePreviewPage() {
         </TableHead>
         <TableBody>
           {invoices.map((inv) => (
-            <tr key={inv.number} style={{ borderBottom: '1px solid var(--color-border)' }}>
+            <tr key={inv.number} className="border-b border-border">
               <Td className="text-primary" style={{ fontWeight: 500 }}>{inv.number}</Td>
               <Td>{inv.client}</Td>
               <Td>{inv.service}</Td>

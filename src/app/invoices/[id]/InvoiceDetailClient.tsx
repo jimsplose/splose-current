@@ -231,30 +231,30 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           </Grid>
 
           {/* Line items table */}
-          <table style={{ width: '100%', fontSize: 12, marginBottom: 24 }}>
+          <table className="w-full text-xs" style={{ marginBottom: 24 }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-                <th style={{ padding: '8px 0', textAlign: 'left' }}><Text variant="label/md" as="span" color="text">Item code</Text></th>
-                <th style={{ padding: '8px 0', textAlign: 'left' }}><Text variant="label/md" as="span" color="text">Description</Text></th>
-                <th style={{ padding: '8px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">Unit price</Text></th>
-                <th style={{ padding: '8px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">Quantity</Text></th>
-                <th style={{ padding: '8px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">Unit</Text></th>
-                <th style={{ padding: '8px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">Discount</Text></th>
-                <th style={{ padding: '8px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">GST</Text></th>
-                <th style={{ padding: '8px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">Amount AUD</Text></th>
+              <tr className="border-b border-border">
+                <th className="py-2 text-left"><Text variant="label/md" as="span" color="text">Item code</Text></th>
+                <th className="py-2 text-left"><Text variant="label/md" as="span" color="text">Description</Text></th>
+                <th className="py-2 text-right"><Text variant="label/md" as="span" color="text">Unit price</Text></th>
+                <th className="py-2 text-right"><Text variant="label/md" as="span" color="text">Quantity</Text></th>
+                <th className="py-2 text-right"><Text variant="label/md" as="span" color="text">Unit</Text></th>
+                <th className="py-2 text-right"><Text variant="label/md" as="span" color="text">Discount</Text></th>
+                <th className="py-2 text-right"><Text variant="label/md" as="span" color="text">GST</Text></th>
+                <th className="py-2 text-right"><Text variant="label/md" as="span" color="text">Amount AUD</Text></th>
               </tr>
             </thead>
             <tbody>
               {invoice.items.map((item, idx) => (
-                <tr key={item.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
-                  <td style={{ padding: '12px 0' }}><Text variant="body/sm" as="span" color="secondary">{`299dsdds${3234 + idx}`}</Text></td>
-                  <td style={{ padding: '12px 0' }}><Text variant="body/sm" as="span" color="text">{item.description}</Text></td>
-                  <td style={{ padding: '12px 0', textAlign: 'right' }}><Text variant="body/sm" as="span" color="text">{item.unitPrice.toFixed(2)}</Text></td>
-                  <td style={{ padding: '12px 0', textAlign: 'right' }}><Text variant="body/sm" as="span" color="text">{item.quantity.toFixed(2)}</Text></td>
-                  <td style={{ padding: '12px 0', textAlign: 'right' }}><Text variant="body/sm" as="span" color="secondary">Hour</Text></td>
-                  <td style={{ padding: '12px 0', textAlign: 'right' }}><Text variant="body/sm" as="span" color="secondary">0.00</Text></td>
-                  <td style={{ padding: '12px 0', textAlign: 'right' }}><Text variant="body/sm" as="span" color="secondary">15%</Text></td>
-                  <td style={{ padding: '12px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">{item.total.toFixed(2)}</Text></td>
+                <tr key={item.id} className="border-b border-border">
+                  <td className="py-3"><Text variant="body/sm" as="span" color="secondary">{`299dsdds${3234 + idx}`}</Text></td>
+                  <td className="py-3"><Text variant="body/sm" as="span" color="text">{item.description}</Text></td>
+                  <td className="py-3 text-right"><Text variant="body/sm" as="span" color="text">{item.unitPrice.toFixed(2)}</Text></td>
+                  <td className="py-3 text-right"><Text variant="body/sm" as="span" color="text">{item.quantity.toFixed(2)}</Text></td>
+                  <td className="py-3 text-right"><Text variant="body/sm" as="span" color="secondary">Hour</Text></td>
+                  <td className="py-3 text-right"><Text variant="body/sm" as="span" color="secondary">0.00</Text></td>
+                  <td className="py-3 text-right"><Text variant="body/sm" as="span" color="secondary">15%</Text></td>
+                  <td className="py-3 text-right"><Text variant="label/md" as="span" color="text">{item.total.toFixed(2)}</Text></td>
                 </tr>
               ))}
             </tbody>

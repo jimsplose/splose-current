@@ -32,7 +32,7 @@ export default function NdisBulkUploadDetailPage() {
         </TableHead>
         <TableBody>
           {items.map((item, i) => (
-            <tr key={i} style={{ borderBottom: '1px solid var(--color-border)' }}>
+            <tr key={i} className="border-b border-border">
               <Td>{item.client}</Td>
               <Td>{item.service}</Td>
               <Td>{item.date}</Td>
