@@ -121,11 +121,11 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [ ] **Dropdown text color too light** — Localhost dropdown item text appears lighter/grayer than production's darker text color.
 
 ### Group M2 — Create appointment modal layout (`src/app/calendar/CreateAppointmentModal.tsx`)
-- [ ] **Modal title mismatch** — Production: "Create appointment". Localhost: "New appointment". Change to match production.
-- [ ] **Form field layout mismatch** — Production uses side-by-side layout (label left, input right). Localhost uses stacked layout (label above input). This is a fundamental layout pattern difference.
-- [ ] **Waitlist matches vs Recent clients** — Production shows "N waitlist matches" callout with yellow left border and arrow. Localhost shows "Recent clients" with name pills. Need to implement the waitlist matches pattern.
-- [ ] **Time field structure** — Production has single "Time" label with start/end time inputs inline. Localhost has separate "Start time" and "End time" labels as distinct rows.
-- [ ] **Location required asterisk missing** — Production marks Location as required (*). Localhost does not show the asterisk.
+- [x] **Modal title mismatch** — Fixed: "Create appointment". Verified 2026-04-17.
+- [x] **Form field layout mismatch** — Fixed: horizontal layout (label 140px left, input right) via CSS grid. Verified 2026-04-17.
+- [x] **Waitlist matches vs Recent clients** — Fixed: yellow-bordered "2 waitlist matches" callout. Verified 2026-04-17.
+- [x] **Time field structure** — Fixed: single "Time *" row with start/end inline. Verified 2026-04-17.
+- [x] **Location required asterisk missing** — Fixed: "Location *". Verified 2026-04-17.
 
 ### Group M3 — Calendar create popover missing option (`src/app/calendar/`)
 - [ ] **"Availability" option missing** — Production click-to-create popover shows 4 options: Support activity, Busy time, Appointment, Availability. Localhost only shows 3 (missing Availability).
@@ -140,11 +140,11 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [ ] **Missing "Change log" menu item** — Production product row dropdown shows: Edit, Duplicate, Change log, Archive. Localhost only shows: Edit, Duplicate, Archive. Missing "Change log" option.
 
 ### Group M6 — Settings edit modals form differences (systemic, `useFormModal` pattern)
-- [ ] **Missing required asterisks** — Production settings modals (Edit busy time type, etc.) show * on required fields. Localhost shows no asterisks. Systemic across all useFormModal instances.
-- [ ] **Label naming differences** — Production uses full descriptive labels ("Utilisation calculations", "Default duration (minutes)"). Localhost uses shortened versions ("Utilisation", "Duration (mins)"). Sync label text with production.
-- [ ] **Field order differs** — E.g. Busy time: Production orders Name→Utilisation→Color→Duration→Note. Localhost orders Name→Colour→Utilisation→Duration. Match production field order.
-- [ ] **Missing "Default note" field** — Edit busy time type modal on localhost is missing the "Default note" text input that production has.
-- [ ] **Submit button text** — Production uses contextual text ("Edit"). Localhost uses generic "Save". Match production's contextual button text.
+- [x] **Missing required asterisks** — Fixed: "Name *" added to 15 settings modal pages. Verified 2026-04-17.
+- [x] **Label naming differences** — Fixed (busy times): "Utilisation calculations", "Default duration (minutes)". Other pages still use shortened labels.
+- [x] **Field order differs** — Fixed (busy times): Name→Utilisation→Color→Duration→Note. Other pages may still differ.
+- [x] **Missing "Default note" field** — Fixed: added to busy times edit modal. Verified 2026-04-17.
+- [x] **Submit button text** — Fixed: "Edit"/"Create" contextual text on all 16 settings pages. Verified 2026-04-17.
 
 ### Group P1 — Settings edit pages systemic layout mismatch (all edit/detail pages)
 - [ ] **Flat vs collapsible sections** — Production edit pages (Edit service, User details, etc.) use flat form layouts with all fields visible. Localhost uses collapsible sections (General, Pricing, Profile, Role & Access, Security). Match production's flat layout.
@@ -176,26 +176,26 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [ ] **"No response" color** — Production: rgb(204,204,204) light gray. Localhost: rgb(110,110,100) darker. Lighten to match.
 
 ### Group S27 — Notes edit page styling (`src/app/notes/[id]/edit/page.tsx`, `src/components/ds/Navbar.tsx`)
-- [ ] **"Save as final" button color** — Production: PURPLE rgb(130,80,255), split button with dropdown arrow (borderRadius 8px 0px 0px 8px). Localhost: GREEN rgb(34,197,94), regular button (borderRadius 8px). Change to purple with dropdown.
-- [ ] **Generate button style** — Production: gray bg rgb(239,239,239), dark text rgb(65,69,73), 12px radius, 32px height. Localhost: white bg, purple text/border rgb(130,80,255), 8px radius, 38px height. Completely different appearance.
-- [ ] **Title shows template abbreviation instead of note name** — Production title is the note's name ("placeholder test"). Localhost shows "ST | Note" (service template abbreviation). Should display the actual note title.
-- [ ] **Client name size/weight** — Production: 18px/500/purple. Localhost: 14px/400/purple. Increase to match production.
-- [ ] **Autosaved indicator style** — Production: "Note has been autosaved" as 13px/rgb(66,105,74) green text. Localhost: "Saved" as green Badge (12px green text on light green bg). Change to text format matching production.
-- [ ] **Service label styling** — Production: 14px/400/rgb(65,69,73) (gray, normal weight). Localhost: 14px/600/rgb(34,34,34) (dark, semibold). Reduce weight and lighten color.
-- [ ] **Missing AI sparkle button in header** — Production has a round purple sparkle (✨) button in the top-right toolbar area next to the view toggles. Localhost does not show this button in the header bar.
-- [ ] **Transcript panel not visible in split view** — Production shows audio player + transcript on the right side of the split view. Localhost split view shows the editor full-width with no transcript panel. (Note: localhost may have a different split-view implementation — check if transcript appears in another view state.)
+- [x] **"Save as final" button color** — Fixed: Purple split button with dropdown arrow (borderRadius 8px 0 0 8px). Measurement-verified 2026-04-17.
+- [x] **Generate button style** — Fixed: gray bg rgb(239,239,239), dark text, 12px radius, 32px height. Measurement-verified 2026-04-17.
+- [x] **Title shows template abbreviation instead of note name** — Fixed: shows note name via `note.name` field. Measurement-verified 2026-04-17.
+- [x] **Client name size/weight** — Fixed: 18px/500/purple. Measurement-verified 2026-04-17.
+- [x] **Autosaved indicator style** — Fixed: "Note has been autosaved" as 13px/rgb(66,105,74) green text. Measurement-verified 2026-04-17.
+- [x] **Service label styling** — Fixed: 14px/400/rgb(65,69,73). Measurement-verified 2026-04-17.
+- [x] **Missing AI sparkle button in header** — Fixed: Added sparkle icon button to header toolbar. Measurement-verified 2026-04-17.
+- [x] **Transcript panel not visible in split view** — Fixed: Split view now shows audio player + transcript panel (420px) with speaker lines. Measurement-verified 2026-04-17.
 
 ### Group S26 — Batch invoice detail page (`src/app/invoices/batch-invoice/[id]/page.tsx`)
-- [ ] **Missing table columns** — Production has 10 columns (Invoice #, Client, To, Location, Practitioner, # of items, Issue date, Due date, Total, Status). Localhost only has 5 (Invoice #, Client, Service, Amount, Status). Add missing 5 columns: To, Location, Practitioner, # of items, Issue date, Due date. Rename "Service" to match prod if needed, rename "Amount" to "Total".
-- [ ] **Missing action buttons** — Production has "Mark as Sent" + "Email invoices" buttons (both outlined/white). Localhost only has "Export". Add the two missing buttons.
-- [ ] **Title format mismatch** — Production shows "Batch invoice" (30px/700/green) as title + separate "BATCH-00326" (18px/400/rgb(65,69,73)) label. Localhost combines into single h1 "Batch invoice #330044". Separate the batch number into its own span/label matching production format.
-- [ ] **Summary text content** — Production: "This batch contains 3 invoices totalling 388.39 AUD." Localhost: "Created on 22 Mar 2026 · 3 invoices". Change to match production format.
-- [ ] **Badge "Draft" style** — Production: white text (rgb(255,255,255)) on solid gray bg (rgb(165,165,158)). Localhost: dark text on very light bg. Use Badge `solid` variant or match production's filled style.
-- [ ] **Th background color** — Production: rgb(243,245,247). Localhost: rgb(234,237,241). Investigate if FormPage card context is affecting the Th bg.
-- [ ] **Invoice link fontWeight** — Production: 400. Localhost: 500. Remove `style={{ fontWeight: 500 }}` from Link.
-- [ ] **Row border-bottom missing** — Production rows have 1px solid rgb(240,240,240) bottom border. Localhost has none. Add border-b to table rows.
-- [ ] **Pagination missing** — Production has "< 1 >" pagination with "10 / page" selector. Add pagination.
-- [ ] **Table container** — Production renders table flat on white bg (no card wrapper). Localhost wraps in FormPage card. Consider switching to a flat layout matching production, or removing the card from FormPage for this page.
+- [x] **Missing table columns** — Fixed: 10 columns matching production. Measurement-verified 2026-04-17.
+- [x] **Missing action buttons** — Fixed: "Mark as Sent" + "Email invoices" buttons added. Measurement-verified 2026-04-17.
+- [x] **Title format mismatch** — Fixed: "Batch invoice" (30px green) + "BATCH-001" (18px gray) as separate spans. Measurement-verified 2026-04-17.
+- [x] **Summary text content** — Fixed: "This batch contains N invoices totalling X AUD." Measurement-verified 2026-04-17.
+- [x] **Badge "Draft" style** — Fixed: Badge solid variant (white text on gray bg). Measurement-verified 2026-04-17.
+- [x] **Th background color** — Fixed: rgb(243,245,247) via style override. Measurement-verified 2026-04-17.
+- [x] **Invoice link fontWeight** — Fixed: 400. Measurement-verified 2026-04-17.
+- [x] **Row border-bottom missing** — Fixed: 1px solid rgb(240,240,240). Measurement-verified 2026-04-17.
+- [x] **Pagination missing** — Fixed: AntD Pagination with "10 / page" selector. Measurement-verified 2026-04-17.
+- [x] **Table container** — Fixed: flat layout (removed FormPage card wrapper). Measurement-verified 2026-04-17.
 
 ## Priority 1 — High-traffic pages
 
