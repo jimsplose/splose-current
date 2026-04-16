@@ -102,6 +102,25 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [ ] **Section labels (Client, From, Invoice #, etc.)** — Production: 13px/700/rgb(65,69,73). Localhost: 14px/700/rgb(110,110,100). Revert fontSize to 13px and color to rgb(65,69,73). (Regression from S8 fix.)
 - [ ] **Note sidebar heading** — Production: 21px. Localhost: 18px/700/rgb(110,110,100). Revert to 21px/500/rgb(65,69,73). (Regression from S11 fix.)
 
+### Group S23 — Settings/Integrations content + logo (`src/app/settings/integrations/page.tsx`)
+- [ ] **QuickBooks logo aspect ratio** — Production renders at 313x80 (wide), localhost at 204x100 (square). The IntegrationLogo `maxWidth: "70%"` constrains the image. Either increase maxWidth for QB or use natural dimensions with height auto.
+- [ ] **Stripe description extra text** — Localhost includes "Standard Stripe fees — splose EFTPOS platform fee applies to successful payments." that production doesn't have. Remove the extra sentence.
+- [ ] **HICAPS description wording** — Localhost says "Medicare, MBS" / "price determination". Production says "Medibank, NIB" / "pre-determination". Fix to match production.
+- [ ] **Tyro Health description wording** — Localhost differs from production. Fix parenthetical format and ending text to match production.
+- [ ] **"Connect to QuickBooks" button size** — Localhost image is 250x46, production button is 205x38. Adjust image height from 46 to match production.
+
+### Group S24 — Settings/AI block library tab (`src/app/settings/ai/page.tsx`)
+- [ ] **BETA badge in feedback banner** — Localhost shows "BETA" badge (yellow). Production does not have it. Remove the BETA badge.
+- [ ] **"+ New AI block" button style** — Localhost uses variant="secondary" (white/outlined). Production is variant="primary" (purple-filled rgb(130,80,255)). Change to primary.
+- [ ] **"Your saved blocks" heading missing** — Production shows "Your saved blocks" (16px/600/rgb(65,69,73)) above the table. Add this heading.
+- [ ] **Banner extra text** — Localhost has "or book a time to chat" text and link. Production only has "Fill a short survey." Remove extra text.
+
+### Group S25 — Settings/SMS missing sections (`src/app/settings/sms-settings/page.tsx`)
+- [ ] **Low credit balance email reminder section** — Production has checkbox + description + threshold input (value 100) below SMS pricing. Localhost is missing this entire section.
+- [ ] **Automatic recharge section** — Production has checkbox + description + threshold input + "SMS credits to purchase" input + inline Save button. Missing on localhost.
+- [ ] **Two-way SMS incomplete** — Missing description paragraph ("Enable two-way SMS to receive client replies..."), copy button on phone number, "Contact the account owner to enable two-way SMS." text.
+- [ ] **Remove header Save button** — Production doesn't have Save in the PageHeader (only "Learn"). The Save button is inline within the auto-recharge section.
+
 ## Priority 1 — High-traffic pages
 
 ### Group D — Dashboard (`src/app/page.tsx`)
@@ -119,10 +138,10 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 ### Group C — Settings (`src/app/settings/`)
 All 25 Settings sub-pages are implemented as inline components in `settings/page.tsx`:
 - [x] **Settings Details page** — Fixed: 5 purple dividers added (Divider variant="primary"), section headings changed from heading/md (16px/600) to heading/lg (18px/700). Also fixed text-heading-lg utility class fontWeight 600→700 in globals.css. Measurement-verified 2026-04-14.
-- [x] **Settings Integrations page** — Fixed: All 15 action items resolved. Logo height 48→100, logo row 80→120. Connect buttons secondary. QuickBooks green SVG button. Brand purple links. Description color rgb(65,69,73). Theme colorError updated to rgb(240,0,50). New display/xs Text variant (21px/700/Sprig Sans/lh 1.4). Cards use DS Card with production-matched borders. Zoom real SVG. Copy fixes applied. Connected states reconciled. Stripe "Complete your profile" button. DS migration B→A complete. Measurement-verified 2026-04-16.
-- [x] **Settings SMS Settings page** — Fixed: 3 purple dividers added, "Two-way SMS" section + "Your number" input added, Save button added to PageHeader, "Message preview" section removed (not on production). Measurement-verified 2026-04-14.
+- [ ] **Settings Integrations page** — Major fixes done (2026-04-16). Remaining: QB logo aspect ratio, Stripe/HICAPS/Tyro description text, QB button size. See S23.
+- [ ] **Settings SMS Settings page** — Partial fixes done. Still missing: Low credit balance, Automatic recharge sections, Two-way SMS incomplete. See S25.
 - [x] **Settings Form Templates** — Fixed: columns updated to Title/Form type/Created at/Updated at, title changed to "Form templates", Learn/Show archived added. 5.55% pixel diff (full-page vs viewport). (2026-03-20)
-- [x] **Settings Splose AI** — Fixed: tab badge "BETA"→"New" (purple pill bg), Tab DS component badge changed from AntD Badge (red) to purple pill span. Dividers gray→purple (Divider variant="primary"). Section headings matched to production 28px/700. Measurement-verified 2026-04-14.
+- [ ] **Settings Splose AI** — Preferences+Saved prompts tabs YES. AI block library tab PARTIAL: BETA badge, button style, missing heading. See S24.
 - [x] **Settings Locations page** — Locations list with edit form.
 - [x] **Settings Custom Fields page** — List with reorder, actions dropdown, update field modal.
 - [x] **Settings Rooms/Resources page** — Fixed: Group/Capacity/Location columns added, search bar, Learn/Show archived buttons added. 6.43% pixel diff (browser chrome). (2026-03-20)
