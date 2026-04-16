@@ -18,7 +18,7 @@ interface Integration {
 
 /* eslint-disable @next/next/no-img-element */
 function IntegrationLogo({ src, alt, height = 100 }: { src: string; alt: string; height?: number }) {
-  return <img src={src} alt={alt} style={{ width: "auto", objectFit: "contain", height }} />;
+  return <img src={src} alt={alt} style={{ width: "auto", maxWidth: "70%", objectFit: "contain", height }} />;
 }
 
 function BrandDescription({ name, brandUrl, text }: { name: string; brandUrl?: string; text: string }) {
@@ -154,7 +154,7 @@ export default function IntegrationsPage() {
             </Text>
 
             {/* Description with brand link */}
-            <div style={{ marginBottom: 16, lineHeight: "19.6px" }}>
+            <div style={{ marginBottom: 16, lineHeight: "19.6px", fontSize: 14 }}>
               <BrandDescription
                 name={integration.name}
                 brandUrl={integration.brandUrl}
