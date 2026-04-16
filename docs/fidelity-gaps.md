@@ -146,6 +146,15 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [ ] **Missing "Default note" field** — Edit busy time type modal on localhost is missing the "Default note" text input that production has.
 - [ ] **Submit button text** — Production uses contextual text ("Edit"). Localhost uses generic "Save". Match production's contextual button text.
 
+### Group P1 — Settings edit pages systemic layout mismatch (all edit/detail pages)
+- [ ] **Flat vs collapsible sections** — Production edit pages (Edit service, User details, etc.) use flat form layouts with all fields visible. Localhost uses collapsible sections (General, Pricing, Profile, Role & Access, Security). Match production's flat layout.
+- [ ] **Title pattern mismatch** — Production uses generic titles ("Account details", "Edit service"). Localhost shows entity names with back arrow ("← Nicholas Smithson", "← Edit service"). Match production's title pattern.
+- [ ] **Missing Cancel button** — Production edit pages show Cancel + Save. Localhost shows only Save (or "Save changes"). Add Cancel button.
+- [ ] **Missing required asterisks** — Systemic across all edit/detail forms. Same as M6.
+- [ ] **Field granularity** — Production has granular fields (Title/First/Last name as 3 inputs, separate DOB Day/Month/Year dropdowns). Localhost consolidates them (single Name field). Match production's field structure.
+- [ ] **Missing fields — Edit service** — Localhost missing: "For" radio (Appointment/Support Activity), "Max number of clients", "Description" in visible area. Different field order.
+- [ ] **Missing fields — User details** — Localhost missing: Gender, Date of birth, Phone numbers, Professional title, Profile photo upload area. Has Role name/Role type not visible on production above fold.
+
 ### Group M7 — Reports Definitions modal (`src/app/reports/performance/page.tsx`)
 - [ ] **Modal doesn't open** — The "Definitions" button exists on both but clicking it on localhost does not open the modal. Production shows a large 2-column overlay with metric definitions. Localhost's click handler may not be connected.
 - [ ] **Missing "Change log" menu item** — Production product row dropdown shows: Edit, Duplicate, Change log, Archive. Localhost only shows: Edit, Duplicate, Archive. Missing "Change log" option.

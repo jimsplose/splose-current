@@ -124,7 +124,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 |---|---|---|
 | Screenshot 2026-03-17 at 6.47.29 pm.png | Edit service — Online Payment section | yes — Online Payment collapse section added 2026-03-24 |
 | Screenshot 2026-03-17 at 6.47.38 pm.png | Edit service — Appointment notifications, reminder dropdown open | yes — Notifications section with reminder selects added 2026-03-24 |
-| screencapture-acme-splose-settings-services-edit-254552-2026-03-17-18_46_52.png | Edit service full page | yes — enriched with Online Payment + Notifications 2026-03-24 |
+| screencapture-acme-splose-settings-services-edit-254552-2026-03-17-18_46_52.png | Edit service full page | partial — stale page audit 2026-04-16: 7 differences. Localhost uses collapsible sections (General/Pricing) vs prod flat layout. Missing For* radio, Max clients, Description. No required asterisks. No Cancel button. Back arrow present. Different field order. New P1 gap. |
 
 ## Settings — Busy Times (`/settings/busy-times`)
 
@@ -206,7 +206,7 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-settings-users-27458-details-2026-03-17-18_58_00.png | User details tab | yes — Details/Availability/Body charts tabs 2026-03-24 |
+| screencapture-acme-splose-settings-users-27458-details-2026-03-17-18_58_00.png | User details tab | partial — stale page audit 2026-04-16: systemic edit page pattern mismatch (P1). Title "← Nicholas Smithson" vs prod "Account details". Collapsible sections (Profile/Role & Access/Security) vs prod flat layout. Single Name field vs prod Title/First/Last. Missing Gender, DOB, Phone, Professional title, Profile photo. No required asterisks. |
 | screencapture-acme-splose-settings-users-27458-details-2026-03-17-19_29_56.png | User details (duplicate 1) | yes |
 | screencapture-acme-splose-settings-users-27458-details-2026-03-17-19_29_56 (1).png | User details (duplicate 2) | yes |
 
