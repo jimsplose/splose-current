@@ -35,8 +35,8 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
       <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', background: 'white', padding: '12px 24px' }}>
         <Flex align="center" gap={12}>
           <Text variant="display/lg" as="h1" color="rgb(66, 105, 74)">{invoice.invoiceNumber}</Text>
-          <Badge variant={STATUS_VARIANTS[invoice.status] ?? "gray"}>{invoice.status}</Badge>
-          {creditBalance > 0 && <Badge variant="green">Credit balance: ${creditBalance.toFixed(2)}</Badge>}
+          <Badge variant={STATUS_VARIANTS[invoice.status] ?? "gray"} solid>{invoice.status}</Badge>
+          {creditBalance > 0 && <Badge variant="blue" solid>Credit balance: ${creditBalance.toFixed(2)}</Badge>}
         </Flex>
         <InvoiceActions />
       </Flex>
@@ -336,7 +336,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
             <h3 style={{ fontSize: 21, fontWeight: 500, color: 'rgb(65, 69, 73)', marginBottom: 12 }}>Payments</h3>
             <Flex align="baseline" justify="space-between" style={{ marginBottom: 8 }}>
               <Text variant="body/md" as="span" color="secondary">
-                {invoice.status === "Paid" ? invoice.total.toFixed(2) : "0.00"} / {invoice.total.toFixed(2)} AUD
+                {invoice.status === "Paid" ? invoice.total.toFixed(2) : "0.00"} / {invoice.total.toFixed(2)}
               </Text>
             </Flex>
             {/* Progress bar */}
@@ -345,9 +345,11 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
                 style={{ height: '100%', borderRadius: 9999, background: 'var(--color-primary)', transition: 'all 0.3s', width: invoice.status === "Paid" ? "100%" : "0%" }}
               />
             </div>
-            <Text variant="body/sm" as="p" color="tertiary" style={{ marginTop: 8 }}>
-              {invoice.status === "Paid" ? "Paid in full" : "No payments recorded"}
-            </Text>
+            {invoice.status === "Paid" && (
+              <Text variant="body/sm" as="p" color="tertiary" style={{ marginTop: 8 }}>
+                Paid in full
+              </Text>
+            )}
           </Card>
 
           {/* Stripe CTA card */}

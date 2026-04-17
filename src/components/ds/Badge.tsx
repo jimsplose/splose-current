@@ -8,6 +8,10 @@ interface BadgeProps {
   children: React.ReactNode;
   variant?: BadgeVariant;
   solid?: boolean;
+  /** Override solid-mode background. Use when a page needs a specific shade not covered by the variant map (e.g. forest-green client tag vs lime success). */
+  solidBg?: string;
+  /** Override solid-mode text color. Defaults to white when solidBg is provided. */
+  solidText?: string;
   shape?: "rounded" | "pill";
   onRemove?: () => void;
   className?: string;
@@ -34,7 +38,7 @@ const solidColorMap: Record<BadgeVariant, { bg: string; text: string }> = {
   purple: { bg: "#8250FF", text: "#ffffff" },
 };
 
-export default function Badge({ children, variant = "gray", solid = false, shape = "rounded", onRemove, className, style: styleProp }: BadgeProps) {
+export default function Badge({ children, variant = "gray", solid = false, solidBg, solidText, shape = "rounded", onRemove, className, style: styleProp }: BadgeProps) {
   const borderRadius = shape === "pill" ? 9999 : 8;
   const isPill = shape === "pill";
 
@@ -47,6 +51,8 @@ export default function Badge({ children, variant = "gray", solid = false, shape
 
   if (solid) {
     const colors = solidColorMap[variant];
+    const bg = solidBg ?? colors.bg;
+    const text = solidText ?? (solidBg ? "#ffffff" : colors.text);
     return (
       <Tag
         bordered={false}
@@ -54,8 +60,8 @@ export default function Badge({ children, variant = "gray", solid = false, shape
         onClose={onRemove}
         className={className}
         style={{
-          backgroundColor: colors.bg,
-          color: colors.text,
+          backgroundColor: bg,
+          color: text,
           ...baseStyle,
         }}
       >

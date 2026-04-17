@@ -307,7 +307,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         {/* Client tags */}
         <Collapse title="Client tags" defaultOpen>
           <Flex wrap="wrap" gap={4}>
-            <Badge variant="green">Plan-managed</Badge>
+            <Badge variant="green" solid solidBg="rgb(106, 176, 76)">Plan-managed</Badge>
           </Flex>
         </Collapse>
 
