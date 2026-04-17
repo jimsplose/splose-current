@@ -228,7 +228,7 @@ tr.row-hover:hover { background-color: #f9fafb; }
 /* AntD table header background to match production */
 .ant-table-thead > tr > th,
 .ant-table-thead > tr > td {
-  background-color: #eaedf1 !important;
+  background-color: #f3f5f7 !important;
 }
 
 /* SearchBar: white search button to match production */

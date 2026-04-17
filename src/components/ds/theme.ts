@@ -81,7 +81,7 @@ export const sploseTheme: ThemeConfig = {
 
   components: {
     Table: {
-      headerBg: "#eaedf1",
+      headerBg: "#f3f5f7",
       headerColor: "#414549",
       rowHoverBg: "#f3f5f7",
       rowSelectedBg: "rgba(130, 80, 255, 0.05)",

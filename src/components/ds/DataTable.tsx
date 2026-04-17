@@ -117,8 +117,7 @@ export default function DataTable<T extends Record<string, unknown>>({
         onChange: pagination.onChange,
         showSizeChanger: pagination.showSizeChanger,
         pageSizeOptions: pagination.pageSizeOptions?.map(String),
-        showTotal: pagination.showTotal ?? ((total, range) => `${range[0]}-${range[1]} of ${total} items`),
-        size: "small",
+        showTotal: pagination.showTotal,
       } : undefined}
       rowSelection={rowSelection ? {
         type: "checkbox",
@@ -176,7 +175,7 @@ export function TableHead({ children }: { children: ReactNode }) {
 }
 /** @deprecated Use DataTableColumn instead */
 export function Th({ children, align = "left", className, hidden, sortable, sortDirection, onSort, style: styleProp }: { children?: ReactNode; align?: string; className?: string; hidden?: string; sortable?: boolean; sortDirection?: string | null; onSort?: () => void; filterable?: boolean; onFilter?: () => void; style?: React.CSSProperties }) {
-  return <th style={{ padding: "16px", textAlign: align as React.CSSProperties["textAlign"], fontSize: 14, fontWeight: 600, lineHeight: "22px", color: "rgb(65, 69, 73)", backgroundColor: "#eaedf1", ...styleProp }}>{children}</th>;
+  return <th style={{ padding: "16px", textAlign: align as React.CSSProperties["textAlign"], fontSize: 14, fontWeight: 600, lineHeight: "22px", color: "rgb(65, 69, 73)", backgroundColor: "#f3f5f7", ...styleProp }}>{children}</th>;
 }
 /** @deprecated Use DataTable with dataSource prop */
 export function TableBody({ children }: { children: ReactNode }) {

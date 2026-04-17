@@ -1,8 +1,1 @@
-/
-/clients
-/patient-form/1/view
-/reports/performance
-/settings/users/1
-/settings/services/edit/1
-/products
-/calendar
+src/app/settings/sms-settings/page.tsx

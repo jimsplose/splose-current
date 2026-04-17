@@ -53,8 +53,8 @@ Organized by page/feature. Each entry includes filename, route, state/variant, a
 
 | Filename | State | Match |
 |---|---|---|
-| screencapture-acme-splose-settings-smsSettings-2026-03-17-18_34_37.png | SMS settings default view | partial — sweep 2026-04-17 Session 5: sections are now all present (Recharge credits, SMS pricing, Two-way SMS) but structural gaps remain. Low-credit-balance + Automatic-recharge use Toggle (44×22 pill) instead of Checkbox (16×16 purple-filled). Recharge option cards are separate rounded pills (119×38) — production is a joined segmented control (107×100 tall, first-card-only left-rounded). SMS credit balance card is full-width 1051×103 — prod is inline 200×96. Inactive option border rgb(65,69,73) too dark vs prod rgb(217,217,217). See **S33**. |
-| screencapture-acme-splose-settings-smsSettings-2026-03-17-18_39_35.png | SMS settings alternate view | partial — see above (S33) |
+| screencapture-acme-splose-settings-smsSettings-2026-03-17-18_34_37.png | SMS settings default view | yes — fidelity fix 2026-04-17 Session 5: rebuilt structurally. Toggle→Checkbox (2 rows, purple-filled). Recharge options rebuilt as joined segmented control (107×100, first-rounded). Credit balance card inline 200×96 via DS Stat (new valueStyle prop) inside DS Card. Raw h2 → Text variant="heading/lg". Your number uses FormInput label prop. All measurements match prod. |
+| screencapture-acme-splose-settings-smsSettings-2026-03-17-18_39_35.png | SMS settings alternate view | yes — see above (S33 closed) |
 
 ## Settings — Forms / Form Templates (`/settings/templates/forms`)
 
