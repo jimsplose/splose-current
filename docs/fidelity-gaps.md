@@ -185,6 +185,17 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [x] **Missing AI sparkle button in header** — Fixed: Added sparkle icon button to header toolbar. Measurement-verified 2026-04-17.
 - [x] **Transcript panel not visible in split view** — Fixed: Split view now shows audio player + transcript panel (420px) with speaker lines. Measurement-verified 2026-04-17.
 
+### Group S31 — Online booking public page re-audit (`src/app/online-booking/`)
+Sweep 2026-04-17 measurement shows earlier Group AO "fixes" have drifted or were applied against outdated production. Production now renders with teal/mint theming, not purple.
+- [ ] **Select button wrong color (purple vs mint/teal)** — Localhost: bg rgb(106,57,228) purple, white text, no border, 74×32, 8px radius. Production: bg rgb(209,248,246) pale mint/teal, black text, 1px solid rgb(0,0,0) border, 100×40, 10px radius. This contradicts the earlier fix note that claimed `bg-[rgb(106,57,228)]` was correct — production now uses mint theming.
+- [ ] **Continue button size + styling** — Localhost: 92×38, bg rgb(249,250,251), 1px border rgb(217,217,217), 14px/400. Production: 281×44 (full width of summary card), bg rgba(0,0,0,0.25), 16px/600, white text, no border. Should be full-width disabled state and larger.
+- [ ] **Heading color** — Localhost: rgb(65,69,73). Production: rgb(16,24,40) near-black. Font size/weight already match at 36px/600.
+- [ ] **Location card border radius** — Localhost: 16px radius. Production: 0px (sharp corners). Earlier fix claimed 16px was correct — production has moved to 0px.
+- [ ] **Location "Tasks" label styling inside card** — Localhost: 14px/600/rgb(65,69,73) (inline with subtitle). Production: 18px/500/rgb(16,24,40) (stacked above subtitle). Font size, weight, color, and layout all differ.
+- [ ] **Book Now banner width/typography** — Localhost: 672px wide, 40px tall, 14px. Production: full content-width 1240px, 49px tall, 15px. Banner should stretch full main-column width.
+- [ ] **Body background white vs peach** — Localhost: rgb(255,255,255) white body. Production: subtle pale peach/cream page background tint. Add background tint.
+- [ ] **Location placeholder image renders fire emoji** — Localhost: dark square placeholder with fire emoji icon. Production: actual location image (100×100 horse image from Splose account). The "🔥" emoji reads as a broken placeholder; swap for a neutral building/pin icon.
+
 ### Group S29 — Invoice detail toolbar + sidebar (`src/app/invoices/[id]/page.tsx`)
 - [ ] **Toolbar action buttons render as plain text** — Pay, Email invoice, Actions on localhost are plain text (no border, transparent bg). Production renders each as bordered button: 1px solid rgb(65,69,73), 8px radius, white bg, rgb(65,69,73) text, 14px/400, 38px height. Widths: Pay 98px (with $ icon in rounded box on left + chevron), Email invoice 139px (with envelope icon), Actions (with chevron). Replace plain spans/anchors with DS Button variant outlined.
 - [ ] **Credit balance plain text, should be purple pill badge** — Production: span with bg rgb(85,120,255) (antd colorInfo), color white, font 12px/400, padding 0 7px, border-radius 8px, ~153×22. Localhost: plain text "Credit balance: $80.00" no styling. Use Badge variant="info" (or purple/blue solid) with the full "Credit balance: $X" string.
