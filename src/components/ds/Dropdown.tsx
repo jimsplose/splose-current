@@ -7,6 +7,7 @@ import type { MenuProps } from "antd";
 export interface DropdownItem {
   label: string;
   value: string;
+  icon?: React.ReactNode;
   danger?: boolean;
   divider?: boolean;
 }
@@ -33,6 +34,7 @@ function toMenuItems(items: DropdownItem[]): MenuProps["items"] {
     return {
       key: item.value,
       label: item.label,
+      icon: item.icon,
       danger: item.danger,
     };
   });

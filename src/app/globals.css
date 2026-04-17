@@ -236,7 +236,8 @@ tr.row-hover:hover { background-color: #f9fafb; }
 .ds-search-bar .ant-input-search-btn {
   background-color: #ffffff !important;
   color: rgba(0, 0, 0, 0.45) !important;
-  border-color: #e7e8e8 !important;
+  border-color: #414549 !important;
+  border-radius: 0 8px 8px 0 !important;
 }
 .ds-search-bar .ant-input-search-button:hover,
 .ds-search-bar .ant-input-search-btn:hover {

@@ -39,8 +39,8 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
       <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: '#fff', padding: '16px 24px' }}>
         <Flex align="center" gap={12}>
           <h1 className="text-display-lg">{form.title}</h1>
-          <Badge variant="green">{form.status}</Badge>
-          <Text variant="body/sm" as="span" color="primary" className="cursor-pointer">{form.clientName}</Text>
+          <Badge variant="blue" solid>{form.status}</Badge>
+          <Text variant="body/lg" as="span" style={{ fontSize: '18px', fontWeight: 400, color: 'rgb(65,69,73)' }}>{form.clientName}</Text>
         </Flex>
         <Flex align="center" gap={8}>
           <Button variant="secondary">
@@ -63,26 +63,26 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
             <div style={{ height: 48, width: 48, fontSize: 30 }}>🦆</div>
           </Flex>
 
-          <Text variant="body/sm" color="secondary" className="mb-6 italic">Not completed</Text>
+          <Text variant="body/md" color="secondary" className="mb-6" style={{ fontStyle: 'italic' }}>Not completed</Text>
 
           {/* Form sections */}
           {form.sections.map((section, si) => (
             <div key={si} className="mb-6">
-              <h3 className="mb-4 text-heading-lg text-text">{section.title}</h3>
+              <h3 className="mb-4 text-text" style={{ fontSize: '20px', fontWeight: 600 }}>{section.title}</h3>
               <Flex vertical gap={20}>
                 {section.fields.map((field, fi) => (
                   <div key={fi}>
-                    <p className="text-label-lg text-text">{field.label}</p>
+                    <p className="text-label-lg text-text" style={{ fontWeight: 500 }}>{field.label}</p>
                     {field.value ? (
                       field.type === "file" ? (
-                        <Text variant="body/sm" as="a" color="primary" className="cursor-pointer">
+                        <a href="#" className="cursor-pointer text-body-md" style={{ color: 'rgb(0,0,255)' }}>
                           {field.value}
-                        </Text>
+                        </a>
                       ) : (
                         <Text variant="body/sm" color="text">{field.value}</Text>
                       )
                     ) : (
-                      <Text variant="body/sm" color="secondary" className="italic" style={{ opacity: 0.6 }}>No response</Text>
+                      <Text variant="body/md" style={{ color: 'rgb(204,204,204)', fontStyle: 'italic' }}>No response</Text>
                     )}
                   </div>
                 ))}

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Flex } from "antd";
-import { Button, FormInput, FormSelect, Navbar, Collapse, Tab, Toggle, Modal, Card, Grid } from "@/components/ds";
+import { Button, FormInput, FormSelect, Tab, Toggle, Modal, Card, Grid, Divider, Text, Checkbox } from "@/components/ds";
 
 interface User {
   name: string;
@@ -31,15 +31,37 @@ const roleNameOptions = [
   { value: "Receptionist", label: "Receptionist" },
 ];
 
-const roleTypeOptions = [
-  { value: "Practitioner admin", label: "Practitioner admin" },
-  { value: "Practice manager", label: "Practice manager" },
-  { value: "Practitioner", label: "Practitioner" },
-  { value: "Receptionist", label: "Receptionist" },
+const titleOptions = [
+  { value: "", label: "Title" },
+  { value: "Mr", label: "Mr" },
+  { value: "Mrs", label: "Mrs" },
+  { value: "Ms", label: "Ms" },
+  { value: "Dr", label: "Dr" },
 ];
 
+const genderOptions = [
+  { value: "", label: "Gender" },
+  { value: "Male", label: "Male" },
+  { value: "Female", label: "Female" },
+  { value: "Non-binary", label: "Non-binary" },
+  { value: "Prefer not to say", label: "Prefer not to say" },
+];
+
+const dayOptions = [{ value: "", label: "Day" }, ...Array.from({ length: 31 }, (_, i) => ({ value: String(i + 1), label: String(i + 1) }))];
+const monthOptions = [{ value: "", label: "Month" }, ...["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"].map((m, i) => ({ value: String(i + 1), label: m }))];
+const yearOptions = [{ value: "", label: "Year" }, ...Array.from({ length: 80 }, (_, i) => ({ value: String(2026 - i), label: String(2026 - i) }))];
+
+const timezoneOptions = [
+  { value: "Australia/Adelaide", label: "(UTC+09:30) - Australia/Adelaide" },
+  { value: "Australia/Sydney", label: "(UTC+10:00) - Australia/Sydney" },
+  { value: "Australia/Brisbane", label: "(UTC+10:00) - Australia/Brisbane" },
+  { value: "Australia/Perth", label: "(UTC+08:00) - Australia/Perth" },
+];
+
+const locationsList = ["East Clinics", "Splose OT", "Ploc", "Tasks", "Sharon's", "One service only"];
+
 const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const HOURS = Array.from({ length: 12 }, (_, i) => i + 7); // 7am-6pm
+const HOURS = Array.from({ length: 12 }, (_, i) => i + 7);
 
 const defaultAvailability = [
   { day: "Mon", start: 9, end: 17 },
@@ -73,23 +95,33 @@ const applyToOptions = [
 export default function UserDetailClient({ id }: { id: string }) {
   const index = parseInt(id, 10) - 1;
   const user = users[index] || users[0];
+  const nameParts = user.name.split(" ");
 
   const [activeTab, setActiveTab] = useState("details");
-  const [name, setName] = useState(user.name);
+  const [firstName, setFirstName] = useState(nameParts[0] || "");
+  const [lastName, setLastName] = useState(nameParts.slice(1).join(" ") || "");
   const [roleName, setRoleName] = useState(user.roleName);
-  const [roleType, setRoleType] = useState(user.roleType);
   const [group, setGroup] = useState(user.group);
   const [editAvailOpen, setEditAvailOpen] = useState(false);
   const [editDay, setEditDay] = useState("Mon");
   const [editStart, setEditStart] = useState("9:00");
   const [editEnd, setEditEnd] = useState("17:00");
   const [editApplyTo, setEditApplyTo] = useState("date");
+  const [selectedLocations, setSelectedLocations] = useState<Set<string>>(new Set(["East Clinics"]));
+
+  const toggleLocation = (loc: string) => {
+    setSelectedLocations(prev => {
+      const next = new Set(prev);
+      if (next.has(loc)) next.delete(loc); else next.add(loc);
+      return next;
+    });
+  };
 
   return (
-    <div className="flex flex-col" style={{ minHeight: '100vh' }}>
-      <Navbar backHref="/settings/users" title={name || user.name}>
-        <Button variant="primary">Save changes</Button>
-      </Navbar>
+    <div style={{ minHeight: 'calc(100vh - 3rem)' }}>
+      <div style={{ padding: '24px 24px 0' }}>
+        <h1 className="text-display-lg">Account details</h1>
+      </div>
 
       <div className="border-b border-border px-6">
         <Tab items={tabs} value={activeTab} onChange={setActiveTab} />
@@ -97,30 +129,94 @@ export default function UserDetailClient({ id }: { id: string }) {
 
       <div className="flex-1 overflow-y-auto p-6">
         {activeTab === "details" && (
-          <Flex vertical gap={24} className="max-w-[672px]">
-            <Collapse title="Profile" defaultOpen>
-              <Flex vertical gap={16}>
-                <FormInput label="Name" value={name} onChange={(e) => setName(e.target.value)} />
-                <FormInput label="Email" type="email" defaultValue={user.email} disabled className="text-text-secondary" style={{ backgroundColor: '#f9fafb' }} />
-              </Flex>
-            </Collapse>
+          <div className="max-w-[672px]">
+            <Flex gap={16}>
+              {/* Profile photo */}
+              <Flex vertical gap={16} style={{ flex: 1 }}>
+                {/* Name row: Title | First name* | Last name* */}
+                <Grid cols={3} gap="md">
+                  <FormSelect label="Title" options={titleOptions} />
+                  <FormInput label="First name *" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                  <FormInput label="Last name *" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                </Grid>
 
-            <Collapse title="Role & Access" defaultOpen>
-              <Flex vertical gap={16}>
-                <FormSelect label="Role name" options={roleNameOptions} value={roleName} onChange={setRoleName} />
-                <FormSelect label="Role type" options={roleTypeOptions} value={roleType} onChange={setRoleType} />
-                <FormInput label="Group" value={group} onChange={(e) => setGroup(e.target.value)} />
-              </Flex>
-            </Collapse>
+                <FormSelect label="Gender" options={genderOptions} />
 
-            <Collapse title="Security" defaultOpen>
-              <Flex vertical gap={12}>
-                <Button variant="secondary">Reset password</Button>
-                <Button variant="secondary">Log out everywhere</Button>
-                <Button variant="danger">Deactivate account</Button>
+                <FormInput label="Email *" type="email" defaultValue={user.email} />
+
+                {/* Date of birth */}
+                <div>
+                  <Text variant="label/lg" as="label" color="text" className="mb-1 block">Date of birth</Text>
+                  <Grid cols={3} gap="sm">
+                    <FormSelect options={dayOptions} />
+                    <FormSelect options={monthOptions} />
+                    <FormSelect options={yearOptions} />
+                  </Grid>
+                </div>
+
+                {/* Phone numbers */}
+                <div>
+                  <Text variant="label/lg" as="label" color="text" className="mb-1 block">Phone numbers</Text>
+                  <Button variant="secondary" style={{ marginTop: 4 }}>+ Add new phone number</Button>
+                </div>
+
+                <FormInput label="Professional title (Occupational Therapist, Physiotherapist, etc.) *" defaultValue="Registered Physiotherapist" />
+
+                <FormInput label="Groups" defaultValue={group} />
               </Flex>
-            </Collapse>
-          </Flex>
+
+              {/* Profile photo placeholder */}
+              <div style={{ width: 200, flexShrink: 0, textAlign: 'center' }}>
+                <div style={{ width: 200, height: 200, borderRadius: 8, backgroundColor: 'var(--color-fill-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                  <Text variant="display/lg" color="secondary">Photo</Text>
+                </div>
+                <Button variant="secondary" style={{ marginTop: 12 }}>Upload</Button>
+              </div>
+            </Flex>
+
+            <Divider variant="primary" className="my-6" />
+
+            {/* Timezone */}
+            <div className="mb-6">
+              <Text variant="heading/lg" as="h2" className="mb-2">Timezone</Text>
+              <Text variant="body/md" color="secondary" className="mb-4">The timezone is used for calendar and time information on PDF downloads. The location timezone is recommended.</Text>
+              <Flex align="center" gap={8} className="mb-3">
+                <Checkbox checked />
+                <Text variant="body/md">Automatic timezone</Text>
+              </Flex>
+              <FormSelect options={timezoneOptions} defaultValue="Australia/Adelaide" />
+            </div>
+
+            <Divider variant="primary" className="my-6" />
+
+            {/* Account role */}
+            <div className="mb-6">
+              <Text variant="heading/lg" as="h2" className="mb-4">Account role</Text>
+              <FormSelect options={roleNameOptions} value={roleName} onChange={setRoleName} />
+            </div>
+
+            <Divider variant="primary" className="my-6" />
+
+            {/* Practitioner settings */}
+            <div className="mb-6">
+              <Text variant="heading/lg" as="h2" className="mb-4">Practitioner settings</Text>
+              <Text variant="label/lg" as="label" color="text" className="mb-2 block">Locations practitioner works at</Text>
+              <Flex vertical gap={8} className="mb-6">
+                {locationsList.map(loc => (
+                  <Flex key={loc} align="center" gap={8}>
+                    <Checkbox checked={selectedLocations.has(loc)} onChange={() => toggleLocation(loc)} />
+                    <Text variant="body/md">{loc}</Text>
+                  </Flex>
+                ))}
+              </Flex>
+            </div>
+
+            {/* Footer actions */}
+            <Flex align="center" gap={16} className="mt-8 mb-8">
+              <Button variant="primary">Save details</Button>
+              <Button variant="link">View user change log</Button>
+            </Flex>
+          </div>
         )}
 
         {activeTab === "availability" && (
@@ -130,7 +226,6 @@ export default function UserDetailClient({ id }: { id: string }) {
               <Button variant="secondary" onClick={() => setEditAvailOpen(true)}>Edit availability</Button>
             </Flex>
 
-            {/* Availability grid */}
             <div className="overflow-hidden" style={{ borderRadius: 8, border: '1px solid var(--color-border)' }}>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', borderBottom: '1px solid var(--color-border)' }}>
                 <div style={{ padding: 12 }} className="text-label-lg text-text">Time</div>

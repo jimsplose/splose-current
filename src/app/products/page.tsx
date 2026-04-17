@@ -1,7 +1,7 @@
 "use client";
 
 import { ListPage, Button, DataTable, Pagination, TableHead, Th, TableBody, Td, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Checkbox, Text, Grid, Divider } from "@/components/ds";
-import { PlusOutlined, MinusOutlined, MoreOutlined } from "@ant-design/icons";
+import { PlusOutlined, MinusOutlined, MoreOutlined, EditOutlined, CopyOutlined, HistoryOutlined, DeleteOutlined, AppstoreOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
 import Link from "next/link";
 import { useState, useMemo, useCallback, Fragment } from "react";
@@ -272,18 +272,20 @@ const mockProducts: Product[] = [
 ];
 
 const dropdownItems = [
-  { label: "Edit", value: "edit" },
-  { label: "Duplicate", value: "duplicate" },
+  { label: "Edit", value: "edit", icon: <EditOutlined /> },
+  { label: "Duplicate", value: "duplicate", icon: <CopyOutlined /> },
+  { label: "Change log", value: "change-log", icon: <HistoryOutlined /> },
   { label: "", value: "divider-1", divider: true },
-  { label: "Archive", value: "archive", danger: true },
+  { label: "Archive", value: "archive", danger: true, icon: <DeleteOutlined /> },
 ];
 
 const dropdownItemsWithStock = [
-  { label: "Edit", value: "edit" },
-  { label: "Manage stock", value: "manage-stock" },
-  { label: "Duplicate", value: "duplicate" },
+  { label: "Edit", value: "edit", icon: <EditOutlined /> },
+  { label: "Manage stock", value: "manage-stock", icon: <AppstoreOutlined /> },
+  { label: "Duplicate", value: "duplicate", icon: <CopyOutlined /> },
+  { label: "Change log", value: "change-log", icon: <HistoryOutlined /> },
   { label: "", value: "divider-1", divider: true },
-  { label: "Archive", value: "archive", danger: true },
+  { label: "Archive", value: "archive", danger: true, icon: <DeleteOutlined /> },
 ];
 
 type ProductForm = {

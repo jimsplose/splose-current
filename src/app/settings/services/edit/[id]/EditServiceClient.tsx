@@ -9,8 +9,9 @@ import {
   FormColorPicker,
   FormTextarea,
   Toggle,
-  Collapse,
-  Navbar,
+  Divider,
+  RadioGroup,
+  Text,
 } from "@/components/ds";
 
 interface ServiceData {
@@ -94,9 +95,15 @@ const reminderOptions = [
   { value: "1-week", label: "1 week before" },
 ];
 
+const forOptions = [
+  { value: "appointment", label: "Appointment" },
+  { value: "support-activity", label: "Support activity" },
+];
+
 export default function EditServiceClient({ id }: { id: string }) {
   const service = serviceData[id] || serviceData["1"];
 
+  const [serviceFor, setServiceFor] = useState("appointment");
   const [onlineBookingEnabled, setOnlineBookingEnabled] = useState(false);
   const [onlinePayment, setOnlinePayment] = useState(false);
   const [paymentRequired, setPaymentRequired] = useState("optional");
@@ -106,92 +113,112 @@ export default function EditServiceClient({ id }: { id: string }) {
   const [confirmationEmail, setConfirmationEmail] = useState(true);
 
   return (
-    <Flex vertical style={{ minHeight: '100vh' }}>
-      <Navbar backHref="/settings/services" title="Edit service">
-        <Button variant="primary">Save</Button>
-      </Navbar>
+    <div style={{ minHeight: 'calc(100vh - 3rem)' }}>
+      <div style={{ padding: '24px 24px 0' }}>
+        <h1 className="text-display-lg">Edit service</h1>
+      </div>
 
       <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
         <div style={{ maxWidth: 672 }}>
-          {/* General */}
-          <Collapse title="General" defaultOpen>
-            <Flex vertical gap={16}>
-              <FormInput label="Name" defaultValue={service.name} />
-              <FormSelect
-                label="Type"
-                options={serviceTypeOptions}
-                defaultValue={service.type}
-              />
-              <FormInput label="Item code" defaultValue={service.itemCode} />
-              <FormColorPicker
-                label="Color"
-                value={service.color}
-                onChange={() => {}}
-              />
-            </Flex>
-          </Collapse>
+          {/* For (Appointment / Support Activity) */}
+          <div className="mb-4">
+            <Text variant="label/lg" as="label" color="text" className="mb-2 block">For *</Text>
+            <RadioGroup
+              name="serviceFor"
+              value={serviceFor}
+              onChange={setServiceFor}
+              options={forOptions}
+            />
+          </div>
+
+          <FormInput label="Name *" defaultValue={service.name} />
+          <div className="mb-4" />
+          <FormSelect
+            label="Type *"
+            options={serviceTypeOptions}
+            defaultValue={service.type}
+          />
+          <div className="mb-4" />
+          <FormInput label="Item code" defaultValue={service.itemCode} />
+          <div className="mb-4" />
+          <FormInput label="Max number of clients" type="number" defaultValue="1" />
+          <div className="mb-4" />
+          <FormColorPicker
+            label="Color"
+            value={service.color}
+            onChange={() => {}}
+          />
+          <div className="mb-4" />
+          <FormTextarea label="Description" rows={3} placeholder="Enter a description for this service..." />
+
+          <Divider variant="primary" className="my-6" />
 
           {/* Pricing */}
-          <Collapse title="Pricing" defaultOpen>
-            <Flex vertical gap={16}>
-              <FormInput
-                label="Price"
-                type="number"
-                defaultValue={service.price}
-              />
-              <FormSelect
-                label="Rate"
-                options={rateOptions}
-                defaultValue={service.rate}
-              />
-              <FormInput
-                label="Duration (minutes)"
-                defaultValue={service.duration}
-              />
-            </Flex>
-          </Collapse>
+          <Text variant="heading/lg" as="h2" className="mb-4">Pricing</Text>
+          <FormInput
+            label="Price *"
+            type="number"
+            defaultValue={service.price}
+          />
+          <div className="mb-4" />
+          <FormSelect
+            label="Rate"
+            options={rateOptions}
+            defaultValue={service.rate}
+          />
+          <div className="mb-4" />
+          <FormInput
+            label="Duration (minutes) *"
+            defaultValue={service.duration}
+          />
+
+          <Divider variant="primary" className="my-6" />
 
           {/* Online booking */}
-          <Collapse title="Online booking" defaultOpen>
-            <div style={{ padding: '4px 0' }}>
-              <Toggle
-                checked={onlineBookingEnabled}
-                onChange={setOnlineBookingEnabled}
-                label="Enable online booking"
-              />
-            </div>
-          </Collapse>
+          <Text variant="heading/lg" as="h2" className="mb-4">Online booking</Text>
+          <Toggle
+            checked={onlineBookingEnabled}
+            onChange={setOnlineBookingEnabled}
+            label="Enable online booking"
+          />
+
+          <Divider variant="primary" className="my-6" />
 
           {/* Online payment */}
-          <Collapse title="Online payment">
-            <Flex vertical gap={16}>
-              <Toggle checked={onlinePayment} onChange={setOnlinePayment} label="Enable online payment" />
-              {onlinePayment && (
-                <FormSelect
-                  label="Payment requirement"
-                  value={paymentRequired}
-                  onChange={setPaymentRequired}
-                  options={[
-                    { value: "optional", label: "Optional — client can choose to pay" },
-                    { value: "required", label: "Required — must pay to confirm" },
-                    { value: "deposit", label: "Deposit — partial payment required" },
-                  ]}
-                />
-              )}
-            </Flex>
-          </Collapse>
+          <Text variant="heading/lg" as="h2" className="mb-4">Online payment</Text>
+          <Toggle checked={onlinePayment} onChange={setOnlinePayment} label="Enable online payment" />
+          {onlinePayment && (
+            <div className="mt-4">
+              <FormSelect
+                label="Payment requirement"
+                value={paymentRequired}
+                onChange={setPaymentRequired}
+                options={[
+                  { value: "optional", label: "Optional — client can choose to pay" },
+                  { value: "required", label: "Required — must pay to confirm" },
+                  { value: "deposit", label: "Deposit — partial payment required" },
+                ]}
+              />
+            </div>
+          )}
+
+          <Divider variant="primary" className="my-6" />
 
           {/* Appointment notifications */}
-          <Collapse title="Appointment notifications">
-            <Flex vertical gap={16}>
-              <Toggle checked={confirmationSms} onChange={setConfirmationSms} label="Send SMS confirmation" />
-              <Toggle checked={confirmationEmail} onChange={setConfirmationEmail} label="Send email confirmation" />
-              <FormSelect label="SMS reminder" value={smsReminder} onChange={setSmsReminder} options={reminderOptions} />
-              <FormSelect label="Email reminder" value={emailReminder} onChange={setEmailReminder} options={reminderOptions} />
-            </Flex>
-          </Collapse>
+          <Text variant="heading/lg" as="h2" className="mb-4">Appointment notifications</Text>
+          <Flex vertical gap={16}>
+            <Toggle checked={confirmationSms} onChange={setConfirmationSms} label="Send SMS confirmation" />
+            <Toggle checked={confirmationEmail} onChange={setConfirmationEmail} label="Send email confirmation" />
+            <FormSelect label="SMS reminder" value={smsReminder} onChange={setSmsReminder} options={reminderOptions} />
+            <FormSelect label="Email reminder" value={emailReminder} onChange={setEmailReminder} options={reminderOptions} />
+          </Flex>
+
+          {/* Footer actions */}
+          <Flex align="center" gap={16} className="mt-8 mb-8">
+            <Button variant="primary">Save</Button>
+          </Flex>
         </div>
       </div>
-    </Flex>
+    </div>
   );
 }

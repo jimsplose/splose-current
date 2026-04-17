@@ -194,7 +194,7 @@ function MessageItem({
       <div style={{ minWidth: 0, flex: 1 }}>
         <Flex align="baseline" gap={6}>
           <Text variant="body/md-strong" as="span" color="text">{message.sender}</Text>
-          <Text variant="caption/sm" as="span" color="text">{message.time}</Text>
+          <Text variant="caption/sm" as="span" color="text" style={{ fontSize: '9.8px' }}>{message.time}</Text>
           <Text variant="body/md" as="span" color="secondary" style={{ marginLeft: 'auto' }}>
             {expanded ? <DownOutlined style={{ fontSize: 14 }} /> : <RightOutlined style={{ fontSize: 14 }} />}
           </Text>
@@ -266,7 +266,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
       {/* Left column -- Messages (col1: wider) */}
       <Flex vertical style={{ flex: 1, overflow: 'hidden', borderRadius: 8, border: '1px solid var(--color-border)' }}>
         <div style={{ backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
-          <Text variant="label/lg" as="h2" color="text">Messages</Text>
+          <Text variant="label/lg" as="h2" color="text" style={{ fontWeight: 500 }}>Messages</Text>
         </div>
         <Divider spacing="none" />
 
@@ -286,7 +286,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                     <Text variant="body/md-strong" as="span" color="text">
                       {appt.practitioner.name}
                     </Text>
-                    <Text variant="caption/sm" as="span" color="text">{appt.startTime}</Text>
+                    <Text variant="caption/sm" as="span" color="text" style={{ fontSize: '9.8px' }}>{appt.startTime}</Text>
                   </Flex>
                   <Text variant="body/md" color="secondary" style={{ marginTop: 2 }}>
                     Appointment with {appt.client.firstName} {appt.client.lastName} -- {appt.type}
@@ -368,7 +368,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
         {/* Income card */}
         <Card padding="none" style={{ overflow: 'hidden' }}>
           <div style={{ backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
-            <Text variant="label/lg" as="h3" color="text">Income</Text>
+            <Text variant="label/lg" as="h3" color="text" style={{ fontWeight: 500 }}>Income</Text>
           </div>
           <Divider spacing="none" />
           <div style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 16 }}>
@@ -416,7 +416,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
         {/* Incomplete progress notes card */}
         <Card padding="none" style={{ overflow: 'hidden' }}>
           <div style={{ backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
-            <Text variant="label/lg" as="h3" color="text">Incomplete progress notes</Text>
+            <Text variant="label/lg" as="h3" color="text" style={{ fontWeight: 500 }}>Incomplete progress notes</Text>
           </div>
           <Divider spacing="none" />
           <div style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
@@ -454,7 +454,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
         {/* Recently submitted forms card */}
         <Card padding="none" style={{ overflow: 'hidden' }}>
           <div style={{ backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
-            <Text variant="label/lg" as="h3" color="text">Recently submitted forms</Text>
+            <Text variant="label/lg" as="h3" color="text" style={{ fontWeight: 500 }}>Recently submitted forms</Text>
           </div>
           <Divider spacing="none" />
           <div style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>

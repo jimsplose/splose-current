@@ -907,6 +907,14 @@ export default function CalendarView({
                 <CalendarOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
                 Appointment
               </Button>
+              <Button
+                variant="ghost"
+                style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
+                onClick={() => setPopover((prev) => ({ ...prev, visible: false }))}
+              >
+                <CheckOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
+                Availability
+              </Button>
             </div>
             <div className={styles.popoverArrow}>
               <div className={styles.popoverArrowShape} />
@@ -1302,15 +1310,15 @@ function AppointmentSidePanel({
       <div className={styles.sidePanelBackdrop} onClick={onClose} />
       <div className={styles.sidePanelFixed}>
         <div className={styles.sidePanelContent}>
-          <div className={styles.sidePanelHeader}>
+          <div className={styles.sidePanelHeader} style={{ backgroundColor: appt.practitionerColor, margin: -16, marginBottom: 0, padding: '12px 16px', borderRadius: '8px 8px 0 0' }}>
             <div className={styles.sidePanelTitle}>
-              <ColorDot color={appt.practitionerColor} size="sm" />
-              <span className="text-heading-sm text-text">
-                {appt.clientName} ({appt.type})
+              <ColorDot color="#fff" size="sm" />
+              <span className="text-heading-sm" style={{ color: '#fff' }}>
+                {appt.type}
               </span>
             </div>
-            <Button variant="icon" size="sm" onClick={onClose}>
-              <CloseOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
+            <Button variant="icon" size="sm" onClick={onClose} style={{ color: '#fff' }}>
+              <CloseOutlined style={{ fontSize: 16 }} />
             </Button>
           </div>
 
@@ -1326,14 +1334,11 @@ function AppointmentSidePanel({
             )}
             <Button variant="secondary" size="sm" onClick={onEdit}>Edit</Button>
             <Button variant="secondary" size="sm">Reschedule</Button>
-            <Button variant="danger" size="sm">Archive</Button>
+            <Button variant="secondary" size="sm">Archive</Button>
           </div>
 
           <div className={styles.changeLogLink}>
-            <Button variant="link">
-              <HistoryOutlined style={{ fontSize: 14 }} />
-              View change log
-            </Button>
+            <Button variant="link">View change log</Button>
           </div>
         </div>
       </div>
@@ -1372,7 +1377,10 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
       </div>
       <div className={styles.detailRow}>
         <div className={styles.statusDot} />
-        <span className="text-text-secondary">No status</span>
+        <Flex align="center" gap={4} style={{ cursor: 'pointer' }}>
+          <span className="text-text-secondary">No status</span>
+          <DownOutlined style={{ fontSize: 10, color: 'var(--color-text-secondary)' }} />
+        </Flex>
       </div>
       <div className={styles.detailRow}>
         <VideoCameraOutlined style={{ fontSize: 16, color: "var(--color-primary)", marginTop: 2 }} />
