@@ -117,7 +117,7 @@ export default function DataTable<T extends Record<string, unknown>>({
         onChange: pagination.onChange,
         showSizeChanger: pagination.showSizeChanger,
         pageSizeOptions: pagination.pageSizeOptions?.map(String),
-        showTotal: pagination.showTotal,
+        showTotal: pagination.showTotal ?? ((total, range) => `${range[0]}-${range[1]} of ${total} items`),
       } : undefined}
       rowSelection={rowSelection ? {
         type: "checkbox",

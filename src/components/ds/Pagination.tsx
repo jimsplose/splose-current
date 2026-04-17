@@ -10,6 +10,7 @@ interface PaginationProps {
   showPageSize?: boolean;
   showTotal?: boolean;
   size?: "small" | "default";
+  totalLabel?: string;
   onPageChange?: (page: number) => void;
   pageSizeOptions?: number[];
   onPageSizeChange?: (size: number) => void;
@@ -21,8 +22,9 @@ export default function Pagination({
   totalItems,
   itemsPerPage = 10,
   showPageSize = true,
-  showTotal = false,
+  showTotal = true,
   size = "default",
+  totalLabel = "items",
   onPageChange,
   pageSizeOptions,
   onPageSizeChange,
@@ -39,7 +41,7 @@ export default function Pagination({
         onShowSizeChange={(_current, size) => onPageSizeChange?.(size)}
         showSizeChanger={showPageSize && !!pageSizeOptions}
         pageSizeOptions={pageSizeOptions?.map(String)}
-        showTotal={showTotal ? (total, range) => `${range[0]}-${range[1]} of ${total} items` : undefined}
+        showTotal={showTotal ? (total, range) => `${range[0]}-${range[1]} of ${total} ${totalLabel}` : undefined}
         size={size === "small" ? "small" : undefined}
       />
     </div>
