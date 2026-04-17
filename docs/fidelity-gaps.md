@@ -84,12 +84,12 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [x] **Active item background** — Fixed: SideNav.module.css `.linkActive` bg changed from rgba(0,0,0,0.04) to transparent. Measurement-verified 2026-04-14.
 
 ### Group S19 — Dashboard card heading fontWeight + message timestamp (`src/app/DashboardClient.tsx`)
-- [ ] **Card heading fontWeight mismatch** — Production "Messages"/"Income"/"Incomplete progress notes" headings are 14px/500, localhost is 14px/600. Change fontWeight to 500 on dashboard card headings.
-- [ ] **Message timestamp fontSize mismatch** — Production message time is 9.8px, localhost is 11px. Adjust timestamp font size to match production.
+- [x] **Card heading fontWeight mismatch** — Fixed: fontWeight 600→500 on all dashboard card headings via inline style. Measurement-verified 2026-04-17.
+- [x] **Message timestamp fontSize mismatch** — Fixed: fontSize 11px→9.8px on message timestamps. Measurement-verified 2026-04-17.
 
 ### Group S20 — ListPage search button border styling (`src/components/ds/SearchBar.tsx` or `globals.css`)
-- [ ] **Search button border color mismatch** — Production: 1px solid rgb(65,69,73), localhost: 1px solid rgb(231,232,232). Affects all ListPages (Clients, Contacts, Invoices, Payments, Waitlist, Products).
-- [ ] **Search button borderRadius mismatch** — Production: 0px 8px 8px 0px, localhost: 0px 12px 12px 0px. Change from 12px to 8px.
+- [x] **Search button border color mismatch** — Fixed: border-color #e7e8e8→#414549 in globals.css. Measurement-verified 2026-04-17: rgb(65,69,73) exact match.
+- [x] **Search button borderRadius mismatch** — Fixed: border-radius 12px→8px in globals.css. Measurement-verified 2026-04-17: 0px 8px 8px 0px exact match.
 
 ### Group S21 — Client detail sidebar styling (`src/app/clients/[id]/layout.tsx`, `src/components/ds/SideNav.tsx`)
 - [x] **Sidebar active item background missing** — Fixed: SideNav.module.css `.linkActive` bg changed from transparent to `rgb(237, 229, 255)`. Measurement-verified 2026-04-16: exact match.
@@ -116,7 +116,7 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [x] **Banner extra text** — Fixed: removed "or book a time to chat" text. Measurement-verified 2026-04-16: only "Fill a short survey." present.
 
 ### Group M1 — Dropdown items missing icons (systemic, `src/components/ds/Dropdown.tsx`)
-- [ ] **Dropdown items lack icons** — Production dropdowns (Invoice Actions, Invoice Pay, Settings row actions) show icons next to each item (pencil for Edit, copy for Duplicate, trash for Delete, etc.). Localhost dropdowns render text-only with no icons. This is systemic across all Dropdown usages in the app. The DS Dropdown component or its item configuration needs icon support.
+- [x] **Dropdown items lack icons** — Fixed: Added `icon` prop to DropdownItem interface and toMenuItems. Updated dropdown-presets.tsx with EditOutlined/CopyOutlined/HistoryOutlined/DeleteOutlined icons. Products page dropdowns also updated. Verified 2026-04-17.
 - [ ] **Dropdown item dividers** — Localhost shows thin gray separator lines between dropdown items. Production does not have dividers between regular items (only before destructive items). Remove non-destructive dividers.
 - [ ] **Dropdown text color too light** — Localhost dropdown item text appears lighter/grayer than production's darker text color.
 
@@ -128,16 +128,16 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [x] **Location required asterisk missing** — Fixed: "Location *". Verified 2026-04-17.
 
 ### Group M3 — Calendar create popover missing option (`src/app/calendar/`)
-- [ ] **"Availability" option missing** — Production click-to-create popover shows 4 options: Support activity, Busy time, Appointment, Availability. Localhost only shows 3 (missing Availability).
+- [x] **"Availability" option missing** — Fixed: Added 4th "Availability" option with CheckOutlined icon to calendar popover. Verified 2026-04-17.
 
 ### Group M4 — Appointment side panel (`src/app/calendar/AppointmentSidePanel.tsx`)
-- [ ] **Missing colored title bar** — Production side panel has a colored header bar at the top with appointment color dot + service name (e.g. "Copy of 1:1 Consultation (1:1 Consultation)") + X close button. Localhost starts directly with the first data row (practitioner at location), no colored header.
-- [ ] **Archive button styling** — Production "Archive" button uses muted gray style (lighter border/text). Localhost renders it with red border/text (destructive style). Production treats it as a soft action, not destructive red.
-- [ ] **View change log styling** — Production "View change log" is a left-aligned plain purple text link. Localhost centers it and adds a clock icon prefix.
-- [ ] **Status dropdown missing** — Production "No status" row has a dropdown chevron for changing status. Localhost shows plain "No status" text with gray dot, no interactive chevron.
+- [x] **Missing colored title bar** — Fixed: Header now uses practitioner color as background with white text/icons. Verified 2026-04-17.
+- [x] **Archive button styling** — Fixed: Changed from variant="danger" to variant="secondary". Verified 2026-04-17.
+- [x] **View change log styling** — Fixed: Removed HistoryOutlined icon prefix, changed CSS text-align from center to left. Verified 2026-04-17.
+- [x] **Status dropdown missing** — Fixed: Added DownOutlined chevron next to "No status" text with cursor pointer. Verified 2026-04-17.
 
 ### Group M5 — Products dropdown missing "Change log" (`src/app/products/`)
-- [ ] **Missing "Change log" menu item** — Production product row dropdown shows: Edit, Duplicate, Change log, Archive. Localhost only shows: Edit, Duplicate, Archive. Missing "Change log" option.
+- [x] **Missing "Change log" menu item** — Fixed: Added "Change log" with HistoryOutlined icon to both dropdownItems and dropdownItemsWithStock. Verified 2026-04-17.
 
 ### Group M6 — Settings edit modals form differences (systemic, `useFormModal` pattern)
 - [x] **Missing required asterisks** — Fixed: "Name *" added to 15 settings modal pages. Verified 2026-04-17.
@@ -147,17 +147,17 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [x] **Submit button text** — Fixed: "Edit"/"Create" contextual text on all 16 settings pages. Verified 2026-04-17.
 
 ### Group P1 — Settings edit pages systemic layout mismatch (all edit/detail pages)
-- [ ] **Flat vs collapsible sections** — Production edit pages (Edit service, User details, etc.) use flat form layouts with all fields visible. Localhost uses collapsible sections (General, Pricing, Profile, Role & Access, Security). Match production's flat layout.
-- [ ] **Title pattern mismatch** — Production uses generic titles ("Account details", "Edit service"). Localhost shows entity names with back arrow ("← Nicholas Smithson", "← Edit service"). Match production's title pattern.
-- [ ] **Missing Cancel button** — Production edit pages show Cancel + Save. Localhost shows only Save (or "Save changes"). Add Cancel button.
-- [ ] **Missing required asterisks** — Systemic across all edit/detail forms. Same as M6.
-- [ ] **Field granularity** — Production has granular fields (Title/First/Last name as 3 inputs, separate DOB Day/Month/Year dropdowns). Localhost consolidates them (single Name field). Match production's field structure.
-- [ ] **Missing fields — Edit service** — Localhost missing: "For" radio (Appointment/Support Activity), "Max number of clients", "Description" in visible area. Different field order.
-- [ ] **Missing fields — User details** — Localhost missing: Gender, Date of birth, Phone numbers, Professional title, Profile photo upload area. Has Role name/Role type not visible on production above fold.
+- [x] **Flat vs collapsible sections** — Fixed: Replaced Collapse components with flat form layout + green Divider sections on both User details and Edit service pages. Verified 2026-04-17.
+- [x] **Title pattern mismatch** — Fixed: User details shows "Account details", Edit service shows "Edit service" — both as inline PageHeader-style h1 without Navbar/back arrow. Verified 2026-04-17.
+- [x] **Missing Cancel button** — Investigated: Production actually uses "Save details" only (no Cancel button visible). Localhost now matches with just "Save" / "Save details". Verified 2026-04-17.
+- [x] **Missing required asterisks** — Fixed: Added asterisks to Name*, Type*, Price*, Duration*, First name*, Last name*, Email*, Professional title* fields. Verified 2026-04-17.
+- [x] **Field granularity** — Fixed: User details now has Title/First name/Last name as 3-column layout, separate Day/Month/Year DOB dropdowns. Verified 2026-04-17.
+- [x] **Missing fields — Edit service** — Fixed: Added "For" radio (Appointment/Support Activity), "Max number of clients", "Description" textarea. Verified 2026-04-17.
+- [x] **Missing fields — User details** — Fixed: Added Gender dropdown, DOB (Day/Month/Year), Phone numbers section, Professional title field, Profile photo placeholder with Upload button, Timezone section, Account role, Practitioner settings with location checkboxes. Verified 2026-04-17.
 
 ### Group M7 — Reports Definitions modal (`src/app/reports/performance/page.tsx`)
-- [ ] **Modal doesn't open** — The "Definitions" button exists on both but clicking it on localhost does not open the modal. Production shows a large 2-column overlay with metric definitions. Localhost's click handler may not be connected.
-- [ ] **Missing "Change log" menu item** — Production product row dropdown shows: Edit, Duplicate, Change log, Archive. Localhost only shows: Edit, Duplicate, Archive. Missing "Change log" option.
+- [x] **Modal doesn't open** — Already working: DOM confirms modal renders with visible state and correct title "Performance metric definitions". Verified via JS measurement 2026-04-17.
+- [x] **Missing "Change log" menu item** — Fixed via M5 (products page). Duplicate entry — same fix covers both. Verified 2026-04-17.
 
 ### Group S25 — Settings/SMS missing sections (`src/app/settings/sms-settings/page.tsx`)
 - [x] **Low credit balance email reminder section** — Fixed: added Toggle + description + threshold input (100). Visually verified 2026-04-16.
@@ -166,14 +166,14 @@ Cross-cutting issues affecting multiple pages. Fix these first for maximum impac
 - [x] **Remove header Save button** — Fixed: removed Save from PageHeader, now inline in auto-recharge section only. Visually verified 2026-04-16.
 
 ### Group S28 — Patient form view typography (`src/app/patient-form/[id]/view/page.tsx`)
-- [ ] **"In progress" badge wrong color** — Production uses BLUE filled badge (rgb(85,120,255) bg, white text). Localhost uses GREEN outlined badge (green text, light green bg). Badge `statusVariant` mapping for "In progress" needs to output blue, not green.
-- [ ] **Content font sizes too small** — File links, "No response" placeholders, and "Not completed" text all render at 12px on localhost vs 14px on production. Increase to 14px.
-- [ ] **Client name in title bar** — Production: 18px/400/rgb(65,69,73) gray. Localhost: 12px/400/purple. Match production size and color.
-- [ ] **"Not completed" should be italic** — Production renders in italic, localhost does not.
-- [ ] **Section title size/weight** — Production: 20px/600. Localhost: 18px/700. Adjust to match.
-- [ ] **Field label fontWeight** — Production: 500. Localhost: 600. Reduce to 500.
-- [ ] **File link color** — Production: native blue rgb(0,0,255). Localhost: purple rgb(130,80,255). Change to blue or verify if production uses colorLink.
-- [ ] **"No response" color** — Production: rgb(204,204,204) light gray. Localhost: rgb(110,110,100) darker. Lighten to match.
+- [x] **"In progress" badge wrong color** — Fixed: Changed Badge from variant="green" to variant="blue" solid. Verified 2026-04-17.
+- [x] **Content font sizes too small** — Fixed: Changed body/sm (12px) to body/md (14px) for "Not completed", file links, and "No response". Measurement-verified 2026-04-17: all 14px.
+- [x] **Client name in title bar** — Fixed: Changed from body/sm purple to 18px/400/rgb(65,69,73) gray. Measurement-verified 2026-04-17.
+- [x] **"Not completed" should be italic** — Fixed: Added fontStyle: 'italic' inline style. Verified 2026-04-17.
+- [x] **Section title size/weight** — Fixed: Changed from text-heading-lg (18px/700) to 20px/600 inline. Measurement-verified 2026-04-17.
+- [x] **Field label fontWeight** — Fixed: Added fontWeight: 500 inline override on label-lg elements. Measurement-verified 2026-04-17.
+- [x] **File link color** — Fixed: Changed from color="primary" (purple) to rgb(0,0,255) blue. Measurement-verified 2026-04-17.
+- [x] **"No response" color** — Fixed: Changed to rgb(204,204,204) with italic. Measurement-verified 2026-04-17.
 
 ### Group S27 — Notes edit page styling (`src/app/notes/[id]/edit/page.tsx`, `src/components/ds/Navbar.tsx`)
 - [x] **"Save as final" button color** — Fixed: Purple split button with dropdown arrow (borderRadius 8px 0 0 8px). Measurement-verified 2026-04-17.

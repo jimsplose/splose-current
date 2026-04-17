@@ -1,5 +1,8 @@
-/settings/sms-settings
-/settings/integrations
-/invoices/batch-invoice/[id]
-/notes/[id]/edit
+/
+/clients
+/patient-form/1/view
+/reports/performance
+/settings/users/1
+/settings/services/edit/1
+/products
 /calendar
