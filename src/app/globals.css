@@ -244,3 +244,8 @@ tr.row-hover:hover { background-color: #f9fafb; }
   color: rgba(0, 0, 0, 0.88) !important;
   border-color: #414549 !important;
 }
+
+/* AntD Tabs: active tab fontWeight 700 to match production */
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  font-weight: 700;
+}

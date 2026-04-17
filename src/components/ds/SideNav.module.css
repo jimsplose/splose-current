@@ -44,21 +44,8 @@
 }
 
 .linkActive {
-  background-color: rgb(237, 229, 255);
   font-weight: 600;
   color: rgb(0, 0, 0);
-  position: relative;
-}
-
-.linkActive::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 5px;
-  background-color: var(--color-primary);
-  border-radius: 0 8px 8px 0;
 }
 
 .badge {

@@ -34,10 +34,10 @@
 }
 
 .navLink {
+  position: relative;
   display: flex;
   height: 100%;
   align-items: center;
-  border-top: 2px solid transparent;
   padding: 0 15px;
   font-size: 14px;
   line-height: 56px;
@@ -48,23 +48,37 @@
   text-decoration: none;
 }
 
+.navLink::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 15px;
+  right: 15px;
+  height: 3px;
+  background-color: transparent;
+  transition: background-color 0.2s;
+}
+
 .navLink:hover {
   color: var(--color-primary);
 }
 
 .navLinkActive {
-  border-top-color: var(--color-primary);
   font-weight: 600;
   color: var(--color-primary);
 }
 
+.navLinkActive::before {
+  background-color: var(--color-primary);
+}
+
 .moreButton {
+  position: relative;
   display: flex;
   height: 100%;
   align-items: center;
   gap: 4px;
   border: none;
-  border-top: 2px solid transparent;
   padding: 0 15px;
   font-size: 14px;
   line-height: 56px;
@@ -74,14 +88,28 @@
   cursor: pointer;
 }
 
+.moreButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 15px;
+  right: 15px;
+  height: 3px;
+  background-color: transparent;
+  transition: background-color 0.2s;
+}
+
 .moreButton:hover {
   color: var(--color-primary);
 }
 
 .moreButtonActive {
-  border-top-color: var(--color-primary);
   font-weight: 600;
   color: var(--color-primary);
+}
+
+.moreButtonActive::before {
+  background-color: var(--color-primary);
 }
 
 .moreDropdown {
