@@ -217,11 +217,13 @@ Sweep 2026-04-17 measurement shows earlier Group AO "fixes" have drifted or were
 - [x] **Missing action buttons** — Fixed: "Mark as Sent" + "Email invoices" buttons added. Measurement-verified 2026-04-17.
 - [x] **Title format mismatch** — Fixed: "Batch invoice" (30px green) + "BATCH-001" (18px gray) as separate spans. Measurement-verified 2026-04-17.
 - [x] **Summary text content** — Fixed: "This batch contains N invoices totalling X AUD." Measurement-verified 2026-04-17.
+- [ ] **Summary text font size + color** — Re-audit 2026-04-17: localhost renders summary at 16px/rgb(0,0,0) (uses `text-body-md` class) — prod is 15px/rgb(65,69,73). Change to inline `fontSize: 15` + already-present `color: "rgb(65, 69, 73)"`, or swap to a DS Text variant that hits 15px/secondary.
 - [x] **Badge "Draft" style** — Fixed: Badge solid variant (white text on gray bg). Measurement-verified 2026-04-17.
 - [x] **Th background color** — Fixed: rgb(243,245,247) via style override. Measurement-verified 2026-04-17.
 - [x] **Invoice link fontWeight** — Fixed: 400. Measurement-verified 2026-04-17.
 - [x] **Row border-bottom missing** — Fixed: 1px solid rgb(240,240,240). Measurement-verified 2026-04-17.
 - [x] **Pagination missing** — Fixed: AntD Pagination with "10 / page" selector. Measurement-verified 2026-04-17.
+- [ ] **Pagination size + showTotal (SYSTEMIC — affects 30+ pages)** — Re-audit 2026-04-17: DS `Pagination.tsx` hardcodes `size="small"` and `showTotal={(total, range) => \`${range[0]}-${range[1]} of ${total} items\`}`. Prod uses default-size antd pagination full-width (2515x38, items=4, no showTotal text). Localhost renders `ant-pagination-small` at 285x29 right-aligned with extra "1-3 of 3 items" showTotal. Fix: remove hardcoded `size="small"` (use default) and remove `showTotal` (or make both optional props). Verify across: products, invoices, clients list, contacts, payments, waitlist, 10+ settings list pages, 6+ client sub-tabs.
 - [x] **Table container** — Fixed: flat layout (removed FormPage card wrapper). Measurement-verified 2026-04-17.
 
 ## Priority 1 — High-traffic pages
