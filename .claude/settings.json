@@ -5,10 +5,6 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo 'MANDATORY: Before responding to the user, print the available workflow commands from CLAUDE.md Session Start section. Do NOT skip this step.'"
-          },
-          {
-            "type": "command",
             "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh"
           }
         ]
