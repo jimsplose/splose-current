@@ -6,6 +6,7 @@ import { Flex } from "antd";
 import { UploadOutlined, LinkOutlined, CopyOutlined } from "@ant-design/icons";
 import {
   Button,
+  Card,
   FormInput,
   FormSelect,
   FormTextarea,
@@ -104,12 +105,14 @@ export default function EditOnlineBookingPage() {
               {brandingMode === "logo" && (
                 <div>
                   <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 8 }}>Logo / Header image</label>
-                  <Flex align="center" justify="center" style={{ height: 128, borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)' }}>
-                    <div style={{ textAlign: 'center' }}>
-                      <UploadOutlined style={{ fontSize: 24, display: 'block', margin: '0 auto 4px', color: 'var(--color-text-secondary)' }} />
-                      <span className="text-caption-md text-text-secondary">Click or drag to upload</span>
-                    </div>
-                  </Flex>
+                  <Card variant="dashed" tint="muted" padding="none">
+                    <Flex align="center" justify="center" style={{ height: 128 }}>
+                      <div style={{ textAlign: 'center' }}>
+                        <UploadOutlined style={{ fontSize: 24, display: 'block', margin: '0 auto 4px', color: 'var(--color-text-secondary)' }} />
+                        <span className="text-caption-md text-text-secondary">Click or drag to upload</span>
+                      </div>
+                    </Flex>
+                  </Card>
                 </div>
               )}
             </Flex>
@@ -143,7 +146,7 @@ export default function EditOnlineBookingPage() {
             </Flex>
 
             {/* Button preview */}
-            <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', padding: 16 }}>
+            <Card>
               <h3 className="text-heading-sm text-text" style={{ marginBottom: 12 }}>Preview</h3>
               <Flex align="center" gap={12}>
                 <button style={{ borderRadius: 8, padding: '10px 24px', color: 'white', backgroundColor: buttonColor }} className="text-label-lg">
@@ -153,7 +156,7 @@ export default function EditOnlineBookingPage() {
                   {buttonText}
                 </button>
               </Flex>
-            </div>
+            </Card>
 
             {/* Important notice banner */}
             <Flex vertical gap={12}>
@@ -313,9 +316,9 @@ export default function EditOnlineBookingPage() {
               <h3 className="text-heading-md text-text" style={{ marginBottom: 8 }}>Shareable link</h3>
               <p className="text-body-md text-text-secondary" style={{ marginBottom: 12 }}>Share this link with your clients to allow them to book online.</p>
               <Flex align="center" gap={8}>
-                <div style={{ flex: 1, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '10px 16px' }}>
+                <Card tint="muted" padding="sm" style={{ flex: 1 }}>
                   <span className="text-body-md text-primary" style={{ wordBreak: 'break-all' }}>{shareUrl}</span>
-                </div>
+                </Card>
                 <Button variant="secondary" onClick={() => navigator.clipboard?.writeText(shareUrl)}>
                   <CopyOutlined style={{ fontSize: 16 }} /> Copy
                 </Button>
@@ -360,7 +363,7 @@ export default function EditOnlineBookingPage() {
               Close
             </Button>
           </Flex>
-          <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
+          <Card shadow padding="none">
             <div style={{ padding: 20 }}>
               <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Select a location</h2>
               <Flex vertical gap={8}>
@@ -396,7 +399,7 @@ export default function EditOnlineBookingPage() {
             <div style={{ borderTop: '1px solid var(--color-border)', padding: '12px 20px', textAlign: 'center' }} className="text-caption-md text-text-secondary">
               Powered by <Text variant="label/lg" as="span" color="primary">splose</Text>
             </div>
-          </div>
+          </Card>
         </div>
       )}
       </Flex>

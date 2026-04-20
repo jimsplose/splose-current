@@ -5,6 +5,7 @@ import { Flex } from "antd";
 import { UploadOutlined, MessageOutlined, ReadOutlined, FileExcelOutlined, DatabaseOutlined, CheckCircleOutlined, WarningOutlined, ArrowLeftOutlined, ArrowRightOutlined, FileTextOutlined } from "@ant-design/icons";
 import {
   Button,
+  Card,
   DataTable,
   TableHead,
   Th,
@@ -115,21 +116,23 @@ export default function DataImportPage() {
   return (
     <div style={{ padding: 24 }}>
       {/* Concierge data import banner */}
-      <Flex align="flex-start" gap={16} style={{ marginBottom: 32, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: 24 }}>
-        <div style={{ flexShrink: 0, fontSize: '2.25rem' }}><span role="img" aria-label="folder">📂</span></div>
-        <div>
-          <Text variant="heading/lg" style={{ marginBottom: 4 }}>Concierge data import</Text>
-          <Text variant="body/md" color="secondary" style={{ marginBottom: 12 }}>Data importing is complicated. Chat with us to schedule a data import.</Text>
-          <Flex align="center" gap={16}>
-            <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }} className="text-label-lg text-text">
-              <MessageOutlined style={{ fontSize: 16 }} /> Chat with us
-            </a>
-            <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }} className="text-label-lg text-text">
-              <ReadOutlined style={{ fontSize: 16 }} /> Help guide
-            </a>
-          </Flex>
-        </div>
-      </Flex>
+      <Card tint="muted" padding={24} style={{ marginBottom: 32 }}>
+        <Flex align="flex-start" gap={16}>
+          <div style={{ flexShrink: 0, fontSize: '2.25rem' }}><span role="img" aria-label="folder">📂</span></div>
+          <div>
+            <Text variant="heading/lg" style={{ marginBottom: 4 }}>Concierge data import</Text>
+            <Text variant="body/md" color="secondary" style={{ marginBottom: 12 }}>Data importing is complicated. Chat with us to schedule a data import.</Text>
+            <Flex align="center" gap={16}>
+              <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }} className="text-label-lg text-text">
+                <MessageOutlined style={{ fontSize: 16 }} /> Chat with us
+              </a>
+              <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }} className="text-label-lg text-text">
+                <ReadOutlined style={{ fontSize: 16 }} /> Help guide
+              </a>
+            </Flex>
+          </div>
+        </Flex>
+      </Card>
 
       <PageHeader title="Import data">
         <Button variant="primary" onClick={startImportFlow}>
@@ -188,33 +191,39 @@ export default function DataImportPage() {
       >
         {importStep === "source" && (
           <Grid cols={2} gap="md">
-            <button type="button" onClick={handleImportNext} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', padding: 24, textAlign: 'center', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}>
-              <FileExcelOutlined style={{ fontSize: 40, color: 'var(--color-primary)' }} />
-              <div>
-                <Text variant="label/lg">CSV</Text>
-                <Text variant="body/sm" color="secondary" style={{ marginTop: 4 }}>Import clients, contacts, or appointments from a CSV file</Text>
+            <Card interactive onClick={handleImportNext} padding={24}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, textAlign: 'center' }}>
+                <FileExcelOutlined style={{ fontSize: 40, color: 'var(--color-primary)' }} />
+                <div>
+                  <Text variant="label/lg">CSV</Text>
+                  <Text variant="body/sm" color="secondary" style={{ marginTop: 4 }}>Import clients, contacts, or appointments from a CSV file</Text>
+                </div>
               </div>
-            </button>
-            <button type="button" onClick={handleImportNext} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', padding: 24, textAlign: 'center', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}>
-              <DatabaseOutlined style={{ fontSize: 40, color: 'var(--color-primary)' }} />
-              <div>
-                <Text variant="label/lg">Cliniko</Text>
-                <Text variant="body/sm" color="secondary" style={{ marginTop: 4 }}>Migrate your data from Cliniko</Text>
+            </Card>
+            <Card interactive onClick={handleImportNext} padding={24}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, textAlign: 'center' }}>
+                <DatabaseOutlined style={{ fontSize: 40, color: 'var(--color-primary)' }} />
+                <div>
+                  <Text variant="label/lg">Cliniko</Text>
+                  <Text variant="body/sm" color="secondary" style={{ marginTop: 4 }}>Migrate your data from Cliniko</Text>
+                </div>
               </div>
-            </button>
+            </Card>
           </Grid>
         )}
 
         {importStep === "upload" && (
           <Flex vertical gap={16}>
             <FormSelect label="Import type" options={[{ value: "clients", label: "Clients" }, { value: "contacts", label: "Contacts" }, { value: "appointments", label: "Appointments" }]} defaultValue="clients" />
-            <Flex vertical align="center" gap={12} style={{ borderRadius: 8, border: '2px dashed var(--color-border)', padding: 40, textAlign: 'center', transition: 'all 0.2s' }}>
-              <UploadOutlined style={{ fontSize: 40, color: 'var(--color-text-secondary)' }} />
-              <div>
-                <p className="text-body-md text-text">Drag and drop your CSV file here</p>
-                <p className="text-body-sm text-text-secondary">or click to browse</p>
-              </div>
-            </Flex>
+            <Card variant="dashed" padding={40}>
+              <Flex vertical align="center" gap={12} style={{ textAlign: 'center' }}>
+                <UploadOutlined style={{ fontSize: 40, color: 'var(--color-text-secondary)' }} />
+                <div>
+                  <p className="text-body-md text-text">Drag and drop your CSV file here</p>
+                  <p className="text-body-sm text-text-secondary">or click to browse</p>
+                </div>
+              </Flex>
+            </Card>
             <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: '#f0fdf4', padding: '8px 12px' }}>
               <FileTextOutlined style={{ fontSize: 16, color: '#16a34a' }} />
               <span className="text-body-sm" style={{ color: '#15803d' }}>client_export_march_2026.csv</span>

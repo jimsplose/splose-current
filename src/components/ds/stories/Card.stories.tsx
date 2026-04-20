@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import Card from "../Card";
+import { FileTextOutlined, DatabaseOutlined } from "@ant-design/icons";
+import Card, { type CardProps } from "../Card";
 import Avatar from "../Avatar";
 import Badge, { statusVariant } from "../Badge";
 import Button from "../Button";
@@ -23,6 +24,20 @@ const meta: Meta<typeof Card> = {
     title: {
       control: "text",
       description: "Optional card title (rendered as h3)",
+    },
+    tint: {
+      control: "select",
+      options: ["default", "subtle", "muted"],
+      description: "Background tint: default=transparent, subtle=fill-secondary, muted=fill-tertiary",
+    },
+    variant: {
+      control: "select",
+      options: ["default", "dashed"],
+      description: "Border style: default=1px solid, dashed=2px dashed",
+    },
+    interactive: {
+      control: "boolean",
+      description: "Renders as <button> with hover/focus, for clickable card UIs",
     },
     children: {
       control: false,
@@ -252,6 +267,89 @@ export const StatCard: Story = {
         <p className="text-caption-md text-text-secondary">Utilisation</p>
         <p className="text-metric-lg text-text" style={{ marginTop: 4 }}>78.5%</p>
         <p className="text-caption-md" style={{ marginTop: 2, color: '#ef4444' }}>-2.1% from last month</p>
+      </Card>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ================================================================== */
+/*  4. NEW PROP STORIES (tint / interactive / variant)                 */
+/* ================================================================== */
+
+/* ------------------------------------------------------------------ */
+/*  TintVariants                                                       */
+/*  Shows all three tint values side-by-side                          */
+/* ------------------------------------------------------------------ */
+
+export const TintVariants: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, width: 600 }}>
+      {(["default", "subtle", "muted"] as CardProps["tint"][]).map((t) => (
+        <Card key={t} tint={t}>
+          <p className="text-label-lg text-text" style={{ marginBottom: 4 }}>{`tint="${t}"`}</p>
+          <p className="text-body-sm text-text-secondary">
+            {t === "default" && "Transparent background"}
+            {t === "subtle" && "fill-secondary (#f3f5f7)"}
+            {t === "muted" && "fill-tertiary (#f9fafb)"}
+          </p>
+        </Card>
+      ))}
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  DashedVariant                                                      */
+/*  Shows dashed border, standalone and with tint                     */
+/* ------------------------------------------------------------------ */
+
+export const DashedVariant: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 400 }}>
+      <Card variant="dashed" padding="lg">
+        <div style={{ textAlign: 'center' }}>
+          <p className="text-label-lg text-text-secondary">variant="dashed"</p>
+          <p className="text-body-sm text-text-secondary" style={{ marginTop: 4 }}>2px dashed border, default background</p>
+        </div>
+      </Card>
+      <Card variant="dashed" tint="muted" padding="lg">
+        <div style={{ textAlign: 'center' }}>
+          <p className="text-label-lg text-text-secondary">variant="dashed" + tint="muted"</p>
+          <p className="text-body-sm text-text-secondary" style={{ marginTop: 4 }}>Upload drop zones, placeholder areas</p>
+        </div>
+      </Card>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  InteractiveCards                                                   */
+/*  Renders as <button> — source selection pattern from data-import   */
+/* ------------------------------------------------------------------ */
+
+export const InteractiveCards: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16, width: 480 }}>
+      <Card interactive padding={24} onClick={() => alert("CSV selected")}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, textAlign: 'center' }}>
+          <FileTextOutlined style={{ fontSize: 40, color: 'var(--color-primary)' }} />
+          <div>
+            <p className="text-label-lg text-text">CSV</p>
+            <p className="text-body-sm text-text-secondary" style={{ marginTop: 4 }}>Import clients, contacts, or appointments</p>
+          </div>
+        </div>
+      </Card>
+      <Card interactive padding={24} onClick={() => alert("Cliniko selected")}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, textAlign: 'center' }}>
+          <DatabaseOutlined style={{ fontSize: 40, color: 'var(--color-primary)' }} />
+          <div>
+            <p className="text-label-lg text-text">Cliniko</p>
+            <p className="text-body-sm text-text-secondary" style={{ marginTop: 4 }}>Migrate your data from Cliniko</p>
+          </div>
+        </div>
       </Card>
     </div>
   ),
