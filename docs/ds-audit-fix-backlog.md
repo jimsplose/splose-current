@@ -30,6 +30,16 @@ Sonnet 4.6 is suitable for most sessions. **Prefer Opus** only when a session (a
 
 The `/ds-fix` command doesn't enforce this — `Model` is a hint for you when picking the model to run the session in. Either model works; the recommendation is about tokens spent vs. risk.
 
+## Thinking budget
+
+The `Thinking` column recommends a reasoning budget per session (applies whether Sonnet or Opus is running it):
+
+- **none** — trivial mechanical work. Zero-consumer deletions, targeted line-number migrations. No planning needed.
+- **think** — prop additions with 5-13 caller migrations, AdoptAsIs structure mapping, bug investigations. Most sessions.
+- **think hard** — broad sweeps (20+ call sites), rule promotions with per-exception triage, strategic backlog decisions.
+
+If Sonnet is running an Opus-recommended session, bump thinking up one level (e.g. `think` → `think hard`).
+
 ## Sessions
 
 Columns:
@@ -52,7 +62,7 @@ Sessions are ordered so `/ds-fix` can walk the list in sequence. **Wave 1** sess
 | 03 | done | **Text: add `page-title` variant + heading/xl** | Add `heading/xl` (28px/700) and `page-title` (30px/700/Sprig Sans/green) variants to Text. Add DS token for the title green if one doesn't already exist. Update Text.module.css with the two new classes. Storybook: extend typography showcase. **No template migrations yet** — done in session 19. Unlocks 19, 22, 23, 24, 25. | 15 min | — | Sonnet | `Text` |
 | 04 | done | **Text: `color="inverted"` + FeatureCard** | Add `"inverted"` to TextColor enum. Create `src/components/ds/FeatureCard.tsx` wrapping Card with `tone: primary \| success \| neutral \| inverted`. Migrate ClientDetailClient:282 account-balance card. Storybook recipes for both. Unlocks 21, 23, 25, 26. | 25 min | — | Sonnet | `Text`, `FeatureCard` (new) |
 | 05 | done | **Divider: add `orientation="vertical"`** | Extend Divider with `orientation?: "horizontal" \| "vertical"` (default horizontal). Height derived from context; width = 1px for vertical. Migrate rich-text toolbars: notes/edit (lines 353, 366) + settings/details (165, 167, 175). Storybook: add orientation story. | 15 min | — | Sonnet | `Divider` |
-| 06 | open | **Button: add `shape="pill"`** | Extend Button with `shape?: "default" \| "pill"` (default = current rounded-4, pill = borderRadius 9999). Migrate reports/page.tsx filters (lines 81, 271, 276, 283) + settings/details.tsx (149, 157). Storybook: add shape story. Unlocks 22. | 15 min | — | Sonnet | `Button` |
+| 06 | in-progress | **Button: add `shape="pill"`** | Extend Button with `shape?: "default" \| "pill"` (default = current rounded-4, pill = borderRadius 9999). Migrate reports/page.tsx filters (lines 81, 271, 276, 283) + settings/details.tsx (149, 157). Storybook: add shape story. Unlocks 22. | 15 min | — | Sonnet | `Button` |
 | 07 | open | **Button: add `variant="link"`** | Add `variant="link"` (primary-colored text, no bg, hover underline). Must render as `<a>` when `href` given. Migrate ClientDetailClient:277 (removes the onMouseEnter/Leave hack) + notes/[id]:39 + settings/details:135,230 + Navbar:31. Storybook. | 20 min | — | Sonnet | `Button` |
 | 08 | open | **Card: add `tint`, `interactive`, `variant="dashed"`** | Add three props in one session: `tint: default/subtle/muted`, `interactive: boolean` (hover+focus, renders as button), `variant: default/dashed`. Migrate data-import:118, 191, 198, 211 + online-bookings/[id]:107, 316, 356, 363. | 30 min | — | Sonnet | `Card` |
 | 09 | open | **Consolidation: delete dead IconText** | Verify 0 usages (grep src/). Delete `src/components/ds/IconText.tsx`. Remove from `src/components/ds/index.ts` exports. Remove from DS component catalog. Remove Storybook story if any. `npx tsc --noEmit` + `npx next build` to confirm. | 5 min | — | Sonnet | `IconText` (deleted) |
