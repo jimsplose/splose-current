@@ -35,7 +35,7 @@ export const Playground: Story = {
           <FormInput label="Date" placeholder="dd/mm/yyyy" />
           <FormInput label="Reference" placeholder="Optional" />
         </div>
-      </Section>
+      </Card>
     ),
   },
 };
@@ -61,17 +61,17 @@ export const InvoiceFormRecipe: Story = {
             <FormSelect label="Client name" options={[{ value: "michael", label: "Michael Brooks" }]} searchable placeholder="Select client" />
             <FormSelect label="Contact" options={[{ value: "ndis", label: "NDIS — NDIA" }]} />
           </div>
-        </Section>
+        </Card>
         <Card title="Invoice details" headerBar>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
             <FormSelect label="Location" options={[{ value: "east", label: "East Clinics" }]} />
             <FormInput label="Invoice date" placeholder="02/04/2026" />
             <FormSelect label="Payment terms" options={[{ value: "14", label: "14 days" }]} />
           </div>
-        </Section>
+        </Card>
         <Card title="Notes">
           <FormTextarea label="Internal notes" placeholder="Add any internal notes..." />
-        </Section>
+        </Card>
       </Flex>
     </FormPage>
   ),
