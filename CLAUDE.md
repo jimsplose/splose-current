@@ -22,7 +22,17 @@ These docs contain the actual procedures (measurement snippets, threshold tables
 
 **Do NOT use** Puppeteer, Playwright, pixel-diff scripts, or headless browser screenshots.
 
-**Canonical viewport: 1440x900.** At the start of every session that uses Chrome MCP, run `mcp__claude-in-chrome__resize_window → { width: 1440, height: 900 }`. All measurements and screenshots happen at this size.
+**Canonical viewport: 1440x900.** All measurements and screenshots happen at this size.
+
+**Session lifecycle (mandatory):**
+
+1. **Before first Chrome MCP call** — claim an isolated tab group:
+   - Call `mcp__claude-in-chrome__tabs_context_mcp` with `createIfEmpty: true`. This opens a new Chrome window with a new tab group if none exists, so concurrent sessions stay isolated.
+   - If the returned context shows leftover tabs from a prior session, close each via `mcp__claude-in-chrome__tabs_close_mcp` before proceeding (no warning needed).
+   - Then run `mcp__claude-in-chrome__resize_window → { width: 1440, height: 900 }`.
+2. **At session end** — always sweep the tab group, even if you think you used no tabs:
+   - Call `mcp__claude-in-chrome__tabs_context_mcp` to list tabs.
+   - Close each with `mcp__claude-in-chrome__tabs_close_mcp`. When the last tab closes, Chrome auto-removes the group.
 
 **If Chrome MCP is not responding:**
 1. Check Chrome is running and visible on the desktop
