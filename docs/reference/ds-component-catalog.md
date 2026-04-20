@@ -45,7 +45,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `Pagination` | Table pagination footer with page size dropdown |
 | `Badge` | Status pills, tags, filter chips (shape: rounded/pill, onRemove for closable) |
 | `Stat` | Metric value + label display |
-| `Text` | Semantic typography (`variant="display/lg"`, `heading/md`, `body/sm`, etc.) |
+| `Text` | Semantic typography (`variant="display/lg"`, `heading/md`, `body/sm`, etc.). `weight="regular\|medium\|bold"` overrides the variant's default weight. `color` accepts preset names or Tailwind class. |
 | `Avatar` | Colored circles with initials (sm/md/lg/xl) |
 | `ColorDot` | Colored circle indicator (xs/sm/md/lg) |
 | `OnOffBadge` | Boolean On/Off display with configurable labels |

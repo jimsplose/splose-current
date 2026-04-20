@@ -10,11 +10,13 @@ export type TextVariant =
   | "metric/lg" | "metric/md";
 
 export type TextColor = "text" | "secondary" | "tertiary" | "primary" | "danger" | "warning" | "success";
+export type TextWeight = "regular" | "medium" | "bold";
 
 interface TextProps extends HTMLAttributes<HTMLElement> {
   variant: TextVariant;
   as?: ElementType;
   color?: TextColor | (string & {});
+  weight?: TextWeight;
   children: ReactNode;
 }
 
@@ -38,6 +40,12 @@ const variantClass: Record<TextVariant, string> = {
   "caption/sm": styles.captionSm,
   "metric/lg": styles.metricLg,
   "metric/md": styles.metricMd,
+};
+
+const weightClass: Record<TextWeight, string> = {
+  regular: styles.weightRegular,
+  medium: styles.weightMedium,
+  bold: styles.weightBold,
 };
 
 const colorPresets: Record<string, string> = {
@@ -70,10 +78,10 @@ function resolveColor(color?: string): { className?: string; style?: { color: st
   return { style: { color } };
 }
 
-export default function Text({ variant, as, color, className = "", children, style, ...props }: TextProps) {
+export default function Text({ variant, as, color, weight, className = "", children, style, ...props }: TextProps) {
   const Component = as ?? defaultElement[getCategory(variant)] ?? "span";
   const resolved = resolveColor(color);
-  const classes = [variantClass[variant], resolved.className, className].filter(Boolean).join(" ");
+  const classes = [variantClass[variant], weight ? weightClass[weight] : undefined, resolved.className, className].filter(Boolean).join(" ");
   const mergedStyle = resolved.style ? { ...style, ...resolved.style } : style;
 
   return (
