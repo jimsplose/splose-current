@@ -25,6 +25,8 @@ One row per session. Columns:
 
 | 02 | 2026-04-20 | Sonnet 4.6 | New Icon component with size (xs/sm/md/lg/xl/2xl/3xl) + tone (8 values), index.ts export, Storybook AllVariants + SizeGrid + ToneGrid + 2 recipe stories, DS catalog updated | All promised scope landed: Icon.tsx ✓, index.ts export ✓, Storybook AllVariants + SizeGrid + ToneGrid ✓, catalog ✓. No caller migrations (per scope). | done | None | Storybook-only verification (no app route mounts Icon yet — migrations are session 20). 56 icons measured, all sizes/tones exact. Note: backlog showed session 03 as in-progress during this session — likely the other concurrent session. |
 
+| 03 | 2026-04-20 | Sonnet 4.6 | Add heading/xl (28px/700) + page-title (30px/700/Sprig Sans/green) variants to Text; --color-page-title token; Storybook PageTitleVariant story | All promised scope landed: TextVariant ✓, CSS classes ✓, globals.css token ✓, PageTitleVariant story ✓. No template migrations (per scope). | done | Storybook preview iframe frozen in prior session (blank/loading spinner) — fixed by restarting Storybook process. Blocker was Storybook server state, not code. | Storybook-only verification (variants not yet mounted on any route — migrations are session 19). heading/xl=28px/700/1.2 ✓, page-title=30px/700/green ✓. TypeScript clean. Build passed. |
+
 *(Future sessions append rows here. Keep entries brief — one row per session. If a session spawns a follow-up, add the follow-up as its own row when complete.)*
 
 ## Renumbering notes (2026-04-20)

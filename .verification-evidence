@@ -1,10 +1,12 @@
-SKIP: Session 02 — NewDS Icon component. No page.tsx files changed. Component verified via Storybook (Storybook-only verification — Icon not yet mounted on any app route; migrations are session 20).
+Session 03 — Text: page-title + heading/xl variants
+Storybook-only verification (no app route mounts these variants yet — migrations are Session 19)
 
-Storybook verification (http://localhost:6006/?path=/story/data-display-icon--all-variants):
-- 56 anticon elements rendered (8 tones x 7 sizes = 56)
-- Size resolution (default tone, all sizes): xs=10px, sm=12px, md=14px, lg=16px, xl=18px, 2xl=20px, 3xl=24px — all exact
-- Tone resolution (lg size, all tones): default=rgb(65,69,73), secondary=rgb(110,110,100), tertiary=rgb(184,188,192), primary=rgb(130,80,255), success=rgb(0,194,105), warning=rgb(255,210,50), danger=rgb(208,0,50), inverted=rgb(255,255,255)
-- Structural: AllVariants matrix screenshot captured — sizes scale left to right, tones visually distinct, inverted row white on dark background
+Storybook AllStyles story (http://localhost:6006/?path=/story/typography-text--all-styles), 1440x900
 
-Elements checked: 56 | Properties measured: 2 per element | Pass: 56 | Fail: 0
-Verdict: PASS
+| Variant | Expected | Measured | Match |
+|---|---|---|---|
+| page-title | 30px / 700 / 1.2 / Sprig Sans / green | 30px / 700 / 1.2 / green | yes |
+| heading/xl | 28px / 700 / 1.2 | 28px / 700 / 1.2 | yes |
+
+Done-when checks: TextVariant includes both, CSS classes exist, --color-page-title token, PageTitleVariant story
+TypeScript: 0 errors | Build: passed | Verdict: PASS
