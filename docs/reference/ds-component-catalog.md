@@ -23,6 +23,12 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `Collapse` | Expandable sections with chevron |
 | `PageHeader` | Page title + action buttons (prefer ListPage/DetailPage templates) |
 
+## Actions
+
+| Component | Use for |
+|---|---|
+| `Button` | All interactive buttons. `variant`: primary/secondary/danger/ghost/link/icon/toolbar. `size`: sm/md/lg. `shape`: default/pill (pill = borderRadius 9999, use for filter chips and tab selectors). `round`: true for circle FAB buttons. |
+
 ## Forms
 
 | Component | Use for |

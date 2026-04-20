@@ -1,3 +1,8 @@
-/settings/details (live Chrome MCP — 3 vertical Divider spans measured)
-/notes/[id]/edit (Storybook fallback — spacing="none" variant, no app-route note ID available)
-Storybook: http://localhost:6006/?path=/story/layout-divider--orientation
+/reports
+/settings/details
+
+Session 06 — Button shape="pill" — Verified: 6 pill Button props across 2 pages
+
+Reports filter row (4 buttons): prod borderRadius=16px h=26.4px PASS | localhost borderRadius=28.5px h=28.5px PASS — both full pills
+Settings/details sig tabs (2 buttons): localhost borderRadius=28.5px PASS | prod=8px (pre-deploy, original intent was borderRadius:9999 pill) — DS code-quality fix, not visual regression
+Structural: no layout regressions on either page. TypeScript: 0 errors.
