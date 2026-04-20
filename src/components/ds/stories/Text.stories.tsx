@@ -3,8 +3,9 @@ import Text from "../Text";
 import type { TextVariant } from "../Text";
 
 const ALL_VARIANTS: TextVariant[] = [
+  "page-title",
   "display/lg", "display/md", "display/sm",
-  "heading/lg", "heading/md", "heading/sm",
+  "heading/xl", "heading/lg", "heading/md", "heading/sm",
   "body/lg", "body/md", "body/sm", "body/md-strong", "body/lg-strong",
   "label/lg", "label/md", "label/sm",
   "caption/md", "caption/sm",
@@ -61,6 +62,7 @@ const StyleRow = ({
 );
 
 function sampleText(variant: TextVariant): string {
+  if (variant === "page-title") return "Client Overview";
   if (variant.startsWith("metric/")) return "$12,450.00";
   if (variant.startsWith("display/")) return "Page Title";
   if (variant.startsWith("heading/")) return "Section Heading";
@@ -74,6 +76,13 @@ export const AllStyles: Story = {
     <div style={{ maxWidth: 768, display: 'flex', flexDirection: 'column', gap: 32 }}>
       <section>
         <h3 style={{ marginBottom: 8, fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#9ca3af' }}>
+          Page Title — Sprig Sans, Bold, Green
+        </h3>
+        <StyleRow variant="page-title" label="page-title" specs="30px / 700 / 1.2 / green" />
+      </section>
+
+      <section>
+        <h3 style={{ marginBottom: 8, fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#9ca3af' }}>
           Display — Sprig Sans, Bold
         </h3>
         <StyleRow variant="display/lg" label="display/lg" specs="30px / 700 / 1.2" />
@@ -83,8 +92,9 @@ export const AllStyles: Story = {
 
       <section>
         <h3 style={{ marginBottom: 8, fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#9ca3af' }}>
-          Heading — Inter, SemiBold
+          Heading — Inter/Sprig Sans, Bold
         </h3>
+        <StyleRow variant="heading/xl" label="heading/xl" specs="28px / 700 / 1.2" />
         <StyleRow variant="heading/lg" label="heading/lg" specs="18px / 600 / 1.33" />
         <StyleRow variant="heading/md" label="heading/md" specs="16px / 600 / 1.375" />
         <StyleRow variant="heading/sm" label="heading/sm" specs="14px / 600 / 1.43" />
@@ -167,9 +177,11 @@ export const QuickReference: Story = {
   name: "Quick Reference Table",
   render: () => {
     const rows: { variant: TextVariant; css: string; font: string }[] = [
+      { variant: "page-title", css: "(component only)", font: "Sprig Sans 30/700 green" },
       { variant: "display/lg", css: "text-display-lg", font: "Sprig Sans 30/700" },
       { variant: "display/md", css: "text-display-md", font: "Sprig Sans 24/700" },
       { variant: "display/sm", css: "text-display-sm", font: "Sprig Sans 18/700" },
+      { variant: "heading/xl", css: "(component only)", font: "Inter 28/700" },
       { variant: "heading/lg", css: "text-heading-lg", font: "Inter 18/600" },
       { variant: "heading/md", css: "text-heading-md", font: "Inter 16/600" },
       { variant: "heading/sm", css: "text-heading-sm", font: "Inter 14/600" },
@@ -392,6 +404,36 @@ export const CalendarDateDisplay: Story = {
 /*  Source: src/app/settings/ai/page.tsx and                            */
 /*  src/app/clients/[id]/ClientDetailClient.tsx — heading hierarchy    */
 /* ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------ */
+/*  PageTitleVariant                                                   */
+/*  New variant: page-title (30px/700/Sprig Sans/green)               */
+/*  Used by DetailPage and Navbar headers. Session 03.                 */
+/* ------------------------------------------------------------------ */
+
+export const PageTitleVariant: Story = {
+  name: "New: Page Title Variant",
+  render: () => (
+    <div style={{ maxWidth: 600, display: 'flex', flexDirection: 'column', gap: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
+      <div>
+        <p style={{ fontSize: 11, color: '#9ca3af', marginBottom: 8 }}>variant=&quot;page-title&quot; — Sprig Sans, 30px, 700, rgb(66,105,74)</p>
+        <Text variant="page-title">Client Overview</Text>
+      </div>
+      <div>
+        <p style={{ fontSize: 11, color: '#9ca3af', marginBottom: 8 }}>variant=&quot;heading/xl&quot; — Inter, 28px, 700</p>
+        <Text variant="heading/xl">Section Heading XL</Text>
+      </div>
+      <div>
+        <p style={{ fontSize: 11, color: '#9ca3af', marginBottom: 8 }}>Typical detail page header pattern</p>
+        <div style={{ padding: '16px 24px', borderBottom: '1px solid var(--color-border)' }}>
+          <Text variant="page-title">Sarah Johnson</Text>
+          <Text variant="body/md" color="secondary" style={{ marginTop: 4 }}>sarah@example.com · 0412 345 678</Text>
+        </div>
+      </div>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
 
 export const SectionHeadingHierarchy: Story = {
   name: "Recipe: Section Heading Hierarchy",

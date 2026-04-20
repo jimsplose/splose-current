@@ -26,6 +26,12 @@
   line-height: 1.4;
 }
 
+.headingXl {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
 .headingLg {
   font-size: 18px;
   font-weight: 700;
@@ -118,6 +124,14 @@
   font-weight: 700;
   line-height: 1.25;
   font-variant-numeric: tabular-nums;
+}
+
+.pageTitle {
+  font-family: 'Sprig Sans', 'Inter', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-page-title);
 }
 
 .weightRegular { font-weight: 400; }

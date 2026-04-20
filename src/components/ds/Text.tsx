@@ -3,11 +3,12 @@ import styles from "./Text.module.css";
 
 export type TextVariant =
   | "display/lg" | "display/md" | "display/sm" | "display/xs"
-  | "heading/lg" | "heading/md" | "heading/sm"
+  | "heading/xl" | "heading/lg" | "heading/md" | "heading/sm"
   | "body/lg" | "body/md" | "body/sm" | "body/md-strong" | "body/lg-strong"
   | "label/lg" | "label/md" | "label/sm"
   | "caption/md" | "caption/sm"
-  | "metric/lg" | "metric/md";
+  | "metric/lg" | "metric/md"
+  | "page-title";
 
 export type TextColor = "text" | "secondary" | "tertiary" | "primary" | "danger" | "warning" | "success";
 export type TextWeight = "regular" | "medium" | "bold";
@@ -25,6 +26,7 @@ const variantClass: Record<TextVariant, string> = {
   "display/md": styles.displayMd,
   "display/sm": styles.displaySm,
   "display/xs": styles.displayXs,
+  "heading/xl": styles.headingXl,
   "heading/lg": styles.headingLg,
   "heading/md": styles.headingMd,
   "heading/sm": styles.headingSm,
@@ -40,6 +42,7 @@ const variantClass: Record<TextVariant, string> = {
   "caption/sm": styles.captionSm,
   "metric/lg": styles.metricLg,
   "metric/md": styles.metricMd,
+  "page-title": styles.pageTitle,
 };
 
 const weightClass: Record<TextWeight, string> = {
@@ -65,6 +68,7 @@ const defaultElement: Record<string, ElementType> = {
   label: "span",
   caption: "span",
   metric: "span",
+  "page-title": "h1",
 };
 
 function getCategory(variant: TextVariant): string {
