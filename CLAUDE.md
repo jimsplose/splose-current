@@ -108,7 +108,7 @@ A gap is `[x]` only when ALL related `screenshots/screenshot-catalog.md` entries
 - **Deployment is manual only** via GitHub Actions workflow `deploy.yml` (`gh workflow run deploy.yml --ref main`)
 - **NEVER deploy without Jim's express permission.** After major milestones (completing a workflow, closing a batch of gaps), ask Jim if he wants to deploy. Do not auto-deploy.
 - **Deploy flow** (when Jim approves):
-  1. Merge branch to main: `git checkout main && git pull && git merge origin/<branch> --no-edit && git push`
+  1. Push main: `git checkout main && git pull && git push`
   2. Trigger deploy: `gh workflow run deploy.yml --ref main`
   3. Share run URL: `gh run list --workflow=deploy.yml --limit=1`
 - **Jim is non-technical.** Handle all coding, git, builds, debugging. Provide exact copy-paste commands.
@@ -125,21 +125,25 @@ Verify CWD after agent completion: `cd /Users/jimyenckensplose/claude/splose-cur
 
 ## Session End
 
-1. Commit all WIP  2. Push to `claude/*` branch  3. Update `docs/progress.md`  4. Ask Jim if he wants to deploy
+1. Commit all WIP  2. Push to `main`  3. Update `docs/progress.md`  4. Ask Jim if he wants to deploy
 
 ## Git Workflow
 
+**Work directly on `main`.** No feature branches for this solo prototype.
+
 ```bash
-# Session start — always sync first:
-git fetch origin main && git merge origin/main --no-edit
+# Session start — verify you're on main and sync:
+git checkout main && git pull
 ```
 
-Push to `claude/*` branches. Before every push: `npx next build` then `git fetch origin main && git merge origin/main --no-edit`.
+Before every push: `npx next build` then `git push origin main`.
+
+**Session start health check** — run `git status` and confirm output says `On branch main`. If it says anything else, run `git checkout main` immediately.
 
 ### After major milestones — ask about deployment
 
 After completing a workflow or batch of fixes, ask Jim:
-> "Ready to deploy? I can merge `<branch-name>` to main and trigger a production deployment."
+> "Ready to deploy? I can push `main` and trigger a production deployment."
 
 **Only proceed if Jim says yes.** Then run the full deploy flow (see Vercel & Deployment section above).
 
