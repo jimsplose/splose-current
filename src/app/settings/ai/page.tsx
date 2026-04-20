@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Flex } from "antd";
-import { WarningOutlined } from "@ant-design/icons";
+import { InfoCircleOutlined } from "@ant-design/icons";
 import { Button, FormInput, FormTextarea, FormSelect, Tab, Toggle, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, Modal, EmptyState, Badge, Alert, PageHeader, Divider } from "@/components/ds";
 
 const aiBlocks = [
@@ -262,7 +262,7 @@ function AIBlockLibraryTab() {
   return (
     <div>
       {/* Beta banner */}
-      <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16 }} />} className="mb-4">
+      <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 16 }} />} className="mb-4">
         <Flex justify="space-between" align="center">
           <span className="text-body-md text-text">We need your feedback on AI blocks.</span>
           <Flex align="center" gap={8} className="text-body-md">

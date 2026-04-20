@@ -104,7 +104,7 @@ export default function InvoiceSettingsPage() {
   }
 
   return (
-    <div className="p-6">
+    <div style={{ padding: 24 }}>
       <PageHeader title="Invoice Settings" />
 
       {/* Stripe info banner */}

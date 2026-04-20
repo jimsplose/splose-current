@@ -95,7 +95,7 @@ export default function CancellationReasonsPage() {
   }
 
   return (
-    <div style={{ padding: 32 }}>
+    <div style={{ padding: 24 }}>
       <PageHeader title="Cancellation reasons">
         <Button variant="secondary">Show archived</Button>
         <Button variant="secondary" onClick={openCreate}>+ New reason</Button>

@@ -51,7 +51,7 @@ export default function BusyTimesPage() {
   }
 
   return (
-    <div style={{ padding: 32 }}>
+    <div style={{ padding: 24 }}>
       <PageHeader title="Busy time types">
         <Button variant="secondary">Show archived</Button>
         <Button variant="secondary" onClick={openCreate}>+ New type</Button>

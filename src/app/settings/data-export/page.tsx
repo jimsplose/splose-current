@@ -127,7 +127,7 @@ export default function DataExportPage() {
   }
 
   return (
-    <div className="p-6">
+    <div style={{ padding: 24 }}>
       <PageHeader title="Data export" />
 
       {/* Download toast */}

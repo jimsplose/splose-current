@@ -84,7 +84,7 @@ export default function PaymentSettingsPage() {
   }
 
   return (
-    <div className="p-6">
+    <div style={{ padding: 24 }}>
       <PageHeader title="Payment settings" />
 
       {/* Next payment number */}

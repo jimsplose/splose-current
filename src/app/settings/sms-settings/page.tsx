@@ -19,7 +19,7 @@ export default function SMSSettingsPage() {
   const [lowCreditEnabled, setLowCreditEnabled] = useState(true);
   const [autoRechargeEnabled, setAutoRechargeEnabled] = useState(true);
   return (
-    <div className="p-6">
+    <div style={{ padding: 24 }}>
       <PageHeader title="SMS settings">
         <Button variant="secondary">
           <ReadOutlined style={{ fontSize: 16 }} />

@@ -88,7 +88,7 @@ export default function UserGroupsPage() {
   }
 
   return (
-    <div className="p-6">
+    <div style={{ padding: 24 }}>
       <PageHeader title="User groups">
         <Button variant="secondary">
           <ReadOutlined style={{ fontSize: 16 }} />
