@@ -14,10 +14,17 @@ Run the next DS audit fix session. Read these files first:
   > "Last WIP was [detected model]; backlog recommends [model] for this session. Continue anyway?"
   Note: the `stop-auto-save.sh` hook historically hardcoded Opus in WIP commits; verify the hook is correct before trusting the Co-Authored-By.
 
+**If the user's message already names a specific session** (e.g. "DS Session 5", "run session 06", "session 5"):
+- Skip the confirmation question entirely — proceed immediately to execution.
+- Still show the session summary (title, scope, effort, model, prereqs, WIP files) as a brief header before starting work.
+- If the named session has unmet prereqs, stop and tell Jim which prereqs are incomplete — do not run it.
+- If the named session recommends a different model than the one currently running, flag it once (one sentence) and continue — don't ask for confirmation.
+
+**Otherwise** (no session named — just `/ds-fix` with no args):
 Show Jim the next runnable session: title, scope, estimated effort, **recommended model (Sonnet/Opus)**, prereq status, DS components touched, and any files already touched by prior WIP commits. If the session recommends Opus and you're currently running Sonnet (or vice versa), flag this to Jim before proceeding — he may want to switch models. Ask:
 - Run this one? (yes / skip to next / show full backlog)
 
-On yes:
+On yes (or immediately if a session was named):
 1. Mark the session `in-progress` in the backlog, commit that change
 2. Execute the session's scope following DS-first discipline
 3. Verify via Chrome MCP per `docs/quality-gate.md`. If the migrated component isn't mounted on any current route, use the Storybook fallback (Step 3a in quality-gate.md).
