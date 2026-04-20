@@ -38,34 +38,44 @@ Columns:
 - **Model** — recommended model (see "Model selection" above)
 - **Done-when criteria** live below the table in the "## Definition of done" section, one entry per session. Every session has explicit verification checks there.
 
+Sessions are ordered so `/ds-fix` can walk the list in sequence. **Wave 1** sessions (02–18) have no prereqs and can run in any order; they're ordered by leverage (highest-impact foundation sessions first). **Wave 2** sessions (19–26) have prereqs on Wave 1; they're sequenced so each prereq is satisfied by the time their session runs. **Wave 3** sessions (27–29) are verification and only run after Waves 1+2 are complete.
+
+*(Note: this is the post-2026-04-20 reordering. Historical Session 01 stays as #01; older sessions were renumbered — see session log for the mapping.)*
+
 | # | Status | Title | Scope | Effort | Prereq | Model | DS components touched |
 |---|---|---|---|---|---|---|---|
-| 01 | done (InvoiceDetailClient only) | **Text: add `weight` prop** | Add `weight?: "regular" \| "medium" \| "bold"` to `Text`. Update CSS module to apply weight when prop set. Migrate 13 InvoiceDetailClient.tsx `fontWeight` callers. Storybook: add Weight story to Text.stories. (invoices/[id]/page.tsx migrations moved to session 01b — most are tangled with fontSize/color overrides that need sessions 08/11 first.) | 2h | — | Sonnet | `Text` |
-| 01b | open | **Text weight: migrate invoices/[id]/page.tsx callers (post-prereq)** | After sessions 08 (heading/xl variant) and 11 (color="inverted") land, revisit `src/app/invoices/[id]/page.tsx`. Migrate remaining `fontWeight` inlines at lines 56, 306, 336, 387 using the new variants + weight prop. Lines 359-387 (Stripe/HICAPS branding) stay inline — legitimate one-off. Chrome MCP verification of the invoice page. | 1h | 01, 08, 11 | Sonnet | — |
-| 02 | open | **Divider: add `orientation="vertical"`** | Extend Divider with `orientation?: "horizontal" \| "vertical"` (default horizontal). Height derived from context; width = 1px for vertical. Migrate rich-text toolbars: notes/edit (lines 353, 366) + settings/details (165, 167, 175). Storybook: add orientation story. | 1.5h | — | Sonnet | `Divider` |
-| 03 | open | **Button: add `shape="pill"`** | Extend Button with `shape?: "default" \| "pill"` (default = current rounded-4, pill = borderRadius 9999). Migrate reports/page.tsx filters (lines 81, 271, 276, 283) + settings/details.tsx (149, 157). Storybook: add shape story. | 1.5h | — | Sonnet | `Button` |
-| 04 | open | **NewDS: create Icon component** | New `src/components/ds/Icon.tsx` with `size: xs/sm/md/lg/xl/2xl/3xl` and `tone: default/secondary/tertiary/primary/success/warning/danger/inverted` props. Wraps an AntD icon component passed via `as` prop. Storybook: full AllVariants + size/tone grid. **No migrations in this session** — just ship the component. | 2h | — | Sonnet | `Icon` (new) |
-| 05 | open | **Consolidation: delete dead IconText** | Verify 0 usages (grep src/). Delete `src/components/ds/IconText.tsx`. Remove from `src/components/ds/index.ts` exports. Remove from DS component catalog. Remove Storybook story if any. `npx tsc --noEmit` + `npx next build` to confirm. | 0.5h | — | Sonnet | `IconText` (deleted) |
-| 06 | open | **Consolidation: fold Section into Card (add `description`)** | Add `description?: string` to Card. When title+description present, render Section-style header block. Delete `src/components/ds/Section.tsx`. Remove from index/catalog. Verify 0 consumers migrated. | 1h | — | Sonnet | `Card` (+), `Section` (deleted) |
-| 07 | open | **Consolidation: fold Status into ColorDot (add `label`)** | Add `label?: string` to ColorDot; wrap in Flex when label present. Accept semantic color tokens (green/red/yellow/...) in addition to hex. Delete `src/components/ds/Status.tsx`. Remove from index/catalog. | 1h | — | Sonnet | `ColorDot` (+), `Status` (deleted) |
-| 08 | open | **Text: add `page-title` variant + heading/xl** | Add `heading/xl` (28px/700) and `page-title` (30px/700/Sprig Sans/green) variants to Text. Add DS token for the title green if one doesn't already exist. Update Text.module.css with the two new classes. Storybook: extend typography showcase. **No template migrations yet** — done in session 09. | 1.5h | — | Sonnet | `Text` |
-| 09 | open | **DS templates: adopt Text page-title** | Replace hard-coded `<h1 style=…>` in `DetailPage.tsx:45` and `Navbar.tsx:41` with `<Text variant="page-title">{title}</Text>`. Chrome MCP verification: visit a detail page and a form page to confirm no visual regression (title should look identical). | 1h | 08 | **Opus** | `DetailPage`, `Navbar` |
-| 10 | open | **Migrate Icon component across top 3 pages** | Use the Icon component created in session 04. Replace `<XxxOutlined style={{ fontSize: N }} />` in DashboardClient.tsx, notes/[id]/edit/page.tsx, settings/data-import/page.tsx. Aim for 40+ inline-style reductions. Chrome MCP verification: visit each page. | 2h | 04 | Sonnet | — (uses Icon) |
-| 11 | open | **Text: `color="inverted"` + FeatureCard** | Add `"inverted"` to TextColor enum. Create `src/components/ds/FeatureCard.tsx` wrapping Card with `tone: primary \| success \| neutral \| inverted`. Migrate ClientDetailClient:282 account-balance card. Storybook recipes for both. | 2h | — | Sonnet | `Text`, `FeatureCard` (new) |
-| 12 | open | **HintIcon: `tone="inverted"` + `size`** | Add `tone` + `size` props to HintIcon. Migrate ClientDetailClient:285, 286, 291. Storybook. | 1h | 11 | Sonnet | `HintIcon` |
-| 13 | open | **Button: add `variant="link"`** | Add `variant="link"` (primary-colored text, no bg, hover underline). Must render as `<a>` when `href` given. Migrate ClientDetailClient:277 (removes the onMouseEnter/Leave hack) + notes/[id]:39 + settings/details:135,230 + Navbar:31. Storybook. | 1.5h | — | Sonnet | `Button` |
-| 14 | open | **Button: add `iconOnly` + `shape="circle"`** | Add `iconOnly?: boolean` (no padding, centres icon) and extend `shape` with `"circle"`. Migrate settings/forms/[id]:134, 210 + waitlist:743, 891 + progress-notes/edit/[id]:160. Storybook. | 1.5h | 03 | Sonnet | `Button` |
-| 15 | open | **Card: add `tint`, `interactive`, `variant="dashed"`** | Add three props in one session: `tint: default/subtle/muted`, `interactive: boolean` (hover+focus, renders as button), `variant: default/dashed`. Migrate data-import:118, 191, 198, 211 + online-bookings/[id]:107, 316, 356, 363. | 2h | — | Sonnet | `Card` |
-| 16 | open | **Badge: add `size` prop** | Add `size: sm/md/lg` (default md). Migrate waitlist:738, 886 (service/tag chips) + InvoiceDetailClient:112 (status badge). Storybook. | 1h | — | Sonnet | `Badge` |
-| 17 | open | **FormInput: fix internal disabled styling (bug)** | Investigate why `<FormInput disabled>` doesn't show the grey fill. Fix inside the component (likely AntD `variant="filled"` when disabled). Remove the inline `backgroundColor: '#f3f4f6'` workarounds at settings/details:93, 102, 108. | 1h | — | Sonnet | `FormInput` |
-| 18 | open | **ColorDot: add `shape`, `interactive`, `selected`** | Add `shape: circle/rect`, `interactive: boolean`, `selected: boolean`, `onClick`. Migrate online-bookings/[id]:137 swatches + settings/tags:162 rect preview. | 1h | — | Sonnet | `ColorDot` |
-| 19 | open | **Consolidation: migrate OnOffBadge to Text and delete** | Verify 2 OnOffBadge callers. Replace with `<Text color={value?"success":"danger"}>{value?onLabel:offLabel}</Text>`. Delete component. Remove from index/catalog. | 0.5h | — | Sonnet | `OnOffBadge` (deleted) |
-| 20 | open | **AdoptAsIs session: invoice pages → DS Text/DataTable** | Invoice server (`invoices/[id]/page.tsx`) + new (`invoices/new/page.tsx`). Replace raw `<h2>/<h3>` with Text variants (session 08 variants now exist). Replace raw `<table>` with DataTable. Chrome MCP verification. | 2h | 01, 08, 11 | **Opus** | — |
-| 21 | open | **AdoptAsIs session: Products page raw table → DataTable** | Replace raw `<table>` + 16 inline `<th>/<td>` with DataTable in products/page.tsx. Chrome MCP verification. | 1.5h | — | Sonnet | — |
-| 22 | open | **AdoptAsIs session: reports/performance + contacts/[id] → List** | Replace raw `<dt>/<dd>` (reports/performance) and raw label-value rows (contacts/[id]) with DS List component. Chrome MCP verification. | 1.5h | — | Sonnet | — |
-| 23 | open | **AdoptAsIs session: settings/ai typography cleanup** | Replace raw `<h3>/<h4>` with Text variants. Remove inline color/font/weight overrides. Chrome MCP verification. | 1h | 01, 08 | Sonnet | — |
-| 24 | open | **Per-page fix: ClientDetailClient remaining cleanup** | After sessions 1-15 land, revisit ClientDetailClient.tsx. Apply Icon, DataTable for associated-contacts, FeatureCard + inverted tones for account balance. Target: ≤10 inline styles remaining. Chrome MCP verification. | 2h | 04, 10, 11, 12 | **Opus** | — |
-| 25 | open | **NewDS: ProgressBar + apply to reports** | Create `ProgressBar` with `value`, `tone`, `size`. Migrate reports/page.tsx:444-446 utilisation bars. Storybook. | 1h | — | Sonnet | `ProgressBar` (new) |
+| 01 | done (InvoiceDetailClient only) | **Text: add `weight` prop** | Add `weight?: "regular" \| "medium" \| "bold"` to `Text`. Update CSS module to apply weight when prop set. Migrate 13 InvoiceDetailClient.tsx `fontWeight` callers. Storybook: add Weight story to Text.stories. (invoices/[id]/page.tsx migrations moved to session 23 — most are tangled with fontSize/color overrides that need sessions 03/04 first.) | 2h | — | Sonnet | `Text` |
+| **— Wave 1: foundation sessions (no prereqs; priority-ordered by leverage) —** | | | | | | | |
+| 02 | open | **NewDS: create Icon component** | New `src/components/ds/Icon.tsx` with `size: xs/sm/md/lg/xl/2xl/3xl` and `tone: default/secondary/tertiary/primary/success/warning/danger/inverted` props. Wraps an AntD icon component passed via `as` prop. Storybook: full AllVariants + size/tone grid. **No migrations in this session** — just ship the component. Unlocks sessions 20 and 26. | 2h | — | Sonnet | `Icon` (new) |
+| 03 | open | **Text: add `page-title` variant + heading/xl** | Add `heading/xl` (28px/700) and `page-title` (30px/700/Sprig Sans/green) variants to Text. Add DS token for the title green if one doesn't already exist. Update Text.module.css with the two new classes. Storybook: extend typography showcase. **No template migrations yet** — done in session 19. Unlocks 19, 22, 23, 24, 25. | 1.5h | — | Sonnet | `Text` |
+| 04 | open | **Text: `color="inverted"` + FeatureCard** | Add `"inverted"` to TextColor enum. Create `src/components/ds/FeatureCard.tsx` wrapping Card with `tone: primary \| success \| neutral \| inverted`. Migrate ClientDetailClient:282 account-balance card. Storybook recipes for both. Unlocks 21, 23, 25, 26. | 2h | — | Sonnet | `Text`, `FeatureCard` (new) |
+| 05 | open | **Divider: add `orientation="vertical"`** | Extend Divider with `orientation?: "horizontal" \| "vertical"` (default horizontal). Height derived from context; width = 1px for vertical. Migrate rich-text toolbars: notes/edit (lines 353, 366) + settings/details (165, 167, 175). Storybook: add orientation story. | 1.5h | — | Sonnet | `Divider` |
+| 06 | open | **Button: add `shape="pill"`** | Extend Button with `shape?: "default" \| "pill"` (default = current rounded-4, pill = borderRadius 9999). Migrate reports/page.tsx filters (lines 81, 271, 276, 283) + settings/details.tsx (149, 157). Storybook: add shape story. Unlocks 22. | 1.5h | — | Sonnet | `Button` |
+| 07 | open | **Button: add `variant="link"`** | Add `variant="link"` (primary-colored text, no bg, hover underline). Must render as `<a>` when `href` given. Migrate ClientDetailClient:277 (removes the onMouseEnter/Leave hack) + notes/[id]:39 + settings/details:135,230 + Navbar:31. Storybook. | 1.5h | — | Sonnet | `Button` |
+| 08 | open | **Card: add `tint`, `interactive`, `variant="dashed"`** | Add three props in one session: `tint: default/subtle/muted`, `interactive: boolean` (hover+focus, renders as button), `variant: default/dashed`. Migrate data-import:118, 191, 198, 211 + online-bookings/[id]:107, 316, 356, 363. | 2h | — | Sonnet | `Card` |
+| 09 | open | **Consolidation: delete dead IconText** | Verify 0 usages (grep src/). Delete `src/components/ds/IconText.tsx`. Remove from `src/components/ds/index.ts` exports. Remove from DS component catalog. Remove Storybook story if any. `npx tsc --noEmit` + `npx next build` to confirm. | 0.5h | — | Sonnet | `IconText` (deleted) |
+| 10 | open | **Consolidation: fold Section into Card (add `description`)** | Add `description?: string` to Card. When title+description present, render Section-style header block. Delete `src/components/ds/Section.tsx`. Remove from index/catalog. Verify 0 consumers migrated. | 1h | — | Sonnet | `Card` (+), `Section` (deleted) |
+| 11 | open | **Consolidation: fold Status into ColorDot (add `label`)** | Add `label?: string` to ColorDot; wrap in Flex when label present. Accept semantic color tokens (green/red/yellow/...) in addition to hex. Delete `src/components/ds/Status.tsx`. Remove from index/catalog. | 1h | — | Sonnet | `ColorDot` (+), `Status` (deleted) |
+| 12 | open | **Consolidation: migrate OnOffBadge to Text and delete** | Verify 2 OnOffBadge callers. Replace with `<Text color={value?"success":"danger"}>{value?onLabel:offLabel}</Text>`. Delete component. Remove from index/catalog. | 0.5h | — | Sonnet | `OnOffBadge` (deleted) |
+| 13 | open | **Badge: add `size` prop** | Add `size: sm/md/lg` (default md). Migrate waitlist:738, 886 (service/tag chips) + InvoiceDetailClient:112 (status badge). Storybook. | 1h | — | Sonnet | `Badge` |
+| 14 | open | **FormInput: fix internal disabled styling (bug)** | Investigate why `<FormInput disabled>` doesn't show the grey fill. Fix inside the component (likely AntD `variant="filled"` when disabled). Remove the inline `backgroundColor: '#f3f4f6'` workarounds at settings/details:93, 102, 108. | 1h | — | Sonnet | `FormInput` |
+| 15 | open | **ColorDot: add `shape`, `interactive`, `selected`** | Add `shape: circle/rect`, `interactive: boolean`, `selected: boolean`, `onClick`. Migrate online-bookings/[id]:137 swatches + settings/tags:162 rect preview. | 1h | — | Sonnet | `ColorDot` |
+| 16 | open | **AdoptAsIs session: Products page raw table → DataTable** | Replace raw `<table>` + 16 inline `<th>/<td>` with DataTable in products/page.tsx. Chrome MCP verification. | 1.5h | — | Sonnet | — |
+| 17 | open | **AdoptAsIs session: reports/performance + contacts/[id] → List** | Replace raw `<dt>/<dd>` (reports/performance) and raw label-value rows (contacts/[id]) with DS List component. Chrome MCP verification. | 1.5h | — | Sonnet | — |
+| 18 | open | **NewDS: ProgressBar + apply to reports** | Create `ProgressBar` with `value`, `tone`, `size`. Migrate reports/page.tsx:444-446 utilisation bars. Storybook. | 1h | — | Sonnet | `ProgressBar` (new) |
+| **— Wave 2: dependent sessions (sequenced so prereqs land first) —** | | | | | | | |
+| 19 | open | **DS templates: adopt Text page-title** | Replace hard-coded `<h1 style=…>` in `DetailPage.tsx:45` and `Navbar.tsx:41` with `<Text variant="page-title">{title}</Text>`. Chrome MCP verification: visit a detail page and a form page to confirm no visual regression (title should look identical). | 1h | 03 | **Opus** | `DetailPage`, `Navbar` |
+| 20 | open | **Migrate Icon component across top 3 pages** | Use the Icon component created in session 02. Replace `<XxxOutlined style={{ fontSize: N }} />` in DashboardClient.tsx, notes/[id]/edit/page.tsx, settings/data-import/page.tsx. Aim for 40+ inline-style reductions. Chrome MCP verification: visit each page. | 2h | 02 | Sonnet | — (uses Icon) |
+| 21 | open | **HintIcon: `tone="inverted"` + `size`** | Add `tone` + `size` props to HintIcon. Migrate ClientDetailClient:285, 286, 291. Storybook. | 1h | 04 | Sonnet | `HintIcon` |
+| 22 | open | **Button: add `iconOnly` + `shape="circle"`** | Add `iconOnly?: boolean` (no padding, centres icon) and extend `shape` with `"circle"`. Migrate settings/forms/[id]:134, 210 + waitlist:743, 891 + progress-notes/edit/[id]:160. Storybook. | 1.5h | 06 | Sonnet | `Button` |
+| 23 | open | **Text weight: migrate invoices/[id]/page.tsx callers (was 01b)** | After sessions 03 (heading/xl variant) and 04 (color="inverted") land, revisit `src/app/invoices/[id]/page.tsx`. Migrate remaining `fontWeight` inlines at lines 56, 306, 336, 387 using the new variants + weight prop. Lines 359-387 (Stripe/HICAPS branding) stay inline — legitimate one-off. Chrome MCP verification of the invoice page. | 1h | 01, 03, 04 | Sonnet | — |
+| 24 | open | **AdoptAsIs session: settings/ai typography cleanup** | Replace raw `<h3>/<h4>` with Text variants. Remove inline color/font/weight overrides. Chrome MCP verification. | 1h | 01, 03 | Sonnet | — |
+| 25 | open | **AdoptAsIs session: invoice pages → DS Text/DataTable** | Invoice server (`invoices/[id]/page.tsx`) + new (`invoices/new/page.tsx`). Replace raw `<h2>/<h3>` with Text variants (session 03 variants now exist). Replace raw `<table>` with DataTable. Chrome MCP verification. | 2h | 01, 03, 04 | **Opus** | — |
+| 26 | open | **Per-page fix: ClientDetailClient remaining cleanup** | After Wave 1 + the above Wave 2 items, revisit ClientDetailClient.tsx. Apply Icon, DataTable for associated-contacts, FeatureCard + inverted tones for account balance. Target: ≤10 inline styles remaining. Chrome MCP verification. | 2h | 02, 04, 20, 21 | **Opus** | — |
+| **— Wave 3: verification (runs after Waves 1+2 complete) —** | | | | | | | |
+| 27 | open | **Verification: re-run Pass 1 + compare to audit baseline** | Re-run the Pass 1 mechanical-count subagent with the same scope as the original audit (`docs/superpowers/plans/2026-04-20-ds-audit.md` Task 1). Produce `docs/ds-audit/pass1-raw-counts-2026-postbacklog.md`. Diff against the 2026-04-20 baseline: total raw count should drop from 1422 to ≤600 (≥60% reduction); top-10 files should drop ≥90%. Append the diff to the session log. | 1h | 01–26 | Sonnet | — |
+| 28 | open | **Verification: promote ESLint DS-first rule from `warn` to `error`** | Once Session 27 confirms warning count is <50 across `src/app`, change `"no-restricted-syntax": ["warn", …]` → `"error"` in `eslint.config.mjs`. Run `npx eslint src/` to surface any remaining warnings; for each legitimate exception (dynamic user color, decorative gradient) add an inline `eslint-disable-next-line no-restricted-syntax` with a one-line reason comment. Prevents DS regression permanently. | 1h | 27 | Sonnet | — |
+| 29 | open | **Verification: broaden audit scope and triage newly-surfaced files** | The original Pass 1 scope missed non-page client components (`CalendarView.tsx` 89, `AppointmentSidePanel.tsx` 50, `SendNoteModal.tsx` 38 warnings — see session log). Run the ESLint rule against the full `src/app/**/*.tsx` tree, then either (a) fold each high-count file into a per-page AdoptAsIs session on the backlog, or (b) do a single "broadened cleanup" session covering all three. Chrome MCP verification per page. | 1.5h | 27 | Sonnet | — |
 
 ## Definition of done
 
@@ -83,31 +93,34 @@ Every session must satisfy ALL of these checks before flipping status to `done`.
 | # | Done when (in addition to default checks) |
 |---|---|
 | 01 | `grep -c 'fontWeight' src/app/invoices/\[id\]/InvoiceDetailClient.tsx` ≤ 1 AND `grep -c 'weight=' src/app/invoices/\[id\]/InvoiceDetailClient.tsx` ≥ 13 |
-| 01b | `grep -c 'fontWeight' src/app/invoices/\[id\]/page.tsx` ≤ 4 (decorative Stripe/HICAPS exempt) AND at least 4 of the migrated lines use `<Text variant="heading/xl">` or `weight=` |
-| 02 | `grep -c "height: 16, width: 1" src/app/notes/\[id\]/edit/page.tsx src/app/settings/details/page.tsx` = 0 AND `orientation="vertical"` appears in at least 5 call sites |
-| 03 | `grep -c "borderRadius: 9999" src/app/reports/page.tsx src/app/settings/details/page.tsx` = 0 AND `shape="pill"` appears in at least 6 call sites |
-| 04 | `src/components/ds/Icon.tsx` exists; `src/components/ds/index.ts` exports `Icon`; Storybook story has AllVariants + size grid + tone grid |
-| 05 | `src/components/ds/IconText.tsx` does NOT exist; `grep -r "IconText" src/` returns 0 results |
-| 06 | `src/components/ds/Section.tsx` does NOT exist; `grep -r "from.*Section" src/` returns 0; Card supports `description` prop |
-| 07 | `src/components/ds/Status.tsx` does NOT exist; ColorDot supports `label` + semantic color names |
-| 08 | `heading/xl` and `page-title` appear in `TextVariant` type; corresponding CSS classes exist in Text.module.css |
-| 09 | `grep -c "fontSize: 30" src/components/ds/DetailPage.tsx src/components/ds/Navbar.tsx` = 0; both use `<Text variant="page-title">` |
-| 10 | `grep -c "Outlined style={{ fontSize" src/app/DashboardClient.tsx src/app/notes/\[id\]/edit/page.tsx src/app/settings/data-import/page.tsx` reduced by ≥40 |
-| 11 | `TextColor` includes `"inverted"`; `src/components/ds/FeatureCard.tsx` exists; ClientDetailClient.tsx line ~282 uses FeatureCard |
-| 12 | `grep -c "HintIcon style={{" src/app/clients/\[id\]/ClientDetailClient.tsx` = 0 |
-| 13 | `variant="link"` exists in Button; `grep -c "onMouseEnter.*underline" src/` = 0 |
-| 14 | `iconOnly` and `shape="circle"` work in Button; 5 caller sites migrated |
-| 15 | `tint`, `interactive`, `variant="dashed"` all work in Card; ≥8 caller sites migrated |
-| 16 | `size` prop exists in Badge; 3 caller sites migrated |
-| 17 | `grep -c "backgroundColor: '#f3f4f6'" src/app/settings/details/page.tsx` = 0 AND disabled FormInput renders grey fill |
-| 18 | `shape`, `interactive`, `selected` all work in ColorDot; 2 caller sites migrated |
-| 19 | `src/components/ds/OnOffBadge.tsx` does NOT exist; `grep -r "OnOffBadge" src/` returns 0 results |
-| 20 | `grep -c "<h2 style\|<h3 style\|<table" src/app/invoices/\[id\]/page.tsx src/app/invoices/new/page.tsx` reduced by ≥15 |
-| 21 | `grep -c "<th style\|<td style" src/app/products/page.tsx` = 0 (now DataTable Th/Td) |
-| 22 | `grep -c "<dt\|<dd" src/app/reports/performance/page.tsx` = 0; raw label-value rows in contacts/[id]/page.tsx replaced by `<List>` |
-| 23 | `grep -c "<h3 style\|<h4 style" src/app/settings/ai/page.tsx` = 0 |
-| 24 | `grep -c "style={{" src/app/clients/\[id\]/ClientDetailClient.tsx` ≤ 10 |
-| 25 | `src/components/ds/ProgressBar.tsx` exists; reports/page.tsx lines 444-446 use `<ProgressBar>` |
+| 02 | `src/components/ds/Icon.tsx` exists; `src/components/ds/index.ts` exports `Icon`; Storybook story has AllVariants + size grid + tone grid |
+| 03 | `heading/xl` and `page-title` appear in `TextVariant` type; corresponding CSS classes exist in `Text.module.css` |
+| 04 | `TextColor` includes `"inverted"`; `src/components/ds/FeatureCard.tsx` exists; `ClientDetailClient.tsx` line ~282 uses FeatureCard |
+| 05 | `grep -c "height: 16, width: 1" src/app/notes/\[id\]/edit/page.tsx src/app/settings/details/page.tsx` = 0 AND `orientation="vertical"` appears in ≥ 5 call sites |
+| 06 | `grep -c "borderRadius: 9999" src/app/reports/page.tsx src/app/settings/details/page.tsx` = 0 AND `shape="pill"` appears in ≥ 6 call sites |
+| 07 | `variant="link"` exists in Button; `grep -c "onMouseEnter.*underline" src/` = 0 |
+| 08 | `tint`, `interactive`, `variant="dashed"` all work in Card; ≥ 8 caller sites migrated |
+| 09 | `src/components/ds/IconText.tsx` does NOT exist; `grep -r "IconText" src/` returns 0 results |
+| 10 | `src/components/ds/Section.tsx` does NOT exist; `grep -r "from.*Section" src/` returns 0; Card supports `description` prop |
+| 11 | `src/components/ds/Status.tsx` does NOT exist; ColorDot supports `label` + semantic color names |
+| 12 | `src/components/ds/OnOffBadge.tsx` does NOT exist; `grep -r "OnOffBadge" src/` returns 0 results |
+| 13 | `size` prop exists in Badge; 3 caller sites migrated |
+| 14 | `grep -c "backgroundColor: '#f3f4f6'" src/app/settings/details/page.tsx` = 0 AND disabled FormInput renders grey fill |
+| 15 | `shape`, `interactive`, `selected` all work in ColorDot; 2 caller sites migrated |
+| 16 | `grep -c "<th style\|<td style" src/app/products/page.tsx` = 0 (now DataTable Th/Td) |
+| 17 | `grep -c "<dt\|<dd" src/app/reports/performance/page.tsx` = 0; raw label-value rows in `contacts/[id]/page.tsx` replaced by `<List>` |
+| 18 | `src/components/ds/ProgressBar.tsx` exists; `reports/page.tsx` lines 444-446 use `<ProgressBar>` |
+| 19 | `grep -c "fontSize: 30" src/components/ds/DetailPage.tsx src/components/ds/Navbar.tsx` = 0; both use `<Text variant="page-title">` |
+| 20 | `grep -c "Outlined style={{ fontSize" src/app/DashboardClient.tsx src/app/notes/\[id\]/edit/page.tsx src/app/settings/data-import/page.tsx` reduced by ≥ 40 |
+| 21 | `grep -c "HintIcon style={{" src/app/clients/\[id\]/ClientDetailClient.tsx` = 0 |
+| 22 | `iconOnly` and `shape="circle"` work in Button; 5 caller sites migrated |
+| 23 | `grep -c 'fontWeight' src/app/invoices/\[id\]/page.tsx` ≤ 4 (decorative Stripe/HICAPS exempt) AND at least 4 of the migrated lines use `<Text variant="heading/xl">` or `weight=` |
+| 24 | `grep -c "<h3 style\|<h4 style" src/app/settings/ai/page.tsx` = 0 |
+| 25 | `grep -c "<h2 style\|<h3 style\|<table" src/app/invoices/\[id\]/page.tsx src/app/invoices/new/page.tsx` reduced by ≥ 15 |
+| 26 | `grep -c "style={{" src/app/clients/\[id\]/ClientDetailClient.tsx` ≤ 10 |
+| 27 | `docs/ds-audit/pass1-raw-counts-2026-postbacklog.md` exists; total raw `style={{` count ≤ 600 (was 1422 baseline); top-10 files each dropped ≥ 90% from baseline; delta summary appended to session log |
+| 28 | `eslint.config.mjs` has `"no-restricted-syntax": ["error", …]` (not `"warn"`); `npx eslint src/` exits 0 (all legitimate exceptions have inline `eslint-disable-next-line` with a reason comment); commit lists count of exceptions added |
+| 29 | Every high-count file flagged in session 27 (CalendarView, AppointmentSidePanel, SendNoteModal, plus any others surfaced) has either (a) been migrated in this session with Chrome MCP verification, or (b) had a new per-file session row added to the backlog with explicit scope |
 
 ---
 
@@ -129,6 +142,6 @@ When you (the command) pick up a session:
 4. For sessions that add props: use Storybook to exercise the new API before migrating callers.
 5. **Chrome MCP verification is mandatory** for any session that touches UI (per `docs/quality-gate.md`). If the migrated component isn't mounted on any current route, use the Storybook fallback documented in `docs/quality-gate.md`.
 6. Any session that adds a new DS component or prop must update `docs/reference/ds-component-catalog.md` in the same commit.
-7. **Run the Done-when checks** from the "## Definition of done" section above before flipping status to `done`. If any check fails, flip to `partial` and add a follow-up row to the backlog (like session 01 → 01b).
+7. **Run the Done-when checks** from the "## Definition of done" section above before flipping status to `done`. If any check fails, flip to `partial` and add a follow-up row to the backlog (like session 01 → session 23 for the page.tsx migration split-off).
 8. After completing the session, append a one-line entry to `docs/ds-audit-session-log.md` with the session number, date, model used, scope delta (promised vs landed), and any blockers discovered.
 9. If a session exceeds its effort estimate by 50%+, stop and ask Jim whether to split.
