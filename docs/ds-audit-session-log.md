@@ -27,6 +27,8 @@ One row per session. Columns:
 
 | 03 | 2026-04-20 | Sonnet 4.6 | Add heading/xl (28px/700) + page-title (30px/700/Sprig Sans/green) variants to Text; --color-page-title token; Storybook PageTitleVariant story | All promised scope landed: TextVariant ✓, CSS classes ✓, globals.css token ✓, PageTitleVariant story ✓. No template migrations (per scope). | done | Storybook preview iframe frozen in prior session (blank/loading spinner) — fixed by restarting Storybook process. Blocker was Storybook server state, not code. | Storybook-only verification (variants not yet mounted on any route — migrations are session 19). heading/xl=28px/700/1.2 ✓, page-title=30px/700/green ✓. TypeScript clean. Build passed. |
 
+| 04 | 2026-04-20 | Sonnet 4.6 | Add TextColor "inverted" + create FeatureCard (tone: primary/success/neutral/inverted) + migrate ClientDetailClient account-balance card + Storybook | All scope landed: TextColor inverted ✓, .text-text-inverted CSS ✓, FeatureCard.tsx ✓, index.ts exports ✓, ClientDetailClient migrated ✓, Storybook AllTones + AccountBalanceRecipe + Text.WithColorOverride stories ✓, ds-component-catalog updated ✓. | done | None | Storybook-only verification (no app route mounts FeatureCard yet — caller migrations are sessions 21/23/25/26). All 4 tones measured with correct bg/color. |
+
 *(Future sessions append rows here. Keep entries brief — one row per session. If a session spawns a follow-up, add the follow-up as its own row when complete.)*
 
 ## Renumbering notes (2026-04-20)
