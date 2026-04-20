@@ -15,9 +15,8 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 
 | Component | Use for |
 |---|---|
-| `Card` | Bordered content containers. `tint`: `default \| subtle \| muted` (background fill). `variant`: `default \| dashed` (border style — dashed = 2px dashed for upload zones). `interactive`: renders as `<button>` with cursor+hover for clickable card UIs. Also: title, headerBar, padding, shadow. |
+| `Card` | Bordered content containers. `tint`: `default \| subtle \| muted` (background fill). `variant`: `default \| dashed` (border style — dashed = 2px dashed for upload zones). `interactive`: renders as `<button>` with cursor+hover for clickable card UIs. `description`: subtitle text rendered below title (Section-style header). Also: title, headerBar, padding, shadow. |
 | `FeatureCard` | Tinted/colored card containers — `tone: primary \| success \| neutral \| inverted`. Use for account balance, summary stats, or any card on a colored background. |
-| `Section` | Form sections — Card + title + description (use for settings/form patterns) |
 | `Grid` | 1-4 column responsive grid with gap sizing |
 | `Divider` | Separator with `orientation` (horizontal/vertical), `variant` (default/subtle/primary), `spacing` (none/xs/sm/md/lg) |
 | `Collapse` | Expandable sections with chevron |

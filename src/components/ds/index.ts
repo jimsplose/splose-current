@@ -26,7 +26,6 @@ export { default as Collapse } from "./Collapse";
 export { default as Navbar } from "./Navbar";
 export { default as DateRangeFilter } from "./DateRangeFilter";
 export { default as Divider } from "./Divider";
-export { default as Section } from "./Section";
 export { default as ListPage } from "./ListPage";
 export { default as DetailPage } from "./DetailPage";
 export { default as FormPage } from "./FormPage";

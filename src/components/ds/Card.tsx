@@ -1,10 +1,12 @@
 "use client";
 
 import { Card as AntCard } from "antd";
+import Text from "./Text";
 
 export interface CardProps {
   children: React.ReactNode;
   title?: string;
+  description?: string;
   headerBar?: boolean;
   className?: string;
   style?: React.CSSProperties;
@@ -33,6 +35,7 @@ const tintBg: Record<string, string> = {
 export default function Card({
   children,
   title,
+  description,
   headerBar,
   className,
   style,
@@ -96,7 +99,21 @@ export default function Card({
       onClick={onClick}
     >
       {title && !headerBar && (
-        <h3 style={{ marginBottom: 12, fontSize: 14, fontWeight: 600 }}>{title}</h3>
+        <div style={{ marginBottom: 16 }}>
+          <Text variant="label/lg" as="h3" style={{ marginBottom: description ? 4 : 0 }}>
+            {title}
+          </Text>
+          {description && (
+            <Text variant="caption/md" color="secondary">
+              {description}
+            </Text>
+          )}
+        </div>
+      )}
+      {headerBar && description && (
+        <Text variant="caption/md" color="secondary" style={{ marginBottom: 12 }}>
+          {description}
+        </Text>
       )}
       {children}
     </AntCard>
