@@ -19,7 +19,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `FeatureCard` | Tinted/colored card containers — `tone: primary \| success \| neutral \| inverted`. Use for account balance, summary stats, or any card on a colored background. |
 | `Section` | Form sections — Card + title + description (use for settings/form patterns) |
 | `Grid` | 1-4 column responsive grid with gap sizing |
-| `Divider` | Horizontal separator with variant (default/subtle) and spacing (none/sm/md/lg) |
+| `Divider` | Separator with `orientation` (horizontal/vertical), `variant` (default/subtle/primary), `spacing` (none/xs/sm/md/lg) |
 | `Collapse` | Expandable sections with chevron |
 | `PageHeader` | Page title + action buttons (prefer ListPage/DetailPage templates) |
 

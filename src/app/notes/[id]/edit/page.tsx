@@ -29,7 +29,7 @@ import {
   ArrowUpOutlined,
 } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, Card, Checkbox, FormSelect, List, Navbar, Filter, Spinner, Dropdown, Text } from "@/components/ds";
+import { Button, Card, Checkbox, FormSelect, List, Navbar, Filter, Spinner, Dropdown, Text, Divider } from "@/components/ds";
 import AiChatPanel from "@/components/AiChatPanel";
 
 type NoteData = {
@@ -350,7 +350,7 @@ export default function EditProgressNotePage() {
                 <FontSizeOutlined style={{ fontSize: 16 }} />
                 <DownOutlined style={{ fontSize: 12 }} />
               </Button>
-              <span style={{ height: 16, width: 1, backgroundColor: 'var(--color-border)' }} />
+              <Divider orientation="vertical" spacing="none" />
               <Button variant="icon">
                 <BoldOutlined style={{ fontSize: 16 }} />
               </Button>
@@ -363,7 +363,7 @@ export default function EditProgressNotePage() {
               <Button variant="icon">
                 <StrikethroughOutlined style={{ fontSize: 16 }} />
               </Button>
-              <span style={{ height: 16, width: 1, backgroundColor: 'var(--color-border)' }} />
+              <Divider orientation="vertical" spacing="none" />
               <Button variant="icon">
                 <LinkOutlined style={{ fontSize: 16 }} />
               </Button>
