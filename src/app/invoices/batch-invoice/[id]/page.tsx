@@ -28,7 +28,7 @@ export default function BatchInvoiceDetailPage() {
       </Flex>
 
       {/* Summary */}
-      <p className="text-body-md" style={{ color: "rgb(65, 69, 73)", marginBottom: 24 }}>
+      <p style={{ fontSize: 15, color: "rgb(65, 69, 73)", marginBottom: 24 }}>
         This batch contains {items.length} invoices totalling {totalAmount} AUD.
       </p>
 

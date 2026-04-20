@@ -2,7 +2,7 @@
 
 .page {
   min-height: 100vh;
-  background: var(--color-bg-container);
+  background: rgb(250, 249, 245);
 }
 
 .container {
@@ -40,7 +40,7 @@
   font-size: 36px;
   font-weight: 600;
   line-height: 44px;
-  color: var(--color-text);
+  color: rgb(16, 24, 40);
 }
 
 /* Location step */
@@ -67,14 +67,14 @@
 
 .locationIcon {
   display: flex;
-  height: 64px;
-  width: 64px;
+  height: 108px;
+  width: 100px;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  background: #1f2937;
-  font-size: 24px;
+  background: rgb(243, 244, 246);
+  color: rgb(107, 114, 128);
 }
 
 .locationInfo {
@@ -82,25 +82,32 @@
 }
 
 .selectBtn {
-  border-radius: 8px;
-  background: rgb(106, 57, 228);
-  padding: 4px 15px;
-  color: #fff;
-  border: none;
+  border-radius: 10px;
+  background: rgb(209, 248, 246);
+  padding: 8px 16px;
+  color: rgb(0, 0, 0);
+  border: 1px solid rgb(0, 0, 0);
   cursor: pointer;
+  font-size: 16px;
+  font-weight: 400;
+  min-width: 100px;
+  min-height: 40px;
 }
 
 .selectBtn:hover {
-  background: rgb(90, 45, 200);
+  background: rgb(180, 235, 232);
 }
 
 .selectedBtn {
-  border-radius: 8px;
-  border: 1px solid rgb(106, 57, 228);
-  background: var(--color-bg-container);
-  padding: 4px 15px;
-  color: rgb(106, 57, 228);
+  border-radius: 10px;
+  border: 1px solid rgb(0, 0, 0);
+  background: rgb(0, 0, 0);
+  padding: 8px 16px;
+  color: rgb(255, 255, 255);
   cursor: default;
+  font-size: 16px;
+  min-width: 100px;
+  min-height: 40px;
 }
 
 /* Select step */
@@ -418,7 +425,9 @@
 
 .sidebarTitle {
   margin-bottom: 16px;
+  font-size: 16px;
   font-weight: 700;
+  color: rgb(17, 20, 26);
 }
 
 .stepperContainer {
@@ -510,4 +519,43 @@
 /* Alert wrapper */
 .alertWrapper {
   margin-bottom: 24px;
+}
+
+/* Book Now banner — production-matched styling */
+.bookNowBanner {
+  background: rgb(201, 228, 252);
+  border: 1px solid rgb(130, 80, 255);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: rgb(16, 24, 40);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+/* Location card name heading (inside card) */
+.locationName {
+  font-size: 18px;
+  font-weight: 500;
+  color: rgb(16, 24, 40);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.locationSubtitle {
+  display: block;
+}
+
+/* Full-width Continue button in sidebar */
+.continueFull {
+  width: 100%;
+  height: 44px;
+  font-size: 16px;
+  justify-content: center;
+}
+
+.continueFull:disabled,
+.continueFull[disabled] {
+  background: rgba(0, 0, 0, 0.25) !important;
+  color: rgb(255, 255, 255) !important;
+  border-color: rgba(0, 0, 0, 0.25) !important;
 }

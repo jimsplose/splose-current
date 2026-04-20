@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { EditOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
 import {
+  AlertCallout,
   Avatar,
   Button,
   Badge,
@@ -301,7 +302,9 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
 
         {/* Client alerts */}
         <Collapse title="Client alerts" defaultOpen>
-          <Text variant="body/md" as="span">Include KM</Text>
+          <AlertCallout variant="warning">
+            <Text variant="body/md" as="span">Include KM</Text>
+          </AlertCallout>
         </Collapse>
 
         {/* Client tags */}

@@ -2,9 +2,9 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { LeftOutlined, RightOutlined, EnvironmentOutlined, FileTextOutlined, ClockCircleOutlined, CalendarOutlined, UserOutlined, CheckCircleOutlined, MailOutlined, PlusOutlined, CopyOutlined } from "@ant-design/icons";
+import { LeftOutlined, RightOutlined, EnvironmentOutlined, FileTextOutlined, ClockCircleOutlined, CalendarOutlined, UserOutlined, CheckCircleOutlined, MailOutlined, PlusOutlined, CopyOutlined, BankOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Avatar, Button, Checkbox, FormInput, FormSelect, FormTextarea, Alert, Text } from "@/components/ds";
+import { Avatar, Button, Checkbox, FormInput, FormSelect, FormTextarea, Text } from "@/components/ds";
 import styles from "./online-booking.module.css";
 
 const practitioners = [
@@ -100,9 +100,9 @@ function OnlineBookingPageInner() {
             {step === "location" && (
               <>
                 <div className={styles.alertWrapper}>
-                  <Alert variant="info">
+                  <div className={styles.bookNowBanner} role="note">
                     <strong>Book Now:</strong> Self-paying clients are required to make payment at the time of service.
-                  </Alert>
+                  </div>
                 </div>
 
                 <h1 className={styles.pageTitle}>Select a location</h1>
@@ -116,11 +116,11 @@ function OnlineBookingPageInner() {
                         className={`${styles.locationCard} ${isSelected ? styles.locationCardSelected : ""}`}
                       >
                         <div className={styles.locationIcon}>
-                          🔥
+                          <BankOutlined style={{ fontSize: 32 }} />
                         </div>
                         <div className={styles.locationInfo}>
-                          <Text variant="heading/sm" as="div">{loc.name}</Text>
-                          <Text variant="body/md" as="div" color="secondary">{loc.description}</Text>
+                          <span className={styles.locationName}>{loc.name}</span>
+                          <Text variant="body/md" as="div" color="secondary" className={styles.locationSubtitle}>{loc.description}</Text>
                         </div>
                         {isSelected ? (
                           <button className={styles.selectedBtn}>
@@ -587,7 +587,8 @@ function OnlineBookingPageInner() {
                   selectedLocation ? (
                     <Button
                       variant="primary"
-                      className="w-full justify-center"
+                      className={styles.continueFull}
+                      style={{ width: "100%", height: 44, fontSize: 16 }}
                       onClick={() => setStep("select")}
                     >
                       Continue
@@ -596,7 +597,8 @@ function OnlineBookingPageInner() {
                     <Button
                       variant="primary"
                       disabled
-                      className="w-full justify-center"
+                      className={styles.continueFull}
+                      style={{ width: "100%", height: 44, fontSize: 16 }}
                     >
                       Continue
                     </Button>
@@ -605,12 +607,18 @@ function OnlineBookingPageInner() {
                   <Button
                     variant="primary"
                     disabled
-                    className="w-full justify-center"
+                    className={styles.continueFull}
+                    style={{ width: "100%", height: 44, fontSize: 16 }}
                   >
                     Continue
                   </Button>
                 ) : (
-                  <Button variant="primary" className="w-full justify-center" onClick={() => setStep("confirmed")}>
+                  <Button
+                    variant="primary"
+                    className={styles.continueFull}
+                    style={{ width: "100%", height: 44, fontSize: 16 }}
+                    onClick={() => setStep("confirmed")}
+                  >
                     Confirm
                   </Button>
                 )}

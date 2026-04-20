@@ -42,6 +42,7 @@ export { default as Spinner } from "./Spinner";
 export { default as HintIcon } from "./HintIcon";
 export { default as FormTextarea } from "./FormTextarea";
 export { default as Alert } from "./Alert";
+export { default as AlertCallout } from "./AlertCallout";
 export { default as TopNav } from "./TopNav";
 export type { NavItem, TopNavProps } from "./TopNav";
 export { default as SideNav } from "./SideNav";

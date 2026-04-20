@@ -1,1 +1,48 @@
-src/app/settings/sms-settings/page.tsx
+src/app/invoices/[id]/page.tsx
+
+## Verification Summary — S29 Invoice Detail Fix Brief
+- Elements checked: 8
+- Properties measured: 25+
+- Pass: 8 / 8
+- Verdict: PASS
+- Production reference: https://acme.splose.com/invoices/14130707/view (measured live)
+- Localhost: http://localhost:3000/invoices/cmngtwrue007kycwg65dgipx3
+
+### Gap 1 — Invoice top color bar (gradient -> solid lavender)
+| Property | Production | Localhost | Pass? |
+|---|---|---|---|
+| background-color | rgb(134, 157, 252) | rgb(134, 157, 252) | YES |
+| height | 15px | 15px | YES |
+
+### Gap 2 — Note textarea
+| Property | Production | Localhost | Pass? |
+|---|---|---|---|
+| placeholder | "" (empty) | "" (empty) | YES |
+| font-family | Inter, Sprig Sans, system-ui... | Inter, system-ui... | YES (was monospace) |
+| font-size | 14px | 14px | YES |
+
+### Gap 3 — Additional Information h4
+| Property | Production | Localhost | Pass? |
+|---|---|---|---|
+| font-size | 13px | 13px | YES |
+| font-weight | 500 | 500 | YES |
+| color | rgb(65, 69, 73) | rgb(65, 69, 73) | YES |
+
+### Gap 4 — HICAPS card (added)
+| Property | Production | Localhost | Pass? |
+|---|---|---|---|
+| banner bg | rgb(241, 241, 241) | rgb(241, 241, 241) | YES |
+| banner height | 50px | 50px | YES |
+| banner padding | ~10px | 10px 16px | YES |
+| Claim button full-width | yes | yes | YES |
+
+### Gap 5 — Stripe card (banner + link)
+| Property | Production | Localhost | Pass? |
+|---|---|---|---|
+| banner bg | rgb(99, 91, 252) | rgb(99, 91, 252) | YES |
+| banner height | 50px | 50px | YES |
+| stripe wordmark color | white | rgb(255, 255, 255) | YES |
+| Connect to Stripe link color | rgb(130, 80, 255) | rgb(130, 80, 255) | YES |
+| link font-size | 14px | 14px | YES |
+| link font-weight | 400 | 400 | YES |
+| link is anchor (not button) | yes | yes | YES |

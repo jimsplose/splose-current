@@ -45,8 +45,8 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
       <Flex gap={24} style={{ padding: '32px 32px' }}>
         {/* Invoice document */}
         <div style={{ minWidth: 0, flex: 1 }}>
-          {/* Gradient color bar */}
-          <div style={{ height: 8, borderRadius: '8px 8px 0 0', background: 'linear-gradient(to right, #a855f7, #22c55e, #facc15)' }} />
+          {/* Top color bar */}
+          <div style={{ height: 15, borderRadius: '8px 8px 0 0', background: 'rgb(134, 157, 252)' }} />
 
           <div style={{ borderRadius: '0 0 8px 8px', border: '1px solid var(--color-border)', borderTop: 'none', background: 'white', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
             <div style={{ padding: 40 }}>
@@ -303,7 +303,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
 
               {/* Additional Information */}
               <div style={{ marginTop: 24 }}>
-                <Text variant="heading/md" as="h4" color="text" style={{ marginBottom: 12 }}>Additional Information</Text>
+                <Text variant="body/sm" as="h4" color="text" style={{ marginBottom: 12, fontSize: 13, fontWeight: 500 }}>Additional Information</Text>
                 <Text variant="body/md" as="p" color="secondary">
                   Please note that the service dates are displayed at the beginning of each line item.
                 </Text>
@@ -353,18 +353,33 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
           </Card>
 
           {/* Stripe CTA card */}
-          <Card padding="lg" shadow>
-            <Flex align="center" gap={8} style={{ marginBottom: 12 }}>
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="20" height="20" rx="4" fill="#635BFF" />
-                <path d="M9.3 8.2C8.1 7.7 7.5 7.4 7.5 6.8C7.5 6.3 8 5.9 8.8 5.9C10 5.9 10.9 6.4 10.9 6.4L11.5 4.8C11.5 4.8 10.5 4.2 8.8 4.2C6.5 4.2 5 5.5 5 7.1C5 8.4 5.9 9.2 7.3 9.8C8.4 10.2 8.8 10.6 8.8 11.1C8.8 11.7 8.3 12.1 7.4 12.1C6.2 12.1 5 11.4 5 11.4L4.3 13C4.3 13 5.5 13.8 7.3 13.8C9.7 13.8 11.3 12.6 11.3 10.8C11.3 9.4 10.3 8.6 9.3 8.2Z" fill="white" />
-              </svg>
-              <Text variant="heading/sm" as="span" color="text">Stripe</Text>
-            </Flex>
-            <Text variant="body/sm" as="p" color="secondary" style={{ marginBottom: 12 }}>
-              Connect your Stripe account to accept online payments directly from invoices.
-            </Text>
-            <Button variant="primary" style={{ width: '100%', background: '#635BFF' }}>Connect Stripe</Button>
+          <Card padding="none" shadow>
+            {/* Purple banner with lowercase 'stripe' wordmark */}
+            <div style={{ background: 'rgb(99, 91, 252)', padding: '10px 16px', height: 50, display: 'flex', alignItems: 'center', borderRadius: '8px 8px 0 0' }}>
+              <span style={{ color: 'white', fontSize: 20, fontWeight: 700, letterSpacing: '-0.5px', lineHeight: 1 }}>stripe</span>
+            </div>
+            <div style={{ padding: 16 }}>
+              <Text variant="body/sm" as="p" color="secondary" style={{ marginBottom: 12 }}>
+                Add a &lsquo;Pay now&rsquo; button to invoices for clients and contacts to pay online.
+              </Text>
+              <a href="#" style={{ color: 'rgb(130, 80, 255)', fontSize: 14, fontWeight: 400, textDecoration: 'none' }}>Connect to Stripe</a>
+            </div>
+          </Card>
+
+          {/* HICAPS / LanternPay card */}
+          <Card padding="none" shadow>
+            {/* Gray banner with HICAPS wordmark */}
+            <div style={{ background: 'rgb(241, 241, 241)', padding: '10px 16px', height: 50, display: 'flex', alignItems: 'center', gap: 4, borderRadius: '8px 8px 0 0' }}>
+              <span style={{ color: '#ffc400', fontSize: 20, fontWeight: 700, lineHeight: 1 }}>+</span>
+              <span style={{ color: 'rgb(65, 69, 73)', fontSize: 20, fontWeight: 800, letterSpacing: '0.5px', lineHeight: 1 }}>HICAPS</span>
+              <span style={{ color: '#ffc400', fontSize: 20, fontWeight: 700, lineHeight: 1 }}>+</span>
+            </div>
+            <div style={{ padding: 16 }}>
+              <Text variant="body/sm" as="p" color="secondary" style={{ marginBottom: 12 }}>
+                Submit your claim through LanternPay by validating your invoice first.
+              </Text>
+              <Button variant="secondary" style={{ width: '100%' }}>Claim</Button>
+            </div>
           </Card>
 
           {/* Note */}
@@ -372,9 +387,8 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
             <h3 style={{ fontSize: 21, fontWeight: 500, color: 'rgb(65, 69, 73)', marginBottom: 8 }}>Note</h3>
             <textarea
               className="text-body-md text-text"
-              style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', background: 'var(--color-fill-tertiary)', padding: 12, outline: 'none' }}
+              style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', background: 'var(--color-fill-tertiary)', padding: 12, outline: 'none', fontFamily: 'inherit' }}
               rows={4}
-              placeholder="Add an internal note..."
               defaultValue=""
             />
           </Card>
