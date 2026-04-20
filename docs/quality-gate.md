@@ -57,6 +57,18 @@ Run the **5-iteration verification loop** (canonical procedure: `measurement-pro
 
 **Structural check (mandatory):** Screenshot both tabs, zoom into changed zone. Record missing/extra elements and layout diffs. A verification without structural findings is incomplete — do not skip this.
 
+### Step 3a: Orphan-component fallback (Storybook)
+
+If the component you migrated is **not rendered on any current app route** (e.g. `InvoiceDetailClient.tsx` exists in the codebase but no route mounts it), the app-route verification above can't exercise it. Use Storybook as the fallback:
+
+1. Start Storybook: `npm run storybook` (port 6006)
+2. Chrome MCP tab → `http://localhost:6006/?path=/story/<component>--<story>` (use the story that exercises the new prop or migrated code)
+3. Run the same measurement snippet (`measurement-protocol.md` Section 4b) against the Storybook canvas iframe. Note that Storybook wraps in an iframe — measure inside `document.querySelector('#storybook-preview-iframe').contentDocument`.
+4. If production has a comparable rendering, also measure it on a real page for cross-reference. If no production comparator exists, document this in `.verification-evidence` as "Storybook-only verification (no production comparator; component is not rendered on any current route)".
+5. Proceed with the standard Structural check (screenshot + findings).
+
+**When NOT to use Storybook fallback:** if the component IS rendered on a current route, measure the app route — Storybook is a fallback, not a shortcut. It doesn't capture real-world context (theme variables, layout parents, responsive wrappers).
+
 ## Step 3.5: Worktree Merge (if applicable)
 
 If agent used worktree isolation:

@@ -12,9 +12,12 @@ if [ -n "$(git status --porcelain)" ]; then
 
   # Check if there's anything staged
   if ! git diff --cached --quiet; then
-    git commit -m "WIP: Auto-saved on session end
-
-Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>"
+    # Note: WIP commits intentionally omit Co-Authored-By because this hook
+    # runs in bash and cannot reliably detect the Claude model that was
+    # running. Historically this hook hardcoded "Opus 4.6" which misled
+    # post-hoc audits (e.g. DS audit Session 01 2026-04-20). The final
+    # work commit made by Claude itself carries the correct attribution.
+    git commit -m "WIP: Auto-saved on session end"
     echo "Auto-committed WIP changes on session end"
   fi
 fi
