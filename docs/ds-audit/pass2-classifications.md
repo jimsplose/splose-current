@@ -369,3 +369,77 @@ Pages below have inline styles that are already covered by existing DS component
 - **Reality check:** the 1422 "violations" from Pass 1 are mostly pure-layout inlines (margin, padding, flex, etc.). The actual DS-bypass violations across the top 20 files number in the low hundreds (~200-250), heavily dominated by Pattern 1 (Icon fontSize, ~130+).
 
 Scan date: 2026-04-20.
+
+---
+
+# Pass 2b — Stratified low-violation sample
+
+Same classification rules applied to 10 files with 1–10 violations each, to catch long-tail patterns and validate the classifier.
+
+## Files sampled
+
+| File | Pass 1 count | Why chosen |
+|---|---|---|
+| `src/app/settings/sms-settings/page.tsx` | 10 | Settings form page |
+| `src/app/contacts/page.tsx` | 10 | Main list page |
+| `src/app/reports/uninvoiced/page.tsx` | 9 | Report page |
+| `src/app/clients/[id]/payments/page.tsx` | 9 | Client sub-tab |
+| `src/components/ds/DetailPage.tsx` | 8 | **DS template** |
+| `src/app/settings/tags/page.tsx` | 8 | Settings with color |
+| `src/app/settings/body-charts/page.tsx` | 7 | Settings with checkbox |
+| `src/app/invoices/batch-invoice/preview/page.tsx` | 6 | Flow sub-page |
+| `src/components/ds/Navbar.tsx` | 5 | **DS template** |
+| `src/app/settings/cancellation-reasons/page.tsx` | 4 | Simple settings |
+
+## New findings (not covered by Pass 2a)
+
+### Finding 1 — DS templates themselves bypass DS tokens (!)
+
+**DetailPage.tsx** line 45: `<h1 style={{ fontSize: 30, fontWeight: 700, fontFamily: "'Sprig Sans', 'Inter', sans-serif", lineHeight: 1.2, color: "rgb(66, 105, 74)" }}>`.
+**Navbar.tsx** line 41: same pattern with the same `rgb(66, 105, 74)` green.
+
+Both hard-code the "page title" style. The color `rgb(66, 105, 74)` (a custom green) and `'Sprig Sans'` font-family are used in multiple places but are NOT Text variants yet.
+
+**Classification:** **ExtendDS:Text:variant="page-title"** — promote this 30px / 700 / Sprig-Sans / green-text style to a proper Text variant. Then DetailPage and Navbar use `<Text variant="page-title">`. Side effect: adds a DS token for this green color (if not already present).
+
+This is a **high-priority** finding. It's the canonical page title across every detail page — getting it into the Text component means changing it once affects the entire app.
+
+### Finding 2 — `fontWeight` inline on `<Text>`/`<Td>`/`<Link>` is ubiquitous (confirmed)
+
+Low-violation sample keeps showing it: `<Td style={{ fontWeight: 500 }}>`, `<span style={{ fontWeight: 600 }}>`, `<Link style={{ ... fontWeight: 600 }}>`. Confirms **ExtendDS:Text:weight** is top-priority.
+
+### Finding 3 — raw `<input type="checkbox">` with inline `accentColor`
+
+body-charts 195: `<input type="checkbox" style={{ height: 16, width: 16, accentColor: 'var(--color-primary)' }}>`.
+
+**Classification:** **AdoptAsIs:Checkbox** — the DS Checkbox already exists. Just a fix-by-adoption.
+
+### Finding 4 — Color swatch preview (rectangle)
+
+tags 162: `<div style={{ height: 16, width: 80, borderRadius: 4, backgroundColor: tag.color }}>`.
+
+**Classification:** **ExtendDS:ColorDot:shape="rect"** — ColorDot is a circle; needs a rectangle variant for palette previews. Alternatively NewDS:ColorSwatch if rect differs enough.
+
+### Finding 5 — Empty state icon circle
+
+clients/[id]/payments 47-48: `<Flex style={{ height: 96, width: 96, borderRadius: '50%', backgroundColor: 'var(--color-fill-quaternary)' }}><svg style={{ color: 'var(--color-text-quaternary)' }} />`.
+
+**Classification:** **AdoptAsIs:EmptyState** — EmptyState DS component exists and should handle this.
+
+### Finding 6 — `<Link>` with inline `color + fontSize + fontWeight + textDecoration`
+
+Navbar 31: `<Link href={backHref} style={{ color: "var(--color-primary)", fontSize: 14, fontWeight: 600, textDecoration: "none" }}>`.
+
+**Classification:** **NewDS:Link** (or **ExtendDS:Button:variant="link" as="a"**) — Pattern 7 from Pass 2a reinforced. Every instance of "link styled text" uses inline. High priority.
+
+### Finding 7 — Clean page exists
+
+`settings/cancellation-reasons/page.tsx` has 4 `style={{` occurrences, **zero violations** (all pure layout). Useful as a reference example when writing the fix backlog: "the golden standard looks like this."
+
+## Classifier validation
+
+- Low-vio sample produces the same 20 patterns as the top 20 — suggests the classifier isn't missing categories.
+- One new DS-template-level pattern (Finding 1) emerged that the top-20 sample missed because those top files weren't DS templates. Worth a Section-4-adjacent note in the final report.
+- False-positive rate appears low: every match I classified was a real violation.
+
+Scan date: 2026-04-20.
