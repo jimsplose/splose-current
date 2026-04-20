@@ -16,12 +16,13 @@ Run the next DS audit fix session. Read these files first:
 
 **If the user's message already names a specific session** (e.g. "DS Session 5", "run session 06", "session 5"):
 - Skip the confirmation question entirely — proceed immediately to execution.
-- Still show the session summary (title, scope, effort, model, prereqs, WIP files) as a brief header before starting work.
+- Still show the session summary (title, scope, effort, model, **thinking budget**, prereqs, WIP files) as a brief header before starting work.
 - If the named session has unmet prereqs, stop and tell Jim which prereqs are incomplete — do not run it.
 - If the named session recommends a different model than the one currently running, flag it once (one sentence) and continue — don't ask for confirmation.
+- Apply the recommended thinking budget for this session's work. If Sonnet is running a session the backlog marks as Opus, bump thinking up one level (e.g. `think` → `think hard`).
 
 **Otherwise** (no session named — just `/ds-fix` with no args):
-Show Jim the next runnable session: title, scope, estimated effort, **recommended model (Sonnet/Opus)**, prereq status, DS components touched, and any files already touched by prior WIP commits. If the session recommends Opus and you're currently running Sonnet (or vice versa), flag this to Jim before proceeding — he may want to switch models. Ask:
+Show Jim the next runnable session: title, scope, estimated effort, **recommended model (Sonnet/Opus)**, **recommended thinking budget**, prereq status, DS components touched, and any files already touched by prior WIP commits. If the session recommends Opus and you're currently running Sonnet (or vice versa), flag this to Jim before proceeding — he may want to switch models. Ask:
 - Run this one? (yes / skip to next / show full backlog)
 
 On yes (or immediately if a session was named):
