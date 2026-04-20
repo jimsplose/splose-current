@@ -129,6 +129,19 @@ export const AllStyles: Story = {
   ),
 };
 
+export const WeightOverride: Story = {
+  name: "Weight Override",
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <Text variant="body/md" weight="regular">body/md weight=regular (400) — same as default</Text>
+      <Text variant="body/md" weight="medium">body/md weight=medium (500)</Text>
+      <Text variant="body/md" weight="bold">body/md weight=bold (700)</Text>
+      <Text variant="body/sm" weight="bold">body/sm weight=bold — invoice label style</Text>
+      <Text variant="caption/md" weight="medium">caption/md weight=medium</Text>
+    </div>
+  ),
+};
+
 export const WithColorOverride: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>

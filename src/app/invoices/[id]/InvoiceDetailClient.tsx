@@ -168,7 +168,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           <Grid cols={3} gap={32} style={{ marginBottom: 32, fontSize: 12 }}>
             {/* Client */}
             <div>
-              <Text variant="body/sm" as="h3" color="text" style={{ marginBottom: 4, fontWeight: 700 }}>Client</Text>
+              <Text variant="body/sm" as="h3" color="text" weight="bold" style={{ marginBottom: 4 }}>Client</Text>
               <p className="text-primary">
                 {invoice.client.firstName} {invoice.client.lastName}
               </p>
@@ -184,7 +184,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
               {invoice.client.medicare && <Text variant="body/sm" as="p" color="secondary">Medicare: {invoice.client.medicare}</Text>}
               {invoice.billingType === "NDIS" && (
                 <div style={{ marginTop: 12 }}>
-                  <Text variant="body/sm" as="h4" color="text" style={{ fontWeight: 700 }}>Care of client above</Text>
+                  <Text variant="body/sm" as="h4" color="text" weight="bold">Care of client above</Text>
                   <p className="text-primary">C/o [Client above]</p>
                   <Text variant="body/sm" as="p" color="secondary">161 Bay St.</Text>
                   <Text variant="body/sm" as="p" color="secondary">Toronto ON M5J 1C4</Text>
@@ -194,18 +194,18 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
 
             {/* From */}
             <div>
-              <Text variant="body/sm" as="h3" color="text" style={{ marginBottom: 4, fontWeight: 700 }}>From</Text>
+              <Text variant="body/sm" as="h3" color="text" weight="bold" style={{ marginBottom: 4 }}>From</Text>
               <Text variant="body/sm" as="p" color="text">Hands Together Therapies</Text>
               <Text variant="body/sm" as="p" color="secondary">East Clinics</Text>
               <Text variant="body/sm" as="p" color="secondary">4 Williamstown Rd</Text>
               <Text variant="body/sm" as="p" color="secondary">Kingsville VIC 3012</Text>
               <div style={{ marginTop: 8 }}>
-                <Text variant="body/sm" as="p" color="text" style={{ fontWeight: 700 }}>ABN</Text>
+                <Text variant="body/sm" as="p" color="text" weight="bold">ABN</Text>
                 <Text variant="body/sm" as="p" color="secondary">112345678110</Text>
               </div>
               {invoice.practitionerName && (
                 <div style={{ marginTop: 8 }}>
-                  <Text variant="body/sm" as="p" color="text" style={{ fontWeight: 700 }}>Provider</Text>
+                  <Text variant="body/sm" as="p" color="text" weight="bold">Provider</Text>
                   <Text variant="body/sm" as="p" color="secondary">{invoice.practitionerName}</Text>
                 </div>
               )}
@@ -215,15 +215,15 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
             <div>
               <Flex vertical gap={8}>
                 <div>
-                  <Text variant="body/sm" as="p" color="text" style={{ fontWeight: 700 }}>Invoice #</Text>
+                  <Text variant="body/sm" as="p" color="text" weight="bold">Invoice #</Text>
                   <Text variant="body/sm" as="p" color="secondary">{invoice.invoiceNumber}</Text>
                 </div>
                 <div>
-                  <Text variant="body/sm" as="p" color="text" style={{ fontWeight: 700 }}>Issue date</Text>
+                  <Text variant="body/sm" as="p" color="text" weight="bold">Issue date</Text>
                   <Text variant="body/sm" as="p" color="secondary">{formatDate(invoice.date)}</Text>
                 </div>
                 <div>
-                  <Text variant="body/sm" as="p" color="text" style={{ fontWeight: 700 }}>Due date</Text>
+                  <Text variant="body/sm" as="p" color="text" weight="bold">Due date</Text>
                   <Text variant="body/sm" as="p" color="secondary">{formatDate(invoice.dueDate)}</Text>
                 </div>
               </Flex>
@@ -273,12 +273,12 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
               </Flex>
               <Divider spacing="none" />
               <Flex justify="space-between" style={{ paddingTop: 4 }}>
-                <Text variant="body/sm" as="span" color="text" style={{ fontWeight: 700 }}>Total AUD</Text>
-                <Text variant="body/sm" as="span" color="text" style={{ fontWeight: 700 }}>{invoice.total.toFixed(2)}</Text>
+                <Text variant="body/sm" as="span" color="text" weight="bold">Total AUD</Text>
+                <Text variant="body/sm" as="span" color="text" weight="bold">{invoice.total.toFixed(2)}</Text>
               </Flex>
               <Flex justify="space-between" style={{ borderRadius: 4, background: '#f9fafb', padding: '4px 8px' }}>
-                <Text variant="body/sm" as="span" color="text" style={{ fontWeight: 700 }}>Total Amount Due AUD</Text>
-                <Text variant="body/sm" as="span" color="text" style={{ fontWeight: 700 }}>{invoice.status === "Paid" ? "0.00" : invoice.total.toFixed(2)}</Text>
+                <Text variant="body/sm" as="span" color="text" weight="bold">Total Amount Due AUD</Text>
+                <Text variant="body/sm" as="span" color="text" weight="bold">{invoice.status === "Paid" ? "0.00" : invoice.total.toFixed(2)}</Text>
               </Flex>
             </Flex>
           </Flex>
@@ -286,7 +286,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           {/* Additional information */}
           <Divider spacing="none" />
           <div style={{ paddingTop: 16, fontSize: 12 }}>
-            <Text variant="body/sm" as="h4" color="text" style={{ marginBottom: 8, fontWeight: 700 }}>Additional Information</Text>
+            <Text variant="body/sm" as="h4" color="text" weight="bold" style={{ marginBottom: 8 }}>Additional Information</Text>
             <Text variant="body/sm" as="p" color="secondary">Please note that the service dates are displayed at the beginning of each line item.</Text>
             <div style={{ marginTop: 16 }}>
               <Text variant="body/sm" as="p" color="secondary">aA Direct deposit details:</Text>
