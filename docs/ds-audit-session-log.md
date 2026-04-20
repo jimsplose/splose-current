@@ -29,6 +29,8 @@ One row per session. Columns:
 
 | 04 | 2026-04-20 | Sonnet 4.6 | Add TextColor "inverted" + create FeatureCard (tone: primary/success/neutral/inverted) + migrate ClientDetailClient account-balance card + Storybook | All scope landed: TextColor inverted ✓, .text-text-inverted CSS ✓, FeatureCard.tsx ✓, index.ts exports ✓, ClientDetailClient migrated ✓, Storybook AllTones + AccountBalanceRecipe + Text.WithColorOverride stories ✓, ds-component-catalog updated ✓. | done | None | Storybook-only verification (no app route mounts FeatureCard yet — caller migrations are sessions 21/23/25/26). All 4 tones measured with correct bg/color. |
 
+| 05 | 2026-04-20 | Sonnet 4.6 | Add Divider orientation="vertical" prop + spacing="xs" + migrate 5 toolbar callers (notes/[id]/edit ×2, settings/details ×3) + Storybook Orientation story + catalog update | All promised scope landed: orientation prop ✓, spacing xs ✓, 5 callers migrated ✓, Storybook ✓, catalog ✓. | done | notes/[id]/edit route requires a real note ID — couldn't navigate there without DB access; used Storybook fallback for that route. settings/details verified live via Chrome MCP (3 spans: h=16px, w=1px, margin 0 4px). Done-when grep for "height: 16, width: 1" returned 5 false positives (SVG icons with width:16) — actual vertical divider inlines are 0. WIP auto-save mid-session captured all changes; my tool writes were no-ops but content was correct. |
+
 *(Future sessions append rows here. Keep entries brief — one row per session. If a session spawns a follow-up, add the follow-up as its own row when complete.)*
 
 ## Renumbering notes (2026-04-20)
