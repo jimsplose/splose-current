@@ -19,6 +19,8 @@ export type { DropdownItem } from "./Dropdown";
 export { default as EmptyState } from "./EmptyState";
 export { default as List } from "./List";
 export { default as Card } from "./Card";
+export { default as FeatureCard } from "./FeatureCard";
+export type { FeatureCardTone, FeatureCardProps } from "./FeatureCard";
 export { default as Filter } from "./Filter";
 export { default as Collapse } from "./Collapse";
 export { default as Navbar } from "./Navbar";

@@ -156,9 +156,15 @@ export const WithColorOverride: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
       <Text variant="body/md">Default color (text)</Text>
-      <Text variant="body/md" color="text-text-secondary">Secondary color</Text>
-      <Text variant="body/md" color="text-primary">Primary color</Text>
-      <Text variant="body/md" color="text-danger">Danger color</Text>
+      <Text variant="body/md" color="secondary">Secondary color</Text>
+      <Text variant="body/md" color="primary">Primary color</Text>
+      <Text variant="body/md" color="danger">Danger color</Text>
+      <Text variant="body/md" color="success">Success color</Text>
+      <Text variant="body/md" color="warning">Warning color</Text>
+      <div style={{ backgroundColor: 'var(--color-primary)', borderRadius: 8, padding: 12 }}>
+        <Text variant="body/md" color="inverted">Inverted — white text for use on dark/colored backgrounds</Text>
+        <Text variant="label/lg" color="inverted">Label inverted (account balance heading)</Text>
+      </div>
     </div>
   ),
 };

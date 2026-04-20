@@ -1,12 +1,27 @@
-Session 03 — Text: page-title + heading/xl variants
-Storybook-only verification (no app route mounts these variants yet — migrations are Session 19)
+Session 04 — Text:inverted + FeatureCard
+Storybook-only verification (FeatureCard not mounted on any app route yet — caller migrations are sessions 21/23/25/26)
 
-Storybook AllStyles story (http://localhost:6006/?path=/story/typography-text--all-styles), 1440x900
+Viewport: 1440x900
 
-| Variant | Expected | Measured | Match |
+Story: Layout/FeatureCard — All Tones
+| Tone | bg | bodyColor | Pass? |
 |---|---|---|---|
-| page-title | 30px / 700 / 1.2 / Sprig Sans / green | 30px / 700 / 1.2 / green | yes |
-| heading/xl | 28px / 700 / 1.2 | 28px / 700 / 1.2 | yes |
+| primary | rgb(130,80,255) | rgb(255,255,255) | yes |
+| success | rgb(0,194,105) | rgb(255,255,255) | yes |
+| neutral | rgb(255,255,255) | rgb(65,69,73) | yes |
+| inverted | rgb(31,41,55) | rgb(255,255,255) | yes |
 
-Done-when checks: TextVariant includes both, CSS classes exist, --color-page-title token, PageTitleVariant story
-TypeScript: 0 errors | Build: passed | Verdict: PASS
+Story: Layout/FeatureCard — Account Balance Recipe
+| Element | color | fontWeight | Pass? |
+|---|---|---|---|
+| h3 "Account balance" | rgb(255,255,255) | 600 | yes |
+| p "They owe" | rgb(255,255,255) | 400 | yes |
+| p "3,310.56" | rgb(255,255,255) | 700 | yes |
+
+Story: Typography/Text — WithColorOverride (inverted rows)
+| Element | color | bg | Pass? |
+|---|---|---|---|
+| inverted body/md | rgb(255,255,255) | rgb(130,80,255) | yes |
+| inverted label/lg | rgb(255,255,255) | rgb(130,80,255) | yes |
+
+TypeScript: 0 errors | Verdict: PASS (Storybook-only)

@@ -172,6 +172,7 @@
 .text-danger { color: var(--ant-color-error, #D00032); }
 .text-warning { color: var(--ant-color-warning, #FFD232); }
 .text-success { color: var(--ant-color-success, #00C269); }
+.text-text-inverted { color: white; }
 .text-border { color: var(--ant-color-border, #e7e8e8); }
 .bg-primary { background-color: var(--ant-color-primary, #8250FF); }
 .border-border { border-color: var(--ant-color-border, #e7e8e8); }

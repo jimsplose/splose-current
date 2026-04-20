@@ -10,6 +10,7 @@ import {
   Button,
   Badge,
   Divider,
+  FeatureCard,
   FileUpload,
   FormInput,
   FormSelect,
@@ -280,9 +281,9 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
       {/* Right panel */}
       <aside style={{ width: 280, flexShrink: 0, overflowY: 'auto', borderLeft: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-container)', padding: 16 }}>
         {/* Account balance */}
-        <div style={{ marginBottom: 16, borderRadius: 8, backgroundColor: 'var(--color-primary)', padding: 16, color: 'white' }}>
+        <FeatureCard tone="primary" style={{ marginBottom: 16 }}>
           <Flex justify="space-between" align="center">
-            <Text variant="label/lg" as="h3" style={{ color: 'white' }}>Account balance</Text>
+            <Text variant="label/lg" as="h3" color="inverted">Account balance</Text>
             <HintIcon style={{ height: 20, width: 20, borderColor: 'rgba(255,255,255,0.5)', color: 'rgba(255,255,255,0.8)' }} />
           </Flex>
           <Flex justify="space-between" align="center" style={{ marginTop: 8 }}>
@@ -298,7 +299,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
             <Text variant="body/md" as="span">Available credit balance</Text>
             <Text variant="body/md-strong" as="span">0.00</Text>
           </Flex>
-        </div>
+        </FeatureCard>
 
         {/* Client alerts */}
         <Collapse title="Client alerts" defaultOpen>

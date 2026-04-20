@@ -10,7 +10,7 @@ export type TextVariant =
   | "metric/lg" | "metric/md"
   | "page-title";
 
-export type TextColor = "text" | "secondary" | "tertiary" | "primary" | "danger" | "warning" | "success";
+export type TextColor = "text" | "secondary" | "tertiary" | "primary" | "danger" | "warning" | "success" | "inverted";
 export type TextWeight = "regular" | "medium" | "bold";
 
 interface TextProps extends HTMLAttributes<HTMLElement> {
@@ -59,6 +59,7 @@ const colorPresets: Record<string, string> = {
   danger: "text-danger",
   warning: "text-warning",
   success: "text-success",
+  inverted: "text-text-inverted",
 };
 
 const defaultElement: Record<string, ElementType> = {

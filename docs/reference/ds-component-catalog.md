@@ -16,6 +16,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | Component | Use for |
 |---|---|
 | `Card` | Bordered content containers (with optional title, headerBar, padding, shadow) |
+| `FeatureCard` | Tinted/colored card containers — `tone: primary \| success \| neutral \| inverted`. Use for account balance, summary stats, or any card on a colored background. |
 | `Section` | Form sections — Card + title + description (use for settings/form patterns) |
 | `Grid` | 1-4 column responsive grid with gap sizing |
 | `Divider` | Horizontal separator with variant (default/subtle) and spacing (none/sm/md/lg) |
@@ -45,7 +46,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `Pagination` | Table pagination footer with page size dropdown |
 | `Badge` | Status pills, tags, filter chips (shape: rounded/pill, onRemove for closable) |
 | `Stat` | Metric value + label display |
-| `Text` | Semantic typography. Variants: `page-title` (30px/700/Sprig Sans/green — detail page headers), `heading/xl` (28px/700), `display/lg\|md\|sm\|xs`, `heading/lg\|md\|sm`, `body/lg\|md\|sm\|md-strong\|lg-strong`, `label/lg\|md\|sm`, `caption/md\|sm`, `metric/lg\|md`. `weight="regular\|medium\|bold"` overrides variant default. `color` accepts preset names or Tailwind class. |
+| `Text` | Semantic typography. Variants: `page-title` (30px/700/Sprig Sans/green — detail page headers), `heading/xl` (28px/700), `display/lg\|md\|sm\|xs`, `heading/lg\|md\|sm`, `body/lg\|md\|sm\|md-strong\|lg-strong`, `label/lg\|md\|sm`, `caption/md\|sm`, `metric/lg\|md`. `weight="regular\|medium\|bold"` overrides variant default. `color` accepts preset names (`text`, `secondary`, `tertiary`, `primary`, `danger`, `warning`, `success`, `inverted`) or a Tailwind/CSS class. Use `color="inverted"` for white text on dark/colored backgrounds. |
 | `Avatar` | Colored circles with initials (sm/md/lg/xl) |
 | `Icon` | Wrapper for AntD icon components with `size: xs/sm/md/lg/xl/2xl/3xl` (10–24px) and `tone: default/secondary/tertiary/primary/success/warning/danger/inverted` |
 | `ColorDot` | Colored circle indicator (xs/sm/md/lg) |
