@@ -108,7 +108,7 @@ A gap is `[x]` only when ALL related `screenshots/screenshot-catalog.md` entries
 - **Deployment is manual only** via GitHub Actions workflow `deploy.yml` (`gh workflow run deploy.yml --ref main`)
 - **NEVER deploy without Jim's express permission.** After major milestones (completing a workflow, closing a batch of gaps), ask Jim if he wants to deploy. Do not auto-deploy.
 - **Deploy flow** (when Jim approves):
-  1. Push main: `git checkout main && git pull && git push`
+  1. Ensure session branch is merged and `main` is up to date (see Session End above)
   2. Trigger deploy: `gh workflow run deploy.yml --ref main`
   3. Share run URL: `gh run list --workflow=deploy.yml --limit=1`
 - **Jim is non-technical.** Handle all coding, git, builds, debugging. Provide exact copy-paste commands.
@@ -125,25 +125,46 @@ Verify CWD after agent completion: `cd /Users/jimyenckensplose/claude/splose-cur
 
 ## Session End
 
-1. Commit all WIP  2. Push to `main`  3. Update `docs/progress.md`  4. Ask Jim if he wants to deploy
+1. Commit all WIP to session branch
+2. Merge session branch to `main`: `git checkout main && git merge --no-edit <branch> && git push origin main`
+3. Delete session branch (local + remote): `git branch -D <branch> && git push origin --delete <branch>`
+4. Update `docs/progress.md`
+5. Ask Jim if he wants to deploy
 
 ## Git Workflow
 
-**Work directly on `main`.** No feature branches for this solo prototype.
+Jim runs 2 parallel sessions. Each session gets its own short-lived branch to avoid conflicts.
+
+### Session start
 
 ```bash
-# Session start — verify you're on main and sync:
+# 1. Sync main
 git checkout main && git pull
+
+# 2. Clean up any stale claude/* branches (merged or no remote)
+git fetch origin --prune
+git branch | grep 'claude/' | while read b; do
+  git branch -d "$b" 2>/dev/null || true  # -d only deletes if merged
+done
+
+# 3. Create a session branch (use a short descriptive name)
+git checkout -b claude/<short-description>-$(date +%Y%m%d)
 ```
 
-Before every push: `npx next build` then `git push origin main`.
+**Health check:** At session start, `git branch --show-current` must show a `claude/*` branch. If it shows `main`, you haven't created your session branch yet.
 
-**Session start health check** — run `git status` and confirm output says `On branch main`. If it says anything else, run `git checkout main` immediately.
+**One `claude/*` branch per active session.** If you see stale `claude/*` branches that have no active session, delete them.
+
+### During the session
+
+Push regularly to keep work safe: `git push origin <branch>` (no build required for interim pushes).
+
+Before final merge: `npx next build` must pass.
 
 ### After major milestones — ask about deployment
 
 After completing a workflow or batch of fixes, ask Jim:
-> "Ready to deploy? I can push `main` and trigger a production deployment."
+> "Ready to deploy? I can merge to `main` and trigger a production deployment."
 
 **Only proceed if Jim says yes.** Then run the full deploy flow (see Vercel & Deployment section above).
 
