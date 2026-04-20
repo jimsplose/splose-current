@@ -39,6 +39,8 @@ One row per session. Columns:
 
 | 09 | 2026-04-20 | Sonnet 4.6 | Delete dead IconText component (0 app consumers) | IconText.tsx deleted ✓, stories/IconText.stories.tsx deleted ✓, removed from index.ts ✓, catalog ✓, Introduction.mdx ✓. grep "IconText" src/ = 0. | done | None | Non-visual session — no Chrome MCP needed. tsc 0 errors, build passed. |
 
+| 10 | 2026-04-20 | Sonnet 4.6 | Add Card:description prop + Section-style title render; delete Section.tsx + stories; remove from index/catalog; migrate FormPage.stories.tsx | All scope landed: description prop ✓, Text variant=label/lg title render ✓, Section.tsx deleted ✓, Section.stories.tsx deleted ✓, index.ts cleaned ✓, FormPage.stories.tsx migrated ✓, catalog updated ✓. | done | None | Chrome MCP verified products/new — 3 card titles render 14px/600 via labelLg CSS class. TypeScript clean. Build passed. No app consumers of Section existed (only Storybook story needed migration). |
+
 *(Future sessions append rows here. Keep entries brief — one row per session. If a session spawns a follow-up, add the follow-up as its own row when complete.)*
 
 ## Renumbering notes (2026-04-20)
