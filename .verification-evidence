@@ -1,48 +1,47 @@
-src/app/invoices/[id]/page.tsx
+src/app/settings/sms-settings/page.tsx
+src/app/settings/custom-fields/page.tsx
+src/app/settings/busy-times/page.tsx
+src/app/settings/cancellation-reasons/page.tsx
+src/app/settings/user-groups/page.tsx
+src/app/settings/payment-settings/page.tsx
+src/app/settings/invoice-settings/page.tsx
+src/app/settings/data-export/page.tsx
+src/app/settings/ai/page.tsx
+src/app/settings/client-data/page.tsx
 
-## Verification Summary — S29 Invoice Detail Fix Brief
-- Elements checked: 8
-- Properties measured: 25+
-- Pass: 8 / 8
+## Verification Summary — Settings page margins + AI alert + Client data (2026-04-20)
+- Elements checked: 10
+- Pass: 10 / 10
 - Verdict: PASS
-- Production reference: https://acme.splose.com/invoices/14130707/view (measured live)
-- Localhost: http://localhost:3000/invoices/cmngtwrue007kycwg65dgipx3
+- Viewport: 1440x900 (Chrome MCP)
+- Localhost measured live; production Client data confirmed empty by Jim.
 
-### Gap 1 — Invoice top color bar (gradient -> solid lavender)
-| Property | Production | Localhost | Pass? |
-|---|---|---|---|
-| background-color | rgb(134, 157, 252) | rgb(134, 157, 252) | YES |
-| height | 15px | 15px | YES |
+### Root cause
+Tailwind `className="p-6"` was not emitting padding on 6 settings pages (computed padding 0px). Fix: replaced `className="p-6"` and stray `style={{ padding: 32 }}` with the canonical `style={{ padding: 24 }}` used by the other settings pages.
 
-### Gap 2 — Note textarea
-| Property | Production | Localhost | Pass? |
-|---|---|---|---|
-| placeholder | "" (empty) | "" (empty) | YES |
-| font-family | Inter, Sprig Sans, system-ui... | Inter, system-ui... | YES (was monospace) |
-| font-size | 14px | 14px | YES |
+### Margin fixes — computed padding on localhost after fix
+| Page | Before | After |
+|---|---|---|
+| /settings/sms-settings | 0px (p-6 not applied) | 24px |
+| /settings/custom-fields | 0px | 24px |
+| /settings/busy-times | 32px | 24px |
+| /settings/cancellation-reasons | 32px | 24px |
+| /settings/user-groups | 0px | 24px |
+| /settings/payment-settings | 0px | 24px |
+| /settings/invoice-settings | 0px | 24px |
+| /settings/data-export | 0px | 24px |
 
-### Gap 3 — Additional Information h4
-| Property | Production | Localhost | Pass? |
-|---|---|---|---|
-| font-size | 13px | 13px | YES |
-| font-weight | 500 | 500 | YES |
-| color | rgb(65, 69, 73) | rgb(65, 69, 73) | YES |
+### AI Block library alert colour
+Per catalog audit 2026-04-17 Session 6: "top banner yellow-warning variant vs prod purple-info variant".
+| Property | Before (warning) | After (info) |
+|---|---|---|
+| class | ant-alert-warning | ant-alert-info |
+| background-color | (yellow) | rgb(240, 244, 255) |
+| border-color | (yellow) | rgb(199, 217, 255) |
+| icon | WarningOutlined | InfoCircleOutlined |
 
-### Gap 4 — HICAPS card (added)
-| Property | Production | Localhost | Pass? |
-|---|---|---|---|
-| banner bg | rgb(241, 241, 241) | rgb(241, 241, 241) | YES |
-| banner height | 50px | 50px | YES |
-| banner padding | ~10px | 10px 16px | YES |
-| Claim button full-width | yes | yes | YES |
+### Client data page
+Production confirmed empty (verified by Jim). Removed placeholder paragraph — page now renders only `<PageHeader title="Client data" />`, matching production.
 
-### Gap 5 — Stripe card (banner + link)
-| Property | Production | Localhost | Pass? |
-|---|---|---|---|
-| banner bg | rgb(99, 91, 252) | rgb(99, 91, 252) | YES |
-| banner height | 50px | 50px | YES |
-| stripe wordmark color | white | rgb(255, 255, 255) | YES |
-| Connect to Stripe link color | rgb(130, 80, 255) | rgb(130, 80, 255) | YES |
-| link font-size | 14px | 14px | YES |
-| link font-weight | 400 | 400 | YES |
-| link is anchor (not button) | yes | yes | YES |
+### Build
+`npx next build` → PASS, all settings routes prerendered as static.
