@@ -10,6 +10,7 @@ Unless Jim's first message is a specific request, print available workflows:
 ```
 /audit       — Compare pages (production vs localhost)
 /fidelity    — Fix gaps (implement code to close gaps)
+/ds-fix      — Run next DS audit fix session (reads ds-audit-fix-backlog.md)
 /screenshots — Process uploaded reference screenshots
 /status      — Show progress and what's next
 /devnav      — Update Dev Navigator registry
