@@ -37,6 +37,8 @@ One row per session. Columns:
 
 | 08 | 2026-04-20 | Sonnet 4.6 | Card: tint/interactive/variant props + migrate 8 callers (data-import ×4, online-bookings/[id] ×4) + Storybook + catalog | All scope landed: tint prop ✓, interactive prop ✓, variant=dashed ✓, 8 callers migrated ✓, 3 Storybook stories ✓, catalog ✓. Chrome MCP: 18 properties measured all PASS. | done | Line 356 of online-bookings (borderLeft-only sidebar) not migrated — doesn't map cleanly to Card; substituted line 146 (plain button preview) instead, still 8 total. | Build + TypeScript clean. Done-when: 8 caller sites confirmed. |
 
+| 09 | 2026-04-20 | Sonnet 4.6 | Delete dead IconText component (0 app consumers) | IconText.tsx deleted ✓, stories/IconText.stories.tsx deleted ✓, removed from index.ts ✓, catalog ✓, Introduction.mdx ✓. grep "IconText" src/ = 0. | done | None | Non-visual session — no Chrome MCP needed. tsc 0 errors, build passed. |
+
 *(Future sessions append rows here. Keep entries brief — one row per session. If a session spawns a follow-up, add the follow-up as its own row when complete.)*
 
 ## Renumbering notes (2026-04-20)
