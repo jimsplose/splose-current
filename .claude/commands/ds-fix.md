@@ -6,7 +6,7 @@ Run the next DS audit fix session. Read these files first:
 4. Read `docs/agent-block.md` — subagent prompt template (copy into any UI-touching agent)
 5. Read CLAUDE.md "Design System" and "Decision Trees" sections — DS-first, extend don't bypass
 
-Show Jim the next open session: title, scope, estimated effort, DS components touched. Ask:
+Show Jim the next open session: title, scope, estimated effort, **recommended model (Sonnet/Opus)**, and DS components touched. If the session recommends Opus and you're currently running Sonnet (or vice versa), flag this to Jim before proceeding — he may want to switch models for this session. Ask:
 - Run this one? (yes / skip to next / show full backlog)
 
 On yes:
