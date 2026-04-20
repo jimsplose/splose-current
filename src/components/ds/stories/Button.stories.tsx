@@ -57,6 +57,11 @@ const meta: Meta<typeof Button> = {
       control: "boolean",
       description: "Render as a circle (for FAB / round icon buttons)",
     },
+    shape: {
+      control: "select",
+      options: ["default", "pill"],
+      description: "Shape preset — default uses standard border-radius, pill uses borderRadius:9999",
+    },
     disabled: {
       control: "boolean",
       description: "Native disabled attribute",
@@ -203,6 +208,33 @@ export const RoundButtons: Story = {
       </Button>
     </div>
   ),
+};
+
+/* ------------------------------------------------------------------ */
+/*  Pill Shapes                                                        */
+/* ------------------------------------------------------------------ */
+
+export const PillShapes: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
+      <Button variant="primary" size="sm" shape="pill">Primary pill</Button>
+      <Button variant="secondary" size="sm" shape="pill">Secondary pill</Button>
+      <Button variant="secondary" size="sm" shape="pill">Location</Button>
+      <Button variant="secondary" size="sm" shape="pill">Practitioner</Button>
+      <Button variant="secondary" size="sm" shape="pill">Compare</Button>
+      <Button
+        variant="secondary"
+        size="sm"
+        shape="pill"
+        style={{ borderColor: 'var(--color-primary)', backgroundColor: 'rgba(124, 58, 237, 0.1)', fontWeight: 500, color: 'var(--color-primary)' }}
+      >
+        <CalendarOutlined style={{ fontSize: 16 }} />
+        Jan 1 → Jan 31
+        <DownOutlined style={{ fontSize: 14 }} />
+      </Button>
+    </div>
+  ),
+  parameters: { layout: "padded", docs: { description: { story: "shape=\"pill\" maps to AntD shape=\"round\" (borderRadius:9999). Used in filter rows (reports/page, settings/details)." } } },
 };
 
 /* ------------------------------------------------------------------ */

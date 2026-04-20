@@ -146,7 +146,8 @@ export default function SettingsDetailsPage() {
               variant={emailSigTab === "Business" ? "primary" : "secondary"}
               size="sm"
               onClick={() => setEmailSigTab("Business")}
-              style={{ borderRadius: 9999, paddingLeft: 12, paddingRight: 12, paddingTop: 4, paddingBottom: 4 }}
+              shape="pill"
+              style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 4, paddingBottom: 4 }}
             >
               Business <DownOutlined style={{ fontSize: 12, marginLeft: 4 }} />
             </Button>
@@ -154,7 +155,8 @@ export default function SettingsDetailsPage() {
               variant={emailSigTab === "User" ? "primary" : "secondary"}
               size="sm"
               onClick={() => setEmailSigTab("User")}
-              style={{ borderRadius: 9999, paddingLeft: 12, paddingRight: 12, paddingTop: 4, paddingBottom: 4 }}
+              shape="pill"
+              style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 4, paddingBottom: 4 }}
             >
               User <DownOutlined style={{ fontSize: 12, marginLeft: 4 }} />
             </Button>

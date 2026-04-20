@@ -6,10 +6,12 @@ import { forwardRef } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "danger" | "ghost" | "link" | "icon" | "toolbar";
 type ButtonSize = "sm" | "md" | "lg";
+type ButtonShape = "default" | "pill";
 
 interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "type" | "color"> {
   variant?: ButtonVariant;
   size?: ButtonSize;
+  shape?: ButtonShape;
   round?: boolean;
   children: React.ReactNode;
   htmlType?: "button" | "submit" | "reset";
@@ -41,15 +43,16 @@ function mapVariant(variant: ButtonVariant): Pick<AntButtonProps, "type" | "dang
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = "secondary", size = "md", round = false, className, style, children, htmlType, disabled, onClick, ...props }, ref) => {
+  ({ variant = "secondary", size = "md", shape, round = false, className, style, children, htmlType, disabled, onClick, ...props }, ref) => {
     const antProps = mapVariant(variant);
+    const antShape = round ? "circle" : shape === "pill" ? "round" : undefined;
 
     return (
       <AntButton
         ref={ref}
         {...antProps}
         size={sizeMap[size]}
-        shape={round ? "circle" : undefined}
+        shape={antShape}
         className={className}
         style={style}
         disabled={disabled}

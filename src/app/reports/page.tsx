@@ -78,7 +78,8 @@ function DateRangePicker({
         size="sm"
         htmlType="button"
         onClick={() => setOpen(!open)}
-        style={{ borderRadius: 9999, borderColor: 'var(--color-primary)', backgroundColor: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.1)', fontWeight: 500, color: 'var(--color-primary)' }}
+        shape="pill"
+        style={{ borderColor: 'var(--color-primary)', backgroundColor: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.1)', fontWeight: 500, color: 'var(--color-primary)' }}
       >
         <CalendarOutlined style={{ fontSize: 16 }} />
         {fmtShort(startDate)} &rarr; {fmtShort(endDate)}
@@ -268,19 +269,19 @@ export default function ReportsPage() {
           style={{ cursor: 'pointer' }}
         />
         <Dropdown
-          trigger={<Button variant="secondary" size="sm" style={{ borderRadius: 9999 }}>{locationLabel}</Button>}
+          trigger={<Button variant="secondary" size="sm" shape="pill">{locationLabel}</Button>}
           items={locationItems}
           onSelect={setSelectedLocation}
         />
         <Dropdown
-          trigger={<Button variant="secondary" size="sm" style={{ borderRadius: 9999 }}>{practitionerLabel}</Button>}
+          trigger={<Button variant="secondary" size="sm" shape="pill">{practitionerLabel}</Button>}
           items={practitionerItems}
           onSelect={setSelectedPractitioner}
         />
         <Button
           variant={compareMode ? "primary" : "secondary"}
           size="sm"
-          style={{ borderRadius: 9999 }}
+          shape="pill"
           onClick={() => setCompareMode(!compareMode)}
         >
           Compare
