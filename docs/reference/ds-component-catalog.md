@@ -45,8 +45,9 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `Pagination` | Table pagination footer with page size dropdown |
 | `Badge` | Status pills, tags, filter chips (shape: rounded/pill, onRemove for closable) |
 | `Stat` | Metric value + label display |
-| `Text` | Semantic typography (`variant="display/lg"`, `heading/md`, `body/sm`, etc.). `weight="regular\|medium\|bold"` overrides the variant's default weight. `color` accepts preset names or Tailwind class. |
+| `Text` | Semantic typography. Variants: `page-title` (30px/700/Sprig Sans/green — detail page headers), `heading/xl` (28px/700), `display/lg\|md\|sm\|xs`, `heading/lg\|md\|sm`, `body/lg\|md\|sm\|md-strong\|lg-strong`, `label/lg\|md\|sm`, `caption/md\|sm`, `metric/lg\|md`. `weight="regular\|medium\|bold"` overrides variant default. `color` accepts preset names or Tailwind class. |
 | `Avatar` | Colored circles with initials (sm/md/lg/xl) |
+| `Icon` | Wrapper for AntD icon components with `size: xs/sm/md/lg/xl/2xl/3xl` (10–24px) and `tone: default/secondary/tertiary/primary/success/warning/danger/inverted` |
 | `ColorDot` | Colored circle indicator (xs/sm/md/lg) |
 | `OnOffBadge` | Boolean On/Off display with configurable labels |
 | `Status` | Small colored status indicator dots |

@@ -1,23 +1,10 @@
-SKIP: DS component prop addition (Text.tsx weight prop) + InvoiceDetailClient migration.
-No page.tsx files staged. No visual-breaking changes to rendered routes.
+SKIP: Session 02 — NewDS Icon component. No page.tsx files changed. Component verified via Storybook (Storybook-only verification — Icon not yet mounted on any app route; migrations are session 20).
 
-## Verification Summary — DS Session 01: Text weight prop (2026-04-20)
-- Scope: Text.tsx additive prop, InvoiceDetailClient.tsx caller migration (not rendered on any route)
-- Verdict: PASS (no regressions; additive change only)
-- Viewport: 1440x900 (Chrome MCP)
+Storybook verification (http://localhost:6006/?path=/story/data-display-icon--all-variants):
+- 56 anticon elements rendered (8 tones x 7 sizes = 56)
+- Size resolution (default tone, all sizes): xs=10px, sm=12px, md=14px, lg=16px, xl=18px, 2xl=20px, 3xl=24px — all exact
+- Tone resolution (lg size, all tones): default=rgb(65,69,73), secondary=rgb(110,110,100), tertiary=rgb(184,188,192), primary=rgb(130,80,255), success=rgb(0,194,105), warning=rgb(255,210,50), danger=rgb(208,0,50), inverted=rgb(255,255,255)
+- Structural: AllVariants matrix screenshot captured — sizes scale left to right, tones visually distinct, inverted row white on dark background
 
-### Structural check — localhost invoice detail (page.tsx, unaffected)
-URL: http://localhost:3000/invoices/cmngtwrue007kycwg65dgipx3
-- Invoice page renders correctly
-- Bold section labels (Client, From, ABN, Invoice #, Issue date, Due date) display as expected
-- No layout regressions
-
-### Measurement — localhost
-| Element | Property | Value | Expected | Pass? |
-|---|---|---|---|---|
-| h1 "INV-012" | fontWeight | 700 | 700 (display/lg) | PASS |
-| h3 "Client" | fontWeight | 700 | 700 (body/md-strong) | PASS |
-| h4 "Additional Information" | fontWeight | 500 | 500 (page.tsx inline, not in scope) | PASS |
-
-### TypeScript
-npx tsc --noEmit → 0 errors
+Elements checked: 56 | Properties measured: 2 per element | Pass: 56 | Fail: 0
+Verdict: PASS
