@@ -59,7 +59,6 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `OnOffBadge` | Boolean On/Off display with configurable labels |
 | `Status` | Small colored status indicator dots |
 | `List` | Label-value detail rows |
-| `IconText` | Icon + text row for contact info |
 | `HintIcon` | Info tooltip trigger |
 | `EmailPreview` | Email preview modal with subject, recipient, body, sender |
 
