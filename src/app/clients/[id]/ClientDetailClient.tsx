@@ -275,7 +275,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           </table>
         </section>
 
-        <Button variant="ghost" size="sm" style={{ color: 'var(--color-primary)' }} onMouseEnter={e => { e.currentTarget.style.textDecoration = 'underline'; e.currentTarget.style.background = 'transparent'; }} onMouseLeave={e => { e.currentTarget.style.textDecoration = 'none'; }}>View change log</Button>
+        <Button variant="link" size="sm">View change log</Button>
       </div>
 
       {/* Right panel */}

@@ -117,6 +117,21 @@ export const Link: Story = {
   args: { variant: "link", children: "Link Button" },
 };
 
+/** Link variant rendered as an `<a>` when `href` is supplied. */
+export const LinkWithHref: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <Button variant="link" href="/clients/1">View client profile</Button>
+      <Button variant="link" href="https://splose.com" target="_blank">Open in new tab</Button>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+        <span className="text-body-md text-text">Navigate to</span>
+        <Button variant="link" href="/settings">Location settings</Button>
+      </div>
+    </div>
+  ),
+  parameters: { layout: "padded", docs: { description: { story: "When `href` is provided, Button renders as an `<a>` element. Use for navigation links that should look like text links." } } },
+};
+
 export const Icon: Story = {
   args: { variant: "icon", children: "B" },
   parameters: { docs: { description: { story: "Minimal padding, for toolbar-style icon buttons." } } },

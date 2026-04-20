@@ -132,7 +132,7 @@ export default function SettingsDetailsPage() {
             <FormInput type="text" defaultValue="ABN" />
             <Text variant="body/md" color="secondary" style={{ marginTop: 8 }}>
               Enter your business number in{" "}
-              <Text as="span" variant="body/md" color="primary" style={{ cursor: 'pointer' }}>Location settings</Text>
+              <Button variant="link" size="sm">Location settings</Button>
             </Text>
           </div>
         </Grid>
@@ -229,7 +229,7 @@ export default function SettingsDetailsPage() {
         </div>
 
         <div>
-          <Text as="span" variant="body/md" color="primary" style={{ cursor: 'pointer' }}>Business settings change log</Text>
+          <Button variant="link" size="sm">Business settings change log</Button>
         </div>
       </Flex>
 

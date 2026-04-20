@@ -28,7 +28,7 @@ function formatDOB(dateStr: string | null): string {
 
 function formatPhone(phone: string | null): React.ReactNode {
   if (!phone) return null;
-  return <a href={`tel:${phone}`} style={{ color: 'var(--color-primary)' }} onMouseEnter={e => (e.currentTarget.style.textDecoration = 'underline')} onMouseLeave={e => (e.currentTarget.style.textDecoration = 'none')}>{phone}</a>;
+  return <Button variant="link" href={`tel:${phone}`}>{phone}</Button>;
 }
 
 interface ClientRow {

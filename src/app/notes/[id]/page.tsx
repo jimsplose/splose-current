@@ -1,9 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { CheckCircleOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Badge, Card, List, Navbar } from "@/components/ds";
+import { Badge, Button, Card, List, Navbar } from "@/components/ds";
 import NoteViewToolbar from "./NoteViewToolbar";
 
 export const dynamic = "force-dynamic";
@@ -36,9 +35,9 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
             ) : (
               <Badge variant="gray">Draft</Badge>
             )}
-            <Link href={`/clients/${note.clientId}`} className="text-label-lg" style={{ color: 'var(--color-primary)' }}>
+            <Button variant="link" href={`/clients/${note.clientId}`} className="text-label-lg">
               {clientName}
-            </Link>
+            </Button>
           </>
         }
       >

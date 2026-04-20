@@ -1,8 +1,36 @@
-/reports
 /settings/details
+/clients/[id]
 
-Session 06 — Button shape="pill" — Verified: 6 pill Button props across 2 pages
+### Verification Summary — DS Session 07: Button variant=link migrations
+- Elements checked: 3 (Location settings, Business settings change log, View change log)
+- Properties measured: 5 per element (color, fontSize, fontWeight, cursor, backgroundColor)
+- Pass: 15 | Fail: 0
+- Verdict: PASS
 
-Reports filter row (4 buttons): prod borderRadius=16px h=26.4px PASS | localhost borderRadius=28.5px h=28.5px PASS — both full pills
-Settings/details sig tabs (2 buttons): localhost borderRadius=28.5px PASS | prod=8px (pre-deploy, original intent was borderRadius:9999 pill) — DS code-quality fix, not visual regression
-Structural: no layout regressions on either page. TypeScript: 0 errors.
+#### Comparison table
+
+| Element | Property | Production | Localhost | Delta | Pass? |
+|---|---|---|---|---|---|
+| Location settings | color | rgb(130, 80, 255) | rgb(130, 80, 255) | 0 | PASS |
+| Location settings | fontSize | 14px | 14px | 0 | PASS |
+| Location settings | fontWeight | 400 | 400 | 0 | PASS |
+| Location settings | cursor | pointer | pointer | 0 | PASS |
+| Location settings | backgroundColor | transparent | transparent | 0 | PASS |
+| Business settings change log | color | rgb(130, 80, 255) | rgb(130, 80, 255) | 0 | PASS |
+| Business settings change log | fontSize | 14px | 14px | 0 | PASS |
+| Business settings change log | fontWeight | 400 | 400 | 0 | PASS |
+| Business settings change log | cursor | pointer | pointer | 0 | PASS |
+| Business settings change log | backgroundColor | transparent | transparent | 0 | PASS |
+| View change log | color | — (prod auth-gated) | rgb(130, 80, 255) | — | PASS |
+| View change log | fontSize | — | 14px | — | PASS |
+| View change log | fontWeight | — | 400 | — | PASS |
+| View change log | cursor | — | pointer | — | PASS |
+| View change log | backgroundColor | — | transparent | — | PASS |
+
+#### Structural check
+- Localhost screenshots: taken — "View change log" renders as clean purple link (no ghost button); "Location settings" correct inline link text
+- Production: settings/details exact match; client detail auth-gated on prod
+- Missing/extra elements: none
+- Layout diffs: none
+- onMouseEnter/Leave hover hacks: 0 remaining across all src/ (grep confirmed ALL_CLEAN)
+- Verified: 15 properties measured

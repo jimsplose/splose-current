@@ -293,9 +293,7 @@ export default function AppointmentSidePanel({
             <Flex align="center" gap={12}>
               <PhoneOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-text-secondary)' }} />
               {client.phone ? (
-                <a href={`tel:${client.phone}`} style={{ color: 'var(--color-primary)' }} onMouseEnter={e => (e.currentTarget.style.textDecoration = 'underline')} onMouseLeave={e => (e.currentTarget.style.textDecoration = 'none')}>
-                  {client.phone}
-                </a>
+                <Button variant="link" href={`tel:${client.phone}`}>{client.phone}</Button>
               ) : (
                 <Text variant="body/md" as="span" color="secondary">No phone</Text>
               )}
@@ -305,9 +303,7 @@ export default function AppointmentSidePanel({
             <Flex align="center" gap={12}>
               <MailOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-text-secondary)' }} />
               {client.email ? (
-                <a href={`mailto:${client.email}`} style={{ color: 'var(--color-primary)' }} onMouseEnter={e => (e.currentTarget.style.textDecoration = 'underline')} onMouseLeave={e => (e.currentTarget.style.textDecoration = 'none')}>
-                  {client.email}
-                </a>
+                <Button variant="link" href={`mailto:${client.email}`}>{client.email}</Button>
               ) : (
                 <Text variant="body/md" as="span" color="secondary">No email</Text>
               )}

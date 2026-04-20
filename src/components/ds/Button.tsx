@@ -15,6 +15,8 @@ interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>
   round?: boolean;
   children: React.ReactNode;
   htmlType?: "button" | "submit" | "reset";
+  href?: string;
+  target?: string;
 }
 
 const sizeMap: Record<ButtonSize, AntButtonProps["size"]> = {
@@ -43,7 +45,7 @@ function mapVariant(variant: ButtonVariant): Pick<AntButtonProps, "type" | "dang
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = "secondary", size = "md", shape, round = false, className, style, children, htmlType, disabled, onClick, ...props }, ref) => {
+  ({ variant = "secondary", size = "md", shape, round = false, className, style, children, htmlType, disabled, onClick, href, target, ...props }, ref) => {
     const antProps = mapVariant(variant);
     const antShape = round ? "circle" : shape === "pill" ? "round" : undefined;
 
@@ -58,6 +60,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled}
         onClick={onClick}
         htmlType={htmlType}
+        href={href}
+        target={target}
       >
         {children}
       </AntButton>
