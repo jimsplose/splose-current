@@ -35,6 +35,8 @@ One row per session. Columns:
 
 | 07 | 2026-04-20 | Sonnet 4.6 | Add Button href/target props + migrate ClientDetailClient:278 (remove ghost+onMouseEnter hack) + notes/[id]:39 + settings/details:135,232 + Navbar:31 + Storybook LinkWithHref story | All promised scope landed + 3 bonus callers (AppointmentSidePanel ×2 tel/mailto, ClientsPageClient phone) — those were extra onMouseEnter underline hacks surfaced by the done-when grep. Total: 8 callers migrated, onMouseEnter.*underline grep = 0. | done | Button was already typed with variant="link" mapping to AntD type="link"; only href/target props were missing. AppointmentSidePanel and ClientsPageClient already had Button imported — added duplicate import accidentally, caught by tsc immediately. | Chrome MCP verified settings/details (prod+localhost exact match rgb(130,80,255)/14px) and client detail (localhost clean purple link). Build + TypeScript clean. |
 
+| 08 | 2026-04-20 | Sonnet 4.6 | Card: tint/interactive/variant props + migrate 8 callers (data-import ×4, online-bookings/[id] ×4) + Storybook + catalog | All scope landed: tint prop ✓, interactive prop ✓, variant=dashed ✓, 8 callers migrated ✓, 3 Storybook stories ✓, catalog ✓. Chrome MCP: 18 properties measured all PASS. | done | Line 356 of online-bookings (borderLeft-only sidebar) not migrated — doesn't map cleanly to Card; substituted line 146 (plain button preview) instead, still 8 total. | Build + TypeScript clean. Done-when: 8 caller sites confirmed. |
+
 *(Future sessions append rows here. Keep entries brief — one row per session. If a session spawns a follow-up, add the follow-up as its own row when complete.)*
 
 ## Renumbering notes (2026-04-20)
