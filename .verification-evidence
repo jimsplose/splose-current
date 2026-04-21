@@ -68,3 +68,27 @@ Production note: acme.splose.com uses a 20px `_colorCircle` CSS module (differen
 | gray bg | rgb(184,188,192) | rgb(184,188,192) | PASS |
 
 Structural check: dots visible in When column, no layout shift, no console errors.
+
+## Session 14 — FormInput/FormSelect disabled styling (2026-04-21)
+
+**Route:** `/settings/details` — disabled fields: AUD (currency code), Country, A$ (currency symbol)
+
+**Measurement method:** Chrome MCP `javascript_tool` on localhost:3000/settings/details
+
+**Before fix:** Disabled inputs showed `backgroundColor: rgb(255,255,255)` (white) on localhost due to Tailwind CSS reset overriding AntD's default disabled styling. Three `style={{ backgroundColor: '#f3f4f6' }}` inline workarounds were present in settings/details/page.tsx.
+
+**After fix:** `variant={disabled ? "filled" : undefined}` added to FormInput and FormSelect. Inline workarounds removed.
+
+**localhost measurements (post-fix):**
+- AUD input: bg `rgb(249,250,251)`, styleAttr null (no inline override)
+- A$ input: bg `rgb(249,250,251)`, styleAttr null
+- Country select: bg `rgb(249,250,251)` via `ant-select-filled ant-select-disabled` classes
+
+**Production measurements:**
+- AUD input: `rgba(0,0,0,0.04)` ≈ `rgb(245,245,245)` — light grey disabled fill
+- Both production and localhost show visually equivalent light grey disabled backgrounds
+
+**Done-when checks:**
+- `grep -c "backgroundColor: '#f3f4f6'" settings/details/page.tsx` = 0 ✅
+- tsc --noEmit: 0 errors ✅
+- next build: passed ✅

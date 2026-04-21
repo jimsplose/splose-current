@@ -12,7 +12,7 @@ interface FormInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement
 }
 
 const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
-  ({ label, error, hint, required, className, id, ...props }, ref) => {
+  ({ label, error, hint, required, className, id, disabled, ...props }, ref) => {
     const inputId = id || label?.toLowerCase().replace(/\s+/g, "-");
 
     return (
@@ -20,7 +20,9 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
         <Input
           ref={ref as never}
           id={inputId}
+          disabled={disabled}
           status={error ? "error" : undefined}
+          variant={disabled ? "filled" : undefined}
           {...(props as Record<string, unknown>)}
         />
       </FormField>

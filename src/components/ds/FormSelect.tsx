@@ -38,6 +38,7 @@ const FormSelect = forwardRef<HTMLDivElement, FormSelectProps>(
             placeholder={placeholder}
             showSearch={searchable}
             optionFilterProp={searchable ? "label" : undefined}
+            variant={disabled ? "filled" : undefined}
             style={{ width: "100%" }}
           />
         </div>

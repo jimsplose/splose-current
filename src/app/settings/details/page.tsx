@@ -90,7 +90,7 @@ export default function SettingsDetailsPage() {
             <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
               Currency code<Text as="span" variant="body/md" color="danger">*</Text>
             </label>
-            <FormInput type="text" defaultValue="AUD" disabled className="text-text-secondary" style={{ backgroundColor: '#f3f4f6' }} />
+            <FormInput type="text" defaultValue="AUD" disabled className="text-text-secondary" />
           </div>
         </Grid>
 
@@ -99,13 +99,13 @@ export default function SettingsDetailsPage() {
             <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
               Country<Text as="span" variant="body/md" color="danger">*</Text>
             </label>
-            <FormSelect options={[{ value: "Australia", label: "Australia" }, { value: "New Zealand", label: "New Zealand" }, { value: "United Kingdom", label: "United Kingdom" }]} disabled className="text-text-secondary" style={{ backgroundColor: '#f3f4f6' }} />
+            <FormSelect options={[{ value: "Australia", label: "Australia" }, { value: "New Zealand", label: "New Zealand" }, { value: "United Kingdom", label: "United Kingdom" }]} disabled className="text-text-secondary" />
           </div>
           <div>
             <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
               Currency symbol<Text as="span" variant="body/md" color="danger">*</Text>
             </label>
-            <FormInput type="text" defaultValue="A$" disabled className="text-text-secondary" style={{ backgroundColor: '#f3f4f6' }} />
+            <FormInput type="text" defaultValue="A$" disabled className="text-text-secondary" />
           </div>
         </Grid>
 
