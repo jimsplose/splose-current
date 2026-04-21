@@ -1,7 +1,7 @@
 # Splose Practice Management Prototype
 
 High-fidelity UI prototype of [Splose](https://splose.com) for allied health professionals.
-Next.js 16 (App Router), React 19, TypeScript (strict), Turso/Prisma 7, Tailwind CSS 4, Lucide icons, Vercel.
+Next.js 16 (App Router), React 19, TypeScript (strict), Turso/Prisma 7, Tailwind CSS 4, AntD icons (`@ant-design/icons`), Vercel.
 
 ## Required Reading
 
