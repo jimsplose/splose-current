@@ -1,1 +1,15 @@
-SKIP: non-visual session — deleted OnOffBadge component, all callers migrated to <Text variant="body/md" color={success|danger}>. No layout or structural changes. tsc=0 errors, build passed, grep OnOffBadge src/=0.
+/waitlist (Waitlist tab — tag badges in DataTable)
+
+Verified: 4 badge properties measured on localhost:3000 vs production (acme.splose.com/waitlist screener).
+
+| Property | Before fix | After fix | Production | Pass? |
+|---|---|---|---|---|
+| borderRadius | 4px (style override) | 8px (DS default) | 8px | PASS |
+| fill style | light/outlined | solid (solid prop) | solid fill | PASS |
+| text color | dark on light | rgb(255,255,255) white | white | PASS |
+| fontSize | 12px | 12px | 12px | PASS |
+
+Structural check:
+- Localhost screenshot: taken — solid-fill badges visible in all 4 tag variants (red, yellow, teal, orange/medium, purple/NDIS)
+- Missing/extra elements: none
+- Layout diff: none — row heights, column widths, padding unchanged

@@ -18,11 +18,18 @@ These docs contain the actual procedures (measurement snippets, threshold tables
 
 ## Chrome MCP Visual Verification
 
-**Chrome MCP is the only visual verification tool.** All UI work must be verified visually before committing. The pre-commit hook blocks commits on `page.tsx` files without a `.verification-evidence` file. See `docs/quality-gate.md` for the full protocol: dual-tab measurement loop, structural screenshots, and how to write verification evidence.
+**Chrome MCP is the only visual verification tool.** All UI work must be verified visually before committing. The pre-commit hook blocks commits on `page.tsx` files without a `.verification-evidence` file, **but it does NOT cover all UI files** (`*Client.tsx`, DS components, layouts, modals) — the no-commit-without-verification rule applies to ALL files that change visual appearance, regardless of filename. See `docs/quality-gate.md` for the full protocol: dual-tab measurement loop, structural screenshots, and how to write verification evidence.
 
-**Do NOT use** Puppeteer, Playwright, pixel-diff scripts, or headless browser screenshots.
+**Do NOT use** Puppeteer, Playwright, pixel-diff scripts, headless browser screenshots, or code review alone as a substitute for Chrome MCP measurement.
 
 **Canonical viewport: 1440x900.** All measurements and screenshots happen at this size.
+
+**Never acceptable reasons to skip Chrome MCP verification:**
+- "It's a simple/small change"
+- "TypeScript passes" / "build passes"
+- "The instructions were specific enough"
+- "I'll verify in a batch later"
+- "Chrome MCP isn't available" — troubleshoot it first (see below); do NOT commit visual changes while it is down
 
 **Session lifecycle (mandatory):**
 
@@ -38,7 +45,7 @@ These docs contain the actual procedures (measurement snippets, threshold tables
 1. Check Chrome is running and visible on the desktop
 2. Run `mcp__claude-in-chrome__tabs_context_mcp` — if it fails, the MCP server may need restarting
 3. Ask Jim to restart Chrome or the MCP extension if repeated failures
-4. If Chrome MCP cannot be restored in this session, stop visual work and do non-visual tasks (refactoring, docs, TypeScript fixes) until the next session
+4. If Chrome MCP cannot be restored: **do NOT commit any staged visual changes**. Switch to non-visual work (refactoring, docs, TypeScript fixes). Visual changes land only after Chrome MCP is restored and verification passes.
 
 ## Visual Fix Priority: Dual-Tab Live Measurement
 

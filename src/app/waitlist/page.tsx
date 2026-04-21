@@ -735,7 +735,7 @@ function WaitlistPageInner() {
             {modalServices.length > 0 && (
               <Flex wrap gap={6} style={{ marginBottom: 8 }}>
                 {modalServices.map((service) => (
-                  <Badge key={service} variant="blue" style={{ borderRadius: 8, padding: '4px 10px', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                  <Badge key={service} variant="blue" size="sm" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                     <span style={{ maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{service}</span>
                     <button
                       type="button"
@@ -883,7 +883,7 @@ function WaitlistPageInner() {
             {modalTags.length > 0 && (
               <Flex wrap gap={6} style={{ marginBottom: 8 }}>
                 {modalTags.map((tag) => (
-                  <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} style={{ borderRadius: 8, padding: '4px 10px', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                  <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} size="sm" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                     {tag}
                     <button
                       type="button"
@@ -1019,7 +1019,7 @@ function WaitlistPageInner() {
                                   ---
                                 </Text>
                               ) : (
-                                <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} style={{ borderRadius: 4 }}>
+                                <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} solid>
                                   {tag}
                                 </Badge>
                               ),
