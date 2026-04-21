@@ -50,6 +50,8 @@ One row per session. Columns:
 
 | 15 | 2026-04-22 | Sonnet 4.6 | ColorDot: add shape/interactive/selected/onClick/rectWidth + xl size; migrate settings/online-bookings/[id]:137 swatches + settings/tags:162 rect preview | shape prop ✓, interactive ✓, selected ✓, onClick ✓, rectWidth ✓, xl=28px ✓. online-bookings/[id]: 8 BUTTON swatches 28×28px circle, selected ring rgba(0,0,0,0.3) ✓. settings/tags: SPAN 80×16px borderRadius 4px ✓. RectShape + InteractiveSwatches Storybook stories ✓. Catalog updated ✓. | done | Backlog said `online-bookings/[id]` but actual path is `settings/online-bookings/[id]`. Production tags swatch uses 60px width / 0px radius vs our 80px / 4px — pre-existing fidelity gap (matches original inline prototype code). | When session names a file without full path prefix, grep for the partial path first. |
 
+| 16 | 2026-04-22 | Sonnet 4.6 | Products page: migrate raw `<th style>` / `<td style>` in variants sub-table + Manage Stock modal to DS Th/Td/Tr | Variants table: `<table>` → `<DataTable>`, 6 `<th style>` → `<Th>`, 6 `<td style>` → `<Td>` ✓. Stock modal: 5 `<th style>` → `<Th>`, 5 `<td style>` → `<Td>` ✓. Expand button cell `<td style>` → `<Td>` ✓. Removed `style={{ padding:0 }}` from colSpan row ✓. `grep -c "<th style\|<td style" products/page.tsx` = 0 ✓. Added `Tr` to imports. | done | None | Done-when grep returns exit code 1 (no matches) — that means 0, which is correct. Don't confuse exit code with count. |
+
 *(Future sessions append rows here. Keep entries brief — one row per session. If a session spawns a follow-up, add the follow-up as its own row when complete.)*
 
 ## Renumbering notes (2026-04-20)
