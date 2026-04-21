@@ -175,6 +175,23 @@
 .text-text-inverted { color: white; }
 .text-border { color: var(--ant-color-border, #e7e8e8); }
 .bg-primary { background-color: var(--ant-color-primary, #8250FF); }
+
+/* AI chat typing indicator dot */
+.ai-typing-dot {
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background-color: #9ca3af;
+}
+
+/* AI chat button/input native border reset */
+.ai-chat-button-reset {
+  border: none;
+}
+.ai-chat-input-reset {
+  border: none;
+}
 .border-border { border-color: var(--ant-color-border, #e7e8e8); }
 .border-primary { border-color: var(--ant-color-primary, #8250FF); }
 .divide-border > * + * { border-top-color: var(--ant-color-border, #e7e8e8); }

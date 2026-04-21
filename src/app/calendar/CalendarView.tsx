@@ -30,7 +30,7 @@ import {
   SearchOutlined,
   CheckOutlined,
 } from "@ant-design/icons";
-import { Button, Badge, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert, Dropdown, Card, RadioGroup, Text } from "@/components/ds";
+import { Button, Badge, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert, Dropdown, Card, RadioGroup, Text, Icon } from "@/components/ds";
 import AiChatPanel from "@/components/AiChatPanel";
 import styles from "./CalendarView.module.css";
 
@@ -413,23 +413,23 @@ export default function CalendarView({
         <div className={styles.toolbar}>
           <button className={styles.todayBtn}>Today</button>
           <button className={styles.iconBtn}>
-            <LeftOutlined style={{ fontSize: 16 }} />
+            <Icon as={LeftOutlined} size="lg" />
           </button>
           <button className={styles.iconBtn}>
-            <RightOutlined style={{ fontSize: 16 }} />
+            <Icon as={RightOutlined} size="lg" />
           </button>
           <span className={styles.dateLabel}>{toolbarDateLabel}</span>
           <button className={styles.iconBtnSecondary}>
-            <FilterOutlined style={{ fontSize: 16 }} />
+            <Icon as={FilterOutlined} size="lg" />
           </button>
           <button className={styles.iconBtnSecondary}>
-            <SettingOutlined style={{ fontSize: 16 }} />
+            <Icon as={SettingOutlined} size="lg" />
           </button>
           <button className={styles.iconBtnSecondary}>
-            <CalendarOutlined style={{ fontSize: 16 }} />
+            <Icon as={CalendarOutlined} size="lg" />
           </button>
           <button className={styles.iconBtnSecondary}>
-            <BulbOutlined style={{ fontSize: 16 }} />
+            <Icon as={BulbOutlined} size="lg" />
           </button>
 
           {/* Location + Practitioner filter buttons */}
@@ -446,7 +446,7 @@ export default function CalendarView({
                 <div className={styles.filterDropdown}>
                   <div className={styles.filterSearchBox}>
                     <div className={styles.filterSearchInput}>
-                      <SearchOutlined style={{ fontSize: 14, color: "var(--color-text-secondary)" }} />
+                      <Icon as={SearchOutlined} size="md" tone="secondary" />
                       <input
                         type="text"
                         placeholder="Search locations..."
@@ -463,7 +463,7 @@ export default function CalendarView({
                       onClick={() => { setLocationFilter("all"); setLocationDropdownOpen(false); }}
                     >
                       <div className={locationFilter === "all" ? styles.filterCheckboxChecked : styles.filterCheckbox}>
-                        {locationFilter === "all" && <CheckOutlined style={{ fontSize: 12, color: "white" }} />}
+                        {locationFilter === "all" && <Icon as={CheckOutlined} size="sm" tone="inverted" />}
                       </div>
                       <Text variant="label/lg" as="span" color="text">Select all</Text>
                     </button>
@@ -476,7 +476,7 @@ export default function CalendarView({
                           onClick={() => { setLocationFilter(loc); setLocationDropdownOpen(false); }}
                         >
                           <div className={locationFilter === loc ? styles.filterCheckboxChecked : styles.filterCheckbox}>
-                            {locationFilter === loc && <CheckOutlined style={{ fontSize: 12, color: "white" }} />}
+                            {locationFilter === loc && <Icon as={CheckOutlined} size="sm" tone="inverted" />}
                           </div>
                           <span>{loc}</span>
                         </button>
@@ -499,7 +499,7 @@ export default function CalendarView({
                 <div className={styles.filterDropdownWide}>
                   <div className={styles.filterSearchBox}>
                     <div className={styles.filterSearchInput}>
-                      <SearchOutlined style={{ fontSize: 14, color: "var(--color-text-secondary)" }} />
+                      <Icon as={SearchOutlined} size="md" tone="secondary" />
                       <input
                         type="text"
                         placeholder="Search practitioners..."
@@ -516,7 +516,7 @@ export default function CalendarView({
                       onClick={() => { setPractitionerFilter("all"); setPractitionerDropdownOpen(false); }}
                     >
                       <div className={practitionerFilter === "all" ? styles.filterCheckboxChecked : styles.filterCheckbox}>
-                        {practitionerFilter === "all" && <CheckOutlined style={{ fontSize: 12, color: "white" }} />}
+                        {practitionerFilter === "all" && <Icon as={CheckOutlined} size="sm" tone="inverted" />}
                       </div>
                       <Text variant="label/lg" as="span" color="text">All practitioners</Text>
                     </button>
@@ -535,7 +535,7 @@ export default function CalendarView({
                               onClick={() => { setPractitionerFilter(p.id); setPractitionerDropdownOpen(false); }}
                             >
                               <div className={practitionerFilter === p.id ? styles.filterCheckboxChecked : styles.filterCheckbox}>
-                                {practitionerFilter === p.id && <CheckOutlined style={{ fontSize: 12, color: "white" }} />}
+                                {practitionerFilter === p.id && <Icon as={CheckOutlined} size="sm" tone="inverted" />}
                               </div>
                               <ColorDot color={p.color} size="sm" />
                               <span>{p.name}</span>
@@ -660,6 +660,7 @@ export default function CalendarView({
                               <div
                                 key={prac.id}
                                 className={styles.dayViewPracCell}
+                                // eslint-disable-next-line no-restricted-syntax -- dynamic grid cell shading (unavailable / alternating)
                                 style={{
                                   height: HOUR_HEIGHT,
                                   backgroundColor: isUnavailable ? "#f0f0f0" : gi % 2 === 0 ? "#f3f4f6" : "#ffffff",
@@ -677,6 +678,7 @@ export default function CalendarView({
                                     <div
                                       key={appt.id}
                                       className={styles.apptBlock}
+                                      // eslint-disable-next-line no-restricted-syntax -- per-appointment practitioner color (dynamic)
                                       style={{
                                         backgroundColor: lightenColor(appt.practitionerColor, 0.7),
                                         color: "rgb(0, 0, 0)",
@@ -800,6 +802,7 @@ export default function CalendarView({
                                     <div
                                       key={prac.id}
                                       className={styles.pracSubCol}
+                                      // eslint-disable-next-line no-restricted-syntax -- dynamic grid cell shading (unavailable / alternating)
                                       style={{
                                         ...(useFlexible ? { flex: 1 } : { width: COL_W }),
                                         backgroundColor: isUnavailable ? "#f0f0f0" : gi % 2 === 0 ? "#f3f4f6" : "#ffffff",
@@ -812,6 +815,7 @@ export default function CalendarView({
                                           <div
                                             key={appt.id}
                                             className={styles.apptBlockSmall}
+                                            // eslint-disable-next-line no-restricted-syntax -- per-appointment practitioner color (dynamic)
                                             style={{
                                               backgroundColor: lightenColor(appt.practitionerColor, 0.7),
                                               color: "rgb(0, 0, 0)",
@@ -863,7 +867,7 @@ export default function CalendarView({
         <div className={styles.roomsOverlay}>
           <div className={styles.roomsOverlayContent}>
             <div className={styles.roomsOverlayIcon}>
-              <AppstoreOutlined style={{ fontSize: 32, color: "#9ca3af" }} />
+              <Icon as={AppstoreOutlined} size="4xl" tone="tertiary" />
             </div>
             <p className="text-body-md text-text-secondary">Rooms/Resources view</p>
             <p className="text-caption-md text-text-secondary" style={{ marginTop: 4 }}>Select rooms to display in the calendar</p>
@@ -878,7 +882,11 @@ export default function CalendarView({
           className={styles.popover}
           style={{ left: popover.x - 104, top: popover.y - 180 }}
         >
-          <Card padding="none" style={{ boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)' }}>
+          <Card
+            padding="none"
+            // eslint-disable-next-line no-restricted-syntax -- floating popover shadow (larger than Card's subtle shadow)
+            style={{ boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)' }}
+          >
             <div style={{ padding: "12px 12px 4px" }}>
               <p className="text-heading-sm text-text">{popover.time}</p>
             </div>
@@ -888,7 +896,7 @@ export default function CalendarView({
                 style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
                 onClick={() => setPopover((prev) => ({ ...prev, visible: false }))}
               >
-                <ClockCircleOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
+                <Icon as={ClockCircleOutlined} size="lg" tone="secondary" />
                 Support activity
               </Button>
               <Button
@@ -896,7 +904,7 @@ export default function CalendarView({
                 style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
                 onClick={() => setPopover((prev) => ({ ...prev, visible: false }))}
               >
-                <StopOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
+                <Icon as={StopOutlined} size="lg" tone="secondary" />
                 Busy time
               </Button>
               <Button
@@ -904,7 +912,7 @@ export default function CalendarView({
                 style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
                 onClick={() => openCreateModal(popover.dateStr, popover.hour, popover.minute, popover.practitionerId)}
               >
-                <CalendarOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
+                <Icon as={CalendarOutlined} size="lg" tone="secondary" />
                 Appointment
               </Button>
               <Button
@@ -912,7 +920,7 @@ export default function CalendarView({
                 style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
                 onClick={() => setPopover((prev) => ({ ...prev, visible: false }))}
               >
-                <CheckOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
+                <Icon as={CheckOutlined} size="lg" tone="secondary" />
                 Availability
               </Button>
             </div>
@@ -948,7 +956,7 @@ export default function CalendarView({
       >
         <div className={styles.formStack}>
           {createDate && isDateInPast(createDate) && (
-            <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16, color: "#ca8a04" }} />}>
+            <Alert variant="warning" icon={<Icon as={WarningOutlined} size="lg" tone="warning" />}>{/* icon color matches Alert warning tone */}
               This appointment is in the past. Are you sure you want to create it?
             </Alert>
           )}
@@ -968,9 +976,12 @@ export default function CalendarView({
             <FormInput type="text" value={createClient} onChange={(e) => setCreateClient(e.target.value)} placeholder="Start typing to search client..." />
           </div>
           {!createClient && (
-            <div style={{ borderLeft: '3px solid #ca8a04', backgroundColor: '#fefce8', borderRadius: 4, padding: '8px 12px', marginLeft: 152 }}>
+            <div
+              // eslint-disable-next-line no-restricted-syntax -- mustard waitlist callout, one-off
+              style={{ borderLeft: '3px solid #ca8a04', backgroundColor: '#fefce8', borderRadius: 4, padding: '8px 12px', marginLeft: 152 }}
+            >
               <Text variant="label/lg" as="span" color="text">2 waitlist matches</Text>
-              <DownOutlined style={{ fontSize: 12, marginLeft: 8, color: 'var(--color-text-secondary)' }} />
+              <Icon as={DownOutlined} size="sm" tone="secondary" style={{ marginLeft: 8 }} />
             </div>
           )}
           <div className={styles.formRow}>
@@ -999,7 +1010,7 @@ export default function CalendarView({
             <FormSelect value={createEndTime} onChange={setCreateEndTime} options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))} />
           </div>
           {createTime && createTime.includes("AM") && (
-            <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16, color: "#ca8a04" }} />}>
+            <Alert variant="warning" icon={<Icon as={WarningOutlined} size="lg" tone="warning" />}>
               <Text variant="label/lg" as="span" color="text">Scheduling conflict:</Text> {createPractitioner ? practitioners.find(p => p.id === createPractitioner)?.name || "Practitioner" : "Practitioner"} already has an appointment at {createTime}. Double-check before confirming.
             </Alert>
           )}
@@ -1076,7 +1087,15 @@ export default function CalendarView({
           }
         >
           <div className={styles.formStack}>
-            <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 16, color: "#2563eb" }} />}>
+            <Alert
+              variant="info"
+              icon={
+                <InfoCircleOutlined
+                  // eslint-disable-next-line no-restricted-syntax -- blue-600 icon color matches info Alert semantic (not purple primary tone)
+                  style={{ fontSize: 16, color: "#2563eb" }}
+                />
+              }
+            >
               Client won&apos;t be notified of changes. To do this, use Reschedule.
             </Alert>
             <FormSelect label="Location" defaultValue="Hands Together Therapy (East)" options={[
@@ -1139,7 +1158,7 @@ export default function CalendarView({
             />
             <div className={styles.notificationBox}>
               <div className={styles.notificationHeader}>
-                <MailOutlined style={{ fontSize: 16, color: "var(--color-primary)" }} />
+                <Icon as={MailOutlined} size="lg" tone="primary" />
                 <span className="text-label-lg text-text">Notification preview</span>
               </div>
               <p className="text-body-sm text-text-secondary" style={{ marginBottom: 12 }}>
@@ -1157,7 +1176,7 @@ export default function CalendarView({
             </div>
             <div className={styles.changeLogSection}>
               <div className={styles.changeLogHeader}>
-                <HistoryOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
+                <Icon as={HistoryOutlined} size="lg" tone="secondary" />
                 <span className="text-label-lg text-text">Change log</span>
               </div>
               <div className={styles.changeLogEntries}>
@@ -1260,6 +1279,7 @@ function MonthView({
                       <div
                         key={appt.id}
                         className={isCancelled ? styles.monthApptChipCancelled : styles.monthApptChip}
+                        // eslint-disable-next-line no-restricted-syntax -- per-appointment practitioner color (dynamic)
                         style={{ backgroundColor: lightenColor(appt.practitionerColor, 0.7) }}
                         onClick={() => onApptClick(appt)}
                       >
@@ -1268,7 +1288,7 @@ function MonthView({
                         </span>
                         {isCancelled && (
                           <span className={styles.monthCancelBadge}>
-                            <CloseOutlined style={{ fontSize: 10, color: "white" }} />
+                            <Icon as={CloseOutlined} size="xs" tone="inverted" />
                           </span>
                         )}
                         {isGroup && !isCancelled && (
@@ -1310,15 +1330,20 @@ function AppointmentSidePanel({
       <div className={styles.sidePanelBackdrop} onClick={onClose} />
       <div className={styles.sidePanelFixed}>
         <div className={styles.sidePanelContent}>
-          <div className={styles.sidePanelHeader} style={{ backgroundColor: appt.practitionerColor, margin: -16, marginBottom: 0, padding: '12px 16px', borderRadius: '8px 8px 0 0' }}>
+          <div
+            className={styles.sidePanelHeader}
+            // eslint-disable-next-line no-restricted-syntax -- per-appointment practitioner color (dynamic header background)
+            style={{ backgroundColor: appt.practitionerColor, margin: -16, marginBottom: 0, padding: '12px 16px', borderRadius: '8px 8px 0 0' }}
+          >
             <div className={styles.sidePanelTitle}>
               <ColorDot color="#fff" size="sm" />
-              <span className="text-heading-sm" style={{ color: '#fff' }}>
+              <Text variant="heading/sm" as="span" color="inverted">
                 {appt.type}
-              </span>
+              </Text>
             </div>
+            {/* eslint-disable-next-line no-restricted-syntax -- white close icon on dynamic colored header */}
             <Button variant="icon" size="sm" onClick={onClose} style={{ color: '#fff' }}>
-              <CloseOutlined style={{ fontSize: 16 }} />
+              <Icon as={CloseOutlined} size="lg" tone="inverted" />
             </Button>
           </div>
 
@@ -1350,7 +1375,7 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
   return (
     <div className={styles.detailRows}>
       <div className={styles.detailRow}>
-        <EnvironmentOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)", marginTop: 2 }} />
+        <Icon as={EnvironmentOutlined} size="lg" tone="secondary" style={{ marginTop: 2 }} />
         <div>
           <span className="text-text">{appt.practitionerName}</span>
           <span className="text-text-secondary"> at </span>
@@ -1362,45 +1387,45 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
         <span className="text-text">{appt.practitionerName}</span>
       </div>
       <div className={styles.detailRow}>
-        <ClockCircleOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)", marginTop: 2 }} />
+        <Icon as={ClockCircleOutlined} size="lg" tone="secondary" style={{ marginTop: 2 }} />
         <span className="text-text">
           {appt.startTime}, {formatDateLong(appt.date)} for {calcDuration(appt.startTime, appt.endTime)}
         </span>
       </div>
       <div className={styles.detailRow}>
-        <UserOutlined style={{ fontSize: 16, color: "var(--color-primary)", marginTop: 2 }} />
+        <Icon as={UserOutlined} size="lg" tone="primary" style={{ marginTop: 2 }} />
         <span className={styles.linkTextMedium}>{appt.clientName}</span>
       </div>
       <div className={styles.detailRow}>
-        <MailOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)", marginTop: 2 }} />
+        <Icon as={MailOutlined} size="lg" tone="secondary" style={{ marginTop: 2 }} />
         <span className="text-text-secondary">thyxueen@gmail.com</span>
       </div>
       <div className={styles.detailRow}>
         <div className={styles.statusDot} />
         <Flex align="center" gap={4} style={{ cursor: 'pointer' }}>
           <span className="text-text-secondary">No status</span>
-          <DownOutlined style={{ fontSize: 10, color: 'var(--color-text-secondary)' }} />
+          <Icon as={DownOutlined} size="xs" tone="secondary" />
         </Flex>
       </div>
       <div className={styles.detailRow}>
-        <VideoCameraOutlined style={{ fontSize: 16, color: "var(--color-primary)", marginTop: 2 }} />
+        <Icon as={VideoCameraOutlined} size="lg" tone="primary" style={{ marginTop: 2 }} />
         <span className={styles.linkText}>Create zoom meeting</span>
       </div>
       <div className={styles.detailRowCenter}>
-        <FileTextOutlined style={{ fontSize: 16, color: "var(--color-primary)", marginTop: 2 }} />
+        <Icon as={FileTextOutlined} size="lg" tone="primary" style={{ marginTop: 2 }} />
         <span className={styles.linkText}>TRR-005673</span>
         <Badge variant="blue">Draft</Badge>
       </div>
       <div className={styles.detailRow}>
-        <StopOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)", marginTop: 2 }} />
+        <Icon as={StopOutlined} size="lg" tone="secondary" style={{ marginTop: 2 }} />
         <span className={styles.linkText}>Mark as Do not Invoice?</span>
       </div>
       <div className={styles.detailRow}>
-        <FileTextOutlined style={{ fontSize: 16, color: "var(--color-primary)", marginTop: 2 }} />
+        <Icon as={FileTextOutlined} size="lg" tone="primary" style={{ marginTop: 2 }} />
         <span className={styles.linkText}>Add progress note</span>
       </div>
       <div className={styles.detailRow}>
-        <SyncOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)", marginTop: 2 }} />
+        <Icon as={SyncOutlined} size="lg" tone="secondary" style={{ marginTop: 2 }} />
         <span className="text-caption-md text-text-secondary">Repeating every 2 weeks on Monday for 6 times</span>
       </div>
       <div className={styles.detailRowCenter}>
@@ -1409,7 +1434,7 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
       </div>
       <div className={styles.detailSection}>
         <label className={styles.noteLabel}>
-          <FileTextOutlined style={{ fontSize: 12 }} /> Note
+          <Icon as={FileTextOutlined} size="sm" /> Note
         </label>
         <FormTextarea rows={3} placeholder="Add a note..." />
       </div>
@@ -1421,7 +1446,7 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
   return (
     <div className={styles.detailRows}>
       <div className={styles.detailRow}>
-        <EnvironmentOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)", marginTop: 2 }} />
+        <Icon as={EnvironmentOutlined} size="lg" tone="secondary" style={{ marginTop: 2 }} />
         <div>
           <span className="text-text">{appt.practitionerName}</span>
           <span className="text-text-secondary"> at </span>
@@ -1433,26 +1458,26 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
         <span className="text-text">{appt.practitionerName}</span>
       </div>
       <div className={styles.detailRow}>
-        <ClockCircleOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)", marginTop: 2 }} />
+        <Icon as={ClockCircleOutlined} size="lg" tone="secondary" style={{ marginTop: 2 }} />
         <span className="text-text">
           {appt.startTime}, {formatDateLong(appt.date)} for {calcDuration(appt.startTime, appt.endTime)}
         </span>
       </div>
       <div className={styles.detailRow}>
-        <VideoCameraOutlined style={{ fontSize: 16, color: "var(--color-primary)", marginTop: 2 }} />
+        <Icon as={VideoCameraOutlined} size="lg" tone="primary" style={{ marginTop: 2 }} />
         <span className={styles.linkText}>Create zoom meeting</span>
       </div>
       <div className={styles.detailRow}>
-        <DesktopOutlined style={{ fontSize: 16, color: "var(--color-primary)", marginTop: 2 }} />
+        <Icon as={DesktopOutlined} size="lg" tone="primary" style={{ marginTop: 2 }} />
         <span className={styles.linkText}>Create Microsoft Teams meeting</span>
       </div>
       <div className={styles.attendeesHeader}>
         <Flex align="center" gap={8}>
-          <TeamOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
+          <Icon as={TeamOutlined} size="lg" tone="secondary" />
           <span className="text-text-secondary">1 of 6 clients attending</span>
         </Flex>
         <Button variant="secondary" size="sm">
-          <UserAddOutlined style={{ fontSize: 12 }} /> Client
+          <Icon as={UserAddOutlined} size="sm" /> Client
         </Button>
       </div>
       <div className={styles.attendeeList}>
@@ -1467,7 +1492,7 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
       </div>
       <div className={styles.detailSection}>
         <label className={styles.noteLabel}>
-          <FileTextOutlined style={{ fontSize: 12 }} /> Note
+          <Icon as={FileTextOutlined} size="sm" /> Note
         </label>
         <FormTextarea rows={3} placeholder="Add a note..." />
       </div>

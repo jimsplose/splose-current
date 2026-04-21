@@ -35,6 +35,7 @@ import {
   statusVariant,
   Text,
   Divider,
+  Icon,
 } from "@/components/ds";
 
 interface Appointment {
@@ -111,10 +112,10 @@ export default function AppointmentSidePanel({
         <PageHeader title="Appointments">
           <Button>
             Send upcoming appointments
-            <DownOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
+            <Icon as={DownOutlined} size="lg" tone="secondary" />
           </Button>
           <Button>
-            <PlusOutlined style={{ fontSize: 16 }} />
+            <Icon as={PlusOutlined} size="lg" />
             New appointment
           </Button>
         </PageHeader>
@@ -124,7 +125,7 @@ export default function AppointmentSidePanel({
             <TableHead>
               <Th>
                 <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                  When <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                  When <Icon as={SwapOutlined} size="md" tone="secondary" />
                 </Flex>
               </Th>
               <Th>Where</Th>
@@ -159,6 +160,7 @@ export default function AppointmentSidePanel({
                   return (
                     <tr
                       key={appt.id}
+                      // eslint-disable-next-line no-restricted-syntax -- row selection tint is a one-off dynamic state bg; Card tint doesn't apply to <tr>
                       style={{ cursor: 'pointer', ...(isSelected ? { backgroundColor: 'var(--color-primary-bg)' } : {}) }}
                       className="row-hover"
                       onClick={() => setSelectedAppointment(appt)}
@@ -170,6 +172,7 @@ export default function AppointmentSidePanel({
                             {formatDate(appt.date)}, {appt.startTime}
                           </span>
                           {isUpcoming && (
+                            // eslint-disable-next-line no-restricted-syntax -- design override: Upcoming badge uses solid green (#22c55e) fill, not Badge variant's default green tint
                             <Badge variant="green" style={{ backgroundColor: '#22c55e', color: '#fff' }}>
                               Upcoming
                             </Badge>
@@ -185,16 +188,19 @@ export default function AppointmentSidePanel({
                       <Td className="text-text-secondary">{appt.practitioner.name}</Td>
                       <Td>
                         {invoiceStatus === "Paid" && (
+                          // eslint-disable-next-line no-restricted-syntax -- design override: Paid badge uses solid red (#ef4444) fill per production
                           <Badge variant="red" style={{ backgroundColor: '#ef4444', color: '#fff' }}>
                             Paid
                           </Badge>
                         )}
                         {invoiceStatus === "Draft" && (
+                          // eslint-disable-next-line no-restricted-syntax -- design override: Draft badge uses solid blue (#3b82f6) fill per production
                           <Badge variant="blue" style={{ backgroundColor: '#3b82f6', color: '#fff' }}>
                             Draft
                           </Badge>
                         )}
                         {invoiceStatus === "Do not invoice" && (
+                          // eslint-disable-next-line no-restricted-syntax -- design override: Do-not-invoice badge uses solid dark-gray (#374151) fill per production
                           <Badge variant="gray" style={{ backgroundColor: '#374151', color: '#fff' }}>
                             Do not invoice
                           </Badge>
@@ -206,7 +212,7 @@ export default function AppointmentSidePanel({
                           size="sm"
                           onClick={(e) => e.stopPropagation()}
                         >
-                          <EllipsisOutlined style={{ fontSize: 20 }} />
+                          <Icon as={EllipsisOutlined} size="2xl" />
                         </Button>
                       </Td>
                     </tr>
@@ -227,8 +233,10 @@ export default function AppointmentSidePanel({
 
       {/* Side panel */}
       {selectedAppointment && (
+        // eslint-disable-next-line no-restricted-syntax -- side panel container: left-border + white bg + elevation shadow; no single DS component covers this composite aside
         <aside style={{ width: 380, flexShrink: 0, overflowY: 'auto', borderLeft: '1px solid var(--color-border)', backgroundColor: '#fff', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
           {/* Header */}
+          {/* eslint-disable-next-line no-restricted-syntax -- section divider border kept inline; Divider would require restructuring flex layout */}
           <Flex justify="space-between" align="flex-start" style={{ borderBottom: '1px solid var(--color-border)', padding: 16 }}>
             <div style={{ minWidth: 0, flex: 1 }}>
               <Text variant="body/lg-strong" as="h3">
@@ -244,32 +252,32 @@ export default function AppointmentSidePanel({
               onClick={() => setSelectedAppointment(null)}
               style={{ marginLeft: 8, flexShrink: 0 }}
             >
-              <CloseOutlined style={{ fontSize: 20 }} />
+              <Icon as={CloseOutlined} size="2xl" />
             </Button>
           </Flex>
 
           {/* Details */}
-          <Flex vertical gap={12} style={{ padding: 16, fontSize: 14 }}>
+          <Flex vertical gap={12} style={{ padding: 16 }}>
             {/* Practitioner at Location */}
             <Flex align="flex-start" gap={12}>
-              <EnvironmentOutlined style={{ fontSize: 16, flexShrink: 0, marginTop: 2, color: 'var(--color-text-secondary)' }} />
-              <span>
+              <Icon as={EnvironmentOutlined} size="lg" tone="secondary" style={{ flexShrink: 0, marginTop: 2 }} />
+              <Text variant="body/md" as="span">
                 {selectedAppointment.practitioner.name} at East Clinics
-              </span>
+              </Text>
             </Flex>
 
             {/* Practitioner */}
             <Flex align="center" gap={12}>
-              <UserOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-text-secondary)' }} />
-              <span>{selectedAppointment.practitioner.name}</span>
+              <Icon as={UserOutlined} size="lg" tone="secondary" style={{ flexShrink: 0 }} />
+              <Text variant="body/md" as="span">{selectedAppointment.practitioner.name}</Text>
             </Flex>
 
             {/* Time */}
             <Flex align="flex-start" gap={12}>
-              <ClockCircleOutlined style={{ fontSize: 16, flexShrink: 0, marginTop: 2, color: 'var(--color-text-secondary)' }} />
-              <span>
+              <Icon as={ClockCircleOutlined} size="lg" tone="secondary" style={{ flexShrink: 0, marginTop: 2 }} />
+              <Text variant="body/md" as="span">
                 {formatPanelDate(selectedAppointment.date, selectedAppointment.startTime)} for 60 minutes
-              </span>
+              </Text>
             </Flex>
 
             {/* Client */}
@@ -278,20 +286,20 @@ export default function AppointmentSidePanel({
                 name={`${client.firstName} ${client.lastName}`}
                 size="sm"
               />
-              <span>
+              <Text variant="body/md" as="span">
                 {client.firstName} {client.lastName}
-              </span>
+              </Text>
             </Flex>
 
             {/* Alert */}
             <Flex align="center" gap={12}>
-              <WarningOutlined style={{ fontSize: 16, flexShrink: 0, color: '#faad14' }} />
+              <Icon as={WarningOutlined} size="lg" tone="warning" style={{ flexShrink: 0 }} />
               <Text variant="body/md" as="span" color="warning">Include KM</Text>
             </Flex>
 
             {/* Phone */}
             <Flex align="center" gap={12}>
-              <PhoneOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-text-secondary)' }} />
+              <Icon as={PhoneOutlined} size="lg" tone="secondary" style={{ flexShrink: 0 }} />
               {client.phone ? (
                 <Button variant="link" href={`tel:${client.phone}`}>{client.phone}</Button>
               ) : (
@@ -301,7 +309,7 @@ export default function AppointmentSidePanel({
 
             {/* Email */}
             <Flex align="center" gap={12}>
-              <MailOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-text-secondary)' }} />
+              <Icon as={MailOutlined} size="lg" tone="secondary" style={{ flexShrink: 0 }} />
               {client.email ? (
                 <Button variant="link" href={`mailto:${client.email}`}>{client.email}</Button>
               ) : (
@@ -321,16 +329,16 @@ export default function AppointmentSidePanel({
 
             {/* Links */}
             <Flex align="center" gap={12}>
-              <LinkOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-text-secondary)' }} />
+              <Icon as={LinkOutlined} size="lg" tone="secondary" style={{ flexShrink: 0 }} />
               <Flex wrap align="center" gap={6}>
-                <span>baby due date test</span>
+                <Text variant="body/md" as="span">baby due date test</Text>
                 <Badge variant="yellow">incomplete</Badge>
               </Flex>
             </Flex>
             <Flex align="center" gap={12}>
-              <LinkOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-text-secondary)' }} />
+              <Icon as={LinkOutlined} size="lg" tone="secondary" style={{ flexShrink: 0 }} />
               <Flex wrap align="center" gap={6}>
-                <span>header test</span>
+                <Text variant="body/md" as="span">header test</Text>
                 <Badge variant="yellow">incomplete</Badge>
               </Flex>
             </Flex>
@@ -339,7 +347,7 @@ export default function AppointmentSidePanel({
 
             {/* Create Zoom meeting */}
             <Flex align="center" gap={12}>
-              <VideoCameraOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-text-secondary)' }} />
+              <Icon as={VideoCameraOutlined} size="lg" tone="secondary" style={{ flexShrink: 0 }} />
               <Button variant="link">Create Zoom meeting</Button>
             </Flex>
 
@@ -347,7 +355,7 @@ export default function AppointmentSidePanel({
 
             {/* Invoice actions */}
             <Flex align="center" gap={12}>
-              <FileTextOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-text-secondary)' }} />
+              <Icon as={FileTextOutlined} size="lg" tone="secondary" style={{ flexShrink: 0 }} />
               <Button variant="link">Add invoice</Button>
             </Flex>
             <Flex align="center" gap={12} style={{ paddingLeft: 28 }}>
@@ -360,7 +368,7 @@ export default function AppointmentSidePanel({
 
             {/* Test item */}
             <Flex align="center" gap={12}>
-              <span>AAA TEST</span>
+              <Text variant="body/md" as="span">AAA TEST</Text>
               <Badge variant="green">new</Badge>
             </Flex>
 
@@ -390,12 +398,12 @@ export default function AppointmentSidePanel({
             </Flex>
 
             <Flex align="center" gap={12}>
-              <VideoCameraOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-text-secondary)' }} />
+              <Icon as={VideoCameraOutlined} size="lg" tone="secondary" style={{ flexShrink: 0 }} />
               <Button variant="link">Join with Google Meet</Button>
             </Flex>
 
             <Flex align="center" gap={12}>
-              <LinkOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-text-secondary)' }} />
+              <Icon as={LinkOutlined} size="lg" tone="secondary" style={{ flexShrink: 0 }} />
               <Text variant="body/sm" as="span" color="primary" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>https://meet.google.com/...</Text>
             </Flex>
 
@@ -404,13 +412,12 @@ export default function AppointmentSidePanel({
             {/* Note */}
             <div>
               <Flex align="center" gap={8} style={{ marginBottom: 8 }}>
-                <FileTextOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
+                <Icon as={FileTextOutlined} size="lg" tone="secondary" />
                 <Text variant="label/lg" as="span">Note</Text>
               </Flex>
               <FormTextarea
                 rows={3}
                 placeholder="Add a note..."
-                style={{ fontSize: 14 }}
               />
             </div>
           </Flex>
