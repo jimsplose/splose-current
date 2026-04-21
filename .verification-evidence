@@ -1,48 +1,34 @@
-Session 29 — scope-gap cleanup: non-page client components (partial) — 2026-04-22
+Session 26b — Tailwind layout utilities + ClientDetailClient re-migration — 2026-04-22
 
-## Warning-count reductions (ESLint no-restricted-syntax)
+## Chrome MCP measurements (1440x900)
 
-| File | Before | After | Reduction |
-|---|---|---|---|
-| src/app/calendar/CalendarView.tsx | 89 | 0 | -89 |
-| src/app/clients/[id]/appointments/AppointmentSidePanel.tsx | 48 | 0 | -48 |
-| src/app/notes/[id]/SendNoteModal.tsx | 38 | 0 | -38 |
-| src/components/AiChatPanel.tsx | 29 | 0 | -29 |
-| src/app/invoices/[id]/InvoiceActions.tsx | 9 | 0 | -9 |
-| src/components/SploseTopNav.tsx (was TopNav.tsx) | 7 | 0 | -7 |
-| src/app/clients/[id]/layout.tsx | 6 | 0 | -6 |
-| src/app/notes/[id]/NoteViewToolbar.tsx | 5 | 0 | -5 |
-| **Total** | **231** | **0** | **-231** |
+### New utility classes in globals.css
+- mb-0..8, mt-0..8, p-0/2/3/4/6, pt-2/4/6, pb-2/4, flex-1, shrink-0, w-full,
+  max-w-2xl, overflow-hidden, overflow-y-auto, border-b
+- `!important` added to margin/padding utilities to beat AntD's `:where()`-wrapped
+  `.ant-flex { margin: 0 }` reset (specificity tie + cascade order lost without it)
 
-## Migration work (summary from 4 parallel subagent reports + main-agent small-files work)
+### /clients/[id] (ClientDetailClient re-migration)
 
-- **~50 AntD icons → DS Icon**: `<XxxOutlined style={{ fontSize: N, color: '...' }}>` → `<Icon as={XxxOutlined} size="md|lg|xl|2xl|3xl|4xl" tone="secondary|primary|inverted|warning" />` across all 8 files. Icon size mapping: 14→"md", 16→"lg", 18→"xl", 20→"2xl", 24→"3xl", 32→"4xl".
-- **~15 text inlines → DS Text variants + typography classes**: `<span style={{ fontSize, fontWeight, color }}>` → `<Text variant="body/md|label/lg|heading/sm">` or `className="text-body-md text-text-secondary"`.
-- **~20 eslint-disable-next-line no-restricted-syntax added** with short reasons for legitimate edge cases:
-  - Dynamic per-appointment practitioner colors on Calendar chips (user-chosen colors)
-  - Badge bg overrides to match exact production hex (non-DS-palette accents)
-  - Decorative Button boxShadow (Card only for containers)
-  - `color: 'inherit'` Icon escape hatch inside primary Button
-  - Container borders/shadows where no DS component fits
-- **Added globals.css utility**: `.ai-typing-dot` for the chat panel's animated typing indicator
+| Element | Class | Target | Actual | Pass? |
+|---|---|---|---|---|
+| Details/Edit Flex | mb-6 | 24px | 24px | PASS |
+| Avatar Flex | mb-3 | 12px | 12px | PASS |
+| Heading Text | mb-4 | 16px | 16px | PASS |
+| Section | mb-8 | 32px | 32px | PASS |
+
+### Pre-existing usage files (silent-bug fix)
+- `/clients/[id]/practitioner-access` H1.mb-4: was 0px → now 16px (intended by author).
+- `/clients/[id]/statements` Flex.mb-4: was 0px → now 16px.
+- Similar for notes/new, invoices/batch-invoice — all now render intended spacing.
+
+### ClientDetailClient inline-style count
+- Before 26b: 62
+- After 26b: 4 (aside right-panel, FileUpload size, 2 Tr table borders — all legitimate one-offs)
+- Session 26 done-when (≤10): **PASS**
 
 ## TypeScript + Build
 - npx tsc --noEmit: 0 errors
 - npx next build: passed
 
-## Chrome MCP verification (1440x900)
-
-- CalendarView: Day + Week + Month views measured by agent. All icon sizes + chip colors match production.
-- AppointmentSidePanel: aside width/bg/border/shadow + all 14 icons measured against production.
-- SendNoteModal: agent's Chrome MCP verification was killed mid-flow (page redirect interfered with modal open), but code edits landed cleanly. TypeScript + ESLint pass.
-- AiChatPanel: agent's Chrome MCP verification was killed mid-flow. TypeScript + ESLint pass.
-- Small files (InvoiceActions, SploseTopNav, clients/layout, NoteViewToolbar): verified inline during main-agent edits.
-
-## Done-when
-
-- ESLint warnings in 8 named files reduced to ≤ 20 total (combined): **PASS** (0)
-- `grep -c 'style={{' src/app/calendar/CalendarView.tsx` ≤ 15: **FAIL** (49) — all remaining are layout-only (margin/padding/flex/width/height/gap/position/borderRadius), not flagged by ESLint. Same Tailwind-layout-utilities blocker as session 26. Blocked on session 26b landing.
-
-Verdict: **partial** (ESLint target met; CalendarView raw style count blocked on 26b infra).
-
-Pages verified: /calendar (all views), /clients/[id]/appointments (side panel), / (TopNav), /clients/[id] (layout), /invoices/[id], /notes/[id]
+Verdict: PASS. Session 26 done-when unblocked by landing 26b.
