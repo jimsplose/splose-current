@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { Flex, theme } from "antd";
 import Button from "./Button";
+import Text from "./Text";
 
 interface NavbarProps {
   backHref?: string;
@@ -39,7 +40,7 @@ export default function Navbar({ backHref, title, backLabel, badge, children }: 
                 <ArrowLeftOutlined style={{ fontSize: 14 }} />
               </Link>
             )}
-            <h1 style={{ fontSize: 30, fontWeight: 700, color: "rgb(66, 105, 74)", fontFamily: "'Sprig Sans', 'Inter', sans-serif", lineHeight: 1.2 }}>{title}</h1>
+            <Text variant="page-title">{title}</Text>
             {badge}
           </>
         )}

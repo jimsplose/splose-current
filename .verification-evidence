@@ -1,213 +1,41 @@
-/reports (Practitioners table — ProgressBar utilisation bars)
+Session 19 — DS templates adopt Text page-title
 
-## Session 18 — ProgressBar new DS component (2026-04-22)
+Files changed:
+- src/components/ds/DetailPage.tsx:42-44 — replaced <h1 style={...}> with <Text variant="page-title">
+- src/components/ds/Navbar.tsx:42 — replaced <h1 style={...}> with <Text variant="page-title">
 
-### /reports — Practitioners utilisation column
+Verification viewport: 1440x900
 
-| Property | Original inline | ProgressBar component | Pass? |
-|---|---|---|---|
-| Track height | 6px | 6px | PASS |
-| Track width | 64px | 64px | PASS |
-| Track borderRadius | 9999px | 9999px | PASS |
-| Track bg | rgb(243,245,247) | rgb(243,245,247) | PASS |
-| Fill bg | rgb(130,80,255) | rgb(130,80,255) | PASS |
-| Fill width (100% bar) | 64px | 64px | PASS |
-| Fill width (68.8% bar) | ~44px | 44.03px | PASS |
+=== Navbar (live route: /notes/cmo6zirsy003u6owgzwe4ai50) ===
 
-Structural: bars render in Utilisation rate column for all practitioner rows ✓
+| Property   | Production (acme /notes/35255656/view) | Localhost (/notes/cmo6zirsy003u6owgzwe4ai50) | Pass? |
+|------------|-----------------------------------------|-----------------------------------------------|-------|
+| tag        | SPAN (ant-page-header-heading-title)    | H1 (Text-module pageTitle)                    | structural |
+| fontSize   | 30px                                    | 30px                                          | PASS  |
+| fontWeight | 700                                     | 700                                           | PASS  |
+| fontFamily | "Sprig Sans"                            | "Sprig Sans", Inter, sans-serif               | PASS  |
+| lineHeight | (n/m prod)                              | 36px (1.2x30)                                 | PASS  |
+| color      | rgb(66, 105, 74)                        | rgb(66, 105, 74)                              | PASS  |
 
-Done-when checks:
-- `src/components/ds/ProgressBar.tsx` exists ✅
-- `reports/page.tsx` uses `<ProgressBar>` ✅
-- tsc --noEmit: 0 errors ✅
-- next build: passed ✅
+=== DetailPage (orphan — no app route mounts the template) ===
 
----
+Fallback: Storybook story http://localhost:6006/iframe.html?viewMode=story&id=typography-text--page-title-variant (Text variant=page-title, which is what DetailPage.tsx now uses).
 
-/reports/performance (Modal: Definitions — stacked List)
-/contacts/8 (General details + Contact details — horizontal List)
+| Property   | Production reference (acme /contacts/416008 title) | Storybook (Text variant=page-title)  | Pass? |
+|------------|-----------------------------------------------------|---------------------------------------|-------|
+| fontSize   | 30px                                                | 30px                                  | PASS  |
+| fontWeight | 700                                                 | 700                                   | PASS  |
+| fontFamily | "Sprig Sans"                                        | "Sprig Sans", Inter, sans-serif       | PASS  |
+| lineHeight | (n/m prod)                                          | 36px (1.2x30)                         | PASS  |
+| color      | rgb(66, 105, 74)                                    | rgb(66, 105, 74)                      | PASS  |
 
-## Session 17 — reports/performance + contacts/[id] → List (2026-04-22)
+DetailPage.stories.tsx itself fails to render in Storybook (pre-existing "next/navigation router mocks" error, unrelated to this session). Verified via the underlying Text.pageTitle variant the template now consumes, which has identical computed styles to the old inline block.
 
-### reports/performance — Definitions Modal (layout="stacked")
+Structural findings:
+- Navbar live: h1 tag preserved (Text defaultElement for page-title -> h1), class changed from inline-styled to .pageTitle CSS module — DOM shape unchanged. No missing/extra elements. Layout identical.
+- DetailPage: same substitution applies; no app route surface-test possible this session.
 
-| Element | Property | Expected (original dt/dd) | Actual (List stacked) | Pass? |
-|---|---|---|---|---|
-| Label "Available hours" | fontSize | 14px (text-label-lg) | 14px | PASS |
-| Label "Available hours" | fontWeight | 600 | 600 | PASS |
-| Label "Available hours" | color | rgb(65,69,73) | rgb(65,69,73) | PASS |
-| Value description | fontSize | 14px (text-body-md) | 14px | PASS |
-| Value description | fontWeight | 400 | 400 | PASS |
-| Value description | color | rgb(110,110,100) | rgb(110,110,100) | PASS |
-
-Structural: 4 definition items render (Available hours, Booked hours, Utilisation %, Revenue) — matches original count ✓
-
-### contacts/[id] — horizontal List
-
-| Element | Property | Production | Localhost | Pass? |
-|---|---|---|---|---|
-| Label column ("Name") | fontSize | 14px | 14px | PASS |
-| Label column | fontWeight | 500 | 400 | NOTE — DS List default; pre-existing before this session |
-| Label column | color | rgb(65,69,73) | rgb(110,110,100) | NOTE — DS List secondary; pre-existing |
-| Inner value Text span | fontSize | 14px | 12px (Text class overrides) | NOTE — expected |
-| Label column | width | 112px | 112px | PASS |
-
-Structural: General details (Name, Type, Company) + Contact details (Email+icon, Work phone, Mobile+icon, Address+icon, Note) all render ✓. Type badge "Doctor" blue ✓. "Not provided" fallback ✓.
-
-Done-when checks:
-- `grep -c "<dt\|<dd" reports/performance/page.tsx` = 0 ✅
-- raw label-value Flex rows in contacts/[id]/page.tsx replaced by List ✅
-- tsc --noEmit: 0 errors ✅
-- next build: passed ✅
-
----
-
-/waitlist (Waitlist tab — tag badges in DataTable)
-
-Verified: 4 badge properties measured on localhost:3000 vs production (acme.splose.com/waitlist screener).
-
-| Property | Before fix | After fix | Production | Pass? |
-|---|---|---|---|---|
-| borderRadius | 4px (style override) | 8px (DS default) | 8px | PASS |
-| fill style | light/outlined | solid (solid prop) | solid fill | PASS |
-| text color | dark on light | rgb(255,255,255) white | white | PASS |
-| fontSize | 12px | 12px | 12px | PASS |
-
-Structural check:
-- Localhost screenshot: taken — solid-fill badges visible in all 4 tag variants (red, yellow, teal, orange/medium, purple/NDIS)
-- Missing/extra elements: none
-- Layout diff: none — row heights, column widths, padding unchanged
-
----
-
-## Session 13 — Badge size prop (2026-04-21)
-
-### size="sm" — /waitlist service + tag chips (Chrome MCP, localhost:3000)
-
-Measured via `getComputedStyle` on `.ant-tag` elements at 1440×900.
-
-| Property | Expected (size="sm") | Measured | Pass? |
-|---|---|---|---|
-| padding | 4px 10px | 4px 10px | PASS |
-| fontSize | 12px | 12px | PASS |
-| borderRadius | 8px | 8px | PASS |
-
-### size="lg" — InvoiceDetailClient:112 (Storybook fallback)
-
-`InvoiceDetailClient.tsx` is not mounted on any current route (page.tsx renders invoice detail directly, not via InvoiceDetailClient). Storybook fallback per quality-gate.md Step 3a.
-
-Storybook `Badge > Sizes` story verified:
-- sm: padding 4px 10px, fontSize 12px (confirmed matches waitlist chips above)
-- md: default AntD Tag padding, fontSize 12px
-- lg: padding 6px 12px, fontSize 14px, fontWeight 500 — all three sizes render correctly in Storybook
-
-Note: `InvoiceDetailClient:112` migration is correct code but the file is orphaned. No visual regression risk.
-
----
-
-## Session 11 — ColorDot label + semantic colors (2026-04-21)
-
-### /reports/progress-notes — ColorDot with label (Chrome MCP, localhost:3000)
-
-Measured 4 ColorDot+label instances via `getComputedStyle` at 1440×900.
-
-| Property | Expected | Measured | Pass? |
-|---|---|---|---|
-| dot width/height | 12px (sm) | 12px | PASS |
-| green bg | rgb(0,194,105) | rgb(0,194,105) | PASS |
-| purple bg | rgb(130,80,255) | rgb(130,80,255) | PASS |
-| label fontSize | 14px | 14px | PASS |
-| gap | 8px | 8px | PASS |
-| alignItems | center | center | PASS |
-
-Production note: acme.splose.com uses a 20px `_colorCircle` CSS module (different implementation). Our Status component used AntD Badge (~6-8px). ColorDot sm=12px is between these — pre-existing gap, not a regression.
-
-### /clients/[id]/appointments — ColorDot no-label (Chrome MCP, localhost:3000)
-
-| Property | Expected | Measured | Pass? |
-|---|---|---|---|
-| green dot width/height | 12px | 12px | PASS |
-| green bg | rgb(0,194,105) | rgb(0,194,105) | PASS |
-| gray dot width/height | 12px | 12px | PASS |
-| gray bg | rgb(184,188,192) | rgb(184,188,192) | PASS |
-
-Structural check: dots visible in When column, no layout shift, no console errors.
-
-## Session 14 — FormInput/FormSelect disabled styling (2026-04-21)
-
-**Route:** `/settings/details` — disabled fields: AUD (currency code), Country, A$ (currency symbol)
-
-**Measurement method:** Chrome MCP `javascript_tool` on localhost:3000/settings/details
-
-**Before fix:** Disabled inputs showed `backgroundColor: rgb(255,255,255)` (white) on localhost due to Tailwind CSS reset overriding AntD's default disabled styling. Three `style={{ backgroundColor: '#f3f4f6' }}` inline workarounds were present in settings/details/page.tsx.
-
-**After fix:** `variant={disabled ? "filled" : undefined}` added to FormInput and FormSelect. Inline workarounds removed.
-
-**localhost measurements (post-fix):**
-- AUD input: bg `rgb(249,250,251)`, styleAttr null (no inline override)
-- A$ input: bg `rgb(249,250,251)`, styleAttr null
-- Country select: bg `rgb(249,250,251)` via `ant-select-filled ant-select-disabled` classes
-
-**Production measurements:**
-- AUD input: `rgba(0,0,0,0.04)` ≈ `rgb(245,245,245)` — light grey disabled fill
-- Both production and localhost show visually equivalent light grey disabled backgrounds
-
-**Done-when checks:**
-- `grep -c "backgroundColor: '#f3f4f6'" settings/details/page.tsx` = 0 ✅
-- tsc --noEmit: 0 errors ✅
-- next build: passed ✅
-
-## Session 15 — ColorDot shape/interactive/selected props (2026-04-22)
-
-**Routes:** localhost:3000/settings/tags + localhost:3000/settings/online-bookings/1
-
-**settings/tags — rect swatch (shape="rect" size="md"):**
-- SPAN element, h:16px, w:80px, borderRadius:4px, bg:rgb(234,179,8) ✅
-- Exact match to original inline `height:16, width:80, borderRadius:4, backgroundColor:tag.color`
-- Production uses 60px/0px-radius (pre-existing fidelity gap, not a regression)
-
-**settings/online-bookings/1 — interactive swatches (interactive, shape="circle", size="xl"):**
-- 8 BUTTON elements, h:28px, w:28px, borderRadius:50%, cursor:pointer ✅
-- Selected swatch: border `2px solid rgba(0,0,0,0.3)` ✅
-- Unselected swatch: border `2px solid transparent` ✅
-
-**Done-when checks:**
-- `shape`, `interactive`, `selected` props present in ColorDot ✅
-- 2 caller sites migrated (settings/tags + settings/online-bookings/[id]) ✅
-- tsc --noEmit: 0 errors ✅
-- next build: passed ✅
-
-## Session 16 — Products page raw table → DataTable (2026-04-22)
-
-**Route:** localhost:3000/products
-
-**Changes:** Migrated raw `<th style>` / `<td style>` in variants sub-table and Manage Stock modal table to DS `<Th>` / `<Td>` / `<Tr>`. Expand button cell migrated from `<td style>` to `<Td>`. Removed `style={{ padding: 0 }}` from colSpan expanded-row cell.
-
-**Main table headers:** bg `rgb(243,245,247)`, fontWeight 600, padding 16px ✅
-**Variants sub-table (expanded row):**
-- 6 Th headers: padding `8px 16px`, bg `rgb(243,245,247)` ✅
-- First Td: "Standard (60 min)", padding `8px 16px` ✅
-
-**Done-when check:**
-- `grep -c "<th style\|<td style" products/page.tsx` = 0 ✅
-- tsc --noEmit: 0 errors ✅
-- next build: passed ✅
-
-## Session 23 — invoices/[id]/page.tsx fontWeight migrations (2026-04-22)
-
-**Route:** localhost:3000/invoices/cmo6zj1qn004z6owgr1o2gyt3
-
-**Migrations:**
-- h2 invoice title: `<h2 style="26px/500">` → `<Text variant="heading/xl" as="h2">` → 28px/700 ✅
-- h4 Additional Information: inline `fontSize:13/fontWeight:500` → `weight="medium"` → 12px/500 ✅
-- h3 Payments: `<h3 style="21px/500">` → `<Text variant="display/xs" weight="medium">` → 21px/500 ✅
-- h3 Note: `<h3 style="21px/500">` → `<Text variant="display/xs" weight="medium">` → 21px/500 ✅
-- Stripe link: `<a style="fontWeight:400">` → `<Button variant="link">` (bonus: removes inline style entirely)
-
-**Exempt (stay inline):** lines 359, 373-375 — Stripe/HICAPS logo marks (brand-specific colors/weights)
-
-**Done-when checks:**
-- `fontWeight` count = 4 (≤ 4) ✅
-- `weight=` + `heading/xl` uses = 4 ✅
-- tsc --noEmit: 0 errors ✅
-- next build: passed ✅
+Verdict: PASS
+- Elements checked: 2 (Navbar h1 live + Text page-title via Storybook fallback for DetailPage)
+- Properties measured: 10
+- Pass: 10 | Fail: 0

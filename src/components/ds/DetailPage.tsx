@@ -2,6 +2,7 @@
 
 import { type ReactNode } from "react";
 import { Flex } from "antd";
+import Text from "./Text";
 
 interface DetailPageProps {
   /** Page title */
@@ -42,9 +43,7 @@ export default function DetailPage({
       <div style={{ padding: "16px 24px", borderBottom: "1px solid var(--color-border)" }}>
         <Flex justify="space-between" align="center" gap={12}>
           <div>
-            <h1 style={{ fontSize: 30, fontWeight: 700, fontFamily: "'Sprig Sans', 'Inter', sans-serif", lineHeight: 1.2, color: "rgb(66, 105, 74)" }}>
-              {title}
-            </h1>
+            <Text variant="page-title">{title}</Text>
             {subtitle && (
               <div style={{ marginTop: 4, fontSize: 14, color: "var(--color-text-secondary)" }}>
                 {subtitle}
