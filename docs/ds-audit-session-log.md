@@ -112,3 +112,5 @@ All Prereq columns and Done-when rows were updated to use the new numbers. Git h
   - Cause: Pass 1 subagent only counted `src/app/**/page.tsx` and `src/app/**/*Client.tsx` — non-page client components named otherwise (CalendarView, SidePanel, Modal) were skipped.
   - **Action:** when re-running the audit in 3 months, broaden the scope to all `.tsx` under `src/app/**` (except storybook and tests). Add a Session 26+ to the backlog covering these files if a human triage confirms their violation density.
 - **No actual Tailwind in Prettier:** initial concern that Prettier had Tailwind-specific setup was unfounded — Prettier config is generic formatting only. The `text-*` classes that look like Tailwind are plain CSS in `src/app/globals.css`. No action needed on Prettier.
+
+| 22 | 2026-04-22 | Sonnet 4.6 | Button: add `iconOnly` + `shape="circle"` | Full scope landed: Button.tsx extended (iconOnly, shape=circle), 5 caller sites migrated (forms/[id] ×2, waitlist ×2, progress-notes/edit/[id] ×1), Storybook IconOnlyButtons story added. Chrome MCP: all sites verified 38×38 (ghost+iconOnly) and 29×29/50%r (chip closes). No blockers. |
