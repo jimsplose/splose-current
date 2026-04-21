@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Avatar, Button, Card, ColorDot, Divider, Text } from "@/components/ds";
+import { Avatar, Button, Card, ColorDot, Divider, Icon, Text } from "@/components/ds";
 import { DownOutlined, RightOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
 import styles from "./DashboardClient.module.css";
@@ -196,7 +196,7 @@ function MessageItem({
           <Text variant="body/md-strong" as="span" color="text">{message.sender}</Text>
           <Text variant="caption/sm" as="span" color="text" style={{ fontSize: '9.8px' }}>{message.time}</Text>
           <Text variant="body/md" as="span" color="secondary" style={{ marginLeft: 'auto' }}>
-            {expanded ? <DownOutlined style={{ fontSize: 14 }} /> : <RightOutlined style={{ fontSize: 14 }} />}
+            {expanded ? <Icon as={DownOutlined} size="md" /> : <Icon as={RightOutlined} size="md" />}
           </Text>
         </Flex>
         {!expanded && (

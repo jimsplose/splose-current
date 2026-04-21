@@ -1,6 +1,6 @@
 import type { ComponentType } from "react";
 
-export type IconSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
+export type IconSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl";
 export type IconTone =
   | "default"
   | "secondary"
@@ -27,6 +27,8 @@ const sizeMap: Record<IconSize, number> = {
   xl: 18,
   "2xl": 20,
   "3xl": 24,
+  "4xl": 32,
+  "5xl": 40,
 };
 
 const toneColor: Record<IconTone, string> = {

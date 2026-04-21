@@ -1,0 +1,28 @@
+Session 20 — DS Icon migration verification
+Date: 2026-04-22
+Viewport: 1440×900
+
+## Measurements (localhost vs production)
+
+| Icon | Expected size | Measured size | Color | Pass |
+|------|--------------|---------------|-------|------|
+| ArrowLeftOutlined (back nav) | 14px secondary | 14px rgb(110,110,100) | ✓ | ✓ |
+| SnippetsOutlined (templates btn) | 16px default | 16px rgb(65,69,73) | ✓ | ✓ |
+| AppstoreOutlined (view toggle) | 16px default | 16px rgb(65,69,73) | ✓ | ✓ |
+| ColumnWidthOutlined (split view) | 16px default | 16px rgb(65,69,73) | ✓ | ✓ |
+| DownOutlined (split primary btn) | 12px white | 12px rgb(255,255,255) | ✓ | ✓ |
+| ThunderboltOutlined (generate btn) | 16px default | 16px rgb(65,69,73) | ✓ | ✓ |
+| ThunderboltOutlined (inline x5) | 16px primary | 16px rgb(130,80,255) | ✓ | ✓ |
+| BoldOutlined / ItalicOutlined / etc (toolbar x14) | 16px default | 16px rgb(65,69,73) | ✓ | ✓ |
+| UpOutlined (secondary x5) | 16px secondary | 16px rgb(110,110,100) | ✓ | ✓ |
+| MessageOutlined (AI chat btn) | 16px inherit | 16px rgb(255,255,255) | ✓ | ✓ |
+| PlusOutlined (round primary btn) | 16px white | 16px rgb(255,255,255) | ✓ | ✓ |
+
+## Key fix verified
+color: inherit escape hatch on primary button icons (DownOutlined, MessageOutlined, PlusOutlined)
+prevents Icon's tone color from overriding AntD Button's white text class.
+
+## Done-when checks
+- grep -c 'Outlined style={{' notes/[id]/edit/page.tsx → 0 ✓
+- npx tsc --noEmit → clean ✓
+- npx next build → clean ✓

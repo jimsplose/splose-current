@@ -1,0 +1,23 @@
+Session 20 — DS Icon migration verification
+Date: 2026-04-22
+Viewport: 1440×900
+
+## Measurements (localhost)
+
+| Icon | Expected size | Measured size | Color | Pass |
+|------|--------------|---------------|-------|------|
+| MessageOutlined (table rows) | 16px default | 16px rgb(65,69,73) | ✓ | ✓ |
+| ReadOutlined (table rows) | 16px default | 16px rgb(65,69,73) | ✓ | ✓ |
+| UploadOutlined (import btn) | 16px white | 16px rgb(255,255,255) | ✓ | ✓ |
+| ArrowRightOutlined (continue btn) | 16px white | 16px rgb(255,255,255) | ✓ | ✓ |
+| FileExcelOutlined (display) | 40px primary | 40px primary purple | ✓ | ✓ |
+| UploadOutlined (display) | 40px secondary | 40px secondary gray | ✓ | ✓ |
+
+## Key fix verified
+color: inherit on UploadOutlined and ArrowRightOutlined inside primary Button
+preserves white text when AntD Button's CSS class sets color: #fff.
+
+## Done-when checks
+- grep -c 'Outlined style={{' settings/data-import/page.tsx → 0 ✓
+- npx tsc --noEmit → clean ✓
+- npx next build → clean ✓

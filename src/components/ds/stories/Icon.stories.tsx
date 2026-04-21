@@ -24,8 +24,8 @@ const meta: Meta<typeof Icon> = {
   argTypes: {
     size: {
       control: "select",
-      options: ["xs", "sm", "md", "lg", "xl", "2xl", "3xl"] satisfies IconSize[],
-      description: "Icon size (xs=10px, sm=12px, md=14px, lg=16px, xl=18px, 2xl=20px, 3xl=24px)",
+      options: ["xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl"] satisfies IconSize[],
+      description: "Icon size (xs=10px, sm=12px, md=14px, lg=16px, xl=18px, 2xl=20px, 3xl=24px, 4xl=32px, 5xl=40px)",
     },
     tone: {
       control: "select",
@@ -86,7 +86,7 @@ export const DangerTone: Story = {
 /*  3. GRID STORIES — all sizes × all tones                            */
 /* ================================================================== */
 
-const ALL_SIZES: IconSize[] = ["xs", "sm", "md", "lg", "xl", "2xl", "3xl"];
+const ALL_SIZES: IconSize[] = ["xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl"];
 const ALL_TONES: IconTone[] = [
   "default",
   "secondary",
