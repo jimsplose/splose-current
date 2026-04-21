@@ -803,9 +803,9 @@ export default function CalendarView({
                                     <div
                                       key={prac.id}
                                       className={styles.pracSubCol}
-                                      // eslint-disable-next-line no-restricted-syntax -- dynamic grid cell shading (unavailable / alternating)
                                       style={{
                                         ...(useFlexible ? { flex: 1 } : { width: COL_W }),
+                                        // eslint-disable-next-line no-restricted-syntax -- dynamic grid cell shading (unavailable / alternating)
                                         backgroundColor: isUnavailable ? "#f0f0f0" : gi % 2 === 0 ? "#f3f4f6" : "#ffffff",
                                       }}
                                       onClick={(e) => handleCellClick(e, dateStr, hour)}
@@ -816,9 +816,10 @@ export default function CalendarView({
                                           <div
                                             key={appt.id}
                                             className={styles.apptBlockSmall}
-                                            // eslint-disable-next-line no-restricted-syntax -- per-appointment practitioner color (dynamic)
                                             style={{
+                                              // eslint-disable-next-line no-restricted-syntax -- per-appointment practitioner color (dynamic)
                                               backgroundColor: lightenColor(appt.practitionerColor, 0.7),
+                                              // eslint-disable-next-line no-restricted-syntax -- always-black text on lightened color chip
                                               color: "rgb(0, 0, 0)",
                                               opacity: appt.status === "Cancelled" ? 0.5 : undefined,
                                               ...pos,
