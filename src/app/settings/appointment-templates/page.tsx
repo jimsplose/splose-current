@@ -19,7 +19,7 @@ import {
   FormInput,
   FormSelect,
   Toggle,
-  OnOffBadge,
+  Text,
   EmailPreview,
 } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -143,10 +143,10 @@ export default function AppointmentTemplatesPage() {
               <Td className="text-text">{t.name}</Td>
               <Td>{t.type}</Td>
               <Td>
-                <OnOffBadge value={t.sms} />
+                <Text variant="body/md" color={t.sms ? "success" : "danger"}>{t.sms ? "On" : "Off"}</Text>
               </Td>
               <Td>
-                <OnOffBadge value={t.email} />
+                <Text variant="body/md" color={t.email ? "success" : "danger"}>{t.email ? "On" : "Off"}</Text>
               </Td>
               <Td>{t.lastModified}</Td>
               <Td align="right">

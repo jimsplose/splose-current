@@ -55,7 +55,6 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `Avatar` | Colored circles with initials (sm/md/lg/xl) |
 | `Icon` | Wrapper for AntD icon components with `size: xs/sm/md/lg/xl/2xl/3xl` (10–24px) and `tone: default/secondary/tertiary/primary/success/warning/danger/inverted` |
 | `ColorDot` | Colored circle indicator (xs/sm/md/lg) |
-| `OnOffBadge` | Boolean On/Off display with configurable labels |
 | `Status` | Small colored status indicator dots |
 | `List` | Label-value detail rows |
 | `HintIcon` | Info tooltip trigger |

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { SettingsListPage, FormInput, Toggle, OnOffBadge } from "@/components/ds";
+import { SettingsListPage, FormInput, Toggle, Text } from "@/components/ds";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 
 interface CommType {
@@ -32,7 +32,7 @@ export default function CommunicationTypesPage() {
           key: "defaultType",
           label: "Default type",
           render: (item) => (
-            <OnOffBadge value={item.defaultType} onLabel="Yes" offLabel="No" />
+            <Text variant="body/md" color={item.defaultType ? "success" : "danger"}>{item.defaultType ? "Yes" : "No"}</Text>
           ),
         },
       ]}

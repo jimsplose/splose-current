@@ -3,7 +3,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 import SettingsListPage from "../SettingsListPage";
-import { FormInput, Toggle, OnOffBadge, ColorDot, FormColorPicker, FormSelect } from "@/components/ds";
+import { FormInput, Toggle, Text, ColorDot, FormColorPicker, FormSelect } from "@/components/ds";
 import { SIMPLE_CRUD, STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 
 const meta: Meta<typeof SettingsListPage> = {
@@ -88,7 +88,7 @@ function CommunicationTypesDemo() {
         {
           key: "defaultType",
           label: "Default type",
-          render: (item) => <OnOffBadge value={item.defaultType} onLabel="Yes" offLabel="No" />,
+          render: (item) => <Text variant="body/md" color={item.defaultType ? "success" : "danger"}>{item.defaultType ? "Yes" : "No"}</Text>,
         },
       ]}
       dropdownItems={SIMPLE_CRUD}
@@ -147,7 +147,7 @@ function ReferralTypesDemo() {
         {
           key: "defaultType",
           label: "Default type",
-          render: (item) => <OnOffBadge value={item.defaultType} onLabel="Yes" offLabel="No" />,
+          render: (item) => <Text variant="body/md" color={item.defaultType ? "success" : "danger"}>{item.defaultType ? "Yes" : "No"}</Text>,
         },
       ]}
       dropdownItems={SIMPLE_CRUD}
@@ -339,7 +339,7 @@ export const TagsWithToggle: StoryObj = {
   render: () => <TagsDemo />,
 };
 
-/* ── Recipe: Appointment Types with ColorDot + OnOffBadge ──────────── */
+/* ── Recipe: Appointment Types with ColorDot + Text status ──────────── */
 
 interface ApptType {
   [key: string]: unknown;
@@ -378,7 +378,7 @@ function AppointmentTypesDemo() {
         {
           key: "onlineBooking",
           label: "Online booking",
-          render: (item) => <OnOffBadge value={item.onlineBooking} />,
+          render: (item) => <Text color={item.onlineBooking ? "success" : "danger"}>{item.onlineBooking ? "On" : "Off"}</Text>,
         },
       ]}
       dropdownItems={STANDARD_SETTINGS}
@@ -416,6 +416,6 @@ function AppointmentTypesDemo() {
 }
 
 export const AppointmentTypes: StoryObj = {
-  name: "Recipe: Appointment Types (ColorDot + OnOffBadge)",
+  name: "Recipe: Appointment Types (ColorDot + Text status)",
   render: () => <AppointmentTypesDemo />,
 };
