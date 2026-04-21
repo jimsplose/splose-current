@@ -140,6 +140,31 @@ Every session must satisfy ALL of these checks before flipping status to `done`.
 
 ---
 
+## Next session — FIRST TODO
+
+**Re-migrate mb-*/mt-*/p-*/flex-1/shrink-0 inline styles across the codebase, now that the layout utilities exist.** Session 26b landed the utilities + `!important` cascade fix on 2026-04-22 and proved them on ClientDetailClient (62 → 4 inline styles). Apply the same pattern to the remaining high-raw-count files so the session 27 Top-10 ≥90% drops + total ≤600 targets can actually be met:
+
+- DashboardClient.tsx (81 inline)
+- invoices/[id]/page.tsx (64) — many are Text `style={{ marginBottom: 16 }}` → className="mb-4"
+- waitlist/page.tsx (51)
+- calendar/CalendarView.tsx (49 — all post-session-29 residual layout)
+- notes/[id]/edit/page.tsx (46)
+- settings/online-bookings/[id]/page.tsx (44)
+- settings/details/page.tsx (43)
+- settings/forms/[id]/page.tsx (42)
+- settings/data-import/page.tsx (41)
+- reports/page.tsx (41)
+- InvoiceDetailClient.tsx (37)
+
+Mechanical migration: `style={{ marginBottom: 16 }}` → `className="mb-4"`, `style={{ marginTop: 8 }}` → `className="mt-2"`, `style={{ padding: 24 }}` → `className="p-6"`, etc.
+
+**Known gotchas:**
+1. `!important` was needed on margin/padding utilities because AntD's `:where(...).ant-flex { margin: 0 }` has the same specificity (0,1,0) as `.mb-4` but loads later. Without it, `<Flex className="mb-4">` resolves to 0px — confirmed live on /clients/[id]/statements pre-fix.
+2. Pre-existing mb-4 usages in 4 files (practitioner-access, statements, batch-invoice/[id], notes/new) were silently broken before 26b. Verify none of them visually regress now that those classes actually apply (the 16px margin they now pick up is almost certainly the intended look — dev wrote the class for a reason).
+3. For `<Text className="mb-4">` — Text renders an HTML element (h1/h2/p/span depending on variant), the utility will work because no custom `margin: 0` rule wraps it.
+
+After migration: re-run session 27 counts. If total raw `style={{` drops below 600 and every Top-10 file hits ≥90%, session 28 (ESLint rule promotion) also unblocks if warnings drop under 50.
+
 ## Post-backlog (not individual sessions)
 
 - Update `docs/reference/ds-component-catalog.md` to reflect new components, deletions, and new props once sessions land
