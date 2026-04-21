@@ -13,3 +13,28 @@ Structural check:
 - Localhost screenshot: taken — solid-fill badges visible in all 4 tag variants (red, yellow, teal, orange/medium, purple/NDIS)
 - Missing/extra elements: none
 - Layout diff: none — row heights, column widths, padding unchanged
+
+---
+
+## Session 13 — Badge size prop (2026-04-21)
+
+### size="sm" — /waitlist service + tag chips (Chrome MCP, localhost:3000)
+
+Measured via `getComputedStyle` on `.ant-tag` elements at 1440×900.
+
+| Property | Expected (size="sm") | Measured | Pass? |
+|---|---|---|---|
+| padding | 4px 10px | 4px 10px | PASS |
+| fontSize | 12px | 12px | PASS |
+| borderRadius | 8px | 8px | PASS |
+
+### size="lg" — InvoiceDetailClient:112 (Storybook fallback)
+
+`InvoiceDetailClient.tsx` is not mounted on any current route (page.tsx renders invoice detail directly, not via InvoiceDetailClient). Storybook fallback per quality-gate.md Step 3a.
+
+Storybook `Badge > Sizes` story verified:
+- sm: padding 4px 10px, fontSize 12px (confirmed matches waitlist chips above)
+- md: default AntD Tag padding, fontSize 12px
+- lg: padding 6px 12px, fontSize 14px, fontWeight 500 — all three sizes render correctly in Storybook
+
+Note: `InvoiceDetailClient:112` migration is correct code but the file is orphaned. No visual regression risk.

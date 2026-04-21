@@ -43,6 +43,8 @@ One row per session. Columns:
 
 | 12 | 2026-04-21 | Sonnet 4.6 | Delete OnOffBadge + migrate 2 app callers to Text | Deleted OnOffBadge.tsx + story ✓, index.ts cleaned ✓, catalog ✓. Found 3 app callers (not 2 as backlog said) + SettingsListPage.stories.tsx (3 usages) — all migrated to `<Text variant="body/md" color={success|danger}>`. grep OnOffBadge src/ = 0 ✓. | done | `variant` prop required on Text (not optional) — needed to add `variant="body/md"` to all 4 call sites; caught by tsc. Introduction.mdx had a stale reference not covered by src/ grep. | Backlog undercounted callers (said 2, was 4 incl. stories). Always grep src/ AND docs/stories. |
 
+| 13 | 2026-04-21 | Sonnet 4.6 | Badge: add size sm/md/lg prop + Storybook Sizes story + migrate waitlist:738,886 + InvoiceDetailClient:112 | size prop ✓, sizeStyle map ✓, Sizes story ✓, waitlist:738+886 size="sm" ✓ (Chrome MCP confirmed 4px 10px padding). InvoiceDetailClient:112 migrated to size="lg" ✓ but file is orphaned — page.tsx renders invoice detail directly and doesn't import InvoiceDetailClient. Storybook fallback used for lg verification. Catalog updated. | done | InvoiceDetailClient.tsx is dead code (not imported by page.tsx). Migration was correct but had no production effect. page.tsx credit balance badge uses `variant="blue" solid` (separate feature, no inline padding to fix). | Backlog named wrong target for lg migration. For future sessions touching invoice/[id]: all rendering is in page.tsx + InvoiceActions.tsx, not InvoiceDetailClient. |
+
 *(Future sessions append rows here. Keep entries brief — one row per session. If a session spawns a follow-up, add the follow-up as its own row when complete.)*
 
 ## Renumbering notes (2026-04-20)
