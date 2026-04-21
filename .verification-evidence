@@ -38,3 +38,33 @@ Storybook `Badge > Sizes` story verified:
 - lg: padding 6px 12px, fontSize 14px, fontWeight 500 — all three sizes render correctly in Storybook
 
 Note: `InvoiceDetailClient:112` migration is correct code but the file is orphaned. No visual regression risk.
+
+---
+
+## Session 11 — ColorDot label + semantic colors (2026-04-21)
+
+### /reports/progress-notes — ColorDot with label (Chrome MCP, localhost:3000)
+
+Measured 4 ColorDot+label instances via `getComputedStyle` at 1440×900.
+
+| Property | Expected | Measured | Pass? |
+|---|---|---|---|
+| dot width/height | 12px (sm) | 12px | PASS |
+| green bg | rgb(0,194,105) | rgb(0,194,105) | PASS |
+| purple bg | rgb(130,80,255) | rgb(130,80,255) | PASS |
+| label fontSize | 14px | 14px | PASS |
+| gap | 8px | 8px | PASS |
+| alignItems | center | center | PASS |
+
+Production note: acme.splose.com uses a 20px `_colorCircle` CSS module (different implementation). Our Status component used AntD Badge (~6-8px). ColorDot sm=12px is between these — pre-existing gap, not a regression.
+
+### /clients/[id]/appointments — ColorDot no-label (Chrome MCP, localhost:3000)
+
+| Property | Expected | Measured | Pass? |
+|---|---|---|---|
+| green dot width/height | 12px | 12px | PASS |
+| green bg | rgb(0,194,105) | rgb(0,194,105) | PASS |
+| gray dot width/height | 12px | 12px | PASS |
+| gray bg | rgb(184,188,192) | rgb(184,188,192) | PASS |
+
+Structural check: dots visible in When column, no layout shift, no console errors.

@@ -54,8 +54,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `Text` | Semantic typography. Variants: `page-title` (30px/700/Sprig Sans/green — detail page headers), `heading/xl` (28px/700), `display/lg\|md\|sm\|xs`, `heading/lg\|md\|sm`, `body/lg\|md\|sm\|md-strong\|lg-strong`, `label/lg\|md\|sm`, `caption/md\|sm`, `metric/lg\|md`. `weight="regular\|medium\|bold"` overrides variant default. `color` accepts preset names (`text`, `secondary`, `tertiary`, `primary`, `danger`, `warning`, `success`, `inverted`) or a Tailwind/CSS class. Use `color="inverted"` for white text on dark/colored backgrounds. |
 | `Avatar` | Colored circles with initials (sm/md/lg/xl) |
 | `Icon` | Wrapper for AntD icon components with `size: xs/sm/md/lg/xl/2xl/3xl` (10–24px) and `tone: default/secondary/tertiary/primary/success/warning/danger/inverted` |
-| `ColorDot` | Colored circle indicator (xs/sm/md/lg) |
-| `Status` | Small colored status indicator dots |
+| `ColorDot` | Colored circle indicator (xs/sm/md/lg). Accepts semantic color tokens (green/red/yellow/blue/gray/purple/orange) or raw CSS color. Optional `label` prop renders dot + text inline. |
 | `List` | Label-value detail rows |
 | `HintIcon` | Info tooltip trigger |
 | `EmailPreview` | Email preview modal with subject, recipient, body, sender |

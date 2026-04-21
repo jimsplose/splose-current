@@ -5,7 +5,7 @@ import { useState } from "react";
 import DataTable, { TableHead, Th, TableBody, Td, Tr, LinkCell, ActionsCell, ExpandableRow } from "../DataTable";
 import Pagination from "../Pagination";
 import Badge, { statusVariant } from "../Badge";
-import Status from "../Status";
+import ColorDot from "../ColorDot";
 
 const meta: Meta<typeof DataTable> = {
   title: "Data Display/DataTable",
@@ -111,7 +111,7 @@ export const ClickableRows: Story = {
             <Tr key={r.id} clickable selected={selected === r.id} onClick={() => setSelected(r.id)}>
               <Td>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <Status color={r.color} />
+                  <ColorDot color={r.color} />
                   {r.appt}
                 </div>
               </Td>
@@ -340,7 +340,7 @@ export const RecipeAppointments: Story = {
             { id: "3", when: "Thu 5 Feb 2026, 2:00 pm", where: "West Clinics", type: "Follow Up", prac: "Lisa A.", status: "Do not invoice", color: "gray" as const },
           ].map((a) => (
             <Tr key={a.id} clickable selected={selected === a.id} onClick={() => setSelected(a.id)}>
-              <Td><div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Status color={a.color} />{a.when}</div></Td>
+              <Td><div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><ColorDot color={a.color} />{a.when}</div></Td>
               <Td>{a.where}</Td>
               <Td>{a.type}</Td>
               <Td>{a.prac}</Td>

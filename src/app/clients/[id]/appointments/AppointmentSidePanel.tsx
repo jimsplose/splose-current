@@ -31,7 +31,7 @@ import {
   Badge,
   Avatar,
   FormTextarea,
-  Status,
+  ColorDot,
   statusVariant,
   Text,
   Divider,
@@ -165,7 +165,7 @@ export default function AppointmentSidePanel({
                     >
                       <Td>
                         <Flex align="center" gap={8}>
-                          <Status color={isUpcoming ? "green" : statusDotColor} />
+                          <ColorDot color={isUpcoming ? "green" : statusDotColor} />
                           <span>
                             {formatDate(appt.date)}, {appt.startTime}
                           </span>
@@ -312,7 +312,7 @@ export default function AppointmentSidePanel({
             {/* Status */}
             <Flex align="center" gap={12}>
               <Flex align="center" justify="center" style={{ height: 16, width: 16, flexShrink: 0 }}>
-                <Status color="gray" />
+                <ColorDot color="gray" />
               </Flex>
               <Text variant="body/md" as="span" color="secondary">No status</Text>
             </Flex>

@@ -12,7 +12,7 @@ import {
   Grid,
   ListPage,
   Stat,
-  Status,
+  ColorDot,
   TableBody,
   TableHead,
   Td,
@@ -83,13 +83,13 @@ export default function ReportsProgressNotesPage() {
               <tbody>
                 <tr className="border-b border-border">
                   <td className="p-2 px-4">
-                    <Status color="green" label="AAA TEST" />
+                    <ColorDot color="green" label="AAA TEST" />
                   </td>
                   <td className="p-2 px-4 text-right"><Text variant="body/md" as="span">1 (50.0%)</Text></td>
                 </tr>
                 <tr>
                   <td className="p-2 px-4">
-                    <Status color="purple" label="Bill Gates Demo" />
+                    <ColorDot color="purple" label="Bill Gates Demo" />
                   </td>
                   <td className="p-2 px-4 text-right"><Text variant="body/md" as="span">1 (50.0%)</Text></td>
                 </tr>
@@ -125,13 +125,13 @@ export default function ReportsProgressNotesPage() {
               <tbody>
                 <tr className="border-b border-border">
                   <td className="p-2 px-4">
-                    <Status color="green" label="Ruvi R." />
+                    <ColorDot color="green" label="Ruvi R." />
                   </td>
                   <td className="p-2 px-4 text-right"><Text variant="body/md" as="span">1 (50.0%)</Text></td>
                 </tr>
                 <tr>
                   <td className="p-2 px-4">
-                    <Status color="purple" label="Zoe Gomez" />
+                    <ColorDot color="purple" label="Zoe Gomez" />
                   </td>
                   <td className="p-2 px-4 text-right"><Text variant="body/md" as="span">1 (50.0%)</Text></td>
                 </tr>

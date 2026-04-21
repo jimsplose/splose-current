@@ -29,7 +29,6 @@ export { default as Divider } from "./Divider";
 export { default as ListPage } from "./ListPage";
 export { default as DetailPage } from "./DetailPage";
 export { default as FormPage } from "./FormPage";
-export { default as Status } from "./Status";
 export { default as AsyncSelect } from "./AsyncSelect";
 export { default as Text } from "./Text";
 export type { TextVariant, TextColor } from "./Text";

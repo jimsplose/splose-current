@@ -10,13 +10,17 @@ const meta: Meta<typeof ColorDot> = {
   component: ColorDot,
   argTypes: {
     color: {
-      control: "color",
-      description: "CSS color value (hex, rgb, etc.)",
+      control: "text",
+      description: "CSS color (hex, rgb) OR semantic token: green/red/yellow/blue/gray/purple/orange",
     },
     size: {
       control: "radio",
       options: ["xs", "sm", "md", "lg"],
       description: "xs=8px, sm=12px, md=16px, lg=20px",
+    },
+    label: {
+      control: "text",
+      description: "Optional label rendered to the right of the dot",
     },
   },
   parameters: {
@@ -91,6 +95,43 @@ export const AllColors: Story = {
       <ColorDot color="#6b7280" />
     </div>
   ),
+};
+
+/* ------------------------------------------------------------------ */
+/*  Semantic color tokens                                              */
+/*  Pass green/red/yellow/blue/gray/purple/orange instead of hex       */
+/* ------------------------------------------------------------------ */
+
+export const SemanticColors: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
+      {(['green', 'red', 'yellow', 'blue', 'gray', 'purple', 'orange'] as const).map((token) => (
+        <div key={token} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+          <ColorDot color={token} size="sm" />
+          <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>{token}</span>
+        </div>
+      ))}
+    </div>
+  ),
+  parameters: { layout: 'padded' },
+};
+
+/* ------------------------------------------------------------------ */
+/*  WithLabel                                                          */
+/*  Replaces the deleted Status component — dot + inline label text    */
+/* ------------------------------------------------------------------ */
+
+export const WithLabel: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <ColorDot color="green" label="Active" />
+      <ColorDot color="red" label="Overdue" />
+      <ColorDot color="purple" label="Bill Gates Demo" />
+      <ColorDot color="gray" label="No status" />
+      <ColorDot color="blue" label="Ruvi R." />
+    </div>
+  ),
+  parameters: { layout: 'padded' },
 };
 
 /* ================================================================== */
