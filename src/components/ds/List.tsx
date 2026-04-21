@@ -11,9 +11,27 @@ interface ListProps {
   items: ListItem[];
   labelWidth?: string;
   className?: string;
+  layout?: "horizontal" | "stacked";
 }
 
-export default function List({ items, labelWidth, className }: ListProps) {
+export default function List({ items, labelWidth, className, layout = "horizontal" }: ListProps) {
+  if (layout === "stacked") {
+    return (
+      <Flex vertical gap={16} className={className}>
+        {items.map((item, i) => (
+          <div key={i}>
+            <div className="text-label-lg" style={{ color: "var(--color-text)", marginBottom: 2 }}>
+              {item.label}
+            </div>
+            <div className="text-body-md" style={{ color: "var(--color-text-secondary)" }}>
+              {item.value}
+            </div>
+          </div>
+        ))}
+      </Flex>
+    );
+  }
+
   return (
     <AntList
       className={className}

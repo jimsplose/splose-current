@@ -1,3 +1,41 @@
+/reports/performance (Modal: Definitions — stacked List)
+/contacts/8 (General details + Contact details — horizontal List)
+
+## Session 17 — reports/performance + contacts/[id] → List (2026-04-22)
+
+### reports/performance — Definitions Modal (layout="stacked")
+
+| Element | Property | Expected (original dt/dd) | Actual (List stacked) | Pass? |
+|---|---|---|---|---|
+| Label "Available hours" | fontSize | 14px (text-label-lg) | 14px | PASS |
+| Label "Available hours" | fontWeight | 600 | 600 | PASS |
+| Label "Available hours" | color | rgb(65,69,73) | rgb(65,69,73) | PASS |
+| Value description | fontSize | 14px (text-body-md) | 14px | PASS |
+| Value description | fontWeight | 400 | 400 | PASS |
+| Value description | color | rgb(110,110,100) | rgb(110,110,100) | PASS |
+
+Structural: 4 definition items render (Available hours, Booked hours, Utilisation %, Revenue) — matches original count ✓
+
+### contacts/[id] — horizontal List
+
+| Element | Property | Production | Localhost | Pass? |
+|---|---|---|---|---|
+| Label column ("Name") | fontSize | 14px | 14px | PASS |
+| Label column | fontWeight | 500 | 400 | NOTE — DS List default; pre-existing before this session |
+| Label column | color | rgb(65,69,73) | rgb(110,110,100) | NOTE — DS List secondary; pre-existing |
+| Inner value Text span | fontSize | 14px | 12px (Text class overrides) | NOTE — expected |
+| Label column | width | 112px | 112px | PASS |
+
+Structural: General details (Name, Type, Company) + Contact details (Email+icon, Work phone, Mobile+icon, Address+icon, Note) all render ✓. Type badge "Doctor" blue ✓. "Not provided" fallback ✓.
+
+Done-when checks:
+- `grep -c "<dt\|<dd" reports/performance/page.tsx` = 0 ✅
+- raw label-value Flex rows in contacts/[id]/page.tsx replaced by List ✅
+- tsc --noEmit: 0 errors ✅
+- next build: passed ✅
+
+---
+
 /waitlist (Waitlist tab — tag badges in DataTable)
 
 Verified: 4 badge properties measured on localhost:3000 vs production (acme.splose.com/waitlist screener).

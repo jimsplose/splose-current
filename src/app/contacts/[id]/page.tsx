@@ -1,6 +1,6 @@
 import { MailOutlined, PhoneOutlined, EnvironmentOutlined, BankOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, DataTable, TableHead, Th, TableBody, Tr, Td, LinkCell, EmptyState, Text, Divider } from "@/components/ds";
+import { Button, DataTable, List, TableHead, Th, TableBody, Tr, Td, LinkCell, EmptyState, Text, Divider } from "@/components/ds";
 
 const mockContacts = [
   {
@@ -221,40 +221,38 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
           {/* General details */}
           <section style={{ marginBottom: 32 }}>
             <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16 }}>General details</Text>
-            <Flex align="start" gap={24}>
-              <Flex vertical gap={8} className="text-body-sm">
-                <Flex gap={64}>
-                  <Text variant="body/sm" color="secondary" as="span" style={{ width: 112, flexShrink: 0 }}>Name:</Text>
-                  <Text variant="label/md" color="text" as="span">{contact.name}</Text>
-                </Flex>
-                <Flex gap={64}>
-                  <Text variant="body/sm" color="secondary" as="span" style={{ width: 112, flexShrink: 0 }}>Type:</Text>
-                  <span>
-                    {contact.type ? (
-                      <span
-                        className="text-label-md"
-                        style={{
-                          display: 'inline-block',
-                          borderRadius: 4,
-                          padding: '2px 8px',
-                          ...getTypeColor(contact.type),
-                        }}
-                      >
-                        {contact.type}
-                      </span>
-                    ) : (
-                      <Text variant="body/sm" color="secondary" as="span">Not set</Text>
-                    )}
-                  </span>
-                </Flex>
-                <Flex gap={64}>
-                  <Text variant="body/sm" color="secondary" as="span" style={{ width: 112, flexShrink: 0 }}>Company:</Text>
-                  <Text variant="body/sm" color="text" as="span">
-                    {contact.company || <Text variant="body/sm" color="secondary" as="span">Not provided</Text>}
-                  </Text>
-                </Flex>
-              </Flex>
-            </Flex>
+            <List
+              items={[
+                {
+                  label: "Name:",
+                  value: <Text variant="label/md" color="text" as="span">{contact.name}</Text>,
+                },
+                {
+                  label: "Type:",
+                  value: contact.type ? (
+                    <span
+                      className="text-label-md"
+                      style={{
+                        display: 'inline-block',
+                        borderRadius: 4,
+                        padding: '2px 8px',
+                        ...getTypeColor(contact.type),
+                      }}
+                    >
+                      {contact.type}
+                    </span>
+                  ) : (
+                    <Text variant="body/sm" color="secondary" as="span">Not set</Text>
+                  ),
+                },
+                {
+                  label: "Company:",
+                  value: contact.company
+                    ? <Text variant="body/sm" color="text" as="span">{contact.company}</Text>
+                    : <Text variant="body/sm" color="secondary" as="span">Not provided</Text>,
+                },
+              ]}
+            />
           </section>
 
           <Divider spacing="none" style={{ marginBottom: 32 }} />
@@ -262,58 +260,60 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
           {/* Contact information */}
           <section style={{ marginBottom: 32 }}>
             <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16 }}>Contact details</Text>
-            <Flex vertical gap={12} className="text-body-sm">
-              <Flex gap={64}>
-                <Text variant="body/sm" color="secondary" as="span" style={{ width: 112, flexShrink: 0 }}>Email:</Text>
-                {contact.email ? (
-                  <Flex align="center" gap={6}>
-                    <MailOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
-                    <Text variant="body/sm" color="primary" as="span">{contact.email}</Text>
-                  </Flex>
-                ) : (
-                  <Text variant="body/sm" color="secondary" as="span">Not provided</Text>
-                )}
-              </Flex>
-              <Flex gap={64}>
-                <Text variant="body/sm" color="secondary" as="span" style={{ width: 112, flexShrink: 0 }}>Work phone:</Text>
-                {contact.workPhone ? (
-                  <Flex align="center" gap={6}>
-                    <PhoneOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
-                    <Text variant="body/sm" color="primary" as="span">{contact.workPhone}</Text>
-                  </Flex>
-                ) : (
-                  <Text variant="body/sm" color="secondary" as="span">Not provided</Text>
-                )}
-              </Flex>
-              <Flex gap={64}>
-                <Text variant="body/sm" color="secondary" as="span" style={{ width: 112, flexShrink: 0 }}>Mobile phone:</Text>
-                {contact.mobilePhone ? (
-                  <Flex align="center" gap={6}>
-                    <PhoneOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
-                    <Text variant="body/sm" color="primary" as="span">{contact.mobilePhone}</Text>
-                  </Flex>
-                ) : (
-                  <Text variant="body/sm" color="secondary" as="span">Not provided</Text>
-                )}
-              </Flex>
-              <Flex gap={64}>
-                <Text variant="body/sm" color="secondary" as="span" style={{ width: 112, flexShrink: 0 }}>Address:</Text>
-                {contact.address ? (
-                  <Flex align="center" gap={6}>
-                    <EnvironmentOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
-                    <Text variant="body/sm" color="text" as="span">{contact.address}</Text>
-                  </Flex>
-                ) : (
-                  <Text variant="body/sm" color="secondary" as="span">Not provided</Text>
-                )}
-              </Flex>
-              <Flex gap={64}>
-                <Text variant="body/sm" color="secondary" as="span" style={{ width: 112, flexShrink: 0 }}>Note:</Text>
-                <Text variant="body/sm" color="text" as="span">
-                  {contact.notes || <Text variant="body/sm" color="secondary" as="span">Not provided</Text>}
-                </Text>
-              </Flex>
-            </Flex>
+            <List
+              items={[
+                {
+                  label: "Email:",
+                  value: contact.email ? (
+                    <Flex align="center" gap={6}>
+                      <MailOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                      <Text variant="body/sm" color="primary" as="span">{contact.email}</Text>
+                    </Flex>
+                  ) : (
+                    <Text variant="body/sm" color="secondary" as="span">Not provided</Text>
+                  ),
+                },
+                {
+                  label: "Work phone:",
+                  value: contact.workPhone ? (
+                    <Flex align="center" gap={6}>
+                      <PhoneOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                      <Text variant="body/sm" color="primary" as="span">{contact.workPhone}</Text>
+                    </Flex>
+                  ) : (
+                    <Text variant="body/sm" color="secondary" as="span">Not provided</Text>
+                  ),
+                },
+                {
+                  label: "Mobile phone:",
+                  value: contact.mobilePhone ? (
+                    <Flex align="center" gap={6}>
+                      <PhoneOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                      <Text variant="body/sm" color="primary" as="span">{contact.mobilePhone}</Text>
+                    </Flex>
+                  ) : (
+                    <Text variant="body/sm" color="secondary" as="span">Not provided</Text>
+                  ),
+                },
+                {
+                  label: "Address:",
+                  value: contact.address ? (
+                    <Flex align="center" gap={6}>
+                      <EnvironmentOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                      <Text variant="body/sm" color="text" as="span">{contact.address}</Text>
+                    </Flex>
+                  ) : (
+                    <Text variant="body/sm" color="secondary" as="span">Not provided</Text>
+                  ),
+                },
+                {
+                  label: "Note:",
+                  value: contact.notes
+                    ? <Text variant="body/sm" color="text" as="span">{contact.notes}</Text>
+                    : <Text variant="body/sm" color="secondary" as="span">Not provided</Text>,
+                },
+              ]}
+            />
           </section>
 
           <Divider spacing="none" style={{ marginBottom: 32 }} />

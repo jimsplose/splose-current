@@ -70,6 +70,28 @@ export const WithLinks: Story = {
   },
 };
 
+export const StackedLayout: Story = {
+  name: "Stacked Layout (definitions)",
+  args: {
+    layout: "stacked",
+    items: [
+      {
+        label: "Available hours",
+        value: "The total number of hours a practitioner has marked as available in their schedule during the selected date range, excluding blocked time and leave.",
+      },
+      {
+        label: "Booked hours",
+        value: "The total number of hours occupied by confirmed client appointments during the selected date range.",
+      },
+      {
+        label: "Utilisation %",
+        value: "The percentage of available hours that were booked with client appointments. Calculated as (Booked hours / Available hours) × 100.",
+      },
+    ],
+  },
+  parameters: { layout: "padded" },
+};
+
 export const WideLabel: Story = {
   args: {
     labelWidth: "w-40",

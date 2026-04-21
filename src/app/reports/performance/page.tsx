@@ -8,6 +8,7 @@ import {
   Button,
   Card,
   Dropdown,
+  List,
   Modal,
   Toggle,
   DateRangeFilter,
@@ -209,32 +210,27 @@ export default function ReportsPerformancePage() {
         title="Performance metric definitions"
         footer={<Button variant="primary" onClick={() => setShowDefinitions(false)}>Close</Button>}
       >
-        <Flex vertical gap={16}>
-          <div>
-            <dt className="text-label-lg" style={{ color: 'var(--color-text)' }}>Available hours</dt>
-            <dd className="text-body-md" style={{ marginTop: 2, color: 'var(--color-text-secondary)' }}>
-              The total number of hours a practitioner has marked as available in their schedule during the selected date range, excluding blocked time and leave.
-            </dd>
-          </div>
-          <div>
-            <dt className="text-label-lg" style={{ color: 'var(--color-text)' }}>Booked hours</dt>
-            <dd className="text-body-md" style={{ marginTop: 2, color: 'var(--color-text-secondary)' }}>
-              The total number of hours occupied by confirmed client appointments during the selected date range. Does not include cancelled or no-show appointments unless configured otherwise.
-            </dd>
-          </div>
-          <div>
-            <dt className="text-label-lg" style={{ color: 'var(--color-text)' }}>Utilisation %</dt>
-            <dd className="text-body-md" style={{ marginTop: 2, color: 'var(--color-text-secondary)' }}>
-              The percentage of available hours that were booked with client appointments. Calculated as (Booked hours / Available hours) x 100. A higher percentage indicates more efficient use of available time.
-            </dd>
-          </div>
-          <div>
-            <dt className="text-label-lg" style={{ color: 'var(--color-text)' }}>Revenue</dt>
-            <dd className="text-body-md" style={{ marginTop: 2, color: 'var(--color-text-secondary)' }}>
-              The total dollar value of services delivered by the practitioner during the selected date range, based on the service rates at the time of the appointment.
-            </dd>
-          </div>
-        </Flex>
+        <List
+          layout="stacked"
+          items={[
+            {
+              label: "Available hours",
+              value: "The total number of hours a practitioner has marked as available in their schedule during the selected date range, excluding blocked time and leave.",
+            },
+            {
+              label: "Booked hours",
+              value: "The total number of hours occupied by confirmed client appointments during the selected date range. Does not include cancelled or no-show appointments unless configured otherwise.",
+            },
+            {
+              label: "Utilisation %",
+              value: "The percentage of available hours that were booked with client appointments. Calculated as (Booked hours / Available hours) x 100. A higher percentage indicates more efficient use of available time.",
+            },
+            {
+              label: "Revenue",
+              value: "The total dollar value of services delivered by the practitioner during the selected date range, based on the service rates at the time of the appointment.",
+            },
+          ]}
+        />
       </Modal>
     </>
   );
