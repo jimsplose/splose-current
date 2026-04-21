@@ -241,7 +241,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         <section style={{ marginBottom: 32 }}>
           <Text variant="heading/lg" style={{ marginBottom: 16 }}>
             Associated contacts{" "}
-            <HintIcon style={{ marginLeft: 4 }} />
+            <HintIcon />
           </Text>
           <table className="w-full text-body-md">
             <thead>
@@ -284,13 +284,13 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         <FeatureCard tone="primary" style={{ marginBottom: 16 }}>
           <Flex justify="space-between" align="center">
             <Text variant="label/lg" as="h3" color="inverted">Account balance</Text>
-            <HintIcon style={{ height: 20, width: 20, borderColor: 'rgba(255,255,255,0.5)', color: 'rgba(255,255,255,0.8)' }} />
+            <HintIcon tone="inverted" size="lg" />
           </Flex>
           <Flex justify="space-between" align="center" style={{ marginTop: 8 }}>
             <Text variant="body/md" as="span">
               <Flex align="center" gap={4}>
                 They owe
-                <HintIcon style={{ borderColor: 'rgba(255,255,255,0.4)', color: 'rgba(255,255,255,0.8)' }} />
+                <HintIcon tone="inverted" />
               </Flex>
             </Text>
             <Text variant="body/md-strong" as="span">3,310.56</Text>

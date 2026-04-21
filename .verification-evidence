@@ -1,41 +1,14 @@
-Session 19 — DS templates adopt Text page-title
+/clients/cmo6zika2002x6owgg3jjip9q
 
-Files changed:
-- src/components/ds/DetailPage.tsx:42-44 — replaced <h1 style={...}> with <Text variant="page-title">
-- src/components/ds/Navbar.tsx:42 — replaced <h1 style={...}> with <Text variant="page-title">
+Session 21 — HintIcon tone + size props
 
-Verification viewport: 1440x900
+Verified 3 HintIcon instances on client detail page:
+1. Associated contacts heading — default tone, md (14px), color rgb(65,69,73) — muted grey ✓
+2. Account balance header — tone=inverted, size=lg (20px), color rgba(255,255,255,0.8) — white on purple ✓
+3. They owe row — tone=inverted, md (14px), color rgba(255,255,255,0.8) — white on purple ✓
 
-=== Navbar (live route: /notes/cmo6zirsy003u6owgzwe4ai50) ===
+Structural check: all 3 info-circle icons visible, correct sizes, correct colors.
+No inline style={{ on any HintIcon in ClientDetailClient (done-when grep = 0).
+tsc 0 errors. Build passed.
 
-| Property   | Production (acme /notes/35255656/view) | Localhost (/notes/cmo6zirsy003u6owgzwe4ai50) | Pass? |
-|------------|-----------------------------------------|-----------------------------------------------|-------|
-| tag        | SPAN (ant-page-header-heading-title)    | H1 (Text-module pageTitle)                    | structural |
-| fontSize   | 30px                                    | 30px                                          | PASS  |
-| fontWeight | 700                                     | 700                                           | PASS  |
-| fontFamily | "Sprig Sans"                            | "Sprig Sans", Inter, sans-serif               | PASS  |
-| lineHeight | (n/m prod)                              | 36px (1.2x30)                                 | PASS  |
-| color      | rgb(66, 105, 74)                        | rgb(66, 105, 74)                              | PASS  |
-
-=== DetailPage (orphan — no app route mounts the template) ===
-
-Fallback: Storybook story http://localhost:6006/iframe.html?viewMode=story&id=typography-text--page-title-variant (Text variant=page-title, which is what DetailPage.tsx now uses).
-
-| Property   | Production reference (acme /contacts/416008 title) | Storybook (Text variant=page-title)  | Pass? |
-|------------|-----------------------------------------------------|---------------------------------------|-------|
-| fontSize   | 30px                                                | 30px                                  | PASS  |
-| fontWeight | 700                                                 | 700                                   | PASS  |
-| fontFamily | "Sprig Sans"                                        | "Sprig Sans", Inter, sans-serif       | PASS  |
-| lineHeight | (n/m prod)                                          | 36px (1.2x30)                         | PASS  |
-| color      | rgb(66, 105, 74)                                    | rgb(66, 105, 74)                      | PASS  |
-
-DetailPage.stories.tsx itself fails to render in Storybook (pre-existing "next/navigation router mocks" error, unrelated to this session). Verified via the underlying Text.pageTitle variant the template now consumes, which has identical computed styles to the old inline block.
-
-Structural findings:
-- Navbar live: h1 tag preserved (Text defaultElement for page-title -> h1), class changed from inline-styled to .pageTitle CSS module — DOM shape unchanged. No missing/extra elements. Layout identical.
-- DetailPage: same substitution applies; no app route surface-test possible this session.
-
-Verdict: PASS
-- Elements checked: 2 (Navbar h1 live + Text page-title via Storybook fallback for DetailPage)
-- Properties measured: 10
-- Pass: 10 | Fail: 0
+Verified: 9 properties measured (color×3, fontSize×3, marginLeft×3)

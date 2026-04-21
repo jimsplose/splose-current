@@ -11,7 +11,17 @@ const meta: Meta<typeof HintIcon> = {
   argTypes: {
     tooltip: {
       control: "text",
-      description: "Tooltip text shown on hover (uses native title attribute)",
+      description: "Tooltip text shown on hover",
+    },
+    tone: {
+      control: "radio",
+      options: ["default", "inverted"],
+      description: "Color tone — use inverted on dark/colored backgrounds",
+    },
+    size: {
+      control: "radio",
+      options: ["sm", "md", "lg"],
+      description: "Icon size: sm=12px, md=14px (default), lg=20px",
     },
   },
   parameters: {
@@ -30,6 +40,8 @@ type Story = StoryObj<typeof HintIcon>;
 export const Playground: Story = {
   args: {
     tooltip: "This is a helpful hint",
+    tone: "default",
+    size: "md",
   },
 };
 
@@ -49,6 +61,28 @@ export const InLabel: Story = {
       Workspace URL <HintIcon tooltip="Your unique Splose workspace URL" />
     </label>
   ),
+};
+
+/** tone="inverted" for use on dark/primary-coloured backgrounds */
+export const ToneGrid: Story = {
+  name: "Tone Grid",
+  render: () => (
+    <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+        <span className="text-caption-md text-text-secondary">default (md)</span>
+        <HintIcon tone="default" size="md" tooltip="Default tone on light bg" />
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, background: "var(--color-primary)", borderRadius: 8, padding: 12 }}>
+        <span className="text-caption-md" style={{ color: "rgba(255,255,255,0.7)" }}>inverted (md)</span>
+        <HintIcon tone="inverted" size="md" tooltip="Inverted tone on dark bg" />
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, background: "var(--color-primary)", borderRadius: 8, padding: 12 }}>
+        <span className="text-caption-md" style={{ color: "rgba(255,255,255,0.7)" }}>inverted (lg)</span>
+        <HintIcon tone="inverted" size="lg" tooltip="Large inverted icon" />
+      </div>
+    </div>
+  ),
+  parameters: { layout: "padded" },
 };
 
 /* ================================================================== */
@@ -113,7 +147,7 @@ export const SettingsFormLabel: Story = {
 /*  SectionHeadingHint                                                 */
 /*  Pattern: HintIcon next to a section heading for "Associated        */
 /*  contacts" on the client detail page                                */
-/*  Source: /clients/[id]/ClientDetailClient.tsx (line 228)            */
+/*  Source: /clients/[id]/ClientDetailClient.tsx (line 243)            */
 /* ------------------------------------------------------------------ */
 
 export const SectionHeadingHint: Story = {
@@ -121,7 +155,7 @@ export const SectionHeadingHint: Story = {
   render: () => (
     <div style={{ width: 600, display: 'flex', flexDirection: 'column', gap: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
       <h2 className="text-heading-lg text-text">
-        Associated contacts <HintIcon style={{ marginLeft: 4 }} tooltip="Contacts linked to this client record" />
+        Associated contacts <HintIcon tooltip="Contacts linked to this client record" />
       </h2>
       <table className="text-body-md" style={{ width: '100%' }}>
         <thead>
@@ -151,9 +185,9 @@ export const SectionHeadingHint: Story = {
 
 /* ------------------------------------------------------------------ */
 /*  AccountBalanceHints                                                */
-/*  Pattern: HintIcon with custom light-on-dark styling inside the     */
-/*  client account balance card (white icon on purple background)      */
-/*  Source: /clients/[id]/ClientDetailClient.tsx (lines 271, 276)      */
+/*  Pattern: HintIcon with tone="inverted" inside the client account   */
+/*  balance card (white icon on purple background)                     */
+/*  Source: /clients/[id]/ClientDetailClient.tsx (lines 287, 293)      */
 /* ------------------------------------------------------------------ */
 
 export const AccountBalanceHints: Story = {
@@ -163,12 +197,12 @@ export const AccountBalanceHints: Story = {
       <div className="bg-primary" style={{ borderRadius: 8, padding: 16, color: '#fff' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <h3 className="text-label-lg">Account balance</h3>
-          <HintIcon className="text-white/80" style={{borderColor: 'rgba(255,255,255,0.5)', height: 20, width: 20 }} tooltip="Outstanding balance for this client" />
+          <HintIcon tone="inverted" size="lg" tooltip="Outstanding balance for this client" />
         </div>
         <div className="text-body-md" style={{ marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
             They owe
-            <HintIcon className="text-white/80" style={{ borderColor: 'rgba(255,255,255,0.4)' }} tooltip="Total of unpaid invoices" />
+            <HintIcon tone="inverted" tooltip="Total of unpaid invoices" />
           </span>
           <span style={{ fontWeight: 600 }}>3,310.56</span>
         </div>
