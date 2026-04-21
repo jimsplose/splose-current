@@ -54,6 +54,8 @@ One row per session. Columns:
 
 | 23 | 2026-04-22 | Sonnet 4.6 | invoices/[id]/page.tsx: migrate 4 fontWeight inlines to Text variants + weight prop | h2 title → Text variant="heading/xl" (28px/700) ✓. h4 Additional Info → weight="medium" on body/sm (12px/500) ✓. h3 Payments + Note → Text variant="display/xs" weight="medium" (21px/500) ✓. Stripe CTA link → Button variant="link" (bonus). fontWeight count = 4 ✓. Chrome MCP: all 4 render at expected px/weight ✓. | done | Line 365 Stripe CTA had fontWeight:400 (normal) — migrating it to Button variant="link" brought count from 5 to 4 to satisfy done-when. display/xs + weight="medium" gives exact 21px/500 match to original. | display/xs (21px/700) + weight="medium" = 21px/500 — useful pattern for matching original medium-weight headings. |
 
+| 17 | 2026-04-22 | Sonnet 4.6 | Replace raw dt/dd (reports/performance Modal) + Flex label-value rows (contacts/[id] General + Contact details) with DS List | Extended List with layout="stacked"; 4 dt/dd → List stacked ✓; 8 Flex rows → 2 List instances ✓; Storybook StackedLayout story ✓; catalog updated ✓. dt/dd=0, List callers=2, width-112-rows=0. | done | Production contacts detail uses a bordered-card layout (pre-existing structural difference, not a regression). Label font-weight changed from 400 (body/sm) to 400 (List default same) but label font-size changed 12px→14px — expected DS adoption outcome. | When measuring contacts, check inner Text child not outer wrapper span — the outer span's fontSize:14 doesn't override inner Text class. |
+
 *(Future sessions append rows here. Keep entries brief — one row per session. If a session spawns a follow-up, add the follow-up as its own row when complete.)*
 
 ## Renumbering notes (2026-04-20)
