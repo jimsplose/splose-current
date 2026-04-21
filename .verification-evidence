@@ -112,3 +112,19 @@ Structural check: dots visible in When column, no layout shift, no console error
 - 2 caller sites migrated (settings/tags + settings/online-bookings/[id]) ✅
 - tsc --noEmit: 0 errors ✅
 - next build: passed ✅
+
+## Session 16 — Products page raw table → DataTable (2026-04-22)
+
+**Route:** localhost:3000/products
+
+**Changes:** Migrated raw `<th style>` / `<td style>` in variants sub-table and Manage Stock modal table to DS `<Th>` / `<Td>` / `<Tr>`. Expand button cell migrated from `<td style>` to `<Td>`. Removed `style={{ padding: 0 }}` from colSpan expanded-row cell.
+
+**Main table headers:** bg `rgb(243,245,247)`, fontWeight 600, padding 16px ✅
+**Variants sub-table (expanded row):**
+- 6 Th headers: padding `8px 16px`, bg `rgb(243,245,247)` ✅
+- First Td: "Standard (60 min)", padding `8px 16px` ✅
+
+**Done-when check:**
+- `grep -c "<th style\|<td style" products/page.tsx` = 0 ✅
+- tsc --noEmit: 0 errors ✅
+- next build: passed ✅

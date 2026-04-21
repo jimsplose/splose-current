@@ -1,6 +1,6 @@
 "use client";
 
-import { ListPage, Button, DataTable, Pagination, TableHead, Th, TableBody, Td, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Checkbox, Text, Grid, Divider } from "@/components/ds";
+import { ListPage, Button, DataTable, Pagination, TableHead, Th, TableBody, Td, Tr, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Checkbox, Text, Grid, Divider } from "@/components/ds";
 import { PlusOutlined, MinusOutlined, MoreOutlined, EditOutlined, CopyOutlined, HistoryOutlined, DeleteOutlined, AppstoreOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
 import Link from "next/link";
@@ -501,7 +501,7 @@ export default function ProductsPage() {
                     }`}
                     onClick={() => toggleExpand(globalIndex)}
                   >
-                    <td className="text-center" style={{ padding: '12px 8px' }}>
+                    <Td align="center" style={{ padding: '12px 8px' }}>
                       <Button
                         variant="icon"
                         size="sm"
@@ -513,7 +513,7 @@ export default function ProductsPage() {
                       >
                         {isExpanded ? <MinusOutlined style={{ fontSize: 14 }} /> : <PlusOutlined style={{ fontSize: 14 }} />}
                       </Button>
-                    </td>
+                    </Td>
                     <Td><Text variant="body/md" as="span" color="text">{product.name}</Text></Td>
                     <Td hidden="sm">
                       <Text variant="body/md" as="span" color="secondary">{product.category}</Text>
@@ -538,7 +538,7 @@ export default function ProductsPage() {
 
                   {isExpanded && (
                     <tr>
-                      <td colSpan={6} className="bg-gray-50/50" style={{ padding: 0 }}>
+                      <td colSpan={6} className="bg-gray-50/50">
                         <div style={{ padding: '12px 32px' }}>
                           {/* Product details section */}
                           <Grid cols={3} gap="md" style={{ marginBottom: 12 }}>
@@ -564,30 +564,28 @@ export default function ProductsPage() {
 
                           {/* Variants table (if applicable) */}
                           {hasVariants && (
-                            <table style={{ width: '100%' }}>
-                              <thead>
-                                <tr className="border-b border-border">
-                                  <th className="text-left" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="text">Name</Text></th>
-                                  <th className="text-left" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="text">SKU</Text></th>
-                                  <th className="text-left" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="text">Price</Text></th>
-                                  <th className="text-left" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="text">Stock</Text></th>
-                                  <th className="text-left" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="text">Unit</Text></th>
-                                  <th className="text-left" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="primary">Actions</Text></th>
-                                </tr>
-                              </thead>
-                              <tbody>
+                            <DataTable>
+                              <TableHead>
+                                <Th style={{ padding: '8px 16px' }}>Name</Th>
+                                <Th style={{ padding: '8px 16px' }}>SKU</Th>
+                                <Th style={{ padding: '8px 16px' }}>Price</Th>
+                                <Th style={{ padding: '8px 16px' }}>Stock</Th>
+                                <Th style={{ padding: '8px 16px' }}>Unit</Th>
+                                <Th style={{ padding: '8px 16px' }}>Actions</Th>
+                              </TableHead>
+                              <TableBody>
                                 {product.variants!.map((variant, vIdx) => (
-                                  <tr key={vIdx} className={`${pStyles.variantRow} border-b border-border`}>
-                                    <td style={{ padding: '8px 16px' }}><Text variant="body/sm" as="span" color="text">{variant.name}</Text></td>
-                                    <td style={{ padding: '8px 16px' }}><Text variant="body/sm" as="span" color="secondary">{variant.sku}</Text></td>
-                                    <td style={{ padding: '8px 16px' }}>
+                                  <Tr key={vIdx} className={pStyles.variantRow}>
+                                    <Td style={{ padding: '8px 16px' }}><Text variant="body/sm" as="span" color="text">{variant.name}</Text></Td>
+                                    <Td style={{ padding: '8px 16px' }}><Text variant="body/sm" as="span" color="secondary">{variant.sku}</Text></Td>
+                                    <Td style={{ padding: '8px 16px' }}>
                                       <Text variant="body/sm" as="span" color="secondary">{variant.price !== null ? variant.price.toFixed(2) : "-"}</Text>
-                                    </td>
-                                    <td style={{ padding: '8px 16px' }}>
+                                    </Td>
+                                    <Td style={{ padding: '8px 16px' }}>
                                       <Text variant="body/sm" as="span" color="secondary">{variant.stock !== null ? variant.stock : "-"}</Text>
-                                    </td>
-                                    <td style={{ padding: '8px 16px' }}><Text variant="body/sm" as="span" color="secondary">{variant.unit}</Text></td>
-                                    <td style={{ padding: '8px 16px' }}>
+                                    </Td>
+                                    <Td style={{ padding: '8px 16px' }}><Text variant="body/sm" as="span" color="secondary">{variant.unit}</Text></Td>
+                                    <Td style={{ padding: '8px 16px' }}>
                                       <Button
                                         variant="link"
                                         onClick={() => {
@@ -597,11 +595,11 @@ export default function ProductsPage() {
                                       >
                                         Manage Stock
                                       </Button>
-                                    </td>
-                                  </tr>
+                                    </Td>
+                                  </Tr>
                                 ))}
-                              </tbody>
-                            </table>
+                              </TableBody>
+                            </DataTable>
                           )}
                         </div>
                       </td>
@@ -685,30 +683,28 @@ export default function ProductsPage() {
         }
       >
         <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%' }}>
-            <thead>
-              <tr className="border-b border-border">
-                <th className="text-left" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="text">Location</Text></th>
-                <th className="text-center" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="text">Available</Text></th>
-                <th className="text-center" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="text">Track stock</Text></th>
-                <th className="text-center" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="text">Count</Text></th>
-                <th className="text-center" style={{ padding: '8px 16px' }}><Text variant="label/lg" as="span" color="text">Actions</Text></th>
-              </tr>
-            </thead>
-            <tbody>
+          <DataTable>
+            <TableHead>
+              <Th style={{ padding: '8px 16px' }}>Location</Th>
+              <Th align="center" style={{ padding: '8px 16px' }}>Available</Th>
+              <Th align="center" style={{ padding: '8px 16px' }}>Track stock</Th>
+              <Th align="center" style={{ padding: '8px 16px' }}>Count</Th>
+              <Th align="center" style={{ padding: '8px 16px' }}>Actions</Th>
+            </TableHead>
+            <TableBody>
               {mockStockLocations.map((loc) => (
-                <tr key={loc.name} className={`${pStyles.stockRow} border-b border-border`}>
-                  <td style={{ padding: '8px 16px' }}><Text variant="body/sm" as="span" color="text">{loc.name}</Text></td>
-                  <td className="text-center" style={{ padding: '8px 16px' }}>
+                <Tr key={loc.name} className={pStyles.stockRow}>
+                  <Td style={{ padding: '8px 16px' }}><Text variant="body/sm" as="span" color="text">{loc.name}</Text></Td>
+                  <Td align="center" style={{ padding: '8px 16px' }}>
                     <Checkbox checked={loc.available} readOnly />
-                  </td>
-                  <td className="text-center" style={{ padding: '8px 16px' }}>
+                  </Td>
+                  <Td align="center" style={{ padding: '8px 16px' }}>
                     <Checkbox checked={loc.trackStock} readOnly />
-                  </td>
-                  <td className="text-center" style={{ padding: '8px 16px' }}>
+                  </Td>
+                  <Td align="center" style={{ padding: '8px 16px' }}>
                     <Text variant="body/sm" as="span" color="secondary">{loc.trackStock ? loc.count : "N/A"}</Text>
-                  </td>
-                  <td className="text-center" style={{ padding: '8px 16px' }}>
+                  </Td>
+                  <Td align="center" style={{ padding: '8px 16px' }}>
                     <Dropdown
                       align="right"
                       trigger={
@@ -719,11 +715,11 @@ export default function ProductsPage() {
                       items={stockDropdownItems}
                       onSelect={() => {}}
                     />
-                  </td>
-                </tr>
+                  </Td>
+                </Tr>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </DataTable>
         </div>
         <div style={{ marginTop: 16 }}>
           <Pagination
