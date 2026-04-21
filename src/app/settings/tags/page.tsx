@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Flex } from "antd";
 import {
   Button,
+  ColorDot,
   PageHeader,
   DataTable,
   TableHead,
@@ -158,9 +159,7 @@ export default function TagsPage() {
             <Tr key={tag.name}>
               <Td className="text-text">{tag.name}</Td>
               <Td>
-                <div
-                  style={{ height: 16, width: 80, borderRadius: 4, backgroundColor: tag.color }}
-                />
+                <ColorDot color={tag.color} shape="rect" size="md" />
               </Td>
               <Td align="right">
                 <Dropdown

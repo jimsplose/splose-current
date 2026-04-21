@@ -92,3 +92,23 @@ Structural check: dots visible in When column, no layout shift, no console error
 - `grep -c "backgroundColor: '#f3f4f6'" settings/details/page.tsx` = 0 ✅
 - tsc --noEmit: 0 errors ✅
 - next build: passed ✅
+
+## Session 15 — ColorDot shape/interactive/selected props (2026-04-22)
+
+**Routes:** localhost:3000/settings/tags + localhost:3000/settings/online-bookings/1
+
+**settings/tags — rect swatch (shape="rect" size="md"):**
+- SPAN element, h:16px, w:80px, borderRadius:4px, bg:rgb(234,179,8) ✅
+- Exact match to original inline `height:16, width:80, borderRadius:4, backgroundColor:tag.color`
+- Production uses 60px/0px-radius (pre-existing fidelity gap, not a regression)
+
+**settings/online-bookings/1 — interactive swatches (interactive, shape="circle", size="xl"):**
+- 8 BUTTON elements, h:28px, w:28px, borderRadius:50%, cursor:pointer ✅
+- Selected swatch: border `2px solid rgba(0,0,0,0.3)` ✅
+- Unselected swatch: border `2px solid transparent` ✅
+
+**Done-when checks:**
+- `shape`, `interactive`, `selected` props present in ColorDot ✅
+- 2 caller sites migrated (settings/tags + settings/online-bookings/[id]) ✅
+- tsc --noEmit: 0 errors ✅
+- next build: passed ✅

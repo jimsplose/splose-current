@@ -7,6 +7,7 @@ import { UploadOutlined, LinkOutlined, CopyOutlined } from "@ant-design/icons";
 import {
   Button,
   Card,
+  ColorDot,
   FormInput,
   FormSelect,
   FormTextarea,
@@ -133,12 +134,14 @@ export default function EditOnlineBookingPage() {
                 <Text variant="label/md" color="secondary" style={{ marginBottom: 8 }}>Accessible colour suggestions</Text>
                 <Flex wrap="wrap" gap={8}>
                   {COLOR_SWATCHES.map((color) => (
-                    <button
+                    <ColorDot
                       key={color}
-                      type="button"
+                      color={color}
+                      size="xl"
+                      shape="circle"
+                      interactive
+                      selected={buttonColor === color}
                       onClick={() => setButtonColor(color)}
-                      style={{ height: 28, width: 28, borderRadius: '50%', border: '2px solid transparent', backgroundColor: color, cursor: 'pointer' }}
-                      title={color}
                     />
                   ))}
                 </Flex>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import ColorDot from "../ColorDot";
 
@@ -15,12 +16,25 @@ const meta: Meta<typeof ColorDot> = {
     },
     size: {
       control: "radio",
-      options: ["xs", "sm", "md", "lg"],
-      description: "xs=8px, sm=12px, md=16px, lg=20px",
+      options: ["xs", "sm", "md", "lg", "xl"],
+      description: "xs=8px, sm=12px, md=16px, lg=20px, xl=28px",
+    },
+    shape: {
+      control: "radio",
+      options: ["circle", "rect"],
+      description: "circle (default) or rectangular swatch",
     },
     label: {
       control: "text",
       description: "Optional label rendered to the right of the dot",
+    },
+    interactive: {
+      control: "boolean",
+      description: "Renders as a <button> with cursor:pointer",
+    },
+    selected: {
+      control: "boolean",
+      description: "Shows a selection ring (only meaningful when interactive=true)",
     },
   },
   parameters: {
@@ -70,7 +84,7 @@ export const Large: Story = {
 export const AllSizes: Story = {
   render: () => (
     <div style={{ display: 'flex', alignItems: 'flex-end', gap: 16 }}>
-      {(["xs", "sm", "md", "lg"] as const).map((s) => (
+      {(["xs", "sm", "md", "lg", "xl"] as const).map((s) => (
         <div key={s} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
           <ColorDot color="#7c3aed" size={s} />
           <span className="text-text-secondary" style={{ fontSize: 11 }}>{s}</span>
@@ -78,6 +92,60 @@ export const AllSizes: Story = {
       ))}
     </div>
   ),
+};
+
+/* ------------------------------------------------------------------ */
+/*  Rect shape                                                         */
+/*  As used in settings/tags — colour preview swatch in a table row    */
+/* ------------------------------------------------------------------ */
+
+export const RectShape: Story = {
+  name: "Shape: Rect Swatches",
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      {["#EAB308", "#22C55E", "#EF4444", "#2563EB", "#7C3AED"].map((c) => (
+        <div key={c} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <ColorDot color={c} shape="rect" size="md" />
+          <span className="text-body-md text-text-secondary">{c}</span>
+        </div>
+      ))}
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  Interactive swatches                                               */
+/*  As used in settings/online-bookings — accessible colour selector   */
+/* ------------------------------------------------------------------ */
+
+const DEMO_SWATCHES = ["#7c3aed", "#f97316", "#10b981", "#3b82f6", "#ef4444", "#f59e0b", "#1e3a5f", "#ec4899"];
+
+export const InteractiveSwatches: Story = {
+  name: "Interactive: Color Selector",
+  render: () => {
+    const [selected, setSelected] = useState("#7c3aed");
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <p className="text-label-md text-text-secondary">Accessible colour suggestions</p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+          {DEMO_SWATCHES.map((color) => (
+            <ColorDot
+              key={color}
+              color={color}
+              size="xl"
+              shape="circle"
+              interactive
+              selected={selected === color}
+              onClick={() => setSelected(color)}
+            />
+          ))}
+        </div>
+        <p className="text-body-sm text-text-secondary">Selected: <code>{selected}</code></p>
+      </div>
+    );
+  },
+  parameters: { layout: "padded" },
 };
 
 /* ------------------------------------------------------------------ */
