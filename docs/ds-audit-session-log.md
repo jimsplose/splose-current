@@ -41,6 +41,8 @@ One row per session. Columns:
 
 | 10 | 2026-04-20 | Sonnet 4.6 | Add Card:description prop + Section-style title render; delete Section.tsx + stories; remove from index/catalog; migrate FormPage.stories.tsx | All scope landed: description prop ✓, Text variant=label/lg title render ✓, Section.tsx deleted ✓, Section.stories.tsx deleted ✓, index.ts cleaned ✓, FormPage.stories.tsx migrated ✓, catalog updated ✓. | done | None | Chrome MCP verified products/new — 3 card titles render 14px/600 via labelLg CSS class. TypeScript clean. Build passed. No app consumers of Section existed (only Storybook story needed migration). |
 
+| 12 | 2026-04-21 | Sonnet 4.6 | Delete OnOffBadge + migrate 2 app callers to Text | Deleted OnOffBadge.tsx + story ✓, index.ts cleaned ✓, catalog ✓. Found 3 app callers (not 2 as backlog said) + SettingsListPage.stories.tsx (3 usages) — all migrated to `<Text variant="body/md" color={success|danger}>`. grep OnOffBadge src/ = 0 ✓. | done | `variant` prop required on Text (not optional) — needed to add `variant="body/md"` to all 4 call sites; caught by tsc. Introduction.mdx had a stale reference not covered by src/ grep. | Backlog undercounted callers (said 2, was 4 incl. stories). Always grep src/ AND docs/stories. |
+
 *(Future sessions append rows here. Keep entries brief — one row per session. If a session spawns a follow-up, add the follow-up as its own row when complete.)*
 
 ## Renumbering notes (2026-04-20)
