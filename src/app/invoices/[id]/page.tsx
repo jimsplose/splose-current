@@ -53,7 +53,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
               {/* Invoice title row + illustration */}
               <Flex align="start" justify="space-between" style={{ marginBottom: 40 }}>
                 <div>
-                  <h2 style={{ fontSize: 26, fontWeight: 500, color: 'rgb(65, 69, 73)' }}>
+                  <Text variant="heading/xl" as="h2">
                     {isOverdue
                       ? "Overdue Invoice"
                       : invoice.status === "Paid"
@@ -61,7 +61,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
                         : invoice.status === "Sent"
                           ? "Tax Invoice"
                           : "Draft invoice"}
-                  </h2>
+                  </Text>
                 </div>
                 <div style={{ flexShrink: 0 }}>
                   {/* Splose hand-wave illustration */}
@@ -303,7 +303,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
 
               {/* Additional Information */}
               <div style={{ marginTop: 24 }}>
-                <Text variant="body/sm" as="h4" color="text" style={{ marginBottom: 12, fontSize: 13, fontWeight: 500 }}>Additional Information</Text>
+                <Text variant="body/sm" as="h4" color="text" weight="medium" style={{ marginBottom: 12 }}>Additional Information</Text>
                 <Text variant="body/md" as="p" color="secondary">
                   Please note that the service dates are displayed at the beginning of each line item.
                 </Text>
@@ -333,7 +333,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
         <Flex vertical gap={20} style={{ width: 320, flexShrink: 0, paddingTop: 8 }}>
           {/* Payments summary */}
           <Card padding="lg" shadow>
-            <h3 style={{ fontSize: 21, fontWeight: 500, color: 'rgb(65, 69, 73)', marginBottom: 12 }}>Payments</h3>
+            <Text variant="display/xs" as="h3" weight="medium" style={{ marginBottom: 12 }}>Payments</Text>
             <Flex align="baseline" justify="space-between" style={{ marginBottom: 8 }}>
               <Text variant="body/md" as="span" color="secondary">
                 {invoice.status === "Paid" ? invoice.total.toFixed(2) : "0.00"} / {invoice.total.toFixed(2)}
@@ -362,7 +362,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
               <Text variant="body/sm" as="p" color="secondary" style={{ marginBottom: 12 }}>
                 Add a &lsquo;Pay now&rsquo; button to invoices for clients and contacts to pay online.
               </Text>
-              <a href="#" style={{ color: 'rgb(130, 80, 255)', fontSize: 14, fontWeight: 400, textDecoration: 'none' }}>Connect to Stripe</a>
+              <Button variant="link" href="#">Connect to Stripe</Button>
             </div>
           </Card>
 
@@ -384,7 +384,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
 
           {/* Note */}
           <Card padding="lg" shadow>
-            <h3 style={{ fontSize: 21, fontWeight: 500, color: 'rgb(65, 69, 73)', marginBottom: 8 }}>Note</h3>
+            <Text variant="display/xs" as="h3" weight="medium" style={{ marginBottom: 8 }}>Note</Text>
             <textarea
               className="text-body-md text-text"
               style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', background: 'var(--color-fill-tertiary)', padding: 12, outline: 'none', fontFamily: 'inherit' }}

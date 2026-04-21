@@ -128,3 +128,22 @@ Structural check: dots visible in When column, no layout shift, no console error
 - `grep -c "<th style\|<td style" products/page.tsx` = 0 ✅
 - tsc --noEmit: 0 errors ✅
 - next build: passed ✅
+
+## Session 23 — invoices/[id]/page.tsx fontWeight migrations (2026-04-22)
+
+**Route:** localhost:3000/invoices/cmo6zj1qn004z6owgr1o2gyt3
+
+**Migrations:**
+- h2 invoice title: `<h2 style="26px/500">` → `<Text variant="heading/xl" as="h2">` → 28px/700 ✅
+- h4 Additional Information: inline `fontSize:13/fontWeight:500` → `weight="medium"` → 12px/500 ✅
+- h3 Payments: `<h3 style="21px/500">` → `<Text variant="display/xs" weight="medium">` → 21px/500 ✅
+- h3 Note: `<h3 style="21px/500">` → `<Text variant="display/xs" weight="medium">` → 21px/500 ✅
+- Stripe link: `<a style="fontWeight:400">` → `<Button variant="link">` (bonus: removes inline style entirely)
+
+**Exempt (stay inline):** lines 359, 373-375 — Stripe/HICAPS logo marks (brand-specific colors/weights)
+
+**Done-when checks:**
+- `fontWeight` count = 4 (≤ 4) ✅
+- `weight=` + `heading/xl` uses = 4 ✅
+- tsc --noEmit: 0 errors ✅
+- next build: passed ✅
