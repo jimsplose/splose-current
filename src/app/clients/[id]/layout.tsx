@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { Flex } from "antd";
-import { Button } from "@/components/ds";
+import { Button, Text } from "@/components/ds";
 import ClientSidebar from "./ClientSidebar";
 
 export const dynamic = "force-dynamic";
@@ -48,12 +48,13 @@ export default async function ClientLayout({
   return (
     <Flex vertical style={{ height: "calc(100vh - 48px)" }}>
       {/* Full-width heading row — matches production layout */}
+      {/* eslint-disable-next-line no-restricted-syntax -- container border, no DS component fits this layout */}
       <Flex wrap="wrap" align="center" justify="space-between" gap={8} style={{ flexShrink: 0, borderBottom: '1px solid var(--color-border)', paddingLeft: 24, paddingRight: 24, paddingTop: 12, paddingBottom: 12 }}>
         <Flex align="center" gap={8}>
-          <h2 style={{ fontSize: 20, fontWeight: 700, fontFamily: "'Sprig Sans', 'Inter', sans-serif", color: "rgb(66, 105, 74)" }}>Client</h2>
-          <span className="text-body-lg" style={{ color: 'var(--color-text-secondary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+          <Text variant="display/sm" as="h2" color="var(--color-page-title)">Client</Text>
+          <Text variant="body/lg" color="secondary" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {client.firstName} ({client.firstName.slice(0, 3)}) {client.lastName}
-          </span>
+          </Text>
         </Flex>
         <Flex align="center" gap={8}>
           <Button variant="secondary">
@@ -82,6 +83,7 @@ export default async function ClientLayout({
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
           </Button>
+          {/* SVG height/width props are layout sizing on inline SVG, not font-size. */}
         </Flex>
       </Flex>
       {/* Sidebar + content row */}

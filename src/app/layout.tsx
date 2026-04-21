@@ -5,7 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ThemeProvider } from "@/components/ds";
 import "./globals.css";
-import TopNav from "@/components/TopNav";
+import SploseTopNav from "@/components/SploseTopNav";
 import DevNavigator from "@/components/DevNavigator";
 
 const inter = Inter({
@@ -29,7 +29,7 @@ export default function RootLayout({
       <body>
         <AntdRegistry>
           <ThemeProvider>
-            <TopNav />
+            <SploseTopNav />
             <main>{children}</main>
             <Suspense fallback={null}>
               <DevNavigator />

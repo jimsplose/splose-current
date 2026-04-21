@@ -65,6 +65,7 @@ function UserIcon() {
 function HeaderIcon({ children, badge, href }: { children: React.ReactNode; badge?: number; href?: string }) {
   const inner = (
     <div
+      className="text-text"
       style={{
         position: "relative",
         display: "flex",
@@ -73,10 +74,10 @@ function HeaderIcon({ children, badge, href }: { children: React.ReactNode; badg
         cursor: "pointer",
         alignItems: "center",
         justifyContent: "center",
-        color: "var(--color-text)",
       }}
     >
       <span
+        className="text-heading-lg"
         style={{
           display: "flex",
           height: 26,
@@ -84,13 +85,13 @@ function HeaderIcon({ children, badge, href }: { children: React.ReactNode; badg
           alignItems: "center",
           justifyContent: "center",
           borderRadius: "50%",
-          fontSize: "var(--font-size-heading-lg)",
         }}
       >
         {children}
       </span>
       {badge != null && (
         <span
+          className="text-caption-sm text-text-inverted"
           style={{
             position: "absolute",
             top: 8,
@@ -103,9 +104,8 @@ function HeaderIcon({ children, badge, href }: { children: React.ReactNode; badg
             borderRadius: "50%",
             background: "var(--color-danger)",
             padding: "0 4px",
-            fontSize: "var(--font-size-caption-sm)",
+            // eslint-disable-next-line no-restricted-syntax
             fontWeight: 700,
-            color: "#fff",
           }}
         >
           {badge}
@@ -116,10 +116,10 @@ function HeaderIcon({ children, badge, href }: { children: React.ReactNode; badg
   return href ? <Link href={href}>{inner}</Link> : inner;
 }
 
-export default function TopNav() {
+export default function SploseTopNav() {
   const pathname = usePathname();
 
-  // Hide TopNav on public-facing online booking page
+  // Hide on public-facing online booking page
   if (pathname.startsWith("/online-booking")) return null;
 
   return (
@@ -139,6 +139,7 @@ export default function TopNav() {
       {/* Production avatar: 26x26, rgba(0,0,0,0.25) bg, 50% radius */}
       <div style={{ display: "flex", height: 56, width: 42, alignItems: "center", justifyContent: "center" }}>
         <div
+          className="text-label-md text-text-inverted"
           style={{
             display: "flex",
             height: 26,
@@ -147,8 +148,6 @@ export default function TopNav() {
             justifyContent: "center",
             borderRadius: "50%",
             background: "rgba(0,0,0,0.25)",
-            fontSize: "var(--font-size-label-md)",
-            color: "#fff",
           }}
         >
           SC

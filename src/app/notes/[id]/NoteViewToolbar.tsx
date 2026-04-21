@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { EditOutlined, LockOutlined, UndoOutlined, DownOutlined, SendOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button } from "@/components/ds";
+import { Button, Icon } from "@/components/ds";
 import SendNoteModal from "./SendNoteModal";
 
 interface NoteViewToolbarProps {
@@ -30,27 +30,28 @@ export default function NoteViewToolbar({
     <>
       <Flex align="center" gap={8}>
         <Button variant="secondary" onClick={() => setShowSendModal(true)}>
-          <SendOutlined style={{ fontSize: 14 }} />
+          <Icon as={SendOutlined} size="md" />
           Send
         </Button>
         {signed ? (
           <Button variant="secondary">
-            <UndoOutlined style={{ fontSize: 16 }} />
+            <Icon as={UndoOutlined} size="lg" />
             Revert to draft
           </Button>
         ) : (
           <Button variant="primary">
-            <LockOutlined style={{ fontSize: 14 }} />
+            {/* eslint-disable-next-line no-restricted-syntax -- Icon escape hatch inside primary Button (inherits white from Button) */}
+            <Icon as={LockOutlined} size="md" style={{ color: 'inherit' }} />
             Sign &amp; lock
           </Button>
         )}
         <Button>
           <Link href={`/notes/${noteId}/edit`} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            Edit <EditOutlined style={{ fontSize: 14 }} />
+            Edit <Icon as={EditOutlined} size="md" />
           </Link>
         </Button>
         <Button variant="secondary">
-          Actions <DownOutlined style={{ fontSize: 14 }} />
+          Actions <Icon as={DownOutlined} size="md" />
         </Button>
       </Flex>
 
