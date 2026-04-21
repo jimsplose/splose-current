@@ -55,6 +55,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `Avatar` | Colored circles with initials (sm/md/lg/xl) |
 | `Icon` | Wrapper for AntD icon components with `size: xs/sm/md/lg/xl/2xl/3xl` (10–24px) and `tone: default/secondary/tertiary/primary/success/warning/danger/inverted` |
 | `ColorDot` | Colored indicator (xs/sm/md/lg/xl). Props: `shape: circle\|rect` (default circle), `interactive: boolean` (renders as `<button>`), `selected: boolean` (selection ring), `onClick`, `rectWidth` (default 80). Accepts semantic color tokens (green/red/yellow/blue/gray/purple/orange) or raw CSS color. Optional `label` prop renders dot + text inline. |
+| `ProgressBar` | Horizontal progress bar. `value` (0–100), `tone`: `default/success/warning/danger`, `size`: `sm/md/lg` (4/6/8px height), optional `width` prop for fixed-width bars. |
 | `List` | Label-value detail rows. `layout`: `horizontal` (default — label beside value, fixed-width label column) or `stacked` (label above value — use for glossaries, definitions, and description lists). |
 | `HintIcon` | Info tooltip trigger |
 | `EmailPreview` | Email preview modal with subject, recipient, body, sender |

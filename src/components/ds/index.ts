@@ -56,3 +56,4 @@ export { default as EmailPreview } from "./EmailPreview";
 export { default as RichTextEditor } from "./RichTextEditor";
 export { default as ReorderModal } from "./ReorderModal";
 export type { ReorderItem } from "./ReorderModal";
+export { default as ProgressBar } from "./ProgressBar";

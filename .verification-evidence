@@ -1,3 +1,29 @@
+/reports (Practitioners table — ProgressBar utilisation bars)
+
+## Session 18 — ProgressBar new DS component (2026-04-22)
+
+### /reports — Practitioners utilisation column
+
+| Property | Original inline | ProgressBar component | Pass? |
+|---|---|---|---|
+| Track height | 6px | 6px | PASS |
+| Track width | 64px | 64px | PASS |
+| Track borderRadius | 9999px | 9999px | PASS |
+| Track bg | rgb(243,245,247) | rgb(243,245,247) | PASS |
+| Fill bg | rgb(130,80,255) | rgb(130,80,255) | PASS |
+| Fill width (100% bar) | 64px | 64px | PASS |
+| Fill width (68.8% bar) | ~44px | 44.03px | PASS |
+
+Structural: bars render in Utilisation rate column for all practitioner rows ✓
+
+Done-when checks:
+- `src/components/ds/ProgressBar.tsx` exists ✅
+- `reports/page.tsx` uses `<ProgressBar>` ✅
+- tsc --noEmit: 0 errors ✅
+- next build: passed ✅
+
+---
+
 /reports/performance (Modal: Definitions — stacked List)
 /contacts/8 (General details + Contact details — horizontal List)
 

@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { CalendarOutlined, DownOutlined, SettingOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Avatar, Button, Card, Checkbox, ColorDot, Divider, Dropdown, FormInput, FormSelect, Grid, PageHeader, Text } from "@/components/ds";
+import { Avatar, Button, Card, Checkbox, ColorDot, Divider, Dropdown, FormInput, FormSelect, Grid, PageHeader, ProgressBar, Text } from "@/components/ds";
 import { DataTable, TableHead, Th, TableBody, Tr, Td } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 
@@ -442,11 +442,7 @@ export default function ReportsPage() {
                 </Td>
                 <Td>
                   <Flex align="center" gap={8}>
-                    <div style={{ height: 6, width: 64, borderRadius: 9999, backgroundColor: 'var(--color-fill-secondary)' }}>
-                      <div
-                        style={{ height: 6, borderRadius: 9999, backgroundColor: 'var(--color-primary)', width: `${Math.min(p.utilisation * 10, 100)}%` }}
-                      />
-                    </div>
+                    <ProgressBar value={Math.min(p.utilisation * 10, 100)} width={64} />
                     <Text variant="body/md" as="span" color="secondary">{p.utilisation.toFixed(2)}%</Text>
                   </Flex>
                 </Td>
