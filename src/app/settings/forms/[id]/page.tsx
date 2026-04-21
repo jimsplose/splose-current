@@ -131,9 +131,9 @@ export default function FormTemplateEditorPage() {
                           onChange={(e) => setFields((prev) => prev.map((f) => f.id === field.id ? { ...f, label: e.target.value } : f))}
                         />
                         <Toggle checked={field.required} onChange={(checked) => setFields((prev) => prev.map((f) => f.id === field.id ? { ...f, required: checked } : f))} label="Required" />
-                        <button onClick={() => removeField(field.id)} style={{ borderRadius: 4, padding: 4, color: 'var(--color-text-secondary)' }}>
+                        <Button variant="ghost" iconOnly onClick={() => removeField(field.id)} style={{ color: 'var(--color-text-secondary)' }}>
                           <DeleteOutlined style={{ fontSize: 14 }} />
-                        </button>
+                        </Button>
                       </Flex>
                     </Card>
                   );
@@ -207,7 +207,7 @@ export default function FormTemplateEditorPage() {
           <div style={{ width: 320, flexShrink: 0, borderLeft: '1px solid var(--color-border)', backgroundColor: 'white', padding: 16 }}>
             <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
               <h3 className="text-heading-sm text-text">Share & Automate</h3>
-              <button onClick={() => setSidePanel(null)} style={{ borderRadius: 4, padding: 4, color: 'var(--color-text-secondary)' }}>&times;</button>
+              <Button variant="ghost" iconOnly onClick={() => setSidePanel(null)} style={{ color: 'var(--color-text-secondary)' }}>&times;</Button>
             </Flex>
             <Flex vertical gap={16}>
               <div>

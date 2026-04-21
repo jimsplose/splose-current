@@ -1,14 +1,31 @@
-/clients/cmo6zika2002x6owgg3jjip9q
+Session 22 — Button iconOnly + shape="circle" — 2026-04-22
 
-Session 21 — HintIcon tone + size props
+## Chrome MCP measurements (1440×900, localhost:3000)
 
-Verified 3 HintIcon instances on client detail page:
-1. Associated contacts heading — default tone, md (14px), color rgb(65,69,73) — muted grey ✓
-2. Account balance header — tone=inverted, size=lg (20px), color rgba(255,255,255,0.8) — white on purple ✓
-3. They owe row — tone=inverted, md (14px), color rgba(255,255,255,0.8) — white on purple ✓
+### Storybook IconOnlyButtons story
+- ghost + iconOnly (md): 38×38px, borderRadius 8px, padding 0px ✅
+- ghost + iconOnly + circle (sm): 29×29px, borderRadius 50% ✅
+- primary + iconOnly + circle (sm): 29×29px, borderRadius 50% ✅
 
-Structural check: all 3 info-circle icons visible, correct sizes, correct colors.
-No inline style={{ on any HintIcon in ClientDetailClient (done-when grep = 0).
-tsc 0 errors. Build passed.
+### settings/forms/1 — delete field buttons (ghost + iconOnly)
+- 8 delete buttons (one per field row): 38×38px, borderRadius 8px, padding 0px ✅
+- Close panel button (×): 38×38px, borderRadius 8px, padding 0px ✅
 
-Verified: 9 properties measured (color×3, fontSize×3, marginLeft×3)
+### waitlist/page.tsx — chip close buttons (ghost + iconOnly + circle + size=sm)
+- Service chip close: 29×29px, borderRadius 50% ✅
+- Badge container height: 39px (chip accommodates 29px button) ✅
+
+### settings/progress-notes/edit/1 — dropdown trigger (ghost + iconOnly)
+- 4 MoreOutlined trigger buttons: 38×38px, borderRadius 8px, padding 0px ✅
+
+## TypeScript
+- npx tsc --noEmit: 0 errors ✅
+
+## Build
+- npx next build: passed ✅
+
+## Done-when checks
+- iconOnly prop in Button.tsx: 4 occurrences ✅
+- circle shape in Button.tsx: 2 occurrences ✅
+- 5 caller sites migrated: forms/[id] ×2, waitlist ×2, progress-notes/edit ×1 ✅
+- shape="circle" on waitlist chip closes ✅

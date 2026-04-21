@@ -737,14 +737,18 @@ function WaitlistPageInner() {
                 {modalServices.map((service) => (
                   <Badge key={service} variant="blue" size="sm" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                     <span style={{ maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{service}</span>
-                    <button
-                      type="button"
+                    <Button
+                      variant="ghost"
+                      iconOnly
+                      shape="circle"
+                      size="sm"
+                      htmlType="button"
                       onClick={() => removeService(service)}
-                      style={{ marginLeft: 2, borderRadius: '50%', padding: 2 }}
+                      style={{ marginLeft: 2 }}
                       className={wStyles.serviceChipClose}
                     >
                       <CloseOutlined style={{ fontSize: 12 }} />
-                    </button>
+                    </Button>
                   </Badge>
                 ))}
               </Flex>
@@ -885,14 +889,18 @@ function WaitlistPageInner() {
                 {modalTags.map((tag) => (
                   <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} size="sm" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                     {tag}
-                    <button
-                      type="button"
+                    <Button
+                      variant="ghost"
+                      iconOnly
+                      shape="circle"
+                      size="sm"
+                      htmlType="button"
                       onClick={() => removeTag(tag)}
-                      style={{ marginLeft: 2, borderRadius: '50%', padding: 2 }}
+                      style={{ marginLeft: 2 }}
                       className={wStyles.tagChipClose}
                     >
                       <CloseOutlined style={{ fontSize: 12 }} />
-                    </button>
+                    </Button>
                   </Badge>
                 ))}
               </Flex>

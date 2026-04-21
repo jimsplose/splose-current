@@ -26,7 +26,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 
 | Component | Use for |
 |---|---|
-| `Button` | All interactive buttons. `variant`: primary/secondary/danger/ghost/link/icon/toolbar. `size`: sm/md/lg. `shape`: default/pill (pill = borderRadius 9999, use for filter chips and tab selectors). `round`: true for circle FAB buttons. |
+| `Button` | All interactive buttons. `variant`: primary/secondary/danger/ghost/link/icon/toolbar. `size`: sm/md/lg. `shape`: default/pill/circle (pill = borderRadius 9999 for filter chips; circle = borderRadius 50% for icon FABs). `round`: true for circle FAB buttons (alias for shape="circle"). `iconOnly`: true for icon-only buttons — centres icon, no text padding (38×38 md, 29×29 sm). |
 
 ## Forms
 

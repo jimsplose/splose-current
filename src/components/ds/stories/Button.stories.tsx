@@ -28,6 +28,9 @@ import {
   StopOutlined,
   CalendarOutlined,
   SendOutlined,
+  DeleteOutlined,
+  MoreOutlined,
+  CloseOutlined,
 } from "@ant-design/icons";
 import Button from "../Button";
 import PageHeader from "../PageHeader";
@@ -59,8 +62,12 @@ const meta: Meta<typeof Button> = {
     },
     shape: {
       control: "select",
-      options: ["default", "pill"],
-      description: "Shape preset — default uses standard border-radius, pill uses borderRadius:9999",
+      options: ["default", "pill", "circle"],
+      description: "Shape preset — default uses standard border-radius, pill uses borderRadius:9999, circle uses 50%",
+    },
+    iconOnly: {
+      control: "boolean",
+      description: "Icon-only mode — removes text padding, centres icon. Use with or without shape=\"circle\".",
     },
     disabled: {
       control: "boolean",
@@ -223,6 +230,54 @@ export const RoundButtons: Story = {
       </Button>
     </div>
   ),
+};
+
+/* ------------------------------------------------------------------ */
+/*  Icon-Only Buttons                                                  */
+/* ------------------------------------------------------------------ */
+
+export const IconOnlyButtons: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <span className="text-label-lg text-text-secondary" style={{ width: 160 }}>ghost + iconOnly</span>
+        <Button variant="ghost" iconOnly style={{ color: 'var(--color-text-secondary)' }}>
+          <DeleteOutlined style={{ fontSize: 14 }} />
+        </Button>
+        <Button variant="ghost" iconOnly style={{ color: 'var(--color-text-secondary)' }}>
+          <MoreOutlined style={{ fontSize: 16 }} />
+        </Button>
+        <Button variant="ghost" iconOnly style={{ color: 'var(--color-text-secondary)' }}>
+          &times;
+        </Button>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <span className="text-label-lg text-text-secondary" style={{ width: 160 }}>ghost + iconOnly + circle</span>
+        <Button variant="ghost" iconOnly shape="circle" size="sm">
+          <CloseOutlined style={{ fontSize: 12 }} />
+        </Button>
+        <Button variant="ghost" iconOnly shape="circle">
+          <CloseOutlined style={{ fontSize: 14 }} />
+        </Button>
+        <Button variant="ghost" iconOnly shape="circle" size="lg">
+          <CloseOutlined style={{ fontSize: 16 }} />
+        </Button>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <span className="text-label-lg text-text-secondary" style={{ width: 160 }}>primary + iconOnly + circle</span>
+        <Button variant="primary" iconOnly shape="circle" size="sm">
+          <PlusOutlined style={{ fontSize: 14 }} />
+        </Button>
+        <Button variant="primary" iconOnly shape="circle">
+          <PlusOutlined style={{ fontSize: 16 }} />
+        </Button>
+        <Button variant="secondary" iconOnly shape="circle">
+          <SettingOutlined style={{ fontSize: 16 }} />
+        </Button>
+      </div>
+    </div>
+  ),
+  parameters: { layout: "padded", docs: { description: { story: "iconOnly=true passes children as AntD icon prop — removes text padding, centres icon. shape=\"circle\" adds 50% border-radius. Used for delete, more-actions, and chip-close buttons." } } },
 };
 
 /* ------------------------------------------------------------------ */

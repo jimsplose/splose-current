@@ -157,9 +157,9 @@ export default function EditProgressNoteTemplatePage() {
                     )}
                     <Dropdown
                       trigger={
-                        <button style={{ borderRadius: 4, padding: 4, color: 'var(--color-text-secondary)' }}>
+                        <Button variant="ghost" iconOnly style={{ color: 'var(--color-text-secondary)' }}>
                           <MoreOutlined style={{ fontSize: 16 }} />
-                        </button>
+                        </Button>
                       }
                       items={blockDropdownItems}
                       onSelect={(value) => handleBlockAction(block.id, value)}
