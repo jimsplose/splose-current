@@ -1,45 +1,50 @@
-Session 25 — invoice pages -> DS DataTable — 2026-04-22
+Session 26 — ClientDetailClient remaining cleanup (partial) — 2026-04-22
 
 ## Chrome MCP measurements (1440x900, localhost:3000)
 
-### /invoices/[id] (server detail) — line items table migrated
-Original: raw `<table>` with `<th className="pb-3 text-left">` Text children, `<td className="py-3">`.
-Migrated: `<DataTable><TableHead><Th>...</Th></TableHead><TableBody><Tr><Td>...</Td></Tr></TableBody></DataTable>`.
-
-| Element | Property | Target (DS) | Actual | Pass? |
-|---|---|---|---|---|
-| Th "Item code" | padding | 16px | 16px | PASS |
-| Th | fontSize/fontWeight | 14px/600 | 14px/600 | PASS |
-| Th | color | rgb(65,69,73) | rgb(65,69,73) | PASS |
-| Th | bg | #f3f5f7 (DS default) | rgb(243,245,247) | PASS (AdoptAsIs) |
-| Td | padding | 16px | 16px | PASS |
-| Td | fontSize | 14px | 14px | PASS |
-
-AdoptAsIs note: original thead had transparent bg; migrated to DS standard grey header (#f3f5f7).
-
-### /invoices/new (client form) — line items interactive table migrated
-Original: raw `<table>` with 10 `<th style={{ padding, fontSize, fontWeight, color }}>` + custom bg on tr.
-Migrated: `<DataTable><TableHead><Th style={{...}}>` preserving compact `10px 12px` padding, `fontWeight 500`, secondary color, and quaternary bg (var resolves empty → transparent, matching pre-migration behaviour).
-
+### /clients/[id] — scope items complete
 | Element | Property | Target | Actual | Pass? |
 |---|---|---|---|---|
-| Th (10 total) | padding | 10px 12px | 10px 12px | PASS |
-| Th | fontSize/fontWeight | 14px/500 | 14px/500 | PASS |
-| Th | color | var(--color-text-secondary) | rgb(110,110,100) | PASS |
-| Th | bg | var(--color-fill-quaternary) (undefined → transparent) | rgba(0,0,0,0) | PASS (preserved) |
-| Td | padding | 8px (8px 8px) | 8px | PASS |
+| Associated contacts table | element | DataTable | DS DataTable | PASS |
+| Associated contacts Th count | 6 | 6 | PASS |
+| Associated contacts rows | 2 | 2 | PASS |
+| Th bg | DS default | rgb(243,245,247) | PASS (AdoptAsIs) |
+| Tr border | 1px var(--color-border) | 1px rgb(231,232,232) | PASS |
+| Section spacing | 32px mb | 32px mb | PASS |
+| FeatureCard account balance | tone="primary" color="inverted" | in place | PASS |
+| Icon usage | no raw `Outlined style` | grep = 0 | PASS |
 
-### DS DataTable Td — added optional colSpan prop
-Extended Td to accept `colSpan?: number` (thin passthrough to HTML). Used for empty-state row in /invoices/[id] ("No line items" spans 8 cols).
-
-## TypeScript
+## TypeScript + Build
 - npx tsc --noEmit: 0 errors
-
-## Build
 - npx next build: passed
 
 ## Done-when
-- grep -c "<h2 style|<h3 style|<table" invoices/[id]/page.tsx invoices/new/page.tsx = 0 (was 2 before this session; prior h2/h3 count was ≥15 at audit baseline, already cleaned in sessions 19/23)
+- Associated contacts migrated to DataTable ✓
+- FeatureCard + inverted tones in place (from session 04) ✓
+- No raw `<Outlined style>` in file ✓
+- `grep -c "<table|<th style|<td style"` = 0 ✓
+- `grep -c "style={{"` ≤ 10: **FAIL (62 remaining)**
 
-Verdict: PASS (16/16 properties measured preserve visual spec or adopt DS default).
-Pages verified: /invoices/[id]/{invoice-id}, /invoices/new
+## Partial — blocker
+
+The ≤10 inline-style target requires Tailwind layout utilities (`mb-4`, `p-6`, `flex-1`, etc.)
+which are NOT defined in this codebase. globals.css defines `text-*` typography utilities only
+(see globals.css comment: "Previously provided by Tailwind; now defined explicitly after AntD migration").
+
+Confirmed via live DOM test: `mb-8`, `mb-4`, `p-6`, `flex-1` on injected elements all produce 0px
+margin/padding. Pre-existing usages in practitioner-access/page.tsx (mb-4 on h1), statements/page.tsx,
+batch-invoice/page.tsx, notes/new/page.tsx are silently broken — adding those utilities would
+visually regress those pages in an uncontrolled way.
+
+Tried migration of 12+ layout margins to `mb-4/mb-8/mt-2` etc.; reverted after Chrome MCP showed
+section margins went from 32px → 0px (section headings collapsing together).
+
+All remaining 62 inline styles are legitimate layout one-off values (marginBottom / marginTop / padding /
+flex / maxWidth / flexShrink / borderBottom) — CLAUDE.md explicitly permits these.
+
+## Net reduction
+- Before session: 81 inline styles
+- After session: 62 inline styles
+- Delta: -19 (table migration — 6 Th + 12 Td padding + 3 Tr border removed)
+
+Pages verified: /clients/[id] (detail view)

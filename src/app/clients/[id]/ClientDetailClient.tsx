@@ -9,6 +9,7 @@ import {
   Avatar,
   Button,
   Badge,
+  DataTable,
   Divider,
   FeatureCard,
   FileUpload,
@@ -19,8 +20,13 @@ import {
   HintIcon,
   List,
   Collapse,
+  TableBody,
+  TableHead,
+  Td,
   Text,
+  Th,
   Toggle,
+  Tr,
 } from "@/components/ds";
 
 interface ClientData {
@@ -243,36 +249,34 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
             Associated contacts{" "}
             <HintIcon />
           </Text>
-          <table className="w-full text-body-md">
-            <thead>
-              <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-                <th style={{ paddingBottom: 8 }} className="text-left text-label-lg">Name</th>
-                <th style={{ paddingBottom: 8 }} className="text-left text-label-lg">Type</th>
-                <th style={{ paddingBottom: 8 }} className="text-left text-label-lg">Notes</th>
-                <th style={{ paddingBottom: 8 }} className="text-center text-label-lg">Appts</th>
-                <th style={{ paddingBottom: 8 }} className="text-center text-label-lg">Invoices</th>
-                <th style={{ paddingBottom: 8 }} className="text-center text-label-lg">Notes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-                <td style={{ paddingTop: 8, paddingBottom: 8 }}><Text variant="body/md" as="span" color="primary">Test doctor</Text></td>
-                <td style={{ paddingTop: 8, paddingBottom: 8 }}>Doctor</td>
-                <td style={{ paddingTop: 8, paddingBottom: 8 }}>hello</td>
-                <td style={{ paddingTop: 8, paddingBottom: 8 }} className="text-center"></td>
-                <td style={{ paddingTop: 8, paddingBottom: 8 }} className="text-center"></td>
-                <td style={{ paddingTop: 8, paddingBottom: 8 }} className="text-center"></td>
-              </tr>
-              <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-                <td style={{ paddingTop: 8, paddingBottom: 8 }}><Text variant="body/md" as="span" color="primary">Jo malone</Text></td>
-                <td style={{ paddingTop: 8, paddingBottom: 8 }}>Standard</td>
-                <td style={{ paddingTop: 8, paddingBottom: 8 }}>N/A</td>
-                <td style={{ paddingTop: 8, paddingBottom: 8 }} className="text-center"></td>
-                <td style={{ paddingTop: 8, paddingBottom: 8 }} className="text-center"></td>
-                <td style={{ paddingTop: 8, paddingBottom: 8 }} className="text-center"></td>
-              </tr>
-            </tbody>
-          </table>
+          <DataTable className="w-full text-body-md">
+            <TableHead>
+              <Th>Name</Th>
+              <Th>Type</Th>
+              <Th>Notes</Th>
+              <Th align="center">Appts</Th>
+              <Th align="center">Invoices</Th>
+              <Th align="center">Notes</Th>
+            </TableHead>
+            <TableBody>
+              <Tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+                <Td><Text variant="body/md" as="span" color="primary">Test doctor</Text></Td>
+                <Td>Doctor</Td>
+                <Td>hello</Td>
+                <Td align="center" />
+                <Td align="center" />
+                <Td align="center" />
+              </Tr>
+              <Tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+                <Td><Text variant="body/md" as="span" color="primary">Jo malone</Text></Td>
+                <Td>Standard</Td>
+                <Td>N/A</Td>
+                <Td align="center" />
+                <Td align="center" />
+                <Td align="center" />
+              </Tr>
+            </TableBody>
+          </DataTable>
         </section>
 
         <Button variant="link" size="sm">View change log</Button>
