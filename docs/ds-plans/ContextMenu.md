@@ -37,9 +37,14 @@ Items that need a section header can use a synthetic `{ label, heading: true }` 
 
 ## What it extends
 
-Radix `@radix-ui/react-context-menu`. Radix ships `ContextMenu.Root`, `ContextMenu.Trigger`, and `ContextMenu.Content` with native right-click handling, keyboard navigation (arrows / Enter / Escape), typeahead, submenus, and focus management. AntD's `Dropdown` component supports right-click trigger but treats it as a regular menu — Radix is purpose-built for context-menu UX.
+AntD `Dropdown` with `trigger={['contextMenu']}` (A2 resolution 2026-04-22: stay on AntD). AntD's right-click trigger is wired; keyboard nav inside the opened menu works via the standard `Menu` component underneath. Splose wrapper:
 
-If Accordion / AlertDialog land on Radix first, ContextMenu is consistent. Otherwise this is the first Radix dep.
+- Forces `trigger={['contextMenu']}`.
+- Normalises the menu items to the `ContextMenuItem` shape above (AntD's `MenuProps['items']` is close but has additional noise).
+- Wraps the trigger in a `<span>` that binds `oncontextmenu={(e) => e.preventDefault()}` to suppress the browser's native context menu — but with an escape hatch (`preserveBrowserMenu={true}`) for rich-text areas that need the browser's spell-check.
+- Applies DS tokens for the menu card chrome.
+
+Long-press on touch is **not** supported natively by AntD Dropdown. Add a small `onTouchStart` / `setTimeout` wrapper in the Splose component that fires `contextmenu` after ~500ms. If this feels hacky during build, accept that v1 is desktop-right-click only; queue a native long-press implementation as a follow-up.
 
 ## Production usage (Chrome MCP walk)
 
@@ -69,12 +74,11 @@ No live sample — design defaults (match Radix + DS tokens):
 
 ## Accessibility
 
-- Radix `<ContextMenu.Trigger>` binds `contextmenu` event correctly on desktop and `touchstart` + long-press on mobile.
-- Menu rendered as `role="menu"`, items as `role="menuitem"`.
-- Arrow Down/Up navigates items; Arrow Right opens submenu; Arrow Left closes submenu; Enter invokes; Escape closes.
-- Typeahead: typing letters jumps to the matching item.
-- Disabled items are not focusable and announce as unavailable.
-- Focus returns to the trigger target on close.
+- AntD Menu renders items with `role="menuitem"` inside a `role="menu"` container. Confirm during build.
+- Arrow Down/Up navigates items; Enter invokes; Escape closes (AntD default). Arrow Right to open submenu works for nested menus.
+- Typeahead is **not** in AntD Menu by default — add a small key handler that jumps to the first matching item by first letter. Validate during build whether this is worth the effort or whether typeahead can wait for a Wave 5 follow-up.
+- Disabled items are not focusable and announce as unavailable (AntD default).
+- Focus returns to the trigger target on close — verify; AntD has been inconsistent here. Patch via `onOpenChange` if needed.
 
 ## Visual states
 
@@ -123,11 +127,12 @@ No live sample — design defaults (match Radix + DS tokens):
 - [ ] MDX doc with `SploseDocHeader`.
 - [ ] Wired into `src/components/ds/index.ts`.
 - [ ] `docs/reference/ds-component-catalog.md` updated in the same commit.
-- [ ] `@radix-ui/react-context-menu` dep added, lockfile committed (or free if Radix is already in the DS from Accordion/AlertDialog).
-- [ ] One real consumer integration proved — suggest: calendar empty-slot context menu.
+- [ ] No new dep — AntD Dropdown is the base.
+- [ ] One real consumer integration proved — suggest: calendar empty-slot context menu, **preserving** the existing click popover (D3 resolution: right-click is a power-user alternative, not a replacement).
 
 ## Open questions
 
-1. **Calendar interaction overlap** — clicking an empty slot on the calendar already triggers a "new appointment" popover. Does right-click offer an **alternative** quick-create menu, or should we unify via a single click-to-choose flow? Lean **alternative for power users** but confirm with calendar owner.
-2. **Browser default menu coexistence** — Radix by default suppresses the browser's context menu for bound targets. Make sure editor-like areas (rich text) still get the browser's native spell-check menu.
-3. **Mobile** — long-press UX is discoverable only if there's a visible hint. For v1, show a "..." button fallback beside long-press-enabled targets. Out of scope for this plan but flag as follow-up.
+1. ~~**Calendar interaction overlap**~~ — **Resolved 2026-04-22 (D3): ContextMenu is a right-click alternative for power users; click popover stays.**
+2. **Browser default menu coexistence** — AntD Dropdown + `preventDefault` suppresses the browser's context menu for bound targets. Ensure rich-text areas (the note editor) pass `preserveBrowserMenu={true}` so spell-check keeps working.
+3. **Mobile long-press** — long-press UX is discoverable only if there's a visible hint. For v1, show a "..." button fallback beside long-press-enabled targets. Out of scope for this plan but flag as follow-up.
+4. **Typeahead** — AntD Menu doesn't have it by default. Decide during build whether to add the key handler now or defer.

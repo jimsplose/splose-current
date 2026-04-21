@@ -114,5 +114,5 @@ Captured 2026-04-22 from the patient detail page:
 
 ## Open questions
 
-1. **Naming overlap risk with `Badge`** — the naming confusion is real. Some teams combine them. Confirm with Jim that the distinction is worth a second component rather than a `Badge` prop (`type: "status" | "tag"`). Lean toward a separate `Tag` because the intent is genuinely different and shared settings management behind it.
+1. ~~**Naming overlap risk with `Badge`**~~ — **Resolved 2026-04-22 (B3): ship as a separate `Tag` component.**
 2. **Contrast warning on custom colours** — out of scope for this build but track as a follow-up: should `/settings/tags` gate-keep user colour choice to AA-contrast combinations? Suggest yes, raise with Jim as a separate product decision.

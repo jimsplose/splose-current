@@ -28,9 +28,15 @@ Same shape as `Tooltip` but with longer delays and rich content. Never fires on 
 
 ## What it extends
 
-Radix `@radix-ui/react-hover-card`. Radix is the canonical primitive (Linear and Vercel use it). AntD has `Popover` which can simulate a hover card but doesn't expose the separate open/close delays and the "safe triangle" mouse tracking that Radix ships.
+AntD `Popover` with `trigger="hover"` and `mouseEnterDelay` / `mouseLeaveDelay` (A2 resolution 2026-04-22: stay on AntD). AntD's popover covers the common case — the main gap vs Radix is the "safe triangle" (detecting when the cursor is travelling toward the popover and pausing the close timer). Without it, users who aim at the popover but cross a diagonal momentarily can lose it.
 
-If the Accordion plan ends up mandating Radix adoption for the DS, HoverCard is another beneficiary and we stay consistent.
+For v1, skip the safe-triangle implementation; the 200ms close delay is enough grace time in practice. If real-world use reveals friction, we revisit — either add a small safe-triangle helper ourselves or reopen the Radix question for this specific component.
+
+Splose wrapper:
+
+- Normalises `placement` → `side`, `mouseEnterDelay` → `openDelay`, `mouseLeaveDelay` → `closeDelay`.
+- Forces `trigger="hover"` — no click or focus triggers supported (keyboard users get the link/label directly; see Accessibility section).
+- Applies DS tokens for the card shell.
 
 ## Production usage (Chrome MCP walk)
 
@@ -60,8 +66,8 @@ No live sample — design defaults:
 
 ## Accessibility
 
-- Radix uses `role="group"` / sideways pattern — NOT `role="tooltip"` (because hover cards can contain interactive content).
-- Does NOT fire on keyboard focus — hover-only by design.
+- AntD Popover renders with `role="tooltip"` by default — this is wrong for hover cards that contain interactive content. Override to `role="group"` via Popover's `rootClassName` + a DOM patch on open, or (cleaner) open a build-session follow-up to upstream a `role` prop to AntD.
+- Does NOT fire on keyboard focus — hover-only by design. AntD Popover supports `trigger={['hover', 'focus']}` but we explicitly set `trigger="hover"` only.
 - Keyboard users must always have a visible affordance or link to reach the same information.
 - Inside the card, links and buttons are keyboard-focusable when the card is open via mouse.
 - If the card contains critical info (not just a preview), reconsider — use a `Popover` or inline reveal instead.
@@ -116,3 +122,4 @@ No live sample — design defaults:
 1. **Mobile behaviour** — hover doesn't exist on touch. On touch devices, should HoverCard open on tap (and risk conflict with the underlying link), or not render at all (and fall back to tooltip-style label)? Lean **not render** — touch users reach the same info by tapping the link to navigate.
 2. **Keyboard equivalent** — if a HoverCard hides useful info, keyboard users lose it. MDX should mandate that the content in the card is always supplementary, never essential. Document this loudly.
 3. **Splose branding** — patient preview HoverCard is a recurring pattern worth designing once. Consider a `PatientHoverCard` convenience wrapper that takes a patient ID and renders the standard preview shape. Lean yes, file as a follow-up to this plan.
+4. **Safe triangle** — skipped in v1 (see "What it extends"). Reopen if hover-away friction is reported.

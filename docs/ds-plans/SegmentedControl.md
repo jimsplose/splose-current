@@ -124,9 +124,5 @@ Captured informally from calendar — validate during build against real product
 
 ## Open questions
 
-1. **Overlap with `Filter`** — the current catalog lists `Filter` as "Segmented control / icon toggle groups". Three options:
-   - (a) Delete `Filter`, replace with `SegmentedControl`. Clean but risky if `Filter` has consumers doing something `SegmentedControl` won't.
-   - (b) Keep `Filter` as icon-only toggle groups (for calendar filter/settings/grid/map icon row), keep `SegmentedControl` as labelled mutually-exclusive. Documentable.
-   - (c) Fold `SegmentedControl` into `Filter` with a new `labelled` mode. Keeps the existing import paths but muddies the API.
-   Lean **(b)**. Confirm with Jim.
+1. ~~**Overlap with `Filter`**~~ — **Resolved 2026-04-22 (B4): keep both.** `Filter` stays for icon-only toggle groups (calendar filter/settings icons); `SegmentedControl` covers labelled mutually-exclusive options. MDX must document the choice rule crisply to prevent drift.
 2. **Calendar switcher migration** — doing this in the same session proves the API, but the calendar is a high-risk surface. If the build session feels tight, ship SegmentedControl + stories only and queue the calendar migration separately.

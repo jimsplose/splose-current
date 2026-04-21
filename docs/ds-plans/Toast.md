@@ -117,5 +117,5 @@ TBC from production — trigger a toast on both tabs during the build session. E
 ## Open questions
 
 1. Does the repo already add `sonner` as a dep, or is this the first consumer? If first, add with `npm install sonner` and commit the lockfile in the same session.
-2. Confirm the default corner. Production currently uses bottom-left; sonner defaults to top-right; I've suggested `bottom-right` above as the quiet compromise. Jim to pick.
+2. ~~Confirm the default corner.~~ **Resolved 2026-04-22 (D1): `bottom-right`.**
 3. Should `toast.error` default to a **6s** duration, or match `success` at 4s? Error toasts need more time to read, so suggest keeping the 6s split.

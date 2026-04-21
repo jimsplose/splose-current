@@ -122,6 +122,6 @@ Further tokens to resolve during build (expanded / standard densities, status ov
 
 ## Open questions
 
-1. **CalendarView migration** — sequencing with audit session 29. AppointmentCard should land **before** session 29 runs so session 29 can use it. Otherwise session 29 does a styling-only sweep and we migrate again later.
+1. ~~**CalendarView migration**~~ — **Resolved 2026-04-22 (C1): AppointmentCard lands first; audit session 29 waits.** Sequence this build **before** session 29 so session 29 can migrate `CalendarView.tsx` onto the new AppointmentCard in one pass.
 2. **Availability vs Appointment** — availability slots look similar but mean something different. Confirm with Jim whether they share this component (with an `empty` status) or deserve their own. Lean **separate component** for clarity.
 3. **Practitioner colour source** — the data model stores a practitioner colour already. `AppointmentCard` should accept the hex directly, not look it up. Confirm the component never fetches and that the parent always resolves the tone.

@@ -56,9 +56,14 @@ interface ConfirmOptions {
 
 ## What it extends
 
-Radix `@radix-ui/react-alert-dialog`. Radix has the strongest accessibility story for blocking confirmations — it enforces that the action and cancel buttons are the only focusable elements on open, and it ships `AlertDialog.Action` / `AlertDialog.Cancel` as semantically distinct roles. AntD's `Modal.confirm` does the same job but is harder to style to the Splose token system and doesn't expose Radix-level roles. Prefer Radix here even though we use AntD for most overlays.
+AntD `Modal` with a `type="confirm"`-style configuration. Decision 2026-04-22: keep AntD as the single overlay foundation across the DS (A2 resolution). The Splose wrapper:
 
-Mount `<AlertDialog.Provider />` once in the app tree for the imperative API; Radix portals the surfaces.
+- Imperative API is implemented via AntD's `Modal.confirm()` — returns a promise-like resolver so call sites can `await`.
+- Declarative API wraps `<Modal />` with opinionated defaults: `closable={false}`, `maskClosable={false}` (overlay click does NOT close), and a fixed Cancel → Action button pair in the footer.
+- Tones (primary/danger/warning) set the icon and the Action button's variant.
+- Mount is not needed — AntD's Modal methods portal into `document.body` without a provider.
+
+If during the build we find the a11y behaviour of AntD's confirm modal falls short (e.g. focus starts on Action, not Cancel), we patch via a small `onVisibleChange` handler that re-focuses the Cancel button after render. Document any such patch in the plan's Open questions at the close of the build.
 
 ## Production usage (Chrome MCP walk)
 
@@ -85,12 +90,13 @@ TBC from production — capture during the build session by firing a delete acti
 
 ## Accessibility
 
-- `role="alertdialog"`, `aria-labelledby={title}`, `aria-describedby={description}`.
-- Focus goes to the **Cancel** button by default, not the destructive action. Prevents accidental confirm-on-Enter.
-- Override with `initialFocus="confirm"` on the declarative API if needed.
-- Escape closes with the "cancel" outcome.
-- Overlay click does NOT close (dialog must resolve explicitly).
-- Body scroll locked while open.
+- AntD Modal renders with `role="dialog"`, `aria-modal="true"`; for alert-style we upgrade to `role="alertdialog"` via the `modalRender` prop. Verify the role lands correctly in the DOM during build.
+- `aria-labelledby={title}`, `aria-describedby={description}` — wire via the DOM IDs AntD generates.
+- Focus goes to the **Cancel** button by default, not the destructive action. AntD defaults focus to the primary action; correct via `afterOpenChange` handler that queries and focuses the Cancel button.
+- Override with `initialFocus="confirm"` on the declarative API if a flow genuinely wants confirm-default.
+- Escape closes with the "cancel" outcome (AntD default).
+- `maskClosable={false}` — overlay click does NOT close (dialog must resolve explicitly).
+- Body scroll locked while open (AntD default).
 
 ## Visual states
 
@@ -139,4 +145,5 @@ TBC from production — capture during the build session by firing a delete acti
 ## Open questions
 
 1. Do we ship this alongside `Modal` or collapse both into one `Dialog` primitive with tone? Suggest **alongside**. `Modal` hosts arbitrary content; `AlertDialog` is purpose-built for confirmations and should have a narrower API.
-2. Radix vs AntD — this plan picks Radix for accessibility reasons. All other overlays in the DS extend AntD. Confirm with Jim that mixing Radix in is acceptable. If not, fall back to `AntD Modal` with `type: "confirm"` and adjust the accessibility section to call out the regression.
+2. ~~Radix vs AntD~~ — **Resolved 2026-04-22: AntD.** Keep the DS on a single overlay foundation. See README.md decision A2.
+3. During build, verify Cancel-default-focus works via AntD's `afterOpenChange`. If it doesn't, add a small `data-alert-cancel` ref pattern. Document in the commit.

@@ -118,4 +118,4 @@ TBC from production — capture during build with an open form. Expected default
 
 1. **Data migration** — existing production phone numbers are stored as typed (inconsistent format). Do we migrate existing records to E.164, or only enforce the format on new saves? Suggest **new saves only** in the component PR; queue a backfill script as a separate task.
 2. **Country picker visibility** — some customers only use AU. Do we hide the country selector entirely when `preferredCountries` is length 1? Lean yes, and expose `showCountrySelector={false}` for single-country accounts.
-3. **Dep choice** — `react-phone-number-input` is mature but the bundle is ~120KB gz including `libphonenumber-js/max`. We can drop to `libphonenumber-js/min` (~40KB gz) if Splose only needs AU + NZ + a few others. Confirm bundle budget in the build session.
+3. ~~**Dep choice**~~ — **Resolved 2026-04-22 (A3): use `react-phone-number-input` with `libphonenumber-js/min`** (≈ 40KB gz). If AU/NZ coverage is insufficient for the metadata subset, escalate during build before expanding to `mobile` or `max`.

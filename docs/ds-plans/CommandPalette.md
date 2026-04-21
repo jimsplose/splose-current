@@ -133,6 +133,6 @@ No live sample — design defaults:
 
 ## Open questions
 
-1. **Command registry** — where does the canonical command list live? Options: (a) a static `src/commands/index.ts` module, (b) each route registers its own commands on mount, (c) a hook that reads from Next.js routing + a hand-maintained action list. Lean **(a) + (b)**: static global + per-route register for scope. Needs a small design conversation before the build.
+1. ~~**Command registry**~~ — **Resolved 2026-04-22 (D2): hybrid.** A static `src/commands/index.ts` holds global commands (navigation, top-level creates). Routes that want per-page scope import a `useRegisterCommands(commands)` hook that adds commands while the route is mounted and removes them on unmount.
 2. **Recents** — driven by local storage of the last N clicked items? Or a server-side "last visited" list? Simpler = local storage. Confirm.
 3. **AI commands** — later, commands could be suggested by an AI that sees the current page. Out of scope for this component; but the API should leave room (suggest: a `suggestCommands` hook that asynchronously fetches and appends).

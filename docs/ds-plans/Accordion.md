@@ -8,7 +8,7 @@
 
 ## What it does
 
-A vertical list of expandable panels. Each panel has a header and a body; clicking the header toggles the body visible. Used for long forms that benefit from optional-section collapse, FAQ-style reference blocks, and "additional details" disclosures on detail pages. The DS already has `Collapse` which covers this use case — the question is whether `Accordion` is a rename, a richer sibling, or a layer of naming hygiene. See Open questions.
+A vertical list of expandable panels. Each panel has a header and a body; clicking the header toggles the body visible. Used for long forms that benefit from optional-section collapse, FAQ-style reference blocks, and "additional details" disclosures on detail pages. **This plan delivers an in-place upgrade of the existing `Collapse` component**, renamed to `Accordion`, with a deprecated `Collapse` alias kept for a migration window (B2 resolution 2026-04-22).
 
 ## API
 
@@ -35,13 +35,14 @@ Each row's `title` is a ReactNode so consumers can inline a `Badge` or `Icon` wi
 
 ## What it extends
 
-Radix `@radix-ui/react-accordion` — cleaner accessibility story (arrow-key nav, correct `aria-controls` wiring) than AntD's `Collapse`. The existing `Collapse` DS component wraps AntD `Collapse`. Three reasonable paths:
+Existing `src/components/ds/Collapse.tsx` (wraps AntD `Collapse`). This session:
 
-- **(a) Replace `Collapse` with `Accordion`**, migrate consumers, delete `Collapse`. Lines up with naming convention (DaisyUI uses `accordion`).
-- **(b) Keep both**: `Collapse` stays for the single-panel disclosure case, `Accordion` is multi-panel only.
-- **(c) Upgrade `Collapse` in place** to the Radix primitive, rename the export, keep a deprecated re-export of `Collapse` during a migration window.
+1. Renames the component export to `Accordion`. The file itself can rename to `Accordion.tsx` or stay as `Collapse.tsx` with the new default export — pick whichever diffs smaller during the build.
+2. Adds the new API surface described below (description lines, `tone="subtle"`, `items` array shape).
+3. Re-exports `Collapse` as a deprecated alias from `@/components/ds` with a JSDoc `@deprecated Use Accordion instead.` so the TypeScript LSP nudges consumers.
+4. Leaves AntD `Collapse` as the underlying primitive. Keyboard navigation (Up/Down, Home/End, typeahead) is added via a small wrapper that attaches key handlers to the header buttons if AntD doesn't provide them natively. Verify AntD's 2025 Collapse accessibility during the build; if acceptable as-is, skip the wrapper.
 
-Lean toward **(a)** — the DS already uses DaisyUI naming and Radix gives us a better base. Note this in Open questions for Jim.
+No new dep. The deprecated `Collapse` alias is removed in a follow-up wave once all consumers migrate.
 
 ## Production usage (Chrome MCP walk)
 
@@ -71,10 +72,10 @@ Additional tokens to resolve during build:
 
 ## Accessibility
 
-- Radix exposes correct roles: `button` on the trigger, `region` on the panel, `aria-controls`, `aria-expanded`.
-- Keyboard: Space/Enter toggles the focused row; Up/Down navigates between triggers; Home/End jumps to first/last.
-- Screen reader announces state changes on toggle.
-- Do not rely on colour alone to signal open state — chevron rotation plus aria-expanded is the belt-and-braces default.
+- AntD Collapse renders the trigger as a `<div role="button" aria-expanded>` with `aria-controls` pointing at the panel. Confirm this in the build — if AntD has regressed (historically it has), patch by rendering our own `<button>` header.
+- Keyboard: Space/Enter toggles the focused row (AntD default). Up/Down navigation between triggers and Home/End-to-first/last is **not** in AntD's default; add via a small key handler in the wrapper.
+- Screen reader announces state changes on toggle (AntD default).
+- Do not rely on colour alone to signal open state — chevron rotation plus `aria-expanded` is the belt-and-braces default.
 
 ## Visual states
 
@@ -121,11 +122,9 @@ Additional tokens to resolve during build:
 - [ ] MDX doc with `SploseDocHeader`.
 - [ ] Wired into `src/components/ds/index.ts`.
 - [ ] `docs/reference/ds-component-catalog.md` updated in the same commit.
-- [ ] Decision on `Collapse` → `Accordion` migration documented (delete + migrate, keep both with guidance, or deprecate alias).
+- [ ] `Accordion` export lands; `Collapse` re-exported as a deprecated alias with a JSDoc `@deprecated` tag; `grep -r "from.*Collapse" src/` still resolves (no migration required in this session).
 - [ ] At least one real consumer migrated to prove the API (suggest: the patient detail "Additional details" block).
 
 ## Open questions
 
-1. **Collapse vs Accordion** — resolve before building. See the three options under "What it extends". Lean replace.
-2. If keeping both, how does a consumer pick? The MDX needs a crisp rule. Suggest: "one pane = Collapse, stack = Accordion" but open to alternatives.
-3. Radix dependency — if the DS already added `@radix-ui/*` for `AlertDialog` (Phase 2), this Accordion is "free". If AlertDialog stays on AntD, adding Radix here is the first Radix dep. Decide together.
+All resolved 2026-04-22. Upgrade-in-place path (B2 option c), AntD stays as base (A2 option b). Build can proceed.

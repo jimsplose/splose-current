@@ -125,5 +125,5 @@ Measure on build with a modal open. Expected defaults matching existing `FormSel
 ## Open questions
 
 1. **Multi-select** — not in this plan. If Splose has multi-select use cases (tag assignment, practitioner multi-filter on reports), queue a separate `MultiSelect` plan. Lean: lift the common AntD `Select mode="multiple"` consumers into a new DS component later.
-2. **Downshift vs react-aria vs AntD** — pick at build time based on a 30-minute prototype. Lean **Downshift** for stability; react-aria is newer but cleaner; AntD risks the same leak that made us avoid it for Toast.
+2. ~~**Downshift vs react-aria vs AntD**~~ — **Resolved 2026-04-22 (D4): Downshift.**
 3. **Async variant** — existing DS has `AsyncSelect` which covers server-fetched options. Confirm `ComboBox` is strictly client-filtered. If we need a combined component, that's a separate conversation.

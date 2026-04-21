@@ -119,4 +119,4 @@ TBC for drawer chrome; capture during build with the calendar appointment side p
 ## Open questions
 
 1. **Overlap with `Modal`** — confirm the distinction. Drawer = slides from edge, doesn't block page resolution. Modal = centred, blocks page until closed. Document in the MDX so the pattern is clear at import-time.
-2. **AppointmentSidePanel migration** — this file is in audit session 29's scope (`open`), which plans to apply already-shipped DS components to it. Question: does Drawer land **before** session 29 runs (ideal — session 29 can use the new Drawer), or does session 29 do inline-style cleanup first and Drawer migrates later? If before, sequence this build after session 29 planning.
+2. ~~**AppointmentSidePanel migration**~~ — **Resolved 2026-04-22 (C1): Drawer lands first; audit session 29 waits.** Sequence this build **before** session 29 so session 29 can migrate `AppointmentSidePanel.tsx` onto the new Drawer without double-work.
