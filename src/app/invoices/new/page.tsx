@@ -6,12 +6,18 @@ import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
 import {
   Button,
+  DataTable,
   FormInput,
   FormPage,
   FormSelect,
   FormTextarea,
   Grid,
+  TableBody,
+  TableHead,
+  Td,
   Text,
+  Th,
+  Tr,
 } from "@/components/ds";
 
 const mockPatients = [
@@ -248,60 +254,58 @@ export default function NewInvoicePage() {
       {patient && (
         <div style={{ marginTop: 24 }}>
           <div style={{ overflowX: "auto", border: "1px solid var(--color-border)", borderRadius: 8 }}>
-            <table style={{ width: "100%", borderCollapse: "collapse" }}>
-              <thead>
-                <tr style={{ background: "var(--color-fill-quaternary)", textAlign: "left" }}>
-                  <th style={{ padding: "10px 12px", fontSize: 14, fontWeight: 500, color: "var(--color-text-secondary)", width: 100 }}>Type</th>
-                  <th style={{ padding: "10px 12px", fontSize: 14, fontWeight: 500, color: "var(--color-text-secondary)" }}>Description</th>
-                  <th style={{ padding: "10px 12px", fontSize: 14, fontWeight: 500, color: "var(--color-text-secondary)", width: 100 }}>Code</th>
-                  <th style={{ padding: "10px 12px", fontSize: 14, fontWeight: 500, color: "var(--color-text-secondary)", width: 90 }}>Unit</th>
-                  <th style={{ padding: "10px 12px", fontSize: 14, fontWeight: 500, color: "var(--color-text-secondary)", width: 120 }}>Tax rate</th>
-                  <th style={{ padding: "10px 12px", fontSize: 14, fontWeight: 500, color: "var(--color-text-secondary)", width: 100, textAlign: "right" }}>Price</th>
-                  <th style={{ padding: "10px 12px", fontSize: 14, fontWeight: 500, color: "var(--color-text-secondary)", width: 70, textAlign: "right" }}>Qty</th>
-                  <th style={{ padding: "10px 12px", fontSize: 14, fontWeight: 500, color: "var(--color-text-secondary)", width: 90, textAlign: "right" }}>Discount</th>
-                  <th style={{ padding: "10px 12px", fontSize: 14, fontWeight: 500, color: "var(--color-text-secondary)", width: 100, textAlign: "right" }}>Amount</th>
-                  <th style={{ padding: "10px 8px", width: 40 }} />
-                </tr>
-              </thead>
-              <tbody>
+            <DataTable style={{ borderCollapse: "collapse" }}>
+              <TableHead>
+                <Th style={{ width: 100, padding: "10px 12px", fontWeight: 500, color: "var(--color-text-secondary)", backgroundColor: "var(--color-fill-quaternary)" }}>Type</Th>
+                <Th style={{ padding: "10px 12px", fontWeight: 500, color: "var(--color-text-secondary)", backgroundColor: "var(--color-fill-quaternary)" }}>Description</Th>
+                <Th style={{ width: 100, padding: "10px 12px", fontWeight: 500, color: "var(--color-text-secondary)", backgroundColor: "var(--color-fill-quaternary)" }}>Code</Th>
+                <Th style={{ width: 90, padding: "10px 12px", fontWeight: 500, color: "var(--color-text-secondary)", backgroundColor: "var(--color-fill-quaternary)" }}>Unit</Th>
+                <Th style={{ width: 120, padding: "10px 12px", fontWeight: 500, color: "var(--color-text-secondary)", backgroundColor: "var(--color-fill-quaternary)" }}>Tax rate</Th>
+                <Th align="right" style={{ width: 100, padding: "10px 12px", fontWeight: 500, color: "var(--color-text-secondary)", backgroundColor: "var(--color-fill-quaternary)" }}>Price</Th>
+                <Th align="right" style={{ width: 70, padding: "10px 12px", fontWeight: 500, color: "var(--color-text-secondary)", backgroundColor: "var(--color-fill-quaternary)" }}>Qty</Th>
+                <Th align="right" style={{ width: 90, padding: "10px 12px", fontWeight: 500, color: "var(--color-text-secondary)", backgroundColor: "var(--color-fill-quaternary)" }}>Discount</Th>
+                <Th align="right" style={{ width: 100, padding: "10px 12px", fontWeight: 500, color: "var(--color-text-secondary)", backgroundColor: "var(--color-fill-quaternary)" }}>Amount</Th>
+                <Th style={{ width: 40, padding: "10px 8px", backgroundColor: "var(--color-fill-quaternary)" }} />
+              </TableHead>
+              <TableBody>
                 {lineItems.map((item) => (
-                  <tr key={item.id} style={{ borderTop: "1px solid var(--color-border)" }}>
-                    <td style={{ padding: "8px 8px" }}>
+                  <Tr key={item.id} style={{ borderTop: "1px solid var(--color-border)" }}>
+                    <Td style={{ padding: "8px 8px" }}>
                       <FormSelect
                         value={item.type}
                         onChange={(value) => updateLineItem(item.id, "type", value)}
                         options={mockTypeOptions}
                       />
-                    </td>
-                    <td style={{ padding: "8px 8px" }}>
+                    </Td>
+                    <Td style={{ padding: "8px 8px" }}>
                       <FormInput
                         value={item.description}
                         onChange={(e) => updateLineItem(item.id, "description", e.target.value)}
                         placeholder="Description"
                       />
-                    </td>
-                    <td style={{ padding: "8px 8px" }}>
+                    </Td>
+                    <Td style={{ padding: "8px 8px" }}>
                       <FormInput
                         value={item.code}
                         onChange={(e) => updateLineItem(item.id, "code", e.target.value)}
                         placeholder="Code"
                       />
-                    </td>
-                    <td style={{ padding: "8px 8px" }}>
+                    </Td>
+                    <Td style={{ padding: "8px 8px" }}>
                       <FormSelect
                         value={item.unit}
                         onChange={(value) => updateLineItem(item.id, "unit", value)}
                         options={mockUnitOptions}
                       />
-                    </td>
-                    <td style={{ padding: "8px 8px" }}>
+                    </Td>
+                    <Td style={{ padding: "8px 8px" }}>
                       <FormSelect
                         value={item.taxRate}
                         onChange={(value) => updateLineItem(item.id, "taxRate", value)}
                         options={mockTaxRateOptions}
                       />
-                    </td>
-                    <td style={{ padding: "8px 8px" }}>
+                    </Td>
+                    <Td style={{ padding: "8px 8px" }}>
                       <FormInput
                         type="number"
                         step="0.01"
@@ -311,8 +315,8 @@ export default function NewInvoicePage() {
                         placeholder="0.00"
                         style={{ textAlign: "right" }}
                       />
-                    </td>
-                    <td style={{ padding: "8px 8px" }}>
+                    </Td>
+                    <Td style={{ padding: "8px 8px" }}>
                       <FormInput
                         type="number"
                         min="1"
@@ -320,8 +324,8 @@ export default function NewInvoicePage() {
                         onChange={(e) => updateLineItem(item.id, "qty", e.target.value)}
                         style={{ textAlign: "right" }}
                       />
-                    </td>
-                    <td style={{ padding: "8px 8px" }}>
+                    </Td>
+                    <Td style={{ padding: "8px 8px" }}>
                       <FormInput
                         type="number"
                         min="0"
@@ -331,11 +335,11 @@ export default function NewInvoicePage() {
                         placeholder="0%"
                         style={{ textAlign: "right" }}
                       />
-                    </td>
-                    <td style={{ padding: "8px 12px", textAlign: "right", fontWeight: 500, fontSize: 14, color: "var(--color-text)" }}>
+                    </Td>
+                    <Td align="right" style={{ padding: "8px 12px", fontWeight: 500, color: "var(--color-text)" }}>
                       ${(calcLineSubtotal(item) + calcLineTax(item)).toFixed(2)}
-                    </td>
-                    <td style={{ padding: "8px 4px" }}>
+                    </Td>
+                    <Td style={{ padding: "8px 4px" }}>
                       {lineItems.length > 1 && (
                         <Button
                           variant="icon"
@@ -345,11 +349,11 @@ export default function NewInvoicePage() {
                           <DeleteOutlined style={{ fontSize: 16 }} />
                         </Button>
                       )}
-                    </td>
-                  </tr>
+                    </Td>
+                  </Tr>
                 ))}
-              </tbody>
-            </table>
+              </TableBody>
+            </DataTable>
           </div>
           <div style={{ padding: "12px 0" }}>
             <Button variant="ghost" size="sm" onClick={addLineItem}>

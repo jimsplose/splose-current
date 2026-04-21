@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { Flex } from "antd";
-import { Badge, Button, Card, Divider, Grid, Text } from "@/components/ds";
+import { Badge, Button, Card, DataTable, Divider, Grid, TableBody, TableHead, Td, Text, Th, Tr } from "@/components/ds";
 
 const STATUS_VARIANTS: Record<string, "green" | "red" | "blue" | "yellow" | "gray"> = {
   Paid: "green", Draft: "gray", Sent: "blue", Overdue: "red",
@@ -198,36 +198,18 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
 
               {/* Line items table */}
               <div style={{ marginBottom: 32 }}>
-                <table style={{ width: '100%' }}>
-                  <thead>
-                    <tr className="border-b border-border">
-                      <th className="pb-3 text-left">
-                        <Text variant="heading/sm" as="span" color="secondary">Item code</Text>
-                      </th>
-                      <th className="pb-3 text-left">
-                        <Text variant="heading/sm" as="span" color="secondary">Description</Text>
-                      </th>
-                      <th className="pb-3 text-right">
-                        <Text variant="heading/sm" as="span" color="secondary">Unit price</Text>
-                      </th>
-                      <th className="pb-3 text-right">
-                        <Text variant="heading/sm" as="span" color="secondary">Quantity</Text>
-                      </th>
-                      <th className="pb-3 text-right">
-                        <Text variant="heading/sm" as="span" color="secondary">Unit</Text>
-                      </th>
-                      <th className="pb-3 text-right">
-                        <Text variant="heading/sm" as="span" color="secondary">Discount</Text>
-                      </th>
-                      <th className="pb-3 text-right">
-                        <Text variant="heading/sm" as="span" color="secondary">GST</Text>
-                      </th>
-                      <th className="pb-3 text-right">
-                        <Text variant="heading/sm" as="span" color="secondary">Amount AUD</Text>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
+                <DataTable>
+                  <TableHead>
+                    <Th>Item code</Th>
+                    <Th>Description</Th>
+                    <Th align="right">Unit price</Th>
+                    <Th align="right">Quantity</Th>
+                    <Th align="right">Unit</Th>
+                    <Th align="right">Discount</Th>
+                    <Th align="right">GST</Th>
+                    <Th align="right">Amount AUD</Th>
+                  </TableHead>
+                  <TableBody>
                     {invoice.items.map(
                       (
                         item: { id: string; description: string; unitPrice: number; quantity: number; total: number },
@@ -236,44 +218,30 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
                         const itemCode = generateItemCode(item.description, idx);
                         const gstRate = invoice.billingType === "NDIS" ? 0 : 10;
                         return (
-                          <tr key={item.id} className="border-b border-fill-secondary">
-                            <td className="py-3">
+                          <Tr key={item.id}>
+                            <Td>
                               <Text variant="body/sm" as="span" color="secondary" style={{ fontFamily: 'monospace' }}>{itemCode}</Text>
-                            </td>
-                            <td className="py-3">
-                              <Text variant="body/md" as="span" color="text">{item.description}</Text>
-                            </td>
-                            <td className="py-3 text-right tabular-nums">
-                              <Text variant="body/md" as="span" color="text">${item.unitPrice.toFixed(2)}</Text>
-                            </td>
-                            <td className="py-3 text-right tabular-nums">
-                              <Text variant="body/md" as="span" color="text">{item.quantity.toFixed(2)}</Text>
-                            </td>
-                            <td className="py-3 text-right">
-                              <Text variant="body/md" as="span" color="secondary">Hour</Text>
-                            </td>
-                            <td className="py-3 text-right">
-                              <Text variant="body/md" as="span" color="secondary">$0.00</Text>
-                            </td>
-                            <td className="py-3 text-right">
-                              <Text variant="body/md" as="span" color="secondary">{gstRate}%</Text>
-                            </td>
-                            <td className="py-3 text-right tabular-nums">
-                              <Text variant="label/lg" as="span" color="text">${item.total.toFixed(2)}</Text>
-                            </td>
-                          </tr>
+                            </Td>
+                            <Td>{item.description}</Td>
+                            <Td align="right" className="tabular-nums">${item.unitPrice.toFixed(2)}</Td>
+                            <Td align="right" className="tabular-nums">{item.quantity.toFixed(2)}</Td>
+                            <Td align="right"><Text variant="body/md" as="span" color="secondary">Hour</Text></Td>
+                            <Td align="right"><Text variant="body/md" as="span" color="secondary">$0.00</Text></Td>
+                            <Td align="right"><Text variant="body/md" as="span" color="secondary">{gstRate}%</Text></Td>
+                            <Td align="right" className="tabular-nums"><Text variant="label/lg" as="span" color="text">${item.total.toFixed(2)}</Text></Td>
+                          </Tr>
                         );
                       },
                     )}
                     {invoice.items.length === 0 && (
-                      <tr>
-                        <td colSpan={8} className="py-6 text-center">
+                      <Tr>
+                        <Td align="center" colSpan={8}>
                           <Text variant="body/md" as="span" color="tertiary">No line items</Text>
-                        </td>
-                      </tr>
+                        </Td>
+                      </Tr>
                     )}
-                  </tbody>
-                </table>
+                  </TableBody>
+                </DataTable>
               </div>
 
               {/* Totals section */}

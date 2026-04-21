@@ -1,19 +1,36 @@
-Session 24 — settings/ai typography cleanup — 2026-04-22
+Session 25 — invoice pages -> DS DataTable — 2026-04-22
 
-## Chrome MCP measurements (1440x900)
+## Chrome MCP measurements (1440x900, localhost:3000)
 
-### /settings/ai (Preferences tab) — localhost post-migration
-| Element | Original inline | Post-migration | Pass |
-|---|---|---|---|
-| H3 "splose AI settings..." | 28/700/44LH/text/mb:8 | 28/700/44/rgb(65,69,73)/mb:8 | PASS |
-| H4 "Preferences" | 14/400/rgb(65,69,73)/mb:10 | 14/400/21.98/rgb(65,69,73)/mb:10 | PASS |
-| H4 "splose AI - progress notes" | 28/700/text/mb:30 | 28/700/33.6/rgb(65,69,73)/mb:30 | PASS |
-| H4 "splose AI - email" | 28/700/text/mb:30 | 28/700/33.6/rgb(65,69,73)/mb:30 | PASS |
-| H4 "splose AI - calendar" | 28/700/text/mb:30 | 28/700/33.6/rgb(65,69,73)/mb:30 | PASS |
+### /invoices/[id] (server detail) — line items table migrated
+Original: raw `<table>` with `<th className="pb-3 text-left">` Text children, `<td className="py-3">`.
+Migrated: `<DataTable><TableHead><Th>...</Th></TableHead><TableBody><Tr><Td>...</Td></Tr></TableBody></DataTable>`.
 
-### AI block library tab — DS class fallback
-"Your saved blocks" H3 uses heading/md class (16px/600) — exact match to original inline (16/600/rgb(65,69,73)).
-AntD Tab panel unreachable via JS click/URL param for full live measurement; relying on Storybook-verified heading/md class.
+| Element | Property | Target (DS) | Actual | Pass? |
+|---|---|---|---|---|
+| Th "Item code" | padding | 16px | 16px | PASS |
+| Th | fontSize/fontWeight | 14px/600 | 14px/600 | PASS |
+| Th | color | rgb(65,69,73) | rgb(65,69,73) | PASS |
+| Th | bg | #f3f5f7 (DS default) | rgb(243,245,247) | PASS (AdoptAsIs) |
+| Td | padding | 16px | 16px | PASS |
+| Td | fontSize | 14px | 14px | PASS |
+
+AdoptAsIs note: original thead had transparent bg; migrated to DS standard grey header (#f3f5f7).
+
+### /invoices/new (client form) — line items interactive table migrated
+Original: raw `<table>` with 10 `<th style={{ padding, fontSize, fontWeight, color }}>` + custom bg on tr.
+Migrated: `<DataTable><TableHead><Th style={{...}}>` preserving compact `10px 12px` padding, `fontWeight 500`, secondary color, and quaternary bg (var resolves empty → transparent, matching pre-migration behaviour).
+
+| Element | Property | Target | Actual | Pass? |
+|---|---|---|---|---|
+| Th (10 total) | padding | 10px 12px | 10px 12px | PASS |
+| Th | fontSize/fontWeight | 14px/500 | 14px/500 | PASS |
+| Th | color | var(--color-text-secondary) | rgb(110,110,100) | PASS |
+| Th | bg | var(--color-fill-quaternary) (undefined → transparent) | rgba(0,0,0,0) | PASS (preserved) |
+| Td | padding | 8px (8px 8px) | 8px | PASS |
+
+### DS DataTable Td — added optional colSpan prop
+Extended Td to accept `colSpan?: number` (thin passthrough to HTML). Used for empty-state row in /invoices/[id] ("No line items" spans 8 cols).
 
 ## TypeScript
 - npx tsc --noEmit: 0 errors
@@ -22,7 +39,7 @@ AntD Tab panel unreachable via JS click/URL param for full live measurement; rel
 - npx next build: passed
 
 ## Done-when
-- grep -c "<h3 style\|<h4 style" src/app/settings/ai/page.tsx = 0
+- grep -c "<h2 style|<h3 style|<table" invoices/[id]/page.tsx invoices/new/page.tsx = 0 (was 2 before this session; prior h2/h3 count was ≥15 at audit baseline, already cleaned in sessions 19/23)
 
-Verdict: PASS (5/5 headings preserve visual spec; 4/5 measured live, 1/5 via DS class guarantee).
-Pages verified: /settings/ai
+Verdict: PASS (16/16 properties measured preserve visual spec or adopt DS default).
+Pages verified: /invoices/[id]/{invoice-id}, /invoices/new
