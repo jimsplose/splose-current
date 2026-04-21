@@ -109,7 +109,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           <Badge variant={statusVariant(invoice.status)}>{invoice.status}</Badge>
         </Flex>
         <Flex align="center" gap={8}>
-          <Badge variant="green" className="text-label-lg" style={{ borderRadius: 8, padding: '6px 12px' }}>
+          <Badge variant="green" size="lg">
             Credit balance: ${invoice.status === "Paid" ? "0.00" : "680.00"}
           </Badge>
           <Dropdown

@@ -3,6 +3,7 @@
 import { Tag } from "antd";
 
 type BadgeVariant = "green" | "red" | "blue" | "yellow" | "orange" | "gray" | "purple";
+type BadgeSize = "sm" | "md" | "lg";
 
 interface BadgeProps {
   children: React.ReactNode;
@@ -13,10 +14,17 @@ interface BadgeProps {
   /** Override solid-mode text color. Defaults to white when solidBg is provided. */
   solidText?: string;
   shape?: "rounded" | "pill";
+  size?: BadgeSize;
   onRemove?: () => void;
   className?: string;
   style?: React.CSSProperties;
 }
+
+const sizeStyle: Record<BadgeSize, React.CSSProperties> = {
+  sm: { padding: "4px 10px", fontSize: 12 },
+  md: {},
+  lg: { padding: "6px 12px", fontSize: 14, fontWeight: 500 },
+};
 
 const variantColorMap: Record<BadgeVariant, string> = {
   green: "success",
@@ -38,7 +46,7 @@ const solidColorMap: Record<BadgeVariant, { bg: string; text: string }> = {
   purple: { bg: "#8250FF", text: "#ffffff" },
 };
 
-export default function Badge({ children, variant = "gray", solid = false, solidBg, solidText, shape = "rounded", onRemove, className, style: styleProp }: BadgeProps) {
+export default function Badge({ children, variant = "gray", solid = false, solidBg, solidText, shape = "rounded", size = "md", onRemove, className, style: styleProp }: BadgeProps) {
   const borderRadius = shape === "pill" ? 9999 : 8;
   const isPill = shape === "pill";
 
@@ -46,6 +54,7 @@ export default function Badge({ children, variant = "gray", solid = false, solid
     borderRadius,
     fontSize: isPill ? 14 : 12,
     ...(isPill ? { padding: "4px 12px", fontWeight: 500 } : {}),
+    ...sizeStyle[size],
     ...styleProp,
   };
 
@@ -112,4 +121,4 @@ export function statusVariant(status: string): BadgeVariant {
   return map[status] ?? "gray";
 }
 
-export type { BadgeVariant, BadgeProps };
+export type { BadgeVariant, BadgeSize, BadgeProps };

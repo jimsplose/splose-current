@@ -251,6 +251,38 @@ export const PillShape: Story = {
 /*  Source: /invoices, /calendar — active filter indicators             */
 /* ------------------------------------------------------------------ */
 
+/* ------------------------------------------------------------------ */
+/*  Sizes — sm / md / lg                                               */
+/*  sm: service/tag chips (waitlist page)                               */
+/*  md: default (table status badges, filter pills)                    */
+/*  lg: credit-balance / label-style badges (invoice detail)           */
+/* ------------------------------------------------------------------ */
+
+export const Sizes: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ width: 32, fontSize: 11, color: 'var(--color-text-secondary)' }}>sm</span>
+        <Badge variant="blue" size="sm">Physiotherapy</Badge>
+        <Badge variant="green" size="sm">Active</Badge>
+        <Badge variant="gray" size="sm">Archived</Badge>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ width: 32, fontSize: 11, color: 'var(--color-text-secondary)' }}>md</span>
+        <Badge variant="blue">Physiotherapy</Badge>
+        <Badge variant="green">Active</Badge>
+        <Badge variant="gray">Archived</Badge>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ width: 32, fontSize: 11, color: 'var(--color-text-secondary)' }}>lg</span>
+        <Badge variant="green" size="lg">Credit balance: $680.00</Badge>
+        <Badge variant="blue" size="lg">Outstanding</Badge>
+      </div>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
 export const RemovableFilterChips: Story = {
   render: () => (
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
