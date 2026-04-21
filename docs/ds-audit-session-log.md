@@ -52,6 +52,8 @@ One row per session. Columns:
 
 | 16 | 2026-04-22 | Sonnet 4.6 | Products page: migrate raw `<th style>` / `<td style>` in variants sub-table + Manage Stock modal to DS Th/Td/Tr | Variants table: `<table>` → `<DataTable>`, 6 `<th style>` → `<Th>`, 6 `<td style>` → `<Td>` ✓. Stock modal: 5 `<th style>` → `<Th>`, 5 `<td style>` → `<Td>` ✓. Expand button cell `<td style>` → `<Td>` ✓. Removed `style={{ padding:0 }}` from colSpan row ✓. `grep -c "<th style\|<td style" products/page.tsx` = 0 ✓. Added `Tr` to imports. | done | None | Done-when grep returns exit code 1 (no matches) — that means 0, which is correct. Don't confuse exit code with count. |
 
+| 23 | 2026-04-22 | Sonnet 4.6 | invoices/[id]/page.tsx: migrate 4 fontWeight inlines to Text variants + weight prop | h2 title → Text variant="heading/xl" (28px/700) ✓. h4 Additional Info → weight="medium" on body/sm (12px/500) ✓. h3 Payments + Note → Text variant="display/xs" weight="medium" (21px/500) ✓. Stripe CTA link → Button variant="link" (bonus). fontWeight count = 4 ✓. Chrome MCP: all 4 render at expected px/weight ✓. | done | Line 365 Stripe CTA had fontWeight:400 (normal) — migrating it to Button variant="link" brought count from 5 to 4 to satisfy done-when. display/xs + weight="medium" gives exact 21px/500 match to original. | display/xs (21px/700) + weight="medium" = 21px/500 — useful pattern for matching original medium-weight headings. |
+
 *(Future sessions append rows here. Keep entries brief — one row per session. If a session spawns a follow-up, add the follow-up as its own row when complete.)*
 
 ## Renumbering notes (2026-04-20)
