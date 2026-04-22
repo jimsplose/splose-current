@@ -64,3 +64,5 @@ export type { SkeletonProps, SkeletonShape } from "./Skeleton";
 export { Toaster, toast } from "./Toast";
 export { default as DatePicker } from "./DatePicker";
 export type { DatePickerProps, DatePickerSize } from "./DatePicker";
+export { default as NumberInput } from "./NumberInput";
+export type { NumberInputProps, NumberInputSize, NumberInputFormat, NumberInputCurrency } from "./NumberInput";

@@ -37,6 +37,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `FormSelect` | Labeled select dropdowns (supports searchable, placeholder) |
 | `FormTextarea` | Labeled textarea matching FormInput styling |
 | `DatePicker` | Single-date input with calendar popover. Emits native `Date` at boundary (AntD's dayjs is hidden). Props: `label`, `value`, `onChange`, `minDate`, `maxDate`, `disabledDates`, `format`, `clearable`, `size` (sm/md/lg), `error`, `hint`. Locale locked to en-AU (DD/MM/YYYY). For date ranges use `DateRangeFilter`; for date+time pair with `TimePicker`. |
+| `NumberInput` | Typed numeric input with stepper, clamping, and format-aware display. `format`: `integer` / `decimal` / `currency` (AUD `$1,234.50`) / `percent` (`12.5%`). Emits `number \| null` (never strings). Props: `min`, `max`, `step`, `precision`, `currency`, `showSteppers`, `prefix`, `suffix`, `size` (sm/md/lg), `error`, `hint`. Replaces `<FormInput type="number">` + manual `parseFloat()`. |
 | `FormColorPicker` | Color picker with native and swatches variants |
 | `Toggle` | Boolean on/off switches |
 | `Checkbox` | Styled checkbox with optional label |
