@@ -5,84 +5,104 @@ Linear order for everything that's scheduled or open in the repo, with the slash
 ## TL;DR — what to run, in order
 
 ```
-/ds-migrate Calendar            # Plan 01 — biggest visible win; closes audit 29
-/ds-migrate Invoice             # Plan 02 — PaymentStatusBadge sweep, invoice adoption
-/ds-migrate Patient             # Plan 03 — PatientAvatar + Tag + List
-/ds-migrate Forms               # Plan 04 — modals + destructive confirms + toast
-/ds-migrate GlobalShell         # Plan 05 — CommandPalette, Breadcrumbs, Tooltips, Skeleton
-/ds-fix                         # re-run session 27 Pass 1 counts; flip to done if targets hit
-/ds-fix                         # unblock + run session 28 (ESLint rule flip) if warnings <50
-/ds-migrate Docs                # Plan 06 — per-component MDX sweep (runs LAST on purpose)
-/audit                          # full DS audit re-run once all of Wave 5 lands (regression check)
-/deploy                         # ship
+/ds-migrate            # picks up the next Wave 5 plan automatically (00-Prep first)
+/ds-migrate Calendar   # or name the plan — skips the confirmation
+/ds-migrate Invoice
+/ds-migrate Patient
+/ds-migrate Forms
+/ds-migrate GlobalShell
+/ds-migrate RemainingApp
+/ds-migrate Stories
+/ds-migrate Cleanup    # final plan — deletes globals.css utility blocks, runs regression sweep, closes audit 27/28
+/audit                 # full DS audit re-run as regression check
+/deploy                # ship
 ```
 
-You can kick `/ds-migrate` with no argument and it picks up the next `Planned` plan automatically. Naming the plan (`/ds-migrate Calendar`) skips the confirmation step.
+`/ds-migrate` with no argument walks Wave 5 in numeric order (00 → 08). Naming the plan skips the confirmation step.
 
 ## Why this order
 
-**Wave 5 plans (`docs/ds-plans-wave5/`) are the real-page consumer migrations that Wave 4 deferred.** Each plan is a coherent page-surface migration, not one component at a time. See `docs/ds-plans-wave5/README.md` for phase ordering rationale.
+**Wave 5 plans (`docs/ds-plans-wave5/`) merge two bodies of work into one unified sequence:**
 
-**Audit backlog sessions 27 and 28 slot between Plans 05 and 06** because:
+1. **New DS adoption** — real-page consumers for the 25 Wave 4 components (`Tooltip`, `Drawer`, `AppointmentCard`, `PaymentStatusBadge`, `PatientAvatar`, etc.)
+2. **Utility-class removal** — replace the ~2000 hand-written `globals.css` utility classes (`text-body-md`, `mb-4`, `flex-1`, etc.) with DS components + `<Flex gap>` + inline `style={{}}` last-resort
 
-- Session 27 re-runs Pass 1 raw-style counts across `src/app` + `src/components`. Wave 5 migrations dramatically reduce inline styles (AppointmentCard replaces 89 on CalendarView, PaymentStatusBadge replaces 20+ across invoice surfaces, etc.). After Plan 05 lands, the total raw `style={{` count should drop under 600 and every Top-10 file should hit ≥90% drop. Then session 27 flips to `done`.
-- Session 28 promotes the `no-restricted-syntax` ESLint rule from `warn` to `error`. It's currently blocked on 886 warnings. Wave 5 should drop warnings under 50. Promote the rule + add per-file `eslint-disable-next-line` for legitimate exceptions.
+Both bodies of work touch the same files. Running them separately means migrating each file twice (one for DS adoption, one for utility removal) with two Chrome MCP verification passes per file. Running them together means one edit, one verification, one commit per surface. Wave 5 is that unified pass.
 
-**Plan 06 (MDX docs) runs LAST** because every MDX "Composition" section should cite a real shipped consumer, not a hypothetical one. Running it before the migrations means the examples are inferred from Storybook recipes; running it after means they reference actual production code.
+**Plan ordering:**
 
-**Audit (`/audit`) runs after all of Wave 5** as a regression check — full DS audit to prove the Wave 4 + Wave 5 effort delivered what the 2026-04-20 audit flagged. Also seeds the Wave 6 backlog if new patterns surface.
+- **00-Prep** — baseline counts + ESLint tracking rules (warn mode) + `<Td color>` prop + AiChatPanel CSS module. Mandatory first.
+- **01–05** — per-surface (Calendar → Invoice → Patient → Forms → GlobalShell). Each does both DS adoption + utility-class cleanup for its files. Any order within these 5 is acceptable; recommended as listed.
+- **06-RemainingApp** — utility-class cleanup on surfaces without a Wave 5 DS-adoption story (dashboard, reports, notes, products, online-booking).
+- **07-Stories** — DS stories utility cleanup + per-component MDX docs (24 files). Runs AFTER 01–06 so MDX "Composition" sections cite real shipped consumers.
+- **08-Cleanup** — delete `globals.css` utility blocks + Chrome MCP regression sweep (18+ routes) + ESLint rule promote (`warn` → `error`) + close audit backlog sessions 27, 28, and confirm 29. Runs AFTER everything.
+- **`/audit` after Plan 08** — full DS audit regression check + seeds the Wave 6 backlog.
 
 ## State of things today (2026-04-22)
 
 **Done:**
-- `docs/ds-plans/` Wave 4 — all 25 plans (Session0 + 23 components + List enhancement). Every plan `Status: Done`. Components built + exported + Storybook stories shipped. Deployed via `gh workflow run deploy.yml --ref main` on 2026-04-22.
+- `docs/ds-plans/` Wave 4 — all 25 plans (Session0 + 23 components + List enhancement). Every plan `Status: Done`. Deployed on 2026-04-22.
 - `docs/ds-audit-fix-backlog.md` sessions 01–26, 26b, 30, 31 — all `done`.
-- `docs/ds-audit-session-log.md` — full history including W4-P0 and W4-ALL entries.
 
 **In the repo, not yet on production consumer paths:**
 - 23 new DS components + enhanced List — exported from `@/components/ds`, documented in catalog, zero production imports.
 - `<Toaster />` — mounted in `src/app/layout.tsx` but no consumer calls `toast.*` yet.
 - `SploseDocHeader` + `parameters.splose` metadata — works in Storybook but only the smoke MDX uses it.
 
-**Open audit backlog:**
-- Session 27 — `partial`. Re-run Pass 1 after Wave 5 Plans 01–05.
-- Session 28 — `blocked`. Needs warning count <50 first (Wave 5 should deliver this).
-- Session 29 — `partial`. CalendarView is the biggest line item; Plan 01 addresses it.
+**Open (addressed by Wave 5):**
+- ~756 typography utility-class usages across TSX
+- ~872 color utility-class usages
+- ~425 layout utility-class usages
+- ~4 structural utility-class usages (row-hover, hover-underline, ai-*)
+- Audit session 27 — `partial` (Wave 5 Plan 08 re-runs Pass 1 counts)
+- Audit session 28 — `blocked` (Wave 5 Plan 08 promotes rule to error)
+- Audit session 29 — `partial` (Wave 5 Plan 01 closes CalendarView line item)
 
-**Not planned yet (Wave 6+ backlog candidates):**
-- `MultiSelect` component (Wave 4 shipped single-select ComboBox only).
-- `DateTimePicker` (combined date+time) if a real consumer needs one input.
-- Typed-signature fallback baked into SignaturePad.
-- HoverCard safe-triangle (AntD close-delay is adequate for v1).
-- ContextMenu long-press for touch.
-- AI command suggestions in CommandPalette (`suggestCommands` hook).
-- `AvailabilityCard` (distinct from AppointmentCard — empty bookable slot).
-- `BusyTimeBlock` (calendar overlay for busy time — distinct from appointment).
-- E.164 phone backfill script for existing records.
-- Full DS audit re-run scheduled 2026-07-20 (3 months post-baseline).
+**Not planned yet (Wave 6+ candidates):**
+- `MultiSelect` component (Wave 4 shipped single-select ComboBox only)
+- `DateTimePicker` (combined date+time)
+- Typed-signature fallback baked into SignaturePad
+- HoverCard safe-triangle
+- ContextMenu long-press for touch
+- AI command suggestions in CommandPalette
+- `AvailabilityCard` / `BusyTimeBlock`
+- E.164 phone backfill script
+- Full DS audit re-run scheduled 2026-07-20
 
 ## Commands reference
 
 | Command | When to run | What it does |
 |---|---|---|
-| `/ds-migrate` | Next Wave 5 plan | Reads `docs/ds-plans-wave5/README.md`, picks next `Planned` plan in numeric order, walks the migration workflow (Chrome MCP dual-tab verification, commit discipline, session log, status flip). Accepts a name argument (`/ds-migrate Calendar`). |
-| `/ds-fix` | Open audit backlog | Reads `docs/ds-audit-fix-backlog.md`, picks next `open` session. Use after Plan 05 lands to re-run sessions 27 + 28. |
-| `/ds-plan` | Wave 4 plans (all done) | Reads `docs/ds-plans/`. No-op now that Wave 4 is complete, but the command still works if Jim reopens a plan as Partial. |
-| `/audit` | After Wave 5 complete | Full DS audit pass (the 2026-04-20 process). Seeds the Wave 6 backlog if new patterns surface. |
+| `/ds-migrate` | Primary Wave 5 command | Reads `docs/ds-plans-wave5/README.md`, picks next `Planned` plan in numeric order (00 → 08), walks the migration workflow (Chrome MCP dual-tab verification, commit discipline, session log, status flip). Accepts plan name argument (`/ds-migrate Calendar`). |
+| `/ds-fix` | Audit backlog | Reads `docs/ds-audit-fix-backlog.md`, picks next `open` session. Currently sessions 27/28 are addressed by Wave 5 Plan 08; run `/ds-fix` only if an audit session reopens or a new audit surfaces one. |
+| `/ds-plan` | Wave 4 plans | All 25 plans are `Done`. Command remains available in case a Wave 4 plan reopens as `Partial`. |
+| `/audit` | After Plan 08 lands | Full DS audit pass (same shape as the 2026-04-20 baseline). Seeds Wave 6 backlog if new patterns surface. |
 | `/fidelity` | Orthogonal to DS work | Production-fidelity gap tracking. Unrelated to this roadmap. |
-| `/verify` | Per-page sanity check | Dual-tab comparison for a named route. Can be used ad-hoc between Wave 5 plans. |
-| `/deploy` | After a milestone | Shows the deploy sub-menu. Per CLAUDE.md, never deploy without Jim's express permission. |
+| `/verify` | Per-page sanity check | Dual-tab comparison for a named route. Usable ad-hoc between Wave 5 plans. |
+| `/deploy` | After a milestone | Deploy sub-menu. Per CLAUDE.md, never deploy without Jim's express permission. |
+
+## Do we need one command or multiple?
+
+Kept two active commands (`/ds-migrate` + `/ds-fix`) deliberately:
+
+- **`/ds-migrate`** is planned-forward work. Plans live in numbered files with explicit scope, acceptance criteria, and commit discipline.
+- **`/ds-fix`** is audit-discovered work. Sessions come out of an audit pass and are prioritised by leverage × simplicity. Different cadence, different data shape.
+
+Merging them would confuse the mental model. After Plan 08 lands, `/ds-fix` is dormant until the next audit. `/ds-plan` is historical.
+
+For project tracking, use this roadmap + `docs/ds-plans-wave5/README.md` as the source of truth — not TodoWrite (that's per-session working memory).
 
 ## If priorities shift
 
-The Wave 5 plans are self-contained. You can reshuffle order if there's a business reason:
+Wave 5 plans are mostly independent within 01–06. Acceptable reshuffles:
 
-- Running Plan 02 (Invoice) first is fine — PaymentStatusBadge is the thinnest migration and the lowest-risk. Good choice if you want a confidence win before the Calendar work.
-- Skipping Plan 05 (GlobalShell) and going straight to Plan 06 (MDX docs) leaves CommandPalette unmounted and no Breadcrumbs in production — MDX can still reference Plans 01–04 consumers, but the "Composition" sections for CommandPalette / Breadcrumbs / Skeleton / Tooltip will be hypothetical. Acceptable if there's urgency on docs.
-- Running audit sessions 27 + 28 before all Wave 5 plans is fine but the targets won't be met. Save them until after Plan 05 or you'll just be flipping them back to `Partial` repeatedly.
+- **Run Plan 02 (Invoice) first** after Plan 00 — PaymentStatusBadge is the thinnest migration with highest per-call-site leverage (20+ call sites across invoice + payments surfaces). Good for an early confidence win before tackling the Calendar.
+- **Defer Plan 05 (GlobalShell)** — CommandPalette + Breadcrumbs + Tooltip sweep + Skeleton are polish, not "fixing broken UX". Can slip if higher priorities emerge.
+- **Run Plan 07 before all of 01–06 lands** — the MDX docs will cite Storybook recipes instead of real consumers. Acceptable if there's urgency on docs; slightly lower quality.
+- **DO NOT** run Plan 08 before 00–07 are all Done. It deletes `globals.css` utility blocks; premature deletion breaks every page still using them.
 
 ## One-line instructions for the next session
 
-> "Run `/ds-migrate` and work through Wave 5 in order, then run `/ds-fix` twice to close out audit sessions 27 and 28, then run `/ds-migrate Docs` last, then run `/audit` to regression-check the whole DS. Ask before deploying."
+> "Run `/ds-migrate` and work through Wave 5 in numeric order. Ask before deploying after Plan 08, and before running `/audit` afterward."
 
 That's the happy path.

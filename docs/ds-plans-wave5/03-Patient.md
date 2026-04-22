@@ -15,6 +15,10 @@
 
 ## Migrations
 
+This plan does TWO things in one pass for every file it touches: (1) adopt the new Wave 4 DS components, and (2) remove hand-written utility classes from `globals.css`. Both migrations happen in the same edit per file to avoid double-touch.
+
+### A. DS component adoption
+
 | From | To | Surface |
 |---|---|---|
 | Generic `<Avatar name={...} color={...}>` with ad-hoc colour logic | `<PatientAvatar patient={{ id, firstName, lastName }}>` | patient list, detail header, waitlist, ClientDetailClient |
@@ -23,6 +27,26 @@
 | `<FormInput type="text">` for DOB | `<DatePicker label="Date of birth" maxDate={today}>` | patients/new, patient edit |
 | `<FormInput type="tel">` for mobile + home phone | `<PhoneInput defaultCountry="AU">` | patients/new, contacts/new, patient edit |
 | Plain anchor with `<Avatar>` inline | `<HoverCard content={patientPreview}><a>Patient name</a></HoverCard>` | patient row in list — OPTIONAL polish |
+
+### B. Utility-class removal on patient surfaces
+
+Use the replacement mapping + priority ladder in [README.md § "Utility-class replacement reference"](README.md#utility-class-replacement-reference). Applies to every `.tsx` under:
+
+- `src/app/clients/**`
+- `src/app/patients/**`
+- `src/app/waitlist/**`
+- `src/app/contacts/**`
+
+Structural class work that lives in this plan (from utility plan Task E2): `hover-underline-on-row-hover` in `src/app/clients/ClientsPageClient.tsx`. Move to a local CSS module:
+
+```css
+/* ClientsPageClient.module.css */
+tr:hover .hoverUnderline { text-decoration: underline; }
+```
+
+Then `className="hover-underline-on-row-hover"` → `className={styles.hoverUnderline}`.
+
+Also: `row-hover` on `<Tr>` elements in patient list tables → `<Tr hover>` (DS prop).
 
 ## Chrome MCP verification
 
@@ -37,13 +61,22 @@ At 1440×900 on both tabs:
 
 ## Acceptance criteria
 
+### DS adoption
 - [ ] `grep -c "<Avatar\b" src/app/patients src/app/clients src/app/waitlist -r` = 0 outside of non-patient avatars (practitioner, reviewer — keep generic `Avatar` there).
-- [ ] `grep -c "parseFloat\|formatPhone\|stripSpaces" src/app/patients src/app/contacts -r` drops by ≥5 (phone-format helpers become unused).
+- [ ] `grep -c "parseFloat\|formatPhone\|stripSpaces" src/app/patients src/app/contacts -r` drops by ≥5.
 - [ ] ClientDetailClient.tsx remains ≤10 inline `style={{` (session 26 target).
 - [ ] New-patient form saves a valid E.164 phone number (verify in Prisma / devtools after a test save).
 - [ ] Tag row renders user-configured colours with correct contrast.
+
+### Utility-class cleanup on patient surfaces
+- [ ] `grep -rn 'className=.*text-body-\|className=.*text-heading-\|className=.*text-label-\|className=.*text-caption-\|className=.*text-display-\|className=.*text-metric-' src/app/clients src/app/patients src/app/waitlist src/app/contacts --include='*.tsx'` = 0
+- [ ] `grep -rn 'className=.*\btext-text\b\|className=.*text-text-secondary\|className=.*text-primary\b\|className=.*text-danger\b\|className=.*border-border\|className=.*bg-primary' src/app/clients src/app/patients src/app/waitlist src/app/contacts --include='*.tsx'` = 0
+- [ ] `grep -rn 'className=.*\bmb-[0-9]\|className=.*\bmt-[0-9]\|className=.*\bp-[0-9]\b\|className=.*\bflex-1\b\|className=.*\bshrink-0\b\|className=.*\bw-full\b\|className=.*\boverflow-hidden\b\|className=.*\boverflow-y-auto\b\|className=.*\bborder-b\b' src/app/clients src/app/patients src/app/waitlist src/app/contacts --include='*.tsx'` = 0
+- [ ] `grep -rn 'row-hover\|hover-underline-on-row-hover' src/app/clients src/app/patients src/app/waitlist src/app/contacts --include='*.tsx'` = 0
+
+### Gate
 - [ ] tsc 0 errors, `npx next build` passes.
-- [ ] `.verification-evidence` written per migrated surface.
+- [ ] `.verification-evidence` written per migrated surface (typography + spacing + color).
 
 ## Commit discipline
 

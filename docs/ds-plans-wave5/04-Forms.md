@@ -23,6 +23,10 @@ Settings-heavy surfaces that host form fields and destructive actions. Most are 
 
 ## Migrations
 
+This plan does TWO things in one pass for every file it touches: (1) adopt the new Wave 4 DS components, and (2) remove hand-written utility classes from `globals.css`. Both migrations happen in the same edit per file to avoid double-touch.
+
+### A. DS component adoption
+
 | From | To | Scope |
 |---|---|---|
 | `<FormInput type="number">` + `parseFloat` | `<NumberInput format="currency" currency="AUD">` | late fees, service prices, gap fees |
@@ -34,6 +38,12 @@ Settings-heavy surfaces that host form fields and destructive actions. Most are 
 | AntD `AutoComplete` / `Select` with typeahead | `<ComboBox>` | practitioner/service/tag/referrer pickers on any setting form |
 | `window.confirm("Are you sure?")` / `<Modal onOk>` confirmation | `await alertDialog.confirm({ title, tone: "danger" })` | every destructive action — delete service, delete tag, cancel invoice, discard unsaved changes |
 | `message.success(...)` / `notification.info(...)` | `toast.success(...)` / `toast.info(...)` | every save handler and async action across settings pages |
+
+### B. Utility-class removal on settings surfaces
+
+Use the replacement mapping + priority ladder in [README.md § "Utility-class replacement reference"](README.md#utility-class-replacement-reference). Applies to every `.tsx` under `src/app/settings/**`.
+
+Audit session 24 migrated some typography on `/settings/ai`; re-grep after edits to confirm no regressions. Setting pages often have form-heavy layouts where `<Flex vertical gap={16}>` replaces dozens of `mb-4` instances at once — look for those opportunities first.
 
 ## Chrome MCP verification
 
@@ -48,13 +58,21 @@ At 1440×900 on both tabs, per migrated modal:
 
 ## Acceptance criteria
 
+### DS adoption
 - [ ] `grep -c "parseFloat\|parseInt\|Number(" src/app/settings/` drops by ≥20.
 - [ ] `grep -c "from 'antd'.*message\|from 'antd'.*notification" src/` = 0. Use `toast` from `@/components/ds` everywhere.
 - [ ] `grep -c "window\.confirm\|Modal\.confirm" src/app/` = 0.
 - [ ] `grep -c "<FormInput type=.tel." src/app/` = 0 (replaced with `<PhoneInput>`).
 - [ ] Every destructive action is gated by `alertDialog.confirm` (scan for `onClick` handlers next to "Delete" / "Cancel" / "Archive" labels).
+
+### Utility-class cleanup on settings surfaces
+- [ ] `grep -rn 'className=.*text-body-\|className=.*text-heading-\|className=.*text-label-\|className=.*text-caption-\|className=.*text-display-\|className=.*text-metric-' src/app/settings --include='*.tsx'` = 0
+- [ ] `grep -rn 'className=.*\btext-text\b\|className=.*text-text-secondary\|className=.*text-primary\b\|className=.*text-danger\b\|className=.*border-border\|className=.*bg-primary' src/app/settings --include='*.tsx'` = 0
+- [ ] `grep -rn 'className=.*\bmb-[0-9]\|className=.*\bmt-[0-9]\|className=.*\bp-[0-9]\b\|className=.*\bflex-1\b\|className=.*\bshrink-0\b\|className=.*\bw-full\b\|className=.*\boverflow-hidden\b\|className=.*\boverflow-y-auto\b\|className=.*\bborder-b\b' src/app/settings --include='*.tsx'` = 0
+
+### Gate
 - [ ] tsc 0 errors, `npx next build` passes.
-- [ ] `.verification-evidence` written covering the 4 most-visited settings modals.
+- [ ] `.verification-evidence` written covering the 4 most-visited settings modals (typography + spacing).
 
 ## Commit discipline
 

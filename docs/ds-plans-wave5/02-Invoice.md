@@ -17,6 +17,10 @@
 
 ## Migrations
 
+This plan does TWO things in one pass for every file it touches: (1) adopt the new Wave 4 DS components, and (2) remove hand-written utility classes from `globals.css`. Both migrations happen in the same edit per file to avoid double-touch.
+
+### A. DS component adoption
+
 | From | To | Surface |
 |---|---|---|
 | `<Badge variant="green">Paid</Badge>` + `statusVariant()` lookup | `<PaymentStatusBadge status="paid" />` | All 7 invoice/payment surfaces — 20+ call sites |
@@ -27,6 +31,15 @@
 | AntD AutoComplete / FormSelect with typeahead | `<ComboBox>` | line-item service picker (with `onCreate` to let power users add a one-off service) |
 | `<Modal>` with typed-in signature | `<SignaturePad>` (+ type-mode fallback from Wave 4 story) | Sign & Lock on InvoiceDetailClient header |
 | Aged-debtor amount cell | optional `<Sparkline>` trend alongside amount | reports/aged-debtors row |
+
+### B. Utility-class removal on invoice + payments surfaces
+
+Use the replacement mapping + priority ladder in [README.md § "Utility-class replacement reference"](README.md#utility-class-replacement-reference). Applies to every `.tsx` under:
+
+- `src/app/invoices/**`
+- `src/app/payments/**`
+
+Task C1 from the original utility plan ("migrate `<Td>` color class usages to `Td color` prop") resolves here because invoice tables are the primary consumer of coloured Td cells. Grep pre-start: `grep -rn 'Td.*className.*text-text-secondary\|Td.*className.*text-primary\|Td.*className.*text-danger' src/app/invoices src/app/payments --include='*.tsx'`.
 
 ## Chrome MCP verification
 
@@ -40,12 +53,21 @@ At 1440×900 on both tabs:
 
 ## Acceptance criteria
 
+### DS adoption
 - [ ] `grep -r "variant=.\"green\".*Paid" src/app/` = 0 (and same for other status strings — Outstanding / Overdue / etc.). All hardcoded status mappings replaced with `<PaymentStatusBadge>`.
 - [ ] `grep -c "parseFloat\|Number(" src/app/invoices/` drops by ≥10.
 - [ ] InvoiceDetailClient.tsx raw `style={{` count drops by ≥50%.
 - [ ] Sign & Lock flow end-to-end: click → SignaturePad opens → sign → lock persists the base64 signature.
+
+### Utility-class cleanup on invoice + payments surfaces
+- [ ] `grep -rn 'className=.*text-body-\|className=.*text-heading-\|className=.*text-label-\|className=.*text-caption-\|className=.*text-display-\|className=.*text-metric-' src/app/invoices src/app/payments --include='*.tsx'` = 0
+- [ ] `grep -rn 'className=.*\btext-text\b\|className=.*text-text-secondary\|className=.*text-primary\b\|className=.*text-danger\b\|className=.*border-border\|className=.*bg-primary' src/app/invoices src/app/payments --include='*.tsx'` = 0
+- [ ] `grep -rn 'className=.*\bmb-[0-9]\|className=.*\bmt-[0-9]\|className=.*\bp-[0-9]\b\|className=.*\bflex-1\b\|className=.*\bshrink-0\b\|className=.*\bw-full\b\|className=.*\boverflow-hidden\b\|className=.*\boverflow-y-auto\b\|className=.*\bborder-b\b' src/app/invoices src/app/payments --include='*.tsx'` = 0
+- [ ] `grep -rn 'Td.*className.*text-text-secondary\|Td.*className.*text-primary' src/app/invoices src/app/payments --include='*.tsx'` = 0 (uses `<Td color>` prop instead)
+
+### Gate
 - [ ] tsc 0 errors, `npx next build` passes.
-- [ ] `.verification-evidence` written per migrated surface.
+- [ ] `.verification-evidence` written per migrated surface (typography + spacing + color).
 
 ## Commit discipline
 

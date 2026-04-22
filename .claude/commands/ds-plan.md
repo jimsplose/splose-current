@@ -1,3 +1,7 @@
+**Wave 4 is complete as of 2026-04-22.** All 25 plans in `docs/ds-plans/` are `Status: Done` (23 new components + Session0 scaffolding + List enhancement). For ongoing DS work, use `/ds-migrate` (Wave 5 adoption + utility-class removal) or `/ds-fix` (audit backlog) instead. This command stays available in case a Wave 4 plan reopens as `Partial` for follow-up.
+
+---
+
 Run the next Wave 4 DS component build from `docs/ds-plans/`. Read these files first:
 
 1. Read `docs/ds-plans/README.md` — phase ordering, launch sequence, and resolved decisions. Phase 0 (Session0-StoryMetadata) is a mandatory precursor; Drawer must land before AppointmentCard; AppointmentCard must land before audit session 29 resumes.

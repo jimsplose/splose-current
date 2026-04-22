@@ -1,5 +1,11 @@
 # Remove Utility Class Vestiges — Implementation Plan
 
+> **⚠️ SUPERSEDED 2026-04-22** — this plan has been absorbed into Wave 5.
+>
+> The phases here are distributed across `docs/ds-plans-wave5/` per the mapping table in [ds-plans-wave5/README.md § "Where the old utility-class plan went"](../../ds-plans-wave5/README.md#where-the-old-utility-class-plan-went). The reason: Wave 5's page-surface migrations touch the same files this plan's Phases B/C/D target, so running both separately means migrating each file twice. Use `/ds-migrate` instead of this plan directly.
+>
+> This document is preserved for reference — the mapping tables, measurement snippets, and commit-message conventions are cited by the Wave 5 plans.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Remove all hand-written Tailwind-look-alike utility classes from `globals.css` and every TSX file, with zero visual regressions. Replacements follow a strict priority ladder: DS component props first, then `<Flex>` gap restructuring, then AntD native element props, and only as a last resort for genuine one-offs — `style={{}}` inline. The result is a codebase where spacing and typography are expressed through the design system and layout containers, not side-channel utility classes.

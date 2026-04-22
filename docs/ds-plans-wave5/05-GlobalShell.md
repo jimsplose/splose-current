@@ -18,6 +18,10 @@ Site-wide shell polish. Nothing here is "broken" — every change is an UX upgra
 
 ## Migrations / additions
 
+This plan does TWO things in one pass for every file it touches: (1) add new global-shell capabilities (CommandPalette, Breadcrumbs, Tooltip sweep, Skeleton), and (2) remove hand-written utility classes from `src/components/**` non-DS files.
+
+### A. Shell adoption
+
 | Component | What to do |
 |---|---|
 | `CommandPalette` | Mount once in `src/app/layout.tsx`. Wire `open` state + `Cmd/Ctrl+K` trigger (the component already binds the shortcut). Feed `commands` from `src/commands/index.ts` + any commands collected via `useRegisterCommands`. |
@@ -26,6 +30,16 @@ Site-wide shell polish. Nothing here is "broken" — every change is an UX upgra
 | `Tooltip` sweep | Wrap every icon-only `<Button iconOnly>` (toolbar buttons, DataTable row actions, Navbar back, filter icons) with `<Tooltip content="...">`. Most call sites already have an `aria-label`; reuse that text. |
 | `Breadcrumbs` | Add a `<Breadcrumbs>` row above the `PageHeader` on: `/settings/templates/emails/[id]/edit`, `/invoices/batch-invoice/[id]`, `/reports/ndis-bulk-upload/new`, `/settings/forms/[id]`. Skip top-level pages — back-button covers those. |
 | `Skeleton` | Add loading-state skeletons on the primary list pages (`/patients`, `/invoices`, `/waitlist`, `/clients`). Use `<Skeleton.Loading loaded={!isLoading}>` around the list body, with `Skeleton.ListPageRow` recipe as the fallback shape. |
+
+### B. Utility-class removal on `src/components/**` (non-DS)
+
+Use the replacement mapping + priority ladder in [README.md § "Utility-class replacement reference"](README.md#utility-class-replacement-reference). Applies to every `.tsx` under `src/components/` EXCLUDING `src/components/ds/**` (stories cleanup is Plan 07) and `src/components/DevNavigator/**`.
+
+Primary targets (known utility-class usage):
+
+- `src/components/AiChatPanel.tsx` — still has 4 utility classes (`text-text-secondary`, `text-body-sm`, `text-text`, `text-text-inverted`, `bg-primary`) after 00-Prep isolated the `ai-*` classes. Clean these along with the Tooltip sweep on the chat launcher.
+- `src/components/SploseTopNav.tsx` — any residual utility classes on nav items.
+- `src/components/DevNavigator/*` — EXCLUDED from cleanup (dev-only surface).
 
 ## Chrome MCP verification
 
@@ -40,14 +54,23 @@ At 1440×900 on both tabs:
 
 ## Acceptance criteria
 
+### Shell adoption
 - [ ] `<CommandPalette />` mounted in `src/app/layout.tsx`.
 - [ ] `src/commands/index.ts` exports a static array of ≥8 global commands.
 - [ ] `useRegisterCommands` hook exists and is used on at least 3 routes (patient detail, calendar, invoice detail).
 - [ ] `grep -c "<Button.*iconOnly\|<Button.*variant=\"icon\"" src/app/` sampled across 5+ pages — every icon-only Button is wrapped in `<Tooltip>`.
 - [ ] At least 4 deep-hierarchy pages render `<Breadcrumbs>`.
 - [ ] At least 4 list pages render `<Skeleton.Loading>` during initial fetch.
+
+### Utility-class cleanup on src/components/** (non-DS)
+- [ ] `grep -rn 'className=.*text-body-\|className=.*text-heading-\|className=.*text-label-\|className=.*text-caption-' src/components --include='*.tsx' | grep -v '/ds/\|/DevNavigator/'` = 0
+- [ ] `grep -rn 'className=.*\btext-text\b\|className=.*text-text-secondary\|className=.*text-primary\b\|className=.*bg-primary' src/components --include='*.tsx' | grep -v '/ds/\|/DevNavigator/'` = 0
+- [ ] `grep -rn 'className=.*\bmb-[0-9]\|className=.*\bmt-[0-9]\|className=.*\bp-[0-9]\b\|className=.*\bflex-1\b' src/components --include='*.tsx' | grep -v '/ds/\|/DevNavigator/'` = 0
+- [ ] AiChatPanel.tsx has 0 `text-*` / `bg-*` utility classes remaining.
+
+### Gate
 - [ ] tsc 0 errors, `npx next build` passes.
-- [ ] `.verification-evidence` written for CommandPalette open flow + Skeleton loading flow.
+- [ ] `.verification-evidence` written for CommandPalette open flow + Skeleton loading flow + AiChatPanel post-cleanup.
 
 ## Commit discipline
 
