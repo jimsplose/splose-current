@@ -11,7 +11,9 @@ export type PaymentStatus =
   | "refunded"
   | "failed"
   | "draft"
-  | "void";
+  | "void"
+  | "sent"
+  | "cancelled";
 
 export type PaymentStatusBadgeSize = "sm" | "md" | "lg";
 
@@ -32,7 +34,25 @@ const statusMap: Record<PaymentStatus, { variant: BadgeVariant; label: string; s
   failed: { variant: "red", label: "Failed" },
   draft: { variant: "gray", label: "Draft" },
   void: { variant: "gray", label: "Void" },
+  sent: { variant: "blue", label: "Sent" },
+  cancelled: { variant: "red", label: "Cancelled" },
 };
+
+/** Map a database invoice status string (e.g. "Paid", "Sent") to a PaymentStatus key. */
+export function dbStatusToPaymentStatus(status: string): PaymentStatus {
+  switch (status.toLowerCase().replace(/\s+/g, "-")) {
+    case "paid": return "paid";
+    case "sent": return "sent";
+    case "draft": return "draft";
+    case "overdue": return "overdue";
+    case "outstanding": return "outstanding";
+    case "partially-paid": return "partial";
+    case "cancelled": return "cancelled";
+    case "void": return "void";
+    case "refunded": return "refunded";
+    default: return "outstanding";
+  }
+}
 
 /**
  * Imperative mapping for DataTable cell formatters and similar non-JSX

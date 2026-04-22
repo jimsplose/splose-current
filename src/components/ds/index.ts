@@ -39,7 +39,7 @@ export { default as AppointmentCard } from "./AppointmentCard";
 export type { AppointmentCardProps, AppointmentStatus, AppointmentDensity } from "./AppointmentCard";
 export { default as PatientAvatar } from "./PatientAvatar";
 export type { PatientAvatarProps, PatientAvatarSize, PatientAvatarStatus, PatientRecord } from "./PatientAvatar";
-export { default as PaymentStatusBadge, paymentStatusToVariant } from "./PaymentStatusBadge";
+export { default as PaymentStatusBadge, paymentStatusToVariant, dbStatusToPaymentStatus } from "./PaymentStatusBadge";
 export type { PaymentStatusBadgeProps, PaymentStatusBadgeSize, PaymentStatus } from "./PaymentStatusBadge";
 export { default as Sparkline } from "./Sparkline";
 export type { SparklineProps, SparklineTone, SparklineShape } from "./Sparkline";
