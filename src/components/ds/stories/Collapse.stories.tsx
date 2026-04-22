@@ -37,7 +37,7 @@ export const Playground: Story = {
     title: "Section title",
     defaultOpen: false,
     children: (
-      <p className="text-body-md text-text-secondary">
+      <p style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>
         Content that is revealed when the section is expanded.
       </p>
     ),
@@ -51,7 +51,7 @@ export const Playground: Story = {
 export const Default: Story = {
   args: {
     title: "Client alerts",
-    children: <p className="text-body-md text-text-secondary">No alerts configured.</p>,
+    children: <p style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>No alerts configured.</p>,
   },
 };
 
@@ -59,7 +59,7 @@ export const InitiallyOpen: Story = {
   args: {
     title: "Stripe integration",
     defaultOpen: true,
-    children: <p className="text-body-md text-text-secondary">Connected to Stripe account.</p>,
+    children: <p style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Connected to Stripe account.</p>,
   },
 };
 
@@ -67,13 +67,13 @@ export const Multiple: Story = {
   render: () => (
     <div style={{ width: 400 }}>
       <Collapse title="General" defaultOpen>
-        <p className="text-body-md text-text-secondary">General settings content.</p>
+        <p style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>General settings content.</p>
       </Collapse>
       <Collapse title="Pricing" defaultOpen>
-        <p className="text-body-md text-text-secondary">Pricing configuration.</p>
+        <p style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Pricing configuration.</p>
       </Collapse>
       <Collapse title="Online booking">
-        <p className="text-body-md text-text-secondary">Online booking options.</p>
+        <p style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Online booking options.</p>
       </Collapse>
     </div>
   ),
@@ -93,26 +93,26 @@ export const ClientSidebarSections: Story = {
   render: () => (
     <aside style={{ width: 320, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
       <Collapse title="Client alerts" defaultOpen>
-        <span className="text-body-md text-text">Include KM</span>
+        <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>Include KM</span>
       </Collapse>
 
       <Collapse title="Stripe" defaultOpen>
-        <p className="text-body-sm text-text-secondary">
+        <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
           Connect with Stripe and save a credit card for clients and use for future use.
         </p>
       </Collapse>
 
       <Collapse title="Mailchimp" defaultOpen>
-        <div className="text-body-sm" style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <div style={{ fontSize: 12, lineHeight: 1.67, display: 'flex', flexDirection: 'column', gap: 4 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-            <span className="text-primary">rakesh.splose@gmail.com</span>
-            <Badge variant="orange" className="text-caption-sm">ARCHIVED</Badge>
+            <span style={{ color: 'var(--color-primary)' }}>rakesh.splose@gmail.com</span>
+            <Badge variant="orange">ARCHIVED</Badge>
           </div>
         </div>
       </Collapse>
 
       <Collapse title="QuickBooks">
-        <p className="text-body-sm text-text-secondary">No QuickBooks connection.</p>
+        <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>No QuickBooks connection.</p>
       </Collapse>
     </aside>
   ),
@@ -131,12 +131,12 @@ export const ServiceEditSections: Story = {
       <Collapse title="General" defaultOpen>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div>
-            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Name</label>
-            <input className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} defaultValue="Initial Consultation" />
+            <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Name</label>
+            <input style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} defaultValue="Initial Consultation" />
           </div>
           <div>
-            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Item code</label>
-            <input className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} defaultValue="93010" />
+            <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Item code</label>
+            <input style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} defaultValue="93010" />
           </div>
         </div>
       </Collapse>
@@ -144,12 +144,12 @@ export const ServiceEditSections: Story = {
       <Collapse title="Pricing" defaultOpen>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div>
-            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Price</label>
-            <input type="number" className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} defaultValue="200" />
+            <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Price</label>
+            <input type="number" style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} defaultValue="200" />
           </div>
           <div>
-            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Duration (minutes)</label>
-            <input className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} defaultValue="60" />
+            <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Duration (minutes)</label>
+            <input style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} defaultValue="60" />
           </div>
         </div>
       </Collapse>
@@ -157,16 +157,16 @@ export const ServiceEditSections: Story = {
       <Collapse title="Online booking" defaultOpen>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, paddingTop: 4, paddingBottom: 4 }}>
           <div style={{ height: 20, width: 36, borderRadius: 9999 }} className="bg-primary" />
-          <span className="text-body-md text-text">Enable online booking</span>
+          <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>Enable online booking</span>
         </div>
       </Collapse>
 
       <Collapse title="Online payment">
-        <p className="text-body-sm text-text-secondary">Configure online payment requirements for this service.</p>
+        <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>Configure online payment requirements for this service.</p>
       </Collapse>
 
       <Collapse title="Appointment notifications">
-        <p className="text-body-sm text-text-secondary">Set up SMS and email notifications for appointments using this service.</p>
+        <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>Set up SMS and email notifications for appointments using this service.</p>
       </Collapse>
     </div>
   ),
@@ -182,7 +182,7 @@ export const ServiceEditSections: Story = {
 export const AppointmentTemplateSections: Story = {
   render: () => (
     <div style={{ width: 600, display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <p className="text-body-sm text-text-secondary">
+      <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
         From <code style={{ fontSize: 11 }}>settings/appointment-templates/new</code> — collapse sections
         that wrap notification channels with toggle + message editor inside.
       </p>
@@ -191,17 +191,16 @@ export const AppointmentTemplateSections: Story = {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <div style={{ height: 20, width: 36, borderRadius: 9999 }} className="bg-primary" />
-            <span className="text-body-md text-text">Enable SMS notification</span>
+            <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>Enable SMS notification</span>
           </div>
           <div>
-            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Message</label>
+            <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Message</label>
             <textarea
-              className="text-body-md text-text"
-              style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
+              style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
               rows={3}
               defaultValue="Hi {client_first_name}, this is a reminder about your appointment on {appointment_date} at {appointment_time}."
             />
-            <p style={{ marginTop: 4 }} className="text-caption-md text-text-secondary">
+            <p style={{ marginTop: 4, fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
               Variables: {"{client_first_name}"}, {"{appointment_date}"}, {"{appointment_time}"}
             </p>
           </div>
@@ -212,13 +211,12 @@ export const AppointmentTemplateSections: Story = {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <div style={{ height: 20, width: 36, borderRadius: 9999 }} className="bg-primary" />
-            <span className="text-body-md text-text">Enable email notification</span>
+            <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>Enable email notification</span>
           </div>
           <div>
-            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Subject</label>
+            <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Subject</label>
             <input
-              className="text-body-md text-text"
-              style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
+              style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
               defaultValue="Your upcoming appointment"
             />
           </div>
@@ -238,7 +236,7 @@ export const AppointmentTemplateSections: Story = {
 export const UserDetailSections: Story = {
   render: () => (
     <div style={{ width: 600, display: 'flex', flexDirection: 'column', gap: 24 }}>
-      <p className="text-body-sm text-text-secondary">
+      <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
         From <code style={{ fontSize: 11 }}>settings/users/[id]</code> — user detail page
         with Profile, Role &amp; Access, and Security sections.
       </p>
@@ -246,12 +244,12 @@ export const UserDetailSections: Story = {
       <Collapse title="Profile" defaultOpen>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div>
-            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Name</label>
-            <input className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} defaultValue="Sarah Johnson" />
+            <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Name</label>
+            <input style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} defaultValue="Sarah Johnson" />
           </div>
           <div>
-            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Email</label>
-            <input className="text-body-md text-text-secondary" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#f9fafb', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} defaultValue="sarah@example.com" readOnly />
+            <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Email</label>
+            <input style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#f9fafb', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} defaultValue="sarah@example.com" readOnly />
           </div>
         </div>
       </Collapse>
@@ -259,16 +257,16 @@ export const UserDetailSections: Story = {
       <Collapse title="Role & Access" defaultOpen>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div>
-            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Role name</label>
-            <select className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
+            <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Role name</label>
+            <select style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
               <option>Practitioner</option>
               <option>Admin</option>
               <option>Receptionist</option>
             </select>
           </div>
           <div>
-            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Role type</label>
-            <select className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
+            <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Role type</label>
+            <select style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
               <option>Clinical</option>
               <option>Administrative</option>
             </select>
@@ -278,9 +276,9 @@ export const UserDetailSections: Story = {
 
       <Collapse title="Security" defaultOpen>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <button className="text-body-md text-text" style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>Reset password</button>
-          <button className="text-body-md text-text" style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>Log out everywhere</button>
-          <button className="text-body-md" style={{ borderRadius: 8, border: '1px solid #fecaca', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, color: '#dc2626' }}>Deactivate account</button>
+          <button style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>Reset password</button>
+          <button style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>Log out everywhere</button>
+          <button style={{ fontSize: 14, lineHeight: 1.57, borderRadius: 8, border: '1px solid #fecaca', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, color: '#dc2626' }}>Deactivate account</button>
         </div>
       </Collapse>
     </div>
@@ -297,7 +295,7 @@ export const UserDetailSections: Story = {
 export const LocationFormSections: Story = {
   render: () => (
     <div style={{ width: 700, display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <p className="text-body-sm text-text-secondary">
+      <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
         From <code style={{ fontSize: 11 }}>settings/locations/new</code> — location form
         with General, Address, and Online booking sections.
       </p>
@@ -306,22 +304,22 @@ export const LocationFormSections: Story = {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
             <div>
-              <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Name</label>
-              <input className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} placeholder="e.g. East Clinics" />
+              <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Name</label>
+              <input style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} placeholder="e.g. East Clinics" />
             </div>
             <div>
-              <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">ABN</label>
-              <input className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} />
+              <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>ABN</label>
+              <input style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} />
             </div>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
             <div>
-              <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Email</label>
-              <input type="email" className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} />
+              <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Email</label>
+              <input type="email" style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} />
             </div>
             <div>
-              <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Phone</label>
-              <input className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} />
+              <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Phone</label>
+              <input style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} />
             </div>
           </div>
         </div>
@@ -330,25 +328,25 @@ export const LocationFormSections: Story = {
       <Collapse title="Address" defaultOpen>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div>
-            <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Address</label>
-            <input className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} />
+            <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Address</label>
+            <input style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} />
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
             <div>
-              <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Suburb</label>
-              <input className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} />
+              <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Suburb</label>
+              <input style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} />
             </div>
             <div>
-              <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">State</label>
-              <select className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
+              <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>State</label>
+              <select style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
                 <option>NSW</option>
                 <option>VIC</option>
                 <option>QLD</option>
               </select>
             </div>
             <div>
-              <label style={{ marginBottom: 4, display: 'block' }} className="text-label-lg text-text-secondary">Post code</label>
-              <input className="text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} />
+              <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Post code</label>
+              <input style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }} />
             </div>
           </div>
         </div>
@@ -357,7 +355,7 @@ export const LocationFormSections: Story = {
       <Collapse title="Online booking">
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, paddingTop: 4, paddingBottom: 4 }}>
           <div style={{ height: 20, width: 36, borderRadius: 9999, backgroundColor: '#d1d5db' }} />
-          <span className="text-body-md text-text">Enable online booking for this location</span>
+          <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>Enable online booking for this location</span>
         </div>
       </Collapse>
     </div>

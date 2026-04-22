@@ -128,7 +128,7 @@ export const AllStates: Story = {
 export const SettingsFormField: Story = {
   render: () => (
     <div style={{ maxWidth: 448 }}>
-      <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Invoice number</h2>
+      <h2 style={{ fontSize: 18, fontWeight: 600, lineHeight: 1.4, color: 'var(--color-text)', marginBottom: 16 }}>Invoice number</h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <FormInput label="Prefix" defaultValue="INV" />
         <FormInput label="Padding" defaultValue="6" />
@@ -148,11 +148,11 @@ export const SettingsFormField: Story = {
 export const PaymentAmountInput: Story = {
   render: () => (
     <div style={{ maxWidth: 384 }}>
-      <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>
+      <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>
         Amount <span style={{ color: '#ef4444' }}>*</span>
       </label>
       <div style={{ position: 'relative' }}>
-        <span className="text-text-secondary" style={{top: '50%', position: 'absolute', left: 12, zIndex: 10, transform: 'translateY(-50%)', fontSize: 12 }}>$</span>
+        <span style={{ top: '50%', position: 'absolute', left: 12, zIndex: 10, transform: 'translateY(-50%)', fontSize: 12, color: 'var(--color-text-secondary)' }}>$</span>
         <FormInput type="number" step="0.01" min="0" placeholder="0.00" style={{ paddingLeft: 28 }} />
       </div>
     </div>
@@ -185,7 +185,7 @@ export const SearchInput: Story = {
   render: () => (
     <div style={{ maxWidth: 448 }}>
       <div style={{ position: 'relative' }}>
-        <SearchOutlined style={{ fontSize: 16 }} className="text-text-secondary" style={{top: '50%', position: 'absolute', left: 12, zIndex: 10, transform: 'translateY(-50%)' }} />
+        <SearchOutlined style={{ fontSize: 16, top: '50%', position: 'absolute', left: 12, zIndex: 10, transform: 'translateY(-50%)', color: 'var(--color-text-secondary)' }} />
         <FormInput type="text" placeholder="Search invoices by number or client..." style={{ height: 36, paddingLeft: 40 }} />
       </div>
     </div>

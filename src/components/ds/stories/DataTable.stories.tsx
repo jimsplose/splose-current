@@ -141,8 +141,8 @@ export const ExpandableRows: Story = {
           colSpan={4}
           expandContent={
             <div style={{ paddingLeft: 32 }}>
-              <p className="text-label-lg text-text" style={{ marginBottom: 8 }}>Linked Invoices</p>
-              <table className="text-body-md" style={{ width: '100%' }}>
+              <p style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', marginBottom: 8 }}>Linked Invoices</p>
+              <table style={{ width: '100%', fontSize: 14, lineHeight: 1.57 }}>
                 <tbody>
                   <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
                     <td style={{ paddingTop: 8, paddingBottom: 8 }}>INV-0001</td>
@@ -162,8 +162,8 @@ export const ExpandableRows: Story = {
           colSpan={4}
           expandContent={
             <div style={{ paddingLeft: 32 }}>
-              <p className="text-label-lg text-text" style={{ marginBottom: 8 }}>Linked Invoices</p>
-              <table className="text-body-md" style={{ width: '100%' }}>
+              <p style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', marginBottom: 8 }}>Linked Invoices</p>
+              <table style={{ width: '100%', fontSize: 14, lineHeight: 1.57 }}>
                 <tbody>
                   <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
                     <td style={{ paddingTop: 8, paddingBottom: 8 }}>INV-0015</td>
@@ -203,7 +203,7 @@ export const WithActionsColumn: Story = {
         ].map((p) => (
           <Tr key={p.name}>
             <Td>{p.name}</Td>
-            <Td className="text-text-secondary">{p.cat}</Td>
+            <Td color="secondary">{p.cat}</Td>
             <Td align="center">{p.stock || "—"}</Td>
             <ActionsCell
               items={[
@@ -305,7 +305,7 @@ export const RecipeClientsList: Story = {
                 <Td><LinkCell>{c.name}</LinkCell></Td>
                 <Td>{c.dob}</Td>
                 <Td><LinkCell href={`tel:${c.phone.replace(/\s/g, "")}`}>{c.phone}</LinkCell></Td>
-                <Td className="text-text-secondary">{c.email}</Td>
+                <Td color="secondary">{c.email}</Td>
                 <Td>{c.tag && <Badge variant={c.tag === "Medicare" ? "green" : "purple"}>{c.tag}</Badge>}</Td>
               </Tr>
             ))}

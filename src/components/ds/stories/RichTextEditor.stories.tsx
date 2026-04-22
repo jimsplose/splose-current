@@ -155,22 +155,22 @@ export const AllVariants: Story = {
   render: () => (
     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
       <div>
-        <p className="text-label-lg text-text-secondary" style={{ marginBottom: 4 }}>Default (8 rows)</p>
+        <p style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', marginBottom: 4 }}>Default (8 rows)</p>
         <RichTextEditor placeholder="Default editor..." />
       </div>
       <div>
-        <p className="text-label-lg text-text-secondary" style={{ marginBottom: 4 }}>Compact (3 rows)</p>
+        <p style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', marginBottom: 4 }}>Compact (3 rows)</p>
         <RichTextEditor placeholder="Short editor..." rows={3} />
       </div>
       <div>
-        <p className="text-label-lg text-text-secondary" style={{ marginBottom: 4 }}>With variables</p>
+        <p style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', marginBottom: 4 }}>With variables</p>
         <RichTextEditor
           placeholder="Type and insert variables..."
           variables={["client_name", "date", "amount"]}
         />
       </div>
       <div>
-        <p className="text-label-lg text-text-secondary" style={{ marginBottom: 4 }}>Pre-filled content</p>
+        <p style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', marginBottom: 4 }}>Pre-filled content</p>
         <RichTextEditor
           value="<p>Hi <strong>{client_name}</strong>,</p><p>Your invoice is attached.</p>"
           rows={4}
@@ -199,7 +199,7 @@ export const EmailTemplateEditor: Story = {
     );
     return (
       <div style={{ maxWidth: 768 }}>
-        <label className="text-label-lg text-text-secondary" style={{ display: "block", marginBottom: 4 }}>
+        <label style={{ display: "block", marginBottom: 4, fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>
           Body
         </label>
         <RichTextEditor
@@ -242,7 +242,7 @@ export const ProgressNoteEditor: Story = {
     const [freeText, setFreeText] = useState("");
     return (
       <div style={{ maxWidth: 768 }}>
-        <label className="text-label-lg text-text-secondary" style={{ display: "block", marginBottom: 4 }}>
+        <label style={{ display: "block", marginBottom: 4, fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>
           Free text section
         </label>
         <RichTextEditor
@@ -278,7 +278,7 @@ export const SmsTemplateEditor: Story = {
     );
     return (
       <div style={{ maxWidth: 768 }}>
-        <label className="text-label-lg text-text-secondary" style={{ display: "block", marginBottom: 4 }}>
+        <label style={{ display: "block", marginBottom: 4, fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>
           SMS body
         </label>
         <RichTextEditor

@@ -104,8 +104,8 @@ export const WithDivider: Story = {
 export const CustomTrigger: Story = {
   args: {
     trigger: (
-      <button className="border-border text-text" style={{ borderRadius: 6, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6, fontSize: 12, fontWeight: 500 }}>
-        Calendar <span className="text-text-secondary">&#9662;</span>
+      <button style={{ borderRadius: 6, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6, fontSize: 12, fontWeight: 500, borderColor: 'var(--color-border)', color: 'var(--color-text)' }}>
+        Calendar <span style={{ color: 'var(--color-text-secondary)' }}>&#9662;</span>
       </button>
     ),
     items: [

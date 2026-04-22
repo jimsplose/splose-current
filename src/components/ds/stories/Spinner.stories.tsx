@@ -51,15 +51,15 @@ export const AllSizes: Story = {
     <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
         <Spinner size="sm" />
-        <span className="text-text-secondary" style={{ fontSize: 11 }}>sm</span>
+        <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>sm</span>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
         <Spinner size="md" />
-        <span className="text-text-secondary" style={{ fontSize: 11 }}>md</span>
+        <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>md</span>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
         <Spinner size="lg" />
-        <span className="text-text-secondary" style={{ fontSize: 11 }}>lg</span>
+        <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>lg</span>
       </div>
     </div>
   ),
@@ -101,12 +101,12 @@ export const InlineLoader: Story = {
       {/* AI generation in progress */}
       <div className="bg-primary/5" style={{ borderRadius: 8, border: '1px solid var(--color-border)', borderColor: '#e9d5ff', padding: 16 }}>
         <div style={{ marginBottom: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span className="text-label-lg" style={{ color: '#7e22ce' }}>Subjective</span>
-          <span className="text-caption-sm" style={{ color: '#c084fc' }}>AI Assisted</span>
+          <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: '#7e22ce' }}>Subjective</span>
+          <span style={{ fontSize: 11, lineHeight: 1.5, color: '#c084fc' }}>AI Assisted</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingTop: 16, paddingBottom: 16 }}>
           <Spinner size="sm" />
-          <span className="text-text-secondary" style={{ fontSize: 12 }}>
+          <span style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>
             Thinking<span>...</span>
           </span>
         </div>
@@ -115,7 +115,7 @@ export const InlineLoader: Story = {
       {/* Standalone inline variant */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
         <Spinner size="sm" />
-        <span className="text-body-md text-text-secondary">Loading notes...</span>
+        <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Loading notes...</span>
       </div>
     </div>
   ),
@@ -134,14 +134,14 @@ export const ButtonLoader: Story = {
     <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
       <button
         disabled
-        className="border-primary bg-primary text-label-lg" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, borderRadius: 8, border: '1px solid var(--color-border)', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, color: '#fff', opacity: 0.8 }}
+        style={{ display: 'inline-flex', alignItems: 'center', gap: 8, borderRadius: 8, border: '1px solid var(--color-border)', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, color: '#fff', opacity: 0.8, fontSize: 14, fontWeight: 600, lineHeight: 1.57 }}
       >
         <Spinner size="sm" style={{ borderColor: '#fff', borderTopColor: 'transparent' }} />
         Saving...
       </button>
       <button
         disabled
-        className="border-border text-label-lg text-text-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, opacity: 0.8 }}
+        style={{ display: 'inline-flex', alignItems: 'center', gap: 8, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, opacity: 0.8, fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}
       >
         <Spinner size="sm" />
         Loading...
@@ -201,7 +201,7 @@ export const OverlayLoader: Story = {
       <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.6)' }}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
           <Spinner size="lg" />
-          <span className="text-label-lg text-text-secondary">Loading...</span>
+          <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Loading...</span>
         </div>
       </div>
     </div>

@@ -102,7 +102,7 @@ export const ProgressNoteNavbar: Story = {
             <CheckCircleOutlined style={{ fontSize: 12 }} />
             Final
           </Badge>
-          <span className="text-label-lg text-primary">Sarah Johnson</span>
+          <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-primary)' }}>Sarah Johnson</span>
         </>
       }
     >
@@ -145,7 +145,7 @@ export const NoteEditorNavbar: Story = {
       title="SOAP Note"
       badge={
         <>
-          <span className="text-body-md text-primary" style={{ cursor: 'pointer' }}>Sarah Johnson</span>
+          <span style={{ cursor: 'pointer', fontSize: 14, lineHeight: 1.57, color: 'var(--color-primary)' }}>Sarah Johnson</span>
           <Badge variant="green">Saved</Badge>
         </>
       }
@@ -174,7 +174,7 @@ export const NoteEditorNavbar: Story = {
 export const NewPaymentNavbar: Story = {
   render: () => (
     <Navbar backHref="/payments" title="New payment">
-      <Button variant="secondary" className="border-primary text-primary">
+      <Button variant="secondary">
         Cancel
       </Button>
       <Button variant="primary">Add</Button>
@@ -196,7 +196,7 @@ export const NewNoteNavbar: Story = {
       badge={<Badge variant="yellow">Unsaved</Badge>}
     >
       <Button variant="primary" round size="sm" style={{ borderColor: '#22c55e', backgroundColor: '#22c55e' }}>
-        <span className="text-heading-lg" style={{ lineHeight: 1 }}>+</span>
+        <span style={{ lineHeight: 1, fontSize: 18, fontWeight: 700 }}>+</span>
       </Button>
       <Filter
         items={[

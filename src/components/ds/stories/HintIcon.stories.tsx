@@ -57,7 +57,7 @@ export const WithTooltip: Story = {
 
 export const InLabel: Story = {
   render: () => (
-    <label className="text-label-lg text-text">
+    <label style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)' }}>
       Workspace URL <HintIcon tooltip="Your unique Splose workspace URL" />
     </label>
   ),
@@ -69,15 +69,15 @@ export const ToneGrid: Story = {
   render: () => (
     <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-        <span className="text-caption-md text-text-secondary">default (md)</span>
+        <span style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>default (md)</span>
         <HintIcon tone="default" size="md" tooltip="Default tone on light bg" />
       </div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, background: "var(--color-primary)", borderRadius: 8, padding: 12 }}>
-        <span className="text-caption-md" style={{ color: "rgba(255,255,255,0.7)" }}>inverted (md)</span>
+        <span style={{ fontSize: 12, lineHeight: 1.67, color: "rgba(255,255,255,0.7)" }}>inverted (md)</span>
         <HintIcon tone="inverted" size="md" tooltip="Inverted tone on dark bg" />
       </div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, background: "var(--color-primary)", borderRadius: 8, padding: 12 }}>
-        <span className="text-caption-md" style={{ color: "rgba(255,255,255,0.7)" }}>inverted (lg)</span>
+        <span style={{ fontSize: 12, lineHeight: 1.67, color: "rgba(255,255,255,0.7)" }}>inverted (lg)</span>
         <HintIcon tone="inverted" size="lg" tooltip="Large inverted icon" />
       </div>
     </div>
@@ -102,23 +102,23 @@ export const SettingsFormLabel: Story = {
   render: () => (
     <div style={{ width: 384, display: 'flex', flexDirection: 'column', gap: 24, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
       <div>
-        <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>
+        <label style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', marginBottom: 4, display: 'block' }}>
           Workspace URL <HintIcon tooltip="Your unique Splose workspace URL" />
         </label>
         <input
           type="text"
           defaultValue="acme.splose.com"
-          className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
+          style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', borderColor: 'var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none', fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}
           readOnly
         />
       </div>
 
       <div>
-        <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>
+        <label style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', marginBottom: 4, display: 'block' }}>
           Patient terminology <HintIcon tooltip="Choose how you refer to your patients across the platform" />
           <span style={{ color: '#ef4444' }}>*</span>
         </label>
-        <select className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}>
+        <select style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', borderColor: 'var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none', fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>
           <option>Client</option>
           <option>Patient</option>
           <option>Participant</option>
@@ -126,12 +126,12 @@ export const SettingsFormLabel: Story = {
       </div>
 
       <div>
-        <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>
+        <label style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', marginBottom: 4, display: 'block' }}>
           Default appointment communication preferences{" "}
           <HintIcon tooltip="Set default SMS and email preferences for new appointment templates" />
           <span style={{ color: '#ef4444' }}>*</span>
         </label>
-        <select className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}>
+        <select style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', borderColor: 'var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none', fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>
           <option>SMS &amp; Email</option>
           <option>SMS only</option>
           <option>Email only</option>
@@ -154,25 +154,25 @@ export const SectionHeadingHint: Story = {
   name: "Recipe: Section Heading Hint",
   render: () => (
     <div style={{ width: 600, display: 'flex', flexDirection: 'column', gap: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
-      <h2 className="text-heading-lg text-text">
+      <h2 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, color: 'var(--color-text)' }}>
         Associated contacts <HintIcon tooltip="Contacts linked to this client record" />
       </h2>
-      <table className="text-body-md" style={{ width: '100%' }}>
+      <table style={{ width: '100%', fontSize: 14, lineHeight: 1.57 }}>
         <thead>
           <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-            <th className="text-label-lg text-text" style={{ paddingBottom: 8, textAlign: 'left' }}>Name</th>
-            <th className="text-label-lg text-text" style={{ paddingBottom: 8, textAlign: 'left' }}>Type</th>
-            <th className="text-label-lg text-text" style={{ paddingBottom: 8, textAlign: 'left' }}>Notes</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', paddingBottom: 8, textAlign: 'left' }}>Name</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', paddingBottom: 8, textAlign: 'left' }}>Type</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', paddingBottom: 8, textAlign: 'left' }}>Notes</th>
           </tr>
         </thead>
         <tbody>
           <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-            <td className="text-primary" style={{ paddingTop: 8, paddingBottom: 8 }}>Test doctor</td>
+            <td style={{ color: 'var(--color-primary)', paddingTop: 8, paddingBottom: 8 }}>Test doctor</td>
             <td style={{ paddingTop: 8, paddingBottom: 8 }}>Doctor</td>
             <td style={{ paddingTop: 8, paddingBottom: 8 }}>hello</td>
           </tr>
           <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-            <td className="text-primary" style={{ paddingTop: 8, paddingBottom: 8 }}>Jo malone</td>
+            <td style={{ color: 'var(--color-primary)', paddingTop: 8, paddingBottom: 8 }}>Jo malone</td>
             <td style={{ paddingTop: 8, paddingBottom: 8 }}>Standard</td>
             <td style={{ paddingTop: 8, paddingBottom: 8 }}>N/A</td>
           </tr>
@@ -196,17 +196,17 @@ export const AccountBalanceHints: Story = {
     <div style={{ width: 280 }}>
       <div className="bg-primary" style={{ borderRadius: 8, padding: 16, color: '#fff' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <h3 className="text-label-lg">Account balance</h3>
+          <h3 style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57 }}>Account balance</h3>
           <HintIcon tone="inverted" size="lg" tooltip="Outstanding balance for this client" />
         </div>
-        <div className="text-body-md" style={{ marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ fontSize: 14, lineHeight: 1.57, marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
             They owe
             <HintIcon tone="inverted" tooltip="Total of unpaid invoices" />
           </span>
           <span style={{ fontWeight: 600 }}>3,310.56</span>
         </div>
-        <div className="text-body-md" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ fontSize: 14, lineHeight: 1.57, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span>Available credit balance</span>
           <span style={{ fontWeight: 600 }}>0.00</span>
         </div>
@@ -228,12 +228,12 @@ export const InlineWithRequired: Story = {
   render: () => (
     <div style={{ width: 320, display: 'flex', flexDirection: 'column', gap: 24, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
       <div>
-        <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>
+        <label style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', marginBottom: 4, display: 'block' }}>
           Patient terminology{" "}
           <HintIcon tooltip="Choose how you refer to your patients" />
           <span style={{ color: '#ef4444' }}>*</span>
         </label>
-        <select className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
+        <select style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', borderColor: 'var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>
           <option>Client</option>
           <option>Patient</option>
           <option>Participant</option>
@@ -241,7 +241,7 @@ export const InlineWithRequired: Story = {
       </div>
 
       <div>
-        <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>
+        <label style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', marginBottom: 4, display: 'block' }}>
           Business email{" "}
           <HintIcon tooltip="Primary contact email for your business" />
           <span style={{ color: '#ef4444' }}>*</span>
@@ -249,18 +249,18 @@ export const InlineWithRequired: Story = {
         <input
           type="email"
           defaultValue="hello@example.com"
-          className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
+          style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', borderColor: 'var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none', fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}
         />
       </div>
 
       <div>
-        <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>
+        <label style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', marginBottom: 4, display: 'block' }}>
           Website <HintIcon tooltip="Your public-facing website URL" />
         </label>
         <input
           type="text"
           defaultValue="hands-together-therapy.com"
-          className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
+          style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', borderColor: 'var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none', fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}
         />
       </div>
     </div>

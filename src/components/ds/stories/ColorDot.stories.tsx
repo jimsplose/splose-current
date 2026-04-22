@@ -87,7 +87,7 @@ export const AllSizes: Story = {
       {(["xs", "sm", "md", "lg", "xl"] as const).map((s) => (
         <div key={s} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
           <ColorDot color="#7c3aed" size={s} />
-          <span className="text-text-secondary" style={{ fontSize: 11 }}>{s}</span>
+          <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>{s}</span>
         </div>
       ))}
     </div>
@@ -106,7 +106,7 @@ export const RectShape: Story = {
       {["#EAB308", "#22C55E", "#EF4444", "#2563EB", "#7C3AED"].map((c) => (
         <div key={c} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <ColorDot color={c} shape="rect" size="md" />
-          <span className="text-body-md text-text-secondary">{c}</span>
+          <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>{c}</span>
         </div>
       ))}
     </div>
@@ -127,7 +127,7 @@ export const InteractiveSwatches: Story = {
     const [selected, setSelected] = useState("#7c3aed");
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <p className="text-label-md text-text-secondary">Accessible colour suggestions</p>
+        <p style={{ fontSize: 12, fontWeight: 500, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>Accessible colour suggestions</p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
           {DEMO_SWATCHES.map((color) => (
             <ColorDot
@@ -141,7 +141,7 @@ export const InteractiveSwatches: Story = {
             />
           ))}
         </div>
-        <p className="text-body-sm text-text-secondary">Selected: <code>{selected}</code></p>
+        <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>Selected: <code>{selected}</code></p>
       </div>
     );
   },
@@ -217,7 +217,7 @@ export const ChartLegend: Story = {
   name: "Recipe: Chart Legend",
   render: () => (
     <div style={{ width: 384, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
-      <p className="text-label-lg text-text" style={{ marginBottom: 12 }}>Income</p>
+      <p style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', marginBottom: 12 }}>Income</p>
       {/* Simulated bar chart placeholder */}
       <div style={{ marginBottom: 12, display: 'flex', height: 128, alignItems: 'flex-end', gap: 8 }}>
         {[60, 80, 45, 70, 90, 55, 75, 65, 85, 50, 95, 70].map((h, i) => (
@@ -227,7 +227,7 @@ export const ChartLegend: Story = {
           </div>
         ))}
       </div>
-      <div className="text-caption-md text-text-secondary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
+      <div style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
         <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
           <ColorDot color="#bef264" size="xs" /> Invoices
         </span>
@@ -258,7 +258,7 @@ export const PractitionerIndicator: Story = {
       ].map((p) => (
         <div key={p.name} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
           <ColorDot color={p.color} size="xs" />
-          <span className="text-label-md text-text" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+          <span style={{ fontSize: 12, fontWeight: 500, lineHeight: 1.67, color: 'var(--color-text)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {p.name.split(" ")[0]} {p.name.split(" ")[1]?.[0]}.
           </span>
         </div>
@@ -281,30 +281,30 @@ export const RoomsResourcesTable: Story = {
     <div style={{ width: 600 }}>
       <table style={{ width: '100%' }}>
         <thead>
-          <tr className="border-border bg-table-header" style={{ borderBottom: '1px solid var(--color-border)' }}>
-            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Name</th>
-            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Group</th>
-            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Capacity</th>
-            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Location</th>
+          <tr className="bg-table-header" style={{ borderBottom: '1px solid var(--color-border)' }}>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Name</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Group</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Capacity</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Location</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-border">
+        <tbody style={{ borderTop: 'none' }}>
           {[
             { name: "Room 1", color: "#ef4444", group: "Treatment", capacity: 1, location: "East Clinics" },
             { name: "Room 2", color: "#3b82f6", group: "Treatment", capacity: 2, location: "East Clinics" },
             { name: "Gym", color: "#22c55e", group: "Exercise", capacity: 8, location: "West Clinics" },
             { name: "Pool", color: "#f59e0b", group: "Hydrotherapy", capacity: 4, location: "West Clinics" },
           ].map((room) => (
-            <tr key={room.name} >
-              <td className="text-body-md text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
+            <tr key={room.name} style={{ borderBottom: '1px solid var(--color-border)' }}>
+              <td style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <ColorDot color={room.color} />
                   {room.name}
                 </div>
               </td>
-              <td className="text-body-md text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{room.group}</td>
-              <td className="text-body-md text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{room.capacity}</td>
-              <td className="text-body-md text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{room.location}</td>
+              <td style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{room.group}</td>
+              <td style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{room.capacity}</td>
+              <td style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{room.location}</td>
             </tr>
           ))}
         </tbody>
@@ -327,13 +327,13 @@ export const BusyTimeNameColumn: Story = {
     <div style={{ width: 500 }}>
       <table style={{ width: '100%' }}>
         <thead>
-          <tr className="border-border bg-table-header" style={{ borderBottom: '1px solid var(--color-border)' }}>
-            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Name</th>
-            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Utilisation</th>
-            <th className="text-label-lg text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Duration (mins)</th>
+          <tr className="bg-table-header" style={{ borderBottom: '1px solid var(--color-border)' }}>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Name</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Utilisation</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, textAlign: 'left' }}>Duration (mins)</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-border">
+        <tbody style={{ borderTop: 'none' }}>
           {[
             { name: "Leave me alone", color: "#ef4444", util: "Excluded", dur: 15 },
             { name: "Meeting", color: "#1f2937", util: "Excluded", dur: 30 },
@@ -342,15 +342,15 @@ export const BusyTimeNameColumn: Story = {
             { name: "CPD", color: "#3b82f6", util: "Excluded", dur: 30 },
             { name: "Travel", color: "#22c55e", util: "Excluded", dur: 30 },
           ].map((b) => (
-            <tr key={b.name} >
-              <td className="text-body-md text-text" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
+            <tr key={b.name} style={{ borderBottom: '1px solid var(--color-border)' }}>
+              <td style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <ColorDot color={b.color} />
                   {b.name}
                 </div>
               </td>
-              <td className="text-body-md text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{b.util}</td>
-              <td className="text-body-md text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{b.dur}</td>
+              <td style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{b.util}</td>
+              <td style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>{b.dur}</td>
             </tr>
           ))}
         </tbody>
@@ -375,14 +375,14 @@ export const AppointmentDetailHeader: Story = {
       <div style={{ marginBottom: 16, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <ColorDot color="#f59e0b" size="sm" />
-          <span className="text-heading-sm text-text">Sarah Johnson (Initial Assessment)</span>
+          <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)' }}>Sarah Johnson (Initial Assessment)</span>
         </div>
-        <button className="text-text-secondary">&times;</button>
+        <button style={{ color: 'var(--color-text-secondary)' }}>&times;</button>
       </div>
-      <div className="text-body-md" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <p className="text-text-secondary">9:00 AM - 10:00 AM</p>
-        <p className="text-text-secondary">Joseph Go</p>
-        <p className="text-text-secondary">Room 1 - East Clinics</p>
+      <div style={{ fontSize: 14, lineHeight: 1.57, display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <p style={{ color: 'var(--color-text-secondary)' }}>9:00 AM - 10:00 AM</p>
+        <p style={{ color: 'var(--color-text-secondary)' }}>Joseph Go</p>
+        <p style={{ color: 'var(--color-text-secondary)' }}>Room 1 - East Clinics</p>
       </div>
     </div>
   ),

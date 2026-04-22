@@ -80,14 +80,14 @@ export const DisabledOn: Story = {
 export const SettingsToggle: Story = {
   render: () => (
     <div style={{ width: 480, display: 'flex', flexDirection: 'column', gap: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
-      <h4 className="text-heading-lg text-text">splose AI - voice</h4>
+      <h4 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, color: 'var(--color-text)' }}>splose AI - voice</h4>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span className="text-body-md text-text">Enable voice to text and ask splose AI</span>
+          <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>Enable voice to text and ask splose AI</span>
           <Toggle checked={true} onChange={() => {}} />
         </div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span className="text-body-md text-text">Save recording to client file</span>
+          <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>Save recording to client file</span>
           <Toggle checked={false} onChange={() => {}} />
         </div>
       </div>
@@ -123,7 +123,7 @@ export const CalendarRepeatToggle: Story = {
 export const SMSOptOut: Story = {
   render: () => (
     <div style={{ width: 360, display: 'flex', flexDirection: 'column', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
-      <h4 className="text-heading-sm text-text">Notifications</h4>
+      <h4 style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)' }}>Notifications</h4>
       <Toggle label="SMS" checked={true} onChange={() => {}} />
       <Toggle label="Email" checked={true} onChange={() => {}} />
     </div>
@@ -142,8 +142,8 @@ export const InvoiceOnlinePayments: Story = {
   name: "Recipe: Invoice Online Payments",
   render: () => (
     <div style={{ width: 480, display: 'flex', flexDirection: 'column', gap: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
-      <h4 className="text-heading-lg text-text">Online payments</h4>
-      <p className="text-body-md text-text-secondary">
+      <h4 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, color: 'var(--color-text)' }}>Online payments</h4>
+      <p style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>
         Enable online payment functionality for invoices sent to clients.
       </p>
       <Toggle
@@ -168,27 +168,27 @@ export const CustomFieldModalToggles: Story = {
   name: "Recipe: Custom Field Modal Toggles",
   render: () => (
     <div style={{ width: 400, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
-      <h4 className="text-heading-md text-text" style={{ marginBottom: 16 }}>New custom field</h4>
+      <h4 style={{ fontSize: 16, fontWeight: 600, lineHeight: 1.5, color: 'var(--color-text)', marginBottom: 16 }}>New custom field</h4>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div>
-          <label className="text-label-md text-text" style={{ marginBottom: 4, display: 'block' }}>Field name</label>
+          <label style={{ fontSize: 12, fontWeight: 500, lineHeight: 1.67, color: 'var(--color-text)', marginBottom: 4, display: 'block' }}>Field name</label>
           <input
-            className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 6, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
+            style={{ width: '100%', borderRadius: 6, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}
             defaultValue="Medicare number"
           />
         </div>
         <div>
-          <label className="text-label-md text-text" style={{ marginBottom: 4, display: 'block' }}>Field type</label>
-          <select className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 6, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
+          <label style={{ fontSize: 12, fontWeight: 500, lineHeight: 1.67, color: 'var(--color-text)', marginBottom: 4, display: 'block' }}>Field type</label>
+          <select style={{ width: '100%', borderRadius: 6, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>
             <option>Text</option>
           </select>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span className="text-body-md text-text">Display in client details</span>
+          <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>Display in client details</span>
           <Toggle checked={true} onChange={() => {}} label="Yes" />
         </div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span className="text-body-md text-text">Required</span>
+          <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>Required</span>
           <Toggle checked={false} onChange={() => {}} />
         </div>
       </div>
@@ -208,7 +208,7 @@ export const OnlineBookingLocationToggles: Story = {
   name: "Recipe: Online Booking Location Toggles",
   render: () => (
     <div style={{ width: 440, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
-      <h4 className="text-heading-md text-text" style={{ marginBottom: 16 }}>Location settings</h4>
+      <h4 style={{ fontSize: 16, fontWeight: 600, lineHeight: 1.5, color: 'var(--color-text)', marginBottom: 16 }}>Location settings</h4>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {[
           { name: "East Clinics", enabled: true },
@@ -219,7 +219,7 @@ export const OnlineBookingLocationToggles: Story = {
             key={loc.name}
             style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderRadius: 8, border: '1px solid var(--color-border)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}
           >
-            <span className="text-body-md text-text">{loc.name}</span>
+            <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>{loc.name}</span>
             <Toggle checked={loc.enabled} onChange={() => {}} />
           </div>
         ))}
@@ -240,19 +240,19 @@ export const ServiceNotificationToggles: Story = {
   name: "Recipe: Service Notification Toggles",
   render: () => (
     <div style={{ width: 440, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
-      <h4 className="text-heading-md text-text" style={{ marginBottom: 16 }}>Appointment notifications</h4>
+      <h4 style={{ fontSize: 16, fontWeight: 600, lineHeight: 1.5, color: 'var(--color-text)', marginBottom: 16 }}>Appointment notifications</h4>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <Toggle checked={true} onChange={() => {}} label="Send SMS confirmation" />
         <Toggle checked={true} onChange={() => {}} label="Send email confirmation" />
         <div>
-          <label className="text-label-md text-text" style={{ marginBottom: 4, display: 'block' }}>SMS reminder</label>
-          <select className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 6, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
+          <label style={{ fontSize: 12, fontWeight: 500, lineHeight: 1.67, color: 'var(--color-text)', marginBottom: 4, display: 'block' }}>SMS reminder</label>
+          <select style={{ width: '100%', borderRadius: 6, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>
             <option>24 hours before</option>
           </select>
         </div>
         <div>
-          <label className="text-label-md text-text" style={{ marginBottom: 4, display: 'block' }}>Email reminder</label>
-          <select className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 6, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
+          <label style={{ fontSize: 12, fontWeight: 500, lineHeight: 1.67, color: 'var(--color-text)', marginBottom: 4, display: 'block' }}>Email reminder</label>
+          <select style={{ width: '100%', borderRadius: 6, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>
             <option>48 hours before</option>
           </select>
         </div>

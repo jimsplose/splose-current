@@ -80,7 +80,7 @@ export const Controlled: Story = {
           value={value}
           onChange={setValue}
         />
-        <div className="border-border text-text" style={{ marginTop: 16, borderRadius: 4, border: '1px solid var(--color-border)', padding: 16, fontSize: 12 }}>
+        <div style={{ marginTop: 16, borderRadius: 4, border: '1px solid var(--color-border)', padding: 16, fontSize: 12, borderColor: 'var(--color-border)', color: 'var(--color-text)' }}>
           Active tab: <strong>{value}</strong>
         </div>
       </div>
@@ -112,7 +112,7 @@ export const SettingsAITabs: Story = {
           onChange={setValue}
           style={{ marginBottom: 24 }}
         />
-        <div className="border-border text-text-secondary" style={{ borderRadius: 4, border: '1px solid var(--color-border)', padding: 16, fontSize: 12 }}>
+        <div style={{ borderRadius: 4, border: '1px solid var(--color-border)', padding: 16, fontSize: 12, borderColor: 'var(--color-border)', color: 'var(--color-text-secondary)' }}>
           {value === "preferences" && "Voice-to-text, email assistant, and AI note generation settings."}
           {value === "saved-prompts" && "Custom prompts for AI-assisted note writing."}
           {value === "ai-block-library" && "Reusable AI block templates (BETA)."}
@@ -166,7 +166,7 @@ export const WaitlistTabs: Story = {
               onChange={setSubTab}
             />
           )}
-          <div className="border-border text-text-secondary" style={{ marginTop: 16, borderRadius: 4, border: '1px solid var(--color-border)', padding: 16, fontSize: 12 }}>
+          <div style={{ marginTop: 16, borderRadius: 4, border: '1px solid var(--color-border)', padding: 16, fontSize: 12, borderColor: 'var(--color-border)', color: 'var(--color-text-secondary)' }}>
             Showing: {mainTab} &rarr; {subTab}
           </div>
         </div>

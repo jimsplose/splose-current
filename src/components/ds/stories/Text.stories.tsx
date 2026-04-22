@@ -241,12 +241,12 @@ export const PageTypographyStack: Story = {
   name: "Recipe: Page Typography Stack",
   render: () => (
     <div style={{ maxWidth: 672, display: 'flex', flexDirection: 'column', gap: 24, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 32 }}>
-      <p className="text-body-sm text-text-secondary">
+      <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
         How display, heading, body, label, caption, and metric are used
         together on a typical Splose page.
       </p>
 
-      <hr className="border-border" />
+      <hr style={{ borderColor: 'var(--color-border)' }} />
 
       {/* Page title */}
       <Text variant="display/lg">Client Overview</Text>
@@ -353,15 +353,15 @@ export const SettingsPageHeader: Story = {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Text variant="display/lg">splose AI</Text>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <button className="border-border text-body-md text-text-secondary" style={{ borderRadius: 4, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6 }}>
+          <button style={{ borderRadius: 4, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6, fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)', borderColor: 'var(--color-border)' }}>
             Learn
           </button>
-          <button className="bg-primary text-body-md" style={{ borderRadius: 4, paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6, color: '#fff' }}>
+          <button style={{ borderRadius: 4, paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6, color: '#fff', fontSize: 14, lineHeight: 1.57 }}>
             Save
           </button>
         </div>
       </div>
-      <hr className="border-border" style={{ marginTop: 16, marginBottom: 16 }} />
+      <hr style={{ borderColor: 'var(--color-border)', marginTop: 16, marginBottom: 16 }} />
       <Text variant="heading/lg">splose AI settings: More control, your way</Text>
       <Text variant="display/md" style={{ marginTop: 16 }}>Preferences</Text>
     </div>
@@ -387,13 +387,13 @@ export const CalendarDateDisplay: Story = {
         </Text>
       </div>
       <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
-        <button className="border-border text-body-sm text-text-secondary" style={{ borderRadius: 4, border: '1px solid var(--color-border)', paddingLeft: 8, paddingRight: 8, paddingTop: 4, paddingBottom: 4 }}>
+        <button style={{ borderRadius: 4, border: '1px solid var(--color-border)', paddingLeft: 8, paddingRight: 8, paddingTop: 4, paddingBottom: 4, fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)', borderColor: 'var(--color-border)' }}>
           &larr;
         </button>
-        <button className="border-border text-body-sm text-text-secondary" style={{ borderRadius: 4, border: '1px solid var(--color-border)', paddingLeft: 8, paddingRight: 8, paddingTop: 4, paddingBottom: 4 }}>
+        <button style={{ borderRadius: 4, border: '1px solid var(--color-border)', paddingLeft: 8, paddingRight: 8, paddingTop: 4, paddingBottom: 4, fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)', borderColor: 'var(--color-border)' }}>
           &rarr;
         </button>
-        <button className="border-border text-body-md text-text-secondary" style={{ borderRadius: 4, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 4, paddingBottom: 4 }}>
+        <button style={{ borderRadius: 4, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 4, paddingBottom: 4, fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)', borderColor: 'var(--color-border)' }}>
           Today
         </button>
       </div>
@@ -450,14 +450,14 @@ export const SectionHeadingHierarchy: Story = {
         Introductory paragraph for the page.
       </Text>
 
-      <hr className="border-border" />
+      <hr style={{ borderColor: 'var(--color-border)' }} />
 
       <Text variant="heading/lg">Section Heading (heading/lg)</Text>
       <Text variant="heading/sm">Sub-section (heading/sm)</Text>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 4, paddingLeft: 16 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Text variant="body/md">Toggle setting label</Text>
-          <div className="bg-primary" style={{ height: 20, width: 40, borderRadius: '50%' }} />
+          <div style={{ height: 20, width: 40, borderRadius: '50%', backgroundColor: 'var(--color-primary)' }} />
         </div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Text variant="body/md">Another setting label</Text>

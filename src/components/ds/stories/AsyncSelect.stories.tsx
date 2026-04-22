@@ -42,7 +42,7 @@ function PlaygroundDemo() {
         placeholder="Select a user..."
       />
       {value && (
-        <p className="text-body-sm text-text-secondary" style={{ marginTop: 8 }}>Selected ID: {value}</p>
+        <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)', marginTop: 8 }}>Selected ID: {value}</p>
       )}
     </div>
   );
@@ -89,7 +89,7 @@ function LoadingDemo() {
 
   return (
     <div style={{ maxWidth: 384, display: 'flex', flexDirection: 'column', gap: 8 }}>
-      <p className="text-body-sm text-text-secondary">
+      <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
         Uses a slow endpoint to demonstrate the loading state. The first
         option shows &quot;Loading...&quot; while the fetch is in progress.
       </p>
@@ -124,7 +124,7 @@ function ClientAsyncSelectRecipe() {
 
   return (
     <div style={{ maxWidth: 384, display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <p className="text-body-sm text-text-secondary">
+      <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
         Demonstrates an async client selector that fetches options from an
         API. In production this would hit{" "}
         <code style={{ fontSize: 11 }}>/api/clients</code>.
@@ -138,7 +138,7 @@ function ClientAsyncSelectRecipe() {
         placeholder="Select client..."
       />
       {value && (
-        <p className="text-body-md text-text">
+        <p style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>
           Selected client ID: <strong>{value}</strong>
         </p>
       )}
@@ -172,8 +172,8 @@ function PractitionerSelectorRecipe() {
 
   return (
     <div style={{ maxWidth: 448, display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <h3 className="text-heading-md text-text">Assign practitioner</h3>
-      <p className="text-body-sm text-text-secondary">
+      <h3 style={{ fontSize: 16, fontWeight: 600, lineHeight: 1.5, color: 'var(--color-text)' }}>Assign practitioner</h3>
+      <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
         Fetches the practitioner list from an API. In production this would hit{" "}
         <code style={{ fontSize: 11 }}>/api/practitioners</code>.
       </p>
@@ -186,7 +186,7 @@ function PractitionerSelectorRecipe() {
         placeholder="Select practitioner..."
       />
       {value && (
-        <p className="text-body-md text-text">
+        <p style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>
           Assigned to practitioner ID: <strong>{value}</strong>
         </p>
       )}
@@ -226,7 +226,7 @@ function PaymentClientSelectRecipe() {
 
   return (
     <div style={{ maxWidth: 512, display: 'flex', flexDirection: 'column', gap: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
-      <h3 className="text-heading-md text-text">New payment</h3>
+      <h3 style={{ fontSize: 16, fontWeight: 600, lineHeight: 1.5, color: 'var(--color-text)' }}>New payment</h3>
       <AsyncSelect
         url="https://jsonplaceholder.typicode.com/users"
         mapOption={mapClient}
@@ -237,11 +237,11 @@ function PaymentClientSelectRecipe() {
       />
       {client && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <p className="text-label-lg text-text">Outstanding invoices</p>
+          <p style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)' }}>Outstanding invoices</p>
           {mockInvoices.map((inv) => (
             <div key={inv.number} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderRadius: 4, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
-              <span className="text-body-md text-primary">{inv.number}</span>
-              <span className="text-body-md text-text">{inv.due}</span>
+              <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-primary)' }}>{inv.number}</span>
+              <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>{inv.due}</span>
             </div>
           ))}
         </div>
@@ -278,15 +278,15 @@ function ServiceTypeSelectorRecipe() {
 
   return (
     <div style={{ maxWidth: 512, display: 'flex', flexDirection: 'column', gap: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
-      <h3 className="text-heading-md text-text">New appointment</h3>
+      <h3 style={{ fontSize: 16, fontWeight: 600, lineHeight: 1.5, color: 'var(--color-text)' }}>New appointment</h3>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
         <div>
-          <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>Date</label>
-          <div className="border-border text-body-md text-text" style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#f9fafb', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>{date}</div>
+          <label style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', marginBottom: 4, display: 'block' }}>Date</label>
+          <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', borderColor: 'var(--color-border)', backgroundColor: '#f9fafb', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>{date}</div>
         </div>
         <div>
-          <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>Time</label>
-          <div className="border-border text-body-md text-text" style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#f9fafb', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>{time}</div>
+          <label style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', marginBottom: 4, display: 'block' }}>Time</label>
+          <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', borderColor: 'var(--color-border)', backgroundColor: '#f9fafb', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>{time}</div>
         </div>
       </div>
       <AsyncSelect

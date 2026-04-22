@@ -57,7 +57,7 @@ export const Playground: Story = {
     open: true,
     title: "Modal title",
     maxWidth: "lg",
-    children: <p className="text-body-md text-text-secondary">Modal content goes here. Change the controls to experiment.</p>,
+    children: <p style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Modal content goes here. Change the controls to experiment.</p>,
     footer: (
       <>
         <Button variant="secondary">Cancel</Button>
@@ -75,7 +75,7 @@ export const Default: Story = {
   args: {
     open: true,
     title: "Information",
-    children: <p className="text-body-md text-text-secondary">This is a basic modal with a title and content.</p>,
+    children: <p style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>This is a basic modal with a title and content.</p>,
   },
 };
 
@@ -84,7 +84,7 @@ export const Large: Story = {
     open: true,
     title: "Create new record",
     maxWidth: "xl",
-    children: <p className="text-body-md text-text-secondary">Extra-large modal for complex forms.</p>,
+    children: <p style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Extra-large modal for complex forms.</p>,
     footer: (
       <>
         <Button variant="secondary">Cancel</Button>
@@ -98,7 +98,7 @@ export const WithFooter: Story = {
   args: {
     open: true,
     title: "Save changes",
-    children: <p className="text-body-md text-text-secondary">Are you sure you want to save your changes?</p>,
+    children: <p style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Are you sure you want to save your changes?</p>,
     footer: (
       <>
         <Button variant="secondary">Cancel</Button>
@@ -133,7 +133,7 @@ export const Confirmation: Story = {
     title: "Delete appointment",
     maxWidth: "sm",
     children: (
-      <p className="text-body-md text-text-secondary">
+      <p style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>
         Are you sure you want to delete this appointment? This action cannot be undone.
       </p>
     ),
@@ -274,7 +274,7 @@ export const EditPromptModal: Story = {
         />
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <Badge variant="yellow">BETA</Badge>
-          <span className="text-caption-md text-text-secondary">AI features are in beta. Results may vary.</span>
+          <span style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>AI features are in beta. Results may vary.</span>
         </div>
       </div>
     </Modal>
@@ -316,11 +316,11 @@ export const PaymentModal: Story = {
         />
 
         <div>
-          <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>
+          <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>
             Amount <span style={{ color: '#ef4444' }}>*</span>
           </label>
           <div style={{ position: 'relative' }}>
-            <span className="text-text-secondary" style={{top: '50%', position: 'absolute', left: 12, zIndex: 10, transform: 'translateY(-50%)', fontSize: 12 }}>$</span>
+            <span style={{ top: '50%', position: 'absolute', left: 12, zIndex: 10, transform: 'translateY(-50%)', fontSize: 12, color: 'var(--color-text-secondary)' }}>$</span>
             <FormInput type="number" step="0.01" min="0" placeholder="0.00" style={{ paddingLeft: 28 }} />
           </div>
         </div>

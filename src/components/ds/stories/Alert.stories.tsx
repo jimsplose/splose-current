@@ -152,7 +152,7 @@ export const StripeConnectionBanner: Story = {
     <div style={{ width: 560 }}>
       <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 16, color: '#2563eb' }} />}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span className="text-body-md">
+          <span style={{ fontSize: 14, lineHeight: 1.57 }}>
             Connect your Stripe account to accept online payments from clients.
           </span>
           <Button variant="primary" size="sm" style={{ marginLeft: 16, flexShrink: 0 }}>
@@ -178,7 +178,7 @@ export const BetaFeatureBanner: Story = {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <Badge variant="yellow">BETA</Badge>
-            <span className="text-body-md text-text">We need your feedback on AI blocks</span>
+            <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>We need your feedback on AI blocks</span>
           </div>
           <Button variant="link" size="sm" style={{ flexShrink: 0 }}>
             <ThunderboltOutlined style={{ fontSize: 14 }} />

@@ -37,7 +37,7 @@ export const Playground: Story = {
   args: {
     title: "Nothing here yet",
     message: "Get started by creating your first item.",
-    icon: <FileTextOutlined style={{ fontSize: 40 }} className="text-text-secondary" />,
+    icon: <FileTextOutlined style={{ fontSize: 40, color: 'var(--color-text-secondary)' }} />,
     action: <Button variant="primary">Create item</Button>,
   },
 };
@@ -61,7 +61,7 @@ export const WithAction: Story = {
 
 export const WithIcon: Story = {
   args: {
-    icon: <SearchOutlined style={{ fontSize: 40 }} className="text-text-secondary" />,
+    icon: <SearchOutlined style={{ fontSize: 40, color: 'var(--color-text-secondary)' }} />,
     title: "No results",
     message: "Try adjusting your search or filters.",
   },
@@ -80,7 +80,7 @@ export const WithIcon: Story = {
 export const NoSearchResults: Story = {
   args: {
     message: "No reference notes found",
-    className: "mt-16",
+    style: { marginTop: 64 },
   },
 };
 
@@ -93,7 +93,7 @@ export const NoSearchResults: Story = {
 export const NoNotesFound: Story = {
   args: {
     message: "No progress notes found. Create your first note to get started.",
-    className: "py-12",
+    style: { paddingTop: 48, paddingBottom: 48 },
   },
 };
 
@@ -109,16 +109,16 @@ export const NoProductsYet: Story = {
       <table style={{ width: '100%' }}>
         <thead>
           <tr style={{ borderBottom: '1px solid var(--color-border)', textAlign: 'left' }}>
-            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Name</th>
-            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Price</th>
-            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Status</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Name</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Price</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Status</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td colSpan={3}>
               <EmptyState
-                icon={<InboxOutlined style={{ fontSize: 40 }} className="text-text-secondary" />}
+                icon={<InboxOutlined style={{ fontSize: 40, color: 'var(--color-text-secondary)' }} />}
                 message="No products found."
                 style={{ paddingTop: 32, paddingBottom: 32 }}
               />
@@ -144,10 +144,10 @@ export const ScreenerTriageEmpty: Story = {
       <table style={{ width: '100%' }}>
         <thead>
           <tr style={{ borderBottom: '1px solid var(--color-border)', textAlign: 'left' }}>
-            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Triage</th>
-            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Tags</th>
-            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Client</th>
-            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Date submitted</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Triage</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Tags</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Client</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Date submitted</th>
           </tr>
         </thead>
         <tbody>
@@ -174,8 +174,8 @@ export const WaitlistClosedEmpty: Story = {
   render: () => (
     <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff' }}>
       <div style={{ display: 'flex', gap: 16, borderBottom: '1px solid var(--color-border)', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>
-        <span className="text-body-md text-text-secondary">Active</span>
-        <span className="border-b-2 border-primary text-body-md text-primary" style={{ paddingBottom: 4, fontWeight: 500 }}>
+        <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Active</span>
+        <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-primary)', borderBottom: '2px solid var(--color-primary)', paddingBottom: 4, fontWeight: 500 }}>
           Closed
         </span>
       </div>
@@ -195,7 +195,7 @@ export const ContactAssociatedClientsEmpty: Story = {
   name: "Recipe: No Associated Clients",
   render: () => (
     <div style={{ width: 500, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
-      <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Associated clients</h2>
+      <h2 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, color: 'var(--color-text)', marginBottom: 16 }}>Associated clients</h2>
       <EmptyState
         icon={<SearchOutlined style={{ fontSize: 40, color: '#9ca3af' }} />}
         message="No associated clients"
@@ -218,10 +218,10 @@ export const FormTemplatesEmpty: Story = {
       <table style={{ width: '100%' }}>
         <thead>
           <tr style={{ borderBottom: '1px solid var(--color-border)', textAlign: 'left' }}>
-            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Title</th>
-            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Form type</th>
-            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Created at</th>
-            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Updated at</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Title</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Form type</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Created at</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Updated at</th>
           </tr>
         </thead>
       </table>
@@ -242,16 +242,16 @@ export const PaymentNoLinkedInvoices: Story = {
   render: () => (
     <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
       <div style={{ marginBottom: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <h3 className="text-heading-sm text-text">Linked invoices</h3>
-        <button className="text-body-md text-primary">+ Link invoice</button>
+        <h3 style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)' }}>Linked invoices</h3>
+        <button style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-primary)' }}>+ Link invoice</button>
       </div>
       <table style={{ width: '100%' }}>
         <thead>
           <tr style={{ borderBottom: '1px solid var(--color-border)', textAlign: 'left' }}>
-            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>Invoice #</th>
-            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>Client</th>
-            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, textAlign: 'right' }}>Due</th>
-            <th className="text-label-lg text-text-secondary" style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, textAlign: 'right' }}>Amount</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>Invoice #</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>Client</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, textAlign: 'right' }}>Due</th>
+            <th style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, textAlign: 'right' }}>Amount</th>
           </tr>
         </thead>
         <tbody>

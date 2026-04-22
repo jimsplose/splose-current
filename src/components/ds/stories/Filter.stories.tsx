@@ -121,7 +121,7 @@ export const NoteViewToggle: Story = {
     const [viewMode, setViewMode] = useState("single");
     return (
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>
-        <span className="text-label-lg text-text">View:</span>
+        <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)' }}>View:</span>
         <Filter
           items={[
             { label: <AppstoreOutlined style={{ fontSize: 16 }} />, value: "single" },
@@ -130,7 +130,7 @@ export const NoteViewToggle: Story = {
           value={viewMode}
           onChange={setViewMode}
         />
-        <span className="text-caption-md text-text-secondary">
+        <span style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
           {viewMode === "single" ? "Editor only" : "Editor + Preview"}
         </span>
       </div>
@@ -153,8 +153,8 @@ export const CalendarViewFilter: Story = {
     return (
       <div style={{ display: 'flex', alignItems: 'center', gap: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <CalendarOutlined style={{ fontSize: 16 }} className="text-text-secondary" />
-          <span className="text-label-lg text-text">March 2026</span>
+          <CalendarOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
+          <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)' }}>March 2026</span>
         </div>
         <Filter
           items={[
@@ -184,9 +184,9 @@ export const NoteEditorToolbarToggle: Story = {
   render: function NoteEditorToolbarToggleStory() {
     const [viewMode, setViewMode] = useState("single");
     return (
-      <div className="border-border" style={{ display: 'flex', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-secondary)', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>
         {/* Add new note button */}
-        <button className="text-heading-lg" style={{ display: 'flex', height: 28, width: 28, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', backgroundColor: '#22c55e', lineHeight: 1, color: '#fff' }}>
+        <button style={{ display: 'flex', height: 28, width: 28, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', backgroundColor: '#22c55e', lineHeight: 1, color: '#fff', fontSize: 18, fontWeight: 700 }}>
           +
         </button>
         {/* View toggle */}
@@ -198,7 +198,7 @@ export const NoteEditorToolbarToggle: Story = {
           value={viewMode}
           onChange={setViewMode}
         />
-        <span className="text-caption-md text-text-secondary" style={{ marginLeft: 8 }}>
+        <span style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)', marginLeft: 8 }}>
           {viewMode === "single" ? "Full editor" : "Editor + reference"}
         </span>
       </div>
@@ -220,7 +220,7 @@ export const TimeViewFilter: Story = {
     const [view, setView] = useState("calendar");
     return (
       <div style={{ display: 'flex', alignItems: 'center', gap: 16, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>
-        <span className="text-label-lg text-text">View as:</span>
+        <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)' }}>View as:</span>
         <Filter
           items={[
             { label: <CalendarOutlined style={{ fontSize: 16 }} />, value: "calendar" },
@@ -230,7 +230,7 @@ export const TimeViewFilter: Story = {
           value={view}
           onChange={setView}
         />
-        <span className="text-caption-md text-text-secondary">
+        <span style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
           {view === "calendar" ? "Calendar view" : view === "timeline" ? "Timeline view" : "List view"}
         </span>
       </div>
@@ -253,7 +253,7 @@ export const StatusFilter: Story = {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <span className="text-label-lg text-text">Status:</span>
+          <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)' }}>Status:</span>
           <Filter
             items={[
               { label: "All", value: "all" },
@@ -265,7 +265,7 @@ export const StatusFilter: Story = {
             onChange={setStatus}
           />
         </div>
-        <p className="text-caption-md text-text-secondary">
+        <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
           Showing <strong>{status === "all" ? "all" : status}</strong> records
         </p>
       </div>

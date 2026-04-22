@@ -275,11 +275,11 @@ export const SettingsLayoutWithContent: Story = {
         isActive={(href: string) => href === "/settings/services"}
       />
       <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
-        <h1 className="text-display-lg" style={{ marginBottom: 16 }}>Services</h1>
-        <p className="text-body-md text-text-secondary">
+        <h1 style={{ marginBottom: 16, fontSize: 30, fontWeight: 700 }}>Services</h1>
+        <p style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>
           Manage your service types, durations, and pricing.
         </p>
-        <div className="border-border text-body-sm text-text-secondary" style={{ marginTop: 16, borderRadius: 4, border: '1px solid var(--color-border)', padding: 16 }}>
+        <div style={{ marginTop: 16, borderRadius: 4, border: '1px solid var(--color-border)', padding: 16, borderColor: 'var(--color-border)', fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
           Page content area
         </div>
       </div>

@@ -65,13 +65,13 @@ export const ProfilePhotoUpload: Story = {
   name: "Recipe: Profile Photo Upload",
   render: () => (
     <div style={{ width: 320 }}>
-      <p className="text-label-lg text-text" style={{ marginBottom: 8 }}>Profile photo</p>
+      <p style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', marginBottom: 8 }}>Profile photo</p>
       <FileUpload
         icon={<CameraOutlined style={{ fontSize: 40, color: 'rgba(var(--color-primary), 0.4)' }} />}
         label="Upload photo"
         style={{ height: 160 }}
       />
-      <p className="text-caption-md text-text-secondary" style={{ marginTop: 8 }}>
+      <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)', marginTop: 8 }}>
         Recommended: 256x256px, JPG or PNG, max 2MB
       </p>
     </div>
@@ -93,22 +93,22 @@ export const SettingsLogoUpload: Story = {
     <div style={{ display: 'flex', gap: 32 }}>
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div>
-          <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>
+          <label style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', marginBottom: 4, display: 'block' }}>
             Business name<span style={{ color: '#ef4444' }}>*</span>
           </label>
           <input
             type="text"
             defaultValue="Hands Together Therapies"
-            className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
+            style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none', fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', borderColor: 'var(--color-border)' }}
             readOnly
           />
         </div>
         <div>
-          <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>Workspace URL</label>
+          <label style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', marginBottom: 4, display: 'block' }}>Workspace URL</label>
           <input
             type="text"
             defaultValue="acme.splose.com"
-            className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
+            style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none', fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', borderColor: 'var(--color-border)' }}
             readOnly
           />
         </div>
@@ -146,27 +146,27 @@ export const ClientProfilePhotoUpload: Story = {
     <div style={{ display: 'flex', gap: 24 }}>
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div>
-          <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>First name *</label>
+          <label style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', marginBottom: 4, display: 'block' }}>First name *</label>
           <input
             type="text"
             defaultValue="Liam"
-            className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
+            style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none', fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', borderColor: 'var(--color-border)' }}
             readOnly
           />
         </div>
         <div>
-          <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>Last name *</label>
+          <label style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', marginBottom: 4, display: 'block' }}>Last name *</label>
           <input
             type="text"
             defaultValue="Nguyen"
-            className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
+            style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none', fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', borderColor: 'var(--color-border)' }}
             readOnly
           />
         </div>
       </div>
       <div style={{ flexShrink: 0, paddingTop: 24, textAlign: 'center' }}>
         <FileUpload
-          icon={<span className="text-body-md text-text-secondary">Profile photo</span>}
+          icon={<span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Profile photo</span>}
           label="Upload"
           style={{ height: 128, width: 128, padding: 0 }}
         />
@@ -189,18 +189,18 @@ export const OnlineBookingHeaderUpload: Story = {
   render: () => (
     <div style={{ maxWidth: 672, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <div>
-        <label className="text-label-lg text-text" style={{ marginBottom: 4, display: 'block' }}>Booking page name</label>
+        <label style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', marginBottom: 4, display: 'block' }}>Booking page name</label>
         <input
           type="text"
           defaultValue="Standard Booking"
-          className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
+          style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none', fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', borderColor: 'var(--color-border)' }}
           readOnly
         />
       </div>
       <div>
-        <label className="text-label-lg text-text" style={{ marginBottom: 8, display: 'block' }}>Logo / Header image</label>
+        <label style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)', marginBottom: 8, display: 'block' }}>Logo / Header image</label>
         <FileUpload
-          icon={<UploadOutlined style={{ fontSize: 32 }} className="text-text-secondary" />}
+          icon={<UploadOutlined style={{ fontSize: 32, color: 'var(--color-text-secondary)' }} />}
           label="Click or drag to upload"
           style={{ height: 128 }}
         />
@@ -222,13 +222,13 @@ export const CSVImportUpload: Story = {
   name: "Recipe: CSV Import Upload",
   render: () => (
     <div style={{ maxWidth: 672, display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <h3 className="text-heading-md text-text">Upload CSV file</h3>
+      <h3 style={{ fontSize: 16, fontWeight: 600, lineHeight: 1.5, color: 'var(--color-text)' }}>Upload CSV file</h3>
       <FileUpload
-        icon={<UploadOutlined style={{ fontSize: 32 }} className="text-text-secondary" />}
+        icon={<UploadOutlined style={{ fontSize: 32, color: 'var(--color-text-secondary)' }} />}
         label="Click to upload or drag and drop"
         style={{ paddingTop: 48, paddingBottom: 48 }}
       />
-      <p className="text-caption-md text-text-secondary">CSV files only, max 10MB</p>
+      <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>CSV files only, max 10MB</p>
     </div>
   ),
   parameters: { layout: "padded" },

@@ -190,7 +190,7 @@ export const TemplateSelect: Story = {
 export const SettingsFormSelects: Story = {
   render: () => (
     <div style={{ maxWidth: 512, display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <h2 className="text-heading-lg text-text">Practice settings</h2>
+      <h2 style={{ fontSize: 18, fontWeight: 600, lineHeight: 1.4, color: 'var(--color-text)' }}>Practice settings</h2>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
         <FormSelect
           label="Patient terminology"

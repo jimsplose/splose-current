@@ -47,7 +47,7 @@ function CustomRangeDemo() {
         onStartChange={setStart}
         onEndChange={setEnd}
       />
-      <p className="text-body-sm text-text-secondary">
+      <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
         Range: {start} to {end}
       </p>
     </div>
@@ -67,12 +67,12 @@ function ReportsDateRangeRecipe() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <p className="text-body-sm text-text-secondary">
+      <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
         From <code style={{ fontSize: 11 }}>reports/appointments</code> — date range
         filter with label, used alongside report filters.
       </p>
       <div>
-        <label className="text-text-secondary" style={{ marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4, fontSize: 12 }}>
+        <label style={{ color: 'var(--color-text-secondary)', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4, fontSize: 12 }}>
           Date range *
         </label>
         <DateRangeFilter
@@ -83,16 +83,16 @@ function ReportsDateRangeRecipe() {
         />
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
-        <button className="border-border text-body-md text-text" style={{ borderRadius: 4, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6 }}>
+        <button style={{ borderRadius: 4, border: '1px solid var(--color-border)', borderColor: 'var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6, fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>
           Add filter
         </button>
-        <button className="border-border text-body-md text-text" style={{ borderRadius: 4, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6 }}>
+        <button style={{ borderRadius: 4, border: '1px solid var(--color-border)', borderColor: 'var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6, fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>
           Save filters
         </button>
-        <button className="border-border text-body-md text-text" style={{ borderRadius: 4, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6 }}>
+        <button style={{ borderRadius: 4, border: '1px solid var(--color-border)', borderColor: 'var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6, fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>
           Load filters
         </button>
-        <button className="bg-primary text-body-md" style={{ borderRadius: 4, paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6, color: '#fff' }}>
+        <button style={{ borderRadius: 4, paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6, color: '#fff', fontSize: 14, lineHeight: 1.57 }}>
           Run report
         </button>
       </div>
@@ -117,31 +117,31 @@ export const BatchInvoiceDateRange: Story = {
   name: "Recipe: Batch Invoice Date Range",
   render: () => (
     <div style={{ maxWidth: 672, display: 'flex', flexDirection: 'column', gap: 24 }}>
-      <p className="text-body-sm text-text-secondary">
+      <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
         From <code style={{ fontSize: 11 }}>invoices/batch-invoice</code> — date range
         picker alongside practitioner and invoice type selects.
       </p>
       <div>
-        <label className="text-text-secondary" style={{ marginBottom: 4, display: 'block', fontSize: 12 }}>Date range *</label>
+        <label style={{ color: 'var(--color-text-secondary)', marginBottom: 4, display: 'block', fontSize: 12 }}>Date range *</label>
         <DateRangeFilter startDate="2026-03-01" endDate="2026-03-27" />
       </div>
       <div>
-        <label className="text-text-secondary" style={{ marginBottom: 4, display: 'block', fontSize: 12 }}>Practitioner</label>
-        <select className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}>
+        <label style={{ color: 'var(--color-text-secondary)', marginBottom: 4, display: 'block', fontSize: 12 }}>Practitioner</label>
+        <select style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', borderColor: 'var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none', fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>
           <option>All practitioners</option>
           <option>Sarah Chen</option>
           <option>James Wilson</option>
         </select>
       </div>
       <div>
-        <label className="text-text-secondary" style={{ marginBottom: 4, display: 'block', fontSize: 12 }}>Invoice type</label>
-        <select className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}>
+        <label style={{ color: 'var(--color-text-secondary)', marginBottom: 4, display: 'block', fontSize: 12 }}>Invoice type</label>
+        <select style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', borderColor: 'var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none', fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>
           <option>Standard</option>
           <option>NDIS</option>
           <option>Medicare</option>
         </select>
       </div>
-      <button className="bg-primary text-label-lg" style={{ borderRadius: 8, paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, color: '#fff' }}>
+      <button style={{ borderRadius: 8, paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, color: '#fff', fontSize: 14, fontWeight: 600, lineHeight: 1.57 }}>
         Preview
       </button>
     </div>
@@ -163,19 +163,19 @@ function NdisBulkUploadDateRangeRecipe() {
 
   return (
     <div style={{ maxWidth: 672, display: 'flex', flexDirection: 'column', gap: 24 }}>
-      <p className="text-body-sm text-text-secondary">
+      <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
         From <code style={{ fontSize: 11 }}>reports/ndis-bulk-upload/new</code> — date
         range with a summary count of items in the range.
       </p>
       <div>
-        <label className="text-text-secondary" style={{ marginBottom: 4, display: 'block', fontSize: 12 }}>Date range *</label>
+        <label style={{ color: 'var(--color-text-secondary)', marginBottom: 4, display: 'block', fontSize: 12 }}>Date range *</label>
         <DateRangeFilter
           startDate={start}
           endDate={end}
           onStartChange={setStart}
           onEndChange={setEnd}
         />
-        <p className="text-caption-md text-text-secondary" style={{ marginTop: 4 }}>
+        <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)', marginTop: 4 }}>
           12 support items from {start} to {end} at all practitioners
         </p>
       </div>
@@ -211,12 +211,12 @@ function AgedDebtorsDateRangeRecipe() {
 
   return (
     <div style={{ maxWidth: 768, display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <p className="text-body-sm text-text-secondary">
+      <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
         From <code style={{ fontSize: 11 }}>reports/aged-debtors</code> — date range
         filter with &quot;Run report&quot; button revealing aging summary cards.
       </p>
       <div>
-        <label className="text-text-secondary" style={{ marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4, fontSize: 12 }}>
+        <label style={{ color: 'var(--color-text-secondary)', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4, fontSize: 12 }}>
           Date range *
         </label>
         <DateRangeFilter
@@ -227,11 +227,11 @@ function AgedDebtorsDateRangeRecipe() {
         />
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
-        <button className="border-border text-body-md text-text" style={{ borderRadius: 4, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6 }}>
+        <button style={{ borderRadius: 4, border: '1px solid var(--color-border)', borderColor: 'var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6, fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>
           Add filter
         </button>
         <button
-          className="bg-primary text-body-md" style={{ borderRadius: 4, paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6, color: '#fff' }}
+          style={{ borderRadius: 4, paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6, color: '#fff', fontSize: 14, lineHeight: 1.57 }}
           onClick={() => setShowResults(true)}
         >
           Run report
@@ -241,8 +241,8 @@ function AgedDebtorsDateRangeRecipe() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
           {agingSummary.map((item) => (
             <div key={item.label} style={{ borderRadius: 8, border: '1px solid var(--color-border)', padding: 16 }}>
-              <p className="text-label-md text-text-secondary">{item.label}</p>
-              <p className={`mt-1 text-heading-lg ${item.color}`}>{item.amount}</p>
+              <p style={{ fontSize: 12, fontWeight: 500, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>{item.label}</p>
+              <p className={item.color} style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, marginTop: 4 }}>{item.amount}</p>
             </div>
           ))}
         </div>

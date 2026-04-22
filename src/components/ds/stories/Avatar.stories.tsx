@@ -65,19 +65,19 @@ export const AllSizes: Story = {
     <div style={{ display: 'flex', alignItems: 'flex-end', gap: 16 }}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
         <Avatar name="Sarah Johnson" size="sm" color="#7c3aed" />
-        <span className="text-text-secondary" style={{ fontSize: 11 }}>sm</span>
+        <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>sm</span>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
         <Avatar name="Sarah Johnson" size="md" color="#7c3aed" />
-        <span className="text-text-secondary" style={{ fontSize: 11 }}>md</span>
+        <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>md</span>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
         <Avatar name="Sarah Johnson" size="lg" color="#7c3aed" />
-        <span className="text-text-secondary" style={{ fontSize: 11 }}>lg</span>
+        <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>lg</span>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
         <Avatar name="Sarah Johnson" size="xl" color="#7c3aed" />
-        <span className="text-text-secondary" style={{ fontSize: 11 }}>xl</span>
+        <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>xl</span>
       </div>
     </div>
   ),
@@ -106,8 +106,8 @@ export const PractitionerGrid: Story = {
         >
           <Avatar name={p.name} color={p.color} size="xl" />
           <div style={{ minWidth: 0 }}>
-            <h3 className="text-text" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontWeight: 600 }}>{p.name}</h3>
-            <p className="text-text-secondary" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: 12 }}>{p.role}</p>
+            <h3 style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontWeight: 600, color: 'var(--color-text)' }}>{p.name}</h3>
+            <p style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: 12, color: 'var(--color-text-secondary)' }}>{p.role}</p>
             {p.specialty && (
               <span style={{ marginTop: 4, display: 'inline-block', borderRadius: '50%', backgroundColor: '#f3e8ff', paddingLeft: 8, paddingRight: 8, paddingTop: 2, paddingBottom: 2, fontSize: 11, fontWeight: 500, color: '#7e22ce' }}>
                 {p.specialty}
@@ -129,7 +129,7 @@ export const TopNavUser: Story = {
   render: () => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 8, borderRadius: 6, backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
       <Avatar name="Nicholas Smithson" color="#7c3aed" size="sm" />
-      <span className="text-text" style={{ fontSize: 12, fontWeight: 500 }}>Nicholas Smithson</span>
+      <span style={{ fontSize: 12, fontWeight: 500, color: 'var(--color-text)' }}>Nicholas Smithson</span>
     </div>
   ),
 };
@@ -150,7 +150,7 @@ export const CalendarPractitionerHeaders: Story = {
       ].map((p) => (
         <div key={p.name} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <Avatar name={p.name} color={p.color} size="sm" />
-          <span className="text-text" style={{ fontSize: 12 }}>{p.name}</span>
+          <span style={{ fontSize: 12, color: 'var(--color-text)' }}>{p.name}</span>
         </div>
       ))}
     </div>
@@ -167,8 +167,8 @@ export const OnlineBookingPractitioner: Story = {
     <div style={{ display: 'flex', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
       <Avatar name="Joseph Go" color="#f59e0b" size="md" />
       <div>
-        <div className="text-text" style={{ fontWeight: 500 }}>Joseph Go</div>
-        <div className="text-text-secondary" style={{ fontSize: 12 }}>Occupational Therapist</div>
+        <div style={{ fontWeight: 500, color: 'var(--color-text)' }}>Joseph Go</div>
+        <div style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>Occupational Therapist</div>
       </div>
     </div>
   ),

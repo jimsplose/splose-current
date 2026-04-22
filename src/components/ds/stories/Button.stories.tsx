@@ -131,7 +131,7 @@ export const LinkWithHref: Story = {
       <Button variant="link" href="/clients/1">View client profile</Button>
       <Button variant="link" href="https://splose.com" target="_blank">Open in new tab</Button>
       <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-        <span className="text-body-md text-text">Navigate to</span>
+        <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>Navigate to</span>
         <Button variant="link" href="/settings">Location settings</Button>
       </div>
     </div>
@@ -186,7 +186,7 @@ export const AllSizes: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       {(["primary", "secondary", "danger", "ghost", "link", "icon", "toolbar"] as const).map((variant) => (
         <div key={variant} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <span className="text-label-lg text-text-secondary" style={{ width: 80 }}>{variant}</span>
+          <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', width: 80 }}>{variant}</span>
           <Button variant={variant} size="sm">
             {variant === "icon" ? <PlusOutlined style={{ fontSize: 14 }} /> : "Small"}
           </Button>
@@ -240,7 +240,7 @@ export const IconOnlyButtons: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <span className="text-label-lg text-text-secondary" style={{ width: 160 }}>ghost + iconOnly</span>
+        <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', width: 160 }}>ghost + iconOnly</span>
         <Button variant="ghost" iconOnly style={{ color: 'var(--color-text-secondary)' }}>
           <DeleteOutlined style={{ fontSize: 14 }} />
         </Button>
@@ -252,7 +252,7 @@ export const IconOnlyButtons: Story = {
         </Button>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <span className="text-label-lg text-text-secondary" style={{ width: 160 }}>ghost + iconOnly + circle</span>
+        <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', width: 160 }}>ghost + iconOnly + circle</span>
         <Button variant="ghost" iconOnly shape="circle" size="sm">
           <CloseOutlined style={{ fontSize: 12 }} />
         </Button>
@@ -264,7 +264,7 @@ export const IconOnlyButtons: Story = {
         </Button>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <span className="text-label-lg text-text-secondary" style={{ width: 160 }}>primary + iconOnly + circle</span>
+        <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', width: 160 }}>primary + iconOnly + circle</span>
         <Button variant="primary" iconOnly shape="circle" size="sm">
           <PlusOutlined style={{ fontSize: 14 }} />
         </Button>
@@ -376,7 +376,7 @@ export const PageHeaderActions: Story = {
 
 export const ToolbarButtons: Story = {
   render: () => (
-    <Card padding="none" className="text-text-secondary" style={{ display: 'inline-flex', flexWrap: 'wrap', alignItems: 'center', gap: 4, paddingLeft: 8, paddingRight: 8, paddingTop: 6, paddingBottom: 6 }}>
+    <Card padding="none" style={{ display: 'inline-flex', flexWrap: 'wrap', alignItems: 'center', gap: 4, paddingLeft: 8, paddingRight: 8, paddingTop: 6, paddingBottom: 6, color: 'var(--color-text-secondary)' }}>
       <Button variant="toolbar" size="sm" style={{ display: 'flex', alignItems: 'center', gap: 2, fontSize: 11 }}>
         Arial
         <DownOutlined style={{ fontSize: 12 }} />
@@ -421,7 +421,7 @@ export const ToolbarButtons: Story = {
         <BgColorsOutlined style={{ fontSize: 16 }} />
       </Button>
       <span style={{ flex: 1 }} />
-      <Button variant="secondary" className="border-primary text-primary">
+      <Button variant="secondary" style={{ borderColor: 'var(--color-primary)', color: 'var(--color-primary)' }}>
         <ThunderboltOutlined style={{ fontSize: 14 }} />
         Generate
       </Button>
@@ -453,8 +453,8 @@ export const FilterChipRow: Story = {
           <RightOutlined style={{ fontSize: 16 }} />
         </Button>
       </div>
-      <span className="text-display-md text-text">March 2026</span>
-      <div className="text-text-secondary" style={{ marginLeft: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
+      <span style={{ color: 'var(--color-text)' }}>March 2026</span>
+      <div style={{ color: 'var(--color-text-secondary)', marginLeft: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
         <Button variant="icon" size="sm">
           <FilterOutlined style={{ fontSize: 16 }} />
         </Button>
@@ -469,10 +469,10 @@ export const FilterChipRow: Story = {
         <PlusOutlined style={{ fontSize: 16 }} />
       </Button>
       <Button variant="secondary" size="sm">
-        Calendar <span className="text-text-secondary">&#9662;</span>
+        Calendar <span style={{ color: 'var(--color-text-secondary)' }}>&#9662;</span>
       </Button>
       <Button variant="secondary" size="sm">
-        Week <span className="text-text-secondary">&#9662;</span>
+        Week <span style={{ color: 'var(--color-text-secondary)' }}>&#9662;</span>
       </Button>
     </div>
   ),
@@ -512,7 +512,7 @@ export const FormActionsDanger: Story = {
 
 export const IconButtonGroup: Story = {
   render: () => (
-    <div className="text-text-secondary" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+    <div style={{ color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: 8 }}>
       <Button variant="icon" size="sm">
         <FilterOutlined style={{ fontSize: 16 }} />
       </Button>
@@ -538,22 +538,22 @@ export const IconButtonGroup: Story = {
 export const LinkActions: Story = {
   render: () => (
     <div style={{ width: 288, display: 'flex', flexDirection: 'column', gap: 8, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 16 }}>
-      <p className="text-heading-sm text-text">Actions</p>
+      <p style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)' }}>Actions</p>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <VideoCameraAddOutlined className="shrink-0 text-text-secondary" style={{ fontSize: 16 }} />
+        <VideoCameraAddOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-text-secondary)' }} />
         <Button variant="link">Create Zoom meeting</Button>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <FileTextOutlined className="shrink-0 text-text-secondary" style={{ fontSize: 16 }} />
+        <FileTextOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-text-secondary)' }} />
         <Button variant="link">Add invoice</Button>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, paddingLeft: 28 }}>
         <Button variant="link">Mark as</Button>
-        <span className="text-text-secondary">and</span>
+        <span style={{ color: 'var(--color-text-secondary)' }}>and</span>
         <Button variant="link">Do not invoice?</Button>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <HistoryOutlined className="shrink-0 text-text-secondary" style={{ fontSize: 16 }} />
+        <HistoryOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-text-secondary)' }} />
         <Button variant="link" size="sm">
           View change log
         </Button>
@@ -572,7 +572,7 @@ export const LinkActions: Story = {
 export const FABButton: Story = {
   render: () => (
     <div style={{ position: 'relative', height: 160, width: 288, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#f9fafb' }}>
-      <div className="text-body-md text-text-secondary" style={{ display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)', display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
         Page content
       </div>
       <Button variant="primary" size="md" round style={{ position: 'absolute', right: 16, bottom: 16, boxShadow: '0 10px 15px rgba(0,0,0,.1)' }}>
@@ -609,19 +609,19 @@ export const ContextMenuButtons: Story = {
   render: () => (
     <Card padding="none" style={{ width: 208, boxShadow: '0 10px 15px rgba(0,0,0,.1)' }}>
       <div style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 12, paddingBottom: 4 }}>
-        <p className="text-heading-sm text-text">9:00 AM</p>
+        <p style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)' }}>9:00 AM</p>
       </div>
       <div style={{ paddingTop: 4, paddingBottom: 4 }}>
         <Button variant="ghost" style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
-          <ClockCircleOutlined style={{ fontSize: 16 }} className="text-text-secondary" />
+          <ClockCircleOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
           Support activity
         </Button>
         <Button variant="ghost" style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
-          <StopOutlined style={{ fontSize: 16 }} className="text-text-secondary" />
+          <StopOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
           Busy time
         </Button>
         <Button variant="ghost" style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
-          <CalendarOutlined style={{ fontSize: 16 }} className="text-text-secondary" />
+          <CalendarOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
           Appointment
         </Button>
       </div>
@@ -639,11 +639,11 @@ export const ContextMenuButtons: Story = {
 export const ComposeToolbar: Story = {
   render: () => (
     <div style={{ width: 480, borderTop: '1px solid var(--color-border)', padding: 12 }}>
-      <Card padding="none" className="text-body-md text-text-secondary" style={{ marginBottom: 8, minHeight: 48, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
+      <Card padding="none" style={{ marginBottom: 8, minHeight: 48, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>
         Type a message...
       </Card>
-      <div className="text-text-secondary" style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-        <Button variant="icon" size="sm" className="text-body-md-strong" title="Bold">
+      <div style={{ color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: 2 }}>
+        <Button variant="icon" size="sm" style={{ fontSize: 14, lineHeight: 1.57, fontWeight: 600 }} title="Bold">
           B
         </Button>
         <Button variant="icon" size="sm" style={{ fontStyle: 'italic' }} title="Italic">

@@ -70,11 +70,11 @@ export const WithLinks: Story = {
     items: [
       {
         label: "Email:",
-        value: <span className="text-primary">sarah@example.com</span>,
+        value: <span style={{ color: 'var(--color-primary)' }}>sarah@example.com</span>,
       },
       {
         label: "Phone numbers:",
-        value: <span className="text-primary">0412 345 678</span>,
+        value: <span style={{ color: 'var(--color-primary)' }}>0412 345 678</span>,
       },
       { label: "Preference:", value: "SMS & Email" },
     ],
@@ -159,7 +159,7 @@ export const ContactDetails: Story = {
   render: () => (
     <div style={{ width: 500, display: 'flex', flexDirection: 'column', gap: 24 }}>
       <section>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>General details</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, color: 'var(--color-text)', marginBottom: 16 }}>General details</h2>
         <List
           items={[
             { label: "Date of birth:", value: "10 Jun 2001 (24)" },
@@ -168,19 +168,19 @@ export const ContactDetails: Story = {
         />
       </section>
 
-      <hr className="border-border" />
+      <hr style={{ borderColor: 'var(--color-border)' }} />
 
       <section>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Client contact details</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, color: 'var(--color-text)', marginBottom: 16 }}>Client contact details</h2>
         <List
           items={[
             {
               label: "Email:",
-              value: <span className="text-primary">noah.campbell@email.com</span>,
+              value: <span style={{ color: 'var(--color-primary)' }}>noah.campbell@email.com</span>,
             },
             {
               label: "Phone numbers:",
-              value: <span className="text-primary">0409 999 000</span>,
+              value: <span style={{ color: 'var(--color-primary)' }}>0409 999 000</span>,
             },
             { label: "Preference:", value: "None" },
             { label: "Address:", value: "123 Main St, Adelaide SA 5000" },
@@ -206,7 +206,7 @@ export const MedicareAndNDIS: Story = {
   render: () => (
     <div style={{ width: 500, display: 'flex', flexDirection: 'column', gap: 24 }}>
       <section>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Medicare details</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, color: 'var(--color-text)', marginBottom: 16 }}>Medicare details</h2>
         <List
           items={[
             { label: "Card number:", value: "2123 45670 1" },
@@ -214,10 +214,10 @@ export const MedicareAndNDIS: Story = {
         />
       </section>
 
-      <hr className="border-border" />
+      <hr style={{ borderColor: 'var(--color-border)' }} />
 
       <section>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>NDIS details</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, color: 'var(--color-text)', marginBottom: 16 }}>NDIS details</h2>
         <List
           items={[
             { label: "NDIS number:", value: "4312789456" },
@@ -241,7 +241,7 @@ export const MedicationsAndAllergies: Story = {
   name: "Recipe: Medications & Allergies",
   render: () => (
     <div style={{ width: 500 }}>
-      <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>
+      <h2 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, color: 'var(--color-text)', marginBottom: 16 }}>
         Medications, allergies &amp; intolerances
       </h2>
       <List
@@ -269,7 +269,7 @@ export const CustomFieldsAndInvoicing: Story = {
   render: () => (
     <div style={{ width: 500, display: 'flex', flexDirection: 'column', gap: 24 }}>
       <section>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Custom fields</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, color: 'var(--color-text)', marginBottom: 16 }}>Custom fields</h2>
         <List
           items={[
             { label: "Date since surgery:", value: "25/09/2025" },
@@ -278,10 +278,10 @@ export const CustomFieldsAndInvoicing: Story = {
         />
       </section>
 
-      <hr className="border-border" />
+      <hr style={{ borderColor: 'var(--color-border)' }} />
 
       <section>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Invoicing</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, color: 'var(--color-text)', marginBottom: 16 }}>Invoicing</h2>
         <List
           items={[
             { label: "Invoice reminder preference:", value: "On" },
@@ -305,14 +305,14 @@ export const FullClientDetailPage: Story = {
   render: () => (
     <div style={{ width: 600, display: 'flex', flexDirection: 'column', gap: 32, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <h1 className="text-display-md text-text">Details</h1>
-        <button className="border-border text-body-md text-text-secondary" style={{ borderRadius: 4, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6 }}>
+        <h1 style={{ fontSize: 24, fontWeight: 700, lineHeight: 1.3, color: 'var(--color-text)' }}>Details</h1>
+        <button style={{ borderRadius: 4, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 6, paddingBottom: 6, fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>
           Edit
         </button>
       </div>
 
       <section>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>General details</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, color: 'var(--color-text)', marginBottom: 16 }}>General details</h2>
         <List
           items={[
             { label: "Date of birth:", value: "10 Jun 2001 (24 years old)" },
@@ -321,14 +321,14 @@ export const FullClientDetailPage: Story = {
         />
       </section>
 
-      <hr className="border-border" />
+      <hr style={{ borderColor: 'var(--color-border)' }} />
 
       <section>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Client contact details</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, color: 'var(--color-text)', marginBottom: 16 }}>Client contact details</h2>
         <List
           items={[
-            { label: "Email:", value: <span className="text-primary">noah.campbell@email.com</span> },
-            { label: "Phone numbers:", value: <span className="text-primary">0409 999 000</span> },
+            { label: "Email:", value: <span style={{ color: 'var(--color-primary)' }}>noah.campbell@email.com</span> },
+            { label: "Phone numbers:", value: <span style={{ color: 'var(--color-primary)' }}>0409 999 000</span> },
             { label: "Preference:", value: "None" },
             { label: "Address:", value: "123 Main St, Adelaide SA 5000" },
             { label: "Timezone:", value: "GMT+10:30 - Australia/Adelaide" },
@@ -336,17 +336,17 @@ export const FullClientDetailPage: Story = {
         />
       </section>
 
-      <hr className="border-border" />
+      <hr style={{ borderColor: 'var(--color-border)' }} />
 
       <section>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Medicare details</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, color: 'var(--color-text)', marginBottom: 16 }}>Medicare details</h2>
         <List items={[{ label: "Card number:", value: "2123 45670 1" }]} />
       </section>
 
-      <hr className="border-border" />
+      <hr style={{ borderColor: 'var(--color-border)' }} />
 
       <section>
-        <h2 className="text-heading-lg text-text" style={{ marginBottom: 16 }}>Custom fields</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, color: 'var(--color-text)', marginBottom: 16 }}>Custom fields</h2>
         <List
           items={[
             { label: "Date since surgery:", value: "25/09/2025" },

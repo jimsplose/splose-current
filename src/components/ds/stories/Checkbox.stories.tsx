@@ -50,7 +50,7 @@ function RememberMeRecipe() {
 
   return (
     <div style={{ maxWidth: 384, display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <p className="text-body-sm text-text-secondary">
+      <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
         From <code style={{ fontSize: 11 }}>login</code> — Remember me checkbox
         alongside forgot password link.
       </p>
@@ -60,7 +60,7 @@ function RememberMeRecipe() {
           checked={checked}
           onChange={(e) => setChecked(e.target.checked)}
         />
-        <a href="#" className="text-primary" style={{ fontSize: 12 }}>
+        <a href="#" style={{ fontSize: 12, color: 'var(--color-primary)' }}>
           Forgot password?
         </a>
       </div>
@@ -73,15 +73,15 @@ function ApplyToAllRecipe() {
 
   return (
     <div style={{ maxWidth: 448, display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <p className="text-body-sm text-text-secondary">
+      <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
         From <code style={{ fontSize: 11 }}>settings (details)</code> — Apply to
         all clients checkbox below a contact preference selector.
       </p>
       <div>
-        <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>
+        <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>
           Default contact preference
         </label>
-        <select className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
+        <select style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', borderColor: 'var(--color-border)' }}>
           <option>SMS & Email</option>
           <option>SMS only</option>
           <option>Email only</option>
@@ -102,14 +102,14 @@ function IncludeArchivedRecipe() {
 
   return (
     <div style={{ maxWidth: 448, display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <p className="text-body-sm text-text-secondary">
+      <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
         From <code style={{ fontSize: 11 }}>settings/data-export</code> — Include
         archived checkbox in the data export form.
       </p>
       <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', gap: 16 }}>
         <div style={{ width: 192 }}>
-          <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Export</label>
-          <select className="border-border text-body-md text-text" style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
+          <label style={{ marginBottom: 4, display: 'block', fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>Export</label>
+          <select style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', borderColor: 'var(--color-border)' }}>
             <option>Appointments</option>
             <option>Clients</option>
             <option>Contacts</option>
@@ -118,7 +118,7 @@ function IncludeArchivedRecipe() {
             <option>Waitlist</option>
           </select>
         </div>
-        <button className="bg-primary text-body-md" style={{ borderRadius: 4, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, color: '#fff' }}>
+        <button style={{ borderRadius: 4, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, color: '#fff', fontSize: 14, lineHeight: 1.57 }}>
           Export
         </button>
       </div>
