@@ -1,6 +1,6 @@
 # Wave 5 · Plan 08 — globals.css cleanup + regression sweep + backlog close-out
 
-**Status:** Planned
+**Status:** In progress
 **Estimated effort:** M (~1–1.5h including Chrome MCP sweep)
 **Recommended model:** Opus 4.7 (final regression check needs judgment on any delta)
 **Thinking budget:** think hard
