@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Flex } from "antd";
 import { ReadOutlined, CopyOutlined } from "@ant-design/icons";
-import { Button, PageHeader, Modal, Card, Divider, FormInput, Checkbox, Text, Stat } from "@/components/ds";
+import { Button, PageHeader, Modal, Card, Divider, FormInput, NumberInput, Checkbox, Text, Stat } from "@/components/ds";
 
 const creditOptions = [
   { credits: 200, price: "A$22.00" },
@@ -127,7 +127,7 @@ export default function SMSSettingsPage() {
         <p style={{ fontSize: 14, color: 'var(--color-text-secondary)', marginBottom: 12, marginTop: 8 }}>
           Receive an email reminder when SMS credits go below the level you specify below.
         </p>
-        <FormInput type="number" defaultValue="100" style={{ maxWidth: 320 }} />
+        <NumberInput format="integer" defaultValue={100} min={0} style={{ maxWidth: 320 }} />
       </div>
 
       {/* Automatic recharge */}
@@ -140,8 +140,8 @@ export default function SMSSettingsPage() {
         <p style={{ fontSize: 14, color: 'var(--color-text-secondary)', marginBottom: 12, marginTop: 8 }}>
           Automatically recharge SMS credits when the balance reaches the number you specify below.
         </p>
-        <FormInput type="number" defaultValue="100" style={{ maxWidth: 320, marginBottom: 16 }} />
-        <FormInput label="SMS credits to purchase" type="number" defaultValue="200" style={{ maxWidth: 320, marginBottom: 16 }} />
+        <NumberInput format="integer" defaultValue={100} min={0} style={{ maxWidth: 320, marginBottom: 16 }} />
+        <NumberInput label="SMS credits to purchase" format="integer" defaultValue={200} min={0} style={{ maxWidth: 320, marginBottom: 16 }} />
         <Button variant="primary">Save</Button>
       </div>
 

@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import Text from "./Text";
 
 interface FormFieldProps {
@@ -8,12 +8,13 @@ interface FormFieldProps {
   hint?: string;
   id?: string;
   className?: string;
+  style?: CSSProperties;
   children: ReactNode;
 }
 
-export default function FormField({ label, error, required, hint, id, className, children }: FormFieldProps) {
+export default function FormField({ label, error, required, hint, id, className, style, children }: FormFieldProps) {
   return (
-    <div className={className}>
+    <div className={className} style={style}>
       {label && (
         <label
           htmlFor={id}

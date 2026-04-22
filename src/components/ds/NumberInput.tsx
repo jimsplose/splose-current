@@ -36,6 +36,8 @@ export interface NumberInputProps {
   placeholder?: string;
   id?: string;
   className?: string;
+  /** Container-level style (e.g. maxWidth, marginBottom). Applied to the FormField wrapper or InputNumber when no label. */
+  style?: React.CSSProperties;
 }
 
 const sizeMap: Record<NumberInputSize, "small" | "middle" | "large"> = {
@@ -92,6 +94,7 @@ export default function NumberInput({
   placeholder,
   id,
   className,
+  style,
 }: NumberInputProps) {
   const inputId = id || label?.toLowerCase().replace(/\s+/g, "-");
   const defaults = resolveDefaults(format, currency);
@@ -141,7 +144,7 @@ export default function NumberInput({
       status={error ? "error" : undefined}
       formatter={formatter as never}
       parser={parser as never}
-      style={{ width: "100%" }}
+      style={{ width: "100%", ...(!label && !error && !hint && !required ? style : {}) }}
     />
   );
 
@@ -154,6 +157,7 @@ export default function NumberInput({
         required={required}
         id={inputId}
         className={className}
+        style={style}
       >
         {input}
       </FormField>
