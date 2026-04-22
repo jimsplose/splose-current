@@ -1,0 +1,29 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { SploseDocHeader } from "./SploseDocHeader";
+
+<Meta title="Overview/SploseDocHeader" />
+
+# SploseDocHeader
+
+Smoke test for the shared header component used on every Wave 4 component doc page. See
+`docs/ds-plans/Session0-StoryMetadata.md` for the metadata contract.
+
+<SploseDocHeader
+  name="Demo Component"
+  meta={{
+    status: "beta",
+    summary: "Short description shown under the heading on every DS doc page.",
+    whatToUseInstead: "Inline markup duplicated across pages.",
+    referenceLibrary: "antd",
+    plan: "docs/ds-plans/Tooltip.md",
+    source: "src/components/ds/Demo.tsx",
+  }}
+/>
+
+## Status pill variants
+
+<SploseDocHeader name="Planned" meta={{ status: "planned", summary: "Not yet built." }} />
+<SploseDocHeader name="Alpha" meta={{ status: "alpha", summary: "Under active construction." }} />
+<SploseDocHeader name="Beta" meta={{ status: "beta", summary: "Shipped, collecting feedback." }} />
+<SploseDocHeader name="Stable" meta={{ status: "stable", summary: "Production-ready." }} />
+<SploseDocHeader name="Deprecated" meta={{ status: "deprecated", summary: "Do not adopt for new work." }} />
