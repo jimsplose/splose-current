@@ -119,7 +119,7 @@ function ChartBar({ item }: { item: typeof incomeData[number] }) {
   const [hovered, setHovered] = useState<"invoices" | "payments" | null>(null);
 
   return (
-    <Flex vertical align="center" className="flex-1">
+    <Flex vertical align="center" style={{ flex: 1 }}>
       <Flex align="flex-end" justify="center" gap={1} style={{ position: 'relative', width: '100%', height: '100%' }}>
         {/* Invoice bar */}
         <div
@@ -153,7 +153,7 @@ function ChartBar({ item }: { item: typeof incomeData[number] }) {
         />
         {/* Tooltip */}
         {hovered && (
-          <div className="text-caption-sm text-white" style={{ pointerEvents: 'none', position: 'absolute', top: -56, left: '50%', zIndex: 10, transform: 'translateX(-50%)', whiteSpace: 'nowrap', borderRadius: 4, backgroundColor: '#1f2937', padding: '6px 10px', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
+          <div style={{ pointerEvents: 'none', position: 'absolute', top: -56, left: '50%', zIndex: 10, transform: 'translateX(-50%)', whiteSpace: 'nowrap', borderRadius: 4, backgroundColor: '#1f2937', padding: '6px 10px', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', fontSize: 11, color: '#fff' }}>
             <Text variant="label/sm" as="div">{item.month}</Text>
             <Flex align="center" gap={6}>
               <span style={{ display: 'inline-block', height: 8, width: 8, borderRadius: 2, backgroundColor: "#bef264" }} />
@@ -191,7 +191,7 @@ function MessageItem({
       onClick={onToggle}
     >
       <Avatar name={message.sender} color={message.color} size="sm" />
-      <div className="flex-1" style={{ minWidth: 0 }}>
+      <div style={{ flex: 1, minWidth: 0 }}>
         <Flex align="baseline" gap={6}>
           <Text variant="body/md-strong" as="span" color="text">{message.sender}</Text>
           <Text variant="caption/sm" as="span" color="text" style={{ fontSize: '9.8px' }}>{message.time}</Text>
@@ -264,13 +264,13 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
   return (
     <Flex style={{ minHeight: 'calc(100vh - 3rem)', gap: 14, padding: 7 }}>
       {/* Left column -- Messages (col1: wider) */}
-      <Flex vertical className="flex-1 overflow-hidden" style={{ borderRadius: 8, border: '1px solid var(--color-border)' }}>
+      <Flex vertical style={{ flex: 1, overflow: 'hidden', borderRadius: 8, border: '1px solid var(--color-border)' }}>
         <div style={{ backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
           <Text variant="label/lg" as="h2" color="text" style={{ fontWeight: 500 }}>Messages</Text>
         </div>
         <Divider spacing="none" />
 
-        <div className="flex-1 overflow-y-auto" style={{ paddingLeft: 16, paddingRight: 16, paddingBottom: 8 }}>
+        <div style={{ flex: 1, overflowY: 'auto', paddingLeft: 16, paddingRight: 16, paddingBottom: 8 }}>
           <Flex vertical gap={16}>
             <Flex align="center" justify="center" style={{ paddingTop: 8, paddingBottom: 8 }}>
               <Text variant="body/md" as="span" color="text">
@@ -364,19 +364,17 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
             <Button variant="icon" size="sm" title="More">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/></svg>
             </Button>
-            <div className="flex-1" />
+            <div style={{ flex: 1 }} />
             <Text variant="label/md" as="span" color="secondary" className={styles.gifButton} style={{ marginRight: 4, cursor: 'pointer', borderRadius: 4, padding: '2px 6px' }}>GIF</Text>
-            <Button variant="primary" className="text-body-md">
-              Send
-            </Button>
+            <Button variant="primary">Send</Button>
           </Flex>
         </div>
       </Flex>
 
       {/* Right column -- Analytics (col2: narrower) */}
-      <Flex vertical gap={7} className="shrink-0" style={{ width: 380 }}>
+      <Flex vertical gap={7} style={{ flexShrink: 0, width: 380 }}>
         {/* Income card */}
-        <Card padding="none" className="overflow-hidden">
+        <Card padding="none" style={{ overflow: 'hidden' }}>
           <div style={{ backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
             <Text variant="label/lg" as="h3" color="text" style={{ fontWeight: 500 }}>Income</Text>
           </div>
@@ -406,13 +404,13 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
               </Flex>
               <Flex style={{ marginLeft: 32, height: 48 }}>
                 {incomeData.map((item) => (
-                  <div key={item.month} className="flex-1" style={{ paddingTop: 4 }}>
+                  <div key={item.month} style={{ flex: 1, paddingTop: 4 }}>
                     <Text variant="caption/sm" as="span" color="secondary" style={{ display: 'inline-block', transform: 'rotate(-45deg)', transformOrigin: 'top left', whiteSpace: 'nowrap' }}>{item.month.replace("-", " ")}</Text>
                   </div>
                 ))}
               </Flex>
             </div>
-            <Flex align="center" justify="center" gap={16} className="mt-1">
+            <Flex align="center" justify="center" gap={16} style={{ marginTop: 4 }}>
               <Flex align="center" gap={6}>
                 <ColorDot color="#bef264" size="xs" /> <Text variant="caption/md" as="span" color="secondary">Invoices</Text>
               </Flex>
@@ -424,7 +422,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
         </Card>
 
         {/* Incomplete progress notes card */}
-        <Card padding="none" className="overflow-hidden">
+        <Card padding="none" style={{ overflow: 'hidden' }}>
           <div style={{ backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
             <Text variant="label/lg" as="h3" color="text" style={{ fontWeight: 500 }}>Incomplete progress notes</Text>
           </div>
@@ -438,7 +436,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                       <Text variant="body/md" as="span" color="primary" className={styles.hoverUnderline} style={{ cursor: 'pointer' }}>
                         {note.name}
                       </Text>
-                      <Text variant="caption/sm" as="span" color="secondary" className="shrink-0" style={{ whiteSpace: 'nowrap', paddingTop: 2 }}>
+                      <Text variant="caption/sm" as="span" color="secondary" style={{ flexShrink: 0, whiteSpace: 'nowrap', paddingTop: 2 }}>
                         {note.time}
                       </Text>
                     </Flex>
@@ -456,13 +454,13 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                   </Flex>
                 ))
               )}
-              <Button variant="link" className="mt-1">Load more</Button>
+              <Button variant="link" style={{ marginTop: 4 }}>Load more</Button>
             </Flex>
           </div>
         </Card>
 
         {/* Recently submitted forms card */}
-        <Card padding="none" className="overflow-hidden">
+        <Card padding="none" style={{ overflow: 'hidden' }}>
           <div style={{ backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
             <Text variant="label/lg" as="h3" color="text" style={{ fontWeight: 500 }}>Recently submitted forms</Text>
           </div>
@@ -473,8 +471,8 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                 <Flex key={form.id} align="flex-start" justify="space-between" gap={8} style={{ paddingTop: 2, paddingBottom: 2 }}>
                   <Link
                     href={`/patient-form/${form.id}/view`}
-                    className={`text-body-md text-primary ${styles.hoverUnderline}`}
-                    style={{ cursor: 'pointer' }}
+                    className={styles.hoverUnderline}
+                    style={{ cursor: 'pointer', fontSize: 14, color: 'var(--color-primary)', textDecoration: 'none' }}
                   >
                     {form.name}
                   </Link>
@@ -483,7 +481,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                   </Text>
                 </Flex>
               ))}
-              <Button variant="link" className="mt-1">Load more</Button>
+              <Button variant="link" style={{ marginTop: 4 }}>Load more</Button>
             </Flex>
           </div>
         </Card>
