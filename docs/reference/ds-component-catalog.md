@@ -87,6 +87,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `Alert` | Info/warning/success/error banners |
 | `Spinner` | Loading indicator (sm/md/lg) |
 | `EmptyState` | "No data" placeholders with icon + CTA |
+| `Skeleton` | Loading placeholder with shimmer — shapes `text`/`rect`/`circle`, `lines` for multi-line text (ragged last bar), `animated` for shimmer toggle. Subcomponents: `Skeleton.Text`, `Skeleton.Avatar`, `Skeleton.Block`, `Skeleton.Loading` (conditional swap). Respects `prefers-reduced-motion`. |
 
 ## Filters
 

@@ -1,0 +1,56 @@
+.root {
+  display: inline-block;
+  background-color: var(--color-fill-secondary, #f4f5f5);
+  position: relative;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.root[aria-busy="true"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  transform: translateX(-100%);
+}
+
+@keyframes shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.text {
+  border-radius: 4px;
+  height: 14px;
+  width: 100%;
+}
+
+.rect {
+  border-radius: 4px;
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+/* Respect user motion preferences. */
+@media (prefers-reduced-motion: reduce) {
+  .root[aria-busy="true"]::after {
+    animation: none;
+    background-image: none;
+  }
+}
