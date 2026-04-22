@@ -1,0 +1,59 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../Tooltip.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="Tooltip" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use Tooltip to expose a short supplementary label for elements that lack visible text: icon-only buttons, truncated text that overflows its container, and abbreviations or codes that need a plain-language expansion. The tooltip appears on hover and keyboard focus, keeping the interface uncluttered while still being discoverable.
+
+## When not to use
+
+- **HintIcon** — use instead when the help text is a sentence or more, or when the element is a form field that needs persistent, always-visible guidance. HintIcon renders an inline `?` icon that opens a popover and works on touch.
+- **Native `title` attribute** — acceptable for very simple static labels on non-interactive elements when the DS component is unavailable (e.g. inside a third-party chart). Do not use it for interactive elements because browser tooltip timing is inconsistent across assistive technologies.
+
+## Variants
+
+- **Feature: Sides** — demonstrates all four `side` values (`top`, `right`, `bottom`, `left`).
+- **Feature: Aligns** — shows `start`, `center`, and `end` alignment along the trigger edge.
+- **Feature: On Icon Button** — the canonical pattern: tooltip wrapping an icon-only `Button`.
+- **Feature: On Truncated Text** — tooltip reveals the full value when the trigger text is clipped with `text-overflow: ellipsis`.
+- **Feature: Disabled Trigger** — shows that native `disabled` buttons need a `<span>` wrapper (disabled elements swallow pointer events), and that passing `disabled` to the Tooltip itself suppresses the overlay entirely.
+
+## Composition
+
+Real consumer from `src/app/DashboardClient.tsx` — rich-text toolbar where every formatting icon-button is labelled with a Tooltip:
+
+```tsx
+import { Tooltip, Button } from "@/components/ds";
+
+<Tooltip content="Bold">
+  <Button variant="icon" size="sm" style={{ fontWeight: 700, fontSize: 13 }}>
+    B
+  </Button>
+</Tooltip>
+<Tooltip content="Italic">
+  <Button variant="icon" size="sm" style={{ fontStyle: "italic", fontSize: 13 }}>
+    I
+  </Button>
+</Tooltip>
+<Tooltip content="Table">
+  <Button variant="icon" size="sm">
+    <svg>{/* … */}</svg>
+  </Button>
+</Tooltip>
+```
+
+## Accessibility
+
+The component delegates entirely to AntD `Tooltip`, which adds `role="tooltip"` on the overlay and wires `aria-describedby` on the trigger automatically. Keyboard users trigger the tooltip on focus. Because tooltip content is supplementary, never put the only label for an action inside a tooltip — always pair it with an accessible `aria-label` on the trigger element.
+
+## Sizing
+
+The tooltip bubble is fixed-width (auto-sizing to content) and cannot be resized; control layout via the `side` and `align` props instead.
+
+## Migration from
+
+Replaces direct `import { Tooltip } from "antd"` call sites and ad-hoc `title` attribute usage on interactive elements across the codebase.

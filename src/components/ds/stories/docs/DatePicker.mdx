@@ -1,0 +1,64 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../DatePicker.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="DatePicker" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use DatePicker whenever the user needs to select a single calendar date in a form or filter bar. It wraps AntD's date picker with an Australian locale (DD/MM/YYYY format, Monday-first week) and emits native `Date` objects at the boundary — consumers never interact with dayjs. Pass `label`, `error`, and `hint` props to automatically render a `FormField` wrapper with consistent label/error/hint layout.
+
+## When not to use
+
+- **DateRangeFilter** — use instead when the user needs to select a start and end date together (report date ranges, appointment filters).
+- **`FormInput type="date"`** — avoid. Using the DS `DatePicker` is preferred: it provides locale-correct formatting, a calendar popover, min/max/disabled-date clamping, and consistent DS styling. `FormInput type="date"` exposes the raw browser date input which varies across browsers and ignores Australian locale.
+
+## Variants
+
+- **Feature: Empty** — unpopulated state with placeholder text.
+- **Feature: Filled** — pre-populated with a date value.
+- **Feature: Disabled** — input is read-only, calendar popover does not open.
+- **Feature: Error** — red border and error message via `error` prop; also marks the field `required`.
+- **Feature: With Min/Max (DOB past only)** — `maxDate={today}` prevents selection of future dates; use `minDate` symmetrically for future-only pickers.
+- **Feature: With Disabled Dates (weekends)** — the `disabledDates` predicate receives a native `Date` and returns `true` to grey out individual days (e.g. `(d) => d.getDay() === 0 || d.getDay() === 6`).
+- **Feature: Sizes** — `sm`, `md` (default), and `lg` height variants.
+
+## Composition
+
+DatePicker was introduced in Wave 5 and is not yet wired into production app routes. The recipe stories model the three primary use cases:
+
+```tsx
+import { DatePicker } from "@/components/ds";
+
+// Patient date of birth — controlled, past-only, required
+const [dob, setDob] = useState<Date | null>(null);
+
+<DatePicker
+  label="Date of birth"
+  value={dob}
+  onChange={setDob}
+  maxDate={new Date()}
+  required
+/>
+
+// Invoice due date — uncontrolled, future-only with hint
+<DatePicker
+  label="Due date"
+  defaultValue={dueDate}
+  minDate={new Date()}
+  hint="Net 14 default"
+/>
+```
+
+## Accessibility
+
+When `label` is provided, DatePicker wraps itself in `FormField` which renders a `<label>` element associated to the input via `htmlFor`/`id`. The calendar popover is keyboard-navigable (arrow keys move between days, Enter selects, Escape closes). The `error` prop sets `status="error"` on the AntD picker and renders an associated error message below the field. Consumers must still provide a `label` — unlabelled pickers are not accessible.
+
+## Sizing
+
+Three sizes are available: `sm`, `md` (default), and `lg`. They map directly to AntD's `small`, `middle`, and `large` input heights and match the corresponding `FormInput` and `NumberInput` sizes for visual consistency across a form row.
+
+## Migration from
+
+Replaces raw `import { DatePicker } from "antd"` call sites that each applied bespoke `style` overrides and manual dayjs-to-Date conversion per page.

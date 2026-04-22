@@ -1,0 +1,70 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../NumberInput.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="NumberInput" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use NumberInput for any form field that accepts a numeric value and benefits from typed formatting: service prices, discount percentages, invoice line quantities, appointment durations, and credit thresholds. It owns currency/percent formatting so consumers never call `parseFloat` themselves, and it emits `number | null` (never a string) via `onChange`. Stepper ± buttons are shown by default for fields where incrementing is natural.
+
+## When not to use
+
+- **FormInput** — use instead for free-form text that happens to contain digits mixed with other characters (e.g. Medicare card numbers, phone numbers, reference codes). FormInput does not parse or format numeric values.
+- **FormSelect** — use instead when the user picks from a fixed set of numeric options (e.g. "15 min / 30 min / 60 min"). A select is less error-prone than a numeric input when the valid set is small and enumerable.
+
+## Variants
+
+- **Feature: Integer** — `format="integer"`, no decimal places, stepper increments by 1.
+- **Feature: Decimal** — `format="decimal"`, two decimal places, no prefix/suffix.
+- **Feature: Currency (AUD)** — `format="currency" currency="AUD"` — renders `$` prefix and formats with thousand separators (`$1,234.50`).
+- **Feature: Percent** — `format="percent"` — renders `%` suffix.
+- **Feature: Without Steppers** — `showSteppers={false}` for free-entry numeric fields where up/down controls would be distracting.
+- **Feature: Clamped (min 1, max 100)** — `min` and `max` prevent the user from entering out-of-range values.
+- **Feature: Sizes** — `sm`, `md` (default), and `lg`.
+
+## Composition
+
+Real consumer from `src/app/settings/sms-settings/page.tsx` — credit threshold fields that use `format="integer"` with no label and an explicit `maxWidth`:
+
+```tsx
+import { NumberInput } from "@/components/ds";
+
+{/* Low-credit warning threshold */}
+<NumberInput
+  format="integer"
+  defaultValue={100}
+  min={0}
+  style={{ maxWidth: 320 }}
+/>
+
+{/* Automatic recharge threshold */}
+<NumberInput
+  format="integer"
+  defaultValue={100}
+  min={0}
+  style={{ maxWidth: 320, marginBottom: 16 }}
+/>
+
+{/* Labelled credits-to-purchase field */}
+<NumberInput
+  label="SMS credits to purchase"
+  format="integer"
+  defaultValue={200}
+  min={0}
+  style={{ maxWidth: 320, marginBottom: 16 }}
+/>
+```
+
+## Accessibility
+
+When `label` is provided, NumberInput wraps in `FormField` which renders a `<label>` linked to the input by `htmlFor`/`id`. The `error` prop sets `status="error"` on the AntD `InputNumber` and renders an associated error message. The `±` stepper buttons are keyboard-operable (Up/Down arrows also increment/decrement). Consumers must provide a `label` or an explicit `aria-label` on the input for unlabelled usage to remain accessible.
+
+## Sizing
+
+Three sizes are available: `sm`, `md` (default), and `lg`. They match the height of `FormInput` and `DatePicker` at each size, so mixed form rows stay visually aligned.
+
+## Migration from
+
+Replaces `<FormInput type="number">` plus manual `parseFloat()` and per-page currency/percent formatting logic.

@@ -1,0 +1,62 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../Skeleton.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="Skeleton" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use Skeleton when a section of the UI depends on async data that has not yet resolved and you want to prevent layout shift. Size the skeleton to match the real element within ±2 px so that the page does not reflow when data arrives. The canonical cases are list-page rows, detail-page headers, and card bodies during their initial server fetch.
+
+## When not to use
+
+- **Spinner** — prefer Spinner for indeterminate, full-screen, or button-level loading states where the exact dimensions of the incoming content are unknown.
+- **Empty state** — once the data fetch resolves and the result is empty, render `EmptyState` instead of keeping skeletons in place.
+
+## Variants
+
+- **Feature: Text** — single- and multi-line text bars via `Skeleton.Text` and its `lines` prop. The last bar renders at 60% width to simulate a ragged paragraph edge.
+- **Feature: Avatar** — circular placeholder via `Skeleton.Avatar size={N}` for user/patient avatars.
+- **Feature: Block** — arbitrary rectangular placeholder via `Skeleton.Block width height` for images, chart frames, and card bodies.
+- **Feature: Reduced Motion** — the shimmer animation is suppressed when `animated={false}` or when the OS `prefers-reduced-motion` media query is active.
+- **Recipe: Loading Wrapper** — `Skeleton.Loading loaded={bool}` swaps between the skeleton fallback and real children without per-call conditional-render boilerplate.
+
+## Composition
+
+Real consumer from `src/app/contacts/page.tsx` — the contacts list page wraps its DataTable with `Skeleton.Loading` and provides column-shaped blocks as the fallback:
+
+```tsx
+import { Skeleton } from "@/components/ds";
+
+<Skeleton.Loading
+  loaded={loaded}
+  fallback={
+    <div style={{ padding: "0 0 8px" }}>
+      {Array.from({ length: 6 }).map((_, i) => (
+        <div key={i} style={{ display: "flex", gap: 16, padding: "12px 16px", borderBottom: "1px solid var(--color-border)" }}>
+          <Skeleton.Block width="12%" height={18} />
+          <Skeleton.Block width="22%" height={18} />
+          <Skeleton.Block width="25%" height={18} />
+          <Skeleton.Block width="20%" height={18} />
+          <Skeleton.Block width="15%" height={18} />
+        </div>
+      ))}
+    </div>
+  }
+>
+  <DataTable>{/* real table */}</DataTable>
+</Skeleton.Loading>
+```
+
+## Accessibility
+
+Each skeleton bar renders with `aria-busy="true"` while animated, signalling to assistive technologies that the region is loading. Wrap the entire loading region in a container with `aria-live="polite"` so screen readers announce when real content replaces the skeletons.
+
+## Sizing
+
+There are no fixed size options — pass pixel numbers or CSS length strings to `width` and `height` on each sub-component to match the target element's dimensions exactly.
+
+## Migration from
+
+Replaces ad-hoc `<div className="animate-pulse bg-gray-200" />` loading rectangles and per-page conditional-render patterns scattered across list and detail pages.

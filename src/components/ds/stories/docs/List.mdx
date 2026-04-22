@@ -1,0 +1,79 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../List.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="List" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use List to render a set of label/value attribute pairs — patient contact details, invoice metadata, Medicare card fields, custom client fields. It renders semantic `<dl>/<dt>/<dd>` markup by default for screen-reader association. Use `layout="stacked"` when the value is long-form text (definitions, utilisation explanations) or when the mobile viewport makes side-by-side columns impractical.
+
+## When not to use
+
+- **DataTable** — use instead when you have multiple rows of the same entity type that need sortable columns, pagination, or row-level actions. List is for a single record's attributes, not a grid of records.
+- **Stat** — use instead for highlighted numeric metrics that need prominent typographic treatment (revenue, appointment count, utilisation %). Stat is visually heavy; List is compact.
+
+## Variants
+
+- **Stacked Layout (definitions)** — `layout="stacked"` places the label above the value on separate lines; suited for long-form values and glossary-style content.
+- **WideLabel** — override the default 112 px label column with `labelWidth="w-40"` (Tailwind class) or a pixel number for fields with longer label text (e.g. "Medicare number", "Invoice reminder preference").
+- **Feature: With Divider** — `divider` renders a hairline between rows using `var(--color-border-subtle)`.
+- **Feature: Tight** — `tight` halves vertical row padding for dense attribute grids (patient detail sidebar, sidebar widgets).
+- **Feature: With Hints** — per-row `hint` string renders a `HintIcon` beside the label (e.g. "Gap fee" with "Amount the patient pays out-of-pocket after Medicare rebate.").
+- **Feature: Editable** — per-row `editable: true` + `onEdit` callback renders a ghost pencil button at the end of the row.
+- **Feature: div semantic (opt-out)** — `semantic="div"` renders plain `<div>` elements instead of `<dl>/<dt>/<dd>` for stat rows or glossaries where the `<dl>` semantics would be misleading.
+
+## Composition
+
+Real consumer from `src/app/contacts/[id]/page.tsx` — General details and Contact details sections on the contact detail page, Wave 5 migration:
+
+```tsx
+import { List } from "@/components/ds";
+
+{/* General details */}
+<List
+  items={[
+    { label: "Name:", value: <Text variant="label/md" color="text" as="span">{contact.name}</Text> },
+    { label: "Type:", value: contact.type },
+    { label: "Organisation:", value: contact.organisation },
+  ]}
+/>
+
+{/* Contact information */}
+<List
+  items={[
+    { label: "Email:", value: <a href={`mailto:${contact.email}`}>{contact.email}</a> },
+    { label: "Phone numbers:", value: contact.phone },
+    { label: "Address:", value: contact.address },
+  ]}
+/>
+```
+
+Also used in `src/app/notes/[id]/edit/page.tsx` — the session info block at the top of a progress note document:
+
+```tsx
+<List
+  labelWidth="w-40"
+  items={[
+    { label: "Client Name", value: clientName },
+    { label: "Date of Session", value: formatDate(note.date) },
+    { label: "Time", value: "10:30 am" },
+    { label: "Organisation", value: "Hands Together Therapies" },
+    { label: "Location", value: "4 Williamstown Rd" },
+    { label: "Therapist", value: "Joseph Go" },
+  ]}
+/>
+```
+
+## Accessibility
+
+The default `semantic="dl"` renders a `<dl>` containing `<dt>` (label) and `<dd>` (value) pairs, which screen readers announce as a description list with associated term–definition relationships. Per-row `hint` text is surfaced via `HintIcon` which uses `role="tooltip"`. Per-row pencil buttons are labelled `aria-label="Edit {label}"` automatically. Use `semantic="div"` only when the content is not attribute data (e.g. a stats row or a glossary header/body pair), as it removes the semantic association.
+
+## Sizing
+
+List has no fixed size prop. Row density is controlled by the `tight` boolean (halves vertical padding) and `layout` (`horizontal` or `stacked`). Label column width is controlled by `labelWidth` — accepts a Tailwind width class string (`"w-28"`, `"w-40"`) or a pixel number.
+
+## Migration from (Wave 4 enhancement)
+
+Wave 4 added `divider`, `tight`, `hint`, `editable`/`onEdit`, `semantic`, and `layout="stacked"` to the original first-party `List` component. These enhancements replaced inline `<div>` label/value row patterns on the patient, contact, and invoice detail pages that previously applied ad-hoc padding, border-bottom, and colour styles directly in each file.

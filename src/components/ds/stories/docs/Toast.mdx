@@ -1,0 +1,74 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../Toast.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="Toast" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use Toast for short, non-blocking confirmation of a completed action — saving a record, archiving a client, generating a document. Toasts auto-dismiss after 4 seconds (error toasts after 6 seconds), require no user interaction to clear, and appear anchored to the bottom-right corner so they never block the primary workflow. Call `toast.success()`, `toast.error()`, `toast.warning()`, `toast.info()`, or `toast.promise()` from any client component; mount `<Toaster />` once at the root layout.
+
+## When not to use
+
+- **AlertDialog** — use instead when you need the user to confirm or acknowledge something before proceeding. AlertDialog is blocking; Toast is not.
+- **AlertCallout** — use instead for inline, persistent status messages within a page section (form errors, plan-limit warnings, deprecation notices). AlertCallout is always visible; Toast is transient.
+
+## Variants
+
+- **Feature: Success** — `toast.success("Invoice saved")` — green icon, 4 s auto-dismiss.
+- **Feature: Error** — `toast.error(msg, { description, duration })` — red icon, optional secondary line, longer duration.
+- **Feature: Warning** — `toast.warning(msg, { description })` — amber icon.
+- **Feature: Info** — `toast.info(msg)` — blue icon.
+- **Feature: Loading** — `toast.loading(msg, { id })` — spinner icon, persists until explicitly replaced or dismissed.
+- **Feature: With Action** — `toast(msg, { action: { label, onClick } })` — renders an inline button (e.g. "Undo").
+- **Feature: Promise** — `toast.promise(promise, { loading, success, error })` — automatically cycles through loading → success/error states.
+- **Feature: Dedupe (same id)** — passing the same `id` to multiple `toast()` calls collapses them into a single toast.
+
+## Composition
+
+The `<Toaster />` component is mounted once in `src/app/layout.tsx`:
+
+```tsx
+// src/app/layout.tsx
+import { ThemeProvider, Toaster } from "@/components/ds";
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        <ThemeProvider>
+          {children}
+          <Toaster />
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+Triggering a toast from any client component:
+
+```tsx
+import { toast } from "@/components/ds";
+
+async function handleSave() {
+  await toast.promise(saveInvoice(), {
+    loading: "Saving invoice...",
+    success: (data) => `Invoice ${data.id} saved`,
+    error: (err) => `Couldn't save: ${err.message}`,
+  });
+}
+```
+
+## Accessibility
+
+Sonner sets `role="status"` and `aria-live="polite"` on success and info toasts, and `role="alert"` / `aria-live="assertive"` on error toasts, so screen readers announce them without requiring focus. The built-in close button is keyboard-focusable. Toasts are never the only way to convey a critical error — always pair with inline form validation or an AlertCallout for destructive failures.
+
+## Sizing
+
+Toast width is fixed at the Sonner default (356 px) and is not configurable. Content length should be kept to one line for the title and one line for the optional description.
+
+## Migration from
+
+Replaces `antd message.success()`, `antd notification.info()`, and custom one-off toast implementations scattered across individual pages.
