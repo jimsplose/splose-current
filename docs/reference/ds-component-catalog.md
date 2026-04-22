@@ -76,6 +76,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 
 | Component | Use for |
 |---|---|
+| `Drawer` | Edge-anchored panel overlay for secondary surfaces (appointment details, filters, help). Sides: left/right/top/bottom (default right). Size tokens: sm=320, md=400, lg=560, xl=720 (or custom px). Props: `open`, `onClose`, `title`, `description`, `headerBar`, `footer` (sticky action row), `dismissOnOverlayClick`, `dismissOnEsc`. Use for contextual side panels; use `Modal` for blocking dialogs. |
 | `Modal` | Dialog overlays with backdrop |
 | `Dropdown` | Action menus, context menus |
 | `AsyncSelect` | Searchable dropdown with async data fetching |

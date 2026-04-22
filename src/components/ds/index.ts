@@ -66,3 +66,5 @@ export { default as DatePicker } from "./DatePicker";
 export type { DatePickerProps, DatePickerSize } from "./DatePicker";
 export { default as NumberInput } from "./NumberInput";
 export type { NumberInputProps, NumberInputSize, NumberInputFormat, NumberInputCurrency } from "./NumberInput";
+export { default as Drawer } from "./Drawer";
+export type { DrawerProps, DrawerSide, DrawerSize } from "./Drawer";
