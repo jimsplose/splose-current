@@ -64,3 +64,4 @@ next-env.d.ts
 !.claude/commands/
 .claude/commands/*
 !.claude/commands/*.md
+.worktrees/
