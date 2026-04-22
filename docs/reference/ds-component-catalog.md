@@ -36,6 +36,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `FormInput` | Labeled text inputs with error states |
 | `FormSelect` | Labeled select dropdowns (supports searchable, placeholder) |
 | `FormTextarea` | Labeled textarea matching FormInput styling |
+| `DatePicker` | Single-date input with calendar popover. Emits native `Date` at boundary (AntD's dayjs is hidden). Props: `label`, `value`, `onChange`, `minDate`, `maxDate`, `disabledDates`, `format`, `clearable`, `size` (sm/md/lg), `error`, `hint`. Locale locked to en-AU (DD/MM/YYYY). For date ranges use `DateRangeFilter`; for date+time pair with `TimePicker`. |
 | `FormColorPicker` | Color picker with native and swatches variants |
 | `Toggle` | Boolean on/off switches |
 | `Checkbox` | Styled checkbox with optional label |
