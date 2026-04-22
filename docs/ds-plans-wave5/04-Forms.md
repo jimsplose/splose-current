@@ -1,6 +1,6 @@
 # Wave 5 · Plan 04 — Forms, modals, and feedback surfaces
 
-**Status:** Planned
+**Status:** In progress
 **Estimated effort:** L (broad sweep across ~15 files; each change small)
 **Recommended model:** Sonnet 4.6 (mostly mechanical substitutions)
 **Thinking budget:** think
