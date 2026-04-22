@@ -1,7 +1,7 @@
 # SignaturePad build plan
 
 **Phase:** 4
-**Status:** Planned
+**Status:** Done
 **Estimated size:** M
 **Jira ticket:** TBC, create before build session
 **Feature doc:** n/a

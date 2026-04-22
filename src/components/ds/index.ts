@@ -49,6 +49,8 @@ export { default as HoverCard } from "./HoverCard";
 export type { HoverCardProps, HoverCardSide, HoverCardAlign } from "./HoverCard";
 export { default as ContextMenu } from "./ContextMenu";
 export type { ContextMenuProps, ContextMenuItem } from "./ContextMenu";
+export { default as SignaturePad } from "./SignaturePad";
+export type { SignaturePadProps, SignatureFormat } from "./SignaturePad";
 export { default as Navbar } from "./Navbar";
 export { default as DateRangeFilter } from "./DateRangeFilter";
 export { default as Divider } from "./Divider";
