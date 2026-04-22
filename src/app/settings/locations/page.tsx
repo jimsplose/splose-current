@@ -54,14 +54,13 @@ export default function LocationsPage() {
               <Td>
                 <Link
                   href={`/settings/locations/edit/${loc.id}`}
-                  className="text-text"
                   style={{ fontWeight: 500 }}
                 >
                   {loc.name}
                 </Link>
               </Td>
-              <Td className="text-text-secondary">{loc.address}</Td>
-              <Td className="text-text-secondary">{loc.lastUpdate}</Td>
+              <Td color="secondary">{loc.address}</Td>
+              <Td color="secondary">{loc.lastUpdate}</Td>
             </Tr>
           ))}
         </TableBody>
@@ -95,15 +94,14 @@ export default function LocationsPage() {
 
           {/* Opening hours */}
           <div>
-            <p className="text-label-lg text-text-secondary" style={{ marginBottom: 8 }}>Opening hours</p>
+            <p style={{ marginBottom: 8, fontSize: 12, fontWeight: 500, color: 'var(--color-text-secondary)' }}>Opening hours</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {weekdays.map((day) => (
                 <div key={day} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                  <span className="text-body-sm text-text" style={{ width: 96 }}>{day}</span>
+                  <span style={{ width: 96, fontSize: 12 }}>{day}</span>
                   <input
                     type="time"
-                    className="text-body-sm text-text"
-                    style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', paddingLeft: 8, paddingRight: 8, paddingTop: 6, paddingBottom: 6, outline: 'none' }}
+                    style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', paddingLeft: 8, paddingRight: 8, paddingTop: 6, paddingBottom: 6, outline: 'none', fontSize: 12 }}
                     value={openingHours[day].start}
                     onChange={(e) =>
                       setOpeningHours((prev) => ({
@@ -112,11 +110,10 @@ export default function LocationsPage() {
                       }))
                     }
                   />
-                  <span className="text-body-sm text-text-secondary">to</span>
+                  <span style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>to</span>
                   <input
                     type="time"
-                    className="text-body-sm text-text"
-                    style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', paddingLeft: 8, paddingRight: 8, paddingTop: 6, paddingBottom: 6, outline: 'none' }}
+                    style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', paddingLeft: 8, paddingRight: 8, paddingTop: 6, paddingBottom: 6, outline: 'none', fontSize: 12 }}
                     value={openingHours[day].end}
                     onChange={(e) =>
                       setOpeningHours((prev) => ({

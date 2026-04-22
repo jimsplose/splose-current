@@ -60,7 +60,7 @@ export default function EditEmailTemplatePage() {
           <FormInput label="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
 
           <div>
-            <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Body</label>
+            <label style={{ marginBottom: 4, display: 'block', fontSize: 12, fontWeight: 500, color: 'var(--color-text-secondary)' }}>Body</label>
             <RichTextEditor
               value={body}
               onChange={setBody}

@@ -143,15 +143,15 @@ export default function EditProgressNoteTemplatePage() {
 
           {hasAi && (
             <Flex vertical gap={12}>
-              <h3 className="text-heading-md text-text">AI blocks</h3>
+              <h3 style={{ fontSize: 18, fontWeight: 600 }}>AI blocks</h3>
               {blocks.map((block) => (
                 <Card key={block.id} padding="none">
                   <Flex align="center" gap={8} style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'rgba(var(--color-primary-rgb, 130, 80, 255), 0.05)', padding: '8px 16px' }}>
                     <HolderOutlined style={{ fontSize: 16, cursor: 'grab', color: 'var(--color-text-secondary)' }} />
                     <ThunderboltOutlined style={{ fontSize: 16, color: 'var(--color-primary)' }} />
-                    <span style={{ flex: 1 }} className="text-label-lg text-text">{block.name}</span>
+                    <span style={{ flex: 1, fontSize: 12, fontWeight: 500 }}>{block.name}</span>
                     {savedBlockId === block.id && (
-                      <Flex align="center" gap={4} className="text-caption-md" style={{ color: '#059669' }}>
+                      <Flex align="center" gap={4} style={{ fontSize: 11, color: '#059669' }}>
                         <CheckOutlined style={{ fontSize: 14 }} /> Saved
                       </Flex>
                     )}
@@ -168,8 +168,7 @@ export default function EditProgressNoteTemplatePage() {
                   </Flex>
                   <div style={{ padding: '12px 16px' }}>
                     <textarea
-                      style={{ width: '100%', borderRadius: 4, border: '1px solid var(--color-border)', padding: '8px 12px', outline: 'none' }}
-                      className="text-body-md text-text"
+                      style={{ width: '100%', borderRadius: 4, border: '1px solid var(--color-border)', padding: '8px 12px', outline: 'none', fontSize: 14 }}
                       rows={2}
                       value={block.prompt}
                       onChange={(e) =>
@@ -186,7 +185,7 @@ export default function EditProgressNoteTemplatePage() {
           )}
 
           <div>
-            <label className="block mb-1 text-label-lg" style={{ color: 'var(--color-text-secondary)' }}>Free text section</label>
+            <label style={{ display: 'block', marginBottom: 4, fontSize: 12, fontWeight: 500, color: 'var(--color-text-secondary)' }}>Free text section</label>
             <RichTextEditor value={freeText} onChange={setFreeText} rows={6} />
           </div>
         </Flex>
@@ -210,7 +209,7 @@ export default function EditProgressNoteTemplatePage() {
           />
           <Flex vertical gap={8}>
             {filteredLibraryBlocks.length === 0 ? (
-              <p className="text-center text-body-md text-text-secondary" style={{ padding: '16px 0' }}>No blocks match this filter.</p>
+              <p style={{ textAlign: 'center', fontSize: 14, color: 'var(--color-text-secondary)', padding: '16px 0' }}>No blocks match this filter.</p>
             ) : (
               filteredLibraryBlocks.map((block) => (
                 <Flex
@@ -219,13 +218,12 @@ export default function EditProgressNoteTemplatePage() {
                   onClick={() => addBlock(block)}
                   align="center"
                   gap={12}
-                  className="text-left"
-                  style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '12px 16px', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}
+                  style={{ textAlign: 'left', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '12px 16px', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}
                 >
                   <ThunderboltOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-primary)' }} />
                   <div>
-                    <div className="text-label-lg text-text">{block.name}</div>
-                    <div className="text-caption-md text-text-secondary">{block.prompt}</div>
+                    <div style={{ fontSize: 12, fontWeight: 500 }}>{block.name}</div>
+                    <div style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>{block.prompt}</div>
                   </div>
                 </Flex>
               ))

@@ -77,10 +77,10 @@ export default function ProgressNotesPage() {
       {showBanner && (
         <Flex align="flex-start" gap={12} style={{ marginBottom: 16, borderRadius: 8, border: '1px solid rgba(var(--color-primary-rgb, 130, 80, 255), 0.2)', backgroundColor: 'rgba(var(--color-primary-rgb, 130, 80, 255), 0.1)', padding: '12px 16px' }}>
           <Badge variant="purple">New</Badge>
-          <p style={{ flex: 1, fontSize: 12 }} className="text-text">
+          <p style={{ flex: 1, fontSize: 12 }}>
             Add AI blocks to templates to generate instant drafts, every
             session. Try a template{" "}
-            <a href="#" style={{ fontWeight: 500, textDecoration: 'underline' }} className="text-primary">
+            <a href="#" style={{ fontWeight: 500, textDecoration: 'underline', color: 'var(--color-primary)' }}>
               created by splose
             </a>
             .
@@ -118,7 +118,7 @@ export default function ProgressNotesPage() {
                   {t.hasAi && (
                     <ThunderboltOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-primary)' }} />
                   )}
-                  <span className="text-text">{t.title}</span>
+                  <span>{t.title}</span>
                 </Flex>
               </Td>
               <Td>{t.createdAt}</Td>

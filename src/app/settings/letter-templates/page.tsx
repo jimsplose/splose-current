@@ -110,7 +110,7 @@ export default function LetterTemplatesPage() {
         <TableBody>
           {paged.map((t, i) => (
             <Tr key={t.title + i}>
-              <Td className="text-text">{t.title}</Td>
+              <Td>{t.title}</Td>
               <Td>{t.createdAt}</Td>
               <Td>{t.lastUpdated}</Td>
               <Td align="right">

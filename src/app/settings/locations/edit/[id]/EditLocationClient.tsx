@@ -251,14 +251,13 @@ export default function EditLocationClient({ id }: { id: string }) {
   };
 
   return (
-    <div className="p-6">
+    <div style={{ padding: 24 }}>
       {/* Header */}
-      <Flex align="center" justify="space-between" className="mb-6">
+      <Flex align="center" justify="space-between" style={{ marginBottom: 24 }}>
         <Flex align="center" gap={12}>
           <Link
             href="/settings/locations"
-            className="inline-flex items-center justify-center"
-            style={{ height: 32, width: 32, borderRadius: 8, border: '1px solid var(--color-border)', color: 'var(--color-text-secondary)', transition: 'all 0.2s' }}
+            style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', height: 32, width: 32, borderRadius: 8, border: '1px solid var(--color-border)', color: 'var(--color-text-secondary)', transition: 'all 0.2s' }}
           >
             <svg
               style={{ height: 16, width: 16 }}
@@ -274,7 +273,7 @@ export default function EditLocationClient({ id }: { id: string }) {
               />
             </svg>
           </Link>
-          <h1 className="text-display-lg">{location.name}</h1>
+          <h1 style={{ fontSize: 24, fontWeight: 700 }}>{location.name}</h1>
         </Flex>
         <Flex align="center" gap={12}>
           <Button variant="danger">Delete</Button>
@@ -283,7 +282,7 @@ export default function EditLocationClient({ id }: { id: string }) {
       </Flex>
 
       {/* Form */}
-      <Flex vertical gap={20} className="max-w-[672px]">
+      <Flex vertical gap={20} style={{ maxWidth: 672 }}>
         <FormInput label="Name" defaultValue={location.name} />
         <FormInput label="ABN" defaultValue={location.abn} />
         <FormInput label="Email" type="email" defaultValue={location.email} />
@@ -292,11 +291,11 @@ export default function EditLocationClient({ id }: { id: string }) {
         <FormInput label="Web address" type="url" defaultValue={location.web} />
 
         {/* Location address section */}
-        <div className="border-t border-border pt-5">
-          <h2 className="mb-1 text-heading-lg text-text">
+        <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: 20 }}>
+          <h2 style={{ marginBottom: 4, fontSize: 20, fontWeight: 600 }}>
             Location address
           </h2>
-          <p className="mb-4 text-body-md text-text-secondary">
+          <p style={{ marginBottom: 16, fontSize: 14, color: 'var(--color-text-secondary)' }}>
             Enter your location address below to enable timezone detection for
             online bookings so that clients booking from a different timezone see
             the correct times on your booking page.
@@ -317,7 +316,7 @@ export default function EditLocationClient({ id }: { id: string }) {
         </div>
 
         {/* Services available at this location */}
-        <div className="border-t border-border pt-5">
+        <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: 20 }}>
           <Collapse title="Services available at this location" defaultOpen>
             <Flex vertical gap={8}>
               {services.map((service) => (
@@ -334,8 +333,8 @@ export default function EditLocationClient({ id }: { id: string }) {
         </div>
 
         {/* Online bookings */}
-        <div className="border-t border-border pt-5">
-          <h2 className="mb-4 text-heading-lg text-text">
+        <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: 20 }}>
+          <h2 style={{ marginBottom: 16, fontSize: 20, fontWeight: 600 }}>
             Online bookings
           </h2>
           <Toggle
@@ -346,8 +345,8 @@ export default function EditLocationClient({ id }: { id: string }) {
         </div>
 
         {/* Notices */}
-        <div className="border-t border-border pt-5 pb-8">
-          <h2 className="mb-4 text-heading-lg text-text">Notices</h2>
+        <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: 20, paddingBottom: 32 }}>
+          <h2 style={{ marginBottom: 16, fontSize: 20, fontWeight: 600 }}>Notices</h2>
           <Flex vertical gap={12}>
             <Toggle
               checked={phoneNotice}

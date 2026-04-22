@@ -79,15 +79,14 @@ export default function NewAppointmentTemplatePage() {
             <Toggle label="Enable SMS notification" checked={smsEnabled} onChange={setSmsEnabled} />
             {smsEnabled && (
               <div>
-                <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Message</label>
+                <label style={{ fontSize: 12, fontWeight: 500, color: 'var(--color-text-secondary)', marginBottom: 4, display: 'block' }}>Message</label>
                 <textarea
-                  className="text-body-md text-text"
-                  style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none' }}
+                  style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none', fontSize: 14 }}
                   rows={4}
                   value={smsBody}
                   onChange={(e) => setSmsBody(e.target.value)}
                 />
-                <p className="text-caption-md text-text-secondary" style={{ marginTop: 4 }}>
+                <p style={{ fontSize: 11, color: 'var(--color-text-secondary)', marginTop: 4 }}>
                   Variables: {variableTokens.map((v) => `{${v}}`).join(", ")}
                 </p>
               </div>
@@ -102,7 +101,7 @@ export default function NewAppointmentTemplatePage() {
               <>
                 <FormInput label="Subject" value={emailSubject} onChange={(e) => setEmailSubject(e.target.value)} />
                 <div>
-                  <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Body</label>
+                  <label style={{ fontSize: 12, fontWeight: 500, color: 'var(--color-text-secondary)', marginBottom: 4, display: 'block' }}>Body</label>
                   <RichTextEditor
                     value={emailBody}
                     onChange={setEmailBody}

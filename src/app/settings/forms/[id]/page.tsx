@@ -110,12 +110,12 @@ export default function FormTemplateEditorPage() {
         <Tab items={editorTabs} value={activeTab} onChange={setActiveTab} />
       </div>
 
-      <Flex style={{ margin: '0 -24px -24px' }} className="flex-1">
-        <div className="flex-1 overflow-y-auto p-6">
+      <Flex style={{ margin: '0 -24px -24px', flex: 1 }}>
+        <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
           {activeTab === "builder" && (
             <div style={{ maxWidth: 672, margin: '0 auto' }}>
               <Flex vertical gap={12}>
-                <FormInput label="Form title" value={title} onChange={(e) => setTitle(e.target.value)} className="mb-4" />
+                <FormInput label="Form title" value={title} onChange={(e) => setTitle(e.target.value)} style={{ marginBottom: 16 }} />
 
                 {fields.map((field) => {
                   const FieldIcon = FIELD_TYPES.find((t) => t.value === field.type)?.icon || FontSizeOutlined;
@@ -125,8 +125,7 @@ export default function FormTemplateEditorPage() {
                         <HolderOutlined style={{ fontSize: 16, flexShrink: 0, cursor: 'grab', color: 'var(--color-text-secondary)' }} />
                         <FieldIcon style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-primary)' }} />
                         <input
-                          style={{ flex: 1, border: 'none', backgroundColor: 'transparent', outline: 'none' }}
-                          className="text-body-md text-text"
+                          style={{ flex: 1, border: 'none', backgroundColor: 'transparent', outline: 'none', fontSize: 14 }}
                           value={field.label}
                           onChange={(e) => setFields((prev) => prev.map((f) => f.id === field.id ? { ...f, label: e.target.value } : f))}
                         />
@@ -150,7 +149,7 @@ export default function FormTemplateEditorPage() {
             <div style={{ maxWidth: 672, margin: '0 auto' }}>
               <Flex vertical gap={24}>
                 <div>
-                  <h3 className="text-heading-md text-text mb-3">Design</h3>
+                  <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 12 }}>Design</h3>
                   <Flex vertical gap={16}>
                     <FormColorPicker label="Theme colour" value={themeColor} onChange={setThemeColor} />
                     <Toggle label="Show header image" checked={headerImage} onChange={setHeaderImage} />
@@ -158,12 +157,12 @@ export default function FormTemplateEditorPage() {
                 </div>
 
                 <div>
-                  <h3 className="text-heading-md text-text mb-3">Form completion</h3>
+                  <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 12 }}>Form completion</h3>
                   <FormTextarea label="Completion message" value={completionMessage} onChange={(e) => setCompletionMessage(e.target.value)} rows={3} />
                 </div>
 
                 <div>
-                  <h3 className="text-heading-md text-text mb-3">Email notifications</h3>
+                  <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 12 }}>Email notifications</h3>
                   <Toggle label="Send email notification when form is submitted" checked={emailNotifications} onChange={setEmailNotifications} />
                 </div>
               </Flex>
@@ -173,55 +172,55 @@ export default function FormTemplateEditorPage() {
           {activeTab === "preview" && (
             <div style={{ maxWidth: 512, margin: '0 auto' }}>
               <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', padding: 24, borderTopColor: themeColor, borderTopWidth: 4 }}>
-                <h2 className="text-heading-lg text-text mb-6">{title}</h2>
+                <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 24 }}>{title}</h2>
                 <Flex vertical gap={16}>
                   {fields.map((field) => (
                     <div key={field.id}>
-                      <label className="text-label-lg text-text mb-1" style={{ display: 'block' }}>
+                      <label style={{ display: 'block', fontSize: 12, fontWeight: 500, marginBottom: 4 }}>
                         {field.label} {field.required && <span style={{ color: '#ef4444' }}>*</span>}
                       </label>
                       {field.type === "long-text" ? (
-                        <textarea style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '8px 12px' }} className="text-body-md" rows={3} disabled />
+                        <textarea style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '8px 12px', fontSize: 14 }} rows={3} disabled />
                       ) : field.type === "boolean" ? (
                         <Flex gap={16}>
                           <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}><input type="radio" name={`f${field.id}`} disabled /> Yes</label>
                           <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}><input type="radio" name={`f${field.id}`} disabled /> No</label>
                         </Flex>
                       ) : field.type === "file-upload" ? (
-                        <Flex align="center" justify="center" style={{ height: 80, borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)' }} className="text-caption-md text-text-secondary">
+                        <Flex align="center" justify="center" style={{ height: 80, borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', fontSize: 11, color: 'var(--color-text-secondary)' }}>
                           Click or drag to upload
                         </Flex>
                       ) : (
-                        <input style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '8px 12px' }} className="text-body-md" type={field.type === "date" ? "date" : "text"} disabled />
+                        <input style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '8px 12px', fontSize: 14 }} type={field.type === "date" ? "date" : "text"} disabled />
                       )}
                     </div>
                   ))}
                 </Flex>
-                <Button variant="primary" style={{ backgroundColor: themeColor }} className="mt-6 w-full">Submit</Button>
+                <Button variant="primary" style={{ backgroundColor: themeColor, marginTop: 24, width: '100%' }}>Submit</Button>
               </div>
             </div>
           )}
         </div>
 
         {sidePanel === "share" && (
-          <div style={{ width: 320, borderLeft: '1px solid var(--color-border)', backgroundColor: 'white' }} className="shrink-0 p-4">
-            <Flex justify="space-between" align="center" className="mb-4">
-              <h3 className="text-heading-sm text-text">Share & Automate</h3>
+          <div style={{ width: 320, borderLeft: '1px solid var(--color-border)', backgroundColor: 'white', flexShrink: 0, padding: 16 }}>
+            <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
+              <h3 style={{ fontSize: 16, fontWeight: 600 }}>Share & Automate</h3>
               <Button variant="ghost" iconOnly onClick={() => setSidePanel(null)} style={{ color: 'var(--color-text-secondary)' }}>&times;</Button>
             </Flex>
             <Flex vertical gap={16}>
               <div>
-                <label className="text-label-lg" style={{ display: 'block', marginBottom: 4, color: 'var(--color-text-secondary)' }}>Form link</label>
-                <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '8px 12px', wordBreak: 'break-all' }} className="text-body-sm text-primary">
+                <label style={{ display: 'block', marginBottom: 4, fontSize: 12, fontWeight: 500, color: 'var(--color-text-secondary)' }}>Form link</label>
+                <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '8px 12px', wordBreak: 'break-all', fontSize: 12, color: 'var(--color-primary)' }}>
                   https://acme.splose.com/patient-form/81783/view
                 </div>
               </div>
-              <Button variant="secondary" className="w-full">Copy link</Button>
-              <Button variant="secondary" className="w-full">Send to client</Button>
-              <div style={{ borderTop: '1px solid var(--color-border)' }} className="pt-4">
-                <h4 className="text-label-lg text-text mb-2">Automations</h4>
-                <p className="text-caption-md text-text-secondary">Automatically send this form to new clients or on appointment creation.</p>
-                <Button variant="secondary" className="mt-2">+ Add automation</Button>
+              <Button variant="secondary" style={{ width: '100%' }}>Copy link</Button>
+              <Button variant="secondary" style={{ width: '100%' }}>Send to client</Button>
+              <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
+                <h4 style={{ fontSize: 12, fontWeight: 500, marginBottom: 8 }}>Automations</h4>
+                <p style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>Automatically send this form to new clients or on appointment creation.</p>
+                <Button variant="secondary" style={{ marginTop: 8 }}>+ Add automation</Button>
               </div>
             </Flex>
           </div>
@@ -237,7 +236,7 @@ export default function FormTemplateEditorPage() {
               style={{ display: 'flex', alignItems: 'center', gap: 8, borderRadius: 8, border: '1px solid var(--color-border)', padding: '10px 12px', textAlign: 'left', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}
             >
               <Icon style={{ fontSize: 16, color: 'var(--color-primary)' }} />
-              <span className="text-body-md text-text">{label}</span>
+              <span style={{ fontSize: 14 }}>{label}</span>
             </button>
           ))}
         </Grid>

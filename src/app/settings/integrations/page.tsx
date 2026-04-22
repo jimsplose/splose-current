@@ -32,7 +32,7 @@ function BrandDescription({ name, brandUrl, text }: { name: string; brandUrl?: s
   return (
     <Text variant="body/md" color="text" style={{ lineHeight: "inherit" }}>
       {before}
-      <a href={brandUrl} className="text-primary" style={{ textDecoration: "none" }}>{name}</a>
+      <a href={brandUrl} style={{ textDecoration: "none", color: 'var(--color-primary)' }}>{name}</a>
       {after}
     </Text>
   );

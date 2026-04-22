@@ -109,7 +109,7 @@ export default function CancellationReasonsPage() {
         <TableBody>
           {paged.map((r, i) => (
             <Tr key={i}>
-              <Td className="text-text">{r.name}</Td>
+              <Td>{r.name}</Td>
               <Td>{r.code ? <Badge variant="gray">{r.code}</Badge> : ""}</Td>
               <Td align="right">
                 <Dropdown
@@ -144,7 +144,7 @@ export default function CancellationReasonsPage() {
 
         <Divider spacing="none" style={{ marginTop: 24 }} />
         <div style={{ paddingTop: 24 }}>
-          <h3 className="text-heading-md text-text" style={{ marginBottom: 16 }}>Cancellation rules</h3>
+          <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 16 }}>Cancellation rules</h3>
           <Flex vertical gap={16}>
             <Toggle
               label="Allow clients to cancel online"

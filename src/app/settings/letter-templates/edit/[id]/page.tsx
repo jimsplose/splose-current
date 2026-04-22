@@ -56,7 +56,7 @@ export default function EditLetterTemplatePage() {
         <FormInput label="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
 
         <div>
-          <label className="text-label-lg text-text-secondary" style={{ marginBottom: 4, display: 'block' }}>Letter body</label>
+          <label style={{ marginBottom: 4, display: 'block', fontSize: 12, fontWeight: 500, color: 'var(--color-text-secondary)' }}>Letter body</label>
           <RichTextEditor
             value={body}
             onChange={setBody}

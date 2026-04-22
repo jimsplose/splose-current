@@ -107,7 +107,7 @@ export default function OnlineBookingsPage() {
         <TableBody>
           {bookingList.map((b, i) => (
             <Tr key={b.name + i}>
-              <Td className="text-text" style={{ fontWeight: 500 }}>{b.name}</Td>
+              <Td style={{ fontWeight: 500 }}>{b.name}</Td>
               <Td>{b.createdAt}</Td>
               <Td>{b.lastUpdated}</Td>
               <Td align="right">

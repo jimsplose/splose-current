@@ -140,7 +140,7 @@ export default function AppointmentTemplatesPage() {
         <TableBody>
           {paged.map((t, i) => (
             <Tr key={t.name + i}>
-              <Td className="text-text">{t.name}</Td>
+              <Td>{t.name}</Td>
               <Td>{t.type}</Td>
               <Td>
                 <Text variant="body/md" color={t.sms ? "success" : "danger"}>{t.sms ? "On" : "Off"}</Text>

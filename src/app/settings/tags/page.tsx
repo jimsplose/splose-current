@@ -157,7 +157,7 @@ export default function TagsPage() {
         <TableBody>
           {paged.map((tag, i) => (
             <Tr key={tag.name}>
-              <Td className="text-text">{tag.name}</Td>
+              <Td>{tag.name}</Td>
               <Td>
                 <ColorDot color={tag.color} shape="rect" size="md" />
               </Td>
@@ -193,8 +193,8 @@ export default function TagsPage() {
 
           {isEditing && (
             <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-secondary)', padding: '8px 12px' }}>
-              <p className="text-body-sm" style={{ color: 'var(--color-text-secondary)' }}>
-                Used by <span style={{ fontWeight: 600 }} className="text-text">{editingUsedBy}</span>{" "}
+              <p style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>
+                Used by <span style={{ fontWeight: 600 }}>{editingUsedBy}</span>{" "}
                 {activeTab === "Client tags" ? "client" : activeTab === "Service tags" ? "service" : activeTab === "Waitlist tags" ? "waitlist entry" : "block"}
                 {editingUsedBy !== 1 ? "s" : ""}
               </p>
@@ -215,7 +215,7 @@ export default function TagsPage() {
                 ]}
               />
               {mergeTarget && (
-                <p className="text-caption-md" style={{ marginTop: 4, color: '#d97706' }}>
+                <p style={{ fontSize: 11, marginTop: 4, color: '#d97706' }}>
                   This tag will be deleted and all {editingUsedBy} usage{editingUsedBy !== 1 ? "s" : ""} will be moved to &ldquo;{mergeTarget}&rdquo;.
                 </p>
               )}

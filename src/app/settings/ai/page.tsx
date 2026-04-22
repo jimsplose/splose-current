@@ -68,7 +68,7 @@ function SettingsAIPageInner() {
           ]}
           value={activeTab}
           onChange={(v) => setActiveTab(v as TabValue)}
-          className="mb-6"
+          style={{ marginBottom: 24 }}
         />
 
         {/* Tab content */}
@@ -103,11 +103,11 @@ function PreferencesTab() {
             <Text variant="heading/xl" as="h4" color="text" style={{ marginBottom: 30 }}>splose AI - progress notes</Text>
             <Flex vertical gap={16}>
               <Flex align="center" justify="space-between">
-                <span className="text-body-md text-text">Enable voice to text and ask splose AI</span>
+                <span style={{ fontSize: 14 }}>Enable voice to text and ask splose AI</span>
                 <Toggle checked={voiceToText} onChange={setVoiceToText} />
               </Flex>
               <Flex align="center" justify="space-between">
-                <span className="text-body-md text-text">Save recording to client file</span>
+                <span style={{ fontSize: 14 }}>Save recording to client file</span>
                 <Toggle checked={saveRecording} onChange={setSaveRecording} />
               </Flex>
             </Flex>
@@ -117,7 +117,7 @@ function PreferencesTab() {
             {/* Email */}
             <Text variant="heading/xl" as="h4" color="text" style={{ marginBottom: 30 }}>splose AI - email</Text>
             <Flex align="center" justify="space-between">
-              <span className="text-body-md text-text">Enable splose AI email assistant</span>
+              <span style={{ fontSize: 14 }}>Enable splose AI email assistant</span>
               <Toggle checked={emailAssistant} onChange={setEmailAssistant} />
             </Flex>
 
@@ -127,11 +127,11 @@ function PreferencesTab() {
             <Text variant="heading/xl" as="h4" color="text" style={{ marginBottom: 30 }}>splose AI - calendar</Text>
             <Flex vertical gap={16}>
               <Flex align="center" justify="space-between">
-                <span className="text-body-md text-text">Enable splose AI for calendar</span>
+                <span style={{ fontSize: 14 }}>Enable splose AI for calendar</span>
                 <Toggle checked={calendarAI} onChange={setCalendarAI} />
               </Flex>
               <Flex align="center" justify="space-between">
-                <span className="text-body-md text-text">Include cancelled appointment slots in splose AI for calendar</span>
+                <span style={{ fontSize: 14 }}>Include cancelled appointment slots in splose AI for calendar</span>
                 <Toggle checked={cancelledSlots} onChange={setCancelledSlots} />
               </Flex>
             </Flex>
@@ -172,8 +172,8 @@ function SavedPromptsTab() {
 
   return (
     <div>
-      <Flex justify="space-between" align="center" className="mb-4">
-        <h2 className="text-heading-lg text-text">AI prompts</h2>
+      <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 600 }}>AI prompts</h2>
         <Button variant="secondary">+ New prompt</Button>
       </Flex>
 
@@ -187,10 +187,10 @@ function SavedPromptsTab() {
           {pagedPrompts.map((prompt) => (
             <Tr key={prompt.name}>
               <Td>{prompt.name}</Td>
-              <Td className="text-text-secondary">{prompt.userGroup}</Td>
+              <Td color="secondary">{prompt.userGroup}</Td>
               <Td align="right">
                 <Dropdown
-                  trigger={<Button variant="ghost" size="sm" className="text-text-secondary">...</Button>}
+                  trigger={<Button variant="ghost" size="sm" style={{ color: 'var(--color-text-secondary)' }}>...</Button>}
                   items={[
                     { label: "Edit", value: "edit" },
                     { label: "Duplicate", value: "duplicate" },
@@ -262,26 +262,26 @@ function AIBlockLibraryTab() {
   return (
     <div>
       {/* Beta banner */}
-      <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 16 }} />} className="mb-4">
+      <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 16 }} />} style={{ marginBottom: 16 }}>
         <Flex justify="space-between" align="center">
-          <span className="text-body-md text-text">We need your feedback on AI blocks.</span>
-          <Flex align="center" gap={8} className="text-body-md">
-            <span className="text-text-secondary">Fill a</span>
-            <span className="cursor-pointer underline text-primary">short survey.</span>
-            <Button variant="ghost" size="sm" className="ml-2 text-text-secondary">&times;</Button>
+          <span style={{ fontSize: 14 }}>We need your feedback on AI blocks.</span>
+          <Flex align="center" gap={8} style={{ fontSize: 14 }}>
+            <span style={{ color: 'var(--color-text-secondary)' }}>Fill a</span>
+            <span className="underline" style={{ cursor: 'pointer', color: 'var(--color-primary)' }}>short survey.</span>
+            <Button variant="ghost" size="sm" style={{ marginLeft: 8, color: 'var(--color-text-secondary)' }}>&times;</Button>
           </Flex>
         </Flex>
       </Alert>
 
-      <p className="mb-4 text-body-md text-text-secondary">
+      <p style={{ marginBottom: 16, fontSize: 14, color: 'var(--color-text-secondary)' }}>
         Spend less time writing prompts with your saved library of AI blocks, organised by{" "}
-        <span className="cursor-pointer underline text-primary">tags</span>. AI blocks are reusable, customisable and
+        <span className="underline" style={{ cursor: 'pointer', color: 'var(--color-primary)' }}>tags</span>. AI blocks are reusable, customisable and
         adjust to your client&apos;s context. Insert them into a template or progress note.{" "}
-        <span className="cursor-pointer underline text-primary">Learn more</span>.
+        <span className="underline" style={{ cursor: 'pointer', color: 'var(--color-primary)' }}>Learn more</span>.
       </p>
 
       {/* Search and new button */}
-      <Flex align="center" gap={8} className="mb-4">
+      <Flex align="center" gap={8} style={{ marginBottom: 16 }}>
         <div style={{ flex: 1, position: 'relative' }}>
           <FormInput placeholder="Search" style={{ height: 40, paddingLeft: 16, paddingRight: 16 }} />
         </div>
@@ -304,10 +304,10 @@ function AIBlockLibraryTab() {
       {/* Table */}
       <DataTable>
         <TableHead>
-          <Th><div className="flex items-center gap-1">AI block <span className="text-caption-md text-text-secondary">&#8645;</span></div></Th>
-          <Th><div className="flex items-center gap-1">Tag <span className="text-caption-md text-text-secondary">&#8645;</span></div></Th>
-          <Th><div className="flex items-center gap-1">Created by <span className="text-caption-md text-text-secondary">&#9660;</span></div></Th>
-          <Th><div className="flex items-center gap-1">Last modified <span className="text-caption-md text-text-secondary">&#8645;</span></div></Th>
+          <Th><div className="flex items-center gap-1">AI block <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>&#8645;</span></div></Th>
+          <Th><div className="flex items-center gap-1">Tag <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>&#8645;</span></div></Th>
+          <Th><div className="flex items-center gap-1">Created by <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>&#9660;</span></div></Th>
+          <Th><div className="flex items-center gap-1">Last modified <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>&#8645;</span></div></Th>
           <Th align="right">Actions</Th>
         </TableHead>
         <TableBody>
@@ -315,11 +315,11 @@ function AIBlockLibraryTab() {
             <Tr key={block.name}>
               <Td>{block.name}</Td>
               <Td><Badge variant="purple">{block.tag}</Badge></Td>
-              <Td className="text-text-secondary">{block.createdBy}</Td>
-              <Td className="text-text-secondary">{block.lastModified}</Td>
+              <Td color="secondary">{block.createdBy}</Td>
+              <Td color="secondary">{block.lastModified}</Td>
               <Td align="right">
                 <Dropdown
-                  trigger={<Button variant="ghost" size="sm" className="text-text-secondary">...</Button>}
+                  trigger={<Button variant="ghost" size="sm" style={{ color: 'var(--color-text-secondary)' }}>...</Button>}
                   items={[
                     { label: "Edit", value: "edit" },
                     { label: "Duplicate", value: "duplicate" },

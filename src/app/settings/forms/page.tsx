@@ -103,7 +103,7 @@ export default function FormsPage() {
         <TableBody>
           {filtered.map((f, i) => (
             <Tr key={f.title + i}>
-              <Td className="text-text">{f.title}</Td>
+              <Td>{f.title}</Td>
               <Td>
                 <Flex align="center" gap={8}>
                   {f.formType}

@@ -139,7 +139,7 @@ export default function CustomFieldsPage() {
         <TableBody>
           {paged.map((field) => (
             <Tr key={field.id}>
-              <Td className="text-text">{field.name}</Td>
+              <Td>{field.name}</Td>
               <Td>{field.type}</Td>
               <Td>
                 <span style={{ color: '#16a34a' }}>{field.visible ? "Yes" : "No"}</span>
@@ -225,12 +225,12 @@ export default function CustomFieldsPage() {
               onChange={(e) => setNewField((p) => ({ ...p, required: e.target.checked }))}
               style={{ height: 16, width: 16, borderRadius: 4 }}
             />
-            <span className="text-body-md text-text">Required field</span>
+            <span style={{ fontSize: 14 }}>Required field</span>
           </Flex>
 
           {/* Field type preview */}
           <div style={{ borderRadius: 8, border: '1px dashed #d1d5db', backgroundColor: 'var(--color-fill-tertiary)', padding: 16 }}>
-            <p className="text-label-lg" style={{ marginBottom: 8, color: 'var(--color-text-secondary)' }}>Field preview</p>
+            <p style={{ fontSize: 12, fontWeight: 500, marginBottom: 8, color: 'var(--color-text-secondary)' }}>Field preview</p>
             <FieldTypePreview type={newField.type} name={newField.name} options={[]} />
           </div>
         </Flex>
@@ -319,7 +319,7 @@ function EditFieldModal({
 
         {showOptions && (
           <div>
-            <p className="text-label-lg" style={{ marginBottom: 8, color: 'var(--color-text-secondary)' }}>Options</p>
+            <p style={{ fontSize: 12, fontWeight: 500, marginBottom: 8, color: 'var(--color-text-secondary)' }}>Options</p>
             <Flex vertical gap={8}>
               {options.map((opt, index) => (
                 <Flex key={index} align="center" gap={8}>
@@ -356,12 +356,12 @@ function EditFieldModal({
 
         {/* Field type preview */}
         <div style={{ borderRadius: 8, border: '1px dashed #d1d5db', backgroundColor: 'var(--color-fill-tertiary)', padding: 16 }}>
-          <p className="text-label-lg" style={{ marginBottom: 8, color: 'var(--color-text-secondary)' }}>Field preview</p>
+          <p style={{ fontSize: 12, fontWeight: 500, marginBottom: 8, color: 'var(--color-text-secondary)' }}>Field preview</p>
           <FieldTypePreview type={type} name={name} options={options} />
         </div>
 
         <Flex align="center" justify="space-between">
-          <span className="text-body-md text-text">Display in client details</span>
+          <span style={{ fontSize: 14 }}>Display in client details</span>
           <Toggle
             checked={displayInClientDetails}
             onChange={setDisplayInClientDetails}
@@ -370,7 +370,7 @@ function EditFieldModal({
         </Flex>
 
         <Flex align="center" justify="space-between">
-          <span className="text-body-md text-text">Required</span>
+          <span style={{ fontSize: 14 }}>Required</span>
           <Toggle checked={required} onChange={setRequired} />
         </Flex>
       </Flex>
@@ -408,13 +408,12 @@ function FieldTypePreview({
   if (type === "Long text") {
     return (
       <div>
-        <label className="block mb-1 text-label-lg text-text">{label}</label>
+        <label style={{ display: 'block', marginBottom: 4, fontSize: 12, fontWeight: 500 }}>{label}</label>
         <textarea
           disabled
           rows={3}
           placeholder="Long text value..."
-          style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', padding: '8px 12px', opacity: 0.7 }}
-          className="text-body-md text-text-secondary"
+          style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', padding: '8px 12px', opacity: 0.7, fontSize: 14, color: 'var(--color-text-secondary)' }}
         />
       </div>
     );
@@ -449,10 +448,10 @@ function FieldTypePreview({
     const previewOpts = options.length > 0 ? options : ["Option 1", "Option 2"];
     return (
       <div>
-        <label className="block mb-1 text-label-lg text-text">{label}</label>
+        <label style={{ display: 'block', marginBottom: 4, fontSize: 12, fontWeight: 500 }}>{label}</label>
         <Flex vertical gap={6}>
           {previewOpts.map((opt, i) => (
-            <label key={i} className="flex items-center gap-2 text-body-md text-text-secondary">
+            <label key={i} className="flex items-center gap-2" style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>
               <input
                 type="checkbox"
                 disabled
@@ -485,6 +484,6 @@ function FieldTypePreview({
 
   // Fallback
   return (
-    <p className="italic text-body-md text-text-secondary">Select a field type to see a preview.</p>
+    <p className="italic" style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>Select a field type to see a preview.</p>
   );
 }

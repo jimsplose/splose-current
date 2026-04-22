@@ -35,8 +35,8 @@ export default function SMSSettingsPage() {
       <Divider variant="primary" spacing="sm" />
 
       {/* Recharge credits section */}
-      <div className="mb-8">
-        <Text variant="heading/lg" className="mb-4">Recharge credits</Text>
+      <div style={{ marginBottom: 32 }}>
+        <Text variant="heading/lg" style={{ marginBottom: 16 }}>Recharge credits</Text>
         <div style={{ display: "inline-flex", marginBottom: 16 }}>
           {creditOptions.map((option, i) => {
             const isActive = selectedCredits === option.credits;
@@ -92,9 +92,9 @@ export default function SMSSettingsPage() {
       <Divider variant="primary" spacing="sm" />
 
       {/* SMS pricing section */}
-      <div className="max-w-[672px]">
-        <Text variant="heading/lg" className="mb-4">SMS pricing</Text>
-        <Flex vertical gap={12} className="text-body-md text-text-secondary" style={{ lineHeight: 1.6 }}>
+      <div style={{ maxWidth: 672 }}>
+        <Text variant="heading/lg" style={{ marginBottom: 16 }}>SMS pricing</Text>
+        <Flex vertical gap={12} style={{ fontSize: 14, color: 'var(--color-text-secondary)', lineHeight: 1.6 }}>
           <p>
             A standard SMS message contains 160 characters per segment (if a message has more
             than 160 characters, the message is split into segments, each consisting of 153
@@ -107,7 +107,7 @@ export default function SMSSettingsPage() {
             messages cost one credit per segment, and inbound messages cost 0.5 credits per
             segment. SMS credits purchased get billed to the credit card attached to your splose
             account. Receipts will appear in your{" "}
-            <a href="#" className="text-primary">
+            <a href="#" style={{ color: 'var(--color-primary)' }}>
               billing history
             </a>
             .
@@ -118,26 +118,26 @@ export default function SMSSettingsPage() {
       <Divider variant="primary" spacing="sm" />
 
       {/* Low credit balance email reminder */}
-      <div className="max-w-[672px] mb-6">
+      <div style={{ maxWidth: 672, marginBottom: 24 }}>
         <Checkbox
           checked={lowCreditEnabled}
           onChange={(e) => setLowCreditEnabled(e.target.checked)}
           label="Low credit balance email reminder"
         />
-        <p className="text-body-md text-text-secondary mb-3 mt-2">
+        <p style={{ fontSize: 14, color: 'var(--color-text-secondary)', marginBottom: 12, marginTop: 8 }}>
           Receive an email reminder when SMS credits go below the level you specify below.
         </p>
         <FormInput type="number" defaultValue="100" style={{ maxWidth: 320 }} />
       </div>
 
       {/* Automatic recharge */}
-      <div className="max-w-[672px] mb-6">
+      <div style={{ maxWidth: 672, marginBottom: 24 }}>
         <Checkbox
           checked={autoRechargeEnabled}
           onChange={(e) => setAutoRechargeEnabled(e.target.checked)}
           label="Automatic recharge"
         />
-        <p className="text-body-md text-text-secondary mb-3 mt-2">
+        <p style={{ fontSize: 14, color: 'var(--color-text-secondary)', marginBottom: 12, marginTop: 8 }}>
           Automatically recharge SMS credits when the balance reaches the number you specify below.
         </p>
         <FormInput type="number" defaultValue="100" style={{ maxWidth: 320, marginBottom: 16 }} />
@@ -148,19 +148,19 @@ export default function SMSSettingsPage() {
       <Divider variant="primary" spacing="sm" />
 
       {/* Two-way SMS section */}
-      <div className="max-w-[672px]">
-        <Text variant="heading/lg" className="mb-4">Two-way SMS</Text>
-        <p className="text-body-md text-text-secondary mb-4">
+      <div style={{ maxWidth: 672 }}>
+        <Text variant="heading/lg" style={{ marginBottom: 16 }}>Two-way SMS</Text>
+        <p style={{ fontSize: 14, color: 'var(--color-text-secondary)', marginBottom: 16 }}>
           Enable two-way SMS to receive client replies from the dashboard and send messages
           from a dedicated mobile number. Subscribe to two-way SMS for A$9.90 (GST included) per month.
         </p>
-        <div className="mb-2">
+        <div style={{ marginBottom: 8 }}>
           <Flex align="end" gap={8}>
             <FormInput label="Your number" type="text" defaultValue="+61468039383" style={{ maxWidth: 320 }} />
             <Button variant="ghost" size="sm" style={{ marginBottom: 4 }}><CopyOutlined /></Button>
           </Flex>
         </div>
-        <p className="text-body-md text-text-secondary mt-2">
+        <p style={{ fontSize: 14, color: 'var(--color-text-secondary)', marginTop: 8 }}>
           Contact the account owner to enable two-way SMS.
         </p>
       </div>
@@ -177,7 +177,7 @@ export default function SMSSettingsPage() {
           </>
         }
       >
-        <p className="text-body-md text-text-secondary">
+        <p style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>
           {creditOptions.find((o) => o.credits === selectedCredits)?.price} will be charged to your account.
         </p>
       </Modal>

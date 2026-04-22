@@ -148,7 +148,7 @@ export default function EmailTemplatesPage() {
         <TableBody>
           {paged.map((t, i) => (
             <Tr key={t.name + i}>
-              <Td className="text-text">{t.name}</Td>
+              <Td>{t.name}</Td>
               <Td>{t.type}</Td>
               <Td>{t.lastModified}</Td>
               <Td align="right">

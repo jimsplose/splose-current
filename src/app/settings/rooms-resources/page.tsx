@@ -148,7 +148,7 @@ export default function SettingsRoomsResourcesPage() {
             ))}
             {rooms.length === 0 && (
               <tr>
-                <td colSpan={5} style={{ padding: '32px 16px', textAlign: 'center', color: 'var(--color-text-secondary)' }} className="text-body-md">
+                <td colSpan={5} style={{ padding: '32px 16px', textAlign: 'center', color: 'var(--color-text-secondary)', fontSize: 14 }}>
                   No rooms or resources added yet.
                 </td>
               </tr>

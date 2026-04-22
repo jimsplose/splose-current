@@ -70,7 +70,7 @@ export default function TaxRatesPage() {
           {pageItems.map((rate, i) => (
             <Tr key={rate.id}>
               <Td>
-                <span className="text-text" style={{ fontWeight: 500 }}>{rate.name}</span>
+                <span style={{ fontWeight: 500 }}>{rate.name}</span>
               </Td>
               <Td>{rate.rate}</Td>
             </Tr>

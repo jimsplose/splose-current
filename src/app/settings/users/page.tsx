@@ -161,15 +161,15 @@ export default function UsersPage() {
         <TableBody>
           {users.map((user, index) => (
             <Tr key={user.email}>
-              <Td className="text-text" style={{ fontWeight: 500 }}>
-                <div><a href={`/settings/users/${index + 1}`} className="text-text">{user.name}</a>{user.isOwner && <Badge variant="green" style={{ marginLeft: 8 }}>Account owner</Badge>}</div>
+              <Td style={{ fontWeight: 500 }}>
+                <div><a href={`/settings/users/${index + 1}`}>{user.name}</a>{user.isOwner && <Badge variant="green" style={{ marginLeft: 8 }}>Account owner</Badge>}</div>
               </Td>
-              <Td className="text-text-secondary">{user.email}</Td>
-              <Td className="text-text-secondary">{user.roleName}</Td>
-              <Td className="text-text-secondary">{user.roleType}</Td>
-              <Td className="text-text-secondary">{user.group || "---"}</Td>
-              <Td className="text-text-secondary">{user.status}</Td>
-              <Td className="text-text-secondary">{user.twoFA ? "Enabled" : "Not enabled"}</Td>
+              <Td color="secondary">{user.email}</Td>
+              <Td color="secondary">{user.roleName}</Td>
+              <Td color="secondary">{user.roleType}</Td>
+              <Td color="secondary">{user.group || "---"}</Td>
+              <Td color="secondary">{user.status}</Td>
+              <Td color="secondary">{user.twoFA ? "Enabled" : "Not enabled"}</Td>
               <Td align="right">
                 <Dropdown
                   align="right"
@@ -221,7 +221,7 @@ export default function UsersPage() {
           </>
         }
       >
-        <p className="text-body-md text-text-secondary">{confirmDialog.message}</p>
+        <p style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>{confirmDialog.message}</p>
       </Modal>
     </div>
   );

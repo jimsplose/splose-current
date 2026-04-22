@@ -133,12 +133,12 @@ export default function DataExportPage() {
       {/* Download toast */}
       {downloadMessage && (
         <div style={{ position: 'fixed', top: 16, right: 16, zIndex: 60, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', padding: '12px 16px', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
-          <p className="text-body-md text-text">{downloadMessage}</p>
+          <p style={{ fontSize: 14 }}>{downloadMessage}</p>
         </div>
       )}
 
       {/* Export form */}
-      <Flex wrap="wrap" align="flex-end" gap={16} className="mb-6">
+      <Flex wrap="wrap" align="flex-end" gap={16} style={{ marginBottom: 24 }}>
         <div style={{ width: 192 }}>
           <FormSelect
             label="Export"
@@ -155,13 +155,13 @@ export default function DataExportPage() {
           />
         </div>
         <div>
-          <label className="block mb-1 text-label-lg text-text-secondary">Date *</label>
+          <label style={{ display: 'block', marginBottom: 4, fontSize: 12, fontWeight: 500, color: 'var(--color-text-secondary)' }}>Date *</label>
           <Flex align="center" gap={8}>
             <FormInput
               type="date"
               placeholder="Start date"
             />
-            <span className="text-text-secondary">&ndash;</span>
+            <span style={{ color: 'var(--color-text-secondary)' }}>&ndash;</span>
             <FormInput
               type="date"
               placeholder="End date"
@@ -171,14 +171,14 @@ export default function DataExportPage() {
         <Button variant="primary">Export</Button>
       </Flex>
 
-      <div className="mb-6">
+      <div style={{ marginBottom: 24 }}>
         <Checkbox label="Include archived" />
       </div>
 
-      <hr className="my-6 border-border" />
+      <hr style={{ margin: '24px 0', borderColor: 'var(--color-border)' }} />
 
       {/* Export history */}
-      <h2 className="mb-4 text-heading-lg text-text">Export history</h2>
+      <h2 style={{ marginBottom: 16, fontSize: 20, fontWeight: 600 }}>Export history</h2>
 
       <DataTable>
         <TableHead>
@@ -195,7 +195,7 @@ export default function DataExportPage() {
           {pageItems.map((row) => (
             <Tr key={row.id}>
               <Td>
-                <span style={{ fontWeight: 500 }} className="text-text">{row.dataExport}</span>
+                <span style={{ fontWeight: 500 }}>{row.dataExport}</span>
               </Td>
               <Td>{row.dateRange}</Td>
               <Td>{row.includeArchived}</Td>
@@ -233,13 +233,13 @@ export default function DataExportPage() {
           </>
         }
       >
-        <p className="text-body-md text-text-secondary">
+        <p style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>
           Re-run this export with the same settings?
         </p>
         {reExportRow && (
           <div style={{ marginTop: 12, borderRadius: 8, backgroundColor: '#f9fafb', padding: 12 }}>
-            <p className="text-label-lg text-text">{reExportRow.dataExport}</p>
-            <p className="text-body-sm text-text-secondary">{reExportRow.dateRange}</p>
+            <p style={{ fontSize: 12, fontWeight: 500 }}>{reExportRow.dataExport}</p>
+            <p style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>{reExportRow.dateRange}</p>
           </div>
         )}
       </Modal>
@@ -257,13 +257,13 @@ export default function DataExportPage() {
           </>
         }
       >
-        <p className="text-body-md text-text-secondary">
+        <p style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>
           Delete this export record? This action cannot be undone.
         </p>
         {deleteRow && (
           <div style={{ marginTop: 12, borderRadius: 8, backgroundColor: '#f9fafb', padding: 12 }}>
-            <p className="text-label-lg text-text">{deleteRow.dataExport}</p>
-            <p className="text-body-sm text-text-secondary">{deleteRow.dateRange}</p>
+            <p style={{ fontSize: 12, fontWeight: 500 }}>{deleteRow.dataExport}</p>
+            <p style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>{deleteRow.dateRange}</p>
           </div>
         )}
       </Modal>

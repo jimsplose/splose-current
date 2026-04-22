@@ -70,36 +70,34 @@ export default function CSVImportPage() {
           <Button variant="primary" onClick={() => router.push("/settings/data-import")} disabled={!fileUploaded}>Import</Button>
         </Flex>
       }
-      className="flex flex-col"
-      style={{ minHeight: '100vh' }}
+      style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
     >
-      <div className="border-b border-border" style={{ padding: '0 24px', margin: '-24px -24px 0' }}>
+      <div style={{ borderBottom: '1px solid var(--color-border)', padding: '0 24px', margin: '-24px -24px 0' }}>
         <Tab items={importTabs} value={activeTab} onChange={setActiveTab} />
       </div>
 
       <div style={{ flex: 1, overflowY: 'auto', padding: 24, margin: '0 -24px -24px' }}>
-        <div className="mx-auto max-w-3xl">
+        <div style={{ maxWidth: 768, margin: '0 auto' }}>
           <Flex vertical gap={24}>
             {/* Upload zone */}
             <div>
-              <h3 className="mb-3 text-heading-md text-text">Upload CSV file</h3>
+              <h3 style={{ marginBottom: 12, fontSize: 18, fontWeight: 600 }}>Upload CSV file</h3>
               {!fileUploaded ? (
                 <button
                   onClick={() => setFileUploaded(true)}
-                  className="flex w-full flex-col items-center justify-center"
-                  style={{ borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '48px 0', transition: 'all 0.2s', cursor: 'pointer' }}
+                  style={{ display: 'flex', width: '100%', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '48px 0', transition: 'all 0.2s', cursor: 'pointer' }}
                 >
                   <UploadOutlined style={{ fontSize: 32, marginBottom: 8, color: 'var(--color-text-secondary)' }} />
-                  <span className="text-body-md text-text">Click to upload or drag and drop</span>
-                  <span className="mt-1 text-caption-md text-text-secondary">CSV files only, max 10MB</span>
+                  <span style={{ fontSize: 14 }}>Click to upload or drag and drop</span>
+                  <span style={{ marginTop: 4, fontSize: 11, color: 'var(--color-text-secondary)' }}>CSV files only, max 10MB</span>
                 </button>
               ) : (
                 <Card padding="none">
                   <Flex align="center" gap={12} style={{ padding: '12px 16px' }}>
                     <FileExcelOutlined style={{ fontSize: 20, color: 'var(--color-primary)' }} />
                     <div style={{ flex: 1 }}>
-                      <span className="text-body-md text-text">{activeTab}_import_2026.csv</span>
-                      <span className="ml-2 text-caption-md text-text-secondary">245 rows</span>
+                      <span style={{ fontSize: 14 }}>{activeTab}_import_2026.csv</span>
+                      <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--color-text-secondary)' }}>245 rows</span>
                     </div>
                     <CheckCircleFilled style={{ fontSize: 20, color: 'var(--color-success)' }} />
                     <Button variant="secondary" size="sm" onClick={() => setFileUploaded(false)}>Remove</Button>
@@ -111,11 +109,11 @@ export default function CSVImportPage() {
             {/* Field mapping */}
             {fileUploaded && (
               <div>
-                <h3 className="mb-3 text-heading-md text-text">Field mapping</h3>
-                <p className="mb-4 text-body-md text-text-secondary">
+                <h3 style={{ marginBottom: 12, fontSize: 18, fontWeight: 600 }}>Field mapping</h3>
+                <p style={{ marginBottom: 16, fontSize: 14, color: 'var(--color-text-secondary)' }}>
                   Map CSV columns to Splose fields. Unmapped columns will be skipped.
                 </p>
-                <Card padding="none" className="overflow-hidden">
+                <Card padding="none" style={{ overflow: 'hidden' }}>
                   <DataTable>
                     <TableHead>
                       <Th>CSV column</Th>
@@ -126,7 +124,7 @@ export default function CSVImportPage() {
                       {mappings.map((m, i) => (
                         <Tr key={i}>
                           <Td>
-                            <span style={{ borderRadius: 4, backgroundColor: '#f3f4f6', padding: '2px 8px', fontFamily: 'monospace' }} className="text-body-sm text-text">{m.csvColumn}</span>
+                            <span style={{ borderRadius: 4, backgroundColor: '#f3f4f6', padding: '2px 8px', fontFamily: 'monospace', fontSize: 12 }}>{m.csvColumn}</span>
                           </Td>
                           <Td>
                             <FormSelect
@@ -142,7 +140,7 @@ export default function CSVImportPage() {
                             {m.mapped ? (
                               <CheckCircleFilled className="block mx-auto" style={{ fontSize: 16, color: 'var(--color-success)' }} />
                             ) : (
-                              <span className="text-caption-md" style={{ color: '#d97706' }}>Unmapped</span>
+                              <span style={{ fontSize: 11, color: '#d97706' }}>Unmapped</span>
                             )}
                           </Td>
                         </Tr>

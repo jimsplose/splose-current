@@ -105,7 +105,7 @@ export default function UserGroupsPage() {
       <DataTable>
         <TableHead>
           <Th>
-            <span className="inline-flex items-center gap-1">
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
               Name
               <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
             </span>
@@ -116,7 +116,7 @@ export default function UserGroupsPage() {
         <TableBody>
           {paged.map((group) => (
             <Tr key={group.name}>
-              <Td className="text-text">{group.name}</Td>
+              <Td>{group.name}</Td>
               <Td>{group.users}</Td>
               <Td align="right">
                 <Dropdown
@@ -147,9 +147,9 @@ export default function UserGroupsPage() {
           <FormInput label="Name *" value={form.name} onChange={(e) => setField("name", e.target.value)} />
         </Flex>
 
-        <Divider spacing="none" className="mt-6" />
-        <div className="pt-6">
-          <h3 className="mb-3 text-heading-md text-text">Users</h3>
+        <Divider spacing="none" style={{ marginTop: 24 }} />
+        <div style={{ paddingTop: 24 }}>
+          <h3 style={{ marginBottom: 12, fontSize: 18, fontWeight: 600 }}>Users</h3>
           <Flex vertical gap={4}>
             {MOCK_USERS.map((user) => {
               const isSelected = form.selectedUsers.includes(user);
@@ -159,8 +159,7 @@ export default function UserGroupsPage() {
                   key={user}
                   align="center"
                   gap={12}
-                  className="cursor-pointer"
-                  style={{ borderRadius: 8, padding: '8px 12px' }}
+                  style={{ cursor: 'pointer', borderRadius: 8, padding: '8px 12px' }}
                 >
                   <Flex
                     component="span"
@@ -176,11 +175,11 @@ export default function UserGroupsPage() {
                   </Flex>
                   <input
                     type="checkbox"
-                    className="sr-only"
+                    style={{ position: 'absolute', width: 1, height: 1, padding: 0, margin: -1, overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap', border: 0 }}
                     checked={isSelected}
                     onChange={() => toggleUser(user)}
                   />
-                  <span className="text-body-md text-text">{user}</span>
+                  <span style={{ fontSize: 14 }}>{user}</span>
                 </Flex>
               );
             })}

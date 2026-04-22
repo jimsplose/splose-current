@@ -147,10 +147,10 @@ export default function BodyChartsPage() {
         <TableBody>
           {paged.map((t, i) => (
             <Tr key={t.id} hover>
-              <Td><span className="text-body-md text-text" style={{ fontWeight: 500 }}>{t.name}</span></Td>
-              <Td className="text-text-secondary">{t.type}</Td>
-              <Td className="text-text-secondary">{t.createdAt}</Td>
-              <Td className="text-text-secondary">{t.lastUpdate}</Td>
+              <Td><span style={{ fontSize: 14, fontWeight: 500 }}>{t.name}</span></Td>
+              <Td color="secondary">{t.type}</Td>
+              <Td color="secondary">{t.createdAt}</Td>
+              <Td color="secondary">{t.lastUpdate}</Td>
               <Td align="right">
                 <Dropdown trigger={<DropdownTriggerButton />} items={STANDARD_SETTINGS} onSelect={(v) => handleAction(v, templates.indexOf(t))} align="right" />
               </Td>
@@ -178,7 +178,7 @@ export default function BodyChartsPage() {
 
           {/* Body region selector */}
           <div>
-            <p className="text-label-lg" style={{ marginBottom: 8, color: 'var(--color-text-secondary)' }}>Body regions</p>
+            <p style={{ fontSize: 12, fontWeight: 500, marginBottom: 8, color: 'var(--color-text-secondary)' }}>Body regions</p>
             <Grid cols={3} gap="sm">
               {bodyRegions.map((region) => (
                 <label
@@ -196,12 +196,12 @@ export default function BodyChartsPage() {
                     checked={selectedRegions.has(region)}
                     onChange={() => toggleRegion(region)}
                   />
-                  <span className="text-body-sm text-text">{region}</span>
+                  <span style={{ fontSize: 12 }}>{region}</span>
                 </label>
               ))}
             </Grid>
             {selectedRegions.size > 0 && (
-              <p className="text-caption-md text-text-secondary" style={{ marginTop: 8 }}>
+              <p style={{ fontSize: 11, color: 'var(--color-text-secondary)', marginTop: 8 }}>
                 {selectedRegions.size} region{selectedRegions.size !== 1 ? "s" : ""} selected
               </p>
             )}

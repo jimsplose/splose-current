@@ -126,7 +126,7 @@ export default function SettingsServicesPage() {
               <Td>
                 <Flex align="center" gap={8}>
                   <span style={{ display: 'inline-block', height: 10, width: 10, flexShrink: 0, borderRadius: '50%', backgroundColor: service.color }} />
-                  <span style={{ fontWeight: 500 }} className="text-text">{service.name}</span>
+                  <span style={{ fontWeight: 500 }}>{service.name}</span>
                 </Flex>
               </Td>
               <Td>{service.type}</Td>

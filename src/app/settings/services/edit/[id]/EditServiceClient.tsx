@@ -115,14 +115,14 @@ export default function EditServiceClient({ id }: { id: string }) {
   return (
     <div style={{ minHeight: 'calc(100vh - 3rem)' }}>
       <div style={{ padding: '24px 24px 0' }}>
-        <h1 className="text-display-lg">Edit service</h1>
+        <h1 style={{ fontSize: 24, fontWeight: 700 }}>Edit service</h1>
       </div>
 
       <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
         <div style={{ maxWidth: 672 }}>
           {/* For (Appointment / Support Activity) */}
-          <div className="mb-4">
-            <Text variant="label/lg" as="label" color="text" className="mb-2 block">For *</Text>
+          <div style={{ marginBottom: 16 }}>
+            <Text variant="label/lg" as="label" color="text" style={{ marginBottom: 8, display: 'block' }}>For *</Text>
             <RadioGroup
               name="serviceFor"
               value={serviceFor}
@@ -132,63 +132,63 @@ export default function EditServiceClient({ id }: { id: string }) {
           </div>
 
           <FormInput label="Name *" defaultValue={service.name} />
-          <div className="mb-4" />
+          <div style={{ marginBottom: 16 }} />
           <FormSelect
             label="Type *"
             options={serviceTypeOptions}
             defaultValue={service.type}
           />
-          <div className="mb-4" />
+          <div style={{ marginBottom: 16 }} />
           <FormInput label="Item code" defaultValue={service.itemCode} />
-          <div className="mb-4" />
+          <div style={{ marginBottom: 16 }} />
           <FormInput label="Max number of clients" type="number" defaultValue="1" />
-          <div className="mb-4" />
+          <div style={{ marginBottom: 16 }} />
           <FormColorPicker
             label="Color"
             value={service.color}
             onChange={() => {}}
           />
-          <div className="mb-4" />
+          <div style={{ marginBottom: 16 }} />
           <FormTextarea label="Description" rows={3} placeholder="Enter a description for this service..." />
 
-          <Divider variant="primary" className="my-6" />
+          <Divider variant="primary" style={{ margin: '24px 0' }} />
 
           {/* Pricing */}
-          <Text variant="heading/lg" as="h2" className="mb-4">Pricing</Text>
+          <Text variant="heading/lg" as="h2" style={{ marginBottom: 16 }}>Pricing</Text>
           <FormInput
             label="Price *"
             type="number"
             defaultValue={service.price}
           />
-          <div className="mb-4" />
+          <div style={{ marginBottom: 16 }} />
           <FormSelect
             label="Rate"
             options={rateOptions}
             defaultValue={service.rate}
           />
-          <div className="mb-4" />
+          <div style={{ marginBottom: 16 }} />
           <FormInput
             label="Duration (minutes) *"
             defaultValue={service.duration}
           />
 
-          <Divider variant="primary" className="my-6" />
+          <Divider variant="primary" style={{ margin: '24px 0' }} />
 
           {/* Online booking */}
-          <Text variant="heading/lg" as="h2" className="mb-4">Online booking</Text>
+          <Text variant="heading/lg" as="h2" style={{ marginBottom: 16 }}>Online booking</Text>
           <Toggle
             checked={onlineBookingEnabled}
             onChange={setOnlineBookingEnabled}
             label="Enable online booking"
           />
 
-          <Divider variant="primary" className="my-6" />
+          <Divider variant="primary" style={{ margin: '24px 0' }} />
 
           {/* Online payment */}
-          <Text variant="heading/lg" as="h2" className="mb-4">Online payment</Text>
+          <Text variant="heading/lg" as="h2" style={{ marginBottom: 16 }}>Online payment</Text>
           <Toggle checked={onlinePayment} onChange={setOnlinePayment} label="Enable online payment" />
           {onlinePayment && (
-            <div className="mt-4">
+            <div style={{ marginTop: 16 }}>
               <FormSelect
                 label="Payment requirement"
                 value={paymentRequired}
@@ -202,10 +202,10 @@ export default function EditServiceClient({ id }: { id: string }) {
             </div>
           )}
 
-          <Divider variant="primary" className="my-6" />
+          <Divider variant="primary" style={{ margin: '24px 0' }} />
 
           {/* Appointment notifications */}
-          <Text variant="heading/lg" as="h2" className="mb-4">Appointment notifications</Text>
+          <Text variant="heading/lg" as="h2" style={{ marginBottom: 16 }}>Appointment notifications</Text>
           <Flex vertical gap={16}>
             <Toggle checked={confirmationSms} onChange={setConfirmationSms} label="Send SMS confirmation" />
             <Toggle checked={confirmationEmail} onChange={setConfirmationEmail} label="Send email confirmation" />
@@ -214,7 +214,7 @@ export default function EditServiceClient({ id }: { id: string }) {
           </Flex>
 
           {/* Footer actions */}
-          <Flex align="center" gap={16} className="mt-8 mb-8">
+          <Flex align="center" gap={16} style={{ marginTop: 32, marginBottom: 32 }}>
             <Button variant="primary">Save</Button>
           </Flex>
         </div>
