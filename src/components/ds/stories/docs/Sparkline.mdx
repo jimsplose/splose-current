@@ -1,0 +1,54 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../Sparkline.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="Sparkline" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use Sparkline inside dashboard metric tiles, Stat compositions, and aged-debtor table rows to give a glanceable trend shape alongside a headline figure. It communicates direction and volatility in a tiny footprint (default 96 × 24 px) without axes, tooltips, or interaction — the eye reads the shape, not exact values. The parent component is responsible for pre-binning the data series to a sensible number of points (typically 7–30).
+
+## When not to use
+
+- **ProgressBar** — use instead when communicating a single metric as a proportion of a known maximum (e.g. 68% of monthly target). Sparkline communicates change over time, not percentage-of-whole.
+- **Full chart components (Highcharts embeds)** — use instead when the user needs to explore data: hovering individual points for exact values, comparing multiple series, zooming, or reading axis labels. Sparkline is deliberately non-interactive and has no axis labels; it is not a substitute for a full chart in a reporting or analytics context.
+
+## Variants
+
+- **Feature: Line / Area / Bar** — three `shape` options. `line` is the default and suits continuous metrics. `area` adds a translucent fill below the line and works well for revenue or volume trends. `bar` uses discrete vertical bars and suits count-per-period data (e.g. note frequency by month).
+- **Feature: Tones (auto-inferred)** — when `tone` is omitted, the component compares the first and last data values: ≥5% rise → `success` (green), ≥5% fall → `danger` (red), otherwise `neutral` (grey). Pass `tone` explicitly to override.
+- **Feature: With Dots / With Last Dot Only** — `showDots` renders a small circle at every data point. `markLast` (default `true`) renders only the final dot, giving a clear read-point without visual clutter.
+- **Feature: With Baseline** — a dashed horizontal reference line at the `baseline` value (e.g. 0, or a previous-period average). Useful for differentiating growth from a known floor.
+- **Feature: Edge Cases** — the component handles empty data (dashed flat line), a single data point (centred dot), all-zero series, and constant-value series without throwing.
+- **Feature: Sizes** — width and height are free-form props (default 96 × 24 px). Common sizes: 60 × 16 px for tight list rows, 96 × 24 px for stat tiles, 160 × 40 px for larger dashboard cards.
+
+## Composition
+
+No app consumer exists yet — Sparkline is currently used only in Storybook recipe stories. The canonical integration point is a dashboard revenue tile pairing a headline figure with an area sparkline:
+
+```tsx
+import { Sparkline } from "@/components/ds";
+
+// Dashboard revenue tile (coming soon in src/app/dashboard/):
+<div style={{ display: "flex", alignItems: "flex-end", gap: 12 }}>
+  <div style={{ fontSize: 22, fontWeight: 600 }}>$12,430</div>
+  <Sparkline
+    data={revenueByDay}
+    shape="area"
+    aria-label="Revenue trending up over last 30 days"
+    width={120}
+    height={32}
+  />
+</div>
+```
+
+See the **Recipe: Dashboard Revenue Tile** and **Recipe: Aged Debtors Trend** Storybook stories for additional composition patterns.
+
+## Accessibility
+
+The SVG root carries `role="img"` and `aria-label`. The `aria-label` prop is required — TypeScript will error if it is omitted. Write a descriptive label that conveys the trend direction and context (e.g. `"Revenue trending up over last 30 days"`), not just a generic `"chart"`. The component has no interactive elements and never needs keyboard focus.
+
+## Sizing
+
+Width and height are free-form numeric props (default 96 × 24 px). The SVG does not stretch to fill a container; set explicit `width` and `height` values to match the surrounding layout. A 2 px internal padding is applied on all sides so the stroke and dots are never clipped.

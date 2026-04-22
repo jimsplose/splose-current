@@ -1,0 +1,57 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../PatientAvatar.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="PatientAvatar" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use PatientAvatar wherever a patient or client identity needs a compact visual anchor — patient detail headers, list rows, calendar event tiles, and waitlist entries. The component derives a deterministic background colour from `patient.id` using an FNV-1a hash so the same patient always gets the same colour across sessions and devices, without needing a colour stored in the database.
+
+## When not to use
+
+- **Avatar** (generic DS component) — use instead for non-patient identities such as the top-nav user account icon, practitioner avatars in scheduling UIs, or reviewer badges in notes. PatientAvatar enforces the patient-specific 7-colour palette and FNV hash rule on purpose — applying it to staff or system identities would be semantically misleading.
+- **Badge** — use instead when you need only a status indicator (e.g. "Active", "Archived") without a circular identity mark. PatientAvatar is an identity element, not a status label.
+
+## Variants
+
+- **Feature: Sizes** — five sizes: `xs` (20 px), `sm` (26 px), `md` (36 px), `lg` (40 px), `xl` (48 px). Choose based on the surrounding text hierarchy: `xs` in dense calendar tiles, `sm` in list rows, `md`–`lg` in detail headers.
+- **Feature: Palette (deterministic from id)** — the background cycles through 7 Splose brand hues keyed by the patient id hash. The mapping is stable: the same `id` always resolves to the same colour.
+- **Feature: With Photo** — when `patient.photoUrl` is provided, the image renders at `object-fit: cover`. The colour background is hidden but kept in the DOM for the fallback path.
+- **Feature: With Photo Error (fallback)** — if the image fails to load, the component silently falls back to the initials + hashed colour with no visible flash or broken-image icon.
+- **Feature: Archived** — `status="archived"` applies `opacity: 0.6` and `grayscale(1)` to desaturate the avatar. `status="deceased"` adds a small dark corner badge (†) to communicate the status without relying on colour alone.
+- **Feature: Interactive** — passing `interactive` and `onClick` switches the root element from `<span role="img">` to `<button type="button">`, making it focusable and keyboard-activatable.
+
+## Composition
+
+Real consumer in `src/app/clients/[id]/ClientDetailClient.tsx` — the patient detail page general details section:
+
+```tsx
+import { PatientAvatar } from "@/components/ds";
+
+<Flex align="center" gap={16} style={{ marginBottom: 12 }}>
+  <PatientAvatar
+    patient={{
+      id: client.id,
+      firstName: client.firstName,
+      lastName: client.lastName,
+    }}
+  />
+  <Text variant="body/md" as="span">
+    {client.firstName} {client.lastName}
+  </Text>
+</Flex>
+```
+
+## Accessibility
+
+Non-interactive instances render as `<span role="img" aria-label="Harry Nguyen">`. When `status="archived"` the label is extended to `"Harry Nguyen, archived"`. Interactive instances render as `<button aria-label="Harry Nguyen">`. Initials text inside is `aria-hidden` to avoid redundant announcement. Consumers must supply a `patient` object with at least `id` and one name field — a patient with no name fields renders the initials as `"·"` (a middle dot) and the label as `"Patient"`.
+
+## Sizing
+
+Size is controlled by the `size` prop (`xs` through `xl`); the component never stretches to fill a container. Use `flexShrink: 0` on the parent or the component's own shrink-prevention to prevent squishing in flex rows.
+
+## Migration from
+
+Replaces generic `<Avatar>` with ad-hoc colour logic (per-caller `style={{ background: ... }}`) duplicated across patient list rows, detail headers, and calendar event tiles.

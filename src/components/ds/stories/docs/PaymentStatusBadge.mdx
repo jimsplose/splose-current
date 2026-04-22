@@ -1,0 +1,49 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../PaymentStatusBadge.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="PaymentStatusBadge" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use PaymentStatusBadge at every invoice and payment render site that needs to show status — the invoices list table, invoice detail header, patient invoices tab, and aged debtors report. It encodes the canonical Splose colour-and-label mapping for all eight statuses (`paid`, `outstanding`, `overdue`, `partial`, `refunded`, `failed`, `draft`, `void`) plus `sent` and `cancelled`, so the mapping lives in one place and callers never reconstruct it locally.
+
+## When not to use
+
+- **Badge** — use instead when the status being rendered is not a payment or invoice status. PaymentStatusBadge delegates to `Badge` internally, but its status map is purpose-built for invoicing; using it for appointment status or generic UI labels would be semantically incorrect.
+- **Td color prop** — use a plain table cell colour or text variation instead when you need only a coloured value (e.g. a dollar amount in red) rather than a labelled pill. PaymentStatusBadge always renders a text label inside a rounded pill.
+
+## Variants
+
+- **Feature: All Statuses** — side-by-side view of all ten `PaymentStatus` values to review the full colour palette at a glance.
+- **Feature: Sizes** — three sizes: `sm` (default, matches invoice table rows), `md` (for headers and summary cards), `lg` (for larger display contexts).
+- **Feature: Outlined (solid=false)** — the outlined variant (`solid={false}`) uses a coloured border and text without a filled background. The default solid variant (`solid={true}`) uses a filled background and is preferred for tables where the badge competes with row content.
+
+## Composition
+
+Real consumer in `src/app/invoices/InvoicesClient.tsx` — the invoices list table status column, using the exported `dbStatusToPaymentStatus` helper to normalise raw database strings before rendering:
+
+```tsx
+import { PaymentStatusBadge, dbStatusToPaymentStatus } from "@/components/ds";
+
+// Status column cell:
+<PaymentStatusBadge status={dbStatusToPaymentStatus(inv.status)} />
+
+// Inline status filter dropdown:
+<PaymentStatusBadge status={dbStatusToPaymentStatus(st)} />
+```
+
+Also consumed in `src/app/invoices/[id]/InvoiceDetailClient.tsx` (invoice header), `src/app/clients/[id]/invoices/page.tsx` (patient invoices tab), and `src/app/invoices/batch-invoice/[id]/page.tsx` (batch invoice summary).
+
+## Accessibility
+
+The component renders as a `<Badge>` which outputs a `<span>` with the status label as visible text. No additional `aria-label` is needed — the label text ("Paid", "Overdue", etc.) is sufficient for screen readers. Do not suppress the label with `aria-hidden` at the call site.
+
+## Sizing
+
+Size is controlled by the `size` prop (`sm` / `md` / `lg`). The default `sm` matches the height of a standard table row. The component never stretches to fill a container; it sizes to its text content.
+
+## Migration from
+
+Replaces per-caller `<Badge variant={statusVariant(inv.status)}>` + local `statusVariant()` lookup tables that were duplicated across invoice list, invoice detail, and patient invoice pages.

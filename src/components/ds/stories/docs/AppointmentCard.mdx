@@ -1,0 +1,51 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../AppointmentCard.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="AppointmentCard" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use AppointmentCard whenever a single appointment needs to be rendered as a discrete tile — in a calendar grid column, a day-view stacked list, or a patient's appointment history tab. It owns the colour bar, time string, patient name, service label, and status icon in one composable unit, replacing the ad-hoc `_calendarEvent_*` inline markup that was previously duplicated across calendar and patient views.
+
+## When not to use
+
+- **DataTable row** — use instead when appointments are displayed in a sortable, paginated table context where individual cells need independent alignment, overflow, or interactive controls. DataTable rows handle bulk selection and column-level sorting; AppointmentCard does not.
+- **Badge** — use instead when you need to surface only the appointment status label without the full tile (e.g. a status column inside a DataTable row). AppointmentCard is the full tile, not a label-only element.
+
+## Variants
+
+- **Feature: Compact / Standard / Expanded** — three density modes map to the host layout. `compact` (44 px min-height) is used in week-view grid cells where horizontal space is tight. `standard` (56 px) is the default and suits day-view stacked columns. `expanded` (78 px) shows the practitioner and location line and is used in patient appointment list drawers.
+- **Feature: Status (scheduled / confirmed / completed / no-show / cancelled)** — each status drives a distinct tone fallback and icon indicator. `completed` shows a checkmark, `no-show` a yellow dot, and `cancelled` an exclamation icon with strikethrough patient name.
+- **Feature: Practitioner colour override** — pass a hex `tone` prop to use the practitioner's assigned colour instead of the status-derived fallback. Text colour is auto-computed for contrast (dark on light backgrounds, white on dark).
+- **Feature: Interactive (onClick)** — when `onClick` is provided the root element renders as a `<button>` for keyboard and pointer activation. Without `onClick` it renders as `<article>`.
+
+## Composition
+
+Real consumer in `src/app/calendar/CalendarView.tsx` — week-view grid where each visible appointment slot renders an `AppointmentCard` wrapped in a `HoverCard` popover:
+
+```tsx
+import { AppointmentCard } from "@/components/ds";
+import type { AppointmentStatus } from "@/components/ds";
+
+<AppointmentCard
+  time={`${formatTime12h(appt.startTime)} – ${formatTime12h(appt.endTime)}`}
+  patientName={appt.clientName}
+  service={appt.type}
+  practitioner={appt.practitionerName}
+  status={mapApptStatus(appt.status)}
+/>
+```
+
+## Accessibility
+
+The component writes an auto-composed `aria-label` combining patient name, service, time, and status (`"Harry Nguyen, Physio Initial, 9:00 AM – 9:30 AM, confirmed"`). Status icons are `aria-hidden`. When `onClick` is provided the root is a `<button type="button">` so it receives keyboard focus and fires on Enter/Space. Without `onClick` the root is `<article>`. Consumers must not suppress the generated `aria-label` — if a custom label is needed, override by passing `className` and styling the wrapper rather than replacing the element.
+
+## Sizing
+
+Height is controlled by the `density` prop (`compact` 44 px / `standard` 56 px / `expanded` 78 px); width fills the parent container at `width: 100%` so the caller controls column or list-row width.
+
+## Migration from
+
+Replaces inline `_calendarEvent_WaeeuXUs` markup duplicated in calendar views and patient appointment lists across the codebase.
