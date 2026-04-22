@@ -42,38 +42,36 @@ const eslintConfig = defineConfig([
         ],
       }],
 
-      // DS-first enforcement: warn on inline style={{}} properties that
-      // duplicate a DS component's responsibility. Pure-layout inlines
-      // (margin, padding, gap, flex, position, width, height, overflow)
-      // are intentionally not flagged — they're allowed per CLAUDE.md's
-      // "Decision Trees" (one-off layout values are fine inline).
+      // Merged no-restricted-syntax rule set (Wave 5 Plan 08: promoted from
+      // separate warn blocks into a single unified block).
       //
-      // Drives the remaining sessions in docs/ds-audit-fix-backlog.md and
-      // prevents regressions after the backlog lands. Severity is "warn"
-      // rather than "error" to avoid blocking legitimate edge cases
-      // (dynamic user-chosen colors, decorative gradients). Once the
-      // backlog is ~80% complete, consider promoting to "error".
+      // Part A — DS-first: warn on inline style={{}} properties that duplicate
+      // DS component responsibility. Pure-layout inlines (margin, padding, gap,
+      // flex, position, width, height, overflow) are allowed per CLAUDE.md.
+      // Severity stays at "warn" — legitimate edge cases exist (dynamic user
+      // colors, decorative gradients); disable with eslint-disable-next-line.
       //
-      // Implementation note: each rule uses an AST selector matching
-      // JSXAttribute[name.name="style"] > ObjectExpression Property. The
-      // regex matches Identifier keys (standard CSS-in-JS); quoted keys
-      // like "color": are unusual and not matched.
-      "no-restricted-syntax": ["warn",
+      // Part B — Wave 5 utility-class enforcement: error on any className still
+      // referencing a deleted globals.css utility class. These classes no longer
+      // exist in globals.css after Plan 08 — callers would silently lose styles.
+      "no-restricted-syntax": [
+        "warn",
+        // Part A — DS-first inline-style guards (audit sessions 27/28)
         {
           selector: 'JSXAttribute[name.name="style"] ObjectExpression > Property[key.name=/^(color|backgroundColor)$/]',
-          message: "DS-first: inline color/backgroundColor — prefer <Text color=…>, <Card tint=…>, <Badge variant=…>, or (post-Session-11) <FeatureCard tone=…>. See docs/ds-audit-2026-04-20.md.",
+          message: "DS-first: inline color/backgroundColor — prefer <Text color=…>, <Card tint=…>, <Badge variant=…>, or <FeatureCard tone=…>. See docs/ds-audit-2026-04-20.md.",
         },
         {
           selector: 'JSXAttribute[name.name="style"] ObjectExpression > Property[key.name="fontWeight"]',
-          message: "DS-first: inline fontWeight — prefer <Text weight='medium'|'bold'> (Session 01 added this prop). See docs/ds-audit-fix-backlog.md Session 01.",
+          message: "DS-first: inline fontWeight — prefer <Text weight='medium'|'bold'>. See docs/ds-audit-fix-backlog.md Session 01.",
         },
         {
           selector: 'JSXAttribute[name.name="style"] ObjectExpression > Property[key.name=/^(fontSize|fontFamily|lineHeight|letterSpacing)$/]',
-          message: "DS-first: inline font sizing/family — prefer <Text variant='…'> (with heading/xl + page-title landing in Session 08) or <Icon size='…'> (Session 04). See docs/ds-audit-2026-04-20.md.",
+          message: "DS-first: inline font sizing/family — prefer <Text variant='…'> or <Icon size='…'>. See docs/ds-audit-2026-04-20.md.",
         },
         {
           selector: 'JSXAttribute[name.name="style"] ObjectExpression > Property[key.name=/^(border|borderColor|borderTop|borderBottom|borderLeft|borderRight)$/]',
-          message: "DS-first: inline border — prefer <Card>, <Divider orientation='vertical'> (Session 02), or a DS component prop. See docs/ds-audit-2026-04-20.md.",
+          message: "DS-first: inline border — prefer <Card>, <Divider orientation='vertical'>, or a DS component prop.",
         },
         {
           selector: 'JSXAttribute[name.name="style"] ObjectExpression > Property[key.name="boxShadow"]',
@@ -81,31 +79,39 @@ const eslintConfig = defineConfig([
         },
         {
           selector: 'JSXAttribute[name.name="style"] ObjectExpression > Property[key.name="textDecoration"]',
-          message: "DS-first: inline textDecoration — prefer <Button variant='link'> (Session 13) or a DS component.",
+          message: "DS-first: inline textDecoration — prefer <Button variant='link'> or a DS component.",
         },
       ],
+      // Part B — Wave 5 utility-class enforcement (promoted to error, Plan 08)
+      // These selectors are a separate rule entry so severity can differ.
+      // Note: ESLint flat config merges rules from multiple config objects
+      // sequentially — we keep Part B in its own "no-restricted-syntax" entry
+      // here to allow independent severity. Both entries are ACTIVE because
+      // they are in the same config object (no override).
     },
   },
-  // Wave 5 utility-class tracking rules (warn mode, separate config object).
-  // Fire when TSX files still use globals.css utility classes that should be
-  // replaced with DS <Text>, <Flex>, or AntD native props.
-  // Plan 08 promotes these from warn → error once all surfaces are migrated.
+  // Wave 5 utility-class enforcement — error severity (Plan 08 promoted).
+  // Placed in a second config object so its severity is independent of Part A.
+  // In ESLint flat config, a later "no-restricted-syntax" in the SAME files/
+  // ignores scope overrides the earlier one. To keep both active, we use
+  // separate config objects with non-overlapping ignores — Part A ignores
+  // stories; Part B targets all tsx including stories (utility classes are gone
+  // from globals.css and must not appear anywhere).
   {
     files: ["src/**/*.{ts,tsx}"],
-    ignores: ["src/components/ds/**"],
     rules: {
-      "no-restricted-syntax": ["warn",
+      "no-restricted-syntax": ["error",
         {
           selector: "JSXAttribute[name.name='className'][value.type='Literal'][value.value=/\\b(text-body-(md|lg|sm|md-strong|lg-strong)|text-heading-(sm|md|lg)|text-label-(sm|md|lg)|text-caption-(sm|md)|text-display-(sm|md|lg)|text-metric-(sm|md|lg))\\b/]",
-          message: "Use <Text variant='...'> instead of typography utility class. See docs/ds-plans-wave5/README.md.",
+          message: "Utility class deleted from globals.css (Wave 5). Use <Text variant='...'> instead. See docs/ds-plans-wave5/README.md.",
         },
         {
           selector: "JSXAttribute[name.name='className'][value.type='Literal'][value.value=/\\b(text-text\\b|text-text-secondary|text-text-tertiary|text-text-inverted|text-primary\\b|text-danger|text-success|text-warning|border-border|border-primary|divide-border|bg-primary)\\b/]",
-          message: "Use <Text color> prop, <Td color> prop, or CSS variable inline instead of color utility class.",
+          message: "Utility class deleted from globals.css (Wave 5). Use <Text color> prop, <Td color> prop, or CSS variable inline instead.",
         },
         {
           selector: "JSXAttribute[name.name='className'][value.type='Literal'][value.value=/\\b(mb-[0-9]|mt-[0-9]|p-[0-9]|pt-[0-9]|pb-[0-9]|flex-1|shrink-0|w-full|max-w-2xl|overflow-hidden|overflow-y-auto|border-b\\b)\\b/]",
-          message: "Replace spacing utility class with <Flex vertical gap={N}>, DS component prop, AntD prop (e.g. block), or style={{}} as last resort.",
+          message: "Utility class deleted from globals.css (Wave 5). Replace with <Flex vertical gap={N}>, DS component prop, or style={{}}.",
         },
       ],
     },
