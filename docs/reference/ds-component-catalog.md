@@ -73,6 +73,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `Tab` | Underline-style tab bars with active state, supports `href` for link tabs |
 | `Navbar` | Document headers with back nav + actions (prefer FormPage template) |
 | `SearchBar` | Search input + button combos (prefer ListPage template) |
+| `Breadcrumbs` | Horizontal path indicator for deep hierarchies, nested settings, batch flows. Items: `{ label, href?, icon? }`. Last item renders with `aria-current="page"`. Custom `separator` (chevron Icon default); `maxItems` collapses middle entries into an overflow dropdown. Use inside or above `PageHeader`/`Navbar`. |
 
 ## Overlays
 
