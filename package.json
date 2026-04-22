@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "build": "prisma generate && tsx scripts/db-push.ts && storybook build -o storybook-static --quiet && rm -rf public/storybook && mv storybook-static public/storybook && next build",
     "db:seed": "tsx prisma/seed.ts",
     "db:push": "prisma db push",
@@ -46,15 +48,21 @@
     "@storybook/addon-docs": "^10.3.1",
     "@storybook/nextjs": "^10.3.0",
     "@storybook/react": "^10.3.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^6.0.1",
     "ajv": "^8.18.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.7",
     "eslint-plugin-storybook": "^10.3.3",
+    "jsdom": "^29.0.2",
     "prettier": "^3.8.1",
     "storybook": "^10.3.0",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "vitest": "^4.1.5"
   }
 }
