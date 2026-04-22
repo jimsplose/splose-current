@@ -1,6 +1,6 @@
 # Wave 5 · Plan 03 — Patient surface migration
 
-**Status:** Planned
+**Status:** Done
 **Estimated effort:** M
 **Recommended model:** Sonnet 4.6 (mostly mechanical — avatar + tag + field substitutions)
 **Thinking budget:** think

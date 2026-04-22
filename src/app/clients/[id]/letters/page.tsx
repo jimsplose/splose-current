@@ -44,10 +44,10 @@ export default function ClientLettersPage() {
             {paged.map((letter) => (
               <Tr key={letter.id}>
                 <Td>{letter.title}</Td>
-                <Td className="text-text-secondary">{letter.location}</Td>
-                <Td className="text-text-secondary">{letter.writtenBy}</Td>
-                <Td className="text-text-secondary">{letter.createdAt}</Td>
-                <Td className="text-text-secondary">{letter.lastUpdated}</Td>
+                <Td color="secondary">{letter.location}</Td>
+                <Td color="secondary">{letter.writtenBy}</Td>
+                <Td color="secondary">{letter.createdAt}</Td>
+                <Td color="secondary">{letter.lastUpdated}</Td>
                 <ActionsCell
                   items={[
                     { label: "Edit", value: "edit" },

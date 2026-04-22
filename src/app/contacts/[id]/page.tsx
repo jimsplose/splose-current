@@ -178,10 +178,12 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             <Button
               key={item.label}
               variant="ghost"
-              className={`text-body-sm ${"active" in item && item.active ? "text-primary font-medium" : "text-text-secondary"}`}
               style={{
                 width: '100%',
                 justifyContent: 'space-between',
+                fontSize: 12,
+                color: "active" in item && item.active ? 'var(--color-primary)' : 'var(--color-text-secondary)',
+                fontWeight: "active" in item && item.active ? 500 : undefined,
                 ...("active" in item && item.active
                   ? { borderLeft: '2px solid var(--color-primary)', background: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.05)' }
                   : {}),
@@ -231,9 +233,10 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                   label: "Type:",
                   value: contact.type ? (
                     <span
-                      className="text-label-md"
                       style={{
                         display: 'inline-block',
+                        fontSize: 12,
+                        fontWeight: 500,
                         borderRadius: 4,
                         padding: '2px 8px',
                         ...getTypeColor(contact.type),
@@ -334,10 +337,10 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                   {contact.associatedClients.map((client) => (
                     <Tr key={client.id}>
                       <Td><LinkCell>{client.name}</LinkCell></Td>
-                      <Td className="text-text-secondary">5 Jun 2011</Td>
-                      <Td align="center" className="text-text-secondary"></Td>
-                      <Td align="center" className="text-text-secondary"></Td>
-                      <Td align="center" className="text-text-secondary"></Td>
+                      <Td color="secondary">5 Jun 2011</Td>
+                      <Td align="center" color="secondary"></Td>
+                      <Td align="center" color="secondary"></Td>
+                      <Td align="center" color="secondary"></Td>
                     </Tr>
                   ))}
                 </TableBody>
@@ -358,7 +361,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             <Text variant="body/sm" color="secondary">No custom fields</Text>
           </section>
 
-          <Button variant="ghost" size="sm" className="text-primary">
+          <Button variant="ghost" size="sm" style={{ color: 'var(--color-primary)' }}>
             View change log
           </Button>
         </div>

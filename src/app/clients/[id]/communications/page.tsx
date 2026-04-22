@@ -202,7 +202,7 @@ export default function ClientCommunicationsPage() {
   }
 
   return (
-    <div className="flex-1 overflow-y-auto p-6">
+    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Communications">
         <Button>
           <PlusOutlined style={{ fontSize: 16 }} />
@@ -212,18 +212,18 @@ export default function ClientCommunicationsPage() {
 
       <SearchBar placeholder="Search for message, to and from" />
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
             <Th>
-              <Flex align="center" gap={4} component="span" className="inline-flex">
+              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Date and time <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
             <Th>Subject</Th>
             <Th>Type</Th>
             <Th>
-              <Flex align="center" gap={4} component="span" className="inline-flex">
+              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Direction <FilterOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
@@ -241,8 +241,8 @@ export default function ClientCommunicationsPage() {
                     {comm.dateTime}
                   </Flex>
                 </Td>
-                <Td className="text-text-secondary">{comm.subject || "\u2014"}</Td>
-                <Td className="text-text-secondary">{comm.type}</Td>
+                <Td color="secondary">{comm.subject || "\u2014"}</Td>
+                <Td color="secondary">{comm.type}</Td>
                 <Td>
                   <Flex vertical gap={4}>
                     <span style={{ color: 'var(--color-text-secondary)' }}>{comm.direction}</span>
@@ -285,12 +285,12 @@ export default function ClientCommunicationsPage() {
           </Button>
         }
       >
-        <Flex wrap gap={16} className="text-caption-md" style={{ marginBottom: 16, color: 'var(--color-text-secondary)' }}>
+        <Flex wrap gap={16} style={{ marginBottom: 16, color: 'var(--color-text-secondary)', fontSize: 11 }}>
           <span><strong>Date:</strong> {viewModal.dateTime}</span>
           <span><strong>Type:</strong> {viewModal.type}</span>
           <span><strong>Status:</strong> {viewModal.status}</span>
         </Flex>
-        <div className="text-body-md whitespace-pre-wrap" style={{ borderRadius: 8, backgroundColor: 'var(--color-fill-quaternary)', padding: 16 }}>
+        <div style={{ fontSize: 14, whiteSpace: 'pre-wrap', borderRadius: 8, backgroundColor: 'var(--color-fill-quaternary)', padding: 16 }}>
           {viewModal.body}
         </div>
       </Modal>
@@ -312,7 +312,7 @@ export default function ClientCommunicationsPage() {
           </>
         }
       >
-        <p className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>
+        <p style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>
           Are you sure you want to delete <strong>{deleteModal.subject}</strong>? This action cannot be undone.
         </p>
       </Modal>

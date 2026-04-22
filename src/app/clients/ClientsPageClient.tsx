@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { PlusOutlined } from "@ant-design/icons";
 import {
-  Badge,
+  Tag,
   Button,
   ListPage,
   DataTable,
@@ -15,6 +15,7 @@ import {
   Td,
   Pagination,
 } from "@/components/ds";
+import styles from "./ClientsPageClient.module.css";
 
 function formatDOB(dateStr: string | null): string {
   if (!dateStr) return "";
@@ -75,7 +76,7 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
             <Tr key={client.id} clickable style={{ position: 'relative' }}>
               <Td style={{ backgroundColor: 'var(--color-surface-header, #fff)' }}>
                 <Link href={`/clients/${client.id}`} style={{ position: 'absolute', inset: 0 }} aria-label={`View ${client.firstName} ${client.lastName}`} />
-                <span className="hover-underline-on-row-hover">
+                <span className={styles.hoverUnderline}>
                   {client.firstName} {client.lastName}
                 </span>
               </Td>
@@ -90,9 +91,9 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
               </Td>
               <Td hidden="md">
                 {client.ndisNumber ? (
-                  <Badge variant="yellow" className="text-body-sm" style={{ borderRadius: 8, backgroundColor: 'rgb(249,202,36)', paddingLeft: 7, paddingRight: 7, paddingTop: 0, paddingBottom: 0, color: '#000' }}>NDIS</Badge>
+                  <Tag color="rgb(249,202,36)" size="sm">NDIS</Tag>
                 ) : client.medicare ? (
-                  <Badge variant="yellow" className="text-body-sm" style={{ borderRadius: 8, backgroundColor: 'rgb(249,202,36)', paddingLeft: 7, paddingRight: 7, paddingTop: 0, paddingBottom: 0, color: '#000' }}>Medicare</Badge>
+                  <Tag color="rgb(249,202,36)" size="sm">Medicare</Tag>
                 ) : null}
               </Td>
             </Tr>

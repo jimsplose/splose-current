@@ -69,12 +69,12 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
                       )}
                     </Flex>
                   </Td>
-                  <Td className="text-text-secondary">{note.practitioner.name}</Td>
+                  <Td color="secondary">{note.practitioner.name}</Td>
                   <Td>
                     <LinkCell>{note.date ? formatDate(note.date) : "\u2014"}</LinkCell>
                   </Td>
-                  <Td className="text-text-secondary">{formatDateTime(note.createdAt)}</Td>
-                  <Td className="text-text-secondary">{formatDateTime(note.createdAt)}</Td>
+                  <Td color="secondary">{formatDateTime(note.createdAt)}</Td>
+                  <Td color="secondary">{formatDateTime(note.createdAt)}</Td>
                 </Tr>
               ))
             )}

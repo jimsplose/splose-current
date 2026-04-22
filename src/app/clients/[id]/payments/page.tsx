@@ -13,7 +13,7 @@ export default async function ClientPaymentsPage({ params }: { params: Promise<{
   if (!client) notFound();
 
   return (
-    <div className="flex-1 overflow-y-auto p-6">
+    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Payments">
         <Button>
           <PlusOutlined style={{ fontSize: 16 }} />

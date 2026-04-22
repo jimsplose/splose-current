@@ -1,0 +1,55 @@
+## Plan 03 — Patient (Clients/Waitlist/Contacts) Surface Verification
+Date: 2026-04-22
+Viewport: 1440×900
+Environment: localhost:3000
+
+### Surfaces migrated
+- src/app/clients/ClientsPageClient.tsx + ClientsPageClient.module.css (new)
+- src/app/clients/[id]/ClientDetailClient.tsx
+- src/app/clients/[id]/appointments/AppointmentSidePanel.tsx
+- src/app/clients/[id]/cases/page.tsx
+- src/app/clients/[id]/communications/page.tsx
+- src/app/clients/[id]/files/page.tsx
+- src/app/clients/[id]/forms/page.tsx
+- src/app/clients/[id]/letters/page.tsx
+- src/app/clients/[id]/notes/page.tsx
+- src/app/clients/[id]/payments/page.tsx
+- src/app/clients/[id]/practitioner-access/page.tsx
+- src/app/clients/[id]/statements/page.tsx
+- src/app/contacts/[id]/page.tsx
+- src/app/contacts/page.tsx
+- src/app/waitlist/page.tsx
+- src/app/waitlist/new/page.tsx
+
+### Chrome MCP measurements
+
+#### /clients (client list)
+- Table renders 10 rows ✓
+- hoverUnderline CSS module applied (moved from globals utility class) ✓
+- Tag replaces Badge for NDIS/Medicare chips (Tag DS component imported) ✓
+
+#### /clients/[id] (client detail — Noah Campbell)
+- PatientAvatar: aria-label="Noah Campbell", bg=rgb(241,194,27) (palette yellow), 36px ✓
+- DS PatientAvatar hash is deterministic — same patient renders same hue ✓
+- Tag "Plan-managed": bg=rgb(106,176,76) (green from settings), borderRadius=8px ✓
+- Page headings: "Details" → "General details" render correctly ✓
+
+#### /waitlist
+- 10 table rows render ✓
+- Utility class check: 0 text-body-*/text-label-*/text-heading-* in page content ✓
+  (5 found are all empty nav/shell elements, not page content)
+
+### Utility-class zero check
+- src/app/clients/**: 0 typography, 0 color, 0 layout utility classes
+- src/app/waitlist/**: 0 typography, 0 color, 0 layout utility classes
+- src/app/contacts/**: 0 typography, 0 color, 0 layout utility classes
+- row-hover / hover-underline-on-row-hover: 0 (moved to CSS module)
+- tsc: 0 errors
+- next build: PASS (confirmed after tsc clean)
+
+### DS adoption
+- PatientAvatar: replaces Avatar in ClientDetailClient general details section
+- Tag: replaces Badge (variant="green" solid) for client tags sidebar + NDIS/Medicare chips
+- ClientsPageClient.module.css: hover-underline-on-row-hover → CSS module (hoverUnderline)
+- All mb-*/mt-*/flex-1/shrink-0/p-6/overflow-y-auto/w-full utility classes → inline styles
+- Td color="secondary" replaces className="text-text-secondary" across all client sub-pages

@@ -552,7 +552,7 @@ function WaitlistPageInner() {
               ]}
               value={screenerSubTab}
               onChange={(val) => setScreenerSubTab(val as "triage" | "rejected")}
-              className="mb-4"
+              style={{ marginBottom: 16 }}
             />
           }
           cardWrap={false}
@@ -598,12 +598,9 @@ function WaitlistPageInner() {
                             variant="secondary"
                             size="sm"
                             onClick={() => handleTriage(idx, "yes")}
-                            className={`text-body-sm ${
-                              triageState[idx] === "yes"
-                                ? wStyles.triageYesActive
-                                : ""
-                            }`}
+                            className={triageState[idx] === "yes" ? wStyles.triageYesActive : ""}
                             style={{
+                              fontSize: 12,
                               gap: 2,
                               borderRadius: 4,
                               padding: '4px 8px',
@@ -617,12 +614,9 @@ function WaitlistPageInner() {
                             variant={triageState[idx] === "no" ? "danger" : "secondary"}
                             size="sm"
                             onClick={() => handleTriage(idx, "no")}
-                            className={`text-body-sm ${
-                              triageState[idx] === "no"
-                                ? wStyles.triageNoActive
-                                : ""
-                            }`}
+                            className={triageState[idx] === "no" ? wStyles.triageNoActive : ""}
                             style={{
+                              fontSize: 12,
                               gap: 2,
                               borderRadius: 4,
                               padding: '4px 8px',
@@ -733,7 +727,7 @@ function WaitlistPageInner() {
           <div>
             <Text variant="label/lg" as="label" color="secondary" style={{ display: 'block', marginBottom: 4 }}>Service *</Text>
             {modalServices.length > 0 && (
-              <Flex wrap gap={6} className="mb-2">
+              <Flex wrap gap={6} style={{ marginBottom: 8 }}>
                 {modalServices.map((service) => (
                   <Badge key={service} variant="blue" size="sm" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                     <span style={{ maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{service}</span>
@@ -766,7 +760,7 @@ function WaitlistPageInner() {
                   { value: "Group Session", label: "Group Session" },
                 ]}
               />
-              <Button variant="secondary" size="sm" onClick={addService} className="shrink-0">
+              <Button variant="secondary" size="sm" onClick={addService} style={{ flexShrink: 0 }}>
                 <PlusOutlined style={{ fontSize: 16 }} />
               </Button>
             </Flex>
@@ -781,11 +775,12 @@ function WaitlistPageInner() {
                   key={i}
                   type="button"
                   onClick={() => toggleDay(i)}
-                  className="text-label-md"
                   style={{
                     display: 'flex',
                     height: 36,
                     width: 36,
+                    fontSize: 12,
+                    fontWeight: 500,
                     alignItems: 'center',
                     justifyContent: 'center',
                     borderRadius: '50%',
@@ -808,11 +803,12 @@ function WaitlistPageInner() {
               <button
                 type="button"
                 onClick={() => toggleTime("morning")}
-                className="text-label-md"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: 6,
+                  fontSize: 12,
+                  fontWeight: 500,
                   borderRadius: 9999,
                   padding: '6px 12px',
                   transition: 'background-color 0.2s, color 0.2s',
@@ -827,11 +823,12 @@ function WaitlistPageInner() {
               <button
                 type="button"
                 onClick={() => toggleTime("afternoon")}
-                className="text-label-md"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: 6,
+                  fontSize: 12,
+                  fontWeight: 500,
                   borderRadius: 9999,
                   padding: '6px 12px',
                   transition: 'background-color 0.2s, color 0.2s',
@@ -846,11 +843,12 @@ function WaitlistPageInner() {
               <button
                 type="button"
                 onClick={() => toggleTime("evening")}
-                className="text-label-md"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: 6,
+                  fontSize: 12,
+                  fontWeight: 500,
                   borderRadius: 9999,
                   padding: '6px 12px',
                   transition: 'background-color 0.2s, color 0.2s',
@@ -876,7 +874,7 @@ function WaitlistPageInner() {
               rows={3}
               placeholder="Add a note..."
             />
-            <Text variant="caption/md" color="secondary" className="mt-1" style={{ textAlign: 'right', display: 'block' }}>
+            <Text variant="caption/md" color="secondary" style={{ marginTop: 4, textAlign: 'right', display: 'block' }}>
               {modalNote.length} / 500
             </Text>
           </div>
@@ -885,7 +883,7 @@ function WaitlistPageInner() {
           <div>
             <Text variant="label/lg" as="label" color="secondary" style={{ display: 'block', marginBottom: 4 }}>Waitlist tags</Text>
             {modalTags.length > 0 && (
-              <Flex wrap gap={6} className="mb-2">
+              <Flex wrap gap={6} style={{ marginBottom: 8 }}>
                 {modalTags.map((tag) => (
                   <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} size="sm" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                     {tag}
@@ -918,7 +916,7 @@ function WaitlistPageInner() {
                   { value: "To assign a unique ID", label: "To assign a unique ID" },
                 ]}
               />
-              <Button variant="secondary" size="sm" onClick={addTag} className="shrink-0">
+              <Button variant="secondary" size="sm" onClick={addTag} style={{ flexShrink: 0 }}>
                 <PlusOutlined style={{ fontSize: 16 }} />
               </Button>
             </Flex>
@@ -988,7 +986,7 @@ function WaitlistPageInner() {
                 ]}
                 value={waitlistSubTab}
                 onChange={(val) => setWaitlistSubTab(val as "active" | "closed")}
-                className="mb-4"
+                style={{ marginBottom: 16 }}
               />
 
               {/* Search */}
@@ -1061,8 +1059,7 @@ function WaitlistPageInner() {
           ) : (
             /* ===== MAP VIEW (Leaflet) ===== */
             <div
-              className="overflow-hidden"
-              style={{ height: "calc(100vh - 180px)", borderRadius: 8, border: '1px solid var(--color-border)' }}
+              style={{ overflow: 'hidden', height: "calc(100vh - 180px)", borderRadius: 8, border: '1px solid var(--color-border)' }}
             >
               <MapView markers={mapMarkers} />
             </div>

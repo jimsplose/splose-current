@@ -162,7 +162,6 @@ export default function AppointmentSidePanel({
                       key={appt.id}
                       // eslint-disable-next-line no-restricted-syntax -- row selection tint is a one-off dynamic state bg; Card tint doesn't apply to <tr>
                       style={{ cursor: 'pointer', ...(isSelected ? { backgroundColor: 'var(--color-primary-bg)' } : {}) }}
-                      className="row-hover"
                       onClick={() => setSelectedAppointment(appt)}
                     >
                       <Td>
@@ -183,9 +182,9 @@ export default function AppointmentSidePanel({
                           {appt.status === "No Show" && <Badge variant={statusVariant(appt.status)}>{appt.status}</Badge>}
                         </Flex>
                       </Td>
-                      <Td className="text-text-secondary">East Clinics</Td>
-                      <Td className="text-text-secondary">{appt.type}</Td>
-                      <Td className="text-text-secondary">{appt.practitioner.name}</Td>
+                      <Td color="secondary">East Clinics</Td>
+                      <Td color="secondary">{appt.type}</Td>
+                      <Td color="secondary">{appt.practitioner.name}</Td>
                       <Td>
                         {invoiceStatus === "Paid" && (
                           // eslint-disable-next-line no-restricted-syntax -- design override: Paid badge uses solid red (#ef4444) fill per production

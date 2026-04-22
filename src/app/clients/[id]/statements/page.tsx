@@ -3,23 +3,23 @@
 import { useParams } from "next/navigation";
 import { DownOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, Checkbox, PageHeader, FormInput, Card } from "@/components/ds";
+import { Button, Checkbox, PageHeader, FormInput, Card, Text } from "@/components/ds";
 
 export default function ClientStatementsPage() {
   const params = useParams();
   const _id = params.id as string;
 
   return (
-    <div className="flex-1 overflow-y-auto p-6">
+    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Statements">
         <Button>Email statement</Button>
         <Button>Download PDF</Button>
       </PageHeader>
 
       {/* Filter row */}
-      <Flex align="flex-end" gap={16} className="mb-4">
+      <Flex align="flex-end" gap={16} style={{ marginBottom: 16 }}>
         <Flex vertical gap={4}>
-          <label className="text-label-lg">Type*</label>
+          <Text variant="label/lg" as="label">Type*</Text>
           <Button style={{ minWidth: 140, justifyContent: 'space-between' }}>
             Activity
             <DownOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
@@ -27,7 +27,7 @@ export default function ClientStatementsPage() {
         </Flex>
 
         <Flex vertical gap={4}>
-          <label className="text-label-lg">Date range*</label>
+          <Text variant="label/lg" as="label">Date range*</Text>
           <Flex align="center" gap={8}>
             <FormInput
               type="text"
@@ -44,7 +44,7 @@ export default function ClientStatementsPage() {
         </Flex>
 
         <Flex vertical gap={4}>
-          <label className="text-label-lg">Location*</label>
+          <Text variant="label/lg" as="label">Location*</Text>
           <Button style={{ minWidth: 160, justifyContent: 'space-between' }}>
             All Locations
             <DownOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
@@ -55,7 +55,7 @@ export default function ClientStatementsPage() {
       </Flex>
 
       {/* Show client address checkbox */}
-      <div className="mb-6">
+      <div style={{ marginBottom: 24 }}>
         <Checkbox label="Show client address" defaultChecked />
       </div>
 

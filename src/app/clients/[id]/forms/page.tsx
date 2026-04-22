@@ -153,9 +153,9 @@ export default function ClientFormsPage() {
                     {form.status}
                   </Badge>
                 </Td>
-                <Td className="text-text-secondary">{form.createdAt}</Td>
-                <Td className="text-text-secondary">{form.completed}</Td>
-                <Td className="text-primary">{form.relatedAppt}</Td>
+                <Td color="secondary">{form.createdAt}</Td>
+                <Td color="secondary">{form.completed}</Td>
+                <Td color="primary">{form.relatedAppt}</Td>
                 <Td align="right">
                   <Dropdown
                     trigger={<DropdownTriggerButton />}
@@ -194,7 +194,7 @@ export default function ClientFormsPage() {
           </>
         }
       >
-        <p className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>
+        <p style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>
           Resend <strong>{resendModal.formTitle}</strong> to the client&apos;s email?
         </p>
       </Modal>
@@ -216,7 +216,7 @@ export default function ClientFormsPage() {
           </>
         }
       >
-        <p className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>
+        <p style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>
           Are you sure you want to archive <strong>{archiveModal.formTitle}</strong>? Archived forms can be restored later.
         </p>
       </Modal>

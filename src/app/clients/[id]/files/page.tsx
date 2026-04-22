@@ -60,7 +60,7 @@ export default function ClientFilesPage() {
   }
 
   return (
-    <div className="flex-1 overflow-y-auto p-6">
+    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Files /">
         <Button>
           <FolderAddOutlined style={{ fontSize: 16 }} />
@@ -75,22 +75,22 @@ export default function ClientFilesPage() {
 
       <SearchBar placeholder="Search for file name" />
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
             <Th>
-              <Flex align="center" gap={4} component="span" className="inline-flex">
+              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Name <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
             <Th>Uploader</Th>
             <Th>
-              <Flex align="center" gap={4} component="span" className="inline-flex">
+              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Upload date <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
             <Th>
-              <Flex align="center" gap={4} component="span" className="inline-flex">
+              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 File size <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
               </Flex>
             </Th>
@@ -105,9 +105,9 @@ export default function ClientFilesPage() {
                     <span>{file.name}</span>
                   </Flex>
                 </Td>
-                <Td className="text-text-secondary">{file.uploader || "\u2014"}</Td>
-                <Td className="text-text-secondary">{file.uploadDate}</Td>
-                <Td className="text-text-secondary">{file.fileSize}</Td>
+                <Td color="secondary">{file.uploader || "\u2014"}</Td>
+                <Td color="secondary">{file.uploadDate}</Td>
+                <Td color="secondary">{file.fileSize}</Td>
                 <Td align="right">
                   <Dropdown
                     align="right"
@@ -131,7 +131,7 @@ export default function ClientFilesPage() {
 
       {/* Download toast */}
       {downloadToast && (
-        <div style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 50, borderRadius: 8, backgroundColor: '#1f2937', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, color: '#fff', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }} className="text-body-md">
+        <div style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 50, fontSize: 14, borderRadius: 8, backgroundColor: '#1f2937', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, color: '#fff', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
           Downloading...
         </div>
       )}
@@ -173,7 +173,7 @@ export default function ClientFilesPage() {
           </>
         }
       >
-        <p className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>
+        <p style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>
           Are you sure you want to delete <strong>{deleteModal.fileName}</strong>? This action cannot be undone.
         </p>
       </Modal>

@@ -6,9 +6,9 @@ import { EditOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
 import {
   AlertCallout,
-  Avatar,
+  PatientAvatar,
+  Tag,
   Button,
-  Badge,
   DataTable,
   Divider,
   FeatureCard,
@@ -83,21 +83,21 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
   }
 
   return (
-    <Flex className="flex-1 overflow-hidden">
+    <Flex style={{ flex: 1, overflow: 'hidden' }}>
       {/* Main content */}
-      <div className="flex-1 overflow-y-auto p-6">
-        <Flex justify="space-between" align="center" className="mb-6">
+      <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+        <Flex justify="space-between" align="center" style={{ marginBottom: 24 }}>
           <Text variant="display/lg">Details</Text>
           <Button variant="secondary" size="sm" onClick={() => setEditMode(true)}>
-            Edit <EditOutlined className="text-[14px]" />
+            Edit <EditOutlined style={{ fontSize: 14 }} />
           </Button>
         </Flex>
 
         {/* General details */}
-        <section className="mb-8">
-          <Text variant="heading/lg" className="mb-4">General details</Text>
-          <Flex align="center" gap={16} className="mb-3">
-            <Avatar name={`${client.firstName} ${client.lastName}`} />
+        <section style={{ marginBottom: 32 }}>
+          <Text variant="heading/lg" style={{ marginBottom: 16 }}>General details</Text>
+          <Flex align="center" gap={16} style={{ marginBottom: 12 }}>
+            <PatientAvatar patient={{ id: client.id, firstName: client.firstName, lastName: client.lastName }} />
             <Text variant="body/md" as="span">
               {client.firstName} {client.lastName}
             </Text>
@@ -117,11 +117,11 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <Divider variant="primary" spacing="none" className="mb-8" />
+        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Client contact details */}
-        <section className="mb-8">
-          <Text variant="heading/lg" className="mb-4">
+        <section style={{ marginBottom: 32 }}>
+          <Text variant="heading/lg" style={{ marginBottom: 16 }}>
             Client contact details
           </Text>
           <List
@@ -154,21 +154,21 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <Divider variant="primary" spacing="none" className="mb-8" />
+        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Privacy policy consent */}
-        <section className="mb-8">
-          <Text variant="heading/lg" className="mb-4">
+        <section style={{ marginBottom: 32 }}>
+          <Text variant="heading/lg" style={{ marginBottom: 16 }}>
             Privacy policy consent
           </Text>
           <List items={[{ label: "", value: "No response" }]} />
         </section>
 
-        <Divider variant="primary" spacing="none" className="mb-8" />
+        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Medications, allergies & intolerances */}
-        <section className="mb-8">
-          <Text variant="heading/lg" className="mb-4">
+        <section style={{ marginBottom: 32 }}>
+          <Text variant="heading/lg" style={{ marginBottom: 16 }}>
             Medications, allergies &amp; intolerances
           </Text>
           <List
@@ -180,13 +180,13 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <Divider variant="primary" spacing="none" className="mb-8" />
+        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Medicare details */}
         {client.medicare && (
           <>
-            <section className="mb-8">
-              <Text variant="heading/lg" className="mb-4">
+            <section style={{ marginBottom: 32 }}>
+              <Text variant="heading/lg" style={{ marginBottom: 16 }}>
                 Medicare details
               </Text>
               <List
@@ -195,14 +195,14 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
                 ]}
               />
             </section>
-            <Divider variant="primary" spacing="none" className="mb-8" />
+            <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
           </>
         )}
 
         {client.ndisNumber && (
           <>
-            <section className="mb-8">
-              <Text variant="heading/lg" className="mb-4">
+            <section style={{ marginBottom: 32 }}>
+              <Text variant="heading/lg" style={{ marginBottom: 16 }}>
                 NDIS details
               </Text>
               <List
@@ -211,13 +211,13 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
                 ]}
               />
             </section>
-            <Divider variant="primary" spacing="none" className="mb-8" />
+            <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
           </>
         )}
 
         {/* Custom fields */}
-        <section className="mb-8">
-          <Text variant="heading/lg" className="mb-4">Custom fields</Text>
+        <section style={{ marginBottom: 32 }}>
+          <Text variant="heading/lg" style={{ marginBottom: 16 }}>Custom fields</Text>
           <List
             items={[
               { label: "Date since surgery:", value: "25/09/2025" },
@@ -226,11 +226,11 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <Divider variant="primary" spacing="none" className="mb-8" />
+        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Invoicing */}
-        <section className="mb-8">
-          <Text variant="heading/lg" className="mb-4">Invoicing</Text>
+        <section style={{ marginBottom: 32 }}>
+          <Text variant="heading/lg" style={{ marginBottom: 16 }}>Invoicing</Text>
           <List
             items={[
               {
@@ -241,15 +241,15 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <Divider variant="primary" spacing="none" className="mb-8" />
+        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Associated contacts */}
-        <section className="mb-8">
-          <Text variant="heading/lg" className="mb-4">
+        <section style={{ marginBottom: 32 }}>
+          <Text variant="heading/lg" style={{ marginBottom: 16 }}>
             Associated contacts{" "}
             <HintIcon />
           </Text>
-          <DataTable className="w-full text-body-md">
+          <DataTable style={{ width: '100%', fontSize: 14 }}>
             <TableHead>
               <Th>Name</Th>
               <Th>Type</Th>
@@ -285,12 +285,12 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
       {/* Right panel */}
       <aside style={{ width: 280, flexShrink: 0, overflowY: 'auto', borderLeft: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-container)', padding: 16 }}>
         {/* Account balance */}
-        <FeatureCard tone="primary" className="mb-4">
+        <FeatureCard tone="primary" style={{ marginBottom: 16 }}>
           <Flex justify="space-between" align="center">
             <Text variant="label/lg" as="h3" color="inverted">Account balance</Text>
             <HintIcon tone="inverted" size="lg" />
           </Flex>
-          <Flex justify="space-between" align="center" className="mt-2">
+          <Flex justify="space-between" align="center" style={{ marginTop: 8 }}>
             <Text variant="body/md" as="span">
               <Flex align="center" gap={4}>
                 They owe
@@ -315,7 +315,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         {/* Client tags */}
         <Collapse title="Client tags" defaultOpen>
           <Flex wrap="wrap" gap={4}>
-            <Badge variant="green" solid solidBg="rgb(106, 176, 76)">Plan-managed</Badge>
+            <Tag color="rgb(106, 176, 76)">Plan-managed</Tag>
           </Flex>
         </Collapse>
 
@@ -332,9 +332,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           <Flex vertical gap={4}>
             <Flex align="center" gap={4}>
               <Text variant="body/sm" as="span" color="primary">rakesh.splose@gmail.com</Text>
-              <Badge variant="orange" className="text-caption-sm">
-                ARCHIVED
-              </Badge>
+              <Tag size="sm">ARCHIVED</Tag>
             </Flex>
             <Text variant="body/sm" as="p" color="secondary">a a</Text>
             <Text variant="body/sm" as="p" color="secondary">Open rate: 0%</Text>
@@ -345,7 +343,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
             <Button
               variant="secondary"
               size="sm"
-              className="text-body-sm mt-2 w-full"
+              style={{ fontSize: 12, marginTop: 8, width: '100%' }}
             >
               Unlink
             </Button>
@@ -370,8 +368,8 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
   const [invoiceReminder, setInvoiceReminder] = useState(true);
 
   return (
-    <div className="flex-1 overflow-y-auto p-6">
-      <Flex justify="space-between" align="center" className="mb-6">
+    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+      <Flex justify="space-between" align="center" style={{ marginBottom: 24 }}>
         <Text variant="display/md">Edit details</Text>
         <Flex align="center" gap={8}>
           <Button variant="secondary" onClick={onCancel}>
@@ -383,13 +381,13 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         </Flex>
       </Flex>
 
-      <div className="max-w-2xl">
+      <div style={{ maxWidth: 672 }}>
         {/* General details with profile photo side-by-side */}
-        <section className="mb-8">
-          <Text variant="heading/lg" className="mb-4">General details</Text>
+        <section style={{ marginBottom: 32 }}>
+          <Text variant="heading/lg" style={{ marginBottom: 16 }}>General details</Text>
           <Flex gap={32}>
             {/* Form fields */}
-            <Flex vertical gap={16} className="flex-1">
+            <Flex vertical gap={16} style={{ flex: 1 }}>
               <FormSelect
                 label="Title"
                 options={[
@@ -492,7 +490,7 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
             </Flex>
 
             {/* Profile photo - positioned to the right */}
-            <div className="shrink-0 pt-6 text-center">
+            <div style={{ flexShrink: 0, paddingTop: 24, textAlign: 'center' }}>
               <FileUpload
                 icon={<Text variant="body/md" as="span" color="secondary">Profile photo</Text>}
                 label="Upload"
@@ -503,8 +501,8 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         </section>
 
         {/* Other details */}
-        <section className="mb-8">
-          <Text variant="heading/lg" className="mb-4">Other details</Text>
+        <section style={{ marginBottom: 32 }}>
+          <Text variant="heading/lg" style={{ marginBottom: 16 }}>Other details</Text>
           <FormTextarea
             defaultValue='For fields that are not available with the splose template, will show up here if they are all included in "Other Details" on the CSV file.'
             rows={4}
@@ -512,17 +510,17 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         </section>
 
         {/* Alerts */}
-        <section className="mb-8">
-          <Text variant="heading/lg" className="mb-4">Alerts</Text>
-          <Text variant="body/md" as="p" color="secondary" className="mb-2">
+        <section style={{ marginBottom: 32 }}>
+          <Text variant="heading/lg" style={{ marginBottom: 16 }}>Alerts</Text>
+          <Text variant="body/md" as="p" color="secondary" style={{ marginBottom: 8 }}>
             Information you add here will be displayed in important places like scheduling appointments.
           </Text>
           <FormTextarea defaultValue="Include KM" rows={3} />
         </section>
 
         {/* Contact details */}
-        <section className="mb-8">
-          <Text variant="heading/lg" className="mb-4">Contact details</Text>
+        <section style={{ marginBottom: 32 }}>
+          <Text variant="heading/lg" style={{ marginBottom: 16 }}>Contact details</Text>
           <Flex vertical gap={16}>
             <FormInput label="Email" type="email" defaultValue={client.email || ""} />
             <FormInput label="Phone" type="tel" defaultValue={client.phone || ""} />
@@ -533,22 +531,22 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         {/* Medicare */}
         {client.medicare && (
           <section>
-            <Text variant="heading/lg" className="mb-4">Medicare details</Text>
+            <Text variant="heading/lg" style={{ marginBottom: 16 }}>Medicare details</Text>
             <FormInput label="Card number" type="text" defaultValue={client.medicare} />
           </section>
         )}
 
         {/* NDIS */}
         {client.ndisNumber && (
-          <section className="mb-8">
-            <Text variant="heading/lg" className="mb-4">NDIS details</Text>
+          <section style={{ marginBottom: 32 }}>
+            <Text variant="heading/lg" style={{ marginBottom: 16 }}>NDIS details</Text>
             <FormInput label="NDIS number" type="text" defaultValue={client.ndisNumber} />
           </section>
         )}
 
         {/* Privacy policy consent */}
-        <section className="mb-8">
-          <Text variant="heading/lg" className="mb-4">Privacy policy consent</Text>
+        <section style={{ marginBottom: 32 }}>
+          <Text variant="heading/lg" style={{ marginBottom: 16 }}>Privacy policy consent</Text>
           <FormSelect
             label="Consent status"
             defaultValue="no-response"
@@ -561,8 +559,8 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         </section>
 
         {/* Medications, allergies & intolerances */}
-        <section className="mb-8">
-          <Text variant="heading/lg" className="mb-4">Medications, allergies &amp; intolerances</Text>
+        <section style={{ marginBottom: 32 }}>
+          <Text variant="heading/lg" style={{ marginBottom: 16 }}>Medications, allergies &amp; intolerances</Text>
           <Flex vertical gap={16}>
             <FormTextarea label="Medications" defaultValue="" placeholder="None" rows={2} />
             <FormTextarea label="Allergies" defaultValue="" placeholder="None" rows={2} />
@@ -571,8 +569,8 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         </section>
 
         {/* Custom fields */}
-        <section className="mb-8">
-          <Text variant="heading/lg" className="mb-4">Custom fields</Text>
+        <section style={{ marginBottom: 32 }}>
+          <Text variant="heading/lg" style={{ marginBottom: 16 }}>Custom fields</Text>
           <Flex vertical gap={16}>
             <FormInput label="Date since surgery" type="text" defaultValue="25/09/2025" />
             <FormInput label="Note" type="text" defaultValue="Note short text check" />
@@ -580,8 +578,8 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         </section>
 
         {/* Invoicing */}
-        <section className="mb-8">
-          <Text variant="heading/lg" className="mb-4">Invoicing</Text>
+        <section style={{ marginBottom: 32 }}>
+          <Text variant="heading/lg" style={{ marginBottom: 16 }}>Invoicing</Text>
           <Flex justify="space-between" align="center">
             <Text variant="body/md" as="span">Invoice reminder preference</Text>
             <Toggle checked={invoiceReminder} onChange={setInvoiceReminder} />

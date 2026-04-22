@@ -192,14 +192,14 @@ export default function ClientCasesPage() {
           <TableBody>
             {paged.map((c) => (
               <Tr key={c.number + c.caseName}>
-                <Td className="text-text">{c.number}</Td>
-                <Td className="text-text" style={{ fontWeight: 500 }}>{c.caseName}</Td>
-                <Td className="text-text-secondary">{c.issueDate}</Td>
-                <Td className="text-text-secondary">{c.expiryDate}</Td>
-                <Td className="text-text-secondary">{c.assignee}</Td>
-                <Td className="text-text-secondary">{c.type}</Td>
-                <Td className="text-text-secondary">{c.allocated}</Td>
-                <Td className="text-text-secondary">{c.invoiced}</Td>
+                <Td>{c.number}</Td>
+                <Td style={{ fontWeight: 500 }}>{c.caseName}</Td>
+                <Td color="secondary">{c.issueDate}</Td>
+                <Td color="secondary">{c.expiryDate}</Td>
+                <Td color="secondary">{c.assignee}</Td>
+                <Td color="secondary">{c.type}</Td>
+                <Td color="secondary">{c.allocated}</Td>
+                <Td color="secondary">{c.invoiced}</Td>
                 <Td>
                   <Badge variant={statusVariant(c.status)}>{c.status}</Badge>
                 </Td>

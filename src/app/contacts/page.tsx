@@ -222,7 +222,7 @@ export default function ContactsPage() {
         <TableBody>
           {mockContacts.map((contact) => (
             <Tr key={contact.id} clickable style={{ position: 'relative' }}>
-              <Td className="text-text-secondary">
+              <Td color="secondary">
                 <Link
                   href={`/contacts/${contact.id}`}
                   style={{ position: 'absolute', inset: 0 }}
@@ -230,19 +230,19 @@ export default function ContactsPage() {
                 />
                 {getTypeLabel(contact.type)}
               </Td>
-              <Td className="text-text" style={{ fontWeight: 500 }}>{contact.name}</Td>
-              <Td hidden="md" className="text-text-secondary">{contact.company}</Td>
-              <Td hidden="md" className="text-text-secondary">{contact.email}</Td>
+              <Td style={{ fontWeight: 500 }}>{contact.name}</Td>
+              <Td hidden="md" color="secondary">{contact.company}</Td>
+              <Td hidden="md" color="secondary">{contact.email}</Td>
               <Td hidden="lg">
                 {contact.workPhone && (
-                  <a href={`tel:${contact.workPhone}`} className="text-text no-underline">
+                  <a href={`tel:${contact.workPhone}`} style={{ textDecoration: 'none' }}>
                     {contact.workPhone}
                   </a>
                 )}
               </Td>
               <Td hidden="lg">
                 {contact.mobilePhone && (
-                  <a href={`tel:${contact.mobilePhone}`} className="text-text no-underline">
+                  <a href={`tel:${contact.mobilePhone}`} style={{ textDecoration: 'none' }}>
                     {contact.mobilePhone}
                   </a>
                 )}

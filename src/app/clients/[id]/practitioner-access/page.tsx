@@ -3,7 +3,7 @@
 import { SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
 import { useState } from "react";
-import { Badge, Button, Card, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination } from "@/components/ds";
+import { Badge, Button, Card, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Text } from "@/components/ds";
 
 const mockPractitioners = [
     { name: "Delvin Khor", role: "Practitioner admin", roleType: "Practitioner admin", group: "---", status: "Linked" },
@@ -30,18 +30,18 @@ export default function ClientPractitionerAccessPage() {
   const paged = mockPractitioners.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   return (
-    <div className="flex-1 overflow-y-auto p-6">
-      <h1 className="mb-4 text-display-lg">Practitioner access</h1>
+    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+      <Text variant="display/lg" as="h1" style={{ marginBottom: 16 }}>Practitioner access</Text>
       <p style={{ marginBottom: 24, fontSize: 14, color: 'var(--color-text-secondary)' }}>
         You can link practitioners to clients via creating an appointment or support activity in the calendar tab.{" "}
         <span className="cursor-pointer" style={{ color: 'var(--color-primary)' }}>Learn more</span>
       </p>
 
-      <Card padding="none" className="overflow-x-auto">
+      <Card padding="none" style={{ overflowX: 'auto' }}>
         <DataTable>
           <TableHead>
             <Th>
-              <Flex align="center" gap={4} component="span" className="inline-flex">
+              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Name
                 <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
               </Flex>
@@ -49,7 +49,7 @@ export default function ClientPractitionerAccessPage() {
             <Th>Role name</Th>
             <Th>Role type</Th>
             <Th>
-              <Flex align="center" gap={4} component="span" className="inline-flex">
+              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Group
                 <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
                 <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
@@ -67,10 +67,10 @@ export default function ClientPractitionerAccessPage() {
                     <Badge variant="green" style={{ marginLeft: 8 }}>Account owner</Badge>
                   </div>
                 </Td>
-                <Td className="text-text-secondary">{p.role}</Td>
-                <Td className="text-text-secondary">{p.roleType}</Td>
-                <Td className="text-text-secondary">{p.group}</Td>
-                <Td className="text-text-secondary">{p.status}</Td>
+                <Td color="secondary">{p.role}</Td>
+                <Td color="secondary">{p.roleType}</Td>
+                <Td color="secondary">{p.group}</Td>
+                <Td color="secondary">{p.status}</Td>
                 <Td align="right">
                   <Button variant="ghost" size="sm" style={{ color: 'var(--color-text-secondary)' }}>...</Button>
                 </Td>

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Flex } from "antd";
-import { Button, Card, Checkbox, FormPage, FormSelect, FormTextarea } from "@/components/ds";
+import { Button, Card, Checkbox, FormPage, FormSelect, FormTextarea, Text } from "@/components/ds";
 
 const clientOptions = [
   { value: "", label: "Select a client..." },
@@ -132,7 +132,7 @@ export default function WaitlistNewPage() {
               onChange={setPriority}
             />
             <div>
-              <label className="text-label-lg" style={{ display: 'block', marginBottom: 8, color: 'var(--color-text-secondary)' }}>Preferred days</label>
+              <Text variant="label/lg" as="label" color="secondary" style={{ display: 'block', marginBottom: 8 }}>Preferred days</Text>
               <Flex wrap gap={16}>
                 {days.map((day) => (
                   <Checkbox
