@@ -1,0 +1,43 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../SignaturePad.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="SignaturePad" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use SignaturePad when a legally or clinically significant handwritten signature is required in-app: invoice sign-off, consent forms, and clinical note finalisation. The component captures mouse and touch strokes on an HTML canvas and emits a base64 PNG (or SVG) data URL on each completed stroke. It integrates with `FormField` to display a label, required marker, hint text, and validation error below the canvas.
+
+## When not to use
+
+- **FormInput** — use instead when only a typed name is acceptable (e.g. a policy acknowledgement that requires clicking a checkbox, not a drawn signature). Always provide a type-mode fallback alongside SignaturePad for keyboard-only users (see the "Feature: Type-mode fallback" story for a reference pattern).
+- **FileUpload** — use instead when the user needs to upload a pre-existing signature image rather than drawing a new one.
+
+## Variants
+
+- **Feature: Empty** — default state with "Sign here" placeholder text centred in the canvas.
+- **Feature: Drawn** — pre-populated with a `defaultValue` base64 data URL to demonstrate a completed signature.
+- **Feature: Disabled** — `disabled` prop disables stroke capture, dims the canvas, and hides the Clear button.
+- **Feature: Error** — `error` prop switches the canvas border to red and renders the error message below via FormField.
+- **Feature: Custom Dimensions** — three sizes (small 240×80, default 360×120, large 560×180) to show the `width` and `height` props.
+- **Feature: Type-mode fallback** — a Draw/Type toggle pattern that renders SignaturePad or a styled `FormInput` based on user preference — the recommended accessibility companion.
+- **Recipe: Invoice Sign-off** — sign-and-lock modal panel for invoice INV-XXXXXXXX.
+- **Recipe: Consent Form** — dual signature pads (patient + witness) below consent text.
+- **Recipe: Final Note Sign-off** — single pad with practitioner name and date context.
+
+## Composition
+
+No app consumer yet — component is in beta. Reference the "Recipe: Invoice Sign-off" Storybook story for the intended integration pattern (coming soon in the invoice finalisation modal).
+
+## Accessibility
+
+The canvas element is not accessible to screen readers or keyboard-only users. The component adds `aria-label="Signature drawing area — use type-mode fallback if you cannot draw"` to the canvas, but consumers **must** provide a type-mode alternative (see the TypeMode story). The Clear button inside the pad is keyboard-focusable. The label, required marker, error, and hint are rendered by `FormField` and are fully accessible.
+
+## Sizing
+
+Default canvas dimensions are `width: 360px` and `height: 120px`; override with the `width` and `height` props. The canvas scales to the device pixel ratio automatically so strokes look sharp on retina displays.
+
+## Migration from
+
+No prior equivalent — signatures were handled out-of-app or via typed name fields only.

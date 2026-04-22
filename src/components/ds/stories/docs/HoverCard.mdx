@@ -1,0 +1,61 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../HoverCard.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="HoverCard" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use HoverCard when a hovered name or reference needs a richer contextual preview — patient avatar and tags, appointment details, or a brief record summary — that would be too dense for a single-line Tooltip but too disruptive to open as a full Modal. The card appears after a configurable delay (default 400 ms) to avoid accidental pops during normal cursor movement, and stays open when the cursor moves into the card content itself, allowing the user to interact with links inside it.
+
+## When not to use
+
+- **Tooltip** — use instead when the supplementary content is a single plain-text label (e.g. an icon button name). Tooltip is lighter-weight and fires on both hover and keyboard focus.
+- **Dropdown** — use instead when clicking the trigger should reveal an action menu rather than a preview.
+- **Modal** — use instead when the content requires explicit user intent to open, needs form inputs, or must block the background to maintain focus.
+
+## Variants
+
+- **Feature: Sides** — `side` prop values `top`, `right`, `bottom`, `left` demonstrated side-by-side.
+- **Feature: With Avatar** — canonical patient preview including PatientAvatar, name, last-visit date, and Tag chips.
+- **Feature: With Link** — card content extended with a "View patient →" anchor, showing the grace-period delay that keeps the card open while the cursor moves to the link.
+- **Feature: Long Content** — paragraph-length summary showing the 320 px `maxWidth` wrap behaviour.
+- **Feature: Delay Controls** — instant (`0/0`), default (`400/200`), and slow (`1000/600`) open/close delays side-by-side.
+- **Recipe: Patient Hover Preview** — usage as it appears in list and table rows.
+- **Recipe: Appointment Agenda Hover** — card summarising appointment time, practitioner, and room on an agenda item.
+- **Recipe: Invoice Client Hover** — card previewing client details on an invoice row.
+
+## Composition
+
+Real consumer at `src/app/calendar/CalendarView.tsx`, wrapping each appointment card in the week and day grid:
+
+```tsx
+import { HoverCard } from "@/components/ds";
+
+<HoverCard
+  content={
+    <div>
+      <Text variant="label/lg" as="div" color="text">{appt.clientName}</Text>
+      <Text variant="body/sm" as="div" color="secondary">
+        {formatTime12h(appt.startTime)} – {formatTime12h(appt.endTime)}
+      </Text>
+      <Text variant="body/sm" as="div" color="secondary">{appt.type}</Text>
+    </div>
+  }
+>
+  <AppointmentCard {...appt} />
+</HoverCard>
+```
+
+## Accessibility
+
+HoverCard is hover-only by design — it does not fire on keyboard focus. Keyboard and touch users must be able to access the same information through the trigger link or a nearby affordance. Never put information in the card that is essential to the task and not available elsewhere. The AntD Popover inside handles `role="tooltip"` on the overlay.
+
+## Sizing
+
+The overlay has a fixed `maxWidth: 320px` and auto-height; padding is `12px 16px`. Use the `side` and `align` props to control placement — the overlay cannot be resized.
+
+## Migration from
+
+Replaces raw `import { Popover } from "antd"` with `trigger="hover"` at call sites where safe-triangle and delay behaviour had to be re-implemented per page.

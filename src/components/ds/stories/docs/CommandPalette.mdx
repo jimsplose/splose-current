@@ -1,0 +1,67 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../CommandPalette.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="CommandPalette" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use CommandPalette to give power users a keyboard-first launcher that surfaces navigation targets, creation actions, and recently-visited records from anywhere in the app. It opens on Cmd+K (Mac) or Ctrl+K (Windows/Linux), accepts fuzzy text to filter across all registered commands, and closes immediately after selection. Mount a single instance at the root layout so it remains available on every route, then use `useRegisterCommands` to push route-local commands in while a page is active.
+
+## When not to use
+
+- **Dropdown** — use instead when the action list is context-specific to a single interactive element (e.g. a "More actions" button) and opening it with a keyboard shortcut would be confusing.
+- **SearchBar** — use instead when the user is performing a page-level record search with results displayed inline, not a command/navigation selection.
+
+## Variants
+
+- **Feature: Default (groups visible)** — full command list with Navigate, Create, and Recents groups shown immediately on open.
+- **Feature: With Shortcuts** — only commands that carry `shortcut` chips, demonstrating the keyboard hint layout.
+- **Feature: With Groups** — all groups rendered with section headings; group order mirrors insertion order in the `commands` array.
+- **Feature: Scoped (patient context)** — a reduced set of patient-specific actions prepended before the global Navigate group, showing how per-route scope feels in practice.
+- **Recipe: Global Cmd+K** — production-ready global palette with all command types.
+- **Recipe: Patient-scoped Cmd+K** — palette as opened from a patient detail page, merging patient actions with global navigate commands.
+- **Recipe: Calendar-scoped Cmd+K** — palette populated with calendar-surface actions (new appointment, busy time, filter) plus global navigation.
+
+## Composition
+
+Real consumer at `src/components/CommandPaletteMount.tsx`, mounted once in `src/app/layout.tsx`:
+
+```tsx
+import { CommandPalette } from "@/components/ds";
+import { buildCommands, globalCommandDefs } from "@/commands";
+import { CommandRegistryCtx } from "@/hooks/useRegisterCommands";
+
+export default function CommandPaletteMount() {
+  const [open, setOpen] = useState(false);
+  const [routeCommands, setRouteCommands] = useState<CommandEntry[]>([]);
+  const commands = useMemo(
+    () => buildCommands(globalCommandDefs, navigate, routeCommands),
+    [navigate, routeCommands],
+  );
+  return (
+    <CommandRegistryCtx.Provider value={{ register, unregister }}>
+      <CommandPalette
+        commands={commands}
+        open={open}
+        onOpenChange={setOpen}
+        triggerOnShortcut
+        placeholder="Search commands, navigate, create…"
+      />
+    </CommandRegistryCtx.Provider>
+  );
+}
+```
+
+## Accessibility
+
+The component is built on `cmdk`, which provides full ARIA combobox semantics, keyboard navigation (arrows, Enter, Escape), and fuzzy search out of the box. Consumers must supply a meaningful `label` on the `Command.Dialog` — this is handled internally. Each `CommandEntry.label` must be a legible string; icon-only entries are not supported. The `shortcut` chips are decorative only and do not register OS-level shortcuts — those must be wired separately.
+
+## Sizing
+
+The dialog panel is fixed at `maxWidth: 560px` and centred horizontally at `padding-top: 96px`; the list scrolls within a `60vh` cap.
+
+## Migration from
+
+No prior equivalent — previously, navigation and creation were only reachable through the sidebar or page-level buttons.

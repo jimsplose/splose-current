@@ -1,0 +1,58 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../ContextMenu.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="ContextMenu" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use ContextMenu on surfaces where right-click is an expected affordance: calendar time-slots (create appointment, busy time), calendar appointment blocks (edit, duplicate, cancel), and DataTable rows (view, edit, archive). It is a power-user shortcut — always keep a visible, click-accessible affordance for the same actions so touch and keyboard users are not blocked.
+
+## When not to use
+
+- **Dropdown** — use instead when the action list is triggered by a visible left-click button (e.g. a "…" overflow button in a table row). Dropdown is the primary affordance; ContextMenu is the secondary, keyboard shortcut alternative.
+- **Toolbar button** — use instead when the action is the primary action for a surface and should be immediately visible without any menu.
+
+## Variants
+
+- **Feature: Basic** — minimal three-item list without icons, showing the fundamental structure.
+- **Feature: With Icons** — icons on each row and a `tone: "danger"` item rendered in red.
+- **Feature: With Shortcuts** — keyboard shortcut `kbd` chips right-aligned on each row.
+- **Feature: With Danger** — a divider separating safe actions from destructive ones (`divider: true` on the last safe item).
+- **Feature: With Submenu** — a "Move to…" item that expands a nested submenu via `submenu: [...]`.
+- **Feature: Disabled item** — `disabled: true` greys out an item and prevents selection.
+- **Recipe: Calendar Slot** — create-only menu for an empty time slot (New appointment, New busy time, New support activity).
+- **Recipe: Calendar Appointment** — edit/duplicate/reschedule/cancel menu on an existing appointment block.
+- **Recipe: DataTable Row** — view/edit/invoices/archive menu on a patient list row.
+
+## Composition
+
+Real consumer at `src/app/calendar/CalendarView.tsx`, wrapping both time-slot cells and appointment cards:
+
+```tsx
+import { ContextMenu } from "@/components/ds";
+
+<ContextMenu
+  items={[
+    { id: "edit", label: "Edit", onSelect: () => { setSelectedAppt(appt); setShowEditModal(true); } },
+    { id: "duplicate", label: "Duplicate" },
+    { id: "reschedule", label: "Reschedule", divider: true },
+    { id: "cancel", label: "Cancel", tone: "danger" },
+  ]}
+>
+  <AppointmentCard {...appt} />
+</ContextMenu>
+```
+
+## Accessibility
+
+The component wraps AntD `Dropdown` with `trigger={["contextMenu"]}`. Right-click is inherently mouse-only; keyboard users must reach the same actions through a visible Dropdown or button. Do not put actions here that have no other access path. The `disabled` prop on the component passes children through unchanged, preserving normal event flow. Pass `preserveBrowserMenu={true}` on rich-text areas where the browser's spell-check menu is needed.
+
+## Sizing
+
+The overlay has `minWidth: 200px` and `maxWidth: 320px`; it auto-sizes to content width within those bounds.
+
+## Migration from
+
+No prior equivalent — contextual right-click actions were previously handled only by click-triggered Dropdown menus.

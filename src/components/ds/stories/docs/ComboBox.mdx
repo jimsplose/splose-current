@@ -1,0 +1,44 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../ComboBox.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="ComboBox" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use ComboBox when the user must select from a list that they can filter by typing, and the list is known up-front and fits comfortably in memory (up to a few hundred options). Typical uses include service picker, practitioner picker, and referrer picker on appointment and patient forms. When `allowFreeEntry` is enabled, typing a value not in the list commits it on blur, supporting ad-hoc entries. When `onCreate` is supplied, a "Create '{text}'" row appears in the filtered list for inline record creation.
+
+## When not to use
+
+- **FormSelect** — use instead when the option set is small (fewer than ~10 items), static, and filtering would add no value. FormSelect renders a native-style dropdown without a text input.
+- **AsyncSelect** — use instead when the option list must be fetched from the server on each keystroke (e.g. searching all patients by name across thousands of records). AsyncSelect handles debounced server queries; ComboBox filters a locally-held array only.
+
+## Variants
+
+- **Feature: Basic** — simple filtered list with label and placeholder.
+- **Feature: Empty filter** — typing a query that matches nothing shows the `emptyMessage` ("No results" by default).
+- **Feature: Free Entry** — `allowFreeEntry` enabled; a value not in the list is committed on blur, shown in the value display below.
+- **Feature: With Create** — `onCreate` handler adds a "+ Create '{text}'" row when the typed string does not match any option label.
+- **Feature: Custom Render** — `renderOption` function renders a coloured circle alongside each practitioner name, showing how to embed avatars or secondary metadata.
+- **Feature: Disabled** — field is non-interactive with muted background.
+- **Feature: Error** — `error` prop renders red border and error message below via FormField.
+- **Recipe: Service Picker (allows create)** — service field with `onCreate` for on-the-fly service creation.
+- **Recipe: Practitioner Picker** — custom render with `PatientAvatar` for each practitioner option.
+- **Recipe: Referrer Picker** — referrer field with `allowFreeEntry` so a free-text referrer name can be typed when no contact record exists.
+
+## Composition
+
+No app consumer yet — component is in beta. Reference the "Recipe: Service Picker" and "Recipe: Practitioner Picker" Storybook stories for the intended integration pattern (coming soon in appointment and patient forms).
+
+## Accessibility
+
+Built on Downshift, which implements the ARIA combobox pattern (role `combobox`, `aria-expanded`, `aria-activedescendant`, and keyboard navigation with arrow keys, Enter, and Escape). Consumers must supply a `label` so `FormField` can wire `<label>` association via the `id`. The toggle chevron button has `aria-label="Toggle menu"` and the clear button has `aria-label="Clear"`. Screen readers announce the filtered list length through Downshift's built-in status message.
+
+## Sizing
+
+The input expands to 100% of its container width. Control field width by constraining the parent. Three height variants are available via `size`: `sm` (24 px), `md` (32 px, default), `lg` (40 px). The dropdown list has a `maxHeight: 240px` with scroll.
+
+## Migration from
+
+Replaces `import { AutoComplete } from "antd"` call sites where internal AntD implementation details were leaking and free-entry behaviour required bespoke workarounds per form.

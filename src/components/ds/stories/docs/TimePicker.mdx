@@ -1,0 +1,44 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../TimePicker.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="TimePicker" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use TimePicker for any time-of-day selection: appointment start and end times, clinic opening hours, busy-time blocks, and reminder times. It wraps AntD's TimePicker with a consistent DS API — always emitting canonical `HH:mm` 24h strings regardless of the display format chosen — so form handlers never need to parse locale-specific strings. It integrates with `FormField` to display a label, required marker, hint, and validation error.
+
+## When not to use
+
+- **DatePicker** — use instead when only a calendar date is needed, not a time. Pair DatePicker and TimePicker side-by-side when a full datetime is required (see the "Recipe: Busy Time Start & End" story).
+- **`<input type="time">`** — avoid raw HTML time inputs; browser implementations vary significantly and do not match the Splose design language.
+
+## Variants
+
+- **Feature: 12 hour** — display format "h:mm A" (e.g. 2:30 PM), the default for Australian locale.
+- **Feature: 24 hour** — display format "HH:mm" (e.g. 14:30) for clinical contexts where ambiguity is a risk.
+- **Feature: With Min/Max (clinic hours)** — `minTime` and `maxTime` props disable hours and minutes outside the allowed range, with a hint explaining the constraint.
+- **Feature: Stepped minutes** — `step` prop at 5, 15, and 30-minute increments shown side-by-side; use 15 (the default) for appointments.
+- **Feature: Sizes** — `sm`, `md` (default), and `lg` sizes.
+- **Feature: Disabled** — `disabled` prop greys the field and prevents interaction.
+- **Feature: Error** — `error` prop borders the field in red and renders the message below.
+- **Recipe: Appointment Start & End** — two linked pickers where the end picker's `minTime` is bound to the start value to prevent invalid ranges.
+- **Recipe: Clinic Opening Hours** — opens/closes pair with 30-minute step for the settings page.
+- **Recipe: Busy Time Start & End (with date)** — DatePicker + two TimePickers in a stacked form layout.
+
+## Composition
+
+Real consumer at `src/app/online-booking/page.tsx` (date/time picker section for the online booking flow). A settings-page consumer for clinic opening hours is planned (coming soon).
+
+## Accessibility
+
+Delegates to AntD `TimePicker`, which renders a labelled input linked to a keyboard-navigable popover. Consumers must pass a `label` — the component wires it to the input `id` via `FormField` so `<label>` association is correct. Error messages are rendered as visible text below the field; they are not currently announced via `aria-live` — add a live region if inline validation is async.
+
+## Sizing
+
+The picker input expands to 100% of its container width. Control the field width by constraining the parent element. Three height variants are available via `size`: `sm` (small), `md` (middle, default), `lg` (large).
+
+## Migration from
+
+Replaces direct `import { TimePicker } from "antd"` call sites that had bespoke format handling and missing FormField integration on each page.
