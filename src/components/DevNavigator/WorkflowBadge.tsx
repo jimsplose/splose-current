@@ -1,13 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { collectPagePayload, generatePageCaptureFilename, formatNewPageBody, formatWorkflowParentBody } from "./page-capture-utils";
+import { collectPagePayload, generatePageCaptureFilename, formatNewPageBody, formatWorkflowParentBody, SESSION_KEY, VERCEL_URL } from "./page-capture-utils";
 import { downloadBlob } from "./bugshot-utils";
 import styles from "./WorkflowBadge.module.css";
-
-const SESSION_KEY = 'devnav-workflow-session';
-const VERCEL_URL = 'https://splose-current.vercel.app';
 
 export interface WorkflowStep {
   stepLabel: string;
@@ -30,6 +27,8 @@ export default function WorkflowBadge({ session, onUpdate, onComplete, onCancel 
   const [stepLabel, setStepLabel] = useState(`Step ${session.steps.length + 1}`);
   const [capturing, setCapturing] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const captureStep = async () => {
     setCapturing(true);
@@ -60,7 +59,7 @@ export default function WorkflowBadge({ session, onUpdate, onComplete, onCancel 
       onUpdate(updated);
       setStepLabel(`Step ${updatedSteps.length + 1}`);
     } catch (e) {
-      alert(`Capture failed: ${e}`);
+      alert(`Capture failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setCapturing(false);
     }
@@ -76,20 +75,22 @@ export default function WorkflowBadge({ session, onUpdate, onComplete, onCancel 
         .map(s => ({ number: s.issueNumber!, stepLabel: s.stepLabel }));
 
       const body = formatWorkflowParentBody({ name: session.name, description: `Workflow: ${session.name}`, stepIssues });
-      await fetch(`${apiBase}/api/issues`, {
+      const res = await fetch(`${apiBase}/api/issues`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: `[Workflow] ${session.name} (${stepIssues.length} steps)`, body, labels: ['workflow'] }),
       });
+      if (!res.ok) throw new Error(`API ${res.status}`);
       sessionStorage.removeItem(SESSION_KEY);
       onComplete();
     } catch (e) {
-      alert(`Submit failed: ${e}`);
+      alert(`Submit failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setSubmitting(false);
     }
   };
 
+  if (!mounted) return null;
   return createPortal(
     <div className={styles.badge}>
       <div className={styles.badgeHeader}>

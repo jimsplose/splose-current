@@ -1,14 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { collectPagePayload, generatePageCaptureFilename, formatNewPageBody } from "./page-capture-utils";
+import { collectPagePayload, generatePageCaptureFilename, formatNewPageBody, SESSION_KEY, VERCEL_URL } from "./page-capture-utils";
 import { downloadBlob } from "./bugshot-utils";
 import WorkflowBadge, { type WorkflowSession } from "./WorkflowBadge";
 import styles from "./PageCapture.module.css";
-
-const SESSION_KEY = 'devnav-workflow-session';
-const VERCEL_URL = 'https://splose-current.vercel.app';
 
 interface PageCaptureProps {
   onClose: () => void;
@@ -19,10 +16,13 @@ export default function PageCapture({ onClose }: PageCaptureProps) {
   const [description, setDescription] = useState('');
   const [workflowName, setWorkflowName] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [activeSession, setActiveSession] = useState<WorkflowSession | null>(() => {
     try { return JSON.parse(sessionStorage.getItem(SESSION_KEY) ?? 'null'); } catch { return null; }
   });
+  useEffect(() => setMounted(true), []);
 
+  if (!mounted) return null;
   if (activeSession) {
     return (
       <WorkflowBadge
@@ -56,7 +56,7 @@ export default function PageCapture({ onClose }: PageCaptureProps) {
       });
       onClose();
     } catch (e) {
-      alert(`Submit failed: ${e}`);
+      alert(`Submit failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setSubmitting(false);
     }

@@ -1,5 +1,8 @@
 // src/components/DevNavigator/page-capture-utils.ts
 
+export const SESSION_KEY = 'devnav-workflow-session';
+export const VERCEL_URL = 'https://splose-current.vercel.app';
+
 const SEMANTIC_TAGS = new Set([
   'nav','main','section','article','aside','header','footer','form',
   'h1','h2','h3','h4','button','input','select','textarea','label',
