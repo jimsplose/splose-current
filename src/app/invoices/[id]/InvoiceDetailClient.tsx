@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { DownOutlined, MailOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, Divider, Dropdown, FormInput, FormSelect, FormTextarea, Grid, Badge, statusVariant, Text } from "@/components/ds";
+import { Button, Divider, Dropdown, FormInput, FormSelect, FormTextarea, Grid, PaymentStatusBadge, dbStatusToPaymentStatus, Text } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 import Modal from "@/components/ds/Modal";
 
@@ -105,18 +105,16 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
       {/* Header bar */}
       <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', padding: '12px 24px' }}>
         <Flex align="center" gap={12}>
-          <h1 className="text-display-md text-text">{invoice.invoiceNumber}</h1>
-          <Badge variant={statusVariant(invoice.status)}>{invoice.status}</Badge>
+          <Text variant="display/md" as="h1">{invoice.invoiceNumber}</Text>
+          <PaymentStatusBadge status={dbStatusToPaymentStatus(invoice.status)} />
         </Flex>
         <Flex align="center" gap={8}>
-          <Badge variant="green" size="lg">
-            Credit balance: ${invoice.status === "Paid" ? "0.00" : "680.00"}
-          </Badge>
+          <PaymentStatusBadge status="paid" size="lg" />
           <Dropdown
             trigger={
               <Button variant="secondary">
                 Pay
-                <DownOutlined className="text-text-secondary" style={{ fontSize: 14 }} />
+                <DownOutlined style={{ color: 'var(--color-text-secondary)', fontSize: 14 }} />
               </Button>
             }
             items={payItems}
@@ -129,14 +127,14 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
             align="right"
           />
           <Button variant="secondary" onClick={handleEmailInvoice}>
-            <MailOutlined className="text-text-secondary" style={{ fontSize: 16 }} />
+            <MailOutlined style={{ color: 'var(--color-text-secondary)', fontSize: 16 }} />
             Email invoice
           </Button>
           <Dropdown
             trigger={
               <Button variant="secondary">
                 Actions
-                <DownOutlined className="text-text-secondary" style={{ fontSize: 14 }} />
+                <DownOutlined style={{ color: 'var(--color-text-secondary)', fontSize: 14 }} />
               </Button>
             }
             items={actionsItems}
@@ -149,29 +147,29 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
       </Flex>
 
       {/* Invoice document */}
-      <div className="p-8" style={{ maxWidth: 896, margin: '0 auto' }}>
+      <div style={{ padding: 32, maxWidth: 896, margin: '0 auto' }}>
         {/* Color bar */}
         <div style={{ height: 8, borderRadius: '8px 8px 0 0', background: 'linear-gradient(to right, var(--color-primary), #22c55e, #facc15)' }} />
 
         <div style={{ borderRadius: '0 0 8px 8px', border: '1px solid var(--color-border)', borderTop: 'none', background: 'white', padding: 32, boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
           {/* Title and logo */}
-          <Flex align="start" justify="space-between" className="mb-8">
-            <h2 className="text-display-lg">
+          <Flex align="start" justify="space-between" style={{ marginBottom: 32 }}>
+            <Text variant="display/lg" as="h2">
               {invoice.status === "Overdue" ? "Overdue Invoice" : invoice.status === "Paid" ? "Tax Invoice" : "Invoice"}
-            </h2>
+            </Text>
             <div style={{ fontSize: 36, fontWeight: 700, fontStyle: 'italic', color: 'var(--color-accent)' }}>
               S
             </div>
           </Flex>
 
           {/* Three column header */}
-          <Grid cols={3} gap={32} className="mb-8" style={{ fontSize: 12 }}>
+          <Grid cols={3} gap={32} style={{ marginBottom: 32, fontSize: 12 }}>
             {/* Client */}
             <div>
-              <Text variant="body/sm" as="h3" color="text" weight="bold" className="mb-1">Client</Text>
-              <p className="text-primary">
+              <Text variant="body/sm" as="h3" color="text" weight="bold" style={{ marginBottom: 4 }}>Client</Text>
+              <Text variant="body/sm" as="p" color="primary">
                 {invoice.client.firstName} {invoice.client.lastName}
-              </p>
+              </Text>
               {invoice.client.address && <Text variant="body/sm" as="p" color="secondary">{invoice.client.address}</Text>}
               {invoice.client.ndisNumber && (
                 <>
@@ -183,9 +181,9 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
               )}
               {invoice.client.medicare && <Text variant="body/sm" as="p" color="secondary">Medicare: {invoice.client.medicare}</Text>}
               {invoice.billingType === "NDIS" && (
-                <div className="mt-3">
+                <div style={{ marginTop: 12 }}>
                   <Text variant="body/sm" as="h4" color="text" weight="bold">Care of client above</Text>
-                  <p className="text-primary">C/o [Client above]</p>
+                  <Text variant="body/sm" as="p" color="primary">C/o [Client above]</Text>
                   <Text variant="body/sm" as="p" color="secondary">161 Bay St.</Text>
                   <Text variant="body/sm" as="p" color="secondary">Toronto ON M5J 1C4</Text>
                 </div>
@@ -194,17 +192,17 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
 
             {/* From */}
             <div>
-              <Text variant="body/sm" as="h3" color="text" weight="bold" className="mb-1">From</Text>
+              <Text variant="body/sm" as="h3" color="text" weight="bold" style={{ marginBottom: 4 }}>From</Text>
               <Text variant="body/sm" as="p" color="text">Hands Together Therapies</Text>
               <Text variant="body/sm" as="p" color="secondary">East Clinics</Text>
               <Text variant="body/sm" as="p" color="secondary">4 Williamstown Rd</Text>
               <Text variant="body/sm" as="p" color="secondary">Kingsville VIC 3012</Text>
-              <div className="mt-2">
+              <div style={{ marginTop: 8 }}>
                 <Text variant="body/sm" as="p" color="text" weight="bold">ABN</Text>
                 <Text variant="body/sm" as="p" color="secondary">112345678110</Text>
               </div>
               {invoice.practitionerName && (
-                <div className="mt-2">
+                <div style={{ marginTop: 8 }}>
                   <Text variant="body/sm" as="p" color="text" weight="bold">Provider</Text>
                   <Text variant="body/sm" as="p" color="secondary">{invoice.practitionerName}</Text>
                 </div>
@@ -231,37 +229,37 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           </Grid>
 
           {/* Line items table */}
-          <table className="w-full text-xs mb-6">
+          <table style={{ width: '100%', fontSize: 12, marginBottom: 24 }}>
             <thead>
-              <tr className="border-b border-border">
-                <th className="py-2 text-left"><Text variant="label/md" as="span" color="text">Item code</Text></th>
-                <th className="py-2 text-left"><Text variant="label/md" as="span" color="text">Description</Text></th>
-                <th className="py-2 text-right"><Text variant="label/md" as="span" color="text">Unit price</Text></th>
-                <th className="py-2 text-right"><Text variant="label/md" as="span" color="text">Quantity</Text></th>
-                <th className="py-2 text-right"><Text variant="label/md" as="span" color="text">Unit</Text></th>
-                <th className="py-2 text-right"><Text variant="label/md" as="span" color="text">Discount</Text></th>
-                <th className="py-2 text-right"><Text variant="label/md" as="span" color="text">GST</Text></th>
-                <th className="py-2 text-right"><Text variant="label/md" as="span" color="text">Amount AUD</Text></th>
+              <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+                <th style={{ padding: '8px 0', textAlign: 'left' }}><Text variant="label/md" as="span" color="text">Item code</Text></th>
+                <th style={{ padding: '8px 0', textAlign: 'left' }}><Text variant="label/md" as="span" color="text">Description</Text></th>
+                <th style={{ padding: '8px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">Unit price</Text></th>
+                <th style={{ padding: '8px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">Quantity</Text></th>
+                <th style={{ padding: '8px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">Unit</Text></th>
+                <th style={{ padding: '8px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">Discount</Text></th>
+                <th style={{ padding: '8px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">GST</Text></th>
+                <th style={{ padding: '8px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">Amount AUD</Text></th>
               </tr>
             </thead>
             <tbody>
               {invoice.items.map((item, idx) => (
-                <tr key={item.id} className="border-b border-border">
-                  <td className="py-3"><Text variant="body/sm" as="span" color="secondary">{`299dsdds${3234 + idx}`}</Text></td>
-                  <td className="py-3"><Text variant="body/sm" as="span" color="text">{item.description}</Text></td>
-                  <td className="py-3 text-right"><Text variant="body/sm" as="span" color="text">{item.unitPrice.toFixed(2)}</Text></td>
-                  <td className="py-3 text-right"><Text variant="body/sm" as="span" color="text">{item.quantity.toFixed(2)}</Text></td>
-                  <td className="py-3 text-right"><Text variant="body/sm" as="span" color="secondary">Hour</Text></td>
-                  <td className="py-3 text-right"><Text variant="body/sm" as="span" color="secondary">0.00</Text></td>
-                  <td className="py-3 text-right"><Text variant="body/sm" as="span" color="secondary">15%</Text></td>
-                  <td className="py-3 text-right"><Text variant="label/md" as="span" color="text">{item.total.toFixed(2)}</Text></td>
+                <tr key={item.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                  <td style={{ padding: '12px 0' }}><Text variant="body/sm" as="span" color="secondary">{`299dsdds${3234 + idx}`}</Text></td>
+                  <td style={{ padding: '12px 0' }}><Text variant="body/sm" as="span" color="text">{item.description}</Text></td>
+                  <td style={{ padding: '12px 0', textAlign: 'right' }}><Text variant="body/sm" as="span" color="text">{item.unitPrice.toFixed(2)}</Text></td>
+                  <td style={{ padding: '12px 0', textAlign: 'right' }}><Text variant="body/sm" as="span" color="text">{item.quantity.toFixed(2)}</Text></td>
+                  <td style={{ padding: '12px 0', textAlign: 'right' }}><Text variant="body/sm" as="span" color="secondary">Hour</Text></td>
+                  <td style={{ padding: '12px 0', textAlign: 'right' }}><Text variant="body/sm" as="span" color="secondary">0.00</Text></td>
+                  <td style={{ padding: '12px 0', textAlign: 'right' }}><Text variant="body/sm" as="span" color="secondary">15%</Text></td>
+                  <td style={{ padding: '12px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">{item.total.toFixed(2)}</Text></td>
                 </tr>
               ))}
             </tbody>
           </table>
 
           {/* Totals */}
-          <Flex justify="end" className="mb-8">
+          <Flex justify="end" style={{ marginBottom: 32 }}>
             <Flex vertical gap={4} style={{ width: 256, fontSize: 12 }}>
               <Flex justify="space-between">
                 <Text variant="body/sm" as="span" color="secondary">Subtotal excl. tax</Text>
@@ -285,12 +283,12 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
 
           {/* Additional information */}
           <Divider spacing="none" />
-          <div className="pt-4" style={{ fontSize: 12 }}>
-            <Text variant="body/sm" as="h4" color="text" weight="bold" className="mb-2">Additional Information</Text>
+          <div style={{ paddingTop: 16, fontSize: 12 }}>
+            <Text variant="body/sm" as="h4" color="text" weight="bold" style={{ marginBottom: 8 }}>Additional Information</Text>
             <Text variant="body/sm" as="p" color="secondary">Please note that the service dates are displayed at the beginning of each line item.</Text>
-            <div className="mt-4">
+            <div style={{ marginTop: 16 }}>
               <Text variant="body/sm" as="p" color="secondary">aA Direct deposit details:</Text>
-              <div className="mt-2">
+              <div style={{ marginTop: 8 }}>
                 <Text variant="body/sm" as="p" color="secondary">Please pay to:</Text>
                 <Text variant="body/sm" as="p" color="secondary">Name: Hands together therapy</Text>
                 <Text variant="body/sm" as="p" color="secondary">Acc: 901802703</Text>
@@ -320,7 +318,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
         <Flex vertical gap={16}>
           {/* Amount */}
           <div>
-            <label className="text-label-lg text-text mb-1" style={{ display: 'block' }}>Amount</label>
+            <Text variant="label/lg" as="label" style={{ display: 'block', marginBottom: 4 }}>Amount</Text>
             <div style={{ position: 'relative' }}>
               <Text variant="body/sm" as="span" color="secondary" style={{ position: 'absolute', top: '50%', left: 12, zIndex: 10, transform: 'translateY(-50%)' }}>$</Text>
               <FormInput
@@ -376,9 +374,9 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
 
           {/* Receipt preview */}
           {paymentAmount && (
-            <div className="p-4" style={{ borderRadius: 8, border: '1px dashed #d1d5db', background: '#f9fafb' }}>
-              <Text variant="label/lg" as="p" color="secondary" className="mb-3">Receipt preview</Text>
-              <div className="text-body-md">
+            <div style={{ padding: 16, borderRadius: 8, border: '1px dashed #d1d5db', background: '#f9fafb' }}>
+              <Text variant="label/lg" as="p" color="secondary" style={{ marginBottom: 12 }}>Receipt preview</Text>
+              <div>
                 <Flex align="center" justify="space-between">
                   <Text variant="label/lg" as="span" color="text">Receipt #REC-001</Text>
                   <Text variant="label/md" as="span" color="secondary">{paymentDate ? new Date(paymentDate + "T00:00:00").toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" }) : "\u2014"}</Text>

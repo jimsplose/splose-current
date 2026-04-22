@@ -9,7 +9,8 @@ import {
   Button,
   Pagination,
   Badge,
-  statusVariant,
+  PaymentStatusBadge,
+  dbStatusToPaymentStatus,
   DataTable,
   TableHead,
   Th,
@@ -17,6 +18,7 @@ import {
   Tr,
   Td,
   LinkCell,
+  Text,
 } from "@/components/ds";
 
 export interface InvoiceRow {
@@ -102,7 +104,7 @@ export default function InvoicesClient({
 
   const filterChips = activeFilterCount > 0 ? (
     <>
-      <span className="text-label-md" style={{ color: 'var(--color-text-secondary)' }}>Filters:</span>
+      <Text variant="label/md" as="span" color="secondary">Filters:</Text>
       {locationFilter && (
         <Badge shape="pill" onRemove={() => setLocationFilter(null)}>
           Location: {locationFilter}
@@ -255,7 +257,7 @@ export default function InvoicesClient({
                               setShowStatusDropdown(false);
                             }}
                           >
-                            <Badge variant={statusVariant(st)}>{st}</Badge>
+                            <PaymentStatusBadge status={dbStatusToPaymentStatus(st)} />
                           </Button>
                         ))}
                     </Flex>
@@ -271,19 +273,19 @@ export default function InvoicesClient({
                         {inv.invoiceNumber}
                       </LinkCell>
                     </Td>
-                    <Td className="text-primary">
+                    <Td color="primary">
                       {inv.clientName} ({inv.billingType})
                     </Td>
-                    <Td hidden="md" className="text-text-secondary">
+                    <Td hidden="md" color="secondary">
                       {inv.location}
                     </Td>
-                    <Td hidden="md" className="text-text-secondary">
+                    <Td hidden="md" color="secondary">
                       {inv.practitioner || "\u2014"}
                     </Td>
-                    <Td hidden="lg" className="text-text-secondary">
+                    <Td hidden="lg" color="secondary">
                       {formatDate(inv.date)}
                     </Td>
-                    <Td hidden="lg" className="text-text-secondary">
+                    <Td hidden="lg" color="secondary">
                       {formatDate(inv.dueDate)}
                     </Td>
                     <Td hidden="sm" align="right">
@@ -293,13 +295,11 @@ export default function InvoicesClient({
                       {outstanding.toFixed(2)}
                     </Td>
                     <Td hidden="sm">
-                      <Badge variant={statusVariant(inv.status)} solid>
-                        {inv.status}
-                      </Badge>
+                      <PaymentStatusBadge status={dbStatusToPaymentStatus(inv.status)} />
                     </Td>
                     <Td hidden="lg">
                       {inv.status === "Sent" && (
-                        <Badge variant={statusVariant("Sent")} solid>Sent</Badge>
+                        <PaymentStatusBadge status="sent" />
                       )}
                     </Td>
                   </Tr>
