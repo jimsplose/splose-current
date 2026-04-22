@@ -1,6 +1,6 @@
 # Wave 5 · Plan 06 — Utility-class cleanup on remaining app surfaces
 
-**Status:** Planned
+**Status:** Done
 **Estimated effort:** M (broad sweep, ~10–15 files with ~30–100 utility usages each)
 **Recommended model:** Sonnet 4.6 (mostly mechanical); Opus 4.7 if `dashboard/DashboardClient.tsx` looks tangled
 **Thinking budget:** think
