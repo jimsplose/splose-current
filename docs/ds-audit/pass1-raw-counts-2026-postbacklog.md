@@ -13,28 +13,30 @@ find src/app src/components -name '*.tsx' \
 
 ## Totals
 
-| Metric | 2026-04-20 baseline | 2026-04-22 post-backlog | Delta | Target | Pass? |
-|---|---|---|---|---|---|
-| In-scope files | 111 | 103 | -8 | — | — |
-| Total raw `style={{}}` count | 1422 | **1454** | +32 | ≤ 600 | **FAIL** |
-| Total ESLint `no-restricted-syntax` warnings | ~1193 (documented) | **886** | -307 (-26%) | (n/a here, session 28 target) | — |
+| Metric | 2026-04-20 baseline | 2026-04-22 post-backlog | 2026-04-22 post-session-31 | Delta from baseline | Target | Pass? |
+|---|---|---|---|---|---|---|
+| In-scope files | 111 | 103 | 103 | -8 | — | — |
+| Total raw `style={{}}` count | 1422 | 1454 | **1271** | -151 (-11%) | ≤ 600 | **FAIL** |
+| Total ESLint `no-restricted-syntax` warnings | ~1193 (documented) | 886 | **886** | -307 (-26%) | < 50 (session 28) | **FAIL** |
+
+**Note (2026-04-22 session 31 update):** Session 31 removed 125 `style={{` inlines across 11 files by migrating layout props to Tailwind utilities. ESLint count unchanged at 886 — the 125 migrations were mostly partial extractions (layout out, visual prop stays), so each element still has a `style={{` warning. Remaining 1271 inlines are: visual props (color, fontSize, borderRadius) requiring DS component work, non-standard layout values (paddingLeft, marginLeft, width:px), and complex shorthand strings. The ≤600 target requires Wave 4 DS component adoption, not layout utility migration.
 
 **Why the raw count went up:** the 2026-04-20 baseline scope was narrower (`src/app/**/page.tsx` + `src/app/**/*Client.tsx` only — 98 files with ≥1 inline). The new scope adds non-page client components (CalendarView, AppointmentSidePanel, SendNoteModal etc.), layouts, and `src/components/*.tsx`. Those files' counts now show up in the total. Like-for-like on the original narrow scope would be a drop.
 
 ## Top 10 baseline delta
 
-| # | File | 2026-04-20 | 2026-04-22 | Delta | ≥90% target met? |
-|---|---|---|---|---|---|
-| 1 | `src/app/clients/[id]/ClientDetailClient.tsx` | 86 | 62 | -28% | ❌ (target ≤8) |
-| 2 | `src/app/DashboardClient.tsx` | 82 | 81 | -1% | ❌ (target ≤8) |
-| 3 | `src/app/notes/[id]/edit/page.tsx` | 73 | 46 | -37% | ❌ (target ≤7) |
-| 4 | `src/app/invoices/[id]/page.tsx` | 58 | 64 | **+10%** | ❌ (target ≤5) |
-| 5 | `src/app/waitlist/page.tsx` | 52 | 51 | -2% | ❌ (target ≤5) |
-| 6 | `src/app/settings/details/page.tsx` | 51 | 43 | -16% | ❌ (target ≤5) |
-| 7 | `src/app/settings/data-import/page.tsx` | 50 | 41 | -18% | ❌ (target ≤5) |
-| 8 | `src/app/invoices/[id]/InvoiceDetailClient.tsx` | 48 | 37 | -23% | ❌ (target ≤4) |
-| 9 | `src/app/settings/online-bookings/[id]/page.tsx` | 47 | 44 | -6% | ❌ (target ≤4) |
-| 10 | `src/app/reports/page.tsx` | 46 | 41 | -11% | ❌ (target ≤4) |
+| # | File | 2026-04-20 baseline | 2026-04-22 post-backlog | 2026-04-22 post-S31 | Drop from baseline | ≥90% target met? |
+|---|---|---|---|---|---|---|
+| 1 | `src/app/clients/[id]/ClientDetailClient.tsx` | 86 | 62 | **4** | -95% | ✅ (target ≤8) |
+| 2 | `src/app/DashboardClient.tsx` | 82 | 81 | **73** | -11% | ❌ (target ≤8) |
+| 3 | `src/app/notes/[id]/edit/page.tsx` | 73 | 46 | **37** | -49% | ❌ (target ≤7) |
+| 4 | `src/app/invoices/[id]/page.tsx` | 58 | 64 | **40** | -31% | ❌ (target ≤5) |
+| 5 | `src/app/waitlist/page.tsx` | 52 | 51 | **45** | -13% | ❌ (target ≤5) |
+| 6 | `src/app/settings/details/page.tsx` | 51 | 43 | **32** | -37% | ❌ (target ≤5) |
+| 7 | `src/app/settings/data-import/page.tsx` | 50 | 41 | **31** | -38% | ❌ (target ≤5) |
+| 8 | `src/app/invoices/[id]/InvoiceDetailClient.tsx` | 48 | 37 | **25** | -48% | ❌ (target ≤4) |
+| 9 | `src/app/settings/online-bookings/[id]/page.tsx` | 47 | 44 | **27** | -43% | ❌ (target ≤4) |
+| 10 | `src/app/reports/page.tsx` | 46 | 41 | **27** | -41% | ❌ (target ≤4) |
 
 **None of the Top-10 files meet the ≥90% raw-count drop.** Files 4 and 11 (outside top-10) actually increased. Two drivers:
 1. **Raw-count inflation**: sessions 19/20/23/25/26 migrated to DS components but the DS components themselves accept `style={{ ... }}` props (e.g. `<Text style={{ marginBottom: 16 }}>`). These inline-style occurrences are still counted by the grep but are now legitimate layout overrides on DS components, not violations.
