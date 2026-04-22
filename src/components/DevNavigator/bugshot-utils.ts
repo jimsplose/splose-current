@@ -201,3 +201,36 @@ export function downloadBlob(blob: Blob, filename: string) {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
+
+// ── Design Review System additions ─────────────────────────────────────────
+
+export type CaptureIntent = 'bug' | 'missing' | 'remove';
+
+export function generateIssueTitle(intent: CaptureIntent, description: string): string {
+  const prefix = `[${intent}] `;
+  const truncated = description.slice(0, 80 - prefix.length);
+  return `${prefix}${truncated}`;
+}
+
+export function formatRegionIssueBody(opts: {
+  intent: CaptureIntent;
+  pageUrl: string;
+  region: Region;
+  description: string;
+  tags: string[];
+  filename: string;
+}): string {
+  const { intent, pageUrl, region, description, tags, filename } = opts;
+  const source = pageUrl.includes('localhost') ? 'replica' : 'production';
+  const tagsStr = tags.length ? tags.join(' · ') : '—';
+  return [
+    `**Intent:** ${intent}`,
+    `**Page:** ${pageUrl}`,
+    `**Source:** ${source}`,
+    `**Region:** x=${Math.round(region.x)} y=${Math.round(region.y)} w=${Math.round(region.width)} h=${Math.round(region.height)}`,
+    `**Tags:** ${tagsStr}`,
+    `**Description:** ${description}`,
+    ``,
+    `Screenshot: ${filename} (downloaded locally)`,
+  ].join('\n');
+}
