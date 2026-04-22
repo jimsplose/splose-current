@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { CloseOutlined, ArrowUpOutlined, UnorderedListOutlined } from "@ant-design/icons";
 import Card from "@/components/ds/Card";
 import Icon from "@/components/ds/Icon";
+import styles from "./AiChatPanel.module.css";
 
 /* Sparkles icon — no direct AntD equivalent, use a custom SVG */
 function SparklesIcon({ size = 18, className }: { size?: number; className?: string }) {
@@ -139,7 +140,7 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
           <span className="text-heading-sm text-text">Ask splose AI</span>
         </div>
         <button
-          className="text-text-secondary ai-chat-button-reset"
+          className={`text-text-secondary ${styles.buttonReset}`}
           style={{ display: "flex", height: 32, width: 32, alignItems: "center", justifyContent: "center", borderRadius: "50%", background: "transparent", cursor: "pointer" }}
           onClick={onClose}
         >
@@ -199,9 +200,9 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
             {isTyping && (
               <div style={{ display: "flex", justifyContent: "flex-start" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 6, borderRadius: 16, background: "var(--color-gray-100, #f3f4f6)", padding: "12px 16px" }}>
-                  <span className="ai-typing-dot" />
-                  <span className="ai-typing-dot" />
-                  <span className="ai-typing-dot" />
+                  <span className={styles.typingDot} />
+                  <span className={styles.typingDot} />
+                  <span className={styles.typingDot} />
                 </div>
               </div>
             )}
@@ -225,13 +226,13 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
             onChange={(e) => setInputValue(e.target.value)}
             onFocus={handleInputFocus}
             onKeyDown={handleKeyDown}
-            className="text-body-sm text-text ai-chat-input-reset"
+            className={`text-body-sm text-text ${styles.inputReset}`}
             style={{ flex: 1, background: "transparent", outline: "none" }}
           />
           <button
             onClick={handleSend}
             disabled={!inputValue.trim() || isTyping}
-            className="text-text-inverted bg-primary ai-chat-button-reset"
+            className={`text-text-inverted bg-primary ${styles.buttonReset}`}
             style={{
               display: "flex",
               height: 32,
@@ -250,7 +251,7 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
 
         {/* Saved prompts button */}
         <button
-          className="text-body-sm text-text-secondary ai-chat-button-reset"
+          className={`text-body-sm text-text-secondary ${styles.buttonReset}`}
           style={{ display: "flex", width: "100%", alignItems: "center", gap: 8, borderRadius: 8, padding: "8px 8px", background: "transparent", cursor: "pointer" }}
         >
           <Icon as={UnorderedListOutlined} size="lg" tone="secondary" />

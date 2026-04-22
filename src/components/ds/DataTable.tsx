@@ -181,9 +181,20 @@ export function Th({ children, align = "left", className, hidden, sortable, sort
 export function TableBody({ children }: { children: ReactNode }) {
   return <tbody>{children}</tbody>;
 }
+const tdColorMap: Record<string, string> = {
+  default:   "var(--color-text, #414549)",
+  secondary: "var(--ant-color-text-secondary, #6E6E64)",
+  tertiary:  "var(--ant-color-text-tertiary, #b8bcc0)",
+  primary:   "var(--ant-color-primary, #8250FF)",
+  danger:    "var(--ant-color-error, #D00032)",
+  success:   "var(--ant-color-success, #00C269)",
+  warning:   "var(--ant-color-warning, #FFD232)",
+};
+
 /** @deprecated Use DataTableColumn.render instead */
-export function Td({ children, align = "left", className, hidden, colSpan, style }: { children?: ReactNode; align?: string; className?: string; hidden?: string; colSpan?: number; style?: React.CSSProperties }) {
-  return <td className={className} colSpan={colSpan} style={{ padding: "16px", textAlign: align as React.CSSProperties["textAlign"], fontSize: 14, color: "rgb(65, 69, 73)", ...style }}>{children}</td>;
+export function Td({ children, align = "left", className, hidden, colSpan, style, color }: { children?: ReactNode; align?: string; className?: string; hidden?: string; colSpan?: number; style?: React.CSSProperties; color?: keyof typeof tdColorMap }) {
+  const colorStyle = color ? { color: tdColorMap[color] } : {};
+  return <td className={className} colSpan={colSpan} style={{ padding: "16px", textAlign: align as React.CSSProperties["textAlign"], fontSize: 14, color: "var(--color-text, #414549)", ...colorStyle, ...style }}>{children}</td>;
 }
 /** @deprecated Use onRow prop instead */
 export function Tr({ children, hover, clickable, selected, className, style: styleProp, ...props }: { children: ReactNode; hover?: boolean; clickable?: boolean; selected?: boolean; className?: string; style?: React.CSSProperties } & React.HTMLAttributes<HTMLTableRowElement>) {

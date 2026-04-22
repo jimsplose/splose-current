@@ -1,6 +1,6 @@
 # Wave 5 · Plan 00 — Prep: baselines, ESLint tracking, DS extensions
 
-**Status:** Planned
+**Status:** Done
 **Estimated effort:** S (15–25 min)
 **Recommended model:** Sonnet 4.6
 **Thinking budget:** think
@@ -175,12 +175,12 @@ local CSS module (non-ai-* utility classes on that file stay for Plan 05)."
 
 Record here on completion; every later plan references these numbers.
 
-- Typography class usages: ___
-- Color class usages: ___
-- Layout spacing class usages: ___
-- Structural class usages (row-hover, hover-underline, ai-*): ___
-- ESLint utility-class warnings: ___
-- AiChatPanel `ai-*` hits: 0 (confirm by grep after Task 4)
+- Typography class usages: 334
+- Color class usages: 380
+- Layout spacing class usages: 430
+- Structural class usages (row-hover, hover-underline, ai-*): 9
+- ESLint utility-class warnings: 1109
+- AiChatPanel `ai-*` hits: 0 (confirmed by grep after Task 4)
 - `<Td color>` prop exists in `src/components/ds/DataTable.tsx`: yes
 - `src/components/AiChatPanel.module.css` exists: yes
 

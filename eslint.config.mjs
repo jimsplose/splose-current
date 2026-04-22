@@ -86,6 +86,30 @@ const eslintConfig = defineConfig([
       ],
     },
   },
+  // Wave 5 utility-class tracking rules (warn mode, separate config object).
+  // Fire when TSX files still use globals.css utility classes that should be
+  // replaced with DS <Text>, <Flex>, or AntD native props.
+  // Plan 08 promotes these from warn → error once all surfaces are migrated.
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    ignores: ["src/components/ds/**"],
+    rules: {
+      "no-restricted-syntax": ["warn",
+        {
+          selector: "JSXAttribute[name.name='className'][value.type='Literal'][value.value=/\\b(text-body-(md|lg|sm|md-strong|lg-strong)|text-heading-(sm|md|lg)|text-label-(sm|md|lg)|text-caption-(sm|md)|text-display-(sm|md|lg)|text-metric-(sm|md|lg))\\b/]",
+          message: "Use <Text variant='...'> instead of typography utility class. See docs/ds-plans-wave5/README.md.",
+        },
+        {
+          selector: "JSXAttribute[name.name='className'][value.type='Literal'][value.value=/\\b(text-text\\b|text-text-secondary|text-text-tertiary|text-text-inverted|text-primary\\b|text-danger|text-success|text-warning|border-border|border-primary|divide-border|bg-primary)\\b/]",
+          message: "Use <Text color> prop, <Td color> prop, or CSS variable inline instead of color utility class.",
+        },
+        {
+          selector: "JSXAttribute[name.name='className'][value.type='Literal'][value.value=/\\b(mb-[0-9]|mt-[0-9]|p-[0-9]|pt-[0-9]|pb-[0-9]|flex-1|shrink-0|w-full|max-w-2xl|overflow-hidden|overflow-y-auto|border-b\\b)\\b/]",
+          message: "Replace spacing utility class with <Flex vertical gap={N}>, DS component prop, AntD prop (e.g. block), or style={{}} as last resort.",
+        },
+      ],
+    },
+  },
 ]);
 
 export default eslintConfig;

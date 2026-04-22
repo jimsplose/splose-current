@@ -319,6 +319,30 @@ export const RecipeClientsList: Story = {
 
 /* ─── Recipe: Appointments Table (click + select + status) ────────────── */
 
+/* ─── Td color variants ────────────────────────────────────────────────── */
+
+export const TdColors: Story = {
+  name: "Td: color variants",
+  render: () => (
+    <DataTable>
+      <TableHead>
+        <Th>Variant</Th>
+        <Th>Sample text</Th>
+      </TableHead>
+      <TableBody>
+        <Tr><Td>default (omitted)</Td><Td>The quick brown fox</Td></Tr>
+        <Tr><Td>default</Td><Td color="default">The quick brown fox</Td></Tr>
+        <Tr><Td>secondary</Td><Td color="secondary">The quick brown fox</Td></Tr>
+        <Tr><Td>tertiary</Td><Td color="tertiary">The quick brown fox</Td></Tr>
+        <Tr><Td>primary</Td><Td color="primary">The quick brown fox</Td></Tr>
+        <Tr><Td>danger</Td><Td color="danger">The quick brown fox</Td></Tr>
+        <Tr><Td>success</Td><Td color="success">The quick brown fox</Td></Tr>
+        <Tr><Td>warning</Td><Td color="warning">The quick brown fox</Td></Tr>
+      </TableBody>
+    </DataTable>
+  ),
+};
+
 export const RecipeAppointments: Story = {
   name: "Recipe: Appointments",
   render: function AppointmentsRecipe() {
