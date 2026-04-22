@@ -14,7 +14,7 @@ export type TextColor = "text" | "secondary" | "tertiary" | "primary" | "danger"
 export type TextWeight = "regular" | "medium" | "bold";
 
 interface TextProps extends HTMLAttributes<HTMLElement> {
-  variant: TextVariant;
+  variant?: TextVariant;
   as?: ElementType;
   color?: TextColor | (string & {});
   weight?: TextWeight;
@@ -83,7 +83,7 @@ function resolveColor(color?: string): { className?: string; style?: { color: st
   return { style: { color } };
 }
 
-export default function Text({ variant, as, color, weight, className = "", children, style, ...props }: TextProps) {
+export default function Text({ variant = "body/md", as, color, weight, className = "", children, style, ...props }: TextProps) {
   const Component = as ?? defaultElement[getCategory(variant)] ?? "span";
   const resolved = resolveColor(color);
   const classes = [variantClass[variant], weight ? weightClass[weight] : undefined, resolved.className, className].filter(Boolean).join(" ");

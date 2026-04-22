@@ -946,8 +946,7 @@ export default function CalendarView({
             <div style={{ padding: "4px 0" }}>
               <Button
                 variant="ghost"
-                block
-                style={{ justifyContent: 'flex-start', gap: 10, paddingTop: 8, paddingBottom: 8, paddingLeft: 12, paddingRight: 12 }}
+                style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingTop: 8, paddingBottom: 8, paddingLeft: 12, paddingRight: 12 }}
                 onClick={() => setPopover((prev) => ({ ...prev, visible: false }))}
               >
                 <Icon as={ClockCircleOutlined} size="lg" tone="secondary" />
@@ -955,8 +954,7 @@ export default function CalendarView({
               </Button>
               <Button
                 variant="ghost"
-                block
-                style={{ justifyContent: 'flex-start', gap: 10, paddingTop: 8, paddingBottom: 8, paddingLeft: 12, paddingRight: 12 }}
+                style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingTop: 8, paddingBottom: 8, paddingLeft: 12, paddingRight: 12 }}
                 onClick={() => setPopover((prev) => ({ ...prev, visible: false }))}
               >
                 <Icon as={StopOutlined} size="lg" tone="secondary" />
@@ -964,8 +962,7 @@ export default function CalendarView({
               </Button>
               <Button
                 variant="ghost"
-                block
-                style={{ justifyContent: 'flex-start', gap: 10, paddingTop: 8, paddingBottom: 8, paddingLeft: 12, paddingRight: 12 }}
+                style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingTop: 8, paddingBottom: 8, paddingLeft: 12, paddingRight: 12 }}
                 onClick={() => openCreateModal(popover.dateStr, popover.hour, popover.minute, popover.practitionerId)}
               >
                 <Icon as={CalendarOutlined} size="lg" tone="secondary" />
@@ -973,8 +970,7 @@ export default function CalendarView({
               </Button>
               <Button
                 variant="ghost"
-                block
-                style={{ justifyContent: 'flex-start', gap: 10, paddingTop: 8, paddingBottom: 8, paddingLeft: 12, paddingRight: 12 }}
+                style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingTop: 8, paddingBottom: 8, paddingLeft: 12, paddingRight: 12 }}
                 onClick={() => setPopover((prev) => ({ ...prev, visible: false }))}
               >
                 <Icon as={CheckOutlined} size="lg" tone="secondary" />
@@ -1503,13 +1499,13 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
       </div>
       <div className={styles.detailRowCenter}>
         <Avatar name={appt.practitionerName} color={appt.practitionerColor} size="sm" />
-        <span className="text-text">{appt.practitionerName}</span>
+        <Text as="span" color="text">{appt.practitionerName}</Text>
       </div>
       <div className={styles.detailRow}>
         <Icon as={ClockCircleOutlined} size="lg" tone="secondary" style={{ marginTop: 2 }} />
-        <span className="text-text">
+        <Text as="span" color="text">
           {appt.startTime}, {formatDateLong(appt.date)} for {calcDuration(appt.startTime, appt.endTime)}
-        </span>
+        </Text>
       </div>
       <div className={styles.detailRow}>
         <Icon as={VideoCameraOutlined} size="lg" tone="primary" style={{ marginTop: 2 }} />
@@ -1522,7 +1518,7 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
       <div className={styles.attendeesHeader}>
         <Flex align="center" gap={8}>
           <Icon as={TeamOutlined} size="lg" tone="secondary" />
-          <span className="text-text-secondary">1 of 6 clients attending</span>
+          <Text as="span" color="secondary">1 of 6 clients attending</Text>
         </Flex>
         <Button variant="secondary" size="sm">
           <Icon as={UserAddOutlined} size="sm" /> Client
@@ -1536,7 +1532,7 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
       </div>
       <div className={styles.detailRowCenter}>
         <Avatar name="Meghna Damodaran" color={appt.practitionerColor} size="sm" />
-        <span className="text-text-secondary">Meghna Damodaran (Organiser)</span>
+        <Text as="span" color="secondary">Meghna Damodaran (Organiser)</Text>
       </div>
       <div className={styles.detailSection}>
         <label className={styles.noteLabel}>
