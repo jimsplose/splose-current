@@ -149,13 +149,13 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
       </Flex>
 
       {/* Invoice document */}
-      <div style={{ maxWidth: 896, margin: '0 auto', padding: 32 }}>
+      <div className="p-8" style={{ maxWidth: 896, margin: '0 auto' }}>
         {/* Color bar */}
         <div style={{ height: 8, borderRadius: '8px 8px 0 0', background: 'linear-gradient(to right, var(--color-primary), #22c55e, #facc15)' }} />
 
         <div style={{ borderRadius: '0 0 8px 8px', border: '1px solid var(--color-border)', borderTop: 'none', background: 'white', padding: 32, boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
           {/* Title and logo */}
-          <Flex align="start" justify="space-between" style={{ marginBottom: 32 }}>
+          <Flex align="start" justify="space-between" className="mb-8">
             <h2 className="text-display-lg">
               {invoice.status === "Overdue" ? "Overdue Invoice" : invoice.status === "Paid" ? "Tax Invoice" : "Invoice"}
             </h2>
@@ -165,10 +165,10 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           </Flex>
 
           {/* Three column header */}
-          <Grid cols={3} gap={32} style={{ marginBottom: 32, fontSize: 12 }}>
+          <Grid cols={3} gap={32} className="mb-8" style={{ fontSize: 12 }}>
             {/* Client */}
             <div>
-              <Text variant="body/sm" as="h3" color="text" weight="bold" style={{ marginBottom: 4 }}>Client</Text>
+              <Text variant="body/sm" as="h3" color="text" weight="bold" className="mb-1">Client</Text>
               <p className="text-primary">
                 {invoice.client.firstName} {invoice.client.lastName}
               </p>
@@ -183,7 +183,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
               )}
               {invoice.client.medicare && <Text variant="body/sm" as="p" color="secondary">Medicare: {invoice.client.medicare}</Text>}
               {invoice.billingType === "NDIS" && (
-                <div style={{ marginTop: 12 }}>
+                <div className="mt-3">
                   <Text variant="body/sm" as="h4" color="text" weight="bold">Care of client above</Text>
                   <p className="text-primary">C/o [Client above]</p>
                   <Text variant="body/sm" as="p" color="secondary">161 Bay St.</Text>
@@ -194,17 +194,17 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
 
             {/* From */}
             <div>
-              <Text variant="body/sm" as="h3" color="text" weight="bold" style={{ marginBottom: 4 }}>From</Text>
+              <Text variant="body/sm" as="h3" color="text" weight="bold" className="mb-1">From</Text>
               <Text variant="body/sm" as="p" color="text">Hands Together Therapies</Text>
               <Text variant="body/sm" as="p" color="secondary">East Clinics</Text>
               <Text variant="body/sm" as="p" color="secondary">4 Williamstown Rd</Text>
               <Text variant="body/sm" as="p" color="secondary">Kingsville VIC 3012</Text>
-              <div style={{ marginTop: 8 }}>
+              <div className="mt-2">
                 <Text variant="body/sm" as="p" color="text" weight="bold">ABN</Text>
                 <Text variant="body/sm" as="p" color="secondary">112345678110</Text>
               </div>
               {invoice.practitionerName && (
-                <div style={{ marginTop: 8 }}>
+                <div className="mt-2">
                   <Text variant="body/sm" as="p" color="text" weight="bold">Provider</Text>
                   <Text variant="body/sm" as="p" color="secondary">{invoice.practitionerName}</Text>
                 </div>
@@ -231,7 +231,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           </Grid>
 
           {/* Line items table */}
-          <table className="w-full text-xs" style={{ marginBottom: 24 }}>
+          <table className="w-full text-xs mb-6">
             <thead>
               <tr className="border-b border-border">
                 <th className="py-2 text-left"><Text variant="label/md" as="span" color="text">Item code</Text></th>
@@ -261,7 +261,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           </table>
 
           {/* Totals */}
-          <Flex justify="end" style={{ marginBottom: 32 }}>
+          <Flex justify="end" className="mb-8">
             <Flex vertical gap={4} style={{ width: 256, fontSize: 12 }}>
               <Flex justify="space-between">
                 <Text variant="body/sm" as="span" color="secondary">Subtotal excl. tax</Text>
@@ -285,12 +285,12 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
 
           {/* Additional information */}
           <Divider spacing="none" />
-          <div style={{ paddingTop: 16, fontSize: 12 }}>
-            <Text variant="body/sm" as="h4" color="text" weight="bold" style={{ marginBottom: 8 }}>Additional Information</Text>
+          <div className="pt-4" style={{ fontSize: 12 }}>
+            <Text variant="body/sm" as="h4" color="text" weight="bold" className="mb-2">Additional Information</Text>
             <Text variant="body/sm" as="p" color="secondary">Please note that the service dates are displayed at the beginning of each line item.</Text>
-            <div style={{ marginTop: 16 }}>
+            <div className="mt-4">
               <Text variant="body/sm" as="p" color="secondary">aA Direct deposit details:</Text>
-              <div style={{ marginTop: 8 }}>
+              <div className="mt-2">
                 <Text variant="body/sm" as="p" color="secondary">Please pay to:</Text>
                 <Text variant="body/sm" as="p" color="secondary">Name: Hands together therapy</Text>
                 <Text variant="body/sm" as="p" color="secondary">Acc: 901802703</Text>
@@ -320,7 +320,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
         <Flex vertical gap={16}>
           {/* Amount */}
           <div>
-            <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>Amount</label>
+            <label className="text-label-lg text-text mb-1" style={{ display: 'block' }}>Amount</label>
             <div style={{ position: 'relative' }}>
               <Text variant="body/sm" as="span" color="secondary" style={{ position: 'absolute', top: '50%', left: 12, zIndex: 10, transform: 'translateY(-50%)' }}>$</Text>
               <FormInput
@@ -376,8 +376,8 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
 
           {/* Receipt preview */}
           {paymentAmount && (
-            <div style={{ borderRadius: 8, border: '1px dashed #d1d5db', background: '#f9fafb', padding: 16 }}>
-              <Text variant="label/lg" as="p" color="secondary" style={{ marginBottom: 12 }}>Receipt preview</Text>
+            <div className="p-4" style={{ borderRadius: 8, border: '1px dashed #d1d5db', background: '#f9fafb' }}>
+              <Text variant="label/lg" as="p" color="secondary" className="mb-3">Receipt preview</Text>
               <div className="text-body-md">
                 <Flex align="center" justify="space-between">
                   <Text variant="label/lg" as="span" color="text">Receipt #REC-001</Text>

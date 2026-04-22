@@ -872,7 +872,7 @@ export default function CalendarView({
               <Icon as={AppstoreOutlined} size="4xl" tone="tertiary" />
             </div>
             <p className="text-body-md text-text-secondary">Rooms/Resources view</p>
-            <p className="text-caption-md text-text-secondary" style={{ marginTop: 4 }}>Select rooms to display in the calendar</p>
+            <p className="text-caption-md text-text-secondary mt-1">Select rooms to display in the calendar</p>
           </div>
         </div>
       )}
@@ -895,7 +895,7 @@ export default function CalendarView({
             <div style={{ padding: "4px 0" }}>
               <Button
                 variant="ghost"
-                style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
+                className="w-full pt-2 pb-2" style={{ justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12 }}
                 onClick={() => setPopover((prev) => ({ ...prev, visible: false }))}
               >
                 <Icon as={ClockCircleOutlined} size="lg" tone="secondary" />
@@ -903,7 +903,7 @@ export default function CalendarView({
               </Button>
               <Button
                 variant="ghost"
-                style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
+                className="w-full pt-2 pb-2" style={{ justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12 }}
                 onClick={() => setPopover((prev) => ({ ...prev, visible: false }))}
               >
                 <Icon as={StopOutlined} size="lg" tone="secondary" />
@@ -911,7 +911,7 @@ export default function CalendarView({
               </Button>
               <Button
                 variant="ghost"
-                style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
+                className="w-full pt-2 pb-2" style={{ justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12 }}
                 onClick={() => openCreateModal(popover.dateStr, popover.hour, popover.minute, popover.practitionerId)}
               >
                 <Icon as={CalendarOutlined} size="lg" tone="secondary" />
@@ -919,7 +919,7 @@ export default function CalendarView({
               </Button>
               <Button
                 variant="ghost"
-                style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}
+                className="w-full pt-2 pb-2" style={{ justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12 }}
                 onClick={() => setPopover((prev) => ({ ...prev, visible: false }))}
               >
                 <Icon as={CheckOutlined} size="lg" tone="secondary" />
@@ -1163,14 +1163,14 @@ export default function CalendarView({
                 <Icon as={MailOutlined} size="lg" tone="primary" />
                 <span className="text-label-lg text-text">Notification preview</span>
               </div>
-              <p className="text-body-sm text-text-secondary" style={{ marginBottom: 12 }}>
+              <p className="text-body-sm text-text-secondary mb-3">
                 Client won&apos;t be notified of changes. To notify the client, use Reschedule instead.
               </p>
               <div className={styles.notificationPreview}>
                 <p className="text-body-sm text-text-secondary">If using Reschedule, the client will receive:</p>
                 <div className={styles.emailPreview}>
                   <p className="text-body-sm text-text-secondary">Subject: <span className="text-text">Your appointment has been rescheduled</span></p>
-                  <p className="text-body-sm text-text-secondary" style={{ marginTop: 4 }}>
+                  <p className="text-body-sm text-text-secondary mt-1">
                     Hi {selectedAppt.clientName.split(" ")[0]}, your appointment with {selectedAppt.practitionerName} has been moved to a new time. Please check your updated appointment details.
                   </p>
                 </div>

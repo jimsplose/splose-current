@@ -1,34 +1,25 @@
-Session 26b — Tailwind layout utilities + ClientDetailClient re-migration — 2026-04-22
+Session 31 — Layout utility migration (mb-*/mt-*/p-*/flex-1/shrink-0 etc.)
 
-## Chrome MCP measurements (1440x900)
+Pages verified via Chrome MCP at 1440×900:
+- /reports — mb-1=4px, mb-2=8px, mb-6=24px all measuring correctly on Flex/Text elements. !important cascade override confirmed working against AntD Flex reset.
+- /settings/details — p-6 container, mb-1=4px labels, flex-1 elements all applying correctly.
+- /calendar — full week view renders intact. Column headers, appointment cards, time grid all present. (Only 3 inlines migrated in CalendarView; remaining are non-migratable visual/complex layout props.)
 
-### New utility classes in globals.css
-- mb-0..8, mt-0..8, p-0/2/3/4/6, pt-2/4/6, pb-2/4, flex-1, shrink-0, w-full,
-  max-w-2xl, overflow-hidden, overflow-y-auto, border-b
-- `!important` added to margin/padding utilities to beat AntD's `:where()`-wrapped
-  `.ant-flex { margin: 0 }` reset (specificity tie + cascade order lost without it)
+Verification method: javascript_tool measuring getComputedStyle on elements with utility classes + structural screenshot on both pages.
 
-### /clients/[id] (ClientDetailClient re-migration)
+Migration summary (before → after):
+DashboardClient.tsx: 81 → 73
+invoices/[id]/page.tsx: 64 → 40
+waitlist/page.tsx: 51 → 45
+calendar/CalendarView.tsx: 49 → 46
+notes/[id]/edit/page.tsx: 46 → 37
+settings/online-bookings/[id]/page.tsx: 44 → 27
+settings/details/page.tsx: 43 → 32
+settings/forms/[id]/page.tsx: 42 → 31
+settings/data-import/page.tsx: 41 → 31
+reports/page.tsx: 41 → 27
+InvoiceDetailClient.tsx: 37 → 25
+TOTAL: 539 → 414 (−125 inlines, 23% reduction)
 
-| Element | Class | Target | Actual | Pass? |
-|---|---|---|---|---|
-| Details/Edit Flex | mb-6 | 24px | 24px | PASS |
-| Avatar Flex | mb-3 | 12px | 12px | PASS |
-| Heading Text | mb-4 | 16px | 16px | PASS |
-| Section | mb-8 | 32px | 32px | PASS |
-
-### Pre-existing usage files (silent-bug fix)
-- `/clients/[id]/practitioner-access` H1.mb-4: was 0px → now 16px (intended by author).
-- `/clients/[id]/statements` Flex.mb-4: was 0px → now 16px.
-- Similar for notes/new, invoices/batch-invoice — all now render intended spacing.
-
-### ClientDetailClient inline-style count
-- Before 26b: 62
-- After 26b: 4 (aside right-panel, FileUpload size, 2 Tr table borders — all legitimate one-offs)
-- Session 26 done-when (≤10): **PASS**
-
-## TypeScript + Build
-- npx tsc --noEmit: 0 errors
-- npx next build: passed
-
-Verdict: PASS. Session 26 done-when unblocked by landing 26b.
+Non-migratable residual: visual props (color, fontSize, borderRadius, backgroundColor), non-standard values (paddingLeft/Right, marginLeft, shorthand strings), dynamic conditionals.
+tsc: 0 errors. next build: PASS.

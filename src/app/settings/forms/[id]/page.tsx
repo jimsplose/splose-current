@@ -110,12 +110,12 @@ export default function FormTemplateEditorPage() {
         <Tab items={editorTabs} value={activeTab} onChange={setActiveTab} />
       </div>
 
-      <Flex style={{ flex: 1, margin: '0 -24px -24px' }}>
-        <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+      <Flex style={{ margin: '0 -24px -24px' }} className="flex-1">
+        <div className="flex-1 overflow-y-auto p-6">
           {activeTab === "builder" && (
             <div style={{ maxWidth: 672, margin: '0 auto' }}>
               <Flex vertical gap={12}>
-                <FormInput label="Form title" value={title} onChange={(e) => setTitle(e.target.value)} style={{ marginBottom: 16 }} />
+                <FormInput label="Form title" value={title} onChange={(e) => setTitle(e.target.value)} className="mb-4" />
 
                 {fields.map((field) => {
                   const FieldIcon = FIELD_TYPES.find((t) => t.value === field.type)?.icon || FontSizeOutlined;
@@ -150,7 +150,7 @@ export default function FormTemplateEditorPage() {
             <div style={{ maxWidth: 672, margin: '0 auto' }}>
               <Flex vertical gap={24}>
                 <div>
-                  <h3 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Design</h3>
+                  <h3 className="text-heading-md text-text mb-3">Design</h3>
                   <Flex vertical gap={16}>
                     <FormColorPicker label="Theme colour" value={themeColor} onChange={setThemeColor} />
                     <Toggle label="Show header image" checked={headerImage} onChange={setHeaderImage} />
@@ -158,12 +158,12 @@ export default function FormTemplateEditorPage() {
                 </div>
 
                 <div>
-                  <h3 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Form completion</h3>
+                  <h3 className="text-heading-md text-text mb-3">Form completion</h3>
                   <FormTextarea label="Completion message" value={completionMessage} onChange={(e) => setCompletionMessage(e.target.value)} rows={3} />
                 </div>
 
                 <div>
-                  <h3 className="text-heading-md text-text" style={{ marginBottom: 12 }}>Email notifications</h3>
+                  <h3 className="text-heading-md text-text mb-3">Email notifications</h3>
                   <Toggle label="Send email notification when form is submitted" checked={emailNotifications} onChange={setEmailNotifications} />
                 </div>
               </Flex>
@@ -173,11 +173,11 @@ export default function FormTemplateEditorPage() {
           {activeTab === "preview" && (
             <div style={{ maxWidth: 512, margin: '0 auto' }}>
               <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', padding: 24, borderTopColor: themeColor, borderTopWidth: 4 }}>
-                <h2 className="text-heading-lg text-text" style={{ marginBottom: 24 }}>{title}</h2>
+                <h2 className="text-heading-lg text-text mb-6">{title}</h2>
                 <Flex vertical gap={16}>
                   {fields.map((field) => (
                     <div key={field.id}>
-                      <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
+                      <label className="text-label-lg text-text mb-1" style={{ display: 'block' }}>
                         {field.label} {field.required && <span style={{ color: '#ef4444' }}>*</span>}
                       </label>
                       {field.type === "long-text" ? (
@@ -197,15 +197,15 @@ export default function FormTemplateEditorPage() {
                     </div>
                   ))}
                 </Flex>
-                <Button variant="primary" style={{ marginTop: 24, width: '100%', backgroundColor: themeColor }}>Submit</Button>
+                <Button variant="primary" style={{ backgroundColor: themeColor }} className="mt-6 w-full">Submit</Button>
               </div>
             </div>
           )}
         </div>
 
         {sidePanel === "share" && (
-          <div style={{ width: 320, flexShrink: 0, borderLeft: '1px solid var(--color-border)', backgroundColor: 'white', padding: 16 }}>
-            <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
+          <div style={{ width: 320, borderLeft: '1px solid var(--color-border)', backgroundColor: 'white' }} className="shrink-0 p-4">
+            <Flex justify="space-between" align="center" className="mb-4">
               <h3 className="text-heading-sm text-text">Share & Automate</h3>
               <Button variant="ghost" iconOnly onClick={() => setSidePanel(null)} style={{ color: 'var(--color-text-secondary)' }}>&times;</Button>
             </Flex>
@@ -216,12 +216,12 @@ export default function FormTemplateEditorPage() {
                   https://acme.splose.com/patient-form/81783/view
                 </div>
               </div>
-              <Button variant="secondary" style={{ width: '100%' }}>Copy link</Button>
-              <Button variant="secondary" style={{ width: '100%' }}>Send to client</Button>
-              <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
-                <h4 className="text-label-lg text-text" style={{ marginBottom: 8 }}>Automations</h4>
+              <Button variant="secondary" className="w-full">Copy link</Button>
+              <Button variant="secondary" className="w-full">Send to client</Button>
+              <div style={{ borderTop: '1px solid var(--color-border)' }} className="pt-4">
+                <h4 className="text-label-lg text-text mb-2">Automations</h4>
                 <p className="text-caption-md text-text-secondary">Automatically send this form to new clients or on appointment creation.</p>
-                <Button variant="secondary" style={{ marginTop: 8 }}>+ Add automation</Button>
+                <Button variant="secondary" className="mt-2">+ Add automation</Button>
               </div>
             </Flex>
           </div>

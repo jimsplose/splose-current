@@ -115,14 +115,14 @@ export default function DataImportPage() {
   }
 
   return (
-    <div style={{ padding: 24 }}>
+    <div className="p-6">
       {/* Concierge data import banner */}
-      <Card tint="muted" padding={24} style={{ marginBottom: 32 }}>
+      <Card tint="muted" padding={24} className="mb-8">
         <Flex align="flex-start" gap={16}>
           <div style={{ flexShrink: 0, fontSize: '2.25rem' }}><span role="img" aria-label="folder">📂</span></div>
           <div>
-            <Text variant="heading/lg" style={{ marginBottom: 4 }}>Concierge data import</Text>
-            <Text variant="body/md" color="secondary" style={{ marginBottom: 12 }}>Data importing is complicated. Chat with us to schedule a data import.</Text>
+            <Text variant="heading/lg" className="mb-1">Concierge data import</Text>
+            <Text variant="body/md" color="secondary" className="mb-3">Data importing is complicated. Chat with us to schedule a data import.</Text>
             <Flex align="center" gap={16}>
               <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }} className="text-label-lg text-text">
                 <Icon as={MessageOutlined} size="lg" /> Chat with us
@@ -174,7 +174,7 @@ export default function DataImportPage() {
           importStep === "done" ? (
             <Button variant="primary" onClick={handleImportClose}>Done</Button>
           ) : importStep !== "source" ? (
-            <Flex justify="space-between" align="center" style={{ width: '100%' }}>
+            <Flex justify="space-between" align="center" className="w-full">
               <Button variant="ghost" onClick={handleImportBack}>
                 <Icon as={ArrowLeftOutlined} size="lg" /> Back
               </Button>
@@ -197,7 +197,7 @@ export default function DataImportPage() {
                 <Icon as={FileExcelOutlined} size="5xl" tone="primary" />
                 <div>
                   <Text variant="label/lg">CSV</Text>
-                  <Text variant="body/sm" color="secondary" style={{ marginTop: 4 }}>Import clients, contacts, or appointments from a CSV file</Text>
+                  <Text variant="body/sm" color="secondary" className="mt-1">Import clients, contacts, or appointments from a CSV file</Text>
                 </div>
               </div>
             </Card>
@@ -206,7 +206,7 @@ export default function DataImportPage() {
                 <Icon as={DatabaseOutlined} size="5xl" tone="primary" />
                 <div>
                   <Text variant="label/lg">Cliniko</Text>
-                  <Text variant="body/sm" color="secondary" style={{ marginTop: 4 }}>Migrate your data from Cliniko</Text>
+                  <Text variant="body/sm" color="secondary" className="mt-1">Migrate your data from Cliniko</Text>
                 </div>
               </div>
             </Card>
@@ -308,14 +308,14 @@ export default function DataImportPage() {
 
         {importStep === "done" && (
           <div style={{ padding: '24px 0', textAlign: 'center' }}>
-            <Flex justify="center" style={{ marginBottom: 16 }}>
+            <Flex justify="center" className="mb-4">
               <Flex align="center" justify="center" style={{ height: 64, width: 64, borderRadius: '50%', backgroundColor: '#dcfce7' }}>
                 <Icon as={CheckCircleOutlined} size="4xl" style={{ color: '#16a34a' }} />
               </Flex>
             </Flex>
-            <Text variant="heading/lg" as="h3" style={{ marginBottom: 8 }}>Import complete!</Text>
-            <Text variant="body/md" color="secondary" style={{ marginBottom: 16 }}>Successfully imported 5 clients into splose.</Text>
-            <Flex vertical gap={8} style={{ maxWidth: 320, margin: '0 auto', borderRadius: 8, backgroundColor: 'var(--color-fill-tertiary)', padding: 16 }}>
+            <Text variant="heading/lg" as="h3" className="mb-2">Import complete!</Text>
+            <Text variant="body/md" color="secondary" className="mb-4">Successfully imported 5 clients into splose.</Text>
+            <Flex vertical gap={8} className="p-4" style={{ maxWidth: 320, margin: '0 auto', borderRadius: 8, backgroundColor: 'var(--color-fill-tertiary)' }}>
               <Flex justify="space-between" className="text-body-sm"><span className="text-text-secondary">Total records</span><span className="text-text">5</span></Flex>
               <Flex justify="space-between" className="text-body-sm"><span className="text-text-secondary">Imported</span><span style={{ color: '#16a34a' }}>5</span></Flex>
               <Flex justify="space-between" className="text-body-sm"><span className="text-text-secondary">Skipped</span><span className="text-text">0</span></Flex>
@@ -341,13 +341,13 @@ export default function DataImportPage() {
       {/* Re-import confirmation modal */}
       <Modal open={!!reImportRow} onClose={() => setReImportRow(null)} title="Re-import" maxWidth="sm" footer={<><Button variant="secondary" onClick={() => setReImportRow(null)}>Cancel</Button><Button variant="primary" onClick={() => setReImportRow(null)}>Re-import</Button></>}>
         <Text variant="body/md" color="secondary">Re-import this file? This will process the original file again.</Text>
-        {reImportRow && (<div style={{ marginTop: 12, borderRadius: 8, backgroundColor: 'var(--color-fill-tertiary)', padding: 12 }}><Text variant="label/lg">{reImportRow.type} import</Text><Text variant="body/sm" color="secondary">Created: {reImportRow.createdAt}</Text></div>)}
+        {reImportRow && (<div className="mt-3 p-3" style={{ borderRadius: 8, backgroundColor: 'var(--color-fill-tertiary)' }}><Text variant="label/lg">{reImportRow.type} import</Text><Text variant="body/sm" color="secondary">Created: {reImportRow.createdAt}</Text></div>)}
       </Modal>
 
       {/* Delete confirmation modal */}
       <Modal open={!!deleteRow} onClose={() => setDeleteRow(null)} title="Delete import" maxWidth="sm" footer={<><Button variant="secondary" onClick={() => setDeleteRow(null)}>Cancel</Button><Button variant="danger" onClick={() => setDeleteRow(null)}>Delete</Button></>}>
         <Text variant="body/md" color="secondary">Delete this import record? This action cannot be undone.</Text>
-        {deleteRow && (<div style={{ marginTop: 12, borderRadius: 8, backgroundColor: 'var(--color-fill-tertiary)', padding: 12 }}><Text variant="label/lg">{deleteRow.type} import</Text><Text variant="body/sm" color="secondary">Created: {deleteRow.createdAt}</Text></div>)}
+        {deleteRow && (<div className="mt-3 p-3" style={{ borderRadius: 8, backgroundColor: 'var(--color-fill-tertiary)' }}><Text variant="label/lg">{deleteRow.type} import</Text><Text variant="body/sm" color="secondary">Created: {deleteRow.createdAt}</Text></div>)}
       </Modal>
     </div>
   );

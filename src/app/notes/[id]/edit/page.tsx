@@ -328,11 +328,11 @@ export default function EditProgressNotePage() {
 
       <div style={{ display: 'flex' }}>
         {/* Editor panel */}
-        <div style={{ flex: 1, overflowY: 'auto', backgroundColor: '#fff', padding: 24, maxHeight: 'calc(100vh - 6rem)' }}>
+        <div className="flex-1 overflow-y-auto p-6" style={{ backgroundColor: '#fff', maxHeight: 'calc(100vh - 6rem)' }}>
           <div style={{ maxWidth: 768, margin: '0 auto' }}>
             {/* Service selector */}
-            <div style={{ marginBottom: 16 }}>
-              <div style={{ fontSize: 14, fontWeight: 400, color: 'rgb(65, 69, 73)', marginBottom: 4 }}>Service</div>
+            <div className="mb-4">
+              <div className="mb-1" style={{ fontSize: 14, fontWeight: 400, color: 'rgb(65, 69, 73)' }}>Service</div>
               <FormSelect
                 options={SERVICE_OPTIONS}
                 value={service}
@@ -341,7 +341,7 @@ export default function EditProgressNotePage() {
             </div>
 
             {/* Rich text toolbar */}
-            <Card padding="none" style={{ marginBottom: 16, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 4, padding: '6px 8px', color: 'var(--color-text-secondary)' }}>
+            <Card padding="none" className="mb-4" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 4, padding: '6px 8px', color: 'var(--color-text-secondary)' }}>
               <Button variant="toolbar" size="sm" style={{ display: 'flex', alignItems: 'center', gap: 2, fontSize: 12 }}>
                 Arial
                 <Icon as={DownOutlined} size="sm" />
@@ -385,7 +385,7 @@ export default function EditProgressNotePage() {
               <Button variant="icon">
                 <Icon as={BgColorsOutlined} size="lg" />
               </Button>
-              <span style={{ flex: 1 }} />
+              <span className="flex-1" />
               <Button
                 variant="secondary"
                 onClick={generateAll}
@@ -409,7 +409,7 @@ export default function EditProgressNotePage() {
             </Card>
 
             {/* Syncing notice */}
-            <Flex align="center" gap={8} style={{ marginBottom: 16, borderRadius: 8, backgroundColor: 'var(--color-primary-bg)', padding: '8px 12px' }}>
+            <Flex align="center" gap={8} className="mb-4" style={{ borderRadius: 8, backgroundColor: 'var(--color-primary-bg)', padding: '8px 12px' }}>
               <Flex align="center" gap={4}>
                 <Checkbox checked readOnly style={{ height: 12, width: 12 }} />
                 <Text variant="body/sm" as="span" color="secondary">Syncing client history</Text>
@@ -420,7 +420,7 @@ export default function EditProgressNotePage() {
             </Flex>
 
             {/* Client info table */}
-            <Card padding="sm" style={{ marginBottom: 24 }}>
+            <Card padding="sm" className="mb-6">
               <List
                 labelWidth="w-40"
                 items={[
@@ -436,12 +436,12 @@ export default function EditProgressNotePage() {
 
             {/* AI Sections */}
             {sections.map((section) => (
-              <div key={section.id} style={{ marginBottom: 24 }}>
-                <h3 className="text-heading-lg" style={{ marginBottom: 8 }}>{section.title}</h3>
+              <div key={section.id} className="mb-6">
+                <h3 className="text-heading-lg mb-2">{section.title}</h3>
 
                 {/* Show accepted content directly under heading */}
                 {accepted[section.id] && section.generated && (
-                  <Text variant="body/md" as="div" style={{ marginBottom: 8, lineHeight: 1.625, whiteSpace: 'pre-wrap' }}>
+                  <Text variant="body/md" as="div" className="mb-2" style={{ lineHeight: 1.625, whiteSpace: 'pre-wrap' }}>
                     {section.content}
                   </Text>
                 )}
@@ -496,7 +496,7 @@ export default function EditProgressNotePage() {
                               {section.content}
                             </Text>
                             {/* Feedback and actions row */}
-                            <Flex align="center" justify="space-between" style={{ marginTop: 12 }}>
+                            <Flex align="center" justify="space-between" className="mt-3">
                               <Dropdown
                                 trigger={
                                   <Button variant="ghost" size="sm">
@@ -558,7 +558,7 @@ export default function EditProgressNotePage() {
                           <div>
                             <Text variant="body/md" color="secondary" style={{ lineHeight: 1.625 }}>{section.prompt}</Text>
                             {/* Actions dropdown and Generate button row */}
-                            <Flex align="center" justify="space-between" style={{ marginTop: 12 }}>
+                            <Flex align="center" justify="space-between" className="mt-3">
                               <Dropdown
                                 trigger={
                                   <Button variant="ghost" size="sm">
@@ -596,12 +596,13 @@ export default function EditProgressNotePage() {
         {/* Split view transcript panel */}
         {viewMode === "split" && (
           <div
-            style={{ width: 420, flexShrink: 0, overflowY: 'auto', borderLeft: '1px solid var(--color-border)', backgroundColor: '#fff', maxHeight: 'calc(100vh - 6rem)' }}
+            className="shrink-0 overflow-y-auto"
+            style={{ width: 420, borderLeft: '1px solid var(--color-border)', backgroundColor: '#fff', maxHeight: 'calc(100vh - 6rem)' }}
           >
             {/* Audio player */}
             <Flex align="center" gap={8} style={{ padding: '12px 16px', borderBottom: '1px solid var(--color-border)' }}>
               <Button variant="secondary" size="sm">Restart</Button>
-              <div style={{ flex: 1, height: 24, backgroundColor: 'rgb(243, 245, 247)', borderRadius: 4, display: 'flex', alignItems: 'center', padding: '0 8px' }}>
+              <div className="flex-1" style={{ height: 24, backgroundColor: 'rgb(243, 245, 247)', borderRadius: 4, display: 'flex', alignItems: 'center', padding: '0 8px' }}>
                 {Array.from({ length: 40 }).map((_, i) => (
                   <div key={i} style={{ width: 2, height: Math.random() * 16 + 4, backgroundColor: 'rgb(130, 80, 255)', marginRight: 2, borderRadius: 1 }} />
                 ))}
@@ -610,7 +611,7 @@ export default function EditProgressNotePage() {
               <Button variant="primary" round size="sm" style={{ width: 28, height: 28, minWidth: 0, padding: 0 }}>▶</Button>
             </Flex>
             {/* Transcript */}
-            <div style={{ padding: 16 }}>
+            <div className="p-4">
               {[
                 { speaker: 0, text: "Don\'t worry about coffee. We\'ll have a bite." },
                 { speaker: 1, text: "Okay. Good. So," },
@@ -619,8 +620,8 @@ export default function EditProgressNotePage() {
                 { speaker: 0, text: "Around last time. Yeah." },
                 { speaker: 2, text: "Yeah." },
               ].map((line, i) => (
-                <Flex key={i} gap={8} style={{ marginBottom: 8 }}>
-                  <span style={{ fontSize: 13, color: 'rgb(130, 80, 255)', flexShrink: 0 }}>✎</span>
+                <Flex key={i} gap={8} className="mb-2">
+                  <span className="shrink-0" style={{ fontSize: 13, color: 'rgb(130, 80, 255)' }}>✎</span>
                   <Text variant="body/md" style={{ color: 'rgb(130, 80, 255)' }}>
                     Speaker {line.speaker}: {line.text}
                   </Text>
@@ -633,7 +634,8 @@ export default function EditProgressNotePage() {
         {/* Splose AI Chat Side Panel */}
         {aiChatOpen && (
           <div
-            style={{ display: 'flex', width: 350, flexShrink: 0, flexDirection: 'column', borderLeft: '1px solid var(--color-border)', backgroundColor: '#fff', boxShadow: '-4px 0 12px rgba(0,0,0,0.1)', maxHeight: 'calc(100vh - 6rem)' }}
+            className="shrink-0"
+            style={{ display: 'flex', width: 350, flexDirection: 'column', borderLeft: '1px solid var(--color-border)', backgroundColor: '#fff', boxShadow: '-4px 0 12px rgba(0,0,0,0.1)', maxHeight: 'calc(100vh - 6rem)' }}
           >
             <AiChatPanel onClose={() => setAiChatOpen(false)} variant="notes" />
           </div>

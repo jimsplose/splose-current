@@ -19,17 +19,17 @@ export default function SettingsDetailsPage() {
   const [historyOpen, setHistoryOpen] = useState(false);
 
   return (
-    <div style={{ padding: 24, maxWidth: 896 }}>
+    <div style={{ maxWidth: 896 }} className="p-6">
       <PageHeader title="Details">
         <Button variant="primary">Save</Button>
       </PageHeader>
 
       <Flex vertical gap={24}>
         <Flex gap={32}>
-          <div style={{ flex: 1 }}>
+          <div className="flex-1">
             <Flex vertical gap={16}>
               <div>
-                <Flex align="center" justify="space-between" style={{ marginBottom: 4 }}>
+                <Flex align="center" justify="space-between" className="mb-1">
                   <label className="text-label-lg text-text" style={{ display: 'block' }}>
                     Business name<Text as="span" variant="body/md" color="danger">*</Text>
                   </label>
@@ -44,7 +44,7 @@ export default function SettingsDetailsPage() {
                 <FormInput type="text" defaultValue="Hands Together Therapies" />
               </div>
               <div>
-                <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
+                <label className="text-label-lg text-text mb-1" style={{ display: 'block' }}>
                   Workspace URL{" "}
                   <HintIcon />
                 </label>
@@ -52,14 +52,14 @@ export default function SettingsDetailsPage() {
               </div>
               <FormInput label="Website" type="text" defaultValue="hands-together-therapy.com" />
               <div>
-                <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
+                <label className="text-label-lg text-text mb-1" style={{ display: 'block' }}>
                   Business email<Text as="span" variant="body/md" color="danger">*</Text>
                 </label>
                 <FormInput type="email" defaultValue="hello@hands-together-therapy.com" />
               </div>
             </Flex>
           </div>
-          <div style={{ width: 192, flexShrink: 0 }}>
+          <div style={{ width: 192 }} className="shrink-0">
             <FileUpload
               icon={
                 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -79,7 +79,7 @@ export default function SettingsDetailsPage() {
 
         <Grid cols={2} gap="md">
           <div>
-            <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
+            <label className="text-label-lg text-text mb-1" style={{ display: 'block' }}>
               Patient terminology{" "}
               <HintIcon />
               <Text as="span" variant="body/md" color="danger">*</Text>
@@ -87,7 +87,7 @@ export default function SettingsDetailsPage() {
             <FormSelect options={[{ value: "Client", label: "Client" }, { value: "Patient", label: "Patient" }, { value: "Participant", label: "Participant" }]} />
           </div>
           <div>
-            <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
+            <label className="text-label-lg text-text mb-1" style={{ display: 'block' }}>
               Currency code<Text as="span" variant="body/md" color="danger">*</Text>
             </label>
             <FormInput type="text" defaultValue="AUD" disabled className="text-text-secondary" />
@@ -96,13 +96,13 @@ export default function SettingsDetailsPage() {
 
         <Grid cols={2} gap="md">
           <div>
-            <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
+            <label className="text-label-lg text-text mb-1" style={{ display: 'block' }}>
               Country<Text as="span" variant="body/md" color="danger">*</Text>
             </label>
             <FormSelect options={[{ value: "Australia", label: "Australia" }, { value: "New Zealand", label: "New Zealand" }, { value: "United Kingdom", label: "United Kingdom" }]} disabled className="text-text-secondary" />
           </div>
           <div>
-            <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
+            <label className="text-label-lg text-text mb-1" style={{ display: 'block' }}>
               Currency symbol<Text as="span" variant="body/md" color="danger">*</Text>
             </label>
             <FormInput type="text" defaultValue="A$" disabled className="text-text-secondary" />
@@ -111,13 +111,13 @@ export default function SettingsDetailsPage() {
 
         <Grid cols={2} gap="md">
           <div>
-            <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
+            <label className="text-label-lg text-text mb-1" style={{ display: 'block' }}>
               Default appointment communication preferences{" "}
               <HintIcon />
               <Text as="span" variant="body/md" color="danger">*</Text>
             </label>
             <FormSelect options={[{ value: "SMS & Email", label: "SMS & Email" }, { value: "SMS only", label: "SMS only" }, { value: "Email only", label: "Email only" }, { value: "None", label: "None" }]} />
-            <div style={{ marginTop: 8 }}>
+            <div className="mt-2">
               <Checkbox
                 label="Apply to all existing clients and override the current contact preferences"
                 checked={applyToAll}
@@ -126,11 +126,11 @@ export default function SettingsDetailsPage() {
             </div>
           </div>
           <div>
-            <label className="text-label-lg text-text" style={{ display: 'block', marginBottom: 4 }}>
+            <label className="text-label-lg text-text mb-1" style={{ display: 'block' }}>
               Tax Label for invoices (E.g. ABN)<Text as="span" variant="body/md" color="danger">*</Text>
             </label>
             <FormInput type="text" defaultValue="ABN" />
-            <Text variant="body/md" color="secondary" style={{ marginTop: 8 }}>
+            <Text variant="body/md" color="secondary" className="mt-2">
               Enter your business number in{" "}
               <Button variant="link" size="sm">Location settings</Button>
             </Text>
@@ -140,8 +140,8 @@ export default function SettingsDetailsPage() {
         <Divider variant="primary" spacing="sm" />
 
         <div>
-          <Text variant="heading/lg" style={{ marginBottom: 12 }}>Email signature</Text>
-          <Flex align="center" gap={8} style={{ marginBottom: 12 }}>
+          <Text variant="heading/lg" className="mb-3">Email signature</Text>
+          <Flex align="center" gap={8} className="mb-3">
             <Button
               variant={emailSigTab === "Business" ? "primary" : "secondary"}
               size="sm"
@@ -185,12 +185,12 @@ export default function SettingsDetailsPage() {
               <svg style={{ height: 16, width: 16 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
             </Button>
           </Flex>
-          <div style={{ borderRadius: '0 0 8px 8px', border: '1px solid var(--color-border)', borderTop: 'none', backgroundColor: 'white', padding: 16, minHeight: 200, position: 'relative' }} className="text-body-md text-text">
+          <div style={{ borderRadius: '0 0 8px 8px', border: '1px solid var(--color-border)', borderTop: 'none', backgroundColor: 'white', minHeight: 200, position: 'relative' }} className="text-body-md text-text p-4">
             <p style={{ textDecoration: 'line-through' }}>Warm Regards,</p>
             <p className="text-primary" style={{ marginTop: 4 }}>{"{user_fullName}"}</p>
             <p className="text-primary">{"{user_professionTitle}"}</p>
             <p className="text-primary">{"{user_email}"}</p>
-            <p className="text-primary" style={{ marginTop: 8 }}>{"{business_name}"}</p>
+            <p className="text-primary mt-2">{"{business_name}"}</p>
             <p className="text-primary">{"{business_email}"}</p>
             <p className="text-primary">{"{business_website}"}</p>
             <p className="text-primary">{"{user_signature}"}</p>
@@ -204,8 +204,8 @@ export default function SettingsDetailsPage() {
         <Divider variant="primary" spacing="sm" />
 
         <div>
-          <Text variant="heading/lg" style={{ marginBottom: 12 }}>Calendar lock dates</Text>
-          <Text variant="body/md" color="secondary" style={{ marginBottom: 8 }}>
+          <Text variant="heading/lg" className="mb-3">Calendar lock dates</Text>
+          <Text variant="body/md" color="secondary" className="mb-2">
             Prevent users with the practitioner role from making changes on the calendar on and before
           </Text>
           <FormInput type="text" defaultValue="19 Dec 2025" style={{ maxWidth: 320 }} />
@@ -214,14 +214,14 @@ export default function SettingsDetailsPage() {
         <Divider variant="primary" spacing="sm" />
 
         <div>
-          <Text variant="heading/lg" style={{ marginBottom: 12 }}>Google Tag Manager</Text>
+          <Text variant="heading/lg" className="mb-3">Google Tag Manager</Text>
           <FormInput label="Google Tag Manager ID" type="text" defaultValue="GTM-TEST1231" style={{ maxWidth: 320 }} />
         </div>
 
         <Divider variant="primary" spacing="sm" />
 
         <div>
-          <Text variant="heading/lg" style={{ marginBottom: 12 }}>Cases</Text>
+          <Text variant="heading/lg" className="mb-3">Cases</Text>
           <Flex align="center" justify="space-between">
             <p className="text-body-md text-text">Block bookings exceeding case or funding periods (default setting)</p>
             <Toggle checked={casesToggle} onChange={setCasesToggle} />

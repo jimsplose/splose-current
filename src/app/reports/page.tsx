@@ -111,7 +111,7 @@ function DateRangePicker({
 
           {/* Custom date inputs */}
           <div style={{ padding: 12 }}>
-            <Text variant="body/sm" color="secondary" style={{ marginBottom: 8 }}>Custom range</Text>
+            <Text variant="body/sm" color="secondary" className="mb-2">Custom range</Text>
             <Flex align="center" gap={8}>
               <FormInput
                 type="date"
@@ -256,7 +256,7 @@ export default function ReportsPage() {
       <PageHeader title="Performance overview" />
 
       {/* Filter bar */}
-      <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 24 }}>
+      <Flex wrap="wrap" align="center" gap={8} className="mb-6">
         <DateRangePicker
           startDate={dateStart}
           endDate={dateEnd}
@@ -289,10 +289,10 @@ export default function ReportsPage() {
       </Flex>
 
       {/* Charts row */}
-      <Grid cols={2} gap="lg" style={{ marginBottom: 24 }}>
+      <Grid cols={2} gap="lg" className="mb-6">
         {/* Utilisation card */}
         <Card>
-          <div style={{ position: 'relative', marginBottom: 4 }} ref={utilisationSettingsRef}>
+          <div className="mb-1" style={{ position: 'relative' }} ref={utilisationSettingsRef}>
             <Flex align="center" justify="space-between">
               <Text variant="display/sm" as="h3" color="text" style={{ fontSize: 20 }}>Utilisation</Text>
               <Button
@@ -307,7 +307,7 @@ export default function ReportsPage() {
             {utilisationSettingsOpen && (
               <div style={{ position: 'absolute', right: 0, top: '100%', zIndex: 30, marginTop: 4, width: 280, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', padding: 16, boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
                 <Text variant="heading/sm" as="h4" color="text">Utilisation settings</Text>
-                <Text variant="caption/md" color="secondary" style={{ marginBottom: 12 }}>
+                <Text variant="caption/md" color="secondary" className="mb-3">
                   Adjust calculation settings for utilisation metrics.
                 </Text>
                 <Flex vertical gap={12}>
@@ -330,9 +330,9 @@ export default function ReportsPage() {
               </div>
             )}
           </div>
-          <Text variant="caption/md" color="secondary" style={{ marginBottom: 8 }}>Percentage of available time utilised</Text>
-          <Text variant="metric/lg" as="p" color="text" style={{ marginBottom: 4 }}>{(totalUtilisation / sortedPractitioners.length).toFixed(2)}%</Text>
-          <Text variant="caption/md" color="secondary" style={{ marginBottom: 16 }}>{fmtDay(dateStart)} - {fmtDay(dateEnd)}</Text>
+          <Text variant="caption/md" color="secondary" className="mb-2">Percentage of available time utilised</Text>
+          <Text variant="metric/lg" as="p" color="text" className="mb-1">{(totalUtilisation / sortedPractitioners.length).toFixed(2)}%</Text>
+          <Text variant="caption/md" color="secondary" className="mb-4">{fmtDay(dateStart)} - {fmtDay(dateEnd)}</Text>
           <div style={{ position: 'relative', height: 128 }}>
             <svg viewBox="0 0 280 100" style={{ height: '100%', width: '100%' }} preserveAspectRatio="none">
               {[0, 25, 50, 75, 100].map((y) => (
@@ -357,10 +357,10 @@ export default function ReportsPage() {
               {(() => { const max = Math.ceil(Math.max(...utilisationData) + 1); return [max, Math.round(max * 0.67), Math.round(max * 0.33), 0].map((v) => <Text variant="caption/sm" as="span" color="secondary" key={v}>{v}%</Text>); })()}
             </Flex>
           </div>
-          <Flex justify="space-between" style={{ marginTop: 4, paddingLeft: 8, paddingRight: 8 }}>
+          <Flex justify="space-between" className="mt-1" style={{ paddingLeft: 8, paddingRight: 8 }}>
             {chartDays.map((d) => (<Text variant="caption/sm" as="span" color="secondary" key={d}>{d}</Text>))}
           </Flex>
-          <Flex align="center" justify="center" gap={4} style={{ marginTop: 8 }}>
+          <Flex align="center" justify="center" gap={4} className="mt-2">
             <ColorDot color="var(--color-primary)" size="xs" />
             <Text variant="caption/sm" as="span" color="secondary">{fmtDay(dateStart)} - {fmtDay(dateEnd)}</Text>
           </Flex>
@@ -368,19 +368,19 @@ export default function ReportsPage() {
 
         {/* Revenue card */}
         <Card>
-          <Flex align="center" justify="space-between" style={{ marginBottom: 4 }}>
+          <Flex align="center" justify="space-between" className="mb-1">
             <Text variant="display/sm" as="h3" color="text" style={{ fontSize: 20 }}>Revenue</Text>
           </Flex>
-          <Text variant="caption/md" color="secondary" style={{ marginBottom: 8 }}>Total invoiced revenue from appointments and support activities (tax exclusive)</Text>
-          <Text variant="metric/lg" as="p" color="text" style={{ marginBottom: 4 }}>${totalRevenue >= 1000 ? (totalRevenue / 1000).toFixed(2) + "K" : totalRevenue.toFixed(2)}</Text>
-          <Text variant="caption/md" color="secondary" style={{ marginBottom: 16 }}>{fmtDay(dateStart)} - {fmtDay(dateEnd)}</Text>
+          <Text variant="caption/md" color="secondary" className="mb-2">Total invoiced revenue from appointments and support activities (tax exclusive)</Text>
+          <Text variant="metric/lg" as="p" color="text" className="mb-1">${totalRevenue >= 1000 ? (totalRevenue / 1000).toFixed(2) + "K" : totalRevenue.toFixed(2)}</Text>
+          <Text variant="caption/md" color="secondary" className="mb-4">{fmtDay(dateStart)} - {fmtDay(dateEnd)}</Text>
           <div style={{ position: 'relative', height: 128 }}>
             <Flex vertical justify="space-between" style={{ position: 'absolute', top: 0, bottom: 0, left: 0 }} className="text-caption-sm text-text-secondary">
               {(() => { const max = Math.ceil(Math.max(...revenueData) / 50) * 50; return [max, Math.round(max * 0.67), Math.round(max * 0.33), 0].map((v) => <span key={v}>${v}</span>); })()}
             </Flex>
             <Flex align="flex-end" gap={8} style={{ marginLeft: 32, height: '100%' }}>
               {revenueData.map((val, i) => (
-                <Flex key={i} vertical align="center" gap={2} style={{ flex: 1 }}>
+                <Flex key={i} vertical align="center" gap={2} className="flex-1">
                   <div
                     style={{ width: '100%', borderTopLeftRadius: 4, borderTopRightRadius: 4, backgroundColor: 'var(--color-primary)', height: `${(val / (Math.ceil(Math.max(...revenueData) / 50) * 50 || 1)) * 100}%`, minHeight: val > 0 ? 2 : 0 }}
                   />
@@ -388,10 +388,10 @@ export default function ReportsPage() {
               ))}
             </Flex>
           </div>
-          <Flex justify="space-between" style={{ marginTop: 4, marginLeft: 32 }} className="text-caption-sm text-text-secondary">
+          <Flex justify="space-between" className="mt-1 text-caption-sm text-text-secondary" style={{ marginLeft: 32 }}>
             {chartDays.map((d) => (<span key={d}>{d}</span>))}
           </Flex>
-          <Flex align="center" justify="center" gap={4} style={{ marginTop: 8 }} className="text-caption-sm text-text-secondary">
+          <Flex align="center" justify="center" gap={4} className="mt-2 text-caption-sm text-text-secondary">
             <ColorDot color="var(--color-primary)" size="xs" />
             {fmtDay(dateStart)} - {fmtDay(dateEnd)}
           </Flex>
