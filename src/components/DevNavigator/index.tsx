@@ -9,6 +9,7 @@ import { RightOutlined, DownOutlined, SearchOutlined, CloseOutlined } from "@ant
 import Bugshot from "./Bugshot";
 import PageCapture from "./PageCapture";
 import RequestsPanel from "./RequestsPanel";
+import NewRequestForm from "./NewRequestForm";
 import styles from "./DevNavigator.module.css";
 
 export default function DevNavigator() {
@@ -202,14 +203,7 @@ export default function DevNavigator() {
       )}
       {bugshotActive && <Bugshot onClose={() => setBugshotActive(false)} devNavRef={devNavRef} />}
       {pageCaptureOpen && <PageCapture onClose={() => setPageCaptureOpen(false)} />}
-      {newRequestOpen && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 9998, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ background: '#18181b', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 10, padding: 20, color: '#fff' }}>
-            <p style={{ fontSize: 12, marginBottom: 12 }}>New Request (stub — will be replaced in Task 10)</p>
-            <button onClick={() => setNewRequestOpen(false)} style={{ background: '#7c3aed', border: 'none', borderRadius: 4, color: '#fff', fontSize: 11, padding: '5px 12px', cursor: 'pointer' }}>Close</button>
-          </div>
-        </div>
-      )}
+      {newRequestOpen && <NewRequestForm onClose={() => setNewRequestOpen(false)} />}
     </div>
   );
 }
