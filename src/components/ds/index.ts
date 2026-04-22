@@ -47,6 +47,8 @@ export { default as CommandPalette } from "./CommandPalette";
 export type { CommandPaletteProps, CommandEntry } from "./CommandPalette";
 export { default as HoverCard } from "./HoverCard";
 export type { HoverCardProps, HoverCardSide, HoverCardAlign } from "./HoverCard";
+export { default as ContextMenu } from "./ContextMenu";
+export type { ContextMenuProps, ContextMenuItem } from "./ContextMenu";
 export { default as Navbar } from "./Navbar";
 export { default as DateRangeFilter } from "./DateRangeFilter";
 export { default as Divider } from "./Divider";
