@@ -339,7 +339,7 @@ export default function NewPaymentPage() {
                   const appliedAmount = parseFloat(invoiceAmounts[invoiceNumber] || "0") || 0;
                   const remaining = Math.max(0, inv.due - appliedAmount);
                   return (
-                    <tr key={inv.number} className="border-b border-border transition-colors">
+                    <tr key={inv.number} style={{ borderBottom: '1px solid var(--color-border)', transition: 'background-color 0.2s' }}>
                       <Td><Text variant="label/lg" as="span" color="primary">{inv.number}</Text></Td>
                       <Td>{inv.client}</Td>
                       <Td>{inv.practitioner}</Td>

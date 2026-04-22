@@ -16,6 +16,7 @@ import {
   Td,
   FormPage,
   ListPage,
+  Text,
 } from "@/components/ds";
 
 const mockClients = [
@@ -89,12 +90,12 @@ export default function BatchInvoicePage() {
           </>
         }
       >
-        <p className="mb-4 text-body-md" style={{ color: 'var(--color-text-secondary)' }}>
+        <Text variant="body/md" as="p" color="secondary" style={{ marginBottom: 16 }}>
           {selectedPreviewInvoices.length} invoices will be created for {selectedClients.length} clients. Review below
           before confirming.
-        </p>
+        </Text>
 
-        <Card padding="none" className="overflow-hidden">
+        <Card padding="none" style={{ overflow: 'hidden' }}>
           <DataTable>
             <TableHead>
               <Th>Invoice #</Th>
@@ -104,8 +105,8 @@ export default function BatchInvoicePage() {
             </TableHead>
             <TableBody>
               {selectedPreviewInvoices.map((inv) => (
-                <tr key={inv.number} className="border-b border-border">
-                  <Td className="text-primary" style={{ fontWeight: 500 }}>{inv.number}</Td>
+                <tr key={inv.number} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                  <Td color="primary" style={{ fontWeight: 500 }}>{inv.number}</Td>
                   <Td>{inv.client}</Td>
                   <Td>{inv.service}</Td>
                   <Td align="right">{inv.amount}</Td>
@@ -115,10 +116,10 @@ export default function BatchInvoicePage() {
           </DataTable>
         </Card>
 
-        <Flex justify="end" className="mt-4 border-t border-border pt-4">
-          <div className="text-right">
-            <p className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Total</p>
-            <p className="text-heading-md text-text">${previewTotal.toFixed(2)}</p>
+        <Flex justify="end" style={{ marginTop: 16, borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
+          <div style={{ textAlign: 'right' }}>
+            <Text variant="body/md" as="p" color="secondary">Total</Text>
+            <Text variant="heading/md" as="p">${previewTotal.toFixed(2)}</Text>
           </div>
         </Flex>
       </FormPage>
@@ -140,12 +141,12 @@ export default function BatchInvoicePage() {
           </>
         }
       >
-        <div className="max-w-3xl">
-          <p className="mb-4 text-body-md" style={{ color: 'var(--color-text-secondary)' }}>
+        <div style={{ maxWidth: 768 }}>
+          <Text variant="body/md" as="p" color="secondary" style={{ marginBottom: 16 }}>
             Select which clients to include in this batch invoice.
-          </p>
+          </Text>
 
-          <Card padding="none" className="overflow-hidden">
+          <Card padding="none" style={{ overflow: 'hidden' }}>
             <DataTable>
               <TableHead>
                 <Th style={{ width: 40 }}>
@@ -159,8 +160,7 @@ export default function BatchInvoicePage() {
                 {mockClients.map((client) => (
                   <tr
                     key={client.id}
-                    className="border-b border-border cursor-pointer"
-                    style={{ transition: 'background-color 0.2s' }}
+                    style={{ borderBottom: '1px solid var(--color-border)', cursor: 'pointer', transition: 'background-color 0.2s' }}
                     onClick={() => toggleClient(client.id)}
                   >
                     <Td style={{ width: 40 }}>
@@ -170,11 +170,11 @@ export default function BatchInvoicePage() {
                         onClick={(e) => e.stopPropagation()}
                       />
                     </Td>
-                    <Td className="text-text" style={{ fontWeight: 500 }}>{client.name}</Td>
-                    <Td align="right" className="text-text-secondary">
+                    <Td style={{ fontWeight: 500 }}>{client.name}</Td>
+                    <Td align="right" color="secondary">
                       {client.appointments}
                     </Td>
-                    <Td align="right" className="text-text" style={{ fontWeight: 500 }}>
+                    <Td align="right" style={{ fontWeight: 500 }}>
                       {client.total}
                     </Td>
                   </tr>
@@ -183,9 +183,9 @@ export default function BatchInvoicePage() {
             </DataTable>
           </Card>
 
-          <div className="mt-4 text-body-sm" style={{ color: 'var(--color-text-secondary)' }}>
+          <Text variant="body/sm" as="div" color="secondary" style={{ marginTop: 16 }}>
             {selectedClients.length} of {mockClients.length} clients selected
-          </div>
+          </Text>
         </div>
       </ListPage>
     );
@@ -203,10 +203,10 @@ export default function BatchInvoicePage() {
         </Link>
       }
     >
-      <div className="max-w-[672px]">
+      <div style={{ maxWidth: 672 }}>
         <Flex vertical gap={24}>
           <div>
-            <label className="block mb-1" style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>Date range *</label>
+            <Text variant="label/sm" as="label" color="secondary" style={{ display: 'block', marginBottom: 4 }}>Date range *</Text>
             <DateRangeFilter startDate="2026-03-01" endDate="2026-03-27" />
           </div>
 

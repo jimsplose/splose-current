@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Flex } from "antd";
-import { Button, FormPage, DataTable, TableHead, Th, TableBody, Td } from "@/components/ds";
+import { Button, FormPage, DataTable, TableHead, Th, TableBody, Td, Text } from "@/components/ds";
 
 const invoices = [
   { number: "INV-0142", client: "Emma Thompson", service: "Individual Therapy", amount: "$193.99" },
@@ -24,9 +24,9 @@ export default function BatchInvoicePreviewPage() {
       }
       style={{ minHeight: 'calc(100vh - 3.5rem)' }}
     >
-      <p className="text-body-md" style={{ marginBottom: 16, color: 'var(--color-text-secondary)' }}>
+      <Text variant="body/md" as="p" color="secondary" style={{ marginBottom: 16 }}>
         {invoices.length} invoices will be created. Review below before confirming.
-      </p>
+      </Text>
 
       <DataTable>
         <TableHead>
@@ -37,8 +37,8 @@ export default function BatchInvoicePreviewPage() {
         </TableHead>
         <TableBody>
           {invoices.map((inv) => (
-            <tr key={inv.number} className="border-b border-border">
-              <Td className="text-primary" style={{ fontWeight: 500 }}>{inv.number}</Td>
+            <tr key={inv.number} style={{ borderBottom: '1px solid var(--color-border)' }}>
+              <Td color="primary" style={{ fontWeight: 500 }}>{inv.number}</Td>
               <Td>{inv.client}</Td>
               <Td>{inv.service}</Td>
               <Td align="right">{inv.amount}</Td>
@@ -49,8 +49,8 @@ export default function BatchInvoicePreviewPage() {
 
       <Flex justify="end" style={{ marginTop: 16, borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
         <div style={{ textAlign: 'right' }}>
-          <p className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>Total</p>
-          <p className="text-heading-md text-text">$550.07</p>
+          <Text variant="body/md" as="p" color="secondary">Total</Text>
+          <Text variant="heading/md" as="p">$550.07</Text>
         </div>
       </Flex>
     </FormPage>

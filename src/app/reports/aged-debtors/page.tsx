@@ -15,6 +15,7 @@ import {
   Tr,
   Td,
   Grid,
+  Text,
 } from "@/components/ds";
 
 const agingSummary = [
@@ -44,7 +45,7 @@ export default function ReportsAgedDebtorsPage() {
       actions={<><Button>Export</Button><Button>Learn about this report</Button></>}
       cardWrap={false}
     >
-      <Flex wrap="wrap" align="flex-start" gap={16} className="mb-4">
+      <Flex wrap="wrap" align="flex-start" gap={16} style={{ marginBottom: 16 }}>
         <div>
           <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
             Date range *
@@ -63,7 +64,7 @@ export default function ReportsAgedDebtorsPage() {
         </div>
       </Flex>
 
-      <Flex wrap="wrap" align="center" gap={8} className="mb-8">
+      <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 32 }}>
         <Button>Add filter</Button>
         <Button>Save filters</Button>
         <Button>Load filters</Button>
@@ -72,16 +73,16 @@ export default function ReportsAgedDebtorsPage() {
 
       {showResults && (
         <>
-          <Grid cols={4} gap={12} className="mb-4">
+          <Grid cols={4} gap={12} style={{ marginBottom: 16 }}>
             {agingSummary.map((item) => (
               <Card key={item.label}>
-                <p className="text-label-md" style={{ color: 'var(--color-text-secondary)' }}>{item.label}</p>
-                <p className="text-heading-lg" style={{ marginTop: 4, color: item.color }}>{item.amount}</p>
+                <Text variant="label/md" as="p" color="secondary">{item.label}</Text>
+                <Text variant="heading/lg" as="p" style={{ marginTop: 4, color: item.color }}>{item.amount}</Text>
               </Card>
             ))}
           </Grid>
 
-          <Card padding="none" className="overflow-x-auto">
+          <Card padding="none" style={{ overflowX: 'auto' }}>
             <DataTable>
               <TableHead>
                 <Th>Client</Th>
@@ -94,8 +95,8 @@ export default function ReportsAgedDebtorsPage() {
               <TableBody>
                 {mockDebtorRows.map((row, i) => (
                   <Tr key={i}>
-                    <Td style={{ color: 'var(--color-primary)' }}>{row.client}</Td>
-                    <Td style={{ color: 'var(--color-primary)' }}>{row.invoice}</Td>
+                    <Td color="primary">{row.client}</Td>
+                    <Td color="primary">{row.invoice}</Td>
                     <Td align="right">{row.amount}</Td>
                     <Td align="right">{row.outstanding}</Td>
                     <Td>{row.dueDate}</Td>
