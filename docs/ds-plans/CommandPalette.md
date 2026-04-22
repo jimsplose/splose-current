@@ -1,7 +1,7 @@
 # CommandPalette build plan
 
 **Phase:** 4
-**Status:** Planned
+**Status:** Done
 **Estimated size:** L
 **Jira ticket:** TBC, create before build session
 **Feature doc:** n/a
