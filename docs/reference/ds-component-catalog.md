@@ -74,6 +74,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `Navbar` | Document headers with back nav + actions (prefer FormPage template) |
 | `SearchBar` | Search input + button combos (prefer ListPage template) |
 | `Breadcrumbs` | Horizontal path indicator for deep hierarchies, nested settings, batch flows. Items: `{ label, href?, icon? }`. Last item renders with `aria-current="page"`. Custom `separator` (chevron Icon default); `maxItems` collapses middle entries into an overflow dropdown. Use inside or above `PageHeader`/`Navbar`. |
+| `Stepper` | Numbered progress indicator for wizards. Two API shapes: per-item `status` (`pending`/`current`/`complete`/`error`) OR a single `current` id (auto-marks earlier=complete, later=pending). `orientation`: `horizontal` (default) / `vertical` (reveals per-item descriptions). `size` sm/md/lg. Per-item `onClick` enables back-navigation. |
 
 ## Overlays
 
