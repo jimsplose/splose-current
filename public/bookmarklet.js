@@ -1,4 +1,9 @@
-"use strict";(()=>{(function(){var g="https://splose-current.vercel.app";if(document.getElementById("__splose_bookmarklet__"))return;var s=document.createElement("style");s.textContent=`
+// scripts/bookmarklet-src/widget.js
+(function() {
+  var API_BASE = "https://splose-current.vercel.app";
+  if (document.getElementById("__splose_bm_panel__")) return;
+  var style = document.createElement("style");
+  style.textContent = `
     #__splose_bookmarklet__ { all: initial; }
     #__splose_bm_panel__ {
       position: fixed; bottom: 20px; right: 20px; z-index: 2147483647;
@@ -20,7 +25,11 @@
     #__splose_bm_panel__ .bm-intent.active { background:rgba(124,58,237,0.3); border-color:#7c3aed; color:#e9d5ff; }
     #__splose_bm_panel__ .bm-url { font-size:9px; color:rgba(255,255,255,0.4); margin-bottom:8px; word-break:break-all; }
     #__splose_bm_panel__ .bm-toast { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#059669; color:#fff; font-size:11px; padding:8px 16px; border-radius:6px; z-index:2147483647; }
-  `,document.head.appendChild(s);var o=document.createElement("div");o.id="__splose_bm_panel__",o.innerHTML=`
+  `;
+  document.head.appendChild(style);
+  var panel = document.createElement("div");
+  panel.id = "__splose_bm_panel__";
+  panel.innerHTML = `
     <h3>Splose Capture</h3>
     <div class="bm-url">${location.href}</div>
     <div class="bm-mode-row">
@@ -33,24 +42,151 @@
       <button class="bm-cancel" id="__bm_close__">\u2715 Close</button>
       <button class="bm-submit" id="__bm_action__">Submit</button>
     </div>
-  `,document.body.appendChild(o);var d="region",_="bug";function p(){var t=document.getElementById("__bm_body__");if(t)if(d==="region"){t.innerHTML=`
+  `;
+  document.body.appendChild(panel);
+  var currentMode = "region";
+  var currentIntent = "bug";
+  function renderBody() {
+    var body = document.getElementById("__bm_body__");
+    if (!body) return;
+    if (currentMode === "region") {
+      body.innerHTML = `
         <div class="bm-intent-row">
-          ${["bug","missing","remove"].map(function(n){return'<button class="bm-intent'+(n===_?" active":"")+'" data-intent="'+n+'">'+n+"</button>"}).join("")}
+          ${["bug", "missing", "remove"].map(function(i) {
+        return '<button class="bm-intent' + (i === currentIntent ? " active" : "") + '" data-intent="' + i + '">' + i + "</button>";
+      }).join("")}
         </div>
         <textarea id="__bm_desc__" rows="3" placeholder="What's wrong here?"></textarea>
-      `,t.querySelectorAll(".bm-intent").forEach(function(n){n.addEventListener("click",function(r){_=r.target.dataset.intent||"bug",p()})});var e=document.getElementById("__bm_action__");e&&(e.textContent="\u2B06 Submit issue",e.className="bm-submit")}else if(d==="page"){t.innerHTML='<textarea id="__bm_desc__" rows="3" placeholder="What is this page?"></textarea>';var e=document.getElementById("__bm_action__");e&&(e.textContent="\u2B06 Submit page",e.className="bm-submit green")}else{t.innerHTML='<input id="__bm_wf_name__" placeholder="Workflow name\u2026" /><p style="font-size:10px;color:rgba(255,255,255,0.4);margin:0 0 8px">Starts a session badge for multi-step capture</p>';var e=document.getElementById("__bm_action__");e&&(e.textContent="Start session \u2192",e.className="bm-submit green")}}p(),o.querySelectorAll(".bm-mode").forEach(function(t){t.addEventListener("click",function(e){o.querySelectorAll(".bm-mode").forEach(function(n){n.classList.remove("active")}),e.target.classList.add("active"),d=e.target.dataset.mode||"region",p()})}),document.getElementById("__bm_close__").addEventListener("click",function(){o.remove(),s.remove()});function m(t){var e=document.createElement("div");e.className="bm-toast",e.textContent=t,document.body.appendChild(e),setTimeout(function(){e.remove()},3e3)}function u(t,e){if(e=e||0,e>4)return"";for(var n=["nav","main","section","form","h1","h2","h3","button","input","label","a","footer","header"],r=[],l=Array.from(t.children).slice(0,20),a=0;a<l.length;a++){var b=l[a],i=b.tagName.toLowerCase();if(["script","style","svg"].indexOf(i)===-1)if(n.indexOf(i)!==-1){var c=u(b,e+1);r.push("  ".repeat(e)+i+(c?` > [
-`+c+`
-`+"  ".repeat(e)+"]":""))}else{var c=u(b,e+1);c&&r.push(c)}}return r.join(`
-`)}document.getElementById("__bm_action__").addEventListener("click",function(){var t=document.getElementById("__bm_desc__"),e=t?t.value.trim():"",n=document.getElementById("__bm_wf_name__"),r=n?n.value.trim():"";if(d==="region"){if(!e){alert("Add a description first.");return}var l="["+_+"] "+e.slice(0,72),a="**Intent:** "+_+`
-**Page:** `+location.href+`
-**Source:** production
-**Description:** `+e;fetch(g+"/api/issues",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({title:l,body:a,labels:[_]})}).then(function(i){return i.json()}).then(function(i){m("Issue #"+i.number+" created"),setTimeout(function(){o.remove(),s.remove()},3e3)}).catch(function(){m("Error creating issue")})}else if(d==="page"){if(!e){alert("Add a description first.");return}var b=u(document.body,0),l="[new-page] "+e.slice(0,72),a=`**Intent:** new-page
-**URL:** `+location.href+`
-**Title:** `+document.title+`
-**Viewport:** `+window.innerWidth+"\xD7"+window.innerHeight+`
-**Description:** `+e+`
-
-### DOM Outline
-`+b+`
-
-Screenshot: capture manually (bookmarklet)`;fetch(g+"/api/issues",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({title:l,body:a,labels:["new-page"]})}).then(function(f){return f.json()}).then(function(f){m("Issue #"+f.number+" created"),setTimeout(function(){o.remove(),s.remove()},3e3)}).catch(function(){m("Error creating issue")})}else{if(!r){alert("Enter a workflow name.");return}m('Workflow session "'+r+'" started in app \u2014 use Page Capture > Workflow in DevNavigator'),setTimeout(function(){o.remove(),s.remove()},3e3)}})})();})();
+      `;
+      body.querySelectorAll(".bm-intent").forEach(function(btn) {
+        btn.addEventListener("click", function(e) {
+          currentIntent = e.currentTarget.dataset.intent || "bug";
+          renderBody();
+        });
+      });
+      var action = document.getElementById("__bm_action__");
+      if (action) {
+        action.textContent = "\u2B06 Submit issue";
+        action.className = "bm-submit";
+      }
+    } else if (currentMode === "page") {
+      body.innerHTML = `<textarea id="__bm_desc__" rows="3" placeholder="What is this page?"></textarea>`;
+      var action = document.getElementById("__bm_action__");
+      if (action) {
+        action.textContent = "\u2B06 Submit page";
+        action.className = "bm-submit green";
+      }
+    } else {
+      body.innerHTML = `<input id="__bm_wf_name__" placeholder="Workflow name\u2026" /><p style="font-size:10px;color:rgba(255,255,255,0.4);margin:0 0 8px">Starts a session badge for multi-step capture</p>`;
+      var action = document.getElementById("__bm_action__");
+      if (action) {
+        action.textContent = "Start session \u2192";
+        action.className = "bm-submit green";
+      }
+    }
+  }
+  renderBody();
+  panel.querySelectorAll(".bm-mode").forEach(function(btn) {
+    btn.addEventListener("click", function(e) {
+      panel.querySelectorAll(".bm-mode").forEach(function(b) {
+        b.classList.remove("active");
+      });
+      e.currentTarget.classList.add("active");
+      currentMode = e.currentTarget.dataset.mode || "region";
+      renderBody();
+    });
+  });
+  document.getElementById("__bm_close__").addEventListener("click", function() {
+    panel.remove();
+    style.remove();
+  });
+  function toast(msg) {
+    var t = document.createElement("div");
+    t.className = "bm-toast";
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(function() {
+      t.remove();
+    }, 3e3);
+  }
+  function buildDomOutlineSimple(root, depth) {
+    depth = depth || 0;
+    if (depth > 4) return "";
+    var SEMANTIC = ["nav", "main", "section", "form", "h1", "h2", "h3", "button", "input", "label", "a", "footer", "header"];
+    var lines = [];
+    var children = Array.from(root.children).slice(0, 20);
+    for (var i = 0; i < children.length; i++) {
+      var child = children[i];
+      var tag = child.tagName.toLowerCase();
+      if (["script", "style", "svg"].indexOf(tag) !== -1) continue;
+      if (SEMANTIC.indexOf(tag) !== -1) {
+        var inner = buildDomOutlineSimple(child, depth + 1);
+        lines.push("  ".repeat(depth) + tag + (inner ? " > [\n" + inner + "\n" + "  ".repeat(depth) + "]" : ""));
+      } else {
+        var inner = buildDomOutlineSimple(child, depth + 1);
+        if (inner) lines.push(inner);
+      }
+    }
+    return lines.join("\n");
+  }
+  document.getElementById("__bm_action__").addEventListener("click", function() {
+    var descEl = document.getElementById("__bm_desc__");
+    var desc = descEl ? descEl.value.trim() : "";
+    var wfEl = document.getElementById("__bm_wf_name__");
+    var wfName = wfEl ? wfEl.value.trim() : "";
+    if (currentMode === "region") {
+      if (!desc) {
+        alert("Add a description first.");
+        return;
+      }
+      var title = "[" + currentIntent + "] " + desc.slice(0, 72);
+      var body = "**Intent:** " + currentIntent + "\n**Page:** " + location.href + "\n**Source:** production\n**Description:** " + desc;
+      (async function() {
+        try {
+          var res = await fetch(API_BASE + "/api/issues", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ title, body, labels: [currentIntent] }) });
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          var issue = await res.json();
+          toast("Issue #" + issue.number + " created");
+          setTimeout(function() {
+            panel.remove();
+            style.remove();
+          }, 3e3);
+        } catch (e) {
+          toast("Error creating issue: " + (e && e.message ? e.message : String(e)));
+        }
+      })();
+    } else if (currentMode === "page") {
+      if (!desc) {
+        alert("Add a description first.");
+        return;
+      }
+      var domOutline = buildDomOutlineSimple(document.body, 0);
+      var title = "[new-page] " + desc.slice(0, 72);
+      var body = "**Intent:** new-page\n**URL:** " + location.href + "\n**Title:** " + document.title + "\n**Viewport:** " + window.innerWidth + "\xD7" + window.innerHeight + "\n**Description:** " + desc + "\n\n### DOM Outline\n" + domOutline + "\n\nScreenshot: capture manually (bookmarklet)";
+      (async function() {
+        try {
+          var res = await fetch(API_BASE + "/api/issues", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ title, body, labels: ["new-page"] }) });
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          var issue = await res.json();
+          toast("Issue #" + issue.number + " created");
+          setTimeout(function() {
+            panel.remove();
+            style.remove();
+          }, 3e3);
+        } catch (e) {
+          toast("Error creating issue: " + (e && e.message ? e.message : String(e)));
+        }
+      })();
+    } else {
+      if (!wfName) {
+        alert("Enter a workflow name.");
+        return;
+      }
+      toast('Workflow session "' + wfName + '" started in app \u2014 use Page Capture > Workflow in DevNavigator');
+      setTimeout(function() {
+        panel.remove();
+        style.remove();
+      }, 3e3);
+    }
+  });
+})();

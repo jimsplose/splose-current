@@ -4,7 +4,7 @@
 
 (function () {
   var API_BASE = 'https://splose-current.vercel.app';
-  if (document.getElementById('__splose_bookmarklet__')) return;
+  if (document.getElementById('__splose_bm_panel__')) return;
 
   // ── Styles ──────────────────────────────────────────────────────────
   var style = document.createElement('style');
@@ -67,7 +67,7 @@
       `;
       body.querySelectorAll('.bm-intent').forEach(function(btn) {
         btn.addEventListener('click', function(e) {
-          currentIntent = e.target.dataset.intent || 'bug';
+          currentIntent = e.currentTarget.dataset.intent || 'bug';
           renderBody();
         });
       });
@@ -89,8 +89,8 @@
   panel.querySelectorAll('.bm-mode').forEach(function(btn) {
     btn.addEventListener('click', function(e) {
       panel.querySelectorAll('.bm-mode').forEach(function(b) { b.classList.remove('active'); });
-      e.target.classList.add('active');
-      currentMode = e.target.dataset.mode || 'region';
+      e.currentTarget.classList.add('active');
+      currentMode = e.currentTarget.dataset.mode || 'region';
       renderBody();
     });
   });
@@ -139,26 +139,30 @@
       if (!desc) { alert('Add a description first.'); return; }
       var title = '[' + currentIntent + '] ' + desc.slice(0, 72);
       var body = '**Intent:** ' + currentIntent + '\n**Page:** ' + location.href + '\n**Source:** production\n**Description:** ' + desc;
-      fetch(API_BASE + '/api/issues', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ title: title, body: body, labels:[currentIntent] }) })
-        .then(function(res) { return res.json(); })
-        .then(function(issue) {
+      (async function() {
+        try {
+          var res = await fetch(API_BASE + '/api/issues', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ title: title, body: body, labels:[currentIntent] }) });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          var issue = await res.json();
           toast('Issue #' + issue.number + ' created');
           setTimeout(function() { panel.remove(); style.remove(); }, 3000);
-        })
-        .catch(function() { toast('Error creating issue'); });
+        } catch(e) { toast('Error creating issue: ' + (e && e.message ? e.message : String(e))); }
+      })();
 
     } else if (currentMode === 'page') {
       if (!desc) { alert('Add a description first.'); return; }
       var domOutline = buildDomOutlineSimple(document.body, 0);
       var title = '[new-page] ' + desc.slice(0, 72);
       var body = '**Intent:** new-page\n**URL:** ' + location.href + '\n**Title:** ' + document.title + '\n**Viewport:** ' + window.innerWidth + '×' + window.innerHeight + '\n**Description:** ' + desc + '\n\n### DOM Outline\n' + domOutline + '\n\nScreenshot: capture manually (bookmarklet)';
-      fetch(API_BASE + '/api/issues', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ title: title, body: body, labels:['new-page'] }) })
-        .then(function(res) { return res.json(); })
-        .then(function(issue) {
+      (async function() {
+        try {
+          var res = await fetch(API_BASE + '/api/issues', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ title: title, body: body, labels:['new-page'] }) });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          var issue = await res.json();
           toast('Issue #' + issue.number + ' created');
           setTimeout(function() { panel.remove(); style.remove(); }, 3000);
-        })
-        .catch(function() { toast('Error creating issue'); });
+        } catch(e) { toast('Error creating issue: ' + (e && e.message ? e.message : String(e))); }
+      })();
 
     } else {
       if (!wfName) { alert('Enter a workflow name.'); return; }
