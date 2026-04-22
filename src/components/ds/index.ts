@@ -31,6 +31,8 @@ export { default as Breadcrumbs } from "./Breadcrumbs";
 export type { BreadcrumbItem, BreadcrumbsProps } from "./Breadcrumbs";
 export { default as Stepper } from "./Stepper";
 export type { StepperProps, StepperItem, StepperStatus, StepperOrientation, StepperSize } from "./Stepper";
+export { default as SegmentedControl } from "./SegmentedControl";
+export type { SegmentedControlProps, SegmentedControlOption, SegmentedControlSize } from "./SegmentedControl";
 export { default as Navbar } from "./Navbar";
 export { default as DateRangeFilter } from "./DateRangeFilter";
 export { default as Divider } from "./Divider";
