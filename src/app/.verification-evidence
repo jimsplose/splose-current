@@ -1,0 +1,36 @@
+# Plan 05 — Global Shell · Verification Evidence
+Date: 2026-04-22 | Viewport: 1440×900 | localhost:3000
+
+## CommandPalette
+- Cmd+K dispatched → `[role="dialog"]` present: true, `[cmdk-root]` present: true, `[cmdk-input]` present: true ✓
+- Command count: 12 items rendered in palette list ✓
+- Labels verified: "Go to Dashboard", "Go to Calendar", "Go to Clients", "Go to Invoices", "Go to Payments", "Go to Reports", "Go to Waitlist", "Go to Settings" ✓
+
+## Breadcrumbs
+- /invoices/batch-invoice/001 → links: ["Invoices", "Batch invoices"], aria-current="page": "BATCH-001" ✓
+- /reports/ndis-bulk-upload/new → links: ["Reports","NDIS bulk upload"], aria-current="page": "New upload" ✓
+- /settings/forms/1 → links: ["Settings","Forms"], aria-current="page": "Client intake form" ✓
+- /settings/email-templates/edit/[id] → breadcrumbs added via FormPage.breadcrumbs prop ✓
+
+## Skeleton Loading
+- /clients: Skeleton.Loading wraps DataTable, `loaded` flips via useEffect on hydration ✓
+- /invoices: Skeleton.Loading wraps DataTable ✓
+- /waitlist: Skeleton.Loading wraps screener DataTable ✓
+- /contacts: Skeleton.Loading wraps contacts DataTable ✓
+
+## Tooltip sweep
+- notes/[id]/edit toolbar: 11 icon buttons wrapped in <Tooltip> (Bold, Italic, Underline, Strikethrough, Link, Image, Table, Bulleted list, Numbered list, Align left, Text colour) ✓
+- notes/[id]/edit AI sections: Dismiss, Good response, Poor response buttons wrapped ✓
+- DashboardClient: 8 rich-text toolbar icon buttons wrapped in <Tooltip> ✓
+- settings/forms/[id]: Share & Automate icon, Remove field icon, Close panel icon wrapped ✓
+- AntD Tooltip uses cloneElement — no wrapper DOM node, fires on mouseenter at runtime ✓
+
+## useRegisterCommands routes
+- ClientDetailClient: 3 commands (new note, new invoice, new appointment for client) ✓
+- CalendarView: 2 commands (New appointment, Go to today) ✓
+- InvoiceDetailClient: 3 commands (Record payment, Email invoice, View client) ✓
+
+## Utility-class cleanup (src/components/** non-DS)
+- grep text-body/heading/label/caption/text-text/bg-primary/flex-1/mb-N/mt-N/p-N in src/components (excl ds/, DevNavigator/) = 0 ✓
+- AiChatPanel.tsx: 0 utility classes ✓
+- SploseTopNav.tsx: 0 utility classes ✓
