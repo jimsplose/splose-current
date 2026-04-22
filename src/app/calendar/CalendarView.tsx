@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useRegisterCommands } from "@/hooks/useRegisterCommands";
 import { Flex } from "antd";
 import {
   LeftOutlined,
@@ -243,8 +244,14 @@ export default function CalendarView({
   const [practitionerDropdownOpen, setPractitionerDropdownOpen] = useState(false);
   const [locationSearchQuery, setLocationSearchQuery] = useState("");
   const [practitionerSearchQuery, setPractitionerSearchQuery] = useState("");
+  const calendarRouter = useRouter();
   const locationDropdownRef = useRef<HTMLDivElement>(null);
   const practitionerDropdownRef = useRef<HTMLDivElement>(null);
+
+  useRegisterCommands([
+    { id: "calendar-new-appointment", label: "New appointment", group: "Actions", onSelect: () => setShowCreateModal(true) },
+    { id: "calendar-go-today", label: "Go to today", group: "Actions", onSelect: () => calendarRouter.push("/calendar") },
+  ]);
 
   const [locationFilter, setLocationFilter] = useState<string>("all");
   const [practitionerFilter, setPractitionerFilter] = useState<string>("all");

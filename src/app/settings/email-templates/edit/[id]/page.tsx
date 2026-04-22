@@ -11,6 +11,7 @@ import {
   RichTextEditor,
   EmailPreview,
   Grid,
+  Breadcrumbs,
 } from "@/components/ds";
 
 const typeOptions = [
@@ -42,6 +43,13 @@ export default function EditEmailTemplatePage() {
       <FormPage
         backHref="/settings/email-templates"
         title={name || "Edit email template"}
+        breadcrumbs={
+          <Breadcrumbs items={[
+            { label: "Settings", href: "/settings" },
+            { label: "Email templates", href: "/settings/email-templates" },
+            { label: name || "Edit email template" },
+          ]} />
+        }
         maxWidth={768}
         actions={
           <Flex align="center" gap={8}>

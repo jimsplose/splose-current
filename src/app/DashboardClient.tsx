@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Avatar, Button, Card, ColorDot, Divider, Icon, Text } from "@/components/ds";
+import { Avatar, Button, Card, ColorDot, Divider, Icon, Text, Tooltip } from "@/components/ds";
 import { DownOutlined, RightOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
 import styles from "./DashboardClient.module.css";
@@ -326,27 +326,37 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
           <Card padding="none" style={{ marginBottom: 8, minHeight: 80, padding: '8px 12px' }}>
             <Text variant="body/md" color="secondary">Type a message...</Text>
           </Card>
-          <Flex align="center" gap={2} className="text-text-secondary">
-            <Button variant="icon" size="sm" className="text-body-md-strong" title="Bold">B</Button>
-            <Button variant="icon" size="sm" className="text-body-md" style={{ fontStyle: 'italic' }} title="Italic">I</Button>
-            <Button variant="icon" size="sm" className="text-body-md" style={{ textDecoration: 'underline' }} title="Underline">U</Button>
-            <Button variant="icon" size="sm" className="text-body-md" title="Text size">A<sub className="text-caption-sm">1</sub></Button>
+          <Flex align="center" gap={2} style={{ color: 'var(--color-text-secondary)' }}>
+            <Tooltip content="Bold"><Button variant="icon" size="sm" style={{ fontWeight: 700, fontSize: 13 }}>B</Button></Tooltip>
+            <Tooltip content="Italic"><Button variant="icon" size="sm" style={{ fontStyle: 'italic', fontSize: 13 }}>I</Button></Tooltip>
+            <Tooltip content="Underline"><Button variant="icon" size="sm" style={{ textDecoration: 'underline', fontSize: 13 }}>U</Button></Tooltip>
+            <Tooltip content="Text size"><Button variant="icon" size="sm" style={{ fontSize: 13 }}>A<sub style={{ fontSize: 9 }}>1</sub></Button></Tooltip>
             <span style={{ marginLeft: 2, marginRight: 2, height: 16, width: 1, backgroundColor: 'var(--color-border)' }} />
-            <Button variant="icon" size="sm" title="Table">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="12" height="12" rx="1"/><line x1="2" y1="6" x2="14" y2="6"/><line x1="2" y1="10" x2="14" y2="10"/><line x1="6" y1="2" x2="6" y2="14"/><line x1="10" y1="2" x2="10" y2="14"/></svg>
-            </Button>
-            <Button variant="icon" size="sm" title="Link">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6.5 9.5a3 3 0 004.2.1l2-2a3 3 0 00-4.2-4.3l-1.1 1.1"/><path d="M9.5 6.5a3 3 0 00-4.2-.1l-2 2a3 3 0 004.2 4.3l1.1-1.1"/></svg>
-            </Button>
-            <Button variant="icon" size="sm" title="Image">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="12" height="12" rx="1"/><circle cx="5.5" cy="5.5" r="1"/><path d="M14 10l-3-3-7 7"/></svg>
-            </Button>
-            <Button variant="icon" size="sm" title="Emoji">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="8" cy="8" r="6"/><path d="M5.5 6.5h.01M10.5 6.5h.01"/><path d="M5.5 9.5a3.5 3.5 0 005 0"/></svg>
-            </Button>
-            <Button variant="icon" size="sm" title="Align">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="2" y1="3" x2="14" y2="3"/><line x1="2" y1="6" x2="10" y2="6"/><line x1="2" y1="9" x2="14" y2="9"/><line x1="2" y1="12" x2="10" y2="12"/></svg>
-            </Button>
+            <Tooltip content="Table">
+              <Button variant="icon" size="sm">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="12" height="12" rx="1"/><line x1="2" y1="6" x2="14" y2="6"/><line x1="2" y1="10" x2="14" y2="10"/><line x1="6" y1="2" x2="6" y2="14"/><line x1="10" y1="2" x2="10" y2="14"/></svg>
+              </Button>
+            </Tooltip>
+            <Tooltip content="Link">
+              <Button variant="icon" size="sm">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6.5 9.5a3 3 0 004.2.1l2-2a3 3 0 00-4.2-4.3l-1.1 1.1"/><path d="M9.5 6.5a3 3 0 00-4.2-.1l-2 2a3 3 0 004.2 4.3l1.1-1.1"/></svg>
+              </Button>
+            </Tooltip>
+            <Tooltip content="Image">
+              <Button variant="icon" size="sm">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="12" height="12" rx="1"/><circle cx="5.5" cy="5.5" r="1"/><path d="M14 10l-3-3-7 7"/></svg>
+              </Button>
+            </Tooltip>
+            <Tooltip content="Emoji">
+              <Button variant="icon" size="sm">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="8" cy="8" r="6"/><path d="M5.5 6.5h.01M10.5 6.5h.01"/><path d="M5.5 9.5a3.5 3.5 0 005 0"/></svg>
+              </Button>
+            </Tooltip>
+            <Tooltip content="Align">
+              <Button variant="icon" size="sm">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="2" y1="3" x2="14" y2="3"/><line x1="2" y1="6" x2="10" y2="6"/><line x1="2" y1="9" x2="14" y2="9"/><line x1="2" y1="12" x2="10" y2="12"/></svg>
+              </Button>
+            </Tooltip>
             <Button variant="icon" size="sm" title="List">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="5" y1="3" x2="14" y2="3"/><line x1="5" y1="8" x2="14" y2="8"/><line x1="5" y1="13" x2="14" y2="13"/><circle cx="2.5" cy="3" r="0.75" fill="currentColor"/><circle cx="2.5" cy="8" r="0.75" fill="currentColor"/><circle cx="2.5" cy="13" r="0.75" fill="currentColor"/></svg>
             </Button>

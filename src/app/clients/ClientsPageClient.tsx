@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { PlusOutlined } from "@ant-design/icons";
 import {
@@ -14,6 +14,7 @@ import {
   Tr,
   Td,
   Pagination,
+  Skeleton,
 } from "@/components/ds";
 import styles from "./ClientsPageClient.module.css";
 
@@ -45,9 +46,12 @@ interface ClientRow {
 
 export default function ClientsPageClient({ clients }: { clients: ClientRow[] }) {
   const [currentPage, setCurrentPage] = useState(1);
+  const [loaded, setLoaded] = useState(false);
   const pageSize = 10;
   const totalPages = Math.ceil(clients.length / pageSize);
   const paged = clients.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+  useEffect(() => { setLoaded(true); }, []);
 
   return (
     <ListPage
@@ -63,6 +67,22 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
       searchPlaceholder="Search for name, phone number, and email"
       cardWrap={false}
     >
+      <Skeleton.Loading
+        loaded={loaded}
+        fallback={
+          <div style={{ padding: "0 0 8px" }}>
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} style={{ display: 'flex', gap: 16, padding: '12px 16px', borderBottom: '1px solid var(--color-border)' }}>
+                <Skeleton.Block width="25%" height={18} />
+                <Skeleton.Block width="10%" height={18} />
+                <Skeleton.Block width="20%" height={18} />
+                <Skeleton.Block width="15%" height={18} />
+                <Skeleton.Block width="18%" height={18} />
+              </div>
+            ))}
+          </div>
+        }
+      >
       <DataTable style={{ tableLayout: 'fixed' }}>
         <TableHead>
           <Th sortable filterable style={{ width: '25%' }}>Name</Th>
@@ -100,6 +120,7 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
           ))}
         </TableBody>
       </DataTable>
+      </Skeleton.Loading>
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}

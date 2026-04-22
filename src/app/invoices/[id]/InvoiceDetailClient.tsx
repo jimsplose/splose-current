@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useRegisterCommands } from "@/hooks/useRegisterCommands";
 import { DownOutlined, MailOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
 import { Button, Divider, Dropdown, FormInput, FormSelect, FormTextarea, Grid, PaymentStatusBadge, dbStatusToPaymentStatus, Text } from "@/components/ds";
@@ -75,6 +76,13 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
   const [paymentNotes, setPaymentNotes] = useState("");
 
   const outstandingAmount = invoice.status === "Paid" ? 0 : invoice.total;
+  const invoiceClientName = `${invoice.client.firstName} ${invoice.client.lastName}`;
+
+  useRegisterCommands([
+    { id: `invoice-${invoice.invoiceNumber}-pay`, label: `Record payment for ${invoice.invoiceNumber}`, group: "Actions", onSelect: openPaymentModal },
+    { id: `invoice-${invoice.invoiceNumber}-email`, label: `Email invoice ${invoice.invoiceNumber} to ${invoiceClientName}`, group: "Actions", onSelect: handleEmailInvoice },
+    { id: `invoice-${invoice.invoiceNumber}-client`, label: `View client: ${invoiceClientName}`, group: "Navigate", onSelect: () => router.push("/clients") },
+  ]);
 
   function openPaymentModal() {
     setPaymentAmount(outstandingAmount.toFixed(2));

@@ -6,6 +6,7 @@ import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ThemeProvider, Toaster } from "@/components/ds";
 import "./globals.css";
 import SploseTopNav from "@/components/SploseTopNav";
+import CommandPaletteMount from "@/components/CommandPaletteMount";
 import DevNavigator from "@/components/DevNavigator";
 
 const inter = Inter({
@@ -36,6 +37,7 @@ export default function RootLayout({
             </Suspense>
             <Analytics />
             <Toaster />
+            <CommandPaletteMount />
           </ThemeProvider>
         </AntdRegistry>
       </body>

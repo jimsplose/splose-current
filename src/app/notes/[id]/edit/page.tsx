@@ -29,7 +29,7 @@ import {
   ArrowUpOutlined,
 } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, Card, Checkbox, FormSelect, Icon, List, Navbar, Filter, Spinner, Dropdown, Text, Divider } from "@/components/ds";
+import { Button, Card, Checkbox, FormSelect, Icon, List, Navbar, Filter, Spinner, Dropdown, Text, Divider, Tooltip } from "@/components/ds";
 import AiChatPanel from "@/components/AiChatPanel";
 
 type NoteData = {
@@ -351,40 +351,18 @@ export default function EditProgressNotePage() {
                 <Icon as={DownOutlined} size="sm" />
               </Button>
               <Divider orientation="vertical" spacing="none" />
-              <Button variant="icon">
-                <Icon as={BoldOutlined} size="lg" />
-              </Button>
-              <Button variant="icon">
-                <Icon as={ItalicOutlined} size="lg" />
-              </Button>
-              <Button variant="icon">
-                <Icon as={UnderlineOutlined} size="lg" />
-              </Button>
-              <Button variant="icon">
-                <Icon as={StrikethroughOutlined} size="lg" />
-              </Button>
+              <Tooltip content="Bold"><Button variant="icon"><Icon as={BoldOutlined} size="lg" /></Button></Tooltip>
+              <Tooltip content="Italic"><Button variant="icon"><Icon as={ItalicOutlined} size="lg" /></Button></Tooltip>
+              <Tooltip content="Underline"><Button variant="icon"><Icon as={UnderlineOutlined} size="lg" /></Button></Tooltip>
+              <Tooltip content="Strikethrough"><Button variant="icon"><Icon as={StrikethroughOutlined} size="lg" /></Button></Tooltip>
               <Divider orientation="vertical" spacing="none" />
-              <Button variant="icon">
-                <Icon as={LinkOutlined} size="lg" />
-              </Button>
-              <Button variant="icon">
-                <Icon as={PictureOutlined} size="lg" />
-              </Button>
-              <Button variant="icon">
-                <Icon as={TableOutlined} size="lg" />
-              </Button>
-              <Button variant="icon">
-                <Icon as={UnorderedListOutlined} size="lg" />
-              </Button>
-              <Button variant="icon">
-                <Icon as={OrderedListOutlined} size="lg" />
-              </Button>
-              <Button variant="icon">
-                <Icon as={AlignLeftOutlined} size="lg" />
-              </Button>
-              <Button variant="icon">
-                <Icon as={BgColorsOutlined} size="lg" />
-              </Button>
+              <Tooltip content="Insert link"><Button variant="icon"><Icon as={LinkOutlined} size="lg" /></Button></Tooltip>
+              <Tooltip content="Insert image"><Button variant="icon"><Icon as={PictureOutlined} size="lg" /></Button></Tooltip>
+              <Tooltip content="Insert table"><Button variant="icon"><Icon as={TableOutlined} size="lg" /></Button></Tooltip>
+              <Tooltip content="Bulleted list"><Button variant="icon"><Icon as={UnorderedListOutlined} size="lg" /></Button></Tooltip>
+              <Tooltip content="Numbered list"><Button variant="icon"><Icon as={OrderedListOutlined} size="lg" /></Button></Tooltip>
+              <Tooltip content="Align left"><Button variant="icon"><Icon as={AlignLeftOutlined} size="lg" /></Button></Tooltip>
+              <Tooltip content="Text colour"><Button variant="icon"><Icon as={BgColorsOutlined} size="lg" /></Button></Tooltip>
               <span className="flex-1" />
               <Button
                 variant="secondary"
@@ -461,17 +439,18 @@ export default function EditProgressNotePage() {
                         <span className="text-label-lg" style={{ color: 'var(--color-primary)' }}>AI block</span>
                       </Flex>
                       <Flex align="center" gap={8}>
-                        <Button
-                          variant="icon"
-                          size="sm"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            dismissSection(section.id);
-                          }}
-                          title="Dismiss"
-                        >
-                          <span className="text-label-lg">&times;</span>
-                        </Button>
+                        <Tooltip content="Dismiss">
+                          <Button
+                            variant="icon"
+                            size="sm"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              dismissSection(section.id);
+                            }}
+                          >
+                            <span style={{ fontSize: 14, fontWeight: 500 }}>&times;</span>
+                          </Button>
+                        </Tooltip>
                         {section.expanded ? (
                           <Icon as={UpOutlined} size="lg" tone="secondary" />
                         ) : (
@@ -516,32 +495,34 @@ export default function EditProgressNotePage() {
                               />
                               <Flex align="center" gap={8}>
                                 {/* Thumbs up/down feedback */}
-                                <Button
-                                  variant="icon"
-                                  size="sm"
-                                  onClick={() => setFeedback(section.id, "up")}
-                                  style={
-                                    section.feedback === "up"
-                                      ? { backgroundColor: '#dcfce7', color: '#16a34a' }
-                                      : undefined
-                                  }
-                                  title="Good response"
-                                >
-                                  <Icon as={LikeOutlined} size="md" />
-                                </Button>
-                                <Button
-                                  variant="icon"
-                                  size="sm"
-                                  onClick={() => setFeedback(section.id, "down")}
-                                  style={
-                                    section.feedback === "down"
-                                      ? { backgroundColor: '#fee2e2', color: '#dc2626' }
-                                      : undefined
-                                  }
-                                  title="Poor response"
-                                >
-                                  <Icon as={DislikeOutlined} size="md" />
-                                </Button>
+                                <Tooltip content="Good response">
+                                  <Button
+                                    variant="icon"
+                                    size="sm"
+                                    onClick={() => setFeedback(section.id, "up")}
+                                    style={
+                                      section.feedback === "up"
+                                        ? { backgroundColor: '#dcfce7', color: '#16a34a' }
+                                        : undefined
+                                    }
+                                  >
+                                    <Icon as={LikeOutlined} size="md" />
+                                  </Button>
+                                </Tooltip>
+                                <Tooltip content="Poor response">
+                                  <Button
+                                    variant="icon"
+                                    size="sm"
+                                    onClick={() => setFeedback(section.id, "down")}
+                                    style={
+                                      section.feedback === "down"
+                                        ? { backgroundColor: '#fee2e2', color: '#dc2626' }
+                                        : undefined
+                                    }
+                                  >
+                                    <Icon as={DislikeOutlined} size="md" />
+                                  </Button>
+                                </Tooltip>
                                 {/* Accept button */}
                                 <Button
                                   variant="primary"

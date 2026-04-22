@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Flex } from "antd";
-import { Button, DataTable, TableHead, Th, TableBody, Td, PaymentStatusBadge, dbStatusToPaymentStatus, Pagination, Text } from "@/components/ds";
+import { Button, DataTable, TableHead, Th, TableBody, Td, PaymentStatusBadge, dbStatusToPaymentStatus, Pagination, Text, Breadcrumbs } from "@/components/ds";
 
 const items = [
   { number: "INV-0142", client: "Emma Thompson", to: "NDIS", location: "East Clinics", practitioner: "Christina Vagnoni", itemCount: 1, issueDate: "22 Mar 2026", dueDate: "22 Mar 2026", total: 193.99, status: "Sent" as const },
@@ -13,6 +13,14 @@ const totalAmount = items.reduce((sum, i) => sum + i.total, 0).toFixed(2);
 export default function BatchInvoiceDetailPage() {
   return (
     <div style={{ padding: "24px 32px", minHeight: "calc(100vh - 57px)" }}>
+      {/* Breadcrumbs */}
+      <div style={{ marginBottom: 12 }}>
+        <Breadcrumbs items={[
+          { label: "Invoices", href: "/invoices" },
+          { label: "Batch invoices", href: "/invoices" },
+          { label: "BATCH-001" },
+        ]} />
+      </div>
       {/* Title row */}
       <Flex align="baseline" justify="space-between" style={{ marginBottom: 8 }}>
         <Flex align="baseline" gap={16}>

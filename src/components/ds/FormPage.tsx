@@ -16,6 +16,8 @@ interface FormPageProps {
   actions?: ReactNode;
   /** Max width of the form content area. Default 1024px. */
   maxWidth?: number;
+  /** Optional breadcrumbs rendered below the Navbar in the grey content band. */
+  breadcrumbs?: ReactNode;
   /** Main form content */
   children: ReactNode;
   className?: string;
@@ -29,6 +31,7 @@ export default function FormPage({
   badge,
   actions,
   maxWidth = 1024,
+  breadcrumbs,
   children,
   className,
   style,
@@ -39,7 +42,12 @@ export default function FormPage({
         {actions}
       </Navbar>
       <div style={{ backgroundColor: "rgb(241, 241, 241)", padding: "12px 0", minHeight: "calc(100vh - 57px)" }}>
-        <div style={{ backgroundColor: "#fff", border: "1px solid rgb(241, 241, 241)", margin: "0 72px", padding: "32px 48px" }}>
+        {breadcrumbs && (
+          <div style={{ padding: "8px 72px 0" }}>
+            {breadcrumbs}
+          </div>
+        )}
+        <div style={{ backgroundColor: "#fff", border: "1px solid rgb(241, 241, 241)", margin: breadcrumbs ? "8px 72px 0" : "0 72px", padding: "32px 48px" }}>
           <div style={{ maxWidth, margin: "0 auto" }}>
             {children}
           </div>

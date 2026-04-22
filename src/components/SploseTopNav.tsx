@@ -65,7 +65,6 @@ function UserIcon() {
 function HeaderIcon({ children, badge, href }: { children: React.ReactNode; badge?: number; href?: string }) {
   const inner = (
     <div
-      className="text-text"
       style={{
         position: "relative",
         display: "flex",
@@ -74,10 +73,10 @@ function HeaderIcon({ children, badge, href }: { children: React.ReactNode; badg
         cursor: "pointer",
         alignItems: "center",
         justifyContent: "center",
+        color: 'var(--color-text)',
       }}
     >
       <span
-        className="text-heading-lg"
         style={{
           display: "flex",
           height: 26,
@@ -85,13 +84,14 @@ function HeaderIcon({ children, badge, href }: { children: React.ReactNode; badg
           alignItems: "center",
           justifyContent: "center",
           borderRadius: "50%",
+          fontSize: 18,
+          fontWeight: 700,
         }}
       >
         {children}
       </span>
       {badge != null && (
         <span
-          className="text-caption-sm text-text-inverted"
           style={{
             position: "absolute",
             top: 8,
@@ -104,8 +104,9 @@ function HeaderIcon({ children, badge, href }: { children: React.ReactNode; badg
             borderRadius: "50%",
             background: "var(--color-danger)",
             padding: "0 4px",
-            // eslint-disable-next-line no-restricted-syntax
             fontWeight: 700,
+            fontSize: 11,
+            color: '#ffffff',
           }}
         >
           {badge}
@@ -139,7 +140,6 @@ export default function SploseTopNav() {
       {/* Production avatar: 26x26, rgba(0,0,0,0.25) bg, 50% radius */}
       <div style={{ display: "flex", height: 56, width: 42, alignItems: "center", justifyContent: "center" }}>
         <div
-          className="text-label-md text-text-inverted"
           style={{
             display: "flex",
             height: 26,
@@ -148,6 +148,9 @@ export default function SploseTopNav() {
             justifyContent: "center",
             borderRadius: "50%",
             background: "rgba(0,0,0,0.25)",
+            fontSize: 12,
+            fontWeight: 500,
+            color: '#ffffff',
           }}
         >
           SC

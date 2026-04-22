@@ -31,6 +31,8 @@ import {
   Modal,
   RichTextEditor,
   Grid,
+  Breadcrumbs,
+  Tooltip,
 } from "@/components/ds";
 
 const FIELD_TYPES = [
@@ -92,12 +94,21 @@ export default function FormTemplateEditorPage() {
     <FormPage
       backHref="/settings/forms"
       title={title || "Edit form template"}
+      breadcrumbs={
+        <Breadcrumbs items={[
+          { label: "Settings", href: "/settings" },
+          { label: "Forms", href: "/settings/forms" },
+          { label: title || "Edit form template" },
+        ]} />
+      }
       maxWidth={99999}
       actions={
         <Flex align="center" gap={8}>
-          <Button variant="icon" onClick={() => setSidePanel(sidePanel === "share" ? null : "share")} title="Share & Automate">
-            <ShareAltOutlined style={{ fontSize: 16 }} />
-          </Button>
+          <Tooltip content="Share & Automate">
+            <Button variant="icon" onClick={() => setSidePanel(sidePanel === "share" ? null : "share")}>
+              <ShareAltOutlined style={{ fontSize: 16 }} />
+            </Button>
+          </Tooltip>
           <Button variant="secondary" onClick={() => setActiveTab("preview")}>
             <EyeOutlined style={{ fontSize: 16 }} /> Preview
           </Button>
@@ -130,9 +141,11 @@ export default function FormTemplateEditorPage() {
                           onChange={(e) => setFields((prev) => prev.map((f) => f.id === field.id ? { ...f, label: e.target.value } : f))}
                         />
                         <Toggle checked={field.required} onChange={(checked) => setFields((prev) => prev.map((f) => f.id === field.id ? { ...f, required: checked } : f))} label="Required" />
-                        <Button variant="ghost" iconOnly onClick={() => removeField(field.id)} style={{ color: 'var(--color-text-secondary)' }}>
-                          <DeleteOutlined style={{ fontSize: 14 }} />
-                        </Button>
+                        <Tooltip content="Remove field">
+                          <Button variant="ghost" iconOnly onClick={() => removeField(field.id)} style={{ color: 'var(--color-text-secondary)' }}>
+                            <DeleteOutlined style={{ fontSize: 14 }} />
+                          </Button>
+                        </Tooltip>
                       </Flex>
                     </Card>
                   );
@@ -206,7 +219,9 @@ export default function FormTemplateEditorPage() {
           <div style={{ width: 320, borderLeft: '1px solid var(--color-border)', backgroundColor: 'white', flexShrink: 0, padding: 16 }}>
             <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
               <h3 style={{ fontSize: 16, fontWeight: 600 }}>Share & Automate</h3>
-              <Button variant="ghost" iconOnly onClick={() => setSidePanel(null)} style={{ color: 'var(--color-text-secondary)' }}>&times;</Button>
+              <Tooltip content="Close panel">
+                <Button variant="ghost" iconOnly onClick={() => setSidePanel(null)} style={{ color: 'var(--color-text-secondary)' }}>&times;</Button>
+              </Tooltip>
             </Flex>
             <Flex vertical gap={16}>
               <div>

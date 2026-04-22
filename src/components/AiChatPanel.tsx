@@ -7,7 +7,7 @@ import Icon from "@/components/ds/Icon";
 import styles from "./AiChatPanel.module.css";
 
 /* Sparkles icon — no direct AntD equivalent, use a custom SVG */
-function SparklesIcon({ size = 18, className }: { size?: number; className?: string }) {
+function SparklesIcon({ size = 18, style }: { size?: number; style?: React.CSSProperties }) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -18,7 +18,7 @@ function SparklesIcon({ size = 18, className }: { size?: number; className?: str
       strokeLinejoin="round"
       width={size}
       height={size}
-      className={className}
+      style={style}
     >
       <path d="M9.937 15.5A2 2 0 008.5 14.063l-6.135-1.582a.5.5 0 010-.962L8.5 9.936A2 2 0 009.937 8.5l1.582-6.135a.5.5 0 01.963 0L14.063 8.5A2 2 0 0015.5 9.937l6.135 1.581a.5.5 0 010 .964L15.5 14.063a2 2 0 00-1.437 1.437l-1.582 6.135a.5.5 0 01-.963 0z" />
       <path d="M20 3v4" />
@@ -136,12 +136,12 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
       {/* eslint-disable-next-line no-restricted-syntax -- one-off container with design-token border */}
       <div style={{ display: "flex", height: 60, flexShrink: 0, alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid var(--color-border)", padding: "0 16px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <SparklesIcon size={18} className="text-primary" />
-          <span className="text-heading-sm text-text">Ask splose AI</span>
+          <SparklesIcon size={18} style={{ color: 'var(--color-primary)' }} />
+          <span style={{ fontSize: 14, fontWeight: 600 }}>Ask splose AI</span>
         </div>
         <button
-          className={`text-text-secondary ${styles.buttonReset}`}
-          style={{ display: "flex", height: 32, width: 32, alignItems: "center", justifyContent: "center", borderRadius: "50%", background: "transparent", cursor: "pointer" }}
+          className={styles.buttonReset}
+          style={{ display: "flex", height: 32, width: 32, alignItems: "center", justifyContent: "center", borderRadius: "50%", background: "transparent", cursor: "pointer", color: 'var(--color-text-secondary)' }}
           onClick={onClose}
         >
           <Icon as={CloseOutlined} size="lg" />
@@ -156,10 +156,10 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
             <Card padding="md" style={{ marginBottom: 24, width: '100%', textAlign: 'center' }}>
               {/* eslint-disable-next-line no-restricted-syntax -- emoji glyph sizing; no DS typography variant exists for 30px emoji */}
               <div style={{ marginBottom: 8, fontSize: 30 }}>{variant === "calendar" ? "👋" : "🌸"}</div>
-              <h2 className="text-heading-lg text-text">Hello, I&apos;m splose AI</h2>
+              <h2 style={{ fontSize: 18, fontWeight: 700 }}>Hello, I&apos;m splose AI</h2>
             </Card>
 
-            <p style={{ marginBottom: 24, textAlign: "center" }} className="text-body-md text-text-secondary">
+            <p style={{ marginBottom: 24, textAlign: "center", fontSize: 14, color: 'var(--color-text-secondary)' }}>
               {variant === "calendar"
                 ? "How can I help you today?"
                 : "Transcribe your session, ask a question or select a prompt"}
@@ -171,8 +171,7 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
                 <button
                   key={action}
                   onClick={() => handleQuickAction(action)}
-                  className="text-body-sm text-primary border-primary"
-                  style={{ borderRadius: 9999, borderWidth: 1, borderStyle: "solid", padding: "10px 16px", textAlign: "left", background: "transparent", cursor: "pointer" }}
+                  style={{ fontSize: 12, color: 'var(--color-primary)', borderRadius: 9999, borderWidth: 1, borderStyle: "solid", borderColor: 'var(--color-primary)', padding: "10px 16px", textAlign: "left", background: "transparent", cursor: "pointer" }}
                 >
                   {action}
                 </button>
@@ -184,12 +183,13 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
             {messages.map((msg, i) => (
               <div key={i} style={{ display: "flex", justifyContent: msg.role === "user" ? "flex-end" : "flex-start" }}>
                 <div
-                  className={`text-body-sm ${msg.role === "user" ? "text-text-inverted" : "text-text"}`}
                   style={{
                     maxWidth: "85%",
                     borderRadius: 16,
                     padding: "12px 16px",
+                    fontSize: 12,
                     background: msg.role === "user" ? "var(--color-primary)" : "var(--color-gray-100, #f3f4f6)",
+                    color: msg.role === "user" ? '#ffffff' : 'var(--color-text)',
                   }}
                 >
                   <div style={{ whiteSpace: "pre-line" }}>{msg.content}</div>
@@ -226,13 +226,13 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
             onChange={(e) => setInputValue(e.target.value)}
             onFocus={handleInputFocus}
             onKeyDown={handleKeyDown}
-            className={`text-body-sm text-text ${styles.inputReset}`}
-            style={{ flex: 1, background: "transparent", outline: "none" }}
+            className={styles.inputReset}
+            style={{ flex: 1, background: "transparent", outline: "none", fontSize: 12, color: 'var(--color-text)' }}
           />
           <button
             onClick={handleSend}
             disabled={!inputValue.trim() || isTyping}
-            className={`text-text-inverted bg-primary ${styles.buttonReset}`}
+            className={styles.buttonReset}
             style={{
               display: "flex",
               height: 32,
@@ -241,6 +241,8 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
               alignItems: "center",
               justifyContent: "center",
               borderRadius: "50%",
+              background: 'var(--color-primary)',
+              color: '#ffffff',
               cursor: !inputValue.trim() || isTyping ? "not-allowed" : "pointer",
               opacity: !inputValue.trim() || isTyping ? 0.4 : 1,
             }}
@@ -251,8 +253,8 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
 
         {/* Saved prompts button */}
         <button
-          className={`text-body-sm text-text-secondary ${styles.buttonReset}`}
-          style={{ display: "flex", width: "100%", alignItems: "center", gap: 8, borderRadius: 8, padding: "8px 8px", background: "transparent", cursor: "pointer" }}
+          className={styles.buttonReset}
+          style={{ display: "flex", width: "100%", alignItems: "center", gap: 8, borderRadius: 8, padding: "8px 8px", background: "transparent", cursor: "pointer", fontSize: 12, color: 'var(--color-text-secondary)' }}
         >
           <Icon as={UnorderedListOutlined} size="lg" tone="secondary" />
           Saved prompts
@@ -260,7 +262,7 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
 
         {/* Footer */}
         <div style={{ marginTop: 8, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <span className="text-caption-sm text-text-secondary">
+          <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>
             AI can make mistakes, double-check responses
           </span>
         </div>

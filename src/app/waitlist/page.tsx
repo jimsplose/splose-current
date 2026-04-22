@@ -44,6 +44,7 @@ import {
   FormTextarea,
   Text,
   Divider,
+  Skeleton,
 } from "@/components/ds";
 import wStyles from "./waitlist.module.css";
 
@@ -336,6 +337,8 @@ export default function WaitlistPage() {
 
 function WaitlistPageInner() {
   const _initState = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("state") : null;
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => { setLoaded(true); }, []);
   const [mainTab, setMainTab] = useState<"screener" | "waitlist">(
     _initState === "default" || _initState === "waitlist" || _initState?.startsWith("waitlist-")
       ? "waitlist" : "screener"
@@ -558,6 +561,23 @@ function WaitlistPageInner() {
           cardWrap={false}
         >
           {/* Screener table */}
+          <Skeleton.Loading
+            loaded={loaded}
+            fallback={
+              <div style={{ padding: "0 0 8px" }}>
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <div key={i} style={{ display: 'flex', gap: 16, padding: '12px 16px', borderBottom: '1px solid var(--color-border)' }}>
+                    <Skeleton.Block width="8%" height={18} />
+                    <Skeleton.Block width="10%" height={18} />
+                    <Skeleton.Block width="20%" height={18} />
+                    <Skeleton.Block width="15%" height={18} />
+                    <Skeleton.Block width="15%" height={18} />
+                    <Skeleton.Block width="12%" height={18} />
+                  </div>
+                ))}
+              </div>
+            }
+          >
           <DataTable minWidth="800px">
             <TableHead>
               <Th>Triage</Th>
@@ -656,6 +676,7 @@ function WaitlistPageInner() {
               )}
             </TableBody>
           </DataTable>
+          </Skeleton.Loading>
           <Pagination currentPage={screenerPage} totalPages={screenerTotalPages} totalItems={filteredScreener.length} itemsPerPage={pageSize} onPageChange={setScreenerPage} />
         </ListPage>
       )}

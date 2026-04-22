@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { Flex } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
@@ -19,6 +19,7 @@ import {
   Td,
   LinkCell,
   Text,
+  Skeleton,
 } from "@/components/ds";
 
 export interface InvoiceRow {
@@ -62,6 +63,8 @@ export default function InvoicesClient({
   const [showPractitionerDropdown, setShowPractitionerDropdown] =
     useState(false);
   const [showStatusDropdown, setShowStatusDropdown] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => { setLoaded(true); }, []);
 
   // Unique values for filter dropdowns
   const uniqueLocations = useMemo(
@@ -152,6 +155,24 @@ export default function InvoicesClient({
       onSearch={(query) => setSearch(query)}
       filters={filterChips}
     >
+      <Skeleton.Loading
+        loaded={loaded}
+        fallback={
+          <div style={{ padding: "0 0 8px" }}>
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} style={{ display: 'flex', gap: 16, padding: '12px 16px', borderBottom: '1px solid var(--color-border)' }}>
+                <Skeleton.Block width="10%" height={18} />
+                <Skeleton.Block width="20%" height={18} />
+                <Skeleton.Block width="12%" height={18} />
+                <Skeleton.Block width="18%" height={18} />
+                <Skeleton.Block width="12%" height={18} />
+                <Skeleton.Block width="10%" height={18} />
+                <Skeleton.Block width="10%" height={18} />
+              </div>
+            ))}
+          </div>
+        }
+      >
       <div style={{ overflowX: 'auto' }}>
         <DataTable>
             <TableHead>
@@ -308,6 +329,7 @@ export default function InvoicesClient({
             </TableBody>
           </DataTable>
         </div>
+      </Skeleton.Loading>
       <Pagination
         currentPage={1}
         totalPages={totalPages}

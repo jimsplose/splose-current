@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useRegisterCommands } from "@/hooks/useRegisterCommands";
 import { EditOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
 import {
@@ -70,6 +71,13 @@ function calcAge(dobStr: string): string {
 export default function ClientDetailClient({ client }: { client: ClientData }) {
   const [editMode, setEditMode] = useState(false);
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const fullName = `${client.firstName} ${client.lastName}`;
+  useRegisterCommands([
+    { id: `client-${client.id}-note`, label: `New note for ${fullName}`, group: "Actions", onSelect: () => router.push(`/clients/${client.id}/notes`) },
+    { id: `client-${client.id}-invoice`, label: `New invoice for ${fullName}`, group: "Actions", onSelect: () => router.push(`/invoices/new?clientId=${client.id}`) },
+    { id: `client-${client.id}-appointment`, label: `New appointment for ${fullName}`, group: "Actions", onSelect: () => router.push(`/calendar?client=${client.id}`) },
+  ]);
   const forcedState = searchParams.get("state");
 
   useEffect(() => {

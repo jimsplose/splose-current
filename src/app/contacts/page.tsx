@@ -1,9 +1,12 @@
 "use client";
 
+"use client";
+
+import { useState, useEffect } from "react";
 import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
 import Link from "next/link";
-import { ListPage, Button, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination } from "@/components/ds";
+import { ListPage, Button, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Skeleton } from "@/components/ds";
 
 const mockContacts = [
   {
@@ -176,6 +179,8 @@ function getTypeLabel(type: string) {
 }
 
 export default function ContactsPage() {
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => { setLoaded(true); }, []);
   return (
     <ListPage
       title="Contacts"
@@ -189,6 +194,22 @@ export default function ContactsPage() {
         </Link>
       }
     >
+      <Skeleton.Loading
+        loaded={loaded}
+        fallback={
+          <div style={{ padding: "0 0 8px" }}>
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} style={{ display: 'flex', gap: 16, padding: '12px 16px', borderBottom: '1px solid var(--color-border)' }}>
+                <Skeleton.Block width="12%" height={18} />
+                <Skeleton.Block width="22%" height={18} />
+                <Skeleton.Block width="25%" height={18} />
+                <Skeleton.Block width="20%" height={18} />
+                <Skeleton.Block width="15%" height={18} />
+              </div>
+            ))}
+          </div>
+        }
+      >
       <DataTable>
         <TableHead>
           <Th>
@@ -251,6 +272,7 @@ export default function ContactsPage() {
           ))}
         </TableBody>
       </DataTable>
+      </Skeleton.Loading>
       <Pagination
         currentPage={1}
         totalPages={1}

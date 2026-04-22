@@ -20,7 +20,18 @@ import {
   Badge,
   Text,
   Divider,
+  Breadcrumbs,
 } from "@/components/ds";
+
+const ndisBreadcrumbs = (
+  <div style={{ padding: "8px 24px 0" }}>
+    <Breadcrumbs items={[
+      { label: "Reports", href: "/reports" },
+      { label: "NDIS bulk upload", href: "/reports/ndis-bulk-upload" },
+      { label: "New upload" },
+    ]} />
+  </div>
+);
 
 type Step = "upload" | "validation" | "confirmation";
 
@@ -52,6 +63,7 @@ export default function NdisBulkUploadNewPage() {
   if (step === "confirmation") {
     return (
       <>
+        {ndisBreadcrumbs}
         <PageHeader title="NDIS bulk upload — Confirmation">
           <Link href="/reports/ndis-bulk-upload">
             <Button>Close</Button>
@@ -115,6 +127,7 @@ export default function NdisBulkUploadNewPage() {
   if (step === "validation") {
     return (
       <>
+        {ndisBreadcrumbs}
         <PageHeader title="NDIS bulk upload — Validation">
           <Button onClick={() => setStep("upload")}>Back</Button>
           <Button variant="primary" onClick={() => setStep("confirmation")} disabled={validCount === 0}>
@@ -183,6 +196,7 @@ export default function NdisBulkUploadNewPage() {
   // Step: upload (default)
   return (
     <>
+      {ndisBreadcrumbs}
       <PageHeader title="New NDIS bulk upload">
         <Link href="/reports/ndis-bulk-upload">
           <Button>Cancel</Button>
