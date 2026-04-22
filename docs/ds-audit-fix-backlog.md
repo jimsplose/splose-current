@@ -139,12 +139,13 @@ Every session must satisfy ALL of these checks before flipping status to `done`.
 | 28 | `eslint.config.mjs` has `"no-restricted-syntax": ["error", …]` (not `"warn"`); `npx eslint src/` exits 0 (all legitimate exceptions have inline `eslint-disable-next-line` with a reason comment); commit lists count of exceptions added |
 | 29 | ESLint warnings in the 8 named files reduced from 233 to ≤ 20 total (combined). `grep -c 'style={{' src/app/calendar/CalendarView.tsx` ≤ 15. Every file has a Chrome MCP verification entry in `.verification-evidence` (or Storybook fallback if orphan). If CalendarView exceeds estimate, spawn a follow-up row 29b rather than dragging the session. |
 | 30 | Exactly one `TopNav.tsx` remains in the repo (`find src -name 'TopNav.tsx' -not -path '*/stories/*' \| wc -l` = 1). `src/app/layout.tsx` imports TopNav from the surviving location and renders correctly. `grep -r 'from.*TopNav' src/ --include='*.tsx'` returns only import lines matching the surviving file. DS component catalog updated if the DS version survived (or removed if it didn't). |
+| 31 | `grep -c 'style={{' src/app/DashboardClient.tsx` ≤ 40 (was 81). `grep -c 'style={{' src/app/calendar/CalendarView.tsx` ≤ 20 (was 49). `grep -c 'style={{' src/app/waitlist/page.tsx` ≤ 25 (was 51). Total raw `style={{` across the 11 target files drops by ≥ 40%. Chrome MCP verification: dashboard, /reports, /calendar, /notes/[id]/edit, /settings/details, /waitlist each checked. `npx tsc --noEmit` = 0 errors. `npx next build` passes. |
 
 ---
 
 ## Next session — FIRST TODO
 
-**Re-migrate mb-*/mt-*/p-*/flex-1/shrink-0 inline styles across the codebase, now that the layout utilities exist.** Session 26b landed the utilities + `!important` cascade fix on 2026-04-22 and proved them on ClientDetailClient (62 → 4 inline styles). Apply the same pattern to the remaining high-raw-count files so the session 27 Top-10 ≥90% drops + total ≤600 targets can actually be met:
+**This work is now formalized as Session 31 (see backlog table).** Session 26b landed the utilities + `!important` cascade fix on 2026-04-22 and proved them on ClientDetailClient (62 → 4 inline styles). Session 31 applies the same pattern to the remaining high-raw-count files so the session 27 Top-10 ≥90% drops + total ≤600 targets can actually be met:
 
 - DashboardClient.tsx (81 inline)
 - invoices/[id]/page.tsx (64) — many are Text `style={{ marginBottom: 16 }}` → className="mb-4"
