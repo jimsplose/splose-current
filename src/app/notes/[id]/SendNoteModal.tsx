@@ -147,9 +147,8 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
               variant="ghost"
               size="sm"
               onClick={() => setViewMode("edit")}
-              className="text-label-md"
               // eslint-disable-next-line no-restricted-syntax -- active-state primary tint for segmented control; no DS segmented-control variant yet
-              style={{ borderRadius: '8px 0 0 8px', border: 'none', ...(viewMode === "edit" ? { backgroundColor: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.1)', color: 'var(--color-primary)' } : {}) }}
+              style={{ borderRadius: '8px 0 0 8px', border: 'none', fontSize: 12, fontWeight: 500, ...(viewMode === "edit" ? { backgroundColor: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.1)', color: 'var(--color-primary)' } : {}) }}
             >
               <Icon as={EditOutlined} size="md" /> Edit
             </Button>
@@ -157,9 +156,8 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
               variant="ghost"
               size="sm"
               onClick={() => setViewMode("preview")}
-              className="text-label-md"
               // eslint-disable-next-line no-restricted-syntax -- active-state primary tint + left-divider for segmented control; no DS segmented-control variant yet
-              style={{ borderRadius: '0 8px 8px 0', borderLeft: '1px solid var(--color-border)', ...(viewMode === "preview" ? { backgroundColor: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.1)', color: 'var(--color-primary)' } : {}) }}
+              style={{ borderRadius: '0 8px 8px 0', borderLeft: '1px solid var(--color-border)', fontSize: 12, fontWeight: 500, ...(viewMode === "preview" ? { backgroundColor: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.1)', color: 'var(--color-primary)' } : {}) }}
             >
               <Icon as={EyeOutlined} size="md" /> Preview
             </Button>
@@ -196,7 +194,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
 
             {/* Reply to */}
             <div>
-              <label className="text-label-lg text-text-secondary" style={{ display: 'block', marginBottom: 4 }}>
+              <label style={{ display: 'block', marginBottom: 4, fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>
                 Reply to <span className="text-danger">*</span>
               </label>
               <FormSelect
@@ -251,17 +249,17 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
           /* Email preview */
           <Card tint="muted" padding={20}>
             <Flex vertical gap={6} style={{ marginBottom: 16, paddingBottom: 16 }}>
-              <Flex gap={8} className="text-body-sm">
-                <span className="text-text-secondary" style={{ width: 64 }}>From:</span>
+              <Flex gap={8} style={{ fontSize: 12, lineHeight: 1.67 }}>
+                <span style={{ width: 64, color: 'var(--color-text-secondary)' }}>From:</span>
                 <span>Hands Together Therapies &lt;hello@hands-together-therapy.com&gt;</span>
               </Flex>
-              <Flex gap={8} className="text-body-sm">
-                <span className="text-text-secondary" style={{ width: 64 }}>To:</span>
+              <Flex gap={8} style={{ fontSize: 12, lineHeight: 1.67 }}>
+                <span style={{ width: 64, color: 'var(--color-text-secondary)' }}>To:</span>
                 <span>{toEmails.join(", ") || "No recipients"}</span>
               </Flex>
-              <Flex gap={8} className="text-body-sm">
-                <span className="text-text-secondary" style={{ width: 64 }}>Subject:</span>
-                <span className="text-body-md-strong">{subject}</span>
+              <Flex gap={8} style={{ fontSize: 12, lineHeight: 1.67 }}>
+                <span style={{ width: 64, color: 'var(--color-text-secondary)' }}>Subject:</span>
+                <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57 }}>{subject}</span>
               </Flex>
             </Flex>
             <Divider spacing="none" />
@@ -270,13 +268,13 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
             <Card shadow padding={20} style={{ marginTop: 0 }}>
               {/* Logo header */}
               <div style={{ marginBottom: 16, paddingBottom: 16, textAlign: 'center' }}>
-                <span className="text-heading-lg text-primary">splose</span>
+                <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, color: 'var(--color-primary)' }}>splose</span>
               </div>
               <Divider variant="subtle" spacing="none" />
 
               {/* Body content */}
               {/* eslint-disable-next-line no-restricted-syntax -- custom email-body line-height 1.625 for email readability; no DS variant */}
-              <div className="text-body-md" style={{ whiteSpace: 'pre-wrap', lineHeight: 1.625 }}>
+              <div style={{ fontSize: 14, whiteSpace: 'pre-wrap', lineHeight: 1.625 }}>
                 {body}
               </div>
 
@@ -286,17 +284,17 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
                 {/* eslint-disable-next-line no-restricted-syntax -- primary-bg tint for attachment chip; no DS attachment-chip component */}
                 <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: 'var(--color-primary-bg)', padding: '8px 12px' }}>
                   <Icon as={PaperClipOutlined} size="lg" tone="primary" />
-                  <span className="text-body-sm">Progress note — {clientName} — {formatDisplayDate(noteDate)}.pdf</span>
+                  <span style={{ fontSize: 12, lineHeight: 1.67 }}>Progress note — {clientName} — {formatDisplayDate(noteDate)}.pdf</span>
                   <Badge variant="purple">PDF</Badge>
                 </Flex>
               </div>
 
               {/* Footer */}
               <Divider variant="subtle" spacing="none" style={{ marginTop: 24 }} />
-              <div className="text-caption-md text-text-secondary" style={{ paddingTop: 16, textAlign: 'center' }}>
+              <div style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)', paddingTop: 16, textAlign: 'center' }}>
                 <p>Sent via splose — Practice management software for allied health</p>
                 <p style={{ marginTop: 4 }}>
-                  <a href="#" className="text-primary">Unsubscribe</a> · <a href="#" className="text-primary">Privacy policy</a>
+                  <a href="#" style={{ color: 'var(--color-primary)' }}>Unsubscribe</a> · <a href="#" style={{ color: 'var(--color-primary)' }}>Privacy policy</a>
                 </p>
               </div>
             </Card>
