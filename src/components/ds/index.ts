@@ -51,6 +51,8 @@ export { default as ContextMenu } from "./ContextMenu";
 export type { ContextMenuProps, ContextMenuItem } from "./ContextMenu";
 export { default as SignaturePad } from "./SignaturePad";
 export type { SignaturePadProps, SignatureFormat } from "./SignaturePad";
+export { default as TimePicker } from "./TimePicker";
+export type { TimePickerProps, TimePickerSize, TimePickerFormat, TimePickerStep } from "./TimePicker";
 export { default as Navbar } from "./Navbar";
 export { default as DateRangeFilter } from "./DateRangeFilter";
 export { default as Divider } from "./Divider";
