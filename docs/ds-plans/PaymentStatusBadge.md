@@ -1,7 +1,7 @@
 # PaymentStatusBadge build plan
 
 **Phase:** 3
-**Status:** Planned
+**Status:** Done
 **Estimated size:** S
 **Jira ticket:** TBC, create before build session
 **Feature doc:** Invoices.md (if it exists), else n/a

@@ -39,6 +39,8 @@ export { default as AppointmentCard } from "./AppointmentCard";
 export type { AppointmentCardProps, AppointmentStatus, AppointmentDensity } from "./AppointmentCard";
 export { default as PatientAvatar } from "./PatientAvatar";
 export type { PatientAvatarProps, PatientAvatarSize, PatientAvatarStatus, PatientRecord } from "./PatientAvatar";
+export { default as PaymentStatusBadge, paymentStatusToVariant } from "./PaymentStatusBadge";
+export type { PaymentStatusBadgeProps, PaymentStatusBadgeSize, PaymentStatus } from "./PaymentStatusBadge";
 export { default as Navbar } from "./Navbar";
 export { default as DateRangeFilter } from "./DateRangeFilter";
 export { default as Divider } from "./Divider";
