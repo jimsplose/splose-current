@@ -1,6 +1,6 @@
 # Wave 5 · Plan 05 — Global shell adoption
 
-**Status:** Planned
+**Status:** In progress
 **Estimated effort:** M
 **Recommended model:** Opus 4.7 (requires judgment on command registry shape + tooltip sweep discipline)
 **Thinking budget:** think hard
