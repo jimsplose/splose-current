@@ -88,6 +88,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `Spinner` | Loading indicator (sm/md/lg) |
 | `EmptyState` | "No data" placeholders with icon + CTA |
 | `Skeleton` | Loading placeholder with shimmer — shapes `text`/`rect`/`circle`, `lines` for multi-line text (ragged last bar), `animated` for shimmer toggle. Subcomponents: `Skeleton.Text`, `Skeleton.Avatar`, `Skeleton.Block`, `Skeleton.Loading` (conditional swap). Respects `prefers-reduced-motion`. |
+| `Toast` / `toast` | Imperative, auto-dismissing notification pinned to bottom-right for success/error confirmations. Call `toast.success/error/warning/info/loading/promise/dismiss` from any client component. Wraps sonner. `<Toaster />` is mounted once in `src/app/layout.tsx`; consumers never import sonner directly. |
 
 ## Filters
 

@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
-import { ThemeProvider } from "@/components/ds";
+import { ThemeProvider, Toaster } from "@/components/ds";
 import "./globals.css";
 import SploseTopNav from "@/components/SploseTopNav";
 import DevNavigator from "@/components/DevNavigator";
@@ -35,6 +35,7 @@ export default function RootLayout({
               <DevNavigator />
             </Suspense>
             <Analytics />
+            <Toaster />
           </ThemeProvider>
         </AntdRegistry>
       </body>

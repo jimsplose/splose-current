@@ -1,7 +1,7 @@
 # Toast build plan
 
 **Phase:** 1
-**Status:** Planned
+**Status:** Done
 **Estimated size:** M
 **Jira ticket:** TBC, create before build session
 **Feature doc:** n/a

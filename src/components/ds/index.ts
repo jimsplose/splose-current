@@ -61,3 +61,4 @@ export { default as Tooltip } from "./Tooltip";
 export type { TooltipProps, TooltipSide, TooltipAlign } from "./Tooltip";
 export { default as Skeleton } from "./Skeleton";
 export type { SkeletonProps, SkeletonShape } from "./Skeleton";
+export { Toaster, toast } from "./Toast";
