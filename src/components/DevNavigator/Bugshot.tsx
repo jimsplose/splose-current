@@ -10,6 +10,9 @@ import {
   generateFilename,
   downloadBlob,
   type Region,
+  type CaptureIntent,
+  generateIssueTitle,
+  formatRegionIssueBody,
 } from "./bugshot-utils";
 import styles from "./Bugshot.module.css";
 
@@ -34,6 +37,9 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
   const [errorMessage, setErrorMessage] = useState("");
   const [fallbackPrompt, setFallbackPrompt] = useState<string | null>(null);
   const [toastVisible, setToastVisible] = useState(false);
+  const [intent, setIntent] = useState<CaptureIntent>('bug');
+  const [submitState, setSubmitState] = useState<'idle' | 'submitting' | 'done' | 'error'>('idle');
+  const [issueNumber, setIssueNumber] = useState<number | null>(null);
 
   // Selection drag state
   const dragStart = useRef<{ x: number; y: number } | null>(null);
@@ -90,6 +96,82 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
   // Toggle severity (single select)
   const toggleSeverity = (tag: string) => {
     setSeverityTag((prev) => (prev === tag ? null : tag));
+  };
+
+  // Submit Issue: screenshot + crop + POST to GitHub API route
+  const handleSubmitIssue = async () => {
+    if (!region) return;
+    setSubmitState('submitting');
+
+    // Hide UI for screenshot
+    if (overlayRef.current) overlayRef.current.style.display = 'none';
+    if (devNavRef.current) devNavRef.current.style.display = 'none';
+
+    try {
+      const { toBlob } = await import('html-to-image');
+      const blob = await toBlob(document.body, { pixelRatio: 1 });
+      if (blob) {
+        // Crop to selected region
+        const img = await createImageBitmap(blob);
+        const canvas = document.createElement('canvas');
+        canvas.width = region.width;
+        canvas.height = region.height;
+        const ctx = canvas.getContext('2d')!;
+        ctx.drawImage(
+          img,
+          region.x + window.scrollX,
+          region.y + window.scrollY,
+          region.width,
+          region.height,
+          0, 0, region.width, region.height
+        );
+        const croppedBlob = await new Promise<Blob>((resolve, reject) =>
+          canvas.toBlob(b => b ? resolve(b) : reject(new Error('crop failed')), 'image/png')
+        );
+        const filename = generateFilename();
+        downloadBlob(croppedBlob, filename);
+
+        // Post to GitHub via API route
+        const allTags = [...categoryTags, ...(severityTag ? [severityTag] : [])];
+        const body = formatRegionIssueBody({
+          intent,
+          pageUrl: window.location.href,
+          region,
+          description,
+          tags: allTags,
+          filename,
+        });
+        const title = generateIssueTitle(intent, description);
+        const apiBase = window.location.hostname === 'localhost'
+          ? ''
+          : 'https://splose-current.vercel.app';
+        const res = await fetch(`${apiBase}/api/issues`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, body, labels: [intent, ...(severityTag ? [severityTag] : [])] }),
+        });
+        if (!res.ok) throw new Error(`API ${res.status}`);
+        const issue = await res.json();
+        setIssueNumber(issue.number);
+      }
+    } catch (err) {
+      setErrorMessage(err instanceof Error ? err.message : 'Submit failed');
+      setState('error');
+      setSubmitState('idle');
+      if (overlayRef.current) overlayRef.current.style.display = '';
+      if (devNavRef.current) devNavRef.current.style.display = '';
+      return;
+    }
+
+    if (overlayRef.current) overlayRef.current.style.display = '';
+    if (devNavRef.current) devNavRef.current.style.display = '';
+    setSubmitState('done');
+    setState('done');
+    setToastVisible(true);
+    setTimeout(() => {
+      setToastVisible(false);
+      onClose();
+    }, 2500);
   };
 
   // Capture: screenshot + styles + clipboard
@@ -244,6 +326,19 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
           style={{ left: panelPosition.left, top: panelPosition.top }}
           onMouseDown={(e) => e.stopPropagation()}
         >
+          {/* Intent selector */}
+          <div className={styles.intentRow}>
+            {(['bug', 'missing', 'remove'] as CaptureIntent[]).map((i) => (
+              <button
+                key={i}
+                onClick={(e) => { e.stopPropagation(); setIntent(i); }}
+                className={`${styles.intentBtn} ${intent === i ? styles.intentBtnActive : ''} text-label-lg`}
+              >
+                {i}
+              </button>
+            ))}
+          </div>
+
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -285,12 +380,20 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
               Cancel
             </Button>
             <Button
-              variant="primary"
+              variant="ghost"
               size="sm"
               onClick={handleCapture}
               disabled={!description.trim()}
             >
-              <CameraOutlined style={{ fontSize: 16 }} /> Capture
+              Copy prompt
+            </Button>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={handleSubmitIssue}
+              disabled={!description.trim() || submitState === 'submitting'}
+            >
+              {submitState === 'submitting' ? 'Submitting…' : '⬆ Submit issue'}
             </Button>
           </div>
         </div>
@@ -355,7 +458,9 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
       {/* Success toast */}
       {toastVisible && (
         <div className={`${styles.toast} text-body-md`} style={{ color: '#fff' }}>
-          Bugshot copied to clipboard + screenshot downloaded
+          {issueNumber
+            ? `Issue #${issueNumber} created · PNG downloaded`
+            : 'Bugshot copied to clipboard + screenshot downloaded'}
         </div>
       )}
     </div>,
