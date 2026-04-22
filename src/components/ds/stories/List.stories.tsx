@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
 import List from "../List";
 
 /* ------------------------------------------------------------------ */
@@ -16,6 +17,16 @@ const meta: Meta<typeof List> = {
   },
   parameters: {
     layout: "centered",
+    splose: {
+      status: "beta",
+      summary:
+        "Label/value attribute list rendering <dl>/<dt>/<dd>. Hints, editable rows, divider, tight, semantic-opt-out.",
+      whatToUseInstead:
+        "Inline <div> label/value rows on patient, contact, and invoice detail blocks.",
+      referenceLibrary: "first-party",
+      plan: "docs/ds-plans/ListEnhancement.md",
+      source: "src/components/ds/List.tsx",
+    },
   },
 };
 
@@ -343,6 +354,170 @@ export const FullClientDetailPage: Story = {
           ]}
         />
       </section>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ================================================================== */
+/*  Enhancement stories (ListEnhancement plan — divider, tight, hints,  */
+/*  editable, semantic="div", patient/invoice/contact recipes)         */
+/* ================================================================== */
+
+export const WithDivider: Story = {
+  name: "Feature: With Divider",
+  args: {
+    divider: true,
+    items: [
+      { label: "Mobile", value: "0412 345 678" },
+      { label: "Email", value: "harry@example.com" },
+      { label: "Address", value: "12 Park St, Melbourne VIC 3000" },
+    ],
+  },
+  parameters: { layout: "padded" },
+};
+
+export const Tight: Story = {
+  name: "Feature: Tight",
+  args: {
+    tight: true,
+    divider: true,
+    items: [
+      { label: "DOB", value: "14/05/1988" },
+      { label: "Gender", value: "Male" },
+      { label: "Medicare", value: "1234 56789 0" },
+      { label: "NDIS", value: "432100000" },
+    ],
+  },
+  parameters: { layout: "padded" },
+};
+
+export const WithHints: Story = {
+  name: "Feature: With Hints",
+  args: {
+    items: [
+      {
+        label: "Gap fee",
+        hint: "Amount the patient pays out-of-pocket after Medicare rebate.",
+        value: "$35.00",
+      },
+      {
+        label: "HICAPS",
+        hint: "Health Industry Claims and Payments Service.",
+        value: "Enabled",
+      },
+    ],
+  },
+  parameters: { layout: "padded" },
+};
+
+export const Editable: Story = {
+  name: "Feature: Editable",
+  render: () => {
+    const Inner = () => {
+      const [log, setLog] = useState<string>("—");
+      return (
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <List
+            divider
+            items={[
+              { label: "Name", value: "Harry Nguyen", editable: true, onEdit: () => setLog("Name edit clicked") },
+              { label: "Email", value: "harry@example.com", editable: true, onEdit: () => setLog("Email edit clicked") },
+              { label: "Phone", value: "0412 345 678" },
+            ]}
+          />
+          <div style={{ fontSize: 12, color: "#6E6E64" }}>Last action: {log}</div>
+        </div>
+      );
+    };
+    return <Inner />;
+  },
+  parameters: { layout: "padded" },
+};
+
+export const DivSemantic: Story = {
+  name: "Feature: div semantic (opt-out)",
+  args: {
+    semantic: "div",
+    items: [
+      { label: "Revenue", value: "$12,430" },
+      { label: "Invoices paid", value: "84" },
+      { label: "No-shows", value: "3%" },
+    ],
+  },
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  Recipe: PatientContactBlock                                        */
+/*  Source: acme.splose.com/patients/446604/details                    */
+/* ------------------------------------------------------------------ */
+export const PatientContactBlock: Story = {
+  name: "Recipe: Patient Contact Block",
+  render: () => (
+    <div style={{ padding: 16, maxWidth: 420, background: "#fff", border: "1px solid #e5e5e5", borderRadius: 8 }}>
+      <h3 style={{ fontSize: 13, color: "#6E6E64", margin: "0 0 12px", textTransform: "uppercase", letterSpacing: 0.3 }}>
+        Contact
+      </h3>
+      <List
+        divider
+        tight
+        labelWidth={104}
+        items={[
+          { label: "Mobile", value: "0412 345 678", editable: true, onEdit: () => {} },
+          { label: "Email", value: "harry.n@example.com", editable: true, onEdit: () => {} },
+          { label: "Address", value: "12 Park St, Melbourne VIC 3000", editable: true, onEdit: () => {} },
+          { label: "Referred by", value: "Dr Sarah Kim", hint: "Treating physician who referred this patient." },
+        ]}
+      />
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  Recipe: InvoiceHeaderStacked                                       */
+/*  Source: acme.splose.com/invoices/14130707/view                     */
+/* ------------------------------------------------------------------ */
+export const InvoiceHeaderStacked: Story = {
+  name: "Recipe: Invoice Header (stacked)",
+  render: () => (
+    <div style={{ padding: 16, maxWidth: 360, background: "#fff", border: "1px solid #e5e5e5", borderRadius: 8 }}>
+      <List
+        layout="stacked"
+        items={[
+          { label: "Issued to", value: "Harry Nguyen" },
+          { label: "Invoice #", value: "INV-14130707" },
+          { label: "Date", value: "22/04/2026" },
+          { label: "Due", value: "06/05/2026" },
+        ]}
+      />
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
+/* ------------------------------------------------------------------ */
+/*  Recipe: ContactBillingBlock                                        */
+/*  Source: acme.splose.com/contacts/416008/details                    */
+/* ------------------------------------------------------------------ */
+export const ContactBillingBlock: Story = {
+  name: "Recipe: Contact Billing Block",
+  render: () => (
+    <div style={{ padding: 16, maxWidth: 420, background: "#fff", border: "1px solid #e5e5e5", borderRadius: 8 }}>
+      <h3 style={{ fontSize: 13, color: "#6E6E64", margin: "0 0 12px", textTransform: "uppercase", letterSpacing: 0.3 }}>
+        Billing
+      </h3>
+      <List
+        divider
+        labelWidth={120}
+        items={[
+          { label: "Payment method", value: "Stripe — Visa •••• 4242" },
+          { label: "Billing address", value: "—" },
+          { label: "GST", value: "Applied", hint: "10% Australian GST added to invoices." },
+          { label: "Tax ID", value: "ABN 12 345 678 901", editable: true, onEdit: () => {} },
+        ]}
+      />
     </div>
   ),
   parameters: { layout: "padded" },
