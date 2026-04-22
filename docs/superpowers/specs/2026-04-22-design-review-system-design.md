@@ -314,31 +314,32 @@ The plugin setup script prints the bookmarklet URI and instructions for adding i
 
 ---
 
-## 11. Designer Plugin Package
+## 11. Designer Setup Package
 
-Distributed as a Superpowers plugin. Designers install Claude Code, then run one command to install the plugin.
+Distributed as a simple folder (zip or private repo). Designers install Claude Code, clone the replica repo, then run one script. No Superpowers required — all capture tools are browser-based UI, not CC skills.
 
-### Plugin structure
+### Package structure
 
 ```
-splose-review-plugin/
-├── plugin.json              # plugin manifest
-├── setup.sh                 # one-time setup script
-└── skills/
-    ├── designer-onboarding.md   # orientation — what the tools do
-    └── capture-issue.md         # how to use Bugshot + Page Capture
+splose-review-setup/
+├── setup.sh          # one-time setup: writes .env.local, installs deps, prints bookmarklet
+└── designer-claude-md.md  # snippet to append to the repo's .claude/CLAUDE.md (optional)
 ```
 
 ### `setup.sh` does
-1. Prompts for the project path (or accepts as arg)
+1. Accepts project path as arg (or prompts)
 2. Writes `.env.local` with `GITHUB_TOKEN=<bot-token>` (token baked into script at distribution time)
-3. Prints bookmarklet URI + installation instructions
-4. Runs `npm install` if `node_modules` absent
-5. Confirms setup complete
+3. Runs `npm install` if `node_modules` absent
+4. Prints bookmarklet URI + step-by-step Chrome bookmark instructions
+5. Confirms: "Open localhost:3000 — you're ready"
+
+### `designer-claude-md.md`
+A short markdown snippet explaining the DevNavigator, Bugshot, Page Capture, and bookmarklet — appended to the repo's `.claude/CLAUDE.md` so Claude Code can answer designer questions like "how do I submit a bug?" without Superpowers or any skill infrastructure.
 
 ### What designers do NOT need
 - A GitHub account
 - `gh` CLI
+- Superpowers or any Claude Code plugins
 - Any knowledge of the API routes
 
 ---
@@ -379,7 +380,7 @@ splose-review-plugin/
 ### Phase 5 — Bookmarklet + designer plugin
 - `scripts/build-bookmarklet.mjs`
 - Bookmarklet build + URI output
-- Plugin package: `setup.sh` + skills
+- Designer setup package: `setup.sh` + `designer-claude-md.md`
 - `GITHUB_TOKEN` added to Vercel env vars via Vercel dashboard (CORS headers already handled by API routes in Phase 1)
 
 ---
