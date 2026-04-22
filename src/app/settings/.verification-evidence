@@ -1,0 +1,44 @@
+## Plan 04 — Forms/Settings Surface Verification
+Date: 2026-04-22
+Viewport: 1440×900
+Environment: localhost:3000
+
+### Surfaces verified
+- src/app/settings/sms-settings/page.tsx (NumberInput adoption + utility-class zero)
+- src/app/settings/services/page.tsx (utility-class zero)
+- src/app/settings/details/page.tsx (utility-class zero)
+- src/app/settings/invoice-settings/page.tsx (utility-class zero)
+
+### Chrome MCP measurements
+
+#### /settings/sms-settings
+- NumberInput count: 3 ✓ (replaces 3× FormInput type="number")
+- Input 1 (low-credit threshold): value=100, containerMaxWidth=320px ✓
+- Input 2 (auto-recharge threshold): value=100, containerMaxWidth=320px, marginBottom=16px ✓
+- Input 3 (SMS credits to purchase, labeled): FormField maxWidth=320px, marginBottom=16px ✓
+  (verified via formField.getAttribute('style') = "max-width:320px;margin-bottom:16px")
+- Page utility classes (non-shell): 0 ✓
+- Shell-only hits: 6 (text-heading-lg on nav spans, text-label-md on user avatar + DevNavigator)
+
+#### /settings/services
+- Page utility class hits (non-DS-internal): 0 ✓
+
+#### /settings/details
+- Page utility class hits: 2 — both are DS Text component internals
+  (Text-module__*__bodyMd + text-text-secondary, hasModuleClass=true)
+  Not page-authored utility classes ✓
+
+#### /settings/invoice-settings
+- Page utility class hits (non-DS-internal): 0 ✓
+
+### DS adoption
+- NumberInput (format="integer"): replaces 3× FormInput type="number" in sms-settings
+- FormField.tsx: extended with style?: CSSProperties prop
+- NumberInput.tsx: extended with style?: CSSProperties prop (passed to FormField or merged into InputNumber style)
+
+### Utility-class zero check (grep on src/app/settings/**)
+- Typography classes: 0
+- Color classes: 0
+- Layout classes: 0
+- tsc: 0 errors
+- next build: PASS (prior session confirmed; tsc clean post-edit)

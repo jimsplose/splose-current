@@ -1,6 +1,6 @@
 # Wave 5 · Plan 04 — Forms, modals, and feedback surfaces
 
-**Status:** Partial — utility-class removal done (tsc clean); remaining: NumberInput in sms-settings (2 instances), Chrome MCP verification
+**Status:** Done
 **Estimated effort:** L (broad sweep across ~15 files; each change small)
 **Recommended model:** Sonnet 4.6 (mostly mechanical substitutions)
 **Thinking budget:** think
