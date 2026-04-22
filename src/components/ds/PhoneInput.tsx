@@ -4,15 +4,10 @@ import RPNInput, {
   type Country,
   type Value,
 } from "react-phone-number-input/input";
-import { default as RPNInputWithCountry } from "react-phone-number-input/react-hook-form";
 import FormField from "./FormField";
 import { Input } from "antd";
 import { forwardRef } from "react";
 import "react-phone-number-input/style.css";
-
-// Suppress unused import (keeps React Hook Form integration available
-// to consumers that want it; not used internally).
-void RPNInputWithCountry;
 
 export type PhoneInputSize = "sm" | "md" | "lg";
 
