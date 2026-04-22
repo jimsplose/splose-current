@@ -25,6 +25,8 @@ export { default as Filter } from "./Filter";
 export { default as Collapse } from "./Collapse";
 export { default as Accordion } from "./Accordion";
 export type { AccordionItem, AccordionProps, AccordionType, AccordionTone } from "./Accordion";
+export { default as Tag } from "./Tag";
+export type { TagProps, TagSize } from "./Tag";
 export { default as Navbar } from "./Navbar";
 export { default as DateRangeFilter } from "./DateRangeFilter";
 export { default as Divider } from "./Divider";
