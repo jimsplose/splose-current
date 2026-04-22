@@ -1,7 +1,7 @@
 # AppointmentCard build plan
 
 **Phase:** 3
-**Status:** Planned
+**Status:** Done
 **Estimated size:** M
 **Jira ticket:** TBC, create before build session
 **Feature doc:** Calendar.md (if it exists), else n/a
