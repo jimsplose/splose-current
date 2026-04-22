@@ -1,0 +1,57 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../SegmentedControl.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="SegmentedControl" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use SegmentedControl for a compact, mutually-exclusive option group with 2–4 choices that fit on a single horizontal bar — the calendar view switcher (Week / Day / Month), the calendar/rooms toggle, or an All / Active / Archived status filter. The sliding highlight makes the selected state immediately obvious without the visual weight of a full button group. SegmentedControl is always controlled: supply `value`, `onChange`, and a required `aria-label`. Options can be text labels, icons only, or icon + label combinations.
+
+## When not to use
+
+- **RadioGroup** — use instead when the choice is a form field that requires a visible label, submits with a form, or has more than four options.
+- **Tabs** — use instead when the options switch between distinct content panels that replace each other in the page body, rather than changing a view mode or filter.
+
+## Variants
+
+- **Feature: Two options** — the minimal supported form (List / Grid toggle).
+- **Feature: Three options** — most common form (Week / Day / Month, This week / Month / Quarter).
+- **Feature: Four options** — maximum recommended count before a RadioGroup or Dropdown is more appropriate (All / Active / Paused / Archived).
+- **Feature: Icon only** — set `label: ""` and provide `icon` for compact layout toggles; each option's `label` is used as the accessible name via `aria-label` on the inner span.
+- **Feature: Icon + label** — combine `icon` and `label` for labelled view switchers with a visual affordance.
+- **Feature: Full width** — `fullWidth` makes all segments grow equally to fill the container width.
+- **Feature: Disabled** — `disabled` disables all segments; disable individual options by excluding them from the `options` array.
+- **Feature: Sizes** — three tokens: `sm`, `md` (default), `lg`.
+
+## Composition
+
+`SegmentedControl` is used in `src/app/calendar/CalendarView.tsx` for both the view mode and the calendar/rooms toggle:
+
+```tsx
+// src/app/calendar/CalendarView.tsx
+import { SegmentedControl } from "@/components/ds";
+
+<SegmentedControl
+  options={[
+    { value: "Calendar", label: "Calendar" },
+    { value: "Rooms/resources", label: "Rooms" },
+  ]}
+  value={calendarMode}
+  onChange={(v) => setCalendarMode(v as CalendarMode)}
+  aria-label="Calendar or Rooms view"
+/>
+```
+
+## Accessibility
+
+`aria-label` is required on every `SegmentedControl` because the control has no visible label of its own. AntD `Segmented` forwards this to the underlying element. Each option's `label` string is used as the accessible name for that segment via `aria-label` on the inner wrapper span, which is important for icon-only variants. The selected option is indicated by AntD's internal `aria-checked` or active-class mechanism; do not suppress focus styles.
+
+## Sizing
+
+Three size tokens map to AntD's `"small"`, `"middle"`, and `"large"` respectively: `sm`, `md` (default), `lg`. Use `sm` inside toolbar rows and `md` for standalone page-level controls.
+
+## Migration from
+
+Replaces raw `antd Segmented` imports and custom pill-button groups that each managed active-state styling independently across the calendar and report pages.

@@ -1,0 +1,54 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../AlertDialog.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="AlertDialog" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use AlertDialog for destructive or consequential actions that require explicit user confirmation before the system proceeds — deleting a client record, cancelling an invoice, discarding unsaved changes. The imperative `await alertDialog.confirm({ ... })` API resolves to `true` (confirmed) or `false` (cancelled/dismissed), so the calling code can gate the action cleanly without managing dialog state. AlertDialog is intentionally blocking: `maskClosable` is `false` and focus defaults to the Cancel button so accidental confirmations are avoided.
+
+## When not to use
+
+- **Modal** — use instead when you need arbitrary content, multiple fields, or a non-destructive creation/editing flow inside an overlay.
+- **Toast** — use instead for non-blocking feedback after an action has already completed (e.g. "Invoice saved"). Toast requires no user response.
+
+## Variants
+
+- **Feature: Primary tone** — `tone: "primary"` — question-circle icon, used for consequential but non-destructive confirmations.
+- **Feature: Danger tone** — `tone: "danger"` — exclamation-circle icon in red, `confirmLabel` button renders as a danger primary button. Use for irreversible deletes.
+- **Feature: Warning tone** — `tone: "warning"` — warning triangle in amber, used for reversible but significant actions (cancel invoice, archive records).
+- **Feature: Imperative (awaited)** — demonstrates the full `async/await` pattern with result logging; the confirm call returns before the next line executes.
+
+## Composition
+
+No app consumer exists yet — the component is newly extracted. Reference the Storybook recipe stories for integration patterns (coming soon). Typical usage from a page action handler:
+
+```tsx
+import { alertDialog } from "@/components/ds";
+
+async function handleDeleteClient(clientId: string) {
+  const ok = await alertDialog.confirm({
+    title: "Delete Harry Nguyen?",
+    description:
+      "This client and their notes, invoices, and files will be permanently deleted. This can't be undone.",
+    confirmLabel: "Delete",
+    tone: "danger",
+  });
+  if (!ok) return;
+  await deleteClient(clientId);
+}
+```
+
+## Accessibility
+
+`autoFocusButton: "cancel"` ensures the safe action is focused on open, protecting users from accidental destructive confirmations via keyboard. The dialog is centered (`centered: true`) and cannot be dismissed by clicking the overlay. AntD wires `role="dialog"` and `aria-modal="true"` automatically. The consumer must write clear, specific `title` and `description` copy — avoid vague labels like "Are you sure?".
+
+## Sizing
+
+AlertDialog uses a fixed centered layout managed by AntD `Modal.confirm`. Width is not configurable. Keep `description` content to two to three sentences maximum to avoid excessive vertical height.
+
+## Migration from
+
+Replaces `antd Modal.confirm()` calls scattered across individual page components and ad-hoc inline confirmation modals that each duplicated dismiss logic and tone styling.

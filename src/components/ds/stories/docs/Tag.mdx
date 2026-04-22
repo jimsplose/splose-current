@@ -1,0 +1,47 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../Tag.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="Tag" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use Tag for user-configured, colour-coded labels that practitioners and admins apply to records — the tags set up in `/settings/tags` and attached to patients, waitlist entries, and appointments. Supply `color` from the tag configuration; the component automatically picks white or dark text for WCAG-AA contrast. Add `onRemove` for chips in a multi-select form input. Set `interactive` and `selected` for a filter bar where users toggle tag visibility. Tags are always user-generated metadata; for system-generated status labels use `Badge` instead.
+
+## When not to use
+
+- **Badge** — use instead for system-defined status values (payment status, appointment status, NDIS claim status) that are not user-configurable.
+- **Checkbox** — use instead for a binary single-selection form field where the option is text-only and does not need colour coding.
+
+## Variants
+
+- **Feature: Default (uncoloured)** — omit `color` for the neutral bordered chip (white background, grey border).
+- **Feature: Coloured (palette)** — pass any hex colour; contrast-aware text colour is chosen automatically.
+- **Feature: With Icon** — `icon` prop accepts any React node; use `<Icon as={...} size="xs" />` for leading icons.
+- **Feature: Removable** — `onRemove` renders a `×` button inside the chip that calls the handler when clicked, without propagating to the parent `onClick`.
+- **Feature: Interactive (toggle)** — `interactive` renders the chip as a `<button>` with `aria-pressed`; combine with `selected` and a ring highlight for multi-select filter bars.
+- **Feature: Selected state** — `selected` adds a focus ring (`box-shadow: 0 0 0 2px var(--color-primary)`) without requiring `interactive`.
+- **Feature: Sizes** — three tokens: `sm` (22 px height, default), `md` (24 px), `lg` (28 px).
+
+## Composition
+
+No direct app consumer exists yet — the component is newly extracted. Reference the Storybook recipe stories for production-representative patterns (coming soon). Typical patient record usage:
+
+```tsx
+import { Tag } from "@/components/ds";
+
+{patient.tags.map((tag) => (
+  <Tag key={tag.id} color={tag.color}>
+    {tag.name}
+  </Tag>
+))}
+```
+
+## Accessibility
+
+When `interactive` is true the component renders as `<button type="button">` with `aria-pressed={selected}`, making toggle state available to screen readers. The `onRemove` button carries an `aria-label` of `"Remove {label}"`. When Tag is a plain `<span>` (non-interactive, no remove), it is presentational and needs no additional ARIA. Consumers building a tag filter bar should wrap the group in an element with `role="group"` and a visible or `aria-label` label.
+
+## Sizing
+
+Three size tokens — `sm` (22 px), `md` (24 px), `lg` (28 px) — control height, padding, and font size together. Default is `sm`; use `md` or `lg` when tags appear alongside larger form controls or in card headers.

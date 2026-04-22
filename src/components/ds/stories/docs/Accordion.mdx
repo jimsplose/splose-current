@@ -1,0 +1,56 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../Accordion.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="Accordion" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use Accordion for a vertical stack of related disclosure sections where only some content needs to be visible at once — patient additional details (Medicare, NDIS, private health fund), integration settings lists, or FAQ sections. Each item has a `title`, an optional `description` sub-line, and an optional leading `icon`. Use `type="multiple"` (default) when any subset of panels can be open simultaneously; use `type="single"` when only one section should be open at a time to keep the page compact. Control programmatically via `value` / `onValueChange` when external state drives which panels are expanded.
+
+## When not to use
+
+- **Collapse** — use instead for a single toggle panel in isolation (the `Collapse` component is a single-panel alias kept for backward compatibility).
+- **Tabs** — use instead when sections are peers and only one is ever shown at a time in a tab strip, with content panels that replace each other in the same area.
+
+## Variants
+
+- **Feature: Single** — `type="single"` collapses any open panel when another is opened.
+- **Feature: Multiple** — `type="multiple"` (default) allows any subset of panels to be open concurrently; combine with `defaultOpen` on individual items to pre-expand on mount.
+- **Feature: With Descriptions** — each item may include a `description` sub-line beneath the title for contextual hints (e.g. "How invoices are delivered and paid").
+- **Feature: With Icons** — items accept a leading `icon` node; use `<Icon as={...} size="md" tone="secondary" />` for consistent sizing.
+- **Feature: Subtle** — `tone="subtle"` removes the bordered card shell and renders borderless panels for use inside a `Card`. Pair with `divider={false}` to remove row separators too.
+- **Feature: Controlled** — pass `value` and `onValueChange` to fully control open state from a parent component.
+
+## Composition
+
+No direct app consumer exists yet — the component is newly extracted from hand-rolled disclosure patterns. Reference the Storybook recipe stories for production-representative patterns (coming soon). Typical patient page usage:
+
+```tsx
+import { Accordion } from "@/components/ds";
+
+<Accordion
+  type="single"
+  items={[
+    {
+      id: "extra",
+      title: "Additional details",
+      description: "Medicare, NDIS, private health fund",
+      children: <MedicareFields patient={patient} />,
+    },
+  ]}
+/>
+```
+
+## Accessibility
+
+AntD `Collapse` (the underlying primitive) renders each header as a `<button>` with `aria-expanded` and associates it with its panel via `aria-controls`. Keyboard navigation (Tab, Enter/Space) is handled automatically. The consumer must supply a meaningful `title` string for each item — avoid icon-only headers without a visible label.
+
+## Sizing
+
+Accordion fills the width of its container. Constrain the outer element with `maxWidth` when used on wide pages (e.g. `maxWidth: 560` for form sections, `maxWidth: 720` for settings lists).
+
+## Migration from
+
+Replaces the existing `Collapse` component (now kept as a deprecated single-panel alias) and hand-rolled `<details>` / AntD Collapse patterns used across patient and settings pages.

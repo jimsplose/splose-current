@@ -1,0 +1,60 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../Drawer.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="Drawer" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use Drawer for secondary surfaces that must share the screen with the underlying page — appointment details sliding in from the right when a calendar block is clicked, a filter tray for narrowing a report, or a help sheet that supplements a complex form. Because the page stays visible beneath the panel, the user retains spatial context and can refer back to surrounding data without closing the overlay. Mount one `<Drawer>` per trigger; control it with `open` / `onClose`; put primary actions in the `footer` slot so they remain reachable regardless of content length.
+
+## When not to use
+
+- **Modal** — use instead when the task is content-blocking and the user must complete or dismiss it before returning to the page (e.g. a creation form, a decision gate).
+- **Collapse** — use instead for simple inline expand/collapse of a single section within a page, when no overlay or focus-trap behaviour is needed.
+
+## Variants
+
+- **Feature: Sides** — `side` prop accepts `"right"` (default), `"left"`, `"top"`, `"bottom"`. Right is the standard for detail panels; bottom is common on mobile-width viewports.
+- **Feature: Sizes** — four size tokens: `sm` (320 px), `md` (400 px, default), `lg` (560 px), `xl` (720 px). Pass a pixel number to override.
+- **Feature: With Header Bar** — `headerBar` adds a muted fill to the header region, useful for filter trays and help sheets where visual separation matters.
+- **Feature: With Footer** — `footer` slot renders a sticky action row pinned to the bottom; typically a Cancel + primary-action pair.
+
+## Composition
+
+`Drawer` is used in `src/app/calendar/CalendarView.tsx` to render the appointment side panel:
+
+```tsx
+// src/app/calendar/CalendarView.tsx
+import { Drawer } from "@/components/ds";
+
+<Drawer
+  open={open}
+  onClose={onClose}
+  side="right"
+  title="Initial consult — Harry Nguyen"
+  description="Tue 22 Apr · 10:00 AM · 60 min"
+  size="lg"
+  footer={
+    <>
+      <Button variant="ghost" onClick={onClose}>Cancel appt</Button>
+      <Button variant="primary" onClick={onClose}>Mark attended</Button>
+    </>
+  }
+>
+  {/* appointment detail content */}
+</Drawer>
+```
+
+## Accessibility
+
+Focus is trapped inside the Drawer while it is open (provided by AntD). Pressing Escape closes the panel (`dismissOnEsc`, default `true`). Clicking the overlay also closes it (`dismissOnOverlayClick`, default `true`). Body scroll is locked while the drawer is open. The consumer must ensure the trigger button has a descriptive label so that screen-reader users understand what the drawer will show before opening it.
+
+## Sizing
+
+Four size tokens map to fixed pixel widths for horizontal drawers — `sm` 320 px, `md` 400 px, `lg` 560 px, `xl` 720 px — or heights for top/bottom drawers; pass a number to use an arbitrary value.
+
+## Migration from
+
+Replaces raw `antd Drawer` imports and the bespoke `AppointmentSidePanel` right-rail markup that had per-page sizing and dismiss logic duplicated across files.

@@ -1,0 +1,53 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../Stepper.stories";
+import { SploseDocHeader } from "../_docs/SploseDocHeader";
+
+<Meta of={Stories} />
+<SploseDocHeader name="Stepper" meta={Stories.default.parameters.splose} />
+
+## When to use
+
+Use Stepper for linear multi-step workflows where users need to track their overall progress and understand which steps are complete, active, or ahead — batch invoice wizards (Select clients > Review > Preview > Send), NDIS bulk upload flows, and patient onboarding forms. Two API shapes are available: pass a `current` id to let the component auto-mark earlier steps complete and later steps pending, or set `status` on each item explicitly for full manual control. Use `orientation="vertical"` with `description` on each item for sidebar-style wizards where per-step context is important.
+
+## When not to use
+
+- **Tabs** — use instead for lateral navigation between independent peer sections where there is no implied sequence or completion state.
+- **Breadcrumbs** — use instead to show the navigable path history through a hierarchy, rather than the ordered steps in a sequential task.
+
+## Variants
+
+- **Feature: Horizontal** — default orientation; labels render below each step circle.
+- **Feature: Vertical** — `orientation="vertical"` displays item `description` text beside each step, suitable for sidebar-style or narrow-column wizard layouts.
+- **Feature: Sizes** — three tokens: `sm` maps to AntD `"small"`, `md` and `lg` both map to AntD `"default"` (size controls bubble and text scale).
+- **Feature: With Error** — set `status: "error"` on an item to render an error indicator and optional error `description` (e.g. "3 rows rejected.").
+- **Feature: Clickable (back-nav)** — add `onClick` to individual items to let users jump back to a completed step.
+- **Feature: Controlled Statuses** — omit `current` and set `status` per item for flows where completion is non-linear (e.g. some steps validated server-side).
+
+## Composition
+
+No direct app consumer exists yet — the component is newly extracted from hand-rolled numbered-step layouts. Reference the Storybook recipe stories for production-representative patterns (coming soon). Typical batch wizard usage:
+
+```tsx
+import { Stepper } from "@/components/ds";
+
+const steps = [
+  { id: "clients", label: "Select clients", description: "Pick patients to invoice." },
+  { id: "review",  label: "Review",          description: "Check totals and tax rates." },
+  { id: "preview", label: "Preview",         description: "Preview each invoice." },
+  { id: "send",    label: "Send",            description: "Email or print." },
+];
+
+<Stepper items={steps} current={currentStepId} />
+```
+
+## Accessibility
+
+AntD `Steps` renders each step title as visible text; the current step icon conveys state visually and numerically. Consumers must not rely solely on colour to indicate step status — the numbered icon and label together provide the signal. When steps are `onClick`-able, ensure each clickable item has a visible focus indicator. Avoid disabling back-navigation unless the flow is strictly sequential (e.g. a payment submission that cannot be undone).
+
+## Sizing
+
+Three size tokens — `sm`, `md` (default), `lg` — control the diameter of the step circle and the text size. `sm` suits compact horizontal steppers inside a card; `md` suits full-width page headers; `lg` suits prominent onboarding flows.
+
+## Migration from
+
+Replaces hand-rolled numbered-step layouts on onboarding and batch pages that duplicated step-counting logic, status colouring, and completion state management across individual page components.
