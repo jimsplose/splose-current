@@ -1,6 +1,6 @@
 # Wave 5 · Plan 07 — Stories cleanup + per-component MDX documentation
 
-**Status:** Planned
+**Status:** Done
 **Estimated effort:** M (~100 utility-class hits in stories + 24 MDX files to write, ~80–120 lines each)
 **Recommended model:** Sonnet 4.6 (writing + mechanical substitutions)
 **Thinking budget:** think
