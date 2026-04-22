@@ -57,3 +57,5 @@ export { default as RichTextEditor } from "./RichTextEditor";
 export { default as ReorderModal } from "./ReorderModal";
 export type { ReorderItem } from "./ReorderModal";
 export { default as ProgressBar } from "./ProgressBar";
+export { default as Tooltip } from "./Tooltip";
+export type { TooltipProps, TooltipSide, TooltipAlign } from "./Tooltip";

@@ -78,6 +78,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `Dropdown` | Action menus, context menus |
 | `AsyncSelect` | Searchable dropdown with async data fetching |
 | `ReorderModal` | Drag-and-drop reorder modal |
+| `Tooltip` | Hover/focus label overlay for icon-only buttons, truncated text, and abbreviations. Props: `content`, `side` (top/right/bottom/left), `align` (start/center/end), `delay` (ms), `disabled`. Wraps AntD Tooltip. For long-form help content use `HintIcon` instead. |
 
 ## Feedback
 
