@@ -3,7 +3,7 @@
 import { Fragment, useState } from "react";
 import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
-import { Button, DataTable, ListPage, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge } from "@/components/ds";
+import { Button, DataTable, ListPage, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge, Text } from "@/components/ds";
 
 const mockPayments = [
   {
@@ -161,7 +161,7 @@ export default function PaymentsPage() {
                               <line x1="4" y1="7" x2="10" y2="7" stroke="currentColor" strokeWidth="1.5" />
                             </svg>
                           ) : (
-                            <span className="text-label-lg">+</span>
+                            <Text variant="label/lg" as="span">+</Text>
                           )}
                         </Button>
                       ) : (
@@ -175,7 +175,7 @@ export default function PaymentsPage() {
                   <Td align="right">
                     {payment.amount.toLocaleString("en-AU", { minimumFractionDigits: 2 })}
                   </Td>
-                  <Td align="right" style={{ color: 'var(--color-text-secondary)' }}>
+                  <Td align="right" color="secondary">
                     {payment.date}
                   </Td>
                 </Tr>
@@ -185,18 +185,18 @@ export default function PaymentsPage() {
                       <div style={{ padding: '8px 0 8px 28px' }}>
                         <table style={{ width: '100%' }}>
                           <thead>
-                            <tr className="border-b border-border">
-                              <th className="py-2 text-left text-label-lg">Invoice #</th>
-                              <th className="py-2 text-left text-label-lg">Amount</th>
-                              <th className="py-2 text-left text-label-lg">Date</th>
+                            <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+                              <th style={{ padding: '8px 0', textAlign: 'left' }}><Text variant="label/lg" as="span">Invoice #</Text></th>
+                              <th style={{ padding: '8px 0', textAlign: 'left' }}><Text variant="label/lg" as="span">Amount</Text></th>
+                              <th style={{ padding: '8px 0', textAlign: 'left' }}><Text variant="label/lg" as="span">Date</Text></th>
                             </tr>
                           </thead>
                           <tbody>
                             {payment.invoices.map((inv) => (
                               <tr key={inv.number}>
-                                <td className="py-2" style={{ fontSize: 14 }}><LinkCell>{inv.number}</LinkCell></td>
-                                <td className="py-2" style={{ fontSize: 14 }}>{inv.amount.toFixed(2)}</td>
-                                <td className="py-2" style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>{inv.date}</td>
+                                <td style={{ padding: '8px 0', fontSize: 14 }}><LinkCell>{inv.number}</LinkCell></td>
+                                <td style={{ padding: '8px 0', fontSize: 14 }}>{inv.amount.toFixed(2)}</td>
+                                <td style={{ padding: '8px 0', fontSize: 14, color: 'var(--color-text-secondary)' }}>{inv.date}</td>
                               </tr>
                             ))}
                           </tbody>

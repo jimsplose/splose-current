@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { Flex } from "antd";
-import { Button, DataTable, TableHead, Th, TableBody, Td, Badge, Pagination } from "@/components/ds";
-
-const TH_BG = "rgb(243, 245, 247)";
+import { Button, DataTable, TableHead, Th, TableBody, Td, PaymentStatusBadge, dbStatusToPaymentStatus, Pagination, Text } from "@/components/ds";
 
 const items = [
   { number: "INV-0142", client: "Emma Thompson", to: "NDIS", location: "East Clinics", practitioner: "Christina Vagnoni", itemCount: 1, issueDate: "22 Mar 2026", dueDate: "22 Mar 2026", total: 193.99, status: "Sent" as const },
@@ -18,7 +16,7 @@ export default function BatchInvoiceDetailPage() {
       {/* Title row */}
       <Flex align="baseline" justify="space-between" style={{ marginBottom: 8 }}>
         <Flex align="baseline" gap={16}>
-          <span className="text-display-lg">Batch invoice</span>
+          <Text variant="display/lg" as="span">Batch invoice</Text>
           <span style={{ fontSize: 18, fontWeight: 400, color: "rgb(65, 69, 73)" }}>BATCH-001</span>
         </Flex>
         <Flex gap={8}>
@@ -35,30 +33,30 @@ export default function BatchInvoiceDetailPage() {
       {/* Table */}
       <DataTable>
         <TableHead>
-          <Th style={{ backgroundColor: TH_BG }}>Invoice #</Th>
-          <Th style={{ backgroundColor: TH_BG }}>Client</Th>
-          <Th style={{ backgroundColor: TH_BG }}>To</Th>
-          <Th style={{ backgroundColor: TH_BG }}>Location</Th>
-          <Th style={{ backgroundColor: TH_BG }}>Practitioner</Th>
-          <Th style={{ backgroundColor: TH_BG }} align="right"># of items</Th>
-          <Th style={{ backgroundColor: TH_BG }}>Issue date</Th>
-          <Th style={{ backgroundColor: TH_BG }}>Due date</Th>
-          <Th style={{ backgroundColor: TH_BG }} align="right">Total</Th>
-          <Th style={{ backgroundColor: TH_BG }}>Status</Th>
+          <Th>Invoice #</Th>
+          <Th>Client</Th>
+          <Th>To</Th>
+          <Th>Location</Th>
+          <Th>Practitioner</Th>
+          <Th align="right"># of items</Th>
+          <Th>Issue date</Th>
+          <Th>Due date</Th>
+          <Th align="right">Total</Th>
+          <Th>Status</Th>
         </TableHead>
         <TableBody>
           {items.map((inv) => (
             <tr key={inv.number} style={{ borderBottom: "1px solid rgb(240, 240, 240)" }}>
-              <Td>
-                <Link href={`/invoices/${inv.number}`} className="text-primary">
+              <Td color="primary">
+                <Link href={`/invoices/${inv.number}`}>
                   {inv.number}
                 </Link>
               </Td>
-              <Td>
-                <Link href="#" className="text-primary">{inv.client}</Link>
+              <Td color="primary">
+                <Link href="#">{inv.client}</Link>
               </Td>
-              <Td>
-                <Link href="#" className="text-primary">{inv.to}</Link>
+              <Td color="primary">
+                <Link href="#">{inv.to}</Link>
               </Td>
               <Td>{inv.location}</Td>
               <Td>{inv.practitioner}</Td>
@@ -67,7 +65,7 @@ export default function BatchInvoiceDetailPage() {
               <Td>{inv.dueDate}</Td>
               <Td align="right">{inv.total.toFixed(2)}</Td>
               <Td>
-                <Badge variant={inv.status === "Draft" ? "gray" : "green"} solid>{inv.status}</Badge>
+                <PaymentStatusBadge status={dbStatusToPaymentStatus(inv.status)} />
               </Td>
             </tr>
           ))}
