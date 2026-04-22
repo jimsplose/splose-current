@@ -94,6 +94,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `AsyncSelect` | Searchable dropdown with async data fetching |
 | `ReorderModal` | Drag-and-drop reorder modal |
 | `Tooltip` | Hover/focus label overlay for icon-only buttons, truncated text, and abbreviations. Props: `content`, `side` (top/right/bottom/left), `align` (start/center/end), `delay` (ms), `disabled`. Wraps AntD Tooltip. For long-form help content use `HintIcon` instead. |
+| `HoverCard` | Richer-than-Tooltip hover preview for patients, appointments, linked records. Hover-only (never fires on focus — content is supplementary by design). Props: `content`, `side`, `align`, `openDelay` (400ms default), `closeDelay` (200ms), `disabled`. 320px max-width card with 8px radius + 8-24px shadow. Wraps AntD Popover. Content must be supplementary — never hide critical info here (touch + keyboard users won't see it). |
 
 ## Feedback
 

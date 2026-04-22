@@ -45,6 +45,8 @@ export { default as Sparkline } from "./Sparkline";
 export type { SparklineProps, SparklineTone, SparklineShape } from "./Sparkline";
 export { default as CommandPalette } from "./CommandPalette";
 export type { CommandPaletteProps, CommandEntry } from "./CommandPalette";
+export { default as HoverCard } from "./HoverCard";
+export type { HoverCardProps, HoverCardSide, HoverCardAlign } from "./HoverCard";
 export { default as Navbar } from "./Navbar";
 export { default as DateRangeFilter } from "./DateRangeFilter";
 export { default as Divider } from "./Divider";
