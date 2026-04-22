@@ -195,7 +195,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
             {/* Reply to */}
             <div>
               <label style={{ display: 'block', marginBottom: 4, fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>
-                Reply to <span className="text-danger">*</span>
+                Reply to <span style={{ color: 'var(--color-danger)' }}>*</span>
               </label>
               <FormSelect
                 options={[

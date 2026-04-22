@@ -128,7 +128,7 @@ export const SettingsPageHeader: Story = {
 export const ProductsPageHeader: Story = {
   render: () => (
     <PageHeader title="Products">
-      <Button variant="secondary" className="border-primary bg-primary/5 text-primary">
+      <Button variant="secondary" style={{ borderColor: 'var(--color-primary)', backgroundColor: 'rgba(130,80,255,0.05)', color: 'var(--color-primary)' }}>
         Display archived products
       </Button>
       <Button variant="secondary">

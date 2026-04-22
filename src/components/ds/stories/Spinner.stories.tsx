@@ -99,7 +99,7 @@ export const InlineLoader: Story = {
   render: () => (
     <div style={{ width: 384, display: 'flex', flexDirection: 'column', gap: 16 }}>
       {/* AI generation in progress */}
-      <div className="bg-primary/5" style={{ borderRadius: 8, border: '1px solid var(--color-border)', borderColor: '#e9d5ff', padding: 16 }}>
+      <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', borderColor: '#e9d5ff', padding: 16, backgroundColor: 'rgba(130,80,255,0.05)' }}>
         <div style={{ marginBottom: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: '#7e22ce' }}>Subjective</span>
           <span style={{ fontSize: 11, lineHeight: 1.5, color: '#c084fc' }}>AI Assisted</span>

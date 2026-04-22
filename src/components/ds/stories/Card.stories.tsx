@@ -80,7 +80,7 @@ export const Default: Story = {
 export const WithTitle: Story = {
   args: {
     title: "SMS Balance",
-    children: <p className="text-metric-lg" style={{ color: 'var(--color-text)' }}>884 credits</p>,
+    children: <p style={{ fontFamily: "'Sprig Sans', 'Inter', sans-serif", fontSize: 30, fontWeight: 700, lineHeight: 1.2, fontVariantNumeric: 'tabular-nums', color: 'var(--color-text)' }}>884 credits</p>,
   },
   decorators: [(Story) => <div style={{ width: 320 }}>{Story()}</div>],
 };
@@ -89,10 +89,10 @@ export const NoPadding: Story = {
   args: {
     padding: "none",
     children: (
-      <div className="divide-y divide-border">
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
         <div style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Row one</div>
-        <div style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Row two</div>
-        <div style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>Row three</div>
+        <div style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, borderTop: '1px solid var(--color-border)' }}>Row two</div>
+        <div style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, borderTop: '1px solid var(--color-border)' }}>Row three</div>
       </div>
     ),
   },
@@ -255,17 +255,17 @@ export const StatCard: Story = {
     <div style={{ display: 'grid', width: 600, gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
       <Card>
         <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>Total revenue</p>
-        <p className="text-metric-lg" style={{ color: 'var(--color-text)', marginTop: 4 }}>$48,795</p>
+        <p style={{ fontFamily: "'Sprig Sans', 'Inter', sans-serif", fontSize: 30, fontWeight: 700, lineHeight: 1.2, fontVariantNumeric: 'tabular-nums', color: 'var(--color-text)', marginTop: 4 }}>$48,795</p>
         <p style={{ fontSize: 12, lineHeight: 1.67, color: '#16a34a', marginTop: 2 }}>+12.3% from last month</p>
       </Card>
       <Card>
         <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>Appointments</p>
-        <p className="text-metric-lg" style={{ color: 'var(--color-text)', marginTop: 4 }}>307</p>
+        <p style={{ fontFamily: "'Sprig Sans', 'Inter', sans-serif", fontSize: 30, fontWeight: 700, lineHeight: 1.2, fontVariantNumeric: 'tabular-nums', color: 'var(--color-text)', marginTop: 4 }}>307</p>
         <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)', marginTop: 2 }}>This month</p>
       </Card>
       <Card>
         <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>Utilisation</p>
-        <p className="text-metric-lg" style={{ color: 'var(--color-text)', marginTop: 4 }}>78.5%</p>
+        <p style={{ fontFamily: "'Sprig Sans', 'Inter', sans-serif", fontSize: 30, fontWeight: 700, lineHeight: 1.2, fontVariantNumeric: 'tabular-nums', color: 'var(--color-text)', marginTop: 4 }}>78.5%</p>
         <p style={{ fontSize: 12, lineHeight: 1.67, marginTop: 2, color: '#ef4444' }}>-2.1% from last month</p>
       </Card>
     </div>

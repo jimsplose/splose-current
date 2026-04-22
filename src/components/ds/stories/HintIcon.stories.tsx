@@ -194,7 +194,7 @@ export const AccountBalanceHints: Story = {
   name: "Recipe: Account Balance Hints",
   render: () => (
     <div style={{ width: 280 }}>
-      <div className="bg-primary" style={{ borderRadius: 8, padding: 16, color: '#fff' }}>
+      <div style={{ backgroundColor: 'var(--color-primary)', borderRadius: 8, padding: 16, color: '#fff' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <h3 style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57 }}>Account balance</h3>
           <HintIcon tone="inverted" size="lg" tooltip="Outstanding balance for this client" />

@@ -232,7 +232,7 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
 
       {/* Instruction hint while selecting */}
       {state === "selecting" && !region && (
-        <div className={`${styles.instructionHint} text-body-md`} style={{ color: '#fff' }}>
+        <div className={styles.instructionHint} style={{ color: '#fff', fontSize: 14, lineHeight: 1.57 }}>
           Click and drag to select the problem area. Press Escape to cancel.
         </div>
       )}
@@ -249,7 +249,8 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
             onChange={(e) => setDescription(e.target.value)}
             placeholder="What's wrong here?"
             rows={3}
-            className={`${styles.descTextarea} text-body-md`}
+            className={styles.descTextarea}
+            style={{ fontSize: 14, lineHeight: 1.57 }}
             autoFocus
           />
 
@@ -259,7 +260,8 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
               <button
                 key={tag}
                 onClick={() => toggleCategory(tag)}
-                className={`${styles.tagBtn} ${categoryTags.has(tag) ? styles.tagBtnActive : ""} text-label-lg`}
+                className={`${styles.tagBtn} ${categoryTags.has(tag) ? styles.tagBtnActive : ""}`}
+                style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57 }}
               >
                 {tag}
               </button>
@@ -272,7 +274,8 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
               <button
                 key={tag}
                 onClick={() => toggleSeverity(tag)}
-                className={`${styles.tagBtn} ${severityTag === tag ? styles.tagBtnActive : ""} text-label-lg`}
+                className={`${styles.tagBtn} ${severityTag === tag ? styles.tagBtnActive : ""}`}
+                style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57 }}
               >
                 {tag}
               </button>
@@ -302,7 +305,7 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
           <div className={styles.capturingCard}>
             <div className={styles.capturingInner}>
               <div className={styles.spinner} />
-              <span className="text-body-md text-text">Capturing...</span>
+              <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>Capturing...</span>
             </div>
           </div>
         </div>
@@ -317,15 +320,16 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
           >
             {fallbackPrompt ? (
               <>
-                <h3 className={`${styles.errorTitle} text-heading-sm text-text`}>Clipboard unavailable</h3>
-                <p className={`${styles.errorText} text-body-sm text-text-secondary`}>
+                <h3 className={styles.errorTitle} style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)' }}>Clipboard unavailable</h3>
+                <p className={styles.errorText} style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>
                   Screenshot downloaded. Copy the prompt below manually:
                 </p>
                 <textarea
                   value={fallbackPrompt}
                   readOnly
                   rows={10}
-                  className={`${styles.fallbackTextarea} text-body-sm`}
+                  className={styles.fallbackTextarea}
+                  style={{ fontSize: 12, lineHeight: 1.67 }}
                   onFocus={(e) => e.target.select()}
                 />
                 <div className={styles.errorActions}>
@@ -336,8 +340,8 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
               </>
             ) : (
               <>
-                <h3 className={`${styles.errorTitle} text-heading-sm text-text`}>Capture failed</h3>
-                <p className={`${styles.errorText} text-body-sm text-text-secondary`}>{errorMessage}</p>
+                <h3 className={styles.errorTitle} style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)' }}>Capture failed</h3>
+                <p className={styles.errorText} style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>{errorMessage}</p>
                 <div className={styles.errorActions}>
                   <Button variant="ghost" size="sm" onClick={onClose}>
                     Dismiss
@@ -354,7 +358,7 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
 
       {/* Success toast */}
       {toastVisible && (
-        <div className={`${styles.toast} text-body-md`} style={{ color: '#fff' }}>
+        <div className={styles.toast} style={{ color: '#fff', fontSize: 14, lineHeight: 1.57 }}>
           Bugshot copied to clipboard + screenshot downloaded
         </div>
       )}

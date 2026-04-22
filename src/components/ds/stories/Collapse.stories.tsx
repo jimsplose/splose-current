@@ -156,7 +156,7 @@ export const ServiceEditSections: Story = {
 
       <Collapse title="Online booking" defaultOpen>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, paddingTop: 4, paddingBottom: 4 }}>
-          <div style={{ height: 20, width: 36, borderRadius: 9999 }} className="bg-primary" />
+          <div style={{ height: 20, width: 36, borderRadius: 9999, backgroundColor: 'var(--color-primary)' }} />
           <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>Enable online booking</span>
         </div>
       </Collapse>
@@ -190,7 +190,7 @@ export const AppointmentTemplateSections: Story = {
       <Collapse title="SMS" defaultOpen>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div style={{ height: 20, width: 36, borderRadius: 9999 }} className="bg-primary" />
+            <div style={{ height: 20, width: 36, borderRadius: 9999, backgroundColor: 'var(--color-primary)' }} />
             <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>Enable SMS notification</span>
           </div>
           <div>
@@ -210,7 +210,7 @@ export const AppointmentTemplateSections: Story = {
       <Collapse title="Email" defaultOpen>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div style={{ height: 20, width: 36, borderRadius: 9999 }} className="bg-primary" />
+            <div style={{ height: 20, width: 36, borderRadius: 9999, backgroundColor: 'var(--color-primary)' }} />
             <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>Enable email notification</span>
           </div>
           <div>

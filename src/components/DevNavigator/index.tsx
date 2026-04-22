@@ -86,7 +86,8 @@ export default function DevNavigator() {
       {!expanded ? (
         <button
           onClick={() => setExpanded(true)}
-          className={`${styles.toggleBtn} text-label-md`}
+          className={styles.toggleBtn}
+          style={{ fontSize: 12, fontWeight: 500, lineHeight: 1.67 }}
           title="Dev Navigator (Ctrl+Shift+N)"
         >
           &#9670; Nav
@@ -96,8 +97,8 @@ export default function DevNavigator() {
           {/* Header */}
           <div className={styles.header}>
             <div className={styles.headerLeft}>
-              <span className="text-heading-sm">Dev Navigator</span>
-              <span className={`${styles.headerBadge} text-caption-sm`}>
+              <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57 }}>Dev Navigator</span>
+              <span className={styles.headerBadge} style={{ fontSize: 11, lineHeight: 1.5 }}>
                 {pages} pages / {variants} variants
               </span>
             </div>
@@ -115,7 +116,8 @@ export default function DevNavigator() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search pages..."
-                className={`${styles.searchInput} text-body-sm`}
+                className={styles.searchInput}
+                style={{ fontSize: 12, lineHeight: 1.67 }}
                 autoFocus
               />
             </div>
@@ -127,11 +129,12 @@ export default function DevNavigator() {
               <div key={group} className={styles.groupWrapper}>
                 <button
                   onClick={() => toggleGroup(group)}
-                  className={`${styles.groupBtn} text-caption-sm`}
+                  className={styles.groupBtn}
+                  style={{ fontSize: 11, lineHeight: 1.5 }}
                 >
                   {expandedGroups.has(group) ? <DownOutlined style={{ fontSize: 12 }} /> : <RightOutlined style={{ fontSize: 12 }} />}
                   {group}
-                  <span className={`${styles.groupCount} text-caption-sm`}>{entries.length}</span>
+                  <span className={styles.groupCount} style={{ fontSize: 11, lineHeight: 1.5 }}>{entries.length}</span>
                 </button>
 
                 {expandedGroups.has(group) && (
@@ -147,7 +150,7 @@ export default function DevNavigator() {
 
           {/* Quick links */}
           <div className={styles.quickLinks}>
-            <a href="/storybook/index.html" target="_blank" rel="noopener" className={`${styles.quickLink} text-caption-sm`}>
+            <a href="/storybook/index.html" target="_blank" rel="noopener" className={styles.quickLink} style={{ fontSize: 11, lineHeight: 1.5 }}>
               Storybook ↗
             </a>
             <button
@@ -155,14 +158,15 @@ export default function DevNavigator() {
                 setBugshotActive(true);
                 setExpanded(false);
               }}
-              className={`${styles.quickLink} text-caption-sm`}
+              className={styles.quickLink}
+              style={{ fontSize: 11, lineHeight: 1.5 }}
             >
               Bugshot
             </button>
-            <span className={`${styles.quickLinkCount} text-caption-sm`}>
+            <span className={styles.quickLinkCount} style={{ fontSize: 11, lineHeight: 1.5 }}>
               {pages}p / {variants}v
             </span>
-            <button onClick={() => setExpanded(false)} className={`${styles.hideBtn} text-caption-sm`}>
+            <button onClick={() => setExpanded(false)} className={styles.hideBtn} style={{ fontSize: 11, lineHeight: 1.5 }}>
               Hide
             </button>
           </div>
@@ -233,7 +237,8 @@ function VariantLink({ page, variant, pathname }: { page: PageEntry; variant: St
   return (
     <Link
       href={url}
-      className={`${styles.variantLink} ${isActive ? styles.variantLinkActive : ""} text-caption-sm`}
+      className={`${styles.variantLink} ${isActive ? styles.variantLinkActive : ""}`}
+      style={{ fontSize: 11, lineHeight: 1.5 }}
     >
       {matchDotClass && <span className={`${styles.matchDot} ${matchDotClass}`} />}
       {variant.label}
