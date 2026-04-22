@@ -709,7 +709,7 @@ export default function ProductsPage() {
                       align="right"
                       trigger={
                         <button className={`inline-flex items-center justify-center rounded-[6px] border-none bg-transparent cursor-pointer ${pStyles.stockActionButton}`} style={{ height: 28, width: 28 }}>
-                          <MoreOutlined className="text-text-secondary" style={{ fontSize: 16 }} />
+                          <MoreOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
                         </button>
                       }
                       items={stockDropdownItems}
