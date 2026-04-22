@@ -1,7 +1,7 @@
 # Session 0: Splose story metadata infrastructure
 
 **Phase:** 0 (precursor to Wave 4)
-**Status:** Planned
+**Status:** In progress
 **Estimated size:** S
 **Jira ticket:** TBC, create before build session
 **Feature doc:** n/a
