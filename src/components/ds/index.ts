@@ -68,3 +68,5 @@ export { default as NumberInput } from "./NumberInput";
 export type { NumberInputProps, NumberInputSize, NumberInputFormat, NumberInputCurrency } from "./NumberInput";
 export { default as Drawer } from "./Drawer";
 export type { DrawerProps, DrawerSide, DrawerSize } from "./Drawer";
+export { alertDialog, default as AlertDialog } from "./AlertDialog";
+export type { ConfirmOptions, AlertDialogTone } from "./AlertDialog";

@@ -77,6 +77,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | Component | Use for |
 |---|---|
 | `Drawer` | Edge-anchored panel overlay for secondary surfaces (appointment details, filters, help). Sides: left/right/top/bottom (default right). Size tokens: sm=320, md=400, lg=560, xl=720 (or custom px). Props: `open`, `onClose`, `title`, `description`, `headerBar`, `footer` (sticky action row), `dismissOnOverlayClick`, `dismissOnEsc`. Use for contextual side panels; use `Modal` for blocking dialogs. |
+| `alertDialog.confirm` | Imperative blocking confirmation. `await alertDialog.confirm({ title, description, confirmLabel, cancelLabel, tone })` resolves `true` (confirmed) or `false` (cancel/escape/overlay). Tones: `primary` / `danger` / `warning`. Cancel autofocus by default. Use for destructive actions; use `Modal` for arbitrary content, `toast` for non-blocking confirmations. |
 | `Modal` | Dialog overlays with backdrop |
 | `Dropdown` | Action menus, context menus |
 | `AsyncSelect` | Searchable dropdown with async data fetching |
