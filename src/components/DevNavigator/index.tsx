@@ -7,6 +7,7 @@ import { stateRegistry, flattenRegistry, getVariantUrl, countVariants } from "@/
 import type { PageEntry, StateVariant } from "@/lib/state-registry";
 import { RightOutlined, DownOutlined, SearchOutlined, CloseOutlined } from "@ant-design/icons";
 import Bugshot from "./Bugshot";
+import RequestsPanel from "./RequestsPanel";
 import styles from "./DevNavigator.module.css";
 
 export default function DevNavigator() {
@@ -16,6 +17,8 @@ export default function DevNavigator() {
   const [search, setSearch] = useState("");
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
   const [bugshotActive, setBugshotActive] = useState(false);
+  const [activeTab, setActiveTab] = useState<'pages' | 'requests'>('pages');
+  const [newRequestOpen, setNewRequestOpen] = useState(false);
   const devNavRef = useRef<HTMLDivElement>(null);
 
   // Hide completely if ?devnav=0
@@ -106,69 +109,98 @@ export default function DevNavigator() {
             </button>
           </div>
 
-          {/* Search */}
-          <div className={styles.searchWrapper}>
-            <div className={styles.searchBox}>
-              <SearchOutlined style={{ fontSize: 14, color: "rgba(255,255,255,0.5)" }} />
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search pages..."
-                className={`${styles.searchInput} text-body-sm`}
-                autoFocus
-              />
-            </div>
-          </div>
-
-          {/* Page tree */}
-          <div className={styles.pageTree}>
-            {Array.from(filteredGroups).map(([group, entries]) => (
-              <div key={group} className={styles.groupWrapper}>
-                <button
-                  onClick={() => toggleGroup(group)}
-                  className={`${styles.groupBtn} text-caption-sm`}
-                >
-                  {expandedGroups.has(group) ? <DownOutlined style={{ fontSize: 12 }} /> : <RightOutlined style={{ fontSize: 12 }} />}
-                  {group}
-                  <span className={`${styles.groupCount} text-caption-sm`}>{entries.length}</span>
-                </button>
-
-                {expandedGroups.has(group) && (
-                  <div className={styles.groupChildren}>
-                    {entries.map((entry) => (
-                      <PageNode key={entry.path} entry={entry} pathname={pathname} depth={0} />
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Quick links */}
-          <div className={styles.quickLinks}>
-            <a href="/storybook/index.html" target="_blank" rel="noopener" className={`${styles.quickLink} text-caption-sm`}>
-              Storybook ↗
-            </a>
+          {/* Tabs */}
+          <div className={styles.tabBar}>
             <button
-              onClick={() => {
-                setBugshotActive(true);
-                setExpanded(false);
-              }}
-              className={`${styles.quickLink} text-caption-sm`}
+              className={`${styles.tabBtn} ${activeTab === 'pages' ? styles.tabBtnActive : ''} text-caption-sm`}
+              onClick={() => setActiveTab('pages')}
             >
-              Bugshot
+              Pages
             </button>
-            <span className={`${styles.quickLinkCount} text-caption-sm`}>
-              {pages}p / {variants}v
-            </span>
-            <button onClick={() => setExpanded(false)} className={`${styles.hideBtn} text-caption-sm`}>
-              Hide
+            <button
+              className={`${styles.tabBtn} ${activeTab === 'requests' ? styles.tabBtnActive : ''} text-caption-sm`}
+              onClick={() => setActiveTab('requests')}
+            >
+              Requests
             </button>
           </div>
+
+          {activeTab === 'pages' && (
+            <>
+              {/* Search */}
+              <div className={styles.searchWrapper}>
+                <div className={styles.searchBox}>
+                  <SearchOutlined style={{ fontSize: 14, color: "rgba(255,255,255,0.5)" }} />
+                  <input
+                    type="text"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="Search pages..."
+                    className={`${styles.searchInput} text-body-sm`}
+                    autoFocus
+                  />
+                </div>
+              </div>
+
+              {/* Page tree */}
+              <div className={styles.pageTree}>
+                {Array.from(filteredGroups).map(([group, entries]) => (
+                  <div key={group} className={styles.groupWrapper}>
+                    <button
+                      onClick={() => toggleGroup(group)}
+                      className={`${styles.groupBtn} text-caption-sm`}
+                    >
+                      {expandedGroups.has(group) ? <DownOutlined style={{ fontSize: 12 }} /> : <RightOutlined style={{ fontSize: 12 }} />}
+                      {group}
+                      <span className={`${styles.groupCount} text-caption-sm`}>{entries.length}</span>
+                    </button>
+
+                    {expandedGroups.has(group) && (
+                      <div className={styles.groupChildren}>
+                        {entries.map((entry) => (
+                          <PageNode key={entry.path} entry={entry} pathname={pathname} depth={0} />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* Quick links */}
+              <div className={styles.quickLinks}>
+                <a href="/storybook/index.html" target="_blank" rel="noopener" className={`${styles.quickLink} text-caption-sm`}>
+                  Storybook ↗
+                </a>
+                <button
+                  onClick={() => {
+                    setBugshotActive(true);
+                    setExpanded(false);
+                  }}
+                  className={`${styles.quickLink} text-caption-sm`}
+                >
+                  Bugshot
+                </button>
+                <span className={`${styles.quickLinkCount} text-caption-sm`}>
+                  {pages}p / {variants}v
+                </span>
+                <button onClick={() => setExpanded(false)} className={`${styles.hideBtn} text-caption-sm`}>
+                  Hide
+                </button>
+              </div>
+            </>
+          )}
+          {activeTab === 'requests' && <RequestsPanel onNewRequest={() => setNewRequestOpen(true)} />}
         </div>
       )}
       {bugshotActive && <Bugshot onClose={() => setBugshotActive(false)} devNavRef={devNavRef} />}
+      {newRequestOpen && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 9998, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ background: '#18181b', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 10, padding: 20, color: '#fff' }}>
+            <p style={{ fontSize: 12, marginBottom: 12 }}>New Request (stub — will be replaced in Task 10)</p>
+            <button onClick={() => setNewRequestOpen(false)} style={{ background: '#7c3aed', border: 'none', borderRadius: 4, color: '#fff', fontSize: 11, padding: '5px 12px', cursor: 'pointer' }}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

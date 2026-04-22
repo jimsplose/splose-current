@@ -272,3 +272,29 @@
 .matchYellow { background: #facc15; }
 .matchRed { background: #f87171; }
 .matchGray { background: #9ca3af; }
+
+/* Tab bar */
+.tabBar {
+  display: flex;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tabBtn {
+  flex: 1;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s;
+}
+
+.tabBtnActive {
+  color: #fff;
+  border-bottom-color: #7c3aed;
+}
