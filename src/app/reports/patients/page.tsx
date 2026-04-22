@@ -82,7 +82,7 @@ export default function ReportsPatientsPage() {
     >
       {showResults && (
         <>
-          <p className="text-body-md" style={{ margin: '16px 0', color: 'var(--color-text-secondary)' }}>{mockPatients.length} items found.</p>
+          <p style={{ fontSize: 14, lineHeight: 1.57, margin: '16px 0', color: 'var(--color-text-secondary)' }}>{mockPatients.length} items found.</p>
           <DataTable>
             <TableHead>
               <Th>Name</Th>

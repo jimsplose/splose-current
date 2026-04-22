@@ -73,25 +73,25 @@ export default function ReportsProgressNotesPage() {
         {/* Note template breakdown */}
         <div>
           <Card padding="none" style={{ marginBottom: 16 }}>
-            <table className="w-full">
+            <table style={{ width: '100%' }}>
               <thead>
-                <tr className="border-b border-border bg-fill-tertiary">
-                  <th className="p-2 px-4 text-left"><Text variant="label/lg" as="span">Note template</Text></th>
-                  <th className="p-2 px-4 text-right"><Text variant="label/lg" as="span">Number</Text></th>
+                <tr style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)' }}>
+                  <th style={{ padding: '8px 16px', textAlign: 'left' }}><Text variant="label/lg" as="span">Note template</Text></th>
+                  <th style={{ padding: '8px 16px', textAlign: 'right' }}><Text variant="label/lg" as="span">Number</Text></th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b border-border">
-                  <td className="p-2 px-4">
+                <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+                  <td style={{ padding: '8px 16px' }}>
                     <ColorDot color="green" label="AAA TEST" />
                   </td>
-                  <td className="p-2 px-4 text-right"><Text variant="body/md" as="span">1 (50.0%)</Text></td>
+                  <td style={{ padding: '8px 16px', textAlign: 'right' }}><Text variant="body/md" as="span">1 (50.0%)</Text></td>
                 </tr>
                 <tr>
-                  <td className="p-2 px-4">
+                  <td style={{ padding: '8px 16px' }}>
                     <ColorDot color="purple" label="Bill Gates Demo" />
                   </td>
-                  <td className="p-2 px-4 text-right"><Text variant="body/md" as="span">1 (50.0%)</Text></td>
+                  <td style={{ padding: '8px 16px', textAlign: 'right' }}><Text variant="body/md" as="span">1 (50.0%)</Text></td>
                 </tr>
               </tbody>
             </table>
@@ -115,25 +115,25 @@ export default function ReportsProgressNotesPage() {
         {/* Practitioner breakdown */}
         <div>
           <Card padding="none" style={{ marginBottom: 16 }}>
-            <table className="w-full">
+            <table style={{ width: '100%' }}>
               <thead>
-                <tr className="border-b border-border bg-fill-tertiary">
-                  <th className="p-2 px-4 text-left"><Text variant="label/lg" as="span">Practitioner</Text></th>
-                  <th className="p-2 px-4 text-right"><Text variant="label/lg" as="span">Number</Text></th>
+                <tr style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)' }}>
+                  <th style={{ padding: '8px 16px', textAlign: 'left' }}><Text variant="label/lg" as="span">Practitioner</Text></th>
+                  <th style={{ padding: '8px 16px', textAlign: 'right' }}><Text variant="label/lg" as="span">Number</Text></th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b border-border">
-                  <td className="p-2 px-4">
+                <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+                  <td style={{ padding: '8px 16px' }}>
                     <ColorDot color="green" label="Ruvi R." />
                   </td>
-                  <td className="p-2 px-4 text-right"><Text variant="body/md" as="span">1 (50.0%)</Text></td>
+                  <td style={{ padding: '8px 16px', textAlign: 'right' }}><Text variant="body/md" as="span">1 (50.0%)</Text></td>
                 </tr>
                 <tr>
-                  <td className="p-2 px-4">
+                  <td style={{ padding: '8px 16px' }}>
                     <ColorDot color="purple" label="Zoe Gomez" />
                   </td>
-                  <td className="p-2 px-4 text-right"><Text variant="body/md" as="span">1 (50.0%)</Text></td>
+                  <td style={{ padding: '8px 16px', textAlign: 'right' }}><Text variant="body/md" as="span">1 (50.0%)</Text></td>
                 </tr>
               </tbody>
             </table>

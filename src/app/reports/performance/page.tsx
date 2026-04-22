@@ -78,7 +78,7 @@ export default function ReportsPerformancePage() {
       </PageHeader>
 
       {/* Toolbar: date pill, period toggle, compare toggle */}
-      <Flex wrap="wrap" align="center" gap={12} className="mb-4">
+      <Flex wrap="wrap" align="center" gap={12} style={{ marginBottom: 16 }}>
         <Badge variant="green" shape="pill">11 Mar 2026 – 11 Mar 2026</Badge>
 
         {/* Period selector pills */}
@@ -93,13 +93,15 @@ export default function ReportsPerformancePage() {
                 paddingRight: 12,
                 paddingTop: 4,
                 paddingBottom: 4,
+                fontSize: 13,
+                fontWeight: 500,
+                lineHeight: 1.38,
                 transition: 'color 0.2s',
                 backgroundColor: period === opt.value ? 'var(--color-primary)' : 'transparent',
                 color: period === opt.value ? 'white' : 'var(--color-text-secondary)',
                 border: 'none',
                 cursor: 'pointer',
               }}
-              className="text-label-md"
             >
               {opt.label}
             </button>
@@ -117,7 +119,7 @@ export default function ReportsPerformancePage() {
       </Flex>
 
       {/* Filter buttons */}
-      <Flex wrap="wrap" align="center" gap={8} className="mb-6">
+      <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 24 }}>
         <Button>Add filter</Button>
         <Button>Save filters</Button>
         <Button>Load filters</Button>

@@ -53,8 +53,8 @@ export default function ReportsBilledItemsPage() {
       {showResults && (
         <>
           <Flex align="center" gap={8} style={{ margin: '16px 0' }}>
-            <span className="text-heading-md" style={{ fontWeight: 600 }}>Total invoiced: {totalInvoiced}</span>
-            <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>({mockBilledItems.length} items)</span>
+            <span style={{ fontSize: 16, fontWeight: 600, lineHeight: 1.5 }}>Total invoiced: {totalInvoiced}</span>
+            <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>({mockBilledItems.length} items)</span>
           </Flex>
           <DataTable>
             <TableHead>

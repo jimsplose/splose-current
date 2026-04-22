@@ -56,7 +56,7 @@ export default function ReportsUninvoicedPage() {
       {showResults && (
         <>
           <Card padding="sm" style={{ marginBottom: 16, backgroundColor: 'var(--color-fill-quaternary)' }}>
-            <p className="text-body-md" style={{ color: 'var(--color-text)' }}>
+            <p style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>
               <span style={{ fontWeight: 600 }}>{mockUninvoicedRows.length} uninvoiced appointments</span> found, total value:{" "}
               <span style={{ fontWeight: 600 }}>${totalValue.toLocaleString("en-AU", { minimumFractionDigits: 2 })}</span>
             </p>

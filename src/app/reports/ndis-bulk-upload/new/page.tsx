@@ -72,7 +72,7 @@ export default function NdisBulkUploadNewPage() {
 
         <div style={{ maxWidth: 512, margin: '0 auto', padding: 24 }}>
           <Card padding="lg" className="text-center">
-            <Flex justify="center" className="mb-4">
+            <Flex justify="center" style={{ marginBottom: 16 }}>
               <Flex align="center" justify="center" style={{ height: 56, width: 56, borderRadius: '50%', backgroundColor: '#dcfce7' }}>
                 <CheckCircleOutlined style={{ fontSize: 32, color: '#16a34a' }} />
               </Flex>
@@ -113,7 +113,7 @@ export default function NdisBulkUploadNewPage() {
               </Flex>
             </Flex>
 
-            <Flex justify="center" gap={12} className="mt-6">
+            <Flex justify="center" gap={12} style={{ marginTop: 24 }}>
               <Link href="/reports/ndis-bulk-upload">
                 <Button variant="primary">Back to uploads</Button>
               </Link>
@@ -135,8 +135,8 @@ export default function NdisBulkUploadNewPage() {
           </Button>
         </PageHeader>
 
-        <div className="p-6">
-          <Flex align="center" gap={16} className="mb-4">
+        <div style={{ padding: 24 }}>
+          <Flex align="center" gap={16} style={{ marginBottom: 16 }}>
             <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: '#f0fdf4', padding: '8px 12px' }}>
               <CheckCircleOutlined style={{ fontSize: 16, color: '#16a34a' }} />
               <Text variant="label/lg" as="span" color="#15803d">{validCount} valid</Text>
@@ -150,7 +150,7 @@ export default function NdisBulkUploadNewPage() {
             </Text>
           </Flex>
 
-          <Card padding="none" className="overflow-hidden">
+          <Card padding="none" style={{ overflow: 'hidden' }}>
             <DataTable>
               <TableHead>
                 <Th>Line</Th>
@@ -165,8 +165,8 @@ export default function NdisBulkUploadNewPage() {
                 {mockValidationResults.map((row) => (
                   <tr
                     key={row.line}
-                    className="border-b border-border"
                     style={{
+                      borderBottom: '1px solid var(--color-border)',
                       backgroundColor: row.status === "error" ? 'rgba(254, 242, 242, 0.5)' : undefined,
                     }}
                   >
@@ -208,9 +208,9 @@ export default function NdisBulkUploadNewPage() {
 
       <Flex vertical gap={24} style={{ maxWidth: 672, padding: 24 }}>
         <div>
-          <Text variant="body/sm" as="label" color="secondary" className="block mb-1">Date range *</Text>
+          <Text variant="body/sm" as="label" color="secondary" style={{ display: 'block', marginBottom: 4 }}>Date range *</Text>
           <DateRangeFilter startDate="2026-03-01" endDate="2026-03-27" />
-          <Text variant="caption/md" as="p" color="secondary" className="mt-1">
+          <Text variant="caption/md" as="p" color="secondary" style={{ marginTop: 4 }}>
             12 support items from 1 Mar 2026 to 27 Mar 2026 at all practitioners
           </Text>
         </div>
@@ -227,7 +227,7 @@ export default function NdisBulkUploadNewPage() {
         <FormInput label="Reference (optional)" placeholder="e.g. March 2026 upload" />
 
         <div>
-          <Text variant="label/lg" as="label" color="secondary" className="block mb-1">Upload file *</Text>
+          <Text variant="label/lg" as="label" color="secondary" style={{ display: 'block', marginBottom: 4 }}>Upload file *</Text>
           {fileName ? (
             <Card padding="md">
               <Flex align="center" gap={12}>
@@ -255,7 +255,7 @@ export default function NdisBulkUploadNewPage() {
               className="cursor-pointer"
             />
           )}
-          <Text variant="caption/md" as="p" color="secondary" className="mt-1">
+          <Text variant="caption/md" as="p" color="secondary" style={{ marginTop: 4 }}>
             Upload a CSV file with NDIS claim data. Required columns: Client, Service Date, Support Item Number, Amount.
           </Text>
         </div>

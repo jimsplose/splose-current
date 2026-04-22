@@ -61,8 +61,8 @@ export default function ReportsPaymentsPage() {
       {showResults && (
         <>
           <Flex align="center" gap={8} style={{ margin: '16px 0' }}>
-            <span className="text-heading-md" style={{ fontWeight: 600 }}>Total: {total}</span>
-            <span className="text-body-md" style={{ color: 'var(--color-text-secondary)' }}>({mockPayments.length} payments)</span>
+            <span style={{ fontSize: 16, fontWeight: 600, lineHeight: 1.5 }}>Total: {total}</span>
+            <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>({mockPayments.length} payments)</span>
           </Flex>
           <DataTable>
             <TableHead>
