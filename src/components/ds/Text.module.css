@@ -137,3 +137,13 @@
 .weightRegular { font-weight: 400; }
 .weightMedium  { font-weight: 500; }
 .weightBold    { font-weight: 700; }
+
+/* ── Color presets (replaces globals.css utility classes) ── */
+.colorText      { color: var(--color-text, #414549); }
+.colorSecondary { color: var(--color-text-secondary, #6E6E64); }
+.colorTertiary  { color: var(--ant-color-text-tertiary, #b8bcc0); }
+.colorPrimary   { color: var(--color-primary, #8250FF); }
+.colorDanger    { color: var(--color-error, #D00032); }
+.colorWarning   { color: var(--color-warning, #FFD232); }
+.colorSuccess   { color: var(--color-success, #00C269); }
+.colorInverted  { color: #ffffff; }

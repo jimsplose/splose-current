@@ -1,6 +1,7 @@
 "use client";
 
 import { Statistic } from "antd";
+import Text from "./Text";
 
 interface StatProps {
   value: React.ReactNode;
@@ -24,7 +25,7 @@ export default function Stat({ value, label, description, align = "left", color,
         valueStyle={Object.keys(mergedValueStyle).length > 0 ? mergedValueStyle : undefined}
       />
       {description && (
-        <p className="text-caption-md text-text-secondary" style={{ marginTop: 4 }}>{description}</p>
+        <Text variant="caption/md" color="secondary" style={{ marginTop: 4 }}>{description}</Text>
       )}
     </div>
   );

@@ -52,14 +52,14 @@ const weightClass: Record<TextWeight, string> = {
 };
 
 const colorPresets: Record<string, string> = {
-  text: "text-text",
-  secondary: "text-text-secondary",
-  tertiary: "text-text-tertiary",
-  primary: "text-primary",
-  danger: "text-danger",
-  warning: "text-warning",
-  success: "text-success",
-  inverted: "text-text-inverted",
+  text: styles.colorText,
+  secondary: styles.colorSecondary,
+  tertiary: styles.colorTertiary,
+  primary: styles.colorPrimary,
+  danger: styles.colorDanger,
+  warning: styles.colorWarning,
+  success: styles.colorSuccess,
+  inverted: styles.colorInverted,
 };
 
 const defaultElement: Record<string, ElementType> = {
@@ -79,7 +79,7 @@ function getCategory(variant: TextVariant): string {
 function resolveColor(color?: string): { className?: string; style?: { color: string } } {
   if (!color) return {};
   if (color in colorPresets) return { className: colorPresets[color] };
-  if (color.startsWith("text-")) return { className: color };
+  // Raw CSS value (hex, rgb, named colour) → inline style
   return { style: { color } };
 }
 

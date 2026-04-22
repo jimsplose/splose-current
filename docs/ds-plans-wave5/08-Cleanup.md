@@ -30,12 +30,20 @@ This plan:
 Run the comprehensive pre-deletion grep. **Must return 0 lines**:
 
 ```bash
+# 1. JSX className attribute references (page code + DS components)
 grep -rn \
   'className=.*text-body-\|className=.*text-heading-\|className=.*text-label-\|className=.*text-caption-\|className=.*text-display-\|className=.*text-metric-\|className=.*\btext-text\b\|className=.*text-text-secondary\|className=.*text-text-tertiary\|className=.*text-text-inverted\|className=.*text-primary\b\|className=.*text-danger\b\|className=.*text-success\b\|className=.*text-warning\b\|className=.*border-border\|className=.*border-primary\|className=.*divide-border\|className=.*bg-primary\|className=.*\bmb-[0-9]\|className=.*\bmt-[0-9]\|className=.*\bp-[0-9]\b\|className=.*\bpt-[0-9]\|className=.*\bpb-[0-9]\|className=.*\bflex-1\b\|className=.*\bshrink-0\b\|className=.*\bw-full\b\|className=.*\bmax-w-2xl\b\|className=.*\boverflow-hidden\b\|className=.*\boverflow-y-auto\b\|className=.*\bborder-b\b\|row-hover\|hover-underline-on-row-hover\|ai-typing-dot\|ai-chat-button-reset\|ai-chat-input-reset' \
   src/app src/components --include='*.tsx'
+
+# 2. JS string references in DS component internals (e.g. colorPresets map in Text.tsx)
+grep -rn \
+  '"text-text-secondary"\|"text-text-tertiary"\|"text-text-inverted"\|"text-primary"\|"text-danger"\|"text-text"\b\|"text-body-\|"text-heading-\|"text-label-\|"text-caption-\|"text-display-' \
+  src/components/ds --include='*.tsx' | grep -v stories | grep -v '\.stories\.'
 ```
 
-**If ANY lines return, stop.** Go back to the appropriate Wave 5 plan and migrate the stragglers before continuing.
+**If ANY lines return from either grep, stop.** Go back to the appropriate Wave 5 plan and migrate the stragglers before continuing.
+
+> **Note (2026-04-22):** The two non-className DS usages (`Text.tsx` colorPresets, `Stat.tsx` description paragraph) were fixed as part of the revised Plan 04 scope. The second grep above validates those remain clean.
 
 ### 2. Remove utility blocks from globals.css
 
