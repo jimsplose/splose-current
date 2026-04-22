@@ -1,0 +1,18 @@
+## Plan 02 — Payments Surface Verification
+Date: 2026-04-22
+Viewport: 1440×900
+Environment: localhost:3000
+
+### Chrome MCP measurements
+
+#### /payments
+- Td color="secondary" (date column): rgb(110, 110, 100) ✓
+- Text variant="label/lg" in expand row header: 14px/600 ✓
+
+#### /payments/new
+- tr utility-class removed: borderBottom inline style applied ✓
+- FormInput, FormSelect, FormTextarea, DataTable, EmptyState all render ✓
+
+### Utility-class zero check
+- src/app/payments/**: 0 text-body-*, text-label-*, text-primary, border-b className on tr
+- tsc: 0 errors / next build: PASS

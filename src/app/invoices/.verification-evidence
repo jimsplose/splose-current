@@ -1,0 +1,60 @@
+## Plan 02 — Invoice Surface Verification
+Date: 2026-04-22
+Viewport: 1440×900
+Environment: localhost:3000
+
+### Surfaces migrated
+- src/app/invoices/InvoicesClient.tsx
+- src/app/invoices/[id]/InvoiceDetailClient.tsx
+- src/app/invoices/[id]/page.tsx
+- src/app/invoices/batch-invoice/page.tsx
+- src/app/invoices/batch-invoice/preview/page.tsx
+- src/app/invoices/batch-invoice/[id]/page.tsx
+- src/app/payments/page.tsx
+- src/app/payments/new/page.tsx
+- src/app/clients/[id]/invoices/page.tsx
+- src/app/reports/aged-debtors/page.tsx
+
+### Chrome MCP measurements
+
+#### /invoices (InvoicesClient)
+- PaymentStatusBadge "Overdue": color rgb(208, 0, 50) ✓ red variant
+- PaymentStatusBadge "Draft": gray variant ✓
+- PaymentStatusBadge "Paid": green variant ✓
+- Td color="primary" (client name): rgb(130, 80, 255) ✓
+- Td color="secondary" (location/practitioner/date): rgb(110, 110, 100) ✓
+- Text variant="label/md" filter label: 12px / 500 / rgb(110, 110, 100) ✓
+
+#### /payments (payments page)
+- Td color="secondary" (date): rgb(110, 110, 100) ✓
+- Payment expand row: Text variant="label/lg" renders 14px/600 ✓
+
+#### /reports/aged-debtors (run report clicked)
+- Text variant="heading/lg" (aging amount): 18px / 700 / rgb(22, 163, 74) ✓
+- Text variant="label/md" (aging label "Current"): 12px / 500 / rgb(110, 110, 100) ✓
+- Td color="primary" (client name): rgb(130, 80, 255) ✓
+- 8 table rows rendered ✓
+
+#### /invoices/batch-invoice (preview step)
+- Text variant="body/md" "7 invoices will be created": 14px / rgb(110, 110, 100) ✓
+- Td color="primary" (invoice number INV-0142): rgb(130, 80, 255) ✓
+- 7 rows rendered ✓
+- Utility classes from nav/shell only (text-heading-lg in NavBar, text-label-md in avatar — not page content)
+
+#### /clients/[id]/invoices
+- Pre-existing server error on all client IDs tested (same DB connectivity issue as /invoices/[id])
+- Components (Td color=, PaymentStatusBadge, Text) verified on /invoices list page — identical rendering logic
+- Code changes were utility-class removal only; no logic changes
+
+### Utility-class zero check (post-migration grep)
+- src/app/invoices/**:  0 text-body-*, text-label-*, text-heading-*, text-display-*, text-primary, text-text-secondary on Td
+- src/app/payments/**:  0 text-body-*, text-label-*, text-heading-*, text-primary, text-text-secondary on Td
+- 0 border-b border-border className on tr elements
+- tsc: 0 errors
+- next build: PASS
+
+### DS adoption
+- PaymentStatusBadge: adopted across all invoice surfaces, extended with "sent"/"cancelled" statuses
+- dbStatusToPaymentStatus(): new helper exported from DS index
+- Text variant: all typography utility classes replaced
+- Td color prop: all table cell color classes replaced
