@@ -30,7 +30,8 @@ import {
   SearchOutlined,
   CheckOutlined,
 } from "@ant-design/icons";
-import { Button, Badge, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert, Dropdown, Card, RadioGroup, Text, Icon } from "@/components/ds";
+import { Button, Badge, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert, Card, RadioGroup, Text, Icon, AppointmentCard, SegmentedControl, ContextMenu, HoverCard, Drawer } from "@/components/ds";
+import type { AppointmentStatus } from "@/components/ds";
 import AiChatPanel from "@/components/AiChatPanel";
 import styles from "./CalendarView.module.css";
 
@@ -182,6 +183,16 @@ function getContrastText(color: string): string {
 
 function isGroupAppointment(appt: Appointment): boolean {
   return appt.type.toLowerCase().includes("group");
+}
+
+function mapApptStatus(status: string): AppointmentStatus {
+  switch (status.toLowerCase()) {
+    case "confirmed": return "confirmed";
+    case "no show": return "no-show";
+    case "cancelled": return "cancelled";
+    case "completed": return "completed";
+    default: return "scheduled";
+  }
 }
 
 function isDateInPast(dateStr: string): boolean {
@@ -572,33 +583,25 @@ export default function CalendarView({
               </svg>
             </button>
 
-            <Dropdown
-              trigger={
-                <button className={styles.dropdownTrigger}>
-                  {calendarMode} <span className={styles.dropdownArrow}>&#9662;</span>
-                </button>
-              }
-              items={[
-                { label: "Calendar", value: "Calendar" },
-                { label: "Rooms/resources", value: "Rooms/resources" },
+            <SegmentedControl
+              options={[
+                { value: "Calendar", label: "Calendar" },
+                { value: "Rooms/resources", label: "Rooms" },
               ]}
-              onSelect={(v) => setCalendarMode(v as CalendarMode)}
-              align="right"
+              value={calendarMode}
+              onChange={(v) => setCalendarMode(v as CalendarMode)}
+              aria-label="Calendar or Rooms view"
             />
 
-            <Dropdown
-              trigger={
-                <button className={styles.dropdownTrigger}>
-                  {viewMode} <span className={styles.dropdownArrow}>&#9662;</span>
-                </button>
-              }
-              items={[
-                { label: "Month", value: "Month" },
-                { label: "Week", value: "Week" },
-                { label: "Day", value: "Day" },
+            <SegmentedControl
+              options={[
+                { value: "Week", label: "Week" },
+                { value: "Day", label: "Day" },
+                { value: "Month", label: "Month" },
               ]}
-              onSelect={(v) => setViewMode(v as ViewMode)}
-              align="right"
+              value={viewMode}
+              onChange={(v) => setViewMode(v as ViewMode)}
+              aria-label="Calendar view"
             />
           </div>
         </div>
@@ -657,44 +660,68 @@ export default function CalendarView({
                             const isUnavailable = hour < pracAvailStart || hour >= pracAvailEnd;
                             pracIdx++;
                             return (
-                              <div
+                              <ContextMenu
                                 key={prac.id}
-                                className={styles.dayViewPracCell}
-                                style={{
-                                  height: HOUR_HEIGHT,
-                                  // eslint-disable-next-line no-restricted-syntax -- dynamic grid cell shading (unavailable / alternating)
-                                  backgroundColor: isUnavailable ? "#f0f0f0" : gi % 2 === 0 ? "#f3f4f6" : "#ffffff",
-                                }}
-                                onClick={(e) => handleDayCellClick(e, currentDay, hour, prac)}
+                                items={[
+                                  { id: "new-appt", label: "New appointment", onSelect: () => openCreateModal(currentDay, hour, 0, prac.id) },
+                                  { id: "new-busy", label: "New busy time", divider: true },
+                                  { id: "new-activity", label: "New support activity" },
+                                ]}
                               >
-                                <div className={styles.subdivisionLines}>
-                                  <div className={styles.subdivisionLine25} />
-                                  <div className={styles.subdivisionLine50} />
-                                  <div className={styles.subdivisionLine75} />
+                                <div
+                                  className={styles.dayViewPracCell}
+                                  style={{
+                                    height: HOUR_HEIGHT,
+                                    // eslint-disable-next-line no-restricted-syntax -- dynamic grid cell shading (unavailable / alternating)
+                                    backgroundColor: isUnavailable ? "#f0f0f0" : gi % 2 === 0 ? "#f3f4f6" : "#ffffff",
+                                  }}
+                                  onClick={(e) => handleDayCellClick(e, currentDay, hour, prac)}
+                                >
+                                  <div className={styles.subdivisionLines}>
+                                    <div className={styles.subdivisionLine25} />
+                                    <div className={styles.subdivisionLine50} />
+                                    <div className={styles.subdivisionLine75} />
+                                  </div>
+                                  {hourAppts.map((appt) => {
+                                    const pos = getApptStyle(appt);
+                                    return (
+                                      <ContextMenu
+                                        key={appt.id}
+                                        items={[
+                                          { id: "edit", label: "Edit", onSelect: () => { setSelectedAppt(appt); setShowEditModal(true); } },
+                                          { id: "duplicate", label: "Duplicate" },
+                                          { id: "reschedule", label: "Reschedule", divider: true },
+                                          { id: "cancel", label: "Cancel", tone: "danger" },
+                                        ]}
+                                      >
+                                        <HoverCard
+                                          content={
+                                            <div>
+                                              <Text variant="label/lg" as="div" color="text">{appt.clientName}</Text>
+                                              <Text variant="body/sm" as="div" color="secondary">{formatTime12h(appt.startTime)} – {formatTime12h(appt.endTime)}</Text>
+                                              <Text variant="body/sm" as="div" color="secondary">{appt.type}</Text>
+                                              <Text variant="body/sm" as="div" color="secondary">{appt.practitionerName}</Text>
+                                            </div>
+                                          }
+                                          side="right"
+                                        >
+                                          <AppointmentCard
+                                            time={`${formatTime12h(appt.startTime)} – ${formatTime12h(appt.endTime)}`}
+                                            patientName={appt.clientName}
+                                            service={appt.type}
+                                            practitioner={appt.practitionerName}
+                                            status={mapApptStatus(appt.status)}
+                                            tone={lightenColor(appt.practitionerColor, 0.7)}
+                                            density="standard"
+                                            onClick={(e) => { e.stopPropagation(); setSelectedAppt(appt); }}
+                                            style={{ position: "absolute", left: 2, right: 2, ...pos }}
+                                          />
+                                        </HoverCard>
+                                      </ContextMenu>
+                                    );
+                                  })}
                                 </div>
-                                {hourAppts.map((appt) => {
-                                  const pos = getApptStyle(appt);
-                                  return (
-                                    <div
-                                      key={appt.id}
-                                      className={styles.apptBlock}
-                                      style={{
-                                        // eslint-disable-next-line no-restricted-syntax -- per-appointment practitioner color (dynamic)
-                                        backgroundColor: lightenColor(appt.practitionerColor, 0.7),
-                                        // eslint-disable-next-line no-restricted-syntax -- always-black text on lightened color chip
-                                        color: "rgb(0, 0, 0)",
-                                        opacity: appt.status === "Cancelled" ? 0.5 : undefined,
-                                        ...pos,
-                                      }}
-                                      onClick={(e) => { e.stopPropagation(); setSelectedAppt(appt); }}
-                                    >
-                                      <p className={styles.apptClientName}>{appt.clientName} {getStatusIcons(appt)}</p>
-                                      <p className={styles.apptTime}>{formatTime12h(appt.startTime)} – {formatTime12h(appt.endTime)}</p>
-                                      <p className={styles.apptType}>{appt.type}</p>
-                                    </div>
-                                  );
-                                })}
-                              </div>
+                              </ContextMenu>
                             );
                           })
                         );
@@ -800,39 +827,63 @@ export default function CalendarView({
                                   const isUnavailable = hour < pracAvailStart || hour >= pracAvailEnd;
                                   colIndex++;
                                   return (
-                                    <div
+                                    <ContextMenu
                                       key={prac.id}
-                                      className={styles.pracSubCol}
-                                      style={{
-                                        ...(useFlexible ? { flex: 1 } : { width: COL_W }),
-                                        // eslint-disable-next-line no-restricted-syntax -- dynamic grid cell shading (unavailable / alternating)
-                                        backgroundColor: isUnavailable ? "#f0f0f0" : gi % 2 === 0 ? "#f3f4f6" : "#ffffff",
-                                      }}
-                                      onClick={(e) => handleCellClick(e, dateStr, hour)}
+                                      items={[
+                                        { id: "new-appt", label: "New appointment", onSelect: () => openCreateModal(dateStr, hour, 0, prac.id) },
+                                        { id: "new-busy", label: "New busy time", divider: true },
+                                        { id: "new-activity", label: "New support activity" },
+                                      ]}
                                     >
-                                      {hourAppts.map((appt) => {
-                                        const pos = getApptStyle(appt);
-                                        return (
-                                          <div
-                                            key={appt.id}
-                                            className={styles.apptBlockSmall}
-                                            style={{
-                                              // eslint-disable-next-line no-restricted-syntax -- per-appointment practitioner color (dynamic)
-                                              backgroundColor: lightenColor(appt.practitionerColor, 0.7),
-                                              // eslint-disable-next-line no-restricted-syntax -- always-black text on lightened color chip
-                                              color: "rgb(0, 0, 0)",
-                                              opacity: appt.status === "Cancelled" ? 0.5 : undefined,
-                                              ...pos,
-                                            }}
-                                            onClick={(e) => { e.stopPropagation(); setSelectedAppt(appt); }}
-                                          >
-                                            <p className={styles.apptClientName}>{appt.clientName} {getStatusIcons(appt)}</p>
-                                            <p className={styles.apptTime}>{formatTime12h(appt.startTime)}</p>
-                                            <p className={styles.apptType}>{appt.type}</p>
-                                          </div>
-                                        );
-                                      })}
-                                    </div>
+                                      <div
+                                        className={styles.pracSubCol}
+                                        style={{
+                                          ...(useFlexible ? { flex: 1 } : { width: COL_W }),
+                                          // eslint-disable-next-line no-restricted-syntax -- dynamic grid cell shading (unavailable / alternating)
+                                          backgroundColor: isUnavailable ? "#f0f0f0" : gi % 2 === 0 ? "#f3f4f6" : "#ffffff",
+                                        }}
+                                        onClick={(e) => handleCellClick(e, dateStr, hour)}
+                                      >
+                                        {hourAppts.map((appt) => {
+                                          const pos = getApptStyle(appt);
+                                          return (
+                                            <ContextMenu
+                                              key={appt.id}
+                                              items={[
+                                                { id: "edit", label: "Edit", onSelect: () => { setSelectedAppt(appt); setShowEditModal(true); } },
+                                                { id: "duplicate", label: "Duplicate" },
+                                                { id: "reschedule", label: "Reschedule", divider: true },
+                                                { id: "cancel", label: "Cancel", tone: "danger" },
+                                              ]}
+                                            >
+                                              <HoverCard
+                                                content={
+                                                  <div>
+                                                    <Text variant="label/lg" as="div" color="text">{appt.clientName}</Text>
+                                                    <Text variant="body/sm" as="div" color="secondary">{formatTime12h(appt.startTime)}</Text>
+                                                    <Text variant="body/sm" as="div" color="secondary">{appt.type}</Text>
+                                                    <Text variant="body/sm" as="div" color="secondary">{appt.practitionerName}</Text>
+                                                  </div>
+                                                }
+                                                side="right"
+                                              >
+                                                <AppointmentCard
+                                                  time={formatTime12h(appt.startTime)}
+                                                  patientName={appt.clientName}
+                                                  service={appt.type}
+                                                  practitioner={appt.practitionerName}
+                                                  status={mapApptStatus(appt.status)}
+                                                  tone={lightenColor(appt.practitionerColor, 0.7)}
+                                                  density="compact"
+                                                  onClick={(e) => { e.stopPropagation(); setSelectedAppt(appt); }}
+                                                  style={{ position: "absolute", left: 1, right: 1, ...pos }}
+                                                />
+                                              </HoverCard>
+                                            </ContextMenu>
+                                          );
+                                        })}
+                                      </div>
+                                    </ContextMenu>
                                   );
                                 })
                               );
@@ -871,8 +922,8 @@ export default function CalendarView({
             <div className={styles.roomsOverlayIcon}>
               <Icon as={AppstoreOutlined} size="4xl" tone="tertiary" />
             </div>
-            <p className="text-body-md text-text-secondary">Rooms/Resources view</p>
-            <p className="text-caption-md text-text-secondary mt-1">Select rooms to display in the calendar</p>
+            <Text variant="body/md" as="p" color="secondary">Rooms/Resources view</Text>
+            <Text variant="caption/md" as="p" color="secondary" style={{ marginTop: 4 }}>Select rooms to display in the calendar</Text>
           </div>
         </div>
       )}
@@ -890,12 +941,13 @@ export default function CalendarView({
             style={{ boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)' }}
           >
             <div style={{ padding: "12px 12px 4px" }}>
-              <p className="text-heading-sm text-text">{popover.time}</p>
+              <Text variant="heading/sm" as="p" color="text">{popover.time}</Text>
             </div>
             <div style={{ padding: "4px 0" }}>
               <Button
                 variant="ghost"
-                className="w-full pt-2 pb-2" style={{ justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12 }}
+                block
+                style={{ justifyContent: 'flex-start', gap: 10, paddingTop: 8, paddingBottom: 8, paddingLeft: 12, paddingRight: 12 }}
                 onClick={() => setPopover((prev) => ({ ...prev, visible: false }))}
               >
                 <Icon as={ClockCircleOutlined} size="lg" tone="secondary" />
@@ -903,7 +955,8 @@ export default function CalendarView({
               </Button>
               <Button
                 variant="ghost"
-                className="w-full pt-2 pb-2" style={{ justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12 }}
+                block
+                style={{ justifyContent: 'flex-start', gap: 10, paddingTop: 8, paddingBottom: 8, paddingLeft: 12, paddingRight: 12 }}
                 onClick={() => setPopover((prev) => ({ ...prev, visible: false }))}
               >
                 <Icon as={StopOutlined} size="lg" tone="secondary" />
@@ -911,7 +964,8 @@ export default function CalendarView({
               </Button>
               <Button
                 variant="ghost"
-                className="w-full pt-2 pb-2" style={{ justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12 }}
+                block
+                style={{ justifyContent: 'flex-start', gap: 10, paddingTop: 8, paddingBottom: 8, paddingLeft: 12, paddingRight: 12 }}
                 onClick={() => openCreateModal(popover.dateStr, popover.hour, popover.minute, popover.practitionerId)}
               >
                 <Icon as={CalendarOutlined} size="lg" tone="secondary" />
@@ -919,7 +973,8 @@ export default function CalendarView({
               </Button>
               <Button
                 variant="ghost"
-                className="w-full pt-2 pb-2" style={{ justifyContent: 'flex-start', gap: 10, paddingLeft: 12, paddingRight: 12 }}
+                block
+                style={{ justifyContent: 'flex-start', gap: 10, paddingTop: 8, paddingBottom: 8, paddingLeft: 12, paddingRight: 12 }}
                 onClick={() => setPopover((prev) => ({ ...prev, visible: false }))}
               >
                 <Icon as={CheckOutlined} size="lg" tone="secondary" />
@@ -1161,25 +1216,25 @@ export default function CalendarView({
             <div className={styles.notificationBox}>
               <div className={styles.notificationHeader}>
                 <Icon as={MailOutlined} size="lg" tone="primary" />
-                <span className="text-label-lg text-text">Notification preview</span>
+                <Text variant="label/lg" as="span" color="text">Notification preview</Text>
               </div>
-              <p className="text-body-sm text-text-secondary mb-3">
+              <Text variant="body/sm" as="p" color="secondary" style={{ marginBottom: 12 }}>
                 Client won&apos;t be notified of changes. To notify the client, use Reschedule instead.
-              </p>
+              </Text>
               <div className={styles.notificationPreview}>
-                <p className="text-body-sm text-text-secondary">If using Reschedule, the client will receive:</p>
+                <Text variant="body/sm" as="p" color="secondary">If using Reschedule, the client will receive:</Text>
                 <div className={styles.emailPreview}>
-                  <p className="text-body-sm text-text-secondary">Subject: <span className="text-text">Your appointment has been rescheduled</span></p>
-                  <p className="text-body-sm text-text-secondary mt-1">
+                  <Text variant="body/sm" as="p" color="secondary">Subject: <Text as="span" color="text">Your appointment has been rescheduled</Text></Text>
+                  <Text variant="body/sm" as="p" color="secondary" style={{ marginTop: 4 }}>
                     Hi {selectedAppt.clientName.split(" ")[0]}, your appointment with {selectedAppt.practitionerName} has been moved to a new time. Please check your updated appointment details.
-                  </p>
+                  </Text>
                 </div>
               </div>
             </div>
             <div className={styles.changeLogSection}>
               <div className={styles.changeLogHeader}>
                 <Icon as={HistoryOutlined} size="lg" tone="secondary" />
-                <span className="text-label-lg text-text">Change log</span>
+                <Text variant="label/lg" as="span" color="text">Change log</Text>
               </div>
               <div className={styles.changeLogEntries}>
                 {[
@@ -1190,8 +1245,8 @@ export default function CalendarView({
                   <div key={i} className={styles.changeLogEntry}>
                     <div className={styles.logDot} />
                     <div className={styles.changeLogEntryContent}>
-                      <p className="text-body-sm text-text">{log.action}</p>
-                      <p className="text-caption-md text-text-secondary">{log.user} · {log.date}</p>
+                      <Text variant="body/sm" as="p" color="text">{log.action}</Text>
+                      <Text variant="caption/md" as="p" color="secondary">{log.user} · {log.date}</Text>
                     </div>
                   </div>
                 ))}
@@ -1318,7 +1373,6 @@ function AppointmentSidePanel({
   appt,
   onClose,
   onEdit,
-  isMonthView,
 }: {
   appt: Appointment;
   onClose: () => void;
@@ -1328,48 +1382,40 @@ function AppointmentSidePanel({
   const isGroup = isGroupAppointment(appt);
 
   return (
-    <>
-      <div className={styles.sidePanelBackdrop} onClick={onClose} />
-      <div className={styles.sidePanelFixed}>
-        <div className={styles.sidePanelContent}>
-          <div
-            className={styles.sidePanelHeader}
-            // eslint-disable-next-line no-restricted-syntax -- per-appointment practitioner color (dynamic header background)
-            style={{ backgroundColor: appt.practitionerColor, margin: -16, marginBottom: 0, padding: '12px 16px', borderRadius: '8px 8px 0 0' }}
-          >
-            <div className={styles.sidePanelTitle}>
-              <ColorDot color="#fff" size="sm" />
-              <Text variant="heading/sm" as="span" color="inverted">
-                {appt.type}
-              </Text>
-            </div>
-            {/* eslint-disable-next-line no-restricted-syntax -- white close icon on dynamic colored header */}
-            <Button variant="icon" size="sm" onClick={onClose} style={{ color: '#fff' }}>
-              <Icon as={CloseOutlined} size="lg" tone="inverted" />
-            </Button>
-          </div>
-
-          {isGroup ? (
-            <GroupAppointmentDetails appt={appt} />
-          ) : (
-            <SingleAppointmentDetails appt={appt} />
+    <Drawer
+      open
+      onClose={onClose}
+      side="right"
+      size="lg"
+      title={appt.type}
+      description={appt.clientName}
+      footer={
+        <div style={{ display: "flex", gap: 8 }}>
+          {!isGroup && (
+            <Button variant="secondary" size="sm">Book another</Button>
           )}
-
-          <div className={styles.actionButtons}>
-            {!isGroup && (
-              <Button variant="secondary" size="sm">Book another</Button>
-            )}
-            <Button variant="secondary" size="sm" onClick={onEdit}>Edit</Button>
-            <Button variant="secondary" size="sm">Reschedule</Button>
-            <Button variant="secondary" size="sm">Archive</Button>
-          </div>
-
-          <div className={styles.changeLogLink}>
-            <Button variant="link">View change log</Button>
-          </div>
+          <Button variant="secondary" size="sm" onClick={onEdit}>Edit</Button>
+          <Button variant="secondary" size="sm">Reschedule</Button>
+          <Button variant="secondary" size="sm">Archive</Button>
+          <Button variant="link" size="sm">View change log</Button>
         </div>
+      }
+    >
+      {/* Practitioner colour band */}
+      <div
+        // eslint-disable-next-line no-restricted-syntax -- per-appointment practitioner color (dynamic header band)
+        style={{ backgroundColor: appt.practitionerColor, margin: "-20px -20px 16px", padding: "8px 20px", display: "flex", alignItems: "center", gap: 8 }}
+      >
+        <ColorDot color="#fff" size="sm" />
+        <Text variant="heading/sm" as="span" color="inverted">{appt.type}</Text>
       </div>
-    </>
+
+      {isGroup ? (
+        <GroupAppointmentDetails appt={appt} />
+      ) : (
+        <SingleAppointmentDetails appt={appt} />
+      )}
+    </Drawer>
   );
 }
 
@@ -1379,20 +1425,20 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
       <div className={styles.detailRow}>
         <Icon as={EnvironmentOutlined} size="lg" tone="secondary" style={{ marginTop: 2 }} />
         <div>
-          <span className="text-text">{appt.practitionerName}</span>
-          <span className="text-text-secondary"> at </span>
+          <Text as="span" color="text">{appt.practitionerName}</Text>
+          <Text as="span" color="secondary"> at </Text>
           <Text variant="label/lg" as="span" color="text">East Clinics</Text>
         </div>
       </div>
       <div className={styles.detailRowCenter}>
         <Avatar name={appt.practitionerName} color={appt.practitionerColor} size="sm" />
-        <span className="text-text">{appt.practitionerName}</span>
+        <Text as="span" color="text">{appt.practitionerName}</Text>
       </div>
       <div className={styles.detailRow}>
         <Icon as={ClockCircleOutlined} size="lg" tone="secondary" style={{ marginTop: 2 }} />
-        <span className="text-text">
+        <Text as="span" color="text">
           {appt.startTime}, {formatDateLong(appt.date)} for {calcDuration(appt.startTime, appt.endTime)}
-        </span>
+        </Text>
       </div>
       <div className={styles.detailRow}>
         <Icon as={UserOutlined} size="lg" tone="primary" style={{ marginTop: 2 }} />
@@ -1400,12 +1446,12 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
       </div>
       <div className={styles.detailRow}>
         <Icon as={MailOutlined} size="lg" tone="secondary" style={{ marginTop: 2 }} />
-        <span className="text-text-secondary">thyxueen@gmail.com</span>
+        <Text as="span" color="secondary">thyxueen@gmail.com</Text>
       </div>
       <div className={styles.detailRow}>
         <div className={styles.statusDot} />
         <Flex align="center" gap={4} style={{ cursor: 'pointer' }}>
-          <span className="text-text-secondary">No status</span>
+          <Text as="span" color="secondary">No status</Text>
           <Icon as={DownOutlined} size="xs" tone="secondary" />
         </Flex>
       </div>
@@ -1428,11 +1474,11 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
       </div>
       <div className={styles.detailRow}>
         <Icon as={SyncOutlined} size="lg" tone="secondary" style={{ marginTop: 2 }} />
-        <span className="text-caption-md text-text-secondary">Repeating every 2 weeks on Monday for 6 times</span>
+        <Text variant="caption/md" as="span" color="secondary">Repeating every 2 weeks on Monday for 6 times</Text>
       </div>
       <div className={styles.detailRowCenter}>
         <Avatar name={appt.practitionerName} color={appt.practitionerColor} size="sm" />
-        <span className="text-text-secondary">{appt.practitionerName} (Organiser)</span>
+        <Text as="span" color="secondary">{appt.practitionerName} (Organiser)</Text>
       </div>
       <div className={styles.detailSection}>
         <label className={styles.noteLabel}>
@@ -1450,8 +1496,8 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
       <div className={styles.detailRow}>
         <Icon as={EnvironmentOutlined} size="lg" tone="secondary" style={{ marginTop: 2 }} />
         <div>
-          <span className="text-text">{appt.practitionerName}</span>
-          <span className="text-text-secondary"> at </span>
+          <Text as="span" color="text">{appt.practitionerName}</Text>
+          <Text as="span" color="secondary"> at </Text>
           <Text variant="label/lg" as="span" color="text">East Clinics</Text>
         </div>
       </div>

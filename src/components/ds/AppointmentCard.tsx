@@ -1,6 +1,6 @@
 "use client";
 
-import type { MouseEvent, ReactNode } from "react";
+import type { MouseEvent, ReactNode, CSSProperties } from "react";
 import {
   CheckCircleFilled,
   ExclamationCircleFilled,
@@ -28,6 +28,8 @@ export interface AppointmentCardProps {
   onClick?: (e: MouseEvent) => void;
   onHover?: () => void;
   className?: string;
+  /** Merged into the root element style — use for calendar grid positioning (top/height). */
+  style?: React.CSSProperties;
 }
 
 const statusToneMap: Record<AppointmentStatus, string> = {
@@ -74,6 +76,7 @@ export default function AppointmentCard({
   onClick,
   onHover,
   className,
+  style: styleProp,
 }: AppointmentCardProps) {
   const backgroundColor = tone ?? statusToneMap[status];
   const color = pickTextColor(backgroundColor);
@@ -169,22 +172,23 @@ export default function AppointmentCard({
     </>
   );
 
-  const sharedStyle = {
-    position: "relative" as const,
+  const sharedStyle: CSSProperties = {
+    position: "relative",
     display: "flex",
-    flexDirection: "column" as const,
-    justifyContent: "flex-start" as const,
+    flexDirection: "column",
+    justifyContent: "flex-start",
     padding: "6px 8px",
     minHeight: height,
     borderRadius: 6,
     backgroundColor,
     color,
     border: "none",
-    textAlign: "left" as const,
+    textAlign: "left",
     cursor: isInteractive ? "pointer" : "default",
     overflow: "hidden",
     width: "100%",
-    boxSizing: "border-box" as const,
+    boxSizing: "border-box",
+    ...styleProp,
   };
 
   if (isInteractive) {
