@@ -53,6 +53,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `DataTable` / `Th` / `Td` / `Tr` | Tables with sortable/filterable headers, link cells, action cells |
 | `Pagination` | Table pagination footer with page size dropdown |
 | `Badge` | Status pills, tags, filter chips (shape: rounded/pill; size: sm/md/lg; onRemove for closable) |
+| `Tag` | User-generated colour-coded metadata label (VIP, NDIS, service type). Distinct from `Badge` (system status) by intent and defaults — solid-filled with a user-configured `color`, contrast-aware text colour picked automatically. Props: `color`, `icon`, `onRemove`, `size` (sm/md/lg), `interactive` (renders as button), `selected`. |
 | `Stat` | Metric value + label display |
 | `Text` | Semantic typography. Variants: `page-title` (30px/700/Sprig Sans/green — detail page headers), `heading/xl` (28px/700), `display/lg\|md\|sm\|xs`, `heading/lg\|md\|sm`, `body/lg\|md\|sm\|md-strong\|lg-strong`, `label/lg\|md\|sm`, `caption/md\|sm`, `metric/lg\|md`. `weight="regular\|medium\|bold"` overrides variant default. `color` accepts preset names (`text`, `secondary`, `tertiary`, `primary`, `danger`, `warning`, `success`, `inverted`) or a Tailwind/CSS class. Use `color="inverted"` for white text on dark/colored backgrounds. |
 | `Avatar` | Colored circles with initials (sm/md/lg/xl) |
