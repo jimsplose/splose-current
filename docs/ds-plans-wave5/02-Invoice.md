@@ -1,6 +1,6 @@
 # Wave 5 · Plan 02 — Invoice surface migration
 
-**Status:** Planned
+**Status:** In progress
 **Estimated effort:** M
 **Recommended model:** Opus 4.7 (high-frequency surface, financial UI — regression risk is high)
 **Thinking budget:** think hard
