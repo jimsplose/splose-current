@@ -89,7 +89,7 @@ export default function NewRequestForm({ onClose }: NewRequestFormProps) {
           </div>
         </div>
 
-        {error && <div style={{ color: '#fca5a5', fontSize: 10, marginBottom: 8 }}>{error}</div>}
+        {error && <div className={styles.errorMessage}>{error}</div>}
 
         <div className={styles.actionRow}>
           <button className={styles.btnGhost} onClick={onClose}>Cancel</button>

@@ -90,3 +90,18 @@
   padding: 6px 14px;
   cursor: pointer;
 }
+
+.btnPrimary:disabled,
+.btnGhost:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* DevNavigator components use a custom dark dev-tool theme and do not
+   use DS components intentionally — the dark palette would conflict
+   with the DS component defaults. */
+.errorMessage {
+  color: #fca5a5;
+  font-size: 10px;
+  margin-bottom: 8px;
+}
