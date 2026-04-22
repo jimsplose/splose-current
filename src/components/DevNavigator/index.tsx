@@ -7,6 +7,7 @@ import { stateRegistry, flattenRegistry, getVariantUrl, countVariants } from "@/
 import type { PageEntry, StateVariant } from "@/lib/state-registry";
 import { RightOutlined, DownOutlined, SearchOutlined, CloseOutlined } from "@ant-design/icons";
 import Bugshot from "./Bugshot";
+import PageCapture from "./PageCapture";
 import RequestsPanel from "./RequestsPanel";
 import styles from "./DevNavigator.module.css";
 
@@ -17,6 +18,7 @@ export default function DevNavigator() {
   const [search, setSearch] = useState("");
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
   const [bugshotActive, setBugshotActive] = useState(false);
+  const [pageCaptureOpen, setPageCaptureOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'pages' | 'requests'>('pages');
   const [newRequestOpen, setNewRequestOpen] = useState(false);
   const devNavRef = useRef<HTMLDivElement>(null);
@@ -180,6 +182,12 @@ export default function DevNavigator() {
                 >
                   Bugshot
                 </button>
+                <button
+                  onClick={() => { setPageCaptureOpen(true); setExpanded(false); }}
+                  className={`${styles.quickLink} text-caption-sm`}
+                >
+                  🗂 Page Capture
+                </button>
                 <span className={`${styles.quickLinkCount} text-caption-sm`}>
                   {pages}p / {variants}v
                 </span>
@@ -193,6 +201,7 @@ export default function DevNavigator() {
         </div>
       )}
       {bugshotActive && <Bugshot onClose={() => setBugshotActive(false)} devNavRef={devNavRef} />}
+      {pageCaptureOpen && <PageCapture onClose={() => setPageCaptureOpen(false)} />}
       {newRequestOpen && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 9998, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div style={{ background: '#18181b', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 10, padding: 20, color: '#fff' }}>
