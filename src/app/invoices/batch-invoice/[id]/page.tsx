@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Flex } from "antd";
 import { Button, DataTable, TableHead, Th, TableBody, Td, PaymentStatusBadge, dbStatusToPaymentStatus, Pagination, Text, Breadcrumbs } from "@/components/ds";
