@@ -19,7 +19,8 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `FeatureCard` | Tinted/colored card containers — `tone: primary \| success \| neutral \| inverted`. Use for account balance, summary stats, or any card on a colored background. |
 | `Grid` | 1-4 column responsive grid with gap sizing |
 | `Divider` | Separator with `orientation` (horizontal/vertical), `variant` (default/subtle/primary), `spacing` (none/xs/sm/md/lg) |
-| `Collapse` | Expandable sections with chevron |
+| `Collapse` | **Deprecated** — use `Accordion`. Kept as a single-panel alias during Wave 4 migration. |
+| `Accordion` | Vertical stack of expandable panels for forms, FAQs, disclosures. `items`: `{ id, title, description, icon, children, defaultOpen }`. `type`: `single`/`multiple` (default). `tone`: `default`/`subtle` (borderless for use inside a Card). `divider` (hairline rows). Controlled via `value`/`onValueChange`. |
 | `PageHeader` | Page title + action buttons (prefer ListPage/DetailPage templates) |
 
 ## Actions

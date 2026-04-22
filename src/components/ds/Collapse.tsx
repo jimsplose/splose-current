@@ -1,28 +1,30 @@
 "use client";
 
-import { Collapse as AntCollapse } from "antd";
+import type { ReactNode } from "react";
+import Accordion from "./Accordion";
 
 interface CollapseProps {
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
   defaultOpen?: boolean;
   className?: string;
 }
 
-export default function Collapse({ title, children, defaultOpen = false, className }: CollapseProps) {
+/**
+ * @deprecated Use `Accordion` instead. `Collapse` is retained as a thin
+ *   single-panel alias during the Wave 4 migration window and will be
+ *   removed once consumers migrate. See docs/ds-plans/Accordion.md.
+ */
+export default function Collapse({
+  title,
+  children,
+  defaultOpen = false,
+  className,
+}: CollapseProps) {
   return (
-    <AntCollapse
-      defaultActiveKey={defaultOpen ? ["1"] : []}
+    <Accordion
       className={className}
-      bordered={false}
-      expandIconPosition="end"
-      items={[
-        {
-          key: "1",
-          label: title,
-          children,
-        },
-      ]}
+      items={[{ id: "1", title, children, defaultOpen }]}
     />
   );
 }

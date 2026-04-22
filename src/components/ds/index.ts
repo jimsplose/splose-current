@@ -23,6 +23,8 @@ export { default as FeatureCard } from "./FeatureCard";
 export type { FeatureCardTone, FeatureCardProps } from "./FeatureCard";
 export { default as Filter } from "./Filter";
 export { default as Collapse } from "./Collapse";
+export { default as Accordion } from "./Accordion";
+export type { AccordionItem, AccordionProps, AccordionType, AccordionTone } from "./Accordion";
 export { default as Navbar } from "./Navbar";
 export { default as DateRangeFilter } from "./DateRangeFilter";
 export { default as Divider } from "./Divider";
