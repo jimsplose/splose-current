@@ -1,6 +1,6 @@
 # Wave 5 · Plan 01 — Calendar surface migration
 
-**Status:** Planned
+**Status:** Done
 **Estimated effort:** L (largest Wave 5 plan; touches the highest-visibility page)
 **Recommended model:** Opus 4.7 (complex page, many inline styles, visual-regression risk)
 **Thinking budget:** think hard
