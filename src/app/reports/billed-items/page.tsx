@@ -1,18 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import {
-  Button,
-  DataTable,
-  DateRangeFilter,
-  ListPage,
-  TableBody,
-  TableHead,
-  Td,
-  Th,
-  Tr,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { DataTable, DateRangeFilter, ListPage, TableBody, TableHead, Td, Th, Tr } from "@/components/ds";
 
 const mockBilledItems = [
   { code: "10960", description: "Initial consultation — Psychology", client: "Liam Nguyen", practitioner: "Dr Sarah Chen", qty: 1, rate: "$185.00", total: "$185.00", invoice: "INV-0421" },
@@ -47,7 +37,7 @@ export default function ReportsBilledItemsPage() {
         <Button>Add filter</Button>
         <Button>Save filters</Button>
         <Button>Load filters</Button>
-        <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
+        <Button type="primary" onClick={() => setShowResults(true)}>Run report</Button>
       </Flex>
 
       {showResults && (

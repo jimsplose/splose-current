@@ -2,9 +2,9 @@
 
 import { SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import { useState } from "react";
-import { Badge, Button, Card, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Text } from "@/components/ds";
+import { Badge, Card, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Text } from "@/components/ds";
 
 const mockPractitioners = [
     { name: "Delvin Khor", role: "Practitioner admin", roleType: "Practitioner admin", group: "---", status: "Linked" },
@@ -44,7 +44,7 @@ export default function ClientPractitionerAccessPage() {
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Name
-                <Icon as={SwapOutlined} size="sm" tone="secondary" />
+                <Icon as={SwapOutlined} size="small" tone="secondary" />
               </Flex>
             </Th>
             <Th>Role name</Th>
@@ -52,8 +52,8 @@ export default function ClientPractitionerAccessPage() {
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Group
-                <Icon as={SwapOutlined} size="sm" tone="secondary" />
-                <Icon as={FilterOutlined} size="sm" tone="secondary" />
+                <Icon as={SwapOutlined} size="small" tone="secondary" />
+                <Icon as={FilterOutlined} size="small" tone="secondary" />
               </Flex>
             </Th>
             <Th>Status</Th>
@@ -73,7 +73,7 @@ export default function ClientPractitionerAccessPage() {
                 <Td color="secondary">{p.group}</Td>
                 <Td color="secondary">{p.status}</Td>
                 <Td align="right">
-                  <Button variant="ghost" size="sm" style={{ color: 'var(--color-text-secondary)' }}>...</Button>
+                  <Button type="text" size="small" style={{ color: 'var(--color-text-secondary)' }}>...</Button>
                 </Td>
               </Tr>
             ))}

@@ -3,8 +3,8 @@
 import { useParams } from "next/navigation";
 import { DownOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { Flex } from "antd";
-import { Button, Checkbox, PageHeader, FormInput, Card, Text } from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Checkbox, PageHeader, FormInput, Card, Text } from "@/components/ds";
 
 export default function ClientStatementsPage() {
   const params = useParams();

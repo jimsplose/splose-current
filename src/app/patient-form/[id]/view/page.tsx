@@ -1,7 +1,7 @@
 import { DownOutlined, MailOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { Flex } from "antd";
-import { Badge, Button, Card, Text } from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Badge, Card, Text } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -44,13 +44,13 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
           <Text variant="body/lg" as="span" style={{ fontSize: '18px', fontWeight: 400, color: 'rgb(65,69,73)' }}>{form.clientName}</Text>
         </Flex>
         <Flex align="center" gap={8}>
-          <Button variant="secondary">
+          <Button>
             <Icon as={MailOutlined} />
             Email form
           </Button>
-          <Button variant="secondary">
+          <Button>
             Actions
-            <Icon as={DownOutlined} size="md" />
+            <Icon as={DownOutlined} />
           </Button>
         </Flex>
       </Flex>

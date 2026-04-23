@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Flex } from "antd";
-import { Button, FormPage, DataTable, TableHead, Th, TableBody, Td, Text } from "@/components/ds";
+import { Button, Flex } from "antd";
+import { FormPage, DataTable, TableHead, Th, TableBody, Td, Text } from "@/components/ds";
 
 const invoices = [
   { number: "INV-0142", client: "Emma Thompson", service: "Individual Therapy", amount: "$193.99" },
@@ -19,7 +19,7 @@ export default function BatchInvoicePreviewPage() {
           <Link href="/invoices/batch-invoice">
             <Button>Back</Button>
           </Link>
-          <Button variant="primary">Create invoices</Button>
+          <Button type="primary">Create invoices</Button>
         </>
       }
       style={{ minHeight: 'calc(100vh - 3.5rem)' }}

@@ -2,29 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  Button,
-  PageHeader,
-  SearchBar,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Pagination,
-  Dropdown,
-  DropdownTriggerButton,
-  Modal,
-  FormInput,
-  FormSelect,
-  Toggle,
-  Text,
-  EmailPreview,
-} from "@/components/ds";
+import { PageHeader, SearchBar, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Toggle, Text, EmailPreview } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { formatTimestamp } from "@/lib/format";
+import { Button } from "antd";
 
 interface Template {
   name: string;
@@ -123,7 +105,7 @@ export default function AppointmentTemplatesPage() {
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Appointment templates">
-        <Button variant="secondary" onClick={openCreate}>+ New template</Button>
+        <Button onClick={openCreate}>+ New template</Button>
       </PageHeader>
 
       <SearchBar placeholder="Search for template and type" />
@@ -169,10 +151,10 @@ export default function AppointmentTemplatesPage() {
         title={isEditing ? "Edit appointment template" : "New appointment template"}
         footer={
           <>
-            <Button variant="secondary" onClick={() => setEmailPreviewOpen(true)}>Email preview</Button>
+            <Button onClick={() => setEmailPreviewOpen(true)}>Email preview</Button>
             <div style={{ flex: 1 }} />
-            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
+            <Button onClick={closeModal}>Cancel</Button>
+            <Button type="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </>
         }
       >

@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import { Flex } from "antd";
-import { Button, Text } from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Text } from "@/components/ds";
 import ClientSidebar from "./ClientSidebar";
 
 export const dynamic = "force-dynamic";
@@ -57,7 +57,7 @@ export default async function ClientLayout({
           </Text>
         </Flex>
         <Flex align="center" gap={8}>
-          <Button variant="secondary">
+          <Button>
             <svg style={{ height: 16, width: 16 }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path
                 strokeLinecap="round"
@@ -67,7 +67,7 @@ export default async function ClientLayout({
             </svg>
             New SMS
           </Button>
-          <Button variant="secondary">
+          <Button>
             <svg style={{ height: 16, width: 16 }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path
                 strokeLinecap="round"
@@ -77,7 +77,7 @@ export default async function ClientLayout({
             </svg>
             New email
           </Button>
-          <Button variant="secondary">
+          <Button>
             Actions
             <svg style={{ height: 14, width: 14 }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />

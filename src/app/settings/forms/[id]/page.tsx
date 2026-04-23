@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import {
   HolderOutlined,
   PlusOutlined,
@@ -19,22 +19,7 @@ import {
   UploadOutlined,
 } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import {
-  Button,
-  FormInput,
-  FormSelect,
-  Tab,
-  FormPage,
-  Card,
-  Toggle,
-  FormColorPicker,
-  FormTextarea,
-  Modal,
-  RichTextEditor,
-  Grid,
-  Breadcrumbs,
-  Tooltip,
-} from "@/components/ds";
+import { FormInput, FormSelect, Tab, FormPage, Card, Toggle, FormColorPicker, FormTextarea, Modal, RichTextEditor, Grid, Breadcrumbs, Tooltip } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 
 const FIELD_TYPES = [
@@ -107,14 +92,14 @@ export default function FormTemplateEditorPage() {
       actions={
         <Flex align="center" gap={8}>
           <Tooltip content="Share & Automate">
-            <Button variant="icon" onClick={() => setSidePanel(sidePanel === "share" ? null : "share")}>
+            <Button type="text" onClick={() => setSidePanel(sidePanel === "share" ? null : "share")}>
               <Icon as={ShareAltOutlined} />
             </Button>
           </Tooltip>
-          <Button variant="secondary" onClick={() => setActiveTab("preview")}>
+          <Button onClick={() => setActiveTab("preview")}>
             <Icon as={EyeOutlined} /> Preview
           </Button>
-          <Button variant="primary" onClick={() => router.push("/settings/forms")}>Save</Button>
+          <Button type="primary" onClick={() => router.push("/settings/forms")}>Save</Button>
         </Flex>
       }
       style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
@@ -144,8 +129,8 @@ export default function FormTemplateEditorPage() {
                         />
                         <Toggle checked={field.required} onChange={(checked) => setFields((prev) => prev.map((f) => f.id === field.id ? { ...f, required: checked } : f))} label="Required" />
                         <Tooltip content="Remove field">
-                          <Button variant="ghost" iconOnly onClick={() => removeField(field.id)} style={{ color: 'var(--color-text-secondary)' }}>
-                            <Icon as={DeleteOutlined} size="md" />
+                          <Button type="text" iconOnly onClick={() => removeField(field.id)} style={{ color: 'var(--color-text-secondary)' }}>
+                            <Icon as={DeleteOutlined} />
                           </Button>
                         </Tooltip>
                       </Flex>
@@ -153,7 +138,7 @@ export default function FormTemplateEditorPage() {
                   );
                 })}
 
-                <Button variant="secondary" onClick={() => setShowAddField(true)}>
+                <Button onClick={() => setShowAddField(true)}>
                   <Icon as={PlusOutlined} /> Add field
                 </Button>
               </Flex>
@@ -191,7 +176,7 @@ export default function FormTemplateEditorPage() {
                 <Flex vertical gap={16}>
                   {fields.map((field) => (
                     <div key={field.id}>
-                      <FormLabel size="sm" required={field.required}>
+                      <FormLabel size="small" required={field.required}>
                         {field.label}
                       </FormLabel>
                       {field.type === "long-text" ? (
@@ -211,7 +196,7 @@ export default function FormTemplateEditorPage() {
                     </div>
                   ))}
                 </Flex>
-                <Button variant="primary" style={{ backgroundColor: themeColor, marginTop: 24, width: '100%' }}>Submit</Button>
+                <Button type="primary" style={{ backgroundColor: themeColor, marginTop: 24, width: '100%' }}>Submit</Button>
               </div>
             </div>
           )}
@@ -222,22 +207,22 @@ export default function FormTemplateEditorPage() {
             <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
               <h3 style={{ fontSize: 16, fontWeight: 600 }}>Share & Automate</h3>
               <Tooltip content="Close panel">
-                <Button variant="ghost" iconOnly onClick={() => setSidePanel(null)} style={{ color: 'var(--color-text-secondary)' }}>&times;</Button>
+                <Button type="text" iconOnly onClick={() => setSidePanel(null)} style={{ color: 'var(--color-text-secondary)' }}>&times;</Button>
               </Tooltip>
             </Flex>
             <Flex vertical gap={16}>
               <div>
-                <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>Form link</FormLabel>
+                <FormLabel size="small" style={{ color: 'var(--color-text-secondary)' }}>Form link</FormLabel>
                 <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '8px 12px', wordBreak: 'break-all', fontSize: 12, color: 'var(--color-primary)' }}>
                   https://acme.splose.com/patient-form/81783/view
                 </div>
               </div>
-              <Button variant="secondary" style={{ width: '100%' }}>Copy link</Button>
-              <Button variant="secondary" style={{ width: '100%' }}>Send to client</Button>
+              <Button style={{ width: '100%' }}>Copy link</Button>
+              <Button style={{ width: '100%' }}>Send to client</Button>
               <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
                 <h4 style={{ fontSize: 12, fontWeight: 500, marginBottom: 8 }}>Automations</h4>
                 <p style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>Automatically send this form to new clients or on appointment creation.</p>
-                <Button variant="secondary" style={{ marginTop: 8 }}>+ Add automation</Button>
+                <Button style={{ marginTop: 8 }}>+ Add automation</Button>
               </div>
             </Flex>
           </div>

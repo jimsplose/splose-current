@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Card, DataTable, PageHeader, TableHead, Th, TableBody, Tr, Td, Pagination, Badge, statusVariant } from "@/components/ds";
+import { Card, DataTable, PageHeader, TableHead, Th, TableBody, Tr, Td, Pagination, Badge, statusVariant } from "@/components/ds";
+import { Button } from "antd";
 
 const mockCases = [
     // ── Active cases ────────────────────────────────────────────────────

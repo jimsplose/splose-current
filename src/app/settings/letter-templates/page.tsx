@@ -2,23 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Flex } from "antd";
-import {
-  Button,
-  PageHeader,
-  SearchBar,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Pagination,
-  Dropdown,
-  DropdownTriggerButton,
-  Modal,
-  FormInput,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { PageHeader, SearchBar, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { formatTimestamp } from "@/lib/format";
@@ -94,8 +79,8 @@ export default function LetterTemplatesPage() {
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Letter templates">
-        <Button variant="secondary">Show archived</Button>
-        <Button variant="secondary" onClick={openCreate}>+ New template</Button>
+        <Button>Show archived</Button>
+        <Button onClick={openCreate}>+ New template</Button>
       </PageHeader>
 
       <SearchBar placeholder="Search for title" />
@@ -133,8 +118,8 @@ export default function LetterTemplatesPage() {
         title={isEditing ? "Edit letter template" : "New letter template"}
         footer={
           <>
-            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
+            <Button onClick={closeModal}>Cancel</Button>
+            <Button type="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </>
         }
       >

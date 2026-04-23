@@ -1,7 +1,7 @@
 import { MailOutlined, PhoneOutlined, EnvironmentOutlined, BankOutlined } from "@ant-design/icons";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import Icon from "@/components/ds/Icon";
-import { Button, DataTable, List, TableHead, Th, TableBody, Tr, Td, LinkCell, EmptyState, Text, Divider } from "@/components/ds";
+import { DataTable, List, TableHead, Th, TableBody, Tr, Td, LinkCell, EmptyState, Text, Divider } from "@/components/ds";
 
 const mockContacts = [
   {
@@ -178,7 +178,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
           ].map((item) => (
             <Button
               key={item.label}
-              variant="ghost"
+              type="text"
               style={{
                 width: '100%',
                 justifyContent: 'space-between',
@@ -205,7 +205,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             <Text variant="display/sm" as="h2" color="rgb(66, 105, 74)">Contact</Text>
             <Text variant="body/md" color="secondary" as="span">{contact.name}</Text>
           </Flex>
-          <Button variant="secondary" size="sm">
+          <Button size="small">
             Actions
             <svg style={{ height: 14, width: 14 }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -216,7 +216,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
         <div style={{ padding: 24 }}>
           <Flex align="center" justify="space-between" style={{ marginBottom: 24 }}>
             <Text variant="display/lg">Details</Text>
-            <Button variant="secondary" size="sm">
+            <Button size="small">
               Edit
             </Button>
           </Flex>
@@ -270,7 +270,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                   label: "Email:",
                   value: contact.email ? (
                     <Flex align="center" gap={6}>
-                      <Icon as={MailOutlined} size="md" tone="secondary" />
+                      <Icon as={MailOutlined} tone="secondary" />
                       <Text variant="body/sm" color="primary" as="span">{contact.email}</Text>
                     </Flex>
                   ) : (
@@ -281,7 +281,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                   label: "Work phone:",
                   value: contact.workPhone ? (
                     <Flex align="center" gap={6}>
-                      <Icon as={PhoneOutlined} size="md" tone="secondary" />
+                      <Icon as={PhoneOutlined} tone="secondary" />
                       <Text variant="body/sm" color="primary" as="span">{contact.workPhone}</Text>
                     </Flex>
                   ) : (
@@ -292,7 +292,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                   label: "Mobile phone:",
                   value: contact.mobilePhone ? (
                     <Flex align="center" gap={6}>
-                      <Icon as={PhoneOutlined} size="md" tone="secondary" />
+                      <Icon as={PhoneOutlined} tone="secondary" />
                       <Text variant="body/sm" color="primary" as="span">{contact.mobilePhone}</Text>
                     </Flex>
                   ) : (
@@ -303,7 +303,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                   label: "Address:",
                   value: contact.address ? (
                     <Flex align="center" gap={6}>
-                      <Icon as={EnvironmentOutlined} size="md" tone="secondary" />
+                      <Icon as={EnvironmentOutlined} tone="secondary" />
                       <Text variant="body/sm" color="text" as="span">{contact.address}</Text>
                     </Flex>
                   ) : (
@@ -362,7 +362,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             <Text variant="body/sm" color="secondary">No custom fields</Text>
           </section>
 
-          <Button variant="ghost" size="sm" style={{ color: 'var(--color-primary)' }}>
+          <Button type="text" size="small" style={{ color: 'var(--color-primary)' }}>
             View change log
           </Button>
         </div>

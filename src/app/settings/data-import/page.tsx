@@ -1,30 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import { UploadOutlined, MessageOutlined, ReadOutlined, FileExcelOutlined, DatabaseOutlined, CheckCircleOutlined, WarningOutlined, ArrowLeftOutlined, ArrowRightOutlined, FileTextOutlined } from "@ant-design/icons";
-import {
-  Button,
-  Card,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Badge,
-  Icon,
-  Pagination,
-  Dropdown,
-  DropdownTriggerButton,
-  Modal,
-  FormSelect,
-  Alert,
-  PageHeader,
-  Text,
-  Grid,
-  Divider,
-} from "@/components/ds";
+import { Card, DataTable, TableHead, Th, TableBody, Tr, Td, Badge, Icon, Pagination, Dropdown, DropdownTriggerButton, Modal, FormSelect, Alert, PageHeader, Text, Grid, Divider } from "@/components/ds";
 
 interface ImportRow {
   id: number;
@@ -125,10 +104,10 @@ export default function DataImportPage() {
             <Text variant="body/md" color="secondary" style={{ marginBottom: 12 }}>Data importing is complicated. Chat with us to schedule a data import.</Text>
             <Flex align="center" gap={16}>
               <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 500 }}>
-                <Icon as={MessageOutlined} size="lg" /> Chat with us
+                <Icon as={MessageOutlined} size="large" /> Chat with us
               </a>
               <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 500 }}>
-                <Icon as={ReadOutlined} size="lg" /> Help guide
+                <Icon as={ReadOutlined} size="large" /> Help guide
               </a>
             </Flex>
           </div>
@@ -136,8 +115,8 @@ export default function DataImportPage() {
       </Card>
 
       <PageHeader title="Import data">
-        <Button variant="primary" onClick={startImportFlow}>
-          <Icon as={UploadOutlined} size="lg" style={{ color: 'inherit' }} /> Import
+        <Button type="primary" onClick={startImportFlow}>
+          <Icon as={UploadOutlined} size="large" style={{ color: 'inherit' }} /> Import
         </Button>
       </PageHeader>
 
@@ -172,18 +151,18 @@ export default function DataImportPage() {
         maxWidth={importStep === "mapping" || importStep === "preview" ? "xl" : "md"}
         footer={
           importStep === "done" ? (
-            <Button variant="primary" onClick={handleImportClose}>Done</Button>
+            <Button type="primary" onClick={handleImportClose}>Done</Button>
           ) : importStep !== "source" ? (
             <Flex justify="space-between" align="center" style={{ width: '100%' }}>
-              <Button variant="ghost" onClick={handleImportBack}>
-                <Icon as={ArrowLeftOutlined} size="lg" /> Back
+              <Button type="text" onClick={handleImportBack}>
+                <Icon as={ArrowLeftOutlined} size="large" /> Back
               </Button>
               <Flex align="center" gap={8}>
                 <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>
                   Step {importStep === "upload" ? "1" : importStep === "mapping" ? "2" : "3"} of 3
                 </span>
-                <Button variant="primary" onClick={handleImportNext}>
-                  {importStep === "preview" ? "Start import" : "Continue"} <Icon as={ArrowRightOutlined} size="lg" style={{ color: 'inherit' }} />
+                <Button type="primary" onClick={handleImportNext}>
+                  {importStep === "preview" ? "Start import" : "Continue"} <Icon as={ArrowRightOutlined} size="large" style={{ color: 'inherit' }} />
                 </Button>
               </Flex>
             </Flex>
@@ -226,7 +205,7 @@ export default function DataImportPage() {
               </Flex>
             </Card>
             <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: '#f0fdf4', padding: '8px 12px' }}>
-              <Icon as={FileTextOutlined} size="lg" style={{ color: '#16a34a' }} />
+              <Icon as={FileTextOutlined} size="large" style={{ color: '#16a34a' }} />
               <span style={{ fontSize: 12, color: '#15803d' }}>client_export_march_2026.csv</span>
               <Badge variant="green">Ready</Badge>
               <span style={{ fontSize: 11, color: 'var(--color-text-secondary)', marginLeft: 'auto' }}>10 rows · 10 columns</span>
@@ -248,7 +227,7 @@ export default function DataImportPage() {
                     <Td>
                       {columnMapping[col] ? (
                         <Flex align="center" gap={4} style={{ color: '#16a34a' }}>
-                          <Icon as={CheckCircleOutlined} size="lg" />
+                          <Icon as={CheckCircleOutlined} size="large" />
                           <span style={{ fontSize: 12 }}>Mapped</span>
                         </Flex>
                       ) : (
@@ -283,12 +262,12 @@ export default function DataImportPage() {
                       <Td>
                         {i === 3 ? (
                           <Flex align="center" gap={4} style={{ color: '#ca8a04' }}>
-                            <Icon as={WarningOutlined} size="md" />
+                            <Icon as={WarningOutlined} />
                             <span style={{ fontSize: 12 }}>Under 18</span>
                           </Flex>
                         ) : (
                           <Flex align="center" gap={4} style={{ color: '#16a34a' }}>
-                            <Icon as={CheckCircleOutlined} size="md" />
+                            <Icon as={CheckCircleOutlined} />
                             <span style={{ fontSize: 12 }}>Valid</span>
                           </Flex>
                         )}
@@ -299,8 +278,8 @@ export default function DataImportPage() {
               </DataTable>
             </div>
             <Flex align="center" gap={16} style={{ borderRadius: 8, backgroundColor: 'var(--color-fill-tertiary)', padding: 12 }}>
-              <Flex align="center" gap={6}><Icon as={CheckCircleOutlined} size="lg" style={{ color: '#16a34a' }} /><span style={{ fontSize: 12 }}>4 valid</span></Flex>
-              <Flex align="center" gap={6}><Icon as={WarningOutlined} size="lg" style={{ color: '#ca8a04' }} /><span style={{ fontSize: 12 }}>1 warning</span></Flex>
+              <Flex align="center" gap={6}><Icon as={CheckCircleOutlined} size="large" style={{ color: '#16a34a' }} /><span style={{ fontSize: 12 }}>4 valid</span></Flex>
+              <Flex align="center" gap={6}><Icon as={WarningOutlined} size="large" style={{ color: '#ca8a04' }} /><span style={{ fontSize: 12 }}>1 warning</span></Flex>
               <Flex align="center" gap={6}><span style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>0 errors</span></Flex>
             </Flex>
           </Flex>
@@ -326,7 +305,7 @@ export default function DataImportPage() {
       </Modal>
 
       {/* View details modal */}
-      <Modal open={!!viewRow} onClose={() => setViewRow(null)} title="Import details" maxWidth="md" footer={<Button variant="secondary" onClick={() => setViewRow(null)}>Close</Button>}>
+      <Modal open={!!viewRow} onClose={() => setViewRow(null)} title="Import details" maxWidth="md" footer={<Button onClick={() => setViewRow(null)}>Close</Button>}>
         {viewRow && (
           <Flex vertical gap={12}>
             <Flex justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: 8 }}><Text as="span" variant="label/lg" color="secondary">Type</Text><Text as="span" variant="body/md">{viewRow.type}</Text></Flex>
@@ -339,13 +318,13 @@ export default function DataImportPage() {
       </Modal>
 
       {/* Re-import confirmation modal */}
-      <Modal open={!!reImportRow} onClose={() => setReImportRow(null)} title="Re-import" maxWidth="sm" footer={<><Button variant="secondary" onClick={() => setReImportRow(null)}>Cancel</Button><Button variant="primary" onClick={() => setReImportRow(null)}>Re-import</Button></>}>
+      <Modal open={!!reImportRow} onClose={() => setReImportRow(null)} title="Re-import" maxWidth="sm" footer={<><Button onClick={() => setReImportRow(null)}>Cancel</Button><Button type="primary" onClick={() => setReImportRow(null)}>Re-import</Button></>}>
         <Text variant="body/md" color="secondary">Re-import this file? This will process the original file again.</Text>
         {reImportRow && (<div style={{ marginTop: 12, padding: 12, borderRadius: 8, backgroundColor: 'var(--color-fill-tertiary)' }}><Text variant="label/lg">{reImportRow.type} import</Text><Text variant="body/sm" color="secondary">Created: {reImportRow.createdAt}</Text></div>)}
       </Modal>
 
       {/* Delete confirmation modal */}
-      <Modal open={!!deleteRow} onClose={() => setDeleteRow(null)} title="Delete import" maxWidth="sm" footer={<><Button variant="secondary" onClick={() => setDeleteRow(null)}>Cancel</Button><Button variant="danger" onClick={() => setDeleteRow(null)}>Delete</Button></>}>
+      <Modal open={!!deleteRow} onClose={() => setDeleteRow(null)} title="Delete import" maxWidth="sm" footer={<><Button onClick={() => setDeleteRow(null)}>Cancel</Button><Button danger onClick={() => setDeleteRow(null)}>Delete</Button></>}>
         <Text variant="body/md" color="secondary">Delete this import record? This action cannot be undone.</Text>
         {deleteRow && (<div style={{ marginTop: 12, padding: 12, borderRadius: 8, backgroundColor: 'var(--color-fill-tertiary)' }}><Text variant="label/lg">{deleteRow.type} import</Text><Text variant="body/sm" color="secondary">Created: {deleteRow.createdAt}</Text></div>)}
       </Modal>

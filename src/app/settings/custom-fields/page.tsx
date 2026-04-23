@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import {
   HolderOutlined,
   PlusOutlined,
@@ -9,25 +9,7 @@ import {
   ReadOutlined,
 } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import {
-  Button,
-  PageHeader,
-  SearchBar,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Pagination,
-  Modal,
-  FormInput,
-  FormSelect,
-  Toggle,
-  Dropdown,
-  DropdownTriggerButton,
-  ReorderModal,
-} from "@/components/ds";
+import { PageHeader, SearchBar, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Modal, FormInput, FormSelect, Toggle, Dropdown, DropdownTriggerButton, ReorderModal } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 
 /* ------------------------------------------------------------------ */
@@ -114,15 +96,15 @@ export default function CustomFieldsPage() {
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Custom fields">
-        <Button variant="secondary" onClick={() => setShowReorderModal(true)}>
+        <Button onClick={() => setShowReorderModal(true)}>
           Reorder
         </Button>
-        <Button variant="secondary">Show archived</Button>
-        <Button variant="secondary">
+        <Button>Show archived</Button>
+        <Button>
           <Icon as={ReadOutlined} />
           Learn
         </Button>
-        <Button variant="secondary" onClick={() => { setNewField({ name: "", type: "Short text", required: false }); setShowNewModal(true); }}>+ New custom field</Button>
+        <Button onClick={() => { setNewField({ name: "", type: "Short text", required: false }); setShowNewModal(true); }}>+ New custom field</Button>
       </PageHeader>
 
       <SearchBar
@@ -195,8 +177,8 @@ export default function CustomFieldsPage() {
         title="New custom field"
         footer={
           <Flex justify="flex-end" gap={8}>
-            <Button variant="secondary" onClick={() => setShowNewModal(false)}>Cancel</Button>
-            <Button variant="primary" onClick={() => {
+            <Button onClick={() => setShowNewModal(false)}>Cancel</Button>
+            <Button type="primary" onClick={() => {
               if (newField.name.trim()) {
                 setFields((prev) => [...prev, {
                   id: Date.now(),
@@ -296,10 +278,10 @@ function EditFieldModal({
       title="Update custom field"
       footer={
         <>
-          <Button variant="secondary" onClick={onClose}>
+          <Button onClick={onClose}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleSave}>
+          <Button type="primary" onClick={handleSave}>
             Save
           </Button>
         </>
@@ -335,8 +317,8 @@ function EditFieldModal({
                     />
                   </div>
                   <Button
-                    variant="icon"
-                    size="sm"
+                    type="text"
+                    size="small"
                     style={{ color: '#f87171' }}
                     onClick={() => handleRemoveOption(index)}
                   >
@@ -346,7 +328,6 @@ function EditFieldModal({
               ))}
             </Flex>
             <Button
-              variant="secondary"
               style={{ marginTop: 8, width: '100%', borderStyle: 'dashed' }}
               onClick={handleAddOption}
             >
@@ -410,7 +391,7 @@ function FieldTypePreview({
   if (type === "Long text") {
     return (
       <div>
-        <FormLabel size="sm">{label}</FormLabel>
+        <FormLabel size="small">{label}</FormLabel>
         <textarea
           disabled
           rows={3}
@@ -450,7 +431,7 @@ function FieldTypePreview({
     const previewOpts = options.length > 0 ? options : ["Option 1", "Option 2"];
     return (
       <div>
-        <FormLabel size="sm">{label}</FormLabel>
+        <FormLabel size="small">{label}</FormLabel>
         <Flex vertical gap={6}>
           {previewOpts.map((opt, i) => (
             <label key={i} className="flex items-center gap-2" style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>

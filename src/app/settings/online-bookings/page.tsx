@@ -1,21 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import {
-  Button,
-  PageHeader,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Dropdown,
-  DropdownTriggerButton,
-  Modal,
-  FormInput,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { PageHeader, DataTable, TableHead, Th, TableBody, Tr, Td, Dropdown, DropdownTriggerButton, Modal, FormInput } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { formatTimestamp } from "@/lib/format";
@@ -93,8 +80,8 @@ export default function OnlineBookingsPage() {
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Online booking settings">
-        <Button variant="secondary">Show archived</Button>
-        <Button variant="secondary" onClick={openCreate}>+ New booking page</Button>
+        <Button>Show archived</Button>
+        <Button onClick={openCreate}>+ New booking page</Button>
       </PageHeader>
 
       <DataTable>
@@ -129,8 +116,8 @@ export default function OnlineBookingsPage() {
         title={isEditing ? "Edit online booking" : "New online booking"}
         footer={
           <>
-            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
+            <Button onClick={closeModal}>Cancel</Button>
+            <Button type="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </>
         }
       >

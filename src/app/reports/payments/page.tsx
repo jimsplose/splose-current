@@ -1,18 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import {
-  Button,
-  DataTable,
-  DateRangeFilter,
-  ListPage,
-  TableBody,
-  TableHead,
-  Td,
-  Th,
-  Tr,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { DataTable, DateRangeFilter, ListPage, TableBody, TableHead, Td, Th, Tr } from "@/components/ds";
 
 const mockPayments = [
   { number: "PAY-001", client: "Liam Nguyen", amount: "$185.00", method: "Credit Card", date: "03/03/2026", practitioner: "Dr Sarah Chen" },
@@ -52,7 +42,7 @@ export default function ReportsPaymentsPage() {
             <Button>Add filter</Button>
             <Button>Save filters</Button>
             <Button>Load filters</Button>
-            <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
+            <Button type="primary" onClick={() => setShowResults(true)}>Run report</Button>
           </Flex>
         </>
       }

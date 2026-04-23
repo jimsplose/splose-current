@@ -2,15 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  Button,
-  FormInput,
-  FormSelect,
-  Toggle,
-  Collapse,
-  FormPage,
-  Grid,
-} from "@/components/ds";
+import { FormInput, FormSelect, Toggle, Collapse, FormPage, Grid } from "@/components/ds";
+import { Button } from "antd";
 
 const stateOptions = [
   { value: "", label: "Select state" },
@@ -53,8 +46,8 @@ export default function NewLocationPage() {
       maxWidth={768}
       actions={
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <Button variant="secondary" onClick={() => router.push("/settings/locations")}>Cancel</Button>
-          <Button variant="primary" onClick={() => router.push("/settings/locations")}>Save</Button>
+          <Button onClick={() => router.push("/settings/locations")}>Cancel</Button>
+          <Button type="primary" onClick={() => router.push("/settings/locations")}>Save</Button>
         </div>
       }
     >

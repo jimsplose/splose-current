@@ -3,9 +3,9 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { LeftOutlined, RightOutlined, EnvironmentOutlined, FileTextOutlined, ClockCircleOutlined, CalendarOutlined, UserOutlined, CheckCircleOutlined, MailOutlined, PlusOutlined, CopyOutlined, BankOutlined } from "@ant-design/icons";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import Icon from "@/components/ds/Icon";
-import { Avatar, Button, Checkbox, FormInput, FormSelect, FormTextarea, Text } from "@/components/ds";
+import { Avatar, Checkbox, FormInput, FormSelect, FormTextarea, Text } from "@/components/ds";
 import styles from "./online-booking.module.css";
 
 const practitioners = [
@@ -182,7 +182,7 @@ function OnlineBookingPageInner() {
                                 <Text variant="label/lg" as="span" color="secondary">{prac.name[0]}</Text>
                               </div>
                             ) : (
-                              <Avatar name={prac.name} color={prac.color} size="md" />
+                              <Avatar name={prac.name} color={prac.color} />
                             )}
                             <div>
                               <Text variant="heading/sm" as="div">{prac.name}</Text>
@@ -198,13 +198,13 @@ function OnlineBookingPageInner() {
                         <div className={styles.dateTimePicker}>
                           <Text variant="heading/sm" as="div" style={{ marginBottom: 8 }}>March 2026</Text>
                           <div className={styles.weekNav}>
-                            <Button variant="icon" round>
+                            <Button type="text" round>
                               <Icon as={LeftOutlined} />
                             </Button>
                             {weekDays.map((d) => (
                               <Button
                                 key={d.date}
-                                variant="ghost"
+                                type="text"
                                 round
                                 onClick={() => {
                                   setSelectedDate(d.date);
@@ -222,7 +222,7 @@ function OnlineBookingPageInner() {
                                 <Text variant="caption/sm" as="span">{d.date}</Text>
                               </Button>
                             ))}
-                            <Button variant="icon" round>
+                            <Button type="text" round>
                               <Icon as={RightOutlined} />
                             </Button>
                           </div>
@@ -239,7 +239,6 @@ function OnlineBookingPageInner() {
                               {(showAllTimes ? availableSlots : availableSlots.slice(0, 4)).map((slot) => (
                                 <Button
                                   key={slot}
-                                  variant="secondary"
                                   style={{ width: 112 }}
                                   onClick={() => {
                                     setSelectedTime(slot);
@@ -251,8 +250,8 @@ function OnlineBookingPageInner() {
                                 </Button>
                               ))}
                               <Button
-                                variant="primary"
-                                size="sm"
+                                type="primary"
+                                size="small"
                                 onClick={() => setShowAllTimes(!showAllTimes)}
                                 style={{ marginTop: 8 }}
                               >
@@ -265,7 +264,7 @@ function OnlineBookingPageInner() {
                                 No available times for your search. Please try a different date or join the waitlist to be
                                 notified if a spot opens.
                               </Text>
-                              <Button variant="primary" size="sm">
+                              <Button type="primary" size="small">
                                 Next available
                               </Button>
                             </div>
@@ -464,19 +463,19 @@ function OnlineBookingPageInner() {
                   <div className={styles.calendarActions}>
                     <Text variant="heading/sm" as="h3">Add to your calendar</Text>
                     <div className={styles.calendarButtons}>
-                      <Button variant="secondary" size="sm">
+                      <Button size="small">
                         <Icon as={PlusOutlined} />
                         Google Calendar
                       </Button>
-                      <Button variant="secondary" size="sm">
+                      <Button size="small">
                         <Icon as={PlusOutlined} />
                         Apple Calendar
                       </Button>
-                      <Button variant="secondary" size="sm">
+                      <Button size="small">
                         <Icon as={PlusOutlined} />
                         Outlook
                       </Button>
-                      <Button variant="secondary" size="sm">
+                      <Button size="small">
                         <Icon as={CopyOutlined} />
                         Copy .ics
                       </Button>
@@ -484,7 +483,7 @@ function OnlineBookingPageInner() {
                   </div>
 
                   <div className={styles.bookAnotherWrapper}>
-                    <Button variant="primary" onClick={() => setStep("select")} style={{ width: '100%', justifyContent: 'center' }}>
+                    <Button type="primary" onClick={() => setStep("select")} style={{ width: '100%', justifyContent: 'center' }}>
                       Book another appointment
                     </Button>
                   </div>
@@ -509,13 +508,13 @@ function OnlineBookingPageInner() {
                     <Text variant="heading/sm" as="div">Location</Text>
                     {selectedLocation && (
                       <Flex align="center" gap={6}>
-                        <Icon as={EnvironmentOutlined} size="sm" />
+                        <Icon as={EnvironmentOutlined} size="small" />
                         <Text variant="caption/md" as="span" color="secondary">{mockLocations.find((l) => l.id === selectedLocation)?.name}</Text>
                       </Flex>
                     )}
                   </div>
                   {selectedLocation && step !== "location" && (
-                    <Button variant="ghost" size="sm" onClick={() => setStep("location")}>
+                    <Button type="text" size="small" onClick={() => setStep("location")}>
                       <svg className={styles.editSvg} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.862 4.487z" />
                       </svg>
@@ -531,7 +530,7 @@ function OnlineBookingPageInner() {
                     {step !== "location" && (
                       <>
                         <Flex align="center" gap={6}>
-                          <Icon as={FileTextOutlined} size="sm" />
+                          <Icon as={FileTextOutlined} size="small" />
                           <Text variant="caption/md" as="span" color="secondary">1:1 Consultation (40 mins d...</Text>
                         </Flex>
                         <Flex align="center" gap={6}>
@@ -551,15 +550,15 @@ function OnlineBookingPageInner() {
                     {step === "confirm" && selectedPrac && (
                       <>
                         <Flex align="center" gap={6}>
-                          <Icon as={UserOutlined} size="sm" />
+                          <Icon as={UserOutlined} size="small" />
                           <Text variant="caption/md" as="span" color="secondary">{selectedPrac.name}</Text>
                         </Flex>
                         <Flex align="center" gap={6}>
-                          <Icon as={ClockCircleOutlined} size="sm" />
+                          <Icon as={ClockCircleOutlined} size="small" />
                           <Text variant="caption/md" as="span" color="secondary">{selectedTime}</Text>
                         </Flex>
                         <Flex align="center" gap={6}>
-                          <Icon as={CalendarOutlined} size="sm" />
+                          <Icon as={CalendarOutlined} size="small" />
                           <Text variant="caption/md" as="span" color="secondary">Thursday 19 March 2026</Text>
                         </Flex>
                       </>
@@ -587,7 +586,7 @@ function OnlineBookingPageInner() {
                 {step === "location" ? (
                   selectedLocation ? (
                     <Button
-                      variant="primary"
+                      type="primary"
                       className={styles.continueFull}
                       style={{ width: "100%", height: 44, fontSize: 16 }}
                       onClick={() => setStep("select")}
@@ -596,7 +595,7 @@ function OnlineBookingPageInner() {
                     </Button>
                   ) : (
                     <Button
-                      variant="primary"
+                      type="primary"
                       disabled
                       className={styles.continueFull}
                       style={{ width: "100%", height: 44, fontSize: 16 }}
@@ -606,7 +605,7 @@ function OnlineBookingPageInner() {
                   )
                 ) : step === "select" ? (
                   <Button
-                    variant="primary"
+                    type="primary"
                     disabled
                     className={styles.continueFull}
                     style={{ width: "100%", height: 44, fontSize: 16 }}
@@ -615,7 +614,7 @@ function OnlineBookingPageInner() {
                   </Button>
                 ) : (
                   <Button
-                    variant="primary"
+                    type="primary"
                     className={styles.continueFull}
                     style={{ width: "100%", height: 44, fontSize: 16 }}
                     onClick={() => setStep("confirmed")}

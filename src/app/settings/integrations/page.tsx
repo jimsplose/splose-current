@@ -1,7 +1,7 @@
 "use client";
 
-import { Flex } from "antd";
-import { Button, Card, PageHeader, Text } from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Card, PageHeader, Text } from "@/components/ds";
 
 interface Integration {
   name: string;

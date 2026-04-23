@@ -4,20 +4,9 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { PlusOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import {
-  Tag,
-  Button,
-  ListPage,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Pagination,
-  Skeleton,
-} from "@/components/ds";
+import { Tag, ListPage, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Skeleton } from "@/components/ds";
 import styles from "./ClientsPageClient.module.css";
+import { Button } from "antd";
 
 function formatDOB(dateStr: string | null): string {
   if (!dateStr) return "";
@@ -31,7 +20,7 @@ function formatDOB(dateStr: string | null): string {
 
 function formatPhone(phone: string | null): React.ReactNode {
   if (!phone) return null;
-  return <Button variant="link" href={`tel:${phone}`}>{phone}</Button>;
+  return <Button type="link" href={`tel:${phone}`}>{phone}</Button>;
 }
 
 interface ClientRow {
@@ -59,7 +48,7 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
       title="Clients"
       actions={
         <Link href="/clients/new">
-          <Button variant="secondary">
+          <Button>
             <Icon as={PlusOutlined} />
             New client
           </Button>
@@ -112,9 +101,9 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
               </Td>
               <Td hidden="md">
                 {client.ndisNumber ? (
-                  <Tag color="rgb(249,202,36)" size="sm">NDIS</Tag>
+                  <Tag color="rgb(249,202,36)" size="small">NDIS</Tag>
                 ) : client.medicare ? (
-                  <Tag color="rgb(249,202,36)" size="sm">Medicare</Tag>
+                  <Tag color="rgb(249,202,36)" size="small">Medicare</Tag>
                 ) : null}
               </Td>
             </Tr>

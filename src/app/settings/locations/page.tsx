@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Button, PageHeader, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Modal, FormInput, FormSelect } from "@/components/ds";
+import { PageHeader, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Modal, FormInput, FormSelect } from "@/components/ds";
+import { Button } from "antd";
 
 const locations = [
   { id: 128, name: "East Clinics", address: "", lastUpdate: "12:24 pm, 6 Mar 2026", rooms: 4 },
@@ -39,8 +40,8 @@ export default function LocationsPage() {
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Locations">
-        <Button variant="secondary">Show archived</Button>
-        <Button variant="secondary" onClick={() => { setNewName(""); setNewAddress(""); setOpeningHours(defaultHours); setNewRoomCount("1"); setShowNewModal(true); }}>+ New location</Button>
+        <Button>Show archived</Button>
+        <Button onClick={() => { setNewName(""); setNewAddress(""); setOpeningHours(defaultHours); setNewRoomCount("1"); setShowNewModal(true); }}>+ New location</Button>
       </PageHeader>
       <DataTable>
         <TableHead>
@@ -73,8 +74,8 @@ export default function LocationsPage() {
         title="New location"
         footer={
           <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
-            <Button variant="secondary" onClick={() => setShowNewModal(false)}>Cancel</Button>
-            <Button variant="primary" onClick={() => { setShowNewModal(false); router.push("/settings/locations/new"); }}>Create & edit</Button>
+            <Button onClick={() => setShowNewModal(false)}>Cancel</Button>
+            <Button type="primary" onClick={() => { setShowNewModal(false); router.push("/settings/locations/new"); }}>Create & edit</Button>
           </div>
         }
       >

@@ -2,24 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Flex } from "antd";
-import {
-  Button,
-  PageHeader,
-  SearchBar,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Pagination,
-  Dropdown,
-  DropdownTriggerButton,
-  Modal,
-  FormInput,
-  FormSelect,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { PageHeader, SearchBar, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { formatTimestamp } from "@/lib/format";
 
@@ -130,7 +114,7 @@ export default function EmailTemplatesPage() {
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Email templates">
-        <Button variant="secondary" onClick={openCreate}>+ New template</Button>
+        <Button onClick={openCreate}>+ New template</Button>
       </PageHeader>
 
       <SearchBar
@@ -171,8 +155,8 @@ export default function EmailTemplatesPage() {
         title={isEditing ? "Edit email template" : "New email template"}
         footer={
           <>
-            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
+            <Button onClick={closeModal}>Cancel</Button>
+            <Button type="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </>
         }
       >

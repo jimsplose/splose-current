@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Flex } from "antd";
-import { Button, FormPage, Card, FormInput, FormSelect, FormTextarea, Grid, Toggle } from "@/components/ds";
+import { Button, Flex } from "antd";
+import { FormPage, Card, FormInput, FormSelect, FormTextarea, Grid, Toggle } from "@/components/ds";
 
 const taxOptions = [
   { value: "gst", label: "GST (10%)" },
@@ -44,10 +44,10 @@ export default function NewProductPage() {
       maxWidth={768}
       actions={
         <>
-          <Button variant="secondary" onClick={() => router.push("/products")}>
+          <Button onClick={() => router.push("/products")}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleSave}>
+          <Button type="primary" onClick={handleSave}>
             Save
           </Button>
         </>

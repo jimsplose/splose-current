@@ -3,9 +3,9 @@
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AppstoreOutlined, ColumnWidthOutlined, CopyOutlined, DownOutlined, SnippetsOutlined } from "@ant-design/icons";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import Icon from "@/components/ds/Icon";
-import { Button, Badge, EmptyState, Filter, FormPage, FormTextarea, FormInput, FormSelect, Text } from "@/components/ds";
+import { Badge, EmptyState, Filter, FormPage, FormTextarea, FormInput, FormSelect, Text } from "@/components/ds";
 
 const TEMPLATES = [
   "Initial Assessment",
@@ -102,9 +102,9 @@ function NewProgressNotePageInner() {
             onChange={(v) => setViewMode(v as "single" | "split")}
           />
           {/* Save as final button */}
-          <Button variant="primary" style={{ backgroundColor: 'var(--color-success)', borderColor: 'var(--color-success)' }} onClick={handleSave} disabled={saving}>
+          <Button type="primary" style={{ backgroundColor: 'var(--color-success)', borderColor: 'var(--color-success)' }} onClick={handleSave} disabled={saving}>
             Save as final
-            <Icon as={DownOutlined} size="md" />
+            <Icon as={DownOutlined} />
           </Button>
         </>
       }
@@ -143,16 +143,16 @@ function NewProgressNotePageInner() {
 
             {/* Quick action buttons */}
             <Flex align="center" gap={8} style={{ marginBottom: 20 }}>
-              <Button variant="secondary" size="sm">
-                <Icon as={AppstoreOutlined} size="md" />
+              <Button size="small">
+                <Icon as={AppstoreOutlined} />
                 Select
               </Button>
-              <Button variant="secondary" size="sm">
-                <Icon as={CopyOutlined} size="md" />
+              <Button size="small">
+                <Icon as={CopyOutlined} />
                 Copy recent note
               </Button>
-              <Button variant="secondary" size="sm">
-                <Icon as={CopyOutlined} size="md" />
+              <Button size="small">
+                <Icon as={CopyOutlined} />
                 Copy recent practitioner note
               </Button>
             </Flex>

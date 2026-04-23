@@ -1,25 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import {
-  Badge,
-  Button,
-  Card,
-  DataTable,
-  DateRangeFilter,
-  Divider,
-  Grid,
-  ListPage,
-  Stat,
-  ColorDot,
-  TableBody,
-  TableHead,
-  Td,
-  Text,
-  Th,
-  Tr,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Badge, Card, DataTable, DateRangeFilter, Divider, Grid, ListPage, Stat, ColorDot, TableBody, TableHead, Td, Text, Th, Tr } from "@/components/ds";
 
 export default function ReportsProgressNotesPage() {
   const [showResults, setShowResults] = useState(false);
@@ -43,7 +26,7 @@ export default function ReportsProgressNotesPage() {
         <Button>Add filter</Button>
         <Button>Save filters</Button>
         <Button>Load filters</Button>
-        <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
+        <Button type="primary" onClick={() => setShowResults(true)}>Run report</Button>
       </Flex>
 
       {showResults && (<>
@@ -97,7 +80,7 @@ export default function ReportsProgressNotesPage() {
             </table>
             <Flex align="center" justify="flex-end" style={{ borderTop: '1px solid var(--color-border)', padding: '8px 16px' }}>
               <Text variant="body/md" as="span" color="secondary">&lt;</Text>
-              <Button variant="ghost" size="sm" style={{ marginLeft: 4, marginRight: 4, height: 24, width: 24, borderRadius: 4, border: '1px solid var(--color-primary)', padding: 0, fontSize: 11, fontWeight: 500, color: 'var(--color-primary)' }}>
+              <Button type="text" size="small" style={{ marginLeft: 4, marginRight: 4, height: 24, width: 24, borderRadius: 4, border: '1px solid var(--color-primary)', padding: 0, fontSize: 11, fontWeight: 500, color: 'var(--color-primary)' }}>
                 1
               </Button>
               <Text variant="body/md" as="span" color="secondary">&gt;</Text>
@@ -139,7 +122,7 @@ export default function ReportsProgressNotesPage() {
             </table>
             <Flex align="center" justify="flex-end" style={{ borderTop: '1px solid var(--color-border)', padding: '8px 16px' }}>
               <Text variant="body/md" as="span" color="secondary">&lt;</Text>
-              <Button variant="ghost" size="sm" style={{ marginLeft: 4, marginRight: 4, height: 24, width: 24, borderRadius: 4, border: '1px solid var(--color-primary)', padding: 0, fontSize: 11, fontWeight: 500, color: 'var(--color-primary)' }}>
+              <Button type="text" size="small" style={{ marginLeft: 4, marginRight: 4, height: 24, width: 24, borderRadius: 4, border: '1px solid var(--color-primary)', padding: 0, fontSize: 11, fontWeight: 500, color: 'var(--color-primary)' }}>
                 1
               </Button>
               <Text variant="body/md" as="span" color="secondary">&gt;</Text>

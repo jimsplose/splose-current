@@ -4,9 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CloseOutlined, PlusOutlined, SearchOutlined, PrinterOutlined, CheckCircleOutlined } from "@ant-design/icons";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import Icon from "@/components/ds/Icon";
-import { Button, Card, DataTable, Divider, FormInput, FormPage, FormSelect, FormTextarea, Grid, TableHead, Th, TableBody, Td, EmptyState, Text } from "@/components/ds";
+import { Card, DataTable, Divider, FormInput, FormPage, FormSelect, FormTextarea, Grid, TableHead, Th, TableBody, Td, EmptyState, Text } from "@/components/ds";
 
 const mockClients = [
   "Skyler Peterson",
@@ -138,12 +138,12 @@ export default function NewPaymentPage() {
         maxWidth={512}
         actions={
           <>
-            <Button variant="secondary" onClick={() => window.print()}>
+            <Button onClick={() => window.print()}>
               <Icon as={PrinterOutlined} />
               Print receipt
             </Button>
             <Link href="/payments">
-              <Button variant="primary">Done</Button>
+              <Button type="primary">Done</Button>
             </Link>
           </>
         }
@@ -211,11 +211,11 @@ export default function NewPaymentPage() {
       actions={
         <>
           <Link href="/payments">
-            <Button variant="secondary" style={{ borderColor: 'var(--color-primary)', color: 'var(--color-primary)' }}>
+            <Button style={{ borderColor: 'var(--color-primary)', color: 'var(--color-primary)' }}>
               Cancel
             </Button>
           </Link>
-          <Button variant="primary" onClick={handleSubmit}>
+          <Button type="primary" onClick={handleSubmit}>
             Add
           </Button>
         </>
@@ -293,7 +293,7 @@ export default function NewPaymentPage() {
                 {searchableInvoices.map((inv) => (
                   <Button
                     key={inv.number}
-                    variant="ghost"
+                    type="text"
                     htmlType="button"
                     onClick={() => linkInvoice(inv.number)}
                     style={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', fontSize: 14 }}
@@ -362,13 +362,13 @@ export default function NewPaymentPage() {
                       </Td>
                       <td style={{ padding: '12px 8px', textAlign: 'center' }}>
                         <Button
-                          variant="icon"
-                          size="sm"
+                          type="text"
+                          size="small"
                           htmlType="button"
                           onClick={() => unlinkInvoice(invoiceNumber)}
                           style={{ height: 24, width: 24 }}
                         >
-                          <Icon as={CloseOutlined} size="md" />
+                          <Icon as={CloseOutlined} />
                         </Button>
                       </td>
                     </tr>

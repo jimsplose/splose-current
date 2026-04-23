@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { useRegisterCommands } from "@/hooks/useRegisterCommands";
 import { DownOutlined, MailOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { Flex } from "antd";
-import { Button, Divider, Dropdown, FormInput, FormSelect, FormTextarea, Grid, PaymentStatusBadge, dbStatusToPaymentStatus, Text } from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Divider, Dropdown, FormInput, FormSelect, FormTextarea, Grid, PaymentStatusBadge, dbStatusToPaymentStatus, Text } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 import Modal from "@/components/ds/Modal";
 
@@ -118,12 +118,12 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           <PaymentStatusBadge status={dbStatusToPaymentStatus(invoice.status)} />
         </Flex>
         <Flex align="center" gap={8}>
-          <PaymentStatusBadge status="paid" size="lg" />
+          <PaymentStatusBadge status="paid" size="large" />
           <Dropdown
             trigger={
-              <Button variant="secondary">
+              <Button>
                 Pay
-                <Icon as={DownOutlined} size="md" tone="secondary" />
+                <Icon as={DownOutlined} tone="secondary" />
               </Button>
             }
             items={payItems}
@@ -135,15 +135,15 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
             }}
             align="right"
           />
-          <Button variant="secondary" onClick={handleEmailInvoice}>
+          <Button onClick={handleEmailInvoice}>
             <Icon as={MailOutlined} tone="secondary" />
             Email invoice
           </Button>
           <Dropdown
             trigger={
-              <Button variant="secondary">
+              <Button>
                 Actions
-                <Icon as={DownOutlined} size="md" tone="secondary" />
+                <Icon as={DownOutlined} tone="secondary" />
               </Button>
             }
             items={actionsItems}
@@ -315,10 +315,10 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
         title={`Add payment to ${invoice.invoiceNumber}`}
         footer={
           <>
-            <Button variant="secondary" onClick={() => setShowPaymentModal(false)}>
+            <Button onClick={() => setShowPaymentModal(false)}>
               Cancel
             </Button>
-            <Button variant="primary" onClick={handleApplyPayment}>
+            <Button type="primary" onClick={handleApplyPayment}>
               Apply payment
             </Button>
           </>

@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Flex } from "antd";
-import { Button, Checkbox, FormInput, FormSelect, Toggle, Collapse, Grid } from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Checkbox, FormInput, FormSelect, Toggle, Collapse, Grid } from "@/components/ds";
 
 const services = [
   "ACC - Acupuncture Initial Consultation",
@@ -276,8 +276,8 @@ export default function EditLocationClient({ id }: { id: string }) {
           <h1 style={{ fontSize: 24, fontWeight: 700 }}>{location.name}</h1>
         </Flex>
         <Flex align="center" gap={12}>
-          <Button variant="danger">Delete</Button>
-          <Button variant="primary">Save</Button>
+          <Button danger>Delete</Button>
+          <Button type="primary">Save</Button>
         </Flex>
       </Flex>
 

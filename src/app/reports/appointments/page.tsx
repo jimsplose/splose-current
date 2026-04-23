@@ -1,21 +1,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Flex } from "antd";
-import {
-  Badge,
-  Button,
-  DataTable,
-  DateRangeFilter,
-  Dropdown,
-  FormSelect,
-  ListPage,
-  TableBody,
-  TableHead,
-  Td,
-  Th,
-  Tr,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Badge, DataTable, DateRangeFilter, Dropdown, FormSelect, ListPage, TableBody, TableHead, Td, Th, Tr } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 
 interface Appointment {
@@ -161,7 +148,7 @@ export default function ReportsAppointmentsPage() {
       <div style={{ marginBottom: 16 }}>
         <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
           <span>&#128196;</span> Contains note
-          <Button variant="ghost" size="sm" style={{ marginLeft: 4, color: '#f87171' }}>&#10005;</Button>
+          <Button type="text" size="small" style={{ marginLeft: 4, color: '#f87171' }}>&#10005;</Button>
         </Flex>
         <FormSelect
           options={[
@@ -181,14 +168,14 @@ export default function ReportsAppointmentsPage() {
         />
         <Button>Save filters</Button>
         <Button>Load filters</Button>
-        <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
+        <Button type="primary" onClick={() => setShowResults(true)}>Run report</Button>
       </Flex>
 
       {/* Active filter chips */}
       {activeFilters.length > 0 && (
         <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 32 }}>
           {activeFilters.map((f) => (
-            <Badge key={f} variant="blue" shape="pill" onRemove={() => handleRemoveFilter(f)}>
+            <Badge key={f} variant="blue" shape="round" onRemove={() => handleRemoveFilter(f)}>
               {filterLabels[f]}
             </Badge>
           ))}

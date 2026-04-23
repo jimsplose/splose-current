@@ -1,26 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import { ReadOutlined, SwapOutlined, CheckOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import {
-  Button,
-  PageHeader,
-  SearchBar,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Pagination,
-  Dropdown,
-  DropdownTriggerButton,
-  Modal,
-  FormInput,
-  Divider,
-} from "@/components/ds";
+import { PageHeader, SearchBar, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, Divider } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 
@@ -91,11 +75,11 @@ export default function UserGroupsPage() {
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="User groups">
-        <Button variant="secondary">
+        <Button>
           <Icon as={ReadOutlined} />
           Learn
         </Button>
-        <Button variant="secondary" onClick={openCreate}>+ New group</Button>
+        <Button onClick={openCreate}>+ New group</Button>
       </PageHeader>
 
       <SearchBar
@@ -108,7 +92,7 @@ export default function UserGroupsPage() {
           <Th>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
               Name
-              <Icon as={SwapOutlined} size="md" tone="secondary" />
+              <Icon as={SwapOutlined} tone="secondary" />
             </span>
           </Th>
           <Th>Users</Th>
@@ -139,8 +123,8 @@ export default function UserGroupsPage() {
         title={isEditing ? "Edit user group" : "New user group"}
         footer={
           <>
-            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
+            <Button onClick={closeModal}>Cancel</Button>
+            <Button type="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </>
         }
       >
@@ -172,7 +156,7 @@ export default function UserGroupsPage() {
                       backgroundColor: isSelected ? 'var(--color-primary)' : 'white',
                     }}
                   >
-                    {isSelected && <Icon as={CheckOutlined} size="md" tone="inverted" />}
+                    {isSelected && <Icon as={CheckOutlined} tone="inverted" />}
                   </Flex>
                   <input
                     type="checkbox"

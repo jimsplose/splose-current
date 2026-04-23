@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { CameraOutlined } from "@ant-design/icons";
-import { Button } from "@/components/ds";
+;
 import {
   extractStyles,
   generatePrompt,
@@ -12,6 +12,7 @@ import {
   type Region,
 } from "./bugshot-utils";
 import styles from "./Bugshot.module.css";
+import { Button } from "antd";
 
 type BugshotState = "idle" | "selecting" | "describing" | "capturing" | "done" | "error";
 
@@ -284,12 +285,12 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
 
           {/* Actions */}
           <div className={styles.actionRow}>
-            <Button variant="ghost" size="sm" onClick={onClose}>
+            <Button type="text" size="small" onClick={onClose}>
               Cancel
             </Button>
             <Button
-              variant="primary"
-              size="sm"
+              type="primary"
+              size="small"
               onClick={handleCapture}
               disabled={!description.trim()}
             >
@@ -333,7 +334,7 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
                   onFocus={(e) => e.target.select()}
                 />
                 <div className={styles.errorActions}>
-                  <Button variant="ghost" size="sm" onClick={onClose}>
+                  <Button type="text" size="small" onClick={onClose}>
                     Close
                   </Button>
                 </div>
@@ -343,10 +344,10 @@ export default function Bugshot({ onClose, devNavRef }: BugshotProps) {
                 <h3 className={styles.errorTitle} style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)' }}>Capture failed</h3>
                 <p className={styles.errorText} style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>{errorMessage}</p>
                 <div className={styles.errorActions}>
-                  <Button variant="ghost" size="sm" onClick={onClose}>
+                  <Button type="text" size="small" onClick={onClose}>
                     Dismiss
                   </Button>
-                  <Button variant="primary" size="sm" onClick={handleRetry}>
+                  <Button type="primary" size="small" onClick={handleRetry}>
                     Retry
                   </Button>
                 </div>

@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { SwapOutlined, FolderAddOutlined, DownOutlined, FileTextOutlined } from "@ant-design/icons";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import Icon from "@/components/ds/Icon";
-import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput } from "@/components/ds";
+import { Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput } from "@/components/ds";
 
 const filesData = [
   {
@@ -81,18 +81,18 @@ export default function ClientFilesPage() {
           <TableHead>
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                Name <Icon as={SwapOutlined} size="md" tone="secondary" />
+                Name <Icon as={SwapOutlined} tone="secondary" />
               </Flex>
             </Th>
             <Th>Uploader</Th>
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                Upload date <Icon as={SwapOutlined} size="md" tone="secondary" />
+                Upload date <Icon as={SwapOutlined} tone="secondary" />
               </Flex>
             </Th>
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                File size <Icon as={SwapOutlined} size="md" tone="secondary" />
+                File size <Icon as={SwapOutlined} tone="secondary" />
               </Flex>
             </Th>
             <Th align="right">Actions</Th>
@@ -145,10 +145,10 @@ export default function ClientFilesPage() {
         maxWidth="md"
         footer={
           <>
-            <Button variant="secondary" onClick={() => setRenameModal({ open: false, fileId: "", fileName: "" })}>
+            <Button onClick={() => setRenameModal({ open: false, fileId: "", fileName: "" })}>
               Cancel
             </Button>
-            <Button variant="primary" onClick={() => setRenameModal({ open: false, fileId: "", fileName: "" })}>
+            <Button type="primary" onClick={() => setRenameModal({ open: false, fileId: "", fileName: "" })}>
               Rename
             </Button>
           </>
@@ -165,10 +165,10 @@ export default function ClientFilesPage() {
         maxWidth="md"
         footer={
           <>
-            <Button variant="secondary" onClick={() => setDeleteModal({ open: false, fileId: "", fileName: "" })}>
+            <Button onClick={() => setDeleteModal({ open: false, fileId: "", fileName: "" })}>
               Cancel
             </Button>
-            <Button variant="danger" onClick={() => setDeleteModal({ open: false, fileId: "", fileName: "" })}>
+            <Button danger onClick={() => setDeleteModal({ open: false, fileId: "", fileName: "" })}>
               Delete
             </Button>
           </>

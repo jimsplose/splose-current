@@ -3,7 +3,8 @@
 import { PlusOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
 import { useState } from "react";
-import { Button, Card, DataTable, PageHeader, TableHead, Th, TableBody, Tr, Td, ActionsCell, Pagination } from "@/components/ds";
+import { Card, DataTable, PageHeader, TableHead, Th, TableBody, Tr, Td, ActionsCell, Pagination } from "@/components/ds";
+import { Button } from "antd";
 
 const lettersData = [
   {

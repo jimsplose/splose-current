@@ -17,26 +17,8 @@ import {
   SwapOutlined,
   EnvironmentOutlined,
 } from "@ant-design/icons";
-import { Flex } from "antd";
-import {
-  Button,
-  DataTable,
-  Card,
-  PageHeader,
-  TableHead,
-  Th,
-  TableBody,
-  Td,
-  Pagination,
-  Badge,
-  Avatar,
-  FormTextarea,
-  ColorDot,
-  statusVariant,
-  Text,
-  Divider,
-  Icon,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { DataTable, Card, PageHeader, TableHead, Th, TableBody, Td, Pagination, Badge, Avatar, FormTextarea, ColorDot, statusVariant, Text, Divider, Icon } from "@/components/ds";
 
 interface Appointment {
   id: string;
@@ -112,10 +94,10 @@ export default function AppointmentSidePanel({
         <PageHeader title="Appointments">
           <Button>
             Send upcoming appointments
-            <Icon as={DownOutlined} size="lg" tone="secondary" />
+            <Icon as={DownOutlined} size="large" tone="secondary" />
           </Button>
           <Button>
-            <Icon as={PlusOutlined} size="lg" />
+            <Icon as={PlusOutlined} size="large" />
             New appointment
           </Button>
         </PageHeader>
@@ -125,7 +107,7 @@ export default function AppointmentSidePanel({
             <TableHead>
               <Th>
                 <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                  When <Icon as={SwapOutlined} size="md" tone="secondary" />
+                  When <Icon as={SwapOutlined} tone="secondary" />
                 </Flex>
               </Th>
               <Th>Where</Th>
@@ -207,8 +189,8 @@ export default function AppointmentSidePanel({
                       </Td>
                       <Td align="right">
                         <Button
-                          variant="ghost"
-                          size="sm"
+                          type="text"
+                          size="small"
                           onClick={(e) => e.stopPropagation()}
                         >
                           <Icon as={EllipsisOutlined} size="2xl" />
@@ -246,8 +228,8 @@ export default function AppointmentSidePanel({
               </Text>
             </div>
             <Button
-              variant="icon"
-              size="sm"
+              type="text"
+              size="small"
               onClick={() => setSelectedAppointment(null)}
               style={{ marginLeft: 8, flexShrink: 0 }}
             >
@@ -259,7 +241,7 @@ export default function AppointmentSidePanel({
           <Flex vertical gap={12} style={{ padding: 16 }}>
             {/* Practitioner at Location */}
             <Flex align="flex-start" gap={12}>
-              <Icon as={EnvironmentOutlined} size="lg" tone="secondary" style={{ flexShrink: 0, marginTop: 2 }} />
+              <Icon as={EnvironmentOutlined} size="large" tone="secondary" style={{ flexShrink: 0, marginTop: 2 }} />
               <Text variant="body/md" as="span">
                 {selectedAppointment.practitioner.name} at East Clinics
               </Text>
@@ -267,13 +249,13 @@ export default function AppointmentSidePanel({
 
             {/* Practitioner */}
             <Flex align="center" gap={12}>
-              <Icon as={UserOutlined} size="lg" tone="secondary" style={{ flexShrink: 0 }} />
+              <Icon as={UserOutlined} size="large" tone="secondary" style={{ flexShrink: 0 }} />
               <Text variant="body/md" as="span">{selectedAppointment.practitioner.name}</Text>
             </Flex>
 
             {/* Time */}
             <Flex align="flex-start" gap={12}>
-              <Icon as={ClockCircleOutlined} size="lg" tone="secondary" style={{ flexShrink: 0, marginTop: 2 }} />
+              <Icon as={ClockCircleOutlined} size="large" tone="secondary" style={{ flexShrink: 0, marginTop: 2 }} />
               <Text variant="body/md" as="span">
                 {formatPanelDate(selectedAppointment.date, selectedAppointment.startTime)} for 60 minutes
               </Text>
@@ -283,7 +265,7 @@ export default function AppointmentSidePanel({
             <Flex align="center" gap={12}>
               <Avatar
                 name={`${client.firstName} ${client.lastName}`}
-                size="sm"
+                size="small"
               />
               <Text variant="body/md" as="span">
                 {client.firstName} {client.lastName}
@@ -292,15 +274,15 @@ export default function AppointmentSidePanel({
 
             {/* Alert */}
             <Flex align="center" gap={12}>
-              <Icon as={WarningOutlined} size="lg" tone="warning" style={{ flexShrink: 0 }} />
+              <Icon as={WarningOutlined} size="large" tone="warning" style={{ flexShrink: 0 }} />
               <Text variant="body/md" as="span" color="warning">Include KM</Text>
             </Flex>
 
             {/* Phone */}
             <Flex align="center" gap={12}>
-              <Icon as={PhoneOutlined} size="lg" tone="secondary" style={{ flexShrink: 0 }} />
+              <Icon as={PhoneOutlined} size="large" tone="secondary" style={{ flexShrink: 0 }} />
               {client.phone ? (
-                <Button variant="link" href={`tel:${client.phone}`}>{client.phone}</Button>
+                <Button type="link" href={`tel:${client.phone}`}>{client.phone}</Button>
               ) : (
                 <Text variant="body/md" as="span" color="secondary">No phone</Text>
               )}
@@ -308,9 +290,9 @@ export default function AppointmentSidePanel({
 
             {/* Email */}
             <Flex align="center" gap={12}>
-              <Icon as={MailOutlined} size="lg" tone="secondary" style={{ flexShrink: 0 }} />
+              <Icon as={MailOutlined} size="large" tone="secondary" style={{ flexShrink: 0 }} />
               {client.email ? (
-                <Button variant="link" href={`mailto:${client.email}`}>{client.email}</Button>
+                <Button type="link" href={`mailto:${client.email}`}>{client.email}</Button>
               ) : (
                 <Text variant="body/md" as="span" color="secondary">No email</Text>
               )}
@@ -328,14 +310,14 @@ export default function AppointmentSidePanel({
 
             {/* Links */}
             <Flex align="center" gap={12}>
-              <Icon as={LinkOutlined} size="lg" tone="secondary" style={{ flexShrink: 0 }} />
+              <Icon as={LinkOutlined} size="large" tone="secondary" style={{ flexShrink: 0 }} />
               <Flex wrap align="center" gap={6}>
                 <Text variant="body/md" as="span">baby due date test</Text>
                 <Badge variant="yellow">incomplete</Badge>
               </Flex>
             </Flex>
             <Flex align="center" gap={12}>
-              <Icon as={LinkOutlined} size="lg" tone="secondary" style={{ flexShrink: 0 }} />
+              <Icon as={LinkOutlined} size="large" tone="secondary" style={{ flexShrink: 0 }} />
               <Flex wrap align="center" gap={6}>
                 <Text variant="body/md" as="span">header test</Text>
                 <Badge variant="yellow">incomplete</Badge>
@@ -346,21 +328,21 @@ export default function AppointmentSidePanel({
 
             {/* Create Zoom meeting */}
             <Flex align="center" gap={12}>
-              <Icon as={VideoCameraOutlined} size="lg" tone="secondary" style={{ flexShrink: 0 }} />
-              <Button variant="link">Create Zoom meeting</Button>
+              <Icon as={VideoCameraOutlined} size="large" tone="secondary" style={{ flexShrink: 0 }} />
+              <Button type="link">Create Zoom meeting</Button>
             </Flex>
 
             <Divider spacing="none" />
 
             {/* Invoice actions */}
             <Flex align="center" gap={12}>
-              <Icon as={FileTextOutlined} size="lg" tone="secondary" style={{ flexShrink: 0 }} />
-              <Button variant="link">Add invoice</Button>
+              <Icon as={FileTextOutlined} size="large" tone="secondary" style={{ flexShrink: 0 }} />
+              <Button type="link">Add invoice</Button>
             </Flex>
             <Flex align="center" gap={12} style={{ paddingLeft: 28 }}>
-              <Button variant="link">Mark as</Button>
+              <Button type="link">Mark as</Button>
               <Text variant="body/md" as="span" color="secondary">and</Text>
-              <Button variant="link">Do not invoice?</Button>
+              <Button type="link">Do not invoice?</Button>
             </Flex>
 
             <Divider spacing="none" />
@@ -393,16 +375,16 @@ export default function AppointmentSidePanel({
                   fill="#EA4335"
                 />
               </svg>
-              <Button variant="link">View in Google</Button>
+              <Button type="link">View in Google</Button>
             </Flex>
 
             <Flex align="center" gap={12}>
-              <Icon as={VideoCameraOutlined} size="lg" tone="secondary" style={{ flexShrink: 0 }} />
-              <Button variant="link">Join with Google Meet</Button>
+              <Icon as={VideoCameraOutlined} size="large" tone="secondary" style={{ flexShrink: 0 }} />
+              <Button type="link">Join with Google Meet</Button>
             </Flex>
 
             <Flex align="center" gap={12}>
-              <Icon as={LinkOutlined} size="lg" tone="secondary" style={{ flexShrink: 0 }} />
+              <Icon as={LinkOutlined} size="large" tone="secondary" style={{ flexShrink: 0 }} />
               <Text variant="body/sm" as="span" color="primary" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>https://meet.google.com/...</Text>
             </Flex>
 
@@ -411,7 +393,7 @@ export default function AppointmentSidePanel({
             {/* Note */}
             <div>
               <Flex align="center" gap={8} style={{ marginBottom: 8 }}>
-                <Icon as={FileTextOutlined} size="lg" tone="secondary" />
+                <Icon as={FileTextOutlined} size="large" tone="secondary" />
                 <Text variant="label/lg" as="span">Note</Text>
               </Flex>
               <FormTextarea
@@ -425,21 +407,21 @@ export default function AppointmentSidePanel({
           <Divider spacing="none" />
           <div style={{ padding: 16 }}>
             <Flex wrap gap={8}>
-              <Button variant="secondary" size="sm">
+              <Button size="small">
                 Book another
               </Button>
-              <Button variant="secondary" size="sm">
+              <Button size="small">
                 Edit
               </Button>
-              <Button variant="secondary" size="sm">
+              <Button size="small">
                 Reschedule
               </Button>
-              <Button variant="danger" size="sm">
+              <Button danger size="small">
                 Archive
               </Button>
             </Flex>
             <div style={{ marginTop: 12 }}>
-              <Button variant="link" size="sm">View change log</Button>
+              <Button type="link" size="small">View change log</Button>
             </div>
           </div>
         </aside>

@@ -2,22 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import { UploadOutlined, FileExcelOutlined, CheckCircleFilled } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import {
-  Button,
-  Tab,
-  FormPage,
-  Card,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  FormSelect,
-} from "@/components/ds";
+import { Tab, FormPage, Card, DataTable, TableHead, Th, TableBody, Tr, Td, FormSelect } from "@/components/ds";
 
 const importTabs = [
   { label: "Clients", value: "clients" },
@@ -67,8 +55,8 @@ export default function CSVImportPage() {
       maxWidth={99999}
       actions={
         <Flex align="center" gap={8}>
-          <Button variant="secondary" onClick={() => router.push("/settings/data-import")}>Cancel</Button>
-          <Button variant="primary" onClick={() => router.push("/settings/data-import")} disabled={!fileUploaded}>Import</Button>
+          <Button onClick={() => router.push("/settings/data-import")}>Cancel</Button>
+          <Button type="primary" onClick={() => router.push("/settings/data-import")} disabled={!fileUploaded}>Import</Button>
         </Flex>
       }
       style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
@@ -101,7 +89,7 @@ export default function CSVImportPage() {
                       <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--color-text-secondary)' }}>245 rows</span>
                     </div>
                     <Icon as={CheckCircleFilled} size="2xl" tone="success" />
-                    <Button variant="secondary" size="sm" onClick={() => setFileUploaded(false)}>Remove</Button>
+                    <Button size="small" onClick={() => setFileUploaded(false)}>Remove</Button>
                   </Flex>
                 </Card>
               )}

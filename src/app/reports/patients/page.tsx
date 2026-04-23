@@ -1,20 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import {
-  Badge,
-  Button,
-  DataTable,
-  DateRangeFilter,
-  FormSelect,
-  ListPage,
-  TableBody,
-  TableHead,
-  Td,
-  Th,
-  Tr,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Badge, DataTable, DateRangeFilter, FormSelect, ListPage, TableBody, TableHead, Td, Th, Tr } from "@/components/ds";
 
 const mockPatients = [
   { name: "Liam Nguyen", dob: "14/05/1992", phone: "0412 345 678", email: "liam.nguyen@email.com", tags: ["NDIS"], created: "01/02/2026", lastAppt: "03/03/2026" },
@@ -74,7 +62,7 @@ export default function ReportsPatientsPage() {
             <Button>Add filter</Button>
             <Button>Save filters</Button>
             <Button>Load filters</Button>
-            <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
+            <Button type="primary" onClick={() => setShowResults(true)}>Run report</Button>
           </Flex>
         </>
       }

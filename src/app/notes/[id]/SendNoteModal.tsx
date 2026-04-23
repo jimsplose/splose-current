@@ -20,8 +20,8 @@ import {
   EyeOutlined,
   EditOutlined,
 } from "@ant-design/icons";
-import { Flex } from "antd";
-import { Button, FormSelect, FormInput, Badge, Divider, Icon, Card } from "@/components/ds";
+import { Button, Flex } from "antd";
+import { FormSelect, FormInput, Badge, Divider, Icon, Card } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 import Modal from "@/components/ds/Modal";
 
@@ -120,12 +120,12 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
       maxWidth="xl"
       footer={
         <Flex align="center" justify="space-between" style={{ width: '100%' }}>
-          <Button variant="ghost" size="sm">
-            <Icon as={PaperClipOutlined} size="lg" />
+          <Button type="text" size="small">
+            <Icon as={PaperClipOutlined} size="large" />
             Attach files
           </Button>
-          <Button variant="primary" onClick={onClose}>
-            <Icon as={SendOutlined} size="md" />
+          <Button type="primary" onClick={onClose}>
+            <Icon as={SendOutlined} />
             Send
           </Button>
         </Flex>
@@ -145,22 +145,22 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
           {/* eslint-disable-next-line no-restricted-syntax -- segmented button container border matches production; no DS segmented-control variant yet */}
           <div style={{ display: 'flex', borderRadius: 8, border: '1px solid var(--color-border)' }}>
             <Button
-              variant="ghost"
-              size="sm"
+              type="text"
+              size="small"
               onClick={() => setViewMode("edit")}
               // eslint-disable-next-line no-restricted-syntax -- active-state primary tint for segmented control; no DS segmented-control variant yet
               style={{ borderRadius: '8px 0 0 8px', border: 'none', fontSize: 12, fontWeight: 500, ...(viewMode === "edit" ? { backgroundColor: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.1)', color: 'var(--color-primary)' } : {}) }}
             >
-              <Icon as={EditOutlined} size="md" /> Edit
+              <Icon as={EditOutlined} /> Edit
             </Button>
             <Button
-              variant="ghost"
-              size="sm"
+              type="text"
+              size="small"
               onClick={() => setViewMode("preview")}
               // eslint-disable-next-line no-restricted-syntax -- active-state primary tint + left-divider for segmented control; no DS segmented-control variant yet
               style={{ borderRadius: '0 8px 8px 0', borderLeft: '1px solid var(--color-border)', fontSize: 12, fontWeight: 500, ...(viewMode === "preview" ? { backgroundColor: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.1)', color: 'var(--color-primary)' } : {}) }}
             >
-              <Icon as={EyeOutlined} size="md" /> Preview
+              <Icon as={EyeOutlined} /> Preview
             </Button>
           </div>
         </Flex>
@@ -174,7 +174,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
                 <Badge
                   key={email}
                   variant="gray"
-                  shape="pill"
+                  shape="round"
                   onRemove={() => handleRemoveEmail(email)}
                   // eslint-disable-next-line no-restricted-syntax -- chip fontSize override for compact email tag; no DS Badge size prop exists
                   style={{ paddingTop: 2, paddingBottom: 2, fontSize: 12 }}
@@ -217,12 +217,12 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
                 />
               </div>
               <Button
-                variant="primary"
+                type="primary"
                 onClick={handleSummariseSession}
                 disabled={isGenerating}
                 style={{ flexShrink: 0 }}
               >
-                <Icon as={ThunderboltOutlined} size="lg" />
+                <Icon as={ThunderboltOutlined} size="large" />
                 {isGenerating ? "Generating..." : "Summarise session"}
               </Button>
             </Flex>
@@ -230,8 +230,8 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
             {/* Toolbar */}
             <Flex align="center" gap={2} style={{ paddingBottom: 8 }}>
               {toolbarIcons.map((ToolbarIcon, i) => (
-                <Button key={i} variant="icon">
-                  <Icon as={ToolbarIcon} size="lg" />
+                <Button key={i} type="text">
+                  <Icon as={ToolbarIcon} size="large" />
                 </Button>
               ))}
             </Flex>
@@ -284,7 +284,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
               <div style={{ paddingTop: 16 }}>
                 {/* eslint-disable-next-line no-restricted-syntax -- primary-bg tint for attachment chip; no DS attachment-chip component */}
                 <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: 'var(--color-primary-bg)', padding: '8px 12px' }}>
-                  <Icon as={PaperClipOutlined} size="lg" tone="primary" />
+                  <Icon as={PaperClipOutlined} size="large" tone="primary" />
                   <span style={{ fontSize: 12, lineHeight: 1.67 }}>Progress note — {clientName} — {formatDisplayDate(noteDate)}.pdf</span>
                   <Badge variant="purple">PDF</Badge>
                 </Flex>

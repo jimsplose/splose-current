@@ -1,26 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import {
-  Button,
-  Badge,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Pagination,
-  Dropdown,
-  DropdownTriggerButton,
-  Modal,
-  FormInput,
-  FormSelect,
-  Toggle,
-  PageHeader,
-  Divider,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Badge, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Toggle, PageHeader, Divider } from "@/components/ds";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
 
@@ -97,8 +79,8 @@ export default function CancellationReasonsPage() {
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Cancellation reasons">
-        <Button variant="secondary">Show archived</Button>
-        <Button variant="secondary" onClick={openCreate}>+ New reason</Button>
+        <Button>Show archived</Button>
+        <Button onClick={openCreate}>+ New reason</Button>
       </PageHeader>
       <DataTable>
         <TableHead>
@@ -132,8 +114,8 @@ export default function CancellationReasonsPage() {
         title={isEditing ? "Edit cancellation reason" : "New cancellation reason"}
         footer={
           <>
-            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
+            <Button onClick={closeModal}>Cancel</Button>
+            <Button type="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </>
         }
       >

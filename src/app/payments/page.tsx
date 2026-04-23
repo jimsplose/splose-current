@@ -2,9 +2,9 @@
 
 import { Fragment, useState } from "react";
 import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import Icon from "@/components/ds/Icon";
-import { Button, DataTable, ListPage, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge, Text } from "@/components/ds";
+import { DataTable, ListPage, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge, Text } from "@/components/ds";
 
 const mockPayments = [
   {
@@ -110,7 +110,7 @@ export default function PaymentsPage() {
     <ListPage
       title="Payments"
       actions={
-        <Button variant="secondary">
+        <Button>
           <Icon as={PlusOutlined} />
           New payment
         </Button>
@@ -122,8 +122,8 @@ export default function PaymentsPage() {
             <Th style={{ width: 280 }}>
               <Flex align="center" gap={6}>
                 Payment #
-                <Icon as={SwapOutlined} size="md" tone="secondary" />
-                <Icon as={FilterOutlined} size="md" tone="secondary" />
+                <Icon as={SwapOutlined} tone="secondary" />
+                <Icon as={FilterOutlined} tone="secondary" />
               </Flex>
             </Th>
             <Th>From</Th>
@@ -131,7 +131,7 @@ export default function PaymentsPage() {
             <Th align="right">
               <Flex align="center" justify="end" gap={6}>
                 Payment date
-                <Icon as={SwapOutlined} size="md" tone="secondary" />
+                <Icon as={SwapOutlined} tone="secondary" />
               </Flex>
             </Th>
           </TableHead>
@@ -149,7 +149,7 @@ export default function PaymentsPage() {
                   <Td>
                     <Flex align="center" gap={8}>
                       {payment.invoices.length > 0 ? (
-                        <Button variant="icon" size="sm" style={{ height: 20, width: 20 }} round>
+                        <Button type="text" size="small" style={{ height: 20, width: 20 }} round>
                           {expandedId === payment.id ? (
                             <svg
                               width="14"

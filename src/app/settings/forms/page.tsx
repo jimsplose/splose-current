@@ -1,27 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import {
-  Button,
-  PageHeader,
-  SearchBar,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Badge,
-  EmptyState,
-  Dropdown,
-  DropdownTriggerButton,
-  Modal,
-  FormInput,
-  FormSelect,
-} from "@/components/ds";
+import { PageHeader, SearchBar, DataTable, TableHead, Th, TableBody, Tr, Td, Badge, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 
@@ -74,7 +57,7 @@ export default function FormsPage() {
       <PageHeader title="Form templates">
         <Dropdown
           trigger={
-            <Button variant="secondary">
+            <Button>
               <Flex align="center" gap={4}>Learn <Icon as={DownOutlined} /></Flex>
             </Button>
           }
@@ -84,8 +67,8 @@ export default function FormsPage() {
           ]}
           onSelect={(value) => console.log("Learn:", value)}
         />
-        <Button variant="secondary">Show archived</Button>
-        <Button variant="secondary" onClick={openCreate}>+ New template</Button>
+        <Button>Show archived</Button>
+        <Button onClick={openCreate}>+ New template</Button>
       </PageHeader>
 
       <SearchBar
@@ -133,8 +116,8 @@ export default function FormsPage() {
         title={isEditing ? "Edit form template" : "New form template"}
         footer={
           <>
-            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
+            <Button onClick={closeModal}>Cancel</Button>
+            <Button type="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </>
         }
       >

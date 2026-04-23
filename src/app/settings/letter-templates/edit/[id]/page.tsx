@@ -2,15 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Flex } from "antd";
-import {
-  Button,
-  FormInput,
-  FormSelect,
-  FormPage,
-  RichTextEditor,
-  Grid,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { FormInput, FormSelect, FormPage, RichTextEditor, Grid } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 
 const recipientOptions = [
@@ -43,8 +36,8 @@ export default function EditLetterTemplatePage() {
       maxWidth={768}
       actions={
         <Flex align="center" gap={8}>
-          <Button variant="secondary" onClick={() => router.push("/settings/letter-templates")}>Cancel</Button>
-          <Button variant="primary" onClick={() => router.push("/settings/letter-templates")}>Save</Button>
+          <Button onClick={() => router.push("/settings/letter-templates")}>Cancel</Button>
+          <Button type="primary" onClick={() => router.push("/settings/letter-templates")}>Save</Button>
         </Flex>
       }
     >
@@ -57,7 +50,7 @@ export default function EditLetterTemplatePage() {
         <FormInput label="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
 
         <div>
-          <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>Letter body</FormLabel>
+          <FormLabel size="small" style={{ color: 'var(--color-text-secondary)' }}>Letter body</FormLabel>
           <RichTextEditor
             value={body}
             onChange={setBody}

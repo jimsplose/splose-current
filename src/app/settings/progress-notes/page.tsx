@@ -2,27 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import { ThunderboltOutlined, CloseOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import {
-  Button,
-  PageHeader,
-  SearchBar,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Pagination,
-  Badge,
-  Dropdown,
-  DropdownTriggerButton,
-  Modal,
-  FormInput,
-  Toggle,
-} from "@/components/ds";
+import { PageHeader, SearchBar, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Badge, Dropdown, DropdownTriggerButton, Modal, FormInput, Toggle } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { formatTimestamp } from "@/lib/format";
@@ -71,8 +54,8 @@ export default function ProgressNotesPage() {
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Progress note templates">
-        <Button variant="secondary">Show archived</Button>
-        <Button variant="secondary" onClick={openCreate}>+ New template</Button>
+        <Button>Show archived</Button>
+        <Button onClick={openCreate}>+ New template</Button>
       </PageHeader>
 
       {showBanner && (
@@ -87,8 +70,8 @@ export default function ProgressNotesPage() {
             .
           </p>
           <Button
-            variant="icon"
-            size="sm"
+            type="text"
+            size="small"
             style={{ flexShrink: 0 }}
             onClick={() => setShowBanner(false)}
           >
@@ -143,8 +126,8 @@ export default function ProgressNotesPage() {
         title={isEditing ? "Edit progress note template" : "New progress note template"}
         footer={
           <>
-            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
+            <Button onClick={closeModal}>Cancel</Button>
+            <Button type="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </>
         }
       >

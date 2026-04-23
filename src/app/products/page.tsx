@@ -1,9 +1,9 @@
 "use client";
 
 import Icon from "@/components/ds/Icon";
-import { ListPage, Button, DataTable, Pagination, TableHead, Th, TableBody, Td, Tr, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Checkbox, Text, Grid, Divider } from "@/components/ds";
+import { ListPage, DataTable, Pagination, TableHead, Th, TableBody, Td, Tr, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Checkbox, Text, Grid, Divider } from "@/components/ds";
 import { PlusOutlined, MinusOutlined, MoreOutlined, EditOutlined, CopyOutlined, HistoryOutlined, DeleteOutlined, AppstoreOutlined } from "@ant-design/icons";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import Link from "next/link";
 import { useState, useMemo, useCallback, Fragment } from "react";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -458,7 +458,6 @@ export default function ProductsPage() {
       actions={
         <>
           <Button
-            variant="secondary"
             onClick={() => {
               setShowArchived(!showArchived);
             }}
@@ -467,7 +466,7 @@ export default function ProductsPage() {
             Display archived products
           </Button>
           <Link href="/products/new">
-            <Button variant="secondary">
+            <Button>
               <Icon as={PlusOutlined} />
               New product
             </Button>
@@ -504,15 +503,15 @@ export default function ProductsPage() {
                   >
                     <Td align="center" style={{ padding: '12px 8px' }}>
                       <Button
-                        variant="icon"
-                        size="sm"
+                        type="text"
+                        size="small"
                         round
                         onClick={(e) => {
                           e.stopPropagation();
                           toggleExpand(globalIndex);
                         }}
                       >
-                        {isExpanded ? <Icon as={MinusOutlined} size="md" /> : <Icon as={PlusOutlined} size="md" />}
+                        {isExpanded ? <Icon as={MinusOutlined} /> : <Icon as={PlusOutlined} />}
                       </Button>
                     </Td>
                     <Td><Text variant="body/md" as="span" color="text">{product.name}</Text></Td>
@@ -588,7 +587,7 @@ export default function ProductsPage() {
                                     <Td style={{ padding: '8px 16px' }}><Text variant="body/sm" as="span" color="secondary">{variant.unit}</Text></Td>
                                     <Td style={{ padding: '8px 16px' }}>
                                       <Button
-                                        variant="link"
+                                        type="link"
                                         onClick={() => {
                                           setStockModalVariant(variant.name);
                                           setStockModalOpen(true);
@@ -636,8 +635,8 @@ export default function ProductsPage() {
         title={isEditing ? "Edit product" : "New product"}
         footer={
           <>
-            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>Save</Button>
+            <Button onClick={closeModal}>Cancel</Button>
+            <Button type="primary" onClick={handleSave}>Save</Button>
           </>
         }
       >
@@ -658,10 +657,10 @@ export default function ProductsPage() {
         maxWidth="sm"
         footer={
           <>
-            <Button variant="secondary" onClick={() => setConfirmDialog({ open: false, title: "", message: "", action: null, productIndex: null })}>
+            <Button onClick={() => setConfirmDialog({ open: false, title: "", message: "", action: null, productIndex: null })}>
               Cancel
             </Button>
-            <Button variant="danger" onClick={handleConfirmAction}>
+            <Button danger onClick={handleConfirmAction}>
               {confirmDialog.action === "archive" ? "Archive" : "Delete"}
             </Button>
           </>
@@ -678,8 +677,8 @@ export default function ProductsPage() {
         maxWidth="lg"
         footer={
           <>
-            <Button variant="secondary" onClick={() => setStockModalOpen(false)}>Cancel</Button>
-            <Button variant="primary" onClick={() => setStockModalOpen(false)}>OK</Button>
+            <Button onClick={() => setStockModalOpen(false)}>Cancel</Button>
+            <Button type="primary" onClick={() => setStockModalOpen(false)}>OK</Button>
           </>
         }
       >

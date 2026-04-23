@@ -1,18 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import {
-  Button,
-  FormInput,
-  FormSelect,
-  FormColorPicker,
-  FormTextarea,
-  Toggle,
-  Divider,
-  RadioGroup,
-  Text,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { FormInput, FormSelect, FormColorPicker, FormTextarea, Toggle, Divider, RadioGroup, Text } from "@/components/ds";
 
 interface ServiceData {
   name: string;
@@ -151,7 +141,7 @@ export default function EditServiceClient({ id }: { id: string }) {
           <div style={{ marginBottom: 16 }} />
           <FormTextarea label="Description" rows={3} placeholder="Enter a description for this service..." />
 
-          <Divider variant="primary" style={{ margin: '24px 0' }} />
+          <Divider type="primary" style={{ margin: '24px 0' }} />
 
           {/* Pricing */}
           <Text variant="heading/lg" as="h2" style={{ marginBottom: 16 }}>Pricing</Text>
@@ -172,7 +162,7 @@ export default function EditServiceClient({ id }: { id: string }) {
             defaultValue={service.duration}
           />
 
-          <Divider variant="primary" style={{ margin: '24px 0' }} />
+          <Divider type="primary" style={{ margin: '24px 0' }} />
 
           {/* Online booking */}
           <Text variant="heading/lg" as="h2" style={{ marginBottom: 16 }}>Online booking</Text>
@@ -182,7 +172,7 @@ export default function EditServiceClient({ id }: { id: string }) {
             label="Enable online booking"
           />
 
-          <Divider variant="primary" style={{ margin: '24px 0' }} />
+          <Divider type="primary" style={{ margin: '24px 0' }} />
 
           {/* Online payment */}
           <Text variant="heading/lg" as="h2" style={{ marginBottom: 16 }}>Online payment</Text>
@@ -202,7 +192,7 @@ export default function EditServiceClient({ id }: { id: string }) {
             </div>
           )}
 
-          <Divider variant="primary" style={{ margin: '24px 0' }} />
+          <Divider type="primary" style={{ margin: '24px 0' }} />
 
           {/* Appointment notifications */}
           <Text variant="heading/lg" as="h2" style={{ marginBottom: 16 }}>Appointment notifications</Text>
@@ -215,7 +205,7 @@ export default function EditServiceClient({ id }: { id: string }) {
 
           {/* Footer actions */}
           <Flex align="center" gap={16} style={{ marginTop: 32, marginBottom: 32 }}>
-            <Button variant="primary">Save</Button>
+            <Button type="primary">Save</Button>
           </Flex>
         </div>
       </div>

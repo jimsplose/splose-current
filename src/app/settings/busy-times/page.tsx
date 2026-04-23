@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import { Button, DataTable, TableHead, Th, TableBody, Td, ColorDot, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, FormColorPicker, PageHeader } from "@/components/ds";
+import { Button, Flex } from "antd";
+import { DataTable, TableHead, Th, TableBody, Td, ColorDot, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, FormColorPicker, PageHeader } from "@/components/ds";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
 
@@ -53,8 +53,8 @@ export default function BusyTimesPage() {
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Busy time types">
-        <Button variant="secondary">Show archived</Button>
-        <Button variant="secondary" onClick={openCreate}>+ New type</Button>
+        <Button>Show archived</Button>
+        <Button onClick={openCreate}>+ New type</Button>
       </PageHeader>
       <p style={{ marginBottom: 24, fontSize: 12, color: 'var(--color-text-secondary)' }}>
         Use busy time to indicate non billable events in Practitioner calendars. You can change utilisation settings to control whether specific types of busy time are used in utilisation reports.
@@ -85,8 +85,8 @@ export default function BusyTimesPage() {
         title={isEditing ? "Edit busy time type" : "New busy time type"}
         footer={
           <>
-            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
+            <Button onClick={closeModal}>Cancel</Button>
+            <Button type="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </>
         }
       >

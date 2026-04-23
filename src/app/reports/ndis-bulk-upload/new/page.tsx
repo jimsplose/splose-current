@@ -3,26 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { UploadOutlined, CheckCircleOutlined, ExclamationCircleOutlined, FileTextOutlined } from "@ant-design/icons";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import Icon from "@/components/ds/Icon";
-import {
-  Button,
-  FormInput,
-  FormSelect,
-  DateRangeFilter,
-  PageHeader,
-  FileUpload,
-  Card,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Td,
-  Badge,
-  Text,
-  Divider,
-  Breadcrumbs,
-} from "@/components/ds";
+import { FormInput, FormSelect, DateRangeFilter, PageHeader, FileUpload, Card, DataTable, TableHead, Th, TableBody, Td, Badge, Text, Divider, Breadcrumbs } from "@/components/ds";
 
 const ndisBreadcrumbs = (
   <div style={{ padding: "8px 24px 0" }}>
@@ -116,7 +99,7 @@ export default function NdisBulkUploadNewPage() {
 
             <Flex justify="center" gap={12} style={{ marginTop: 24 }}>
               <Link href="/reports/ndis-bulk-upload">
-                <Button variant="primary">Back to uploads</Button>
+                <Button type="primary">Back to uploads</Button>
               </Link>
             </Flex>
           </Card>
@@ -131,7 +114,7 @@ export default function NdisBulkUploadNewPage() {
         {ndisBreadcrumbs}
         <PageHeader title="NDIS bulk upload — Validation">
           <Button onClick={() => setStep("upload")}>Back</Button>
-          <Button variant="primary" onClick={() => setStep("confirmation")} disabled={validCount === 0}>
+          <Button type="primary" onClick={() => setStep("confirmation")} disabled={validCount === 0}>
             Submit {validCount} valid claims
           </Button>
         </PageHeader>
@@ -202,7 +185,7 @@ export default function NdisBulkUploadNewPage() {
         <Link href="/reports/ndis-bulk-upload">
           <Button>Cancel</Button>
         </Link>
-        <Button variant="primary" onClick={handleUpload} disabled={!fileName}>
+        <Button type="primary" onClick={handleUpload} disabled={!fileName}>
           Upload
         </Button>
       </PageHeader>
@@ -240,8 +223,8 @@ export default function NdisBulkUploadNewPage() {
                   <Text variant="caption/md" as="p" color="secondary">CSV file — 5 rows</Text>
                 </div>
                 <Button
-                  variant="ghost"
-                  size="sm"
+                  type="text"
+                  size="small"
                   onClick={() => setFileName(null)}
                 >
                   Remove

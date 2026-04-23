@@ -1,26 +1,48 @@
 Pick up the next issue from the work queue and execute it to completion.
 
+If invoked with a number (`/work 9`), use that issue. If invoked with multiple numbers (`/work 9 10 11`) or the word `all` or `continuously`, set **multi-issue mode** (skip post-task queue display; proceed immediately to the next target after each completion).
+
+---
+
 ## Session start
 
 **Step 1 — Read the queue**
 
 ```bash
-gh issue list --state open --json number,title,labels --limit 30
+gh issue list --state open --json number,title,labels,body --limit 30
 ```
 
-Display all open issues ordered by number. This is the authoritative queue — README.md mirrors it but GitHub is the source of truth.
+**Step 2 — Build and display the queue status**
 
-**Step 2 — Find the next unblocked issue**
+For each open issue, determine its status:
+- **Ready** — no "Depends on" field, or all listed dependencies are closed
+- **Blocked** — one or more dependencies are still open (show which issue is blocking it)
 
-An issue is unblocked when all issues listed in its "Depends on" field are closed. Check each dependency:
+Display a table like this:
 
-```bash
-gh issue view <number> --json state,title
+```
+#   Title                              Status      Labels
+──────────────────────────────────────────────────────────
+12  Migrate CalendarView to DS tokens  ✅ Ready     ds-migration
+14  Fix invoice batch preview layout   ✅ Ready     fidelity
+17  Update ClientDetail sidebar        🔒 Blocked   ds-migration  (needs #12)
+19  Add payment status badge           ✅ Ready     fidelity
 ```
 
-The lowest-numbered open issue with all dependencies closed is the target. If the user named a specific issue number (e.g. `/work 9`), use that instead — still verify dependencies before starting.
+Then state your suggestion:
 
-**Step 3 — Load issue context**
+> **Suggested start: #N — [title]**
+> _[One sentence on why: lowest unblocked, or matches a specific label priority, etc.]_
+
+**Step 3 — Wait for confirmation**
+
+Ask Jim (single question, one line):
+
+> Start with #N, pick a different issue, or stop? [N / <number> / stop]
+
+Wait for a response before proceeding. If Jim names a specific number, use that. If Jim says "stop", exit. If Jim confirms or says nothing unexpected, proceed with #N.
+
+**Step 4 — Load issue context**
 
 ```bash
 gh issue view <number> --json title,body,labels
@@ -32,7 +54,7 @@ Read the full body. Extract:
 - What the acceptance criteria are
 - What the session progress log says (don't redo completed work)
 
-**Step 4 — Pre-flight checks**
+**Step 5 — Pre-flight checks**
 
 ```bash
 git log --oneline -5          # check for WIP commits that touch the target files
@@ -42,7 +64,7 @@ npx tsc --noEmit 2>&1 | head -5   # confirm baseline is clean
 
 If prior commits already touched the target files, read what was done and continue from that point — do not redo it.
 
-**Step 5 — Announce**
+**Step 6 — Announce and start**
 
 Show Jim:
 - Issue number + title
@@ -50,7 +72,7 @@ Show Jim:
 - Any already-done work from the progress log
 - Estimated session scope
 
-Then start immediately — don't ask for confirmation unless a dependency is unmet.
+Then start immediately.
 
 ---
 
@@ -113,12 +135,26 @@ gh issue close <number> --comment "All acceptance criteria met. Closed."
 git push
 ```
 
-**Step 5 — Report to Jim**
+**Step 5 — Queue status + next step** _(skip this step in multi-issue mode)_
 
-- What was completed
-- Issue closed or still open (and what remains)
-- Whether the next issue (#N+1) is now unblocked
-- Ask: "Run the next issue (#N+1) or stop here?"
+Refresh the queue:
+
+```bash
+gh issue list --state open --json number,title,labels,body --limit 30
+```
+
+Display the updated queue table (same format as Session start Step 2) showing which issues are now Ready vs Blocked after closing #N.
+
+State a suggestion for what to do next:
+
+> **Suggested next: #N+1 — [title]**
+> _[One sentence on why.]_
+
+Then ask Jim (single question):
+
+> Pick up #N+1, choose a different issue, or stop? [N+1 / <number> / stop]
+
+In multi-issue mode: if more targets remain in the original list, proceed immediately. If the list is exhausted, show the queue summary and stop.
 
 ---
 

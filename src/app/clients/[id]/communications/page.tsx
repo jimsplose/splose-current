@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { Flex } from "antd";
-import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge, statusVariant, Dropdown, DropdownTriggerButton, Modal } from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge, statusVariant, Dropdown, DropdownTriggerButton, Modal } from "@/components/ds";
 
 const communicationsData = [
   {
@@ -218,14 +218,14 @@ export default function ClientCommunicationsPage() {
           <TableHead>
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                Date and time <Icon as={SwapOutlined} size="md" tone="secondary" />
+                Date and time <Icon as={SwapOutlined} tone="secondary" />
               </Flex>
             </Th>
             <Th>Subject</Th>
             <Th>Type</Th>
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                Direction <Icon as={FilterOutlined} size="md" tone="secondary" />
+                Direction <Icon as={FilterOutlined} tone="secondary" />
               </Flex>
             </Th>
             <Th>Links</Th>
@@ -236,7 +236,7 @@ export default function ClientCommunicationsPage() {
               <Tr key={comm.id}>
                 <Td>
                   <Flex align="center" gap={8}>
-                    <Button variant="icon" size="sm" style={{ height: 20, width: 20, borderRadius: 4, border: '1px solid var(--color-border)', fontSize: 12 }}>
+                    <Button type="text" size="small" style={{ height: 20, width: 20, borderRadius: 4, border: '1px solid var(--color-border)', fontSize: 12 }}>
                       +
                     </Button>
                     {comm.dateTime}
@@ -281,7 +281,7 @@ export default function ClientCommunicationsPage() {
         title={viewModal.subject}
         maxWidth="lg"
         footer={
-          <Button variant="secondary" onClick={() => setViewModal({ open: false, subject: "", dateTime: "", type: "", status: "", body: "" })}>
+          <Button onClick={() => setViewModal({ open: false, subject: "", dateTime: "", type: "", status: "", body: "" })}>
             Close
           </Button>
         }
@@ -304,10 +304,10 @@ export default function ClientCommunicationsPage() {
         maxWidth="md"
         footer={
           <>
-            <Button variant="secondary" onClick={() => setDeleteModal({ open: false, commId: "", subject: "" })}>
+            <Button onClick={() => setDeleteModal({ open: false, commId: "", subject: "" })}>
               Cancel
             </Button>
-            <Button variant="danger" onClick={() => setDeleteModal({ open: false, commId: "", subject: "" })}>
+            <Button danger onClick={() => setDeleteModal({ open: false, commId: "", subject: "" })}>
               Delete
             </Button>
           </>

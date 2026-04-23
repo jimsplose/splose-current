@@ -1,23 +1,8 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { Flex } from "antd";
-import {
-  Button,
-  FormInput,
-  FormSelect,
-  Badge,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Dropdown,
-  DropdownTriggerButton,
-  Modal,
-  PageHeader,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { FormInput, FormSelect, Badge, DataTable, TableHead, Th, TableBody, Tr, Td, Dropdown, DropdownTriggerButton, Modal, PageHeader } from "@/components/ds";
 import { USER_ADMIN } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
 
@@ -150,11 +135,11 @@ export default function UsersPage() {
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Users">
-        <Button variant="secondary">Invite users</Button>
+        <Button>Invite users</Button>
       </PageHeader>
       <Flex align="center" gap={8} style={{ marginBottom: 16 }}>
         <div style={{ flex: 1 }}><FormInput type="text" placeholder="Search for user name and email" /></div>
-        <Button variant="secondary">Search</Button>
+        <Button>Search</Button>
       </Flex>
       <DataTable>
         <TableHead><Th>Name</Th><Th>Email</Th><Th>Role name</Th><Th>Role type</Th><Th>Group</Th><Th>Status</Th><Th>2FA</Th><Th align="right">Actions</Th></TableHead>
@@ -190,8 +175,8 @@ export default function UsersPage() {
         title="Edit user"
         footer={
           <>
-            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
+            <Button onClick={closeModal}>Cancel</Button>
+            <Button type="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </>
         }
       >
@@ -211,7 +196,7 @@ export default function UsersPage() {
         maxWidth="sm"
         footer={
           <>
-            <Button variant="secondary" onClick={closeConfirmDialog}>Cancel</Button>
+            <Button onClick={closeConfirmDialog}>Cancel</Button>
             <Button
               variant={confirmDialog.action === "deactivate" ? "danger" : "primary"}
               onClick={handleConfirmAction}

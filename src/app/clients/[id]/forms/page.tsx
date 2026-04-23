@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Card, DataTable, Dropdown, DropdownTriggerButton, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Badge, Modal } from "@/components/ds";
+import { Card, DataTable, Dropdown, DropdownTriggerButton, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Badge, Modal } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
+import { Button } from "antd";
 
 const formRowActions: DropdownItem[] = [
   { label: "View", value: "view" },
@@ -185,10 +186,10 @@ export default function ClientFormsPage() {
         maxWidth="md"
         footer={
           <>
-            <Button variant="secondary" onClick={() => setResendModal({ open: false, formTitle: "" })}>
+            <Button onClick={() => setResendModal({ open: false, formTitle: "" })}>
               Cancel
             </Button>
-            <Button variant="primary" onClick={() => setResendModal({ open: false, formTitle: "" })}>
+            <Button type="primary" onClick={() => setResendModal({ open: false, formTitle: "" })}>
               Resend
             </Button>
           </>
@@ -207,10 +208,10 @@ export default function ClientFormsPage() {
         maxWidth="md"
         footer={
           <>
-            <Button variant="secondary" onClick={() => setArchiveModal({ open: false, formTitle: "" })}>
+            <Button onClick={() => setArchiveModal({ open: false, formTitle: "" })}>
               Cancel
             </Button>
-            <Button variant="danger" onClick={() => setArchiveModal({ open: false, formTitle: "" })}>
+            <Button danger onClick={() => setArchiveModal({ open: false, formTitle: "" })}>
               Archive
             </Button>
           </>

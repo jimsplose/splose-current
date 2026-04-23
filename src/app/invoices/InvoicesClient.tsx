@@ -2,26 +2,10 @@
 
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import {
-  ListPage,
-  Button,
-  Pagination,
-  Badge,
-  PaymentStatusBadge,
-  dbStatusToPaymentStatus,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  LinkCell,
-  Text,
-  Skeleton,
-} from "@/components/ds";
+import { ListPage, Pagination, Badge, PaymentStatusBadge, dbStatusToPaymentStatus, DataTable, TableHead, Th, TableBody, Tr, Td, LinkCell, Text, Skeleton } from "@/components/ds";
 
 export interface InvoiceRow {
   id: string;
@@ -110,23 +94,23 @@ export default function InvoicesClient({
     <>
       <Text variant="label/md" as="span" color="secondary">Filters:</Text>
       {locationFilter && (
-        <Badge shape="pill" onRemove={() => setLocationFilter(null)}>
+        <Badge shape="round" onRemove={() => setLocationFilter(null)}>
           Location: {locationFilter}
         </Badge>
       )}
       {practitionerFilter && (
-        <Badge shape="pill" onRemove={() => setPractitionerFilter(null)}>
+        <Badge shape="round" onRemove={() => setPractitionerFilter(null)}>
           Practitioner: {practitionerFilter}
         </Badge>
       )}
       {statusFilter && (
-        <Badge shape="pill" onRemove={() => setStatusFilter(null)}>
+        <Badge shape="round" onRemove={() => setStatusFilter(null)}>
           Status: {statusFilter}
         </Badge>
       )}
       <Button
-        variant="link"
-        size="sm"
+        type="link"
+        size="small"
         onClick={() => {
           setLocationFilter(null);
           setPractitionerFilter(null);
@@ -143,9 +127,9 @@ export default function InvoicesClient({
       title="Invoices"
       actions={
         <>
-          <Button variant="secondary">Batch invoice</Button>
+          <Button>Batch invoice</Button>
           <Link href="/invoices/new">
-            <Button variant="secondary">
+            <Button>
               <Icon as={PlusOutlined} />
               New invoice
             </Button>
@@ -239,7 +223,7 @@ export default function InvoicesClient({
                           <Button
                             key={loc}
                             variant={locationFilter === loc ? "primary" : "secondary"}
-                            size="sm"
+                            size="small"
                             onClick={() => {
                               setLocationFilter(
                                 locationFilter === loc ? null : loc,
@@ -255,7 +239,7 @@ export default function InvoicesClient({
                           <Button
                             key={prac}
                             variant={practitionerFilter === prac ? "primary" : "secondary"}
-                            size="sm"
+                            size="small"
                             onClick={() => {
                               setPractitionerFilter(
                                 practitionerFilter === prac ? null : prac,
@@ -271,7 +255,7 @@ export default function InvoicesClient({
                           <Button
                             key={st}
                             variant={statusFilter === st ? "primary" : "secondary"}
-                            size="sm"
+                            size="small"
                             onClick={() => {
                               setStatusFilter(
                                 statusFilter === st ? null : st,

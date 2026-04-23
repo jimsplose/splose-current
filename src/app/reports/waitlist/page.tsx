@@ -1,19 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import {
-  Badge,
-  Button,
-  DataTable,
-  DateRangeFilter,
-  ListPage,
-  TableBody,
-  TableHead,
-  Td,
-  Th,
-  Tr,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Badge, DataTable, DateRangeFilter, ListPage, TableBody, TableHead, Td, Th, Tr } from "@/components/ds";
 
 const mockWaitlist = [
   { client: "Sophie Lee", dateAdded: "01/03/2026", priority: "High", tags: ["NDIS"], status: "Waiting", practitioner: "Dr Sarah Chen" },
@@ -66,7 +55,7 @@ export default function ReportsWaitlistPage() {
             <Button>Add filter</Button>
             <Button>Save filters</Button>
             <Button>Load filters</Button>
-            <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
+            <Button type="primary" onClick={() => setShowResults(true)}>Run report</Button>
           </Flex>
         </>
       }

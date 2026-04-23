@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import { Button, FormInput, FormSelect, Tab, Toggle, Modal, Card, Grid, Divider, Text, Checkbox } from "@/components/ds";
+import { Button, Flex } from "antd";
+import { FormInput, FormSelect, Tab, Toggle, Modal, Card, Grid, Divider, Text, Checkbox } from "@/components/ds";
 
 interface User {
   name: string;
@@ -157,7 +157,7 @@ export default function UserDetailClient({ id }: { id: string }) {
                 {/* Phone numbers */}
                 <div>
                   <Text variant="label/lg" as="label" color="text" style={{ marginBottom: 4, display: 'block' }}>Phone numbers</Text>
-                  <Button variant="secondary" style={{ marginTop: 4 }}>+ Add new phone number</Button>
+                  <Button style={{ marginTop: 4 }}>+ Add new phone number</Button>
                 </div>
 
                 <FormInput label="Professional title (Occupational Therapist, Physiotherapist, etc.) *" defaultValue="Registered Physiotherapist" />
@@ -170,11 +170,11 @@ export default function UserDetailClient({ id }: { id: string }) {
                 <div style={{ width: 200, height: 200, borderRadius: 8, backgroundColor: 'var(--color-fill-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
                   <Text variant="display/lg" color="secondary">Photo</Text>
                 </div>
-                <Button variant="secondary" style={{ marginTop: 12 }}>Upload</Button>
+                <Button style={{ marginTop: 12 }}>Upload</Button>
               </div>
             </Flex>
 
-            <Divider variant="primary" style={{ margin: '24px 0' }} />
+            <Divider type="primary" style={{ margin: '24px 0' }} />
 
             {/* Timezone */}
             <div style={{ marginBottom: 24 }}>
@@ -187,7 +187,7 @@ export default function UserDetailClient({ id }: { id: string }) {
               <FormSelect options={timezoneOptions} defaultValue="Australia/Adelaide" />
             </div>
 
-            <Divider variant="primary" style={{ margin: '24px 0' }} />
+            <Divider type="primary" style={{ margin: '24px 0' }} />
 
             {/* Account role */}
             <div style={{ marginBottom: 24 }}>
@@ -195,7 +195,7 @@ export default function UserDetailClient({ id }: { id: string }) {
               <FormSelect options={roleNameOptions} value={roleName} onChange={setRoleName} />
             </div>
 
-            <Divider variant="primary" style={{ margin: '24px 0' }} />
+            <Divider type="primary" style={{ margin: '24px 0' }} />
 
             {/* Practitioner settings */}
             <div style={{ marginBottom: 24 }}>
@@ -213,8 +213,8 @@ export default function UserDetailClient({ id }: { id: string }) {
 
             {/* Footer actions */}
             <Flex align="center" gap={16} style={{ marginTop: 32, marginBottom: 32 }}>
-              <Button variant="primary">Save details</Button>
-              <Button variant="link">View user change log</Button>
+              <Button type="primary">Save details</Button>
+              <Button type="link">View user change log</Button>
             </Flex>
           </div>
         )}
@@ -223,7 +223,7 @@ export default function UserDetailClient({ id }: { id: string }) {
           <div style={{ maxWidth: 896 }}>
             <Flex align="center" justify="space-between" style={{ marginBottom: 16 }}>
               <h3 style={{ fontSize: 18, fontWeight: 600 }}>Weekly availability</h3>
-              <Button variant="secondary" onClick={() => setEditAvailOpen(true)}>Edit availability</Button>
+              <Button onClick={() => setEditAvailOpen(true)}>Edit availability</Button>
             </Flex>
 
             <div style={{ overflow: 'hidden', borderRadius: 8, border: '1px solid var(--color-border)' }}>
@@ -259,7 +259,7 @@ export default function UserDetailClient({ id }: { id: string }) {
           <div style={{ maxWidth: 672 }}>
             <Flex align="center" justify="space-between" style={{ marginBottom: 16 }}>
               <h3 style={{ fontSize: 18, fontWeight: 600 }}>Body chart templates</h3>
-              <Button variant="secondary">+ New template</Button>
+              <Button>+ New template</Button>
             </Flex>
             <Flex vertical gap={8}>
               {bodyChartTemplates.map((t) => (
@@ -284,8 +284,8 @@ export default function UserDetailClient({ id }: { id: string }) {
           </Grid>
           <FormSelect label="Apply to" value={editApplyTo} onChange={setEditApplyTo} options={applyToOptions} />
           <Flex justify="flex-end" gap={8}>
-            <Button variant="secondary" onClick={() => setEditAvailOpen(false)}>Cancel</Button>
-            <Button variant="primary" onClick={() => setEditAvailOpen(false)}>Save</Button>
+            <Button onClick={() => setEditAvailOpen(false)}>Cancel</Button>
+            <Button type="primary" onClick={() => setEditAvailOpen(false)}>Save</Button>
           </Flex>
         </Flex>
       </Modal>

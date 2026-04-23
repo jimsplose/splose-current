@@ -1,21 +1,8 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import { Flex } from "antd";
-import {
-  Button,
-  PageHeader,
-  SearchBar,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Td,
-  Pagination,
-  Dropdown,
-  DropdownTriggerButton,
-  Modal,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { PageHeader, SearchBar, DataTable, TableHead, Th, TableBody, Td, Pagination, Dropdown, DropdownTriggerButton, Modal } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 import { useFormModal, type UseFormModalOptions } from "@/hooks/useFormModal";
 
@@ -124,12 +111,12 @@ export default function SettingsListPage<
       <PageHeader title={title}>
         {headerButtons}
         {primaryButtonLabel && hasModal && (
-          <Button variant="primary" onClick={modalHook.openCreate}>
+          <Button type="primary" onClick={modalHook.openCreate}>
             {primaryButtonLabel}
           </Button>
         )}
         {primaryButtonLabel && !hasModal && (
-          <Button variant="primary">{primaryButtonLabel}</Button>
+          <Button type="primary">{primaryButtonLabel}</Button>
         )}
       </PageHeader>
 
@@ -212,10 +199,10 @@ export default function SettingsListPage<
           title={modalTitle ? modalTitle(modalHook.isEditing) : (modalHook.isEditing ? "Edit" : "Create")}
           footer={
             <Flex justify="flex-end" gap={8}>
-              <Button variant="secondary" onClick={modalHook.closeModal}>
+              <Button onClick={modalHook.closeModal}>
                 Cancel
               </Button>
-              <Button variant="primary" onClick={modalHook.handleSave}>
+              <Button type="primary" onClick={modalHook.handleSave}>
                 Save
               </Button>
             </Flex>

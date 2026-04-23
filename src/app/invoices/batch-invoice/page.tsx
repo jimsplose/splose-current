@@ -2,22 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Flex } from "antd";
-import {
-  Button,
-  FormSelect,
-  DateRangeFilter,
-  Checkbox,
-  Card,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Td,
-  FormPage,
-  ListPage,
-  Text,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { FormSelect, DateRangeFilter, Checkbox, Card, DataTable, TableHead, Th, TableBody, Td, FormPage, ListPage, Text } from "@/components/ds";
 
 const mockClients = [
   { id: "emma", name: "Emma Thompson", appointments: 3, total: "$193.99" },
@@ -85,7 +71,7 @@ export default function BatchInvoicePage() {
           <>
             <Button onClick={() => setStep("clients")}>Back</Button>
             <Link href="/invoices">
-              <Button variant="primary">Create invoices</Button>
+              <Button type="primary">Create invoices</Button>
             </Link>
           </>
         }
@@ -135,7 +121,7 @@ export default function BatchInvoicePage() {
         actions={
           <>
             <Button onClick={() => setStep("filters")}>Back</Button>
-            <Button variant="primary" onClick={() => setStep("preview")} disabled={selectedClients.length === 0}>
+            <Button type="primary" onClick={() => setStep("preview")} disabled={selectedClients.length === 0}>
               Next ({selectedClients.length} selected)
             </Button>
           </>
@@ -229,7 +215,7 @@ export default function BatchInvoicePage() {
           />
 
           <Flex gap={12}>
-            <Button variant="primary" onClick={() => setStep("clients")}>
+            <Button type="primary" onClick={() => setStep("clients")}>
               Next
             </Button>
           </Flex>

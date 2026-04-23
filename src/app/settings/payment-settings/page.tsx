@@ -1,24 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import {
-  Button,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Badge,
-  FormInput,
-  FormSelect,
-  Pagination,
-  Dropdown,
-  DropdownTriggerButton,
-  Modal,
-  PageHeader,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { DataTable, TableHead, Th, TableBody, Tr, Td, Badge, FormInput, FormSelect, Pagination, Dropdown, DropdownTriggerButton, Modal, PageHeader } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -101,7 +85,7 @@ export default function PaymentSettingsPage() {
       <section style={{ marginBottom: 32 }}>
         <h2 style={{ marginBottom: 16, fontSize: 20, fontWeight: 600 }}>PDF settings</h2>
         <div style={{ maxWidth: 672 }}>
-          <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>
+          <FormLabel size="small" style={{ color: 'var(--color-text-secondary)' }}>
             Brand colour
           </FormLabel>
           <Flex align="center" gap={12} style={{ marginBottom: 16 }}>
@@ -113,7 +97,7 @@ export default function PaymentSettingsPage() {
               defaultValue="#8690FC"
             />
           </Flex>
-          <Button variant="primary" size="sm">
+          <Button type="primary" size="small">
             Save
           </Button>
         </div>
@@ -159,7 +143,7 @@ export default function PaymentSettingsPage() {
 
         <div style={{ marginTop: 16 }}>
           <Dropdown
-            trigger={<Button variant="secondary">+ Add payment method</Button>}
+            trigger={<Button>+ Add payment method</Button>}
             items={PAYMENT_TYPE_OPTIONS}
             onSelect={handleAddPaymentType}
           />
@@ -180,7 +164,7 @@ export default function PaymentSettingsPage() {
             }))}
             defaultValue="1"
           />
-          <Button variant="primary" size="sm">
+          <Button type="primary" size="small">
             Save changes
           </Button>
         </Flex>
@@ -192,8 +176,8 @@ export default function PaymentSettingsPage() {
         title={isEditing ? "Edit payment method" : "New payment method"}
         footer={
           <>
-            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
+            <Button onClick={closeModal}>Cancel</Button>
+            <Button type="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </>
         }
       >

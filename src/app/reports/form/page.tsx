@@ -1,21 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import {
-  Button,
-  Badge,
-  Card,
-  DateRangeFilter,
-  FormSelect,
-  ListPage,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Badge, Card, DateRangeFilter, FormSelect, ListPage, DataTable, TableHead, Th, TableBody, Tr, Td } from "@/components/ds";
 
 const mockFormRows = [
   { form: "Intake Form", client: "Sarah Mitchell", status: "Completed", submitted: "11/03/2026", practitioner: "Dr Emily Watson" },
@@ -72,7 +59,7 @@ export default function ReportsFormPage() {
         <Button>Add filter</Button>
         <Button>Save filters</Button>
         <Button>Load filters</Button>
-        <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
+        <Button type="primary" onClick={() => setShowResults(true)}>Run report</Button>
       </Flex>
 
       {showResults && (

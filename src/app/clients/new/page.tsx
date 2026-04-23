@@ -2,15 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Flex } from "antd";
-import {
-  Button,
-  Card,
-  FormInput,
-  FormPage,
-  FormSelect,
-  Grid,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Card, FormInput, FormPage, FormSelect, Grid } from "@/components/ds";
 
 const titleOptions = [
   { value: "", label: "Select title" },
@@ -116,10 +109,10 @@ export default function NewClientPage() {
       style={{ minHeight: 'calc(100vh - 3rem)' }}
       actions={
         <>
-          <Button variant="secondary" onClick={() => router.push("/clients")}>
+          <Button onClick={() => router.push("/clients")}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={() => router.push("/clients")}>
+          <Button type="primary" onClick={() => router.push("/clients")}>
             Save
           </Button>
         </>

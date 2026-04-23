@@ -2,20 +2,10 @@
 
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import { ThunderboltOutlined, PlusOutlined, HolderOutlined, MoreOutlined, CheckOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import {
-  Button,
-  FormInput,
-  FormSelect,
-  Toggle,
-  FormPage,
-  RichTextEditor,
-  Card,
-  Modal,
-  Dropdown,
-} from "@/components/ds";
+import { FormInput, FormSelect, Toggle, FormPage, RichTextEditor, Card, Modal, Dropdown } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 import type { DropdownItem } from "@/components/ds";
 
@@ -133,8 +123,8 @@ export default function EditProgressNoteTemplatePage() {
         maxWidth={768}
         actions={
           <Flex align="center" gap={8}>
-            <Button variant="secondary" onClick={() => router.push("/settings/progress-notes")}>Cancel</Button>
-            <Button variant="primary" onClick={() => router.push("/settings/progress-notes")}>Save</Button>
+            <Button onClick={() => router.push("/settings/progress-notes")}>Cancel</Button>
+            <Button type="primary" onClick={() => router.push("/settings/progress-notes")}>Save</Button>
           </Flex>
         }
       >
@@ -154,12 +144,12 @@ export default function EditProgressNoteTemplatePage() {
                     <span style={{ flex: 1, fontSize: 12, fontWeight: 500 }}>{block.name}</span>
                     {savedBlockId === block.id && (
                       <Flex align="center" gap={4} style={{ fontSize: 11, color: '#059669' }}>
-                        <Icon as={CheckOutlined} size="md" /> Saved
+                        <Icon as={CheckOutlined} /> Saved
                       </Flex>
                     )}
                     <Dropdown
                       trigger={
-                        <Button variant="ghost" iconOnly style={{ color: 'var(--color-text-secondary)' }}>
+                        <Button type="text" iconOnly style={{ color: 'var(--color-text-secondary)' }}>
                           <Icon as={MoreOutlined} />
                         </Button>
                       }
@@ -180,14 +170,14 @@ export default function EditProgressNoteTemplatePage() {
                   </div>
                 </Card>
               ))}
-              <Button variant="secondary" onClick={() => setShowLibrary(true)}>
+              <Button onClick={() => setShowLibrary(true)}>
                 <Icon as={PlusOutlined} /> Add an AI block
               </Button>
             </Flex>
           )}
 
           <div>
-            <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>Free text section</FormLabel>
+            <FormLabel size="small" style={{ color: 'var(--color-text-secondary)' }}>Free text section</FormLabel>
             <RichTextEditor value={freeText} onChange={setFreeText} rows={6} />
           </div>
         </Flex>

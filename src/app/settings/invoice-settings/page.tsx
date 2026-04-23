@@ -1,30 +1,10 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import { CalendarOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import {
-  Alert,
-  Button,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  FormInput,
-  FormSelect,
-  FormTextarea,
-  Pagination,
-  Toggle,
-  Checkbox,
-  Dropdown,
-  DropdownTriggerButton,
-  Modal,
-  RichTextEditor,
-  PageHeader,
-} from "@/components/ds";
+import { Alert, DataTable, TableHead, Th, TableBody, Tr, Td, FormInput, FormSelect, FormTextarea, Pagination, Toggle, Checkbox, Dropdown, DropdownTriggerButton, Modal, RichTextEditor, PageHeader } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -246,7 +226,7 @@ export default function InvoiceSettingsPage() {
         <Pagination currentPage={reminderPage} totalPages={reminderTotalPages} totalItems={reminders.length} itemsPerPage={pageSize} onPageChange={setReminderPage} />
 
         <div style={{ marginTop: 16 }}>
-          <Button variant="secondary" style={{ width: '100%', justifyContent: 'center' }} onClick={() => openModal("reminder")}>
+          <Button style={{ width: '100%', justifyContent: 'center' }} onClick={() => openModal("reminder")}>
             + New invoice reminder
           </Button>
         </div>
@@ -287,7 +267,7 @@ export default function InvoiceSettingsPage() {
         <Pagination currentPage={templatePage} totalPages={templateTotalPages} totalItems={templates.length} itemsPerPage={pageSize} onPageChange={setTemplatePage} />
 
         <div style={{ marginTop: 16 }}>
-          <Button variant="secondary" style={{ width: '100%', justifyContent: 'center' }} onClick={() => openModal("template")}>
+          <Button style={{ width: '100%', justifyContent: 'center' }} onClick={() => openModal("template")}>
             + Add invoice template
           </Button>
         </div>
@@ -303,8 +283,8 @@ export default function InvoiceSettingsPage() {
         }
         footer={
           <>
-            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
+            <Button onClick={closeModal}>Cancel</Button>
+            <Button type="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </>
         }
       >
@@ -327,7 +307,7 @@ export default function InvoiceSettingsPage() {
               />
               <FormInput label="Subject" value={form.subject} onChange={(e) => setField("subject", e.target.value)} />
               <div>
-                <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>Body</FormLabel>
+                <FormLabel size="small" style={{ color: 'var(--color-text-secondary)' }}>Body</FormLabel>
                 <RichTextEditor
                   value={form.body}
                   onChange={(html) => setField("body", html)}

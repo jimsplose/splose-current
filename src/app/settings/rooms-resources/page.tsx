@@ -1,27 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import { SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import {
-  Button,
-  PageHeader,
-  SearchBar,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Pagination,
-  Dropdown,
-  DropdownTriggerButton,
-  Modal,
-  ColorDot,
-  FormColorPicker,
-  FormInput,
-} from "@/components/ds";
+import { PageHeader, SearchBar, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, ColorDot, FormColorPicker, FormInput } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 
@@ -102,9 +85,9 @@ export default function SettingsRoomsResourcesPage() {
     <>
       <div style={{ flex: 1, padding: 24 }}>
         <PageHeader title="Rooms/Resources">
-          <Button variant="secondary">Learn</Button>
-          <Button variant="secondary">Show archived</Button>
-          <Button variant="secondary" onClick={openCreate}>+ Room/resource</Button>
+          <Button>Learn</Button>
+          <Button>Show archived</Button>
+          <Button onClick={openCreate}>+ Room/resource</Button>
         </PageHeader>
 
         <SearchBar placeholder="Search for rooms/resources" />
@@ -113,14 +96,14 @@ export default function SettingsRoomsResourcesPage() {
           <TableHead>
             <Th>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-                Name <Icon as={SwapOutlined} size="md" tone="secondary" />
+                Name <Icon as={SwapOutlined} tone="secondary" />
               </span>
             </Th>
             <Th>Group</Th>
             <Th>Capacity/Available</Th>
             <Th>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-                Location <Icon as={FilterOutlined} size="md" tone="primary" />
+                Location <Icon as={FilterOutlined} tone="primary" />
               </span>
             </Th>
             <Th align="right">Actions</Th>
@@ -167,8 +150,8 @@ export default function SettingsRoomsResourcesPage() {
         maxWidth="md"
         footer={
           <>
-            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
+            <Button onClick={closeModal}>Cancel</Button>
+            <Button type="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </>
         }
       >

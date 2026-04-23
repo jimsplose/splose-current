@@ -2,25 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import { UploadOutlined, LinkOutlined, CopyOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import {
-  Button,
-  Card,
-  ColorDot,
-  FormInput,
-  FormSelect,
-  FormTextarea,
-  Toggle,
-  Tab,
-  FormPage,
-  FormColorPicker,
-  Modal,
-  RadioGroup,
-  Text,
-  Grid,
-} from "@/components/ds";
+import { Card, ColorDot, FormInput, FormSelect, FormTextarea, Toggle, Tab, FormPage, FormColorPicker, Modal, RadioGroup, Text, Grid } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 
 const designTabs = [
@@ -77,9 +62,9 @@ export default function EditOnlineBookingPage() {
       maxWidth={99999}
       actions={
         <Flex align="center" gap={8}>
-          <Button variant="secondary" onClick={() => router.push("/settings/online-bookings")}>Cancel</Button>
-          <Button variant="secondary" onClick={() => setShowPreview(!showPreview)}>Preview</Button>
-          <Button variant="primary" onClick={() => router.push("/settings/online-bookings")}>Save</Button>
+          <Button onClick={() => router.push("/settings/online-bookings")}>Cancel</Button>
+          <Button onClick={() => setShowPreview(!showPreview)}>Preview</Button>
+          <Button type="primary" onClick={() => router.push("/settings/online-bookings")}>Save</Button>
         </Flex>
       }
     >
@@ -107,7 +92,7 @@ export default function EditOnlineBookingPage() {
               />
               {brandingMode === "logo" && (
                 <div>
-                  <FormLabel size="sm" mb={8}>Logo / Header image</FormLabel>
+                  <FormLabel size="small" mb={8}>Logo / Header image</FormLabel>
                   <Card variant="dashed" tint="muted" padding="none">
                     <Flex align="center" justify="center" style={{ height: 128 }}>
                       <div style={{ textAlign: 'center' }}>
@@ -292,7 +277,7 @@ export default function EditOnlineBookingPage() {
           <Flex vertical gap={24}>
             <Flex align="center" justify="space-between">
               <h3 style={{ fontSize: 18, fontWeight: 600 }}>Locations</h3>
-              <Button variant="secondary" onClick={() => setShowLocationModal(true)}>Manage locations</Button>
+              <Button onClick={() => setShowLocationModal(true)}>Manage locations</Button>
             </Flex>
             <Flex vertical gap={8}>
               {["East Clinics", "West Clinics", "North Clinics"].map((loc) => (
@@ -324,10 +309,10 @@ export default function EditOnlineBookingPage() {
                 <Card tint="muted" padding="sm" style={{ flex: 1 }}>
                   <span style={{ fontSize: 14, color: 'var(--color-primary)', wordBreak: 'break-all' }}>{shareUrl}</span>
                 </Card>
-                <Button variant="secondary" onClick={() => navigator.clipboard?.writeText(shareUrl)}>
+                <Button onClick={() => navigator.clipboard?.writeText(shareUrl)}>
                   <Icon as={CopyOutlined} /> Copy
                 </Button>
-                <Button variant="secondary" onClick={() => window.open(shareUrl, "_blank")}>
+                <Button onClick={() => window.open(shareUrl, "_blank")}>
                   <Icon as={LinkOutlined} /> Open
                 </Button>
               </Flex>
@@ -364,7 +349,7 @@ export default function EditOnlineBookingPage() {
         <div style={{ flexShrink: 0, padding: 24, width: 400, borderLeft: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)' }}>
           <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
             <h3 style={{ fontSize: 16, fontWeight: 600 }}>Preview</h3>
-            <Button variant="ghost" size="sm" onClick={() => setShowPreview(false)}>
+            <Button type="text" size="small" onClick={() => setShowPreview(false)}>
               Close
             </Button>
           </Flex>

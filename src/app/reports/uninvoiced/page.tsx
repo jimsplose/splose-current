@@ -1,19 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import {
-  Button,
-  Card,
-  DateRangeFilter,
-  ListPage,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Card, DateRangeFilter, ListPage, DataTable, TableHead, Th, TableBody, Tr, Td } from "@/components/ds";
 
 const mockUninvoicedRows = [
   { date: "11/03/2026", client: "Sarah Mitchell", service: "Initial Assessment", practitioner: "Dr Emily Watson", duration: "60 min", rate: "$180.00", amount: "$180.00" },
@@ -50,7 +39,7 @@ export default function ReportsUninvoicedPage() {
         <Button>Add filter</Button>
         <Button>Save filters</Button>
         <Button>Load filters</Button>
-        <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
+        <Button type="primary" onClick={() => setShowResults(true)}>Run report</Button>
       </Flex>
 
       {showResults && (

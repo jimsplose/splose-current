@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { DownOutlined, MailOutlined } from "@ant-design/icons";
-import { Flex } from "antd";
-import { Button, Dropdown, Icon } from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Dropdown, Icon } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 
 const payItems: DropdownItem[] = [
@@ -38,9 +38,9 @@ export default function InvoiceActions() {
       <Dropdown
         trigger={
           // eslint-disable-next-line no-restricted-syntax -- decorative button shadow, Card unsuitable for inline Button
-          <Button variant="secondary" style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
+          <Button style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
             Pay
-            <Icon as={DownOutlined} size="md" tone="secondary" />
+            <Icon as={DownOutlined} tone="secondary" />
           </Button>
         }
         items={payItems}
@@ -48,16 +48,16 @@ export default function InvoiceActions() {
         align="right"
       />
       {/* eslint-disable-next-line no-restricted-syntax -- decorative button shadow */}
-      <Button variant="secondary" style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
-        <Icon as={MailOutlined} size="lg" tone="secondary" />
+      <Button style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
+        <Icon as={MailOutlined} size="large" tone="secondary" />
         Email Invoice
       </Button>
       <Dropdown
         trigger={
           // eslint-disable-next-line no-restricted-syntax -- decorative button shadow
-          <Button variant="secondary" style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
+          <Button style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
             Actions
-            <Icon as={DownOutlined} size="md" tone="secondary" />
+            <Icon as={DownOutlined} tone="secondary" />
           </Button>
         }
         items={actionsItems}

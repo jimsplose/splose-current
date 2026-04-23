@@ -1,19 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import {
-  Button,
-  Badge,
-  DateRangeFilter,
-  ListPage,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Badge, DateRangeFilter, ListPage, DataTable, TableHead, Th, TableBody, Tr, Td } from "@/components/ds";
 
 const mockActivityRows = [
   { date: "11/03/2026", client: "Sarah Mitchell", activityType: "Transport", practitioner: "Dr Emily Watson", duration: "30 min", location: "Mobile", status: "Completed" },
@@ -56,7 +45,7 @@ export default function ReportsSupportActivitiesPage() {
             <Button>Add filter</Button>
             <Button>Save filters</Button>
             <Button>Load filters</Button>
-            <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
+            <Button type="primary" onClick={() => setShowResults(true)}>Run report</Button>
           </Flex>
         </>
       }

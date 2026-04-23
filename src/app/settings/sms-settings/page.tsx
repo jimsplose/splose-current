@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import { ReadOutlined, CopyOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { Button, PageHeader, Modal, Card, Divider, FormInput, NumberInput, Checkbox, Text, Stat } from "@/components/ds";
+import { PageHeader, Modal, Card, Divider, FormInput, NumberInput, Checkbox, Text, Stat } from "@/components/ds";
 
 const creditOptions = [
   { credits: 200, price: "A$22.00" },
@@ -22,7 +22,7 @@ export default function SMSSettingsPage() {
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="SMS settings">
-        <Button variant="secondary">
+        <Button>
           <Icon as={ReadOutlined} />
           Learn
         </Button>
@@ -33,7 +33,7 @@ export default function SMSSettingsPage() {
         <Stat label="SMS credit balance" value={884} valueStyle={{ fontSize: 24, lineHeight: 1.5715 }} />
       </Card>
 
-      <Divider variant="primary" spacing="sm" />
+      <Divider type="primary" spacing="sm" />
 
       {/* Recharge credits section */}
       <div style={{ marginBottom: 32 }}>
@@ -82,7 +82,7 @@ export default function SMSSettingsPage() {
         </div>
         <div>
           <Button
-            variant="primary"
+            type="primary"
             onClick={() => setShowRechargeConfirm(true)}
           >
             Recharge
@@ -90,7 +90,7 @@ export default function SMSSettingsPage() {
         </div>
       </div>
 
-      <Divider variant="primary" spacing="sm" />
+      <Divider type="primary" spacing="sm" />
 
       {/* SMS pricing section */}
       <div style={{ maxWidth: 672 }}>
@@ -116,7 +116,7 @@ export default function SMSSettingsPage() {
         </Flex>
       </div>
 
-      <Divider variant="primary" spacing="sm" />
+      <Divider type="primary" spacing="sm" />
 
       {/* Low credit balance email reminder */}
       <div style={{ maxWidth: 672, marginBottom: 24 }}>
@@ -143,10 +143,10 @@ export default function SMSSettingsPage() {
         </p>
         <NumberInput format="integer" defaultValue={100} min={0} style={{ maxWidth: 320, marginBottom: 16 }} />
         <NumberInput label="SMS credits to purchase" format="integer" defaultValue={200} min={0} style={{ maxWidth: 320, marginBottom: 16 }} />
-        <Button variant="primary">Save</Button>
+        <Button type="primary">Save</Button>
       </div>
 
-      <Divider variant="primary" spacing="sm" />
+      <Divider type="primary" spacing="sm" />
 
       {/* Two-way SMS section */}
       <div style={{ maxWidth: 672 }}>
@@ -158,7 +158,7 @@ export default function SMSSettingsPage() {
         <div style={{ marginBottom: 8 }}>
           <Flex align="end" gap={8}>
             <FormInput label="Your number" type="text" defaultValue="+61468039383" style={{ maxWidth: 320 }} />
-            <Button variant="ghost" size="sm" style={{ marginBottom: 4 }}><CopyOutlined /></Button>
+            <Button type="text" size="small" style={{ marginBottom: 4 }}><CopyOutlined /></Button>
           </Flex>
         </div>
         <p style={{ fontSize: 14, color: 'var(--color-text-secondary)', marginTop: 8 }}>
@@ -173,8 +173,8 @@ export default function SMSSettingsPage() {
         maxWidth="md"
         footer={
           <>
-            <Button variant="secondary" onClick={() => setShowRechargeConfirm(false)}>Cancel</Button>
-            <Button variant="primary" onClick={() => setShowRechargeConfirm(false)}>Recharge</Button>
+            <Button onClick={() => setShowRechargeConfirm(false)}>Cancel</Button>
+            <Button type="primary" onClick={() => setShowRechargeConfirm(false)}>Recharge</Button>
           </>
         }
       >

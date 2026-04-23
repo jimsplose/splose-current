@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Flex } from "antd";
-import { Button, FormPage, Card, FormInput, FormTextarea, Grid } from "@/components/ds";
+import { Button, Flex } from "antd";
+import { FormPage, Card, FormInput, FormTextarea, Grid } from "@/components/ds";
 
 export default function NewContactPage() {
   const router = useRouter();
@@ -35,10 +35,10 @@ export default function NewContactPage() {
       maxWidth={768}
       actions={
         <>
-          <Button variant="secondary" onClick={() => router.push("/contacts")}>
+          <Button onClick={() => router.push("/contacts")}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleSave}>
+          <Button type="primary" onClick={handleSave}>
             Save
           </Button>
         </>

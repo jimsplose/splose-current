@@ -2,8 +2,8 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { PlusOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { Flex } from "antd";
-import { Button, Card, DataTable, PageHeader, TableHead, Th } from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Card, DataTable, PageHeader, TableHead, Th } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -47,7 +47,7 @@ export default async function ClientSupportActivitiesPage({ params }: { params: 
                     </svg>
                   </Flex>
                   <p style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>No support activities</p>
-                  <Button variant="ghost" style={{ marginTop: 8, color: 'var(--color-primary)' }}>
+                  <Button type="text" style={{ marginTop: 8, color: 'var(--color-primary)' }}>
                     Add new support activity
                   </Button>
                 </Flex>

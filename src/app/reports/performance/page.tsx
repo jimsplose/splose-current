@@ -1,26 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import {
-  Alert,
-  Badge,
-  Button,
-  Card,
-  Dropdown,
-  List,
-  Modal,
-  Toggle,
-  DateRangeFilter,
-  FormSelect,
-  PageHeader,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Alert, Badge, Card, Dropdown, List, Modal, Toggle, DateRangeFilter, FormSelect, PageHeader, DataTable, TableHead, Th, TableBody, Tr, Td } from "@/components/ds";
 
 const mockPerformanceRows = [
   { practitioner: "Dr Emily Watson", available: 40, booked: 34, utilisation: 85, revenue: 7480, avgPerAppt: 220 },
@@ -79,7 +61,7 @@ export default function ReportsPerformancePage() {
 
       {/* Toolbar: date pill, period toggle, compare toggle */}
       <Flex wrap="wrap" align="center" gap={12} style={{ marginBottom: 16 }}>
-        <Badge variant="green" shape="pill">11 Mar 2026 – 11 Mar 2026</Badge>
+        <Badge variant="green" shape="round">11 Mar 2026 – 11 Mar 2026</Badge>
 
         {/* Period selector pills */}
         <Flex style={{ borderRadius: 9999, border: '1px solid var(--color-border)', backgroundColor: 'white', padding: 2 }}>
@@ -123,7 +105,7 @@ export default function ReportsPerformancePage() {
         <Button>Add filter</Button>
         <Button>Save filters</Button>
         <Button>Load filters</Button>
-        <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
+        <Button type="primary" onClick={() => setShowResults(true)}>Run report</Button>
       </Flex>
 
       {/* Configuration options */}
@@ -210,7 +192,7 @@ export default function ReportsPerformancePage() {
         open={showDefinitions}
         onClose={() => setShowDefinitions(false)}
         title="Performance metric definitions"
-        footer={<Button variant="primary" onClick={() => setShowDefinitions(false)}>Close</Button>}
+        footer={<Button type="primary" onClick={() => setShowDefinitions(false)}>Close</Button>}
       >
         <List
           layout="stacked"

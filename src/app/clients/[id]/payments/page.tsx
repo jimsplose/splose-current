@@ -1,9 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import Icon from "@/components/ds/Icon";
-import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th } from "@/components/ds";
+import { Card, DataTable, PageHeader, SearchBar, TableHead, Th } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
 
@@ -29,15 +29,15 @@ export default async function ClientPaymentsPage({ params }: { params: Promise<{
           <TableHead>
             <Th>
               <Flex align="center" gap={4} component="span" className="inline-flex">
-                Payment # <Icon as={SwapOutlined} size="md" tone="secondary" />{" "}
-                <Icon as={FilterOutlined} size="md" tone="secondary" />
+                Payment # <Icon as={SwapOutlined} tone="secondary" />{" "}
+                <Icon as={FilterOutlined} tone="secondary" />
               </Flex>
             </Th>
             <Th>From</Th>
             <Th>Amount</Th>
             <Th>
               <Flex align="center" gap={4} component="span" className="inline-flex">
-                Payment date <Icon as={SwapOutlined} size="md" tone="secondary" />
+                Payment date <Icon as={SwapOutlined} tone="secondary" />
               </Flex>
             </Th>
           </TableHead>
@@ -56,7 +56,7 @@ export default async function ClientPaymentsPage({ params }: { params: Promise<{
                     </svg>
                   </Flex>
                   <p style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>No payments</p>
-                  <Button variant="ghost" style={{ marginTop: 8, color: 'var(--color-primary)' }}>
+                  <Button type="text" style={{ marginTop: 8, color: 'var(--color-primary)' }}>
                     Add new payment
                   </Button>
                 </Flex>

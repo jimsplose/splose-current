@@ -23,30 +23,9 @@ const Sun = ({ style, className }: { style?: React.CSSProperties; className?: st
 const Moon = ({ style, className }: { style?: React.CSSProperties; className?: string }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} style={{ width: 16, height: 16, ...style }}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>;
 const SunMedium = ({ style, className }: { style?: React.CSSProperties; className?: string }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} style={{ width: 16, height: 16, ...style }}><circle cx="12" cy="12" r="4"/><path d="M12 3v1"/><path d="M12 20v1"/><path d="M3 12h1"/><path d="M20 12h1"/><path d="m18.364 5.636-.707.707"/><path d="m6.343 17.657-.707.707"/><path d="m5.636 5.636.707.707"/><path d="m17.657 17.657.707.707"/></svg>;
 const MapIcon = ({ style, className }: { style?: React.CSSProperties; className?: string }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} style={{ width: 16, height: 16, ...style }}><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>;
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import Icon from "@/components/ds/Icon";
-import {
-  Button,
-  ListPage,
-  SearchBar,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Pagination,
-  Badge,
-  Tab,
-  EmptyState,
-  Modal,
-  FormSelect,
-  FormInput,
-  FormTextarea,
-  Text,
-  Divider,
-  Skeleton,
-} from "@/components/ds";
+import { ListPage, SearchBar, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Badge, Tab, EmptyState, Modal, FormSelect, FormInput, FormTextarea, Text, Divider, Skeleton } from "@/components/ds";
 import wStyles from "./waitlist.module.css";
 
 export const dynamic = "force-dynamic";
@@ -541,7 +520,7 @@ function WaitlistPageInner() {
         <ListPage
           title="Screener"
           actions={
-            <Button variant="secondary" size="sm">
+            <Button size="small">
               <Icon as={QuestionCircleOutlined} />
               Learn
             </Button>
@@ -585,7 +564,7 @@ function WaitlistPageInner() {
               <Th>
                 <Flex align="center" gap={4}>
                   Tags
-                  <Icon as={FilterOutlined} size="sm" tone="secondary" />
+                  <Icon as={FilterOutlined} size="small" tone="secondary" />
                 </Flex>
               </Th>
               <Th>
@@ -616,8 +595,7 @@ function WaitlistPageInner() {
                       <Td>
                         <Flex align="center" gap={4}>
                           <Button
-                            variant="secondary"
-                            size="sm"
+                            size="small"
                             onClick={() => handleTriage(idx, "yes")}
                             className={triageState[idx] === "yes" ? wStyles.triageYesActive : ""}
                             style={{
@@ -628,12 +606,12 @@ function WaitlistPageInner() {
                               ...(triageState[idx] !== "yes" ? { color: 'var(--color-text-secondary)' } : {}),
                             }}
                           >
-                            <Icon as={LikeOutlined} size="sm" />
+                            <Icon as={LikeOutlined} size="small" />
                             <span>Yes</span>
                           </Button>
                           <Button
                             variant={triageState[idx] === "no" ? "danger" : "secondary"}
-                            size="sm"
+                            size="small"
                             onClick={() => handleTriage(idx, "no")}
                             className={triageState[idx] === "no" ? wStyles.triageNoActive : ""}
                             style={{
@@ -644,7 +622,7 @@ function WaitlistPageInner() {
                               ...(triageState[idx] !== "no" ? { color: 'var(--color-text-secondary)' } : {}),
                             }}
                           >
-                            <Icon as={DislikeOutlined} size="sm" />
+                            <Icon as={DislikeOutlined} size="small" />
                             <span>No</span>
                           </Button>
                         </Flex>
@@ -661,7 +639,7 @@ function WaitlistPageInner() {
                         </Flex>
                       </Td>
                       <Td align="right">
-                        <Button variant="ghost" size="sm" style={{ padding: '4px 6px' }}>
+                        <Button type="text" size="small" style={{ padding: '4px 6px' }}>
                           <Icon as={MoreOutlined} />
                         </Button>
                       </Td>
@@ -690,10 +668,10 @@ function WaitlistPageInner() {
         maxWidth="md"
         footer={
           <>
-            <Button variant="secondary" size="md" onClick={closeUpdateModal}>
+            <Button onClick={closeUpdateModal}>
               Cancel
             </Button>
-            <Button variant="primary" size="md" onClick={closeUpdateModal}>
+            <Button type="primary" onClick={closeUpdateModal}>
               Update
             </Button>
           </>
@@ -751,19 +729,19 @@ function WaitlistPageInner() {
             {modalServices.length > 0 && (
               <Flex wrap gap={6} style={{ marginBottom: 8 }}>
                 {modalServices.map((service) => (
-                  <Badge key={service} variant="blue" size="sm" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                  <Badge key={service} variant="blue" size="small" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                     <span style={{ maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{service}</span>
                     <Button
-                      variant="ghost"
+                      type="text"
                       iconOnly
                       shape="circle"
-                      size="sm"
+                      size="small"
                       htmlType="button"
                       onClick={() => removeService(service)}
                       style={{ marginLeft: 2 }}
                       className={wStyles.serviceChipClose}
                     >
-                      <Icon as={CloseOutlined} size="sm" />
+                      <Icon as={CloseOutlined} size="small" />
                     </Button>
                   </Badge>
                 ))}
@@ -782,7 +760,7 @@ function WaitlistPageInner() {
                   { value: "Group Session", label: "Group Session" },
                 ]}
               />
-              <Button variant="secondary" size="sm" onClick={addService} style={{ flexShrink: 0 }}>
+              <Button size="small" onClick={addService} style={{ flexShrink: 0 }}>
                 <Icon as={PlusOutlined} />
               </Button>
             </Flex>
@@ -907,19 +885,19 @@ function WaitlistPageInner() {
             {modalTags.length > 0 && (
               <Flex wrap gap={6} style={{ marginBottom: 8 }}>
                 {modalTags.map((tag) => (
-                  <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} size="sm" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                  <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} size="small" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                     {tag}
                     <Button
-                      variant="ghost"
+                      type="text"
                       iconOnly
                       shape="circle"
-                      size="sm"
+                      size="small"
                       htmlType="button"
                       onClick={() => removeTag(tag)}
                       style={{ marginLeft: 2 }}
                       className={wStyles.tagChipClose}
                     >
-                      <Icon as={CloseOutlined} size="sm" />
+                      <Icon as={CloseOutlined} size="small" />
                     </Button>
                   </Badge>
                 ))}
@@ -938,7 +916,7 @@ function WaitlistPageInner() {
                   { value: "To assign a unique ID", label: "To assign a unique ID" },
                 ]}
               />
-              <Button variant="secondary" size="sm" onClick={addTag} style={{ flexShrink: 0 }}>
+              <Button size="small" onClick={addTag} style={{ flexShrink: 0 }}>
                 <Icon as={PlusOutlined} />
               </Button>
             </Flex>
@@ -952,22 +930,21 @@ function WaitlistPageInner() {
           title="Waitlist"
           actions={
             <>
-              <Button variant="secondary" size="sm">
+              <Button size="small">
                 <Icon as={FilterOutlined} />
                 Reset all filters
               </Button>
-              <Button variant="secondary" size="sm">
+              <Button size="small">
                 <Icon as={QuestionCircleOutlined} />
                 Learn
               </Button>
-              <Button variant="secondary" size="sm">
+              <Button size="small">
                 <Icon as={ColumnWidthOutlined} />
                 Show/hide fields
               </Button>
               {/* Map / List toggle */}
               <Button
-                variant="secondary"
-                size="sm"
+                size="small"
                 onClick={() => setViewMode(viewMode === "list" ? "map" : "list")}
                 className={
                   viewMode === "map"
@@ -988,7 +965,7 @@ function WaitlistPageInner() {
                 )}
               </Button>
               <Link href="/waitlist/new">
-                <Button variant="secondary" size="md">
+                <Button>
                   <Icon as={PlusOutlined} />
                   Add client
                 </Button>
@@ -1020,7 +997,7 @@ function WaitlistPageInner() {
                   <Th>
                     <Flex align="center" gap={4}>
                       Tags
-                      <Icon as={FilterOutlined} size="sm" tone="secondary" />
+                      <Icon as={FilterOutlined} size="small" tone="secondary" />
                     </Flex>
                   </Th>
                   <Th>Client</Th>
@@ -1060,8 +1037,8 @@ function WaitlistPageInner() {
                         <Td><Text variant="body/md" as="span" color="secondary">{row.dateAdded}</Text></Td>
                         <Td align="right">
                           <Button
-                            variant="ghost"
-                            size="sm"
+                            type="text"
+                            size="small"
                             style={{ padding: '4px 6px' }}
                             onClick={(e) => {
                               e.stopPropagation();

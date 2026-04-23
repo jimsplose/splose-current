@@ -2,23 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import { SwapOutlined, ReadOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import {
-  Button,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Pagination,
-  SearchBar,
-  Dropdown,
-  DropdownTriggerButton,
-  PageHeader,
-} from "@/components/ds";
+import { DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, SearchBar, Dropdown, DropdownTriggerButton, PageHeader } from "@/components/ds";
 
 interface Service {
   id: number;
@@ -85,12 +72,12 @@ export default function SettingsServicesPage() {
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       {/* Header */}
       <PageHeader title="Services">
-        <Button variant="secondary">
+        <Button>
           <Icon as={ReadOutlined} style={{ marginRight: 6 }} />
           Learn
         </Button>
-        <Button variant="secondary">Show archived</Button>
-        <Button variant="secondary">+ New service</Button>
+        <Button>Show archived</Button>
+        <Button>+ New service</Button>
       </PageHeader>
 
       {/* Search */}
@@ -107,13 +94,13 @@ export default function SettingsServicesPage() {
           <Th>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
               Name
-              <Icon as={SwapOutlined} size="md" tone="secondary" />
+              <Icon as={SwapOutlined} tone="secondary" />
             </span>
           </Th>
           <Th>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
               Type
-              <Icon as={SwapOutlined} size="md" tone="secondary" />
+              <Icon as={SwapOutlined} tone="secondary" />
             </span>
           </Th>
           <Th>Item code</Th>

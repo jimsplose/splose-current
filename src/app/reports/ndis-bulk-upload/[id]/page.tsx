@@ -1,4 +1,5 @@
-import { Button, PageHeader, DataTable, TableHead, Th, TableBody, Td, Badge, Alert } from "@/components/ds";
+import { PageHeader, DataTable, TableHead, Th, TableBody, Td, Badge, Alert } from "@/components/ds";
+import { Button } from "antd";
 
 const items = [
   { client: "Emma Thompson", service: "Individual Therapy", date: "22 Mar 2026", amount: "$193.99", status: "Success" },

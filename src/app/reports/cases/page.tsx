@@ -1,19 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import {
-  Badge,
-  Button,
-  DataTable,
-  DateRangeFilter,
-  ListPage,
-  TableBody,
-  TableHead,
-  Td,
-  Th,
-  Tr,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Badge, DataTable, DateRangeFilter, ListPage, TableBody, TableHead, Td, Th, Tr } from "@/components/ds";
 
 const mockCases = [
   { number: "CASE-001", client: "Liam Nguyen", type: "NDIS", practitioner: "Dr Sarah Chen", status: "Active", created: "15/01/2026", budget: "$12,500 / 40 hrs" },
@@ -57,7 +46,7 @@ export default function ReportsCasesPage() {
             <Button>Add filter</Button>
             <Button>Save filters</Button>
             <Button>Load filters</Button>
-            <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
+            <Button type="primary" onClick={() => setShowResults(true)}>Run report</Button>
           </Flex>
         </>
       }

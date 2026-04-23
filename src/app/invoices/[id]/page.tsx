@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import { Flex } from "antd";
-import { PaymentStatusBadge, dbStatusToPaymentStatus, Button, Card, DataTable, Divider, Grid, TableBody, TableHead, Td, Text, Th, Tr } from "@/components/ds";
+import { Button, Flex } from "antd";
+import { PaymentStatusBadge, dbStatusToPaymentStatus, Card, DataTable, Divider, Grid, TableBody, TableHead, Td, Text, Th, Tr } from "@/components/ds";
 import InvoiceActions from "./InvoiceActions";
 
 export const dynamic = "force-dynamic";
@@ -31,7 +31,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
         <Flex align="center" gap={12}>
           <Text variant="display/lg" as="h1" color="rgb(66, 105, 74)">{invoice.invoiceNumber}</Text>
           <PaymentStatusBadge status={dbStatusToPaymentStatus(invoice.status)} />
-          {creditBalance > 0 && <PaymentStatusBadge status="paid" size="lg" />}
+          {creditBalance > 0 && <PaymentStatusBadge status="paid" size="large" />}
         </Flex>
         <InvoiceActions />
       </Flex>
@@ -325,7 +325,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
               <Text variant="body/sm" as="p" color="secondary" style={{ marginBottom: 12 }}>
                 Add a &lsquo;Pay now&rsquo; button to invoices for clients and contacts to pay online.
               </Text>
-              <Button variant="link" href="#">Connect to Stripe</Button>
+              <Button type="link" href="#">Connect to Stripe</Button>
             </div>
           </Card>
 
@@ -341,7 +341,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
               <Text variant="body/sm" as="p" color="secondary" style={{ marginBottom: 12 }}>
                 Submit your claim through LanternPay by validating your invoice first.
               </Text>
-              <Button variant="secondary" style={{ width: '100%' }}>Claim</Button>
+              <Button style={{ width: '100%' }}>Claim</Button>
             </div>
           </Card>
 
@@ -357,7 +357,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
 
           {/* View change log link */}
           <div style={{ padding: '0 4px' }}>
-            <Button variant="link">View change log</Button>
+            <Button type="link">View change log</Button>
           </div>
         </Flex>
       </Flex>

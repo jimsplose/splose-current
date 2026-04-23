@@ -1,6 +1,7 @@
 import { RightOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { Button, Checkbox, FormInput } from "@/components/ds";
+import { Checkbox, FormInput } from "@/components/ds";
+import { Button } from "antd";
 
 export default function LoginPage() {
   return (
@@ -47,8 +48,8 @@ export default function LoginPage() {
           </div>
 
           <Button
-            variant="primary"
-            size="lg"
+            type="primary"
+            size="large"
             style={{ marginTop: 24, display: 'flex', width: '100%', justifyContent: 'space-between', paddingTop: 12, paddingBottom: 12 }}
           >
             Log in

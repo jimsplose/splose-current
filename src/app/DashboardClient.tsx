@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Avatar, Button, Card, ColorDot, Divider, Icon, Text, Tooltip } from "@/components/ds";
+import { Avatar, Card, ColorDot, Divider, Icon, Text, Tooltip } from "@/components/ds";
 import { DownOutlined, RightOutlined } from "@ant-design/icons";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import styles from "./DashboardClient.module.css";
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -195,14 +195,14 @@ function MessageItem({
       className={`${styles.messageItem} ${styles.messageItemWrapper}`}
       onClick={onToggle}
     >
-      <Avatar name={message.sender} color={message.color} size="sm" />
+      <Avatar name={message.sender} color={message.color} size="small" />
       <div className={styles.messageCardBody}>
         <Flex align="baseline" gap={6}>
           <Text variant="body/md-strong" as="span" color="text">{message.sender}</Text>
           {/* ds-exempt: non-DS timestamp size matches production */}
           <Text variant="caption/sm" as="span" color="text" style={{ fontSize: '9.8px' }}>{message.time}</Text>
           <Text variant="body/md" as="span" color="secondary" style={{ marginLeft: 'auto' }}>
-            {expanded ? <Icon as={DownOutlined} size="md" /> : <Icon as={RightOutlined} size="md" />}
+            {expanded ? <Icon as={DownOutlined} /> : <Icon as={RightOutlined} />}
           </Text>
         </Flex>
         {!expanded && (
@@ -290,7 +290,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
 
             {todayAppointments.slice(0, 5).map((appt) => (
               <Flex key={appt.id} align="flex-start" gap={10}>
-                <Avatar name={appt.practitioner.name} color={appt.practitioner.color} size="sm" />
+                <Avatar name={appt.practitioner.name} color={appt.practitioner.color} size="small" />
                 <div className={styles.messageCardBody}>
                   <Flex align="baseline" gap={6}>
                     <Text variant="body/md-strong" as="span" color="text">
@@ -338,46 +338,46 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
             <Text variant="body/md" color="secondary">Type a message...</Text>
           </Card>
           <Flex align="center" gap={2} className={styles.toolbarWrapper}>
-            <Tooltip content="Bold"><Button variant="icon" size="sm" className={styles.toolbarBold}>B</Button></Tooltip>
-            <Tooltip content="Italic"><Button variant="icon" size="sm" className={styles.toolbarItalic}>I</Button></Tooltip>
-            <Tooltip content="Underline"><Button variant="icon" size="sm" className={styles.toolbarUnderline}>U</Button></Tooltip>
-            <Tooltip content="Text size"><Button variant="icon" size="sm" className={styles.toolbarFontSm}>A<sub style={{ fontSize: 9 }}>1</sub></Button></Tooltip>
+            <Tooltip content="Bold"><Button type="text" size="small" className={styles.toolbarBold}>B</Button></Tooltip>
+            <Tooltip content="Italic"><Button type="text" size="small" className={styles.toolbarItalic}>I</Button></Tooltip>
+            <Tooltip content="Underline"><Button type="text" size="small" className={styles.toolbarUnderline}>U</Button></Tooltip>
+            <Tooltip content="Text size"><Button type="text" size="small" className={styles.toolbarFontSm}>A<sub style={{ fontSize: 9 }}>1</sub></Button></Tooltip>
             <span className={styles.dividerSpacer} />
             <Tooltip content="Table">
-              <Button variant="icon" size="sm">
+              <Button type="text" size="small">
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="12" height="12" rx="1"/><line x1="2" y1="6" x2="14" y2="6"/><line x1="2" y1="10" x2="14" y2="10"/><line x1="6" y1="2" x2="6" y2="14"/><line x1="10" y1="2" x2="10" y2="14"/></svg>
               </Button>
             </Tooltip>
             <Tooltip content="Link">
-              <Button variant="icon" size="sm">
+              <Button type="text" size="small">
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6.5 9.5a3 3 0 004.2.1l2-2a3 3 0 00-4.2-4.3l-1.1 1.1"/><path d="M9.5 6.5a3 3 0 00-4.2-.1l-2 2a3 3 0 004.2 4.3l1.1-1.1"/></svg>
               </Button>
             </Tooltip>
             <Tooltip content="Image">
-              <Button variant="icon" size="sm">
+              <Button type="text" size="small">
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="12" height="12" rx="1"/><circle cx="5.5" cy="5.5" r="1"/><path d="M14 10l-3-3-7 7"/></svg>
               </Button>
             </Tooltip>
             <Tooltip content="Emoji">
-              <Button variant="icon" size="sm">
+              <Button type="text" size="small">
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="8" cy="8" r="6"/><path d="M5.5 6.5h.01M10.5 6.5h.01"/><path d="M5.5 9.5a3.5 3.5 0 005 0"/></svg>
               </Button>
             </Tooltip>
             <Tooltip content="Align">
-              <Button variant="icon" size="sm">
+              <Button type="text" size="small">
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="2" y1="3" x2="14" y2="3"/><line x1="2" y1="6" x2="10" y2="6"/><line x1="2" y1="9" x2="14" y2="9"/><line x1="2" y1="12" x2="10" y2="12"/></svg>
               </Button>
             </Tooltip>
-            <Button variant="icon" size="sm" title="List">
+            <Button type="text" size="small" title="List">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="5" y1="3" x2="14" y2="3"/><line x1="5" y1="8" x2="14" y2="8"/><line x1="5" y1="13" x2="14" y2="13"/><circle cx="2.5" cy="3" r="0.75" fill="currentColor"/><circle cx="2.5" cy="8" r="0.75" fill="currentColor"/><circle cx="2.5" cy="13" r="0.75" fill="currentColor"/></svg>
             </Button>
             <span className={styles.dividerSpacer} />
-            <Button variant="icon" size="sm" title="More">
+            <Button type="text" size="small" title="More">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/></svg>
             </Button>
             <div className={styles.flexSpacer} />
             <Text variant="label/md" as="span" color="secondary" className={`${styles.gifButton} ${styles.gifBtnWrapper}`}>GIF</Text>
-            <Button variant="primary">Send</Button>
+            <Button type="primary">Send</Button>
           </Flex>
         </div>
       </Flex>
@@ -465,7 +465,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                   </Flex>
                 ))
               )}
-              <Button variant="link" style={{ marginTop: 4 }}>Load more</Button>
+              <Button type="link" style={{ marginTop: 4 }}>Load more</Button>
             </Flex>
           </div>
         </Card>
@@ -492,7 +492,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                   </Text>
                 </Flex>
               ))}
-              <Button variant="link" style={{ marginTop: 4 }}>Load more</Button>
+              <Button type="link" style={{ marginTop: 4 }}>Load more</Button>
             </Flex>
           </div>
         </Card>

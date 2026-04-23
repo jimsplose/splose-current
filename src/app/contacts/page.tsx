@@ -4,10 +4,10 @@
 
 import { useState, useEffect } from "react";
 import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import Link from "next/link";
 import Icon from "@/components/ds/Icon";
-import { ListPage, Button, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Skeleton } from "@/components/ds";
+import { ListPage, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Skeleton } from "@/components/ds";
 
 const mockContacts = [
   {
@@ -216,26 +216,26 @@ export default function ContactsPage() {
           <Th>
             <Flex align="center" gap={4}>
               Type
-              <Icon as={SwapOutlined} size="sm" tone="secondary" />
-              <Icon as={FilterOutlined} size="sm" tone="secondary" />
+              <Icon as={SwapOutlined} size="small" tone="secondary" />
+              <Icon as={FilterOutlined} size="small" tone="secondary" />
             </Flex>
           </Th>
           <Th>
             <Flex align="center" gap={4}>
               Name
-              <Icon as={SwapOutlined} size="sm" tone="secondary" />
+              <Icon as={SwapOutlined} size="small" tone="secondary" />
             </Flex>
           </Th>
           <Th hidden="md">
             <Flex align="center" gap={4}>
               Company
-              <Icon as={SwapOutlined} size="sm" tone="secondary" />
+              <Icon as={SwapOutlined} size="small" tone="secondary" />
             </Flex>
           </Th>
           <Th hidden="md">
             <Flex align="center" gap={4}>
               Email
-              <Icon as={SwapOutlined} size="sm" tone="secondary" />
+              <Icon as={SwapOutlined} size="small" tone="secondary" />
             </Flex>
           </Th>
           <Th hidden="lg">Work phone</Th>

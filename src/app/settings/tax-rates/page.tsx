@@ -1,20 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import {
-  Button,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Pagination,
-  Modal,
-  FormInput,
-  PageHeader,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Modal, FormInput, PageHeader } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 
 interface TaxRate {
@@ -58,7 +46,7 @@ export default function TaxRatesPage() {
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Tax rates">
-        <Button variant="secondary" onClick={openCreate}>+ New tax rate</Button>
+        <Button onClick={openCreate}>+ New tax rate</Button>
       </PageHeader>
 
       <DataTable>
@@ -86,8 +74,8 @@ export default function TaxRatesPage() {
         title={isEditing ? "Edit tax rate" : "New tax rate"}
         footer={
           <>
-            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
+            <Button onClick={closeModal}>Cancel</Button>
+            <Button type="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </>
         }
       >

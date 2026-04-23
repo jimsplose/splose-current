@@ -4,22 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { Flex } from "antd";
-import {
-  Button,
-  DataTable,
-  FormInput,
-  FormPage,
-  FormSelect,
-  FormTextarea,
-  Grid,
-  TableBody,
-  TableHead,
-  Td,
-  Text,
-  Th,
-  Tr,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { DataTable, FormInput, FormPage, FormSelect, FormTextarea, Grid, TableBody, TableHead, Td, Text, Th, Tr } from "@/components/ds";
 
 const mockPatients = [
   { value: "michael-brooks", label: "Michael Brooks" },
@@ -166,12 +152,12 @@ export default function NewInvoicePage() {
       backLabel="Invoices"
       actions={
         <>
-          <Button variant="secondary">Show/hide fields</Button>
-          <Button variant="secondary">Preview</Button>
-          <Button variant="danger" onClick={() => router.push("/invoices")}>
+          <Button>Show/hide fields</Button>
+          <Button>Preview</Button>
+          <Button danger onClick={() => router.push("/invoices")}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={() => router.push("/invoices")}>
+          <Button type="primary" onClick={() => router.push("/invoices")}>
             Create
           </Button>
         </>
@@ -343,8 +329,8 @@ export default function NewInvoicePage() {
                     <Td style={{ padding: "8px 4px" }}>
                       {lineItems.length > 1 && (
                         <Button
-                          variant="icon"
-                          size="sm"
+                          type="text"
+                          size="small"
                           onClick={() => removeLineItem(item.id)}
                         >
                           <Icon as={DeleteOutlined} />
@@ -357,7 +343,7 @@ export default function NewInvoicePage() {
             </DataTable>
           </div>
           <div style={{ padding: "12px 0" }}>
-            <Button variant="ghost" size="sm" onClick={addLineItem}>
+            <Button type="text" size="small" onClick={addLineItem}>
               <Icon as={PlusOutlined} />
               Add line item
             </Button>
@@ -393,7 +379,7 @@ export default function NewInvoicePage() {
           <div style={{ marginTop: 24 }}>
             <Flex align="center" gap={8} style={{ marginBottom: 8 }}>
               <Text variant="label/lg">Additional information</Text>
-              <Button variant="ghost" size="sm">Apply business default</Button>
+              <Button type="text" size="small">Apply business default</Button>
             </Flex>
             <FormTextarea
               value={additionalInfo}

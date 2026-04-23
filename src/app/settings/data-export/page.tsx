@@ -1,25 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import {
-  Button,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Badge,
-  FormSelect,
-  FormInput,
-  Pagination,
-  Checkbox,
-  Dropdown,
-  DropdownTriggerButton,
-  Modal,
-  PageHeader,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { DataTable, TableHead, Th, TableBody, Tr, Td, Badge, FormSelect, FormInput, Pagination, Checkbox, Dropdown, DropdownTriggerButton, Modal, PageHeader } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 
 interface ExportRow {
@@ -156,7 +139,7 @@ export default function DataExportPage() {
           />
         </div>
         <div>
-          <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }} required>Date</FormLabel>
+          <FormLabel size="small" style={{ color: 'var(--color-text-secondary)' }} required>Date</FormLabel>
           <Flex align="center" gap={8}>
             <FormInput
               type="date"
@@ -169,7 +152,7 @@ export default function DataExportPage() {
             />
           </Flex>
         </div>
-        <Button variant="primary">Export</Button>
+        <Button type="primary">Export</Button>
       </Flex>
 
       <div style={{ marginBottom: 24 }}>
@@ -229,8 +212,8 @@ export default function DataExportPage() {
         maxWidth="sm"
         footer={
           <>
-            <Button variant="secondary" onClick={() => setReExportRow(null)}>Cancel</Button>
-            <Button variant="primary" onClick={() => setReExportRow(null)}>Re-export</Button>
+            <Button onClick={() => setReExportRow(null)}>Cancel</Button>
+            <Button type="primary" onClick={() => setReExportRow(null)}>Re-export</Button>
           </>
         }
       >
@@ -253,8 +236,8 @@ export default function DataExportPage() {
         maxWidth="sm"
         footer={
           <>
-            <Button variant="secondary" onClick={() => setDeleteRow(null)}>Cancel</Button>
-            <Button variant="danger" onClick={() => setDeleteRow(null)}>Delete</Button>
+            <Button onClick={() => setDeleteRow(null)}>Cancel</Button>
+            <Button danger onClick={() => setDeleteRow(null)}>Delete</Button>
           </>
         }
       >

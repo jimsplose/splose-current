@@ -2,17 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Flex } from "antd";
-import {
-  Button,
-  FormInput,
-  FormSelect,
-  FormPage,
-  RichTextEditor,
-  EmailPreview,
-  Grid,
-  Breadcrumbs,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { FormInput, FormSelect, FormPage, RichTextEditor, EmailPreview, Grid, Breadcrumbs } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 
 const typeOptions = [
@@ -54,9 +45,9 @@ export default function EditEmailTemplatePage() {
         maxWidth={768}
         actions={
           <Flex align="center" gap={8}>
-            <Button variant="secondary" onClick={() => setShowPreview(true)}>Preview</Button>
-            <Button variant="secondary" onClick={() => router.push("/settings/email-templates")}>Cancel</Button>
-            <Button variant="primary" onClick={() => router.push("/settings/email-templates")}>Save</Button>
+            <Button onClick={() => setShowPreview(true)}>Preview</Button>
+            <Button onClick={() => router.push("/settings/email-templates")}>Cancel</Button>
+            <Button type="primary" onClick={() => router.push("/settings/email-templates")}>Save</Button>
           </Flex>
         }
       >
@@ -69,7 +60,7 @@ export default function EditEmailTemplatePage() {
           <FormInput label="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
 
           <div>
-            <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>Body</FormLabel>
+            <FormLabel size="small" style={{ color: 'var(--color-text-secondary)' }}>Body</FormLabel>
             <RichTextEditor
               value={body}
               onChange={setBody}

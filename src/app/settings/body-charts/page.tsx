@@ -1,25 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import {
-  Button,
-  PageHeader,
-  SearchBar,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Pagination,
-  Dropdown,
-  DropdownTriggerButton,
-  Modal,
-  FormInput,
-  FormSelect,
-  Grid,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { PageHeader, SearchBar, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Grid } from "@/components/ds";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
 
@@ -128,8 +111,8 @@ export default function BodyChartsPage() {
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Body chart templates">
-        <Button variant="secondary">Show archived</Button>
-        <Button variant="secondary" onClick={openCreate}>+ New template</Button>
+        <Button>Show archived</Button>
+        <Button onClick={openCreate}>+ New template</Button>
       </PageHeader>
 
       <div style={{ marginBottom: 16 }}>
@@ -166,8 +149,8 @@ export default function BodyChartsPage() {
         title={isEditing ? "Edit body chart template" : "New body chart template"}
         footer={
           <Flex justify="flex-end" gap={8}>
-            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
+            <Button onClick={closeModal}>Cancel</Button>
+            <Button type="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </Flex>
         }
       >

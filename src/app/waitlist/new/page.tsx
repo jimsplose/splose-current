@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Flex } from "antd";
-import { Button, Card, Checkbox, FormPage, FormSelect, FormTextarea, Text } from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Card, Checkbox, FormPage, FormSelect, FormTextarea, Text } from "@/components/ds";
 
 const clientOptions = [
   { value: "", label: "Select a client..." },
@@ -87,10 +87,10 @@ export default function WaitlistNewPage() {
       maxWidth={672}
       actions={
         <>
-          <Button variant="secondary" onClick={() => router.push("/waitlist")}>
+          <Button onClick={() => router.push("/waitlist")}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleSave}>
+          <Button type="primary" onClick={handleSave}>
             Save
           </Button>
         </>

@@ -2,9 +2,9 @@
 
 import { useState, useRef, useEffect, useMemo } from "react";
 import { CalendarOutlined, DownOutlined, SettingOutlined } from "@ant-design/icons";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import Icon from "@/components/ds/Icon";
-import { Avatar, Button, Card, Checkbox, ColorDot, Divider, Dropdown, FormInput, FormSelect, Grid, PageHeader, ProgressBar, Text } from "@/components/ds";
+import { Avatar, Card, Checkbox, ColorDot, Divider, Dropdown, FormInput, FormSelect, Grid, PageHeader, ProgressBar, Text } from "@/components/ds";
 import { DataTable, TableHead, Th, TableBody, Tr, Td } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 
@@ -75,16 +75,15 @@ function DateRangePicker({
   return (
     <div style={{ position: 'relative' }} ref={ref}>
       <Button
-        variant="secondary"
-        size="sm"
+        size="small"
         htmlType="button"
         onClick={() => setOpen(!open)}
-        shape="pill"
+        shape="round"
         style={{ borderColor: 'var(--color-primary)', backgroundColor: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.1)', fontWeight: 500, color: 'var(--color-primary)' }}
       >
         <Icon as={CalendarOutlined} />
         {fmtShort(startDate)} &rarr; {fmtShort(endDate)}
-        <Icon as={DownOutlined} size="md" />
+        <Icon as={DownOutlined} />
       </Button>
 
       {open && (
@@ -96,8 +95,8 @@ function DateRangePicker({
               {presets.map((p) => (
                 <Button
                   key={p.label}
-                  variant="ghost"
-                  size="sm"
+                  type="text"
+                  size="small"
                   htmlType="button"
                   onClick={() => applyPreset(p)}
                   style={{ justifyContent: 'flex-start', borderRadius: 6 }}
@@ -267,19 +266,19 @@ export default function ReportsPage() {
           style={{ cursor: 'pointer' }}
         />
         <Dropdown
-          trigger={<Button variant="secondary" size="sm" shape="pill">{locationLabel}</Button>}
+          trigger={<Button size="small" shape="round">{locationLabel}</Button>}
           items={locationItems}
           onSelect={setSelectedLocation}
         />
         <Dropdown
-          trigger={<Button variant="secondary" size="sm" shape="pill">{practitionerLabel}</Button>}
+          trigger={<Button size="small" shape="round">{practitionerLabel}</Button>}
           items={practitionerItems}
           onSelect={setSelectedPractitioner}
         />
         <Button
           variant={compareMode ? "primary" : "secondary"}
-          size="sm"
-          shape="pill"
+          size="small"
+          shape="round"
           onClick={() => setCompareMode(!compareMode)}
         >
           Compare
@@ -294,8 +293,8 @@ export default function ReportsPage() {
             <Flex align="center" justify="space-between">
               <Text variant="display/sm" as="h3" color="text" style={{ fontSize: 20 }}>Utilisation</Text>
               <Button
-                variant="icon"
-                size="sm"
+                type="text"
+                size="small"
                 htmlType="button"
                 onClick={() => setUtilisationSettingsOpen(!utilisationSettingsOpen)}
               >
@@ -434,7 +433,7 @@ export default function ReportsPage() {
               <Tr key={p.name} hover>
                 <Td>
                   <Flex align="center" gap={12}>
-                    <Avatar name={p.name} color={p.color} size="sm" />
+                    <Avatar name={p.name} color={p.color} size="small" />
                     <Text variant="body/md" as="span" color="text">{p.name}</Text>
                   </Flex>
                 </Td>

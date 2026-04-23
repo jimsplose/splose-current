@@ -1,26 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import {
-  Button,
-  ColorDot,
-  PageHeader,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Tab,
-  Pagination,
-  Dropdown,
-  DropdownTriggerButton,
-  Modal,
-  FormInput,
-  FormSelect,
-  FormColorPicker,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { ColorDot, PageHeader, DataTable, TableHead, Th, TableBody, Tr, Td, Tab, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, FormColorPicker } from "@/components/ds";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
 
@@ -130,7 +112,7 @@ export default function TagsPage() {
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Tags">
-        <Button variant="secondary" onClick={openCreate}>+ New tag</Button>
+        <Button onClick={openCreate}>+ New tag</Button>
       </PageHeader>
 
       <Tab
@@ -159,7 +141,7 @@ export default function TagsPage() {
             <Tr key={tag.name}>
               <Td>{tag.name}</Td>
               <Td>
-                <ColorDot color={tag.color} shape="rect" size="md" />
+                <ColorDot color={tag.color} shape="rect" />
               </Td>
               <Td align="right">
                 <Dropdown
@@ -182,8 +164,8 @@ export default function TagsPage() {
         title={isEditing ? "Edit tag" : "New tag"}
         footer={
           <>
-            <Button variant="secondary" onClick={closeModal}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
+            <Button onClick={closeModal}>Cancel</Button>
+            <Button type="primary" onClick={handleSave}>{isEditing ? "Edit" : "Create"}</Button>
           </>
         }
       >

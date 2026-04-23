@@ -5,31 +5,8 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useRegisterCommands } from "@/hooks/useRegisterCommands";
 import { EditOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { Flex } from "antd";
-import {
-  AlertCallout,
-  PatientAvatar,
-  Tag,
-  Button,
-  DataTable,
-  Divider,
-  FeatureCard,
-  FileUpload,
-  FormInput,
-  FormSelect,
-  FormTextarea,
-  Grid,
-  HintIcon,
-  List,
-  Collapse,
-  TableBody,
-  TableHead,
-  Td,
-  Text,
-  Th,
-  Toggle,
-  Tr,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { AlertCallout, PatientAvatar, Tag, DataTable, Divider, FeatureCard, FileUpload, FormInput, FormSelect, FormTextarea, Grid, HintIcon, List, Collapse, TableBody, TableHead, Td, Text, Th, Toggle, Tr } from "@/components/ds";
 
 interface ClientData {
   id: string;
@@ -97,8 +74,8 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
       <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
         <Flex justify="space-between" align="center" style={{ marginBottom: 24 }}>
           <Text variant="display/lg">Details</Text>
-          <Button variant="secondary" size="sm" onClick={() => setEditMode(true)}>
-            Edit <Icon as={EditOutlined} size="md" />
+          <Button size="small" onClick={() => setEditMode(true)}>
+            Edit <Icon as={EditOutlined} />
           </Button>
         </Flex>
 
@@ -126,7 +103,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
+        <Divider type="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Client contact details */}
         <section style={{ marginBottom: 32 }}>
@@ -163,7 +140,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
+        <Divider type="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Privacy policy consent */}
         <section style={{ marginBottom: 32 }}>
@@ -173,7 +150,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           <List items={[{ label: "", value: "No response" }]} />
         </section>
 
-        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
+        <Divider type="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Medications, allergies & intolerances */}
         <section style={{ marginBottom: 32 }}>
@@ -189,7 +166,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
+        <Divider type="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Medicare details */}
         {client.medicare && (
@@ -204,7 +181,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
                 ]}
               />
             </section>
-            <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
+            <Divider type="primary" spacing="none" style={{ marginBottom: 32 }} />
           </>
         )}
 
@@ -220,7 +197,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
                 ]}
               />
             </section>
-            <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
+            <Divider type="primary" spacing="none" style={{ marginBottom: 32 }} />
           </>
         )}
 
@@ -235,7 +212,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
+        <Divider type="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Invoicing */}
         <section style={{ marginBottom: 32 }}>
@@ -250,7 +227,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
+        <Divider type="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Associated contacts */}
         <section style={{ marginBottom: 32 }}>
@@ -288,7 +265,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           </DataTable>
         </section>
 
-        <Button variant="link" size="sm">View change log</Button>
+        <Button type="link" size="small">View change log</Button>
       </div>
 
       {/* Right panel */}
@@ -297,7 +274,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         <FeatureCard tone="primary" style={{ marginBottom: 16 }}>
           <Flex justify="space-between" align="center">
             <Text variant="label/lg" as="h3" color="inverted">Account balance</Text>
-            <HintIcon tone="inverted" size="lg" />
+            <HintIcon tone="inverted" size="large" />
           </Flex>
           <Flex justify="space-between" align="center" style={{ marginTop: 8 }}>
             <Text variant="body/md" as="span">
@@ -341,7 +318,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           <Flex vertical gap={4}>
             <Flex align="center" gap={4}>
               <Text variant="body/sm" as="span" color="primary">rakesh.splose@gmail.com</Text>
-              <Tag size="sm">ARCHIVED</Tag>
+              <Tag size="small">ARCHIVED</Tag>
             </Flex>
             <Text variant="body/sm" as="p" color="secondary">a a</Text>
             <Text variant="body/sm" as="p" color="secondary">Open rate: 0%</Text>
@@ -350,8 +327,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
               Opt-in: 11:41 am, 16 Nov 2022
             </Text>
             <Button
-              variant="secondary"
-              size="sm"
+              size="small"
               style={{ fontSize: 12, marginTop: 8, width: '100%' }}
             >
               Unlink
@@ -381,10 +357,10 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
       <Flex justify="space-between" align="center" style={{ marginBottom: 24 }}>
         <Text variant="display/md">Edit details</Text>
         <Flex align="center" gap={8}>
-          <Button variant="secondary" onClick={onCancel}>
+          <Button onClick={onCancel}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={onCancel}>
+          <Button type="primary" onClick={onCancel}>
             Save
           </Button>
         </Flex>

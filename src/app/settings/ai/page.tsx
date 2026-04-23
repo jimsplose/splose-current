@@ -2,10 +2,10 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { Button, FormInput, FormTextarea, FormSelect, Tab, Toggle, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, Modal, EmptyState, Badge, Alert, PageHeader, Divider, Text } from "@/components/ds";
+import { FormInput, FormTextarea, FormSelect, Tab, Toggle, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, Modal, EmptyState, Badge, Alert, PageHeader, Divider, Text } from "@/components/ds";
 
 const aiBlocks = [
   { name: "Subjective Assessment", tag: "SOAP", createdBy: "Jim Yencken", lastModified: "12 Mar 2026" },
@@ -56,8 +56,8 @@ function SettingsAIPageInner() {
   return (
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
         <PageHeader title="splose AI">
-          <Button variant="secondary">Learn</Button>
-          <Button variant="primary">Save</Button>
+          <Button>Learn</Button>
+          <Button type="primary">Save</Button>
         </PageHeader>
 
         {/* Tabs */}
@@ -95,7 +95,7 @@ function PreferencesTab() {
       <div style={{ display: 'flex', gap: 60 }}>
         {/* Left column — preferences */}
         <div style={{ flex: '1 1 0' }}>
-          <Divider variant="primary" spacing="sm" />
+          <Divider type="primary" spacing="sm" />
           <Text variant="body/md" as="h4" color="text" style={{ marginBottom: 10 }}>Preferences</Text>
 
           {/* Card container */}
@@ -113,7 +113,7 @@ function PreferencesTab() {
               </Flex>
             </Flex>
 
-            <Divider variant="primary" spacing="sm" style={{ margin: '0 0 12px' }} />
+            <Divider type="primary" spacing="sm" style={{ margin: '0 0 12px' }} />
 
             {/* Email */}
             <Text variant="heading/xl" as="h4" color="text" style={{ marginBottom: 30 }}>splose AI - email</Text>
@@ -122,7 +122,7 @@ function PreferencesTab() {
               <Toggle checked={emailAssistant} onChange={setEmailAssistant} />
             </Flex>
 
-            <Divider variant="primary" spacing="sm" style={{ margin: '0 0 12px' }} />
+            <Divider type="primary" spacing="sm" style={{ margin: '0 0 12px' }} />
 
             {/* Calendar */}
             <Text variant="heading/xl" as="h4" color="text" style={{ marginBottom: 30 }}>splose AI - calendar</Text>
@@ -175,7 +175,7 @@ function SavedPromptsTab() {
     <div>
       <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
         <h2 style={{ fontSize: 20, fontWeight: 600 }}>AI prompts</h2>
-        <Button variant="secondary">+ New prompt</Button>
+        <Button>+ New prompt</Button>
       </Flex>
 
       <DataTable>
@@ -191,7 +191,7 @@ function SavedPromptsTab() {
               <Td color="secondary">{prompt.userGroup}</Td>
               <Td align="right">
                 <Dropdown
-                  trigger={<Button variant="ghost" size="sm" style={{ color: 'var(--color-text-secondary)' }}>...</Button>}
+                  trigger={<Button type="text" size="small" style={{ color: 'var(--color-text-secondary)' }}>...</Button>}
                   items={[
                     { label: "Edit", value: "edit" },
                     { label: "Duplicate", value: "duplicate" },
@@ -219,8 +219,8 @@ function SavedPromptsTab() {
         title="Edit prompt"
         footer={
           <>
-            <Button variant="secondary" onClick={() => setEditPrompt(null)}>Cancel</Button>
-            <Button variant="primary" onClick={() => setEditPrompt(null)}>Save</Button>
+            <Button onClick={() => setEditPrompt(null)}>Cancel</Button>
+            <Button type="primary" onClick={() => setEditPrompt(null)}>Save</Button>
           </>
         }
       >
@@ -269,7 +269,7 @@ function AIBlockLibraryTab() {
           <Flex align="center" gap={8} style={{ fontSize: 14 }}>
             <span style={{ color: 'var(--color-text-secondary)' }}>Fill a</span>
             <span className="underline" style={{ cursor: 'pointer', color: 'var(--color-primary)' }}>short survey.</span>
-            <Button variant="ghost" size="sm" style={{ marginLeft: 8, color: 'var(--color-text-secondary)' }}>&times;</Button>
+            <Button type="text" size="small" style={{ marginLeft: 8, color: 'var(--color-text-secondary)' }}>&times;</Button>
           </Flex>
         </Flex>
       </Alert>
@@ -286,7 +286,7 @@ function AIBlockLibraryTab() {
         <div style={{ flex: 1, position: 'relative' }}>
           <FormInput placeholder="Search" style={{ height: 40, paddingLeft: 16, paddingRight: 16 }} />
         </div>
-        <Button variant="primary" size="sm" style={{ paddingLeft: 8, paddingRight: 8, paddingTop: 8, paddingBottom: 8 }}>
+        <Button type="primary" size="small" style={{ paddingLeft: 8, paddingRight: 8, paddingTop: 8, paddingBottom: 8 }}>
           <svg style={{ height: 20, width: 20 }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
@@ -296,7 +296,7 @@ function AIBlockLibraryTab() {
             />
           </svg>
         </Button>
-        <Button variant="primary">+ New AI block</Button>
+        <Button type="primary">+ New AI block</Button>
       </Flex>
 
       {/* Saved blocks heading */}
@@ -320,7 +320,7 @@ function AIBlockLibraryTab() {
               <Td color="secondary">{block.lastModified}</Td>
               <Td align="right">
                 <Dropdown
-                  trigger={<Button variant="ghost" size="sm" style={{ color: 'var(--color-text-secondary)' }}>...</Button>}
+                  trigger={<Button type="text" size="small" style={{ color: 'var(--color-text-secondary)' }}>...</Button>}
                   items={[
                     { label: "Edit", value: "edit" },
                     { label: "Duplicate", value: "duplicate" },
@@ -341,8 +341,8 @@ function AIBlockLibraryTab() {
         title="Edit AI block"
         footer={
           <>
-            <Button variant="secondary" onClick={() => setEditBlock(null)}>Cancel</Button>
-            <Button variant="primary" onClick={() => setEditBlock(null)}>Save</Button>
+            <Button onClick={() => setEditBlock(null)}>Cancel</Button>
+            <Button type="primary" onClick={() => setEditBlock(null)}>Save</Button>
           </>
         }
       >

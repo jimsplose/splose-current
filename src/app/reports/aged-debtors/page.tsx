@@ -1,22 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Flex } from "antd";
-import {
-  Button,
-  Card,
-  DateRangeFilter,
-  FormSelect,
-  ListPage,
-  DataTable,
-  TableHead,
-  Th,
-  TableBody,
-  Tr,
-  Td,
-  Grid,
-  Text,
-} from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Card, DateRangeFilter, FormSelect, ListPage, DataTable, TableHead, Th, TableBody, Tr, Td, Grid, Text } from "@/components/ds";
 
 const agingSummary = [
   { label: "Current", amount: "$2,450.00", color: "#16a34a" },
@@ -68,7 +54,7 @@ export default function ReportsAgedDebtorsPage() {
         <Button>Add filter</Button>
         <Button>Save filters</Button>
         <Button>Load filters</Button>
-        <Button variant="primary" onClick={() => setShowResults(true)}>Run report</Button>
+        <Button type="primary" onClick={() => setShowResults(true)}>Run report</Button>
       </Flex>
 
       {showResults && (

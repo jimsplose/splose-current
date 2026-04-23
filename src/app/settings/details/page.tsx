@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { Flex } from "antd";
-import { Button, Checkbox, FileUpload, FormInput, FormSelect, Toggle, Tab, Modal, Dropdown, HintIcon, PageHeader, Text, Grid, Divider } from "@/components/ds";
+import { Button, Flex } from "antd";
+import { Checkbox, FileUpload, FormInput, FormSelect, Toggle, Tab, Modal, Dropdown, HintIcon, PageHeader, Text, Grid, Divider } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 
 const businessHistory = [
@@ -23,7 +23,7 @@ export default function SettingsDetailsPage() {
   return (
     <div style={{ maxWidth: 896, padding: 24 }}>
       <PageHeader title="Details">
-        <Button variant="primary">Save</Button>
+        <Button type="primary">Save</Button>
       </PageHeader>
 
       <Flex vertical gap={24}>
@@ -32,12 +32,12 @@ export default function SettingsDetailsPage() {
             <Flex vertical gap={16}>
               <div>
                 <Flex align="center" justify="space-between" style={{ marginBottom: 4 }}>
-                  <FormLabel size="sm" mb={0} required>
+                  <FormLabel size="small" mb={0} required>
                     Business name
                   </FormLabel>
                   <Button
-                    variant="link"
-                    size="sm"
+                    type="link"
+                    size="small"
                     onClick={() => setHistoryOpen(true)}
                   >
                     Business history
@@ -46,7 +46,7 @@ export default function SettingsDetailsPage() {
                 <FormInput type="text" defaultValue="Hands Together Therapies" />
               </div>
               <div>
-                <FormLabel size="sm">
+                <FormLabel size="small">
                   Workspace URL{" "}
                   <HintIcon />
                 </FormLabel>
@@ -54,7 +54,7 @@ export default function SettingsDetailsPage() {
               </div>
               <FormInput label="Website" type="text" defaultValue="hands-together-therapy.com" />
               <div>
-                <FormLabel size="sm" required>
+                <FormLabel size="small" required>
                   Business email
                 </FormLabel>
                 <FormInput type="email" defaultValue="hello@hands-together-therapy.com" />
@@ -77,18 +77,18 @@ export default function SettingsDetailsPage() {
           </div>
         </Flex>
 
-        <Divider variant="primary" spacing="sm" />
+        <Divider type="primary" spacing="sm" />
 
         <Grid cols={2} gap="md">
           <div>
-            <FormLabel size="sm" required>
+            <FormLabel size="small" required>
               Patient terminology{" "}
               <HintIcon />
             </FormLabel>
             <FormSelect options={[{ value: "Client", label: "Client" }, { value: "Patient", label: "Patient" }, { value: "Participant", label: "Participant" }]} />
           </div>
           <div>
-            <FormLabel size="sm" required>
+            <FormLabel size="small" required>
               Currency code
             </FormLabel>
             <FormInput type="text" defaultValue="AUD" disabled />
@@ -97,13 +97,13 @@ export default function SettingsDetailsPage() {
 
         <Grid cols={2} gap="md">
           <div>
-            <FormLabel size="sm" required>
+            <FormLabel size="small" required>
               Country
             </FormLabel>
             <FormSelect options={[{ value: "Australia", label: "Australia" }, { value: "New Zealand", label: "New Zealand" }, { value: "United Kingdom", label: "United Kingdom" }]} disabled />
           </div>
           <div>
-            <FormLabel size="sm" required>
+            <FormLabel size="small" required>
               Currency symbol
             </FormLabel>
             <FormInput type="text" defaultValue="A$" disabled />
@@ -112,7 +112,7 @@ export default function SettingsDetailsPage() {
 
         <Grid cols={2} gap="md">
           <div>
-            <FormLabel size="sm" required>
+            <FormLabel size="small" required>
               Default appointment communication preferences{" "}
               <HintIcon />
             </FormLabel>
@@ -126,62 +126,62 @@ export default function SettingsDetailsPage() {
             </div>
           </div>
           <div>
-            <FormLabel size="sm" required>
+            <FormLabel size="small" required>
               Tax Label for invoices (E.g. ABN)
             </FormLabel>
             <FormInput type="text" defaultValue="ABN" />
             <Text variant="body/md" color="secondary" style={{ marginTop: 8 }}>
               Enter your business number in{" "}
-              <Button variant="link" size="sm">Location settings</Button>
+              <Button type="link" size="small">Location settings</Button>
             </Text>
           </div>
         </Grid>
 
-        <Divider variant="primary" spacing="sm" />
+        <Divider type="primary" spacing="sm" />
 
         <div>
           <Text variant="heading/lg" style={{ marginBottom: 12 }}>Email signature</Text>
           <Flex align="center" gap={8} style={{ marginBottom: 12 }}>
             <Button
               variant={emailSigTab === "Business" ? "primary" : "secondary"}
-              size="sm"
+              size="small"
               onClick={() => setEmailSigTab("Business")}
-              shape="pill"
+              shape="round"
               style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 4, paddingBottom: 4 }}
             >
-              Business <Icon as={DownOutlined} size="sm" style={{ marginLeft: 4 }} />
+              Business <Icon as={DownOutlined} size="small" style={{ marginLeft: 4 }} />
             </Button>
             <Button
               variant={emailSigTab === "User" ? "primary" : "secondary"}
-              size="sm"
+              size="small"
               onClick={() => setEmailSigTab("User")}
-              shape="pill"
+              shape="round"
               style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 4, paddingBottom: 4 }}
             >
-              User <Icon as={DownOutlined} size="sm" style={{ marginLeft: 4 }} />
+              User <Icon as={DownOutlined} size="small" style={{ marginLeft: 4 }} />
             </Button>
           </Flex>
           <Flex align="center" gap={4} style={{ borderRadius: '8px 8px 0 0', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '6px 8px' }}>
-            <Button variant="toolbar" style={{ fontWeight: 700 }}>B</Button>
-            <Button variant="toolbar" style={{ fontStyle: 'italic' }}>I</Button>
+            <Button type="text" style={{ fontWeight: 700 }}>B</Button>
+            <Button type="text" style={{ fontStyle: 'italic' }}>I</Button>
             <Divider orientation="vertical" spacing="xs" />
-            <Button variant="toolbar" style={{ color: 'var(--color-primary)' }}>AI</Button>
+            <Button type="text" style={{ color: 'var(--color-primary)' }}>AI</Button>
             <Divider orientation="vertical" spacing="xs" />
-            <Button variant="toolbar">
+            <Button type="text">
               <svg style={{ height: 16, width: 16 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h18v18H3V3zm0 6h18M3 15h18M9 3v18M15 3v18" /></svg>
             </Button>
-            <Button variant="toolbar">
+            <Button type="text">
               <svg style={{ height: 16, width: 16 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
             </Button>
-            <Button variant="toolbar">+</Button>
+            <Button type="text">+</Button>
             <Divider orientation="vertical" spacing="xs" />
-            <Button variant="toolbar">
+            <Button type="text">
               <svg style={{ height: 16, width: 16 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h10M4 18h16" /></svg>
             </Button>
-            <Button variant="toolbar">
+            <Button type="text">
               <svg style={{ height: 16, width: 16 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M7 12h10M4 18h16" /></svg>
             </Button>
-            <Button variant="toolbar">
+            <Button type="text">
               <svg style={{ height: 16, width: 16 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
             </Button>
           </Flex>
@@ -201,7 +201,7 @@ export default function SettingsDetailsPage() {
           </div>
         </div>
 
-        <Divider variant="primary" spacing="sm" />
+        <Divider type="primary" spacing="sm" />
 
         <div>
           <Text variant="heading/lg" style={{ marginBottom: 12 }}>Calendar lock dates</Text>
@@ -211,14 +211,14 @@ export default function SettingsDetailsPage() {
           <FormInput type="text" defaultValue="19 Dec 2025" style={{ maxWidth: 320 }} />
         </div>
 
-        <Divider variant="primary" spacing="sm" />
+        <Divider type="primary" spacing="sm" />
 
         <div>
           <Text variant="heading/lg" style={{ marginBottom: 12 }}>Google Tag Manager</Text>
           <FormInput label="Google Tag Manager ID" type="text" defaultValue="GTM-TEST1231" style={{ maxWidth: 320 }} />
         </div>
 
-        <Divider variant="primary" spacing="sm" />
+        <Divider type="primary" spacing="sm" />
 
         <div>
           <Text variant="heading/lg" style={{ marginBottom: 12 }}>Cases</Text>
@@ -229,7 +229,7 @@ export default function SettingsDetailsPage() {
         </div>
 
         <div>
-          <Button variant="link" size="sm">Business settings change log</Button>
+          <Button type="link" size="small">Business settings change log</Button>
         </div>
       </Flex>
 
