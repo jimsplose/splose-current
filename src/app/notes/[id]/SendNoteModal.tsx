@@ -22,6 +22,7 @@ import {
 } from "@ant-design/icons";
 import { Flex } from "antd";
 import { Button, FormSelect, FormInput, Badge, Divider, Icon, Card } from "@/components/ds";
+import FormLabel from "@/components/ds/FormLabel";
 import Modal from "@/components/ds/Modal";
 
 interface SendNoteModalProps {
@@ -194,9 +195,9 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
 
             {/* Reply to */}
             <div>
-              <label style={{ display: 'block', marginBottom: 4, fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>
-                Reply to <span style={{ color: 'var(--color-danger)' }}>*</span>
-              </label>
+              <FormLabel required style={{ color: 'var(--color-text-secondary)' }}>
+                Reply to
+              </FormLabel>
               <FormSelect
                 options={[
                   { value: "hands-together", label: "Hands Together Therapies (hello@hands-together-therapy.com)" },

@@ -33,6 +33,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 
 | Component | Use for |
 |---|---|
+| `FormLabel` | Standalone form field label. Props: `size` (`sm`=12px/500 \| `md`=14px/600 default), `mb` (marginBottom px, default 4), `required` (red asterisk), `hint` (HintIcon tooltip), `htmlFor`, `as` (`label` default \| `div`). Wave 6 replacement for `<label style={{...}}>`. |
 | `FormField` | Label + error + hint + required wrapper for any input |
 | `FormInput` | Labeled text inputs with error states |
 | `FormSelect` | Labeled select dropdowns (supports searchable, placeholder) |

@@ -21,6 +21,7 @@ import {
   Text,
   Grid,
 } from "@/components/ds";
+import FormLabel from "@/components/ds/FormLabel";
 
 const designTabs = [
   { label: "Design", value: "design" },
@@ -106,7 +107,7 @@ export default function EditOnlineBookingPage() {
               />
               {brandingMode === "logo" && (
                 <div>
-                  <label style={{ display: 'block', fontSize: 12, fontWeight: 500, marginBottom: 8 }}>Logo / Header image</label>
+                  <FormLabel size="sm" mb={8}>Logo / Header image</FormLabel>
                   <Card variant="dashed" tint="muted" padding="none">
                     <Flex align="center" justify="center" style={{ height: 128 }}>
                       <div style={{ textAlign: 'center' }}>

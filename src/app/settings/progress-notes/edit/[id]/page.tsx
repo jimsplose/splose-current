@@ -16,6 +16,7 @@ import {
   Modal,
   Dropdown,
 } from "@/components/ds";
+import FormLabel from "@/components/ds/FormLabel";
 import type { DropdownItem } from "@/components/ds";
 
 interface AIBlock {
@@ -186,7 +187,7 @@ export default function EditProgressNoteTemplatePage() {
           )}
 
           <div>
-            <label style={{ display: 'block', marginBottom: 4, fontSize: 12, fontWeight: 500, color: 'var(--color-text-secondary)' }}>Free text section</label>
+            <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>Free text section</FormLabel>
             <RichTextEditor value={freeText} onChange={setFreeText} rows={6} />
           </div>
         </Flex>

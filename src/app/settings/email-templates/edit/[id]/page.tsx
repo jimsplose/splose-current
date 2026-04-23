@@ -13,6 +13,7 @@ import {
   Grid,
   Breadcrumbs,
 } from "@/components/ds";
+import FormLabel from "@/components/ds/FormLabel";
 
 const typeOptions = [
   { value: "invoice", label: "Invoice" },
@@ -68,7 +69,7 @@ export default function EditEmailTemplatePage() {
           <FormInput label="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
 
           <div>
-            <label style={{ marginBottom: 4, display: 'block', fontSize: 12, fontWeight: 500, color: 'var(--color-text-secondary)' }}>Body</label>
+            <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>Body</FormLabel>
             <RichTextEditor
               value={body}
               onChange={setBody}

@@ -19,6 +19,7 @@ import {
   Modal,
   PageHeader,
 } from "@/components/ds";
+import FormLabel from "@/components/ds/FormLabel";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
 
@@ -100,9 +101,9 @@ export default function PaymentSettingsPage() {
       <section style={{ marginBottom: 32 }}>
         <h2 style={{ marginBottom: 16, fontSize: 20, fontWeight: 600 }}>PDF settings</h2>
         <div style={{ maxWidth: 672 }}>
-          <label style={{ display: 'block', marginBottom: 4, fontSize: 12, fontWeight: 500, color: 'var(--color-text-secondary)' }}>
+          <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>
             Brand colour
-          </label>
+          </FormLabel>
           <Flex align="center" gap={12} style={{ marginBottom: 16 }}>
             <div
               style={{ height: 40, width: 40, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: "#8690FC" }}

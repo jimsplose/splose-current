@@ -35,6 +35,7 @@ import {
   Breadcrumbs,
   Tooltip,
 } from "@/components/ds";
+import FormLabel from "@/components/ds/FormLabel";
 
 const FIELD_TYPES = [
   { icon: FontSizeOutlined, label: "Short text", value: "short-text" },
@@ -190,9 +191,9 @@ export default function FormTemplateEditorPage() {
                 <Flex vertical gap={16}>
                   {fields.map((field) => (
                     <div key={field.id}>
-                      <label style={{ display: 'block', fontSize: 12, fontWeight: 500, marginBottom: 4 }}>
-                        {field.label} {field.required && <span style={{ color: '#ef4444' }}>*</span>}
-                      </label>
+                      <FormLabel size="sm" required={field.required}>
+                        {field.label}
+                      </FormLabel>
                       {field.type === "long-text" ? (
                         <textarea style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '8px 12px', fontSize: 14 }} rows={3} disabled />
                       ) : field.type === "boolean" ? (
@@ -226,7 +227,7 @@ export default function FormTemplateEditorPage() {
             </Flex>
             <Flex vertical gap={16}>
               <div>
-                <label style={{ display: 'block', marginBottom: 4, fontSize: 12, fontWeight: 500, color: 'var(--color-text-secondary)' }}>Form link</label>
+                <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>Form link</FormLabel>
                 <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '8px 12px', wordBreak: 'break-all', fontSize: 12, color: 'var(--color-primary)' }}>
                   https://acme.splose.com/patient-form/81783/view
                 </div>

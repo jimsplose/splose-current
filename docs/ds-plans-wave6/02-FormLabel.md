@@ -1,6 +1,6 @@
 # Wave 6 · Plan 02 — FormLabel: new DS component + 27 callers
 
-**Status:** Planned
+**Status:** Done
 **Estimated effort:** 30 min
 **Model:** Sonnet
 **Thinking:** think

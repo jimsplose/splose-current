@@ -73,6 +73,7 @@ export { default as Spinner } from "./Spinner";
 export { default as Icon } from "./Icon";
 export type { IconSize, IconTone } from "./Icon";
 export { default as HintIcon } from "./HintIcon";
+export { default as FormLabel } from "./FormLabel";
 export { default as FormTextarea } from "./FormTextarea";
 export { default as Alert } from "./Alert";
 export { default as AlertCallout } from "./AlertCallout";

@@ -25,6 +25,7 @@ import {
   RichTextEditor,
   PageHeader,
 } from "@/components/ds";
+import FormLabel from "@/components/ds/FormLabel";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
 
@@ -326,7 +327,7 @@ export default function InvoiceSettingsPage() {
               />
               <FormInput label="Subject" value={form.subject} onChange={(e) => setField("subject", e.target.value)} />
               <div>
-                <label style={{ display: 'block', marginBottom: 4, fontSize: 12, fontWeight: 500, color: 'var(--color-text-secondary)' }}>Body</label>
+                <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>Body</FormLabel>
                 <RichTextEditor
                   value={form.body}
                   onChange={(html) => setField("body", html)}

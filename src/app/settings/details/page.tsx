@@ -5,6 +5,7 @@ import { DownOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
 import { Flex } from "antd";
 import { Button, Checkbox, FileUpload, FormInput, FormSelect, Toggle, Tab, Modal, Dropdown, HintIcon, PageHeader, Text, Grid, Divider } from "@/components/ds";
+import FormLabel from "@/components/ds/FormLabel";
 
 const businessHistory = [
   { date: "15 Jan 2026", description: "Business name changed from 'Acme Therapy' to 'Hands Together Therapies'" },
@@ -31,9 +32,9 @@ export default function SettingsDetailsPage() {
             <Flex vertical gap={16}>
               <div>
                 <Flex align="center" justify="space-between" style={{ marginBottom: 4 }}>
-                  <label style={{ display: 'block', fontSize: 12, fontWeight: 500 }}>
-                    Business name<Text as="span" variant="body/md" color="danger">*</Text>
-                  </label>
+                  <FormLabel size="sm" mb={0} required>
+                    Business name
+                  </FormLabel>
                   <Button
                     variant="link"
                     size="sm"
@@ -45,17 +46,17 @@ export default function SettingsDetailsPage() {
                 <FormInput type="text" defaultValue="Hands Together Therapies" />
               </div>
               <div>
-                <label style={{ display: 'block', fontSize: 12, fontWeight: 500, marginBottom: 4 }}>
+                <FormLabel size="sm">
                   Workspace URL{" "}
                   <HintIcon />
-                </label>
+                </FormLabel>
                 <FormInput type="text" defaultValue="acme.splose.com" />
               </div>
               <FormInput label="Website" type="text" defaultValue="hands-together-therapy.com" />
               <div>
-                <label style={{ display: 'block', fontSize: 12, fontWeight: 500, marginBottom: 4 }}>
-                  Business email<Text as="span" variant="body/md" color="danger">*</Text>
-                </label>
+                <FormLabel size="sm" required>
+                  Business email
+                </FormLabel>
                 <FormInput type="email" defaultValue="hello@hands-together-therapy.com" />
               </div>
             </Flex>
@@ -80,43 +81,41 @@ export default function SettingsDetailsPage() {
 
         <Grid cols={2} gap="md">
           <div>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 500, marginBottom: 4 }}>
+            <FormLabel size="sm" required>
               Patient terminology{" "}
               <HintIcon />
-              <Text as="span" variant="body/md" color="danger">*</Text>
-            </label>
+            </FormLabel>
             <FormSelect options={[{ value: "Client", label: "Client" }, { value: "Patient", label: "Patient" }, { value: "Participant", label: "Participant" }]} />
           </div>
           <div>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 500, marginBottom: 4 }}>
-              Currency code<Text as="span" variant="body/md" color="danger">*</Text>
-            </label>
+            <FormLabel size="sm" required>
+              Currency code
+            </FormLabel>
             <FormInput type="text" defaultValue="AUD" disabled />
           </div>
         </Grid>
 
         <Grid cols={2} gap="md">
           <div>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 500, marginBottom: 4 }}>
-              Country<Text as="span" variant="body/md" color="danger">*</Text>
-            </label>
+            <FormLabel size="sm" required>
+              Country
+            </FormLabel>
             <FormSelect options={[{ value: "Australia", label: "Australia" }, { value: "New Zealand", label: "New Zealand" }, { value: "United Kingdom", label: "United Kingdom" }]} disabled />
           </div>
           <div>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 500, marginBottom: 4 }}>
-              Currency symbol<Text as="span" variant="body/md" color="danger">*</Text>
-            </label>
+            <FormLabel size="sm" required>
+              Currency symbol
+            </FormLabel>
             <FormInput type="text" defaultValue="A$" disabled />
           </div>
         </Grid>
 
         <Grid cols={2} gap="md">
           <div>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 500, marginBottom: 4 }}>
+            <FormLabel size="sm" required>
               Default appointment communication preferences{" "}
               <HintIcon />
-              <Text as="span" variant="body/md" color="danger">*</Text>
-            </label>
+            </FormLabel>
             <FormSelect options={[{ value: "SMS & Email", label: "SMS & Email" }, { value: "SMS only", label: "SMS only" }, { value: "Email only", label: "Email only" }, { value: "None", label: "None" }]} />
             <div style={{ marginTop: 8 }}>
               <Checkbox
@@ -127,9 +126,9 @@ export default function SettingsDetailsPage() {
             </div>
           </div>
           <div>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 500, marginBottom: 4 }}>
-              Tax Label for invoices (E.g. ABN)<Text as="span" variant="body/md" color="danger">*</Text>
-            </label>
+            <FormLabel size="sm" required>
+              Tax Label for invoices (E.g. ABN)
+            </FormLabel>
             <FormInput type="text" defaultValue="ABN" />
             <Text variant="body/md" color="secondary" style={{ marginTop: 8 }}>
               Enter your business number in{" "}

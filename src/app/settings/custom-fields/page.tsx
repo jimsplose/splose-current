@@ -28,6 +28,7 @@ import {
   DropdownTriggerButton,
   ReorderModal,
 } from "@/components/ds";
+import FormLabel from "@/components/ds/FormLabel";
 
 /* ------------------------------------------------------------------ */
 /*  Custom fields mock data                                            */
@@ -409,7 +410,7 @@ function FieldTypePreview({
   if (type === "Long text") {
     return (
       <div>
-        <label style={{ display: 'block', marginBottom: 4, fontSize: 12, fontWeight: 500 }}>{label}</label>
+        <FormLabel size="sm">{label}</FormLabel>
         <textarea
           disabled
           rows={3}
@@ -449,7 +450,7 @@ function FieldTypePreview({
     const previewOpts = options.length > 0 ? options : ["Option 1", "Option 2"];
     return (
       <div>
-        <label style={{ display: 'block', marginBottom: 4, fontSize: 12, fontWeight: 500 }}>{label}</label>
+        <FormLabel size="sm">{label}</FormLabel>
         <Flex vertical gap={6}>
           {previewOpts.map((opt, i) => (
             <label key={i} className="flex items-center gap-2" style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>

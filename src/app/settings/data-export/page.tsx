@@ -20,6 +20,7 @@ import {
   Modal,
   PageHeader,
 } from "@/components/ds";
+import FormLabel from "@/components/ds/FormLabel";
 
 interface ExportRow {
   id: number;
@@ -155,7 +156,7 @@ export default function DataExportPage() {
           />
         </div>
         <div>
-          <label style={{ display: 'block', marginBottom: 4, fontSize: 12, fontWeight: 500, color: 'var(--color-text-secondary)' }}>Date *</label>
+          <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }} required>Date</FormLabel>
           <Flex align="center" gap={8}>
             <FormInput
               type="date"

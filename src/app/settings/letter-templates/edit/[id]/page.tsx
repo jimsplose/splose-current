@@ -11,6 +11,7 @@ import {
   RichTextEditor,
   Grid,
 } from "@/components/ds";
+import FormLabel from "@/components/ds/FormLabel";
 
 const recipientOptions = [
   { value: "client", label: "Client" },
@@ -56,7 +57,7 @@ export default function EditLetterTemplatePage() {
         <FormInput label="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
 
         <div>
-          <label style={{ marginBottom: 4, display: 'block', fontSize: 12, fontWeight: 500, color: 'var(--color-text-secondary)' }}>Letter body</label>
+          <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>Letter body</FormLabel>
           <RichTextEditor
             value={body}
             onChange={setBody}
