@@ -6,6 +6,8 @@
 **Thinking:** think hard
 **Must run after:** Plans 00, 01
 
+> **Architecture update (2026-04-23):** Button, Icon, DataTable/Td wrappers are removed in favour of direct AntD. Where this plan references `<Td color="secondary">`, use `<Text color="secondary" as="span">` inside the AntD Table column `render()` instead. Icon inlines are already handled by Plan 01.
+
 ## Current state
 
 - `src/app/invoices/[id]/page.tsx`: **67 inline styles**
@@ -34,7 +36,7 @@ After plan 01 icon migration, expect ~48 remaining. Categories:
 2. **Invoice gradient stripe** (~3): `background: 'linear-gradient(to right, ...)'`. → **keep inline + `// ds-exempt: invoice gradient`**
 3. **Italic logo** (~3): `fontSize: 36, fontStyle: 'italic', color: 'var(--color-accent)'`. → unique, keep inline
 4. **Grid/address layout** (~12): `marginBottom: 32`, `fontSize: 12` on Grid. → `mb` prop; CSS module for address
-5. **Line items table** (~10): Already DataTable; remaining `style` overrides on `Td`. → `Td color="secondary"` where applicable
+5. **Line items table** (~10): Already DataTable (migrating to AntD Table directly); remaining `style` overrides on cells. → use AntD Table `columns` with `render: (val) => <Text color="secondary" as="span">{val}</Text>` where secondary colour is needed. Do **not** use `<Td color="secondary">` (deprecated sub-component).
 6. **Payment widget** (~8): HICAPS/Stripe branding. → keep inline
 7. **Discount/total row** (~4): Dynamic values. → keep inline
 

@@ -27,13 +27,13 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 
 | Component | Use for |
 |---|---|
-| `Button` | All interactive buttons. `variant`: primary/secondary/danger/ghost/link/icon/toolbar. `size`: sm/md/lg. `shape`: default/pill/circle (pill = borderRadius 9999 for filter chips; circle = borderRadius 50% for icon FABs). `round`: true for circle FAB buttons (alias for shape="circle"). `iconOnly`: true for icon-only buttons — centres icon, no text padding (38×38 md, 29×29 sm). |
+| `Button` (AntD) | Use AntD `Button` directly — no DS wrapper. `type`: `primary` / `default` / `text` / `link`. `danger`: true for destructive. `shape`: `round` (pill) / `circle` (FAB). `size`: `small` / `middle` / `large`. `htmlType`, `href`, `icon` are native AntD props. The DS `Button` wrapper is **deprecated** — remove any imports from `@/components/ds`. |
 
 ## Forms
 
 | Component | Use for |
 |---|---|
-| `FormLabel` | Standalone form field label. Props: `size` (`sm`=12px/500 \| `md`=14px/600 default), `mb` (marginBottom px, default 4), `required` (red asterisk), `hint` (HintIcon tooltip), `htmlFor`, `as` (`label` default \| `div`). Wave 6 replacement for `<label style={{...}}>`. |
+| ~~`FormLabel`~~ | **Removed.** Use AntD `Form.Item` with `label`, `required`, `tooltip` props directly. Label styling (14px/600, required mark colour) is configured in `sploseTheme.components.Form` in `theme.ts`. No DS wrapper needed. |
 | `FormField` | Label + error + hint + required wrapper for any input |
 | `FormInput` | Labeled text inputs with error states |
 | `FormSelect` | Labeled select dropdowns (supports searchable, placeholder) |
@@ -41,7 +41,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `DatePicker` | Single-date input with calendar popover. Emits native `Date` at boundary (AntD's dayjs is hidden). Props: `label`, `value`, `onChange`, `minDate`, `maxDate`, `disabledDates`, `format`, `clearable`, `size` (sm/md/lg), `error`, `hint`. Locale locked to en-AU (DD/MM/YYYY). For date ranges use `DateRangeFilter`; for date+time pair with `TimePicker`. |
 | `SegmentedControl` | 2-4 mutually-exclusive labelled options with a sliding highlight. Use for view switchers (Week/Day/Month), filter modes (All/Active/Archived), tone toggles. Props: `options`, `value`, `onChange`, `size` (sm/md/lg), `fullWidth`, `disabled`, required `aria-label`. Distinct from `Tab` (routes content) and `Filter` (icon-only toggle group). |
 | `NumberInput` | Typed numeric input with stepper, clamping, and format-aware display. `format`: `integer` / `decimal` / `currency` (AUD `$1,234.50`) / `percent` (`12.5%`). Emits `number \| null` (never strings). Props: `min`, `max`, `step`, `precision`, `currency`, `showSteppers`, `prefix`, `suffix`, `size` (sm/md/lg), `error`, `hint`. Replaces `<FormInput type="number">` + manual `parseFloat()`. |
-| `PhoneInput` | Formatted phone input with country-code awareness and E.164 normalisation. Always emits E.164 (`+61412345678`) for storage; displays country-appropriate format. Props: `defaultCountry` (ISO alpha-2, default `AU`), `value`, `onChange`, `size` (sm/md/lg), `error`, `hint`, `placeholder`. Wraps `react-phone-number-input`. |
+| ~~`PhoneInput`~~ | **Removed.** Use AntD `Input` with `formatAustralianPhone(value)` from `src/lib/format.ts` called in `onBlur`. No E.164 normalisation — simple AU formatting is sufficient for the healthcare context. |
 | `SignaturePad` | Handwritten signature capture for invoice sign-off, consent forms, practitioner note sign-off. Emits base64 data URL on every stroke (`null` when empty). `width`/`height` (default 360×120), `penColor`, `background` (transparent default; white for PDF embedding), `format` (png/svg). Accompany with a typed-signature fallback for keyboard-only users — the canvas itself is not screen-reader accessible. Wraps `signature_pad`. |
 | `TimePicker` | Time-of-day input with popover for appointments, clinic hours, reminders. Always emits canonical `HH:mm` 24h strings at the boundary; `format` prop (`12h` default / `24h`) controls display. `step` constrains to 5/10/15/30/60-minute increments. `minTime`/`maxTime` clamp selectable range. Seconds excluded. Pair with `DatePicker` for full datetime. |
 | `ComboBox` | Filterable text input with dropdown for picker fields (service, practitioner, referrer). Client-side filter (use `AsyncSelect` for server-fetched search; `FormSelect` for small closed sets). Props: `options`, `value`, `onChange`, `allowFreeEntry`, `onCreate` (shows "Create '{text}'" row), `renderOption`, `size`, `clearable`, `error`, `hint`. Wraps `downshift`. |
@@ -56,10 +56,10 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 
 | Component | Use for |
 |---|---|
-| `DataTable` / `Th` / `Td` / `Tr` | Tables with sortable/filterable headers, link cells, action cells |
+| `DataTable` / `Th` / `Td` / `Tr` | **Deprecated — use AntD `Table` directly.** Production confirmed as AntD Table (`ant-table-wrapper`). Define `columns: ColumnsType<T>` with `render()` for custom cells. `rowSelection`, `expandable`, `pagination`, `sorter`, `filters` are all native AntD Table props. For secondary-color cell text use `<Text color="secondary" as="span">` inside `render()`. |
 | `Pagination` | Table pagination footer with page size dropdown |
 | `Badge` | Status pills, tags, filter chips (shape: rounded/pill; size: sm/md/lg; onRemove for closable) |
-| `Tag` | User-generated colour-coded metadata label (VIP, NDIS, service type). Distinct from `Badge` (system status) by intent and defaults — solid-filled with a user-configured `color`, contrast-aware text colour picked automatically. Props: `color`, `icon`, `onRemove`, `size` (sm/md/lg), `interactive` (renders as button), `selected`. |
+| ~~`Tag`~~ (DS) | **Removed.** Use AntD `Tag` directly. For user-configured hex `color`, import `pickTextColor` from `src/lib/color.ts` and pass `style={{color: pickTextColor(color), backgroundColor: color}}`. For interactive filter chips → AntD `Tag.CheckableTag`. For removable chips → AntD Tag `closable` + `onClose`. |
 | `AppointmentCard` | Splose-specific composition for a single calendar appointment. Renders time + patient + service + optional practitioner/location with status-driven tone fallback (`scheduled`/`confirmed`/`completed`/`no-show`/`cancelled`). Densities: `compact` (44px, grid), `standard` (56px, list), `expanded` (78px, drawer). `tone` overrides status colour (practitioner assignment). `onClick` toggles `<button>` semantics + focus ring. |
 | `PatientAvatar` | Splose-specific patient avatar. Deterministic hash (FNV-1a over `patient.id`) picks one of 7 palette colours so the same patient always gets the same hue. Sizes xs/sm/md(36)/lg/xl. Uses `photoUrl` when present with initials fallback on image error. `status="archived"` desaturates; `"deceased"` shows a corner marker. Use the generic `Avatar` for non-patient cases (users, reviewers, orgs). |
 | `PaymentStatusBadge` | Purpose-built badge for invoice/payment status — `paid`/`outstanding`/`overdue`/`partial`/`refunded`/`failed`/`draft`/`void`. Encodes the Splose colour + label mapping; always `solid` by default. Thin wrapper over `Badge` for intent clarity at every invoice/payment render site. Helper `paymentStatusToVariant(status)` exposes `{variant, label}` for non-JSX contexts. |
@@ -67,7 +67,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `Stat` | Metric value + label display |
 | `Text` | Semantic typography. Variants: `page-title` (30px/700/Sprig Sans/green — detail page headers), `heading/xl` (28px/700), `display/lg\|md\|sm\|xs`, `heading/lg\|md\|sm`, `body/lg\|md\|sm\|md-strong\|lg-strong`, `label/lg\|md\|sm`, `caption/md\|sm`, `metric/lg\|md`. `weight="regular\|medium\|bold"` overrides variant default. `color` accepts preset names (`text`, `secondary`, `tertiary`, `primary`, `danger`, `warning`, `success`, `inverted`) or a Tailwind/CSS class. Use `color="inverted"` for white text on dark/colored backgrounds. |
 | `Avatar` | Colored circles with initials (sm/md/lg/xl) |
-| `Icon` | Wrapper for AntD icon components with `size: xs/sm/md/lg/xl/2xl/3xl/4xl/5xl` (10–40px) and `tone: default/secondary/tertiary/primary/success/warning/danger/inverted`. Pass `style={{ color: 'inherit' }}` inside primary Buttons to preserve white text. |
+| ~~`Icon`~~ | **Removed** — was a size-token + tone-to-color mapping wrapper. Use AntD icon components directly: `<SomeOutlined style={{fontSize: 16, color: token.colorTextSecondary}} />`. Use `theme.useToken()` for colour values. Reference sizes: xs=10, sm=12, **md=14**, lg=16, xl=18, 2xl=20, 3xl=24, 4xl=32, 5xl=40. For white on primary buttons: `style={{color: 'inherit'}}` or `style={{color: '#fff'}}`. |
 | `ColorDot` | Colored indicator (xs/sm/md/lg/xl). Props: `shape: circle\|rect` (default circle), `interactive: boolean` (renders as `<button>`), `selected: boolean` (selection ring), `onClick`, `rectWidth` (default 80). Accepts semantic color tokens (green/red/yellow/blue/gray/purple/orange) or raw CSS color. Optional `label` prop renders dot + text inline. |
 | `ProgressBar` | Horizontal progress bar. `value` (0–100), `tone`: `default/success/warning/danger`, `size`: `sm/md/lg` (4/6/8px height), optional `width` prop for fixed-width bars. |
 | `List` | Label-value detail rows rendering `<dl>/<dt>/<dd>` by default. `layout`: `horizontal` (default — label beside value, fixed-width label column) or `stacked` (label above value). Per-item `hint` (HintIcon) + `editable`/`onEdit` (pencil button). `divider` (hairline rows), `tight` (halves padding), `semantic` (`dl` default, `div` opt-out for stat/glossary use). Empty values render `—` placeholder. |
@@ -125,6 +125,8 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 | `useFormModal` | `@/hooks/useFormModal` | Modal state management (open/close/edit/create) |
 | `STANDARD_SETTINGS` / `SIMPLE_CRUD` / `USER_ADMIN` | `@/lib/dropdown-presets` | Standard dropdown action items |
 | `formatTimestamp` | `@/lib/format` | Australian locale date formatting |
+| `formatAustralianPhone` | `@/lib/format` | AU phone number formatting on blur: mobile (04xx xxx xxx), landline (0x xxxx xxxx). Use with AntD Input — no react-phone-number-input dependency. |
+| `pickTextColor` | `@/lib/color` | WCAG-AA contrast pick (white or dark) for a hex background. Use when rendering AntD Tags with user-configured colours from `/settings/tags`. |
 | `getBadgeVariant` | `@/lib/badge-variants` | Type-to-badge-variant mapping |
 | `statusVariant` | `@/components/ds` | Status string → Badge variant mapping |
 

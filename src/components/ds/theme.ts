@@ -107,5 +107,18 @@ export const sploseTheme: ThemeConfig = {
       activeBorderColor: "#8250FF",
       hoverBorderColor: "#6B3FDB",
     },
+    // Form.Item label styling — replaces DS FormLabel wrapper
+    Form: {
+      labelFontSize: 14,
+      labelColor: "#414549",
+      labelRequiredMarkColor: "#F00032",
+      // verticalLabelPadding controls top padding on stacked labels
+      verticalLabelPadding: "0 0 6px",
+    },
+    // Typography heading sizes aligned to our type scale
+    Typography: {
+      titleMarginBottom: 0,
+      titleMarginTop: 0,
+    },
   },
 };

@@ -4,7 +4,9 @@
 **Estimated effort:** 45 min
 **Model:** Sonnet
 **Thinking:** think
-**Must run after:** Plans 00, 01, 02
+**Must run after:** Plans 00, 01
+
+> **Architecture update (2026-04-23):** Plan 02 (FormLabel) is superseded — FormLabel is **removed**. Instead of `<FormLabel>`, use AntD `<Form.Item label="..." required tooltip="...">` directly. Form.Item label styling is now configured in `sploseTheme.components.Form` in `src/components/ds/theme.ts`. Also: `<Button variant="link">` → `<Button type="link">` (AntD directly, no DS Button wrapper).
 
 ## Current state
 
@@ -40,7 +42,7 @@ After plans 01 (icon) + 02 (FormLabel): ~44 remaining.
 
 ### settings/details/page.tsx (52)
 
-After plan 02 (FormLabel migrates 9 labels): ~43 remaining.
+After migrating 9 `<label style=...>` to `<Form.Item label="...">`: ~43 remaining.
 
 1. **Form section structure** (~10): `<div style={{ marginBottom: 32 }}>` wrappers → CSS module `SettingsDetails.module.css`
 2. **Text spacing** (~15): `mb`/`mt` props
@@ -85,7 +87,7 @@ After plan 02 (FormLabel migrates 9 labels): ~43 remaining.
 | `<Text variant="heading/lg" style={{ marginBottom: 4 }}>` | `<Text variant="heading/lg" mb={4}>` |
 | `<Text variant="body/md" color="secondary" style={{ marginBottom: 12 }}>` | `<Text variant="body/md" color="secondary" mb={12}>` |
 | `<span style={{ color: 'var(--color-text-secondary)' }}>text</span>` inside Td | `<Text color="secondary" as="span">text</Text>` |
-| `<a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 500 }}>` | `<Button variant="link" size="sm" href="#">` if it's an action; otherwise keep inline if it's a navigation `<a>` |
+| `<a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 500 }}>` | `<Button type="link" size="small" href="#">` (AntD Button directly — no DS Button wrapper) |
 
 ## Chrome MCP verification
 
@@ -100,10 +102,10 @@ Visit each page:
 - [ ] `grep -c 'style={{' "src/app/settings/online-bookings/[id]/page.tsx"` ≤ 20
 - [ ] `grep -c 'style={{' src/app/settings/details/page.tsx` ≤ 20
 - [ ] CSS modules created for all three pages
-- [ ] `<label style=...>` count in these files = 0 (FormLabel adopted)
+- [ ] `<label style=...>` count in these files = 0 (Form.Item adopted directly — no DS FormLabel wrapper)
 - [ ] `npx tsc --noEmit` → 0 errors
 - [ ] Chrome MCP: all 3 pages verified
 
 ## Open questions
 
-- `<a style={{ display: 'inline-flex', fontSize: 12 }}>` in data-import: should this become a DS `InlineLink` component (cross-file pattern) or just `<Button variant="link">`? Check if the same pattern exists in 2+ other files. If yes, consider Plan 07 adding `InlineLink` DS. If no, use `<Button variant="link">`.
+- `<a style={{ display: 'inline-flex', fontSize: 12 }}>` in data-import: use `<Button type="link" size="small">` (AntD) if it's a click action, keep `<a>` with inline style if it's a true external link. Do NOT create an InlineLink DS wrapper — the pattern is thin enough to express directly.

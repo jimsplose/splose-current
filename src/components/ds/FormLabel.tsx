@@ -1,3 +1,8 @@
+/**
+ * @deprecated Use AntD `Form.Item` with `label`, `required`, `tooltip` props directly.
+ * Label styling (14px/600, required mark colour) is in `sploseTheme.components.Form` in theme.ts.
+ * Remove after zero-usage tests pass (23 callers in src/app/ to migrate).
+ */
 import type { CSSProperties, ElementType, ReactNode } from "react";
 import HintIcon from "./HintIcon";
 import styles from "./FormLabel.module.css";

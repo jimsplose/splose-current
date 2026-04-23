@@ -6,6 +6,8 @@
 **Thinking:** think
 **Must run after:** Plans 00, 01
 
+> **Architecture update (2026-04-23):** DS Button wrapper is removed. All `<Button variant="...">` → AntD `<Button type="..." danger>` directly. DS Icon wrapper removed — icons use `style={{fontSize: N, color: token.colorXxx}}` directly. The split-button pattern in notes/edit stays as `// ds-exempt: split-button`.
+
 ## Current state
 
 - `src/app/notes/[id]/edit/page.tsx`: **47 inline styles**
@@ -44,7 +46,7 @@ After plan 01 (icon migration removes ~5), expect ~40 remaining.
 1. **Form builder shell** (~8): The two-column form builder layout. → `FormEdit.module.css`
 2. **Field preview cards** (~10): Field type preview cards — dynamic per field type. Some to CSS module, some stay (dynamic `borderColor` etc.)
 3. **Text spacing** (~10): `mb`/`mt` props
-4. **Label styling** (~4): Already handled by plan 02 (FormLabel)
+4. **Label styling** (~4): Migrate `<label style=...>` to `<Form.Item label="...">` (AntD Form.Item directly — FormLabel DS wrapper removed)
 5. **Unique one-offs** (~8): Drag handle, reorder indicator, field type badge custom colors
 
 ## CSS module additions

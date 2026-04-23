@@ -4,7 +4,9 @@
 **Estimated effort:** 45 min
 **Model:** Sonnet
 **Thinking:** think
-**Must run after:** Plans 00, 01, 02
+**Must run after:** Plans 00, 01
+
+> **Architecture update (2026-04-23):** DS Button/Icon/Tag/FormLabel/DataTable/PhoneInput wrappers are all removed. Button: `variant="primary"` → `type="primary"` etc. directly on AntD Button. Icon: `style={{fontSize: N, color: token.colorXxx}}` directly. Td/Th deprecated sub-components: migrate to AntD Table `columns[].render()` pattern. Any `<FormLabel>` remaining in sweep files → `<Form.Item label="...">`. The `// ds-exempt` comment system still applies for chart art and decorative inlines.
 
 ## Current state (after plans 01+02 run, estimated residuals)
 
@@ -96,7 +98,9 @@ Spot-check 5 representative pages (1 from each group):
 
 - [ ] All 19 files in the sweep have `grep -c 'style={{' <file>` at their target or below
 - [ ] New CSS module files created (or existing ones extended) for each file
-- [ ] `grep -rn 'Outlined style=\|Filled style=' src/app/ --include='*.tsx'` returns 0 (all icons migrated)
+- [ ] `grep -rn 'Outlined style=\|Filled style=' src/app/ --include='*.tsx'` returns 0 (all icon inlines migrated)
+- [ ] `grep -rn 'from.*components/ds.*import.*Button' src/app/ --include='*.tsx'` returns 0 (all DS Button usages removed; using AntD Button directly)
+- [ ] `grep -rn '<FormLabel' src/app/ --include='*.tsx'` returns 0 (FormLabel removed; using Form.Item)
 - [ ] `npx tsc --noEmit` → 0 errors
 - [ ] `npx next build` → passes
 - [ ] Chrome MCP: 5 spot-check pages verified

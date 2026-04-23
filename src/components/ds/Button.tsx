@@ -1,5 +1,11 @@
 "use client";
-
+/**
+ * @deprecated Use AntD `Button` directly — no DS wrapper needed.
+ * Mapping: variant="primary" → type="primary", variant="secondary" → type="default",
+ * variant="ghost" → type="text", variant="danger" → type="default" danger,
+ * variant="link" → type="link". size="sm" → size="small", size="md" → size="middle".
+ * Remove after zero-usage tests pass.
+ */
 import { Button as AntButton } from "antd";
 import type { ButtonProps as AntButtonProps } from "antd";
 import { forwardRef } from "react";

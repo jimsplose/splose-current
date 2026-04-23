@@ -1,5 +1,9 @@
 "use client";
-
+/**
+ * @deprecated Use AntD `Input` with `formatAustralianPhone` from `src/lib/format.ts`
+ * called in `onBlur`. E.164 normalisation is not required — simple AU formatting is sufficient.
+ * Remove after zero-usage tests pass (0 app callers; storybook only).
+ */
 import RPNInput, {
   type Country,
   type Value,

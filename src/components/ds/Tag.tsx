@@ -1,5 +1,10 @@
 "use client";
-
+/**
+ * @deprecated Use AntD `Tag` directly. For user-configured hex colours, import
+ * `pickTextColor` from `src/lib/color.ts` and pass `style={{color: pickTextColor(color), backgroundColor: color}}`.
+ * For interactive/selected → AntD `Tag.CheckableTag`. For removable → AntD Tag `closable` + `onClose`.
+ * Remove after zero-usage tests pass.
+ */
 import type { ReactNode } from "react";
 
 export type TagSize = "sm" | "md" | "lg";

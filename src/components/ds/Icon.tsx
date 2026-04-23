@@ -1,3 +1,9 @@
+/**
+ * @deprecated Use AntD icon components directly with `style={{fontSize, color}}`.
+ * Reference sizes: xs=10, sm=12, md=14, lg=16, xl=18, 2xl=20, 3xl=24, 4xl=32, 5xl=40.
+ * Use `theme.useToken()` for colour values (colorTextSecondary, colorPrimary, etc.).
+ * Remove after zero-usage tests pass.
+ */
 import type { ComponentType } from "react";
 
 export type IconSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl";
