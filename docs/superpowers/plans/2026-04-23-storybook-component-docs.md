@@ -22,6 +22,90 @@ ProgressBar, RadioGroup, ReorderModal, RichTextEditor, SearchBar, SegmentedContr
 SettingsListPage, SideNav, SignaturePad, Skeleton, Sparkline, Spinner, Stat, Stepper, Tab, Tag,
 Text, TimePicker, Toast, Toggle, Tooltip, TopNav
 
+## Reference library mapping
+
+When adding `referenceLibrary` + `referenceComponent` to a `.stories.tsx` file, use this table.
+The generated doc header will link directly to that library's docs page for the specific component.
+
+| DS Component | referenceLibrary | referenceComponent | Docs link generated |
+|---|---|---|---|
+| Accordion | antd | collapse | ant.design/components/collapse |
+| Alert | antd | alert | ant.design/components/alert |
+| AlertCallout | first-party | — | ✦ First-party |
+| AlertDialog | radix | alert-dialog | radix-ui.com/.../alert-dialog |
+| AppointmentCard | first-party | — | ✦ First-party |
+| AsyncSelect | first-party | — | ✦ First-party |
+| Avatar | antd | avatar | ant.design/components/avatar |
+| Badge | first-party | — | ✦ First-party |
+| Breadcrumbs | antd | breadcrumb | ant.design/components/breadcrumb |
+| Button | antd | button | ant.design/components/button |
+| Card | antd | card | ant.design/components/card |
+| Checkbox | antd | checkbox | ant.design/components/checkbox |
+| Collapse | antd | collapse | ant.design/components/collapse |
+| ColorDot | first-party | — | ✦ First-party |
+| ComboBox | antd | select | ant.design/components/select |
+| CommandPalette | cmdk | — | cmdk.paco.me |
+| ContextMenu | radix | context-menu | radix-ui.com/.../context-menu |
+| DataTable | antd | table | ant.design/components/table |
+| DatePicker | antd | date-picker | ant.design/components/date-picker |
+| DateRangeFilter | antd | date-picker | ant.design/components/date-picker |
+| DetailPage | first-party | — | ✦ First-party |
+| Divider | antd | divider | ant.design/components/divider |
+| Drawer | antd | drawer | ant.design/components/drawer |
+| Dropdown | antd | dropdown | ant.design/components/dropdown |
+| EmailPreview | first-party | — | ✦ First-party |
+| EmptyState | antd | empty | ant.design/components/empty |
+| FeatureCard | first-party | — | ✦ First-party |
+| FileUpload | antd | upload | ant.design/components/upload |
+| Filter | first-party | — | ✦ First-party |
+| FormColorPicker | first-party | — | ✦ First-party |
+| FormField | first-party | — | ✦ First-party |
+| FormInput | antd | input | ant.design/components/input |
+| FormPage | first-party | — | ✦ First-party |
+| FormSelect | antd | select | ant.design/components/select |
+| FormTextarea | antd | input | ant.design/components/input (textarea mode) |
+| Grid | antd | grid | ant.design/components/grid |
+| HintIcon | first-party | — | ✦ First-party |
+| HoverCard | radix | hover-card | radix-ui.com/.../hover-card |
+| Icon | antd | icon | ant.design/components/icon |
+| List | antd | list | ant.design/components/list |
+| ListPage | first-party | — | ✦ First-party |
+| Modal | antd | modal | ant.design/components/modal |
+| Navbar | antd | menu | ant.design/components/menu |
+| NumberInput | antd | input-number | ant.design/components/input-number |
+| PageHeader | first-party | — | ✦ First-party |
+| Pagination | antd | pagination | ant.design/components/pagination |
+| PatientAvatar | first-party | — | ✦ First-party |
+| PaymentStatusBadge | first-party | — | ✦ First-party |
+| PhoneInput | react-phone-number-input | — | catamphetamine.gitlab.io/react-phone-number-input |
+| ProgressBar | antd | progress | ant.design/components/progress |
+| RadioGroup | antd | radio | ant.design/components/radio |
+| ReorderModal | first-party | — | ✦ First-party |
+| RichTextEditor | first-party | — | ✦ First-party |
+| SearchBar | first-party | — | ✦ First-party |
+| SegmentedControl | antd | segmented | ant.design/components/segmented |
+| SettingsListPage | first-party | — | ✦ First-party |
+| SideNav | antd | menu | ant.design/components/menu |
+| SignaturePad | signature-pad | — | github.com/szimek/signature_pad |
+| Skeleton | antd | skeleton | ant.design/components/skeleton |
+| Sparkline | first-party | — | ✦ First-party |
+| Spinner | antd | spin | ant.design/components/spin |
+| Stat | antd | statistic | ant.design/components/statistic |
+| Stepper | antd | steps | ant.design/components/steps |
+| Tab | antd | tabs | ant.design/components/tabs |
+| Tag | antd | tag | ant.design/components/tag |
+| Text | first-party | — | ✦ First-party |
+| TimePicker | antd | time-picker | ant.design/components/time-picker |
+| Toast | sonner | — | sonner.emilkowal.ski |
+| Toggle | antd | switch | ant.design/components/switch |
+| Tooltip | antd | tooltip | ant.design/components/tooltip |
+| TopNav | first-party | — | ✦ First-party |
+
+**When filling in stories files in Tasks 11–18:** add both `referenceLibrary` and `referenceComponent`
+(if applicable) from this table to the `parameters.splose` block alongside `appPages`.
+
+---
+
 ## Route → URL mapping
 
 For links in MDX docs use these base URLs:
