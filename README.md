@@ -30,21 +30,17 @@ Issues are numbered in execution order. Work top-to-bottom. Issues with parallel
 
 ### Storybook documentation
 
-_Scope being confirmed — issues to be created after #15._
-
 | # | Title | Depends on |
 |---|---|---|
-| #16+ | Storybook: Component inventory + story audit | #15 |
-| #17+ | Storybook: In-app screenshots for all component categories | #16+ |
-| #18+ | Storybook: MDX documentation for all components (custom, extended, direct AntD) | #17+ |
+| [#17](https://github.com/jimsplose/splose-current/issues/17) | Storybook: Component inventory — stories for every AntD, extended, and custom component | #15 |
+| [#18](https://github.com/jimsplose/splose-current/issues/18) | Storybook: Chrome MCP live screenshots — all component usage contexts | #17 |
+| [#19](https://github.com/jimsplose/splose-current/issues/19) | Storybook: MDX documentation — all components with screenshots, references, usage links | #18 |
 
 ### Design Review System
 
 | # | Title | Depends on |
 |---|---|---|
-| [#16](https://github.com/jimsplose/splose-current/issues/16) | Design Review System — API proxy, Bugshot, Page Capture, DevNavigator Requests panel | #15 + Storybook |
-
-> **Note:** Issue #16 will be renumbered once Storybook issues are confirmed and created.
+| [#20](https://github.com/jimsplose/splose-current/issues/20) | Design Review System — API proxy, Bugshot, Page Capture, DevNavigator Requests panel | #15–#19 |
 
 ---
 
