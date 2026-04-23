@@ -441,6 +441,36 @@ export const PageTitleVariant: Story = {
   parameters: { layout: "padded" },
 };
 
+/* ------------------------------------------------------------------ */
+/*  Spacing: mb / mt props                                             */
+/*  Pattern: Use mb/mt to add spacing to Text without an inline style  */
+/*  object — eliminates the most common style={{ marginBottom: N }}    */
+/*  pattern across Wave 6 migration targets.                           */
+/* ------------------------------------------------------------------ */
+
+export const Spacing: Story = {
+  name: "New: mb/mt Spacing Props",
+  render: () => (
+    <div style={{ maxWidth: 512, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: '#fff', padding: 24 }}>
+      <p style={{ fontSize: 11, color: '#9ca3af', marginBottom: 16 }}>
+        mb/mt props apply marginBottom/Top in px — no style prop needed.
+      </p>
+      <div style={{ backgroundColor: '#f9fafb', borderRadius: 4, padding: 16 }}>
+        <Text variant="heading/lg" mb={4}>Section heading (mb=4)</Text>
+        <Text variant="body/md" color="secondary" mb={16}>Supporting description for the section. Notice the 4px gap above and 16px gap below.</Text>
+        <Text variant="heading/md" mb={8}>Sub-section (mb=8)</Text>
+        <Text variant="body/md" mt={4}>Body text with mt=4. Use mt for spacing from a previous element without touching it.</Text>
+        <Text variant="caption/sm" color="secondary" mt={12} mb={0}>Caption with mt=12 mb=0</Text>
+      </div>
+      <p style={{ fontSize: 11, color: '#9ca3af', marginTop: 16 }}>
+        Before: <code>{'<Text style={{ marginBottom: 16 }}>'}</code><br />
+        After: <code>{'<Text mb={16}>'}</code>
+      </p>
+    </div>
+  ),
+  parameters: { layout: "padded" },
+};
+
 export const SectionHeadingHierarchy: Story = {
   name: "Recipe: Section Heading Hierarchy",
   render: () => (

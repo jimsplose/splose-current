@@ -1,4 +1,9 @@
 /* Online Booking page styles — replaces dead Tailwind utilities */
+/* Wave 6: .page serves as .shell; .section added for content grouping */
+
+.section {
+  margin-bottom: 32px;
+}
 
 .page {
   min-height: 100vh;

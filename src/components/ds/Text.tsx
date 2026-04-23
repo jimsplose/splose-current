@@ -18,6 +18,10 @@ interface TextProps extends HTMLAttributes<HTMLElement> {
   as?: ElementType;
   color?: TextColor | (string & {});
   weight?: TextWeight;
+  /** Shorthand for marginBottom (px). Merged with any passed style prop. */
+  mb?: number;
+  /** Shorthand for marginTop (px). Merged with any passed style prop. */
+  mt?: number;
   children: ReactNode;
 }
 
@@ -83,11 +87,14 @@ function resolveColor(color?: string): { className?: string; style?: { color: st
   return { style: { color } };
 }
 
-export default function Text({ variant = "body/md", as, color, weight, className = "", children, style, ...props }: TextProps) {
+export default function Text({ variant = "body/md", as, color, weight, mb, mt, className = "", children, style, ...props }: TextProps) {
   const Component = as ?? defaultElement[getCategory(variant)] ?? "span";
   const resolved = resolveColor(color);
   const classes = [variantClass[variant], weight ? weightClass[weight] : undefined, resolved.className, className].filter(Boolean).join(" ");
-  const mergedStyle = resolved.style ? { ...style, ...resolved.style } : style;
+  const spacingStyle = (mb !== undefined || mt !== undefined) ? { marginBottom: mb, marginTop: mt } : undefined;
+  const mergedStyle = resolved.style || spacingStyle
+    ? { ...style, ...spacingStyle, ...resolved.style }
+    : style;
 
   return (
     <Component className={classes} style={mergedStyle} {...props}>

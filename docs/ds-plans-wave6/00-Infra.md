@@ -1,6 +1,6 @@
 # Wave 6 · Plan 00 — Infra: Text mb/mt props + CSS module pattern baseline
 
-**Status:** Planned
+**Status:** In progress
 **Estimated effort:** 20 min
 **Model:** Sonnet
 **Thinking:** think
