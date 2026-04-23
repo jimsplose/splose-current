@@ -24,6 +24,7 @@ const Moon = ({ style, className }: { style?: React.CSSProperties; className?: s
 const SunMedium = ({ style, className }: { style?: React.CSSProperties; className?: string }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} style={{ width: 16, height: 16, ...style }}><circle cx="12" cy="12" r="4"/><path d="M12 3v1"/><path d="M12 20v1"/><path d="M3 12h1"/><path d="M20 12h1"/><path d="m18.364 5.636-.707.707"/><path d="m6.343 17.657-.707.707"/><path d="m5.636 5.636.707.707"/><path d="m17.657 17.657.707.707"/></svg>;
 const MapIcon = ({ style, className }: { style?: React.CSSProperties; className?: string }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} style={{ width: 16, height: 16, ...style }}><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>;
 import { Flex } from "antd";
+import Icon from "@/components/ds/Icon";
 import {
   Button,
   ListPage,
@@ -541,7 +542,7 @@ function WaitlistPageInner() {
           title="Screener"
           actions={
             <Button variant="secondary" size="sm">
-              <QuestionCircleOutlined style={{ fontSize: 16 }} />
+              <Icon as={QuestionCircleOutlined} />
               Learn
             </Button>
           }
@@ -584,7 +585,7 @@ function WaitlistPageInner() {
               <Th>
                 <Flex align="center" gap={4}>
                   Tags
-                  <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+                  <Icon as={FilterOutlined} size="sm" tone="secondary" />
                 </Flex>
               </Th>
               <Th>
@@ -627,7 +628,7 @@ function WaitlistPageInner() {
                               ...(triageState[idx] !== "yes" ? { color: 'var(--color-text-secondary)' } : {}),
                             }}
                           >
-                            <LikeOutlined style={{ fontSize: 12 }} />
+                            <Icon as={LikeOutlined} size="sm" />
                             <span>Yes</span>
                           </Button>
                           <Button
@@ -643,7 +644,7 @@ function WaitlistPageInner() {
                               ...(triageState[idx] !== "no" ? { color: 'var(--color-text-secondary)' } : {}),
                             }}
                           >
-                            <DislikeOutlined style={{ fontSize: 12 }} />
+                            <Icon as={DislikeOutlined} size="sm" />
                             <span>No</span>
                           </Button>
                         </Flex>
@@ -661,7 +662,7 @@ function WaitlistPageInner() {
                       </Td>
                       <Td align="right">
                         <Button variant="ghost" size="sm" style={{ padding: '4px 6px' }}>
-                          <MoreOutlined style={{ fontSize: 16 }} />
+                          <Icon as={MoreOutlined} />
                         </Button>
                       </Td>
                     </Tr>
@@ -762,7 +763,7 @@ function WaitlistPageInner() {
                       style={{ marginLeft: 2 }}
                       className={wStyles.serviceChipClose}
                     >
-                      <CloseOutlined style={{ fontSize: 12 }} />
+                      <Icon as={CloseOutlined} size="sm" />
                     </Button>
                   </Badge>
                 ))}
@@ -782,7 +783,7 @@ function WaitlistPageInner() {
                 ]}
               />
               <Button variant="secondary" size="sm" onClick={addService} style={{ flexShrink: 0 }}>
-                <PlusOutlined style={{ fontSize: 16 }} />
+                <Icon as={PlusOutlined} />
               </Button>
             </Flex>
           </div>
@@ -918,7 +919,7 @@ function WaitlistPageInner() {
                       style={{ marginLeft: 2 }}
                       className={wStyles.tagChipClose}
                     >
-                      <CloseOutlined style={{ fontSize: 12 }} />
+                      <Icon as={CloseOutlined} size="sm" />
                     </Button>
                   </Badge>
                 ))}
@@ -938,7 +939,7 @@ function WaitlistPageInner() {
                 ]}
               />
               <Button variant="secondary" size="sm" onClick={addTag} style={{ flexShrink: 0 }}>
-                <PlusOutlined style={{ fontSize: 16 }} />
+                <Icon as={PlusOutlined} />
               </Button>
             </Flex>
           </div>
@@ -952,15 +953,15 @@ function WaitlistPageInner() {
           actions={
             <>
               <Button variant="secondary" size="sm">
-                <FilterOutlined style={{ fontSize: 16 }} />
+                <Icon as={FilterOutlined} />
                 Reset all filters
               </Button>
               <Button variant="secondary" size="sm">
-                <QuestionCircleOutlined style={{ fontSize: 16 }} />
+                <Icon as={QuestionCircleOutlined} />
                 Learn
               </Button>
               <Button variant="secondary" size="sm">
-                <ColumnWidthOutlined style={{ fontSize: 16 }} />
+                <Icon as={ColumnWidthOutlined} />
                 Show/hide fields
               </Button>
               {/* Map / List toggle */}
@@ -981,14 +982,14 @@ function WaitlistPageInner() {
                   </>
                 ) : (
                   <>
-                    <UnorderedListOutlined style={{ fontSize: 16 }} />
+                    <Icon as={UnorderedListOutlined} />
                     List
                   </>
                 )}
               </Button>
               <Link href="/waitlist/new">
                 <Button variant="secondary" size="md">
-                  <PlusOutlined style={{ fontSize: 16 }} />
+                  <Icon as={PlusOutlined} />
                   Add client
                 </Button>
               </Link>
@@ -1019,7 +1020,7 @@ function WaitlistPageInner() {
                   <Th>
                     <Flex align="center" gap={4}>
                       Tags
-                      <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+                      <Icon as={FilterOutlined} size="sm" tone="secondary" />
                     </Flex>
                   </Th>
                   <Th>Client</Th>
@@ -1067,7 +1068,7 @@ function WaitlistPageInner() {
                               openUpdateModal(row);
                             }}
                           >
-                            <MoreOutlined style={{ fontSize: 16 }} />
+                            <Icon as={MoreOutlined} />
                           </Button>
                         </Td>
                       </Tr>

@@ -4,6 +4,7 @@ import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Flex } from "antd";
 import { ThunderboltOutlined, PlusOutlined, HolderOutlined, MoreOutlined, CheckOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import {
   Button,
   FormInput,
@@ -147,12 +148,12 @@ export default function EditProgressNoteTemplatePage() {
               {blocks.map((block) => (
                 <Card key={block.id} padding="none">
                   <Flex align="center" gap={8} style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'rgba(var(--color-primary-rgb, 130, 80, 255), 0.05)', padding: '8px 16px' }}>
-                    <HolderOutlined style={{ fontSize: 16, cursor: 'grab', color: 'var(--color-text-secondary)' }} />
-                    <ThunderboltOutlined style={{ fontSize: 16, color: 'var(--color-primary)' }} />
+                    <Icon as={HolderOutlined} style={{ cursor: 'grab' }} tone="secondary" />
+                    <Icon as={ThunderboltOutlined} tone="primary" />
                     <span style={{ flex: 1, fontSize: 12, fontWeight: 500 }}>{block.name}</span>
                     {savedBlockId === block.id && (
                       <Flex align="center" gap={4} style={{ fontSize: 11, color: '#059669' }}>
-                        <CheckOutlined style={{ fontSize: 14 }} /> Saved
+                        <Icon as={CheckOutlined} size="md" /> Saved
                       </Flex>
                     )}
                     <Dropdown

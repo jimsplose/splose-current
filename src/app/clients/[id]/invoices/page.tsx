@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
+import Icon from "@/components/ds/Icon";
 import { Button, Card, DataTable, PageHeader, SearchBar, EmptyState, TableHead, Th, TableBody, Tr, Td, Pagination, PaymentStatusBadge, dbStatusToPaymentStatus, Text } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
@@ -35,27 +36,27 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
               <Th>
                 <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Invoice #
-                  <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
-                  <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+                  <Icon as={SwapOutlined} size="sm" tone="secondary" />
+                  <Icon as={FilterOutlined} size="sm" tone="secondary" />
                 </Flex>
               </Th>
               <Th>To</Th>
               <Th>
                 <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Location
-                  <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+                  <Icon as={FilterOutlined} size="sm" tone="secondary" />
                 </Flex>
               </Th>
               <Th>
                 <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Practitioner
-                  <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+                  <Icon as={FilterOutlined} size="sm" tone="secondary" />
                 </Flex>
               </Th>
               <Th>
                 <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Issue date
-                  <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+                  <Icon as={SwapOutlined} size="sm" tone="secondary" />
                 </Flex>
               </Th>
               <Th>
@@ -66,13 +67,13 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
               <Th>
                 <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Status
-                  <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+                  <Icon as={FilterOutlined} size="sm" tone="secondary" />
                 </Flex>
               </Th>
               <Th>
                 <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Sent status
-                  <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+                  <Icon as={FilterOutlined} size="sm" tone="secondary" />
                 </Flex>
               </Th>
             </TableHead>

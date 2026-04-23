@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AppstoreOutlined, ColumnWidthOutlined, CopyOutlined, DownOutlined, SnippetsOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
+import Icon from "@/components/ds/Icon";
 import { Button, Badge, EmptyState, Filter, FormPage, FormTextarea, FormInput, FormSelect, Text } from "@/components/ds";
 
 const TEMPLATES = [
@@ -94,8 +95,8 @@ function NewProgressNotePageInner() {
           {/* View toggle */}
           <Filter
             items={[
-              { label: <AppstoreOutlined style={{ fontSize: 16 }} />, value: "single" },
-              { label: <ColumnWidthOutlined style={{ fontSize: 16 }} />, value: "split" },
+              { label: <Icon as={AppstoreOutlined} />, value: "single" },
+              { label: <Icon as={ColumnWidthOutlined} />, value: "split" },
             ]}
             value={viewMode}
             onChange={(v) => setViewMode(v as "single" | "split")}
@@ -103,7 +104,7 @@ function NewProgressNotePageInner() {
           {/* Save as final button */}
           <Button variant="primary" style={{ backgroundColor: 'var(--color-success)', borderColor: 'var(--color-success)' }} onClick={handleSave} disabled={saving}>
             Save as final
-            <DownOutlined style={{ fontSize: 14 }} />
+            <Icon as={DownOutlined} size="md" />
           </Button>
         </>
       }
@@ -143,15 +144,15 @@ function NewProgressNotePageInner() {
             {/* Quick action buttons */}
             <Flex align="center" gap={8} style={{ marginBottom: 20 }}>
               <Button variant="secondary" size="sm">
-                <AppstoreOutlined style={{ fontSize: 14 }} />
+                <Icon as={AppstoreOutlined} size="md" />
                 Select
               </Button>
               <Button variant="secondary" size="sm">
-                <CopyOutlined style={{ fontSize: 14 }} />
+                <Icon as={CopyOutlined} size="md" />
                 Copy recent note
               </Button>
               <Button variant="secondary" size="sm">
-                <CopyOutlined style={{ fontSize: 14 }} />
+                <Icon as={CopyOutlined} size="md" />
                 Copy recent practitioner note
               </Button>
             </Flex>
@@ -179,7 +180,7 @@ function NewProgressNotePageInner() {
               placeholder="Search notes"
             />
             <EmptyState
-              icon={<SnippetsOutlined style={{ fontSize: 40, color: 'var(--color-primary)', opacity: 0.4 }} />}
+              icon={<Icon as={SnippetsOutlined} size="5xl" tone="primary" style={{ opacity: 0.4 }} />}
               title="No reference notes found"
               message="Select a client to see their previous notes"
               style={{ marginTop: 64 }}

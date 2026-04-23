@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { LeftOutlined, RightOutlined, EnvironmentOutlined, FileTextOutlined, ClockCircleOutlined, CalendarOutlined, UserOutlined, CheckCircleOutlined, MailOutlined, PlusOutlined, CopyOutlined, BankOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
+import Icon from "@/components/ds/Icon";
 import { Avatar, Button, Checkbox, FormInput, FormSelect, FormTextarea, Text } from "@/components/ds";
 import styles from "./online-booking.module.css";
 
@@ -90,7 +91,7 @@ function OnlineBookingPageInner() {
             }}
             className={styles.backButton}
           >
-            <LeftOutlined style={{ fontSize: 16 }} /> <Text variant="body/md" as="span">Back</Text>
+            <Icon as={LeftOutlined} /> <Text variant="body/md" as="span">Back</Text>
           </button>
         )}
 
@@ -116,7 +117,7 @@ function OnlineBookingPageInner() {
                         className={`${styles.locationCard} ${isSelected ? styles.locationCardSelected : ""}`}
                       >
                         <div className={styles.locationIcon}>
-                          <BankOutlined style={{ fontSize: 32 }} />
+                          <Icon as={BankOutlined} size="4xl" />
                         </div>
                         <div className={styles.locationInfo}>
                           <span className={styles.locationName}>{loc.name}</span>
@@ -148,15 +149,15 @@ function OnlineBookingPageInner() {
                 {/* Filters */}
                 <div className={styles.filterRow}>
                   <div className={styles.filterItem}>
-                    <UserOutlined className="mr-2" style={{ fontSize: 16 }} />
+                    <Icon as={UserOutlined} className="mr-2" />
                     <Text variant="body/md" as="span" color="secondary">All practitioners</Text>
                   </div>
                   <div className={styles.filterItem}>
-                    <CalendarOutlined className="mr-2" style={{ fontSize: 16 }} />
+                    <Icon as={CalendarOutlined} className="mr-2" />
                     <Text variant="body/md" as="span" color="secondary">Any date</Text>
                   </div>
                   <div className={styles.filterItem}>
-                    <ClockCircleOutlined className="mr-2" style={{ fontSize: 16 }} />
+                    <Icon as={ClockCircleOutlined} className="mr-2" />
                     <Text variant="body/md" as="span" color="secondary">Any time</Text>
                   </div>
                 </div>
@@ -198,7 +199,7 @@ function OnlineBookingPageInner() {
                           <Text variant="heading/sm" as="div" style={{ marginBottom: 8 }}>March 2026</Text>
                           <div className={styles.weekNav}>
                             <Button variant="icon" round>
-                              <LeftOutlined style={{ fontSize: 16 }} />
+                              <Icon as={LeftOutlined} />
                             </Button>
                             {weekDays.map((d) => (
                               <Button
@@ -222,7 +223,7 @@ function OnlineBookingPageInner() {
                               </Button>
                             ))}
                             <Button variant="icon" round>
-                              <RightOutlined style={{ fontSize: 16 }} />
+                              <Icon as={RightOutlined} />
                             </Button>
                           </div>
                           <div className={styles.dayLabels}>
@@ -384,7 +385,7 @@ function OnlineBookingPageInner() {
                 <div className={styles.confirmedWrapper}>
                   <div className={styles.successIcon}>
                     <div className={styles.successCircle}>
-                      <CheckCircleOutlined style={{ fontSize: 32, color: "var(--color-green-600, #16a34a)" }} />
+                      <Icon as={CheckCircleOutlined} size="4xl" style={{ color: "var(--color-green-600, #16a34a)" }} />
                     </div>
                   </div>
                   <h1 className={`${styles.confirmedTitle} ${styles.pageTitle}`}>Booking confirmed!</h1>
@@ -426,7 +427,7 @@ function OnlineBookingPageInner() {
                   {/* Email preview card */}
                   <div className={styles.emailCard}>
                     <Flex align="center" gap={8} style={{ marginBottom: 12 }}>
-                      <MailOutlined style={{ fontSize: 16, color: "var(--color-text-secondary)" }} />
+                      <Icon as={MailOutlined} tone="secondary" />
                       <Text variant="heading/sm" as="h3">Confirmation email sent</Text>
                     </Flex>
                     <div className={styles.emailBody}>
@@ -464,19 +465,19 @@ function OnlineBookingPageInner() {
                     <Text variant="heading/sm" as="h3">Add to your calendar</Text>
                     <div className={styles.calendarButtons}>
                       <Button variant="secondary" size="sm">
-                        <PlusOutlined style={{ fontSize: 16 }} />
+                        <Icon as={PlusOutlined} />
                         Google Calendar
                       </Button>
                       <Button variant="secondary" size="sm">
-                        <PlusOutlined style={{ fontSize: 16 }} />
+                        <Icon as={PlusOutlined} />
                         Apple Calendar
                       </Button>
                       <Button variant="secondary" size="sm">
-                        <PlusOutlined style={{ fontSize: 16 }} />
+                        <Icon as={PlusOutlined} />
                         Outlook
                       </Button>
                       <Button variant="secondary" size="sm">
-                        <CopyOutlined style={{ fontSize: 16 }} />
+                        <Icon as={CopyOutlined} />
                         Copy .ics
                       </Button>
                     </div>
@@ -508,7 +509,7 @@ function OnlineBookingPageInner() {
                     <Text variant="heading/sm" as="div">Location</Text>
                     {selectedLocation && (
                       <Flex align="center" gap={6}>
-                        <EnvironmentOutlined style={{ fontSize: 12 }} />
+                        <Icon as={EnvironmentOutlined} size="sm" />
                         <Text variant="caption/md" as="span" color="secondary">{mockLocations.find((l) => l.id === selectedLocation)?.name}</Text>
                       </Flex>
                     )}
@@ -530,7 +531,7 @@ function OnlineBookingPageInner() {
                     {step !== "location" && (
                       <>
                         <Flex align="center" gap={6}>
-                          <FileTextOutlined style={{ fontSize: 12 }} />
+                          <Icon as={FileTextOutlined} size="sm" />
                           <Text variant="caption/md" as="span" color="secondary">1:1 Consultation (40 mins d...</Text>
                         </Flex>
                         <Flex align="center" gap={6}>
@@ -550,15 +551,15 @@ function OnlineBookingPageInner() {
                     {step === "confirm" && selectedPrac && (
                       <>
                         <Flex align="center" gap={6}>
-                          <UserOutlined style={{ fontSize: 12 }} />
+                          <Icon as={UserOutlined} size="sm" />
                           <Text variant="caption/md" as="span" color="secondary">{selectedPrac.name}</Text>
                         </Flex>
                         <Flex align="center" gap={6}>
-                          <ClockCircleOutlined style={{ fontSize: 12 }} />
+                          <Icon as={ClockCircleOutlined} size="sm" />
                           <Text variant="caption/md" as="span" color="secondary">{selectedTime}</Text>
                         </Flex>
                         <Flex align="center" gap={6}>
-                          <CalendarOutlined style={{ fontSize: 12 }} />
+                          <Icon as={CalendarOutlined} size="sm" />
                           <Text variant="caption/md" as="span" color="secondary">Thursday 19 March 2026</Text>
                         </Flex>
                       </>
