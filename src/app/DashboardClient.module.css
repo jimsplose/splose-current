@@ -26,3 +26,321 @@
 .hoverUnderline:hover {
   text-decoration: underline;
 }
+
+/* ── Layout helpers ──────────────────────────────────────────────────────── */
+
+.messageCardBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.messageImage {
+  height: 144px;
+  width: 192px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.messageAudioCard {
+  height: 160px;
+  width: 160px;
+  border-radius: 8px;
+}
+
+.messageLogo {
+  height: 160px;
+  width: 192px;
+  border-radius: 8px;
+}
+
+.tooltipContainer {
+  pointer-events: none;
+  position: absolute;
+  top: -56px;
+  left: 50%;
+  z-index: 10;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.tooltipBubble {
+  border-radius: 4px;
+  background-color: #1f2937;
+  padding: 6px 10px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  font-size: 11px;
+  color: #fff;
+}
+
+.tooltipArrow {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  height: 8px;
+  width: 8px;
+  transform: translateX(-50%) rotate(45deg);
+  background-color: #1f2937;
+}
+
+.chartBarWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chartLegend {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.chartLegendItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ── Card structure ──────────────────────────────────────────────────────── */
+
+.cardHeader {
+  background-color: var(--color-fill-secondary);
+  padding: 16px;
+}
+
+.cardBody {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.cardBodyLg {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 12px;
+  padding-bottom: 16px;
+}
+
+.messageScrollArea {
+  flex: 1;
+  overflow-y: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 8px;
+}
+
+.composerFooter {
+  padding: 12px;
+}
+
+.dividerSpacer {
+  margin-left: 2px;
+  margin-right: 2px;
+  height: 16px;
+  width: 1px;
+  background-color: var(--color-border);
+}
+
+/* ── Message item interactive wrapper ───────────────────────────────────── */
+
+.messageItemWrapper {
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 4px;
+  transition: background-color 0.2s;
+}
+
+/* ── List row ────────────────────────────────────────────────────────────── */
+
+.noteRow {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+/* ── Date separator ─────────────────────────────────────────────────────── */
+
+.dateSeparator {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.dateSeparatorSm {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+/* ── GIF button ─────────────────────────────────────────────────────────── */
+
+.gifBtnWrapper {
+  margin-right: 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+/* ── Chart month label ──────────────────────────────────────────────────── */
+
+.chartMonthCell {
+  flex: 1;
+  padding-top: 4px;
+}
+
+.chartMonthText {
+  display: inline-block;
+  transform: rotate(-45deg);
+  transform-origin: top left;
+  white-space: nowrap;
+}
+
+/* ── Chart Y-axis label ─────────────────────────────────────────────────── */
+
+.chartYAxisLabel {
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  white-space: nowrap;
+}
+
+/* ── Preview text (collapsed message) ──────────────────────────────────── */
+
+.messagePreview {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Note/form time stamp ────────────────────────────────────────────────── */
+
+.timestampCell {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* ── Expanded message content ────────────────────────────────────────────── */
+
+.messageExpanded {
+  margin-top: 6px;
+}
+
+/* ── Toolbar / composer ──────────────────────────────────────────────────── */
+
+.toolbarWrapper {
+  color: var(--color-text-secondary);
+}
+
+.composerCard {
+  margin-bottom: 8px;
+  min-height: 80px;
+  padding: 8px 12px;
+}
+
+/* ── Page layout ─────────────────────────────────────────────────────────── */
+
+.pageLayout {
+  min-height: calc(100vh - 3rem);
+  gap: 14px;
+  padding: 7px;
+}
+
+.messagesColumn {
+  flex: 1;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+}
+
+.rightColumn {
+  flex-shrink: 0;
+  width: 380px;
+}
+
+/* ── Chart legend row ────────────────────────────────────────────────────── */
+
+.chartLegendRow {
+  margin-top: 4px;
+}
+
+/* ── Chart internal layout ───────────────────────────────────────────────── */
+
+.chartBarColumn {
+  flex: 1;
+}
+
+.chartBarPositioner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.chartShellInner {
+  position: relative;
+  height: 208px;
+}
+
+.chartYAxisScale {
+  position: absolute;
+  bottom: 24px;
+  left: 0;
+  top: 0;
+  padding-right: 4px;
+}
+
+.chartGridLines {
+  position: absolute;
+  bottom: 24px;
+  left: 28px;
+  right: 0;
+  top: 0;
+}
+
+.chartBarsArea {
+  margin-left: 32px;
+  height: calc(100% - 24px);
+}
+
+.chartMonthRow {
+  margin-left: 32px;
+  height: 48px;
+}
+
+/* ── Overflow card ───────────────────────────────────────────────────────── */
+
+.cardOverflow {
+  overflow: hidden;
+}
+
+/* ── Flex spacer ─────────────────────────────────────────────────────────── */
+
+.flexSpacer {
+  flex: 1;
+}
+
+/* ── Toolbar button typography overrides ─────────────────────────────────── */
+
+.toolbarBold {
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.toolbarItalic {
+  font-style: italic;
+  font-size: 13px;
+}
+
+.toolbarUnderline {
+  text-decoration: underline;
+  font-size: 13px;
+}
+
+.toolbarFontSm {
+  font-size: 13px;
+}
+
+/* ── Utility ─────────────────────────────────────────────────────────────── */
+
+.clickable {
+  cursor: pointer;
+}

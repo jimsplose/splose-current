@@ -1,6 +1,6 @@
 # Wave 6 · Plan 03 — DashboardClient deep-clean
 
-**Status:** Planned
+**Status:** Done
 **Estimated effort:** 40 min
 **Model:** Opus
 **Thinking:** think hard

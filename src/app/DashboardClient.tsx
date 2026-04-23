@@ -119,9 +119,10 @@ function ChartBar({ item }: { item: typeof incomeData[number] }) {
   const [hovered, setHovered] = useState<"invoices" | "payments" | null>(null);
 
   return (
-    <Flex vertical align="center" style={{ flex: 1 }}>
-      <Flex align="flex-end" justify="center" gap={1} style={{ position: 'relative', width: '100%', height: '100%' }}>
+    <Flex vertical align="center" className={styles.chartBarColumn}>
+      <Flex align="flex-end" justify="center" gap={1} className={styles.chartBarPositioner}>
         {/* Invoice bar */}
+        {/* ds-exempt: decorative chart art */}
         <div
           style={{
             width: 12,
@@ -137,6 +138,7 @@ function ChartBar({ item }: { item: typeof incomeData[number] }) {
           onMouseLeave={() => setHovered(null)}
         />
         {/* Payment bar */}
+        {/* ds-exempt: decorative chart art */}
         <div
           style={{
             width: 12,
@@ -153,17 +155,21 @@ function ChartBar({ item }: { item: typeof incomeData[number] }) {
         />
         {/* Tooltip */}
         {hovered && (
-          <div style={{ pointerEvents: 'none', position: 'absolute', top: -56, left: '50%', zIndex: 10, transform: 'translateX(-50%)', whiteSpace: 'nowrap', borderRadius: 4, backgroundColor: '#1f2937', padding: '6px 10px', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', fontSize: 11, color: '#fff' }}>
-            <Text variant="label/sm" as="div">{item.month}</Text>
-            <Flex align="center" gap={6}>
-              <span style={{ display: 'inline-block', height: 8, width: 8, borderRadius: 2, backgroundColor: "#bef264" }} />
-              Invoices: ${(item.invoices * 100).toLocaleString()}
-            </Flex>
-            <Flex align="center" gap={6}>
-              <span style={{ display: 'inline-block', height: 8, width: 8, borderRadius: 2, backgroundColor: "#c084fc" }} />
-              Payments: ${(item.payments * 100).toLocaleString()}
-            </Flex>
-            <div style={{ position: 'absolute', bottom: -4, left: '50%', height: 8, width: 8, transform: 'translateX(-50%) rotate(45deg)', backgroundColor: '#1f2937' }} />
+          <div className={styles.tooltipContainer}>
+            <div className={styles.tooltipBubble}>
+              <Text variant="label/sm" as="div">{item.month}</Text>
+              <Flex align="center" gap={6}>
+                {/* ds-exempt: decorative chart art */}
+                <span style={{ display: 'inline-block', height: 8, width: 8, borderRadius: 2, backgroundColor: "#bef264" }} />
+                Invoices: ${(item.invoices * 100).toLocaleString()}
+              </Flex>
+              <Flex align="center" gap={6}>
+                {/* ds-exempt: decorative chart art */}
+                <span style={{ display: 'inline-block', height: 8, width: 8, borderRadius: 2, backgroundColor: "#c084fc" }} />
+                Payments: ${(item.payments * 100).toLocaleString()}
+              </Flex>
+              <div className={styles.tooltipArrow} />
+            </div>
           </div>
         )}
       </Flex>
@@ -186,32 +192,34 @@ function MessageItem({
     <Flex
       gap={10}
       align="flex-start"
-      style={{ cursor: 'pointer', borderRadius: 8, padding: 4, transition: 'background-color 0.2s' }}
-      className={styles.messageItem}
+      className={`${styles.messageItem} ${styles.messageItemWrapper}`}
       onClick={onToggle}
     >
       <Avatar name={message.sender} color={message.color} size="sm" />
-      <div style={{ flex: 1, minWidth: 0 }}>
+      <div className={styles.messageCardBody}>
         <Flex align="baseline" gap={6}>
           <Text variant="body/md-strong" as="span" color="text">{message.sender}</Text>
+          {/* ds-exempt: non-DS timestamp size matches production */}
           <Text variant="caption/sm" as="span" color="text" style={{ fontSize: '9.8px' }}>{message.time}</Text>
           <Text variant="body/md" as="span" color="secondary" style={{ marginLeft: 'auto' }}>
             {expanded ? <Icon as={DownOutlined} size="md" /> : <Icon as={RightOutlined} size="md" />}
           </Text>
         </Flex>
         {!expanded && (
-          <Text variant="body/md" color="secondary" style={{ marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{message.preview}</Text>
+          <Text variant="body/md" color="secondary" mt={2} className={styles.messagePreview}>{message.preview}</Text>
         )}
         {expanded && (
-          <Flex vertical gap={8} style={{ marginTop: 6 }}>
+          <Flex vertical gap={8} className={styles.messageExpanded}>
             {/* The visual element */}
+            {/* ds-exempt: decorative chat image art */}
             {message.type === "image" && message.id === "msg-1" && (
-              <Flex align="center" justify="center" style={{ height: 144, width: 192, overflow: 'hidden', borderRadius: 8, background: 'linear-gradient(to bottom right, #d1d5db, #9ca3af)' }}>
+              <Flex align="center" justify="center" className={styles.messageImage} style={{ background: 'linear-gradient(to bottom right, #d1d5db, #9ca3af)' }}>
                 <div style={{ height: '100%', width: '100%', transform: 'scale(1.1)', background: 'linear-gradient(to bottom right, #fbcfe8, #d1d5db, #bfdbfe)', filter: 'blur(12px)' }} />
               </Flex>
             )}
+            {/* ds-exempt: decorative sticker art */}
             {message.type === "sticker" && (
-              <Flex vertical align="center" justify="center" gap={4} style={{ height: 160, width: 160, borderRadius: 8, background: 'linear-gradient(to bottom right, #bae6fd, #38bdf8)' }}>
+              <Flex vertical align="center" justify="center" gap={4} className={styles.messageAudioCard} style={{ background: 'linear-gradient(to bottom right, #bae6fd, #38bdf8)' }}>
                 <div style={{ position: 'relative', height: 64, width: 56, borderTopLeftRadius: 9999, borderTopRightRadius: 9999, backgroundColor: '#0ea5e9' }}>
                   <div style={{ position: 'absolute', left: -4, top: -8, height: 16, width: 12, transform: 'rotate(-15deg)', borderTopLeftRadius: 9999, backgroundColor: '#0ea5e9' }} />
                   <div style={{ position: 'absolute', right: -4, top: -8, height: 16, width: 12, transform: 'rotate(15deg)', borderTopRightRadius: 9999, backgroundColor: '#0ea5e9' }} />
@@ -221,13 +229,15 @@ function MessageItem({
                 <Text variant="caption/sm" as="span" color="#075985" className="font-bold">STFCRS5</Text>
               </Flex>
             )}
+            {/* ds-exempt: decorative logo art */}
             {message.type === "logo" && (
-              <Flex align="center" justify="center" style={{ height: 160, width: 192, borderRadius: 8, background: 'linear-gradient(to bottom right, #dcfce7, #86efac)' }}>
+              <Flex align="center" justify="center" className={styles.messageLogo} style={{ background: 'linear-gradient(to bottom right, #dcfce7, #86efac)' }}>
                 <Text variant="display/lg" as="span" color="#16a34a" style={{ fontSize: 48 }}>S</Text>
               </Flex>
             )}
+            {/* ds-exempt: decorative chat image art */}
             {message.type === "image" && message.id === "msg-4" && (
-              <Flex vertical align="center" justify="center" gap={4} style={{ height: 144, width: 192, borderRadius: 8, background: 'linear-gradient(to bottom right, #fef3c7, #fcd34d)' }}>
+              <Flex vertical align="center" justify="center" gap={4} className={styles.messageImage} style={{ background: 'linear-gradient(to bottom right, #fef3c7, #fcd34d)' }}>
                 <Text variant="body/md-strong" as="span" color="#92400e">MADE IT HOME</Text>
                 <div style={{ position: 'relative', height: 56, width: 64, borderTopLeftRadius: 9999, borderTopRightRadius: 9999, backgroundColor: 'rgba(251, 191, 36, 0.6)' }}>
                   <div style={{ position: 'absolute', left: -2, top: -6, height: 12, width: 10, transform: 'rotate(-15deg)', borderTopLeftRadius: 9999, backgroundColor: 'rgba(251, 191, 36, 0.6)' }} />
@@ -262,17 +272,17 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
   };
 
   return (
-    <Flex style={{ minHeight: 'calc(100vh - 3rem)', gap: 14, padding: 7 }}>
+    <Flex className={styles.pageLayout}>
       {/* Left column -- Messages (col1: wider) */}
-      <Flex vertical style={{ flex: 1, overflow: 'hidden', borderRadius: 8, border: '1px solid var(--color-border)' }}>
-        <div style={{ backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
+      <Flex vertical className={styles.messagesColumn}>
+        <div className={styles.cardHeader}>
           <Text variant="label/lg" as="h2" color="text" style={{ fontWeight: 500 }}>Messages</Text>
         </div>
         <Divider spacing="none" />
 
-        <div style={{ flex: 1, overflowY: 'auto', paddingLeft: 16, paddingRight: 16, paddingBottom: 8 }}>
+        <div className={styles.messageScrollArea}>
           <Flex vertical gap={16}>
-            <Flex align="center" justify="center" style={{ paddingTop: 8, paddingBottom: 8 }}>
+            <Flex align="center" justify="center" className={styles.dateSeparator}>
               <Text variant="body/md" as="span" color="text">
                 {new Date().toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" })}
               </Text>
@@ -281,14 +291,15 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
             {todayAppointments.slice(0, 5).map((appt) => (
               <Flex key={appt.id} align="flex-start" gap={10}>
                 <Avatar name={appt.practitioner.name} color={appt.practitioner.color} size="sm" />
-                <div style={{ minWidth: 0 }}>
+                <div className={styles.messageCardBody}>
                   <Flex align="baseline" gap={6}>
                     <Text variant="body/md-strong" as="span" color="text">
                       {appt.practitioner.name}
                     </Text>
+                    {/* ds-exempt: non-DS timestamp size matches production */}
                     <Text variant="caption/sm" as="span" color="text" style={{ fontSize: '9.8px' }}>{appt.startTime}</Text>
                   </Flex>
-                  <Text variant="body/md" color="secondary" style={{ marginTop: 2 }}>
+                  <Text variant="body/md" color="secondary" mt={2}>
                     Appointment with {appt.client.firstName} {appt.client.lastName} -- {appt.type}
                   </Text>
                 </div>
@@ -300,13 +311,13 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                 {staticMessages.map((msg, idx) => (
                   <div key={msg.id}>
                     {idx === 1 && (
-                      <Flex align="center" justify="center" style={{ paddingTop: 4, paddingBottom: 4 }}>
+                      <Flex align="center" justify="center" className={styles.dateSeparatorSm}>
                         <Text variant="caption/md" as="span" color="secondary">9 Feb 2026</Text>
                       </Flex>
                     )}
                     {idx === 2 && (
-                      <Flex align="center" justify="center" style={{ paddingTop: 4, paddingBottom: 4 }}>
-                        <Text variant="caption/md" as="span" color="secondary" style={{ cursor: 'pointer' }} title="Click to go forward, hold to see history">16 Feb 2026</Text>
+                      <Flex align="center" justify="center" className={styles.dateSeparatorSm}>
+                        <Text variant="caption/md" as="span" color="secondary" className={styles.clickable} title="Click to go forward, hold to see history">16 Feb 2026</Text>
                       </Flex>
                     )}
                     <MessageItem
@@ -322,16 +333,16 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
         </div>
 
         <Divider spacing="none" />
-        <div style={{ padding: 12 }}>
-          <Card padding="none" style={{ marginBottom: 8, minHeight: 80, padding: '8px 12px' }}>
+        <div className={styles.composerFooter}>
+          <Card padding="none" className={styles.composerCard}>
             <Text variant="body/md" color="secondary">Type a message...</Text>
           </Card>
-          <Flex align="center" gap={2} style={{ color: 'var(--color-text-secondary)' }}>
-            <Tooltip content="Bold"><Button variant="icon" size="sm" style={{ fontWeight: 700, fontSize: 13 }}>B</Button></Tooltip>
-            <Tooltip content="Italic"><Button variant="icon" size="sm" style={{ fontStyle: 'italic', fontSize: 13 }}>I</Button></Tooltip>
-            <Tooltip content="Underline"><Button variant="icon" size="sm" style={{ textDecoration: 'underline', fontSize: 13 }}>U</Button></Tooltip>
-            <Tooltip content="Text size"><Button variant="icon" size="sm" style={{ fontSize: 13 }}>A<sub style={{ fontSize: 9 }}>1</sub></Button></Tooltip>
-            <span style={{ marginLeft: 2, marginRight: 2, height: 16, width: 1, backgroundColor: 'var(--color-border)' }} />
+          <Flex align="center" gap={2} className={styles.toolbarWrapper}>
+            <Tooltip content="Bold"><Button variant="icon" size="sm" className={styles.toolbarBold}>B</Button></Tooltip>
+            <Tooltip content="Italic"><Button variant="icon" size="sm" className={styles.toolbarItalic}>I</Button></Tooltip>
+            <Tooltip content="Underline"><Button variant="icon" size="sm" className={styles.toolbarUnderline}>U</Button></Tooltip>
+            <Tooltip content="Text size"><Button variant="icon" size="sm" className={styles.toolbarFontSm}>A<sub style={{ fontSize: 9 }}>1</sub></Button></Tooltip>
+            <span className={styles.dividerSpacer} />
             <Tooltip content="Table">
               <Button variant="icon" size="sm">
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="12" height="12" rx="1"/><line x1="2" y1="6" x2="14" y2="6"/><line x1="2" y1="10" x2="14" y2="10"/><line x1="6" y1="2" x2="6" y2="14"/><line x1="10" y1="2" x2="10" y2="14"/></svg>
@@ -360,28 +371,28 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
             <Button variant="icon" size="sm" title="List">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="5" y1="3" x2="14" y2="3"/><line x1="5" y1="8" x2="14" y2="8"/><line x1="5" y1="13" x2="14" y2="13"/><circle cx="2.5" cy="3" r="0.75" fill="currentColor"/><circle cx="2.5" cy="8" r="0.75" fill="currentColor"/><circle cx="2.5" cy="13" r="0.75" fill="currentColor"/></svg>
             </Button>
-            <span style={{ marginLeft: 2, marginRight: 2, height: 16, width: 1, backgroundColor: 'var(--color-border)' }} />
+            <span className={styles.dividerSpacer} />
             <Button variant="icon" size="sm" title="More">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/></svg>
             </Button>
-            <div style={{ flex: 1 }} />
-            <Text variant="label/md" as="span" color="secondary" className={styles.gifButton} style={{ marginRight: 4, cursor: 'pointer', borderRadius: 4, padding: '2px 6px' }}>GIF</Text>
+            <div className={styles.flexSpacer} />
+            <Text variant="label/md" as="span" color="secondary" className={`${styles.gifButton} ${styles.gifBtnWrapper}`}>GIF</Text>
             <Button variant="primary">Send</Button>
           </Flex>
         </div>
       </Flex>
 
       {/* Right column -- Analytics (col2: narrower) */}
-      <Flex vertical gap={7} style={{ flexShrink: 0, width: 380 }}>
+      <Flex vertical gap={7} className={styles.rightColumn}>
         {/* Income card */}
-        <Card padding="none" style={{ overflow: 'hidden' }}>
-          <div style={{ backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
+        <Card padding="none" className={styles.cardOverflow}>
+          <div className={styles.cardHeader}>
             <Text variant="label/lg" as="h3" color="text" style={{ fontWeight: 500 }}>Income</Text>
           </div>
           <Divider spacing="none" />
-          <div style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 16 }}>
-            <div style={{ position: 'relative', height: 208 }}>
-              <Flex vertical justify="space-between" style={{ position: 'absolute', bottom: 24, left: 0, top: 0, paddingRight: 4 }}>
+          <div className={styles.cardBodyLg}>
+            <div className={styles.chartShellInner}>
+              <Flex vertical justify="space-between" className={styles.chartYAxisScale}>
                 <Text variant="caption/sm" as="span" color="secondary">500K</Text>
                 <Text variant="caption/sm" as="span" color="secondary">400K</Text>
                 <Text variant="caption/sm" as="span" color="secondary">300K</Text>
@@ -389,28 +400,28 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                 <Text variant="caption/sm" as="span" color="secondary">100K</Text>
                 <Text variant="caption/sm" as="span" color="secondary">0</Text>
               </Flex>
-              <Text variant="caption/sm" as="div" color="secondary" style={{ position: 'absolute', left: -16, top: '50%', transform: 'translateY(-50%) rotate(-90deg)', whiteSpace: 'nowrap' }}>
+              <Text variant="caption/sm" as="div" color="secondary" className={styles.chartYAxisLabel}>
                 Values
               </Text>
-              <Flex vertical justify="space-between" style={{ position: 'absolute', bottom: 24, left: 28, right: 0, top: 0 }}>
+              <Flex vertical justify="space-between" className={styles.chartGridLines}>
                 {[0, 1, 2, 3, 4, 5].map((i) => (
                   <Divider key={i} variant="subtle" spacing="none" />
                 ))}
               </Flex>
-              <Flex align="flex-end" gap={4} style={{ marginLeft: 32, height: 'calc(100% - 24px)' }}>
+              <Flex align="flex-end" gap={4} className={styles.chartBarsArea}>
                 {incomeData.map((item) => (
                   <ChartBar key={item.month} item={item} />
                 ))}
               </Flex>
-              <Flex style={{ marginLeft: 32, height: 48 }}>
+              <Flex className={styles.chartMonthRow}>
                 {incomeData.map((item) => (
-                  <div key={item.month} style={{ flex: 1, paddingTop: 4 }}>
-                    <Text variant="caption/sm" as="span" color="secondary" style={{ display: 'inline-block', transform: 'rotate(-45deg)', transformOrigin: 'top left', whiteSpace: 'nowrap' }}>{item.month.replace("-", " ")}</Text>
+                  <div key={item.month} className={styles.chartMonthCell}>
+                    <Text variant="caption/sm" as="span" color="secondary" className={styles.chartMonthText}>{item.month.replace("-", " ")}</Text>
                   </div>
                 ))}
               </Flex>
             </div>
-            <Flex align="center" justify="center" gap={16} style={{ marginTop: 4 }}>
+            <Flex align="center" justify="center" gap={16} className={styles.chartLegendRow}>
               <Flex align="center" gap={6}>
                 <ColorDot color="#bef264" size="xs" /> <Text variant="caption/md" as="span" color="secondary">Invoices</Text>
               </Flex>
@@ -422,21 +433,21 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
         </Card>
 
         {/* Incomplete progress notes card */}
-        <Card padding="none" style={{ overflow: 'hidden' }}>
-          <div style={{ backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
+        <Card padding="none" className={styles.cardOverflow}>
+          <div className={styles.cardHeader}>
             <Text variant="label/lg" as="h3" color="text" style={{ fontWeight: 500 }}>Incomplete progress notes</Text>
           </div>
           <Divider spacing="none" />
-          <div style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
+          <div className={styles.cardBody}>
             <Flex vertical gap={6}>
               {unsignedNotes.length === 0 ? (
                 <>
                   {incompleteNotes.map((note) => (
-                    <Flex key={note.name} align="flex-start" justify="space-between" gap={8} style={{ paddingTop: 2, paddingBottom: 2 }}>
-                      <Text variant="body/md" as="span" color="primary" className={styles.hoverUnderline} style={{ cursor: 'pointer' }}>
+                    <Flex key={note.name} align="flex-start" justify="space-between" gap={8} className={styles.noteRow}>
+                      <Text variant="body/md" as="span" color="primary" className={`${styles.hoverUnderline} ${styles.clickable}`}>
                         {note.name}
                       </Text>
-                      <Text variant="caption/sm" as="span" color="secondary" style={{ flexShrink: 0, whiteSpace: 'nowrap', paddingTop: 2 }}>
+                      <Text variant="caption/sm" as="span" color="secondary" className={styles.timestampCell} mt={2}>
                         {note.time}
                       </Text>
                     </Flex>
@@ -444,11 +455,11 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                 </>
               ) : (
                 unsignedNotes.map((note) => (
-                  <Flex key={note.id} align="flex-start" justify="space-between" gap={8} style={{ paddingTop: 2, paddingBottom: 2 }}>
-                    <Text variant="body/md" as="span" color="primary" className={styles.hoverUnderline} style={{ cursor: 'pointer' }}>
+                  <Flex key={note.id} align="flex-start" justify="space-between" gap={8} className={styles.noteRow}>
+                    <Text variant="body/md" as="span" color="primary" className={`${styles.hoverUnderline} ${styles.clickable}`}>
                       {note.client.firstName} {note.client.lastName} ({note.practitioner.name})
                     </Text>
-                    <Text variant="caption/sm" as="span" color="secondary" style={{ flexShrink: 0, whiteSpace: 'nowrap', paddingTop: 2 }}>
+                    <Text variant="caption/sm" as="span" color="secondary" className={styles.timestampCell} mt={2}>
                       {formatDateTime(note.date)}
                     </Text>
                   </Flex>
@@ -460,15 +471,15 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
         </Card>
 
         {/* Recently submitted forms card */}
-        <Card padding="none" style={{ overflow: 'hidden' }}>
-          <div style={{ backgroundColor: 'var(--color-fill-secondary)', padding: 16 }}>
+        <Card padding="none" className={styles.cardOverflow}>
+          <div className={styles.cardHeader}>
             <Text variant="label/lg" as="h3" color="text" style={{ fontWeight: 500 }}>Recently submitted forms</Text>
           </div>
           <Divider spacing="none" />
-          <div style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12 }}>
+          <div className={styles.cardBody}>
             <Flex vertical gap={6}>
               {recentForms.map((form) => (
-                <Flex key={form.id} align="flex-start" justify="space-between" gap={8} style={{ paddingTop: 2, paddingBottom: 2 }}>
+                <Flex key={form.id} align="flex-start" justify="space-between" gap={8} className={styles.noteRow}>
                   <Link
                     href={`/patient-form/${form.id}/view`}
                     className={styles.hoverUnderline}
@@ -476,7 +487,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
                   >
                     {form.name}
                   </Link>
-                  <Text variant="caption/sm" as="span" color="secondary" style={{ flexShrink: 0, whiteSpace: 'nowrap', paddingTop: 2 }}>
+                  <Text variant="caption/sm" as="span" color="secondary" className={styles.timestampCell} mt={2}>
                     {form.time}
                   </Text>
                 </Flex>
