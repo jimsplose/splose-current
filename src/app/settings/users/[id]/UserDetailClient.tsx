@@ -174,7 +174,7 @@ export default function UserDetailClient({ id }: { id: string }) {
               </div>
             </Flex>
 
-            <Divider type="primary" style={{ margin: '24px 0' }} />
+            <Divider variant="primary" style={{ margin: '24px 0' }} />
 
             {/* Timezone */}
             <div style={{ marginBottom: 24 }}>
@@ -187,7 +187,7 @@ export default function UserDetailClient({ id }: { id: string }) {
               <FormSelect options={timezoneOptions} defaultValue="Australia/Adelaide" />
             </div>
 
-            <Divider type="primary" style={{ margin: '24px 0' }} />
+            <Divider variant="primary" style={{ margin: '24px 0' }} />
 
             {/* Account role */}
             <div style={{ marginBottom: 24 }}>
@@ -195,7 +195,7 @@ export default function UserDetailClient({ id }: { id: string }) {
               <FormSelect options={roleNameOptions} value={roleName} onChange={setRoleName} />
             </div>
 
-            <Divider type="primary" style={{ margin: '24px 0' }} />
+            <Divider variant="primary" style={{ margin: '24px 0' }} />
 
             {/* Practitioner settings */}
             <div style={{ marginBottom: 24 }}>

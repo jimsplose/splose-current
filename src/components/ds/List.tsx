@@ -41,7 +41,6 @@ function EditButton({ label, onClick }: { label: string; onClick?: () => void })
     <Button
       variant="ghost"
       size="sm"
-      iconOnly
       aria-label={`Edit ${label}`}
       onClick={onClick}
     >

@@ -30,7 +30,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
           <>
             {note.signed ? (
               <Badge variant="green">
-                <Icon as={CheckCircleOutlined} size="small" />
+                <Icon as={CheckCircleOutlined} size="sm" />
                 Final
               </Badge>
             ) : (

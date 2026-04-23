@@ -431,23 +431,23 @@ export default function CalendarView({
         <div className={styles.toolbar}>
           <button className={styles.todayBtn}>Today</button>
           <button className={styles.iconBtn}>
-            <Icon as={LeftOutlined} size="large" />
+            <Icon as={LeftOutlined} size="lg" />
           </button>
           <button className={styles.iconBtn}>
-            <Icon as={RightOutlined} size="large" />
+            <Icon as={RightOutlined} size="lg" />
           </button>
           <span className={styles.dateLabel}>{toolbarDateLabel}</span>
           <button className={styles.iconBtnSecondary}>
-            <Icon as={FilterOutlined} size="large" />
+            <Icon as={FilterOutlined} size="lg" />
           </button>
           <button className={styles.iconBtnSecondary}>
-            <Icon as={SettingOutlined} size="large" />
+            <Icon as={SettingOutlined} size="lg" />
           </button>
           <button className={styles.iconBtnSecondary}>
-            <Icon as={CalendarOutlined} size="large" />
+            <Icon as={CalendarOutlined} size="lg" />
           </button>
           <button className={styles.iconBtnSecondary}>
-            <Icon as={BulbOutlined} size="large" />
+            <Icon as={BulbOutlined} size="lg" />
           </button>
 
           {/* Location + Practitioner filter buttons */}
@@ -481,7 +481,7 @@ export default function CalendarView({
                       onClick={() => { setLocationFilter("all"); setLocationDropdownOpen(false); }}
                     >
                       <div className={locationFilter === "all" ? styles.filterCheckboxChecked : styles.filterCheckbox}>
-                        {locationFilter === "all" && <Icon as={CheckOutlined} size="small" tone="inverted" />}
+                        {locationFilter === "all" && <Icon as={CheckOutlined} size="sm" tone="inverted" />}
                       </div>
                       <Text variant="label/lg" as="span" color="text">Select all</Text>
                     </button>
@@ -494,7 +494,7 @@ export default function CalendarView({
                           onClick={() => { setLocationFilter(loc); setLocationDropdownOpen(false); }}
                         >
                           <div className={locationFilter === loc ? styles.filterCheckboxChecked : styles.filterCheckbox}>
-                            {locationFilter === loc && <Icon as={CheckOutlined} size="small" tone="inverted" />}
+                            {locationFilter === loc && <Icon as={CheckOutlined} size="sm" tone="inverted" />}
                           </div>
                           <span>{loc}</span>
                         </button>
@@ -534,7 +534,7 @@ export default function CalendarView({
                       onClick={() => { setPractitionerFilter("all"); setPractitionerDropdownOpen(false); }}
                     >
                       <div className={practitionerFilter === "all" ? styles.filterCheckboxChecked : styles.filterCheckbox}>
-                        {practitionerFilter === "all" && <Icon as={CheckOutlined} size="small" tone="inverted" />}
+                        {practitionerFilter === "all" && <Icon as={CheckOutlined} size="sm" tone="inverted" />}
                       </div>
                       <Text variant="label/lg" as="span" color="text">All practitioners</Text>
                     </button>
@@ -553,9 +553,9 @@ export default function CalendarView({
                               onClick={() => { setPractitionerFilter(p.id); setPractitionerDropdownOpen(false); }}
                             >
                               <div className={practitionerFilter === p.id ? styles.filterCheckboxChecked : styles.filterCheckbox}>
-                                {practitionerFilter === p.id && <Icon as={CheckOutlined} size="small" tone="inverted" />}
+                                {practitionerFilter === p.id && <Icon as={CheckOutlined} size="sm" tone="inverted" />}
                               </div>
-                              <ColorDot color={p.color} size="small" />
+                              <ColorDot color={p.color} size="sm" />
                               <span>{p.name}</span>
                             </button>
                           ))}
@@ -570,7 +570,7 @@ export default function CalendarView({
 
           {/* Booking-for filter pill */}
           {bookingForFilter && (
-            <Badge variant="yellow" shape="round" className={styles.bookingChip} onRemove={() => setBookingForFilter(null)}>
+            <Badge variant="yellow" shape="pill" className={styles.bookingChip} onRemove={() => setBookingForFilter(null)}>
               Booking for <strong>{bookingForFilter}</strong>
             </Badge>
           )}
@@ -956,7 +956,7 @@ export default function CalendarView({
                 style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingTop: 8, paddingBottom: 8, paddingLeft: 12, paddingRight: 12 }}
                 onClick={() => setPopover((prev) => ({ ...prev, visible: false }))}
               >
-                <Icon as={ClockCircleOutlined} size="large" tone="secondary" />
+                <Icon as={ClockCircleOutlined} size="lg" tone="secondary" />
                 Support activity
               </Button>
               <Button
@@ -964,7 +964,7 @@ export default function CalendarView({
                 style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingTop: 8, paddingBottom: 8, paddingLeft: 12, paddingRight: 12 }}
                 onClick={() => setPopover((prev) => ({ ...prev, visible: false }))}
               >
-                <Icon as={StopOutlined} size="large" tone="secondary" />
+                <Icon as={StopOutlined} size="lg" tone="secondary" />
                 Busy time
               </Button>
               <Button
@@ -972,7 +972,7 @@ export default function CalendarView({
                 style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingTop: 8, paddingBottom: 8, paddingLeft: 12, paddingRight: 12 }}
                 onClick={() => openCreateModal(popover.dateStr, popover.hour, popover.minute, popover.practitionerId)}
               >
-                <Icon as={CalendarOutlined} size="large" tone="secondary" />
+                <Icon as={CalendarOutlined} size="lg" tone="secondary" />
                 Appointment
               </Button>
               <Button
@@ -980,7 +980,7 @@ export default function CalendarView({
                 style={{ width: '100%', justifyContent: 'flex-start', gap: 10, paddingTop: 8, paddingBottom: 8, paddingLeft: 12, paddingRight: 12 }}
                 onClick={() => setPopover((prev) => ({ ...prev, visible: false }))}
               >
-                <Icon as={CheckOutlined} size="large" tone="secondary" />
+                <Icon as={CheckOutlined} size="lg" tone="secondary" />
                 Availability
               </Button>
             </div>
@@ -1016,7 +1016,7 @@ export default function CalendarView({
       >
         <div className={styles.formStack}>
           {createDate && isDateInPast(createDate) && (
-            <Alert variant="warning" icon={<Icon as={WarningOutlined} size="large" tone="warning" />}>{/* icon color matches Alert warning tone */}
+            <Alert variant="warning" icon={<Icon as={WarningOutlined} size="lg" tone="warning" />}>{/* icon color matches Alert warning tone */}
               This appointment is in the past. Are you sure you want to create it?
             </Alert>
           )}
@@ -1041,7 +1041,7 @@ export default function CalendarView({
               style={{ borderLeft: '3px solid #ca8a04', backgroundColor: '#fefce8', borderRadius: 4, padding: '8px 12px', marginLeft: 152 }}
             >
               <Text variant="label/lg" as="span" color="text">2 waitlist matches</Text>
-              <Icon as={DownOutlined} size="small" tone="secondary" style={{ marginLeft: 8 }} />
+              <Icon as={DownOutlined} size="sm" tone="secondary" style={{ marginLeft: 8 }} />
             </div>
           )}
           <div className={styles.formRow}>
@@ -1070,7 +1070,7 @@ export default function CalendarView({
             <FormSelect value={createEndTime} onChange={setCreateEndTime} options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))} />
           </div>
           {createTime && createTime.includes("AM") && (
-            <Alert variant="warning" icon={<Icon as={WarningOutlined} size="large" tone="warning" />}>
+            <Alert variant="warning" icon={<Icon as={WarningOutlined} size="lg" tone="warning" />}>
               <Text variant="label/lg" as="span" color="text">Scheduling conflict:</Text> {createPractitioner ? practitioners.find(p => p.id === createPractitioner)?.name || "Practitioner" : "Practitioner"} already has an appointment at {createTime}. Double-check before confirming.
             </Alert>
           )}
@@ -1112,7 +1112,7 @@ export default function CalendarView({
                 <label className={styles.sectionLabel}>Repeat on *</label>
                 <div className={styles.dayPicker}>
                   {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d) => (
-                    <Button key={d} variant={d === "Mo" ? "primary" : "secondary"} size="small" round>{d}</Button>
+                    <Button key={d} type={d === "Mo" ? "primary" : "default"} size="small" shape="circle">{d}</Button>
                   ))}
                 </div>
               </div>
@@ -1192,7 +1192,7 @@ export default function CalendarView({
                   <label className={styles.sectionLabel}>Repeat on *</label>
                   <div className={styles.dayPicker}>
                     {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d) => (
-                      <Button key={d} variant={d === "Mo" ? "primary" : "secondary"} size="small" round>{d}</Button>
+                      <Button key={d} type={d === "Mo" ? "primary" : "default"} size="small" shape="circle">{d}</Button>
                     ))}
                   </div>
                 </div>
@@ -1218,7 +1218,7 @@ export default function CalendarView({
             />
             <div className={styles.notificationBox}>
               <div className={styles.notificationHeader}>
-                <Icon as={MailOutlined} size="large" tone="primary" />
+                <Icon as={MailOutlined} size="lg" tone="primary" />
                 <Text variant="label/lg" as="span" color="text">Notification preview</Text>
               </div>
               <Text variant="body/sm" as="p" color="secondary" style={{ marginBottom: 12 }}>
@@ -1236,7 +1236,7 @@ export default function CalendarView({
             </div>
             <div className={styles.changeLogSection}>
               <div className={styles.changeLogHeader}>
-                <Icon as={HistoryOutlined} size="large" tone="secondary" />
+                <Icon as={HistoryOutlined} size="lg" tone="secondary" />
                 <Text variant="label/lg" as="span" color="text">Change log</Text>
               </div>
               <div className={styles.changeLogEntries}>
@@ -1389,7 +1389,7 @@ function AppointmentSidePanel({
       open
       onClose={onClose}
       side="right"
-      size="large"
+      size="lg"
       title={appt.type}
       description={appt.clientName}
       footer={
@@ -1409,7 +1409,7 @@ function AppointmentSidePanel({
         // eslint-disable-next-line no-restricted-syntax -- per-appointment practitioner color (dynamic header band)
         style={{ backgroundColor: appt.practitionerColor, margin: "-20px -20px 16px", padding: "8px 20px", display: "flex", alignItems: "center", gap: 8 }}
       >
-        <ColorDot color="#fff" size="small" />
+        <ColorDot color="#fff" size="sm" />
         <Text variant="heading/sm" as="span" color="inverted">{appt.type}</Text>
       </div>
 
@@ -1426,7 +1426,7 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
   return (
     <div className={styles.detailRows}>
       <div className={styles.detailRow}>
-        <Icon as={EnvironmentOutlined} size="large" tone="secondary" style={{ marginTop: 2 }} />
+        <Icon as={EnvironmentOutlined} size="lg" tone="secondary" style={{ marginTop: 2 }} />
         <div>
           <Text as="span" color="text">{appt.practitionerName}</Text>
           <Text as="span" color="secondary"> at </Text>
@@ -1434,21 +1434,21 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
         </div>
       </div>
       <div className={styles.detailRowCenter}>
-        <Avatar name={appt.practitionerName} color={appt.practitionerColor} size="small" />
+        <Avatar name={appt.practitionerName} color={appt.practitionerColor} size="sm" />
         <Text as="span" color="text">{appt.practitionerName}</Text>
       </div>
       <div className={styles.detailRow}>
-        <Icon as={ClockCircleOutlined} size="large" tone="secondary" style={{ marginTop: 2 }} />
+        <Icon as={ClockCircleOutlined} size="lg" tone="secondary" style={{ marginTop: 2 }} />
         <Text as="span" color="text">
           {appt.startTime}, {formatDateLong(appt.date)} for {calcDuration(appt.startTime, appt.endTime)}
         </Text>
       </div>
       <div className={styles.detailRow}>
-        <Icon as={UserOutlined} size="large" tone="primary" style={{ marginTop: 2 }} />
+        <Icon as={UserOutlined} size="lg" tone="primary" style={{ marginTop: 2 }} />
         <span className={styles.linkTextMedium}>{appt.clientName}</span>
       </div>
       <div className={styles.detailRow}>
-        <Icon as={MailOutlined} size="large" tone="secondary" style={{ marginTop: 2 }} />
+        <Icon as={MailOutlined} size="lg" tone="secondary" style={{ marginTop: 2 }} />
         <Text as="span" color="secondary">thyxueen@gmail.com</Text>
       </div>
       <div className={styles.detailRow}>
@@ -1459,33 +1459,33 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
         </Flex>
       </div>
       <div className={styles.detailRow}>
-        <Icon as={VideoCameraOutlined} size="large" tone="primary" style={{ marginTop: 2 }} />
+        <Icon as={VideoCameraOutlined} size="lg" tone="primary" style={{ marginTop: 2 }} />
         <span className={styles.linkText}>Create zoom meeting</span>
       </div>
       <div className={styles.detailRowCenter}>
-        <Icon as={FileTextOutlined} size="large" tone="primary" style={{ marginTop: 2 }} />
+        <Icon as={FileTextOutlined} size="lg" tone="primary" style={{ marginTop: 2 }} />
         <span className={styles.linkText}>TRR-005673</span>
         <Badge variant="blue">Draft</Badge>
       </div>
       <div className={styles.detailRow}>
-        <Icon as={StopOutlined} size="large" tone="secondary" style={{ marginTop: 2 }} />
+        <Icon as={StopOutlined} size="lg" tone="secondary" style={{ marginTop: 2 }} />
         <span className={styles.linkText}>Mark as Do not Invoice?</span>
       </div>
       <div className={styles.detailRow}>
-        <Icon as={FileTextOutlined} size="large" tone="primary" style={{ marginTop: 2 }} />
+        <Icon as={FileTextOutlined} size="lg" tone="primary" style={{ marginTop: 2 }} />
         <span className={styles.linkText}>Add progress note</span>
       </div>
       <div className={styles.detailRow}>
-        <Icon as={SyncOutlined} size="large" tone="secondary" style={{ marginTop: 2 }} />
+        <Icon as={SyncOutlined} size="lg" tone="secondary" style={{ marginTop: 2 }} />
         <Text variant="caption/md" as="span" color="secondary">Repeating every 2 weeks on Monday for 6 times</Text>
       </div>
       <div className={styles.detailRowCenter}>
-        <Avatar name={appt.practitionerName} color={appt.practitionerColor} size="small" />
+        <Avatar name={appt.practitionerName} color={appt.practitionerColor} size="sm" />
         <Text as="span" color="secondary">{appt.practitionerName} (Organiser)</Text>
       </div>
       <div className={styles.detailSection}>
         <label className={styles.noteLabel}>
-          <Icon as={FileTextOutlined} size="small" /> Note
+          <Icon as={FileTextOutlined} size="sm" /> Note
         </label>
         <FormTextarea rows={3} placeholder="Add a note..." />
       </div>
@@ -1497,7 +1497,7 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
   return (
     <div className={styles.detailRows}>
       <div className={styles.detailRow}>
-        <Icon as={EnvironmentOutlined} size="large" tone="secondary" style={{ marginTop: 2 }} />
+        <Icon as={EnvironmentOutlined} size="lg" tone="secondary" style={{ marginTop: 2 }} />
         <div>
           <Text as="span" color="text">{appt.practitionerName}</Text>
           <Text as="span" color="secondary"> at </Text>
@@ -1505,45 +1505,45 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
         </div>
       </div>
       <div className={styles.detailRowCenter}>
-        <Avatar name={appt.practitionerName} color={appt.practitionerColor} size="small" />
+        <Avatar name={appt.practitionerName} color={appt.practitionerColor} size="sm" />
         <Text as="span" color="text">{appt.practitionerName}</Text>
       </div>
       <div className={styles.detailRow}>
-        <Icon as={ClockCircleOutlined} size="large" tone="secondary" style={{ marginTop: 2 }} />
+        <Icon as={ClockCircleOutlined} size="lg" tone="secondary" style={{ marginTop: 2 }} />
         <Text as="span" color="text">
           {appt.startTime}, {formatDateLong(appt.date)} for {calcDuration(appt.startTime, appt.endTime)}
         </Text>
       </div>
       <div className={styles.detailRow}>
-        <Icon as={VideoCameraOutlined} size="large" tone="primary" style={{ marginTop: 2 }} />
+        <Icon as={VideoCameraOutlined} size="lg" tone="primary" style={{ marginTop: 2 }} />
         <span className={styles.linkText}>Create zoom meeting</span>
       </div>
       <div className={styles.detailRow}>
-        <Icon as={DesktopOutlined} size="large" tone="primary" style={{ marginTop: 2 }} />
+        <Icon as={DesktopOutlined} size="lg" tone="primary" style={{ marginTop: 2 }} />
         <span className={styles.linkText}>Create Microsoft Teams meeting</span>
       </div>
       <div className={styles.attendeesHeader}>
         <Flex align="center" gap={8}>
-          <Icon as={TeamOutlined} size="large" tone="secondary" />
+          <Icon as={TeamOutlined} size="lg" tone="secondary" />
           <Text as="span" color="secondary">1 of 6 clients attending</Text>
         </Flex>
         <Button size="small">
-          <Icon as={UserAddOutlined} size="small" /> Client
+          <Icon as={UserAddOutlined} size="sm" /> Client
         </Button>
       </div>
       <div className={styles.attendeeList}>
         <div className={styles.attendeeRow}>
-          <Avatar name="elsa frozen" size="small" />
+          <Avatar name="elsa frozen" size="sm" />
           <span>elsa frozen</span>
         </div>
       </div>
       <div className={styles.detailRowCenter}>
-        <Avatar name="Meghna Damodaran" color={appt.practitionerColor} size="small" />
+        <Avatar name="Meghna Damodaran" color={appt.practitionerColor} size="sm" />
         <Text as="span" color="secondary">Meghna Damodaran (Organiser)</Text>
       </div>
       <div className={styles.detailSection}>
         <label className={styles.noteLabel}>
-          <Icon as={FileTextOutlined} size="small" /> Note
+          <Icon as={FileTextOutlined} size="sm" /> Note
         </label>
         <FormTextarea rows={3} placeholder="Add a note..." />
       </div>

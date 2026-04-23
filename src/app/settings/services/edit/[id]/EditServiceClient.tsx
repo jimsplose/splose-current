@@ -141,7 +141,7 @@ export default function EditServiceClient({ id }: { id: string }) {
           <div style={{ marginBottom: 16 }} />
           <FormTextarea label="Description" rows={3} placeholder="Enter a description for this service..." />
 
-          <Divider type="primary" style={{ margin: '24px 0' }} />
+          <Divider variant="primary" style={{ margin: '24px 0' }} />
 
           {/* Pricing */}
           <Text variant="heading/lg" as="h2" style={{ marginBottom: 16 }}>Pricing</Text>
@@ -162,7 +162,7 @@ export default function EditServiceClient({ id }: { id: string }) {
             defaultValue={service.duration}
           />
 
-          <Divider type="primary" style={{ margin: '24px 0' }} />
+          <Divider variant="primary" style={{ margin: '24px 0' }} />
 
           {/* Online booking */}
           <Text variant="heading/lg" as="h2" style={{ marginBottom: 16 }}>Online booking</Text>
@@ -172,7 +172,7 @@ export default function EditServiceClient({ id }: { id: string }) {
             label="Enable online booking"
           />
 
-          <Divider type="primary" style={{ margin: '24px 0' }} />
+          <Divider variant="primary" style={{ margin: '24px 0' }} />
 
           {/* Online payment */}
           <Text variant="heading/lg" as="h2" style={{ marginBottom: 16 }}>Online payment</Text>
@@ -192,7 +192,7 @@ export default function EditServiceClient({ id }: { id: string }) {
             </div>
           )}
 
-          <Divider type="primary" style={{ margin: '24px 0' }} />
+          <Divider variant="primary" style={{ margin: '24px 0' }} />
 
           {/* Appointment notifications */}
           <Text variant="heading/lg" as="h2" style={{ marginBottom: 16 }}>Appointment notifications</Text>

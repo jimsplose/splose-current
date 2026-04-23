@@ -85,7 +85,7 @@ export default function PaymentSettingsPage() {
       <section style={{ marginBottom: 32 }}>
         <h2 style={{ marginBottom: 16, fontSize: 20, fontWeight: 600 }}>PDF settings</h2>
         <div style={{ maxWidth: 672 }}>
-          <FormLabel size="small" style={{ color: 'var(--color-text-secondary)' }}>
+          <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>
             Brand colour
           </FormLabel>
           <Flex align="center" gap={12} style={{ marginBottom: 16 }}>

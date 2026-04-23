@@ -174,7 +174,7 @@ export const TableWrapper: Story = {
             <h3 style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text)' }}>Practitioners</h3>
             <p style={{ fontSize: 12, lineHeight: 1.67, color: 'var(--color-text-secondary)' }}>Breakdown of performance by individual practitioner</p>
           </div>
-          <Button variant="ghost" size="sm">...</Button>
+          <Button variant="ghost" size="small">...</Button>
         </div>
         <DataTable>
           <TableHead>

@@ -61,7 +61,7 @@ export default function ReportsPerformancePage() {
 
       {/* Toolbar: date pill, period toggle, compare toggle */}
       <Flex wrap="wrap" align="center" gap={12} style={{ marginBottom: 16 }}>
-        <Badge variant="green" shape="round">11 Mar 2026 – 11 Mar 2026</Badge>
+        <Badge variant="green" shape="pill">11 Mar 2026 – 11 Mar 2026</Badge>
 
         {/* Period selector pills */}
         <Flex style={{ borderRadius: 9999, border: '1px solid var(--color-border)', backgroundColor: 'white', padding: 2 }}>

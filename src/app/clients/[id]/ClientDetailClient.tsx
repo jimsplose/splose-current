@@ -103,7 +103,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <Divider type="primary" spacing="none" style={{ marginBottom: 32 }} />
+        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Client contact details */}
         <section style={{ marginBottom: 32 }}>
@@ -140,7 +140,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <Divider type="primary" spacing="none" style={{ marginBottom: 32 }} />
+        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Privacy policy consent */}
         <section style={{ marginBottom: 32 }}>
@@ -150,7 +150,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           <List items={[{ label: "", value: "No response" }]} />
         </section>
 
-        <Divider type="primary" spacing="none" style={{ marginBottom: 32 }} />
+        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Medications, allergies & intolerances */}
         <section style={{ marginBottom: 32 }}>
@@ -166,7 +166,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <Divider type="primary" spacing="none" style={{ marginBottom: 32 }} />
+        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Medicare details */}
         {client.medicare && (
@@ -181,7 +181,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
                 ]}
               />
             </section>
-            <Divider type="primary" spacing="none" style={{ marginBottom: 32 }} />
+            <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
           </>
         )}
 
@@ -197,7 +197,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
                 ]}
               />
             </section>
-            <Divider type="primary" spacing="none" style={{ marginBottom: 32 }} />
+            <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
           </>
         )}
 
@@ -212,7 +212,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <Divider type="primary" spacing="none" style={{ marginBottom: 32 }} />
+        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Invoicing */}
         <section style={{ marginBottom: 32 }}>
@@ -227,7 +227,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           />
         </section>
 
-        <Divider type="primary" spacing="none" style={{ marginBottom: 32 }} />
+        <Divider variant="primary" spacing="none" style={{ marginBottom: 32 }} />
 
         {/* Associated contacts */}
         <section style={{ marginBottom: 32 }}>
@@ -274,7 +274,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         <FeatureCard tone="primary" style={{ marginBottom: 16 }}>
           <Flex justify="space-between" align="center">
             <Text variant="label/lg" as="h3" color="inverted">Account balance</Text>
-            <HintIcon tone="inverted" size="large" />
+            <HintIcon tone="inverted" size="lg" />
           </Flex>
           <Flex justify="space-between" align="center" style={{ marginTop: 8 }}>
             <Text variant="body/md" as="span">
@@ -318,7 +318,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           <Flex vertical gap={4}>
             <Flex align="center" gap={4}>
               <Text variant="body/sm" as="span" color="primary">rakesh.splose@gmail.com</Text>
-              <Tag size="small">ARCHIVED</Tag>
+              <Tag size="sm">ARCHIVED</Tag>
             </Flex>
             <Text variant="body/sm" as="p" color="secondary">a a</Text>
             <Text variant="body/sm" as="p" color="secondary">Open rate: 0%</Text>

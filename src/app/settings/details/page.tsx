@@ -32,7 +32,7 @@ export default function SettingsDetailsPage() {
             <Flex vertical gap={16}>
               <div>
                 <Flex align="center" justify="space-between" style={{ marginBottom: 4 }}>
-                  <FormLabel size="small" mb={0} required>
+                  <FormLabel size="sm" mb={0} required>
                     Business name
                   </FormLabel>
                   <Button
@@ -46,7 +46,7 @@ export default function SettingsDetailsPage() {
                 <FormInput type="text" defaultValue="Hands Together Therapies" />
               </div>
               <div>
-                <FormLabel size="small">
+                <FormLabel size="sm">
                   Workspace URL{" "}
                   <HintIcon />
                 </FormLabel>
@@ -54,7 +54,7 @@ export default function SettingsDetailsPage() {
               </div>
               <FormInput label="Website" type="text" defaultValue="hands-together-therapy.com" />
               <div>
-                <FormLabel size="small" required>
+                <FormLabel size="sm" required>
                   Business email
                 </FormLabel>
                 <FormInput type="email" defaultValue="hello@hands-together-therapy.com" />
@@ -77,18 +77,18 @@ export default function SettingsDetailsPage() {
           </div>
         </Flex>
 
-        <Divider type="primary" spacing="sm" />
+        <Divider variant="primary" spacing="sm" />
 
         <Grid cols={2} gap="md">
           <div>
-            <FormLabel size="small" required>
+            <FormLabel size="sm" required>
               Patient terminology{" "}
               <HintIcon />
             </FormLabel>
             <FormSelect options={[{ value: "Client", label: "Client" }, { value: "Patient", label: "Patient" }, { value: "Participant", label: "Participant" }]} />
           </div>
           <div>
-            <FormLabel size="small" required>
+            <FormLabel size="sm" required>
               Currency code
             </FormLabel>
             <FormInput type="text" defaultValue="AUD" disabled />
@@ -97,13 +97,13 @@ export default function SettingsDetailsPage() {
 
         <Grid cols={2} gap="md">
           <div>
-            <FormLabel size="small" required>
+            <FormLabel size="sm" required>
               Country
             </FormLabel>
             <FormSelect options={[{ value: "Australia", label: "Australia" }, { value: "New Zealand", label: "New Zealand" }, { value: "United Kingdom", label: "United Kingdom" }]} disabled />
           </div>
           <div>
-            <FormLabel size="small" required>
+            <FormLabel size="sm" required>
               Currency symbol
             </FormLabel>
             <FormInput type="text" defaultValue="A$" disabled />
@@ -112,7 +112,7 @@ export default function SettingsDetailsPage() {
 
         <Grid cols={2} gap="md">
           <div>
-            <FormLabel size="small" required>
+            <FormLabel size="sm" required>
               Default appointment communication preferences{" "}
               <HintIcon />
             </FormLabel>
@@ -126,7 +126,7 @@ export default function SettingsDetailsPage() {
             </div>
           </div>
           <div>
-            <FormLabel size="small" required>
+            <FormLabel size="sm" required>
               Tax Label for invoices (E.g. ABN)
             </FormLabel>
             <FormInput type="text" defaultValue="ABN" />
@@ -137,28 +137,28 @@ export default function SettingsDetailsPage() {
           </div>
         </Grid>
 
-        <Divider type="primary" spacing="sm" />
+        <Divider variant="primary" spacing="sm" />
 
         <div>
           <Text variant="heading/lg" style={{ marginBottom: 12 }}>Email signature</Text>
           <Flex align="center" gap={8} style={{ marginBottom: 12 }}>
             <Button
-              variant={emailSigTab === "Business" ? "primary" : "secondary"}
+              type={emailSigTab === "Business" ? "primary" : "default"}
               size="small"
               onClick={() => setEmailSigTab("Business")}
               shape="round"
               style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 4, paddingBottom: 4 }}
             >
-              Business <Icon as={DownOutlined} size="small" style={{ marginLeft: 4 }} />
+              Business <Icon as={DownOutlined} size="sm" style={{ marginLeft: 4 }} />
             </Button>
             <Button
-              variant={emailSigTab === "User" ? "primary" : "secondary"}
+              type={emailSigTab === "User" ? "primary" : "default"}
               size="small"
               onClick={() => setEmailSigTab("User")}
               shape="round"
               style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 4, paddingBottom: 4 }}
             >
-              User <Icon as={DownOutlined} size="small" style={{ marginLeft: 4 }} />
+              User <Icon as={DownOutlined} size="sm" style={{ marginLeft: 4 }} />
             </Button>
           </Flex>
           <Flex align="center" gap={4} style={{ borderRadius: '8px 8px 0 0', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '6px 8px' }}>
@@ -201,7 +201,7 @@ export default function SettingsDetailsPage() {
           </div>
         </div>
 
-        <Divider type="primary" spacing="sm" />
+        <Divider variant="primary" spacing="sm" />
 
         <div>
           <Text variant="heading/lg" style={{ marginBottom: 12 }}>Calendar lock dates</Text>
@@ -211,14 +211,14 @@ export default function SettingsDetailsPage() {
           <FormInput type="text" defaultValue="19 Dec 2025" style={{ maxWidth: 320 }} />
         </div>
 
-        <Divider type="primary" spacing="sm" />
+        <Divider variant="primary" spacing="sm" />
 
         <div>
           <Text variant="heading/lg" style={{ marginBottom: 12 }}>Google Tag Manager</Text>
           <FormInput label="Google Tag Manager ID" type="text" defaultValue="GTM-TEST1231" style={{ maxWidth: 320 }} />
         </div>
 
-        <Divider type="primary" spacing="sm" />
+        <Divider variant="primary" spacing="sm" />
 
         <div>
           <Text variant="heading/lg" style={{ marginBottom: 12 }}>Cases</Text>

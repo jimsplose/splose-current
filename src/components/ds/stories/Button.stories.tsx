@@ -146,7 +146,7 @@ export const Icon: Story = {
 
 export const Toolbar: Story = {
   render: () => (
-    <Button variant="toolbar" size="sm" style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+    <Button variant="toolbar" size="small" style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
       Arial
       <DownOutlined style={{ fontSize: 12 }} />
     </Button>
@@ -169,7 +169,7 @@ export const AllVariants: Story = {
       <Button variant="icon">
         <PlusOutlined style={{ fontSize: 16 }} />
       </Button>
-      <Button variant="toolbar" size="sm">
+      <Button variant="toolbar" size="small">
         Toolbar <DownOutlined style={{ fontSize: 12 }} />
       </Button>
     </div>
@@ -187,13 +187,13 @@ export const AllSizes: Story = {
       {(["primary", "secondary", "danger", "ghost", "link", "icon", "toolbar"] as const).map((variant) => (
         <div key={variant} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', width: 80 }}>{variant}</span>
-          <Button variant={variant} size="sm">
+          <Button type={variant} size="small">
             {variant === "icon" ? <PlusOutlined style={{ fontSize: 14 }} /> : "Small"}
           </Button>
-          <Button variant={variant} size="md">
+          <Button type={variant}>
             {variant === "icon" ? <PlusOutlined style={{ fontSize: 16 }} /> : "Medium"}
           </Button>
-          <Button variant={variant} size="lg">
+          <Button type={variant} size="large">
             {variant === "icon" ? <PlusOutlined style={{ fontSize: 20 }} /> : "Large"}
           </Button>
         </div>
@@ -210,22 +210,22 @@ export const AllSizes: Story = {
 export const RoundButtons: Story = {
   render: () => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-      <Button variant="primary" size="sm" round>
+      <Button variant="primary" size="small" shape="circle">
         <PlusOutlined style={{ fontSize: 16 }} />
       </Button>
-      <Button variant="primary" size="md" round>
+      <Button variant="primary" shape="circle">
         <PlusOutlined style={{ fontSize: 16 }} />
       </Button>
-      <Button variant="primary" size="lg" round>
+      <Button variant="primary" size="large" shape="circle">
         <PlusOutlined style={{ fontSize: 20 }} />
       </Button>
-      <Button variant="secondary" size="md" round>
+      <Button variant="secondary" shape="circle">
         <SettingOutlined style={{ fontSize: 16 }} />
       </Button>
-      <Button variant="ghost" round style={{ height: 40, width: 40, justifyContent: 'center' }}>
+      <Button variant="ghost" shape="circle" style={{ height: 40, width: 40, justifyContent: 'center' }}>
         <LeftOutlined style={{ fontSize: 16 }} />
       </Button>
-      <Button variant="icon" round>
+      <Button variant="icon" shape="circle">
         <RightOutlined style={{ fontSize: 16 }} />
       </Button>
     </div>
@@ -241,37 +241,37 @@ export const IconOnlyButtons: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', width: 160 }}>ghost + iconOnly</span>
-        <Button variant="ghost" iconOnly style={{ color: 'var(--color-text-secondary)' }}>
+        <Button variant="ghost" style={{ color: 'var(--color-text-secondary)' }}>
           <DeleteOutlined style={{ fontSize: 14 }} />
         </Button>
-        <Button variant="ghost" iconOnly style={{ color: 'var(--color-text-secondary)' }}>
+        <Button variant="ghost" style={{ color: 'var(--color-text-secondary)' }}>
           <MoreOutlined style={{ fontSize: 16 }} />
         </Button>
-        <Button variant="ghost" iconOnly style={{ color: 'var(--color-text-secondary)' }}>
+        <Button variant="ghost" style={{ color: 'var(--color-text-secondary)' }}>
           &times;
         </Button>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', width: 160 }}>ghost + iconOnly + circle</span>
-        <Button variant="ghost" iconOnly shape="circle" size="sm">
+        <Button variant="ghost" shape="circle" size="small">
           <CloseOutlined style={{ fontSize: 12 }} />
         </Button>
-        <Button variant="ghost" iconOnly shape="circle">
+        <Button variant="ghost" shape="circle">
           <CloseOutlined style={{ fontSize: 14 }} />
         </Button>
-        <Button variant="ghost" iconOnly shape="circle" size="lg">
+        <Button variant="ghost" shape="circle" size="large">
           <CloseOutlined style={{ fontSize: 16 }} />
         </Button>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-text-secondary)', width: 160 }}>primary + iconOnly + circle</span>
-        <Button variant="primary" iconOnly shape="circle" size="sm">
+        <Button variant="primary" shape="circle" size="small">
           <PlusOutlined style={{ fontSize: 14 }} />
         </Button>
-        <Button variant="primary" iconOnly shape="circle">
+        <Button variant="primary" shape="circle">
           <PlusOutlined style={{ fontSize: 16 }} />
         </Button>
-        <Button variant="secondary" iconOnly shape="circle">
+        <Button variant="secondary" shape="circle">
           <SettingOutlined style={{ fontSize: 16 }} />
         </Button>
       </div>
@@ -287,14 +287,14 @@ export const IconOnlyButtons: Story = {
 export const PillShapes: Story = {
   render: () => (
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
-      <Button variant="primary" size="sm" shape="pill">Primary pill</Button>
-      <Button variant="secondary" size="sm" shape="pill">Secondary pill</Button>
-      <Button variant="secondary" size="sm" shape="pill">Location</Button>
-      <Button variant="secondary" size="sm" shape="pill">Practitioner</Button>
-      <Button variant="secondary" size="sm" shape="pill">Compare</Button>
+      <Button variant="primary" size="small" shape="pill">Primary pill</Button>
+      <Button variant="secondary" size="small" shape="pill">Secondary pill</Button>
+      <Button variant="secondary" size="small" shape="pill">Location</Button>
+      <Button variant="secondary" size="small" shape="pill">Practitioner</Button>
+      <Button variant="secondary" size="small" shape="pill">Compare</Button>
       <Button
         variant="secondary"
-        size="sm"
+        size="small"
         shape="pill"
         style={{ borderColor: 'var(--color-primary)', backgroundColor: 'rgba(124, 58, 237, 0.1)', fontWeight: 500, color: 'var(--color-primary)' }}
       >
@@ -377,11 +377,11 @@ export const PageHeaderActions: Story = {
 export const ToolbarButtons: Story = {
   render: () => (
     <Card padding="none" style={{ display: 'inline-flex', flexWrap: 'wrap', alignItems: 'center', gap: 4, paddingLeft: 8, paddingRight: 8, paddingTop: 6, paddingBottom: 6, color: 'var(--color-text-secondary)' }}>
-      <Button variant="toolbar" size="sm" style={{ display: 'flex', alignItems: 'center', gap: 2, fontSize: 11 }}>
+      <Button variant="toolbar" size="small" style={{ display: 'flex', alignItems: 'center', gap: 2, fontSize: 11 }}>
         Arial
         <DownOutlined style={{ fontSize: 12 }} />
       </Button>
-      <Button variant="toolbar" size="sm" style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+      <Button variant="toolbar" size="small" style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <FontSizeOutlined style={{ fontSize: 16 }} />
         <DownOutlined style={{ fontSize: 12 }} />
       </Button>
@@ -425,7 +425,7 @@ export const ToolbarButtons: Story = {
         <ThunderboltOutlined style={{ fontSize: 14 }} />
         Generate
       </Button>
-      <Button variant="primary" round size="sm">
+      <Button variant="primary" shape="circle" size="small">
         <PlusOutlined style={{ fontSize: 16 }} />
       </Button>
     </Card>
@@ -442,36 +442,36 @@ export const ToolbarButtons: Story = {
 export const FilterChipRow: Story = {
   render: () => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid var(--color-border)', paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}>
-      <Button variant="secondary" size="sm">
+      <Button variant="secondary" size="small">
         Today
       </Button>
       <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-        <Button variant="icon" size="sm">
+        <Button variant="icon" size="small">
           <LeftOutlined style={{ fontSize: 16 }} />
         </Button>
-        <Button variant="icon" size="sm">
+        <Button variant="icon" size="small">
           <RightOutlined style={{ fontSize: 16 }} />
         </Button>
       </div>
       <span style={{ color: 'var(--color-text)' }}>March 2026</span>
       <div style={{ color: 'var(--color-text-secondary)', marginLeft: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
-        <Button variant="icon" size="sm">
+        <Button variant="icon" size="small">
           <FilterOutlined style={{ fontSize: 16 }} />
         </Button>
-        <Button variant="icon" size="sm">
+        <Button variant="icon" size="small">
           <SettingOutlined style={{ fontSize: 16 }} />
         </Button>
       </div>
       <div style={{ flex: 1 }} />
       <Badge variant="green" shape="pill">East Clinics</Badge>
       <Badge variant="purple" shape="pill">Physio</Badge>
-      <Button variant="primary" size="sm" round>
+      <Button variant="primary" size="small" shape="circle">
         <PlusOutlined style={{ fontSize: 16 }} />
       </Button>
-      <Button variant="secondary" size="sm">
+      <Button variant="secondary" size="small">
         Calendar <span style={{ color: 'var(--color-text-secondary)' }}>&#9662;</span>
       </Button>
-      <Button variant="secondary" size="sm">
+      <Button variant="secondary" size="small">
         Week <span style={{ color: 'var(--color-text-secondary)' }}>&#9662;</span>
       </Button>
     </div>
@@ -513,16 +513,16 @@ export const FormActionsDanger: Story = {
 export const IconButtonGroup: Story = {
   render: () => (
     <div style={{ color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: 8 }}>
-      <Button variant="icon" size="sm">
+      <Button variant="icon" size="small">
         <FilterOutlined style={{ fontSize: 16 }} />
       </Button>
-      <Button variant="icon" size="sm">
+      <Button variant="icon" size="small">
         <SettingOutlined style={{ fontSize: 16 }} />
       </Button>
-      <Button variant="icon" size="sm">
+      <Button variant="icon" size="small">
         <AppstoreOutlined style={{ fontSize: 16 }} />
       </Button>
-      <Button variant="icon" size="sm">
+      <Button variant="icon" size="small">
         <EnvironmentOutlined style={{ fontSize: 16 }} />
       </Button>
     </div>
@@ -554,7 +554,7 @@ export const LinkActions: Story = {
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <HistoryOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-text-secondary)' }} />
-        <Button variant="link" size="sm">
+        <Button variant="link" size="small">
           View change log
         </Button>
       </div>
@@ -575,7 +575,7 @@ export const FABButton: Story = {
       <div style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)', display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
         Page content
       </div>
-      <Button variant="primary" size="md" round style={{ position: 'absolute', right: 16, bottom: 16, boxShadow: '0 10px 15px rgba(0,0,0,.1)' }}>
+      <Button variant="primary" shape="circle" style={{ position: 'absolute', right: 16, bottom: 16, boxShadow: '0 10px 15px rgba(0,0,0,.1)' }}>
         <PlusOutlined style={{ fontSize: 20 }} />
       </Button>
     </div>
@@ -643,27 +643,27 @@ export const ComposeToolbar: Story = {
         Type a message...
       </Card>
       <div style={{ color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: 2 }}>
-        <Button variant="icon" size="sm" style={{ fontSize: 14, lineHeight: 1.57, fontWeight: 600 }} title="Bold">
+        <Button variant="icon" size="small" style={{ fontSize: 14, lineHeight: 1.57, fontWeight: 600 }} title="Bold">
           B
         </Button>
-        <Button variant="icon" size="sm" style={{ fontStyle: 'italic' }} title="Italic">
+        <Button variant="icon" size="small" style={{ fontStyle: 'italic' }} title="Italic">
           I
         </Button>
-        <Button variant="icon" size="sm" style={{ textDecoration: 'underline' }} title="Underline">
+        <Button variant="icon" size="small" style={{ textDecoration: 'underline' }} title="Underline">
           U
         </Button>
         <span className="bg-border" style={{ marginLeft: 2, marginRight: 2, height: 16, width: 1 }} />
-        <Button variant="icon" size="sm" title="Link">
+        <Button variant="icon" size="small" title="Link">
           <LinkOutlined style={{ fontSize: 14 }} />
         </Button>
-        <Button variant="icon" size="sm" title="Image">
+        <Button variant="icon" size="small" title="Image">
           <PictureOutlined style={{ fontSize: 14 }} />
         </Button>
-        <Button variant="icon" size="sm" title="List">
+        <Button variant="icon" size="small" title="List">
           <UnorderedListOutlined style={{ fontSize: 14 }} />
         </Button>
         <div style={{ flex: 1 }} />
-        <Button variant="primary" size="sm">
+        <Button variant="primary" size="small">
           <SendOutlined style={{ fontSize: 14 }} />
           Send
         </Button>

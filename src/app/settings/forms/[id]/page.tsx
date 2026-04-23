@@ -129,7 +129,7 @@ export default function FormTemplateEditorPage() {
                         />
                         <Toggle checked={field.required} onChange={(checked) => setFields((prev) => prev.map((f) => f.id === field.id ? { ...f, required: checked } : f))} label="Required" />
                         <Tooltip content="Remove field">
-                          <Button type="text" iconOnly onClick={() => removeField(field.id)} style={{ color: 'var(--color-text-secondary)' }}>
+                          <Button type="text" onClick={() => removeField(field.id)} style={{ color: 'var(--color-text-secondary)' }}>
                             <Icon as={DeleteOutlined} />
                           </Button>
                         </Tooltip>
@@ -176,7 +176,7 @@ export default function FormTemplateEditorPage() {
                 <Flex vertical gap={16}>
                   {fields.map((field) => (
                     <div key={field.id}>
-                      <FormLabel size="small" required={field.required}>
+                      <FormLabel size="sm" required={field.required}>
                         {field.label}
                       </FormLabel>
                       {field.type === "long-text" ? (
@@ -207,12 +207,12 @@ export default function FormTemplateEditorPage() {
             <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
               <h3 style={{ fontSize: 16, fontWeight: 600 }}>Share & Automate</h3>
               <Tooltip content="Close panel">
-                <Button type="text" iconOnly onClick={() => setSidePanel(null)} style={{ color: 'var(--color-text-secondary)' }}>&times;</Button>
+                <Button type="text" onClick={() => setSidePanel(null)} style={{ color: 'var(--color-text-secondary)' }}>&times;</Button>
               </Tooltip>
             </Flex>
             <Flex vertical gap={16}>
               <div>
-                <FormLabel size="small" style={{ color: 'var(--color-text-secondary)' }}>Form link</FormLabel>
+                <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>Form link</FormLabel>
                 <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '8px 12px', wordBreak: 'break-all', fontSize: 12, color: 'var(--color-primary)' }}>
                   https://acme.splose.com/patient-form/81783/view
                 </div>

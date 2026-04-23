@@ -35,7 +35,7 @@ export default function NoteViewToolbar({
         </Button>
         {signed ? (
           <Button>
-            <Icon as={UndoOutlined} size="large" />
+            <Icon as={UndoOutlined} size="lg" />
             Revert to draft
           </Button>
         ) : (

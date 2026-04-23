@@ -149,7 +149,7 @@ export default function EditProgressNoteTemplatePage() {
                     )}
                     <Dropdown
                       trigger={
-                        <Button type="text" iconOnly style={{ color: 'var(--color-text-secondary)' }}>
+                        <Button type="text" style={{ color: 'var(--color-text-secondary)' }}>
                           <Icon as={MoreOutlined} />
                         </Button>
                       }
@@ -177,7 +177,7 @@ export default function EditProgressNoteTemplatePage() {
           )}
 
           <div>
-            <FormLabel size="small" style={{ color: 'var(--color-text-secondary)' }}>Free text section</FormLabel>
+            <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>Free text section</FormLabel>
             <RichTextEditor value={freeText} onChange={setFreeText} rows={6} />
           </div>
         </Flex>

@@ -139,7 +139,7 @@ export default function DataExportPage() {
           />
         </div>
         <div>
-          <FormLabel size="small" style={{ color: 'var(--color-text-secondary)' }} required>Date</FormLabel>
+          <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }} required>Date</FormLabel>
           <Flex align="center" gap={8}>
             <FormInput
               type="date"

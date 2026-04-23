@@ -307,7 +307,7 @@ export default function InvoiceSettingsPage() {
               />
               <FormInput label="Subject" value={form.subject} onChange={(e) => setField("subject", e.target.value)} />
               <div>
-                <FormLabel size="small" style={{ color: 'var(--color-text-secondary)' }}>Body</FormLabel>
+                <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>Body</FormLabel>
                 <RichTextEditor
                   value={form.body}
                   onChange={(html) => setField("body", html)}

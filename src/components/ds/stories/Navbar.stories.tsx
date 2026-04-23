@@ -195,7 +195,7 @@ export const NewNoteNavbar: Story = {
       title="New progress note"
       badge={<Badge variant="yellow">Unsaved</Badge>}
     >
-      <Button variant="primary" round size="sm" style={{ borderColor: '#22c55e', backgroundColor: '#22c55e' }}>
+      <Button variant="primary" shape="circle" size="small" style={{ borderColor: '#22c55e', backgroundColor: '#22c55e' }}>
         <span style={{ lineHeight: 1, fontSize: 18, fontWeight: 700 }}>+</span>
       </Button>
       <Filter

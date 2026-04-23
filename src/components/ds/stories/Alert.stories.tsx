@@ -155,7 +155,7 @@ export const StripeConnectionBanner: Story = {
           <span style={{ fontSize: 14, lineHeight: 1.57 }}>
             Connect your Stripe account to accept online payments from clients.
           </span>
-          <Button variant="primary" size="sm" style={{ marginLeft: 16, flexShrink: 0 }}>
+          <Button variant="primary" size="small" style={{ marginLeft: 16, flexShrink: 0 }}>
             Connect Stripe
           </Button>
         </div>
@@ -180,7 +180,7 @@ export const BetaFeatureBanner: Story = {
             <Badge variant="yellow">BETA</Badge>
             <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text)' }}>We need your feedback on AI blocks</span>
           </div>
-          <Button variant="link" size="sm" style={{ flexShrink: 0 }}>
+          <Button variant="link" size="small" style={{ flexShrink: 0 }}>
             <ThunderboltOutlined style={{ fontSize: 14 }} />
             Give feedback
           </Button>

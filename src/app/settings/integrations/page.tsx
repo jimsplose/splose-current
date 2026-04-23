@@ -168,7 +168,8 @@ export default function IntegrationsPage() {
               {integration.actions.map((action) => (
                 <Button
                   key={action.label}
-                  variant={action.variant}
+                  type={action.variant === "danger" || action.variant === "secondary" ? "default" : action.variant}
+                  danger={action.variant === "danger"}
                 >
                   {action.label}
                 </Button>

@@ -36,27 +36,27 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
               <Th>
                 <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Invoice #
-                  <Icon as={SwapOutlined} size="small" tone="secondary" />
-                  <Icon as={FilterOutlined} size="small" tone="secondary" />
+                  <Icon as={SwapOutlined} size="sm" tone="secondary" />
+                  <Icon as={FilterOutlined} size="sm" tone="secondary" />
                 </Flex>
               </Th>
               <Th>To</Th>
               <Th>
                 <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Location
-                  <Icon as={FilterOutlined} size="small" tone="secondary" />
+                  <Icon as={FilterOutlined} size="sm" tone="secondary" />
                 </Flex>
               </Th>
               <Th>
                 <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Practitioner
-                  <Icon as={FilterOutlined} size="small" tone="secondary" />
+                  <Icon as={FilterOutlined} size="sm" tone="secondary" />
                 </Flex>
               </Th>
               <Th>
                 <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Issue date
-                  <Icon as={SwapOutlined} size="small" tone="secondary" />
+                  <Icon as={SwapOutlined} size="sm" tone="secondary" />
                 </Flex>
               </Th>
               <Th>
@@ -67,13 +67,13 @@ export default async function ClientInvoicesPage({ params }: { params: Promise<{
               <Th>
                 <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Status
-                  <Icon as={FilterOutlined} size="small" tone="secondary" />
+                  <Icon as={FilterOutlined} size="sm" tone="secondary" />
                 </Flex>
               </Th>
               <Th>
                 <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                   Sent status
-                  <Icon as={FilterOutlined} size="small" tone="secondary" />
+                  <Icon as={FilterOutlined} size="sm" tone="secondary" />
                 </Flex>
               </Th>
             </TableHead>

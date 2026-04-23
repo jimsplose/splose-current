@@ -504,8 +504,7 @@ export default function ProductsPage() {
                     <Td align="center" style={{ padding: '12px 8px' }}>
                       <Button
                         type="text"
-                        size="small"
-                        round
+                        size="small" shape="circle"
                         onClick={(e) => {
                           e.stopPropagation();
                           toggleExpand(globalIndex);

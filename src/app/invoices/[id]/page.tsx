@@ -31,7 +31,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
         <Flex align="center" gap={12}>
           <Text variant="display/lg" as="h1" color="rgb(66, 105, 74)">{invoice.invoiceNumber}</Text>
           <PaymentStatusBadge status={dbStatusToPaymentStatus(invoice.status)} />
-          {creditBalance > 0 && <PaymentStatusBadge status="paid" size="large" />}
+          {creditBalance > 0 && <PaymentStatusBadge status="paid" size="lg" />}
         </Flex>
         <InvoiceActions />
       </Flex>

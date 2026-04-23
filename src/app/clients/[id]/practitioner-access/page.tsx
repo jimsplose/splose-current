@@ -44,7 +44,7 @@ export default function ClientPractitionerAccessPage() {
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Name
-                <Icon as={SwapOutlined} size="small" tone="secondary" />
+                <Icon as={SwapOutlined} size="sm" tone="secondary" />
               </Flex>
             </Th>
             <Th>Role name</Th>
@@ -52,8 +52,8 @@ export default function ClientPractitionerAccessPage() {
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Group
-                <Icon as={SwapOutlined} size="small" tone="secondary" />
-                <Icon as={FilterOutlined} size="small" tone="secondary" />
+                <Icon as={SwapOutlined} size="sm" tone="secondary" />
+                <Icon as={FilterOutlined} size="sm" tone="secondary" />
               </Flex>
             </Th>
             <Th>Status</Th>

@@ -37,7 +37,7 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Created by
-                <Icon as={SwapOutlined} size="small" tone="secondary" />
+                <Icon as={SwapOutlined} size="sm" tone="secondary" />
               </Flex>
             </Th>
             <Th>Service date</Th>
@@ -45,7 +45,7 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Created at
-                <Icon as={SwapOutlined} size="small" tone="secondary" />
+                <Icon as={SwapOutlined} size="sm" tone="secondary" />
               </Flex>
             </Th>
           </TableHead>

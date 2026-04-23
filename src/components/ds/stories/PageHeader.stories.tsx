@@ -149,15 +149,15 @@ export const ProductsPageHeader: Story = {
 export const WaitlistPageHeader: Story = {
   render: () => (
     <PageHeader title="Waitlist">
-      <Button variant="secondary" size="sm">
+      <Button variant="secondary" size="small">
         <FilterOutlined style={{ fontSize: 16 }} />
         Reset all filters
       </Button>
-      <Button variant="secondary" size="sm">
+      <Button variant="secondary" size="small">
         <QuestionCircleOutlined style={{ fontSize: 16 }} />
         Learn
       </Button>
-      <Button variant="secondary" size="sm">
+      <Button variant="secondary" size="small">
         <EnvironmentOutlined style={{ fontSize: 16 }} />
         Map
       </Button>

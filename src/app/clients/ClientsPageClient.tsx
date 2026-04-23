@@ -101,9 +101,9 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
               </Td>
               <Td hidden="md">
                 {client.ndisNumber ? (
-                  <Tag color="rgb(249,202,36)" size="small">NDIS</Tag>
+                  <Tag color="rgb(249,202,36)" size="sm">NDIS</Tag>
                 ) : client.medicare ? (
-                  <Tag color="rgb(249,202,36)" size="small">Medicare</Tag>
+                  <Tag color="rgb(249,202,36)" size="sm">Medicare</Tag>
                 ) : null}
               </Td>
             </Tr>

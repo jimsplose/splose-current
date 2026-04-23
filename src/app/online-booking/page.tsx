@@ -198,14 +198,13 @@ function OnlineBookingPageInner() {
                         <div className={styles.dateTimePicker}>
                           <Text variant="heading/sm" as="div" style={{ marginBottom: 8 }}>March 2026</Text>
                           <div className={styles.weekNav}>
-                            <Button type="text" round>
+                            <Button type="text" shape="circle">
                               <Icon as={LeftOutlined} />
                             </Button>
                             {weekDays.map((d) => (
                               <Button
                                 key={d.date}
-                                type="text"
-                                round
+                                type="text" shape="circle"
                                 onClick={() => {
                                   setSelectedDate(d.date);
                                   setSelectedPractitioner(prac.id);
@@ -222,7 +221,7 @@ function OnlineBookingPageInner() {
                                 <Text variant="caption/sm" as="span">{d.date}</Text>
                               </Button>
                             ))}
-                            <Button type="text" round>
+                            <Button type="text" shape="circle">
                               <Icon as={RightOutlined} />
                             </Button>
                           </div>
@@ -508,7 +507,7 @@ function OnlineBookingPageInner() {
                     <Text variant="heading/sm" as="div">Location</Text>
                     {selectedLocation && (
                       <Flex align="center" gap={6}>
-                        <Icon as={EnvironmentOutlined} size="small" />
+                        <Icon as={EnvironmentOutlined} size="sm" />
                         <Text variant="caption/md" as="span" color="secondary">{mockLocations.find((l) => l.id === selectedLocation)?.name}</Text>
                       </Flex>
                     )}
@@ -530,7 +529,7 @@ function OnlineBookingPageInner() {
                     {step !== "location" && (
                       <>
                         <Flex align="center" gap={6}>
-                          <Icon as={FileTextOutlined} size="small" />
+                          <Icon as={FileTextOutlined} size="sm" />
                           <Text variant="caption/md" as="span" color="secondary">1:1 Consultation (40 mins d...</Text>
                         </Flex>
                         <Flex align="center" gap={6}>
@@ -550,15 +549,15 @@ function OnlineBookingPageInner() {
                     {step === "confirm" && selectedPrac && (
                       <>
                         <Flex align="center" gap={6}>
-                          <Icon as={UserOutlined} size="small" />
+                          <Icon as={UserOutlined} size="sm" />
                           <Text variant="caption/md" as="span" color="secondary">{selectedPrac.name}</Text>
                         </Flex>
                         <Flex align="center" gap={6}>
-                          <Icon as={ClockCircleOutlined} size="small" />
+                          <Icon as={ClockCircleOutlined} size="sm" />
                           <Text variant="caption/md" as="span" color="secondary">{selectedTime}</Text>
                         </Flex>
                         <Flex align="center" gap={6}>
-                          <Icon as={CalendarOutlined} size="small" />
+                          <Icon as={CalendarOutlined} size="sm" />
                           <Text variant="caption/md" as="span" color="secondary">Thursday 19 March 2026</Text>
                         </Flex>
                       </>

@@ -33,7 +33,7 @@ export default function SMSSettingsPage() {
         <Stat label="SMS credit balance" value={884} valueStyle={{ fontSize: 24, lineHeight: 1.5715 }} />
       </Card>
 
-      <Divider type="primary" spacing="sm" />
+      <Divider variant="primary" spacing="sm" />
 
       {/* Recharge credits section */}
       <div style={{ marginBottom: 32 }}>
@@ -90,7 +90,7 @@ export default function SMSSettingsPage() {
         </div>
       </div>
 
-      <Divider type="primary" spacing="sm" />
+      <Divider variant="primary" spacing="sm" />
 
       {/* SMS pricing section */}
       <div style={{ maxWidth: 672 }}>
@@ -116,7 +116,7 @@ export default function SMSSettingsPage() {
         </Flex>
       </div>
 
-      <Divider type="primary" spacing="sm" />
+      <Divider variant="primary" spacing="sm" />
 
       {/* Low credit balance email reminder */}
       <div style={{ maxWidth: 672, marginBottom: 24 }}>
@@ -146,7 +146,7 @@ export default function SMSSettingsPage() {
         <Button type="primary">Save</Button>
       </div>
 
-      <Divider type="primary" spacing="sm" />
+      <Divider variant="primary" spacing="sm" />
 
       {/* Two-way SMS section */}
       <div style={{ maxWidth: 672 }}>

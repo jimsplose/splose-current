@@ -149,7 +149,7 @@ export default function PaymentsPage() {
                   <Td>
                     <Flex align="center" gap={8}>
                       {payment.invoices.length > 0 ? (
-                        <Button type="text" size="small" style={{ height: 20, width: 20 }} round>
+                        <Button type="text" size="small" style={{ height: 20, width: 20 }} shape="circle">
                           {expandedId === payment.id ? (
                             <svg
                               width="14"

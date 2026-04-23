@@ -104,10 +104,10 @@ export default function DataImportPage() {
             <Text variant="body/md" color="secondary" style={{ marginBottom: 12 }}>Data importing is complicated. Chat with us to schedule a data import.</Text>
             <Flex align="center" gap={16}>
               <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 500 }}>
-                <Icon as={MessageOutlined} size="large" /> Chat with us
+                <Icon as={MessageOutlined} size="lg" /> Chat with us
               </a>
               <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 500 }}>
-                <Icon as={ReadOutlined} size="large" /> Help guide
+                <Icon as={ReadOutlined} size="lg" /> Help guide
               </a>
             </Flex>
           </div>
@@ -116,7 +116,7 @@ export default function DataImportPage() {
 
       <PageHeader title="Import data">
         <Button type="primary" onClick={startImportFlow}>
-          <Icon as={UploadOutlined} size="large" style={{ color: 'inherit' }} /> Import
+          <Icon as={UploadOutlined} size="lg" style={{ color: 'inherit' }} /> Import
         </Button>
       </PageHeader>
 
@@ -155,14 +155,14 @@ export default function DataImportPage() {
           ) : importStep !== "source" ? (
             <Flex justify="space-between" align="center" style={{ width: '100%' }}>
               <Button type="text" onClick={handleImportBack}>
-                <Icon as={ArrowLeftOutlined} size="large" /> Back
+                <Icon as={ArrowLeftOutlined} size="lg" /> Back
               </Button>
               <Flex align="center" gap={8}>
                 <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>
                   Step {importStep === "upload" ? "1" : importStep === "mapping" ? "2" : "3"} of 3
                 </span>
                 <Button type="primary" onClick={handleImportNext}>
-                  {importStep === "preview" ? "Start import" : "Continue"} <Icon as={ArrowRightOutlined} size="large" style={{ color: 'inherit' }} />
+                  {importStep === "preview" ? "Start import" : "Continue"} <Icon as={ArrowRightOutlined} size="lg" style={{ color: 'inherit' }} />
                 </Button>
               </Flex>
             </Flex>
@@ -205,7 +205,7 @@ export default function DataImportPage() {
               </Flex>
             </Card>
             <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: '#f0fdf4', padding: '8px 12px' }}>
-              <Icon as={FileTextOutlined} size="large" style={{ color: '#16a34a' }} />
+              <Icon as={FileTextOutlined} size="lg" style={{ color: '#16a34a' }} />
               <span style={{ fontSize: 12, color: '#15803d' }}>client_export_march_2026.csv</span>
               <Badge variant="green">Ready</Badge>
               <span style={{ fontSize: 11, color: 'var(--color-text-secondary)', marginLeft: 'auto' }}>10 rows · 10 columns</span>
@@ -227,7 +227,7 @@ export default function DataImportPage() {
                     <Td>
                       {columnMapping[col] ? (
                         <Flex align="center" gap={4} style={{ color: '#16a34a' }}>
-                          <Icon as={CheckCircleOutlined} size="large" />
+                          <Icon as={CheckCircleOutlined} size="lg" />
                           <span style={{ fontSize: 12 }}>Mapped</span>
                         </Flex>
                       ) : (
@@ -278,8 +278,8 @@ export default function DataImportPage() {
               </DataTable>
             </div>
             <Flex align="center" gap={16} style={{ borderRadius: 8, backgroundColor: 'var(--color-fill-tertiary)', padding: 12 }}>
-              <Flex align="center" gap={6}><Icon as={CheckCircleOutlined} size="large" style={{ color: '#16a34a' }} /><span style={{ fontSize: 12 }}>4 valid</span></Flex>
-              <Flex align="center" gap={6}><Icon as={WarningOutlined} size="large" style={{ color: '#ca8a04' }} /><span style={{ fontSize: 12 }}>1 warning</span></Flex>
+              <Flex align="center" gap={6}><Icon as={CheckCircleOutlined} size="lg" style={{ color: '#16a34a' }} /><span style={{ fontSize: 12 }}>4 valid</span></Flex>
+              <Flex align="center" gap={6}><Icon as={WarningOutlined} size="lg" style={{ color: '#ca8a04' }} /><span style={{ fontSize: 12 }}>1 warning</span></Flex>
               <Flex align="center" gap={6}><span style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>0 errors</span></Flex>
             </Flex>
           </Flex>

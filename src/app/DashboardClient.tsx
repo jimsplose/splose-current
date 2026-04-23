@@ -195,7 +195,7 @@ function MessageItem({
       className={`${styles.messageItem} ${styles.messageItemWrapper}`}
       onClick={onToggle}
     >
-      <Avatar name={message.sender} color={message.color} size="small" />
+      <Avatar name={message.sender} color={message.color} size="sm" />
       <div className={styles.messageCardBody}>
         <Flex align="baseline" gap={6}>
           <Text variant="body/md-strong" as="span" color="text">{message.sender}</Text>
@@ -290,7 +290,7 @@ export default function DashboardClient({ todayAppointments, unsignedNotes }: Da
 
             {todayAppointments.slice(0, 5).map((appt) => (
               <Flex key={appt.id} align="flex-start" gap={10}>
-                <Avatar name={appt.practitioner.name} color={appt.practitioner.color} size="small" />
+                <Avatar name={appt.practitioner.name} color={appt.practitioner.color} size="sm" />
                 <div className={styles.messageCardBody}>
                   <Flex align="baseline" gap={6}>
                     <Text variant="body/md-strong" as="span" color="text">

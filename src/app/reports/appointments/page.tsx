@@ -175,7 +175,7 @@ export default function ReportsAppointmentsPage() {
       {activeFilters.length > 0 && (
         <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 32 }}>
           {activeFilters.map((f) => (
-            <Badge key={f} variant="blue" shape="round" onRemove={() => handleRemoveFilter(f)}>
+            <Badge key={f} variant="blue" shape="pill" onRemove={() => handleRemoveFilter(f)}>
               {filterLabels[f]}
             </Badge>
           ))}

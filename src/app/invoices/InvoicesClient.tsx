@@ -94,17 +94,17 @@ export default function InvoicesClient({
     <>
       <Text variant="label/md" as="span" color="secondary">Filters:</Text>
       {locationFilter && (
-        <Badge shape="round" onRemove={() => setLocationFilter(null)}>
+        <Badge shape="pill" onRemove={() => setLocationFilter(null)}>
           Location: {locationFilter}
         </Badge>
       )}
       {practitionerFilter && (
-        <Badge shape="round" onRemove={() => setPractitionerFilter(null)}>
+        <Badge shape="pill" onRemove={() => setPractitionerFilter(null)}>
           Practitioner: {practitionerFilter}
         </Badge>
       )}
       {statusFilter && (
-        <Badge shape="round" onRemove={() => setStatusFilter(null)}>
+        <Badge shape="pill" onRemove={() => setStatusFilter(null)}>
           Status: {statusFilter}
         </Badge>
       )}
@@ -222,7 +222,7 @@ export default function InvoicesClient({
                         uniqueLocations.map((loc) => (
                           <Button
                             key={loc}
-                            variant={locationFilter === loc ? "primary" : "secondary"}
+                            type={locationFilter === loc ? "primary" : "default"}
                             size="small"
                             onClick={() => {
                               setLocationFilter(
@@ -238,7 +238,7 @@ export default function InvoicesClient({
                         uniquePractitioners.map((prac) => (
                           <Button
                             key={prac}
-                            variant={practitionerFilter === prac ? "primary" : "secondary"}
+                            type={practitionerFilter === prac ? "primary" : "default"}
                             size="small"
                             onClick={() => {
                               setPractitionerFilter(
@@ -254,7 +254,7 @@ export default function InvoicesClient({
                         uniqueStatuses.map((st) => (
                           <Button
                             key={st}
-                            variant={statusFilter === st ? "primary" : "secondary"}
+                            type={statusFilter === st ? "primary" : "default"}
                             size="small"
                             onClick={() => {
                               setStatusFilter(

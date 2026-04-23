@@ -115,17 +115,17 @@ export const OnIconButton: Story = {
   render: () => (
     <div style={{ display: "flex", gap: 12, padding: 24 }}>
       <Tooltip content="Edit">
-        <Button variant="secondary" iconOnly>
+        <Button variant="secondary">
           <Icon as={EditOutlined} size="md" />
         </Button>
       </Tooltip>
       <Tooltip content="Duplicate">
-        <Button variant="secondary" iconOnly>
+        <Button variant="secondary">
           <Icon as={CopyOutlined} size="md" />
         </Button>
       </Tooltip>
       <Tooltip content="Delete">
-        <Button variant="secondary" iconOnly>
+        <Button variant="secondary">
           <Icon as={DeleteOutlined} size="md" />
         </Button>
       </Tooltip>
@@ -208,17 +208,17 @@ export const CalendarToolbarIconTooltips: Story = {
       }}
     >
       <Tooltip content="Filter">
-        <Button variant="secondary" iconOnly>
+        <Button variant="secondary">
           <Icon as={FilterOutlined} size="md" />
         </Button>
       </Tooltip>
       <Tooltip content="Settings">
-        <Button variant="secondary" iconOnly>
+        <Button variant="secondary">
           <Icon as={SettingOutlined} size="md" />
         </Button>
       </Tooltip>
       <Tooltip content="Locations">
-        <Button variant="secondary" iconOnly>
+        <Button variant="secondary">
           <Icon as={EnvironmentOutlined} size="md" />
         </Button>
       </Tooltip>
@@ -245,17 +245,17 @@ export const TableRowActionTooltips: Story = {
             <td style={{ padding: "12px 8px" }}>
               <div style={{ display: "flex", gap: 4 }}>
                 <Tooltip content="Print invoice">
-                  <Button variant="secondary" iconOnly>
+                  <Button variant="secondary">
                     <Icon as={PrinterOutlined} size="md" />
                   </Button>
                 </Tooltip>
                 <Tooltip content="Duplicate">
-                  <Button variant="secondary" iconOnly>
+                  <Button variant="secondary">
                     <Icon as={CopyOutlined} size="md" />
                   </Button>
                 </Tooltip>
                 <Tooltip content="Delete">
-                  <Button variant="secondary" iconOnly>
+                  <Button variant="secondary">
                     <Icon as={DeleteOutlined} size="md" />
                   </Button>
                 </Tooltip>

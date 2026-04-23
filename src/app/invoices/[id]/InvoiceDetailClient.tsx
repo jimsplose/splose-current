@@ -118,7 +118,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           <PaymentStatusBadge status={dbStatusToPaymentStatus(invoice.status)} />
         </Flex>
         <Flex align="center" gap={8}>
-          <PaymentStatusBadge status="paid" size="large" />
+          <PaymentStatusBadge status="paid" size="lg" />
           <Dropdown
             trigger={
               <Button>

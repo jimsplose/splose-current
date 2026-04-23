@@ -49,7 +49,7 @@ export default function InvoiceActions() {
       />
       {/* eslint-disable-next-line no-restricted-syntax -- decorative button shadow */}
       <Button style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
-        <Icon as={MailOutlined} size="large" tone="secondary" />
+        <Icon as={MailOutlined} size="lg" tone="secondary" />
         Email Invoice
       </Button>
       <Dropdown

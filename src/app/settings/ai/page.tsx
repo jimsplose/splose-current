@@ -95,7 +95,7 @@ function PreferencesTab() {
       <div style={{ display: 'flex', gap: 60 }}>
         {/* Left column — preferences */}
         <div style={{ flex: '1 1 0' }}>
-          <Divider type="primary" spacing="sm" />
+          <Divider variant="primary" spacing="sm" />
           <Text variant="body/md" as="h4" color="text" style={{ marginBottom: 10 }}>Preferences</Text>
 
           {/* Card container */}
@@ -113,7 +113,7 @@ function PreferencesTab() {
               </Flex>
             </Flex>
 
-            <Divider type="primary" spacing="sm" style={{ margin: '0 0 12px' }} />
+            <Divider variant="primary" spacing="sm" style={{ margin: '0 0 12px' }} />
 
             {/* Email */}
             <Text variant="heading/xl" as="h4" color="text" style={{ marginBottom: 30 }}>splose AI - email</Text>
@@ -122,7 +122,7 @@ function PreferencesTab() {
               <Toggle checked={emailAssistant} onChange={setEmailAssistant} />
             </Flex>
 
-            <Divider type="primary" spacing="sm" style={{ margin: '0 0 12px' }} />
+            <Divider variant="primary" spacing="sm" style={{ margin: '0 0 12px' }} />
 
             {/* Calendar */}
             <Text variant="heading/xl" as="h4" color="text" style={{ marginBottom: 30 }}>splose AI - calendar</Text>

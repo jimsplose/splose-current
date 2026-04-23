@@ -216,26 +216,26 @@ export default function ContactsPage() {
           <Th>
             <Flex align="center" gap={4}>
               Type
-              <Icon as={SwapOutlined} size="small" tone="secondary" />
-              <Icon as={FilterOutlined} size="small" tone="secondary" />
+              <Icon as={SwapOutlined} size="sm" tone="secondary" />
+              <Icon as={FilterOutlined} size="sm" tone="secondary" />
             </Flex>
           </Th>
           <Th>
             <Flex align="center" gap={4}>
               Name
-              <Icon as={SwapOutlined} size="small" tone="secondary" />
+              <Icon as={SwapOutlined} size="sm" tone="secondary" />
             </Flex>
           </Th>
           <Th hidden="md">
             <Flex align="center" gap={4}>
               Company
-              <Icon as={SwapOutlined} size="small" tone="secondary" />
+              <Icon as={SwapOutlined} size="sm" tone="secondary" />
             </Flex>
           </Th>
           <Th hidden="md">
             <Flex align="center" gap={4}>
               Email
-              <Icon as={SwapOutlined} size="small" tone="secondary" />
+              <Icon as={SwapOutlined} size="sm" tone="secondary" />
             </Flex>
           </Th>
           <Th hidden="lg">Work phone</Th>

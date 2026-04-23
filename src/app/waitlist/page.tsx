@@ -564,7 +564,7 @@ function WaitlistPageInner() {
               <Th>
                 <Flex align="center" gap={4}>
                   Tags
-                  <Icon as={FilterOutlined} size="small" tone="secondary" />
+                  <Icon as={FilterOutlined} size="sm" tone="secondary" />
                 </Flex>
               </Th>
               <Th>
@@ -606,11 +606,12 @@ function WaitlistPageInner() {
                               ...(triageState[idx] !== "yes" ? { color: 'var(--color-text-secondary)' } : {}),
                             }}
                           >
-                            <Icon as={LikeOutlined} size="small" />
+                            <Icon as={LikeOutlined} size="sm" />
                             <span>Yes</span>
                           </Button>
                           <Button
-                            variant={triageState[idx] === "no" ? "danger" : "secondary"}
+                            danger={triageState[idx] === "no"}
+                            type="default"
                             size="small"
                             onClick={() => handleTriage(idx, "no")}
                             className={triageState[idx] === "no" ? wStyles.triageNoActive : ""}
@@ -622,7 +623,7 @@ function WaitlistPageInner() {
                               ...(triageState[idx] !== "no" ? { color: 'var(--color-text-secondary)' } : {}),
                             }}
                           >
-                            <Icon as={DislikeOutlined} size="small" />
+                            <Icon as={DislikeOutlined} size="sm" />
                             <span>No</span>
                           </Button>
                         </Flex>
@@ -729,11 +730,10 @@ function WaitlistPageInner() {
             {modalServices.length > 0 && (
               <Flex wrap gap={6} style={{ marginBottom: 8 }}>
                 {modalServices.map((service) => (
-                  <Badge key={service} variant="blue" size="small" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                  <Badge key={service} variant="blue" size="sm" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                     <span style={{ maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{service}</span>
                     <Button
                       type="text"
-                      iconOnly
                       shape="circle"
                       size="small"
                       htmlType="button"
@@ -741,7 +741,7 @@ function WaitlistPageInner() {
                       style={{ marginLeft: 2 }}
                       className={wStyles.serviceChipClose}
                     >
-                      <Icon as={CloseOutlined} size="small" />
+                      <Icon as={CloseOutlined} size="sm" />
                     </Button>
                   </Badge>
                 ))}
@@ -885,11 +885,10 @@ function WaitlistPageInner() {
             {modalTags.length > 0 && (
               <Flex wrap gap={6} style={{ marginBottom: 8 }}>
                 {modalTags.map((tag) => (
-                  <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} size="small" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                  <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} size="sm" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                     {tag}
                     <Button
                       type="text"
-                      iconOnly
                       shape="circle"
                       size="small"
                       htmlType="button"
@@ -897,7 +896,7 @@ function WaitlistPageInner() {
                       style={{ marginLeft: 2 }}
                       className={wStyles.tagChipClose}
                     >
-                      <Icon as={CloseOutlined} size="small" />
+                      <Icon as={CloseOutlined} size="sm" />
                     </Button>
                   </Badge>
                 ))}
@@ -997,7 +996,7 @@ function WaitlistPageInner() {
                   <Th>
                     <Flex align="center" gap={4}>
                       Tags
-                      <Icon as={FilterOutlined} size="small" tone="secondary" />
+                      <Icon as={FilterOutlined} size="sm" tone="secondary" />
                     </Flex>
                   </Th>
                   <Th>Client</Th>

@@ -276,7 +276,7 @@ export default function ReportsPage() {
           onSelect={setSelectedPractitioner}
         />
         <Button
-          variant={compareMode ? "primary" : "secondary"}
+          type={compareMode ? "primary" : "default"}
           size="small"
           shape="round"
           onClick={() => setCompareMode(!compareMode)}
@@ -433,7 +433,7 @@ export default function ReportsPage() {
               <Tr key={p.name} hover>
                 <Td>
                   <Flex align="center" gap={12}>
-                    <Avatar name={p.name} color={p.color} size="small" />
+                    <Avatar name={p.name} color={p.color} size="sm" />
                     <Text variant="body/md" as="span" color="text">{p.name}</Text>
                   </Flex>
                 </Td>

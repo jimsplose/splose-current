@@ -121,7 +121,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
       footer={
         <Flex align="center" justify="space-between" style={{ width: '100%' }}>
           <Button type="text" size="small">
-            <Icon as={PaperClipOutlined} size="large" />
+            <Icon as={PaperClipOutlined} size="lg" />
             Attach files
           </Button>
           <Button type="primary" onClick={onClose}>
@@ -174,7 +174,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
                 <Badge
                   key={email}
                   variant="gray"
-                  shape="round"
+                  shape="pill"
                   onRemove={() => handleRemoveEmail(email)}
                   // eslint-disable-next-line no-restricted-syntax -- chip fontSize override for compact email tag; no DS Badge size prop exists
                   style={{ paddingTop: 2, paddingBottom: 2, fontSize: 12 }}
@@ -222,7 +222,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
                 disabled={isGenerating}
                 style={{ flexShrink: 0 }}
               >
-                <Icon as={ThunderboltOutlined} size="large" />
+                <Icon as={ThunderboltOutlined} size="lg" />
                 {isGenerating ? "Generating..." : "Summarise session"}
               </Button>
             </Flex>
@@ -231,7 +231,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
             <Flex align="center" gap={2} style={{ paddingBottom: 8 }}>
               {toolbarIcons.map((ToolbarIcon, i) => (
                 <Button key={i} type="text">
-                  <Icon as={ToolbarIcon} size="large" />
+                  <Icon as={ToolbarIcon} size="lg" />
                 </Button>
               ))}
             </Flex>
@@ -284,7 +284,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
               <div style={{ paddingTop: 16 }}>
                 {/* eslint-disable-next-line no-restricted-syntax -- primary-bg tint for attachment chip; no DS attachment-chip component */}
                 <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: 'var(--color-primary-bg)', padding: '8px 12px' }}>
-                  <Icon as={PaperClipOutlined} size="large" tone="primary" />
+                  <Icon as={PaperClipOutlined} size="lg" tone="primary" />
                   <span style={{ fontSize: 12, lineHeight: 1.67 }}>Progress note — {clientName} — {formatDisplayDate(noteDate)}.pdf</span>
                   <Badge variant="purple">PDF</Badge>
                 </Flex>

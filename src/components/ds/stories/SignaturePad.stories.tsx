@@ -101,15 +101,15 @@ export const TypeMode: Story = {
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <div style={{ display: "flex", gap: 8 }}>
             <Button
-              variant={mode === "draw" ? "primary" : "secondary"}
-              size="sm"
+              type={mode === "draw" ? "primary" : "default"}
+              size="small"
               onClick={() => setMode("draw")}
             >
               Draw
             </Button>
             <Button
-              variant={mode === "type" ? "primary" : "secondary"}
-              size="sm"
+              type={mode === "type" ? "primary" : "default"}
+              size="small"
               onClick={() => setMode("type")}
             >
               Type

@@ -275,7 +275,7 @@ export default function EditProgressNotePage() {
   if (loading) {
     return (
       <Flex align="center" justify="center" style={{ height: 'calc(100vh - 3rem)' }}>
-        <Spinner size="large" />
+        <Spinner size="lg" />
       </Flex>
     );
   }
@@ -297,20 +297,19 @@ export default function EditProgressNotePage() {
       >
         {/* AI sparkle button */}
         <Button
-          variant={aiChatOpen ? "primary" : "icon"}
-          round
+          type={aiChatOpen ? "primary" : "text"} shape="circle"
           size="small"
           onClick={() => setAiChatOpen(!aiChatOpen)}
           title="Splose AI"
           style={aiChatOpen ? { backgroundColor: 'var(--color-primary)', color: '#fff', width: 36, height: 36 } : { width: 36, height: 36, border: '1px solid var(--color-border)' }}
         >
-          <Icon as={SnippetsOutlined} size="large" style={{ color: 'inherit' }} />
+          <Icon as={SnippetsOutlined} size="lg" style={{ color: 'inherit' }} />
         </Button>
         {/* View toggle */}
         <Filter
           items={[
-            { label: <Icon as={AppstoreOutlined} size="large" />, value: "single" },
-            { label: <Icon as={ColumnWidthOutlined} size="large" />, value: "split" },
+            { label: <Icon as={AppstoreOutlined} size="lg" />, value: "single" },
+            { label: <Icon as={ColumnWidthOutlined} size="lg" />, value: "split" },
           ]}
           value={viewMode}
           onChange={(v) => setViewMode(v as "single" | "split")}
@@ -321,7 +320,7 @@ export default function EditProgressNotePage() {
             Save as final
           </Button>
           <Button type="primary" style={{ borderRadius: '0px 8px 8px 0px', borderLeft: '1px solid rgba(255,255,255,0.3)', padding: '0 8px', minWidth: 0 }}>
-            <Icon as={DownOutlined} size="small" style={{ color: 'inherit' }} />
+            <Icon as={DownOutlined} size="sm" style={{ color: 'inherit' }} />
           </Button>
         </Flex>
       </Navbar>
@@ -344,44 +343,44 @@ export default function EditProgressNotePage() {
             <Card padding="none" style={{ marginBottom: 16, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 4, padding: '6px 8px', color: 'var(--color-text-secondary)' }}>
               <Button type="text" size="small" style={{ display: 'flex', alignItems: 'center', gap: 2, fontSize: 12 }}>
                 Arial
-                <Icon as={DownOutlined} size="small" />
+                <Icon as={DownOutlined} size="sm" />
               </Button>
               <Button type="text" size="small" style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <Icon as={FontSizeOutlined} size="large" />
-                <Icon as={DownOutlined} size="small" />
+                <Icon as={FontSizeOutlined} size="lg" />
+                <Icon as={DownOutlined} size="sm" />
               </Button>
               <Divider orientation="vertical" spacing="none" />
-              <Tooltip content="Bold"><Button type="text"><Icon as={BoldOutlined} size="large" /></Button></Tooltip>
-              <Tooltip content="Italic"><Button type="text"><Icon as={ItalicOutlined} size="large" /></Button></Tooltip>
-              <Tooltip content="Underline"><Button type="text"><Icon as={UnderlineOutlined} size="large" /></Button></Tooltip>
-              <Tooltip content="Strikethrough"><Button type="text"><Icon as={StrikethroughOutlined} size="large" /></Button></Tooltip>
+              <Tooltip content="Bold"><Button type="text"><Icon as={BoldOutlined} size="lg" /></Button></Tooltip>
+              <Tooltip content="Italic"><Button type="text"><Icon as={ItalicOutlined} size="lg" /></Button></Tooltip>
+              <Tooltip content="Underline"><Button type="text"><Icon as={UnderlineOutlined} size="lg" /></Button></Tooltip>
+              <Tooltip content="Strikethrough"><Button type="text"><Icon as={StrikethroughOutlined} size="lg" /></Button></Tooltip>
               <Divider orientation="vertical" spacing="none" />
-              <Tooltip content="Insert link"><Button type="text"><Icon as={LinkOutlined} size="large" /></Button></Tooltip>
-              <Tooltip content="Insert image"><Button type="text"><Icon as={PictureOutlined} size="large" /></Button></Tooltip>
-              <Tooltip content="Insert table"><Button type="text"><Icon as={TableOutlined} size="large" /></Button></Tooltip>
-              <Tooltip content="Bulleted list"><Button type="text"><Icon as={UnorderedListOutlined} size="large" /></Button></Tooltip>
-              <Tooltip content="Numbered list"><Button type="text"><Icon as={OrderedListOutlined} size="large" /></Button></Tooltip>
-              <Tooltip content="Align left"><Button type="text"><Icon as={AlignLeftOutlined} size="large" /></Button></Tooltip>
-              <Tooltip content="Text colour"><Button type="text"><Icon as={BgColorsOutlined} size="large" /></Button></Tooltip>
+              <Tooltip content="Insert link"><Button type="text"><Icon as={LinkOutlined} size="lg" /></Button></Tooltip>
+              <Tooltip content="Insert image"><Button type="text"><Icon as={PictureOutlined} size="lg" /></Button></Tooltip>
+              <Tooltip content="Insert table"><Button type="text"><Icon as={TableOutlined} size="lg" /></Button></Tooltip>
+              <Tooltip content="Bulleted list"><Button type="text"><Icon as={UnorderedListOutlined} size="lg" /></Button></Tooltip>
+              <Tooltip content="Numbered list"><Button type="text"><Icon as={OrderedListOutlined} size="lg" /></Button></Tooltip>
+              <Tooltip content="Align left"><Button type="text"><Icon as={AlignLeftOutlined} size="lg" /></Button></Tooltip>
+              <Tooltip content="Text colour"><Button type="text"><Icon as={BgColorsOutlined} size="lg" /></Button></Tooltip>
               <span style={{ flex: 1 }} />
               <Button
                 onClick={generateAll}
                 style={{ backgroundColor: 'rgb(239, 239, 239)', borderColor: 'transparent', color: 'rgb(65, 69, 73)', borderRadius: 12, height: 32 }}
               >
-                <Icon as={ThunderboltOutlined} size="large" />
+                <Icon as={ThunderboltOutlined} size="lg" />
                 Generate
               </Button>
               <Button
-                variant={aiChatOpen ? "primary" : "icon"}
+                type={aiChatOpen ? "primary" : "text"}
                 size="small"
                 onClick={() => setAiChatOpen(!aiChatOpen)}
                 title="Splose AI Chat"
                 style={aiChatOpen ? { backgroundColor: 'var(--color-primary)', color: '#fff' } : undefined}
               >
-                <Icon as={MessageOutlined} size="large" style={{ color: 'inherit' }} />
+                <Icon as={MessageOutlined} size="lg" style={{ color: 'inherit' }} />
               </Button>
-              <Button type="primary" round size="small">
-                <Icon as={PlusOutlined} size="large" style={{ color: 'inherit' }} />
+              <Button type="primary" shape="circle" size="small">
+                <Icon as={PlusOutlined} size="lg" style={{ color: 'inherit' }} />
               </Button>
             </Card>
 
@@ -434,7 +433,7 @@ export default function EditProgressNotePage() {
                       onClick={() => toggleSection(section.id)}
                     >
                       <Flex align="center" gap={8}>
-                        <Icon as={ThunderboltOutlined} size="large" tone="primary" />
+                        <Icon as={ThunderboltOutlined} size="lg" tone="primary" />
                         <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-primary)' }}>AI block</span>
                       </Flex>
                       <Flex align="center" gap={8}>
@@ -451,9 +450,9 @@ export default function EditProgressNotePage() {
                           </Button>
                         </Tooltip>
                         {section.expanded ? (
-                          <Icon as={UpOutlined} size="large" tone="secondary" />
+                          <Icon as={UpOutlined} size="lg" tone="secondary" />
                         ) : (
-                          <Icon as={DownOutlined} size="large" tone="secondary" />
+                          <Icon as={DownOutlined} size="lg" tone="secondary" />
                         )}
                       </Flex>
                     </Flex>
@@ -463,7 +462,7 @@ export default function EditProgressNotePage() {
                       <div style={{ borderTop: '1px solid rgba(168, 85, 247, 0.3)', padding: '12px 16px' }}>
                         {section.generating ? (
                           <Flex align="center" gap={8} style={{ padding: '16px 0' }}>
-                            <Spinner size="small" />
+                            <Spinner size="sm" />
                             <Text variant="body/md" as="span" color="secondary">
                               Thinking<span>...</span>
                             </Text>
@@ -479,7 +478,7 @@ export default function EditProgressNotePage() {
                                 trigger={
                                   <Button type="text" size="small">
                                     Actions
-                                    <Icon as={DownOutlined} size="small" />
+                                    <Icon as={DownOutlined} size="sm" />
                                   </Button>
                                 }
                                 items={[
@@ -543,7 +542,7 @@ export default function EditProgressNotePage() {
                                 trigger={
                                   <Button type="text" size="small">
                                     Actions
-                                    <Icon as={DownOutlined} size="small" />
+                                    <Icon as={DownOutlined} size="sm" />
                                   </Button>
                                 }
                                 items={[
@@ -587,7 +586,7 @@ export default function EditProgressNotePage() {
                 ))}
               </div>
               <span style={{ fontSize: 12, lineHeight: 1.67, color: 'rgb(65, 69, 73)' }}>00:00</span>
-              <Button type="primary" round size="small" style={{ width: 28, height: 28, minWidth: 0, padding: 0 }}>▶</Button>
+              <Button type="primary" shape="circle" size="small" style={{ width: 28, height: 28, minWidth: 0, padding: 0 }}>▶</Button>
             </Flex>
             {/* Transcript */}
             <div style={{ padding: 16 }}>

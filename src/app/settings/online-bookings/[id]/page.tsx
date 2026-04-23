@@ -92,7 +92,7 @@ export default function EditOnlineBookingPage() {
               />
               {brandingMode === "logo" && (
                 <div>
-                  <FormLabel size="small" mb={8}>Logo / Header image</FormLabel>
+                  <FormLabel size="sm" mb={8}>Logo / Header image</FormLabel>
                   <Card variant="dashed" tint="muted" padding="none">
                     <Flex align="center" justify="center" style={{ height: 128 }}>
                       <div style={{ textAlign: 'center' }}>

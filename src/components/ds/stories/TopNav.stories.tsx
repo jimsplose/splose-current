@@ -86,18 +86,18 @@ export const SplosNav: Story = {
         { href: "/products", label: "Products" },
       ]}
     >
-      <Button variant="icon" round style={{ position: 'relative' }}>
+      <Button variant="icon" shape="circle" style={{ position: 'relative' }}>
         <BellOutlined style={{ fontSize: 20 }} />
         <span style={{ position: 'absolute', right: 6, top: 6, display: 'flex', height: 16, width: 16, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', fontWeight: 700, color: '#fff', fontSize: 11, lineHeight: 1.5, backgroundColor: 'var(--color-danger)' }}>3</span>
       </Button>
-      <Button variant="icon" round style={{ position: 'relative' }}>
+      <Button variant="icon" shape="circle" style={{ position: 'relative' }}>
         <MessageOutlined style={{ fontSize: 20 }} />
         <span style={{ position: 'absolute', right: 6, top: 6, display: 'flex', height: 16, width: 16, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', fontWeight: 700, color: '#fff', fontSize: 11, lineHeight: 1.5, backgroundColor: 'var(--color-danger)' }}>8</span>
       </Button>
-      <Button variant="icon" round>
+      <Button variant="icon" shape="circle">
         <SettingOutlined style={{ fontSize: 20 }} />
       </Button>
-      <Button variant="icon" round>
+      <Button variant="icon" shape="circle">
         <QuestionCircleOutlined style={{ fontSize: 20 }} />
       </Button>
       <Avatar name="Sarah Chen" size="sm" style={{ marginLeft: 4, height: 32, width: 32 }} />
@@ -129,18 +129,18 @@ export const LayoutTopNav: Story = {
         { href: "/products", label: "Products" },
       ]}
     >
-      <Button variant="icon" round style={{ position: 'relative' }}>
+      <Button variant="icon" shape="circle" style={{ position: 'relative' }}>
         <BellOutlined style={{ fontSize: 20 }} />
         <span style={{ position: 'absolute', top: 6, right: 6, display: 'flex', height: 16, width: 16, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', fontWeight: 700, color: '#fff', fontSize: 11, lineHeight: 1.5, backgroundColor: 'var(--color-danger)' }}>3</span>
       </Button>
-      <Button variant="icon" round style={{ position: 'relative' }}>
+      <Button variant="icon" shape="circle" style={{ position: 'relative' }}>
         <MessageOutlined style={{ fontSize: 20 }} />
         <span style={{ position: 'absolute', top: 6, right: 6, display: 'flex', height: 16, width: 16, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', fontWeight: 700, color: '#fff', fontSize: 11, lineHeight: 1.5, backgroundColor: 'var(--color-danger)' }}>8</span>
       </Button>
-      <Button variant="icon" round>
+      <Button variant="icon" shape="circle">
         <SettingOutlined style={{ fontSize: 20 }} />
       </Button>
-      <Button variant="icon" round>
+      <Button variant="icon" shape="circle">
         <QuestionCircleOutlined style={{ fontSize: 20 }} />
       </Button>
       <Avatar name="Sarah Chen" size="sm" style={{ marginLeft: 4, height: 32, width: 32 }} />
@@ -188,11 +188,11 @@ export const NavWithNotificationBadges: Story = {
         { href: "/clients", label: "Clients" },
       ]}
     >
-      <Button variant="icon" round style={{ position: 'relative' }}>
+      <Button variant="icon" shape="circle" style={{ position: 'relative' }}>
         <BellOutlined style={{ fontSize: 20 }} />
         <span style={{ position: 'absolute', top: 6, right: 6, display: 'flex', height: 16, width: 16, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', fontWeight: 700, color: '#fff', fontSize: 11, lineHeight: 1.5, backgroundColor: 'var(--color-danger)' }}>5</span>
       </Button>
-      <Button variant="icon" round style={{ position: 'relative' }}>
+      <Button variant="icon" shape="circle" style={{ position: 'relative' }}>
         <MessageOutlined style={{ fontSize: 20 }} />
         <span style={{ position: 'absolute', top: 6, right: 6, display: 'flex', height: 16, width: 16, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', fontWeight: 700, color: '#fff', fontSize: 11, lineHeight: 1.5, backgroundColor: 'var(--color-danger)' }}>12</span>
       </Button>

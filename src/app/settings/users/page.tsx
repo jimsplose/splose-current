@@ -198,7 +198,8 @@ export default function UsersPage() {
           <>
             <Button onClick={closeConfirmDialog}>Cancel</Button>
             <Button
-              variant={confirmDialog.action === "deactivate" ? "danger" : "primary"}
+              type={confirmDialog.action === "deactivate" ? "default" : "primary"}
+              danger={confirmDialog.action === "deactivate"}
               onClick={handleConfirmAction}
             >
               {confirmDialog.action === "deactivate" ? "Deactivate" : "Send reset email"}
