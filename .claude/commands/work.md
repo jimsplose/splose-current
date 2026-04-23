@@ -64,6 +64,10 @@ npx tsc --noEmit 2>&1 | head -5   # confirm baseline is clean
 
 If prior commits already touched the target files, read what was done and continue from that point — do not redo it.
 
+**Step 5b — Capture production baselines (fidelity/layout issues only)**
+
+For issues labeled `fidelity` or any issue that changes layout, spacing, or visual structure: before touching any code, take production screenshots of all affected pages via Chrome MCP at 1440×900. Save them as mental (or file) baselines so you have something to diff against after changes. This is the only way to catch regressions in visual work — you cannot compare against "before" if you didn't capture it.
+
 **Step 6 — Announce and start**
 
 Show Jim:
@@ -93,10 +97,21 @@ Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
 - Run `npx tsc --noEmit` — fix any errors before continuing
 - Don't batch errors across too many files
 
-**Chrome MCP verification** is required for any change that touches visual appearance. Per `docs/quality-gate.md`:
+**Verification strategy (choose based on issue type):**
+
+| Issue type | Primary signal | Chrome MCP coverage |
+|---|---|---|
+| `ds-migration` / prop-mapping | `npx tsc --noEmit` — TypeScript catches incorrect props, wrong types, missing required props | 1 page per 10 files changed (min 1, max 5) |
+| `fidelity` / layout / visual | Chrome MCP dual-tab measurement | All affected pages |
+| Refactor / non-visual | TypeScript + build | None required |
+
+**For `ds-migration` issues specifically:** Prop-mapping changes are functionally equivalent when TypeScript passes — the component renders identically because the prop maps to the same AntD output. TypeScript is comprehensive here; visual spot-checking confirms nothing unexpected slipped through. Don't skip it, but don't over-invest either.
+
+**Chrome MCP verification** rules (when required per table above):
 - Claim a tab group first (`tabs_context_mcp` with `createIfEmpty: true`)
 - Resize to 1440×900
-- Verify on localhost vs production dual-tab for any layout change
+- **Always dual-tab: production `acme.splose.com` side-by-side with `localhost:3000`**. Localhost-only verification is not enough — you need a reference to know what "correct" looks like. See `docs/quality-gate.md` for the measurement loop.
+- Scale spot-check page count to scope: 3 pages is not enough for a 100-file migration. Sample pages from different feature areas (calendar, clients, settings, invoices).
 
 ---
 
@@ -105,6 +120,8 @@ Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
 **Step 1 — Run acceptance criteria**
 
 For each checkbox in the issue's acceptance criteria, verify it. Run the grep commands specified. Run `npx tsc --noEmit`. Run `npx next build` if the issue requires it.
+
+For issues with Chrome MCP verification required (see table in "During the session"): confirm you completed the dual-tab production vs localhost comparison for the required number of pages. If you skipped it, do it now before closing.
 
 **Step 2 — Update the issue's session progress log**
 
@@ -163,5 +180,8 @@ In multi-issue mode: if more targets remain in the original list, proceed immedi
 - **Never start an issue whose dependencies aren't all closed.** Show Jim the blocking issue number and ask which to work on instead.
 - **Never close an issue unless all its acceptance criteria checkboxes are verifiable.** Partial work → leave open with a progress comment.
 - **Don't skip Chrome MCP verification** for visual work. If Chrome MCP is unavailable, stop and troubleshoot.
+- **Chrome MCP must be dual-tab** (production `acme.splose.com` + localhost). Localhost-only is not verification — it tells you the page renders, not whether it matches production.
+- **TypeScript is the primary regression signal for prop-migration issues**, not Chrome MCP. Zero TypeScript errors after migration means the props map correctly. Chrome MCP is still required for a proportional spot-check to catch anything TypeScript can't see.
+- **Scale Chrome MCP coverage to scope**: 3 pages for a 100-file migration is insufficient. Sample at least 1 page per 10 files (min 1, max 5), across different feature areas.
 - **Don't redo work** already logged in the session progress log. Read it before starting.
 - **Keep the README.md queue table accurate.** If you notice it's out of sync with GitHub (closed issues still showing as active), update it.
