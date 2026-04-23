@@ -1,5 +1,6 @@
 "use client";
 
+import Icon from "@/components/ds/Icon";
 import { ListPage, Button, DataTable, Pagination, TableHead, Th, TableBody, Td, Tr, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Checkbox, Text, Grid, Divider } from "@/components/ds";
 import { PlusOutlined, MinusOutlined, MoreOutlined, EditOutlined, CopyOutlined, HistoryOutlined, DeleteOutlined, AppstoreOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
@@ -467,7 +468,7 @@ export default function ProductsPage() {
           </Button>
           <Link href="/products/new">
             <Button variant="secondary">
-              <PlusOutlined style={{ fontSize: 16 }} />
+              <Icon as={PlusOutlined} />
               New product
             </Button>
           </Link>
@@ -511,7 +512,7 @@ export default function ProductsPage() {
                           toggleExpand(globalIndex);
                         }}
                       >
-                        {isExpanded ? <MinusOutlined style={{ fontSize: 14 }} /> : <PlusOutlined style={{ fontSize: 14 }} />}
+                        {isExpanded ? <Icon as={MinusOutlined} size="md" /> : <Icon as={PlusOutlined} size="md" />}
                       </Button>
                     </Td>
                     <Td><Text variant="body/md" as="span" color="text">{product.name}</Text></Td>
@@ -709,7 +710,7 @@ export default function ProductsPage() {
                       align="right"
                       trigger={
                         <button className={`inline-flex items-center justify-center rounded-[6px] border-none bg-transparent cursor-pointer ${pStyles.stockActionButton}`} style={{ height: 28, width: 28 }}>
-                          <MoreOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
+                          <Icon as={MoreOutlined} tone="secondary" />
                         </button>
                       }
                       items={stockDropdownItems}

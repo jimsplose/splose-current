@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Flex } from "antd";
 import { DownOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import {
   Button,
   PageHeader,
@@ -74,7 +75,7 @@ export default function FormsPage() {
         <Dropdown
           trigger={
             <Button variant="secondary">
-              <Flex align="center" gap={4}>Learn <DownOutlined style={{ fontSize: 16 }} /></Flex>
+              <Flex align="center" gap={4}>Learn <Icon as={DownOutlined} /></Flex>
             </Button>
           }
           items={[

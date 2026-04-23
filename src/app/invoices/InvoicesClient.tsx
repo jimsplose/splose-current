@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { Flex } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import {
   ListPage,
   Button,
@@ -145,7 +146,7 @@ export default function InvoicesClient({
           <Button variant="secondary">Batch invoice</Button>
           <Link href="/invoices/new">
             <Button variant="secondary">
-              <PlusOutlined style={{ fontSize: 16 }} />
+              <Icon as={PlusOutlined} />
               New invoice
             </Button>
           </Link>

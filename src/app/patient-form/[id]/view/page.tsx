@@ -1,4 +1,5 @@
 import { DownOutlined, MailOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import { Flex } from "antd";
 import { Badge, Button, Card, Text } from "@/components/ds";
 
@@ -44,12 +45,12 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
         </Flex>
         <Flex align="center" gap={8}>
           <Button variant="secondary">
-            <MailOutlined style={{ fontSize: 16 }} />
+            <Icon as={MailOutlined} />
             Email form
           </Button>
           <Button variant="secondary">
             Actions
-            <DownOutlined style={{ fontSize: 14 }} />
+            <Icon as={DownOutlined} size="md" />
           </Button>
         </Flex>
       </Flex>

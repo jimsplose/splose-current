@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Flex } from "antd";
 import { ReadOutlined, CopyOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import { Button, PageHeader, Modal, Card, Divider, FormInput, NumberInput, Checkbox, Text, Stat } from "@/components/ds";
 
 const creditOptions = [
@@ -22,7 +23,7 @@ export default function SMSSettingsPage() {
     <div style={{ padding: 24 }}>
       <PageHeader title="SMS settings">
         <Button variant="secondary">
-          <ReadOutlined style={{ fontSize: 16 }} />
+          <Icon as={ReadOutlined} />
           Learn
         </Button>
       </PageHeader>

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useRegisterCommands } from "@/hooks/useRegisterCommands";
 import { DownOutlined, MailOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import { Flex } from "antd";
 import { Button, Divider, Dropdown, FormInput, FormSelect, FormTextarea, Grid, PaymentStatusBadge, dbStatusToPaymentStatus, Text } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
@@ -122,7 +123,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
             trigger={
               <Button variant="secondary">
                 Pay
-                <DownOutlined style={{ color: 'var(--color-text-secondary)', fontSize: 14 }} />
+                <Icon as={DownOutlined} size="md" tone="secondary" />
               </Button>
             }
             items={payItems}
@@ -135,14 +136,14 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
             align="right"
           />
           <Button variant="secondary" onClick={handleEmailInvoice}>
-            <MailOutlined style={{ color: 'var(--color-text-secondary)', fontSize: 16 }} />
+            <Icon as={MailOutlined} tone="secondary" />
             Email invoice
           </Button>
           <Dropdown
             trigger={
               <Button variant="secondary">
                 Actions
-                <DownOutlined style={{ color: 'var(--color-text-secondary)', fontSize: 14 }} />
+                <Icon as={DownOutlined} size="md" tone="secondary" />
               </Button>
             }
             items={actionsItems}

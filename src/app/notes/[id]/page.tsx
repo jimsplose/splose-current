@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { CheckCircleOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import { Flex } from "antd";
 import { Badge, Button, Card, List, Navbar } from "@/components/ds";
 import NoteViewToolbar from "./NoteViewToolbar";
@@ -29,7 +30,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
           <>
             {note.signed ? (
               <Badge variant="green">
-                <CheckCircleOutlined style={{ fontSize: 12 }} />
+                <Icon as={CheckCircleOutlined} size="sm" />
                 Final
               </Badge>
             ) : (
@@ -169,7 +170,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
           <div style={{ marginTop: 40, borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
             {note.signed ? (
               <Flex align="center" gap={8} style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-success)' }}>
-                <CheckCircleOutlined style={{ fontSize: 16 }} />
+                <Icon as={CheckCircleOutlined} />
                 <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57 }}>
                   Signed and locked by {note.practitioner.name} on {formatNoteDate(note.date)}
                 </span>

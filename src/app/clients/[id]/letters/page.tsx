@@ -1,6 +1,7 @@
 "use client";
 
 import { PlusOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import { useState } from "react";
 import { Button, Card, DataTable, PageHeader, TableHead, Th, TableBody, Tr, Td, ActionsCell, Pagination } from "@/components/ds";
 
@@ -25,7 +26,7 @@ export default function ClientLettersPage() {
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Letters">
         <Button>
-          <PlusOutlined style={{ fontSize: 16 }} />
+          <Icon as={PlusOutlined} />
           New letter
         </Button>
       </PageHeader>

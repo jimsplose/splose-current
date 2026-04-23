@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Flex } from "antd";
 import { ThunderboltOutlined, CloseOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import {
   Button,
   PageHeader,
@@ -91,7 +92,7 @@ export default function ProgressNotesPage() {
             style={{ flexShrink: 0 }}
             onClick={() => setShowBanner(false)}
           >
-            <CloseOutlined style={{ fontSize: 16 }} />
+            <Icon as={CloseOutlined} />
           </Button>
         </Flex>
       )}
@@ -116,7 +117,7 @@ export default function ProgressNotesPage() {
               <Td>
                 <Flex align="center" gap={8}>
                   {t.hasAi && (
-                    <ThunderboltOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-primary)' }} />
+                    <Icon as={ThunderboltOutlined} tone="primary" style={{ flexShrink: 0 }} />
                   )}
                   <span>{t.title}</span>
                 </Flex>

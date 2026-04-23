@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import { Flex } from "antd";
 import {
   Button,
@@ -346,7 +347,7 @@ export default function NewInvoicePage() {
                           size="sm"
                           onClick={() => removeLineItem(item.id)}
                         >
-                          <DeleteOutlined style={{ fontSize: 16 }} />
+                          <Icon as={DeleteOutlined} />
                         </Button>
                       )}
                     </Td>
@@ -357,7 +358,7 @@ export default function NewInvoicePage() {
           </div>
           <div style={{ padding: "12px 0" }}>
             <Button variant="ghost" size="sm" onClick={addLineItem}>
-              <PlusOutlined style={{ fontSize: 16 }} />
+              <Icon as={PlusOutlined} />
               Add line item
             </Button>
           </div>

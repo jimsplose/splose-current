@@ -1,4 +1,5 @@
 import { RightOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import { Button, Checkbox, FormInput } from "@/components/ds";
 
 export default function LoginPage() {
@@ -34,7 +35,7 @@ export default function LoginPage() {
                 label="Password"
                 style={{ marginTop: 4, borderRadius: 0, border: 'none', borderBottom: '1px solid #d1d5db', backgroundColor: 'transparent', paddingLeft: 0, paddingRight: 32, paddingTop: 8, paddingBottom: 8, boxShadow: 'none' }}
               />
-              <EyeInvisibleOutlined style={{ position: "absolute", bottom: 12, right: 0, fontSize: 16, color: "var(--color-text-secondary)" }} />
+              <Icon as={EyeInvisibleOutlined} tone="secondary" style={{ position: "absolute", bottom: 12, right: 0 }} />
             </div>
           </div>
 
@@ -51,7 +52,7 @@ export default function LoginPage() {
             style={{ marginTop: 24, display: 'flex', width: '100%', justifyContent: 'space-between', paddingTop: 12, paddingBottom: 12 }}
           >
             Log in
-            <RightOutlined style={{ fontSize: 20 }} />
+            <Icon as={RightOutlined} size="2xl" />
           </Button>
         </div>
 

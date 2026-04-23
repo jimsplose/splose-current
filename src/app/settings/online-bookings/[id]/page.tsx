@@ -327,7 +327,7 @@ export default function EditOnlineBookingPage() {
                   <Icon as={CopyOutlined} /> Copy
                 </Button>
                 <Button variant="secondary" onClick={() => window.open(shareUrl, "_blank")}>
-                  <LinkOutlined style={{ fontSize: 16 }} /> Open
+                  <Icon as={LinkOutlined} /> Open
                 </Button>
               </Flex>
             </div>

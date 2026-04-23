@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { PlusOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import {
   Tag,
   Button,
@@ -59,7 +60,7 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
       actions={
         <Link href="/clients/new">
           <Button variant="secondary">
-            <PlusOutlined style={{ fontSize: 16 }} />
+            <Icon as={PlusOutlined} />
             New client
           </Button>
         </Link>

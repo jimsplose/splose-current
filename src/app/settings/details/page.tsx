@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import { Flex } from "antd";
 import { Button, Checkbox, FileUpload, FormInput, FormSelect, Toggle, Tab, Modal, Dropdown, HintIcon, PageHeader, Text, Grid, Divider } from "@/components/ds";
 
@@ -149,7 +150,7 @@ export default function SettingsDetailsPage() {
               shape="pill"
               style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 4, paddingBottom: 4 }}
             >
-              Business <DownOutlined style={{ fontSize: 12, marginLeft: 4 }} />
+              Business <Icon as={DownOutlined} size="sm" style={{ marginLeft: 4 }} />
             </Button>
             <Button
               variant={emailSigTab === "User" ? "primary" : "secondary"}
@@ -158,7 +159,7 @@ export default function SettingsDetailsPage() {
               shape="pill"
               style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 4, paddingBottom: 4 }}
             >
-              User <DownOutlined style={{ fontSize: 12, marginLeft: 4 }} />
+              User <Icon as={DownOutlined} size="sm" style={{ marginLeft: 4 }} />
             </Button>
           </Flex>
           <Flex align="center" gap={4} style={{ borderRadius: '8px 8px 0 0', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '6px 8px' }}>

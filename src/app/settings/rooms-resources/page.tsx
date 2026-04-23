@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Flex } from "antd";
 import { SwapOutlined, FilterOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import {
   Button,
   PageHeader,
@@ -112,14 +113,14 @@ export default function SettingsRoomsResourcesPage() {
           <TableHead>
             <Th>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-                Name <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                Name <Icon as={SwapOutlined} size="md" tone="secondary" />
               </span>
             </Th>
             <Th>Group</Th>
             <Th>Capacity/Available</Th>
             <Th>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-                Location <FilterOutlined style={{ fontSize: 14, color: 'var(--color-primary)' }} />
+                Location <Icon as={FilterOutlined} size="md" tone="primary" />
               </span>
             </Th>
             <Th align="right">Actions</Th>

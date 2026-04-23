@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import { Flex } from "antd";
 import { CalendarOutlined, InfoCircleOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import {
   Alert,
   Button,
@@ -108,7 +109,7 @@ export default function InvoiceSettingsPage() {
       <PageHeader title="Invoice Settings" />
 
       {/* Stripe info banner */}
-      <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 16 }} />} style={{ marginBottom: 24 }}>
+      <Alert variant="info" icon={<Icon as={InfoCircleOutlined} />} style={{ marginBottom: 24 }}>
         <p style={{ fontSize: 14 }}>
           You need an active Stripe connection for online payments.{" "}
           <a href="#" style={{ fontWeight: 500, color: 'var(--color-primary)' }}>
@@ -222,7 +223,7 @@ export default function InvoiceSettingsPage() {
               <Tr key={reminder.id}>
                 <Td>
                   <Flex align="center" gap={8}>
-                    <CalendarOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
+                    <Icon as={CalendarOutlined} tone="secondary" />
                     <span>{reminder.name}</span>
                   </Flex>
                 </Td>

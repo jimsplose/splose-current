@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Flex } from "antd";
 import { UploadOutlined, FileExcelOutlined, CheckCircleFilled } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import {
   Button,
   Tab,
@@ -87,19 +88,19 @@ export default function CSVImportPage() {
                   onClick={() => setFileUploaded(true)}
                   style={{ display: 'flex', width: '100%', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '48px 0', transition: 'all 0.2s', cursor: 'pointer' }}
                 >
-                  <UploadOutlined style={{ fontSize: 32, marginBottom: 8, color: 'var(--color-text-secondary)' }} />
+                  <Icon as={UploadOutlined} size="4xl" tone="secondary" style={{ marginBottom: 8 }} />
                   <span style={{ fontSize: 14 }}>Click to upload or drag and drop</span>
                   <span style={{ marginTop: 4, fontSize: 11, color: 'var(--color-text-secondary)' }}>CSV files only, max 10MB</span>
                 </button>
               ) : (
                 <Card padding="none">
                   <Flex align="center" gap={12} style={{ padding: '12px 16px' }}>
-                    <FileExcelOutlined style={{ fontSize: 20, color: 'var(--color-primary)' }} />
+                    <Icon as={FileExcelOutlined} size="2xl" tone="primary" />
                     <div style={{ flex: 1 }}>
                       <span style={{ fontSize: 14 }}>{activeTab}_import_2026.csv</span>
                       <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--color-text-secondary)' }}>245 rows</span>
                     </div>
-                    <CheckCircleFilled style={{ fontSize: 20, color: 'var(--color-success)' }} />
+                    <Icon as={CheckCircleFilled} size="2xl" tone="success" />
                     <Button variant="secondary" size="sm" onClick={() => setFileUploaded(false)}>Remove</Button>
                   </Flex>
                 </Card>

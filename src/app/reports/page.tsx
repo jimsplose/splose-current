@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { CalendarOutlined, DownOutlined, SettingOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
+import Icon from "@/components/ds/Icon";
 import { Avatar, Button, Card, Checkbox, ColorDot, Divider, Dropdown, FormInput, FormSelect, Grid, PageHeader, ProgressBar, Text } from "@/components/ds";
 import { DataTable, TableHead, Th, TableBody, Tr, Td } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
@@ -81,9 +82,9 @@ function DateRangePicker({
         shape="pill"
         style={{ borderColor: 'var(--color-primary)', backgroundColor: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.1)', fontWeight: 500, color: 'var(--color-primary)' }}
       >
-        <CalendarOutlined style={{ fontSize: 16 }} />
+        <Icon as={CalendarOutlined} />
         {fmtShort(startDate)} &rarr; {fmtShort(endDate)}
-        <DownOutlined style={{ fontSize: 14 }} />
+        <Icon as={DownOutlined} size="md" />
       </Button>
 
       {open && (
@@ -298,7 +299,7 @@ export default function ReportsPage() {
                 htmlType="button"
                 onClick={() => setUtilisationSettingsOpen(!utilisationSettingsOpen)}
               >
-                <SettingOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
+                <Icon as={SettingOutlined} tone="secondary" />
               </Button>
             </Flex>
             {utilisationSettingsOpen && (

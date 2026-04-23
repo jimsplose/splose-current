@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { SwapOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import { Flex } from "antd";
 import { Badge, Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination } from "@/components/ds";
 
@@ -36,7 +37,7 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Created by
-                <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+                <Icon as={SwapOutlined} size="sm" tone="secondary" />
               </Flex>
             </Th>
             <Th>Service date</Th>
@@ -44,7 +45,7 @@ export default async function ClientNotesPage({ params }: { params: Promise<{ id
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Created at
-                <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+                <Icon as={SwapOutlined} size="sm" tone="secondary" />
               </Flex>
             </Th>
           </TableHead>

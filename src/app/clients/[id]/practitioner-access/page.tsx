@@ -1,6 +1,7 @@
 "use client";
 
 import { SwapOutlined, FilterOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import { Flex } from "antd";
 import { useState } from "react";
 import { Badge, Button, Card, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Text } from "@/components/ds";
@@ -43,7 +44,7 @@ export default function ClientPractitionerAccessPage() {
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Name
-                <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+                <Icon as={SwapOutlined} size="sm" tone="secondary" />
               </Flex>
             </Th>
             <Th>Role name</Th>
@@ -51,8 +52,8 @@ export default function ClientPractitionerAccessPage() {
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
                 Group
-                <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
-                <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+                <Icon as={SwapOutlined} size="sm" tone="secondary" />
+                <Icon as={FilterOutlined} size="sm" tone="secondary" />
               </Flex>
             </Th>
             <Th>Status</Th>

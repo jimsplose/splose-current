@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useRegisterCommands } from "@/hooks/useRegisterCommands";
 import { EditOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import { Flex } from "antd";
 import {
   AlertCallout,
@@ -97,7 +98,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         <Flex justify="space-between" align="center" style={{ marginBottom: 24 }}>
           <Text variant="display/lg">Details</Text>
           <Button variant="secondary" size="sm" onClick={() => setEditMode(true)}>
-            Edit <EditOutlined style={{ fontSize: 14 }} />
+            Edit <Icon as={EditOutlined} size="md" />
           </Button>
         </Flex>
 

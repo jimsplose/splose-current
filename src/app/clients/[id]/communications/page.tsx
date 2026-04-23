@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import { Flex } from "antd";
 import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge, statusVariant, Dropdown, DropdownTriggerButton, Modal } from "@/components/ds";
 
@@ -205,7 +206,7 @@ export default function ClientCommunicationsPage() {
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Communications">
         <Button>
-          <PlusOutlined style={{ fontSize: 16 }} />
+          <Icon as={PlusOutlined} />
           Log communication
         </Button>
       </PageHeader>
@@ -217,14 +218,14 @@ export default function ClientCommunicationsPage() {
           <TableHead>
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                Date and time <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                Date and time <Icon as={SwapOutlined} size="md" tone="secondary" />
               </Flex>
             </Th>
             <Th>Subject</Th>
             <Th>Type</Th>
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                Direction <FilterOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                Direction <Icon as={FilterOutlined} size="md" tone="secondary" />
               </Flex>
             </Th>
             <Th>Links</Th>
