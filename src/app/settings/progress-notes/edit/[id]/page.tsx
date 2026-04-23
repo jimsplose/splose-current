@@ -159,7 +159,7 @@ export default function EditProgressNoteTemplatePage() {
                     <Dropdown
                       trigger={
                         <Button variant="ghost" iconOnly style={{ color: 'var(--color-text-secondary)' }}>
-                          <MoreOutlined style={{ fontSize: 16 }} />
+                          <Icon as={MoreOutlined} />
                         </Button>
                       }
                       items={blockDropdownItems}
@@ -180,7 +180,7 @@ export default function EditProgressNoteTemplatePage() {
                 </Card>
               ))}
               <Button variant="secondary" onClick={() => setShowLibrary(true)}>
-                <PlusOutlined style={{ fontSize: 16 }} /> Add an AI block
+                <Icon as={PlusOutlined} /> Add an AI block
               </Button>
             </Flex>
           )}
@@ -221,7 +221,7 @@ export default function EditProgressNoteTemplatePage() {
                   gap={12}
                   style={{ textAlign: 'left', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '12px 16px', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}
                 >
-                  <ThunderboltOutlined style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-primary)' }} />
+                  <Icon as={ThunderboltOutlined} tone="primary" style={{ flexShrink: 0 }} />
                   <div>
                     <div style={{ fontSize: 12, fontWeight: 500 }}>{block.name}</div>
                     <div style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>{block.prompt}</div>

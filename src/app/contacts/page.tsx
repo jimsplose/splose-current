@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
 import Link from "next/link";
+import Icon from "@/components/ds/Icon";
 import { ListPage, Button, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Skeleton } from "@/components/ds";
 
 const mockContacts = [
@@ -188,7 +189,7 @@ export default function ContactsPage() {
       actions={
         <Link href="/contacts/new">
           <Button>
-            <PlusOutlined style={{ fontSize: 16 }} />
+            <Icon as={PlusOutlined} />
             New contact
           </Button>
         </Link>
@@ -215,26 +216,26 @@ export default function ContactsPage() {
           <Th>
             <Flex align="center" gap={4}>
               Type
-              <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
-              <FilterOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+              <Icon as={SwapOutlined} size="sm" tone="secondary" />
+              <Icon as={FilterOutlined} size="sm" tone="secondary" />
             </Flex>
           </Th>
           <Th>
             <Flex align="center" gap={4}>
               Name
-              <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+              <Icon as={SwapOutlined} size="sm" tone="secondary" />
             </Flex>
           </Th>
           <Th hidden="md">
             <Flex align="center" gap={4}>
               Company
-              <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+              <Icon as={SwapOutlined} size="sm" tone="secondary" />
             </Flex>
           </Th>
           <Th hidden="md">
             <Flex align="center" gap={4}>
               Email
-              <SwapOutlined style={{ fontSize: 12, color: 'var(--color-text-secondary)' }} />
+              <Icon as={SwapOutlined} size="sm" tone="secondary" />
             </Flex>
           </Th>
           <Th hidden="lg">Work phone</Th>

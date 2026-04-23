@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { UploadOutlined, CheckCircleOutlined, ExclamationCircleOutlined, FileTextOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
+import Icon from "@/components/ds/Icon";
 import {
   Button,
   FormInput,
@@ -74,7 +75,7 @@ export default function NdisBulkUploadNewPage() {
           <Card padding="lg" className="text-center">
             <Flex justify="center" style={{ marginBottom: 16 }}>
               <Flex align="center" justify="center" style={{ height: 56, width: 56, borderRadius: '50%', backgroundColor: '#dcfce7' }}>
-                <CheckCircleOutlined style={{ fontSize: 32, color: '#16a34a' }} />
+                <Icon as={CheckCircleOutlined} size="4xl" style={{ color: '#16a34a' }} />
               </Flex>
             </Flex>
             <Text variant="heading/lg" style={{ marginBottom: 4 }}>Upload submitted</Text>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { SwapOutlined, FolderAddOutlined, DownOutlined, FileTextOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
+import Icon from "@/components/ds/Icon";
 import { Button, Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput } from "@/components/ds";
 
 const filesData = [
@@ -63,13 +64,13 @@ export default function ClientFilesPage() {
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Files /">
         <Button>
-          <FolderAddOutlined style={{ fontSize: 16 }} />
+          <Icon as={FolderAddOutlined} />
           New folder
         </Button>
         <Button>Show deleted files</Button>
         <Button>
           Upload
-          <DownOutlined style={{ fontSize: 16 }} />
+          <Icon as={DownOutlined} />
         </Button>
       </PageHeader>
 
@@ -80,18 +81,18 @@ export default function ClientFilesPage() {
           <TableHead>
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                Name <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                Name <Icon as={SwapOutlined} size="md" tone="secondary" />
               </Flex>
             </Th>
             <Th>Uploader</Th>
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                Upload date <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                Upload date <Icon as={SwapOutlined} size="md" tone="secondary" />
               </Flex>
             </Th>
             <Th>
               <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                File size <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                File size <Icon as={SwapOutlined} size="md" tone="secondary" />
               </Flex>
             </Th>
             <Th align="right">Actions</Th>
@@ -101,7 +102,7 @@ export default function ClientFilesPage() {
               <Tr key={file.id}>
                 <Td>
                   <Flex align="center" gap={8}>
-                    <FileTextOutlined style={{ fontSize: 16, color: 'var(--color-text-secondary)' }} />
+                    <Icon as={FileTextOutlined} tone="secondary" />
                     <span>{file.name}</span>
                   </Flex>
                 </Td>
