@@ -1,6 +1,6 @@
 # Wave 6 · Plan 01 — Icon sweep: remaining 150 AntD icon inlines
 
-**Status:** Planned
+**Status:** In progress
 **Estimated effort:** 45 min
 **Model:** Sonnet
 **Thinking:** think
