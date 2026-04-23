@@ -1,59 +1,46 @@
-Phase: Wave 5 Plan 08 — globals.css utility-class deletion + regression sweep
+# Wave 6 Plan 01 — Icon Sweep Verification Evidence
 Date: 2026-04-23
+Model: Sonnet
 Viewport: 1440x900
-Environment: localhost:3000 vs acme.splose.com
-Chrome MCP status: AVAILABLE — full dual-tab sweep completed
 
-Pre-deletion verification (grep-based — all confirmed zero):
-  - src/app + src/components TSX utility-class className refs: 0 ✅
-  - src/components/ds string-literal utility-class refs: 0 ✅
+## Summary
+Replaced all 150 AntD icon inline styles (`<XxxOutlined style={{...}} />`) with
+`<Icon as={XxxOutlined} size="..." tone="..." />` across 42 files in src/app/.
 
-Structural verification (zero-caller proof):
-  The pre-deletion grep returned 0 lines from BOTH gate commands. Zero callers
-  means zero visual regressions are possible from utility-class deletion.
-  globals.css utility blocks deleted; selector grep on globals.css = 0 ✅
+## Pre-migration count
+grep 'Outlined style=|Filled style=|TwoTone style=' → 150
 
-Build gate:
-  - npx tsc --noEmit: 0 errors ✅
-  - npx next build: passed ✅
+## Post-migration count
+grep 'Outlined style=|Filled style=|TwoTone style=' → 0
 
-ESLint enforcement:
-  - Utility-class rules promoted to "error" severity ✅
-  - Utility-class ESLint violations: 0 ✅
-  - DS-first (audit-28) warnings: 0 actual violations (32 stale disable directives)
+## TypeScript
+npx tsc --noEmit → 0 errors
 
-Chrome MCP dual-tab regression sweep — 20 routes verified:
-  Route                          | Prod   | Local  | Key measurements
-  -------------------------------|--------|--------|--------------------------------------------------
-  / (dashboard)                  | ✅     | ✅     | nav links 14px/600/rgb(130,80,255)
-  /reports                       | ✅     | ✅     | h1 30px/700/green
-  /settings/details              | ✅     | ✅     | inputs/labels correct
-  /reports/ndis-bulk-upload      | ✅     | ✅     | row borders 1px solid rgb(231,232,232)
-  /reports/ndis-bulk-upload/1    | ✅     | ✅     | th 14px/600, td 14px/400
-  /products                      | ✅     | ✅     | h1 30px/700/green
-  /waitlist                      | ✅     | ✅     | h1 30px/700/green
-  /online-booking                | ✅     | ✅     | h2 mb 16px, h1 mb 24px
-  /login                         | ✅     | ✅     | button mt 24px, width 384px
-  /patient-form/123/view         | ✅     | ✅     | h1 30/700/green, h2 24/700, h3 20/600
-  /notes/1/edit                  | n/a    | ✅     | h1 30px/700/green, h3 18px/700
-  /calendar                      | n/a    | ✅     | month title 20px/600, Today btn 14px/400
-  /settings/data-import          | ✅     | ✅     | h1 30px/700/green, h2 18px/700
-  /settings/forms/1              | ✅     | ✅     | h1 30px/700/green, labels 14px/400
-  /invoices/new                  | ✅     | ✅     | labels 14px (fw diff pre-existing)
-  /contacts/1                    | n/a    | ✅     | h1 30px/700
-  /invoices/batch-invoice/1      | ✅     | ✅     | th 14px/600, td 14px
-  /payments/new                  | ✅     | ✅     | h1 30px/700/green, labels 14px
-  /settings/online-bookings/1    | ✅     | ✅     | h1 30px/700/green, labels 14px
-  DevNavigator (dev component)   | n/a    | ✅     | heading 14px/600, sub-text 11px/400
+## Chrome MCP Verification (dual-tab: production vs localhost)
 
-  Note: "n/a" for production means route requires auth/data not present on prod;
-  localhost was verified independently and is the authoritative check for code changes.
+### /waitlist (group 1 — highest count, 16 icon inlines)
+- Production: 41 anticons, 0 broken (no-SVG). Page renders correctly.
+- Localhost: Page loads, Screener heading renders, Triage/Rejected tabs present,
+  table with data rows, Yes/No triage buttons with thumbs icons ✅,
+  three-dot action menu icons ✅, column sort icons ✅
+- PASS
 
-Audit backlog closure:
-  - Session 27: partial — raw style={{ count 2002 (↑ from 1271 post-S31 due to
-    Wave 5 class→inline conversions; utility-class ESLint violations → 0)
-  - Session 28: done — utility-class rules at "error" severity, 0 violations ✅
-  - Session 29: partial — CalendarView 49 style= (target ≤15 not met)
+### /contacts (group 3 — 6 icon inlines)
+- Production: Full contacts table rendered with sort/filter icons in column headers ✅
+- Localhost: Same layout — Contacts heading, search bar, table columns
+  (Type, Name, Company, Email, Work phone, Mobile phone), all icons present ✅
+- PASS
 
-Final verdict: PASS — build clean, ESLint 0 violations, zero-caller proof confirmed,
-  Chrome MCP dual-tab sweep across 20 routes shows zero visual regressions.
+### /settings/forms/1 (group 4 — 5 icon inlines)
+- Localhost: Form builder renders fully — "Client intake form" heading,
+  back arrow ✅, share icon ✅, preview eye icon ✅,
+  field type icons (TT/text, calendar, list, file-upload) ✅,
+  drag handle ⋮⋮ icons ✅, trash/delete icons ✅, "+ Add field" ✅
+- Production: Settings sidebar renders (form ID 1 may not exist in production — expected)
+- PASS
+
+## Acceptance criteria
+- [x] grep count = 0 (was 150)
+- [x] TypeScript: 0 errors
+- [x] Icons render in all 3 verified pages — no broken icons
+- [x] Chrome MCP: 3 pages verified (waitlist, contacts, settings/forms/1)
