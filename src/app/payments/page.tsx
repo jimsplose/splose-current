@@ -3,6 +3,7 @@
 import { Fragment, useState } from "react";
 import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
+import Icon from "@/components/ds/Icon";
 import { Button, DataTable, ListPage, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge, Text } from "@/components/ds";
 
 const mockPayments = [
@@ -110,7 +111,7 @@ export default function PaymentsPage() {
       title="Payments"
       actions={
         <Button variant="secondary">
-          <PlusOutlined style={{ fontSize: 16 }} />
+          <Icon as={PlusOutlined} />
           New payment
         </Button>
       }
@@ -121,8 +122,8 @@ export default function PaymentsPage() {
             <Th style={{ width: 280 }}>
               <Flex align="center" gap={6}>
                 Payment #
-                <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
-                <FilterOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                <Icon as={SwapOutlined} size="md" tone="secondary" />
+                <Icon as={FilterOutlined} size="md" tone="secondary" />
               </Flex>
             </Th>
             <Th>From</Th>
@@ -130,7 +131,7 @@ export default function PaymentsPage() {
             <Th align="right">
               <Flex align="center" justify="end" gap={6}>
                 Payment date
-                <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                <Icon as={SwapOutlined} size="md" tone="secondary" />
               </Flex>
             </Th>
           </TableHead>

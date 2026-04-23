@@ -139,11 +139,11 @@ export default function NdisBulkUploadNewPage() {
         <div style={{ padding: 24 }}>
           <Flex align="center" gap={16} style={{ marginBottom: 16 }}>
             <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: '#f0fdf4', padding: '8px 12px' }}>
-              <CheckCircleOutlined style={{ fontSize: 16, color: '#16a34a' }} />
+              <Icon as={CheckCircleOutlined} style={{ color: '#16a34a' }} />
               <Text variant="label/lg" as="span" color="#15803d">{validCount} valid</Text>
             </Flex>
             <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: '#fef2f2', padding: '8px 12px' }}>
-              <ExclamationCircleOutlined style={{ fontSize: 16, color: '#dc2626' }} />
+              <Icon as={ExclamationCircleOutlined} style={{ color: '#dc2626' }} />
               <Text variant="label/lg" as="span" color="#b91c1c">{errorCount} errors</Text>
             </Flex>
             <Text variant="body/md" as="span" color="secondary">
@@ -233,7 +233,7 @@ export default function NdisBulkUploadNewPage() {
             <Card padding="md">
               <Flex align="center" gap={12}>
                 <Flex align="center" justify="center" style={{ height: 40, width: 40, borderRadius: 8, backgroundColor: 'var(--color-primary-bg)' }}>
-                  <FileTextOutlined style={{ fontSize: 20, color: 'var(--color-primary)' }} />
+                  <Icon as={FileTextOutlined} size="2xl" tone="primary" />
                 </Flex>
                 <div style={{ flex: 1 }}>
                   <Text variant="label/lg" as="p">{fileName}</Text>
@@ -250,7 +250,7 @@ export default function NdisBulkUploadNewPage() {
             </Card>
           ) : (
             <FileUpload
-              icon={<UploadOutlined style={{ fontSize: 32, color: 'var(--color-text-secondary)' }} />}
+              icon={<Icon as={UploadOutlined} size="4xl" tone="secondary" />}
               label="Choose CSV file"
               onClick={handleFileUpload}
               className="cursor-pointer"

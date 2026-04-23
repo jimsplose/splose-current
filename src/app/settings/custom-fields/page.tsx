@@ -8,6 +8,7 @@ import {
   DeleteOutlined,
   ReadOutlined,
 } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import {
   Button,
   PageHeader,
@@ -117,7 +118,7 @@ export default function CustomFieldsPage() {
         </Button>
         <Button variant="secondary">Show archived</Button>
         <Button variant="secondary">
-          <ReadOutlined style={{ fontSize: 16 }} />
+          <Icon as={ReadOutlined} />
           Learn
         </Button>
         <Button variant="secondary" onClick={() => { setNewField({ name: "", type: "Short text", required: false }); setShowNewModal(true); }}>+ New custom field</Button>
@@ -323,7 +324,7 @@ function EditFieldModal({
             <Flex vertical gap={8}>
               {options.map((opt, index) => (
                 <Flex key={index} align="center" gap={8}>
-                  <HolderOutlined style={{ fontSize: 16, flexShrink: 0, cursor: 'grab', color: 'var(--color-text-secondary)' }} />
+                  <Icon as={HolderOutlined} tone="secondary" style={{ flexShrink: 0, cursor: 'grab' }} />
                   <div style={{ flex: 1 }}>
                     <FormInput
                       type="text"
@@ -338,7 +339,7 @@ function EditFieldModal({
                     style={{ color: '#f87171' }}
                     onClick={() => handleRemoveOption(index)}
                   >
-                    <DeleteOutlined style={{ fontSize: 16 }} />
+                    <Icon as={DeleteOutlined} />
                   </Button>
                 </Flex>
               ))}
@@ -348,7 +349,7 @@ function EditFieldModal({
               style={{ marginTop: 8, width: '100%', borderStyle: 'dashed' }}
               onClick={handleAddOption}
             >
-              <PlusOutlined style={{ fontSize: 16 }} />
+              <Icon as={PlusOutlined} />
               Add option
             </Button>
           </div>

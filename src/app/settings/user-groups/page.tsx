@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Flex } from "antd";
 import { ReadOutlined, SwapOutlined, CheckOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import {
   Button,
   PageHeader,
@@ -91,7 +92,7 @@ export default function UserGroupsPage() {
     <div style={{ padding: 24 }}>
       <PageHeader title="User groups">
         <Button variant="secondary">
-          <ReadOutlined style={{ fontSize: 16 }} />
+          <Icon as={ReadOutlined} />
           Learn
         </Button>
         <Button variant="secondary" onClick={openCreate}>+ New group</Button>
@@ -107,7 +108,7 @@ export default function UserGroupsPage() {
           <Th>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
               Name
-              <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+              <Icon as={SwapOutlined} size="md" tone="secondary" />
             </span>
           </Th>
           <Th>Users</Th>
@@ -171,7 +172,7 @@ export default function UserGroupsPage() {
                       backgroundColor: isSelected ? 'var(--color-primary)' : 'white',
                     }}
                   >
-                    {isSelected && <CheckOutlined style={{ fontSize: 14, color: 'white' }} />}
+                    {isSelected && <Icon as={CheckOutlined} size="md" tone="inverted" />}
                   </Flex>
                   <input
                     type="checkbox"

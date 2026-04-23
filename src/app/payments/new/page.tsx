@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CloseOutlined, PlusOutlined, SearchOutlined, PrinterOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
+import Icon from "@/components/ds/Icon";
 import { Button, Card, DataTable, Divider, FormInput, FormPage, FormSelect, FormTextarea, Grid, TableHead, Th, TableBody, Td, EmptyState, Text } from "@/components/ds";
 
 const mockClients = [
@@ -138,7 +139,7 @@ export default function NewPaymentPage() {
         actions={
           <>
             <Button variant="secondary" onClick={() => window.print()}>
-              <PrinterOutlined style={{ fontSize: 16 }} />
+              <Icon as={PrinterOutlined} />
               Print receipt
             </Button>
             <Link href="/payments">
@@ -155,7 +156,7 @@ export default function NewPaymentPage() {
                 justify="center"
                 style={{ height: 56, width: 56, borderRadius: '50%', backgroundColor: 'var(--color-success-bg)' }}
               >
-                <CheckCircleOutlined style={{ fontSize: 32, color: 'var(--color-success)' }} />
+                <Icon as={CheckCircleOutlined} size="4xl" tone="success" />
               </Flex>
             </Flex>
             <Text variant="heading/lg" style={{ marginBottom: 4 }}>Payment recorded</Text>
@@ -277,7 +278,7 @@ export default function NewPaymentPage() {
         {showLinkSearch && (
           <Card padding="sm" style={{ marginBottom: 12 }}>
             <div style={{ position: 'relative' }}>
-              <SearchOutlined style={{ position: 'absolute', top: '50%', left: 12, zIndex: 10, fontSize: 16, transform: 'translateY(-50%)', color: 'var(--color-text-secondary)' }} />
+              <Icon as={SearchOutlined} tone="secondary" style={{ position: 'absolute', top: '50%', left: 12, zIndex: 10, transform: 'translateY(-50%)' }} />
               <FormInput
                 type="text"
                 placeholder="Search invoices by number or client..."
@@ -367,7 +368,7 @@ export default function NewPaymentPage() {
                           onClick={() => unlinkInvoice(invoiceNumber)}
                           style={{ height: 24, width: 24 }}
                         >
-                          <CloseOutlined style={{ fontSize: 14 }} />
+                          <Icon as={CloseOutlined} size="md" />
                         </Button>
                       </td>
                     </tr>

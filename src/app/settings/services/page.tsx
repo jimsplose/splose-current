@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Flex } from "antd";
 import { SwapOutlined, ReadOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import {
   Button,
   DataTable,
@@ -85,7 +86,7 @@ export default function SettingsServicesPage() {
       {/* Header */}
       <PageHeader title="Services">
         <Button variant="secondary">
-          <ReadOutlined style={{ fontSize: 16, marginRight: 6 }} />
+          <Icon as={ReadOutlined} style={{ marginRight: 6 }} />
           Learn
         </Button>
         <Button variant="secondary">Show archived</Button>
@@ -106,13 +107,13 @@ export default function SettingsServicesPage() {
           <Th>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
               Name
-              <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+              <Icon as={SwapOutlined} size="md" tone="secondary" />
             </span>
           </Th>
           <Th>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
               Type
-              <SwapOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+              <Icon as={SwapOutlined} size="md" tone="secondary" />
             </span>
           </Th>
           <Th>Item code</Th>

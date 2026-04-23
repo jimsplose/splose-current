@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Flex } from "antd";
 import { UploadOutlined, LinkOutlined, CopyOutlined } from "@ant-design/icons";
+import Icon from "@/components/ds/Icon";
 import {
   Button,
   Card,
@@ -109,7 +110,7 @@ export default function EditOnlineBookingPage() {
                   <Card variant="dashed" tint="muted" padding="none">
                     <Flex align="center" justify="center" style={{ height: 128 }}>
                       <div style={{ textAlign: 'center' }}>
-                        <UploadOutlined style={{ fontSize: 24, display: 'block', margin: '0 auto 4px', color: 'var(--color-text-secondary)' }} />
+                        <Icon as={UploadOutlined} size="3xl" tone="secondary" style={{ display: 'block', margin: '0 auto 4px' }} />
                         <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>Click or drag to upload</span>
                       </div>
                     </Flex>
@@ -323,7 +324,7 @@ export default function EditOnlineBookingPage() {
                   <span style={{ fontSize: 14, color: 'var(--color-primary)', wordBreak: 'break-all' }}>{shareUrl}</span>
                 </Card>
                 <Button variant="secondary" onClick={() => navigator.clipboard?.writeText(shareUrl)}>
-                  <CopyOutlined style={{ fontSize: 16 }} /> Copy
+                  <Icon as={CopyOutlined} /> Copy
                 </Button>
                 <Button variant="secondary" onClick={() => window.open(shareUrl, "_blank")}>
                   <LinkOutlined style={{ fontSize: 16 }} /> Open

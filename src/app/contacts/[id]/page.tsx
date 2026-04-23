@@ -1,5 +1,6 @@
 import { MailOutlined, PhoneOutlined, EnvironmentOutlined, BankOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
+import Icon from "@/components/ds/Icon";
 import { Button, DataTable, List, TableHead, Th, TableBody, Tr, Td, LinkCell, EmptyState, Text, Divider } from "@/components/ds";
 
 const mockContacts = [
@@ -269,7 +270,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                   label: "Email:",
                   value: contact.email ? (
                     <Flex align="center" gap={6}>
-                      <MailOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                      <Icon as={MailOutlined} size="md" tone="secondary" />
                       <Text variant="body/sm" color="primary" as="span">{contact.email}</Text>
                     </Flex>
                   ) : (
@@ -280,7 +281,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                   label: "Work phone:",
                   value: contact.workPhone ? (
                     <Flex align="center" gap={6}>
-                      <PhoneOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                      <Icon as={PhoneOutlined} size="md" tone="secondary" />
                       <Text variant="body/sm" color="primary" as="span">{contact.workPhone}</Text>
                     </Flex>
                   ) : (
@@ -291,7 +292,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                   label: "Mobile phone:",
                   value: contact.mobilePhone ? (
                     <Flex align="center" gap={6}>
-                      <PhoneOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                      <Icon as={PhoneOutlined} size="md" tone="secondary" />
                       <Text variant="body/sm" color="primary" as="span">{contact.mobilePhone}</Text>
                     </Flex>
                   ) : (
@@ -302,7 +303,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                   label: "Address:",
                   value: contact.address ? (
                     <Flex align="center" gap={6}>
-                      <EnvironmentOutlined style={{ fontSize: 14, color: 'var(--color-text-secondary)' }} />
+                      <Icon as={EnvironmentOutlined} size="md" tone="secondary" />
                       <Text variant="body/sm" color="text" as="span">{contact.address}</Text>
                     </Flex>
                   ) : (
@@ -347,7 +348,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
               </DataTable>
             ) : (
               <EmptyState
-                icon={<BankOutlined style={{ fontSize: 40, color: '#9ca3af' }} />}
+                icon={<Icon as={BankOutlined} size="5xl" style={{ color: '#9ca3af' }} />}
                 message="No associated clients"
               />
             )}
