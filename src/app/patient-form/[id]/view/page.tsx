@@ -49,7 +49,7 @@ export default async function PatientFormViewPage({ params }: { params: Promise<
           </Button>
           <Button>
             Actions
-            <Icon as={DownOutlined} />
+            <DownOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />
           </Button>
         </Flex>
       </Flex>
