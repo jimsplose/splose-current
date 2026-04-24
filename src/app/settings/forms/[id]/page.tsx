@@ -18,7 +18,6 @@ import {
   FileTextOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
-import Icon from "@/components/ds/Icon";
 import { FormInput, FormSelect, Tab, FormPage, Card, Toggle, FormColorPicker, FormTextarea, Modal, RichTextEditor, Grid, Breadcrumbs, Tooltip } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 

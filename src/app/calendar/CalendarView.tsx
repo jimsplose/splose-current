@@ -31,7 +31,7 @@ import {
   SearchOutlined,
   CheckOutlined,
 } from "@ant-design/icons";
-import { Badge, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert, Card, RadioGroup, Text, Icon, AppointmentCard, SegmentedControl, ContextMenu, HoverCard, Drawer } from "@/components/ds";
+import { Badge, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert, Card, RadioGroup, Text, AppointmentCard, SegmentedControl, ContextMenu, HoverCard, Drawer } from "@/components/ds";
 import type { AppointmentStatus } from "@/components/ds";
 import AiChatPanel from "@/components/AiChatPanel";
 import styles from "./CalendarView.module.css";
@@ -431,23 +431,23 @@ export default function CalendarView({
         <div className={styles.toolbar}>
           <button className={styles.todayBtn}>Today</button>
           <button className={styles.iconBtn}>
-            <Icon as={LeftOutlined} size="lg" />
+            <LeftOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
           </button>
           <button className={styles.iconBtn}>
-            <Icon as={RightOutlined} size="lg" />
+            <RightOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
           </button>
           <span className={styles.dateLabel}>{toolbarDateLabel}</span>
           <button className={styles.iconBtnSecondary}>
-            <Icon as={FilterOutlined} size="lg" />
+            <FilterOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
           </button>
           <button className={styles.iconBtnSecondary}>
-            <Icon as={SettingOutlined} size="lg" />
+            <SettingOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
           </button>
           <button className={styles.iconBtnSecondary}>
-            <Icon as={CalendarOutlined} size="lg" />
+            <CalendarOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
           </button>
           <button className={styles.iconBtnSecondary}>
-            <Icon as={BulbOutlined} size="lg" />
+            <BulbOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
           </button>
 
           {/* Location + Practitioner filter buttons */}
@@ -464,7 +464,7 @@ export default function CalendarView({
                 <div className={styles.filterDropdown}>
                   <div className={styles.filterSearchBox}>
                     <div className={styles.filterSearchInput}>
-                      <Icon as={SearchOutlined} tone="secondary" />
+                      <SearchOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
                       <input
                         type="text"
                         placeholder="Search locations..."
@@ -481,7 +481,7 @@ export default function CalendarView({
                       onClick={() => { setLocationFilter("all"); setLocationDropdownOpen(false); }}
                     >
                       <div className={locationFilter === "all" ? styles.filterCheckboxChecked : styles.filterCheckbox}>
-                        {locationFilter === "all" && <Icon as={CheckOutlined} size="sm" tone="inverted" />}
+                        {locationFilter === "all" && <CheckOutlined style={{ fontSize: 12, color: '#FFFFFF' }} />}
                       </div>
                       <Text variant="label/lg" as="span" color="text">Select all</Text>
                     </button>
@@ -494,7 +494,7 @@ export default function CalendarView({
                           onClick={() => { setLocationFilter(loc); setLocationDropdownOpen(false); }}
                         >
                           <div className={locationFilter === loc ? styles.filterCheckboxChecked : styles.filterCheckbox}>
-                            {locationFilter === loc && <Icon as={CheckOutlined} size="sm" tone="inverted" />}
+                            {locationFilter === loc && <CheckOutlined style={{ fontSize: 12, color: '#FFFFFF' }} />}
                           </div>
                           <span>{loc}</span>
                         </button>
@@ -517,7 +517,7 @@ export default function CalendarView({
                 <div className={styles.filterDropdownWide}>
                   <div className={styles.filterSearchBox}>
                     <div className={styles.filterSearchInput}>
-                      <Icon as={SearchOutlined} tone="secondary" />
+                      <SearchOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
                       <input
                         type="text"
                         placeholder="Search practitioners..."

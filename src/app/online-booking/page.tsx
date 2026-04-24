@@ -4,7 +4,6 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { LeftOutlined, RightOutlined, EnvironmentOutlined, FileTextOutlined, ClockCircleOutlined, CalendarOutlined, UserOutlined, CheckCircleOutlined, MailOutlined, PlusOutlined, CopyOutlined, BankOutlined } from "@ant-design/icons";
 import { Button, Flex } from "antd";
-import Icon from "@/components/ds/Icon";
 import { Avatar, Checkbox, FormInput, FormSelect, FormTextarea, Text } from "@/components/ds";
 import styles from "./online-booking.module.css";
 
@@ -91,7 +90,7 @@ function OnlineBookingPageInner() {
             }}
             className={styles.backButton}
           >
-            <Icon as={LeftOutlined} /> <Text variant="body/md" as="span">Back</Text>
+            <LeftOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /> <Text variant="body/md" as="span">Back</Text>
           </button>
         )}
 
@@ -117,7 +116,7 @@ function OnlineBookingPageInner() {
                         className={`${styles.locationCard} ${isSelected ? styles.locationCardSelected : ""}`}
                       >
                         <div className={styles.locationIcon}>
-                          <Icon as={BankOutlined} size="4xl" />
+                          <BankOutlined style={{ fontSize: 32, color: 'var(--ant-color-text, #414549)' }} />
                         </div>
                         <div className={styles.locationInfo}>
                           <span className={styles.locationName}>{loc.name}</span>
@@ -149,15 +148,15 @@ function OnlineBookingPageInner() {
                 {/* Filters */}
                 <div className={styles.filterRow}>
                   <div className={styles.filterItem}>
-                    <Icon as={UserOutlined} className="mr-2" />
+                    <UserOutlined className="mr-2" style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                     <Text variant="body/md" as="span" color="secondary">All practitioners</Text>
                   </div>
                   <div className={styles.filterItem}>
-                    <Icon as={CalendarOutlined} className="mr-2" />
+                    <CalendarOutlined className="mr-2" style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                     <Text variant="body/md" as="span" color="secondary">Any date</Text>
                   </div>
                   <div className={styles.filterItem}>
-                    <Icon as={ClockCircleOutlined} className="mr-2" />
+                    <ClockCircleOutlined className="mr-2" style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                     <Text variant="body/md" as="span" color="secondary">Any time</Text>
                   </div>
                 </div>
@@ -199,7 +198,7 @@ function OnlineBookingPageInner() {
                           <Text variant="heading/sm" as="div" style={{ marginBottom: 8 }}>March 2026</Text>
                           <div className={styles.weekNav}>
                             <Button type="text" shape="circle">
-                              <Icon as={LeftOutlined} />
+                              <LeftOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                             </Button>
                             {weekDays.map((d) => (
                               <Button
