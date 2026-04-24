@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Flex } from "antd";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import { ThunderboltOutlined, CloseOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { PageHeader, SearchBar, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Badge, Dropdown, DropdownTriggerButton, Modal, FormInput, Toggle } from "@/components/ds";
+import { PageHeader, SearchBar, Pagination, Badge, Dropdown, DropdownTriggerButton, Modal, FormInput, Toggle } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { formatTimestamp } from "@/lib/format";
@@ -17,6 +18,12 @@ const templates = [
   { title: "Standard Consultation", createdAt: "8:21 pm, 5 Mar 2014", hasAi: false },
   { title: "Initial Consultation", createdAt: "8:21 pm, 5 Mar 2014", hasAi: false },
 ];
+
+interface TemplateRow {
+  title: string;
+  createdAt: string;
+  hasAi: boolean;
+}
 
 export default function ProgressNotesPage() {
   const router = useRouter();
@@ -50,6 +57,35 @@ export default function ProgressNotesPage() {
       return;
     }
   }
+
+  const columns: ColumnsType<TemplateRow> = [
+    {
+      key: "title",
+      title: "Title",
+      render: (_, row) => (
+        <Flex align="center" gap={8}>
+          {row.hasAi && (
+            <Icon as={ThunderboltOutlined} tone="primary" style={{ flexShrink: 0 }} />
+          )}
+          <span>{row.title}</span>
+        </Flex>
+      ),
+    },
+    { key: "createdAt", title: "Created at", dataIndex: "createdAt" },
+    {
+      key: "actions",
+      title: "",
+      align: "right" as const,
+      render: (_, row) => (
+        <Dropdown
+          align="right"
+          trigger={<DropdownTriggerButton />}
+          items={STANDARD_SETTINGS}
+          onSelect={(value) => handleAction(value, templateList.indexOf(row))}
+        />
+      ),
+    },
+  ];
 
   return (
     <div style={{ padding: 24 }}>
@@ -88,36 +124,7 @@ export default function ProgressNotesPage() {
 
       <SearchBar placeholder="Search for title" />
 
-      <DataTable>
-        <TableHead>
-          <Th>Title</Th>
-          <Th>Created at</Th>
-          <Th align="right">Actions</Th>
-        </TableHead>
-        <TableBody>
-          {paged.map((t, i) => (
-            <Tr key={t.title + i}>
-              <Td>
-                <Flex align="center" gap={8}>
-                  {t.hasAi && (
-                    <Icon as={ThunderboltOutlined} tone="primary" style={{ flexShrink: 0 }} />
-                  )}
-                  <span>{t.title}</span>
-                </Flex>
-              </Td>
-              <Td>{t.createdAt}</Td>
-              <Td align="right">
-                <Dropdown
-                  align="right"
-                  trigger={<DropdownTriggerButton />}
-                  items={STANDARD_SETTINGS}
-                  onSelect={(value) => handleAction(value, i)}
-                />
-              </Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table columns={columns} dataSource={paged} rowKey={(row) => row.title + templateList.indexOf(row)} pagination={false} />
 
       <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={templateList.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} showPageSize={false} />
       <Modal

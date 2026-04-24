@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Flex } from "antd";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import { SwapOutlined, ReadOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, SearchBar, Dropdown, DropdownTriggerButton, PageHeader } from "@/components/ds";
+import { Pagination, SearchBar, Dropdown, DropdownTriggerButton, PageHeader } from "@/components/ds";
 
 interface Service {
   id: number;
@@ -68,6 +69,59 @@ export default function SettingsServicesPage() {
   const totalPages = Math.ceil(filteredServices.length / pageSize);
   const pageServices = filteredServices.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
+  const columns: ColumnsType<Service> = [
+    {
+      key: "name",
+      title: (
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+          Name
+          <Icon as={SwapOutlined} tone="secondary" />
+        </span>
+      ),
+      render: (_, row) => (
+        <Flex align="center" gap={8}>
+          <span style={{ display: 'inline-block', height: 10, width: 10, flexShrink: 0, borderRadius: '50%', backgroundColor: row.color }} />
+          <span style={{ fontWeight: 500 }}>{row.name}</span>
+        </Flex>
+      ),
+    },
+    {
+      key: "type",
+      title: (
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+          Type
+          <Icon as={SwapOutlined} tone="secondary" />
+        </span>
+      ),
+      dataIndex: "type",
+    },
+    { key: "itemCode", title: "Item code", dataIndex: "itemCode" },
+    { key: "duration", title: "Duration", dataIndex: "duration" },
+    {
+      key: "price",
+      title: "Price",
+      align: "right" as const,
+      render: (_, row) => `${row.price} / ${row.rate}`,
+    },
+    {
+      key: "actions",
+      title: "",
+      align: "right" as const,
+      render: (_, row) => (
+        <Dropdown
+          align="right"
+          trigger={<DropdownTriggerButton />}
+          items={dropdownItems}
+          onSelect={(value) => {
+            if (value === "edit") {
+              router.push(`/settings/services/edit/${row.id}`);
+            }
+          }}
+        />
+      ),
+    },
+  ];
+
   return (
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       {/* Header */}
@@ -89,56 +143,7 @@ export default function SettingsServicesPage() {
       />
 
       {/* Table */}
-      <DataTable>
-        <TableHead>
-          <Th>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-              Name
-              <Icon as={SwapOutlined} tone="secondary" />
-            </span>
-          </Th>
-          <Th>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-              Type
-              <Icon as={SwapOutlined} tone="secondary" />
-            </span>
-          </Th>
-          <Th>Item code</Th>
-          <Th>Duration</Th>
-          <Th align="right">Price</Th>
-          <Th align="right">Actions</Th>
-        </TableHead>
-        <TableBody>
-          {pageServices.map((service) => (
-            <Tr key={service.id}>
-              <Td>
-                <Flex align="center" gap={8}>
-                  <span style={{ display: 'inline-block', height: 10, width: 10, flexShrink: 0, borderRadius: '50%', backgroundColor: service.color }} />
-                  <span style={{ fontWeight: 500 }}>{service.name}</span>
-                </Flex>
-              </Td>
-              <Td>{service.type}</Td>
-              <Td>{service.itemCode}</Td>
-              <Td>{service.duration}</Td>
-              <Td align="right">
-                {service.price} / {service.rate}
-              </Td>
-              <Td align="right">
-                <Dropdown
-                  align="right"
-                  trigger={<DropdownTriggerButton />}
-                  items={dropdownItems}
-                  onSelect={(value) => {
-                    if (value === "edit") {
-                      router.push(`/settings/services/edit/${service.id}`);
-                    }
-                  }}
-                />
-              </Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table columns={columns} dataSource={pageServices} rowKey="id" pagination={false} />
 
       {/* Pagination */}
       <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={filteredServices.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} />

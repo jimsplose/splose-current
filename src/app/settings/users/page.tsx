@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { Button, Flex } from "antd";
-import { FormInput, FormSelect, Badge, DataTable, TableHead, Th, TableBody, Tr, Td, Dropdown, DropdownTriggerButton, Modal, PageHeader } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { FormInput, FormSelect, Badge, Dropdown, DropdownTriggerButton, Modal, PageHeader, Text } from "@/components/ds";
 import { USER_ADMIN } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
 
@@ -132,6 +133,62 @@ export default function UsersPage() {
     setConfirmDialog({ open: false, title: "", message: "", action: null, userIndex: null });
   }, []);
 
+  const columns: ColumnsType<User> = [
+    {
+      key: "name",
+      title: "Name",
+      render: (_, row, index) => (
+        <div style={{ fontWeight: 500 }}>
+          <a href={`/settings/users/${index + 1}`}>{row.name}</a>
+          {row.isOwner && <Badge variant="green" style={{ marginLeft: 8 }}>Account owner</Badge>}
+        </div>
+      ),
+    },
+    {
+      key: "email",
+      title: "Email",
+      render: (_, row) => <Text color="secondary" as="span">{row.email}</Text>,
+    },
+    {
+      key: "roleName",
+      title: "Role name",
+      render: (_, row) => <Text color="secondary" as="span">{row.roleName}</Text>,
+    },
+    {
+      key: "roleType",
+      title: "Role type",
+      render: (_, row) => <Text color="secondary" as="span">{row.roleType}</Text>,
+    },
+    {
+      key: "group",
+      title: "Group",
+      render: (_, row) => <Text color="secondary" as="span">{row.group || "---"}</Text>,
+    },
+    {
+      key: "status",
+      title: "Status",
+      render: (_, row) => <Text color="secondary" as="span">{row.status}</Text>,
+    },
+    {
+      key: "twoFA",
+      title: "2FA",
+      render: (_, row) => <Text color="secondary" as="span">{row.twoFA ? "Enabled" : "Not enabled"}</Text>,
+    },
+    {
+      key: "actions",
+      title: "",
+      align: "right" as const,
+      render: (_, row, index) => (
+        <Dropdown
+          align="right"
+          trigger={<DropdownTriggerButton />}
+          items={USER_ADMIN}
+          onSelect={(value) => handleDropdownAction(value, row, index)}
+        />
+      ),
+    },
+  ];
+
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Users">
@@ -141,32 +198,7 @@ export default function UsersPage() {
         <div style={{ flex: 1 }}><FormInput type="text" placeholder="Search for user name and email" /></div>
         <Button>Search</Button>
       </Flex>
-      <DataTable>
-        <TableHead><Th>Name</Th><Th>Email</Th><Th>Role name</Th><Th>Role type</Th><Th>Group</Th><Th>Status</Th><Th>2FA</Th><Th align="right">Actions</Th></TableHead>
-        <TableBody>
-          {users.map((user, index) => (
-            <Tr key={user.email}>
-              <Td style={{ fontWeight: 500 }}>
-                <div><a href={`/settings/users/${index + 1}`}>{user.name}</a>{user.isOwner && <Badge variant="green" style={{ marginLeft: 8 }}>Account owner</Badge>}</div>
-              </Td>
-              <Td color="secondary">{user.email}</Td>
-              <Td color="secondary">{user.roleName}</Td>
-              <Td color="secondary">{user.roleType}</Td>
-              <Td color="secondary">{user.group || "---"}</Td>
-              <Td color="secondary">{user.status}</Td>
-              <Td color="secondary">{user.twoFA ? "Enabled" : "Not enabled"}</Td>
-              <Td align="right">
-                <Dropdown
-                  align="right"
-                  trigger={<DropdownTriggerButton />}
-                  items={USER_ADMIN}
-                  onSelect={(value) => handleDropdownAction(value, user, index)}
-                />
-              </Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table columns={columns} dataSource={users} rowKey="email" pagination={false} />
 
       {/* Edit User Modal */}
       <Modal

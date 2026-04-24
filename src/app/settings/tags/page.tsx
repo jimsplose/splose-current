@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
-import { ColorDot, PageHeader, DataTable, TableHead, Th, TableBody, Tr, Td, Tab, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, FormColorPicker } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { ColorDot, PageHeader, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, FormColorPicker, Tab } from "@/components/ds";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
 
@@ -109,6 +110,28 @@ export default function TagsPage() {
     if (value === "edit") openEdit(index, currentData.tags[index]);
   }
 
+  const columns: ColumnsType<Tag> = [
+    { key: "name", title: "Name", dataIndex: "name" },
+    {
+      key: "color",
+      title: "Colour",
+      render: (_, row) => <ColorDot color={row.color} shape="rect" />,
+    },
+    {
+      key: "actions",
+      title: "",
+      align: "right" as const,
+      render: (_, row) => (
+        <Dropdown
+          align="right"
+          trigger={<DropdownTriggerButton />}
+          items={STANDARD_SETTINGS}
+          onSelect={(value) => handleAction(value, currentData.tags.indexOf(row))}
+        />
+      ),
+    },
+  ];
+
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Tags">
@@ -130,31 +153,7 @@ export default function TagsPage() {
         <p style={{ marginBottom: 16, fontSize: 12, color: 'var(--color-text-secondary)' }}>{currentData.description}</p>
       )}
 
-      <DataTable>
-        <TableHead>
-          <Th>Name</Th>
-          <Th>Colour</Th>
-          <Th align="right">Actions</Th>
-        </TableHead>
-        <TableBody>
-          {paged.map((tag, i) => (
-            <Tr key={tag.name}>
-              <Td>{tag.name}</Td>
-              <Td>
-                <ColorDot color={tag.color} shape="rect" />
-              </Td>
-              <Td align="right">
-                <Dropdown
-                  align="right"
-                  trigger={<DropdownTriggerButton />}
-                  items={STANDARD_SETTINGS}
-                  onSelect={(value) => handleAction(value, currentData.tags.indexOf(tag))}
-                />
-              </Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table columns={columns} dataSource={paged} rowKey="name" pagination={false} />
 
       <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={currentData.tags.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} showPageSize={false} />
 

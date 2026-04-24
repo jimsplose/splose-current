@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import { ReadOutlined, SwapOutlined, CheckOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { PageHeader, SearchBar, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, Divider } from "@/components/ds";
+import { PageHeader, SearchBar, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, Divider } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 
@@ -72,6 +73,33 @@ export default function UserGroupsPage() {
     }
   }
 
+  const columns: ColumnsType<UserGroup> = [
+    {
+      key: "name",
+      title: (
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+          Name
+          <Icon as={SwapOutlined} tone="secondary" />
+        </span>
+      ),
+      dataIndex: "name",
+    },
+    { key: "users", title: "Users", dataIndex: "users" },
+    {
+      key: "actions",
+      title: "",
+      align: "right" as const,
+      render: (_, row) => (
+        <Dropdown
+          align="right"
+          trigger={<DropdownTriggerButton />}
+          items={STANDARD_SETTINGS}
+          onSelect={(value) => handleAction(value, groups.indexOf(row))}
+        />
+      ),
+    },
+  ];
+
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="User groups">
@@ -87,34 +115,7 @@ export default function UserGroupsPage() {
         onSearch={(q) => setSearch(q)}
       />
 
-      <DataTable>
-        <TableHead>
-          <Th>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-              Name
-              <Icon as={SwapOutlined} tone="secondary" />
-            </span>
-          </Th>
-          <Th>Users</Th>
-          <Th align="right">Actions</Th>
-        </TableHead>
-        <TableBody>
-          {paged.map((group) => (
-            <Tr key={group.name}>
-              <Td>{group.name}</Td>
-              <Td>{group.users}</Td>
-              <Td align="right">
-                <Dropdown
-                  align="right"
-                  trigger={<DropdownTriggerButton />}
-                  items={STANDARD_SETTINGS}
-                  onSelect={(value) => handleAction(value, groups.indexOf(group))}
-                />
-              </Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table columns={columns} dataSource={paged} rowKey="name" pagination={false} />
 
       <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={filtered.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} />
       <Modal

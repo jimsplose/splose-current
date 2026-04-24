@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
-import { DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Modal, FormInput, PageHeader } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { Pagination, Modal, FormInput, PageHeader } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 
 interface TaxRate {
@@ -43,28 +44,22 @@ export default function TaxRatesPage() {
     if (value === "edit") openEdit(index, { name: rate.name, rate: rate.rate, description: rate.description });
   }
 
+  const columns: ColumnsType<TaxRate> = [
+    {
+      key: "name",
+      title: "Name",
+      render: (_, row) => <span style={{ fontWeight: 500 }}>{row.name}</span>,
+    },
+    { key: "rate", title: "Rate", dataIndex: "rate" },
+  ];
+
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Tax rates">
         <Button onClick={openCreate}>+ New tax rate</Button>
       </PageHeader>
 
-      <DataTable>
-        <TableHead>
-          <Th>Name</Th>
-          <Th>Rate</Th>
-        </TableHead>
-        <TableBody>
-          {pageItems.map((rate, i) => (
-            <Tr key={rate.id}>
-              <Td>
-                <span style={{ fontWeight: 500 }}>{rate.name}</span>
-              </Td>
-              <Td>{rate.rate}</Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table columns={columns} dataSource={pageItems} rowKey="id" pagination={false} />
 
       <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={rates.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} />
 

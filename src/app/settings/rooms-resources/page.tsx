@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import { SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { PageHeader, SearchBar, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, ColorDot, FormColorPicker, FormInput } from "@/components/ds";
+import { PageHeader, SearchBar, Pagination, Dropdown, DropdownTriggerButton, Modal, ColorDot, FormColorPicker, FormInput } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 
@@ -81,6 +82,47 @@ export default function SettingsRoomsResourcesPage() {
     }
   };
 
+  const columns: ColumnsType<Room> = [
+    {
+      key: "name",
+      title: (
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+          Name <Icon as={SwapOutlined} tone="secondary" />
+        </span>
+      ),
+      render: (_, row) => (
+        <Flex align="center" gap={10}>
+          <ColorDot color={row.color} />
+          {row.name}
+        </Flex>
+      ),
+    },
+    { key: "group", title: "Group", dataIndex: "group" },
+    { key: "capacity", title: "Capacity/Available", dataIndex: "capacity" },
+    {
+      key: "location",
+      title: (
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+          Location <Icon as={FilterOutlined} tone="primary" />
+        </span>
+      ),
+      dataIndex: "location",
+    },
+    {
+      key: "actions",
+      title: "",
+      align: "right" as const,
+      render: (_, row) => (
+        <Dropdown
+          align="right"
+          trigger={<DropdownTriggerButton />}
+          items={STANDARD_SETTINGS}
+          onSelect={(action) => handleAction(action, row, rooms.indexOf(row))}
+        />
+      ),
+    },
+  ];
+
   return (
     <>
       <div style={{ flex: 1, padding: 24 }}>
@@ -92,53 +134,17 @@ export default function SettingsRoomsResourcesPage() {
 
         <SearchBar placeholder="Search for rooms/resources" />
 
-        <DataTable>
-          <TableHead>
-            <Th>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-                Name <Icon as={SwapOutlined} tone="secondary" />
-              </span>
-            </Th>
-            <Th>Group</Th>
-            <Th>Capacity/Available</Th>
-            <Th>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-                Location <Icon as={FilterOutlined} tone="primary" />
-              </span>
-            </Th>
-            <Th align="right">Actions</Th>
-          </TableHead>
-          <TableBody>
-            {paged.map((room, index) => (
-              <Tr key={room.id}>
-                <Td>
-                  <Flex align="center" gap={10}>
-                    <ColorDot color={room.color} />
-                    {room.name}
-                  </Flex>
-                </Td>
-                <Td>{room.group}</Td>
-                <Td>{room.capacity}</Td>
-                <Td>{room.location}</Td>
-                <Td align="right">
-                  <Dropdown
-                    align="right"
-                    trigger={<DropdownTriggerButton />}
-                    items={STANDARD_SETTINGS}
-                    onSelect={(action) => handleAction(action, room, rooms.indexOf(room))}
-                  />
-                </Td>
-              </Tr>
-            ))}
-            {rooms.length === 0 && (
-              <tr>
-                <td colSpan={5} style={{ padding: '32px 16px', textAlign: 'center', color: 'var(--color-text-secondary)', fontSize: 14 }}>
-                  No rooms or resources added yet.
-                </td>
-              </tr>
-            )}
-          </TableBody>
-        </DataTable>
+        <Table
+          columns={columns}
+          dataSource={paged}
+          rowKey="id"
+          pagination={false}
+          locale={{ emptyText: (
+            <div style={{ padding: '32px 16px', textAlign: 'center', color: 'var(--color-text-secondary)', fontSize: 14 }}>
+              No rooms or resources added yet.
+            </div>
+          ) }}
+        />
 
         <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={rooms.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} />
       </div>

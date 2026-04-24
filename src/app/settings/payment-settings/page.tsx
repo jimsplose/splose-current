@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
-import { DataTable, TableHead, Th, TableBody, Tr, Td, Badge, FormInput, FormSelect, Pagination, Dropdown, DropdownTriggerButton, Modal, PageHeader } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { Badge, FormInput, FormSelect, Pagination, Dropdown, DropdownTriggerButton, Modal, PageHeader } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -68,6 +69,32 @@ export default function PaymentSettingsPage() {
     }
   }
 
+  const columns: ColumnsType<PaymentMethod> = [
+    {
+      key: "name",
+      title: "Name",
+      render: (_, row) => <span style={{ fontWeight: 500 }}>{row.name}</span>,
+    },
+    { key: "description", title: "Description", dataIndex: "description" },
+    {
+      key: "status",
+      title: "Status",
+      render: (_, row) => <Badge variant="green">{row.status}</Badge>,
+    },
+    {
+      key: "actions",
+      title: "Actions",
+      render: (_, row) => (
+        <Dropdown
+          align="right"
+          trigger={<DropdownTriggerButton />}
+          items={SIMPLE_CRUD}
+          onSelect={(value) => handleAction(value, methods.indexOf(row))}
+        />
+      ),
+    },
+  ];
+
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Payment settings" />
@@ -109,35 +136,7 @@ export default function PaymentSettingsPage() {
       <section style={{ marginBottom: 32 }}>
         <h2 style={{ marginBottom: 16, fontSize: 20, fontWeight: 600 }}>Accepted forms of payment</h2>
 
-        <DataTable>
-          <TableHead>
-            <Th>Name</Th>
-            <Th>Description</Th>
-            <Th>Status</Th>
-            <Th>Actions</Th>
-          </TableHead>
-          <TableBody>
-            {pageItems.map((method, i) => (
-              <Tr key={method.id}>
-                <Td>
-                  <span style={{ fontWeight: 500 }}>{method.name}</span>
-                </Td>
-                <Td>{method.description}</Td>
-                <Td>
-                  <Badge variant="green">{method.status}</Badge>
-                </Td>
-                <Td>
-                  <Dropdown
-                    align="right"
-                    trigger={<DropdownTriggerButton />}
-                    items={SIMPLE_CRUD}
-                    onSelect={(value) => handleAction(value, methods.indexOf(method))}
-                  />
-                </Td>
-              </Tr>
-            ))}
-          </TableBody>
-        </DataTable>
+        <Table columns={columns} dataSource={pageItems} rowKey="id" pagination={false} />
 
         <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={methods.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} />
 
