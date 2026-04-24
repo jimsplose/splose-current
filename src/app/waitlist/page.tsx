@@ -559,104 +559,92 @@ function WaitlistPageInner() {
               </div>
             }
           >
-          <DataTable minWidth="800px">
-            <TableHead>
-              <Th>Triage</Th>
-              <Th>
-                <Flex align="center" gap={4}>
-                  Tags
-                  <Icon as={FilterOutlined} size="sm" tone="secondary" />
-                </Flex>
-              </Th>
-              <Th>
-                <Flex align="center" gap={4}>
-                  Client
-                  <svg style={{ width: 12, height: 12, color: 'var(--color-text-secondary)' }} viewBox="0 0 12 12" fill="currentColor">
-                    <path d="M6 0L9 5H3L6 0ZM6 12L3 7H9L6 12Z" />
-                  </svg>
-                </Flex>
-              </Th>
-              <Th>Date of birth</Th>
-              <Th>Address</Th>
-              <Th>Form</Th>
-              <Th>Date submitted</Th>
-              <Th align="right">Actions</Th>
-            </TableHead>
-            <TableBody>
-              {screenerSubTab === "triage" ? (
-                pagedScreener.length === 0 ? (
-                  <tr>
-                    <td colSpan={8}>
-                      <EmptyState message="No screener entries found." style={{ padding: '32px 0' }} />
-                    </td>
-                  </tr>
-                ) : (
-                  pagedScreener.map((row, idx) => (
-                    <Tr key={idx}>
-                      <Td>
-                        <Flex align="center" gap={4}>
-                          <Button
-                            size="small"
-                            onClick={() => handleTriage(idx, "yes")}
-                            className={triageState[idx] === "yes" ? wStyles.triageYesActive : ""}
-                            style={{
-                              fontSize: 12,
-                              gap: 2,
-                              borderRadius: 4,
-                              padding: '4px 8px',
-                              ...(triageState[idx] !== "yes" ? { color: 'var(--color-text-secondary)' } : {}),
-                            }}
-                          >
-                            <Icon as={LikeOutlined} size="sm" />
-                            <span>Yes</span>
-                          </Button>
-                          <Button
-                            danger={triageState[idx] === "no"}
-                            type="default"
-                            size="small"
-                            onClick={() => handleTriage(idx, "no")}
-                            className={triageState[idx] === "no" ? wStyles.triageNoActive : ""}
-                            style={{
-                              fontSize: 12,
-                              gap: 2,
-                              borderRadius: 4,
-                              padding: '4px 8px',
-                              ...(triageState[idx] !== "no" ? { color: 'var(--color-text-secondary)' } : {}),
-                            }}
-                          >
-                            <Icon as={DislikeOutlined} size="sm" />
-                            <span>No</span>
-                          </Button>
-                        </Flex>
-                      </Td>
-                      <Td><Text variant="body/md" as="span" color="secondary">{row.tags}</Text></Td>
-                      <Td><Text variant="body/md" as="span" color="primary">{row.client}</Text></Td>
-                      <Td><Text variant="body/md" as="span" color="secondary">{row.dob}</Text></Td>
-                      <Td><Text variant="body/md" as="span" color="secondary">{row.address}</Text></Td>
-                      <Td><Text variant="body/md" as="span" color="primary">{row.form}</Text></Td>
-                      <Td>
-                        <Flex align="center" gap={8}>
-                          {row.dateSubmitted}
-                          {row.archived && <Badge variant="red">Archived</Badge>}
-                        </Flex>
-                      </Td>
-                      <Td align="right">
-                        <Button type="text" size="small" style={{ padding: '4px 6px' }}>
-                          <Icon as={MoreOutlined} />
-                        </Button>
-                      </Td>
-                    </Tr>
-                  ))
-                )
-              ) : (
-                <tr>
-                  <td colSpan={8}>
-                    <EmptyState message="No rejected entries." style={{ padding: '32px 0' }} />
-                  </td>
-                </tr>
-              )}
-            </TableBody>
-          </DataTable>
+          {(() => {
+            type ScreenerRow = typeof screenerData[number];
+            const screenerColumns: ColumnsType<ScreenerRow> = [
+              {
+                key: "triage",
+                title: "Triage",
+                render: (_, row, idx) => (
+                  <Flex align="center" gap={4}>
+                    <Button
+                      size="small"
+                      onClick={() => handleTriage(idx, "yes")}
+                      className={triageState[idx] === "yes" ? wStyles.triageYesActive : ""}
+                      style={{ fontSize: 12, gap: 2, borderRadius: 4, padding: "4px 8px", ...(triageState[idx] !== "yes" ? { color: "var(--color-text-secondary)" } : {}) }}
+                    >
+                      <Icon as={LikeOutlined} size="sm" />
+                      <span>Yes</span>
+                    </Button>
+                    <Button
+                      danger={triageState[idx] === "no"}
+                      type="default"
+                      size="small"
+                      onClick={() => handleTriage(idx, "no")}
+                      className={triageState[idx] === "no" ? wStyles.triageNoActive : ""}
+                      style={{ fontSize: 12, gap: 2, borderRadius: 4, padding: "4px 8px", ...(triageState[idx] !== "no" ? { color: "var(--color-text-secondary)" } : {}) }}
+                    >
+                      <Icon as={DislikeOutlined} size="sm" />
+                      <span>No</span>
+                    </Button>
+                  </Flex>
+                ),
+              },
+              { key: "tags", title: <Flex align="center" gap={4}>Tags<Icon as={FilterOutlined} size="sm" tone="secondary" /></Flex>, render: (_, row) => <Text variant="body/md" as="span" color="secondary">{row.tags}</Text> },
+              {
+                key: "client",
+                title: (
+                  <Flex align="center" gap={4}>
+                    Client
+                    <svg style={{ width: 12, height: 12, color: "var(--color-text-secondary)" }} viewBox="0 0 12 12" fill="currentColor">
+                      <path d="M6 0L9 5H3L6 0ZM6 12L3 7H9L6 12Z" />
+                    </svg>
+                  </Flex>
+                ),
+                render: (_, row) => <Text variant="body/md" as="span" color="primary">{row.client}</Text>,
+              },
+              { key: "dob", title: "Date of birth", render: (_, row) => <Text variant="body/md" as="span" color="secondary">{row.dob}</Text> },
+              { key: "address", title: "Address", render: (_, row) => <Text variant="body/md" as="span" color="secondary">{row.address}</Text> },
+              { key: "form", title: "Form", render: (_, row) => <Text variant="body/md" as="span" color="primary">{row.form}</Text> },
+              {
+                key: "dateSubmitted",
+                title: "Date submitted",
+                render: (_, row) => (
+                  <Flex align="center" gap={8}>
+                    {row.dateSubmitted}
+                    {row.archived && <Badge variant="red">Archived</Badge>}
+                  </Flex>
+                ),
+              },
+              {
+                key: "actions",
+                title: "Actions",
+                align: "right" as const,
+                render: () => (
+                  <Button type="text" size="small" style={{ padding: "4px 6px" }}>
+                    <Icon as={MoreOutlined} />
+                  </Button>
+                ),
+              },
+            ];
+
+            const screenerData_ = screenerSubTab === "triage" ? pagedScreener : [];
+            const emptyText = screenerSubTab === "triage"
+              ? <EmptyState message="No screener entries found." style={{ padding: "32px 0" }} />
+              : <EmptyState message="No rejected entries." style={{ padding: "32px 0" }} />;
+
+            return (
+              <div style={{ overflowX: "auto", minWidth: "800px" }}>
+                <Table
+                  columns={screenerColumns}
+                  dataSource={screenerData_}
+                  rowKey={(_, idx) => String(idx)}
+                  pagination={false}
+                  locale={{ emptyText }}
+                />
+              </div>
+            );
+          })()}
           </Skeleton.Loading>
           <Pagination currentPage={screenerPage} totalPages={screenerTotalPages} totalItems={filteredScreener.length} itemsPerPage={pageSize} onPageChange={setScreenerPage} />
         </ListPage>
@@ -992,67 +980,57 @@ function WaitlistPageInner() {
               <SearchBar placeholder="Search for client name" onSearch={(query) => setWaitlistSearch(query)} />
 
               {/* Waitlist table */}
-              <DataTable minWidth="700px">
-                <TableHead>
-                  <Th>
-                    <Flex align="center" gap={4}>
-                      Tags
-                      <Icon as={FilterOutlined} size="sm" tone="secondary" />
-                    </Flex>
-                  </Th>
-                  <Th>Client</Th>
-                  <Th>Date of birth</Th>
-                  <Th>Address</Th>
-                  <Th>Date added</Th>
-                  <Th align="right">Actions</Th>
-                </TableHead>
-                <TableBody>
-                  {pagedWaitlist.length === 0 ? (
-                    <tr>
-                      <td colSpan={6}>
-                        <EmptyState message={`No ${waitlistSubTab} entries found.`} style={{ padding: '32px 0' }} />
-                      </td>
-                    </tr>
-                  ) : (
-                    pagedWaitlist.map((row, idx) => (
-                      <Tr key={idx} onClick={() => openUpdateModal(row)} style={{ cursor: 'pointer' }}>
-                        <Td>
-                          <Flex wrap gap={4}>
-                            {row.tags.map((tag) =>
-                              tag === "---" ? (
-                                <Text key={tag} variant="body/md" as="span" color="secondary">
-                                  ---
-                                </Text>
-                              ) : (
-                                <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} solid>
-                                  {tag}
-                                </Badge>
-                              ),
-                            )}
-                          </Flex>
-                        </Td>
-                        <Td><Text variant="body/md" as="span" color="primary">{row.client}</Text></Td>
-                        <Td><Text variant="body/md" as="span" color="secondary">{row.dob}</Text></Td>
-                        <Td><Text variant="body/md" as="span" color="secondary">{row.address}</Text></Td>
-                        <Td><Text variant="body/md" as="span" color="secondary">{row.dateAdded}</Text></Td>
-                        <Td align="right">
-                          <Button
-                            type="text"
-                            size="small"
-                            style={{ padding: '4px 6px' }}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              openUpdateModal(row);
-                            }}
-                          >
-                            <Icon as={MoreOutlined} />
-                          </Button>
-                        </Td>
-                      </Tr>
-                    ))
-                  )}
-                </TableBody>
-              </DataTable>
+              {(() => {
+                type WaitlistRow = typeof waitlistData[number];
+                const waitlistColumns: ColumnsType<WaitlistRow> = [
+                  {
+                    key: "tags",
+                    title: <Flex align="center" gap={4}>Tags<Icon as={FilterOutlined} size="sm" tone="secondary" /></Flex>,
+                    render: (_, row) => (
+                      <Flex wrap gap={4}>
+                        {row.tags.map((tag) =>
+                          tag === "---" ? (
+                            <Text key={tag} variant="body/md" as="span" color="secondary">---</Text>
+                          ) : (
+                            <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} solid>{tag}</Badge>
+                          ),
+                        )}
+                      </Flex>
+                    ),
+                  },
+                  { key: "client", title: "Client", render: (_, row) => <Text variant="body/md" as="span" color="primary">{row.client}</Text> },
+                  { key: "dob", title: "Date of birth", render: (_, row) => <Text variant="body/md" as="span" color="secondary">{row.dob}</Text> },
+                  { key: "address", title: "Address", render: (_, row) => <Text variant="body/md" as="span" color="secondary">{row.address}</Text> },
+                  { key: "dateAdded", title: "Date added", render: (_, row) => <Text variant="body/md" as="span" color="secondary">{row.dateAdded}</Text> },
+                  {
+                    key: "actions",
+                    title: "Actions",
+                    align: "right" as const,
+                    render: (_, row) => (
+                      <Button
+                        type="text"
+                        size="small"
+                        style={{ padding: "4px 6px" }}
+                        onClick={(e) => { e.stopPropagation(); openUpdateModal(row); }}
+                      >
+                        <Icon as={MoreOutlined} />
+                      </Button>
+                    ),
+                  },
+                ];
+                return (
+                  <div style={{ overflowX: "auto", minWidth: "700px" }}>
+                    <Table
+                      columns={waitlistColumns}
+                      dataSource={pagedWaitlist}
+                      rowKey={(_, idx) => String(idx)}
+                      pagination={false}
+                      onRow={(row) => ({ onClick: () => openUpdateModal(row), style: { cursor: "pointer" } })}
+                      locale={{ emptyText: <EmptyState message={`No ${waitlistSubTab} entries found.`} style={{ padding: "32px 0" }} /> }}
+                    />
+                  </div>
+                );
+              })()}
               <Pagination currentPage={waitlistPage} totalPages={waitlistTotalPages} totalItems={filteredWaitlist.length} itemsPerPage={pageSize} onPageChange={setWaitlistPage} />
             </>
           ) : (

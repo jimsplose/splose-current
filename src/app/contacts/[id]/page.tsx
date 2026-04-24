@@ -330,9 +330,9 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
               const associatedClientsColumns: ColumnsType<{ id: string; name: string }> = [
                 { key: "name", title: "Name", dataIndex: "name" },
                 { key: "dob", title: "DOB", render: () => <Text color="secondary" as="span">5 Jun 2011</Text> },
-                { key: "appts", title: "Appts", align: "center", render: () => <Text color="secondary" as="span"></Text> },
-                { key: "invoices", title: "Invoices", align: "center", render: () => <Text color="secondary" as="span"></Text> },
-                { key: "notes", title: "Notes", align: "center", render: () => <Text color="secondary" as="span"></Text> },
+                { key: "appts", title: "Appts", align: "center", render: () => <span></span> },
+                { key: "invoices", title: "Invoices", align: "center", render: () => <span></span> },
+                { key: "notes", title: "Notes", align: "center", render: () => <span></span> },
               ];
               return <Table columns={associatedClientsColumns} dataSource={contact.associatedClients} rowKey="id" pagination={false} />;
             })() : (
