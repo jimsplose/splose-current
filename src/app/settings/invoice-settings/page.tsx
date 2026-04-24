@@ -4,7 +4,6 @@ import { useState, useCallback } from "react";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { CalendarOutlined, InfoCircleOutlined } from "@ant-design/icons";
-import Icon from "@/components/ds/Icon";
 import { Alert, FormInput, FormSelect, FormTextarea, Pagination, Toggle, Checkbox, Dropdown, DropdownTriggerButton, Modal, RichTextEditor, PageHeader } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";

@@ -64,7 +64,7 @@ export default function ProgressNotesPage() {
       render: (_, row) => (
         <Flex align="center" gap={8}>
           {row.hasAi && (
-            <Icon as={ThunderboltOutlined} tone="primary" style={{ flexShrink: 0 }} />
+            <ThunderboltOutlined style={{ fontSize: 14, color: 'var(--ant-color-primary, #8250FF)', flexShrink: 0 }} />
           )}
           <span>{row.title}</span>
         </Flex>
@@ -110,7 +110,7 @@ export default function ProgressNotesPage() {
             style={{ flexShrink: 0 }}
             onClick={() => setShowBanner(false)}
           >
-            <Icon as={CloseOutlined} />
+            <CloseOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />
           </Button>
         </Flex>
       )}

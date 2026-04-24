@@ -946,7 +946,7 @@ function WaitlistPageInner() {
                   </>
                 ) : (
                   <>
-                    <Icon as={UnorderedListOutlined} />
+                    <UnorderedListOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                     List
                   </>
                 )}

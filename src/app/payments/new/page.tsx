@@ -278,7 +278,7 @@ export default function NewPaymentPage() {
         {showLinkSearch && (
           <Card padding="sm" style={{ marginBottom: 12 }}>
             <div style={{ position: 'relative' }}>
-              <Icon as={SearchOutlined} tone="secondary" style={{ position: 'absolute', top: '50%', left: 12, zIndex: 10, transform: 'translateY(-50%)' }} />
+              <SearchOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)', position: 'absolute', top: '50%', left: 12, zIndex: 10, transform: 'translateY(-50%)' }} />
               <FormInput
                 type="text"
                 placeholder="Search invoices by number or client..."
@@ -361,7 +361,7 @@ export default function NewPaymentPage() {
                     onClick={() => unlinkInvoice(inv.number)}
                     style={{ height: 24, width: 24 }}
                   >
-                    <Icon as={CloseOutlined} />
+                    <CloseOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                   </Button>
                 ),
               },
