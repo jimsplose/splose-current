@@ -1,7 +1,8 @@
 import { MailOutlined, PhoneOutlined, EnvironmentOutlined, BankOutlined } from "@ant-design/icons";
-import { Button, Flex } from "antd";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import Icon from "@/components/ds/Icon";
-import { DataTable, List, TableHead, Th, TableBody, Tr, Td, LinkCell, EmptyState, Text, Divider } from "@/components/ds";
+import { List, EmptyState, Text, Divider } from "@/components/ds";
 
 const mockContacts = [
   {
