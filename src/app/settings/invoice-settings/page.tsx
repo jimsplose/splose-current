@@ -94,7 +94,7 @@ export default function InvoiceSettingsPage() {
       title: "Name",
       render: (_, row) => (
         <Flex align="center" gap={8}>
-          <Icon as={CalendarOutlined} tone="secondary" />
+          <CalendarOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
           <span>{row.name}</span>
         </Flex>
       ),
@@ -142,7 +142,7 @@ export default function InvoiceSettingsPage() {
       <PageHeader title="Invoice Settings" />
 
       {/* Stripe info banner */}
-      <Alert variant="info" icon={<Icon as={InfoCircleOutlined} />} style={{ marginBottom: 24 }}>
+      <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />} style={{ marginBottom: 24 }}>
         <p style={{ fontSize: 14 }}>
           You need an active Stripe connection for online payments.{" "}
           <a href="#" style={{ fontWeight: 500, color: 'var(--color-primary)' }}>

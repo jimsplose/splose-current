@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import Icon from "@/components/ds/Icon";
 import { Card, PageHeader, SearchBar } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
@@ -15,8 +14,8 @@ const columns: ColumnsType<PaymentRow> = [
     key: "paymentNumber",
     title: (
       <Flex align="center" gap={4} component="span" className="inline-flex">
-        Payment # <Icon as={SwapOutlined} tone="secondary" />{" "}
-        <Icon as={FilterOutlined} tone="secondary" />
+        Payment # <SwapOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />{" "}
+        <FilterOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
       </Flex>
     ),
   },
@@ -26,7 +25,7 @@ const columns: ColumnsType<PaymentRow> = [
     key: "paymentDate",
     title: (
       <Flex align="center" gap={4} component="span" className="inline-flex">
-        Payment date <Icon as={SwapOutlined} tone="secondary" />
+        Payment date <SwapOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
       </Flex>
     ),
   },
@@ -63,7 +62,7 @@ export default async function ClientPaymentsPage({ params }: { params: Promise<{
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Payments">
         <Button>
-          <Icon as={PlusOutlined} />
+          <PlusOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
           New payment
         </Button>
       </PageHeader>
