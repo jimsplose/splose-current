@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import Icon from "@/components/ds/Icon";
 import { Card, PageHeader, SearchBar, EmptyState, Pagination, PaymentStatusBadge, dbStatusToPaymentStatus, Text } from "@/components/ds";
 
 export const dynamic = "force-dynamic";
@@ -26,8 +25,8 @@ function buildColumns(client: { firstName: string; lastName: string }): ColumnsT
       title: (
         <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
           Invoice #
-          <Icon as={SwapOutlined} size="sm" tone="secondary" />
-          <Icon as={FilterOutlined} size="sm" tone="secondary" />
+          <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
+          <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
         </Flex>
       ),
       dataIndex: "invoiceNumber",
@@ -46,7 +45,7 @@ function buildColumns(client: { firstName: string; lastName: string }): ColumnsT
       title: (
         <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
           Location
-          <Icon as={FilterOutlined} size="sm" tone="secondary" />
+          <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
         </Flex>
       ),
       render: () => <Text variant="body/md" as="span" color="secondary">East Clinics</Text>,
@@ -56,7 +55,7 @@ function buildColumns(client: { firstName: string; lastName: string }): ColumnsT
       title: (
         <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
           Practitioner
-          <Icon as={FilterOutlined} size="sm" tone="secondary" />
+          <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
         </Flex>
       ),
       render: (_, inv) => (
@@ -70,7 +69,7 @@ function buildColumns(client: { firstName: string; lastName: string }): ColumnsT
       title: (
         <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
           Issue date
-          <Icon as={SwapOutlined} size="sm" tone="secondary" />
+          <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
         </Flex>
       ),
       render: (_, inv) => <Text variant="body/md" as="span" color="secondary">{formatDate(inv.date)}</Text>,
@@ -102,7 +101,7 @@ function buildColumns(client: { firstName: string; lastName: string }): ColumnsT
       title: (
         <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
           Status
-          <Icon as={FilterOutlined} size="sm" tone="secondary" />
+          <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
         </Flex>
       ),
       render: (_, inv) => <PaymentStatusBadge status={dbStatusToPaymentStatus(inv.status)} />,
@@ -112,7 +111,7 @@ function buildColumns(client: { firstName: string; lastName: string }): ColumnsT
       title: (
         <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
           Sent status
-          <Icon as={FilterOutlined} size="sm" tone="secondary" />
+          <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
         </Flex>
       ),
       render: () => <Text variant="body/md" as="span" color="secondary">{"\u2014"}</Text>,

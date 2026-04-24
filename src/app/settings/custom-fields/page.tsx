@@ -9,7 +9,6 @@ import {
   DeleteOutlined,
   ReadOutlined,
 } from "@ant-design/icons";
-import Icon from "@/components/ds/Icon";
 import { PageHeader, SearchBar, Pagination, Modal, FormInput, FormSelect, Toggle, Dropdown, DropdownTriggerButton, ReorderModal } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 
@@ -134,7 +133,7 @@ export default function CustomFieldsPage() {
         </Button>
         <Button>Show archived</Button>
         <Button>
-          <Icon as={ReadOutlined} />
+          <ReadOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
           Learn
         </Button>
         <Button onClick={() => { setNewField({ name: "", type: "Short text", required: false }); setShowNewModal(true); }}>+ New custom field</Button>
@@ -310,7 +309,7 @@ function EditFieldModal({
             <Flex vertical gap={8}>
               {options.map((opt, index) => (
                 <Flex key={index} align="center" gap={8}>
-                  <Icon as={HolderOutlined} tone="secondary" style={{ flexShrink: 0, cursor: 'grab' }} />
+                  <HolderOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)', flexShrink: 0, cursor: 'grab' }} />
                   <div style={{ flex: 1 }}>
                     <FormInput
                       type="text"
@@ -325,7 +324,7 @@ function EditFieldModal({
                     style={{ color: '#f87171' }}
                     onClick={() => handleRemoveOption(index)}
                   >
-                    <Icon as={DeleteOutlined} />
+                    <DeleteOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                   </Button>
                 </Flex>
               ))}
@@ -334,7 +333,7 @@ function EditFieldModal({
               style={{ marginTop: 8, width: '100%', borderStyle: 'dashed' }}
               onClick={handleAddOption}
             >
-              <Icon as={PlusOutlined} />
+              <PlusOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
               Add option
             </Button>
           </div>

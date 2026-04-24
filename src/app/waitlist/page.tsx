@@ -25,7 +25,6 @@ const SunMedium = ({ style, className }: { style?: React.CSSProperties; classNam
 const MapIcon = ({ style, className }: { style?: React.CSSProperties; className?: string }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} style={{ width: 16, height: 16, ...style }}><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>;
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import Icon from "@/components/ds/Icon";
 import { ListPage, SearchBar, Pagination, Badge, Tab, EmptyState, Modal, FormSelect, FormInput, FormTextarea, Text, Divider, Skeleton } from "@/components/ds";
 import wStyles from "./waitlist.module.css";
 
@@ -522,7 +521,7 @@ function WaitlistPageInner() {
           title="Screener"
           actions={
             <Button size="small">
-              <Icon as={QuestionCircleOutlined} />
+              <QuestionCircleOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
               Learn
             </Button>
           }
@@ -573,7 +572,7 @@ function WaitlistPageInner() {
                       className={triageState[idx] === "yes" ? wStyles.triageYesActive : ""}
                       style={{ fontSize: 12, gap: 2, borderRadius: 4, padding: "4px 8px", ...(triageState[idx] !== "yes" ? { color: "var(--color-text-secondary)" } : {}) }}
                     >
-                      <Icon as={LikeOutlined} size="sm" />
+                      <LikeOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
                       <span>Yes</span>
                     </Button>
                     <Button
@@ -584,13 +583,13 @@ function WaitlistPageInner() {
                       className={triageState[idx] === "no" ? wStyles.triageNoActive : ""}
                       style={{ fontSize: 12, gap: 2, borderRadius: 4, padding: "4px 8px", ...(triageState[idx] !== "no" ? { color: "var(--color-text-secondary)" } : {}) }}
                     >
-                      <Icon as={DislikeOutlined} size="sm" />
+                      <DislikeOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
                       <span>No</span>
                     </Button>
                   </Flex>
                 ),
               },
-              { key: "tags", title: <Flex align="center" gap={4}>Tags<Icon as={FilterOutlined} size="sm" tone="secondary" /></Flex>, render: (_, row) => <Text variant="body/md" as="span" color="secondary">{row.tags}</Text> },
+              { key: "tags", title: <Flex align="center" gap={4}>Tags<FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} /></Flex>, render: (_, row) => <Text variant="body/md" as="span" color="secondary">{row.tags}</Text> },
               {
                 key: "client",
                 title: (
@@ -622,7 +621,7 @@ function WaitlistPageInner() {
                 align: "right" as const,
                 render: () => (
                   <Button type="text" size="small" style={{ padding: "4px 6px" }}>
-                    <Icon as={MoreOutlined} />
+                    <MoreOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                   </Button>
                 ),
               },
@@ -730,7 +729,7 @@ function WaitlistPageInner() {
                       style={{ marginLeft: 2 }}
                       className={wStyles.serviceChipClose}
                     >
-                      <Icon as={CloseOutlined} size="sm" />
+                      <CloseOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
                     </Button>
                   </Badge>
                 ))}
@@ -750,7 +749,7 @@ function WaitlistPageInner() {
                 ]}
               />
               <Button size="small" onClick={addService} style={{ flexShrink: 0 }}>
-                <Icon as={PlusOutlined} />
+                <PlusOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
               </Button>
             </Flex>
           </div>
@@ -885,7 +884,7 @@ function WaitlistPageInner() {
                       style={{ marginLeft: 2 }}
                       className={wStyles.tagChipClose}
                     >
-                      <Icon as={CloseOutlined} size="sm" />
+                      <CloseOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
                     </Button>
                   </Badge>
                 ))}
@@ -905,7 +904,7 @@ function WaitlistPageInner() {
                 ]}
               />
               <Button size="small" onClick={addTag} style={{ flexShrink: 0 }}>
-                <Icon as={PlusOutlined} />
+                <PlusOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
               </Button>
             </Flex>
           </div>
@@ -919,15 +918,15 @@ function WaitlistPageInner() {
           actions={
             <>
               <Button size="small">
-                <Icon as={FilterOutlined} />
+                <FilterOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                 Reset all filters
               </Button>
               <Button size="small">
-                <Icon as={QuestionCircleOutlined} />
+                <QuestionCircleOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                 Learn
               </Button>
               <Button size="small">
-                <Icon as={ColumnWidthOutlined} />
+                <ColumnWidthOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                 Show/hide fields
               </Button>
               {/* Map / List toggle */}
@@ -954,7 +953,7 @@ function WaitlistPageInner() {
               </Button>
               <Link href="/waitlist/new">
                 <Button>
-                  <Icon as={PlusOutlined} />
+                  <PlusOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                   Add client
                 </Button>
               </Link>
@@ -985,7 +984,7 @@ function WaitlistPageInner() {
                 const waitlistColumns: ColumnsType<WaitlistRow> = [
                   {
                     key: "tags",
-                    title: <Flex align="center" gap={4}>Tags<Icon as={FilterOutlined} size="sm" tone="secondary" /></Flex>,
+                    title: <Flex align="center" gap={4}>Tags<FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} /></Flex>,
                     render: (_, row) => (
                       <Flex wrap gap={4}>
                         {row.tags.map((tag) =>
@@ -1013,7 +1012,7 @@ function WaitlistPageInner() {
                         style={{ padding: "4px 6px" }}
                         onClick={(e) => { e.stopPropagation(); openUpdateModal(row); }}
                       >
-                        <Icon as={MoreOutlined} />
+                        <MoreOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                       </Button>
                     ),
                   },

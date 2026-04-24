@@ -4,7 +4,6 @@ import { useState } from "react";
 import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import Icon from "@/components/ds/Icon";
 import { ListPage, LinkCell, Pagination, Badge, Text } from "@/components/ds";
 
 const mockPayments = [
@@ -112,7 +111,7 @@ export default function PaymentsPage() {
       title="Payments"
       actions={
         <Button>
-          <Icon as={PlusOutlined} />
+          <PlusOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
           New payment
         </Button>
       }
@@ -126,8 +125,8 @@ export default function PaymentsPage() {
             title: (
               <Flex align="center" gap={6}>
                 Payment #
-                <Icon as={SwapOutlined} tone="secondary" />
-                <Icon as={FilterOutlined} tone="secondary" />
+                <SwapOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
+                <FilterOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
               </Flex>
             ),
             width: 280,
@@ -164,7 +163,7 @@ export default function PaymentsPage() {
             title: (
               <Flex align="center" justify="end" gap={6}>
                 Payment date
-                <Icon as={SwapOutlined} tone="secondary" />
+                <SwapOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
               </Flex>
             ),
             align: "right" as const,

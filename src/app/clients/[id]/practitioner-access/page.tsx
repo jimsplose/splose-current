@@ -1,7 +1,6 @@
 "use client";
 
 import { SwapOutlined, FilterOutlined } from "@ant-design/icons";
-import Icon from "@/components/ds/Icon";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useState } from "react";
@@ -33,7 +32,7 @@ const columns: ColumnsType<PractitionerRow> = [
     title: (
       <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
         Name
-        <Icon as={SwapOutlined} size="sm" tone="secondary" />
+        <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
       </Flex>
     ),
     render: (_, p) => (
@@ -58,8 +57,8 @@ const columns: ColumnsType<PractitionerRow> = [
     title: (
       <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
         Group
-        <Icon as={SwapOutlined} size="sm" tone="secondary" />
-        <Icon as={FilterOutlined} size="sm" tone="secondary" />
+        <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
+        <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
       </Flex>
     ),
     render: (_, p) => <Text variant="body/md" as="span" color="secondary">{p.group}</Text>,

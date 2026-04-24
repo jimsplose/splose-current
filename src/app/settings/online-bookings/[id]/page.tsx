@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button, Flex } from "antd";
 import { UploadOutlined, LinkOutlined, CopyOutlined } from "@ant-design/icons";
-import Icon from "@/components/ds/Icon";
 import { Card, ColorDot, FormInput, FormSelect, FormTextarea, Toggle, Tab, FormPage, FormColorPicker, Modal, RadioGroup, Text, Grid } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 
@@ -96,7 +95,7 @@ export default function EditOnlineBookingPage() {
                   <Card variant="dashed" tint="muted" padding="none">
                     <Flex align="center" justify="center" style={{ height: 128 }}>
                       <div style={{ textAlign: 'center' }}>
-                        <Icon as={UploadOutlined} size="3xl" tone="secondary" style={{ display: 'block', margin: '0 auto 4px' }} />
+                        <UploadOutlined style={{ fontSize: 24, color: 'var(--ant-color-text-secondary, #6E6E64)', display: 'block', margin: '0 auto 4px' }} />
                         <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>Click or drag to upload</span>
                       </div>
                     </Flex>
@@ -310,10 +309,10 @@ export default function EditOnlineBookingPage() {
                   <span style={{ fontSize: 14, color: 'var(--color-primary)', wordBreak: 'break-all' }}>{shareUrl}</span>
                 </Card>
                 <Button onClick={() => navigator.clipboard?.writeText(shareUrl)}>
-                  <Icon as={CopyOutlined} /> Copy
+                  <CopyOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} /> Copy
                 </Button>
                 <Button onClick={() => window.open(shareUrl, "_blank")}>
-                  <Icon as={LinkOutlined} /> Open
+                  <LinkOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} /> Open
                 </Button>
               </Flex>
             </div>

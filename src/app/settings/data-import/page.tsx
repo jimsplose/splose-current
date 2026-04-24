@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { UploadOutlined, MessageOutlined, ReadOutlined, FileExcelOutlined, DatabaseOutlined, CheckCircleOutlined, WarningOutlined, ArrowLeftOutlined, ArrowRightOutlined, FileTextOutlined } from "@ant-design/icons";
-import { Card, Badge, Icon, Pagination, Dropdown, DropdownTriggerButton, Modal, FormSelect, Alert, PageHeader, Text, Grid, Divider } from "@/components/ds";
+import { Card, Badge, Pagination, Dropdown, DropdownTriggerButton, Modal, FormSelect, Alert, PageHeader, Text, Grid, Divider } from "@/components/ds";
 
 interface ImportRow {
   id: number;
@@ -162,7 +162,7 @@ export default function DataImportPage() {
       render: (_, row) => (
         columnMapping[row.col] ? (
           <Flex align="center" gap={4} style={{ color: '#16a34a' }}>
-            <Icon as={CheckCircleOutlined} size="lg" />
+            <CheckCircleOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
             <span style={{ fontSize: 12 }}>Mapped</span>
           </Flex>
         ) : (
@@ -188,12 +188,12 @@ export default function DataImportPage() {
       render: (_: unknown, row: typeof previewData[number], i: number) => (
         i === 3 ? (
           <Flex align="center" gap={4} style={{ color: '#ca8a04' }}>
-            <Icon as={WarningOutlined} />
+            <WarningOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
             <span style={{ fontSize: 12 }}>Under 18</span>
           </Flex>
         ) : (
           <Flex align="center" gap={4} style={{ color: '#16a34a' }}>
-            <Icon as={CheckCircleOutlined} />
+            <CheckCircleOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
             <span style={{ fontSize: 12 }}>Valid</span>
           </Flex>
         )
@@ -212,10 +212,10 @@ export default function DataImportPage() {
             <Text variant="body/md" color="secondary" style={{ marginBottom: 12 }}>Data importing is complicated. Chat with us to schedule a data import.</Text>
             <Flex align="center" gap={16}>
               <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 500 }}>
-                <Icon as={MessageOutlined} size="lg" /> Chat with us
+                <MessageOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /> Chat with us
               </a>
               <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 500 }}>
-                <Icon as={ReadOutlined} size="lg" /> Help guide
+                <ReadOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /> Help guide
               </a>
             </Flex>
           </div>
@@ -224,7 +224,7 @@ export default function DataImportPage() {
 
       <PageHeader title="Import data">
         <Button type="primary" onClick={startImportFlow}>
-          <Icon as={UploadOutlined} size="lg" style={{ color: 'inherit' }} /> Import
+          <UploadOutlined style={{ fontSize: 16, color: 'inherit' }} /> Import
         </Button>
       </PageHeader>
 
@@ -243,14 +243,14 @@ export default function DataImportPage() {
           ) : importStep !== "source" ? (
             <Flex justify="space-between" align="center" style={{ width: '100%' }}>
               <Button type="text" onClick={handleImportBack}>
-                <Icon as={ArrowLeftOutlined} size="lg" /> Back
+                <ArrowLeftOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /> Back
               </Button>
               <Flex align="center" gap={8}>
                 <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>
                   Step {importStep === "upload" ? "1" : importStep === "mapping" ? "2" : "3"} of 3
                 </span>
                 <Button type="primary" onClick={handleImportNext}>
-                  {importStep === "preview" ? "Start import" : "Continue"} <Icon as={ArrowRightOutlined} size="lg" style={{ color: 'inherit' }} />
+                  {importStep === "preview" ? "Start import" : "Continue"} <ArrowRightOutlined style={{ fontSize: 16, color: 'inherit' }} />
                 </Button>
               </Flex>
             </Flex>
@@ -261,7 +261,7 @@ export default function DataImportPage() {
           <Grid cols={2} gap="md">
             <Card interactive onClick={handleImportNext} padding={24}>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, textAlign: 'center' }}>
-                <Icon as={FileExcelOutlined} size="5xl" tone="primary" />
+                <FileExcelOutlined style={{ fontSize: 40, color: 'var(--ant-color-primary, #8250FF)' }} />
                 <div>
                   <Text variant="label/lg">CSV</Text>
                   <Text variant="body/sm" color="secondary" style={{ marginTop: 4 }}>Import clients, contacts, or appointments from a CSV file</Text>
@@ -270,7 +270,7 @@ export default function DataImportPage() {
             </Card>
             <Card interactive onClick={handleImportNext} padding={24}>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, textAlign: 'center' }}>
-                <Icon as={DatabaseOutlined} size="5xl" tone="primary" />
+                <DatabaseOutlined style={{ fontSize: 40, color: 'var(--ant-color-primary, #8250FF)' }} />
                 <div>
                   <Text variant="label/lg">Cliniko</Text>
                   <Text variant="body/sm" color="secondary" style={{ marginTop: 4 }}>Migrate your data from Cliniko</Text>
@@ -285,7 +285,7 @@ export default function DataImportPage() {
             <FormSelect label="Import type" options={[{ value: "clients", label: "Clients" }, { value: "contacts", label: "Contacts" }, { value: "appointments", label: "Appointments" }]} defaultValue="clients" />
             <Card variant="dashed" padding={40}>
               <Flex vertical align="center" gap={12} style={{ textAlign: 'center' }}>
-                <Icon as={UploadOutlined} size="5xl" tone="secondary" />
+                <UploadOutlined style={{ fontSize: 40, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
                 <div>
                   <p style={{ fontSize: 14 }}>Drag and drop your CSV file here</p>
                   <p style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>or click to browse</p>
@@ -293,7 +293,7 @@ export default function DataImportPage() {
               </Flex>
             </Card>
             <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: '#f0fdf4', padding: '8px 12px' }}>
-              <Icon as={FileTextOutlined} size="lg" style={{ color: '#16a34a' }} />
+              <FileTextOutlined style={{ fontSize: 16, color: '#16a34a' }} />
               <span style={{ fontSize: 12, color: '#15803d' }}>client_export_march_2026.csv</span>
               <Badge variant="green">Ready</Badge>
               <span style={{ fontSize: 11, color: 'var(--color-text-secondary)', marginLeft: 'auto' }}>10 rows · 10 columns</span>
@@ -326,8 +326,8 @@ export default function DataImportPage() {
               />
             </div>
             <Flex align="center" gap={16} style={{ borderRadius: 8, backgroundColor: 'var(--color-fill-tertiary)', padding: 12 }}>
-              <Flex align="center" gap={6}><Icon as={CheckCircleOutlined} size="lg" style={{ color: '#16a34a' }} /><span style={{ fontSize: 12 }}>4 valid</span></Flex>
-              <Flex align="center" gap={6}><Icon as={WarningOutlined} size="lg" style={{ color: '#ca8a04' }} /><span style={{ fontSize: 12 }}>1 warning</span></Flex>
+              <Flex align="center" gap={6}><CheckCircleOutlined style={{ fontSize: 16, color: '#16a34a' }} /><span style={{ fontSize: 12 }}>4 valid</span></Flex>
+              <Flex align="center" gap={6}><WarningOutlined style={{ fontSize: 16, color: '#ca8a04' }} /><span style={{ fontSize: 12 }}>1 warning</span></Flex>
               <Flex align="center" gap={6}><span style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>0 errors</span></Flex>
             </Flex>
           </Flex>
@@ -337,7 +337,7 @@ export default function DataImportPage() {
           <div style={{ padding: '24px 0', textAlign: 'center' }}>
             <Flex justify="center" style={{ marginBottom: 16 }}>
               <Flex align="center" justify="center" style={{ height: 64, width: 64, borderRadius: '50%', backgroundColor: '#dcfce7' }}>
-                <Icon as={CheckCircleOutlined} size="4xl" style={{ color: '#16a34a' }} />
+                <CheckCircleOutlined style={{ fontSize: 32, color: '#16a34a' }} />
               </Flex>
             </Flex>
             <Text variant="heading/lg" as="h3" style={{ marginBottom: 8 }}>Import complete!</Text>

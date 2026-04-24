@@ -29,7 +29,7 @@ import {
   ArrowUpOutlined,
 } from "@ant-design/icons";
 import { Button, Flex } from "antd";
-import { Card, Checkbox, FormSelect, Icon, List, Navbar, Filter, Spinner, Dropdown, Text, Divider, Tooltip } from "@/components/ds";
+import { Card, Checkbox, FormSelect, List, Navbar, Filter, Spinner, Dropdown, Text, Divider, Tooltip } from "@/components/ds";
 import AiChatPanel from "@/components/AiChatPanel";
 
 type NoteData = {
@@ -303,13 +303,13 @@ export default function EditProgressNotePage() {
           title="Splose AI"
           style={aiChatOpen ? { backgroundColor: 'var(--color-primary)', color: '#fff', width: 36, height: 36 } : { width: 36, height: 36, border: '1px solid var(--color-border)' }}
         >
-          <Icon as={SnippetsOutlined} size="lg" style={{ color: 'inherit' }} />
+          <SnippetsOutlined style={{ fontSize: 16, color: 'inherit' }} />
         </Button>
         {/* View toggle */}
         <Filter
           items={[
-            { label: <Icon as={AppstoreOutlined} size="lg" />, value: "single" },
-            { label: <Icon as={ColumnWidthOutlined} size="lg" />, value: "split" },
+            { label: <AppstoreOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />, value: "single" },
+            { label: <ColumnWidthOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />, value: "split" },
           ]}
           value={viewMode}
           onChange={(v) => setViewMode(v as "single" | "split")}
@@ -320,7 +320,7 @@ export default function EditProgressNotePage() {
             Save as final
           </Button>
           <Button type="primary" style={{ borderRadius: '0px 8px 8px 0px', borderLeft: '1px solid rgba(255,255,255,0.3)', padding: '0 8px', minWidth: 0 }}>
-            <Icon as={DownOutlined} size="sm" style={{ color: 'inherit' }} />
+            <DownOutlined style={{ fontSize: 12, color: 'inherit' }} />
           </Button>
         </Flex>
       </Navbar>
@@ -343,31 +343,31 @@ export default function EditProgressNotePage() {
             <Card padding="none" style={{ marginBottom: 16, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 4, padding: '6px 8px', color: 'var(--color-text-secondary)' }}>
               <Button type="text" size="small" style={{ display: 'flex', alignItems: 'center', gap: 2, fontSize: 12 }}>
                 Arial
-                <Icon as={DownOutlined} size="sm" />
+                <DownOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
               </Button>
               <Button type="text" size="small" style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <Icon as={FontSizeOutlined} size="lg" />
-                <Icon as={DownOutlined} size="sm" />
+                <FontSizeOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                <DownOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
               </Button>
               <Divider orientation="vertical" spacing="none" />
-              <Tooltip content="Bold"><Button type="text"><Icon as={BoldOutlined} size="lg" /></Button></Tooltip>
-              <Tooltip content="Italic"><Button type="text"><Icon as={ItalicOutlined} size="lg" /></Button></Tooltip>
-              <Tooltip content="Underline"><Button type="text"><Icon as={UnderlineOutlined} size="lg" /></Button></Tooltip>
-              <Tooltip content="Strikethrough"><Button type="text"><Icon as={StrikethroughOutlined} size="lg" /></Button></Tooltip>
+              <Tooltip content="Bold"><Button type="text"><BoldOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
+              <Tooltip content="Italic"><Button type="text"><ItalicOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
+              <Tooltip content="Underline"><Button type="text"><UnderlineOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
+              <Tooltip content="Strikethrough"><Button type="text"><StrikethroughOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
               <Divider orientation="vertical" spacing="none" />
-              <Tooltip content="Insert link"><Button type="text"><Icon as={LinkOutlined} size="lg" /></Button></Tooltip>
-              <Tooltip content="Insert image"><Button type="text"><Icon as={PictureOutlined} size="lg" /></Button></Tooltip>
-              <Tooltip content="Insert table"><Button type="text"><Icon as={TableOutlined} size="lg" /></Button></Tooltip>
-              <Tooltip content="Bulleted list"><Button type="text"><Icon as={UnorderedListOutlined} size="lg" /></Button></Tooltip>
-              <Tooltip content="Numbered list"><Button type="text"><Icon as={OrderedListOutlined} size="lg" /></Button></Tooltip>
-              <Tooltip content="Align left"><Button type="text"><Icon as={AlignLeftOutlined} size="lg" /></Button></Tooltip>
-              <Tooltip content="Text colour"><Button type="text"><Icon as={BgColorsOutlined} size="lg" /></Button></Tooltip>
+              <Tooltip content="Insert link"><Button type="text"><LinkOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
+              <Tooltip content="Insert image"><Button type="text"><PictureOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
+              <Tooltip content="Insert table"><Button type="text"><TableOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
+              <Tooltip content="Bulleted list"><Button type="text"><UnorderedListOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
+              <Tooltip content="Numbered list"><Button type="text"><OrderedListOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
+              <Tooltip content="Align left"><Button type="text"><AlignLeftOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
+              <Tooltip content="Text colour"><Button type="text"><BgColorsOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
               <span style={{ flex: 1 }} />
               <Button
                 onClick={generateAll}
                 style={{ backgroundColor: 'rgb(239, 239, 239)', borderColor: 'transparent', color: 'rgb(65, 69, 73)', borderRadius: 12, height: 32 }}
               >
-                <Icon as={ThunderboltOutlined} size="lg" />
+                <ThunderboltOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                 Generate
               </Button>
               <Button
@@ -377,10 +377,10 @@ export default function EditProgressNotePage() {
                 title="Splose AI Chat"
                 style={aiChatOpen ? { backgroundColor: 'var(--color-primary)', color: '#fff' } : undefined}
               >
-                <Icon as={MessageOutlined} size="lg" style={{ color: 'inherit' }} />
+                <MessageOutlined style={{ fontSize: 16, color: 'inherit' }} />
               </Button>
               <Button type="primary" shape="circle" size="small">
-                <Icon as={PlusOutlined} size="lg" style={{ color: 'inherit' }} />
+                <PlusOutlined style={{ fontSize: 16, color: 'inherit' }} />
               </Button>
             </Card>
 
@@ -433,7 +433,7 @@ export default function EditProgressNotePage() {
                       onClick={() => toggleSection(section.id)}
                     >
                       <Flex align="center" gap={8}>
-                        <Icon as={ThunderboltOutlined} size="lg" tone="primary" />
+                        <ThunderboltOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary, #8250FF)' }} />
                         <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-primary)' }}>AI block</span>
                       </Flex>
                       <Flex align="center" gap={8}>
@@ -450,9 +450,9 @@ export default function EditProgressNotePage() {
                           </Button>
                         </Tooltip>
                         {section.expanded ? (
-                          <Icon as={UpOutlined} size="lg" tone="secondary" />
+                          <UpOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
                         ) : (
-                          <Icon as={DownOutlined} size="lg" tone="secondary" />
+                          <DownOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
                         )}
                       </Flex>
                     </Flex>
@@ -478,7 +478,7 @@ export default function EditProgressNotePage() {
                                 trigger={
                                   <Button type="text" size="small">
                                     Actions
-                                    <Icon as={DownOutlined} size="sm" />
+                                    <DownOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
                                   </Button>
                                 }
                                 items={[
@@ -504,7 +504,7 @@ export default function EditProgressNotePage() {
                                         : undefined
                                     }
                                   >
-                                    <Icon as={LikeOutlined} />
+                                    <LikeOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                                   </Button>
                                 </Tooltip>
                                 <Tooltip content="Poor response">
@@ -518,7 +518,7 @@ export default function EditProgressNotePage() {
                                         : undefined
                                     }
                                   >
-                                    <Icon as={DislikeOutlined} />
+                                    <DislikeOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                                   </Button>
                                 </Tooltip>
                                 {/* Accept button */}
@@ -527,7 +527,7 @@ export default function EditProgressNotePage() {
                                   size="small"
                                   onClick={() => acceptSection(section.id)}
                                 >
-                                  <Icon as={CheckCircleOutlined} />
+                                  <CheckCircleOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                                   Accept
                                 </Button>
                               </Flex>
@@ -542,7 +542,7 @@ export default function EditProgressNotePage() {
                                 trigger={
                                   <Button type="text" size="small">
                                     Actions
-                                    <Icon as={DownOutlined} size="sm" />
+                                    <DownOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
                                   </Button>
                                 }
                                 items={[

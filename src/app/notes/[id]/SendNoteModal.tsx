@@ -21,7 +21,7 @@ import {
   EditOutlined,
 } from "@ant-design/icons";
 import { Button, Flex } from "antd";
-import { FormSelect, FormInput, Badge, Divider, Icon, Card } from "@/components/ds";
+import { FormSelect, FormInput, Badge, Divider, Card } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 import Modal from "@/components/ds/Modal";
 
@@ -121,11 +121,11 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
       footer={
         <Flex align="center" justify="space-between" style={{ width: '100%' }}>
           <Button type="text" size="small">
-            <Icon as={PaperClipOutlined} size="lg" />
+            <PaperClipOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
             Attach files
           </Button>
           <Button type="primary" onClick={onClose}>
-            <Icon as={SendOutlined} />
+            <SendOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
             Send
           </Button>
         </Flex>
@@ -151,7 +151,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
               // eslint-disable-next-line no-restricted-syntax -- active-state primary tint for segmented control; no DS segmented-control variant yet
               style={{ borderRadius: '8px 0 0 8px', border: 'none', fontSize: 12, fontWeight: 500, ...(viewMode === "edit" ? { backgroundColor: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.1)', color: 'var(--color-primary)' } : {}) }}
             >
-              <Icon as={EditOutlined} /> Edit
+              <EditOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /> Edit
             </Button>
             <Button
               type="text"
@@ -160,7 +160,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
               // eslint-disable-next-line no-restricted-syntax -- active-state primary tint + left-divider for segmented control; no DS segmented-control variant yet
               style={{ borderRadius: '0 8px 8px 0', borderLeft: '1px solid var(--color-border)', fontSize: 12, fontWeight: 500, ...(viewMode === "preview" ? { backgroundColor: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.1)', color: 'var(--color-primary)' } : {}) }}
             >
-              <Icon as={EyeOutlined} /> Preview
+              <EyeOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /> Preview
             </Button>
           </div>
         </Flex>
@@ -222,7 +222,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
                 disabled={isGenerating}
                 style={{ flexShrink: 0 }}
               >
-                <Icon as={ThunderboltOutlined} size="lg" />
+                <ThunderboltOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                 {isGenerating ? "Generating..." : "Summarise session"}
               </Button>
             </Flex>
@@ -231,7 +231,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
             <Flex align="center" gap={2} style={{ paddingBottom: 8 }}>
               {toolbarIcons.map((ToolbarIcon, i) => (
                 <Button key={i} type="text">
-                  <Icon as={ToolbarIcon} size="lg" />
+                  <ToolbarIcon style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                 </Button>
               ))}
             </Flex>
@@ -284,7 +284,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
               <div style={{ paddingTop: 16 }}>
                 {/* eslint-disable-next-line no-restricted-syntax -- primary-bg tint for attachment chip; no DS attachment-chip component */}
                 <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: 'var(--color-primary-bg)', padding: '8px 12px' }}>
-                  <Icon as={PaperClipOutlined} size="lg" tone="primary" />
+                  <PaperClipOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary, #8250FF)' }} />
                   <span style={{ fontSize: 12, lineHeight: 1.67 }}>Progress note — {clientName} — {formatDisplayDate(noteDate)}.pdf</span>
                   <Badge variant="purple">PDF</Badge>
                 </Flex>

@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { DownOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Flex } from "antd";
-import { Dropdown, Icon } from "@/components/ds";
+import { Dropdown } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 
 const payItems: DropdownItem[] = [
@@ -40,7 +40,7 @@ export default function InvoiceActions() {
           // eslint-disable-next-line no-restricted-syntax -- decorative button shadow, Card unsuitable for inline Button
           <Button style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
             Pay
-            <Icon as={DownOutlined} tone="secondary" />
+            <DownOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
           </Button>
         }
         items={payItems}
@@ -49,7 +49,7 @@ export default function InvoiceActions() {
       />
       {/* eslint-disable-next-line no-restricted-syntax -- decorative button shadow */}
       <Button style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
-        <Icon as={MailOutlined} size="lg" tone="secondary" />
+        <MailOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
         Email Invoice
       </Button>
       <Dropdown
@@ -57,7 +57,7 @@ export default function InvoiceActions() {
           // eslint-disable-next-line no-restricted-syntax -- decorative button shadow
           <Button style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
             Actions
-            <Icon as={DownOutlined} tone="secondary" />
+            <DownOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
           </Button>
         }
         items={actionsItems}

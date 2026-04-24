@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { CloseOutlined, PlusOutlined, SearchOutlined, PrinterOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import Icon from "@/components/ds/Icon";
 import { Card, Divider, FormInput, FormPage, FormSelect, FormTextarea, Grid, EmptyState, Text } from "@/components/ds";
 
 const mockClients = [
@@ -140,7 +139,7 @@ export default function NewPaymentPage() {
         actions={
           <>
             <Button onClick={() => window.print()}>
-              <Icon as={PrinterOutlined} />
+              <PrinterOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
               Print receipt
             </Button>
             <Link href="/payments">
@@ -157,7 +156,7 @@ export default function NewPaymentPage() {
                 justify="center"
                 style={{ height: 56, width: 56, borderRadius: '50%', backgroundColor: 'var(--color-success-bg)' }}
               >
-                <Icon as={CheckCircleOutlined} size="4xl" tone="success" />
+                <CheckCircleOutlined style={{ fontSize: 32, color: 'var(--ant-color-success, #00C269)' }} />
               </Flex>
             </Flex>
             <Text variant="heading/lg" style={{ marginBottom: 4 }}>Payment recorded</Text>

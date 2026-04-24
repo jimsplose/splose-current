@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { ThunderboltOutlined, CloseOutlined } from "@ant-design/icons";
-import Icon from "@/components/ds/Icon";
 import { PageHeader, SearchBar, Pagination, Badge, Dropdown, DropdownTriggerButton, Modal, FormInput, Toggle } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";

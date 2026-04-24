@@ -4,7 +4,6 @@ import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Button, Flex } from "antd";
 import { ThunderboltOutlined, PlusOutlined, HolderOutlined, MoreOutlined, CheckOutlined } from "@ant-design/icons";
-import Icon from "@/components/ds/Icon";
 import { FormInput, FormSelect, Toggle, FormPage, RichTextEditor, Card, Modal, Dropdown } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 import type { DropdownItem } from "@/components/ds";
@@ -139,18 +138,18 @@ export default function EditProgressNoteTemplatePage() {
               {blocks.map((block) => (
                 <Card key={block.id} padding="none">
                   <Flex align="center" gap={8} style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'rgba(var(--color-primary-rgb, 130, 80, 255), 0.05)', padding: '8px 16px' }}>
-                    <Icon as={HolderOutlined} style={{ cursor: 'grab' }} tone="secondary" />
-                    <Icon as={ThunderboltOutlined} tone="primary" />
+                    <HolderOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)', cursor: 'grab' }} />
+                    <ThunderboltOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary, #8250FF)' }} />
                     <span style={{ flex: 1, fontSize: 12, fontWeight: 500 }}>{block.name}</span>
                     {savedBlockId === block.id && (
                       <Flex align="center" gap={4} style={{ fontSize: 11, color: '#059669' }}>
-                        <Icon as={CheckOutlined} /> Saved
+                        <CheckOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /> Saved
                       </Flex>
                     )}
                     <Dropdown
                       trigger={
                         <Button type="text" style={{ color: 'var(--color-text-secondary)' }}>
-                          <Icon as={MoreOutlined} />
+                          <MoreOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                         </Button>
                       }
                       items={blockDropdownItems}
@@ -171,7 +170,7 @@ export default function EditProgressNoteTemplatePage() {
                 </Card>
               ))}
               <Button onClick={() => setShowLibrary(true)}>
-                <Icon as={PlusOutlined} /> Add an AI block
+                <PlusOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /> Add an AI block
               </Button>
             </Flex>
           )}
@@ -212,7 +211,7 @@ export default function EditProgressNoteTemplatePage() {
                   gap={12}
                   style={{ textAlign: 'left', width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '12px 16px', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}
                 >
-                  <Icon as={ThunderboltOutlined} tone="primary" style={{ flexShrink: 0 }} />
+                  <ThunderboltOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary, #8250FF)', flexShrink: 0 }} />
                   <div>
                     <div style={{ fontSize: 12, fontWeight: 500 }}>{block.name}</div>
                     <div style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>{block.prompt}</div>

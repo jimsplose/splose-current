@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
-import Icon from "@/components/ds/Icon";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Card, PageHeader, SearchBar, Pagination, Badge, statusVariant, Dropdown, DropdownTriggerButton, Modal, Text } from "@/components/ds";
@@ -208,7 +207,7 @@ export default function ClientCommunicationsPage() {
       key: "dateTime",
       title: (
         <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-          Date and time <Icon as={SwapOutlined} tone="secondary" />
+          Date and time <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
         </Flex>
       ),
       render: (_, comm) => (
@@ -234,7 +233,7 @@ export default function ClientCommunicationsPage() {
       key: "direction",
       title: (
         <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-          Direction <Icon as={FilterOutlined} tone="secondary" />
+          Direction <FilterOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
         </Flex>
       ),
       render: (_, comm) => (
@@ -273,7 +272,7 @@ export default function ClientCommunicationsPage() {
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Communications">
         <Button>
-          <Icon as={PlusOutlined} />
+          <PlusOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />
           Log communication
         </Button>
       </PageHeader>

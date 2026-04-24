@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { SwapOutlined, FilterOutlined } from "@ant-design/icons";
-import Icon from "@/components/ds/Icon";
 import { PageHeader, SearchBar, Pagination, Dropdown, DropdownTriggerButton, Modal, ColorDot, FormColorPicker, FormInput } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
@@ -87,7 +86,7 @@ export default function SettingsRoomsResourcesPage() {
       key: "name",
       title: (
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-          Name <Icon as={SwapOutlined} tone="secondary" />
+          Name <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
         </span>
       ),
       render: (_, row) => (
@@ -103,7 +102,7 @@ export default function SettingsRoomsResourcesPage() {
       key: "location",
       title: (
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-          Location <Icon as={FilterOutlined} tone="primary" />
+          Location <FilterOutlined style={{ fontSize: 14, color: 'var(--ant-color-primary, #8250FF)' }} />
         </span>
       ),
       dataIndex: "location",

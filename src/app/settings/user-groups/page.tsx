@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { ReadOutlined, SwapOutlined, CheckOutlined } from "@ant-design/icons";
-import Icon from "@/components/ds/Icon";
 import { PageHeader, SearchBar, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, Divider } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
@@ -79,7 +78,7 @@ export default function UserGroupsPage() {
       title: (
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
           Name
-          <Icon as={SwapOutlined} tone="secondary" />
+          <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
         </span>
       ),
       dataIndex: "name",
@@ -104,7 +103,7 @@ export default function UserGroupsPage() {
     <div style={{ padding: 24 }}>
       <PageHeader title="User groups">
         <Button>
-          <Icon as={ReadOutlined} />
+          <ReadOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />
           Learn
         </Button>
         <Button onClick={openCreate}>+ New group</Button>
@@ -157,7 +156,7 @@ export default function UserGroupsPage() {
                       backgroundColor: isSelected ? 'var(--color-primary)' : 'white',
                     }}
                   >
-                    {isSelected && <Icon as={CheckOutlined} tone="inverted" />}
+                    {isSelected && <CheckOutlined style={{ fontSize: 14, color: '#FFFFFF' }} />}
                   </Flex>
                   <input
                     type="checkbox"

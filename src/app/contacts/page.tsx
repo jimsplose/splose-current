@@ -5,7 +5,6 @@ import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import Link from "next/link";
-import Icon from "@/components/ds/Icon";
 import { ListPage, Pagination, Skeleton } from "@/components/ds";
 
 const mockContacts = [
@@ -190,8 +189,8 @@ export default function ContactsPage() {
       title: (
         <Flex align="center" gap={4}>
           Type
-          <Icon as={SwapOutlined} size="sm" tone="secondary" />
-          <Icon as={FilterOutlined} size="sm" tone="secondary" />
+          <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
+          <FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
         </Flex>
       ),
       render: (_, contact) => (
@@ -210,7 +209,7 @@ export default function ContactsPage() {
       title: (
         <Flex align="center" gap={4}>
           Name
-          <Icon as={SwapOutlined} size="sm" tone="secondary" />
+          <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
         </Flex>
       ),
       render: (_, contact) => <span style={{ fontWeight: 500 }}>{contact.name}</span>,
@@ -220,7 +219,7 @@ export default function ContactsPage() {
       title: (
         <Flex align="center" gap={4}>
           Company
-          <Icon as={SwapOutlined} size="sm" tone="secondary" />
+          <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
         </Flex>
       ),
       render: (_, contact) => <span style={{ color: "var(--color-text-secondary)" }}>{contact.company}</span>,
@@ -230,7 +229,7 @@ export default function ContactsPage() {
       title: (
         <Flex align="center" gap={4}>
           Email
-          <Icon as={SwapOutlined} size="sm" tone="secondary" />
+          <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
         </Flex>
       ),
       render: (_, contact) => <span style={{ color: "var(--color-text-secondary)" }}>{contact.email}</span>,
@@ -264,7 +263,7 @@ export default function ContactsPage() {
       actions={
         <Link href="/contacts/new">
           <Button>
-            <Icon as={PlusOutlined} />
+            <PlusOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
             New contact
           </Button>
         </Link>

@@ -92,11 +92,11 @@ export default function FormTemplateEditorPage() {
         <Flex align="center" gap={8}>
           <Tooltip content="Share & Automate">
             <Button type="text" onClick={() => setSidePanel(sidePanel === "share" ? null : "share")}>
-              <Icon as={ShareAltOutlined} />
+              <ShareAltOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
             </Button>
           </Tooltip>
           <Button onClick={() => setActiveTab("preview")}>
-            <Icon as={EyeOutlined} /> Preview
+            <EyeOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /> Preview
           </Button>
           <Button type="primary" onClick={() => router.push("/settings/forms")}>Save</Button>
         </Flex>
@@ -119,7 +119,7 @@ export default function FormTemplateEditorPage() {
                   return (
                     <Card key={field.id} padding="none">
                       <Flex align="center" gap={8} style={{ padding: '12px 16px' }}>
-                        <Icon as={HolderOutlined} tone="secondary" style={{ flexShrink: 0, cursor: 'grab' }} />
+                        <HolderOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)', flexShrink: 0, cursor: 'grab' }} />
                         <FieldIcon style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-primary)' }} />
                         <input
                           style={{ flex: 1, border: 'none', backgroundColor: 'transparent', outline: 'none', fontSize: 14 }}
@@ -129,7 +129,7 @@ export default function FormTemplateEditorPage() {
                         <Toggle checked={field.required} onChange={(checked) => setFields((prev) => prev.map((f) => f.id === field.id ? { ...f, required: checked } : f))} label="Required" />
                         <Tooltip content="Remove field">
                           <Button type="text" onClick={() => removeField(field.id)} style={{ color: 'var(--color-text-secondary)' }}>
-                            <Icon as={DeleteOutlined} />
+                            <DeleteOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
                           </Button>
                         </Tooltip>
                       </Flex>
@@ -138,7 +138,7 @@ export default function FormTemplateEditorPage() {
                 })}
 
                 <Button onClick={() => setShowAddField(true)}>
-                  <Icon as={PlusOutlined} /> Add field
+                  <PlusOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /> Add field
                 </Button>
               </Flex>
             </div>

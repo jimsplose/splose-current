@@ -4,7 +4,6 @@ import { useState } from "react";
 import { SwapOutlined, FolderAddOutlined, DownOutlined, FileTextOutlined } from "@ant-design/icons";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import Icon from "@/components/ds/Icon";
 import { Card, PageHeader, SearchBar, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, Text } from "@/components/ds";
 
 const filesData = [
@@ -66,12 +65,12 @@ export default function ClientFilesPage() {
       key: "name",
       title: (
         <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-          Name <Icon as={SwapOutlined} tone="secondary" />
+          Name <SwapOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
         </Flex>
       ),
       render: (_, file) => (
         <Flex align="center" gap={8}>
-          <Icon as={FileTextOutlined} tone="secondary" />
+          <FileTextOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
           <span>{file.name}</span>
         </Flex>
       ),
@@ -85,7 +84,7 @@ export default function ClientFilesPage() {
       key: "uploadDate",
       title: (
         <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-          Upload date <Icon as={SwapOutlined} tone="secondary" />
+          Upload date <SwapOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
         </Flex>
       ),
       render: (_, file) => <Text variant="body/md" as="span" color="secondary">{file.uploadDate}</Text>,
@@ -94,7 +93,7 @@ export default function ClientFilesPage() {
       key: "fileSize",
       title: (
         <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-          File size <Icon as={SwapOutlined} tone="secondary" />
+          File size <SwapOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
         </Flex>
       ),
       render: (_, file) => <Text variant="body/md" as="span" color="secondary">{file.fileSize}</Text>,
@@ -118,13 +117,13 @@ export default function ClientFilesPage() {
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Files /">
         <Button>
-          <Icon as={FolderAddOutlined} />
+          <FolderAddOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
           New folder
         </Button>
         <Button>Show deleted files</Button>
         <Button>
           Upload
-          <Icon as={DownOutlined} />
+          <DownOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
         </Button>
       </PageHeader>
 

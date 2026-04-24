@@ -5,7 +5,6 @@ import Link from "next/link";
 import { UploadOutlined, CheckCircleOutlined, ExclamationCircleOutlined, FileTextOutlined } from "@ant-design/icons";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import Icon from "@/components/ds/Icon";
 import { FormInput, FormSelect, DateRangeFilter, PageHeader, FileUpload, Card, Badge, Text, Divider, Breadcrumbs } from "@/components/ds";
 
 const ndisBreadcrumbs = (
@@ -113,7 +112,7 @@ export default function NdisBulkUploadNewPage() {
           <Card padding="lg" className="text-center">
             <Flex justify="center" style={{ marginBottom: 16 }}>
               <Flex align="center" justify="center" style={{ height: 56, width: 56, borderRadius: '50%', backgroundColor: '#dcfce7' }}>
-                <Icon as={CheckCircleOutlined} size="4xl" style={{ color: '#16a34a' }} />
+                <CheckCircleOutlined style={{ fontSize: 32, color: '#16a34a' }} />
               </Flex>
             </Flex>
             <Text variant="heading/lg" style={{ marginBottom: 4 }}>Upload submitted</Text>
@@ -177,11 +176,11 @@ export default function NdisBulkUploadNewPage() {
         <div style={{ padding: 24 }}>
           <Flex align="center" gap={16} style={{ marginBottom: 16 }}>
             <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: '#f0fdf4', padding: '8px 12px' }}>
-              <Icon as={CheckCircleOutlined} style={{ color: '#16a34a' }} />
+              <CheckCircleOutlined style={{ fontSize: 16, color: '#16a34a' }} />
               <Text variant="label/lg" as="span" color="#15803d">{validCount} valid</Text>
             </Flex>
             <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: '#fef2f2', padding: '8px 12px' }}>
-              <Icon as={ExclamationCircleOutlined} style={{ color: '#dc2626' }} />
+              <ExclamationCircleOutlined style={{ fontSize: 16, color: '#dc2626' }} />
               <Text variant="label/lg" as="span" color="#b91c1c">{errorCount} errors</Text>
             </Flex>
             <Text variant="body/md" as="span" color="secondary">
@@ -242,7 +241,7 @@ export default function NdisBulkUploadNewPage() {
             <Card padding="md">
               <Flex align="center" gap={12}>
                 <Flex align="center" justify="center" style={{ height: 40, width: 40, borderRadius: 8, backgroundColor: 'var(--color-primary-bg)' }}>
-                  <Icon as={FileTextOutlined} size="2xl" tone="primary" />
+                  <FileTextOutlined style={{ fontSize: 20, color: 'var(--ant-color-primary, #8250FF)' }} />
                 </Flex>
                 <div style={{ flex: 1 }}>
                   <Text variant="label/lg" as="p">{fileName}</Text>
@@ -259,7 +258,7 @@ export default function NdisBulkUploadNewPage() {
             </Card>
           ) : (
             <FileUpload
-              icon={<Icon as={UploadOutlined} size="4xl" tone="secondary" />}
+              icon={<UploadOutlined style={{ fontSize: 32, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />}
               label="Choose CSV file"
               onClick={handleFileUpload}
               className="cursor-pointer"

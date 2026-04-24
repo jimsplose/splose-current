@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { SwapOutlined, ReadOutlined } from "@ant-design/icons";
-import Icon from "@/components/ds/Icon";
 import { Pagination, SearchBar, Dropdown, DropdownTriggerButton, PageHeader } from "@/components/ds";
 
 interface Service {
@@ -75,7 +74,7 @@ export default function SettingsServicesPage() {
       title: (
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
           Name
-          <Icon as={SwapOutlined} tone="secondary" />
+          <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
         </span>
       ),
       render: (_, row) => (
@@ -90,7 +89,7 @@ export default function SettingsServicesPage() {
       title: (
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
           Type
-          <Icon as={SwapOutlined} tone="secondary" />
+          <SwapOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
         </span>
       ),
       dataIndex: "type",
@@ -127,7 +126,7 @@ export default function SettingsServicesPage() {
       {/* Header */}
       <PageHeader title="Services">
         <Button>
-          <Icon as={ReadOutlined} style={{ marginRight: 6 }} />
+          <ReadOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)', marginRight: 6 }} />
           Learn
         </Button>
         <Button>Show archived</Button>
