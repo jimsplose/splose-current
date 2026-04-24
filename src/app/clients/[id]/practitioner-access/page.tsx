@@ -2,9 +2,10 @@
 
 import { SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { Button, Flex } from "antd";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import { useState } from "react";
-import { Badge, Card, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Text } from "@/components/ds";
+import { Badge, Card, Pagination, Text } from "@/components/ds";
 
 const mockPractitioners = [
     { name: "Delvin Khor", role: "Practitioner admin", roleType: "Practitioner admin", group: "---", status: "Linked" },
@@ -24,6 +25,60 @@ const mockPractitioners = [
     },
 ];
 
+type PractitionerRow = typeof mockPractitioners[number];
+
+const columns: ColumnsType<PractitionerRow> = [
+  {
+    key: "name",
+    title: (
+      <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+        Name
+        <Icon as={SwapOutlined} size="sm" tone="secondary" />
+      </Flex>
+    ),
+    render: (_, p) => (
+      <div>
+        <span>{p.name}</span>
+        <Badge variant="green" style={{ marginLeft: 8 }}>Account owner</Badge>
+      </div>
+    ),
+  },
+  {
+    key: "role",
+    title: "Role name",
+    render: (_, p) => <Text variant="body/md" as="span" color="secondary">{p.role}</Text>,
+  },
+  {
+    key: "roleType",
+    title: "Role type",
+    render: (_, p) => <Text variant="body/md" as="span" color="secondary">{p.roleType}</Text>,
+  },
+  {
+    key: "group",
+    title: (
+      <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+        Group
+        <Icon as={SwapOutlined} size="sm" tone="secondary" />
+        <Icon as={FilterOutlined} size="sm" tone="secondary" />
+      </Flex>
+    ),
+    render: (_, p) => <Text variant="body/md" as="span" color="secondary">{p.group}</Text>,
+  },
+  {
+    key: "status",
+    title: "Status",
+    render: (_, p) => <Text variant="body/md" as="span" color="secondary">{p.status}</Text>,
+  },
+  {
+    key: "actions",
+    title: "",
+    align: "right" as const,
+    render: () => (
+      <Button type="text" size="small" style={{ color: 'var(--color-text-secondary)' }}>...</Button>
+    ),
+  },
+];
+
 export default function ClientPractitionerAccessPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
@@ -39,46 +94,12 @@ export default function ClientPractitionerAccessPage() {
       </p>
 
       <Card padding="none" style={{ overflowX: 'auto' }}>
-        <DataTable>
-          <TableHead>
-            <Th>
-              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                Name
-                <Icon as={SwapOutlined} size="sm" tone="secondary" />
-              </Flex>
-            </Th>
-            <Th>Role name</Th>
-            <Th>Role type</Th>
-            <Th>
-              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                Group
-                <Icon as={SwapOutlined} size="sm" tone="secondary" />
-                <Icon as={FilterOutlined} size="sm" tone="secondary" />
-              </Flex>
-            </Th>
-            <Th>Status</Th>
-            <Th align="right">Actions</Th>
-          </TableHead>
-          <TableBody>
-            {paged.map((p) => (
-              <Tr key={p.name}>
-                <Td>
-                  <div>
-                    <span>{p.name}</span>
-                    <Badge variant="green" style={{ marginLeft: 8 }}>Account owner</Badge>
-                  </div>
-                </Td>
-                <Td color="secondary">{p.role}</Td>
-                <Td color="secondary">{p.roleType}</Td>
-                <Td color="secondary">{p.group}</Td>
-                <Td color="secondary">{p.status}</Td>
-                <Td align="right">
-                  <Button type="text" size="small" style={{ color: 'var(--color-text-secondary)' }}>...</Button>
-                </Td>
-              </Tr>
-            ))}
-          </TableBody>
-        </DataTable>
+        <Table
+          columns={columns}
+          dataSource={paged}
+          rowKey="name"
+          pagination={false}
+        />
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}

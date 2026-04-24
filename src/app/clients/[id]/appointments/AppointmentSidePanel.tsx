@@ -17,8 +17,9 @@ import {
   SwapOutlined,
   EnvironmentOutlined,
 } from "@ant-design/icons";
-import { Button, Flex } from "antd";
-import { DataTable, Card, PageHeader, TableHead, Th, TableBody, Td, Pagination, Badge, Avatar, FormTextarea, ColorDot, statusVariant, Text, Divider, Icon } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { Card, PageHeader, Pagination, Badge, Avatar, FormTextarea, ColorDot, statusVariant, Text, Divider, Icon } from "@/components/ds";
 
 interface Appointment {
   id: string;
@@ -87,6 +88,106 @@ export default function AppointmentSidePanel({
   const totalPages = Math.ceil(appointments.length / pageSize);
   const paged = appointments.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
+  const columns: ColumnsType<Appointment> = [
+    {
+      key: "when",
+      title: (
+        <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+          When <Icon as={SwapOutlined} tone="secondary" />
+        </Flex>
+      ),
+      render: (_, appt) => {
+        const statusDotColor: "green" | "red" | "yellow" | "gray" | "orange" =
+          appt.status === "Completed"
+            ? "gray"
+            : appt.status === "Cancelled"
+              ? "red"
+              : appt.status === "No Show"
+                ? "yellow"
+                : "orange";
+        const isUpcoming =
+          appt.status === "Scheduled" &&
+          new Date(appt.date + "T00:00:00") >= new Date(new Date().toDateString());
+        return (
+          <Flex align="center" gap={8}>
+            <ColorDot color={isUpcoming ? "green" : statusDotColor} />
+            <span>
+              {formatDate(appt.date)}, {appt.startTime}
+            </span>
+            {isUpcoming && (
+              // eslint-disable-next-line no-restricted-syntax -- design override: Upcoming badge uses solid green (#22c55e) fill, not Badge variant's default green tint
+              <Badge variant="green" style={{ backgroundColor: '#22c55e', color: '#fff' }}>
+                Upcoming
+              </Badge>
+            )}
+            {appt.status === "Cancelled" && (
+              <Badge variant={statusVariant("Cancelled")}>Cancelled</Badge>
+            )}
+            {appt.status === "No Show" && <Badge variant={statusVariant(appt.status)}>{appt.status}</Badge>}
+          </Flex>
+        );
+      },
+    },
+    {
+      key: "where",
+      title: "Where",
+      render: () => <Text variant="body/md" as="span" color="secondary">East Clinics</Text>,
+    },
+    {
+      key: "type",
+      title: "Type",
+      render: (_, appt) => <Text variant="body/md" as="span" color="secondary">{appt.type}</Text>,
+    },
+    {
+      key: "practitioner",
+      title: "Practitioner",
+      render: (_, appt) => <Text variant="body/md" as="span" color="secondary">{appt.practitioner.name}</Text>,
+    },
+    {
+      key: "invoiceStatus",
+      title: "Invoice status",
+      render: (_, appt) => {
+        const invoiceStatus = getInvoiceStatus(appt);
+        return (
+          <>
+            {invoiceStatus === "Paid" && (
+              // eslint-disable-next-line no-restricted-syntax -- design override: Paid badge uses solid red (#ef4444) fill per production
+              <Badge variant="red" style={{ backgroundColor: '#ef4444', color: '#fff' }}>
+                Paid
+              </Badge>
+            )}
+            {invoiceStatus === "Draft" && (
+              // eslint-disable-next-line no-restricted-syntax -- design override: Draft badge uses solid blue (#3b82f6) fill per production
+              <Badge variant="blue" style={{ backgroundColor: '#3b82f6', color: '#fff' }}>
+                Draft
+              </Badge>
+            )}
+            {invoiceStatus === "Do not invoice" && (
+              // eslint-disable-next-line no-restricted-syntax -- design override: Do-not-invoice badge uses solid dark-gray (#374151) fill per production
+              <Badge variant="gray" style={{ backgroundColor: '#374151', color: '#fff' }}>
+                Do not invoice
+              </Badge>
+            )}
+          </>
+        );
+      },
+    },
+    {
+      key: "actions",
+      title: "",
+      align: "right" as const,
+      render: () => (
+        <Button
+          type="text"
+          size="small"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <Icon as={EllipsisOutlined} size="2xl" />
+        </Button>
+      ),
+    },
+  ];
+
   return (
     <Flex style={{ flex: 1, overflow: 'hidden' }}>
       {/* Main table area */}
@@ -103,105 +204,25 @@ export default function AppointmentSidePanel({
         </PageHeader>
 
         <Card padding="none" style={{ overflowX: 'auto' }}>
-          <DataTable>
-            <TableHead>
-              <Th>
-                <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                  When <Icon as={SwapOutlined} tone="secondary" />
-                </Flex>
-              </Th>
-              <Th>Where</Th>
-              <Th>Type</Th>
-              <Th>Practitioner</Th>
-              <Th>Invoice status</Th>
-              <Th align="right">Actions</Th>
-            </TableHead>
-            <TableBody>
-              {appointments.length === 0 ? (
-                <tr>
-                  <td colSpan={6} style={{ padding: '32px 16px', textAlign: 'center' }}>
-                    <Text variant="body/md" as="span" color="secondary">No appointments</Text>
-                  </td>
-                </tr>
-              ) : (
-                paged.map((appt) => {
-                  const statusDotColor: "green" | "red" | "yellow" | "gray" | "orange" =
-                    appt.status === "Completed"
-                      ? "gray"
-                      : appt.status === "Cancelled"
-                        ? "red"
-                        : appt.status === "No Show"
-                          ? "yellow"
-                          : "orange";
-                  const isUpcoming =
-                    appt.status === "Scheduled" &&
-                    new Date(appt.date + "T00:00:00") >= new Date(new Date().toDateString());
-                  const invoiceStatus = getInvoiceStatus(appt);
-                  const isSelected = selectedAppointment?.id === appt.id;
-
-                  return (
-                    <tr
-                      key={appt.id}
-                      // eslint-disable-next-line no-restricted-syntax -- row selection tint is a one-off dynamic state bg; Card tint doesn't apply to <tr>
-                      style={{ cursor: 'pointer', ...(isSelected ? { backgroundColor: 'var(--color-primary-bg)' } : {}) }}
-                      onClick={() => setSelectedAppointment(appt)}
-                    >
-                      <Td>
-                        <Flex align="center" gap={8}>
-                          <ColorDot color={isUpcoming ? "green" : statusDotColor} />
-                          <span>
-                            {formatDate(appt.date)}, {appt.startTime}
-                          </span>
-                          {isUpcoming && (
-                            // eslint-disable-next-line no-restricted-syntax -- design override: Upcoming badge uses solid green (#22c55e) fill, not Badge variant's default green tint
-                            <Badge variant="green" style={{ backgroundColor: '#22c55e', color: '#fff' }}>
-                              Upcoming
-                            </Badge>
-                          )}
-                          {appt.status === "Cancelled" && (
-                            <Badge variant={statusVariant("Cancelled")}>Cancelled</Badge>
-                          )}
-                          {appt.status === "No Show" && <Badge variant={statusVariant(appt.status)}>{appt.status}</Badge>}
-                        </Flex>
-                      </Td>
-                      <Td color="secondary">East Clinics</Td>
-                      <Td color="secondary">{appt.type}</Td>
-                      <Td color="secondary">{appt.practitioner.name}</Td>
-                      <Td>
-                        {invoiceStatus === "Paid" && (
-                          // eslint-disable-next-line no-restricted-syntax -- design override: Paid badge uses solid red (#ef4444) fill per production
-                          <Badge variant="red" style={{ backgroundColor: '#ef4444', color: '#fff' }}>
-                            Paid
-                          </Badge>
-                        )}
-                        {invoiceStatus === "Draft" && (
-                          // eslint-disable-next-line no-restricted-syntax -- design override: Draft badge uses solid blue (#3b82f6) fill per production
-                          <Badge variant="blue" style={{ backgroundColor: '#3b82f6', color: '#fff' }}>
-                            Draft
-                          </Badge>
-                        )}
-                        {invoiceStatus === "Do not invoice" && (
-                          // eslint-disable-next-line no-restricted-syntax -- design override: Do-not-invoice badge uses solid dark-gray (#374151) fill per production
-                          <Badge variant="gray" style={{ backgroundColor: '#374151', color: '#fff' }}>
-                            Do not invoice
-                          </Badge>
-                        )}
-                      </Td>
-                      <Td align="right">
-                        <Button
-                          type="text"
-                          size="small"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <Icon as={EllipsisOutlined} size="2xl" />
-                        </Button>
-                      </Td>
-                    </tr>
-                  );
-                })
-              )}
-            </TableBody>
-          </DataTable>
+          {appointments.length === 0 ? (
+            <div style={{ padding: '32px 16px', textAlign: 'center' }}>
+              <Text variant="body/md" as="span" color="secondary">No appointments</Text>
+            </div>
+          ) : (
+            <Table
+              columns={columns}
+              dataSource={paged}
+              rowKey="id"
+              pagination={false}
+              onRow={(appt) => ({
+                style: {
+                  cursor: 'pointer',
+                  ...(selectedAppointment?.id === appt.id ? { backgroundColor: 'var(--color-primary-bg)' } : {}),
+                },
+                onClick: () => setSelectedAppointment(appt),
+              })}
+            />
+          )}
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}

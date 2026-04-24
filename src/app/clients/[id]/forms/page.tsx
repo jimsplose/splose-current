@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Card, DataTable, Dropdown, DropdownTriggerButton, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Badge, Modal } from "@/components/ds";
+import { Card, Dropdown, DropdownTriggerButton, PageHeader, SearchBar, Pagination, Badge, Modal, Text } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
-import { Button } from "antd";
+import { Button, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 
 const formRowActions: DropdownItem[] = [
   { label: "View", value: "view" },
@@ -128,6 +129,49 @@ export default function ClientFormsPage() {
     }
   }
 
+  const columns: ColumnsType<typeof mockForms[number]> = [
+    {
+      key: "title",
+      title: "Title",
+      render: (_, form) => (
+        <>
+          <span>{form.title}</span>
+          <Badge variant="gray" style={{ marginLeft: 8 }}>
+            {form.status}
+          </Badge>
+        </>
+      ),
+    },
+    {
+      key: "createdAt",
+      title: "Created at",
+      render: (_, form) => <Text variant="body/md" as="span" color="secondary">{form.createdAt}</Text>,
+    },
+    {
+      key: "completed",
+      title: "Completed",
+      render: (_, form) => <Text variant="body/md" as="span" color="secondary">{form.completed}</Text>,
+    },
+    {
+      key: "relatedAppt",
+      title: "Related appointment",
+      render: (_, form) => <Text variant="body/md" as="span" color="primary">{form.relatedAppt}</Text>,
+    },
+    {
+      key: "actions",
+      title: "",
+      align: "right" as const,
+      render: (_, form) => (
+        <Dropdown
+          trigger={<DropdownTriggerButton />}
+          items={formRowActions}
+          onSelect={(val) => handleAction(val, form)}
+          align="right"
+        />
+      ),
+    },
+  ];
+
   return (
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Forms">
@@ -137,38 +181,12 @@ export default function ClientFormsPage() {
       <SearchBar placeholder="Search for title" />
 
       <Card padding="none" style={{ overflowX: 'auto' }}>
-        <DataTable>
-          <TableHead>
-            <Th>Title</Th>
-            <Th>Created at</Th>
-            <Th>Completed</Th>
-            <Th>Related appointment</Th>
-            <Th align="right">Actions</Th>
-          </TableHead>
-          <TableBody>
-            {paged.map((form) => (
-              <Tr key={form.id}>
-                <Td>
-                  <span>{form.title}</span>
-                  <Badge variant="gray" style={{ marginLeft: 8 }}>
-                    {form.status}
-                  </Badge>
-                </Td>
-                <Td color="secondary">{form.createdAt}</Td>
-                <Td color="secondary">{form.completed}</Td>
-                <Td color="primary">{form.relatedAppt}</Td>
-                <Td align="right">
-                  <Dropdown
-                    trigger={<DropdownTriggerButton />}
-                    items={formRowActions}
-                    onSelect={(val) => handleAction(val, form)}
-                    align="right"
-                  />
-                </Td>
-              </Tr>
-            ))}
-          </TableBody>
-        </DataTable>
+        <Table
+          columns={columns}
+          dataSource={paged}
+          rowKey="id"
+          pagination={false}
+        />
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}

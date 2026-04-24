@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Card, DataTable, PageHeader, TableHead, Th, TableBody, Tr, Td, Pagination, Badge, statusVariant } from "@/components/ds";
-import { Button } from "antd";
+import { Card, PageHeader, Pagination, Badge, statusVariant, Text } from "@/components/ds";
+import { Button, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 
 const mockCases = [
     // ── Active cases ────────────────────────────────────────────────────
@@ -165,6 +166,60 @@ const mockCases = [
     },
 ];
 
+type CaseRow = typeof mockCases[number];
+
+const columns: ColumnsType<CaseRow> = [
+  { key: "number", title: "Case Number", dataIndex: "number" },
+  {
+    key: "caseName",
+    title: "Case Name",
+    dataIndex: "caseName",
+    render: (caseName: string) => <span style={{ fontWeight: 500 }}>{caseName}</span>,
+  },
+  {
+    key: "issueDate",
+    title: "Issue date",
+    dataIndex: "issueDate",
+    render: (v: string) => <Text variant="body/md" as="span" color="secondary">{v}</Text>,
+  },
+  {
+    key: "expiryDate",
+    title: "Expiry date",
+    dataIndex: "expiryDate",
+    render: (v: string) => <Text variant="body/md" as="span" color="secondary">{v}</Text>,
+  },
+  {
+    key: "assignee",
+    title: "Assignee",
+    dataIndex: "assignee",
+    render: (v: string) => <Text variant="body/md" as="span" color="secondary">{v}</Text>,
+  },
+  {
+    key: "type",
+    title: "Type",
+    dataIndex: "type",
+    render: (v: string) => <Text variant="body/md" as="span" color="secondary">{v}</Text>,
+  },
+  {
+    key: "allocated",
+    title: "Allocated",
+    dataIndex: "allocated",
+    render: (v: string) => <Text variant="body/md" as="span" color="secondary">{v}</Text>,
+  },
+  {
+    key: "invoiced",
+    title: "Invoiced",
+    dataIndex: "invoiced",
+    render: (v: string) => <Text variant="body/md" as="span" color="secondary">{v}</Text>,
+  },
+  {
+    key: "status",
+    title: "Status",
+    dataIndex: "status",
+    render: (status: string) => <Badge variant={statusVariant(status)}>{status}</Badge>,
+  },
+];
+
 export default function ClientCasesPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
@@ -178,36 +233,12 @@ export default function ClientCasesPage() {
       </PageHeader>
 
       <Card padding="none" style={{ overflowX: 'auto' }}>
-        <DataTable>
-          <TableHead>
-            <Th>Case Number</Th>
-            <Th>Case Name</Th>
-            <Th>Issue date</Th>
-            <Th>Expiry date</Th>
-            <Th>Assignee</Th>
-            <Th>Type</Th>
-            <Th>Allocated</Th>
-            <Th>Invoiced</Th>
-            <Th>Status</Th>
-          </TableHead>
-          <TableBody>
-            {paged.map((c) => (
-              <Tr key={c.number + c.caseName}>
-                <Td>{c.number}</Td>
-                <Td style={{ fontWeight: 500 }}>{c.caseName}</Td>
-                <Td color="secondary">{c.issueDate}</Td>
-                <Td color="secondary">{c.expiryDate}</Td>
-                <Td color="secondary">{c.assignee}</Td>
-                <Td color="secondary">{c.type}</Td>
-                <Td color="secondary">{c.allocated}</Td>
-                <Td color="secondary">{c.invoiced}</Td>
-                <Td>
-                  <Badge variant={statusVariant(c.status)}>{c.status}</Badge>
-                </Td>
-              </Tr>
-            ))}
-          </TableBody>
-        </DataTable>
+        <Table
+          columns={columns}
+          dataSource={paged}
+          rowKey={(c) => c.number + c.caseName}
+          pagination={false}
+        />
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}

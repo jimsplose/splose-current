@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { SwapOutlined, FolderAddOutlined, DownOutlined, FileTextOutlined } from "@ant-design/icons";
-import { Button, Flex } from "antd";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import Icon from "@/components/ds/Icon";
-import { Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput } from "@/components/ds";
+import { Card, PageHeader, SearchBar, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, Text } from "@/components/ds";
 
 const filesData = [
   {
@@ -60,6 +61,59 @@ export default function ClientFilesPage() {
     }
   }
 
+  const columns: ColumnsType<typeof filesData[number]> = [
+    {
+      key: "name",
+      title: (
+        <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+          Name <Icon as={SwapOutlined} tone="secondary" />
+        </Flex>
+      ),
+      render: (_, file) => (
+        <Flex align="center" gap={8}>
+          <Icon as={FileTextOutlined} tone="secondary" />
+          <span>{file.name}</span>
+        </Flex>
+      ),
+    },
+    {
+      key: "uploader",
+      title: "Uploader",
+      render: (_, file) => <Text variant="body/md" as="span" color="secondary">{file.uploader || "\u2014"}</Text>,
+    },
+    {
+      key: "uploadDate",
+      title: (
+        <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+          Upload date <Icon as={SwapOutlined} tone="secondary" />
+        </Flex>
+      ),
+      render: (_, file) => <Text variant="body/md" as="span" color="secondary">{file.uploadDate}</Text>,
+    },
+    {
+      key: "fileSize",
+      title: (
+        <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+          File size <Icon as={SwapOutlined} tone="secondary" />
+        </Flex>
+      ),
+      render: (_, file) => <Text variant="body/md" as="span" color="secondary">{file.fileSize}</Text>,
+    },
+    {
+      key: "actions",
+      title: "",
+      align: "right" as const,
+      render: (_, file) => (
+        <Dropdown
+          align="right"
+          trigger={<DropdownTriggerButton />}
+          items={dropdownItems}
+          onSelect={(val) => handleAction(val, file)}
+        />
+      ),
+    },
+  ];
+
   return (
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Files /">
@@ -77,50 +131,12 @@ export default function ClientFilesPage() {
       <SearchBar placeholder="Search for file name" />
 
       <Card padding="none" style={{ overflowX: 'auto' }}>
-        <DataTable>
-          <TableHead>
-            <Th>
-              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                Name <Icon as={SwapOutlined} tone="secondary" />
-              </Flex>
-            </Th>
-            <Th>Uploader</Th>
-            <Th>
-              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                Upload date <Icon as={SwapOutlined} tone="secondary" />
-              </Flex>
-            </Th>
-            <Th>
-              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                File size <Icon as={SwapOutlined} tone="secondary" />
-              </Flex>
-            </Th>
-            <Th align="right">Actions</Th>
-          </TableHead>
-          <TableBody>
-            {paged.map((file) => (
-              <Tr key={file.id}>
-                <Td>
-                  <Flex align="center" gap={8}>
-                    <Icon as={FileTextOutlined} tone="secondary" />
-                    <span>{file.name}</span>
-                  </Flex>
-                </Td>
-                <Td color="secondary">{file.uploader || "\u2014"}</Td>
-                <Td color="secondary">{file.uploadDate}</Td>
-                <Td color="secondary">{file.fileSize}</Td>
-                <Td align="right">
-                  <Dropdown
-                    align="right"
-                    trigger={<DropdownTriggerButton />}
-                    items={dropdownItems}
-                    onSelect={(val) => handleAction(val, file)}
-                  />
-                </Td>
-              </Tr>
-            ))}
-          </TableBody>
-        </DataTable>
+        <Table
+          columns={columns}
+          dataSource={paged}
+          rowKey="id"
+          pagination={false}
+        />
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}

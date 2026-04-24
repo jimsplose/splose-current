@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { Button, Flex } from "antd";
-import { Card, DataTable, PageHeader, SearchBar, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge, statusVariant, Dropdown, DropdownTriggerButton, Modal } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { Card, PageHeader, SearchBar, Pagination, Badge, statusVariant, Dropdown, DropdownTriggerButton, Modal, Text } from "@/components/ds";
 
 const communicationsData = [
   {
@@ -202,6 +203,72 @@ export default function ClientCommunicationsPage() {
     }
   }
 
+  const columns: ColumnsType<typeof communicationsData[number]> = [
+    {
+      key: "dateTime",
+      title: (
+        <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+          Date and time <Icon as={SwapOutlined} tone="secondary" />
+        </Flex>
+      ),
+      render: (_, comm) => (
+        <Flex align="center" gap={8}>
+          <Button type="text" size="small" style={{ height: 20, width: 20, borderRadius: 4, border: '1px solid var(--color-border)', fontSize: 12 }}>
+            +
+          </Button>
+          {comm.dateTime}
+        </Flex>
+      ),
+    },
+    {
+      key: "subject",
+      title: "Subject",
+      render: (_, comm) => <Text variant="body/md" as="span" color="secondary">{comm.subject || "\u2014"}</Text>,
+    },
+    {
+      key: "type",
+      title: "Type",
+      render: (_, comm) => <Text variant="body/md" as="span" color="secondary">{comm.type}</Text>,
+    },
+    {
+      key: "direction",
+      title: (
+        <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
+          Direction <Icon as={FilterOutlined} tone="secondary" />
+        </Flex>
+      ),
+      render: (_, comm) => (
+        <Flex vertical gap={4}>
+          <span style={{ color: 'var(--color-text-secondary)' }}>{comm.direction}</span>
+          <Badge variant={statusVariant(comm.status)}>{comm.status}</Badge>
+        </Flex>
+      ),
+    },
+    {
+      key: "link",
+      title: "Links",
+      render: (_, comm) =>
+        comm.link ? (
+          <button style={{ color: "var(--color-primary)", background: "none", border: "none", cursor: "pointer", padding: 0 }}>
+            {comm.link}
+          </button>
+        ) : "\u2014",
+    },
+    {
+      key: "actions",
+      title: "",
+      align: "right" as const,
+      render: (_, comm) => (
+        <Dropdown
+          align="right"
+          trigger={<DropdownTriggerButton />}
+          items={dropdownItems}
+          onSelect={(val) => handleAction(val, comm)}
+        />
+      ),
+    },
+  ];
+
   return (
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Communications">
@@ -214,57 +281,12 @@ export default function ClientCommunicationsPage() {
       <SearchBar placeholder="Search for message, to and from" />
 
       <Card padding="none" style={{ overflowX: 'auto' }}>
-        <DataTable>
-          <TableHead>
-            <Th>
-              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                Date and time <Icon as={SwapOutlined} tone="secondary" />
-              </Flex>
-            </Th>
-            <Th>Subject</Th>
-            <Th>Type</Th>
-            <Th>
-              <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-                Direction <Icon as={FilterOutlined} tone="secondary" />
-              </Flex>
-            </Th>
-            <Th>Links</Th>
-            <Th align="right">Actions</Th>
-          </TableHead>
-          <TableBody>
-            {paged.map((comm) => (
-              <Tr key={comm.id}>
-                <Td>
-                  <Flex align="center" gap={8}>
-                    <Button type="text" size="small" style={{ height: 20, width: 20, borderRadius: 4, border: '1px solid var(--color-border)', fontSize: 12 }}>
-                      +
-                    </Button>
-                    {comm.dateTime}
-                  </Flex>
-                </Td>
-                <Td color="secondary">{comm.subject || "\u2014"}</Td>
-                <Td color="secondary">{comm.type}</Td>
-                <Td>
-                  <Flex vertical gap={4}>
-                    <span style={{ color: 'var(--color-text-secondary)' }}>{comm.direction}</span>
-                    <Badge variant={statusVariant(comm.status)}>{comm.status}</Badge>
-                  </Flex>
-                </Td>
-                <Td>
-                  {comm.link ? <LinkCell>{comm.link}</LinkCell> : "\u2014"}
-                </Td>
-                <Td align="right">
-                  <Dropdown
-                    align="right"
-                    trigger={<DropdownTriggerButton />}
-                    items={dropdownItems}
-                    onSelect={(val) => handleAction(val, comm)}
-                  />
-                </Td>
-              </Tr>
-            ))}
-          </TableBody>
-        </DataTable>
+        <Table
+          columns={columns}
+          dataSource={paged}
+          rowKey="id"
+          pagination={false}
+        />
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}

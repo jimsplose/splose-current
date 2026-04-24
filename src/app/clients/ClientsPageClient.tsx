@@ -4,9 +4,10 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { PlusOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { Tag, ListPage, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Skeleton } from "@/components/ds";
+import { Tag, ListPage, Pagination, Skeleton } from "@/components/ds";
 import styles from "./ClientsPageClient.module.css";
-import { Button } from "antd";
+import { Button, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 
 function formatDOB(dateStr: string | null): string {
   if (!dateStr) return "";
@@ -43,6 +44,51 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
 
   useEffect(() => { setLoaded(true); }, []);
 
+  const columns: ColumnsType<ClientRow> = [
+    {
+      key: "name",
+      title: "Name",
+      width: "25%",
+      render: (_, client) => (
+        <div style={{ backgroundColor: 'var(--color-surface-header, #fff)', position: 'relative' }}>
+          <Link href={`/clients/${client.id}`} style={{ position: 'absolute', inset: 0 }} aria-label={`View ${client.firstName} ${client.lastName}`} />
+          <span className={styles.hoverUnderline}>
+            {client.firstName} {client.lastName}
+          </span>
+        </div>
+      ),
+    },
+    {
+      key: "dateOfBirth",
+      title: "Date of birth",
+      width: "8%",
+      render: (_, client) => formatDOB(client.dateOfBirth),
+    },
+    {
+      key: "phone",
+      title: "Phone",
+      width: "28%",
+      render: (_, client) => formatPhone(client.phone),
+    },
+    {
+      key: "email",
+      title: "Email",
+      dataIndex: "email",
+      width: "16%",
+    },
+    {
+      key: "tags",
+      title: "Tags",
+      width: "21%",
+      render: (_, client) =>
+        client.ndisNumber ? (
+          <Tag color="rgb(249,202,36)" size="sm">NDIS</Tag>
+        ) : client.medicare ? (
+          <Tag color="rgb(249,202,36)" size="sm">Medicare</Tag>
+        ) : null,
+    },
+  ];
+
   return (
     <ListPage
       title="Clients"
@@ -73,43 +119,15 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
           </div>
         }
       >
-      <DataTable style={{ tableLayout: 'fixed' }}>
-        <TableHead>
-          <Th sortable filterable style={{ width: '25%' }}>Name</Th>
-          <Th hidden="sm" style={{ width: '8%' }}>Date of birth</Th>
-          <Th hidden="md" style={{ width: '28%' }}>Phone</Th>
-          <Th hidden="lg" style={{ width: '16%' }}>Email</Th>
-          <Th hidden="md" filterable style={{ width: '21%' }}>Tags</Th>
-        </TableHead>
-        <TableBody>
-          {paged.map((client) => (
-            <Tr key={client.id} clickable style={{ position: 'relative' }}>
-              <Td style={{ backgroundColor: 'var(--color-surface-header, #fff)' }}>
-                <Link href={`/clients/${client.id}`} style={{ position: 'absolute', inset: 0 }} aria-label={`View ${client.firstName} ${client.lastName}`} />
-                <span className={styles.hoverUnderline}>
-                  {client.firstName} {client.lastName}
-                </span>
-              </Td>
-              <Td hidden="sm">
-                {formatDOB(client.dateOfBirth)}
-              </Td>
-              <Td hidden="md">
-                {formatPhone(client.phone)}
-              </Td>
-              <Td hidden="lg">
-                {client.email}
-              </Td>
-              <Td hidden="md">
-                {client.ndisNumber ? (
-                  <Tag color="rgb(249,202,36)" size="sm">NDIS</Tag>
-                ) : client.medicare ? (
-                  <Tag color="rgb(249,202,36)" size="sm">Medicare</Tag>
-                ) : null}
-              </Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+        <Table
+          columns={columns}
+          dataSource={paged}
+          rowKey="id"
+          pagination={false}
+          onRow={(client) => ({
+            style: { cursor: 'pointer', position: 'relative' },
+          })}
+        />
       </Skeleton.Loading>
       <Pagination
         currentPage={currentPage}

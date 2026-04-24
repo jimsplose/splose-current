@@ -5,8 +5,9 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useRegisterCommands } from "@/hooks/useRegisterCommands";
 import { EditOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { Button, Flex } from "antd";
-import { AlertCallout, PatientAvatar, Tag, DataTable, Divider, FeatureCard, FileUpload, FormInput, FormSelect, FormTextarea, Grid, HintIcon, List, Collapse, TableBody, TableHead, Td, Text, Th, Toggle, Tr } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { AlertCallout, PatientAvatar, Tag, Divider, FeatureCard, FileUpload, FormInput, FormSelect, FormTextarea, Grid, HintIcon, List, Collapse, Text, Toggle } from "@/components/ds";
 
 interface ClientData {
   id: string;
@@ -235,34 +236,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
             Associated contacts{" "}
             <HintIcon />
           </Text>
-          <DataTable style={{ width: '100%', fontSize: 14 }}>
-            <TableHead>
-              <Th>Name</Th>
-              <Th>Type</Th>
-              <Th>Notes</Th>
-              <Th align="center">Appts</Th>
-              <Th align="center">Invoices</Th>
-              <Th align="center">Notes</Th>
-            </TableHead>
-            <TableBody>
-              <Tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-                <Td><Text variant="body/md" as="span" color="primary">Test doctor</Text></Td>
-                <Td>Doctor</Td>
-                <Td>hello</Td>
-                <Td align="center" />
-                <Td align="center" />
-                <Td align="center" />
-              </Tr>
-              <Tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-                <Td><Text variant="body/md" as="span" color="primary">Jo malone</Text></Td>
-                <Td>Standard</Td>
-                <Td>N/A</Td>
-                <Td align="center" />
-                <Td align="center" />
-                <Td align="center" />
-              </Tr>
-            </TableBody>
-          </DataTable>
+          <AssociatedContactsTable />
         </section>
 
         <Button type="link" size="small">View change log</Button>
@@ -343,6 +317,46 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         </Collapse>
       </aside>
     </Flex>
+  );
+}
+
+/* ─── Associated Contacts Table ────────────────────────────────── */
+
+interface AssociatedContact {
+  key: string;
+  name: string;
+  type: string;
+  notes: string;
+}
+
+const associatedContactsData: AssociatedContact[] = [
+  { key: "1", name: "Test doctor", type: "Doctor", notes: "hello" },
+  { key: "2", name: "Jo malone", type: "Standard", notes: "N/A" },
+];
+
+const associatedContactsColumns: ColumnsType<AssociatedContact> = [
+  {
+    key: "name",
+    title: "Name",
+    dataIndex: "name",
+    render: (name: string) => <Text variant="body/md" as="span" color="primary">{name}</Text>,
+  },
+  { key: "type", title: "Type", dataIndex: "type" },
+  { key: "notes", title: "Notes", dataIndex: "notes" },
+  { key: "appts", title: "Appts", align: "center" as const, render: () => null },
+  { key: "invoices", title: "Invoices", align: "center" as const, render: () => null },
+  { key: "notesCol", title: "Notes", align: "center" as const, render: () => null },
+];
+
+function AssociatedContactsTable() {
+  return (
+    <Table
+      columns={associatedContactsColumns}
+      dataSource={associatedContactsData}
+      rowKey="key"
+      pagination={false}
+      style={{ width: '100%', fontSize: 14 }}
+    />
   );
 }
 
