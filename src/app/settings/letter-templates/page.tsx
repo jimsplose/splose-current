@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Flex } from "antd";
-import { PageHeader, SearchBar, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { PageHeader, SearchBar, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { formatTimestamp } from "@/lib/format";
@@ -76,6 +77,25 @@ export default function LetterTemplatesPage() {
     }
   }
 
+  const columns: ColumnsType<typeof templates[number]> = [
+    { key: "title", title: "Title", dataIndex: "title" },
+    { key: "createdAt", title: "Created at", dataIndex: "createdAt" },
+    { key: "lastUpdated", title: "Last updated", dataIndex: "lastUpdated" },
+    {
+      key: "actions",
+      title: "",
+      align: "right" as const,
+      render: (_, row) => (
+        <Dropdown
+          align="right"
+          trigger={<DropdownTriggerButton />}
+          items={STANDARD_SETTINGS}
+          onSelect={(value) => handleAction(value, templateList.indexOf(row))}
+        />
+      ),
+    },
+  ];
+
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Letter templates">
@@ -85,31 +105,7 @@ export default function LetterTemplatesPage() {
 
       <SearchBar placeholder="Search for title" />
 
-      <DataTable>
-        <TableHead>
-          <Th>Title</Th>
-          <Th>Created at</Th>
-          <Th>Last updated</Th>
-          <Th align="right">Actions</Th>
-        </TableHead>
-        <TableBody>
-          {paged.map((t, i) => (
-            <Tr key={t.title + i}>
-              <Td>{t.title}</Td>
-              <Td>{t.createdAt}</Td>
-              <Td>{t.lastUpdated}</Td>
-              <Td align="right">
-                <Dropdown
-                  align="right"
-                  trigger={<DropdownTriggerButton />}
-                  items={STANDARD_SETTINGS}
-                  onSelect={(value) => handleAction(value, i)}
-                />
-              </Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table columns={columns} dataSource={paged} rowKey={(row) => row.title + templateList.indexOf(row)} pagination={false} />
 
       <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={templateList.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} showPageSize={false} />
       <Modal

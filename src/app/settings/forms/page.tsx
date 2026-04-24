@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import { DownOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { PageHeader, SearchBar, DataTable, TableHead, Th, TableBody, Tr, Td, Badge, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect } from "@/components/ds";
+import { PageHeader, SearchBar, Badge, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 
@@ -52,6 +53,35 @@ export default function FormsPage() {
     return true;
   });
 
+  const columns: ColumnsType<typeof formTemplates[number]> = [
+    { key: "title", title: "Title", dataIndex: "title" },
+    {
+      key: "formType",
+      title: "Form type",
+      render: (_, row) => (
+        <Flex align="center" gap={8}>
+          {row.formType}
+          {row.published && <Badge variant="green">Published</Badge>}
+        </Flex>
+      ),
+    },
+    { key: "createdAt", title: "Created at", dataIndex: "createdAt" },
+    { key: "updatedAt", title: "Updated at", dataIndex: "updatedAt" },
+    {
+      key: "actions",
+      title: "",
+      align: "right" as const,
+      render: (_, row) => (
+        <Dropdown
+          align="right"
+          trigger={<DropdownTriggerButton />}
+          items={STANDARD_SETTINGS}
+          onSelect={(value) => handleAction(value, forms.indexOf(row))}
+        />
+      ),
+    },
+  ];
+
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Form templates">
@@ -76,38 +106,7 @@ export default function FormsPage() {
         onSearch={(q) => setSearch(q)}
       />
 
-      <DataTable>
-        <TableHead>
-          <Th>Title</Th>
-          <Th>Form type</Th>
-          <Th>Created at</Th>
-          <Th>Updated at</Th>
-          <Th align="right">Actions</Th>
-        </TableHead>
-        <TableBody>
-          {filtered.map((f, i) => (
-            <Tr key={f.title + i}>
-              <Td>{f.title}</Td>
-              <Td>
-                <Flex align="center" gap={8}>
-                  {f.formType}
-                  {f.published && <Badge variant="green">Published</Badge>}
-                </Flex>
-              </Td>
-              <Td>{f.createdAt}</Td>
-              <Td>{f.updatedAt}</Td>
-              <Td align="right">
-                <Dropdown
-                  align="right"
-                  trigger={<DropdownTriggerButton />}
-                  items={STANDARD_SETTINGS}
-                  onSelect={(value) => handleAction(value, forms.indexOf(f))}
-                />
-              </Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table columns={columns} dataSource={filtered} rowKey={(row) => row.title + filtered.indexOf(row)} pagination={false} />
       {filtered.length === 0 && <EmptyState message="No form templates found" style={{ paddingTop: 32, paddingBottom: 32 }} />}
 
       <Modal

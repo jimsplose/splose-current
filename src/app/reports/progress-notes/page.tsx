@@ -1,8 +1,73 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
-import { Badge, Card, DataTable, DateRangeFilter, Divider, Grid, ListPage, Stat, ColorDot, TableBody, TableHead, Td, Text, Th, Tr } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { Badge, Card, DateRangeFilter, Divider, Grid, ListPage, Stat, ColorDot, Text } from "@/components/ds";
+
+interface ProgressNoteRow {
+  key: string;
+  titleText: string;
+  titleBadge: string;
+  client: string;
+  relatedService: string;
+  practitioner: string;
+  location: string;
+}
+
+const progressNotesData: ProgressNoteRow[] = [
+  {
+    key: "1",
+    titleText: "Bill Gates Demo",
+    titleBadge: "Draft",
+    client: "Skyler Peterson",
+    relatedService: "—",
+    practitioner: "Ruvi R.",
+    location: "—",
+  },
+  {
+    key: "2",
+    titleText: "AAA TEST",
+    titleBadge: "Draft",
+    client: "A Del",
+    relatedService: "—",
+    practitioner: "Zoe Gomez",
+    location: "—",
+  },
+];
+
+const columns: ColumnsType<ProgressNoteRow> = [
+  {
+    key: "title",
+    title: "Title",
+    dataIndex: "titleText",
+    render: (_, row) => (
+      <>
+        <Text variant="body/md" as="span" color="primary">{row.titleText}</Text>
+        <Badge variant="gray" style={{ marginLeft: 8 }}>{row.titleBadge}</Badge>
+      </>
+    ),
+  },
+  {
+    key: "client",
+    title: "Client",
+    dataIndex: "client",
+    render: (_, row) => <Text variant="body/md" as="span" color="primary">{row.client}</Text>,
+  },
+  {
+    key: "relatedService",
+    title: "Related service",
+    dataIndex: "relatedService",
+    render: (_, row) => <Text variant="body/md" as="span" color="secondary">{row.relatedService}</Text>,
+  },
+  { key: "practitioner", title: "Practitioner", dataIndex: "practitioner" },
+  {
+    key: "location",
+    title: "Location",
+    dataIndex: "location",
+    render: (_, row) => <Text variant="body/md" as="span" color="secondary">{row.location}</Text>,
+  },
+];
 
 export default function ReportsProgressNotesPage() {
   const [showResults, setShowResults] = useState(false);
@@ -140,37 +205,7 @@ export default function ReportsProgressNotesPage() {
 
       {/* Progress notes list */}
       <Text variant="heading/lg" style={{ marginBottom: 16 }}>Progress notes list</Text>
-      <DataTable>
-        <TableHead>
-          <Th>Title</Th>
-          <Th>Client</Th>
-          <Th>Related service</Th>
-          <Th>Practitioner</Th>
-          <Th>Location</Th>
-        </TableHead>
-        <TableBody>
-          <Tr>
-            <Td>
-              <Text variant="body/md" as="span" color="primary">Bill Gates Demo</Text>
-              <Badge variant="gray" style={{ marginLeft: 8 }}>Draft</Badge>
-            </Td>
-            <Td><Text variant="body/md" as="span" color="primary">Skyler Peterson</Text></Td>
-            <Td><Text variant="body/md" as="span" color="secondary">&mdash;</Text></Td>
-            <Td>Ruvi R.</Td>
-            <Td><Text variant="body/md" as="span" color="secondary">&mdash;</Text></Td>
-          </Tr>
-          <Tr>
-            <Td>
-              <Text variant="body/md" as="span" color="primary">AAA TEST</Text>
-              <Badge variant="gray" style={{ marginLeft: 8 }}>Draft</Badge>
-            </Td>
-            <Td><Text variant="body/md" as="span" color="primary">A Del</Text></Td>
-            <Td><Text variant="body/md" as="span" color="secondary">&mdash;</Text></Td>
-            <Td>Zoe Gomez</Td>
-            <Td><Text variant="body/md" as="span" color="secondary">&mdash;</Text></Td>
-          </Tr>
-        </TableBody>
-      </DataTable>
+      <Table columns={columns} dataSource={progressNotesData} rowKey="key" pagination={false} />
       </>)}
     </ListPage>
   );

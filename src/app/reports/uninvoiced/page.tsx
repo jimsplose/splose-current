@@ -1,10 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
-import { Card, DateRangeFilter, ListPage, DataTable, TableHead, Th, TableBody, Tr, Td } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { Card, DateRangeFilter, ListPage } from "@/components/ds";
 
-const mockUninvoicedRows = [
+interface UninvoicedRow {
+  date: string;
+  client: string;
+  service: string;
+  practitioner: string;
+  duration: string;
+  rate: string;
+  amount: string;
+}
+
+const mockUninvoicedRows: UninvoicedRow[] = [
   { date: "11/03/2026", client: "Sarah Mitchell", service: "Initial Assessment", practitioner: "Dr Emily Watson", duration: "60 min", rate: "$180.00", amount: "$180.00" },
   { date: "11/03/2026", client: "James O'Brien", service: "Psychology Session", practitioner: "Dr Emily Watson", duration: "50 min", rate: "$220.00", amount: "$220.00" },
   { date: "10/03/2026", client: "Liam Nguyen", service: "Occupational Therapy", practitioner: "Rachel Kim", duration: "45 min", rate: "$165.00", amount: "$165.00" },
@@ -18,6 +29,21 @@ const mockUninvoicedRows = [
 const totalValue = mockUninvoicedRows.reduce((sum, row) => {
   return sum + parseFloat(row.amount.replace("$", "").replace(",", ""));
 }, 0);
+
+const columns: ColumnsType<UninvoicedRow> = [
+  { key: "date", title: "Date", dataIndex: "date" },
+  {
+    key: "client",
+    title: "Client",
+    dataIndex: "client",
+    render: (_, row) => <span style={{ color: 'var(--color-primary)' }}>{row.client}</span>,
+  },
+  { key: "service", title: "Service", dataIndex: "service" },
+  { key: "practitioner", title: "Practitioner", dataIndex: "practitioner" },
+  { key: "duration", title: "Duration", dataIndex: "duration" },
+  { key: "rate", title: "Rate", dataIndex: "rate", align: "right" },
+  { key: "amount", title: "Amount", dataIndex: "amount", align: "right" },
+];
 
 export default function ReportsUninvoicedPage() {
   const [showResults, setShowResults] = useState(false);
@@ -52,30 +78,7 @@ export default function ReportsUninvoicedPage() {
           </Card>
 
           <Card padding="none" style={{ overflowX: 'auto' }}>
-            <DataTable>
-              <TableHead>
-                <Th>Date</Th>
-                <Th>Client</Th>
-                <Th>Service</Th>
-                <Th>Practitioner</Th>
-                <Th>Duration</Th>
-                <Th align="right">Rate</Th>
-                <Th align="right">Amount</Th>
-              </TableHead>
-              <TableBody>
-                {mockUninvoicedRows.map((row, i) => (
-                  <Tr key={i}>
-                    <Td>{row.date}</Td>
-                    <Td style={{ color: 'var(--color-primary)' }}>{row.client}</Td>
-                    <Td>{row.service}</Td>
-                    <Td>{row.practitioner}</Td>
-                    <Td>{row.duration}</Td>
-                    <Td align="right">{row.rate}</Td>
-                    <Td align="right">{row.amount}</Td>
-                  </Tr>
-                ))}
-              </TableBody>
-            </DataTable>
+            <Table columns={columns} dataSource={mockUninvoicedRows} rowKey={(_, index) => String(index)} pagination={false} />
           </Card>
         </>
       )}

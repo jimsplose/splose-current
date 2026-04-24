@@ -1,10 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
-import { Badge, DateRangeFilter, ListPage, DataTable, TableHead, Th, TableBody, Tr, Td } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { Badge, DateRangeFilter, ListPage } from "@/components/ds";
 
-const mockActivityRows = [
+interface ActivityRow {
+  date: string;
+  client: string;
+  activityType: string;
+  practitioner: string;
+  duration: string;
+  location: string;
+  status: string;
+}
+
+const mockActivityRows: ActivityRow[] = [
   { date: "11/03/2026", client: "Sarah Mitchell", activityType: "Transport", practitioner: "Dr Emily Watson", duration: "30 min", location: "Mobile", status: "Completed" },
   { date: "11/03/2026", client: "James O'Brien", activityType: "Non-labour", practitioner: "Rachel Kim", duration: "15 min", location: "In clinic", status: "Completed" },
   { date: "10/03/2026", client: "Liam Nguyen", activityType: "Provider travel", practitioner: "Tom Bradley", duration: "45 min", location: "Mobile", status: "In progress" },
@@ -19,6 +30,26 @@ function activityStatusVariant(status: string) {
   if (status === "Pending") return "yellow" as const;
   return "gray" as const;
 }
+
+const columns: ColumnsType<ActivityRow> = [
+  { key: "date", title: "Date", dataIndex: "date" },
+  {
+    key: "client",
+    title: "Client",
+    dataIndex: "client",
+    render: (_, row) => <span style={{ color: 'var(--color-primary)' }}>{row.client}</span>,
+  },
+  { key: "activityType", title: "Activity type", dataIndex: "activityType" },
+  { key: "practitioner", title: "Practitioner", dataIndex: "practitioner" },
+  { key: "duration", title: "Duration", dataIndex: "duration" },
+  { key: "location", title: "Location", dataIndex: "location" },
+  {
+    key: "status",
+    title: "Status",
+    dataIndex: "status",
+    render: (_, row) => <Badge variant={activityStatusVariant(row.status)}>{row.status}</Badge>,
+  },
+];
 
 export default function ReportsSupportActivitiesPage() {
   const [showResults, setShowResults] = useState(false);
@@ -52,30 +83,7 @@ export default function ReportsSupportActivitiesPage() {
       cardWrap={false}
     >
       {showResults && (
-        <DataTable>
-          <TableHead>
-            <Th>Date</Th>
-            <Th>Client</Th>
-            <Th>Activity type</Th>
-            <Th>Practitioner</Th>
-            <Th>Duration</Th>
-            <Th>Location</Th>
-            <Th>Status</Th>
-          </TableHead>
-          <TableBody>
-            {mockActivityRows.map((row, i) => (
-              <Tr key={i}>
-                <Td>{row.date}</Td>
-                <Td style={{ color: 'var(--color-primary)' }}>{row.client}</Td>
-                <Td>{row.activityType}</Td>
-                <Td>{row.practitioner}</Td>
-                <Td>{row.duration}</Td>
-                <Td>{row.location}</Td>
-                <Td><Badge variant={activityStatusVariant(row.status)}>{row.status}</Badge></Td>
-              </Tr>
-            ))}
-          </TableBody>
-        </DataTable>
+        <Table columns={columns} dataSource={mockActivityRows} rowKey={(_, index) => String(index)} pagination={false} />
       )}
     </ListPage>
   );

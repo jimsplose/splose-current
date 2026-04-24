@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { Button, Flex } from "antd";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import { CalendarOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { Alert, DataTable, TableHead, Th, TableBody, Tr, Td, FormInput, FormSelect, FormTextarea, Pagination, Toggle, Checkbox, Dropdown, DropdownTriggerButton, Modal, RichTextEditor, PageHeader } from "@/components/ds";
+import { Alert, FormInput, FormSelect, FormTextarea, Pagination, Toggle, Checkbox, Dropdown, DropdownTriggerButton, Modal, RichTextEditor, PageHeader } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -37,6 +38,9 @@ const templateDropdownItems = [
   { label: "Duplicate", value: "duplicate" },
   { label: "Delete", value: "delete", danger: true },
 ];
+
+interface ReminderItem { id: number; name: string; }
+interface TemplateItem { id: number; name: string; }
 
 export default function InvoiceSettingsPage() {
   const [enableOnlinePayments, setEnableOnlinePayments] = useState(false);
@@ -84,6 +88,55 @@ export default function InvoiceSettingsPage() {
       rawOpenCreate();
     }
   }
+
+  const reminderColumns: ColumnsType<ReminderItem> = [
+    {
+      key: "name",
+      title: "Name",
+      render: (_, row) => (
+        <Flex align="center" gap={8}>
+          <Icon as={CalendarOutlined} tone="secondary" />
+          <span>{row.name}</span>
+        </Flex>
+      ),
+    },
+    {
+      key: "actions",
+      title: "Actions",
+      render: (_, row) => (
+        <Flex align="center" justify="flex-end">
+          <Dropdown
+            align="right"
+            trigger={<DropdownTriggerButton />}
+            items={SIMPLE_CRUD}
+            onSelect={(value) => { if (value === "edit") openModal("reminder", reminders.indexOf(row)); }}
+          />
+        </Flex>
+      ),
+    },
+  ];
+
+  const templateColumns: ColumnsType<TemplateItem> = [
+    {
+      key: "name",
+      title: "Name",
+      render: (_, row) => <span>{row.name}</span>,
+    },
+    {
+      key: "actions",
+      title: "Actions",
+      render: (_, row) => (
+        <Flex align="center" justify="flex-end">
+          <Dropdown
+            align="right"
+            trigger={<DropdownTriggerButton />}
+            items={templateDropdownItems}
+            onSelect={(value) => { if (value === "edit") openModal("template", templates.indexOf(row)); }}
+          />
+        </Flex>
+      ),
+    },
+  ];
 
   return (
     <div style={{ padding: 24 }}>
@@ -194,34 +247,7 @@ export default function InvoiceSettingsPage() {
       <section style={{ marginBottom: 32 }}>
         <h2 style={{ marginBottom: 16, fontSize: 20, fontWeight: 600 }}>Invoice reminders</h2>
 
-        <DataTable>
-          <TableHead>
-            <Th>Name</Th>
-            <Th>Actions</Th>
-          </TableHead>
-          <TableBody>
-            {pageReminders.map((reminder, i) => (
-              <Tr key={reminder.id}>
-                <Td>
-                  <Flex align="center" gap={8}>
-                    <Icon as={CalendarOutlined} tone="secondary" />
-                    <span>{reminder.name}</span>
-                  </Flex>
-                </Td>
-                <Td>
-                  <Flex align="center" justify="flex-end">
-                    <Dropdown
-                      align="right"
-                      trigger={<DropdownTriggerButton />}
-                      items={SIMPLE_CRUD}
-                      onSelect={(value) => { if (value === "edit") openModal("reminder", reminders.indexOf(reminder)); }}
-                    />
-                  </Flex>
-                </Td>
-              </Tr>
-            ))}
-          </TableBody>
-        </DataTable>
+        <Table columns={reminderColumns} dataSource={pageReminders} rowKey="id" pagination={false} />
 
         <Pagination currentPage={reminderPage} totalPages={reminderTotalPages} totalItems={reminders.length} itemsPerPage={pageSize} onPageChange={setReminderPage} />
 
@@ -238,31 +264,7 @@ export default function InvoiceSettingsPage() {
       <section style={{ marginBottom: 32 }}>
         <h2 style={{ marginBottom: 16, fontSize: 20, fontWeight: 600 }}>Invoice templates</h2>
 
-        <DataTable>
-          <TableHead>
-            <Th>Name</Th>
-            <Th>Actions</Th>
-          </TableHead>
-          <TableBody>
-            {pageTemplates.map((template, i) => (
-              <Tr key={template.id}>
-                <Td>
-                  <span>{template.name}</span>
-                </Td>
-                <Td>
-                  <Flex align="center" justify="flex-end">
-                    <Dropdown
-                      align="right"
-                      trigger={<DropdownTriggerButton />}
-                      items={templateDropdownItems}
-                      onSelect={(value) => { if (value === "edit") openModal("template", templates.indexOf(template)); }}
-                    />
-                  </Flex>
-                </Td>
-              </Tr>
-            ))}
-          </TableBody>
-        </DataTable>
+        <Table columns={templateColumns} dataSource={pageTemplates} rowKey="id" pagination={false} />
 
         <Pagination currentPage={templatePage} totalPages={templateTotalPages} totalItems={templates.length} itemsPerPage={pageSize} onPageChange={setTemplatePage} />
 
