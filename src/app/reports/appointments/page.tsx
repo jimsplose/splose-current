@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Button, Flex } from "antd";
-import { Badge, DataTable, DateRangeFilter, Dropdown, FormSelect, ListPage, TableBody, TableHead, Td, Th, Tr } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { Badge, DateRangeFilter, Dropdown, FormSelect, ListPage } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 
 interface Appointment {
@@ -114,7 +115,7 @@ export default function ReportsAppointmentsPage() {
     });
   }, [sortKey, sortDir]);
 
-  const columns: { key: SortKey; label: string }[] = [
+  const columnDefs: { key: SortKey; label: string }[] = [
     { key: "date", label: "Date" },
     { key: "time", label: "Time" },
     { key: "client", label: "Client" },
@@ -124,6 +125,24 @@ export default function ReportsAppointmentsPage() {
     { key: "status", label: "Status" },
     { key: "invoice", label: "Invoice status" },
   ];
+
+  const columns: ColumnsType<Appointment> = columnDefs.map((col) => {
+    if (col.key === "status") {
+      return {
+        key: col.key,
+        title: col.label,
+        dataIndex: col.key,
+        sorter: true,
+        render: (_, row) => <Badge variant={statusVariantFor(row.status)}>{row.status}</Badge>,
+      };
+    }
+    return {
+      key: col.key,
+      title: col.label,
+      dataIndex: col.key,
+      sorter: true,
+    };
+  });
 
   return (
     <ListPage
@@ -185,34 +204,18 @@ export default function ReportsAppointmentsPage() {
       {showResults && (
         <>
           <p style={{ fontSize: 14, lineHeight: 1.57, margin: '16px 0', color: 'var(--color-text-secondary)' }}>{sortedAppointments.length} items found.</p>
-          <DataTable>
-            <TableHead>
-              {columns.map((col) => (
-                <Th
-                  key={col.key}
-                  sortable
-                  sortDirection={sortKey === col.key ? sortDir : null}
-                  onSort={() => handleSort(col.key)}
-                >
-                  {col.label}
-                </Th>
-              ))}
-            </TableHead>
-            <TableBody>
-              {sortedAppointments.map((row, i) => (
-                <Tr key={i}>
-                  <Td>{row.date}</Td>
-                  <Td>{row.time}</Td>
-                  <Td>{row.client}</Td>
-                  <Td>{row.service}</Td>
-                  <Td>{row.practitioner}</Td>
-                  <Td>{row.location}</Td>
-                  <Td><Badge variant={statusVariantFor(row.status)}>{row.status}</Badge></Td>
-                  <Td>{row.invoice}</Td>
-                </Tr>
-              ))}
-            </TableBody>
-          </DataTable>
+          <Table
+            columns={columns}
+            dataSource={sortedAppointments}
+            rowKey={(_, index) => String(index)}
+            pagination={false}
+            onChange={(_, __, sorter) => {
+              const s = Array.isArray(sorter) ? sorter[0] : sorter;
+              if (s && s.columnKey) {
+                handleSort(s.columnKey as SortKey);
+              }
+            }}
+          />
         </>
       )}
     </ListPage>

@@ -1,10 +1,11 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
-import { Button, Flex } from "antd";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import Icon from "@/components/ds/Icon";
-import { DataTable, ListPage, TableHead, Th, TableBody, Tr, Td, LinkCell, Pagination, Badge, Text } from "@/components/ds";
+import { ListPage, LinkCell, Pagination, Badge, Text } from "@/components/ds";
 
 const mockPayments = [
   {
@@ -117,106 +118,110 @@ export default function PaymentsPage() {
       }
       searchPlaceholder="Search for recipient name and payment number"
     >
-        <DataTable>
-          <TableHead>
-            <Th style={{ width: 280 }}>
+      {(() => {
+        type PaymentRow = typeof mockPayments[number];
+        const paymentColumns: ColumnsType<PaymentRow> = [
+          {
+            key: "reference",
+            title: (
               <Flex align="center" gap={6}>
                 Payment #
                 <Icon as={SwapOutlined} tone="secondary" />
                 <Icon as={FilterOutlined} tone="secondary" />
               </Flex>
-            </Th>
-            <Th>From</Th>
-            <Th align="right">Amount</Th>
-            <Th align="right">
+            ),
+            width: 280,
+            render: (_, payment) => (
+              <Flex align="center" gap={8}>
+                {payment.invoices.length > 0 ? (
+                  <Button type="text" size="small" style={{ height: 20, width: 20 }} shape="circle">
+                    {expandedId === payment.id ? (
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="7" cy="7" r="6.5" stroke="currentColor" />
+                        <line x1="4" y1="7" x2="10" y2="7" stroke="currentColor" strokeWidth="1.5" />
+                      </svg>
+                    ) : (
+                      <Text variant="label/lg" as="span">+</Text>
+                    )}
+                  </Button>
+                ) : (
+                  <span style={{ width: 20 }} />
+                )}
+                <span>{payment.reference}</span>
+                {payment.type && <Badge variant="gray">{payment.type}</Badge>}
+              </Flex>
+            ),
+          },
+          { key: "from", title: "From", render: (_, payment) => <LinkCell>{payment.from}</LinkCell> },
+          {
+            key: "amount",
+            title: "Amount",
+            align: "right" as const,
+            render: (_, payment) => payment.amount.toLocaleString("en-AU", { minimumFractionDigits: 2 }),
+          },
+          {
+            key: "date",
+            title: (
               <Flex align="center" justify="end" gap={6}>
                 Payment date
                 <Icon as={SwapOutlined} tone="secondary" />
               </Flex>
-            </Th>
-          </TableHead>
-          <TableBody>
-            {paged.map((payment) => (
-              <Fragment key={payment.id}>
-                <Tr
-                  clickable
-                  onClick={() => {
-                    if (payment.invoices.length > 0) {
-                      setExpandedId(expandedId === payment.id ? null : payment.id);
-                    }
-                  }}
-                >
-                  <Td>
-                    <Flex align="center" gap={8}>
-                      {payment.invoices.length > 0 ? (
-                        <Button type="text" size="small" style={{ height: 20, width: 20 }} shape="circle">
-                          {expandedId === payment.id ? (
-                            <svg
-                              width="14"
-                              height="14"
-                              viewBox="0 0 14 14"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <circle cx="7" cy="7" r="6.5" stroke="currentColor" />
-                              <line x1="4" y1="7" x2="10" y2="7" stroke="currentColor" strokeWidth="1.5" />
-                            </svg>
-                          ) : (
-                            <Text variant="label/lg" as="span">+</Text>
-                          )}
-                        </Button>
-                      ) : (
-                        <span style={{ width: 20 }} />
-                      )}
-                      <span>{payment.reference}</span>
-                      {payment.type && <Badge variant="gray">{payment.type}</Badge>}
-                    </Flex>
-                  </Td>
-                  <Td><LinkCell>{payment.from}</LinkCell></Td>
-                  <Td align="right">
-                    {payment.amount.toLocaleString("en-AU", { minimumFractionDigits: 2 })}
-                  </Td>
-                  <Td align="right" color="secondary">
-                    {payment.date}
-                  </Td>
-                </Tr>
-                {expandedId === payment.id && payment.invoices.length > 0 && (
-                  <tr>
-                    <td colSpan={4} style={{ backgroundColor: 'rgba(249, 250, 251, 0.7)', padding: '0 16px' }}>
-                      <div style={{ padding: '8px 0 8px 28px' }}>
-                        <table style={{ width: '100%' }}>
-                          <thead>
-                            <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-                              <th style={{ padding: '8px 0', textAlign: 'left' }}><Text variant="label/lg" as="span">Invoice #</Text></th>
-                              <th style={{ padding: '8px 0', textAlign: 'left' }}><Text variant="label/lg" as="span">Amount</Text></th>
-                              <th style={{ padding: '8px 0', textAlign: 'left' }}><Text variant="label/lg" as="span">Date</Text></th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {payment.invoices.map((inv) => (
-                              <tr key={inv.number}>
-                                <td style={{ padding: '8px 0', fontSize: 14 }}><LinkCell>{inv.number}</LinkCell></td>
-                                <td style={{ padding: '8px 0', fontSize: 14 }}>{inv.amount.toFixed(2)}</td>
-                                <td style={{ padding: '8px 0', fontSize: 14, color: 'var(--color-text-secondary)' }}>{inv.date}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </td>
-                  </tr>
-                )}
-              </Fragment>
-            ))}
-          </TableBody>
-        </DataTable>
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          totalItems={mockPayments.length}
-          itemsPerPage={pageSize}
-          onPageChange={setCurrentPage}
-        />
+            ),
+            align: "right" as const,
+            render: (_, payment) => <Text color="secondary" as="span">{payment.date}</Text>,
+          },
+        ];
+
+        return (
+          <Table
+            columns={paymentColumns}
+            dataSource={paged}
+            rowKey="id"
+            pagination={false}
+            onRow={(payment) => ({
+              style: { cursor: payment.invoices.length > 0 ? "pointer" : undefined },
+              onClick: () => {
+                if (payment.invoices.length > 0) {
+                  setExpandedId(expandedId === payment.id ? null : payment.id);
+                }
+              },
+            })}
+            expandable={{
+              expandedRowKeys: expandedId ? [expandedId] : [],
+              showExpandColumn: false,
+              expandedRowRender: (payment) => (
+                <div style={{ padding: "8px 0 8px 28px" }}>
+                  <table style={{ width: "100%" }}>
+                    <thead>
+                      <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
+                        <th style={{ padding: "8px 0", textAlign: "left" }}><Text variant="label/lg" as="span">Invoice #</Text></th>
+                        <th style={{ padding: "8px 0", textAlign: "left" }}><Text variant="label/lg" as="span">Amount</Text></th>
+                        <th style={{ padding: "8px 0", textAlign: "left" }}><Text variant="label/lg" as="span">Date</Text></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {payment.invoices.map((inv) => (
+                        <tr key={inv.number}>
+                          <td style={{ padding: "8px 0", fontSize: 14 }}><LinkCell>{inv.number}</LinkCell></td>
+                          <td style={{ padding: "8px 0", fontSize: 14 }}>{inv.amount.toFixed(2)}</td>
+                          <td style={{ padding: "8px 0", fontSize: 14, color: "var(--color-text-secondary)" }}>{inv.date}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ),
+            }}
+          />
+        );
+      })()}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        totalItems={mockPayments.length}
+        itemsPerPage={pageSize}
+        onPageChange={setCurrentPage}
+      />
     </ListPage>
   );
 }

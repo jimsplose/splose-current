@@ -1,10 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
-import { DataTable, DateRangeFilter, ListPage, TableBody, TableHead, Td, Th, Tr } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { DateRangeFilter, ListPage } from "@/components/ds";
 
-const mockPayments = [
+interface PaymentRow {
+  number: string;
+  client: string;
+  amount: string;
+  method: string;
+  date: string;
+  practitioner: string;
+}
+
+const mockPayments: PaymentRow[] = [
   { number: "PAY-001", client: "Liam Nguyen", amount: "$185.00", method: "Credit Card", date: "03/03/2026", practitioner: "Dr Sarah Chen" },
   { number: "PAY-002", client: "Olivia Smith", amount: "$150.00", method: "Medicare", date: "05/03/2026", practitioner: "Emma Williams" },
   { number: "PAY-003", client: "Noah Wilson", amount: "$220.00", method: "EFTPOS", date: "12/03/2026", practitioner: "Dr Lisa Park" },
@@ -16,6 +26,15 @@ const mockPayments = [
 ];
 
 const total = "$1,420.00";
+
+const columns: ColumnsType<PaymentRow> = [
+  { key: "number", title: "Payment #", dataIndex: "number" },
+  { key: "client", title: "Client", dataIndex: "client" },
+  { key: "amount", title: "Amount", dataIndex: "amount" },
+  { key: "method", title: "Method", dataIndex: "method" },
+  { key: "date", title: "Date", dataIndex: "date" },
+  { key: "practitioner", title: "Practitioner", dataIndex: "practitioner" },
+];
 
 export default function ReportsPaymentsPage() {
   const [showResults, setShowResults] = useState(false);
@@ -54,28 +73,7 @@ export default function ReportsPaymentsPage() {
             <span style={{ fontSize: 16, fontWeight: 600, lineHeight: 1.5 }}>Total: {total}</span>
             <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>({mockPayments.length} payments)</span>
           </Flex>
-          <DataTable>
-            <TableHead>
-              <Th>Payment #</Th>
-              <Th>Client</Th>
-              <Th>Amount</Th>
-              <Th>Method</Th>
-              <Th>Date</Th>
-              <Th>Practitioner</Th>
-            </TableHead>
-            <TableBody>
-              {mockPayments.map((row, i) => (
-                <Tr key={i}>
-                  <Td>{row.number}</Td>
-                  <Td>{row.client}</Td>
-                  <Td>{row.amount}</Td>
-                  <Td>{row.method}</Td>
-                  <Td>{row.date}</Td>
-                  <Td>{row.practitioner}</Td>
-                </Tr>
-              ))}
-            </TableBody>
-          </DataTable>
+          <Table columns={columns} dataSource={mockPayments} rowKey={(_, index) => String(index)} pagination={false} />
         </>
       )}
     </ListPage>

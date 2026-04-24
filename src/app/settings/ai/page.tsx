@@ -2,10 +2,11 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { Button, Flex } from "antd";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { FormInput, FormTextarea, FormSelect, Tab, Toggle, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, Modal, EmptyState, Badge, Alert, PageHeader, Divider, Text } from "@/components/ds";
+import { FormInput, FormTextarea, FormSelect, Tab, Toggle, Pagination, Dropdown, Modal, EmptyState, Badge, Alert, PageHeader, Divider, Text } from "@/components/ds";
 
 const aiBlocks = [
   { name: "Subjective Assessment", tag: "SOAP", createdBy: "Jim Yencken", lastModified: "12 Mar 2026" },
@@ -171,6 +172,32 @@ function SavedPromptsTab() {
     setEditPrompt(name);
   };
 
+  const columns: ColumnsType<typeof aiPrompts[number]> = [
+    { key: "name", title: "Prompt", dataIndex: "name" },
+    {
+      key: "userGroup",
+      title: "User group",
+      render: (_, row) => <Text color="secondary" as="span">{row.userGroup}</Text>,
+    },
+    {
+      key: "actions",
+      title: "",
+      align: "right" as const,
+      render: (_, row) => (
+        <Dropdown
+          trigger={<Button type="text" size="small" style={{ color: 'var(--color-text-secondary)' }}>...</Button>}
+          items={[
+            { label: "Edit", value: "edit" },
+            { label: "Duplicate", value: "duplicate" },
+            { label: "Delete", value: "delete", danger: true },
+          ]}
+          onSelect={(val) => { if (val === "edit") handleEdit(row.name); }}
+          align="right"
+        />
+      ),
+    },
+  ];
+
   return (
     <div>
       <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
@@ -178,33 +205,7 @@ function SavedPromptsTab() {
         <Button>+ New prompt</Button>
       </Flex>
 
-      <DataTable>
-        <TableHead>
-          <Th>Prompt</Th>
-          <Th>User group</Th>
-          <Th align="right">Actions</Th>
-        </TableHead>
-        <TableBody>
-          {pagedPrompts.map((prompt) => (
-            <Tr key={prompt.name}>
-              <Td>{prompt.name}</Td>
-              <Td color="secondary">{prompt.userGroup}</Td>
-              <Td align="right">
-                <Dropdown
-                  trigger={<Button type="text" size="small" style={{ color: 'var(--color-text-secondary)' }}>...</Button>}
-                  items={[
-                    { label: "Edit", value: "edit" },
-                    { label: "Duplicate", value: "duplicate" },
-                    { label: "Delete", value: "delete", danger: true },
-                  ]}
-                  onSelect={(val) => { if (val === "edit") handleEdit(prompt.name); }}
-                  align="right"
-                />
-              </Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table columns={columns} dataSource={pagedPrompts} rowKey="name" pagination={false} />
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
@@ -260,6 +261,46 @@ function AIBlockLibraryTab() {
     setEditBlock(name);
   };
 
+  const columns: ColumnsType<typeof aiBlocks[number]> = [
+    {
+      key: "name",
+      title: <div className="flex items-center gap-1">AI block <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>&#8645;</span></div>,
+      dataIndex: "name",
+    },
+    {
+      key: "tag",
+      title: <div className="flex items-center gap-1">Tag <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>&#8645;</span></div>,
+      render: (_, row) => <Badge variant="purple">{row.tag}</Badge>,
+    },
+    {
+      key: "createdBy",
+      title: <div className="flex items-center gap-1">Created by <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>&#9660;</span></div>,
+      render: (_, row) => <Text color="secondary" as="span">{row.createdBy}</Text>,
+    },
+    {
+      key: "lastModified",
+      title: <div className="flex items-center gap-1">Last modified <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>&#8645;</span></div>,
+      render: (_, row) => <Text color="secondary" as="span">{row.lastModified}</Text>,
+    },
+    {
+      key: "actions",
+      title: "",
+      align: "right" as const,
+      render: (_, row) => (
+        <Dropdown
+          trigger={<Button type="text" size="small" style={{ color: 'var(--color-text-secondary)' }}>...</Button>}
+          items={[
+            { label: "Edit", value: "edit" },
+            { label: "Duplicate", value: "duplicate" },
+            { label: "Delete", value: "delete", danger: true },
+          ]}
+          onSelect={(val) => { if (val === "edit") handleEditBlock(row.name); }}
+          align="right"
+        />
+      ),
+    },
+  ];
+
   return (
     <div>
       {/* Beta banner */}
@@ -303,37 +344,7 @@ function AIBlockLibraryTab() {
       <Text variant="heading/md" as="h3" color="text" style={{ marginBottom: 12 }}>Your saved blocks</Text>
 
       {/* Table */}
-      <DataTable>
-        <TableHead>
-          <Th><div className="flex items-center gap-1">AI block <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>&#8645;</span></div></Th>
-          <Th><div className="flex items-center gap-1">Tag <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>&#8645;</span></div></Th>
-          <Th><div className="flex items-center gap-1">Created by <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>&#9660;</span></div></Th>
-          <Th><div className="flex items-center gap-1">Last modified <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>&#8645;</span></div></Th>
-          <Th align="right">Actions</Th>
-        </TableHead>
-        <TableBody>
-          {aiBlocks.map((block) => (
-            <Tr key={block.name}>
-              <Td>{block.name}</Td>
-              <Td><Badge variant="purple">{block.tag}</Badge></Td>
-              <Td color="secondary">{block.createdBy}</Td>
-              <Td color="secondary">{block.lastModified}</Td>
-              <Td align="right">
-                <Dropdown
-                  trigger={<Button type="text" size="small" style={{ color: 'var(--color-text-secondary)' }}>...</Button>}
-                  items={[
-                    { label: "Edit", value: "edit" },
-                    { label: "Duplicate", value: "duplicate" },
-                    { label: "Delete", value: "delete", danger: true },
-                  ]}
-                  onSelect={(val) => { if (val === "edit") handleEditBlock(block.name); }}
-                  align="right"
-                />
-              </Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table columns={columns} dataSource={aiBlocks} rowKey="name" pagination={false} />
 
       <Modal
         open={editBlock !== null}

@@ -2,10 +2,11 @@
 
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
-import { Button, Flex } from "antd";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import { PlusOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { ListPage, Pagination, Badge, PaymentStatusBadge, dbStatusToPaymentStatus, DataTable, TableHead, Th, TableBody, Tr, Td, LinkCell, Text, Skeleton } from "@/components/ds";
+import { ListPage, Pagination, Badge, PaymentStatusBadge, dbStatusToPaymentStatus, LinkCell, Text, Skeleton } from "@/components/ds";
 
 export interface InvoiceRow {
   id: string;
@@ -158,161 +159,152 @@ export default function InvoicesClient({
           </div>
         }
       >
-      <div style={{ overflowX: 'auto' }}>
-        <DataTable>
-            <TableHead>
-              <Th sortable>Invoice #</Th>
-              <Th>To</Th>
-              <Th
-                hidden="md"
-                filterable
-                onFilter={() => {
-                  setShowLocationDropdown((p) => !p);
-                  setShowPractitionerDropdown(false);
-                  setShowStatusDropdown(false);
-                }}
-              >
-                Location
-              </Th>
-              <Th
-                hidden="md"
-                filterable
-                onFilter={() => {
-                  setShowPractitionerDropdown((p) => !p);
-                  setShowLocationDropdown(false);
-                  setShowStatusDropdown(false);
-                }}
-              >
-                Practitioner
-              </Th>
-              <Th hidden="lg" sortable>
-                Issue date
-              </Th>
-              <Th hidden="lg" sortable>
-                Due date
-              </Th>
-              <Th hidden="sm" align="right">
-                Amount
-              </Th>
-              <Th hidden="sm" align="right">
-                Outstanding
-              </Th>
-              <Th
-                hidden="sm"
-                filterable
-                onFilter={() => {
-                  setShowStatusDropdown((p) => !p);
-                  setShowLocationDropdown(false);
-                  setShowPractitionerDropdown(false);
-                }}
-              >
-                Status
-              </Th>
-              <Th hidden="lg">Sent status</Th>
-            </TableHead>
-            <TableBody>
-              {/* Filter dropdown rows */}
-              {(showLocationDropdown ||
-                showPractitionerDropdown ||
-                showStatusDropdown) && (
-                <tr>
-                  <td colSpan={10} style={{ borderBottom: '1px solid var(--color-border)', background: '#f9fafb', padding: '8px 16px' }}>
-                    <Flex wrap="wrap" gap={8}>
-                      {showLocationDropdown &&
-                        uniqueLocations.map((loc) => (
-                          <Button
-                            key={loc}
-                            type={locationFilter === loc ? "primary" : "default"}
-                            size="small"
-                            onClick={() => {
-                              setLocationFilter(
-                                locationFilter === loc ? null : loc,
-                              );
-                              setShowLocationDropdown(false);
-                            }}
-                          >
-                            {loc}
-                          </Button>
-                        ))}
-                      {showPractitionerDropdown &&
-                        uniquePractitioners.map((prac) => (
-                          <Button
-                            key={prac}
-                            type={practitionerFilter === prac ? "primary" : "default"}
-                            size="small"
-                            onClick={() => {
-                              setPractitionerFilter(
-                                practitionerFilter === prac ? null : prac,
-                              );
-                              setShowPractitionerDropdown(false);
-                            }}
-                          >
-                            {prac}
-                          </Button>
-                        ))}
-                      {showStatusDropdown &&
-                        uniqueStatuses.map((st) => (
-                          <Button
-                            key={st}
-                            type={statusFilter === st ? "primary" : "default"}
-                            size="small"
-                            onClick={() => {
-                              setStatusFilter(
-                                statusFilter === st ? null : st,
-                              );
-                              setShowStatusDropdown(false);
-                            }}
-                          >
-                            <PaymentStatusBadge status={dbStatusToPaymentStatus(st)} />
-                          </Button>
-                        ))}
-                    </Flex>
-                  </td>
-                </tr>
-              )}
-              {paged.map((inv) => {
-                const outstanding = inv.status === "Paid" ? 0 : inv.total;
-                return (
-                  <Tr key={inv.id} clickable>
-                    <Td>
-                      <LinkCell href={`/invoices/${inv.id}`}>
-                        {inv.invoiceNumber}
-                      </LinkCell>
-                    </Td>
-                    <Td color="primary">
-                      {inv.clientName} ({inv.billingType})
-                    </Td>
-                    <Td hidden="md" color="secondary">
-                      {inv.location}
-                    </Td>
-                    <Td hidden="md" color="secondary">
-                      {inv.practitioner || "\u2014"}
-                    </Td>
-                    <Td hidden="lg" color="secondary">
-                      {formatDate(inv.date)}
-                    </Td>
-                    <Td hidden="lg" color="secondary">
-                      {formatDate(inv.dueDate)}
-                    </Td>
-                    <Td hidden="sm" align="right">
-                      {inv.total.toFixed(2)}
-                    </Td>
-                    <Td hidden="sm" align="right">
-                      {outstanding.toFixed(2)}
-                    </Td>
-                    <Td hidden="sm">
-                      <PaymentStatusBadge status={dbStatusToPaymentStatus(inv.status)} />
-                    </Td>
-                    <Td hidden="lg">
-                      {inv.status === "Sent" && (
-                        <PaymentStatusBadge status="sent" />
-                      )}
-                    </Td>
-                  </Tr>
-                );
-              })}
-            </TableBody>
-          </DataTable>
+        {/* Filter dropdown panel */}
+        {(showLocationDropdown || showPractitionerDropdown || showStatusDropdown) && (
+          <div style={{ borderBottom: '1px solid var(--color-border)', background: '#f9fafb', padding: '8px 16px' }}>
+            <Flex wrap="wrap" gap={8}>
+              {showLocationDropdown &&
+                uniqueLocations.map((loc) => (
+                  <Button
+                    key={loc}
+                    type={locationFilter === loc ? "primary" : "default"}
+                    size="small"
+                    onClick={() => {
+                      setLocationFilter(locationFilter === loc ? null : loc);
+                      setShowLocationDropdown(false);
+                    }}
+                  >
+                    {loc}
+                  </Button>
+                ))}
+              {showPractitionerDropdown &&
+                uniquePractitioners.map((prac) => (
+                  <Button
+                    key={prac}
+                    type={practitionerFilter === prac ? "primary" : "default"}
+                    size="small"
+                    onClick={() => {
+                      setPractitionerFilter(practitionerFilter === prac ? null : prac);
+                      setShowPractitionerDropdown(false);
+                    }}
+                  >
+                    {prac}
+                  </Button>
+                ))}
+              {showStatusDropdown &&
+                uniqueStatuses.map((st) => (
+                  <Button
+                    key={st}
+                    type={statusFilter === st ? "primary" : "default"}
+                    size="small"
+                    onClick={() => {
+                      setStatusFilter(statusFilter === st ? null : st);
+                      setShowStatusDropdown(false);
+                    }}
+                  >
+                    <PaymentStatusBadge status={dbStatusToPaymentStatus(st)} />
+                  </Button>
+                ))}
+            </Flex>
+          </div>
+        )}
+        <div style={{ overflowX: 'auto' }}>
+          <Table
+            columns={[
+              {
+                key: "invoiceNumber",
+                title: "Invoice #",
+                sorter: true,
+                render: (_, inv) => <LinkCell href={`/invoices/${inv.id}`}>{inv.invoiceNumber}</LinkCell>,
+              },
+              {
+                key: "to",
+                title: "To",
+                render: (_, inv) => <Text color="primary" as="span">{inv.clientName} ({inv.billingType})</Text>,
+              },
+              {
+                key: "location",
+                title: (
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      setShowLocationDropdown((p) => !p);
+                      setShowPractitionerDropdown(false);
+                      setShowStatusDropdown(false);
+                    }}
+                  >
+                    Location ▾
+                  </span>
+                ),
+                render: (_, inv) => <Text color="secondary" as="span">{inv.location}</Text>,
+              },
+              {
+                key: "practitioner",
+                title: (
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      setShowPractitionerDropdown((p) => !p);
+                      setShowLocationDropdown(false);
+                      setShowStatusDropdown(false);
+                    }}
+                  >
+                    Practitioner ▾
+                  </span>
+                ),
+                render: (_, inv) => <Text color="secondary" as="span">{inv.practitioner || "—"}</Text>,
+              },
+              {
+                key: "date",
+                title: "Issue date",
+                sorter: true,
+                render: (_, inv) => <Text color="secondary" as="span">{formatDate(inv.date)}</Text>,
+              },
+              {
+                key: "dueDate",
+                title: "Due date",
+                sorter: true,
+                render: (_, inv) => <Text color="secondary" as="span">{formatDate(inv.dueDate)}</Text>,
+              },
+              {
+                key: "total",
+                title: "Amount",
+                align: "right" as const,
+                render: (_, inv) => inv.total.toFixed(2),
+              },
+              {
+                key: "outstanding",
+                title: "Outstanding",
+                align: "right" as const,
+                render: (_, inv) => (inv.status === "Paid" ? 0 : inv.total).toFixed(2),
+              },
+              {
+                key: "status",
+                title: (
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      setShowStatusDropdown((p) => !p);
+                      setShowLocationDropdown(false);
+                      setShowPractitionerDropdown(false);
+                    }}
+                  >
+                    Status ▾
+                  </span>
+                ),
+                render: (_, inv) => <PaymentStatusBadge status={dbStatusToPaymentStatus(inv.status)} />,
+              },
+              {
+                key: "sentStatus",
+                title: "Sent status",
+                render: (_, inv) => inv.status === "Sent" ? <PaymentStatusBadge status="sent" /> : null,
+              },
+            ] as ColumnsType<InvoiceRow>}
+            dataSource={paged}
+            rowKey="id"
+            pagination={false}
+            onRow={() => ({ style: { cursor: "pointer" } })}
+          />
         </div>
       </Skeleton.Loading>
       <Pagination

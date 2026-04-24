@@ -3,9 +3,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import { UploadOutlined, CheckCircleOutlined, ExclamationCircleOutlined, FileTextOutlined } from "@ant-design/icons";
-import { Button, Flex } from "antd";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import Icon from "@/components/ds/Icon";
-import { FormInput, FormSelect, DateRangeFilter, PageHeader, FileUpload, Card, DataTable, TableHead, Th, TableBody, Td, Badge, Text, Divider, Breadcrumbs } from "@/components/ds";
+import { FormInput, FormSelect, DateRangeFilter, PageHeader, FileUpload, Card, Badge, Text, Divider, Breadcrumbs } from "@/components/ds";
 
 const ndisBreadcrumbs = (
   <div style={{ padding: "8px 24px 0" }}>
@@ -19,12 +20,66 @@ const ndisBreadcrumbs = (
 
 type Step = "upload" | "validation" | "confirmation";
 
-const mockValidationResults = [
-  { line: 1, client: "Emma Thompson", serviceDate: "3 Mar 2026", item: "15_038_0117_1_3", amount: "$193.99", status: "valid" as const, error: null },
-  { line: 2, client: "Liam Johnson", serviceDate: "5 Mar 2026", item: "15_040_0128_1_3", amount: "$97.00", status: "valid" as const, error: null },
-  { line: 3, client: "Olivia Davis", serviceDate: "10 Mar 2026", item: "15_038_0117_1_3", amount: "$65.09", status: "error" as const, error: "NDIS number not found" },
-  { line: 4, client: "Noah Wilson", serviceDate: "12 Mar 2026", item: "15_040_0128_1_3", amount: "$193.99", status: "valid" as const, error: null },
-  { line: 5, client: "Ava Martinez", serviceDate: "18 Mar 2026", item: "INVALID_CODE", amount: "$148.50", status: "error" as const, error: "Invalid support item number" },
+interface ValidationRow {
+  line: number;
+  client: string;
+  serviceDate: string;
+  item: string;
+  amount: string;
+  status: "valid" | "error";
+  error: string | null;
+}
+
+const mockValidationResults: ValidationRow[] = [
+  { line: 1, client: "Emma Thompson", serviceDate: "3 Mar 2026", item: "15_038_0117_1_3", amount: "$193.99", status: "valid", error: null },
+  { line: 2, client: "Liam Johnson", serviceDate: "5 Mar 2026", item: "15_040_0128_1_3", amount: "$97.00", status: "valid", error: null },
+  { line: 3, client: "Olivia Davis", serviceDate: "10 Mar 2026", item: "15_038_0117_1_3", amount: "$65.09", status: "error", error: "NDIS number not found" },
+  { line: 4, client: "Noah Wilson", serviceDate: "12 Mar 2026", item: "15_040_0128_1_3", amount: "$193.99", status: "valid", error: null },
+  { line: 5, client: "Ava Martinez", serviceDate: "18 Mar 2026", item: "INVALID_CODE", amount: "$148.50", status: "error", error: "Invalid support item number" },
+];
+
+const validationColumns: ColumnsType<ValidationRow> = [
+  {
+    key: "line",
+    title: "Line",
+    dataIndex: "line",
+    render: (_, row) => <Text variant="body/md" as="span" color="secondary">{row.line}</Text>,
+  },
+  {
+    key: "client",
+    title: "Client",
+    dataIndex: "client",
+    render: (_, row) => <Text variant="label/lg" as="span">{row.client}</Text>,
+  },
+  {
+    key: "serviceDate",
+    title: "Service date",
+    dataIndex: "serviceDate",
+    render: (_, row) => <Text variant="body/md" as="span" color="secondary">{row.serviceDate}</Text>,
+  },
+  {
+    key: "item",
+    title: "Support item",
+    dataIndex: "item",
+    render: (_, row) => <Text variant="body/sm" as="span" color="secondary" style={{ fontFamily: 'monospace' }}>{row.item}</Text>,
+  },
+  { key: "amount", title: "Amount", dataIndex: "amount", align: "right" },
+  {
+    key: "status",
+    title: "Status",
+    dataIndex: "status",
+    render: (_, row) => (
+      <Badge variant={row.status === "valid" ? "green" : "red"}>
+        {row.status === "valid" ? "Valid" : "Error"}
+      </Badge>
+    ),
+  },
+  {
+    key: "error",
+    title: "Error",
+    dataIndex: "error",
+    render: (_, row) => <Text variant="body/sm" as="span" color="danger">{row.error || "—"}</Text>,
+  },
 ];
 
 export default function NdisBulkUploadNewPage() {
@@ -135,42 +190,13 @@ export default function NdisBulkUploadNewPage() {
           </Flex>
 
           <Card padding="none" style={{ overflow: 'hidden' }}>
-            <DataTable>
-              <TableHead>
-                <Th>Line</Th>
-                <Th>Client</Th>
-                <Th>Service date</Th>
-                <Th>Support item</Th>
-                <Th align="right">Amount</Th>
-                <Th>Status</Th>
-                <Th>Error</Th>
-              </TableHead>
-              <TableBody>
-                {mockValidationResults.map((row) => (
-                  <tr
-                    key={row.line}
-                    style={{
-                      borderBottom: '1px solid var(--color-border)',
-                      backgroundColor: row.status === "error" ? 'rgba(254, 242, 242, 0.5)' : undefined,
-                    }}
-                  >
-                    <Td><Text variant="body/md" as="span" color="secondary">{row.line}</Text></Td>
-                    <Td><Text variant="label/lg" as="span">{row.client}</Text></Td>
-                    <Td><Text variant="body/md" as="span" color="secondary">{row.serviceDate}</Text></Td>
-                    <Td><Text variant="body/sm" as="span" color="secondary" style={{ fontFamily: 'monospace' }}>{row.item}</Text></Td>
-                    <Td align="right">
-                      {row.amount}
-                    </Td>
-                    <Td>
-                      <Badge variant={row.status === "valid" ? "green" : "red"}>
-                        {row.status === "valid" ? "Valid" : "Error"}
-                      </Badge>
-                    </Td>
-                    <Td><Text variant="body/sm" as="span" color="danger">{row.error || "—"}</Text></Td>
-                  </tr>
-                ))}
-              </TableBody>
-            </DataTable>
+            <Table
+              columns={validationColumns}
+              dataSource={mockValidationResults}
+              rowKey="line"
+              pagination={false}
+              rowClassName={(row) => row.status === "error" ? "ant-table-row-error" : ""}
+            />
           </Card>
         </div>
       </>

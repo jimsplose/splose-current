@@ -1,10 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
-import { Alert, Badge, Card, Dropdown, List, Modal, Toggle, DateRangeFilter, FormSelect, PageHeader, DataTable, TableHead, Th, TableBody, Tr, Td } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { Alert, Badge, Card, Dropdown, List, Modal, Toggle, DateRangeFilter, FormSelect, PageHeader } from "@/components/ds";
 
-const mockPerformanceRows = [
+interface PerformanceRow {
+  practitioner: string;
+  available: number;
+  booked: number;
+  utilisation: number;
+  revenue: number;
+  avgPerAppt: number;
+}
+
+const mockPerformanceRows: PerformanceRow[] = [
   { practitioner: "Dr Emily Watson", available: 40, booked: 34, utilisation: 85, revenue: 7480, avgPerAppt: 220 },
   { practitioner: "Rachel Kim", available: 38, booked: 30, utilisation: 79, revenue: 5940, avgPerAppt: 198 },
   { practitioner: "Tom Bradley", available: 40, booked: 28, utilisation: 70, revenue: 5040, avgPerAppt: 180 },
@@ -22,6 +32,54 @@ const periodOptions = [
   { value: "daily", label: "Daily" },
   { value: "weekly", label: "Weekly" },
   { value: "monthly", label: "Monthly" },
+];
+
+const columns: ColumnsType<PerformanceRow> = [
+  {
+    key: "practitioner",
+    title: "Practitioner",
+    dataIndex: "practitioner",
+    render: (_, row) => <span style={{ color: 'var(--color-primary)' }}>{row.practitioner}</span>,
+  },
+  {
+    key: "available",
+    title: "Available hours",
+    dataIndex: "available",
+    align: "right",
+    render: (_, row) => `${row.available}h`,
+  },
+  {
+    key: "booked",
+    title: "Booked hours",
+    dataIndex: "booked",
+    align: "right",
+    render: (_, row) => `${row.booked}h`,
+  },
+  {
+    key: "utilisation",
+    title: "Utilisation %",
+    dataIndex: "utilisation",
+    align: "right",
+    render: (_, row) => (
+      <span style={{ fontWeight: row.utilisation >= 80 ? 600 : 400, color: row.utilisation >= 80 ? '#16a34a' : row.utilisation >= 70 ? '#ca8a04' : '#dc2626' }}>
+        {row.utilisation}%
+      </span>
+    ),
+  },
+  {
+    key: "revenue",
+    title: "Revenue",
+    dataIndex: "revenue",
+    align: "right",
+    render: (_, row) => `$${row.revenue.toLocaleString("en-AU", { minimumFractionDigits: 2 })}`,
+  },
+  {
+    key: "avgPerAppt",
+    title: "Avg per appointment",
+    dataIndex: "avgPerAppt",
+    align: "right",
+    render: (_, row) => `$${row.avgPerAppt.toLocaleString("en-AU", { minimumFractionDigits: 2 })}`,
+  },
 ];
 
 export default function ReportsPerformancePage() {
@@ -159,32 +217,7 @@ export default function ReportsPerformancePage() {
 
       {showResults && (
         <Card padding="none" style={{ marginTop: 24, overflowX: 'auto' }}>
-          <DataTable>
-            <TableHead>
-              <Th>Practitioner</Th>
-              <Th align="right">Available hours</Th>
-              <Th align="right">Booked hours</Th>
-              <Th align="right">Utilisation %</Th>
-              <Th align="right">Revenue</Th>
-              <Th align="right">Avg per appointment</Th>
-            </TableHead>
-            <TableBody>
-              {mockPerformanceRows.map((row, i) => (
-                <Tr key={i}>
-                  <Td style={{ color: 'var(--color-primary)' }}>{row.practitioner}</Td>
-                  <Td align="right">{row.available}h</Td>
-                  <Td align="right">{row.booked}h</Td>
-                  <Td align="right">
-                    <span style={{ fontWeight: row.utilisation >= 80 ? 600 : 400, color: row.utilisation >= 80 ? '#16a34a' : row.utilisation >= 70 ? '#ca8a04' : '#dc2626' }}>
-                      {row.utilisation}%
-                    </span>
-                  </Td>
-                  <Td align="right">${row.revenue.toLocaleString("en-AU", { minimumFractionDigits: 2 })}</Td>
-                  <Td align="right">${row.avgPerAppt.toLocaleString("en-AU", { minimumFractionDigits: 2 })}</Td>
-                </Tr>
-              ))}
-            </TableBody>
-          </DataTable>
+          <Table columns={columns} dataSource={mockPerformanceRows} rowKey={(_, index) => String(index)} pagination={false} />
         </Card>
       )}
 

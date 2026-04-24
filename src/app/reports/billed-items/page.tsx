@@ -1,10 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
-import { DataTable, DateRangeFilter, ListPage, TableBody, TableHead, Td, Th, Tr } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { DateRangeFilter, ListPage } from "@/components/ds";
 
-const mockBilledItems = [
+interface BilledItem {
+  code: string;
+  description: string;
+  client: string;
+  practitioner: string;
+  qty: number;
+  rate: string;
+  total: string;
+  invoice: string;
+}
+
+const mockBilledItems: BilledItem[] = [
   { code: "10960", description: "Initial consultation — Psychology", client: "Liam Nguyen", practitioner: "Dr Sarah Chen", qty: 1, rate: "$185.00", total: "$185.00", invoice: "INV-0421" },
   { code: "10968", description: "Subsequent consultation — Psychology", client: "Noah Wilson", practitioner: "Dr Lisa Park", qty: 1, rate: "$150.00", total: "$150.00", invoice: "INV-0425" },
   { code: "65070", description: "Speech pathology initial assessment", client: "Olivia Smith", practitioner: "Emma Williams", qty: 1, rate: "$195.00", total: "$195.00", invoice: "INV-0422" },
@@ -16,6 +28,17 @@ const mockBilledItems = [
 ];
 
 const totalInvoiced = "$1,530.00";
+
+const columns: ColumnsType<BilledItem> = [
+  { key: "code", title: "Item code", dataIndex: "code" },
+  { key: "description", title: "Description", dataIndex: "description" },
+  { key: "client", title: "Client", dataIndex: "client" },
+  { key: "practitioner", title: "Practitioner", dataIndex: "practitioner" },
+  { key: "qty", title: "Qty", dataIndex: "qty" },
+  { key: "rate", title: "Rate", dataIndex: "rate" },
+  { key: "total", title: "Total", dataIndex: "total" },
+  { key: "invoice", title: "Invoice #", dataIndex: "invoice" },
+];
 
 export default function ReportsBilledItemsPage() {
   const [showResults, setShowResults] = useState(false);
@@ -46,32 +69,7 @@ export default function ReportsBilledItemsPage() {
             <span style={{ fontSize: 16, fontWeight: 600, lineHeight: 1.5 }}>Total invoiced: {totalInvoiced}</span>
             <span style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>({mockBilledItems.length} items)</span>
           </Flex>
-          <DataTable>
-            <TableHead>
-              <Th>Item code</Th>
-              <Th>Description</Th>
-              <Th>Client</Th>
-              <Th>Practitioner</Th>
-              <Th>Qty</Th>
-              <Th>Rate</Th>
-              <Th>Total</Th>
-              <Th>Invoice #</Th>
-            </TableHead>
-            <TableBody>
-              {mockBilledItems.map((row, i) => (
-                <Tr key={i}>
-                  <Td>{row.code}</Td>
-                  <Td>{row.description}</Td>
-                  <Td>{row.client}</Td>
-                  <Td>{row.practitioner}</Td>
-                  <Td>{row.qty}</Td>
-                  <Td>{row.rate}</Td>
-                  <Td>{row.total}</Td>
-                  <Td>{row.invoice}</Td>
-                </Tr>
-              ))}
-            </TableBody>
-          </DataTable>
+          <Table columns={columns} dataSource={mockBilledItems} rowKey={(_, index) => String(index)} pagination={false} />
         </>
       )}
     </ListPage>

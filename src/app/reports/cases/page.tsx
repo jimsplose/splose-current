@@ -1,10 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
-import { Badge, DataTable, DateRangeFilter, ListPage, TableBody, TableHead, Td, Th, Tr } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { Badge, DateRangeFilter, ListPage } from "@/components/ds";
 
-const mockCases = [
+interface CaseRow {
+  number: string;
+  client: string;
+  type: string;
+  practitioner: string;
+  status: string;
+  created: string;
+  budget: string;
+}
+
+const mockCases: CaseRow[] = [
   { number: "CASE-001", client: "Liam Nguyen", type: "NDIS", practitioner: "Dr Sarah Chen", status: "Active", created: "15/01/2026", budget: "$12,500 / 40 hrs" },
   { number: "CASE-002", client: "Charlotte Brown", type: "NDIS", practitioner: "James Anderson", status: "Active", created: "20/11/2025", budget: "$8,200 / 25 hrs" },
   { number: "CASE-003", client: "Jack Thompson", type: "DVA", practitioner: "Dr Sarah Chen", status: "Closed", created: "05/09/2025", budget: "$5,000 / 15 hrs" },
@@ -20,6 +31,21 @@ function caseStatusVariant(status: string) {
     default: return "gray" as const;
   }
 }
+
+const columns: ColumnsType<CaseRow> = [
+  { key: "number", title: "Case #", dataIndex: "number" },
+  { key: "client", title: "Client", dataIndex: "client" },
+  { key: "type", title: "Type", dataIndex: "type" },
+  { key: "practitioner", title: "Practitioner", dataIndex: "practitioner" },
+  {
+    key: "status",
+    title: "Status",
+    dataIndex: "status",
+    render: (_, row) => <Badge variant={caseStatusVariant(row.status)}>{row.status}</Badge>,
+  },
+  { key: "created", title: "Created", dataIndex: "created" },
+  { key: "budget", title: "Budget / Hours", dataIndex: "budget" },
+];
 
 export default function ReportsCasesPage() {
   const [showResults, setShowResults] = useState(false);
@@ -55,30 +81,7 @@ export default function ReportsCasesPage() {
       {showResults && (
         <>
           <p style={{ fontSize: 14, lineHeight: 1.57, margin: '16px 0', color: 'var(--color-text-secondary)' }}>{mockCases.length} items found.</p>
-          <DataTable>
-            <TableHead>
-              <Th>Case #</Th>
-              <Th>Client</Th>
-              <Th>Type</Th>
-              <Th>Practitioner</Th>
-              <Th>Status</Th>
-              <Th>Created</Th>
-              <Th>Budget / Hours</Th>
-            </TableHead>
-            <TableBody>
-              {mockCases.map((row, i) => (
-                <Tr key={i}>
-                  <Td>{row.number}</Td>
-                  <Td>{row.client}</Td>
-                  <Td>{row.type}</Td>
-                  <Td>{row.practitioner}</Td>
-                  <Td><Badge variant={caseStatusVariant(row.status)}>{row.status}</Badge></Td>
-                  <Td>{row.created}</Td>
-                  <Td>{row.budget}</Td>
-                </Tr>
-              ))}
-            </TableBody>
-          </DataTable>
+          <Table columns={columns} dataSource={mockCases} rowKey={(_, index) => String(index)} pagination={false} />
         </>
       )}
     </ListPage>

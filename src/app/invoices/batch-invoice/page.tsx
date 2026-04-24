@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Button, Flex } from "antd";
-import { FormSelect, DateRangeFilter, Checkbox, Card, DataTable, TableHead, Th, TableBody, Td, FormPage, ListPage, Text } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { FormSelect, DateRangeFilter, Checkbox, Card, FormPage, ListPage, Text } from "@/components/ds";
 
 const mockClients = [
   { id: "emma", name: "Emma Thompson", appointments: 3, total: "$193.99" },
@@ -82,24 +83,16 @@ export default function BatchInvoicePage() {
         </Text>
 
         <Card padding="none" style={{ overflow: 'hidden' }}>
-          <DataTable>
-            <TableHead>
-              <Th>Invoice #</Th>
-              <Th>Client</Th>
-              <Th>Service</Th>
-              <Th align="right">Amount</Th>
-            </TableHead>
-            <TableBody>
-              {selectedPreviewInvoices.map((inv) => (
-                <tr key={inv.number} style={{ borderBottom: '1px solid var(--color-border)' }}>
-                  <Td color="primary" style={{ fontWeight: 500 }}>{inv.number}</Td>
-                  <Td>{inv.client}</Td>
-                  <Td>{inv.service}</Td>
-                  <Td align="right">{inv.amount}</Td>
-                </tr>
-              ))}
-            </TableBody>
-          </DataTable>
+          {(() => {
+            type PreviewInvoice = typeof mockPreviewInvoices[number];
+            const previewColumns: ColumnsType<PreviewInvoice> = [
+              { key: "number", title: "Invoice #", render: (_, inv) => <Text color="primary" as="span" style={{ fontWeight: 500 }}>{inv.number}</Text> },
+              { key: "client", title: "Client", dataIndex: "client" },
+              { key: "service", title: "Service", dataIndex: "service" },
+              { key: "amount", title: "Amount", align: "right" as const, dataIndex: "amount" },
+            ];
+            return <Table columns={previewColumns} dataSource={selectedPreviewInvoices} rowKey="number" pagination={false} />;
+          })()}
         </Card>
 
         <Flex justify="end" style={{ marginTop: 16, borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
@@ -133,40 +126,35 @@ export default function BatchInvoicePage() {
           </Text>
 
           <Card padding="none" style={{ overflow: 'hidden' }}>
-            <DataTable>
-              <TableHead>
-                <Th style={{ width: 40 }}>
-                  <Checkbox checked={selectAll} onChange={toggleAll} />
-                </Th>
-                <Th>Client</Th>
-                <Th align="right">Appointments</Th>
-                <Th align="right">Total</Th>
-              </TableHead>
-              <TableBody>
-                {mockClients.map((client) => (
-                  <tr
-                    key={client.id}
-                    style={{ borderBottom: '1px solid var(--color-border)', cursor: 'pointer', transition: 'background-color 0.2s' }}
-                    onClick={() => toggleClient(client.id)}
-                  >
-                    <Td style={{ width: 40 }}>
-                      <Checkbox
-                        checked={selectedClients.includes(client.id)}
-                        onChange={() => toggleClient(client.id)}
-                        onClick={(e) => e.stopPropagation()}
-                      />
-                    </Td>
-                    <Td style={{ fontWeight: 500 }}>{client.name}</Td>
-                    <Td align="right" color="secondary">
-                      {client.appointments}
-                    </Td>
-                    <Td align="right" style={{ fontWeight: 500 }}>
-                      {client.total}
-                    </Td>
-                  </tr>
-                ))}
-              </TableBody>
-            </DataTable>
+            {(() => {
+              type ClientRow = typeof mockClients[number];
+              const clientColumns: ColumnsType<ClientRow> = [
+                {
+                  key: "select",
+                  title: <Checkbox checked={selectAll} onChange={toggleAll} />,
+                  width: 40,
+                  render: (_, client) => (
+                    <Checkbox
+                      checked={selectedClients.includes(client.id)}
+                      onChange={() => toggleClient(client.id)}
+                      onClick={(e) => e.stopPropagation()}
+                    />
+                  ),
+                },
+                { key: "name", title: "Client", render: (_, client) => <span style={{ fontWeight: 500 }}>{client.name}</span> },
+                { key: "appointments", title: "Appointments", align: "right" as const, render: (_, client) => <Text color="secondary" as="span">{client.appointments}</Text> },
+                { key: "total", title: "Total", align: "right" as const, render: (_, client) => <span style={{ fontWeight: 500 }}>{client.total}</span> },
+              ];
+              return (
+                <Table
+                  columns={clientColumns}
+                  dataSource={mockClients}
+                  rowKey="id"
+                  pagination={false}
+                  onRow={(client) => ({ onClick: () => toggleClient(client.id), style: { cursor: "pointer" } })}
+                />
+              );
+            })()}
           </Card>
 
           <Text variant="body/sm" as="div" color="secondary" style={{ marginTop: 16 }}>

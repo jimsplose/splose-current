@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
-import { DataTable, TableHead, Th, TableBody, Td, ColorDot, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, FormColorPicker, PageHeader } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { ColorDot, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, FormColorPicker, PageHeader } from "@/components/ds";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
 
@@ -50,6 +51,30 @@ export default function BusyTimesPage() {
     });
   }
 
+  const columns: ColumnsType<BusyTime> = [
+    {
+      key: "name",
+      title: "Name",
+      render: (_, row) => (
+        <Flex align="center" gap={8}><ColorDot color={row.color} />{row.name}</Flex>
+      ),
+    },
+    { key: "utilisation", title: "Utilisation", dataIndex: "utilisation" },
+    { key: "duration", title: "Duration (mins)", dataIndex: "duration" },
+    {
+      key: "actions",
+      title: "Actions",
+      render: (_, row) => (
+        <Dropdown
+          align="right"
+          trigger={<DropdownTriggerButton />}
+          items={STANDARD_SETTINGS}
+          onSelect={(value) => handleAction(value, busyTimes.indexOf(row))}
+        />
+      ),
+    },
+  ];
+
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Busy time types">
@@ -59,25 +84,7 @@ export default function BusyTimesPage() {
       <p style={{ marginBottom: 24, fontSize: 12, color: 'var(--color-text-secondary)' }}>
         Use busy time to indicate non billable events in Practitioner calendars. You can change utilisation settings to control whether specific types of busy time are used in utilisation reports.
       </p>
-      <DataTable>
-        <TableHead><Th>Name</Th><Th>Utilisation</Th><Th>Duration (mins)</Th><Th>Actions</Th></TableHead>
-        <TableBody>
-          {busyTimes.map((b, i) => (
-            <tr key={i} style={{ borderBottom: '1px solid var(--color-border)' }}>
-              <Td><Flex align="center" gap={8}><ColorDot color={b.color} />{b.name}</Flex></Td>
-              <Td>{b.utilisation}</Td><Td>{b.duration}</Td>
-              <Td>
-                <Dropdown
-                  align="right"
-                  trigger={<DropdownTriggerButton />}
-                  items={STANDARD_SETTINGS}
-                  onSelect={(value) => handleAction(value, i)}
-                />
-              </Td>
-            </tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table columns={columns} dataSource={busyTimes} rowKey="name" pagination={false} />
 
       <Modal
         open={modalOpen}

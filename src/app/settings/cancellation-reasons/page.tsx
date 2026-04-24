@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
-import { Badge, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Toggle, PageHeader, Divider } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { Badge, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Toggle, PageHeader, Divider } from "@/components/ds";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
 
@@ -76,35 +77,35 @@ export default function CancellationReasonsPage() {
     });
   }
 
+  const columns: ColumnsType<CancellationReason> = [
+    { key: "name", title: "Name", dataIndex: "name" },
+    {
+      key: "code",
+      title: "Code",
+      render: (_, row) => row.code ? <Badge variant="gray">{row.code}</Badge> : "",
+    },
+    {
+      key: "actions",
+      title: "",
+      align: "right" as const,
+      render: (_, row) => (
+        <Dropdown
+          align="right"
+          trigger={<DropdownTriggerButton />}
+          items={SIMPLE_CRUD}
+          onSelect={(value) => handleAction(value, reasons.indexOf(row))}
+        />
+      ),
+    },
+  ];
+
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Cancellation reasons">
         <Button>Show archived</Button>
         <Button onClick={openCreate}>+ New reason</Button>
       </PageHeader>
-      <DataTable>
-        <TableHead>
-          <Th>Name</Th>
-          <Th>Code</Th>
-          <Th align="right">Actions</Th>
-        </TableHead>
-        <TableBody>
-          {paged.map((r, i) => (
-            <Tr key={i}>
-              <Td>{r.name}</Td>
-              <Td>{r.code ? <Badge variant="gray">{r.code}</Badge> : ""}</Td>
-              <Td align="right">
-                <Dropdown
-                  align="right"
-                  trigger={<DropdownTriggerButton />}
-                  items={SIMPLE_CRUD}
-                  onSelect={(value) => handleAction(value, i)}
-                />
-              </Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table columns={columns} dataSource={paged} rowKey={(row) => reasons.indexOf(row)} pagination={false} />
 
       <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={reasons.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} showPageSize={false} />
 

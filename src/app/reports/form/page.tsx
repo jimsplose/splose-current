@@ -1,10 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
-import { Badge, Card, DateRangeFilter, FormSelect, ListPage, DataTable, TableHead, Th, TableBody, Tr, Td } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { Badge, Card, DateRangeFilter, FormSelect, ListPage } from "@/components/ds";
 
-const mockFormRows = [
+interface FormRow {
+  form: string;
+  client: string;
+  status: string;
+  submitted: string;
+  practitioner: string;
+}
+
+const mockFormRows: FormRow[] = [
   { form: "Intake Form", client: "Sarah Mitchell", status: "Completed", submitted: "11/03/2026", practitioner: "Dr Emily Watson" },
   { form: "Consent Form", client: "James O'Brien", status: "Completed", submitted: "11/03/2026", practitioner: "Dr Emily Watson" },
   { form: "Assessment Form", client: "Liam Nguyen", status: "Incomplete", submitted: "10/03/2026", practitioner: "Rachel Kim" },
@@ -18,6 +27,24 @@ function formStatusVariant(status: string) {
   if (status === "Incomplete") return "yellow" as const;
   return "gray" as const;
 }
+
+const columns: ColumnsType<FormRow> = [
+  { key: "form", title: "Form name", dataIndex: "form" },
+  {
+    key: "client",
+    title: "Client",
+    dataIndex: "client",
+    render: (_, row) => <span style={{ color: 'var(--color-primary)' }}>{row.client}</span>,
+  },
+  {
+    key: "status",
+    title: "Status",
+    dataIndex: "status",
+    render: (_, row) => <Badge variant={formStatusVariant(row.status)}>{row.status}</Badge>,
+  },
+  { key: "submitted", title: "Submitted date", dataIndex: "submitted" },
+  { key: "practitioner", title: "Practitioner", dataIndex: "practitioner" },
+];
 
 export default function ReportsFormPage() {
   const [showResults, setShowResults] = useState(false);
@@ -64,26 +91,7 @@ export default function ReportsFormPage() {
 
       {showResults && (
         <Card padding="none" style={{ overflowX: 'auto' }}>
-          <DataTable>
-            <TableHead>
-              <Th>Form name</Th>
-              <Th>Client</Th>
-              <Th>Status</Th>
-              <Th>Submitted date</Th>
-              <Th>Practitioner</Th>
-            </TableHead>
-            <TableBody>
-              {mockFormRows.map((row, i) => (
-                <Tr key={i}>
-                  <Td>{row.form}</Td>
-                  <Td style={{ color: 'var(--color-primary)' }}>{row.client}</Td>
-                  <Td><Badge variant={formStatusVariant(row.status)}>{row.status}</Badge></Td>
-                  <Td>{row.submitted}</Td>
-                  <Td>{row.practitioner}</Td>
-                </Tr>
-              ))}
-            </TableBody>
-          </DataTable>
+          <Table columns={columns} dataSource={mockFormRows} rowKey={(_, index) => String(index)} pagination={false} />
         </Card>
       )}
     </ListPage>

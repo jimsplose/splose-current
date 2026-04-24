@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
-import { DataTable, TableHead, Th, TableBody, Tr, Td, Badge, FormSelect, FormInput, Pagination, Checkbox, Dropdown, DropdownTriggerButton, Modal, PageHeader } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { Badge, FormSelect, FormInput, Pagination, Checkbox, Dropdown, DropdownTriggerButton, Modal, PageHeader } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 
 interface ExportRow {
@@ -110,6 +111,38 @@ export default function DataExportPage() {
     }
   }
 
+  const columns: ColumnsType<ExportRow> = [
+    {
+      key: "dataExport",
+      title: "Data export",
+      render: (_, row) => <span style={{ fontWeight: 500 }}>{row.dataExport}</span>,
+    },
+    { key: "dateRange", title: "Date range", dataIndex: "dateRange" },
+    { key: "includeArchived", title: "Include Archived", dataIndex: "includeArchived" },
+    { key: "createdAt", title: "Created at", dataIndex: "createdAt" },
+    { key: "createdBy", title: "Created by", dataIndex: "createdBy" },
+    {
+      key: "status",
+      title: "Status",
+      render: (_, row) => (
+        <Badge variant={row.status === "Done" ? "green" : "red"}>{row.status}</Badge>
+      ),
+    },
+    { key: "records", title: "Records", dataIndex: "records" },
+    {
+      key: "actions",
+      title: "Actions",
+      render: (_, row) => (
+        <Dropdown
+          align="right"
+          trigger={<DropdownTriggerButton />}
+          items={dropdownItems}
+          onSelect={(value) => handleAction(value, row)}
+        />
+      ),
+    },
+  ];
+
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Data export" />
@@ -164,43 +197,7 @@ export default function DataExportPage() {
       {/* Export history */}
       <h2 style={{ marginBottom: 16, fontSize: 20, fontWeight: 600 }}>Export history</h2>
 
-      <DataTable>
-        <TableHead>
-          <Th>Data export</Th>
-          <Th>Date range</Th>
-          <Th>Include Archived</Th>
-          <Th>Created at</Th>
-          <Th>Created by</Th>
-          <Th>Status</Th>
-          <Th>Records</Th>
-          <Th>Actions</Th>
-        </TableHead>
-        <TableBody>
-          {pageItems.map((row) => (
-            <Tr key={row.id}>
-              <Td>
-                <span style={{ fontWeight: 500 }}>{row.dataExport}</span>
-              </Td>
-              <Td>{row.dateRange}</Td>
-              <Td>{row.includeArchived}</Td>
-              <Td>{row.createdAt}</Td>
-              <Td>{row.createdBy}</Td>
-              <Td>
-                <Badge variant={row.status === "Done" ? "green" : "red"}>{row.status}</Badge>
-              </Td>
-              <Td>{row.records}</Td>
-              <Td>
-                <Dropdown
-                  align="right"
-                  trigger={<DropdownTriggerButton />}
-                  items={dropdownItems}
-                  onSelect={(value) => handleAction(value, row)}
-                />
-              </Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table columns={columns} dataSource={pageItems} rowKey="id" pagination={false} />
 
       <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={exportHistory.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} />
 

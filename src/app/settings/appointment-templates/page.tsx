@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { PageHeader, SearchBar, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Toggle, Text, EmailPreview } from "@/components/ds";
+import { PageHeader, SearchBar, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Toggle, Text, EmailPreview } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { formatTimestamp } from "@/lib/format";
-import { Button } from "antd";
+import { Button, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 
 interface Template {
   name: string;
@@ -102,6 +103,39 @@ export default function AppointmentTemplatesPage() {
     }
   }
 
+  const columns: ColumnsType<Template> = [
+    { key: "name", title: "Name", dataIndex: "name" },
+    { key: "type", title: "Type", dataIndex: "type" },
+    {
+      key: "sms",
+      title: "SMS",
+      render: (_, row) => (
+        <Text variant="body/md" color={row.sms ? "success" : "danger"}>{row.sms ? "On" : "Off"}</Text>
+      ),
+    },
+    {
+      key: "email",
+      title: "Email",
+      render: (_, row) => (
+        <Text variant="body/md" color={row.email ? "success" : "danger"}>{row.email ? "On" : "Off"}</Text>
+      ),
+    },
+    { key: "lastModified", title: "Last modified", dataIndex: "lastModified" },
+    {
+      key: "actions",
+      title: "",
+      align: "right" as const,
+      render: (_, row) => (
+        <Dropdown
+          align="right"
+          trigger={<DropdownTriggerButton />}
+          items={STANDARD_SETTINGS}
+          onSelect={(value) => handleAction(value, templateList.indexOf(row))}
+        />
+      ),
+    },
+  ];
+
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Appointment templates">
@@ -110,39 +144,7 @@ export default function AppointmentTemplatesPage() {
 
       <SearchBar placeholder="Search for template and type" />
 
-      <DataTable>
-        <TableHead>
-          <Th>Name</Th>
-          <Th>Type</Th>
-          <Th>SMS</Th>
-          <Th>Email</Th>
-          <Th>Last modified</Th>
-          <Th align="right">Actions</Th>
-        </TableHead>
-        <TableBody>
-          {paged.map((t, i) => (
-            <Tr key={t.name + i}>
-              <Td>{t.name}</Td>
-              <Td>{t.type}</Td>
-              <Td>
-                <Text variant="body/md" color={t.sms ? "success" : "danger"}>{t.sms ? "On" : "Off"}</Text>
-              </Td>
-              <Td>
-                <Text variant="body/md" color={t.email ? "success" : "danger"}>{t.email ? "On" : "Off"}</Text>
-              </Td>
-              <Td>{t.lastModified}</Td>
-              <Td align="right">
-                <Dropdown
-                  align="right"
-                  trigger={<DropdownTriggerButton />}
-                  items={STANDARD_SETTINGS}
-                  onSelect={(value) => handleAction(value, i)}
-                />
-              </Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table columns={columns} dataSource={paged} rowKey={(row) => row.name + templateList.indexOf(row)} pagination={false} />
 
       <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={templateList.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} showPageSize={false} />
       <Modal

@@ -4,9 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CloseOutlined, PlusOutlined, SearchOutlined, PrinterOutlined, CheckCircleOutlined } from "@ant-design/icons";
-import { Button, Flex } from "antd";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import Icon from "@/components/ds/Icon";
-import { Card, DataTable, Divider, FormInput, FormPage, FormSelect, FormTextarea, Grid, TableHead, Th, TableBody, Td, EmptyState, Text } from "@/components/ds";
+import { Card, Divider, FormInput, FormPage, FormSelect, FormTextarea, Grid, EmptyState, Text } from "@/components/ds";
 
 const mockClients = [
   "Skyler Peterson",
@@ -315,68 +316,68 @@ export default function NewPaymentPage() {
         )}
 
         <div style={{ marginBottom: 24 }}>
-          <DataTable>
-            <TableHead>
-              <Th>Invoice #</Th>
-              <Th>Client</Th>
-              <Th>Practitioner</Th>
-              <Th>Issue date</Th>
-              <Th>Due date</Th>
-              <Th align="right">Due</Th>
-              <Th align="right">Amount</Th>
-              <Th align="right">Remaining</Th>
-            </TableHead>
-            <tbody>
-              {linkedInvoices.length === 0 ? (
-                <tr>
-                  <td colSpan={8}>
-                    <EmptyState message="No outstanding invoices" style={{ padding: '24px 0' }} />
-                  </td>
-                </tr>
-              ) : (
-                linkedInvoices.map((invoiceNumber) => {
-                  const inv = mockOutstandingInvoices.find((i) => i.number === invoiceNumber);
-                  if (!inv) return null;
-                  const appliedAmount = parseFloat(invoiceAmounts[invoiceNumber] || "0") || 0;
-                  const remaining = Math.max(0, inv.due - appliedAmount);
-                  return (
-                    <tr key={inv.number} style={{ borderBottom: '1px solid var(--color-border)', transition: 'background-color 0.2s' }}>
-                      <Td><Text variant="label/lg" as="span" color="primary">{inv.number}</Text></Td>
-                      <Td>{inv.client}</Td>
-                      <Td>{inv.practitioner}</Td>
-                      <Td><Text variant="body/md" as="span" color="secondary">{inv.issueDate}</Text></Td>
-                      <Td><Text variant="body/md" as="span" color="secondary">{inv.dueDate}</Text></Td>
-                      <Td align="right">
-                        {inv.due.toFixed(2)}
-                      </Td>
-                      <Td align="right">
-                        <FormInput
-                          type="text"
-                          value={invoiceAmounts[invoiceNumber] || ""}
-                          onChange={(e) => setInvoiceAmounts((prev) => ({ ...prev, [invoiceNumber]: e.target.value }))}
-                          style={{ width: 96, borderRadius: 4, border: '1px solid var(--color-border)', padding: '4px 8px', textAlign: 'right', fontSize: 14 }}
-                        />
-                      </Td>
-                      <Td align="right">
-                        {remaining.toFixed(2)}
-                      </Td>
-                      <td style={{ padding: '12px 8px', textAlign: 'center' }}>
-                        <Button
-                          type="text"
-                          size="small"
-                          htmlType="button"
-                          onClick={() => unlinkInvoice(invoiceNumber)}
-                          style={{ height: 24, width: 24 }}
-                        >
-                          <Icon as={CloseOutlined} />
-                        </Button>
-                      </td>
-                    </tr>
-                  );
-                })
-              )}
-            </tbody>
-          </DataTable>
+          {(() => {
+            type OutstandingInvoice = typeof mockOutstandingInvoices[number];
+            const linkedInvoiceData = linkedInvoices
+              .map((num) => mockOutstandingInvoices.find((i) => i.number === num))
+              .filter((inv): inv is OutstandingInvoice => inv !== undefined);
+
+            const linkedInvoiceColumns: ColumnsType<OutstandingInvoice> = [
+              { key: "number", title: "Invoice #", render: (_, inv) => <Text variant="label/lg" as="span" color="primary">{inv.number}</Text> },
+              { key: "client", title: "Client", dataIndex: "client" },
+              { key: "practitioner", title: "Practitioner", dataIndex: "practitioner" },
+              { key: "issueDate", title: "Issue date", render: (_, inv) => <Text variant="body/md" as="span" color="secondary">{inv.issueDate}</Text> },
+              { key: "dueDate", title: "Due date", render: (_, inv) => <Text variant="body/md" as="span" color="secondary">{inv.dueDate}</Text> },
+              { key: "due", title: "Due", align: "right" as const, render: (_, inv) => inv.due.toFixed(2) },
+              {
+                key: "amount",
+                title: "Amount",
+                align: "right" as const,
+                render: (_, inv) => (
+                  <FormInput
+                    type="text"
+                    value={invoiceAmounts[inv.number] || ""}
+                    onChange={(e) => setInvoiceAmounts((prev) => ({ ...prev, [inv.number]: e.target.value }))}
+                    style={{ width: 96, borderRadius: 4, border: "1px solid var(--color-border)", padding: "4px 8px", textAlign: "right", fontSize: 14 }}
+                  />
+                ),
+              },
+              {
+                key: "remaining",
+                title: "Remaining",
+                align: "right" as const,
+                render: (_, inv) => {
+                  const appliedAmount = parseFloat(invoiceAmounts[inv.number] || "0") || 0;
+                  return Math.max(0, inv.due - appliedAmount).toFixed(2);
+                },
+              },
+              {
+                key: "unlink",
+                title: "",
+                render: (_, inv) => (
+                  <Button
+                    type="text"
+                    size="small"
+                    htmlType="button"
+                    onClick={() => unlinkInvoice(inv.number)}
+                    style={{ height: 24, width: 24 }}
+                  >
+                    <Icon as={CloseOutlined} />
+                  </Button>
+                ),
+              },
+            ];
+
+            return (
+              <Table
+                columns={linkedInvoiceColumns}
+                dataSource={linkedInvoiceData}
+                rowKey="number"
+                pagination={false}
+                locale={{ emptyText: <EmptyState message="No outstanding invoices" style={{ padding: "24px 0" }} /> }}
+              />
+            );
+          })()}
         </div>
 
         {/* Note and totals */}

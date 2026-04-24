@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
-import { PageHeader, SearchBar, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Grid } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { PageHeader, SearchBar, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Grid } from "@/components/ds";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
 
@@ -108,6 +109,38 @@ export default function BodyChartsPage() {
     if (value === "edit") openEdit(index, { name: templates[index].name, type: templates[index].type });
   }
 
+  const columns: ColumnsType<typeof initialTemplates[number]> = [
+    {
+      key: "name",
+      title: "Title",
+      sorter: true,
+      render: (_, row) => <span style={{ fontSize: 14, fontWeight: 500 }}>{row.name}</span>,
+    },
+    {
+      key: "type",
+      title: "Type",
+      render: (_, row) => <span style={{ color: 'var(--color-text-secondary)' }}>{row.type}</span>,
+    },
+    {
+      key: "createdAt",
+      title: "Created at",
+      render: (_, row) => <span style={{ color: 'var(--color-text-secondary)' }}>{row.createdAt}</span>,
+    },
+    {
+      key: "lastUpdate",
+      title: "Last update",
+      render: (_, row) => <span style={{ color: 'var(--color-text-secondary)' }}>{row.lastUpdate}</span>,
+    },
+    {
+      key: "actions",
+      title: "",
+      align: "right" as const,
+      render: (_, row) => (
+        <Dropdown trigger={<DropdownTriggerButton />} items={STANDARD_SETTINGS} onSelect={(v) => handleAction(v, templates.indexOf(row))} align="right" />
+      ),
+    },
+  ];
+
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Body chart templates">
@@ -119,28 +152,7 @@ export default function BodyChartsPage() {
         <SearchBar placeholder="Search for body chart template" onSearch={setSearch} />
       </div>
 
-      <DataTable>
-        <TableHead>
-          <Th sortable>Title</Th>
-          <Th>Type</Th>
-          <Th>Created at</Th>
-          <Th>Last update</Th>
-          <Th align="right">Actions</Th>
-        </TableHead>
-        <TableBody>
-          {paged.map((t, i) => (
-            <Tr key={t.id} hover>
-              <Td><span style={{ fontSize: 14, fontWeight: 500 }}>{t.name}</span></Td>
-              <Td color="secondary">{t.type}</Td>
-              <Td color="secondary">{t.createdAt}</Td>
-              <Td color="secondary">{t.lastUpdate}</Td>
-              <Td align="right">
-                <Dropdown trigger={<DropdownTriggerButton />} items={STANDARD_SETTINGS} onSelect={(v) => handleAction(v, templates.indexOf(t))} align="right" />
-              </Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table columns={columns} dataSource={paged} rowKey="id" pagination={false} />
       <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={filtered.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} showPageSize={false} />
 
       <Modal

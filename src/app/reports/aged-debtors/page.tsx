@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
-import { Card, DateRangeFilter, FormSelect, ListPage, DataTable, TableHead, Th, TableBody, Tr, Td, Grid, Text } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { Card, DateRangeFilter, FormSelect, ListPage, Grid, Text } from "@/components/ds";
 
 const agingSummary = [
   { label: "Current", amount: "$2,450.00", color: "#16a34a" },
@@ -11,7 +12,16 @@ const agingSummary = [
   { label: "90+ days", amount: "$350.00", color: "#dc2626" },
 ];
 
-const mockDebtorRows = [
+interface DebtorRow {
+  client: string;
+  invoice: string;
+  amount: string;
+  outstanding: string;
+  dueDate: string;
+  daysOverdue: number;
+}
+
+const mockDebtorRows: DebtorRow[] = [
   { client: "James O'Brien", invoice: "INV-1042", amount: "$220.00", outstanding: "$220.00", dueDate: "22/03/2026", daysOverdue: 0 },
   { client: "Sarah Mitchell", invoice: "INV-1038", amount: "$360.00", outstanding: "$180.00", dueDate: "18/03/2026", daysOverdue: 6 },
   { client: "Lucas Brown", invoice: "INV-1031", amount: "$165.00", outstanding: "$165.00", dueDate: "10/03/2026", daysOverdue: 14 },
@@ -20,6 +30,25 @@ const mockDebtorRows = [
   { client: "Emma Chen", invoice: "INV-1012", amount: "$440.00", outstanding: "$440.00", dueDate: "20/01/2026", daysOverdue: 63 },
   { client: "Ava Thompson", invoice: "INV-1005", amount: "$195.00", outstanding: "$195.00", dueDate: "05/01/2026", daysOverdue: 78 },
   { client: "Liam Nguyen", invoice: "INV-0998", amount: "$350.00", outstanding: "$350.00", dueDate: "15/12/2025", daysOverdue: 99 },
+];
+
+const columns: ColumnsType<DebtorRow> = [
+  { key: "client", title: "Client", dataIndex: "client" },
+  { key: "invoice", title: "Invoice #", dataIndex: "invoice" },
+  { key: "amount", title: "Amount", dataIndex: "amount", align: "right" },
+  { key: "outstanding", title: "Outstanding", dataIndex: "outstanding", align: "right" },
+  { key: "dueDate", title: "Due date", dataIndex: "dueDate" },
+  {
+    key: "daysOverdue",
+    title: "Days overdue",
+    dataIndex: "daysOverdue",
+    align: "right",
+    render: (_, row) => (
+      <span style={{ fontWeight: row.daysOverdue >= 90 ? 600 : 400, color: row.daysOverdue >= 90 ? '#dc2626' : row.daysOverdue >= 60 ? '#ea580c' : row.daysOverdue >= 30 ? '#ca8a04' : undefined }}>
+        {row.daysOverdue}
+      </span>
+    ),
+  },
 ];
 
 export default function ReportsAgedDebtorsPage() {
@@ -69,32 +98,7 @@ export default function ReportsAgedDebtorsPage() {
           </Grid>
 
           <Card padding="none" style={{ overflowX: 'auto' }}>
-            <DataTable>
-              <TableHead>
-                <Th>Client</Th>
-                <Th>Invoice #</Th>
-                <Th align="right">Amount</Th>
-                <Th align="right">Outstanding</Th>
-                <Th>Due date</Th>
-                <Th align="right">Days overdue</Th>
-              </TableHead>
-              <TableBody>
-                {mockDebtorRows.map((row, i) => (
-                  <Tr key={i}>
-                    <Td color="primary">{row.client}</Td>
-                    <Td color="primary">{row.invoice}</Td>
-                    <Td align="right">{row.amount}</Td>
-                    <Td align="right">{row.outstanding}</Td>
-                    <Td>{row.dueDate}</Td>
-                    <Td align="right">
-                      <span style={{ fontWeight: row.daysOverdue >= 90 ? 600 : 400, color: row.daysOverdue >= 90 ? '#dc2626' : row.daysOverdue >= 60 ? '#ea580c' : row.daysOverdue >= 30 ? '#ca8a04' : undefined }}>
-                        {row.daysOverdue}
-                      </span>
-                    </Td>
-                  </Tr>
-                ))}
-              </TableBody>
-            </DataTable>
+            <Table columns={columns} dataSource={mockDebtorRows} rowKey={(_, index) => String(index)} pagination={false} />
           </Card>
         </>
       )}

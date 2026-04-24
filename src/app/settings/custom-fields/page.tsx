@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import {
   HolderOutlined,
   PlusOutlined,
@@ -9,7 +10,7 @@ import {
   ReadOutlined,
 } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { PageHeader, SearchBar, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Modal, FormInput, FormSelect, Toggle, Dropdown, DropdownTriggerButton, ReorderModal } from "@/components/ds";
+import { PageHeader, SearchBar, Pagination, Modal, FormInput, FormSelect, Toggle, Dropdown, DropdownTriggerButton, ReorderModal } from "@/components/ds";
 import FormLabel from "@/components/ds/FormLabel";
 
 /* ------------------------------------------------------------------ */
@@ -93,6 +94,38 @@ export default function CustomFieldsPage() {
     setShowReorderModal(false);
   }
 
+  const columns: ColumnsType<CustomField> = [
+    { key: "name", title: "Name", dataIndex: "name" },
+    { key: "type", title: "Type", dataIndex: "type" },
+    {
+      key: "visible",
+      title: "Visible",
+      render: (_, row) => (
+        <span style={{ color: '#16a34a' }}>{row.visible ? "Yes" : "No"}</span>
+      ),
+    },
+    {
+      key: "required",
+      title: "Required",
+      render: (_, row) => (
+        <span style={{ fontWeight: 500, color: '#ef4444' }}>{row.required ? "Yes" : "No"}</span>
+      ),
+    },
+    {
+      key: "actions",
+      title: "",
+      align: "right" as const,
+      render: (_, row) => (
+        <Dropdown
+          align="right"
+          trigger={<DropdownTriggerButton />}
+          items={customFieldDropdownItems}
+          onSelect={(value) => { if (value === "edit") handleEdit(row); }}
+        />
+      ),
+    },
+  ];
+
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Custom fields">
@@ -112,37 +145,7 @@ export default function CustomFieldsPage() {
         onSearch={(q) => setSearchQuery(q)}
       />
 
-      <DataTable>
-        <TableHead>
-          <Th>Name</Th>
-          <Th>Type</Th>
-          <Th>Visible</Th>
-          <Th>Required</Th>
-          <Th align="right">Actions</Th>
-        </TableHead>
-        <TableBody>
-          {paged.map((field) => (
-            <Tr key={field.id}>
-              <Td>{field.name}</Td>
-              <Td>{field.type}</Td>
-              <Td>
-                <span style={{ color: '#16a34a' }}>{field.visible ? "Yes" : "No"}</span>
-              </Td>
-              <Td>
-                <span style={{ fontWeight: 500, color: '#ef4444' }}>{field.required ? "Yes" : "No"}</span>
-              </Td>
-              <Td align="right">
-                <Dropdown
-                  align="right"
-                  trigger={<DropdownTriggerButton />}
-                  items={customFieldDropdownItems}
-                  onSelect={(value) => { if (value === "edit") handleEdit(field); }}
-                />
-              </Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table columns={columns} dataSource={paged} rowKey="id" pagination={false} />
 
       <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={filteredFields.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} />
 

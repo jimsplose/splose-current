@@ -1,13 +1,49 @@
 "use client";
 
 import Link from "next/link";
-import { Button, Flex } from "antd";
-import { DataTable, TableHead, Th, TableBody, Td, PaymentStatusBadge, dbStatusToPaymentStatus, Pagination, Text, Breadcrumbs } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { PaymentStatusBadge, dbStatusToPaymentStatus, Pagination, Text, Breadcrumbs } from "@/components/ds";
 
 const items = [
   { number: "INV-0142", client: "Emma Thompson", to: "NDIS", location: "East Clinics", practitioner: "Christina Vagnoni", itemCount: 1, issueDate: "22 Mar 2026", dueDate: "22 Mar 2026", total: 193.99, status: "Sent" as const },
   { number: "INV-0143", client: "Liam Johnson", to: "Liam Johnson", location: "East Clinics", practitioner: "Ruvi R.", itemCount: 1, issueDate: "22 Mar 2026", dueDate: "22 Mar 2026", total: 97.00, status: "Draft" as const },
   { number: "INV-0144", client: "Olivia Davis", to: "Olivia Davis", location: "East Clinics", practitioner: "Hao Wang", itemCount: 1, issueDate: "22 Mar 2026", dueDate: "22 Mar 2026", total: 65.09, status: "Sent" as const },
+];
+
+type BatchItem = typeof items[number];
+
+const batchColumns: ColumnsType<BatchItem> = [
+  {
+    key: "number",
+    title: "Invoice #",
+    render: (_, inv) => (
+      <Text color="primary" as="span">
+        <Link href={`/invoices/${inv.number}`}>{inv.number}</Link>
+      </Text>
+    ),
+  },
+  {
+    key: "client",
+    title: "Client",
+    render: (_, inv) => <Text color="primary" as="span"><Link href="#">{inv.client}</Link></Text>,
+  },
+  {
+    key: "to",
+    title: "To",
+    render: (_, inv) => <Text color="primary" as="span"><Link href="#">{inv.to}</Link></Text>,
+  },
+  { key: "location", title: "Location", dataIndex: "location" },
+  { key: "practitioner", title: "Practitioner", dataIndex: "practitioner" },
+  { key: "itemCount", title: "# of items", align: "right" as const, dataIndex: "itemCount" },
+  { key: "issueDate", title: "Issue date", dataIndex: "issueDate" },
+  { key: "dueDate", title: "Due date", dataIndex: "dueDate" },
+  { key: "total", title: "Total", align: "right" as const, render: (_, inv) => inv.total.toFixed(2) },
+  {
+    key: "status",
+    title: "Status",
+    render: (_, inv) => <PaymentStatusBadge status={dbStatusToPaymentStatus(inv.status)} />,
+  },
 ];
 
 const totalAmount = items.reduce((sum, i) => sum + i.total, 0).toFixed(2);
@@ -41,46 +77,7 @@ export default function BatchInvoiceDetailPage() {
       </p>
 
       {/* Table */}
-      <DataTable>
-        <TableHead>
-          <Th>Invoice #</Th>
-          <Th>Client</Th>
-          <Th>To</Th>
-          <Th>Location</Th>
-          <Th>Practitioner</Th>
-          <Th align="right"># of items</Th>
-          <Th>Issue date</Th>
-          <Th>Due date</Th>
-          <Th align="right">Total</Th>
-          <Th>Status</Th>
-        </TableHead>
-        <TableBody>
-          {items.map((inv) => (
-            <tr key={inv.number} style={{ borderBottom: "1px solid rgb(240, 240, 240)" }}>
-              <Td color="primary">
-                <Link href={`/invoices/${inv.number}`}>
-                  {inv.number}
-                </Link>
-              </Td>
-              <Td color="primary">
-                <Link href="#">{inv.client}</Link>
-              </Td>
-              <Td color="primary">
-                <Link href="#">{inv.to}</Link>
-              </Td>
-              <Td>{inv.location}</Td>
-              <Td>{inv.practitioner}</Td>
-              <Td align="right">{inv.itemCount}</Td>
-              <Td>{inv.issueDate}</Td>
-              <Td>{inv.dueDate}</Td>
-              <Td align="right">{inv.total.toFixed(2)}</Td>
-              <Td>
-                <PaymentStatusBadge status={dbStatusToPaymentStatus(inv.status)} />
-              </Td>
-            </tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table columns={batchColumns} dataSource={items} rowKey="number" pagination={false} />
 
       {/* Pagination */}
       <Pagination

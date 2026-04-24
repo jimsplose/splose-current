@@ -1,13 +1,12 @@
 "use client";
 
-"use client";
-
 import { useState, useEffect } from "react";
 import { PlusOutlined, SwapOutlined, FilterOutlined } from "@ant-design/icons";
-import { Button, Flex } from "antd";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import Link from "next/link";
 import Icon from "@/components/ds/Icon";
-import { ListPage, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Skeleton } from "@/components/ds";
+import { ListPage, Pagination, Skeleton } from "@/components/ds";
 
 const mockContacts = [
   {
@@ -179,9 +178,85 @@ function getTypeLabel(type: string) {
   return <span style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>{type}</span>;
 }
 
+type ContactRow = typeof mockContacts[number];
+
 export default function ContactsPage() {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => { setLoaded(true); }, []);
+
+  const contactColumns: ColumnsType<ContactRow> = [
+    {
+      key: "type",
+      title: (
+        <Flex align="center" gap={4}>
+          Type
+          <Icon as={SwapOutlined} size="sm" tone="secondary" />
+          <Icon as={FilterOutlined} size="sm" tone="secondary" />
+        </Flex>
+      ),
+      render: (_, contact) => (
+        <div style={{ position: "relative" }}>
+          <Link
+            href={`/contacts/${contact.id}`}
+            style={{ position: "absolute", inset: 0 }}
+            aria-label={`View ${contact.name}`}
+          />
+          {getTypeLabel(contact.type)}
+        </div>
+      ),
+    },
+    {
+      key: "name",
+      title: (
+        <Flex align="center" gap={4}>
+          Name
+          <Icon as={SwapOutlined} size="sm" tone="secondary" />
+        </Flex>
+      ),
+      render: (_, contact) => <span style={{ fontWeight: 500 }}>{contact.name}</span>,
+    },
+    {
+      key: "company",
+      title: (
+        <Flex align="center" gap={4}>
+          Company
+          <Icon as={SwapOutlined} size="sm" tone="secondary" />
+        </Flex>
+      ),
+      render: (_, contact) => <span style={{ color: "var(--color-text-secondary)" }}>{contact.company}</span>,
+    },
+    {
+      key: "email",
+      title: (
+        <Flex align="center" gap={4}>
+          Email
+          <Icon as={SwapOutlined} size="sm" tone="secondary" />
+        </Flex>
+      ),
+      render: (_, contact) => <span style={{ color: "var(--color-text-secondary)" }}>{contact.email}</span>,
+    },
+    {
+      key: "workPhone",
+      title: "Work phone",
+      render: (_, contact) =>
+        contact.workPhone ? (
+          <a href={`tel:${contact.workPhone}`} style={{ textDecoration: "none" }}>
+            {contact.workPhone}
+          </a>
+        ) : null,
+    },
+    {
+      key: "mobilePhone",
+      title: "Mobile phone",
+      render: (_, contact) =>
+        contact.mobilePhone ? (
+          <a href={`tel:${contact.mobilePhone}`} style={{ textDecoration: "none" }}>
+            {contact.mobilePhone}
+          </a>
+        ) : null,
+    },
+  ];
+
   return (
     <ListPage
       title="Contacts"
@@ -211,68 +286,13 @@ export default function ContactsPage() {
           </div>
         }
       >
-      <DataTable>
-        <TableHead>
-          <Th>
-            <Flex align="center" gap={4}>
-              Type
-              <Icon as={SwapOutlined} size="sm" tone="secondary" />
-              <Icon as={FilterOutlined} size="sm" tone="secondary" />
-            </Flex>
-          </Th>
-          <Th>
-            <Flex align="center" gap={4}>
-              Name
-              <Icon as={SwapOutlined} size="sm" tone="secondary" />
-            </Flex>
-          </Th>
-          <Th hidden="md">
-            <Flex align="center" gap={4}>
-              Company
-              <Icon as={SwapOutlined} size="sm" tone="secondary" />
-            </Flex>
-          </Th>
-          <Th hidden="md">
-            <Flex align="center" gap={4}>
-              Email
-              <Icon as={SwapOutlined} size="sm" tone="secondary" />
-            </Flex>
-          </Th>
-          <Th hidden="lg">Work phone</Th>
-          <Th hidden="lg">Mobile phone</Th>
-        </TableHead>
-        <TableBody>
-          {mockContacts.map((contact) => (
-            <Tr key={contact.id} clickable style={{ position: 'relative' }}>
-              <Td color="secondary">
-                <Link
-                  href={`/contacts/${contact.id}`}
-                  style={{ position: 'absolute', inset: 0 }}
-                  aria-label={`View ${contact.name}`}
-                />
-                {getTypeLabel(contact.type)}
-              </Td>
-              <Td style={{ fontWeight: 500 }}>{contact.name}</Td>
-              <Td hidden="md" color="secondary">{contact.company}</Td>
-              <Td hidden="md" color="secondary">{contact.email}</Td>
-              <Td hidden="lg">
-                {contact.workPhone && (
-                  <a href={`tel:${contact.workPhone}`} style={{ textDecoration: 'none' }}>
-                    {contact.workPhone}
-                  </a>
-                )}
-              </Td>
-              <Td hidden="lg">
-                {contact.mobilePhone && (
-                  <a href={`tel:${contact.mobilePhone}`} style={{ textDecoration: 'none' }}>
-                    {contact.mobilePhone}
-                  </a>
-                )}
-              </Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+        <Table
+          columns={contactColumns}
+          dataSource={mockContacts}
+          rowKey="id"
+          pagination={false}
+          onRow={() => ({ style: { cursor: "pointer" } })}
+        />
       </Skeleton.Loading>
       <Pagination
         currentPage={1}

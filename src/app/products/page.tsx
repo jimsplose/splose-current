@@ -1,11 +1,13 @@
 "use client";
 
 import Icon from "@/components/ds/Icon";
-import { ListPage, DataTable, Pagination, TableHead, Th, TableBody, Td, Tr, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Checkbox, Text, Grid, Divider } from "@/components/ds";
+import { ListPage, Pagination, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Checkbox, Text, Grid, Divider } from "@/components/ds";
+import { Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import { PlusOutlined, MinusOutlined, MoreOutlined, EditOutlined, CopyOutlined, HistoryOutlined, DeleteOutlined, AppstoreOutlined } from "@ant-design/icons";
 import { Button, Flex } from "antd";
 import Link from "next/link";
-import { useState, useMemo, useCallback, Fragment } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useFormModal } from "@/hooks/useFormModal";
 import pStyles from "./products.module.css";
 
@@ -476,147 +478,105 @@ export default function ProductsPage() {
       searchPlaceholder="Search for product by name"
       onSearch={handleSearch}
     >
-        <DataTable>
-          <TableHead>
-            <Th>{/* expand */}</Th>
-            <Th>Name</Th>
-            <Th hidden="sm">Category</Th>
-            <Th hidden="md">Vendor</Th>
-            <Th align="center">Stock</Th>
-            <Th align="center">
-              Actions
-            </Th>
-          </TableHead>
-          <TableBody>
-            {paginatedProducts.map((product, idx) => {
-              const globalIndex = idx;
-              const isExpanded = expandedRows.has(globalIndex);
-              const hasVariants = product.variants && product.variants.length > 0;
+        {(() => {
+          const variantColumns: ColumnsType<ProductVariant> = [
+            { key: "name", title: "Name", render: (_, v) => <Text variant="body/sm" as="span" color="text">{v.name}</Text> },
+            { key: "sku", title: "SKU", render: (_, v) => <Text variant="body/sm" as="span" color="secondary">{v.sku}</Text> },
+            { key: "price", title: "Price", render: (_, v) => <Text variant="body/sm" as="span" color="secondary">{v.price !== null ? v.price.toFixed(2) : "-"}</Text> },
+            { key: "stock", title: "Stock", render: (_, v) => <Text variant="body/sm" as="span" color="secondary">{v.stock !== null ? v.stock : "-"}</Text> },
+            { key: "unit", title: "Unit", render: (_, v) => <Text variant="body/sm" as="span" color="secondary">{v.unit}</Text> },
+            {
+              key: "actions",
+              title: "Actions",
+              render: (_, v) => (
+                <Button type="link" onClick={() => { setStockModalVariant(v.name); setStockModalOpen(true); }}>
+                  Manage Stock
+                </Button>
+              ),
+            },
+          ];
 
-              return (
-                <Fragment key={globalIndex}>
-                  <tr
-                    className={`${pStyles.productRow} ${
-                      product.archived ? pStyles.productRowArchived : ""
-                    }`}
-                    onClick={() => toggleExpand(globalIndex)}
-                  >
-                    <Td align="center" style={{ padding: '12px 8px' }}>
-                      <Button
-                        type="text"
-                        size="small" shape="circle"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          toggleExpand(globalIndex);
-                        }}
-                      >
-                        {isExpanded ? <Icon as={MinusOutlined} /> : <Icon as={PlusOutlined} />}
-                      </Button>
-                    </Td>
-                    <Td><Text variant="body/md" as="span" color="text">{product.name}</Text></Td>
-                    <Td hidden="sm">
-                      <Text variant="body/md" as="span" color="secondary">{product.category}</Text>
-                    </Td>
-                    <Td hidden="md">
-                      <Text variant="body/md" as="span" color="secondary">{product.vendor}</Text>
-                    </Td>
-                    <Td align="center">
-                      <Text variant="body/md" as="span" color="secondary">{product.stock !== null ? product.stock : "-"}</Text>
-                    </Td>
-                    <Td align="center">
-                      <div onClick={(e) => e.stopPropagation()}>
-                        <Dropdown
-                          align="right"
-                          trigger={<DropdownTriggerButton />}
-                          items={product.stock !== null ? dropdownItemsWithStock : dropdownItems}
-                          onSelect={(value) => handleDropdownAction(value, product, globalIndex)}
-                        />
+          const productColumns: ColumnsType<Product> = [
+            {
+              key: "expand",
+              title: "",
+              render: (_, product, idx) => (
+                <Button
+                  type="text"
+                  size="small"
+                  shape="circle"
+                  onClick={(e) => { e.stopPropagation(); toggleExpand(idx); }}
+                >
+                  {expandedRows.has(idx) ? <Icon as={MinusOutlined} /> : <Icon as={PlusOutlined} />}
+                </Button>
+              ),
+            },
+            { key: "name", title: "Name", render: (_, product) => <Text variant="body/md" as="span" color="text">{product.name}</Text> },
+            { key: "category", title: "Category", render: (_, product) => <Text variant="body/md" as="span" color="secondary">{product.category}</Text> },
+            { key: "vendor", title: "Vendor", render: (_, product) => <Text variant="body/md" as="span" color="secondary">{product.vendor}</Text> },
+            { key: "stock", title: "Stock", align: "center" as const, render: (_, product) => <Text variant="body/md" as="span" color="secondary">{product.stock !== null ? product.stock : "-"}</Text> },
+            {
+              key: "actions",
+              title: "Actions",
+              align: "center" as const,
+              render: (_, product) => (
+                <div onClick={(e) => e.stopPropagation()}>
+                  <Dropdown
+                    align="right"
+                    trigger={<DropdownTriggerButton />}
+                    items={product.stock !== null ? dropdownItemsWithStock : dropdownItems}
+                    onSelect={(value) => handleDropdownAction(value, product, paginatedProducts.indexOf(product))}
+                  />
+                </div>
+              ),
+            },
+          ];
+
+          return (
+            <Table
+              columns={productColumns}
+              dataSource={paginatedProducts}
+              rowKey={(_, idx) => String(idx)}
+              pagination={false}
+              onRow={(product, idx) => ({
+                className: `${pStyles.productRow}${product.archived ? ` ${pStyles.productRowArchived}` : ""}`,
+                onClick: () => toggleExpand(idx ?? 0),
+              })}
+              expandable={{
+                expandedRowKeys: Array.from(expandedRows).map(String),
+                showExpandColumn: false,
+                expandedRowRender: (product, idx) => (
+                  <div style={{ padding: "12px 32px" }}>
+                    <Grid cols={3} gap="md" style={{ marginBottom: 12 }}>
+                      <div>
+                        <Text variant="label/md" as="span" color="secondary">Description</Text>
+                        <Text variant="body/md" color="text" style={{ marginTop: 2 }}>{product.description || "No description"}</Text>
                       </div>
-                    </Td>
-                  </tr>
-
-                  {isExpanded && (
-                    <tr>
-                      <td colSpan={6} className="bg-gray-50/50">
-                        <div style={{ padding: '12px 32px' }}>
-                          {/* Product details section */}
-                          <Grid cols={3} gap="md" style={{ marginBottom: 12 }}>
-                            <div>
-                              <Text variant="label/md" as="span" color="secondary">Description</Text>
-                              <Text variant="body/md" color="text" style={{ marginTop: 2 }}>
-                                {product.description || "No description"}
-                              </Text>
-                            </div>
-                            <div>
-                              <Text variant="label/md" as="span" color="secondary">Usage count</Text>
-                              <Text variant="body/md" color="text" style={{ marginTop: 2 }}>
-                                {product.usageCount !== undefined ? `${product.usageCount} times` : "-"}
-                              </Text>
-                            </div>
-                            <div>
-                              <Text variant="label/md" as="span" color="secondary">Last used</Text>
-                              <Text variant="body/md" color="text" style={{ marginTop: 2 }}>
-                                {product.lastUsed || "Never"}
-                              </Text>
-                            </div>
-                          </Grid>
-
-                          {/* Variants table (if applicable) */}
-                          {hasVariants && (
-                            <DataTable>
-                              <TableHead>
-                                <Th style={{ padding: '8px 16px' }}>Name</Th>
-                                <Th style={{ padding: '8px 16px' }}>SKU</Th>
-                                <Th style={{ padding: '8px 16px' }}>Price</Th>
-                                <Th style={{ padding: '8px 16px' }}>Stock</Th>
-                                <Th style={{ padding: '8px 16px' }}>Unit</Th>
-                                <Th style={{ padding: '8px 16px' }}>Actions</Th>
-                              </TableHead>
-                              <TableBody>
-                                {product.variants!.map((variant, vIdx) => (
-                                  <Tr key={vIdx} className={pStyles.variantRow}>
-                                    <Td style={{ padding: '8px 16px' }}><Text variant="body/sm" as="span" color="text">{variant.name}</Text></Td>
-                                    <Td style={{ padding: '8px 16px' }}><Text variant="body/sm" as="span" color="secondary">{variant.sku}</Text></Td>
-                                    <Td style={{ padding: '8px 16px' }}>
-                                      <Text variant="body/sm" as="span" color="secondary">{variant.price !== null ? variant.price.toFixed(2) : "-"}</Text>
-                                    </Td>
-                                    <Td style={{ padding: '8px 16px' }}>
-                                      <Text variant="body/sm" as="span" color="secondary">{variant.stock !== null ? variant.stock : "-"}</Text>
-                                    </Td>
-                                    <Td style={{ padding: '8px 16px' }}><Text variant="body/sm" as="span" color="secondary">{variant.unit}</Text></Td>
-                                    <Td style={{ padding: '8px 16px' }}>
-                                      <Button
-                                        type="link"
-                                        onClick={() => {
-                                          setStockModalVariant(variant.name);
-                                          setStockModalOpen(true);
-                                        }}
-                                      >
-                                        Manage Stock
-                                      </Button>
-                                    </Td>
-                                  </Tr>
-                                ))}
-                              </TableBody>
-                            </DataTable>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  )}
-                </Fragment>
-              );
-            })}
-
-            {paginatedProducts.length === 0 && (
-              <tr>
-                <td colSpan={6}>
-                  <EmptyState message="No products found." style={{ padding: '32px 0' }} />
-                </td>
-              </tr>
-            )}
-          </TableBody>
-        </DataTable>
+                      <div>
+                        <Text variant="label/md" as="span" color="secondary">Usage count</Text>
+                        <Text variant="body/md" color="text" style={{ marginTop: 2 }}>{product.usageCount !== undefined ? `${product.usageCount} times` : "-"}</Text>
+                      </div>
+                      <div>
+                        <Text variant="label/md" as="span" color="secondary">Last used</Text>
+                        <Text variant="body/md" color="text" style={{ marginTop: 2 }}>{product.lastUsed || "Never"}</Text>
+                      </div>
+                    </Grid>
+                    {product.variants && product.variants.length > 0 && (
+                      <Table
+                        columns={variantColumns}
+                        dataSource={product.variants}
+                        rowKey="sku"
+                        pagination={false}
+                        rowClassName={pStyles.variantRow}
+                      />
+                    )}
+                  </div>
+                ),
+              }}
+              locale={{ emptyText: <EmptyState message="No products found." style={{ padding: "32px 0" }} /> }}
+            />
+          );
+        })()}
 
         <Pagination
           currentPage={1}
@@ -682,43 +642,40 @@ export default function ProductsPage() {
         }
       >
         <div style={{ overflowX: 'auto' }}>
-          <DataTable>
-            <TableHead>
-              <Th style={{ padding: '8px 16px' }}>Location</Th>
-              <Th align="center" style={{ padding: '8px 16px' }}>Available</Th>
-              <Th align="center" style={{ padding: '8px 16px' }}>Track stock</Th>
-              <Th align="center" style={{ padding: '8px 16px' }}>Count</Th>
-              <Th align="center" style={{ padding: '8px 16px' }}>Actions</Th>
-            </TableHead>
-            <TableBody>
-              {mockStockLocations.map((loc) => (
-                <Tr key={loc.name} className={pStyles.stockRow}>
-                  <Td style={{ padding: '8px 16px' }}><Text variant="body/sm" as="span" color="text">{loc.name}</Text></Td>
-                  <Td align="center" style={{ padding: '8px 16px' }}>
-                    <Checkbox checked={loc.available} readOnly />
-                  </Td>
-                  <Td align="center" style={{ padding: '8px 16px' }}>
-                    <Checkbox checked={loc.trackStock} readOnly />
-                  </Td>
-                  <Td align="center" style={{ padding: '8px 16px' }}>
-                    <Text variant="body/sm" as="span" color="secondary">{loc.trackStock ? loc.count : "N/A"}</Text>
-                  </Td>
-                  <Td align="center" style={{ padding: '8px 16px' }}>
-                    <Dropdown
-                      align="right"
-                      trigger={
-                        <button className={`inline-flex items-center justify-center rounded-[6px] border-none bg-transparent cursor-pointer ${pStyles.stockActionButton}`} style={{ height: 28, width: 28 }}>
-                          <Icon as={MoreOutlined} tone="secondary" />
-                        </button>
-                      }
-                      items={stockDropdownItems}
-                      onSelect={() => {}}
-                    />
-                  </Td>
-                </Tr>
-              ))}
-            </TableBody>
-          </DataTable>
+          {(() => {
+            const stockColumns: ColumnsType<StockLocation> = [
+              { key: "name", title: "Location", render: (_, loc) => <Text variant="body/sm" as="span" color="text">{loc.name}</Text> },
+              { key: "available", title: "Available", align: "center" as const, render: (_, loc) => <Checkbox checked={loc.available} readOnly /> },
+              { key: "trackStock", title: "Track stock", align: "center" as const, render: (_, loc) => <Checkbox checked={loc.trackStock} readOnly /> },
+              { key: "count", title: "Count", align: "center" as const, render: (_, loc) => <Text variant="body/sm" as="span" color="secondary">{loc.trackStock ? loc.count : "N/A"}</Text> },
+              {
+                key: "actions",
+                title: "Actions",
+                align: "center" as const,
+                render: () => (
+                  <Dropdown
+                    align="right"
+                    trigger={
+                      <button className={`inline-flex items-center justify-center rounded-[6px] border-none bg-transparent cursor-pointer ${pStyles.stockActionButton}`} style={{ height: 28, width: 28 }}>
+                        <Icon as={MoreOutlined} tone="secondary" />
+                      </button>
+                    }
+                    items={stockDropdownItems}
+                    onSelect={() => {}}
+                  />
+                ),
+              },
+            ];
+            return (
+              <Table
+                columns={stockColumns}
+                dataSource={mockStockLocations}
+                rowKey="name"
+                pagination={false}
+                rowClassName={pStyles.stockRow}
+              />
+            );
+          })()}
         </div>
         <div style={{ marginTop: 16 }}>
           <Pagination

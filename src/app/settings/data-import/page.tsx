@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import { UploadOutlined, MessageOutlined, ReadOutlined, FileExcelOutlined, DatabaseOutlined, CheckCircleOutlined, WarningOutlined, ArrowLeftOutlined, ArrowRightOutlined, FileTextOutlined } from "@ant-design/icons";
-import { Card, DataTable, TableHead, Th, TableBody, Tr, Td, Badge, Icon, Pagination, Dropdown, DropdownTriggerButton, Modal, FormSelect, Alert, PageHeader, Text, Grid, Divider } from "@/components/ds";
+import { Card, Badge, Icon, Pagination, Dropdown, DropdownTriggerButton, Modal, FormSelect, Alert, PageHeader, Text, Grid, Divider } from "@/components/ds";
 
 interface ImportRow {
   id: number;
@@ -93,6 +94,113 @@ export default function DataImportPage() {
     switch (value) { case "view": setViewRow(row); break; case "re-import": setReImportRow(row); break; case "delete": setDeleteRow(row); break; }
   }
 
+  const columns: ColumnsType<ImportRow> = [
+    {
+      key: "type",
+      title: "Type",
+      render: (_, row) => <Text as="span" variant="label/lg">{row.type}</Text>,
+    },
+    {
+      key: "status",
+      title: "Status",
+      render: (_, row) => <Badge variant={row.statusVariant}>{row.status}</Badge>,
+    },
+    {
+      key: "message",
+      title: "Message",
+      render: (_, row) => <span style={{ color: 'var(--color-text-secondary)' }}>{row.message || "\u2014"}</span>,
+    },
+    {
+      key: "lastActivity",
+      title: "Last Activity",
+      render: (_, row) => (
+        <div style={{ fontSize: 14 }}>
+          <div style={{ color: 'var(--color-text-secondary)' }}>Created: {row.createdAt}</div>
+          <div style={{ color: 'var(--color-text-secondary)' }}>Updated: {row.updatedAt}</div>
+        </div>
+      ),
+    },
+    {
+      key: "actions",
+      title: "Actions",
+      render: (_, row) => (
+        <Dropdown align="right" trigger={<DropdownTriggerButton />} items={dropdownItems} onSelect={(value) => handleAction(value, row)} />
+      ),
+    },
+  ];
+
+  // Mapping step columns
+  const mappingColumns: ColumnsType<{ col: string }> = [
+    {
+      key: "csvColumn",
+      title: "CSV column",
+      render: (_, row) => <span style={{ fontFamily: 'monospace', fontSize: 12 }}>{row.col}</span>,
+    },
+    {
+      key: "sampleData",
+      title: "Sample data",
+      render: (_, row) => (
+        <span style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>
+          {previewData[0][row.col as keyof typeof previewData[0]] || "\u2014"}
+        </span>
+      ),
+    },
+    {
+      key: "sploseField",
+      title: "splose field",
+      render: (_, row) => (
+        <FormSelect
+          options={sploseFields}
+          value={columnMapping[row.col] || ""}
+          onChange={(value) => setColumnMapping((prev) => ({ ...prev, [row.col]: value }))}
+        />
+      ),
+    },
+    {
+      key: "status",
+      title: "Status",
+      render: (_, row) => (
+        columnMapping[row.col] ? (
+          <Flex align="center" gap={4} style={{ color: '#16a34a' }}>
+            <Icon as={CheckCircleOutlined} size="lg" />
+            <span style={{ fontSize: 12 }}>Mapped</span>
+          </Flex>
+        ) : (
+          <span style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>Skipped</span>
+        )
+      ),
+    },
+  ];
+
+  // Preview step: build dynamic columns from mapped csvColumns
+  const mappedCols = csvColumns.filter((c) => columnMapping[c]);
+  const previewColumns: ColumnsType<typeof previewData[number]> = [
+    ...mappedCols.map((col) => ({
+      key: col,
+      title: sploseFields.find((f) => f.value === columnMapping[col])?.label ?? col,
+      render: (_: unknown, row: typeof previewData[number]) => (
+        <span style={{ fontSize: 12 }}>{row[col as keyof typeof row] || "\u2014"}</span>
+      ),
+    })),
+    {
+      key: "rowStatus",
+      title: "Status",
+      render: (_: unknown, row: typeof previewData[number], i: number) => (
+        i === 3 ? (
+          <Flex align="center" gap={4} style={{ color: '#ca8a04' }}>
+            <Icon as={WarningOutlined} />
+            <span style={{ fontSize: 12 }}>Under 18</span>
+          </Flex>
+        ) : (
+          <Flex align="center" gap={4} style={{ color: '#16a34a' }}>
+            <Icon as={CheckCircleOutlined} />
+            <span style={{ fontSize: 12 }}>Valid</span>
+          </Flex>
+        )
+      ),
+    },
+  ];
+
   return (
     <div style={{ padding: 24 }}>
       {/* Concierge data import banner */}
@@ -120,27 +228,7 @@ export default function DataImportPage() {
         </Button>
       </PageHeader>
 
-      <DataTable>
-        <TableHead><Th>Type</Th><Th>Status</Th><Th>Message</Th><Th>Last Activity</Th><Th>Actions</Th></TableHead>
-        <TableBody>
-          {pageItems.map((row) => (
-            <Tr key={row.id}>
-              <Td><Text as="span" variant="label/lg">{row.type}</Text></Td>
-              <Td><Badge variant={row.statusVariant}>{row.status}</Badge></Td>
-              <Td><span style={{ color: 'var(--color-text-secondary)' }}>{row.message || "\u2014"}</span></Td>
-              <Td>
-                <div style={{ fontSize: 14 }}>
-                  <div style={{ color: 'var(--color-text-secondary)' }}>Created: {row.createdAt}</div>
-                  <div style={{ color: 'var(--color-text-secondary)' }}>Updated: {row.updatedAt}</div>
-                </div>
-              </Td>
-              <Td>
-                <Dropdown align="right" trigger={<DropdownTriggerButton />} items={dropdownItems} onSelect={(value) => handleAction(value, row)} />
-              </Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table columns={columns} dataSource={pageItems} rowKey="id" pagination={false} />
       <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={importHistory.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} />
 
       {/* Import multi-step modal */}
@@ -216,28 +304,12 @@ export default function DataImportPage() {
         {importStep === "mapping" && (
           <Flex vertical gap={16}>
             <Alert variant="info">Map each CSV column to a splose field. Unmapped columns will be skipped.</Alert>
-            <DataTable>
-              <TableHead><Th>CSV column</Th><Th>Sample data</Th><Th>splose field</Th><Th>Status</Th></TableHead>
-              <TableBody>
-                {csvColumns.map((col) => (
-                  <Tr key={col}>
-                    <Td><span style={{ fontFamily: 'monospace', fontSize: 12 }}>{col}</span></Td>
-                    <Td><span style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>{previewData[0][col as keyof typeof previewData[0]] || "\u2014"}</span></Td>
-                    <Td><FormSelect options={sploseFields} value={columnMapping[col] || ""} onChange={(value) => setColumnMapping((prev) => ({ ...prev, [col]: value }))} /></Td>
-                    <Td>
-                      {columnMapping[col] ? (
-                        <Flex align="center" gap={4} style={{ color: '#16a34a' }}>
-                          <Icon as={CheckCircleOutlined} size="lg" />
-                          <span style={{ fontSize: 12 }}>Mapped</span>
-                        </Flex>
-                      ) : (
-                        <span style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>Skipped</span>
-                      )}
-                    </Td>
-                  </Tr>
-                ))}
-              </TableBody>
-            </DataTable>
+            <Table
+              columns={mappingColumns}
+              dataSource={csvColumns.map((col) => ({ col }))}
+              rowKey="col"
+              pagination={false}
+            />
             <p style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>{Object.values(columnMapping).filter(Boolean).length} of {csvColumns.length} columns mapped</p>
           </Flex>
         )}
@@ -246,36 +318,12 @@ export default function DataImportPage() {
           <Flex vertical gap={16}>
             <Alert variant="info">Review the data below. {previewData.length} records will be imported as clients.</Alert>
             <div style={{ overflowX: 'auto' }}>
-              <DataTable>
-                <TableHead>
-                  {csvColumns.filter((c) => columnMapping[c]).map((col) => (
-                    <Th key={col}>{sploseFields.find((f) => f.value === columnMapping[col])?.label ?? col}</Th>
-                  ))}
-                  <Th>Status</Th>
-                </TableHead>
-                <TableBody>
-                  {previewData.map((row, i) => (
-                    <Tr key={i}>
-                      {csvColumns.filter((c) => columnMapping[c]).map((col) => (
-                        <Td key={col}><span style={{ fontSize: 12 }}>{row[col as keyof typeof row] || "\u2014"}</span></Td>
-                      ))}
-                      <Td>
-                        {i === 3 ? (
-                          <Flex align="center" gap={4} style={{ color: '#ca8a04' }}>
-                            <Icon as={WarningOutlined} />
-                            <span style={{ fontSize: 12 }}>Under 18</span>
-                          </Flex>
-                        ) : (
-                          <Flex align="center" gap={4} style={{ color: '#16a34a' }}>
-                            <Icon as={CheckCircleOutlined} />
-                            <span style={{ fontSize: 12 }}>Valid</span>
-                          </Flex>
-                        )}
-                      </Td>
-                    </Tr>
-                  ))}
-                </TableBody>
-              </DataTable>
+              <Table
+                columns={previewColumns}
+                dataSource={previewData}
+                rowKey={(_, i) => String(i)}
+                pagination={false}
+              />
             </div>
             <Flex align="center" gap={16} style={{ borderRadius: 8, backgroundColor: 'var(--color-fill-tertiary)', padding: 12 }}>
               <Flex align="center" gap={6}><Icon as={CheckCircleOutlined} size="lg" style={{ color: '#16a34a' }} /><span style={{ fontSize: 12 }}>4 valid</span></Flex>

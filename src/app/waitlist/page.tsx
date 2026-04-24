@@ -23,9 +23,10 @@ const Sun = ({ style, className }: { style?: React.CSSProperties; className?: st
 const Moon = ({ style, className }: { style?: React.CSSProperties; className?: string }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} style={{ width: 16, height: 16, ...style }}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>;
 const SunMedium = ({ style, className }: { style?: React.CSSProperties; className?: string }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} style={{ width: 16, height: 16, ...style }}><circle cx="12" cy="12" r="4"/><path d="M12 3v1"/><path d="M12 20v1"/><path d="M3 12h1"/><path d="M20 12h1"/><path d="m18.364 5.636-.707.707"/><path d="m6.343 17.657-.707.707"/><path d="m5.636 5.636.707.707"/><path d="m17.657 17.657.707.707"/></svg>;
 const MapIcon = ({ style, className }: { style?: React.CSSProperties; className?: string }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} style={{ width: 16, height: 16, ...style }}><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>;
-import { Button, Flex } from "antd";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import Icon from "@/components/ds/Icon";
-import { ListPage, SearchBar, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Badge, Tab, EmptyState, Modal, FormSelect, FormInput, FormTextarea, Text, Divider, Skeleton } from "@/components/ds";
+import { ListPage, SearchBar, Pagination, Badge, Tab, EmptyState, Modal, FormSelect, FormInput, FormTextarea, Text, Divider, Skeleton } from "@/components/ds";
 import wStyles from "./waitlist.module.css";
 
 export const dynamic = "force-dynamic";

@@ -1,10 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
-import { Badge, DataTable, DateRangeFilter, FormSelect, ListPage, TableBody, TableHead, Td, Th, Tr } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { Badge, DateRangeFilter, FormSelect, ListPage } from "@/components/ds";
 
-const mockPatients = [
+interface PatientRow {
+  name: string;
+  dob: string;
+  phone: string;
+  email: string;
+  tags: string[];
+  created: string;
+  lastAppt: string;
+}
+
+const mockPatients: PatientRow[] = [
   { name: "Liam Nguyen", dob: "14/05/1992", phone: "0412 345 678", email: "liam.nguyen@email.com", tags: ["NDIS"], created: "01/02/2026", lastAppt: "03/03/2026" },
   { name: "Olivia Smith", dob: "22/11/1985", phone: "0423 456 789", email: "olivia.smith@email.com", tags: ["Medicare"], created: "15/01/2026", lastAppt: "05/03/2026" },
   { name: "Jack Thompson", dob: "09/03/2001", phone: "0434 567 890", email: "jack.t@email.com", tags: ["NDIS"], created: "20/12/2025", lastAppt: "08/03/2026" },
@@ -22,6 +33,29 @@ function tagVariant(tag: string) {
     default: return "gray" as const;
   }
 }
+
+const columns: ColumnsType<PatientRow> = [
+  { key: "name", title: "Name", dataIndex: "name" },
+  { key: "dob", title: "Date of birth", dataIndex: "dob" },
+  { key: "phone", title: "Phone", dataIndex: "phone" },
+  { key: "email", title: "Email", dataIndex: "email" },
+  {
+    key: "tags",
+    title: "Tags",
+    dataIndex: "tags",
+    render: (_, row) => (
+      <Flex gap={4}>
+        {row.tags.length > 0
+          ? row.tags.map((tag) => (
+              <Badge key={tag} variant={tagVariant(tag)}>{tag}</Badge>
+            ))
+          : <span style={{ color: 'var(--color-text-tertiary)' }}>--</span>}
+      </Flex>
+    ),
+  },
+  { key: "created", title: "Created", dataIndex: "created" },
+  { key: "lastAppt", title: "Last appointment", dataIndex: "lastAppt" },
+];
 
 export default function ReportsPatientsPage() {
   const [showResults, setShowResults] = useState(false);
@@ -71,38 +105,7 @@ export default function ReportsPatientsPage() {
       {showResults && (
         <>
           <p style={{ fontSize: 14, lineHeight: 1.57, margin: '16px 0', color: 'var(--color-text-secondary)' }}>{mockPatients.length} items found.</p>
-          <DataTable>
-            <TableHead>
-              <Th>Name</Th>
-              <Th>Date of birth</Th>
-              <Th>Phone</Th>
-              <Th>Email</Th>
-              <Th>Tags</Th>
-              <Th>Created</Th>
-              <Th>Last appointment</Th>
-            </TableHead>
-            <TableBody>
-              {mockPatients.map((row, i) => (
-                <Tr key={i}>
-                  <Td>{row.name}</Td>
-                  <Td>{row.dob}</Td>
-                  <Td>{row.phone}</Td>
-                  <Td>{row.email}</Td>
-                  <Td>
-                    <Flex gap={4}>
-                      {row.tags.length > 0
-                        ? row.tags.map((tag) => (
-                            <Badge key={tag} variant={tagVariant(tag)}>{tag}</Badge>
-                          ))
-                        : <span style={{ color: 'var(--color-text-tertiary)' }}>--</span>}
-                    </Flex>
-                  </Td>
-                  <Td>{row.created}</Td>
-                  <Td>{row.lastAppt}</Td>
-                </Tr>
-              ))}
-            </TableBody>
-          </DataTable>
+          <Table columns={columns} dataSource={mockPatients} rowKey={(_, index) => String(index)} pagination={false} />
         </>
       )}
     </ListPage>

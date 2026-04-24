@@ -2,10 +2,10 @@
 
 import { useState, useRef, useEffect, useMemo } from "react";
 import { CalendarOutlined, DownOutlined, SettingOutlined } from "@ant-design/icons";
-import { Button, Flex } from "antd";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import Icon from "@/components/ds/Icon";
 import { Avatar, Card, Checkbox, ColorDot, Divider, Dropdown, FormInput, FormSelect, Grid, PageHeader, ProgressBar, Text } from "@/components/ds";
-import { DataTable, TableHead, Th, TableBody, Tr, Td } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 
 /* ── Date helpers ─────────────────────────────────────────────── */
@@ -138,6 +138,13 @@ function DateRangePicker({
 type SortKey = "name" | "utilisation" | "revenue";
 type SortDir = "asc" | "desc";
 
+interface Practitioner {
+  name: string;
+  color: string;
+  utilisation: number;
+  revenue: number;
+}
+
 export default function ReportsPage() {
   const [selectedLocation, setSelectedLocation] = useState("all");
   const [selectedPractitioner, setSelectedPractitioner] = useState("all");
@@ -182,7 +189,7 @@ export default function ReportsPage() {
   const locationLabel = locationItems.find((i) => i.value === selectedLocation)?.label ?? "All locations";
   const practitionerLabel = practitionerItems.find((i) => i.value === selectedPractitioner)?.label ?? "All practitioners";
 
-  const practitioners = [
+  const practitioners: Practitioner[] = [
     { name: "Ruvi R.", color: "#ef4444", utilisation: 10.09, revenue: 393.0 },
     { name: "Hung Yee Wong", color: "#8b5cf6", utilisation: 6.88, revenue: 289.5 },
     { name: "Dominica Barrett", color: "#06b6d4", utilisation: 5.0, revenue: 0.0 },
@@ -212,6 +219,41 @@ export default function ReportsPage() {
       setSortDir("desc");
     }
   }
+
+  const columns: ColumnsType<Practitioner> = [
+    {
+      key: "name",
+      title: "Name",
+      dataIndex: "name",
+      sorter: true,
+      render: (_, p) => (
+        <Flex align="center" gap={12}>
+          <Avatar name={p.name} color={p.color} size="sm" />
+          <Text variant="body/md" as="span" color="text">{p.name}</Text>
+        </Flex>
+      ),
+    },
+    {
+      key: "utilisation",
+      title: "Utilisation rate",
+      dataIndex: "utilisation",
+      sorter: true,
+      render: (_, p) => (
+        <Flex align="center" gap={8}>
+          <ProgressBar value={Math.min(p.utilisation * 10, 100)} width={64} />
+          <Text variant="body/md" as="span" color="secondary">{p.utilisation.toFixed(2)}%</Text>
+        </Flex>
+      ),
+    },
+    {
+      key: "revenue",
+      title: "Revenue",
+      dataIndex: "revenue",
+      sorter: true,
+      align: "right",
+      render: (_, p) => `$${p.revenue.toFixed(2)}`,
+    },
+  ];
 
   const chartDays = Array.from({ length: 7 }, (_, i) => {
     const d = new Date(dateStart.getTime() + i * ((dateEnd.getTime() - dateStart.getTime()) / 6));
@@ -403,51 +445,18 @@ export default function ReportsPage() {
             <Text variant="caption/md" color="secondary">Breakdown of performance by individual practitioner</Text>
           </div>
         </Flex>
-        <DataTable>
-          <TableHead>
-            <Th
-              sortable
-              sortDirection={sortKey === "name" ? sortDir : null}
-              onSort={() => handleSort("name")}
-            >
-              Name
-            </Th>
-            <Th
-              sortable
-              sortDirection={sortKey === "utilisation" ? sortDir : null}
-              onSort={() => handleSort("utilisation")}
-            >
-              Utilisation rate
-            </Th>
-            <Th
-              sortable
-              sortDirection={sortKey === "revenue" ? sortDir : null}
-              onSort={() => handleSort("revenue")}
-              align="right"
-            >
-              Revenue
-            </Th>
-          </TableHead>
-          <TableBody>
-            {sortedPractitioners.map((p) => (
-              <Tr key={p.name} hover>
-                <Td>
-                  <Flex align="center" gap={12}>
-                    <Avatar name={p.name} color={p.color} size="sm" />
-                    <Text variant="body/md" as="span" color="text">{p.name}</Text>
-                  </Flex>
-                </Td>
-                <Td>
-                  <Flex align="center" gap={8}>
-                    <ProgressBar value={Math.min(p.utilisation * 10, 100)} width={64} />
-                    <Text variant="body/md" as="span" color="secondary">{p.utilisation.toFixed(2)}%</Text>
-                  </Flex>
-                </Td>
-                <Td align="right">${p.revenue.toFixed(2)}</Td>
-              </Tr>
-            ))}
-          </TableBody>
-        </DataTable>
+        <Table
+          columns={columns}
+          dataSource={sortedPractitioners}
+          rowKey="name"
+          pagination={false}
+          onChange={(_, __, sorter) => {
+            const s = Array.isArray(sorter) ? sorter[0] : sorter;
+            if (s && s.columnKey) {
+              handleSort(s.columnKey as SortKey);
+            }
+          }}
+        />
       </Card>
     </>
   );

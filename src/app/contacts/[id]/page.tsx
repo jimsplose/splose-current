@@ -326,28 +326,16 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
           {/* Associated clients */}
           <section style={{ marginBottom: 32 }}>
             <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16 }}>Associated clients</Text>
-            {contact.associatedClients.length > 0 ? (
-              <DataTable>
-                <TableHead>
-                  <Th>Name</Th>
-                  <Th>DOB</Th>
-                  <Th align="center">Appts</Th>
-                  <Th align="center">Invoices</Th>
-                  <Th align="center">Notes</Th>
-                </TableHead>
-                <TableBody>
-                  {contact.associatedClients.map((client) => (
-                    <Tr key={client.id}>
-                      <Td><LinkCell>{client.name}</LinkCell></Td>
-                      <Td color="secondary">5 Jun 2011</Td>
-                      <Td align="center" color="secondary"></Td>
-                      <Td align="center" color="secondary"></Td>
-                      <Td align="center" color="secondary"></Td>
-                    </Tr>
-                  ))}
-                </TableBody>
-              </DataTable>
-            ) : (
+            {contact.associatedClients.length > 0 ? (() => {
+              const associatedClientsColumns: ColumnsType<{ id: string; name: string }> = [
+                { key: "name", title: "Name", dataIndex: "name" },
+                { key: "dob", title: "DOB", render: () => <Text color="secondary" as="span">5 Jun 2011</Text> },
+                { key: "appts", title: "Appts", align: "center", render: () => <Text color="secondary" as="span"></Text> },
+                { key: "invoices", title: "Invoices", align: "center", render: () => <Text color="secondary" as="span"></Text> },
+                { key: "notes", title: "Notes", align: "center", render: () => <Text color="secondary" as="span"></Text> },
+              ];
+              return <Table columns={associatedClientsColumns} dataSource={contact.associatedClients} rowKey="id" pagination={false} />;
+            })() : (
               <EmptyState
                 icon={<Icon as={BankOutlined} size="5xl" style={{ color: '#9ca3af' }} />}
                 message="No associated clients"

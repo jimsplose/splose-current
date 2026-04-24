@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Flex } from "antd";
-import { PageHeader, SearchBar, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { PageHeader, SearchBar, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { formatTimestamp } from "@/lib/format";
 
@@ -111,6 +112,25 @@ export default function EmailTemplatesPage() {
   const totalPages = Math.ceil(filtered.length / pageSize);
   const paged = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
+  const columns: ColumnsType<typeof initialTemplates[number]> = [
+    { key: "name", title: "Name", dataIndex: "name" },
+    { key: "type", title: "Type", dataIndex: "type" },
+    { key: "lastModified", title: "Last modified", dataIndex: "lastModified" },
+    {
+      key: "actions",
+      title: "",
+      align: "right" as const,
+      render: (_, row) => (
+        <Dropdown
+          align="right"
+          trigger={<DropdownTriggerButton />}
+          items={dropdownItems}
+          onSelect={(value) => handleAction(value, templates.indexOf(row))}
+        />
+      ),
+    },
+  ];
+
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Email templates">
@@ -122,31 +142,7 @@ export default function EmailTemplatesPage() {
         onSearch={setSearch}
       />
 
-      <DataTable>
-        <TableHead>
-          <Th>Name</Th>
-          <Th>Type</Th>
-          <Th>Last modified</Th>
-          <Th align="right">Actions</Th>
-        </TableHead>
-        <TableBody>
-          {paged.map((t, i) => (
-            <Tr key={t.name + i}>
-              <Td>{t.name}</Td>
-              <Td>{t.type}</Td>
-              <Td>{t.lastModified}</Td>
-              <Td align="right">
-                <Dropdown
-                  align="right"
-                  trigger={<DropdownTriggerButton />}
-                  items={dropdownItems}
-                  onSelect={(value) => handleAction(value, templates.indexOf(t))}
-                />
-              </Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table columns={columns} dataSource={paged} rowKey={(row) => row.name + filtered.indexOf(row)} pagination={false} />
 
       <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={filtered.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} showPageSize={false} />
       <Modal

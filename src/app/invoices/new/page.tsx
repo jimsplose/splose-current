@@ -4,8 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { Button, Flex } from "antd";
-import { DataTable, FormInput, FormPage, FormSelect, FormTextarea, Grid, TableBody, TableHead, Td, Text, Th, Tr } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { FormInput, FormPage, FormSelect, FormTextarea, Grid, Text } from "@/components/ds";
 
 const mockPatients = [
   { value: "michael-brooks", label: "Michael Brooks" },
@@ -240,108 +241,150 @@ export default function NewInvoicePage() {
       {/* Line items table */}
       {patient && (
         <div style={{ marginTop: 24 }}>
-          <div style={{ overflowX: "auto", border: "1px solid var(--color-border)", borderRadius: 8 }}>
-            <DataTable style={{ borderCollapse: "collapse" }}>
-              <TableHead>
-                <Th style={{ width: 100, padding: "10px 12px", fontWeight: 500, color: "var(--color-text-secondary)", backgroundColor: "var(--color-fill-quaternary)" }}>Type</Th>
-                <Th style={{ padding: "10px 12px", fontWeight: 500, color: "var(--color-text-secondary)", backgroundColor: "var(--color-fill-quaternary)" }}>Description</Th>
-                <Th style={{ width: 100, padding: "10px 12px", fontWeight: 500, color: "var(--color-text-secondary)", backgroundColor: "var(--color-fill-quaternary)" }}>Code</Th>
-                <Th style={{ width: 90, padding: "10px 12px", fontWeight: 500, color: "var(--color-text-secondary)", backgroundColor: "var(--color-fill-quaternary)" }}>Unit</Th>
-                <Th style={{ width: 120, padding: "10px 12px", fontWeight: 500, color: "var(--color-text-secondary)", backgroundColor: "var(--color-fill-quaternary)" }}>Tax rate</Th>
-                <Th align="right" style={{ width: 100, padding: "10px 12px", fontWeight: 500, color: "var(--color-text-secondary)", backgroundColor: "var(--color-fill-quaternary)" }}>Price</Th>
-                <Th align="right" style={{ width: 70, padding: "10px 12px", fontWeight: 500, color: "var(--color-text-secondary)", backgroundColor: "var(--color-fill-quaternary)" }}>Qty</Th>
-                <Th align="right" style={{ width: 90, padding: "10px 12px", fontWeight: 500, color: "var(--color-text-secondary)", backgroundColor: "var(--color-fill-quaternary)" }}>Discount</Th>
-                <Th align="right" style={{ width: 100, padding: "10px 12px", fontWeight: 500, color: "var(--color-text-secondary)", backgroundColor: "var(--color-fill-quaternary)" }}>Amount</Th>
-                <Th style={{ width: 40, padding: "10px 8px", backgroundColor: "var(--color-fill-quaternary)" }} />
-              </TableHead>
-              <TableBody>
-                {lineItems.map((item) => (
-                  <Tr key={item.id} style={{ borderTop: "1px solid var(--color-border)" }}>
-                    <Td style={{ padding: "8px 8px" }}>
-                      <FormSelect
-                        value={item.type}
-                        onChange={(value) => updateLineItem(item.id, "type", value)}
-                        options={mockTypeOptions}
-                      />
-                    </Td>
-                    <Td style={{ padding: "8px 8px" }}>
-                      <FormInput
-                        value={item.description}
-                        onChange={(e) => updateLineItem(item.id, "description", e.target.value)}
-                        placeholder="Description"
-                      />
-                    </Td>
-                    <Td style={{ padding: "8px 8px" }}>
-                      <FormInput
-                        value={item.code}
-                        onChange={(e) => updateLineItem(item.id, "code", e.target.value)}
-                        placeholder="Code"
-                      />
-                    </Td>
-                    <Td style={{ padding: "8px 8px" }}>
-                      <FormSelect
-                        value={item.unit}
-                        onChange={(value) => updateLineItem(item.id, "unit", value)}
-                        options={mockUnitOptions}
-                      />
-                    </Td>
-                    <Td style={{ padding: "8px 8px" }}>
-                      <FormSelect
-                        value={item.taxRate}
-                        onChange={(value) => updateLineItem(item.id, "taxRate", value)}
-                        options={mockTaxRateOptions}
-                      />
-                    </Td>
-                    <Td style={{ padding: "8px 8px" }}>
-                      <FormInput
-                        type="number"
-                        step="0.01"
-                        min="0"
-                        value={item.price}
-                        onChange={(e) => updateLineItem(item.id, "price", e.target.value)}
-                        placeholder="0.00"
-                        style={{ textAlign: "right" }}
-                      />
-                    </Td>
-                    <Td style={{ padding: "8px 8px" }}>
-                      <FormInput
-                        type="number"
-                        min="1"
-                        value={item.qty}
-                        onChange={(e) => updateLineItem(item.id, "qty", e.target.value)}
-                        style={{ textAlign: "right" }}
-                      />
-                    </Td>
-                    <Td style={{ padding: "8px 8px" }}>
-                      <FormInput
-                        type="number"
-                        min="0"
-                        max="100"
-                        value={item.discount}
-                        onChange={(e) => updateLineItem(item.id, "discount", e.target.value)}
-                        placeholder="0%"
-                        style={{ textAlign: "right" }}
-                      />
-                    </Td>
-                    <Td align="right" style={{ padding: "8px 12px", fontWeight: 500, color: "var(--color-text)" }}>
-                      ${(calcLineSubtotal(item) + calcLineTax(item)).toFixed(2)}
-                    </Td>
-                    <Td style={{ padding: "8px 4px" }}>
-                      {lineItems.length > 1 && (
-                        <Button
-                          type="text"
-                          size="small"
-                          onClick={() => removeLineItem(item.id)}
-                        >
-                          <Icon as={DeleteOutlined} />
-                        </Button>
-                      )}
-                    </Td>
-                  </Tr>
-                ))}
-              </TableBody>
-            </DataTable>
-          </div>
+          {(() => {
+            const lineItemColumns: ColumnsType<LineItem> = [
+              {
+                key: "type",
+                title: "Type",
+                width: 100,
+                render: (_, item) => (
+                  <FormSelect
+                    value={item.type}
+                    onChange={(value) => updateLineItem(item.id, "type", value)}
+                    options={mockTypeOptions}
+                  />
+                ),
+              },
+              {
+                key: "description",
+                title: "Description",
+                render: (_, item) => (
+                  <FormInput
+                    value={item.description}
+                    onChange={(e) => updateLineItem(item.id, "description", e.target.value)}
+                    placeholder="Description"
+                  />
+                ),
+              },
+              {
+                key: "code",
+                title: "Code",
+                width: 100,
+                render: (_, item) => (
+                  <FormInput
+                    value={item.code}
+                    onChange={(e) => updateLineItem(item.id, "code", e.target.value)}
+                    placeholder="Code"
+                  />
+                ),
+              },
+              {
+                key: "unit",
+                title: "Unit",
+                width: 90,
+                render: (_, item) => (
+                  <FormSelect
+                    value={item.unit}
+                    onChange={(value) => updateLineItem(item.id, "unit", value)}
+                    options={mockUnitOptions}
+                  />
+                ),
+              },
+              {
+                key: "taxRate",
+                title: "Tax rate",
+                width: 120,
+                render: (_, item) => (
+                  <FormSelect
+                    value={item.taxRate}
+                    onChange={(value) => updateLineItem(item.id, "taxRate", value)}
+                    options={mockTaxRateOptions}
+                  />
+                ),
+              },
+              {
+                key: "price",
+                title: "Price",
+                align: "right" as const,
+                width: 100,
+                render: (_, item) => (
+                  <FormInput
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    value={item.price}
+                    onChange={(e) => updateLineItem(item.id, "price", e.target.value)}
+                    placeholder="0.00"
+                    style={{ textAlign: "right" }}
+                  />
+                ),
+              },
+              {
+                key: "qty",
+                title: "Qty",
+                align: "right" as const,
+                width: 70,
+                render: (_, item) => (
+                  <FormInput
+                    type="number"
+                    min="1"
+                    value={item.qty}
+                    onChange={(e) => updateLineItem(item.id, "qty", e.target.value)}
+                    style={{ textAlign: "right" }}
+                  />
+                ),
+              },
+              {
+                key: "discount",
+                title: "Discount",
+                align: "right" as const,
+                width: 90,
+                render: (_, item) => (
+                  <FormInput
+                    type="number"
+                    min="0"
+                    max="100"
+                    value={item.discount}
+                    onChange={(e) => updateLineItem(item.id, "discount", e.target.value)}
+                    placeholder="0%"
+                    style={{ textAlign: "right" }}
+                  />
+                ),
+              },
+              {
+                key: "amount",
+                title: "Amount",
+                align: "right" as const,
+                width: 100,
+                render: (_, item) => (
+                  <span style={{ fontWeight: 500, color: "var(--color-text)" }}>
+                    ${(calcLineSubtotal(item) + calcLineTax(item)).toFixed(2)}
+                  </span>
+                ),
+              },
+              {
+                key: "delete",
+                title: "",
+                width: 40,
+                render: (_, item) =>
+                  lineItems.length > 1 ? (
+                    <Button type="text" size="small" onClick={() => removeLineItem(item.id)}>
+                      <Icon as={DeleteOutlined} />
+                    </Button>
+                  ) : null,
+              },
+            ];
+            return (
+              <div style={{ overflowX: "auto", border: "1px solid var(--color-border)", borderRadius: 8 }}>
+                <Table
+                  columns={lineItemColumns}
+                  dataSource={lineItems}
+                  rowKey="id"
+                  pagination={false}
+                />
+              </div>
+            );
+          })()}
           <div style={{ padding: "12px 0" }}>
             <Button type="text" size="small" onClick={addLineItem}>
               <Icon as={PlusOutlined} />

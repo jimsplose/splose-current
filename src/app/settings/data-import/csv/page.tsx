@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Flex } from "antd";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import { UploadOutlined, FileExcelOutlined, CheckCircleFilled } from "@ant-design/icons";
 import Icon from "@/components/ds/Icon";
-import { Tab, FormPage, Card, DataTable, TableHead, Th, TableBody, Tr, Td, FormSelect } from "@/components/ds";
+import { Tab, FormPage, Card, FormSelect } from "@/components/ds";
 
 const importTabs = [
   { label: "Clients", value: "clients" },
@@ -41,12 +42,54 @@ const fieldMappings: Record<string, { csvColumn: string; spField: string; mapped
   ],
 };
 
+interface MappingRow {
+  csvColumn: string;
+  spField: string;
+  mapped: boolean;
+}
+
 export default function CSVImportPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("clients");
   const [fileUploaded, setFileUploaded] = useState(false);
 
   const mappings = fieldMappings[activeTab] || [];
+
+  const columns: ColumnsType<MappingRow> = [
+    {
+      key: "csvColumn",
+      title: "CSV column",
+      render: (_, row) => (
+        <span style={{ borderRadius: 4, backgroundColor: '#f3f4f6', padding: '2px 8px', fontFamily: 'monospace', fontSize: 12 }}>{row.csvColumn}</span>
+      ),
+    },
+    {
+      key: "spField",
+      title: "Splose field",
+      render: (_, row) => (
+        <FormSelect
+          value={row.spField}
+          onChange={() => {}}
+          options={[
+            { value: "", label: "— Skip —" },
+            ...mappings.map((x) => ({ value: x.spField, label: x.spField })),
+          ]}
+        />
+      ),
+    },
+    {
+      key: "status",
+      title: "Status",
+      align: "center" as const,
+      render: (_, row) => (
+        row.mapped ? (
+          <CheckCircleFilled className="block mx-auto" style={{ fontSize: 16, color: 'var(--color-success)' }} />
+        ) : (
+          <span style={{ fontSize: 11, color: '#d97706' }}>Unmapped</span>
+        )
+      ),
+    },
+  ];
 
   return (
     <FormPage
@@ -103,39 +146,7 @@ export default function CSVImportPage() {
                   Map CSV columns to Splose fields. Unmapped columns will be skipped.
                 </p>
                 <Card padding="none" style={{ overflow: 'hidden' }}>
-                  <DataTable>
-                    <TableHead>
-                      <Th>CSV column</Th>
-                      <Th>Splose field</Th>
-                      <Th align="center">Status</Th>
-                    </TableHead>
-                    <TableBody>
-                      {mappings.map((m, i) => (
-                        <Tr key={i}>
-                          <Td>
-                            <span style={{ borderRadius: 4, backgroundColor: '#f3f4f6', padding: '2px 8px', fontFamily: 'monospace', fontSize: 12 }}>{m.csvColumn}</span>
-                          </Td>
-                          <Td>
-                            <FormSelect
-                              value={m.spField}
-                              onChange={() => {}}
-                              options={[
-                                { value: "", label: "— Skip —" },
-                                ...mappings.map((x) => ({ value: x.spField, label: x.spField })),
-                              ]}
-                            />
-                          </Td>
-                          <Td align="center">
-                            {m.mapped ? (
-                              <CheckCircleFilled className="block mx-auto" style={{ fontSize: 16, color: 'var(--color-success)' }} />
-                            ) : (
-                              <span style={{ fontSize: 11, color: '#d97706' }}>Unmapped</span>
-                            )}
-                          </Td>
-                        </Tr>
-                      ))}
-                    </TableBody>
-                  </DataTable>
+                  <Table columns={columns} dataSource={mappings} rowKey="csvColumn" pagination={false} />
                 </Card>
               </div>
             )}

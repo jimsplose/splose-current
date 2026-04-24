@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import { Button, Flex } from "antd";
-import { PaymentStatusBadge, dbStatusToPaymentStatus, Card, DataTable, Divider, Grid, TableBody, TableHead, Td, Text, Th, Tr } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { PaymentStatusBadge, dbStatusToPaymentStatus, Card, Divider, Grid, Text } from "@/components/ds";
 import InvoiceActions from "./InvoiceActions";
 
 export const dynamic = "force-dynamic";
@@ -193,50 +194,37 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
 
               {/* Line items table */}
               <div style={{ marginBottom: 32 }}>
-                <DataTable>
-                  <TableHead>
-                    <Th>Item code</Th>
-                    <Th>Description</Th>
-                    <Th align="right">Unit price</Th>
-                    <Th align="right">Quantity</Th>
-                    <Th align="right">Unit</Th>
-                    <Th align="right">Discount</Th>
-                    <Th align="right">GST</Th>
-                    <Th align="right">Amount AUD</Th>
-                  </TableHead>
-                  <TableBody>
-                    {invoice.items.map(
-                      (
-                        item: { id: string; description: string; unitPrice: number; quantity: number; total: number },
-                        idx: number,
-                      ) => {
-                        const itemCode = generateItemCode(item.description, idx);
-                        const gstRate = invoice.billingType === "NDIS" ? 0 : 10;
-                        return (
-                          <Tr key={item.id}>
-                            <Td>
-                              <Text variant="body/sm" as="span" color="secondary" style={{ fontFamily: 'monospace' }}>{itemCode}</Text>
-                            </Td>
-                            <Td>{item.description}</Td>
-                            <Td align="right">${item.unitPrice.toFixed(2)}</Td>
-                            <Td align="right">{item.quantity.toFixed(2)}</Td>
-                            <Td align="right"><Text variant="body/md" as="span" color="secondary">Hour</Text></Td>
-                            <Td align="right"><Text variant="body/md" as="span" color="secondary">$0.00</Text></Td>
-                            <Td align="right"><Text variant="body/md" as="span" color="secondary">{gstRate}%</Text></Td>
-                            <Td align="right"><Text variant="label/lg" as="span" color="text">${item.total.toFixed(2)}</Text></Td>
-                          </Tr>
-                        );
-                      },
-                    )}
-                    {invoice.items.length === 0 && (
-                      <Tr>
-                        <Td align="center" colSpan={8}>
-                          <Text variant="body/md" as="span" color="tertiary">No line items</Text>
-                        </Td>
-                      </Tr>
-                    )}
-                  </TableBody>
-                </DataTable>
+                {(() => {
+                  type InvoiceItem = { id: string; description: string; unitPrice: number; quantity: number; total: number };
+                  const gstRate = invoice.billingType === "NDIS" ? 0 : 10;
+                  const lineItemColumns: ColumnsType<InvoiceItem> = [
+                    {
+                      key: "itemCode",
+                      title: "Item code",
+                      render: (_, item, idx) => (
+                        <Text variant="body/sm" as="span" color="secondary" style={{ fontFamily: "monospace" }}>
+                          {generateItemCode(item.description, idx)}
+                        </Text>
+                      ),
+                    },
+                    { key: "description", title: "Description", dataIndex: "description" },
+                    { key: "unitPrice", title: "Unit price", align: "right" as const, render: (_, item) => `$${item.unitPrice.toFixed(2)}` },
+                    { key: "quantity", title: "Quantity", align: "right" as const, render: (_, item) => item.quantity.toFixed(2) },
+                    { key: "unit", title: "Unit", align: "right" as const, render: () => <Text variant="body/md" as="span" color="secondary">Hour</Text> },
+                    { key: "discount", title: "Discount", align: "right" as const, render: () => <Text variant="body/md" as="span" color="secondary">$0.00</Text> },
+                    { key: "gst", title: "GST", align: "right" as const, render: () => <Text variant="body/md" as="span" color="secondary">{gstRate}%</Text> },
+                    { key: "total", title: "Amount AUD", align: "right" as const, render: (_, item) => <Text variant="label/lg" as="span" color="text">${item.total.toFixed(2)}</Text> },
+                  ];
+                  return (
+                    <Table
+                      columns={lineItemColumns}
+                      dataSource={invoice.items as InvoiceItem[]}
+                      rowKey="id"
+                      pagination={false}
+                      locale={{ emptyText: <Text variant="body/md" as="span" color="tertiary">No line items</Text> }}
+                    />
+                  );
+                })()}
               </div>
 
               {/* Totals section */}
