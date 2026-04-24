@@ -1,1 +1,176 @@
-/* InvoiceDetailClient CSS Module — Wave 6 Plan 04 will add classes here */
+.shell {
+  min-height: calc(100vh - 3rem);
+}
+
+.header {
+  border-bottom: 1px solid var(--color-border);
+  padding: 12px 24px;
+}
+
+.actionIcon {
+  font-size: 14px;
+  color: var(--ant-color-text-secondary, #6e6e64);
+}
+
+.invoiceDocument {
+  padding: 32px;
+  max-width: 896px;
+  margin: 0 auto;
+}
+
+/* ds-exempt: branding — invoice accent gradient */
+.accentBar {
+  height: 8px;
+  border-radius: 8px 8px 0 0;
+  background: linear-gradient(to right, var(--color-primary), #22c55e, #facc15);
+}
+
+.invoiceCardInner {
+  border-radius: 0 0 8px 8px;
+  border: 1px solid var(--color-border);
+  border-top: none;
+  background: white;
+  padding: 32px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.titleRow {
+  margin-bottom: 32px;
+}
+
+/* ds-exempt: branding — Splose S logo */
+.sploseLogoS {
+  font-size: 36px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--color-accent);
+}
+
+.threeColumnGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 32px;
+  font-size: 12px;
+}
+
+.careOfBlock {
+  margin-top: 12px;
+}
+
+.subBlock {
+  margin-top: 8px;
+}
+
+.lineItemsTable {
+  width: 100%;
+  font-size: 12px;
+  margin-bottom: 24px;
+}
+
+.tableHeaderRow {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.th {
+  padding: 8px 0;
+  text-align: left;
+}
+
+.thRight {
+  padding: 8px 0;
+  text-align: right;
+}
+
+.tableBodyRow {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.td {
+  padding: 12px 0;
+}
+
+.tdRight {
+  padding: 12px 0;
+  text-align: right;
+}
+
+.totalsWrapper {
+  margin-bottom: 32px;
+}
+
+.totalsBlock {
+  width: 256px;
+  font-size: 12px;
+}
+
+.totalSeparatorRow {
+  padding-top: 4px;
+}
+
+.amountDueRow {
+  border-radius: 4px;
+  background: #f9fafb;
+  padding: 4px 8px;
+}
+
+.additionalInfo {
+  padding-top: 16px;
+  font-size: 12px;
+}
+
+.bankDetailsSection {
+  margin-top: 16px;
+}
+
+.bankDetailsInner {
+  margin-top: 8px;
+}
+
+.amountInputWrapper {
+  position: relative;
+}
+
+.currencySymbol {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  z-index: 10;
+  transform: translateY(-50%);
+}
+
+.amountInput {
+  padding-left: 28px;
+}
+
+.fullWidthSelect {
+  width: 100%;
+}
+
+.paymentNotesField {
+  resize: none;
+}
+
+.receiptPreview {
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px dashed #d1d5db;
+  background: #f9fafb;
+}
+
+.blockLabel {
+  display: block;
+}
+
+.toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 50;
+  border-radius: 8px;
+  background: #111827;
+  padding: 12px 16px;
+  font-size: 12px;
+  color: white;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}

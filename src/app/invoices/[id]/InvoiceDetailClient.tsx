@@ -8,6 +8,7 @@ import { Button, Flex, Form, Input, Select } from "antd";
 import { Divider, Dropdown, PaymentStatusBadge, dbStatusToPaymentStatus, Text } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 import Modal from "@/components/ds/Modal";
+import styles from "./InvoiceDetailClient.module.css";
 
 const payItems: DropdownItem[] = [
   { label: "Record payment", value: "record-payment" },
@@ -110,9 +111,9 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
   }, [showToast]);
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 3rem)' }}>
+    <div className={styles.shell}>
       {/* Header bar */}
-      <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', padding: '12px 24px' }}>
+      <Flex align="center" justify="space-between" className={styles.header}>
         <Flex align="center" gap={12}>
           <Text variant="display/md" as="h1">{invoice.invoiceNumber}</Text>
           <PaymentStatusBadge status={dbStatusToPaymentStatus(invoice.status)} />
@@ -123,7 +124,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
             trigger={
               <Button>
                 Pay
-                <DownOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
+                <DownOutlined className={styles.actionIcon} />
               </Button>
             }
             items={payItems}
@@ -136,14 +137,14 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
             align="right"
           />
           <Button onClick={handleEmailInvoice}>
-            <MailOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
+            <MailOutlined className={styles.actionIcon} />
             Email invoice
           </Button>
           <Dropdown
             trigger={
               <Button>
                 Actions
-                <DownOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
+                <DownOutlined className={styles.actionIcon} />
               </Button>
             }
             items={actionsItems}
@@ -156,26 +157,27 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
       </Flex>
 
       {/* Invoice document */}
-      <div style={{ padding: 32, maxWidth: 896, margin: '0 auto' }}>
-        {/* Color bar */}
-        <div style={{ height: 8, borderRadius: '8px 8px 0 0', background: 'linear-gradient(to right, var(--color-primary), #22c55e, #facc15)' }} />
+      <div className={styles.invoiceDocument}>
+        {/* ds-exempt: branding — invoice accent gradient */}
+        <div className={styles.accentBar} />
 
-        <div style={{ borderRadius: '0 0 8px 8px', border: '1px solid var(--color-border)', borderTop: 'none', background: 'white', padding: 32, boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
+        <div className={styles.invoiceCardInner}>
           {/* Title and logo */}
-          <Flex align="start" justify="space-between" style={{ marginBottom: 32 }}>
+          <Flex align="start" justify="space-between" className={styles.titleRow}>
             <Text variant="display/lg" as="h2">
               {invoice.status === "Overdue" ? "Overdue Invoice" : invoice.status === "Paid" ? "Tax Invoice" : "Invoice"}
             </Text>
-            <div style={{ fontSize: 36, fontWeight: 700, fontStyle: 'italic', color: 'var(--color-accent)' }}>
+            {/* ds-exempt: branding — Splose S logo */}
+            <div className={styles.sploseLogoS}>
               S
             </div>
           </Flex>
 
           {/* Three column header */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32, marginBottom: 32, fontSize: 12 }}>
+          <div className={styles.threeColumnGrid}>
             {/* Client */}
             <div>
-              <Text variant="body/sm" as="h3" color="text" weight="bold" style={{ marginBottom: 4 }}>Client</Text>
+              <Text variant="body/sm" as="h3" color="text" weight="bold" mb={4}>Client</Text>
               <Text variant="body/sm" as="p" color="primary">
                 {invoice.client.firstName} {invoice.client.lastName}
               </Text>
@@ -190,7 +192,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
               )}
               {invoice.client.medicare && <Text variant="body/sm" as="p" color="secondary">Medicare: {invoice.client.medicare}</Text>}
               {invoice.billingType === "NDIS" && (
-                <div style={{ marginTop: 12 }}>
+                <div className={styles.careOfBlock}>
                   <Text variant="body/sm" as="h4" color="text" weight="bold">Care of client above</Text>
                   <Text variant="body/sm" as="p" color="primary">C/o [Client above]</Text>
                   <Text variant="body/sm" as="p" color="secondary">161 Bay St.</Text>
@@ -201,17 +203,17 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
 
             {/* From */}
             <div>
-              <Text variant="body/sm" as="h3" color="text" weight="bold" style={{ marginBottom: 4 }}>From</Text>
+              <Text variant="body/sm" as="h3" color="text" weight="bold" mb={4}>From</Text>
               <Text variant="body/sm" as="p" color="text">Hands Together Therapies</Text>
               <Text variant="body/sm" as="p" color="secondary">East Clinics</Text>
               <Text variant="body/sm" as="p" color="secondary">4 Williamstown Rd</Text>
               <Text variant="body/sm" as="p" color="secondary">Kingsville VIC 3012</Text>
-              <div style={{ marginTop: 8 }}>
+              <div className={styles.subBlock}>
                 <Text variant="body/sm" as="p" color="text" weight="bold">ABN</Text>
                 <Text variant="body/sm" as="p" color="secondary">112345678110</Text>
               </div>
               {invoice.practitionerName && (
-                <div style={{ marginTop: 8 }}>
+                <div className={styles.subBlock}>
                   <Text variant="body/sm" as="p" color="text" weight="bold">Provider</Text>
                   <Text variant="body/sm" as="p" color="secondary">{invoice.practitionerName}</Text>
                 </div>
@@ -238,38 +240,38 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           </div>
 
           {/* Line items table */}
-          <table style={{ width: '100%', fontSize: 12, marginBottom: 24 }}>
+          <table className={styles.lineItemsTable}>
             <thead>
-              <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-                <th style={{ padding: '8px 0', textAlign: 'left' }}><Text variant="label/md" as="span" color="text">Item code</Text></th>
-                <th style={{ padding: '8px 0', textAlign: 'left' }}><Text variant="label/md" as="span" color="text">Description</Text></th>
-                <th style={{ padding: '8px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">Unit price</Text></th>
-                <th style={{ padding: '8px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">Quantity</Text></th>
-                <th style={{ padding: '8px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">Unit</Text></th>
-                <th style={{ padding: '8px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">Discount</Text></th>
-                <th style={{ padding: '8px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">GST</Text></th>
-                <th style={{ padding: '8px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">Amount AUD</Text></th>
+              <tr className={styles.tableHeaderRow}>
+                <th className={styles.th}><Text variant="label/md" as="span" color="text">Item code</Text></th>
+                <th className={styles.th}><Text variant="label/md" as="span" color="text">Description</Text></th>
+                <th className={styles.thRight}><Text variant="label/md" as="span" color="text">Unit price</Text></th>
+                <th className={styles.thRight}><Text variant="label/md" as="span" color="text">Quantity</Text></th>
+                <th className={styles.thRight}><Text variant="label/md" as="span" color="text">Unit</Text></th>
+                <th className={styles.thRight}><Text variant="label/md" as="span" color="text">Discount</Text></th>
+                <th className={styles.thRight}><Text variant="label/md" as="span" color="text">GST</Text></th>
+                <th className={styles.thRight}><Text variant="label/md" as="span" color="text">Amount AUD</Text></th>
               </tr>
             </thead>
             <tbody>
               {invoice.items.map((item, idx) => (
-                <tr key={item.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
-                  <td style={{ padding: '12px 0' }}><Text variant="body/sm" as="span" color="secondary">{`299dsdds${3234 + idx}`}</Text></td>
-                  <td style={{ padding: '12px 0' }}><Text variant="body/sm" as="span" color="text">{item.description}</Text></td>
-                  <td style={{ padding: '12px 0', textAlign: 'right' }}><Text variant="body/sm" as="span" color="text">{item.unitPrice.toFixed(2)}</Text></td>
-                  <td style={{ padding: '12px 0', textAlign: 'right' }}><Text variant="body/sm" as="span" color="text">{item.quantity.toFixed(2)}</Text></td>
-                  <td style={{ padding: '12px 0', textAlign: 'right' }}><Text variant="body/sm" as="span" color="secondary">Hour</Text></td>
-                  <td style={{ padding: '12px 0', textAlign: 'right' }}><Text variant="body/sm" as="span" color="secondary">0.00</Text></td>
-                  <td style={{ padding: '12px 0', textAlign: 'right' }}><Text variant="body/sm" as="span" color="secondary">15%</Text></td>
-                  <td style={{ padding: '12px 0', textAlign: 'right' }}><Text variant="label/md" as="span" color="text">{item.total.toFixed(2)}</Text></td>
+                <tr key={item.id} className={styles.tableBodyRow}>
+                  <td className={styles.td}><Text variant="body/sm" as="span" color="secondary">{`299dsdds${3234 + idx}`}</Text></td>
+                  <td className={styles.td}><Text variant="body/sm" as="span" color="text">{item.description}</Text></td>
+                  <td className={styles.tdRight}><Text variant="body/sm" as="span" color="text">{item.unitPrice.toFixed(2)}</Text></td>
+                  <td className={styles.tdRight}><Text variant="body/sm" as="span" color="text">{item.quantity.toFixed(2)}</Text></td>
+                  <td className={styles.tdRight}><Text variant="body/sm" as="span" color="secondary">Hour</Text></td>
+                  <td className={styles.tdRight}><Text variant="body/sm" as="span" color="secondary">0.00</Text></td>
+                  <td className={styles.tdRight}><Text variant="body/sm" as="span" color="secondary">15%</Text></td>
+                  <td className={styles.tdRight}><Text variant="label/md" as="span" color="text">{item.total.toFixed(2)}</Text></td>
                 </tr>
               ))}
             </tbody>
           </table>
 
           {/* Totals */}
-          <Flex justify="end" style={{ marginBottom: 32 }}>
-            <Flex vertical gap={4} style={{ width: 256, fontSize: 12 }}>
+          <Flex justify="end" className={styles.totalsWrapper}>
+            <Flex vertical gap={4} className={styles.totalsBlock}>
               <Flex justify="space-between">
                 <Text variant="body/sm" as="span" color="secondary">Subtotal excl. tax</Text>
                 <Text variant="body/sm" as="span" color="text">{invoice.subtotal.toFixed(2)}</Text>
@@ -279,11 +281,11 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
                 <Text variant="body/sm" as="span" color="text">{invoice.tax.toFixed(2)}</Text>
               </Flex>
               <Divider spacing="none" />
-              <Flex justify="space-between" style={{ paddingTop: 4 }}>
+              <Flex justify="space-between" className={styles.totalSeparatorRow}>
                 <Text variant="body/sm" as="span" color="text" weight="bold">Total AUD</Text>
                 <Text variant="body/sm" as="span" color="text" weight="bold">{invoice.total.toFixed(2)}</Text>
               </Flex>
-              <Flex justify="space-between" style={{ borderRadius: 4, background: '#f9fafb', padding: '4px 8px' }}>
+              <Flex justify="space-between" className={styles.amountDueRow}>
                 <Text variant="body/sm" as="span" color="text" weight="bold">Total Amount Due AUD</Text>
                 <Text variant="body/sm" as="span" color="text" weight="bold">{invoice.status === "Paid" ? "0.00" : invoice.total.toFixed(2)}</Text>
               </Flex>
@@ -292,12 +294,12 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
 
           {/* Additional information */}
           <Divider spacing="none" />
-          <div style={{ paddingTop: 16, fontSize: 12 }}>
-            <Text variant="body/sm" as="h4" color="text" weight="bold" style={{ marginBottom: 8 }}>Additional Information</Text>
+          <div className={styles.additionalInfo}>
+            <Text variant="body/sm" as="h4" color="text" weight="bold" mb={8}>Additional Information</Text>
             <Text variant="body/sm" as="p" color="secondary">Please note that the service dates are displayed at the beginning of each line item.</Text>
-            <div style={{ marginTop: 16 }}>
+            <div className={styles.bankDetailsSection}>
               <Text variant="body/sm" as="p" color="secondary">aA Direct deposit details:</Text>
-              <div style={{ marginTop: 8 }}>
+              <div className={styles.bankDetailsInner}>
                 <Text variant="body/sm" as="p" color="secondary">Please pay to:</Text>
                 <Text variant="body/sm" as="p" color="secondary">Name: Hands together therapy</Text>
                 <Text variant="body/sm" as="p" color="secondary">Acc: 901802703</Text>
@@ -328,14 +330,14 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           <Flex vertical gap={16}>
             {/* Amount */}
             <div>
-              <Text variant="label/lg" as="label" style={{ display: 'block', marginBottom: 4 }}>Amount</Text>
-              <div style={{ position: 'relative' }}>
-                <Text variant="body/sm" as="span" color="secondary" style={{ position: 'absolute', top: '50%', left: 12, zIndex: 10, transform: 'translateY(-50%)' }}>$</Text>
+              <Text variant="label/lg" as="label" mb={4} className={styles.blockLabel}>Amount</Text>
+              <div className={styles.amountInputWrapper}>
+                <Text variant="body/sm" as="span" color="secondary" className={styles.currencySymbol}>$</Text>
                 <Input
                   type="text"
                   value={paymentAmount}
                   onChange={(e) => setPaymentAmount(e.target.value)}
-                  style={{ paddingLeft: 28 }}
+                  className={styles.amountInput}
                 />
               </div>
             </div>
@@ -362,7 +364,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
                   { value: "NDIS", label: "NDIS" },
                   { value: "Medicare", label: "Medicare" },
                 ]}
-                style={{ width: "100%" }}
+                className={styles.fullWidthSelect}
               />
             </Form.Item>
 
@@ -383,21 +385,21 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
                 onChange={(e) => setPaymentNotes(e.target.value)}
                 rows={3}
                 placeholder="Optional"
-                style={{ resize: 'none' }}
+                className={styles.paymentNotesField}
               />
             </Form.Item>
 
             {/* Receipt preview */}
             {paymentAmount && (
-              <div style={{ padding: 16, borderRadius: 8, border: '1px dashed #d1d5db', background: '#f9fafb' }}>
-                <Text variant="label/lg" as="p" color="secondary" style={{ marginBottom: 12 }}>Receipt preview</Text>
+              <div className={styles.receiptPreview}>
+                <Text variant="label/lg" as="p" color="secondary" mb={12}>Receipt preview</Text>
                 <div>
                   <Flex align="center" justify="space-between">
                     <Text variant="label/lg" as="span" color="text">Receipt #REC-001</Text>
                     <Text variant="label/md" as="span" color="secondary">{paymentDate ? new Date(paymentDate + "T00:00:00").toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" }) : "\u2014"}</Text>
                   </Flex>
                   <Divider spacing="none" style={{ margin: '8px 0', borderColor: '#e5e7eb' }} />
-                  <div style={{ paddingTop: 0 }}>
+                  <div>
                     <Flex justify="space-between">
                       <Text variant="body/md" as="span" color="secondary">Invoice</Text>
                       <Text variant="body/md" as="span" color="text">{invoice.invoiceNumber}</Text>
@@ -418,7 +420,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
                     )}
                   </div>
                   <Divider spacing="none" style={{ margin: '8px 0', borderColor: '#e5e7eb' }} />
-                  <Flex justify="space-between" style={{ paddingTop: 0 }}>
+                  <Flex justify="space-between">
                     <Text variant="label/lg" as="span" color="text">Amount paid</Text>
                     <Text variant="label/lg" as="span" color="text">${paymentAmount}</Text>
                   </Flex>
@@ -431,7 +433,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
 
       {/* Toast notification */}
       {showToast && (
-        <div style={{ position: 'fixed', right: 24, bottom: 24, zIndex: 50, borderRadius: 8, background: '#111827', padding: '12px 16px', fontSize: 12, color: 'white', boxShadow: '0 10px 15px rgba(0,0,0,0.1)' }}>
+        <div className={styles.toast}>
           Invoice email sent
         </div>
       )}

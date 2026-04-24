@@ -1,1 +1,204 @@
-/* InvoicePage CSS Module — Wave 6 Plan 04 will add classes here */
+.shell {
+  min-height: calc(100vh - 3rem);
+  background: var(--color-bg-layout);
+}
+
+.header {
+  border-bottom: 1px solid var(--color-border);
+  background: white;
+  padding: 12px 24px;
+}
+
+.body {
+  padding: 32px;
+}
+
+.invoiceCard {
+  flex: 1;
+  min-width: 0;
+}
+
+.accentBar {
+  height: 15px;
+  border-radius: 8px 8px 0 0;
+  background: rgb(134, 157, 252);
+}
+
+.invoiceCardInner {
+  border-radius: 0 0 8px 8px;
+  border: 1px solid var(--color-border);
+  border-top: none;
+  background: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.invoiceCardPadding {
+  padding: 40px;
+}
+
+.titleRow {
+  margin-bottom: 40px;
+}
+
+.illustration {
+  flex-shrink: 0;
+}
+
+.infoGrid {
+  margin-bottom: 40px;
+}
+
+.colHeader {
+  font-size: 13px;
+  color: rgb(65, 69, 73);
+}
+
+.careOfBlock {
+  margin-top: 20px;
+}
+
+.subBlock {
+  margin-top: 16px;
+}
+
+.lineItemsTable {
+  margin-bottom: 32px;
+}
+
+.monoCode {
+  font-family: monospace;
+}
+
+.totalsWrapper {
+  margin-bottom: 40px;
+}
+
+.paymentsHeader {
+  margin-bottom: 8px;
+}
+
+.totalsBlock {
+  width: 288px;
+}
+
+.totalsRow {
+  padding: 4px 0;
+}
+
+.totalsSeparator {
+  padding-top: 8px;
+  border-top: 1px solid var(--color-border);
+}
+
+.amountDueRow {
+  margin-top: 4px;
+  border-radius: 8px;
+  background: var(--color-fill-secondary);
+  padding: 10px 12px;
+}
+
+.additionalInfo {
+  margin-top: 24px;
+}
+
+.bankDetails {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  background: var(--color-fill-tertiary);
+}
+
+.bankDetailsInner {
+  margin-top: 8px;
+}
+
+.bankLabel {
+  display: inline-block;
+  width: 64px;
+}
+
+.sidebar {
+  flex-shrink: 0;
+  padding-top: 8px;
+  width: 320px;
+}
+
+.progressTrack {
+  width: 100%;
+  overflow: hidden;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--color-fill-secondary);
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--color-primary);
+  transition: all 0.3s;
+}
+
+/* ds-exempt: branding — Stripe */
+.stripeBanner {
+  background: rgb(99, 91, 252);
+  padding: 10px 16px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  border-radius: 8px 8px 0 0;
+}
+
+.stripeWordmark {
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+/* ds-exempt: branding — HICAPS */
+.hicapsBanner {
+  background: rgb(241, 241, 241);
+  padding: 10px 16px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 8px 8px 0 0;
+}
+
+.hicapsPlus {
+  color: #ffc400;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.hicapsText {
+  color: rgb(65, 69, 73);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+.brandingCardBody {
+  padding: 16px;
+}
+
+.noteTextarea {
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: var(--color-fill-tertiary);
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--color-text);
+  width: 100%;
+  padding: 12px;
+  resize: none;
+}
+
+.changelogLink {
+  padding: 0 4px;
+}
