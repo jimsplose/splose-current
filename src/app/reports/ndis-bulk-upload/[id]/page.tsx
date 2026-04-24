@@ -1,3 +1,5 @@
+"use client";
+
 import { PageHeader, Badge, Alert } from "@/components/ds";
 import { Button, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";

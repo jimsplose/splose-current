@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
