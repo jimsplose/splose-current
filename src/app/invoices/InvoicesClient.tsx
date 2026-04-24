@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { PlusOutlined } from "@ant-design/icons";
-import Icon from "@/components/ds/Icon";
 import { ListPage, Pagination, Badge, PaymentStatusBadge, dbStatusToPaymentStatus, LinkCell, Text, Skeleton } from "@/components/ds";
 
 export interface InvoiceRow {
@@ -131,7 +130,7 @@ export default function InvoicesClient({
           <Button>Batch invoice</Button>
           <Link href="/invoices/new">
             <Button>
-              <Icon as={PlusOutlined} />
+              <PlusOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />
               New invoice
             </Button>
           </Link>

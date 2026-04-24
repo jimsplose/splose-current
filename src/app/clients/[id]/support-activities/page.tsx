@@ -1,7 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { PlusOutlined } from "@ant-design/icons";
-import Icon from "@/components/ds/Icon";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Card, PageHeader } from "@/components/ds";
@@ -50,7 +49,7 @@ export default async function ClientSupportActivitiesPage({ params }: { params: 
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
       <PageHeader title="Support activities">
         <Button>
-          <Icon as={PlusOutlined} />
+          <PlusOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />
           New support activity
         </Button>
       </PageHeader>

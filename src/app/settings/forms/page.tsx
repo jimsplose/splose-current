@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { DownOutlined } from "@ant-design/icons";
-import Icon from "@/components/ds/Icon";
 import { PageHeader, SearchBar, Badge, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
@@ -88,7 +87,7 @@ export default function FormsPage() {
         <Dropdown
           trigger={
             <Button>
-              <Flex align="center" gap={4}>Learn <Icon as={DownOutlined} /></Flex>
+              <Flex align="center" gap={4}>Learn <DownOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} /></Flex>
             </Button>
           }
           items={[

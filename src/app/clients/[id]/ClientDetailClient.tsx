@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useRegisterCommands } from "@/hooks/useRegisterCommands";
 import { EditOutlined } from "@ant-design/icons";
-import Icon from "@/components/ds/Icon";
-import { Button, Flex, Table } from "antd";
+import { Button, Flex, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { AlertCallout, PatientAvatar, Tag, Divider, FeatureCard, FileUpload, FormInput, FormSelect, FormTextarea, Grid, HintIcon, List, Collapse, Text, Toggle } from "@/components/ds";
+import { pickTextColor } from "@/lib/color";
+import { AlertCallout, PatientAvatar, Divider, FeatureCard, FileUpload, FormInput, FormSelect, FormTextarea, Grid, HintIcon, List, Collapse, Text, Toggle } from "@/components/ds";
 
 interface ClientData {
   id: string;
@@ -76,7 +76,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         <Flex justify="space-between" align="center" style={{ marginBottom: 24 }}>
           <Text variant="display/lg">Details</Text>
           <Button size="small" onClick={() => setEditMode(true)}>
-            Edit <Icon as={EditOutlined} />
+            Edit <EditOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />
           </Button>
         </Flex>
 
@@ -275,7 +275,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
         {/* Client tags */}
         <Collapse title="Client tags" defaultOpen>
           <Flex wrap="wrap" gap={4}>
-            <Tag color="rgb(106, 176, 76)">Plan-managed</Tag>
+            <Tag style={{ backgroundColor: 'rgb(106, 176, 76)', color: pickTextColor('rgb(106, 176, 76)'), border: 'none' }}>Plan-managed</Tag>
           </Flex>
         </Collapse>
 
@@ -292,7 +292,7 @@ export default function ClientDetailClient({ client }: { client: ClientData }) {
           <Flex vertical gap={4}>
             <Flex align="center" gap={4}>
               <Text variant="body/sm" as="span" color="primary">rakesh.splose@gmail.com</Text>
-              <Tag size="sm">ARCHIVED</Tag>
+              <Tag>ARCHIVED</Tag>
             </Flex>
             <Text variant="body/sm" as="p" color="secondary">a a</Text>
             <Text variant="body/sm" as="p" color="secondary">Open rate: 0%</Text>

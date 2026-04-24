@@ -169,7 +169,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
           <div style={{ marginTop: 40, borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
             {note.signed ? (
               <Flex align="center" gap={8} style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-success)' }}>
-                <Icon as={CheckCircleOutlined} />
+                <CheckCircleOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />
                 <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57 }}>
                   Signed and locked by {note.practitioner.name} on {formatNoteDate(note.date)}
                 </span>

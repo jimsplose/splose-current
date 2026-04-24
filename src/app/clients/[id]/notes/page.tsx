@@ -1,7 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { SwapOutlined } from "@ant-design/icons";
-import Icon from "@/components/ds/Icon";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Badge, Card, PageHeader, SearchBar, Pagination, Text } from "@/components/ds";
@@ -38,7 +37,7 @@ const columns: ColumnsType<NoteRow> = [
     title: (
       <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
         Created by
-        <Icon as={SwapOutlined} size="sm" tone="secondary" />
+        <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
       </Flex>
     ),
     render: (_, note) => <Text variant="body/md" as="span" color="secondary">{note.practitioner.name}</Text>,
@@ -62,7 +61,7 @@ const columns: ColumnsType<NoteRow> = [
     title: (
       <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
         Created at
-        <Icon as={SwapOutlined} size="sm" tone="secondary" />
+        <SwapOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
       </Flex>
     ),
     render: (_, note) => <Text variant="body/md" as="span" color="secondary">{formatDateTime(note.createdAt)}</Text>,

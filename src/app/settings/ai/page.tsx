@@ -5,7 +5,6 @@ import { useSearchParams } from "next/navigation";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { InfoCircleOutlined } from "@ant-design/icons";
-import Icon from "@/components/ds/Icon";
 import { FormInput, FormTextarea, FormSelect, Tab, Toggle, Pagination, Dropdown, Modal, EmptyState, Badge, Alert, PageHeader, Divider, Text } from "@/components/ds";
 
 const aiBlocks = [
@@ -304,7 +303,7 @@ function AIBlockLibraryTab() {
   return (
     <div>
       {/* Beta banner */}
-      <Alert variant="info" icon={<Icon as={InfoCircleOutlined} />} style={{ marginBottom: 16 }}>
+      <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />} style={{ marginBottom: 16 }}>
         <Flex justify="space-between" align="center">
           <span style={{ fontSize: 14 }}>We need your feedback on AI blocks.</span>
           <Flex align="center" gap={8} style={{ fontSize: 14 }}>

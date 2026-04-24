@@ -3,10 +3,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { PlusOutlined } from "@ant-design/icons";
-import Icon from "@/components/ds/Icon";
-import { Tag, ListPage, Pagination, Skeleton } from "@/components/ds";
+import { Button, Table, Tag } from "antd";
+import { pickTextColor } from "@/lib/color";
+import { ListPage, Pagination, Skeleton } from "@/components/ds";
 import styles from "./ClientsPageClient.module.css";
-import { Button, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 
 function formatDOB(dateStr: string | null): string {
@@ -82,9 +82,9 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
       width: "21%",
       render: (_, client) =>
         client.ndisNumber ? (
-          <Tag color="rgb(249,202,36)" size="sm">NDIS</Tag>
+          <Tag style={{ backgroundColor: 'rgb(249,202,36)', color: pickTextColor('rgb(249,202,36)'), border: 'none' }}>NDIS</Tag>
         ) : client.medicare ? (
-          <Tag color="rgb(249,202,36)" size="sm">Medicare</Tag>
+          <Tag style={{ backgroundColor: 'rgb(249,202,36)', color: pickTextColor('rgb(249,202,36)'), border: 'none' }}>Medicare</Tag>
         ) : null,
     },
   ];
@@ -95,7 +95,7 @@ export default function ClientsPageClient({ clients }: { clients: ClientRow[] })
       actions={
         <Link href="/clients/new">
           <Button>
-            <Icon as={PlusOutlined} />
+            <PlusOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />
             New client
           </Button>
         </Link>

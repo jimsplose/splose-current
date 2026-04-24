@@ -2,7 +2,6 @@
 
 import { useParams } from "next/navigation";
 import { DownOutlined } from "@ant-design/icons";
-import Icon from "@/components/ds/Icon";
 import { Button, Flex } from "antd";
 import { Checkbox, PageHeader, FormInput, Card, Text } from "@/components/ds";
 
@@ -23,7 +22,7 @@ export default function ClientStatementsPage() {
           <Text variant="label/lg" as="label">Type*</Text>
           <Button style={{ minWidth: 140, justifyContent: 'space-between' }}>
             Activity
-            <Icon as={DownOutlined} tone="secondary" />
+            <DownOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
           </Button>
         </Flex>
 
@@ -48,7 +47,7 @@ export default function ClientStatementsPage() {
           <Text variant="label/lg" as="label">Location*</Text>
           <Button style={{ minWidth: 160, justifyContent: 'space-between' }}>
             All Locations
-            <Icon as={DownOutlined} tone="secondary" />
+            <DownOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
           </Button>
         </Flex>
 

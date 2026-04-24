@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Avatar, Card, ColorDot, Divider, Icon, Text, Tooltip } from "@/components/ds";
+import { Avatar, Card, ColorDot, Divider, Text, Tooltip } from "@/components/ds";
 import { DownOutlined, RightOutlined } from "@ant-design/icons";
 import { Button, Flex } from "antd";
 import styles from "./DashboardClient.module.css";
@@ -202,7 +202,7 @@ function MessageItem({
           {/* ds-exempt: non-DS timestamp size matches production */}
           <Text variant="caption/sm" as="span" color="text" style={{ fontSize: '9.8px' }}>{message.time}</Text>
           <Text variant="body/md" as="span" color="secondary" style={{ marginLeft: 'auto' }}>
-            {expanded ? <Icon as={DownOutlined} /> : <Icon as={RightOutlined} />}
+            {expanded ? <DownOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} /> : <RightOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />}
           </Text>
         </Flex>
         {!expanded && (
