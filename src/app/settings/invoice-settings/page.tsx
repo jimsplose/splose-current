@@ -1,11 +1,10 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { Button, Flex, Table } from "antd";
+import { Button, Flex, Form, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { CalendarOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import { Alert, FormInput, FormSelect, FormTextarea, Pagination, Toggle, Checkbox, Dropdown, DropdownTriggerButton, Modal, RichTextEditor, PageHeader } from "@/components/ds";
-import FormLabel from "@/components/ds/FormLabel";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
 
@@ -308,13 +307,14 @@ export default function InvoiceSettingsPage() {
               />
               <FormInput label="Subject" value={form.subject} onChange={(e) => setField("subject", e.target.value)} />
               <div>
-                <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>Body</FormLabel>
-                <RichTextEditor
-                  value={form.body}
-                  onChange={(html) => setField("body", html)}
-                  rows={8}
-                  variables={["client_name", "invoice_number", "amount_owing", "due_date", "practice_name"]}
-                />
+                <Form.Item label="Body" style={{ marginBottom: 4 }}>
+                  <RichTextEditor
+                    value={form.body}
+                    onChange={(html) => setField("body", html)}
+                    rows={8}
+                    variables={["client_name", "invoice_number", "amount_owing", "due_date", "practice_name"]}
+                  />
+                </Form.Item>
               </div>
             </>
           )}

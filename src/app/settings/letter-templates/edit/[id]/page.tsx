@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Flex } from "antd";
+import { Button, Flex, Form } from "antd";
 import { FormInput, FormSelect, FormPage, RichTextEditor, Grid } from "@/components/ds";
-import FormLabel from "@/components/ds/FormLabel";
 
 const recipientOptions = [
   { value: "client", label: "Client" },
@@ -50,13 +49,14 @@ export default function EditLetterTemplatePage() {
         <FormInput label="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
 
         <div>
-          <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>Letter body</FormLabel>
-          <RichTextEditor
-            value={body}
-            onChange={setBody}
-            rows={18}
-            variables={variables}
-          />
+          <Form.Item label="Letter body" style={{ marginBottom: 4 }}>
+            <RichTextEditor
+              value={body}
+              onChange={setBody}
+              rows={18}
+              variables={variables}
+            />
+          </Form.Item>
         </div>
       </Flex>
     </FormPage>

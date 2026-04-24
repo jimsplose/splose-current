@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FormInput, FormSelect, Toggle, Collapse, FormPage, RichTextEditor, EmailPreview, Grid } from "@/components/ds";
-import FormLabel from "@/components/ds/FormLabel";
-import { Button } from "antd";
+import { Button, Form } from "antd";
 
 const typeOptions = [
   { value: "confirmation", label: "Confirmation" },
@@ -71,13 +70,14 @@ export default function NewAppointmentTemplatePage() {
             <Toggle label="Enable SMS notification" checked={smsEnabled} onChange={setSmsEnabled} />
             {smsEnabled && (
               <div>
-                <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>Message</FormLabel>
-                <textarea
-                  style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none', fontSize: 14 }}
-                  rows={4}
-                  value={smsBody}
-                  onChange={(e) => setSmsBody(e.target.value)}
-                />
+                <Form.Item label="Message" style={{ marginBottom: 4 }}>
+                  <textarea
+                    style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, outline: 'none', fontSize: 14 }}
+                    rows={4}
+                    value={smsBody}
+                    onChange={(e) => setSmsBody(e.target.value)}
+                  />
+                </Form.Item>
                 <p style={{ fontSize: 11, color: 'var(--color-text-secondary)', marginTop: 4 }}>
                   Variables: {variableTokens.map((v) => `{${v}}`).join(", ")}
                 </p>
@@ -93,13 +93,14 @@ export default function NewAppointmentTemplatePage() {
               <>
                 <FormInput label="Subject" value={emailSubject} onChange={(e) => setEmailSubject(e.target.value)} />
                 <div>
-                  <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>Body</FormLabel>
-                  <RichTextEditor
-                    value={emailBody}
-                    onChange={setEmailBody}
-                    rows={10}
-                    variables={variableTokens}
-                  />
+                  <Form.Item label="Body" style={{ marginBottom: 4 }}>
+                    <RichTextEditor
+                      value={emailBody}
+                      onChange={setEmailBody}
+                      rows={10}
+                      variables={variableTokens}
+                    />
+                  </Form.Item>
                 </div>
                 <Button onClick={() => setShowPreview(true)}>Email preview</Button>
               </>

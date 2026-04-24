@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex, Table } from "antd";
+import { Button, Flex, Form, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Badge, FormSelect, FormInput, Pagination, Checkbox, Dropdown, DropdownTriggerButton, Modal, PageHeader } from "@/components/ds";
-import FormLabel from "@/components/ds/FormLabel";
 
 interface ExportRow {
   id: number;
@@ -172,18 +171,19 @@ export default function DataExportPage() {
           />
         </div>
         <div>
-          <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }} required>Date</FormLabel>
-          <Flex align="center" gap={8}>
-            <FormInput
-              type="date"
-              placeholder="Start date"
-            />
-            <span style={{ color: 'var(--color-text-secondary)' }}>&ndash;</span>
-            <FormInput
-              type="date"
-              placeholder="End date"
-            />
-          </Flex>
+          <Form.Item label="Date" required style={{ marginBottom: 4 }}>
+            <Flex align="center" gap={8}>
+              <FormInput
+                type="date"
+                placeholder="Start date"
+              />
+              <span style={{ color: 'var(--color-text-secondary)' }}>&ndash;</span>
+              <FormInput
+                type="date"
+                placeholder="End date"
+              />
+            </Flex>
+          </Form.Item>
         </div>
         <Button type="primary">Export</Button>
       </Flex>

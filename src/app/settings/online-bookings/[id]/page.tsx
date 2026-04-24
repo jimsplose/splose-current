@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Flex } from "antd";
+import { Button, Flex, Form } from "antd";
 import { UploadOutlined, LinkOutlined, CopyOutlined } from "@ant-design/icons";
-import { Card, ColorDot, FormInput, FormSelect, FormTextarea, Toggle, Tab, FormPage, FormColorPicker, Modal, RadioGroup, Text, Grid } from "@/components/ds";
-import FormLabel from "@/components/ds/FormLabel";
+import { Card, Checkbox, ColorDot, FormInput, FormSelect, FormTextarea, Toggle, Tab, FormPage, FormColorPicker, Modal, RadioGroup, Text, Grid } from "@/components/ds";
 
 const designTabs = [
   { label: "Design", value: "design" },
@@ -91,15 +90,16 @@ export default function EditOnlineBookingPage() {
               />
               {brandingMode === "logo" && (
                 <div>
-                  <FormLabel size="sm" mb={8}>Logo / Header image</FormLabel>
-                  <Card variant="dashed" tint="muted" padding="none">
-                    <Flex align="center" justify="center" style={{ height: 128 }}>
-                      <div style={{ textAlign: 'center' }}>
-                        <UploadOutlined style={{ fontSize: 24, color: 'var(--ant-color-text-secondary, #6E6E64)', display: 'block', margin: '0 auto 4px' }} />
-                        <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>Click or drag to upload</span>
-                      </div>
-                    </Flex>
-                  </Card>
+                  <Form.Item label="Logo / Header image" style={{ marginBottom: 8 }}>
+                    <Card variant="dashed" tint="muted" padding="none">
+                      <Flex align="center" justify="center" style={{ height: 128 }}>
+                        <div style={{ textAlign: 'center' }}>
+                          <UploadOutlined style={{ fontSize: 24, color: 'var(--ant-color-text-secondary, #6E6E64)', display: 'block', margin: '0 auto 4px' }} />
+                          <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>Click or drag to upload</span>
+                        </div>
+                      </Flex>
+                    </Card>
+                  </Form.Item>
                 </div>
               )}
             </Flex>
@@ -194,14 +194,8 @@ export default function EditOnlineBookingPage() {
                     placeholder="By proceeding with this online booking, you acknowledge and agree to our booking terms and conditions."
                   />
                   <Flex vertical gap={8}>
-                    <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
-                      <input type="checkbox" style={{ height: 16, width: 16, borderRadius: 4 }} />
-                      <span style={{ fontSize: 14 }}>I have read and agree to the terms</span>
-                    </label>
-                    <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
-                      <input type="checkbox" style={{ height: 16, width: 16, borderRadius: 4 }} />
-                      <span style={{ fontSize: 14 }}>I accept the privacy policy</span>
-                    </label>
+                    <Checkbox label="I have read and agree to the terms" />
+                    <Checkbox label="I accept the privacy policy" />
                   </Flex>
                 </Flex>
               )}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex, Table } from "antd";
+import { Button, Flex, Form, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import {
   HolderOutlined,
@@ -10,7 +10,6 @@ import {
   ReadOutlined,
 } from "@ant-design/icons";
 import { PageHeader, SearchBar, Pagination, Modal, FormInput, FormSelect, Toggle, Dropdown, DropdownTriggerButton, ReorderModal } from "@/components/ds";
-import FormLabel from "@/components/ds/FormLabel";
 
 /* ------------------------------------------------------------------ */
 /*  Custom fields mock data                                            */
@@ -393,13 +392,14 @@ function FieldTypePreview({
   if (type === "Long text") {
     return (
       <div>
-        <FormLabel size="sm">{label}</FormLabel>
-        <textarea
-          disabled
-          rows={3}
-          placeholder="Long text value..."
-          style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', padding: '8px 12px', opacity: 0.7, fontSize: 14, color: 'var(--color-text-secondary)' }}
-        />
+        <Form.Item label={label} style={{ marginBottom: 4 }}>
+          <textarea
+            disabled
+            rows={3}
+            placeholder="Long text value..."
+            style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', padding: '8px 12px', opacity: 0.7, fontSize: 14, color: 'var(--color-text-secondary)' }}
+          />
+        </Form.Item>
       </div>
     );
   }
@@ -433,20 +433,21 @@ function FieldTypePreview({
     const previewOpts = options.length > 0 ? options : ["Option 1", "Option 2"];
     return (
       <div>
-        <FormLabel size="sm">{label}</FormLabel>
-        <Flex vertical gap={6}>
-          {previewOpts.map((opt, i) => (
-            <label key={i} className="flex items-center gap-2" style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>
-              <input
-                type="checkbox"
-                disabled
-                checked={i === 0}
-                style={{ height: 16, width: 16, borderRadius: 4 }}
-              />
-              {opt || `Option ${i + 1}`}
-            </label>
-          ))}
-        </Flex>
+        <Form.Item label={label} style={{ marginBottom: 4 }}>
+          <Flex vertical gap={6}>
+            {previewOpts.map((opt, i) => (
+              <label key={i} className="flex items-center gap-2" style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>
+                <input
+                  type="checkbox"
+                  disabled
+                  checked={i === 0}
+                  style={{ height: 16, width: 16, borderRadius: 4 }}
+                />
+                {opt || `Option ${i + 1}`}
+              </label>
+            ))}
+          </Flex>
+        </Form.Item>
       </div>
     );
   }

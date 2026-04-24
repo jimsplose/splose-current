@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex, Table } from "antd";
+import { Button, Flex, Form, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Badge, FormInput, FormSelect, Pagination, Dropdown, DropdownTriggerButton, Modal, PageHeader } from "@/components/ds";
-import FormLabel from "@/components/ds/FormLabel";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
 
@@ -112,18 +111,17 @@ export default function PaymentSettingsPage() {
       <section style={{ marginBottom: 32 }}>
         <h2 style={{ marginBottom: 16, fontSize: 20, fontWeight: 600 }}>PDF settings</h2>
         <div style={{ maxWidth: 672 }}>
-          <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>
-            Brand colour
-          </FormLabel>
-          <Flex align="center" gap={12} style={{ marginBottom: 16 }}>
-            <div
-              style={{ height: 40, width: 40, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: "#8690FC" }}
-            />
-            <FormInput
-              type="text"
-              defaultValue="#8690FC"
-            />
-          </Flex>
+          <Form.Item label="Brand colour" style={{ marginBottom: 4 }}>
+            <Flex align="center" gap={12}>
+              <div
+                style={{ height: 40, width: 40, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: "#8690FC" }}
+              />
+              <FormInput
+                type="text"
+                defaultValue="#8690FC"
+              />
+            </Flex>
+          </Form.Item>
           <Button type="primary" size="small">
             Save
           </Button>

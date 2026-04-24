@@ -2,10 +2,9 @@
 
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Flex } from "antd";
+import { Button, Flex, Form } from "antd";
 import { ThunderboltOutlined, PlusOutlined, HolderOutlined, MoreOutlined, CheckOutlined } from "@ant-design/icons";
 import { FormInput, FormSelect, Toggle, FormPage, RichTextEditor, Card, Modal, Dropdown } from "@/components/ds";
-import FormLabel from "@/components/ds/FormLabel";
 import type { DropdownItem } from "@/components/ds";
 
 interface AIBlock {
@@ -176,8 +175,9 @@ export default function EditProgressNoteTemplatePage() {
           )}
 
           <div>
-            <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>Free text section</FormLabel>
-            <RichTextEditor value={freeText} onChange={setFreeText} rows={6} />
+            <Form.Item label="Free text section" style={{ marginBottom: 4 }}>
+              <RichTextEditor value={freeText} onChange={setFreeText} rows={6} />
+            </Form.Item>
           </div>
         </Flex>
       </FormPage>

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Flex } from "antd";
+import { Button, Flex, Form } from "antd";
 import {
   HolderOutlined,
   PlusOutlined,
@@ -19,7 +19,6 @@ import {
   UploadOutlined,
 } from "@ant-design/icons";
 import { FormInput, FormSelect, Tab, FormPage, Card, Toggle, FormColorPicker, FormTextarea, Modal, RichTextEditor, Grid, Breadcrumbs, Tooltip } from "@/components/ds";
-import FormLabel from "@/components/ds/FormLabel";
 
 const FIELD_TYPES = [
   { icon: FontSizeOutlined, label: "Short text", value: "short-text" },
@@ -175,23 +174,22 @@ export default function FormTemplateEditorPage() {
                 <Flex vertical gap={16}>
                   {fields.map((field) => (
                     <div key={field.id}>
-                      <FormLabel size="sm" required={field.required}>
-                        {field.label}
-                      </FormLabel>
-                      {field.type === "long-text" ? (
-                        <textarea style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '8px 12px', fontSize: 14 }} rows={3} disabled />
-                      ) : field.type === "boolean" ? (
-                        <Flex gap={16}>
-                          <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}><input type="radio" name={`f${field.id}`} disabled /> Yes</label>
-                          <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}><input type="radio" name={`f${field.id}`} disabled /> No</label>
-                        </Flex>
-                      ) : field.type === "file-upload" ? (
-                        <Flex align="center" justify="center" style={{ height: 80, borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', fontSize: 11, color: 'var(--color-text-secondary)' }}>
-                          Click or drag to upload
-                        </Flex>
-                      ) : (
-                        <input style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '8px 12px', fontSize: 14 }} type={field.type === "date" ? "date" : "text"} disabled />
-                      )}
+                      <Form.Item label={field.label} required={field.required} style={{ marginBottom: 4 }}>
+                        {field.type === "long-text" ? (
+                          <textarea style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '8px 12px', fontSize: 14 }} rows={3} disabled />
+                        ) : field.type === "boolean" ? (
+                          <Flex gap={16}>
+                            <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><input type="radio" name={`f${field.id}`} disabled /> Yes</span>
+                            <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><input type="radio" name={`f${field.id}`} disabled /> No</span>
+                          </Flex>
+                        ) : field.type === "file-upload" ? (
+                          <Flex align="center" justify="center" style={{ height: 80, borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', fontSize: 11, color: 'var(--color-text-secondary)' }}>
+                            Click or drag to upload
+                          </Flex>
+                        ) : (
+                          <input style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '8px 12px', fontSize: 14 }} type={field.type === "date" ? "date" : "text"} disabled />
+                        )}
+                      </Form.Item>
                     </div>
                   ))}
                 </Flex>
@@ -211,10 +209,11 @@ export default function FormTemplateEditorPage() {
             </Flex>
             <Flex vertical gap={16}>
               <div>
-                <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>Form link</FormLabel>
-                <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '8px 12px', wordBreak: 'break-all', fontSize: 12, color: 'var(--color-primary)' }}>
-                  https://acme.splose.com/patient-form/81783/view
-                </div>
+                <Form.Item label="Form link" style={{ marginBottom: 4 }}>
+                  <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '8px 12px', wordBreak: 'break-all', fontSize: 12, color: 'var(--color-primary)' }}>
+                    https://acme.splose.com/patient-form/81783/view
+                  </div>
+                </Form.Item>
               </div>
               <Button style={{ width: '100%' }}>Copy link</Button>
               <Button style={{ width: '100%' }}>Send to client</Button>

@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Flex } from "antd";
+import { Button, Flex, Form } from "antd";
 import { FormInput, FormSelect, FormPage, RichTextEditor, EmailPreview, Grid, Breadcrumbs } from "@/components/ds";
-import FormLabel from "@/components/ds/FormLabel";
 
 const typeOptions = [
   { value: "invoice", label: "Invoice" },
@@ -60,13 +59,14 @@ export default function EditEmailTemplatePage() {
           <FormInput label="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
 
           <div>
-            <FormLabel size="sm" style={{ color: 'var(--color-text-secondary)' }}>Body</FormLabel>
-            <RichTextEditor
-              value={body}
-              onChange={setBody}
-              rows={14}
-              variables={variables}
-            />
+            <Form.Item label="Body" style={{ marginBottom: 4 }}>
+              <RichTextEditor
+                value={body}
+                onChange={setBody}
+                rows={14}
+                variables={variables}
+              />
+            </Form.Item>
           </div>
         </Flex>
       </FormPage>

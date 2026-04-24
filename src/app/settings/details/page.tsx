@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
-import { Button, Flex } from "antd";
-import { Checkbox, FileUpload, FormInput, FormSelect, Toggle, Tab, Modal, Dropdown, HintIcon, PageHeader, Text, Grid, Divider } from "@/components/ds";
-import FormLabel from "@/components/ds/FormLabel";
+import { Button, Flex, Form, Input, Select } from "antd";
+import { Checkbox, FileUpload, FormInput, Toggle, Tab, Modal, Dropdown, HintIcon, PageHeader, Text, Grid, Divider } from "@/components/ds";
 
 const businessHistory = [
   { date: "15 Jan 2026", description: "Business name changed from 'Acme Therapy' to 'Hands Together Therapies'" },
@@ -14,6 +13,7 @@ const businessHistory = [
 ];
 
 export default function SettingsDetailsPage() {
+  const [form] = Form.useForm();
   const [emailSigTab, setEmailSigTab] = useState<"Business" | "User">("Business");
   const [casesToggle, setCasesToggle] = useState(true);
   const [applyToAll, setApplyToAll] = useState(false);
@@ -29,35 +29,30 @@ export default function SettingsDetailsPage() {
         <Flex gap={32}>
           <div style={{ flex: 1 }}>
             <Flex vertical gap={16}>
-              <div>
-                <Flex align="center" justify="space-between" style={{ marginBottom: 4 }}>
-                  <FormLabel size="sm" mb={0} required>
+              <Form layout="vertical" form={form}>
+              <Form.Item
+                label={
+                  <Flex align="center" justify="space-between">
                     Business name
-                  </FormLabel>
-                  <Button
-                    type="link"
-                    size="small"
-                    onClick={() => setHistoryOpen(true)}
-                  >
-                    Business history
-                  </Button>
-                </Flex>
-                <FormInput type="text" defaultValue="Hands Together Therapies" />
-              </div>
-              <div>
-                <FormLabel size="sm">
-                  Workspace URL{" "}
-                  <HintIcon />
-                </FormLabel>
-                <FormInput type="text" defaultValue="acme.splose.com" />
-              </div>
-              <FormInput label="Website" type="text" defaultValue="hands-together-therapy.com" />
-              <div>
-                <FormLabel size="sm" required>
-                  Business email
-                </FormLabel>
-                <FormInput type="email" defaultValue="hello@hands-together-therapy.com" />
-              </div>
+                    <Button type="link" size="small" onClick={() => setHistoryOpen(true)}>
+                      Business history
+                    </Button>
+                  </Flex>
+                }
+                required
+              >
+                <Input defaultValue="Hands Together Therapies" />
+              </Form.Item>
+              <Form.Item label={<span>Workspace URL <HintIcon /></span>}>
+                <Input defaultValue="acme.splose.com" />
+              </Form.Item>
+              <Form.Item label="Website">
+                <Input defaultValue="hands-together-therapy.com" />
+              </Form.Item>
+              <Form.Item label="Business email" required>
+                <Input type="email" defaultValue="hello@hands-together-therapy.com" />
+              </Form.Item>
+              </Form>
             </Flex>
           </div>
           <div style={{ width: 192, flexShrink: 0 }}>
@@ -78,44 +73,42 @@ export default function SettingsDetailsPage() {
 
         <Divider variant="primary" spacing="sm" />
 
+        <Form layout="vertical">
         <Grid cols={2} gap="md">
-          <div>
-            <FormLabel size="sm" required>
-              Patient terminology{" "}
-              <HintIcon />
-            </FormLabel>
-            <FormSelect options={[{ value: "Client", label: "Client" }, { value: "Patient", label: "Patient" }, { value: "Participant", label: "Participant" }]} />
-          </div>
-          <div>
-            <FormLabel size="sm" required>
-              Currency code
-            </FormLabel>
-            <FormInput type="text" defaultValue="AUD" disabled />
-          </div>
+          <Form.Item label={<span>Patient terminology <HintIcon /></span>} required>
+            <Select
+              options={[{ value: "Client", label: "Client" }, { value: "Patient", label: "Patient" }, { value: "Participant", label: "Participant" }]}
+              defaultValue="Client"
+            />
+          </Form.Item>
+          <Form.Item label="Currency code" required>
+            <Input defaultValue="AUD" disabled />
+          </Form.Item>
         </Grid>
 
         <Grid cols={2} gap="md">
-          <div>
-            <FormLabel size="sm" required>
-              Country
-            </FormLabel>
-            <FormSelect options={[{ value: "Australia", label: "Australia" }, { value: "New Zealand", label: "New Zealand" }, { value: "United Kingdom", label: "United Kingdom" }]} disabled />
-          </div>
-          <div>
-            <FormLabel size="sm" required>
-              Currency symbol
-            </FormLabel>
-            <FormInput type="text" defaultValue="A$" disabled />
-          </div>
+          <Form.Item label="Country" required>
+            <Select
+              options={[{ value: "Australia", label: "Australia" }, { value: "New Zealand", label: "New Zealand" }, { value: "United Kingdom", label: "United Kingdom" }]}
+              defaultValue="Australia"
+              disabled
+            />
+          </Form.Item>
+          <Form.Item label="Currency symbol" required>
+            <Input defaultValue="A$" disabled />
+          </Form.Item>
         </Grid>
+        </Form>
 
+        <Form layout="vertical">
         <Grid cols={2} gap="md">
           <div>
-            <FormLabel size="sm" required>
-              Default appointment communication preferences{" "}
-              <HintIcon />
-            </FormLabel>
-            <FormSelect options={[{ value: "SMS & Email", label: "SMS & Email" }, { value: "SMS only", label: "SMS only" }, { value: "Email only", label: "Email only" }, { value: "None", label: "None" }]} />
+            <Form.Item label={<span>Default appointment communication preferences <HintIcon /></span>} required>
+              <Select
+                options={[{ value: "SMS & Email", label: "SMS & Email" }, { value: "SMS only", label: "SMS only" }, { value: "Email only", label: "Email only" }, { value: "None", label: "None" }]}
+                defaultValue="SMS & Email"
+              />
+            </Form.Item>
             <div style={{ marginTop: 8 }}>
               <Checkbox
                 label="Apply to all existing clients and override the current contact preferences"
@@ -125,16 +118,16 @@ export default function SettingsDetailsPage() {
             </div>
           </div>
           <div>
-            <FormLabel size="sm" required>
-              Tax Label for invoices (E.g. ABN)
-            </FormLabel>
-            <FormInput type="text" defaultValue="ABN" />
+            <Form.Item label="Tax Label for invoices (E.g. ABN)" required>
+              <Input defaultValue="ABN" />
+            </Form.Item>
             <Text variant="body/md" color="secondary" style={{ marginTop: 8 }}>
               Enter your business number in{" "}
               <Button type="link" size="small">Location settings</Button>
             </Text>
           </div>
         </Grid>
+        </Form>
 
         <Divider variant="primary" spacing="sm" />
 
