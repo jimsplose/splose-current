@@ -109,8 +109,8 @@ export default function ContextMenu({
       menu={{ items: flattenWithDividers(items) }}
       trigger={["contextMenu"]}
       onOpenChange={onOpenChange}
-      overlayClassName={className}
-      overlayStyle={{ minWidth: 200, maxWidth: 320 }}
+      classNames={{ root: className }}
+      styles={{ root: { minWidth: 200, maxWidth: 320 } }}
     >
       <span
         style={{ display: "contents" }}

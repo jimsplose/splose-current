@@ -51,13 +51,15 @@ export default function HoverCard({
       placement={placementMap[side][align] as never}
       mouseEnterDelay={openDelay / 1000}
       mouseLeaveDelay={closeDelay / 1000}
-      overlayClassName={className}
-      overlayInnerStyle={{
-        borderRadius: 8,
-        border: "1px solid var(--color-border, #e5e5e5)",
-        boxShadow: "0 8px 24px rgba(0, 0, 0, 0.10)",
-        maxWidth: 320,
-        padding: "12px 16px",
+      classNames={{ root: className }}
+      styles={{
+        container: {
+          borderRadius: 8,
+          border: "1px solid var(--color-border, #e5e5e5)",
+          boxShadow: "0 8px 24px rgba(0, 0, 0, 0.10)",
+          maxWidth: 320,
+          padding: "12px 16px",
+        },
       }}
     >
       {children}

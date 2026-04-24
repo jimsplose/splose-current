@@ -26,7 +26,7 @@ export default function Modal({ open, onClose, title, children, footer, maxWidth
       title={title}
       footer={footer !== undefined ? footer : null}
       width={widthMap[maxWidth]}
-      destroyOnClose
+      destroyOnHidden
       centered={false}
       style={{ top: 48 }}
     >
