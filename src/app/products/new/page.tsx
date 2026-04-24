@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Flex } from "antd";
-import { FormPage, Card, FormInput, FormSelect, FormTextarea, Grid, Toggle } from "@/components/ds";
+import { Button, Flex, Form, Input, Select } from "antd";
+import { FormPage, Card, Grid, Toggle } from "@/components/ds";
 
 const taxOptions = [
   { value: "gst", label: "GST (10%)" },
@@ -19,6 +19,7 @@ const typeOptions = [
 
 export default function NewProductPage() {
   const router = useRouter();
+  const [antForm] = Form.useForm();
   const [form, setForm] = useState({
     name: "",
     code: "",
@@ -53,55 +54,64 @@ export default function NewProductPage() {
         </>
       }
     >
+      <Form form={antForm} layout="vertical">
         <Flex vertical gap={24}>
           <Card title="Product details">
             <Flex vertical gap={16}>
-              <FormInput
-                label="Name"
-                value={form.name}
-                onChange={(e) => setField("name", e.target.value)}
-              />
-              <FormInput
-                label="Code"
-                value={form.code}
-                onChange={(e) => setField("code", e.target.value)}
-              />
-              <FormTextarea
-                label="Description"
-                rows={3}
-                value={form.description}
-                onChange={(e) => setField("description", e.target.value)}
-                placeholder="Describe this product..."
-              />
+              <Form.Item label="Name">
+                <Input
+                  value={form.name}
+                  onChange={(e) => setField("name", e.target.value)}
+                />
+              </Form.Item>
+              <Form.Item label="Code">
+                <Input
+                  value={form.code}
+                  onChange={(e) => setField("code", e.target.value)}
+                />
+              </Form.Item>
+              <Form.Item label="Description">
+                <Input.TextArea
+                  rows={3}
+                  value={form.description}
+                  onChange={(e) => setField("description", e.target.value)}
+                  placeholder="Describe this product..."
+                />
+              </Form.Item>
             </Flex>
           </Card>
 
           <Card title="Pricing">
             <Grid cols={2} gap="md">
-              <FormInput
-                label="Price"
-                type="number"
-                value={form.price}
-                onChange={(e) => setField("price", e.target.value)}
-                placeholder="0.00"
-              />
-              <FormSelect
-                label="Tax rate"
-                options={taxOptions}
-                value={form.taxRate}
-                onChange={(value) => setField("taxRate", value)}
-              />
+              <Form.Item label="Price">
+                <Input
+                  type="number"
+                  value={form.price}
+                  onChange={(e) => setField("price", e.target.value)}
+                  placeholder="0.00"
+                />
+              </Form.Item>
+              <Form.Item label="Tax rate">
+                <Select
+                  options={taxOptions}
+                  value={form.taxRate}
+                  onChange={(value) => setField("taxRate", value)}
+                  style={{ width: "100%" }}
+                />
+              </Form.Item>
             </Grid>
           </Card>
 
           <Card title="Settings">
             <Flex vertical gap={16}>
-              <FormSelect
-                label="Type"
-                options={typeOptions}
-                value={form.type}
-                onChange={(value) => setField("type", value)}
-              />
+              <Form.Item label="Type">
+                <Select
+                  options={typeOptions}
+                  value={form.type}
+                  onChange={(value) => setField("type", value)}
+                  style={{ width: "100%" }}
+                />
+              </Form.Item>
               <Toggle
                 label="Track inventory"
                 checked={form.trackInventory}
@@ -110,6 +120,7 @@ export default function NewProductPage() {
             </Flex>
           </Card>
         </Flex>
+      </Form>
     </FormPage>
   );
 }

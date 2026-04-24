@@ -1,10 +1,10 @@
 "use client";
 
-import { ListPage, Pagination, EmptyState, Dropdown, DropdownTriggerButton, Modal, FormInput, FormSelect, Checkbox, Text, Grid, Divider } from "@/components/ds";
+import { ListPage, Pagination, EmptyState, Dropdown, DropdownTriggerButton, Modal, Checkbox, Text, Grid, Divider } from "@/components/ds";
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { PlusOutlined, MinusOutlined, MoreOutlined, EditOutlined, CopyOutlined, HistoryOutlined, DeleteOutlined, AppstoreOutlined } from "@ant-design/icons";
-import { Button, Flex } from "antd";
+import { Button, Flex, Form, Input, Select } from "antd";
 import Link from "next/link";
 import { useState, useMemo, useCallback } from "react";
 import { useFormModal } from "@/hooks/useFormModal";
@@ -337,6 +337,7 @@ export default function ProductsPage() {
   const [showArchived, setShowArchived] = useState(false);
   const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
   const [products, setProducts] = useState(mockProducts);
+  const [editForm] = Form.useForm();
 
   // Manage Stock modal state
   const [stockModalOpen, setStockModalOpen] = useState(false);
@@ -598,13 +599,25 @@ export default function ProductsPage() {
           </>
         }
       >
-        <Flex vertical gap={16}>
-          <FormInput label="Name" value={form.name} onChange={(e) => setField("name", e.target.value)} />
-          <FormInput label="Code" value={form.code} onChange={(e) => setField("code", e.target.value)} />
-          <FormInput label="Price" type="number" value={form.price} onChange={(e) => setField("price", e.target.value)} />
-          <FormSelect label="Tax" options={taxOptions} value={form.tax} onChange={(value) => setField("tax", value)} />
-          <FormSelect label="Type" options={typeOptions} value={form.type} onChange={(value) => setField("type", value)} />
-        </Flex>
+        <Form form={editForm} layout="vertical">
+          <Flex vertical gap={16}>
+            <Form.Item label="Name">
+              <Input value={form.name} onChange={(e) => setField("name", e.target.value)} />
+            </Form.Item>
+            <Form.Item label="Code">
+              <Input value={form.code} onChange={(e) => setField("code", e.target.value)} />
+            </Form.Item>
+            <Form.Item label="Price">
+              <Input type="number" value={form.price} onChange={(e) => setField("price", e.target.value)} />
+            </Form.Item>
+            <Form.Item label="Tax">
+              <Select options={taxOptions} value={form.tax} onChange={(value) => setField("tax", value)} style={{ width: "100%" }} />
+            </Form.Item>
+            <Form.Item label="Type">
+              <Select options={typeOptions} value={form.type} onChange={(value) => setField("type", value)} style={{ width: "100%" }} />
+            </Form.Item>
+          </Flex>
+        </Form>
       </Modal>
 
       {/* Confirmation Dialog */}

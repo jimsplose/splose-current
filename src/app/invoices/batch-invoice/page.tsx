@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Button, Flex, Table } from "antd";
+import { Button, Flex, Form, Select, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { FormSelect, DateRangeFilter, Checkbox, Card, FormPage, ListPage, Text } from "@/components/ds";
+import { DateRangeFilter, Checkbox, Card, FormPage, ListPage, Text } from "@/components/ds";
 
 const mockClients = [
   { id: "emma", name: "Emma Thompson", appointments: 3, total: "$193.99" },
@@ -32,6 +32,7 @@ export default function BatchInvoicePage() {
   const [step, setStep] = useState<Step>("filters");
   const [selectedClients, setSelectedClients] = useState<string[]>([]);
   const [selectAll, setSelectAll] = useState(false);
+  const [form] = Form.useForm();
 
   const toggleClient = (id: string) => {
     setSelectedClients((prev) => {
@@ -178,36 +179,42 @@ export default function BatchInvoicePage() {
       }
     >
       <div style={{ maxWidth: 672 }}>
-        <Flex vertical gap={24}>
-          <div>
-            <Text variant="label/sm" as="label" color="secondary" style={{ display: 'block', marginBottom: 4 }}>Date range *</Text>
-            <DateRangeFilter startDate="2026-03-01" endDate="2026-03-27" />
-          </div>
+        <Form form={form} layout="vertical">
+          <Flex vertical gap={24}>
+            <div>
+              <Text variant="label/sm" as="label" color="secondary" style={{ display: 'block', marginBottom: 4 }}>Date range *</Text>
+              <DateRangeFilter startDate="2026-03-01" endDate="2026-03-27" />
+            </div>
 
-          <FormSelect
-            label="Practitioner"
-            options={[
-              { value: "all", label: "All practitioners" },
-              { value: "sarah", label: "Sarah Chen" },
-              { value: "james", label: "James Wilson" },
-            ]}
-          />
+            <Form.Item label="Practitioner">
+              <Select
+                options={[
+                  { value: "all", label: "All practitioners" },
+                  { value: "sarah", label: "Sarah Chen" },
+                  { value: "james", label: "James Wilson" },
+                ]}
+                style={{ width: "100%" }}
+              />
+            </Form.Item>
 
-          <FormSelect
-            label="Invoice type"
-            options={[
-              { value: "standard", label: "Standard" },
-              { value: "ndis", label: "NDIS" },
-              { value: "medicare", label: "Medicare" },
-            ]}
-          />
+            <Form.Item label="Invoice type">
+              <Select
+                options={[
+                  { value: "standard", label: "Standard" },
+                  { value: "ndis", label: "NDIS" },
+                  { value: "medicare", label: "Medicare" },
+                ]}
+                style={{ width: "100%" }}
+              />
+            </Form.Item>
 
-          <Flex gap={12}>
-            <Button type="primary" onClick={() => setStep("clients")}>
-              Next
-            </Button>
+            <Flex gap={12}>
+              <Button type="primary" onClick={() => setStep("clients")}>
+                Next
+              </Button>
+            </Flex>
           </Flex>
-        </Flex>
+        </Form>
       </div>
     </ListPage>
   );

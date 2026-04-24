@@ -4,9 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CloseOutlined, PlusOutlined, SearchOutlined, PrinterOutlined, CheckCircleOutlined } from "@ant-design/icons";
-import { Button, Flex, Table } from "antd";
+import { Button, Flex, Form, Input, Select, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { Card, Divider, FormInput, FormPage, FormSelect, FormTextarea, Grid, EmptyState, Text } from "@/components/ds";
+import { Card, Divider, FormPage, Grid, EmptyState, Text } from "@/components/ds";
 
 const mockClients = [
   "Skyler Peterson",
@@ -66,6 +66,7 @@ const mockOutstandingInvoices = [
 
 export default function NewPaymentPage() {
   const router = useRouter();
+  const [form] = Form.useForm();
   const [client, setClient] = useState("");
   const [amount, setAmount] = useState("");
   const [paymentDate, setPaymentDate] = useState("17 Mar 2026");
@@ -222,55 +223,65 @@ export default function NewPaymentPage() {
       }
       style={{ minHeight: 'calc(100vh - 3rem)' }}
     >
+      <Form form={form} layout="vertical">
         {/* Client field — own row */}
         <div style={{ marginBottom: 24 }}>
-          <FormSelect
-            label="Client *"
-            options={clientOptions}
-            value={client}
-            onChange={setClient}
-            placeholder="Start typing to search client"
-            searchable
-            style={{ maxWidth: 360 }}
-          />
+          <Form.Item label="Client *" style={{ maxWidth: 360 }}>
+            <Select
+              options={clientOptions}
+              value={client}
+              onChange={setClient}
+              placeholder="Start typing to search client"
+              showSearch={true}
+              style={{ width: "100%" }}
+            />
+          </Form.Item>
         </div>
 
         {/* 4-field row */}
         <Grid cols={4} gap="md" style={{ marginBottom: 32 }}>
           {/* Location */}
-          <FormSelect
-            label="Location *"
-            value=""
-            onChange={() => {}}
-            options={[
-              { value: "", label: "Select location" },
-              { value: "east-clinics", label: "East Clinics" },
-              { value: "splose-ot", label: "Splose OT" },
-              { value: "tasks", label: "Tasks" },
-            ]}
-          />
+          <Form.Item label="Location *">
+            <Select
+              value=""
+              onChange={() => {}}
+              options={[
+                { value: "", label: "Select location" },
+                { value: "east-clinics", label: "East Clinics" },
+                { value: "splose-ot", label: "Splose OT" },
+                { value: "tasks", label: "Tasks" },
+              ]}
+              style={{ width: "100%" }}
+            />
+          </Form.Item>
 
           {/* Payment date */}
-          <FormInput label="Payment date *" value={paymentDate} onChange={(e) => setPaymentDate(e.target.value)} />
+          <Form.Item label="Payment date *">
+            <Input value={paymentDate} onChange={(e) => setPaymentDate(e.target.value)} />
+          </Form.Item>
 
           {/* Payment method */}
-          <FormSelect
-            label="Payment method *"
-            value={method}
-            onChange={setMethod}
-            options={[{ value: "", label: "Select method" }, ...paymentMethods.map((m) => ({ value: m, label: m }))]}
-          />
+          <Form.Item label="Payment method *">
+            <Select
+              value={method}
+              onChange={setMethod}
+              options={[{ value: "", label: "Select method" }, ...paymentMethods.map((m) => ({ value: m, label: m }))]}
+              style={{ width: "100%" }}
+            />
+          </Form.Item>
 
           {/* Amount */}
-          <FormInput
-            label="Amount *"
-            type="number"
-            step="0.01"
-            min="0"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-          />
+          <Form.Item label="Amount *">
+            <Input
+              type="number"
+              step="0.01"
+              min="0"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+            />
+          </Form.Item>
         </Grid>
+      </Form>
 
         {/* Apply to outstanding invoices */}
         <Text variant="label/lg" as="p" style={{ marginBottom: 12 }}>Apply to outstanding invoices</Text>
@@ -279,7 +290,7 @@ export default function NewPaymentPage() {
           <Card padding="sm" style={{ marginBottom: 12 }}>
             <div style={{ position: 'relative' }}>
               <SearchOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)', position: 'absolute', top: '50%', left: 12, zIndex: 10, transform: 'translateY(-50%)' }} />
-              <FormInput
+              <Input
                 type="text"
                 placeholder="Search invoices by number or client..."
                 value={invoiceSearch}
@@ -333,7 +344,7 @@ export default function NewPaymentPage() {
                 title: "Amount",
                 align: "right" as const,
                 render: (_, inv) => (
-                  <FormInput
+                  <Input
                     type="text"
                     value={invoiceAmounts[inv.number] || ""}
                     onChange={(e) => setInvoiceAmounts((prev) => ({ ...prev, [inv.number]: e.target.value }))}
@@ -381,14 +392,17 @@ export default function NewPaymentPage() {
 
         {/* Note and totals */}
         <Flex align="start" justify="space-between">
-          <FormTextarea
-            label="Note"
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            placeholder=""
-            style={{ width: 256, resize: 'none', fontSize: 14 }}
-            rows={3}
-          />
+          <Form form={form} layout="vertical">
+            <Form.Item label="Note" style={{ width: 256 }}>
+              <Input.TextArea
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+                placeholder=""
+                style={{ resize: 'none', fontSize: 14 }}
+                rows={3}
+              />
+            </Form.Item>
+          </Form>
           <Flex vertical gap={6} style={{ textAlign: 'right' }}>
             <Flex align="center" justify="end" gap={32}>
               <Text variant="body/md" as="span" color="secondary">Applied to invoices</Text>

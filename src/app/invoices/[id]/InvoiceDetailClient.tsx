@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useRegisterCommands } from "@/hooks/useRegisterCommands";
 import { DownOutlined, MailOutlined } from "@ant-design/icons";
-import { Button, Flex } from "antd";
-import { Divider, Dropdown, FormInput, FormSelect, FormTextarea, Grid, PaymentStatusBadge, dbStatusToPaymentStatus, Text } from "@/components/ds";
+import { Button, Flex, Form, Input, Select } from "antd";
+import { Divider, Dropdown, PaymentStatusBadge, dbStatusToPaymentStatus, Text } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 import Modal from "@/components/ds/Modal";
 
@@ -74,6 +74,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
   const [paymentMethod, setPaymentMethod] = useState("Card");
   const [referenceNumber, setReferenceNumber] = useState("");
   const [paymentNotes, setPaymentNotes] = useState("");
+  const [paymentForm] = Form.useForm();
 
   const outstandingAmount = invoice.status === "Paid" ? 0 : invoice.total;
   const invoiceClientName = `${invoice.client.firstName} ${invoice.client.lastName}`;
@@ -171,7 +172,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           </Flex>
 
           {/* Three column header */}
-          <Grid cols={3} gap={32} style={{ marginBottom: 32, fontSize: 12 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32, marginBottom: 32, fontSize: 12 }}>
             {/* Client */}
             <div>
               <Text variant="body/sm" as="h3" color="text" weight="bold" style={{ marginBottom: 4 }}>Client</Text>
@@ -234,7 +235,7 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
                 </div>
               </Flex>
             </div>
-          </Grid>
+          </div>
 
           {/* Line items table */}
           <table style={{ width: '100%', fontSize: 12, marginBottom: 24 }}>
@@ -323,102 +324,109 @@ export default function InvoiceDetailClient({ invoice }: { invoice: InvoiceData 
           </>
         }
       >
-        <Flex vertical gap={16}>
-          {/* Amount */}
-          <div>
-            <Text variant="label/lg" as="label" style={{ display: 'block', marginBottom: 4 }}>Amount</Text>
-            <div style={{ position: 'relative' }}>
-              <Text variant="body/sm" as="span" color="secondary" style={{ position: 'absolute', top: '50%', left: 12, zIndex: 10, transform: 'translateY(-50%)' }}>$</Text>
-              <FormInput
-                type="text"
-                value={paymentAmount}
-                onChange={(e) => setPaymentAmount(e.target.value)}
-                style={{ paddingLeft: 28 }}
-              />
-            </div>
-          </div>
-
-          {/* Payment date */}
-          <FormInput
-            label="Payment date"
-            type="date"
-            value={paymentDate}
-            onChange={(e) => setPaymentDate(e.target.value)}
-          />
-
-          {/* Payment method */}
-          <FormSelect
-            label="Payment method"
-            value={paymentMethod}
-            onChange={setPaymentMethod}
-            options={[
-              { value: "Credit Card", label: "Credit Card" },
-              { value: "Bank Transfer", label: "Bank Transfer" },
-              { value: "Cash", label: "Cash" },
-              { value: "EFTPOS", label: "EFTPOS" },
-              { value: "NDIS", label: "NDIS" },
-              { value: "Medicare", label: "Medicare" },
-            ]}
-          />
-
-          {/* Reference number */}
-          <FormInput
-            label="Reference number"
-            type="text"
-            value={referenceNumber}
-            onChange={(e) => setReferenceNumber(e.target.value)}
-            placeholder="Optional"
-          />
-
-          {/* Notes */}
-          <FormTextarea
-            label="Notes"
-            value={paymentNotes}
-            onChange={(e) => setPaymentNotes(e.target.value)}
-            rows={3}
-            placeholder="Optional"
-            style={{ resize: 'none' }}
-          />
-
-          {/* Receipt preview */}
-          {paymentAmount && (
-            <div style={{ padding: 16, borderRadius: 8, border: '1px dashed #d1d5db', background: '#f9fafb' }}>
-              <Text variant="label/lg" as="p" color="secondary" style={{ marginBottom: 12 }}>Receipt preview</Text>
-              <div>
-                <Flex align="center" justify="space-between">
-                  <Text variant="label/lg" as="span" color="text">Receipt #REC-001</Text>
-                  <Text variant="label/md" as="span" color="secondary">{paymentDate ? new Date(paymentDate + "T00:00:00").toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" }) : "\u2014"}</Text>
-                </Flex>
-                <Divider spacing="none" style={{ margin: '8px 0', borderColor: '#e5e7eb' }} />
-                <div style={{ paddingTop: 0 }}>
-                  <Flex justify="space-between">
-                    <Text variant="body/md" as="span" color="secondary">Invoice</Text>
-                    <Text variant="body/md" as="span" color="text">{invoice.invoiceNumber}</Text>
-                  </Flex>
-                  <Flex justify="space-between">
-                    <Text variant="body/md" as="span" color="secondary">Client</Text>
-                    <Text variant="body/md" as="span" color="text">{invoice.client.firstName} {invoice.client.lastName}</Text>
-                  </Flex>
-                  <Flex justify="space-between">
-                    <Text variant="body/md" as="span" color="secondary">Method</Text>
-                    <Text variant="body/md" as="span" color="text">{paymentMethod}</Text>
-                  </Flex>
-                  {referenceNumber && (
-                    <Flex justify="space-between">
-                      <Text variant="body/md" as="span" color="secondary">Reference</Text>
-                      <Text variant="body/md" as="span" color="text">{referenceNumber}</Text>
-                    </Flex>
-                  )}
-                </div>
-                <Divider spacing="none" style={{ margin: '8px 0', borderColor: '#e5e7eb' }} />
-                <Flex justify="space-between" style={{ paddingTop: 0 }}>
-                  <Text variant="label/lg" as="span" color="text">Amount paid</Text>
-                  <Text variant="label/lg" as="span" color="text">${paymentAmount}</Text>
-                </Flex>
+        <Form form={paymentForm} layout="vertical">
+          <Flex vertical gap={16}>
+            {/* Amount */}
+            <div>
+              <Text variant="label/lg" as="label" style={{ display: 'block', marginBottom: 4 }}>Amount</Text>
+              <div style={{ position: 'relative' }}>
+                <Text variant="body/sm" as="span" color="secondary" style={{ position: 'absolute', top: '50%', left: 12, zIndex: 10, transform: 'translateY(-50%)' }}>$</Text>
+                <Input
+                  type="text"
+                  value={paymentAmount}
+                  onChange={(e) => setPaymentAmount(e.target.value)}
+                  style={{ paddingLeft: 28 }}
+                />
               </div>
             </div>
-          )}
-        </Flex>
+
+            {/* Payment date */}
+            <Form.Item label="Payment date">
+              <Input
+                type="date"
+                value={paymentDate}
+                onChange={(e) => setPaymentDate(e.target.value)}
+              />
+            </Form.Item>
+
+            {/* Payment method */}
+            <Form.Item label="Payment method">
+              <Select
+                value={paymentMethod}
+                onChange={setPaymentMethod}
+                options={[
+                  { value: "Credit Card", label: "Credit Card" },
+                  { value: "Bank Transfer", label: "Bank Transfer" },
+                  { value: "Cash", label: "Cash" },
+                  { value: "EFTPOS", label: "EFTPOS" },
+                  { value: "NDIS", label: "NDIS" },
+                  { value: "Medicare", label: "Medicare" },
+                ]}
+                style={{ width: "100%" }}
+              />
+            </Form.Item>
+
+            {/* Reference number */}
+            <Form.Item label="Reference number">
+              <Input
+                type="text"
+                value={referenceNumber}
+                onChange={(e) => setReferenceNumber(e.target.value)}
+                placeholder="Optional"
+              />
+            </Form.Item>
+
+            {/* Notes */}
+            <Form.Item label="Notes">
+              <Input.TextArea
+                value={paymentNotes}
+                onChange={(e) => setPaymentNotes(e.target.value)}
+                rows={3}
+                placeholder="Optional"
+                style={{ resize: 'none' }}
+              />
+            </Form.Item>
+
+            {/* Receipt preview */}
+            {paymentAmount && (
+              <div style={{ padding: 16, borderRadius: 8, border: '1px dashed #d1d5db', background: '#f9fafb' }}>
+                <Text variant="label/lg" as="p" color="secondary" style={{ marginBottom: 12 }}>Receipt preview</Text>
+                <div>
+                  <Flex align="center" justify="space-between">
+                    <Text variant="label/lg" as="span" color="text">Receipt #REC-001</Text>
+                    <Text variant="label/md" as="span" color="secondary">{paymentDate ? new Date(paymentDate + "T00:00:00").toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" }) : "\u2014"}</Text>
+                  </Flex>
+                  <Divider spacing="none" style={{ margin: '8px 0', borderColor: '#e5e7eb' }} />
+                  <div style={{ paddingTop: 0 }}>
+                    <Flex justify="space-between">
+                      <Text variant="body/md" as="span" color="secondary">Invoice</Text>
+                      <Text variant="body/md" as="span" color="text">{invoice.invoiceNumber}</Text>
+                    </Flex>
+                    <Flex justify="space-between">
+                      <Text variant="body/md" as="span" color="secondary">Client</Text>
+                      <Text variant="body/md" as="span" color="text">{invoice.client.firstName} {invoice.client.lastName}</Text>
+                    </Flex>
+                    <Flex justify="space-between">
+                      <Text variant="body/md" as="span" color="secondary">Method</Text>
+                      <Text variant="body/md" as="span" color="text">{paymentMethod}</Text>
+                    </Flex>
+                    {referenceNumber && (
+                      <Flex justify="space-between">
+                        <Text variant="body/md" as="span" color="secondary">Reference</Text>
+                        <Text variant="body/md" as="span" color="text">{referenceNumber}</Text>
+                      </Flex>
+                    )}
+                  </div>
+                  <Divider spacing="none" style={{ margin: '8px 0', borderColor: '#e5e7eb' }} />
+                  <Flex justify="space-between" style={{ paddingTop: 0 }}>
+                    <Text variant="label/lg" as="span" color="text">Amount paid</Text>
+                    <Text variant="label/lg" as="span" color="text">${paymentAmount}</Text>
+                  </Flex>
+                </div>
+              </div>
+            )}
+          </Flex>
+        </Form>
       </Modal>
 
       {/* Toast notification */}

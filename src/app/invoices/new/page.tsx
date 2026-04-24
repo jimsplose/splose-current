@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
-import { Button, Flex, Table } from "antd";
+import { Button, Flex, Form, Input, Select, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { FormInput, FormPage, FormSelect, FormTextarea, Grid, Text } from "@/components/ds";
+import { FormPage, Grid, Text } from "@/components/ds";
 
 const mockPatients = [
   { value: "michael-brooks", label: "Michael Brooks" },
@@ -89,6 +89,7 @@ let nextId = 2;
 
 export default function NewInvoicePage() {
   const router = useRouter();
+  const [form] = Form.useForm();
 
   const [patient, setPatient] = useState("michael-brooks");
   const [invoiceTo, setInvoiceTo] = useState("");
@@ -164,78 +165,91 @@ export default function NewInvoicePage() {
       }
     >
       {/* Form fields — flat layout, no Card wrappers */}
-      <Flex vertical gap={16}>
-        <Grid cols={4} gap="md">
-          <FormInput
-            label="Invoice #"
-            value={invoiceNumber}
-            readOnly
-          />
-          <FormInput
-            label="Reference"
-            value={reference}
-            onChange={(e) => setReference(e.target.value)}
-            placeholder="Reference"
-          />
-          <FormInput
-            label="Issue date"
-            type="date"
-            value={issueDate}
-            onChange={(e) => setIssueDate(e.target.value)}
-          />
-          <FormInput
-            label="Due date"
-            type="date"
-            value={dueDate}
-            onChange={(e) => setDueDate(e.target.value)}
-          />
-        </Grid>
+      <Form form={form} layout="vertical">
+        <Flex vertical gap={16}>
+          <Grid cols={4} gap="md">
+            <Form.Item label="Invoice #">
+              <Input value={invoiceNumber} readOnly />
+            </Form.Item>
+            <Form.Item label="Reference">
+              <Input
+                value={reference}
+                onChange={(e) => setReference(e.target.value)}
+                placeholder="Reference"
+              />
+            </Form.Item>
+            <Form.Item label="Issue date">
+              <Input
+                type="date"
+                value={issueDate}
+                onChange={(e) => setIssueDate(e.target.value)}
+              />
+            </Form.Item>
+            <Form.Item label="Due date">
+              <Input
+                type="date"
+                value={dueDate}
+                onChange={(e) => setDueDate(e.target.value)}
+              />
+            </Form.Item>
+          </Grid>
 
-        <Grid cols={2} gap="md">
-          <FormSelect
-            label="Patient"
-            options={mockPatients}
-            value={patient}
-            onChange={setPatient}
-            placeholder="Select patient"
-            searchable
-          />
-          <FormSelect
-            label="Invoice to"
-            options={mockInvoiceTo}
-            value={invoiceTo}
-            onChange={setInvoiceTo}
-          />
-        </Grid>
+          <Grid cols={2} gap="md">
+            <Form.Item label="Patient">
+              <Select
+                options={mockPatients}
+                value={patient}
+                onChange={setPatient}
+                placeholder="Select patient"
+                showSearch={true}
+                style={{ width: "100%" }}
+              />
+            </Form.Item>
+            <Form.Item label="Invoice to">
+              <Select
+                options={mockInvoiceTo}
+                value={invoiceTo}
+                onChange={setInvoiceTo}
+                style={{ width: "100%" }}
+              />
+            </Form.Item>
+          </Grid>
 
-        <FormTextarea
-          label="Extra invoice details"
-          value={extraDetails}
-          onChange={(e) => setExtraDetails(e.target.value)}
-          rows={2}
-        />
+          <Form.Item label="Extra invoice details">
+            <Input.TextArea
+              value={extraDetails}
+              onChange={(e) => setExtraDetails(e.target.value)}
+              rows={2}
+            />
+          </Form.Item>
 
-        <Grid cols={3} gap="md">
-          <FormSelect
-            label="Location"
-            options={mockLocations}
-            value={location}
-            onChange={setLocation}
-          />
-          <FormSelect
-            label="Practitioner"
-            options={mockPractitioners}
-            value={practitioner}
-            onChange={setPractitioner}
-          />
-          <FormInput
-            label="Provider numbers"
-            value={providerNumbers}
-            onChange={(e) => setProviderNumbers(e.target.value)}
-            placeholder="Provider numbers"
-          />
-        </Grid>
-      </Flex>
+          <Grid cols={3} gap="md">
+            <Form.Item label="Location">
+              <Select
+                options={mockLocations}
+                value={location}
+                onChange={setLocation}
+                style={{ width: "100%" }}
+              />
+            </Form.Item>
+            <Form.Item label="Practitioner">
+              <Select
+                options={mockPractitioners}
+                value={practitioner}
+                onChange={setPractitioner}
+                style={{ width: "100%" }}
+              />
+            </Form.Item>
+            <Form.Item label="Provider numbers">
+              <Input
+                value={providerNumbers}
+                onChange={(e) => setProviderNumbers(e.target.value)}
+                placeholder="Provider numbers"
+              />
+            </Form.Item>
+          </Grid>
+        </Flex>
+      </Form>
 
       {/* Line items table */}
       {patient && (
@@ -247,10 +261,11 @@ export default function NewInvoicePage() {
                 title: "Type",
                 width: 100,
                 render: (_, item) => (
-                  <FormSelect
+                  <Select
                     value={item.type}
                     onChange={(value) => updateLineItem(item.id, "type", value)}
                     options={mockTypeOptions}
+                    style={{ width: "100%" }}
                   />
                 ),
               },
@@ -258,7 +273,7 @@ export default function NewInvoicePage() {
                 key: "description",
                 title: "Description",
                 render: (_, item) => (
-                  <FormInput
+                  <Input
                     value={item.description}
                     onChange={(e) => updateLineItem(item.id, "description", e.target.value)}
                     placeholder="Description"
@@ -270,7 +285,7 @@ export default function NewInvoicePage() {
                 title: "Code",
                 width: 100,
                 render: (_, item) => (
-                  <FormInput
+                  <Input
                     value={item.code}
                     onChange={(e) => updateLineItem(item.id, "code", e.target.value)}
                     placeholder="Code"
@@ -282,10 +297,11 @@ export default function NewInvoicePage() {
                 title: "Unit",
                 width: 90,
                 render: (_, item) => (
-                  <FormSelect
+                  <Select
                     value={item.unit}
                     onChange={(value) => updateLineItem(item.id, "unit", value)}
                     options={mockUnitOptions}
+                    style={{ width: "100%" }}
                   />
                 ),
               },
@@ -294,10 +310,11 @@ export default function NewInvoicePage() {
                 title: "Tax rate",
                 width: 120,
                 render: (_, item) => (
-                  <FormSelect
+                  <Select
                     value={item.taxRate}
                     onChange={(value) => updateLineItem(item.id, "taxRate", value)}
                     options={mockTaxRateOptions}
+                    style={{ width: "100%" }}
                   />
                 ),
               },
@@ -307,7 +324,7 @@ export default function NewInvoicePage() {
                 align: "right" as const,
                 width: 100,
                 render: (_, item) => (
-                  <FormInput
+                  <Input
                     type="number"
                     step="0.01"
                     min="0"
@@ -324,7 +341,7 @@ export default function NewInvoicePage() {
                 align: "right" as const,
                 width: 70,
                 render: (_, item) => (
-                  <FormInput
+                  <Input
                     type="number"
                     min="1"
                     value={item.qty}
@@ -339,7 +356,7 @@ export default function NewInvoicePage() {
                 align: "right" as const,
                 width: 90,
                 render: (_, item) => (
-                  <FormInput
+                  <Input
                     type="number"
                     min="0"
                     max="100"
@@ -423,7 +440,7 @@ export default function NewInvoicePage() {
               <Text variant="label/lg">Additional information</Text>
               <Button type="text" size="small">Apply business default</Button>
             </Flex>
-            <FormTextarea
+            <Input.TextArea
               value={additionalInfo}
               onChange={(e) => setAdditionalInfo(e.target.value)}
               rows={3}
