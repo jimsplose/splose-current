@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex } from "antd";
-import { PageHeader, DataTable, TableHead, Th, TableBody, Tr, Td, Dropdown, DropdownTriggerButton, Modal, FormInput } from "@/components/ds";
+import { Button, Flex, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { PageHeader, Dropdown, DropdownTriggerButton, Modal, FormInput } from "@/components/ds";
 import { useFormModal } from "@/hooks/useFormModal";
 import { STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 import { formatTimestamp } from "@/lib/format";
@@ -55,6 +56,12 @@ const bookings = [
   },
 ];
 
+interface BookingRow {
+  name: string;
+  createdAt: string;
+  lastUpdated: string;
+}
+
 export default function OnlineBookingsPage() {
   const [bookingList, setBookingList] = useState(bookings);
 
@@ -77,6 +84,29 @@ export default function OnlineBookingsPage() {
     if (value === "edit") openEdit(index, { name: bookingList[index].name });
   }
 
+  const columns: ColumnsType<BookingRow> = [
+    {
+      key: "name",
+      title: "Name",
+      render: (_, row) => <span style={{ fontWeight: 500 }}>{row.name}</span>,
+    },
+    { key: "createdAt", title: "Created at", dataIndex: "createdAt" },
+    { key: "lastUpdated", title: "Last updated", dataIndex: "lastUpdated" },
+    {
+      key: "actions",
+      title: "",
+      align: "right" as const,
+      render: (_, row) => (
+        <Dropdown
+          align="right"
+          trigger={<DropdownTriggerButton />}
+          items={STANDARD_SETTINGS}
+          onSelect={(value) => handleAction(value, bookingList.indexOf(row))}
+        />
+      ),
+    },
+  ];
+
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Online booking settings">
@@ -84,31 +114,7 @@ export default function OnlineBookingsPage() {
         <Button onClick={openCreate}>+ New booking page</Button>
       </PageHeader>
 
-      <DataTable>
-        <TableHead>
-          <Th>Name</Th>
-          <Th>Created at</Th>
-          <Th>Last updated</Th>
-          <Th align="right">Actions</Th>
-        </TableHead>
-        <TableBody>
-          {bookingList.map((b, i) => (
-            <Tr key={b.name + i}>
-              <Td style={{ fontWeight: 500 }}>{b.name}</Td>
-              <Td>{b.createdAt}</Td>
-              <Td>{b.lastUpdated}</Td>
-              <Td align="right">
-                <Dropdown
-                  align="right"
-                  trigger={<DropdownTriggerButton />}
-                  items={STANDARD_SETTINGS}
-                  onSelect={(value) => handleAction(value, i)}
-                />
-              </Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table columns={columns} dataSource={bookingList} rowKey={(row) => row.name + bookingList.indexOf(row)} pagination={false} />
 
       <Modal
         open={modalOpen}

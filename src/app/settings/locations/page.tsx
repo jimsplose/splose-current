@@ -3,8 +3,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { PageHeader, DataTable, TableHead, Th, TableBody, Tr, Td, Pagination, Modal, FormInput, FormSelect } from "@/components/ds";
-import { Button } from "antd";
+import { PageHeader, Pagination, Modal, FormInput, FormSelect } from "@/components/ds";
+import { Button, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { Text } from "@/components/ds";
 
 const locations = [
   { id: 128, name: "East Clinics", address: "", lastUpdate: "12:24 pm, 6 Mar 2026", rooms: 4 },
@@ -25,6 +27,14 @@ const defaultHours: Record<string, { start: string; end: string }> = {
   Friday: { start: "08:00", end: "17:00" },
 };
 
+interface LocationRow {
+  id: number;
+  name: string;
+  address: string;
+  lastUpdate: string;
+  rooms: number;
+}
+
 export default function LocationsPage() {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,35 +47,41 @@ export default function LocationsPage() {
   const [openingHours, setOpeningHours] = useState(defaultHours);
   const [newRoomCount, setNewRoomCount] = useState("1");
 
+  const columns: ColumnsType<LocationRow> = [
+    {
+      key: "name",
+      title: "Name",
+      render: (_, row) => (
+        <Link href={`/settings/locations/edit/${row.id}`} style={{ fontWeight: 500 }}>
+          {row.name}
+        </Link>
+      ),
+    },
+    {
+      key: "address",
+      title: "Address",
+      render: (_, row) => <Text color="secondary" as="span">{row.address}</Text>,
+    },
+    {
+      key: "lastUpdate",
+      title: "Last update",
+      render: (_, row) => <Text color="secondary" as="span">{row.lastUpdate}</Text>,
+    },
+  ];
+
   return (
     <div style={{ padding: 24 }}>
       <PageHeader title="Locations">
         <Button>Show archived</Button>
         <Button onClick={() => { setNewName(""); setNewAddress(""); setOpeningHours(defaultHours); setNewRoomCount("1"); setShowNewModal(true); }}>+ New location</Button>
       </PageHeader>
-      <DataTable>
-        <TableHead>
-          <Th>Name</Th>
-          <Th>Address</Th>
-          <Th>Last update</Th>
-        </TableHead>
-        <TableBody>
-          {paged.map((loc) => (
-            <Tr key={loc.id} clickable>
-              <Td>
-                <Link
-                  href={`/settings/locations/edit/${loc.id}`}
-                  style={{ fontWeight: 500 }}
-                >
-                  {loc.name}
-                </Link>
-              </Td>
-              <Td color="secondary">{loc.address}</Td>
-              <Td color="secondary">{loc.lastUpdate}</Td>
-            </Tr>
-          ))}
-        </TableBody>
-      </DataTable>
+      <Table
+        columns={columns}
+        dataSource={paged}
+        rowKey="id"
+        pagination={false}
+        onRow={(record) => ({ style: { cursor: 'pointer' } })}
+      />
       <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={locations.length} itemsPerPage={pageSize} onPageChange={setCurrentPage} showPageSize={false} />
 
       <Modal
