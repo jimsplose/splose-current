@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Flex } from "antd";
-import { Card, Checkbox, FormPage, FormSelect, FormTextarea, Text } from "@/components/ds";
+import { Button, Flex, Form, Select, Input } from "antd";
+import { Card, Checkbox, FormPage, Text } from "@/components/ds";
 
 const clientOptions = [
   { value: "", label: "Select a client..." },
@@ -54,6 +54,7 @@ const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] as const;
 
 export default function WaitlistNewPage() {
   const router = useRouter();
+  const [form] = Form.useForm();
   const [client, setClient] = useState("");
   const [practitioner, setPractitioner] = useState("");
   const [service, setService] = useState("");
@@ -100,77 +101,70 @@ export default function WaitlistNewPage() {
       <Flex vertical gap={24}>
         {/* Client */}
         <Card title="Client" headerBar>
-          <Flex vertical gap={16}>
-            <FormSelect
-              label="Client"
-              options={clientOptions}
-              value={client}
-              onChange={setClient}
-            />
-            <FormSelect
-              label="Preferred practitioner"
-              options={practitionerOptions}
-              value={practitioner}
-              onChange={setPractitioner}
-            />
-          </Flex>
+          <Form form={form} layout="vertical">
+            <Flex vertical gap={16}>
+              <Form.Item label="Client">
+                <Select options={clientOptions} value={client} onChange={setClient} style={{ width: "100%" }} />
+              </Form.Item>
+              <Form.Item label="Preferred practitioner">
+                <Select options={practitionerOptions} value={practitioner} onChange={setPractitioner} style={{ width: "100%" }} />
+              </Form.Item>
+            </Flex>
+          </Form>
         </Card>
 
         {/* Details */}
         <Card title="Details" headerBar>
-          <Flex vertical gap={16}>
-            <FormSelect
-              label="Service"
-              options={serviceOptions}
-              value={service}
-              onChange={setService}
-            />
-            <FormSelect
-              label="Priority"
-              options={priorityOptions}
-              value={priority}
-              onChange={setPriority}
-            />
-            <div>
-              <Text variant="label/lg" as="label" color="secondary" style={{ display: 'block', marginBottom: 8 }}>Preferred days</Text>
-              <Flex wrap gap={16}>
-                {days.map((day) => (
-                  <Checkbox
-                    key={day}
-                    label={day}
-                    checked={preferredDays[day]}
-                    onChange={() => handleDayToggle(day)}
-                  />
-                ))}
-              </Flex>
-            </div>
-            <FormSelect
-              label="Preferred time"
-              options={timeOptions}
-              value={preferredTime}
-              onChange={setPreferredTime}
-            />
-          </Flex>
+          <Form form={form} layout="vertical">
+            <Flex vertical gap={16}>
+              <Form.Item label="Service">
+                <Select options={serviceOptions} value={service} onChange={setService} style={{ width: "100%" }} />
+              </Form.Item>
+              <Form.Item label="Priority">
+                <Select options={priorityOptions} value={priority} onChange={setPriority} style={{ width: "100%" }} />
+              </Form.Item>
+              <div>
+                <Text variant="label/lg" as="label" color="secondary" style={{ display: 'block', marginBottom: 8 }}>Preferred days</Text>
+                <Flex wrap gap={16}>
+                  {days.map((day) => (
+                    <Checkbox
+                      key={day}
+                      label={day}
+                      checked={preferredDays[day]}
+                      onChange={() => handleDayToggle(day)}
+                    />
+                  ))}
+                </Flex>
+              </div>
+              <Form.Item label="Preferred time">
+                <Select options={timeOptions} value={preferredTime} onChange={setPreferredTime} style={{ width: "100%" }} />
+              </Form.Item>
+            </Flex>
+          </Form>
         </Card>
 
         {/* Notes */}
         <Card title="Notes" headerBar>
-          <Flex vertical gap={16}>
-            <FormTextarea
-              label="Reason for waitlist"
-              placeholder="Why is the client being added to the waitlist?"
-              rows={3}
-              value={reason}
-              onChange={(e) => setReason(e.target.value)}
-            />
-            <FormTextarea
-              label="Internal notes"
-              placeholder="Any additional notes for staff..."
-              rows={3}
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-            />
-          </Flex>
+          <Form form={form} layout="vertical">
+            <Flex vertical gap={16}>
+              <Form.Item label="Reason for waitlist">
+                <Input.TextArea
+                  placeholder="Why is the client being added to the waitlist?"
+                  rows={3}
+                  value={reason}
+                  onChange={(e) => setReason(e.target.value)}
+                />
+              </Form.Item>
+              <Form.Item label="Internal notes">
+                <Input.TextArea
+                  placeholder="Any additional notes for staff..."
+                  rows={3}
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                />
+              </Form.Item>
+            </Flex>
+          </Form>
         </Card>
       </Flex>
     </FormPage>

@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Flex } from "antd";
-import { FormPage, Card, FormInput, FormTextarea, Grid } from "@/components/ds";
+import { Button, Flex, Form, Input } from "antd";
+import { FormPage, Card, Grid } from "@/components/ds";
 
 export default function NewContactPage() {
   const router = useRouter();
-  const [form, setForm] = useState({
+  const [antForm] = Form.useForm();
+  const [contactForm, setContactForm] = useState({
     firstName: "",
     lastName: "",
     organisation: "",
@@ -21,7 +22,7 @@ export default function NewContactPage() {
   });
 
   const setField = (field: string, value: string) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
+    setContactForm((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSave = () => {
@@ -46,74 +47,59 @@ export default function NewContactPage() {
     >
       <Flex vertical gap={24}>
         <Card title="General details">
-          <Grid cols={2} gap="md">
-            <FormInput
-              label="First name"
-              value={form.firstName}
-              onChange={(e) => setField("firstName", e.target.value)}
-            />
-            <FormInput
-              label="Last name"
-              value={form.lastName}
-              onChange={(e) => setField("lastName", e.target.value)}
-            />
-            <FormInput
-              label="Organisation"
-              value={form.organisation}
-              onChange={(e) => setField("organisation", e.target.value)}
-            />
-            <FormInput
-              label="Job title"
-              value={form.jobTitle}
-              onChange={(e) => setField("jobTitle", e.target.value)}
-            />
-          </Grid>
+          <Form form={antForm} layout="vertical">
+            <Grid cols={2} gap="md">
+              <Form.Item label="First name">
+                <Input value={contactForm.firstName} onChange={(e) => setField("firstName", e.target.value)} />
+              </Form.Item>
+              <Form.Item label="Last name">
+                <Input value={contactForm.lastName} onChange={(e) => setField("lastName", e.target.value)} />
+              </Form.Item>
+              <Form.Item label="Organisation">
+                <Input value={contactForm.organisation} onChange={(e) => setField("organisation", e.target.value)} />
+              </Form.Item>
+              <Form.Item label="Job title">
+                <Input value={contactForm.jobTitle} onChange={(e) => setField("jobTitle", e.target.value)} />
+              </Form.Item>
+            </Grid>
+          </Form>
         </Card>
 
         <Card title="Contact details">
-          <Grid cols={2} gap="md">
-            <FormInput
-              label="Email"
-              type="email"
-              value={form.email}
-              onChange={(e) => setField("email", e.target.value)}
-            />
-            <FormInput
-              label="Phone"
-              type="tel"
-              value={form.phone}
-              onChange={(e) => setField("phone", e.target.value)}
-            />
-            <FormInput
-              label="Mobile"
-              type="tel"
-              value={form.mobile}
-              onChange={(e) => setField("mobile", e.target.value)}
-            />
-            <FormInput
-              label="Fax"
-              type="tel"
-              value={form.fax}
-              onChange={(e) => setField("fax", e.target.value)}
-            />
-          </Grid>
-          <div style={{ marginTop: 16 }}>
-            <FormInput
-              label="Address"
-              value={form.address}
-              onChange={(e) => setField("address", e.target.value)}
-            />
-          </div>
+          <Form form={antForm} layout="vertical">
+            <Grid cols={2} gap="md">
+              <Form.Item label="Email">
+                <Input type="email" value={contactForm.email} onChange={(e) => setField("email", e.target.value)} />
+              </Form.Item>
+              <Form.Item label="Phone">
+                <Input type="tel" value={contactForm.phone} onChange={(e) => setField("phone", e.target.value)} />
+              </Form.Item>
+              <Form.Item label="Mobile">
+                <Input type="tel" value={contactForm.mobile} onChange={(e) => setField("mobile", e.target.value)} />
+              </Form.Item>
+              <Form.Item label="Fax">
+                <Input type="tel" value={contactForm.fax} onChange={(e) => setField("fax", e.target.value)} />
+              </Form.Item>
+            </Grid>
+            <div style={{ marginTop: 16 }}>
+              <Form.Item label="Address">
+                <Input value={contactForm.address} onChange={(e) => setField("address", e.target.value)} />
+              </Form.Item>
+            </div>
+          </Form>
         </Card>
 
         <Card title="Notes">
-          <FormTextarea
-            label="Notes"
-            rows={4}
-            value={form.notes}
-            onChange={(e) => setField("notes", e.target.value)}
-            placeholder="Add any notes about this contact..."
-          />
+          <Form form={antForm} layout="vertical">
+            <Form.Item label="Notes">
+              <Input.TextArea
+                rows={4}
+                value={contactForm.notes}
+                onChange={(e) => setField("notes", e.target.value)}
+                placeholder="Add any notes about this contact..."
+              />
+            </Form.Item>
+          </Form>
         </Card>
       </Flex>
     </FormPage>

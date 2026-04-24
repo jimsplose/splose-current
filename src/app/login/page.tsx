@@ -1,6 +1,6 @@
 import { RightOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
-import { Checkbox, FormInput } from "@/components/ds";
-import { Button } from "antd";
+import { Checkbox } from "@/components/ds";
+import { Button, Form, Input } from "antd";
 
 export default function LoginPage() {
   return (
@@ -20,24 +20,24 @@ export default function LoginPage() {
           <p style={{ fontSize: 14, color: "var(--color-primary)" }}>You are logging into</p>
           <p style={{ marginTop: 4, fontSize: "var(--font-size-heading-lg)", fontWeight: "var(--font-weight-heading-lg)", color: "var(--color-text)" }}>acme.splose.com</p>
 
-          <div style={{ marginTop: 24 }}>
-            <FormInput
-              type="email"
-              label="Email"
-              style={{ marginTop: 4, borderRadius: 0, border: 'none', borderBottom: '1px solid #d1d5db', backgroundColor: 'transparent', paddingLeft: 0, paddingRight: 0, paddingTop: 8, paddingBottom: 8, boxShadow: 'none' }}
-            />
-          </div>
-
-          <div style={{ marginTop: 24 }}>
-            <div style={{ position: "relative" }}>
-              <FormInput
-                type="password"
-                label="Password"
-                style={{ marginTop: 4, borderRadius: 0, border: 'none', borderBottom: '1px solid #d1d5db', backgroundColor: 'transparent', paddingLeft: 0, paddingRight: 32, paddingTop: 8, paddingBottom: 8, boxShadow: 'none' }}
+          <Form layout="vertical" style={{ marginTop: 24 }}>
+            <Form.Item label="Email">
+              <Input
+                type="email"
+                style={{ marginTop: 4, borderRadius: 0, border: 'none', borderBottom: '1px solid #d1d5db', backgroundColor: 'transparent', paddingLeft: 0, paddingRight: 0, paddingTop: 8, paddingBottom: 8, boxShadow: 'none' }}
               />
-              <EyeInvisibleOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary, #6E6E64)', position: "absolute", bottom: 12, right: 0 }} />
-            </div>
-          </div>
+            </Form.Item>
+
+            <Form.Item label="Password" style={{ marginTop: 8 }}>
+              <div style={{ position: "relative" }}>
+                <Input
+                  type="password"
+                  style={{ marginTop: 4, borderRadius: 0, border: 'none', borderBottom: '1px solid #d1d5db', backgroundColor: 'transparent', paddingLeft: 0, paddingRight: 32, paddingTop: 8, paddingBottom: 8, boxShadow: 'none' }}
+                />
+                <EyeInvisibleOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary, #6E6E64)', position: "absolute", bottom: 12, right: 0 }} />
+              </div>
+            </Form.Item>
+          </Form>
 
           <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Checkbox label="Remember me" />

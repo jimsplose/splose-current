@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Button, Flex, Table } from "antd";
+import { Button, Flex, Select, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { Badge, DateRangeFilter, Dropdown, FormSelect, ListPage } from "@/components/ds";
+import { Badge, DateRangeFilter, Dropdown, ListPage } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 
 interface Appointment {
@@ -169,7 +169,7 @@ export default function ReportsAppointmentsPage() {
           <span>&#128196;</span> Contains note
           <Button type="text" size="small" style={{ marginLeft: 4, color: '#f87171' }}>&#10005;</Button>
         </Flex>
-        <FormSelect
+        <Select
           options={[
             { value: "yes", label: "Yes" },
             { value: "no", label: "No" },

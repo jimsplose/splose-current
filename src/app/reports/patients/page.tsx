@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex, Table } from "antd";
+import { Button, Flex, Form, Select, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { Badge, DateRangeFilter, FormSelect, ListPage } from "@/components/ds";
+import { Badge, DateRangeFilter, ListPage } from "@/components/ds";
 
 interface PatientRow {
   name: string;
@@ -79,17 +79,18 @@ export default function ReportsPatientsPage() {
           </div>
 
           <div style={{ marginBottom: 16 }}>
-            <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
-              Status
-            </Flex>
-            <FormSelect
-              options={[
-                { value: "active", label: "Active" },
-                { value: "archived", label: "Archived" },
-                { value: "all", label: "All" },
-              ]}
-              style={{ width: 192 }}
-            />
+            <Form layout="vertical">
+              <Form.Item label="Status">
+                <Select
+                  options={[
+                    { value: "active", label: "Active" },
+                    { value: "archived", label: "Archived" },
+                    { value: "all", label: "All" },
+                  ]}
+                  style={{ width: 192 }}
+                />
+              </Form.Item>
+            </Form>
           </div>
 
           <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 32 }}>

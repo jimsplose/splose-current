@@ -20,9 +20,8 @@ import {
   EyeOutlined,
   EditOutlined,
 } from "@ant-design/icons";
-import { Button, Flex } from "antd";
-import { FormSelect, FormInput, Badge, Divider, Card } from "@/components/ds";
-import FormLabel from "@/components/ds/FormLabel";
+import { Button, Flex, Form, Select, Input } from "antd";
+import { Badge, Divider, Card } from "@/components/ds";
 import Modal from "@/components/ds/Modal";
 
 interface SendNoteModalProps {
@@ -63,6 +62,7 @@ Kingsville VIC`;
 
   const [body, setBody] = useState(defaultBody);
   const [viewMode, setViewMode] = useState<"edit" | "preview">("edit");
+  const [form] = Form.useForm();
 
   function handleAddEmail(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter" || e.key === ",") {
@@ -134,7 +134,7 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
       <Flex vertical gap={16} style={{ maxHeight: 'calc(100vh - 20rem)', overflowY: 'auto' }}>
         {/* Mode toggle */}
         <Flex align="center" gap={8}>
-          <FormSelect
+          <Select
             options={[
               { value: "progress-note", label: "#2_Progress note email template" },
               { value: "default", label: "Default template" },
@@ -182,35 +182,35 @@ ${clientName}'s next upcoming appointment is scheduled for 26 Mar 2028.`;
                   {email}
                 </Badge>
               ))}
-              <FormInput
+              <Input
                 type="email"
                 value={toInput}
                 onChange={(e) => setToInput(e.target.value)}
                 onKeyDown={handleAddEmail}
                 placeholder={toEmails.length === 0 ? "Add recipient email..." : ""}
-                // eslint-disable-next-line no-restricted-syntax -- borderless/shadowless FormInput embedded inside chip container; no DS chip-input component exists
+                // eslint-disable-next-line no-restricted-syntax -- borderless/shadowless Input embedded inside chip container; no DS chip-input component exists
                 style={{ minWidth: 120, flex: 1, border: 'none', borderRadius: 0, padding: 0, fontSize: 12, boxShadow: 'none' }}
               />
             </Flex>
 
             {/* Reply to */}
-            <div>
-              <FormLabel required style={{ color: 'var(--color-text-secondary)' }}>
-                Reply to
-              </FormLabel>
-              <FormSelect
-                options={[
-                  { value: "hands-together", label: "Hands Together Therapies (hello@hands-together-therapy.com)" },
-                ]}
-                value="hands-together"
-                onChange={() => {}}
-              />
-            </div>
+            <Form form={form} layout="vertical">
+              <Form.Item label="Reply to" required>
+                <Select
+                  options={[
+                    { value: "hands-together", label: "Hands Together Therapies (hello@hands-together-therapy.com)" },
+                  ]}
+                  value="hands-together"
+                  onChange={() => {}}
+                  style={{ width: "100%" }}
+                />
+              </Form.Item>
+            </Form>
 
             {/* Subject + Summarise button row */}
             <Flex align="center" gap={8}>
               <div style={{ flex: 1 }}>
-                <FormInput
+                <Input
                   type="text"
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}

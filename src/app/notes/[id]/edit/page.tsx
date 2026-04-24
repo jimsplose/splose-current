@@ -28,8 +28,8 @@ import {
   SnippetsOutlined,
   ArrowUpOutlined,
 } from "@ant-design/icons";
-import { Button, Flex } from "antd";
-import { Card, Checkbox, FormSelect, List, Navbar, Filter, Spinner, Dropdown, Text, Divider, Tooltip } from "@/components/ds";
+import { Button, Flex, Select } from "antd";
+import { Card, Checkbox, List, Navbar, Filter, Spinner, Dropdown, Text, Divider, Tooltip } from "@/components/ds";
 import AiChatPanel from "@/components/AiChatPanel";
 
 type NoteData = {
@@ -332,10 +332,11 @@ export default function EditProgressNotePage() {
             {/* Service selector */}
             <div style={{ marginBottom: 16 }}>
               <div style={{ marginBottom: 4, fontSize: 14, fontWeight: 400, color: 'rgb(65, 69, 73)' }}>Service</div>
-              <FormSelect
+              <Select
                 options={SERVICE_OPTIONS}
                 value={service}
                 onChange={setService}
+                style={{ width: "100%" }}
               />
             </div>
 

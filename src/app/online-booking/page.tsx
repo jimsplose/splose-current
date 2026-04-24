@@ -3,8 +3,8 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { LeftOutlined, RightOutlined, EnvironmentOutlined, FileTextOutlined, ClockCircleOutlined, CalendarOutlined, UserOutlined, CheckCircleOutlined, MailOutlined, PlusOutlined, CopyOutlined, BankOutlined } from "@ant-design/icons";
-import { Button, Flex } from "antd";
-import { Avatar, Checkbox, FormInput, FormSelect, FormTextarea, Text } from "@/components/ds";
+import { Button, Flex, Form, Input, Select } from "antd";
+import { Avatar, Checkbox, Text } from "@/components/ds";
 import styles from "./online-booking.module.css";
 
 const practitioners = [
@@ -43,6 +43,7 @@ export default function OnlineBookingPage() {
 }
 
 function OnlineBookingPageInner() {
+  const [form] = Form.useForm();
   const [step, setStep] = useState<Step>("location");
 
   const searchParams = useSearchParams();
@@ -281,24 +282,21 @@ function OnlineBookingPageInner() {
 
                 <div className={styles.confirmForm}>
                   <div className={styles.confirmFormFields}>
+                    <Form form={form} layout="vertical">
                     <div className={styles.formGrid2}>
-                      <FormInput
-                        label="First name *"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                      />
-                      <FormInput
-                        label="Last name *"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                      />
+                      <Form.Item label="First name *" required>
+                        <Input value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                      </Form.Item>
+                      <Form.Item label="Last name *" required>
+                        <Input value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                      </Form.Item>
                     </div>
 
                     <div className={styles.formGrid2}>
                       <div>
                         <Text variant="label/lg" as="label" color="secondary" className={styles.labelBlock}>Phone number *</Text>
                         <div className={styles.phoneRow}>
-                          <FormSelect
+                          <Select
                             options={[
                               { value: "+61", label: "+61" },
                               { value: "+64", label: "+64" },
@@ -308,7 +306,7 @@ function OnlineBookingPageInner() {
                             onChange={setPhoneCode}
                             style={{ width: 80 }}
                           />
-                          <FormInput
+                          <Input
                             type="tel"
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
@@ -316,52 +314,53 @@ function OnlineBookingPageInner() {
                           />
                         </div>
                       </div>
-                      <FormInput
-                        label="Email address *"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
+                      <Form.Item label="Email address *" required>
+                        <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                      </Form.Item>
                     </div>
 
                     <div>
                       <Text variant="label/lg" as="label" color="secondary" className={styles.labelBlock}>Date of birth *</Text>
                       <div className={styles.formGrid3}>
-                        <FormSelect
+                        <Select
                           options={Array.from({ length: 31 }, (_, i) => ({
                             value: String(i + 1),
                             label: String(i + 1),
                           }))}
                           value={dobDay}
                           onChange={setDobDay}
+                          style={{ width: "100%" }}
                         />
-                        <FormSelect
+                        <Select
                           options={[
                             "January", "February", "March", "April", "May", "June",
                             "July", "August", "September", "October", "November", "December",
                           ].map((m) => ({ value: m, label: m }))}
                           value={dobMonth}
                           onChange={setDobMonth}
+                          style={{ width: "100%" }}
                         />
-                        <FormSelect
+                        <Select
                           options={Array.from({ length: 100 }, (_, i) => ({
                             value: String(2026 - i),
                             label: String(2026 - i),
                           }))}
                           value={dobYear}
                           onChange={setDobYear}
+                          style={{ width: "100%" }}
                         />
                       </div>
                     </div>
 
                     <div>
-                      <FormTextarea
-                        label="Comments (optional)"
-                        value={comments}
-                        onChange={(e) => setComments(e.target.value)}
-                        maxLength={500}
-                        rows={4}
-                      />
+                      <Form.Item label="Comments (optional)">
+                        <Input.TextArea
+                          value={comments}
+                          onChange={(e) => setComments(e.target.value)}
+                          maxLength={500}
+                          rows={4}
+                        />
+                      </Form.Item>
                       <Text variant="caption/md" as="div" color="secondary" className={styles.charCount}>
                         {comments.length} / 500
                       </Text>
@@ -372,6 +371,7 @@ function OnlineBookingPageInner() {
                       checked={rememberDetails}
                       onChange={(e) => setRememberDetails(e.target.checked)}
                     />
+                    </Form>
                   </div>
                 </div>
               </>

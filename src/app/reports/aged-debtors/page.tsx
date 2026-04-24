@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex, Table } from "antd";
+import { Button, Flex, Form, Select, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { Card, DateRangeFilter, FormSelect, ListPage, Grid, Text } from "@/components/ds";
+import { Card, DateRangeFilter, ListPage, Grid, Text } from "@/components/ds";
 
 const agingSummary = [
   { label: "Current", amount: "$2,450.00", color: "#16a34a" },
@@ -68,14 +68,17 @@ export default function ReportsAgedDebtorsPage() {
           <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
         </div>
         <div style={{ width: 192 }}>
-          <FormSelect
-            label="Ageing by *"
-            options={[
-              { value: "invoice-date", label: "Invoice date" },
-              { value: "due-date", label: "Due date" },
-            ]}
-            required
-          />
+          <Form layout="vertical">
+            <Form.Item label="Ageing by *" required>
+              <Select
+                options={[
+                  { value: "invoice-date", label: "Invoice date" },
+                  { value: "due-date", label: "Due date" },
+                ]}
+                style={{ width: "100%" }}
+              />
+            </Form.Item>
+          </Form>
         </div>
       </Flex>
 

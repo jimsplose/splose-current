@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useRegisterCommands } from "@/hooks/useRegisterCommands";
-import { Button, Flex } from "antd";
+import { Button, Flex, Form, Input, Select } from "antd";
 import {
   LeftOutlined,
   RightOutlined,
@@ -31,7 +31,7 @@ import {
   SearchOutlined,
   CheckOutlined,
 } from "@ant-design/icons";
-import { Badge, FormInput, FormSelect, FormTextarea, Modal, Toggle, Avatar, ColorDot, Alert, Card, RadioGroup, Text, AppointmentCard, SegmentedControl, ContextMenu, HoverCard, Drawer } from "@/components/ds";
+import { Badge, Modal, Toggle, Avatar, ColorDot, Alert, Card, RadioGroup, Text, AppointmentCard, SegmentedControl, ContextMenu, HoverCard, Drawer } from "@/components/ds";
 import type { AppointmentStatus } from "@/components/ds";
 import AiChatPanel from "@/components/AiChatPanel";
 import styles from "./CalendarView.module.css";
@@ -1022,18 +1022,18 @@ export default function CalendarView({
           )}
           <div className={styles.formRow}>
             <span className={styles.formRowLabel}>Location *</span>
-            <FormSelect value={createLocation} onChange={setCreateLocation} options={[
+            <Select value={createLocation} onChange={setCreateLocation} options={[
               { value: "Hands Together Therapy (East)", label: "Hands Together Therapy (East)" },
               { value: "Hands Together Therapy (West)", label: "Hands Together Therapy (West)" },
-            ]} />
+            ]} style={{ width: "100%" }} />
           </div>
           <div className={styles.formRow}>
             <span className={styles.formRowLabel}>Practitioner *</span>
-            <FormSelect value={createPractitioner} onChange={setCreatePractitioner} options={practitioners.map((p) => ({ value: p.id, label: p.name }))} />
+            <Select value={createPractitioner} onChange={setCreatePractitioner} options={practitioners.map((p) => ({ value: p.id, label: p.name }))} style={{ width: "100%" }} />
           </div>
           <div className={styles.formRow}>
             <span className={styles.formRowLabel}>Client *</span>
-            <FormInput type="text" value={createClient} onChange={(e) => setCreateClient(e.target.value)} placeholder="Start typing to search client..." />
+            <Input type="text" value={createClient} onChange={(e) => setCreateClient(e.target.value)} placeholder="Start typing to search client..." />
           </div>
           {!createClient && (
             <div
@@ -1046,7 +1046,7 @@ export default function CalendarView({
           )}
           <div className={styles.formRow}>
             <span className={styles.formRowLabel}>Service *</span>
-            <FormSelect value={createService} onChange={setCreateService} options={[
+            <Select value={createService} onChange={setCreateService} options={[
               { value: "", label: "Select a service" },
               { value: "initial-assessment", label: "Initial Assessment" },
               { value: "follow-up", label: "Follow Up" },
@@ -1054,20 +1054,20 @@ export default function CalendarView({
               { value: "group-session", label: "Group Session" },
               { value: "targeted-services", label: "Targeted Services (Goodstart)" },
               { value: "capacity-building", label: "Capacity Building" },
-            ]} />
+            ]} style={{ width: "100%" }} />
           </div>
           <div className={styles.formRow}>
             <span className={styles.formRowLabel}>Case</span>
-            <FormSelect value={createCase} onChange={setCreateCase} options={[{ value: "", label: "Choose a case" }]} />
+            <Select value={createCase} onChange={setCreateCase} options={[{ value: "", label: "Choose a case" }]} style={{ width: "100%" }} />
           </div>
           <div className={styles.formRow}>
             <span className={styles.formRowLabel}>Date *</span>
-            <FormInput type="date" value={createDate} onChange={(e) => setCreateDate(e.target.value)} />
+            <Input type="date" value={createDate} onChange={(e) => setCreateDate(e.target.value)} />
           </div>
           <div className={styles.timeRow}>
             <span className={styles.formRowLabel}>Time *</span>
-            <FormSelect value={createTime} onChange={setCreateTime} options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))} />
-            <FormSelect value={createEndTime} onChange={setCreateEndTime} options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))} />
+            <Select value={createTime} onChange={setCreateTime} options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))} style={{ width: "100%" }} />
+            <Select value={createEndTime} onChange={setCreateEndTime} options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))} style={{ width: "100%" }} />
           </div>
           {createTime && createTime.includes("AM") && (
             <Alert variant="warning" icon={<WarningOutlined style={{ fontSize: 16, color: 'var(--ant-color-warning, #FFD232)' }} />}>
@@ -1076,13 +1076,13 @@ export default function CalendarView({
           )}
           <div className={styles.formRow}>
             <span className={styles.formRowLabel}>Room/Resource</span>
-            <FormSelect value={createRoom} onChange={setCreateRoom} options={[
+            <Select value={createRoom} onChange={setCreateRoom} options={[
               { value: "", label: "Choose a room/resource" },
               { value: "green", label: "Green (1 available of 1)" },
               { value: "red", label: "Red (1 available of 1)" },
               { value: "blue", label: "Blue (2 available of 2)" },
               { value: "room1", label: "Room 1 (1 available of 1)" },
-            ]} />
+            ]} style={{ width: "100%" }} />
           </div>
           <div className={styles.formRow}>
             <span className={styles.formRowLabel}>Provider travel</span>
@@ -1102,12 +1102,16 @@ export default function CalendarView({
           </div>
           {createRepeat && (
             <div className={styles.repeatSection}>
-              <FormSelect label="Repeat" options={[
-                { value: "weekly", label: "Every week" },
-                { value: "2weeks", label: "Every 2 weeks" },
-                { value: "3weeks", label: "Every 3 weeks" },
-                { value: "4weeks", label: "Every 4 weeks" },
-              ]} />
+              <Form layout="vertical">
+                <Form.Item label="Repeat">
+                  <Select options={[
+                    { value: "weekly", label: "Every week" },
+                    { value: "2weeks", label: "Every 2 weeks" },
+                    { value: "3weeks", label: "Every 3 weeks" },
+                    { value: "4weeks", label: "Every 4 weeks" },
+                  ]} style={{ width: "100%" }} />
+                </Form.Item>
+              </Form>
               <div>
                 <label className={styles.sectionLabel}>Repeat on *</label>
                 <div className={styles.dayPicker}>
@@ -1116,18 +1120,22 @@ export default function CalendarView({
                   ))}
                 </div>
               </div>
-              <FormSelect label="Ends" options={[
-                { value: "6", label: "After 6 times" },
-                { value: "4", label: "After 4 times" },
-                { value: "8", label: "After 8 times" },
-                { value: "12", label: "After 12 times" },
-                { value: "date", label: "On date" },
-              ]} />
+              <Form layout="vertical">
+                <Form.Item label="Ends">
+                  <Select options={[
+                    { value: "6", label: "After 6 times" },
+                    { value: "4", label: "After 4 times" },
+                    { value: "8", label: "After 8 times" },
+                    { value: "12", label: "After 12 times" },
+                    { value: "date", label: "On date" },
+                  ]} style={{ width: "100%" }} />
+                </Form.Item>
+              </Form>
             </div>
           )}
           <div className={styles.formRow}>
             <span className={styles.formRowLabel}>Notes</span>
-            <FormTextarea value={createNotes} onChange={(e) => setCreateNotes(e.target.value)} placeholder="Add notes..." rows={3} />
+            <Input.TextArea value={createNotes} onChange={(e) => setCreateNotes(e.target.value)} placeholder="Add notes..." rows={3} />
           </div>
         </div>
       </Modal>
@@ -1158,36 +1166,60 @@ export default function CalendarView({
             >
               Client won&apos;t be notified of changes. To do this, use Reschedule.
             </Alert>
-            <FormSelect label="Location" defaultValue="Hands Together Therapy (East)" options={[
-              { value: "Hands Together Therapy (East)", label: "Hands Together Therapy (East)" },
-              { value: "Hands Together Therapy (West)", label: "Hands Together Therapy (West)" },
-            ]} />
-            <FormSelect label="Practitioner *" defaultValue={selectedAppt.practitionerName} options={practitioners.map((p) => ({ value: p.name, label: p.name }))} />
-            <FormInput label="Client *" type="text" defaultValue={selectedAppt.clientName} />
-            <FormInput label="Service *" type="text" defaultValue={selectedAppt.type} />
-            <FormSelect label="Case" options={[{ value: "", label: "Choose a case" }]} />
-            <FormInput label="Date *" type="date" defaultValue={selectedAppt.date} />
-            <div className={styles.formGrid2}>
-              <FormSelect label="Time *" defaultValue={selectedAppt.startTime} options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))} />
-              <FormSelect label="&nbsp;" defaultValue={selectedAppt.endTime} options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))} />
-            </div>
-            <FormSelect label="Room/Resource" value={editRoom} onChange={setEditRoom} options={[
-              { value: "", label: "Choose a room/resource" },
-              { value: "green", label: "Green (1 available of 1)" },
-              { value: "red", label: "Red (1 available of 1)" },
-              { value: "blue", label: "Blue (2 available of 2)" },
-              { value: "car", label: "Car (1 available of 1)" },
-              { value: "room1", label: "Room 1 (1 available of 1)" },
-            ]} />
+            <Form layout="vertical">
+              <Form.Item label="Location">
+                <Select defaultValue="Hands Together Therapy (East)" options={[
+                  { value: "Hands Together Therapy (East)", label: "Hands Together Therapy (East)" },
+                  { value: "Hands Together Therapy (West)", label: "Hands Together Therapy (West)" },
+                ]} style={{ width: "100%" }} />
+              </Form.Item>
+              <Form.Item label="Practitioner *">
+                <Select defaultValue={selectedAppt.practitionerName} options={practitioners.map((p) => ({ value: p.name, label: p.name }))} style={{ width: "100%" }} />
+              </Form.Item>
+              <Form.Item label="Client *">
+                <Input type="text" defaultValue={selectedAppt.clientName} />
+              </Form.Item>
+              <Form.Item label="Service *">
+                <Input type="text" defaultValue={selectedAppt.type} />
+              </Form.Item>
+              <Form.Item label="Case">
+                <Select options={[{ value: "", label: "Choose a case" }]} style={{ width: "100%" }} />
+              </Form.Item>
+              <Form.Item label="Date *">
+                <Input type="date" defaultValue={selectedAppt.date} />
+              </Form.Item>
+              <div className={styles.formGrid2}>
+                <Form.Item label="Time *">
+                  <Select defaultValue={selectedAppt.startTime} options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))} style={{ width: "100%" }} />
+                </Form.Item>
+                <Form.Item label="&nbsp;">
+                  <Select defaultValue={selectedAppt.endTime} options={TIME_OPTIONS.map((t) => ({ value: t, label: t }))} style={{ width: "100%" }} />
+                </Form.Item>
+              </div>
+              <Form.Item label="Room/Resource">
+                <Select value={editRoom} onChange={setEditRoom} options={[
+                  { value: "", label: "Choose a room/resource" },
+                  { value: "green", label: "Green (1 available of 1)" },
+                  { value: "red", label: "Red (1 available of 1)" },
+                  { value: "blue", label: "Blue (2 available of 2)" },
+                  { value: "car", label: "Car (1 available of 1)" },
+                  { value: "room1", label: "Room 1 (1 available of 1)" },
+                ]} style={{ width: "100%" }} />
+              </Form.Item>
+            </Form>
             <Toggle checked={editRepeat} onChange={setEditRepeat} label="Repeat" />
             {editRepeat && (
               <div className={styles.repeatSection}>
-                <FormSelect label="Repeat" options={[
-                  { value: "2weeks", label: "Every 2 weeks" },
-                  { value: "weekly", label: "Every week" },
-                  { value: "3weeks", label: "Every 3 weeks" },
-                  { value: "4weeks", label: "Every 4 weeks" },
-                ]} />
+                <Form layout="vertical">
+                  <Form.Item label="Repeat">
+                    <Select options={[
+                      { value: "2weeks", label: "Every 2 weeks" },
+                      { value: "weekly", label: "Every week" },
+                      { value: "3weeks", label: "Every 3 weeks" },
+                      { value: "4weeks", label: "Every 4 weeks" },
+                    ]} style={{ width: "100%" }} />
+                  </Form.Item>
+                </Form>
                 <div>
                   <label className={styles.sectionLabel}>Repeat on *</label>
                   <div className={styles.dayPicker}>
@@ -1196,13 +1228,17 @@ export default function CalendarView({
                     ))}
                   </div>
                 </div>
-                <FormSelect label="Ends" options={[
-                  { value: "6", label: "After 6 times" },
-                  { value: "4", label: "After 4 times" },
-                  { value: "8", label: "After 8 times" },
-                  { value: "12", label: "After 12 times" },
-                  { value: "date", label: "On date" },
-                ]} />
+                <Form layout="vertical">
+                  <Form.Item label="Ends">
+                    <Select options={[
+                      { value: "6", label: "After 6 times" },
+                      { value: "4", label: "After 4 times" },
+                      { value: "8", label: "After 8 times" },
+                      { value: "12", label: "After 12 times" },
+                      { value: "date", label: "On date" },
+                    ]} style={{ width: "100%" }} />
+                  </Form.Item>
+                </Form>
               </div>
             )}
             <RadioGroup
@@ -1487,7 +1523,7 @@ function SingleAppointmentDetails({ appt }: { appt: Appointment }) {
         <label className={styles.noteLabel}>
           <FileTextOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} /> Note
         </label>
-        <FormTextarea rows={3} placeholder="Add a note..." />
+        <Input.TextArea rows={3} placeholder="Add a note..." />
       </div>
     </div>
   );
@@ -1545,7 +1581,7 @@ function GroupAppointmentDetails({ appt }: { appt: Appointment }) {
         <label className={styles.noteLabel}>
           <FileTextOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} /> Note
         </label>
-        <FormTextarea rows={3} placeholder="Add a note..." />
+        <Input.TextArea rows={3} placeholder="Add a note..." />
       </div>
     </div>
   );

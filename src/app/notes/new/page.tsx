@@ -3,8 +3,8 @@
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AppstoreOutlined, ColumnWidthOutlined, CopyOutlined, DownOutlined, SnippetsOutlined } from "@ant-design/icons";
-import { Button, Flex } from "antd";
-import { Badge, EmptyState, Filter, FormPage, FormTextarea, FormInput, FormSelect, Text } from "@/components/ds";
+import { Button, Flex, Form, Select, Input } from "antd";
+import { Badge, EmptyState, Filter, FormPage, Text } from "@/components/ds";
 
 const TEMPLATES = [
   "Initial Assessment",
@@ -32,6 +32,7 @@ export default function NewProgressNotePage() {
 
 function NewProgressNotePageInner() {
   const router = useRouter();
+  const [form] = Form.useForm();
   const [serviceId, setServiceId] = useState("");
   const [template, setTemplate] = useState("");
   const [content, setContent] = useState("");
@@ -114,30 +115,35 @@ function NewProgressNotePageInner() {
         {/* Left editor panel */}
         <div style={{ flex: 1, borderRight: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-base)', padding: 24 }}>
           <div style={{ maxWidth: 672, margin: '0 auto' }}>
+            <Form form={form} layout="vertical">
             {/* Service select */}
             <div style={{ marginBottom: 20 }}>
-              <FormSelect
-                label="Service *"
-                value={serviceId}
-                onChange={setServiceId}
-                options={[
-                  { value: "", label: "Select service" },
-                  ...SERVICE_OPTIONS.map((s) => ({ value: s.value, label: s.label })),
-                ]}
-              />
+              <Form.Item label="Service *" required>
+                <Select
+                  value={serviceId}
+                  onChange={setServiceId}
+                  style={{ width: "100%" }}
+                  options={[
+                    { value: "", label: "Select service" },
+                    ...SERVICE_OPTIONS.map((s) => ({ value: s.value, label: s.label })),
+                  ]}
+                />
+              </Form.Item>
             </div>
 
             {/* Template field */}
             <div style={{ marginBottom: 20 }}>
-              <FormSelect
-                label="Template *"
-                value={template}
-                onChange={setTemplate}
-                options={[
-                  { value: "", label: "Select template" },
-                  ...TEMPLATES.map((t) => ({ value: t, label: t })),
-                ]}
-              />
+              <Form.Item label="Template *" required>
+                <Select
+                  value={template}
+                  onChange={setTemplate}
+                  style={{ width: "100%" }}
+                  options={[
+                    { value: "", label: "Select template" },
+                    ...TEMPLATES.map((t) => ({ value: t, label: t })),
+                  ]}
+                />
+              </Form.Item>
             </div>
 
             {/* Quick action buttons */}
@@ -158,15 +164,17 @@ function NewProgressNotePageInner() {
 
             {/* Note content */}
             <div style={{ marginBottom: 16 }}>
-              <FormTextarea
-                label="Note content"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                rows={18}
-                placeholder="Start writing your progress note here..."
-                style={{ resize: 'vertical', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, fontSize: 12, lineHeight: 1.625 }}
-              />
+              <Form.Item label="Note content">
+                <Input.TextArea
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  rows={18}
+                  placeholder="Start writing your progress note here..."
+                  style={{ resize: 'vertical', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, fontSize: 12, lineHeight: 1.625 }}
+                />
+              </Form.Item>
             </div>
+            </Form>
           </div>
         </div>
 
@@ -174,7 +182,7 @@ function NewProgressNotePageInner() {
         {viewMode === "split" && (
           <div style={{ width: 320, flexShrink: 0, backgroundColor: 'var(--color-bg-base)', padding: 24 }}>
             <Text variant="heading/sm" as="h3" style={{ marginBottom: 12 }}>Filter previous progress notes</Text>
-            <FormInput
+            <Input
               type="text"
               placeholder="Search notes"
             />

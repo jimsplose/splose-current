@@ -3,9 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { UploadOutlined, CheckCircleOutlined, ExclamationCircleOutlined, FileTextOutlined } from "@ant-design/icons";
-import { Button, Flex, Table } from "antd";
+import { Button, Flex, Form, Input, Select, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { FormInput, FormSelect, DateRangeFilter, PageHeader, FileUpload, Card, Badge, Text, Divider, Breadcrumbs } from "@/components/ds";
+import { DateRangeFilter, PageHeader, FileUpload, Card, Badge, Text, Divider, Breadcrumbs } from "@/components/ds";
 
 const ndisBreadcrumbs = (
   <div style={{ padding: "8px 24px 0" }}>
@@ -224,16 +224,22 @@ export default function NdisBulkUploadNewPage() {
           </Text>
         </div>
 
-        <FormSelect
-          label="Practitioner"
-          options={[
-            { value: "all", label: "All practitioners" },
-            { value: "sarah", label: "Sarah Chen" },
-            { value: "james", label: "James Wilson" },
-          ]}
-        />
+        <Form layout="vertical">
+          <Form.Item label="Practitioner">
+            <Select
+              options={[
+                { value: "all", label: "All practitioners" },
+                { value: "sarah", label: "Sarah Chen" },
+                { value: "james", label: "James Wilson" },
+              ]}
+              style={{ width: "100%" }}
+            />
+          </Form.Item>
 
-        <FormInput label="Reference (optional)" placeholder="e.g. March 2026 upload" />
+          <Form.Item label="Reference (optional)">
+            <Input placeholder="e.g. March 2026 upload" />
+          </Form.Item>
+        </Form>
 
         <div>
           <Text variant="label/lg" as="label" color="secondary" style={{ display: 'block', marginBottom: 4 }}>Upload file *</Text>

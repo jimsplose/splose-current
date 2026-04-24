@@ -2,9 +2,9 @@
 
 import { useState, useRef, useEffect, useMemo } from "react";
 import { CalendarOutlined, DownOutlined, SettingOutlined } from "@ant-design/icons";
-import { Button, Flex, Table } from "antd";
+import { Button, Flex, Input, Select, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { Avatar, Card, Checkbox, ColorDot, Divider, Dropdown, FormInput, FormSelect, Grid, PageHeader, ProgressBar, Text } from "@/components/ds";
+import { Avatar, Card, Checkbox, ColorDot, Divider, Dropdown, Grid, PageHeader, ProgressBar, Text } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
 
 /* ── Date helpers ─────────────────────────────────────────────── */
@@ -111,14 +111,14 @@ function DateRangePicker({
           <div style={{ padding: 12 }}>
             <Text variant="body/sm" color="secondary" style={{ marginBottom: 8 }}>Custom range</Text>
             <Flex align="center" gap={8}>
-              <FormInput
+              <Input
                 type="date"
                 value={toInputDate(startDate)}
                 onChange={(e) => onChange(new Date(e.target.value), endDate)}
                 style={{ paddingTop: 6, paddingBottom: 6 }}
               />
               <Text variant="body/md" as="span" color="secondary">&rarr;</Text>
-              <FormInput
+              <Input
                 type="date"
                 value={toInputDate(endDate)}
                 onChange={(e) => onChange(startDate, new Date(e.target.value))}
@@ -300,7 +300,7 @@ export default function ReportsPage() {
           endDate={dateEnd}
           onChange={(s, e) => { setDateStart(s); setDateEnd(e); }}
         />
-        <FormSelect
+        <Select
           options={frequencyOptions}
           value={frequency}
           onChange={setFrequency}

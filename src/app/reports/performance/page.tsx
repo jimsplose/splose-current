@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex, Table } from "antd";
+import { Button, Flex, Select, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { Alert, Badge, Card, Dropdown, List, Modal, Toggle, DateRangeFilter, FormSelect, PageHeader } from "@/components/ds";
+import { Alert, Badge, Card, Dropdown, List, Modal, Toggle, DateRangeFilter, PageHeader } from "@/components/ds";
 
 interface PerformanceRow {
   practitioner: string;
@@ -170,7 +170,7 @@ export default function ReportsPerformancePage() {
       <Flex vertical gap={12} style={{ fontSize: 12 }}>
         <Flex align="center" gap={16}>
           <span style={{ width: 320, color: 'var(--color-text)' }}>Identify as new client if no previous service:</span>
-          <FormSelect
+          <Select
             options={[
               { value: "ever", label: "Ever" },
               { value: "12months", label: "Last 12 months" },
@@ -181,7 +181,7 @@ export default function ReportsPerformancePage() {
         </Flex>
         <Flex align="center" gap={16}>
           <span style={{ width: 320, color: 'var(--color-text)' }}>Exclude busy time from utilisation calculation:</span>
-          <FormSelect
+          <Select
             options={[
               { value: "no", label: "No" },
               { value: "yes", label: "Yes" },
@@ -193,7 +193,7 @@ export default function ReportsPerformancePage() {
           <span style={{ width: 320, color: 'var(--color-text)' }}>
             Include all appointments regardless of status:
           </span>
-          <FormSelect
+          <Select
             options={[
               { value: "no", label: "No" },
               { value: "yes", label: "Yes" },
@@ -205,7 +205,7 @@ export default function ReportsPerformancePage() {
           <span style={{ width: 320, color: 'var(--color-text)' }}>
             Exclude items marked as do not invoice:
           </span>
-          <FormSelect
+          <Select
             options={[
               { value: "no", label: "No" },
               { value: "yes", label: "Yes" },

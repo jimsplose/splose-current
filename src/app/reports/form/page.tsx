@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Flex, Table } from "antd";
+import { Button, Flex, Form, Select, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { Badge, Card, DateRangeFilter, FormSelect, ListPage } from "@/components/ds";
+import { Badge, Card, DateRangeFilter, ListPage } from "@/components/ds";
 
 interface FormRow {
   form: string;
@@ -68,18 +68,19 @@ export default function ReportsFormPage() {
       </div>
 
       <div style={{ marginBottom: 16 }}>
-        <Flex align="center" gap={4} style={{ marginBottom: 4, fontSize: 12, color: 'var(--color-text-secondary)' }}>
-          Form type
-        </Flex>
-        <FormSelect
-          options={[
-            { value: "all", label: "All" },
-            { value: "intake", label: "Intake" },
-            { value: "consent", label: "Consent" },
-            { value: "assessment", label: "Assessment" },
-          ]}
-          style={{ width: 192 }}
-        />
+        <Form layout="vertical">
+          <Form.Item label="Form type">
+            <Select
+              options={[
+                { value: "all", label: "All" },
+                { value: "intake", label: "Intake" },
+                { value: "consent", label: "Consent" },
+                { value: "assessment", label: "Assessment" },
+              ]}
+              style={{ width: 192 }}
+            />
+          </Form.Item>
+        </Form>
       </div>
 
       <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 32 }}>

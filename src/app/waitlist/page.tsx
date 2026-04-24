@@ -23,9 +23,9 @@ const Sun = ({ style, className }: { style?: React.CSSProperties; className?: st
 const Moon = ({ style, className }: { style?: React.CSSProperties; className?: string }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} style={{ width: 16, height: 16, ...style }}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>;
 const SunMedium = ({ style, className }: { style?: React.CSSProperties; className?: string }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} style={{ width: 16, height: 16, ...style }}><circle cx="12" cy="12" r="4"/><path d="M12 3v1"/><path d="M12 20v1"/><path d="M3 12h1"/><path d="M20 12h1"/><path d="m18.364 5.636-.707.707"/><path d="m6.343 17.657-.707.707"/><path d="m5.636 5.636.707.707"/><path d="m17.657 17.657.707.707"/></svg>;
 const MapIcon = ({ style, className }: { style?: React.CSSProperties; className?: string }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} style={{ width: 16, height: 16, ...style }}><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>;
-import { Button, Flex, Table } from "antd";
+import { Button, Flex, Table, Form, Select, Input } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { ListPage, SearchBar, Pagination, Badge, Tab, EmptyState, Modal, FormSelect, FormInput, FormTextarea, Text, Divider, Skeleton } from "@/components/ds";
+import { ListPage, SearchBar, Pagination, Badge, Tab, EmptyState, Modal, Text, Divider, Skeleton } from "@/components/ds";
 import wStyles from "./waitlist.module.css";
 
 export const dynamic = "force-dynamic";
@@ -317,6 +317,7 @@ export default function WaitlistPage() {
 
 function WaitlistPageInner() {
   const _initState = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("state") : null;
+  const [form] = Form.useForm();
   const [loaded, setLoaded] = useState(false);
   useEffect(() => { setLoaded(true); }, []);
   const [mainTab, setMainTab] = useState<"screener" | "waitlist">(
@@ -666,51 +667,59 @@ function WaitlistPageInner() {
           </>
         }
       >
+        <Form form={form} layout="vertical">
         <Flex vertical gap={16}>
           {/* Location */}
-          <FormSelect
-            label="Location"
-            value={modalLocation}
-            onChange={setModalLocation}
-            options={[
-              { value: "", label: "Any location" },
-              { value: "adelaide", label: "Adelaide" },
-              { value: "melbourne", label: "Melbourne" },
-              { value: "sydney", label: "Sydney" },
-            ]}
-          />
+          <Form.Item label="Location">
+            <Select
+              value={modalLocation}
+              onChange={setModalLocation}
+              style={{ width: "100%" }}
+              options={[
+                { value: "", label: "Any location" },
+                { value: "adelaide", label: "Adelaide" },
+                { value: "melbourne", label: "Melbourne" },
+                { value: "sydney", label: "Sydney" },
+              ]}
+            />
+          </Form.Item>
 
           {/* Practitioner */}
-          <FormSelect
-            label="Practitioner"
-            value={modalPractitioner}
-            onChange={setModalPractitioner}
-            options={[
-              { value: "", label: "Any practitioner" },
-              { value: "jim", label: "Jim Yencken" },
-              { value: "sarah", label: "Sarah Mitchell" },
-              { value: "alex", label: "Alex Chen" },
-            ]}
-          />
+          <Form.Item label="Practitioner">
+            <Select
+              value={modalPractitioner}
+              onChange={setModalPractitioner}
+              style={{ width: "100%" }}
+              options={[
+                { value: "", label: "Any practitioner" },
+                { value: "jim", label: "Jim Yencken" },
+                { value: "sarah", label: "Sarah Mitchell" },
+                { value: "alex", label: "Alex Chen" },
+              ]}
+            />
+          </Form.Item>
 
           {/* Client (required) */}
-          <FormSelect
-            label="Client *"
-            value={modalClient}
-            onChange={setModalClient}
-            options={[
-              { value: "", label: "Select client" },
-              ...waitlistData.map((w) => ({ value: w.client, label: w.client })),
-            ]}
-          />
+          <Form.Item label="Client *" required>
+            <Select
+              value={modalClient}
+              onChange={setModalClient}
+              style={{ width: "100%" }}
+              options={[
+                { value: "", label: "Select client" },
+                ...waitlistData.map((w) => ({ value: w.client, label: w.client })),
+              ]}
+            />
+          </Form.Item>
 
           {/* Date added (required) */}
-          <FormInput
-            label="Date added *"
-            type="date"
-            value={modalDateAdded}
-            onChange={(e) => setModalDateAdded(e.target.value)}
-          />
+          <Form.Item label="Date added *" required>
+            <Input
+              type="date"
+              value={modalDateAdded}
+              onChange={(e) => setModalDateAdded(e.target.value)}
+            />
+          </Form.Item>
 
           {/* Service (required) — chips + select to add */}
           <div>
@@ -736,9 +745,10 @@ function WaitlistPageInner() {
               </Flex>
             )}
             <Flex gap={8}>
-              <FormSelect
+              <Select
                 value={modalServiceSelect}
                 onChange={setModalServiceSelect}
+                style={{ width: "100%" }}
                 options={[
                   { value: "", label: "Add a service..." },
                   { value: "1:1 Consultation", label: "1:1 Consultation" },
@@ -853,15 +863,16 @@ function WaitlistPageInner() {
 
           {/* Note */}
           <div>
-            <FormTextarea
-              label="Note"
-              value={modalNote}
-              onChange={(e) => {
-                if (e.target.value.length <= 500) setModalNote(e.target.value);
-              }}
-              rows={3}
-              placeholder="Add a note..."
-            />
+            <Form.Item label="Note">
+              <Input.TextArea
+                value={modalNote}
+                onChange={(e) => {
+                  if (e.target.value.length <= 500) setModalNote(e.target.value);
+                }}
+                rows={3}
+                placeholder="Add a note..."
+              />
+            </Form.Item>
             <Text variant="caption/md" color="secondary" style={{ marginTop: 4, textAlign: 'right', display: 'block' }}>
               {modalNote.length} / 500
             </Text>
@@ -891,9 +902,10 @@ function WaitlistPageInner() {
               </Flex>
             )}
             <Flex gap={8}>
-              <FormSelect
+              <Select
                 value={modalTagSelect}
                 onChange={setModalTagSelect}
+                style={{ width: "100%" }}
                 options={[
                   { value: "", label: "Add a tag..." },
                   { value: "Admin to review", label: "Admin to review" },
@@ -909,6 +921,7 @@ function WaitlistPageInner() {
             </Flex>
           </div>
         </Flex>
+        </Form>
       </Modal>
 
       {/* ===== WAITLIST TAB ===== */}
