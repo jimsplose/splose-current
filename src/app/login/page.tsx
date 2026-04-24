@@ -1,3 +1,5 @@
+"use client";
+
 import { RightOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 import { Checkbox } from "@/components/ds";
 import { Button, Form, Input } from "antd";
