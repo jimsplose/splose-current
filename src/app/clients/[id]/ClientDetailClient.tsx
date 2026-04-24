@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useRegisterCommands } from "@/hooks/useRegisterCommands";
 import { EditOutlined } from "@ant-design/icons";
-import { Button, Flex, Table, Tag } from "antd";
+import { Button, Flex, Form, Input, Select, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { pickTextColor } from "@/lib/color";
-import { AlertCallout, PatientAvatar, Divider, FeatureCard, FileUpload, FormInput, FormSelect, FormTextarea, Grid, HintIcon, List, Collapse, Text, Toggle } from "@/components/ds";
+import { AlertCallout, PatientAvatar, Divider, FeatureCard, FileUpload, Grid, HintIcon, List, Collapse, Text, Toggle } from "@/components/ds";
 
 interface ClientData {
   id: string;
@@ -365,6 +365,7 @@ function AssociatedContactsTable() {
 function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: () => void }) {
   const dobParts = client.dateOfBirth ? client.dateOfBirth.split("-") : ["2025", "01", "01"];
   const [invoiceReminder, setInvoiceReminder] = useState(true);
+  const [form] = Form.useForm();
 
   return (
     <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
@@ -386,107 +387,117 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
           <Text variant="heading/lg" style={{ marginBottom: 16 }}>General details</Text>
           <Flex gap={32}>
             {/* Form fields */}
-            <Flex vertical gap={16} style={{ flex: 1 }}>
-              <FormSelect
-                label="Title"
-                options={[
-                  { value: "", label: "Title" },
-                  { value: "Mr", label: "Mr" },
-                  { value: "Mrs", label: "Mrs" },
-                  { value: "Ms", label: "Ms" },
-                  { value: "Dr", label: "Dr" },
-                ]}
-              />
+            <Form form={form} layout="vertical" style={{ flex: 1 }}>
+              <Flex vertical gap={16}>
+                <Form.Item label="Title">
+                  <Select
+                    options={[
+                      { value: "", label: "Title" },
+                      { value: "Mr", label: "Mr" },
+                      { value: "Mrs", label: "Mrs" },
+                      { value: "Ms", label: "Ms" },
+                      { value: "Dr", label: "Dr" },
+                    ]}
+                    style={{ width: "100%" }}
+                  />
+                </Form.Item>
 
-              <Grid cols={3} gap={12}>
-                <FormInput
-                  label="First name*"
-                  type="text"
-                  defaultValue={client.firstName}
-                />
-                <FormInput
-                  label="Middle name"
-                  type="text"
-                  placeholder="Middle name"
-                />
-                <FormInput
-                  label="Last name*"
-                  type="text"
-                  defaultValue={client.lastName}
-                />
-              </Grid>
+                <Grid cols={3} gap={12}>
+                  <Form.Item label="First name*" required>
+                    <Input type="text" defaultValue={client.firstName} />
+                  </Form.Item>
+                  <Form.Item label="Middle name">
+                    <Input type="text" placeholder="Middle name" />
+                  </Form.Item>
+                  <Form.Item label="Last name*" required>
+                    <Input type="text" defaultValue={client.lastName} />
+                  </Form.Item>
+                </Grid>
 
-              <FormInput label="Preferred name" type="text" />
+                <Form.Item label="Preferred name">
+                  <Input type="text" />
+                </Form.Item>
 
-              <Grid cols={3} gap={12}>
-                <FormSelect
-                  label="Day"
-                  defaultValue={dobParts[2]}
-                  options={Array.from({ length: 31 }, (_, i) => ({
-                    value: String(i + 1),
-                    label: String(i + 1),
-                  }))}
-                />
-                <FormSelect
-                  label="Month"
-                  defaultValue={dobParts[1]}
-                  options={[
-                    "January",
-                    "February",
-                    "March",
-                    "April",
-                    "May",
-                    "June",
-                    "July",
-                    "August",
-                    "September",
-                    "October",
-                    "November",
-                    "December",
-                  ].map((m, i) => ({
-                    value: String(i + 1).padStart(2, "0"),
-                    label: m,
-                  }))}
-                />
-                <FormSelect
-                  label="Year"
-                  defaultValue={dobParts[0]}
-                  options={Array.from({ length: 100 }, (_, i) => {
-                    const y = 2026 - i;
-                    return { value: String(y), label: String(y) };
-                  })}
-                />
-              </Grid>
+                <Grid cols={3} gap={12}>
+                  <Form.Item label="Day">
+                    <Select
+                      defaultValue={dobParts[2]}
+                      options={Array.from({ length: 31 }, (_, i) => ({
+                        value: String(i + 1),
+                        label: String(i + 1),
+                      }))}
+                      style={{ width: "100%" }}
+                    />
+                  </Form.Item>
+                  <Form.Item label="Month">
+                    <Select
+                      defaultValue={dobParts[1]}
+                      options={[
+                        "January",
+                        "February",
+                        "March",
+                        "April",
+                        "May",
+                        "June",
+                        "July",
+                        "August",
+                        "September",
+                        "October",
+                        "November",
+                        "December",
+                      ].map((m, i) => ({
+                        value: String(i + 1).padStart(2, "0"),
+                        label: m,
+                      }))}
+                      style={{ width: "100%" }}
+                    />
+                  </Form.Item>
+                  <Form.Item label="Year">
+                    <Select
+                      defaultValue={dobParts[0]}
+                      options={Array.from({ length: 100 }, (_, i) => {
+                        const y = 2026 - i;
+                        return { value: String(y), label: String(y) };
+                      })}
+                      style={{ width: "100%" }}
+                    />
+                  </Form.Item>
+                </Grid>
 
-              <FormSelect
-                label="Sex"
-                options={[
-                  { value: "Male", label: "Male" },
-                  { value: "Female", label: "Female" },
-                  { value: "Other", label: "Other" },
-                  { value: "Not specified", label: "Not specified" },
-                ]}
-              />
+                <Form.Item label="Sex">
+                  <Select
+                    options={[
+                      { value: "Male", label: "Male" },
+                      { value: "Female", label: "Female" },
+                      { value: "Other", label: "Other" },
+                      { value: "Not specified", label: "Not specified" },
+                    ]}
+                    style={{ width: "100%" }}
+                  />
+                </Form.Item>
 
-              <FormSelect
-                label="Gender identity"
-                options={[
-                  { value: "", label: "" },
-                  { value: "Male", label: "Male" },
-                  { value: "Female", label: "Female" },
-                  { value: "Non-binary", label: "Non-binary" },
-                  { value: "Other", label: "Other" },
-                ]}
-              />
+                <Form.Item label="Gender identity">
+                  <Select
+                    options={[
+                      { value: "", label: "" },
+                      { value: "Male", label: "Male" },
+                      { value: "Female", label: "Female" },
+                      { value: "Non-binary", label: "Non-binary" },
+                      { value: "Other", label: "Other" },
+                    ]}
+                    style={{ width: "100%" }}
+                  />
+                </Form.Item>
 
-              <FormInput
-                label="Pronouns"
-                type="text"
-                placeholder="they / them"
-              />
+                <Form.Item label="Pronouns">
+                  <Input type="text" placeholder="they / them" />
+                </Form.Item>
 
-              <FormInput label="Occupation" type="text" />
-            </Flex>
+                <Form.Item label="Occupation">
+                  <Input type="text" />
+                </Form.Item>
+              </Flex>
+            </Form>
 
             {/* Profile photo - positioned to the right */}
             <div style={{ flexShrink: 0, paddingTop: 24, textAlign: 'center' }}>
@@ -502,10 +513,14 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         {/* Other details */}
         <section style={{ marginBottom: 32 }}>
           <Text variant="heading/lg" style={{ marginBottom: 16 }}>Other details</Text>
-          <FormTextarea
-            defaultValue='For fields that are not available with the splose template, will show up here if they are all included in "Other Details" on the CSV file.'
-            rows={4}
-          />
+          <Form layout="vertical">
+            <Form.Item>
+              <Input.TextArea
+                defaultValue='For fields that are not available with the splose template, will show up here if they are all included in "Other Details" on the CSV file.'
+                rows={4}
+              />
+            </Form.Item>
+          </Form>
         </section>
 
         {/* Alerts */}
@@ -514,24 +529,40 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
           <Text variant="body/md" as="p" color="secondary" style={{ marginBottom: 8 }}>
             Information you add here will be displayed in important places like scheduling appointments.
           </Text>
-          <FormTextarea defaultValue="Include KM" rows={3} />
+          <Form layout="vertical">
+            <Form.Item>
+              <Input.TextArea defaultValue="Include KM" rows={3} />
+            </Form.Item>
+          </Form>
         </section>
 
         {/* Contact details */}
         <section style={{ marginBottom: 32 }}>
           <Text variant="heading/lg" style={{ marginBottom: 16 }}>Contact details</Text>
-          <Flex vertical gap={16}>
-            <FormInput label="Email" type="email" defaultValue={client.email || ""} />
-            <FormInput label="Phone" type="tel" defaultValue={client.phone || ""} />
-            <FormInput label="Address" type="text" defaultValue={client.address || ""} />
-          </Flex>
+          <Form layout="vertical">
+            <Flex vertical gap={16}>
+              <Form.Item label="Email">
+                <Input type="email" defaultValue={client.email || ""} />
+              </Form.Item>
+              <Form.Item label="Phone">
+                <Input type="tel" defaultValue={client.phone || ""} />
+              </Form.Item>
+              <Form.Item label="Address">
+                <Input type="text" defaultValue={client.address || ""} />
+              </Form.Item>
+            </Flex>
+          </Form>
         </section>
 
         {/* Medicare */}
         {client.medicare && (
           <section>
             <Text variant="heading/lg" style={{ marginBottom: 16 }}>Medicare details</Text>
-            <FormInput label="Card number" type="text" defaultValue={client.medicare} />
+            <Form layout="vertical">
+              <Form.Item label="Card number">
+                <Input type="text" defaultValue={client.medicare} />
+              </Form.Item>
+            </Form>
           </section>
         )}
 
@@ -539,41 +570,63 @@ function EditDetailsForm({ client, onCancel }: { client: ClientData; onCancel: (
         {client.ndisNumber && (
           <section style={{ marginBottom: 32 }}>
             <Text variant="heading/lg" style={{ marginBottom: 16 }}>NDIS details</Text>
-            <FormInput label="NDIS number" type="text" defaultValue={client.ndisNumber} />
+            <Form layout="vertical">
+              <Form.Item label="NDIS number">
+                <Input type="text" defaultValue={client.ndisNumber} />
+              </Form.Item>
+            </Form>
           </section>
         )}
 
         {/* Privacy policy consent */}
         <section style={{ marginBottom: 32 }}>
           <Text variant="heading/lg" style={{ marginBottom: 16 }}>Privacy policy consent</Text>
-          <FormSelect
-            label="Consent status"
-            defaultValue="no-response"
-            options={[
-              { value: "no-response", label: "No response" },
-              { value: "accepted", label: "Accepted" },
-              { value: "declined", label: "Declined" },
-            ]}
-          />
+          <Form layout="vertical">
+            <Form.Item label="Consent status">
+              <Select
+                defaultValue="no-response"
+                options={[
+                  { value: "no-response", label: "No response" },
+                  { value: "accepted", label: "Accepted" },
+                  { value: "declined", label: "Declined" },
+                ]}
+                style={{ width: "100%" }}
+              />
+            </Form.Item>
+          </Form>
         </section>
 
         {/* Medications, allergies & intolerances */}
         <section style={{ marginBottom: 32 }}>
           <Text variant="heading/lg" style={{ marginBottom: 16 }}>Medications, allergies &amp; intolerances</Text>
-          <Flex vertical gap={16}>
-            <FormTextarea label="Medications" defaultValue="" placeholder="None" rows={2} />
-            <FormTextarea label="Allergies" defaultValue="" placeholder="None" rows={2} />
-            <FormTextarea label="Intolerances" defaultValue="" placeholder="None" rows={2} />
-          </Flex>
+          <Form layout="vertical">
+            <Flex vertical gap={16}>
+              <Form.Item label="Medications">
+                <Input.TextArea defaultValue="" placeholder="None" rows={2} />
+              </Form.Item>
+              <Form.Item label="Allergies">
+                <Input.TextArea defaultValue="" placeholder="None" rows={2} />
+              </Form.Item>
+              <Form.Item label="Intolerances">
+                <Input.TextArea defaultValue="" placeholder="None" rows={2} />
+              </Form.Item>
+            </Flex>
+          </Form>
         </section>
 
         {/* Custom fields */}
         <section style={{ marginBottom: 32 }}>
           <Text variant="heading/lg" style={{ marginBottom: 16 }}>Custom fields</Text>
-          <Flex vertical gap={16}>
-            <FormInput label="Date since surgery" type="text" defaultValue="25/09/2025" />
-            <FormInput label="Note" type="text" defaultValue="Note short text check" />
-          </Flex>
+          <Form layout="vertical">
+            <Flex vertical gap={16}>
+              <Form.Item label="Date since surgery">
+                <Input type="text" defaultValue="25/09/2025" />
+              </Form.Item>
+              <Form.Item label="Note">
+                <Input type="text" defaultValue="Note short text check" />
+              </Form.Item>
+            </Flex>
+          </Form>
         </section>
 
         {/* Invoicing */}

@@ -2,8 +2,8 @@
 
 import { useParams } from "next/navigation";
 import { DownOutlined } from "@ant-design/icons";
-import { Button, Flex } from "antd";
-import { Checkbox, PageHeader, FormInput, Card, Text } from "@/components/ds";
+import { Button, Flex, Form, Input } from "antd";
+import { Checkbox, PageHeader, Card, Text } from "@/components/ds";
 
 export default function ClientStatementsPage() {
   const params = useParams();
@@ -29,13 +29,13 @@ export default function ClientStatementsPage() {
         <Flex vertical gap={4}>
           <Text variant="label/lg" as="label">Date range*</Text>
           <Flex align="center" gap={8}>
-            <FormInput
+            <Input
               type="text"
               defaultValue="1 Mar 2026"
               style={{ width: 130 }}
             />
             <span style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>&mdash;</span>
-            <FormInput
+            <Input
               type="text"
               defaultValue="31 Mar 2026"
               style={{ width: 130 }}

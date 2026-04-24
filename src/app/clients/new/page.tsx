@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Flex } from "antd";
-import { Card, FormInput, FormPage, FormSelect, Grid } from "@/components/ds";
+import { Button, Flex, Form, Input, Select } from "antd";
+import { Card, FormPage, Grid } from "@/components/ds";
 
 const titleOptions = [
   { value: "", label: "Select title" },
@@ -73,6 +73,7 @@ const practitionerOptions = [
 
 export default function NewClientPage() {
   const router = useRouter();
+  const [form] = Form.useForm();
 
   // General details
   const [title, setTitle] = useState("");
@@ -121,195 +122,150 @@ export default function NewClientPage() {
         <Flex vertical gap={24}>
           {/* General details */}
           <Card title="General details" headerBar>
-            <Flex vertical gap={16}>
-              <Grid cols={4} gap="md">
-                <FormSelect
-                  label="Title"
-                  value={title}
-                  onChange={setTitle}
-                  options={titleOptions}
-                />
-                <FormInput
-                  label="First name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  placeholder="First name"
-                />
-                <FormInput
-                  label="Preferred name"
-                  value={preferredName}
-                  onChange={(e) => setPreferredName(e.target.value)}
-                  placeholder="Preferred name"
-                />
-                <FormInput
-                  label="Last name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  placeholder="Last name"
-                />
-              </Grid>
-              <Grid cols={2} gap="md">
-                <FormInput
-                  label="Date of birth"
-                  type="date"
-                  value={dateOfBirth}
-                  onChange={(e) => setDateOfBirth(e.target.value)}
-                />
-                <FormSelect
-                  label="Gender"
-                  value={gender}
-                  onChange={setGender}
-                  options={genderOptions}
-                />
-              </Grid>
-            </Flex>
+            <Form form={form} layout="vertical">
+              <Flex vertical gap={16}>
+                <Grid cols={4} gap="md">
+                  <Form.Item label="Title">
+                    <Select value={title} onChange={setTitle} options={titleOptions} style={{ width: "100%" }} />
+                  </Form.Item>
+                  <Form.Item label="First name">
+                    <Input value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="First name" />
+                  </Form.Item>
+                  <Form.Item label="Preferred name">
+                    <Input value={preferredName} onChange={(e) => setPreferredName(e.target.value)} placeholder="Preferred name" />
+                  </Form.Item>
+                  <Form.Item label="Last name">
+                    <Input value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Last name" />
+                  </Form.Item>
+                </Grid>
+                <Grid cols={2} gap="md">
+                  <Form.Item label="Date of birth">
+                    <Input type="date" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} />
+                  </Form.Item>
+                  <Form.Item label="Gender">
+                    <Select value={gender} onChange={setGender} options={genderOptions} style={{ width: "100%" }} />
+                  </Form.Item>
+                </Grid>
+              </Flex>
+            </Form>
           </Card>
 
           {/* Contact details */}
           <Card title="Contact details" headerBar>
-            <Flex vertical gap={16}>
-              <Grid cols={2} gap="md">
-                <FormInput
-                  label="Email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="email@example.com"
-                />
-                <FormInput
-                  label="Phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="02 1234 5678"
-                />
-              </Grid>
-              <FormInput
-                label="Mobile"
-                value={mobile}
-                onChange={(e) => setMobile(e.target.value)}
-                placeholder="0412 345 678"
-              />
-              <FormInput
-                label="Address"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                placeholder="Street address"
-              />
-              <Grid cols={3} gap="md">
-                <FormInput
-                  label="Suburb"
-                  value={suburb}
-                  onChange={(e) => setSuburb(e.target.value)}
-                  placeholder="Suburb"
-                />
-                <FormSelect
-                  label="State"
-                  value={state}
-                  onChange={setState}
-                  options={stateOptions}
-                />
-                <FormInput
-                  label="Postcode"
-                  value={postcode}
-                  onChange={(e) => setPostcode(e.target.value)}
-                  placeholder="3000"
-                />
-              </Grid>
-            </Flex>
+            <Form form={form} layout="vertical">
+              <Flex vertical gap={16}>
+                <Grid cols={2} gap="md">
+                  <Form.Item label="Email">
+                    <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email@example.com" />
+                  </Form.Item>
+                  <Form.Item label="Phone">
+                    <Input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="02 1234 5678" />
+                  </Form.Item>
+                </Grid>
+                <Form.Item label="Mobile">
+                  <Input value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="0412 345 678" />
+                </Form.Item>
+                <Form.Item label="Address">
+                  <Input value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Street address" />
+                </Form.Item>
+                <Grid cols={3} gap="md">
+                  <Form.Item label="Suburb">
+                    <Input value={suburb} onChange={(e) => setSuburb(e.target.value)} placeholder="Suburb" />
+                  </Form.Item>
+                  <Form.Item label="State">
+                    <Select value={state} onChange={setState} options={stateOptions} style={{ width: "100%" }} />
+                  </Form.Item>
+                  <Form.Item label="Postcode">
+                    <Input value={postcode} onChange={(e) => setPostcode(e.target.value)} placeholder="3000" />
+                  </Form.Item>
+                </Grid>
+              </Flex>
+            </Form>
           </Card>
 
           {/* Additional */}
           <Card title="Additional" headerBar>
-            <Flex vertical gap={16}>
-              <Grid cols={2} gap="md">
-                <FormSelect
-                  label="Referral source"
-                  value={referralSource}
-                  onChange={setReferralSource}
-                  options={referralOptions}
-                />
-                <FormSelect
-                  label="Practitioner"
-                  value={practitioner}
-                  onChange={setPractitioner}
-                  options={practitionerOptions}
-                />
-              </Grid>
-              <FormSelect
-                label="Tags"
-                options={tagOptions}
-                value={tags.join(",")}
-                onChange={(val: string) => {
-                  if (!val) {
-                    setTags([]);
-                  } else if (tags.includes(val)) {
-                    setTags(tags.filter((t) => t !== val));
-                  } else {
-                    setTags([...tags, val]);
-                  }
-                }}
-                placeholder="Select tags"
-                searchable
-              />
+            <Form form={form} layout="vertical">
+              <Flex vertical gap={16}>
+                <Grid cols={2} gap="md">
+                  <Form.Item label="Referral source">
+                    <Select value={referralSource} onChange={setReferralSource} options={referralOptions} style={{ width: "100%" }} />
+                  </Form.Item>
+                  <Form.Item label="Practitioner">
+                    <Select value={practitioner} onChange={setPractitioner} options={practitionerOptions} style={{ width: "100%" }} />
+                  </Form.Item>
+                </Grid>
+                <Form.Item label="Tags">
+                  <Select
+                    options={tagOptions}
+                    value={tags.join(",")}
+                    onChange={(val: string) => {
+                      if (!val) {
+                        setTags([]);
+                      } else if (tags.includes(val)) {
+                        setTags(tags.filter((t) => t !== val));
+                      } else {
+                        setTags([...tags, val]);
+                      }
+                    }}
+                    placeholder="Select tags"
+                    showSearch
+                    style={{ width: "100%" }}
+                  />
+                </Form.Item>
               {tags.length > 0 && (
-                <Flex wrap gap={8}>
-                  {tags.map((tag) => {
-                    const opt = tagOptions.find((o) => o.value === tag);
-                    return (
-                      <span
-                        key={tag}
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: 4,
-                          borderRadius: 9999,
-                          backgroundColor: 'var(--color-primary-bg)',
-                          paddingLeft: 12,
-                          paddingRight: 12,
-                          paddingTop: 4,
-                          paddingBottom: 4,
-                          fontSize: 14,
-                          color: 'var(--color-primary)',
-                        }}
-                      >
-                        {opt?.label || tag}
-                        <button
-                          type="button"
-                          onClick={() => setTags(tags.filter((t) => t !== tag))}
-                          style={{ marginLeft: 2 }}
+                  <Flex wrap gap={8}>
+                    {tags.map((tag) => {
+                      const opt = tagOptions.find((o) => o.value === tag);
+                      return (
+                        <span
+                          key={tag}
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 4,
+                            borderRadius: 9999,
+                            backgroundColor: 'var(--color-primary-bg)',
+                            paddingLeft: 12,
+                            paddingRight: 12,
+                            paddingTop: 4,
+                            paddingBottom: 4,
+                            fontSize: 14,
+                            color: 'var(--color-primary)',
+                          }}
                         >
-                          x
-                        </button>
-                      </span>
-                    );
-                  })}
-                </Flex>
-              )}
-            </Flex>
+                          {opt?.label || tag}
+                          <button
+                            type="button"
+                            onClick={() => setTags(tags.filter((t) => t !== tag))}
+                            style={{ marginLeft: 2 }}
+                          >
+                            x
+                          </button>
+                        </span>
+                      );
+                    })}
+                  </Flex>
+                )}
+              </Flex>
+            </Form>
           </Card>
 
           {/* Medicare */}
           <Card title="Medicare" headerBar>
-            <Grid cols={3} gap="md">
-              <FormInput
-                label="Medicare number"
-                value={medicareNumber}
-                onChange={(e) => setMedicareNumber(e.target.value)}
-                placeholder="1234 56789 0"
-              />
-              <FormInput
-                label="Reference number"
-                value={referenceNumber}
-                onChange={(e) => setReferenceNumber(e.target.value)}
-                placeholder="1"
-              />
-              <FormInput
-                label="Expiry date"
-                type="date"
-                value={expiryDate}
-                onChange={(e) => setExpiryDate(e.target.value)}
-              />
-            </Grid>
+            <Form form={form} layout="vertical">
+              <Grid cols={3} gap="md">
+                <Form.Item label="Medicare number">
+                  <Input value={medicareNumber} onChange={(e) => setMedicareNumber(e.target.value)} placeholder="1234 56789 0" />
+                </Form.Item>
+                <Form.Item label="Reference number">
+                  <Input value={referenceNumber} onChange={(e) => setReferenceNumber(e.target.value)} placeholder="1" />
+                </Form.Item>
+                <Form.Item label="Expiry date">
+                  <Input type="date" value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} />
+                </Form.Item>
+              </Grid>
+            </Form>
           </Card>
         </Flex>
     </FormPage>

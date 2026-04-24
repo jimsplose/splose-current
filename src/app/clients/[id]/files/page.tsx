@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { SwapOutlined, FolderAddOutlined, DownOutlined, FileTextOutlined } from "@ant-design/icons";
-import { Button, Flex, Table } from "antd";
+import { Button, Flex, Form, Input, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { Card, PageHeader, SearchBar, Pagination, Dropdown, DropdownTriggerButton, Modal, FormInput, Text } from "@/components/ds";
+import { Card, PageHeader, SearchBar, Pagination, Dropdown, DropdownTriggerButton, Modal, Text } from "@/components/ds";
 
 const filesData = [
   {
@@ -169,7 +169,11 @@ export default function ClientFilesPage() {
           </>
         }
       >
-        <FormInput label="File name" value={renameValue} onChange={(e) => setRenameValue(e.target.value)} />
+        <Form layout="vertical">
+          <Form.Item label="File name">
+            <Input value={renameValue} onChange={(e) => setRenameValue(e.target.value)} />
+          </Form.Item>
+        </Form>
       </Modal>
 
       {/* Delete confirmation modal */}

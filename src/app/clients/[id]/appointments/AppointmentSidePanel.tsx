@@ -17,9 +17,9 @@ import {
   SwapOutlined,
   EnvironmentOutlined,
 } from "@ant-design/icons";
-import { Button, Flex, Table } from "antd";
+import { Button, Flex, Form, Input, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { Card, PageHeader, Pagination, Badge, Avatar, FormTextarea, ColorDot, statusVariant, Text, Divider } from "@/components/ds";
+import { Card, PageHeader, Pagination, Badge, Avatar, ColorDot, statusVariant, Text, Divider } from "@/components/ds";
 
 interface Appointment {
   id: string;
@@ -417,10 +417,11 @@ export default function AppointmentSidePanel({
                 <FileTextOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
                 <Text variant="label/lg" as="span">Note</Text>
               </Flex>
-              <FormTextarea
-                rows={3}
-                placeholder="Add a note..."
-              />
+              <Form layout="vertical">
+                <Form.Item>
+                  <Input.TextArea rows={3} placeholder="Add a note..." />
+                </Form.Item>
+              </Form>
             </div>
           </Flex>
 
