@@ -1,1 +1,110 @@
-/* SettingsDetails CSS Module — Wave 6 Plan 05 will add classes here */
+.shell {
+  max-width: 896px;
+  padding: 24px;
+}
+
+.formCol {
+  flex: 1;
+}
+
+.uploadCol {
+  width: 192px;
+  flex-shrink: 0;
+}
+
+.checkboxRow {
+  margin-top: 8px;
+}
+
+.pillBtn {
+  padding: 4px 12px;
+}
+
+.pillBtnIcon {
+  font-size: 12px;
+  color: var(--ant-color-text, #414549);
+  margin-left: 4px;
+}
+
+.toolbar {
+  border-radius: 8px 8px 0 0;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-fill-tertiary);
+  padding: 6px 8px;
+}
+
+.toolbarBold {
+  font-weight: 700;
+}
+
+.toolbarItalic {
+  font-style: italic;
+}
+
+.toolbarAi {
+  color: var(--color-primary);
+}
+
+.toolbarSvg {
+  height: 16px;
+  width: 16px;
+}
+
+.editor {
+  border-radius: 0 0 8px 8px;
+  border: 1px solid var(--color-border);
+  border-top: none;
+  background-color: white;
+  min-height: 200px;
+  position: relative;
+  font-size: 14px;
+  padding: 16px;
+}
+
+.editorStrike {
+  text-decoration: line-through;
+}
+
+.editorVar {
+  color: var(--color-primary);
+}
+
+.editorVarSpaced {
+  margin-top: 4px;
+  color: var(--color-primary);
+}
+
+.editorVarBlock {
+  margin-top: 8px;
+  color: var(--color-primary);
+}
+
+.editorWatermarkWrap {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+}
+
+.editorWatermark {
+  color: #e9d5ff;
+  user-select: none;
+  letter-spacing: 0.05em;
+}
+
+.narrowField {
+  max-width: 320px;
+}
+
+.historyEntry {
+  padding: 12px 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.historyEntry:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.historyEntry:last-child {
+  padding-bottom: 0;
+}

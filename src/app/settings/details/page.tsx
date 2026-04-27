@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
 import { Button, Flex, Form, Input, Select } from "antd";
-import { Checkbox, FileUpload, FormInput, Toggle, Tab, Modal, Dropdown, HintIcon, PageHeader, Text, Grid, Divider } from "@/components/ds";
+import { Checkbox, FileUpload, FormInput, Toggle, Modal, HintIcon, PageHeader, Text, Grid, Divider } from "@/components/ds";
+import styles from "./SettingsDetails.module.css";
 
 const businessHistory = [
   { date: "15 Jan 2026", description: "Business name changed from 'Acme Therapy' to 'Hands Together Therapies'" },
@@ -20,14 +21,14 @@ export default function SettingsDetailsPage() {
   const [historyOpen, setHistoryOpen] = useState(false);
 
   return (
-    <div style={{ maxWidth: 896, padding: 24 }}>
+    <div className={styles.shell}>
       <PageHeader title="Details">
         <Button type="primary">Save</Button>
       </PageHeader>
 
       <Flex vertical gap={24}>
         <Flex gap={32}>
-          <div style={{ flex: 1 }}>
+          <div className={styles.formCol}>
             <Flex vertical gap={16}>
               <Form layout="vertical" form={form}>
               <Form.Item
@@ -55,7 +56,7 @@ export default function SettingsDetailsPage() {
               </Form>
             </Flex>
           </div>
-          <div style={{ width: 192, flexShrink: 0 }}>
+          <div className={styles.uploadCol}>
             <FileUpload
               icon={
                 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -109,7 +110,7 @@ export default function SettingsDetailsPage() {
                 defaultValue="SMS & Email"
               />
             </Form.Item>
-            <div style={{ marginTop: 8 }}>
+            <div className={styles.checkboxRow}>
               <Checkbox
                 label="Apply to all existing clients and override the current contact preferences"
                 checked={applyToAll}
@@ -121,7 +122,7 @@ export default function SettingsDetailsPage() {
             <Form.Item label="Tax Label for invoices (E.g. ABN)" required>
               <Input defaultValue="ABN" />
             </Form.Item>
-            <Text variant="body/md" color="secondary" style={{ marginTop: 8 }}>
+            <Text variant="body/md" color="secondary" mt={8}>
               Enter your business number in{" "}
               <Button type="link" size="small">Location settings</Button>
             </Text>
@@ -132,63 +133,63 @@ export default function SettingsDetailsPage() {
         <Divider variant="primary" spacing="sm" />
 
         <div>
-          <Text variant="heading/lg" style={{ marginBottom: 12 }}>Email signature</Text>
-          <Flex align="center" gap={8} style={{ marginBottom: 12 }}>
+          <Text variant="heading/lg" mb={12}>Email signature</Text>
+          <Flex align="center" gap={8} className={styles.checkboxRow}>
             <Button
               type={emailSigTab === "Business" ? "primary" : "default"}
               size="small"
               onClick={() => setEmailSigTab("Business")}
               shape="round"
-              style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 4, paddingBottom: 4 }}
+              className={styles.pillBtn}
             >
-              Business <DownOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)', marginLeft: 4 }} />
+              Business <DownOutlined className={styles.pillBtnIcon} />
             </Button>
             <Button
               type={emailSigTab === "User" ? "primary" : "default"}
               size="small"
               onClick={() => setEmailSigTab("User")}
               shape="round"
-              style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 4, paddingBottom: 4 }}
+              className={styles.pillBtn}
             >
-              User <DownOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)', marginLeft: 4 }} />
+              User <DownOutlined className={styles.pillBtnIcon} />
             </Button>
           </Flex>
-          <Flex align="center" gap={4} style={{ borderRadius: '8px 8px 0 0', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '6px 8px' }}>
-            <Button type="text" style={{ fontWeight: 700 }}>B</Button>
-            <Button type="text" style={{ fontStyle: 'italic' }}>I</Button>
+          <Flex align="center" gap={4} className={styles.toolbar}>
+            <Button type="text" className={styles.toolbarBold}>B</Button>
+            <Button type="text" className={styles.toolbarItalic}>I</Button>
             <Divider orientation="vertical" spacing="xs" />
-            <Button type="text" style={{ color: 'var(--color-primary)' }}>AI</Button>
+            <Button type="text" className={styles.toolbarAi}>AI</Button>
             <Divider orientation="vertical" spacing="xs" />
             <Button type="text">
-              <svg style={{ height: 16, width: 16 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h18v18H3V3zm0 6h18M3 15h18M9 3v18M15 3v18" /></svg>
+              <svg className={styles.toolbarSvg} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h18v18H3V3zm0 6h18M3 15h18M9 3v18M15 3v18" /></svg>
             </Button>
             <Button type="text">
-              <svg style={{ height: 16, width: 16 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+              <svg className={styles.toolbarSvg} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
             </Button>
             <Button type="text">+</Button>
             <Divider orientation="vertical" spacing="xs" />
             <Button type="text">
-              <svg style={{ height: 16, width: 16 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h10M4 18h16" /></svg>
+              <svg className={styles.toolbarSvg} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h10M4 18h16" /></svg>
             </Button>
             <Button type="text">
-              <svg style={{ height: 16, width: 16 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M7 12h10M4 18h16" /></svg>
+              <svg className={styles.toolbarSvg} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M7 12h10M4 18h16" /></svg>
             </Button>
             <Button type="text">
-              <svg style={{ height: 16, width: 16 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
+              <svg className={styles.toolbarSvg} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
             </Button>
           </Flex>
-          <div style={{ borderRadius: '0 0 8px 8px', border: '1px solid var(--color-border)', borderTop: 'none', backgroundColor: 'white', minHeight: 200, position: 'relative', fontSize: 14, padding: 16 }}>
-            <p style={{ textDecoration: 'line-through' }}>Warm Regards,</p>
-            <p style={{ marginTop: 4, color: 'var(--color-primary)' }}>{"{user_fullName}"}</p>
-            <p style={{ color: 'var(--color-primary)' }}>{"{user_professionTitle}"}</p>
-            <p style={{ color: 'var(--color-primary)' }}>{"{user_email}"}</p>
-            <p style={{ marginTop: 8, color: 'var(--color-primary)' }}>{"{business_name}"}</p>
-            <p style={{ color: 'var(--color-primary)' }}>{"{business_email}"}</p>
-            <p style={{ color: 'var(--color-primary)' }}>{"{business_website}"}</p>
-            <p style={{ color: 'var(--color-primary)' }}>{"{user_signature}"}</p>
-            <p style={{ color: 'var(--color-primary)' }}>{"{user_workPhoneNumber}{user_professionTitle}"}</p>
-            <div style={{ position: 'absolute', right: 24, bottom: 24 }}>
-              <Text as="span" variant="display/lg" style={{ color: '#e9d5ff', userSelect: 'none', letterSpacing: '0.05em' }}>splose</Text>
+          <div className={styles.editor}>
+            <p className={styles.editorStrike}>Warm Regards,</p>
+            <p className={styles.editorVarSpaced}>{"{user_fullName}"}</p>
+            <p className={styles.editorVar}>{"{user_professionTitle}"}</p>
+            <p className={styles.editorVar}>{"{user_email}"}</p>
+            <p className={styles.editorVarBlock}>{"{business_name}"}</p>
+            <p className={styles.editorVar}>{"{business_email}"}</p>
+            <p className={styles.editorVar}>{"{business_website}"}</p>
+            <p className={styles.editorVar}>{"{user_signature}"}</p>
+            <p className={styles.editorVar}>{"{user_workPhoneNumber}{user_professionTitle}"}</p>
+            <div className={styles.editorWatermarkWrap}>
+              <Text as="span" variant="display/lg" className={styles.editorWatermark}>splose</Text>
             </div>
           </div>
         </div>
@@ -196,26 +197,26 @@ export default function SettingsDetailsPage() {
         <Divider variant="primary" spacing="sm" />
 
         <div>
-          <Text variant="heading/lg" style={{ marginBottom: 12 }}>Calendar lock dates</Text>
-          <Text variant="body/md" color="secondary" style={{ marginBottom: 8 }}>
+          <Text variant="heading/lg" mb={12}>Calendar lock dates</Text>
+          <Text variant="body/md" color="secondary" mb={8}>
             Prevent users with the practitioner role from making changes on the calendar on and before
           </Text>
-          <FormInput type="text" defaultValue="19 Dec 2025" style={{ maxWidth: 320 }} />
+          <FormInput type="text" defaultValue="19 Dec 2025" className={styles.narrowField} />
         </div>
 
         <Divider variant="primary" spacing="sm" />
 
         <div>
-          <Text variant="heading/lg" style={{ marginBottom: 12 }}>Google Tag Manager</Text>
-          <FormInput label="Google Tag Manager ID" type="text" defaultValue="GTM-TEST1231" style={{ maxWidth: 320 }} />
+          <Text variant="heading/lg" mb={12}>Google Tag Manager</Text>
+          <FormInput label="Google Tag Manager ID" type="text" defaultValue="GTM-TEST1231" className={styles.narrowField} />
         </div>
 
         <Divider variant="primary" spacing="sm" />
 
         <div>
-          <Text variant="heading/lg" style={{ marginBottom: 12 }}>Cases</Text>
+          <Text variant="heading/lg" mb={12}>Cases</Text>
           <Flex align="center" justify="space-between">
-            <p style={{ fontSize: 14 }}>Block bookings exceeding case or funding periods (default setting)</p>
+            <Text variant="body/md">Block bookings exceeding case or funding periods (default setting)</Text>
             <Toggle checked={casesToggle} onChange={setCasesToggle} />
           </Flex>
         </div>
@@ -228,9 +229,9 @@ export default function SettingsDetailsPage() {
       <Modal open={historyOpen} onClose={() => setHistoryOpen(false)} title="Business history">
         <ul>
           {businessHistory.map((entry, i) => (
-            <li key={i} style={{ paddingTop: i === 0 ? 0 : 12, paddingBottom: i === businessHistory.length - 1 ? 0 : 12, borderTop: i === 0 ? 'none' : '1px solid var(--color-border)' }}>
-              <p style={{ fontSize: 14 }}>{entry.description}</p>
-              <Text variant="body/sm" color="secondary" style={{ marginTop: 2 }}>{entry.date}</Text>
+            <li key={i} className={styles.historyEntry}>
+              <Text variant="body/md">{entry.description}</Text>
+              <Text variant="body/sm" color="secondary" mt={2}>{entry.date}</Text>
             </li>
           ))}
         </ul>

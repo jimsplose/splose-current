@@ -1,1 +1,216 @@
-/* OnlineBookingsEdit CSS Module — Wave 6 Plan 05 will add classes here */
+.tabsRow {
+  border-bottom: 1px solid var(--color-border);
+  padding: 0 24px;
+  margin: -24px -24px 0;
+}
+
+.body {
+  margin: 0 -24px -24px;
+}
+
+.formCol {
+  padding: 24px;
+}
+
+.formColCentered {
+  max-width: 768px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.formColExpanded {
+  flex: 1;
+}
+
+.uploadZone {
+  height: 128px;
+}
+
+.uploadCenter {
+  text-align: center;
+}
+
+.uploadIcon {
+  font-size: 24px;
+  color: var(--ant-color-text-secondary, #6e6e64);
+  display: block;
+  margin: 0 auto 4px;
+}
+
+.uploadHint {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+.sectionHeading {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.previewHeading {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.previewBtn {
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 12px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+}
+
+.previewBtnPrimary {
+  color: white;
+}
+
+.iconActionBtn {
+  font-size: 14px;
+  color: var(--ant-color-text, #414549);
+}
+
+.locationRow {
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  padding: 12px 16px;
+}
+
+.locationLabel {
+  font-size: 14px;
+}
+
+.helperText {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.helperTextSmall {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.shareCard {
+  flex: 1;
+}
+
+.shareUrl {
+  font-size: 14px;
+  color: var(--color-primary);
+  word-break: break-all;
+}
+
+.embedCode {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-fill-tertiary);
+  font-size: 12px;
+  padding: 16px;
+}
+
+.previewPanel {
+  flex-shrink: 0;
+  padding: 24px;
+  width: 400px;
+  border-left: 1px solid var(--color-border);
+  background-color: var(--color-fill-tertiary);
+}
+
+.previewPanelHeader {
+  margin-bottom: 16px;
+}
+
+.previewPanelHeading {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.previewBody {
+  padding: 20px;
+}
+
+.previewBodyTitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.previewLocCard {
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  padding: 12px;
+}
+
+.previewLocIcon {
+  height: 40px;
+  width: 40px;
+  border-radius: 8px;
+  background-color: #1f2937;
+  font-size: 18px;
+}
+
+.previewLocMeta {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+.previewLocBtn {
+  border-radius: 8px;
+  padding: 6px 12px;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+}
+
+.previewContinueWrap {
+  margin-top: 16px;
+}
+
+.previewContinueBtn {
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.25);
+  padding: 8px 12px;
+  color: white;
+  cursor: not-allowed;
+  font-weight: 500;
+  border: none;
+  font-size: 14px;
+  width: 100%;
+}
+
+.previewFooter {
+  border-top: 1px solid var(--color-border);
+  padding: 12px 20px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+.modalCheckboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+.modalCheckboxInput {
+  height: 16px;
+  width: 16px;
+  border-radius: 4px;
+}
+
+.modalCheckboxText {
+  font-size: 14px;
+}
+
+.formItemTight {
+  margin-bottom: 8px;
+}

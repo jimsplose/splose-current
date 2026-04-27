@@ -1,1 +1,146 @@
-/* DataImport CSS Module — Wave 6 Plan 05 will add classes here */
+.shell {
+  padding: 24px;
+}
+
+.banner {
+  margin-bottom: 32px;
+}
+
+.bannerEmoji {
+  flex-shrink: 0;
+  font-size: 2.25rem;
+}
+
+.iconMd {
+  font-size: 16px;
+  color: var(--ant-color-text, #414549);
+}
+
+.iconLgPrimary {
+  font-size: 40px;
+  color: var(--ant-color-primary, #8250ff);
+}
+
+.iconLgMuted {
+  font-size: 40px;
+  color: var(--ant-color-text-secondary, #6e6e64);
+}
+
+.iconStatusValid {
+  font-size: 16px;
+  color: #16a34a;
+}
+
+.iconStatusWarn {
+  font-size: 16px;
+  color: #ca8a04;
+}
+
+.iconStatusValidLg {
+  font-size: 32px;
+  color: #16a34a;
+}
+
+.uploadStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.uploadStepCenter {
+  text-align: center;
+}
+
+.statusValid {
+  color: #16a34a;
+}
+
+.statusWarn {
+  color: #ca8a04;
+}
+
+.mono {
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.lastActivityCell {
+  font-size: 14px;
+}
+
+.successPill {
+  border-radius: 8px;
+  background-color: #f0fdf4;
+  padding: 8px 12px;
+}
+
+.successPillFile {
+  font-size: 12px;
+  color: #15803d;
+}
+
+.successPillMeta {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  margin-left: auto;
+}
+
+.summaryBar {
+  border-radius: 8px;
+  background-color: var(--color-fill-tertiary);
+  padding: 12px;
+}
+
+.tableScroll {
+  overflow-x: auto;
+}
+
+.doneBlock {
+  padding: 24px 0;
+  text-align: center;
+}
+
+.successCircleWrap {
+  margin-bottom: 16px;
+}
+
+.successCircle {
+  height: 64px;
+  width: 64px;
+  border-radius: 50%;
+  background-color: #dcfce7;
+}
+
+.summaryStats {
+  padding: 16px;
+  max-width: 320px;
+  margin: 0 auto;
+  border-radius: 8px;
+  background-color: var(--color-fill-tertiary);
+}
+
+.statRow {
+  font-size: 12px;
+}
+
+.statValueSuccess {
+  color: #16a34a;
+}
+
+.detailRow {
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 8px;
+}
+
+.infoBox {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: var(--color-fill-tertiary);
+}
+
+.modalFooter {
+  width: 100%;
+}

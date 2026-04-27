@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button, Flex, Form } from "antd";
 import { UploadOutlined, LinkOutlined, CopyOutlined } from "@ant-design/icons";
 import { Card, Checkbox, ColorDot, FormInput, FormSelect, FormTextarea, Toggle, Tab, FormPage, FormColorPicker, Modal, RadioGroup, Text, Grid } from "@/components/ds";
+import styles from "./OnlineBookingsEdit.module.css";
 
 const designTabs = [
   { label: "Design", value: "design" },
@@ -36,8 +37,9 @@ export default function EditOnlineBookingPage() {
   const [name, setName] = useState("Standard Booking");
   const [buttonColor, setButtonColor] = useState("#8250ff");
   const [secondaryColor, setSecondaryColor] = useState("#f3f0ff");
-  const [buttonText, setButtonText] = useState("Book Now");
-  const [headerImage, setHeaderImage] = useState("");
+  const [buttonText] = useState("Book Now");
+  const [, setHeaderImage] = useState("");
+  void setHeaderImage;
   const [brandingMode, setBrandingMode] = useState("none");
   const [termsEnabled, setTermsEnabled] = useState(true);
   const [terms, setTerms] = useState("By booking an appointment, you agree to our cancellation policy. Cancellations made less than 24 hours before the appointment may incur a fee.");
@@ -66,12 +68,12 @@ export default function EditOnlineBookingPage() {
         </Flex>
       }
     >
-      <div style={{ borderBottom: '1px solid var(--color-border)', padding: '0 24px', margin: '-24px -24px 0' }}>
+      <div className={styles.tabsRow}>
         <Tab items={designTabs} value={activeTab} onChange={setActiveTab} />
       </div>
 
-      <Flex style={{ margin: '0 -24px -24px' }}>
-      <div style={{ padding: 24, flex: showPreview ? 1 : undefined, maxWidth: showPreview ? undefined : 768, width: showPreview ? undefined : '100%', margin: showPreview ? undefined : '0 auto' }}>
+      <Flex className={styles.body}>
+      <div className={`${styles.formCol} ${showPreview ? styles.formColExpanded : styles.formColCentered}`}>
         {activeTab === "design" && (
           <Flex vertical gap={24}>
             <FormInput label="Booking page name" value={name} onChange={(e) => setName(e.target.value)} />
@@ -90,12 +92,12 @@ export default function EditOnlineBookingPage() {
               />
               {brandingMode === "logo" && (
                 <div>
-                  <Form.Item label="Logo / Header image" style={{ marginBottom: 8 }}>
+                  <Form.Item label="Logo / Header image" className={styles.formItemTight}>
                     <Card variant="dashed" tint="muted" padding="none">
-                      <Flex align="center" justify="center" style={{ height: 128 }}>
-                        <div style={{ textAlign: 'center' }}>
-                          <UploadOutlined style={{ fontSize: 24, color: 'var(--ant-color-text-secondary, #6E6E64)', display: 'block', margin: '0 auto 4px' }} />
-                          <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>Click or drag to upload</span>
+                      <Flex align="center" justify="center" className={styles.uploadZone}>
+                        <div className={styles.uploadCenter}>
+                          <UploadOutlined className={styles.uploadIcon} />
+                          <span className={styles.uploadHint}>Click or drag to upload</span>
                         </div>
                       </Flex>
                     </Card>
@@ -110,14 +112,14 @@ export default function EditOnlineBookingPage() {
                 <Text variant="heading/sm" as="h3">Button styling</Text>
               </div>
               <div>
-                <Text variant="label/lg" color="secondary" style={{ marginBottom: 8 }}>Colours</Text>
+                <Text variant="label/lg" color="secondary" mb={8}>Colours</Text>
                 <Grid cols={2} gap="md">
                   <FormColorPicker label="Primary" value={buttonColor} onChange={setButtonColor} />
                   <FormColorPicker label="Secondary" value={secondaryColor} onChange={setSecondaryColor} />
                 </Grid>
               </div>
               <div>
-                <Text variant="label/md" color="secondary" style={{ marginBottom: 8 }}>Accessible colour suggestions</Text>
+                <Text variant="label/md" color="secondary" mb={8}>Accessible colour suggestions</Text>
                 <Flex wrap="wrap" gap={8}>
                   {COLOR_SWATCHES.map((color) => (
                     <ColorDot
@@ -136,12 +138,14 @@ export default function EditOnlineBookingPage() {
 
             {/* Button preview */}
             <Card>
-              <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 12 }}>Preview</h3>
+              <Text variant="heading/sm" as="h3" mb={12}>Preview</Text>
               <Flex align="center" gap={12}>
-                <button style={{ borderRadius: 8, padding: '10px 24px', color: 'white', backgroundColor: buttonColor, fontSize: 12, fontWeight: 500 }}>
+                {/* ds-exempt: dynamic user-defined color */}
+                <button className={`${styles.previewBtn} ${styles.previewBtnPrimary}`} style={{ backgroundColor: buttonColor }}>
                   {buttonText}
                 </button>
-                <button style={{ borderRadius: 8, padding: '10px 24px', backgroundColor: secondaryColor, color: buttonColor, fontSize: 12, fontWeight: 500 }}>
+                {/* ds-exempt: dynamic user-defined color */}
+                <button className={styles.previewBtn} style={{ backgroundColor: secondaryColor, color: buttonColor }}>
                   {buttonText}
                 </button>
               </Flex>
@@ -150,9 +154,9 @@ export default function EditOnlineBookingPage() {
             {/* Important notice banner */}
             <Flex vertical gap={12}>
               <Toggle label="Important notice banner" checked={noticeEnabled} onChange={setNoticeEnabled} />
-              <p style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>
+              <Text variant="body/sm" color="secondary">
                 This message appears on the online bookings page to inform clients of important updates, policies or any changes to the service.
-              </p>
+              </Text>
               {noticeEnabled && (
                 <FormTextarea
                   label="Notice content"
@@ -167,9 +171,9 @@ export default function EditOnlineBookingPage() {
             {/* Auto Risk */}
             <Flex vertical gap={8}>
               <Toggle label="Auto Risk" checked={autoRisk} onChange={setAutoRisk} />
-              <p style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>
+              <Text variant="body/sm" color="secondary">
                 Auto-assign clients are required to review practice at the time of service.
-              </p>
+              </Text>
             </Flex>
 
             {/* Service rating */}
@@ -180,9 +184,9 @@ export default function EditOnlineBookingPage() {
             {/* Download online booking notice */}
             <Flex vertical gap={12}>
               <Toggle label="Download online booking notice" checked={downloadNotice} onChange={setDownloadNotice} />
-              <p style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>
+              <Text variant="body/sm" color="secondary">
                 The notice message will display if you turn this online booking page.
-              </p>
+              </Text>
               {downloadNotice && (
                 <Flex vertical gap={16}>
                   <FormInput label="Online Booking Document" value="" onChange={() => {}} />
@@ -216,7 +220,7 @@ export default function EditOnlineBookingPage() {
         {activeTab === "settings" && (
           <Flex vertical gap={24}>
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 12 }}>Booking preferences</h3>
+              <Text variant="heading/md" as="h3" mb={12}>Booking preferences</Text>
               <Flex vertical gap={16}>
                 <Toggle label="Allow clients to select a practitioner" checked={true} onChange={() => {}} />
                 <Toggle label="Allow clients to add to waitlist" checked={true} onChange={() => {}} />
@@ -226,7 +230,7 @@ export default function EditOnlineBookingPage() {
             </div>
 
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 12 }}>Scheduling</h3>
+              <Text variant="heading/md" as="h3" mb={12}>Scheduling</Text>
               <Grid cols={2} gap="md">
                 <FormSelect
                   label="Minimum notice"
@@ -256,7 +260,7 @@ export default function EditOnlineBookingPage() {
             </div>
 
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 12 }}>Notifications</h3>
+              <Text variant="heading/md" as="h3" mb={12}>Notifications</Text>
               <Flex vertical gap={16}>
                 <Toggle label="Send confirmation email to client" checked={true} onChange={() => {}} />
                 <Toggle label="Send reminder email (24h before)" checked={true} onChange={() => {}} />
@@ -269,26 +273,26 @@ export default function EditOnlineBookingPage() {
         {activeTab === "builder" && (
           <Flex vertical gap={24}>
             <Flex align="center" justify="space-between">
-              <h3 style={{ fontSize: 18, fontWeight: 600 }}>Locations</h3>
+              <Text variant="heading/md" as="h3">Locations</Text>
               <Button onClick={() => setShowLocationModal(true)}>Manage locations</Button>
             </Flex>
             <Flex vertical gap={8}>
               {["East Clinics", "West Clinics", "North Clinics"].map((loc) => (
-                <Flex key={loc} align="center" justify="space-between" style={{ borderRadius: 8, border: '1px solid var(--color-border)', padding: '12px 16px' }}>
-                  <span style={{ fontSize: 14 }}>{loc}</span>
+                <Flex key={loc} align="center" justify="space-between" className={styles.locationRow}>
+                  <Text as="span" variant="body/md">{loc}</Text>
                   <Toggle checked={loc !== "North Clinics"} onChange={() => {}} />
                 </Flex>
               ))}
             </Flex>
 
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 12 }}>Services</h3>
-              <p style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>All services are displayed by default. Configure visibility per service in Settings &rarr; Services.</p>
+              <Text variant="heading/md" as="h3" mb={12}>Services</Text>
+              <Text variant="body/md" color="secondary">All services are displayed by default. Configure visibility per service in Settings &rarr; Services.</Text>
             </div>
 
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 12 }}>Practitioners</h3>
-              <p style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>All practitioners are available by default. Configure availability per practitioner in their profile.</p>
+              <Text variant="heading/md" as="h3" mb={12}>Practitioners</Text>
+              <Text variant="body/md" color="secondary">All practitioners are available by default. Configure availability per practitioner in their profile.</Text>
             </div>
           </Flex>
         )}
@@ -296,25 +300,21 @@ export default function EditOnlineBookingPage() {
         {activeTab === "share" && (
           <Flex vertical gap={24}>
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 8 }}>Shareable link</h3>
-              <p style={{ fontSize: 14, color: 'var(--color-text-secondary)', marginBottom: 12 }}>Share this link with your clients to allow them to book online.</p>
+              <Text variant="heading/md" as="h3" mb={8}>Shareable link</Text>
+              <Text variant="body/md" color="secondary" mb={12}>Share this link with your clients to allow them to book online.</Text>
               <Flex align="center" gap={8}>
-                <Card tint="muted" padding="sm" style={{ flex: 1 }}>
-                  <span style={{ fontSize: 14, color: 'var(--color-primary)', wordBreak: 'break-all' }}>{shareUrl}</span>
+                <Card tint="muted" padding="sm" className={styles.shareCard}>
+                  <span className={styles.shareUrl}>{shareUrl}</span>
                 </Card>
-                <Button onClick={() => navigator.clipboard?.writeText(shareUrl)}>
-                  <CopyOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} /> Copy
-                </Button>
-                <Button onClick={() => window.open(shareUrl, "_blank")}>
-                  <LinkOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} /> Open
-                </Button>
+                <Button onClick={() => navigator.clipboard?.writeText(shareUrl)} icon={<CopyOutlined />}>Copy</Button>
+                <Button onClick={() => window.open(shareUrl, "_blank")} icon={<LinkOutlined />}>Open</Button>
               </Flex>
             </div>
 
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 8 }}>Embed code</h3>
-              <p style={{ fontSize: 14, color: 'var(--color-text-secondary)', marginBottom: 12 }}>Add this code to your website to embed the booking widget.</p>
-              <pre style={{ overflowX: 'auto', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', fontSize: 12, padding: 16 }}>
+              <Text variant="heading/md" as="h3" mb={8}>Embed code</Text>
+              <Text variant="body/md" color="secondary" mb={12}>Add this code to your website to embed the booking widget.</Text>
+              <pre className={styles.embedCode}>
 {`<iframe
   src="${shareUrl}"
   width="100%"
@@ -325,7 +325,7 @@ export default function EditOnlineBookingPage() {
             </div>
 
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 8 }}>Google Tag Manager ID</h3>
+              <Text variant="heading/md" as="h3" mb={8}>Google Tag Manager ID</Text>
               <FormInput
                 label=""
                 value={gtmId}
@@ -339,46 +339,42 @@ export default function EditOnlineBookingPage() {
 
       {/* Live preview panel */}
       {showPreview && (
-        <div style={{ flexShrink: 0, padding: 24, width: 400, borderLeft: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)' }}>
-          <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
-            <h3 style={{ fontSize: 16, fontWeight: 600 }}>Preview</h3>
+        <div className={styles.previewPanel}>
+          <Flex justify="space-between" align="center" className={styles.previewPanelHeader}>
+            <Text variant="heading/sm" as="h3">Preview</Text>
             <Button type="text" size="small" onClick={() => setShowPreview(false)}>
               Close
             </Button>
           </Flex>
           <Card shadow padding="none">
-            <div style={{ padding: 20 }}>
-              <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 16 }}>Select a location</h2>
+            <div className={styles.previewBody}>
+              <Text variant="heading/lg" as="h2" mb={16}>Select a location</Text>
               <Flex vertical gap={8}>
                 {["East Clinics", "West Clinics"].map((loc) => (
-                  <Flex key={loc} align="center" justify="space-between" style={{ borderRadius: 12, border: '1px solid var(--color-border)', padding: 12 }}>
+                  <Flex key={loc} align="center" justify="space-between" className={styles.previewLocCard}>
                     <Flex align="center" gap={12}>
-                      <Flex align="center" justify="center" style={{ height: 40, width: 40, borderRadius: 8, backgroundColor: '#1f2937', fontSize: 18 }}>
+                      <Flex align="center" justify="center" className={styles.previewLocIcon}>
                         🔥
                       </Flex>
                       <div>
                         <Text variant="label/lg" as="div" color="text">{loc}</Text>
-                        <div style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>Mobile and/or telehealth</div>
+                        <span className={styles.previewLocMeta}>Mobile and/or telehealth</span>
                       </div>
                     </Flex>
-                    <button
-                      style={{ borderRadius: 8, padding: '6px 12px', color: 'white', backgroundColor: buttonColor, fontSize: 12, fontWeight: 500, border: 'none', cursor: 'pointer' }}
-                    >
+                    {/* ds-exempt: dynamic user-defined color */}
+                    <button className={styles.previewLocBtn} style={{ backgroundColor: buttonColor }}>
                       {buttonText || "Select"}
                     </button>
                   </Flex>
                 ))}
               </Flex>
-              <div style={{ marginTop: 16 }}>
-                <button
-                  disabled
-                  style={{ borderRadius: 8, backgroundColor: 'rgba(0,0,0,0.25)', padding: '8px 12px', color: 'white', cursor: 'not-allowed', fontWeight: 500, border: 'none', fontSize: 14, width: '100%' }}
-                >
+              <div className={styles.previewContinueWrap}>
+                <button disabled className={styles.previewContinueBtn}>
                   Continue
                 </button>
               </div>
             </div>
-            <div style={{ borderTop: '1px solid var(--color-border)', padding: '12px 20px', textAlign: 'center', fontSize: 11, color: 'var(--color-text-secondary)' }}>
+            <div className={styles.previewFooter}>
               Powered by <Text variant="label/lg" as="span" color="primary">splose</Text>
             </div>
           </Card>
@@ -389,9 +385,9 @@ export default function EditOnlineBookingPage() {
       <Modal open={showLocationModal} onClose={() => setShowLocationModal(false)} title="Manage locations displayed">
         <Flex vertical gap={8}>
           {["East Clinics", "West Clinics", "North Clinics", "Telehealth"].map((loc) => (
-            <label key={loc} style={{ display: 'flex', alignItems: 'center', gap: 12, borderRadius: 8, border: '1px solid var(--color-border)', padding: '12px 16px', cursor: 'pointer' }}>
-              <input type="checkbox" defaultChecked={loc !== "Telehealth"} style={{ height: 16, width: 16, borderRadius: 4 }} />
-              <span style={{ fontSize: 14 }}>{loc}</span>
+            <label key={loc} className={styles.modalCheckboxLabel}>
+              <input type="checkbox" defaultChecked={loc !== "Telehealth"} className={styles.modalCheckboxInput} />
+              <span className={styles.modalCheckboxText}>{loc}</span>
             </label>
           ))}
         </Flex>
