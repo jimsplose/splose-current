@@ -11,6 +11,16 @@ import { Button } from "antd";
 const meta: Meta<typeof FormInput> = {
   title: "Forms/FormInput",
   component: FormInput,
+  tags: ["extended"],
+  parameters: {
+    appPages: [
+      { label: "Settings — Online bookings (edit)", vercel: "https://splose-current.vercel.app/settings/online-bookings/1", production: "https://acme.splose.com/settings/online-bookings" },
+      { label: "Settings — Email templates (edit)", vercel: "https://splose-current.vercel.app/settings/email-templates/edit/1", production: "https://acme.splose.com/settings/email-templates" },
+      { label: "Settings — Forms (edit)", vercel: "https://splose-current.vercel.app/settings/forms/1", production: "https://acme.splose.com/settings/forms" },
+      { label: "Settings — Cancellation reasons", vercel: "https://splose-current.vercel.app/settings/cancellation-reasons", production: "https://acme.splose.com/settings/cancellation-reasons" },
+    ],
+    referenceUrl: "https://ant.design/components/input",
+  },
   argTypes: {
     label: {
       control: "text",

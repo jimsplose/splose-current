@@ -15,6 +15,7 @@ import { Button } from "antd";
 const meta: Meta<typeof Tooltip> = {
   title: "Overlays/Tooltip",
   component: Tooltip,
+  tags: ["extended"],
   argTypes: {
     side: {
       control: "select",
@@ -38,6 +39,12 @@ const meta: Meta<typeof Tooltip> = {
       plan: "docs/ds-plans/Tooltip.md",
       source: "src/components/ds/Tooltip.tsx",
     },
+    appPages: [
+      { label: "Dashboard", vercel: "https://splose-current.vercel.app/", production: "https://acme.splose.com/" },
+      { label: "Settings — Forms (edit)", vercel: "https://splose-current.vercel.app/settings/forms/1", production: "https://acme.splose.com/settings/forms" },
+      { label: "Note edit", vercel: "https://splose-current.vercel.app/notes/1/edit", production: "https://acme.splose.com/notes/35255497/edit" },
+    ],
+    referenceUrl: "https://ant.design/components/tooltip",
   },
 };
 export default meta;

@@ -4,6 +4,7 @@ import Divider from "../Divider";
 const meta: Meta<typeof Divider> = {
   title: "Layout/Divider",
   component: Divider,
+  tags: ["extended"],
   argTypes: {
     variant: {
       control: "select",
@@ -21,7 +22,16 @@ const meta: Meta<typeof Divider> = {
       description: "Horizontal rule or inline vertical separator",
     },
   },
-  parameters: { layout: "padded" },
+  parameters: {
+    layout: "padded",
+    appPages: [
+      { label: "Dashboard", vercel: "https://splose-current.vercel.app/", production: "https://acme.splose.com/" },
+      { label: "Patient details", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h", production: "https://acme.splose.com/patients/446604/details" },
+      { label: "Settings — Details", vercel: "https://splose-current.vercel.app/settings/details", production: "https://acme.splose.com/settings/details" },
+      { label: "Waitlist", vercel: "https://splose-current.vercel.app/waitlist", production: "https://acme.splose.com/waitlist" },
+    ],
+    referenceUrl: "https://ant.design/components/divider",
+  },
 };
 
 export default meta;

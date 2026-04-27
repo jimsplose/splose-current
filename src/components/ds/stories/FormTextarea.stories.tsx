@@ -8,6 +8,16 @@ import FormTextarea from "../FormTextarea";
 const meta: Meta<typeof FormTextarea> = {
   title: "Forms/FormTextarea",
   component: FormTextarea,
+  tags: ["extended"],
+  parameters: {
+    appPages: [
+      { label: "Settings — Online bookings (edit)", vercel: "https://splose-current.vercel.app/settings/online-bookings/1", production: "https://acme.splose.com/settings/online-bookings" },
+      { label: "Settings — Forms (edit)", vercel: "https://splose-current.vercel.app/settings/forms/1", production: "https://acme.splose.com/settings/forms" },
+      { label: "Settings — Invoice settings", vercel: "https://splose-current.vercel.app/settings/invoice-settings", production: "https://acme.splose.com/settings/invoice-settings" },
+      { label: "Settings — AI", vercel: "https://splose-current.vercel.app/settings/ai", production: "https://acme.splose.com/settings/ai" },
+    ],
+    referenceUrl: "https://ant.design/components/input",
+  },
   argTypes: {
     label: {
       control: "text",

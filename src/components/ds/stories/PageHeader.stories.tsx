@@ -10,6 +10,7 @@ import { Button } from "antd";
 const meta: Meta<typeof PageHeader> = {
   title: "Layout/PageHeader",
   component: PageHeader,
+  tags: ["custom"],
   argTypes: {
     title: {
       control: "text",
@@ -18,6 +19,13 @@ const meta: Meta<typeof PageHeader> = {
   },
   parameters: {
     layout: "padded",
+    appPages: [
+      { label: "Patient — Notes", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/notes", production: "https://acme.splose.com/patients/446604/notes" },
+      { label: "Patient — Invoices", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/invoices", production: "https://acme.splose.com/patients/446604/invoices" },
+      { label: "Patient — Files", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/files", production: "https://acme.splose.com/patients/446604/files" },
+      { label: "Patient — Cases", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/cases", production: "https://acme.splose.com/patients/446604/cases" },
+    ],
+    referenceUrl: null,
   },
 };
 

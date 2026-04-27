@@ -4,6 +4,7 @@ import Sparkline from "../Sparkline";
 const meta: Meta<typeof Sparkline> = {
   title: "Data Display/Sparkline",
   component: Sparkline,
+  tags: ["custom"],
   argTypes: {
     tone: { control: "select", options: ["primary", "success", "danger", "warning", "neutral"] },
     shape: { control: "radio", options: ["line", "area", "bar"] },
@@ -22,6 +23,9 @@ const meta: Meta<typeof Sparkline> = {
       plan: "docs/ds-plans/Sparkline.md",
       source: "src/components/ds/Sparkline.tsx",
     },
+    // No call sites in src/app/ yet — staged for upcoming dashboard/report metric tiles.
+    appPages: [],
+    referenceUrl: null,
   },
 };
 export default meta;

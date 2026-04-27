@@ -7,6 +7,7 @@ import type { FeatureCardTone } from "../FeatureCard";
 const meta: Meta<typeof FeatureCard> = {
   title: "Layout/FeatureCard",
   component: FeatureCard,
+  tags: ["custom"],
   argTypes: {
     tone: {
       control: "select",
@@ -16,6 +17,12 @@ const meta: Meta<typeof FeatureCard> = {
       control: "select",
       options: ["none", "sm", "md", "lg", "xl"],
     },
+  },
+  parameters: {
+    appPages: [
+      { label: "Patient details", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h", production: "https://acme.splose.com/patients/446604/details" },
+    ],
+    referenceUrl: null,
   },
 };
 

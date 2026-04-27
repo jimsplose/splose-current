@@ -5,13 +5,21 @@ import FormField from "../FormField";
 const meta: Meta<typeof FormField> = {
   title: "Forms/FormField",
   component: FormField,
+  tags: ["custom"],
   argTypes: {
     label: { control: "text", description: "Field label" },
     error: { control: "text", description: "Error message" },
     hint: { control: "text", description: "Hint text below label" },
     required: { control: "boolean", description: "Show required asterisk" },
   },
-  parameters: { layout: "centered" },
+  parameters: {
+    layout: "centered",
+    appPages: [
+      { label: "Settings — Forms (edit)", vercel: "https://splose-current.vercel.app/settings/forms/1", production: "https://acme.splose.com/settings/forms" },
+      { label: "Patient form view", vercel: "https://splose-current.vercel.app/patient-form/1/view", production: "https://acme.splose.com/patient-form" },
+    ],
+    referenceUrl: null,
+  },
 };
 
 export default meta;

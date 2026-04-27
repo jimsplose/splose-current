@@ -8,6 +8,14 @@ import Stat from "../Stat";
 const meta: Meta<typeof Stat> = {
   title: "Data Display/Stat",
   component: Stat,
+  tags: ["extended"],
+  parameters: {
+    appPages: [
+      { label: "Settings — SMS settings", vercel: "https://splose-current.vercel.app/settings/sms-settings", production: "https://acme.splose.com/settings/sms-settings" },
+      { label: "Reports — Progress notes", vercel: "https://splose-current.vercel.app/reports/progress-notes", production: "https://acme.splose.com/reports/progress-notes" },
+    ],
+    referenceUrl: "https://ant.design/components/statistic",
+  },
   argTypes: {
     value: {
       control: "text",

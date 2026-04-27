@@ -4,12 +4,19 @@ import ProgressBar from "../ProgressBar";
 const meta: Meta<typeof ProgressBar> = {
   title: "Data Display/ProgressBar",
   component: ProgressBar,
+  tags: ["extended"],
   argTypes: {
     value: { control: { type: "range", min: 0, max: 100, step: 1 } },
     tone: { control: "select", options: ["default", "success", "warning", "danger"] },
     size: { control: "select", options: ["sm", "md", "lg"] },
   },
-  parameters: { layout: "padded" },
+  parameters: {
+    layout: "padded",
+    appPages: [
+      { label: "Reports", vercel: "https://splose-current.vercel.app/reports", production: "https://acme.splose.com/reports" },
+    ],
+    referenceUrl: "https://ant.design/components/progress",
+  },
 };
 
 export default meta;

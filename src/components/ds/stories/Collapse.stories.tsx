@@ -9,6 +9,7 @@ import Badge from "../Badge";
 const meta: Meta<typeof Collapse> = {
   title: "Layout/Collapse",
   component: Collapse,
+  tags: ["extended"],
   argTypes: {
     title: {
       control: "text",
@@ -21,6 +22,12 @@ const meta: Meta<typeof Collapse> = {
   },
   parameters: {
     layout: "padded",
+    appPages: [
+      { label: "Patient details", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h", production: "https://acme.splose.com/patients/446604/details" },
+      { label: "Settings — Locations (edit)", vercel: "https://splose-current.vercel.app/settings/locations/edit/1", production: "https://acme.splose.com/settings/locations" },
+      { label: "Settings — Appointment templates (new)", vercel: "https://splose-current.vercel.app/settings/appointment-templates/new", production: "https://acme.splose.com/settings/appointment-templates" },
+    ],
+    referenceUrl: "https://ant.design/components/collapse",
   },
 };
 
