@@ -14,7 +14,7 @@ import type { CommandEntry } from "../CommandPalette";
 import { Button } from "antd";
 
 const meta: Meta = {
-  title: "Overlay/CommandPalette",
+  title: "Overlays/CommandPalette",
   parameters: {
     layout: "centered",
     splose: {

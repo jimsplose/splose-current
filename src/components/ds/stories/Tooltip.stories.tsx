@@ -13,7 +13,7 @@ import type { TooltipSide, TooltipAlign } from "../Tooltip";
 import { Button } from "antd";
 
 const meta: Meta<typeof Tooltip> = {
-  title: "Overlay/Tooltip",
+  title: "Overlays/Tooltip",
   component: Tooltip,
   argTypes: {
     side: {

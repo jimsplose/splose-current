@@ -4,7 +4,7 @@ import { alertDialog } from "../AlertDialog";
 import { Button } from "antd";
 
 const meta: Meta = {
-  title: "Overlay/AlertDialog",
+  title: "Overlays/AlertDialog",
   parameters: {
     layout: "padded",
     splose: {

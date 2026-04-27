@@ -7,7 +7,7 @@ import Badge, { statusVariant } from "../Badge";
 /* ------------------------------------------------------------------ */
 
 const meta: Meta<typeof Badge> = {
-  title: "Data Display/Badge",
+  title: "Typography/Badge",
   component: Badge,
   argTypes: {
     variant: {

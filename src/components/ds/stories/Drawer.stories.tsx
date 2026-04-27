@@ -7,7 +7,7 @@ import FormInput from "../FormInput";
 import FormTextarea from "../FormTextarea";
 
 const meta: Meta<typeof Drawer> = {
-  title: "Overlay/Drawer",
+  title: "Overlays/Drawer",
   component: Drawer,
   parameters: {
     layout: "fullscreen",

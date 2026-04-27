@@ -44,12 +44,47 @@ export interface SploseStoryMeta {
   source?: string;
 }
 
+/**
+ * Splose tier classification for sidebar tag filtering.
+ * - `antd` — pure AntD with `ConfigProvider` + `sploseTheme`, no wrapper.
+ * - `extended` — AntD-based wrapper or composed pattern (e.g. `ListPage`,
+ *   `AsyncSelect`, `EmailPreview`).
+ * - `custom` — no AntD base (e.g. `Text`, `Sparkline`, `PatientAvatar`).
+ */
+export type SploseTier = "antd" | "extended" | "custom";
+
+/**
+ * One entry in `parameters.appPages` — a route where the component is used,
+ * with both Vercel and acme.splose.com URL pairs for screenshot capture (#18)
+ * and MDX docs (#19).
+ */
+export interface SploseAppPage {
+  /** Human-readable label, e.g. "Patient details — Appointments tab". */
+  label: string;
+  /** Full Vercel URL (https://splose-current.vercel.app/...). */
+  vercel: string;
+  /** Full production URL (https://acme.splose.com/...). */
+  production: string;
+  /** Optional: navigation instructions for dynamic routes. */
+  notes?: string;
+}
+
 // Ensure @storybook/react is loaded before the augmentation below.
 import type {} from "@storybook/react";
 
 declare module "@storybook/react" {
   interface Parameters {
     splose?: SploseStoryMeta;
+    /**
+     * App routes where this component is used. Drives screenshot capture (#18)
+     * and the "In the app" table in MDX docs (#19).
+     */
+    appPages?: SploseAppPage[];
+    /**
+     * Reference docs URL for the wrapped library (e.g. AntD docs page).
+     * `null` for first-party / custom components.
+     */
+    referenceUrl?: string | null;
   }
 }
 

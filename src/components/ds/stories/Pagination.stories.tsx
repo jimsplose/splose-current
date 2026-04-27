@@ -6,7 +6,7 @@ import Pagination from "../Pagination";
 /* ------------------------------------------------------------------ */
 
 const meta: Meta<typeof Pagination> = {
-  title: "Data Display/Pagination",
+  title: "Navigation/Pagination",
   component: Pagination,
   argTypes: {
     currentPage: {

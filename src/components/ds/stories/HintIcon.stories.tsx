@@ -6,7 +6,7 @@ import HintIcon from "../HintIcon";
 /* ------------------------------------------------------------------ */
 
 const meta: Meta<typeof HintIcon> = {
-  title: "Data Display/HintIcon",
+  title: "Forms/HintIcon",
   component: HintIcon,
   argTypes: {
     tooltip: {

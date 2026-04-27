@@ -11,7 +11,7 @@ import ContextMenu from "../ContextMenu";
 import type { ContextMenuItem } from "../ContextMenu";
 
 const meta: Meta<typeof ContextMenu> = {
-  title: "Overlay/ContextMenu",
+  title: "Overlays/ContextMenu",
   component: ContextMenu,
   parameters: {
     layout: "padded",

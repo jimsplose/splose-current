@@ -4,7 +4,7 @@ import PatientAvatar from "../PatientAvatar";
 import { Tag } from "antd";
 
 const meta: Meta<typeof HoverCard> = {
-  title: "Overlay/HoverCard",
+  title: "Overlays/HoverCard",
   component: HoverCard,
   parameters: {
     layout: "padded",
