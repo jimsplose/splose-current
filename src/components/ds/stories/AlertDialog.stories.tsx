@@ -5,8 +5,12 @@ import { Button } from "antd";
 
 const meta: Meta = {
   title: "Overlays/AlertDialog",
+  tags: ["extended"],
   parameters: {
     layout: "padded",
+    // No direct call sites found yet (alertDialog.confirm not used in src/app/).
+    appPages: [],
+    referenceUrl: "https://www.radix-ui.com/primitives/docs/components/alert-dialog",
     splose: {
       status: "beta",
       summary:

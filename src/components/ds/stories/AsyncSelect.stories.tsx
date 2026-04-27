@@ -7,12 +7,18 @@ import AsyncSelect from "../AsyncSelect";
 const meta: Meta<typeof AsyncSelect> = {
   title: "Forms/AsyncSelect",
   component: AsyncSelect,
+  tags: ["extended"],
   argTypes: {
     url: { control: "text" },
     value: { control: "text" },
     label: { control: "text" },
     placeholder: { control: "text" },
     className: { control: "text" },
+  },
+  parameters: {
+    // No call sites in src/app/ yet
+    appPages: [],
+    referenceUrl: null,
   },
 };
 

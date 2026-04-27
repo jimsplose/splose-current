@@ -4,12 +4,38 @@ import Avatar from "../Avatar";
 const meta: Meta<typeof Avatar> = {
   title: "Data Display/Avatar",
   component: Avatar,
+  tags: ["extended"],
   argTypes: {
     size: {
       control: "radio",
       options: ["sm", "md", "lg", "xl"],
     },
     color: { control: "color" },
+  },
+  parameters: {
+    appPages: [
+      {
+        label: "Dashboard",
+        vercel: "https://splose-current.vercel.app/",
+        production: "https://acme.splose.com/",
+      },
+      {
+        label: "Calendar",
+        vercel: "https://splose-current.vercel.app/calendar",
+        production: "https://acme.splose.com/calendar/week/25/3/2026",
+      },
+      {
+        label: "Reports",
+        vercel: "https://splose-current.vercel.app/reports",
+        production: "https://acme.splose.com/reports",
+      },
+      {
+        label: "Online booking",
+        vercel: "https://splose-current.vercel.app/online-booking",
+        production: "https://acme.splose.com/online-booking",
+      },
+    ],
+    referenceUrl: "https://ant.design/components/avatar",
   },
 };
 

@@ -11,6 +11,7 @@ import { Button } from "antd";
 const meta: Meta<typeof Alert> = {
   title: "Feedback/Alert",
   component: Alert,
+  tags: ["extended"],
   argTypes: {
     variant: {
       control: "select",
@@ -28,6 +29,29 @@ const meta: Meta<typeof Alert> = {
   },
   parameters: {
     layout: "centered",
+    appPages: [
+      {
+        label: "Calendar (past-date / edit modals)",
+        vercel: "https://splose-current.vercel.app/calendar",
+        production: "https://acme.splose.com/calendar/week/25/3/2026",
+      },
+      {
+        label: "Settings — AI (beta banner)",
+        vercel: "https://splose-current.vercel.app/settings/ai",
+        production: "https://acme.splose.com/settings/ai",
+      },
+      {
+        label: "Settings — Invoice settings (Stripe banner)",
+        vercel: "https://splose-current.vercel.app/settings/invoice-settings",
+        production: "https://acme.splose.com/settings/invoice-settings",
+      },
+      {
+        label: "Settings — Data import",
+        vercel: "https://splose-current.vercel.app/settings/data-import",
+        production: "https://acme.splose.com/settings/data-import",
+      },
+    ],
+    referenceUrl: "https://ant.design/components/alert",
   },
 };
 

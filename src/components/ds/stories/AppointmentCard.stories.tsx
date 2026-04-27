@@ -4,6 +4,7 @@ import AppointmentCard from "../AppointmentCard";
 const meta: Meta<typeof AppointmentCard> = {
   title: "Data Display/AppointmentCard",
   component: AppointmentCard,
+  tags: ["custom"],
   argTypes: {
     status: {
       control: "select",
@@ -27,6 +28,14 @@ const meta: Meta<typeof AppointmentCard> = {
       plan: "docs/ds-plans/AppointmentCard.md",
       source: "src/components/ds/AppointmentCard.tsx",
     },
+    appPages: [
+      {
+        label: "Calendar",
+        vercel: "https://splose-current.vercel.app/calendar",
+        production: "https://acme.splose.com/calendar/week/25/3/2026",
+      },
+    ],
+    referenceUrl: null,
   },
 };
 export default meta;

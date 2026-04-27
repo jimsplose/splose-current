@@ -13,8 +13,17 @@ import type { ContextMenuItem } from "../ContextMenu";
 const meta: Meta<typeof ContextMenu> = {
   title: "Overlays/ContextMenu",
   component: ContextMenu,
+  tags: ["extended"],
   parameters: {
     layout: "padded",
+    appPages: [
+      {
+        label: "Calendar (right-click on time slots / appointments)",
+        vercel: "https://splose-current.vercel.app/calendar",
+        production: "https://acme.splose.com/calendar/week/25/3/2026",
+      },
+    ],
+    referenceUrl: "https://ant.design/components/dropdown",
     splose: {
       status: "beta",
       summary:

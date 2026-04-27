@@ -9,8 +9,17 @@ import FormTextarea from "../FormTextarea";
 const meta: Meta<typeof Drawer> = {
   title: "Overlays/Drawer",
   component: Drawer,
+  tags: ["extended"],
   parameters: {
     layout: "fullscreen",
+    appPages: [
+      {
+        label: "Calendar (appointment details / side panels via CalendarView)",
+        vercel: "https://splose-current.vercel.app/calendar",
+        production: "https://acme.splose.com/calendar/week/25/3/2026",
+      },
+    ],
+    referenceUrl: "https://ant.design/components/drawer",
     splose: {
       status: "beta",
       summary:

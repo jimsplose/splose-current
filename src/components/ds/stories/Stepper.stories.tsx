@@ -6,8 +6,12 @@ import { Button } from "antd";
 const meta: Meta<typeof Stepper> = {
   title: "Navigation/Stepper",
   component: Stepper,
+  tags: ["tier:extended"],
   parameters: {
     layout: "padded",
+    // No call sites in src/app/ as of 2026-04-27 — Stepper is referenced only in DS docs/stories
+    appPages: [],
+    referenceUrl: "https://ant.design/components/steps",
     splose: {
       status: "beta",
       summary:

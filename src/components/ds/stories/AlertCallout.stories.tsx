@@ -9,6 +9,7 @@ import Text from "../Text";
 const meta: Meta<typeof AlertCallout> = {
   title: "Feedback/AlertCallout",
   component: AlertCallout,
+  tags: ["custom"],
   argTypes: {
     variant: {
       control: "select",
@@ -22,6 +23,14 @@ const meta: Meta<typeof AlertCallout> = {
   },
   parameters: {
     layout: "padded",
+    appPages: [
+      {
+        label: "Client detail",
+        vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h",
+        production: "https://acme.splose.com/patients/446604/details",
+      },
+    ],
+    referenceUrl: null,
   },
 };
 

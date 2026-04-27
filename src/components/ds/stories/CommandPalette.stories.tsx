@@ -15,8 +15,17 @@ import { Button } from "antd";
 
 const meta: Meta = {
   title: "Overlays/CommandPalette",
+  tags: ["extended"],
   parameters: {
     layout: "centered",
+    appPages: [
+      {
+        label: "Globally mounted (Cmd+K from any route via CommandPaletteMount in layout.tsx)",
+        vercel: "https://splose-current.vercel.app/",
+        production: "https://acme.splose.com/",
+      },
+    ],
+    referenceUrl: "https://cmdk.paco.me",
     splose: {
       status: "beta",
       summary:

@@ -5,6 +5,7 @@ import DatePicker from "../DatePicker";
 const meta: Meta<typeof DatePicker> = {
   title: "Forms/DatePicker",
   component: DatePicker,
+  tags: ["extended"],
   argTypes: {
     size: { control: "select", options: ["sm", "md", "lg"] },
     disabled: { control: "boolean" },
@@ -21,6 +22,9 @@ const meta: Meta<typeof DatePicker> = {
       plan: "docs/ds-plans/DatePicker.md",
       source: "src/components/ds/DatePicker.tsx",
     },
+    // No call sites in src/app/ yet
+    appPages: [],
+    referenceUrl: "https://ant.design/components/date-picker",
   },
 };
 export default meta;

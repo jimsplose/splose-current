@@ -12,6 +12,7 @@ import Filter from "../Filter";
 const meta: Meta<typeof Navbar> = {
   title: "Navigation/Navbar",
   component: Navbar,
+  tags: ["tier:extended"],
   argTypes: {
     backHref: {
       control: "text",
@@ -24,6 +25,24 @@ const meta: Meta<typeof Navbar> = {
   },
   parameters: {
     layout: "fullscreen",
+    appPages: [
+      {
+        route: "/notes/[id]",
+        vercel: "https://splose-current.vercel.app/notes/1",
+        production: "https://acme.splose.com/notes/1/view",
+      },
+      {
+        route: "/notes/[id]/edit",
+        vercel: "https://splose-current.vercel.app/notes/1/edit",
+        production: "https://acme.splose.com/notes/1/edit",
+      },
+      {
+        route: "/notes/new",
+        vercel: "https://splose-current.vercel.app/notes/new",
+        production: "https://acme.splose.com/notes/new",
+      },
+    ],
+    referenceUrl: "https://ant.design/components/menu",
   },
 };
 

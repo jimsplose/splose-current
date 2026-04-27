@@ -5,8 +5,27 @@ import Breadcrumbs from "../Breadcrumbs";
 const meta: Meta<typeof Breadcrumbs> = {
   title: "Navigation/Breadcrumbs",
   component: Breadcrumbs,
+  tags: ["tier:extended"],
   parameters: {
     layout: "padded",
+    appPages: [
+      {
+        route: "/settings/forms/[id]",
+        vercel: "https://splose-current.vercel.app/settings/forms/cmngtw7n9005eycwg4e67506h",
+        production: "https://acme.splose.com/settings/forms/cmngtw7n9005eycwg4e67506h",
+      },
+      {
+        route: "/invoices/batch-invoice/[id]",
+        vercel: "https://splose-current.vercel.app/invoices/batch-invoice/330044",
+        production: "https://acme.splose.com/invoices/batch-invoice/330044",
+      },
+      {
+        route: "/reports/ndis-bulk-upload/new",
+        vercel: "https://splose-current.vercel.app/reports/ndis-bulk-upload/new",
+        production: "https://acme.splose.com/reports/ndis-bulk-upload/new",
+      },
+    ],
+    referenceUrl: "https://ant.design/components/breadcrumb",
     splose: {
       status: "beta",
       summary:

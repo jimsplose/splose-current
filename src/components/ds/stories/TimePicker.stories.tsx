@@ -6,6 +6,7 @@ import DatePicker from "../DatePicker";
 const meta: Meta<typeof TimePicker> = {
   title: "Forms/TimePicker",
   component: TimePicker,
+  tags: ["extended"],
   argTypes: {
     size: { control: "select", options: ["sm", "md", "lg"] },
     format: { control: "radio", options: ["12h", "24h"] },
@@ -24,6 +25,10 @@ const meta: Meta<typeof TimePicker> = {
       plan: "docs/ds-plans/TimePicker.md",
       source: "src/components/ds/TimePicker.tsx",
     },
+    // No live call sites yet — component is staged for upcoming appointment,
+    // busy-time, and clinic-hours form migrations.
+    appPages: [],
+    referenceUrl: "https://ant.design/components/time-picker",
   },
 };
 export default meta;

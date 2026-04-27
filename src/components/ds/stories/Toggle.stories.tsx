@@ -8,6 +8,7 @@ import Toggle from "../Toggle";
 const meta: Meta<typeof Toggle> = {
   title: "Forms/Toggle",
   component: Toggle,
+  tags: ["extended"],
   argTypes: {
     checked: {
       control: "boolean",
@@ -24,6 +25,29 @@ const meta: Meta<typeof Toggle> = {
   },
   parameters: {
     layout: "centered",
+    appPages: [
+      {
+        label: "Settings: AI (voice/recording toggles)",
+        vercel: "https://splose-current.vercel.app/settings/ai",
+        production: "https://acme.splose.com/settings/ai",
+      },
+      {
+        label: "Settings: Business details (preference toggles)",
+        vercel: "https://splose-current.vercel.app/settings/details",
+        production: "https://acme.splose.com/settings/details",
+      },
+      {
+        label: "Settings: Online booking (per-location enable toggles)",
+        vercel: "https://splose-current.vercel.app/settings/online-bookings/cmngtw7n9005eycwg4e67506h",
+        production: "https://acme.splose.com/settings/online-bookings/1",
+      },
+      {
+        label: "Client detail (notification + consent toggles)",
+        vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h",
+        production: "https://acme.splose.com/patients/446604/details",
+      },
+    ],
+    referenceUrl: "https://ant.design/components/switch",
   },
 };
 

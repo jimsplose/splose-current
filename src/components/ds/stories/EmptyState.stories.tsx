@@ -10,6 +10,7 @@ import { Button } from "antd";
 const meta: Meta<typeof EmptyState> = {
   title: "Feedback/EmptyState",
   component: EmptyState,
+  tags: ["extended"],
   argTypes: {
     title: {
       control: "text",

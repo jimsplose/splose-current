@@ -8,6 +8,7 @@ import Pagination from "../Pagination";
 const meta: Meta<typeof Pagination> = {
   title: "Navigation/Pagination",
   component: Pagination,
+  tags: ["tier:extended"],
   argTypes: {
     currentPage: {
       control: { type: "number", min: 1 },
@@ -32,6 +33,29 @@ const meta: Meta<typeof Pagination> = {
   },
   parameters: {
     layout: "padded",
+    appPages: [
+      {
+        route: "/clients",
+        vercel: "https://splose-current.vercel.app/clients",
+        production: "https://acme.splose.com/patients",
+      },
+      {
+        route: "/contacts",
+        vercel: "https://splose-current.vercel.app/contacts",
+        production: "https://acme.splose.com/contacts",
+      },
+      {
+        route: "/payments",
+        vercel: "https://splose-current.vercel.app/payments",
+        production: "https://acme.splose.com/payments",
+      },
+      {
+        route: "/waitlist",
+        vercel: "https://splose-current.vercel.app/waitlist",
+        production: "https://acme.splose.com/waitlist",
+      },
+    ],
+    referenceUrl: "https://ant.design/components/pagination",
   },
 };
 

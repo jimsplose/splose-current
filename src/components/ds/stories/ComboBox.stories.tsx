@@ -6,6 +6,7 @@ import PatientAvatar from "../PatientAvatar";
 
 const meta: Meta = {
   title: "Forms/ComboBox",
+  tags: ["extended"],
   parameters: {
     layout: "padded",
     splose: {
@@ -18,6 +19,9 @@ const meta: Meta = {
       plan: "docs/ds-plans/ComboBox.md",
       source: "src/components/ds/ComboBox.tsx",
     },
+    // No call sites in src/app/ yet
+    appPages: [],
+    referenceUrl: "https://www.downshift-js.com/",
   },
 };
 export default meta;

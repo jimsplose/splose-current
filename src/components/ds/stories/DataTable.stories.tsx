@@ -10,6 +10,32 @@ import ColorDot from "../ColorDot";
 const meta: Meta<typeof DataTable> = {
   title: "Data Display/DataTable",
   component: DataTable,
+  tags: ["extended"],
+  parameters: {
+    appPages: [
+      {
+        label: "Clients list",
+        vercel: "https://splose-current.vercel.app/clients",
+        production: "https://acme.splose.com/patients",
+      },
+      {
+        label: "Invoices list",
+        vercel: "https://splose-current.vercel.app/invoices",
+        production: "https://acme.splose.com/invoices",
+      },
+      {
+        label: "Invoice detail",
+        vercel: "https://splose-current.vercel.app/invoices/1",
+        production: "https://acme.splose.com/invoices/1/view",
+      },
+      {
+        label: "Waitlist",
+        vercel: "https://splose-current.vercel.app/waitlist",
+        production: "https://acme.splose.com/waitlist",
+      },
+    ],
+    referenceUrl: "https://ant.design/components/table",
+  },
 };
 export default meta;
 type Story = StoryObj<typeof DataTable>;

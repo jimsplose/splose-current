@@ -7,10 +7,20 @@ import Checkbox from "../Checkbox";
 const meta: Meta<typeof Checkbox> = {
   title: "Forms/Checkbox",
   component: Checkbox,
+  tags: ["extended"],
   argTypes: {
     label: { control: "text" },
     disabled: { control: "boolean" },
     defaultChecked: { control: "boolean" },
+  },
+  parameters: {
+    appPages: [
+      { label: "Waitlist — New", vercel: "https://splose-current.vercel.app/waitlist/new", production: "https://acme.splose.com/waitlist/new" },
+      { label: "Login", vercel: "https://splose-current.vercel.app/login", production: "https://acme.splose.com/login" },
+      { label: "Settings — SMS settings", vercel: "https://splose-current.vercel.app/settings/sms-settings", production: "https://acme.splose.com/settings/sms-settings" },
+      { label: "Products", vercel: "https://splose-current.vercel.app/products", production: "https://acme.splose.com/products" },
+    ],
+    referenceUrl: "https://ant.design/components/checkbox",
   },
 };
 

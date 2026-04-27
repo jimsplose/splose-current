@@ -8,6 +8,7 @@ import HintIcon from "../HintIcon";
 const meta: Meta<typeof HintIcon> = {
   title: "Forms/HintIcon",
   component: HintIcon,
+  tags: ["custom"],
   argTypes: {
     tooltip: {
       control: "text",
@@ -26,6 +27,19 @@ const meta: Meta<typeof HintIcon> = {
   },
   parameters: {
     layout: "centered",
+    appPages: [
+      {
+        label: "Client detail (Associated contacts hint, Account balance hints)",
+        vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h",
+        production: "https://acme.splose.com/patients/446604/details",
+      },
+      {
+        label: "Settings: Business details (Workspace URL, Patient terminology hints)",
+        vercel: "https://splose-current.vercel.app/settings/details",
+        production: "https://acme.splose.com/settings/details",
+      },
+    ],
+    referenceUrl: null,
   },
 };
 

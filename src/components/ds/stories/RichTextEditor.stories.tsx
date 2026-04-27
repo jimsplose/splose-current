@@ -9,6 +9,7 @@ import RichTextEditor from "../RichTextEditor";
 const meta: Meta<typeof RichTextEditor> = {
   title: "Forms/RichTextEditor",
   component: RichTextEditor,
+  tags: ["extended"],
   argTypes: {
     value: {
       control: "text",
@@ -27,7 +28,32 @@ const meta: Meta<typeof RichTextEditor> = {
       description: "Optional list of template variables shown in the Insert variable dropdown",
     },
   },
-  parameters: { layout: "padded" },
+  parameters: {
+    layout: "padded",
+    appPages: [
+      {
+        label: "Settings: Edit email template",
+        vercel: "https://splose-current.vercel.app/settings/email-templates/edit/1",
+        production: "https://acme.splose.com/settings/email-templates/edit/1",
+      },
+      {
+        label: "Settings: Edit progress note template",
+        vercel: "https://splose-current.vercel.app/settings/progress-notes/edit/1",
+        production: "https://acme.splose.com/settings/progress-notes/edit/1",
+      },
+      {
+        label: "Settings: Edit letter template",
+        vercel: "https://splose-current.vercel.app/settings/letter-templates/edit/1",
+        production: "https://acme.splose.com/settings/letter-templates/edit/1",
+      },
+      {
+        label: "Settings: Invoice settings (invoice notes editor)",
+        vercel: "https://splose-current.vercel.app/settings/invoice-settings",
+        production: "https://acme.splose.com/settings/invoice-settings",
+      },
+    ],
+    referenceUrl: null,
+  },
 };
 
 export default meta;

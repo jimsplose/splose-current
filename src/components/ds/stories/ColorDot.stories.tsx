@@ -9,6 +9,7 @@ import ColorDot from "../ColorDot";
 const meta: Meta<typeof ColorDot> = {
   title: "Data Display/ColorDot",
   component: ColorDot,
+  tags: ["custom"],
   argTypes: {
     color: {
       control: "text",
@@ -39,6 +40,29 @@ const meta: Meta<typeof ColorDot> = {
   },
   parameters: {
     layout: "centered",
+    appPages: [
+      {
+        label: "Dashboard",
+        vercel: "https://splose-current.vercel.app/",
+        production: "https://acme.splose.com/",
+      },
+      {
+        label: "Calendar",
+        vercel: "https://splose-current.vercel.app/calendar",
+        production: "https://acme.splose.com/calendar/week/25/3/2026",
+      },
+      {
+        label: "Settings — Tags",
+        vercel: "https://splose-current.vercel.app/settings/tags",
+        production: "https://acme.splose.com/settings/tags",
+      },
+      {
+        label: "Reports",
+        vercel: "https://splose-current.vercel.app/reports",
+        production: "https://acme.splose.com/reports",
+      },
+    ],
+    referenceUrl: null,
   },
 };
 

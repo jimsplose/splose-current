@@ -5,6 +5,7 @@ import NumberInput from "../NumberInput";
 const meta: Meta<typeof NumberInput> = {
   title: "Forms/NumberInput",
   component: NumberInput,
+  tags: ["extended"],
   argTypes: {
     size: { control: "select", options: ["sm", "md", "lg"] },
     format: {
@@ -27,6 +28,14 @@ const meta: Meta<typeof NumberInput> = {
       plan: "docs/ds-plans/NumberInput.md",
       source: "src/components/ds/NumberInput.tsx",
     },
+    appPages: [
+      {
+        label: "Settings: SMS settings (numeric thresholds)",
+        vercel: "https://splose-current.vercel.app/settings/sms-settings",
+        production: "https://acme.splose.com/settings/sms-settings",
+      },
+    ],
+    referenceUrl: "https://ant.design/components/input-number",
   },
 };
 export default meta;

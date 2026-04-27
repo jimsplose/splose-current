@@ -7,6 +7,7 @@ import FormInput from "../FormInput";
 const meta: Meta<typeof SignaturePad> = {
   title: "Forms/SignaturePad",
   component: SignaturePad,
+  tags: ["extended"],
   parameters: {
     layout: "padded",
     splose: {
@@ -19,6 +20,10 @@ const meta: Meta<typeof SignaturePad> = {
       plan: "docs/ds-plans/SignaturePad.md",
       source: "src/components/ds/SignaturePad.tsx",
     },
+    // No live call sites yet — component is staged in the DS for upcoming
+    // invoice sign-off and consent-form flows.
+    appPages: [],
+    referenceUrl: "https://github.com/szimek/signature_pad",
   },
 };
 export default meta;

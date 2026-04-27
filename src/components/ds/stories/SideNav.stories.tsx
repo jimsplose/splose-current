@@ -7,11 +7,25 @@ import type { SideNavSection } from "../SideNav";
 const meta: Meta<typeof SideNav> = {
   title: "Navigation/SideNav",
   component: SideNav,
+  tags: ["tier:extended"],
   argTypes: {
     className: { control: "text" },
   },
   parameters: {
     nextjs: { appDirectory: true },
+    appPages: [
+      {
+        route: "/settings",
+        vercel: "https://splose-current.vercel.app/settings",
+        production: "https://acme.splose.com/settings",
+      },
+      {
+        route: "/clients/[id]",
+        vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h",
+        production: "https://acme.splose.com/patients/446604/details",
+      },
+    ],
+    referenceUrl: "https://ant.design/components/menu",
   },
 };
 

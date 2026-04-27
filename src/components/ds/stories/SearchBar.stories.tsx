@@ -8,6 +8,7 @@ import SearchBar from "../SearchBar";
 const meta: Meta<typeof SearchBar> = {
   title: "Forms/SearchBar",
   component: SearchBar,
+  tags: ["custom"],
   argTypes: {
     placeholder: {
       control: "text",
@@ -20,6 +21,29 @@ const meta: Meta<typeof SearchBar> = {
   },
   parameters: {
     layout: "padded",
+    appPages: [
+      {
+        label: "Waitlist (filter by name)",
+        vercel: "https://splose-current.vercel.app/waitlist",
+        production: "https://acme.splose.com/waitlist",
+      },
+      {
+        label: "Client > Files tab (filter by file name)",
+        vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/files",
+        production: "https://acme.splose.com/patients/446604/files",
+      },
+      {
+        label: "Settings: Forms (filter by form name)",
+        vercel: "https://splose-current.vercel.app/settings/forms",
+        production: "https://acme.splose.com/settings/forms",
+      },
+      {
+        label: "Settings: Email templates (filter by template)",
+        vercel: "https://splose-current.vercel.app/settings/email-templates",
+        production: "https://acme.splose.com/settings/email-templates",
+      },
+    ],
+    referenceUrl: null,
   },
 };
 

@@ -10,6 +10,7 @@ import SegmentedControl from "../SegmentedControl";
 
 const meta: Meta = {
   title: "Forms/SegmentedControl",
+  tags: ["extended"],
   parameters: {
     layout: "padded",
     splose: {
@@ -22,6 +23,14 @@ const meta: Meta = {
       plan: "docs/ds-plans/SegmentedControl.md",
       source: "src/components/ds/SegmentedControl.tsx",
     },
+    appPages: [
+      {
+        label: "Calendar (Week/Day/Month view switcher)",
+        vercel: "https://splose-current.vercel.app/calendar",
+        production: "https://acme.splose.com/calendar/week/25/3/2026",
+      },
+    ],
+    referenceUrl: "https://ant.design/components/segmented",
   },
 };
 export default meta;
