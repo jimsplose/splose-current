@@ -6,6 +6,7 @@ import { Button, Flex, Input, Select, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Avatar, Card, Checkbox, ColorDot, Divider, Dropdown, Grid, PageHeader, ProgressBar, Text } from "@/components/ds";
 import type { DropdownItem } from "@/components/ds";
+import styles from "./Reports.module.css";
 
 /* ── Date helpers ─────────────────────────────────────────────── */
 
@@ -72,24 +73,24 @@ function DateRangePicker({
   }
 
   return (
-    <div style={{ position: 'relative' }} ref={ref}>
+    <div className={styles.dateRangeWrap} ref={ref}>
       <Button
         size="small"
         htmlType="button"
         onClick={() => setOpen(!open)}
         shape="round"
-        style={{ borderColor: 'var(--color-primary)', backgroundColor: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.1)', fontWeight: 500, color: 'var(--color-primary)' }}
+        className={styles.dateRangeBtn}
       >
-        <CalendarOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />
+        <CalendarOutlined className={styles.dateRangeIcon} />
         {fmtShort(startDate)} &rarr; {fmtShort(endDate)}
-        <DownOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />
+        <DownOutlined className={styles.dateRangeIcon} />
       </Button>
 
       {open && (
-        <div style={{ position: 'absolute', left: 0, top: '100%', zIndex: 30, marginTop: 4, width: 320, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
+        <div className={styles.dateRangePopover}>
           {/* Presets */}
-          <div style={{ padding: 8 }}>
-            <Text variant="body/sm" color="secondary" style={{ marginBottom: 6, paddingLeft: 8, paddingRight: 8 }}>Quick select</Text>
+          <div className={styles.presetSection}>
+            <Text variant="body/sm" color="secondary" className={styles.presetLabel}>Quick select</Text>
             <Grid cols={2} gap="xs">
               {presets.map((p) => (
                 <Button
@@ -98,7 +99,7 @@ function DateRangePicker({
                   size="small"
                   htmlType="button"
                   onClick={() => applyPreset(p)}
-                  style={{ justifyContent: 'flex-start', borderRadius: 6 }}
+                  className={styles.presetBtn}
                 >
                   {p.label}
                 </Button>
@@ -108,21 +109,21 @@ function DateRangePicker({
           <Divider spacing="none" />
 
           {/* Custom date inputs */}
-          <div style={{ padding: 12 }}>
-            <Text variant="body/sm" color="secondary" style={{ marginBottom: 8 }}>Custom range</Text>
+          <div className={styles.customRangeSection}>
+            <Text variant="body/sm" color="secondary" mb={8}>Custom range</Text>
             <Flex align="center" gap={8}>
               <Input
                 type="date"
                 value={toInputDate(startDate)}
                 onChange={(e) => onChange(new Date(e.target.value), endDate)}
-                style={{ paddingTop: 6, paddingBottom: 6 }}
+                className={styles.dateInput}
               />
               <Text variant="body/md" as="span" color="secondary">&rarr;</Text>
               <Input
                 type="date"
                 value={toInputDate(endDate)}
                 onChange={(e) => onChange(startDate, new Date(e.target.value))}
-                style={{ paddingTop: 6, paddingBottom: 6 }}
+                className={styles.dateInput}
               />
             </Flex>
           </div>
@@ -294,7 +295,7 @@ export default function ReportsPage() {
       <PageHeader title="Performance overview" />
 
       {/* Filter bar */}
-      <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 24 }}>
+      <Flex wrap="wrap" align="center" gap={8} className={styles.filterBar}>
         <DateRangePicker
           startDate={dateStart}
           endDate={dateEnd}
@@ -304,7 +305,7 @@ export default function ReportsPage() {
           options={frequencyOptions}
           value={frequency}
           onChange={setFrequency}
-          style={{ cursor: 'pointer' }}
+          className={styles.frequencySelect}
         />
         <Dropdown
           trigger={<Button size="small" shape="round">{locationLabel}</Button>}
@@ -327,25 +328,25 @@ export default function ReportsPage() {
       </Flex>
 
       {/* Charts row */}
-      <Grid cols={2} gap="lg" style={{ marginBottom: 24 }}>
+      <Grid cols={2} gap="lg" className={styles.chartsRow}>
         {/* Utilisation card */}
         <Card>
-          <div style={{ marginBottom: 4, position: 'relative' }} ref={utilisationSettingsRef}>
+          <div className={styles.cardHeaderWrap} ref={utilisationSettingsRef}>
             <Flex align="center" justify="space-between">
-              <Text variant="display/sm" as="h3" color="text" style={{ fontSize: 20 }}>Utilisation</Text>
+              <Text variant="display/sm" as="h3" color="text" className={styles.cardTitle}>Utilisation</Text>
               <Button
                 type="text"
                 size="small"
                 htmlType="button"
                 onClick={() => setUtilisationSettingsOpen(!utilisationSettingsOpen)}
               >
-                <SettingOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
+                <SettingOutlined className={styles.settingsIcon} />
               </Button>
             </Flex>
             {utilisationSettingsOpen && (
-              <div style={{ position: 'absolute', right: 0, top: '100%', zIndex: 30, marginTop: 4, width: 280, borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', padding: 16, boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
+              <div className={styles.settingsPopover}>
                 <Text variant="heading/sm" as="h4" color="text">Utilisation settings</Text>
-                <Text variant="caption/md" color="secondary" style={{ marginBottom: 12 }}>
+                <Text variant="caption/md" color="secondary" className={styles.settingsDescription}>
                   Adjust calculation settings for utilisation metrics.
                 </Text>
                 <Flex vertical gap={12}>
@@ -368,11 +369,11 @@ export default function ReportsPage() {
               </div>
             )}
           </div>
-          <Text variant="caption/md" color="secondary" style={{ marginBottom: 8 }}>Percentage of available time utilised</Text>
-          <Text variant="metric/lg" as="p" color="text" style={{ marginBottom: 4 }}>{(totalUtilisation / sortedPractitioners.length).toFixed(2)}%</Text>
-          <Text variant="caption/md" color="secondary" style={{ marginBottom: 16 }}>{fmtDay(dateStart)} - {fmtDay(dateEnd)}</Text>
-          <div style={{ position: 'relative', height: 128 }}>
-            <svg viewBox="0 0 280 100" style={{ height: '100%', width: '100%' }} preserveAspectRatio="none">
+          <Text variant="caption/md" color="secondary" mb={8}>Percentage of available time utilised</Text>
+          <Text variant="metric/lg" as="p" color="text" mb={4}>{(totalUtilisation / sortedPractitioners.length).toFixed(2)}%</Text>
+          <Text variant="caption/md" color="secondary" mb={16}>{fmtDay(dateStart)} - {fmtDay(dateEnd)}</Text>
+          <div className={styles.chartContainer}>
+            <svg viewBox="0 0 280 100" className={styles.chartSvg} preserveAspectRatio="none">
               {[0, 25, 50, 75, 100].map((y) => (
                 <line key={y} x1="0" y1={y} x2="280" y2={y} stroke="#f0f0f0" strokeWidth="0.5" />
               ))}
@@ -391,14 +392,14 @@ export default function ReportsPage() {
                 return <circle key={i} cx={i * 46.67} cy={100 - (v / max) * 100} r="3" fill="#7c3aed" />;
               })}
             </svg>
-            <Flex vertical justify="space-between" style={{ position: 'absolute', top: 0, bottom: 0, left: 0, marginLeft: -4 }}>
+            <Flex vertical justify="space-between" className={styles.chartYAxis}>
               {(() => { const max = Math.ceil(Math.max(...utilisationData) + 1); return [max, Math.round(max * 0.67), Math.round(max * 0.33), 0].map((v) => <Text variant="caption/sm" as="span" color="secondary" key={v}>{v}%</Text>); })()}
             </Flex>
           </div>
-          <Flex justify="space-between" style={{ marginTop: 4, paddingLeft: 8, paddingRight: 8 }}>
+          <Flex justify="space-between" className={styles.chartXAxis}>
             {chartDays.map((d) => (<Text variant="caption/sm" as="span" color="secondary" key={d}>{d}</Text>))}
           </Flex>
-          <Flex align="center" justify="center" gap={4} style={{ marginTop: 8 }}>
+          <Flex align="center" justify="center" gap={4} className={styles.chartLegend}>
             <ColorDot color="var(--color-primary)" size="xs" />
             <Text variant="caption/sm" as="span" color="secondary">{fmtDay(dateStart)} - {fmtDay(dateEnd)}</Text>
           </Flex>
@@ -406,30 +407,32 @@ export default function ReportsPage() {
 
         {/* Revenue card */}
         <Card>
-          <Flex align="center" justify="space-between" style={{ marginBottom: 4 }}>
-            <Text variant="display/sm" as="h3" color="text" style={{ fontSize: 20 }}>Revenue</Text>
+          <Flex align="center" justify="space-between" className={styles.cardHeaderWrap}>
+            <Text variant="display/sm" as="h3" color="text" className={styles.cardTitle}>Revenue</Text>
           </Flex>
-          <Text variant="caption/md" color="secondary" style={{ marginBottom: 8 }}>Total invoiced revenue from appointments and support activities (tax exclusive)</Text>
-          <Text variant="metric/lg" as="p" color="text" style={{ marginBottom: 4 }}>${totalRevenue >= 1000 ? (totalRevenue / 1000).toFixed(2) + "K" : totalRevenue.toFixed(2)}</Text>
-          <Text variant="caption/md" color="secondary" style={{ marginBottom: 16 }}>{fmtDay(dateStart)} - {fmtDay(dateEnd)}</Text>
-          <div style={{ position: 'relative', height: 128 }}>
-            <Flex vertical justify="space-between" style={{ position: 'absolute', top: 0, bottom: 0, left: 0, fontSize: 11, color: 'var(--color-text-secondary)' }}>
+          <Text variant="caption/md" color="secondary" mb={8}>Total invoiced revenue from appointments and support activities (tax exclusive)</Text>
+          <Text variant="metric/lg" as="p" color="text" mb={4}>${totalRevenue >= 1000 ? (totalRevenue / 1000).toFixed(2) + "K" : totalRevenue.toFixed(2)}</Text>
+          <Text variant="caption/md" color="secondary" mb={16}>{fmtDay(dateStart)} - {fmtDay(dateEnd)}</Text>
+          <div className={styles.chartContainer}>
+            <Flex vertical justify="space-between" className={styles.barChartYAxis}>
               {(() => { const max = Math.ceil(Math.max(...revenueData) / 50) * 50; return [max, Math.round(max * 0.67), Math.round(max * 0.33), 0].map((v) => <span key={v}>${v}</span>); })()}
             </Flex>
-            <Flex align="flex-end" gap={8} style={{ marginLeft: 32, height: '100%' }}>
+            <Flex align="flex-end" gap={8} className={styles.barChartArea}>
               {revenueData.map((val, i) => (
-                <Flex key={i} vertical align="center" gap={2} style={{ flex: 1 }}>
+                <Flex key={i} vertical align="center" gap={2} className={styles.barChartBarCol}>
+                  {/* ds-exempt: dynamic bar height computed from data */}
                   <div
-                    style={{ width: '100%', borderTopLeftRadius: 4, borderTopRightRadius: 4, backgroundColor: 'var(--color-primary)', height: `${(val / (Math.ceil(Math.max(...revenueData) / 50) * 50 || 1)) * 100}%`, minHeight: val > 0 ? 2 : 0 }}
+                    className={styles.barChartBar}
+                    style={{ height: `${(val / (Math.ceil(Math.max(...revenueData) / 50) * 50 || 1)) * 100}%`, minHeight: val > 0 ? 2 : 0 }}
                   />
                 </Flex>
               ))}
             </Flex>
           </div>
-          <Flex justify="space-between" style={{ marginTop: 4, marginLeft: 32, fontSize: 11, color: 'var(--color-text-secondary)' }}>
+          <Flex justify="space-between" className={styles.barChartXAxis}>
             {chartDays.map((d) => (<span key={d}>{d}</span>))}
           </Flex>
-          <Flex align="center" justify="center" gap={4} style={{ marginTop: 8, fontSize: 11, color: 'var(--color-text-secondary)' }}>
+          <Flex align="center" justify="center" gap={4} className={styles.barChartLegend}>
             <ColorDot color="var(--color-primary)" size="xs" />
             {fmtDay(dateStart)} - {fmtDay(dateEnd)}
           </Flex>
@@ -438,7 +441,7 @@ export default function ReportsPage() {
 
       {/* Practitioners table */}
       <Card padding="none">
-        <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', padding: '12px 16px' }}>
+        <Flex align="center" justify="space-between" className={styles.tableHeader}>
           <div>
             <Text variant="heading/sm" as="h3" color="text">Practitioners</Text>
             <Text variant="caption/md" color="secondary">Breakdown of performance by individual practitioner</Text>

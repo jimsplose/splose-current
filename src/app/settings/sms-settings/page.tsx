@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button, Flex } from "antd";
 import { ReadOutlined, CopyOutlined } from "@ant-design/icons";
 import { PageHeader, Modal, Card, Divider, FormInput, NumberInput, Checkbox, Text, Stat } from "@/components/ds";
+import styles from "./SmsSettings.module.css";
 
 const creditOptions = [
   { credits: 200, price: "A$22.00" },
@@ -19,59 +20,41 @@ export default function SMSSettingsPage() {
   const [lowCreditEnabled, setLowCreditEnabled] = useState(true);
   const [autoRechargeEnabled, setAutoRechargeEnabled] = useState(true);
   return (
-    <div style={{ padding: 24 }}>
+    <div className={styles.shell}>
       <PageHeader title="SMS settings">
         <Button>
-          <ReadOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />
+          <ReadOutlined className={styles.iconBtn} />
           Learn
         </Button>
       </PageHeader>
 
       {/* SMS credit balance card — inline 200x96, 3px radius, 15px padding */}
-      <Card padding="none" style={{ display: "inline-block", borderRadius: 3, padding: "15px", marginBottom: 32, borderColor: "rgb(232,232,232)", minWidth: 200 }}>
+      <Card padding="none" className={styles.creditCard}>
         <Stat label="SMS credit balance" value={884} valueStyle={{ fontSize: 24, lineHeight: 1.5715 }} />
       </Card>
 
       <Divider variant="primary" spacing="sm" />
 
       {/* Recharge credits section */}
-      <div style={{ marginBottom: 32 }}>
-        <Text variant="heading/lg" style={{ marginBottom: 16 }}>Recharge credits</Text>
-        <div style={{ display: "inline-flex", marginBottom: 16 }}>
+      <div className={styles.section}>
+        <Text variant="heading/lg" mb={16}>Recharge credits</Text>
+        <div className={styles.creditOptionGroup}>
           {creditOptions.map((option, i) => {
             const isActive = selectedCredits === option.credits;
             const isFirst = i === 0;
             const isLast = i === creditOptions.length - 1;
-            const radius = isFirst
-              ? "6px 0 0 6px"
-              : isLast
-                ? "0 6px 6px 0"
-                : "0";
-            const borderWidth = isFirst ? "1px" : "1px 1px 1px 0";
+            const classes = [
+              styles.creditOption,
+              isFirst ? styles.creditOptionFirst : undefined,
+              isLast ? styles.creditOptionLast : undefined,
+              isActive ? styles.creditOptionActive : undefined,
+            ].filter(Boolean).join(" ");
             return (
               <button
                 key={option.credits}
                 type="button"
                 onClick={() => setSelectedCredits(option.credits)}
-                style={{
-                  width: 107,
-                  height: 100,
-                  padding: "0 15px",
-                  borderStyle: "solid",
-                  borderWidth,
-                  borderColor: isActive ? "rgb(130, 80, 255)" : "rgb(217, 217, 217)",
-                  borderRadius: radius,
-                  backgroundColor: "rgb(255, 255, 255)",
-                  color: isActive ? "rgb(130, 80, 255)" : "rgb(65, 69, 73)",
-                  fontSize: 14,
-                  fontWeight: 400,
-                  cursor: "pointer",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 8,
-                }}
+                className={classes}
               >
                 <span>{option.credits} credits</span>
                 <span>{option.price}</span>
@@ -92,9 +75,9 @@ export default function SMSSettingsPage() {
       <Divider variant="primary" spacing="sm" />
 
       {/* SMS pricing section */}
-      <div style={{ maxWidth: 672 }}>
-        <Text variant="heading/lg" style={{ marginBottom: 16 }}>SMS pricing</Text>
-        <Flex vertical gap={12} style={{ fontSize: 14, color: 'var(--color-text-secondary)', lineHeight: 1.6 }}>
+      <div className={styles.contentBlock}>
+        <Text variant="heading/lg" mb={16}>SMS pricing</Text>
+        <Flex vertical gap={12} className={styles.body}>
           <p>
             A standard SMS message contains 160 characters per segment (if a message has more
             than 160 characters, the message is split into segments, each consisting of 153
@@ -107,7 +90,7 @@ export default function SMSSettingsPage() {
             messages cost one credit per segment, and inbound messages cost 0.5 credits per
             segment. SMS credits purchased get billed to the credit card attached to your splose
             account. Receipts will appear in your{" "}
-            <a href="#" style={{ color: 'var(--color-primary)' }}>
+            <a href="#" className={styles.linkInline}>
               billing history
             </a>
             .
@@ -118,49 +101,49 @@ export default function SMSSettingsPage() {
       <Divider variant="primary" spacing="sm" />
 
       {/* Low credit balance email reminder */}
-      <div style={{ maxWidth: 672, marginBottom: 24 }}>
+      <div className={styles.contentBlockSection}>
         <Checkbox
           checked={lowCreditEnabled}
           onChange={(e) => setLowCreditEnabled(e.target.checked)}
           label="Low credit balance email reminder"
         />
-        <p style={{ fontSize: 14, color: 'var(--color-text-secondary)', marginBottom: 12, marginTop: 8 }}>
+        <p className={styles.helperText}>
           Receive an email reminder when SMS credits go below the level you specify below.
         </p>
-        <NumberInput format="integer" defaultValue={100} min={0} style={{ maxWidth: 320 }} />
+        <NumberInput format="integer" defaultValue={100} min={0} className={styles.narrowField} />
       </div>
 
       {/* Automatic recharge */}
-      <div style={{ maxWidth: 672, marginBottom: 24 }}>
+      <div className={styles.contentBlockSection}>
         <Checkbox
           checked={autoRechargeEnabled}
           onChange={(e) => setAutoRechargeEnabled(e.target.checked)}
           label="Automatic recharge"
         />
-        <p style={{ fontSize: 14, color: 'var(--color-text-secondary)', marginBottom: 12, marginTop: 8 }}>
+        <p className={styles.helperText}>
           Automatically recharge SMS credits when the balance reaches the number you specify below.
         </p>
-        <NumberInput format="integer" defaultValue={100} min={0} style={{ maxWidth: 320, marginBottom: 16 }} />
-        <NumberInput label="SMS credits to purchase" format="integer" defaultValue={200} min={0} style={{ maxWidth: 320, marginBottom: 16 }} />
+        <NumberInput format="integer" defaultValue={100} min={0} className={styles.narrowFieldSpaced} />
+        <NumberInput label="SMS credits to purchase" format="integer" defaultValue={200} min={0} className={styles.narrowFieldSpaced} />
         <Button type="primary">Save</Button>
       </div>
 
       <Divider variant="primary" spacing="sm" />
 
       {/* Two-way SMS section */}
-      <div style={{ maxWidth: 672 }}>
-        <Text variant="heading/lg" style={{ marginBottom: 16 }}>Two-way SMS</Text>
-        <p style={{ fontSize: 14, color: 'var(--color-text-secondary)', marginBottom: 16 }}>
+      <div className={styles.contentBlock}>
+        <Text variant="heading/lg" mb={16}>Two-way SMS</Text>
+        <p className={styles.bodyTextSpaced}>
           Enable two-way SMS to receive client replies from the dashboard and send messages
           from a dedicated mobile number. Subscribe to two-way SMS for A$9.90 (GST included) per month.
         </p>
-        <div style={{ marginBottom: 8 }}>
+        <div className={styles.numberRow}>
           <Flex align="end" gap={8}>
-            <FormInput label="Your number" type="text" defaultValue="+61468039383" style={{ maxWidth: 320 }} />
-            <Button type="text" size="small" style={{ marginBottom: 4 }}><CopyOutlined /></Button>
+            <FormInput label="Your number" type="text" defaultValue="+61468039383" className={styles.narrowField} />
+            <Button type="text" size="small" className={styles.copyBtn}><CopyOutlined /></Button>
           </Flex>
         </div>
-        <p style={{ fontSize: 14, color: 'var(--color-text-secondary)', marginTop: 8 }}>
+        <p className={styles.helperTextTop}>
           Contact the account owner to enable two-way SMS.
         </p>
       </div>
@@ -177,7 +160,7 @@ export default function SMSSettingsPage() {
           </>
         }
       >
-        <p style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>
+        <p className={styles.bodyText}>
           {creditOptions.find((o) => o.credits === selectedCredits)?.price} will be charged to your account.
         </p>
       </Modal>

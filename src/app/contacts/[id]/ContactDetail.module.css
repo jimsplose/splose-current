@@ -1,0 +1,86 @@
+.shell {
+  height: calc(100vh - 48px);
+}
+
+.notFound {
+  padding: 24px;
+}
+
+.sidebar {
+  width: 180px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--color-border);
+  background: white;
+  padding: 16px;
+}
+
+.sidebarHeader {
+  margin-bottom: 16px;
+}
+
+.navBtn {
+  width: 100%;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.navBtnActive {
+  color: var(--color-primary);
+  font-weight: 500;
+  border-left: 2px solid var(--color-primary);
+  background: rgba(var(--color-primary-rgb, 124, 58, 237), 0.05);
+}
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.actionBar {
+  border-bottom: 1px solid var(--color-border);
+  padding: 12px 24px;
+}
+
+.content {
+  padding: 24px;
+}
+
+.detailsHeader {
+  margin-bottom: 24px;
+}
+
+.section {
+  margin-bottom: 32px;
+}
+
+.divider {
+  margin-bottom: 32px;
+}
+
+.actionsIcon {
+  height: 14px;
+  width: 14px;
+}
+
+.typeChip {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 2px 8px;
+}
+
+.contactIcon {
+  font-size: 16px;
+  color: var(--ant-color-text-secondary, #6E6E64);
+}
+
+.emptyIcon {
+  font-size: 40px;
+  color: #9ca3af;
+}
+
+.changeLogBtn {
+  color: var(--color-primary);
+}

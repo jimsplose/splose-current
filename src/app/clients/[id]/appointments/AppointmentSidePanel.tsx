@@ -20,6 +20,7 @@ import {
 import { Button, Flex, Form, Input, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Card, PageHeader, Pagination, Badge, Avatar, ColorDot, statusVariant, Text, Divider } from "@/components/ds";
+import styles from "./AppointmentSidePanel.module.css";
 
 interface Appointment {
   id: string;
@@ -92,8 +93,8 @@ export default function AppointmentSidePanel({
     {
       key: "when",
       title: (
-        <Flex align="center" gap={4} component="span" style={{ display: 'inline-flex' }}>
-          When <SwapOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
+        <Flex align="center" gap={4} component="span" className={styles.headerInline}>
+          When <SwapOutlined className={styles.iconSecondary} />
         </Flex>
       ),
       render: (_, appt) => {
@@ -182,30 +183,30 @@ export default function AppointmentSidePanel({
           size="small"
           onClick={(e) => e.stopPropagation()}
         >
-          <EllipsisOutlined style={{ fontSize: 20, color: 'var(--ant-color-text, #414549)' }} />
+          <EllipsisOutlined className={styles.iconLg} />
         </Button>
       ),
     },
   ];
 
   return (
-    <Flex style={{ flex: 1, overflow: 'hidden' }}>
+    <Flex className={styles.shell}>
       {/* Main table area */}
-      <div style={{ flex: 1, overflowY: 'auto', padding: 24, transition: 'all 0.2s', ...(selectedAppointment ? { paddingRight: 0 } : {}) }}>
+      <div className={`${styles.main} ${selectedAppointment ? styles.mainCollapsed : ""}`}>
         <PageHeader title="Appointments">
           <Button>
             Send upcoming appointments
-            <DownOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
+            <DownOutlined className={styles.iconSecondary} />
           </Button>
           <Button>
-            <PlusOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+            <PlusOutlined className={styles.iconText} />
             New appointment
           </Button>
         </PageHeader>
 
-        <Card padding="none" style={{ overflowX: 'auto' }}>
+        <Card padding="none" className={styles.tableCard}>
           {appointments.length === 0 ? (
-            <div style={{ padding: '32px 16px', textAlign: 'center' }}>
+            <div className={styles.empty}>
               <Text variant="body/md" as="span" color="secondary">No appointments</Text>
             </div>
           ) : (
@@ -215,10 +216,8 @@ export default function AppointmentSidePanel({
               rowKey="id"
               pagination={false}
               onRow={(appt) => ({
-                style: {
-                  cursor: 'pointer',
-                  ...(selectedAppointment?.id === appt.id ? { backgroundColor: 'var(--color-primary-bg)' } : {}),
-                },
+                // eslint-disable-next-line no-restricted-syntax -- dynamic selected-row highlight; AntD onRow style is the supported API
+                style: selectedAppointment?.id === appt.id ? { cursor: 'pointer', backgroundColor: 'var(--color-primary-bg)' } : { cursor: 'pointer' },
                 onClick: () => setSelectedAppointment(appt),
               })}
             />
@@ -238,13 +237,12 @@ export default function AppointmentSidePanel({
         // eslint-disable-next-line no-restricted-syntax -- side panel container: left-border + white bg + elevation shadow; no single DS component covers this composite aside
         <aside style={{ width: 380, flexShrink: 0, overflowY: 'auto', borderLeft: '1px solid var(--color-border)', backgroundColor: '#fff', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
           {/* Header */}
-          {/* eslint-disable-next-line no-restricted-syntax -- section divider border kept inline; Divider would require restructuring flex layout */}
-          <Flex justify="space-between" align="flex-start" style={{ borderBottom: '1px solid var(--color-border)', padding: 16 }}>
-            <div style={{ minWidth: 0, flex: 1 }}>
+          <Flex justify="space-between" align="flex-start" className={styles.headerRow}>
+            <div className={styles.headerTextWrap}>
               <Text variant="body/lg-strong" as="h3">
                 {selectedAppointment.type}
               </Text>
-              <Text variant="body/sm" color="secondary" style={{ marginTop: 2 }}>
+              <Text variant="body/sm" color="secondary" mt={2}>
                 ({selectedAppointment.type})
               </Text>
             </div>
@@ -252,17 +250,17 @@ export default function AppointmentSidePanel({
               type="text"
               size="small"
               onClick={() => setSelectedAppointment(null)}
-              style={{ marginLeft: 8, flexShrink: 0 }}
+              className={styles.closeBtn}
             >
-              <CloseOutlined style={{ fontSize: 20, color: 'var(--ant-color-text, #414549)' }} />
+              <CloseOutlined className={styles.iconLg} />
             </Button>
           </Flex>
 
           {/* Details */}
-          <Flex vertical gap={12} style={{ padding: 16 }}>
+          <Flex vertical gap={12} className={styles.details}>
             {/* Practitioner at Location */}
             <Flex align="flex-start" gap={12}>
-              <EnvironmentOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)', flexShrink: 0, marginTop: 2 }} />
+              <EnvironmentOutlined className={styles.iconRowLeadingTop} />
               <Text variant="body/md" as="span">
                 {selectedAppointment.practitioner.name} at East Clinics
               </Text>
@@ -270,13 +268,13 @@ export default function AppointmentSidePanel({
 
             {/* Practitioner */}
             <Flex align="center" gap={12}>
-              <UserOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)', flexShrink: 0 }} />
+              <UserOutlined className={styles.iconRowLeading} />
               <Text variant="body/md" as="span">{selectedAppointment.practitioner.name}</Text>
             </Flex>
 
             {/* Time */}
             <Flex align="flex-start" gap={12}>
-              <ClockCircleOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)', flexShrink: 0, marginTop: 2 }} />
+              <ClockCircleOutlined className={styles.iconRowLeadingTop} />
               <Text variant="body/md" as="span">
                 {formatPanelDate(selectedAppointment.date, selectedAppointment.startTime)} for 60 minutes
               </Text>
@@ -295,13 +293,13 @@ export default function AppointmentSidePanel({
 
             {/* Alert */}
             <Flex align="center" gap={12}>
-              <WarningOutlined style={{ fontSize: 16, color: 'var(--ant-color-warning, #FFD232)', flexShrink: 0 }} />
+              <WarningOutlined className={styles.iconWarning} />
               <Text variant="body/md" as="span" color="warning">Include KM</Text>
             </Flex>
 
             {/* Phone */}
             <Flex align="center" gap={12}>
-              <PhoneOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)', flexShrink: 0 }} />
+              <PhoneOutlined className={styles.iconRowLeading} />
               {client.phone ? (
                 <Button type="link" href={`tel:${client.phone}`}>{client.phone}</Button>
               ) : (
@@ -311,7 +309,7 @@ export default function AppointmentSidePanel({
 
             {/* Email */}
             <Flex align="center" gap={12}>
-              <MailOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)', flexShrink: 0 }} />
+              <MailOutlined className={styles.iconRowLeading} />
               {client.email ? (
                 <Button type="link" href={`mailto:${client.email}`}>{client.email}</Button>
               ) : (
@@ -321,7 +319,7 @@ export default function AppointmentSidePanel({
 
             {/* Status */}
             <Flex align="center" gap={12}>
-              <Flex align="center" justify="center" style={{ height: 16, width: 16, flexShrink: 0 }}>
+              <Flex align="center" justify="center" className={styles.statusDotWrap}>
                 <ColorDot color="gray" />
               </Flex>
               <Text variant="body/md" as="span" color="secondary">No status</Text>
@@ -331,14 +329,14 @@ export default function AppointmentSidePanel({
 
             {/* Links */}
             <Flex align="center" gap={12}>
-              <LinkOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)', flexShrink: 0 }} />
+              <LinkOutlined className={styles.iconRowLeading} />
               <Flex wrap align="center" gap={6}>
                 <Text variant="body/md" as="span">baby due date test</Text>
                 <Badge variant="yellow">incomplete</Badge>
               </Flex>
             </Flex>
             <Flex align="center" gap={12}>
-              <LinkOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)', flexShrink: 0 }} />
+              <LinkOutlined className={styles.iconRowLeading} />
               <Flex wrap align="center" gap={6}>
                 <Text variant="body/md" as="span">header test</Text>
                 <Badge variant="yellow">incomplete</Badge>
@@ -349,7 +347,7 @@ export default function AppointmentSidePanel({
 
             {/* Create Zoom meeting */}
             <Flex align="center" gap={12}>
-              <VideoCameraOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)', flexShrink: 0 }} />
+              <VideoCameraOutlined className={styles.iconRowLeading} />
               <Button type="link">Create Zoom meeting</Button>
             </Flex>
 
@@ -357,10 +355,10 @@ export default function AppointmentSidePanel({
 
             {/* Invoice actions */}
             <Flex align="center" gap={12}>
-              <FileTextOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)', flexShrink: 0 }} />
+              <FileTextOutlined className={styles.iconRowLeading} />
               <Button type="link">Add invoice</Button>
             </Flex>
-            <Flex align="center" gap={12} style={{ paddingLeft: 28 }}>
+            <Flex align="center" gap={12} className={styles.invoiceMarkRow}>
               <Button type="link">Mark as</Button>
               <Text variant="body/md" as="span" color="secondary">and</Text>
               <Button type="link">Do not invoice?</Button>
@@ -378,7 +376,7 @@ export default function AppointmentSidePanel({
 
             {/* Google integrations */}
             <Flex align="center" gap={12}>
-              <svg style={{ height: 16, width: 16, flexShrink: 0 }} viewBox="0 0 24 24" fill="none">
+              <svg className={styles.googleSvg} width="16" height="16" viewBox="0 0 24 24" fill="none">
                 <path
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
                   fill="#4285F4"
@@ -400,21 +398,21 @@ export default function AppointmentSidePanel({
             </Flex>
 
             <Flex align="center" gap={12}>
-              <VideoCameraOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)', flexShrink: 0 }} />
+              <VideoCameraOutlined className={styles.iconRowLeading} />
               <Button type="link">Join with Google Meet</Button>
             </Flex>
 
             <Flex align="center" gap={12}>
-              <LinkOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)', flexShrink: 0 }} />
-              <Text variant="body/sm" as="span" color="primary" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>https://meet.google.com/...</Text>
+              <LinkOutlined className={styles.iconRowLeading} />
+              <Text variant="body/sm" as="span" color="primary" className={styles.meetUrl}>https://meet.google.com/...</Text>
             </Flex>
 
             <Divider spacing="none" />
 
             {/* Note */}
             <div>
-              <Flex align="center" gap={8} style={{ marginBottom: 8 }}>
-                <FileTextOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
+              <Flex align="center" gap={8} className={styles.noteIconRow}>
+                <FileTextOutlined className={styles.iconSecondary} />
                 <Text variant="label/lg" as="span">Note</Text>
               </Flex>
               <Form layout="vertical">
@@ -427,7 +425,7 @@ export default function AppointmentSidePanel({
 
           {/* Action buttons */}
           <Divider spacing="none" />
-          <div style={{ padding: 16 }}>
+          <div className={styles.actionsBlock}>
             <Flex wrap gap={8}>
               <Button size="small">
                 Book another
@@ -442,7 +440,7 @@ export default function AppointmentSidePanel({
                 Archive
               </Button>
             </Flex>
-            <div style={{ marginTop: 12 }}>
+            <div className={styles.changeLogRow}>
               <Button type="link" size="small">View change log</Button>
             </div>
           </div>

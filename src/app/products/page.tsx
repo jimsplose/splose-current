@@ -469,7 +469,7 @@ export default function ProductsPage() {
           </Button>
           <Link href="/products/new">
             <Button>
-              <PlusOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />
+              <PlusOutlined className={pStyles.iconText} />
               New product
             </Button>
           </Link>
@@ -507,7 +507,7 @@ export default function ProductsPage() {
                   shape="circle"
                   onClick={(e) => { e.stopPropagation(); toggleExpand(idx); }}
                 >
-                  {expandedRows.has(idx) ? <MinusOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} /> : <PlusOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />}
+                  {expandedRows.has(idx) ? <MinusOutlined className={pStyles.iconText} /> : <PlusOutlined className={pStyles.iconText} />}
                 </Button>
               ),
             },
@@ -546,19 +546,19 @@ export default function ProductsPage() {
                 expandedRowKeys: Array.from(expandedRows).map(String),
                 showExpandColumn: false,
                 expandedRowRender: (product, idx) => (
-                  <div style={{ padding: "12px 32px" }}>
-                    <Grid cols={3} gap="md" style={{ marginBottom: 12 }}>
+                  <div className={pStyles.expandedRow}>
+                    <Grid cols={3} gap="md" className={pStyles.expandedGrid}>
                       <div>
                         <Text variant="label/md" as="span" color="secondary">Description</Text>
-                        <Text variant="body/md" color="text" style={{ marginTop: 2 }}>{product.description || "No description"}</Text>
+                        <Text variant="body/md" color="text" mt={2}>{product.description || "No description"}</Text>
                       </div>
                       <div>
                         <Text variant="label/md" as="span" color="secondary">Usage count</Text>
-                        <Text variant="body/md" color="text" style={{ marginTop: 2 }}>{product.usageCount !== undefined ? `${product.usageCount} times` : "-"}</Text>
+                        <Text variant="body/md" color="text" mt={2}>{product.usageCount !== undefined ? `${product.usageCount} times` : "-"}</Text>
                       </div>
                       <div>
                         <Text variant="label/md" as="span" color="secondary">Last used</Text>
-                        <Text variant="body/md" color="text" style={{ marginTop: 2 }}>{product.lastUsed || "Never"}</Text>
+                        <Text variant="body/md" color="text" mt={2}>{product.lastUsed || "Never"}</Text>
                       </div>
                     </Grid>
                     {product.variants && product.variants.length > 0 && (
@@ -611,10 +611,10 @@ export default function ProductsPage() {
               <Input type="number" value={form.price} onChange={(e) => setField("price", e.target.value)} />
             </Form.Item>
             <Form.Item label="Tax">
-              <Select options={taxOptions} value={form.tax} onChange={(value) => setField("tax", value)} style={{ width: "100%" }} />
+              <Select options={taxOptions} value={form.tax} onChange={(value) => setField("tax", value)} className={pStyles.fullWidthSelect} />
             </Form.Item>
             <Form.Item label="Type">
-              <Select options={typeOptions} value={form.type} onChange={(value) => setField("type", value)} style={{ width: "100%" }} />
+              <Select options={typeOptions} value={form.type} onChange={(value) => setField("type", value)} className={pStyles.fullWidthSelect} />
             </Form.Item>
           </Flex>
         </Form>
@@ -653,7 +653,7 @@ export default function ProductsPage() {
           </>
         }
       >
-        <div style={{ overflowX: 'auto' }}>
+        <div className={pStyles.stockTableWrap}>
           {(() => {
             const stockColumns: ColumnsType<StockLocation> = [
               { key: "name", title: "Location", render: (_, loc) => <Text variant="body/sm" as="span" color="text">{loc.name}</Text> },
@@ -668,8 +668,8 @@ export default function ProductsPage() {
                   <Dropdown
                     align="right"
                     trigger={
-                      <button className={`inline-flex items-center justify-center rounded-[6px] border-none bg-transparent cursor-pointer ${pStyles.stockActionButton}`} style={{ height: 28, width: 28 }}>
-                        <MoreOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
+                      <button className={`inline-flex items-center justify-center rounded-[6px] border-none bg-transparent cursor-pointer ${pStyles.stockActionButton} ${pStyles.stockActionTrigger}`}>
+                        <MoreOutlined className={pStyles.iconSecondary} />
                       </button>
                     }
                     items={stockDropdownItems}
@@ -689,7 +689,7 @@ export default function ProductsPage() {
             );
           })()}
         </div>
-        <div style={{ marginTop: 16 }}>
+        <div className={pStyles.stockPagination}>
           <Pagination
             currentPage={1}
             totalPages={1}

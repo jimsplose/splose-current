@@ -6,9 +6,10 @@ import { UploadOutlined, CheckCircleOutlined, ExclamationCircleOutlined, FileTex
 import { Button, Flex, Form, Input, Select, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { DateRangeFilter, PageHeader, FileUpload, Card, Badge, Text, Divider, Breadcrumbs } from "@/components/ds";
+import styles from "./NdisBulkUploadNew.module.css";
 
 const ndisBreadcrumbs = (
-  <div style={{ padding: "8px 24px 0" }}>
+  <div className={styles.breadcrumbs}>
     <Breadcrumbs items={[
       { label: "Reports", href: "/reports" },
       { label: "NDIS bulk upload", href: "/reports/ndis-bulk-upload" },
@@ -60,7 +61,7 @@ const validationColumns: ColumnsType<ValidationRow> = [
     key: "item",
     title: "Support item",
     dataIndex: "item",
-    render: (_, row) => <Text variant="body/sm" as="span" color="secondary" style={{ fontFamily: 'monospace' }}>{row.item}</Text>,
+    render: (_, row) => <Text variant="body/sm" as="span" color="secondary" className={styles.itemMono}>{row.item}</Text>,
   },
   { key: "amount", title: "Amount", dataIndex: "amount", align: "right" },
   {
@@ -108,21 +109,21 @@ export default function NdisBulkUploadNewPage() {
           </Link>
         </PageHeader>
 
-        <div style={{ maxWidth: 512, margin: '0 auto', padding: 24 }}>
+        <div className={styles.confirmShell}>
           <Card padding="lg" className="text-center">
-            <Flex justify="center" style={{ marginBottom: 16 }}>
-              <Flex align="center" justify="center" style={{ height: 56, width: 56, borderRadius: '50%', backgroundColor: '#dcfce7' }}>
-                <CheckCircleOutlined style={{ fontSize: 32, color: '#16a34a' }} />
+            <Flex justify="center" className={styles.confirmIconRow}>
+              <Flex align="center" justify="center" className={styles.confirmIconCircle}>
+                <CheckCircleOutlined className={styles.confirmIcon} />
               </Flex>
             </Flex>
-            <Text variant="heading/lg" style={{ marginBottom: 4 }}>Upload submitted</Text>
-            <Text variant="body/md" color="secondary" style={{ marginBottom: 24 }}>
+            <Text variant="heading/lg" mb={4}>Upload submitted</Text>
+            <Text variant="body/md" color="secondary" mb={24}>
               {validCount} valid claims have been submitted to the NDIS portal for processing.
               {errorCount > 0 && ` ${errorCount} items with errors were skipped.`}
             </Text>
 
             <Divider spacing="none" />
-            <Flex vertical gap={12} className="text-left" style={{ paddingTop: 16 }}>
+            <Flex vertical gap={12} className={`text-left ${styles.confirmDetails}`}>
               <Flex align="center" justify="space-between">
                 <Text variant="body/md" as="span" color="secondary">File</Text>
                 <Text variant="label/lg" as="span">{fileName}</Text>
@@ -151,7 +152,7 @@ export default function NdisBulkUploadNewPage() {
               </Flex>
             </Flex>
 
-            <Flex justify="center" gap={12} style={{ marginTop: 24 }}>
+            <Flex justify="center" gap={12} className={styles.confirmActions}>
               <Link href="/reports/ndis-bulk-upload">
                 <Button type="primary">Back to uploads</Button>
               </Link>
@@ -173,14 +174,16 @@ export default function NdisBulkUploadNewPage() {
           </Button>
         </PageHeader>
 
-        <div style={{ padding: 24 }}>
-          <Flex align="center" gap={16} style={{ marginBottom: 16 }}>
-            <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: '#f0fdf4', padding: '8px 12px' }}>
-              <CheckCircleOutlined style={{ fontSize: 16, color: '#16a34a' }} />
+        <div className={styles.validationShell}>
+          <Flex align="center" gap={16} className={styles.validationSummary}>
+            <Flex align="center" gap={8} className={`${styles.summaryChip} ${styles.summaryChipValid}`}>
+              <CheckCircleOutlined className={styles.summaryIconValid} />
+              {/* ds-exempt: brand green for valid count chip */}
               <Text variant="label/lg" as="span" color="#15803d">{validCount} valid</Text>
             </Flex>
-            <Flex align="center" gap={8} style={{ borderRadius: 8, backgroundColor: '#fef2f2', padding: '8px 12px' }}>
-              <ExclamationCircleOutlined style={{ fontSize: 16, color: '#dc2626' }} />
+            <Flex align="center" gap={8} className={`${styles.summaryChip} ${styles.summaryChipError}`}>
+              <ExclamationCircleOutlined className={styles.summaryIconError} />
+              {/* ds-exempt: brand red for error count chip */}
               <Text variant="label/lg" as="span" color="#b91c1c">{errorCount} errors</Text>
             </Flex>
             <Text variant="body/md" as="span" color="secondary">
@@ -188,7 +191,7 @@ export default function NdisBulkUploadNewPage() {
             </Text>
           </Flex>
 
-          <Card padding="none" style={{ overflow: 'hidden' }}>
+          <Card padding="none" className={styles.validationCard}>
             <Table
               columns={validationColumns}
               dataSource={mockValidationResults}
@@ -215,11 +218,11 @@ export default function NdisBulkUploadNewPage() {
         </Button>
       </PageHeader>
 
-      <Flex vertical gap={24} style={{ maxWidth: 672, padding: 24 }}>
+      <Flex vertical gap={24} className={styles.uploadShell}>
         <div>
-          <Text variant="body/sm" as="label" color="secondary" style={{ display: 'block', marginBottom: 4 }}>Date range *</Text>
+          <Text variant="body/sm" as="label" color="secondary" className={styles.fieldLabel}>Date range *</Text>
           <DateRangeFilter startDate="2026-03-01" endDate="2026-03-27" />
-          <Text variant="caption/md" as="p" color="secondary" style={{ marginTop: 4 }}>
+          <Text variant="caption/md" as="p" color="secondary" className={styles.fieldHint}>
             12 support items from 1 Mar 2026 to 27 Mar 2026 at all practitioners
           </Text>
         </div>
@@ -232,7 +235,7 @@ export default function NdisBulkUploadNewPage() {
                 { value: "sarah", label: "Sarah Chen" },
                 { value: "james", label: "James Wilson" },
               ]}
-              style={{ width: "100%" }}
+              className={styles.formSelectFull}
             />
           </Form.Item>
 
@@ -242,14 +245,14 @@ export default function NdisBulkUploadNewPage() {
         </Form>
 
         <div>
-          <Text variant="label/lg" as="label" color="secondary" style={{ display: 'block', marginBottom: 4 }}>Upload file *</Text>
+          <Text variant="label/lg" as="label" color="secondary" className={styles.fieldLabel}>Upload file *</Text>
           {fileName ? (
             <Card padding="md">
               <Flex align="center" gap={12}>
-                <Flex align="center" justify="center" style={{ height: 40, width: 40, borderRadius: 8, backgroundColor: 'var(--color-primary-bg)' }}>
-                  <FileTextOutlined style={{ fontSize: 20, color: 'var(--ant-color-primary, #8250FF)' }} />
+                <Flex align="center" justify="center" className={styles.fileBadge}>
+                  <FileTextOutlined className={styles.fileBadgeIcon} />
                 </Flex>
-                <div style={{ flex: 1 }}>
+                <div className={styles.fileMeta}>
                   <Text variant="label/lg" as="p">{fileName}</Text>
                   <Text variant="caption/md" as="p" color="secondary">CSV file — 5 rows</Text>
                 </div>
@@ -264,13 +267,13 @@ export default function NdisBulkUploadNewPage() {
             </Card>
           ) : (
             <FileUpload
-              icon={<UploadOutlined style={{ fontSize: 32, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />}
+              icon={<UploadOutlined className={styles.fileUploadIcon} />}
               label="Choose CSV file"
               onClick={handleFileUpload}
               className="cursor-pointer"
             />
           )}
-          <Text variant="caption/md" as="p" color="secondary" style={{ marginTop: 4 }}>
+          <Text variant="caption/md" as="p" color="secondary" className={styles.fieldHint}>
             Upload a CSV file with NDIS claim data. Required columns: Client, Service Date, Support Item Number, Amount.
           </Text>
         </div>

@@ -7,7 +7,7 @@ import Icon from "@/components/ds/Icon";
 import styles from "./AiChatPanel.module.css";
 
 /* Sparkles icon — no direct AntD equivalent, use a custom SVG */
-function SparklesIcon({ size = 18, style }: { size?: number; style?: React.CSSProperties }) {
+function SparklesIcon({ size = 18, className }: { size?: number; className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -18,7 +18,7 @@ function SparklesIcon({ size = 18, style }: { size?: number; style?: React.CSSPr
       strokeLinejoin="round"
       width={size}
       height={size}
-      style={style}
+      className={className}
     >
       <path d="M9.937 15.5A2 2 0 008.5 14.063l-6.135-1.582a.5.5 0 010-.962L8.5 9.936A2 2 0 009.937 8.5l1.582-6.135a.5.5 0 01.963 0L14.063 8.5A2 2 0 0015.5 9.937l6.135 1.581a.5.5 0 010 .964L15.5 14.063a2 2 0 00-1.437 1.437l-1.582 6.135a.5.5 0 01-.963 0z" />
       <path d="M20 3v4" />
@@ -129,19 +129,18 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
   };
 
   const hasMessages = messages.length > 0;
+  const sendDisabled = !inputValue.trim() || isTyping;
 
   return (
     <>
       {/* Header */}
-      {/* eslint-disable-next-line no-restricted-syntax -- one-off container with design-token border */}
-      <div style={{ display: "flex", height: 60, flexShrink: 0, alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid var(--color-border)", padding: "0 16px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <SparklesIcon size={18} style={{ color: 'var(--color-primary)' }} />
-          <span style={{ fontSize: 14, fontWeight: 600 }}>Ask splose AI</span>
+      <div className={styles.header}>
+        <div className={styles.headerTitle}>
+          <SparklesIcon size={18} className={styles.sparklesIcon} />
+          <span className={styles.headerTitleText}>Ask splose AI</span>
         </div>
         <button
-          className={styles.buttonReset}
-          style={{ display: "flex", height: 32, width: 32, alignItems: "center", justifyContent: "center", borderRadius: "50%", background: "transparent", cursor: "pointer", color: 'var(--color-text-secondary)' }}
+          className={`${styles.buttonReset} ${styles.closeButton}`}
           onClick={onClose}
         >
           <Icon as={CloseOutlined} size="lg" />
@@ -149,29 +148,29 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
       </div>
 
       {/* Main content area — scrollable */}
-      <div style={{ display: "flex", flex: 1, flexDirection: "column", overflowY: "auto", padding: 24 }}>
+      <div className={styles.main}>
         {!hasMessages ? (
-          <div style={{ display: "flex", flex: 1, flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+          <div className={styles.empty}>
             {/* Greeting card */}
-            <Card padding="md" style={{ marginBottom: 24, width: '100%', textAlign: 'center' }}>
-              {/* eslint-disable-next-line no-restricted-syntax -- emoji glyph sizing; no DS typography variant exists for 30px emoji */}
-              <div style={{ marginBottom: 8, fontSize: 30 }}>{variant === "calendar" ? "👋" : "🌸"}</div>
-              <h2 style={{ fontSize: 18, fontWeight: 700 }}>Hello, I&apos;m splose AI</h2>
+            <Card padding="md" className={styles.greetingCard}>
+              {/* ds-exempt: emoji glyph sizing; no DS typography variant exists for 30px emoji */}
+              <div className={styles.greetingEmoji}>{variant === "calendar" ? "👋" : "🌸"}</div>
+              <h2 className={styles.greetingHeading}>Hello, I&apos;m splose AI</h2>
             </Card>
 
-            <p style={{ marginBottom: 24, textAlign: "center", fontSize: 14, color: 'var(--color-text-secondary)' }}>
+            <p className={styles.greetingHelp}>
               {variant === "calendar"
                 ? "How can I help you today?"
                 : "Transcribe your session, ask a question or select a prompt"}
             </p>
 
             {/* Quick action pills */}
-            <div style={{ display: "flex", width: "100%", flexDirection: "column", gap: 12 }}>
+            <div className={styles.quickActions}>
               {quickActions.map((action) => (
                 <button
                   key={action}
                   onClick={() => handleQuickAction(action)}
-                  style={{ fontSize: 12, color: 'var(--color-primary)', borderRadius: 9999, borderWidth: 1, borderStyle: "solid", borderColor: 'var(--color-primary)', padding: "10px 16px", textAlign: "left", background: "transparent", cursor: "pointer" }}
+                  className={`${styles.buttonReset} ${styles.quickActionPill}`}
                 >
                   {action}
                 </button>
@@ -179,27 +178,23 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
             </div>
           </div>
         ) : (
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <div className={styles.messageList}>
             {messages.map((msg, i) => (
-              <div key={i} style={{ display: "flex", justifyContent: msg.role === "user" ? "flex-end" : "flex-start" }}>
+              <div
+                key={i}
+                className={`${styles.messageRow} ${msg.role === "user" ? styles.messageRowUser : styles.messageRowAssistant}`}
+              >
                 <div
-                  style={{
-                    maxWidth: "85%",
-                    borderRadius: 16,
-                    padding: "12px 16px",
-                    fontSize: 12,
-                    background: msg.role === "user" ? "var(--color-primary)" : "var(--color-gray-100, #f3f4f6)",
-                    color: msg.role === "user" ? '#ffffff' : 'var(--color-text)',
-                  }}
+                  className={`${styles.messageBubble} ${msg.role === "user" ? styles.messageBubbleUser : styles.messageBubbleAssistant}`}
                 >
-                  <div style={{ whiteSpace: "pre-line" }}>{msg.content}</div>
+                  <div className={styles.messageContent}>{msg.content}</div>
                 </div>
               </div>
             ))}
 
             {isTyping && (
-              <div style={{ display: "flex", justifyContent: "flex-start" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 6, borderRadius: 16, background: "var(--color-gray-100, #f3f4f6)", padding: "12px 16px" }}>
+              <div className={`${styles.messageRow} ${styles.messageRowAssistant}`}>
+                <div className={styles.typingBubble}>
                   <span className={styles.typingDot} />
                   <span className={styles.typingDot} />
                   <span className={styles.typingDot} />
@@ -213,11 +208,9 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
       </div>
 
       {/* Bottom section — fixed */}
-      {/* eslint-disable-next-line no-restricted-syntax -- one-off container with design-token top border */}
-      <div style={{ borderTop: "1px solid var(--color-border)", padding: 16 }}>
+      <div className={styles.bottom}>
         {/* Chat input */}
-        {/* eslint-disable-next-line no-restricted-syntax -- pill-shaped input wrapper with design-token border; no DS SearchBar variant matches */}
-        <div style={{ marginBottom: 12, display: "flex", alignItems: "center", gap: 8, borderRadius: 9999, border: "1px solid var(--color-border)", background: "#fff", padding: "10px 16px" }}>
+        <div className={styles.inputWrapper}>
           <input
             ref={inputRef}
             type="text"
@@ -226,26 +219,12 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
             onChange={(e) => setInputValue(e.target.value)}
             onFocus={handleInputFocus}
             onKeyDown={handleKeyDown}
-            className={styles.inputReset}
-            style={{ flex: 1, background: "transparent", outline: "none", fontSize: 12, color: 'var(--color-text)' }}
+            className={`${styles.inputReset} ${styles.input}`}
           />
           <button
             onClick={handleSend}
-            disabled={!inputValue.trim() || isTyping}
-            className={styles.buttonReset}
-            style={{
-              display: "flex",
-              height: 32,
-              width: 32,
-              flexShrink: 0,
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: "50%",
-              background: 'var(--color-primary)',
-              color: '#ffffff',
-              cursor: !inputValue.trim() || isTyping ? "not-allowed" : "pointer",
-              opacity: !inputValue.trim() || isTyping ? 0.4 : 1,
-            }}
+            disabled={sendDisabled}
+            className={`${styles.buttonReset} ${styles.sendButton} ${sendDisabled ? styles.sendButtonDisabled : ""}`}
           >
             <Icon as={ArrowUpOutlined} size="lg" tone="inverted" />
           </button>
@@ -253,16 +232,15 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
 
         {/* Saved prompts button */}
         <button
-          className={styles.buttonReset}
-          style={{ display: "flex", width: "100%", alignItems: "center", gap: 8, borderRadius: 8, padding: "8px 8px", background: "transparent", cursor: "pointer", fontSize: 12, color: 'var(--color-text-secondary)' }}
+          className={`${styles.buttonReset} ${styles.savedPromptsButton}`}
         >
           <Icon as={UnorderedListOutlined} size="lg" tone="secondary" />
           Saved prompts
         </button>
 
         {/* Footer */}
-        <div style={{ marginTop: 8, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>
+        <div className={styles.footer}>
+          <span className={styles.footerNote}>
             AI can make mistakes, double-check responses
           </span>
         </div>

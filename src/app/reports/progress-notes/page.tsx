@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { Badge, Card, DateRangeFilter, Divider, Grid, ListPage, Stat, ColorDot, Text } from "@/components/ds";
+import { Badge, Card, DateRangeFilter, Grid, ListPage, Stat, ColorDot, Text } from "@/components/ds";
+import styles from "./ReportsProgressNotes.module.css";
 
 interface ProgressNoteRow {
   key: string;
@@ -79,15 +80,15 @@ export default function ReportsProgressNotesPage() {
       cardWrap={false}
     >
       {/* Date range */}
-      <div style={{ marginBottom: 16 }}>
-        <Text variant="body/md" as="div" color="secondary" style={{ marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4 }}>
+      <div className={styles.dateRangeWrap}>
+        <Text variant="body/md" as="div" color="secondary" className={styles.dateRangeLabel}>
           <span>&#128197;</span> Date range *
         </Text>
         <DateRangeFilter startDate="2026-03-11" endDate="2026-03-11" />
       </div>
 
       {/* Filter buttons */}
-      <Flex wrap="wrap" align="center" gap={8} style={{ marginBottom: 24 }}>
+      <Flex wrap="wrap" align="center" gap={8} className={styles.filterButtons}>
         <Button>Add filter</Button>
         <Button>Save filters</Button>
         <Button>Load filters</Button>
@@ -96,56 +97,56 @@ export default function ReportsProgressNotesPage() {
 
       {showResults && (<>
       {/* Results */}
-      <Text variant="body/md" color="secondary" style={{ marginBottom: 16 }}>2 progress notes found.</Text>
+      <Text variant="body/md" color="secondary" mb={16}>2 progress notes found.</Text>
 
       {/* Summary stats row */}
-      <Grid cols={4} gap="md" style={{ marginBottom: 24 }}>
-        <Card style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 16, paddingBottom: 16 }}>
+      <Grid cols={4} gap="md" className={styles.statsRow}>
+        <Card className={styles.statCard}>
           <Stat value="2" label="Total notes" />
         </Card>
-        <Card style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 16, paddingBottom: 16 }}>
+        <Card className={styles.statCard}>
           <Stat value="0" label="Signed" />
         </Card>
-        <Card style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 16, paddingBottom: 16 }}>
+        <Card className={styles.statCard}>
           <Stat value="2" label="Draft" />
         </Card>
-        <Card style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 16, paddingBottom: 16 }}>
+        <Card className={styles.statCard}>
           <Stat value="1.0" label="Avg per practitioner" />
         </Card>
       </Grid>
 
-      <Text variant="heading/lg" style={{ marginBottom: 16 }}>Summary</Text>
+      <Text variant="heading/lg" mb={16}>Summary</Text>
 
       {/* Summary tables and pie charts */}
-      <Grid cols={2} gap="lg" style={{ marginBottom: 32 }}>
+      <Grid cols={2} gap="lg" className={styles.summaryGrid}>
         {/* Note template breakdown */}
         <div>
-          <Card padding="none" style={{ marginBottom: 16 }}>
-            <table style={{ width: '100%' }}>
+          <Card padding="none" className={styles.breakdownCard}>
+            <table className={styles.breakdownTable}>
               <thead>
-                <tr style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)' }}>
-                  <th style={{ padding: '8px 16px', textAlign: 'left' }}><Text variant="label/lg" as="span">Note template</Text></th>
-                  <th style={{ padding: '8px 16px', textAlign: 'right' }}><Text variant="label/lg" as="span">Number</Text></th>
+                <tr className={styles.breakdownHeader}>
+                  <th className={styles.breakdownHeaderCellLeft}><Text variant="label/lg" as="span">Note template</Text></th>
+                  <th className={styles.breakdownHeaderCellRight}><Text variant="label/lg" as="span">Number</Text></th>
                 </tr>
               </thead>
               <tbody>
-                <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-                  <td style={{ padding: '8px 16px' }}>
+                <tr className={styles.breakdownRow}>
+                  <td className={styles.breakdownCellLeft}>
                     <ColorDot color="green" label="AAA TEST" />
                   </td>
-                  <td style={{ padding: '8px 16px', textAlign: 'right' }}><Text variant="body/md" as="span">1 (50.0%)</Text></td>
+                  <td className={styles.breakdownCellRight}><Text variant="body/md" as="span">1 (50.0%)</Text></td>
                 </tr>
                 <tr>
-                  <td style={{ padding: '8px 16px' }}>
+                  <td className={styles.breakdownCellLeft}>
                     <ColorDot color="purple" label="Bill Gates Demo" />
                   </td>
-                  <td style={{ padding: '8px 16px', textAlign: 'right' }}><Text variant="body/md" as="span">1 (50.0%)</Text></td>
+                  <td className={styles.breakdownCellRight}><Text variant="body/md" as="span">1 (50.0%)</Text></td>
                 </tr>
               </tbody>
             </table>
-            <Flex align="center" justify="flex-end" style={{ borderTop: '1px solid var(--color-border)', padding: '8px 16px' }}>
+            <Flex align="center" justify="flex-end" className={styles.paginationFooter}>
               <Text variant="body/md" as="span" color="secondary">&lt;</Text>
-              <Button type="text" size="small" style={{ marginLeft: 4, marginRight: 4, height: 24, width: 24, borderRadius: 4, border: '1px solid var(--color-primary)', padding: 0, fontSize: 11, fontWeight: 500, color: 'var(--color-primary)' }}>
+              <Button type="text" size="small" className={styles.pageBtn}>
                 1
               </Button>
               <Text variant="body/md" as="span" color="secondary">&gt;</Text>
@@ -162,32 +163,32 @@ export default function ReportsProgressNotesPage() {
 
         {/* Practitioner breakdown */}
         <div>
-          <Card padding="none" style={{ marginBottom: 16 }}>
-            <table style={{ width: '100%' }}>
+          <Card padding="none" className={styles.breakdownCard}>
+            <table className={styles.breakdownTable}>
               <thead>
-                <tr style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)' }}>
-                  <th style={{ padding: '8px 16px', textAlign: 'left' }}><Text variant="label/lg" as="span">Practitioner</Text></th>
-                  <th style={{ padding: '8px 16px', textAlign: 'right' }}><Text variant="label/lg" as="span">Number</Text></th>
+                <tr className={styles.breakdownHeader}>
+                  <th className={styles.breakdownHeaderCellLeft}><Text variant="label/lg" as="span">Practitioner</Text></th>
+                  <th className={styles.breakdownHeaderCellRight}><Text variant="label/lg" as="span">Number</Text></th>
                 </tr>
               </thead>
               <tbody>
-                <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-                  <td style={{ padding: '8px 16px' }}>
+                <tr className={styles.breakdownRow}>
+                  <td className={styles.breakdownCellLeft}>
                     <ColorDot color="green" label="Ruvi R." />
                   </td>
-                  <td style={{ padding: '8px 16px', textAlign: 'right' }}><Text variant="body/md" as="span">1 (50.0%)</Text></td>
+                  <td className={styles.breakdownCellRight}><Text variant="body/md" as="span">1 (50.0%)</Text></td>
                 </tr>
                 <tr>
-                  <td style={{ padding: '8px 16px' }}>
+                  <td className={styles.breakdownCellLeft}>
                     <ColorDot color="purple" label="Zoe Gomez" />
                   </td>
-                  <td style={{ padding: '8px 16px', textAlign: 'right' }}><Text variant="body/md" as="span">1 (50.0%)</Text></td>
+                  <td className={styles.breakdownCellRight}><Text variant="body/md" as="span">1 (50.0%)</Text></td>
                 </tr>
               </tbody>
             </table>
-            <Flex align="center" justify="flex-end" style={{ borderTop: '1px solid var(--color-border)', padding: '8px 16px' }}>
+            <Flex align="center" justify="flex-end" className={styles.paginationFooter}>
               <Text variant="body/md" as="span" color="secondary">&lt;</Text>
-              <Button type="text" size="small" style={{ marginLeft: 4, marginRight: 4, height: 24, width: 24, borderRadius: 4, border: '1px solid var(--color-primary)', padding: 0, fontSize: 11, fontWeight: 500, color: 'var(--color-primary)' }}>
+              <Button type="text" size="small" className={styles.pageBtn}>
                 1
               </Button>
               <Text variant="body/md" as="span" color="secondary">&gt;</Text>
@@ -204,7 +205,7 @@ export default function ReportsProgressNotesPage() {
       </Grid>
 
       {/* Progress notes list */}
-      <Text variant="heading/lg" style={{ marginBottom: 16 }}>Progress notes list</Text>
+      <Text variant="heading/lg" mb={16}>Progress notes list</Text>
       <Table columns={columns} dataSource={progressNotesData} rowKey="key" pagination={false} />
       </>)}
     </ListPage>

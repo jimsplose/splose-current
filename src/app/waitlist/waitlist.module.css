@@ -16,6 +16,68 @@
   min-width: 0;
 }
 
+/* ── Tab + table layout ───────────────────────────────────────────────────── */
+
+.mainTab {
+  padding: 8px 24px 0;
+}
+
+.subTab {
+  margin-bottom: 16px;
+}
+
+.tableScrollWrap {
+  overflow-x: auto;
+  min-width: 800px;
+}
+
+.waitlistTableScrollWrap {
+  overflow-x: auto;
+  min-width: 700px;
+}
+
+.emptyStatePadding {
+  padding: 32px 0;
+}
+
+/* ── Triage / table cell buttons ──────────────────────────────────────────── */
+
+.triageButton {
+  font-size: 12px;
+  gap: 2px;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+.triageButtonInactive {
+  color: var(--color-text-secondary);
+}
+
+.tableActionButton {
+  padding: 4px 6px;
+}
+
+.iconDefault {
+  font-size: 16px;
+  color: var(--ant-color-text, #414549);
+}
+
+.iconSmall {
+  font-size: 12px;
+  color: var(--ant-color-text, #414549);
+}
+
+.iconSmallSecondary {
+  font-size: 12px;
+  color: var(--ant-color-text-secondary, #6E6E64);
+}
+
+.sortIcon {
+  width: 12px;
+  height: 12px;
+  color: var(--color-text-secondary);
+}
+
 /* ── Interaction overrides ────────────────────────────────────────────────── */
 
 .triageYesActive {
@@ -40,4 +102,105 @@
   border-color: var(--color-primary);
   background-color: color-mix(in srgb, var(--color-primary) 5%, transparent);
   color: var(--color-primary);
+}
+
+/* ── Modal: chip + form bits ──────────────────────────────────────────────── */
+
+.fullWidthSelect {
+  width: 100%;
+}
+
+.fieldLabel {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.fieldLabelLg {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.chipRow {
+  margin-bottom: 8px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chipText {
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chipCloseButton {
+  margin-left: 2px;
+}
+
+.flexShrinkZero {
+  flex-shrink: 0;
+}
+
+.charCount {
+  margin-top: 4px;
+  text-align: right;
+  display: block;
+}
+
+/* ── Day / time toggle pills ──────────────────────────────────────────────── */
+
+.dayPill {
+  display: flex;
+  height: 36px;
+  width: 36px;
+  font-size: 12px;
+  font-weight: 500;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s;
+  border: 1px solid var(--color-border);
+  background-color: #fff;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.dayPillActive {
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+}
+
+.timePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 9999px;
+  padding: 6px 12px;
+  transition: background-color 0.2s, color 0.2s;
+  border: 1px solid var(--color-border);
+  background-color: #fff;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.timePillActive {
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+}
+
+/* ── Map view shell ───────────────────────────────────────────────────────── */
+
+.mapShell {
+  overflow: hidden;
+  height: calc(100vh - 180px);
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
 }

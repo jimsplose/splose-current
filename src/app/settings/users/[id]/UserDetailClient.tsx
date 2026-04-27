@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button, Flex } from "antd";
 import { FormInput, FormSelect, Tab, Toggle, Modal, Card, Grid, Divider, Text, Checkbox } from "@/components/ds";
+import styles from "./UserDetail.module.css";
 
 interface User {
   name: string;
@@ -118,21 +119,21 @@ export default function UserDetailClient({ id }: { id: string }) {
   };
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 3rem)' }}>
-      <div style={{ padding: '24px 24px 0' }}>
-        <h1 style={{ fontSize: 24, fontWeight: 700 }}>Account details</h1>
+    <div className={styles.shell}>
+      <div className={styles.header}>
+        <h1 className={styles.pageTitle}>Account details</h1>
       </div>
 
-      <div style={{ borderBottom: '1px solid var(--color-border)', padding: '0 24px' }}>
+      <div className={styles.tabRow}>
         <Tab items={tabs} value={activeTab} onChange={setActiveTab} />
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+      <div className={styles.body}>
         {activeTab === "details" && (
-          <div style={{ maxWidth: 672 }}>
+          <div className={styles.detailsCol}>
             <Flex gap={16}>
               {/* Profile photo */}
-              <Flex vertical gap={16} style={{ flex: 1 }}>
+              <Flex vertical gap={16} className={styles.formCol}>
                 {/* Name row: Title | First name* | Last name* */}
                 <Grid cols={3} gap="md">
                   <FormSelect label="Title" options={titleOptions} />
@@ -146,7 +147,7 @@ export default function UserDetailClient({ id }: { id: string }) {
 
                 {/* Date of birth */}
                 <div>
-                  <Text variant="label/lg" as="label" color="text" style={{ marginBottom: 4, display: 'block' }}>Date of birth</Text>
+                  <Text variant="label/lg" as="label" color="text" mb={4} className={styles.labelBlock}>Date of birth</Text>
                   <Grid cols={3} gap="sm">
                     <FormSelect options={dayOptions} />
                     <FormSelect options={monthOptions} />
@@ -156,8 +157,8 @@ export default function UserDetailClient({ id }: { id: string }) {
 
                 {/* Phone numbers */}
                 <div>
-                  <Text variant="label/lg" as="label" color="text" style={{ marginBottom: 4, display: 'block' }}>Phone numbers</Text>
-                  <Button style={{ marginTop: 4 }}>+ Add new phone number</Button>
+                  <Text variant="label/lg" as="label" color="text" mb={4} className={styles.labelBlock}>Phone numbers</Text>
+                  <Button className={styles.addPhoneBtn}>+ Add new phone number</Button>
                 </div>
 
                 <FormInput label="Professional title (Occupational Therapist, Physiotherapist, etc.) *" defaultValue="Registered Physiotherapist" />
@@ -166,42 +167,42 @@ export default function UserDetailClient({ id }: { id: string }) {
               </Flex>
 
               {/* Profile photo placeholder */}
-              <div style={{ width: 200, flexShrink: 0, textAlign: 'center' }}>
-                <div style={{ width: 200, height: 200, borderRadius: 8, backgroundColor: 'var(--color-fill-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+              <div className={styles.uploadCol}>
+                <div className={styles.photoBox}>
                   <Text variant="display/lg" color="secondary">Photo</Text>
                 </div>
-                <Button style={{ marginTop: 12 }}>Upload</Button>
+                <Button className={styles.uploadBtn}>Upload</Button>
               </div>
             </Flex>
 
-            <Divider variant="primary" style={{ margin: '24px 0' }} />
+            <Divider variant="primary" className={styles.divider} />
 
             {/* Timezone */}
-            <div style={{ marginBottom: 24 }}>
-              <Text variant="heading/lg" as="h2" style={{ marginBottom: 8 }}>Timezone</Text>
-              <Text variant="body/md" color="secondary" style={{ marginBottom: 16 }}>The timezone is used for calendar and time information on PDF downloads. The location timezone is recommended.</Text>
-              <Flex align="center" gap={8} style={{ marginBottom: 12 }}>
+            <div className={styles.section}>
+              <Text variant="heading/lg" as="h2" mb={8}>Timezone</Text>
+              <Text variant="body/md" color="secondary" mb={16}>The timezone is used for calendar and time information on PDF downloads. The location timezone is recommended.</Text>
+              <Flex align="center" gap={8} className={styles.checkboxRow}>
                 <Checkbox checked />
                 <Text variant="body/md">Automatic timezone</Text>
               </Flex>
               <FormSelect options={timezoneOptions} defaultValue="Australia/Adelaide" />
             </div>
 
-            <Divider variant="primary" style={{ margin: '24px 0' }} />
+            <Divider variant="primary" className={styles.divider} />
 
             {/* Account role */}
-            <div style={{ marginBottom: 24 }}>
-              <Text variant="heading/lg" as="h2" style={{ marginBottom: 16 }}>Account role</Text>
+            <div className={styles.section}>
+              <Text variant="heading/lg" as="h2" mb={16}>Account role</Text>
               <FormSelect options={roleNameOptions} value={roleName} onChange={setRoleName} />
             </div>
 
-            <Divider variant="primary" style={{ margin: '24px 0' }} />
+            <Divider variant="primary" className={styles.divider} />
 
             {/* Practitioner settings */}
-            <div style={{ marginBottom: 24 }}>
-              <Text variant="heading/lg" as="h2" style={{ marginBottom: 16 }}>Practitioner settings</Text>
-              <Text variant="label/lg" as="label" color="text" style={{ marginBottom: 8, display: 'block' }}>Locations practitioner works at</Text>
-              <Flex vertical gap={8} style={{ marginBottom: 24 }}>
+            <div className={styles.section}>
+              <Text variant="heading/lg" as="h2" mb={16}>Practitioner settings</Text>
+              <Text variant="label/lg" as="label" color="text" mb={8} className={styles.labelBlock}>Locations practitioner works at</Text>
+              <Flex vertical gap={8} className={styles.locationsList}>
                 {locationsList.map(loc => (
                   <Flex key={loc} align="center" gap={8}>
                     <Checkbox checked={selectedLocations.has(loc)} onChange={() => toggleLocation(loc)} />
@@ -212,7 +213,7 @@ export default function UserDetailClient({ id }: { id: string }) {
             </div>
 
             {/* Footer actions */}
-            <Flex align="center" gap={16} style={{ marginTop: 32, marginBottom: 32 }}>
+            <Flex align="center" gap={16} className={styles.footerActions}>
               <Button type="primary">Save details</Button>
               <Button type="link">View user change log</Button>
             </Flex>
@@ -220,32 +221,32 @@ export default function UserDetailClient({ id }: { id: string }) {
         )}
 
         {activeTab === "availability" && (
-          <div style={{ maxWidth: 896 }}>
-            <Flex align="center" justify="space-between" style={{ marginBottom: 16 }}>
-              <h3 style={{ fontSize: 18, fontWeight: 600 }}>Weekly availability</h3>
+          <div className={styles.availabilityCol}>
+            <Flex align="center" justify="space-between" className={styles.availabilityHeader}>
+              <h3 className={styles.bodyChartsHeading}>Weekly availability</h3>
               <Button onClick={() => setEditAvailOpen(true)}>Edit availability</Button>
             </Flex>
 
-            <div style={{ overflow: 'hidden', borderRadius: 8, border: '1px solid var(--color-border)' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', borderBottom: '1px solid var(--color-border)' }}>
-                <div style={{ padding: 12, fontSize: 12, fontWeight: 500 }}>Time</div>
+            <div className={styles.availabilityTable}>
+              <div className={styles.availabilityHeadRow}>
+                <div className={styles.availabilityHeadCell}>Time</div>
                 {DAYS.map((day) => (
-                  <div key={day} style={{ padding: 12, fontSize: 12, fontWeight: 500, textAlign: 'center' }}>{day}</div>
+                  <div key={day} className={styles.availabilityHeadCellCenter}>{day}</div>
                 ))}
               </div>
               {HOURS.map((hour, hourIdx) => (
-                <div key={hour} style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', borderBottom: hourIdx < HOURS.length - 1 ? '1px solid var(--color-border)' : 'none' }}>
-                  <div style={{ padding: 8, fontSize: 11, color: 'var(--color-text-secondary)' }}>{hour}:00</div>
+                <div key={hour} className={hourIdx < HOURS.length - 1 ? styles.availabilityRow : styles.availabilityRowLast}>
+                  <div className={styles.availabilityTimeCell}>{hour}:00</div>
                   {DAYS.map((day) => {
                     const avail = defaultAvailability.find((a) => a.day === day);
                     const isAvailable = avail && hour >= avail.start && hour < avail.end;
                     return (
                       <div
                         key={day}
-                        style={{ borderLeft: '1px solid var(--color-border)', padding: 8, backgroundColor: isAvailable ? 'rgba(var(--color-primary-rgb, 130, 80, 255), 0.1)' : undefined, cursor: 'pointer' }}
+                        className={`${styles.availabilityCell} ${isAvailable ? styles.availabilityCellActive : ""}`}
                         onClick={() => { setEditDay(day); setEditAvailOpen(true); }}
                       >
-                        {isAvailable && <div style={{ height: '100%', borderRadius: 4, backgroundColor: 'rgba(var(--color-primary-rgb, 130, 80, 255), 0.2)' }} />}
+                        {isAvailable && <div className={styles.availabilityFill} />}
                       </div>
                     );
                   })}
@@ -256,17 +257,17 @@ export default function UserDetailClient({ id }: { id: string }) {
         )}
 
         {activeTab === "body-charts" && (
-          <div style={{ maxWidth: 672 }}>
-            <Flex align="center" justify="space-between" style={{ marginBottom: 16 }}>
-              <h3 style={{ fontSize: 18, fontWeight: 600 }}>Body chart templates</h3>
+          <div className={styles.bodyChartsCol}>
+            <Flex align="center" justify="space-between" className={styles.bodyChartsHeader}>
+              <h3 className={styles.bodyChartsHeading}>Body chart templates</h3>
               <Button>+ New template</Button>
             </Flex>
             <Flex vertical gap={8}>
               {bodyChartTemplates.map((t) => (
                 <Card key={t.id} padding="none">
-                  <Flex align="center" justify="space-between" style={{ padding: '12px 16px' }}>
-                    <span style={{ fontSize: 14, color: 'var(--color-primary)' }}>{t.name}</span>
-                    <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>Updated {t.updatedAt}</span>
+                  <Flex align="center" justify="space-between" className={styles.bodyChartRow}>
+                    <span className={styles.bodyChartName}>{t.name}</span>
+                    <span className={styles.bodyChartUpdated}>Updated {t.updatedAt}</span>
                   </Flex>
                 </Card>
               ))}

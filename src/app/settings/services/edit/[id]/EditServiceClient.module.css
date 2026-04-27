@@ -1,0 +1,52 @@
+.shell {
+  min-height: calc(100vh - 3rem);
+}
+
+.header {
+  padding: 24px 24px 0;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.formCol {
+  max-width: 672px;
+}
+
+.fieldRow {
+  margin-bottom: 16px;
+}
+
+.fieldGap {
+  margin-bottom: 16px;
+}
+
+.forLabel {
+  margin-bottom: 8px;
+  display: block;
+}
+
+.divider {
+  margin: 24px 0;
+}
+
+.sectionHeading {
+  margin-bottom: 16px;
+}
+
+.paymentReqWrap {
+  margin-top: 16px;
+}
+
+.footerActions {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}

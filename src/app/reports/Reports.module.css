@@ -1,1 +1,171 @@
-/* Reports CSS Module — Wave 6 Plan 07 will add classes here */
+.dateRangeWrap {
+  position: relative;
+}
+
+.dateRangeBtn {
+  border-color: var(--color-primary);
+  background-color: rgba(var(--color-primary-rgb, 124, 58, 237), 0.1);
+  font-weight: 500;
+  color: var(--color-primary);
+}
+
+.dateRangeIcon {
+  font-size: 14px;
+  color: var(--ant-color-text, #414549);
+}
+
+.dateRangePopover {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  z-index: 30;
+  margin-top: 4px;
+  width: 320px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background-color: white;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.presetSection {
+  padding: 8px;
+}
+
+.presetLabel {
+  margin-bottom: 6px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.presetBtn {
+  justify-content: flex-start;
+  border-radius: 6px;
+}
+
+.customRangeSection {
+  padding: 12px;
+}
+
+.customRangeLabel {
+  margin-bottom: 8px;
+}
+
+.dateInput {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.filterBar {
+  margin-bottom: 24px;
+}
+
+.frequencySelect {
+  cursor: pointer;
+}
+
+.chartsRow {
+  margin-bottom: 24px;
+}
+
+.cardHeaderWrap {
+  margin-bottom: 4px;
+  position: relative;
+}
+
+.cardTitle {
+  font-size: 20px;
+}
+
+.settingsIcon {
+  font-size: 14px;
+  color: var(--ant-color-text-secondary, #6E6E64);
+}
+
+.settingsPopover {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 30;
+  margin-top: 4px;
+  width: 280px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background-color: white;
+  padding: 16px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.settingsDescription {
+  margin-bottom: 12px;
+}
+
+.chartContainer {
+  position: relative;
+  height: 128px;
+}
+
+.chartSvg {
+  height: 100%;
+  width: 100%;
+}
+
+.chartYAxis {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  margin-left: -4px;
+}
+
+.chartXAxis {
+  margin-top: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.chartLegend {
+  margin-top: 8px;
+}
+
+.barChartYAxis {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+.barChartArea {
+  margin-left: 32px;
+  height: 100%;
+}
+
+.barChartBarCol {
+  flex: 1;
+}
+
+.barChartBar {
+  width: 100%;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background-color: var(--color-primary);
+}
+
+.barChartXAxis {
+  margin-top: 4px;
+  margin-left: 32px;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+.barChartLegend {
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+.tableHeader {
+  border-bottom: 1px solid var(--color-border);
+  padding: 12px 16px;
+}

@@ -1,0 +1,106 @@
+.page {
+  min-height: calc(100vh - 3rem);
+}
+
+.documentWrap {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.documentCard {
+  padding: 40px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.headerRow {
+  margin-bottom: 16px;
+}
+
+.clientHeading {
+  font-family: 'Sprig Sans', 'Inter', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: rgb(66, 105, 74);
+}
+
+.logo {
+  height: 48px;
+  width: 48px;
+  font-size: 30px;
+}
+
+.serviceLine {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin-bottom: 8px;
+}
+
+.clientInfoBox {
+  margin-bottom: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  padding: 8px 16px;
+}
+
+.sectionHeading {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.bulletList {
+  list-style-type: disc;
+  padding-left: 24px;
+  font-size: 14px;
+  line-height: 1.625;
+}
+
+.bulletList li {
+  margin-bottom: 4px;
+}
+
+.bulletList li:last-child {
+  margin-bottom: 0;
+}
+
+.paragraph {
+  font-size: 14px;
+  line-height: 1.625;
+}
+
+.signatureBlock {
+  margin-top: 40px;
+  border-top: 1px solid var(--color-border);
+  padding-top: 16px;
+}
+
+.signedRow {
+  font-size: 14px;
+  line-height: 1.57;
+  color: var(--color-success);
+}
+
+.signedIcon {
+  font-size: 14px;
+  color: var(--ant-color-text, #414549);
+}
+
+.signedText {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.57;
+}
+
+.unsignedText {
+  font-size: 14px;
+  line-height: 1.57;
+  color: var(--color-text-secondary);
+}
+
+.badgeIcon {
+  font-size: 12px;
+  color: var(--ant-color-text, #414549);
+}

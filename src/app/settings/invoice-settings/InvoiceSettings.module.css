@@ -1,0 +1,58 @@
+.shell {
+  padding: 24px;
+}
+
+.bannerIcon {
+  font-size: 14px;
+  color: var(--ant-color-text, #414549);
+}
+
+.bannerText {
+  font-size: 14px;
+}
+
+.bannerLink {
+  font-weight: 500;
+  color: var(--color-primary);
+}
+
+.toggleBlock {
+  margin-bottom: 32px;
+}
+
+.section {
+  margin-bottom: 32px;
+}
+
+.sectionHeading {
+  margin-bottom: 16px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.formCol {
+  max-width: 672px;
+}
+
+.divider {
+  margin: 32px 0;
+  border-color: #16a34a;
+}
+
+.fullWidthBtn {
+  width: 100%;
+  justify-content: center;
+}
+
+.fullWidthBtnWrap {
+  margin-top: 16px;
+}
+
+.reminderIcon {
+  font-size: 14px;
+  color: var(--ant-color-text-secondary, #6E6E64);
+}
+
+.bodyFormItem {
+  margin-bottom: 4px;
+}

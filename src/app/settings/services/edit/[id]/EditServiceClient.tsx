@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button, Flex } from "antd";
 import { FormInput, FormSelect, FormColorPicker, FormTextarea, Toggle, Divider, RadioGroup, Text } from "@/components/ds";
+import styles from "./EditServiceClient.module.css";
 
 interface ServiceData {
   name: string;
@@ -103,16 +104,16 @@ export default function EditServiceClient({ id }: { id: string }) {
   const [confirmationEmail, setConfirmationEmail] = useState(true);
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 3rem)' }}>
-      <div style={{ padding: '24px 24px 0' }}>
-        <h1 style={{ fontSize: 24, fontWeight: 700 }}>Edit service</h1>
+    <div className={styles.shell}>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Edit service</h1>
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
-        <div style={{ maxWidth: 672 }}>
+      <div className={styles.body}>
+        <div className={styles.formCol}>
           {/* For (Appointment / Support Activity) */}
-          <div style={{ marginBottom: 16 }}>
-            <Text variant="label/lg" as="label" color="text" style={{ marginBottom: 8, display: 'block' }}>For *</Text>
+          <div className={styles.fieldRow}>
+            <Text variant="label/lg" as="label" color="text" className={styles.forLabel}>For *</Text>
             <RadioGroup
               name="serviceFor"
               value={serviceFor}
@@ -122,63 +123,63 @@ export default function EditServiceClient({ id }: { id: string }) {
           </div>
 
           <FormInput label="Name *" defaultValue={service.name} />
-          <div style={{ marginBottom: 16 }} />
+          <div className={styles.fieldGap} />
           <FormSelect
             label="Type *"
             options={serviceTypeOptions}
             defaultValue={service.type}
           />
-          <div style={{ marginBottom: 16 }} />
+          <div className={styles.fieldGap} />
           <FormInput label="Item code" defaultValue={service.itemCode} />
-          <div style={{ marginBottom: 16 }} />
+          <div className={styles.fieldGap} />
           <FormInput label="Max number of clients" type="number" defaultValue="1" />
-          <div style={{ marginBottom: 16 }} />
+          <div className={styles.fieldGap} />
           <FormColorPicker
             label="Color"
             value={service.color}
             onChange={() => {}}
           />
-          <div style={{ marginBottom: 16 }} />
+          <div className={styles.fieldGap} />
           <FormTextarea label="Description" rows={3} placeholder="Enter a description for this service..." />
 
-          <Divider variant="primary" style={{ margin: '24px 0' }} />
+          <Divider variant="primary" className={styles.divider} />
 
           {/* Pricing */}
-          <Text variant="heading/lg" as="h2" style={{ marginBottom: 16 }}>Pricing</Text>
+          <Text variant="heading/lg" as="h2" mb={16}>Pricing</Text>
           <FormInput
             label="Price *"
             type="number"
             defaultValue={service.price}
           />
-          <div style={{ marginBottom: 16 }} />
+          <div className={styles.fieldGap} />
           <FormSelect
             label="Rate"
             options={rateOptions}
             defaultValue={service.rate}
           />
-          <div style={{ marginBottom: 16 }} />
+          <div className={styles.fieldGap} />
           <FormInput
             label="Duration (minutes) *"
             defaultValue={service.duration}
           />
 
-          <Divider variant="primary" style={{ margin: '24px 0' }} />
+          <Divider variant="primary" className={styles.divider} />
 
           {/* Online booking */}
-          <Text variant="heading/lg" as="h2" style={{ marginBottom: 16 }}>Online booking</Text>
+          <Text variant="heading/lg" as="h2" mb={16}>Online booking</Text>
           <Toggle
             checked={onlineBookingEnabled}
             onChange={setOnlineBookingEnabled}
             label="Enable online booking"
           />
 
-          <Divider variant="primary" style={{ margin: '24px 0' }} />
+          <Divider variant="primary" className={styles.divider} />
 
           {/* Online payment */}
-          <Text variant="heading/lg" as="h2" style={{ marginBottom: 16 }}>Online payment</Text>
+          <Text variant="heading/lg" as="h2" mb={16}>Online payment</Text>
           <Toggle checked={onlinePayment} onChange={setOnlinePayment} label="Enable online payment" />
           {onlinePayment && (
-            <div style={{ marginTop: 16 }}>
+            <div className={styles.paymentReqWrap}>
               <FormSelect
                 label="Payment requirement"
                 value={paymentRequired}
@@ -192,10 +193,10 @@ export default function EditServiceClient({ id }: { id: string }) {
             </div>
           )}
 
-          <Divider variant="primary" style={{ margin: '24px 0' }} />
+          <Divider variant="primary" className={styles.divider} />
 
           {/* Appointment notifications */}
-          <Text variant="heading/lg" as="h2" style={{ marginBottom: 16 }}>Appointment notifications</Text>
+          <Text variant="heading/lg" as="h2" mb={16}>Appointment notifications</Text>
           <Flex vertical gap={16}>
             <Toggle checked={confirmationSms} onChange={setConfirmationSms} label="Send SMS confirmation" />
             <Toggle checked={confirmationEmail} onChange={setConfirmationEmail} label="Send email confirmation" />
@@ -204,7 +205,7 @@ export default function EditServiceClient({ id }: { id: string }) {
           </Flex>
 
           {/* Footer actions */}
-          <Flex align="center" gap={16} style={{ marginTop: 32, marginBottom: 32 }}>
+          <Flex align="center" gap={16} className={styles.footerActions}>
             <Button type="primary">Save</Button>
           </Flex>
         </div>

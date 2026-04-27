@@ -19,10 +19,10 @@ import {
   ColumnWidthOutlined,
 } from "@ant-design/icons";
 // Inline SVG icons for time-of-day indicators (no AntD equivalents)
-const Sun = ({ style, className }: { style?: React.CSSProperties; className?: string }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} style={{ width: 16, height: 16, ...style }}><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>;
-const Moon = ({ style, className }: { style?: React.CSSProperties; className?: string }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} style={{ width: 16, height: 16, ...style }}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>;
-const SunMedium = ({ style, className }: { style?: React.CSSProperties; className?: string }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} style={{ width: 16, height: 16, ...style }}><circle cx="12" cy="12" r="4"/><path d="M12 3v1"/><path d="M12 20v1"/><path d="M3 12h1"/><path d="M20 12h1"/><path d="m18.364 5.636-.707.707"/><path d="m6.343 17.657-.707.707"/><path d="m5.636 5.636.707.707"/><path d="m17.657 17.657.707.707"/></svg>;
-const MapIcon = ({ style, className }: { style?: React.CSSProperties; className?: string }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} style={{ width: 16, height: 16, ...style }}><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>;
+const Sun = ({ className }: { className?: string }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} width="16" height="16"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>;
+const Moon = ({ className }: { className?: string }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} width="16" height="16"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>;
+const SunMedium = ({ className }: { className?: string }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} width="16" height="16"><circle cx="12" cy="12" r="4"/><path d="M12 3v1"/><path d="M12 20v1"/><path d="M3 12h1"/><path d="M20 12h1"/><path d="m18.364 5.636-.707.707"/><path d="m6.343 17.657-.707.707"/><path d="m5.636 5.636.707.707"/><path d="m17.657 17.657.707.707"/></svg>;
+const MapIcon = ({ className }: { className?: string }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} width="16" height="16"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>;
 import { Button, Flex, Table, Form, Select, Input } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { ListPage, SearchBar, Pagination, Badge, Tab, EmptyState, Modal, Text, Divider, Skeleton } from "@/components/ds";
@@ -513,7 +513,7 @@ function WaitlistPageInner() {
         ]}
         value={mainTab}
         onChange={(val) => setMainTab(val as "screener" | "waitlist")}
-        style={{ padding: '8px 24px 0' }}
+        className={wStyles.mainTab}
       />
 
       {/* ===== SCREENER TAB ===== */}
@@ -522,7 +522,7 @@ function WaitlistPageInner() {
           title="Screener"
           actions={
             <Button size="small">
-              <QuestionCircleOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+              <QuestionCircleOutlined className={wStyles.iconDefault} />
               Learn
             </Button>
           }
@@ -536,7 +536,7 @@ function WaitlistPageInner() {
               ]}
               value={screenerSubTab}
               onChange={(val) => setScreenerSubTab(val as "triage" | "rejected")}
-              style={{ marginBottom: 16 }}
+              className={wStyles.subTab}
             />
           }
           cardWrap={false}
@@ -545,9 +545,9 @@ function WaitlistPageInner() {
           <Skeleton.Loading
             loaded={loaded}
             fallback={
-              <div style={{ padding: "0 0 8px" }}>
+              <div className={wStyles.filterPanel}>
                 {Array.from({ length: 6 }).map((_, i) => (
-                  <div key={i} style={{ display: 'flex', gap: 16, padding: '12px 16px', borderBottom: '1px solid var(--color-border)' }}>
+                  <div key={i} className={wStyles.screenerRow}>
                     <Skeleton.Block width="8%" height={18} />
                     <Skeleton.Block width="10%" height={18} />
                     <Skeleton.Block width="20%" height={18} />
@@ -570,10 +570,9 @@ function WaitlistPageInner() {
                     <Button
                       size="small"
                       onClick={() => handleTriage(idx, "yes")}
-                      className={triageState[idx] === "yes" ? wStyles.triageYesActive : ""}
-                      style={{ fontSize: 12, gap: 2, borderRadius: 4, padding: "4px 8px", ...(triageState[idx] !== "yes" ? { color: "var(--color-text-secondary)" } : {}) }}
+                      className={`${wStyles.triageButton} ${triageState[idx] === "yes" ? wStyles.triageYesActive : wStyles.triageButtonInactive}`}
                     >
-                      <LikeOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
+                      <LikeOutlined className={wStyles.iconSmall} />
                       <span>Yes</span>
                     </Button>
                     <Button
@@ -581,22 +580,21 @@ function WaitlistPageInner() {
                       type="default"
                       size="small"
                       onClick={() => handleTriage(idx, "no")}
-                      className={triageState[idx] === "no" ? wStyles.triageNoActive : ""}
-                      style={{ fontSize: 12, gap: 2, borderRadius: 4, padding: "4px 8px", ...(triageState[idx] !== "no" ? { color: "var(--color-text-secondary)" } : {}) }}
+                      className={`${wStyles.triageButton} ${triageState[idx] === "no" ? wStyles.triageNoActive : wStyles.triageButtonInactive}`}
                     >
-                      <DislikeOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
+                      <DislikeOutlined className={wStyles.iconSmall} />
                       <span>No</span>
                     </Button>
                   </Flex>
                 ),
               },
-              { key: "tags", title: <Flex align="center" gap={4}>Tags<FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} /></Flex>, render: (_, row) => <Text variant="body/md" as="span" color="secondary">{row.tags}</Text> },
+              { key: "tags", title: <Flex align="center" gap={4}>Tags<FilterOutlined className={wStyles.iconSmallSecondary} /></Flex>, render: (_, row) => <Text variant="body/md" as="span" color="secondary">{row.tags}</Text> },
               {
                 key: "client",
                 title: (
                   <Flex align="center" gap={4}>
                     Client
-                    <svg style={{ width: 12, height: 12, color: "var(--color-text-secondary)" }} viewBox="0 0 12 12" fill="currentColor">
+                    <svg className={wStyles.sortIcon} viewBox="0 0 12 12" fill="currentColor" width="12" height="12">
                       <path d="M6 0L9 5H3L6 0ZM6 12L3 7H9L6 12Z" />
                     </svg>
                   </Flex>
@@ -621,8 +619,8 @@ function WaitlistPageInner() {
                 title: "Actions",
                 align: "right" as const,
                 render: () => (
-                  <Button type="text" size="small" style={{ padding: "4px 6px" }}>
-                    <MoreOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                  <Button type="text" size="small" className={wStyles.tableActionButton}>
+                    <MoreOutlined className={wStyles.iconDefault} />
                   </Button>
                 ),
               },
@@ -630,11 +628,11 @@ function WaitlistPageInner() {
 
             const screenerData_ = screenerSubTab === "triage" ? pagedScreener : [];
             const emptyText = screenerSubTab === "triage"
-              ? <EmptyState message="No screener entries found." style={{ padding: "32px 0" }} />
-              : <EmptyState message="No rejected entries." style={{ padding: "32px 0" }} />;
+              ? <EmptyState message="No screener entries found." className={wStyles.emptyStatePadding} />
+              : <EmptyState message="No rejected entries." className={wStyles.emptyStatePadding} />;
 
             return (
-              <div style={{ overflowX: "auto", minWidth: "800px" }}>
+              <div className={wStyles.tableScrollWrap}>
                 <Table
                   columns={screenerColumns}
                   dataSource={screenerData_}
@@ -674,7 +672,7 @@ function WaitlistPageInner() {
             <Select
               value={modalLocation}
               onChange={setModalLocation}
-              style={{ width: "100%" }}
+              className={wStyles.fullWidthSelect}
               options={[
                 { value: "", label: "Any location" },
                 { value: "adelaide", label: "Adelaide" },
@@ -689,7 +687,7 @@ function WaitlistPageInner() {
             <Select
               value={modalPractitioner}
               onChange={setModalPractitioner}
-              style={{ width: "100%" }}
+              className={wStyles.fullWidthSelect}
               options={[
                 { value: "", label: "Any practitioner" },
                 { value: "jim", label: "Jim Yencken" },
@@ -704,7 +702,7 @@ function WaitlistPageInner() {
             <Select
               value={modalClient}
               onChange={setModalClient}
-              style={{ width: "100%" }}
+              className={wStyles.fullWidthSelect}
               options={[
                 { value: "", label: "Select client" },
                 ...waitlistData.map((w) => ({ value: w.client, label: w.client })),
@@ -723,22 +721,21 @@ function WaitlistPageInner() {
 
           {/* Service (required) — chips + select to add */}
           <div>
-            <Text variant="label/lg" as="label" color="secondary" style={{ display: 'block', marginBottom: 4 }}>Service *</Text>
+            <Text variant="label/lg" as="label" color="secondary" className={wStyles.fieldLabel}>Service *</Text>
             {modalServices.length > 0 && (
-              <Flex wrap gap={6} style={{ marginBottom: 8 }}>
+              <Flex wrap gap={6} className={wStyles.chipRow}>
                 {modalServices.map((service) => (
-                  <Badge key={service} variant="blue" size="sm" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-                    <span style={{ maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{service}</span>
+                  <Badge key={service} variant="blue" size="sm" className={wStyles.chip}>
+                    <span className={wStyles.chipText}>{service}</span>
                     <Button
                       type="text"
                       shape="circle"
                       size="small"
                       htmlType="button"
                       onClick={() => removeService(service)}
-                      style={{ marginLeft: 2 }}
-                      className={wStyles.serviceChipClose}
+                      className={`${wStyles.chipCloseButton} ${wStyles.serviceChipClose}`}
                     >
-                      <CloseOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
+                      <CloseOutlined className={wStyles.iconSmall} />
                     </Button>
                   </Badge>
                 ))}
@@ -748,7 +745,7 @@ function WaitlistPageInner() {
               <Select
                 value={modalServiceSelect}
                 onChange={setModalServiceSelect}
-                style={{ width: "100%" }}
+                className={wStyles.fullWidthSelect}
                 options={[
                   { value: "", label: "Add a service..." },
                   { value: "1:1 Consultation", label: "1:1 Consultation" },
@@ -758,35 +755,22 @@ function WaitlistPageInner() {
                   { value: "Group Session", label: "Group Session" },
                 ]}
               />
-              <Button size="small" onClick={addService} style={{ flexShrink: 0 }}>
-                <PlusOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+              <Button size="small" onClick={addService} className={wStyles.flexShrinkZero}>
+                <PlusOutlined className={wStyles.iconDefault} />
               </Button>
             </Flex>
           </div>
 
           {/* Preferred days */}
           <div>
-            <Text variant="label/lg" as="label" color="secondary" style={{ display: 'block', marginBottom: 6 }}>Preferred days</Text>
+            <Text variant="label/lg" as="label" color="secondary" className={wStyles.fieldLabelLg}>Preferred days</Text>
             <Flex gap={6}>
               {["S", "M", "T", "W", "T", "F", "S"].map((day, i) => (
                 <button
                   key={i}
                   type="button"
                   onClick={() => toggleDay(i)}
-                  style={{
-                    display: 'flex',
-                    height: 36,
-                    width: 36,
-                    fontSize: 12,
-                    fontWeight: 500,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: '50%',
-                    transition: 'background-color 0.2s, color 0.2s',
-                    ...(modalPreferredDays[i]
-                      ? { backgroundColor: 'var(--color-primary)', color: '#fff', border: 'none' }
-                      : { border: '1px solid var(--color-border)', backgroundColor: '#fff', color: 'var(--color-text-secondary)' }),
-                  }}
+                  className={`${wStyles.dayPill} ${modalPreferredDays[i] ? wStyles.dayPillActive : ""}`}
                 >
                   {day}
                 </button>
@@ -796,24 +780,12 @@ function WaitlistPageInner() {
 
           {/* Preferred time */}
           <div>
-            <Text variant="label/lg" as="label" color="secondary" style={{ display: 'block', marginBottom: 6 }}>Preferred time</Text>
+            <Text variant="label/lg" as="label" color="secondary" className={wStyles.fieldLabelLg}>Preferred time</Text>
             <Flex gap={8}>
               <button
                 type="button"
                 onClick={() => toggleTime("morning")}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  fontSize: 12,
-                  fontWeight: 500,
-                  borderRadius: 9999,
-                  padding: '6px 12px',
-                  transition: 'background-color 0.2s, color 0.2s',
-                  ...(modalPreferredTime.morning
-                    ? { backgroundColor: 'var(--color-primary)', color: '#fff', border: 'none' }
-                    : { border: '1px solid var(--color-border)', backgroundColor: '#fff', color: 'var(--color-text-secondary)' }),
-                }}
+                className={`${wStyles.timePill} ${modalPreferredTime.morning ? wStyles.timePillActive : ""}`}
               >
                 <Sun  />
                 Morning
@@ -821,19 +793,7 @@ function WaitlistPageInner() {
               <button
                 type="button"
                 onClick={() => toggleTime("afternoon")}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  fontSize: 12,
-                  fontWeight: 500,
-                  borderRadius: 9999,
-                  padding: '6px 12px',
-                  transition: 'background-color 0.2s, color 0.2s',
-                  ...(modalPreferredTime.afternoon
-                    ? { backgroundColor: 'var(--color-primary)', color: '#fff', border: 'none' }
-                    : { border: '1px solid var(--color-border)', backgroundColor: '#fff', color: 'var(--color-text-secondary)' }),
-                }}
+                className={`${wStyles.timePill} ${modalPreferredTime.afternoon ? wStyles.timePillActive : ""}`}
               >
                 <SunMedium  />
                 Afternoon
@@ -841,19 +801,7 @@ function WaitlistPageInner() {
               <button
                 type="button"
                 onClick={() => toggleTime("evening")}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  fontSize: 12,
-                  fontWeight: 500,
-                  borderRadius: 9999,
-                  padding: '6px 12px',
-                  transition: 'background-color 0.2s, color 0.2s',
-                  ...(modalPreferredTime.evening
-                    ? { backgroundColor: 'var(--color-primary)', color: '#fff', border: 'none' }
-                    : { border: '1px solid var(--color-border)', backgroundColor: '#fff', color: 'var(--color-text-secondary)' }),
-                }}
+                className={`${wStyles.timePill} ${modalPreferredTime.evening ? wStyles.timePillActive : ""}`}
               >
                 <Moon  />
                 Evening
@@ -873,18 +821,18 @@ function WaitlistPageInner() {
                 placeholder="Add a note..."
               />
             </Form.Item>
-            <Text variant="caption/md" color="secondary" style={{ marginTop: 4, textAlign: 'right', display: 'block' }}>
+            <Text variant="caption/md" color="secondary" className={wStyles.charCount}>
               {modalNote.length} / 500
             </Text>
           </div>
 
           {/* Waitlist tags */}
           <div>
-            <Text variant="label/lg" as="label" color="secondary" style={{ display: 'block', marginBottom: 4 }}>Waitlist tags</Text>
+            <Text variant="label/lg" as="label" color="secondary" className={wStyles.fieldLabel}>Waitlist tags</Text>
             {modalTags.length > 0 && (
-              <Flex wrap gap={6} style={{ marginBottom: 8 }}>
+              <Flex wrap gap={6} className={wStyles.chipRow}>
                 {modalTags.map((tag) => (
-                  <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} size="sm" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                  <Badge key={tag} variant={tagBadgeVariant[tag] || "gray"} size="sm" className={wStyles.chip}>
                     {tag}
                     <Button
                       type="text"
@@ -892,10 +840,9 @@ function WaitlistPageInner() {
                       size="small"
                       htmlType="button"
                       onClick={() => removeTag(tag)}
-                      style={{ marginLeft: 2 }}
-                      className={wStyles.tagChipClose}
+                      className={`${wStyles.chipCloseButton} ${wStyles.tagChipClose}`}
                     >
-                      <CloseOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
+                      <CloseOutlined className={wStyles.iconSmall} />
                     </Button>
                   </Badge>
                 ))}
@@ -905,7 +852,7 @@ function WaitlistPageInner() {
               <Select
                 value={modalTagSelect}
                 onChange={setModalTagSelect}
-                style={{ width: "100%" }}
+                className={wStyles.fullWidthSelect}
                 options={[
                   { value: "", label: "Add a tag..." },
                   { value: "Admin to review", label: "Admin to review" },
@@ -915,8 +862,8 @@ function WaitlistPageInner() {
                   { value: "To assign a unique ID", label: "To assign a unique ID" },
                 ]}
               />
-              <Button size="small" onClick={addTag} style={{ flexShrink: 0 }}>
-                <PlusOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+              <Button size="small" onClick={addTag} className={wStyles.flexShrinkZero}>
+                <PlusOutlined className={wStyles.iconDefault} />
               </Button>
             </Flex>
           </div>
@@ -931,15 +878,15 @@ function WaitlistPageInner() {
           actions={
             <>
               <Button size="small">
-                <FilterOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                <FilterOutlined className={wStyles.iconDefault} />
                 Reset all filters
               </Button>
               <Button size="small">
-                <QuestionCircleOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                <QuestionCircleOutlined className={wStyles.iconDefault} />
                 Learn
               </Button>
               <Button size="small">
-                <ColumnWidthOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                <ColumnWidthOutlined className={wStyles.iconDefault} />
                 Show/hide fields
               </Button>
               {/* Map / List toggle */}
@@ -959,14 +906,14 @@ function WaitlistPageInner() {
                   </>
                 ) : (
                   <>
-                    <UnorderedListOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                    <UnorderedListOutlined className={wStyles.iconDefault} />
                     List
                   </>
                 )}
               </Button>
               <Link href="/waitlist/new">
                 <Button>
-                  <PlusOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                  <PlusOutlined className={wStyles.iconDefault} />
                   Add client
                 </Button>
               </Link>
@@ -985,7 +932,7 @@ function WaitlistPageInner() {
                 ]}
                 value={waitlistSubTab}
                 onChange={(val) => setWaitlistSubTab(val as "active" | "closed")}
-                style={{ marginBottom: 16 }}
+                className={wStyles.subTab}
               />
 
               {/* Search */}
@@ -997,7 +944,7 @@ function WaitlistPageInner() {
                 const waitlistColumns: ColumnsType<WaitlistRow> = [
                   {
                     key: "tags",
-                    title: <Flex align="center" gap={4}>Tags<FilterOutlined style={{ fontSize: 12, color: 'var(--ant-color-text-secondary, #6E6E64)' }} /></Flex>,
+                    title: <Flex align="center" gap={4}>Tags<FilterOutlined className={wStyles.iconSmallSecondary} /></Flex>,
                     render: (_, row) => (
                       <Flex wrap gap={4}>
                         {row.tags.map((tag) =>
@@ -1022,23 +969,23 @@ function WaitlistPageInner() {
                       <Button
                         type="text"
                         size="small"
-                        style={{ padding: "4px 6px" }}
+                        className={wStyles.tableActionButton}
                         onClick={(e) => { e.stopPropagation(); openUpdateModal(row); }}
                       >
-                        <MoreOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                        <MoreOutlined className={wStyles.iconDefault} />
                       </Button>
                     ),
                   },
                 ];
                 return (
-                  <div style={{ overflowX: "auto", minWidth: "700px" }}>
+                  <div className={wStyles.waitlistTableScrollWrap}>
                     <Table
                       columns={waitlistColumns}
                       dataSource={pagedWaitlist}
                       rowKey={(_, idx) => String(idx)}
                       pagination={false}
                       onRow={(row) => ({ onClick: () => openUpdateModal(row), style: { cursor: "pointer" } })}
-                      locale={{ emptyText: <EmptyState message={`No ${waitlistSubTab} entries found.`} style={{ padding: "32px 0" }} /> }}
+                      locale={{ emptyText: <EmptyState message={`No ${waitlistSubTab} entries found.`} className={wStyles.emptyStatePadding} /> }}
                     />
                   </div>
                 );
@@ -1047,9 +994,7 @@ function WaitlistPageInner() {
             </>
           ) : (
             /* ===== MAP VIEW (Leaflet) ===== */
-            <div
-              style={{ overflow: 'hidden', height: "calc(100vh - 180px)", borderRadius: 8, border: '1px solid var(--color-border)' }}
-            >
+            <div className={wStyles.mapShell}>
               <MapView markers={mapMarkers} />
             </div>
           )}

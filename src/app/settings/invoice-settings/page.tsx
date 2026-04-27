@@ -7,6 +7,7 @@ import { CalendarOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import { Alert, FormInput, FormSelect, FormTextarea, Pagination, Toggle, Checkbox, Dropdown, DropdownTriggerButton, Modal, RichTextEditor, PageHeader } from "@/components/ds";
 import { SIMPLE_CRUD } from "@/lib/dropdown-presets";
 import { useFormModal } from "@/hooks/useFormModal";
+import styles from "./InvoiceSettings.module.css";
 
 const invoiceReminders = [
   { id: 1, name: "Due in 1 day" },
@@ -93,7 +94,7 @@ export default function InvoiceSettingsPage() {
       title: "Name",
       render: (_, row) => (
         <Flex align="center" gap={8}>
-          <CalendarOutlined style={{ fontSize: 14, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
+          <CalendarOutlined className={styles.reminderIcon} />
           <span>{row.name}</span>
         </Flex>
       ),
@@ -137,20 +138,20 @@ export default function InvoiceSettingsPage() {
   ];
 
   return (
-    <div style={{ padding: 24 }}>
+    <div className={styles.shell}>
       <PageHeader title="Invoice Settings" />
 
       {/* Stripe info banner */}
-      <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />} style={{ marginBottom: 24 }}>
-        <p style={{ fontSize: 14 }}>
+      <Alert variant="info" icon={<InfoCircleOutlined className={styles.bannerIcon} />} style={{ marginBottom: 24 }}>
+        <p className={styles.bannerText}>
           You need an active Stripe connection for online payments.{" "}
-          <a href="#" style={{ fontWeight: 500, color: 'var(--color-primary)' }}>
+          <a href="#" className={styles.bannerLink}>
             Connect to Stripe
           </a>
         </p>
       </Alert>
 
-      <div style={{ marginBottom: 32 }}>
+      <div className={styles.toggleBlock}>
         <Toggle
           checked={enableOnlinePayments}
           onChange={setEnableOnlinePayments}
@@ -159,9 +160,9 @@ export default function InvoiceSettingsPage() {
       </div>
 
       {/* Invoice number */}
-      <section style={{ marginBottom: 32 }}>
-        <h2 style={{ marginBottom: 16, fontSize: 20, fontWeight: 600 }}>Invoice number</h2>
-        <div style={{ maxWidth: 672 }}>
+      <section className={styles.section}>
+        <h2 className={styles.sectionHeading}>Invoice number</h2>
+        <div className={styles.formCol}>
           <Flex vertical gap={16}>
             <FormInput label="Prefix" defaultValue="INV" />
             <FormInput label="Padding" defaultValue="6" />
@@ -171,9 +172,9 @@ export default function InvoiceSettingsPage() {
       </section>
 
       {/* Credit note number */}
-      <section style={{ marginBottom: 32 }}>
-        <h2 style={{ marginBottom: 16, fontSize: 20, fontWeight: 600 }}>Credit note number</h2>
-        <div style={{ maxWidth: 672 }}>
+      <section className={styles.section}>
+        <h2 className={styles.sectionHeading}>Credit note number</h2>
+        <div className={styles.formCol}>
           <Flex vertical gap={16}>
             <FormInput label="Prefix" defaultValue="CR" />
             <FormInput label="Padding" defaultValue="6" />
@@ -182,12 +183,12 @@ export default function InvoiceSettingsPage() {
         </div>
       </section>
 
-      <hr style={{ margin: '32px 0', borderColor: '#16a34a' }} />
+      <hr className={styles.divider} />
 
       {/* Tax */}
-      <section style={{ marginBottom: 32 }}>
-        <h2 style={{ marginBottom: 16, fontSize: 20, fontWeight: 600 }}>Tax</h2>
-        <div style={{ maxWidth: 672 }}>
+      <section className={styles.section}>
+        <h2 className={styles.sectionHeading}>Tax</h2>
+        <div className={styles.formCol}>
           <Flex vertical gap={16}>
             <FormSelect
               label="Default tax"
@@ -211,12 +212,12 @@ export default function InvoiceSettingsPage() {
         </div>
       </section>
 
-      <hr style={{ margin: '32px 0', borderColor: '#16a34a' }} />
+      <hr className={styles.divider} />
 
       {/* Invoice reminders preferences */}
-      <section style={{ marginBottom: 32 }}>
-        <h2 style={{ marginBottom: 16, fontSize: 20, fontWeight: 600 }}>Invoice reminders preferences</h2>
-        <div style={{ maxWidth: 672 }}>
+      <section className={styles.section}>
+        <h2 className={styles.sectionHeading}>Invoice reminders preferences</h2>
+        <div className={styles.formCol}>
           <Flex vertical gap={16}>
             <FormSelect
               label="Default invoice reminder preferences"
@@ -239,35 +240,35 @@ export default function InvoiceSettingsPage() {
         </div>
       </section>
 
-      <hr style={{ margin: '32px 0', borderColor: '#16a34a' }} />
+      <hr className={styles.divider} />
 
       {/* Invoice reminders table */}
-      <section style={{ marginBottom: 32 }}>
-        <h2 style={{ marginBottom: 16, fontSize: 20, fontWeight: 600 }}>Invoice reminders</h2>
+      <section className={styles.section}>
+        <h2 className={styles.sectionHeading}>Invoice reminders</h2>
 
         <Table columns={reminderColumns} dataSource={pageReminders} rowKey="id" pagination={false} />
 
         <Pagination currentPage={reminderPage} totalPages={reminderTotalPages} totalItems={reminders.length} itemsPerPage={pageSize} onPageChange={setReminderPage} />
 
-        <div style={{ marginTop: 16 }}>
-          <Button style={{ width: '100%', justifyContent: 'center' }} onClick={() => openModal("reminder")}>
+        <div className={styles.fullWidthBtnWrap}>
+          <Button className={styles.fullWidthBtn} onClick={() => openModal("reminder")}>
             + New invoice reminder
           </Button>
         </div>
       </section>
 
-      <hr style={{ margin: '32px 0', borderColor: '#16a34a' }} />
+      <hr className={styles.divider} />
 
       {/* Invoice templates table */}
-      <section style={{ marginBottom: 32 }}>
-        <h2 style={{ marginBottom: 16, fontSize: 20, fontWeight: 600 }}>Invoice templates</h2>
+      <section className={styles.section}>
+        <h2 className={styles.sectionHeading}>Invoice templates</h2>
 
         <Table columns={templateColumns} dataSource={pageTemplates} rowKey="id" pagination={false} />
 
         <Pagination currentPage={templatePage} totalPages={templateTotalPages} totalItems={templates.length} itemsPerPage={pageSize} onPageChange={setTemplatePage} />
 
-        <div style={{ marginTop: 16 }}>
-          <Button style={{ width: '100%', justifyContent: 'center' }} onClick={() => openModal("template")}>
+        <div className={styles.fullWidthBtnWrap}>
+          <Button className={styles.fullWidthBtn} onClick={() => openModal("template")}>
             + Add invoice template
           </Button>
         </div>
@@ -307,7 +308,7 @@ export default function InvoiceSettingsPage() {
               />
               <FormInput label="Subject" value={form.subject} onChange={(e) => setField("subject", e.target.value)} />
               <div>
-                <Form.Item label="Body" style={{ marginBottom: 4 }}>
+                <Form.Item label="Body" className={styles.bodyFormItem}>
                   <RichTextEditor
                     value={form.body}
                     onChange={(html) => setField("body", html)}

@@ -10,6 +10,7 @@ import {
   ReadOutlined,
 } from "@ant-design/icons";
 import { PageHeader, SearchBar, Pagination, Modal, FormInput, FormSelect, Toggle, Dropdown, DropdownTriggerButton, ReorderModal } from "@/components/ds";
+import styles from "./CustomFields.module.css";
 
 /* ------------------------------------------------------------------ */
 /*  Custom fields mock data                                            */
@@ -99,14 +100,14 @@ export default function CustomFieldsPage() {
       key: "visible",
       title: "Visible",
       render: (_, row) => (
-        <span style={{ color: '#16a34a' }}>{row.visible ? "Yes" : "No"}</span>
+        <span className={styles.visibleYes}>{row.visible ? "Yes" : "No"}</span>
       ),
     },
     {
       key: "required",
       title: "Required",
       render: (_, row) => (
-        <span style={{ fontWeight: 500, color: '#ef4444' }}>{row.required ? "Yes" : "No"}</span>
+        <span className={styles.requiredYes}>{row.required ? "Yes" : "No"}</span>
       ),
     },
     {
@@ -125,14 +126,14 @@ export default function CustomFieldsPage() {
   ];
 
   return (
-    <div style={{ padding: 24 }}>
+    <div className={styles.shell}>
       <PageHeader title="Custom fields">
         <Button onClick={() => setShowReorderModal(true)}>
           Reorder
         </Button>
         <Button>Show archived</Button>
         <Button>
-          <ReadOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+          <ReadOutlined className={styles.iconBtn} />
           Learn
         </Button>
         <Button onClick={() => { setNewField({ name: "", type: "Short text", required: false }); setShowNewModal(true); }}>+ New custom field</Button>
@@ -208,14 +209,14 @@ export default function CustomFieldsPage() {
               type="checkbox"
               checked={newField.required}
               onChange={(e) => setNewField((p) => ({ ...p, required: e.target.checked }))}
-              style={{ height: 16, width: 16, borderRadius: 4 }}
+              className={styles.checkboxNative}
             />
-            <span style={{ fontSize: 14 }}>Required field</span>
+            <span className={styles.requiredCheckLabel}>Required field</span>
           </Flex>
 
           {/* Field type preview */}
-          <div style={{ borderRadius: 8, border: '1px dashed #d1d5db', backgroundColor: 'var(--color-fill-tertiary)', padding: 16 }}>
-            <p style={{ fontSize: 12, fontWeight: 500, marginBottom: 8, color: 'var(--color-text-secondary)' }}>Field preview</p>
+          <div className={styles.previewBox}>
+            <p className={styles.previewLabel}>Field preview</p>
             <FieldTypePreview type={newField.type} name={newField.name} options={[]} />
           </div>
         </Flex>
@@ -304,12 +305,12 @@ function EditFieldModal({
 
         {showOptions && (
           <div>
-            <p style={{ fontSize: 12, fontWeight: 500, marginBottom: 8, color: 'var(--color-text-secondary)' }}>Options</p>
+            <p className={styles.previewLabel}>Options</p>
             <Flex vertical gap={8}>
               {options.map((opt, index) => (
                 <Flex key={index} align="center" gap={8}>
-                  <HolderOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)', flexShrink: 0, cursor: 'grab' }} />
-                  <div style={{ flex: 1 }}>
+                  <HolderOutlined className={styles.iconHandle} />
+                  <div className={styles.optionInputWrap}>
                     <FormInput
                       type="text"
                       value={opt}
@@ -320,32 +321,32 @@ function EditFieldModal({
                   <Button
                     type="text"
                     size="small"
-                    style={{ color: '#f87171' }}
+                    className={styles.deleteBtn}
                     onClick={() => handleRemoveOption(index)}
                   >
-                    <DeleteOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                    <DeleteOutlined className={styles.iconBtn} />
                   </Button>
                 </Flex>
               ))}
             </Flex>
             <Button
-              style={{ marginTop: 8, width: '100%', borderStyle: 'dashed' }}
+              className={styles.addOptionBtn}
               onClick={handleAddOption}
             >
-              <PlusOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+              <PlusOutlined className={styles.iconBtn} />
               Add option
             </Button>
           </div>
         )}
 
         {/* Field type preview */}
-        <div style={{ borderRadius: 8, border: '1px dashed #d1d5db', backgroundColor: 'var(--color-fill-tertiary)', padding: 16 }}>
-          <p style={{ fontSize: 12, fontWeight: 500, marginBottom: 8, color: 'var(--color-text-secondary)' }}>Field preview</p>
+        <div className={styles.previewBox}>
+          <p className={styles.previewLabel}>Field preview</p>
           <FieldTypePreview type={type} name={name} options={options} />
         </div>
 
         <Flex align="center" justify="space-between">
-          <span style={{ fontSize: 14 }}>Display in client details</span>
+          <span className={styles.toggleRowLabel}>Display in client details</span>
           <Toggle
             checked={displayInClientDetails}
             onChange={setDisplayInClientDetails}
@@ -354,7 +355,7 @@ function EditFieldModal({
         </Flex>
 
         <Flex align="center" justify="space-between">
-          <span style={{ fontSize: 14 }}>Required</span>
+          <span className={styles.toggleRowLabel}>Required</span>
           <Toggle checked={required} onChange={setRequired} />
         </Flex>
       </Flex>
@@ -392,12 +393,12 @@ function FieldTypePreview({
   if (type === "Long text") {
     return (
       <div>
-        <Form.Item label={label} style={{ marginBottom: 4 }}>
+        <Form.Item label={label} className={styles.longTextItem}>
           <textarea
             disabled
             rows={3}
             placeholder="Long text value..."
-            style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'white', padding: '8px 12px', opacity: 0.7, fontSize: 14, color: 'var(--color-text-secondary)' }}
+            className={styles.longTextarea}
           />
         </Form.Item>
       </div>
@@ -433,15 +434,15 @@ function FieldTypePreview({
     const previewOpts = options.length > 0 ? options : ["Option 1", "Option 2"];
     return (
       <div>
-        <Form.Item label={label} style={{ marginBottom: 4 }}>
+        <Form.Item label={label} className={styles.multipleChoiceItem}>
           <Flex vertical gap={6}>
             {previewOpts.map((opt, i) => (
-              <label key={i} className="flex items-center gap-2" style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>
+              <label key={i} className={`flex items-center gap-2 ${styles.choiceLabel}`}>
                 <input
                   type="checkbox"
                   disabled
                   checked={i === 0}
-                  style={{ height: 16, width: 16, borderRadius: 4 }}
+                  className={styles.checkboxNative}
                 />
                 {opt || `Option ${i + 1}`}
               </label>
@@ -470,6 +471,6 @@ function FieldTypePreview({
 
   // Fallback
   return (
-    <p className="italic" style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>Select a field type to see a preview.</p>
+    <p className={`italic ${styles.fallbackText}`}>Select a field type to see a preview.</p>
   );
 }

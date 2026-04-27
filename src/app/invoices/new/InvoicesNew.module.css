@@ -1,0 +1,58 @@
+.fullWidthSelect {
+  width: 100%;
+}
+
+.lineItems {
+  margin-top: 24px;
+}
+
+.lineItemsTable {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.addItemRow {
+  padding: 12px 0;
+}
+
+.addItemIcon {
+  font-size: 14px;
+  color: var(--ant-color-text, #414549);
+}
+
+.deleteIcon {
+  font-size: 14px;
+  color: var(--ant-color-text, #414549);
+}
+
+.amountCell {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.rightAlignInput {
+  text-align: right;
+}
+
+.totalsCol {
+  width: 280px;
+}
+
+.totalsTotalRow {
+  border-top: 1px solid var(--color-border);
+  padding-top: 8px;
+  margin-top: 4px;
+}
+
+.totalsWrap {
+  margin-top: 8px;
+}
+
+.additionalInfo {
+  margin-top: 24px;
+}
+
+.additionalInfoHeader {
+  margin-bottom: 8px;
+}

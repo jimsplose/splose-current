@@ -9,7 +9,6 @@ import {
   DeleteOutlined,
   EyeOutlined,
   ShareAltOutlined,
-  SettingOutlined,
   FontSizeOutlined,
   NumberOutlined,
   CalendarOutlined,
@@ -18,7 +17,8 @@ import {
   FileTextOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
-import { FormInput, FormSelect, Tab, FormPage, Card, Toggle, FormColorPicker, FormTextarea, Modal, RichTextEditor, Grid, Breadcrumbs, Tooltip } from "@/components/ds";
+import { FormInput, Tab, FormPage, Card, Toggle, FormColorPicker, FormTextarea, Modal, Grid, Breadcrumbs, Tooltip, Text } from "@/components/ds";
+import styles from "./FormEdit.module.css";
 
 const FIELD_TYPES = [
   { icon: FontSizeOutlined, label: "Short text", value: "short-text" },
@@ -91,44 +91,44 @@ export default function FormTemplateEditorPage() {
         <Flex align="center" gap={8}>
           <Tooltip content="Share & Automate">
             <Button type="text" onClick={() => setSidePanel(sidePanel === "share" ? null : "share")}>
-              <ShareAltOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+              <ShareAltOutlined className={styles.iconBtn} />
             </Button>
           </Tooltip>
           <Button onClick={() => setActiveTab("preview")}>
-            <EyeOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /> Preview
+            <EyeOutlined className={styles.iconBtn} /> Preview
           </Button>
           <Button type="primary" onClick={() => router.push("/settings/forms")}>Save</Button>
         </Flex>
       }
-      style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
+      className={styles.page}
     >
-      <div style={{ borderBottom: '1px solid var(--color-border)', padding: '0 24px', margin: '-24px -24px 0' }}>
+      <div className={styles.tabBar}>
         <Tab items={editorTabs} value={activeTab} onChange={setActiveTab} />
       </div>
 
-      <Flex style={{ margin: '0 -24px -24px', flex: 1 }}>
-        <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+      <Flex className={styles.body}>
+        <div className={styles.content}>
           {activeTab === "builder" && (
-            <div style={{ maxWidth: 672, margin: '0 auto' }}>
+            <div className={styles.column}>
               <Flex vertical gap={12}>
-                <FormInput label="Form title" value={title} onChange={(e) => setTitle(e.target.value)} style={{ marginBottom: 16 }} />
+                <FormInput label="Form title" value={title} onChange={(e) => setTitle(e.target.value)} className={styles.titleInput} />
 
                 {fields.map((field) => {
                   const FieldIcon = FIELD_TYPES.find((t) => t.value === field.type)?.icon || FontSizeOutlined;
                   return (
                     <Card key={field.id} padding="none">
-                      <Flex align="center" gap={8} style={{ padding: '12px 16px' }}>
-                        <HolderOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)', flexShrink: 0, cursor: 'grab' }} />
-                        <FieldIcon style={{ fontSize: 16, flexShrink: 0, color: 'var(--color-primary)' }} />
+                      <Flex align="center" gap={8} className={styles.fieldRow}>
+                        <HolderOutlined className={styles.dragHandle} />
+                        <FieldIcon className={styles.fieldIcon} />
                         <input
-                          style={{ flex: 1, border: 'none', backgroundColor: 'transparent', outline: 'none', fontSize: 14 }}
+                          className={styles.fieldLabelInput}
                           value={field.label}
                           onChange={(e) => setFields((prev) => prev.map((f) => f.id === field.id ? { ...f, label: e.target.value } : f))}
                         />
                         <Toggle checked={field.required} onChange={(checked) => setFields((prev) => prev.map((f) => f.id === field.id ? { ...f, required: checked } : f))} label="Required" />
                         <Tooltip content="Remove field">
-                          <Button type="text" onClick={() => removeField(field.id)} style={{ color: 'var(--color-text-secondary)' }}>
-                            <DeleteOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                          <Button type="text" onClick={() => removeField(field.id)}>
+                            <DeleteOutlined className={styles.iconBtn} />
                           </Button>
                         </Tooltip>
                       </Flex>
@@ -137,17 +137,17 @@ export default function FormTemplateEditorPage() {
                 })}
 
                 <Button onClick={() => setShowAddField(true)}>
-                  <PlusOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /> Add field
+                  <PlusOutlined className={styles.iconBtn} /> Add field
                 </Button>
               </Flex>
             </div>
           )}
 
           {activeTab === "settings" && (
-            <div style={{ maxWidth: 672, margin: '0 auto' }}>
+            <div className={styles.column}>
               <Flex vertical gap={24}>
                 <div>
-                  <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 12 }}>Design</h3>
+                  <h3 className={styles.sectionHeading}>Design</h3>
                   <Flex vertical gap={16}>
                     <FormColorPicker label="Theme colour" value={themeColor} onChange={setThemeColor} />
                     <Toggle label="Show header image" checked={headerImage} onChange={setHeaderImage} />
@@ -155,12 +155,12 @@ export default function FormTemplateEditorPage() {
                 </div>
 
                 <div>
-                  <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 12 }}>Form completion</h3>
+                  <h3 className={styles.sectionHeading}>Form completion</h3>
                   <FormTextarea label="Completion message" value={completionMessage} onChange={(e) => setCompletionMessage(e.target.value)} rows={3} />
                 </div>
 
                 <div>
-                  <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 12 }}>Email notifications</h3>
+                  <h3 className={styles.sectionHeading}>Email notifications</h3>
                   <Toggle label="Send email notification when form is submitted" checked={emailNotifications} onChange={setEmailNotifications} />
                 </div>
               </Flex>
@@ -168,59 +168,61 @@ export default function FormTemplateEditorPage() {
           )}
 
           {activeTab === "preview" && (
-            <div style={{ maxWidth: 512, margin: '0 auto' }}>
-              <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', padding: 24, borderTopColor: themeColor, borderTopWidth: 4 }}>
-                <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 24 }}>{title}</h2>
+            <div className={styles.previewColumn}>
+              {/* ds-exempt: borderTopColor is data-driven (themeColor state) */}
+              <div className={styles.previewCard} style={{ borderTopColor: themeColor }}>
+                <h2 className={styles.previewTitle}>{title}</h2>
                 <Flex vertical gap={16}>
                   {fields.map((field) => (
                     <div key={field.id}>
-                      <Form.Item label={field.label} required={field.required} style={{ marginBottom: 4 }}>
+                      <Form.Item label={field.label} required={field.required} className={styles.previewItem}>
                         {field.type === "long-text" ? (
-                          <textarea style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '8px 12px', fontSize: 14 }} rows={3} disabled />
+                          <textarea className={styles.previewTextarea} rows={3} disabled />
                         ) : field.type === "boolean" ? (
                           <Flex gap={16}>
-                            <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><input type="radio" name={`f${field.id}`} disabled /> Yes</span>
-                            <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><input type="radio" name={`f${field.id}`} disabled /> No</span>
+                            <span className={styles.previewRadioLabel}><input type="radio" name={`f${field.id}`} disabled /> Yes</span>
+                            <span className={styles.previewRadioLabel}><input type="radio" name={`f${field.id}`} disabled /> No</span>
                           </Flex>
                         ) : field.type === "file-upload" ? (
-                          <Flex align="center" justify="center" style={{ height: 80, borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', fontSize: 11, color: 'var(--color-text-secondary)' }}>
+                          <Flex align="center" justify="center" className={styles.previewUploadDrop}>
                             Click or drag to upload
                           </Flex>
                         ) : (
-                          <input style={{ width: '100%', borderRadius: 8, border: '1px solid var(--color-border)', padding: '8px 12px', fontSize: 14 }} type={field.type === "date" ? "date" : "text"} disabled />
+                          <input className={styles.previewInput} type={field.type === "date" ? "date" : "text"} disabled />
                         )}
                       </Form.Item>
                     </div>
                   ))}
                 </Flex>
-                <Button type="primary" style={{ backgroundColor: themeColor, marginTop: 24, width: '100%' }}>Submit</Button>
+                {/* ds-exempt: backgroundColor is data-driven (themeColor state) */}
+                <Button type="primary" className={styles.submitBtn} style={{ backgroundColor: themeColor }}>Submit</Button>
               </div>
             </div>
           )}
         </div>
 
         {sidePanel === "share" && (
-          <div style={{ width: 320, borderLeft: '1px solid var(--color-border)', backgroundColor: 'white', flexShrink: 0, padding: 16 }}>
-            <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
-              <h3 style={{ fontSize: 16, fontWeight: 600 }}>Share & Automate</h3>
+          <div className={styles.sharePanel}>
+            <Flex justify="space-between" align="center" className={styles.sharePanelHeader}>
+              <h3 className={styles.sharePanelTitle}>Share & Automate</h3>
               <Tooltip content="Close panel">
-                <Button type="text" onClick={() => setSidePanel(null)} style={{ color: 'var(--color-text-secondary)' }}>&times;</Button>
+                <Button type="text" onClick={() => setSidePanel(null)}>&times;</Button>
               </Tooltip>
             </Flex>
             <Flex vertical gap={16}>
               <div>
-                <Form.Item label="Form link" style={{ marginBottom: 4 }}>
-                  <div style={{ borderRadius: 8, border: '1px solid var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '8px 12px', wordBreak: 'break-all', fontSize: 12, color: 'var(--color-primary)' }}>
+                <Form.Item label="Form link" className={styles.previewItem}>
+                  <div className={styles.shareLinkBox}>
                     https://acme.splose.com/patient-form/81783/view
                   </div>
                 </Form.Item>
               </div>
-              <Button style={{ width: '100%' }}>Copy link</Button>
-              <Button style={{ width: '100%' }}>Send to client</Button>
-              <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
-                <h4 style={{ fontSize: 12, fontWeight: 500, marginBottom: 8 }}>Automations</h4>
-                <p style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>Automatically send this form to new clients or on appointment creation.</p>
-                <Button style={{ marginTop: 8 }}>+ Add automation</Button>
+              <Button className={styles.fullWidthBtn}>Copy link</Button>
+              <Button className={styles.fullWidthBtn}>Send to client</Button>
+              <div className={styles.automationsSection}>
+                <h4 className={styles.automationsHeading}>Automations</h4>
+                <Text variant="caption/sm" color="secondary">Automatically send this form to new clients or on appointment creation.</Text>
+                <Button className={styles.fullWidthBtn} style={{ marginTop: 8 }}>+ Add automation</Button>
               </div>
             </Flex>
           </div>
@@ -233,10 +235,10 @@ export default function FormTemplateEditorPage() {
             <button
               key={value}
               onClick={() => addField(value)}
-              style={{ display: 'flex', alignItems: 'center', gap: 8, borderRadius: 8, border: '1px solid var(--color-border)', padding: '10px 12px', textAlign: 'left', transition: 'all 0.2s', cursor: 'pointer', backgroundColor: 'transparent' }}
+              className={styles.fieldTypeBtn}
             >
-              <Icon style={{ fontSize: 16, color: 'var(--color-primary)' }} />
-              <span style={{ fontSize: 14 }}>{label}</span>
+              <Icon className={styles.fieldTypeBtnIcon} />
+              <span className={styles.fieldTypeBtnLabel}>{label}</span>
             </button>
           ))}
         </Grid>

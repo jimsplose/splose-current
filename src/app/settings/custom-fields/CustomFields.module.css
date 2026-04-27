@@ -1,0 +1,95 @@
+.shell {
+  padding: 24px;
+}
+
+.visibleYes {
+  color: #16a34a;
+}
+
+.requiredYes {
+  font-weight: 500;
+  color: #ef4444;
+}
+
+.iconBtn {
+  font-size: 16px;
+  color: var(--ant-color-text, #414549);
+}
+
+.iconHandle {
+  font-size: 16px;
+  color: var(--ant-color-text-secondary, #6E6E64);
+  flex-shrink: 0;
+  cursor: grab;
+}
+
+.deleteBtn {
+  color: #f87171;
+}
+
+.previewBox {
+  border-radius: 8px;
+  border: 1px dashed #d1d5db;
+  background-color: var(--color-fill-tertiary);
+  padding: 16px;
+}
+
+.previewLabel {
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--color-text-secondary);
+}
+
+.checkboxNative {
+  height: 16px;
+  width: 16px;
+  border-radius: 4px;
+}
+
+.requiredCheckLabel {
+  font-size: 14px;
+}
+
+.optionInputWrap {
+  flex: 1;
+}
+
+.addOptionBtn {
+  margin-top: 8px;
+  width: 100%;
+  border-style: dashed;
+}
+
+.longTextItem {
+  margin-bottom: 4px;
+}
+
+.longTextarea {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background-color: white;
+  padding: 8px 12px;
+  opacity: 0.7;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.multipleChoiceItem {
+  margin-bottom: 4px;
+}
+
+.choiceLabel {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.fallbackText {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.toggleRowLabel {
+  font-size: 14px;
+}

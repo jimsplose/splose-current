@@ -6,6 +6,7 @@ import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Button, Flex, Form, Input, Select, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { FormPage, Grid, Text } from "@/components/ds";
+import styles from "./InvoicesNew.module.css";
 
 const mockPatients = [
   { value: "michael-brooks", label: "Michael Brooks" },
@@ -202,7 +203,7 @@ export default function NewInvoicePage() {
                 onChange={setPatient}
                 placeholder="Select patient"
                 showSearch={true}
-                style={{ width: "100%" }}
+                className={styles.fullWidthSelect}
               />
             </Form.Item>
             <Form.Item label="Invoice to">
@@ -210,7 +211,7 @@ export default function NewInvoicePage() {
                 options={mockInvoiceTo}
                 value={invoiceTo}
                 onChange={setInvoiceTo}
-                style={{ width: "100%" }}
+                className={styles.fullWidthSelect}
               />
             </Form.Item>
           </Grid>
@@ -229,7 +230,7 @@ export default function NewInvoicePage() {
                 options={mockLocations}
                 value={location}
                 onChange={setLocation}
-                style={{ width: "100%" }}
+                className={styles.fullWidthSelect}
               />
             </Form.Item>
             <Form.Item label="Practitioner">
@@ -237,7 +238,7 @@ export default function NewInvoicePage() {
                 options={mockPractitioners}
                 value={practitioner}
                 onChange={setPractitioner}
-                style={{ width: "100%" }}
+                className={styles.fullWidthSelect}
               />
             </Form.Item>
             <Form.Item label="Provider numbers">
@@ -253,7 +254,7 @@ export default function NewInvoicePage() {
 
       {/* Line items table */}
       {patient && (
-        <div style={{ marginTop: 24 }}>
+        <div className={styles.lineItems}>
           {(() => {
             const lineItemColumns: ColumnsType<LineItem> = [
               {
@@ -265,7 +266,7 @@ export default function NewInvoicePage() {
                     value={item.type}
                     onChange={(value) => updateLineItem(item.id, "type", value)}
                     options={mockTypeOptions}
-                    style={{ width: "100%" }}
+                    className={styles.fullWidthSelect}
                   />
                 ),
               },
@@ -301,7 +302,7 @@ export default function NewInvoicePage() {
                     value={item.unit}
                     onChange={(value) => updateLineItem(item.id, "unit", value)}
                     options={mockUnitOptions}
-                    style={{ width: "100%" }}
+                    className={styles.fullWidthSelect}
                   />
                 ),
               },
@@ -314,7 +315,7 @@ export default function NewInvoicePage() {
                     value={item.taxRate}
                     onChange={(value) => updateLineItem(item.id, "taxRate", value)}
                     options={mockTaxRateOptions}
-                    style={{ width: "100%" }}
+                    className={styles.fullWidthSelect}
                   />
                 ),
               },
@@ -331,7 +332,7 @@ export default function NewInvoicePage() {
                     value={item.price}
                     onChange={(e) => updateLineItem(item.id, "price", e.target.value)}
                     placeholder="0.00"
-                    style={{ textAlign: "right" }}
+                    className={styles.rightAlignInput}
                   />
                 ),
               },
@@ -346,7 +347,7 @@ export default function NewInvoicePage() {
                     min="1"
                     value={item.qty}
                     onChange={(e) => updateLineItem(item.id, "qty", e.target.value)}
-                    style={{ textAlign: "right" }}
+                    className={styles.rightAlignInput}
                   />
                 ),
               },
@@ -363,7 +364,7 @@ export default function NewInvoicePage() {
                     value={item.discount}
                     onChange={(e) => updateLineItem(item.id, "discount", e.target.value)}
                     placeholder="0%"
-                    style={{ textAlign: "right" }}
+                    className={styles.rightAlignInput}
                   />
                 ),
               },
@@ -373,7 +374,7 @@ export default function NewInvoicePage() {
                 align: "right" as const,
                 width: 100,
                 render: (_, item) => (
-                  <span style={{ fontWeight: 500, color: "var(--color-text)" }}>
+                  <span className={styles.amountCell}>
                     ${(calcLineSubtotal(item) + calcLineTax(item)).toFixed(2)}
                   </span>
                 ),
@@ -384,14 +385,17 @@ export default function NewInvoicePage() {
                 width: 40,
                 render: (_, item) =>
                   lineItems.length > 1 ? (
-                    <Button type="text" size="small" onClick={() => removeLineItem(item.id)}>
-                      <DeleteOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />
-                    </Button>
+                    <Button
+                      type="text"
+                      size="small"
+                      onClick={() => removeLineItem(item.id)}
+                      icon={<DeleteOutlined className={styles.deleteIcon} />}
+                    />
                   ) : null,
               },
             ];
             return (
-              <div style={{ overflowX: "auto", border: "1px solid var(--color-border)", borderRadius: 8 }}>
+              <div className={styles.lineItemsTable}>
                 <Table
                   columns={lineItemColumns}
                   dataSource={lineItems}
@@ -401,16 +405,20 @@ export default function NewInvoicePage() {
               </div>
             );
           })()}
-          <div style={{ padding: "12px 0" }}>
-            <Button type="text" size="small" onClick={addLineItem}>
-              <PlusOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />
+          <div className={styles.addItemRow}>
+            <Button
+              type="text"
+              size="small"
+              onClick={addLineItem}
+              icon={<PlusOutlined className={styles.addItemIcon} />}
+            >
               Add line item
             </Button>
           </div>
 
           {/* Totals */}
-          <Flex justify="end" style={{ marginTop: 8 }}>
-            <Flex vertical gap={6} style={{ width: 280 }}>
+          <Flex justify="end" className={styles.totalsWrap}>
+            <Flex vertical gap={6} className={styles.totalsCol}>
               <Flex align="center" justify="space-between">
                 <Text variant="body/md" color="secondary">Subtotal excl. tax</Text>
                 <Text variant="body/md-strong">${subtotalExclTax.toFixed(2)}</Text>
@@ -426,7 +434,7 @@ export default function NewInvoicePage() {
               <Flex
                 align="center"
                 justify="space-between"
-                style={{ borderTop: "1px solid var(--color-border)", paddingTop: 8, marginTop: 4 }}
+                className={styles.totalsTotalRow}
               >
                 <Text variant="heading/lg">TOTAL AUD</Text>
                 <Text variant="heading/lg">${totalAud.toFixed(2)}</Text>
@@ -435,8 +443,8 @@ export default function NewInvoicePage() {
           </Flex>
 
           {/* Additional information */}
-          <div style={{ marginTop: 24 }}>
-            <Flex align="center" gap={8} style={{ marginBottom: 8 }}>
+          <div className={styles.additionalInfo}>
+            <Flex align="center" gap={8} className={styles.additionalInfoHeader}>
               <Text variant="label/lg">Additional information</Text>
               <Button type="text" size="small">Apply business default</Button>
             </Flex>

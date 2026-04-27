@@ -4,6 +4,7 @@ import { CheckCircleOutlined } from "@ant-design/icons";
 import { Button, Flex } from "antd";
 import { Badge, Card, List, Navbar } from "@/components/ds";
 import NoteViewToolbar from "./NoteViewToolbar";
+import styles from "./NoteView.module.css";
 
 export const dynamic = "force-dynamic";
 
@@ -20,7 +21,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
   const clientName = `${note.client.firstName} ${note.client.lastName}`;
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 3rem)' }}>
+    <div className={styles.page}>
       {/* Header bar */}
       <Navbar
         backHref="/"
@@ -29,7 +30,7 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
           <>
             {note.signed ? (
               <Badge variant="green">
-                <CheckCircleOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
+                <CheckCircleOutlined className={styles.badgeIcon} />
                 Final
               </Badge>
             ) : (
@@ -51,21 +52,21 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
       </Navbar>
 
       {/* Note content as document */}
-      <div style={{ maxWidth: 768, margin: '0 auto', padding: 32 }}>
-        <Card padding="none" style={{ padding: 40, boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
+      <div className={styles.documentWrap}>
+        <Card padding="none" className={styles.documentCard}>
           {/* Client name with logo */}
-          <Flex align="start" justify="space-between" style={{ marginBottom: 16 }}>
-            <h2 style={{ fontFamily: "'Sprig Sans', 'Inter', sans-serif", fontSize: 30, fontWeight: 700, lineHeight: 1.2, color: 'rgb(66, 105, 74)' }}>{clientName}</h2>
-            <div style={{ height: 48, width: 48, fontSize: 30 }}>🦆</div>
+          <Flex align="start" justify="space-between" className={styles.headerRow}>
+            <h2 className={styles.clientHeading}>{clientName}</h2>
+            <div className={styles.logo}>🦆</div>
           </Flex>
 
           {/* Service info */}
-          <div style={{ fontSize: 14, color: 'var(--color-text-secondary)', marginBottom: 8 }}>
+          <div className={styles.serviceLine}>
             Service: {note.date ? `10:30 am, ${formatNoteDate(note.date)} – Sharon Test 1 (OT – Initial Consult)` : "—"}
           </div>
 
           {/* Client info table */}
-          <div style={{ marginBottom: 32, borderRadius: 8, border: '1px solid var(--color-border)', padding: '8px 16px' }}>
+          <div className={styles.clientInfoBox}>
             <List
               labelWidth="w-40"
               items={[
@@ -82,30 +83,30 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
           {/* SOAP Sections */}
           <Flex vertical gap={24}>
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, marginBottom: 8 }}>Subjective</h3>
-              <ul style={{ listStyleType: 'disc', paddingLeft: 24, fontSize: 14, lineHeight: 1.625 }}>
-                <li style={{ marginBottom: 4 }}>
+              <h3 className={styles.sectionHeading}>Subjective</h3>
+              <ul className={styles.bulletList}>
+                <li>
                   The participant did not provide a session transcript or verbal report regarding communication
                   progress, challenges, or concerns since the last session.
                 </li>
-                <li style={{ marginBottom: 4 }}>No changes in the participant&apos;s communication abilities or confidence were reported.</li>
-                <li style={{ marginBottom: 4 }}>The participant did not state any specific goals or priorities for today&apos;s session.</li>
+                <li>No changes in the participant&apos;s communication abilities or confidence were reported.</li>
+                <li>The participant did not state any specific goals or priorities for today&apos;s session.</li>
                 <li>No preferences or choices about activities or approaches were expressed by the participant.</li>
               </ul>
             </div>
 
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, marginBottom: 8 }}>Objective</h3>
-              <ul style={{ listStyleType: 'disc', paddingLeft: 24, fontSize: 14, lineHeight: 1.625 }}>
-                <li style={{ marginBottom: 4 }}>
+              <h3 className={styles.sectionHeading}>Objective</h3>
+              <ul className={styles.bulletList}>
+                <li>
                   The participant demonstrated consistent engagement throughout the session, responding to prompts and
                   completing assigned activities as directed.
                 </li>
-                <li style={{ marginBottom: 4 }}>
+                <li>
                   Measurable results from today&apos;s activities were not recorded in the available documentation; no
                   assessment data or specific performance metrics provided.
                 </li>
-                <li style={{ marginBottom: 4 }}>
+                <li>
                   Interventions and strategies used during the session were not detailed in the available records.
                 </li>
                 <li>
@@ -116,17 +117,17 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
             </div>
 
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, marginBottom: 8 }}>Assessment</h3>
-              <ul style={{ listStyleType: 'disc', paddingLeft: 24, fontSize: 14, lineHeight: 1.625 }}>
-                <li style={{ marginBottom: 4 }}>
+              <h3 className={styles.sectionHeading}>Assessment</h3>
+              <ul className={styles.bulletList}>
+                <li>
                   The participant has demonstrated consistent engagement in therapy sessions over the past two months,
                   with active participation observed at each session.
                 </li>
-                <li style={{ marginBottom: 4 }}>
+                <li>
                   Week-on-week trends indicate the participant is maintaining current skill levels, with no significant
                   improvement or decline noted in recent sessions.
                 </li>
-                <li style={{ marginBottom: 4 }}>
+                <li>
                   Progress towards NDIS plan goals appears steady, with the participant continuing to work towards
                   identified objectives without regression.
                 </li>
@@ -138,22 +139,22 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
             </div>
 
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, marginBottom: 8 }}>Plan</h3>
-              <p style={{ fontSize: 14, lineHeight: 1.625 }}>
+              <h3 className={styles.sectionHeading}>Plan</h3>
+              <p className={styles.paragraph}>
                 No transcript available for this session. Unable to complete the Plan section as requested due to lack
                 of source information.
               </p>
             </div>
 
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, marginBottom: 8 }}>Goals</h3>
-              <ul style={{ listStyleType: 'disc', paddingLeft: 24, fontSize: 14, lineHeight: 1.625 }}>
-                <li style={{ marginBottom: 4 }}>
+              <h3 className={styles.sectionHeading}>Goals</h3>
+              <ul className={styles.bulletList}>
+                <li>
                   No session transcript (transcription) is available for today&apos;s session; therefore, no measurable
                   progress, evidence of choice and control, or next steps/homework can be documented for any NDIS plan
                   goal at this time.
                 </li>
-                <li style={{ marginBottom: 4 }}>
+                <li>
                   No NDIS plan goals can be addressed in this section without relevant information from the current
                   session transcript.
                 </li>
@@ -166,16 +167,16 @@ export default async function NoteViewPage({ params }: { params: Promise<{ id: s
           </Flex>
 
           {/* Signature / metadata */}
-          <div style={{ marginTop: 40, borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
+          <div className={styles.signatureBlock}>
             {note.signed ? (
-              <Flex align="center" gap={8} style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-success)' }}>
-                <CheckCircleOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />
-                <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57 }}>
+              <Flex align="center" gap={8} className={styles.signedRow}>
+                <CheckCircleOutlined className={styles.signedIcon} />
+                <span className={styles.signedText}>
                   Signed and locked by {note.practitioner.name} on {formatNoteDate(note.date)}
                 </span>
               </Flex>
             ) : (
-              <p style={{ fontSize: 14, lineHeight: 1.57, color: 'var(--color-text-secondary)' }}>
+              <p className={styles.unsignedText}>
                 This note has not been signed yet. Click &quot;Sign &amp; lock&quot; above to finalise.
               </p>
             )}

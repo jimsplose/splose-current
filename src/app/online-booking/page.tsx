@@ -91,7 +91,7 @@ function OnlineBookingPageInner() {
             }}
             className={styles.backButton}
           >
-            <LeftOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /> <Text variant="body/md" as="span">Back</Text>
+            <LeftOutlined className={styles.iconText16} /> <Text variant="body/md" as="span">Back</Text>
           </button>
         )}
 
@@ -117,7 +117,7 @@ function OnlineBookingPageInner() {
                         className={`${styles.locationCard} ${isSelected ? styles.locationCardSelected : ""}`}
                       >
                         <div className={styles.locationIcon}>
-                          <BankOutlined style={{ fontSize: 32, color: 'var(--ant-color-text, #414549)' }} />
+                          <BankOutlined className={styles.iconText32} />
                         </div>
                         <div className={styles.locationInfo}>
                           <span className={styles.locationName}>{loc.name}</span>
@@ -149,15 +149,15 @@ function OnlineBookingPageInner() {
                 {/* Filters */}
                 <div className={styles.filterRow}>
                   <div className={styles.filterItem}>
-                    <UserOutlined className="mr-2" style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                    <UserOutlined className={`mr-2 ${styles.iconText16}`} />
                     <Text variant="body/md" as="span" color="secondary">All practitioners</Text>
                   </div>
                   <div className={styles.filterItem}>
-                    <CalendarOutlined className="mr-2" style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                    <CalendarOutlined className={`mr-2 ${styles.iconText16}`} />
                     <Text variant="body/md" as="span" color="secondary">Any date</Text>
                   </div>
                   <div className={styles.filterItem}>
-                    <ClockCircleOutlined className="mr-2" style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                    <ClockCircleOutlined className={`mr-2 ${styles.iconText16}`} />
                     <Text variant="body/md" as="span" color="secondary">Any time</Text>
                   </div>
                 </div>
@@ -196,33 +196,29 @@ function OnlineBookingPageInner() {
 
                         {/* Date/time picker */}
                         <div className={styles.dateTimePicker}>
-                          <Text variant="heading/sm" as="div" style={{ marginBottom: 8 }}>March 2026</Text>
+                          <Text variant="heading/sm" as="div" mb={8}>March 2026</Text>
                           <div className={styles.weekNav}>
                             <Button type="text" shape="circle">
-                              <LeftOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                              <LeftOutlined className={styles.iconText16} />
                             </Button>
-                            {weekDays.map((d) => (
-                              <Button
-                                key={d.date}
-                                type="text" shape="circle"
-                                onClick={() => {
-                                  setSelectedDate(d.date);
-                                  setSelectedPractitioner(prac.id);
-                                }}
-                                className="flex flex-col items-center justify-center"
-                                style={{
-                                  height: 40,
-                                  width: 40,
-                                  ...(selectedDate === d.date && selectedPractitioner === prac.id
-                                    ? { background: 'var(--color-primary)', color: '#fff' }
-                                    : {}),
-                                }}
-                              >
-                                <Text variant="caption/sm" as="span">{d.date}</Text>
-                              </Button>
-                            ))}
+                            {weekDays.map((d) => {
+                              const isActive = selectedDate === d.date && selectedPractitioner === prac.id;
+                              return (
+                                <Button
+                                  key={d.date}
+                                  type="text" shape="circle"
+                                  onClick={() => {
+                                    setSelectedDate(d.date);
+                                    setSelectedPractitioner(prac.id);
+                                  }}
+                                  className={`flex flex-col items-center justify-center ${styles.dayButton} ${isActive ? styles.dayButtonActive : ""}`}
+                                >
+                                  <Text variant="caption/sm" as="span">{d.date}</Text>
+                                </Button>
+                              );
+                            })}
                             <Button type="text" shape="circle">
-                              <RightOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                              <RightOutlined className={styles.iconText16} />
                             </Button>
                           </div>
                           <div className={styles.dayLabels}>
@@ -238,7 +234,7 @@ function OnlineBookingPageInner() {
                               {(showAllTimes ? availableSlots : availableSlots.slice(0, 4)).map((slot) => (
                                 <Button
                                   key={slot}
-                                  style={{ width: 112 }}
+                                  className={styles.slotBtn}
                                   onClick={() => {
                                     setSelectedTime(slot);
                                     setSelectedPractitioner(prac.id);
@@ -252,7 +248,7 @@ function OnlineBookingPageInner() {
                                 type="primary"
                                 size="small"
                                 onClick={() => setShowAllTimes(!showAllTimes)}
-                                style={{ marginTop: 8 }}
+                                className={styles.seeAllMt8}
                               >
                                 {showAllTimes ? "Show fewer" : "See all times"}
                               </Button>
@@ -304,13 +300,13 @@ function OnlineBookingPageInner() {
                             ]}
                             value={phoneCode}
                             onChange={setPhoneCode}
-                            style={{ width: 80 }}
+                            className={styles.phoneCodeSelect}
                           />
                           <Input
                             type="tel"
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
-                            style={{ flex: 1 }}
+                            className={styles.phoneInputFlex}
                           />
                         </div>
                       </div>
@@ -329,7 +325,7 @@ function OnlineBookingPageInner() {
                           }))}
                           value={dobDay}
                           onChange={setDobDay}
-                          style={{ width: "100%" }}
+                          className={styles.fullWidthSelect}
                         />
                         <Select
                           options={[
@@ -338,7 +334,7 @@ function OnlineBookingPageInner() {
                           ].map((m) => ({ value: m, label: m }))}
                           value={dobMonth}
                           onChange={setDobMonth}
-                          style={{ width: "100%" }}
+                          className={styles.fullWidthSelect}
                         />
                         <Select
                           options={Array.from({ length: 100 }, (_, i) => ({
@@ -347,7 +343,7 @@ function OnlineBookingPageInner() {
                           }))}
                           value={dobYear}
                           onChange={setDobYear}
-                          style={{ width: "100%" }}
+                          className={styles.fullWidthSelect}
                         />
                       </div>
                     </div>
@@ -382,7 +378,7 @@ function OnlineBookingPageInner() {
                 <div className={styles.confirmedWrapper}>
                   <div className={styles.successIcon}>
                     <div className={styles.successCircle}>
-                      <CheckCircleOutlined style={{ fontSize: 32, color: "var(--color-green-600, #16a34a)" }} />
+                      <CheckCircleOutlined className={styles.iconSuccess32} />
                     </div>
                   </div>
                   <h1 className={`${styles.confirmedTitle} ${styles.pageTitle}`}>Booking confirmed!</h1>
@@ -423,8 +419,8 @@ function OnlineBookingPageInner() {
 
                   {/* Email preview card */}
                   <div className={styles.emailCard}>
-                    <Flex align="center" gap={8} style={{ marginBottom: 12 }}>
-                      <MailOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
+                    <Flex align="center" gap={8} className={styles.flexMb12}>
+                      <MailOutlined className={styles.iconSecondary16} />
                       <Text variant="heading/sm" as="h3">Confirmation email sent</Text>
                     </Flex>
                     <div className={styles.emailBody}>
@@ -462,26 +458,26 @@ function OnlineBookingPageInner() {
                     <Text variant="heading/sm" as="h3">Add to your calendar</Text>
                     <div className={styles.calendarButtons}>
                       <Button size="small">
-                        <PlusOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                        <PlusOutlined className={styles.iconText16} />
                         Google Calendar
                       </Button>
                       <Button size="small">
-                        <PlusOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                        <PlusOutlined className={styles.iconText16} />
                         Apple Calendar
                       </Button>
                       <Button size="small">
-                        <PlusOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                        <PlusOutlined className={styles.iconText16} />
                         Outlook
                       </Button>
                       <Button size="small">
-                        <CopyOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                        <CopyOutlined className={styles.iconText16} />
                         Copy .ics
                       </Button>
                     </div>
                   </div>
 
                   <div className={styles.bookAnotherWrapper}>
-                    <Button type="primary" onClick={() => setStep("select")} style={{ width: '100%', justifyContent: 'center' }}>
+                    <Button type="primary" onClick={() => setStep("select")} className={styles.bookAnotherFull}>
                       Book another appointment
                     </Button>
                   </div>
@@ -506,7 +502,7 @@ function OnlineBookingPageInner() {
                     <Text variant="heading/sm" as="div">Location</Text>
                     {selectedLocation && (
                       <Flex align="center" gap={6}>
-                        <EnvironmentOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
+                        <EnvironmentOutlined className={styles.iconText12} />
                         <Text variant="caption/md" as="span" color="secondary">{mockLocations.find((l) => l.id === selectedLocation)?.name}</Text>
                       </Flex>
                     )}
@@ -528,11 +524,11 @@ function OnlineBookingPageInner() {
                     {step !== "location" && (
                       <>
                         <Flex align="center" gap={6}>
-                          <FileTextOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
+                          <FileTextOutlined className={styles.iconText12} />
                           <Text variant="caption/md" as="span" color="secondary">1:1 Consultation (40 mins d...</Text>
                         </Flex>
                         <Flex align="center" gap={6}>
-                          <span className="text-center" style={{ width: 12, fontSize: 12 }}>$</span>
+                          <span className={`text-center ${styles.currencyMark}`}>$</span>
                           <Text variant="caption/md" as="span" color="secondary">A$148.71</Text>
                         </Flex>
                       </>
@@ -548,15 +544,15 @@ function OnlineBookingPageInner() {
                     {step === "confirm" && selectedPrac && (
                       <>
                         <Flex align="center" gap={6}>
-                          <UserOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
+                          <UserOutlined className={styles.iconText12} />
                           <Text variant="caption/md" as="span" color="secondary">{selectedPrac.name}</Text>
                         </Flex>
                         <Flex align="center" gap={6}>
-                          <ClockCircleOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
+                          <ClockCircleOutlined className={styles.iconText12} />
                           <Text variant="caption/md" as="span" color="secondary">{selectedTime}</Text>
                         </Flex>
                         <Flex align="center" gap={6}>
-                          <CalendarOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
+                          <CalendarOutlined className={styles.iconText12} />
                           <Text variant="caption/md" as="span" color="secondary">Thursday 19 March 2026</Text>
                         </Flex>
                       </>
@@ -586,7 +582,6 @@ function OnlineBookingPageInner() {
                     <Button
                       type="primary"
                       className={styles.continueFull}
-                      style={{ width: "100%", height: 44, fontSize: 16 }}
                       onClick={() => setStep("select")}
                     >
                       Continue
@@ -596,7 +591,6 @@ function OnlineBookingPageInner() {
                       type="primary"
                       disabled
                       className={styles.continueFull}
-                      style={{ width: "100%", height: 44, fontSize: 16 }}
                     >
                       Continue
                     </Button>
@@ -606,7 +600,6 @@ function OnlineBookingPageInner() {
                     type="primary"
                     disabled
                     className={styles.continueFull}
-                    style={{ width: "100%", height: 44, fontSize: 16 }}
                   >
                     Continue
                   </Button>
@@ -614,7 +607,6 @@ function OnlineBookingPageInner() {
                   <Button
                     type="primary"
                     className={styles.continueFull}
-                    style={{ width: "100%", height: 44, fontSize: 16 }}
                     onClick={() => setStep("confirmed")}
                   >
                     Confirm

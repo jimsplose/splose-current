@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { UploadOutlined, FileExcelOutlined, CheckCircleFilled } from "@ant-design/icons";
-import { Tab, FormPage, Card, FormSelect } from "@/components/ds";
+import { Tab, FormPage, Card, FormSelect, Text } from "@/components/ds";
+import styles from "./DataImportCsv.module.css";
 
 const importTabs = [
   { label: "Clients", value: "clients" },
@@ -59,7 +60,7 @@ export default function CSVImportPage() {
       key: "csvColumn",
       title: "CSV column",
       render: (_, row) => (
-        <span style={{ borderRadius: 4, backgroundColor: '#f3f4f6', padding: '2px 8px', fontFamily: 'monospace', fontSize: 12 }}>{row.csvColumn}</span>
+        <span className={styles.csvColumn}>{row.csvColumn}</span>
       ),
     },
     {
@@ -82,9 +83,9 @@ export default function CSVImportPage() {
       align: "center" as const,
       render: (_, row) => (
         row.mapped ? (
-          <CheckCircleFilled className="block mx-auto" style={{ fontSize: 16, color: 'var(--color-success)' }} />
+          <CheckCircleFilled className={`block mx-auto ${styles.statusIconSuccess}`} />
         ) : (
-          <span style={{ fontSize: 11, color: '#d97706' }}>Unmapped</span>
+          <Text as="span" variant="caption/sm" color="warning">Unmapped</Text>
         )
       ),
     },
@@ -101,36 +102,36 @@ export default function CSVImportPage() {
           <Button type="primary" onClick={() => router.push("/settings/data-import")} disabled={!fileUploaded}>Import</Button>
         </Flex>
       }
-      style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
+      className={styles.formPageRoot}
     >
-      <div style={{ borderBottom: '1px solid var(--color-border)', padding: '0 24px', margin: '-24px -24px 0' }}>
+      <div className={styles.tabsBar}>
         <Tab items={importTabs} value={activeTab} onChange={setActiveTab} />
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto', padding: 24, margin: '0 -24px -24px' }}>
-        <div style={{ maxWidth: 768, margin: '0 auto' }}>
+      <div className={styles.scrollArea}>
+        <div className={styles.contentInner}>
           <Flex vertical gap={24}>
             {/* Upload zone */}
             <div>
-              <h3 style={{ marginBottom: 12, fontSize: 18, fontWeight: 600 }}>Upload CSV file</h3>
+              <h3 className={styles.sectionHeading}>Upload CSV file</h3>
               {!fileUploaded ? (
                 <button
                   onClick={() => setFileUploaded(true)}
-                  style={{ display: 'flex', width: '100%', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '2px dashed var(--color-border)', backgroundColor: 'var(--color-fill-tertiary)', padding: '48px 0', transition: 'all 0.2s', cursor: 'pointer' }}
+                  className={styles.uploadButton}
                 >
-                  <UploadOutlined style={{ fontSize: 32, color: 'var(--ant-color-text-secondary, #6E6E64)', marginBottom: 8 }} />
-                  <span style={{ fontSize: 14 }}>Click to upload or drag and drop</span>
-                  <span style={{ marginTop: 4, fontSize: 11, color: 'var(--color-text-secondary)' }}>CSV files only, max 10MB</span>
+                  <UploadOutlined className={styles.uploadIcon} />
+                  <Text variant="body/md">Click to upload or drag and drop</Text>
+                  <Text variant="caption/sm" color="secondary" mt={4}>CSV files only, max 10MB</Text>
                 </button>
               ) : (
                 <Card padding="none">
-                  <Flex align="center" gap={12} style={{ padding: '12px 16px' }}>
-                    <FileExcelOutlined style={{ fontSize: 20, color: 'var(--ant-color-primary, #8250FF)' }} />
-                    <div style={{ flex: 1 }}>
-                      <span style={{ fontSize: 14 }}>{activeTab}_import_2026.csv</span>
-                      <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--color-text-secondary)' }}>245 rows</span>
+                  <Flex align="center" gap={12} className={styles.fileRow}>
+                    <FileExcelOutlined className={styles.fileIcon} />
+                    <div className={styles.fileNameWrap}>
+                      <Text as="span" variant="body/md">{activeTab}_import_2026.csv</Text>
+                      <Text as="span" variant="caption/sm" color="secondary" style={{ marginLeft: 8 }}>245 rows</Text>
                     </div>
-                    <CheckCircleFilled style={{ fontSize: 20, color: 'var(--ant-color-success, #00C269)' }} />
+                    <CheckCircleFilled className={styles.fileSuccessIcon} />
                     <Button size="small" onClick={() => setFileUploaded(false)}>Remove</Button>
                   </Flex>
                 </Card>
@@ -140,11 +141,11 @@ export default function CSVImportPage() {
             {/* Field mapping */}
             {fileUploaded && (
               <div>
-                <h3 style={{ marginBottom: 12, fontSize: 18, fontWeight: 600 }}>Field mapping</h3>
-                <p style={{ marginBottom: 16, fontSize: 14, color: 'var(--color-text-secondary)' }}>
+                <h3 className={styles.sectionHeading}>Field mapping</h3>
+                <Text variant="body/md" color="secondary" mb={16}>
                   Map CSV columns to Splose fields. Unmapped columns will be skipped.
-                </p>
-                <Card padding="none" style={{ overflow: 'hidden' }}>
+                </Text>
+                <Card padding="none" className={styles.tableCard}>
                   <Table columns={columns} dataSource={mappings} rowKey="csvColumn" pagination={false} />
                 </Card>
               </div>

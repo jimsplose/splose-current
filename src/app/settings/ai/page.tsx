@@ -5,7 +5,8 @@ import { useSearchParams } from "next/navigation";
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { InfoCircleOutlined } from "@ant-design/icons";
-import { FormInput, FormTextarea, FormSelect, Tab, Toggle, Pagination, Dropdown, Modal, EmptyState, Badge, Alert, PageHeader, Divider, Text } from "@/components/ds";
+import { FormInput, FormTextarea, FormSelect, Tab, Toggle, Pagination, Dropdown, Modal, Alert, PageHeader, Divider, Text, Badge } from "@/components/ds";
+import styles from "./SettingsAi.module.css";
 
 const aiBlocks = [
   { name: "Subjective Assessment", tag: "SOAP", createdBy: "Jim Yencken", lastModified: "12 Mar 2026" },
@@ -54,7 +55,7 @@ function SettingsAIPageInner() {
   }, [forcedState]);
 
   return (
-    <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+    <div className={styles.shell}>
         <PageHeader title="splose AI">
           <Button>Learn</Button>
           <Button type="primary">Save</Button>
@@ -89,50 +90,50 @@ function PreferencesTab() {
 
   return (
     <div>
-      <Text variant="heading/xl" as="h3" color="text" style={{ lineHeight: '44px', marginBottom: 8 }}>splose AI settings: More control, your way</Text>
+      <Text variant="heading/xl" as="h3" color="text" mb={8} className={styles.heroHeading}>splose AI settings: More control, your way</Text>
 
       {/* Two-column layout: description (left) + video preview (right) */}
-      <div style={{ display: 'flex', gap: 60 }}>
+      <div className={styles.twoColumn}>
         {/* Left column — preferences */}
-        <div style={{ flex: '1 1 0' }}>
+        <div className={styles.leftCol}>
           <Divider variant="primary" spacing="sm" />
-          <Text variant="body/md" as="h4" color="text" style={{ marginBottom: 10 }}>Preferences</Text>
+          <Text variant="body/md" as="h4" color="text" mb={10}>Preferences</Text>
 
           {/* Card container */}
-          <div style={{ border: '1px solid rgb(217, 217, 217)', borderRadius: 8, padding: 20, backgroundColor: '#fff', boxShadow: 'rgba(193, 167, 255, 0.1) 0px 2px 4px 0px' }}>
+          <div className={styles.prefsCard}>
             {/* Progress notes */}
-            <Text variant="heading/xl" as="h4" color="text" style={{ marginBottom: 30 }}>splose AI - progress notes</Text>
+            <Text variant="heading/xl" as="h4" color="text" mb={30}>splose AI - progress notes</Text>
             <Flex vertical gap={16}>
               <Flex align="center" justify="space-between">
-                <span style={{ fontSize: 14 }}>Enable voice to text and ask splose AI</span>
+                <Text as="span" variant="body/md" className={styles.prefRow}>Enable voice to text and ask splose AI</Text>
                 <Toggle checked={voiceToText} onChange={setVoiceToText} />
               </Flex>
               <Flex align="center" justify="space-between">
-                <span style={{ fontSize: 14 }}>Save recording to client file</span>
+                <Text as="span" variant="body/md" className={styles.prefRow}>Save recording to client file</Text>
                 <Toggle checked={saveRecording} onChange={setSaveRecording} />
               </Flex>
             </Flex>
 
-            <Divider variant="primary" spacing="sm" style={{ margin: '0 0 12px' }} />
+            <Divider variant="primary" spacing="sm" className={styles.prefsDivider} />
 
             {/* Email */}
-            <Text variant="heading/xl" as="h4" color="text" style={{ marginBottom: 30 }}>splose AI - email</Text>
+            <Text variant="heading/xl" as="h4" color="text" mb={30}>splose AI - email</Text>
             <Flex align="center" justify="space-between">
-              <span style={{ fontSize: 14 }}>Enable splose AI email assistant</span>
+              <Text as="span" variant="body/md" className={styles.prefRow}>Enable splose AI email assistant</Text>
               <Toggle checked={emailAssistant} onChange={setEmailAssistant} />
             </Flex>
 
-            <Divider variant="primary" spacing="sm" style={{ margin: '0 0 12px' }} />
+            <Divider variant="primary" spacing="sm" className={styles.prefsDivider} />
 
             {/* Calendar */}
-            <Text variant="heading/xl" as="h4" color="text" style={{ marginBottom: 30 }}>splose AI - calendar</Text>
+            <Text variant="heading/xl" as="h4" color="text" mb={30}>splose AI - calendar</Text>
             <Flex vertical gap={16}>
               <Flex align="center" justify="space-between">
-                <span style={{ fontSize: 14 }}>Enable splose AI for calendar</span>
+                <Text as="span" variant="body/md" className={styles.prefRow}>Enable splose AI for calendar</Text>
                 <Toggle checked={calendarAI} onChange={setCalendarAI} />
               </Flex>
               <Flex align="center" justify="space-between">
-                <span style={{ fontSize: 14 }}>Include cancelled appointment slots in splose AI for calendar</span>
+                <Text as="span" variant="body/md" className={styles.prefRow}>Include cancelled appointment slots in splose AI for calendar</Text>
                 <Toggle checked={cancelledSlots} onChange={setCancelledSlots} />
               </Flex>
             </Flex>
@@ -140,13 +141,13 @@ function PreferencesTab() {
         </div>
 
         {/* Right column — Wistia video preview */}
-        <div style={{ flexShrink: 0, width: 383 }}>
-          <div style={{ width: 383, height: 383 }}>
+        <div className={styles.videoCol}>
+          <div className={styles.videoFrame}>
             <iframe
               src="https://fast.wistia.net/embed/iframe/xpxc3cl0j7"
               title="splose AI preview"
               allow="autoplay; fullscreen"
-              style={{ width: '100%', height: '100%', border: 'none' }}
+              className={styles.videoIframe}
             />
           </div>
         </div>
@@ -184,7 +185,7 @@ function SavedPromptsTab() {
       align: "right" as const,
       render: (_, row) => (
         <Dropdown
-          trigger={<Button type="text" size="small" style={{ color: 'var(--color-text-secondary)' }}>...</Button>}
+          trigger={<Button type="text" size="small" className={styles.dropdownTrigger}>...</Button>}
           items={[
             { label: "Edit", value: "edit" },
             { label: "Duplicate", value: "duplicate" },
@@ -200,7 +201,7 @@ function SavedPromptsTab() {
   return (
     <div>
       <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 600 }}>AI prompts</h2>
+        <h2 className={styles.savedPromptsHeader}>AI prompts</h2>
         <Button>+ New prompt</Button>
       </Flex>
 
@@ -263,22 +264,22 @@ function AIBlockLibraryTab() {
   const columns: ColumnsType<typeof aiBlocks[number]> = [
     {
       key: "name",
-      title: <div className="flex items-center gap-1">AI block <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>&#8645;</span></div>,
+      title: <div className={styles.tableHeader}>AI block <span className={styles.sortArrow}>&#8645;</span></div>,
       dataIndex: "name",
     },
     {
       key: "tag",
-      title: <div className="flex items-center gap-1">Tag <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>&#8645;</span></div>,
+      title: <div className={styles.tableHeader}>Tag <span className={styles.sortArrow}>&#8645;</span></div>,
       render: (_, row) => <Badge variant="purple">{row.tag}</Badge>,
     },
     {
       key: "createdBy",
-      title: <div className="flex items-center gap-1">Created by <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>&#9660;</span></div>,
+      title: <div className={styles.tableHeader}>Created by <span className={styles.sortArrow}>&#9660;</span></div>,
       render: (_, row) => <Text color="secondary" as="span">{row.createdBy}</Text>,
     },
     {
       key: "lastModified",
-      title: <div className="flex items-center gap-1">Last modified <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>&#8645;</span></div>,
+      title: <div className={styles.tableHeader}>Last modified <span className={styles.sortArrow}>&#8645;</span></div>,
       render: (_, row) => <Text color="secondary" as="span">{row.lastModified}</Text>,
     },
     {
@@ -287,7 +288,7 @@ function AIBlockLibraryTab() {
       align: "right" as const,
       render: (_, row) => (
         <Dropdown
-          trigger={<Button type="text" size="small" style={{ color: 'var(--color-text-secondary)' }}>...</Button>}
+          trigger={<Button type="text" size="small" className={styles.dropdownTrigger}>...</Button>}
           items={[
             { label: "Edit", value: "edit" },
             { label: "Duplicate", value: "duplicate" },
@@ -303,31 +304,31 @@ function AIBlockLibraryTab() {
   return (
     <div>
       {/* Beta banner */}
-      <Alert variant="info" icon={<InfoCircleOutlined style={{ fontSize: 14, color: 'var(--ant-color-text, #414549)' }} />} style={{ marginBottom: 16 }}>
+      <Alert variant="info" icon={<InfoCircleOutlined />} style={{ marginBottom: 16 }}>
         <Flex justify="space-between" align="center">
-          <span style={{ fontSize: 14 }}>We need your feedback on AI blocks.</span>
-          <Flex align="center" gap={8} style={{ fontSize: 14 }}>
-            <span style={{ color: 'var(--color-text-secondary)' }}>Fill a</span>
-            <span className="underline" style={{ cursor: 'pointer', color: 'var(--color-primary)' }}>short survey.</span>
-            <Button type="text" size="small" style={{ marginLeft: 8, color: 'var(--color-text-secondary)' }}>&times;</Button>
+          <Text as="span" variant="body/md">We need your feedback on AI blocks.</Text>
+          <Flex align="center" gap={8}>
+            <Text as="span" variant="body/md" color="secondary">Fill a</Text>
+            <span className={styles.alertRowLink}>short survey.</span>
+            <Button type="text" size="small" className={styles.alertCloseBtn}>&times;</Button>
           </Flex>
         </Flex>
       </Alert>
 
-      <p style={{ marginBottom: 16, fontSize: 14, color: 'var(--color-text-secondary)' }}>
+      <Text as="p" variant="body/md" color="secondary" mb={16}>
         Spend less time writing prompts with your saved library of AI blocks, organised by{" "}
-        <span className="underline" style={{ cursor: 'pointer', color: 'var(--color-primary)' }}>tags</span>. AI blocks are reusable, customisable and
+        <span className={styles.alertRowLink}>tags</span>. AI blocks are reusable, customisable and
         adjust to your client&apos;s context. Insert them into a template or progress note.{" "}
-        <span className="underline" style={{ cursor: 'pointer', color: 'var(--color-primary)' }}>Learn more</span>.
-      </p>
+        <span className={styles.alertRowLink}>Learn more</span>.
+      </Text>
 
       {/* Search and new button */}
       <Flex align="center" gap={8} style={{ marginBottom: 16 }}>
-        <div style={{ flex: 1, position: 'relative' }}>
-          <FormInput placeholder="Search" style={{ height: 40, paddingLeft: 16, paddingRight: 16 }} />
+        <div style={{ flex: 1 }}>
+          <FormInput placeholder="Search" className={styles.searchInput} />
         </div>
-        <Button type="primary" size="small" style={{ paddingLeft: 8, paddingRight: 8, paddingTop: 8, paddingBottom: 8 }}>
-          <svg style={{ height: 20, width: 20 }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <Button type="primary" size="small" className={styles.searchBtn}>
+          <svg className={styles.searchIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -340,7 +341,7 @@ function AIBlockLibraryTab() {
       </Flex>
 
       {/* Saved blocks heading */}
-      <Text variant="heading/md" as="h3" color="text" style={{ marginBottom: 12 }}>Your saved blocks</Text>
+      <Text variant="heading/md" as="h3" color="text" mb={12}>Your saved blocks</Text>
 
       {/* Table */}
       <Table columns={columns} dataSource={aiBlocks} rowKey="name" pagination={false} />

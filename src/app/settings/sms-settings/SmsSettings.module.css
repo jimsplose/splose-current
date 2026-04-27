@@ -1,0 +1,124 @@
+.shell {
+  padding: 24px;
+}
+
+.iconBtn {
+  font-size: 14px;
+  color: var(--ant-color-text, #414549);
+}
+
+.creditCard {
+  display: inline-block;
+  border-radius: 3px;
+  padding: 15px;
+  margin-bottom: 32px;
+  border-color: rgb(232, 232, 232);
+  min-width: 200px;
+}
+
+.creditValue {
+  font-size: 24px;
+  line-height: 1.5715;
+}
+
+.section {
+  margin-bottom: 32px;
+}
+
+.creditOptionGroup {
+  display: inline-flex;
+  margin-bottom: 16px;
+}
+
+.creditOption {
+  width: 107px;
+  height: 100px;
+  padding: 0 15px;
+  border-style: solid;
+  border-width: 1px 1px 1px 0;
+  border-color: rgb(217, 217, 217);
+  background-color: rgb(255, 255, 255);
+  color: rgb(65, 69, 73);
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.creditOptionFirst {
+  border-width: 1px;
+  border-radius: 6px 0 0 6px;
+}
+
+.creditOptionLast {
+  border-radius: 0 6px 6px 0;
+}
+
+.creditOptionActive {
+  border-color: rgb(130, 80, 255);
+  color: rgb(130, 80, 255);
+}
+
+.contentBlock {
+  max-width: 672px;
+}
+
+.contentBlockSection {
+  max-width: 672px;
+  margin-bottom: 24px;
+}
+
+.body {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.bodyText {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.bodyTextSpaced {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin-bottom: 16px;
+}
+
+.helperText {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+
+.helperTextTop {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin-top: 8px;
+}
+
+.linkInline {
+  color: var(--color-primary);
+}
+
+.narrowField {
+  max-width: 320px;
+}
+
+.narrowFieldSpaced {
+  max-width: 320px;
+  margin-bottom: 16px;
+}
+
+.copyBtn {
+  margin-bottom: 4px;
+}
+
+.numberRow {
+  margin-bottom: 8px;
+}

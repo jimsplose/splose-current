@@ -37,3 +37,56 @@
   background-color: color-mix(in srgb, var(--color-primary) 5%, transparent);
   color: var(--color-primary);
 }
+
+/* ── Icon styling ─────────────────────────────────────────────────────────── */
+
+.iconText {
+  font-size: 14px;
+  color: var(--ant-color-text, #414549);
+}
+
+.iconSecondary {
+  font-size: 14px;
+  color: var(--ant-color-text-secondary, #6E6E64);
+}
+
+/* ── Expanded row layout ─────────────────────────────────────────────────── */
+
+.expandedRow {
+  padding: 12px 32px;
+}
+
+.expandedGrid {
+  margin-bottom: 12px;
+}
+
+.expandedFieldValue {
+  margin-top: 2px;
+}
+
+/* ── Stock modal ─────────────────────────────────────────────────────────── */
+
+.stockTableWrap {
+  overflow-x: auto;
+}
+
+.stockPagination {
+  margin-top: 16px;
+}
+
+.stockActionTrigger {
+  height: 28px;
+  width: 28px;
+}
+
+/* ── Form fields ─────────────────────────────────────────────────────────── */
+
+.fullWidthSelect {
+  width: 100%;
+}
+
+/* ── Empty state ─────────────────────────────────────────────────────────── */
+
+.emptyStatePadding {
+  padding: 32px 0;
+}

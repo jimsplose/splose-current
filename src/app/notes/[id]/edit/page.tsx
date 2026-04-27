@@ -26,11 +26,11 @@ import {
   FontSizeOutlined,
   MessageOutlined,
   SnippetsOutlined,
-  ArrowUpOutlined,
 } from "@ant-design/icons";
 import { Button, Flex, Select } from "antd";
 import { Card, Checkbox, List, Navbar, Filter, Spinner, Dropdown, Text, Divider, Tooltip } from "@/components/ds";
 import AiChatPanel from "@/components/AiChatPanel";
+import styles from "./NoteEdit.module.css";
 
 type NoteData = {
   id: string;
@@ -274,7 +274,7 @@ export default function EditProgressNotePage() {
 
   if (loading) {
     return (
-      <Flex align="center" justify="center" style={{ height: 'calc(100vh - 3rem)' }}>
+      <Flex align="center" justify="center" className={styles.spinnerShell}>
         <Spinner size="lg" />
       </Flex>
     );
@@ -283,92 +283,92 @@ export default function EditProgressNotePage() {
   const clientName = note ? `${note.client.firstName} ${note.client.lastName}` : "Client";
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 3rem)', backgroundColor: 'rgba(249, 250, 251, 0.3)' }}>
+    <div className={styles.shell}>
       {/* Header bar */}
       <Navbar
         backHref={`/notes/${id}`}
         title={note?.name || "Note"}
         badge={
           <>
-            <span style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-primary)', cursor: 'pointer' }}>{clientName}</span>
-            <span style={{ fontSize: 13, fontWeight: 400, color: 'rgb(66, 105, 74)' }}>Note has been autosaved</span>
+            <span className={styles.clientNameBadge}>{clientName}</span>
+            <span className={styles.autosavedBadge}>Note has been autosaved</span>
           </>
         }
       >
         {/* AI sparkle button */}
         <Button
-          type={aiChatOpen ? "primary" : "text"} shape="circle"
+          type={aiChatOpen ? "primary" : "text"}
+          shape="circle"
           size="small"
           onClick={() => setAiChatOpen(!aiChatOpen)}
           title="Splose AI"
-          style={aiChatOpen ? { backgroundColor: 'var(--color-primary)', color: '#fff', width: 36, height: 36 } : { width: 36, height: 36, border: '1px solid var(--color-border)' }}
+          className={aiChatOpen ? styles.aiSparkleBtnActive : styles.aiSparkleBtn}
         >
-          <SnippetsOutlined style={{ fontSize: 16, color: 'inherit' }} />
+          <SnippetsOutlined className={styles.iconInherit} />
         </Button>
         {/* View toggle */}
         <Filter
           items={[
-            { label: <AppstoreOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />, value: "single" },
-            { label: <ColumnWidthOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />, value: "split" },
+            { label: <AppstoreOutlined className={styles.iconText} />, value: "single" },
+            { label: <ColumnWidthOutlined className={styles.iconText} />, value: "split" },
           ]}
           value={viewMode}
           onChange={(v) => setViewMode(v as "single" | "split")}
         />
         {/* Save as final — purple split button */}
         <Flex>
-          <Button type="primary" style={{ borderRadius: '8px 0px 0px 8px' }}>
+          {/* ds-exempt: split-button border-radius */}
+          <Button type="primary" className={styles.saveBtnLeft}>
             Save as final
           </Button>
-          <Button type="primary" style={{ borderRadius: '0px 8px 8px 0px', borderLeft: '1px solid rgba(255,255,255,0.3)', padding: '0 8px', minWidth: 0 }}>
-            <DownOutlined style={{ fontSize: 12, color: 'inherit' }} />
+          {/* ds-exempt: split-button border-radius */}
+          <Button type="primary" className={styles.saveBtnRight}>
+            <DownOutlined className={styles.iconInheritSm} />
           </Button>
         </Flex>
       </Navbar>
 
-      <div style={{ display: 'flex' }}>
+      <div className={styles.body}>
         {/* Editor panel */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: 24, backgroundColor: '#fff', maxHeight: 'calc(100vh - 6rem)' }}>
-          <div style={{ maxWidth: 768, margin: '0 auto' }}>
+        <div className={styles.editorPane}>
+          <div className={styles.editorInner}>
             {/* Service selector */}
-            <div style={{ marginBottom: 16 }}>
-              <div style={{ marginBottom: 4, fontSize: 14, fontWeight: 400, color: 'rgb(65, 69, 73)' }}>Service</div>
+            <div className={styles.serviceField}>
+              <div className={styles.serviceLabel}>Service</div>
               <Select
                 options={SERVICE_OPTIONS}
                 value={service}
                 onChange={setService}
-                style={{ width: "100%" }}
+                className={styles.serviceSelect}
               />
             </div>
 
             {/* Rich text toolbar */}
-            <Card padding="none" style={{ marginBottom: 16, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 4, padding: '6px 8px', color: 'var(--color-text-secondary)' }}>
-              <Button type="text" size="small" style={{ display: 'flex', alignItems: 'center', gap: 2, fontSize: 12 }}>
+            <Card padding="none" className={styles.toolbar}>
+              <Button type="text" size="small" className={styles.toolbarFontBtn}>
                 Arial
-                <DownOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
+                <DownOutlined className={styles.iconTextSm} />
               </Button>
-              <Button type="text" size="small" style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <FontSizeOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
-                <DownOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
+              <Button type="text" size="small" className={styles.toolbarFontSizeBtn}>
+                <FontSizeOutlined className={styles.iconText} />
+                <DownOutlined className={styles.iconTextSm} />
               </Button>
               <Divider orientation="vertical" spacing="none" />
-              <Tooltip content="Bold"><Button type="text"><BoldOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
-              <Tooltip content="Italic"><Button type="text"><ItalicOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
-              <Tooltip content="Underline"><Button type="text"><UnderlineOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
-              <Tooltip content="Strikethrough"><Button type="text"><StrikethroughOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
+              <Tooltip content="Bold"><Button type="text"><BoldOutlined className={styles.iconText} /></Button></Tooltip>
+              <Tooltip content="Italic"><Button type="text"><ItalicOutlined className={styles.iconText} /></Button></Tooltip>
+              <Tooltip content="Underline"><Button type="text"><UnderlineOutlined className={styles.iconText} /></Button></Tooltip>
+              <Tooltip content="Strikethrough"><Button type="text"><StrikethroughOutlined className={styles.iconText} /></Button></Tooltip>
               <Divider orientation="vertical" spacing="none" />
-              <Tooltip content="Insert link"><Button type="text"><LinkOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
-              <Tooltip content="Insert image"><Button type="text"><PictureOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
-              <Tooltip content="Insert table"><Button type="text"><TableOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
-              <Tooltip content="Bulleted list"><Button type="text"><UnorderedListOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
-              <Tooltip content="Numbered list"><Button type="text"><OrderedListOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
-              <Tooltip content="Align left"><Button type="text"><AlignLeftOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
-              <Tooltip content="Text colour"><Button type="text"><BgColorsOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} /></Button></Tooltip>
-              <span style={{ flex: 1 }} />
-              <Button
-                onClick={generateAll}
-                style={{ backgroundColor: 'rgb(239, 239, 239)', borderColor: 'transparent', color: 'rgb(65, 69, 73)', borderRadius: 12, height: 32 }}
-              >
-                <ThunderboltOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+              <Tooltip content="Insert link"><Button type="text"><LinkOutlined className={styles.iconText} /></Button></Tooltip>
+              <Tooltip content="Insert image"><Button type="text"><PictureOutlined className={styles.iconText} /></Button></Tooltip>
+              <Tooltip content="Insert table"><Button type="text"><TableOutlined className={styles.iconText} /></Button></Tooltip>
+              <Tooltip content="Bulleted list"><Button type="text"><UnorderedListOutlined className={styles.iconText} /></Button></Tooltip>
+              <Tooltip content="Numbered list"><Button type="text"><OrderedListOutlined className={styles.iconText} /></Button></Tooltip>
+              <Tooltip content="Align left"><Button type="text"><AlignLeftOutlined className={styles.iconText} /></Button></Tooltip>
+              <Tooltip content="Text colour"><Button type="text"><BgColorsOutlined className={styles.iconText} /></Button></Tooltip>
+              <span className={styles.toolbarSpacer} />
+              <Button onClick={generateAll} className={styles.generateBtn}>
+                <ThunderboltOutlined className={styles.iconText} />
                 Generate
               </Button>
               <Button
@@ -376,19 +376,19 @@ export default function EditProgressNotePage() {
                 size="small"
                 onClick={() => setAiChatOpen(!aiChatOpen)}
                 title="Splose AI Chat"
-                style={aiChatOpen ? { backgroundColor: 'var(--color-primary)', color: '#fff' } : undefined}
+                className={aiChatOpen ? styles.aiChatBtnActive : undefined}
               >
-                <MessageOutlined style={{ fontSize: 16, color: 'inherit' }} />
+                <MessageOutlined className={styles.iconInherit} />
               </Button>
               <Button type="primary" shape="circle" size="small">
-                <PlusOutlined style={{ fontSize: 16, color: 'inherit' }} />
+                <PlusOutlined className={styles.iconInherit} />
               </Button>
             </Card>
 
             {/* Syncing notice */}
-            <Flex align="center" gap={8} style={{ marginBottom: 16, borderRadius: 8, backgroundColor: 'var(--color-primary-bg)', padding: '8px 12px' }}>
+            <Flex align="center" gap={8} className={styles.syncingNotice}>
               <Flex align="center" gap={4}>
-                <Checkbox checked readOnly style={{ height: 12, width: 12 }} />
+                <Checkbox checked readOnly className={styles.syncingCheckbox} />
                 <Text variant="body/sm" as="span" color="secondary">Syncing client history</Text>
               </Flex>
               <Text variant="body/sm" as="span" color="secondary">
@@ -397,7 +397,7 @@ export default function EditProgressNotePage() {
             </Flex>
 
             {/* Client info table */}
-            <Card padding="sm" style={{ marginBottom: 24 }}>
+            <Card padding="sm" className={styles.clientInfoCard}>
               <List
                 labelWidth="w-40"
                 items={[
@@ -413,29 +413,29 @@ export default function EditProgressNotePage() {
 
             {/* AI Sections */}
             {sections.map((section) => (
-              <div key={section.id} style={{ marginBottom: 24 }}>
-                <h3 style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, marginBottom: 8 }}>{section.title}</h3>
+              <div key={section.id} className={styles.section}>
+                <h3 className={styles.sectionHeading}>{section.title}</h3>
 
                 {/* Show accepted content directly under heading */}
                 {accepted[section.id] && section.generated && (
-                  <Text variant="body/md" as="div" style={{ marginBottom: 8, lineHeight: 1.625, whiteSpace: 'pre-wrap' }}>
+                  <Text variant="body/md" as="div" className={styles.acceptedContent}>
                     {section.content}
                   </Text>
                 )}
 
                 {/* AI Block — hidden once accepted */}
                 {!accepted[section.id] && (
-                  <div style={{ borderRadius: 8, border: '1px solid rgba(var(--color-primary-rgb, 124, 58, 237), 0.2)', backgroundColor: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.05)' }}>
+                  <div className={styles.aiBlock}>
                     {/* AI block header */}
                     <Flex
                       align="center"
                       justify="space-between"
-                      style={{ padding: '12px 16px', cursor: 'pointer' }}
+                      className={styles.aiBlockHeader}
                       onClick={() => toggleSection(section.id)}
                     >
                       <Flex align="center" gap={8}>
-                        <ThunderboltOutlined style={{ fontSize: 16, color: 'var(--ant-color-primary, #8250FF)' }} />
-                        <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.57, color: 'var(--color-primary)' }}>AI block</span>
+                        <ThunderboltOutlined className={styles.iconPrimary} />
+                        <span className={styles.aiBlockTitle}>AI block</span>
                       </Flex>
                       <Flex align="center" gap={8}>
                         <Tooltip content="Dismiss">
@@ -447,22 +447,22 @@ export default function EditProgressNotePage() {
                               dismissSection(section.id);
                             }}
                           >
-                            <span style={{ fontSize: 14, fontWeight: 500 }}>&times;</span>
+                            <span className={styles.aiBlockDismiss}>&times;</span>
                           </Button>
                         </Tooltip>
                         {section.expanded ? (
-                          <UpOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
+                          <UpOutlined className={styles.iconSecondary} />
                         ) : (
-                          <DownOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
+                          <DownOutlined className={styles.iconSecondary} />
                         )}
                       </Flex>
                     </Flex>
 
                     {/* AI block content */}
                     {section.expanded && (
-                      <div style={{ borderTop: '1px solid rgba(168, 85, 247, 0.3)', padding: '12px 16px' }}>
+                      <div className={styles.aiBlockBody}>
                         {section.generating ? (
-                          <Flex align="center" gap={8} style={{ padding: '16px 0' }}>
+                          <Flex align="center" gap={8} className={styles.thinkingRow}>
                             <Spinner size="sm" />
                             <Text variant="body/md" as="span" color="secondary">
                               Thinking<span>...</span>
@@ -470,16 +470,16 @@ export default function EditProgressNotePage() {
                           </Flex>
                         ) : section.generated ? (
                           <div>
-                            <Text variant="body/md" as="div" style={{ lineHeight: 1.625, whiteSpace: 'pre-wrap' }}>
+                            <Text variant="body/md" as="div" className={styles.aiContent}>
                               {section.content}
                             </Text>
                             {/* Feedback and actions row */}
-                            <Flex align="center" justify="space-between" style={{ marginTop: 12 }}>
+                            <Flex align="center" justify="space-between" className={styles.actionsRow}>
                               <Dropdown
                                 trigger={
                                   <Button type="text" size="small">
                                     Actions
-                                    <DownOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
+                                    <DownOutlined className={styles.iconTextSm} />
                                   </Button>
                                 }
                                 items={[
@@ -499,13 +499,9 @@ export default function EditProgressNotePage() {
                                     type="text"
                                     size="small"
                                     onClick={() => setFeedback(section.id, "up")}
-                                    style={
-                                      section.feedback === "up"
-                                        ? { backgroundColor: '#dcfce7', color: '#16a34a' }
-                                        : undefined
-                                    }
+                                    className={section.feedback === "up" ? styles.feedbackUp : undefined}
                                   >
-                                    <LikeOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                                    <LikeOutlined className={styles.iconText} />
                                   </Button>
                                 </Tooltip>
                                 <Tooltip content="Poor response">
@@ -513,13 +509,9 @@ export default function EditProgressNotePage() {
                                     type="text"
                                     size="small"
                                     onClick={() => setFeedback(section.id, "down")}
-                                    style={
-                                      section.feedback === "down"
-                                        ? { backgroundColor: '#fee2e2', color: '#dc2626' }
-                                        : undefined
-                                    }
+                                    className={section.feedback === "down" ? styles.feedbackDown : undefined}
                                   >
-                                    <DislikeOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                                    <DislikeOutlined className={styles.iconText} />
                                   </Button>
                                 </Tooltip>
                                 {/* Accept button */}
@@ -528,7 +520,7 @@ export default function EditProgressNotePage() {
                                   size="small"
                                   onClick={() => acceptSection(section.id)}
                                 >
-                                  <CheckCircleOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+                                  <CheckCircleOutlined className={styles.iconText} />
                                   Accept
                                 </Button>
                               </Flex>
@@ -536,14 +528,14 @@ export default function EditProgressNotePage() {
                           </div>
                         ) : (
                           <div>
-                            <Text variant="body/md" color="secondary" style={{ lineHeight: 1.625 }}>{section.prompt}</Text>
+                            <Text variant="body/md" color="secondary" className={styles.aiPrompt}>{section.prompt}</Text>
                             {/* Actions dropdown and Generate button row */}
-                            <Flex align="center" justify="space-between" style={{ marginTop: 12 }}>
+                            <Flex align="center" justify="space-between" className={styles.actionsRow}>
                               <Dropdown
                                 trigger={
                                   <Button type="text" size="small">
                                     Actions
-                                    <DownOutlined style={{ fontSize: 12, color: 'var(--ant-color-text, #414549)' }} />
+                                    <DownOutlined className={styles.iconTextSm} />
                                   </Button>
                                 }
                                 items={[
@@ -575,22 +567,21 @@ export default function EditProgressNotePage() {
 
         {/* Split view transcript panel */}
         {viewMode === "split" && (
-          <div
-            style={{ flexShrink: 0, overflowY: 'auto', width: 420, borderLeft: '1px solid var(--color-border)', backgroundColor: '#fff', maxHeight: 'calc(100vh - 6rem)' }}
-          >
+          <div className={styles.transcriptPanel}>
             {/* Audio player */}
-            <Flex align="center" gap={8} style={{ padding: '12px 16px', borderBottom: '1px solid var(--color-border)' }}>
+            <Flex align="center" gap={8} className={styles.audioBar}>
               <Button size="small">Restart</Button>
-              <div style={{ flex: 1, height: 24, backgroundColor: 'rgb(243, 245, 247)', borderRadius: 4, display: 'flex', alignItems: 'center', padding: '0 8px' }}>
+              <div className={styles.waveform}>
                 {Array.from({ length: 40 }).map((_, i) => (
-                  <div key={i} style={{ width: 2, height: Math.random() * 16 + 4, backgroundColor: 'rgb(130, 80, 255)', marginRight: 2, borderRadius: 1 }} />
+                  // ds-exempt: dynamic randomized waveform bar height
+                  <div key={i} className={styles.waveformBar} style={{ height: Math.random() * 16 + 4 }} />
                 ))}
               </div>
-              <span style={{ fontSize: 12, lineHeight: 1.67, color: 'rgb(65, 69, 73)' }}>00:00</span>
-              <Button type="primary" shape="circle" size="small" style={{ width: 28, height: 28, minWidth: 0, padding: 0 }}>▶</Button>
+              <span className={styles.audioTime}>00:00</span>
+              <Button type="primary" shape="circle" size="small" className={styles.playBtn}>▶</Button>
             </Flex>
             {/* Transcript */}
-            <div style={{ padding: 16 }}>
+            <div className={styles.transcriptBody}>
               {[
                 { speaker: 0, text: "Don\'t worry about coffee. We\'ll have a bite." },
                 { speaker: 1, text: "Okay. Good. So," },
@@ -599,9 +590,9 @@ export default function EditProgressNotePage() {
                 { speaker: 0, text: "Around last time. Yeah." },
                 { speaker: 2, text: "Yeah." },
               ].map((line, i) => (
-                <Flex key={i} gap={8} style={{ marginBottom: 8 }}>
-                  <span style={{ flexShrink: 0, fontSize: 13, color: 'rgb(130, 80, 255)' }}>✎</span>
-                  <Text variant="body/md" style={{ color: 'rgb(130, 80, 255)' }}>
+                <Flex key={i} gap={8} className={styles.transcriptLine}>
+                  <span className={styles.transcriptIcon}>✎</span>
+                  <Text variant="body/md" className={styles.transcriptText}>
                     Speaker {line.speaker}: {line.text}
                   </Text>
                 </Flex>
@@ -612,9 +603,7 @@ export default function EditProgressNotePage() {
 
         {/* Splose AI Chat Side Panel */}
         {aiChatOpen && (
-          <div
-            style={{ flexShrink: 0, display: 'flex', width: 350, flexDirection: 'column', borderLeft: '1px solid var(--color-border)', backgroundColor: '#fff', boxShadow: '-4px 0 12px rgba(0,0,0,0.1)', maxHeight: 'calc(100vh - 6rem)' }}
-          >
+          <div className={styles.aiChatPanel}>
             <AiChatPanel onClose={() => setAiChatOpen(false)} variant="notes" />
           </div>
         )}

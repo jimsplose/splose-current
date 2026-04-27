@@ -1,0 +1,171 @@
+.footerBar {
+  width: 100%;
+}
+
+.iconText {
+  font-size: 16px;
+  color: var(--ant-color-text, #414549);
+}
+
+.iconPrimary {
+  font-size: 16px;
+  color: var(--ant-color-primary, #8250FF);
+}
+
+.bodyScroll {
+  max-height: calc(100vh - 20rem);
+  overflow-y: auto;
+}
+
+.templateSelect {
+  flex: 1;
+}
+
+.segmentedGroup {
+  display: flex;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+}
+
+.segmentedBtn {
+  border: none;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.segmentedBtnLeft {
+  border-radius: 8px 0 0 8px;
+}
+
+.segmentedBtnRight {
+  border-radius: 0 8px 8px 0;
+  border-left: 1px solid var(--color-border);
+}
+
+.segmentedBtnActive {
+  background-color: rgba(var(--color-primary-rgb, 124, 58, 237), 0.1);
+  color: var(--color-primary);
+}
+
+.chipInputRow {
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  padding: 8px 12px;
+}
+
+.emailChip {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-size: 12px;
+}
+
+.chipInput {
+  min-width: 120px;
+  flex: 1;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  font-size: 12px;
+  box-shadow: none;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.subjectWrap {
+  flex: 1;
+}
+
+.summariseBtn {
+  flex-shrink: 0;
+}
+
+.toolbar {
+  padding-bottom: 8px;
+}
+
+.bodyTextarea {
+  width: 100%;
+  resize: none;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  line-height: 1.625;
+  outline: none;
+}
+
+.previewHeader {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+}
+
+.previewMetaRow {
+  font-size: 12px;
+  line-height: 1.67;
+}
+
+.previewMetaLabel {
+  width: 64px;
+  color: var(--color-text-secondary);
+}
+
+.previewSubjectValue {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.57;
+}
+
+.previewLogoWrap {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  text-align: center;
+}
+
+.previewLogo {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--color-primary);
+}
+
+.previewBody {
+  font-size: 14px;
+  white-space: pre-wrap;
+  line-height: 1.625;
+}
+
+.previewDividerSpaced {
+  margin-top: 24px;
+}
+
+.previewAttachmentWrap {
+  padding-top: 16px;
+}
+
+.attachmentChip {
+  border-radius: 8px;
+  background-color: var(--color-primary-bg);
+  padding: 8px 12px;
+}
+
+.attachmentLabel {
+  font-size: 12px;
+  line-height: 1.67;
+}
+
+.previewFooter {
+  font-size: 12px;
+  line-height: 1.67;
+  color: var(--color-text-secondary);
+  padding-top: 16px;
+  text-align: center;
+}
+
+.previewFooterLinks {
+  margin-top: 4px;
+}
+
+.previewFooterLink {
+  color: var(--color-primary);
+}

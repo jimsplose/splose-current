@@ -1,0 +1,111 @@
+.breadcrumbs {
+  padding: 8px 24px 0;
+}
+
+.confirmShell {
+  max-width: 512px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.confirmIconRow {
+  margin-bottom: 16px;
+}
+
+.confirmIconCircle {
+  height: 56px;
+  width: 56px;
+  border-radius: 50%;
+  background-color: #dcfce7;
+}
+
+.confirmIcon {
+  font-size: 32px;
+  color: #16a34a;
+}
+
+.confirmDetails {
+  padding-top: 16px;
+}
+
+.confirmActions {
+  margin-top: 24px;
+}
+
+.validationShell {
+  padding: 24px;
+}
+
+.validationSummary {
+  margin-bottom: 16px;
+}
+
+.summaryChip {
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.summaryChipValid {
+  background-color: #f0fdf4;
+}
+
+.summaryChipError {
+  background-color: #fef2f2;
+}
+
+.summaryIconValid {
+  font-size: 16px;
+  color: #16a34a;
+}
+
+.summaryIconError {
+  font-size: 16px;
+  color: #dc2626;
+}
+
+.validationCard {
+  overflow: hidden;
+}
+
+.uploadShell {
+  max-width: 672px;
+  padding: 24px;
+}
+
+.fieldLabel {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.fieldHint {
+  margin-top: 4px;
+}
+
+.formSelectFull {
+  width: 100%;
+}
+
+.fileBadge {
+  height: 40px;
+  width: 40px;
+  border-radius: 8px;
+  background-color: var(--color-primary-bg);
+}
+
+.fileBadgeIcon {
+  font-size: 20px;
+  color: var(--ant-color-primary, #8250FF);
+}
+
+.fileMeta {
+  flex: 1;
+}
+
+.fileUploadIcon {
+  font-size: 32px;
+  color: var(--ant-color-text-secondary, #6E6E64);
+}
+
+.itemMono {
+  font-family: monospace;
+}

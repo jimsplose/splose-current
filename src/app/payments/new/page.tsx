@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 import { CloseOutlined, PlusOutlined, SearchOutlined, PrinterOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import { Button, Flex, Form, Input, Select, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { Card, Divider, FormPage, Grid, EmptyState, Text } from "@/components/ds";
+import { Card, FormPage, Grid, EmptyState, Text } from "@/components/ds";
+import styles from "./PaymentsNew.module.css";
 
 const mockClients = [
   "Skyler Peterson",
@@ -139,8 +140,7 @@ export default function NewPaymentPage() {
         maxWidth={512}
         actions={
           <>
-            <Button onClick={() => window.print()}>
-              <PrinterOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
+            <Button onClick={() => window.print()} icon={<PrinterOutlined className={styles.receiptPrintIcon} />}>
               Print receipt
             </Button>
             <Link href="/payments">
@@ -148,24 +148,24 @@ export default function NewPaymentPage() {
             </Link>
           </>
         }
-        style={{ minHeight: 'calc(100vh - 3rem)' }}
+        className={styles.fullHeightPage}
       >
-          <Card padding="lg" style={{ textAlign: 'center' }}>
-            <Flex justify="center" style={{ marginBottom: 16 }}>
+          <Card padding="lg" className={styles.receiptCard}>
+            <Flex justify="center" className={styles.receiptIconRow}>
               <Flex
                 align="center"
                 justify="center"
-                style={{ height: 56, width: 56, borderRadius: '50%', backgroundColor: 'var(--color-success-bg)' }}
+                className={styles.receiptIconCircle}
               >
-                <CheckCircleOutlined style={{ fontSize: 32, color: 'var(--ant-color-success, #00C269)' }} />
+                <CheckCircleOutlined className={styles.receiptIcon} />
               </Flex>
             </Flex>
-            <Text variant="heading/lg" style={{ marginBottom: 4 }}>Payment recorded</Text>
-            <Text variant="body/md" color="secondary" style={{ marginBottom: 24 }}>
+            <Text variant="heading/lg" mb={4}>Payment recorded</Text>
+            <Text variant="body/md" color="secondary" mb={24}>
               Payment has been successfully added.
             </Text>
 
-            <Flex vertical gap={12} style={{ borderTop: '1px solid var(--color-border)', paddingTop: 16, textAlign: 'left' }}>
+            <Flex vertical gap={12} className={styles.receiptDetails}>
               <Flex align="center" justify="space-between">
                 <Text variant="body/md" as="span" color="secondary">Payment number</Text>
                 <Text variant="label/lg" as="span" color="primary">{paymentNumber}</Text>
@@ -197,7 +197,7 @@ export default function NewPaymentPage() {
               {note && (
                 <Flex align="start" justify="space-between">
                   <Text variant="body/md" as="span" color="secondary">Note</Text>
-                  <Text variant="label/lg" as="span" style={{ maxWidth: 200, textAlign: 'right' }}>{note}</Text>
+                  <Text variant="label/lg" as="span" className={styles.receiptNoteValue}>{note}</Text>
                 </Flex>
               )}
             </Flex>
@@ -212,7 +212,7 @@ export default function NewPaymentPage() {
       actions={
         <>
           <Link href="/payments">
-            <Button style={{ borderColor: 'var(--color-primary)', color: 'var(--color-primary)' }}>
+            <Button className={styles.cancelBtn}>
               Cancel
             </Button>
           </Link>
@@ -221,25 +221,25 @@ export default function NewPaymentPage() {
           </Button>
         </>
       }
-      style={{ minHeight: 'calc(100vh - 3rem)' }}
+      className={styles.fullHeightPage}
     >
       <Form form={form} layout="vertical">
         {/* Client field — own row */}
-        <div style={{ marginBottom: 24 }}>
-          <Form.Item label="Client *" style={{ maxWidth: 360 }}>
+        <div className={styles.clientRow}>
+          <Form.Item label="Client *" className={styles.clientFormItem}>
             <Select
               options={clientOptions}
               value={client}
               onChange={setClient}
               placeholder="Start typing to search client"
               showSearch={true}
-              style={{ width: "100%" }}
+              className={styles.fullWidthSelect}
             />
           </Form.Item>
         </div>
 
         {/* 4-field row */}
-        <Grid cols={4} gap="md" style={{ marginBottom: 32 }}>
+        <Grid cols={4} gap="md" className={styles.fieldGrid}>
           {/* Location */}
           <Form.Item label="Location *">
             <Select
@@ -251,7 +251,7 @@ export default function NewPaymentPage() {
                 { value: "splose-ot", label: "Splose OT" },
                 { value: "tasks", label: "Tasks" },
               ]}
-              style={{ width: "100%" }}
+              className={styles.fullWidthSelect}
             />
           </Form.Item>
 
@@ -266,7 +266,7 @@ export default function NewPaymentPage() {
               value={method}
               onChange={setMethod}
               options={[{ value: "", label: "Select method" }, ...paymentMethods.map((m) => ({ value: m, label: m }))]}
-              style={{ width: "100%" }}
+              className={styles.fullWidthSelect}
             />
           </Form.Item>
 
@@ -284,30 +284,30 @@ export default function NewPaymentPage() {
       </Form>
 
         {/* Apply to outstanding invoices */}
-        <Text variant="label/lg" as="p" style={{ marginBottom: 12 }}>Apply to outstanding invoices</Text>
+        <Text variant="label/lg" as="p" className={styles.applyHeading}>Apply to outstanding invoices</Text>
 
         {showLinkSearch && (
-          <Card padding="sm" style={{ marginBottom: 12 }}>
-            <div style={{ position: 'relative' }}>
-              <SearchOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)', position: 'absolute', top: '50%', left: 12, zIndex: 10, transform: 'translateY(-50%)' }} />
+          <Card padding="sm" className={styles.linkSearchCard}>
+            <div className={styles.searchInputWrap}>
+              <SearchOutlined className={styles.searchIcon} />
               <Input
                 type="text"
                 placeholder="Search invoices by number or client..."
                 value={invoiceSearch}
                 onChange={(e) => setInvoiceSearch(e.target.value)}
-                style={{ height: 36, paddingLeft: 40 }}
+                className={styles.searchInput}
                 autoFocus
               />
             </div>
             {searchableInvoices.length > 0 && (
-              <div style={{ marginTop: 8, maxHeight: 160, overflowY: 'auto', borderRadius: 8, border: '1px solid var(--color-border)' }}>
+              <div className={styles.searchResults}>
                 {searchableInvoices.map((inv) => (
                   <Button
                     key={inv.number}
                     type="text"
                     htmlType="button"
                     onClick={() => linkInvoice(inv.number)}
-                    style={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', fontSize: 14 }}
+                    className={styles.searchResultBtn}
                   >
                     <Flex align="center" gap={16}>
                       <Text variant="label/lg" as="span" color="primary">{inv.number}</Text>
@@ -320,12 +320,12 @@ export default function NewPaymentPage() {
               </div>
             )}
             {searchableInvoices.length === 0 && (
-              <Text variant="body/md" as="p" color="secondary" style={{ marginTop: 8 }}>No outstanding invoices found.</Text>
+              <Text variant="body/md" as="p" color="secondary" className={styles.searchEmpty}>No outstanding invoices found.</Text>
             )}
           </Card>
         )}
 
-        <div style={{ marginBottom: 24 }}>
+        <div className={styles.invoicesTableWrap}>
           {(() => {
             type OutstandingInvoice = typeof mockOutstandingInvoices[number];
             const linkedInvoiceData = linkedInvoices
@@ -348,7 +348,7 @@ export default function NewPaymentPage() {
                     type="text"
                     value={invoiceAmounts[inv.number] || ""}
                     onChange={(e) => setInvoiceAmounts((prev) => ({ ...prev, [inv.number]: e.target.value }))}
-                    style={{ width: 96, borderRadius: 4, border: "1px solid var(--color-border)", padding: "4px 8px", textAlign: "right", fontSize: 14 }}
+                    className={styles.amountInput}
                   />
                 ),
               },
@@ -370,10 +370,9 @@ export default function NewPaymentPage() {
                     size="small"
                     htmlType="button"
                     onClick={() => unlinkInvoice(inv.number)}
-                    style={{ height: 24, width: 24 }}
-                  >
-                    <CloseOutlined style={{ fontSize: 16, color: 'var(--ant-color-text, #414549)' }} />
-                  </Button>
+                    className={styles.unlinkBtn}
+                    icon={<CloseOutlined className={styles.unlinkIcon} />}
+                  />
                 ),
               },
             ];
@@ -384,7 +383,7 @@ export default function NewPaymentPage() {
                 dataSource={linkedInvoiceData}
                 rowKey="number"
                 pagination={false}
-                locale={{ emptyText: <EmptyState message="No outstanding invoices" style={{ padding: "24px 0" }} /> }}
+                locale={{ emptyText: <EmptyState message="No outstanding invoices" className={styles.emptyStatePadded} /> }}
               />
             );
           })()}
@@ -393,24 +392,24 @@ export default function NewPaymentPage() {
         {/* Note and totals */}
         <Flex align="start" justify="space-between">
           <Form form={form} layout="vertical">
-            <Form.Item label="Note" style={{ width: 256 }}>
+            <Form.Item label="Note" className={styles.noteFormItem}>
               <Input.TextArea
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 placeholder=""
-                style={{ resize: 'none', fontSize: 14 }}
+                className={styles.noteTextarea}
                 rows={3}
               />
             </Form.Item>
           </Form>
-          <Flex vertical gap={6} style={{ textAlign: 'right' }}>
+          <Flex vertical gap={6} className={styles.totalsCol}>
             <Flex align="center" justify="end" gap={32}>
               <Text variant="body/md" as="span" color="secondary">Applied to invoices</Text>
-              <Text variant="label/lg" as="span" style={{ width: 80, textAlign: 'right' }}>{appliedTotal.toFixed(2)}</Text>
+              <Text variant="label/lg" as="span" className={styles.totalValue}>{appliedTotal.toFixed(2)}</Text>
             </Flex>
             <Flex align="center" justify="end" gap={32}>
               <Text variant="body/md" as="span" color="secondary">Amount to credit</Text>
-              <Text variant="label/lg" as="span" style={{ width: 80, textAlign: 'right' }}>{creditAmount.toFixed(2)}</Text>
+              <Text variant="label/lg" as="span" className={styles.totalValue}>{creditAmount.toFixed(2)}</Text>
             </Flex>
           </Flex>
         </Flex>

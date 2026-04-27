@@ -1,1 +1,176 @@
-/* UserDetail CSS Module — Wave 6 Plan 07 will add classes here */
+/* UserDetail CSS Module — issue #14 inline-style reduction */
+
+.shell {
+  min-height: calc(100vh - 3rem);
+}
+
+.header {
+  padding: 24px 24px 0;
+}
+
+.tabRow {
+  border-bottom: 1px solid var(--color-border);
+  padding: 0 24px;
+}
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.detailsCol {
+  max-width: 672px;
+}
+
+.formCol {
+  flex: 1;
+}
+
+.uploadCol {
+  width: 200px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.photoBox {
+  width: 200px;
+  height: 200px;
+  border-radius: 8px;
+  background-color: var(--color-fill-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.divider {
+  margin: 24px 0;
+}
+
+.section {
+  margin-bottom: 24px;
+}
+
+.checkboxRow {
+  margin-bottom: 12px;
+}
+
+.locationsList {
+  margin-bottom: 24px;
+}
+
+.footerActions {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.availabilityCol {
+  max-width: 896px;
+}
+
+.availabilityHeader {
+  margin-bottom: 16px;
+}
+
+.availabilityTable {
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+}
+
+.availabilityHeadRow {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.availabilityHeadCell {
+  padding: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.availabilityHeadCellCenter {
+  padding: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.availabilityRow {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.availabilityRowLast {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.availabilityTimeCell {
+  padding: 8px;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+.availabilityCell {
+  border-left: 1px solid var(--color-border);
+  padding: 8px;
+  cursor: pointer;
+}
+
+.availabilityCellActive {
+  background-color: rgba(var(--color-primary-rgb, 130, 80, 255), 0.1);
+}
+
+.availabilityFill {
+  height: 100%;
+  border-radius: 4px;
+  background-color: rgba(var(--color-primary-rgb, 130, 80, 255), 0.2);
+}
+
+.bodyChartsCol {
+  max-width: 672px;
+}
+
+.bodyChartsHeader {
+  margin-bottom: 16px;
+}
+
+.bodyChartsHeading {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.pageTitle {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.bodyChartRow {
+  padding: 12px 16px;
+}
+
+.bodyChartName {
+  font-size: 14px;
+  color: var(--color-primary);
+}
+
+.bodyChartUpdated {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+.addPhoneBtn {
+  margin-top: 4px;
+}
+
+.uploadBtn {
+  margin-top: 12px;
+}
+
+.labelBlock {
+  display: block;
+}

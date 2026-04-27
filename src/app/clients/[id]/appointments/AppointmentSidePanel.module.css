@@ -1,0 +1,117 @@
+/* AppointmentSidePanel CSS Module — issue #14 inline-style reduction */
+
+.shell {
+  flex: 1;
+  overflow: hidden;
+}
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  transition: all 0.2s;
+}
+
+.mainCollapsed {
+  padding-right: 0;
+}
+
+.tableCard {
+  overflow-x: auto;
+}
+
+.empty {
+  padding: 32px 16px;
+  text-align: center;
+}
+
+.headerInline {
+  display: inline-flex;
+}
+
+.iconSecondary {
+  font-size: 16px;
+  color: var(--ant-color-text-secondary, #6E6E64);
+}
+
+.iconText {
+  font-size: 16px;
+  color: var(--ant-color-text, #414549);
+}
+
+.iconRowLeading {
+  font-size: 16px;
+  color: var(--ant-color-text-secondary, #6E6E64);
+  flex-shrink: 0;
+}
+
+.iconRowLeadingTop {
+  font-size: 16px;
+  color: var(--ant-color-text-secondary, #6E6E64);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.iconWarning {
+  font-size: 16px;
+  color: var(--ant-color-warning, #FFD232);
+  flex-shrink: 0;
+}
+
+.iconLg {
+  font-size: 20px;
+  color: var(--ant-color-text, #414549);
+}
+
+.headerRow {
+  border-bottom: 1px solid var(--color-border);
+  padding: 16px;
+}
+
+.headerTextWrap {
+  min-width: 0;
+  flex: 1;
+}
+
+.closeBtn {
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+
+.details {
+  padding: 16px;
+}
+
+.statusDotWrap {
+  height: 16px;
+  width: 16px;
+  flex-shrink: 0;
+}
+
+.googleSvg {
+  height: 16px;
+  width: 16px;
+  flex-shrink: 0;
+}
+
+.meetUrl {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.invoiceMarkRow {
+  padding-left: 28px;
+}
+
+.noteIconRow {
+  margin-bottom: 8px;
+}
+
+.actionsBlock {
+  padding: 16px;
+}
+
+.changeLogRow {
+  margin-top: 12px;
+}

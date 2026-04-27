@@ -4,6 +4,7 @@ import { MailOutlined, PhoneOutlined, EnvironmentOutlined, BankOutlined } from "
 import { Button, Flex, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { List, EmptyState, Text, Divider } from "@/components/ds";
+import styles from "./ContactDetail.module.css";
 
 const mockContacts = [
   {
@@ -157,17 +158,17 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
 
   if (!contact) {
     return (
-      <div style={{ padding: 24 }}>
+      <div className={styles.notFound}>
         <Text variant="body/md" color="secondary">Contact not found.</Text>
       </div>
     );
   }
 
   return (
-    <Flex style={{ height: "calc(100vh - 48px)" }}>
+    <Flex className={styles.shell}>
       {/* Sidebar */}
-      <aside style={{ width: 180, flexShrink: 0, borderRight: '1px solid var(--color-border)', background: 'white', padding: 16 }}>
-        <div style={{ marginBottom: 16 }}>
+      <aside className={styles.sidebar}>
+        <div className={styles.sidebarHeader}>
           <Text variant="body/md-strong" color="text" as="h2">Contact</Text>
           <Text variant="caption/md" color="secondary">{contact.name}</Text>
         </div>
@@ -177,46 +178,41 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             { label: "Cases", count: 0 },
             { label: "Letters", count: 0 },
             { label: "Invoices", count: contact.associatedClients.length > 0 ? 96 : 0 },
-          ].map((item) => (
-            <Button
-              key={item.label}
-              type="text"
-              style={{
-                width: '100%',
-                justifyContent: 'space-between',
-                fontSize: 12,
-                color: "active" in item && item.active ? 'var(--color-primary)' : 'var(--color-text-secondary)',
-                fontWeight: "active" in item && item.active ? 500 : undefined,
-                ...("active" in item && item.active
-                  ? { borderLeft: '2px solid var(--color-primary)', background: 'rgba(var(--color-primary-rgb, 124, 58, 237), 0.05)' }
-                  : {}),
-              }}
-            >
-              {item.label}
-              {"count" in item && item.count ? <Text variant="caption/sm" color="secondary" as="span">{item.count}</Text> : null}
-            </Button>
-          ))}
+          ].map((item) => {
+            const isActive = "active" in item && item.active;
+            return (
+              <Button
+                key={item.label}
+                type="text"
+                className={`${styles.navBtn} ${isActive ? styles.navBtnActive : ""}`}
+              >
+                {item.label}
+                {"count" in item && item.count ? <Text variant="caption/sm" color="secondary" as="span">{item.count}</Text> : null}
+              </Button>
+            );
+          })}
         </Flex>
       </aside>
 
       {/* Main content */}
-      <div style={{ flex: 1, overflowY: 'auto' }}>
+      <div className={styles.main}>
         {/* Top action bar */}
-        <Flex align="center" justify="space-between" style={{ borderBottom: '1px solid var(--color-border)', padding: '12px 24px' }}>
+        <Flex align="center" justify="space-between" className={styles.actionBar}>
           <Flex align="center" gap={8}>
+            {/* ds-exempt: dynamic header color tied to contact type */}
             <Text variant="display/sm" as="h2" color="rgb(66, 105, 74)">Contact</Text>
             <Text variant="body/md" color="secondary" as="span">{contact.name}</Text>
           </Flex>
           <Button size="small">
             Actions
-            <svg style={{ height: 14, width: 14 }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className={styles.actionsIcon} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
           </Button>
         </Flex>
 
-        <div style={{ padding: 24 }}>
-          <Flex align="center" justify="space-between" style={{ marginBottom: 24 }}>
+        <div className={styles.content}>
+          <Flex align="center" justify="space-between" className={styles.detailsHeader}>
             <Text variant="display/lg">Details</Text>
             <Button size="small">
               Edit
@@ -224,8 +220,8 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
           </Flex>
 
           {/* General details */}
-          <section style={{ marginBottom: 32 }}>
-            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16 }}>General details</Text>
+          <section className={styles.section}>
+            <Text variant="heading/lg" color="text" as="h2" mb={16}>General details</Text>
             <List
               items={[
                 {
@@ -235,15 +231,10 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                 {
                   label: "Type:",
                   value: contact.type ? (
+                    // ds-exempt: dynamic background/color computed from contact type
                     <span
-                      style={{
-                        display: 'inline-block',
-                        fontSize: 12,
-                        fontWeight: 500,
-                        borderRadius: 4,
-                        padding: '2px 8px',
-                        ...getTypeColor(contact.type),
-                      }}
+                      className={styles.typeChip}
+                      style={getTypeColor(contact.type)}
                     >
                       {contact.type}
                     </span>
@@ -261,18 +252,18 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             />
           </section>
 
-          <Divider spacing="none" style={{ marginBottom: 32 }} />
+          <Divider spacing="none" className={styles.divider} />
 
           {/* Contact information */}
-          <section style={{ marginBottom: 32 }}>
-            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16 }}>Contact details</Text>
+          <section className={styles.section}>
+            <Text variant="heading/lg" color="text" as="h2" mb={16}>Contact details</Text>
             <List
               items={[
                 {
                   label: "Email:",
                   value: contact.email ? (
                     <Flex align="center" gap={6}>
-                      <MailOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
+                      <MailOutlined className={styles.contactIcon} />
                       <Text variant="body/sm" color="primary" as="span">{contact.email}</Text>
                     </Flex>
                   ) : (
@@ -283,7 +274,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                   label: "Work phone:",
                   value: contact.workPhone ? (
                     <Flex align="center" gap={6}>
-                      <PhoneOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
+                      <PhoneOutlined className={styles.contactIcon} />
                       <Text variant="body/sm" color="primary" as="span">{contact.workPhone}</Text>
                     </Flex>
                   ) : (
@@ -294,7 +285,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                   label: "Mobile phone:",
                   value: contact.mobilePhone ? (
                     <Flex align="center" gap={6}>
-                      <PhoneOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
+                      <PhoneOutlined className={styles.contactIcon} />
                       <Text variant="body/sm" color="primary" as="span">{contact.mobilePhone}</Text>
                     </Flex>
                   ) : (
@@ -305,7 +296,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
                   label: "Address:",
                   value: contact.address ? (
                     <Flex align="center" gap={6}>
-                      <EnvironmentOutlined style={{ fontSize: 16, color: 'var(--ant-color-text-secondary, #6E6E64)' }} />
+                      <EnvironmentOutlined className={styles.contactIcon} />
                       <Text variant="body/sm" color="text" as="span">{contact.address}</Text>
                     </Flex>
                   ) : (
@@ -322,11 +313,11 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
             />
           </section>
 
-          <Divider spacing="none" style={{ marginBottom: 32 }} />
+          <Divider spacing="none" className={styles.divider} />
 
           {/* Associated clients */}
-          <section style={{ marginBottom: 32 }}>
-            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16 }}>Associated clients</Text>
+          <section className={styles.section}>
+            <Text variant="heading/lg" color="text" as="h2" mb={16}>Associated clients</Text>
             {contact.associatedClients.length > 0 ? (() => {
               const associatedClientsColumns: ColumnsType<{ id: string; name: string }> = [
                 { key: "name", title: "Name", dataIndex: "name" },
@@ -338,21 +329,21 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
               return <Table columns={associatedClientsColumns} dataSource={contact.associatedClients} rowKey="id" pagination={false} />;
             })() : (
               <EmptyState
-                icon={<BankOutlined style={{ fontSize: 40, color: '#9ca3af' }} />}
+                icon={<BankOutlined className={styles.emptyIcon} />}
                 message="No associated clients"
               />
             )}
           </section>
 
-          <Divider spacing="none" style={{ marginBottom: 32 }} />
+          <Divider spacing="none" className={styles.divider} />
 
           {/* Custom fields */}
-          <section style={{ marginBottom: 32 }}>
-            <Text variant="heading/lg" color="text" as="h2" style={{ marginBottom: 16 }}>Custom fields</Text>
+          <section className={styles.section}>
+            <Text variant="heading/lg" color="text" as="h2" mb={16}>Custom fields</Text>
             <Text variant="body/sm" color="secondary">No custom fields</Text>
           </section>
 
-          <Button type="text" size="small" style={{ color: 'var(--color-primary)' }}>
+          <Button type="text" size="small" className={styles.changeLogBtn}>
             View change log
           </Button>
         </div>

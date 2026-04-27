@@ -1,0 +1,163 @@
+.fullWidthSelect {
+  width: 100%;
+}
+
+.fullHeightPage {
+  min-height: calc(100vh - 3rem);
+}
+
+/* Receipt view */
+.receiptCard {
+  text-align: center;
+}
+
+.receiptIconRow {
+  margin-bottom: 16px;
+}
+
+.receiptIconCircle {
+  height: 56px;
+  width: 56px;
+  border-radius: 50%;
+  background-color: var(--color-success-bg);
+}
+
+.receiptIcon {
+  font-size: 32px;
+  color: var(--ant-color-success, #00C269);
+}
+
+.receiptTitle {
+  margin-bottom: 4px;
+}
+
+.receiptSubtitle {
+  margin-bottom: 24px;
+}
+
+.receiptDetails {
+  border-top: 1px solid var(--color-border);
+  padding-top: 16px;
+  text-align: left;
+}
+
+.receiptNoteValue {
+  max-width: 200px;
+  text-align: right;
+}
+
+.receiptPrintIcon {
+  font-size: 16px;
+  color: var(--ant-color-text, #414549);
+}
+
+/* Form view */
+.cancelBtn {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.clientRow {
+  margin-bottom: 24px;
+}
+
+.clientFormItem {
+  max-width: 360px;
+}
+
+.fieldGrid {
+  margin-bottom: 32px;
+}
+
+.applyHeading {
+  margin-bottom: 12px;
+}
+
+.linkSearchCard {
+  margin-bottom: 12px;
+}
+
+.searchInputWrap {
+  position: relative;
+}
+
+.searchIcon {
+  font-size: 16px;
+  color: var(--ant-color-text-secondary, #6E6E64);
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  z-index: 10;
+  transform: translateY(-50%);
+}
+
+.searchInput {
+  height: 36px;
+  padding-left: 40px;
+}
+
+.searchResults {
+  margin-top: 8px;
+  max-height: 160px;
+  overflow-y: auto;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+}
+
+.searchResultBtn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+.searchEmpty {
+  margin-top: 8px;
+}
+
+.invoicesTableWrap {
+  margin-bottom: 24px;
+}
+
+.amountInput {
+  width: 96px;
+  border-radius: 4px;
+  border: 1px solid var(--color-border);
+  padding: 4px 8px;
+  text-align: right;
+  font-size: 14px;
+}
+
+.unlinkBtn {
+  height: 24px;
+  width: 24px;
+}
+
+.unlinkIcon {
+  font-size: 16px;
+  color: var(--ant-color-text, #414549);
+}
+
+.emptyStatePadded {
+  padding: 24px 0;
+}
+
+.noteFormItem {
+  width: 256px;
+}
+
+.noteTextarea {
+  resize: none;
+  font-size: 14px;
+}
+
+.totalsCol {
+  text-align: right;
+}
+
+.totalValue {
+  width: 80px;
+  text-align: right;
+}
