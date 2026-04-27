@@ -135,10 +135,15 @@ dependencies, not priority:
 ```
 #17 (revised, includes rename sweep) ──┐
                                        ├──> #18 (screenshots) ──> #19 (MDX)
-B   (pure-AntD direct-usage stories) ──┘
-A   (Docs section)              — independent, parallel
-D   (component-coverage audit)  — independent; output spawns further issues
+#22 (pure-AntD direct-usage stories) ──┘
+#21 (Docs section)              — independent, parallel
+#23 (component-coverage audit)  — independent; output → Jim's triage → more issues
 ```
+
+Numbers #21, #22, #23 assume the new issues are filed in that order
+(A → B → D) and that no other issues are filed in between. If a
+concurrent session files an issue first, the numbers shift — update
+the spec when actual numbers are assigned.
 
 ### Issue #17 (revised) — Hierarchy + component inventory
 
@@ -186,7 +191,7 @@ MDX files live alongside `.stories.tsx` in `src/components/ds/stories/` —
 no `antd/`/`extended/`/`custom/` MDX subfolders. The MDX template's "type"
 badge reads from the story's tier tag rather than a hand-typed line.
 
-### Issue A (new) — Docs section
+### Issue #21 (new) — Docs section
 
 Five MDX pages under a new `Docs/` top-level group:
 
@@ -203,7 +208,7 @@ Five MDX pages under a new `Docs/` top-level group:
 
 Independent of the others — can run in parallel.
 
-### Issue B (new) — Pure-AntD direct-usage stories
+### Issue #22 (new) — Pure-AntD direct-usage stories
 
 Stories for AntD components used directly in `src/app/` without a DS
 wrapper. ~17 components based on the import audit:
@@ -227,7 +232,7 @@ to avoid collision, but the sidebar `title:` keeps the purpose category
 without an `Antd` prefix — readers find it next to the wrapper. The tier
 tag distinguishes them.
 
-### Issue D (new) — Component coverage audit + missing-component issues
+### Issue #23 (new) — Component coverage audit + missing-component issues
 
 A research / audit task whose output is a list of follow-up GitHub issues
 for components Splose should add. Three axes:
@@ -266,7 +271,8 @@ for components Splose should add. Three axes:
 only*. After it's committed, Jim is presented with the full list and
 picks which entries become GitHub issues. No issues are auto-filed.
 
-**Follow-up:** For each entry Jim approves, file a GitHub issue with
+**Follow-up:** For each entry Jim approves, file a GitHub issue (next
+sequential number after #23) with
 the `enhancement` label using a single template:
 - Component name + proposed category (per the hierarchy).
 - Why: codebase patterns it replaces, or comparable systems that ship
@@ -305,5 +311,5 @@ already-decided items).
   initiative.
 
 Building newly-identified missing components is **in scope** but happens
-through individual issues spawned by Issue D rather than through this
+through individual issues spawned by Issue #23 rather than through this
 hierarchy refactor.
