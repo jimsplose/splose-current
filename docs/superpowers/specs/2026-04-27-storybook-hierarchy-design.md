@@ -129,14 +129,15 @@ Render as a high-contrast banner above the rest of the Welcome content.
 
 ## Issue plan
 
-Five GitHub issues — three revised, two new. Sequencing reflects
+Six GitHub issues — three revised, three new. Sequencing reflects
 dependencies, not priority:
 
 ```
 #17 (revised, includes rename sweep) ──┐
                                        ├──> #18 (screenshots) ──> #19 (MDX)
 B   (pure-AntD direct-usage stories) ──┘
-A   (Docs section) — independent, parallel
+A   (Docs section)              — independent, parallel
+D   (component-coverage audit)  — independent; output spawns further issues
 ```
 
 ### Issue #17 (revised) — Hierarchy + component inventory
@@ -226,6 +227,66 @@ to avoid collision, but the sidebar `title:` keeps the purpose category
 without an `Antd` prefix — readers find it next to the wrapper. The tier
 tag distinguishes them.
 
+### Issue D (new) — Component coverage audit + missing-component issues
+
+A research / audit task whose output is a list of follow-up GitHub issues
+for components Splose should add. Three axes:
+
+1. **What the DS has.** Enumerate every component currently in
+   `src/components/ds/` — already tracked by issue #17's inventory.
+2. **What this codebase uses but doesn't yet have a DS slot for.** Grep
+   `src/app/` for repeated inline patterns that should be DS components
+   (e.g. recurring layout primitives, status indicators, empty-state
+   shapes that aren't covered by the existing `EmptyState`).
+3. **What comparable open-source design systems offer that Splose lacks.**
+   Benchmark against, at minimum:
+   - **govuk-react** — already the hierarchy reference; reuse the
+     index audit.
+   - **Ant Design Pro components** (`@ant-design/pro-components`) —
+     ProTable, ProForm, ProList, ProDescriptions, ProLayout.
+   - **Radix UI primitives** — VisuallyHidden, FocusScope, Portal,
+     ScrollArea, Toggle (separate from Switch), ToggleGroup, Slider.
+   - **shadcn/ui** — Calendar, Carousel, Hover Card variants, Sheet,
+     Sonner-style Toast, Resizable.
+   - **Atlassian Design System** — Banner, Lozenge, Inline Message.
+
+   For each gap, classify as **necessary** (the codebase has inline
+   patterns that need it now), **recommended** (would close common UX
+   gaps in a healthcare admin product), or **future** (interesting but
+   not currently called for).
+
+**Output (committed to repo):**
+
+- `docs/storybook-component-coverage-audit.md` — three-section table
+  (DS coverage, codebase patterns, benchmark gaps) with the
+  necessary/recommended/future classification and a one-line
+  recommendation per row.
+
+**Decision step (Jim, not automated):** The audit is *recommendations
+only*. After it's committed, Jim is presented with the full list and
+picks which entries become GitHub issues. No issues are auto-filed.
+
+**Follow-up:** For each entry Jim approves, file a GitHub issue with
+the `enhancement` label using a single template:
+- Component name + proposed category (per the hierarchy).
+- Why: codebase patterns it replaces, or comparable systems that ship
+  it.
+- Reference implementation: AntD / Radix / shadcn / first-party.
+- Acceptance criteria stub (component + story + MDX doc).
+
+The audit doc is then updated to link each row to its filed issue (or
+mark it `declined` / `deferred` so future audits don't re-surface
+already-decided items).
+
+**Acceptance:**
+
+- `docs/storybook-component-coverage-audit.md` committed with all
+  recommendations classified and explained.
+- Recommendations presented to Jim for triage.
+- For each approved recommendation, a GitHub issue is filed and linked
+  from the audit doc. Declined / deferred entries are marked as such
+  in the doc so the audit captures the decision history.
+
 ## Migration notes
 
 - The `title:` rename in #17 Step 1 is a string change in story files only —
@@ -238,9 +299,11 @@ tag distinguishes them.
 
 ## Out of scope
 
-- Building any of the missing components (`VisuallyHidden`, etc.) — only
-  documenting placeholders if/when they exist.
 - Replacing the few remaining inline-style usages with DS components — that
   belongs to the existing DS adoption / utility-class removal waves.
 - Visual regression testing infrastructure for Storybook — separate
   initiative.
+
+Building newly-identified missing components is **in scope** but happens
+through individual issues spawned by Issue D rather than through this
+hierarchy refactor.
