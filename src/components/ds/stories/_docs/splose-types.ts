@@ -25,7 +25,6 @@ export type SploseReferenceLibrary =
   | "cmdk"
   | "downshift"
   | "signature-pad"
-  | "react-phone-number-input"
   | "first-party";
 
 export interface SploseStoryMeta {
