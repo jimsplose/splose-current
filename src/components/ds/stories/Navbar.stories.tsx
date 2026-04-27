@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { CheckCircleOutlined, AppstoreOutlined, SplitCellsOutlined, ShareAltOutlined, EyeOutlined } from "@ant-design/icons";
 import Navbar from "../Navbar";
 import Badge from "../Badge";
-import Button from "../Button";
+import { Button } from "antd";
 import Filter from "../Filter";
 
 /* ------------------------------------------------------------------ */

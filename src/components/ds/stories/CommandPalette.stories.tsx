@@ -11,8 +11,7 @@ import {
 } from "@ant-design/icons";
 import CommandPalette from "../CommandPalette";
 import type { CommandEntry } from "../CommandPalette";
-import Button from "../Button";
-import Icon from "../Icon";
+import { Button } from "antd";
 
 const meta: Meta = {
   title: "Overlay/CommandPalette",

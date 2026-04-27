@@ -10,8 +10,7 @@ import {
 } from "@ant-design/icons";
 import Tooltip from "../Tooltip";
 import type { TooltipSide, TooltipAlign } from "../Tooltip";
-import Button from "../Button";
-import Icon from "../Icon";
+import { Button } from "antd";
 
 const meta: Meta<typeof Tooltip> = {
   title: "Overlay/Tooltip",

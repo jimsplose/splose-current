@@ -19,9 +19,8 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { HolderOutlined } from "@ant-design/icons";
-import { theme, Flex } from "antd";
+import { Button, theme, Flex } from "antd";
 import Modal from "./Modal";
-import Button from "./Button";
 
 export interface ReorderItem {
   id: string;
@@ -99,8 +98,8 @@ export default function ReorderModal({ open, onClose, title = "Reorder items", i
       maxWidth="md"
       footer={
         <Flex justify="flex-end" gap={8}>
-          <Button variant="secondary" onClick={onClose}>Cancel</Button>
-          <Button variant="primary" onClick={() => { onReorder(items); onClose(); }}>Save order</Button>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button type="primary" onClick={() => { onReorder(items); onClose(); }}>Save order</Button>
         </Flex>
       }
     >

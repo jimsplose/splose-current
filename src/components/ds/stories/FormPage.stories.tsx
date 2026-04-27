@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Flex } from "antd";
 import FormPage from "../FormPage";
-import Button from "../Button";
+import { Button } from "antd";
 import Card from "../Card";
 import FormInput from "../FormInput";
 import FormSelect from "../FormSelect";

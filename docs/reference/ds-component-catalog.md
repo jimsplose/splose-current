@@ -27,7 +27,7 @@ Quick reference for all 50+ design system components. Browse live in Storybook (
 
 | Component | Use for |
 |---|---|
-| `Button` (AntD) | Use AntD `Button` directly — no DS wrapper. `type`: `primary` / `default` / `text` / `link`. `danger`: true for destructive. `shape`: `round` (pill) / `circle` (FAB). `size`: `small` / `middle` / `large`. `htmlType`, `href`, `icon` are native AntD props. The DS `Button` wrapper is **deprecated** — remove any imports from `@/components/ds`. |
+| `Button` (AntD) | Use AntD `Button` directly — no DS wrapper. `type`: `primary` / `default` / `text` / `link`. `danger`: true for destructive. `shape`: `round` (pill) / `circle` (FAB). `size`: `small` / `middle` / `large`. `htmlType`, `href`, `icon` are native AntD props. The DS `Button` wrapper has been **removed**. |
 
 ## Forms
 

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 import Drawer from "../Drawer";
-import Button from "../Button";
+import { Button } from "antd";
 import List from "../List";
 import FormInput from "../FormInput";
 import FormTextarea from "../FormTextarea";

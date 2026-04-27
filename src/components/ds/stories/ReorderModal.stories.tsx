@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 import { fn } from "storybook/test";
 import ReorderModal, { type ReorderItem } from "../ReorderModal";
-import Button from "../Button";
+import { Button } from "antd";
 
 /* ------------------------------------------------------------------ */
 /*  Meta                                                               */

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import HoverCard from "../HoverCard";
 import PatientAvatar from "../PatientAvatar";
-import Tag from "../Tag";
+import { Tag } from "antd";
 
 const meta: Meta<typeof HoverCard> = {
   title: "Overlay/HoverCard",

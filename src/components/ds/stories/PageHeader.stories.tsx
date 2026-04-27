@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { PlusOutlined, QuestionCircleOutlined, FilterOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import PageHeader from "../PageHeader";
-import Button from "../Button";
+import { Button } from "antd";
 
 /* ------------------------------------------------------------------ */
 /*  Meta                                                               */

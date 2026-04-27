@@ -3,7 +3,7 @@ import { FileTextOutlined, DatabaseOutlined } from "@ant-design/icons";
 import Card, { type CardProps } from "../Card";
 import Avatar from "../Avatar";
 import Badge, { statusVariant } from "../Badge";
-import Button from "../Button";
+import { Button } from "antd";
 import FormInput from "../FormInput";
 import FormSelect from "../FormSelect";
 import DataTable, { TableHead, Th, TableBody, Td, Tr } from "../DataTable";

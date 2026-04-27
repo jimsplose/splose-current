@@ -1,10 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
-import Button from "./Button";
-import HintIcon from "./HintIcon";
-import Icon from "./Icon";
+import { Button } from "antd";
 import { EditOutlined } from "@ant-design/icons";
+import HintIcon from "./HintIcon";
 
 export interface ListItem {
   label: string;
@@ -39,13 +38,12 @@ function toLength(value: number | string | undefined): string {
 function EditButton({ label, onClick }: { label: string; onClick?: () => void }) {
   return (
     <Button
-      variant="ghost"
-      size="sm"
+      type="text"
+      size="small"
       aria-label={`Edit ${label}`}
       onClick={onClick}
-    >
-      <Icon as={EditOutlined} size="md" tone="secondary" />
-    </Button>
+      icon={<EditOutlined style={{ fontSize: 14, color: "var(--ant-color-text-secondary, #6E6E64)" }} />}
+    />
   );
 }
 

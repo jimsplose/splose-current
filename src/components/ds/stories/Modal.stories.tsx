@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { WarningOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import Modal from "../Modal";
-import Button from "../Button";
+import { Button } from "antd";
 import FormInput from "../FormInput";
 import FormSelect from "../FormSelect";
 import FormTextarea from "../FormTextarea";

@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import { CloseOutlined, ArrowUpOutlined, UnorderedListOutlined } from "@ant-design/icons";
 import Card from "@/components/ds/Card";
-import Icon from "@/components/ds/Icon";
 import styles from "./AiChatPanel.module.css";
 
 /* Sparkles icon — no direct AntD equivalent, use a custom SVG */
@@ -143,7 +142,7 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
           className={`${styles.buttonReset} ${styles.closeButton}`}
           onClick={onClose}
         >
-          <Icon as={CloseOutlined} size="lg" />
+          <CloseOutlined style={{ fontSize: 16, color: "var(--ant-color-text, #414549)" }} />
         </button>
       </div>
 
@@ -226,7 +225,7 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
             disabled={sendDisabled}
             className={`${styles.buttonReset} ${styles.sendButton} ${sendDisabled ? styles.sendButtonDisabled : ""}`}
           >
-            <Icon as={ArrowUpOutlined} size="lg" tone="inverted" />
+            <ArrowUpOutlined style={{ fontSize: 16, color: "#FFFFFF" }} />
           </button>
         </div>
 
@@ -234,7 +233,7 @@ export default function AiChatPanel({ onClose, variant = "calendar" }: AiChatPan
         <button
           className={`${styles.buttonReset} ${styles.savedPromptsButton}`}
         >
-          <Icon as={UnorderedListOutlined} size="lg" tone="secondary" />
+          <UnorderedListOutlined style={{ fontSize: 16, color: "var(--ant-color-text-secondary, #6E6E64)" }} />
           Saved prompts
         </button>
 

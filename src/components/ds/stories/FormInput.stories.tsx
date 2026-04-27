@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { SearchOutlined } from "@ant-design/icons";
 import FormInput from "../FormInput";
 import FormSelect from "../FormSelect";
-import Button from "../Button";
+import { Button } from "antd";
 
 /* ------------------------------------------------------------------ */
 /*  Meta                                                               */

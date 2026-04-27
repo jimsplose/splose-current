@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { BellOutlined, SettingOutlined, QuestionCircleOutlined, MessageOutlined } from "@ant-design/icons";
 import TopNav from "../TopNav";
 import Avatar from "../Avatar";
-import Button from "../Button";
+import { Button } from "antd";
 
 const meta: Meta<typeof TopNav> = {
   title: "Navigation/TopNav",

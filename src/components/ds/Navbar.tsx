@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import { Flex, theme } from "antd";
-import Button from "./Button";
+import { Button, Flex, theme } from "antd";
 import Text from "./Text";
 
 interface NavbarProps {
@@ -30,7 +29,7 @@ export default function Navbar({ backHref, title, backLabel, badge, children }: 
     >
       <Flex align="center" gap={12}>
         {backLabel && backHref ? (
-          <Button variant="link" href={backHref}>
+          <Button type="link" href={backHref}>
             {backLabel}
           </Button>
         ) : (

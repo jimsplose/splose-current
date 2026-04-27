@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { SearchOutlined, FileTextOutlined, InboxOutlined } from "@ant-design/icons";
 import EmptyState from "../EmptyState";
-import Button from "../Button";
+import { Button } from "antd";
 
 /* ------------------------------------------------------------------ */
 /*  Meta                                                               */

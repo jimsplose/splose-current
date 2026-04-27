@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { MenuOutlined, CloseOutlined, DownOutlined } from "@ant-design/icons";
-import Button from "./Button";
+import { Button } from "antd";
 import styles from "./TopNav.module.css";
 
 export interface NavItem {
@@ -84,13 +84,12 @@ export default function TopNav({ brand = "splose", items, children, className }:
       <div className={styles.headerInner}>
         {isMobile && (
           <Button
-            variant="icon"
-            size="sm"
+            type="text"
+            size="small"
+            icon={mobileMenuOpen ? <CloseOutlined style={{ fontSize: 18 }} /> : <MenuOutlined style={{ fontSize: 18 }} />}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             style={{ marginRight: 8 }}
-          >
-            {mobileMenuOpen ? <CloseOutlined style={{ fontSize: 18 }} /> : <MenuOutlined style={{ fontSize: 18 }} />}
-          </Button>
+          />
         )}
 
         <Link href="/" className={styles.logoLink}>

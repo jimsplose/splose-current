@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { WarningOutlined, InfoCircleOutlined, CheckCircleOutlined, CloseCircleOutlined, ThunderboltOutlined } from "@ant-design/icons";
 import Alert from "../Alert";
 import Badge from "../Badge";
-import Button from "../Button";
+import { Button } from "antd";
 
 /* ------------------------------------------------------------------ */
 /*  Meta                                                               */

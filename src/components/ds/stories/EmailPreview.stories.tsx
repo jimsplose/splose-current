@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 import EmailPreview from "../EmailPreview";
-import Button from "../Button";
+import { Button } from "antd";
 
 const meta: Meta<typeof EmailPreview> = {
   title: "Overlays/EmailPreview",

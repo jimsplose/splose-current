@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import DetailPage from "../DetailPage";
-import Button from "../Button";
+import { Button } from "antd";
 import Card from "../Card";
 import Badge from "../Badge";
 import Tab from "../Tab";

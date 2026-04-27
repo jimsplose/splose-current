@@ -8,7 +8,6 @@ import {
 } from "@ant-design/icons";
 import Accordion from "../Accordion";
 import Card from "../Card";
-import Icon from "../Icon";
 
 const meta: Meta<typeof Accordion> = {
   title: "Layout/Accordion",

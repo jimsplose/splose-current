@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "storybook/test";
 import Dropdown, { DropdownTriggerButton } from "../Dropdown";
 import type { DropdownItem } from "../Dropdown";
-import Button from "../Button";
+import { Button } from "antd";
 
 const meta: Meta<typeof Dropdown> = {
   title: "Overlays/Dropdown",

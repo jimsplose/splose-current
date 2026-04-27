@@ -3,7 +3,6 @@
 import { Dropdown } from "antd";
 import { RightOutlined } from "@ant-design/icons";
 import type { ReactNode } from "react";
-import Icon from "./Icon";
 
 export interface BreadcrumbItem {
   label: string;
@@ -25,7 +24,7 @@ export interface BreadcrumbsProps {
 }
 
 const defaultSeparator = (
-  <Icon as={RightOutlined} size="xs" tone="tertiary" />
+  <RightOutlined style={{ fontSize: 10, color: "var(--ant-color-text-tertiary, #b8bcc0)" }} />
 );
 
 function Link({ item, current }: { item: BreadcrumbItem; current: boolean }) {

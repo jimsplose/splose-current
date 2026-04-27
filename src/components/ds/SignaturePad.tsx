@@ -2,8 +2,8 @@
 
 import SignaturePadLib from "signature_pad";
 import { useEffect, useRef, useState } from "react";
+import { Button } from "antd";
 import FormField from "./FormField";
-import Button from "./Button";
 
 export type SignatureFormat = "png" | "svg";
 
@@ -140,8 +140,8 @@ export default function SignaturePad({
       {showClearButton && !disabled ? (
         <div style={{ position: "absolute", top: 6, right: 6 }}>
           <Button
-            size="sm"
-            variant="ghost"
+            size="small"
+            type="text"
             onClick={() => {
               padRef.current?.clear();
               setIsEmpty(true);

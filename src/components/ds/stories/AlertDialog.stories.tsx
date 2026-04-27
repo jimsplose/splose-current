@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 import { alertDialog } from "../AlertDialog";
-import Button from "../Button";
+import { Button } from "antd";
 
 const meta: Meta = {
   title: "Overlay/AlertDialog",

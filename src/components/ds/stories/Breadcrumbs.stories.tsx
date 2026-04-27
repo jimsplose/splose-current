@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { HomeOutlined } from "@ant-design/icons";
 import Breadcrumbs from "../Breadcrumbs";
-import Icon from "../Icon";
 
 const meta: Meta<typeof Breadcrumbs> = {
   title: "Navigation/Breadcrumbs",

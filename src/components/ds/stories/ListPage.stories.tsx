@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { PlusOutlined } from "@ant-design/icons";
 import ListPage from "../ListPage";
-import Button from "../Button";
+import { Button } from "antd";
 import DataTable from "../DataTable";
 import { TableHead, Th, TableBody, Td } from "../DataTable";
 import Pagination from "../Pagination";

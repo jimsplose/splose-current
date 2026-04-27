@@ -7,7 +7,6 @@ import {
   AppstoreAddOutlined,
 } from "@ant-design/icons";
 import SegmentedControl from "../SegmentedControl";
-import Icon from "../Icon";
 
 const meta: Meta = {
   title: "Forms/SegmentedControl",
