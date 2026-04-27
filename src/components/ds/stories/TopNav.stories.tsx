@@ -9,6 +9,7 @@ import { Button } from "antd";
 const meta: Meta<typeof TopNav> = {
   title: "Navigation/TopNav",
   component: TopNav,
+  tags: ["custom"],
   argTypes: {
     brand: { control: "text" },
     className: { control: "text" },
@@ -16,6 +17,24 @@ const meta: Meta<typeof TopNav> = {
   parameters: {
     nextjs: { appDirectory: true },
     layout: "fullscreen",
+    appPages: [
+      {
+        route: "/calendar",
+        vercel: "https://splose-current.vercel.app/calendar",
+        production: "https://acme.splose.com/calendar/week/25/3/2026",
+      },
+      {
+        route: "/clients",
+        vercel: "https://splose-current.vercel.app/clients",
+        production: "https://acme.splose.com/patients",
+      },
+      {
+        route: "/invoices",
+        vercel: "https://splose-current.vercel.app/invoices",
+        production: "https://acme.splose.com/invoices",
+      },
+    ],
+    referenceUrl: null,
   },
 };
 

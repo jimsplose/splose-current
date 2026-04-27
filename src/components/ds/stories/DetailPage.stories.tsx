@@ -9,7 +9,33 @@ import type { TabItem } from "../Tab";
 const meta: Meta<typeof DetailPage> = {
   title: "Templates/DetailPage",
   component: DetailPage,
-  parameters: { layout: "fullscreen" },
+  tags: ["extended"],
+  parameters: {
+    layout: "fullscreen",
+    appPages: [
+      {
+        route: "/clients/[id]",
+        vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h",
+        production: "https://acme.splose.com/patients/446604/details",
+      },
+      {
+        route: "/invoices/[id]",
+        vercel: "https://splose-current.vercel.app/invoices/1",
+        production: "https://acme.splose.com/invoices/1/view",
+      },
+      {
+        route: "/contacts/[id]",
+        vercel: "https://splose-current.vercel.app/contacts/1",
+        production: "https://acme.splose.com/contacts/1",
+      },
+      {
+        route: "/settings/users/[id]",
+        vercel: "https://splose-current.vercel.app/settings/users/1",
+        production: "https://acme.splose.com/settings/users/1",
+      },
+    ],
+    referenceUrl: null,
+  },
 };
 
 export default meta;

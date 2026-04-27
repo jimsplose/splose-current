@@ -9,6 +9,22 @@ import { SIMPLE_CRUD, STANDARD_SETTINGS } from "@/lib/dropdown-presets";
 const meta: Meta<typeof SettingsListPage> = {
   title: "Templates/SettingsListPage",
   component: SettingsListPage,
+  tags: ["extended"],
+  parameters: {
+    appPages: [
+      {
+        route: "/settings/referral-types",
+        vercel: "https://splose-current.vercel.app/settings/referral-types",
+        production: "https://acme.splose.com/settings/referral-types",
+      },
+      {
+        route: "/settings/communication-types",
+        vercel: "https://splose-current.vercel.app/settings/communication-types",
+        production: "https://acme.splose.com/settings/communication-types",
+      },
+    ],
+    referenceUrl: null,
+  },
 };
 export default meta;
 

@@ -7,7 +7,7 @@ import type { SideNavSection } from "../SideNav";
 const meta: Meta<typeof SideNav> = {
   title: "Navigation/SideNav",
   component: SideNav,
-  tags: ["tier:extended"],
+  tags: ["extended"],
   argTypes: {
     className: { control: "text" },
   },

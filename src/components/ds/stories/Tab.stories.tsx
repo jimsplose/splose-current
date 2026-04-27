@@ -6,6 +6,32 @@ import Tab from "../Tab";
 const meta: Meta<typeof Tab> = {
   title: "Navigation/Tab",
   component: Tab,
+  tags: ["extended"],
+  parameters: {
+    appPages: [
+      {
+        route: "/settings/ai",
+        vercel: "https://splose-current.vercel.app/settings/ai",
+        production: "https://acme.splose.com/settings/ai",
+      },
+      {
+        route: "/waitlist",
+        vercel: "https://splose-current.vercel.app/waitlist",
+        production: "https://acme.splose.com/waitlist",
+      },
+      {
+        route: "/settings/tags",
+        vercel: "https://splose-current.vercel.app/settings/tags",
+        production: "https://acme.splose.com/settings/tags",
+      },
+      {
+        route: "/settings/forms/[id]",
+        vercel: "https://splose-current.vercel.app/settings/forms/cmngtw7n9005eycwg4e67506h",
+        production: "https://acme.splose.com/settings/forms/cmngtw7n9005eycwg4e67506h",
+      },
+    ],
+    referenceUrl: "https://ant.design/components/tabs",
+  },
 };
 
 export default meta;

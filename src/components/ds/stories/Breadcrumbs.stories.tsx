@@ -5,7 +5,7 @@ import Breadcrumbs from "../Breadcrumbs";
 const meta: Meta<typeof Breadcrumbs> = {
   title: "Navigation/Breadcrumbs",
   component: Breadcrumbs,
-  tags: ["tier:extended"],
+  tags: ["extended"],
   parameters: {
     layout: "padded",
     appPages: [

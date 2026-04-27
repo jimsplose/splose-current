@@ -6,8 +6,17 @@ import { Tag } from "antd";
 const meta: Meta<typeof HoverCard> = {
   title: "Overlays/HoverCard",
   component: HoverCard,
+  tags: ["extended"],
   parameters: {
     layout: "padded",
+    appPages: [
+      {
+        label: "Calendar (hover preview on appointments / patient avatars)",
+        vercel: "https://splose-current.vercel.app/calendar",
+        production: "https://acme.splose.com/calendar/week/25/3/2026",
+      },
+    ],
+    referenceUrl: "https://www.radix-ui.com/primitives/docs/components/hover-card",
     splose: {
       status: "beta",
       summary:

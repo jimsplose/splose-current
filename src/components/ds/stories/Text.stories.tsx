@@ -15,6 +15,32 @@ const ALL_VARIANTS: TextVariant[] = [
 const meta: Meta<typeof Text> = {
   title: "Typography/Text",
   component: Text,
+  tags: ["custom"],
+  parameters: {
+    appPages: [
+      {
+        label: "Dashboard (page title, metrics, body copy)",
+        vercel: "https://splose-current.vercel.app/",
+        production: "https://acme.splose.com/",
+      },
+      {
+        label: "Client detail (display heading, body, label/value pairs)",
+        vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h",
+        production: "https://acme.splose.com/patients/446604/details",
+      },
+      {
+        label: "Waitlist (table headings, captions)",
+        vercel: "https://splose-current.vercel.app/waitlist",
+        production: "https://acme.splose.com/waitlist",
+      },
+      {
+        label: "Client > Appointments side panel (heading + body stack)",
+        vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/appointments",
+        production: "https://acme.splose.com/patients/446604/appointments",
+      },
+    ],
+    referenceUrl: null,
+  },
   argTypes: {
     variant: {
       control: "select",

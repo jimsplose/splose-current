@@ -12,7 +12,7 @@ import Filter from "../Filter";
 const meta: Meta<typeof Navbar> = {
   title: "Navigation/Navbar",
   component: Navbar,
-  tags: ["tier:extended"],
+  tags: ["extended"],
   argTypes: {
     backHref: {
       control: "text",

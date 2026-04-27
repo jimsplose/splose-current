@@ -23,6 +23,29 @@ const meta: Meta<typeof EmptyState> = {
   },
   parameters: {
     layout: "padded",
+    appPages: [
+      {
+        label: "Waitlist",
+        vercel: "https://splose-current.vercel.app/waitlist",
+        production: "https://acme.splose.com/waitlist",
+      },
+      {
+        label: "Settings — Forms",
+        vercel: "https://splose-current.vercel.app/settings/forms",
+        production: "https://acme.splose.com/settings/forms",
+      },
+      {
+        label: "Products",
+        vercel: "https://splose-current.vercel.app/products",
+        production: "https://acme.splose.com/products",
+      },
+      {
+        label: "Client invoices tab",
+        vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/invoices",
+        production: "https://acme.splose.com/patients/446604/invoices",
+      },
+    ],
+    referenceUrl: "https://ant.design/components/empty",
   },
 };
 

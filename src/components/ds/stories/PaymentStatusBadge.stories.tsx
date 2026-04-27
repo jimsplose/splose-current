@@ -5,6 +5,7 @@ import type { PaymentStatus } from "../PaymentStatusBadge";
 const meta: Meta<typeof PaymentStatusBadge> = {
   title: "Data Display/PaymentStatusBadge",
   component: PaymentStatusBadge,
+  tags: ["custom"],
   argTypes: {
     status: {
       control: "select",
@@ -34,6 +35,24 @@ const meta: Meta<typeof PaymentStatusBadge> = {
       plan: "docs/ds-plans/PaymentStatusBadge.md",
       source: "src/components/ds/PaymentStatusBadge.tsx",
     },
+    appPages: [
+      {
+        label: "Invoices list",
+        vercel: "https://splose-current.vercel.app/invoices",
+        production: "https://acme.splose.com/invoices",
+      },
+      {
+        label: "Invoice detail",
+        vercel: "https://splose-current.vercel.app/invoices/1",
+        production: "https://acme.splose.com/invoices/1/view",
+      },
+      {
+        label: "Client invoices",
+        vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/invoices",
+        production: "https://acme.splose.com/patients/446604/invoices",
+      },
+    ],
+    referenceUrl: null,
   },
 };
 export default meta;

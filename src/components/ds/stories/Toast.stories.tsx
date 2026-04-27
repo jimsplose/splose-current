@@ -4,6 +4,7 @@ import { Button } from "antd";
 
 const meta: Meta = {
   title: "Feedback/Toast",
+  tags: ["extended"],
   decorators: [
     (Story) => (
       <div style={{ padding: 24 }}>
@@ -14,6 +15,19 @@ const meta: Meta = {
   ],
   parameters: {
     layout: "padded",
+    appPages: [
+      {
+        label: "Invoice detail",
+        vercel: "https://splose-current.vercel.app/invoices/1",
+        production: "https://acme.splose.com/invoices/1/view",
+      },
+      {
+        label: "Reports — Performance",
+        vercel: "https://splose-current.vercel.app/reports/performance",
+        production: "https://acme.splose.com/reports/performance",
+      },
+    ],
+    referenceUrl: "https://sonner.emilkowal.ski",
     splose: {
       status: "beta",
       summary:

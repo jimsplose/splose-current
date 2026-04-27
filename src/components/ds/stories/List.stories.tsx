@@ -9,6 +9,7 @@ import List from "../List";
 const meta: Meta<typeof List> = {
   title: "Data Display/List",
   component: List,
+  tags: ["extended"],
   argTypes: {
     labelWidth: {
       control: "text",
@@ -27,6 +28,29 @@ const meta: Meta<typeof List> = {
       plan: "docs/ds-plans/ListEnhancement.md",
       source: "src/components/ds/List.tsx",
     },
+    appPages: [
+      {
+        label: "Client detail",
+        vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h",
+        production: "https://acme.splose.com/patients/446604/details",
+      },
+      {
+        label: "Note detail",
+        vercel: "https://splose-current.vercel.app/notes/1",
+        production: "https://acme.splose.com/notes/1/view",
+      },
+      {
+        label: "Waitlist",
+        vercel: "https://splose-current.vercel.app/waitlist",
+        production: "https://acme.splose.com/waitlist",
+      },
+      {
+        label: "Contact detail",
+        vercel: "https://splose-current.vercel.app/contacts/1",
+        production: "https://acme.splose.com/contacts/1",
+      },
+    ],
+    referenceUrl: "https://ant.design/components/list",
   },
 };
 

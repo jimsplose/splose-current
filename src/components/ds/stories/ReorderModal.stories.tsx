@@ -10,7 +10,18 @@ import { Button } from "antd";
 const meta: Meta<typeof ReorderModal> = {
   title: "Overlays/ReorderModal",
   component: ReorderModal,
-  parameters: { layout: "centered" },
+  tags: ["custom"],
+  parameters: {
+    layout: "centered",
+    appPages: [
+      {
+        label: "Settings: Custom fields (reorder fields)",
+        vercel: "https://splose-current.vercel.app/settings/custom-fields",
+        production: "https://acme.splose.com/settings/custom-fields",
+      },
+    ],
+    referenceUrl: null,
+  },
   argTypes: {
     open: { control: "boolean" },
     title: { control: "text" },

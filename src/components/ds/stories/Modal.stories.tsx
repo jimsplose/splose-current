@@ -16,6 +16,7 @@ import Badge from "../Badge";
 const meta: Meta<typeof Modal> = {
   title: "Overlays/Modal",
   component: Modal,
+  tags: ["extended"],
   argTypes: {
     open: {
       control: "boolean",
@@ -41,6 +42,29 @@ const meta: Meta<typeof Modal> = {
   },
   parameters: {
     layout: "fullscreen",
+    appPages: [
+      {
+        label: "Invoice detail (Send invoice modal)",
+        vercel: "https://splose-current.vercel.app/invoices/cmngtw7n9005eycwg4e67506h",
+        production: "https://acme.splose.com/invoices/INV-14130707/view",
+      },
+      {
+        label: "Waitlist (add / edit waitlist entry)",
+        vercel: "https://splose-current.vercel.app/waitlist",
+        production: "https://acme.splose.com/waitlist",
+      },
+      {
+        label: "Client forms (assign / send form modal)",
+        vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/forms",
+        production: "https://acme.splose.com/patients/446604/forms",
+      },
+      {
+        label: "Settings: Online bookings (edit modal)",
+        vercel: "https://splose-current.vercel.app/settings/online-bookings",
+        production: "https://acme.splose.com/settings/online-bookings",
+      },
+    ],
+    referenceUrl: "https://ant.design/components/modal",
   },
 };
 

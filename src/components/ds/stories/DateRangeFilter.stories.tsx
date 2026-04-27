@@ -7,10 +7,20 @@ import DateRangeFilter from "../DateRangeFilter";
 const meta: Meta<typeof DateRangeFilter> = {
   title: "Forms/DateRangeFilter",
   component: DateRangeFilter,
+  tags: ["extended"],
   argTypes: {
     startDate: { control: "text" },
     endDate: { control: "text" },
     className: { control: "text" },
+  },
+  parameters: {
+    appPages: [
+      { label: "Invoices — Batch invoice", vercel: "https://splose-current.vercel.app/invoices/batch-invoice", production: "https://acme.splose.com/invoices/batch-invoice" },
+      { label: "Reports — Payments", vercel: "https://splose-current.vercel.app/reports/payments", production: "https://acme.splose.com/reports/payments" },
+      { label: "Reports — Appointments", vercel: "https://splose-current.vercel.app/reports/appointments", production: "https://acme.splose.com/reports/appointments" },
+      { label: "Reports — Waitlist", vercel: "https://splose-current.vercel.app/reports/waitlist", production: "https://acme.splose.com/reports/waitlist" },
+    ],
+    referenceUrl: "https://ant.design/components/date-picker",
   },
 };
 

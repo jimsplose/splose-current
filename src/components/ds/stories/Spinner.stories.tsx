@@ -8,6 +8,7 @@ import Spinner from "../Spinner";
 const meta: Meta<typeof Spinner> = {
   title: "Feedback/Spinner",
   component: Spinner,
+  tags: ["extended"],
   argTypes: {
     size: {
       control: "radio",
@@ -17,6 +18,14 @@ const meta: Meta<typeof Spinner> = {
   },
   parameters: {
     layout: "centered",
+    appPages: [
+      {
+        label: "Note edit",
+        vercel: "https://splose-current.vercel.app/notes/1/edit",
+        production: "https://acme.splose.com/notes/1/edit",
+      },
+    ],
+    referenceUrl: "https://ant.design/components/spin",
   },
 };
 

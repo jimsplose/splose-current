@@ -10,7 +10,33 @@ import Badge, { statusVariant } from "../Badge";
 const meta: Meta<typeof ListPage> = {
   title: "Templates/ListPage",
   component: ListPage,
-  parameters: { layout: "fullscreen" },
+  tags: ["extended"],
+  parameters: {
+    layout: "fullscreen",
+    appPages: [
+      {
+        route: "/clients",
+        vercel: "https://splose-current.vercel.app/clients",
+        production: "https://acme.splose.com/patients",
+      },
+      {
+        route: "/invoices",
+        vercel: "https://splose-current.vercel.app/invoices",
+        production: "https://acme.splose.com/invoices",
+      },
+      {
+        route: "/payments",
+        vercel: "https://splose-current.vercel.app/payments",
+        production: "https://acme.splose.com/payments",
+      },
+      {
+        route: "/contacts",
+        vercel: "https://splose-current.vercel.app/contacts",
+        production: "https://acme.splose.com/contacts",
+      },
+    ],
+    referenceUrl: null,
+  },
 };
 
 export default meta;

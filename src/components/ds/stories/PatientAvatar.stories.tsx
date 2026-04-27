@@ -4,6 +4,7 @@ import PatientAvatar from "../PatientAvatar";
 const meta: Meta<typeof PatientAvatar> = {
   title: "Data Display/PatientAvatar",
   component: PatientAvatar,
+  tags: ["custom"],
   argTypes: {
     size: { control: "select", options: ["xs", "sm", "md", "lg", "xl"] },
     status: { control: "select", options: ["active", "archived", "deceased"] },
@@ -20,6 +21,14 @@ const meta: Meta<typeof PatientAvatar> = {
       plan: "docs/ds-plans/PatientAvatar.md",
       source: "src/components/ds/PatientAvatar.tsx",
     },
+    appPages: [
+      {
+        label: "Client detail",
+        vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h",
+        production: "https://acme.splose.com/patients/446604/details",
+      },
+    ],
+    referenceUrl: null,
   },
 };
 export default meta;

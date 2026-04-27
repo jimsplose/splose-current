@@ -9,6 +9,7 @@ import FileUpload from "../FileUpload";
 const meta: Meta<typeof FileUpload> = {
   title: "Forms/FileUpload",
   component: FileUpload,
+  tags: ["extended"],
   argTypes: {
     label: {
       control: "text",
@@ -17,6 +18,12 @@ const meta: Meta<typeof FileUpload> = {
   },
   parameters: {
     layout: "centered",
+    appPages: [
+      { label: "Patient details", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h", production: "https://acme.splose.com/patients/446604/details" },
+      { label: "Settings — Practice details", vercel: "https://splose-current.vercel.app/settings/details", production: "https://acme.splose.com/settings/details" },
+      { label: "Reports — NDIS bulk upload (new)", vercel: "https://splose-current.vercel.app/reports/ndis-bulk-upload/new", production: "https://acme.splose.com/reports/ndis-bulk-upload/new" },
+    ],
+    referenceUrl: "https://ant.design/components/upload",
   },
 };
 

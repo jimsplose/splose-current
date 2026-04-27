@@ -8,7 +8,7 @@ import Pagination from "../Pagination";
 const meta: Meta<typeof Pagination> = {
   title: "Navigation/Pagination",
   component: Pagination,
-  tags: ["tier:extended"],
+  tags: ["extended"],
   argTypes: {
     currentPage: {
       control: { type: "number", min: 1 },

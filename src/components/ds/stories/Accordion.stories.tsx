@@ -12,6 +12,7 @@ import Card from "../Card";
 const meta: Meta<typeof Accordion> = {
   title: "Layout/Accordion",
   component: Accordion,
+  tags: ["extended"],
   argTypes: {
     type: { control: "radio", options: ["single", "multiple"] },
     tone: { control: "radio", options: ["default", "subtle"] },
@@ -19,6 +20,9 @@ const meta: Meta<typeof Accordion> = {
   },
   parameters: {
     layout: "padded",
+    // No direct call sites in src/app/ yet — Collapse is still the in-use single-panel alias.
+    appPages: [],
+    referenceUrl: "https://ant.design/components/collapse",
     splose: {
       status: "beta",
       summary:

@@ -5,6 +5,7 @@ import Card from "../Card";
 const meta: Meta<typeof Skeleton> = {
   title: "Feedback/Skeleton",
   component: Skeleton,
+  tags: ["extended"],
   argTypes: {
     shape: { control: "select", options: ["text", "rect", "circle"] },
     width: { control: "text" },
@@ -14,6 +15,29 @@ const meta: Meta<typeof Skeleton> = {
   },
   parameters: {
     layout: "padded",
+    appPages: [
+      {
+        label: "Clients list",
+        vercel: "https://splose-current.vercel.app/clients",
+        production: "https://acme.splose.com/patients",
+      },
+      {
+        label: "Invoices list",
+        vercel: "https://splose-current.vercel.app/invoices",
+        production: "https://acme.splose.com/invoices",
+      },
+      {
+        label: "Contacts list",
+        vercel: "https://splose-current.vercel.app/contacts",
+        production: "https://acme.splose.com/contacts",
+      },
+      {
+        label: "Waitlist",
+        vercel: "https://splose-current.vercel.app/waitlist",
+        production: "https://acme.splose.com/waitlist",
+      },
+    ],
+    referenceUrl: "https://ant.design/components/skeleton",
     splose: {
       status: "beta",
       summary:
