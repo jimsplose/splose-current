@@ -311,19 +311,17 @@ DTOs (`@splose/dto`) are hand-maintained Zod schemas + TypeScript types. No Open
 **Not fully resolved in this pass.** Multi-entry Vite produces both bundles in `dist/`. The Express server in `packages/server` chooses which to serve, but the static-file routing logic was not located within the read budget. Likely candidates: path-prefix matching (`/online-booking/*` → `booking.html`, default → `index.html`) or subdomain split. Escalated to §8.
 
 ### 6.6 Replication needs for splose-current
-**Observation only — Step 2 will decide whether to replicate.**
 
-- **To match production's current behaviour** (visual mockup), splose-current needs:
-  - A `BookingPreview` component that takes design props and renders a hardcoded-content mockup, structurally similar to but visually independent from the real booking form.
-  - State plumbing in the admin Bookings 2.0 config UI to feed colours/notices/currency into the preview.
-  - **No iframe, no postMessage, no draft-mode backend support.** The current production approach is intentionally simple.
+**This lever is DECIDED, not open** (per Jim, 2026-04-28). splose-current must implement a **fully interactive functional live preview**, going beyond production's static mockup. Reason: splose-current is also a vibe-coding foundation — it must be a real working application, not a mockup. See project memory `project_booking_form_interactive_requirement`.
 
-- **To go beyond production** (functional live preview), splose-current would need:
-  - An iframe pointing at a draft URL (e.g. `/online-booking/:tempUuid?draft=true`).
-  - A postMessage protocol to push config changes (colours, fields, slots) admin → iframe.
-  - Backend support to serve draft/preview booking forms with injected config.
+splose-current needs:
 
-- **Cost asymmetry:** Production's mockup approach is far simpler; functional preview is a meaningful Step 2 design decision (not just an implementation detail).
+- **An iframe** in the Bookings 2.0 admin config UI pointing at a draft URL (e.g. `/online-booking/:tempUuid?draft=true`).
+- **A postMessage protocol** (or URL-param fallback) to push config changes (colours, fields, slots) from admin → iframe in real time.
+- **Backend support** to serve draft/preview booking forms with injected config — including a way to reconcile draft state with persisted state.
+- **Real end-user booking pages** at the same routes the iframe loads from — i.e. the iframe and the public-facing booking experience must share the same React entry, not two separate implementations.
+
+Production's mockup-only approach (§6.1–§6.4) is documented here for reference only. splose-current's implementation is the more ambitious cousin.
 
 ## 7. Implications for splose-current alignment
 
@@ -406,13 +404,14 @@ Each lever lists **splose-current today**, **monorepo today**, **what aligning w
 - **If aligning:** Match Node + pnpm versions. Already on TS 5.x likely.
 - **Estimated impact:** Small.
 
-### 7.11 Live preview
+### 7.11 Live preview — **DECIDED (not open)**
 
-- **splose-current:** No live preview.
+- **splose-current:** No live preview today.
 - **monorepo:** Static visual mockup via prop-driven React component (NOT iframe).
-- **If aligning:** Add a `BookingPreview` component to splose-current's Bookings 2.0 config page that takes design props and renders a styled mockup with hardcoded content.
-- **Estimated impact:** Small if matching production; moderate if going beyond (functional iframe preview).
-- **Biggest risk:** Mockup approach makes the POC value low — engineers comparing splose-current to production may want functional preview to evaluate the alignment.
+- **DECISION (per Jim, 2026-04-28):** splose-current must implement a **fully interactive functional live preview** — iframe + postMessage + draft-mode backend — and **fully interactive end-user booking pages**. This goes BEYOND production's mockup approach. Reason: splose-current is also a vibe-coding foundation; it must be a real working application.
+- **Estimated impact:** Moderate-to-large. Need: iframe component in admin Bookings 2.0 config UI, draft URL convention (`/online-booking/:tempUuid?draft=true`), postMessage protocol (or URL-param fallback) for live config sync, backend draft-state handling, real public booking pages sharing the same React entry as the iframe.
+- **Biggest risk:** Scope creep — backend draft-state plumbing is the largest unknown. Iframe sync and end-user pages are well-trodden patterns.
+- **Reference:** Project memory `project_booking_form_interactive_requirement`.
 
 ## 8. Open questions
 
