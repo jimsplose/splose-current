@@ -13,16 +13,19 @@ const meta: Meta<typeof RadioGroup> = {
       {
         label: "Settings: Online bookings (booking option selection)",
         vercel: "https://splose-current.vercel.app/settings/online-bookings/cmngtw7n9005eycwg4e67506h",
+        localhost: "http://localhost:3000/settings/online-bookings/cmngtw7n9005eycwg4e67506h",
         production: "https://acme.splose.com/settings/online-bookings/1",
       },
       {
         label: "Settings: Edit service (radio options)",
         vercel: "https://splose-current.vercel.app/settings/services/edit/cmngtwrue007kycwg65dgipx3",
+        localhost: "http://localhost:3000/settings/services/edit/cmngtwrue007kycwg65dgipx3",
         production: "https://acme.splose.com/settings/services/edit/1",
       },
       {
         label: "Calendar (recurring appointment apply/delete radios)",
         vercel: "https://splose-current.vercel.app/calendar",
+        localhost: "http://localhost:3000/calendar",
         production: "https://acme.splose.com/calendar/week/25/3/2026",
       },
     ],

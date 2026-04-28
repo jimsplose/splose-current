@@ -15,23 +15,27 @@ const meta: Meta<typeof ListPage> = {
     layout: "fullscreen",
     appPages: [
       {
-        route: "/clients",
+        label: "/clients",
         vercel: "https://splose-current.vercel.app/clients",
+        localhost: "http://localhost:3000/clients",
         production: "https://acme.splose.com/patients",
       },
       {
-        route: "/invoices",
+        label: "/invoices",
         vercel: "https://splose-current.vercel.app/invoices",
+        localhost: "http://localhost:3000/invoices",
         production: "https://acme.splose.com/invoices",
       },
       {
-        route: "/payments",
+        label: "/payments",
         vercel: "https://splose-current.vercel.app/payments",
+        localhost: "http://localhost:3000/payments",
         production: "https://acme.splose.com/payments",
       },
       {
-        route: "/contacts",
+        label: "/contacts",
         vercel: "https://splose-current.vercel.app/contacts",
+        localhost: "http://localhost:3000/contacts",
         production: "https://acme.splose.com/contacts",
       },
     ],

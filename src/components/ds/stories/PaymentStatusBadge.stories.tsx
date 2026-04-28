@@ -39,16 +39,19 @@ const meta: Meta<typeof PaymentStatusBadge> = {
       {
         label: "Invoices list",
         vercel: "https://splose-current.vercel.app/invoices",
+        localhost: "http://localhost:3000/invoices",
         production: "https://acme.splose.com/invoices",
       },
       {
         label: "Invoice detail",
         vercel: "https://splose-current.vercel.app/invoices/1",
+        localhost: "http://localhost:3000/invoices/1",
         production: "https://acme.splose.com/invoices/1/view",
       },
       {
         label: "Client invoices",
         vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/invoices",
+        localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h/invoices",
         production: "https://acme.splose.com/patients/446604/invoices",
       },
     ],

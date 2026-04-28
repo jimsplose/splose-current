@@ -31,11 +31,13 @@ const meta: Meta<typeof HintIcon> = {
       {
         label: "Client detail (Associated contacts hint, Account balance hints)",
         vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h",
+        localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h",
         production: "https://acme.splose.com/patients/446604/details",
       },
       {
         label: "Settings: Business details (Workspace URL, Patient terminology hints)",
         vercel: "https://splose-current.vercel.app/settings/details",
+        localhost: "http://localhost:3000/settings/details",
         production: "https://acme.splose.com/settings/details",
       },
     ],

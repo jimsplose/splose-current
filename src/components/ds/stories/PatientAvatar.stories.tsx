@@ -25,6 +25,7 @@ const meta: Meta<typeof PatientAvatar> = {
       {
         label: "Client detail",
         vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h",
+        localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h",
         production: "https://acme.splose.com/patients/446604/details",
       },
     ],

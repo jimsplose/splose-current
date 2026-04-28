@@ -11,8 +11,8 @@ const meta: Meta<typeof Stat> = {
   tags: ["extended"],
   parameters: {
     appPages: [
-      { label: "Settings — SMS settings", vercel: "https://splose-current.vercel.app/settings/sms-settings", production: "https://acme.splose.com/settings/sms-settings" },
-      { label: "Reports — Progress notes", vercel: "https://splose-current.vercel.app/reports/progress-notes", production: "https://acme.splose.com/reports/progress-notes" },
+      { label: "Settings — SMS settings", vercel: "https://splose-current.vercel.app/settings/sms-settings", localhost: "http://localhost:3000/settings/sms-settings", production: "https://acme.splose.com/settings/sms-settings" },
+      { label: "Reports — Progress notes", vercel: "https://splose-current.vercel.app/reports/progress-notes", localhost: "http://localhost:3000/reports/progress-notes", production: "https://acme.splose.com/reports/progress-notes" },
     ],
     referenceUrl: "https://ant.design/components/statistic",
   },

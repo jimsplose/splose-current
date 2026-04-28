@@ -13,7 +13,7 @@ const meta: Meta<typeof ProgressBar> = {
   parameters: {
     layout: "padded",
     appPages: [
-      { label: "Reports", vercel: "https://splose-current.vercel.app/reports", production: "https://acme.splose.com/reports" },
+      { label: "Reports", vercel: "https://splose-current.vercel.app/reports", localhost: "http://localhost:3000/reports", production: "https://acme.splose.com/reports" },
     ],
     referenceUrl: "https://ant.design/components/progress",
   },

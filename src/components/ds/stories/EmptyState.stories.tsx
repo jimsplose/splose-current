@@ -27,21 +27,25 @@ const meta: Meta<typeof EmptyState> = {
       {
         label: "Waitlist",
         vercel: "https://splose-current.vercel.app/waitlist",
+        localhost: "http://localhost:3000/waitlist",
         production: "https://acme.splose.com/waitlist",
       },
       {
         label: "Settings — Forms",
         vercel: "https://splose-current.vercel.app/settings/forms",
+        localhost: "http://localhost:3000/settings/forms",
         production: "https://acme.splose.com/settings/forms",
       },
       {
         label: "Products",
         vercel: "https://splose-current.vercel.app/products",
+        localhost: "http://localhost:3000/products",
         production: "https://acme.splose.com/products",
       },
       {
         label: "Client invoices tab",
         vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/invoices",
+        localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h/invoices",
         production: "https://acme.splose.com/patients/446604/invoices",
       },
     ],

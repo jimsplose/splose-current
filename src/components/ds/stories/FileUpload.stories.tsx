@@ -19,9 +19,9 @@ const meta: Meta<typeof FileUpload> = {
   parameters: {
     layout: "centered",
     appPages: [
-      { label: "Patient details", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h", production: "https://acme.splose.com/patients/446604/details" },
-      { label: "Settings — Practice details", vercel: "https://splose-current.vercel.app/settings/details", production: "https://acme.splose.com/settings/details" },
-      { label: "Reports — NDIS bulk upload (new)", vercel: "https://splose-current.vercel.app/reports/ndis-bulk-upload/new", production: "https://acme.splose.com/reports/ndis-bulk-upload/new" },
+      { label: "Patient details", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h", localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h", production: "https://acme.splose.com/patients/446604/details" },
+      { label: "Settings — Practice details", vercel: "https://splose-current.vercel.app/settings/details", localhost: "http://localhost:3000/settings/details", production: "https://acme.splose.com/settings/details" },
+      { label: "Reports — NDIS bulk upload (new)", vercel: "https://splose-current.vercel.app/reports/ndis-bulk-upload/new", localhost: "http://localhost:3000/reports/ndis-bulk-upload/new", production: "https://acme.splose.com/reports/ndis-bulk-upload/new" },
     ],
     referenceUrl: "https://ant.design/components/upload",
   },

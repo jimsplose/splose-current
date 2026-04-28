@@ -55,12 +55,15 @@ export type SploseTier = "antd" | "extended" | "custom";
 
 /**
  * One entry in `parameters.appPages` — a route where the component is used,
- * with both Vercel and acme.splose.com URL pairs for screenshot capture (#18)
- * and MDX docs (#19).
+ * with localhost / Vercel / production URL triples for the AppPagesTable
+ * MDX block (#19). The user toggles the active source via the Storybook
+ * toolbar dropdown ("Source: localhost | vercel | production").
  */
 export interface SploseAppPage {
   /** Human-readable label, e.g. "Patient details — Appointments tab". */
   label: string;
+  /** Full localhost URL (http://localhost:3000/...). */
+  localhost: string;
   /** Full Vercel URL (https://splose-current.vercel.app/...). */
   vercel: string;
   /** Full production URL (https://acme.splose.com/...). */
@@ -68,6 +71,12 @@ export interface SploseAppPage {
   /** Optional: navigation instructions for dynamic routes. */
   notes?: string;
 }
+
+/**
+ * Storybook toolbar global key for the URL source dropdown.
+ * Read via `useGlobals()` in MDX/blocks; default is "vercel".
+ */
+export type SploseUrlSource = "localhost" | "vercel" | "production";
 
 // Ensure @storybook/react is loaded before the augmentation below.
 import type {} from "@storybook/react";

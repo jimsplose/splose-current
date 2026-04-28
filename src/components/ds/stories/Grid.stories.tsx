@@ -29,10 +29,10 @@ const meta: Meta<typeof Grid> = {
   parameters: {
     layout: "padded",
     appPages: [
-      { label: "New client form", vercel: "https://splose-current.vercel.app/clients/new", production: "https://acme.splose.com/patients/new" },
-      { label: "Patient details", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h", production: "https://acme.splose.com/patients/446604/details" },
-      { label: "Settings — Forms (edit)", vercel: "https://splose-current.vercel.app/settings/forms/1", production: "https://acme.splose.com/settings/forms" },
-      { label: "Settings — Details", vercel: "https://splose-current.vercel.app/settings/details", production: "https://acme.splose.com/settings/details" },
+      { label: "New client form", vercel: "https://splose-current.vercel.app/clients/new", localhost: "http://localhost:3000/clients/new", production: "https://acme.splose.com/patients/new" },
+      { label: "Patient details", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h", localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h", production: "https://acme.splose.com/patients/446604/details" },
+      { label: "Settings — Forms (edit)", vercel: "https://splose-current.vercel.app/settings/forms/1", localhost: "http://localhost:3000/settings/forms/1", production: "https://acme.splose.com/settings/forms" },
+      { label: "Settings — Details", vercel: "https://splose-current.vercel.app/settings/details", localhost: "http://localhost:3000/settings/details", production: "https://acme.splose.com/settings/details" },
     ],
     referenceUrl: "https://ant.design/components/grid",
   },

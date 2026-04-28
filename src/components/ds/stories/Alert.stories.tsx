@@ -33,21 +33,25 @@ const meta: Meta<typeof Alert> = {
       {
         label: "Calendar (past-date / edit modals)",
         vercel: "https://splose-current.vercel.app/calendar",
+        localhost: "http://localhost:3000/calendar",
         production: "https://acme.splose.com/calendar/week/25/3/2026",
       },
       {
         label: "Settings — AI (beta banner)",
         vercel: "https://splose-current.vercel.app/settings/ai",
+        localhost: "http://localhost:3000/settings/ai",
         production: "https://acme.splose.com/settings/ai",
       },
       {
         label: "Settings — Invoice settings (Stripe banner)",
         vercel: "https://splose-current.vercel.app/settings/invoice-settings",
+        localhost: "http://localhost:3000/settings/invoice-settings",
         production: "https://acme.splose.com/settings/invoice-settings",
       },
       {
         label: "Settings — Data import",
         vercel: "https://splose-current.vercel.app/settings/data-import",
+        localhost: "http://localhost:3000/settings/data-import",
         production: "https://acme.splose.com/settings/data-import",
       },
     ],

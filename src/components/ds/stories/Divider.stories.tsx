@@ -25,10 +25,10 @@ const meta: Meta<typeof Divider> = {
   parameters: {
     layout: "padded",
     appPages: [
-      { label: "Dashboard", vercel: "https://splose-current.vercel.app/", production: "https://acme.splose.com/" },
-      { label: "Patient details", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h", production: "https://acme.splose.com/patients/446604/details" },
-      { label: "Settings — Details", vercel: "https://splose-current.vercel.app/settings/details", production: "https://acme.splose.com/settings/details" },
-      { label: "Waitlist", vercel: "https://splose-current.vercel.app/waitlist", production: "https://acme.splose.com/waitlist" },
+      { label: "Dashboard", vercel: "https://splose-current.vercel.app/", localhost: "http://localhost:3000/", production: "https://acme.splose.com/" },
+      { label: "Patient details", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h", localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h", production: "https://acme.splose.com/patients/446604/details" },
+      { label: "Settings — Details", vercel: "https://splose-current.vercel.app/settings/details", localhost: "http://localhost:3000/settings/details", production: "https://acme.splose.com/settings/details" },
+      { label: "Waitlist", vercel: "https://splose-current.vercel.app/waitlist", localhost: "http://localhost:3000/waitlist", production: "https://acme.splose.com/waitlist" },
     ],
     referenceUrl: "https://ant.design/components/divider",
   },

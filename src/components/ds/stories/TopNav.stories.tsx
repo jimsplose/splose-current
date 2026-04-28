@@ -19,18 +19,21 @@ const meta: Meta<typeof TopNav> = {
     layout: "fullscreen",
     appPages: [
       {
-        route: "/calendar",
+        label: "/calendar",
         vercel: "https://splose-current.vercel.app/calendar",
+        localhost: "http://localhost:3000/calendar",
         production: "https://acme.splose.com/calendar/week/25/3/2026",
       },
       {
-        route: "/clients",
+        label: "/clients",
         vercel: "https://splose-current.vercel.app/clients",
+        localhost: "http://localhost:3000/clients",
         production: "https://acme.splose.com/patients",
       },
       {
-        route: "/invoices",
+        label: "/invoices",
         vercel: "https://splose-current.vercel.app/invoices",
+        localhost: "http://localhost:3000/invoices",
         production: "https://acme.splose.com/invoices",
       },
     ],

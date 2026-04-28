@@ -10,23 +10,27 @@ const meta: Meta<typeof Tab> = {
   parameters: {
     appPages: [
       {
-        route: "/settings/ai",
+        label: "/settings/ai",
         vercel: "https://splose-current.vercel.app/settings/ai",
+        localhost: "http://localhost:3000/settings/ai",
         production: "https://acme.splose.com/settings/ai",
       },
       {
-        route: "/waitlist",
+        label: "/waitlist",
         vercel: "https://splose-current.vercel.app/waitlist",
+        localhost: "http://localhost:3000/waitlist",
         production: "https://acme.splose.com/waitlist",
       },
       {
-        route: "/settings/tags",
+        label: "/settings/tags",
         vercel: "https://splose-current.vercel.app/settings/tags",
+        localhost: "http://localhost:3000/settings/tags",
         production: "https://acme.splose.com/settings/tags",
       },
       {
-        route: "/settings/forms/[id]",
+        label: "/settings/forms/[id]",
         vercel: "https://splose-current.vercel.app/settings/forms/cmngtw7n9005eycwg4e67506h",
+        localhost: "http://localhost:3000/settings/forms/cmngtw7n9005eycwg4e67506h",
         production: "https://acme.splose.com/settings/forms/cmngtw7n9005eycwg4e67506h",
       },
     ],

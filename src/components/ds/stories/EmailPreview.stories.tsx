@@ -13,11 +13,13 @@ const meta: Meta<typeof EmailPreview> = {
       {
         label: "Settings: Email templates editor",
         vercel: "https://splose-current.vercel.app/settings/email-templates",
+        localhost: "http://localhost:3000/settings/email-templates",
         production: "https://acme.splose.com/settings/email-templates",
       },
       {
         label: "Settings: Appointment templates",
         vercel: "https://splose-current.vercel.app/settings/appointment-templates",
+        localhost: "http://localhost:3000/settings/appointment-templates",
         production: "https://acme.splose.com/settings/appointment-templates",
       },
     ],

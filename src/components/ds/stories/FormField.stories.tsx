@@ -15,8 +15,8 @@ const meta: Meta<typeof FormField> = {
   parameters: {
     layout: "centered",
     appPages: [
-      { label: "Settings — Forms (edit)", vercel: "https://splose-current.vercel.app/settings/forms/1", production: "https://acme.splose.com/settings/forms" },
-      { label: "Patient form view", vercel: "https://splose-current.vercel.app/patient-form/1/view", production: "https://acme.splose.com/patient-form" },
+      { label: "Settings — Forms (edit)", vercel: "https://splose-current.vercel.app/settings/forms/1", localhost: "http://localhost:3000/settings/forms/1", production: "https://acme.splose.com/settings/forms" },
+      { label: "Patient form view", vercel: "https://splose-current.vercel.app/patient-form/1/view", localhost: "http://localhost:3000/patient-form/1/view", production: "https://acme.splose.com/patient-form" },
     ],
     referenceUrl: null,
   },

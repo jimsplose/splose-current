@@ -35,23 +35,27 @@ const meta: Meta<typeof Pagination> = {
     layout: "padded",
     appPages: [
       {
-        route: "/clients",
+        label: "/clients",
         vercel: "https://splose-current.vercel.app/clients",
+        localhost: "http://localhost:3000/clients",
         production: "https://acme.splose.com/patients",
       },
       {
-        route: "/contacts",
+        label: "/contacts",
         vercel: "https://splose-current.vercel.app/contacts",
+        localhost: "http://localhost:3000/contacts",
         production: "https://acme.splose.com/contacts",
       },
       {
-        route: "/payments",
+        label: "/payments",
         vercel: "https://splose-current.vercel.app/payments",
+        localhost: "http://localhost:3000/payments",
         production: "https://acme.splose.com/payments",
       },
       {
-        route: "/waitlist",
+        label: "/waitlist",
         vercel: "https://splose-current.vercel.app/waitlist",
+        localhost: "http://localhost:3000/waitlist",
         production: "https://acme.splose.com/waitlist",
       },
     ],

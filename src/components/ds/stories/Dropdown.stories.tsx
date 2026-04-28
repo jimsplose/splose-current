@@ -19,21 +19,25 @@ const meta: Meta<typeof Dropdown> = {
       {
         label: "Client forms (row actions menu)",
         vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/forms",
+        localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h/forms",
         production: "https://acme.splose.com/patients/446604/forms",
       },
       {
         label: "Settings: Online bookings (overflow menu)",
         vercel: "https://splose-current.vercel.app/settings/online-bookings",
+        localhost: "http://localhost:3000/settings/online-bookings",
         production: "https://acme.splose.com/settings/online-bookings",
       },
       {
         label: "Settings: Forms list (row actions)",
         vercel: "https://splose-current.vercel.app/settings/forms",
+        localhost: "http://localhost:3000/settings/forms",
         production: "https://acme.splose.com/settings/forms",
       },
       {
         label: "Settings: Data export (action menu)",
         vercel: "https://splose-current.vercel.app/settings/data-export",
+        localhost: "http://localhost:3000/settings/data-export",
         production: "https://acme.splose.com/settings/data-export",
       },
     ],

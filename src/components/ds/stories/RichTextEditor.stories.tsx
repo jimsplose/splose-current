@@ -34,21 +34,25 @@ const meta: Meta<typeof RichTextEditor> = {
       {
         label: "Settings: Edit email template",
         vercel: "https://splose-current.vercel.app/settings/email-templates/edit/1",
+        localhost: "http://localhost:3000/settings/email-templates/edit/1",
         production: "https://acme.splose.com/settings/email-templates/edit/1",
       },
       {
         label: "Settings: Edit progress note template",
         vercel: "https://splose-current.vercel.app/settings/progress-notes/edit/1",
+        localhost: "http://localhost:3000/settings/progress-notes/edit/1",
         production: "https://acme.splose.com/settings/progress-notes/edit/1",
       },
       {
         label: "Settings: Edit letter template",
         vercel: "https://splose-current.vercel.app/settings/letter-templates/edit/1",
+        localhost: "http://localhost:3000/settings/letter-templates/edit/1",
         production: "https://acme.splose.com/settings/letter-templates/edit/1",
       },
       {
         label: "Settings: Invoice settings (invoice notes editor)",
         vercel: "https://splose-current.vercel.app/settings/invoice-settings",
+        localhost: "http://localhost:3000/settings/invoice-settings",
         production: "https://acme.splose.com/settings/invoice-settings",
       },
     ],

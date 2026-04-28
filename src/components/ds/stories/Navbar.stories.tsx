@@ -27,18 +27,21 @@ const meta: Meta<typeof Navbar> = {
     layout: "fullscreen",
     appPages: [
       {
-        route: "/notes/[id]",
+        label: "/notes/[id]",
         vercel: "https://splose-current.vercel.app/notes/1",
+        localhost: "http://localhost:3000/notes/1",
         production: "https://acme.splose.com/notes/1/view",
       },
       {
-        route: "/notes/[id]/edit",
+        label: "/notes/[id]/edit",
         vercel: "https://splose-current.vercel.app/notes/1/edit",
+        localhost: "http://localhost:3000/notes/1/edit",
         production: "https://acme.splose.com/notes/1/edit",
       },
       {
-        route: "/notes/new",
+        label: "/notes/new",
         vercel: "https://splose-current.vercel.app/notes/new",
+        localhost: "http://localhost:3000/notes/new",
         production: "https://acme.splose.com/notes/new",
       },
     ],

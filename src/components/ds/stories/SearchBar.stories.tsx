@@ -25,21 +25,25 @@ const meta: Meta<typeof SearchBar> = {
       {
         label: "Waitlist (filter by name)",
         vercel: "https://splose-current.vercel.app/waitlist",
+        localhost: "http://localhost:3000/waitlist",
         production: "https://acme.splose.com/waitlist",
       },
       {
         label: "Client > Files tab (filter by file name)",
         vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/files",
+        localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h/files",
         production: "https://acme.splose.com/patients/446604/files",
       },
       {
         label: "Settings: Forms (filter by form name)",
         vercel: "https://splose-current.vercel.app/settings/forms",
+        localhost: "http://localhost:3000/settings/forms",
         production: "https://acme.splose.com/settings/forms",
       },
       {
         label: "Settings: Email templates (filter by template)",
         vercel: "https://splose-current.vercel.app/settings/email-templates",
+        localhost: "http://localhost:3000/settings/email-templates",
         production: "https://acme.splose.com/settings/email-templates",
       },
     ],

@@ -22,6 +22,7 @@ const meta: Meta<typeof Spinner> = {
       {
         label: "Note edit",
         vercel: "https://splose-current.vercel.app/notes/1/edit",
+        localhost: "http://localhost:3000/notes/1/edit",
         production: "https://acme.splose.com/notes/1/edit",
       },
     ],

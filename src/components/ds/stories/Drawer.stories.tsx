@@ -16,6 +16,7 @@ const meta: Meta<typeof Drawer> = {
       {
         label: "Calendar (appointment details / side panels via CalendarView)",
         vercel: "https://splose-current.vercel.app/calendar",
+        localhost: "http://localhost:3000/calendar",
         production: "https://acme.splose.com/calendar/week/25/3/2026",
       },
     ],

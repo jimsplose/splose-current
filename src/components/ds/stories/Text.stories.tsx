@@ -21,21 +21,25 @@ const meta: Meta<typeof Text> = {
       {
         label: "Dashboard (page title, metrics, body copy)",
         vercel: "https://splose-current.vercel.app/",
+        localhost: "http://localhost:3000/",
         production: "https://acme.splose.com/",
       },
       {
         label: "Client detail (display heading, body, label/value pairs)",
         vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h",
+        localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h",
         production: "https://acme.splose.com/patients/446604/details",
       },
       {
         label: "Waitlist (table headings, captions)",
         vercel: "https://splose-current.vercel.app/waitlist",
+        localhost: "http://localhost:3000/waitlist",
         production: "https://acme.splose.com/waitlist",
       },
       {
         label: "Client > Appointments side panel (heading + body stack)",
         vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/appointments",
+        localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h/appointments",
         production: "https://acme.splose.com/patients/446604/appointments",
       },
     ],

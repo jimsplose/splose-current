@@ -29,21 +29,25 @@ const meta: Meta<typeof Toggle> = {
       {
         label: "Settings: AI (voice/recording toggles)",
         vercel: "https://splose-current.vercel.app/settings/ai",
+        localhost: "http://localhost:3000/settings/ai",
         production: "https://acme.splose.com/settings/ai",
       },
       {
         label: "Settings: Business details (preference toggles)",
         vercel: "https://splose-current.vercel.app/settings/details",
+        localhost: "http://localhost:3000/settings/details",
         production: "https://acme.splose.com/settings/details",
       },
       {
         label: "Settings: Online booking (per-location enable toggles)",
         vercel: "https://splose-current.vercel.app/settings/online-bookings/cmngtw7n9005eycwg4e67506h",
+        localhost: "http://localhost:3000/settings/online-bookings/cmngtw7n9005eycwg4e67506h",
         production: "https://acme.splose.com/settings/online-bookings/1",
       },
       {
         label: "Client detail (notification + consent toggles)",
         vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h",
+        localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h",
         production: "https://acme.splose.com/patients/446604/details",
       },
     ],

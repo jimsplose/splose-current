@@ -19,11 +19,13 @@ const meta: Meta = {
       {
         label: "Invoice detail",
         vercel: "https://splose-current.vercel.app/invoices/1",
+        localhost: "http://localhost:3000/invoices/1",
         production: "https://acme.splose.com/invoices/1/view",
       },
       {
         label: "Reports — Performance",
         vercel: "https://splose-current.vercel.app/reports/performance",
+        localhost: "http://localhost:3000/reports/performance",
         production: "https://acme.splose.com/reports/performance",
       },
     ],

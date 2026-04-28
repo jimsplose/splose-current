@@ -16,23 +16,27 @@ const meta: Meta<typeof FormPage> = {
     layout: "fullscreen",
     appPages: [
       {
-        route: "/clients/new",
+        label: "/clients/new",
         vercel: "https://splose-current.vercel.app/clients/new",
+        localhost: "http://localhost:3000/clients/new",
         production: "https://acme.splose.com/patients/new",
       },
       {
-        route: "/waitlist/new",
+        label: "/waitlist/new",
         vercel: "https://splose-current.vercel.app/waitlist/new",
+        localhost: "http://localhost:3000/waitlist/new",
         production: "https://acme.splose.com/waitlist/new",
       },
       {
-        route: "/settings/forms/[id]",
+        label: "/settings/forms/[id]",
         vercel: "https://splose-current.vercel.app/settings/forms/cmngtw7n9005eycwg4e67506h",
+        localhost: "http://localhost:3000/settings/forms/cmngtw7n9005eycwg4e67506h",
         production: "https://acme.splose.com/settings/forms/cmngtw7n9005eycwg4e67506h",
       },
       {
-        route: "/settings/data-import/csv",
+        label: "/settings/data-import/csv",
         vercel: "https://splose-current.vercel.app/settings/data-import/csv",
+        localhost: "http://localhost:3000/settings/data-import/csv",
         production: "https://acme.splose.com/settings/data-import/csv",
       },
     ],

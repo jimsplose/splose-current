@@ -22,8 +22,8 @@ const meta: Meta<typeof Filter> = {
   parameters: {
     layout: "centered",
     appPages: [
-      { label: "Notes — New", vercel: "https://splose-current.vercel.app/notes/new", production: "https://acme.splose.com/notes/new" },
-      { label: "Notes — Edit", vercel: "https://splose-current.vercel.app/notes/cmngtw7n9005eycwg4e67506h/edit", production: "https://acme.splose.com/notes/cmngtw7n9005eycwg4e67506h/edit" },
+      { label: "Notes — New", vercel: "https://splose-current.vercel.app/notes/new", localhost: "http://localhost:3000/notes/new", production: "https://acme.splose.com/notes/new" },
+      { label: "Notes — Edit", vercel: "https://splose-current.vercel.app/notes/cmngtw7n9005eycwg4e67506h/edit", localhost: "http://localhost:3000/notes/cmngtw7n9005eycwg4e67506h/edit", production: "https://acme.splose.com/notes/cmngtw7n9005eycwg4e67506h/edit" },
     ],
     referenceUrl: null,
   },

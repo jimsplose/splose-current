@@ -31,10 +31,10 @@ const meta: Meta<typeof FormSelect> = {
   parameters: {
     layout: "centered",
     appPages: [
-      { label: "Settings — Online bookings (edit)", vercel: "https://splose-current.vercel.app/settings/online-bookings/1", production: "https://acme.splose.com/settings/online-bookings" },
-      { label: "Settings — Email templates (edit)", vercel: "https://splose-current.vercel.app/settings/email-templates/edit/1", production: "https://acme.splose.com/settings/email-templates" },
-      { label: "Settings — Data import", vercel: "https://splose-current.vercel.app/settings/data-import", production: "https://acme.splose.com/settings/data-import" },
-      { label: "Settings — Tags", vercel: "https://splose-current.vercel.app/settings/tags", production: "https://acme.splose.com/settings/tags" },
+      { label: "Settings — Online bookings (edit)", vercel: "https://splose-current.vercel.app/settings/online-bookings/1", localhost: "http://localhost:3000/settings/online-bookings/1", production: "https://acme.splose.com/settings/online-bookings" },
+      { label: "Settings — Email templates (edit)", vercel: "https://splose-current.vercel.app/settings/email-templates/edit/1", localhost: "http://localhost:3000/settings/email-templates/edit/1", production: "https://acme.splose.com/settings/email-templates" },
+      { label: "Settings — Data import", vercel: "https://splose-current.vercel.app/settings/data-import", localhost: "http://localhost:3000/settings/data-import", production: "https://acme.splose.com/settings/data-import" },
+      { label: "Settings — Tags", vercel: "https://splose-current.vercel.app/settings/tags", localhost: "http://localhost:3000/settings/tags", production: "https://acme.splose.com/settings/tags" },
     ],
     referenceUrl: "https://ant.design/components/select",
   },

@@ -15,10 +15,10 @@ const meta: Meta<typeof Checkbox> = {
   },
   parameters: {
     appPages: [
-      { label: "Waitlist — New", vercel: "https://splose-current.vercel.app/waitlist/new", production: "https://acme.splose.com/waitlist/new" },
-      { label: "Login", vercel: "https://splose-current.vercel.app/login", production: "https://acme.splose.com/login" },
-      { label: "Settings — SMS settings", vercel: "https://splose-current.vercel.app/settings/sms-settings", production: "https://acme.splose.com/settings/sms-settings" },
-      { label: "Products", vercel: "https://splose-current.vercel.app/products", production: "https://acme.splose.com/products" },
+      { label: "Waitlist — New", vercel: "https://splose-current.vercel.app/waitlist/new", localhost: "http://localhost:3000/waitlist/new", production: "https://acme.splose.com/waitlist/new" },
+      { label: "Login", vercel: "https://splose-current.vercel.app/login", localhost: "http://localhost:3000/login", production: "https://acme.splose.com/login" },
+      { label: "Settings — SMS settings", vercel: "https://splose-current.vercel.app/settings/sms-settings", localhost: "http://localhost:3000/settings/sms-settings", production: "https://acme.splose.com/settings/sms-settings" },
+      { label: "Products", vercel: "https://splose-current.vercel.app/products", localhost: "http://localhost:3000/products", production: "https://acme.splose.com/products" },
     ],
     referenceUrl: "https://ant.design/components/checkbox",
   },

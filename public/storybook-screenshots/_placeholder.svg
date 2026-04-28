@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <pattern id="dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="12" cy="12" r="1.2" fill="#cbd5e1" />
+    </pattern>
+  </defs>
+  <rect width="800" height="450" fill="#f1f5f9" />
+  <rect width="800" height="450" fill="url(#dots)" />
+  <rect x="40" y="40" width="720" height="370" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="8 8" />
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" text-anchor="middle">
+    <text x="400" y="200" font-size="28" font-weight="600" fill="#475569">Screenshot placeholder</text>
+    <text x="400" y="240" font-size="16" fill="#64748b">Live screenshots are deferred — see the “In the app” links below to view the component in context.</text>
+    <text x="400" y="285" font-size="14" fill="#94a3b8">Use the Source dropdown in the Storybook toolbar to switch between localhost / Vercel / production.</text>
+  </g>
+</svg>

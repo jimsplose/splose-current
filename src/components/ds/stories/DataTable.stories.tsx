@@ -16,21 +16,25 @@ const meta: Meta<typeof DataTable> = {
       {
         label: "Clients list",
         vercel: "https://splose-current.vercel.app/clients",
+        localhost: "http://localhost:3000/clients",
         production: "https://acme.splose.com/patients",
       },
       {
         label: "Invoices list",
         vercel: "https://splose-current.vercel.app/invoices",
+        localhost: "http://localhost:3000/invoices",
         production: "https://acme.splose.com/invoices",
       },
       {
         label: "Invoice detail",
         vercel: "https://splose-current.vercel.app/invoices/1",
+        localhost: "http://localhost:3000/invoices/1",
         production: "https://acme.splose.com/invoices/1/view",
       },
       {
         label: "Waitlist",
         vercel: "https://splose-current.vercel.app/waitlist",
+        localhost: "http://localhost:3000/waitlist",
         production: "https://acme.splose.com/waitlist",
       },
     ],

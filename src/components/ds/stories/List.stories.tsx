@@ -32,21 +32,25 @@ const meta: Meta<typeof List> = {
       {
         label: "Client detail",
         vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h",
+        localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h",
         production: "https://acme.splose.com/patients/446604/details",
       },
       {
         label: "Note detail",
         vercel: "https://splose-current.vercel.app/notes/1",
+        localhost: "http://localhost:3000/notes/1",
         production: "https://acme.splose.com/notes/1/view",
       },
       {
         label: "Waitlist",
         vercel: "https://splose-current.vercel.app/waitlist",
+        localhost: "http://localhost:3000/waitlist",
         production: "https://acme.splose.com/waitlist",
       },
       {
         label: "Contact detail",
         vercel: "https://splose-current.vercel.app/contacts/1",
+        localhost: "http://localhost:3000/contacts/1",
         production: "https://acme.splose.com/contacts/1",
       },
     ],

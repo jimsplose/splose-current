@@ -17,21 +17,25 @@ const meta: Meta<typeof Avatar> = {
       {
         label: "Dashboard",
         vercel: "https://splose-current.vercel.app/",
+        localhost: "http://localhost:3000/",
         production: "https://acme.splose.com/",
       },
       {
         label: "Calendar",
         vercel: "https://splose-current.vercel.app/calendar",
+        localhost: "http://localhost:3000/calendar",
         production: "https://acme.splose.com/calendar/week/25/3/2026",
       },
       {
         label: "Reports",
         vercel: "https://splose-current.vercel.app/reports",
+        localhost: "http://localhost:3000/reports",
         production: "https://acme.splose.com/reports",
       },
       {
         label: "Online booking",
         vercel: "https://splose-current.vercel.app/online-booking",
+        localhost: "http://localhost:3000/online-booking",
         production: "https://acme.splose.com/online-booking",
       },
     ],

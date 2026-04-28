@@ -20,6 +20,7 @@ const meta: Meta<typeof ContextMenu> = {
       {
         label: "Calendar (right-click on time slots / appointments)",
         vercel: "https://splose-current.vercel.app/calendar",
+        localhost: "http://localhost:3000/calendar",
         production: "https://acme.splose.com/calendar/week/25/3/2026",
       },
     ],

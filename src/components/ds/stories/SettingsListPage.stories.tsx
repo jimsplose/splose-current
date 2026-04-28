@@ -13,13 +13,15 @@ const meta: Meta<typeof SettingsListPage> = {
   parameters: {
     appPages: [
       {
-        route: "/settings/referral-types",
+        label: "/settings/referral-types",
         vercel: "https://splose-current.vercel.app/settings/referral-types",
+        localhost: "http://localhost:3000/settings/referral-types",
         production: "https://acme.splose.com/settings/referral-types",
       },
       {
-        route: "/settings/communication-types",
+        label: "/settings/communication-types",
         vercel: "https://splose-current.vercel.app/settings/communication-types",
+        localhost: "http://localhost:3000/settings/communication-types",
         production: "https://acme.splose.com/settings/communication-types",
       },
     ],

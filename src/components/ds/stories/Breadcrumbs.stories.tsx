@@ -10,18 +10,21 @@ const meta: Meta<typeof Breadcrumbs> = {
     layout: "padded",
     appPages: [
       {
-        route: "/settings/forms/[id]",
+        label: "/settings/forms/[id]",
         vercel: "https://splose-current.vercel.app/settings/forms/cmngtw7n9005eycwg4e67506h",
+        localhost: "http://localhost:3000/settings/forms/cmngtw7n9005eycwg4e67506h",
         production: "https://acme.splose.com/settings/forms/cmngtw7n9005eycwg4e67506h",
       },
       {
-        route: "/invoices/batch-invoice/[id]",
+        label: "/invoices/batch-invoice/[id]",
         vercel: "https://splose-current.vercel.app/invoices/batch-invoice/330044",
+        localhost: "http://localhost:3000/invoices/batch-invoice/330044",
         production: "https://acme.splose.com/invoices/batch-invoice/330044",
       },
       {
-        route: "/reports/ndis-bulk-upload/new",
+        label: "/reports/ndis-bulk-upload/new",
         vercel: "https://splose-current.vercel.app/reports/ndis-bulk-upload/new",
+        localhost: "http://localhost:3000/reports/ndis-bulk-upload/new",
         production: "https://acme.splose.com/reports/ndis-bulk-upload/new",
       },
     ],

@@ -23,9 +23,9 @@ const meta: Meta<typeof Collapse> = {
   parameters: {
     layout: "padded",
     appPages: [
-      { label: "Patient details", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h", production: "https://acme.splose.com/patients/446604/details" },
-      { label: "Settings — Locations (edit)", vercel: "https://splose-current.vercel.app/settings/locations/edit/1", production: "https://acme.splose.com/settings/locations" },
-      { label: "Settings — Appointment templates (new)", vercel: "https://splose-current.vercel.app/settings/appointment-templates/new", production: "https://acme.splose.com/settings/appointment-templates" },
+      { label: "Patient details", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h", localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h", production: "https://acme.splose.com/patients/446604/details" },
+      { label: "Settings — Locations (edit)", vercel: "https://splose-current.vercel.app/settings/locations/edit/1", localhost: "http://localhost:3000/settings/locations/edit/1", production: "https://acme.splose.com/settings/locations" },
+      { label: "Settings — Appointment templates (new)", vercel: "https://splose-current.vercel.app/settings/appointment-templates/new", localhost: "http://localhost:3000/settings/appointment-templates/new", production: "https://acme.splose.com/settings/appointment-templates" },
     ],
     referenceUrl: "https://ant.design/components/collapse",
   },

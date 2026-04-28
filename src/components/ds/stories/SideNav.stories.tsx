@@ -15,13 +15,15 @@ const meta: Meta<typeof SideNav> = {
     nextjs: { appDirectory: true },
     appPages: [
       {
-        route: "/settings",
+        label: "/settings",
         vercel: "https://splose-current.vercel.app/settings",
+        localhost: "http://localhost:3000/settings",
         production: "https://acme.splose.com/settings",
       },
       {
-        route: "/clients/[id]",
+        label: "/clients/[id]",
         vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h",
+        localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h",
         production: "https://acme.splose.com/patients/446604/details",
       },
     ],

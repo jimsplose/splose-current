@@ -32,6 +32,7 @@ const meta: Meta<typeof NumberInput> = {
       {
         label: "Settings: SMS settings (numeric thresholds)",
         vercel: "https://splose-current.vercel.app/settings/sms-settings",
+        localhost: "http://localhost:3000/settings/sms-settings",
         production: "https://acme.splose.com/settings/sms-settings",
       },
     ],

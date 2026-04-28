@@ -40,9 +40,9 @@ const meta: Meta<typeof Tooltip> = {
       source: "src/components/ds/Tooltip.tsx",
     },
     appPages: [
-      { label: "Dashboard", vercel: "https://splose-current.vercel.app/", production: "https://acme.splose.com/" },
-      { label: "Settings — Forms (edit)", vercel: "https://splose-current.vercel.app/settings/forms/1", production: "https://acme.splose.com/settings/forms" },
-      { label: "Note edit", vercel: "https://splose-current.vercel.app/notes/1/edit", production: "https://acme.splose.com/notes/35255497/edit" },
+      { label: "Dashboard", vercel: "https://splose-current.vercel.app/", localhost: "http://localhost:3000/", production: "https://acme.splose.com/" },
+      { label: "Settings — Forms (edit)", vercel: "https://splose-current.vercel.app/settings/forms/1", localhost: "http://localhost:3000/settings/forms/1", production: "https://acme.splose.com/settings/forms" },
+      { label: "Note edit", vercel: "https://splose-current.vercel.app/notes/1/edit", localhost: "http://localhost:3000/notes/1/edit", production: "https://acme.splose.com/notes/35255497/edit" },
     ],
     referenceUrl: "https://ant.design/components/tooltip",
   },

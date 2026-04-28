@@ -14,23 +14,27 @@ const meta: Meta<typeof DetailPage> = {
     layout: "fullscreen",
     appPages: [
       {
-        route: "/clients/[id]",
+        label: "/clients/[id]",
         vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h",
+        localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h",
         production: "https://acme.splose.com/patients/446604/details",
       },
       {
-        route: "/invoices/[id]",
+        label: "/invoices/[id]",
         vercel: "https://splose-current.vercel.app/invoices/1",
+        localhost: "http://localhost:3000/invoices/1",
         production: "https://acme.splose.com/invoices/1/view",
       },
       {
-        route: "/contacts/[id]",
+        label: "/contacts/[id]",
         vercel: "https://splose-current.vercel.app/contacts/1",
+        localhost: "http://localhost:3000/contacts/1",
         production: "https://acme.splose.com/contacts/1",
       },
       {
-        route: "/settings/users/[id]",
+        label: "/settings/users/[id]",
         vercel: "https://splose-current.vercel.app/settings/users/1",
+        localhost: "http://localhost:3000/settings/users/1",
         production: "https://acme.splose.com/settings/users/1",
       },
     ],

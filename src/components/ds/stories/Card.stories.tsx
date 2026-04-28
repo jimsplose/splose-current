@@ -18,10 +18,10 @@ const meta: Meta<typeof Card> = {
   tags: ["extended"],
   parameters: {
     appPages: [
-      { label: "Dashboard", vercel: "https://splose-current.vercel.app/", production: "https://acme.splose.com/" },
-      { label: "Patient details", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h", production: "https://acme.splose.com/patients/446604/details" },
-      { label: "Patient invoices", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/invoices", production: "https://acme.splose.com/patients/446604/invoices" },
-      { label: "New client form", vercel: "https://splose-current.vercel.app/clients/new", production: "https://acme.splose.com/patients/new" },
+      { label: "Dashboard", vercel: "https://splose-current.vercel.app/", localhost: "http://localhost:3000/", production: "https://acme.splose.com/" },
+      { label: "Patient details", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h", localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h", production: "https://acme.splose.com/patients/446604/details" },
+      { label: "Patient invoices", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/invoices", localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h/invoices", production: "https://acme.splose.com/patients/446604/invoices" },
+      { label: "New client form", vercel: "https://splose-current.vercel.app/clients/new", localhost: "http://localhost:3000/clients/new", production: "https://acme.splose.com/patients/new" },
     ],
     referenceUrl: "https://ant.design/components/card",
   },

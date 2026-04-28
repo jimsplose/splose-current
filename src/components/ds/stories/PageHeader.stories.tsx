@@ -20,10 +20,10 @@ const meta: Meta<typeof PageHeader> = {
   parameters: {
     layout: "padded",
     appPages: [
-      { label: "Patient — Notes", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/notes", production: "https://acme.splose.com/patients/446604/notes" },
-      { label: "Patient — Invoices", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/invoices", production: "https://acme.splose.com/patients/446604/invoices" },
-      { label: "Patient — Files", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/files", production: "https://acme.splose.com/patients/446604/files" },
-      { label: "Patient — Cases", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/cases", production: "https://acme.splose.com/patients/446604/cases" },
+      { label: "Patient — Notes", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/notes", localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h/notes", production: "https://acme.splose.com/patients/446604/notes" },
+      { label: "Patient — Invoices", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/invoices", localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h/invoices", production: "https://acme.splose.com/patients/446604/invoices" },
+      { label: "Patient — Files", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/files", localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h/files", production: "https://acme.splose.com/patients/446604/files" },
+      { label: "Patient — Cases", vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/cases", localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h/cases", production: "https://acme.splose.com/patients/446604/cases" },
     ],
     referenceUrl: null,
   },

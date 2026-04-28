@@ -22,6 +22,7 @@ const meta: Meta = {
       {
         label: "Globally mounted (Cmd+K from any route via CommandPaletteMount in layout.tsx)",
         vercel: "https://splose-current.vercel.app/",
+        localhost: "http://localhost:3000/",
         production: "https://acme.splose.com/",
       },
     ],

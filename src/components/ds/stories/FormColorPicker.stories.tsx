@@ -10,10 +10,10 @@ const meta: Meta<typeof FormColorPicker> = {
   tags: ["custom"],
   parameters: {
     appPages: [
-      { label: "Settings — Online bookings (edit)", vercel: "https://splose-current.vercel.app/settings/online-bookings/1", production: "https://acme.splose.com/settings/online-bookings" },
-      { label: "Settings — Tags", vercel: "https://splose-current.vercel.app/settings/tags", production: "https://acme.splose.com/settings/tags" },
-      { label: "Settings — Rooms & resources", vercel: "https://splose-current.vercel.app/settings/rooms-resources", production: "https://acme.splose.com/settings/rooms-resources" },
-      { label: "Settings — Busy times", vercel: "https://splose-current.vercel.app/settings/busy-times", production: "https://acme.splose.com/settings/busy-times" },
+      { label: "Settings — Online bookings (edit)", vercel: "https://splose-current.vercel.app/settings/online-bookings/1", localhost: "http://localhost:3000/settings/online-bookings/1", production: "https://acme.splose.com/settings/online-bookings" },
+      { label: "Settings — Tags", vercel: "https://splose-current.vercel.app/settings/tags", localhost: "http://localhost:3000/settings/tags", production: "https://acme.splose.com/settings/tags" },
+      { label: "Settings — Rooms & resources", vercel: "https://splose-current.vercel.app/settings/rooms-resources", localhost: "http://localhost:3000/settings/rooms-resources", production: "https://acme.splose.com/settings/rooms-resources" },
+      { label: "Settings — Busy times", vercel: "https://splose-current.vercel.app/settings/busy-times", localhost: "http://localhost:3000/settings/busy-times", production: "https://acme.splose.com/settings/busy-times" },
     ],
     referenceUrl: null,
   },

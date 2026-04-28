@@ -44,21 +44,25 @@ const meta: Meta<typeof ColorDot> = {
       {
         label: "Dashboard",
         vercel: "https://splose-current.vercel.app/",
+        localhost: "http://localhost:3000/",
         production: "https://acme.splose.com/",
       },
       {
         label: "Calendar",
         vercel: "https://splose-current.vercel.app/calendar",
+        localhost: "http://localhost:3000/calendar",
         production: "https://acme.splose.com/calendar/week/25/3/2026",
       },
       {
         label: "Settings — Tags",
         vercel: "https://splose-current.vercel.app/settings/tags",
+        localhost: "http://localhost:3000/settings/tags",
         production: "https://acme.splose.com/settings/tags",
       },
       {
         label: "Reports",
         vercel: "https://splose-current.vercel.app/reports",
+        localhost: "http://localhost:3000/reports",
         production: "https://acme.splose.com/reports",
       },
     ],

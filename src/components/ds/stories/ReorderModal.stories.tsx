@@ -17,6 +17,7 @@ const meta: Meta<typeof ReorderModal> = {
       {
         label: "Settings: Custom fields (reorder fields)",
         vercel: "https://splose-current.vercel.app/settings/custom-fields",
+        localhost: "http://localhost:3000/settings/custom-fields",
         production: "https://acme.splose.com/settings/custom-fields",
       },
     ],

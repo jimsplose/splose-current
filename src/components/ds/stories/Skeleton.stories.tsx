@@ -19,21 +19,25 @@ const meta: Meta<typeof Skeleton> = {
       {
         label: "Clients list",
         vercel: "https://splose-current.vercel.app/clients",
+        localhost: "http://localhost:3000/clients",
         production: "https://acme.splose.com/patients",
       },
       {
         label: "Invoices list",
         vercel: "https://splose-current.vercel.app/invoices",
+        localhost: "http://localhost:3000/invoices",
         production: "https://acme.splose.com/invoices",
       },
       {
         label: "Contacts list",
         vercel: "https://splose-current.vercel.app/contacts",
+        localhost: "http://localhost:3000/contacts",
         production: "https://acme.splose.com/contacts",
       },
       {
         label: "Waitlist",
         vercel: "https://splose-current.vercel.app/waitlist",
+        localhost: "http://localhost:3000/waitlist",
         production: "https://acme.splose.com/waitlist",
       },
     ],

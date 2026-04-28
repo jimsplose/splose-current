@@ -46,21 +46,25 @@ const meta: Meta<typeof Modal> = {
       {
         label: "Invoice detail (Send invoice modal)",
         vercel: "https://splose-current.vercel.app/invoices/cmngtw7n9005eycwg4e67506h",
+        localhost: "http://localhost:3000/invoices/cmngtw7n9005eycwg4e67506h",
         production: "https://acme.splose.com/invoices/INV-14130707/view",
       },
       {
         label: "Waitlist (add / edit waitlist entry)",
         vercel: "https://splose-current.vercel.app/waitlist",
+        localhost: "http://localhost:3000/waitlist",
         production: "https://acme.splose.com/waitlist",
       },
       {
         label: "Client forms (assign / send form modal)",
         vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/forms",
+        localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h/forms",
         production: "https://acme.splose.com/patients/446604/forms",
       },
       {
         label: "Settings: Online bookings (edit modal)",
         vercel: "https://splose-current.vercel.app/settings/online-bookings",
+        localhost: "http://localhost:3000/settings/online-bookings",
         production: "https://acme.splose.com/settings/online-bookings",
       },
     ],

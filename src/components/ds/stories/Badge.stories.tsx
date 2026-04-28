@@ -36,21 +36,25 @@ const meta: Meta<typeof Badge> = {
       {
         label: "Waitlist (status pills, service tags)",
         vercel: "https://splose-current.vercel.app/waitlist",
+        localhost: "http://localhost:3000/waitlist",
         production: "https://acme.splose.com/waitlist",
       },
       {
         label: "Client > Notes tab (note status badges)",
         vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/notes",
+        localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h/notes",
         production: "https://acme.splose.com/patients/446604/notes",
       },
       {
         label: "Client > Cases tab (case state badges)",
         vercel: "https://splose-current.vercel.app/clients/cmngtw7n9005eycwg4e67506h/cases",
+        localhost: "http://localhost:3000/clients/cmngtw7n9005eycwg4e67506h/cases",
         production: "https://acme.splose.com/patients/446604/cases",
       },
       {
         label: "Settings: Data import (import status badges)",
         vercel: "https://splose-current.vercel.app/settings/data-import",
+        localhost: "http://localhost:3000/settings/data-import",
         production: "https://acme.splose.com/settings/data-import",
       },
     ],
