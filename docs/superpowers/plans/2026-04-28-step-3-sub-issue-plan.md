@@ -1,6 +1,6 @@
 # Step 3 — Sub-issue plan
 
-**Status:** Active — repo [`jimyencken/splose-vite`](https://github.com/jimyencken/splose-vite) created 2026-04-28; sub-issues being filed
+**Status:** Active — repo [`jimsplose/splose-vite`](https://github.com/jimsplose/splose-vite) created 2026-04-28; sub-issues being filed
 **Filed:** 2026-04-28
 **Parent spec:** [`docs/superpowers/specs/2026-04-28-stack-alignment-design.md`](../specs/2026-04-28-stack-alignment-design.md)
 **Tracking issue:** [#27](https://github.com/jimsplose/splose-current/issues/27)
@@ -8,7 +8,7 @@
 
 ## Goal
 
-Decompose the Step 2 alignment spec into Step 3 sub-issues that get filed in `jimyencken/splose-vite`. This document is the source-of-truth list — once Jim creates the splose-vite repo, file these in a batch using the bodies in this doc.
+Decompose the Step 2 alignment spec into Step 3 sub-issues that get filed in `jimsplose/splose-vite`. This document is the source-of-truth list — once Jim creates the splose-vite repo, file these in a batch using the bodies in this doc.
 
 ## Issue creation order
 
@@ -219,7 +219,7 @@ https://splose-current.vercel.app/storybook/index.html?path=/story/layout-pagehe
 
 ## Filing order recommendation
 
-1. **Jim creates `jimyencken/splose-vite` repo** (manual step; required before any of this can be filed).
+1. **Jim creates `jimsplose/splose-vite` repo** (manual step; required before any of this can be filed).
 2. **File F1, F2, B1, B2 simultaneously** — Phase 1 + Phase 2 are mostly parallel.
 3. **File C1–C4, S1–S3 with Depends-on F1** — Phase 3 + Phase 4 are filed but blocked.
 4. **File P1 with Depends-on most-of-above** — Phase 5 is the hard-switch trigger.
