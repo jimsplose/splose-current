@@ -14,6 +14,12 @@ Issues are numbered in execution order. Work top-to-bottom. Issues with parallel
 
 > **Session command:** `/work` — picks up the next unblocked issue, shows context, runs the session, and documents completion.
 
+### Roadmap (highest priority)
+
+| # | Title | Depends on |
+|---|---|---|
+| [#25](https://github.com/jimsplose/splose-current/issues/25) | Monorepo alignment roadmap — make splose-current a credible POC for monorepo engineers | — |
+
 ### Active work
 
 | # | Title | Parallel | Depends on |
