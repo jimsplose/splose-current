@@ -16,9 +16,13 @@ Issues are numbered in execution order. Work top-to-bottom. Issues with parallel
 
 ### Roadmap (highest priority)
 
+Roadmap-labelled issues take priority over Active work in `/work`. Issue #25 is the umbrella tracker — sub-steps below.
+
 | # | Title | Depends on |
 |---|---|---|
-| [#25](https://github.com/jimsplose/splose-current/issues/25) | Monorepo alignment roadmap — make splose-current a credible POC for monorepo engineers | — |
+| [#25](https://github.com/jimsplose/splose-current/issues/25) | Monorepo alignment roadmap — make splose-current a credible POC for monorepo engineers (umbrella) | — |
+| [#26](https://github.com/jimsplose/splose-current/issues/26) | Roadmap Step 1: Monorepo frontend stack discovery — produce monorepo-frontend-stack.md | — |
+| [#27](https://github.com/jimsplose/splose-current/issues/27) | Roadmap Step 2: Stack alignment decisions — write alignment design spec | #26 |
 
 ### Active work
 

@@ -29,10 +29,16 @@ Display a table like this:
 19  Add payment status badge           ✅ Ready     fidelity
 ```
 
+**Priority order** when picking what to suggest:
+
+1. **`roadmap` label, Ready** — long-term roadmap tracks (umbrella issue #25 family) take priority over Active work. Pick the lowest-numbered Ready roadmap issue.
+2. **Other Ready issues** — by label priority (e.g. `from-jim` first), then by lowest issue number.
+3. Never suggest a Blocked issue.
+
 Then state your suggestion:
 
 > **Suggested start: #N — [title]**
-> _[One sentence on why: lowest unblocked, or matches a specific label priority, etc.]_
+> _[One sentence on why: roadmap-track priority, lowest unblocked, label match, etc.]_
 
 **Step 3 — Wait for confirmation**
 
