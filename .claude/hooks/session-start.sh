@@ -1,6 +1,14 @@
 #!/bin/bash
 set -euo pipefail
 
+# ⚠️ FROZEN repo notice — print first so it's the first thing every session sees.
+cat <<'FROZEN_BANNER'
+⚠️  FROZEN — splose-current is no longer the active project.
+   Active work is in ~/claude/splose-vite/ (jimsplose/splose-vite).
+   See CLAUDE.md banner for migration details.
+
+FROZEN_BANNER
+
 # Create .env.local with Turso credentials if it doesn't exist.
 # Reads from environment variables (set via settings.local.json env field)
 # so the token is never hardcoded in a tracked file.

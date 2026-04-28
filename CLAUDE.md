@@ -1,5 +1,21 @@
 # Splose Practice Management Prototype
 
+> ## ⚠️ FROZEN — DO NOT WORK HERE
+>
+> **As of 2026-04-29, this repo is frozen.** Active work has moved to
+> [`jimsplose/splose-vite`](https://github.com/jimsplose/splose-vite) at
+> `~/claude/splose-vite/`. This Next.js prototype remains as a *legacy reference*
+> for visual fidelity comparisons and design history — no new features, no DS
+> additions, no commits except critical bug fixes.
+>
+> **What to do instead:**
+> - For new work: `cd ~/claude/splose-vite/` and follow that repo's `WORKFLOW.md`.
+> - For visual references at `acme.splose.com`: comparison still happens against this repo's deployed Vercel build.
+> - For carry-over issues (#19, #21, #22, #23, #24): re-filed in splose-vite under the `carry-over` label. Originals here are closed.
+> - The slash commands here are stubbed; their splose-vite equivalents live in `~/claude/splose-vite/.claude/commands/`.
+>
+> See [`docs/superpowers/specs/2026-04-28-stack-alignment-design.md`](docs/superpowers/specs/2026-04-28-stack-alignment-design.md) for the migration spec.
+
 High-fidelity UI prototype of [Splose](https://splose.com) for allied health professionals.
 Next.js 16 (App Router), React 19, TypeScript (strict), Turso/Prisma 7, CSS Modules, AntD icons (`@ant-design/icons`), Vercel.
 

@@ -1,11 +1,12 @@
-Update the Dev Navigator registry. Read these files first:
-
-1. Read `docs/dev-navigator-spec.md` (registry audit workflow + maintenance rules)
-
-Then execute the Registry Audit Workflow:
-1. Cross-check routes (`src/app/**/page.tsx`) against `src/lib/state-registry.ts`
-2. Cross-check interactive states in page code against registered variants
-3. Cross-check against `screenshots/screenshot-catalog.md`
-4. Fix gaps: add missing entries, wire `?state=` support
-5. Verify TypeScript compiles (`npx tsc --noEmit`)
-6. Report summary
+> **⚠️ FROZEN — this command no longer applies to `splose-current`.**
+>
+> Active work has moved to [`jimsplose/splose-vite`](https://github.com/jimsplose/splose-vite). Slash commands are being ported to `~/claude/splose-vite/.claude/commands/` as splose-vite gains the surface area each command needs.
+>
+> If you need this command's prior behaviour against splose-current — for example, comparing visual fidelity at `acme.splose.com` — recover the original from git:
+>
+> ```bash
+> git log -- .claude/commands/devnav.md | head
+> git show <commit>:.claude/commands/devnav.md
+> ```
+>
+> See the FROZEN banner at the top of `CLAUDE.md` for migration context, and the `carry-over` issues filed in splose-vite for ports that haven't landed yet.

@@ -1,13 +1,12 @@
-Commits and deployment management. Show this sub-menu:
-
-- **Check recent commits** — Run `git log --oneline -10` and summarise
-- **Check deployment status** — Run `gh run list --workflow=deploy.yml --limit=5` and summarise
-- **Deploy to production** — Full flow: merge branch → main, trigger `deploy.yml` workflow
-
-**Deploy requires Jim's express permission.** Before deploying:
-1. Confirm branch name and show what will be deployed
-2. Merge to main: `git checkout main && git pull && git merge origin/<branch> --no-edit && git push`
-3. Trigger deploy: `gh workflow run deploy.yml --ref main`
-4. Share run URL: `gh run list --workflow=deploy.yml --limit=1`
-
-**NEVER deploy without explicit approval.** If Jim just wants to check status, show status only.
+> **⚠️ FROZEN — this command no longer applies to `splose-current`.**
+>
+> Active work has moved to [`jimsplose/splose-vite`](https://github.com/jimsplose/splose-vite). Slash commands are being ported to `~/claude/splose-vite/.claude/commands/` as splose-vite gains the surface area each command needs.
+>
+> If you need this command's prior behaviour against splose-current — for example, comparing visual fidelity at `acme.splose.com` — recover the original from git:
+>
+> ```bash
+> git log -- .claude/commands/deploy.md | head
+> git show <commit>:.claude/commands/deploy.md
+> ```
+>
+> See the FROZEN banner at the top of `CLAUDE.md` for migration context, and the `carry-over` issues filed in splose-vite for ports that haven't landed yet.
