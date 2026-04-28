@@ -22,7 +22,7 @@ Capture Jim's per-lever decisions for aligning splose-current to `sploseans/splo
 ### New repo: `splose-vite`
 
 - **Local path:** `~/claude/splose-vite/` (sibling to `~/claude/splose-current/`).
-- **GitHub:** `jimsplose/splose-vite` (new repo — Jim creates).
+- **GitHub:** [`jimyencken/splose-vite`](https://github.com/jimyencken/splose-vite) (private; created 2026-04-28).
 - **Hard-switch trigger:** Vite scaffold boots + Storybook 10.3+ runs + at least one admin page is ported and visually matches `acme.splose.com` at 1440×900.
 
 ### Splose-current after switchover (frozen)
@@ -42,7 +42,7 @@ Capture Jim's per-lever decisions for aligning splose-current to `sploseans/splo
 
 ### Sequencing
 
-1. **Day 0 (now → first commit in splose-vite):** Step 3 sub-issues filed against `jimsplose/splose-vite`. Splose-current remains active.
+1. **Day 0 (now → first commit in splose-vite):** Step 3 sub-issues filed against `jimyencken/splose-vite`. Splose-current remains active.
 2. **Hard-switch event:** Triggered when sub-issues for "Vite scaffold", "Storybook setup", and "first ported page" are all closed.
 3. **Post-switch:** Splose-current frozen banner applied. Slash commands moved. Memory updated. SessionStart hooks active.
 4. **Parity stretch:** All admin pages ported. Bookings 2.0 admin + interactive iframe preview + functional public booking pages live.
@@ -231,10 +231,10 @@ Per the Nov 2025 component library review, splose-monorepo includes several hand
 
 This issue (#27) closes when:
 
-- [ ] `splose-vite` GitHub repo created (manual — Jim's task).
+- [x] `splose-vite` GitHub repo created at [jimyencken/splose-vite](https://github.com/jimyencken/splose-vite) (2026-04-28).
 - [ ] `~/claude/splose-vite/` initialised locally with `pnpm init`, Node 22 + pnpm 10 + TS 5.9 baseline.
-- [ ] Step 3 sub-issues filed against `jimsplose/splose-vite`, one per accepted alignment lever (8 issues — 7.1 React 18 + 7.2 Vite + 7.3 RR5 are bundled into one "scaffold" issue; the others are separate).
-- [ ] Step 3 sub-issues filed against `jimsplose/splose-vite` for the migration logistics (FROZEN banner, hooks, slash command moves, README updates).
+- [ ] Step 3 sub-issues filed against `jimyencken/splose-vite`, one per accepted alignment lever (8 issues — 7.1 React 18 + 7.2 Vite + 7.3 RR5 are bundled into one "scaffold" issue; the others are separate).
+- [ ] Step 3 sub-issues filed against `jimyencken/splose-vite` for the migration logistics (FROZEN banner, hooks, slash command moves, README updates).
 - [ ] This spec committed to splose-current at `docs/superpowers/specs/2026-04-28-stack-alignment-design.md`.
 - [ ] Issue #27 closed with backlink to spec and to splose-vite issue list.
 - [ ] Umbrella issue #25 updated.
